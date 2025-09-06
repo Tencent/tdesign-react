@@ -13,12 +13,12 @@ export default function ContainerExample() {
   };
 
   useEffect(() => {
-    if (affixRef.current) {
-      const { handleScroll } = affixRef.current;
-      // 防止 affix 移动到容器外
-      window.addEventListener('scroll', handleScroll);
-      return () => window.removeEventListener('scroll', handleScroll);
+    function onScroll() {
+      affixRef.current?.handleScroll();
     }
+    // 防止 affix 移动到容器外
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   const backgroundStyle = {

@@ -1,11 +1,24 @@
-import React, { useEffect, forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
-import { isFunction } from 'lodash-es';
-import { StyledProps, ScrollContainerElement } from '../common';
+import React, { useEffect, forwardRef, useImperativeHandle, useRef, useState } from 'react';
+import classNames from 'classnames';
+import { StyledProps } from '../common';
 import { TdAffixProps } from './type';
 import useConfig from '../hooks/useConfig';
 import { affixDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { getScrollContainer } from '../_util/scroll';
+import useEventCallback from '../hooks/useEventCallback';
+import { getTargetRect } from '../_util/dom';
+import { getFixedBottom, getFixedTop } from './utils';
+import useResizeObserver from '../hooks/useResizeObserver';
+
+function getDefaultTarget() {
+  return typeof window !== 'undefined' ? window : null;
+}
+
+interface AffixState {
+  affixStyle?: React.CSSProperties;
+  placeholderStyle?: React.CSSProperties;
+}
 
 export interface AffixProps extends TdAffixProps, StyledProps {}
 
@@ -14,122 +27,126 @@ export interface AffixRef {
 }
 
 const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
-  const { children, content, zIndex, container, offsetBottom, offsetTop, className, style, onFixedChange } =
-    useDefaultProps(props, affixDefaultProps);
+  const {
+    children,
+    content,
+    zIndex,
+    container,
+    offsetBottom,
+    offsetTop,
+    className,
+    style,
+    onFixedChange,
+    ...restProps
+  } = useDefaultProps(props, affixDefaultProps);
 
   const { classPrefix } = useConfig();
 
-  const affixRef = useRef<HTMLDivElement>(null);
-  const affixWrapRef = useRef<HTMLDivElement>(null);
-  const placeholderEL = useRef<HTMLElement>(null);
-  const scrollContainer = useRef<ScrollContainerElement>(null);
+  const [affixStyle, setAffixStyle] = useState<React.CSSProperties>();
+  const [placeholderStyle, setPlaceholderStyle] = useState<React.CSSProperties>();
 
-  const ticking = useRef(false);
+  const placeholderNodeRef = useRef<HTMLDivElement>(null);
+  const fixedNodeRef = useRef<HTMLDivElement>(null);
 
-  // 这里是通过控制 wrap 的 border-top 到浏览器顶部距离和 offsetTop 比较
-  const handleScroll = useCallback(() => {
-    if (!ticking.current) {
-      window.requestAnimationFrame(() => {
-        // top = 节点到页面顶部的距离，包含 scroll 中的高度
-        const {
-          top: wrapToTop = 0,
-          width: wrapWidth = 0,
-          height: wrapHeight = 0,
-        } = affixWrapRef.current?.getBoundingClientRect() ?? { top: 0 };
+  const scrollContainer = container ?? getDefaultTarget;
 
-        // 容器到页面顶部的距离, windows 为0
-        let containerToTop = 0;
-        if (scrollContainer.current instanceof HTMLElement) {
-          containerToTop = scrollContainer.current.getBoundingClientRect().top;
-        }
+  const internalOffsetTop = offsetBottom === undefined && offsetTop === undefined ? 0 : offsetTop;
 
-        const calcTop = wrapToTop - containerToTop; // 节点顶部到 container 顶部的距离
-        const containerHeight =
-          scrollContainer.current[scrollContainer.current instanceof Window ? 'innerHeight' : 'clientHeight'] -
-          wrapHeight;
-        const calcBottom = containerToTop + containerHeight - (offsetBottom ?? 0); // 计算 bottom 相对应的 top 值
+  const measure = () => {
+    if (!fixedNodeRef.current || !placeholderNodeRef.current || !scrollContainer) {
+      return;
+    }
 
-        let fixedTop: number | false;
-        if (calcTop <= offsetTop) {
-          // top 的触发
-          fixedTop = containerToTop + offsetTop;
-        } else if (wrapToTop >= calcBottom) {
-          // bottom 的触发
-          fixedTop = calcBottom;
-        } else {
-          fixedTop = false;
-        }
+    const targetNode = getScrollContainer(scrollContainer);
+    if (targetNode) {
+      const newState: Partial<AffixState> = {};
+      const placeholderRect = getTargetRect(placeholderNodeRef.current);
 
-        if (affixRef.current) {
-          const affixed = fixedTop !== false;
-          let placeholderStatus = affixWrapRef.current.contains(placeholderEL.current);
-          const prePlaceholderStatus = placeholderStatus;
+      if (
+        placeholderRect.top === 0 &&
+        placeholderRect.left === 0 &&
+        placeholderRect.width === 0 &&
+        placeholderRect.height === 0
+      ) {
+        return;
+      }
 
-          if (affixed) {
-            // 定位
-            affixRef.current.className = `${classPrefix}-affix`;
-            affixRef.current.style.top = `${fixedTop}px`;
-            affixRef.current.style.width = `${wrapWidth}px`;
-            affixRef.current.style.height = `${wrapHeight}px`;
+      const targetRect = getTargetRect(targetNode);
+      const fixedTop = getFixedTop(placeholderRect, targetRect, internalOffsetTop);
+      const fixedBottom = getFixedBottom(placeholderRect, targetRect, offsetBottom);
+      let top = 0;
+      if (fixedTop !== undefined) {
+        newState.affixStyle = {
+          position: 'fixed',
+          top: fixedTop,
+          width: placeholderRect.width,
+          height: placeholderRect.height,
+          zIndex,
+        };
+        newState.placeholderStyle = {
+          width: placeholderRect.width,
+          height: placeholderRect.height,
+        };
+        top = fixedTop;
+      } else if (fixedBottom !== undefined) {
+        newState.affixStyle = {
+          position: 'fixed',
+          bottom: fixedBottom,
+          width: placeholderRect.width,
+          height: placeholderRect.height,
+          zIndex,
+        };
+        newState.placeholderStyle = {
+          width: placeholderRect.width,
+          height: placeholderRect.height,
+        };
+        top = fixedBottom;
+      }
 
-            if (zIndex) {
-              affixRef.current.style.zIndex = `${zIndex}`;
-            }
-
-            // 插入占位节点
-            if (!placeholderStatus) {
-              placeholderEL.current.style.width = `${wrapWidth}px`;
-              placeholderEL.current.style.height = `${wrapHeight}px`;
-              affixWrapRef.current.appendChild(placeholderEL.current);
-              placeholderStatus = true;
-            }
-          } else {
-            affixRef.current.removeAttribute('class');
-            affixRef.current.removeAttribute('style');
-
-            // 删除占位节点
-            if (placeholderStatus) {
-              placeholderEL.current.remove();
-              placeholderStatus = false;
-            }
-          }
-          if (prePlaceholderStatus !== placeholderStatus && isFunction(onFixedChange)) {
-            onFixedChange(affixed, { top: +fixedTop });
-          }
-        }
-
-        ticking.current = false;
+      setAffixStyle(newState.affixStyle);
+      setPlaceholderStyle(newState.placeholderStyle);
+      onFixedChange?.(!!newState.affixStyle, {
+        top,
       });
     }
-    ticking.current = true;
-  }, [classPrefix, offsetBottom, offsetTop, onFixedChange, zIndex]);
+  };
 
-  useImperativeHandle(ref, () => ({
-    handleScroll,
-  }));
+  const onScroll = useEventCallback(() => {
+    measure();
+  });
 
-  useEffect(() => {
-    // 创建占位节点
-    placeholderEL.current = document.createElement('div');
-  }, []);
+  useResizeObserver(placeholderNodeRef, measure);
+
+  useResizeObserver(fixedNodeRef, measure);
 
   useEffect(() => {
-    scrollContainer.current = getScrollContainer(container);
-    if (scrollContainer.current) {
-      handleScroll();
-      scrollContainer.current.addEventListener('scroll', handleScroll);
-      window.addEventListener('resize', handleScroll);
+    const scrollContainer = getScrollContainer(container);
+    if (scrollContainer) {
+      onScroll();
+      scrollContainer.addEventListener('scroll', onScroll);
+      window.addEventListener('resize', onScroll);
 
       return () => {
-        scrollContainer.current.removeEventListener('scroll', handleScroll);
-        window.removeEventListener('resize', handleScroll);
+        scrollContainer.removeEventListener('scroll', onScroll);
+        window.removeEventListener('resize', onScroll);
       };
     }
-  }, [container, handleScroll]);
+  }, [container, onScroll]);
+
+  useImperativeHandle(ref, () => ({
+    handleScroll: onScroll,
+  }));
+
+  const rootCls = classNames(`${classPrefix}-affix`);
+
+  const mergedCls = classNames({ [rootCls]: affixStyle });
 
   return (
-    <div ref={affixWrapRef} className={className} style={style}>
-      <div ref={affixRef}>{children || content}</div>
+    <div style={style} className={className} ref={placeholderNodeRef} {...restProps}>
+      {affixStyle && <div style={placeholderStyle} aria-hidden="true" />}
+      <div className={mergedCls} ref={fixedNodeRef} style={affixStyle}>
+        {children || content}
+      </div>
     </div>
   );
 });
