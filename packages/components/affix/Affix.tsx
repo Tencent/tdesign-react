@@ -15,15 +15,9 @@ function getDefaultTarget() {
   return typeof window !== 'undefined' ? window : null;
 }
 
-const AFFIX_STATUS_NONE = 0;
-const AFFIX_STATUS_PREPARE = 1;
-
-type AffixStatus = typeof AFFIX_STATUS_NONE | typeof AFFIX_STATUS_PREPARE;
-
 interface AffixState {
   affixStyle?: React.CSSProperties;
   placeholderStyle?: React.CSSProperties;
-  status: AffixStatus;
   prevTarget: Window | HTMLElement | null;
 }
 
@@ -52,7 +46,6 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
   const [affixStyle, setAffixStyle] = useState<React.CSSProperties>();
   const [placeholderStyle, setPlaceholderStyle] = useState<React.CSSProperties>();
 
-  const status = useRef<AffixStatus>(AFFIX_STATUS_NONE);
   const placeholderNodeRef = useRef<HTMLDivElement>(null);
   const fixedNodeRef = useRef<HTMLDivElement>(null);
 
@@ -67,9 +60,7 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
 
     const targetNode = getScrollContainer(scrollContainer);
     if (targetNode) {
-      const newState: Partial<AffixState> = {
-        status: AFFIX_STATUS_NONE,
-      };
+      const newState: Partial<AffixState> = {};
       const placeholderRect = getTargetRect(placeholderNodeRef.current);
 
       if (
@@ -113,7 +104,6 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
         top = fixedBottom;
       }
 
-      status.current = newState.status;
       setAffixStyle(newState.affixStyle);
       setPlaceholderStyle(newState.placeholderStyle);
       onFixedChange?.(!!newState.affixStyle, {
