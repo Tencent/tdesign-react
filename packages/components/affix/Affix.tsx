@@ -18,7 +18,6 @@ function getDefaultTarget() {
 interface AffixState {
   affixStyle?: React.CSSProperties;
   placeholderStyle?: React.CSSProperties;
-  prevTarget: Window | HTMLElement | null;
 }
 
 export interface AffixProps extends TdAffixProps, StyledProps {}
