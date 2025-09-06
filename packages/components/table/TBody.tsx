@@ -164,7 +164,7 @@ export default function TBody(props: TableBodyProps) {
 
     // 首行数据
     const firstFullRowNode = renderFullRow(columnLength, 'first-full-row', renderData[0]?.__VIRTUAL_SCROLL_INDEX);
-    trNodeList.push(firstFullRowNode);
+    firstFullRowNode && trNodeList.push(firstFullRowNode);
 
     // body 数据行
     renderData?.forEach((row, rowIndex) => {
@@ -204,7 +204,7 @@ export default function TBody(props: TableBodyProps) {
 
       // 展开行数据
       const expandedRowNode = renderExpandedRows(row, rowIndex);
-      trNodeList.push(expandedRowNode);
+      expandedRowNode && trNodeList.push(expandedRowNode);
     });
 
     // 尾行数据
@@ -213,7 +213,7 @@ export default function TBody(props: TableBodyProps) {
       'last-full-row',
       renderData?.[renderData?.length - 1]?.__VIRTUAL_SCROLL_INDEX,
     );
-    trNodeList.push(lastFullRowNode);
+    renderData && trNodeList.push(lastFullRowNode);
 
     return trNodeList;
   };
