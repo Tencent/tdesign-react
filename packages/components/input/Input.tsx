@@ -366,20 +366,20 @@ const Input = forwardRefWithStatics(
     }
 
     function handleFocus(e: React.FocusEvent<HTMLInputElement>) {
-      if (isInnerInputReadonly) return;
       const {
         currentTarget: { value },
       } = e;
       onFocus?.(value, { e });
+      if (isInnerInputReadonly) return;
       toggleIsFocused(true);
     }
 
     function handleBlur(e: React.FocusEvent<HTMLInputElement>) {
-      if (isInnerInputReadonly) return;
       const {
         currentTarget: { value },
       } = e;
       onBlur?.(value, { e });
+      if (isInnerInputReadonly) return;
       toggleIsFocused(false);
     }
 
