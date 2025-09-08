@@ -40,13 +40,16 @@ const DraggerFile: FC<DraggerProps> = (props) => {
     ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
   });
 
+  const firstFile = displayFiles[0];
+  const firstFileStatus = firstFile?.status;
+
   const classes = useMemo(
     () => [
       `${uploadPrefix}__dragger`,
-      { [`${uploadPrefix}__dragger-center`]: !displayFiles[0] },
-      { [`${uploadPrefix}__dragger-error`]: displayFiles[0]?.status === 'fail' },
+      { [`${uploadPrefix}__dragger-center`]: !firstFile },
+      { [`${uploadPrefix}__dragger-error`]: firstFileStatus === 'fail' },
     ],
-    [displayFiles, uploadPrefix],
+    [firstFile, firstFileStatus, uploadPrefix],
   );
 
   const renderImage = () => {
@@ -77,6 +80,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
 
   const renderMainPreview = () => {
     const file = displayFiles[0];
+    console.log('file', file);
     const fileName = props.abridgeName ? abridgeName(file.name, ...props.abridgeName) : file.name;
     const fileInfo = (
       <>
@@ -134,7 +138,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
                 theme="primary"
                 hover="color"
                 disabled={disabled}
-                className={`${uploadPrefix}__dragger-progress-reupload`}
+                className={`${uploadPrefix}__dragger-progress-cancel`}
                 onClick={props.triggerUpload}
               >
                 {locale.triggerUploadText.reupload}
