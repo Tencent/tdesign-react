@@ -107,7 +107,7 @@ function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions):
     if (container.length < 1) {
       const div = document.createElement('div');
       const mGlobalConfig = ConfigProvider.getGlobalConfig();
-      
+
       render(
         <PluginContainer globalConfig={mGlobalConfig}>
           <MessageContainer
@@ -203,7 +203,7 @@ async function renderElement(theme, config: MessageOptions): Promise<MessageInst
 
 // 判断是否是 messageOptions
 function isConfig(content: MessageOptions | React.ReactNode): content is MessageOptions {
-  return Object.prototype.toString.call(content) === '[object Object]' && !!(content as MessageOptions).content;
+  return Object.prototype.toString.call(content) === '[object Object]' && 'content' in (content as MessageOptions);
 }
 
 // messageMethod 方法调用 message
