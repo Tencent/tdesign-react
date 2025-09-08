@@ -341,10 +341,17 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
             viewBox="0 0 24 24"
             width="1em"
           >
-            <path
-              d="M15.9144 17.5L10.4144 12L15.9144 6.50003L14.5002 5.08582L7.58594 12L14.5002 18.9142L15.9144 17.5Z"
-              fill="currentColor"
-            />
+            <g
+              id="chevron-left"
+            >
+              <path
+                d="M14.5 17.5L9 12L14.5 6.5"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
           </svg>
         </div>
         <ul
@@ -365,10 +372,32 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
               viewBox="0 0 24 24"
               width="1em"
             >
-              <path
-                d="M3 10.5H6V13.5H3V10.5ZM10.5 10.5H13.5V13.5H10.5V10.5ZM18 10.5H21V13.5H18V10.5Z"
-                fill="currentColor"
-              />
+              <g
+                id="ellipsis"
+              >
+                <g
+                  id="stroke1"
+                >
+                  <path
+                    d="M4 11.5H5V12.5H4V11.5Z"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M11.5 11.5H12.5V12.5H11.5V11.5Z"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M19 11.5H20V12.5H19V11.5Z"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                </g>
+              </g>
             </svg>
           </li>
           <li
@@ -406,10 +435,32 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
               viewBox="0 0 24 24"
               width="1em"
             >
-              <path
-                d="M3 10.5H6V13.5H3V10.5ZM10.5 10.5H13.5V13.5H10.5V10.5ZM18 10.5H21V13.5H18V10.5Z"
-                fill="currentColor"
-              />
+              <g
+                id="ellipsis"
+              >
+                <g
+                  id="stroke1"
+                >
+                  <path
+                    d="M4 11.5H5V12.5H4V11.5Z"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M11.5 11.5H12.5V12.5H11.5V11.5Z"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M19 11.5H20V12.5H19V11.5Z"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                </g>
+              </g>
             </svg>
           </li>
           <li
@@ -428,10 +479,17 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
             viewBox="0 0 24 24"
             width="1em"
           >
-            <path
-              d="M8.08594 17.5L13.5859 12L8.08594 6.50003L9.50015 5.08582L16.4144 12L9.50015 18.9142L8.08594 17.5Z"
-              fill="currentColor"
-            />
+            <g
+              id="chevron-right"
+            >
+              <path
+                d="M9.5 17.5L15 12L9.5 6.5"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
           </svg>
         </div>
       </div>
