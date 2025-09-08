@@ -2,7 +2,7 @@
 import React, { CSSProperties, MutableRefObject, ReactNode, useMemo } from 'react';
 
 import classNames from 'classnames';
-import { camelCase, get, pick } from 'lodash-es';
+import { camelCase, get, pick, uniqueId } from 'lodash-es';
 
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { PaginationProps } from '../pagination';
@@ -99,7 +99,6 @@ export default function TBody(props: TableBodyProps) {
     const classes = [tableFullRowClasses.base, tableFullRowClasses[tType]];
 
     const rowProps: React.ComponentProps<'tr'> = {};
-    let rowKey: string | undefined;
     if (isVirtualScroll && virtualIndex !== undefined) {
       rowProps.ref = (ref) => {
         if (ref) {
@@ -112,13 +111,11 @@ export default function TBody(props: TableBodyProps) {
           });
         }
       };
-      // React 不允许通过 spread 操作符传递 key 属性，需要单独处理
-      rowKey = `${type}-${virtualIndex}`;
     }
 
     /** innerFullRow 和 innerFullElement 同时存在，是为了保证固定列时，当前行不随内容进行横向滚动 */
     return (
-      <tr key={rowKey} className={classNames(classes)} {...rowProps}>
+      <tr key={`${type}-${uniqueId()}`} className={classNames(classes)} {...rowProps}>
         <td colSpan={columnLength}>
           <div
             className={classNames({ [tableFullRowClasses.innerFullRow]: isFixedToLeft }) || undefined}
