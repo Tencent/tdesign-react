@@ -3,6 +3,7 @@
  * 通用虚拟滚动，可支持 Select/List/Table/TreeSelect/Cascader 等组件
  */
 import { MutableRefObject, useEffect, useMemo, useRef, useState } from 'react';
+import { isEqual } from 'lodash-es';
 import type { ScrollToElementParams, TScroll } from '../common';
 
 export type UseVirtualScrollParams = {
@@ -170,18 +171,15 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
   useEffect(
     () => {
       if (!isVirtualScroll) {
-        // 非虚拟滚动模式下，让 visibleData 也包含所有数据
-        // 避免从非虚拟滚动切换到虚拟滚动时，数据结构变更，visibleData 为空数组，滚动条重置
-        setVisibleData(data);
         trScrollTopHeightList.current = getTrScrollTopHeightList(trHeightList);
         return;
       }
       // 给数据添加下标
       addIndexToData(data);
 
+      const dataChanged = !isEqual(dataRef.current, data);
       const scrollTopHeightList = trScrollTopHeightList.current;
-
-      if (scrollTopHeightList?.length === data?.length) {
+      if (scrollTopHeightList?.length === data?.length && !dataChanged) {
         // 正常滚动时更新可见数据
         const lastIndex = scrollTopHeightList.length - 1;
         setScrollHeight(scrollTopHeightList[lastIndex]);
@@ -190,6 +188,7 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
         /**
         /* 进入这个分支的场景可能有：
          * - 初始化
+         * - 从非虚拟滚动切换到虚拟滚动
          * - 外部数据动态更新（长度变化、内容结构变化等）
          */
         dataRef.current = data;
