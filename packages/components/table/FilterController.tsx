@@ -1,17 +1,17 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FilterIcon as TdFilterIcon } from 'tdesign-icons-react';
-import { isEmpty } from 'lodash-es';
 import classNames from 'classnames';
+import { isEmpty } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
-import Popup, { PopupProps } from '../popup';
-import Checkbox from '../checkbox';
-import Radio from '../radio';
-import Input from '../input';
-import TButton from '../button';
-import { PrimaryTableCol, FilterValue, TableRowData, TdPrimaryTableProps } from './type';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
-import useGlobalIcon from '../hooks/useGlobalIcon';
 import { parseContentTNode } from '../_util/parseTNode';
+import TButton from '../button';
+import Checkbox from '../checkbox';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import Input from '../input';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+import Popup, { type PopupProps, type PopupVisibleChangeContext } from '../popup';
+import Radio from '../radio';
+import type { FilterValue, PrimaryTableCol, TableRowData, TdPrimaryTableProps } from './type';
 
 const CheckboxGroup = Checkbox.Group;
 const RadioGroup = Radio.Group;
@@ -35,25 +35,41 @@ export interface TableFilterControllerProps {
   colIndex: number;
   primaryTableElement: HTMLElement;
   popupProps: PopupProps;
-  onVisibleChange: (val: boolean) => void;
+  visible: boolean;
+  onVisibleChange: (val: boolean, ctx) => void;
   onReset: (column: PrimaryTableCol<TableRowData>) => void;
   onConfirm: (column: PrimaryTableCol<TableRowData>) => void;
   onInnerFilterChange: (val: any, column: PrimaryTableCol<TableRowData>) => void;
 }
 
-export default function TableFilterController(props: TableFilterControllerProps) {
-  const { tFilterValue, innerFilterValue, tableFilterClasses, isFocusClass, column } = props;
+function TableFilterController(props: TableFilterControllerProps) {
+  const { visible = false, tFilterValue, innerFilterValue, tableFilterClasses, isFocusClass, column } = props;
 
   const { FilterIcon } = useGlobalIcon({
     FilterIcon: TdFilterIcon,
   });
-  const triggerElementRef = useRef<HTMLDivElement>(null);
   const [locale, t] = useLocaleReceiver('table');
-  const [filterPopupVisible, setFilterPopupVisible] = useState(false);
 
-  const onFilterPopupVisibleChange = (visible: boolean) => {
+  const triggerElementRef = useRef<HTMLDivElement>(null);
+  const [filterPopupVisible, setFilterPopupVisible] = useState(visible);
+
+  const onFilterVisibleChange = (visible: boolean, ctx: PopupVisibleChangeContext) => {
+    const isDocClick = ctx?.trigger === 'document' && ctx?.e?.target;
+    if (isDocClick && !visible) {
+      const el = ctx.e.target as HTMLElement;
+      /**
+       * 过滤后的数据量在跨越虚拟滚动的 threshold 时
+       * 表头重建导致原始点击的元素被误判为不属于 Popup 内部从而触发关闭
+       */
+      const isInsideFilter = el.closest(`.${tableFilterClasses.popupContent}`) !== null;
+      if (isInsideFilter) {
+        setFilterPopupVisible(true);
+        props.onVisibleChange?.(true, column.colKey);
+        return;
+      }
+    }
     setFilterPopupVisible(visible);
-    props.onVisibleChange?.(visible);
+    props.onVisibleChange?.(visible, column.colKey);
   };
 
   const getFilterContent = (column: PrimaryTableCol) => {
@@ -129,6 +145,11 @@ export default function TableFilterController(props: TableFilterControllerProps)
     );
   };
 
+  useEffect(() => {
+    if (visible === filterPopupVisible) return;
+    setFilterPopupVisible(visible);
+  }, [visible, filterPopupVisible]);
+
   if (!column.filter || (column.filter && !Object.keys(column.filter).length)) return null;
   const defaultFilterIcon = t(locale.filterIcon) || <FilterIcon />;
   const filterValue = tFilterValue?.[column.colKey];
@@ -145,7 +166,7 @@ export default function TableFilterController(props: TableFilterControllerProps)
         placement="bottom-right"
         showArrow
         overlayClassName={tableFilterClasses.popup}
-        onVisibleChange={(val: boolean) => onFilterPopupVisibleChange(val)}
+        onVisibleChange={onFilterVisibleChange}
         content={
           <div className={tableFilterClasses.popupContent}>
             {getFilterContent(column)}
@@ -161,3 +182,5 @@ export default function TableFilterController(props: TableFilterControllerProps)
     </div>
   );
 }
+
+export default TableFilterController;
