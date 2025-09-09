@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+
 import { Button } from '@tdesign/components';
+import DraggableButton from './DraggableButton';
 
 export const demoFiles = import.meta.glob('../../../../components/**/_example/*.tsx');
 
@@ -18,6 +20,7 @@ Object.keys(demoFiles).forEach((key) => {
 });
 
 const DynamicDemo = ({ componentName, demoName }) => {
+  const [key, setKey] = useState(0);
   const [Demo, setDemo] = useState(null);
 
   useEffect(() => {
@@ -31,9 +34,17 @@ const DynamicDemo = ({ componentName, demoName }) => {
     loadDemo();
   }, [componentName, demoName]);
 
-  if (!Demo) return;
+  const handleReset = () => {
+    setKey((prev) => prev + 1);
+  };
 
-  return <Demo />;
+  if (!Demo) return;
+  return (
+    <>
+      <DraggableButton onClick={handleReset}>重置状态</DraggableButton>
+      <Demo key={key} />
+    </>
+  );
 };
 
 export default function Demo() {
@@ -46,7 +57,13 @@ export default function Demo() {
 
   return hasSpecificDemo ? (
     <div
-      style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', padding: '0 40px' }}
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
+        padding: '0 40px',
+      }}
     >
       <div>
         <DynamicDemo componentName={componentName} demoName={demoName} />
