@@ -7,7 +7,7 @@ Icons are published and managed as a separate npm package. If you want to use it
 On-demand icon importing is recommended to reduce the output size. Additionally, icons imported on-demand support arbitrary weight adjustments and up to four color fills, providing a better user experience.
 
 <div  style={{ background: '#ecf2fe',display: 'flex',alignItems: 'center',lineHeight: '20px',padding: '14px 24px',borderRadius: '3px',color: '#555a65',margin:'16px 0'}}>
-  Open <a href='/icons-en'> TDesign Icons </a>  to view and experience all supported icons.
+  Open <a style={{ margin: '0 4px'}} href='/icons-en'> TDesign Icons </a>  to view and experience all supported icons.
 </div>
 
 
