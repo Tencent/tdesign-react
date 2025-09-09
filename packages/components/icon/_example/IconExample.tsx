@@ -19,11 +19,14 @@ import { Space, Slider } from 'tdesign-react';
 
 export default function IconExample() {
   const [strokeWidth, setStrokeWidth] = useState(2);
+  const handleClick = () => {
+    console.log('icon is clicked');
+  };
   return (
     <Space direction="vertical">
       <Slider value={strokeWidth} onChange={(v) => setStrokeWidth(Number(v))} min={0.5} max={2.5} step={0.5} />
       <Space breakLine style={{ color: `var(--td-brand-color)` }}>
-        <LettersTIcon strokeWidth={strokeWidth} />
+        <LettersTIcon strokeWidth={strokeWidth} onClick={handleClick} />
         <LettersDIcon strokeWidth={strokeWidth} />
         <LettersEIcon strokeWidth={strokeWidth} />
         <LettersSIcon strokeWidth={strokeWidth} />
