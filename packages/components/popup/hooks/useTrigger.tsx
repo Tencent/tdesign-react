@@ -28,7 +28,11 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
 
   function callFuncWithDelay({ delay, callback }: { delay?: number; callback: Function }) {
     clearTimeout(visibleTimer.current);
-    visibleTimer.current = setTimeout(callback, delay);
+    if (delay) {
+      visibleTimer.current = setTimeout(callback, delay);
+    } else {
+      callback();
+    }
   }
 
   // 点击 trigger overlay 以外的元素关闭

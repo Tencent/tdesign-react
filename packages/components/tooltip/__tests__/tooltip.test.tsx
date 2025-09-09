@@ -24,7 +24,6 @@ describe('Tooltip 组件测试', () => {
 
     // 模拟鼠标进入
     await fireEvent.mouseEnter(getByText(triggerElement));
-    await mockTimeout(() => false, 50);
 
     // 鼠标进入后，有元素，而且内容为 tooltipText
     const popupElement = queryByTestId(tooltipTestId);
@@ -36,7 +35,6 @@ describe('Tooltip 组件测试', () => {
 
     // 模拟鼠标离开
     await fireEvent.mouseLeave(getByText(triggerElement));
-    await mockTimeout(() => false, 50);
 
     // 鼠标离开，style 的 display 应该为 none
     const popupElement2 = queryByTestId(tooltipTestId);
@@ -56,7 +54,6 @@ describe('Tooltip 组件测试', () => {
       );
 
       await fireEvent.mouseEnter(result.getByText(triggerElement));
-      await mockTimeout(() => false, 50);
       await waitFor(() => result.queryByTestId(tooltipTestId));
 
       return {
