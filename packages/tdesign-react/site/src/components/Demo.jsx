@@ -38,6 +38,20 @@ const DynamicDemo = ({ componentName, demoName }) => {
     setKey((prev) => prev + 1);
   };
 
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      // 快捷键：Option + R
+      if (event.altKey && event.code === 'KeyR') {
+        event.preventDefault();
+        handleReset();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
   if (!Demo) return;
   return (
     <>

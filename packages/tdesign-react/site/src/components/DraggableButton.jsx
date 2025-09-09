@@ -8,16 +8,35 @@ const DraggableButton = ({ children, onClick }) => {
     width: window.innerWidth,
     height: window.innerHeight,
   });
+  const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
   const [position, setPosition] = useState({
     x: window.innerWidth / 2,
     y: window.innerHeight - 100,
   });
-  const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [hasDragged, setHasDragged] = useState(false);
+
+  const constrainPosition = useCallback((x, y, windowWidth, windowHeight) => {
+    const buttonWidth = buttonRef.current?.offsetWidth || 0;
+    const buttonHeight = buttonRef.current?.offsetHeight || 0;
+
+    const minX = buttonWidth / 2;
+    const maxX = windowWidth - buttonWidth / 2;
+    const minY = 0;
+    const maxY = windowHeight - buttonHeight;
+
+    return {
+      x: Math.max(minX, Math.min(x, maxX)),
+      y: Math.max(minY, Math.min(y, maxY)),
+    };
+  }, []);
 
   const handleMouseDown = (e) => {
     if (e.button !== 0) return;
     setIsDragging(true);
+    setHasDragged(false);
+    setStartPosition({ x: e.clientX, y: e.clientY });
     const rect = buttonRef.current.getBoundingClientRect();
     const buttonCenterX = rect.left + rect.width / 2;
     setDragOffset({
@@ -26,35 +45,35 @@ const DraggableButton = ({ children, onClick }) => {
     });
   };
 
-  const handleMouseMove = useCallback((e) => {
+  const handleMouseMove = useCallback(
+    (e) => {
       if (!isDragging) return;
+
+      // 如果拖拽距离超过 5 像素，认为是拖拽操作
+      const dragDistance = Math.sqrt((e.clientX - startPosition.x) ** 2 + (e.clientY - startPosition.y) ** 2);
+      if (dragDistance > 5) setHasDragged(true);
+
       const newPosition = {
         x: e.clientX - dragOffset.x,
         y: e.clientY - dragOffset.y,
       };
 
-      const buttonWidth = buttonRef.current?.offsetWidth || 0;
-      const buttonHeight = buttonRef.current?.offsetHeight || 0;
-
-      const minX = buttonWidth / 2;
-      const maxX = window.innerWidth - buttonWidth / 2;
-      const minY = 0;
-      const maxY = window.innerHeight - buttonHeight;
-
-      setPosition({
-        x: Math.max(minX, Math.min(newPosition.x, maxX)),
-        y: Math.max(minY, Math.min(newPosition.y, maxY)),
-      });
+      setPosition(constrainPosition(newPosition.x, newPosition.y, window.innerWidth, window.innerHeight));
     },
-    [isDragging, dragOffset],
+    [isDragging, dragOffset, startPosition, constrainPosition],
   );
 
   const handleMouseUp = () => {
     setIsDragging(false);
+    // 延迟重置状态，确保 click 能正确判断
+    setTimeout(() => {
+      setHasDragged(false);
+      setIsDragging(false);
+    }, 10);
   };
 
   const handleClick = (e) => {
-    if (isDragging) {
+    if (hasDragged) {
       e.preventDefault();
       e.stopPropagation();
       return;
@@ -71,27 +90,15 @@ const DraggableButton = ({ children, onClick }) => {
     const yRatio = position.y / windowSize.height;
 
     // 根据新窗口尺寸和比例计算新位置
-    const buttonWidth = buttonRef.current?.offsetWidth || 0;
-    const buttonHeight = buttonRef.current?.offsetHeight || 0;
-
     const newX = xRatio * windowWidth;
     const newY = yRatio * windowHeight;
 
-    const minX = buttonWidth / 2;
-    const maxX = windowWidth - buttonWidth / 2;
-    const minY = 0;
-    const maxY = windowHeight - buttonHeight;
-
-    setPosition({
-      x: Math.max(minX, Math.min(newX, maxX)),
-      y: Math.max(minY, Math.min(newY, maxY)),
-    });
-
+    setPosition(constrainPosition(newX, newY, windowWidth, windowHeight));
     setWindowSize({
       width: windowWidth,
       height: windowHeight,
     });
-  }, [isDragging, position, windowSize]);
+  }, [isDragging, position, windowSize, constrainPosition]);
 
   useEffect(() => {
     window.addEventListener('resize', handleResize);
@@ -99,7 +106,7 @@ const DraggableButton = ({ children, onClick }) => {
   }, [handleResize]);
 
   useEffect(() => {
-    if(!isDragging) return;
+    if (!isDragging) return;
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
     return () => {
