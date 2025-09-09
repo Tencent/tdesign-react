@@ -338,6 +338,7 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
             class="t-icon t-icon-chevron-left"
             fill="none"
             height="1em"
+            style="fill: none;"
             viewBox="0 0 24 24"
             width="1em"
           >
@@ -369,6 +370,7 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
               class="t-icon t-icon-ellipsis"
               fill="none"
               height="1em"
+              style="fill: none;"
               viewBox="0 0 24 24"
               width="1em"
             >
@@ -432,6 +434,7 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
               class="t-icon t-icon-ellipsis"
               fill="none"
               height="1em"
+              style="fill: none;"
               viewBox="0 0 24 24"
               width="1em"
             >
@@ -476,6 +479,7 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
             class="t-icon t-icon-chevron-right"
             fill="none"
             height="1em"
+            style="fill: none;"
             viewBox="0 0 24 24"
             width="1em"
           >

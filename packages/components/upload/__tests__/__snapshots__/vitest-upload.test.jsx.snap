@@ -39,7 +39,7 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, fail 
                     class="t-icon t-icon-image"
                     fill="none"
                     height="1em"
-                    style="font-size: 24px;"
+                    style="fill: none; font-size: 24px;"
                     viewBox="0 0 24 24"
                     width="1em"
                   >
@@ -99,6 +99,7 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, fail 
               class="t-icon t-icon-error-circle-filled"
               fill="none"
               height="1em"
+              style="fill: none;"
               viewBox="0 0 24 24"
               width="1em"
             >
@@ -184,7 +185,7 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, progr
                     class="t-icon t-icon-image"
                     fill="none"
                     height="1em"
-                    style="font-size: 24px;"
+                    style="fill: none; font-size: 24px;"
                     viewBox="0 0 24 24"
                     width="1em"
                   >
@@ -342,7 +343,7 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, succe
                     class="t-icon t-icon-image"
                     fill="none"
                     height="1em"
-                    style="font-size: 24px;"
+                    style="fill: none; font-size: 24px;"
                     viewBox="0 0 24 24"
                     width="1em"
                   >
@@ -402,6 +403,7 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, succe
               class="t-icon t-icon-check-circle-filled"
               fill="none"
               height="1em"
+              style="fill: none;"
               viewBox="0 0 24 24"
               width="1em"
             >
@@ -487,7 +489,7 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, succe
                     class="t-icon t-icon-image"
                     fill="none"
                     height="1em"
-                    style="font-size: 24px;"
+                    style="fill: none; font-size: 24px;"
                     viewBox="0 0 24 24"
                     width="1em"
                   >
@@ -547,6 +549,7 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, succe
               class="t-icon t-icon-check-circle-filled"
               fill="none"
               height="1em"
+              style="fill: none;"
               viewBox="0 0 24 24"
               width="1em"
             >
@@ -632,7 +635,7 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, waiti
                     class="t-icon t-icon-image"
                     fill="none"
                     height="1em"
-                    style="font-size: 24px;"
+                    style="fill: none; font-size: 24px;"
                     viewBox="0 0 24 24"
                     width="1em"
                   >
@@ -744,6 +747,7 @@ exports[`Upload Component > props.theme: theme=file-flow works fine 1`] = `
               class="t-icon t-icon-upload"
               fill="none"
               height="1em"
+              style="fill: none;"
               viewBox="0 0 24 24"
               width="1em"
             >
@@ -809,6 +813,7 @@ exports[`Upload Component > props.theme: theme=file-flow works fine 1`] = `
                   class="t-icon t-icon-check-circle-filled"
                   fill="none"
                   height="1em"
+                  style="fill: none;"
                   viewBox="0 0 24 24"
                   width="1em"
                 >
@@ -847,6 +852,7 @@ exports[`Upload Component > props.theme: theme=file-flow works fine 1`] = `
                   class="t-icon t-icon-time-filled"
                   fill="none"
                   height="1em"
+                  style="fill: none;"
                   viewBox="0 0 24 24"
                   width="1em"
                 >
@@ -885,6 +891,7 @@ exports[`Upload Component > props.theme: theme=file-flow works fine 1`] = `
                   class="t-icon t-icon-error-circle-filled"
                   fill="none"
                   height="1em"
+                  style="fill: none;"
                   viewBox="0 0 24 24"
                   width="1em"
                 >
@@ -991,6 +998,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
               class="t-icon t-icon-upload"
               fill="none"
               height="1em"
+              style="fill: none;"
               viewBox="0 0 24 24"
               width="1em"
             >
@@ -1054,7 +1062,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
                         class="t-icon t-icon-image"
                         fill="none"
                         height="1em"
-                        style="font-size: 24px;"
+                        style="fill: none; font-size: 24px;"
                         viewBox="0 0 24 24"
                         width="1em"
                       >
@@ -1103,6 +1111,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
                     class="t-icon t-icon-delete"
                     fill="none"
                     height="1em"
+                    style="fill: none;"
                     viewBox="0 0 24 24"
                     width="1em"
                   >
@@ -1140,6 +1149,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
                 class="t-icon t-icon-check-circle-filled"
                 fill="none"
                 height="1em"
+                style="fill: none;"
                 viewBox="0 0 24 24"
                 width="1em"
               >
@@ -1178,7 +1188,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
                         class="t-icon t-icon-image"
                         fill="none"
                         height="1em"
-                        style="font-size: 24px;"
+                        style="fill: none; font-size: 24px;"
                         viewBox="0 0 24 24"
                         width="1em"
                       >
@@ -1227,6 +1237,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
                     class="t-icon t-icon-browse"
                     fill="none"
                     height="1em"
+                    style="fill: none;"
                     viewBox="0 0 24 24"
                     width="1em"
                   >
@@ -1271,6 +1282,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
                     class="t-icon t-icon-delete"
                     fill="none"
                     height="1em"
+                    style="fill: none;"
                     viewBox="0 0 24 24"
                     width="1em"
                   >
@@ -1308,6 +1320,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
                 class="t-icon t-icon-check-circle-filled"
                 fill="none"
                 height="1em"
+                style="fill: none;"
                 viewBox="0 0 24 24"
                 width="1em"
               >
@@ -1346,7 +1359,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
                         class="t-icon t-icon-image"
                         fill="none"
                         height="1em"
-                        style="font-size: 24px;"
+                        style="fill: none; font-size: 24px;"
                         viewBox="0 0 24 24"
                         width="1em"
                       >
@@ -1395,6 +1408,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
                     class="t-icon t-icon-browse"
                     fill="none"
                     height="1em"
+                    style="fill: none;"
                     viewBox="0 0 24 24"
                     width="1em"
                   >
@@ -1439,6 +1453,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
                     class="t-icon t-icon-delete"
                     fill="none"
                     height="1em"
+                    style="fill: none;"
                     viewBox="0 0 24 24"
                     width="1em"
                   >
@@ -1476,6 +1491,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
                 class="t-icon t-icon-time-filled"
                 fill="none"
                 height="1em"
+                style="fill: none;"
                 viewBox="0 0 24 24"
                 width="1em"
               >
@@ -1500,6 +1516,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
                   class="t-icon t-icon-error-circle-filled"
                   fill="none"
                   height="1em"
+                  style="fill: none;"
                   viewBox="0 0 24 24"
                   width="1em"
                 >
@@ -1522,6 +1539,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
                     class="t-icon t-icon-delete"
                     fill="none"
                     height="1em"
+                    style="fill: none;"
                     viewBox="0 0 24 24"
                     width="1em"
                   >
@@ -1605,6 +1623,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
                     class="t-icon t-icon-delete"
                     fill="none"
                     height="1em"
+                    style="fill: none;"
                     viewBox="0 0 24 24"
                     width="1em"
                   >

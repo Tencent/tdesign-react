@@ -80,7 +80,7 @@ exports[`Image Component > props.overlayContent works fine 1`] = `
             class="t-icon t-icon-image"
             fill="none"
             height="1em"
-            style="font-size: 24px;"
+            style="fill: none; font-size: 24px;"
             viewBox="0 0 24 24"
             width="1em"
           >
@@ -168,7 +168,7 @@ exports[`Image Component > props.placeholder works fine 1`] = `
             class="t-icon t-icon-image"
             fill="none"
             height="1em"
-            style="font-size: 24px;"
+            style="fill: none; font-size: 24px;"
             viewBox="0 0 24 24"
             width="1em"
           >

@@ -59,7 +59,7 @@ exports[`BackTop Component > props.shape is equal to circle 1`] = `
       class="t-icon t-icon-backtop t-back-top__icon"
       fill="none"
       height="1em"
-      style="font-size: 24px;"
+      style="fill: none; font-size: 24px;"
       viewBox="0 0 24 24"
       width="1em"
     >
@@ -95,7 +95,7 @@ exports[`BackTop Component > props.shape is equal to square 1`] = `
       class="t-icon t-icon-backtop t-back-top__icon"
       fill="none"
       height="1em"
-      style="font-size: 24px;"
+      style="fill: none; font-size: 24px;"
       viewBox="0 0 24 24"
       width="1em"
     >
