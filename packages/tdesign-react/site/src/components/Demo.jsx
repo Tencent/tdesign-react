@@ -40,7 +40,7 @@ const DynamicDemo = ({ componentName, demoName }) => {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      // 快捷键：Option + R
+      // 快捷键
       if (event.altKey && event.code === 'KeyR') {
         event.preventDefault();
         handleReset();
@@ -55,7 +55,7 @@ const DynamicDemo = ({ componentName, demoName }) => {
   if (!Demo) return;
   return (
     <>
-      <DraggableButton onClick={handleReset}>重置状态</DraggableButton>
+      <DraggableButton onClick={handleReset}>重置（Option + R）</DraggableButton>
       <Demo key={key} />
     </>
   );
