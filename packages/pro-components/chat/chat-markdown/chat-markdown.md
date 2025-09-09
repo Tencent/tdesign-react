@@ -11,13 +11,13 @@ spline: aigc
 {{ base }}
 
 ## 配置项及加载插件
-组件内置了`markdown-it`作为markdown解析引擎，可以通过配置项`options`来定制解析规则。同时为了减小打包体积，我们只默认加载了部分必要插件，如果需要加载更多插件，可以通过`pluginConfig`属性来选择性开启，目前支持动态加载`code代码块`和`katex公式`插件。
+组件内置了`cherry-markdown`作为markdown解析引擎，可以通过配置项`options`来定制解析规则。同时为了减小打包体积，我们只默认加载了部分必要插件，如果需要加载更多插件，可以通过查看[cherry-markdown文档](https://github.com/Tencent/cherry-markdown/blob/dev/README.CN.md)配置开启，以下给出动态引入`katex公式`插件的示例。
 
 {{ plugin }}
 
-<!-- ## 自定义渲染
+## 自定义语法渲染
 
-{{ custom }} -->
+{{ custom }}
 
 ## API
 ### ChatMarkdown Props

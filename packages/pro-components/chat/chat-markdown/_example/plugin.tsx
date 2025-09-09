@@ -2,17 +2,12 @@ import React, { useState } from 'react';
 import { Space, Switch } from 'tdesign-react';
 import { ChatMarkdown } from '@tdesign-react/aigc';
 import mdContent from './mock.md?raw';
+// 公式能力引入，可参考cherryMarkdown示例
+import 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js';
 
 const MarkdownExample = () => {
-  const [hasCode, setHasCode] = useState(false);
   const [hasKatex, setHasKatex] = useState(false);
   const [rerenderKey, setRerenderKey] = useState(1);
-
-  // 切换代码块插件
-  const handleCodeChange = (checked: boolean) => {
-    setHasCode(checked);
-    setRerenderKey((prev) => prev + 1);
-  };
 
   // 切换公式插件
   const handleKatexChange = (checked: boolean) => {
@@ -26,28 +21,23 @@ const MarkdownExample = () => {
       <ChatMarkdown
         key={rerenderKey}
         content={mdContent}
-        pluginConfig={[
-          {
-            preset: 'code',
-            enabled: hasCode,
-          },
-          {
-            preset: 'katex',
-            enabled: hasKatex,
-          },
-        ]}
         options={{
-          html: true,
-          breaks: true,
-          typographer: true,
+          engine: {
+            syntax: hasKatex
+              ? {
+                  mathBlock: {
+                    engine: 'katex',
+                  },
+                  inlineMath: {
+                    engine: 'katex',
+                  },
+                }
+              : undefined,
+          },
         }}
       />
       <Space direction="vertical">
         <div style={{ width: '100px' }}>动态加载插件</div>
-        <Space align="center">
-          <span>代码块</span>
-          <Switch size="large" value={hasCode} onChange={handleCodeChange} />
-        </Space>
         <Space align="center">
           <span>公式</span>
           <Switch size="large" value={hasKatex} onChange={handleKatexChange} />
