@@ -23,8 +23,8 @@ export default function IconExample() {
     <Space direction="vertical">
       <Slider value={strokeWidth} onChange={(v) => setStrokeWidth(Number(v))} min={0.5} max={2.5} step={0.5} />
       <Space breakLine style={{ color: `var(--td-brand-color)` }}>
-        <LettersTIcon />
-        <LettersDIcon />
+        <LettersTIcon strokeWidth={strokeWidth} />
+        <LettersDIcon strokeWidth={strokeWidth} />
         <LettersEIcon strokeWidth={strokeWidth} />
         <LettersSIcon strokeWidth={strokeWidth} />
         <LettersIIcon strokeWidth={strokeWidth} />
