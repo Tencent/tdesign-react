@@ -1,11 +1,8 @@
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
-
 import classNames from 'classnames';
 import { isUndefined } from 'lodash-es';
-
 import log from '@tdesign/common-js/log/index';
-
 import Portal from '../common/Portal';
 import useAttach from '../hooks/useAttach';
 import useConfig from '../hooks/useConfig';
@@ -20,7 +17,6 @@ import useDialogEsc from './hooks/useDialogEsc';
 import useDialogPosition from './hooks/useDialogPosition';
 import useLockStyle from './hooks/useLockStyle';
 import { parseValueToPx } from './utils';
-
 import type { StyledProps } from '../common';
 import type { DialogInstance, TdDialogProps } from './type';
 
