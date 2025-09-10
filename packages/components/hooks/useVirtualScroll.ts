@@ -221,14 +221,15 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
         setTranslateY(translateY);
       }
 
-      requestAnimationFrame(() => {
+      const timer = setTimeout(() => {
         if (container.current) {
           const tmpContainerHeight = container.current.getBoundingClientRect().height;
           containerHeight.current = tmpContainerHeight;
           const scrollTopHeightList = getTrScrollTopHeightList(trHeightList);
           trScrollTopHeightList.current = scrollTopHeightList;
+          clearTimeout(timer);
         }
-      });
+      }, 1);
     },
     // eslint-disable-next-line
     [container, data, tScroll, isVirtualScroll, startAndEndIndex, trHeightList],
