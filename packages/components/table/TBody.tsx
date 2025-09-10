@@ -29,8 +29,6 @@ export interface TableBodyProps extends BaseTableProps {
   handleRowMounted?: (params: RowMountedParams) => void;
 }
 
-type FullRowType = 'first' | 'last';
-
 export const ROW_AND_TD_LISTENERS = ROW_LISTENERS.concat('cell-click');
 
 // table 到 body 的相同属性
@@ -105,19 +103,19 @@ export default function TBody(props: TableBodyProps) {
     </tr>
   );
 
-  const renderFullRow = (type: FullRowType) => {
+  const renderFullRow = (type: 'first-full-row' | 'last-full-row') => {
     if (isVirtualScroll) {
-      const targetIndex = {
-        first: 0,
-        last: data.length - 1,
+      const fullRowIndex = {
+        'first-full-row': 0,
+        'last-full-row': data.length - 1,
       }[type];
       // 当首行或尾行不在虚拟滚动可视区域时，不进行渲染
-      const rowVisible = renderData.some((item) => item.__VIRTUAL_SCROLL_INDEX === targetIndex);
+      const rowVisible = renderData.some((item) => item.__VIRTUAL_SCROLL_INDEX === fullRowIndex);
       if (!rowVisible) return null;
     }
     const fullRowNode = {
-      first: firstFullRow,
-      last: lastFullRow,
+      'first-full-row': firstFullRow,
+      'last-full-row': lastFullRow,
     }[type];
     if (!fullRowNode) return null;
     const isFixedToLeft = props.isWidthOverflow && columns.find((col) => col.fixed === 'left');
@@ -155,7 +153,7 @@ export default function TBody(props: TableBodyProps) {
     const trNodeList: ReactNode[] = [];
 
     // 首行数据
-    const firstFullRowNode = renderFullRow('first');
+    const firstFullRowNode = renderFullRow('first-full-row');
     firstFullRowNode && trNodeList.push(firstFullRowNode);
 
     // body 数据
@@ -200,7 +198,7 @@ export default function TBody(props: TableBodyProps) {
     });
 
     // 尾行数据
-    const lastFullRowNode = renderFullRow('last');
+    const lastFullRowNode = renderFullRow('last-full-row');
     lastFullRowNode && trNodeList.push(lastFullRowNode);
     return trNodeList;
   };
