@@ -6,7 +6,7 @@ import { useEffect, useRef } from 'react';
  * - 只在依赖项真正变化时才会触发副作用函数
  * - 适用于依赖为复杂对象的场景
  */
-function useDeepEffect(effect, deps) {
+function useDeepEffect(effect: React.EffectCallback, deps: any[]) {
   const isInitial = useRef(true);
   const prevDeps = useRef(deps);
 
