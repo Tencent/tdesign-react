@@ -1,39 +1,40 @@
 import React, {
-  useEffect,
-  useMemo,
+  Children,
   KeyboardEvent,
   WheelEvent,
-  useRef,
-  useCallback,
-  Children,
   cloneElement,
   isValidElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
   useState,
 } from 'react';
 import classNames from 'classnames';
-import { isFunction, get, debounce } from 'lodash-es';
-import { getOffsetTopToContainer } from '../../_util/helper';
-import useControlled from '../../hooks/useControlled';
-import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import useConfig from '../../hooks/useConfig';
+import { debounce, get, isFunction } from 'lodash-es';
+import composeRefs from '../../_util/composeRefs';
 import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
-import { getSelectValueArr, getSelectedOptions } from '../util/helper';
+import { getOffsetTopToContainer } from '../../_util/helper';
 import noop from '../../_util/noop';
+import { parseContentTNode } from '../../_util/parseTNode';
 import FakeArrow from '../../common/FakeArrow';
+import useConfig from '../../hooks/useConfig';
+import useControlled from '../../hooks/useControlled';
+import useDefaultProps from '../../hooks/useDefaultProps';
 import Loading from '../../loading';
-import SelectInput, { SelectInputValue, SelectInputValueChangeContext } from '../../select-input';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import SelectInput, { type SelectInputValue, type SelectInputValueChangeContext } from '../../select-input';
+import Tag from '../../tag';
+import { selectDefaultProps } from '../defaultProps';
+import useOptions, { isSelectOptionGroup } from '../hooks/useOptions';
+import { getSelectValueArr, getSelectedOptions } from '../util/helper';
 import Option from './Option';
 import OptionGroup from './OptionGroup';
 import PopupContent from './PopupContent';
-import Tag from '../../tag';
-import { TdSelectProps, TdOptionProps, SelectOption, SelectValueChangeTrigger, SelectValue } from '../type';
-import { StyledProps } from '../../common';
-import { selectDefaultProps } from '../defaultProps';
-import { PopupVisibleChangeContext } from '../../popup';
-import useOptions, { isSelectOptionGroup } from '../hooks/useOptions';
-import composeRefs from '../../_util/composeRefs';
-import { parseContentTNode } from '../../_util/parseTNode';
-import useDefaultProps from '../../hooks/useDefaultProps';
+
+import type { StyledProps } from '../../common';
+import type { PopupVisibleChangeContext } from '../../popup';
+import type { SelectOption, SelectValue, SelectValueChangeTrigger, TdOptionProps, TdSelectProps } from '../type';
 
 export interface SelectProps<T = SelectOption> extends TdSelectProps<T>, StyledProps {
   // 子节点
@@ -393,7 +394,7 @@ const Select = forwardRefWithStatics(
       return <PopupContent {...popupContentProps}>{childrenWithProps}</PopupContent>;
     };
 
-    const renderValueDisplay = () => {
+    const renderValueDisplay = useMemo(() => {
       if (!valueDisplay) {
         if (!multiple) {
           if (typeof selectedLabel !== 'string') {
@@ -449,7 +450,8 @@ const Select = forwardRefWithStatics(
         return ({ onClose }) => parseContentTNode(valueDisplay, { value: selectedOptions, onClose });
       }
       return parseContentTNode(valueDisplay, { value: selectedLabel, onClose: noop });
-    };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [valueDisplay, selectedOptions]);
 
     // 将第一个选中的 option 置于列表可见范围的最后一位
     const updateScrollTop = (content: HTMLDivElement) => {
@@ -512,7 +514,7 @@ const Select = forwardRefWithStatics(
           multiple={multiple}
           value={selectedLabel}
           options={selectedOptions}
-          valueDisplay={renderValueDisplay()}
+          valueDisplay={renderValueDisplay}
           clearable={clearable}
           disabled={disabled}
           status={props.status}
