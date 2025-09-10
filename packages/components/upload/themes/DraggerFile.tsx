@@ -80,7 +80,6 @@ const DraggerFile: FC<DraggerProps> = (props) => {
 
   const renderMainPreview = () => {
     const file = displayFiles[0];
-    console.log('file', file);
     const fileName = props.abridgeName ? abridgeName(file.name, ...props.abridgeName) : file.name;
     const fileInfo = (
       <>
