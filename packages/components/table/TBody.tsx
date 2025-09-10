@@ -104,6 +104,11 @@ export default function TBody(props: TableBodyProps) {
   );
 
   const renderFullRow = (type: 'first-full-row' | 'last-full-row') => {
+    const fullRowNode = {
+      'first-full-row': firstFullRow,
+      'last-full-row': lastFullRow,
+    }[type];
+    if (!fullRowNode) return null;
     if (isVirtualScroll) {
       const fullRowIndex = {
         'first-full-row': 0,
@@ -113,11 +118,6 @@ export default function TBody(props: TableBodyProps) {
       const rowVisible = renderData.some((item) => item.__VIRTUAL_SCROLL_INDEX === fullRowIndex);
       if (!rowVisible) return null;
     }
-    const fullRowNode = {
-      'first-full-row': firstFullRow,
-      'last-full-row': lastFullRow,
-    }[type];
-    if (!fullRowNode) return null;
     const isFixedToLeft = props.isWidthOverflow && columns.find((col) => col.fixed === 'left');
     const tType = camelCase(type);
     const classes = [tableFullRowClasses.base, tableFullRowClasses[tType]];
