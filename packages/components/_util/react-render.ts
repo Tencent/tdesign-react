@@ -1,5 +1,4 @@
 // Implementation reference from: https://github.com/react-component/util/blob/master/src/React/render.ts
-// @ts-ignore
 import type * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import type { Root } from 'react-dom/client';
@@ -20,15 +19,10 @@ type CreateRoot = (container: ContainerType) => Root;
 const { version, render: reactRender, unmountComponentAtNode } = fullClone;
 
 let legacyCreateRoot: CreateRoot;
+const mainVersion = Number((version || '').split('.')[0]);
 try {
-  const mainVersion = Number((version || '').split('.')[0]);
   if (mainVersion >= 18 && mainVersion < 19) {
     legacyCreateRoot = fullClone.createRoot;
-  }
-  if (process.env.NODE_ENV !== 'production' && mainVersion >= 19) {
-    console.warn(
-      'TDesign warning: Please import react-19-adapter in React 19, See link: https://github.com/Tencent/tdesign-react/blob/develop/packages/tdesign-react/site/docs/getting-started.md#如何在-react-19-中使用',
-    );
   }
 } catch (e) {
   // Do nothing;
@@ -42,6 +36,14 @@ function toggleWarning(skip: boolean) {
     typeof __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED === 'object'
   ) {
     __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.usingClientEntryPoint = skip;
+  }
+}
+
+function react19AdapterWarn() {
+  if (process.env.NODE_ENV === 'development' && mainVersion >= 19 && !legacyCreateRoot) {
+    console.warn(
+      'TDesign warning: Please import react-19-adapter in React 19, See link: https://github.com/Tencent/tdesign-react/blob/develop/packages/tdesign-react/site/docs/getting-started.md#如何在-react-19-中使用',
+    );
   }
 }
 
@@ -68,6 +70,8 @@ function legacyRender(node: React.ReactElement, container: ContainerType) {
 }
 
 export function render(node: React.ReactElement, container: ContainerType) {
+  react19AdapterWarn();
+
   if (legacyCreateRoot) {
     modernRender(node, container);
     return;
