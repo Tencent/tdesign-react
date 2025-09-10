@@ -56,9 +56,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const tableElmRef = useRef<HTMLTableElement>(null);
   const bottomContentRef = useRef<HTMLDivElement>(null);
   const [tableFootHeight, setTableFootHeight] = useState(0);
-  const [lastTrHeight, setLastTrHeight] = useState(0);
-  const allTableClasses = useClassName();
 
+  const allTableClasses = useClassName();
   const { classPrefix, virtualScrollClasses, tableLayoutClasses, tableBaseClass, tableColFixedClasses } =
     allTableClasses;
   // 表格基础样式类
@@ -276,19 +275,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     });
   };
 
-  const getLastTrHeight = () => {
-    requestAnimationFrame(() => {
-      if (!tableElmRef.current || !props.firstFullRow) return;
-      const tbody = tableElmRef.current.querySelector('tbody');
-      const allTr = tbody?.querySelectorAll('tr');
-      const lastTr = allTr?.[allTr.length - 1];
-      const height = lastTr?.offsetHeight;
-      setLastTrHeight(height || 0);
-    });
-  };
-
   useEffect(getTFootHeight, [tableElmRef, props.footData, props.footerSummary]);
-  useEffect(getLastTrHeight, [tableElmRef, props.firstFullRow]);
 
   useEffect(() => {
     setTableContentRef(tableContentRef.current);
