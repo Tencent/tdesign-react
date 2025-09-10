@@ -171,6 +171,8 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
   useEffect(
     () => {
       if (!isVirtualScroll) {
+        // 避免从非虚拟滚动切换到虚拟滚动时，数据瞬间为[]，导致表格滚动条重置的问题
+        setVisibleData(data);
         trScrollTopHeightList.current = getTrScrollTopHeightList(trHeightList);
         return;
       }
