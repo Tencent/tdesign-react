@@ -148,7 +148,7 @@ function TableFilterController(props: TableFilterControllerProps) {
   useEffect(() => {
     if (visible === filterPopupVisible) return;
     setFilterPopupVisible(visible);
-  }, [visible, filterPopupVisible]);
+  }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!column.filter || (column.filter && !Object.keys(column.filter).length)) return null;
   const defaultFilterIcon = t(locale.filterIcon) || <FilterIcon />;
