@@ -1,13 +1,9 @@
 import React, { forwardRef, RefAttributes, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-
 import classNames from 'classnames';
 import { pick } from 'lodash-es';
-
 import log from '@tdesign/common-js/log/index';
 import { getIEVersion } from '@tdesign/common-js/utils/helper';
 import Affix, { type AffixRef } from '../affix';
-
-import { Styles } from '../common';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useElementLazyRender from '../hooks/useElementLazyRender';
 import useVirtualScroll from '../hooks/useVirtualScroll';
@@ -26,6 +22,7 @@ import useStyle, { formatCSSUnit } from './hooks/useStyle';
 import useTableHeader from './hooks/useTableHeader';
 import { getAffixProps } from './utils';
 
+import type { Styles } from '../common';
 import type { BaseTableProps, BaseTableRef } from './interface';
 import type { TableRowData } from './type';
 
@@ -588,7 +585,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
   const { loading, loadingProps } = props;
   const customLoadingText = loading;
-  const loadingContent = loading !== undefined && (
+  const loadingContent = tableRef.current && loading !== undefined && (
     <Loading
       loading={!!loading}
       text={customLoadingText}
@@ -596,7 +593,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       showOverlay
       size="small"
       {...loadingProps}
-    ></Loading>
+    />
   );
 
   const { topContent, bottomContent } = props;

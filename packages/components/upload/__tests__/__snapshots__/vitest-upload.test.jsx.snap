@@ -102,7 +102,7 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, fail 
             class="t-upload__dragger-btns"
           >
             <a
-              class="t-upload__dragger-progress-reupload t-link t-link--theme-primary t-link--hover-color"
+              class="t-upload__dragger-progress-cancel t-link t-link--theme-primary t-link--hover-color"
             >
               重新选择
             </a>
@@ -353,7 +353,7 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, succe
             class="t-upload__dragger-btns"
           >
             <a
-              class="t-upload__dragger-progress-reupload t-link t-link--theme-primary t-link--hover-color"
+              class="t-upload__dragger-progress-cancel t-link t-link--theme-primary t-link--hover-color"
             >
               重新选择
             </a>
@@ -472,7 +472,7 @@ exports[`Upload Component > props.draggable: theme=image & draggable=true, succe
             class="t-upload__dragger-btns"
           >
             <a
-              class="t-upload__dragger-progress-reupload t-link t-link--theme-primary t-link--hover-color"
+              class="t-upload__dragger-progress-cancel t-link t-link--theme-primary t-link--hover-color"
             >
               重新选择
             </a>
