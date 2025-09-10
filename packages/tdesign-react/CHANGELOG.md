@@ -5,6 +5,16 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.14.5 `2025-08-26` 
+### 🐞 Bug Fixes
+- `Watermark`:  完善水印组件在 SSR 场景的兼容问题 @uyarn ([#3765](https://github.com/Tencent/tdesign-react/pull/3765))
+
+## 🌈 1.14.3 `2025-08-26` 
+### 🐞 Bug Fixes
+- `Pagination`: 修复跳转图标没有重置回正确状态的问题 @phalera ([#3758](https://github.com/Tencent/tdesign-react/pull/3758))
+- `Watermark`: 修复 `1.14.0` 版本默认文字颜色缺失透明度的问题 @uyarn ([#3760](https://github.com/Tencent/tdesign-react/pull/3760))
+- `Watermark`: 修复 `1.14.0` 版本不兼容 SSR 场景的问题 @uyarn ([#3760](https://github.com/Tencent/tdesign-react/pull/3760))
+
 ## 🌈 1.14.2 `2025-08-22` 
 ### 🐞 Bug Fixes
 - `Dialog`: 修复 `1.14.0` 版本引入的新特性导致 `draggable` 禁用失败的问题 @RylanBot ([#3753](https://github.com/Tencent/tdesign-react/pull/3753))
@@ -1219,3 +1229,5 @@ spline: explain
 
 ## 🌈 0.x `2021-03-26 - 2023-02-08`
 前往 [GitHub](https://github.com/Tencent/tdesign-react/blob/develop/packages/tdesign-react/CHANGELOG-0.x.md) 查看 `0.x` 更新日志
+
+
