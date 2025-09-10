@@ -184,22 +184,35 @@ export const useCascaderContext = (props: TdCascaderProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputVal, scopeVal]);
 
-  const getCascaderItems = (arrValue: CascaderValue[], valueType: TdCascaderProps['valueType']) => {
+  const getCascaderItems = (
+    arrValue: CascaderValue[],
+    valueType: TdCascaderProps['valueType'],
+    multiple: TdCascaderProps['multiple'],
+  ) => {
     const { treeStore } = cascaderContext;
     const optionsData: TreeOptionData[] = [];
 
+    if (!treeStore) return optionsData;
+
     if (valueType === 'full') {
-      // 未来需支持全路径拼接搜索
-      arrValue.forEach((value) => {
-        if (isArray(value)) {
-          const nodes = treeStore?.getNodes(value[value.length - 1]);
-          nodes && nodes[0] && optionsData.push(nodes[0].data);
-        }
-      });
+      if (multiple) {
+        // 未来需支持全路径拼接搜索
+        arrValue.forEach((value) => {
+          if (isArray(value) && value.length) {
+            const nodeValue = value[value.length - 1];
+            const [node] = treeStore.getNodes(nodeValue) || [];
+            node?.data && optionsData.push(node.data);
+          }
+        });
+      } else if (isArray(arrValue) && arrValue.length) {
+        const nodeValue = arrValue[arrValue.length - 1];
+        const [node] = treeStore.getNodes(nodeValue) || [];
+        node?.data && optionsData.push(node.data);
+      }
     } else if (valueType === 'single') {
       arrValue.forEach((value) => {
-        const nodes = treeStore?.getNodes(value);
-        nodes && nodes[0] && optionsData.push(nodes[0].data);
+        const [node] = treeStore.getNodes(value) || [];
+        node?.data && optionsData.push(node.data);
       });
     }
 
