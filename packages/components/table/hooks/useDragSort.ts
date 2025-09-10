@@ -2,10 +2,6 @@
  * 基于 sortablejs 实现表格的行与列的拖拽功能
  * @docs https://github.com/SortableJS/Sortable
  *
- * TODO: 目前不支持配合虚拟滚动使用（特指拖拽过程中触发的连续滚动，悬停拖拽正常）
- * - 属于该库内置缺陷，由于滚动过程中，原始拖拽节点被销毁，其被克隆生成一个新的 `draggable = false` 的节点
- * - 且其脱离 React 的管理，强行 remove 会导致报错，保留却导致偏移量计算错误
- *
  * (1) toArray() 会返回所有当前容器内的所有 tr 节点的 dataIdAttr 列表
  * - 与是否标记过 dataIdAttr 无关，firstFullRow、lastFullRow、expandedRow 等都会被包含在内
  * - 如果节点没有 dataIdAttr，该库会分配一个随机值
@@ -232,10 +228,20 @@ function useDragSort(props: TdEnhancedTableProps, options: DragSortOptions) {
           const firstVisibleId = filteredTrIdList[props.firstFullRow ? 1 : 0];
           const virtualOffset = dataIdList.indexOf(firstVisibleId);
           targetIndex += virtualOffset;
+
+          /**
+           * https://github.com/SortableJS/Sortable/issues/2336
+           * - 属于该库内置缺陷，在使用虚拟滚动时，如果在拖拽过程中发生滚动
+           * - 当原始节点最终不在可见范围内时，会意外在首行生成一个新的 `draggable = false` 的节点
+           * - 下面算是一个 HACK 方案
+           */
+          const draggableTr = primaryTableRef.current?.tableContentElement?.querySelector('tr[draggable="false"]');
+          if (!draggableTr || !draggableTr.parentNode) return;
+          draggableTr.parentNode.removeChild(draggableTr);
+          if (currentIndex < targetIndex) targetIndex -= 1;
         }
-        if (props.firstFullRow) {
-          targetIndex -= 1;
-        }
+
+        if (props.firstFullRow) targetIndex -= 1;
 
         if (innerPagination.current) {
           currentIndex = getDataPageIndex(currentIndex, innerPagination.current);
@@ -261,13 +267,17 @@ function useDragSort(props: TdEnhancedTableProps, options: DragSortOptions) {
     };
 
     if (!dragContainer) return;
-    if (isRowDraggable) {
-      dragRowInstance.current = new Sortable(dragContainer, { ...baseOptions });
-    } else if (isRowHandlerDraggable) {
-      dragRowInstance.current = new Sortable(dragContainer, {
-        ...baseOptions,
-        handle: `.${tableDraggableClasses.handle}`,
-      });
+    try {
+      if (isRowDraggable) {
+        dragRowInstance.current = new Sortable(dragContainer, { ...baseOptions });
+      } else if (isRowHandlerDraggable) {
+        dragRowInstance.current = new Sortable(dragContainer, {
+          ...baseOptions,
+          handle: `.${tableDraggableClasses.handle}`,
+        });
+      }
+    } catch (error) {
+      //
     }
     updateLastRowList();
   };
@@ -367,6 +377,10 @@ function useDragSort(props: TdEnhancedTableProps, options: DragSortOptions) {
     });
     return () => {
       clearTimeout(timer);
+      dragRowInstance.current?.destroy();
+      dragRowInstance.current = null;
+      dragColInstance.current?.destroy();
+      dragColInstance.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [primaryTableRef, columns, dragSort, innerPagination]);
