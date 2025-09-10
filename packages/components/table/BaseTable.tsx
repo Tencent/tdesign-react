@@ -265,8 +265,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
   // used for top margin
   const getTFootHeight = () => {
-    if (!tableElmRef.current) return;
     const timer = setTimeout(() => {
+      if (!tableElmRef.current) return;
       const height = tableElmRef.current.querySelector('tfoot')?.getBoundingClientRect().height;
       setTableFootHeight(height);
       clearTimeout(timer);
