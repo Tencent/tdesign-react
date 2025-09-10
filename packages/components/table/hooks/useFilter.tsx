@@ -163,7 +163,7 @@ export default function useFilter(
       [colKey]: visible,
     }));
     if (visible && !isTableOverflowHidden) {
-      setIsTableOverflowHidden(!visible);
+      setIsTableOverflowHidden(visible);
     }
   }
 
