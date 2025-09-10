@@ -76,7 +76,7 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
     const arrayValue = innerValue instanceof Array ? innerValue : [innerValue];
     const displayValue =
       props.multiple && props.minCollapsedNum ? arrayValue.slice(0, props.minCollapsedNum) : innerValue;
-    const options = getCascaderItems(arrayValue);
+    const options = getCascaderItems(arrayValue, props.valueType);
 
     return {
       value: innerValue,
@@ -86,7 +86,15 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
       },
       displayValue,
     };
-  }, [cascaderContext, innerValue, props.multiple, props.minCollapsedNum, props.onRemove, getCascaderItems]);
+  }, [
+    cascaderContext,
+    innerValue,
+    props.multiple,
+    props.minCollapsedNum,
+    props.onRemove,
+    getCascaderItems,
+    props.valueType,
+  ]);
 
   const renderValueDisplay = () => parseContentTNode(props.valueDisplay, valueDisplayParams);
 

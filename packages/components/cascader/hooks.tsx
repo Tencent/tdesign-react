@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 
-import { isEqual, isFunction } from 'lodash-es';
+import { isArray, isEqual, isFunction } from 'lodash-es';
 
 import TreeStore from '@tdesign/common-js/tree-v1/tree-store';
 import type { TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
@@ -184,13 +184,25 @@ export const useCascaderContext = (props: TdCascaderProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputVal, scopeVal]);
 
-  const getCascaderItems = (arrValue: CascaderValue[]) => {
+  const getCascaderItems = (arrValue: CascaderValue[], valueType: TdCascaderProps['valueType']) => {
     const { treeStore } = cascaderContext;
     const optionsData: TreeOptionData[] = [];
-    arrValue.forEach((value) => {
-      const nodes = treeStore?.getNodes(value);
-      nodes && nodes[0] && optionsData.push(nodes[0].data);
-    });
+
+    if (valueType === 'full') {
+      // 未来需支持全路径拼接搜索
+      arrValue.forEach((value) => {
+        if (isArray(value)) {
+          const nodes = treeStore?.getNodes(value[value.length - 1]);
+          nodes && nodes[0] && optionsData.push(nodes[0].data);
+        }
+      });
+    } else if (valueType === 'single') {
+      arrValue.forEach((value) => {
+        const nodes = treeStore?.getNodes(value);
+        nodes && nodes[0] && optionsData.push(nodes[0].data);
+      });
+    }
+
     return optionsData;
   };
 
