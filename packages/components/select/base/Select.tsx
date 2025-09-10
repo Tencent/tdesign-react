@@ -451,7 +451,23 @@ const Select = forwardRefWithStatics(
       }
       return parseContentTNode(valueDisplay, { value: selectedLabel, onClose: noop });
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [valueDisplay, selectedOptions]);
+    }, [
+      valueDisplay,
+      multiple,
+      selectedLabel,
+      minCollapsedNum,
+      options,
+      disabled,
+      readonly,
+      size,
+      tagProps,
+      value,
+      valueType,
+      keys,
+      valueToOption,
+      onRemove,
+      selectedOptions,
+    ]);
 
     // 将第一个选中的 option 置于列表可见范围的最后一位
     const updateScrollTop = (content: HTMLDivElement) => {
