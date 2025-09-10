@@ -268,10 +268,11 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
   // used for top margin
   const getTFootHeight = () => {
-    requestAnimationFrame(() => {
-      if (!tableElmRef.current) return;
-      const height = tableElmRef.current.querySelector('tfoot')?.offsetHeight;
-      setTableFootHeight(height || 0);
+    if (!tableElmRef.current) return;
+    const timer = setTimeout(() => {
+      const height = tableElmRef.current.querySelector('tfoot')?.getBoundingClientRect().height;
+      setTableFootHeight(height);
+      clearTimeout(timer);
     });
   };
 
@@ -651,7 +652,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       scrollbarWidth,
       tableElmClasses,
       tableFootHeight,
-      lastTrHeight,
       tableWidth,
       virtualConfig.isVirtualScroll,
       props.rowKey,
