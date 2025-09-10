@@ -95,7 +95,7 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
     if (!shouldToggle) return {};
 
     const triggerProps: any = {
-      className: visible ? classNames(triggerNode.props.className, `t-popup-open`) : triggerNode.props.className,
+      className: visible ? classNames(triggerNode.props.className, `${classPrefix}-popup-open`) : triggerNode.props.className,
       onMouseDown: (e: MouseEvent) => {
         if (trigger === 'mousedown') {
           callFuncWithDelay({
