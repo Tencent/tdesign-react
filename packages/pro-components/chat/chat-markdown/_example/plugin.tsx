@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import { Space, Switch } from 'tdesign-react';
 import { ChatMarkdown } from '@tdesign-react/aigc';
-import mdContent from './mock.md?raw';
 // 公式能力引入，可参考cherryMarkdown示例
 import 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js';
+
+const mdContent = `## 块级公式
+
+$$
+E=mc^2
+$$
+
+## 行内公式
+这是一个行内公式 $\\sqrt{3x-1}+(1+x)^2$
+`;
 
 const MarkdownExample = () => {
   const [hasKatex, setHasKatex] = useState(false);
@@ -16,7 +25,14 @@ const MarkdownExample = () => {
   };
 
   return (
-    <Space>
+    <Space direction="vertical">
+      <Space>
+        <strong>动态加载插件：</strong>
+        <Space align="center">
+          <span>公式</span>
+          <Switch size="large" value={hasKatex} onChange={handleKatexChange} />
+        </Space>
+      </Space>
       {/* 通过key强制重新挂载组件 */}
       <ChatMarkdown
         key={rerenderKey}
@@ -36,13 +52,6 @@ const MarkdownExample = () => {
           },
         }}
       />
-      <Space direction="vertical">
-        <div style={{ width: '100px' }}>动态加载插件</div>
-        <Space align="center">
-          <span>公式</span>
-          <Switch size="large" value={hasKatex} onChange={handleKatexChange} />
-        </Space>
-      </Space>
     </Space>
   );
 };

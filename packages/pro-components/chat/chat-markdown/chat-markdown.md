@@ -16,8 +16,9 @@ spline: aigc
 {{ plugin }}
 
 ## 自定义语法渲染
+以下展示了如何基于`cherry createSyntaxHook`机制来实现自定义脚注，语法格式：**[ref:1|标题|摘要|链接]**, 更多更丰富的自定义语法功能和示例，可以参考[cherry-markdown自定义语法](https://github.com/Tencent/cherry-markdown/wiki/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AF%AD%E6%B3%95)
 
-{{ custom }}
+{{ footnote }}
 
 ## API
 ### ChatMarkdown Props
