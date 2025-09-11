@@ -1,22 +1,23 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
-import { pick, omit } from 'lodash-es';
-import Panel from './components/Panel';
-import SelectInput from '../select-input';
-import FakeArrow from '../common/FakeArrow';
-import useConfig from '../hooks/useConfig';
-import useCommonClassName from '../hooks/useCommonClassName';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { TagInputValue } from '../tag-input';
-import { TdCascaderProps } from './interface';
-import { closeIconClickEffect, handleRemoveTagEffect } from './core/effect';
-import { getPanels, getSingleContent, getMultipleContent } from './core/helper';
-import { getFakeArrowIconClass } from './core/className';
-import { useCascaderContext } from './hooks';
-import { cascaderDefaultProps } from './defaultProps';
-import { StyledProps } from '../common';
-import useDefaultProps from '../hooks/useDefaultProps';
+import { omit, pick } from 'lodash-es';
 import parseTNode, { parseContentTNode } from '../_util/parseTNode';
+import FakeArrow from '../common/FakeArrow';
+import useCommonClassName from '../hooks/useCommonClassName';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+import SelectInput from '../select-input';
+import Panel from './components/Panel';
+import { getFakeArrowIconClass } from './core/className';
+import { closeIconClickEffect, handleRemoveTagEffect } from './core/effect';
+import { getMultipleContent, getPanels, getSingleContent } from './core/helper';
+import { cascaderDefaultProps } from './defaultProps';
+import { useCascaderContext } from './hooks';
+
+import type { StyledProps } from '../common';
+import type { TagInputValue } from '../tag-input';
+import type { TdCascaderProps } from './interface';
 
 export interface CascaderProps extends TdCascaderProps, StyledProps {}
 
@@ -106,19 +107,40 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
       cascaderMenuList.forEach((menu: HTMLDivElement) => {
         const firstSelectedNode: HTMLDivElement =
           menu?.querySelector(`.${classPrefix}-is-selected`) || menu?.querySelector(`.${classPrefix}-is-expanded`);
+
+        // 只取第一个选中的节点进行滚动对齐
         if (!firstSelectedNode || !menu) return;
 
-        const { paddingBottom } = getComputedStyle(firstSelectedNode);
-        const { marginBottom } = getComputedStyle(menu);
-        const elementBottomHeight = parseInt(paddingBottom, 10) + parseInt(marginBottom, 10);
+        // 计算节点在菜单中的相对位置
+        const nodeTop = firstSelectedNode.offsetTop;
+        const nodeHeight = firstSelectedNode.offsetHeight;
+        const menuHeight = menu.clientHeight;
+        const currentScrollTop = menu.scrollTop;
 
-        const updateValue =
-          firstSelectedNode.offsetTop -
-          menu.offsetTop -
-          (menu.clientHeight - firstSelectedNode.clientHeight) +
-          elementBottomHeight;
+        // 计算节点在可视区域中的位置
+        const nodeVisibleTop = nodeTop - currentScrollTop;
+        const nodeVisibleBottom = nodeVisibleTop + nodeHeight;
+
+        const isNodeFullyVisible = nodeVisibleTop >= 0 && nodeVisibleBottom <= menuHeight;
+        // 如果节点已经完全可见，则不需要滚动
+        if (isNodeFullyVisible) return;
+
+        let targetScrollTop = currentScrollTop;
+
+        if (nodeVisibleTop < 0) {
+          // 如果节点在可视区域上方，滚动到节点顶部
+          targetScrollTop = nodeTop;
+        } else if (nodeVisibleBottom > menuHeight) {
+          // 如果节点在可视区域下方，滚动到节点底部对齐菜单底部
+          targetScrollTop = nodeTop - menuHeight + nodeHeight;
+        }
+
+        // 确保滚动位置不会超出边界
+        const maxScrollTop = menu.scrollHeight - menuHeight;
+        targetScrollTop = Math.max(0, Math.min(targetScrollTop, maxScrollTop));
+
         // eslint-disable-next-line no-param-reassign
-        menu.scrollTop = updateValue;
+        menu.scrollTop = targetScrollTop;
       });
     });
   };
