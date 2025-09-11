@@ -368,6 +368,14 @@ export default function useFixed(
 
     // updateTableWidth(isHeightOverflow);
     // updateThWidthListHandler();
+
+    if (tRef.scrollHeight <= tRef.clientHeight) return;
+    tRef.style.display = 'none';
+    tRef.offsetHeight; // 强制重绘，确保滚动条长度正常
+    tRef.style.display = '';
+    if (tRef.getAttribute('style') === '') {
+      tRef.removeAttribute('style');
+    }
   }, []);
 
   const setTableElmWidth = (width: number) => {
@@ -430,8 +438,7 @@ export default function useFixed(
       if (!thead) return;
       updateThWidthList(thead.children);
       clearTimeout(timer);
-      // 当时间差为 60ms 时，Affixed Footer 初始化时候不会出现跳动
-    }, 60);
+    }, 0);
   };
 
   const emitScrollEvent = (e: WheelEvent<HTMLDivElement>) => {

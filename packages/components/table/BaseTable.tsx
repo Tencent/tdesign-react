@@ -267,7 +267,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const getTFootHeight = () => {
     if (!tableElmRef.current) return;
     const height = tableElmRef.current.querySelector('tfoot')?.getBoundingClientRect().height;
-    setTableFootHeight(height);
+    setTableFootHeight(height || 0);
   };
 
   useEffect(getTFootHeight, [tableElmRef, props.footData, props.footerSummary]);
