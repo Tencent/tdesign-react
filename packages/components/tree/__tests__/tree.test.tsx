@@ -9,21 +9,21 @@ describe('Tree test', () => {
   // label 类型定义有问题
   const items = [
     {
-      label: '1',
+      label: '第 1 段',
       value: 1,
       children: [
         {
-          label: '1-1',
+          label: '第 1-1 段',
           value: '1-1',
         },
         {
-          label: '1-2',
+          label: '第 1-2 段',
           value: '1-2',
         },
       ],
     },
     {
-      label: '2',
+      label: '第 2 段',
       value: 2,
     },
   ];
@@ -214,15 +214,15 @@ describe('Tree test', () => {
   describe('Test props.line', async () => {
     const data = [
       {
-        label: '1',
+        label: '第 1 段',
         value: 1,
         children: [
           {
-            label: '1-1',
+            label: '第 1-1 段',
             value: '1-1',
             children: [
               {
-                label: '1-1-1',
+                label: '第 1-1-1 段',
                 value: '1-1-1',
               },
             ],
@@ -230,15 +230,15 @@ describe('Tree test', () => {
         ],
       },
       {
-        label: '2',
+        label: '第 2 段',
         value: 2,
         children: [
           {
-            label: '2-1',
+            label: '第 2-1 段',
             value: '2-1',
             children: [
               {
-                label: '2-1-1',
+                label: '第 2-1-1 段',
                 value: '2-1-1',
               },
             ],
@@ -300,19 +300,19 @@ describe('Tree test', () => {
   test('TreeNodeState.loading works fine', async () => {
     const data = [
       {
-        label: '1',
+        label: '第 1 段',
         value: 1,
         loading: true,
         expanded: true,
         children: [
           {
-            label: '1-1',
+            label: '第 1-1 段',
             value: '1-1',
           },
         ],
       },
       {
-        label: '2',
+        label: '第 2 段',
         value: 2,
       },
     ];
@@ -324,17 +324,17 @@ describe('Tree test', () => {
   test('custom label', async () => {
     const data = [
       {
-        label: '1',
+        label: '第 1 段',
         value: 1,
         children: [
           {
-            label: '1-1',
+            label: '第 1-1 段',
             value: '1-1',
           },
         ],
       },
       {
-        label: '2',
+        label: '第 2 段',
         value: 2,
       },
     ];
