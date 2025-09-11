@@ -265,12 +265,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
   // used for top margin
   const getTFootHeight = () => {
-    const timer = setTimeout(() => {
-      if (!tableElmRef.current) return;
-      const height = tableElmRef.current.querySelector('tfoot')?.getBoundingClientRect().height;
-      setTableFootHeight(height);
-      clearTimeout(timer);
-    });
+    if (!tableElmRef.current) return;
+    const height = tableElmRef.current.querySelector('tfoot')?.getBoundingClientRect().height;
+    setTableFootHeight(height);
   };
 
   useEffect(getTFootHeight, [tableElmRef, props.footData, props.footerSummary]);

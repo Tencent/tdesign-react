@@ -3,14 +3,15 @@ import { get, pick, xorWith } from 'lodash-es';
 import { getIEVersion } from '@tdesign/common-js/utils/helper';
 import log from '@tdesign/common-js/log/index';
 import { getScrollbarWidthWithCSS } from '@tdesign/common-js/utils/getScrollbarWidth';
-import { ClassName, Styles } from '../../common';
-import { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
-import { FixedColumnInfo, TableRowFixedClasses, RowAndColFixedPosition, TableColFixedClasses } from '../interface';
 import useDebounce from '../../hooks/useDebounce';
 import usePrevious from '../../hooks/usePrevious';
 import { resizeObserverElement, isLessThanIE11OrNotHaveResizeObserver } from '../utils';
 import { off, on } from '../../_util/listener';
 import { AffixRef } from '../../affix';
+
+import type{ ClassName, Styles } from '../../common';
+import type { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
+import type { FixedColumnInfo, TableRowFixedClasses, RowAndColFixedPosition, TableColFixedClasses } from '../interface';
 
 // 固定列相关类名处理
 export function getColumnFixedStyles(
@@ -340,7 +341,7 @@ export default function useFixed(
         updateRowAndColFixedPosition(tableContentRef.current, newColumnsMap);
       }
       clearTimeout(timer);
-    }, 0);
+    }, 60);
     return () => {
       clearTimeout(timer);
     };
@@ -424,7 +425,7 @@ export default function useFixed(
       if (!thead) return;
       updateThWidthList(thead.children);
       clearTimeout(timer);
-    }, 0);
+    }, 60);
   };
 
   const emitScrollEvent = (e: WheelEvent<HTMLDivElement>) => {
