@@ -182,11 +182,11 @@ describe('TagInput Component', () => {
     await mockDelay();
   });
 
-  it('props.readonly: readonly TagInput can not trigger focus event', () => {
+  it('props.readonly: readonly TagInput still can trigger focus event', () => {
     const onFocusFn = vi.fn();
     const { container } = render(<TagInput readonly={true} onFocus={onFocusFn}></TagInput>);
     fireEvent.click(container.querySelector('.t-input'));
-    expect(onFocusFn).not.toHaveBeenCalled();
+    expect(onFocusFn).toHaveBeenCalled();
   });
 
   const sizeClassNameList = ['t-size-s', { 't-size-m': false }, 't-size-l'];
