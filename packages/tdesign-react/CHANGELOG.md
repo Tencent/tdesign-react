@@ -19,14 +19,15 @@ spline: explain
 - `Table`: 修复未开启 `<React.StrictMode>` 时，`Loading` 挂载导致的页面闪烁问题 @RylanBot ([#3775](https://github.com/Tencent/tdesign-react/pull/3775))
 - `Upload`: 修复拖拽模式下 `status` 更新错误 @RSS1102 ([#3801](https://github.com/Tencent/tdesign-react/pull/3801))
 - `Input`: 修复在开启 `readonly` 或者禁用 `allowInput` 情况下没有触发 `onFocus` 和 `onBlur` 的问题 @RylanBot ([#3800](https://github.com/Tencent/tdesign-react/pull/3800))
-- `Cascader`: 修复启用 `multiple` 与 `valueType='full'` 时，`valueDisplay` 渲染异常的问题 @RSS1102 ([#3809](https://github.com/Tencent/tdesign-react/pull/3809))
+- `Cascader`: 
+  - 修复启用 `multiple` 与 `valueType='full'` 时，`valueDisplay` 渲染异常的问题 @RSS1102 ([#3809](https://github.com/Tencent/tdesign-react/pull/3809))
+  - 修复 `1.11.0` 版本引入的新特性，导致无法选中底部选项的问题 @RylanBot ([#3772](https://github.com/Tencent/tdesign-react/pull/3772))
 - `Select`: 避免下拉框的打开与关闭时，频繁重复触发 `valueDisplay` 的渲染 @RylanBot ([#3808](https://github.com/Tencent/tdesign-react/pull/3808))
 - `TagInput`: 避免下拉框的打开与关闭时，频繁重复触发 `valueDisplay` 的渲染 @RylanBot ([#3808](https://github.com/Tencent/tdesign-react/pull/3808))
 - `Dialog`: 修复在 React 19 环境下，由于使用 `ref` 引发的死循环问题 @RylanBot ([#3799](https://github.com/Tencent/tdesign-react/pull/3799))
 - `Drawer`: 修复在 React 19 环境下，由于使用 `ref` 引发的死循环问题 @RylanBot ([#3799](https://github.com/Tencent/tdesign-react/pull/3799))
 - `Popup`: 修复 `delay` 设置为 0 时移出 Trigger 元素的异常问题 @HaixingOoO ([#3806](https://github.com/Tencent/tdesign-react/pull/3806))
 - `Tooltip`: 修复 `delay` API 的类型不完整问题 @HaixingOoO ([#3806](https://github.com/Tencent/tdesign-react/pull/3806))
-- `Cascader`: 修复 `1.11.0` 版本引入的新特性，导致无法选中底部选项的问题 @RylanBot ([#3772](https://github.com/Tencent/tdesign-react/pull/3772))
 
 ### 🚧 Others
 - `react-render`: 修复引入 `react-19-adapter` 后仍然显示需要引入相关模块的警告的问题 @HaixingOoO ([#3790](https://github.com/Tencent/tdesign-react/pull/3790))
