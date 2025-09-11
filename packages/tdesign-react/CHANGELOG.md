@@ -26,7 +26,6 @@ spline: explain
 - `Drawer`: 修复在 React 19 环境下，由于使用 `ref` 引发的死循环问题 @RylanBot ([#3799](https://github.com/Tencent/tdesign-react/pull/3799))
 - `Popup`: 修复 `delay` 设置为 0 时移出 Trigger 元素的异常问题 @HaixingOoO ([#3806](https://github.com/Tencent/tdesign-react/pull/3806))
 - `Tooltip`: 修复 `delay` API 的类型不完整问题 @HaixingOoO ([#3806](https://github.com/Tencent/tdesign-react/pull/3806))
-
 - `Cascader`: 修复 `1.11.0` 版本引入的新特性，导致无法选中底部选项的问题 @RylanBot ([#3772](https://github.com/Tencent/tdesign-react/pull/3772))
 
 ### 🚧 Others
