@@ -158,12 +158,12 @@ export default function TBody(props: TableBodyProps) {
 
     // body 数据
     renderData?.forEach((row, rowIndex) => {
-      if (row.__VIRTUAL_FIRST_FULL_ROW || row.__VIRTUAL_LAST_FULL_ROW) return;
+      if (row.__VIRTUAL_FAKE_DATA) return;
 
       const getRowIndex = () => {
         const virtualIndex = row.__VIRTUAL_SCROLL_INDEX;
         if (isVirtualScroll && firstFullRow && virtualIndex) {
-          // 确保 serial-number 索引不受到虚拟的 __VIRTUAL_FIRST_FULL_ROW 数据影响
+          // 确保 serial-number 索引不受到首行 FAKE 数据影响
           return virtualIndex - 1;
         }
         return virtualIndex ?? rowIndex;

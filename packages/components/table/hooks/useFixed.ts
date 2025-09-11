@@ -267,7 +267,12 @@ export default function useFixed(
       initialColumnMap.set(rowId, { ...thisRowInfo, height: tr?.getBoundingClientRect?.().height });
     }
     for (let i = data.length - 1; i >= data.length - fixedBottomRows; i--) {
-      const tr = trList[i] as HTMLElement;
+      /**
+       * 下面是一个 Hack
+       * 开启虚拟滚动的时候，当尾部冻结行不在可视区域，无法获取到高度
+       * 目前取第一个数据行的高度进行计算，但在动态行高的场景下会有误差
+       */
+      const tr = trList[i] || trList[0];
       const rowId = get(data[i], rowKey);
       const thisRowInfo = initialColumnMap.get(rowId) || {};
       const lastRowId = get(data[i + 1], rowKey);
@@ -341,7 +346,7 @@ export default function useFixed(
         updateRowAndColFixedPosition(tableContentRef.current, newColumnsMap);
       }
       clearTimeout(timer);
-    }, 60);
+    }, 0);
     return () => {
       clearTimeout(timer);
     };
@@ -425,6 +430,7 @@ export default function useFixed(
       if (!thead) return;
       updateThWidthList(thead.children);
       clearTimeout(timer);
+      // 当时间差为 60ms 时，Affixed Footer 初始化时候不会出现跳动
     }, 60);
   };
 

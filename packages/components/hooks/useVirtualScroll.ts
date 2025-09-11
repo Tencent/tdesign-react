@@ -96,10 +96,25 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
     if (fixedStart && startIndex < fixedStart) {
       fixedStartData = fixedStartData.slice(0, startIndex);
     }
+    // 第一行是 FAKE，往后补一行
+    if (fixedStartData.length > 0 && fixedStartData[0]?.__VIRTUAL_FAKE_DATA === true) {
+      const nextIndex = fixedStartData.length;
+      if (nextIndex < data.length) {
+        fixedStartData.push(data[nextIndex]);
+      }
+    }
+
     let fixedEndData = fixedEnd ? data.slice(data.length - fixedEnd) : [];
     const bottomStartIndex = endIndex - data.length + 1 + (fixedEnd ?? 0);
     if (fixedEnd && bottomStartIndex > 0) {
       fixedEndData = fixedEndData.slice(bottomStartIndex);
+    }
+    // 最后一行是 FAKE，往前补一行
+    if (fixedEndData.length > 0 && fixedEndData[fixedEndData.length - 1]?.__VIRTUAL_FAKE_DATA === true) {
+      const prevIndex = data.length - fixedEnd - 1;
+      if (prevIndex >= 0) {
+        fixedEndData.unshift(data[prevIndex]);
+      }
     }
 
     if (startAndEndIndex.join() !== [startIndex, endIndex].join() && startIndex >= 0) {
