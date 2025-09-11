@@ -302,7 +302,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
       setIsFirstValueSelected(true);
 
       handlePopupInvisible();
-      onChange(value, { dayjsValue: formattedPreset.map((p) => parseToDayjs(p, format)), trigger: 'preset' });
+      onChange(formattedPreset, { dayjsValue: formattedPreset.map((p) => parseToDayjs(p, format)), trigger: 'preset' });
       props.onPresetClick?.(context);
     }
   }
