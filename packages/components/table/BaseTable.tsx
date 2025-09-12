@@ -218,8 +218,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const virtualConfig = useVirtualScroll(tableContentRef, virtualScrollParams);
 
   useEffect(() => {
-    if (!tableContentRef.current || !virtualConfig.isVirtualScroll) return;
+    if (!virtualConfig.isVirtualScroll) return;
     setTimeout(() => {
+      if (!tableContentRef.current) return;
       // 手动触发重绘，确保虚拟滚动初始化的滚动条长度正常
       // 未来如果有更优解，可以修改这里
       tableContentRef.current.style.display = 'none';
