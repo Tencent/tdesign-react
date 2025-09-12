@@ -5,6 +5,10 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.15.1 `2025-09-12` 
+### 🐞 Bug Fixes
+- `ImageViewer`: 修复 `imageScale` 配置效果异常的问题 @uyarn ([#3814](https://github.com/Tencent/tdesign-react/pull/3814))
+
 ## 🌈 1.15.0 `2025-09-11` 
 ### 🚀 Features
 - `Icon`:  @uyarn ([#3802](https://github.com/Tencent/tdesign-react/pull/3802))
