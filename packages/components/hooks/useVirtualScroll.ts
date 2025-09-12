@@ -54,6 +54,8 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
     };
   }, [scroll]);
 
+  const visibleCount = Math.min(tScroll.bufferSize * 3, data.length);
+
   // 当前场景是否满足开启虚拟滚动的条件
   const isVirtualScroll = useMemo(() => tScroll.type === 'virtual' && tScroll.threshold < data.length, [tScroll, data]);
   const getTrScrollTopHeightList = (trHeightList: number[]) => {
@@ -85,6 +87,7 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
         break;
       }
     }
+
     if (currentIndex < 0) return;
     const startIndex = Math.max(currentIndex - tScroll.bufferSize, 0);
     const endIndex = Math.min(lastIndex + tScroll.bufferSize, trScrollTopHeightList.length);
@@ -92,29 +95,24 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
     // 计算固定行情况
     const { fixedRows } = tScroll;
     const [fixedStart, fixedEnd] = fixedRows;
-    let fixedStartData = fixedStart ? data.slice(0, fixedStart) : [];
+
+    const firstIsFake = data[0]?.__VIRTUAL_FAKE_DATA;
+    const isScrollStart = lastIndex - visibleCount <= 0; // 首行开始出现在可视区域
+    const startOffset = firstIsFake && !isScrollStart ? 1 : 0;
+
+    let fixedStartData = fixedStart ? data.slice(startOffset, fixedStart + startOffset) : [];
     if (fixedStart && startIndex < fixedStart) {
       fixedStartData = fixedStartData.slice(0, startIndex);
     }
-    // 第一行是 FAKE，往后补一行
-    if (fixedStartData.length > 0 && fixedStartData[0]?.__VIRTUAL_FAKE_DATA === true) {
-      const nextIndex = fixedStartData.length;
-      if (nextIndex < data.length) {
-        fixedStartData.push(data[nextIndex]);
-      }
-    }
 
-    let fixedEndData = fixedEnd ? data.slice(data.length - fixedEnd) : [];
+    const lastIsFake = data[data.length - 1]?.__VIRTUAL_FAKE_DATA;
+    const isScrollEnd = lastIndex === trScrollTopHeightList.length;
+    const endOffset = lastIsFake && !isScrollEnd ? 1 : 0;
+
+    let fixedEndData = fixedEnd ? data.slice(data.length - fixedEnd - endOffset) : [];
     const bottomStartIndex = endIndex - data.length + 1 + (fixedEnd ?? 0);
     if (fixedEnd && bottomStartIndex > 0) {
       fixedEndData = fixedEndData.slice(bottomStartIndex);
-    }
-    // 最后一行是 FAKE，往前补一行
-    if (fixedEndData.length > 0 && fixedEndData[fixedEndData.length - 1]?.__VIRTUAL_FAKE_DATA === true) {
-      const prevIndex = data.length - fixedEnd - 1;
-      if (prevIndex >= 0) {
-        fixedEndData.unshift(data[prevIndex]);
-      }
     }
 
     if (startAndEndIndex.join() !== [startIndex, endIndex].join() && startIndex >= 0) {
@@ -223,7 +221,6 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
         }
 
         const startIndex = Math.max(currentIndex - tScroll.bufferSize, 0);
-        const visibleCount = Math.min(tScroll.bufferSize * 3, data.length);
         const endIndex = Math.min(startIndex + visibleCount, data.length);
         const tmpData = data.slice(startIndex, endIndex);
 
