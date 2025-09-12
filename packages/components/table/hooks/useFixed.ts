@@ -384,15 +384,19 @@ export default function useFixed(
   };
 
   const updateTableWidth = () => {
-    const rect = tableContentRef.current?.getBoundingClientRect?.();
-    if (!rect) return;
-    // 存在纵向滚动条，且固定表头时，需去除滚动条宽度
-    const reduceWidth = isFixedHeader ? scrollbarWidth : 0;
-    tableWidth.current = rect.width - reduceWidth - (props.bordered ? 1 : 0);
-    const elmRect = tableElmRef?.current?.getBoundingClientRect();
-    if (elmRect?.width) {
-      setTableElmWidth(elmRect?.width);
-    }
+    // 确保数据渲染后再获取宽度，避免数据更新后可能存在滚动条
+    // 导致元素宽度再次更新，产生闪烁
+    setTimeout(() => {
+      const rect = tableContentRef.current?.getBoundingClientRect?.();
+      if (!rect) return;
+      // 存在纵向滚动条，且固定表头时，需去除滚动条宽度
+      const reduceWidth = isFixedHeader ? scrollbarWidth : 0;
+      tableWidth.current = rect.width - reduceWidth - (props.bordered ? 1 : 0);
+      const elmRect = tableElmRef?.current?.getBoundingClientRect();
+      if (elmRect?.width) {
+        setTableElmWidth(elmRect?.width);
+      }
+    }, 0);
   };
 
   // 在表格高度变化的时候 需要手动调整affix的位置 因为affix本身无法监听到这些变化触发重新计算
