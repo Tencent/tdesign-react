@@ -248,7 +248,7 @@ describe('ImageViewerModal', () => {
           trigger={trigger}
           images={[imgUrl, imgUrl2]}
           imageScale={{
-            max: 2,
+            max: 3,
             min: 0.5,
             step: 0.5,
             defaultScale: 2,
@@ -268,6 +268,99 @@ describe('ImageViewerModal', () => {
     expect(document.querySelector('.t-image-viewer__modal-image')).toBeInTheDocument();
     expect(document.querySelector('.t-image-viewer__modal-image')).toHaveStyle({
       transform: 'rotateZ(0deg) scale(2)',
+    });
+  });
+
+  test('imageScale defaultScale is bigger than max', async () => {
+    const BasicImageViewer = () => {
+      const trigger = ({ onOpen }) => <span onClick={onOpen}>{triggerText}</span>;
+      return (
+        <ImageViewer
+          trigger={trigger}
+          images={[imgUrl, imgUrl2]}
+          imageScale={{
+            max: 3,
+            min: 0.5,
+            step: 0.5,
+            defaultScale: 3.5,
+          }}
+        />
+      );
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    // 模拟鼠标点击
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+
+    await mockDelay();
+
+    expect(document.querySelector('.t-image-viewer__modal-image')).toBeInTheDocument();
+    expect(document.querySelector('.t-image-viewer__modal-image')).toHaveStyle({
+      transform: 'rotateZ(0deg) scale(3)',
+    });
+  });
+
+  test('imageScale defaultScale is smaller than min', async () => {
+    const BasicImageViewer = () => {
+      const trigger = ({ onOpen }) => <span onClick={onOpen}>{triggerText}</span>;
+      return (
+        <ImageViewer
+          trigger={trigger}
+          images={[imgUrl, imgUrl2]}
+          imageScale={{
+            max: 3,
+            min: 2.5,
+            step: 0.5,
+            defaultScale: 2,
+          }}
+        />
+      );
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    // 模拟鼠标点击
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+
+    await mockDelay();
+
+    expect(document.querySelector('.t-image-viewer__modal-image')).toBeInTheDocument();
+    expect(document.querySelector('.t-image-viewer__modal-image')).toHaveStyle({
+      transform: 'rotateZ(0deg) scale(2.5)',
+    });
+  });
+
+  test('imageScale max is unexpected smaller than min', async () => {
+    const BasicImageViewer = () => {
+      const trigger = ({ onOpen }) => <span onClick={onOpen}>{triggerText}</span>;
+      return (
+        <ImageViewer
+          trigger={trigger}
+          images={[imgUrl, imgUrl2]}
+          imageScale={{
+            max: 2,
+            min: 2.5,
+            step: 0.5,
+            defaultScale: 2,
+          }}
+        />
+      );
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    // 模拟鼠标点击
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+
+    await mockDelay();
+
+    expect(document.querySelector('.t-image-viewer__modal-image')).toBeInTheDocument();
+    expect(document.querySelector('.t-image-viewer__modal-image')).toHaveStyle({
+      transform: 'rotateZ(0deg) scale(2.5)',
     });
   });
 
