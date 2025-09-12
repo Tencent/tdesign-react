@@ -9,9 +9,9 @@ import { resizeObserverElement, isLessThanIE11OrNotHaveResizeObserver } from '..
 import { off, on } from '../../_util/listener';
 import { AffixRef } from '../../affix';
 
-import type{ ClassName, Styles } from '../../common';
+import type { ClassName, Styles } from '../../common';
+import type { FixedColumnInfo, RowAndColFixedPosition, TableColFixedClasses, TableRowFixedClasses } from '../interface';
 import type { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
-import type { FixedColumnInfo, TableRowFixedClasses, RowAndColFixedPosition, TableColFixedClasses } from '../interface';
 
 // 固定列相关类名处理
 export function getColumnFixedStyles(
@@ -368,14 +368,6 @@ export default function useFixed(
 
     // updateTableWidth(isHeightOverflow);
     // updateThWidthListHandler();
-
-    if (tRef.scrollHeight <= tRef.clientHeight) return;
-    tRef.style.display = 'none';
-    tRef.offsetHeight; // 强制重绘，确保滚动条长度正常
-    tRef.style.display = '';
-    if (tRef.getAttribute('style') === '') {
-      tRef.removeAttribute('style');
-    }
   }, []);
 
   const setTableElmWidth = (width: number) => {
@@ -387,7 +379,8 @@ export default function useFixed(
     // 确保数据渲染后再获取宽度，避免数据更新后可能存在滚动条
     // 导致元素宽度再次更新，产生闪烁
     setTimeout(() => {
-      const rect = tableContentRef.current?.getBoundingClientRect?.();
+      const tRef = tableContentRef.current;
+      const rect = tRef?.getBoundingClientRect?.();
       if (!rect) return;
       // 存在纵向滚动条，且固定表头时，需去除滚动条宽度
       const reduceWidth = isFixedHeader ? scrollbarWidth : 0;
@@ -395,6 +388,14 @@ export default function useFixed(
       const elmRect = tableElmRef?.current?.getBoundingClientRect();
       if (elmRect?.width) {
         setTableElmWidth(elmRect?.width);
+      }
+
+      if (tRef.scrollHeight <= tRef.clientHeight) return;
+      tRef.style.display = 'none';
+      tRef.offsetHeight; // 强制重绘，确保滚动条长度正常
+      tRef.style.display = '';
+      if (tRef.getAttribute('style') === '') {
+        tRef.removeAttribute('style');
       }
     }, 0);
   };
