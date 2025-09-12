@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { CSSProperties, MutableRefObject, ReactNode, useMemo } from 'react';
+import React, { type CSSProperties, type MutableRefObject, type ReactNode, useMemo } from 'react';
 import classNames from 'classnames';
 import { camelCase, get, pick } from 'lodash-es';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
@@ -109,21 +109,33 @@ export default function TBody(props: TableBodyProps) {
       'last-full-row': lastFullRow,
     }[type];
     if (!fullRowNode) return null;
+
+    const rowProps: React.ComponentProps<'tr'> = {};
     if (isVirtualScroll) {
       const fullRowIndex = {
         'first-full-row': 0,
         'last-full-row': data.length - 1,
       }[type];
-      // 当首行或尾行不在虚拟滚动可视区域时，不进行渲染
       const rowVisible = renderData.some((item) => item.__VIRTUAL_SCROLL_INDEX === fullRowIndex);
       if (!rowVisible) return null;
+      rowProps.ref = (ref) => {
+        if (ref) {
+          // 首尾行的高度可能不固定
+          props?.handleRowMounted({
+            ref,
+            data: data[fullRowIndex],
+          });
+        }
+      };
     }
+
     const isFixedToLeft = props.isWidthOverflow && columns.find((col) => col.fixed === 'left');
     const tType = camelCase(type);
     const classes = [tableFullRowClasses.base, tableFullRowClasses[tType]];
+
     /** innerFullRow 和 innerFullElement 同时存在，是为了保证固定列时，当前行不随内容进行横向滚动 */
     return (
-      <tr key={type} className={classNames(classes)}>
+      <tr key={type} className={classNames(classes)} {...rowProps}>
         <td colSpan={columns.length}>
           <div
             className={classNames({ [tableFullRowClasses.innerFullRow]: isFixedToLeft }) || undefined}
