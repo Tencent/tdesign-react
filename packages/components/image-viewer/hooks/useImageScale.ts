@@ -2,9 +2,9 @@ import { ImageScale } from '../type';
 
 const useImageScale = (imageScale?: Partial<ImageScale>) => {
   const result: ImageScale = {
-    max: imageScale?.min ?? 2,
-    min: imageScale?.max ?? 0.5,
-    step: imageScale?.max ?? 0.5,
+    max: imageScale?.max ?? 2,
+    min: imageScale?.min ?? 0.5,
+    step: imageScale?.step ?? 0.5,
     defaultScale: imageScale?.defaultScale,
   };
   // defaultScale 不能超出本身设置的最大和最小值
