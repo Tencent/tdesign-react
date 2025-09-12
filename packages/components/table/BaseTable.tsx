@@ -217,6 +217,17 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
   const virtualConfig = useVirtualScroll(tableContentRef, virtualScrollParams);
 
+  useEffect(() => {
+    if (!tableContentRef.current || !virtualConfig.isVirtualScroll) return;
+    setTimeout(() => {
+      // 手动触发重绘，确保虚拟滚动初始化的滚动条长度正常
+      // 未来如果有更优解，可以修改这里
+      tableContentRef.current.style.display = 'none';
+      tableContentRef.current.offsetHeight;
+      tableContentRef.current.style.display = '';
+    }, 0);
+  }, [tableContentRef, virtualConfig.isVirtualScroll]);
+
   let lastScrollY = -1;
   const onInnerVirtualScroll = (e: React.WheelEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
@@ -265,9 +276,11 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
   // used for top margin
   const getTFootHeight = () => {
-    if (!tableElmRef.current) return;
-    const height = tableElmRef.current.querySelector('tfoot')?.getBoundingClientRect().height;
-    setTableFootHeight(height || 0);
+    requestAnimationFrame(() => {
+      if (!tableElmRef.current) return;
+      const height = tableElmRef.current.querySelector('tfoot')?.offsetHeight;
+      setTableFootHeight(height || 0);
+    });
   };
 
   useEffect(getTFootHeight, [tableElmRef, props.footData, props.footerSummary]);

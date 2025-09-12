@@ -1,14 +1,15 @@
-import { useEffect, useState, useMemo, useRef, WheelEvent, useCallback, MutableRefObject } from 'react';
-import { get, pick, xorWith } from 'lodash-es';
-import { getIEVersion } from '@tdesign/common-js/utils/helper';
+import { type MutableRefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import log from '@tdesign/common-js/log/index';
 import { getScrollbarWidthWithCSS } from '@tdesign/common-js/utils/getScrollbarWidth';
-import useDebounce from '../../hooks/useDebounce';
-import usePrevious from '../../hooks/usePrevious';
-import { resizeObserverElement, isLessThanIE11OrNotHaveResizeObserver } from '../utils';
+import { getIEVersion } from '@tdesign/common-js/utils/helper';
+import { get, pick, xorWith } from 'lodash-es';
 import { off, on } from '../../_util/listener';
-import { AffixRef } from '../../affix';
+import useDebounce from '../../hooks/useDebounce';
+import useDeepEffect from '../../hooks/useDeepEffect';
+import usePrevious from '../../hooks/usePrevious';
+import { isLessThanIE11OrNotHaveResizeObserver, resizeObserverElement } from '../utils';
 
+import type { AffixRef } from '../../affix';
 import type { ClassName, Styles } from '../../common';
 import type { FixedColumnInfo, RowAndColFixedPosition, TableColFixedClasses, TableRowFixedClasses } from '../interface';
 import type { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
@@ -389,14 +390,6 @@ export default function useFixed(
       if (elmRect?.width) {
         setTableElmWidth(elmRect?.width);
       }
-
-      if (tRef.scrollHeight <= tRef.clientHeight) return;
-      tRef.style.display = 'none';
-      tRef.offsetHeight; // 强制重绘，确保滚动条长度正常
-      tRef.style.display = '';
-      if (tRef.getAttribute('style') === '') {
-        tRef.removeAttribute('style');
-      }
     }, 0);
   };
 
@@ -446,7 +439,7 @@ export default function useFixed(
     }, 0);
   };
 
-  const emitScrollEvent = (e: WheelEvent<HTMLDivElement>) => {
+  const emitScrollEvent = (e: React.WheelEvent<HTMLDivElement>) => {
     props.onScrollX?.({ e });
     props.onScrollY?.({ e });
     props.onScroll?.({ e });
@@ -485,7 +478,7 @@ export default function useFixed(
     }
   };
 
-  useEffect(
+  useDeepEffect(
     updateFixedStatus,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
@@ -505,7 +498,7 @@ export default function useFixed(
   );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
+  useDeepEffect(() => {
     const timer = setTimeout(() => {
       if (isFixedColumn) {
         updateColumnFixedShadow(tableContentRef.current);
@@ -530,18 +523,17 @@ export default function useFixed(
   }, [updateFixedHeaderByUseDebounce]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(updateFixedHeaderByUseDebounce, [maxHeight, data, columns, bordered, tableContentRef]);
+  useDeepEffect(updateFixedHeaderByUseDebounce, [maxHeight, data, columns, bordered, tableContentRef]);
 
-  useEffect(() => {
+  useDeepEffect(() => {
     updateTableElmWidthOnColumnChange(finalColumns, preFinalColumns);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finalColumns]);
 
   // 影响表头宽度的元素
-  useEffect(
+  useDeepEffect(
     () => {
       const timer = setTimeout(() => {
-        // updateTableWidth(isFixedHeader);
         updateThWidthListHandler();
         updateAffixPosition();
         clearTimeout(timer);
