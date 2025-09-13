@@ -271,7 +271,7 @@ describe('ImageViewerModal', () => {
     });
   });
 
-  test('imageScale defaultScale is bigger than max', async () => {
+  test('imageScale defaultScale is larger than max', async () => {
     const BasicImageViewer = () => {
       const trigger = ({ onOpen }) => <span onClick={onOpen}>{triggerText}</span>;
       return (
