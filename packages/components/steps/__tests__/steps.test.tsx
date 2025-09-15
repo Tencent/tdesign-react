@@ -136,6 +136,17 @@ describe('Steps 组件测试', () => {
         const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
         expect(root.querySelector('.t-steps')).toHaveClass('t-steps--vertical');
       });
+
+      test('layout=horizontal - options模式', async () => {
+        const { getByTestId } = render(<StepRender layout="horizontal" />);
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        expect(root.querySelector('.t-steps')).toHaveClass('t-steps--horizontal');
+      });
+      test('layout=horizontal - children模式', async () => {
+        const { getByTestId } = render(<SlotRender layout="horizontal" />);
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        expect(root.querySelector('.t-steps')).toHaveClass('t-steps--horizontal');
+      });
     });
 
     describe('readonly 属性', () => {
@@ -161,19 +172,19 @@ describe('Steps 组件测试', () => {
         expect(numbers[0]).toHaveTextContent('1');
       });
 
-      test('theme=dot - options模式', async () => {
-        const { getByTestId } = render(<StepRender theme="dot" />);
-        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-        const numbers = root.querySelectorAll('.t-steps-item__icon--number');
-        expect(numbers.length).toBe(0);
-      });
-
       test('theme=default - children模式', async () => {
         const { getByTestId } = render(<SlotRender theme="default" />);
         const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
         const numbers = root.querySelectorAll('.t-steps-item__icon--number');
         expect(numbers.length).toBe(3);
         expect(numbers[0]).toHaveTextContent('1');
+      });
+
+      test('theme=dot - options模式', async () => {
+        const { getByTestId } = render(<StepRender theme="dot" />);
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        const numbers = root.querySelectorAll('.t-steps-item__icon--number');
+        expect(numbers.length).toBe(0);
       });
 
       test('theme=dot - children模式', async () => {
@@ -195,6 +206,20 @@ describe('Steps 组件测试', () => {
         expect(root.querySelector('.t-steps')).toHaveClass('t-steps--line-separator');
       });
 
+      test('separator=line - children模式', async () => {
+        const { getByTestId } = render(
+          <div data-testid="step-test-root-line">
+            <Steps current={0} separator="line">
+              <StepItem title="登录" content="已完成状态" />
+              <StepItem title="购物" content="进行中状态" />
+              <StepItem title="支付" content="未开始" />
+            </Steps>
+          </div>,
+        );
+        const root = await waitFor(() => getByTestId('step-test-root-line'));
+        expect(root.querySelector('.t-steps')).toHaveClass('t-steps--line-separator');
+      });
+
       test('separator=dashed - options模式', async () => {
         const { getByTestId } = render(
           <div data-testid="step-test-root-dashed">
@@ -205,10 +230,38 @@ describe('Steps 组件测试', () => {
         expect(root.querySelector('.t-steps')).toHaveClass('t-steps--dashed-separator');
       });
 
+      test('separator=dashed - children模式', async () => {
+        const { getByTestId } = render(
+          <div data-testid="step-test-root-dashed">
+            <Steps current={0} separator="dashed">
+              <StepItem title="登录" content="已完成状态" />
+              <StepItem title="购物" content="进行中状态" />
+              <StepItem title="支付" content="未开始" />
+            </Steps>
+          </div>,
+        );
+        const root = await waitFor(() => getByTestId('step-test-root-dashed'));
+        expect(root.querySelector('.t-steps')).toHaveClass('t-steps--dashed-separator');
+      });
+
       test('separator=arrow - options模式', async () => {
         const { getByTestId } = render(
           <div data-testid="step-test-root-arrow">
             <Steps current={0} options={defaultOptions} separator="arrow" />
+          </div>,
+        );
+        const root = await waitFor(() => getByTestId('step-test-root-arrow'));
+        expect(root.querySelector('.t-steps')).toHaveClass('t-steps--arrow-separator');
+      });
+
+      test('separator=arrow - children模式', async () => {
+        const { getByTestId } = render(
+          <div data-testid="step-test-root-arrow">
+            <Steps current={0} separator="arrow">
+              <StepItem title="登录" content="已完成状态" />
+              <StepItem title="购物" content="进行中状态" />
+              <StepItem title="支付" content="未开始" />
+            </Steps>
           </div>,
         );
         const root = await waitFor(() => getByTestId('step-test-root-arrow'));
@@ -244,6 +297,24 @@ describe('Steps 组件测试', () => {
               <StepItem title="支付" content="未开始" />
               <StepItem title="完成" content="未开始" />
             </Steps>
+          </div>,
+        );
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        const iconItems = root.querySelectorAll('.t-steps-item__icon');
+        expect(iconItems.length).toBe(4);
+        expect((iconItems[1].children[0] as Element).tagName.toLowerCase()).toBe('button');
+      });
+
+      test('自定义 icon - options模式', async () => {
+        const customIconOptions = [
+          { title: '登录', content: '已完成状态', value: 0 },
+          { title: '购物', content: '进行中状态', value: 1, icon: <button>按钮</button> },
+          { title: '支付', content: '未开始', value: 2 },
+          { title: '完成', content: '未开始', value: 3 },
+        ];
+        const { getByTestId } = render(
+          <div data-testid={TEST_ROOT_ID}>
+            <Steps current={1} options={customIconOptions} />
           </div>,
         );
         const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
