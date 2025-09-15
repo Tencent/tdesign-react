@@ -102,423 +102,600 @@ const clickEachAndVerify = async function clickEachAndVerify(root: Element, sequ
 };
 
 describe('Steps 组件测试', () => {
-  describe('options', () => {
-    test('mount/unmount', () => {
-      const wrapper = render(<StepRender />);
-      expect(() => wrapper.unmount()).not.toThrow();
-    });
+  describe('基础功能', () => {
+    describe('渲染测试', () => {
+      test('mount/unmount - 组件正常挂载和卸载', () => {
+        const wrapper = render(<StepRender />);
+        expect(() => wrapper.unmount()).not.toThrow();
+      });
 
-    test('layout vertical', async () => {
-      const { getByTestId } = render(<StepRender layout="vertical" />);
-      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-      expect(root.querySelectorAll('.t-steps--vertical').length).toBe(1);
-    });
-
-    test('readonly 不可点击', async () => {
-      const { getByTestId } = render(<StepRender readonly />);
-      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-      expect(root.querySelectorAll('.t-steps-item--clickable').length).toBe(0);
-    });
-
-    describe('theme / behavior', () => {
-      test('theme=default 基本渲染与切换', async () => {
-        const { getByTestId } = render(<StepRender theme="default" />);
+      test('options 模式 - 基本渲染', async () => {
+        const { getByTestId } = render(<StepRender />);
         const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-
         const items = root.querySelectorAll('.t-steps-item');
         expect(items.length).toBe(3);
+      });
 
-        const icons = root.querySelectorAll('.t-steps-item__icon');
-        expect(icons.length).toBe(3);
+      test('children 模式 - 基本渲染', async () => {
+        const { getByTestId } = render(<SlotRender />);
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        const items = root.querySelectorAll('.t-steps-item');
+        expect(items.length).toBe(3);
+      });
+    });
 
+    describe('layout 属性', () => {
+      test('layout=vertical - options模式', async () => {
+        const { getByTestId } = render(<StepRender layout="vertical" />);
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        expect(root.querySelector('.t-steps')).toHaveClass('t-steps--vertical');
+      });
+
+      test('layout=vertical - children模式', async () => {
+        const { getByTestId } = render(<SlotRender layout="vertical" />);
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        expect(root.querySelector('.t-steps')).toHaveClass('t-steps--vertical');
+      });
+    });
+
+    describe('readonly 属性', () => {
+      test('readonly=true - options模式', async () => {
+        const { getByTestId } = render(<StepRender readonly />);
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        expect(root.querySelectorAll('.t-steps-item--clickable').length).toBe(0);
+      });
+
+      test('readonly=true - children模式', async () => {
+        const { getByTestId } = render(<SlotRender readonly />);
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        expect(root.querySelectorAll('.t-steps-item--clickable').length).toBe(0);
+      });
+    });
+
+    describe('theme 属性', () => {
+      test('theme=default - options模式', async () => {
+        const { getByTestId } = render(<StepRender theme="default" />);
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
         const numbers = root.querySelectorAll('.t-steps-item__icon--number');
         expect(numbers.length).toBe(3);
         expect(numbers[0]).toHaveTextContent('1');
-
-        const titles = root.querySelectorAll('.t-steps-item__title');
-        expect(titles[0]).toHaveTextContent('0');
-
-        // 初始状态: first process, others wait
-        expect(items[0]).toHaveClass('t-steps-item--process');
-        expect(items[1]).toHaveClass('t-steps-item--wait');
-
-        // 切换到第二个
-        fireEvent.click(numbers[1]);
-        expect(items[0]).toHaveClass('t-steps-item--finish');
-        expect(items[1]).toHaveClass('t-steps-item--process');
-
-        // 切换到第三个（通过 content 区域）
-        const contents = root.querySelectorAll('.t-steps-item__content');
-        fireEvent.click(contents[2]);
-        expect(items[2]).toHaveClass('t-steps-item--process');
-        expect(items[1]).toHaveClass('t-steps-item--finish');
       });
 
-      test('theme=dot 不渲染数字，切换行为', async () => {
+      test('theme=dot - options模式', async () => {
         const { getByTestId } = render(<StepRender theme="dot" />);
         const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-
         const numbers = root.querySelectorAll('.t-steps-item__icon--number');
         expect(numbers.length).toBe(0);
+      });
 
-        const icons = root.querySelectorAll('.t-steps-item__icon');
-        fireEvent.click(icons[1]);
+      test('theme=default - children模式', async () => {
+        const { getByTestId } = render(<SlotRender theme="default" />);
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        const numbers = root.querySelectorAll('.t-steps-item__icon--number');
+        expect(numbers.length).toBe(3);
+        expect(numbers[0]).toHaveTextContent('1');
+      });
+
+      test('theme=dot - children模式', async () => {
+        const { getByTestId } = render(<SlotRender theme="dot" />);
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        const numbers = root.querySelectorAll('.t-steps-item__icon--number');
+        expect(numbers.length).toBe(0);
+      });
+    });
+
+    describe('separator 属性', () => {
+      test('separator=line - options模式', async () => {
+        const { getByTestId } = render(
+          <div data-testid="step-test-root-line">
+            <Steps current={0} options={defaultOptions} separator="line" />
+          </div>,
+        );
+        const root = await waitFor(() => getByTestId('step-test-root-line'));
+        expect(root.querySelector('.t-steps')).toHaveClass('t-steps--line-separator');
+      });
+
+      test('separator=dashed - options模式', async () => {
+        const { getByTestId } = render(
+          <div data-testid="step-test-root-dashed">
+            <Steps current={0} options={defaultOptions} separator="dashed" />
+          </div>,
+        );
+        const root = await waitFor(() => getByTestId('step-test-root-dashed'));
+        expect(root.querySelector('.t-steps')).toHaveClass('t-steps--dashed-separator');
+      });
+
+      test('separator=arrow - options模式', async () => {
+        const { getByTestId } = render(
+          <div data-testid="step-test-root-arrow">
+            <Steps current={0} options={defaultOptions} separator="arrow" />
+          </div>,
+        );
+        const root = await waitFor(() => getByTestId('step-test-root-arrow'));
+        expect(root.querySelector('.t-steps')).toHaveClass('t-steps--arrow-separator');
+      });
+    });
+
+    describe('数据源属性', () => {
+      test('options 数据驱动 - options模式', async () => {
+        const { getByTestId } = render(<StepRender />);
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        const titles = root.querySelectorAll('.t-steps-item__title');
+        expect(titles[0]).toHaveTextContent('0');
+        expect(titles[1]).toHaveTextContent('1');
+        expect(titles[2]).toHaveTextContent('2');
+      });
+
+      test('children 自定义内容 - children模式', async () => {
+        const { getByTestId } = render(<SlotRender />);
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        const titles = root.querySelectorAll('.t-steps-item__title');
+        expect(titles[0]).toHaveTextContent('登录');
+        expect(titles[1]).toHaveTextContent('购物');
+        expect(titles[2]).toHaveTextContent('支付');
+      });
+
+      test('自定义 icon - children模式', async () => {
+        const { getByTestId } = render(
+          <div data-testid={TEST_ROOT_ID}>
+            <Steps current={1}>
+              <StepItem title="登录" content="已完成状态" />
+              <StepItem title="购物" content="进行中状态" icon={<button>按钮</button>} />
+              <StepItem title="支付" content="未开始" />
+              <StepItem title="完成" content="未开始" />
+            </Steps>
+          </div>,
+        );
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        const iconItems = root.querySelectorAll('.t-steps-item__icon');
+        expect(iconItems.length).toBe(4);
+        expect((iconItems[1].children[0] as Element).tagName.toLowerCase()).toBe('button');
+      });
+    });
+
+    describe('current 属性', () => {
+      test('current=FINISH - options模式', async () => {
+        const { getByTestId } = render(
+          <div data-testid={TEST_ROOT_ID}>
+            <Steps current="FINISH" options={defaultOptions} />
+          </div>,
+        );
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        const items = root.querySelectorAll('.t-steps-item');
+        items.forEach((item) => {
+          expect(item).toHaveClass('t-steps-item--finish');
+        });
+      });
+
+      test('current=FINISH - children模式', async () => {
+        const { getByTestId } = render(
+          <div data-testid={TEST_ROOT_ID}>
+            <Steps current="FINISH">
+              <StepItem title="登录" content="已完成状态" />
+              <StepItem title="购物" content="进行中状态" />
+              <StepItem title="支付" content="未开始" />
+            </Steps>
+          </div>,
+        );
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        const items = root.querySelectorAll('.t-steps-item');
+        items.forEach((item) => {
+          expect(item).toHaveClass('t-steps-item--finish');
+        });
+      });
+    });
+
+    describe('自定义 status', () => {
+      test('自定义 status 优先级 - options模式', async () => {
+        const opts = [
+          { title: '1', content: 'content1', value: 0, status: 'error' as const },
+          { title: '2', content: 'content2', value: 1, status: 'finish' as const },
+          { title: '3', content: 'content3', value: 2 },
+        ];
+        const { getByTestId } = render(
+          <div data-testid={TEST_ROOT_ID}>
+            <Steps current={1} options={opts} />
+          </div>,
+        );
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        const items = root.querySelectorAll('.t-steps-item');
+        expect(items[0]).toHaveClass('t-steps-item--error');
+        expect(items[1]).toHaveClass('t-steps-item--finish');
+        expect(items[2]).toHaveClass('t-steps-item--wait');
+      });
+    });
+
+    describe('defaultCurrent 属性', () => {
+      test('非受控模式 defaultCurrent - options模式', async () => {
+        const { getByTestId } = render(
+          <div data-testid={TEST_ROOT_ID}>
+            <Steps defaultCurrent={1} options={defaultOptions} />
+          </div>,
+        );
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
         const items = root.querySelectorAll('.t-steps-item');
         expect(items[1]).toHaveClass('t-steps-item--process');
       });
 
-      test('@change called with correct args (options)', async () => {
-        const onChange = vi.fn();
+      test('非受控模式 defaultCurrent - children模式', async () => {
         const { getByTestId } = render(
           <div data-testid={TEST_ROOT_ID}>
-            <Steps current={2} options={defaultOptions} onChange={onChange} />
+            <Steps defaultCurrent={1}>
+              <StepItem title="登录" content="已完成状态" />
+              <StepItem title="购物" content="进行中状态" />
+              <StepItem title="支付" content="未开始" />
+            </Steps>
           </div>,
         );
         const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-        fireEvent.click(root.querySelector('.t-steps-item__inner'));
-        expect(onChange).toHaveBeenCalledTimes(1);
+        const items = root.querySelectorAll('.t-steps-item');
+        expect(items[1]).toHaveClass('t-steps-item--process');
       });
-    });
-
-    describe('sequence 行为 (options)', () => {
-      test('positive 正序', async () => {
-        const onChange = vi.fn();
-        const { getByTestId } = render(<StepRender sequence="positive" onChange={onChange} defaultCurrent={0} />);
-        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-        const icons = root.querySelectorAll('.t-steps-item__icon');
-        expect(icons[0]).toHaveClass('t-steps-item-process');
-        fireEvent.click(icons[2]);
-        expect(onChange.mock.calls[0][0]).toBe(2);
-        expect(onChange.mock.calls[0][1]).toBe(0);
-      });
-
-      test('reverse 倒序', async () => {
-        const onChange = vi.fn();
-        const { getByTestId } = render(<StepRender sequence="reverse" onChange={onChange} defaultCurrent={0} />);
-        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-        const icons = root.querySelectorAll('.t-steps-item__icon');
-        expect(icons[2]).toHaveClass('t-steps-item-process');
-        fireEvent.click(icons[0]);
-        expect(onChange.mock.calls[0][0]).toBe(2);
-        expect(onChange.mock.calls[0][1]).toBe(0);
-        expect(icons[2]).toHaveClass('t-steps-item-finish');
-        expect(icons[0]).toHaveClass('t-steps-item-process');
-      });
-    });
-
-    // broader combinations and edge cases for options-based rendering
-    const sequenceValues = ['positive', 'reverse'] as const;
-    const layoutValues = ['horizontal', 'vertical'] as const;
-    const themeValues = ['default', 'dot'] as const;
-
-    const optionCombos: ReadonlyArray<readonly [Sequence, Layout, Theme]> = sequenceValues.flatMap((s) =>
-      layoutValues.flatMap((l) => themeValues.map((t) => [s, l, t] as const)),
-    );
-
-    test.each(optionCombos)(
-      'sequence=%s layout=%s theme=%s 点击每个节点并校验分布',
-      async (sequence, layout, theme) => {
-        const { getByTestId } = render(<StepRender sequence={sequence} layout={layout} theme={theme} />);
-        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-        await clickEachAndVerify(root, sequence);
-      },
-    );
-
-    test('空 options 不报错且无节点', async () => {
-      const { getByTestId } = render(<StepRender options={[]} />);
-      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-      const items = root.querySelectorAll('.t-steps-item');
-      expect(items.length).toBe(0);
-    });
-
-    test('readonly 时点击不触发 onChange', async () => {
-      const onChange = vi.fn();
-      const { getByTestId } = render(<StepRender readonly onChange={onChange} />);
-      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-      fireEvent.click(root.querySelector('.t-steps-item__icon'));
-      expect(onChange).not.toHaveBeenCalled();
-    });
-
-    test('非数值 value 正确映射与切换', async () => {
-      const opts = [
-        { title: 'a', content: 'a', value: 'a' },
-        { title: 'b', content: 'b', value: 'b' },
-        { title: 'c', content: 'c', value: 'c' },
-      ];
-      const onChange = vi.fn();
-      const { getByTestId } = render(
-        <div data-testid={TEST_ROOT_ID}>
-          <Steps options={opts} current={'a'} onChange={onChange} />
-        </div>,
-      );
-      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-      const icons = root.querySelectorAll('.t-steps-item__icon');
-      expect(icons.length).toBe(3);
-      fireEvent.click(icons[2]);
-      expect(onChange).toHaveBeenCalled();
-    });
-
-    test('current=FINISH 所有步骤完成状态', async () => {
-      const { getByTestId } = render(
-        <div data-testid={TEST_ROOT_ID}>
-          <Steps current="FINISH" options={defaultOptions} />
-        </div>,
-      );
-      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-      const items = root.querySelectorAll('.t-steps-item');
-      expect(items.length).toBe(3);
-      items.forEach((item) => {
-        expect(item).toHaveClass('t-steps-item--finish');
-      });
-    });
-
-    test('自定义 status 优先级高于自动计算', async () => {
-      const opts = [
-        { title: '1', content: 'content1', value: 0, status: 'error' as const },
-        { title: '2', content: 'content2', value: 1, status: 'finish' as const },
-        { title: '3', content: 'content3', value: 2 },
-      ];
-      const { getByTestId } = render(
-        <div data-testid={TEST_ROOT_ID}>
-          <Steps current={1} options={opts} />
-        </div>,
-      );
-      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-      const items = root.querySelectorAll('.t-steps-item');
-      expect(items[0]).toHaveClass('t-steps-item--error');
-      expect(items[1]).toHaveClass('t-steps-item--finish');
-      expect(items[2]).toHaveClass('t-steps-item--wait');
-    });
-
-    test('separator 属性渲染正确', async () => {
-      const { getByTestId: getByTestIdLine } = render(
-        <div data-testid="step-test-root-line">
-          <Steps current={0} options={defaultOptions} separator="line" />
-        </div>,
-      );
-      const rootLine = await waitFor(() => getByTestIdLine('step-test-root-line'));
-      expect(rootLine.querySelector('.t-steps')).toHaveClass('t-steps--line-separator');
-
-      const { getByTestId: getByTestIdDashed } = render(
-        <div data-testid="step-test-root-dashed">
-          <Steps current={0} options={defaultOptions} separator="dashed" />
-        </div>,
-      );
-      const rootDashed = await waitFor(() => getByTestIdDashed('step-test-root-dashed'));
-      expect(rootDashed.querySelector('.t-steps')).toHaveClass('t-steps--dashed-separator');
-
-      const { getByTestId: getByTestIdArrow } = render(
-        <div data-testid="step-test-root-arrow">
-          <Steps current={0} options={defaultOptions} separator="arrow" />
-        </div>,
-      );
-      const rootArrow = await waitFor(() => getByTestIdArrow('step-test-root-arrow'));
-      expect(rootArrow.querySelector('.t-steps')).toHaveClass('t-steps--arrow-separator');
-    });
-
-    test('边界情况：单个步骤', async () => {
-      const singleOption = [{ title: 'single', content: 'single content', value: 0 }];
-      const { getByTestId } = render(
-        <div data-testid={TEST_ROOT_ID}>
-          <Steps current={0} options={singleOption} />
-        </div>,
-      );
-      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-      const items = root.querySelectorAll('.t-steps-item');
-      expect(items.length).toBe(1);
-      expect(items[0]).toHaveClass('t-steps-item--process');
-    });
-
-    test('边界情况：空 children', async () => {
-      const { getByTestId } = render(
-        <div data-testid={TEST_ROOT_ID}>
-          <Steps current={0}></Steps>
-        </div>,
-      );
-      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-      const items = root.querySelectorAll('.t-steps-item');
-      expect(items.length).toBe(0);
-    });
-
-    test('重复 value 的映射行为', async () => {
-      const opts = [
-        { title: '1', content: 'content1', value: 0 },
-        { title: '2', content: 'content2', value: 0 }, // 重复 value，后面的覆盖前面的
-        { title: '3', content: 'content3', value: 1 },
-      ];
-      const { getByTestId } = render(
-        <div data-testid={TEST_ROOT_ID}>
-          <Steps current={0} options={opts} />
-        </div>,
-      );
-      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-      const items = root.querySelectorAll('.t-steps-item');
-      expect(items.length).toBe(3);
-      // 由于 value 重复，后面的覆盖前面的，所以 current=0 匹配第二个项目
-      expect(items[0]).toHaveClass('t-steps-item--finish');
-      expect(items[1]).toHaveClass('t-steps-item--process');
-      expect(items[2]).toHaveClass('t-steps-item--wait');
-    });
-
-    test('非受控模式 defaultCurrent', async () => {
-      const { getByTestId } = render(
-        <div data-testid={TEST_ROOT_ID}>
-          <Steps defaultCurrent={1} options={defaultOptions} />
-        </div>,
-      );
-      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-      const items = root.querySelectorAll('.t-steps-item');
-      expect(items[1]).toHaveClass('t-steps-item--process');
     });
   });
 
-  describe('slot children', () => {
-    test('mount/unmount', () => {
-      const wrapper = render(<SlotRender />);
-      expect(() => wrapper.unmount()).not.toThrow();
+  describe('交互行为', () => {
+    describe('点击交互', () => {
+      describe('theme=default', () => {
+        test('数字点击切换 - options模式', async () => {
+          const { getByTestId } = render(<StepRender theme="default" />);
+          const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+
+          const numbers = root.querySelectorAll('.t-steps-item__icon--number');
+          expect(numbers[0]).toHaveTextContent('1');
+
+          // 初始状态
+          const items = root.querySelectorAll('.t-steps-item');
+          expect(items[0]).toHaveClass('t-steps-item--process');
+
+          // 点击第二个
+          fireEvent.click(numbers[1]);
+          expect(items[0]).toHaveClass('t-steps-item--finish');
+          expect(items[1]).toHaveClass('t-steps-item--process');
+        });
+
+        test('数字点击切换 - children模式', async () => {
+          const { getByTestId } = render(<SlotRender theme="default" />);
+          const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+
+          const items = root.querySelectorAll('.t-steps-item');
+          expect(items.length).toBe(3);
+
+          const numbers = root.querySelectorAll('.t-steps-item__icon--number');
+          expect(numbers.length).toBe(3);
+          expect(numbers[0]).toHaveTextContent('1');
+
+          // 切换到第二个
+          fireEvent.click(numbers[1]);
+          expect(items[0]).toHaveClass('t-steps-item--finish');
+          expect(items[1]).toHaveClass('t-steps-item--process');
+        });
+      });
+
+      describe('theme=dot', () => {
+        test('图标点击切换 - options模式', async () => {
+          const { getByTestId } = render(<StepRender theme="dot" />);
+          const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+
+          const numbers = root.querySelectorAll('.t-steps-item__icon--number');
+          expect(numbers.length).toBe(0);
+
+          const icons = root.querySelectorAll('.t-steps-item__icon');
+          fireEvent.click(icons[1]);
+          const items = root.querySelectorAll('.t-steps-item');
+          expect(items[1]).toHaveClass('t-steps-item--process');
+        });
+
+        test('图标点击切换 - children模式', async () => {
+          const { getByTestId } = render(<SlotRender theme="dot" />);
+          const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+
+          const numbers = root.querySelectorAll('.t-steps-item__icon--number');
+          expect(numbers.length).toBe(0);
+
+          const icons = root.querySelectorAll('.t-steps-item__icon');
+          fireEvent.click(icons[1]);
+          const items = root.querySelectorAll('.t-steps-item');
+          expect(items[1]).toHaveClass('t-steps-item--process');
+        });
+      });
+
+      describe('content 区域点击', () => {
+        test('content 区域点击 - options模式', async () => {
+          const { getByTestId } = render(<StepRender />);
+          const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+
+          const contents = root.querySelectorAll('.t-steps-item__content');
+          fireEvent.click(contents[2]);
+          const items = root.querySelectorAll('.t-steps-item');
+          expect(items[2]).toHaveClass('t-steps-item--process');
+        });
+
+        test('content 区域点击 - children模式', async () => {
+          const { getByTestId } = render(<SlotRender />);
+          const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+
+          const contents = root.querySelectorAll('.t-steps-item__content');
+          fireEvent.click(contents[2]);
+          const items = root.querySelectorAll('.t-steps-item');
+          expect(items[2]).toHaveClass('t-steps-item--process');
+        });
+      });
+
+      describe('readonly 状态', () => {
+        test('readonly 时点击无效 - options模式', async () => {
+          const onChange = vi.fn();
+          const { getByTestId } = render(<StepRender readonly onChange={onChange} />);
+          const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+          fireEvent.click(root.querySelector('.t-steps-item__icon'));
+          expect(onChange).not.toHaveBeenCalled();
+        });
+
+        test('readonly 时点击无效 - children模式', async () => {
+          const onChange = vi.fn();
+          const { getByTestId } = render(<SlotRender readonly onChange={onChange} />);
+          const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+          fireEvent.click(root.querySelector('.t-steps-item__icon'));
+          expect(onChange).not.toHaveBeenCalled();
+        });
+      });
     });
 
-    test('layout vertical', async () => {
-      const { getByTestId } = render(<SlotRender layout="vertical" />);
-      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-      expect(root.querySelectorAll('.t-steps--vertical').length).toBe(1);
+    describe('状态变化', () => {
+      describe('onChange 回调', () => {
+        test('onChange 回调参数正确 - options模式', async () => {
+          const onChange = vi.fn();
+          const { getByTestId } = render(
+            <div data-testid={TEST_ROOT_ID}>
+              <Steps current={2} options={defaultOptions} onChange={onChange} />
+            </div>,
+          );
+          const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+          fireEvent.click(root.querySelector('.t-steps-item__inner'));
+          expect(onChange).toHaveBeenCalledTimes(1);
+        });
+
+        test('onChange 回调参数正确 - children模式', async () => {
+          const onChange = vi.fn();
+          const { getByTestId } = render(
+            <div data-testid={TEST_ROOT_ID}>
+              <Steps current={2} onChange={onChange}>
+                <StepItem title="登录" content="已完成状态" />
+                <StepItem title="购物" content="进行中状态" />
+                <StepItem title="支付" content="未开始" />
+              </Steps>
+            </div>,
+          );
+          const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+          fireEvent.click(root.querySelector('.t-steps-item__inner'));
+          expect(onChange).toHaveBeenCalledTimes(1);
+        });
+      });
+
+      describe('非数值 value 映射', () => {
+        test('非数值 value 映射 - options模式', async () => {
+          const opts = [
+            { title: 'a', content: 'a', value: 'a' },
+            { title: 'b', content: 'b', value: 'b' },
+            { title: 'c', content: 'c', value: 'c' },
+          ];
+          const onChange = vi.fn();
+          const { getByTestId } = render(
+            <div data-testid={TEST_ROOT_ID}>
+              <Steps options={opts} current={'a'} onChange={onChange} />
+            </div>,
+          );
+          const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+          const icons = root.querySelectorAll('.t-steps-item__icon');
+          fireEvent.click(icons[2]);
+          expect(onChange).toHaveBeenCalled();
+        });
+
+        test('非数值 value 映射 - children模式', async () => {
+          const onChange = vi.fn();
+          const { getByTestId } = render(
+            <div data-testid={TEST_ROOT_ID}>
+              <Steps current="second" onChange={onChange}>
+                <StepItem title="first" content="content1" value="first" />
+                <StepItem title="second" content="content2" value="second" />
+                <StepItem title="third" content="content3" value="third" />
+              </Steps>
+            </div>,
+          );
+          const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+          const icons = root.querySelectorAll('.t-steps-item__icon');
+          fireEvent.click(icons[2]);
+          expect(onChange).toHaveBeenCalled();
+        });
+      });
+    });
+  });
+
+  describe('特殊场景', () => {
+    describe('边缘情况', () => {
+      test('空 options', async () => {
+        const { getByTestId } = render(<StepRender options={[]} />);
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        const items = root.querySelectorAll('.t-steps-item');
+        expect(items.length).toBe(0);
+      });
+
+      test('空 children', async () => {
+        const { getByTestId } = render(
+          <div data-testid={TEST_ROOT_ID}>
+            <Steps current={0}></Steps>
+          </div>,
+        );
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        const items = root.querySelectorAll('.t-steps-item');
+        expect(items.length).toBe(0);
+      });
+
+      test('单个步骤 - options模式', async () => {
+        const singleOption = [{ title: 'single', content: 'single content', value: 0 }];
+        const { getByTestId } = render(
+          <div data-testid={TEST_ROOT_ID}>
+            <Steps current={0} options={singleOption} />
+          </div>,
+        );
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        const items = root.querySelectorAll('.t-steps-item');
+        expect(items.length).toBe(1);
+        expect(items[0]).toHaveClass('t-steps-item--process');
+      });
+
+      test('单个步骤 - children模式', async () => {
+        const { getByTestId } = render(
+          <div data-testid={TEST_ROOT_ID}>
+            <Steps current={0}>
+              <StepItem title="single" content="single content" />
+            </Steps>
+          </div>,
+        );
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        const items = root.querySelectorAll('.t-steps-item');
+        expect(items.length).toBe(1);
+        expect(items[0]).toHaveClass('t-steps-item--process');
+      });
+
+      test('重复 value 映射 - options模式', async () => {
+        const opts = [
+          { title: '1', content: 'content1', value: 0 },
+          { title: '2', content: 'content2', value: 0 }, // 重复 value，后面的覆盖前面的
+          { title: '3', content: 'content3', value: 1 },
+        ];
+        const { getByTestId } = render(
+          <div data-testid={TEST_ROOT_ID}>
+            <Steps current={0} options={opts} />
+          </div>,
+        );
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        const items = root.querySelectorAll('.t-steps-item');
+        expect(items.length).toBe(3);
+        // 由于 value 重复，后面的覆盖前面的，所以 current=0 匹配第二个项目
+        expect(items[0]).toHaveClass('t-steps-item--finish');
+        expect(items[1]).toHaveClass('t-steps-item--process');
+        expect(items[2]).toHaveClass('t-steps-item--wait');
+      });
     });
 
-    test('readonly 不可点击', async () => {
-      const { getByTestId } = render(<SlotRender readonly />);
-      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-      expect(root.querySelectorAll('.t-steps-item--clickable').length).toBe(0);
+    describe('sequence 行为', () => {
+      describe('positive 顺序', () => {
+        test('positive 顺序 - options模式', async () => {
+          const onChange = vi.fn();
+          const { getByTestId } = render(<StepRender sequence="positive" onChange={onChange} defaultCurrent={0} />);
+          const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+          const icons = root.querySelectorAll('.t-steps-item__icon');
+          expect(icons[0]).toHaveClass('t-steps-item-process');
+          fireEvent.click(icons[2]);
+          expect(onChange.mock.calls[0][0]).toBe(2);
+          expect(onChange.mock.calls[0][1]).toBe(0);
+        });
+
+        test('positive 顺序 - children模式', async () => {
+          const onChange = vi.fn();
+          const { getByTestId } = render(<SlotRender sequence="positive" onChange={onChange} initial={0} />);
+          const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+          const icons = root.querySelectorAll('.t-steps-item__icon');
+          expect(icons[0]).toHaveClass('t-steps-item-process');
+          fireEvent.click(icons[2]);
+          expect(onChange.mock.calls[0][0]).toBe(2);
+          expect(onChange.mock.calls[0][1]).toBe(0);
+        });
+      });
+
+      describe('reverse 倒序', () => {
+        test('reverse 倒序 - options模式', async () => {
+          const onChange = vi.fn();
+          const { getByTestId } = render(<StepRender sequence="reverse" onChange={onChange} defaultCurrent={0} />);
+          const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+          const icons = root.querySelectorAll('.t-steps-item__icon');
+          expect(icons[2]).toHaveClass('t-steps-item-process');
+          fireEvent.click(icons[0]);
+          expect(onChange.mock.calls[0][0]).toBe(2);
+          expect(onChange.mock.calls[0][1]).toBe(0);
+          expect(icons[2]).toHaveClass('t-steps-item-finish');
+          expect(icons[0]).toHaveClass('t-steps-item-process');
+        });
+
+        test('reverse 倒序 - children模式', async () => {
+          const onChange = vi.fn();
+          const { getByTestId } = render(<SlotRender sequence="reverse" onChange={onChange} initial={0} />);
+          const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+          const icons = root.querySelectorAll('.t-steps-item__icon');
+          expect(icons[2]).toHaveClass('t-steps-item-process');
+          fireEvent.click(icons[0]);
+          expect(onChange.mock.calls[0][0]).toBe(2);
+          expect(onChange.mock.calls[0][1]).toBe(0);
+          expect(icons[2]).toHaveClass('t-steps-item-finish');
+          expect(icons[0]).toHaveClass('t-steps-item-process');
+        });
+      });
     });
 
-    test('theme=default 基本渲染与切换', async () => {
-      const { getByTestId } = render(<SlotRender theme="default" />);
-      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+    describe('配置组合', () => {
+      const sequenceValues = ['positive', 'reverse'] as const;
+      const layoutValues = ['horizontal', 'vertical'] as const;
+      const themeValues = ['default', 'dot'] as const;
 
-      const items = root.querySelectorAll('.t-steps-item');
-      expect(items.length).toBe(3);
-
-      const icons = root.querySelectorAll('.t-steps-item__icon');
-      expect(icons.length).toBe(3);
-
-      const numbers = root.querySelectorAll('.t-steps-item__icon--number');
-      expect(numbers.length).toBe(3);
-      expect(numbers[0]).toHaveTextContent('1');
-
-      const titles = root.querySelectorAll('.t-steps-item__title');
-      expect(titles[0]).toHaveTextContent('登录');
-
-      // 初始状态: first process, others wait
-      expect(items[0]).toHaveClass('t-steps-item--process');
-      expect(items[1]).toHaveClass('t-steps-item--wait');
-
-      // 切换到第二个
-      fireEvent.click(numbers[1]);
-      expect(items[0]).toHaveClass('t-steps-item--finish');
-      expect(items[1]).toHaveClass('t-steps-item--process');
-
-      // 切换到第三个（通过 content 区域）
-      const contents = root.querySelectorAll('.t-steps-item__content');
-      fireEvent.click(contents[2]);
-      expect(items[2]).toHaveClass('t-steps-item--process');
-      expect(items[1]).toHaveClass('t-steps-item--finish');
-    });
-
-    test('slot 渲染与自定义 icon', async () => {
-      const { getByTestId } = render(
-        <div data-testid={TEST_ROOT_ID}>
-          <Steps current={1}>
-            <StepItem title="登录" content="已完成状态" />
-            <StepItem title="购物" content="进行中状态" icon={<button>按钮</button>} />
-            <StepItem title="支付" content="未开始" />
-            <StepItem title="完成" content="未开始" />
-          </Steps>
-        </div>,
+      const optionCombos: ReadonlyArray<readonly [Sequence, Layout, Theme]> = sequenceValues.flatMap((s) =>
+        layoutValues.flatMap((l) => themeValues.map((t) => [s, l, t] as const)),
       );
-      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-      const iconItems = root.querySelectorAll('.t-steps-item__icon');
-      expect(iconItems.length).toBe(4);
-      expect((iconItems[1].children[0] as Element).tagName.toLowerCase()).toBe('button');
+
+      test.each(optionCombos)('options模式: sequence=%s layout=%s theme=%s', async (sequence, layout, theme) => {
+        const { getByTestId } = render(<StepRender sequence={sequence} layout={layout} theme={theme} />);
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        await clickEachAndVerify(root, sequence);
+      });
+
+      const slotSequenceThemeCombos: ReadonlyArray<readonly [Sequence, Theme]> = [
+        ['positive', 'default'],
+        ['reverse', 'default'],
+        ['positive', 'dot'],
+        ['reverse', 'dot'],
+      ];
+
+      test.each(slotSequenceThemeCombos)('children模式: sequence=%s theme=%s', async (sequence, theme) => {
+        const onChange = vi.fn();
+        const { getByTestId } = render(<SlotRender sequence={sequence} theme={theme} onChange={onChange} />);
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        const icons = root.querySelectorAll('.t-steps-item__icon');
+        expect(icons.length).toBe(3);
+        await clickEachAndVerify(root, sequence);
+        expect(onChange).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('模式对比', () => {
+    describe('Options模式特性', () => {
+      test('options 数据驱动渲染', async () => {
+        const { getByTestId } = render(<StepRender />);
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        const titles = root.querySelectorAll('.t-steps-item__title');
+        expect(titles.length).toBe(3);
+        expect(titles[0]).toHaveTextContent('0');
+      });
     });
 
-    test('theme=dot 不渲染数字，切换行为', async () => {
-      const { getByTestId } = render(<SlotRender theme="dot" />);
-      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-
-      const numbers = root.querySelectorAll('.t-steps-item__icon--number');
-      expect(numbers.length).toBe(0);
-
-      const icons = root.querySelectorAll('.t-steps-item__icon');
-      fireEvent.click(icons[1]);
-      const items = root.querySelectorAll('.t-steps-item');
-      expect(items[1]).toHaveClass('t-steps-item--process');
-    });
-
-    test('@change called with correct args (slot)', async () => {
-      const onChange = vi.fn();
-      const { getByTestId } = render(
-        <div data-testid={TEST_ROOT_ID}>
-          <Steps current={2} onChange={onChange}>
-            <StepItem title="登录" content="已完成状态" />
-            <StepItem title="购物" content="进行中状态" />
-            <StepItem title="支付" content="未开始" />
-          </Steps>
-        </div>,
-      );
-      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-      fireEvent.click(root.querySelector('.t-steps-item__inner'));
-      expect(onChange).toHaveBeenCalledTimes(1);
-    });
-
-    test('readonly 时点击不触发 onChange', async () => {
-      const onChange = vi.fn();
-      const { getByTestId } = render(<SlotRender readonly onChange={onChange} />);
-      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-      fireEvent.click(root.querySelector('.t-steps-item__icon'));
-      expect(onChange).not.toHaveBeenCalled();
-    });
-
-    test('slot @change called and status change', async () => {
-      const onChange = vi.fn();
-      const { getByTestId } = render(<SlotRender onChange={onChange} initial={2} />);
-      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-      const inner = root.querySelector('.t-steps-item__inner');
-      fireEvent.click(inner);
-      expect(onChange).toHaveBeenCalledTimes(1);
-    });
-
-    const slotSequenceThemeCombos: ReadonlyArray<readonly [Sequence, Theme]> = [
-      ['positive', 'default'],
-      ['reverse', 'default'],
-      ['positive', 'dot'],
-      ['reverse', 'dot'],
-    ];
-
-    test.each(slotSequenceThemeCombos)('sequence=%s theme=%s (slot)', async (sequence, theme) => {
-      const onChange = vi.fn();
-      const { getByTestId } = render(<SlotRender sequence={sequence} theme={theme} onChange={onChange} />);
-      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-      const icons = root.querySelectorAll('.t-steps-item__icon');
-      expect(icons.length).toBe(3);
-      await clickEachAndVerify(root, sequence);
-      expect(onChange).toHaveBeenCalled();
-    });
-
-    test('children 模式下 value 映射', async () => {
-      const { getByTestId } = render(
-        <div data-testid={TEST_ROOT_ID}>
-          <Steps current="second">
-            <StepItem title="first" content="content1" value="first" />
-            <StepItem title="second" content="content2" value="second" />
-            <StepItem title="third" content="content3" value="third" />
-          </Steps>
-        </div>,
-      );
-      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
-      const items = root.querySelectorAll('.t-steps-item');
-      expect(items.length).toBe(3);
-      expect(items[0]).toHaveClass('t-steps-item--finish');
-      expect(items[1]).toHaveClass('t-steps-item--process');
-      expect(items[2]).toHaveClass('t-steps-item--wait');
+    describe('Children模式特性', () => {
+      test('children 模式下 value 映射', async () => {
+        const { getByTestId } = render(
+          <div data-testid={TEST_ROOT_ID}>
+            <Steps current="second">
+              <StepItem title="first" content="content1" value="first" />
+              <StepItem title="second" content="content2" value="second" />
+              <StepItem title="third" content="content3" value="third" />
+            </Steps>
+          </div>,
+        );
+        const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+        const items = root.querySelectorAll('.t-steps-item');
+        expect(items.length).toBe(3);
+        expect(items[0]).toHaveClass('t-steps-item--finish');
+        expect(items[1]).toHaveClass('t-steps-item--process');
+        expect(items[2]).toHaveClass('t-steps-item--wait');
+      });
     });
   });
 });
