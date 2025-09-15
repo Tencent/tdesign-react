@@ -7,9 +7,10 @@ import { TdWatermarkProps } from './type';
 export const watermarkDefaultProps: TdWatermarkProps = {
   alpha: 1,
   isRepeat: true,
+  layout: 'rectangular',
   lineSpace: 16,
   movable: false,
   moveInterval: 3000,
-  removable: false,
+  removable: true,
   rotate: -22,
 };
