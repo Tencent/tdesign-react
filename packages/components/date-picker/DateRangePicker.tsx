@@ -1,8 +1,6 @@
 import React, { forwardRef, useEffect, useState } from 'react';
-
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-
 import {
   formatDate,
   formatTime,
@@ -13,7 +11,6 @@ import {
 } from '@tdesign/common-js/date-picker/format';
 import { addMonth, extractTimeObj, subtractMonth } from '@tdesign/common-js/date-picker/utils';
 import log from '@tdesign/common-js/log/index';
-
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { RangeInputPopup } from '../range-input';
@@ -84,12 +81,24 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
   // 记录面板是否选中过
   const [isSelected, setIsSelected] = useState(false);
 
+  const handleSyncPanelValue = (value: DateRangeValue) => {
+    // 同年同月时，确保右侧面板月份比左侧大 避免两侧面板月份一致
+    const nextMonth = value.map((v: string) => parseToDayjs(v, format).month());
+    const nextYear = value.map((v: string) => parseToDayjs(v, format).year());
+    if (nextYear[0] === nextYear[1] && nextMonth[0] === nextMonth[1]) {
+      nextMonth[0] === 11 ? (nextMonth[0] -= 1) : (nextMonth[1] += 1);
+    }
+    setMonth(nextMonth);
+    setYear(nextYear);
+  };
+
   const handlePopupInvisible = () => {
     setPopupVisible(false);
     props.popupProps?.onVisibleChange?.(false, {});
   };
 
   useEffect(() => {
+    if (value === cacheValue) return;
     // 面板展开重置数据
     if (popupVisible) {
       setIsSelected(false);
@@ -109,13 +118,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
         setYear(defaultYear);
         setMonth(defaultMonth);
       } else if (value.length === 2 && !enableTimePicker) {
-        // 确保右侧面板月份比左侧大 避免两侧面板月份一致
-        const nextMonth = value.map((v: string) => parseToDayjs(v, format).month());
-        if (year[0] === year[1] && nextMonth[0] === nextMonth[1]) {
-          nextMonth[0] === 11 ? (nextMonth[0] -= 1) : (nextMonth[1] += 1);
-        }
-        setYear(value.map((v: string) => parseToDayjs(v, format).year()));
-        setMonth(nextMonth);
+        handleSyncPanelValue(value);
       } else {
         setYear(value.map((v: string) => parseToDayjs(v, format).year()));
         setMonth(value.map((v: string) => parseToDayjs(v, format).month()));
@@ -289,18 +292,15 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     if (!Array.isArray(presetValue)) {
       log.error('DateRangePicker', `preset: ${preset} must be Array!`);
     } else {
-      const formattedPreset = formatDate(presetValue, { format });
+      const formattedPreset = formatDate(presetValue, { format, targetFormat: valueType });
       setInputValue(formattedPreset);
       setCacheValue(formattedPreset);
       setTime(formatTime(formattedPreset, format, timeFormat, props.defaultTime));
-      const newYear = formattedPreset.map((v) => parseToDayjs(v, format).year());
-      const newMonth = formattedPreset.map((v) => parseToDayjs(v, format).month());
 
-      setYear(newYear);
-      setMonth(newMonth);
       setIsSelected(true);
       setIsFirstValueSelected(true);
 
+      handleSyncPanelValue(formattedPreset);
       handlePopupInvisible();
       onChange(formattedPreset, { dayjsValue: formattedPreset.map((p) => parseToDayjs(p, format)), trigger: 'preset' });
       props.onPresetClick?.(context);
