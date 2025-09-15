@@ -257,6 +257,119 @@ describe('Steps 组件测试', () => {
       fireEvent.click(icons[2]);
       expect(onChange).toHaveBeenCalled();
     });
+
+    test('current=FINISH 所有步骤完成状态', async () => {
+      const { getByTestId } = render(
+        <div data-testid={TEST_ROOT_ID}>
+          <Steps current="FINISH" options={defaultOptions} />
+        </div>,
+      );
+      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+      const items = root.querySelectorAll('.t-steps-item');
+      expect(items.length).toBe(3);
+      items.forEach((item) => {
+        expect(item).toHaveClass('t-steps-item--finish');
+      });
+    });
+
+    test('自定义 status 优先级高于自动计算', async () => {
+      const opts = [
+        { title: '1', content: 'content1', value: 0, status: 'error' as const },
+        { title: '2', content: 'content2', value: 1, status: 'finish' as const },
+        { title: '3', content: 'content3', value: 2 },
+      ];
+      const { getByTestId } = render(
+        <div data-testid={TEST_ROOT_ID}>
+          <Steps current={1} options={opts} />
+        </div>,
+      );
+      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+      const items = root.querySelectorAll('.t-steps-item');
+      expect(items[0]).toHaveClass('t-steps-item--error');
+      expect(items[1]).toHaveClass('t-steps-item--finish');
+      expect(items[2]).toHaveClass('t-steps-item--wait');
+    });
+
+    test('separator 属性渲染正确', async () => {
+      const { getByTestId: getByTestIdLine } = render(
+        <div data-testid="step-test-root-line">
+          <Steps current={0} options={defaultOptions} separator="line" />
+        </div>,
+      );
+      const rootLine = await waitFor(() => getByTestIdLine('step-test-root-line'));
+      expect(rootLine.querySelector('.t-steps')).toHaveClass('t-steps--line-separator');
+
+      const { getByTestId: getByTestIdDashed } = render(
+        <div data-testid="step-test-root-dashed">
+          <Steps current={0} options={defaultOptions} separator="dashed" />
+        </div>,
+      );
+      const rootDashed = await waitFor(() => getByTestIdDashed('step-test-root-dashed'));
+      expect(rootDashed.querySelector('.t-steps')).toHaveClass('t-steps--dashed-separator');
+
+      const { getByTestId: getByTestIdArrow } = render(
+        <div data-testid="step-test-root-arrow">
+          <Steps current={0} options={defaultOptions} separator="arrow" />
+        </div>,
+      );
+      const rootArrow = await waitFor(() => getByTestIdArrow('step-test-root-arrow'));
+      expect(rootArrow.querySelector('.t-steps')).toHaveClass('t-steps--arrow-separator');
+    });
+
+    test('边界情况：单个步骤', async () => {
+      const singleOption = [{ title: 'single', content: 'single content', value: 0 }];
+      const { getByTestId } = render(
+        <div data-testid={TEST_ROOT_ID}>
+          <Steps current={0} options={singleOption} />
+        </div>,
+      );
+      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+      const items = root.querySelectorAll('.t-steps-item');
+      expect(items.length).toBe(1);
+      expect(items[0]).toHaveClass('t-steps-item--process');
+    });
+
+    test('边界情况：空 children', async () => {
+      const { getByTestId } = render(
+        <div data-testid={TEST_ROOT_ID}>
+          <Steps current={0}></Steps>
+        </div>,
+      );
+      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+      const items = root.querySelectorAll('.t-steps-item');
+      expect(items.length).toBe(0);
+    });
+
+    test('重复 value 的映射行为', async () => {
+      const opts = [
+        { title: '1', content: 'content1', value: 0 },
+        { title: '2', content: 'content2', value: 0 }, // 重复 value，后面的覆盖前面的
+        { title: '3', content: 'content3', value: 1 },
+      ];
+      const { getByTestId } = render(
+        <div data-testid={TEST_ROOT_ID}>
+          <Steps current={0} options={opts} />
+        </div>,
+      );
+      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+      const items = root.querySelectorAll('.t-steps-item');
+      expect(items.length).toBe(3);
+      // 由于 value 重复，后面的覆盖前面的，所以 current=0 匹配第二个项目
+      expect(items[0]).toHaveClass('t-steps-item--finish');
+      expect(items[1]).toHaveClass('t-steps-item--process');
+      expect(items[2]).toHaveClass('t-steps-item--wait');
+    });
+
+    test('非受控模式 defaultCurrent', async () => {
+      const { getByTestId } = render(
+        <div data-testid={TEST_ROOT_ID}>
+          <Steps defaultCurrent={1} options={defaultOptions} />
+        </div>,
+      );
+      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+      const items = root.querySelectorAll('.t-steps-item');
+      expect(items[1]).toHaveClass('t-steps-item--process');
+    });
   });
 
   describe('slot children', () => {
@@ -388,6 +501,24 @@ describe('Steps 组件测试', () => {
       expect(icons.length).toBe(3);
       await clickEachAndVerify(root, sequence);
       expect(onChange).toHaveBeenCalled();
+    });
+
+    test('children 模式下 value 映射', async () => {
+      const { getByTestId } = render(
+        <div data-testid={TEST_ROOT_ID}>
+          <Steps current="second">
+            <StepItem title="first" content="content1" value="first" />
+            <StepItem title="second" content="content2" value="second" />
+            <StepItem title="third" content="content3" value="third" />
+          </Steps>
+        </div>,
+      );
+      const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
+      const items = root.querySelectorAll('.t-steps-item');
+      expect(items.length).toBe(3);
+      expect(items[0]).toHaveClass('t-steps-item--finish');
+      expect(items[1]).toHaveClass('t-steps-item--process');
+      expect(items[2]).toHaveClass('t-steps-item--wait');
     });
   });
 });
