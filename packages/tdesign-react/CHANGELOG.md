@@ -5,6 +5,37 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.15.1 `2025-09-12` 
+### 🐞 Bug Fixes
+- `ImageViewer`: 修复 `imageScale` 配置效果异常的问题 @uyarn ([#3814](https://github.com/Tencent/tdesign-react/pull/3814))
+
+## 🌈 1.15.0 `2025-09-11` 
+### 🚀 Features
+- `Icon`:  @uyarn ([#3802](https://github.com/Tencent/tdesign-react/pull/3802))
+  - `tdesign-icons-react` 发布 `0.6.0` 版本，新增 `align-bottom`、`no-result`、`no-result-filled`、 `tree-list`、`wifi-no`、 `wifi-no-filled`、`logo-stackblitz-filled`、`logo-stackblitz`、`logo-wecom-filled` 图标，移除 `video-camera-3`、`video-camera-3-filled`、`list` 图标，此前有依赖以下图标升级请注意 ⚠️ 
+  - 按需加载方式使用的图标资源支持可变粗细功能，通过 `strokeWidth` 属性进行配置
+  - 按需加载方式使用的图标资源支持多色填充功能，通过 `strokeColor` 和 `fillColor` 属性进行配置
+- `DatePicker`: 支持通过覆盖 `popupProps`，使点击 `preset` 时不关闭弹窗 @RylanBot ([#3798](https://github.com/Tencent/tdesign-react/pull/3798))
+### 🐞 Bug Fixes
+- `Tree`: 修复拖拽后展开收起图标展示异常的问题 @RylanBot ([#3756](https://github.com/Tencent/tdesign-react/pull/3756))
+- `TreeItem`: 修正节点属性 `date-target` 单词拼写为 `data-target`，之前有使用该属性的业务请注意此变更 ⚠️ @RylanBot ([#3756](https://github.com/Tencent/tdesign-react/pull/3756))
+- `MessagePlugin`: 修复 `content` 为 `''` / `undefined` / `null` 时产生的报错  @RylanBot ([#3778](https://github.com/Tencent/tdesign-react/pull/3778))
+- `Table`: 修复未开启 `<React.StrictMode>` 时，`Loading` 挂载导致的页面闪烁问题 @RylanBot ([#3775](https://github.com/Tencent/tdesign-react/pull/3775))
+- `Upload`: 修复拖拽模式下 `status` 更新错误 @RSS1102 ([#3801](https://github.com/Tencent/tdesign-react/pull/3801))
+- `Input`: 修复在开启 `readonly` 或者禁用 `allowInput` 情况下没有触发 `onFocus` 和 `onBlur` 的问题 @RylanBot ([#3800](https://github.com/Tencent/tdesign-react/pull/3800))
+- `Cascader`: 
+  - 修复启用 `multiple` 与 `valueType='full'` 时，`valueDisplay` 渲染异常的问题 @RSS1102 ([#3809](https://github.com/Tencent/tdesign-react/pull/3809))
+  - 修复 `1.11.0` 版本引入的新特性，导致无法选中底部选项的问题 @RylanBot ([#3772](https://github.com/Tencent/tdesign-react/pull/3772))
+- `Select`: 避免下拉框的打开与关闭时，频繁重复触发 `valueDisplay` 的渲染 @RylanBot ([#3808](https://github.com/Tencent/tdesign-react/pull/3808))
+- `TagInput`: 避免下拉框的打开与关闭时，频繁重复触发 `valueDisplay` 的渲染 @RylanBot ([#3808](https://github.com/Tencent/tdesign-react/pull/3808))
+- `Dialog`: 修复在 React 19 环境下，由于使用 `ref` 引发的死循环问题 @RylanBot ([#3799](https://github.com/Tencent/tdesign-react/pull/3799))
+- `Drawer`: 修复在 React 19 环境下，由于使用 `ref` 引发的死循环问题 @RylanBot ([#3799](https://github.com/Tencent/tdesign-react/pull/3799))
+- `Popup`: 修复 `delay` 设置为 0 时移出 Trigger 元素的异常问题 @HaixingOoO ([#3806](https://github.com/Tencent/tdesign-react/pull/3806))
+- `Tooltip`: 修复 `delay` API 的类型不完整问题 @HaixingOoO ([#3806](https://github.com/Tencent/tdesign-react/pull/3806))
+
+### 🚧 Others
+- `react-render`: 修复引入 `react-19-adapter` 后仍然显示需要引入相关模块的警告的问题 @HaixingOoO ([#3790](https://github.com/Tencent/tdesign-react/pull/3790))
+
 ## 🌈 1.14.5 `2025-08-26` 
 ### 🐞 Bug Fixes
 - `Watermark`:  完善水印组件在 SSR 场景的兼容问题 @uyarn ([#3765](https://github.com/Tencent/tdesign-react/pull/3765))

@@ -1,6 +1,6 @@
 {
   "name": "tdesign-react",
-  "version": "1.14.5",
+  "version": "1.15.1",
   "title": "tdesign-react",
   "description": "TDesign Component for React",
   "main": "lib/index.js",
@@ -91,7 +91,7 @@
     "react-is": "^18.2.0",
     "react-transition-group": "~4.4.1",
     "sortablejs": "^1.15.0",
-    "tdesign-icons-react": "0.5.1",
+    "tdesign-icons-react": "^0.6.1",
     "tslib": "~2.3.1",
     "validator": "~13.15.0"
   }

@@ -588,7 +588,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
   const { loading, loadingProps } = props;
   const customLoadingText = loading;
-  const loadingContent = loading !== undefined && (
+  const loadingContent = tableRef.current && loading !== undefined && (
     <Loading
       loading={!!loading}
       text={customLoadingText}
@@ -596,7 +596,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       showOverlay
       size="small"
       {...loadingProps}
-    ></Loading>
+    />
   );
 
   const { topContent, bottomContent } = props;
