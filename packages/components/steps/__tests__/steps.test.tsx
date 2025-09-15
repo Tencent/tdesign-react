@@ -183,23 +183,26 @@ describe('Steps 组件测试', () => {
     describe('sequence 行为 (options)', () => {
       test('positive 正序', async () => {
         const onChange = vi.fn();
-        const { getByTestId } = render(<StepRender sequence="positive" onChange={onChange} />);
+        const { getByTestId } = render(<StepRender sequence="positive" onChange={onChange} defaultCurrent={0} />);
         const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
         const icons = root.querySelectorAll('.t-steps-item__icon');
-        fireEvent.click(icons[1]);
-        expect(onChange.mock.calls[0][0]).toBe(1);
+        expect(icons[0]).toHaveClass('t-steps-item-process');
+        fireEvent.click(icons[2]);
+        expect(onChange.mock.calls[0][0]).toBe(2);
         expect(onChange.mock.calls[0][1]).toBe(0);
       });
 
       test('reverse 倒序', async () => {
         const onChange = vi.fn();
-        const { getByTestId } = render(<StepRender sequence="reverse" onChange={onChange} />);
+        const { getByTestId } = render(<StepRender sequence="reverse" onChange={onChange} defaultCurrent={0} />);
         const root = await waitFor(() => getByTestId(TEST_ROOT_ID));
         const icons = root.querySelectorAll('.t-steps-item__icon');
-        // 初始倒序：最后一个应为 finish/process 视实现而定，此处断言为 finish
-        expect(icons[2]).toHaveClass('t-steps-item-finish');
+        expect(icons[2]).toHaveClass('t-steps-item-process');
         fireEvent.click(icons[0]);
         expect(onChange.mock.calls[0][0]).toBe(2);
+        expect(onChange.mock.calls[0][1]).toBe(0);
+        expect(icons[2]).toHaveClass('t-steps-item-finish');
+        expect(icons[0]).toHaveClass('t-steps-item-process');
       });
     });
 
