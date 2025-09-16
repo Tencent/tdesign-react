@@ -333,7 +333,7 @@ describe('ImageViewerModal', () => {
     });
   });
 
-  test('imageScale max is unexpected smaller than min', async () => {
+  test('imageScale max is unexpectedly smaller than min', async () => {
     const BasicImageViewer = () => {
       const trigger = ({ onOpen }) => <span onClick={onOpen}>{triggerText}</span>;
       return (
