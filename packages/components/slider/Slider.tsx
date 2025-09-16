@@ -188,10 +188,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
     if (isString(label)) {
       tipLabel = label.replace(/\$\{value\}/g, currentValue.toString());
     }
-    if (isNumber(tipLabel) && precision) {
-      const precision = props.step.toString().split('.')[1].length;
-      tipLabel = largeNumberToFixed(String(tipLabel), precision);
-    }
+    if (isNumber(tipLabel) && precision) tipLabel = largeNumberToFixed(String(tipLabel), precision);
 
     return (
       <SliderHandleButton
