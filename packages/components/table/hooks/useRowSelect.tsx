@@ -1,11 +1,15 @@
 // 行选中相关功能：单选 + 多选
-
-import React, { useEffect, useState, MouseEvent, useMemo } from 'react';
-import { intersection, get, isFunction } from 'lodash-es';
-import { isRowSelectedDisabled } from '@tdesign/common-js/table/utils';
+import React, { useEffect, useMemo, useState } from 'react';
+import { get, intersection, isFunction } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
+import { isRowSelectedDisabled } from '@tdesign/common-js/table/utils';
+import Checkbox from '../../checkbox';
+import { ClassName } from '../../common';
 import useControlled from '../../hooks/useControlled';
-import {
+import Radio from '../../radio';
+import { TableClassName } from './useClassName';
+
+import type {
   PrimaryTableCellParams,
   PrimaryTableCol,
   RowClassNameParams,
@@ -13,10 +17,6 @@ import {
   TdBaseTableProps,
   TdPrimaryTableProps,
 } from '../type';
-import { TableClassName } from './useClassName';
-import Checkbox from '../../checkbox';
-import Radio from '../../radio';
-import { ClassName } from '../../common';
 
 const selectedRowDataMap = new Map<string | number, TableRowData>();
 
@@ -31,6 +31,7 @@ export default function useRowSelect(
   const [tSelectedRowKeys, setTSelectedRowKeys] = useControlled(props, 'selectedRowKeys', props.onSelectChange, {
     defaultSelectedRowKeys: props.defaultSelectedRowKeys || [],
   });
+
   const selectColumn = columns.find(({ type }) => ['multiple', 'single'].includes(type));
 
   const canSelectedRows = useMemo(() => {
@@ -122,7 +123,7 @@ export default function useRowSelect(
       },
     };
     // 选中行功能中，点击 checkbox/radio 需阻止事件冒泡，避免触发不必要的 onRowClick
-    const onCheckClick = (p: { e: MouseEvent<HTMLLabelElement> } | MouseEvent<HTMLLabelElement>) => {
+    const onCheckClick = (p: { e: React.MouseEvent<HTMLLabelElement> } | React.MouseEvent<HTMLLabelElement>) => {
       const e = 'e' in p ? p.e : p;
       e?.stopPropagation();
     };
@@ -171,7 +172,7 @@ export default function useRowSelect(
     const disabledSelectedRowKeys = selectedRowKeys?.filter((id) => !canSelectedRowKeys.includes(id)) || [];
     const allIds = checked ? [...disabledSelectedRowKeys, ...canSelectedRowKeys] : [...disabledSelectedRowKeys];
     setTSelectedRowKeys(allIds, {
-      selectedRowData: checked ? allIds.map((t) => selectedRowDataMap.get(t)) : [],
+      selectedRowData: allIds.map((t) => selectedRowDataMap.get(t)),
       type: checked ? 'check' : 'uncheck',
       currentRowKey: 'CHECK_ALL_BOX',
     });
