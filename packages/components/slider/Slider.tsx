@@ -1,6 +1,7 @@
 import React, { useMemo, useRef } from 'react';
 import classNames from 'classnames';
-import { isFunction, isString } from 'lodash-es';
+import { isFunction, isString, isNumber } from 'lodash-es';
+import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
 import { accAdd } from '../_util/number';
 import type { StyledProps, TNode } from '../common';
 import useConfig from '../hooks/useConfig';
@@ -180,6 +181,10 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
     }
     if (isString(label)) {
       tipLabel = label.replace(/\$\{value\}/g, currentValue.toString());
+    }
+    if (isNumber(tipLabel) && !Number.isInteger(props.step)) {
+      const precision = props.step.toString().split('.')[1].length;
+      tipLabel = largeNumberToFixed(String(tipLabel), precision);
     }
 
     return (
