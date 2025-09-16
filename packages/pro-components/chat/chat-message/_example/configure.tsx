@@ -54,7 +54,6 @@ export default function ChatMessageExample() {
         avatar="https://tdesign.gtimg.com/site/avatar.jpg"
         datetime="今天16:38"
         name="张三"
-        id={messages.user.id}
         role={messages.user.role}
         content={messages.user.content}
       ></ChatMessage>
@@ -62,7 +61,6 @@ export default function ChatMessageExample() {
         avatar="https://tdesign.gtimg.com/site/chat-avatar.png"
         datetime="今天16:43"
         name="TDesignAI"
-        id={messages.ai.id}
         role={messages.ai.role}
         content={messages.ai.content}
       ></ChatMessage>
@@ -70,16 +68,10 @@ export default function ChatMessageExample() {
       <ChatMessage
         placement="right"
         variant="base"
-        id={messages.user.id}
         role={messages.user.role}
         content={messages.user.content}
       ></ChatMessage>
-      <ChatMessage
-        placement="left"
-        id={messages.ai.id}
-        role={messages.ai.role}
-        content={messages.ai.content}
-      ></ChatMessage>
+      <ChatMessage placement="left" role={messages.ai.role} content={messages.ai.content}></ChatMessage>
       <Divider>角色为system的系统消息</Divider>
       <ChatMessage id={messages.system.id} role={messages.system.role} content={messages.system.content}></ChatMessage>
     </Space>

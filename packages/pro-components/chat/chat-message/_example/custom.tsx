@@ -136,7 +136,6 @@ export default function ChatMessageExample() {
         variant="text"
         placement="right"
         avatar="https://tdesign.gtimg.com/site/avatar.jpg"
-        id={userMessage.id}
         role={userMessage.role}
         content={userMessage.content}
       >
@@ -150,7 +149,6 @@ export default function ChatMessageExample() {
         variant="text"
         avatar={<Avatar image="https://tdesign.gtimg.com/site/chat-avatar.png" />}
         name="TDesignAI"
-        id={aiMessage.id}
         role={aiMessage.role}
         content={aiMessage.content}
       >

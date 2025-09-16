@@ -122,13 +122,11 @@ export default function ChatMessageExample() {
       <ChatMessage
         variant="base"
         placement="right"
-        id={userMessage1.id}
         role={userMessage1.role}
         content={userMessage1.content}
         status={userMessage1.status}
       ></ChatMessage>
       <ChatMessage
-        id={aiMessages.id}
         role={aiMessages.role}
         content={aiMessages.content}
         status={aiMessages.status}
@@ -142,7 +140,6 @@ export default function ChatMessageExample() {
       <ChatMessage
         variant="base"
         placement="right"
-        id={userMessage2.id}
         role={userMessage2.role}
         content={userMessage2.content}
         status={userMessage2.status}
