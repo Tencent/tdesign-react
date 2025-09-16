@@ -1,6 +1,6 @@
 import { isString } from 'lodash-es';
 import { getCssVarsValue } from './style';
-import type { AttachNode, AttachNodeReturnValue } from '../common';
+import type { AttachNode } from '../common';
 
 // 用于判断是否可使用 dom
 export const canUseDocument = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
@@ -14,7 +14,7 @@ export const canUseDocument = !!(typeof window !== 'undefined' && window.documen
  */
 export const isWindow = (val: unknown): val is Window => val === window;
 
-export const getAttach = (node: AttachNode): AttachNodeReturnValue => {
+export const getAttach = (node: AttachNode): HTMLElement => {
   const attachNode = typeof node === 'function' ? node() : node;
   if (!attachNode) {
     return document.body;

@@ -10,7 +10,6 @@ import { PlacementOffset } from './const';
 import MessageComponent from './MessageComponent';
 import { useMessageClass } from './useMessageClass';
 
-import type { AttachNodeReturnValue } from '../common';
 import type {
   MessageCloseAllMethod,
   MessageConfigMethod,
@@ -56,7 +55,7 @@ interface ContainerInstance {
 let messageKey = 1;
 
 // 不同 attach 和 placement 对应的消息容器
-const MessageContainerMaps: Map<AttachNodeReturnValue, Map<MessagePlacementList, ContainerInstance>> = new Map();
+const MessageContainerMaps: Map<HTMLElement, Map<MessagePlacementList, ContainerInstance>> = new Map();
 
 const MessageContainer: React.FC<MessageContainerProps> = (props) => {
   const { placement, children, zIndex, renderCallback } = props;
@@ -93,7 +92,7 @@ const MessageContainer: React.FC<MessageContainerProps> = (props) => {
   );
 };
 
-function getAttachNodeMap(attachNode: AttachNodeReturnValue) {
+function getAttachNodeMap(attachNode: HTMLElement) {
   if (!MessageContainerMaps.has(attachNode)) {
     MessageContainerMaps.set(attachNode, new Map());
   }
@@ -101,7 +100,7 @@ function getAttachNodeMap(attachNode: AttachNodeReturnValue) {
 }
 
 async function findExistingContainer(
-  attachNode: AttachNodeReturnValue,
+  attachNode: HTMLElement,
   placement: MessagePlacementList,
   zIndex?: number,
 ) {
@@ -162,15 +161,6 @@ async function renderElement(theme, config: MessageOptions): Promise<MessageInst
       const index = containerInstance.messages.indexOf(message);
       if (index === -1) return;
       containerInstance.messages.splice(index, 1);
-      // 如果容器内没有消息，整个移除
-      if (containerInstance.messages.length === 0) {
-        containerInstance.container.remove();
-        const attachNodeMap = getAttachNodeMap(attachNode);
-        attachNodeMap.delete(placement);
-        if (attachNodeMap.size === 0) {
-          MessageContainerMaps.delete(attachNode);
-        }
-      }
     },
   };
 
@@ -259,13 +249,11 @@ MessagePlugin.close = (messageInstance) => {
  * @desc 关闭所有的 message
  */
 MessagePlugin.closeAll = (): MessageCloseAllMethod => {
-  // 收集所有需要关闭的消息实例
   const allMessages: MessageInstance[] = [];
-
   MessageContainerMaps.forEach((placementMap) => {
-    placementMap.forEach((containerInfo) => {
-      // 复制消息数组，避免在关闭过程中数组被修改
-      allMessages.push(...containerInfo.messages.slice());
+    placementMap.forEach((instance) => {
+      // 收集需要关闭的消息实例，避免同时遍历与删除导致的索引错乱问题
+      allMessages.push(...instance.messages.slice());
     });
   });
 
@@ -275,8 +263,6 @@ MessagePlugin.closeAll = (): MessageCloseAllMethod => {
       message.close();
     }
   });
-
-  MessageContainerMaps.clear();
   return;
 };
 
