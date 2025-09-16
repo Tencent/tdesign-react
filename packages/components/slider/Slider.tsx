@@ -48,6 +48,11 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
   const width = (renderValue[RIGHT_NODE] - renderValue[LEFT_NODE]) / (max - min);
   const end = start + width;
 
+  const precision = useMemo(() => {
+    if (!Number.isInteger(step)) return step.toString().split('.')[1].length;
+    return undefined;
+  }, [step]);
+
   const dots = useMemo<{ value: number; label: TNode; position: number }[]>(() => {
     // 当 marks 为数字数组
     if (Array.isArray(marks)) {
@@ -97,6 +102,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
   const handleInputChange = (newValue: number, nodeIndex: SliderHandleNode) => {
     const safeValue = Number(newValue.toFixed(32));
     let resultValue = Math.max(Math.min(max, safeValue), min);
+    if (precision) resultValue = Number(largeNumberToFixed(String(resultValue), precision));
     // 判断是否出现左值大于右值
     if (nodeIndex === LEFT_NODE && value && safeValue > value[RIGHT_NODE]) resultValue = value[RIGHT_NODE];
     // 判断是否出现右值大于左值
@@ -182,7 +188,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
     if (isString(label)) {
       tipLabel = label.replace(/\$\{value\}/g, currentValue.toString());
     }
-    if (isNumber(tipLabel) && !Number.isInteger(props.step)) {
+    if (isNumber(tipLabel) && precision) {
       const precision = props.step.toString().split('.')[1].length;
       tipLabel = largeNumberToFixed(String(tipLabel), precision);
     }
