@@ -1,35 +1,31 @@
-import React, { CSSProperties, useEffect } from 'react';
+import React, { type CSSProperties, useEffect, useRef } from 'react';
 import classNames from 'classnames';
+import { getAttach } from '../_util/dom';
+import noop from '../_util/noop';
 import { render, unmount } from '../_util/react-render';
+import PluginContainer from '../common/PluginContainer';
+import ConfigProvider from '../config-provider';
+import { getMessageConfig, globalConfig, setGlobalConfig } from './config';
+import { PlacementOffset } from './const';
+import MessageComponent from './MessageComponent';
+import { useMessageClass } from './useMessageClass';
 
-import {
+import type { AttachNodeReturnValue } from '../common';
+import type {
   MessageCloseAllMethod,
+  MessageConfigMethod,
   MessageErrorMethod,
   MessageInfoMethod,
   MessageInstance,
   MessageLoadingMethod,
   MessageMethod,
   MessageOptions,
+  MessagePlacementList,
   MessageQuestionMethod,
   MessageSuccessMethod,
-  MessageWarningMethod,
   MessageThemeList,
-  MessageConfigMethod,
-  MessagePlacementList,
+  MessageWarningMethod,
 } from './type';
-import { AttachNodeReturnValue } from '../common';
-import noop from '../_util/noop';
-import { PlacementOffset } from './const';
-import MessageComponent from './MessageComponent';
-
-import { getMessageConfig, globalConfig, setGlobalConfig } from './config';
-import { useMessageClass } from './useMessageClass';
-import ConfigProvider from '../config-provider';
-import PluginContainer from '../common/PluginContainer';
-
-// 定义全局的 message 列表，closeAll 函数需要使用
-let MessageList: MessageInstance[] = [];
-let keyIndex = 1;
 
 export interface MessagePlugin {
   (theme: MessageThemeList, message: string | MessageOptions, duration?: number): Promise<MessageInstance>;
@@ -52,8 +48,20 @@ interface MessageContainerProps {
   renderCallback?: Function;
 }
 
+interface ContainerInstance {
+  container: HTMLDivElement;
+  messages: MessageInstance[];
+}
+
+let messageKey = 1;
+
+// 不同 attach 和 placement 对应的消息容器
+const MessageContainerMaps: Map<AttachNodeReturnValue, Map<MessagePlacementList, ContainerInstance>> = new Map();
+
 const MessageContainer: React.FC<MessageContainerProps> = (props) => {
-  const { placement, children, zIndex, id, renderCallback } = props;
+  const { placement, children, zIndex, renderCallback } = props;
+
+  const ref = useRef<HTMLDivElement>(null);
 
   const style: CSSProperties = {
     zIndex,
@@ -68,64 +76,70 @@ const MessageContainer: React.FC<MessageContainerProps> = (props) => {
   }
 
   useEffect(() => {
-    renderCallback();
+    renderCallback?.(ref.current);
     // eslint-disable-next-line
   }, []);
 
   const { tdMessagePlacementClassGenerator, tdMessageListClass } = useMessageClass();
 
   return (
-    <div className={classNames(tdMessageListClass, tdMessagePlacementClassGenerator(placement))} style={style} id={id}>
+    <div
+      ref={ref}
+      className={classNames(tdMessageListClass, tdMessagePlacementClassGenerator(placement))}
+      style={style}
+    >
       {children}
     </div>
   );
 };
 
+function getAttachNodeMap(attachNode: AttachNodeReturnValue) {
+  if (!MessageContainerMaps.has(attachNode)) {
+    MessageContainerMaps.set(attachNode, new Map());
+  }
+  return MessageContainerMaps.get(attachNode);
+}
+
+async function findExistingContainer(
+  attachNode: AttachNodeReturnValue,
+  placement: MessagePlacementList,
+  zIndex?: number,
+) {
+  const attachNodeMap = getAttachNodeMap(attachNode);
+  let containerInstance = attachNodeMap.get(placement);
+  if (!containerInstance) {
+    const container = await createContainer({ zIndex, placement });
+    attachNode.appendChild(container);
+    containerInstance = {
+      container,
+      messages: [],
+    };
+    attachNodeMap.set(placement, containerInstance);
+  }
+  return containerInstance;
+}
+
 /**
  * @desc 创建容器，所有的 message 会填充到容器中
  */
-function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions): Promise<Element> {
+function createContainer({ zIndex, placement }): Promise<HTMLDivElement> {
   return new Promise((resolve) => {
-    // 默认注入到 body 中，如果用户有指定，以用户指定的为准
-    let mountedDom: AttachNodeReturnValue = document.body;
-
-    // attach 为字符串时认为是选择器
-    if (typeof attach === 'string') {
-      const result = document.querySelectorAll(attach);
-      if (result.length >= 1) {
-        // :todo 编译器提示 nodelist 为类数组类型，并没有实现迭代器，没办法使用数组解构，暂时加上 eslint-disable
-        // eslint-disable-next-line prefer-destructuring
-        mountedDom = result[0];
-      }
-    } else if (typeof attach === 'function') {
-      mountedDom = attach();
-    }
-
-    // 选择器找到一个挂载 message 的容器，不存在则创建
-    const containerId = `tdesign-message-container--${placement}`;
-    const container = Array.from(mountedDom.querySelectorAll(`#${containerId}`));
-    if (container.length < 1) {
-      const div = document.createElement('div');
-      const mGlobalConfig = ConfigProvider.getGlobalConfig();
-
-      render(
-        <PluginContainer globalConfig={mGlobalConfig}>
-          <MessageContainer
-            id={containerId}
-            placement={placement}
-            zIndex={zIndex}
-            renderCallback={() => {
-              mountedDom.appendChild(div);
-              const container = Array.from(mountedDom.querySelectorAll(`#${containerId}`));
-              resolve(container[0]);
-            }}
-          />
-        </PluginContainer>,
-        div,
-      );
-    } else {
-      resolve(container[0]);
-    }
+    const mGlobalConfig = ConfigProvider.getGlobalConfig();
+    const fragment = document.createDocumentFragment(); // 临时容器
+    render(
+      <PluginContainer globalConfig={mGlobalConfig}>
+        <MessageContainer
+          placement={placement}
+          zIndex={zIndex}
+          renderCallback={(element) => {
+            if (element) {
+              resolve(element);
+            }
+          }}
+        />
+      </PluginContainer>,
+      fragment,
+    );
   });
 }
 
@@ -133,26 +147,31 @@ function createContainer({ attach, zIndex, placement = 'top' }: MessageOptions):
  * @desc 函数式调用时的 message 渲染函数
  */
 async function renderElement(theme, config: MessageOptions): Promise<MessageInstance> {
-  const container = (await createContainer(config)) as HTMLElement;
+  const { attach, placement = 'top', zIndex, content, offset, onClose = noop } = config;
 
-  const { content, offset, onClose = noop } = config;
-  const div = document.createElement('div');
+  const attachNode = getAttach(attach);
+  const containerInstance = await findExistingContainer(attachNode, placement, zIndex);
+  const messageDiv = document.createElement('div');
 
-  keyIndex += 1;
-
-  const message = {
+  const message: MessageInstance = {
     close: () => {
-      unmount(div);
-      div.remove();
-      message.closed = true;
-      // 关闭消息实例时，从全局的消息列表中移除该实例
-      const index = MessageList.indexOf(message);
-      if (index >= 0) {
-        MessageList.splice(index, 1);
+      if (messageDiv.parentNode) {
+        unmount(messageDiv);
+        messageDiv.remove();
+      }
+      const index = containerInstance.messages.indexOf(message);
+      if (index === -1) return;
+      containerInstance.messages.splice(index, 1);
+      // 如果容器内没有消息，整个移除
+      if (containerInstance.messages.length === 0) {
+        containerInstance.container.remove();
+        const attachNodeMap = getAttachNodeMap(attachNode);
+        attachNodeMap.delete(placement);
+        if (attachNodeMap.size === 0) {
+          MessageContainerMaps.delete(attachNode);
+        }
       }
     },
-    key: keyIndex,
-    closed: false,
   };
 
   let style: React.CSSProperties = { ...config.style };
@@ -166,6 +185,7 @@ async function renderElement(theme, config: MessageOptions): Promise<MessageInst
     };
   }
 
+  messageKey += 1;
   return new Promise((resolve) => {
     /**
      * message plugin 调用时走的渲染逻辑
@@ -173,11 +193,10 @@ async function renderElement(theme, config: MessageOptions): Promise<MessageInst
      * message组件不用穿，自身的配置信息都在props中
      */
     const mGlobalConfig = ConfigProvider.getGlobalConfig();
-    // 渲染组件
     render(
       <PluginContainer globalConfig={mGlobalConfig}>
         <MessageComponent
-          key={keyIndex}
+          key={messageKey}
           {...config}
           theme={theme}
           style={style}
@@ -189,14 +208,10 @@ async function renderElement(theme, config: MessageOptions): Promise<MessageInst
           {content}
         </MessageComponent>
       </PluginContainer>,
-      div,
+      messageDiv,
     );
-
-    // 将当前渲染的 message 挂载到指定的容器中
-    container.appendChild(div);
-    // message 推入 message 列表
-    MessageList.push(message);
-    // 将 message 实例通过 resolve 返回给 promise 调用方
+    containerInstance.container.appendChild(messageDiv);
+    containerInstance.messages.push(message);
     resolve(message);
   });
 }
@@ -234,7 +249,6 @@ MessagePlugin.loading = (content, duration) => messageMethod('loading', content,
 MessagePlugin.config = (options: MessageOptions) => setGlobalConfig(options);
 
 /**
- * @date 2021-05-16 13:11:24
  * @desc Message 顶层内置函数，传入 message promise，关闭传入的 message.
  */
 MessagePlugin.close = (messageInstance) => {
@@ -245,10 +259,24 @@ MessagePlugin.close = (messageInstance) => {
  * @desc 关闭所有的 message
  */
 MessagePlugin.closeAll = (): MessageCloseAllMethod => {
-  MessageList.forEach((message) => {
-    typeof message.close === 'function' && message.close();
+  // 收集所有需要关闭的消息实例
+  const allMessages: MessageInstance[] = [];
+
+  MessageContainerMaps.forEach((placementMap) => {
+    placementMap.forEach((containerInfo) => {
+      // 复制消息数组，避免在关闭过程中数组被修改
+      allMessages.push(...containerInfo.messages.slice());
+    });
   });
-  MessageList = [];
+
+  // 批量关闭所有消息
+  allMessages.forEach((message) => {
+    if (typeof message.close === 'function') {
+      message.close();
+    }
+  });
+
+  MessageContainerMaps.clear();
   return;
 };
 
