@@ -44,20 +44,12 @@ animation | String | skeleton | 加载动画类型。可选项：skeleton/moving
 name | String/ReactNode | - | 发送者名称 | N
 avatar | String/ReactNode | - | 发送者头像 | N
 datetime | String | - | 消息发送时间 | N
-message | Object | - | 消息内容对象。类型定义见下方 `ChatMessagesData` | Y
-chatContentProps | Object | - | 消息内容属性配置。类型支持见 `chatContentProps` | N
-actions | Array/Boolean | - | 操作按钮配置项`TdChatMessageActionName[]`，可配置操作按钮选项和顺序。数组可选项：'copy'/'good'/'bad'/'replay'/'share'  | N
-handleActions | Object | - | 操作按钮处理函数 | N
-
-### ChatMessagesData 消息对象结构
-
-字段 | 类型 | 必传 | 说明
---|--|--|--
-id | string | Y | 消息唯一标识
 role | `"user" \| "assistant" \| "system"` | Y | 消息角色类型
 status | `"pending" \| "streaming" \| "complete" \| "stop" \| "error"` | N | 消息状态
 content | `UserMessageContent[] \| AIMessageContent[] \|  TextContent[]` | N | 消息内容
-ext | any | N | 扩展字段
+chatContentProps | Object | - | 消息内容属性配置。类型支持见 `chatContentProps` | N
+actions | Array/Boolean | - | 操作按钮配置项`TdChatMessageActionName[]`，可配置操作按钮选项和顺序。数组可选项：'copy'/'good'/'bad'/'replay'/'share'  | N
+handleActions | Object | - | 操作按钮处理函数 | N
 
 #### UserMessageContent 内容类型支持
 - 文本消息 (`TextContent`)
