@@ -119,9 +119,19 @@ export default function ChatMessageExample() {
   };
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
-      <ChatMessage variant="base" placement="right" message={userMessage1}></ChatMessage>
       <ChatMessage
-        message={aiMessages}
+        variant="base"
+        placement="right"
+        id={userMessage1.id}
+        role={userMessage1.role}
+        content={userMessage1.content}
+        status={userMessage1.status}
+      ></ChatMessage>
+      <ChatMessage
+        id={aiMessages.id}
+        role={aiMessages.role}
+        content={aiMessages.content}
+        status={aiMessages.status}
         animation="gradient"
         chatContentProps={{
           thinking: { maxHeight: 100, collapsed: true },
@@ -129,7 +139,14 @@ export default function ChatMessageExample() {
         }}
         handleActions={onActions}
       ></ChatMessage>
-      <ChatMessage variant="base" placement="right" message={userMessage2}></ChatMessage>
+      <ChatMessage
+        variant="base"
+        placement="right"
+        id={userMessage2.id}
+        role={userMessage2.role}
+        content={userMessage2.content}
+        status={userMessage2.status}
+      ></ChatMessage>
     </Space>
   );
 }

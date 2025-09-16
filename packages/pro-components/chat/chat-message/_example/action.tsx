@@ -19,7 +19,8 @@ export default function ChatMessageExample() {
         variant="text"
         avatar="https://tdesign.gtimg.com/site/chat-avatar.png"
         name="TDesignAI"
-        message={message}
+        role={message.role}
+        content={message.content}
       >
         {/* 植入插槽用来追加消息底部操作栏 */}
         <ChatActionBar slot="actionbar" copyText={getMessageContentForCopy(message)}></ChatActionBar>

@@ -54,19 +54,34 @@ export default function ChatMessageExample() {
         avatar="https://tdesign.gtimg.com/site/avatar.jpg"
         datetime="今天16:38"
         name="张三"
-        message={messages.user}
+        id={messages.user.id}
+        role={messages.user.role}
+        content={messages.user.content}
       ></ChatMessage>
       <ChatMessage
         avatar="https://tdesign.gtimg.com/site/chat-avatar.png"
         datetime="今天16:43"
         name="TDesignAI"
-        message={messages.ai}
+        id={messages.ai.id}
+        role={messages.ai.role}
+        content={messages.ai.content}
       ></ChatMessage>
       <Divider>可配置位置</Divider>
-      <ChatMessage placement="right" variant="base" message={messages.user}></ChatMessage>
-      <ChatMessage placement="left" message={messages.ai}></ChatMessage>
+      <ChatMessage
+        placement="right"
+        variant="base"
+        id={messages.user.id}
+        role={messages.user.role}
+        content={messages.user.content}
+      ></ChatMessage>
+      <ChatMessage
+        placement="left"
+        id={messages.ai.id}
+        role={messages.ai.role}
+        content={messages.ai.content}
+      ></ChatMessage>
       <Divider>角色为system的系统消息</Divider>
-      <ChatMessage message={messages.system}></ChatMessage>
+      <ChatMessage id={messages.system.id} role={messages.system.role} content={messages.system.content}></ChatMessage>
     </Space>
   );
 }

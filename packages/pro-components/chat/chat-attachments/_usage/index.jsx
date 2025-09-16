@@ -7,7 +7,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import BaseUsage, { useConfigChange, usePanelChange } from '@tdesign/react-site/src/components/BaseUsage';
 import jsxToString from 'react-element-to-jsx-string';
 
-import { ChatAttachments } from '@tdesign-react/aigc';
+import { Attachments } from '@tdesign-react/aigc';
 import configProps from './props.json';
 
 const filesList = [
@@ -62,7 +62,7 @@ export default function Usage() {
 
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const panelList = [{ label: 'chatAttachments', value: 'chatAttachments' }];
+  const panelList = [{ label: 'Attachments', value: 'Attachments' }];
 
   const { panel, onPanelChange } = usePanelChange(panelList);
 
@@ -71,7 +71,7 @@ export default function Usage() {
   useEffect(() => {
     setRenderComp(
       <div style={{ width: '600px' }}>
-        <ChatAttachments items={filesList} {...changedProps} />
+        <Attachments items={filesList} {...changedProps} />
       </div>,
     );
   }, [changedProps]);

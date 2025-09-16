@@ -16,9 +16,9 @@ const message: UserMessage = {
 export default function ChatMessageExample() {
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
-      <ChatMessage message={message}></ChatMessage>
-      <ChatMessage variant="base" message={message}></ChatMessage>
-      <ChatMessage variant="outline" message={message}></ChatMessage>
+      <ChatMessage id={message.id} role={message.role} content={message.content}></ChatMessage>
+      <ChatMessage variant="base" id={message.id} role={message.role} content={message.content}></ChatMessage>
+      <ChatMessage variant="outline" id={message.id} role={message.role} content={message.content}></ChatMessage>
     </Space>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChatAttachments, TdAttachmentItem } from '@tdesign-react/aigc';
+import { Attachments, TdAttachmentItem } from '@tdesign-react/aigc';
 import { Space } from 'tdesign-react';
 
 const filesList: TdAttachmentItem[] = [
@@ -59,7 +59,7 @@ const ChatAttachmentExample = () => {
 
   return (
     <Space style={{ width: '680px' }}>
-      <ChatAttachments items={list} overflow="scrollX" onRemove={onRemove} imageViewer={true}></ChatAttachments>
+      <Attachments items={list} overflow="scrollX" onRemove={onRemove} imageViewer={true}></Attachments>
     </Space>
   );
 };

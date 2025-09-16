@@ -42,7 +42,9 @@ export default function ChatMessageExample() {
         datetime="今天16:38"
         animation={animation}
         name="TDesignAI"
-        message={messages.loading}
+        id={messages.loading.id}
+        role={messages.loading.role}
+        status={messages.loading.status}
       ></ChatMessage>
       <Divider>出错状态下的消息</Divider>
       <ChatMessage avatar="https://tdesign.gtimg.com/site/chat-avatar.png" message={messages.error}></ChatMessage>

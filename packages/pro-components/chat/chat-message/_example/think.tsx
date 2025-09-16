@@ -54,7 +54,10 @@ export default function ChatMessageExample() {
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
       <ChatMessage
-        message={aiMessages}
+        id={aiMessages.id}
+        role={aiMessages.role}
+        content={aiMessages.content}
+        status={aiMessages.status}
         animation="gradient"
         chatContentProps={{
           thinking: { maxHeight: 100, collapsed: true },

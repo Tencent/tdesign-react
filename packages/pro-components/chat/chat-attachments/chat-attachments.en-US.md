@@ -1,7 +1,7 @@
 :: BASE_DOC ::
 
 ## API
-### ChatAttachments Props
+### Attachments Props
 
 name | type | default | description | required
 -- | -- | -- | -- | --

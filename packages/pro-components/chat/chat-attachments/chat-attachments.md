@@ -1,5 +1,5 @@
 ---
-title: ChatAttachments 附件列表
+title: Attachments 附件列表
 description: 附件列表
 isComponent: true
 usage: { title: '', description: '' }
@@ -8,11 +8,11 @@ spline: aigc
 
 ## 基础用法
 
-<!-- {{ base }} -->
+{{ base }}
 
 
 ## API
-### ChatAttachments Props
+### Attachments Props
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
 items | Array  | - | 附件列表。TS类型：`TdAttachmentItem[]`。[类型定义](./chat-filecard?tab=api#tdattachmentitem-类型说明) | Y
