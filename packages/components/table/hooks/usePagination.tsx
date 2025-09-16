@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import useConfig from '../../hooks/useConfig';
 import Pagination, { PageInfo, PaginationProps } from '../../pagination';
-import { TdBaseTableProps, TableRowData } from '../type';
+import type { TableRowData, TdBaseTableProps } from '../type';
 
 // 分页功能包含：远程数据排序受控、远程数据排序非受控、本地数据排序受控、本地数据排序非受控 等 4 类功能
 export default function usePagination(props: TdBaseTableProps, tableContentRef: React.RefObject<HTMLDivElement>) {
@@ -11,6 +11,8 @@ export default function usePagination(props: TdBaseTableProps, tableContentRef: 
 
   const [dataSource, setDataSource] = useState<TableRowData[]>([]);
   const [isPaginateData, setIsPaginateData] = useState(false);
+
+  const isControlled = pagination?.current !== undefined;
 
   const updateDataSourceAndPaginate = useCallback(
     (current = 1, pageSize = 10) => {
@@ -37,26 +39,21 @@ export default function usePagination(props: TdBaseTableProps, tableContentRef: 
     }
   }, [pagination]);
 
-  // 受控情况，只有 pagination.current 或者 pagination.pageSize 变化，才对数据进行排序
+  // 受控情况
   useEffect(() => {
-    if (!pagination || !pagination.current) return;
-    const [current, pageSize] = [pagination?.current, pagination?.pageSize ?? 10];
+    if (!pagination || !isControlled) return;
+    const [current, pageSize] = [pagination?.current || 1, pagination?.pageSize ?? 10];
     updateDataSourceAndPaginate(current, pageSize);
     setInnerPagination({ current, pageSize });
-  }, [pagination, updateDataSourceAndPaginate]);
+  }, [pagination, isControlled, updateDataSourceAndPaginate]);
 
   // 非受控情况
   useEffect(() => {
-    if (!pagination || !pagination.defaultCurrent) return;
-    // 存在受控属性时，立即返回不再执行后续内容
-    const isControlled = Boolean(pagination.current);
-    if (isControlled) return;
-    updateDataSourceAndPaginate(
-      innerPagination.current ?? pagination.defaultCurrent,
-      innerPagination.pageSize ?? pagination.defaultPageSize,
-    );
+    if (!pagination || isControlled) return;
+    const [current, pageSize] = [pagination?.defaultCurrent || 1, pagination?.defaultPageSize ?? 10];
+    updateDataSourceAndPaginate(current, pageSize);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [updateDataSourceAndPaginate]);
+  }, [isControlled, updateDataSourceAndPaginate]);
 
   const renderPagination = () => {
     if (!pagination) return null;
@@ -66,9 +63,13 @@ export default function usePagination(props: TdBaseTableProps, tableContentRef: 
           {...pagination}
           onChange={(pageInfo: PageInfo) => {
             props.pagination?.onChange?.(pageInfo);
-            setInnerPagination(pageInfo);
-            const newData = updateDataSourceAndPaginate(pageInfo.current, pageInfo.pageSize);
-            props.onPageChange?.(pageInfo, newData);
+            if (isControlled) {
+              props.onPageChange?.(pageInfo, dataSource);
+            } else {
+              setInnerPagination(pageInfo);
+              const newData = updateDataSourceAndPaginate(pageInfo.current, pageInfo.pageSize);
+              props.onPageChange?.(pageInfo, newData);
+            }
 
             // 当切换分页时，内容区域滚动到顶部
             const ref = tableContentRef.current;
