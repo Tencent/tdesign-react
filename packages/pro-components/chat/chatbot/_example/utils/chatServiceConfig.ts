@@ -1,4 +1,4 @@
-import type { ChatRequestParams, AIMessageContent } from '../../core/type';
+import type { ChatRequestParams, AIMessageContent } from '@tdesign-react/aigc';
 
 interface ChatServiceConfigProps {
   setPlanningState: (state: any) => void;

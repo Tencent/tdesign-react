@@ -1,5 +1,5 @@
-import { TdAttachmentsProps } from '@tencent/tdesign-webc-test';
-import '@tencent/tdesign-webc-test/lib/attachments';
+import { TdAttachmentsProps } from 'tdesign-web-components';
+import 'tdesign-web-components/lib/attachments';
 import reactify from '../_util/reactify';
 
 export const Attachments: React.ForwardRefExoticComponent<
@@ -8,4 +8,4 @@ export const Attachments: React.ForwardRefExoticComponent<
 
 export default Attachments;
 
-export type { TdAttachmentsProps, TdAttachmentItem } from '@tencent/tdesign-webc-test';
+export type { TdAttachmentsProps, TdAttachmentItem } from 'tdesign-web-components';

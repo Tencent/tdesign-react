@@ -1,5 +1,5 @@
-import { TdChatActionProps } from '@tencent/tdesign-webc-test';
-import '@tencent/tdesign-webc-test/lib/chat-action';
+import { TdChatActionProps } from 'tdesign-web-components';
+import 'tdesign-web-components/lib/chat-action';
 import reactify from '../_util/reactify';
 
 export const ChatActionBar: React.ForwardRefExoticComponent<
@@ -10,7 +10,7 @@ export const ChatActionBar: React.ForwardRefExoticComponent<
 > = reactify<TdChatActionProps>('t-chat-action');
 
 export default ChatActionBar;
-export type { TdChatActionProps, TdChatActionsName } from '@tencent/tdesign-webc-test';
+export type { TdChatActionProps, TdChatActionsName } from 'tdesign-web-components';
 
 // 方案1
 // import { reactifyLazy } from './_util/reactifyLazy';
@@ -19,10 +19,10 @@ export type { TdChatActionProps, TdChatActionsName } from '@tencent/tdesign-webc
 //   variant: 'primary' | 'secondary' | 'outline'
 // }>(
 //   't-chat-action',
-//   '@tencent/tdesign-webc-test/esm/chat-action'
+//   'tdesign-web-components/esm/chat-action'
 // );
 
-// import ChatAction from '@tencent/tdesign-webc-test/esm/chat-action';
+// import ChatAction from 'tdesign-web-components/esm/chat-action';
 // import React, { forwardRef, useEffect } from 'react';
 
 // // 注册Web Components组件

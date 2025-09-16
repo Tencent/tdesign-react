@@ -11,7 +11,7 @@ import {
   ChatActionBar,
   isAIMessage,
 } from '@tdesign-react/aigc';
-import { TdChatActionsName, TdChatSenderParams } from '@tencent/tdesign-webc-test';
+import { TdChatActionsName, TdChatSenderParams } from 'tdesign-web-components';
 import { Button, Space, MessagePlugin } from 'tdesign-react';
 import { useChat, getMessageContentForCopy, AGUIAdapter } from '../index';
 import CustomToolCallRenderer from './components/Toolcall';

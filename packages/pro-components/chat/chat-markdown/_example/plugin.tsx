@@ -4,7 +4,10 @@ import { ChatMarkdown } from '@tdesign-react/aigc';
 // 公式能力引入，可参考cherryMarkdown示例
 import 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js';
 
-const mdContent = `## 块级公式
+const mdContent = `
+---
+
+## 块级公式
 
 $$
 E=mc^2

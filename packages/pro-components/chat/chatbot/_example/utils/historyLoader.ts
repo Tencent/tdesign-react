@@ -1,5 +1,5 @@
-import type { ChatMessagesData } from '../../core/type';
-import { AGUIAdapter, type AGUIHistoryMessage } from '../../core/adapters/agui';
+import type { ChatMessagesData, AGUIHistoryMessage } from '@tdesign-react/aigc';
+import { AGUIAdapter } from '@tdesign-react/aigc';
 
 // 加载历史消息的函数
 export const loadHistoryMessages = async (): Promise<ChatMessagesData[]> => {

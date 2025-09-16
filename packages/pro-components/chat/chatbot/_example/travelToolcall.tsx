@@ -1,6 +1,6 @@
 import React, { ReactNode, useCallback, useMemo, useRef, useState } from 'react';
+import { Button } from 'tdesign-react';
 import {
-  type TdChatMessageConfig,
   ChatList,
   ChatSender,
   ChatMessage,
@@ -9,15 +9,22 @@ import {
   ChatActionBar,
   isAIMessage,
 } from '@tdesign-react/aigc';
-import { TdChatActionsName, TdChatSenderParams } from '@tencent/tdesign-webc-test';
 import { LoadingIcon, HistoryIcon } from 'tdesign-icons-react';
-import { Button } from 'tdesign-react';
-import type { ChatMessagesData, ChatRequestParams, ChatBaseContent, AIMessageContent, ToolCall } from '../core/type';
-import { AGUIAdapter, type AGUIHistoryMessage } from '../core/adapters/agui';
+import type {
+  TdChatMessageConfig,
+  TdChatActionsName,
+  TdChatSenderParams,
+  ChatMessagesData,
+  ChatRequestParams,
+  ChatBaseContent,
+  AIMessageContent,
+  ToolCall,
+  AGUIHistoryMessage,
+} from '@tdesign-react/aigc';
+import { getMessageContentForCopy, AGUIAdapter } from '@tdesign-react/aigc';
 import { ToolCallRenderer, useAgentToolcall, useChat } from '../index';
 import { PlanningStatePanel } from './components';
 import './travel_v1.css';
-import { getMessageContentForCopy } from '../core';
 import { travelActions } from './travel-actions';
 
 // 扩展自定义消息体类型

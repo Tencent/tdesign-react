@@ -100,7 +100,7 @@ const WeatherDisplay: React.FC<ToolcallComponentProps<WeatherArgs, WeatherResult
   result,
   error,
 }) => {
-  console.log("=====WeatherDisplay", status);
+  console.log('=====WeatherDisplay', status);
   if (status === 'error') {
     return (
       <Alert theme="error" icon={<CloseIcon />} title="获取天气信息失败">

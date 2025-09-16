@@ -1,5 +1,5 @@
 import React from 'react';
-import type { AIMessageContent, ChatMessagesData } from '../../core/type';
+import type { AIMessageContent, ChatMessagesData } from '@tdesign-react/aigc';
 import { WeatherCard, ItineraryCard, HotelCard, HumanInputResult } from '../components';
 
 interface MessageRendererProps {

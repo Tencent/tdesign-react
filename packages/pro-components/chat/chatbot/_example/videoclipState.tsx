@@ -9,8 +9,8 @@ import {
   getMessageContentForCopy,
   TdChatSenderParams,
   ChatLoading,
+  TdChatActionsName,
 } from '@tdesign-react/aigc';
-import { TdChatActionsName } from '@tencent/tdesign-webc-test';
 import { Steps, Card, Tag } from 'tdesign-react';
 import {
   PlayCircleIcon,
@@ -21,7 +21,7 @@ import {
   LoadingIcon,
   ChevronRightIcon,
 } from 'tdesign-icons-react';
-import type { ChatMessagesData, ChatRequestParams, AIMessageContent, ToolCall } from '../core/type';
+import type { ChatMessagesData, ChatRequestParams, AIMessageContent, ToolCall } from '@tdesign-react/aigc';
 import { ToolCallRenderer, useAgentState, useChat, useAgentToolcall, isUserMessage } from '../index';
 import type { AgentToolcallConfig, ToolcallComponentProps } from '../components/toolcall/types';
 import './videoclipAgent.css';
@@ -404,7 +404,6 @@ const videoclipActions: AgentToolcallConfig[] = [
       if (status === 'error') {
         return <div className="videoclip-toolcall error">解析参数失败: {error?.message}</div>;
       }
-
       // 使用绑定stateKey的VideoClipSteps组件，这样每个消息的步骤显示都是独立的
       // 对于videoclip业务，stepId实际上就是runId，我们将其作为stateKey使用
       const stateKey = args?.stepId;

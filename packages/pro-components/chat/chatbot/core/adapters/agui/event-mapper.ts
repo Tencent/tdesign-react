@@ -393,10 +393,10 @@ export class AGUIEventMapper {
   /**
    * 处理工具调用结束事件
    */
-  private handleToolCallEnd(event: any): null {
+  private handleToolCallEnd(event: any) {
     // 标记工具调用结束
     this.toolCallEnded.add(event.toolCallId);
-    return null;
+    return this.updateToolCallInContext(event.toolCallId, 'complete');
   }
 
   /**

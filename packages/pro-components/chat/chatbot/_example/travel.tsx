@@ -1,21 +1,29 @@
 import React, { ReactNode, useMemo, useRef, useState } from 'react';
+import { Button } from 'tdesign-react';
 import {
-  type TdChatMessageConfig,
   ChatList,
   ChatSender,
   ChatMessage,
   TdChatListApi,
   TdChatSenderApi,
   ChatActionBar,
+  AGUIAdapter,
   isAIMessage,
+  applyJsonPatch,
   getMessageContentForCopy,
 } from '@tdesign-react/aigc';
-import { TdChatActionsName, TdChatSenderParams } from '@tencent/tdesign-webc-test';
+import type {
+  TdChatMessageConfig,
+  TdChatActionsName,
+  TdChatSenderParams,
+  ChatMessagesData,
+  ChatRequestParams,
+  ChatBaseContent,
+  AIMessageContent,
+  AGUIHistoryMessage,
+} from '@tdesign-react/aigc';
 import { LoadingIcon, HistoryIcon } from 'tdesign-icons-react';
-import { Button } from 'tdesign-react';
 import { useChat } from '../hooks/useChat';
-import type { ChatMessagesData, ChatRequestParams, ChatBaseContent, AIMessageContent } from '../core/type';
-import { AGUIAdapter, type AGUIHistoryMessage } from '../core/adapters/agui';
 import {
   PlanningStatePanel,
   WeatherCard,
@@ -26,7 +34,6 @@ import {
 } from './components';
 import type { FormConfig } from './components/HumanInputForm';
 import './travel-planner.css';
-import { applyJsonPatch } from '../core';
 
 // 扩展自定义消息体类型
 declare module '@tdesign-react/aigc' {

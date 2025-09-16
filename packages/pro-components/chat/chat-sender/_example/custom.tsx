@@ -1,4 +1,4 @@
-import { TdAttachmentItem } from '@tencent/tdesign-webc-test';
+import { TdAttachmentItem } from 'tdesign-web-components';
 import React, { useRef, useState, useEffect } from 'react';
 import { EnterIcon, InternetIcon, AttachIcon, CloseIcon, ArrowUpIcon, StopIcon } from 'tdesign-icons-react';
 import { ChatSender } from '@tdesign-react/aigc';
