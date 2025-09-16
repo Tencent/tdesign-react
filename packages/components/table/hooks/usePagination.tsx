@@ -14,23 +14,31 @@ export default function usePagination(props: TdBaseTableProps, tableContentRef: 
 
   const isControlled = pagination?.current !== undefined;
 
-  const updateDataSourceAndPaginate = useCallback(
+  const calculatePaginatedData = useCallback(
     (current = 1, pageSize = 10) => {
       // data 数据数量超出分页大小时，则自动启动本地数据分页
-      const isPaginateData = Boolean(!disableDataPage && data.length > pageSize);
-      setIsPaginateData(isPaginateData);
+      const shouldPaginate = Boolean(!disableDataPage && data.length > pageSize);
       let newData: TableRowData[] = [];
-      if (isPaginateData) {
+      if (shouldPaginate) {
         const start = (current - 1) * pageSize;
         const end = current * pageSize;
         newData = [...data.slice(start, end)];
       } else {
         newData = data;
       }
+      return { newData, shouldPaginate };
+    },
+    [data, disableDataPage],
+  );
+
+  const updateDataSourceAndPaginate = useCallback(
+    (current = 1, pageSize = 10) => {
+      const { newData, shouldPaginate } = calculatePaginatedData(current, pageSize);
+      setIsPaginateData(shouldPaginate);
       setDataSource(newData);
       return newData;
     },
-    [data, disableDataPage],
+    [calculatePaginatedData],
   );
 
   useEffect(() => {
@@ -64,7 +72,8 @@ export default function usePagination(props: TdBaseTableProps, tableContentRef: 
           onChange={(pageInfo: PageInfo) => {
             props.pagination?.onChange?.(pageInfo);
             if (isControlled) {
-              props.onPageChange?.(pageInfo, dataSource);
+              const { newData } = calculatePaginatedData(pageInfo.current, pageInfo.pageSize);
+              props.onPageChange?.(pageInfo, newData);
             } else {
               setInnerPagination(pageInfo);
               const newData = updateDataSourceAndPaginate(pageInfo.current, pageInfo.pageSize);
