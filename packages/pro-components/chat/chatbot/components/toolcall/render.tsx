@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import type { ToolCall } from '../../core/type';
+import type { ToolCall } from 'tdesign-web-components/lib/chat-engine';
 import { isNonInteractiveConfig, type ToolcallComponentProps } from './types';
 import { agentToolcallRegistry } from './registry';
 import { AgentStateContext, useAgentStateDataByKey } from '../../hooks/useAgentState';

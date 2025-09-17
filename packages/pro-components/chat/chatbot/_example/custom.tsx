@@ -8,13 +8,13 @@ import type {
   ChatServiceConfig,
   ChatBaseContent,
   ChatMessagesData,
-} from '@tdesign-react/aigc';
+} from '@tdesign-react/chat';
 import { Button, Space } from 'tdesign-react';
-import { ChatBot } from '@tdesign-react/aigc';
+import { ChatBot } from '@tdesign-react/chat';
 import TvisionTcharts from 'tvision-charts-react';
 
 // 1、扩展自定义消息体类型
-declare module '@tdesign-react/aigc' {
+declare module '@tdesign-react/chat' {
   interface AIContentTypeOverrides {
     chart: ChatBaseContent<
       'chart',

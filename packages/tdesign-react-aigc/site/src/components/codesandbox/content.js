@@ -88,7 +88,7 @@ export const pkgContent = JSON.stringify(
       react: orgPkg.dependencies.react,
       'react-dom': orgPkg.dependencies['react-dom'],
       'tdesign-react': orgPkg.dependencies['tdesign-react'],
-      '@tdesign-react/aigc': tdesignReactPkg.version,
+      '@tdesign-react/chat': tdesignReactPkg.version,
       'tdesign-icons-react': orgPkg.dependencies['tdesign-icons-react'],
       '@types/react': orgPkg.devDependencies['@types/react'],
       '@types/react-dom': orgPkg.devDependencies['@types/react-dom'],

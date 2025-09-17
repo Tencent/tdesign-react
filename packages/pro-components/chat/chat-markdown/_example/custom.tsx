@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ChatMarkdown, MarkdownEngine } from '@tdesign-react/aigc';
+import { ChatMarkdown, MarkdownEngine } from '@tdesign-react/chat';
 
 const classStyles = `
 <style>

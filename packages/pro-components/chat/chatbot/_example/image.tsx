@@ -11,9 +11,9 @@ import type {
   UploadFile,
   TdChatMessageConfig,
   TdChatbotApi,
-} from '@tdesign-react/aigc';
+} from '@tdesign-react/chat';
 import { ImageViewer, Skeleton, ImageViewerProps, Button, Dropdown, Space, Image } from 'tdesign-react';
-import { ChatBot } from '@tdesign-react/aigc';
+import { ChatBot } from '@tdesign-react/chat';
 
 const RatioOptions = [
   {

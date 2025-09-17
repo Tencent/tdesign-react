@@ -1,7 +1,7 @@
 import React from 'react';
 import { Space } from 'tdesign-react';
 
-import { AIMessage, ChatMessage, UserMessage } from '@tdesign-react/aigc';
+import { AIMessage, ChatMessage, UserMessage } from '@tdesign-react/chat';
 
 const userMessage1: UserMessage = {
   id: '11111',

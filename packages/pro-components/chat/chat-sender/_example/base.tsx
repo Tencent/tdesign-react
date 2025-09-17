@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChatSender } from '@tdesign-react/aigc';
+import { ChatSender } from '@tdesign-react/chat';
 
 const ChatSenderExample = () => {
   const [inputValue, setInputValue] = useState('输入内容');

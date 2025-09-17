@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChatSearchContent } from '@tdesign-react/aigc';
+import { ChatSearchContent } from '@tdesign-react/chat';
 
 export default function SearchContentSample() {
   return (

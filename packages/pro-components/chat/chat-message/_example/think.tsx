@@ -1,7 +1,7 @@
 import React from 'react';
 import { Space } from 'tdesign-react';
 
-import { AIMessage, ChatMessage } from '@tdesign-react/aigc';
+import { AIMessage, ChatMessage } from '@tdesign-react/chat';
 
 const aiMessages: AIMessage = {
   id: '33333',

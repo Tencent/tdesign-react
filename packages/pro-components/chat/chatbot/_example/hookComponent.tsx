@@ -17,7 +17,7 @@ import {
   TdChatSenderParams,
   ChatLoading,
   TdChatActionsName,
-} from '@tdesign-react/aigc';
+} from '@tdesign-react/chat';
 import { useChat } from '../index';
 
 export default function ComponentsBuild() {

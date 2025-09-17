@@ -8,7 +8,7 @@ import {
   TdChatSenderApi,
   ChatActionBar,
   isAIMessage,
-} from '@tdesign-react/aigc';
+} from '@tdesign-react/chat';
 import { LoadingIcon, HistoryIcon } from 'tdesign-icons-react';
 import type {
   TdChatMessageConfig,
@@ -20,15 +20,15 @@ import type {
   AIMessageContent,
   ToolCall,
   AGUIHistoryMessage,
-} from '@tdesign-react/aigc';
-import { getMessageContentForCopy, AGUIAdapter } from '@tdesign-react/aigc';
+} from '@tdesign-react/chat';
+import { getMessageContentForCopy, AGUIAdapter } from '@tdesign-react/chat';
 import { ToolCallRenderer, useAgentToolcall, useChat } from '../index';
 import { PlanningStatePanel } from './components';
 import './travel_v1.css';
 import { travelActions } from './travel-actions';
 
 // 扩展自定义消息体类型
-declare module '@tdesign-react/aigc' {
+declare module '@tdesign-react/chat' {
   interface AIContentTypeOverrides {
     weather: ChatBaseContent<'weather', { weather: any[] }>;
     itinerary: ChatBaseContent<'itinerary', { plan: any[] }>;

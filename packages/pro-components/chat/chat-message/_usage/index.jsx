@@ -7,7 +7,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import BaseUsage, { useConfigChange, usePanelChange } from '@tdesign/react-site/src/components/BaseUsage';
 import jsxToString from 'react-element-to-jsx-string';
 
-import { ChatMessage } from '@tdesign-react/aigc';
+import { ChatMessage } from '@tdesign-react/chat';
 
 import configProps from './props.json';
 

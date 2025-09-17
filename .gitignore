@@ -41,3 +41,4 @@ pnpm-lock.yaml
 server/chat/*
 
 packages/pro-components/chat/chatbot/docs/*
+packages/pro-components/chat/chatbot/core/*

@@ -5,17 +5,17 @@
 </p>
 
 <p align="center">
-   <a href="https://www.npmjs.com/package/@tdesign-react/aigc">
-    <img src="https://img.shields.io/npm/l/@tdesign-react/aigc.svg?sanitize=true" alt="License" />
+   <a href="https://www.npmjs.com/package/@tdesign-react/chat">
+    <img src="https://img.shields.io/npm/l/@tdesign-react/chat.svg?sanitize=true" alt="License" />
   </a>
-  <a href="https://app.codecov.io/gh/Tencent/@tdesign-react/aigc">
-    <img src="https://img.shields.io/codecov/c/github/Tencent/@tdesign-react/aigc/develop.svg?style=flat-square" alt="codecov">
+  <a href="https://app.codecov.io/gh/Tencent/@tdesign-react/chat">
+    <img src="https://img.shields.io/codecov/c/github/Tencent/@tdesign-react/chat/develop.svg?style=flat-square" alt="codecov">
   </a>
-  <a href="https://www.npmjs.com/package/@tdesign-react/aigc">
-    <img src="https://img.shields.io/npm/v/@tdesign-react/aigc.svg?sanitize=true" alt="Version">
+  <a href="https://www.npmjs.com/package/@tdesign-react/chat">
+    <img src="https://img.shields.io/npm/v/@tdesign-react/chat.svg?sanitize=true" alt="Version">
   </a>
-  <a href="https://www.npmjs.com/package/@tdesign-react/aigc">
-    <img src="https://img.shields.io/npm/dm/@tdesign-react/aigc.svg?sanitize=true" alt="Downloads" />
+  <a href="https://www.npmjs.com/package/@tdesign-react/chat">
+    <img src="https://img.shields.io/npm/dm/@tdesign-react/chat.svg?sanitize=true" alt="Downloads" />
   </a>
 </p>
 
@@ -24,23 +24,23 @@ TDesign AIGC Components for React Framework
 # 📦 Installation
 
 ```shell
-npm i @tdesign-react/aigc
+npm i @tdesign-react/chat
 ```
 
 ```shell
-yarn add @tdesign-react/aigc
+yarn add @tdesign-react/chat
 ```
 
 ```shell
-pnpm add @tdesign-react/aigc
+pnpm add @tdesign-react/chat
 ```
 
 # 🔨 Usage
 
 ```tsx
 import React from 'react';
-import { ChatBot } from '@tdesign-react/aigc';
-import '@tdesign-react/aigc/es/style/index.js';
+import { ChatBot } from '@tdesign-react/chat';
+import '@tdesign-react/chat/es/style/index.js';
 
 function App() {
   return <ChatBot />;

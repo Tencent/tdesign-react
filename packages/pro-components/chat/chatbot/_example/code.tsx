@@ -9,7 +9,7 @@ import {
   ChatRequestParams,
   ChatServiceConfig,
   TdChatbotApi,
-} from '@tdesign-react/aigc';
+} from '@tdesign-react/chat';
 import Login from './components/login';
 
 // 默认初始化消息

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
-import type { TdAttachmentItem, ChatRequestParams, TdChatMessageConfig, TdChatbotApi } from '@tdesign-react/aigc';
-import { ChatBot } from '@tdesign-react/aigc';
+import type { TdAttachmentItem, ChatRequestParams, TdChatMessageConfig, TdChatbotApi } from '@tdesign-react/chat';
+import { ChatBot } from '@tdesign-react/chat';
 import { SSEChunkData, AIMessageContent, ChatMessagesData, ChatServiceConfig } from '../index';
 
 // 默认初始化消息

@@ -9,8 +9,8 @@ import type {
   ChatRequestParams,
   TdChatMessageConfig,
   TdChatbotApi,
-} from '@tdesign-react/aigc';
-import { ChatBot } from '@tdesign-react/aigc';
+} from '@tdesign-react/chat';
+import { ChatBot } from '@tdesign-react/chat';
 
 // 默认初始化消息
 const mockData: ChatMessagesData[] = [

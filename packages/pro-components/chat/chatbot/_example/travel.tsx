@@ -11,7 +11,7 @@ import {
   isAIMessage,
   applyJsonPatch,
   getMessageContentForCopy,
-} from '@tdesign-react/aigc';
+} from '@tdesign-react/chat';
 import type {
   TdChatMessageConfig,
   TdChatActionsName,
@@ -21,7 +21,7 @@ import type {
   ChatBaseContent,
   AIMessageContent,
   AGUIHistoryMessage,
-} from '@tdesign-react/aigc';
+} from '@tdesign-react/chat';
 import { LoadingIcon, HistoryIcon } from 'tdesign-icons-react';
 import { useChat } from '../hooks/useChat';
 import {
@@ -36,7 +36,7 @@ import type { FormConfig } from './components/HumanInputForm';
 import './travel-planner.css';
 
 // 扩展自定义消息体类型
-declare module '@tdesign-react/aigc' {
+declare module '@tdesign-react/chat' {
   interface AIContentTypeOverrides {
     weather: ChatBaseContent<'weather', { weather: any[] }>;
     itinerary: ChatBaseContent<'itinerary', { plan: any[] }>;

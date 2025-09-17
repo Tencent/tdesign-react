@@ -1,7 +1,7 @@
 {
-  "name": "@tdesign-react/aigc",
+  "name": "@tdesign-react/chat",
   "version": "1.0.0-beta.1",
-  "title": "@tdesign-react/aigc",
+  "title": "@tdesign-react/chat",
   "description": "TDesign Pro Component for AIGC",
   "module": "es/index.js",
   "typings": "es/index.d.ts",
@@ -16,6 +16,7 @@
     "es/**/style/**"
   ],
   "publishConfig": {
+    "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {

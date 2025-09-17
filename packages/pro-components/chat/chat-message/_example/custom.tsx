@@ -2,7 +2,7 @@ import React from 'react';
 import TvisionTcharts from 'tvision-charts-react';
 import { Avatar, Space } from 'tdesign-react';
 
-import { ChatBaseContent, ChatMessage } from '@tdesign-react/aigc';
+import { ChatBaseContent, ChatMessage } from '@tdesign-react/chat';
 
 // 扩展自定义消息体类型
 declare module 'tdesign-react' {

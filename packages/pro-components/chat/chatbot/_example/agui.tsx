@@ -3,6 +3,8 @@ import {
   type TdChatMessageConfig,
   type ChatRequestParams,
   type ChatMessagesData,
+  type TdChatActionsName,
+  type TdChatSenderParams,
   ChatList,
   ChatSender,
   ChatMessage,
@@ -10,10 +12,11 @@ import {
   TdChatSenderApi,
   ChatActionBar,
   isAIMessage,
-} from '@tdesign-react/aigc';
-import { TdChatActionsName, TdChatSenderParams } from 'tdesign-web-components';
+  getMessageContentForCopy,
+  AGUIAdapter,
+} from '@tdesign-react/chat';
 import { Button, Space, MessagePlugin } from 'tdesign-react';
-import { useChat, getMessageContentForCopy, AGUIAdapter } from '../index';
+import { useChat } from '../index';
 import CustomToolCallRenderer from './components/Toolcall';
 
 export default function ComponentsBuild() {

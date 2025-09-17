@@ -11,7 +11,7 @@ import type {
   TdChatSuggestionContentProps,
 } from 'tdesign-web-components';
 import reactify from '../_util/reactify';
-import ChatEngine from './core';
+import ChatEngine from 'tdesign-web-components/lib/chat-engine';
 
 const ChatBot: React.ForwardRefExoticComponent<
   Omit<TdChatProps & Partial<TdChatbotApi>, 'ref'> & React.RefAttributes<HTMLElement | undefined>
@@ -34,7 +34,6 @@ export { ChatBot, ChatSearchContent, ChatSuggestionContent, ChatList, ChatEngine
 
 // 导出类型和工具
 export type * from 'tdesign-web-components/lib/chatbot/type';
-export * from './core';
 export * from './hooks/useChat';
 export * from './hooks/useAgentToolcall';
 export * from './hooks/useAgentState';

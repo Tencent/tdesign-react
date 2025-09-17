@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Radio, Space } from 'tdesign-react';
-import { ChatThinking } from '@tdesign-react/aigc';
+import { ChatThinking } from '@tdesign-react/chat';
 
 import type { TdChatThinkContentProps, ChatMessageStatus } from 'tdesign-web-components';
 

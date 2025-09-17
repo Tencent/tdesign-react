@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Attachments, TdAttachmentItem } from '@tdesign-react/aigc';
+import { Attachments, TdAttachmentItem } from '@tdesign-react/chat';
 import { Space } from 'tdesign-react';
 
 const filesList: TdAttachmentItem[] = [

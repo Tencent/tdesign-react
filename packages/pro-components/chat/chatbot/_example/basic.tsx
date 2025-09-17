@@ -9,7 +9,7 @@ import {
   ChatServiceConfig,
   ChatBot,
   type TdChatbotApi,
-} from '@tdesign-react/aigc';
+} from '@tdesign-react/chat';
 import { Button, Space } from 'tdesign-react';
 
 // 默认初始化消息

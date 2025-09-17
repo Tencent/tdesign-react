@@ -1,6 +1,6 @@
 import React from 'react';
 import { Space } from 'tdesign-react';
-import { ChatLoading } from '@tdesign-react/aigc';
+import { ChatLoading } from '@tdesign-react/chat';
 
 const ChatLoadingExample = () => (
   <>

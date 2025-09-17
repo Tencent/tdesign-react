@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button, Space } from 'tdesign-react';
-import { ChatMarkdown, findTargetElement } from '@tdesign-react/aigc';
+import { ChatMarkdown, findTargetElement } from '@tdesign-react/chat';
 
 const doc = `
 这是一个markdown[链接地址](http://example.com), 点击后**不会**自动跳转.

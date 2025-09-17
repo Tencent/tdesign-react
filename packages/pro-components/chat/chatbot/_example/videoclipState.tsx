@@ -10,7 +10,12 @@ import {
   TdChatSenderParams,
   ChatLoading,
   TdChatActionsName,
-} from '@tdesign-react/aigc';
+  ToolCallRenderer,
+  useAgentState,
+  useChat,
+  useAgentToolcall,
+  isUserMessage,
+} from '@tdesign-react/chat';
 import { Steps, Card, Tag } from 'tdesign-react';
 import {
   PlayCircleIcon,
@@ -21,8 +26,7 @@ import {
   LoadingIcon,
   ChevronRightIcon,
 } from 'tdesign-icons-react';
-import type { ChatMessagesData, ChatRequestParams, AIMessageContent, ToolCall } from '@tdesign-react/aigc';
-import { ToolCallRenderer, useAgentState, useChat, useAgentToolcall, isUserMessage } from '../index';
+import type { ChatMessagesData, ChatRequestParams, AIMessageContent, ToolCall } from '@tdesign-react/chat';
 import type { AgentToolcallConfig, ToolcallComponentProps } from '../components/toolcall/types';
 import './videoclipAgent.css';
 

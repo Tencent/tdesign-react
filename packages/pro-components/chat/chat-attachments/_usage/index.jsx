@@ -7,7 +7,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import BaseUsage, { useConfigChange, usePanelChange } from '@tdesign/react-site/src/components/BaseUsage';
 import jsxToString from 'react-element-to-jsx-string';
 
-import { Attachments } from '@tdesign-react/aigc';
+import { Attachments } from '@tdesign-react/chat';
 import configProps from './props.json';
 
 const filesList = [

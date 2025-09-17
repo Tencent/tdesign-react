@@ -1,6 +1,6 @@
 ---
 title: TD AIGC Components for React
-description: TDesign 适配桌面端的 AIGC 系列高阶组件库，适合在 React 技术栈中的AI chat组件。
+description: TDesign 适配桌面端的 AIGC 系列高阶组件库，适合在 React 技术栈中使用。
 spline: ai
 ---
 
@@ -11,7 +11,7 @@ spline: ai
 推荐使用 npm 方式进行开发
 
 ```shell
-npm i @tdesign-react/aigc
+npm i @tdesign-react/chat
 ```
 
 ## 使用
@@ -21,8 +21,8 @@ npm i @tdesign-react/aigc
 推荐使用 Webpack 或 Rollup 等支持 tree-shaking 特性的构建工具，无需额外配置即可实现组件按需引入：
 
 ```javascript
-import { ChatBot } from '@tdesign-react/aigc';
-import '@tdesign-react/aigc/es/style/index.js'; // 少量公共样式
+import { ChatBot } from '@tdesign-react/chat';
+import '@tdesign-react/chat/es/style/index.js'; // 少量公共样式
 ```
 
 ## 浏览器兼容性

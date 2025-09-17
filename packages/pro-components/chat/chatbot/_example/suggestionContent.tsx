@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChatSuggestionContent } from '@tdesign-react/aigc';
+import { ChatSuggestionContent } from '@tdesign-react/chat';
 
 export default function SuggestionSample() {
   return (

@@ -7,12 +7,12 @@ import type {
   ChatBaseContent,
   ChatMessagesData,
   SSEChunkData,
-} from '@tdesign-react/aigc';
+} from '@tdesign-react/chat';
 import { Timeline } from 'tdesign-react';
 
 import { CheckCircleFilledIcon } from 'tdesign-icons-react';
 
-import { ChatBot } from '@tdesign-react/aigc';
+import { ChatBot } from '@tdesign-react/chat';
 
 import './index.css';
 
