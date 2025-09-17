@@ -22,10 +22,10 @@
       "tdesign-react/*": [
         "packages/components/*"
       ],
-      "@tdesign-react/aigc": [
+      "@tdesign-react/chat": [
         "packages/pro-components/chat"
       ],
-      "@tdesign-react/aigc/*": [
+      "@tdesign-react/chat/*": [
         "packages/pro-components/chat/*"
       ],
       "@test/utils": [

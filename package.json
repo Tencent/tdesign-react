@@ -170,7 +170,7 @@
     "@tdesign/components": "workspace:^",
     "@tdesign/pro-components-chat": "workspace:^",
     "@tdesign/react-site": "workspace:^",
-    "@tdesign-react/aigc": "workspace:^",
+    "@tdesign-react/chat": "workspace:^",
     "@types/sortablejs": "^1.10.7",
     "@types/tinycolor2": "^1.4.3",
     "@types/validator": "^13.1.3",
