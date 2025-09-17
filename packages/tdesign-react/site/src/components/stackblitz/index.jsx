@@ -17,6 +17,14 @@ export default function Stackblitz(props) {
   const formRef = useRef(null);
   const [isTypeScriptDemo, setIsTypeScriptDemo] = useState(false);
   const [code, setCurrentCode] = useState('');
+  let pkgJSONContent = packageJSONContent;
+  const match = window.location.hostname.match(/preview-pr-(\d+)-tdesign-react.surge.sh/);
+  if (match) {
+    const packageJSON = JSON.parse(packageJSONContent);
+    packageJSON.dependencies['tdesign-react'] = `https://pkg.pr.new/Tencent/tdesign-react/tdesign-react@${match[1]}`;
+    pkgJSONContent = JSON.stringify(packageJSON, null, 2);
+  }
+
   function submit() {
     const demoDom = document.querySelector(`td-doc-demo[demo-name='${props.demoName}']`);
     const isTypeScriptDemo = demoDom?.currentLangIndex === TypeScriptType;
@@ -51,7 +59,7 @@ export default function Stackblitz(props) {
         <input type="hidden" name="project[files][index.html]" value={htmlContent} />
         <input type="hidden" name="project[files][vite.config.js]" value={viteConfigContent} />
         <input type="hidden" name="project[files][.stackblitzrc]" value={stackblitzRc} />
-        <input type="hidden" name="project[files][package.json]" value={packageJSONContent} />
+        <input type="hidden" name="project[files][package.json]" value={pkgJSONContent} />
         <input type="hidden" name="project[template]" value="node" />
 
         <div className="action-online">
