@@ -1,1 +1,1 @@
-import '@tencent/tdesign-webc-test/lib/style/index.css';
+import 'tdesign-web-components/lib/style/index.css';
