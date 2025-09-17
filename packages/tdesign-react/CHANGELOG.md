@@ -44,7 +44,6 @@ spline: explain
   - 修复 `draggable` 在 `disabled` 状态下依旧生效的异常，此前有依赖此错误的业务请注意此变动 ⚠️ ([#3740](https://github.com/Tencent/tdesign-react/pull/3740)) 
   - 修复 `checkStrictly` 默认为 false 时，父子节点 `disabled` 状态没有关联的问题 ([#3739](https://github.com/Tencent/tdesign-react/pull/3739))
   - 修复 Drag 相关事件的回调中 `node` 为 null 的异常 ([#3728](https://github.com/Tencent/tdesign-react/pull/3728))
-  - 修复 `size='small'` 的 `firstFullRow` 尺寸比 `size='medium'` 大的异常 ([#common2253](https://github.com/Tencent/tdesign-common/pull/2253))
 - `Form`: @uyarn
     - 修复嵌套表单受外层 `FormList` 影响数据构造的问题 ([#3715](https://github.com/Tencent/tdesign-react/pull/3715))
     - 修复嵌套表单中内层表单受外层表单影响校验结果字段的问题 ([#3738](https://github.com/Tencent/tdesign-react/pull/3738))
@@ -55,6 +54,7 @@ spline: explain
     - 修复开启虚拟滚动时，表头与下方表格的宽度未同步变化
     - 修复开启虚拟滚动时，滚动条意外被重置回第一行的位置
     - 修复 `dragSort='row-handler-col'` 时，列拖拽不生效的问题 ([#3734](https://github.com/Tencent/tdesign-react/pull/3734))
+    - 修复 `size='small'` 的 `firstFullRow` 尺寸比 `size='medium'` 大的异常 ([#common2253](https://github.com/Tencent/tdesign-common/pull/2253))
 - `Watermark`: 修复深色模式下，文字水印内容显示不明显的问题 @HaixingOoO @liweijie0812 ([#3692](https://github.com/Tencent/tdesign-react/pull/3692))
 - `DatePicker`: 优化年份选择模式下选择同面板年份后面板内容的展示效果 @uyarn ([#3744](https://github.com/Tencent/tdesign-react/pull/3744))
 
