@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Select, Input, Checkbox, Card, Tag, Space, Divider, Typography, Alert, Loading } from 'tdesign-react';
 import { CloseIcon, InfoCircleIcon } from 'tdesign-icons-react';
-import type { AgentToolcallConfig, ToolcallComponentProps } from '../components/toolcall';
+import type { AgentToolcallConfig, ToolcallComponentProps } from '../../components/toolcall';
 
 // ==================== 类型定义 ====================
 

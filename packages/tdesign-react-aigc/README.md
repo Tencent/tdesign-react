@@ -43,7 +43,15 @@ import { ChatBot } from '@tdesign-react/chat';
 import '@tdesign-react/chat/es/style/index.js';
 
 function App() {
-  return <ChatBot />;
+  return (
+    <div style={{ height: '600px' }}>
+      <ChatBot
+        chatServiceConfig={{
+          endpoint: 'https://your-api-endpoint.com/chat',
+        }}
+      />
+    </div>
+  );
 }
 
 ReactDOM.createRoot(document.getElementById('app')).render(<App />);

@@ -23,7 +23,7 @@ import type {
   AGUIHistoryMessage,
 } from '@tdesign-react/chat';
 import { LoadingIcon, HistoryIcon } from 'tdesign-icons-react';
-import { useChat } from '../hooks/useChat';
+import { useChat } from '../../hooks/useChat';
 import {
   PlanningStatePanel,
   WeatherCard,
@@ -31,8 +31,8 @@ import {
   HotelCard,
   HumanInputResult,
   HumanInputForm,
-} from './components';
-import type { FormConfig } from './components/HumanInputForm';
+} from '../components';
+import type { FormConfig } from '../components/HumanInputForm';
 import './travel-planner.css';
 
 // 扩展自定义消息体类型

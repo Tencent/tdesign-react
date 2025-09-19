@@ -5,6 +5,13 @@ export const docs = [
     type: 'doc',
     children: [
       {
+        title: '概述',
+        titleEn: 'Overview',
+        name: 'overview',
+        path: '/react-aigc/overview',
+        component: () => import('./docs/intro.md'),
+      },
+      {
         title: '快速开始',
         titleEn: 'Getting Started',
         name: 'getting-started',
@@ -13,10 +20,17 @@ export const docs = [
       },
       {
         title: '什么是流式输出',
-        titleEn: 'Getting Started',
-        name: 'getting-started',
+        titleEn: 'SSE',
+        name: 'sse',
         path: '/react-aigc/sse',
         component: () => import('./docs/sse.md'),
+      },
+      {
+        title: '什么是AG-UI协议',
+        titleEn: 'AG-UI',
+        name: 'agui',
+        path: '/react-aigc/agui',
+        component: () => import('./docs/agui.md'),
       },
     ],
   },

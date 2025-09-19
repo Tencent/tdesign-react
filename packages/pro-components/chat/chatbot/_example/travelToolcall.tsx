@@ -25,7 +25,7 @@ import { getMessageContentForCopy, AGUIAdapter } from '@tdesign-react/chat';
 import { ToolCallRenderer, useAgentToolcall, useChat } from '../index';
 import { PlanningStatePanel } from './components';
 import './travel_v1.css';
-import { travelActions } from './travel-actions';
+import { travelActions } from './utils/travel-actions';
 
 // 扩展自定义消息体类型
 declare module '@tdesign-react/chat' {

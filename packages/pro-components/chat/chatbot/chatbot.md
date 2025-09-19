@@ -1,6 +1,6 @@
 ---
 title: Chatbot 智能对话
-description: 智能对话聊天组件，适用于需要快速集成智能客服、问答系统、步骤规划、交互式Agent等的AI应用
+description: 功能完备的智能对话组件，专为快速集成AI应用而设计。组件内置了完整的状态管理、SSE流式传输、消息渲染和交互逻辑，支持多种业务场景，包括智能客服、问答系统、代码助手、任务规划等。
 isComponent: true
 spline: navigation
 ---
@@ -17,7 +17,7 @@ spline: navigation
   - 常用消息操作处理及回调（复制、重试、点赞/点踩）
   - 支持手动触发填入prompt, 重新生成，发送消息等
 
-{{ basic }}
+{{ simple }}
 
 
 ### 组合式用法
@@ -422,3 +422,96 @@ const MyComponent = () => {
 - 必须在 `AgentStateProvider` 组件内部使用
 - 如果在 Provider 外部使用会抛出错误
 - 推荐在需要跨组件共享状态时使用
+
+
+
+## 故障排查
+
+### 常见问题
+
+1. **消息不显示**
+   - 检查`chatServiceConfig.onMessage`返回值格式
+   - 确认消息数据结构符合类型定义
+
+2. **流式传输中断**
+   - 检查网络连接和SSE端点
+   - 确认服务端正确发送SSE格式数据
+
+3. **自定义组件不渲染**
+   - 检查slot名称是否符合规则
+   - 确认组件已正确注册
+
+4. **AG-UI协议解析失败**
+   - 确认`protocol: 'agui'`配置正确
+   - 检查事件数据格式是否符合AG-UI标准
+
+### 调试技巧
+
+```tsx
+// 开启调试模式
+const chatServiceConfig = {
+  endpoint: '/api/chat',
+  onMessage: (chunk) => {
+    console.log('Received chunk:', chunk); // 调试消息接收
+    return parseMessage(chunk);
+  },
+  onError: (error) => {
+    console.error('Chat error:', error); // 调试错误信息
+  }
+};
+
+// 监听消息变化
+useEffect(() => {
+  console.log('Messages updated:', messages);
+}, [messages]);
+```
+
+
+
+## 常见问题
+
+### Q: 如何处理网络错误？
+
+A: 在chatServiceConfig中配置onError回调：
+
+```tsx
+const chatServiceConfig = {
+  endpoint: '/api/chat',
+  onError: (error) => {
+    if (error instanceof Response) {
+      // HTTP错误
+      if (error.status === 429) {
+        console.log('请求过于频繁，请稍后再试');
+      }
+    } else {
+      // 网络错误
+      console.log('网络连接异常');
+    }
+  }
+};
+```
+
+### Q: 如何自定义消息样式？
+
+A: 使用messageProps配置：
+
+```tsx
+const messageProps = (message) => ({
+  placement: message.role === 'user' ? 'right' : 'left',
+  avatar: message.role === 'user' ? '/user.png' : '/bot.png',
+  className: `message-${message.role}`
+});
+```
+
+### Q: 如何实现消息持久化？
+
+A: 监听消息变化并保存：
+
+```tsx
+<ChatBot
+  onMessageChange={(e) => {
+    localStorage.setItem('chat-messages', JSON.stringify(e.detail));
+  }}
+  defaultMessages={JSON.parse(localStorage.getItem('chat-messages') || '[]')}
+/>
+```

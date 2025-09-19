@@ -14,45 +14,7 @@ export default function chatSample() {
   const chatRef = useRef<HTMLElement & TdChatbotApi>(null);
   const [activeR1, setR1Active] = useState(false);
   const [activeSearch, setSearchActive] = useState(false);
-  const [ready, setReady] = useState(false);
   const reqParamsRef = useRef<{ think: boolean; search: boolean }>({ think: false, search: false });
-
-  // 消息属性配置
-  const messageProps = (msg: ChatMessagesData): TdChatMessageConfigItem => {
-    const { role, content } = msg;
-    if (role === 'user') {
-      return {
-        variant: 'base',
-        placement: 'right',
-        avatar: 'https://tdesign.gtimg.com/site/avatar.jpg',
-      };
-    }
-    if (role === 'assistant') {
-      return {
-        placement: 'left',
-        actions: ['replay', 'copy', 'good', 'bad'],
-        handleActions: {
-          // 处理消息操作回调
-          good: async ({ message, active }) => {
-            // 点赞
-            console.log('点赞', message, active);
-          },
-          bad: async ({ message, active }) => {
-            // 点踩
-            console.log('点踩', message, active);
-          },
-          replay: ({ message, active }) => {
-            console.log('自定义重新回复', message, active);
-            chatRef?.current?.regenerate();
-          },
-          suggestion: ({ content }) => {
-            console.log('点击建议问题', content);
-            chatRef?.current?.sendUserMessage({ prompt: content.prompt });
-          },
-        },
-      };
-    }
-  };
 
   // 聊天服务配置
   const chatServiceConfig: ChatServiceConfig = {
@@ -104,14 +66,10 @@ export default function chatSample() {
       <ChatBot
         ref={chatRef}
         defaultMessages={[]}
-        messageProps={messageProps}
         senderProps={{
           placeholder: '有问题，尽管问～ Enter 发送，Shift+Enter 换行',
         }}
         chatServiceConfig={chatServiceConfig}
-        onChatReady={(e) => {
-          setReady(true);
-        }}
       ></ChatBot>
     </div>
   );
