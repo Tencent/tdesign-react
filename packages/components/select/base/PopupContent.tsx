@@ -171,7 +171,9 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
               );
             }
 
-            const { value: optionValue, label, disabled, content, children, ...restData } = item as TdOptionProps;
+            const { value: optionValue, label, disabled, ...restData } = item as TdOptionProps;
+            // 当 keys 属性配置 content / children 作为 value 时，确保 restData 中也包含它们
+            const { content, children } = item as TdOptionProps;
             return (
               <Option
                 key={index}
