@@ -1,6 +1,6 @@
 import React, { useMemo, type FC } from 'react';
 import { BrowseIcon } from 'tdesign-icons-react';
-import { Image } from 'tdesign-react';
+import { Image } from '../image';
 import useConfig from '../hooks/useConfig';
 
 interface DefaultTriggerProps {
