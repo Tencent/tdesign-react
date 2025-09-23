@@ -1,17 +1,7 @@
 import React, { useRef, useState } from 'react';
-import {
-  InputAdornment,
-  Button,
-  Input,
-  Tree,
-  Form,
-  Switch,
-  Space,
-  TreeNodeModel,
-  TreeInstanceFunctions,
-} from 'tdesign-react';
 
-import type { TreeProps, TreeNodeValue } from 'tdesign-react';
+import type { TreeInstanceFunctions, TreeNodeModel } from 'tdesign-react';
+import { Button, Input, InputAdornment, Space, Switch, Tree, TreeNodeValue, TreeProps } from 'tdesign-react';
 
 const items = [
   {
@@ -19,14 +9,17 @@ const items = [
   },
   {
     value: 'node2',
+    disabled: true,
   },
 ];
 
 let index = 2;
 
 export default () => {
+  const treeRef = useRef<TreeInstanceFunctions<{ value: string; label?: string }>>(null);
+
   const [useActived, setUseActived] = useState(false);
-  const [expandParent, setExpandParent] = useState(false);
+  const [expandParent, setExpandParent] = useState(true);
   const [filterText, setFilterText] = useState('');
   const [activeId, setActiveId] = useState<TreeNodeValue>('');
   const [activeIds, setActiveIds] = useState([]);
@@ -44,8 +37,6 @@ export default () => {
     data.label = label;
     return label;
   };
-
-  const renderOperations: TreeProps['operations'] = (node) => `value: ${node.value}`;
 
   const handleInputChange = (value: string) => {
     setFilterText(value);
@@ -72,9 +63,6 @@ export default () => {
     setActiveId(vals[0] || '');
   };
 
-  /* ======== 操作 api ======= */
-  const treeRef = useRef<TreeInstanceFunctions<{ value: string; label?: string }>>(null);
-
   const setLabel = (value: string) => {
     const node = treeRef.current.getItem(value);
     const label = getLabelContent(node);
@@ -96,6 +84,7 @@ export default () => {
     };
     return item;
   };
+
   const append = (node?: TreeNodeModel) => {
     const item = getInsertItem();
     if (item) {
@@ -104,7 +93,6 @@ export default () => {
       } else {
         treeRef.current.appendTo(node.value, item);
       }
-      // setLabel(item.value);
       if (useActived) {
         setActiveIds((v) => [...v, item.value]);
       }
@@ -127,28 +115,52 @@ export default () => {
     }
   };
 
+  const canToggleDisable = (node: TreeNodeModel) => {
+    const parent = node.getParent?.();
+    const isCheckStrictly = false; // 默认关闭
+    if (!isCheckStrictly && parent?.disabled) {
+      return false; // 父节点被禁用时，子节点状态不支持手动改变
+    }
+    return true;
+  };
+
+  const toggleDisable = (node: TreeNodeModel) => {
+    treeRef.current.setItem(node.value, {
+      disabled: !node.disabled,
+    });
+    console.log(treeRef.current.getItems(node.value));
+  };
+
   const remove = (node: TreeNodeModel) => {
     treeRef.current.remove(node.value);
   };
 
-  const renderOperations2 = (node: TreeNodeModel) => (
-    <>
-      <Button style={{ marginLeft: '10px' }} size="small" variant="base" onClick={() => append(node)}>
+  const renderOperations = (node: TreeNodeModel) => (
+    <Space>
+      <Button size="small" theme="primary" variant="base" onClick={() => append(node)}>
         添加子节点
       </Button>
-      <Button style={{ marginLeft: '10px' }} size="small" variant="outline" onClick={() => insertBefore(node)}>
+      <Button size="small" theme="primary" variant="outline" onClick={() => insertBefore(node)}>
         前插节点
       </Button>
-      <Button style={{ marginLeft: '10px' }} size="small" variant="outline" onClick={() => insertAfter(node)}>
+      <Button size="small" theme="primary" variant="outline" onClick={() => insertAfter(node)}>
         后插节点
       </Button>
-      <Button style={{ marginLeft: '10px' }} size="small" variant="base" theme="danger" onClick={() => remove(node)}>
+      <Button
+        size="small"
+        variant="base"
+        theme={node.disabled ? 'success' : 'warning'}
+        disabled={!canToggleDisable(node)}
+        onClick={() => toggleDisable(node)}
+      >
+        {node.disabled ? 'enable' : 'disable'}
+      </Button>
+      <Button size="small" theme="danger" variant="base" onClick={() => remove(node)}>
         删除
       </Button>
-    </>
+    </Space>
   );
 
-  /* ======== API ======= */
   const getItem = () => {
     const node = treeRef.current.getItem('node1');
     console.info('getItem:', node.value);
@@ -279,24 +291,17 @@ export default () => {
 
   return (
     <Space direction="vertical">
-      <h3 className="title">render:</h3>
-      <Tree hover expandAll data={items} label={getLabel} operations={renderOperations} />
-      <h3 className="title">api:</h3>
-      <div className="operations">
-        <Form labelWidth={200}>
-          <Form.FormItem label="插入节点使用高亮节点" initialData={useActived}>
-            <Switch<boolean> onChange={setUseActived} />
-          </Form.FormItem>
-          <Form.FormItem label="子节点展开触发父节点展开" initialData={expandParent}>
-            <Switch<boolean> onChange={setExpandParent} />
-          </Form.FormItem>
-        </Form>
-      </div>
-      <div className="operations">
-        <InputAdornment prepend="filter:">
-          <Input value={filterText} onChange={handleInputChange} />
-        </InputAdornment>
-      </div>
+      <Space>
+        插入节点使用高亮节点
+        <Switch<boolean> onChange={setUseActived} />
+      </Space>
+      <Space>
+        子节点展开触发父节点展开
+        <Switch<boolean> onChange={setExpandParent} />
+      </Space>
+      <InputAdornment prepend="filter:">
+        <Input value={filterText} onChange={handleInputChange} />
+      </InputAdornment>
       <Tree
         ref={treeRef}
         hover
@@ -311,50 +316,50 @@ export default () => {
         label={getLabel}
         expandParent={expandParent}
         filter={filterByText}
-        operations={renderOperations2}
+        operations={renderOperations}
         onExpand={handleExpand}
         onChange={handleChange}
         onActive={handleActive}
       />
-      <h3 className="title">api:</h3>
       <Space breakLine>
-        <Button theme="primary" onClick={getItem}>
-          {"获取 value 为 'node1' 的单个节点"}
+        <Button theme="primary" variant="outline" onClick={getItem}>
+          获取 value 为 node1 的单个节点
         </Button>
-        <Button theme="primary" onClick={getAllItems}>
+        <Button theme="primary" variant="outline" onClick={getAllItems}>
           获取所有节点
         </Button>
-        <Button theme="primary" onClick={getActiveChildren}>
+        <Button theme="primary" variant="outline" onClick={getActiveChildren}>
           获取高亮节点的所有子节点
         </Button>
-        <Button theme="primary" onClick={getAllActived}>
+        <Button theme="primary" variant="outline" onClick={getAllActived}>
           获取所有高亮节点
         </Button>
-        <Button theme="primary" onClick={getActiveChecked}>
+        <Button theme="primary" variant="outline" onClick={getActiveChecked}>
           获取高亮节点下的选中节点
         </Button>
-        <Button theme="primary" onClick={() => append()}>
+        <Button theme="primary" variant="outline" onClick={() => append()}>
           插入一个根节点
         </Button>
-        <Button theme="primary" onClick={getActiveParent}>
+        <Button theme="primary" variant="outline" onClick={getActiveParent}>
           获取高亮节点的父节点
         </Button>
-        <Button theme="primary" onClick={getActiveParents}>
+        <Button theme="primary" variant="outline" onClick={getActiveParents}>
           获取高亮节点的所有父节点
         </Button>
-        <Button theme="primary" onClick={getActiveIndex}>
+        <Button theme="primary" variant="outline" onClick={getActiveIndex}>
           获取高亮节点在子节点中的位置
         </Button>
-        <Button theme="primary" onClick={setActiveChecked}>
+        <Button theme="primary" variant="outline" onClick={setActiveChecked}>
           选中高亮节点
         </Button>
-        <Button theme="primary" onClick={setActiveExpanded}>
+        <Button theme="primary" variant="outline" onClick={setActiveExpanded}>
           展开高亮节点
         </Button>
-        <Button theme="primary" onClick={getActivePlainData}>
+        <Button theme="primary" variant="outline" onClick={getActivePlainData}>
           获取高亮节点与其子节点的数据
         </Button>
       </Space>
+      <Space>* 相关信息通过控制台输出</Space>
     </Space>
   );
 };
