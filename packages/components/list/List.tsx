@@ -106,7 +106,7 @@ const List = forwardRefWithStatics(
             <div style={cursorStyle}></div>
             <ul className={`${COMPONENT_NAME}__inner`} style={listStyle}>
               {virtualConfig.visibleData.map((item, index) => (
-                <ListItem key={index} {...item}/>
+                <ListItem key={index} {...item} />
               ))}
             </ul>
           </>
