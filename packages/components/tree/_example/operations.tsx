@@ -19,7 +19,7 @@ export default () => {
   const treeRef = useRef<TreeInstanceFunctions<{ value: string; label?: string }>>(null);
 
   const [useActived, setUseActived] = useState(false);
-  const [expandParent, setExpandParent] = useState(true);
+  const [expandParent, setExpandParent] = useState(false);
   const [filterText, setFilterText] = useState('');
   const [activeId, setActiveId] = useState<TreeNodeValue>('');
   const [activeIds, setActiveIds] = useState([]);
