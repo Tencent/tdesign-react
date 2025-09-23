@@ -19,39 +19,36 @@ export default function useMutationObservable(
   cb: MutationCallback,
   options = DEFAULT_OPTIONS,
 ) {
-  const observeRef = useRef(null);
-  const optionsRef = useRef<Options>();
-  const signalRen = useRef(0);
+  const optionsRef = useRef<Options>(null);
+  const signalRef = useRef(0);
   const callbackRef = useLatest(cb);
 
   if (!isEqual(options, optionsRef.current)) {
-    signalRen.current += 1;
+    signalRef.current += 1;
   }
 
   optionsRef.current = options;
 
   useEffect(() => {
     if (!targetEl || !targetEl?.nodeType) return;
-
+    let observer: MutationObserver = null;
     try {
       const { debounceTime, config } = optionsRef.current;
       const mutationCallback: MutationCallback = (...args) => {
         callbackRef.current(...args);
       };
-      observeRef.current = new MutationObserver(
-        debounceTime > 0 ? debounce(mutationCallback, debounceTime) : mutationCallback,
-      );
-      observeRef.current.observe(targetEl, config);
+      observer = new MutationObserver(debounceTime > 0 ? debounce(mutationCallback, debounceTime) : mutationCallback);
+      observer.observe(targetEl, config);
     } catch (e) {
       console.error(e);
     }
 
     return () => {
-      if (observeRef.current) {
-        observeRef.current.disconnect();
-        observeRef.current = null;
+      if (observer) {
+        observer.disconnect();
+        observer = null;
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [targetEl, signalRen.current]);
+  }, [targetEl, signalRef.current]);
 }

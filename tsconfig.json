@@ -32,7 +32,8 @@
     "allowJs": true,
     "checkJs": true,
     "downlevelIteration": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
   "include": [
     "./packages/components",

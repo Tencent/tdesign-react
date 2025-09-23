@@ -424,7 +424,33 @@ describe('Form 组件测试', () => {
     await mockDelay();
     expect(container.querySelector('.t-input__extra').innerHTML).toBe('please input username');
   });
+  test('FormItem rules nested name', async () => {
+    const TestForm = () => {
+      return (
+        <Form
+          rules={{
+            'user.name': [{ required: true, message: 'username is required' }],
+            account: [{ required: true, message: 'account is required' }],
+          }}
+        >
+          <FormItem name={['user', 'name']}>
+            <Input placeholder="username" />
+          </FormItem>
+          <FormItem name="account">
+            <Input placeholder="account" />
+          </FormItem>
 
+          <FormItem>
+            <Button type="submit">提交</Button>
+          </FormItem>
+        </Form>
+      );
+    };
+    const { container, getByText, getByPlaceholderText } = render(<TestForm />);
+    fireEvent.click(getByText('提交'));
+    await mockDelay();
+    expect(container.querySelectorAll('.t-form--has-error').length).toBe(2);
+  });
   test('FormItem rules min max', async () => {
     const TestForm = () => {
       const initialValues = {

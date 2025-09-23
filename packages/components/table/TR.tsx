@@ -164,7 +164,7 @@ export default function TR(props: TrProps) {
       ref={trRef}
       {...trAttributes}
       style={trStyles?.style}
-      className={classnames(classes)}
+      className={classnames(classes) || undefined}
       onClick={(e) => props.onRowClick?.({ ...rowParams, e })}
       onDoubleClick={(e) => props.onRowDblclick?.({ ...rowParams, e })}
       onMouseDown={(e) => props.onRowMousedown?.({ ...rowParams, e })}
