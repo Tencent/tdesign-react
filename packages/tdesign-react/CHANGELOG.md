@@ -17,8 +17,9 @@ spline: explain
   - 按需加载方式使用的图标资源支持多色填充功能，通过 `strokeColor` 和 `fillColor` 属性进行配置
 - `DatePicker`: 支持通过覆盖 `popupProps`，使点击 `preset` 时不关闭弹窗 @RylanBot ([#3798](https://github.com/Tencent/tdesign-react/pull/3798))
 ### 🐞 Bug Fixes
-- `Tree`: 修复拖拽后展开收起图标展示异常的问题 @RylanBot ([#3756](https://github.com/Tencent/tdesign-react/pull/3756))
-- `TreeItem`: 修正节点属性 `date-target` 单词拼写为 `data-target`，之前有使用该属性的业务请注意此变更 ⚠️ @RylanBot ([#3756](https://github.com/Tencent/tdesign-react/pull/3756))
+- `Tree`:  @RylanBot ([#3756](https://github.com/Tencent/tdesign-react/pull/3756))
+  - 修正节点属性 `date-target` 单词拼写为 `data-target`，之前有使用该属性的业务请注意此变更 ⚠️
+  - 修复拖拽后展开收起图标展示异常的问题
 - `MessagePlugin`: 修复 `content` 为 `''` / `undefined` / `null` 时产生的报错  @RylanBot ([#3778](https://github.com/Tencent/tdesign-react/pull/3778))
 - `Table`: 修复未开启 `<React.StrictMode>` 时，`Loading` 挂载导致的页面闪烁问题 @RylanBot ([#3775](https://github.com/Tencent/tdesign-react/pull/3775))
 - `Upload`: 修复拖拽模式下 `status` 更新错误 @RSS1102 ([#3801](https://github.com/Tencent/tdesign-react/pull/3801))
@@ -75,7 +76,6 @@ spline: explain
   - 修复 `draggable` 在 `disabled` 状态下依旧生效的异常，此前有依赖此错误的业务请注意此变动 ⚠️  ([#3740](https://github.com/Tencent/tdesign-react/pull/3740)) 
   - 修复 `checkStrictly` 默认为 false 时，父子节点 `disabled` 状态没有关联的问题  ([#3739](https://github.com/Tencent/tdesign-react/pull/3739))
   - 修复 Drag 相关事件的回调中 `node` 为 null 的异常 ([#3728](https://github.com/Tencent/tdesign-react/pull/3728))
-  - 修复 `size='small'` 的 `firstFullRow` 尺寸比 `size='medium'` 大的异常 ([#common2253](https://github.com/Tencent/tdesign-common/pull/2253))
 - `Form`: @uyarn
     - 修复嵌套表单受外层 `FormList` 影响数据构造的问题  ([#3715](https://github.com/Tencent/tdesign-react/pull/3715))
     - 修复嵌套表单中内层表单受外层表单影响校验结果字段的问题  ([#3738](https://github.com/Tencent/tdesign-react/pull/3738))
