@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
-import generateWatermark from '@tdesign/common-js/watermark/generateWatermark';
+import generateBase64Url from '@tdesign/common-js/watermark/generateBase64Url';
 import randomMovingStyle from '@tdesign/common-js/watermark/randomMovingStyle';
 import injectStyle from '@tdesign/common-js/utils/injectStyle';
 import { StyledProps } from '../common';
@@ -65,7 +65,7 @@ const Watermark: React.FC<WatermarkProps> = (originalProps) => {
 
   // 水印节点 - 背景base64
   useEffect(() => {
-    generateWatermark(
+    generateBase64Url(
       {
         width,
         height,
