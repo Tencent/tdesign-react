@@ -101,7 +101,7 @@ const List = forwardRefWithStatics(
 
     const renderContent = () => (
       <>
-        {isVirtualScroll ? (
+        {isVirtualScroll && virtualConfig.visibleData.length ? (
           <>
             <div style={cursorStyle}></div>
             <ul className={`${COMPONENT_NAME}__inner`} style={listStyle}>
