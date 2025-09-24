@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Button, Space } from 'tdesign-react';
 import { ChatMarkdown, findTargetElement } from '@tdesign-react/chat';
 
 const doc = `
@@ -68,13 +67,6 @@ export default function ThinkContentDemo() {
     };
   }, [isTyping]);
 
-  const toggleTyping = () => {
-    if (currentIndex.current >= doc.length) {
-      currentIndex.current = 0;
-      setDisplayText('');
-    }
-    setIsTyping(!isTyping);
-  };
 
   return <ChatMarkdown content={displayText} />;
 }

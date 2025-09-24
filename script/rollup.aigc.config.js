@@ -9,6 +9,8 @@ import commonjs from '@rollup/plugin-commonjs';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
 import multiInput from 'rollup-plugin-multi-input';
 import nodeResolve from '@rollup/plugin-node-resolve';
+import analyzer from 'rollup-plugin-analyzer';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { resolve } from 'path';
 
 import pkg from '../packages/tdesign-react-aigc/package.json';
@@ -16,12 +18,66 @@ import pkg from '../packages/tdesign-react-aigc/package.json';
 const name = 'tdesign';
 const externalDeps = Object.keys(pkg.dependencies || {});
 const externalPeerDeps = Object.keys(pkg.peerDependencies || {});
+
+// 分析模式配置
+const isAnalyze = process.env.ANALYZE === 'true';
+
 const banner = `/**
  * ${name} v${pkg.version}
  * (c) ${new Date().getFullYear()} ${pkg.author}
  * @license ${pkg.license}
  */
 `;
+
+// 获取分析插件
+const getAnalyzePlugins = (buildType = 'aigc') => {
+  if (!isAnalyze) return [];
+  
+  const plugins = [];
+  
+  // 基础分析器 - 控制台输出
+  plugins.push(
+    analyzer({
+      limit: 10,
+      summaryOnly: false,
+      hideDeps: false,
+      showExports: true,
+    })
+  );
+  
+  // 可视化分析器 - 生成 HTML 报告
+  plugins.push(
+    visualizer({
+      filename: `packages/tdesign-react-aigc/bundle-analysis/stats-${buildType}.html`,
+      title: `TDesign React AIGC Bundle Analysis - ${buildType.toUpperCase()}`,
+      template: 'treemap', // treemap, sunburst, network
+      open: false,
+      gzipSize: true,
+      brotliSize: true,
+      projectRoot: resolve(__dirname, '..'),
+    }),
+    visualizer({
+      filename: `packages/tdesign-react-aigc/bundle-analysis/stats-${buildType}-sunburst.html`,
+      title: `TDesign React AIGC Bundle Analysis - ${buildType.toUpperCase()} (Sunburst)`,
+      template: 'sunburst',
+      open: false,
+      gzipSize: true,
+      brotliSize: true,
+      projectRoot: resolve(__dirname, '..'),
+    }),
+    visualizer({
+      filename: `packages/tdesign-react-aigc/bundle-analysis/stats-${buildType}-network.html`,
+      title: `TDesign React AIGC Bundle Analysis - ${buildType.toUpperCase()} (Network)`,
+      template: 'network',
+      open: false,
+      gzipSize: true,
+      brotliSize: true,
+      projectRoot: resolve(__dirname, '..'),
+    })
+  );
+  
+  return plugins;
+};
 const inputList = [
   'packages/pro-components/chat/**/*.ts',
   'packages/pro-components/chat/**/*.tsx',
@@ -106,7 +162,9 @@ const esConfig = {
     // 处理子路径模式的外部依赖
     externalDeps.some((dep) => id === dep || id.startsWith(`${dep}/`)) ||
     externalPeerDeps.some((dep) => id === dep || id.startsWith(`${dep}/`)),
-  plugins: [multiInput({ relative: 'packages/pro-components/chat' })].concat(getPlugins({ extractMultiCss: true })),
+  plugins: [multiInput({ relative: 'packages/pro-components/chat' })]
+    .concat(getPlugins({ extractMultiCss: true }))
+    .concat(getAnalyzePlugins('es')),
   output: {
     banner,
     dir: 'packages/tdesign-react-aigc/es/',
