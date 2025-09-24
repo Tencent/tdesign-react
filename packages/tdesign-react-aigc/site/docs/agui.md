@@ -1,10 +1,8 @@
+## AG-UI 协议集成
 
+TDesign Chat 内置对 AG-UI 协议的支持，可以轻松集成支持该协议的 AI 服务：
 
-## AG-UI协议集成
-
-TDesign Chat 内置对AG-UI协议的支持，可以轻松集成支持该协议的AI服务：
-
-```tsx
+```javascript
 import React from 'react';
 import { ChatBot } from '@tdesign-react/chat';
 
@@ -16,11 +14,11 @@ export default function AguiChatbot() {
     onMessage: (chunk) => {
       // AG-UI协议自动解析
       return chunk.data;
-    }
+    },
   };
 
   return (
-    <div style={{ height: '600px' }}>
+    <div style="height: '600px'">
       <ChatBot
         chatServiceConfig={chatServiceConfig}
         // AG-UI协议支持的事件类型

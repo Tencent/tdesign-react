@@ -11,7 +11,6 @@ let demoCodesImports = {};
 export default {
   before({ source, file }) {
     const resourceDir = path.dirname(file);
-    console.log(resourceDir, 'resourceDir');
     const reg = file.match(/packages\/pro-components\/chat\/([\w-]+)\/(\w+-?\w+)\.?(\w+-?\w+)?\.md/);
 
     const fileName = reg && reg[0];
@@ -44,7 +43,6 @@ export default {
     // 替换成对应 demo 文件
     source = source.replace(/\{\{\s+(.+)\s+\}\}/g, (demoStr, demoFileName) => {
       const tsxDemoPath = path.resolve(resourceDir, `./_example/${demoFileName}.tsx`);
-      console.log(tsxDemoPath, 'tsxDemoPath');
       if (!fs.existsSync(tsxDemoPath)) {
         console.log('\x1B[36m%s\x1B[0m', `${componentName} 组件需要实现 _example/${demoFileName}.tsx 示例!`);
         return '\n<h3>DEMO (🚧建设中）...</h3>';
@@ -75,7 +73,6 @@ export default {
     const demoCodesDefsStr = Object.keys(demoCodesImports)
       .map((key) => demoCodesImports[key])
       .join('\n');
-
     const sfc = mdToReact({
       md,
       file,

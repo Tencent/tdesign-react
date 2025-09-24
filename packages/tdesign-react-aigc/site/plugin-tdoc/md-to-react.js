@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import camelCase from 'camelcase';
+
 import { compileUsage, getGitTimestamp } from '../../../../packages/common/docs/compile';
 
 import testCoverage from '../test-coverage';
@@ -158,7 +159,7 @@ const DEFAULT_EN_TABS = [
 async function customRender({ source, file, md }) {
   let { content, data } = matter(source);
   const lastUpdated = (await getGitTimestamp(file)) || Math.round(fs.statSync(file).mtimeMs);
-  // console.log('data', data);
+
   const isEn = file.endsWith('en-US.md');
   // md top data
   const pageData = {
@@ -187,6 +188,10 @@ async function customRender({ source, file, md }) {
   demoMd = demoMd.replace(/`([^`\r\n]+)`/g, (str, codeStr) => {
     codeStr = codeStr.replace(/"/g, "'");
     return `<td-code text="${codeStr}"></td-code>`;
+  });
+
+  apiMd = apiMd.replace(/```([\w-]*)\n([\s\S]*?)\n```/g, (_, codeStr, content) => {
+    return `<pre class="language-${codeStr}"><code class="language-${codeStr}">${content}</code></pre>`;
   });
 
   const mdSegment = {
@@ -227,22 +232,6 @@ async function customRender({ source, file, md }) {
       `${pageData.toc ? '[toc]\n' : ''}${content.replace(/<!--[\s\S]+?-->/g, '')}`,
     ).html;
   }
-
-  // // 设计指南内容 不展示 design Tab 则不解析
-  // if (pageData.isComponent && pageData.tdDocTabs.some((item) => item.tab === 'design')) {
-  //   const designDocPath = path.resolve(__dirname, `../../../common/docs/web/design/${componentName}.md`);
-
-  //   if (fs.existsSync(designDocPath)) {
-  //     const designDocLastUpdated =
-  //       (await getGitTimestamp(designDocPath)) || Math.round(fs.statSync(designDocPath).mtimeMs);
-  //     mdSegment.designDocLastUpdated = designDocLastUpdated;
-
-  //     const designMd = fs.readFileSync(designDocPath, 'utf-8');
-  //     mdSegment.designMd = md.render.call(md, `${pageData.toc ? '[toc]\n' : ''}${designMd}`).html;
-  //   } else {
-  //     console.log(`[vite-plugin-tdoc]: 未找到 ${designDocPath} 文件`);
-  //   }
-  // }
 
   return mdSegment;
 }
