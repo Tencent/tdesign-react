@@ -78,49 +78,62 @@ export default function () {
 - 自动滚动
 - 发送控制
 
-## 用法二：组合式开发
+### 用法二：组合式开发
 
-使用 `useChat` Hook 和独立的 UI 组件（`ChatList`、`ChatMessage`、`ChatSender`）进行自由组合，适合需要深度定制 UI 结构和交互逻辑的场景。
-
-#### 基础组合示例
+使用 `useChat` Hook ，自由组合独立的 UI 组件（`ChatList`、`ChatMessage`、`ChatSender`），或者完全自己实现UI部分，适合需要深度定制 UI 结构和交互逻辑的场景。
 
 ```js
-import React from 'react';
+import React, { useState } from 'react';
+import { Space } from 'tdesign-react';
 import { useChat, ChatList, ChatMessage, ChatSender } from '@tdesign-react/chat';
 import '@tdesign-react/chat/es/style/index.js'; // 少量公共样式
 
 export default function CompositeChat() {
+  const [inputValue, setInputValue] = useState<string>('TDesign Chatbot怎么用');
   const { chatEngine, messages, status } = useChat({
     defaultMessages: [],
     chatServiceConfig: {
-      endpoint: 'https://api.example.com/chat',
+      endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/normal',
       stream: true,
+      onMessage: (chunk) => chunk.data,
     },
   });
 
   const sendMessage = async (params) => {
+    setInputValue('');
     await chatEngine.sendUserMessage(params);
   };
 
+  const stopHandler = () => {
+    chatEngine.abortChat();
+  };
+
   return (
-    <>
-      <ChatList style="flex: 1">
+    <Space direction="vertical" className="accessible-chat">
+      <ChatList>
         {messages.map((message) => (
           <ChatMessage key={message.id} message={message} />
         ))}
       </ChatList>
-      <ChatSender loading={status === 'streaming'} onSend={(e) => sendMessage({ prompt: e.detail.value })} />
-    </>
+      <ChatSender
+        loading={status === 'streaming'}
+        value={inputValue}
+        onSend={(e) => sendMessage({ prompt: e.detail.value })}
+        onStop={stopHandler}
+      />
+    </Space>
   );
 }
+
 ```
 
-### 组合式开发的优势
+- 组合式开发的优势
 
-- **高度灵活**：完全控制 UI 结构和样式
-- **逻辑分离**：业务逻辑与 UI 渲染分离
-- **渐进增强**：可以逐步添加功能
-- **复用性强**：组件可在不同场景复用
+  - **高度灵活**：完全控制 UI 结构和样式
+  - **逻辑分离**：业务逻辑与 UI 渲染分离
+  - **渐进增强**：可以逐步添加功能
+  - **复用性强**：组件可在不同场景复用
+
 
 ## 配置后端服务
 

@@ -8,7 +8,7 @@ description: TDesign Chat 智能对话组件库，为AI应用提供专业级聊�
 spline: ai
 ---
 
-## 什么是 TDesign Chat
+## 什么是 TDesign Chat 智能对话
 
 TDesign Chat 是腾讯 TDesign 团队推出的专业级智能对话组件库，专为AI应用场景设计。它提供了完整的聊天界面解决方案，让开发者能够快速构建智能客服、问答系统、代码助手、任务规划等AI聊天应用。
 
@@ -23,11 +23,12 @@ TDesign Chat 是腾讯 TDesign 团队推出的专业级智能对话组件库，�
 
 - 协议灵活适配
   - **自定义协议**：支持服务端自定义数据结构，灵活适配各种后端实现
-  - **AG-UI协议**：内置对业界标准Agent-User Interface协议的完整支持
+  - **AG-UI协议**：内置对业界标准 `Agent User Interaction(AG-UI)` 协议的完整支持
 
 - 丰富的消息类型
 支持多种消息内容类型，满足复杂AI应用需求：
-  - 文本消息和Markdown渲染
+  - 文本消息
+  - Markdown渲染
   - 附件上传和文件展示
   - 思考过程可视化
   - 搜索结果展示
