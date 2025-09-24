@@ -218,15 +218,18 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const virtualConfig = useVirtualScroll(tableContentRef, virtualScrollParams);
 
   useEffect(() => {
-    if (!virtualConfig.isVirtualScroll) return;
+    // 仅处理「初始化 data 数量已达到虚拟滚动阈值」的场景（此时 visibleData 为 []）
+    // 如果是通过滚动过程陆续新增数据，再触发虚拟滚动，不需要这一步，以避免卡顿
+    if (!virtualConfig.isVirtualScroll || virtualConfig.visibleData.length) return;
     setTimeout(() => {
       if (!tableContentRef.current) return;
-      // 手动触发重绘，确保虚拟滚动初始化的滚动条长度正常
-      // 未来如果有更优解，可以修改这里
+      // HACK：强制触发重绘，确保滚动条长度正确
+      // 若未来有更优实现，可替换此方案
       tableContentRef.current.style.display = 'none';
       tableContentRef.current.offsetHeight;
       tableContentRef.current.style.display = '';
     }, 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tableContentRef, virtualConfig.isVirtualScroll]);
 
   let lastScrollY = -1;
