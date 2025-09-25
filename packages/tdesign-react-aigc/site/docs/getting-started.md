@@ -30,7 +30,7 @@ yarn add @tdesign-react/chat
 pnpm add @tdesign-react/chat
 ```
 
-## 主要用法
+## 接入使用
 
 TDesign Chat 提供了两种主要的使用方式，适用于不同的业务场景和定制需求。
 
@@ -180,7 +180,7 @@ const chatServiceConfig = {
 
 ### AG-UI 标准协议
 
-[AG-UI协议](https://docs.ag-ui.com/introduction) 是专为AI代理与前端应用交互设计的标准化轻量级协议，内置支持工具调用、状态管理、多步骤任务等高级功能。AG-UI协议支持16种标准化事件类型，组件会自动解析并渲染，包括对话生命周期（RUN_\*）、文本消息（TEXT_MESSAGE_\*）、思考过程（THINKING_\*）、工具调用（TOOL_CALL_\*)、状态更新(STATE_\*)等。
+[AG-UI协议](https://docs.ag-ui.com/introduction) 是专为AI代理与前端应用交互设计的标准化轻量级协议，内置支持工具调用、状态管理、多步骤任务等高级功能。AG-UI协议支持16种标准化事件类型，组件会自动解析并渲染，包括对话生命周期`RUN_*`、文本消息`TEXT_MESSAGE_*`、思考过程`THINKING_*`、工具调用`TOOL_CALL_*`、状态更新`STATE_*`等。
 
 TDesign Chat内置支持**AG-UI协议数据双向转换**，符合该协议的后端Agent服务，可以无缝接入使用，只需在配置中开启即可。
 
