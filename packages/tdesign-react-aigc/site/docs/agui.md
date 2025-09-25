@@ -48,6 +48,8 @@ AG-UI定义了16种标准事件类型，覆盖AI交互的完整生命周期：
 | **生命周期事件** | `RUN_STARTED` | 开始执行，可显示进度指示 |
 | | `RUN_FINISHED` | 执行完成 |
 | | `RUN_ERROR` | 执行错误，包含错误信息 |
+| **思考过程事件** | `THINKING_START/END` | 新的思考过程开始、结束 |
+| | `THINKING_TEXT_MESSAGE_START/CONTEN/END` | 思考过程文本内容（段）的过程起止，通过CONTENT事件增量传输 |
 | **文本消息事件** | `TEXT_MESSAGE_START` | 开始新消息，建立messageId |
 | | `TEXT_MESSAGE_CONTENT` | 流式文本内容，通过delta增量传输 |
 | | `TEXT_MESSAGE_END` | 消息结束，可触发后续操作 |
@@ -107,10 +109,13 @@ AG-UI基于事件驱动架构，实现前后端的实时双向通信：
 
 ### 基础配置
 
+只需要简单配置`protocol: 'agui'`即可开启TDesign Chat UI与AG-UI协议的无缝对接，内置了对话生命周期`RUN_*`、思考过程事件`THINKING_*`、文本事件`TEXT_MESSAGE_*`和常见`TOOL_CALL_*`事件比如search搜索等的渲染支持, 也提供了标准消息结构的转换方法`AGUIAdapter.convertHistoryMessages`用于回填历史消息。
+
 ```javascript
-import { ChatBot } from '@tdesign-react/chat';
+import { ChatBot, AGUIAdapter } from '@tdesign-react/chat';
 
 export default function AguiChat() {
+
   const chatServiceConfig = {
     endpoint: '/api/agui/chat',
     protocol: 'agui', // 启用AG-UI协议
