@@ -80,7 +80,7 @@ export default function () {
 
 ### 用法二：组合式开发
 
-使用 `useChat` Hook ，自由组合独立的 UI 组件（`ChatList`、`ChatMessage`、`ChatSender`），或者完全自己实现UI部分，适合需要深度定制 UI 结构和交互逻辑的场景。
+通过使用 `useChat` Hook来获取chatEngine对话引擎实例和实时消息数据，自由组合独立的 UI 组件（`ChatList`、`ChatMessage`、`ChatSender`），或者可以完全自己实现 UI 部分，适合需要深度定制 UI 结构和交互逻辑的场景。
 
 ```js
 import React, { useState } from 'react';
@@ -89,7 +89,6 @@ import { useChat, ChatList, ChatMessage, ChatSender } from '@tdesign-react/chat'
 import '@tdesign-react/chat/es/style/index.js'; // 少量公共样式
 
 export default function CompositeChat() {
-  const [inputValue, setInputValue] = useState<string>('TDesign Chatbot怎么用');
   const { chatEngine, messages, status } = useChat({
     defaultMessages: [],
     chatServiceConfig: {
@@ -100,7 +99,6 @@ export default function CompositeChat() {
   });
 
   const sendMessage = async (params) => {
-    setInputValue('');
     await chatEngine.sendUserMessage(params);
   };
 
@@ -117,7 +115,6 @@ export default function CompositeChat() {
       </ChatList>
       <ChatSender
         loading={status === 'streaming'}
-        value={inputValue}
         onSend={(e) => sendMessage({ prompt: e.detail.value })}
         onStop={stopHandler}
       />
@@ -135,27 +132,35 @@ export default function CompositeChat() {
   - **复用性强**：组件可在不同场景复用
 
 
-## 配置后端服务
+## 配置服务
 
-### SSE 流式接口
+TDesign Chat 支持两种后端AI Agent服务返回数据协议模式：**自定义协议**和**AG-UI标准协议**。您可以根据后端服务的实际情况选择合适的协议模式。
 
-如果你的后端支持 Server-Sent Events 流式响应：
+### 自定义协议模式
+
+适用于已有后端服务或需要自定义数据结构的场景，您的后端服务只需要返回标准SSE格式即可。
+
+```js
+// 自定义后端接口（/api/chat）返回案例
+data: {"type": "think", "content": "正在分析您的问题..."}
+data: {"type": "text", "content": "我是**腾讯云**助手"}
+data: {"type": "text", "content": "很高兴为您服务！"}
+```
+
+接下来，前端通过配置 `onMessage` 回调来解析流式数据, 将自定义数据映射为组件所需格式。
 
 ```javascript
 const chatServiceConfig = {
-  endpoint: '//chat/stream',
-  stream: true, // 开启流式传输
+  endpoint: '/api/chat',
   onMessage: (chunk) => {
-    // 解析流式数据
     const { type, content } = chunk.data;
-
     switch (type) {
       case 'text':
         return {
           type: 'markdown',
           data: content,
         };
-      case 'thinking':
+      case 'think':
         return {
           type: 'thinking',
           data: {
@@ -169,6 +174,57 @@ const chatServiceConfig = {
   },
 };
 ```
+
+
+
+
+### AG-UI 标准协议
+
+[AG-UI协议](https://docs.ag-ui.com/introduction) 是专为AI代理与前端应用交互设计的标准化轻量级协议，内置支持工具调用、状态管理、多步骤任务等高级功能。AG-UI协议支持16种标准化事件类型，组件会自动解析并渲染，包括对话生命周期（RUN_\*）、文本消息（TEXT_MESSAGE_\*）、思考过程（THINKING_\*）、工具调用（TOOL_CALL_\*)、状态更新(STATE_\*)等。
+
+TDesign Chat内置支持**AG-UI协议数据双向转换**，符合该协议的后端Agent服务，可以无缝接入使用，只需在配置中开启即可。
+
+```js
+// 符合AG-UI协议的后端接口（/api/agui/chat）返回案例
+data: {"type":"RUN_STARTED","prompt":"AG-UI协议的作用是什么","messageId":"msg_1758770942221_8cq7jlgbh","threadId":"thread_simple_001","runId":"run_1758770942220_7sw1gio0b","agentId":"agui-explainer","timestamp":1758770942221}
+
+data: {"type":"THINKING_START","title":"开始思考","runId":null,"agentId":"agui-explainer","timestamp":1758770942221}
+data: {"type":"THINKING_TEXT_MESSAGE_START","runId":null,"agentId":"agui-explainer","timestamp":1758770942221}
+data: {"type":"THINKING_TEXT_MESSAGE_CONTENT","delta":"AG-UI是一个专为AI代理与前端应用交互设计的轻量级协议。","runId":null,"agentId":"agui-explainer","timestamp":1758770942221}
+data: {"type":"THINKING_TEXT_MESSAGE_END","runId":null,"agentId":"agui-explainer","timestamp":1758770942221}
+data: {"type":"THINKING_END","title":"思考结束（耗时10s)","runId":null,"agentId":"agui-explainer","timestamp":1758770942221}
+
+data: {"type":"TOOL_CALL_START","toolCallId":"search-toolcall-2","toolCallName":"search","timestamp":1758770942221}
+data: {"type":"TOOL_CALL_ARGS","toolCallId":"search-toolcall-2","delta":"","timestamp":1758770942221}
+data: {"type":"TOOL_CALL_END","toolCallId":"search-toolcall-2","delta":"","timestamp":1758770942221}
+data: {"type":"TOOL_CALL_RESULT","toolCallId":"search-toolcall-2","toolCallName":"search","content":"{\"title\":\"共搜索到2篇文章\",\"references\":[...]}","role":"tool","runId":null,"timestamp":1758770942221}
+
+data: {"type":"TEXT_MESSAGE_START","messageId":"msg_1758770942221_6gbrfaydy","role":"assistant","runId":null,"agentId":"agui-explainer","timestamp":1758770942221}
+data: {"type":"TEXT_MESSAGE_CHUNK","messageId":null,"delta":"下一代AI工作流","runId":null,"agentId":"agui-explainer","timestamp":1758770942221}
+data: {"type":"TEXT_MESSAGE_END","messageId":null,"runId":null,"agentId":"agui-explainer","timestamp":1758770942221}
+
+data: {"type":"RUN_FINISHED","threadId":"thread_simple_001","runId":null,"result":{"status":"completed","message":"AG-UI协议要点介绍完成","totalEvents":25},"agentId":"agui-explainer","timestamp":1758770942221}
+```
+
+```javascript
+const chatServiceConfig = {
+  endpoint: '/api/agui/chat',
+  protocol: 'agui', // 启用AG-UI协议
+  stream: true,
+};
+```
+
+
+### 协议选择建议
+
+| 场景 | 推荐协议 | 理由 |
+|------|---------|------|
+| 快速集成到现有服务 | 自定义协议 | 灵活适配现有数据结构 |
+| 构建复杂AI应用 | AG-UI协议 | 业界标准、功能完整、扩展性强 |
+| 多工具调用场景 | AG-UI协议 | 内置工具注册、调用及状态管理Hook |
+| 简单问答场景 | 自定义协议 | 配置简单、开发快速 |
+
+更多详细配置和示例请参考[组件文档](/react-aigc/components/chatbot)。
 
 ## 下一步
 
