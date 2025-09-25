@@ -1,19 +1,23 @@
-import React, { useRef, MouseEvent } from 'react';
-import { isObject } from 'lodash-es';
+import React, { useRef } from 'react';
+
 import classNames from 'classnames';
-import { TdSelectInputProps, SelectInputChangeContext, SelectInputKeys, SelectInputValue } from './type';
-import TagInput, { TagInputValue } from '../tag-input';
-import { SelectInputCommonProperties } from './interface';
-import useControlled from '../hooks/useControlled';
+import { isObject } from 'lodash-es';
+
 import useConfig from '../hooks/useConfig';
-import { InputRef } from '../input';
-import { StyledProps } from '../common';
+import useControlled from '../hooks/useControlled';
+import TagInput, { type TagInputValue } from '../tag-input';
+
+import type { StyledProps } from '../common';
+import type { InputRef } from '../input';
+import type { SelectInputCommonProperties } from './interface';
+import type { SelectInputChangeContext, SelectInputKeys, SelectInputValue, TdSelectInputProps } from './type';
 
 export interface RenderSelectMultipleParams {
   commonInputProps: SelectInputCommonProperties;
-  onInnerClear: (context: { e: MouseEvent<SVGElement> }) => void;
   popupVisible: boolean;
   allowInput: boolean;
+  onInnerClear: (context: { e: React.MouseEvent<SVGElement> }) => void;
+  onDirectBlur?: (context: { e: React.FocusEvent<HTMLInputElement> }) => void;
 }
 
 const DEFAULT_KEYS = {
@@ -51,44 +55,54 @@ export default function useMultiple(props: SelectInputProps) {
     props.onTagChange?.(val, context);
   };
 
-  const renderSelectMultiple = (p: RenderSelectMultipleParams) => (
-    <TagInput
-      ref={tagInputRef}
-      {...p.commonInputProps}
-      autoWidth={props.autoWidth}
-      readonly={props.readonly}
-      minCollapsedNum={props.minCollapsedNum}
-      collapsedItems={props.collapsedItems}
-      tag={props.tag}
-      valueDisplay={props.valueDisplay}
-      placeholder={tPlaceholder}
-      options={props.options}
-      value={tags}
-      inputValue={p.popupVisible && p.allowInput ? tInputValue : ''}
-      onChange={onTagInputChange}
-      onInputChange={(val, context) => {
-        // 筛选器统一特性：筛选器按下回车时不清空输入框
-        if (context?.trigger === 'enter' || context?.trigger === 'blur') return;
-        setTInputValue(val, { trigger: context.trigger, e: context.e });
-      }}
-      tagProps={props.tagProps}
-      onClear={p.onInnerClear}
-      // [Important Info]: SelectInput.blur is not equal to TagInput, example: click popup panel
-      onFocus={(val, context) => {
-        props.onFocus?.(props.value, { ...context, tagInputValue: val });
-      }}
-      onBlur={!props.panel ? props.onBlur : null}
-      {...props.tagInputProps}
-      inputProps={{
-        ...props.inputProps,
-        readonly: !props.allowInput || props.readonly,
-        inputClass: classNames(props.tagInputProps?.className, {
-          [`${classPrefix}-input--focused`]: p.popupVisible,
-          [`${classPrefix}-is-focused`]: p.popupVisible,
-        }),
-      }}
-    />
-  );
+  const renderSelectMultiple = (p: RenderSelectMultipleParams) => {
+    const handleBlur = (value: SelectInputValue, context: { e: React.FocusEvent<HTMLInputElement> }) => {
+      if (p.onDirectBlur) {
+        p.onDirectBlur(context);
+      } else {
+        // 处理没有 panel 时的场景
+        props.onBlur?.(value, { e: context.e, inputValue: tInputValue, tagInputValue: tags });
+      }
+    };
+    return (
+      <TagInput
+        ref={tagInputRef}
+        {...p.commonInputProps}
+        autoWidth={props.autoWidth}
+        readonly={props.readonly}
+        minCollapsedNum={props.minCollapsedNum}
+        collapsedItems={props.collapsedItems}
+        tag={props.tag}
+        valueDisplay={props.valueDisplay}
+        placeholder={tPlaceholder}
+        options={props.options}
+        value={tags}
+        inputValue={p.popupVisible && p.allowInput ? tInputValue : ''}
+        onChange={onTagInputChange}
+        onInputChange={(val, context) => {
+          // 筛选器统一特性：筛选器按下回车时不清空输入框
+          if (context?.trigger === 'enter' || context?.trigger === 'blur') return;
+          setTInputValue(val, { trigger: context.trigger, e: context.e });
+        }}
+        tagProps={props.tagProps}
+        onClear={p.onInnerClear}
+        // [Important Info]: SelectInput.blur is not equal to TagInput, example: click popup panel
+        onFocus={(val, context) => {
+          props.onFocus?.(props.value, { ...context, tagInputValue: val });
+        }}
+        onBlur={handleBlur}
+        {...props.tagInputProps}
+        inputProps={{
+          ...props.inputProps,
+          readonly: !props.allowInput || props.readonly,
+          inputClass: classNames(props.tagInputProps?.className, {
+            [`${classPrefix}-input--focused`]: p.popupVisible,
+            [`${classPrefix}-is-focused`]: p.popupVisible,
+          }),
+        }}
+      />
+    );
+  };
 
   return {
     tags,

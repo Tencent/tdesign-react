@@ -1,12 +1,15 @@
-import React, { useRef, MouseEvent } from 'react';
-import { isObject, pick } from 'lodash-es';
+import React, { MouseEvent, useRef } from 'react';
+
 import classNames from 'classnames';
-import { SelectInputCommonProperties } from './interface';
-import Input, { InputRef, TdInputProps } from '../input';
-import { TdSelectInputProps } from './type';
-import { Loading } from '../loading';
+import { isObject, pick } from 'lodash-es';
+
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
+import Input, { type InputRef, type TdInputProps } from '../input';
+import Loading from '../loading';
+
+import type { SelectInputCommonProperties } from './interface';
+import type { TdSelectInputProps } from './type';
 
 export interface RenderSelectSingleInputParams {
   tPlaceholder: string;
@@ -63,14 +66,23 @@ export default function useSingle(props: TdSelectInputProps) {
     }
   };
 
-  const handleEmptyPanelBlur = (value: string, { e }: { e: React.FocusEvent<HTMLInputElement> }) => {
-    props.onBlur?.(value, { e, inputValue: value });
-  };
-
-  const renderSelectSingle = (popupVisible: boolean) => {
+  const renderSelectSingle = (
+    popupVisible: boolean,
+    onDirectBlur?: (context: { e: React.FocusEvent<HTMLInputElement> }) => void,
+  ) => {
     // 单选，值的呈现方式
     const singleValueDisplay: any = !props.multiple ? props.valueDisplay : null;
     const displayedValue = popupVisible && props.allowInput ? inputValue : getInputValue(value, keys);
+
+    const handleBlur = (value, ctx) => {
+      if (onDirectBlur) {
+        onDirectBlur(ctx);
+      } else {
+        // 处理没有 panel 时的场景
+        props.onBlur?.(value, { e: ctx.e, inputValue: value });
+      }
+    };
+
     return (
       <Input
         ref={inputRef}
@@ -98,8 +110,8 @@ export default function useSingle(props: TdSelectInputProps) {
         onEnter={(val, context) => {
           props.onEnter?.(value, { ...context, inputValue: val });
         }}
-        // onBlur need to triggered by input when popup panel is null
-        onBlur={!props.panel ? handleEmptyPanelBlur : null}
+        // onBlur need to triggered by input when popup panel is null or when popupVisible is forced to false
+        onBlur={handleBlur}
         {...props.inputProps}
         inputClass={classNames(props.inputProps?.className, {
           [`${classPrefix}-input--focused`]: popupVisible,
