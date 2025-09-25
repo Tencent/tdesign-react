@@ -180,30 +180,17 @@ const chatServiceConfig = {
 
 ### AG-UI 标准协议
 
-[AG-UI协议](https://docs.ag-ui.com/introduction) 是专为AI代理与前端应用交互设计的标准化轻量级协议，内置支持工具调用、状态管理、多步骤任务等高级功能。AG-UI协议支持16种标准化事件类型，组件会自动解析并渲染，包括对话生命周期`RUN_*`、文本消息`TEXT_MESSAGE_*`、思考过程`THINKING_*`、工具调用`TOOL_CALL_*`、状态更新`STATE_*`等。
+**AG-UI协议**是专为AI代理与前端应用交互设计的标准化轻量级协议，内置支持工具调用、状态管理、多步骤任务等高级功能。AG-UI协议支持16种标准化事件类型，组件会自动解析并渲染，包括对话生命周期`RUN_*`、文本消息`TEXT_MESSAGE_*`、思考过程`THINKING_*`、工具调用`TOOL_CALL_*`、状态更新`STATE_*`等。
 
-TDesign Chat内置支持**AG-UI协议数据双向转换**，符合该协议的后端Agent服务，可以无缝接入使用，只需在配置中开启即可。
+TDesign Chat内置支持**AG-UI协议数据双向转换**，符合该协议的后端Agent服务，可以无缝接入使用，只需在配置中开启即可。详细介绍见[与AG-UI协议集成](/react-aigc/agui) 
 
 ```js
 // 符合AG-UI协议的后端接口（/api/agui/chat）返回案例
-data: {"type":"RUN_STARTED","prompt":"AG-UI协议的作用是什么","messageId":"msg_1758770942221_8cq7jlgbh","threadId":"thread_simple_001","runId":"run_1758770942220_7sw1gio0b","agentId":"agui-explainer","timestamp":1758770942221}
-
-data: {"type":"THINKING_START","title":"开始思考","runId":null,"agentId":"agui-explainer","timestamp":1758770942221}
-data: {"type":"THINKING_TEXT_MESSAGE_START","runId":null,"agentId":"agui-explainer","timestamp":1758770942221}
-data: {"type":"THINKING_TEXT_MESSAGE_CONTENT","delta":"AG-UI是一个专为AI代理与前端应用交互设计的轻量级协议。","runId":null,"agentId":"agui-explainer","timestamp":1758770942221}
-data: {"type":"THINKING_TEXT_MESSAGE_END","runId":null,"agentId":"agui-explainer","timestamp":1758770942221}
-data: {"type":"THINKING_END","title":"思考结束（耗时10s)","runId":null,"agentId":"agui-explainer","timestamp":1758770942221}
-
-data: {"type":"TOOL_CALL_START","toolCallId":"search-toolcall-2","toolCallName":"search","timestamp":1758770942221}
-data: {"type":"TOOL_CALL_ARGS","toolCallId":"search-toolcall-2","delta":"","timestamp":1758770942221}
-data: {"type":"TOOL_CALL_END","toolCallId":"search-toolcall-2","delta":"","timestamp":1758770942221}
-data: {"type":"TOOL_CALL_RESULT","toolCallId":"search-toolcall-2","toolCallName":"search","content":"{\"title\":\"共搜索到2篇文章\",\"references\":[...]}","role":"tool","runId":null,"timestamp":1758770942221}
-
-data: {"type":"TEXT_MESSAGE_START","messageId":"msg_1758770942221_6gbrfaydy","role":"assistant","runId":null,"agentId":"agui-explainer","timestamp":1758770942221}
-data: {"type":"TEXT_MESSAGE_CHUNK","messageId":null,"delta":"下一代AI工作流","runId":null,"agentId":"agui-explainer","timestamp":1758770942221}
-data: {"type":"TEXT_MESSAGE_END","messageId":null,"runId":null,"agentId":"agui-explainer","timestamp":1758770942221}
-
-data: {"type":"RUN_FINISHED","threadId":"thread_simple_001","runId":null,"result":{"status":"completed","message":"AG-UI协议要点介绍完成","totalEvents":25},"agentId":"agui-explainer","timestamp":1758770942221}
+data: {"type": "RUN_STARTED", "runId": "run_456"}
+data: {"type": "TEXT_MESSAGE_CONTENT", "delta": "正在处理您的请求..."}
+data: {"type": "TOOL_CALL_START", "toolCallName": "search"}
+data: {"type": "TOOL_CALL_RESULT", "content": "查询结果"}
+data: {"type": "RUN_FINISHED", "runId": "run_456"}
 ```
 
 ```javascript

@@ -26,7 +26,7 @@ export const docs = [
         component: () => import('./docs/sse.md'),
       },
       {
-        title: '什么是AG-UI协议',
+        title: '与AG-UI协议集成',
         titleEn: 'AG-UI',
         name: 'agui',
         path: '/react-aigc/agui',
