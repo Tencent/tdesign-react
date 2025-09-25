@@ -62,96 +62,66 @@ exports[`BaseTable Component > props.showHeader: BaseTable contains element \`th
         <tbody
           class="t-table__body"
         >
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               1
             </td>
-            <td
-              class=""
-            >
+            <td>
               贾明
             </td>
-            <td
-              class=""
-            />
+            <td />
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               2
             </td>
-            <td
-              class=""
-            >
+            <td>
               张三
             </td>
-            <td
-              class=""
-            >
+            <td>
               2022-02-01
             </td>
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               3
             </td>
-            <td
-              class=""
-            >
+            <td>
               王芳
             </td>
-            <td
-              class=""
-            >
+            <td>
               2022-03-01
             </td>
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               4
             </td>
-            <td
-              class=""
-            >
+            <td>
               贾明
             </td>
-            <td
-              class=""
-            >
+            <td>
               2022-04-01
             </td>
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               5
             </td>
-            <td
-              class=""
-            >
+            <td>
               张三
             </td>
-            <td
-              class=""
-            />
+            <td />
           </tr>
         </tbody>
         <tfoot
@@ -263,96 +233,66 @@ exports[`BaseTable Component > props.size is equal to large 1`] = `
         <tbody
           class="t-table__body"
         >
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               1
             </td>
-            <td
-              class=""
-            >
+            <td>
               贾明
             </td>
-            <td
-              class=""
-            />
+            <td />
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               2
             </td>
-            <td
-              class=""
-            >
+            <td>
               张三
             </td>
-            <td
-              class=""
-            >
+            <td>
               2022-02-01
             </td>
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               3
             </td>
-            <td
-              class=""
-            >
+            <td>
               王芳
             </td>
-            <td
-              class=""
-            >
+            <td>
               2022-03-01
             </td>
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               4
             </td>
-            <td
-              class=""
-            >
+            <td>
               贾明
             </td>
-            <td
-              class=""
-            >
+            <td>
               2022-04-01
             </td>
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               5
             </td>
-            <td
-              class=""
-            >
+            <td>
               张三
             </td>
-            <td
-              class=""
-            />
+            <td />
           </tr>
         </tbody>
         <tfoot
@@ -464,96 +404,66 @@ exports[`BaseTable Component > props.size is equal to medium 1`] = `
         <tbody
           class="t-table__body"
         >
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               1
             </td>
-            <td
-              class=""
-            >
+            <td>
               贾明
             </td>
-            <td
-              class=""
-            />
+            <td />
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               2
             </td>
-            <td
-              class=""
-            >
+            <td>
               张三
             </td>
-            <td
-              class=""
-            >
+            <td>
               2022-02-01
             </td>
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               3
             </td>
-            <td
-              class=""
-            >
+            <td>
               王芳
             </td>
-            <td
-              class=""
-            >
+            <td>
               2022-03-01
             </td>
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               4
             </td>
-            <td
-              class=""
-            >
+            <td>
               贾明
             </td>
-            <td
-              class=""
-            >
+            <td>
               2022-04-01
             </td>
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               5
             </td>
-            <td
-              class=""
-            >
+            <td>
               张三
             </td>
-            <td
-              class=""
-            />
+            <td />
           </tr>
         </tbody>
         <tfoot
@@ -665,96 +575,66 @@ exports[`BaseTable Component > props.size is equal to small 1`] = `
         <tbody
           class="t-table__body"
         >
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               1
             </td>
-            <td
-              class=""
-            >
+            <td>
               贾明
             </td>
-            <td
-              class=""
-            />
+            <td />
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               2
             </td>
-            <td
-              class=""
-            >
+            <td>
               张三
             </td>
-            <td
-              class=""
-            >
+            <td>
               2022-02-01
             </td>
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               3
             </td>
-            <td
-              class=""
-            >
+            <td>
               王芳
             </td>
-            <td
-              class=""
-            >
+            <td>
               2022-03-01
             </td>
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               4
             </td>
-            <td
-              class=""
-            >
+            <td>
               贾明
             </td>
-            <td
-              class=""
-            >
+            <td>
               2022-04-01
             </td>
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               5
             </td>
-            <td
-              class=""
-            >
+            <td>
               张三
             </td>
-            <td
-              class=""
-            />
+            <td />
           </tr>
         </tbody>
         <tfoot
@@ -860,96 +740,66 @@ exports[`BaseTable Component > props.tableLayout is equal to auto 1`] = `
         <tbody
           class="t-table__body"
         >
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               1
             </td>
-            <td
-              class=""
-            >
+            <td>
               贾明
             </td>
-            <td
-              class=""
-            />
+            <td />
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               2
             </td>
-            <td
-              class=""
-            >
+            <td>
               张三
             </td>
-            <td
-              class=""
-            >
+            <td>
               2022-02-01
             </td>
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               3
             </td>
-            <td
-              class=""
-            >
+            <td>
               王芳
             </td>
-            <td
-              class=""
-            >
+            <td>
               2022-03-01
             </td>
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               4
             </td>
-            <td
-              class=""
-            >
+            <td>
               贾明
             </td>
-            <td
-              class=""
-            >
+            <td>
               2022-04-01
             </td>
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               5
             </td>
-            <td
-              class=""
-            >
+            <td>
               张三
             </td>
-            <td
-              class=""
-            />
+            <td />
           </tr>
         </tbody>
         <tfoot
@@ -1061,96 +911,66 @@ exports[`BaseTable Component > props.tableLayout is equal to fixed 1`] = `
         <tbody
           class="t-table__body"
         >
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               1
             </td>
-            <td
-              class=""
-            >
+            <td>
               贾明
             </td>
-            <td
-              class=""
-            />
+            <td />
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               2
             </td>
-            <td
-              class=""
-            >
+            <td>
               张三
             </td>
-            <td
-              class=""
-            >
+            <td>
               2022-02-01
             </td>
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               3
             </td>
-            <td
-              class=""
-            >
+            <td>
               王芳
             </td>
-            <td
-              class=""
-            >
+            <td>
               2022-03-01
             </td>
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               4
             </td>
-            <td
-              class=""
-            >
+            <td>
               贾明
             </td>
-            <td
-              class=""
-            >
+            <td>
               2022-04-01
             </td>
           </tr>
-          <tr
-            class=""
-          >
+          <tr>
             <td
               class="table-test-column-index"
             >
               5
             </td>
-            <td
-              class=""
-            >
+            <td>
               张三
             </td>
-            <td
-              class=""
-            />
+            <td />
           </tr>
         </tbody>
         <tfoot

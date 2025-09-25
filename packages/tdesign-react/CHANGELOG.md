@@ -5,6 +5,92 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.15.1 `2025-09-12` 
+### 🐞 Bug Fixes
+- `ImageViewer`: 修复 `imageScale` 配置效果异常的问题 @uyarn ([#3814](https://github.com/Tencent/tdesign-react/pull/3814))
+
+## 🌈 1.15.0 `2025-09-11` 
+### 🚀 Features
+- `Icon`:  @uyarn ([#3802](https://github.com/Tencent/tdesign-react/pull/3802))
+  - `tdesign-icons-react` 发布 `0.6.0` 版本，新增 `align-bottom`、`no-result`、`no-result-filled`、 `tree-list`、`wifi-no`、 `wifi-no-filled`、`logo-stackblitz-filled`、`logo-stackblitz`、`logo-wecom-filled` 图标，移除 `video-camera-3`、`video-camera-3-filled`、`list` 图标，此前有依赖以下图标升级请注意 ⚠️ 
+  - 按需加载方式使用的图标资源支持可变粗细功能，通过 `strokeWidth` 属性进行配置
+  - 按需加载方式使用的图标资源支持多色填充功能，通过 `strokeColor` 和 `fillColor` 属性进行配置
+- `DatePicker`: 支持通过覆盖 `popupProps`，使点击 `preset` 时不关闭弹窗 @RylanBot ([#3798](https://github.com/Tencent/tdesign-react/pull/3798))
+### 🐞 Bug Fixes
+- `Tree`: 修复拖拽后展开收起图标展示异常的问题 @RylanBot ([#3756](https://github.com/Tencent/tdesign-react/pull/3756))
+- `TreeItem`: 修正节点属性 `date-target` 单词拼写为 `data-target`，之前有使用该属性的业务请注意此变更 ⚠️ @RylanBot ([#3756](https://github.com/Tencent/tdesign-react/pull/3756))
+- `MessagePlugin`: 修复 `content` 为 `''` / `undefined` / `null` 时产生的报错  @RylanBot ([#3778](https://github.com/Tencent/tdesign-react/pull/3778))
+- `Table`: 修复未开启 `<React.StrictMode>` 时，`Loading` 挂载导致的页面闪烁问题 @RylanBot ([#3775](https://github.com/Tencent/tdesign-react/pull/3775))
+- `Upload`: 修复拖拽模式下 `status` 更新错误 @RSS1102 ([#3801](https://github.com/Tencent/tdesign-react/pull/3801))
+- `Input`: 修复在开启 `readonly` 或者禁用 `allowInput` 情况下没有触发 `onFocus` 和 `onBlur` 的问题 @RylanBot ([#3800](https://github.com/Tencent/tdesign-react/pull/3800))
+- `Cascader`: 
+  - 修复启用 `multiple` 与 `valueType='full'` 时，`valueDisplay` 渲染异常的问题 @RSS1102 ([#3809](https://github.com/Tencent/tdesign-react/pull/3809))
+  - 修复 `1.11.0` 版本引入的新特性，导致无法选中底部选项的问题 @RylanBot ([#3772](https://github.com/Tencent/tdesign-react/pull/3772))
+- `Select`: 避免下拉框的打开与关闭时，频繁重复触发 `valueDisplay` 的渲染 @RylanBot ([#3808](https://github.com/Tencent/tdesign-react/pull/3808))
+- `TagInput`: 避免下拉框的打开与关闭时，频繁重复触发 `valueDisplay` 的渲染 @RylanBot ([#3808](https://github.com/Tencent/tdesign-react/pull/3808))
+- `Dialog`: 修复在 React 19 环境下，由于使用 `ref` 引发的死循环问题 @RylanBot ([#3799](https://github.com/Tencent/tdesign-react/pull/3799))
+- `Drawer`: 修复在 React 19 环境下，由于使用 `ref` 引发的死循环问题 @RylanBot ([#3799](https://github.com/Tencent/tdesign-react/pull/3799))
+- `Popup`: 修复 `delay` 设置为 0 时移出 Trigger 元素的异常问题 @HaixingOoO ([#3806](https://github.com/Tencent/tdesign-react/pull/3806))
+- `Tooltip`: 修复 `delay` API 的类型不完整问题 @HaixingOoO ([#3806](https://github.com/Tencent/tdesign-react/pull/3806))
+
+### 🚧 Others
+- `react-render`: 修复引入 `react-19-adapter` 后仍然显示需要引入相关模块的警告的问题 @HaixingOoO ([#3790](https://github.com/Tencent/tdesign-react/pull/3790))
+
+## 🌈 1.14.5 `2025-08-26` 
+### 🐞 Bug Fixes
+- `Watermark`:  完善水印组件在 SSR 场景的兼容问题 @uyarn ([#3765](https://github.com/Tencent/tdesign-react/pull/3765))
+
+## 🌈 1.14.3 `2025-08-26` 
+### 🐞 Bug Fixes
+- `Pagination`: 修复跳转图标没有重置回正确状态的问题 @phalera ([#3758](https://github.com/Tencent/tdesign-react/pull/3758))
+- `Watermark`: 修复 `1.14.0` 版本默认文字颜色缺失透明度的问题 @uyarn ([#3760](https://github.com/Tencent/tdesign-react/pull/3760))
+- `Watermark`: 修复 `1.14.0` 版本不兼容 SSR 场景的问题 @uyarn ([#3760](https://github.com/Tencent/tdesign-react/pull/3760))
+
+## 🌈 1.14.2 `2025-08-22` 
+### 🐞 Bug Fixes
+- `Dialog`: 修复 `1.14.0` 版本引入的新特性导致 `draggable` 禁用失败的问题 @RylanBot ([#3753](https://github.com/Tencent/tdesign-react/pull/3753))
+
+## 🌈 1.14.1 `2025-08-22` 
+### 🐞 Bug Fixes
+- `Steps`: 修复 `1.13.2` 版本引起的 `theme` 不为 `default` 时重复渲染图标的问题 @RSS1102 ([#3748](https://github.com/Tencent/tdesign-react/pull/3748))
+
+## 🌈 1.14.0 `2025-08-21` 
+### 🚀 Features
+- `Tabs`: 将 `remove` 事件从删除图标移至外层容器, 保证替换图标功能正常使用，有覆盖删除图标样式请注意此变更 ⚠️ @RSS1102 ([#3736](https://github.com/Tencent/tdesign-react/pull/3736))
+- `Card`: 新增 `headerClassName`、`headerStyle`、`bodyClassName`、`bodyStyle`、`footerClassName`、`footerStyle`，方便用于定制卡片组件的各部分样式 @lifeiFront ([#3737](https://github.com/Tencent/tdesign-react/pull/3737))
+- `Form`: `rules` 支持配置嵌套字段进行校验 @uyarn ([#3738](https://github.com/Tencent/tdesign-react/pull/3738))
+- `ImageViewer`: 调整 `imageScale` 的内部属性值变为可选 @willsontaoZzz ([#3710](https://github.com/Tencent/tdesign-react/pull/3710))
+- `Select`: 支持 `onCreate` 和 `multiple` 配合使用 @uyarn ([#3717](https://github.com/Tencent/tdesign-react/pull/3717))
+- `Table`: 新增切换分页后重置滚动条回到顶部的特性 @RSS1102 ([#3729](https://github.com/Tencent/tdesign-react/pull/3729))
+- `Tree`: `onDragLeave` 与 `onDragOver` 增加 `dragNode`、`dropPosition` 参数 @phalera ([#3728](https://github.com/Tencent/tdesign-react/pull/3728))
+- `Upload`: 支持在非自动上传场景下上传指定文件 @uyarn ([#3742](https://github.com/Tencent/tdesign-react/pull/3742))
+- `ColorPicker`: 支持在移动端拖动色板、滑动条等 @RylanBot ([#3723](https://github.com/Tencent/tdesign-react/pull/3723))
+- `Dialog`: 支持 `draggable` 属性支持在移动端生效 @RylanBot ([#3723](https://github.com/Tencent/tdesign-react/pull/3723))
+- `ImageViewer`: 支持 `draggable` 属性在移动端生效 @RylanBot ([#3723](https://github.com/Tencent/tdesign-react/pull/3723))
+- `Slider`: 支持在移动端拖动 @RylanBot ([#3723](https://github.com/Tencent/tdesign-react/pull/3723))
+- `Statistic`: 修改 `color` 属性类型为字符串，以支持任何 [CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) 支持的颜色值 @RSS1102 ([#3706](https://github.com/Tencent/tdesign-react/pull/3706))
+
+### 🐞 Bug Fixes
+- `Tree`: @RylanBot
+  - 修复 `draggable` 在 `disabled` 状态下依旧生效的异常，此前有依赖此错误的业务请注意此变动 ⚠️  ([#3740](https://github.com/Tencent/tdesign-react/pull/3740)) 
+  - 修复 `checkStrictly` 默认为 false 时，父子节点 `disabled` 状态没有关联的问题  ([#3739](https://github.com/Tencent/tdesign-react/pull/3739))
+  - 修复 Drag 相关事件的回调中 `node` 为 null 的异常 ([#3728](https://github.com/Tencent/tdesign-react/pull/3728))
+  - 修复 `size='small'` 的 `firstFullRow` 尺寸比 `size='medium'` 大的异常 ([#common2253](https://github.com/Tencent/tdesign-common/pull/2253))
+- `Form`: @uyarn
+    - 修复嵌套表单受外层 `FormList` 影响数据构造的问题  ([#3715](https://github.com/Tencent/tdesign-react/pull/3715))
+    - 修复嵌套表单中内层表单受外层表单影响校验结果字段的问题  ([#3738](https://github.com/Tencent/tdesign-react/pull/3738))
+- `FormList`: 解决 `1.13.2` 引入的修复，导致手动 `setFields` 设置初始值而非利用 `initialData` 后无法新增数据的问题 @RylanBot ([#3730](https://github.com/Tencent/tdesign-react/pull/3730))
+- `Input`: 修复密码输入框点击图标切换内容可见性时，光标位置没能被保留 @RylanBot ([#3726](https://github.com/Tencent/tdesign-react/pull/3726))
+- `Table`: @RylanBot
+    - 修复 `dragSort='row-handler-col'` 时，列拖拽不生效的问题  ([#3734](https://github.com/Tencent/tdesign-react/pull/3734))
+    - 修复开启虚拟滚动时，动态更新数据时导致白屏的问题  ([#3733](https://github.com/Tencent/tdesign-react/pull/3733))
+    - 修复开启虚拟滚动时，表头与下方表格的宽度未同步变化 ([#3733](https://github.com/Tencent/tdesign-react/pull/3733))
+    - 修复开启虚拟滚动时，滚动条意外被重置回第一行的位置 ([#3733](https://github.com/Tencent/tdesign-react/pull/3733))
+    - 修复同时开启虚拟滚动与设置 `firstFullRow` 或 `onFilterChange` 过滤时，最后一行数据被遮挡的问题 ([#3733](https://github.com/Tencent/tdesign-react/pull/3733))
+- `Watermark`: 修复深色模式下，文字水印内容显示不明显的问题 @HaixingOoO  @liweijie0812 ([#3692](https://github.com/Tencent/tdesign-react/pull/3692))
+- `DatePicker`: 优化年份选择模式下选择同面板年份后面板内容的展示效果 @uyarn ([#3744](https://github.com/Tencent/tdesign-react/pull/3744))
+
+
 ## 🌈 1.13.2 `2025-08-01` 
 ### 🐞 Bug Fixes
 - `DatePicker`: 
@@ -21,10 +107,10 @@ spline: explain
   - 修复直接长按渐变点后拖动，颜色更新异常的问题
   - 修复清空下方某一输入框的数值时，其他输入框意外被重置
 - `Upload`: 确保在 `beforeUpload` 完成之后，再执行上传动作 @RSS1102 ([#3686](https://github.com/Tencent/tdesign-react/pull/3686))
-- `Table`: 修复 `resizable` 开启时，列边框线引起的列名内容移动的问题 @QuentinHsu([#3697](https://github.com/Tencent/tdesign-react/pull/3697))
-- `Descriptions`: 修复无边框模式下左右内边距 @liweijie0812 ([#3697](https://github.com/Tencent/tdesign-react/pull/3697))
+- `Table`: 修复 `resizable` 开启时，列边框线引起的列名内容移动的问题 @QuentinHsu([#common2224](https://github.com/Tencent/tdesign-common/pull/2224))
+- `Descriptions`: 修复无边框模式下左右内边距 @liweijie0812 ([#common2219](https://github.com/Tencent/tdesign-common/pull/2219))
 - `Steps`: 修复自定义图标和状态图标的优先级问题 @RSS1102 ([#3670](https://github.com/Tencent/tdesign-react/pull/3670))
-- `FormItem`: 修复销毁时组件时，`store` 数据没有清除导致 `setFieldsValue` 回填旧数据的问题 @RylanBot ([#3684](https://github.com/Tencent/tdesign-react/pull/3684))
+- `Form`: 修复动态表单删除一个数据后再次新增，会回填旧数据的问题 @RylanBot ([#3684](https://github.com/Tencent/tdesign-react/pull/3684))
 
 ## 🌈 1.13.1 `2025-07-11`
 
@@ -1174,3 +1260,5 @@ spline: explain
 
 ## 🌈 0.x `2021-03-26 - 2023-02-08`
 前往 [GitHub](https://github.com/Tencent/tdesign-react/blob/develop/packages/tdesign-react/CHANGELOG-0.x.md) 查看 `0.x` 更新日志
+
+

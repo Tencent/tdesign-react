@@ -11,6 +11,7 @@ import { TdWatermarkProps } from './type';
 import { watermarkDefaultProps } from './defaultProps';
 import { getStyleStr } from './utils';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useVariables from '../hooks/useVariables';
 
 export interface WatermarkProps extends TdWatermarkProps, StyledProps {}
 
@@ -56,6 +57,10 @@ const Watermark: React.FC<WatermarkProps> = (originalProps) => {
   const offsetLeft = offset[0] || gapX / 2;
   const offsetTop = offset[1] || gapY / 2;
 
+  const { fontColor } = useVariables({
+    fontColor: '--td-text-color-watermark',
+  });
+
   // 水印节点 - 背景base64
   useEffect(() => {
     generateBase64Url(
@@ -70,12 +75,13 @@ const Watermark: React.FC<WatermarkProps> = (originalProps) => {
         watermarkContent,
         offsetLeft,
         offsetTop,
+        fontColor,
       },
       (url) => {
         setBase64Url(url);
       },
     );
-  }, [width, height, rotate, zIndex, lineSpace, alpha, offsetLeft, offsetTop, gapX, gapY, watermarkContent]);
+  }, [width, height, rotate, zIndex, lineSpace, alpha, offsetLeft, offsetTop, gapX, gapY, watermarkContent, fontColor]);
 
   // 水印节点 - styleStr
   useEffect(() => {

@@ -1,23 +1,24 @@
-import React, { forwardRef, useEffect, useRef, useImperativeHandle } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
-import log from '@tdesign/common-js/log/index';
 import { isUndefined } from 'lodash-es';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { TdDialogProps, DialogInstance } from './type';
-import { StyledProps } from '../common';
+import log from '@tdesign/common-js/log/index';
 import Portal from '../common/Portal';
-import useSetState from '../hooks/useSetState';
+import useAttach from '../hooks/useAttach';
 import useConfig from '../hooks/useConfig';
+import useDeepEffect from '../hooks/useDeepEffect';
+import useDefaultProps from '../hooks/useDefaultProps';
+import useSetState from '../hooks/useSetState';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { dialogDefaultProps } from './defaultProps';
 import DialogCard from './DialogCard';
-import useDialogEsc from './hooks/useDialogEsc';
-import useLockStyle from './hooks/useLockStyle';
-import useDialogPosition from './hooks/useDialogPosition';
 import useDialogDrag from './hooks/useDialogDrag';
+import useDialogEsc from './hooks/useDialogEsc';
+import useDialogPosition from './hooks/useDialogPosition';
+import useLockStyle from './hooks/useLockStyle';
 import { parseValueToPx } from './utils';
-import useDefaultProps from '../hooks/useDefaultProps';
-import useAttach from '../hooks/useAttach';
+import type { StyledProps } from '../common';
+import type { DialogInstance, TdDialogProps } from './type';
 
 export interface DialogProps extends TdDialogProps, StyledProps {
   isPlugin?: boolean; // 是否以插件形式调用
@@ -76,19 +77,16 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
   useDialogEsc(visible, wrapRef);
   useDialogPosition(visible, dialogCardRef);
-  const { onDialogMoveStart } = useDialogDrag({
+  useDialogDrag({
     dialogCardRef,
-    contentClickRef,
     canDraggable: draggable && mode === 'modeless',
   });
 
-  useEffect(() => {
-    if (isPlugin) {
-      return;
-    }
+  useDeepEffect(() => {
+    if (isPlugin) return;
     // 插件式调用不会更新props, 只有组件式调用才会更新props
     setState((prevState) => ({ ...prevState, ...props }));
-  }, [props, setState, isPlugin]);
+  }, [props, setState]);
 
   useImperativeHandle(ref, () => ({
     show() {
@@ -243,7 +241,6 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
                   onConfirm={onConfirm}
                   onCancel={handleCancel}
                   onCloseBtnClick={handleClose}
-                  onMouseDown={onDialogMoveStart}
                 >
                   {children}
                 </DialogCard>
