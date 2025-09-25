@@ -59,8 +59,7 @@ export default function useMultiple(props: SelectInputProps) {
     const handleBlur = (value: SelectInputValue, context: { e: React.FocusEvent<HTMLInputElement> }) => {
       if (p.onDirectBlur) {
         p.onDirectBlur(context);
-      } else {
-        // 处理没有 panel 时的场景
+      } else if (!props.panel) {
         props.onBlur?.(value, { e: context.e, inputValue: tInputValue, tagInputValue: tags });
       }
     };

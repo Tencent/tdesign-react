@@ -77,8 +77,7 @@ export default function useSingle(props: TdSelectInputProps) {
     const handleBlur = (value, ctx) => {
       if (onDirectBlur) {
         onDirectBlur(ctx);
-      } else {
-        // 处理没有 panel 时的场景
+      } else if (!props.panel) {
         props.onBlur?.(value, { e: ctx.e, inputValue: value });
       }
     };
