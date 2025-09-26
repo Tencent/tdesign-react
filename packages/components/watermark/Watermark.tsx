@@ -81,7 +81,7 @@ const Watermark: React.FC<WatermarkProps> = (originalProps) => {
         layout,
       },
       (url, { width }) => {
-        backgroundSize.current = `${width}px`;
+        backgroundSize.current = width ? `${width}px` : null;
         setBase64Url(url);
       },
     );
@@ -112,14 +112,14 @@ const Watermark: React.FC<WatermarkProps> = (originalProps) => {
       bottom: 0,
       width: movable ? `${width}px` : '100%',
       height: movable ? `${height}px` : '100%',
-      backgroundSize: backgroundSize.current,
+      backgroundSize: backgroundSize.current || `${gapX + width}px`,
       pointerEvents: 'none',
       backgroundRepeat: movable ? 'no-repeat' : isRepeat ? 'repeat' : 'no-repeat',
       backgroundImage: `url('${base64Url}')`,
       animation: movable ? `watermark infinite ${(moveInterval * 4) / 60}s` : 'none',
       ...style,
     });
-  }, [zIndex, gapX, width, movable, isRepeat, base64Url, moveInterval, style, height]);
+  }, [zIndex, gapX, width, movable, isRepeat, base64Url, moveInterval, style, height, backgroundSize]);
 
   // 水印节点 - 渲染
   const renderWatermark = useCallback(() => {
