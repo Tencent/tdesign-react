@@ -11,7 +11,6 @@ import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useLatest from '../hooks/useLatest';
 import useUpdateEffect from '../hooks/useUpdateEffect';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
 import SelectInput from '../select-input';
 import { datePickerDefaultProps } from './defaultProps';
 import useSingle from './hooks/useSingle';
@@ -69,9 +68,6 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     setCacheValue,
   } = useSingle(props);
 
-  const [local] = useLocaleReceiver('datePicker');
-  const { dayjsLocale } = local;
-
   const { format, timeFormat, valueType } = getDefaultFormat({
     mode,
     format: props.format,
@@ -81,19 +77,18 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
 
   const onTriggerNeedConfirm = useLatest(() => {
     if (needConfirm || !enableTimePicker || popupVisible) return;
-    const nextValue = formatDate(inputValue, { format, dayjsLocale });
+    const nextValue = formatDate(inputValue, { format });
     if (nextValue) {
-      const currentValue = formatDate(value, { format, dayjsLocale });
+      const currentValue = formatDate(value, { format });
       if (currentValue === nextValue) return;
       onChange(formatDate(inputValue, { format, targetFormat: valueType }), {
-        dayjsValue: parseToDayjs(inputValue, format, undefined, dayjsLocale),
+        dayjsValue: parseToDayjs(inputValue, format, undefined),
         trigger: 'confirm',
       });
     } else {
       setInputValue(
         formatDate(value, {
           format,
-          dayjsLocale,
         }),
       );
     }
@@ -117,11 +112,11 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
       value && !isDate(value) && !['week', 'quarter'].includes(props.mode)
         ? covertToDate(value as string, valueType)
         : value;
-    setCacheValue(formatDate(dateValue, { format, dayjsLocale }));
-    setInputValue(formatDate(dateValue, { format, dayjsLocale }));
+    setCacheValue(formatDate(dateValue, { format }));
+    setInputValue(formatDate(dateValue, { format }));
 
     if (popupVisible) {
-      const formattedDate = parseToDayjs(dateValue as DateValue, format, undefined, dayjsLocale);
+      const formattedDate = parseToDayjs(dateValue as DateValue, format);
       setYear(formattedDate.year());
       setMonth(formattedDate.month());
       setTime(formatTime(value, format, timeFormat, defaultTime));
@@ -135,14 +130,14 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
   function onCellMouseEnter(date: Date) {
     if (multiple) return;
     setIsHoverCell(true);
-    setInputValue(formatDate(date, { format, dayjsLocale }));
+    setInputValue(formatDate(date, { format }));
   }
 
   // 日期 leave
   function onCellMouseLeave() {
     if (multiple) return;
     setIsHoverCell(false);
-    setInputValue(formatDate(cacheValue, { format, dayjsLocale }));
+    setInputValue(formatDate(cacheValue, { format }));
   }
 
   // 日期点击
@@ -155,12 +150,12 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
       setMonth(date.getMonth());
     }
     if (enableTimePicker) {
-      setCacheValue(formatDate(date, { format, dayjsLocale }));
+      setCacheValue(formatDate(date, { format }));
       if (props.needConfirm) return;
       handlePopupInvisible();
-      const formattedDate = formatDate(date, { format, targetFormat: valueType, dayjsLocale });
+      const formattedDate = formatDate(date, { format, targetFormat: valueType });
       console.log('formattedDate', formattedDate);
-      onChange(formatDate(date, { format, targetFormat: valueType, dayjsLocale }), {
+      onChange(formatDate(date, { format, targetFormat: valueType }), {
         dayjsValue: parseToDayjs(date, format),
         trigger: 'pick',
       });
@@ -174,7 +169,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
         return;
       }
       handlePopupInvisible();
-      onChange(formatDate(date, { format, dayjsLocale, targetFormat: valueType }), {
+      onChange(formatDate(date, { format, targetFormat: valueType }), {
         dayjsValue: parseToDayjs(date, format),
         trigger: 'pick',
       });
@@ -218,7 +213,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
     const currentDate = !dayjs(inputValue, format).isValid() ? dayjs() : dayjs(inputValue, format);
     const nextDate = currentDate.hour(nextHours).minute(minutes).second(seconds).millisecond(milliseconds).toDate();
-    const formattedDate = formatDate(nextDate, { format, dayjsLocale });
+    const formattedDate = formatDate(nextDate, { format });
     setInputValue(formattedDate);
     setCacheValue(formattedDate);
 
@@ -236,7 +231,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
         trigger: 'confirm',
       });
     } else {
-      setInputValue(formatDate(value, { format, dayjsLocale }));
+      setInputValue(formatDate(value, { format }));
     }
   }
 
@@ -247,7 +242,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
       presetValue = preset();
     }
     const formattedPreset = formatDate(presetValue, { format, targetFormat: valueType });
-    const formattedInput = formatDate(presetValue, { format, dayjsLocale });
+    const formattedInput = formatDate(presetValue, { format });
 
     setInputValue(formattedInput);
     setCacheValue(formattedInput);
@@ -280,11 +275,9 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     let isSameDate: boolean;
     const currentValue = (value || []) as DateMultipleValue;
     if (mode !== 'week')
-      isSameDate = currentValue.some((val) =>
-        isSame(parseToDayjs(val, format).toDate(), date, mode, local.dayjsLocale),
-      );
+      isSameDate = currentValue.some((val) => isSame(parseToDayjs(val, format).toDate(), date, mode));
     else {
-      isSameDate = currentValue.some((val) => val === dayjs(date).locale(local.dayjsLocale).format(format));
+      isSameDate = currentValue.some((val) => val === dayjs(date).format(format));
     }
     let currentDate: DateMultipleValue;
 
