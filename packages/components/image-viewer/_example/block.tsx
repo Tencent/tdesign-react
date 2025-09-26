@@ -19,7 +19,7 @@ export default function BasicImageViewer() {
           alignItems: 'center',
           justifyContent: 'center',
         }}
-        onClick={open}
+        onClick={() => open()}
       >
         <span>
           <BrowseIcon size="16px" name={'browse'} /> 预览

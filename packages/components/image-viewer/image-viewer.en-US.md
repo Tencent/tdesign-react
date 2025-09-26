@@ -22,7 +22,7 @@ mode | String | modal | options: modal/modeless | N
 navigationArrow | TNode | true | Typescript：`boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 showOverlay | Boolean | undefined | \- | N
 title | TNode | - | preview title。Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-trigger | TNode | - | trigger element。Typescript：`TNode \| TNode<{ open: () => void }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+trigger | TNode | - | trigger element。Typescript：`TNode \| TNode<{ open: (index?: number) => void }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 viewerScale | Object | - | Typescript：`ImageViewerScale` `interface ImageViewerScale { minWidth: number; minHeight: number }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/image-viewer/type.ts) | N
 visible | Boolean | false | hide or show image viewer | N
 defaultVisible | Boolean | false | hide or show image viewer。uncontrolled property | N
