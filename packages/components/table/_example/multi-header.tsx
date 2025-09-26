@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Table, Checkbox, Space, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
@@ -45,6 +45,7 @@ export default function TableExample() {
   const [fixedLeftCol, setFixedLeftCol] = useState(false);
   const [fixedRightCol, setFixedRightCol] = useState(false);
   const [headerAffixedTop, setHeaderAffixedTop] = useState(false);
+  const [stickyMultiHeader, setStickyMultiHeader] = useState(true);
   const [sort, setSort] = useState<TableSort>({ sortBy: 'default', descending: false });
 
   const onSortChange: TableProps['onSortChange'] = (sortInfo, context) => {
@@ -65,6 +66,7 @@ export default function TableExample() {
       fixed: fixedLeftCol ? 'left' : undefined,
       width: 100,
       colKey: 'total_info',
+      className: stickyMultiHeader ? 'sticky-multi-header' : undefined,
       children: [
         {
           align: 'left',
@@ -112,30 +114,10 @@ export default function TableExample() {
       ],
     },
     {
-      colKey: 'field1',
-      title: '住宿费',
-      width: 100,
-    },
-    {
-      colKey: 'field3',
-      title: '交通费',
-      width: 100,
-    },
-    {
-      colKey: 'field4',
-      title: '物料费',
-      width: 100,
-    },
-    {
-      colKey: 'field2',
-      title: '奖品激励费',
-      width: 120,
-    },
-    {
       title: '审批汇总',
       colKey: 'instruction',
       fixed: fixedRightCol ? 'right' : undefined,
-      width: 100,
+      className: stickyMultiHeader ? 'sticky-multi-header' : undefined,
       children: [
         {
           align: 'left',
@@ -179,6 +161,26 @@ export default function TableExample() {
       ],
     },
     {
+      colKey: 'field1',
+      title: '住宿费',
+      width: 300,
+    },
+    {
+      colKey: 'field3',
+      title: '交通费',
+      width: 300,
+    },
+    {
+      colKey: 'field4',
+      title: '物料费',
+      width: 300,
+    },
+    {
+      colKey: 'field2',
+      title: '奖品激励费',
+      width: 120,
+    },
+    {
       colKey: 'createTime',
       title: '申请时间',
       fixed: fixedRightCol ? 'right' : undefined,
@@ -186,39 +188,52 @@ export default function TableExample() {
     },
   ];
   return (
-    <Space direction="vertical" size="large" style={{ width: '100%' }}>
-      {/* <!-- 按钮操作区域 --> */}
-      <Space>
-        <Checkbox checked={bordered} onChange={setBordered}>
-          显示表格边框
-        </Checkbox>
-        <Checkbox checked={fixedHeader} onChange={setFixedHeader}>
-          显示固定表头
-        </Checkbox>
-        <Checkbox checked={fixedLeftCol} onChange={setFixedLeftCol}>
-          固定左侧列
-        </Checkbox>
-        <Checkbox checked={fixedRightCol} onChange={setFixedRightCol}>
-          固定右侧列
-        </Checkbox>
-        <Checkbox checked={headerAffixedTop} onChange={setHeaderAffixedTop}>
-          表头吸顶
-        </Checkbox>
-      </Space>
+    <div>
+      <style>{`
+        /* 多级表头粘性定位CSS */
+        .enable-sticky-multi-header .sticky-multi-header {
+          position: sticky;
+          left: 0;
+        }
+      `}</style>
+      <Space direction="vertical" size="large" style={{ width: '100%' }}>
+        {/* <!-- 按钮操作区域 --> */}
+        <Space>
+          <Checkbox checked={bordered} onChange={setBordered}>
+            显示表格边框
+          </Checkbox>
+          <Checkbox checked={fixedHeader} onChange={setFixedHeader}>
+            显示固定表头
+          </Checkbox>
+          <Checkbox checked={fixedLeftCol} onChange={setFixedLeftCol}>
+            固定左侧列
+          </Checkbox>
+          <Checkbox checked={fixedRightCol} onChange={setFixedRightCol}>
+            固定右侧列
+          </Checkbox>
+          <Checkbox checked={headerAffixedTop} onChange={setHeaderAffixedTop}>
+            表头吸顶
+          </Checkbox>
+          <Checkbox checked={stickyMultiHeader} onChange={setStickyMultiHeader}>
+            多级表头粘性定位
+          </Checkbox>
+        </Space>
 
-      <Table
-        data={data}
-        bordered={bordered}
-        columns={columns}
-        rowKey="index"
-        maxHeight={fixedHeader ? 380 : undefined}
-        headerAffixProps={{ offsetTop: 0 }}
-        headerAffixedTop={headerAffixedTop}
-        columnController={{ displayType: 'auto-width' }}
-        sort={sort}
-        onSortChange={onSortChange}
-        lazyLoad
-      />
-    </Space>
+        <Table
+          data={data}
+          bordered={bordered}
+          columns={columns}
+          rowKey="index"
+          maxHeight={fixedHeader ? 380 : undefined}
+          headerAffixProps={{ offsetTop: 0 }}
+          headerAffixedTop={headerAffixedTop}
+          columnController={{ displayType: 'auto-width' }}
+          sort={sort}
+          onSortChange={onSortChange}
+          lazyLoad
+          className={stickyMultiHeader ? 'enable-sticky-multi-header' : undefined}
+        />
+      </Space>
+    </div>
   );
 }
