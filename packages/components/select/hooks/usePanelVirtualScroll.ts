@@ -62,7 +62,7 @@ const usePanelVirtualScroll = ({ popupContentRef, scroll, options, size }: Panel
     } else {
       lastScrollY = -1;
     }
-  }, []);
+  }, [handleVirtualScroll]);
 
   // 监听popup滚动 处理虚拟滚动时的virtualData变化
   useEffect(() => {
