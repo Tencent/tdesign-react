@@ -70,6 +70,8 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
   } = useSingle(props);
 
   const [local] = useLocaleReceiver('datePicker');
+  const { dayjsLocale } = local;
+
   const { format, timeFormat, valueType } = getDefaultFormat({
     mode,
     format: props.format,
@@ -79,18 +81,19 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
 
   const onTriggerNeedConfirm = useLatest(() => {
     if (needConfirm || !enableTimePicker || popupVisible) return;
-    const nextValue = formatDate(inputValue, { format });
+    const nextValue = formatDate(inputValue, { format, dayjsLocale });
     if (nextValue) {
-      const currentValue = formatDate(value, { format });
+      const currentValue = formatDate(value, { format, dayjsLocale });
       if (currentValue === nextValue) return;
       onChange(formatDate(inputValue, { format, targetFormat: valueType }), {
-        dayjsValue: parseToDayjs(inputValue, format),
+        dayjsValue: parseToDayjs(inputValue, format, undefined, dayjsLocale),
         trigger: 'confirm',
       });
     } else {
       setInputValue(
         formatDate(value, {
           format,
+          dayjsLocale,
         }),
       );
     }
@@ -114,12 +117,13 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
       value && !isDate(value) && !['week', 'quarter'].includes(props.mode)
         ? covertToDate(value as string, valueType)
         : value;
-    setCacheValue(formatDate(dateValue, { format }));
-    setInputValue(formatDate(dateValue, { format }));
+    setCacheValue(formatDate(dateValue, { format, dayjsLocale }));
+    setInputValue(formatDate(dateValue, { format, dayjsLocale }));
 
     if (popupVisible) {
-      setYear(parseToDayjs(value as DateValue, format).year());
-      setMonth(parseToDayjs(value as DateValue, format).month());
+      const formattedDate = parseToDayjs(dateValue as DateValue, format, undefined, dayjsLocale);
+      setYear(formattedDate.year());
+      setMonth(formattedDate.month());
       setTime(formatTime(value, format, timeFormat, defaultTime));
     } else {
       setIsHoverCell(false);
@@ -131,14 +135,14 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
   function onCellMouseEnter(date: Date) {
     if (multiple) return;
     setIsHoverCell(true);
-    setInputValue(formatDate(date, { format }));
+    setInputValue(formatDate(date, { format, dayjsLocale }));
   }
 
   // 日期 leave
   function onCellMouseLeave() {
     if (multiple) return;
     setIsHoverCell(false);
-    setInputValue(formatDate(cacheValue, { format }));
+    setInputValue(formatDate(cacheValue, { format, dayjsLocale }));
   }
 
   // 日期点击
@@ -151,10 +155,12 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
       setMonth(date.getMonth());
     }
     if (enableTimePicker) {
-      setCacheValue(formatDate(date, { format }));
+      setCacheValue(formatDate(date, { format, dayjsLocale }));
       if (props.needConfirm) return;
       handlePopupInvisible();
-      onChange(formatDate(date, { format, targetFormat: valueType }), {
+      const formattedDate = formatDate(date, { format, targetFormat: valueType, dayjsLocale });
+      console.log('formattedDate', formattedDate);
+      onChange(formatDate(date, { format, targetFormat: valueType, dayjsLocale }), {
         dayjsValue: parseToDayjs(date, format),
         trigger: 'pick',
       });
@@ -168,7 +174,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
         return;
       }
       handlePopupInvisible();
-      onChange(formatDate(date, { format, targetFormat: valueType }), {
+      onChange(formatDate(date, { format, dayjsLocale, targetFormat: valueType }), {
         dayjsValue: parseToDayjs(date, format),
         trigger: 'pick',
       });
@@ -212,8 +218,9 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
     const currentDate = !dayjs(inputValue, format).isValid() ? dayjs() : dayjs(inputValue, format);
     const nextDate = currentDate.hour(nextHours).minute(minutes).second(seconds).millisecond(milliseconds).toDate();
-    setInputValue(formatDate(nextDate, { format }));
-    setCacheValue(formatDate(nextDate, { format }));
+    const formattedDate = formatDate(nextDate, { format, dayjsLocale });
+    setInputValue(formattedDate);
+    setCacheValue(formattedDate);
 
     onPick?.(nextDate);
   }
@@ -229,7 +236,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
         trigger: 'confirm',
       });
     } else {
-      setInputValue(formatDate(value, { format }));
+      setInputValue(formatDate(value, { format, dayjsLocale }));
     }
   }
 
@@ -240,7 +247,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
       presetValue = preset();
     }
     const formattedPreset = formatDate(presetValue, { format, targetFormat: valueType });
-    const formattedInput = formatDate(presetValue, { format });
+    const formattedInput = formatDate(presetValue, { format, dayjsLocale });
 
     setInputValue(formattedInput);
     setCacheValue(formattedInput);
