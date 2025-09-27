@@ -16,7 +16,7 @@ export default function DayjsProvider(props: DayjsProviderProps) {
     }
   }, [dayjsLocale]);
 
-  return <div>{props.children}</div>;
+  return <>{props.children}</>;
 }
 
 export function withDayjsProvider<T extends React.ComponentType<any>>(Component: T): T {
