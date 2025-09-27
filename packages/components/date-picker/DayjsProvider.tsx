@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 export interface DayjsProviderProps {
@@ -10,8 +10,10 @@ export default function DayjsProvider(props: DayjsProviderProps) {
   const [locale] = useLocaleReceiver('datePicker');
   const { dayjsLocale } = locale;
 
-  useLayoutEffect(() => {
-    if (dayjsLocale) {
+  dayjs.locale(dayjsLocale);
+
+  useEffect(() => {
+    if (dayjsLocale !== dayjs.locale()) {
       dayjs.locale(dayjsLocale);
     }
   }, [dayjsLocale]);

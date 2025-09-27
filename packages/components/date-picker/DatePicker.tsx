@@ -15,6 +15,7 @@ import SelectInput from '../select-input';
 import { datePickerDefaultProps } from './defaultProps';
 import useSingle from './hooks/useSingle';
 import SinglePanel from './panel/SinglePanel';
+import { meridiemToHours } from './utils';
 
 import type { StyledProps } from '../common';
 import type { TagInputRemoveContext } from '../tag-input';
@@ -207,10 +208,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
 
     const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(val);
 
-    // am pm 12小时制转化 24小时制
-    let nextHours = hours;
-    if (/am/i.test(meridiem) && nextHours === 12) nextHours -= 12;
-    if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
+    const nextHours = meridiemToHours(meridiem, hours);
     const currentDate = !dayjs(inputValue, format).isValid() ? dayjs() : dayjs(inputValue, format);
     const nextDate = currentDate.hour(nextHours).minute(minutes).second(seconds).millisecond(milliseconds).toDate();
     const formattedDate = formatDate(nextDate, { format });

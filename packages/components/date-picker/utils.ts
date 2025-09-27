@@ -63,3 +63,13 @@ export function parseToDateTime(
 
   return dayjs.toDate();
 }
+
+/**
+ * AM/PM 12小时制转 24小时制
+ */
+export function meridiemToHours(meridiem: string, hours: number) {
+  let nextHours = hours;
+  if (/am/i.test(meridiem) && nextHours === 12) nextHours -= 12;
+  if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
+  return nextHours;
+}

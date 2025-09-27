@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { extractTimeObj } from '@tdesign/common-js/date-picker/utils';
 import useConfig from '../../hooks/useConfig';
+import { meridiemToHours } from '../utils';
 
 export interface DatePickerCellProps {
   time?: string;
@@ -47,10 +48,7 @@ const DatePickerCell = (props: DatePickerCellProps) => {
     if (props.disabled) return;
     if (props.time) {
       const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(props.time);
-      // am pm 12小时制转化 24小时制
-      let nextHours = hours;
-      if (/am/i.test(meridiem) && nextHours === 12) nextHours -= 12;
-      if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
+      const nextHours = meridiemToHours(meridiem, hours);
       props.value.setHours(nextHours);
       props.value.setMinutes(minutes);
       props.value.setSeconds(seconds);
@@ -63,10 +61,7 @@ const DatePickerCell = (props: DatePickerCellProps) => {
     if (props.disabled) return;
     if (props.time) {
       const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(props.time);
-      // am pm 12小时制转化 24小时制
-      let nextHours = hours;
-      if (/am/i.test(meridiem) && nextHours === 12) nextHours -= 12;
-      if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
+      const nextHours = meridiemToHours(meridiem, hours);
       props.value.setHours(nextHours);
       props.value.setMinutes(minutes);
       props.value.setSeconds(seconds);

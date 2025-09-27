@@ -1,20 +1,23 @@
-import React, { forwardRef, useState, useMemo } from 'react';
+import React, { forwardRef, useMemo, useState } from 'react';
 import dayjs from 'dayjs';
+
 import { formatDate, getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
-import { subtractMonth, addMonth, extractTimeObj } from '@tdesign/common-js/date-picker/utils';
+import { addMonth, extractTimeObj, subtractMonth } from '@tdesign/common-js/date-picker/utils';
 import log from '@tdesign/common-js/log/index';
-import { StyledProps } from '../common';
+
+import useDefaultProps from '../hooks/useDefaultProps';
+import useRangeValue from './hooks/useRangeValue';
+import RangePanel from './panel/RangePanel';
+import { dateCorrection, meridiemToHours } from './utils';
+
+import type { StyledProps } from '../common';
 import {
-  TdDateRangePickerPanelProps,
-  DatePickerYearChangeTrigger,
   DatePickerMonthChangeTrigger,
   DatePickerTimeChangeTrigger,
+  DatePickerYearChangeTrigger,
   PresetDate,
+  TdDateRangePickerPanelProps,
 } from './type';
-import RangePanel from './panel/RangePanel';
-import useRangeValue from './hooks/useRangeValue';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { dateCorrection } from './utils';
 
 export interface DateRangePickerPanelProps extends TdDateRangePickerPanelProps, StyledProps {}
 
@@ -173,11 +176,8 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     const currentDate = !dayjs(changedInputValue, format).isValid()
       ? dayjs().year(year[activeIndex]).month(month[activeIndex])
       : dayjs(changedInputValue, format);
-    // am pm 12小时制转化 24小时制
-    let nextHours = hours;
-    if (/am/i.test(meridiem) && nextHours === 12) nextHours -= 12;
-    if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
 
+    const nextHours = meridiemToHours(meridiem, hours);
     const nextDate = currentDate.hour(nextHours).minute(minutes).second(seconds).millisecond(milliseconds).toDate();
     nextInputValue[activeIndex] = nextDate;
 
