@@ -82,7 +82,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
       const currentValue = formatDate(value, { format });
       if (currentValue === nextValue) return;
       onChange(formatDate(inputValue, { format, targetFormat: valueType }), {
-        dayjsValue: parseToDayjs(inputValue, format, undefined),
+        dayjsValue: parseToDayjs(inputValue, format),
         trigger: 'confirm',
       });
     } else {
@@ -112,18 +112,20 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
       value && !isDate(value) && !['week', 'quarter'].includes(props.mode)
         ? covertToDate(value as string, valueType)
         : value;
-    setCacheValue(formatDate(dateValue, { format }));
-    setInputValue(formatDate(dateValue, { format }));
+
+    const formattedDate = formatDate(dateValue, { format });
+    setCacheValue(formattedDate);
+    setInputValue(formattedDate);
 
     if (popupVisible) {
-      const formattedDate = parseToDayjs(dateValue as DateValue, format);
-      setYear(formattedDate.year());
-      setMonth(formattedDate.month());
+      const dayjsDate = parseToDayjs(dateValue as DateValue, format);
+      setYear(dayjsDate.year());
+      setMonth(dayjsDate.month());
       setTime(formatTime(value, format, timeFormat, defaultTime));
     } else {
       setIsHoverCell(false);
     }
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [popupVisible]);
 
   // 日期 hover
@@ -153,8 +155,6 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
       setCacheValue(formatDate(date, { format }));
       if (props.needConfirm) return;
       handlePopupInvisible();
-      const formattedDate = formatDate(date, { format, targetFormat: valueType });
-      console.log('formattedDate', formattedDate);
       onChange(formatDate(date, { format, targetFormat: valueType }), {
         dayjsValue: parseToDayjs(date, format),
         trigger: 'pick',
