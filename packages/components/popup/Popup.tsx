@@ -164,7 +164,7 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
       return;
     }
 
-    const checkPosition = (once: boolean = false) => {
+    const checkPosition = (once = false) => {
       const { x, y, width, height } = triggerEl.getBoundingClientRect();
       if (
         x !== positionState.current.x ||
