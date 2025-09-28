@@ -45,7 +45,7 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
 
         const calcTop = wrapToTop - containerToTop; // 节点顶部到 container 顶部的距离
         const containerHeight =
-          scrollContainer.current[scrollContainer.current instanceof Window ? 'innerHeight' : 'clientHeight'] -
+          scrollContainer.current?.[scrollContainer.current instanceof Window ? 'innerHeight' : 'clientHeight'] -
           wrapHeight;
         const calcBottom = containerToTop + containerHeight - (offsetBottom ?? 0); // 计算 bottom 相对应的 top 值
 
