@@ -22,7 +22,7 @@ export const DefaultTrigger: FC<DefaultTriggerProps> = ({ showImage, onClick }) 
   const maskEl = useMemo(
     () => (
       <div className={`${classPrefix}-image-viewer__trigger-hover`} onClick={onClick}>
-        <BrowseIcon name={'browse'} className={`${classPrefix}-image-viewer__trigger-icon`} />
+        <BrowseIcon className={`${classPrefix}-image-viewer__trigger-icon`} />
         <span>预览</span>
       </div>
     ),
