@@ -55,7 +55,7 @@ export interface TdWatermarkProps {
   offset?: Array<number>;
   /**
    * 水印是否可被删除
-   * @default true
+   * @default false
    */
   removable?: boolean;
   /**
