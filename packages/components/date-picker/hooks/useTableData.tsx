@@ -1,4 +1,4 @@
-import { getWeeks, getQuarters, getYears, getMonths, flagActive } from '@tdesign/common-js/date-picker/utils';
+import { flagActive, getMonths, getQuarters, getWeeks, getYears } from '@tdesign/common-js/date-picker/utils';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import type { SinglePanelProps } from '../panel/SinglePanel';
 
@@ -47,7 +47,6 @@ export default function useTableData(props: TableDataProps) {
     monthLocal,
     quarterLocal,
     showWeekOfYear: mode === 'week',
-    dayjsLocale: local.dayjsLocale,
     cancelRangeSelectLimit: props.cancelRangeSelectLimit,
   };
 

@@ -1,18 +1,22 @@
 import React, { forwardRef } from 'react';
 import dayjs from 'dayjs';
+
 import { formatDate, getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
-import { subtractMonth, addMonth, extractTimeObj } from '@tdesign/common-js/date-picker/utils';
-import { StyledProps } from '../common';
-import {
-  TdDatePickerPanelProps,
-  DateValue,
-  DatePickerYearChangeTrigger,
-  DatePickerMonthChangeTrigger,
-  PresetDate,
-} from './type';
-import SinglePanel from './panel/SinglePanel';
-import useSingleValue from './hooks/useSingleValue';
+import { addMonth, extractTimeObj, subtractMonth } from '@tdesign/common-js/date-picker/utils';
+
 import useDefaultProps from '../hooks/useDefaultProps';
+import useSingleValue from './hooks/useSingleValue';
+import SinglePanel from './panel/SinglePanel';
+import { meridiemToHours } from './utils';
+
+import type { StyledProps } from '../common';
+import type {
+  DatePickerMonthChangeTrigger,
+  DatePickerYearChangeTrigger,
+  DateValue,
+  PresetDate,
+  TdDatePickerPanelProps,
+} from './type';
 
 export interface DatePickerPanelProps extends TdDatePickerPanelProps, StyledProps {}
 
@@ -108,10 +112,7 @@ const DatePickerPanel = forwardRef<HTMLDivElement, DatePickerPanelProps>((origin
     setTime(val);
 
     const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(val);
-    // am pm 12小时制转化 24小时制
-    let nextHours = hours;
-    if (/am/i.test(meridiem) && nextHours === 12) nextHours -= 12;
-    if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
+    const nextHours = meridiemToHours(meridiem, hours);
     const currentDate = !dayjs(cacheValue, format).isValid() ? dayjs() : dayjs(cacheValue, format);
     const nextDate = currentDate.hour(nextHours).minute(minutes).second(seconds).millisecond(milliseconds).toDate();
     setCacheValue(formatDate(nextDate, { format }));

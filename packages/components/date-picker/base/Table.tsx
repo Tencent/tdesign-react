@@ -1,17 +1,19 @@
 import React, { useMemo } from 'react';
+
 import classNames from 'classnames';
+
 import dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
-
 import type { Dayjs } from 'dayjs';
+
 import { parseToDayjs } from '@tdesign/common-js/date-picker/format';
-import { useLocaleReceiver } from '../../locale/LocalReceiver';
+
 import useConfig from '../../hooks/useConfig';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import DatePickerCell from './Cell';
 
-import { SinglePanelProps } from '../panel/SinglePanel';
-import { PanelContentProps } from '../panel/PanelContent';
-
+import type { PanelContentProps } from '../panel/PanelContent';
+import type { SinglePanelProps } from '../panel/SinglePanel';
 import type { DateMultipleValue, DateRangeValue, DateValue, TdDatePickerProps } from '../type';
 
 dayjs.extend(isoWeek);
@@ -51,14 +53,14 @@ const DatePickerTable = (props: DatePickerTableProps) => {
       if (!value.length) return {};
       const [startObj, endObj] = value.map((v) => v && parseToDayjs(v, format));
       const startYear = startObj?.year?.();
-      const startWeek = startObj?.locale?.(local.dayjsLocale)?.week?.();
+      const startWeek = startObj.week?.();
       const endYear = endObj?.year?.();
-      const endWeek = endObj?.locale?.(local.dayjsLocale)?.week?.();
+      const endWeek = endObj?.week?.();
 
       return { startYear, startWeek, endYear, endWeek };
     }
 
-    const valueObj = parseToDayjs(value, format).locale(local.dayjsLocale);
+    const valueObj = parseToDayjs(value, format);
     return { year: valueObj.year(), week: valueObj.week() };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode, value, format]);

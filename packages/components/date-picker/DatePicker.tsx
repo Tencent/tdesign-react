@@ -11,11 +11,11 @@ import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useLatest from '../hooks/useLatest';
 import useUpdateEffect from '../hooks/useUpdateEffect';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
 import SelectInput from '../select-input';
 import { datePickerDefaultProps } from './defaultProps';
 import useSingle from './hooks/useSingle';
 import SinglePanel from './panel/SinglePanel';
+import { meridiemToHours } from './utils';
 
 import type { StyledProps } from '../common';
 import type { TagInputRemoveContext } from '../tag-input';
@@ -69,7 +69,6 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     setCacheValue,
   } = useSingle(props);
 
-  const [local] = useLocaleReceiver('datePicker');
   const { format, timeFormat, valueType } = getDefaultFormat({
     mode,
     format: props.format,
@@ -114,17 +113,20 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
       value && !isDate(value) && !['week', 'quarter'].includes(props.mode)
         ? covertToDate(value as string, valueType)
         : value;
-    setCacheValue(formatDate(dateValue, { format }));
-    setInputValue(formatDate(dateValue, { format }));
+
+    const formattedDate = formatDate(dateValue, { format });
+    setCacheValue(formattedDate);
+    setInputValue(formattedDate);
 
     if (popupVisible) {
-      setYear(parseToDayjs(value as DateValue, format).year());
-      setMonth(parseToDayjs(value as DateValue, format).month());
+      const dayjsDate = parseToDayjs(dateValue as DateValue, format);
+      setYear(dayjsDate.year());
+      setMonth(dayjsDate.month());
       setTime(formatTime(value, format, timeFormat, defaultTime));
     } else {
       setIsHoverCell(false);
     }
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [popupVisible]);
 
   // 日期 hover
@@ -206,14 +208,12 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
 
     const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(val);
 
-    // am pm 12小时制转化 24小时制
-    let nextHours = hours;
-    if (/am/i.test(meridiem) && nextHours === 12) nextHours -= 12;
-    if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
+    const nextHours = meridiemToHours(meridiem, hours);
     const currentDate = !dayjs(inputValue, format).isValid() ? dayjs() : dayjs(inputValue, format);
     const nextDate = currentDate.hour(nextHours).minute(minutes).second(seconds).millisecond(milliseconds).toDate();
-    setInputValue(formatDate(nextDate, { format }));
-    setCacheValue(formatDate(nextDate, { format }));
+    const formattedDate = formatDate(nextDate, { format });
+    setInputValue(formattedDate);
+    setCacheValue(formattedDate);
 
     onPick?.(nextDate);
   }
@@ -273,11 +273,9 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     let isSameDate: boolean;
     const currentValue = (value || []) as DateMultipleValue;
     if (mode !== 'week')
-      isSameDate = currentValue.some((val) =>
-        isSame(parseToDayjs(val, format).toDate(), date, mode, local.dayjsLocale),
-      );
+      isSameDate = currentValue.some((val) => isSame(parseToDayjs(val, format).toDate(), date, mode));
     else {
-      isSameDate = currentValue.some((val) => val === dayjs(date).locale(local.dayjsLocale).format(format));
+      isSameDate = currentValue.some((val) => val === dayjs(date).format(format));
     }
     let currentDate: DateMultipleValue;
 

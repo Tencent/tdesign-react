@@ -4,7 +4,7 @@ import type { DatePickerProps, DateValue } from 'tdesign-react';
 
 export default function YearDatePicker() {
   const [value, setValue] = useState<DateValue>('2022-02-02 12:11:11');
-  const [value2, setValue2] = useState<DateValue>('2022-02-02 am 12:11:11');
+  const [value2, setValue2] = useState<DateValue>('2022-02-02 凌晨 12:11:11');
 
   const handleChange: DatePickerProps['onChange'] = (value: DateValue) => {
     console.log(value);

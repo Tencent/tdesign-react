@@ -20,7 +20,7 @@ import { RangeInputPopup } from '../range-input';
 import { dateRangePickerDefaultProps } from './defaultProps';
 import useRange from './hooks/useRange';
 import RangePanel from './panel/RangePanel';
-import { dateCorrection } from './utils';
+import { dateCorrection, meridiemToHours } from './utils';
 
 import type { StyledProps } from '../common';
 import type { DateRangeValue, PresetDate, TdDateRangePickerProps } from './type';
@@ -227,11 +227,8 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     const currentDate = !dayjs(changedInputValue, format).isValid()
       ? dayjs().year(year[activeIndex]).month(month[activeIndex])
       : dayjs(changedInputValue, format);
-    // am pm 12小时制转化 24小时制
-    let nextHours = hours;
-    if (/am/i.test(meridiem) && nextHours === 12) nextHours -= 12;
-    if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
 
+    const nextHours = meridiemToHours(meridiem, hours);
     const nextDate = currentDate.hour(nextHours).minute(minutes).second(seconds).millisecond(milliseconds).toDate();
     nextInputValue[activeIndex] = nextDate;
 
