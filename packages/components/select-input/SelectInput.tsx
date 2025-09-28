@@ -31,9 +31,12 @@ const SelectInput = React.forwardRef<Partial<PopupRef & InputRef>, SelectInputPr
   const { commonInputProps, inputRef, singleInputValue, onInnerClear, renderSelectSingle } = useSingle(props);
   const { tagInputRef, tags, multipleInputValue, renderSelectMultiple } = useMultiple(props);
 
-  const { tOverlayInnerStyle, innerPopupVisible, onInnerPopupVisibleChange } = useOverlayInnerStyle(props, {
-    afterHidePopup: onInnerBlur,
-  });
+  const { tOverlayInnerStyle, innerPopupVisible, onInnerPopupVisibleChange, skipNextBlur } = useOverlayInnerStyle(
+    props,
+    {
+      afterHidePopup: onInnerBlur,
+    },
+  );
 
   const popupClasses = classNames([
     props.className,
@@ -55,12 +58,10 @@ const SelectInput = React.forwardRef<Partial<PopupRef & InputRef>, SelectInputPr
   // 浮层显示的受控与非受控
   const visibleProps = { visible: popupVisible ?? innerPopupVisible };
 
-  // 有 panel 时且用户控制 popupVisible 为 false，需要直接处理 blur 事件
-  const shouldBlurDirectly = props.panel && popupVisible === false;
-
   /* SelectInput 与普通 Input 的 blur 事件触发时机不同
     该组件的 blur 事件在 popup 隐藏时才触发，避免点击浮层内容时触发 blur 事件 */
   function onInnerBlur(ctx: PopupVisibleChangeContext) {
+    if (skipNextBlur.current) return;
     const inputValue = props.multiple ? multipleInputValue : singleInputValue;
     const params: Parameters<TdSelectInputProps['onBlur']>[1] = {
       e: ctx.e,
@@ -92,9 +93,9 @@ const SelectInput = React.forwardRef<Partial<PopupRef & InputRef>, SelectInputPr
               popupVisible: visibleProps.visible,
               allowInput: props.allowInput,
               onInnerClear,
-              onDirectBlur: shouldBlurDirectly ? onInnerBlur : undefined,
+              onInnerBlur,
             })
-          : renderSelectSingle(visibleProps.visible, shouldBlurDirectly ? onInnerBlur : undefined)}
+          : renderSelectSingle(visibleProps.visible, onInnerBlur)}
       </Popup>
     </div>
   );

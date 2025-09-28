@@ -17,7 +17,7 @@ export interface RenderSelectMultipleParams {
   popupVisible: boolean;
   allowInput: boolean;
   onInnerClear: (context: { e: React.MouseEvent<SVGElement> }) => void;
-  onDirectBlur?: (context: { e: React.FocusEvent<HTMLInputElement> }) => void;
+  onInnerBlur?: (context: { e: React.FocusEvent<HTMLInputElement> }) => void;
 }
 
 const DEFAULT_KEYS = {
@@ -33,8 +33,12 @@ export interface SelectInputProps extends TdSelectInputProps, StyledProps {
 export default function useMultiple(props: SelectInputProps) {
   const { value } = props;
   const { classPrefix } = useConfig();
-  const tagInputRef = useRef<InputRef>(null);
+
   const [tInputValue, setTInputValue] = useControlled(props, 'inputValue', props.onInputChange);
+
+  const tagInputRef = useRef<InputRef>(null);
+  const blurTimeoutRef = useRef(null);
+
   const iKeys: SelectInputKeys = { ...DEFAULT_KEYS, ...props.keys };
 
   const getTags = () => {
@@ -57,12 +61,33 @@ export default function useMultiple(props: SelectInputProps) {
 
   const renderSelectMultiple = (p: RenderSelectMultipleParams) => {
     const handleBlur = (value: SelectInputValue, context: { e: React.FocusEvent<HTMLInputElement> }) => {
-      if (p.onDirectBlur) {
-        p.onDirectBlur(context);
-      } else if (!props.panel) {
-        props.onBlur?.(value, { e: context.e, inputValue: tInputValue, tagInputValue: tags });
+      if (blurTimeoutRef.current) {
+        clearTimeout(blurTimeoutRef.current);
       }
+      // 强制把 popupVisible 设置为 false 时，会出现 blur -> focus 的情况，因此忽略前面短暂的 blur 事件
+      blurTimeoutRef.current = setTimeout(() => {
+        if (blurTimeoutRef.current) {
+          if (!p.popupVisible) {
+            p.onInnerBlur(context);
+          } else if (!props.panel) {
+            props.onBlur?.(value, { e: context.e, inputValue: tInputValue, tagInputValue: tags });
+          }
+        }
+        blurTimeoutRef.current = null;
+      }, 150);
     };
+
+    const handleFocus = (
+      val: TagInputValue,
+      context: { e: React.FocusEvent<HTMLInputElement>; inputValue: string },
+    ) => {
+      if (blurTimeoutRef.current) {
+        clearTimeout(blurTimeoutRef.current);
+        blurTimeoutRef.current = null;
+      }
+      props.onFocus?.(props.value, { ...context, tagInputValue: val });
+    };
+
     return (
       <TagInput
         ref={tagInputRef}
@@ -86,9 +111,7 @@ export default function useMultiple(props: SelectInputProps) {
         tagProps={props.tagProps}
         onClear={p.onInnerClear}
         // [Important Info]: SelectInput.blur is not equal to TagInput, example: click popup panel
-        onFocus={(val, context) => {
-          props.onFocus?.(props.value, { ...context, tagInputValue: val });
-        }}
+        onFocus={handleFocus}
         onBlur={handleBlur}
         {...props.tagInputProps}
         inputProps={{

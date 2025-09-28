@@ -1,4 +1,4 @@
-import React, { MouseEvent, useRef } from 'react';
+import React, { useRef } from 'react';
 
 import classNames from 'classnames';
 import { isObject, pick } from 'lodash-es';
@@ -46,7 +46,10 @@ function getInputValue(value: TdSelectInputProps['value'], keys: TdSelectInputPr
 export default function useSingle(props: TdSelectInputProps) {
   const { value, keys, loading } = props;
   const { classPrefix } = useConfig();
+
   const inputRef = useRef<InputRef>(null);
+  const blurTimeoutRef = useRef(null);
+
   const [inputValue, setInputValue] = useControlled(props, 'inputValue', props.onInputChange);
 
   const commonInputProps: SelectInputCommonProperties = {
@@ -54,7 +57,7 @@ export default function useSingle(props: TdSelectInputProps) {
     suffixIcon: loading ? <Loading loading size="small" /> : props.suffixIcon,
   };
 
-  const onInnerClear = (context: { e: MouseEvent<SVGSVGElement> }) => {
+  const onInnerClear = (context: { e: React.MouseEvent<SVGSVGElement> }) => {
     context?.e?.stopPropagation();
     props.onClear?.(context);
     setInputValue('', { trigger: 'clear' });
@@ -68,18 +71,37 @@ export default function useSingle(props: TdSelectInputProps) {
 
   const renderSelectSingle = (
     popupVisible: boolean,
-    onDirectBlur?: (context: { e: React.FocusEvent<HTMLInputElement> }) => void,
+    onInnerBlur?: (context: { e: React.FocusEvent<HTMLInputElement> }) => void,
   ) => {
     // 单选，值的呈现方式
     const singleValueDisplay: any = !props.multiple ? props.valueDisplay : null;
     const displayedValue = popupVisible && props.allowInput ? inputValue : getInputValue(value, keys);
 
     const handleBlur = (value, ctx) => {
-      if (onDirectBlur) {
-        onDirectBlur(ctx);
-      } else if (!props.panel) {
-        props.onBlur?.(value, { e: ctx.e, inputValue: value });
+      if (blurTimeoutRef.current) {
+        clearTimeout(blurTimeoutRef.current);
       }
+      // 强制把 popupVisible 设置为 false 时，会出现 blur -> focus 的情况，因此忽略前面短暂的 blur 事件
+      blurTimeoutRef.current = setTimeout(() => {
+        if (blurTimeoutRef.current) {
+          if (!popupVisible) {
+            onInnerBlur(ctx);
+          } else if (!props.panel) {
+            props.onBlur?.(value, { e: ctx.e, inputValue: value });
+          }
+        }
+        blurTimeoutRef.current = null;
+      }, 150);
+    };
+
+    const handleFocus = (val, context) => {
+      if (blurTimeoutRef.current) {
+        clearTimeout(blurTimeoutRef.current);
+        blurTimeoutRef.current = null;
+      }
+      props.onFocus?.(value, { ...context, inputValue: val });
+      // focus might not need to change input value. it will caught some curious errors in tree-select
+      // !popupVisible && setInputValue(getInputValue(value, keys), { ...context, trigger: 'input' });
     };
 
     return (
@@ -101,11 +123,7 @@ export default function useSingle(props: TdSelectInputProps) {
         onChange={onInnerInputChange}
         onClear={onInnerClear}
         // [Important Info]: SelectInput.blur is not equal to Input, example: click popup panel
-        onFocus={(val, context) => {
-          props.onFocus?.(value, { ...context, inputValue: val });
-          // focus might not need to change input value. it will caught some curious errors in tree-select
-          // !popupVisible && setInputValue(getInputValue(value, keys), { ...context, trigger: 'input' });
-        }}
+        onFocus={handleFocus}
         onEnter={(val, context) => {
           props.onEnter?.(value, { ...context, inputValue: val });
         }}
