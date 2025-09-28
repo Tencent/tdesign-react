@@ -1,18 +1,19 @@
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
-import { get } from 'lodash-es';
-import React, { MouseEvent, useEffect, useMemo, useState } from 'react';
+import { get, isEqual } from 'lodash-es';
+import TableTreeStore, { type SwapParams } from '@tdesign/common-js/table/tree-store';
 import {
   AddRectangleIcon as TdAddRectangleIcon,
   MinusRectangleIcon as TdMinusRectangleIcon,
 } from 'tdesign-icons-react';
-import TableTreeStore, { SwapParams } from '@tdesign/common-js/table/tree-store';
 import { parseContentTNode } from '../../_util/parseTNode';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { renderCell } from '../Cell';
-import type { PrimaryTableCol, TableRowData, TableRowState, TableRowValue, TdEnhancedTableProps } from '../type';
 import useClassName from './useClassName';
 import useTreeDataExpand from './useTreeDataExpand';
+
+import type { PrimaryTableCol, TableRowData, TableRowState, TableRowValue, TdEnhancedTableProps } from '../type';
 
 export interface UseSwapParams<T> extends SwapParams<T> {
   data: T[];
@@ -20,15 +21,24 @@ export interface UseSwapParams<T> extends SwapParams<T> {
 
 export default function useTreeData(props: TdEnhancedTableProps) {
   const { data, columns, tree, rowKey, treeExpandAndFoldIcon, expandedTreeNodes } = props;
-  const [store] = useState(() => new TableTreeStore() as InstanceType<typeof TableTreeStore>);
-  const [treeNodeCol, setTreeNodeCol] = useState<PrimaryTableCol>(() => getTreeNodeColumnCol());
-  const [dataSource, setDataSource] = useState<TdEnhancedTableProps['data']>(data || []);
   const { tableTreeClasses } = useClassName();
   const [locale, t] = useLocaleReceiver('table');
   const { AddRectangleIcon, MinusRectangleIcon } = useGlobalIcon({
     AddRectangleIcon: TdAddRectangleIcon,
     MinusRectangleIcon: TdMinusRectangleIcon,
   });
+
+  const dataRef = useRef(data);
+  const isManuallyModified = useRef(false); // （节点）数据结构被更新，不包括展开状态
+
+  const [store] = useState(() => new TableTreeStore() as InstanceType<typeof TableTreeStore>);
+  const [treeNodeCol, setTreeNodeCol] = useState<PrimaryTableCol>(() => getTreeNodeColumnCol());
+  const [dataSource, setDataSource] = useState<TdEnhancedTableProps['data']>(data || []);
+
+  const updateDataSourceManually = (newDataSource: TdEnhancedTableProps['data']) => {
+    setDataSource([...newDataSource]);
+    isManuallyModified.current = true;
+  };
 
   const rowDataKeys = useMemo(
     () => ({
@@ -56,19 +66,28 @@ export default function useTreeData(props: TdEnhancedTableProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkedColumn]);
 
-  useEffect(
-    () => {
-      if (!data || !store) return;
-      // 如果没有树形解构，则不需要相关逻辑
-      if (tree) {
-        resetData(data);
-      } else {
-        setDataSource(data);
+  useEffect(() => {
+    if (!data || !store) return;
+    dataRef.current = data;
+
+    // 如果没有树形解构，则不需要相关逻辑
+    if (!tree) {
+      setDataSource(data);
+      return;
+    }
+
+    const dataChanged = !isEqual(dataRef.current, data);
+
+    if (dataChanged || !isManuallyModified.current) {
+      resetData(data);
+      if (dataChanged) {
+        isManuallyModified.current = false;
       }
-    },
+    } else {
+      updateExpandOnDataChange([...dataSource]);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data, expandedTreeNodes],
-  );
+  }, [data, expandedTreeNodes]);
 
   useEffect(
     () => {
@@ -155,7 +174,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
             {!!(childrenNodes.length || childrenNodes === true) && (
               <span
                 className={tableTreeClasses.icon}
-                onClick={(e: MouseEvent<HTMLSpanElement>) => {
+                onClick={(e: React.MouseEvent<HTMLSpanElement>) => {
                   onExpandFoldIconClick(p, 'expand-fold-icon');
                   e.stopPropagation();
                 }}
@@ -190,7 +209,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
     const rowIndex = store.updateData(key, newRowData, dataSource, rowDataKeys);
     const newData = [...dataSource];
     newData[rowIndex] = newRowData;
-    setDataSource([...newData]);
+    updateDataSourceManually(newData);
   }
 
   /**
@@ -209,7 +228,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
   function remove(key: TableRowValue) {
     // 引用传值，可自动更新 dataSource。（dataSource 本是内部变量，可以在任何地方进行任何改变）
     const newData = store.remove(key, dataSource, rowDataKeys);
-    setDataSource([...newData]);
+    updateDataSourceManually(newData);
   }
 
   /**
@@ -218,7 +237,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
    */
   function removeChildren(key: TableRowValue) {
     const newData = store.removeChildren(key, dataSource, rowDataKeys);
-    setDataSource([...newData]);
+    updateDataSourceManually(newData);
   }
 
   /**
@@ -228,25 +247,25 @@ export default function useTreeData(props: TdEnhancedTableProps) {
    */
   function appendTo<T>(key: TableRowValue, newData: T | T[]) {
     if (!key) {
-      setDataSource([...store.appendToRoot(newData, dataSource, rowDataKeys)]);
+      updateDataSourceManually([...store.appendToRoot(newData, dataSource, rowDataKeys)]);
       return;
     }
     // 引用传值，可自动更新 dataSource。（dataSource 本是内部变量，可以在任何地方进行任何改变）
-    setDataSource([...store.appendTo(key, newData, dataSource, rowDataKeys)]);
+    updateDataSourceManually([...store.appendTo(key, newData, dataSource, rowDataKeys)]);
   }
 
   /**
    * 对外暴露的组件实例方法，当前节点之后，插入节点
    */
   function insertAfter<T>(rowValue: TableRowValue, newData: T) {
-    setDataSource([...store.insertAfter(rowValue, newData, dataSource, rowDataKeys)]);
+    updateDataSourceManually([...store.insertAfter(rowValue, newData, dataSource, rowDataKeys)]);
   }
 
   /**
    * 对外暴露的组件实例方法，当前节点之后，插入节点
    */
   function insertBefore<T>(rowValue: TableRowValue, newData: T) {
-    setDataSource([...store.insertBefore(rowValue, newData, dataSource, rowDataKeys)]);
+    updateDataSourceManually(store.insertBefore(rowValue, newData, dataSource, rowDataKeys));
   }
 
   /**
@@ -255,7 +274,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
   function swapData(params: UseSwapParams<TableRowData>) {
     const r = store.swapData(params.data, params, rowDataKeys);
     if (r.result) {
-      setDataSource([...r.dataSource]);
+      updateDataSourceManually(r.dataSource);
     } else {
       const params = {
         code: r.code,
