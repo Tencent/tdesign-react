@@ -1,40 +1,31 @@
-import React, {
-  forwardRef,
-  useState,
-  useImperativeHandle,
-  useMemo,
-  RefObject,
-  MouseEvent,
-  useRef,
-  useCallback,
-} from 'react';
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import { get } from 'lodash-es';
 
-import TreeNode from '@tdesign/common-js/tree-v1/tree-node';
 import log from '@tdesign/common-js/log/index';
+import TreeNode from '@tdesign/common-js/tree-v1/tree-node';
 import type {
   TreeNodeState,
   TreeNodeValue,
   TypeTreeNodeData,
   TypeTreeNodeModel,
 } from '@tdesign/common-js/tree-v1/types';
-import { TreeOptionData, StyledProps, ComponentScrollToElementParams } from '../common';
-import { TreeItemProps } from './interface';
-import TreeItem from './TreeItem';
 
+import parseTNode from '../_util/parseTNode';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { usePersistFn } from '../hooks/usePersistFn';
+import { treeDefaultProps } from './defaultProps';
+import { TreeDraggableContext } from './hooks/TreeDraggableContext';
 import useControllable from './hooks/useControllable';
 import { useStore } from './hooks/useStore';
 import { useTreeConfig } from './hooks/useTreeConfig';
-import { TreeDraggableContext } from './hooks/TreeDraggableContext';
-import parseTNode from '../_util/parseTNode';
-import { usePersistFn } from '../hooks/usePersistFn';
 import useTreeVirtualScroll from './hooks/useTreeVirtualScroll';
+import TreeItem from './TreeItem';
 
-import type { TreeInstanceFunctions, TdTreeProps } from './type';
-import { treeDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
+import type { ComponentScrollToElementParams, StyledProps, TreeOptionData } from '../common';
+import type { TreeItemProps } from './interface';
+import type { TdTreeProps, TreeInstanceFunctions } from './type';
 
 export type TreeProps = TdTreeProps & StyledProps;
 
@@ -66,6 +57,9 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     onScroll,
   } = props;
 
+  const isMountedRef = useRef(false);
+  const treeRef = useRef(null);
+
   // 可见节点集合
   const [visibleNodes, setVisibleNodes] = useState([]);
 
@@ -87,17 +81,23 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     initial,
   );
 
+  useEffect(() => {
+    isMountedRef.current = true;
+  }, []);
+
   function initial() {
+    if (!isMountedRef.current) return;
     const nodes = store?.getNodes();
     const newVisibleNodes = nodes?.filter((node) => node.visible);
     setVisibleNodes(newVisibleNodes);
   }
+
   // 因为是被 useImperativeHandle 依赖的方法，使用 usePersistFn 变成持久化的。或者也可以使用 useCallback
   const setExpanded = usePersistFn(
     (
       node: TreeNode,
       isExpanded: boolean,
-      ctx: { e?: MouseEvent<HTMLDivElement>; trigger: 'node-click' | 'icon-click' | 'setItem' },
+      ctx: { e?: React.MouseEvent<HTMLDivElement>; trigger: 'node-click' | 'icon-click' | 'setItem' },
     ) => {
       const { e, trigger } = ctx;
       const expanded = node.setExpanded(isExpanded);
@@ -112,7 +112,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     (
       node: TreeNode,
       isIndeterminate: boolean,
-      ctx: { e?: MouseEvent<HTMLDivElement>; trigger: 'node-click' | 'icon-click' | 'setItem' },
+      ctx: { e?: React.MouseEvent<HTMLDivElement>; trigger: 'node-click' | 'icon-click' | 'setItem' },
     ) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { e, trigger } = ctx;
@@ -120,8 +120,6 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
       return indeterminate;
     },
   );
-
-  const treeRef = useRef(null);
 
   const {
     visibleData,
@@ -141,7 +139,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     (
       node: TreeNode,
       isActived: boolean,
-      ctx: { e?: MouseEvent<HTMLDivElement>; trigger: 'node-click' | 'setItem' },
+      ctx: { e?: React.MouseEvent<HTMLDivElement>; trigger: 'node-click' | 'setItem' },
     ) => {
       const actived = node.setActived(isActived);
       const treeNodeModel = node?.getModel();
@@ -290,7 +288,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
   // CSSTransition 不指定 nodeRef 的时候会使用 findDOMNode 获取 dom
   // 因为 CSSTransition 是个数组，与 visibleNodes 对应，所以这里根据 visibleNodes 的长度创建 ref 用来保存 dom
   // visibleNodes 改变的时候，释放上一个 nodeList，防止内存泄漏
-  const nodeList = useMemo<RefObject<HTMLDivElement>[]>(
+  const nodeList = useMemo<React.RefObject<HTMLDivElement>[]>(
     () => visibleNodes.map(() => React.createRef()),
     [visibleNodes],
   );
