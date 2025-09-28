@@ -1,20 +1,23 @@
-import React, { Children, isValidElement, cloneElement, useRef, CSSProperties, useMemo } from 'react';
+import React, { Children, cloneElement, isValidElement, useMemo, useRef } from 'react';
+
 import classNames from 'classnames';
 import { isEqual } from 'lodash-es';
+
+import useConfig from '../../hooks/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import usePanelVirtualScroll from '../hooks/usePanelVirtualScroll';
 import { getSelectValueArr } from '../util/helper';
-import {
-  TdSelectProps,
-  SelectValue,
-  TdOptionProps,
-  SelectValueChangeTrigger,
+import Option, { type SelectOptionProps } from './Option';
+import OptionGroup from './OptionGroup';
+
+import type {
   SelectOption,
   SelectOptionGroup,
+  SelectValue,
+  SelectValueChangeTrigger,
+  TdOptionProps,
+  TdSelectProps,
 } from '../type';
-import useConfig from '../../hooks/useConfig';
-import usePanelVirtualScroll from '../hooks/usePanelVirtualScroll';
-import Option, { SelectOptionProps } from './Option';
-import OptionGroup from './OptionGroup';
 
 interface SelectPopupProps
   extends Pick<
@@ -171,9 +174,9 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
               );
             }
 
-            const { value: optionValue, label, disabled, ...restData } = item as TdOptionProps;
-            // 当 keys 属性配置 content / children 作为 value 时，确保 restData 中也包含它们
-            const { content, children } = item as TdOptionProps;
+            const { value: optionValue, label, disabled, children, ...restData } = item as TdOptionProps;
+            // 当 keys 属性配置 content 作为 value 或 label 时，确保 restData 中也包含它
+            const { content } = item as TdOptionProps;
             return (
               <Option
                 key={index}
@@ -213,7 +216,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
   const isEmpty =
     (Array.isArray(childrenWithProps) && !childrenWithProps.length) || (propsOptions && propsOptions.length === 0);
 
-  const renderPanel = (renderedOptions: SelectOption[], extraStyle?: CSSProperties) => (
+  const renderPanel = (renderedOptions: SelectOption[], extraStyle?: React.CSSProperties) => (
     <div
       ref={ref}
       className={classNames(`${classPrefix}-select__dropdown-inner`, {

@@ -1,12 +1,13 @@
 import React, { useEffect, useMemo } from 'react';
 import classNames from 'classnames';
-import { isNumber, isString, get } from 'lodash-es';
+import { get, isNumber, isString } from 'lodash-es';
 
 import useConfig from '../../hooks/useConfig';
 import useDomRefCallback from '../../hooks/useDomRefCallback';
 import useRipple from '../../hooks/useRipple';
-import { StyledProps } from '../../common';
-import { SelectValue, TdOptionProps, TdSelectProps, SelectKeysType, SelectOption } from '../type';
+
+import type { StyledProps } from '../../common';
+import type { SelectKeysType, SelectOption, SelectValue, TdOptionProps, TdSelectProps } from '../type';
 
 /**
  * Option 组件属性
@@ -119,7 +120,12 @@ const Option: React.FC<SelectOptionProps> = (props) => {
     }
   };
 
-  const renderItem = (children: React.ReactNode) => {
+  const renderItem = () => {
+    const hasCustomKeys = keys?.value === 'content';
+    const displayContent = hasCustomKeys
+      ? children || label || content // 自定义 keys 将 content 设为 value 时，label 优先级更高
+      : children || content || label; // 默认情况下，content 优先级更高
+
     if (multiple) {
       return (
         <label
@@ -141,11 +147,11 @@ const Option: React.FC<SelectOptionProps> = (props) => {
             }}
           />
           <span className={classNames(`${classPrefix}-checkbox__input`)}></span>
-          <span className={classNames(`${classPrefix}-checkbox__label`)}>{children || content || label}</span>
+          <span className={classNames(`${classPrefix}-checkbox__label`)}>{displayContent}</span>
         </label>
       );
     }
-    return <span title={titleContent}>{children || content || label}</span>;
+    return <span title={titleContent}>{displayContent}</span>;
   };
 
   return (
@@ -161,7 +167,7 @@ const Option: React.FC<SelectOptionProps> = (props) => {
       ref={setRefCurrent}
       style={style}
     >
-      {renderItem(children)}
+      {renderItem()}
     </li>
   );
 };
