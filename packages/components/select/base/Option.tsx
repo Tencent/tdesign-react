@@ -121,11 +121,7 @@ const Option: React.FC<SelectOptionProps> = (props) => {
   };
 
   const renderItem = () => {
-    const hasCustomKeys = keys?.value === 'content';
-    const displayContent = hasCustomKeys
-      ? children || label || content // 自定义 keys 将 content 设为 value 时，label 优先级更高
-      : children || content || label; // 默认情况下，content 优先级更高
-
+    const displayContent = children || content || label;
     if (multiple) {
       return (
         <label

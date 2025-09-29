@@ -175,8 +175,9 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
             }
 
             const { value: optionValue, label, disabled, children, ...restData } = item as TdOptionProps;
-            // 当 keys 属性配置 content 作为 value 或 label 时，确保 restData 中也包含它
+            // 当 keys 属性配置 content 作为 value 或 label 时，确保 restData 中也包含它, 不参与渲染计算
             const { content } = item as TdOptionProps;
+            const shouldOmitContent = Object.values(keys || {}).includes('content');
             return (
               <Option
                 key={index}
@@ -191,7 +192,6 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
                 disabled={disabled}
                 restData={restData}
                 keys={keys}
-                content={content}
                 onCheckAllChange={onCheckAllChange}
                 onRowMounted={handleRowMounted}
                 {...(isVirtual
@@ -202,6 +202,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
                     }
                   : {})}
                 {...restData}
+                content={shouldOmitContent ? null : content}
               >
                 {children}
               </Option>
