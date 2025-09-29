@@ -5,6 +5,10 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.15.3 `2025-09-29` 
+### 🐞 Bug Fixes
+- `Select`: 修复 OptionGroup 的 style 与 className 没有生效的问题 @uyarn ([#3855](https://github.com/Tencent/tdesign-react/pull/3855))
+
 ## 🌈 1.15.2 `2025-09-29` 
 ### 🚀 Features
 - `Watermark`: 新增 `layout` API，支持生成不同布局的水印，`watermarkText` 支持配置字体 @Wesley-0808 ([#3817](https://github.com/Tencent/tdesign-react/pull/3817))
@@ -32,7 +36,6 @@ spline: explain
   - 修复使用 `keys`  配置  `content` 作为 `label` 或 `value` 无法生效的问题 @RylanBot @uyarn ([#3829](https://github.com/Tencent/tdesign-react/pull/3829))
   - 修复动态切换到虚拟滚动时，出现白屏和滚动条被意外重置的问题 @RylanBot ([#3836](https://github.com/Tencent/tdesign-react/pull/3836))
   - 修复开启虚拟滚动且动态更新数据，展示数据不同步的问题 @huangchen1031 ([#3839](https://github.com/Tencent/tdesign-react/pull/3839))
-  - 修复 `OptionGroup` 的 `style` 与 `className` 没有生效的问题 @uyarn ([#3845](https://github.com/Tencent/tdesign-react/pull/3845))
 - `List`: 
   - 修复开启虚拟滚动后，`ListItem` 的部分 API 无法生效的问题 @FlowerBlackG ([#3835](https://github.com/Tencent/tdesign-react/pull/3835))
   - 修复动态切换到虚拟滚动时，滚动条被意外重置的问题 @RylanBot ([#3836](https://github.com/Tencent/tdesign-react/pull/3836))
