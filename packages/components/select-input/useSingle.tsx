@@ -81,7 +81,7 @@ export default function useSingle(props: TdSelectInputProps) {
       if (blurTimeoutRef.current) {
         clearTimeout(blurTimeoutRef.current);
       }
-      // 强制把 popupVisible 设置为 false 时，会出现 blur -> focus 的情况，因此忽略前面短暂的 blur 事件
+      // 强制把 popupVisible 设置为 false 时，点击 input，会出现 blur -> focus 的情况，因此忽略前面短暂的 blur 事件
       blurTimeoutRef.current = setTimeout(() => {
         if (blurTimeoutRef.current) {
           if (!popupVisible) {
