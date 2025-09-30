@@ -234,7 +234,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
       {!loading && !isEmpty && renderOptions(renderedOptions)}
     </div>
   );
-  if (isVirtual && visibleData.length) {
+  if (isVirtual) {
     return (
       <>
         {panelTopContent}
