@@ -13,6 +13,8 @@ import { addMonth, extractTimeObj, subtractMonth } from '@tdesign/common-js/date
 import log from '@tdesign/common-js/log/index';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useLatest from '../hooks/useLatest';
+import useUpdateEffect from '../hooks/useUpdateEffect';
 import { RangeInputPopup } from '../range-input';
 import { dateRangePickerDefaultProps } from './defaultProps';
 import useRange from './hooks/useRange';
@@ -97,6 +99,32 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     props.popupProps?.onVisibleChange?.(false, {});
   };
 
+  // 自动确认逻辑 - 处理 needConfirm=false 的情况
+  const onTriggerNeedConfirm = useLatest(() => {
+    if (props.needConfirm || !enableTimePicker || popupVisible) return;
+    
+    const nextValue = [...inputValue];
+    const notValidIndex = nextValue.findIndex((v) => !v || !isValidDate(v, format));
+    
+    // 当两端都有有效值时更改 value
+    if (notValidIndex === -1 && nextValue.length === 2) {
+      const currentValue = formatDate(value || [], { format });
+      
+      // 只有值确实发生变化时才触发 onChange
+      if (JSON.stringify(currentValue) !== JSON.stringify(nextValue)) {
+        const formattedValue = formatDate(nextValue, { format, targetFormat: valueType, autoSwap: true });
+        onChange(formattedValue, {
+          dayjsValue: nextValue.map((v) => parseToDayjs(v, format)),
+          trigger: 'confirm',
+        });
+      }
+    } else if (nextValue.length === 2 && nextValue.some(v => v && !isValidDate(v, format))) {
+      // 如果有输入但无效，恢复到原始值
+      setInputValue(formatDate(value || [], { format }));
+    }
+    // 如果只有部分值（用户还在选择中），不做任何操作
+  });
+
   useEffect(() => {
     if (value === cacheValue) return;
     // 面板展开重置数据
@@ -130,6 +158,12 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
       setInputValue(formatDate(value || [], { format }));
     }
     // eslint-disable-next-line
+  }, [popupVisible]);
+
+  // 监听 popupVisible 变化，处理 needConfirm=false 的自动确认
+  useUpdateEffect(() => {
+    // 日期时间范围选择器不需要点击确认按钮完成的操作
+    onTriggerNeedConfirm.current();
   }, [popupVisible]);
 
   // 日期 hover
