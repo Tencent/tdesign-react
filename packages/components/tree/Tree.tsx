@@ -182,7 +182,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     if (!node || disabled || node.disabled) {
       return;
     }
-    setChecked(node, !node.isChecked(), { ...ctx, trigger: 'node-click' });
+    setChecked(node, !node.isChecked() && !node.isIndeterminate(), { ...ctx, trigger: 'node-click' });
   };
   const handleScrollToElement = useCallback(
     (params: ComponentScrollToElementParams) => {

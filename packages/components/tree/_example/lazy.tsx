@@ -1,5 +1,5 @@
-import React from 'react';
-import { Tree } from 'tdesign-react';
+import React, { useState } from 'react';
+import { Space, Switch, Tree } from 'tdesign-react';
 import type { TreeProps } from 'tdesign-react';
 
 const items = [
@@ -14,6 +14,9 @@ const items = [
 ];
 
 export default () => {
+  const [checkable, setCheckable] = useState(true);
+  const [strictly, setStrictly] = useState(false);
+
   const load: TreeProps['load'] = (node) =>
     new Promise((resolve) => {
       setTimeout(() => {
@@ -38,5 +41,23 @@ export default () => {
     console.log('on load:', state);
   };
 
-  return <Tree data={items} hover expandAll load={load} onLoad={handleLoad} />;
+  return (
+    <Space direction="vertical">
+      <Space>
+        可选: <Switch value={checkable} onChange={(value) => setCheckable(value)} />
+      </Space>
+      <Space>
+        严格模式: <Switch value={checkable} onChange={(value) => setStrictly(value)} />
+      </Space>
+      <Tree
+        hover
+        valueMode="all"
+        data={items}
+        checkable={checkable}
+        checkStrictly={strictly}
+        load={load}
+        onLoad={handleLoad}
+      />
+    </Space>
+  );
 };
