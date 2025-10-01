@@ -1,21 +1,5 @@
 :: BASE_DOC ::
 
-### 斑马纹区分列表
-
-{{ stripe }}
-
-### 异步加载的列表
-
-{{ asyncLoading }}
-
-### 带头部及尾部的列表
-
-{{ header-footer }}
-
-### 带滚动事件的列表
-
-{{ scroll }}
-
 ## API
 ### List Props
 
