@@ -96,12 +96,24 @@ describe('Form 组件测试', () => {
     // setFields setFieldsValue setValidateMessage test
     expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual('');
     fireEvent.click(getByText('setFields'));
+
+    expect(getByPlaceholderText('input1').value).toEqual('setFields');
+    expect(fn).toHaveBeenCalledTimes(1);
+
+    fireEvent.click(getByText('setFieldsValue'));
+    expect(getByPlaceholderText('input1').value).toEqual('setFieldsValue');
+    expect(fn).toHaveBeenCalledTimes(2);
+
+    fireEvent.click(getByText('reset'));
+    expect(fn).toHaveBeenCalledTimes(3);
+
     expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual('setFields');
     expect(fn).toHaveBeenCalled();
 
     fireEvent.click(getByText('setFieldsValue'));
     expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual('setFieldsValue');
     expect(fn).toHaveBeenCalled();
+
 
     fireEvent.click(getByText('setValidateMessage'));
     expect(queryByText('message: setValidateMessage')).toBeTruthy();
