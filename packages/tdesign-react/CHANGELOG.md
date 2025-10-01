@@ -7,7 +7,7 @@ spline: explain
 
 ## 🌈 1.15.3 `2025-09-29` 
 ### 🐞 Bug Fixes
-- `Select`: 修复 OptionGroup 的 style 与 className 没有生效的问题 @uyarn ([#3855](https://github.com/Tencent/tdesign-react/pull/3855))
+- `Select`: 修复 `OptionGroup` 的 `style` 与 `className` 没有生效的问题 @uyarn ([#3855](https://github.com/Tencent/tdesign-react/pull/3855))
 
 ## 🌈 1.15.2 `2025-09-29` 
 ### 🚀 Features
@@ -19,11 +19,11 @@ spline: explain
 - `TagInput`: 修复 `onBlur` 中的 `inputValue` 始终为空的问题 @RylanBot ([#3841](https://github.com/Tencent/tdesign-react/pull/3841))
 - `Cascader`: 修复 `single` 模式下，选中唯一的子节点时，父节点意外被高亮的问题 @RylanBot ([#3840](https://github.com/Tencent/tdesign-react/pull/3840))
 - `DateRangePickerPanel`: 修复 `preset` 涉及跨年份的日期时，点击面板后无法同步的问题 @RylanBot ([#3818](https://github.com/Tencent/tdesign-react/pull/3818))
-- `EnhancedTable`: 修复节点拖拽后，再点击展开时，位置被重置的问题 ([#3780](https://github.com/Tencent/tdesign-react/pull/3780))
+- `EnhancedTable`: 修复节点拖拽后，再点击展开时，位置被重置的问题 @RylanBot ([#3780](https://github.com/Tencent/tdesign-react/pull/3780))
 - `Table`: @RylanBot 
   - 修复开启 `multipleSort` 但没有声明 `sort` 或 `defaultSort` 时，`onSortChange` 始终返回 `undefined` 的问题 ([#3824](https://github.com/Tencent/tdesign-react/pull/3824))
-  -  修复同时开启虚拟滚动与设置 `firstFullRow` / `lastFullRow` 等情况时，最后一行内容被遮挡的问题 ([#3792](https://github.com/Tencent/tdesign-react/pull/3792))
-  -  修复 `fixedRows` / `firstFullRow` / `lastFullRow` 无法在虚拟滚动下组合使用的问题 ([#3792](https://github.com/Tencent/tdesign-react/pull/3792))
+  - 修复同时开启虚拟滚动与设置 `firstFullRow` / `lastFullRow` 等情况时，最后一行内容被遮挡的问题 ([#3792](https://github.com/Tencent/tdesign-react/pull/3792))
+  - 修复 `fixedRows` / `firstFullRow` / `lastFullRow` 无法在虚拟滚动下组合使用的问题 ([#3792](https://github.com/Tencent/tdesign-react/pull/3792))
   - 修复虚拟滚动初始化时滚动条长度异常的问题 ([#3792](https://github.com/Tencent/tdesign-react/pull/3792))
   - 修复固定表头与固定列无法对齐的问题 ([#3792](https://github.com/Tencent/tdesign-react/pull/3792))
   - 修复 `pagination` 为非受控时，必须声明 `defaultCurrent` 才能正确分页的问题 ([#3822](https://github.com/Tencent/tdesign-react/pull/3822))
@@ -34,11 +34,8 @@ spline: explain
   - 修复开启 `multiple` 时，`onBlur` 缺少 `tagInputValue` 参数的问题
 - `Select`: 
   - 修复使用 `keys`  配置  `content` 作为 `label` 或 `value` 无法生效的问题 @RylanBot @uyarn ([#3829](https://github.com/Tencent/tdesign-react/pull/3829))
-  - 修复动态切换到虚拟滚动时，出现白屏和滚动条被意外重置的问题 @RylanBot ([#3836](https://github.com/Tencent/tdesign-react/pull/3836))
   - 修复开启虚拟滚动且动态更新数据，展示数据不同步的问题 @huangchen1031 ([#3839](https://github.com/Tencent/tdesign-react/pull/3839))
-- `List`: 
-  - 修复开启虚拟滚动后，`ListItem` 的部分 API 无法生效的问题 @FlowerBlackG ([#3835](https://github.com/Tencent/tdesign-react/pull/3835))
-  - 修复动态切换到虚拟滚动时，滚动条被意外重置的问题 @RylanBot ([#3836](https://github.com/Tencent/tdesign-react/pull/3836))
+- `List`: 修复开启虚拟滚动后，`ListItem` 的部分 API 无法生效的问题 @FlowerBlackG ([#3835](https://github.com/Tencent/tdesign-react/pull/3835))
 
 ## 🌈 1.15.1 `2025-09-12` 
 ### 🐞 Bug Fixes
