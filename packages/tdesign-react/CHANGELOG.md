@@ -5,6 +5,14 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.15.4 `2025-10-01` 
+### 🚀 Features
+- `ImageViewer`: 支持 `trigger` 传入图片 `index` 参数，trigger  的 `open` 方法参数可能与绑定的元素触发事件存在类型差异情况，若遇到此问题请改成 `()=> open()` 类似匿名函数使用 @betavs ([#3827](https://github.com/Tencent/tdesign-react/pull/3827))
+### 🐞 Bug Fixes
+- `Swiper`: 修复在移动端中点击导航条后自动播放失效的问题 @uyarn ([#3862](https://github.com/Tencent/tdesign-react/pull/3862))
+- `List`: 移除 `1.15.2` 版本引入的冗余代码造成开启虚拟滚动时初始化卡顿的问题 @RylanBot ([#3863](https://github.com/Tencent/tdesign-react/pull/3863))
+- `Select`: 移除 `1.15.2` 版本引入的冗余代码造成开启虚拟滚动时初始化卡顿的问题 @RylanBot ([#3863](https://github.com/Tencent/tdesign-react/pull/3863))
+
 ## 🌈 1.15.3 `2025-09-29` 
 ### 🐞 Bug Fixes
 - `Select`: 修复 `OptionGroup` 的 `style` 与 `className` 没有生效的问题 @uyarn ([#3855](https://github.com/Tencent/tdesign-react/pull/3855))
