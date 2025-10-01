@@ -212,9 +212,8 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
         // 如果之前存在滚动，基于原先数据计算位置
         const currentScrollTop = container.current?.scrollTop || 0;
         let currentIndex = Math.floor(currentScrollTop / tScroll.rowHeight);
-        const prevScrollTopHeightList = trScrollTopHeightList.current;
-        for (let i = 0; i < prevScrollTopHeightList?.length; i++) {
-          if (prevScrollTopHeightList[i] >= currentScrollTop) {
+        for (let i = 0; i < scrollTopHeightList?.length; i++) {
+          if (scrollTopHeightList[i] >= currentScrollTop) {
             currentIndex = i;
             break;
           }
@@ -226,8 +225,8 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
 
         let translateY = startIndex * tScroll.rowHeight;
 
-        if (prevScrollTopHeightList?.length > 0 && startIndex > 0) {
-          const prevHeight = prevScrollTopHeightList[Math.min(startIndex - 1, prevScrollTopHeightList.length - 1)] || 0;
+        if (scrollTopHeightList?.length > 0 && startIndex > 0) {
+          const prevHeight = scrollTopHeightList[Math.min(startIndex - 1, scrollTopHeightList.length - 1)] || 0;
           translateY = Math.max(0, prevHeight);
         }
 
