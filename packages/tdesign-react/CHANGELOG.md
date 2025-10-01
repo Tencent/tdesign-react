@@ -33,8 +33,9 @@ spline: explain
   - 修复自定义 `popupVisible={false}` 时，`onBlur` 不生效的问题
   - 修复开启 `multiple` 时，`onBlur` 缺少 `tagInputValue` 参数的问题
 - `Select`: 
-  - 修复使用 `keys`  配置  `content` 作为 `label` 或 `value` 无法生效的问题 @RylanBot @uyarn ([#3829](https://github.com/Tencent/tdesign-react/pull/3829))
+  - 修复使用 `keys` 配置 `content` 作为 `label` 或 `value` 无法生效的问题 @RylanBot @uyarn ([#3829](https://github.com/Tencent/tdesign-react/pull/3829))
   - 修复开启虚拟滚动且动态更新数据，展示数据不同步的问题 @huangchen1031 ([#3839](https://github.com/Tencent/tdesign-react/pull/3839))
+  - 修复动态切换到虚拟滚动时，出现白屏和滚动条被意外重置的问题 @RylanBot ([#3792](https://github.com/Tencent/tdesign-react/pull/3792)) ([#3836](https://github.com/Tencent/tdesign-react/pull/3836))
 - `List`: 修复开启虚拟滚动后，`ListItem` 的部分 API 无法生效的问题 @FlowerBlackG ([#3835](https://github.com/Tencent/tdesign-react/pull/3835))
 
 ## 🌈 1.15.1 `2025-09-12` 
