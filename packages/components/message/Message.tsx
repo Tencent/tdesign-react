@@ -1,4 +1,4 @@
-import React, { type CSSProperties, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import { getAttach } from '../_util/dom';
 import noop from '../_util/noop';
@@ -62,9 +62,7 @@ const MessageContainer: React.FC<MessageContainerProps> = (props) => {
 
   const ref = useRef<HTMLDivElement>(null);
 
-  const style: CSSProperties = {
-    zIndex,
-  };
+  const style: React.CSSProperties = { zIndex };
 
   Object.keys(PlacementOffset[placement]).forEach((key) => {
     style[key] = PlacementOffset[placement][key];
@@ -99,11 +97,7 @@ function getAttachNodeMap(attachNode: HTMLElement) {
   return MessageContainerMaps.get(attachNode);
 }
 
-async function findExistingContainer(
-  attachNode: HTMLElement,
-  placement: MessagePlacementList,
-  zIndex?: number,
-) {
+async function findExistingContainer(attachNode: HTMLElement, placement: MessagePlacementList, zIndex?: number) {
   const attachNodeMap = getAttachNodeMap(attachNode);
   let containerInstance = attachNodeMap.get(placement);
   if (!containerInstance) {
