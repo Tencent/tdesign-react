@@ -95,14 +95,12 @@ const useZIndex = (name: keyof typeof Z_INDEX_MAP, mounted: boolean) => {
   const { autoZIndex, setGlobalZIndex } = useInternalConfig();
   const context = useContext(ZIndexContext);
 
-  if (!context) throw new Error('useZIndex must be used within a ZIndexProvider');
-
   useEffect(() => {
     // 只处理 attach 为 body 的情况 (?)
     context?.setIsMounted(mounted);
   }, [context, mounted]);
 
-  if (!mounted || !autoZIndex || !setGlobalZIndex) {
+  if (!context || !mounted || !autoZIndex || !setGlobalZIndex) {
     return {
       displayZIndex: undefined,
       latestZIndex: Z_INDEX_MAP[name],

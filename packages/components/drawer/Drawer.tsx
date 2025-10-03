@@ -80,7 +80,7 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
   const size = propsSize ?? local.size;
   const { classPrefix } = useConfig();
 
-  const { displayZIndex, latestZIndex } = useZIndex('drawer', portalMounted);
+  const { displayZIndex } = useZIndex('drawer', portalMounted);
 
   const drawerAttach = useAttach('drawer', attach);
 
@@ -105,7 +105,7 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
   useLockStyle({ ...state, sizeValue, drawerWrapper: drawerWrapperRef.current });
 
   useImperativeHandle(ref, () => ({
-    latestZIndex,
+    // latestZIndex,
     show() {
       setState({ visible: true });
     },

@@ -165,7 +165,7 @@ export interface DrawerOptions extends Omit<TdDrawerProps, 'attach'> {
 }
 
 export interface DrawerInstance {
-  latestZIndex?: number;
+  // latestZIndex?: number;
   /**
    * 销毁抽屉
    */

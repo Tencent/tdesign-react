@@ -208,7 +208,7 @@ export interface DialogOptions extends Omit<TdDialogProps, 'attach'> {
 }
 
 export interface DialogInstance {
-  latestZIndex: number;
+  // latestZIndex: number;
   /**
    * 销毁弹框
    */

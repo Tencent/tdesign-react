@@ -79,7 +79,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     ...restState
   } = state;
 
-  const { displayZIndex, latestZIndex } = useZIndex('dialog', portalMounted);
+  const { displayZIndex } = useZIndex('dialog', portalMounted);
 
   const dialogAttach = useAttach('dialog', attach);
 
@@ -98,7 +98,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   }, [props, setState]);
 
   useImperativeHandle(ref, () => ({
-    latestZIndex,
+    // latestZIndex,
     show() {
       setState({ visible: true });
     },
