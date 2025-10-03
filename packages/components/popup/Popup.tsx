@@ -1,8 +1,10 @@
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { CSSTransition } from 'react-transition-group';
+
 import { Placement, type Options } from '@popperjs/core';
 import classNames from 'classnames';
 import { debounce, isFunction } from 'lodash-es';
-import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { CSSTransition } from 'react-transition-group';
+
 import { getRefDom } from '../_util/ref';
 import { getCssVarsValue } from '../_util/style';
 import Portal from '../common/Portal';
@@ -14,10 +16,12 @@ import useDefaultProps from '../hooks/useDefaultProps';
 import useMutationObserver from '../hooks/useMutationObserver';
 import usePopper from '../hooks/usePopper';
 import useWindowSize from '../hooks/useWindowSize';
+import useZIndex from '../hooks/useZIndex';
 import { popupDefaultProps } from './defaultProps';
 import useTrigger from './hooks/useTrigger';
-import type { TdPopupProps } from './type';
 import { getTransitionParams } from './utils/transition';
+
+import type { TdPopupProps } from './type';
 
 export interface PopupProps extends TdPopupProps {
   // 是否触发展开收起动画，内部下拉式组件使用
@@ -55,7 +59,6 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
     triggerElement,
     children = triggerElement,
     disabled,
-    zIndex,
     onScroll,
     onScrollToBottom,
     expandAnimation,
@@ -63,6 +66,7 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
     hideEmptyPopup,
     updateScrollTop,
   } = props;
+
   const { classPrefix } = useConfig();
   const popupAttach = useAttach('popup', attach);
 
@@ -72,11 +76,15 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
   const [visible, onVisibleChange] = useControlled(props, 'visible', props.onVisibleChange);
 
   const [popupElement, setPopupElement] = useState(null);
+  const [portalMounted, setPortalMounted] = useState(false);
+
   const triggerRef = useRef(null); // 记录 trigger 元素
   const popupRef = useRef(null); // popup dom 元素，css transition 需要用
   const portalRef = useRef(null); // portal dom 元素
   const contentRef = useRef(null); // 内容部分
   const popperRef = useRef(null); // 保存 popper 实例
+
+  const { displayZIndex } = useZIndex('popup', portalMounted);
 
   // 默认动画时长
   const DEFAULT_TRANSITION_TIMEOUT = 180;
@@ -155,8 +163,10 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
   function handleExited() {
     !destroyOnClose && popupElement && (popupElement.style.display = 'none');
   }
+
   function handleEnter() {
     !destroyOnClose && popupElement && (popupElement.style.display = 'block');
+    setPortalMounted(true)
   }
 
   function handleScroll(e: React.WheelEvent<HTMLDivElement>) {
@@ -210,7 +220,7 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
                 setPopupElement(node);
               }
             }}
-            style={{ ...styles.popper, zIndex, ...getOverlayStyle(overlayStyle) }}
+            style={{ ...styles.popper, zIndex: displayZIndex, ...getOverlayStyle(overlayStyle) }}
             className={classNames(`${classPrefix}-popup`, overlayClassName)}
             {...attributes.popper}
             {...getPopupProps()}

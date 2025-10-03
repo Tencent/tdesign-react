@@ -1,10 +1,11 @@
-import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames';
-import Popup, { PopupRef, PopupVisibleChangeContext } from '../popup';
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import useConfig from '../hooks/useConfig';
-import { TdTooltipProps } from './type';
-import { tooltipDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useZIndex from '../hooks/useZIndex';
+import Popup, { PopupRef, PopupVisibleChangeContext } from '../popup';
+import { tooltipDefaultProps } from './defaultProps';
+import { TdTooltipProps } from './type';
 
 export type TooltipProps = TdTooltipProps;
 
@@ -21,6 +22,8 @@ const Tooltip = forwardRef<Partial<PopupRef>, TdTooltipProps>((originalProps, re
     onVisibleChange,
     ...restProps
   } = props;
+
+  const { displayZIndex } = useZIndex('tooltip', true);
 
   const { classPrefix } = useConfig();
   const [timeUp, setTimeUp] = useState(false);
@@ -64,6 +67,7 @@ const Tooltip = forwardRef<Partial<PopupRef>, TdTooltipProps>((originalProps, re
       overlayClassName={toolTipClass}
       onVisibleChange={handleVisibleChange}
       placement={placement}
+      zIndex={displayZIndex}
       {...restProps}
     >
       {children}
