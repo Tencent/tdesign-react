@@ -46,15 +46,10 @@ interface SelectPopupProps
       trigger: SelectValueChangeTrigger;
     },
   ) => void;
-  /**
-   * 是否展示popup
-   */
   showPopup: boolean;
-  /**
-   * 控制popup展示的函数
-   */
-  setShowPopup: (show: boolean) => void;
+  hoverIndex: number;
   children?: React.ReactNode;
+  setShowPopup: (show: boolean) => void;
   onCheckAllChange?: (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => void;
   getPopupInstance?: () => HTMLDivElement;
 }
@@ -177,10 +172,13 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
             const { value: optionValue, label, disabled, children, ...restData } = item as TdOptionProps;
             // 当 keys 属性配置 content 作为 value 或 label 时，确保 restData 中也包含它, 不参与渲染计算
             const { content } = item as TdOptionProps;
-            const shouldOmitContent = Object.values(keys || {}).includes('content');
+            const shouldOmitContent = Object.values(keys || {}).includes('content'); 
             return (
               <Option
                 key={index}
+                className={classNames({
+                  [`${classPrefix}-select-option__hover`]: index === props.hoverIndex,
+                })}
                 max={max}
                 label={label}
                 value={optionValue}
