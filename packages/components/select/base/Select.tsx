@@ -21,6 +21,7 @@ import FakeArrow from '../../common/FakeArrow';
 import useConfig from '../../hooks/useConfig';
 import useControlled from '../../hooks/useControlled';
 import useDefaultProps from '../../hooks/useDefaultProps';
+import useKeyboardNavigation from '../../hooks/useKeyboardNavigation';
 import Loading from '../../loading';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import SelectInput, { type SelectInputValue, type SelectInputValueChangeContext } from '../../select-input';
@@ -338,6 +339,51 @@ const Select = forwardRefWithStatics(
       onClear(context);
     };
 
+    const initialIndex = useMemo(() => {
+      if (!showPopup || multiple || !selectedOptions.length) return -1;
+      return currentOptions.findIndex((option) => {
+        if (isSelectOptionGroup(option)) return false;
+        const selectedValue =
+          valueType === 'object' ? selectedOptions[0] : selectedOptions[0]?.[keys?.value || 'value'];
+        const optionValue = valueType === 'object' ? option : option[keys?.value || 'value'];
+        return selectedValue === optionValue;
+      });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [showPopup, currentOptions]);
+
+    const { hoverIndex, handleKeyDown } = useKeyboardNavigation({
+      options: currentOptions,
+      initialIndex,
+      onSelect: (option, e) => {
+        if (!option || option.disabled) return;
+        const optionValue = valueType === 'object' ? option : option[keys?.value || 'value'];
+        const optionLabel = option[keys?.label || 'label'];
+        handleChange(
+          multiple
+            ? getSelectValueArr(
+                value,
+                optionValue,
+                !selectedOptions.some((selected) => {
+                  const selectedValue = valueType === 'object' ? selected : selected[keys?.value || 'value'];
+                  return selectedValue === optionValue;
+                }),
+                valueType,
+                keys,
+                option,
+              )
+            : optionValue,
+          {
+            // @ts-ignore
+            e,
+            trigger: 'default',
+            value: optionValue,
+            label: optionLabel,
+          },
+        );
+        handleShowPopup(false, {});
+      },
+    });
+
     useEffect(() => {
       if (typeof inputValue !== 'undefined') {
         handleFilter(String(inputValue));
@@ -390,6 +436,7 @@ const Select = forwardRefWithStatics(
         onCheckAllChange,
         getPopupInstance,
         scroll,
+        hoverIndex,
       };
       return <PopupContent {...popupContentProps}>{childrenWithProps}</PopupContent>;
     };
@@ -550,6 +597,10 @@ const Select = forwardRefWithStatics(
           tagProps={{ size, ...tagProps }}
           inputProps={{
             size,
+            onKeydown: (value, { e }) => {
+              props.inputProps?.onKeydown?.(value, { e });
+              handleKeyDown(e);
+            },
             ...inputProps,
           }}
           minCollapsedNum={minCollapsedNum}
