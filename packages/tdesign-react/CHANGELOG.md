@@ -5,6 +5,11 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.15.5 `2025-10-05` 
+### 🐞 Bug Fixes
+- `Watermark`: 修复 `1.15.2` 版本 SSR 场景下使用的问题 @Wesley-0808([#3873](https://github.com/Tencent/tdesign-react/pull/3873))
+- `Descriptions`: 修复无边框模式下的边距问题 @liweijie0812 ([#3873](https://github.com/Tencent/tdesign-react/pull/3873))
+
 ## 🌈 1.15.4 `2025-10-01` 
 ### 🚀 Features
 - `ImageViewer`: 支持 `trigger` 传入图片 `index` 参数，trigger  的 `open` 方法参数可能与绑定的元素触发事件存在类型差异情况，若遇到此问题请改成 `()=> open()` 类似匿名函数使用 @betavs ([#3827](https://github.com/Tencent/tdesign-react/pull/3827))
