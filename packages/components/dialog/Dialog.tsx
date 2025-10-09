@@ -19,6 +19,7 @@ import useLockStyle from './hooks/useLockStyle';
 import { parseValueToPx } from './utils';
 import type { StyledProps } from '../common';
 import type { DialogInstance, TdDialogProps } from './type';
+import useDialogResize from './hooks/useDialogResize';
 
 export interface DialogProps extends TdDialogProps, StyledProps {
   isPlugin?: boolean; // 是否以插件形式调用
@@ -38,6 +39,8 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const portalRef = useRef(null);
   const [state, setState] = useSetState<DialogProps>({ isPlugin: false, ...restProps });
   const [local] = useLocaleReceiver('dialog');
+
+  const dragResizing = useRef(false);
 
   const {
     className,
@@ -77,6 +80,13 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
   useDialogEsc(visible, wrapRef);
   useDialogPosition(visible, dialogCardRef);
+
+  useDialogResize({
+    dialogCardRef,
+    sizeDraggableProps: mode === 'modeless' ? props.sizeDraggable : false,
+    onDragResizeChange(resizing) { dragResizing.current = resizing; },
+  });
+
   useDialogDrag({
     dialogCardRef,
     canDraggable: draggable && mode === 'modeless',
@@ -113,6 +123,10 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   }
 
   const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (dragResizing.current) {
+      return;
+    }
+
     if (showOverlay && (closeOnOverlayClick ?? local.closeOnOverlayClick)) {
       // 判断点击事件初次点击是否为内容区域
       if (contentClickRef.current) {
