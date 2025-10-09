@@ -1,6 +1,6 @@
 import React from "react";
 import useMouseEvent from "../../hooks/useMouseEvent";
-import { SizeDragLimit } from "../type";
+import { DialogSizeDragLimit } from "../type";
 
 
 const RESIZE_BORDER_WIDTH = 8; // 边框宽度，拖拽时的感应区域
@@ -8,7 +8,7 @@ const RESIZE_BORDER_WIDTH = 8; // 边框宽度，拖拽时的感应区域
 
 interface DialogResizeProps {
   dialogCardRef: React.MutableRefObject<HTMLDivElement | null>;
-  sizeDraggableProps: boolean | SizeDragLimit;
+  sizeDraggableProps: boolean | DialogSizeDragLimit;
   onDragResizeChange: (resizing: boolean) => void;
 }
 
