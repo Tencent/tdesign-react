@@ -235,7 +235,7 @@ export interface DialogInstance {
   update: (props: DialogOptions) => void;
 }
 
-export interface SizeDragLimit {
+interface SizeDragLimit {
   maxWidth: number | undefined;
   minWidth: number | undefined;
   maxHeight: number | undefined;

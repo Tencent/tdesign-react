@@ -132,10 +132,8 @@ const useDialogResize = (props: DialogResizeProps) => {
         else if (direction === 'nw' || direction === 'se')
           cursor = 'nwse-resize';
         dialogCardRef.current.style.cursor = cursor;
-      } else {
-        if (resizingDirection.current === false)
+      } else if (resizingDirection.current === false)
           dialogCardRef.current.style.cursor = 'default';
-      }
 
       if (resizingDirection.current === false)
         return;
@@ -143,7 +141,7 @@ const useDialogResize = (props: DialogResizeProps) => {
 
       // Do resize.
       const dir = resizingDirection.current;
-      const style = dialogCardRef.current.style;
+      const {style} = dialogCardRef.current;
 
       style.position = 'absolute';
 
