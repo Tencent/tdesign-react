@@ -2,12 +2,12 @@
 /**
  * 通用虚拟滚动，可支持 Select/List/Table/TreeSelect/Cascader 等组件
  */
-import { MutableRefObject, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { isEqual } from 'lodash-es';
 import type { ScrollToElementParams, TScroll } from '../common';
 
 export type UseVirtualScrollParams = {
-  /** 列数据 */
+  enable?: boolean;
   data: { [key: string]: any }[];
   scroll: TScroll & {
     fixedRows?: Array<number>;
@@ -25,8 +25,8 @@ export type RowMountedParams = {
 const requestAnimationFrame =
   (typeof window === 'undefined' ? false : window.requestAnimationFrame) || ((cb) => setTimeout(cb, 16.6));
 
-const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseVirtualScrollParams) => {
-  const { data, scroll } = params;
+const useVirtualScroll = (container: React.MutableRefObject<HTMLElement>, params: UseVirtualScrollParams) => {
+  const { enable = true, data, scroll } = params;
 
   const dataRef = useRef(data);
   const containerHeight = useRef(0);
@@ -53,10 +53,14 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
       fixedRows: scroll.fixedRows ?? [0, 0],
     };
   }, [scroll]);
+
+  const enableVirtualScroll = useMemo(() => enable && tScroll.type === 'virtual', [enable, tScroll]);
+  const isVirtualScroll = useMemo(
+    () => enableVirtualScroll && tScroll.threshold < data.length,
+    [enableVirtualScroll, tScroll.threshold, data.length],
+  );
+
   const visibleCount = Math.min(tScroll.bufferSize * 3, data.length);
-
-  const isVirtualScroll = useMemo(() => tScroll.type === 'virtual' && tScroll.threshold < data.length, [tScroll, data]);
-
   const [startAndEndIndex, setStartAndEndIndex] = useState<[number, number]>(() => [0, visibleCount]);
 
   const getTrScrollTopHeightList = (trHeightList: number[]) => {
@@ -184,15 +188,17 @@ const useVirtualScroll = (container: MutableRefObject<HTMLElement>, params: UseV
   // 固定高度场景，可直接通过数据长度计算出最大滚动高度
   useEffect(
     () => {
+      if (!enableVirtualScroll) return;
+
       if (!isVirtualScroll) {
-        // 避免从非虚拟滚动动态切换到虚拟滚动时，数据瞬间为[]，导致滚动位置重置的问题
-        if (data.length) {
-          dataRef.current = data;
-          setVisibleData(data);
-          trScrollTopHeightList.current = getTrScrollTopHeightList(trHeightList);
-        }
+        if (!data.length) return;
+        // 避免从非虚拟滚动切换到虚拟滚动时，数据瞬间为[]，导致滚动位置重置的问题
+        setVisibleData(data);
+        dataRef.current = data;
+        trScrollTopHeightList.current = getTrScrollTopHeightList(trHeightList);
         return;
       }
+
       // 给数据添加下标
       addIndexToData(data);
 
