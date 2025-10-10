@@ -30,7 +30,8 @@ export interface SelectOptionProps
   onCheckAllChange?: (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => void;
   restData?: Record<string, any>;
   keys?: SelectKeysType;
-  optionLength?: number;
+  selectableLength?: number;
+  selectedLength?: number;
   isVirtual?: boolean;
   onRowMounted?: (rowData: { ref: HTMLElement; data: SelectOption }) => void;
 }
@@ -106,8 +107,14 @@ const Option: React.FC<SelectOptionProps> = (props) => {
       return get(item, keys?.value || 'value') === value;
     });
     if (props.checkAll) {
-      selected = selectedValue.length === props.optionLength;
-      indeterminate = selectedValue.length > 0 && !selected;
+      // 可选中已选
+      const selectableSelectedLength = selectedValue.length;
+      // 可选
+      const selectableLength = props.selectableLength || 0;
+      // 已选总数（可能包含不可选中项）
+      const selectedLength = props.selectedLength || 0;
+      selected = selectableSelectedLength === selectableLength && selectableLength > 0;
+      indeterminate = selectedLength > 0 && !selected;
     }
   }
 

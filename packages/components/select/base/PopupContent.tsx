@@ -174,10 +174,23 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
               );
             }
 
-            const { value: optionValue, label, disabled, children, ...restData } = item as TdOptionProps;
+            const { value: optionValue, label, disabled, children, checkAll, ...restData } = item as TdOptionProps;
             // 当 keys 属性配置 content 作为 value 或 label 时，确保 restData 中也包含它, 不参与渲染计算
             const { content } = item as TdOptionProps;
             const shouldOmitContent = Object.values(keys || {}).includes('content');
+
+            let selectedValue = value;
+            if (checkAll && multiple && Array.isArray(value)) {
+              const valueKeys = keys?.value || 'value';
+              selectedValue = value.filter((val) =>
+                selectableOptions.some((opt) =>
+                  valueType === 'object'
+                    ? val[valueKeys] === opt[valueKeys]
+                    : val === opt[valueKeys],
+                ),
+              );
+            }
+
             return (
               <Option
                 key={index}
@@ -185,11 +198,13 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
                 label={label}
                 value={optionValue}
                 onSelect={onSelect}
-                selectedValue={value}
-                optionLength={selectableOptions.length}
+                selectedValue={selectedValue}
+                selectableLength={selectableOptions.length}
+                selectedLength={checkAll && multiple && Array.isArray(value) ? value.length : 0}
                 multiple={multiple}
                 size={size}
                 disabled={disabled}
+                checkAll={checkAll}
                 restData={restData}
                 keys={keys}
                 onCheckAllChange={onCheckAllChange}

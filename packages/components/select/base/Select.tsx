@@ -188,22 +188,17 @@ const Select = forwardRefWithStatics(
         return;
       }
 
-      const isSelectableOption = (opt: TdOptionProps) => !opt.checkAll && !opt.disabled;
       const getOptionValue = (option: SelectOption) =>
         valueType === 'object' ? option : option[keys?.value || 'value'];
 
-      const values = [];
-      currentOptions.forEach((option) => {
-        if (isSelectOptionGroup(option)) {
-          option.children.forEach((item) => {
-            if (isSelectableOption(item)) {
-              values.push(getOptionValue(item));
-            }
-          });
-        } else if (isSelectableOption(option)) {
-          values.push(getOptionValue(option));
-        }
-      });
+      const getFilteredValues = (predicate: (opt: TdOptionProps) => boolean) =>
+        currentOptions.flatMap((option) => {
+          const optionsToProcess = isSelectOptionGroup(option) ? option.children : [option];
+          return optionsToProcess.filter((opt) => !opt.checkAll && predicate(opt)).map(getOptionValue);
+        });
+
+      const values = getFilteredValues((opt) => !opt.disabled);
+      const disabledValues = getFilteredValues((opt) => opt.disabled);
 
       const { currentSelectedOptions, allSelectedValue } = getSelectedOptions(
         values,
@@ -213,12 +208,11 @@ const Select = forwardRefWithStatics(
         valueToOption,
       );
 
-      const checkAllValue =
-        !checkAll && allSelectedValue.length !== (props.value as Array<SelectOption>)?.length ? allSelectedValue : [];
+      const checkAllValue = checkAll ? disabledValues : [...allSelectedValue, ...disabledValues];
 
       onChange?.(checkAllValue, {
         e,
-        trigger: !checkAll ? 'check' : 'uncheck',
+        trigger: checkAll ? 'uncheck' : 'check',
         selectedOptions: currentSelectedOptions,
       });
     };
