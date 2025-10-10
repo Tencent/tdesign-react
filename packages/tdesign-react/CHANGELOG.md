@@ -5,6 +5,10 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.15.6 `2025-10-10` 
+### 🐞 Bug Fixes
+- `VirtualScroll`: 修复引入虚拟滚动的组件在使用子组件配合异步请求场景的组件告警问题 @uyarn ([#3876](https://github.com/Tencent/tdesign-react/pull/3876))
+
 ## 🌈 1.15.5 `2025-10-05` 
 ### 🐞 Bug Fixes
 - `Watermark`: 修复 `1.15.2` 版本 SSR 场景下使用的问题 @Wesley-0808([#3873](https://github.com/Tencent/tdesign-react/pull/3873))
@@ -1311,5 +1315,6 @@ spline: explain
 
 ## 🌈 0.x `2021-03-26 - 2023-02-08`
 前往 [GitHub](https://github.com/Tencent/tdesign-react/blob/develop/packages/tdesign-react/CHANGELOG-0.x.md) 查看 `0.x` 更新日志
+
 
 
