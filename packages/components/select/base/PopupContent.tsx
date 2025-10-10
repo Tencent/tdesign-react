@@ -179,14 +179,13 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
             const { content } = item as TdOptionProps;
             const shouldOmitContent = Object.values(keys || {}).includes('content');
 
+            const enableCheckAll = checkAll && multiple && Array.isArray(value);
             let selectedValue = value;
-            if (checkAll && multiple && Array.isArray(value)) {
+            if (enableCheckAll) {
               const valueKeys = keys?.value || 'value';
               selectedValue = value.filter((val) =>
                 selectableOptions.some((opt) =>
-                  valueType === 'object'
-                    ? val[valueKeys] === opt[valueKeys]
-                    : val === opt[valueKeys],
+                  valueType === 'object' ? val[valueKeys] === opt[valueKeys] : val === opt[valueKeys],
                 ),
               );
             }
@@ -200,7 +199,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
                 onSelect={onSelect}
                 selectedValue={selectedValue}
                 selectableLength={selectableOptions.length}
-                selectedLength={checkAll && multiple && Array.isArray(value) ? value.length : 0}
+                selectedLength={enableCheckAll ? value.length : 0}
                 multiple={multiple}
                 size={size}
                 disabled={disabled}
