@@ -11,7 +11,6 @@ import useSorter from './hooks/useSorter';
 import useFilter from './hooks/useFilter';
 import useDragSort from './hooks/useDragSort';
 import useAsyncLoading from './hooks/useAsyncLoading';
-// import useStickyMultiHeader from './hooks/useStickyMultiHeader';
 import { PageInfo, PaginationProps } from '../pagination';
 import useClassName from './hooks/useClassName';
 import useStyle from './hooks/useStyle';
@@ -68,14 +67,6 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
 
   const { renderTitleWidthIcon } = useTableHeader({ columns: props.columns });
   const { renderAsyncLoading } = useAsyncLoading(props);
-  
-  // 多级表头sticky效果
-  // const { clearStickyStyles } = useStickyMultiHeader({
-  //   columns: props.columns,
-  //   isMultipleHeader: !!props.columns.some(col => col.children?.length),
-  //   tableContentRef: primaryTableRef,
-  //   enabled: props.stickyMultiHeader !== false, // 默认启用，可通过props禁用
-  // });
 
   const primaryTableClasses = {
     [tableDraggableClasses.colDraggable]: isColDraggable,

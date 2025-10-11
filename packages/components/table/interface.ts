@@ -34,13 +34,8 @@ export interface BaseTableProps<T extends TableRowData = TableRowData> extends T
  */
 export type SimpleTableProps<T extends TableRowData = TableRowData> = BaseTableProps<T>;
 
-export interface PrimaryTableProps<T extends TableRowData = TableRowData> extends TdPrimaryTableProps<T>, StyledProps {
-  /**
-   * 多级表头滚动时是否启用粘性定位效果，让上级表头在滚动时保持可见
-   * @default true
-   */
-  stickyMultiHeader?: boolean;
-}
+export interface PrimaryTableProps<T extends TableRowData = TableRowData> extends TdPrimaryTableProps<T>, StyledProps {}
+
 export interface EnhancedTableProps<T extends TableRowData = TableRowData>
   extends TdEnhancedTableProps<T>,
     StyledProps {}

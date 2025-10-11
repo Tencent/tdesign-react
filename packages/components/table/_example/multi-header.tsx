@@ -47,12 +47,104 @@ export default function TableExample() {
   const [headerAffixedTop, setHeaderAffixedTop] = useState(false);
   const [stickyMultiHeader, setStickyMultiHeader] = useState(true);
   const [sort, setSort] = useState<TableSort>({ sortBy: 'default', descending: false });
+  const tableContainerRef = useRef<HTMLDivElement>(null);
 
   const onSortChange: TableProps['onSortChange'] = (sortInfo, context) => {
     setSort(sortInfo);
     setData([...context.currentDataSource]);
     console.log(context);
   };
+
+  // 多级表头粘性定位逻辑
+  useEffect(() => {
+    if (!stickyMultiHeader || !tableContainerRef.current) return;
+
+    const tableContainer = tableContainerRef.current;
+    const tableContent = tableContainer.querySelector('.t-table__content') as HTMLElement;
+
+    if (!tableContent) return;
+
+    const handleScroll = () => {
+      const scrollLeft = tableContent.scrollLeft;
+      const thead = tableContainer.querySelector('.t-table__header--multiple') as HTMLElement;
+
+      if (!thead) return;
+
+      // 获取所有顶级表头单元格（有colspan的）
+      const topLevelHeaders = thead.querySelectorAll('tr:first-child th[colspan]') as NodeListOf<HTMLElement>;
+
+      let accumulatedWidth = 0;
+
+      topLevelHeaders.forEach((header) => {
+        const colKey = header.getAttribute('data-colkey');
+        if (!colKey) return;
+
+        const cellInner = header.querySelector('.t-table__th-cell-inner') as HTMLElement;
+        if (!cellInner) return;
+
+        // 获取表头相对于表格容器的位置
+        const headerLeft = header.offsetLeft;
+        const headerWidth = header.offsetWidth;
+        const headerRight = headerLeft + headerWidth;
+
+        // 判断是否需要粘性定位：表头的左边已经滚动出视野，但右边还在视野内
+        const shouldStick = scrollLeft > headerLeft && scrollLeft < headerRight;
+
+        if (shouldStick) {
+          // 计算粘性位置，确保不超出表头边界
+          const maxLeft = headerWidth - 120; // 预留最小显示宽度
+          const stickyLeft = Math.min(scrollLeft - headerLeft, maxLeft);
+
+          console.log('shouldStick', headerLeft, headerRight, scrollLeft, stickyLeft);
+          // 应用粘性样式
+          cellInner.style.position = 'relative';
+          cellInner.style.left = `${stickyLeft}px`;
+          cellInner.style.zIndex = '10';
+        } else {
+          // 移除粘性样式
+          cellInner.style.position = '';
+          cellInner.style.left = '';
+          cellInner.style.zIndex = '';
+        }
+      });
+    };
+
+    // 节流处理
+    let ticking = false;
+    const throttledScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    tableContent.addEventListener('scroll', throttledScroll);
+
+    // 初始化执行
+    handleScroll();
+
+    return () => {
+      tableContent.removeEventListener('scroll', throttledScroll);
+
+      // 清理样式
+      const thead = tableContainer.querySelector('.t-table__header--multiple') as HTMLElement;
+      if (thead) {
+        const cellInners = thead.querySelectorAll('.t-table__th-cell-inner') as NodeListOf<HTMLElement>;
+        cellInners.forEach((cellInner) => {
+          cellInner.style.position = '';
+          cellInner.style.left = '';
+          cellInner.style.zIndex = '';
+          cellInner.style.backgroundColor = '';
+          cellInner.style.boxShadow = '';
+          cellInner.style.borderRight = '';
+          cellInner.style.minWidth = '';
+        });
+      }
+    };
+  }, [stickyMultiHeader]);
 
   const columns: TableProps['columns'] = [
     {
@@ -66,7 +158,6 @@ export default function TableExample() {
       fixed: fixedLeftCol ? 'left' : undefined,
       width: 100,
       colKey: 'total_info',
-      className: stickyMultiHeader ? 'sticky-multi-header' : undefined,
       children: [
         {
           align: 'left',
@@ -114,10 +205,30 @@ export default function TableExample() {
       ],
     },
     {
+      colKey: 'field1',
+      title: '住宿费',
+      width: 100,
+    },
+    {
+      colKey: 'field3',
+      title: '交通费',
+      width: 100,
+    },
+    {
+      colKey: 'field4',
+      title: '物料费',
+      width: 100,
+    },
+    {
+      colKey: 'field2',
+      title: '奖品激励费',
+      width: 120,
+    },
+    {
       title: '审批汇总',
       colKey: 'instruction',
       fixed: fixedRightCol ? 'right' : undefined,
-      className: stickyMultiHeader ? 'sticky-multi-header' : undefined,
+      width: 100,
       children: [
         {
           align: 'left',
@@ -161,26 +272,6 @@ export default function TableExample() {
       ],
     },
     {
-      colKey: 'field1',
-      title: '住宿费',
-      width: 300,
-    },
-    {
-      colKey: 'field3',
-      title: '交通费',
-      width: 300,
-    },
-    {
-      colKey: 'field4',
-      title: '物料费',
-      width: 300,
-    },
-    {
-      colKey: 'field2',
-      title: '奖品激励费',
-      width: 120,
-    },
-    {
       colKey: 'createTime',
       title: '申请时间',
       fixed: fixedRightCol ? 'right' : undefined,
@@ -188,14 +279,7 @@ export default function TableExample() {
     },
   ];
   return (
-    <div>
-      <style>{`
-        /* 多级表头粘性定位CSS */
-        .enable-sticky-multi-header .sticky-multi-header {
-          position: sticky;
-          left: 0;
-        }
-      `}</style>
+    <div ref={tableContainerRef}>
       <Space direction="vertical" size="large" style={{ width: '100%' }}>
         {/* <!-- 按钮操作区域 --> */}
         <Space>
@@ -231,7 +315,6 @@ export default function TableExample() {
           sort={sort}
           onSortChange={onSortChange}
           lazyLoad
-          className={stickyMultiHeader ? 'enable-sticky-multi-header' : undefined}
         />
       </Space>
     </div>
