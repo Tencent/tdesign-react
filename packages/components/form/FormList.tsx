@@ -20,8 +20,9 @@ const FormList: React.FC<TdFormListProps> = (props) => {
   } = useFormContext();
   const { name, rules, children } = props;
 
+  const originalInitialData = props.initialData || get(initialDataFromForm, name) || [];
   const storeValue = get(form?.store, name);
-  const initialData = storeValue || props.initialData || get(initialDataFromForm, name) || [];
+  const initialData = storeValue ?? originalInitialData;
 
   const [formListValue, setFormListValue] = useState(initialData);
   const [fields, setFields] = useState<Array<FormListField>>(() =>
@@ -236,22 +237,22 @@ const FormList: React.FC<TdFormListProps> = (props) => {
         const resetType = type || resetTypeFromContext;
 
         if (resetType === 'initial') {
-          setFormListValue(initialData);
+          setFormListValue(originalInitialData);
 
-          const newFields = initialData.map((data, index) => ({
+          const newFields = originalInitialData.map((data, index) => ({
             data: { ...data },
             key: (key += 1),
             name: index,
             isListField: true,
           }));
           setFields(newFields);
-          set(form?.store, flattenDeep([name]), initialData);
+          set(form?.store, flattenDeep([name]), originalInitialData);
 
           requestAnimationFrame(() => {
             [...formListMapRef.current.values()].forEach((formItemRef) => {
               if (!formItemRef.current) return;
               const { name: itemName } = formItemRef.current;
-              const itemValue = get(initialData, itemName);
+              const itemValue = get(originalInitialData, itemName);
               if (itemValue !== undefined) {
                 formItemRef.current.setField({ value: itemValue, status: 'not' });
               }
