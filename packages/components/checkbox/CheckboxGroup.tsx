@@ -100,14 +100,11 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
   }, [internalValue]);
   const checkedSet = useMemo(() => getCheckedSet(), [getCheckedSet]);
 
-  const indeterminate = useMemo(() => {
-    const checkableValues = enabledValues.filter((value) => checkedSet.has(value));
-    const checkedDisabledValues = disabledValues.filter((value) => checkedSet.has(value));
-    // 存在被禁用且已选中的选项，直接显示半选状态
-    if (checkedDisabledValues.length > 0) return true;
-    // 否则检查未禁用的选项是否处于部分选中状态
-    return checkableValues.length !== 0 && checkableValues.length !== enabledValues.length;
-  }, [checkedSet, enabledValues, disabledValues]);
+const indeterminate = useMemo(() => {
+  const allValues = [...enabledValues, ...disabledValues];
+  const checkedCount = allValues.filter((value) => checkedSet.has(value)).length;
+  return checkedCount > 0 && checkedCount < allValues.length;
+}, [checkedSet, enabledValues, disabledValues]); 
 
   const checkAllChecked = useMemo(() => {
     const checkableValues = enabledValues.filter((value) => checkedSet.has(value));
@@ -154,18 +151,20 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
           const checkedSet = getCheckedSet();
 
           if (checkProps.checkAll) {
-            // 保存被禁用选项的当前状态
-            const disabledCheckedValues = disabledValues.filter((value) => checkedSet.has(value));
-            // 计算当前启用选项的选中状态
-            const checkedenabledOptionsValues = enabledValues.filter((value) => checkedSet.has(value));
-            const allEnabledChecked =
-              enabledValues.length > 0 && checkedenabledOptionsValues.length === enabledValues.length;
-
-            checkedSet.clear();
-            // 恢复被禁用选项的原有状态
-            disabledCheckedValues.forEach((v) => checkedSet.add(v));
+            const checkedEnabledValues = enabledValues.filter((value) => checkedSet.has(value));
+            const allEnabledChecked = enabledValues.length > 0 && checkedEnabledValues.length === enabledValues.length;
             if (!allEnabledChecked) {
-              enabledValues.forEach((v) => checkedSet.add(v));
+              enabledValues.forEach((value) => {
+                if (!checkedSet.has(value)) {
+                  checkedSet.add(value);
+                }
+              });
+            } else {
+              enabledValues.forEach((value) => {
+                if (checkedSet.has(value)) {
+                  checkedSet.delete(value);
+                }
+              });
             }
           } else if (checked) {
             if (checkedSet.size >= localMax && isNumber(max)) return;
