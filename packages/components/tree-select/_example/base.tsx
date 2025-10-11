@@ -48,6 +48,7 @@ export default function Example() {
     <TreeSelect
       data={options}
       clearable
+      treeProps={{ checkStrictly: true }}
       value={value}
       onChange={(val: string) => {
         setValue(val);

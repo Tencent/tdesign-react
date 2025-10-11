@@ -2,6 +2,7 @@ import orgPkg from '../../../package.json';
 import tdesignReactPkg from '../../../../package.json';
 
 export const htmlContent = `
+  <!DOCTYPE html>
   <div id="app"></div>
   <script type="module" src="/src/index.jsx"></script>
 `;
@@ -89,8 +90,8 @@ export const tsconfigContent = `{
 
 export const stackblitzRc = `
   {
-    "installDependencies": true,
-    "startCommand": "npm run dev"
+    "installDependencies": false,
+    "startCommand": "pnpm install && pnpm dev"
   }
 `;
 

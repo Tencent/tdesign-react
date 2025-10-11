@@ -21,7 +21,7 @@ export interface TextareaProps
     >,
     TdTextareaProps,
     StyledProps {}
-export interface TextareaRefInterface extends React.RefObject<unknown> {
+export interface TextareaRefInterface {
   currentElement: HTMLDivElement;
   textareaElement: HTMLTextAreaElement;
 }
@@ -52,6 +52,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   const [isOvermax, setIsOvermax] = useState(false);
   const [textareaStyle, setTextareaStyle] = useState<Partial<typeof DEFAULT_TEXTAREA_STYLE>>(DEFAULT_TEXTAREA_STYLE);
   const composingRef = useRef(false);
+  const [composingValue, setComposingValue] = useState<string>('');
   const hasMaxcharacter = typeof maxcharacter !== 'undefined';
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -112,14 +113,20 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   function inputValueChangeHandle(e: React.FormEvent<HTMLTextAreaElement>) {
     const { target } = e;
     let val = (target as HTMLInputElement).value;
-    if (!allowInputOverMax && !composingRef.current) {
-      val = limitUnicodeMaxLength(val, maxlength);
-      if (maxcharacter && maxcharacter >= 0) {
-        const stringInfo = getCharacterLength(val, maxcharacter);
-        val = typeof stringInfo === 'object' && stringInfo.characters;
+
+    if (composingRef.current) {
+      setComposingValue(val);
+    } else {
+      if (!allowInputOverMax) {
+        val = limitUnicodeMaxLength(val, maxlength);
+        if (maxcharacter && maxcharacter >= 0) {
+          const stringInfo = getCharacterLength(val, maxcharacter);
+          val = typeof stringInfo === 'object' && stringInfo.characters;
+        }
       }
+      setComposingValue(val);
+      setValue(val, { e });
     }
-    setValue(val, { e });
   }
 
   function handleCompositionStart() {
@@ -145,23 +152,17 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   );
 
   useIsomorphicLayoutEffect(() => {
-    adjustTextareaHeight();
-  }, []);
-
-  useIsomorphicLayoutEffect(() => {
-    // 当未设置 autosize 时，需要将 textarea 的 height 设置为 auto，以支持原生的 textarea rows 属性
     if (autosize === false) {
       setTextareaStyle(DEFAULT_TEXTAREA_STYLE);
+    } else {
+      adjustTextareaHeight();
     }
-  }, [autosize]);
-
-  useEffect(() => {
-    adjustTextareaHeight();
-  }, [adjustTextareaHeight, value]);
+  }, [value, autosize, adjustTextareaHeight]);
 
   useEffect(() => {
     handleAutoFocus();
-  }, [handleAutoFocus]);
+    adjustTextareaHeight();
+  }, [handleAutoFocus, adjustTextareaHeight]);
 
   useEffect(() => {
     if (allowInputOverMax) {
@@ -169,7 +170,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     }
   }, [allowInputOverMax, characterLength, currentLength, maxcharacter, maxlength]);
 
-  useImperativeHandle(ref as TextareaRefInterface, () => ({
+  useImperativeHandle(ref, () => ({
     currentElement: wrapperRef.current,
     textareaElement: textareaRef.current,
   }));
@@ -195,7 +196,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
         {...textareaProps}
         {...eventProps}
         rows={rows}
-        value={value}
+        value={composingRef.current ? composingValue : value}
         style={textareaStyle}
         className={textareaClassNames}
         readOnly={readonly}

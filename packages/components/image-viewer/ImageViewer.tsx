@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { isFunction } from 'lodash-es';
+import { isFunction, isNumber } from 'lodash-es';
 import { ImageModal } from './ImageViewerModal';
 import { imageViewerDefaultProps } from './defaultProps';
 import type { TdImageViewerProps } from './type';
@@ -13,6 +13,7 @@ import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { canUseDocument } from '../_util/dom';
 import useAttach from '../hooks/useAttach';
+import useIndex from './hooks/useIndex';
 
 export interface ImageViewerProps extends TdImageViewerProps, StyledProps {}
 
@@ -27,6 +28,7 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
 
   const [visibled, setVisibled] = useState(false);
   const list = useList(images);
+  const { index, setIndex } = useIndex(props, images);
   const imageScale = useImageScale(imageScaleD);
   const viewerScale = useViewerScale(viewerScaleD);
 
@@ -37,8 +39,11 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
     setTimeout(() => setVisibled(false), 196);
   };
 
-  const open = () => {
+  const open = (index?: number) => {
     if (!images) return;
+    if (isNumber(index)) {
+      setIndex(index);
+    }
     setVisible(true, null);
     setVisibled(true);
   };
@@ -71,8 +76,8 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
             viewerScale={viewerScale}
             zIndex={props.zIndex}
             defaultIndex={props.defaultIndex}
-            index={props.index}
-            onIndexChange={props.onIndexChange}
+            index={index}
+            onIndexChange={setIndex}
             onDownload={props.onDownload}
             draggable={props.draggable}
             closeOnOverlay={props.closeOnOverlay}

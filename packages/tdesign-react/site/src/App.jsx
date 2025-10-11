@@ -5,15 +5,16 @@ import Loading from '@tdesign/components/loading';
 import ConfigProvider from '@tdesign/components/config-provider';
 import zhConfig from '@tdesign/components/locale/zh_CN';
 import enConfig from '@tdesign/components/locale/en_US';
-import { getLang } from 'tdesign-site-components';
+import { getLang } from '@tdesign/site-components';
 
 import packageJson from '../../package.json';
 import * as siteConfig from '../site.config';
 import { getRoute, filterVersions } from './utils';
 
-const LazyDemo = lazy(() => import('./components/Demo'));
+import Demo from './components/Demo';
 
 const isDev = import.meta.env.DEV;
+const LazyDemo = isDev ? Demo : lazy(() => import('./components/Demo'));
 
 const { docs, enDocs } = JSON.parse(JSON.stringify(siteConfig.default).replace(/component:.+/g, ''));
 

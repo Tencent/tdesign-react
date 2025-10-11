@@ -12,6 +12,7 @@ const FormContext = React.createContext<{
   colon: TdFormProps['colon'];
   initialData: TdFormProps['initialData'];
   requiredMark: TdFormProps['requiredMark'];
+  requiredMarkPosition: TdFormProps['requiredMarkPosition'];
   scrollToFirstError: TdFormProps['scrollToFirstError'];
   showErrorMessage: TdFormProps['showErrorMessage'];
   resetType: TdFormProps['resetType'];
@@ -29,6 +30,7 @@ const FormContext = React.createContext<{
   colon: false,
   initialData: {},
   requiredMark: undefined,
+  requiredMarkPosition: undefined,
   scrollToFirstError: undefined,
   showErrorMessage: undefined,
   resetType: 'empty',
@@ -50,11 +52,13 @@ export const FormListContext = React.createContext<{
   rules: TdFormListProps['rules'];
   formListMapRef: React.RefObject<Map<any, React.RefObject<FormItemInstance>>>;
   initialData: TdFormListProps['initialData'];
+  form?: InternalFormInstance;
 }>({
   name: undefined,
   rules: undefined,
   formListMapRef: undefined,
   initialData: [],
+  form: undefined,
 });
 
 export const useFormListContext = () => React.useContext(FormListContext);

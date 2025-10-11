@@ -17,6 +17,9 @@
   <a href="https://www.npmjs.com/package/tdesign-react">
     <img src="https://img.shields.io/npm/dm/tdesign-react.svg?sanitize=true" alt="Downloads" />
   </a>
+  <a href="https://deepwiki.com/Tencent/tdesign-react">
+    <img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki">
+  </a>
 </p>
 
 English | [简体中文](./README-zh_CN.md)
@@ -87,15 +90,15 @@ Contributing is welcome. Read [guidelines for contributing](https://github.com/T
 
 ## Contributors
 
-<a href="https://github.com/tencent/tdesign-react/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=tencent/tdesign-react" />
-</a>
+<a href="https://openomy.app/github/tencent/tdesign-react" target="_blank" style="display: block; width: 100%;" align="center">
+  <img src="https://openomy.app/svg?repo=tencent/tdesign-react&chart=bubble&latestMonth=12" target="_blank" alt="Contribution Leaderboard" style="display: block; width: 100%;" />
+ </a>
 
 # Feedback
 
 Create your [Github issues](https://github.com/Tencent/tdesign-react/issues) or scan the QR code below to join our user groups
 
-<img src="https://raw.githubusercontent.com/Tencent/tdesign/main/packages/components/src/images/groups/react-group.png" width="200" />
+<img src="https://raw.githubusercontent.com/Tencent/tdesign/main/packages/site-components/src/images/groups/react-group.png" width="200" />
 
 # License
 

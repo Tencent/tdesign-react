@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback, MouseEvent, KeyboardEvent, useRef } from 'react';
+import React, { KeyboardEvent, MouseEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import classNames from 'classnames';
 import { isArray, isFunction } from 'lodash-es';
 import {
   ImageErrorIcon as TdImageErrorIcon,
@@ -6,27 +7,24 @@ import {
   MirrorIcon as TdMirrorIcon,
   RotationIcon as TdRotationIcon,
 } from 'tdesign-icons-react';
-import classNames from 'classnames';
 import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
-import useImagePreviewUrl from '../hooks/useImagePreviewUrl';
-import { TooltipLite } from '../tooltip';
+import type { TNode } from '../common';
 import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import useImagePreviewUrl from '../hooks/useImagePreviewUrl';
+import Image from '../image';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { TNode } from '../common';
-import { downloadFile } from './utils';
-import { ImageInfo, ImageScale, ImageViewerScale } from './type';
+import { TooltipLite } from '../tooltip';
+import type { ImageViewerProps } from './ImageViewer';
 import { ImageModalMini } from './ImageViewerMini';
+import useIconMap from './hooks/useIconMap';
+import useIndex from './hooks/useIndex';
 import useMirror from './hooks/useMirror';
 import usePosition from './hooks/usePosition';
-import useIndex from './hooks/useIndex';
 import useRotate from './hooks/useRotate';
 import useScale from './hooks/useScale';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import useIconMap from './hooks/useIconMap';
-import Image from '../image';
-
-import type { TdImageViewerProps } from './type';
-import { ImageViewerProps } from './ImageViewer';
+import type { ImageInfo, ImageScale, ImageViewerScale, TdImageViewerProps } from './type';
+import { downloadFile } from './utils';
 
 const ImageError = ({ errorText }: { errorText: string }) => {
   const { classPrefix } = useConfig();
@@ -34,7 +32,6 @@ const ImageError = ({ errorText }: { errorText: string }) => {
 
   return (
     <div className={`${classPrefix}-image-viewer__img-error`}>
-      {/* 脱离文档流 */}
       <div className={`${classPrefix}-image-viewer__img-error-content`}>
         <ImageErrorIcon size="4em" />
         <div className={`${classPrefix}-image-viewer__img-error-text`}>{errorText}</div>
@@ -67,20 +64,27 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
 }) => {
   const { classPrefix } = useConfig();
 
-  const [position, onMouseDown] = usePosition({ initPosition: [0, 0] });
+  const imgRef = useRef<HTMLImageElement>(null);
+  const svgRef = useRef<HTMLDivElement>(null);
+
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
-  const attachSvgElRef = useRef<HTMLDivElement>(null);
 
   const imgStyle = {
     transform: `rotateZ(${rotateZ}deg) scale(${scale})`,
     display: !preSrc || loaded ? 'block' : 'none',
   };
-  const preImgStyle = { transform: `rotateZ(${rotateZ}deg) scale(${scale})`, display: !loaded ? 'block' : 'none' };
-  const boxStyle = { transform: `translate(${position[0]}px, ${position[1]}px) scale(${mirror}, 1)` };
 
   const { previewUrl: preSrcImagePreviewUrl } = useImagePreviewUrl(preSrc);
   const { previewUrl: mainImagePreviewUrl } = useImagePreviewUrl(src);
+
+  const displayRef = useMemo(() => {
+    if (isSvg) return svgRef;
+    return imgRef;
+  }, [isSvg]);
+  const { position } = usePosition(displayRef);
+  const preImgStyle = { transform: `rotateZ(${rotateZ}deg) scale(${scale})`, display: !loaded ? 'block' : 'none' };
+  const boxStyle = { transform: `translate(${position[0]}px, ${position[1]}px) scale(${mirror}, 1)` };
 
   const createSvgShadow = async (url: string) => {
     const response = await fetch(url);
@@ -91,7 +95,7 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
 
     const svgText = await response.text();
 
-    const element = attachSvgElRef.current;
+    const element = svgRef.current;
     element.innerHTML = '';
     element.classList?.add(`${classPrefix}-image-viewer__modal-image-svg`);
     const shadowRoot = element.attachShadow({ mode: 'closed' });
@@ -142,13 +146,10 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
     <div className={`${classPrefix}-image-viewer__modal-pic`}>
       <div className={`${classPrefix}-image-viewer__modal-box`} style={boxStyle}>
         {error && <ImageError errorText={errorText} />}
+        {/* 预览图 */}
         {!error && !!preSrc && preSrcImagePreviewUrl && (
           <img
             className={`${classPrefix}-image-viewer__modal-image`}
-            onMouseDown={(event) => {
-              event.stopPropagation();
-              onMouseDown(event);
-            }}
             src={preSrcImagePreviewUrl}
             style={preImgStyle}
             referrerPolicy={imageReferrerpolicy}
@@ -156,13 +157,11 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
             draggable="false"
           />
         )}
+        {/* 普通主图 */}
         {!error && mainImagePreviewUrl && !isSvg && (
           <img
+            ref={imgRef}
             className={`${classPrefix}-image-viewer__modal-image`}
-            onMouseDown={(event) => {
-              event.stopPropagation();
-              onMouseDown(event);
-            }}
             src={mainImagePreviewUrl}
             style={imgStyle}
             onLoad={() => setLoaded(true)}
@@ -172,14 +171,11 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
             draggable="false"
           />
         )}
+        {/* SVG 主图 */}
         {!error && !!mainImagePreviewUrl && isSvg && (
           <div
-            ref={attachSvgElRef}
+            ref={svgRef}
             className={`${classPrefix}-image-viewer__modal-image`}
-            onMouseDown={(event) => {
-              event.stopPropagation();
-              onMouseDown(event);
-            }}
             style={imgStyle}
             data-alt="svg"
             draggable="false"
@@ -225,28 +221,30 @@ const ImageModalIcon = ({ onClick, className, disabled, isRange, name, label, si
 interface ImageViewerUtilsProps {
   scale: number;
   currentImage: ImageInfo;
-  onRotate: (ROTATE_COUNT: number) => void;
-  onZoom: () => void;
-  onZoomOut: () => void;
-  onMirror: () => void;
-  onReset: () => void;
   tipText: {
     mirror: string;
     rotate: string;
-    originsize: string;
+    originalSize: string;
   };
+  zIndex: number;
+  onMirror: () => void;
+  onRotate: (ROTATE_COUNT: number) => void;
+  onZoom: () => void;
+  onZoomOut: () => void;
+  onReset: () => void;
   onDownload?: TdImageViewerProps['onDownload'];
 }
 
 export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
-  onZoom,
   scale,
-  onZoomOut,
   currentImage,
-  onRotate,
-  onMirror,
-  onReset,
   tipText,
+  zIndex,
+  onMirror,
+  onRotate,
+  onZoom,
+  onZoomOut,
+  onReset,
   onDownload,
 }) => {
   const { classPrefix } = useConfig();
@@ -259,14 +257,24 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
   return (
     <div className={`${classPrefix}-image-viewer__utils`}>
       <div className={`${classPrefix}-image-viewer__utils-content`}>
-        <TooltipLite className={`${classPrefix}-image-viewer__utils--tip`} content={tipText.mirror} showShadow={false}>
-          <div className={`${classPrefix}-image-viewer__modal-icon`}>
-            <MirrorIcon size="medium" onClick={onMirror} />
+        <TooltipLite
+          className={`${classPrefix}-image-viewer__utils--tip`}
+          content={tipText.mirror}
+          showShadow={false}
+          zIndex={zIndex}
+        >
+          <div className={`${classPrefix}-image-viewer__modal-icon`} onClick={onMirror}>
+            <MirrorIcon size="medium" />
           </div>
         </TooltipLite>
-        <TooltipLite className={`${classPrefix}-image-viewer__utils--tip`} content={tipText.rotate} showShadow={false}>
-          <div className={`${classPrefix}-image-viewer__modal-icon`}>
-            <RotationIcon size="medium" onClick={() => onRotate(-ROTATE_COUNT)} />
+        <TooltipLite
+          className={`${classPrefix}-image-viewer__utils--tip`}
+          content={tipText.rotate}
+          showShadow={false}
+          zIndex={zIndex}
+        >
+          <div className={`${classPrefix}-image-viewer__modal-icon`} onClick={() => onRotate(-ROTATE_COUNT)}>
+            <RotationIcon size="medium" />
           </div>
         </TooltipLite>
         <ImageModalIcon size="medium" name="zoom-out" onClick={onZoomOut} />
@@ -278,17 +286,12 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
         <ImageModalIcon size="medium" name="zoom-in" onClick={onZoom} />
         <TooltipLite
           className={`${classPrefix}-image-viewer__utils--tip`}
-          content={tipText.originsize}
+          content={tipText.originalSize}
           showShadow={false}
+          zIndex={zIndex}
         >
-          <div className={`${classPrefix}-image-viewer__modal-icon`}>
-            <ImageIcon
-              size="medium"
-              name="image"
-              onClick={() => {
-                onReset();
-              }}
-            />
+          <div className={`${classPrefix}-image-viewer__modal-icon`} onClick={onReset}>
+            <ImageIcon size="medium" name="image" />
           </div>
         </TooltipLite>
         {currentImage.download && (
@@ -306,7 +309,6 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
           />
         )}
       </div>
-      {/* <IconFont size="3em" name="page-last" onClick={() => onRotate(ROTATE_COUNT)} /> */}
     </div>
   );
 };
@@ -386,8 +388,6 @@ export interface ImageModalProps {
   index: number;
   defaultIndex?: number;
   images: ImageInfo[];
-  onClose: (context: { trigger: 'close-btn' | 'overlay' | 'esc'; e: MouseEvent<HTMLElement> | KeyboardEvent }) => void;
-  onOpen: () => void;
   imageScale: ImageScale;
   viewerScale: ImageViewerScale;
   zIndex: number;
@@ -395,9 +395,11 @@ export interface ImageModalProps {
   draggable: boolean;
   closeBtn: boolean | TNode;
   closeOnEscKeydown?: boolean;
-  onDownload?: TdImageViewerProps['onDownload'];
-  onIndexChange?: (index: number, context: { trigger: 'prev' | 'next' }) => void;
   imageReferrerpolicy?: ImageViewerProps['imageReferrerpolicy'];
+  onClose: (context: { trigger: 'close-btn' | 'overlay' | 'esc'; e: MouseEvent<HTMLElement> | KeyboardEvent }) => void;
+  onOpen: () => void;
+  onDownload?: TdImageViewerProps['onDownload'];
+  onIndexChange?: (index: number, context: { trigger: 'prev' | 'next' | 'current' }) => void;
 }
 
 // 弹窗基础组件
@@ -405,6 +407,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   const {
     closeOnOverlay,
     showOverlay = true,
+    index,
     zIndex,
     images,
     isMini,
@@ -412,22 +415,21 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
     viewerScale,
     closeBtn,
     draggable,
-    onOpen,
-    onClose,
     visible,
     title,
     closeOnEscKeydown,
     imageReferrerpolicy,
+    onOpen,
+    onClose,
     onDownload,
-    ...resProps
+    onIndexChange,
   } = props;
   const { classPrefix } = useConfig();
   const [locale, t] = useLocaleReceiver('imageViewer');
 
-  if (resProps.index === undefined) delete resProps.index;
-  const { index, next, prev, setIndex } = useIndex(resProps, images);
+  const { next, prev } = useIndex(props, images);
   const { rotateZ, onResetRotate, onRotate } = useRotate();
-  const { scale, onZoom, onZoomOut, onResetScale } = useScale(imageScale);
+  const { scale, onZoom, onZoomOut, onResetScale } = useScale(imageScale, visible);
   const { mirror, onResetMirror, onMirror } = useMirror();
 
   const onReset = useCallback(() => {
@@ -435,25 +437,6 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
     onResetRotate();
     onResetMirror();
   }, [onResetMirror, onResetScale, onResetRotate]);
-
-  const onWheel = useCallback(
-    (e) => {
-      e.preventDefault();
-      e.deltaY < 0 ? onZoom() : onZoomOut();
-    },
-    [onZoom, onZoomOut],
-  );
-
-  useEffect(() => {
-    if (visible) {
-      document.addEventListener('wheel', onWheel, { passive: false });
-    } else {
-      document.removeEventListener('wheel', onWheel);
-    }
-    return () => {
-      document.removeEventListener('wheel', onWheel);
-    };
-  }, [visible, onWheel]);
 
   const onKeyDown = useCallback(
     (event) => {
@@ -489,7 +472,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   const tipText = {
     mirror: t(locale.mirrorTipText),
     rotate: t(locale.rotateTipText),
-    originsize: t(locale.originalSizeTipText),
+    originalSize: t(locale.originalSizeTipText),
   };
   const errorText = t(locale.errorText);
 
@@ -505,20 +488,20 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         rotateZ={rotateZ}
         zIndex={zIndex}
         currentImage={currentImage}
-        prev={prev}
-        next={next}
         mirror={mirror}
         scale={scale}
         title={title}
-        onMirror={onMirror}
-        onZoom={onZoom}
-        onClose={onClose}
-        onZoomOut={onZoomOut}
-        onReset={onReset}
-        onRotate={onRotate}
         errorText={errorText}
         tipText={tipText}
         imageReferrerpolicy={imageReferrerpolicy}
+        prev={prev}
+        next={next}
+        onMirror={onMirror}
+        onRotate={onRotate}
+        onZoom={onZoom}
+        onZoomOut={onZoomOut}
+        onReset={onReset}
+        onClose={onClose}
       />
     );
   }
@@ -554,7 +537,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
           <ImageViewerHeader
             images={images}
             currentIndex={index}
-            onImgClick={setIndex}
+            onImgClick={onIndexChange}
             imageReferrerpolicy={imageReferrerpolicy}
           />
           <div className={`${classPrefix}-image-viewer__modal-index`}>
@@ -578,15 +561,16 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         </>
       )}
       <ImageViewerUtils
+        scale={scale}
+        tipText={tipText}
+        currentImage={currentImage}
+        zIndex={zIndex + 1}
         onZoom={onZoom}
         onZoomOut={onZoomOut}
-        scale={scale}
-        currentImage={currentImage}
         onDownload={onDownload}
         onRotate={onRotate}
         onMirror={onMirror}
         onReset={onReset}
-        tipText={tipText}
       />
       {closeNode}
       <ImageModalItem

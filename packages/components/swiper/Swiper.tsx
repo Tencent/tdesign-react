@@ -208,7 +208,7 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
   }, [setTimer, clearTimer, stopOnHover, loop, currentIndex, endIndex]);
 
   // 鼠标移入移出事件
-  const onMouseEnter: React.MouseEventHandler<HTMLElement> = () => {
+  const onPointerEnter: React.PointerEventHandler<HTMLElement> = () => {
     isHovering.current = true;
     if (stopOnHover) {
       clearTimer();
@@ -217,7 +217,7 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
       setArrowShow(true);
     }
   };
-  const onMouseLeave: React.MouseEventHandler<HTMLElement> = () => {
+  const onPointerLeave: React.PointerEventHandler<HTMLElement> = () => {
     isHovering.current = false;
     if (!swiperTimer.current && autoplay) {
       setTimer();
@@ -354,8 +354,8 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
   return (
     <div
       className={classnames(`${classPrefix}-swiper`, className)}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      onPointerEnter={onPointerEnter}
+      onPointerLeave={onPointerLeave}
       ref={swiperWrap}
     >
       <div

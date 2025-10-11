@@ -1,3 +1,4 @@
+// TODO: move test into packages/tdesign-react
 const fs = require('fs');
 const path = require('path');
 const camelCase = require('camelcase');
@@ -28,17 +29,17 @@ fs.readFile(resolveCwd('test/coverage/index.html'), 'utf8', (err, html) => {
     }
 
     const resultCoverage = {};
-
-    componentCoverage.forEach((item, index) => {
+    componentCoverage.forEach((item) => {
       const dataVal = item[0].getAttribute('data-value');
-      if (dataVal.split('/').length === 2) {
+
+      if (dataVal.split('/').length === 4) {
         const name = dataVal;
         const statements = `${item[2].getAttribute('data-value')}%`;
         const branches = `${item[4].getAttribute('data-value')}%`;
         const functions = `${item[6].getAttribute('data-value')}%`;
         const lines = `${item[8].getAttribute('data-value')}%`;
 
-        const key = camelCase(name).split('/')[1];
+        const key = camelCase(name).split('/')[3];
 
         resultCoverage[key] = {
           statements,
@@ -50,7 +51,7 @@ fs.readFile(resolveCwd('test/coverage/index.html'), 'utf8', (err, html) => {
     });
 
     const finalRes = `module.exports = ${JSON.stringify(resultCoverage, null, 2)};\n`;
-    fs.writeFileSync(resolveCwd('site/test-coverage.js'), finalRes);
+    fs.writeFileSync(resolveCwd('packages/tdesign-react/site/test-coverage.js'), finalRes);
     console.log('successful re-generate coverage');
   }
 });

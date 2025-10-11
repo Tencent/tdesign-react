@@ -53,6 +53,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
     disabled,
     multiple,
     prefixIcon,
+    label,
     loading,
     size,
     max,
@@ -351,7 +352,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
         ))
       }
       collapsedItems={collapsedItems}
-      label={parseTNode(prefixIcon)}
+      label={parseTNode(label || prefixIcon)}
       valueDisplay={internalInputValueDisplay}
     />
   );

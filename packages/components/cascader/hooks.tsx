@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 
-import { isEqual, isFunction } from 'lodash-es';
+import { isArray, isEqual, isFunction } from 'lodash-es';
 
 import TreeStore from '@tdesign/common-js/tree-v1/tree-store';
 import type { TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
@@ -85,15 +85,18 @@ export const useCascaderContext = (props: TdCascaderProps) => {
 
   const { disabled, options = [], keys = {}, checkStrictly = false, lazy = true, load, valueMode = 'onlyLeaf' } = props;
 
-  const optionCurrent = useRef(options);
+  const optionCurrent = useRef([]);
 
   useEffect(() => {
     if (!isEqual(optionCurrent.current, options)) {
       optionCurrent.current = options;
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      handleTreeStore();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options]);
 
-  useEffect(() => {
+  const handleTreeStore = () => {
     if (!treeStore) {
       if (!options.length) return;
       const store = new TreeStore({
@@ -117,8 +120,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
       treeStoreExpendEffect(treeStore, scopeVal, []);
       treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, checkStrictly);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [optionCurrent.current]);
+  };
 
   useEffect(() => {
     if (!treeStore) return;
@@ -182,13 +184,38 @@ export const useCascaderContext = (props: TdCascaderProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputVal, scopeVal]);
 
-  const getCascaderItems = (arrValue: CascaderValue[]) => {
+  const getCascaderItems = (
+    arrValue: CascaderValue[],
+    valueType: TdCascaderProps['valueType'],
+    multiple: TdCascaderProps['multiple'],
+  ) => {
     const { treeStore } = cascaderContext;
     const optionsData: TreeOptionData[] = [];
-    arrValue.forEach((value) => {
-      const nodes = treeStore?.getNodes(value);
-      nodes && nodes[0] && optionsData.push(nodes[0].data);
-    });
+
+    if (!treeStore) return optionsData;
+
+    if (valueType === 'full') {
+      if (multiple) {
+        // 未来需支持全路径拼接搜索
+        arrValue.forEach((value) => {
+          if (isArray(value) && value.length) {
+            const nodeValue = value[value.length - 1];
+            const [node] = treeStore.getNodes(nodeValue) || [];
+            node?.data && optionsData.push(node.data);
+          }
+        });
+      } else if (isArray(arrValue) && arrValue.length) {
+        const nodeValue = arrValue[arrValue.length - 1];
+        const [node] = treeStore.getNodes(nodeValue) || [];
+        node?.data && optionsData.push(node.data);
+      }
+    } else if (valueType === 'single') {
+      arrValue.forEach((value) => {
+        const [node] = treeStore.getNodes(value) || [];
+        node?.data && optionsData.push(node.data);
+      });
+    }
+
     return optionsData;
   };
 

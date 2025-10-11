@@ -110,7 +110,7 @@ export default function useSorter(props: TdPrimaryTableProps) {
   }
 
   function getMultipleNextSort(col: PrimaryTableCol<TableRowData>, p: { descending: boolean }): Array<SortInfo> {
-    const sort = tSortInfo;
+    const sort = tSortInfo || [];
     if (!(sort instanceof Array)) return;
     const { colKey } = col;
     const result = [...sort];

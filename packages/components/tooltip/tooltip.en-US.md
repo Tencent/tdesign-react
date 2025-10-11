@@ -27,7 +27,7 @@ Currently, this can be solved by `Fragment` or other `HTML` elements
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-delay | Number | - | \- | N
+delay | Number / Array | - | delay to show or hide popover。Typescript：`number \| Array<number>` | N
 destroyOnClose | Boolean | true | \- | N
 duration | Number | - | \- | N
 placement | String | top | Typescript：`PopupPlacement`，[Popup API Documents](./popup?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tooltip/type.ts) | N

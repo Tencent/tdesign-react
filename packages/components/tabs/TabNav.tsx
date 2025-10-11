@@ -18,7 +18,6 @@ import parseTNode from '../_util/parseTNode';
 
 export interface TabNavProps extends TdTabsProps, DragSortInnerProps {
   itemList: TdTabPanelProps[];
-  tabClick: (s: TabValue) => void;
   activeValue: TabValue;
   size?: 'medium' | 'large';
   children?: React.ReactNode;
@@ -28,7 +27,6 @@ const TabNav: React.FC<TabNavProps> = (props) => {
   const {
     placement = 'top',
     itemList = [],
-    tabClick = noop,
     theme,
     addable,
     onAdd,
@@ -201,7 +199,6 @@ const TabNav: React.FC<TabNavProps> = (props) => {
   };
 
   const handleTabItemClick = (clickItem) => {
-    tabClick(clickItem.value);
     if (activeValue !== clickItem.value) {
       onChange(clickItem.value);
     }

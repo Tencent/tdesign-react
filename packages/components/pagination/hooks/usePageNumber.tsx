@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import classNames from 'classnames';
 import {
   EllipsisIcon as TdEllipsisIcon,
@@ -64,6 +64,15 @@ export default function usePageNumber(props) {
 
   const isFolded = pageCount > maxPageBtn; // 判断是否为需要折叠
 
+  const showPrevMore = (2 + pivot < current); // 显示左侧往前翻页的省略图标
+  const showNextMore = (pageCount - 1 - pivot > current); // 显示右侧往后翻页的省略图标
+
+  // 当省略图标消失时，需要还原hover标记
+  useEffect(() => {
+    if (!showPrevMore) toggleHoverPreMore(false);
+    if (!showNextMore) toggleHoverNextMore(false);
+  }, [showNextMore, showPrevMore]);
+
   const pageNumberControl = showPageNumber && (
     <ul className={`${name}__pager`}>
       {isFolded && isMidEllipsis && (
@@ -78,7 +87,7 @@ export default function usePageNumber(props) {
           >
             1
           </li>
-          {2 + pivot < current && (
+          {showPrevMore && (
             <li
               className={classNames(`${name}__number`, `${name}__number--more`, {
                 [`${classPrefix}-is-disabled`]: disabled,
@@ -106,7 +115,7 @@ export default function usePageNumber(props) {
       ))}
       {isFolded && isMidEllipsis && (
         <>
-          {pageCount - 1 - pivot > current && (
+          {showNextMore && (
             <li
               className={classNames(`${name}__number`, `${name}__number--more`, {
                 [`${classPrefix}-is-disabled`]: disabled,

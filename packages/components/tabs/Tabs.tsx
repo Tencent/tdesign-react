@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import { TabValue, TdTabsProps } from './type';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
@@ -9,6 +9,7 @@ import { StyledProps } from '../common';
 import { tabsDefaultProps } from './defaultProps';
 import useDragSorter from '../hooks/useDragSorter';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useControlled from '../hooks/useControlled';
 
 export interface TabsProps extends TdTabsProps, StyledProps {
   children?: React.ReactNode;
@@ -17,18 +18,9 @@ export interface TabsProps extends TdTabsProps, StyledProps {
 const Tabs = forwardRefWithStatics(
   (originalProps: TabsProps, ref: React.Ref<HTMLDivElement>) => {
     const props = useDefaultProps<TabsProps>(originalProps, tabsDefaultProps);
-    const {
-      defaultValue,
-      children,
-      list,
-      placement,
-      value: tabValue,
-      dragSort,
-      className,
-      style,
-      onRemove,
-      onChange,
-    } = props;
+    const { children, list, placement, dragSort, className, style, onRemove } = props;
+
+    const [value, onChange] = useControlled(props, 'value', props.onChange);
 
     // 样式工具引入
     const { tdTabsClassPrefix, tdTabsClassGenerator, tdClassGenerator } = useTabClass();
@@ -57,34 +49,11 @@ const Tabs = forwardRefWithStatics(
       return null;
     });
 
-    // 当未设置默认值时，默认选中第一个。
-    const [value, setValue] = React.useState<TabValue>(() =>
-      defaultValue === undefined && Array.isArray(itemList) && itemList.length !== 0 ? itemList[0].value : defaultValue,
-    );
-
-    useEffect(() => {
-      if (tabValue !== undefined) {
-        setValue(tabValue);
-      }
-    }, [tabValue]);
-
     const handleChange = React.useCallback(
       (v: TabValue) => {
-        if (tabValue === undefined) {
-          setValue(v);
-        }
         onChange?.(v);
       },
-      [tabValue, onChange],
-    );
-
-    const handleClickTab = React.useCallback(
-      (v: TabValue) => {
-        if (tabValue === undefined) {
-          setValue(v);
-        }
-      },
-      [tabValue],
+      [onChange],
     );
 
     const headerNode = React.useMemo<React.ReactNode>(
@@ -96,23 +65,11 @@ const Tabs = forwardRefWithStatics(
             activeValue={value}
             onRemove={onRemove}
             itemList={itemList}
-            tabClick={handleClickTab}
             onChange={handleChange}
           />
         </div>
       ),
-      [
-        props,
-        getDragProps,
-        value,
-        onRemove,
-        itemList,
-        handleClickTab,
-        handleChange,
-        placement,
-        tdTabsClassGenerator,
-        tdClassGenerator,
-      ],
+      [props, getDragProps, value, onRemove, itemList, handleChange, placement, tdTabsClassGenerator, tdClassGenerator],
     );
 
     return (
