@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Table, Checkbox, Space, Tag } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
@@ -45,106 +45,13 @@ export default function TableExample() {
   const [fixedLeftCol, setFixedLeftCol] = useState(false);
   const [fixedRightCol, setFixedRightCol] = useState(false);
   const [headerAffixedTop, setHeaderAffixedTop] = useState(false);
-  const [stickyMultiHeader, setStickyMultiHeader] = useState(true);
   const [sort, setSort] = useState<TableSort>({ sortBy: 'default', descending: false });
-  const tableContainerRef = useRef<HTMLDivElement>(null);
 
   const onSortChange: TableProps['onSortChange'] = (sortInfo, context) => {
     setSort(sortInfo);
     setData([...context.currentDataSource]);
     console.log(context);
   };
-
-  // 多级表头粘性定位逻辑
-  useEffect(() => {
-    if (!stickyMultiHeader || !tableContainerRef.current) return;
-
-    const tableContainer = tableContainerRef.current;
-    const tableContent = tableContainer.querySelector('.t-table__content') as HTMLElement;
-
-    if (!tableContent) return;
-
-    const handleScroll = () => {
-      const scrollLeft = tableContent.scrollLeft;
-      const thead = tableContainer.querySelector('.t-table__header--multiple') as HTMLElement;
-
-      if (!thead) return;
-
-      // 获取所有顶级表头单元格（有colspan的）
-      const topLevelHeaders = thead.querySelectorAll('tr:first-child th[colspan]') as NodeListOf<HTMLElement>;
-
-      let accumulatedWidth = 0;
-
-      topLevelHeaders.forEach((header) => {
-        const colKey = header.getAttribute('data-colkey');
-        if (!colKey) return;
-
-        const cellInner = header.querySelector('.t-table__th-cell-inner') as HTMLElement;
-        if (!cellInner) return;
-
-        // 获取表头相对于表格容器的位置
-        const headerLeft = header.offsetLeft;
-        const headerWidth = header.offsetWidth;
-        const headerRight = headerLeft + headerWidth;
-
-        // 判断是否需要粘性定位：表头的左边已经滚动出视野，但右边还在视野内
-        const shouldStick = scrollLeft > headerLeft && scrollLeft < headerRight;
-
-        if (shouldStick) {
-          // 计算粘性位置，确保不超出表头边界
-          const maxLeft = headerWidth - 120; // 预留最小显示宽度
-          const stickyLeft = Math.min(scrollLeft - headerLeft, maxLeft);
-
-          console.log('shouldStick', headerLeft, headerRight, scrollLeft, stickyLeft);
-          // 应用粘性样式
-          cellInner.style.position = 'relative';
-          cellInner.style.left = `${stickyLeft}px`;
-          cellInner.style.zIndex = '10';
-        } else {
-          // 移除粘性样式
-          cellInner.style.position = '';
-          cellInner.style.left = '';
-          cellInner.style.zIndex = '';
-        }
-      });
-    };
-
-    // 节流处理
-    let ticking = false;
-    const throttledScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          handleScroll();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    tableContent.addEventListener('scroll', throttledScroll);
-
-    // 初始化执行
-    handleScroll();
-
-    return () => {
-      tableContent.removeEventListener('scroll', throttledScroll);
-
-      // 清理样式
-      const thead = tableContainer.querySelector('.t-table__header--multiple') as HTMLElement;
-      if (thead) {
-        const cellInners = thead.querySelectorAll('.t-table__th-cell-inner') as NodeListOf<HTMLElement>;
-        cellInners.forEach((cellInner) => {
-          cellInner.style.position = '';
-          cellInner.style.left = '';
-          cellInner.style.zIndex = '';
-          cellInner.style.backgroundColor = '';
-          cellInner.style.boxShadow = '';
-          cellInner.style.borderRight = '';
-          cellInner.style.minWidth = '';
-        });
-      }
-    };
-  }, [stickyMultiHeader]);
 
   const columns: TableProps['columns'] = [
     {
@@ -279,44 +186,39 @@ export default function TableExample() {
     },
   ];
   return (
-    <div ref={tableContainerRef}>
-      <Space direction="vertical" size="large" style={{ width: '100%' }}>
-        {/* <!-- 按钮操作区域 --> */}
-        <Space>
-          <Checkbox checked={bordered} onChange={setBordered}>
-            显示表格边框
-          </Checkbox>
-          <Checkbox checked={fixedHeader} onChange={setFixedHeader}>
-            显示固定表头
-          </Checkbox>
-          <Checkbox checked={fixedLeftCol} onChange={setFixedLeftCol}>
-            固定左侧列
-          </Checkbox>
-          <Checkbox checked={fixedRightCol} onChange={setFixedRightCol}>
-            固定右侧列
-          </Checkbox>
-          <Checkbox checked={headerAffixedTop} onChange={setHeaderAffixedTop}>
-            表头吸顶
-          </Checkbox>
-          <Checkbox checked={stickyMultiHeader} onChange={setStickyMultiHeader}>
-            多级表头粘性定位
-          </Checkbox>
-        </Space>
-
-        <Table
-          data={data}
-          bordered={bordered}
-          columns={columns}
-          rowKey="index"
-          maxHeight={fixedHeader ? 380 : undefined}
-          headerAffixProps={{ offsetTop: 0 }}
-          headerAffixedTop={headerAffixedTop}
-          columnController={{ displayType: 'auto-width' }}
-          sort={sort}
-          onSortChange={onSortChange}
-          lazyLoad
-        />
+    <Space direction="vertical" size="large" style={{ width: '100%' }}>
+      {/* <!-- 按钮操作区域 --> */}
+      <Space>
+        <Checkbox checked={bordered} onChange={setBordered}>
+          显示表格边框
+        </Checkbox>
+        <Checkbox checked={fixedHeader} onChange={setFixedHeader}>
+          显示固定表头
+        </Checkbox>
+        <Checkbox checked={fixedLeftCol} onChange={setFixedLeftCol}>
+          固定左侧列
+        </Checkbox>
+        <Checkbox checked={fixedRightCol} onChange={setFixedRightCol}>
+          固定右侧列
+        </Checkbox>
+        <Checkbox checked={headerAffixedTop} onChange={setHeaderAffixedTop}>
+          表头吸顶
+        </Checkbox>
       </Space>
-    </div>
+
+      <Table
+        data={data}
+        bordered={bordered}
+        columns={columns}
+        rowKey="index"
+        maxHeight={fixedHeader ? 380 : undefined}
+        headerAffixProps={{ offsetTop: 0 }}
+        headerAffixedTop={headerAffixedTop}
+        columnController={{ displayType: 'auto-width' }}
+        sort={sort}
+        onSortChange={onSortChange}
+        lazyLoad
+      />
+    </Space>
   );
 }
