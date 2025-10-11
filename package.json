@@ -140,8 +140,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.31.2",
     "typescript": "5.6.2",
-    "vitest": "^2.1.1",
-    "jest-axe": "^10.0.0"
+    "vitest": "^2.1.1"
   },
   "dependencies": {
     "@babel/runtime": "~7.26.7",
