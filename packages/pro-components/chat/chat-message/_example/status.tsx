@@ -12,6 +12,16 @@ const messages: Record<string, AIMessage> = {
     id: '22222',
     role: 'assistant',
     status: 'error',
+    content: [
+      {
+        type: 'text',
+        data: '已经输出内容',
+      },
+      {
+        type: 'text',
+        data: '出错了',
+      },
+    ],
   },
 };
 
@@ -47,7 +57,12 @@ export default function ChatMessageExample() {
         status={messages.loading.status}
       ></ChatMessage>
       <Divider>出错状态下的消息</Divider>
-      <ChatMessage avatar="https://tdesign.gtimg.com/site/chat-avatar.png" message={messages.error}></ChatMessage>
+      <ChatMessage
+        avatar="https://tdesign.gtimg.com/site/chat-avatar.png"
+        role="assistant"
+        status="error"
+        content={messages.error.content}
+      ></ChatMessage>
     </Space>
   );
 }

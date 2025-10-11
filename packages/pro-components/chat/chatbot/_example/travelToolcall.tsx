@@ -80,7 +80,7 @@ export default function TravelPlannerChat() {
   // 创建聊天服务配置
   const createChatServiceConfig = () => ({
     // 对话服务地址 - 使用 POST 请求
-    endpoint: `http://localhost:3000/sse/agui`,
+    endpoint: `https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/agui`,
     protocol: 'agui' as const,
     stream: true,
     // 流式对话结束

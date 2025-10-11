@@ -21,7 +21,7 @@ const message = {
       id: '11111',
       role: 'assistant',
       status: 'pending',
-    }
+    },
   ],
 };
 
@@ -43,16 +43,18 @@ export default function Usage() {
           avatar="https://tdesign.gtimg.com/site/chat-avatar.png"
           datetime="今天16:38"
           name="TDesignAI"
-          message={message} {...changedProps} />
+          role="user"
+          {...message}
+          {...changedProps}
+        />
         <ChatMessage
           avatar="https://tdesign.gtimg.com/site/chat-avatar.png"
           datetime="今天16:38"
           name="TDesignAI"
-          message={{
-            id: '11111',
-            role: 'assistant',
-            status: 'pending',
-          }} {...changedProps} />
+          role="assistant"
+          status="pending"
+          {...changedProps}
+        />
       </div>,
     );
   }, [changedProps]);
