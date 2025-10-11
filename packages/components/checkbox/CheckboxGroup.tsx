@@ -1,16 +1,22 @@
 import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { isNumber } from 'lodash-es';
+import { CheckContext, type CheckContextValue, type CheckProps } from '../common/Check';
 import useConfig from '../hooks/useConfig';
-import { CheckContext, CheckContextValue, CheckProps } from '../common/Check';
-import { CheckboxGroupValue, CheckboxOption, CheckboxOptionObj, TdCheckboxGroupProps, TdCheckboxProps } from './type';
-import { StyledProps } from '../common';
 import useControlled from '../hooks/useControlled';
+import useDefaultProps from '../hooks/useDefaultProps';
 import Checkbox from './Checkbox';
 import { checkboxGroupDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
 
+import type { StyledProps } from '../common';
 import type { CheckboxProps } from './Checkbox';
+import type {
+  CheckboxGroupValue,
+  CheckboxOption,
+  CheckboxOptionObj,
+  TdCheckboxGroupProps,
+  TdCheckboxProps,
+} from './type';
 
 export interface CheckboxGroupProps<T extends CheckboxGroupValue = CheckboxGroupValue>
   extends TdCheckboxGroupProps<T>,
@@ -18,8 +24,7 @@ export interface CheckboxGroupProps<T extends CheckboxGroupValue = CheckboxGroup
   children?: React.ReactNode;
 }
 
-// 将 checkBox 的 value 转换为 string|number
-const getCheckboxValue = (v: CheckboxOption): string | number => {
+const getCheckboxValue = (v: CheckboxOption) => {
   switch (typeof v) {
     case 'number':
       return v as number;
@@ -67,6 +72,31 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
     optionsWithoutCheckAllValues.push(vs);
   });
 
+  const enabledOptionsValues = useMemo(() => {
+    const enabledValues = [];
+    optionsWithoutCheckAll.forEach((option) => {
+      const isOptionDisabled = typeof option === 'object' && option.disabled;
+      if (!isOptionDisabled && !disabled) {
+        const value = getCheckboxValue(option);
+        enabledValues.push(value);
+      }
+    });
+    return enabledValues;
+  }, [optionsWithoutCheckAll, disabled]);
+
+  // 获取被禁用的选项值
+  const disabledOptionsValues = useMemo(() => {
+    const disabledValues = [];
+    optionsWithoutCheckAll.forEach((option) => {
+      const isOptionDisabled = typeof option === 'object' && option.disabled;
+      if (isOptionDisabled || disabled) {
+        const value = getCheckboxValue(option);
+        disabledValues.push(value);
+      }
+    });
+    return disabledValues;
+  }, [optionsWithoutCheckAll, disabled]);
+
   const [internalValue, setInternalValue] = useControlled(props, 'value', onChange);
   const [localMax, setLocalMax] = useState(max);
 
@@ -78,16 +108,19 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
   }, [internalValue]);
   const checkedSet = useMemo(() => getCheckedSet(), [getCheckedSet]);
 
-  // 用于决定全选状态的属性
   const indeterminate = useMemo(() => {
-    const list = Array.from(checkedSet);
-    return list.length !== 0 && list.length !== optionsWithoutCheckAll.length;
-  }, [checkedSet, optionsWithoutCheckAll]);
+    const checkedEnabledValues = enabledOptionsValues.filter((value) => checkedSet.has(value));
+    const checkedDisabledValues = disabledOptionsValues.filter((value) => checkedSet.has(value));
+    // 存在被禁用且已选中的选项，直接显示半选状态
+    if (checkedDisabledValues.length > 0) return true;
+    // 否则检查未禁用的选项是否处于部分选中状态
+    return checkedEnabledValues.length !== 0 && checkedEnabledValues.length !== enabledOptionsValues.length;
+  }, [checkedSet, enabledOptionsValues, disabledOptionsValues]);
 
   const checkAllChecked = useMemo(() => {
-    const list = Array.from(checkedSet);
-    return list.length === optionsWithoutCheckAll.length;
-  }, [checkedSet, optionsWithoutCheckAll]);
+    const checkedEnabledValues = enabledOptionsValues.filter((value) => checkedSet.has(value));
+    return enabledOptionsValues.length > 0 && checkedEnabledValues.length === enabledOptionsValues.length;
+  }, [checkedSet, enabledOptionsValues]);
 
   useEffect(() => {
     if (!isNumber(max)) {
@@ -126,13 +159,20 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
           }
 
           const checkedSet = getCheckedSet();
-          // 全选时的逻辑处理
+
           if (checkProps.checkAll) {
+            // 保存被禁用选项的当前状态
+            const disabledCheckedValues = disabledOptionsValues.filter((value) => checkedSet.has(value));
+            // 计算当前启用选项的选中状态
+            const checkedEnabledValues = enabledOptionsValues.filter((value) => checkedSet.has(value));
+            const allEnabledChecked =
+              enabledOptionsValues.length > 0 && checkedEnabledValues.length === enabledOptionsValues.length;
+
             checkedSet.clear();
-            if (checked) {
-              optionsWithoutCheckAllValues.forEach((v) => {
-                checkedSet.add(v);
-              });
+            // 恢复被禁用选项的原有状态
+            disabledCheckedValues.forEach((v) => checkedSet.add(v));
+            if (!allEnabledChecked) {
+              enabledOptionsValues.forEach((v) => checkedSet.add(v));
             }
           } else if (checked) {
             if (checkedSet.size >= localMax && isNumber(max)) return;
