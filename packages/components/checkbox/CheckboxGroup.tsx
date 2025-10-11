@@ -53,6 +53,7 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
     children,
     max,
     options = [],
+    readonly,
   } = useDefaultProps<CheckboxGroupProps<T>>(props, checkboxGroupDefaultProps);
 
   // 去掉所有 checkAll 之后的 options
@@ -72,30 +73,21 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
     optionsWithoutCheckAllValues.push(vs);
   });
 
-  const enabledOptionsValues = useMemo(() => {
+  const { enabledValues, disabledValues } = useMemo(() => {
     const enabledValues = [];
+    const disabledValues = [];
     optionsWithoutCheckAll.forEach((option) => {
-      const isOptionDisabled = typeof option === 'object' && option.disabled;
-      if (!isOptionDisabled && !disabled) {
-        const value = getCheckboxValue(option);
+      const isOptionDisabled = typeof option === 'object' && (option.disabled || option.readonly);
+      const value = getCheckboxValue(option);
+
+      if (isOptionDisabled || disabled || readonly) {
+        disabledValues.push(value);
+      } else {
         enabledValues.push(value);
       }
     });
-    return enabledValues;
-  }, [optionsWithoutCheckAll, disabled]);
-
-  // 获取被禁用的选项值
-  const disabledOptionsValues = useMemo(() => {
-    const disabledValues = [];
-    optionsWithoutCheckAll.forEach((option) => {
-      const isOptionDisabled = typeof option === 'object' && option.disabled;
-      if (isOptionDisabled || disabled) {
-        const value = getCheckboxValue(option);
-        disabledValues.push(value);
-      }
-    });
-    return disabledValues;
-  }, [optionsWithoutCheckAll, disabled]);
+    return { enabledValues, disabledValues };
+  }, [optionsWithoutCheckAll, disabled, readonly]);
 
   const [internalValue, setInternalValue] = useControlled(props, 'value', onChange);
   const [localMax, setLocalMax] = useState(max);
@@ -109,18 +101,18 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
   const checkedSet = useMemo(() => getCheckedSet(), [getCheckedSet]);
 
   const indeterminate = useMemo(() => {
-    const checkedEnabledValues = enabledOptionsValues.filter((value) => checkedSet.has(value));
-    const checkedDisabledValues = disabledOptionsValues.filter((value) => checkedSet.has(value));
+    const checkableValues = enabledValues.filter((value) => checkedSet.has(value));
+    const checkedDisabledValues = disabledValues.filter((value) => checkedSet.has(value));
     // 存在被禁用且已选中的选项，直接显示半选状态
     if (checkedDisabledValues.length > 0) return true;
     // 否则检查未禁用的选项是否处于部分选中状态
-    return checkedEnabledValues.length !== 0 && checkedEnabledValues.length !== enabledOptionsValues.length;
-  }, [checkedSet, enabledOptionsValues, disabledOptionsValues]);
+    return checkableValues.length !== 0 && checkableValues.length !== enabledValues.length;
+  }, [checkedSet, enabledValues, disabledValues]);
 
   const checkAllChecked = useMemo(() => {
-    const checkedEnabledValues = enabledOptionsValues.filter((value) => checkedSet.has(value));
-    return enabledOptionsValues.length > 0 && checkedEnabledValues.length === enabledOptionsValues.length;
-  }, [checkedSet, enabledOptionsValues]);
+    const checkableValues = enabledValues.filter((value) => checkedSet.has(value));
+    return enabledValues.length > 0 && checkableValues.length === enabledValues.length;
+  }, [checkedSet, enabledValues]);
 
   useEffect(() => {
     if (!isNumber(max)) {
@@ -153,6 +145,7 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
         checked: checkProps.checkAll ? checkAllChecked : checkedSet.has(checkValue),
         indeterminate: checkProps.checkAll ? indeterminate : checkProps.indeterminate,
         disabled: checkProps.disabled || disabled || (checkedSet.size >= localMax && !checkedSet.has(checkValue)),
+        readonly: checkProps.readonly || readonly,
         onChange(checked, { e }) {
           if (typeof checkProps.onChange === 'function') {
             checkProps.onChange(checked, { e });
@@ -162,17 +155,17 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
 
           if (checkProps.checkAll) {
             // 保存被禁用选项的当前状态
-            const disabledCheckedValues = disabledOptionsValues.filter((value) => checkedSet.has(value));
+            const disabledCheckedValues = disabledValues.filter((value) => checkedSet.has(value));
             // 计算当前启用选项的选中状态
-            const checkedEnabledValues = enabledOptionsValues.filter((value) => checkedSet.has(value));
+            const checkedenabledOptionsValues = enabledValues.filter((value) => checkedSet.has(value));
             const allEnabledChecked =
-              enabledOptionsValues.length > 0 && checkedEnabledValues.length === enabledOptionsValues.length;
+              enabledValues.length > 0 && checkedenabledOptionsValues.length === enabledValues.length;
 
             checkedSet.clear();
             // 恢复被禁用选项的原有状态
             disabledCheckedValues.forEach((v) => checkedSet.add(v));
             if (!allEnabledChecked) {
-              enabledOptionsValues.forEach((v) => checkedSet.add(v));
+              enabledValues.forEach((v) => checkedSet.add(v));
             }
           } else if (checked) {
             if (checkedSet.size >= localMax && isNumber(max)) return;
@@ -223,7 +216,12 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
                   return vs.checkAll ? (
                     <Checkbox {...vs} key={`checkAll_${index}`} indeterminate={indeterminate} />
                   ) : (
-                    <Checkbox {...vs} key={index} disabled={vs.disabled || disabled} />
+                    <Checkbox
+                      {...vs}
+                      key={index}
+                      disabled={vs.disabled || disabled}
+                      readonly={vs.readonly || readonly}
+                    />
                   );
                 }
                 default:
