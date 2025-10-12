@@ -11,7 +11,7 @@ import { TagInputProps } from '../tag-input';
 import { TagProps } from '../tag';
 import { SelectInputValueChangeContext } from '../select-input';
 import { PopupVisibleChangeContext } from '../popup';
-import { PlainObject, TNode, TElement, SizeEnum, InfinityScroll } from '../common';
+import { PlainObject, TNode, TElement, SizeEnum, TScroll } from '../common';
 import { MouseEvent, KeyboardEvent, FocusEvent } from 'react';
 
 export interface TdSelectProps<T extends SelectOption = SelectOption> {
@@ -131,7 +131,7 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   placeholder?: string;
   /**
-   * 透传给 popup 组件的全部属性
+   * 透传 Popup 组件全部属性
    */
   popupProps?: PopupProps;
   /**
@@ -159,7 +159,7 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
   /**
    * 懒加载和虚拟滚动。为保证组件收益最大化，当数据量小于阈值 `scroll.threshold` 时，无论虚拟滚动的配置是否存在，组件内部都不会开启虚拟滚动，`scroll.threshold` 默认为 `100`
    */
-  scroll?: InfinityScroll;
+  scroll?: TScroll;
   /**
    * 透传 SelectInput 筛选器输入框组件的全部属性
    */
@@ -212,7 +212,7 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
    */
   valueDisplay?: string | TNode<{ value: SelectValue; onClose: (index: number) => void; displayValue?: SelectValue }>;
   /**
-   * 用于控制选中值的类型。假设数据选项为：`[{ label: '姓名', value: 'name' }]`，value 表示值仅返回数据选项中的 value， object 表示值返回全部数据。
+   * 用于控制选中值的类型。假设数据选项为：`[{ label: '姓名', value: 'name' }]`，value 表示值仅返回数据选项中的 value， object 表示值返回全部数据
    * @default value
    */
   valueType?: 'value' | 'object';
