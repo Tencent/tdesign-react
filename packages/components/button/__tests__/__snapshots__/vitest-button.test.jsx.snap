@@ -71,9 +71,9 @@ exports[`Button Component > props.content works fine 1`] = `
 exports[`Button Component > props.disabled works fine 1`] = `
 <div>
   <div
+    aria-disabled="true"
     class="t-button t-button--theme-primary t-button--variant-base t-is-disabled"
-    disabled=""
-    type="button"
+    role="button"
   >
     <span
       class="t-button__text"
@@ -134,7 +134,6 @@ exports[`Button Component > props.href works fine 1`] = `
   <a
     class="t-button t-button--theme-primary t-button--variant-base"
     href="https://tdesign.tencent.com/"
-    type="button"
   >
     <span
       class="t-button__text"
@@ -148,6 +147,7 @@ exports[`Button Component > props.href works fine 1`] = `
 exports[`Button Component > props.loading works fine 1`] = `
 <div>
   <button
+    aria-busy="true"
     class="t-button t-button--theme-primary t-button--variant-base t-is-loading"
     disabled=""
     type="button"
@@ -202,6 +202,7 @@ exports[`Button Component > props.loading works fine 2`] = `
 exports[`Button Component > props.loading: Button contains element \`.t-loading\` 1`] = `
 <div>
   <button
+    aria-busy="true"
     class="t-button t-button--theme-primary t-button--variant-base t-is-loading"
     disabled=""
     type="button"
@@ -347,7 +348,6 @@ exports[`Button Component > props.tag is equal to a 1`] = `
 <div>
   <a
     class="t-button t-button--theme-primary t-button--variant-base"
-    type="button"
   >
     <span
       class="t-button__text"
@@ -377,7 +377,8 @@ exports[`Button Component > props.tag is equal to div 1`] = `
 <div>
   <div
     class="t-button t-button--theme-primary t-button--variant-base"
-    type="button"
+    role="button"
+    tabindex="0"
   >
     <span
       class="t-button__text"
