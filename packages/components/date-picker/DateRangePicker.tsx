@@ -99,18 +99,18 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     props.popupProps?.onVisibleChange?.(false, {});
   };
 
-  // 自动确认逻辑 - 处理 needConfirm=false 的情况
+  // Auto-confirm logic - handle needConfirm=false case
   const onTriggerNeedConfirm = useLatest(() => {
     if (props.needConfirm || !enableTimePicker || popupVisible) return;
     
     const nextValue = [...inputValue];
     const notValidIndex = nextValue.findIndex((v) => !v || !isValidDate(v, format));
     
-    // 当两端都有有效值时更改 value
+    // Change value when both ends have valid values
     if (notValidIndex === -1 && nextValue.length === 2) {
       const currentValue = formatDate(value || [], { format });
       
-      // 只有值确实发生变化时才触发 onChange
+      // Only trigger onChange when value actually changes
       if (JSON.stringify(currentValue) !== JSON.stringify(nextValue)) {
         const formattedValue = formatDate(nextValue, { format, targetFormat: valueType, autoSwap: true });
         onChange(formattedValue, {
@@ -119,10 +119,10 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
         });
       }
     } else if (nextValue.length === 2 && nextValue.some(v => v && !isValidDate(v, format))) {
-      // 如果有输入但无效，恢复到原始值
+      // If there's input but invalid, restore to original value
       setInputValue(formatDate(value || [], { format }));
     }
-    // 如果只有部分值（用户还在选择中），不做任何操作
+    // If only partial values (user is still selecting), do nothing
   });
 
   useEffect(() => {
@@ -160,9 +160,9 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     // eslint-disable-next-line
   }, [popupVisible]);
 
-  // 监听 popupVisible 变化，处理 needConfirm=false 的自动确认
+  // Listen to popupVisible changes, handle auto-confirm for needConfirm=false
   useUpdateEffect(() => {
-    // 日期时间范围选择器不需要点击确认按钮完成的操作
+    // Date-time range picker doesn't need confirm button click to complete operation
     onTriggerNeedConfirm.current();
   }, [popupVisible]);
 
