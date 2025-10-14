@@ -30,4 +30,8 @@ export interface TdDividerProps {
    * @default horizontal
    */
   layout?: 'horizontal' | 'vertical';
+  /**
+   * 间距大小（仅对水平布局有效）
+   */
+  size?: number;
 }

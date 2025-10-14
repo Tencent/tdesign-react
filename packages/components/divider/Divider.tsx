@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import classNames from 'classnames';
+import { isFinite } from 'lodash-es';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdDividerProps } from './type';
@@ -20,7 +21,7 @@ export interface DividerProps extends TdDividerProps, StyledProps {
  * 分割线组件
  */
 const Divider: React.FC<DividerProps> = (props) => {
-  const { layout, dashed, align, className, style, children, content, ...otherDividerProps } = useDefaultProps(
+  const { layout, dashed, align, className, style, children, content, size, ...otherDividerProps } = useDefaultProps(
     props,
     dividerDefaultProps,
   );
@@ -37,8 +38,19 @@ const Divider: React.FC<DividerProps> = (props) => {
     [`${classPrefix}-divider--with-text-${align}`]: showText,
   });
 
+  const dividerWrapperStyle = useMemo<React.CSSProperties>(() => {
+    if (layout === 'horizontal' && isFinite(size)) {
+      return {
+        margin: `${size}px 0`,
+        ...style,
+      };
+    }
+
+    return style;
+  }, [layout, size, style]);
+
   return (
-    <div {...otherDividerProps} className={dividerClassNames} style={style}>
+    <div {...otherDividerProps} className={dividerClassNames} style={dividerWrapperStyle}>
       {showText ? <span className={`${classPrefix}-divider__inner-text`}>{childrenNode}</span> : null}
     </div>
   );
