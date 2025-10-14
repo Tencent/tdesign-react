@@ -52,8 +52,8 @@ describe('Divider 组件测试', () => {
       const text = '腾讯中content';
       const { container } = render(<Divider content={text} size={20} layout="vertical"></Divider>);
 
-      expect(container.querySelector('.t-divider')).not.toHaveStyle({
-        margin: '20px 0',
+      expect(container.querySelector('.t-divider')).toHaveStyle({
+        margin: '0 20px',
       });
     });
   });

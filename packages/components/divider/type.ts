@@ -31,7 +31,7 @@ export interface TdDividerProps {
    */
   layout?: 'horizontal' | 'vertical';
   /**
-   * 间距大小（仅对水平布局有效）
+   * 间距大小
    */
   size?: number;
 }

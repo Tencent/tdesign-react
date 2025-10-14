@@ -28,8 +28,9 @@ const Divider: React.FC<DividerProps> = (props) => {
 
   const { classPrefix } = useConfig();
   const childrenNode = content || children;
+  const isHorizontal = layout !== 'vertical';
 
-  const showText = layout !== 'vertical' && !!childrenNode;
+  const showText = isHorizontal && !!childrenNode;
 
   const dividerClassNames = classNames(`${classPrefix}-divider`, className, {
     [`${classPrefix}-divider--${layout}`]: layout,
@@ -39,15 +40,16 @@ const Divider: React.FC<DividerProps> = (props) => {
   });
 
   const dividerWrapperStyle = useMemo<React.CSSProperties>(() => {
-    if (layout === 'horizontal' && isFinite(size)) {
+    if (isFinite(size)) {
+      const margin = isHorizontal ? `${size}px 0` : `0 ${size}px`;
       return {
-        margin: `${size}px 0`,
+        margin,
         ...style,
       };
     }
 
     return style;
-  }, [layout, size, style]);
+  }, [isHorizontal, size, style]);
 
   return (
     <div {...otherDividerProps} className={dividerClassNames} style={dividerWrapperStyle}>
