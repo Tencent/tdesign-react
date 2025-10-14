@@ -16,7 +16,7 @@ import composeRefs from '../../_util/composeRefs';
 import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
 import { getOffsetTopToContainer } from '../../_util/helper';
 import noop from '../../_util/noop';
-import { parseContentTNode } from '../../_util/parseTNode';
+import { extractTextFromTNode, parseContentTNode } from '../../_util/parseTNode';
 import FakeArrow from '../../common/FakeArrow';
 import useConfig from '../../hooks/useConfig';
 import useControlled from '../../hooks/useControlled';
@@ -287,7 +287,8 @@ const Select = forwardRefWithStatics(
           return filter(value, option);
         }
         const upperValue = value.toUpperCase();
-        return (option?.label || '').toUpperCase().includes(upperValue);
+        const searchableText = extractTextFromTNode(option.label);
+        return searchableText.toUpperCase().includes(upperValue);
       };
 
       tmpPropOptions?.forEach((option) => {
@@ -397,10 +398,11 @@ const Select = forwardRefWithStatics(
     const renderValueDisplay = useMemo(() => {
       if (!valueDisplay) {
         if (!multiple) {
-          if (typeof selectedLabel !== 'string') {
-            return selectedLabel;
-          }
-          return '';
+          // if (typeof selectedLabel !== 'string') {
+          //   return selectedLabel;
+          // }
+          // return '';
+          return selectedLabel;
         }
         return ({ value: val }) =>
           val.slice(0, minCollapsedNum ? minCollapsedNum : val.length).map((v: string, key: number) => {

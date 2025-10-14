@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo } from 'react';
 import classNames from 'classnames';
 import { get, isNumber, isString } from 'lodash-es';
+import React, { useEffect, useMemo } from 'react';
 
 import useConfig from '../../hooks/useConfig';
 import useDomRefCallback from '../../hooks/useDomRefCallback';
@@ -63,6 +63,9 @@ const Option: React.FC<SelectOptionProps> = (props) => {
   const label = propLabel || value;
   const disabled = propDisabled || (multiple && Array.isArray(selectedValue) && max && selectedValue.length >= max);
 
+  const displayedContent = children || content || label;
+  const isCustomElement = React.isValidElement(displayedContent);
+
   const titleContent = useMemo(() => {
     // 外部设置 props，说明希望受控
     const controlledTitle = Reflect.has(props, 'title');
@@ -121,7 +124,6 @@ const Option: React.FC<SelectOptionProps> = (props) => {
   };
 
   const renderItem = () => {
-    const displayContent = children || content || label;
     if (multiple) {
       return (
         <label
@@ -143,11 +145,11 @@ const Option: React.FC<SelectOptionProps> = (props) => {
             }}
           />
           <span className={classNames(`${classPrefix}-checkbox__input`)}></span>
-          <span className={classNames(`${classPrefix}-checkbox__label`)}>{displayContent}</span>
+          <span className={classNames(`${classPrefix}-checkbox__label`)}>{displayedContent}</span>
         </label>
       );
     }
-    return <span title={titleContent}>{displayContent}</span>;
+    return <span title={titleContent}>{displayedContent}</span>;
   };
 
   return (
@@ -161,7 +163,10 @@ const Option: React.FC<SelectOptionProps> = (props) => {
       key={value}
       onClick={handleSelect}
       ref={setRefCurrent}
-      style={style}
+      style={{
+        ...(isCustomElement ? { height: 'auto' } : {}),
+        ...style,
+      }}
     >
       {renderItem()}
     </li>

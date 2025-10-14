@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import classNames from 'classnames';
-import { isObject, pick } from 'lodash-es';
+import { pick } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
@@ -33,24 +33,16 @@ const COMMON_PROPERTIES = [
   'prefixIcon',
 ];
 
-const DEFAULT_KEYS: TdSelectInputProps['keys'] = {
-  label: 'label',
-  value: 'value',
-};
-
-function getInputValue(value: TdSelectInputProps['value'], keys: TdSelectInputProps['keys']) {
-  const iKeys = keys || DEFAULT_KEYS;
-  return isObject(value) ? value[iKeys.label] : value;
-}
-
 export default function useSingle(props: TdSelectInputProps) {
-  const { value, keys, loading } = props;
+  const { value, loading } = props;
   const { classPrefix } = useConfig();
+
+  const [inputValue, setInputValue] = useControlled(props, 'inputValue', props.onInputChange);
 
   const inputRef = useRef<InputRef>(null);
   const blurTimeoutRef = useRef(null);
 
-  const [inputValue, setInputValue] = useControlled(props, 'inputValue', props.onInputChange);
+  const [labelWidth, setLabelWidth] = useState(0);
 
   const commonInputProps: SelectInputCommonProperties = {
     ...pick(props, COMMON_PROPERTIES),
@@ -69,13 +61,21 @@ export default function useSingle(props: TdSelectInputProps) {
     }
   };
 
+  useEffect(() => {
+    const labelEl = inputRef.current?.currentElement.querySelector(`.${classPrefix}-input__prefix`);
+    if (labelEl) {
+      const prefixWidth = labelEl.getBoundingClientRect().width;
+      setLabelWidth(prefixWidth);
+    }
+  }, [props.label, classPrefix]);
+
   const renderSelectSingle = (
     popupVisible: boolean,
     onInnerBlur?: (context: { e: React.FocusEvent<HTMLInputElement> }) => void,
   ) => {
-    // 单选，值的呈现方式
-    const singleValueDisplay: any = !props.multiple ? props.valueDisplay : null;
-    const displayedValue = popupVisible && props.allowInput ? inputValue : getInputValue(value, keys);
+    const singleValueDisplay = !props.multiple ? props.valueDisplay : null;
+
+    const showPseudoPlaceholder = inputValue?.length < 1 && React.isValidElement(singleValueDisplay);
 
     const handleBlur = (value, ctx) => {
       if (blurTimeoutRef.current) {
@@ -104,22 +104,62 @@ export default function useSingle(props: TdSelectInputProps) {
       // !popupVisible && setInputValue(getInputValue(value, keys), { ...context, trigger: 'input' });
     };
 
+    const displayedValue = () => {
+      if (popupVisible && inputValue) {
+        return inputValue;
+      }
+      if (popupVisible && singleValueDisplay && !React.isValidElement(singleValueDisplay)) {
+        return '';
+      }
+      if (!popupVisible && singleValueDisplay && !React.isValidElement(singleValueDisplay)) {
+        return String(singleValueDisplay);
+      }
+      return inputValue;
+    };
+
+    const displayedPlaceholder = () => {
+      if (popupVisible && singleValueDisplay && !React.isValidElement(singleValueDisplay)) {
+        return String(singleValueDisplay);
+      }
+      if (showPseudoPlaceholder) return '';
+      return props.placeholder;
+    };
+
+    const pseudoPlaceholder = showPseudoPlaceholder ? (
+      <div
+        style={{
+          position: 'absolute',
+          left: `${labelWidth + 16}px`,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          pointerEvents: 'none',
+          textAlign: 'inherit',
+          zIndex: 3,
+          // 输入状态，降低透明度，仿造 placeholder 效果
+          opacity: popupVisible && props.allowInput ? 0.5 : undefined,
+        }}
+      >
+        {singleValueDisplay}
+      </div>
+    ) : null;
+
     return (
       <Input
         ref={inputRef}
+        // 当 label 为 自定义节点时，input 为空，确保此时 clear icon 可见
+        showClearIconOnEmpty={props.clearable && !!singleValueDisplay}
         {...commonInputProps}
+        suffix={
+          <>
+            {pseudoPlaceholder}
+            {commonInputProps.suffix}
+          </>
+        }
         autoWidth={props.autoWidth}
         allowInput={props.allowInput}
-        placeholder={singleValueDisplay ? '' : props.placeholder}
-        value={singleValueDisplay ? ' ' : displayedValue}
-        label={
-          (props.label || singleValueDisplay) && (
-            <>
-              {props.label}
-              {singleValueDisplay as React.ReactNode}
-            </>
-          )
-        }
+        label={props.label}
+        value={displayedValue()}
+        placeholder={displayedPlaceholder()}
         onChange={onInnerInputChange}
         onClear={onInnerClear}
         // [Important Info]: SelectInput.blur is not equal to Input, example: click popup panel
@@ -130,7 +170,7 @@ export default function useSingle(props: TdSelectInputProps) {
         // onBlur need to triggered by input when popup panel is null or when popupVisible is forced to false
         onBlur={handleBlur}
         {...props.inputProps}
-        inputClass={classNames(props.inputProps?.className, {
+        inputClass={classNames(props.inputProps?.inputClass, {
           [`${classPrefix}-input--focused`]: popupVisible,
           [`${classPrefix}-is-focused`]: popupVisible,
         })}
