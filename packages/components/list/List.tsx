@@ -1,19 +1,20 @@
-import React, { MouseEvent, useImperativeHandle, useMemo, useRef, WheelEvent } from 'react';
+import React, { useImperativeHandle, useMemo, useRef, WheelEvent } from 'react';
 import classNames from 'classnames';
 import { compact, isString } from 'lodash-es';
-import useConfig from '../hooks/useConfig';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import noop from '../_util/noop';
-import { TdListProps } from './type';
-import { ComponentScrollToElementParams, StyledProps } from '../common';
+import parseTNode from '../_util/parseTNode';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
 import Loading from '../loading';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import ListItem from './ListItem';
 import ListItemMeta from './ListItemMeta';
 import { listDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
 import { useListVirtualScroll } from './hooks/useListVirtualScroll';
-import parseTNode from '../_util/parseTNode';
+
+import type { StyledProps } from '../common';
+import type { ListInstanceFunctions, TdListProps } from './type';
 
 export interface ListProps extends TdListProps, StyledProps {
   /**
@@ -22,15 +23,11 @@ export interface ListProps extends TdListProps, StyledProps {
   children?: React.ReactNode;
 }
 
-export type ListRef = {
-  scrollTo: (params: ComponentScrollToElementParams) => void;
-};
-
 /**
  * 列表组件
  */
 const List = forwardRefWithStatics(
-  (props: ListProps, ref: React.Ref<ListRef>) => {
+  (props: ListProps, ref: React.Ref<ListInstanceFunctions>) => {
     const {
       header,
       footer,
@@ -61,7 +58,7 @@ const List = forwardRefWithStatics(
 
     const COMPONENT_NAME = `${classPrefix}-list`;
 
-    const handleClickLoad = (e: MouseEvent<HTMLDivElement>) => {
+    const handleClickLoad = (e: React.MouseEvent<HTMLDivElement>) => {
       if (asyncLoading === 'load-more') {
         onLoadMore({ e });
       }
