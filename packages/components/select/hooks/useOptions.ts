@@ -1,9 +1,10 @@
-import React, { useState, useEffect, ReactNode, ReactElement } from 'react';
 import { get } from 'lodash-es';
-import type { SelectKeysType, SelectOption, SelectOptionGroup, SelectValue, TdOptionProps } from '../type';
-import { getValueToOption, type ValueToOption } from '../util/helper';
+import React, { ReactElement, ReactNode, useEffect, useState } from 'react';
 import Option from '../base/Option';
 import OptionGroup from '../base/OptionGroup';
+import { getKeyMapping, getValueToOption, type ValueToOption } from '../util/helper';
+
+import type { SelectKeysType, SelectOption, SelectOptionGroup, SelectValue, TdOptionProps } from '../type';
 
 export function isSelectOptionGroup(option: SelectOption): option is SelectOptionGroup {
   return !!option && 'group' in option && 'children' in option;
@@ -54,11 +55,12 @@ function useOptions(
       transformedOptions = arrayChildren?.map<SelectOption>((v) => handlerOptionElement(v));
     }
     if (keys) {
+      const { valueKey, labelKey } = getKeyMapping(keys);
       // 如果有定制 keys 先做转换
       transformedOptions = transformedOptions?.map<SelectOption>((option) => ({
         ...option,
-        value: get(option, keys?.value || 'value'),
-        label: get(option, keys?.label || 'label'),
+        value: get(option, valueKey),
+        label: get(option, labelKey),
       }));
     }
     setCurrentOptions(transformedOptions);
@@ -70,8 +72,7 @@ function useOptions(
 
   // 同步 value 对应的 options
   useEffect(() => {
-    const valueKey = keys?.value || 'value';
-    const labelKey = keys?.label || 'label';
+    const { valueKey, labelKey } = getKeyMapping(keys);
 
     setSelectedOptions((oldSelectedOptions: SelectOption[]) => {
       const createOptionFromValue = (item: OptionValueType) => {

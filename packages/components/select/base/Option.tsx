@@ -5,6 +5,7 @@ import { get, isNumber, isString } from 'lodash-es';
 import useConfig from '../../hooks/useConfig';
 import useDomRefCallback from '../../hooks/useDomRefCallback';
 import useRipple from '../../hooks/useRipple';
+import { getKeyMapping } from '../util/helper';
 
 import type { StyledProps } from '../../common';
 import type { SelectKeysType, SelectOption, SelectValue, TdOptionProps, TdSelectProps } from '../type';
@@ -91,12 +92,13 @@ const Option: React.FC<SelectOptionProps> = (props) => {
     // eslint-disable-next-line
   }, [isVirtual, optionRef]);
 
+  const { valueKey } = getKeyMapping(keys);
   // 处理单选场景
   if (!multiple) {
     selected =
       isNumber(selectedValue) || isString(selectedValue)
         ? value === selectedValue
-        : value === get(selectedValue, keys?.value || 'value');
+        : value === get(selectedValue, valueKey);
   }
 
   // 处理多选场景
@@ -106,7 +108,7 @@ const Option: React.FC<SelectOptionProps> = (props) => {
         // 如果非 object 类型
         return item === value;
       }
-      return get(item, keys?.value || 'value') === value;
+      return get(item, valueKey) === value;
     });
     if (props.checkAll) {
       selected = selectedValue.length === props.optionLength;

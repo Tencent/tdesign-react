@@ -25,7 +25,7 @@ import SelectInput, { type SelectInputValue, type SelectInputValueChangeContext 
 import Tag from '../../tag';
 import { selectDefaultProps } from '../defaultProps';
 import useOptions, { isSelectOptionGroup } from '../hooks/useOptions';
-import { getSelectValueArr, getSelectedOptions } from '../util/helper';
+import { getKeyMapping, getSelectValueArr, getSelectedOptions } from '../util/helper';
 import Option from './Option';
 import OptionGroup from './OptionGroup';
 import PopupContent from './PopupContent';
@@ -119,10 +119,11 @@ const Select = forwardRefWithStatics(
     );
 
     const selectedLabel = useMemo(() => {
+      const { labelKey } = getKeyMapping(keys);
       if (multiple) {
-        return selectedOptions.map((selectedOption) => get(selectedOption || {}, keys?.label || 'label') || '');
+        return selectedOptions.map((selectedOption) => get(selectedOption || {}, labelKey) || '');
       }
-      return get(selectedOptions[0] || {}, keys?.label || 'label') || undefined;
+      return get(selectedOptions[0] || {}, labelKey) || undefined;
     }, [selectedOptions, keys, multiple]);
 
     const handleShowPopup = (visible: boolean, ctx: PopupVisibleChangeContext) => {
@@ -405,13 +406,10 @@ const Select = forwardRefWithStatics(
         }
         return ({ value: val }) =>
           val.slice(0, minCollapsedNum ? minCollapsedNum : val.length).map((_, index: number) => {
-            const valueKey = keys?.value || 'value';
-            const labelKey = keys?.label || 'label';
-            const disabledKey = keys?.disabled || 'disabled';
+            const { valueKey, labelKey, disabledKey } = getKeyMapping(keys);
             const targetVal = selectedOptions[index]?.[valueKey];
             const targetOption = valueToOption[targetVal];
             if (!targetOption) return null;
-
             return (
               <Tag
                 key={index}
