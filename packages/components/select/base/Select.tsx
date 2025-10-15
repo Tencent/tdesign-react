@@ -397,21 +397,30 @@ const Select = forwardRefWithStatics(
           return '';
         }
         return ({ value: val }) =>
-          val.slice(0, minCollapsedNum ? minCollapsedNum : val.length).map((v: string, key: number) => {
+          val.slice(0, minCollapsedNum ? minCollapsedNum : val.length).map((_, index: number) => {
+            const valueKey = keys?.value || 'value';
             const labelKey = keys?.label || 'label';
-            const filterOption: SelectOption & { disabled?: boolean } = selectedOptions?.find(
-              (option) => option[labelKey] === v,
-            );
+            const disabledKey = keys?.disabled || 'disabled';
+
+            const targetVal = selectedOptions[index]?.[valueKey];
+            const targetOption = currentOptions.find((option) => {
+              if (isSelectOptionGroup(option)) {
+                return option.children?.some((child) => child[valueKey] === targetVal);
+              }
+              return option[valueKey] === targetVal;
+            });
+            if (!targetOption) return null;
+
             return (
               <Tag
-                key={key}
-                closable={!filterOption?.disabled && !disabled && !readonly}
+                key={index}
+                closable={!targetOption[disabledKey] && !disabled && !readonly}
                 size={size}
                 {...tagProps}
                 onClose={({ e }) => {
                   e.stopPropagation();
                   e?.nativeEvent?.stopImmediatePropagation?.();
-                  const values = getSelectValueArr(value, value[key], true, valueType, keys);
+                  const values = getSelectValueArr(value, value[index], true, valueType, keys);
 
                   const { currentSelectedOptions } = getSelectedOptions(
                     values,
@@ -429,13 +438,13 @@ const Select = forwardRefWithStatics(
                   tagProps?.onClose?.({ e });
 
                   onRemove?.({
-                    value: value[key],
-                    data: { label: v, value: value[key] },
+                    value: targetVal,
+                    data: { label: targetOption[labelKey], value: targetVal },
                     e: e as unknown as React.MouseEvent<HTMLDivElement, MouseEvent>,
                   });
                 }}
               >
-                {v}
+                {targetOption[labelKey]}
               </Tag>
             );
           });
