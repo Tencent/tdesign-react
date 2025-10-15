@@ -210,7 +210,11 @@ export const getSelectValueArr = (
   }
 };
 
-// 计算onChange事件回调的selectedOptions参数
+/**
+ * 计算 `onChange` 事件回调的 `selectedOptions` 参数
+ * @param value 所有已选中的值
+ * @param selectedValue 当前选择/取消选择的特定选项
+ */
 export const getSelectedOptions = (
   value: SelectValue,
   multiple: TdSelectProps['multiple'],

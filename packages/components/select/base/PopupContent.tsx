@@ -96,17 +96,17 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     size,
   });
 
-  // 全部可选选项
+  // 除了 checkAll 的全部选项
   const selectableOptions = useMemo(() => {
     const uniqueOptions = {};
     propsOptions?.forEach((option: SelectOption) => {
       if ((option as SelectOptionGroup).group) {
         (option as SelectOptionGroup).children.forEach((item) => {
-          if (!item.disabled && !item.checkAll) {
+          if (!item.checkAll) {
             uniqueOptions[item.value] = item;
           }
         });
-      } else if (!(option as TdOptionProps).disabled && !(option as TdOptionProps).checkAll) {
+      } else if (!(option as TdOptionProps).checkAll) {
         uniqueOptions[(option as TdOptionProps).value] = option;
       }
     });
@@ -174,22 +174,10 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
               );
             }
 
-            const { value: optionValue, label, disabled, children, checkAll, ...restData } = item as TdOptionProps;
+            const { value: optionValue, label, disabled, children, ...restData } = item as TdOptionProps;
             // 当 keys 属性配置 content 作为 value 或 label 时，确保 restData 中也包含它, 不参与渲染计算
             const { content } = item as TdOptionProps;
             const shouldOmitContent = Object.values(keys || {}).includes('content');
-
-            const enableCheckAll = checkAll && multiple && Array.isArray(value);
-            let selectedValue = value;
-            if (enableCheckAll) {
-              const valueKeys = keys?.value || 'value';
-              selectedValue = value.filter((val) =>
-                selectableOptions.some((opt) =>
-                  valueType === 'object' ? val[valueKeys] === opt[valueKeys] : val === opt[valueKeys],
-                ),
-              );
-            }
-
             return (
               <Option
                 key={index}
@@ -197,13 +185,11 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
                 label={label}
                 value={optionValue}
                 onSelect={onSelect}
-                selectedValue={selectedValue}
-                selectableLength={selectableOptions.length}
-                selectedLength={enableCheckAll ? value.length : 0}
+                selectedValue={value}
+                optionLength={selectableOptions.length}
                 multiple={multiple}
                 size={size}
                 disabled={disabled}
-                checkAll={checkAll}
                 restData={restData}
                 keys={keys}
                 onCheckAllChange={onCheckAllChange}

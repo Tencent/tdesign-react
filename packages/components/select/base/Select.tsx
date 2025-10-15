@@ -188,31 +188,40 @@ const Select = forwardRefWithStatics(
         return;
       }
 
-      const getOptionValue = (option: SelectOption) =>
-        valueType === 'object' ? option : option[keys?.value || 'value'];
+      const valueKey = keys?.value || 'value';
+      const isObjectType = valueType === 'object';
 
-      const getFilteredValues = (predicate: (opt: TdOptionProps) => boolean) =>
-        currentOptions.flatMap((option) => {
-          const optionsToProcess = isSelectOptionGroup(option) ? option.children : [option];
-          return optionsToProcess.filter((opt) => !opt.checkAll && predicate(opt)).map(getOptionValue);
-        });
-
-      const values = getFilteredValues((opt) => !opt.disabled);
-      const disabledValues = getFilteredValues((opt) => opt.disabled);
-
-      const { currentSelectedOptions, allSelectedValue } = getSelectedOptions(
-        values,
-        multiple,
-        valueType,
-        keys,
-        valueToOption,
+      const enabledOptions = currentOptions.filter(
+        (opt) => !isSelectOptionGroup(opt) && !opt.checkAll && !opt.disabled,
       );
 
-      const checkAllValue = checkAll ? disabledValues : [...allSelectedValue, ...disabledValues];
+      const currentValueArray = Array.isArray(value) ? value : [];
+      const disabledSelectedOptions = currentOptions.filter((opt) => {
+        if (isSelectOptionGroup(opt) || opt.checkAll) return false;
+        if (!opt.disabled) return false;
+        if (isObjectType) {
+          return currentValueArray.some((v) => get(v, valueKey) === opt[valueKey]);
+        }
+        return currentValueArray.includes(opt[valueKey]);
+      });
+
+      let checkAllValue: SelectValue[];
+
+      if (checkAll) {
+        // 全选：选中所有未禁用的选项 + 保留已选中的禁用选项
+        const enabledValues = enabledOptions.map((opt) => (isObjectType ? opt : opt[valueKey]));
+        const disabledValues = disabledSelectedOptions.map((opt) => (isObjectType ? opt : opt[valueKey]));
+        checkAllValue = [...disabledValues, ...enabledValues];
+      } else {
+        // 取消全选：只保留已选中的禁用选项
+        checkAllValue = disabledSelectedOptions.map((opt) => (isObjectType ? opt : opt[valueKey]));
+      }
+
+      const { currentSelectedOptions } = getSelectedOptions(checkAllValue, multiple, valueType, keys, valueToOption);
 
       onChange?.(checkAllValue, {
         e,
-        trigger: checkAll ? 'uncheck' : 'check',
+        trigger: checkAll ? 'check' : 'uncheck',
         selectedOptions: currentSelectedOptions,
       });
     };

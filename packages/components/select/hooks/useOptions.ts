@@ -12,7 +12,7 @@ export function isSelectOptionGroup(option: SelectOption): option is SelectOptio
 type OptionValueType = SelectValue<SelectOption>;
 
 // 处理 options 的逻辑
-function UseOptions(
+function useOptions(
   keys: SelectKeysType,
   options: SelectOption[],
   children: ReactNode,
@@ -117,4 +117,4 @@ function UseOptions(
   };
 }
 
-export default UseOptions;
+export default useOptions;
