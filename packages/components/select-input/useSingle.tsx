@@ -128,7 +128,7 @@ export default function useSingle(props: TdSelectInputProps) {
     };
 
     const displayedPlaceholder = () => {
-      if (popupVisible && !showLabelNode) {
+      if (popupVisible && singleValueDisplay && !showLabelNode) {
         return singleValueDisplay;
       }
       if (showLabelNode) return '';
