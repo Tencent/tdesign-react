@@ -96,8 +96,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     size,
   });
 
-  // 除了 checkAll 的全部选项
-  const selectableOptions = useMemo(() => {
+  const optionsExcludedCheckAll = useMemo(() => {
     const uniqueOptions = {};
     propsOptions?.forEach((option: SelectOption) => {
       if ((option as SelectOptionGroup).group) {
@@ -186,7 +185,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
                 value={optionValue}
                 onSelect={onSelect}
                 selectedValue={value}
-                optionLength={selectableOptions.length}
+                optionLength={optionsExcludedCheckAll.length}
                 multiple={multiple}
                 size={size}
                 disabled={disabled}
