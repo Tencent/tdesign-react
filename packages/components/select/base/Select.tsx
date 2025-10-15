@@ -187,7 +187,7 @@ const Select = forwardRefWithStatics(
         return;
       }
 
-      const valueKey = keys?.value || 'value';
+      const { valueKey } = getKeyMapping(keys);
       const isObjectType = valueType === 'object';
 
       const enabledOptions = currentOptions.filter(
@@ -407,13 +407,14 @@ const Select = forwardRefWithStatics(
         return ({ value: val }) =>
           val.slice(0, minCollapsedNum ? minCollapsedNum : val.length).map((_, index: number) => {
             const { valueKey, labelKey, disabledKey } = getKeyMapping(keys);
-            const targetVal = selectedOptions[index]?.[valueKey];
+            const targetVal = get(selectedOptions[index], valueKey);
+            const targetLabel = get(selectedOptions[index], labelKey);
             const targetOption = valueToOption[targetVal];
             if (!targetOption) return null;
             return (
               <Tag
                 key={index}
-                closable={!targetOption[disabledKey] && !disabled && !readonly}
+                closable={!get(targetOption, disabledKey) && !disabled && !readonly}
                 size={size}
                 {...tagProps}
                 onClose={({ e }) => {
@@ -438,12 +439,12 @@ const Select = forwardRefWithStatics(
 
                   onRemove?.({
                     value: targetVal,
-                    data: { label: targetOption[labelKey], value: targetVal },
+                    data: { label: targetLabel, value: targetVal },
                     e: e as unknown as React.MouseEvent<HTMLDivElement, MouseEvent>,
                   });
                 }}
               >
-                {targetOption[labelKey]}
+                {targetLabel}
               </Tag>
             );
           });
