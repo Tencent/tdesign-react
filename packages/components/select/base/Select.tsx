@@ -1,14 +1,12 @@
 import React, {
   Children,
-  KeyboardEvent,
-  WheelEvent,
   cloneElement,
   isValidElement,
   useCallback,
   useEffect,
   useMemo,
   useRef,
-  useState,
+  useState
 } from 'react';
 import classNames from 'classnames';
 import { debounce, get, isFunction } from 'lodash-es';
@@ -324,7 +322,7 @@ const Select = forwardRefWithStatics(
         return;
       }
       if (isFunction(onSearch)) {
-        onSearch(value, { e: context.e as KeyboardEvent<HTMLDivElement> });
+        onSearch(value, { e: context.e as React.KeyboardEvent<HTMLDivElement> });
         return;
       }
     };
@@ -397,13 +395,7 @@ const Select = forwardRefWithStatics(
 
     const renderValueDisplay = useMemo(() => {
       if (!valueDisplay) {
-        if (!multiple) {
-          // if (typeof selectedLabel !== 'string') {
-          //   return selectedLabel;
-          // }
-          // return '';
-          return selectedLabel;
-        }
+        if (!multiple) return selectedLabel;
         return ({ value: val }) =>
           val.slice(0, minCollapsedNum ? minCollapsedNum : val.length).map((v: string, key: number) => {
             const filterOption: SelectOption & { disabled?: boolean } = options?.find((option) => option.label === v);
@@ -498,11 +490,11 @@ const Select = forwardRefWithStatics(
 
     const { onMouseEnter, onMouseLeave } = props;
 
-    const handleEnter = (_, context: { inputValue: string; e: KeyboardEvent<HTMLDivElement> }) => {
+    const handleEnter = (_, context: { inputValue: string; e: React.KeyboardEvent<HTMLDivElement> }) => {
       onEnter?.({ ...context, value });
     };
 
-    const handleScroll = ({ e }: { e: WheelEvent<HTMLDivElement> }) => {
+    const handleScroll = ({ e }: { e: React.WheelEvent<HTMLDivElement> }) => {
       toggleIsScrolling(true);
 
       onScroll?.({ e });

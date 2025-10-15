@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import classNames from 'classnames';
-import { pick } from 'lodash-es';
+import { isObject, pick } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
@@ -33,16 +33,30 @@ const COMMON_PROPERTIES = [
   'prefixIcon',
 ];
 
+const DEFAULT_KEYS: TdSelectInputProps['keys'] = {
+  label: 'label',
+  value: 'value',
+};
+
+function getOptionLabel(value: TdSelectInputProps['value'], keys: TdSelectInputProps['keys']) {
+  const iKeys = keys || DEFAULT_KEYS;
+  return isObject(value) ? value[iKeys.label] : value;
+}
+
 export default function useSingle(props: TdSelectInputProps) {
   const { value, loading } = props;
-  const { classPrefix } = useConfig();
 
+  const optionLabel = getOptionLabel(value, props.keys);
+  const singleValueDisplay = props.valueDisplay ?? optionLabel;
+  const showLabelNode = React.isValidElement(singleValueDisplay);
+
+  const { classPrefix } = useConfig();
   const [inputValue, setInputValue] = useControlled(props, 'inputValue', props.onInputChange);
 
   const inputRef = useRef<InputRef>(null);
   const blurTimeoutRef = useRef(null);
 
-  const [labelWidth, setLabelWidth] = useState(0);
+  const [labelWidth, setLabelWidth] = useState<number>(0);
 
   const commonInputProps: SelectInputCommonProperties = {
     ...pick(props, COMMON_PROPERTIES),
@@ -73,10 +87,6 @@ export default function useSingle(props: TdSelectInputProps) {
     popupVisible: boolean,
     onInnerBlur?: (context: { e: React.FocusEvent<HTMLInputElement> }) => void,
   ) => {
-    const singleValueDisplay = !props.multiple ? props.valueDisplay : null;
-
-    const showPseudoPlaceholder = inputValue?.length < 1 && React.isValidElement(singleValueDisplay);
-
     const handleBlur = (value, ctx) => {
       if (blurTimeoutRef.current) {
         clearTimeout(blurTimeoutRef.current);
@@ -108,24 +118,24 @@ export default function useSingle(props: TdSelectInputProps) {
       if (popupVisible && inputValue) {
         return inputValue;
       }
-      if (popupVisible && singleValueDisplay && !React.isValidElement(singleValueDisplay)) {
+      if (props.allowInput && popupVisible && !showLabelNode) {
         return '';
       }
-      if (!popupVisible && singleValueDisplay && !React.isValidElement(singleValueDisplay)) {
-        return String(singleValueDisplay);
+      if (!showLabelNode) {
+        return singleValueDisplay;
       }
       return inputValue;
     };
 
     const displayedPlaceholder = () => {
-      if (popupVisible && singleValueDisplay && !React.isValidElement(singleValueDisplay)) {
-        return String(singleValueDisplay);
+      if (popupVisible && !showLabelNode) {
+        return singleValueDisplay;
       }
-      if (showPseudoPlaceholder) return '';
+      if (showLabelNode) return '';
       return props.placeholder;
     };
 
-    const pseudoPlaceholder = showPseudoPlaceholder ? (
+    const labelNode = showLabelNode ? (
       <div
         style={{
           position: 'absolute',
@@ -133,7 +143,7 @@ export default function useSingle(props: TdSelectInputProps) {
           top: '50%',
           transform: 'translateY(-50%)',
           pointerEvents: 'none',
-          textAlign: 'inherit',
+          textAlign: 'initial',
           zIndex: 3,
           // 输入状态，降低透明度，仿造 placeholder 效果
           opacity: popupVisible && props.allowInput ? 0.5 : undefined,
@@ -147,13 +157,16 @@ export default function useSingle(props: TdSelectInputProps) {
       <Input
         ref={inputRef}
         // 当 label 为 自定义节点时，input 为空，确保此时 clear icon 可见
-        showClearIconOnEmpty={props.clearable && !!singleValueDisplay}
+        showClearIconOnEmpty={props.clearable && showLabelNode}
         {...commonInputProps}
         suffix={
-          <>
-            {pseudoPlaceholder}
-            {commonInputProps.suffix}
-          </>
+          labelNode ||
+          (commonInputProps.suffix && (
+            <>
+              {labelNode}
+              {commonInputProps.suffix}
+            </>
+          ))
         }
         autoWidth={props.autoWidth}
         allowInput={props.allowInput}
