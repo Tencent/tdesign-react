@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { get, isNumber, isString } from 'lodash-es';
 
@@ -58,10 +58,13 @@ const Option: React.FC<SelectOptionProps> = (props) => {
     isVirtual,
   } = props;
 
-  let selected: boolean;
-  let indeterminate: boolean;
   const label = propLabel || value;
   const disabled = propDisabled || (multiple && Array.isArray(selectedValue) && max && selectedValue.length >= max);
+
+  let selected: boolean;
+  let indeterminate: boolean;
+  // 处理存在禁用项时，全选状态无法来回切换的问题
+  const [allSelectableChecked, setAllSelectableChecked] = useState(!selected);
 
   const titleContent = useMemo(() => {
     // 外部设置 props，说明希望受控
@@ -76,6 +79,7 @@ const Option: React.FC<SelectOptionProps> = (props) => {
 
   // 使用斜八角动画
   const [optionRef, setRefCurrent] = useDomRefCallback();
+  useRipple(optionRef);
 
   useEffect(() => {
     if (isVirtual && optionRef) {
@@ -87,8 +91,6 @@ const Option: React.FC<SelectOptionProps> = (props) => {
     // eslint-disable-next-line
   }, [isVirtual, optionRef]);
 
-  useRipple(optionRef);
-
   // 处理单选场景
   if (!multiple) {
     selected =
@@ -96,6 +98,7 @@ const Option: React.FC<SelectOptionProps> = (props) => {
         ? value === selectedValue
         : value === get(selectedValue, keys?.value || 'value');
   }
+
   // 处理多选场景
   if (multiple && Array.isArray(selectedValue)) {
     selected = selectedValue.some((item) => {
@@ -116,7 +119,8 @@ const Option: React.FC<SelectOptionProps> = (props) => {
       onSelect(value, { label: String(label), selected, event, restData });
     }
     if (checkAll) {
-      props.onCheckAllChange?.(!selected, event);
+      props.onCheckAllChange?.(allSelectableChecked, event);
+      setAllSelectableChecked(!allSelectableChecked);
     }
   };
 

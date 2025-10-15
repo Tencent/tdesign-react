@@ -195,14 +195,14 @@ const Select = forwardRefWithStatics(
         (opt) => !isSelectOptionGroup(opt) && !opt.checkAll && !opt.disabled,
       );
 
-      const currentValueArray = Array.isArray(value) ? value : [];
+      const currentValues = Array.isArray(value) ? value : [];
       const disabledSelectedOptions = currentOptions.filter((opt) => {
         if (isSelectOptionGroup(opt) || opt.checkAll) return false;
         if (!opt.disabled) return false;
         if (isObjectType) {
-          return currentValueArray.some((v) => get(v, valueKey) === opt[valueKey]);
+          return currentValues.some((v) => get(v, valueKey) === opt[valueKey]);
         }
-        return currentValueArray.includes(opt[valueKey]);
+        return currentValues.includes(opt[valueKey]);
       });
 
       let checkAllValue: SelectValue[];
