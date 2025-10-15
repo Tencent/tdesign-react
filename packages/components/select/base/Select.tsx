@@ -1,7 +1,5 @@
 import React, {
   Children,
-  KeyboardEvent,
-  WheelEvent,
   cloneElement,
   isValidElement,
   useCallback,
@@ -326,7 +324,7 @@ const Select = forwardRefWithStatics(
         return;
       }
       if (isFunction(onSearch)) {
-        onSearch(value, { e: context.e as KeyboardEvent<HTMLDivElement> });
+        onSearch(value, { e: context.e as React.KeyboardEvent<HTMLDivElement> });
         return;
       }
     };
@@ -410,14 +408,8 @@ const Select = forwardRefWithStatics(
             const valueKey = keys?.value || 'value';
             const labelKey = keys?.label || 'label';
             const disabledKey = keys?.disabled || 'disabled';
-
             const targetVal = selectedOptions[index]?.[valueKey];
-            const targetOption = currentOptions.find((option) => {
-              if (isSelectOptionGroup(option)) {
-                return option.children?.some((child) => child[valueKey] === targetVal);
-              }
-              return option[valueKey] === targetVal;
-            });
+            const targetOption = valueToOption[targetVal];
             if (!targetOption) return null;
 
             return (
@@ -511,11 +503,11 @@ const Select = forwardRefWithStatics(
 
     const { onMouseEnter, onMouseLeave } = props;
 
-    const handleEnter = (_, context: { inputValue: string; e: KeyboardEvent<HTMLDivElement> }) => {
+    const handleEnter = (_, context: { inputValue: string; e: React.KeyboardEvent<HTMLDivElement> }) => {
       onEnter?.({ ...context, value });
     };
 
-    const handleScroll = ({ e }: { e: WheelEvent<HTMLDivElement> }) => {
+    const handleScroll = ({ e }: { e: React.WheelEvent<HTMLDivElement> }) => {
       toggleIsScrolling(true);
 
       onScroll?.({ e });
