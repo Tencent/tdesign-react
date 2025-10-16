@@ -64,7 +64,7 @@ export default function useSingle(props: TdSelectInputProps) {
     [value, props.valueDisplay, props.keys],
   );
 
-  const showLabelNode = useMemo(
+  const showCustomElement = useMemo(
     () => !isTyping && !inputValue && React.isValidElement(singleValueDisplay),
     [isTyping, inputValue, singleValueDisplay],
   );
@@ -124,24 +124,24 @@ export default function useSingle(props: TdSelectInputProps) {
       if (popupVisible && inputValue) {
         return inputValue;
       }
-      if (props.allowInput && popupVisible && !showLabelNode) {
+      if (props.allowInput && popupVisible && !showCustomElement) {
         return '';
       }
-      if (!showLabelNode) {
+      if (!showCustomElement) {
         return singleValueDisplay;
       }
       return inputValue;
     };
 
     const displayedPlaceholder = () => {
-      if (popupVisible && singleValueDisplay && !showLabelNode) {
+      if (popupVisible && singleValueDisplay && !showCustomElement) {
         return singleValueDisplay;
       }
-      if (showLabelNode) return '';
+      if (showCustomElement) return '';
       return props.placeholder;
     };
 
-    const labelNode = showLabelNode ? (
+    const labelNode = showCustomElement ? (
       <div
         style={{
           position: 'absolute',
@@ -162,8 +162,8 @@ export default function useSingle(props: TdSelectInputProps) {
     return (
       <Input
         ref={inputRef}
-        // 当 valueDisplay 为 自定义节点时，选中内容时 input 依旧为空，确保此时 clear icon 可见
-        showClearIconOnEmpty={props.clearable && showLabelNode}
+        // 当 valueDisplay 为 自定义元素时，选中内容时 input 依旧为空，确保此时 clear icon 可见
+        showClearIconOnEmpty={props.clearable && showCustomElement}
         {...commonInputProps}
         suffix={
           labelNode ||
