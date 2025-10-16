@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import classNames from 'classnames';
 import { isObject, pick } from 'lodash-es';
@@ -45,10 +45,10 @@ function getOptionLabel(value: TdSelectInputProps['value'], keys: TdSelectInputP
 
 export default function useSingle(props: TdSelectInputProps) {
   const { value, loading } = props;
-
-  const optionLabel = getOptionLabel(value, props.keys);
-  const singleValueDisplay = props.valueDisplay ?? optionLabel;
-  const showLabelNode = React.isValidElement(singleValueDisplay);
+  const commonInputProps: SelectInputCommonProperties = {
+    ...pick(props, COMMON_PROPERTIES),
+    suffixIcon: loading ? <Loading loading size="small" /> : props.suffixIcon,
+  };
 
   const { classPrefix } = useConfig();
   const [inputValue, setInputValue] = useControlled(props, 'inputValue', props.onInputChange);
@@ -56,12 +56,18 @@ export default function useSingle(props: TdSelectInputProps) {
   const inputRef = useRef<InputRef>(null);
   const blurTimeoutRef = useRef(null);
 
+  const [isTyping, setIsTyping] = useState<boolean>(false);
   const [labelWidth, setLabelWidth] = useState<number>(0);
 
-  const commonInputProps: SelectInputCommonProperties = {
-    ...pick(props, COMMON_PROPERTIES),
-    suffixIcon: loading ? <Loading loading size="small" /> : props.suffixIcon,
-  };
+  const singleValueDisplay = useMemo(
+    () => props.valueDisplay ?? getOptionLabel(value, props.keys),
+    [value, props.valueDisplay, props.keys],
+  );
+
+  const showLabelNode = useMemo(
+    () => !isTyping && !inputValue && React.isValidElement(singleValueDisplay),
+    [isTyping, inputValue, singleValueDisplay],
+  );
 
   const onInnerClear = (context: { e: React.MouseEvent<SVGSVGElement> }) => {
     context?.e?.stopPropagation();
@@ -156,7 +162,7 @@ export default function useSingle(props: TdSelectInputProps) {
     return (
       <Input
         ref={inputRef}
-        // 当 label 为 自定义节点时，input 为空，确保此时 clear icon 可见
+        // 当 valueDisplay 为 自定义节点时，选中内容时 input 依旧为空，确保此时 clear icon 可见
         showClearIconOnEmpty={props.clearable && showLabelNode}
         {...commonInputProps}
         suffix={
@@ -183,6 +189,14 @@ export default function useSingle(props: TdSelectInputProps) {
         // onBlur need to triggered by input when popup panel is null or when popupVisible is forced to false
         onBlur={handleBlur}
         {...props.inputProps}
+        onCompositionstart={(v, ctx) => {
+          setIsTyping(true);
+          props.inputProps?.onCompositionstart?.(v, ctx);
+        }}
+        onCompositionend={(v, ctx) => {
+          setIsTyping(false);
+          props.inputProps?.onCompositionend?.(v, ctx);
+        }}
         inputClass={classNames(props.inputProps?.inputClass, {
           [`${classPrefix}-input--focused`]: popupVisible,
           [`${classPrefix}-is-focused`]: popupVisible,
