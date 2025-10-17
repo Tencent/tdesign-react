@@ -14,7 +14,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const publicPathMap = {
   preview: '/',
-  production: '/react/',
+  production: 'https://static.tdesign.tencent.com/react/',
 };
 
 const disableTreeShakingPlugin = (paths) => ({
