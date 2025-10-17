@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Divider, Space, Select } from 'tdesign-react';
 import { AIMessage, ChatMessage, TdChatLoadingProps } from '@tdesign-react/chat';
 
@@ -7,6 +7,7 @@ const messages: Record<string, AIMessage> = {
     id: '11111',
     role: 'assistant',
     status: 'pending',
+    datetime: '今天16:38',
   },
   error: {
     id: '22222',
@@ -15,48 +16,46 @@ const messages: Record<string, AIMessage> = {
     content: [
       {
         type: 'text',
-        data: '已经输出内容',
-      },
-      {
-        type: 'text',
-        data: '出错了',
+        data: '自定义错误文案',
       },
     ],
   },
 };
 
 export default function ChatMessageExample() {
-  const [animation, setAnimation] = useState<TdChatLoadingProps['animation']>('skeleton');
-
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
-      <Divider>消息加载状态</Divider>
-      <Select
-        value={animation}
-        onChange={(value: TdChatLoadingProps['animation']) => {
-          setAnimation(value);
-        }}
-        style={{
-          width: '20%',
-        }}
-        options={[
-          { label: 'skeleton', value: 'skeleton' },
-          { label: 'moving', value: 'moving' },
-          { label: 'gradient', value: 'gradient' },
-          { label: 'circle', value: 'circle' },
-          { label: 'dot', value: 'dot' },
-        ]}
-      />
+      <Divider style={{ color: 'var(--td-text-color-placeholder)' }}>加载状态下的消息</Divider>
       <ChatMessage
         avatar="https://tdesign.gtimg.com/site/chat-avatar.png"
-        datetime="今天16:38"
-        animation={animation}
+        animation="skeleton"
         name="TDesignAI"
-        id={messages.loading.id}
-        role={messages.loading.role}
-        status={messages.loading.status}
+        {...messages.loading}
       ></ChatMessage>
-      <Divider>出错状态下的消息</Divider>
+      <ChatMessage
+        avatar="https://tdesign.gtimg.com/site/chat-avatar.png"
+        animation="moving"
+        name="TDesignAI"
+        {...messages.loading}
+      ></ChatMessage>
+      <ChatMessage
+        avatar="https://tdesign.gtimg.com/site/chat-avatar.png"
+        animation="gradient"
+        name="TDesignAI"
+        {...messages.loading}
+      ></ChatMessage>
+      <ChatMessage
+        avatar="https://tdesign.gtimg.com/site/chat-avatar.png"
+        animation="dot"
+        name="TDesignAI"
+        {...messages.loading}
+      ></ChatMessage>
+      <Divider style={{ color: 'var(--td-text-color-placeholder)' }}>出错状态下的消息</Divider>
+      <ChatMessage
+        avatar="https://tdesign.gtimg.com/site/chat-avatar.png"
+        role="assistant"
+        status="error"
+      ></ChatMessage>
       <ChatMessage
         avatar="https://tdesign.gtimg.com/site/chat-avatar.png"
         role="assistant"

@@ -49,7 +49,7 @@ const messages = {
 export default function ChatMessageExample() {
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
-      <Divider>可配置角色，头像，昵称，时间</Divider>
+      <Divider style={{ color: 'var(--td-text-color-placeholder)' }}>发送消息</Divider>
       <ChatMessage
         avatar="https://tdesign.gtimg.com/site/avatar.jpg"
         datetime="今天16:38"
@@ -64,7 +64,7 @@ export default function ChatMessageExample() {
         role={messages.ai.role}
         content={messages.ai.content}
       ></ChatMessage>
-      <Divider>可配置位置</Divider>
+      <Divider style={{ color: 'var(--td-text-color-placeholder)' }}>可配置位置</Divider>
       <ChatMessage
         placement="right"
         variant="base"
@@ -72,7 +72,7 @@ export default function ChatMessageExample() {
         content={messages.user.content}
       ></ChatMessage>
       <ChatMessage placement="left" role={messages.ai.role} content={messages.ai.content}></ChatMessage>
-      <Divider>角色为system的系统消息</Divider>
+      <Divider style={{ color: 'var(--td-text-color-placeholder)' }}>角色为system的系统消息</Divider>
       <ChatMessage id={messages.system.id} role={messages.system.role} content={messages.system.content}></ChatMessage>
     </Space>
   );
