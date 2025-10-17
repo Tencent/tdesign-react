@@ -3,6 +3,7 @@ import React, { RefAttributes, forwardRef, useImperativeHandle, useRef } from 'r
 import { get } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
+import useClassName from './hooks/useClassName';
 import useTreeData from './hooks/useTreeData';
 import useTreeSelect from './hooks/useTreeSelect';
 import PrimaryTable from './PrimaryTable';
@@ -16,16 +17,18 @@ export interface TEnhancedTableProps extends EnhancedTableProps, StyledProps {}
 
 const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, ref) => {
   const { tree, columns, style, className } = props;
+
   const { classPrefix } = useConfig();
-  const primaryTableRef = useRef<EnhancedTableRef>(null);
+  const { tableExpandClasses } = useClassName();
 
   // treeInstanceFunctions 属于对外暴露的 Ref 方法
   const { store, dataSource, formatTreeColumn, swapData, onExpandFoldIconClick, ...treeInstanceFunctions } =
     useTreeData(props);
-
   const treeDataMap = store?.treeDataMap;
 
   const { tIndeterminateSelectedRowKeys, onInnerSelectChange } = useTreeSelect(props, treeDataMap);
+
+  const primaryTableRef = useRef<EnhancedTableRef>(null);
 
   // 影响列和单元格内容的因素有：树形节点需要添加操作符 [+] [-]
   const getColumns = (columns: PrimaryTableCol<TableRowData>[]) => {
@@ -95,7 +98,13 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
       const rowValue = get(row, props.rowKey || 'id');
       const rowState = treeDataMap.get(rowValue);
       if (!rowState) return [props.rowClassName];
-      return [`${classPrefix}-table-tr--level-${rowState.level}`, props.rowClassName];
+      const classNames = [props.rowClassName, `${classPrefix}-table-tr--level-${rowState.level}`];
+      if (rowState.expanded) {
+        classNames.push(tableExpandClasses.expanded);
+      } else {
+        classNames.push(tableExpandClasses.collapsed);
+      }
+      return classNames;
     },
     ...(enableRowDrag(props.dragSort) && {
       rowAttributes: (params) => {
