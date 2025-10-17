@@ -26,10 +26,13 @@ const useDialogDrag = (props: DialogDragProps) => {
       if (offsetWidth > screenWidth || offsetHeight > screenHeight)
         return;
 
-      if (e.clientX - offsetLeft <= RESERVED_BORDER_WIDTH || e.clientX - offsetLeft >= offsetWidth - RESERVED_BORDER_WIDTH)
-        return;
-      if (e.clientY - offsetTop <= RESERVED_BORDER_WIDTH || e.clientY - offsetTop >= offsetHeight - RESERVED_BORDER_WIDTH)
-        return;
+
+      if (offsetLeft != 0 || offsetTop != 0 || offsetWidth != 0 || offsetHeight != 0) {
+        if (e.clientX - offsetLeft <= RESERVED_BORDER_WIDTH || e.clientX - offsetLeft >= offsetWidth - RESERVED_BORDER_WIDTH)
+          return;
+        if (e.clientY - offsetTop <= RESERVED_BORDER_WIDTH || e.clientY - offsetTop >= offsetHeight - RESERVED_BORDER_WIDTH)
+          return;
+      }
 
       style.cursor = 'move';
       moving.current = true;
