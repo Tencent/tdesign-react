@@ -63,7 +63,7 @@ const useDialogResize = (props: DialogResizeProps) => {
 
   const minWidth = React.useRef(0);
   const maxWidth = React.useRef(Number.MAX_VALUE);
-  const minHeight = React.useRef<number|undefined>(undefined);  // If undefined, set to current height on first drag (lower than which causes buttons overflow).
+  const minHeight = React.useRef<number | undefined>(undefined);  // If undefined, set to current height on first drag (lower than which causes buttons overflow).
   const maxHeight = React.useRef(Number.MAX_VALUE);
 
 
