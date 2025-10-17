@@ -69,7 +69,7 @@ const useDialogResize = (props: DialogResizeProps) => {
 
   React.useEffect(() => {
     if (sizeDraggableProps === undefined || typeof sizeDraggableProps === 'boolean') {
-      minWidth.current = undefined;
+      minWidth.current = 0;
       maxWidth.current = Number.MAX_VALUE;
       minHeight.current = 0;
       maxHeight.current = Number.MAX_VALUE;
