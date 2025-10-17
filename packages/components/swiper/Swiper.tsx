@@ -81,6 +81,10 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
   const swiperAnimationTimer = useRef<ReturnType<typeof setTimeout>>(null); // 计时器指针
   const isHovering = useRef<boolean>(false);
   const swiperWrap = useRef<HTMLDivElement>(null);
+  const contentDivRef = useRef<HTMLDivElement>(null);
+
+  const prevFingerXY = useRef<{ x: number; y: number } | undefined>(undefined);
+  const prevFingerSwipedTime = useRef<number>(0);
 
   const getWrapAttribute = React.useCallback((attr: string) => swiperWrap.current?.parentNode?.[attr], []);
 
@@ -140,6 +144,9 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
     if (autoplay && interval > 0) {
       swiperTimer.current = setTimeout(
         () => {
+          if (prevFingerXY.current !== undefined) {
+            return;
+          }
           if (!loop && currentIndex === endIndex) {
             return;
           }
@@ -190,6 +197,11 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
 
     swiperAnimationTimer.current = setTimeout(() => {
       setNeedAnimation(false);
+
+      if (prevFingerXY.current !== undefined) {
+        return;
+      }
+
       if (loop && currentIndex === endIndex) {
         clearTimer();
         setCurrentIndex(0);
@@ -206,6 +218,104 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
       setTimer();
     }
   }, [setTimer, clearTimer, stopOnHover, loop, currentIndex, endIndex]);
+
+  
+  const handleTouchStart = useCallback((e: TouchEvent): any => {
+    if (prevFingerSwipedTime.current + duration + 10 > Date.now()) {
+      return;
+    }
+
+    const touch = e.touches[0];
+    prevFingerXY.current = { x: touch.clientX, y: touch.clientY };
+    clearTimer();
+  }, [clearTimer, duration]);
+
+
+  const handleTouchMove = useCallback((e: TouchEvent) => {
+    if (prevFingerXY.current === undefined)
+      return;
+    
+    const touch = e.touches[0];
+    const deltaX = touch.clientX - prevFingerXY.current.x;
+    const deltaY = touch.clientY - prevFingerXY.current.y;
+
+    if (direction === 'horizontal' && Math.abs(deltaX) > Math.abs(deltaY)) {
+      e.preventDefault();
+      e.stopPropagation();
+    } else if (direction === 'vertical' && Math.abs(deltaY) > Math.abs(deltaX)) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+      
+  }, [direction]);
+
+  const handleTouchEnd = useCallback((e: TouchEvent) => {
+    if (prevFingerXY.current === undefined)
+      return;
+
+    const touch = e.changedTouches[0];
+    const deltaX = touch.clientX - prevFingerXY.current.x;
+    const deltaY = touch.clientY - prevFingerXY.current.y;
+    prevFingerXY.current = undefined;
+
+    const threshold = 10; // 触发切换的最小距离阈值
+
+    prevFingerSwipedTime.current = Date.now();
+
+    if (direction === 'horizontal' && Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > threshold) {
+      if (deltaX > 0) {
+        // 向右滑动，上一张
+        if (!loop && currentIndex === startIndex) {
+          return;
+        }
+        swiperTo(currentIndex - 1, { source: 'click' });
+      } else {
+        // 向左滑动，下一张
+        if (!loop && currentIndex === endIndex) {
+          return;
+        }
+        
+        if (type === 'card') {
+          return swiperTo(currentIndex + 1 >= swiperItemLength ? 0 : currentIndex + 1, { source: 'click' });
+        }
+        return swiperTo(currentIndex + 1, { source: 'click' });
+      }
+    } else if (direction === 'vertical' && Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > threshold) {
+      if (deltaY > 0) {
+        // 向下滑动，上一张
+        if (!loop && currentIndex === startIndex) {
+          return;
+        }
+        swiperTo(currentIndex - 1, { source: 'click' });
+      } else {
+        // 向上滑动，下一张
+        if (!loop && currentIndex === endIndex) {
+          return;
+        }
+        if (type === 'card') {
+          return swiperTo(currentIndex + 1 >= swiperItemLength ? 0 : currentIndex + 1, { source: 'click' });
+        }
+        swiperTo(currentIndex + 1, { source: 'click' });
+      }
+    }
+  }, [direction, currentIndex, loop, startIndex, endIndex, swiperTo]);
+
+
+  useEffect(() => {
+    const touchEl = contentDivRef.current;
+    if (!touchEl)
+      return;
+    touchEl.addEventListener('touchstart', handleTouchStart, { passive: false });
+    touchEl.addEventListener('touchmove', handleTouchMove, { passive: false });
+    touchEl.addEventListener('touchend', handleTouchEnd, { passive: false });
+
+    return () => {
+      touchEl.removeEventListener('touchstart', handleTouchStart);
+      touchEl.removeEventListener('touchmove', handleTouchMove);
+      touchEl.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [handleTouchEnd, handleTouchStart, handleTouchMove]);
+
 
   // 鼠标移入移出事件
   const onPointerEnter: React.PointerEventHandler<HTMLElement> = () => {
@@ -366,6 +476,7 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
           [`${classPrefix}-swiper--large`]: navigationConfig.size === 'large',
           [`${classPrefix}-swiper--small`]: navigationConfig.size === 'small',
         })}
+        ref={contentDivRef}
       >
         <div
           className={classnames(`${classPrefix}-swiper__content`, {
