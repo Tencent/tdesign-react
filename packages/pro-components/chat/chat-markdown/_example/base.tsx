@@ -48,6 +48,16 @@ import App from './app.vue';
 const app = createApp(App);
 app.use(TDesignChat);
 \`\`\`
+
+---
+
+\`\`\`mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D; 
+\`\`\`
 `;
 
 export default function ThinkContentDemo() {
