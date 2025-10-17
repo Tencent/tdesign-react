@@ -119,6 +119,9 @@ const useDialogResize = (props: DialogResizeProps) => {
       }
     },
     onMove: (e: React.MouseEvent) => {
+      if (dialogCardRef.current.style.cursor === 'move')
+        return;
+
       // Check whether we should update cursor style.
       const direction = mouseOnBorder(e, dialogCardRef);
       if (direction) {
