@@ -298,7 +298,7 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
         swiperTo(currentIndex + 1, { source: 'click' });
       }
     }
-  }, [direction, currentIndex, loop, startIndex, endIndex, swiperTo]);
+  }, [direction, currentIndex, loop, startIndex, endIndex, swiperTo, type, swiperItemLength]);
 
 
   useEffect(() => {
