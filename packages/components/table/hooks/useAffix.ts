@@ -81,7 +81,7 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
     toUpdateScrollElement.forEach((el) => {
       if (!el) return;
       // fixedRows 使用 sticky，吸顶表头使用 absolute，需要考虑页面滚动对定位的影响
-      if (props.fixedRows && props.fixedRows.length > 0) {
+      if (props.fixedRows?.length) {
         // eslint-disable-next-line no-param-reassign
         el.style.marginLeft = `-${pageScrollLeft}px`;
       } else if (el.style.marginLeft) {
@@ -242,7 +242,7 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
 
   const addPageHorizontalScrollListener = () => {
     if (typeof window === 'undefined') return;
-    if (props.fixedRows && props.fixedRows.length > 0 && isAffixed) {
+    if (props.fixedRows.length && isAffixed) {
       onPageHorizontalScroll(); // initial sync
       on(window, 'scroll', onPageHorizontalScroll);
     }

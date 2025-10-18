@@ -27,12 +27,12 @@ const statusNameListMap = {
 };
 
 export default function TableFixedColumn() {
+  const tableRef = useRef(null);
+
   const [tableLayout, setTableLayout] = useState<TableProps['tableLayout']>('fixed');
   const [emptyData, setEmptyData] = useState(false);
   const [leftFixedColumn, setLeftFixedColumn] = useState(2);
   const [rightFixedColumn, setReftFixedColumn] = useState(1);
-
-  const tableRef = useRef(null);
 
   const scrollToCreateTime = () => {
     // 横向滚动到指定列，一般用于列数量较多的场景
