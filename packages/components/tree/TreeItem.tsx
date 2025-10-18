@@ -308,7 +308,7 @@ const TreeItem = forwardRef(
 
       if (operationsView) {
         return (
-          <span className={treeClassNames.treeOperations} data-target="operations">
+          <span className={treeClassNames.treeOperations} data-target="operations" onClick={stopPropagation}>
             {operationsView}
           </span>
         );
