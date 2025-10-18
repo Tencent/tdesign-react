@@ -1,3 +1,5 @@
+import { withZIndexProvider } from '../hooks/useZIndex';
+
 import _Dialog from './Dialog';
 import _DialogCard from './DialogCard';
 import { DialogPlugin as _DialogPlugin } from './plugin';
@@ -7,7 +9,7 @@ import './style/index.js';
 export type { DialogProps } from './Dialog';
 export * from './type';
 
-export const Dialog = _Dialog;
+export const Dialog = withZIndexProvider(_Dialog, 'dialog');
 export const DialogCard = _DialogCard;
 
 export const dialog = _DialogPlugin;
