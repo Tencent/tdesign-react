@@ -13,6 +13,8 @@ import { addMonth, extractTimeObj, subtractMonth } from '@tdesign/common-js/date
 import log from '@tdesign/common-js/log/index';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useLatest from '../hooks/useLatest';
+import useUpdateEffect from '../hooks/useUpdateEffect';
 import { RangeInputPopup } from '../range-input';
 import { dateRangePickerDefaultProps } from './defaultProps';
 import useRange from './hooks/useRange';
@@ -97,6 +99,32 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     props.popupProps?.onVisibleChange?.(false, {});
   };
 
+  // Auto-confirm logic - handle needConfirm=false case
+  const onTriggerNeedConfirm = useLatest(() => {
+    if (props.needConfirm || !enableTimePicker || popupVisible) return;
+    
+    const nextValue = [...inputValue];
+    const notValidIndex = nextValue.findIndex((v) => !v || !isValidDate(v, format));
+    
+    // Change value when both ends have valid values
+    if (notValidIndex === -1 && nextValue.length === 2) {
+      const currentValue = formatDate(value || [], { format });
+      
+      // Only trigger onChange when value actually changes
+      if (JSON.stringify(currentValue) !== JSON.stringify(nextValue)) {
+        const formattedValue = formatDate(nextValue, { format, targetFormat: valueType, autoSwap: true });
+        onChange(formattedValue, {
+          dayjsValue: nextValue.map((v) => parseToDayjs(v, format)),
+          trigger: 'confirm',
+        });
+      }
+    } else if (nextValue.length === 2 && nextValue.some(v => v && !isValidDate(v, format))) {
+      // If there's input but invalid, restore to original value
+      setInputValue(formatDate(value || [], { format }));
+    }
+    // If only partial values (user is still selecting), do nothing
+  });
+
   useEffect(() => {
     if (value === cacheValue) return;
     // 面板展开重置数据
@@ -130,6 +158,12 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
       setInputValue(formatDate(value || [], { format }));
     }
     // eslint-disable-next-line
+  }, [popupVisible]);
+
+  // Listen to popupVisible changes, handle auto-confirm for needConfirm=false
+  useUpdateEffect(() => {
+    // Date-time range picker doesn't need confirm button click to complete operation
+    onTriggerNeedConfirm.current();
   }, [popupVisible]);
 
   // 日期 hover
