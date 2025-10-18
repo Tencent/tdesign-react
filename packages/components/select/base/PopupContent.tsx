@@ -96,17 +96,16 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     size,
   });
 
-  // 全部可选选项
-  const selectableOptions = useMemo(() => {
+  const optionsExcludedCheckAll = useMemo(() => {
     const uniqueOptions = {};
     propsOptions?.forEach((option: SelectOption) => {
       if ((option as SelectOptionGroup).group) {
         (option as SelectOptionGroup).children.forEach((item) => {
-          if (!item.disabled && !item.checkAll) {
+          if (!item.checkAll) {
             uniqueOptions[item.value] = item;
           }
         });
-      } else if (!(option as TdOptionProps).disabled && !(option as TdOptionProps).checkAll) {
+      } else if (!(option as TdOptionProps).checkAll) {
         uniqueOptions[(option as TdOptionProps).value] = option;
       }
     });
@@ -186,7 +185,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
                 value={optionValue}
                 onSelect={onSelect}
                 selectedValue={value}
-                optionLength={selectableOptions.length}
+                optionLength={optionsExcludedCheckAll.length}
                 multiple={multiple}
                 size={size}
                 disabled={disabled}
