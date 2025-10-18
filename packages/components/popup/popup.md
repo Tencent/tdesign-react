@@ -25,7 +25,7 @@ https://popper.js.org/docs/v2/constructors/#types
 
 ## FAQ
 
-### `Popup` 组件，嵌套使用可能出现位置偏移的情况，如何解决？
+### `Popup` 组件，嵌套使用可能出现位置偏移、无法弹出等情况，如何解决？
 
 目前暂时可通过 `Fragment` 或者其他 `HTML` 元素来解决
 
