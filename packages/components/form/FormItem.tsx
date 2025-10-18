@@ -5,7 +5,6 @@ import {
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
 import { flattenDeep, get, isEqual, isFunction, isObject, isString, merge, set, unset } from 'lodash-es';
-import { StyledProps } from '../common';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
@@ -17,6 +16,9 @@ import { parseMessage, validate as validateModal } from './formModel';
 import { HOOK_MARK } from './hooks/useForm';
 import useFormItemInitialData, { ctrlKeyMap } from './hooks/useFormItemInitialData';
 import useFormItemStyle from './hooks/useFormItemStyle';
+import { calcFieldValue } from './utils';
+
+import type { StyledProps } from '../common';
 import type {
   FormInstanceFunctions,
   FormItemValidateMessage,
@@ -25,7 +27,6 @@ import type {
   TdFormItemProps,
   ValueType,
 } from './type';
-import { calcFieldValue } from './utils';
 
 export interface FormItemProps extends TdFormItemProps, StyledProps {
   children?: React.ReactNode | React.ReactNode[] | ((form: FormInstanceFunctions) => React.ReactElement);
@@ -65,6 +66,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     labelWidth: labelWidthFromContext,
     showErrorMessage: showErrorMessageFromContext,
     disabled: disabledFromContext,
+    readonly: readonlyFromContext,
     resetType: resetTypeFromContext,
     rules: rulesFromContext,
     statusIcon: statusIconFromContext,
@@ -521,6 +523,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
               const childProps = child.props as any;
               return React.cloneElement(child, {
                 disabled: disabledFromContext,
+                readonly: readonlyFromContext,
                 ...childProps,
                 [ctrlKey]: formValue,
                 onChange: (value: any, ...args: any[]) => {

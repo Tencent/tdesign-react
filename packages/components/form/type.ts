@@ -59,6 +59,10 @@ export interface TdFormProps<FormData extends Data = Data> {
    */
   preventSubmitDefault?: boolean;
   /**
+   * 是否整个表单只读
+   */
+  readonly?: boolean;
+  /**
    * 是否显示必填符号（*），默认显示
    */
   requiredMark?: boolean;
@@ -103,7 +107,7 @@ export interface TdFormProps<FormData extends Data = Data> {
    */
   onReset?: (context: { e?: FormResetEvent }) => void;
   /**
-   * 表单提交时触发。其中 `context.validateResult` 表示校验结果，`context.firstError` 表示校验不通过的第一个规则提醒。`context.validateResult` 值为 `true` 表示校验通过；如果校验不通过，`context.validateResult` 值为校验结果列表。<br />【注意】⚠️ 默认情况，输入框按下 Enter 键会自动触发提交事件，如果希望禁用这个默认行为，可以给输入框添加  enter 事件，并在事件中设置 `e.preventDefault()`
+   * 表单提交时触发。其中 `context.validateResult` 表示校验结果，`context.firstError` 表示校验不通过的第一个规则提醒。`context.validateResult` 值为 `true` 表示校验通过；如果校验不通过，`context.validateResult` 值为校验结果列表。
    */
   onSubmit?: (context: SubmitContext<FormData>) => void;
   /**
@@ -304,7 +308,7 @@ export interface FormRule {
   /**
    * 内置校验方法，校验值是否符合正则表达式匹配结果，示例：`{ pattern: /@qq.com/, message: '请输入 QQ 邮箱' }`
    */
-  pattern?: RegExp;
+  pattern?: RegExp | string;
   /**
    * 内置校验方法，校验值是否已经填写。该值为 true，默认显示必填标记，可通过设置 `requiredMark: false` 隐藏必填标记
    */
@@ -410,7 +414,7 @@ export interface FormErrorMessage {
   whitespace?: string;
 }
 
-export type FormRules<T extends Data> = { [field in keyof T]?: Array<FormRule> };
+export type FormRules<T extends Data = any> = { [field in keyof T]?: Array<FormRule> };
 
 export interface SubmitContext<T extends Data = Data> {
   e?: FormSubmitEvent;
@@ -469,11 +473,11 @@ export type ValidateTriggerType = 'blur' | 'change' | 'submit' | 'all';
 
 export type Data = { [key: string]: any };
 
-export type FormItemFormatType = (value: any) => any;
-
 export type InitialData = any;
 
 export type NamePath = string | number | Array<string | number>;
+
+export type FormItemFormatType = (value: any) => any;
 
 export type FormListField = { key: number; name: number; isListField: boolean };
 

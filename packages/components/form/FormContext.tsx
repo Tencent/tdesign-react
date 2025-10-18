@@ -1,7 +1,7 @@
 import React from 'react';
-import { TdFormProps, TdFormListProps, NamePath } from './type';
-import { FormItemInstance } from './FormItem';
-import { InternalFormInstance } from './hooks/interface';
+import type { FormItemInstance } from './FormItem';
+import type { InternalFormInstance } from './hooks/interface';
+import type { NamePath, TdFormListProps, TdFormProps } from './type';
 
 const FormContext = React.createContext<{
   form?: InternalFormInstance;
@@ -17,6 +17,7 @@ const FormContext = React.createContext<{
   showErrorMessage: TdFormProps['showErrorMessage'];
   resetType: TdFormProps['resetType'];
   disabled: TdFormProps['disabled'];
+  readonly: TdFormProps['readonly'];
   rules: TdFormProps['rules'];
   errorMessage: TdFormProps['errorMessage'];
   formMapRef: React.RefObject<Map<any, React.RefObject<FormItemInstance>>>;
@@ -35,6 +36,7 @@ const FormContext = React.createContext<{
   showErrorMessage: undefined,
   resetType: 'empty',
   disabled: undefined,
+  readonly: undefined,
   rules: undefined,
   errorMessage: undefined,
   statusIcon: undefined,

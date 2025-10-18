@@ -88,6 +88,10 @@ export interface TdCheckboxGroupProps<T = CheckboxGroupValue> {
    */
   options?: Array<CheckboxOption>;
   /**
+   * 只读状态
+   */
+  readonly?: boolean;
+  /**
    * 选中值
    * @default []
    */
@@ -107,10 +111,11 @@ export type CheckboxOption = string | number | CheckboxOptionObj;
 
 export interface CheckboxOptionObj {
   label?: string | TNode;
-  value?: string | number;
+  value?: string | number | boolean;
   disabled?: boolean;
+  readonly?: boolean;
   name?: string;
-  checkAll?: true;
+  checkAll?: boolean;
 }
 
 export type CheckboxGroupValue = Array<string | number | boolean>;
