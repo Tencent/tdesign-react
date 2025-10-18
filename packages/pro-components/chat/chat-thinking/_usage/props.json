@@ -1,0 +1,57 @@
+[
+  {
+    "name": "collapsed",
+    "type": "Boolean",
+    "defaultValue": false,
+    "options": []
+  },
+  {
+    "name": "layout",
+    "type": "enum",
+    "defaultValue": "border",
+    "options": [
+      {
+        "label": "border",
+        "value": "border"
+      },
+      {
+        "label": "block",
+        "value": "block"
+      }
+    ]
+  },
+  {
+    "name": "animation",
+    "type": "enum",
+    "defaultValue": "moving",
+    "options": [
+      {
+        "label": "moving",
+        "value": "moving"
+      },
+      {
+        "label": "gradient",
+        "value": "gradient"
+      },
+      {
+        "label": "circle",
+        "value": "circle"
+      }
+    ]
+  },
+  {
+    "name": "status",
+    "type": "enum",
+    "defaultValue": "pending",
+    "options": [
+      {
+        "label": "pending",
+        "value": "pending"
+      },
+      {
+        "label": "complete",
+        "value": "complete"
+      }
+    ]
+  }
+]
