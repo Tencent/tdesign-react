@@ -13,9 +13,12 @@ import AnchorItem from './AnchorItem';
 import AnchorTarget from './AnchorTarget';
 import { anchorDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useEventCallback from '../hooks/useEventCallback';
+import './style.css';
 
 export interface AnchorProps extends TdAnchorProps, StyledProps {
   children?: React.ReactNode;
+  direction: 'vertical' | 'horizontal';
 }
 
 interface IntervalRef {
@@ -43,26 +46,20 @@ const Anchor = forwardRefWithStatics(
       onChange,
       className,
       getCurrentAnchor,
+      direction,
       ...rest
     } = useDefaultProps(props, anchorDefaultProps);
 
     const { classPrefix } = useConfig();
 
     const [activeItem, setActiveItem] = useState<string>('');
-    const [cursorStyle, setCursorStyle] = useState<{ top: string; height?: string; opacity: number }>({
-      top: '0px',
-      height: '0px',
-      opacity: 0,
-    });
-
     const anchorEl = useRef(null);
     const intervalRef = useRef<IntervalRef>({
       items: [],
       scrollContainer: canUseDocument ? window : null,
       handleScrollLock: false,
     });
-
-    useImperativeHandle(ref, () => anchorEl.current);
+    const lineCursorRef = useRef<HTMLDivElement | null>(null);
 
     /**
      * 注册锚点
@@ -102,16 +99,24 @@ const Anchor = forwardRefWithStatics(
       handleScrollTo(item.href);
     };
 
-    useEffect(() => {
-      // update point style
-      const pointEl = anchorEl.current.querySelector?.(`.${classPrefix}-is-active>a`) as HTMLAnchorElement;
-      if (!pointEl) {
-        setCursorStyle(null);
-      } else {
-        const { offsetTop: top, offsetHeight: height } = pointEl;
-        setCursorStyle({ top: `${top}px`, height: `${height}px`, opacity: 1 });
+    const updateLinkCursor = useEventCallback(() => {
+      const activeNode = anchorEl.current.querySelector?.(`.${classPrefix}-is-active>a`) as HTMLAnchorElement;
+      if (activeNode && lineCursorRef.current) {
+        const { style: lineCursorStyle } = lineCursorRef.current;
+        const horizontalAnchor = direction === 'horizontal';
+        lineCursorStyle.top = horizontalAnchor ? '' : `${activeNode.offsetTop + activeNode.clientHeight / 2}px`;
+        lineCursorStyle.height = horizontalAnchor ? '' : `${activeNode.clientHeight}px`;
+        lineCursorStyle.left = horizontalAnchor ? `${activeNode.offsetLeft}px` : '';
+        lineCursorStyle.width = horizontalAnchor ? `${activeNode.clientWidth}px` : '';
+        if (horizontalAnchor) {
+          activeNode.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'center',
+          });
+        }
       }
-    }, [activeItem, classPrefix]);
+    });
 
     const handleScroll = useCallback(() => {
       const { scrollContainer, handleScrollLock } = intervalRef.current;
@@ -144,6 +149,10 @@ const Anchor = forwardRefWithStatics(
     }, [activeItem, bounds, onChange, targetOffset]);
 
     useEffect(() => {
+      updateLinkCursor();
+    }, [activeItem, updateLinkCursor]);
+
+    useEffect(() => {
       intervalRef.current.scrollContainer = getScrollContainer(container);
       const { scrollContainer } = intervalRef.current;
 
@@ -161,6 +170,7 @@ const Anchor = forwardRefWithStatics(
         [`${classPrefix}-size-m`]: size === 'medium',
         [`${classPrefix}-size-l`]: size === 'large',
       },
+      [`${classPrefix}-anchor-${direction}`],
       className,
     );
 
@@ -181,7 +191,7 @@ const Anchor = forwardRefWithStatics(
       >
         <div {...rest} className={anchorClass} ref={anchorEl}>
           <div className={`${classPrefix}-anchor__line`}>
-            <div className={`${classPrefix}-anchor__line-cursor-wrapper`} style={cursorStyle}>
+            <div ref={lineCursorRef} className={`${classPrefix}-anchor__line-cursor-wrapper`}>
               {CursorCmp()}
             </div>
           </div>
@@ -189,6 +199,8 @@ const Anchor = forwardRefWithStatics(
         </div>
       </AnchorContext.Provider>
     );
+
+    useImperativeHandle(ref, () => anchorEl.current);
 
     return isEmpty(affixProps) ? Cmp : <Affix {...affixProps}>{Cmp}</Affix>;
   },
