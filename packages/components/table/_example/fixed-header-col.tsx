@@ -19,7 +19,6 @@ for (let i = 0; i < 20; i++) {
     index: i,
     applicant: ['贾明', '张三', '王芳'][i % 3],
     status: i % 3,
-    channel: ['电子签署', '纸质签署', '纸质签署'][i % 3],
     detail: {
       email: ['w.cezkdudy@lhll.au', 'r.nmgw@peurezgn.sl', 'p.cumx@rampblpa.ru'][i % 3],
     },
@@ -65,7 +64,6 @@ export default function TableFixedColumn() {
             );
           },
         },
-        { colKey: 'channel', title: '签署方式' },
         { colKey: 'matters', title: '申请事项', width: '150', foot: '-' },
         { colKey: 'detail.email', title: '邮箱地址' },
         { colKey: 'createTime', title: '申请日期', width: '120', foot: '-' },
