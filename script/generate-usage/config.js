@@ -1152,4 +1152,38 @@ module.exports = {
       }, [changedProps]);
     `,
   },
+  qrcode: {
+    importStr: `
+      import configProps from './props.json';\n
+      import { QRCode } from 'tdesign-react';\n`,
+    configStr: `
+      const [configList, setConfigList] = useState(configProps);
+    `,
+    panelStr: `
+      const panelList = [{ label: 'QRCode', value: 'QRCode' }];
+    `,
+    usageStr: `
+      const defaultProps = { value: 'https://tdesign.gtimg.com/site/tdesign-logo.png' };\n
+      useEffect(() => {
+        setRenderComp(<QRCode {...defaultProps} {...changedProps} />);
+      }, [changedProps]);
+    `,
+  },
+  watermark: {
+    importStr: `
+      import configProps from './props.json';\n
+      import { Watermark } from 'tdesign-react';\n`,
+    configStr: `
+      const [configList, setConfigList] = useState(configProps);
+    `,
+    panelStr: `
+      const panelList = [{ label: 'Watermark', value: 'Watermark' }];
+    `,
+    usageStr: `
+      const defaultProps =  { watermarkContent: { text: '文字水印' }, y: 120, x: 80 };\n
+      useEffect(() => {
+        setRenderComp(<Watermark {...defaultProps} {...changedProps}><div style={{ height: 300, width: 400 }}></div></Watermark>);
+      }, [changedProps]);
+    `,
+  },
 };

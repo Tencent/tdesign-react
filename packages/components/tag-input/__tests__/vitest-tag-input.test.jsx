@@ -182,11 +182,11 @@ describe('TagInput Component', () => {
     await mockDelay();
   });
 
-  it('props.readonly: readonly TagInput can not trigger focus event', () => {
+  it('props.readonly: readonly TagInput still can trigger focus event', () => {
     const onFocusFn = vi.fn();
     const { container } = render(<TagInput readonly={true} onFocus={onFocusFn}></TagInput>);
     fireEvent.click(container.querySelector('.t-input'));
-    expect(onFocusFn).not.toHaveBeenCalled();
+    expect(onFocusFn).toHaveBeenCalled();
   });
 
   const sizeClassNameList = ['t-size-s', { 't-size-m': false }, 't-size-l'];
@@ -318,8 +318,10 @@ describe('TagInput Component', () => {
     expect(onBlurFn2).toHaveBeenCalled();
     expect(onBlurFn2.mock.calls[0][0]).toEqual([]);
     expect(onBlurFn2.mock.calls[0][1].e.type).toBe('blur');
-    expect(onBlurFn2.mock.calls[0][1].inputValue).toBe('');
+    // blur 回调中 inputValue 保留用户输入值
+    expect(onBlurFn2.mock.calls[0][1].inputValue).toBe('tag1');
     expect(onInputChangeFn2).toHaveBeenCalled();
+    // 但 input 本身立刻被清空
     expect(onInputChangeFn2.mock.calls[1][0]).toBe('');
     expect(onInputChangeFn2.mock.calls[1][1].e.type).toBe('blur');
     expect(onInputChangeFn2.mock.calls[1][1].trigger).toBe('blur');

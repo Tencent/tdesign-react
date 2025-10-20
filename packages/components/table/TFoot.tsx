@@ -56,7 +56,7 @@ export default function TFoot(props: TFootProps) {
       props.rowKey || 'id',
     );
     return (
-      <tr key={rowIndex} {...trAttributes} className={classNames(customClasses)}>
+      <tr key={rowIndex} {...trAttributes} className={classNames(customClasses) || undefined}>
         {columns.map((col, colIndex) => {
           // 合并单元格过滤
           const cellSpans: RowspanColspan = {};
@@ -83,7 +83,7 @@ export default function TFoot(props: TFootProps) {
               key={col.colKey}
               rowSpan={cellSpans.rowspan}
               colSpan={cellSpans.colspan}
-              className={classNames(tdStyles.classes)}
+              className={classNames(tdStyles.classes) || undefined}
               style={style}
             >
               {renderTFootCell({
@@ -105,7 +105,7 @@ export default function TFoot(props: TFootProps) {
     // 虚拟滚动下，不显示 footer，但预留元素，用于高度计算
     <tfoot
       ref={tfooterRef}
-      className={classNames(theadClasses)}
+      className={classNames(theadClasses) || undefined}
       style={{ visibility: virtualScroll ? 'hidden' : 'visible' }}
     >
       {footerSummary && (

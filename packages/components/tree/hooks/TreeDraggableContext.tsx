@@ -1,9 +1,8 @@
-import { useRef, DragEvent } from 'react';
-import TreeStore from '@tdesign/common-js/tree-v1/tree-store';
+import { useRef } from 'react';
 import TreeNode from '@tdesign/common-js/tree-v1/tree-node';
-import { TreeProps } from '../Tree';
+import TreeStore from '@tdesign/common-js/tree-v1/tree-store';
 import { createHookContext } from '../../_util/createHookContext';
-
+import type { TreeProps } from '../Tree';
 import type { TdTreeProps } from '../type';
 
 interface Value {
@@ -11,47 +10,58 @@ interface Value {
   store: TreeStore;
 }
 
+export type BaseDragContextType = {
+  node: TreeNode;
+  e: React.DragEvent<HTMLDivElement>;
+};
+
+export type DragContextType = BaseDragContextType & {
+  dropPosition: number;
+};
+
+export type DropContextType = BaseDragContextType & {
+  dropPosition: number;
+  allowDrop?: TdTreeProps['allowDrop'];
+};
+
 export const TreeDraggableContext = createHookContext((value: Value) => {
   const { props, store } = value;
 
   const dragNode = useRef<TreeNode | null>(null);
 
-  const onDragStart = (context: { node: TreeNode; e: DragEvent<HTMLDivElement> }) => {
+  const onDragStart = (context: BaseDragContextType) => {
     dragNode.current = context.node;
     props.onDragStart?.({
       ...context,
-      node: context.node.model,
+      node: context.node.getModel(),
     });
   };
 
-  const onDragEnd = (context: { node: TreeNode; e: DragEvent<HTMLDivElement> }) => {
+  const onDragEnd = (context: BaseDragContextType) => {
     dragNode.current = context.node;
     props.onDragEnd?.({
       ...context,
-      node: context.node.model,
+      node: context.node.getModel(),
     });
   };
 
-  const onDragOver = (context: { node: TreeNode; e: DragEvent<HTMLDivElement> }) => {
+  const onDragOver = (context: DragContextType) => {
     props.onDragOver?.({
       ...context,
-      node: context.node.model,
+      node: context.node.getModel(),
+      dragNode: dragNode.current?.getModel(),
     });
   };
 
-  const onDragLeave = (context: { node: TreeNode; e: DragEvent<HTMLDivElement> }) => {
+  const onDragLeave = (context: DragContextType) => {
     props.onDragLeave?.({
       ...context,
-      node: context.node.model,
+      node: context.node.getModel(),
+      dragNode: dragNode.current?.getModel(),
     });
   };
 
-  const onDrop = (context: {
-    node: TreeNode;
-    dropPosition: number;
-    e: DragEvent<HTMLDivElement>;
-    allowDrop?: TdTreeProps['allowDrop'];
-  }) => {
+  const onDrop = (context: DropContextType) => {
     const { node, dropPosition } = context;
     if (
       node.value === dragNode.current?.value ||
@@ -84,8 +94,8 @@ export const TreeDraggableContext = createHookContext((value: Value) => {
     });
     props.onDrop?.({
       ...context,
-      dragNode: dragNode.current?.model,
-      dropNode: node.model,
+      dragNode: dragNode.current?.getModel(),
+      dropNode: node.getModel(),
     });
   };
 

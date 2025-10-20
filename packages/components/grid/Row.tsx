@@ -4,9 +4,10 @@ import { isObject } from 'lodash-es';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
 import { TdRowProps } from './type';
-import { canUseDocument, getCssVarsValue } from '../_util/dom';
+import { canUseDocument } from '../_util/dom';
 import { rowDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { getCssVarsValue } from '../_util/style';
 
 /**
  * Row 组件支持的属性。

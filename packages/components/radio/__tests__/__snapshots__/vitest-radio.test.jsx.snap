@@ -11,6 +11,7 @@ exports[`Radio Component > props.checked is equal to true 1`] = `
       class="t-radio__former"
       tabindex="-1"
       type="radio"
+      value=""
     />
     <span
       class="t-radio__input"
@@ -30,6 +31,7 @@ exports[`Radio Component > props.checked works fine 1`] = `
       class="t-radio__former"
       tabindex="-1"
       type="radio"
+      value=""
     />
     <span
       class="t-radio__input"
@@ -48,6 +50,7 @@ exports[`Radio Component > props.checked works fine 2`] = `
       class="t-radio__former"
       tabindex="-1"
       type="radio"
+      value=""
     />
     <span
       class="t-radio__input"
@@ -66,6 +69,7 @@ exports[`Radio Component > props.children works fine 1`] = `
       class="t-radio__former"
       tabindex="-1"
       type="radio"
+      value=""
     />
     <span
       class="t-radio__input"
@@ -93,6 +97,7 @@ exports[`Radio Component > props.disabled works fine 1`] = `
       disabled=""
       tabindex="-1"
       type="radio"
+      value=""
     />
     <span
       class="t-radio__input"
@@ -116,6 +121,7 @@ exports[`Radio Component > props.disabled works fine 2`] = `
       class="t-radio__former"
       tabindex="-1"
       type="radio"
+      value=""
     />
     <span
       class="t-radio__input"
@@ -139,6 +145,7 @@ exports[`Radio Component > props.label works fine 1`] = `
       class="t-radio__former"
       tabindex="-1"
       type="radio"
+      value=""
     />
     <span
       class="t-radio__input"

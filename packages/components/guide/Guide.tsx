@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useRef, useState } from 'react';
-import { isFunction } from 'lodash-es';
+import { debounce, isFunction } from 'lodash-es';
 import cx from 'classnames';
 import { createPortal } from 'react-dom';
 import setStyle from '@tdesign/common-js/utils/setStyle';
@@ -7,12 +7,15 @@ import Button from '../button';
 import useConfig from '../hooks/useConfig';
 import Popup, { PopupProps } from '../popup';
 import { StepPopupPlacement, TdGuideProps, GuideStep } from './type';
-import { addClass, removeClass, isFixed, getWindowScroll, canUseDocument } from '../_util/dom';
+import { isFixed, canUseDocument } from '../_util/dom';
 import { scrollToParentVisibleArea, getRelativePosition, getTargetElm, scrollToElm } from './utils';
 import useControlled from '../hooks/useControlled';
 import { guideDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
+import { getWindowScroll } from '../_util/scroll';
+import { addClass, removeClass } from '../_util/style';
+import useEventCallback from '../hooks/useEventCallback';
 
 export type GuideProps = TdGuideProps;
 
@@ -114,7 +117,7 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
     dialogWrapperRef.current?.parentNode.removeChild(dialogWrapperRef.current);
   };
 
-  const showGuide = () => {
+  const showGuide = useEventCallback(() => {
     if (isPopup) {
       destroyDialogTooltipElm();
       showPopupGuide();
@@ -122,7 +125,9 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
       destroyTooltipElm();
       showDialogGuide();
     }
-  };
+  });
+
+  const showGuideDebounce = useMemo(() => debounce(showGuide, 250), [showGuide]);
 
   const destroyGuide = () => {
     destroyTooltipElm();
@@ -195,7 +200,13 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
   }, []);
 
   useEffect(
-    () => destroyGuide,
+    () => {
+      window.addEventListener('resize', showGuideDebounce);
+      return () => {
+        window.removeEventListener('resize', showGuideDebounce);
+        destroyGuide();
+      };
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );

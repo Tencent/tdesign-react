@@ -8,6 +8,7 @@ import Button from '../../button';
 import Radio from '../../radio';
 import { HelpCircleIcon } from 'tdesign-icons-react';
 import InputNumber from '../../input-number';
+import { Checkbox } from 'tdesign-react';
 
 const { FormItem, FormList } = Form;
 
@@ -93,13 +94,13 @@ describe('Form 组件测试', () => {
     const { getByPlaceholderText, getByText, queryByText } = render(<TestForm />);
 
     // setFields setFieldsValue setValidateMessage test
-    expect(getByPlaceholderText('input1').value).toEqual('');
+    expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual('');
     fireEvent.click(getByText('setFields'));
-    expect(getByPlaceholderText('input1').value).toEqual('setFields');
+    expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual('setFields');
     expect(fn).toHaveBeenCalled();
 
     fireEvent.click(getByText('setFieldsValue'));
-    expect(getByPlaceholderText('input1').value).toEqual('setFieldsValue');
+    expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual('setFieldsValue');
     expect(fn).toHaveBeenCalled();
 
     fireEvent.click(getByText('setValidateMessage'));
@@ -423,7 +424,33 @@ describe('Form 组件测试', () => {
     await mockDelay();
     expect(container.querySelector('.t-input__extra').innerHTML).toBe('please input username');
   });
+  test('FormItem rules nested name', async () => {
+    const TestForm = () => {
+      return (
+        <Form
+          rules={{
+            'user.name': [{ required: true, message: 'username is required' }],
+            account: [{ required: true, message: 'account is required' }],
+          }}
+        >
+          <FormItem name={['user', 'name']}>
+            <Input placeholder="username" />
+          </FormItem>
+          <FormItem name="account">
+            <Input placeholder="account" />
+          </FormItem>
 
+          <FormItem>
+            <Button type="submit">提交</Button>
+          </FormItem>
+        </Form>
+      );
+    };
+    const { container, getByText, getByPlaceholderText } = render(<TestForm />);
+    fireEvent.click(getByText('提交'));
+    await mockDelay();
+    expect(container.querySelectorAll('.t-form--has-error').length).toBe(2);
+  });
   test('FormItem rules min max', async () => {
     const TestForm = () => {
       const initialValues = {
@@ -534,5 +561,40 @@ describe('Form 组件测试', () => {
     fireEvent.click(getByText('设置信息'));
 
     expect(container.querySelector('.radio-value-3')).toHaveClass('t-is-checked');
+  });
+
+  test('FormItem setFields not trigger onValueChange', async () => {
+    const fn = vi.fn();
+
+    const TestForm = () => {
+      const [form] = Form.useForm();
+
+      function setFields() {
+        form.setFields?.([{ name: ['user', 'course'], value: ['la'] }]);
+      }
+
+      return (
+        <Form form={form} labelWidth={100} colon onValuesChange={fn}>
+          <FormItem label="课程" name={['user', 'course']}>
+            <Checkbox.Group>
+              <Checkbox value="la">加辣</Checkbox>
+              <Checkbox value="ma">加麻</Checkbox>
+              <Checkbox value="nocong">不要葱花</Checkbox>
+            </Checkbox.Group>
+          </FormItem>
+          <FormItem>
+            <Button onClick={setFields}>setFields</Button>
+          </FormItem>
+        </Form>
+      );
+    };
+    const { getByText, container } = render(<TestForm />);
+
+    expect(container.querySelector('.t-is-checked')).toBe(null);
+    fireEvent.click(getByText('setFields'));
+    expect((container.querySelector('.t-is-checked input') as HTMLInputElement).value).toEqual('la');
+    expect(fn).toHaveBeenCalledTimes(1);
+    fireEvent.click(getByText('setFields'));
+    expect(fn).toHaveBeenCalledTimes(1);
   });
 });

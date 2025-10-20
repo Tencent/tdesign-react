@@ -1,19 +1,28 @@
-import React, { CompositionEvent, KeyboardEvent, useRef, useImperativeHandle, forwardRef, MouseEvent } from 'react';
+import React, {
+  CompositionEvent,
+  forwardRef,
+  KeyboardEvent,
+  MouseEvent,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+} from 'react';
 import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-react';
-import { isFunction } from 'lodash-es';
 import classnames from 'classnames';
+import { isFunction } from 'lodash-es';
 import useConfig from '../hooks/useConfig';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import useDragSorter from '../hooks/useDragSorter';
-import TInput, { InputValue, InputRef } from '../input';
-import { TdTagInputProps } from './type';
-import useTagScroll from './useTagScroll';
-import useTagList from './useTagList';
-import useHover from './useHover';
 import useControlled from '../hooks/useControlled';
-import { StyledProps } from '../common';
-import { tagInputDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useDragSorter from '../hooks/useDragSorter';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import TInput, { type InputRef, type InputValue } from '../input';
+import { tagInputDefaultProps } from './defaultProps';
+import useHover from './useHover';
+import useTagList from './useTagList';
+import useTagScroll from './useTagScroll';
+
+import type { TdTagInputProps } from './type';
+import type { StyledProps } from '../common';
 
 export interface TagInputProps extends TdTagInputProps, StyledProps {
   options?: any[]; // 参数穿透options, 给SelectInput/SelectInput 自定义选中项呈现的内容和多选状态下设置折叠项内容
@@ -117,13 +126,19 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
   ) : (
     suffixIcon
   );
+
   // 自定义 Tag 节点
-  const displayNode = isFunction(valueDisplay)
-    ? valueDisplay({
-        value: tagValue,
-        onClose: (index) => onClose({ index }),
-      })
-    : valueDisplay;
+  const displayNode = useMemo(
+    () =>
+      isFunction(valueDisplay)
+        ? valueDisplay({
+            value: tagValue,
+            onClose: (index) => onClose({ index }),
+          })
+        : valueDisplay,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [valueDisplay],
+  );
 
   const isEmpty = !(Array.isArray(tagValue) && tagValue.length);
 
@@ -135,6 +150,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       [`${prefix}-is-empty`]: isEmpty,
       [`${prefix}-tag-input--with-tag`]: !isEmpty,
       [`${prefix}-tag-input--max-rows`]: excessTagsDisplayType === 'break-line' && maxRows,
+      [`${prefix}-tag-input--drag-sort`]: props.dragSort && !disabled && !readonly,
     },
     props.className,
   ];
@@ -193,7 +209,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
         if (tInputValue) {
           setTInputValue('', { e: context.e, trigger: 'blur' });
         }
-        onBlur?.(tagValue, { e: context.e, inputValue: '' });
+        onBlur?.(tagValue, { e: context.e, inputValue });
       }}
       onCompositionstart={onInputCompositionstart}
       onCompositionend={onInputCompositionend}

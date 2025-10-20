@@ -1,8 +1,6 @@
 // Implementation reference from: https://github.com/react-component/util/blob/master/src/React/render.ts
-// @ts-ignore
 import type * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { createRoot as createRootClient } from 'react-dom/client';
 import type { Root } from 'react-dom/client';
 
 // Let compiler not to search module usage
@@ -20,13 +18,11 @@ type CreateRoot = (container: ContainerType) => Root;
 // @ts-ignore
 const { version, render: reactRender, unmountComponentAtNode } = fullClone;
 
-let createRoot: CreateRoot;
+let legacyCreateRoot: CreateRoot;
+const mainVersion = Number((version || '').split('.')[0]);
 try {
-  const mainVersion = Number((version || '').split('.')[0]);
   if (mainVersion >= 18 && mainVersion < 19) {
-    ({ createRoot } = fullClone);
-  } else if (mainVersion >= 19) {
-    createRoot = createRootClient;
+    legacyCreateRoot = fullClone.createRoot;
   }
 } catch (e) {
   // Do nothing;
@@ -43,6 +39,14 @@ function toggleWarning(skip: boolean) {
   }
 }
 
+function react19AdapterWarn() {
+  if (process.env.NODE_ENV === 'development' && mainVersion >= 19 && !legacyCreateRoot) {
+    console.warn(
+      'TDesign warning: Please import react-19-adapter in React 19, See link: https://github.com/Tencent/tdesign-react/blob/develop/packages/tdesign-react/site/docs/getting-started.md#如何在-react-19-中使用',
+    );
+  }
+}
+
 const MARK = '__td_react_root__';
 
 // ========================== Render ==========================
@@ -52,7 +56,7 @@ type ContainerType = (Element | DocumentFragment) & {
 
 function modernRender(node: React.ReactElement, container: ContainerType) {
   toggleWarning(true);
-  const root = container[MARK] || createRoot(container);
+  const root = container[MARK] || legacyCreateRoot(container);
   toggleWarning(false);
 
   root.render(node);
@@ -66,7 +70,9 @@ function legacyRender(node: React.ReactElement, container: ContainerType) {
 }
 
 export function render(node: React.ReactElement, container: ContainerType) {
-  if (createRoot) {
+  react19AdapterWarn();
+
+  if (legacyCreateRoot) {
     modernRender(node, container);
     return;
   }
@@ -90,10 +96,21 @@ function legacyUnmount(container: ContainerType) {
 }
 
 export async function unmount(container: ContainerType) {
-  if (createRoot !== undefined) {
+  if (legacyCreateRoot !== undefined) {
     // Delay to unmount to avoid React 18 sync warning
     return modernUnmount(container);
   }
 
   legacyUnmount(container);
+}
+
+/**
+ * @deprecated Set React render function for compatible usage.
+ * This is internal usage only compatible with React 19.
+ * And will be removed in next major version.
+ */
+export function renderAdapter(render?: CreateRoot) {
+  if (render) {
+    legacyCreateRoot = render;
+  }
 }

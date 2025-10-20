@@ -14,7 +14,8 @@ import multiInput from 'rollup-plugin-multi-input';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import staticImport from 'rollup-plugin-static-import';
 import ignoreImport from 'rollup-plugin-ignore-import';
-import { resolve } from 'path';
+import { resolve, join } from 'path';
+import { copy as fileCopy } from 'fs-extra';
 
 import pkg from '../packages/tdesign-react/package.json';
 
@@ -22,7 +23,7 @@ import pkg from '../packages/tdesign-react/package.json';
 
 const name = 'tdesign';
 const externalDeps = Object.keys(pkg.dependencies || {});
-const externalPeerDeps = Object.keys(pkg.peerDependencies || {}).concat(['react-dom/client']);
+const externalPeerDeps = Object.keys(pkg.peerDependencies || {});
 const banner = `/**
  * ${name} v${pkg.version}
  * (c) ${new Date().getFullYear()} ${pkg.author}
@@ -34,6 +35,7 @@ const inputList = [
   'packages/components/**/*.ts',
   'packages/components/**/*.jsx',
   'packages/components/**/*.tsx',
+  '!packages/components/_util/react-19-adapter.ts', // 单独处理 external
   '!packages/components/**/_example',
   '!packages/components/**/_example-js',
   '!packages/components/**/*.d.ts',
@@ -274,4 +276,66 @@ const resetCss = {
   plugins: [postcss({ extract: true })],
 };
 
-export default [cssConfig, libConfig, cjsConfig, esConfig, esmConfig, umdConfig, umdMinConfig, resetCss];
+// 适配 React 19 的 adapter
+const adapterInput = 'packages/components/_util/react-19-adapter.ts';
+const adapterExternal = ['react-dom', './react-render'];
+
+function postWritePlugin() {
+  return {
+    name: 'post-write-plugin',
+    async writeBundle(outputOptions) {
+      // 1. 获取写入的目录路径
+      const outputDir = outputOptions.dir;
+      const filePath = join(outputDir, 'react-19-adapter.js');
+
+      async function copyMultipleDest(src, destArray) {
+        try {
+          // 并行复制到所有目标路径
+          await Promise.all(destArray.map((dest) => fileCopy(src, dest)));
+          console.log('adapter has been coped.');
+        } catch (err) {
+          console.error('copy failed:', err);
+        }
+      }
+
+      copyMultipleDest(filePath, [
+        'packages/tdesign-react/lib/_util/react-19-adapter.js',
+        'packages/tdesign-react/esm/_util/react-19-adapter.js',
+      ]);
+    },
+  };
+}
+
+const adapterEsConfig = {
+  input: adapterInput,
+  external: adapterExternal,
+  plugins: [postWritePlugin()],
+  output: {
+    banner,
+    dir: 'packages/tdesign-react/es/_util/',
+    format: 'esm',
+  },
+};
+
+const adapterCjsConfig = {
+  input: adapterInput,
+  external: adapterExternal,
+  output: {
+    banner,
+    dir: 'packages/tdesign-react/cjs/_util/',
+    format: 'cjs',
+  },
+};
+
+export default [
+  cssConfig,
+  libConfig,
+  cjsConfig,
+  esConfig,
+  esmConfig,
+  umdConfig,
+  umdMinConfig,
+  resetCss,
+  adapterEsConfig,
+  adapterCjsConfig,
+];

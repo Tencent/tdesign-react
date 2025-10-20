@@ -32,6 +32,7 @@ const Form = forwardRefWithStatics(
       colon,
       initialData,
       requiredMark = globalFormConfig.requiredMark,
+      requiredMarkPosition = globalFormConfig.requiredMarkPosition,
       scrollToFirstError,
       showErrorMessage,
       resetType,
@@ -69,6 +70,7 @@ const Form = forwardRefWithStatics(
         formItemRef?.current.resetField();
       });
       form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.([]);
+      form.store = {};
       onReset?.({ e });
     }
 
@@ -97,6 +99,7 @@ const Form = forwardRefWithStatics(
           colon,
           initialData,
           requiredMark,
+          requiredMarkPosition,
           errorMessage,
           showErrorMessage,
           scrollToFirstError,

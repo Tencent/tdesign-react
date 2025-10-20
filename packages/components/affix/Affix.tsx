@@ -2,10 +2,10 @@ import React, { useEffect, forwardRef, useCallback, useImperativeHandle, useRef 
 import { isFunction } from 'lodash-es';
 import { StyledProps, ScrollContainerElement } from '../common';
 import { TdAffixProps } from './type';
-import { getScrollContainer } from '../_util/dom';
 import useConfig from '../hooks/useConfig';
 import { affixDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { getScrollContainer } from '../_util/scroll';
 
 export interface AffixProps extends TdAffixProps, StyledProps {}
 
@@ -45,15 +45,15 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
 
         const calcTop = wrapToTop - containerToTop; // 节点顶部到 container 顶部的距离
         const containerHeight =
-          scrollContainer.current[scrollContainer.current instanceof Window ? 'innerHeight' : 'clientHeight'] -
+          scrollContainer.current?.[scrollContainer.current instanceof Window ? 'innerHeight' : 'clientHeight'] -
           wrapHeight;
         const calcBottom = containerToTop + containerHeight - (offsetBottom ?? 0); // 计算 bottom 相对应的 top 值
 
         let fixedTop: number | false;
-        if (offsetTop !== undefined && calcTop <= offsetTop) {
+        if (calcTop <= offsetTop) {
           // top 的触发
           fixedTop = containerToTop + offsetTop;
-        } else if (offsetBottom !== undefined && wrapToTop >= calcBottom) {
+        } else if (wrapToTop >= calcBottom) {
           // bottom 的触发
           fixedTop = calcBottom;
         } else {

@@ -123,6 +123,10 @@ export interface GlobalConfigProvider {
    */
   popconfirm?: PopconfirmConfig;
   /**
+   * 二维码全局配置
+   */
+  qrcode?: QRCodeConfig;
+  /**
    * 评分全局配置
    */
   rate?: RateConfig;
@@ -509,6 +513,11 @@ export interface FormConfig {
    * @default true
    */
   requiredMark?: boolean;
+  /**
+   * 表单必填符号（*）显示位置
+   * @default left
+   */
+  requiredMarkPosition?: 'left' | 'right';
 }
 
 export interface GuideConfig {
@@ -643,6 +652,24 @@ export interface PopconfirmConfig {
    * 确认按钮主题色，即 Popconfirm 的 `theme` 和 确认按钮的 `theme` 映射关系。示例：{ danger: 'danger' }
    */
   confirmBtnTheme?: { default: string; warning: string; danger: string };
+}
+
+export interface QRCodeConfig {
+  /**
+   * 语言配置，“二维码过期”描述文本
+   * @default ''
+   */
+  expiredText?: string;
+  /**
+   * 语言配置，“点击刷新”描述文本
+   * @default ''
+   */
+  refreshText?: string;
+  /**
+   * 语言配置，“已扫描”描述文本
+   * @default ''
+   */
+  scannedText?: string;
 }
 
 export interface RateConfig {

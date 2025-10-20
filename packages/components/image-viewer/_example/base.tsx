@@ -1,6 +1,6 @@
 import React from 'react';
-import { ImageViewer, Image, Space } from 'tdesign-react';
 import { BrowseIcon } from 'tdesign-icons-react';
+import { Image, ImageViewer, Space } from 'tdesign-react';
 
 import type { ImageViewerProps } from 'tdesign-react';
 
@@ -18,7 +18,7 @@ export default function BasicImageViewer() {
           alignItems: 'center',
           justifyContent: 'center',
         }}
-        onClick={open}
+        onClick={() => open()}
       >
         <span>
           <BrowseIcon size="16px" name={'browse'} /> 预览
@@ -46,10 +46,7 @@ export default function BasicImageViewer() {
 
   return (
     <Space breakLine size={16}>
-      <ImageViewer trigger={trigger} images={[img]} />
-
-      {/* TODO: fix visible=true can not show image previewer */}
-      {/* <ImageViewer images={[img]} visible={true} /> */}
+      <ImageViewer trigger={trigger} images={[img]} zIndex={10000} />
     </Space>
   );
 }

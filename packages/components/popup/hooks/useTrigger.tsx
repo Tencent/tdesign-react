@@ -3,7 +3,7 @@ import { isFragment } from 'react-is';
 import classNames from 'classnames';
 import { supportRef, getRefDom, getNodeRef } from '../../_util/ref';
 import composeRefs from '../../_util/composeRefs';
-import { on, off } from '../../_util/dom';
+import { off, on } from '../../_util/listener';
 
 const ESC_KEY = 'Escape';
 
@@ -27,8 +27,8 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
   }, [delay]);
 
   function callFuncWithDelay({ delay, callback }: { delay?: number; callback: Function }) {
+    clearTimeout(visibleTimer.current);
     if (delay) {
-      clearTimeout(visibleTimer.current);
       visibleTimer.current = setTimeout(callback, delay);
     } else {
       callback();

@@ -53,6 +53,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
     disabled,
     multiple,
     prefixIcon,
+    label,
     loading,
     size,
     max,
@@ -196,11 +197,13 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
 
   const handleSingleChange = usePersistFn<TreeProps['onActive']>((value, context) => {
     const $value = Array.isArray(value) && value.length ? value[0] : undefined;
-    onChange(formatValue($value, context.node.label), {
-      ...context,
-      data: context.node.data,
-      trigger: 'check',
-    });
+    if ($value) {
+      onChange(formatValue($value, context.node.label), {
+        ...context,
+        data: context.node.data,
+        trigger: 'check',
+      });
+    }
     // 单选选择后收起弹框
     setPopupVisible(false, { ...context, trigger: 'trigger-element-click' });
   });
@@ -241,13 +244,13 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
       const node = getNodeItem(normalizedValue[index].value);
       onChange(
         normalizedValue.filter((value, i) => i !== index).map(({ value, label }) => formatValue(value, label)),
-        { node, data: node.data, trigger, e },
+        { node, data: node?.data, trigger, e },
       );
       onRemove?.({
         value: node.value,
         node,
         index,
-        data: { value: node.value, label: node.label, ...node.data },
+        data: { value: node?.value, label: node?.label, ...node?.data },
         e,
         trigger,
       });
@@ -349,7 +352,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
         ))
       }
       collapsedItems={collapsedItems}
-      label={parseTNode(prefixIcon)}
+      label={parseTNode(label || prefixIcon)}
       valueDisplay={internalInputValueDisplay}
     />
   );

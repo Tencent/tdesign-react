@@ -288,8 +288,16 @@ const Input = forwardRefWithStatics(
 
     function togglePasswordVisible() {
       if (disabled) return;
+      // 保存光标位置
+      const inputEl = inputRef.current;
+      const cursorPosition = inputRef.current?.selectionStart || 0;
+
       const toggleType = renderType === 'password' ? 'text' : 'password';
       setRenderType(toggleType);
+
+      requestAnimationFrame(() => {
+        inputEl?.setSelectionRange(cursorPosition, cursorPosition);
+      });
     }
 
     function handleChange(
@@ -358,20 +366,20 @@ const Input = forwardRefWithStatics(
     }
 
     function handleFocus(e: React.FocusEvent<HTMLInputElement>) {
-      if (isInnerInputReadonly) return;
       const {
         currentTarget: { value },
       } = e;
       onFocus?.(value, { e });
+      if (isInnerInputReadonly) return;
       toggleIsFocused(true);
     }
 
     function handleBlur(e: React.FocusEvent<HTMLInputElement>) {
-      if (isInnerInputReadonly) return;
       const {
         currentTarget: { value },
       } = e;
       onBlur?.(value, { e });
+      if (isInnerInputReadonly) return;
       toggleIsFocused(false);
     }
 
