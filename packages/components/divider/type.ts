@@ -33,5 +33,5 @@ export interface TdDividerProps {
   /**
    * 间距大小
    */
-  size?: number;
+  size?: string | number;
 }
