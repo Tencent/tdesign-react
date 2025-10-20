@@ -1,7 +1,10 @@
-import { useState, useRef, useMemo, useEffect } from 'react';
-import { TdBaseTableProps } from '../type';
-import { AffixProps } from '../../affix';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { off, on } from '../../_util/listener';
+import type { AffixProps } from '../../affix';
+import type { TdBaseTableProps } from '../type';
+
+type AffixOffset = { left: number; top: number };
+const INITIAL_AFFIX_OFFSET: AffixOffset = { left: 0, top: 0 };
 
 /**
  * 1. 表头吸顶（普通表头吸顶 和 虚拟滚动表头吸顶）
@@ -11,6 +14,8 @@ import { off, on } from '../../_util/listener';
  */
 export default function useAffix(props: TdBaseTableProps, { showElement }: { showElement: boolean }) {
   const tableContentRef = useRef<HTMLDivElement>(null);
+  const lastTableScrollLeftRef = useRef<number>(0);
+
   // 吸顶表头
   const affixHeaderRef = useRef<HTMLDivElement>(null);
   // 吸底表尾
@@ -19,6 +24,14 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
   const horizontalScrollbarRef = useRef<HTMLDivElement>(null);
   // 吸底分页器
   const paginationRef = useRef<HTMLDivElement>(null);
+
+  // 初始化渲染表格时，记录其位置，用于后续计算偏移量
+  const initialHeaderRectRef = useRef<AffixOffset | null>(INITIAL_AFFIX_OFFSET);
+  const initialFooterRectRef = useRef<AffixOffset | null>(INITIAL_AFFIX_OFFSET);
+
+  const [headerOffset, setHeaderOffset] = useState<AffixOffset>(INITIAL_AFFIX_OFFSET);
+  const [footerOffset, setFooterOffset] = useState<AffixOffset>(INITIAL_AFFIX_OFFSET);
+
   // 当表格完全滚动消失在视野时，需要隐藏吸顶表头
   const [showAffixHeader, setShowAffixHeader] = useState(true);
   // 当表格完全滚动消失在视野时，需要隐藏吸底尾部
@@ -32,23 +45,35 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
   );
 
   const isAffixed = useMemo(
-    () => !!(props.headerAffixedTop || props.footerAffixedBottom || props.horizontalScrollAffixedBottom),
-    [props.footerAffixedBottom, props.headerAffixedTop, props.horizontalScrollAffixedBottom],
+    () =>
+      !!(
+        isVirtualScroll ||
+        props.headerAffixedTop ||
+        props.footerAffixedBottom ||
+        props.horizontalScrollAffixedBottom ||
+        props.paginationAffixedBottom
+      ),
+    [
+      isVirtualScroll,
+      props.footerAffixedBottom,
+      props.headerAffixedTop,
+      props.horizontalScrollAffixedBottom,
+      props.paginationAffixedBottom,
+    ],
   );
 
-  let lastScrollLeft = 0;
-  const onHorizontalScroll = (scrollElement?: HTMLElement) => {
-    if (!isAffixed && !isVirtualScroll) return;
+  const onTableHorizontalScroll = (scrollElement?: HTMLElement) => {
+    if (!isAffixed) return;
     let target = scrollElement;
     if (!target && tableContentRef.current) {
-      lastScrollLeft = 0;
+      lastTableScrollLeftRef.current = 0;
       target = tableContentRef.current;
     }
     if (!target) return;
     const left = target.scrollLeft;
     // 如果 lastScrollLeft 等于 left，说明不是横向滚动，不需要更新横向滚动距离
-    if (lastScrollLeft === left) return;
-    lastScrollLeft = left;
+    if (lastTableScrollLeftRef.current === left) return;
+    lastTableScrollLeftRef.current = left;
     // 表格内容、吸顶表头、吸底表尾、吸底横向滚动更新
     const toUpdateScrollElement = [
       tableContentRef.current,
@@ -63,6 +88,32 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
     }
   };
 
+  const onPageHorizonScroll = () => {
+    if (!isAffixed || !tableContentRef.current) return;
+    const { left: currLeft, top: currTop } = tableContentRef.current.getBoundingClientRect();
+
+    /**
+     * 表格 header 或 footer 的 left 是相同的，不需要区分
+     * top 虽然理论上不一样，但这里并不需要用到真实数值
+     * 只是为了监听位置变化触发重新渲染
+     * 具体的偏移逻辑交个 Affix 组件的底层即可
+     */
+
+    if (props.headerAffixedTop && affixHeaderRef.current) {
+      const left = currLeft - initialHeaderRectRef.current.left;
+      const top = currTop - initialHeaderRectRef.current.top;
+      affixHeaderRef.current.style.marginLeft = left ? `${left}px` : '';
+      setHeaderOffset({ left, top });
+    }
+
+    if (props.footerAffixedBottom && affixFooterRef.current) {
+      const left = currLeft - initialFooterRectRef.current.left;
+      const top = currTop - initialFooterRectRef.current.top;
+      affixFooterRef.current.style.marginLeft = left ? `${left}px` : '';
+      setFooterOffset({ left, top });
+    }
+  };
+
   // 吸底的元素（footer、横向滚动条、分页器）是否显示
   const isAffixedBottomElementShow = (elementRect: DOMRect, tableRect: DOMRect, headerHeight: number) =>
     tableRect.top + headerHeight < elementRect.top && elementRect.top > elementRect.height;
@@ -73,7 +124,7 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
   };
 
   const updateAffixHeaderOrFooter = () => {
-    if (!isAffixed && !isVirtualScroll) return;
+    if (!isAffixed) return;
     const pos = tableContentRef.current?.getBoundingClientRect();
     if (!pos) return;
     const headerRect = tableContentRef.current?.querySelector('thead')?.getBoundingClientRect();
@@ -105,24 +156,25 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
     }
   };
 
-  const onDocumentScroll = () => {
+  const onPageScroll = () => {
     updateAffixHeaderOrFooter();
+    onPageHorizonScroll();
   };
 
   const onFootScroll = () => {
-    onHorizontalScroll(affixFooterRef.current);
+    onTableHorizontalScroll(affixFooterRef.current);
   };
 
   const onHeaderScroll = () => {
-    onHorizontalScroll(affixHeaderRef.current);
+    onTableHorizontalScroll(affixHeaderRef.current);
   };
 
   const horizontalScrollbarScroll = () => {
-    onHorizontalScroll(horizontalScrollbarRef.current);
+    onTableHorizontalScroll(horizontalScrollbarRef.current);
   };
 
   const onTableContentScroll = () => {
-    onHorizontalScroll(tableContentRef.current);
+    onTableHorizontalScroll(tableContentRef.current);
   };
 
   const onFootMouseEnter = () => {
@@ -157,7 +209,7 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
     off(tableContentRef.current, 'scroll', onTableContentScroll);
   };
 
-  const addHorizontalScrollListeners = () => {
+  const addTableHorizontalScrollListeners = () => {
     if (affixHeaderRef.current) {
       on(affixHeaderRef.current, 'mouseenter', onHeaderMouseEnter);
       on(affixHeaderRef.current, 'mouseleave', onHeaderMouseLeave);
@@ -173,13 +225,13 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
       on(horizontalScrollbarRef.current, 'mouseleave', onScrollbarMouseLeave);
     }
 
-    if ((isAffixed || isVirtualScroll) && tableContentRef.current) {
+    if (isAffixed && tableContentRef.current) {
       on(tableContentRef.current, 'mouseenter', onTableContentMouseEnter);
       on(tableContentRef.current, 'mouseleave', onTableContentMouseLeave);
     }
   };
 
-  const removeHorizontalScrollListeners = () => {
+  const removeTableHorizontalScrollListeners = () => {
     if (affixHeaderRef.current) {
       off(affixHeaderRef.current, 'mouseenter', onHeaderMouseEnter);
       off(affixHeaderRef.current, 'mouseleave', onHeaderMouseLeave);
@@ -198,42 +250,49 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
     }
   };
 
-  const addVerticalScrollListener = () => {
-    if (typeof document === 'undefined') return;
-    if (!isAffixed && !props.paginationAffixedBottom) return;
+  const addPageScrollListener = () => {
     const timer = setTimeout(() => {
-      if (isAffixed || props.paginationAffixedBottom) {
-        on(document, 'scroll', onDocumentScroll);
+      if (isAffixed) {
+        onPageScroll(); // initial sync
+        on(window, 'scroll', onPageScroll);
       } else {
-        off(document, 'scroll', onDocumentScroll);
+        off(window, 'scroll', onPageScroll);
       }
       clearTimeout(timer);
     });
   };
 
+  const refreshTablePosition = () => {
+    if (!tableContentRef.current) return;
+    const { left, top } = tableContentRef.current.getBoundingClientRect();
+    initialHeaderRectRef.current = { left, top };
+    initialFooterRectRef.current = { left, top };
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      addHorizontalScrollListeners();
-      onHorizontalScroll();
+      addTableHorizontalScrollListeners();
+      onTableHorizontalScroll();
       updateAffixHeaderOrFooter();
       clearTimeout(timer);
     });
-
-    return removeHorizontalScrollListeners;
+    return () => {
+      removeTableHorizontalScrollListeners();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [affixHeaderRef, affixFooterRef, horizontalScrollbarRef, tableContentRef, showElement]);
 
   useEffect(() => {
-    addVerticalScrollListener();
+    addPageScrollListener();
     return () => {
-      off(document, 'scroll', onDocumentScroll);
+      off(window, 'scroll', onPageScroll);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAffixed]);
 
   useEffect(() => {
-    addHorizontalScrollListeners();
-    onHorizontalScroll();
+    addTableHorizontalScrollListeners();
+    updateAffixHeaderOrFooter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     props.data,
@@ -244,12 +303,22 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
     props.lazyLoad,
   ]);
 
+  useEffect(() => {
+    on(window, 'resize', refreshTablePosition);
+    return () => {
+      off(window, 'resize', refreshTablePosition);
+    };
+  }, []);
+
   const setTableContentRef = (tableContent: HTMLDivElement) => {
     tableContentRef.current = tableContent;
-    addVerticalScrollListener();
+    refreshTablePosition();
+    addPageScrollListener();
   };
 
   return {
+    headerOffset,
+    footerOffset,
     showAffixHeader,
     showAffixFooter,
     showAffixPagination,
@@ -257,7 +326,7 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
     affixFooterRef,
     horizontalScrollbarRef,
     paginationRef,
-    onHorizontalScroll,
+    onTableHorizontalScroll,
     setTableContentRef,
     updateAffixHeaderOrFooter,
   };

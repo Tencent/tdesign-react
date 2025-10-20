@@ -73,6 +73,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
   // 1. 表头吸顶；2. 表尾吸底；3. 底部滚动条吸底；4. 分页器吸底
   const {
+    headerOffset,
+    footerOffset,
     affixHeaderRef,
     affixFooterRef,
     horizontalScrollbarRef,
@@ -80,7 +82,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     showAffixHeader,
     showAffixFooter,
     showAffixPagination,
-    onHorizontalScroll,
+    onTableHorizontalScroll,
     setTableContentRef,
     updateAffixHeaderOrFooter,
   } = useAffix(props, { showElement });
@@ -184,7 +186,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
   const onFixedChange = () => {
     const timer = setTimeout(() => {
-      onHorizontalScroll();
+      onTableHorizontalScroll();
       updateAffixHeaderOrFooter();
       clearTimeout(timer);
     }, 0);
@@ -244,7 +246,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       updateColumnFixedShadow(target);
     }
     lastScrollY = top;
-    onHorizontalScroll(target);
+    onTableHorizontalScroll(target);
     emitScrollEvent(e);
   };
 
@@ -628,6 +630,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     [
       // eslint-disable-next-line
       ...headUseMemoDependencies,
+      headerOffset,
       showAffixHeader,
       tableWidth,
       tableElmWidth,
@@ -646,7 +649,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     renderAffixedFooter,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+      footerOffset,
       showAffixFooter,
       isFixedHeader,
       rowAndColFixedPosition,
