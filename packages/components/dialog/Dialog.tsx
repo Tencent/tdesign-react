@@ -1,7 +1,9 @@
-import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
+
 import classNames from 'classnames';
 import { isUndefined } from 'lodash-es';
+
 import log from '@tdesign/common-js/log/index';
 import Portal from '../common/Portal';
 import useAttach from '../hooks/useAttach';
@@ -9,6 +11,7 @@ import useConfig from '../hooks/useConfig';
 import useDeepEffect from '../hooks/useDeepEffect';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useSetState from '../hooks/useSetState';
+import useZIndex from '../hooks/useZIndex';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { dialogDefaultProps } from './defaultProps';
 import DialogCard from './DialogCard';
@@ -17,6 +20,7 @@ import useDialogEsc from './hooks/useDialogEsc';
 import useDialogPosition from './hooks/useDialogPosition';
 import useLockStyle from './hooks/useLockStyle';
 import { parseValueToPx } from './utils';
+
 import type { StyledProps } from '../common';
 import type { DialogInstance, TdDialogProps } from './type';
 
@@ -27,15 +31,19 @@ export interface DialogProps extends TdDialogProps, StyledProps {
 const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const props = useDefaultProps<DialogProps>(originalProps, dialogDefaultProps);
   const { children, ...restProps } = props;
-  const { classPrefix } = useConfig();
 
+  const { classPrefix } = useConfig();
   const componentCls = `${classPrefix}-dialog`;
+
   const wrapRef = useRef<HTMLDivElement>(null);
   const maskRef = useRef<HTMLDivElement>(null);
   const contentClickRef = useRef(false);
   const dialogCardRef = useRef<HTMLDivElement>(null);
   const dialogPosition = useRef(null);
   const portalRef = useRef(null);
+
+  const [portalMounted, setPortalMounted] = useState(false);
+
   const [state, setState] = useSetState<DialogProps>({ isPlugin: false, ...restProps });
   const [local] = useLocaleReceiver('dialog');
 
@@ -45,7 +53,6 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     style,
     width,
     mode,
-    zIndex,
     visible,
     attach,
     onBeforeOpen,
@@ -72,6 +79,8 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     ...restState
   } = state;
 
+  const { displayZIndex } = useZIndex('dialog', portalMounted);
+
   const dialogAttach = useAttach('dialog', attach);
 
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
@@ -89,6 +98,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   }, [props, setState]);
 
   useImperativeHandle(ref, () => ({
+    // latestZIndex,
     show() {
       setState({ visible: true });
     },
@@ -149,17 +159,18 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     }
   };
 
+  const onAnimateStart = () => {
+    if (!wrapRef.current) return;
+    onBeforeOpen?.();
+    wrapRef.current.style.display = 'block';
+    setPortalMounted(true);
+  };
+
   const onAnimateLeave = () => {
     onClosed?.();
 
     if (!wrapRef.current) return;
     wrapRef.current.style.display = 'none';
-  };
-
-  const onAnimateStart = () => {
-    if (!wrapRef.current) return;
-    onBeforeOpen?.();
-    wrapRef.current.style.display = 'block';
   };
 
   const onInnerAnimateStart = () => {
@@ -209,7 +220,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
             [`${componentCls}__ctx--fixed`]: !showInAttachedElement,
             [`${componentCls}__ctx--absolute`]: showInAttachedElement,
           })}
-          style={{ zIndex, display: 'none' }}
+          style={{ zIndex: displayZIndex, display: 'none' }}
           onKeyDown={handleKeyDown}
           tabIndex={0}
         >

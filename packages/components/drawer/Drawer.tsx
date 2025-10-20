@@ -1,8 +1,10 @@
 import React, { forwardRef, isValidElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
+
 import classnames from 'classnames';
 import { isFunction, isObject, isString, isUndefined } from 'lodash-es';
+
 import parseTNode from '../_util/parseTNode';
 import Button, { type ButtonProps } from '../button';
 import Portal from '../common/Portal';
@@ -12,6 +14,7 @@ import useDeepEffect from '../hooks/useDeepEffect';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useSetState from '../hooks/useSetState';
+import useZIndex from '../hooks/useZIndex';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { drawerDefaultProps } from './defaultProps';
 import useDrag from './hooks/useDrag';
@@ -41,6 +44,9 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
   const props = useDefaultProps<DrawerProps>(originalProps, drawerDefaultProps);
   const { body, children, header, footer, ...restProps } = props;
   const [state, setState] = useSetState<DrawerProps>({ isPlugin: false, ...restProps });
+
+  const [portalMounted, setPortalMounted] = useState(false);
+
   const {
     className,
     style,
@@ -64,7 +70,6 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     closeBtn,
     cancelBtn = cancelText,
     confirmBtn = confirmText,
-    zIndex,
     destroyOnClose,
     sizeDraggable,
     forceRender,
@@ -74,7 +79,11 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
 
   const size = propsSize ?? local.size;
   const { classPrefix } = useConfig();
+
+  const { displayZIndex } = useZIndex('drawer', portalMounted);
+
   const drawerAttach = useAttach('drawer', attach);
+
   const maskRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const drawerWrapperRef = useRef<HTMLElement>(null); // 即最终的 attach dom，默认为 document.body
@@ -94,7 +103,9 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
   }, [dragSizeValue, size]);
 
   useLockStyle({ ...state, sizeValue, drawerWrapper: drawerWrapperRef.current });
+
   useImperativeHandle(ref, () => ({
+    // latestZIndex,
     show() {
       setState({ visible: true });
     },
@@ -143,6 +154,11 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
   function onConfirmClick(e: React.MouseEvent<HTMLButtonElement>) {
     onConfirm?.({ e });
   }
+
+  const onAnimateStart = () => {
+    onBeforeOpen?.();
+    setPortalMounted(true);
+  };
 
   const contentWrapperStyle = useMemo(
     () => ({
@@ -225,7 +241,7 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
       mountOnEnter={isUndefined(forceRender) ? lazy : !forceRender}
       unmountOnExit={destroyOnClose}
       timeout={{ appear: 10, enter: 10, exit: 300 }}
-      onEnter={() => onBeforeOpen?.()}
+      onEnter={onAnimateStart}
       onEntered={() => setAnimationStart(true)}
       onExit={() => onBeforeClose?.()}
       onExited={() => setAnimationStart(false)}
@@ -238,7 +254,7 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
             [`${prefixCls}--attach`]: showInAttachedElement,
             [`${prefixCls}--without-mask`]: !showOverlay,
           })}
-          style={{ zIndex, ...style }}
+          style={{ zIndex: displayZIndex, ...style }}
           tabIndex={-1} // https://stackoverflow.com/questions/43503964/onkeydown-event-not-working-on-divs-in-react
           onKeyDown={onKeyDownEsc}
         >
