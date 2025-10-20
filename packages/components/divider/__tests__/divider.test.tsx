@@ -39,7 +39,7 @@ describe('Divider 组件测试', () => {
       expect(getByText(text).textContent).toBe(text);
     });
 
-    test('Divider size horizontal', () => {
+    test('Divider size horizontal number', () => {
       const text = '腾讯中content';
       const { container } = render(<Divider content={text} size={20}></Divider>);
 
@@ -48,7 +48,7 @@ describe('Divider 组件测试', () => {
       });
     });
 
-    test('Divider size horizontal', () => {
+    test('Divider size horizontal string', () => {
       const text = '腾讯中content';
       const { container } = render(<Divider content={text} size="20px"></Divider>);
 
