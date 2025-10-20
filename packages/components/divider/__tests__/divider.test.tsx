@@ -48,6 +48,15 @@ describe('Divider 组件测试', () => {
       });
     });
 
+    test('Divider size horizontal', () => {
+      const text = '腾讯中content';
+      const { container } = render(<Divider content={text} size="20px"></Divider>);
+
+      expect(container.querySelector('.t-divider')).toHaveStyle({
+        margin: '20px 0',
+      });
+    });
+
     test('Divider size vertical', () => {
       const text = '腾讯中content';
       const { container } = render(<Divider content={text} size={20} layout="vertical"></Divider>);

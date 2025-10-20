@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
-import { isFinite } from 'lodash-es';
 import { pxCompat } from '@tdesign/common-js/utils/helper';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
@@ -41,7 +40,7 @@ const Divider: React.FC<DividerProps> = (props) => {
   });
 
   const dividerWrapperStyle = useMemo<React.CSSProperties>(() => {
-    if (isFinite(size)) {
+    if (size) {
       const margin = isHorizontal ? `${pxCompat(size)} 0` : `0 ${pxCompat(size)}`;
       return {
         margin,
