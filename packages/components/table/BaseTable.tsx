@@ -73,8 +73,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
   // 1. 表头吸顶；2. 表尾吸底；3. 底部滚动条吸底；4. 分页器吸底
   const {
-    headerOffset,
-    footerOffset,
+    affixOffset,
     affixHeaderRef,
     affixFooterRef,
     horizontalScrollbarRef,
@@ -630,7 +629,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     [
       // eslint-disable-next-line
       ...headUseMemoDependencies,
-      headerOffset,
+      affixOffset,
       showAffixHeader,
       tableWidth,
       tableElmWidth,
@@ -649,7 +648,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     renderAffixedFooter,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
-      footerOffset,
+      affixOffset,
       showAffixFooter,
       isFixedHeader,
       rowAndColFixedPosition,

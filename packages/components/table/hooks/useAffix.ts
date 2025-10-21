@@ -26,11 +26,9 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
   const paginationRef = useRef<HTMLDivElement>(null);
 
   // 初始化渲染表格时，记录其位置，用于后续计算偏移量
-  const initialHeaderRectRef = useRef<AffixOffset | null>(INITIAL_AFFIX_OFFSET);
-  const initialFooterRectRef = useRef<AffixOffset | null>(INITIAL_AFFIX_OFFSET);
+  const initialTableRectRef = useRef<AffixOffset | null>(INITIAL_AFFIX_OFFSET);
 
-  const [headerOffset, setHeaderOffset] = useState<AffixOffset>(INITIAL_AFFIX_OFFSET);
-  const [footerOffset, setFooterOffset] = useState<AffixOffset>(INITIAL_AFFIX_OFFSET);
+  const [affixOffset, setAffixOffset] = useState<AffixOffset>(INITIAL_AFFIX_OFFSET);
 
   // 当表格完全滚动消失在视野时，需要隐藏吸顶表头
   const [showAffixHeader, setShowAffixHeader] = useState(true);
@@ -90,7 +88,7 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
 
   const onPageHorizonScroll = () => {
     if (!isAffixed || !tableContentRef.current) return;
-    const { left: currLeft, top: currTop } = tableContentRef.current.getBoundingClientRect();
+    const { left, top } = tableContentRef.current.getBoundingClientRect();
 
     /**
      * 表格 header 或 footer 的 left 是相同的，不需要区分
@@ -98,19 +96,15 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
      * 只是为了监听位置变化触发重新渲染
      * 具体的偏移逻辑交个 Affix 组件的底层即可
      */
+    const leftOffset = left - initialTableRectRef.current.left;
+    const topOffset = top - initialTableRectRef.current.top;
+    setAffixOffset({ left: leftOffset, top: topOffset });
 
-    if (props.headerAffixedTop && affixHeaderRef.current) {
-      const left = currLeft - initialHeaderRectRef.current.left;
-      const top = currTop - initialHeaderRectRef.current.top;
-      affixHeaderRef.current.style.marginLeft = left ? `${left}px` : '';
-      setHeaderOffset({ left, top });
-    }
-
-    if (props.footerAffixedBottom && affixFooterRef.current) {
-      const left = currLeft - initialFooterRectRef.current.left;
-      const top = currTop - initialFooterRectRef.current.top;
-      affixFooterRef.current.style.marginLeft = left ? `${left}px` : '';
-      setFooterOffset({ left, top });
+    const toUpdateScrollElement = [affixHeaderRef.current, affixFooterRef.current];
+    for (let i = 0, len = toUpdateScrollElement.length; i < len; i++) {
+      if (toUpdateScrollElement[i]) {
+        toUpdateScrollElement[i].style.marginLeft = `${leftOffset}px`;
+      }
     }
   };
 
@@ -265,8 +259,7 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
   const refreshTablePosition = () => {
     if (!tableContentRef.current) return;
     const { left, top } = tableContentRef.current.getBoundingClientRect();
-    initialHeaderRectRef.current = { left, top };
-    initialFooterRectRef.current = { left, top };
+    initialTableRectRef.current = { left, top };
   };
 
   useEffect(() => {
@@ -317,8 +310,7 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
   };
 
   return {
-    headerOffset,
-    footerOffset,
+    affixOffset,
     showAffixHeader,
     showAffixFooter,
     showAffixPagination,
