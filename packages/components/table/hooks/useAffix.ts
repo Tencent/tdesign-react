@@ -90,12 +90,6 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
     if (!isAffixed || !tableContentRef.current) return;
     const { left, top } = tableContentRef.current.getBoundingClientRect();
 
-    /**
-     * 表格 header 或 footer 的 left 是相同的，不需要区分
-     * top 虽然理论上不一样，但这里并不需要用到真实数值
-     * 只是为了监听位置变化触发重新渲染
-     * 具体的偏移逻辑交个 Affix 组件的底层即可
-     */
     const leftOffset = left - initialTableRectRef.current.left;
     const topOffset = top - initialTableRectRef.current.top;
     setAffixOffset({ left: leftOffset, top: topOffset });
@@ -103,6 +97,7 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
     const toUpdateScrollElement = [affixHeaderRef.current, affixFooterRef.current];
     for (let i = 0, len = toUpdateScrollElement.length; i < len; i++) {
       if (toUpdateScrollElement[i]) {
+        // top 具体的偏移逻辑交个 Affix 组件的底层即可
         toUpdateScrollElement[i].style.marginLeft = `${leftOffset}px`;
       }
     }
