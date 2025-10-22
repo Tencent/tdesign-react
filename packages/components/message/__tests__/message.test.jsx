@@ -1,11 +1,11 @@
 import React from 'react';
-import { render, fireEvent, mockTimeout, vi, act } from '@test/utils';
+import { fireEvent, mockTimeout, render, vi, waitFor } from '@test/utils';
 import {
-  InfoCircleFilledIcon,
   CheckCircleFilledIcon,
   ErrorCircleFilledIcon,
   HelpCircleFilledIcon,
   HelpIcon,
+  InfoCircleFilledIcon,
   LoadingIcon,
 } from 'tdesign-icons-react';
 import Message, { MessagePlugin } from '../index';
@@ -21,6 +21,28 @@ const THEME_MAP = {
   loading: LoadingIcon,
 };
 const THEME_LIST = Object.keys(THEME_MAP);
+
+beforeAll(() => {
+  Element.prototype.animate = function (keyframes, options) {
+    const animation = {
+      onfinish: null,
+      finish: () => {
+        if (animation.onfinish) {
+          animation.onfinish();
+        }
+      },
+    };
+    setTimeout(
+      () => {
+        if (animation.onfinish) {
+          animation.onfinish();
+        }
+      },
+      typeof options === 'number' ? options : options?.duration || 0,
+    );
+    return animation;
+  };
+});
 
 describe('Message Component test', () => {
   test('pure message contains right classes', async () => {
@@ -316,10 +338,27 @@ describe('Message Functional test', () => {
 
     const { getByText, queryByText } = render(<TestComponent />);
     fireEvent.click(getByText(openText));
-    await mockTimeout(() => expect(queryByText(option.content)).toBeInTheDocument());
-    fireEvent.mouseEnter(getByText(option.content));
-    await mockTimeout(() => expect(queryByText(option.content)).toBeInTheDocument(), option.duration);
-    fireEvent.mouseLeave(getByText(option.content));
-    await mockTimeout(() => expect(queryByText(option.content)).not.toBeInTheDocument(), option.duration);
+
+    await waitFor(() => {
+      expect(queryByText(option.content)).toBeInTheDocument();
+    });
+
+    const messageElement = getByText(option.content);
+    fireEvent.mouseEnter(messageElement);
+
+    await mockTimeout(() => {
+      const element = queryByText(option.content);
+      expect(element).toBeInTheDocument();
+    }, option.duration);
+
+    fireEvent.mouseLeave(messageElement);
+
+    // 等待 duration + 动画时间/额外缓冲
+    await waitFor(
+      () => {
+        expect(queryByText(option.content)).not.toBeInTheDocument();
+      },
+      { timeout: option.duration + 500 },
+    );
   });
 });

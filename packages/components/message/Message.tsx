@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { createRef, useRef } from 'react';
 import classNames from 'classnames';
 import { camelCase } from 'lodash-es';
 
@@ -140,7 +140,7 @@ function renderElement(theme: MessageThemeList, config: MessageOptions): Message
 
   messageKey += 1;
   const currentKey = messageKey;
-  const messageRef = React.createRef<HTMLDivElement>();
+  const messageRef = createRef<HTMLDivElement>();
 
   const message: MessageItem = {
     key: currentKey,
