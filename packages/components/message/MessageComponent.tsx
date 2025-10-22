@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
-
+import React, { forwardRef, useEffect, useState } from 'react';
 import classNames from 'classnames';
-import { TdMessageProps } from './type';
 
-// 依赖组件引入
+import noop from '../_util/noop';
+import { usePersistFn } from '../hooks/usePersistFn';
 import MessageClose from './MessageClose';
 import MessageIcon from './MessageIcon';
 import { useMessageClass } from './useMessageClass';
-import { StyledProps } from '../common';
-import { usePersistFn } from '../hooks/usePersistFn';
-import noop from '../_util/noop';
+
+import type { StyledProps } from '../common';
+import type { TdMessageProps } from './type';
 
 // Message 组件参数，需在 api 定义上做部分扩展
 export interface MessageComponentProps extends TdMessageProps, StyledProps {
@@ -17,7 +16,7 @@ export interface MessageComponentProps extends TdMessageProps, StyledProps {
 }
 
 // message 直接作为组件使用时
-const MessageComponent: React.FC<MessageComponentProps> = (props) => {
+const MessageComponent = forwardRef<HTMLDivElement, MessageComponentProps>((props, ref) => {
   // 样式相关变量和函数
   const { tdMessagePrefix, tdClassIsGenerator } = useMessageClass();
 
@@ -63,6 +62,7 @@ const MessageComponent: React.FC<MessageComponentProps> = (props) => {
 
   return (
     <div
+      ref={ref}
       key="message"
       style={style}
       className={classNames(
@@ -79,6 +79,6 @@ const MessageComponent: React.FC<MessageComponentProps> = (props) => {
       <MessageClose closeBtn={closeBtn} onCloseBtnClick={handleCloseBtnClick} />
     </div>
   );
-};
+});
 
 export default MessageComponent;
