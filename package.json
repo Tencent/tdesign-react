@@ -8,7 +8,6 @@
     "start": "pnpm run dev",
     "dev": "pnpm -C packages/tdesign-react/site dev",
     "site": "pnpm run build:jsx-demo && pnpm -C packages/tdesign-react/site build",
-    "site:intranet": "pnpm run build:jsx-demo && pnpm -C packages/tdesign-react/site intranet",
     "site:preview": "pnpm run build:jsx-demo && pnpm -C packages/tdesign-react/site preview",
     "lint": "pnpm run lint:tsc && eslint --ext .ts,.tsx ./ --max-warnings 0",
     "lint:fix": "eslint --ext .ts,.tsx ./packages/components --ignore-pattern packages/components/__tests__ --max-warnings 0 --fix",

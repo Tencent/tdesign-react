@@ -3,6 +3,7 @@ import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import { isUndefined } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
+import { pxCompat } from '@tdesign/common-js/utils/helper';
 import Portal from '../common/Portal';
 import useAttach from '../hooks/useAttach';
 import useConfig from '../hooks/useConfig';
@@ -16,7 +17,6 @@ import useDialogDrag from './hooks/useDialogDrag';
 import useDialogEsc from './hooks/useDialogEsc';
 import useDialogPosition from './hooks/useDialogPosition';
 import useLockStyle from './hooks/useLockStyle';
-import { parseValueToPx } from './utils';
 import type { StyledProps } from '../common';
 import type { DialogInstance, TdDialogProps } from './type';
 
@@ -221,7 +221,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
                 [`${componentCls}--top`]: !!props.top || props.placement === 'top',
                 [`${componentCls}--center`]: props.placement === 'center' && !props.top,
               })}
-              style={{ paddingTop: parseValueToPx(props.top) }}
+              style={{ paddingTop: pxCompat(props.top) }}
               onClick={onMaskClick}
             >
               <CSSTransition
@@ -237,7 +237,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
                   ref={dialogCardRef}
                   {...restState}
                   className={dialogClassName}
-                  style={{ ...style, width: parseValueToPx(width || style?.width) }}
+                  style={{ ...style, width: pxCompat(width || style?.width) }}
                   onConfirm={onConfirm}
                   onCancel={handleCancel}
                   onCloseBtnClick={handleClose}

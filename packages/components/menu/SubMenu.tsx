@@ -193,7 +193,7 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
 
   useRipple(subMenuDom);
 
-  // pupup 导航
+  // popup 导航
   const isPopUp = expandType === 'popup';
   // 当前二级导航激活
   const isActive = checkSubMenuChildrenActive(children, active) || active === value;
@@ -238,7 +238,7 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
         style={style}
       >
         {parseTNode(icon)}
-        <span>{title}</span>
+        <span className={`${classPrefix}-menu__content`}>{title}</span>
         {isPopUp && <FakeArrow style={fakeArrowStyle} isActive={level === 1 && open} />}
       </div>
     </li>

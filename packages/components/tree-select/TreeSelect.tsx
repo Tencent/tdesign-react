@@ -244,13 +244,13 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
       const node = getNodeItem(normalizedValue[index].value);
       onChange(
         normalizedValue.filter((value, i) => i !== index).map(({ value, label }) => formatValue(value, label)),
-        { node, data: node.data, trigger, e },
+        { node, data: node?.data, trigger, e },
       );
       onRemove?.({
         value: node.value,
         node,
         index,
-        data: { value: node.value, label: node.label, ...node.data },
+        data: { value: node?.value, label: node?.label, ...node?.data },
         e,
         trigger,
       });

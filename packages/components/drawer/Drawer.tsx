@@ -81,7 +81,11 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
   const prefixCls = `${classPrefix}-drawer`;
 
   const closeIcon = isValidElement(closeBtn) ? closeBtn : <CloseIcon />;
-  const { dragSizeValue, enableDrag, draggableLineStyles } = useDrag(placement, sizeDraggable, onSizeDragEnd);
+  const { dragSizeValue, enableDrag, draggableLineStyles, draggingStyles } = useDrag(
+    placement,
+    sizeDraggable,
+    onSizeDragEnd,
+  );
   const [animationStart, setAnimationStart] = useState(visible);
 
   const sizeValue = useMemo(() => {
@@ -241,7 +245,7 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
           {renderOverlay}
           <div
             className={classnames(`${prefixCls}__content-wrapper`, `${prefixCls}__content-wrapper--${placement}`)}
-            style={contentWrapperStyle}
+            style={{ ...contentWrapperStyle, ...draggingStyles }}
           >
             {renderCloseBtn}
             {renderHeader}

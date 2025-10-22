@@ -1,7 +1,8 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { getSizeDraggable, calcMoveSize } from '@tdesign/common-js/drawer/utils';
-import { TdDrawerProps } from '../type';
-import { Styles } from '../../common';
+
+import type { TdDrawerProps } from '../type';
+import type { Styles } from '../../common';
 
 const useDrag = (
   placement: TdDrawerProps['placement'],
@@ -11,6 +12,7 @@ const useDrag = (
   const [dragSizeValue, changeDragSizeValue] = useState<string>(null);
   // 使用 ref 来存储当前拖拽的宽度值
   const dragSizeRef = useRef<number>(0);
+  const [isSizeDragging, toggleSizeDragging] = useState(false);
 
   const handleMousemove = useCallback(
     (e: MouseEvent) => {
@@ -76,6 +78,7 @@ const useDrag = (
         // 此处不要使用 dragSizeValue，useState 的更新是异步的，在鼠标拖拽的同步操作中取不到最新的值
         size: dragSizeRef.current,
       });
+      toggleSizeDragging(false);
     },
     [handleMousemove, onSizeDragEnd],
   );
@@ -84,9 +87,12 @@ const useDrag = (
     // mousedown 绑定 mousemove 和 mouseup 事件
     document.addEventListener('mouseup', handleMouseup, true);
     document.addEventListener('mousemove', handleMousemove, true);
+    toggleSizeDragging(true);
   }, [handleMousemove, handleMouseup]);
 
-  return { dragSizeValue, enableDrag, draggableLineStyles };
+  const draggingStyles: Styles = isSizeDragging ? { userSelect: 'none' } : {};
+
+  return { dragSizeValue, enableDrag, draggableLineStyles, draggingStyles };
 };
 
 export default useDrag;

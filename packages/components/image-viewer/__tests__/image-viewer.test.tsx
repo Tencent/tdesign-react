@@ -14,7 +14,7 @@ describe('ImageViewer', () => {
   test('base', async () => {
     const onClose = vi.fn();
     const BasicImageViewer = () => {
-      const trigger = ({ onOpen }) => <span onClick={onOpen}>{triggerText}</span>;
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
       return <ImageViewer trigger={trigger} images={[imgUrl]} onClose={onClose} />;
     };
     const { getByText } = render(<BasicImageViewer />);
@@ -54,7 +54,7 @@ describe('ImageViewer', () => {
 
   test('base:attach is default=body', async () => {
     const BasicImageViewer = () => {
-      const trigger = ({ open }) => <span onClick={open}>{triggerText}</span>;
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
       return <ImageViewer trigger={trigger} images={[imgUrl]} />;
     };
     const { getByText } = render(<BasicImageViewer />);
@@ -75,7 +75,7 @@ describe('ImageViewer', () => {
 
   test('base:attach is function', async () => {
     const BasicImageViewer = () => {
-      const trigger = ({ open }) => <span onClick={open}>{triggerText}</span>;
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
       return <ImageViewer trigger={trigger} images={[imgUrl]} attach={() => document.body} />;
     };
     const { getByText } = render(<BasicImageViewer />);
@@ -103,7 +103,7 @@ describe('ImageViewerMini', () => {
   test('modeless', async () => {
     const onClose = vi.fn();
     const BasicImageViewer = () => {
-      const trigger = ({ onOpen }) => <span onClick={onOpen}>{triggerText}</span>;
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
       return <ImageViewer trigger={trigger} images={[imgUrl]} onClose={onClose} mode="modeless" />;
     };
     const { getByText } = render(<BasicImageViewer />);
@@ -133,7 +133,7 @@ describe('ImageViewerModal', () => {
     const onClose = vi.fn();
     const onIndexChange = vi.fn();
     const BasicImageViewer = () => {
-      const trigger = ({ onOpen }) => <span onClick={onOpen}>{triggerText}</span>;
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
       return (
         <ImageViewer
           trigger={trigger}
@@ -172,7 +172,7 @@ describe('ImageViewerModal', () => {
   test('single', async () => {
     const user = userEvent.setup();
     const BasicImageViewer = () => {
-      const trigger = ({ onOpen }) => <span onClick={onOpen}>{triggerText}</span>;
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
       return <ImageViewer trigger={trigger} images={[imgUrl]} />;
     };
     const { getByText } = render(<BasicImageViewer />);
@@ -208,7 +208,7 @@ describe('ImageViewerModal', () => {
 
   test('closeBtn', async () => {
     const BasicImageViewer = () => {
-      const trigger = ({ onOpen }) => <span onClick={onOpen}>{triggerText}</span>;
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
       return <ImageViewer trigger={trigger} images={[imgUrl]} closeBtn={() => <span>closeBtn</span>} />;
     };
     const { getByText } = render(<BasicImageViewer />);
@@ -223,7 +223,7 @@ describe('ImageViewerModal', () => {
   test('closeOnEscKeydown is false', async () => {
     const user = userEvent.setup();
     const BasicImageViewer = () => {
-      const trigger = ({ onOpen }) => <span onClick={onOpen}>{triggerText}</span>;
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
       return <ImageViewer trigger={trigger} images={[imgUrl, imgUrl2]} closeOnEscKeydown={false} />;
     };
     const { getByText } = render(<BasicImageViewer />);
@@ -242,13 +242,13 @@ describe('ImageViewerModal', () => {
 
   test('imageScale defaultScale', async () => {
     const BasicImageViewer = () => {
-      const trigger = ({ onOpen }) => <span onClick={onOpen}>{triggerText}</span>;
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
       return (
         <ImageViewer
           trigger={trigger}
           images={[imgUrl, imgUrl2]}
           imageScale={{
-            max: 2,
+            max: 3,
             min: 0.5,
             step: 0.5,
             defaultScale: 2,
@@ -271,11 +271,104 @@ describe('ImageViewerModal', () => {
     });
   });
 
+  test('imageScale defaultScale is larger than max', async () => {
+    const BasicImageViewer = () => {
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
+      return (
+        <ImageViewer
+          trigger={trigger}
+          images={[imgUrl, imgUrl2]}
+          imageScale={{
+            max: 3,
+            min: 0.5,
+            step: 0.5,
+            defaultScale: 3.5,
+          }}
+        />
+      );
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    // 模拟鼠标点击
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+
+    await mockDelay();
+
+    expect(document.querySelector('.t-image-viewer__modal-image')).toBeInTheDocument();
+    expect(document.querySelector('.t-image-viewer__modal-image')).toHaveStyle({
+      transform: 'rotateZ(0deg) scale(3)',
+    });
+  });
+
+  test('imageScale defaultScale is smaller than min', async () => {
+    const BasicImageViewer = () => {
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
+      return (
+        <ImageViewer
+          trigger={trigger}
+          images={[imgUrl, imgUrl2]}
+          imageScale={{
+            max: 3,
+            min: 2.5,
+            step: 0.5,
+            defaultScale: 2,
+          }}
+        />
+      );
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    // 模拟鼠标点击
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+
+    await mockDelay();
+
+    expect(document.querySelector('.t-image-viewer__modal-image')).toBeInTheDocument();
+    expect(document.querySelector('.t-image-viewer__modal-image')).toHaveStyle({
+      transform: 'rotateZ(0deg) scale(2.5)',
+    });
+  });
+
+  test('imageScale max is unexpectedly smaller than min', async () => {
+    const BasicImageViewer = () => {
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
+      return (
+        <ImageViewer
+          trigger={trigger}
+          images={[imgUrl, imgUrl2]}
+          imageScale={{
+            max: 2,
+            min: 2.5,
+            step: 0.5,
+            defaultScale: 2,
+          }}
+        />
+      );
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    // 模拟鼠标点击
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+
+    await mockDelay();
+
+    expect(document.querySelector('.t-image-viewer__modal-image')).toBeInTheDocument();
+    expect(document.querySelector('.t-image-viewer__modal-image')).toHaveStyle({
+      transform: 'rotateZ(0deg) scale(2.5)',
+    });
+  });
+
   test('imageReferrerpolicy', async () => {
     const referrerPolicy = 'strict-origin-when-cross-origin';
 
     const BasicImageViewer = () => {
-      const trigger = ({ onOpen }) => <span onClick={onOpen}>{triggerText}</span>;
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
       return <ImageViewer trigger={trigger} images={[imgUrl, imgUrl2]} imageReferrerpolicy={referrerPolicy} />;
     };
     const { getByText } = render(<BasicImageViewer />);
