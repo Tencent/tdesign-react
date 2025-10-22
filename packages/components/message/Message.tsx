@@ -12,6 +12,7 @@ import { getMessageConfig, globalConfig, setGlobalConfig } from './config';
 import MessageComponent from './MessageComponent';
 import { useMessageClass } from './useMessageClass';
 
+import type { TNode } from '../common';
 import type {
   MessageCloseAllMethod,
   MessageConfigMethod,
@@ -29,7 +30,7 @@ import type {
 } from './type';
 
 export interface MessagePlugin {
-  (theme: MessageThemeList, message: string | MessageOptions, duration?: number): Promise<MessageInstance>;
+  (theme: MessageThemeList, message: TNode | MessageOptions, duration?: number): Promise<MessageInstance>;
   info: MessageInfoMethod;
   success: MessageSuccessMethod;
   warning: MessageWarningMethod;
@@ -57,7 +58,7 @@ interface MessageItem extends MessageInstance {
   key: number;
   theme: MessageThemeList;
   config: MessageOptions;
-  content: React.ReactNode;
+  content: TNode;
 }
 
 let messageKey = 1;
@@ -144,8 +145,8 @@ function renderElement(theme: MessageThemeList, config: MessageOptions): Message
 
   const message: MessageItem = {
     key: currentKey,
-    theme,
     ref: messageRef,
+    theme,
     config: {
       ...config,
       style,
@@ -173,20 +174,16 @@ function renderElement(theme: MessageThemeList, config: MessageOptions): Message
 
   containerInstance.messages.push(message);
   renderContainer(containerInstance);
-
   return message;
 }
 
 function renderContainer(containerInstance: ContainerInstance) {
   const mGlobalConfig = ConfigProvider.getGlobalConfig();
-
   render(
     <PluginContainer globalConfig={mGlobalConfig}>
       <MessageContainer placement={containerInstance.placement}>
         {containerInstance.messages.map((item) => (
-          <MessageComponent key={item.key} ref={item.ref} {...item.config} theme={item.theme}>
-            {item.config.content}
-          </MessageComponent>
+          <MessageComponent key={item.key} {...item.config} />
         ))}
       </MessageContainer>
     </PluginContainer>,
