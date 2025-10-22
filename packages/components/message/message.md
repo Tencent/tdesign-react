@@ -54,49 +54,49 @@ zIndex | Number | 5000 | 消息层级 | N
 参数名称 | 参数类型 | 参数默认值 | 参数描述
 -- | -- | -- | --
 theme | String | - | 必需。消息类型。TS 类型：`MessageThemeList`
-message | Object | - | 必需。消息内容。TS 类型：`TNode \| MessageOptions`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
+message | String / Object | - | 必需。消息内容。TS 类型：`String \| TNode \| MessageOptions`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
 duration | Number | 3000 | 消息显示时长，单位：毫秒。值为 0 表示永久显示
 
 ### message.info 或 MessagePlugin.info
 
 参数名称 | 参数类型 | 参数默认值 | 参数描述
 -- | -- | -- | --
-message | Object | - | 必需。消息内容。TS 类型：`TNode \| MessageInfoOptions` `type MessageInfoOptions = Omit<MessageOptions, 'theme'>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/message/type.ts)
+message | String / Object | - | 必需。消息内容。TS 类型：`String \| TNode \| MessageInfoOptions` `type MessageInfoOptions = Omit<MessageOptions, 'theme'>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/message/type.ts)
 duration | Number | 3000 | 消息显示时长，单位：毫秒。值为 0 表示永久显示
 
 ### message.error 或 MessagePlugin.error
 
 参数名称 | 参数类型 | 参数默认值 | 参数描述
 -- | -- | -- | --
-message | Object | - | 必需。消息内容。TS 类型：`TNode \| MessageInfoOptions`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
+message | String / Object | - | 必需。消息内容。TS 类型：`String \| TNode \| MessageInfoOptions`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
 duration | Number | 3000 | 消息显示时长，单位：毫秒。值为 0 表示永久显示
 
 ### message.warning 或 MessagePlugin.warning
 
 参数名称 | 参数类型 | 参数默认值 | 参数描述
 -- | -- | -- | --
-message | Object | - | 必需。消息内容。TS 类型：`TNode \| MessageInfoOptions`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
+message | String / Object | - | 必需。消息内容。TS 类型：`String \| TNode \| MessageInfoOptions`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
 duration | Number | 3000 | 消息显示时长，单位：毫秒。值为 0 表示永久显示
 
 ### message.success 或 MessagePlugin.success
 
 参数名称 | 参数类型 | 参数默认值 | 参数描述
 -- | -- | -- | --
-message | Object | - | 必需。消息内容。TS 类型：`TNode \| MessageInfoOptions`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
+message | String / Object | - | 必需。消息内容。TS 类型：`String \| TNode \| MessageInfoOptions`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
 duration | Number | 3000 | 消息显示时长，单位：毫秒。值为 0 表示永久显示
 
 ### message.loading 或 MessagePlugin.loading
 
 参数名称 | 参数类型 | 参数默认值 | 参数描述
 -- | -- | -- | --
-message | Object | - | 必需。消息提醒内容。TS 类型：`TNode \| MessageInfoOptions`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
+message | String / Object | - | 必需。消息提醒内容。TS 类型：`String \| TNode \| MessageInfoOptions`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
 duration | Number | 3000 | 消息显示时长，单位：毫秒。值为 0 表示永久显示
 
 ### message.question 或 MessagePlugin.question
 
 参数名称 | 参数类型 | 参数默认值 | 参数描述
 -- | -- | -- | --
-message | Object | - | 必需。消息内容。TS 类型：`TNode \| MessageInfoOptions`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
+message | String / Object | - | 必需。消息内容。TS 类型：`String \| TNode \| MessageInfoOptions`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
 duration | Number | 3000 | 消息显示时长，单位：毫秒。值为 0 表示永久显示
 
 ### message.closeAll 或 MessagePlugin.closeAll

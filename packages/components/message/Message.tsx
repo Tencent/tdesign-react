@@ -183,7 +183,7 @@ function renderContainer(containerInstance: ContainerInstance) {
     <PluginContainer globalConfig={mGlobalConfig}>
       <MessageContainer placement={containerInstance.placement}>
         {containerInstance.messages.map((item) => (
-          <MessageComponent key={item.key} {...item.config} />
+          <MessageComponent key={item.key} ref={item.ref} {...item.config} />
         ))}
       </MessageContainer>
     </PluginContainer>,
