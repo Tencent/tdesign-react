@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
 import classNames from 'classnames';
+import React, { useEffect, useRef } from 'react';
 import { getAttach } from '../_util/dom';
 import noop from '../_util/noop';
 import { render, unmount } from '../_util/react-render';
@@ -144,13 +144,14 @@ async function renderElement(theme, config: MessageOptions): Promise<MessageInst
 
   const attachNode = getAttach(attach);
   const containerInstance = await findExistingContainer(attachNode, placement, zIndex);
-  const messageDiv = document.createElement('div');
+
+  let messageRef: HTMLDivElement | null = null;
 
   const message: MessageInstance = {
     close: () => {
-      if (messageDiv.parentNode) {
-        unmount(messageDiv);
-        messageDiv.remove();
+      if (messageRef && messageRef.parentNode) {
+        unmount(messageRef.parentNode as Element);
+        messageRef.parentNode.removeChild(messageRef);
       }
       const index = containerInstance.messages.indexOf(message);
       if (index === -1) return;
@@ -184,6 +185,9 @@ async function renderElement(theme, config: MessageOptions): Promise<MessageInst
           {...config}
           theme={theme}
           style={style}
+          ref={(ref) => {
+            messageRef = ref;
+          }}
           onClose={(ctx) => {
             onClose(ctx);
             message.close();
@@ -192,9 +196,8 @@ async function renderElement(theme, config: MessageOptions): Promise<MessageInst
           {content}
         </MessageComponent>
       </PluginContainer>,
-      messageDiv,
+      containerInstance.container,
     );
-    containerInstance.container.appendChild(messageDiv);
     containerInstance.messages.push(message);
     resolve(message);
   });
