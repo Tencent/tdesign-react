@@ -161,7 +161,6 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
 
   // Listen to popupVisible changes, handle auto-confirm for needConfirm=false
   useUpdateEffect(() => {
-    // Date-time range picker doesn't need confirm button click to complete operation
     onTriggerNeedConfirm.current();
   }, [popupVisible]);
 
