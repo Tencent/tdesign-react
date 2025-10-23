@@ -2,10 +2,11 @@ import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { flattenDeep, get, merge, set, unset } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
 import { FormListContext, useFormContext } from './FormContext';
-import type { FormItemInstance } from './FormItem';
 import { HOOK_MARK } from './hooks/useForm';
-import type { FormListField, FormListFieldOperation, TdFormListProps } from './type';
 import { calcFieldValue } from './utils';
+
+import type { FormItemInstance } from './FormItem';
+import type { FormListField, FormListFieldOperation, TdFormListProps } from './type';
 
 let key = 0;
 
@@ -19,7 +20,9 @@ const FormList: React.FC<TdFormListProps> = (props) => {
   } = useFormContext();
   const { name, rules, children } = props;
 
-  const initialData = props.initialData || get(initialDataFromForm, name) || [];
+  const originalInitialData = props.initialData || get(initialDataFromForm, name) || [];
+  const storeValue = get(form?.store, name);
+  const initialData = storeValue ?? originalInitialData;
 
   const [formListValue, setFormListValue] = useState(initialData);
   const [fields, setFields] = useState<Array<FormListField>>(() =>
@@ -64,8 +67,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
         nextFormListValue[index] = defaultValue;
         setFormListValue(nextFormListValue);
       }
-
-      set(form?.store, flattenDeep([name, index]), nextFormListValue);
+      set(form?.store, flattenDeep([name]), nextFormListValue);
 
       const fieldValue = calcFieldValue(name, nextFormListValue);
       requestAnimationFrame(() => {
@@ -149,7 +151,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     Promise.resolve().then(() => {
       if (!fieldsTaskQueueRef.current.length) return;
 
-      // fix multiple formlist stuck
+      // fix multiple FormList stuck
       const currentQueue = fieldsTaskQueueRef.current.pop();
       const { fieldData, callback, originData } = currentQueue;
 
@@ -235,22 +237,22 @@ const FormList: React.FC<TdFormListProps> = (props) => {
         const resetType = type || resetTypeFromContext;
 
         if (resetType === 'initial') {
-          setFormListValue(initialData);
+          setFormListValue(originalInitialData);
 
-          const newFields = initialData.map((data, index) => ({
+          const newFields = originalInitialData.map((data, index) => ({
             data: { ...data },
             key: (key += 1),
             name: index,
             isListField: true,
           }));
           setFields(newFields);
-          set(form?.store, flattenDeep([name]), initialData);
+          set(form?.store, flattenDeep([name]), originalInitialData);
 
           requestAnimationFrame(() => {
             [...formListMapRef.current.values()].forEach((formItemRef) => {
               if (!formItemRef.current) return;
               const { name: itemName } = formItemRef.current;
-              const itemValue = get(initialData, itemName);
+              const itemValue = get(originalInitialData, itemName);
               if (itemValue !== undefined) {
                 formItemRef.current.setField({ value: itemValue, status: 'not' });
               }
