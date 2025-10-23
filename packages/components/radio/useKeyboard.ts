@@ -11,7 +11,7 @@ export default function useKeyboard(
     if (CHECKED_CODE_REG.test(e.key) || CHECKED_CODE_REG.test(e.code)) {
       const inputNode = (e.target as HTMLElement).querySelector('input');
       if (!inputNode) return;
-      const data = inputNode?.dataset || {};
+      const data = inputNode.dataset || {};
       if (inputNode.checked && data.allowUncheck) {
         setInnerValue(undefined, { e });
       } else {
