@@ -300,8 +300,10 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
 
   const setTableContentRef = (tableContent: HTMLDivElement) => {
     tableContentRef.current = tableContent;
-    refreshTablePosition();
     addPageScrollListener();
+    setTimeout(() => {
+      refreshTablePosition();
+    }, 100);
   };
 
   return {
