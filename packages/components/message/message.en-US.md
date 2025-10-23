@@ -34,49 +34,49 @@ zIndex | Number | 5000 | \- | N
 name | params | default | description
 -- | -- | -- | --
 theme | String | - | required。Typescript：`MessageThemeList`
-message | String / Object | - | required。Typescript：`String \| TNode \| MessageOptions`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
+message | String / Object | - | required。Typescript：`string \| TNode \| MessageOptions`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
 duration | Number | 3000 | \-
 
 ### message.info 或 MessagePlugin.info
 
 name | params | default | description
 -- | -- | -- | --
-message | String / Object | - | required。Typescript：`String \| TNode \| MessageInfoOptions` `type MessageInfoOptions = Omit<MessageOptions, 'theme'>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/message/type.ts)
+message | String / Object | - | required。Typescript：`string \| TNode \| MessageInfoOptions` `type MessageInfoOptions = Omit<MessageOptions, 'theme'>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/message/type.ts)
 duration | Number | 3000 | \-
 
 ### message.error 或 MessagePlugin.error
 
 name | params | default | description
 -- | -- | -- | --
-message | String / Object | - | required。Typescript：`String \| TNode \| MessageInfoOptions`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
+message | String / Object | - | required。Typescript：`string \| TNode \| MessageInfoOptions`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
 duration | Number | 3000 | \-
 
 ### message.warning 或 MessagePlugin.warning
 
 name | params | default | description
 -- | -- | -- | --
-message | String / Object | - | required。Typescript：`String \| TNode \| MessageInfoOptions`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
+message | String / Object | - | required。Typescript：`string \| TNode \| MessageInfoOptions`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
 duration | Number | 3000 | \-
 
 ### message.success 或 MessagePlugin.success
 
 name | params | default | description
 -- | -- | -- | --
-message | String / Object | - | required。Typescript：`String \| TNode \| MessageInfoOptions`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
+message | String / Object | - | required。Typescript：`string \| TNode \| MessageInfoOptions`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
 duration | Number | 3000 | \-
 
 ### message.loading 或 MessagePlugin.loading
 
 name | params | default | description
 -- | -- | -- | --
-message | String / Object | - | required。Typescript：`String \| TNode \| MessageInfoOptions`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
+message | String / Object | - | required。Typescript：`string \| TNode \| MessageInfoOptions`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
 duration | Number | 3000 | \-
 
 ### message.question 或 MessagePlugin.question
 
 name | params | default | description
 -- | -- | -- | --
-message | String / Object | - | required。Typescript：`String \| TNode \| MessageInfoOptions`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
+message | String / Object | - | required。Typescript：`string \| TNode \| MessageInfoOptions`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
 duration | Number | 3000 | \-
 
 ### message.closeAll 或 MessagePlugin.closeAll
