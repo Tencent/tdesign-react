@@ -46,6 +46,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     cancelRangeSelectLimit,
     onPick,
     disableTime,
+    needConfirm,
   } = props;
 
   const {
@@ -99,30 +100,28 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     props.popupProps?.onVisibleChange?.(false, {});
   };
 
-  // Auto-confirm logic - handle needConfirm=false case
   const onTriggerNeedConfirm = useLatest(() => {
-    if (props.needConfirm || !enableTimePicker || popupVisible) return;
-    
+    if (needConfirm || !enableTimePicker || popupVisible) return;
+
     const nextValue = [...inputValue];
     const notValidIndex = nextValue.findIndex((v) => !v || !isValidDate(v, format));
-    
-    // Change value when both ends have valid values
+
+    // Only proceed when both ends have valid values
     if (notValidIndex === -1 && nextValue.length === 2) {
       const currentValue = formatDate(value || [], { format });
-      
+
       // Only trigger onChange when value actually changes
-      if (JSON.stringify(currentValue) !== JSON.stringify(nextValue)) {
+      if (currentValue[0] !== nextValue[0] || currentValue[1] !== nextValue[1]) {
         const formattedValue = formatDate(nextValue, { format, targetFormat: valueType, autoSwap: true });
         onChange(formattedValue, {
           dayjsValue: nextValue.map((v) => parseToDayjs(v, format)),
           trigger: 'confirm',
         });
       }
-    } else if (nextValue.length === 2 && nextValue.some(v => v && !isValidDate(v, format))) {
-      // If there's input but invalid, restore to original value
+    } else {
+      // If there's invalid input, restore to original value
       setInputValue(formatDate(value || [], { format }));
     }
-    // If only partial values (user is still selecting), do nothing
   });
 
   useEffect(() => {
@@ -414,6 +413,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     activeIndex,
     popupVisible,
     cancelRangeSelectLimit,
+    needConfirm,
     onCellClick,
     onCellMouseEnter,
     onCellMouseLeave,
