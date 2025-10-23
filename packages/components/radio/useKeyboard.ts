@@ -1,15 +1,16 @@
-import { MutableRefObject, useEffect, ChangeEvent, KeyboardEvent } from 'react';
+import { useEffect } from 'react';
 import { CHECKED_CODE_REG } from '@tdesign/common-js/common';
 import { off, on } from '../_util/listener';
 
 /** 键盘操作 */
 export default function useKeyboard(
-  radioGroupRef: MutableRefObject<HTMLDivElement>,
-  setInnerValue: (value: any, context: { e: ChangeEvent<any> }) => void,
+  radioGroupRef: React.MutableRefObject<HTMLDivElement>,
+  setInnerValue: (value: any, context: { e: React.ChangeEvent<any> }) => void,
 ) {
-  const checkRadioInGroup = (e: KeyboardEvent) => {
+  const checkRadioInGroup = (e: React.KeyboardEvent) => {
     if (CHECKED_CODE_REG.test(e.key) || CHECKED_CODE_REG.test(e.code)) {
       const inputNode = (e.target as HTMLElement).querySelector('input');
+      if (!inputNode) return;
       const data = inputNode?.dataset || {};
       if (inputNode.checked && data.allowUncheck) {
         setInnerValue(undefined, { e });
