@@ -2,8 +2,7 @@ import React, { createRef, useRef } from 'react';
 import classNames from 'classnames';
 import { camelCase } from 'lodash-es';
 
-import { fadeOut } from '@tdesign/common-js/message/animation';
-import { PLACEMENT_OFFSET } from '@tdesign/common-js/message/index';
+import { PLACEMENT_OFFSET, fadeOut } from '@tdesign/common-js/message/index';
 import { getAttach } from '../_util/dom';
 import { render } from '../_util/react-render';
 import PluginContainer from '../common/PluginContainer';
@@ -27,6 +26,7 @@ import type {
   MessageSuccessMethod,
   MessageThemeList,
   MessageWarningMethod,
+  TdMessageProps,
 } from './type';
 
 export interface MessagePlugin {
@@ -100,16 +100,50 @@ function getAttachNodeMap(attachNode: HTMLElement) {
 
 function createContainer(placement: MessagePlacementList, attachNode: HTMLElement): HTMLDivElement {
   const mGlobalConfig = ConfigProvider.getGlobalConfig();
-  const containerElement = document.createElement('div');
-  attachNode.appendChild(containerElement);
+  const containerWrapper = document.createElement('div');
+  attachNode.appendChild(containerWrapper);
   const ContainerWrapper = () => <MessageContainer placement={placement} />;
   render(
     <PluginContainer globalConfig={mGlobalConfig}>
       <ContainerWrapper />
     </PluginContainer>,
-    containerElement,
+    containerWrapper,
   );
-  return containerElement;
+  return containerWrapper;
+}
+
+function renderContainer(containerInstance: ContainerInstance) {
+  const mGlobalConfig = ConfigProvider.getGlobalConfig();
+  render(
+    <PluginContainer globalConfig={mGlobalConfig}>
+      <MessageContainer placement={containerInstance.placement}>
+        {containerInstance.messages.map((item) => (
+          <MessageComponent key={item.key} ref={item.ref} {...item.config} theme={item.theme} />
+        ))}
+      </MessageContainer>
+    </PluginContainer>,
+    containerInstance.container,
+  );
+}
+
+function destroyContainer(containerInstance: ContainerInstance, attachNode: HTMLElement) {
+  if (containerInstance.messages.length > 0) return;
+
+  // 没有消息时，销毁容器
+  const { container, placement } = containerInstance;
+  render(null, container);
+
+  if (container.parentNode) {
+    container.parentNode.removeChild(container);
+  }
+
+  const attachNodeMap = MessageContainerMaps.get(attachNode);
+  if (attachNodeMap) {
+    attachNodeMap.delete(placement);
+    if (attachNodeMap.size === 0) {
+      MessageContainerMaps.delete(attachNode);
+    }
+  }
 }
 
 function renderElement(theme: MessageThemeList, config: MessageOptions): MessageInstance {
@@ -147,48 +181,42 @@ function renderElement(theme: MessageThemeList, config: MessageOptions): Message
     key: currentKey,
     ref: messageRef,
     theme,
+    content: config.content,
     config: {
       ...config,
       style,
       placement,
       onClose: (context) => {
-        const index = containerInstance.messages.indexOf(message);
-        if (index === -1) return;
-        fadeOut(messageRef.current, placement, () => {
-          containerInstance.messages.splice(index, 1);
-          renderContainer(containerInstance);
-          config.onClose?.(context);
-        });
+        // 自动消失
+        closeMessage(context);
       },
     },
-    content: config.content,
     close: () => {
+      // 手动消失
       const index = containerInstance.messages.indexOf(message);
       if (index === -1) return;
       fadeOut(messageRef.current, placement, () => {
-        containerInstance.messages.splice(index, 1);
-        renderContainer(containerInstance);
+        closeMessage();
       });
     },
   };
 
+  function closeMessage(context?: Parameters<TdMessageProps['onClose']>[0]) {
+    const index = containerInstance.messages.indexOf(message);
+    if (index === -1) return;
+    fadeOut(messageRef.current, placement, () => {
+      containerInstance.messages.splice(index, 1);
+      renderContainer(containerInstance);
+      destroyContainer(containerInstance, attachNode);
+      if (context) {
+        config.onClose?.(context);
+      }
+    });
+  }
+
   containerInstance.messages.push(message);
   renderContainer(containerInstance);
   return message;
-}
-
-function renderContainer(containerInstance: ContainerInstance) {
-  const mGlobalConfig = ConfigProvider.getGlobalConfig();
-  render(
-    <PluginContainer globalConfig={mGlobalConfig}>
-      <MessageContainer placement={containerInstance.placement}>
-        {containerInstance.messages.map((item) => (
-          <MessageComponent key={item.key} ref={item.ref} {...item.config} theme={item.theme} />
-        ))}
-      </MessageContainer>
-    </PluginContainer>,
-    containerInstance.container,
-  );
 }
 
 function isConfig(content: MessageOptions | React.ReactNode): content is MessageOptions {
@@ -224,12 +252,12 @@ MessagePlugin.close = (messageInstance) => {
   messageInstance.then((instance) => instance.close());
 };
 
-MessagePlugin.closeAll = (): void => {
-  MessageContainerMaps.forEach((placementMap) => {
+MessagePlugin.closeAll = () => {
+  MessageContainerMaps.forEach((placementMap, attachNode) => {
     placementMap.forEach((container) => {
       if (container.messages.length) {
         container.messages.splice(0, container.messages.length);
-        renderContainer(container);
+        destroyContainer(container, attachNode);
       }
     });
   });
