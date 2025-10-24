@@ -90,10 +90,13 @@ spline: explain
   - 按需加载方式使用的图标资源支持多色填充功能，通过 `strokeColor` 和 `fillColor` 属性进行配置
 - `DatePicker`: 支持通过覆盖 `popupProps`，使点击 `preset` 时不关闭弹窗 @RylanBot ([#3798](https://github.com/Tencent/tdesign-react/pull/3798))
 ### 🐞 Bug Fixes
-- `Tree`: 修复拖拽后展开收起图标展示异常的问题 @RylanBot ([#3756](https://github.com/Tencent/tdesign-react/pull/3756))
-- `TreeItem`: 修正节点属性 `date-target` 单词拼写为 `data-target`，之前有使用该属性的业务请注意此变更 ⚠️ @RylanBot ([#3756](https://github.com/Tencent/tdesign-react/pull/3756))
+- `Tree`:  @RylanBot ([#3756](https://github.com/Tencent/tdesign-react/pull/3756))
+  - 修正节点属性 `date-target` 单词拼写为 `data-target`，之前有使用该属性的业务请注意此变更 ⚠️
+  - 修复拖拽后展开收起图标展示异常的问题
 - `MessagePlugin`: 修复 `content` 为 `''` / `undefined` / `null` 时产生的报错  @RylanBot ([#3778](https://github.com/Tencent/tdesign-react/pull/3778))
-- `Table`: 修复未开启 `<React.StrictMode>` 时，`Loading` 挂载导致的页面闪烁问题 @RylanBot ([#3775](https://github.com/Tencent/tdesign-react/pull/3775))
+- `Table`: 
+  - 修复未开启 `<React.StrictMode>` 时，`Loading` 挂载导致的页面闪烁问题 @RylanBot ([#3775](https://github.com/Tencent/tdesign-react/pull/3775))
+  - 修复 `size='small'` 的 `firstFullRow` 尺寸比 `size='medium'` 大的异常 ([#common2253](https://github.com/Tencent/tdesign-common/pull/2253))
 - `Upload`: 修复拖拽模式下 `status` 更新错误 @RSS1102 ([#3801](https://github.com/Tencent/tdesign-react/pull/3801))
 - `Input`: 修复在开启 `readonly` 或者禁用 `allowInput` 情况下没有触发 `onFocus` 和 `onBlur` 的问题 @RylanBot ([#3800](https://github.com/Tencent/tdesign-react/pull/3800))
 - `Cascader`: 
