@@ -24,7 +24,7 @@ spline: explain
  - Fix issue where `checked` and `indeterminate` states of `checkAll` checkbox are unreasonable when `disabled` items exist
 - `VirtualScroll`: @RylanBot ([#3878](https://github.com/Tencent/tdesign-react/pull/3878))
  - Fix issue where data cannot refresh correctly when switching `threshold` between non-virtual scroll and virtual scroll
- - Fix issue where related calculations are started even when `scroll={{type:'virtual'}}` is not enabled
+ - Fix issue where the configuration for enabling virtual scrolling was not set, and the related calculations were also initiated
 
 ## 🌈 1.15.6 `2025-10-10` 
 ### 🐞 Bug Fixes
