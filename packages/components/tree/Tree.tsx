@@ -401,4 +401,4 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
 
 Tree.displayName = 'Tree';
 
-export default Tree;
+export default React.memo(Tree);

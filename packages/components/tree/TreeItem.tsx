@@ -134,7 +134,7 @@ const TreeItem = forwardRef(
           throw new Error('invalid type of icon');
         }
 
-        if (!node.isLeaf()) {
+        if (!node.vmIsLeaf) {
           isDefaultIcon = true;
           if (node.loading && node.expanded) {
             return <Loading loading={true} />;
@@ -403,4 +403,4 @@ const TreeItem = forwardRef(
 
 TreeItem.displayName = 'TreeItem';
 
-export default TreeItem;
+export default React.memo(TreeItem);
