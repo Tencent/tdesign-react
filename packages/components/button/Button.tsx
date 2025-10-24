@@ -8,13 +8,15 @@ import { TdButtonProps } from './type';
 import { buttonDefaultProps } from './defaultProps';
 import parseTNode from '../_util/parseTNode';
 import useDefaultProps from '../hooks/useDefaultProps';
+import composeRefs from '../_util/composeRefs';
 
 export interface ButtonProps
   extends TdButtonProps,
     Omit<React.AllHTMLAttributes<HTMLElement>, 'content' | 'shape' | 'size' | 'type'> {}
 
-const Button = forwardRef((originProps: ButtonProps, ref: React.RefObject<HTMLElement>) => {
+const Button = forwardRef<HTMLElement, ButtonProps>((originProps, ref) => {
   const props = useDefaultProps(originProps, buttonDefaultProps);
+
   const {
     type,
     theme,
@@ -37,20 +39,20 @@ const Button = forwardRef((originProps: ButtonProps, ref: React.RefObject<HTMLEl
   } = props;
 
   const { classPrefix } = useConfig();
-
   const [btnDom, setRefCurrent] = useDomRefCallback();
-  useRipple(ref?.current || btnDom);
+  useRipple(btnDom);
 
   const renderChildren = content ?? children;
 
   let iconNode = icon;
-  if (loading) iconNode = <Loading loading={loading} inheritColor={true} />;
+  if (loading) {
+    iconNode = <Loading loading={loading} inheritColor />;
+  } else if (icon && React.isValidElement(icon)) {
+    iconNode = React.cloneElement(icon as React.ReactElement<any>, { 'aria-hidden': true });
+  }
 
   const renderTheme = useMemo(() => {
-    if (!theme) {
-      if (variant === 'base') return 'primary';
-      return 'default';
-    }
+    if (!theme) return variant === 'base' ? 'primary' : 'default';
     return theme;
   }, [theme, variant]);
 
@@ -60,14 +62,40 @@ const Button = forwardRef((originProps: ButtonProps, ref: React.RefObject<HTMLEl
     return tag || 'button';
   }, [tag, href, disabled]);
 
+  const a11yProps: Record<string, any> = {
+    role: renderTag === 'div' ? 'button' : undefined,
+    'aria-disabled': renderTag === 'div' && disabled ? true : undefined,
+    'aria-busy': loading ? true : undefined,
+    'aria-label': !renderChildren && icon && !('aria-label' in buttonProps) ? 'button' : undefined,
+    tabIndex: renderTag === 'div' && !disabled ? 0 : undefined,
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!disabled && !loading) {
+      if (e.key === 'Enter') {
+        onClick?.(e as unknown as React.MouseEvent<HTMLDivElement>);
+      }
+      if (e.key === ' ') {
+        e.preventDefault();
+      }
+    }
+  };
+
+  const handleKeyUp = (e: React.KeyboardEvent) => {
+    if (!disabled && !loading && e.key === ' ') {
+      onClick?.(e as unknown as React.MouseEvent<HTMLDivElement>);
+    }
+  };
+
   return React.createElement(
     renderTag,
     {
       ...buttonProps,
-      href,
-      type,
-      ref: ref || setRefCurrent,
-      disabled: disabled || loading,
+      ...a11yProps,
+      href: renderTag === 'a' ? href : undefined,
+      type: renderTag === 'button' ? type : undefined,
+      ref: composeRefs(ref, (node) => setRefCurrent(node as HTMLElement)),
+      disabled: renderTag === 'button' ? disabled || loading : undefined,
       className: classNames(
         className,
         [
@@ -86,6 +114,8 @@ const Button = forwardRef((originProps: ButtonProps, ref: React.RefObject<HTMLEl
         },
       ),
       onClick: !disabled && !loading ? onClick : undefined,
+      onKeyDown: renderTag === 'div' ? handleKeyDown : undefined,
+      onKeyUp: renderTag === 'div' ? handleKeyUp : undefined,
     },
     <>
       {iconNode}
