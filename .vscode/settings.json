@@ -36,7 +36,8 @@
     "Cascader",
     "Popconfirm",
     "Swiper",
-    "tdesign"
+    "tdesign",
+    "aigc"
   ],
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
