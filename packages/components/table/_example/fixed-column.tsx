@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { Table, Radio, Checkbox, Space, Tag, Link } from 'tdesign-react';
-import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { Button, Checkbox, Link, Radio, Space, Table, Tag } from 'tdesign-react';
+import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 
 import type { TableProps } from 'tdesign-react';
 
@@ -27,13 +27,13 @@ const statusNameListMap = {
 };
 
 export default function TableFixedColumn() {
+  const tableRef = useRef(null);
+
   const [tableLayout, setTableLayout] = useState<TableProps['tableLayout']>('fixed');
   const [emptyData, setEmptyData] = useState(false);
   const [leftFixedColumn, setLeftFixedColumn] = useState(2);
   const [rightFixedColumn, setReftFixedColumn] = useState(1);
 
-  const tableRef = useRef(null);
-  // eslint-disable-next-line
   const scrollToCreateTime = () => {
     // 横向滚动到指定列，一般用于列数量较多的场景
     tableRef.current.scrollColumnIntoView('createTime');
@@ -42,6 +42,7 @@ export default function TableFixedColumn() {
   const table = (
     <Table
       ref={tableRef}
+      style={{ maxWidth: '800px' }}
       bordered
       rowKey="index"
       data={emptyData ? [] : data}
@@ -101,7 +102,7 @@ export default function TableFixedColumn() {
         <Radio.Button value={2}>右侧固定两列</Radio.Button>
       </Radio.Group>
 
-      <div>
+      <Space align="center">
         <Radio.Group
           value={tableLayout}
           variant="default-filled"
@@ -110,10 +111,13 @@ export default function TableFixedColumn() {
           <Radio.Button value="fixed">table-layout: fixed</Radio.Button>
           <Radio.Button value="auto">table-layout: auto</Radio.Button>
         </Radio.Group>
-        <Checkbox value={emptyData} onChange={setEmptyData} style={{ marginLeft: '16px', verticalAlign: 'middle' }}>
+        <Button onClick={scrollToCreateTime} variant="dashed">
+          滚动到指定列
+        </Button>
+        <Checkbox value={emptyData} onChange={setEmptyData}>
           空数据
         </Checkbox>
-      </div>
+      </Space>
 
       {table}
     </Space>
