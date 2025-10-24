@@ -20,7 +20,7 @@ export default function PanelExample() {
   };
 
   return (
-    <Space direction="vertical">
+    <Space direction="vertical" style={{ position: 'relative' }}>
       <div style={{ border: '1px solid var(--td-border-level-2-color)', width: 'fit-content', borderRadius: 3 }}>
         <DatePickerPanel onCellClick={handleCellClick} onChange={handleChange} />
       </div>
