@@ -68,10 +68,13 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
 
   let navigationConfig = defaultNavigation;
   let navigationNode = null;
-  if (isValidElement(navigation)) {
+
+  if (typeof navigation === 'object' && !isValidElement(navigation)) {
+    navigationConfig = { ...defaultNavigation, ...(navigation as SwiperNavigation) };
+  } else if (isValidElement(navigation)) {
     navigationNode = navigation;
   } else {
-    navigationConfig = { ...defaultNavigation, ...(navigation as SwiperNavigation) };
+    navigationNode = null;
   }
 
   const [currentIndex, setCurrentIndex] = useState(defaultCurrent);
@@ -289,6 +292,7 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
   };
 
   const renderNavigation = (): React.ReactNode => {
+    if (navigation === false) return null;
     if (navigationConfig.type === 'fraction') {
       return (
         <div className={classnames(`${classPrefix}-swiper__navigation`, `${classPrefix}-swiper__navigation--fraction`)}>
