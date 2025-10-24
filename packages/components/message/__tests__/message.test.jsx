@@ -171,7 +171,13 @@ describe('Message Functional test', () => {
     await mockTimeout(() => expect(document.querySelector('.t-message')).not.toBeNull());
     await mockTimeout(() => expect(document.querySelector('.t-message')).toHaveTextContent(defaultMessage));
     fireEvent.click(getByText(closeText));
-    await mockTimeout(() => expect(document.querySelector('.t-message')).toBeNull());
+    await waitFor(
+      () => {
+        expect(document.querySelector('.t-message')).toBeNull();
+      },
+      // 动画缓冲时间
+      { timeout: 500 },
+    );
   });
 
   test('存在关闭按钮，点击关闭按钮应该触发 onCloseBtnClick', async () => {
@@ -353,7 +359,7 @@ describe('Message Functional test', () => {
 
     fireEvent.mouseLeave(messageElement);
 
-    // 等待 duration + 动画时间/额外缓冲
+    // 等待 duration + 动画缓冲时间
     await waitFor(
       () => {
         expect(queryByText(option.content)).not.toBeInTheDocument();

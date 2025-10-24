@@ -102,10 +102,9 @@ function createContainer(placement: MessagePlacementList, attachNode: HTMLElemen
   const mGlobalConfig = ConfigProvider.getGlobalConfig();
   const containerWrapper = document.createElement('div');
   attachNode.appendChild(containerWrapper);
-  const ContainerWrapper = () => <MessageContainer placement={placement} />;
   render(
     <PluginContainer globalConfig={mGlobalConfig}>
-      <ContainerWrapper />
+      <MessageContainer placement={placement} />
     </PluginContainer>,
     containerWrapper,
   );
