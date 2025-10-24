@@ -5,6 +5,27 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.15.7 `2025-10-24` 
+### 🚀 Features
+- `Divider`: 支持 `size` 控制间距大小 @HaixingOoO ([#3893](https://github.com/Tencent/tdesign-react/pull/3893))
+### 🐞 Bug Fixes
+- `TreeSelect`: 修复删除不在 `data` 中的选项时产生的报错 @RylanBot ([#3886](https://github.com/Tencent/tdesign-react/pull/3886))
+- `EnhancedTable`: 修复拖拽后动态关闭 `dragSort`，行无法正常展开的异常 @RylanBot ([#3896](https://github.com/Tencent/tdesign-react/pull/3896))
+- `Menu`: 避免在菜单折叠时隐藏 `span` 包裹的图标 @QuentinHsu([common#2303](https://github.com/Tencent/tdesign-common/pull/2303))
+- `Textarea`: 修复内容超长情况下，设置 `autosize` 没有完整自动撑开高度，存在有滚动条的问题 @engvuchen ([#3856](https://github.com/Tencent/tdesign-react/pull/3856))
+- `RadioGroup`: 修复键盘操作时读取到 `null` 产生的报错  @RylanBot ([#3906](https://github.com/Tencent/tdesign-react/pull/3906))
+- `Loading`: 修复 `delay` 不生效的问题  @RylanBot ([#3859](https://github.com/Tencent/tdesign-react/pull/3859))
+- `Form`: 
+  - 修复错误消息 `max` 和 `min` 英文翻译错误 @liweijie0812([common#2304](https://github.com/Tencent/tdesign-common/pull/2304))
+  - 修复嵌套 `FormList` 无法使用 `add` 正确新增表单的问题 @RylanBot ([#3881](https://github.com/Tencent/tdesign-react/pull/3881))
+- `Select`: @RylanBot ([#3879](https://github.com/Tencent/tdesign-react/pull/3879))
+  - 修复开启 `multiple` 时，`disabled` 的选项依旧能被删除的问题
+  - 修复 `disabled` 且被选中的选项会被 `checkAll` 修改状态的问题
+  - 修复存在 `disabled` 项时，`checkAll` 可选框的 `checked` 与 `indeterminate` 状态不合理的问题
+- `VirtualScroll`: @RylanBot ([#3878](https://github.com/Tencent/tdesign-react/pull/3878))
+  - 修复数据在非虚拟滚动和虚拟滚动的 `threshold` 切换时，无法正确刷新的问题
+  - 修复没开启 `scroll={{type:'virtual'}}`，也启动了相关计算的问题
+
 ## 🌈 1.15.6 `2025-10-10` 
 ### 🐞 Bug Fixes
 - `VirtualScroll`: 修复引入虚拟滚动的组件在使用子组件配合异步请求场景的组件告警问题 @uyarn ([#3876](https://github.com/Tencent/tdesign-react/pull/3876))
