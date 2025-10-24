@@ -30,6 +30,7 @@ export default function useOverlayInnerStyle(
   const { popupProps, autoWidth, readonly, disabled, onPopupVisibleChange, allowInput } = props;
   const [innerPopupVisible, setInnerPopupVisible] = useControlled(props, 'popupVisible', onPopupVisibleChange);
 
+  const contentWidthRef = useRef<number | null>(null);
   const skipNextBlur = useRef(false);
 
   const matchWidthFunc = (triggerElement: HTMLElement, popupElement: HTMLElement) => {
@@ -39,21 +40,28 @@ export default function useOverlayInnerStyle(
     // 设置display来可以获取popupElement的宽度
     // eslint-disable-next-line no-param-reassign
     popupElement.style.display = '';
+
+    /**
+     * https://github.com/Tencent/tdesign-react/issues/3858
+     * 记录内容宽度，避免 resize 过程中经过分支临界点时，将宽度锁死
+     * 无法在 popup 和 trigger 宽度两个分支间正确切换
+     */
+    if (contentWidthRef.current === null) {
+      contentWidthRef.current = popupElement.scrollWidth;
+    }
     // popupElement的scrollBar宽度
     const overlayScrollWidth = popupElement.offsetWidth - popupElement.scrollWidth;
 
     /**
-     * issue：https://github.com/Tencent/tdesign-react/issues/2642
-     *
-     * popupElement的内容宽度不超过triggerElement的宽度，就使用triggerElement的宽度减去popup的滚动条宽度，
-     * 让popupElement的宽度加上scrollBar的宽度等于triggerElement的宽度；
-     *
-     * popupElement的内容宽度超过triggerElement的宽度，就使用popupElement的scrollWidth，
-     * 不用offsetWidth是会包含scrollBar的宽度
+     * https://github.com/Tencent/tdesign-react/issues/2642
+     * 取 popup 和 trigger 元素宽度的较大值进行比较
+     * 如果 popup ≤ trigger，使用 trigger 宽度减去 popup 滚动条宽度
+     * 否则，使用 popup 的 scrollWidth
+     * 不用 offsetWidth，因为它会包含滚动条的宽度
      */
     const width =
-      popupElement.offsetWidth - overlayScrollWidth > triggerElement.offsetWidth
-        ? popupElement.scrollWidth
+      contentWidthRef.current > triggerElement.offsetWidth
+        ? contentWidthRef.current
         : triggerElement.offsetWidth - overlayScrollWidth;
 
     if (prevDisplay === 'none') {
@@ -80,6 +88,7 @@ export default function useOverlayInnerStyle(
       if (!newVisible) {
         extra?.afterHidePopup?.(context);
         skipNextBlur.current = true;
+        contentWidthRef.current = null;
       }
     }
   };
