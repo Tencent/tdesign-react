@@ -12,7 +12,7 @@ import { TagInputProps } from '../tag-input';
 import { TagProps } from '../tag';
 import { TreeNodeModel } from '../tree';
 import { PopupVisibleChangeContext } from '../popup';
-import { TNode, TElement, TreeOptionData, SizeEnum, TreeKeysType } from '../common';
+import { TNode, TElement, TreeOptionData, SizeEnum, TreeKeysType, TScroll } from '../common';
 import { MouseEvent, FocusEvent } from 'react';
 
 export interface TdCascaderProps<CascaderOption extends TreeOptionData = TreeOptionData> {
@@ -153,6 +153,10 @@ export interface TdCascaderProps<CascaderOption extends TreeOptionData = TreeOpt
    * @default false
    */
   reserveKeyword?: boolean;
+  /**
+   * 懒加载和虚拟滚动。为保证组件收益最大化，当数据量小于阈值 `scroll.threshold` 时，无论虚拟滚动的配置是否存在，组件内部都不会开启虚拟滚动，`scroll.threshold` 默认为 `100`
+   */
+  scroll?: TScroll;
   /**
    * 透传 SelectInput 筛选器输入框组件的全部属性
    */
