@@ -37,7 +37,7 @@ spline: explain
 
 ## 🌈 1.15.4 `2025-10-01` 
 ### 🚀 Features
-- `ImageViewer`: Support `trigger` pass in image `index` parameter, trigger's `open` method parameters may have type differences with bound element trigger events,if you encounter this issue, please change to `()=> open()` use similar anonymous function @betavs ([#3827](https://github.com/Tencent/tdesign-react/pull/3827))
+- `ImageViewer`: Support `trigger` pass in image `index` parameter, trigger's `open` method parameters may have type differences with bound element trigger events, if you encounter this issue, please change to `()=> open()` use similar anonymous function @betavs ([#3827](https://github.com/Tencent/tdesign-react/pull/3827))
 ### 🐞 Bug Fixes
 - `Swiper`: Fix issue where autoplay fails after clicking navigation bar on mobile @uyarn ([#3862](https://github.com/Tencent/tdesign-react/pull/3862))
 - `List`: Remove redundant code introduced in version `1.15.2` that causes initialization lag when virtual scroll is enabled @RylanBot ([#3863](https://github.com/Tencent/tdesign-react/pull/3863))
@@ -49,58 +49,58 @@ spline: explain
 
 ## 🌈 1.15.2 `2025-09-29` 
 ### 🚀 Features
-- `Watermark`: Add `layout` API, support generating watermarks with different layouts, `watermark Text` supports font configuration @Wesley-0808 ([#3817](https://github.com/Tencent/tdesign-react/pull/3817))
+- `Watermark`: Add `layout` API, support generating watermarks with different layouts, `watermarkText` supports font configuration @Wesley-0808 ([#3817](https://github.com/Tencent/tdesign-react/pull/3817))
 - `Drawer`: Optimize issue where component content gets selected during drag-resize process @uyarn ([#3844](https://github.com/Tencent/tdesign-react/pull/3844))
 ### 🐞 Bug Fixes
 - `Watermark`: Fix issue where entire canvas content becomes grayscale when multi-line image-text watermark image is configured with grayscale @Wesley-0808 ([#3817](https://github.com/Tencent/tdesign-react/pull/3817))
 - `Slider`: Fix return value and related display exceptions caused by precision issues after setting `step` @uyarn ([#3821](https://github.com/Tencent/tdesign-react/pull/3821))
-- `TagInput`: Fix issue where `input Value` in `on Blur` is always empty @RylanBot ([#3841](https://github.com/Tencent/tdesign-react/pull/3841))
+- `TagInput`: Fix issue where `inputValue` in `onBlur` is always empty @RylanBot ([#3841](https://github.com/Tencent/tdesign-react/pull/3841))
 - `Cascader`: Fix issue where parent node is unexpectedly highlighted when selecting only child node in `single` mode @RylanBot ([#3840](https://github.com/Tencent/tdesign-react/pull/3840))
-- `Date RangePicker Panel`: Fix issue where clicking panel cannot sync when `preset` involves cross-year dates @RylanBot ([#3818](https://github.com/Tencent/tdesign-react/pull/3818))
+- `DateRangePickerPanel`: Fix issue where clicking panel cannot sync when `preset` involves cross-year dates @RylanBot ([#3818](https://github.com/Tencent/tdesign-react/pull/3818))
 - `EnhancedTable`: Fix issue where position is reset when clicking expand after node drag @RylanBot ([#3780](https://github.com/Tencent/tdesign-react/pull/3780))
 - `Table`: @RylanBot 
- - Fix issue where `on SortChange` always returns `undefined` when `multiple Sort` is enabled but `sort` or `default Sort` is not declared ([#3824](https://github.com/Tencent/tdesign-react/pull/3824))
- - Fix issue where last row content is obscured when virtual scroll is enabled and `first FullRow` / `last FullRow` etc. are set simultaneously ([#3792](https://github.com/Tencent/tdesign-react/pull/3792))
- - Fix issue where `fixed Rows` / `first FullRow` / `last FullRow` cannot be used in combination under virtual scroll ([#3792](https://github.com/Tencent/tdesign-react/pull/3792))
+ - Fix issue where `onSortChange` always returns `undefined` when `multipleSort` is enabled but `sort` or `defaultSort` is not declared ([#3824](https://github.com/Tencent/tdesign-react/pull/3824))
+ - Fix issue where last row content is obscured when virtual scroll is enabled and `firstFullRow` / `lastFullRow` etc. are set simultaneously ([#3792](https://github.com/Tencent/tdesign-react/pull/3792))
+ - Fix issue where `fixedRows` / `firstFullRow` / `lastFullRow` cannot be used in combination under virtual scroll ([#3792](https://github.com/Tencent/tdesign-react/pull/3792))
  - Fix issue with abnormal scrollbar length during virtual scroll initialization ([#3792](https://github.com/Tencent/tdesign-react/pull/3792))
  - Fix issue where fixed header and fixed columns cannot align ([#3792](https://github.com/Tencent/tdesign-react/pull/3792))
- - Fix issue where `default Current` must be declared for correct pagination when `pagination` is uncontrolled ([#3822](https://github.com/Tencent/tdesign-react/pull/3822))
+ - Fix issue where `defaultCurrent` must be declared for correct pagination when `pagination` is uncontrolled ([#3822](https://github.com/Tencent/tdesign-react/pull/3822))
  - Fix issue where clicking pagination still triggers data update when `pagination` is controlled and unchanged ([#3822](https://github.com/Tencent/tdesign-react/pull/3822))
  - Fix issue where editable cell content does not sync when `data` changes ([#3826](https://github.com/Tencent/tdesign-react/pull/3826))
 - `SelectInput`: @RylanBot ([#3838](https://github.com/Tencent/tdesign-react/pull/3838))
- - Fix issue where `on Blur` does not take effect when `popup Visible={false}` is customized
- - Fix issue where `on Blur` is missing `tag InputValue` parameter when `multiple` is enabled
+ - Fix issue where `onBlur` does not take effect when `popupVisible={false}` is customized
+ - Fix issue where `onBlur` is missing `tagInputValue` parameter when `multiple` is enabled
 - `Select`: 
  - Fix issue where using `keys` to configure `content` as `label` or `value` does not take effect @RylanBot @uyarn ([#3829](https://github.com/Tencent/tdesign-react/pull/3829))
  - Fix issue with blank screen and scrollbar being unexpectedly reset when dynamically switching to virtual scroll @RylanBot ([#3792](https://github.com/Tencent/tdesign-react/pull/3792)) ([#3836](https://github.com/Tencent/tdesign-react/pull/3836))
  - Fix issue where displayed data is not synchronized when virtual scroll is enabled and data is dynamically updated @huangchen1031 ([#3839](https://github.com/Tencent/tdesign-react/pull/3839))
 - `List`: 
- - Fix issue where some APIs of `List Item` do not take effect after enabling virtual scroll @Flower BlackG ([#3835](https://github.com/Tencent/tdesign-react/pull/3835))
+ - Fix issue where some APIs of `ListItem` do not take effect after enabling virtual scroll @FlowerBlackG ([#3835](https://github.com/Tencent/tdesign-react/pull/3835))
  - Fix issue where scrollbar is unexpectedly reset when dynamically switching to virtual scroll @RylanBot ([#3792](https://github.com/Tencent/tdesign-react/pull/3792)) ([#3836](https://github.com/Tencent/tdesign-react/pull/3836))
 
 ## 🌈 1.15.1 `2025-09-12` 
 ### 🐞 Bug Fixes
-- `ImageViewer`: Fix issue with abnormal `image Scale` configuration effect @uyarn ([#3814](https://github.com/Tencent/tdesign-react/pull/3814))
+- `ImageViewer`: Fix issue with abnormal `imageScale` configuration effect @uyarn ([#3814](https://github.com/Tencent/tdesign-react/pull/3814))
 
 ## 🌈 1.15.0 `2025-09-11` 
 ### 🚀 Features
 - `Icon`: @uyarn ([#3802](https://github.com/Tencent/tdesign-react/pull/3802))
- - `tdesign-icons-react` Release version `0.6.0`,Add `align-bottom`, `no-result`, `no-result-filled`, `tree-list`, `wifi-no`, `wifi-no-filled`, `logo-stackblitz-filled`, `logo-stackblitz`, `logo-wecom-filled` icons,Remove iconsplease note when upgrading ⚠️ 
- - Icon resources used in on-demand loading support variable weight feature, configured via `stroke Width` property
- - Icon resources used in on-demand loading support multi-color fill feature, configured via `stroke Color` and `fill Color` properties
-- `DatePicker`: Support not closing popup when clicking `preset` by overriding `popup Props` @RylanBot ([#3798](https://github.com/Tencent/tdesign-react/pull/3798))
+ - `tdesign-icons-react` Release version `0.6.0`,Add `align-bottom`, `no-result`, `no-result-filled`, `tree-list`, `wifi-no`, `wifi-no-filled`, `logo-stackblitz-filled`, `logo-stackblitz`, `logo-wecom-filled` icons,Remove icons, please note when upgrading ⚠️ 
+ - Icon resources used in on-demand loading support variable weight feature, configured via `strokeWidth` property
+ - Icon resources used in on-demand loading support multi-color fill feature, configured via `strokeColor` and `fillColor` properties
+- `DatePicker`: Support not closing popup when clicking `preset` by overriding `popupProps` @RylanBot ([#3798](https://github.com/Tencent/tdesign-react/pull/3798))
 ### 🐞 Bug Fixes
 - `Tree`: Fix issue with abnormal expand/collapse icon display after dragging @RylanBot ([#3756](https://github.com/Tencent/tdesign-react/pull/3756))
 - `TreeItem`: Correct node attribute `date-target` spelling to `data-target`, please note this change if you previously used this attribute ⚠️ @RylanBot ([#3756](https://github.com/Tencent/tdesign-react/pull/3756))
 - `MessagePlugin`: Fix error when `content` is `''` / `undefined` / `null` @RylanBot ([#3778](https://github.com/Tencent/tdesign-react/pull/3778))
-- `Table`: Fix page flicker issue caused by `Loading` mounting when `<React.Strict Mode>` is not enabled @RylanBot ([#3775](https://github.com/Tencent/tdesign-react/pull/3775))
+- `Table`: Fix page flicker issue caused by `Loading` mounting when `<React.StrictMode>` is not enabled @RylanBot ([#3775](https://github.com/Tencent/tdesign-react/pull/3775))
 - `Upload`: Fix `status` update error in drag mode @RSS1102 ([#3801](https://github.com/Tencent/tdesign-react/pull/3801))
-- `Input`: Fix issue where `on Focus` and `on Blur` are not triggered when `readonly` is enabled or `allow Input` is disabled @RylanBot ([#3800](https://github.com/Tencent/tdesign-react/pull/3800))
+- `Input`: Fix issue where `onFocus` and `onBlur` are not triggered when `readonly` is enabled or `allowInput` is disabled @RylanBot ([#3800](https://github.com/Tencent/tdesign-react/pull/3800))
 - `Cascader`: 
- - Fix issue with abnormal `value Display` rendering when `multiple` and `value Type='full'` are enabled @RSS1102 ([#3809](https://github.com/Tencent/tdesign-react/pull/3809))
+ - Fix issue with abnormal `valueDisplay` rendering when `multiple` and `valueType='full'` are enabled @RSS1102 ([#3809](https://github.com/Tencent/tdesign-react/pull/3809))
  - Fix `1.11.0` version introduced new feature, causes inability to select bottom options issue @RylanBot ([#3772](https://github.com/Tencent/tdesign-react/pull/3772))
-- `Select`: Avoid frequently triggering repeated rendering of `value Display` when opening and closing dropdown @RylanBot ([#3808](https://github.com/Tencent/tdesign-react/pull/3808))
-- `TagInput`: Avoid frequently triggering repeated rendering of `value Display` when opening and closing dropdown @RylanBot ([#3808](https://github.com/Tencent/tdesign-react/pull/3808))
+- `Select`: Avoid frequently triggering repeated rendering of `valueDisplay` when opening and closing dropdown @RylanBot ([#3808](https://github.com/Tencent/tdesign-react/pull/3808))
+- `TagInput`: Avoid frequently triggering repeated rendering of `valueDisplay` when opening and closing dropdown @RylanBot ([#3808](https://github.com/Tencent/tdesign-react/pull/3808))
 - `Dialog`: Fix infinite loop caused by using `ref` in React 19 environment issue @RylanBot ([#3799](https://github.com/Tencent/tdesign-react/pull/3799))
 - `Drawer`: Fix infinite loop caused by using `ref` in React 19 environment issue @RylanBot ([#3799](https://github.com/Tencent/tdesign-react/pull/3799))
 - `Popup`: Fix `delay` is set to 0 when moving out of Trigger element exception issue @HaixingOoO ([#3806](https://github.com/Tencent/tdesign-react/pull/3806))
@@ -132,7 +132,7 @@ spline: explain
 - `Tabs`: move `remove` eventdelete fromiconsmove to outer container, ensure replacementiconsfunction normallyusing,hasoverridedeleteiconsstyleplease note thischangemore ⚠️ @RSS1102 ([#3736](https://github.com/Tencent/tdesign-react/pull/3736))
 - `Card`: Add `header ClassName`, `header Style`, `body ClassName`, `body Style`, `footer ClassName`, `footer Style`,convenient for customizing cardcomponenteach part style @lifei Front ([#3737](https://github.com/Tencent/tdesign-react/pull/3737))
 - `Form`: `rules` Supportconfigurevalidate nested fields @uyarn ([#3738](https://github.com/Tencent/tdesign-react/pull/3738))
-- `ImageViewer`: Adjust `image Scale` internalpropertiesvaluechangeisoptional @willsontao Zzz ([#3710](https://github.com/Tencent/tdesign-react/pull/3710))
+- `ImageViewer`: Adjust `imageScale` internalpropertiesvaluechangeisoptional @willsontao Zzz ([#3710](https://github.com/Tencent/tdesign-react/pull/3710))
 - `Select`: Support `on Create` and `multiple` withusing @uyarn ([#3717](https://github.com/Tencent/tdesign-react/pull/3717))
 - `Table`: Addswitch pagination afterreset scrollbar to top feature @RSS1102 ([#3729](https://github.com/Tencent/tdesign-react/pull/3729))
 - `Tree`: `on DragLeave` and `on DragOver` add `drag Node`, `drop Position` parameter @phalera ([#3728](https://github.com/Tencent/tdesign-react/pull/3728))
@@ -158,7 +158,7 @@ spline: explain
  - Fixenabledvirtual scroll when,headerand under tablewidthnotsyncchangechange
  - Fixenabledvirtual scroll when,scroll is unexpectedlyreset to firstrow position
  - Fix `dragSort='row-handler-col'` when,columndragnottake effect issue ([#3734](https://github.com/Tencent/tdesign-react/pull/3734))
- - Fix `size='small'` `first FullRow` dimension than `size='medium'` larger exception ([#common2253](https://github.com/Tencent/tdesign-common/pull/2253))
+ - Fix `size='small'` `firstFullRow` dimension than `size='medium'` larger exception ([#common2253](https://github.com/Tencent/tdesign-common/pull/2253))
 - `Watermark`: Fixdark mode under,textwatermarkcontentshow nototobvious issue @HaixingOoO @liweijie0812 ([#3692](https://github.com/Tencent/tdesign-react/pull/3692))
 - `DatePicker`: Optimizeyearselectmode underselectsamepanelyear afterpanelcontentdisplayeffect @uyarn ([#3744](https://github.com/Tencent/tdesign-react/pull/3744))
 
@@ -221,8 +221,8 @@ spline: explain
 ### 🐞 Bug Fixes
 - `Drawer`: Fix `cancel Btn` and `confirm Btn` typemissing `null` declare issue @RSS1102 ([#3602](https://github.com/Tencent/tdesign-react/pull/3602))
 - `ImageViewer`: Fixshow errorimageinsmall windowimageviewerdimension exception @RylanBot([#3607](https://github.com/Tencent/tdesign-react/pull/3607))
-- `Menu`: `popup Props` `delay` propertiesin `Sub Menu` innomethodtake effect issue @RylanBot ([#3599](https://github.com/Tencent/tdesign-react/pull/3599))
-- `Menu`: enabled `expand Mutex` after,ifsaveinsecondary `Sub Menu`,menunomethodexpand @RylanBot ([#3601](https://github.com/Tencent/tdesign-react/pull/3601))
+- `Menu`: `popupProps` `delay` propertiesin `Sub Menu` innomethodtake effect issue @RylanBot ([#3599](https://github.com/Tencent/tdesign-react/pull/3599))
+- `Menu`: enabled `expand Mutex` after, ifsaveinsecondary `Sub Menu`,menunomethodexpand @RylanBot ([#3601](https://github.com/Tencent/tdesign-react/pull/3601))
 - `Select`: Fix `checkAll` setis `disabled` afterstillwilltriggerselect all issue @RylanBot ([#3563](https://github.com/Tencent/tdesign-react/pull/3563))
 - `Table`: Optimizeclosecolumnconfiguredialog when,Fixselectcolumn dataandplacedisplaycolumn datanotonecause issue @RSS1102 ([#3608](https://github.com/Tencent/tdesign-react/pull/3608))
 - `Tab Panel`: Fixvia `style` set `display` propertiesnomethodnormaltake effect issue @uyarn ([#3609](https://github.com/Tencent/tdesign-react/pull/3609))
@@ -242,10 +242,10 @@ spline: explain
 - `Cascader`: 
  - Fixoptionsaveinextra longtextinsizedimension underdisplay exception issue @Shabi-x([#3551](https://github.com/Tencent/tdesign-react/pull/3551))
  - Fixinitialize after,asyncupdate `options` when,`display Value` nochangechange issue @huangchen1031 ([#3549](https://github.com/Tencent/tdesign-react/pull/3549))
-- `DatePicker`: Fix `on Focus` eventtrigger whenmachineissue @l123wx ([#3578](https://github.com/Tencent/tdesign-react/pull/3578))
+- `DatePicker`: Fix `onFocus` eventtrigger whenmachineissue @l123wx ([#3578](https://github.com/Tencent/tdesign-react/pull/3578))
 - `Drawer`: Optimize `TNode` rerendercauseinputcursorerror issue @betavs ([#3544](https://github.com/Tencent/tdesign-react/pull/3544))
 - `Form`:
- - Fix in `on ValuesChange` invia `set Fields` setmutualsamevaluecontinuetrigger `on ValuesChange` cause `re-render` issue @HaixingOoO ([#3304](https://github.com/Tencent/tdesign-react/pull/3304))
+ - Fix in `onValuesChange` invia `set Fields` setmutualsamevaluecontinuetrigger `onValuesChange` cause `re-render` issue @HaixingOoO ([#3304](https://github.com/Tencent/tdesign-react/pull/3304))
  - Fix `FormList` delete `field` after `reset` valueinitialize error issue @l123wx ([#3557](https://github.com/Tencent/tdesign-react/pull/3557))
  - compatible `1.11.7` versionbeforesingleindependentusing `FormItem` scenario @uyarn ([#3588](https://github.com/Tencent/tdesign-react/pull/3588))
 - `Guide`: Optimizecomponentinscreensizechangechange whennohasrecalculation position issue @HaixingOoO ([#3543](https://github.com/Tencent/tdesign-react/pull/3543))
@@ -314,7 +314,7 @@ spline: explain
 - `InputNumber`: Fixcomponentnotaffected by value propertiescontrolcontrol issue @RSS1102 ([#3499](https://github.com/Tencent/tdesign-react/pull/3499))
 - `ImageViewer`:
  - Fixset `step` saveinprecisiondegreedisplay exception issue @uyarn ([#3491](https://github.com/Tencent/tdesign-react/pull/3491))
- - Fix `image Scale` inparameterrequiredtype error @uyarn ([#3491](https://github.com/Tencent/tdesign-react/pull/3491))
+ - Fix `imageScale` inparameterrequiredtype error @uyarn ([#3491](https://github.com/Tencent/tdesign-react/pull/3491))
 - `Slider`: Fixopeninginputboxmode under,using `theme` is `col` inputboxscenario undernohaslimitsize issue @RSS1102 ([#3500](https://github.com/Tencent/tdesign-react/pull/3500))
 - `Tabs`: Optimizeoptioncard `label` overlongwhenslidebuttoninvalid issue @wonkzhang ([common#2108](https://github.com/Tencent/tdesign-common/pull/2108))
 
@@ -360,10 +360,10 @@ spline: explain
 - `ConfigProvider`: Fixglobalconfiguresecondaryconfigureaffectnon`Context`range issue @uyarn ([#3441](https://github.com/Tencent/tdesign-react/pull/3441))
 - `Dialog`: cancelandconfirmbuttonaddclass name, convenient to customizeneedrequire @RSS1102 ([#3417](https://github.com/Tencent/tdesign-react/pull/3417))
 - `Drawer`: Fixdragchangechangesize whentimegetwidthcancannotcorrect issue @wonkzhang ([#3420](https://github.com/Tencent/tdesign-react/pull/3420))
-- `Guide`: Fix `popup Props` penetrateproperties `overlay ClassName` invalid @RSS1102 ([#3433](https://github.com/Tencent/tdesign-react/pull/3433))
+- `Guide`: Fix `popupProps` penetrateproperties `overlay ClassName` invalid @RSS1102 ([#3433](https://github.com/Tencent/tdesign-react/pull/3433))
 - `Popup`: resolvecomponentmodifier `arrow` propertiessetnottake effect issue @wonkzhang ([#3437](https://github.com/Tencent/tdesign-react/pull/3437))
 - `Select`: Fixsingleboxin `readonly` mode underhascursorand `clear` icons issue @wonkzhang ([#3436](https://github.com/Tencent/tdesign-react/pull/3436))
-- `Table`: Fixenabledvirtual scroll when,`fixed Rows` when opening and closing dropdown issue @huangchen1031 ([#3427](https://github.com/Tencent/tdesign-react/pull/3427))
+- `Table`: Fixenabledvirtual scroll when,`fixedRows` when opening and closing dropdown issue @huangchen1031 ([#3427](https://github.com/Tencent/tdesign-react/pull/3427))
 - `Table`: FixoptionalinrowtableinFirefoxbrowserinstyle exception issue @uyarn ([common#2093](https://github.com/Tencent/tdesign-common/pull/2093))
 - `Tooltip`: Fix `React 16` under,`Tooltip Lite` `mouse` calculation position error issue @moecasts ([#3465](https://github.com/Tencent/tdesign-react/pull/3465))
 - `Tree`: Fixpartscenario under Removenode aftercomponent error issue @2ue ([#3463](https://github.com/Tencent/tdesign-react/pull/3463))
@@ -379,7 +379,7 @@ spline: explain
 - `Table`: Fix under virtual scrollfooterrender issue @huangchen1031 ([#3383](https://github.com/Tencent/tdesign-react/pull/3383))
 - `fix`: Fix`1.11.0` cjs artifactexception @uyarn ([#3392](https://github.com/Tencent/tdesign-react/pull/3392))
 ### 📝 Documentation
-- `ConfigProvider`: add `global Config` API documentation @liweijie0812 ([#3384](https://github.com/Tencent/tdesign-react/pull/3384))
+- `ConfigProvider`: add `globalConfig` API documentation @liweijie0812 ([#3384](https://github.com/Tencent/tdesign-react/pull/3384))
 
 ## 🌈 1.11.0 `2025-02-20` 
 ### 🚀 Features
@@ -408,7 +408,7 @@ spline: explain
 ## 🌈 1.10.5 `2025-01-16` 
 ### 🚀 Features
 - `RadioGroup`: Add `theme` API,useindecideusing options whenrendersubcomponentstyle @HaixingOoO ([#3303](https://github.com/Tencent/tdesign-react/pull/3303))
-- `Upload`: Add `image Props` API,useininuploadimagescenario underpass through `Image` componentrelatedproperties @HaixingOoO ([#3317](https://github.com/Tencent/tdesign-react/pull/3317))
+- `Upload`: Add `imageProps` API,useininuploadimagescenario underpass through `Image` componentrelatedproperties @HaixingOoO ([#3317](https://github.com/Tencent/tdesign-react/pull/3317))
 - `AutoComplete`: Add `empty` API,usein Supportcustomizedemptynodecontent @liweijie0812 ([#3319](https://github.com/Tencent/tdesign-react/pull/3319))
 - `Drawer`: `size Draggable`Add Support `Size DragLimit`typefunctioncanimplement @huangchen1031 ([#3323](https://github.com/Tencent/tdesign-react/pull/3323))
 - `Icon`: Add `logo-alipay`, `logo-behance-filled`etcicons,modify `logo-wecom` icons,Remove icons @uyarn ([#3326](https://github.com/Tencent/tdesign-react/pull/3326))
@@ -439,7 +439,7 @@ spline: explain
 - `Alert`: in `max Line >= message` arraylengthcase under,notagaindisplay `expandmoremultiple/collapse` button @miownag ([#3281](https://github.com/Tencent/tdesign-react/pull/3281))
 - `ConfigProvider`: `attach` properties Supportconfigure `drawer` component,Supportglobalconfigure `drawer` mount position @HaixingOoO ([#3272](https://github.com/Tencent/tdesign-react/pull/3272))
 - `DatePicker`: multiplemode Supportweekselectandyearselectscenario @HaixingOoO @uyarn ([#3264](https://github.com/Tencent/tdesign-react/pull/3264))
-- `Form`: Add `support NumberKey` API,Supportin`1.9.3`after versionnot Supportnumberkeyvaluescenariousing,ifnotneedrequire Supportnumbertypeasformkeyvaluepleaseclosethis API @uyarn ([#3277](https://github.com/Tencent/tdesign-react/pull/3277))
+- `Form`: Add `support NumberKey` API,Supportin`1.9.3`after versionnot Supportnumberkeyvaluescenariousing, ifnotneedrequire Supportnumbertypeasformkeyvaluepleaseclosethis API @uyarn ([#3277](https://github.com/Tencent/tdesign-react/pull/3277))
 - `Radio`: Add `Radio` and `RadioGroup` `reaonly` properties Support @liweijie0812 ([#3280](https://github.com/Tencent/tdesign-react/pull/3280))
 - `Tree`: instance Add `set Indeterminate` method,Supportmanualdynamicsethalfselectfunctioncan @uyarn ([#3261](https://github.com/Tencent/tdesign-react/pull/3261))
 - `DatePicker`: Support `label` API @liweijie0812 ([#3276](https://github.com/Tencent/tdesign-react/pull/3276))
@@ -453,7 +453,7 @@ spline: explain
 - `Checkbox Group`: Fixcheckboxgroupsubelementnotischeckboxcause issue @HaixingOoO ([#3253](https://github.com/Tencent/tdesign-react/pull/3253))
 - `Form`: Fix`1.9.3`after version,multiplelevelformfieldusing `set FieldValues` functioncan exception issue @l123wx ([#3279](https://github.com/Tencent/tdesign-react/pull/3279))
 - `Form`: Fix whenruleruleisininvolve `0` judgment when,verifynottake effect issue @RSS1102 ([#3283](https://github.com/Tencent/tdesign-react/pull/3283))
-- `Select`: Fix `value Type` is `object`selectinselect alldisplay exceptionandcallbackparametermissing issue @uyarn ([#3287](https://github.com/Tencent/tdesign-react/pull/3287))
+- `Select`: Fix `valueType` is `object`selectinselect alldisplay exceptionandcallbackparametermissing issue @uyarn ([#3287](https://github.com/Tencent/tdesign-react/pull/3287))
 - `SelectInput`: Fixnohas `label` allwillrendernodecauseverticalforalign issue @huangchen1031 ([#3278](https://github.com/Tencent/tdesign-react/pull/3278))
 - `Text Area`: Optimize `Text Area` initialize when `autosize` undercalculationheightlogic @HaixingOoO ([#3286](https://github.com/Tencent/tdesign-react/pull/3286))
 
@@ -470,7 +470,7 @@ spline: explain
 ### 🐞 Bug Fixes
 
 - `ColorPicker`: Fix `color Mode` partcopy textnohas Supportinternationalchange issue @l123wx ([#3221](https://github.com/Tencent/tdesign-react/pull/3221))
-- `Form`: Fix `set FieldsValue` and `set Fields` nohastrigger `on ValuesChange` issue @uyarn ([#3232](https://github.com/Tencent/tdesign-react/pull/3232))
+- `Form`: Fix `set FieldsValue` and `set Fields` nohastrigger `onValuesChange` issue @uyarn ([#3232](https://github.com/Tencent/tdesign-react/pull/3232))
 - `Notification`: modify `Notification Plugin` `offset` propertiesdefaultvalue,makeitsmoreconform to conventional habits @huangchen1031 ([#3231](https://github.com/Tencent/tdesign-react/pull/3231))
 - `Select`:
  - Fix `collapsed Items` parameter `collapsed SelectedItems` error @RSS1102 ([#3214](https://github.com/Tencent/tdesign-react/pull/3214))
@@ -500,7 +500,7 @@ spline: explain
 ### 🐞 Bug Fixes
 - `TagInput`: Fix in `readonly` mode understillcanbyvia Backspacebykeydeletealreadyoptiondefect @RSS1102 ([#3172](https://github.com/Tencent/tdesign-react/pull/3172))
 - `Form`: Fix `1.9.3` version,`FormItem` in `Form` outsideset `name` propertieshas exception issue @l123wx ([#3183](https://github.com/Tencent/tdesign-react/pull/3183))
-- `Select`: Fix value Type is object when,clickselect allbutton after on Change callbackparametertype error issue @l123wx ([#3193](https://github.com/Tencent/tdesign-react/pull/3193))
+- `Select`: Fix valueType is object when,clickselect allbutton after on Change callbackparametertype error issue @l123wx ([#3193](https://github.com/Tencent/tdesign-react/pull/3193))
 - `Table`: Fixdynamicstateset `expand TreeNode` nohasnormaldisplaysubnode issue @uyarn ([#3202](https://github.com/Tencent/tdesign-react/pull/3202))
 - `Tree`: Fixdynamicstateswitch `expand All` functioncan exception issue @uyarn ([#3204](https://github.com/Tencent/tdesign-react/pull/3204))
 - `Drawer`: Fixnomethodcustomized `confirm Btn` and `close Btn`content issue @RSS1102 ([#3191](https://github.com/Tencent/tdesign-react/pull/3191))
@@ -511,7 +511,7 @@ spline: explain
 
 ## 🌈 1.9.3 `2024-10-31` 
 ### 🐞 Bug Fixes
-- `Select`: Fix`value Display`under`on Close`callback issue @uyarn ([#3154](https://github.com/Tencent/tdesign-react/pull/3154))
+- `Select`: Fix`valueDisplay`under`on Close`callback issue @uyarn ([#3154](https://github.com/Tencent/tdesign-react/pull/3154))
 - `Typography`: Fix `Typography` `Ellipsis` functioncaninintextunder issue @HaixingOoO ([#3158](https://github.com/Tencent/tdesign-react/pull/3158))
 - `Form`: Fix `FormList` or `FormItem` datain `get FieldsValue` issue @HaixingOoO ([#3149](https://github.com/Tencent/tdesign-react/pull/3149))
 - `Form`: Fixdynamicstaterenderformnomethodusing `set FieldsValue` presetdata issue @l123wx ([#3145](https://github.com/Tencent/tdesign-react/pull/3145))
@@ -539,9 +539,9 @@ spline: explain
 - `Rate`: Add `clearable` API,useinclearrating @HaixingOoO ([#3114](https://github.com/Tencent/tdesign-react/pull/3114))
 ### 🐞 Bug Fixes
 - `Dropdown`: Fixset `panel Top Content` aftersubmenu `top` calculationerror issue @moecasts ([#3106](https://github.com/Tencent/tdesign-react/pull/3106))
-- `TreeSelect`: modifymultiplestate underdefaultclickparentnodeoptionrowisisselectin,ifneedrequireclickexpand,pleaseconfigure `tree Props.expand OnClick Node` @HaixingOoO ([#3111](https://github.com/Tencent/tdesign-react/pull/3111))
+- `TreeSelect`: modifymultiplestate underdefaultclickparentnodeoptionrowisisselectin, ifneedrequireclickexpand,pleaseconfigure `tree Props.expand OnClick Node` @HaixingOoO ([#3111](https://github.com/Tencent/tdesign-react/pull/3111))
 - `Menu`: Fixsecondarymenuexpandcollapsestatenot associatedrightarrowchangechange issue @uyarn ([#3110](https://github.com/Tencent/tdesign-react/pull/3110))
-- `Date RangePicker`: Fixconfigure whenbetweenrelatedgridstyle when,nohascorrecthandle `default Time` issue @uyarn ([#3117](https://github.com/Tencent/tdesign-react/pull/3117))
+- `Date RangePicker`: Fixconfigure whenbetweenrelatedgridstyle when,nohascorrecthandle `defaultTime` issue @uyarn ([#3117](https://github.com/Tencent/tdesign-react/pull/3117))
 - `DatePicker`: Fixweekselecterunder,yearboundarydatereturngridstyleerror issue @uyarn ([#3117](https://github.com/Tencent/tdesign-react/pull/3117))
 - `ColorPicker`:
  - Fixpartscenario undersubcomponentsaveinduplicate rendering exception issue @uyarn ([#3118](https://github.com/Tencent/tdesign-react/pull/3118))
@@ -646,7 +646,7 @@ spline: explain
 - `Input`: Add `spell Check` API @NWYLZW ([#2941](https://github.com/Tencent/tdesign-react/pull/2941))
 
 ### 🐞 Bug Fixes
-- `DatePicker`: Fixsingleindependentusing `Date RangePicker Panel` panelheaderclicklogicand `Date RangePicker` notonecause issue @uyarn ([#2944](https://github.com/Tencent/tdesign-react/pull/2944))
+- `DatePicker`: Fixsingleindependentusing `DateRangePickerPanel` panelheaderclicklogicand `Date RangePicker` notonecause issue @uyarn ([#2944](https://github.com/Tencent/tdesign-react/pull/2944))
 - `Form`: Fixnested `FormList` scenario underusing `should Update` causelooprender issue @moecasts ([#2948](https://github.com/Tencent/tdesign-react/pull/2948))
 - `Tabs`: Fix `1.7.4` after version,`Tabs` className affect `Tab Item` issue @uyarn ([#2946](https://github.com/Tencent/tdesign-react/pull/2946))
 - `Table`: 
@@ -676,8 +676,8 @@ spline: explain
  - Fixaffected bycontrolstatecannot be on Change callbackincorrectly consume issue @NWYLZW ([#2926](https://github.com/Tencent/tdesign-react/pull/2926))
 - `SelectInput`: Fix `interface.d.ts` filemissing `size` type issue @HaixingOoO ([#2930](https://github.com/Tencent/tdesign-react/pull/2930))
 - `DatePicker`: Fixsingleindependentusingpanelnohascompatibleno `on MonthChange` callbackscenario issue @uyarn ([#2932](https://github.com/Tencent/tdesign-react/pull/2932))
-- `Date RangePicker Panel`: Fix indropdowninselectyear/monthwhenselectappeardatechangechangeconfused issue @liyucang-git ([#2922](https://github.com/Tencent/tdesign-react/pull/2922))
-- `InputNumber`: Fix `allow InputOver Limit=false` sizevaluejudgment when,value is undefined when,willappearshow Infinity issue @HaixingOoO ([common#1802](https://github.com/Tencent/tdesign-common/pull/1802))
+- `DateRangePickerPanel`: Fix indropdowninselectyear/monthwhenselectappeardatechangechangeconfused issue @liyucang-git ([#2922](https://github.com/Tencent/tdesign-react/pull/2922))
+- `InputNumber`: Fix `allowInputOver Limit=false` sizevaluejudgment when,value is undefined when,willappearshow Infinity issue @HaixingOoO ([common#1802](https://github.com/Tencent/tdesign-common/pull/1802))
 
 ## 🌈 1.7.3 `2024-05-18` 
 ### 🐞 Bug Fixes
@@ -778,7 +778,7 @@ spline: explain
 - `Tag`: component Add `color` API,Supportcustomizedcolor @maoyiluo @uyarn ([#2799](https://github.com/Tencent/tdesign-react/pull/2799))
 ### 🐞 Bug Fixes
 - `FormList`: Fixmultiple componentstuck issue @HaixingOoO ([#2788](https://github.com/Tencent/tdesign-react/pull/2788))
-- `DatePicker`: Fix `format` and `value Type` notonecausescenario undercalculationerror issue @uyarn ([#2798](https://github.com/Tencent/tdesign-react/pull/2798))
+- `DatePicker`: Fix `format` and `valueType` notonecausescenario undercalculationerror issue @uyarn ([#2798](https://github.com/Tencent/tdesign-react/pull/2798))
 ### 🚧 Others
 - `Portal`: add Portaltestuseexample @HaixingOoO ([#2791](https://github.com/Tencent/tdesign-react/pull/2791))
 - `List`: improve List testuseexample @HaixingOoO ([#2792](https://github.com/Tencent/tdesign-react/pull/2792))
@@ -786,7 +786,7 @@ spline: explain
 
 ## 🌈 1.5.2 `2024-02-29` 
 ### 🚀 Features
-- `Cascader`: Add `value Display`and`label` APISupport @HaixingOoO ([#2736](https://github.com/Tencent/tdesign-react/pull/2736))
+- `Cascader`: Add `valueDisplay`and`label` APISupport @HaixingOoO ([#2736](https://github.com/Tencent/tdesign-react/pull/2736))
 - `Descriptions`: component Supportnested @HaixingOoO ([#2777](https://github.com/Tencent/tdesign-react/pull/2777))
 - `Tabs`: Adjustactivate `Tab` understrokelineand `Tab Header` borderlevelrelationship @uyarn ([#2780](https://github.com/Tencent/tdesign-react/pull/2780))
 ### 🐞 Bug Fixes
@@ -923,7 +923,7 @@ spline: explain
 - `Link`: Fixbeforeaftericonsnohasvertically centeredin issue @uyarn ([#2598](https://github.com/Tencent/tdesign-react/pull/2598))
 - `Select`: Fix `inputchange` eventcontextparameter exception issue @uyarn ([#2600](https://github.com/Tencent/tdesign-react/pull/2600))
 - `DatePicker`: Fix `Pagination Mini`notupdatecauseswitchrowis exception issue @Ricinix ([#2587](https://github.com/Tencent/tdesign-react/pull/2587))
-- `Form`: Fix set Fields trigger on ValuesChange causeinfinite loop @honkinglin ([#2570](https://github.com/Tencent/tdesign-react/pull/2570))
+- `Form`: Fix set Fields trigger onValuesChange causeinfinite loop @honkinglin ([#2570](https://github.com/Tencent/tdesign-react/pull/2570))
 
  ## 🌈 1.3.0 `2023-10-19` 
 ### 🚀 Features
@@ -1045,7 +1045,7 @@ spline: explain
 ## 🌈 1.1.17 `2023-07-28`
 ### 🐞 Bug Fixes
 - `Tabs`: Fix list passemptyarray when js error @zhenglianghan ([#2393](https://github.com/Tencent/tdesign-react/pull/2393))
-- `List ItemMeta`: Fix `description` passcustomizedelement @qijizh ([#2396](https://github.com/Tencent/tdesign-react/pull/2396))
+- `ListItemMeta`: Fix `description` passcustomizedelement @qijizh ([#2396](https://github.com/Tencent/tdesign-react/pull/2396))
 - `Tree`: Fixenabledvirtual scroll whenpartscenario undernoderollback interactionexception issue @uyarn ([#2399](https://github.com/Tencent/tdesign-react/pull/2399))
 - `Tree`: Fix `1.1.15` after versionbasein `level` propertiesoperationnomethodnormalwork issue @uyarn ([#2399](https://github.com/Tencent/tdesign-react/pull/2399))
 
@@ -1110,18 +1110,18 @@ spline: explain
 - `ColorPicker`: @uyarn ([#2301](https://github.com/Tencent/tdesign-react/pull/2301))
  - initializeisgradualchangemode when,Supportemptystringasinitialvalue
  - Fix `recent Colors` etcfieldtype issue
- - Fixinternal underpulloptionnotpass through `popup Props` defect
+ - Fixinternal underpulloptionnotpass through `popupProps` defect
 
 
 ## 🌈 1.1.10 `2023-06-13` 
 ### 🚀 Features
 - `Menu`:
- - `Submenu` Add `popup Props` properties,allowpass throughsetbottom layer Popup dialogproperties @xiaosansiji ([#2284](https://github.com/Tencent/tdesign-react/pull/2284))
+ - `Submenu` Add `popupProps` properties,allowpass throughsetbottom layer Popup dialogproperties @xiaosansiji ([#2284](https://github.com/Tencent/tdesign-react/pull/2284))
  - pop upmenuusing Popup refactor @xiaosansiji ([#2274](https://github.com/Tencent/tdesign-react/pull/2274))
 
 ### 🐞 Bug Fixes
 - `InputNumber`: initialvalueis `undefined` / `null`,andsavein `decimal Places` when,notagainenterrowdecimalpointcorrect @chaishi ([#2273](https://github.com/Tencent/tdesign-react/pull/2273))
-- `Select`: Fix `on Blur` methodcallbackparameter exception issue @Ali-ovo ([#2281](https://github.com/Tencent/tdesign-react/pull/2281))
+- `Select`: Fix `onBlur` methodcallbackparameter exception issue @Ali-ovo ([#2281](https://github.com/Tencent/tdesign-react/pull/2281))
 - `Dialog`: Fix in SSR environment under error @night-c ([#2280](https://github.com/Tencent/tdesign-react/pull/2280))
 - `Table`: Fixcomponentset `expand OnRow Click` is `true` when,clickentirerow error @pe-3 ([#2275](https://github.com/Tencent/tdesign-react/pull/2275))
 
@@ -1185,7 +1185,7 @@ spline: explain
 ### 🐞 Bug Fixes
 - `Form`: 
  - Fixmaindynamic reset nottrigger `on Reset` logic @honkinglin ([#2150](https://github.com/Tencent/tdesign-react/pull/2150))
- - Fix `on ValuesChange` eventreturnparameter issue @honkinglin ([#2169](https://github.com/Tencent/tdesign-react/pull/2169))
+ - Fix `onValuesChange` eventreturnparameter issue @honkinglin ([#2169](https://github.com/Tencent/tdesign-react/pull/2169))
 - `Select`: Fixmultiplemode `size` propertiesnottake effect issue @uyarn ([#2163](https://github.com/Tencent/tdesign-react/pull/2163))
 - `Collapse`:
  - Fix `Radio` disablejudgment @duanbaosheng ([#2161](https://github.com/Tencent/tdesign-react/pull/2161))
@@ -1270,14 +1270,14 @@ spline: explain
  - Fixtable width jitter issue 
  - columnwidthAdjustfunctioncan,Fix Dialog incolumnwidthAdjust issue
  - editable cell, fix dropdown selection component `abort EditOn Event` does not include `on Change` when,dependthenwillin datachangechange whentriggerexiteditstate issue
-- `Table`: Fix lazy-load reset bug @Mr Weilian ([#2041](https://github.com/Tencent/tdesign-react/pull/2041))
+- `Table`: Fix lazy-load reset bug @MrWeilian ([#2041](https://github.com/Tencent/tdesign-react/pull/2041))
 - `ColorPicker`: Fixinputboxnomethodinput issue @insekkei ([#2061](https://github.com/Tencent/tdesign-react/pull/2061))
 - `Affix`: Fix fixed judgment issue @lio-mengxiang ([#2048](https://github.com/Tencent/tdesign-react/pull/2048))
 
 ## 🌈 1.0.3 `2023-03-09` 
 ### 🚀 Features
 - `Message`: Do not auto-close on mouse hover @Hel Kyle ([#2036](https://github.com/Tencent/tdesign-react/pull/2036))
-- `DatePicker`: Support `default Time` @honkinglin ([#2038](https://github.com/Tencent/tdesign-react/pull/2038))
+- `DatePicker`: Support `defaultTime` @honkinglin ([#2038](https://github.com/Tencent/tdesign-react/pull/2038))
 
 ### 🐞 Bug Fixes
 - `DatePicker`: Fixmonthis0whendisplay whenbeforemonthissue @honkinglin ([#2032](https://github.com/Tencent/tdesign-react/pull/2032))
@@ -1288,7 +1288,7 @@ spline: explain
 ## 🌈 1.0.2 `2023-03-01` 
 ### 🚀 Features
 - `Image`: imagecomponent Supportspecial formatstyle address `.avif` and `.webp` @chaishi ([#2021](https://github.com/Tencent/tdesign-react/pull/2021))
-- `ConfigProvider`: Add `Image` globalconfigure `global Config.image.replace ImageSrc`, used to uniformly replace image addresses @chaishi ([#2021](https://github.com/Tencent/tdesign-react/pull/2021))
+- `ConfigProvider`: Add `Image` globalconfigure `globalConfig.image.replace ImageSrc`, used to uniformly replace image addresses @chaishi ([#2021](https://github.com/Tencent/tdesign-react/pull/2021))
 - `List`: `list ItemMeta` Support `className`, `style` properties @honkinglin ([#2005](https://github.com/Tencent/tdesign-react/pull/2005))
 
 ### 🐞 Bug Fixes
@@ -1303,13 +1303,13 @@ spline: explain
 
 ## 🌈 1.0.1 `2023-02-21` 
 ### 🚀 Features
-- `Popup`: Add `on ScrollTo Bottom` event @uyarn ([#1980](https://github.com/Tencent/tdesign-react/pull/1980))
+- `Popup`: Add `onScrollToBottom` event @uyarn ([#1980](https://github.com/Tencent/tdesign-react/pull/1980))
 - `Select`: @uyarn ([#1980](https://github.com/Tencent/tdesign-react/pull/1980))
  - Supportvirtual scrollusing
  - Support `autofocus`, `suffix`,`suffix Icon`and other APIs,`on Search`Addcallbackparameter
  - Optionsubcomponent Supportcustomized`title`API
 - `Icon`: load wheninjectstyle,Avoidin next environmentin error issue @uyarn ([#1990](https://github.com/Tencent/tdesign-react/pull/1990))
-- `Avatar`: componentinternalimage,using Image componentrender,Supportpass through `image Props` to Image component @chaishi ([#1993](https://github.com/Tencent/tdesign-react/pull/1993))
+- `Avatar`: componentinternalimage,using Image componentrender,Supportpass through `imageProps` to Image component @chaishi ([#1993](https://github.com/Tencent/tdesign-react/pull/1993))
 - `DialogPlugin`: Supportcustomized `visbile` @moecasts ([#1998](https://github.com/Tencent/tdesign-react/pull/1998))
 - `Tabs`: Supportdragcanability @duanbaosheng ([#1979](https://github.com/Tencent/tdesign-react/pull/1979))
 
@@ -1322,7 +1322,7 @@ spline: explain
 - `Image`: Fixeventtype issue @chaishi ([#1993](https://github.com/Tencent/tdesign-react/pull/1993))
 - `Tree`: Fixchild nodes cannot be searched after being collapsed issue @honkinglin ([#1999](https://github.com/Tencent/tdesign-react/pull/1999))
 - `Popup`: Fixpopup show/hide infinite loop issue @honkinglin ([#1991](https://github.com/Tencent/tdesign-react/pull/1991))
-- `FormList`: Fix `on ValuesChange` cannot get latest data issue @honkinglin ([#1992](https://github.com/Tencent/tdesign-react/pull/1992))
+- `FormList`: Fix `onValuesChange` cannot get latest data issue @honkinglin ([#1992](https://github.com/Tencent/tdesign-react/pull/1992))
 - `Drawer`: Fixscrollbar detection issue @honkinglin ([#2001](https://github.com/Tencent/tdesign-react/pull/2001))
 - `Dialog`: Fixscrollbar detection issue @honkinglin ([#2001](https://github.com/Tencent/tdesign-react/pull/2001))
 
@@ -1331,7 +1331,7 @@ spline: explain
 - `Dropdown`: submenu levelstructure Adjust,addonelayer `t-dropdown__submenu-wrapper` @uyarn ([#1964](https://github.com/Tencent/tdesign-react/pull/1964))
 
 ### 🐞 Bug Fixes
-- `Tree`: Fix using set Item setnode expanded when,nottrigger `on Expand` issue @genyuMPj ([#1956](https://github.com/Tencent/tdesign-react/pull/1956))
+- `Tree`: Fix using set Item setnode expanded when,nottrigger `onExpand` issue @genyuMPj ([#1956](https://github.com/Tencent/tdesign-react/pull/1956))
 - `Dropdown`: Fixmultiplelayer extra longmenu position exception issue @uyarn ([#1964](https://github.com/Tencent/tdesign-react/pull/1964))
 
 ## 🌈 0.x `2021-03-26 - 2023-02-08`
