@@ -732,7 +732,7 @@ exports[`ssr snapshot test > ssr test packages/components/popconfirm/_example/th
 
 exports[`ssr snapshot test > ssr test packages/components/popup/_example/base.tsx 1`] = `"<button type="button" class="t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">Hover me</span></button>"`;
 
-exports[`ssr snapshot test > ssr test packages/components/popup/_example/container.tsx 1`] = `"<div style="position:relative;gap:16px" class="t-space attach-container t-space-horizontal"><div class="t-space-item"><button type="button" class="t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">点击查看我的父元素(CSS Selector)</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">点击查看我的父元素(Function)</span></button></div></div>"`;
+exports[`ssr snapshot test > ssr test packages/components/popup/_example/container.tsx 1`] = `"<div style="gap:16px" class="t-space attach-container t-space-horizontal"><div class="t-space-item"><button type="button" class="t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">点击查看我的父元素(CSS Selector)</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">点击查看我的父元素(Function)</span></button></div></div>"`;
 
 exports[`ssr snapshot test > ssr test packages/components/popup/_example/destroy.tsx 1`] = `"<button type="button" class="t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">Hover me</span></button>"`;
 

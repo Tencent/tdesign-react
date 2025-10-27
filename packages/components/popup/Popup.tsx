@@ -1,8 +1,10 @@
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { CSSTransition } from 'react-transition-group';
+
 import { Placement, type Options } from '@popperjs/core';
 import classNames from 'classnames';
 import { debounce, isFunction } from 'lodash-es';
-import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { CSSTransition } from 'react-transition-group';
+
 import { getRefDom } from '../_util/ref';
 import { getCssVarsValue } from '../_util/style';
 import Portal from '../common/Portal';
@@ -16,8 +18,9 @@ import usePopper from '../hooks/usePopper';
 import useWindowSize from '../hooks/useWindowSize';
 import { popupDefaultProps } from './defaultProps';
 import useTrigger from './hooks/useTrigger';
-import type { TdPopupProps } from './type';
 import { getTransitionParams } from './utils/transition';
+
+import type { TdPopupProps } from './type';
 
 export interface PopupProps extends TdPopupProps {
   // 是否触发展开收起动画，内部下拉式组件使用
@@ -115,11 +118,12 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
     placement: popperPlacement,
     ...popperOptions,
   });
+
   /**
    * 是否启用 popper.js 的 arrow 修饰符
    * - 会自动根据属性 data-popper-arrow 来识别箭头元素
    * - 从而支持使用 padding 调整箭头位置
-   * @ see https://popper.js.org/docs/v2/modifiers/arrow/
+   * @docs https://popper.js.org/docs/v2/modifiers/arrow/
    */
   const hasArrowModifier = popperOptions?.modifiers?.some((modifier) => modifier.name === 'arrow');
   const { styles, attributes } = popperRef.current;
@@ -191,7 +195,12 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
       onEnter={handleEnter}
       onExited={handleExited}
     >
-      <Portal triggerNode={getRefDom(triggerRef)} attach={popupAttach} ref={portalRef}>
+      <Portal
+        ref={portalRef}
+        triggerNode={getRefDom(triggerRef)}
+        attach={popupAttach}
+        style={{ position: 'absolute', width: '100%' }}
+      >
         <CSSTransition
           appear
           timeout={0}
