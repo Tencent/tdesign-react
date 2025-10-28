@@ -1,6 +1,6 @@
-import { isFunction, isNumber } from 'lodash-es';
 import React, { useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { isFunction, isNumber } from 'lodash-es';
 
 import { formatImages } from '@tdesign/common-js/image-viewer/utils';
 import { canUseDocument } from '../_util/dom';
