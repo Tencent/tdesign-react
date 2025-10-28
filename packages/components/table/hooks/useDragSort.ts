@@ -68,8 +68,9 @@ export default function useDragSort(
 
   // 本地分页的表格，index 不同，需加上分页计数
   function getDataPageIndex(index: number, pagination: PaginationProps) {
-    const current = pagination.current ?? pagination.defaultCurrent;
-    const pageSize = pagination.pageSize ?? pagination.defaultPageSize;
+    if (!pagination) return index;
+    const current = pagination.current ?? pagination.defaultCurrent ?? 1;
+    const pageSize = pagination.pageSize ?? pagination.defaultPageSize ?? 10;
     // 开启本地分页的场景
     if (!props.disableDataPage && pagination && data.length > pageSize) {
       return pageSize * (current - 1) + index;
