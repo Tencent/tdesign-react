@@ -1,19 +1,21 @@
+import { isFunction, isNumber } from 'lodash-es';
 import React, { useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { isFunction, isNumber } from 'lodash-es';
-import { ImageModal } from './ImageViewerModal';
-import { imageViewerDefaultProps } from './defaultProps';
-import type { TdImageViewerProps } from './type';
-import type { ImageModalProps } from './ImageViewerModal';
-import type { StyledProps, TNode } from '../common';
-import useImageScale from './hooks/useImageScale';
-import useList from './hooks/useList';
-import useViewerScale from './hooks/useViewerScale';
-import useControlled from '../hooks/useControlled';
-import useDefaultProps from '../hooks/useDefaultProps';
+
+import { formatImages } from '@tdesign/common-js/image-viewer/utils';
 import { canUseDocument } from '../_util/dom';
 import useAttach from '../hooks/useAttach';
+import useControlled from '../hooks/useControlled';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { ImageModal } from './ImageViewerModal';
+import { imageViewerDefaultProps } from './defaultProps';
+import useImageScale from './hooks/useImageScale';
 import useIndex from './hooks/useIndex';
+import useViewerScale from './hooks/useViewerScale';
+
+import type { StyledProps, TNode } from '../common';
+import type { ImageModalProps } from './ImageViewerModal';
+import type { TdImageViewerProps } from './type';
 
 export interface ImageViewerProps extends TdImageViewerProps, StyledProps {}
 
@@ -27,7 +29,8 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
   });
 
   const [visibled, setVisibled] = useState(false);
-  const list = useList(images);
+  const imageList = useMemo(() => formatImages(images), [images]);
+
   const { index, setIndex } = useIndex(props, images);
   const imageScale = useImageScale(imageScaleD);
   const viewerScale = useViewerScale(viewerScaleD);
@@ -70,7 +73,7 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
           <ImageModal
             title={title}
             visible={visible}
-            images={list}
+            images={imageList}
             isMini={isMini}
             imageScale={imageScale}
             viewerScale={viewerScale}
