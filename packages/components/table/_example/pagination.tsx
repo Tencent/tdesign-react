@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Table, Space, Radio, Tag } from 'tdesign-react';
-import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { Radio, Space, Table, Tag } from 'tdesign-react';
+import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 
 import type { TableProps } from 'tdesign-react';
 
@@ -28,6 +28,7 @@ for (let i = 0; i < total; i++) {
 }
 
 const columns: TableProps['columns'] = [
+  { colKey: 'row-select', type: 'multiple', width: 46 },
   { colKey: 'serial-number', width: 80, title: '序号' },
   { colKey: 'applicant', title: '申请人', width: '100' },
   {
@@ -51,7 +52,6 @@ const columns: TableProps['columns'] = [
   { colKey: 'channel', title: '签署方式', width: '120' },
   // { colKey: 'detail.email', title: '邮箱地址', ellipsis: true },
   { colKey: 'createTime', title: '申请时间' },
-  { colKey: 'row-select', type: 'multiple', width: 46 },
 ];
 
 export default function TableBasic() {
