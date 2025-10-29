@@ -1,18 +1,21 @@
-import { get } from 'lodash-es';
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react';
+import { get } from 'lodash-es';
 import Option from '../base/Option';
 import OptionGroup from '../base/OptionGroup';
 import { getKeyMapping, getValueToOption, type ValueToOption } from '../util/helper';
 
 import type { SelectKeysType, SelectOption, SelectOptionGroup, SelectValue, TdOptionProps } from '../type';
 
+type OptionValueType = SelectValue<SelectOption>;
+
 export function isSelectOptionGroup(option: SelectOption): option is SelectOptionGroup {
   return !!option && 'group' in option && 'children' in option;
 }
 
-type OptionValueType = SelectValue<SelectOption>;
+export function isValueSelected(v: SelectValue, key: string, valueType: string, valueKey: string) {
+  return valueType === 'value' ? String(v) === String(key) : get(v, valueKey) === key;
+}
 
-// 处理 options 的逻辑
 function useOptions(
   keys: SelectKeysType,
   options: SelectOption[],
@@ -66,9 +69,28 @@ function useOptions(
     setCurrentOptions(transformedOptions);
     setTmpPropOptions(transformedOptions);
 
-    setValueToOption(getValueToOption(children as ReactElement, options as TdOptionProps[], keys) || {});
+    setValueToOption((prevValueToOption) => {
+      const newValueToOption = getValueToOption(children as ReactElement, options as TdOptionProps[], keys) || {};
+      const { valueKey } = getKeyMapping(keys);
+      const mergedValueToOption = { ...newValueToOption };
+
+      // 保持之前选中的 option 在映射中
+      // 避免远程搜索时，选中的 option 状态丢失
+      Object.keys(prevValueToOption).forEach((key) => {
+        if (mergedValueToOption[key]) return;
+        const isSelected = Array.isArray(value)
+          ? value.some((v) => isValueSelected(v, key, valueType, valueKey))
+          : isValueSelected(value, key, valueType, valueKey);
+
+        if (isSelected) {
+          mergedValueToOption[key] = prevValueToOption[key];
+        }
+      });
+
+      return mergedValueToOption;
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options, keys, children, reserveKeyword]);
+  }, [options, keys, children, reserveKeyword, value, valueType]);
 
   // 同步 value 对应的 options
   useEffect(() => {
