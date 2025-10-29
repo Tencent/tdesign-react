@@ -130,6 +130,13 @@ const Select = forwardRefWithStatics(
       if (disabled) return;
       visible && toggleIsScrolling(false);
       !visible && onInputChange('', { trigger: 'blur' });
+
+      if (visible && isFunction(onSearch) && !inputValue) {
+        // @ts-ignore
+        // 实际是由 click 触发而非键盘事件，待补充类型
+        onSearch('', { e: ctx.e });
+      }
+
       setShowPopup(visible, ctx);
     };
 
