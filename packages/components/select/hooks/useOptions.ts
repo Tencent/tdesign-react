@@ -74,8 +74,7 @@ function useOptions(
       const { valueKey } = getKeyMapping(keys);
       const mergedValueToOption = { ...newValueToOption };
 
-      // 保持之前选中的 option 在映射中
-      // 避免远程搜索时，选中的 option 状态丢失
+      // 保持之前选中的 option 在映射中，避免远程搜索时，状态丢失
       Object.keys(prevValueToOption).forEach((key) => {
         if (mergedValueToOption[key]) return;
         const isSelected = Array.isArray(value)
@@ -90,7 +89,7 @@ function useOptions(
       return mergedValueToOption;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options, keys, children, reserveKeyword, value, valueType]);
+  }, [options, keys, children, reserveKeyword]);
 
   // 同步 value 对应的 options
   useEffect(() => {
