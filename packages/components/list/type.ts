@@ -4,7 +4,7 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TNode, TScroll } from '../common';
+import { TNode, TScroll, ScrollToElementParams } from '../common';
 import { MouseEvent, WheelEvent } from 'react';
 
 export interface TdListProps {
@@ -52,6 +52,14 @@ export interface TdListProps {
    * 列表滚动时触发，scrollTop 表示顶部滚动距离，scrollBottom 表示底部滚动距离
    */
   onScroll?: (options: { e: Event | WheelEvent<HTMLDivElement>; scrollTop: number; scrollBottom: number }) => void;
+}
+
+/** 组件实例方法 */
+export interface ListInstanceFunctions {
+  /**
+   * 虚拟滚动场景下，支持指定滚动到具体的节点
+   */
+  scrollTo?: (scrollToParams: ScrollToElementParams) => void;
 }
 
 export interface TdListItemProps {

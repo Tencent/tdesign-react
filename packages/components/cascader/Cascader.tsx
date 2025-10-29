@@ -206,6 +206,7 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
           value: cascaderContext.value,
           e: context.e,
           inputValue: inputVal,
+          ...(props.multiple ? { tagInputValue: context.tagInputValue } : {}),
         });
         props?.selectInputProps?.onBlur?.(val, context);
       }}

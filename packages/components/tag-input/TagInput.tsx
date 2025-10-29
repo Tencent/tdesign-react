@@ -209,7 +209,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
         if (tInputValue) {
           setTInputValue('', { e: context.e, trigger: 'blur' });
         }
-        onBlur?.(tagValue, { e: context.e, inputValue: '' });
+        onBlur?.(tagValue, { e: context.e, inputValue });
       }}
       onCompositionstart={onInputCompositionstart}
       onCompositionend={onInputCompositionend}

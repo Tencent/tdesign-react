@@ -1,25 +1,10 @@
 :: BASE_DOC ::
 
-### 斑马纹区分列表
-
-{{ stripe }}
-
-### 异步加载的列表
-
-{{ asyncLoading }}
-
-### 带头部及尾部的列表
-
-{{ header-footer }}
-
-### 带滚动事件的列表
-
-{{ scroll }}
-
 ## API
+
 ### List Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
@@ -34,9 +19,18 @@ stripe | Boolean | false | 是否展示斑马纹 | N
 onLoadMore | Function |  | TS 类型：`(options: { e: MouseEvent }) => void`<br/>点击加载更多时触发 | N
 onScroll | Function |  | TS 类型：`(options: { e: Event \| WheelEvent; scrollTop: number; scrollBottom: number }) => void`<br/>列表滚动时触发，scrollTop 表示顶部滚动距离，scrollBottom 表示底部滚动距离 | N
 
+### ListInstanceFunctions 组件实例方法
+
+名称 | 参数 | 返回值 | 描述
+-- | -- | -- | --
+className | String | - | 类名 | N
+style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
+scrollTo | `(scrollToParams: ScrollToElementParams)` | \- | 虚拟滚动场景下，支持指定滚动到具体的节点。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)
+
+
 ### ListItem Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
@@ -44,9 +38,10 @@ action | TNode | - | 操作栏。TS 类型：`string \| TNode`。[通用类型�
 children | TNode | - | 内容，同 content。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 content | TNode | - | 内容。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 
+
 ### ListItemMeta Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
