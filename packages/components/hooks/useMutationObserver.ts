@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { debounce, isEqual } from 'lodash-es';
 import useLatest from './useLatest';
 
@@ -17,17 +17,26 @@ type Options = typeof DEFAULT_OPTIONS;
 export default function useMutationObservable(
   targetEl: HTMLElement | null,
   cb: MutationCallback,
-  options = DEFAULT_OPTIONS,
+  options?: Partial<Options>,
 ) {
   const optionsRef = useRef<Options>(null);
   const signalRef = useRef(0);
   const callbackRef = useLatest(cb);
 
-  if (!isEqual(options, optionsRef.current)) {
+  // 合并用户配置和默认配置
+  const mergedOptions: Options = {
+    debounceTime: options?.debounceTime ?? DEFAULT_OPTIONS.debounceTime,
+    config: {
+      ...DEFAULT_OPTIONS.config,
+      ...options?.config,
+    },
+  };
+
+  if (!isEqual(mergedOptions, optionsRef.current)) {
     signalRef.current += 1;
   }
 
-  optionsRef.current = options;
+  optionsRef.current = mergedOptions;
 
   useEffect(() => {
     if (!targetEl || !targetEl?.nodeType) return;
