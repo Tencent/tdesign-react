@@ -38,6 +38,7 @@ Currently, this can be solved by `Fragment` or other `HTML` elements
 ```
 
 ## API
+
 ### Popup Props
 
 name | type | default | description | required
@@ -64,3 +65,12 @@ zIndex | Number | - | \- | N
 onScroll | Function |  | Typescript：`(context: { e: WheelEvent }) => void`<br/> | N
 onScrollToBottom | Function |  | Typescript：`(context: { e: WheelEvent }) => void`<br/> | N
 onVisibleChange | Function |  | Typescript：`(visible: boolean, context: PopupVisibleChangeContext) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/popup/type.ts)。<br/>`interface PopupVisibleChangeContext { e?: PopupTriggerEvent; trigger?: PopupTriggerSource }`<br/><br/>`type PopupTriggerEvent = MouseEvent \| FocusEvent \| KeyboardEvent`<br/><br/>`type PopupTriggerSource = 'document' \| 'trigger-element-click' \| 'trigger-element-hover' \| 'trigger-element-blur' \| 'trigger-element-focus' \| 'trigger-element-mousedown' \| 'context-menu' \| 'keydown-esc'`<br/> | N
+
+### PopupInstanceFunctions 组件实例方法
+
+name | params | return | description
+-- | -- | -- | --
+getOverlay | \- | `HTMLElement \| null` | used to get overly html element
+getOverlayState | \- | `{ hover: boolean }` | get mouseover state of overlay
+getPopper | \- | `Instance \| null` | get the popup component popper instance。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/popup/type.ts)。<br/>`import { Instance } from '@popperjs/core'`<br/>
+update | \- | \- | used to update overlay content

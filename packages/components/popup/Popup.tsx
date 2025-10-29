@@ -70,6 +70,7 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
   const { keepExpand, keepFade } = useAnimation();
   const { height: windowHeight, width: windowWidth } = useWindowSize();
   const [visible, onVisibleChange] = useControlled(props, 'visible', props.onVisibleChange);
+  const [isOverlayHover, setIsOverlayHover] = useState(false);
 
   const [popupElement, setPopupElement] = useState(null);
   const triggerRef = useRef(null); // 记录 trigger 元素
@@ -153,9 +154,11 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
   }, [visible, updateScrollTop, getTriggerDom]);
 
   function handleExited() {
+    setIsOverlayHover(false);
     !destroyOnClose && popupElement && (popupElement.style.display = 'none');
   }
   function handleEnter() {
+    setIsOverlayHover(true);
     !destroyOnClose && popupElement && (popupElement.style.display = 'block');
   }
 
@@ -242,12 +245,56 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
     </CSSTransition>
   );
 
+  // 处理 shadow root（web component）和 trigger 隐藏的情况
+  function updatePopper() {
+    const popper = popperRef.current;
+    const triggerEl = getRefDom(triggerRef);
+    // 如果没有渲染弹层或不可见则不触发更新
+    if (!popupRef.current || !visible) return;
+    if (!popper) return;
+
+    try {
+      // web component 的元素可能在 shadow root 内，需要特殊处理
+      const root = triggerEl?.getRootNode?.();
+      if (root && root instanceof ShadowRoot) {
+        // popper 的实例内部结构可能是 state.elements.reference
+        // 尝试兼容不同实现，先赋值再更新
+        if (popper.state) popper.state.elements.reference = triggerEl;
+        popper.update?.();
+      } else {
+        const rect = triggerEl?.getBoundingClientRect?.();
+        let parent = triggerEl as HTMLElement | null;
+        while (parent && parent !== document.body) {
+          parent = parent.parentElement;
+        }
+        const isHidden = parent !== document.body || (rect && rect.width === 0 && rect.height === 0);
+        if (!isHidden) {
+          if (popper.state) popper.state.elements.reference = triggerEl;
+          popper.update?.();
+        } else {
+          // trigger 不在文档流内或被隐藏，则隐藏浮层
+          onVisibleChange(false, { trigger: 'document' });
+        }
+      }
+    } catch (e) {
+      // 直接尝试更新
+      popper.update?.();
+    }
+  }
+
   useImperativeHandle(ref, () => ({
+    /** 获取 popper 实例 */
     getPopper: () => popperRef.current,
     getPopupElement: () => popupRef.current,
     getPortalElement: () => portalRef.current,
     getPopupContentElement: () => contentRef.current,
     setVisible: (visible: boolean) => onVisibleChange(visible, { trigger: 'document' }),
+    /** 获取浮层元素 */
+    getOverlay: () => portalRef.current,
+    /** 获取浮层悬浮状态 */
+    getOverlayState: () => ({ hover: isOverlayHover }),
+    /** 更新浮层内容 */
+    update: () => updatePopper(),
   }));
 
   return (
