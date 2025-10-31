@@ -1,20 +1,22 @@
-import React, { forwardRef } from 'react';
-import classNames from 'classnames';
+import React, { forwardRef, isValidElement } from 'react';
 import {
-  CloseIcon as TdCloseIcon,
-  CheckIcon as TdCheckIcon,
-  ErrorIcon as TdErrorIcon,
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
+  CheckIcon as TdCheckIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
+  CloseIcon as TdCloseIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
+  ErrorIcon as TdErrorIcon,
 } from 'tdesign-icons-react';
-import useConfig from '../hooks/useConfig';
-import useGlobalIcon from '../hooks/useGlobalIcon';
+import classNames from 'classnames';
 import getBackgroundColor from '../_util/linearGradient';
-import { StyledProps } from '../common';
-import { TdProgressProps } from './type';
-import { progressDefaultProps } from './defaultProps';
+
+import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import { progressDefaultProps } from './defaultProps';
+
+import type { StyledProps } from '../common';
+import type { TdProgressProps } from './type';
 
 export interface ProgressProps extends TdProgressProps, StyledProps {}
 /**
@@ -217,7 +219,9 @@ const Progress = forwardRef<HTMLDivElement, ProgressProps>((props, ref) => {
         {percentage > PLUMP_SEPARATE ? (
           <div className={`${classPrefix}-progress__inner`} style={barStyle}>
             {label && (
-              <div className={`${classPrefix}-progress__info`} style={{ color: '#fff' }}>{`${percentage}%`}</div>
+              <div className={`${classPrefix}-progress__info`} style={{ color: '#fff' }}>
+                {isValidElement(label) ? label : `${percentage}%`}
+              </div>
             )}
           </div>
         ) : (
