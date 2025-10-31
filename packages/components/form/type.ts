@@ -447,7 +447,7 @@ export interface FormResetParams<FormData> {
 
 export interface FieldData {
   name: NamePath;
-  value?: unknown;
+  value?: any;
   status?: string;
   validateMessage?: { type?: string; message?: string };
 }

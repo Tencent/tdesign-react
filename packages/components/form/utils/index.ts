@@ -1,16 +1,45 @@
-import { has, get, isObject, isArray, isEmpty } from 'lodash-es';
+import { get, has, isArray, isEmpty, isObject } from 'lodash-es';
+import type { FormItemInstance } from '../FormItem';
 import type { NamePath } from '../type';
 
-// 获取 formMap 管理的数据
-export function getMapValue(name: NamePath, formMapRef: React.MutableRefObject<Map<any, any>>) {
+/**
+ * 在 `formMap` 中查找指定的 `FormItem`
+ * (仅查找当前层级)
+ */
+export function findFormItem(
+  name: NamePath,
+  formMapRef: React.MutableRefObject<Map<any, any>>,
+): React.RefObject<FormItemInstance> | undefined {
   if (!formMapRef.current) return;
-
   // 提取所有 map key
   const mapKeys = [...formMapRef.current.keys()];
   // 转译为字符串后比对 key 兼容数组格式
   const key = mapKeys.find((key) => String(key) === String(name));
   // 拿到 key 引用地址获取 value
   return formMapRef.current.get(key);
+}
+
+/**
+ * 在 `formMap` 中查找指定的 `FormItem`
+ * (包括在嵌套的 FormList 中递归查找）
+ */
+export function findFormItemDeep(
+  name: NamePath,
+  formMapRef: React.MutableRefObject<Map<any, any>>,
+): React.RefObject<FormItemInstance> | undefined {
+  if (!formMapRef?.current) return;
+  const targetPath = Array.isArray(name) ? name : [name];
+  for (const [key, ref] of formMapRef.current.entries()) {
+    const formItem = ref?.current;
+    if (!formItem?.isFormList || !formItem.formListMapRef) continue;
+    const { formListMapRef } = formItem;
+    for (const [itemKey, itemRef] of formListMapRef.current.entries()) {
+      const fullPath = [key, itemKey].flat();
+      if (String(fullPath) === String(targetPath)) return itemRef;
+    }
+    const found = findFormItemDeep(name, formListMapRef);
+    if (found) return found;
+  }
 }
 
 // { user: { name: '' } } => [['user', 'name']]
