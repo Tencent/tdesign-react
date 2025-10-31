@@ -1,9 +1,11 @@
-import { useMemo, useEffect, CSSProperties } from 'react';
+import { useEffect, useMemo } from 'react';
+
 import TreeNode from '@tdesign/common-js/tree-v1/tree-node';
-import useVirtualScroll from '../../hooks/useVirtualScroll';
-import { TScroll } from '../../common';
-import type { TdTreeProps } from '../type';
 import useEventCallback from '../../hooks/useEventCallback';
+import useVirtualScroll from '../../hooks/useVirtualScroll';
+
+import type { TScroll } from '../../common';
+import type { TdTreeProps } from '../type';
 
 export default function useTreeVirtualScroll({
   treeRef,
@@ -19,9 +21,10 @@ export default function useTreeVirtualScroll({
   const scrollThreshold = scroll?.threshold || 100;
   const scrollType = scroll?.type;
 
+  const enableVirtual = useMemo(() => scrollType === 'virtual', [scrollType]);
   const isVirtual = useMemo(
-    () => scrollType === 'virtual' && data?.length > scrollThreshold,
-    [scrollType, scrollThreshold, data],
+    () => enableVirtual && data?.length > scrollThreshold,
+    [enableVirtual, scrollThreshold, data],
   );
 
   const scrollParams = useMemo(
@@ -44,6 +47,7 @@ export default function useTreeVirtualScroll({
     handleRowMounted = null,
     scrollToElement,
   } = useVirtualScroll(treeRef, {
+    enable: enableVirtual,
     data: data || [],
     scroll: scrollParams,
   });
@@ -84,14 +88,14 @@ export default function useTreeVirtualScroll({
     MsTransform: `translate(0, ${scrollHeight}px)`,
     MozTransform: `translate(0, ${scrollHeight}px)`,
     WebkitTransform: `translate(0, ${scrollHeight}px)`,
-  } as CSSProperties;
+  } as React.CSSProperties;
 
   const treeNodeStyle = {
     transform: `translate(0, ${translateY}px)`,
     MsTransform: `translate(0, ${translateY}px)`,
     MozTransform: `translate(0, ${translateY}px)`,
     WebkitTransform: `translate(0, ${translateY}px)`,
-  } as CSSProperties;
+  } as React.CSSProperties;
 
   return {
     scrollHeight,

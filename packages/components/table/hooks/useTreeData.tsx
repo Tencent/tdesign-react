@@ -85,6 +85,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
       }
     } else {
       updateExpandOnDataChange([...dataSource]);
+      isManuallyModified.current = false;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, expandedTreeNodes]);

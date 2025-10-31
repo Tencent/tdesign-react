@@ -238,7 +238,7 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
         style={style}
       >
         {parseTNode(icon)}
-        <span>{title}</span>
+        <span className={`${classPrefix}-menu__content`}>{title}</span>
         {isPopUp && <FakeArrow style={fakeArrowStyle} isActive={level === 1 && open} />}
       </div>
     </li>
