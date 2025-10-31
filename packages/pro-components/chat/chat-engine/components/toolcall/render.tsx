@@ -212,36 +212,6 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
 // 定义增强后的 Props 类型
 type WithAgentStateProps<P> = P & { agentState?: Record<string, any> };
 
-// 创建一个高阶组件来包装需要状态的工具组件
-// export const withAgentStateToolcall = <P extends object>(
-//   Component: React.ComponentType<WithAgentStateProps<P>>,
-// ): React.ComponentType<P> => {
-//   const WrappedComponent: React.FC<P> = (props: P) => {
-//     // 尝试获取 Context 状态
-//     let contextState: UseStateActionReturn['state'] | null = null;
-//     try {
-//       const context = useAgentStateContext();
-//       console.log('====context', context);
-//       contextState = context.state;
-//     } catch {
-//       // 如果没有 Context，则忽略
-//     }
-
-//     // 构造增强后的 props
-//     const enhancedProps: WithAgentStateProps<P> = {
-//       ...props,
-//       ...(contextState && { agentState: contextState }),
-//     };
-
-//     return <Component {...enhancedProps} />;
-//   };
-
-//   // 设置 displayName 便于调试
-//   WrappedComponent.displayName = `withAgentState(${Component.displayName || Component.name || 'Component'})`;
-
-//   return React.memo(WrappedComponent);
-// };
-
 export const withAgentStateToolcall1 = <P extends object>(
   Component: React.ComponentType<WithAgentStateProps<P>>,
 ): React.ComponentType<P> => {
@@ -271,7 +241,6 @@ export const withAgentStateToolcall = <P extends object>(
     const targetStateKey = useMemo(() => (subscribeKeyExtractor ? subscribeKeyExtractor(props) : undefined), [props]);
 
     const agentState = useAgentStateDataByKey(targetStateKey);
-    console.log('====WrappedComponent', agentState, targetStateKey);
 
     return <Component {...props} agentState={agentState} />;
   };
@@ -279,36 +248,3 @@ export const withAgentStateToolcall = <P extends object>(
   WrappedComponent.displayName = `withAgentState(${Component.displayName || Component.name || 'Component'})`;
   return React.memo(WrappedComponent);
 };
-
-// interface SubscribeStrategy<TArgs = any> {
-//   // 自定义状态选择器
-//   stateSelector?: (stateMap: Record<string, any>, args: TArgs) => any;
-//   // 依赖项，用于优化重新计算
-//   deps?: (args: TArgs) => any[];
-// }
-
-// export const withAgentStateToolcall = <P extends object>(
-//   Component: React.ComponentType<WithAgentStateProps<P>>,
-//   subscribeStrategy?: SubscribeStrategy
-// ): React.ComponentType<P> => {
-//   const WrappedComponent: React.FC<P> = (props: P) => {
-//     const { stateMap } = useAgentStateContext();
-
-//     // 使用自定义选择器
-//     const selectedState = useMemo(() => {
-//       if (!subscribeStrategy?.stateSelector) {
-//         return stateMap;
-//       }
-//       return subscribeStrategy.stateSelector(stateMap, (props as any).args);
-//     }, [
-//       stateMap,
-//       (props as any).args,
-//       ...(subscribeStrategy?.deps?.((props as any).args) || [])
-//     ]);
-
-//     return <Component {...props} agentState={selectedState} />;
-//   };
-
-//   WrappedComponent.displayName = `withAgentState(${Component.displayName || Component.name || 'Component'})`;
-//   return React.memo(WrappedComponent);
-// };

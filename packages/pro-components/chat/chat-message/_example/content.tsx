@@ -1,73 +1,10 @@
 import React from 'react';
 import { Space, Divider } from 'tdesign-react';
-
-import { AIMessage, ChatMessage, UserMessage } from '@tdesign-react/chat';
-
-const userMessage1: UserMessage = {
-  id: '11111',
-  role: 'user',
-  status: 'complete',
-  content: [
-    {
-      type: 'text',
-      data: '分析以下内容，总结一篇广告策划方案',
-    },
-    {
-      type: 'attachment',
-      data: [
-        {
-          fileType: 'doc',
-          name: 'demo.docx',
-          url: 'https://tdesign.gtimg.com/site/demo.docx',
-          size: 12312,
-        },
-        {
-          fileType: 'pdf',
-          name: 'demo2.pdf',
-          url: 'https://tdesign.gtimg.com/site/demo.pdf',
-          size: 34333,
-        },
-      ],
-    },
-  ],
-};
-const userMessage2: UserMessage = {
-  id: '22222',
-  role: 'user',
-  status: 'complete',
-  content: [
-    {
-      type: 'text',
-      data: '这个图里的帅哥是谁？',
-    },
-    {
-      type: 'attachment',
-      data: [
-        {
-          fileType: 'image',
-          name: 'avatar.jpg',
-          size: 234234,
-          url: 'https://tdesign.gtimg.com/site/avatar.jpg',
-        },
-      ],
-    },
-  ],
-};
+import { ChatMessage } from '@tdesign-react/chat';
 
 export default function ChatMessageExample() {
-  const onActions = {
-    suggestion: ({ content }) => {
-      console.log('suggestionItem', content);
-    },
-    searchItem: ({ content, event }) => {
-      event.preventDefault();
-      event.stopPropagation();
-      console.log('searchItem', content);
-    },
-  };
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
-      **文本格式内容**，**Markdown格式内容**、**思考过程**、**搜索结果**、**建议问题**、**附件列表**、**图片**
       <Divider style={{ color: 'var(--td-text-color-placeholder)' }}>文本格式</Divider>
       <ChatMessage
         role="user"

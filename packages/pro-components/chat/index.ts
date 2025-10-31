@@ -1,4 +1,5 @@
 export * from './chatbot';
+export * from './chat-engine';
 export * from './chat-actionbar';
 export * from './chat-attachments';
 export * from './chat-filecard';
@@ -8,4 +9,4 @@ export * from './chat-message';
 export * from './chat-sender';
 export * from './chat-thinking';
 export * from './chat-markdown';
-export * from 'tdesign-web-components/lib/chat-engine';
+

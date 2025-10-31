@@ -44,3 +44,4 @@ packages/pro-components/chat/chatbot/docs/*
 packages/pro-components/chat/chatbot/core/*
 
 bundle-analysis
+.zip

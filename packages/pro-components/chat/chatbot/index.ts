@@ -33,8 +33,3 @@ export { ChatBot, ChatSearchContent, ChatSuggestionContent, ChatList };
 
 // 导出类型和工具
 export type * from 'tdesign-web-components/lib/chatbot/type';
-export * from './hooks/useChat';
-export * from './hooks/useAgentToolcall';
-export * from './hooks/useAgentState';
-export * from './components/toolcall';
-export * from './components/provider/agent-state';

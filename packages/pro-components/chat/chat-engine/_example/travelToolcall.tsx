@@ -23,9 +23,8 @@ import type {
 } from '@tdesign-react/chat';
 import { getMessageContentForCopy, AGUIAdapter } from '@tdesign-react/chat';
 import { ToolCallRenderer, useAgentToolcall, useChat } from '../index';
-import { PlanningStatePanel } from './components';
-import './travel_v1.css';
-import { travelActions } from './utils/travel-actions';
+import './travel.css';
+import { travelActions } from './travel-actions';
 
 // 扩展自定义消息体类型
 declare module '@tdesign-react/chat' {
@@ -356,32 +355,7 @@ export default function TravelPlannerChat() {
       </div>
 
       {/* 右下角固定规划状态面板 */}
-      <PlanningStatePanel className="planning-panel-fixed" currentStep={currentStep} />
-      {/* <Button
-            onClick={() => {
-              chatEngine.sendAIMessage({
-                sendRequest: false,
-                content: [
-                  {
-                    type: 'text',
-                    data: '测试sendAIMessage',
-                  },
-                  {
-                    type: 'toolcall',
-                    data: {
-                      args: '',
-                      result:
-                        '[{"name":"北京国贸大饭店","rating":4.8,"price":1200},{"name":"北京长城脚下的公社","rating":4.5,"price":800},{"name":"北京四合院宾馆","rating":4.2,"price":600}]',
-                      toolCallId: 'tool_1755434893837_2232323',
-                      toolCallName: 'get_hotel_details',
-                    },
-                  },
-                ],
-              });
-            }}
-          >
-            测试sendAIMessage
-          </Button> */}
+      {/* <PlanningStatePanel className="planning-panel-fixed" currentStep={currentStep} /> */}
     </div>
   );
 }

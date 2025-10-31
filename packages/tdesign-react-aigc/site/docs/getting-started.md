@@ -45,7 +45,7 @@ TDesign Chat 提供了两种主要的使用方式，适用于不同的业务场�
 
 ### 用法一：一体化组件集成
 
-直接使用 `ChatBot` 组件，内置完整的 UI 结构和交互逻辑，适合快速集成标准聊天界面的场景。
+直接使用 `ChatBot` 组件，内置完整的 UI 结构和交互逻辑，适合快速集成标准聊天界面的场景，参考[ChatBot 用法](/react-aigc/components/chatbot)。
 
 #### 最简示例
 
@@ -80,7 +80,7 @@ export default function () {
 
 ### 用法二：组合式开发
 
-通过使用 `useChat` Hook来获取chatEngine对话引擎实例和实时消息数据，自由组合独立的 UI 组件（`ChatList`、`ChatMessage`、`ChatSender`），或者可以完全自己实现 UI 部分，适合需要深度定制 UI 结构和交互逻辑的场景。
+通过使用 `useChat` Hook来获取chatEngine对话引擎实例和实时消息数据，自由组合独立的 UI 组件（`ChatList`、`ChatMessage`、`ChatSender`），或者可以完全自己实现 UI 部分，适合需要深度定制 UI 结构和交互逻辑的场景，参考[ChatEngine SDK 用法](/react-aigc/components/chat-engine)。
 
 ```js
 import React, { useState } from 'react';

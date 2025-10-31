@@ -78,6 +78,14 @@ export const docs = [
         componentEn: () => import('@tdesign/pro-components-chat/chatbot/chatbot.en-US.md'),
       },
       {
+        title: 'ChatEngine 对话引擎',
+        titleEn: 'ChatEngine',
+        name: 'chat-engine',
+        path: '/react-aigc/components/chat-engine',
+        component: () => import('@tdesign/pro-components-chat/chat-engine/chat-engine.md'),
+        componentEn: () => import('@tdesign/pro-components-chat/chat-engine/chat-engine.en-US.md'),
+      },
+      {
         title: 'ChatSender 对话输入',
         titleEn: 'ChatSender',
         name: 'chat-sender',
