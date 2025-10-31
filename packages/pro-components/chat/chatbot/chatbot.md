@@ -114,12 +114,129 @@ spline: navigation
 | isChatEngineReady     | boolean                                                                           | ChatEngine 是否就绪                          |
 | chatMessageValue      | ChatMessagesData[]                                                                | 获取当前消息列表的只读副本                   |
 | chatStatus            | ChatStatus                                                                        | 获取当前聊天状态（空闲/进行中/错误等）       |
-| senderLoading         | boolean                                                                           | 当前输入框按
-钮是否在'输出中'                 |
+| senderLoading         | boolean                                                                           | 当前输入框按钮是否在'输出中'                 |
 
 ## 常见问题
 
-1. 如何构造初始消息？
-2. onMessage 返回 null 和不返回有什么区别？
-3. 如何处理多种消息类型？
-4. 如何实现消息历史加载？
+### 如何回填设置消息列表（初始化/加载历史消息）？
+
+组件支持两种方式回填消息：
+
+**1. 初始化时回填**
+
+通过 `defaultMessages` 属性传入静态初始消息列表：
+
+```javascript
+  const defaultMessages = [
+      {
+        id: '1',
+        role: 'user',
+        content: [{ type: 'text', data: '你好' }],
+        datetime: '2025-01-01 10:00:00'
+      },
+      {
+        id: '2',
+        role: 'assistant',
+        content: [{ type: 'text', data: '你好！有什么可以帮助你的吗？' }],
+        datetime: '2025-01-01 10:00:01',
+        status: 'complete'
+      }
+    ];
+```
+
+
+**2. 动态加载历史消息**
+
+通过 ref 调用 `setMessages` 方法，支持三种模式：
+
+```javascript
+  const chatbotRef = useRef(null);
+
+  // 替换所有消息(初始化回填)
+  chatbotRef.current.setMessages(historyMessages, 'replace');
+
+  // 在顶部追加历史消息（适用于上拉加载更多）
+  chatbotRef.current.setMessages(olderMessages, 'prepend');
+
+  // 在底部追加消息
+  chatbotRef.current.setMessages(newMessages, 'append');
+```
+
+**3. 消息数据结构说明**
+
+每条消息必须包含以下字段：
+- `id`：消息唯一标识
+- `role`：消息角色（user/assistant/system）
+- `content`：消息内容数组，详见 [ChatMessage 组件文档](/react-aigc/components/chat-message?tab=api)
+- `datetime`：消息时间（可选）
+- `status`：消息状态（可选），AI 消息建议设置为 'complete'
+
+
+### 如何处理后端返回的消息数据转换？
+
+后端返回的数据格式通常与组件所需的消息结构不一致，需要在 `onMessage` 回调中进行转换。
+
+**核心概念**：
+- `onMessage` 的返回值决定了如何更新消息内容
+- 返回 `null` 或 `undefined` 表示忽略本次数据块，不更新消息
+- 返回 `AIMessageContent` 表示要添加/更新单个内容块
+- 返回 `AIMessageContent[]` 表示批量更新多个内容块
+
+**场景 1：多种消息类型混合**
+
+```javascript
+chatServiceConfig={{
+  onMessage: (chunk) => {
+    // chunk为后端实时返回的数据流 
+    // { event: "message", data: { type: "think", title: "思考中...", content: "用户" } }
+    // { event: "message", data: { type: "text", content: "总结下这个问题" } }
+    const { type, ...rest } = chunk.data;
+
+      // 处理思考过程
+      if (type === 'think') {
+        return {
+          type: 'thinking', // 返回组件内置的消息类型和data结构
+          data: { text: rest.content, title: rest.title }
+        };
+      }
+      
+      // 处理文本内容
+      if (type === 'text') {
+        return {
+          type: 'markdown',
+          data: rest.content,
+          strategy: 'merge'
+        };
+      }
+      
+      return null;  // 忽略未知事件
+    }
+}}
+```
+
+**场景 2：批量更新多个内容块**
+
+```javascript
+chatServiceConfig={{
+  onMessage: (chunk, message) => {
+    // message 是当前正在构建的消息对象
+    const { event, data } = chunk;
+    // 也可以根据当前消息内容动态决定
+    if (event === 'complete') {
+      const currentContent = message?.content || [];
+      // 移除思考过程，只保留最终答案
+      return currentContent.filter(c => c.type !== 'thinking');
+    }
+    
+    return null;
+  }
+}}
+```
+
+**返回值处理逻辑**：
+
+| 返回值类型 | 处理逻辑 | 适用场景 |
+|-----------|---------|---------|
+| `null` / `undefined` | 忽略本次数据块，不更新消息 | 过滤无关事件、跳过中间状态 |
+| `AIMessageContent` | 根据 `strategy` 字段决定：<br>• `merge`（默认）：查找相同 type 的最后一个内容块并合并<br>• `append`：追加为新的独立内容块 | 大多数流式响应场景 |
+| `AIMessageContent[]` | 遍历数组，根据 `id` 或 `type` 匹配已存在的内容块：<br>• 匹配到：更新该内容块<br>• 未匹配：追加到末尾 | 批量更新多个内容块、动态调整内容结构 |

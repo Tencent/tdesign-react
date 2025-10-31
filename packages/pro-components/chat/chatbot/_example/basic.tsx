@@ -119,6 +119,7 @@ export default function chatSample() {
     onAbort: async () => {},
     // 自定义流式数据结构解析
     onMessage: (chunk: SSEChunkData): AIMessageContent => {
+      console.log("====chunk", chunk)
       const { type, ...rest } = chunk.data;
       switch (type) {
         case 'search':
