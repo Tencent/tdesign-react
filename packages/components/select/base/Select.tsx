@@ -1,7 +1,5 @@
 import React, {
   Children,
-  KeyboardEvent,
-  WheelEvent,
   cloneElement,
   isValidElement,
   useCallback,
@@ -27,7 +25,7 @@ import SelectInput, { type SelectInputValue, type SelectInputValueChangeContext 
 import Tag from '../../tag';
 import { selectDefaultProps } from '../defaultProps';
 import useOptions, { isSelectOptionGroup } from '../hooks/useOptions';
-import { getSelectValueArr, getSelectedOptions } from '../util/helper';
+import { getKeyMapping, getSelectValueArr, getSelectedOptions } from '../util/helper';
 import Option from './Option';
 import OptionGroup from './OptionGroup';
 import PopupContent from './PopupContent';
@@ -121,10 +119,11 @@ const Select = forwardRefWithStatics(
     );
 
     const selectedLabel = useMemo(() => {
+      const { labelKey } = getKeyMapping(keys);
       if (multiple) {
-        return selectedOptions.map((selectedOption) => get(selectedOption || {}, keys?.label || 'label') || '');
+        return selectedOptions.map((selectedOption) => get(selectedOption || {}, labelKey) || '');
       }
-      return get(selectedOptions[0] || {}, keys?.label || 'label') || undefined;
+      return get(selectedOptions[0] || {}, labelKey) || undefined;
     }, [selectedOptions, keys, multiple]);
 
     const handleShowPopup = (visible: boolean, ctx: PopupVisibleChangeContext) => {
@@ -188,37 +187,40 @@ const Select = forwardRefWithStatics(
         return;
       }
 
-      const isSelectableOption = (opt: TdOptionProps) => !opt.checkAll && !opt.disabled;
-      const getOptionValue = (option: SelectOption) =>
-        valueType === 'object' ? option : option[keys?.value || 'value'];
+      const { valueKey } = getKeyMapping(keys);
+      const isObjectType = valueType === 'object';
 
-      const values = [];
-      currentOptions.forEach((option) => {
-        if (isSelectOptionGroup(option)) {
-          option.children.forEach((item) => {
-            if (isSelectableOption(item)) {
-              values.push(getOptionValue(item));
-            }
-          });
-        } else if (isSelectableOption(option)) {
-          values.push(getOptionValue(option));
-        }
-      });
-
-      const { currentSelectedOptions, allSelectedValue } = getSelectedOptions(
-        values,
-        multiple,
-        valueType,
-        keys,
-        valueToOption,
+      const enabledOptions = currentOptions.filter(
+        (opt) => !isSelectOptionGroup(opt) && !opt.checkAll && !opt.disabled,
       );
 
-      const checkAllValue =
-        !checkAll && allSelectedValue.length !== (props.value as Array<SelectOption>)?.length ? allSelectedValue : [];
+      const currentValues = Array.isArray(value) ? value : [];
+      const disabledSelectedOptions = currentOptions.filter((opt) => {
+        if (isSelectOptionGroup(opt) || opt.checkAll) return false;
+        if (!opt.disabled) return false;
+        if (isObjectType) {
+          return currentValues.some((v) => get(v, valueKey) === opt[valueKey]);
+        }
+        return currentValues.includes(opt[valueKey]);
+      });
+
+      let checkAllValue: SelectValue[];
+
+      if (checkAll) {
+        // 全选：选中所有未禁用的选项 + 保留已选中的禁用选项
+        const enabledValues = enabledOptions.map((opt) => (isObjectType ? opt : opt[valueKey]));
+        const disabledValues = disabledSelectedOptions.map((opt) => (isObjectType ? opt : opt[valueKey]));
+        checkAllValue = [...disabledValues, ...enabledValues];
+      } else {
+        // 取消全选：只保留已选中的禁用选项
+        checkAllValue = disabledSelectedOptions.map((opt) => (isObjectType ? opt : opt[valueKey]));
+      }
+
+      const { currentSelectedOptions } = getSelectedOptions(checkAllValue, multiple, valueType, keys, valueToOption);
 
       onChange?.(checkAllValue, {
         e,
-        trigger: !checkAll ? 'check' : 'uncheck',
+        trigger: checkAll ? 'check' : 'uncheck',
         selectedOptions: currentSelectedOptions,
       });
     };
@@ -323,7 +325,7 @@ const Select = forwardRefWithStatics(
         return;
       }
       if (isFunction(onSearch)) {
-        onSearch(value, { e: context.e as KeyboardEvent<HTMLDivElement> });
+        onSearch(value, { e: context.e as React.KeyboardEvent<HTMLDivElement> });
         return;
       }
     };
@@ -403,18 +405,22 @@ const Select = forwardRefWithStatics(
           return '';
         }
         return ({ value: val }) =>
-          val.slice(0, minCollapsedNum ? minCollapsedNum : val.length).map((v: string, key: number) => {
-            const filterOption: SelectOption & { disabled?: boolean } = options?.find((option) => option.label === v);
+          val.slice(0, minCollapsedNum ? minCollapsedNum : val.length).map((_, index: number) => {
+            const { valueKey, labelKey, disabledKey } = getKeyMapping(keys);
+            const targetVal = get(selectedOptions[index], valueKey);
+            const targetLabel = get(selectedOptions[index], labelKey);
+            const targetOption = valueToOption[targetVal];
+            if (!targetOption) return null;
             return (
               <Tag
-                key={key}
-                closable={!filterOption?.disabled && !disabled && !readonly}
+                key={index}
+                closable={!get(targetOption, disabledKey) && !disabled && !readonly}
                 size={size}
                 {...tagProps}
                 onClose={({ e }) => {
                   e.stopPropagation();
                   e?.nativeEvent?.stopImmediatePropagation?.();
-                  const values = getSelectValueArr(value, value[key], true, valueType, keys);
+                  const values = getSelectValueArr(value, value[index], true, valueType, keys);
 
                   const { currentSelectedOptions } = getSelectedOptions(
                     values,
@@ -432,13 +438,13 @@ const Select = forwardRefWithStatics(
                   tagProps?.onClose?.({ e });
 
                   onRemove?.({
-                    value: value[key],
-                    data: { label: v, value: value[key] },
+                    value: targetVal,
+                    data: { label: targetLabel, value: targetVal },
                     e: e as unknown as React.MouseEvent<HTMLDivElement, MouseEvent>,
                   });
                 }}
               >
-                {v}
+                {targetLabel}
               </Tag>
             );
           });
@@ -496,11 +502,11 @@ const Select = forwardRefWithStatics(
 
     const { onMouseEnter, onMouseLeave } = props;
 
-    const handleEnter = (_, context: { inputValue: string; e: KeyboardEvent<HTMLDivElement> }) => {
+    const handleEnter = (_, context: { inputValue: string; e: React.KeyboardEvent<HTMLDivElement> }) => {
       onEnter?.({ ...context, value });
     };
 
-    const handleScroll = ({ e }: { e: WheelEvent<HTMLDivElement> }) => {
+    const handleScroll = ({ e }: { e: React.WheelEvent<HTMLDivElement> }) => {
       toggleIsScrolling(true);
 
       onScroll?.({ e });

@@ -1,13 +1,13 @@
 import React, { forwardRef } from 'react';
 import type { RefObject } from 'react';
 import classNames from 'classnames';
+import { pxCompat } from '@tdesign/common-js/utils/helper';
 import { DropdownOption, TdDropdownProps, DropdownItemTheme } from './type';
 import useConfig from '../hooks/useConfig';
 import useDomRefCallback from '../hooks/useDomRefCallback';
 import useRipple from '../hooks/useRipple';
 import { dropdownItemDefaultProps } from './defaultProps';
 import { StyledProps } from '../common';
-import { pxCompat } from '../_util/helper';
 import useDefaultProps from '../hooks/useDefaultProps';
 
 type DropdownItemProps = Pick<DropdownOption, 'value'> &
