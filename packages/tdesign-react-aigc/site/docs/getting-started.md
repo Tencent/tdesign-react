@@ -9,7 +9,7 @@ spline: ai
 
 ### 环境要求
 
-- React >= 17.0.0
+- React >= 18.0.0
 - TypeScript >= 4.0 (可选，但推荐)
 
 ### 使用 npm 安装

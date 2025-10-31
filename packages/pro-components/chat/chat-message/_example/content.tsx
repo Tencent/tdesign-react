@@ -44,7 +44,7 @@ export default function ChatMessageExample() {
       ></ChatMessage>
       <Divider style={{ color: 'var(--td-text-color-placeholder)' }}>搜索结果</Divider>
       <ChatMessage
-        variant="base"
+        variant="text"
         role={'assistant'}
         content={[
           {
