@@ -115,7 +115,7 @@
     "prismjs": "^1.28.0",
     "prop-types": "^15.7.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react-dom": "^19.2.0",
     "react-element-to-jsx-string": "^17.0.0",
     "react-router-dom": "^6.2.2",
     "resize-observer-polyfill": "^1.5.1",

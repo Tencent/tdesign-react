@@ -13,7 +13,7 @@
   "dependencies": {
     "lodash-es": "^4.17.21",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react-dom": "^19.2.0",
     "react-router-dom": "^6.2.2",
     "tdesign-icons-react": "^0.6.1",
     "@tdesign/site-components": "^0.17.0",
