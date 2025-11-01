@@ -1,18 +1,19 @@
-import React, { useEffect, useImperativeHandle, useRef } from 'react';
+import React, { useRef, useImperativeHandle, useEffect } from 'react';
 import classNames from 'classnames';
-import useConfig from '../hooks/useConfig';
-import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import type { TdFormProps } from './type';
-import useInstance from './hooks/useInstance';
-import useForm, { HOOK_MARK } from './hooks/useForm';
-import useWatch from './hooks/useWatch';
-import { StyledProps } from '../common';
+import noop from '../_util/noop';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
 import FormContext from './FormContext';
 import FormItem from './FormItem';
 import FormList from './FormList';
 import { formDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
+import useForm, { HOOK_MARK } from './hooks/useForm';
+import useInstance from './hooks/useInstance';
+import useWatch from './hooks/useWatch';
+
+import type { StyledProps } from '../common';
+import type { TdFormProps } from './type';
 
 export interface FormProps extends TdFormProps, StyledProps {
   children?: React.ReactNode;
@@ -39,6 +40,7 @@ const Form = forwardRefWithStatics(
       rules,
       errorMessage = globalFormConfig.errorMessage,
       disabled,
+      readonly,
       children,
       id,
       onReset,
@@ -96,6 +98,7 @@ const Form = forwardRefWithStatics(
           resetType,
           rules,
           disabled,
+          readonly,
           formMapRef,
           floatingFormDataRef,
           onFormItemValueChange,
