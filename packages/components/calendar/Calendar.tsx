@@ -192,14 +192,19 @@ const Calendar = forwardRef<CalendarMethods, CalendarProps>((props, ref) => {
     const isRangeValid = rangeFromTo && rangeFromTo.from && rangeFromTo.to;
     const checkMonthSelectorDisabled = (yearIn: number, monthIn: number): boolean => {
       if (isRangeValid) {
-        const beginYear = dayjs(rangeFromTo.from).year();
-        const endYear = dayjs(rangeFromTo.to).year();
-        if (yearIn === beginYear) {
-          const beginMon = parseInt(dayjs(rangeFromTo.from).format('M'), 10);
+        // 读取起止年份
+        const beginYear = dayjs(rangeFromTo.value.from).year();
+        const endYear = dayjs(rangeFromTo.value.to).year();
+        // 读取起止月份
+        const beginMon = parseInt(dayjs(rangeFromTo.value.from).format('M'), 10);
+        const endMon = parseInt(dayjs(rangeFromTo.value.to).format('M'), 10);
+
+        if (beginYear === endYear) {
+          // 同一年内，禁用开始月份至结束月份之外的月份选项
+          return monthIn < beginMon || monthIn > endMon;
+        } else if (yearIn === beginYear) {
           return monthIn < beginMon;
-        }
-        if (yearIn === endYear) {
-          const endMon = parseInt(dayjs(rangeFromTo.to).format('M'), 10);
+        } else if (yearIn === endYear) {
           return monthIn > endMon;
         }
       }
