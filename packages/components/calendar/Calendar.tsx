@@ -221,7 +221,7 @@ const Calendar = forwardRef<CalendarMethods, CalendarProps>((props, ref) => {
     for (let i = yearBegin; i <= yearEnd; i++) {
       yearList.push({
         value: i,
-        disabled: checkMonthSelectorDisabled(i, month),
+        disabled: false,
       });
     }
     // 月列表
