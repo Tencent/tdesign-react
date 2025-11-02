@@ -232,7 +232,7 @@ const Calendar = forwardRef<CalendarMethods, CalendarProps>((props, ref) => {
       });
     }
     return [yearList, monthList];
-  }, [rangeFromTo, year, month]);
+  }, [rangeFromTo, year]);
 
   // mode为 'month' 时，构造日历列表
   const dateList = useMemo<CalendarCell[][]>(
