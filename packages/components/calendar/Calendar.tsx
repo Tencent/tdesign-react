@@ -202,9 +202,11 @@ const Calendar = forwardRef<CalendarMethods, CalendarProps>((props, ref) => {
         if (beginYear === endYear) {
           // 同一年内，禁用开始月份至结束月份之外的月份选项
           return monthIn < beginMon || monthIn > endMon;
-        } else if (yearIn === beginYear) {
+        }
+        if (yearIn === beginYear) {
           return monthIn < beginMon;
-        } else if (yearIn === endYear) {
+        }
+        if (yearIn === endYear) {
           return monthIn > endMon;
         }
       }
