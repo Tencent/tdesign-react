@@ -153,7 +153,6 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     if (enableTimePicker) {
       setCacheValue(formatDate(date, { format }));
       if (props.needConfirm) return;
-      handlePopupInvisible();
       onChange(formatDate(date, { format, targetFormat: valueType }), {
         dayjsValue: parseToDayjs(date, format),
         trigger: 'pick',
