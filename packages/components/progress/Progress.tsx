@@ -8,8 +8,8 @@ import {
   ErrorIcon as TdErrorIcon,
 } from 'tdesign-icons-react';
 import classNames from 'classnames';
-import getBackgroundColor from '../_util/linearGradient';
 
+import { getBackgroundColor } from '@tdesign/common-js/utils/helper';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
