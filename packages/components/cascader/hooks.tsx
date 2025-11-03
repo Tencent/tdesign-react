@@ -1,24 +1,24 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { isArray, isEqual, isFunction } from 'lodash-es';
 
 import TreeStore from '@tdesign/common-js/tree-v1/tree-store';
 import type { TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
-import { getTreeValue, getCascaderValue, isEmptyValues, isValueInvalid } from './core/helper';
-import { treeNodesEffect, treeStoreExpendEffect } from './core/effect';
 
 import useControlled from '../hooks/useControlled';
+import useInnerPopupVisible from '../hooks/useInnerPopupVisible';
+import { treeNodesEffect, treeStoreExpendEffect } from './core/effect';
+import { getCascaderValue, getTreeValue, isEmptyValues, isValueInvalid } from './core/helper';
 
+import type { TreeOptionData } from '../common';
 import type {
-  TreeNode,
-  TreeNodeValue,
-  TdCascaderProps,
-  TreeNodeModel,
   CascaderChangeSource,
   CascaderValue,
+  TdCascaderProps,
+  TreeNode,
+  TreeNodeModel,
+  TreeNodeValue,
 } from './interface';
-
-import { TreeOptionData } from '../common';
 
 export const useCascaderContext = (props: TdCascaderProps) => {
   const [innerValue, setInnerValue] = useControlled(props, 'value', props.onChange);
@@ -29,6 +29,10 @@ export const useCascaderContext = (props: TdCascaderProps) => {
   const [treeNodes, setTreeNodes] = useState<TreeNode[]>([]);
   const [expend, setExpend] = useState<TreeNodeValue[]>([]);
   const [scopeVal, setScopeVal] = useState(undefined);
+
+  const handlePopupVisibleChange = useInnerPopupVisible((v, ctx) => {
+    setPopupVisible(v, ctx);
+  });
 
   const cascaderContext = useMemo(() => {
     const {
@@ -65,14 +69,14 @@ export const useCascaderContext = (props: TdCascaderProps) => {
         setInnerValue(val, { source, node });
       },
       visible: innerPopupVisible,
-      setVisible: setPopupVisible,
+      setVisible: handlePopupVisibleChange,
       treeNodes,
       setTreeNodes,
       inputVal,
       setInputVal,
       setExpend,
     };
-  }, [props, scopeVal, innerPopupVisible, treeStore, treeNodes, inputVal, setInnerValue, setPopupVisible]);
+  }, [props, scopeVal, innerPopupVisible, treeStore, treeNodes, inputVal, setInnerValue, handlePopupVisibleChange]);
 
   const isFilterable = useMemo(
     () => Boolean(props.filterable || isFunction(props.filter)),

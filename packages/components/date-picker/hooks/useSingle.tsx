@@ -1,8 +1,3 @@
-import classNames from 'classnames';
-import dayjs from 'dayjs';
-import { omit } from 'lodash-es';
-import React, { useEffect, useRef, useState } from 'react';
-import { CalendarIcon as TdCalendarIcon } from 'tdesign-icons-react';
 import {
   formatDate,
   formatTime,
@@ -10,8 +5,14 @@ import {
   isValidDate,
   parseToDayjs,
 } from '@tdesign/common-js/date-picker/format';
+import classNames from 'classnames';
+import dayjs from 'dayjs';
+import { omit } from 'lodash-es';
+import React, { useEffect, useRef, useState } from 'react';
+import { CalendarIcon as TdCalendarIcon } from 'tdesign-icons-react';
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
+import useInnerPopupVisible from '../../hooks/useInnerPopupVisible';
 import type { TdPopupProps } from '../../popup/type';
 import type { TdDatePickerProps } from '../type';
 import useSingleValue from './useSingleValue';
@@ -105,6 +106,16 @@ export default function useSingleInput(props: TdDatePickerProps) {
     },
   };
 
+  const handleInnerVisibleChange = useInnerPopupVisible((visible, context) => {
+    if (props.disabled) return;
+    // 这里劫持了进一步向 popup 传递的 onVisibleChange 事件，为了保证可以在 Datepicker 中使用 popupProps.onVisibleChange，故此处理
+    props.popupProps?.onVisibleChange?.(visible, context);
+    if (context.trigger === 'trigger-element-mousedown') {
+      return setPopupVisible(true);
+    }
+    setPopupVisible(visible);
+  });
+
   // popup 设置
   let popupProps = {
     expandAnimation: true,
@@ -112,15 +123,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
     trigger: 'mousedown' as TdPopupProps['trigger'],
     overlayInnerStyle: props.popupProps?.overlayInnerStyle ?? { width: 'auto' },
     overlayClassName: classNames(props.popupProps?.overlayClassName, `${name}__panel-container`),
-    onVisibleChange: (visible: boolean, context: any) => {
-      if (props.disabled) return;
-      // 这里劫持了进一步向 popup 传递的 onVisibleChange 事件，为了保证可以在 Datepicker 中使用 popupProps.onVisibleChange，故此处理
-      props.popupProps?.onVisibleChange?.(visible, context);
-      if (context.trigger === 'trigger-element-mousedown') {
-        return setPopupVisible(true);
-      }
-      setPopupVisible(visible);
-    },
+    onVisibleChange: handleInnerVisibleChange,
   };
 
   // tag-input 设置

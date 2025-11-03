@@ -1,24 +1,24 @@
-import React, { useState, useRef, useImperativeHandle, useEffect } from 'react';
 import classNames from 'classnames';
+import { isFunction } from 'lodash-es';
+import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import {
   BrowseIcon as TdBrowseIcon,
   BrowseOffIcon as TdBrowseOffIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
 } from 'tdesign-icons-react';
-import { isFunction } from 'lodash-es';
-import useLayoutEffect from '../hooks/useLayoutEffect';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
+import parseTNode from '../_util/parseTNode';
+import { StyledProps, TElement, TNode } from '../common';
 import useConfig from '../hooks/useConfig';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import { TdInputProps } from './type';
-import { StyledProps, TNode, TElement } from '../common';
-import InputGroup from './InputGroup';
 import useControlled from '../hooks/useControlled';
+import useDefaultProps from '../hooks/useDefaultProps';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import useLayoutEffect from '../hooks/useLayoutEffect';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { inputDefaultProps } from './defaultProps';
-import parseTNode from '../_util/parseTNode';
+import InputGroup from './InputGroup';
+import { TdInputProps } from './type';
 import useLengthLimit from './useLengthLimit';
-import useDefaultProps from '../hooks/useDefaultProps';
 
 export interface InputProps extends TdInputProps, StyledProps {
   showInput?: boolean; // 控制透传readonly同时是否展示input 默认保留 因为正常Input需要撑开宽度
@@ -136,12 +136,7 @@ const Input = forwardRefWithStatics(
     let suffixIconNew = suffixIcon;
 
     if (isShowClearIcon)
-      suffixIconNew = (
-        <CloseCircleFilledIcon
-          className={`${classPrefix}-input__suffix-clear`}
-          onClick={handleClear}
-        />
-      );
+      suffixIconNew = <CloseCircleFilledIcon className={`${classPrefix}-input__suffix-clear`} onClick={handleClear} />;
     if (type === 'password' && typeof suffixIcon === 'undefined') {
       if (renderType === 'password') {
         suffixIconNew = (

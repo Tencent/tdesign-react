@@ -55,14 +55,6 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     if (!element) return;
 
     const handleClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      // Fix: https://github.com/Tencent/tdesign-react/issues/2320
-      // 点击 clear icon 是否触发 Popup 显隐切换的逻辑交给具体逻辑自己处理，避免重复触发
-      const isClearIcon =
-        target?.closest?.(`.${classPrefix}-input__suffix-clear`) ||
-        target?.closest?.(`.${classPrefix}-tag-input__suffix-clear`);
-      if (isClearIcon) return;
-
       if (trigger === 'click') {
         callFuncWithDelay({
           delay: visible ? appearDelay : exitDelay,
