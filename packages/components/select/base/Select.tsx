@@ -190,9 +190,19 @@ const Select = forwardRefWithStatics(
       const { valueKey } = getKeyMapping(keys);
       const isObjectType = valueType === 'object';
 
-      const enabledOptions = currentOptions.filter(
-        (opt) => !isSelectOptionGroup(opt) && !opt.checkAll && !opt.disabled,
-      );
+      const enabledOptions: SelectOption[] = [];
+
+      currentOptions.forEach((option) => {
+        if (isSelectOptionGroup(option)) {
+          option.children.forEach((item) => {
+            if (!item.checkAll && !item.disabled) {
+              enabledOptions.push(item);
+            }
+          });
+        } else {
+          !option.checkAll && !option.disabled && enabledOptions.push(option);
+        }
+      });
 
       const currentValues = Array.isArray(value) ? value : [];
       const disabledSelectedOptions = currentOptions.filter((opt) => {
@@ -263,7 +273,7 @@ const Select = forwardRefWithStatics(
 
       if (multiple && context?.trigger === 'uncheck' && isFunction(onRemove)) {
         const value = context?.value;
-        const option = (options as OptionsType).find((option) => option.value === value);
+        const option = (options as OptionsType)?.find((option) => option.value === value);
         onRemove({
           value,
           data: option,

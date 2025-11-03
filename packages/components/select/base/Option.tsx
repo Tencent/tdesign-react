@@ -121,7 +121,7 @@ const Option: React.FC<SelectOptionProps> = (props) => {
       onSelect(value, { label: String(label), selected, event, restData });
     }
     if (checkAll) {
-      props.onCheckAllChange?.(allSelectableChecked, event);
+      props.onCheckAllChange?.(!allSelectableChecked, event);
       setAllSelectableChecked(!allSelectableChecked);
     }
   };
