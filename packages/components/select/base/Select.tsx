@@ -206,13 +206,31 @@ const Select = forwardRefWithStatics(
       });
 
       const currentValues = Array.isArray(value) ? value : [];
-      const disabledSelectedOptions = currentOptions.filter((opt) => {
-        if (isSelectOptionGroup(opt) || opt.checkAll) return false;
-        if (!opt.disabled) return false;
-        if (isObjectType) {
-          return currentValues.some((v) => get(v, valueKey) === opt[valueKey]);
+
+      const disabledSelectedOptions: SelectOption[] = [];
+      currentOptions.forEach((opt) => {
+        if (isSelectOptionGroup(opt)) {
+          // 处理分组内的禁用选项
+          opt.children?.forEach((item) => {
+            if (item.checkAll || !item.disabled) return;
+            if (isObjectType) {
+              if (currentValues.some((v) => get(v, valueKey) === item[valueKey])) {
+                disabledSelectedOptions.push(item);
+              }
+            } else if (currentValues.includes(item[valueKey])) {
+              disabledSelectedOptions.push(item);
+            }
+          });
+        } else {
+          if (opt.checkAll || !opt.disabled) return;
+          if (isObjectType) {
+            if (currentValues.some((v) => get(v, valueKey) === opt[valueKey])) {
+              disabledSelectedOptions.push(opt);
+            }
+          } else if (currentValues.includes(opt[valueKey])) {
+            disabledSelectedOptions.push(opt);
+          }
         }
-        return currentValues.includes(opt[valueKey]);
       });
 
       let checkAllValue: SelectValue[];
