@@ -206,30 +206,24 @@ const Select = forwardRefWithStatics(
       });
 
       const currentValues = Array.isArray(value) ? value : [];
-
       const disabledSelectedOptions: SelectOption[] = [];
+
+      const isDisabledAndSelected = (opt: TdOptionProps) => {
+        if (opt.checkAll || !opt.disabled) return false;
+        if (isObjectType) return currentValues.some((v) => get(v, valueKey) === opt[valueKey]);
+        return currentValues.includes(opt[valueKey]);
+      };
+
       currentOptions.forEach((opt) => {
         if (isSelectOptionGroup(opt)) {
           // 处理分组内的禁用选项
           opt.children?.forEach((item) => {
-            if (item.checkAll || !item.disabled) return;
-            if (isObjectType) {
-              if (currentValues.some((v) => get(v, valueKey) === item[valueKey])) {
-                disabledSelectedOptions.push(item);
-              }
-            } else if (currentValues.includes(item[valueKey])) {
+            if (isDisabledAndSelected(item)) {
               disabledSelectedOptions.push(item);
             }
           });
-        } else {
-          if (opt.checkAll || !opt.disabled) return;
-          if (isObjectType) {
-            if (currentValues.some((v) => get(v, valueKey) === opt[valueKey])) {
-              disabledSelectedOptions.push(opt);
-            }
-          } else if (currentValues.includes(opt[valueKey])) {
-            disabledSelectedOptions.push(opt);
-          }
+        } else if (isDisabledAndSelected(opt)) {
+          disabledSelectedOptions.push(opt);
         }
       });
 
