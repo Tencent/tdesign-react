@@ -40,6 +40,9 @@ export interface PopupRef {
   setVisible: (visible: boolean) => void;
 }
 
+// 默认动画时长
+const DEFAULT_TRANSITION_TIMEOUT = 180;
+
 const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
   const props = useDefaultProps<PopupProps>(originalProps, popupDefaultProps);
   const {
@@ -78,9 +81,6 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
   const contentRef = useRef(null); // 内容部分
   const popperRef = useRef(null); // 保存 popper 实例
 
-  // 默认动画时长
-  const DEFAULT_TRANSITION_TIMEOUT = 180;
-
   // 处理切换 panel 为 null 和正常内容动态切换的情况
   useEffect(() => {
     if (!content && hideEmptyPopup) {
@@ -101,7 +101,6 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
   );
 
   const { triggerElementIsString, getTriggerElement, getTriggerNode } = useTrigger({
-    children,
     triggerElement,
     content,
     disabled,

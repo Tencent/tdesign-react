@@ -5,16 +5,7 @@ import useConfig from '../../hooks/useConfig';
 
 const ESC_KEY = 'Escape';
 
-export default function useTrigger({
-  children,
-  triggerElement,
-  content,
-  disabled,
-  trigger,
-  visible,
-  onVisibleChange,
-  delay,
-}) {
+export default function useTrigger({ triggerElement, content, disabled, trigger, visible, onVisibleChange, delay }) {
   const { classPrefix } = useConfig();
 
   const triggerElementIsString = typeof triggerElement === 'string';
@@ -47,13 +38,15 @@ export default function useTrigger({
   const getTriggerElement = useCallback(() => {
     let element: HTMLElement | null = null;
     if (triggerElementIsString) {
-      element = document.querySelector(children);
+      element = document.querySelector(triggerElement);
     } else {
       element = getRefDom(triggerRef);
     }
     return element;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => clearTimeout(visibleTimer.current), []);
 
   useEffect(() => {
     if (!shouldToggle) return;
@@ -204,13 +197,6 @@ export default function useTrigger({
       element?.classList.remove(`${classPrefix}-popup-open`);
     };
   }, [visible, classPrefix, getTriggerElement]);
-
-  useEffect(
-    () => () => {
-      clearTimeout(visibleTimer.current);
-    },
-    [],
-  );
 
   function getTriggerNode(children: React.ReactNode) {
     if (triggerElementIsString) return;
