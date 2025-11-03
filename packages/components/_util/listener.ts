@@ -2,9 +2,14 @@ import { canUseDocument } from './dom';
 
 export const on = ((): any => {
   if (canUseDocument && document.addEventListener) {
-    return (element: Node, event: string, handler: EventListenerOrEventListenerObject): any => {
+    return (
+      element: Node,
+      event: string,
+      handler: EventListenerOrEventListenerObject,
+      options?: AddEventListenerOptions,
+    ): any => {
       if (element && event && handler) {
-        element.addEventListener(event, handler, false);
+        element.addEventListener(event, handler, options ?? false);
       }
     };
   }
@@ -17,9 +22,14 @@ export const on = ((): any => {
 
 export const off = ((): any => {
   if (canUseDocument && document.removeEventListener) {
-    return (element: Node, event: string, handler: EventListenerOrEventListenerObject): any => {
+    return (
+      element: Node,
+      event: string,
+      handler: EventListenerOrEventListenerObject,
+      options?: boolean | EventListenerOptions,
+    ): any => {
       if (element && event) {
-        element.removeEventListener(event, handler, false);
+        element.removeEventListener(event, handler, options ?? false);
       }
     };
   }

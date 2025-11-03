@@ -70,3 +70,16 @@ export const getNodeRef: <T = any>(node: React.ReactNode) => React.Ref<T> | null
   }
   return null;
 };
+
+export const mergeRefs =
+  (...refs: any[]) =>
+  (instance: any) => {
+    refs.forEach((ref) => {
+      if (typeof ref === 'function') {
+        ref(instance);
+      } else if (ref && typeof ref === 'object') {
+        // eslint-disable-next-line no-param-reassign
+        ref.current = instance;
+      }
+    });
+  };
