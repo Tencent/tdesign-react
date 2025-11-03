@@ -139,7 +139,6 @@ const Input = forwardRefWithStatics(
       suffixIconNew = (
         <CloseCircleFilledIcon
           className={`${classPrefix}-input__suffix-clear`}
-          onMouseDown={handleMouseDown}
           onClick={handleClear}
         />
       );
@@ -315,13 +314,6 @@ const Input = forwardRefWithStatics(
         setComposingValue(newStr);
         onChange(newStr, { e, trigger });
       }
-    }
-    // 添加MouseDown阻止冒泡，防止點擊Clear value會導致彈窗閃爍一下
-    // https://github.com/Tencent/tdesign-react/issues/2320
-    function handleMouseDown(e: React.MouseEvent<SVGSVGElement, globalThis.MouseEvent>) {
-      e.stopPropagation();
-      // 兼容React16
-      e.nativeEvent.stopImmediatePropagation();
     }
     function handleClear(e: React.MouseEvent<SVGSVGElement>) {
       onChange?.('', { e, trigger: 'clear' });

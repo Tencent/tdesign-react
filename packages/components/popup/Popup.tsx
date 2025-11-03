@@ -226,7 +226,6 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
               )}
               style={getOverlayStyle(overlayInnerStyle)}
               onScroll={handleScroll}
-              // {...getPopupProps()}
             >
               {content}
               {showArrow && (

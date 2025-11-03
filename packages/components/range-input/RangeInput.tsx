@@ -92,7 +92,7 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
 
   if (isShowClearIcon) {
     suffixIconNew = (
-      <CloseCircleFilledIcon className={`${name}__suffix-clear`} onMouseDown={handleMouseDown} onClick={handleClear} />
+      <CloseCircleFilledIcon className={`${name}__suffix-clear`} onClick={handleClear} />
     );
   }
 
@@ -100,14 +100,6 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
   const prefixIconContent = renderIcon(classPrefix, 'prefix', parseTNode(prefixIcon));
   const suffixContent = isFunction(suffix) ? suffix() : suffix;
   const suffixIconContent = renderIcon(classPrefix, 'suffix', parseTNode(suffixIconNew));
-
-  // 添加MouseDown阻止冒泡，防止點擊Clear value會導致彈窗閃爍一下
-  // https://github.com/Tencent/tdesign-react/issues/2320
-  function handleMouseDown(e: React.MouseEvent<SVGSVGElement, globalThis.MouseEvent>) {
-    e.stopPropagation();
-    // 兼容React16
-    e.nativeEvent.stopImmediatePropagation();
-  }
 
   function handleClear(e: React.MouseEvent<SVGSVGElement>) {
     onClear?.({ e });
