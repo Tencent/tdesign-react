@@ -1,7 +1,6 @@
-import React, { isValidElement, useCallback, useEffect, useMemo, useRef } from 'react';
-import isFragment from '../../_util/isFragment';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { off, on } from '../../_util/listener';
-import { getRefDom, mergeRefs, supportRef } from '../../_util/ref';
+import { getRefDom, mergeRefs, supportNodeRef } from '../../_util/ref';
 import useConfig from '../../hooks/useConfig';
 
 const ESC_KEY = 'Escape';
@@ -24,7 +23,7 @@ export default function useTrigger({
   const visibleTimer = useRef(null);
   const leaveFlag = useRef(false);
 
-    // 禁用和无内容时不展示
+  // 禁用和无内容时不展示
   const shouldToggle = useMemo(() => {
     if (disabled) return false;
     return !disabled && content === 0 ? true : content;
@@ -221,7 +220,7 @@ export default function useTrigger({
   function getTriggerNode(children: React.ReactNode) {
     if (triggerElementIsString) return;
 
-    if (isValidElement(children) && !isFragment(children) && supportRef(children)) {
+    if (supportNodeRef(children)) {
       const childRef = (children as any).ref;
       const mergedRef = childRef ? mergeRefs(triggerRef, childRef) : triggerRef;
       return React.cloneElement(children, { ref: mergedRef });
