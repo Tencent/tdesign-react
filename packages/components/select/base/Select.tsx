@@ -195,7 +195,7 @@ const Select = forwardRefWithStatics(
       currentOptions.forEach((option) => {
         // 如果涉及分组，需要将分组内的选项进行计算，否则会影响全选的功能
         if (isSelectOptionGroup(option)) {
-          option.children.forEach((item) => {
+          option.children?.forEach((item) => {
             if (!item.checkAll && !item.disabled) {
               enabledOptions.push(item);
             }
