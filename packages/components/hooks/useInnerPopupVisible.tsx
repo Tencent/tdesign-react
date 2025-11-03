@@ -1,5 +1,5 @@
-import type { PopupVisibleChangeContext } from '../popup';
 import useConfig from './useConfig';
+import type { PopupVisibleChangeContext } from '../popup';
 
 function useInnerPopupVisible(handler: (visible: boolean, ctx: PopupVisibleChangeContext) => void) {
   const { classPrefix } = useConfig();

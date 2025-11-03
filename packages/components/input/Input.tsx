@@ -1,14 +1,14 @@
-import classNames from 'classnames';
-import { isFunction } from 'lodash-es';
 import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import {
   BrowseIcon as TdBrowseIcon,
   BrowseOffIcon as TdBrowseOffIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
 } from 'tdesign-icons-react';
+import classNames from 'classnames';
+import { isFunction } from 'lodash-es';
+
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import parseTNode from '../_util/parseTNode';
-import { StyledProps, TElement, TNode } from '../common';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -17,8 +17,10 @@ import useLayoutEffect from '../hooks/useLayoutEffect';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { inputDefaultProps } from './defaultProps';
 import InputGroup from './InputGroup';
-import { TdInputProps } from './type';
 import useLengthLimit from './useLengthLimit';
+
+import type { StyledProps, TElement, TNode } from '../common';
+import type { TdInputProps } from './type';
 
 export interface InputProps extends TdInputProps, StyledProps {
   showInput?: boolean; // 控制透传readonly同时是否展示input 默认保留 因为正常Input需要撑开宽度
