@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { off, on } from '../../_util/listener';
-import { getRefDom, mergeRefs, supportNodeRef } from '../../_util/ref';
+import { getNodeRef, getRefDom, mergeRefs, supportNodeRef } from '../../_util/ref';
 import useConfig from '../../hooks/useConfig';
 
 const ESC_KEY = 'Escape';
@@ -21,12 +21,12 @@ export default function useTrigger({
 
   const triggerRef = useRef<HTMLElement>(null);
   const visibleTimer = useRef(null);
-  const leaveFlag = useRef(false);
+  const leaveFlag = useRef(false); // 防止多次触发显隐
 
   // 禁用和无内容时不展示
   const shouldToggle = useMemo(() => {
     if (disabled) return false;
-    return !disabled && content === 0 ? true : content;
+    return !!content;
   }, [disabled, content]);
 
   // 解析 delay 数据类型
@@ -45,9 +45,9 @@ export default function useTrigger({
   }
 
   const getTriggerElement = useCallback(() => {
-    let element: HTMLElement;
+    let element: HTMLElement | null = null;
     if (triggerElementIsString) {
-      element = document.querySelector(children) as HTMLElement;
+      element = document.querySelector(children);
     } else {
       element = getRefDom(triggerRef);
     }
@@ -63,7 +63,8 @@ export default function useTrigger({
 
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      // https://github.com/Tencent/tdesign-react/issues/2320
+      // Fix: https://github.com/Tencent/tdesign-react/issues/2320
+      // 点击 clear icon 是否触发 Popup 显隐切换的逻辑交给具体逻辑自己处理，避免重复触发
       const isClearIcon =
         target?.closest?.(`.${classPrefix}-input__suffix-clear`) ||
         target?.closest?.(`.${classPrefix}-tag-input__suffix-clear`);
@@ -162,7 +163,6 @@ export default function useTrigger({
     on(element, 'contextmenu', handleContextMenu);
     on(element, 'touchstart', handleTouchStart, { passive: true });
     on(element, 'keydown', handleKeyDown);
-
     return () => {
       off(element, 'click', handleClick);
       off(element, 'mousedown', handleMouseDown);
@@ -195,18 +195,13 @@ export default function useTrigger({
 
   useEffect(() => {
     const element = getTriggerElement();
-    if (!element || !document.contains(element)) return;
-
     if (visible) {
-      element.classList.add(`${classPrefix}-popup-open`);
+      element?.classList.add(`${classPrefix}-popup-open`);
     } else {
-      element.classList.remove(`${classPrefix}-popup-open`);
+      element?.classList.remove(`${classPrefix}-popup-open`);
     }
-
     return () => {
-      if (element && document.contains(element)) {
-        element.classList.remove(`${classPrefix}-popup-open`);
-      }
+      element?.classList.remove(`${classPrefix}-popup-open`);
     };
   }, [visible, classPrefix, getTriggerElement]);
 
@@ -221,7 +216,7 @@ export default function useTrigger({
     if (triggerElementIsString) return;
 
     if (supportNodeRef(children)) {
-      const childRef = (children as any).ref;
+      const childRef = getNodeRef(children);
       const mergedRef = childRef ? mergeRefs(triggerRef, childRef) : triggerRef;
       return React.cloneElement(children, { ref: mergedRef });
     }

@@ -26,7 +26,7 @@ export const off = ((): any => {
       element: Node,
       event: string,
       handler: EventListenerOrEventListenerObject,
-      options?: boolean | EventListenerOptions,
+      options?: EventListenerOptions,
     ): any => {
       if (element && event) {
         element.removeEventListener(event, handler, options ?? false);
