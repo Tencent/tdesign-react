@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { off, on } from '../../_util/listener';
-import { getNodeRef, getRefDom, mergeRefs, supportNodeRef } from '../../_util/ref';
+import { composeRefs, getNodeRef, getRefDom, supportNodeRef } from '../../_util/ref';
 import useConfig from '../../hooks/useConfig';
 
 const ESC_KEY = 'Escape';
@@ -203,7 +203,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
 
     if (supportNodeRef(children)) {
       const childRef = getNodeRef(children);
-      const mergedRef = childRef ? mergeRefs(triggerRef, childRef) : triggerRef;
+      const mergedRef = childRef ? composeRefs(triggerRef, childRef) : triggerRef;
       return React.cloneElement(children, { ref: mergedRef });
     }
 
