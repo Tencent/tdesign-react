@@ -256,6 +256,35 @@ describe('Select 组件测试', () => {
     );
   });
 
+  test('分组选择器全选测试', async () => {
+    const OptionGroupCheckAllSelect = () => {
+      const [value, setValue] = useState(['apple']);
+      const onChange = (value) => {
+        setValue(value);
+      };
+
+      return (
+        <Select value={value} onChange={onChange} multiple>
+          <Option key="all" label="All" value="all" checkAll />
+          <OptionGroup label="Fruit">
+            {options.map((item, index) => (
+              <Option label={item.label} value={item.value} key={index} />
+            ))}
+          </OptionGroup>
+        </Select>
+      );
+    };
+
+    const { getByText } = render(<OptionGroupCheckAllSelect />);
+    fireEvent.click(document.querySelector('.t-input'));
+
+    // 点击全选，input 展示 Apple、Banana、Orange 选项
+    fireEvent.click(getByText('All'));
+    expect(document.querySelector(selectSelector)).toHaveTextContent('Apple');
+    expect(document.querySelector(selectSelector)).toHaveTextContent('Banana');
+    expect(document.querySelector(selectSelector)).toHaveTextContent('Orange');
+  });
+
   test('可过滤选择器测试', async () => {
     const testId = 'test-id';
     const FilterableSelect = () => {
