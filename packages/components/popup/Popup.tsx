@@ -214,6 +214,7 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
             className={classNames(`${classPrefix}-popup`, overlayClassName)}
             {...attributes.popper}
             {...getPopupProps()}
+            onClick={(e) => props.onOverlayClick?.({ e })}
           >
             <div
               ref={contentRef}

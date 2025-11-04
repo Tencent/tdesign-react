@@ -190,18 +190,41 @@ const Select = forwardRefWithStatics(
       const { valueKey } = getKeyMapping(keys);
       const isObjectType = valueType === 'object';
 
-      const enabledOptions = currentOptions.filter(
-        (opt) => !isSelectOptionGroup(opt) && !opt.checkAll && !opt.disabled,
-      );
+      const enabledOptions: SelectOption[] = [];
+
+      currentOptions.forEach((option) => {
+        // 如果涉及分组，需要将分组内的选项进行计算，否则会影响全选的功能
+        if (isSelectOptionGroup(option)) {
+          option.children?.forEach((item) => {
+            if (!item.checkAll && !item.disabled) {
+              enabledOptions.push(item);
+            }
+          });
+        } else {
+          !option.checkAll && !option.disabled && enabledOptions.push(option);
+        }
+      });
 
       const currentValues = Array.isArray(value) ? value : [];
-      const disabledSelectedOptions = currentOptions.filter((opt) => {
-        if (isSelectOptionGroup(opt) || opt.checkAll) return false;
-        if (!opt.disabled) return false;
-        if (isObjectType) {
-          return currentValues.some((v) => get(v, valueKey) === opt[valueKey]);
-        }
+      const disabledSelectedOptions: SelectOption[] = [];
+
+      const isDisabledAndSelected = (opt: TdOptionProps) => {
+        if (opt.checkAll || !opt.disabled) return false;
+        if (isObjectType) return currentValues.some((v) => get(v, valueKey) === opt[valueKey]);
         return currentValues.includes(opt[valueKey]);
+      };
+
+      currentOptions.forEach((opt) => {
+        if (isSelectOptionGroup(opt)) {
+          // 处理分组内的禁用选项
+          opt.children?.forEach((item) => {
+            if (isDisabledAndSelected(item)) {
+              disabledSelectedOptions.push(item);
+            }
+          });
+        } else if (isDisabledAndSelected(opt)) {
+          disabledSelectedOptions.push(opt);
+        }
       });
 
       let checkAllValue: SelectValue[];
@@ -263,7 +286,7 @@ const Select = forwardRefWithStatics(
 
       if (multiple && context?.trigger === 'uncheck' && isFunction(onRemove)) {
         const value = context?.value;
-        const option = (options as OptionsType).find((option) => option.value === value);
+        const option = (options as OptionsType)?.find((option) => option.value === value);
         onRemove({
           value,
           data: option,

@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
-
-import type { TreeInstanceFunctions, TreeNodeModel } from 'tdesign-react';
-import { Button, Input, InputAdornment, Space, Switch, Tree, TreeNodeValue, TreeProps } from 'tdesign-react';
+import { Button, Input, InputAdornment, Space, Switch, Tree } from 'tdesign-react';
+import type { TreeInstanceFunctions, TreeNodeModel, TreeProps } from 'tdesign-react';
 
 const items = [
   {
@@ -18,10 +17,10 @@ let index = 2;
 export default () => {
   const treeRef = useRef<TreeInstanceFunctions<{ value: string; label?: string }>>(null);
 
+  const [activeMultiple, setActiveMultiple] = useState(false);
   const [useActived, setUseActived] = useState(false);
   const [expandParent, setExpandParent] = useState(false);
   const [filterText, setFilterText] = useState('');
-  const [activeId, setActiveId] = useState<TreeNodeValue>('');
   const [activeIds, setActiveIds] = useState([]);
 
   const getLabelContent = (node: TreeNodeModel) => {
@@ -60,8 +59,9 @@ export default () => {
   const handleActive: TreeProps['onActive'] = (vals, state) => {
     console.info('on active:', vals, state);
     setActiveIds(vals);
-    setActiveId(vals[0] || '');
   };
+
+  /* ======== 操作 api ======= */
 
   const setLabel = (value: string) => {
     const node = treeRef.current.getItem(value);
@@ -70,10 +70,7 @@ export default () => {
     data.label = label;
   };
 
-  const getActivedNode = () => {
-    const activeNode = treeRef.current.getItem(activeId);
-    return activeNode;
-  };
+  const getActivedNodes = () => activeIds.map((id) => treeRef.current.getItem(id));
 
   const getInsertItem = () => {
     let item = null;
@@ -87,14 +84,17 @@ export default () => {
 
   const append = (node?: TreeNodeModel) => {
     const item = getInsertItem();
-    if (item) {
-      if (!node) {
-        treeRef.current.appendTo('', item);
-      } else {
-        treeRef.current.appendTo(node.value, item);
-      }
-      if (useActived) {
+    if (!item) return;
+    if (!node) {
+      treeRef.current.appendTo('', item);
+    } else {
+      treeRef.current.appendTo(node.value, item);
+    }
+    if (useActived) {
+      if (activeMultiple) {
         setActiveIds((v) => [...v, item.value]);
+      } else {
+        setActiveIds([item.value]);
       }
     }
   };
@@ -135,18 +135,19 @@ export default () => {
     treeRef.current.remove(node.value);
   };
 
-  const renderOperations = (node: TreeNodeModel) => (
-    <Space>
-      <Button size="small" theme="primary" variant="base" onClick={() => append(node)}>
+  const renderOperations2 = (node: TreeNodeModel) => (
+    <>
+      <Button style={{ marginLeft: '10px' }} size="small" variant="base" onClick={() => append(node)}>
         添加子节点
       </Button>
-      <Button size="small" theme="primary" variant="outline" onClick={() => insertBefore(node)}>
+      <Button style={{ marginLeft: '10px' }} size="small" variant="outline" onClick={() => insertBefore(node)}>
         前插节点
       </Button>
-      <Button size="small" theme="primary" variant="outline" onClick={() => insertAfter(node)}>
+      <Button style={{ marginLeft: '10px' }} size="small" variant="outline" onClick={() => insertAfter(node)}>
         后插节点
       </Button>
       <Button
+        style={{ marginLeft: '10px' }}
         size="small"
         variant="base"
         theme={node.disabled ? 'success' : 'warning'}
@@ -155,12 +156,13 @@ export default () => {
       >
         {node.disabled ? 'enable' : 'disable'}
       </Button>
-      <Button size="small" theme="danger" variant="base" onClick={() => remove(node)}>
+      <Button style={{ marginLeft: '10px' }} size="small" variant="base" theme="danger" onClick={() => remove(node)}>
         删除
       </Button>
-    </Space>
+    </>
   );
 
+  /* ======== API ======= */
   const getItem = () => {
     const node = treeRef.current.getItem('node1');
     console.info('getItem:', node.value);
@@ -176,21 +178,18 @@ export default () => {
 
   const getActiveChildren = () => {
     console.log(activeIds);
-    const node = getActivedNode();
-    if (!node) return;
-    let nodes: Array<TreeNodeModel> = [];
-    if (node) {
+    const nodes = getActivedNodes();
+    if (!nodes.length) return;
+    const allChildren: Array<TreeNodeModel> = [];
+    nodes.forEach((node) => {
       const child = node.getChildren(true);
-      if (typeof child === 'boolean') {
-        // getChildren will never return true value.
-        nodes = [];
-      } else {
-        nodes = child;
+      if (Array.isArray(child)) {
+        allChildren.push(...child);
       }
-    }
+    });
     console.info(
       'getActiveChildren:',
-      nodes.map((node) => node.value),
+      allChildren.map((node) => node.value),
     );
   };
 
@@ -199,52 +198,75 @@ export default () => {
   };
 
   const getActiveChecked = () => {
-    const node = getActivedNode();
-    if (!node) return;
-    const nodes = treeRef.current.getItems(node.value);
+    const nodes = getActivedNodes();
+    if (!nodes.length) return;
+    const allCheckedNodes: Array<TreeNodeModel> = [];
+    nodes.forEach((node) => {
+      const nodeItems = treeRef.current.getItems(node.value);
+      allCheckedNodes.push(...nodeItems.filter((item) => item.checked));
+    });
     console.info(
       'getChecked:',
-      nodes.filter((node) => node.checked).map((node) => node.value),
+      allCheckedNodes.map((node) => node.value),
     );
   };
 
   const getActiveParent = () => {
-    const node = getActivedNode();
-    if (!node) return;
-    const parent = treeRef.current.getParent(node.value);
-    console.info('getParent', parent?.value);
+    const nodes = getActivedNodes();
+    if (!nodes.length) return;
+    const parents = nodes
+      .map((node) => {
+        const parent = treeRef.current.getParent(node.value);
+        return parent;
+      })
+      .filter(Boolean);
+    console.info(
+      'getParent',
+      parents.map((parent) => parent.value),
+    );
   };
 
   const getActiveParents = () => {
-    const node = getActivedNode();
-    if (!node) return;
-    const parents = treeRef.current.getParents(node.value);
+    const nodes = getActivedNodes();
+    if (!nodes.length) return;
+    const allParents: Array<TreeNodeModel> = [];
+    nodes.forEach((node) => {
+      const parents = treeRef.current.getParents(node.value);
+      allParents.push(...parents);
+    });
     console.info(
       'getParents',
-      parents.map((node) => node.value),
+      allParents.map((node) => node.value),
     );
   };
 
   const getActiveIndex = () => {
-    const node = getActivedNode();
-    if (!node) return;
-    const index = treeRef.current.getIndex(node.value);
-    console.info('getIndex', index);
+    const nodes = getActivedNodes();
+    if (!nodes.length) return;
+    const indexes = nodes.map((node) => {
+      const index = treeRef.current.getIndex(node.value);
+      return { value: node.value, index };
+    });
+    console.info('getIndex', indexes);
   };
 
   const setActiveChecked = () => {
-    const node = getActivedNode();
-    if (!node) return;
-    treeRef.current.setItem(node.value, {
-      checked: true,
+    const nodes = getActivedNodes();
+    if (!nodes.length) return;
+    nodes.forEach((node) => {
+      treeRef.current.setItem(node.value, {
+        checked: true,
+      });
     });
   };
 
   const setActiveExpanded = () => {
-    const node = getActivedNode();
-    if (!node) return;
-    treeRef.current.setItem(node?.value, {
-      expanded: true,
+    const nodes = getActivedNodes();
+    if (!nodes.length) return;
+    nodes.forEach((node) => {
+      treeRef.current.setItem(node.value, {
+        expanded: true,
+      });
     });
   };
 
@@ -282,84 +304,100 @@ export default () => {
   };
 
   const getActivePlainData = () => {
-    const node = getActivedNode();
-    if (!node) return;
-    const data = getPlainData(node);
-    console.log('getActivePlainData:', data);
-    return data;
+    const nodes = getActivedNodes();
+    if (!nodes.length) return;
+    const allData = nodes.map((node) => {
+      const data = getPlainData(node);
+      return { nodeValue: node.value, data };
+    });
+    console.log('getActivePlainData:', allData);
+    return allData;
   };
 
   return (
     <Space direction="vertical">
-      <Space>
-        插入节点使用高亮节点
-        <Switch<boolean> onChange={setUseActived} />
+      <style>{`.tdesign-tree-operations .t-is-active .t-tree__label { background-color: rgba(0, 0, 255, 0.2);}`}</style>
+      <Space direction="vertical">
+        <Space>
+          <span>允许多个节点同时高亮</span>
+          <Switch<boolean> value={activeMultiple} onChange={setActiveMultiple} />
+        </Space>
+        <Space>
+          <span>插入节点使用高亮节点</span>
+          <Switch<boolean> value={useActived} onChange={setUseActived} />
+        </Space>
+        <Space>
+          <span>子节点展开触发父节点展开</span>
+          <Switch<boolean> value={expandParent} onChange={setExpandParent} />
+        </Space>
       </Space>
       <Space>
-        子节点展开触发父节点展开
-        <Switch<boolean> onChange={setExpandParent} />
+        <InputAdornment prepend="filter:">
+          <Input value={filterText} onChange={handleInputChange} />
+        </InputAdornment>
       </Space>
-      <InputAdornment prepend="filter:">
-        <Input value={filterText} onChange={handleInputChange} />
-      </InputAdornment>
       <Tree
         ref={treeRef}
+        className="tdesign-tree-operations"
         hover
         expandAll
         activable
         checkable
+        checkStrictly
         line
+        allowFoldNodeOnFilter
         data={items}
         actived={activeIds}
-        activeMultiple
-        allowFoldNodeOnFilter
+        activeMultiple={activeMultiple}
         label={getLabel}
         expandParent={expandParent}
         filter={filterByText}
-        operations={renderOperations}
+        operations={renderOperations2}
         onExpand={handleExpand}
         onChange={handleChange}
         onActive={handleActive}
       />
       <Space breakLine>
-        <Button theme="primary" variant="outline" onClick={getItem}>
-          获取 value 为 node1 的单个节点
+        <Button theme="primary" onClick={getItem}>
+          {"获取 value 为 'node1' 的单个节点"}
         </Button>
-        <Button theme="primary" variant="outline" onClick={getAllItems}>
+        <Button theme="primary" onClick={getAllItems}>
           获取所有节点
         </Button>
-        <Button theme="primary" variant="outline" onClick={getActiveChildren}>
+        <Button theme="primary" onClick={getActiveChildren}>
           获取高亮节点的所有子节点
         </Button>
-        <Button theme="primary" variant="outline" onClick={getAllActived}>
+        <Button theme="primary" onClick={getAllActived}>
           获取所有高亮节点
         </Button>
-        <Button theme="primary" variant="outline" onClick={getActiveChecked}>
+        <Button theme="primary" onClick={getActiveChecked}>
           获取高亮节点下的选中节点
         </Button>
-        <Button theme="primary" variant="outline" onClick={() => append()}>
+        <Button theme="primary" onClick={() => append()}>
           插入一个根节点
         </Button>
-        <Button theme="primary" variant="outline" onClick={getActiveParent}>
+        <Button theme="primary" onClick={getActiveParent}>
           获取高亮节点的父节点
         </Button>
-        <Button theme="primary" variant="outline" onClick={getActiveParents}>
+        <Button theme="primary" onClick={getActiveParents}>
           获取高亮节点的所有父节点
         </Button>
-        <Button theme="primary" variant="outline" onClick={getActiveIndex}>
+        <Button theme="primary" onClick={getActiveIndex}>
           获取高亮节点在子节点中的位置
         </Button>
-        <Button theme="primary" variant="outline" onClick={setActiveChecked}>
+        <Button theme="primary" onClick={setActiveChecked}>
           选中高亮节点
         </Button>
-        <Button theme="primary" variant="outline" onClick={setActiveExpanded}>
+        <Button theme="primary" onClick={setActiveExpanded}>
           展开高亮节点
         </Button>
-        <Button theme="primary" variant="outline" onClick={getActivePlainData}>
+        <Button theme="primary" onClick={getActivePlainData}>
           获取高亮节点与其子节点的数据
         </Button>
       </Space>
-      <Space>* 相关信息通过控制台输出</Space>
+      <Space>
+        <strong>* 相关信息通过控制台输出</strong>
+      </Space>
     </Space>
   );
 };
