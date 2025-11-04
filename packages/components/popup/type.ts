@@ -91,6 +91,10 @@ export interface TdPopupProps {
    */
   zIndex?: number;
   /**
+   * 内容面板点击时触发
+   */
+  onOverlayClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
+  /**
    * 下拉选项滚动事件
    */
   onScroll?: (context: { e: WheelEvent<HTMLDivElement> }) => void;

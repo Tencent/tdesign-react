@@ -399,7 +399,7 @@ export interface ImageModalProps {
   onClose: (context: { trigger: 'close-btn' | 'overlay' | 'esc'; e: MouseEvent<HTMLElement> | KeyboardEvent }) => void;
   onOpen: () => void;
   onDownload?: TdImageViewerProps['onDownload'];
-  onIndexChange?: (index: number, context: { trigger: 'prev' | 'next' }) => void;
+  onIndexChange?: (index: number, context: { trigger: 'prev' | 'next' | 'current' }) => void;
 }
 
 // 弹窗基础组件
@@ -407,6 +407,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   const {
     closeOnOverlay,
     showOverlay = true,
+    index,
     zIndex,
     images,
     isMini,
@@ -421,13 +422,12 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
     onOpen,
     onClose,
     onDownload,
-    ...resProps
+    onIndexChange,
   } = props;
   const { classPrefix } = useConfig();
   const [locale, t] = useLocaleReceiver('imageViewer');
 
-  if (resProps.index === undefined) delete resProps.index;
-  const { index, next, prev, setIndex } = useIndex(resProps, images);
+  const { next, prev } = useIndex(props, images);
   const { rotateZ, onResetRotate, onRotate } = useRotate();
   const { scale, onZoom, onZoomOut, onResetScale } = useScale(imageScale, visible);
   const { mirror, onResetMirror, onMirror } = useMirror();
@@ -537,7 +537,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
           <ImageViewerHeader
             images={images}
             currentIndex={index}
-            onImgClick={setIndex}
+            onImgClick={onIndexChange}
             imageReferrerpolicy={imageReferrerpolicy}
           />
           <div className={`${classPrefix}-image-viewer__modal-index`}>

@@ -1,8 +1,6 @@
 import React, { forwardRef, useEffect, useState } from 'react';
-
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-
 import {
   formatDate,
   formatTime,
@@ -13,9 +11,10 @@ import {
 } from '@tdesign/common-js/date-picker/format';
 import { addMonth, extractTimeObj, subtractMonth } from '@tdesign/common-js/date-picker/utils';
 import log from '@tdesign/common-js/log/index';
-
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useLatest from '../hooks/useLatest';
+import useUpdateEffect from '../hooks/useUpdateEffect';
 import { RangeInputPopup } from '../range-input';
 import { dateRangePickerDefaultProps } from './defaultProps';
 import useRange from './hooks/useRange';
@@ -47,6 +46,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     cancelRangeSelectLimit,
     onPick,
     disableTime,
+    needConfirm,
   } = props;
 
   const {
@@ -84,12 +84,48 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
   // 记录面板是否选中过
   const [isSelected, setIsSelected] = useState(false);
 
+  const handleSyncPanelValue = (value: DateRangeValue) => {
+    // 同年同月时，确保右侧面板月份比左侧大 避免两侧面板月份一致
+    const nextMonth = value.map((v: string) => parseToDayjs(v, format).month());
+    const nextYear = value.map((v: string) => parseToDayjs(v, format).year());
+    if (nextYear[0] === nextYear[1] && nextMonth[0] === nextMonth[1]) {
+      nextMonth[0] === 11 ? (nextMonth[0] -= 1) : (nextMonth[1] += 1);
+    }
+    setMonth(nextMonth);
+    setYear(nextYear);
+  };
+
   const handlePopupInvisible = () => {
     setPopupVisible(false);
     props.popupProps?.onVisibleChange?.(false, {});
   };
 
+  const onTriggerNeedConfirm = useLatest(() => {
+    if (needConfirm || !enableTimePicker || popupVisible) return;
+
+    const nextValue = [...inputValue];
+    const notValidIndex = nextValue.findIndex((v) => !v || !isValidDate(v, format));
+
+    // Only proceed when both ends have valid values
+    if (notValidIndex === -1 && nextValue.length === 2) {
+      const currentValue = formatDate(value || [], { format });
+
+      // Only trigger onChange when value actually changes
+      if (currentValue[0] !== nextValue[0] || currentValue[1] !== nextValue[1]) {
+        const formattedValue = formatDate(nextValue, { format, targetFormat: valueType, autoSwap: true });
+        onChange(formattedValue, {
+          dayjsValue: nextValue.map((v) => parseToDayjs(v, format)),
+          trigger: 'confirm',
+        });
+      }
+    } else {
+      // If there's invalid input, restore to original value
+      setInputValue(formatDate(value || [], { format }));
+    }
+  });
+
   useEffect(() => {
+    if (value === cacheValue) return;
     // 面板展开重置数据
     if (popupVisible) {
       setIsSelected(false);
@@ -109,13 +145,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
         setYear(defaultYear);
         setMonth(defaultMonth);
       } else if (value.length === 2 && !enableTimePicker) {
-        // 确保右侧面板月份比左侧大 避免两侧面板月份一致
-        const nextMonth = value.map((v: string) => parseToDayjs(v, format).month());
-        if (year[0] === year[1] && nextMonth[0] === nextMonth[1]) {
-          nextMonth[0] === 11 ? (nextMonth[0] -= 1) : (nextMonth[1] += 1);
-        }
-        setYear(value.map((v: string) => parseToDayjs(v, format).year()));
-        setMonth(nextMonth);
+        handleSyncPanelValue(value);
       } else {
         setYear(value.map((v: string) => parseToDayjs(v, format).year()));
         setMonth(value.map((v: string) => parseToDayjs(v, format).month()));
@@ -127,6 +157,11 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
       setInputValue(formatDate(value || [], { format }));
     }
     // eslint-disable-next-line
+  }, [popupVisible]);
+
+  // Listen to popupVisible changes, handle auto-confirm for needConfirm=false
+  useUpdateEffect(() => {
+    onTriggerNeedConfirm.current();
   }, [popupVisible]);
 
   // 日期 hover
@@ -289,18 +324,15 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     if (!Array.isArray(presetValue)) {
       log.error('DateRangePicker', `preset: ${preset} must be Array!`);
     } else {
-      const formattedPreset = formatDate(presetValue, { format });
+      const formattedPreset = formatDate(presetValue, { format, targetFormat: valueType });
       setInputValue(formattedPreset);
       setCacheValue(formattedPreset);
       setTime(formatTime(formattedPreset, format, timeFormat, props.defaultTime));
-      const newYear = formattedPreset.map((v) => parseToDayjs(v, format).year());
-      const newMonth = formattedPreset.map((v) => parseToDayjs(v, format).month());
 
-      setYear(newYear);
-      setMonth(newMonth);
       setIsSelected(true);
       setIsFirstValueSelected(true);
 
+      handleSyncPanelValue(formattedPreset);
       handlePopupInvisible();
       onChange(formattedPreset, { dayjsValue: formattedPreset.map((p) => parseToDayjs(p, format)), trigger: 'preset' });
       props.onPresetClick?.(context);
@@ -380,6 +412,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     activeIndex,
     popupVisible,
     cancelRangeSelectLimit,
+    needConfirm,
     onCellClick,
     onCellMouseEnter,
     onCellMouseLeave,
