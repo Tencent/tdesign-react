@@ -115,7 +115,7 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const renderBlock = () => {
-    if (!variant.includes('filled')) {
+    if (!variant.includes('filled') || !barStyle) {
       return null;
     }
     return <div style={barStyle} className={`${classPrefix}-radio-group__bg-block`}></div>;
