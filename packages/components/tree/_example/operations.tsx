@@ -22,6 +22,7 @@ export default () => {
   const [expandParent, setExpandParent] = useState(false);
   const [filterText, setFilterText] = useState('');
   const [activeIds, setActiveIds] = useState([]);
+  const [checkStrictly, setCheckStrictly] = useState(false);
 
   const getLabelContent = (node: TreeNodeModel) => {
     const pathNodes = node.getPath();
@@ -319,6 +320,10 @@ export default () => {
       <style>{`.tdesign-tree-operations .t-is-active .t-tree__label { background-color: rgba(0, 0, 255, 0.2);}`}</style>
       <Space direction="vertical">
         <Space>
+          <span>严格模式</span>
+          <Switch<boolean> value={checkStrictly} onChange={setCheckStrictly} />
+        </Space>
+        <Space>
           <span>允许多个节点同时高亮</span>
           <Switch<boolean> value={activeMultiple} onChange={setActiveMultiple} />
         </Space>
@@ -343,7 +348,7 @@ export default () => {
         expandAll
         activable
         checkable
-        checkStrictly
+        checkStrictly={checkStrictly}
         line
         allowFoldNodeOnFilter
         data={items}
