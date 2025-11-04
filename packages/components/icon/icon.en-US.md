@@ -72,7 +72,7 @@ if your project is in a no-network scenario, please use on-demand loading of ico
 name | type | default | description | required
 -- | -- | -- | -- | --
 size | String | undefined | size of icon | N
-onClick | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
+onClick | Function |  | Typescript: `(context: { e: MouseEvent }) => void`<br/> | N
 strokeWidth | Number | 2| width of icon stroke，default is 2
 strokeColor | String / Array | currentColor | stroke color of the outlined icon, default value is `currentColor`, supporting up to two stroke colors at most
 fillColor | String / Array | | fill color for outlined icons and the fill color for filled icons. For outlined icons, the default is transparent, while for filled icons, the default is currentColor, supporting up to two fill colors at most
@@ -82,38 +82,38 @@ fillColor | String / Array | | fill color for outlined icons and the fill color 
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，Typescript：`React.CSSProperties` | N
+className | String | - | className of component | N
+style | Object | - | CSS(Cascading Style Sheets)，Typescript: `React.CSSProperties` | N
 loadDefaultIcons | Boolean | true | \- | N
 name | String | - | required | Y
 size | String | undefined | \- | N
 style | String | - | html attribute | N
-url | String / Array | - | Typescript：`string \| Array<string>` | N
-onClick | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
+url | String / Array | - | Typescript: `string \| Array<string>` | N
+onClick | Function |  | Typescript: `(context: { e: MouseEvent }) => void`<br/> | N
 
 ### IconSVG Props
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，Typescript：`React.CSSProperties` | N
+className | String | - | className of component | N
+style | Object | - | CSS(Cascading Style Sheets)，Typescript: `React.CSSProperties` | N
 loadDefaultIcons | Boolean | true | \- | N
 name | String | - | required | Y
 size | String | undefined | \- | N
 style | String | - | html attribute | N
-url | String / Array | - | Typescript：`string \| Array<string>` | N
-onClick | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
+url | String / Array | - | Typescript: `string \| Array<string>` | N
+onClick | Function |  | Typescript: `(context: { e: MouseEvent }) => void`<br/> | N
 
 ### Iconfont Props
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-className | String | - | 类名 | N
-style | Object | - | 样式，Typescript：`React.CSSProperties` | N
+className | String | - | className of component | N
+style | Object | - | CSS(Cascading Style Sheets)，Typescript: `React.CSSProperties` | N
 loadDefaultIcons | Boolean | true | \- | N
 name | String | - | required | Y
 size | String | undefined | \- | N
 style | String | - | html attribute | N
 tag | String | i | \- | N
-url | String / Array | - | Typescript：`string \| Array<string>` | N
-onClick | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/> | N
+url | String / Array | - | Typescript: `string \| Array<string>` | N
+onClick | Function |  | Typescript: `(context: { e: MouseEvent }) => void`<br/> | N
