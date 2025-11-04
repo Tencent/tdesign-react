@@ -282,7 +282,7 @@ spline: explain
 - `Guide`: 优化组件在屏幕大小变化时没有重新计算位置的问题 @HaixingOoO ([#3543](https://github.com/Tencent/tdesign-react/pull/3543))
 - `List`: 修复空子节点导致获取子节点 `props` 失败的问题 @RSS1102 ([#3570](https://github.com/Tencent/tdesign-react/pull/3570))
 - `Popconfirm`: 修复 `confirmBtn` 属性的 children 不生效的问题 @huangchen1031 ([#3556](https://github.com/Tencent/tdesign-react/pull/3556))
-- `Slider`: 修复 `Slider` 的 最后一个 label 宽度不足自动换行的问题 @l123wx([#3581](https://github.com/Tencent/tdesign-react/pull/3581))
+- `Slider`: 修复最后一个 `label` 宽度不足自动换行的问题 @l123wx([#3581](https://github.com/Tencent/tdesign-react/pull/3581))
 - `Textarea`: 修复输入中文被中断的问题 @betavs ([#3544](https://github.com/Tencent/tdesign-react/pull/3544))
 - `TreeSelect`: 修复单点已选中的值时，会删除已选中的值的问题 @HaixingOoO ([#3573](https://github.com/Tencent/tdesign-react/pull/3573))
 
@@ -1019,7 +1019,7 @@ spline: explain
     - 拖拽排序 + 本地数据分页场景，修复拖拽排序事件参数 `currentIndex/targetIndex/current/target` 等不正确问题
     - 拖拽排序 + 本地数据分页场景，修复在第二页以后的分页数据中拖拽调整顺序后，会自动跳转到第一页问题
     - 支持分页非受控用法的拖拽排序场景 
-- `Slider`: 修复初始值为0 时，label位置错误的缺陷 @Zzongke ([#2477](https://github.com/Tencent/tdesign-react/pull/2477))
+- `Slider`: 修复初始值为 0 时，`label` 位置错误的缺陷 @Zzongke ([#2477](https://github.com/Tencent/tdesign-react/pull/2477))
 - `Tree`: 支持`store.children`调用getChildren方法 @uyarn ([#2480](https://github.com/Tencent/tdesign-react/pull/2480)) 
 
 ## 🌈 1.2.3 `2023-08-24` 
