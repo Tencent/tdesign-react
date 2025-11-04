@@ -5,6 +5,33 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.15.8 `2025-11-04` 
+### 🚀 Features
+- `Popup`: 添加 `onOverlayClick` 事件以支持内容面板点击触发 @RSS1102 ([#3927](https://github.com/Tencent/tdesign-react/pull/3927))
+- `CheckboxGroup`: 支持 `readonly` API @RylanBot ([#3885](https://github.com/Tencent/tdesign-react/pull/3885))
+- `Form`: @RylanBot ([#3885](https://github.com/Tencent/tdesign-react/pull/3885))
+  - 支持 `readonly` API
+  - 支持 `FormRule.pattern` 的类型为 `string`
+### 🐞 Bug Fixes
+- `Select`: 修复 `1.15.7`  版本中全选功能在分组模式下功能异常的问题 @uyarn ([#3941](https://github.com/Tencent/tdesign-react/pull/3941))
+- `Form`: 修复嵌套 `FormList` 无法使用 `setFields` 更新表单的问题 @RylanBot ([#3930](https://github.com/Tencent/tdesign-react/pull/3930))
+- `CheckboxGroup`: 修复被设为 `disabled` 的选项会被 `checkAll` 篡改状态的问题 @RylanBot ([#3885](https://github.com/Tencent/tdesign-react/pull/3885))
+- `SubMenu`: 修复自定义 `popupProps` 的 `visible` 和 `onVisibleChange` 不生效的问题 @RylanBot ([#3912](https://github.com/Tencent/tdesign-react/pull/3912))
+- `DatePicker`: 修复同时开启 `enableTimePicker` 与 `needConfirm={false}` 时，选择日期后未选时间就关闭弹窗的问题 @RylanBot ([#3860](https://github.com/Tencent/tdesign-react/pull/3860))
+- `DateRangePicker`: 修复同时开启 `enableTimePicker` 与 `needConfirm={false}` 时，仍需手动确认的问题 @achideal ([#3860](https://github.com/Tencent/tdesign-react/pull/3860))
+- `Progress`: 修复开启 `theme='plump'` 时，自定义 `label` 被隐藏的问题 @RylanBot ([#3931](https://github.com/Tencent/tdesign-react/pull/3931))
+- `RadioGroup`: @RylanBot 
+  - 修复子元素动态更新时，高亮异常的问题 ([#3922](https://github.com/Tencent/tdesign-react/pull/3922))
+  - 修复设置 `value` 为空时，高亮块没有消失的问题 ([#3944](https://github.com/Tencent/tdesign-react/pull/3944))
+- `Tree`: @RylanBot
+  - 修复没开启 `checkable` 且 `checkStrictly={false}` 时，禁用父节点后，子节点依旧能被高亮的问题 ([#3828](https://github.com/Tencent/tdesign-react/pull/3828))
+  - 修复存在 `disabled` 节点时，点击半选状态的父节点无法取消全中的问题 ([#3828](https://github.com/Tencent/tdesign-react/pull/3828))
+  - 修复点击父节点进行全选时，`disabled` 节点的选中状态被篡改的问题 ([#3828](https://github.com/Tencent/tdesign-react/pull/3828))
+  - 修复点击 `operation` 区域时将该行节点 `active` 的异常 ([#3889](https://github.com/Tencent/tdesign-react/pull/3889))
+
+### 🚧 Others
+- `Form`: 优化 `getValidateMessage` 方法底层的逻辑 @RylanBot ([#3930](https://github.com/Tencent/tdesign-react/pull/3930))
+
 ## 🌈 1.15.7 `2025-10-24` 
 ### 🚀 Features
 - `Divider`: 支持 `size` 控制间距大小 @HaixingOoO ([#3893](https://github.com/Tencent/tdesign-react/pull/3893))
