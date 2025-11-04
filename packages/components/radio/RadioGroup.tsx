@@ -73,7 +73,10 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
     if (!variant.includes('filled')) return;
 
     const checkedRadio = radioGroupRef.current.querySelector?.(checkedRadioCls) as HTMLElement;
-    if (!checkedRadio) return;
+    if (!checkedRadio) {
+      setBarStyle(null);
+      return;
+    }
 
     const { offsetWidth, offsetHeight, offsetLeft, offsetTop } = checkedRadio;
     setBarStyle({
