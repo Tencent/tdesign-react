@@ -73,7 +73,10 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
     if (!variant.includes('filled')) return;
 
     const checkedRadio = radioGroupRef.current.querySelector?.(checkedRadioCls) as HTMLElement;
-    if (!checkedRadio) return;
+    if (!checkedRadio) {
+      setBarStyle(null);
+      return;
+    }
 
     const { offsetWidth, offsetHeight, offsetLeft, offsetTop } = checkedRadio;
     setBarStyle({
@@ -112,7 +115,7 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const renderBlock = () => {
-    if (!variant.includes('filled')) {
+    if (!variant.includes('filled') || !barStyle) {
       return null;
     }
     return <div style={barStyle} className={`${classPrefix}-radio-group__bg-block`}></div>;
