@@ -441,6 +441,7 @@ export default function VideoClipAgentChatWithSubscription() {
     endpoint: `https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/videoclip`,
     protocol: 'agui' as const,
     stream: true,
+    defaultMessages: [],
     // 流式对话结束
     onComplete: (isAborted: boolean, params?: RequestInit, parsed?: any) => {
       if (parsed?.result?.status === 'user_aborted') {

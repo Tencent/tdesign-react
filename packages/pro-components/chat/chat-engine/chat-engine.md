@@ -1,45 +1,84 @@
 ---
 title: ChatEngine 对话引擎
-description: 智能体对话底层逻辑引擎，提供灵活的 Hook API 用于深度定制。支持自定义 UI 结构、消息处理和 AG-UI 协议，适合构建复杂智能体应用，如工具调用、多步骤任务规划、状态流式传输等场景。
+description: 智能体对话底层逻辑引擎，提供灵活的 Hook API 用于深度定制。
 isComponent: true
 spline: navigation
 ---
 
-## 基本用法
+## 阅读指引
 
-可以通过 `useChat` Hook 提供的对话引擎实例及状态控制方法，同时自行组合拼装`ChatList`，`ChatMessage`, `ChatSender`等组件集成聊天界面，适合需要深度定制组件结构和消息处理流程的场景
-{{ hookComponent }}
+ChatEngine 是一个底层对话引擎，提供灵活的 Hook API 用于深度定制。支持自定义 UI 结构、消息处理和 AG-UI 协议，适合构建复杂智能体应用，如工具调用、多步骤任务规划、状态流式传输等场景，相比 Chatbot 组件提供了更高的灵活性，适合需要**深度定制 UI 结构和消息处理流程**的场景。
 
-## AG-UI 协议适配
+建议按以下路径循序渐进阅读:
 
-[AG-UI（Agent-User Interface)](https://docs.ag-ui.com/introduction) 是一个专为 AI Agent 与前端应用交互设计的轻量级协议，专注于实时交互、状态流式传输和人机协作。Chatbot 组件内置了对 AG-UI 协议的支持，可以**无缝集成符合 AG-UI 标准的后端服务**。
+1. **快速开始** - 了解 useChat Hook 的基本用法
+2. **基础用法** - 掌握消息管理、UI 定制、生命周期
+3. **AG-UI 协议** - 学习 AG-UI 协议的使用和高级特性
 
-### 文本消息
+> 💡 **示例说明**：所有示例都基于 Mock SSE 服务，可以打开浏览器开发者工具（F12），切换到 Network（网络）标签，查看接口的请求和响应数据，了解数据格式。
 
-以下示例演示了如何使用 Chatbot 组件与 AG-UI 协议后端进行基础交互：
 
-- **协议配置**：通过 `protocol: 'agui'` 开启 AG-UI 协议解析支持
-- **事件处理**：组件自动解析 AG-UI 标准事件类型（如 `TEXT_MESSAGE_*`、`THINKING_*`、`TOOL_CALL_*` 等）
+## 快速开始
 
-{{ agui }}
+最简单的示例，使用 `useChat` Hook 创建对话引擎，组合 `ChatList`、`ChatMessage`、`ChatSender` 组件构建聊天界面。
+
+{{ basic }}
+
+## 基础用法
+
+### 消息管理
+
+使用 `defaultMessages` 初始化消息，通过 `chatEngine.setMessages` 动态管理消息（支持 replace、prepend、append 三种模式）。
+
+{{ messages }}
+
+### 自定义 UI
+
+自定义消息样式、头像、操作按钮等，使用插槽机制扩展消息内容。
+
+{{ custom-ui }}
+
+### 生命周期
+
+监听聊天状态变化，使用生命周期回调处理不同阶段的业务逻辑。
+
+{{ lifecycle }}
+
+## AG-UI 协议
+
+[AG-UI（Agent-User Interface)](https://docs.ag-ui.com/introduction) 是一个专为 AI Agent 与前端应用交互设计的轻量级协议，专注于实时交互、状态流式传输和人机协作。ChatEngine 内置了对 AG-UI 协议的支持，可以**无缝集成符合 AG-UI 标准的后端服务**。
+
+### 基础用法
+
+开启 AG-UI 协议支持（`protocol: 'agui'`），组件会自动解析标准事件类型（如 `TEXT_MESSAGE_*`、`THINKING_*`、`TOOL_CALL_*`、`STATE_*` 等）。
+
+{{ agui-basic }}
 
 ### 工具调用
 
-基于 AG-UI 协议的**视频剪辑助手**组件，展示了如何基于`useAgentToolcall`提供的自定义组件注册机制，完成订阅`TOOL_CALL_*`事件数据流，并通过`useAgentState`完成`STATE_*`事件数据流的订阅。该组件能够实时显示视频剪辑任务的进度，并提供交互式的步骤查看功能。
-{{ videoclipState }}
+使用 `useAgentToolcall` Hook 注册自定义工具组件，订阅 `TOOL_CALL_*` 事件数据流，并通过 `useAgentState` 订阅 `STATE_*` 事件数据流。
 
-### 交互式步骤规划
+**示例场景：视频剪辑助手**
+- 实时显示视频剪辑任务的进度
+- 提供交互式的步骤查看功能
+- 展示工具调用和状态管理的完整流程
 
-该示例通过一个完整的**旅游规划 Agent 场景**，演示了如何使用 AG-UI 协议构建复杂的**多步骤任务规划**应用，包括了**16 种标准化事件类型**的应用示例，同时演示了状态流式传输、人机协作工作流和丰富的自定义消息渲染形式。：
+{{ agui-toolcall }}
 
+### 综合示例
+
+一个完整的**旅游规划 Agent 场景**，演示了如何使用 AG-UI 协议构建复杂的**多步骤任务规划**应用。
+
+**核心特性：**
+- **16 种标准化事件类型**：完整展示 AG-UI 协议的事件体系
 - **多步骤流程**：支持分步骤执行复杂任务（如旅游规划）
-- **状态管理**：实时更新应用状态，支持状态快照和增量更新
+- **状态流式传输**：实时更新应用状态，支持状态快照和增量更新
 - **Human-in-the-Loop**：支持人机协作，在流程中插入用户输入环节
 - **工具调用**：集成外部工具调用，如天气查询、行程规划等
 - **历史消息**：支持加载和展示历史对话记录
 - **自定义渲染**：针对不同内容类型（天气、行程、酒店等）提供专门的渲染组件
 
-{{ travelToolcall }}
+{{ agui-comprehensive }}
 
 ## API
 

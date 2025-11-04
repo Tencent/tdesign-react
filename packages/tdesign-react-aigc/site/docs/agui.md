@@ -8,7 +8,7 @@ group:
 
 ## 什么是AG-UI
 
-**AG-UI（Agent User Interaction Protocol）** 是专为AI Agent与前端应用交互设计的标准化协议。它建立了一套统一的通信规范，让前端界面能够与各种AI服务无缝对话，就像是AI应用的"通用语言"。
+**AG-UI（Agent User Interaction Protocol）** 是专为AI Agent与前端应用交互设计的标准化协议。它建立了一套统一的(通信规范)[https://docs.ag-ui.com/introduction]，让前端界面能够与各种AI服务无缝对话，就像是AI应用的"通用语言"。
 
 AG-UI采用**事件驱动模型**，通过标准化的事件流实现前后端解耦：
 
@@ -41,7 +41,7 @@ AG-UI采用**事件驱动模型**，通过标准化的事件流实现前后端�
 
 ### 事件机制
 
-AG-UI定义了16种标准事件类型，覆盖AI交互的完整生命周期：
+AG-UI定义了[16种标准事件类型](https://docs.ag-ui.com/concepts/events)，覆盖AI交互的完整生命周期：
 
 | 事件分类 | 事件名 | 含义 |
 |---------|--------|------|

@@ -43,8 +43,8 @@ const mockData: ChatMessagesData[] = [
 
 export default function chatSample() {
   const chatRef = useRef<HTMLElement & TdChatbotApi>(null);
-  const [activeR1, setR1Active] = useState(false);
-  const [activeSearch, setSearchActive] = useState(false);
+  const [activeR1, setR1Active] = useState(true);
+  const [activeSearch, setSearchActive] = useState(true);
   const [ready, setReady] = useState(false);
   const reqParamsRef = useRef<{ think: boolean; search: boolean }>({ think: false, search: false });
 
@@ -65,25 +65,11 @@ export default function chatSample() {
         placement: 'left',
         actions: ['replay', 'copy', 'good', 'bad'],
         handleActions: {
-          // 处理消息操作回调
-          good: async ({ message, active }) => {
-            // 点赞
-            console.log('点赞', message, active);
-          },
-          bad: async ({ message, active }) => {
-            // 点踩
-            console.log('点踩', message, active);
-          },
           replay: ({ message, active }) => {
             console.log('自定义重新回复', message, active);
             chatRef?.current?.regenerate();
           },
-          searchItem: ({ content, event }) => {
-            event.preventDefault();
-            console.log('点击搜索条目', content);
-          },
           suggestion: ({ content }) => {
-            console.log('点击建议问题', content);
             // 点建议问题自动填入输入框
             chatRef?.current?.addPrompt(content.prompt);
             // 也可以点建议问题直接发送消息
@@ -118,8 +104,7 @@ export default function chatSample() {
     // 流式对话过程中用户主动结束对话业务自定义行为
     onAbort: async () => {},
     // 自定义流式数据结构解析
-    onMessage: (chunk: SSEChunkData): AIMessageContent => {
-      console.log("====chunk", chunk)
+    onMessage: (chunk: SSEChunkData) => {
       const { type, ...rest } = chunk.data;
       switch (type) {
         case 'search':
@@ -148,6 +133,7 @@ export default function chatSample() {
             data: rest?.msg || '',
           };
       }
+      return null;
     },
     // 自定义请求参数
     onRequest: (innerParams: ChatRequestParams) => {
