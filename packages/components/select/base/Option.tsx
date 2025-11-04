@@ -61,11 +61,12 @@ const Option: React.FC<SelectOptionProps> = (props) => {
 
   const label = propLabel || value;
   const disabled = propDisabled || (multiple && Array.isArray(selectedValue) && max && selectedValue.length >= max);
+  const initCheckedStatus = !(Array.isArray(selectedValue) && selectedValue.length === props.optionLength);
 
   let selected: boolean;
   let indeterminate: boolean;
   // 处理存在禁用项时，全选状态无法来回切换的问题
-  const [allSelectableChecked, setAllSelectableChecked] = useState(!selected);
+  const [allSelectableChecked, setAllSelectableChecked] = useState(initCheckedStatus);
 
   const titleContent = useMemo(() => {
     // 外部设置 props，说明希望受控
