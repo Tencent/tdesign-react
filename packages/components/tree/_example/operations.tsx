@@ -8,6 +8,7 @@ const items = [
   },
   {
     value: 'node2',
+    disabled: true,
   },
 ];
 
@@ -21,6 +22,7 @@ export default () => {
   const [expandParent, setExpandParent] = useState(false);
   const [filterText, setFilterText] = useState('');
   const [activeIds, setActiveIds] = useState([]);
+  const [checkStrictly, setCheckStrictly] = useState(false);
 
   const getLabelContent = (node: TreeNodeModel) => {
     const pathNodes = node.getPath();
@@ -114,6 +116,22 @@ export default () => {
     }
   };
 
+  const canToggleDisable = (node: TreeNodeModel) => {
+    const parent = node.getParent?.();
+    const isCheckStrictly = false; // 默认关闭
+    if (!isCheckStrictly && parent?.disabled) {
+      return false; // 父节点被禁用时，子节点状态不支持手动改变
+    }
+    return true;
+  };
+
+  const toggleDisable = (node: TreeNodeModel) => {
+    treeRef.current.setItem(node.value, {
+      disabled: !node.disabled,
+    });
+    console.log(treeRef.current.getItems(node.value));
+  };
+
   const remove = (node: TreeNodeModel) => {
     treeRef.current.remove(node.value);
   };
@@ -128,6 +146,16 @@ export default () => {
       </Button>
       <Button style={{ marginLeft: '10px' }} size="small" variant="outline" onClick={() => insertAfter(node)}>
         后插节点
+      </Button>
+      <Button
+        style={{ marginLeft: '10px' }}
+        size="small"
+        variant="base"
+        theme={node.disabled ? 'success' : 'warning'}
+        disabled={!canToggleDisable(node)}
+        onClick={() => toggleDisable(node)}
+      >
+        {node.disabled ? 'enable' : 'disable'}
       </Button>
       <Button style={{ marginLeft: '10px' }} size="small" variant="base" theme="danger" onClick={() => remove(node)}>
         删除
@@ -292,6 +320,10 @@ export default () => {
       <style>{`.tdesign-tree-operations .t-is-active .t-tree__label { background-color: rgba(0, 0, 255, 0.2);}`}</style>
       <Space direction="vertical">
         <Space>
+          <span>严格模式</span>
+          <Switch<boolean> value={checkStrictly} onChange={setCheckStrictly} />
+        </Space>
+        <Space>
           <span>允许多个节点同时高亮</span>
           <Switch<boolean> value={activeMultiple} onChange={setActiveMultiple} />
         </Space>
@@ -316,7 +348,7 @@ export default () => {
         expandAll
         activable
         checkable
-        checkStrictly
+        checkStrictly={checkStrictly}
         line
         allowFoldNodeOnFilter
         data={items}
