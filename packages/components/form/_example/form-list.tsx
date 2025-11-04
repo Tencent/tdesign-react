@@ -49,8 +49,9 @@ export default function FormListDemo() {
             ))}
             <FormItem style={{ marginLeft: 100 }}>
               <Space>
+                {/* add 不传参时，默认值来源于上方 FormList 内部 FormItem 自身的 initialData */}
                 <Button theme="default" onClick={add}>
-                  新增空白项
+                  新增默认项
                 </Button>
                 <Button theme="default" variant="dashed" onClick={() => add({ city: '深圳', area: '南山区' })}>
                   新增指定项
