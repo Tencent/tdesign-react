@@ -744,6 +744,7 @@ exports[`Upload Component > props.theme: theme=file-flow works fine 1`] = `
             type="button"
           >
             <svg
+              aria-hidden="true"
               class="t-icon t-icon-upload"
               fill="none"
               height="1em"
@@ -995,6 +996,7 @@ exports[`Upload Component > props.theme: theme=image-flow works fine 1`] = `
             type="button"
           >
             <svg
+              aria-hidden="true"
               class="t-icon t-icon-upload"
               fill="none"
               height="1em"
