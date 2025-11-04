@@ -1,5 +1,5 @@
-import { MessageOptions } from './type';
 import { messageDefaultProps } from './defaultProps';
+import type { MessageOptions } from './type';
 
 /**
  * @name: globalConfig
@@ -14,7 +14,6 @@ let messageDefaultConfig: MessageOptions = {
   ...messageDefaultProps,
   duration: 3000,
   placement: 'top',
-  zIndex: 5000,
 };
 
 /**
