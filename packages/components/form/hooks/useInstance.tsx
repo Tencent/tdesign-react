@@ -233,28 +233,31 @@ export default function useInstance(
 
   // 对外方法，获取 formItem 的错误信息
   function getValidateMessage(fields?: Array<keyof FormData>) {
+    if (typeof fields !== 'undefined' && !Array.isArray(fields)) {
+      throw new TypeError('The parameter of "getValidateMessage" must be an array');
+    }
+
     const formItemRefs =
       typeof fields === 'undefined'
         ? [...formMapRef.current.values()]
         : fields.map((name) => findFormItem(name, formMapRef)).filter(Boolean);
 
-    if (typeof fields !== 'undefined' && !Array.isArray(fields)) {
-      throw new TypeError('The parameter of "getValidateMessage" must be an array');
-    }
-
     const extractValidateMessage = (formItemRef: React.RefObject<FormItemInstance>) => {
       const item = formItemRef?.current?.getValidateMessage?.();
       if (isEmpty(item)) return null;
-      const nameKey = Array.isArray(formItemRef?.current?.name)
-        ? formItemRef?.current?.name.join('.')
-        : String(formItemRef?.current?.name);
+      const nameKey = formItemRef?.current?.name;
       return { nameKey, item };
     };
 
-    const message = {};
+    const message: Record<string, any> = {};
+
     formItemRefs.forEach((formItemRef) => {
       const result = extractValidateMessage(formItemRef);
-      if (result) message[result.nameKey] = result.item;
+      if (!result) return;
+      const key = Array.isArray(result.nameKey)
+        ? result.nameKey.toString() // 将 数组 [a,b] 转为 a,b 作为 key
+        : String(result.nameKey);
+      message[key] = result.item;
     });
 
     if (isEmpty(message)) return;
