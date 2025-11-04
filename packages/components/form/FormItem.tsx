@@ -70,6 +70,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     labelWidth: labelWidthFromContext,
     showErrorMessage: showErrorMessageFromContext,
     disabled: disabledFromContext,
+    readonly: readonlyFromContext,
     resetType: resetTypeFromContext,
     rules: rulesFromContext,
     statusIcon: statusIconFromContext,
@@ -525,6 +526,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
               const childProps = child.props as any;
               return React.cloneElement(child, {
                 disabled: disabledFromContext,
+                readonly: readonlyFromContext,
                 ...childProps,
                 [ctrlKey]: formValue,
                 onChange: (value: any, ...args: any[]) => {
