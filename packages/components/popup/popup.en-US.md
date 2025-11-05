@@ -38,6 +38,7 @@ Currently, this can be solved by `Fragment` or other `HTML` elements
 ```
 
 ## API
+
 ### Popup Props
 
 name | type | default | description | required
@@ -61,6 +62,7 @@ triggerElement | TNode | - | Typescript：`string \| TNode`。[see more ts defin
 visible | Boolean | - | Typescript：`boolean` | N
 defaultVisible | Boolean | - | uncontrolled property。Typescript：`boolean` | N
 zIndex | Number | - | \- | N
+onOverlayClick | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/>trigger on popup content click | N
 onScroll | Function |  | Typescript：`(context: { e: WheelEvent }) => void`<br/> | N
 onScrollToBottom | Function |  | Typescript：`(context: { e: WheelEvent }) => void`<br/> | N
 onVisibleChange | Function |  | Typescript：`(visible: boolean, context: PopupVisibleChangeContext) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/popup/type.ts)。<br/>`interface PopupVisibleChangeContext { e?: PopupTriggerEvent; trigger?: PopupTriggerSource }`<br/><br/>`type PopupTriggerEvent = MouseEvent \| FocusEvent \| KeyboardEvent`<br/><br/>`type PopupTriggerSource = 'document' \| 'trigger-element-click' \| 'trigger-element-hover' \| 'trigger-element-blur' \| 'trigger-element-focus' \| 'trigger-element-mousedown' \| 'context-menu' \| 'keydown-esc'`<br/> | N

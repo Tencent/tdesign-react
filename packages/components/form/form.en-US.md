@@ -19,6 +19,7 @@ labelAlign | String | right | options: left/right/top | N
 labelWidth | String / Number | '100px' | \- | N
 layout | String | vertical | options: vertical/inline | N
 preventSubmitDefault | Boolean | true | \- | N
+readonly | Boolean | undefined | \- | N
 requiredMark | Boolean | true | \- | N
 requiredMarkPosition | String | left | Display position of required symbols。options: left/right | N
 resetType | String | empty | options: empty/initial | N
