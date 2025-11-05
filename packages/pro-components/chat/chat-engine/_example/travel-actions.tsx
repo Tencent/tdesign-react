@@ -1,10 +1,9 @@
 import React from 'react';
 import { Button, Select, Input, Checkbox, Card, Tag, Space, Divider, Typography, Alert, Loading } from 'tdesign-react';
 import { CloseIcon, InfoCircleIcon } from 'tdesign-icons-react';
-import type { AgentToolcallConfig, ToolcallComponentProps } from '../../components/toolcall';
+import type { AgentToolcallConfig, ToolcallComponentProps } from '@tdesign-react/chat';
 
 // ==================== 类型定义 ====================
-
 // 天气显示
 interface WeatherArgs {
   location: string;
@@ -100,7 +99,6 @@ const WeatherDisplay: React.FC<ToolcallComponentProps<WeatherArgs, WeatherResult
   result,
   error,
 }) => {
-  console.log('=====WeatherDisplay', status);
   if (status === 'error') {
     return (
       <Alert theme="error" icon={<CloseIcon />} title="获取天气信息失败">

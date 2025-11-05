@@ -38,7 +38,7 @@ yarn.lock
 pnpm-lock.yaml
 
 ## mock server
-server/chat/*
+server/*
 
 packages/pro-components/chat/chatbot/docs/*
 packages/pro-components/chat/chatbot/core/*

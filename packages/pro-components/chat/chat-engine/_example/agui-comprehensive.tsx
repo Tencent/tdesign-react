@@ -22,7 +22,7 @@ import type {
   AGUIHistoryMessage,
 } from '@tdesign-react/chat';
 import { getMessageContentForCopy, AGUIAdapter } from '@tdesign-react/chat';
-import { ToolCallRenderer, useAgentToolcall, useChat } from '../index';
+import { ToolCallRenderer, useAgentToolcall, useChat } from '@tdesign-react/chat';
 import './travel.css';
 import { travelActions } from './travel-actions';
 
@@ -80,7 +80,7 @@ export default function TravelPlannerChat() {
   const createChatServiceConfig = () => ({
     defaultMessages: [],
     // 对话服务地址 - 使用 POST 请求
-    endpoint: `https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/agui`,
+    endpoint: `http://localhost:3000/sse/agui`,
     protocol: 'agui' as const,
     stream: true,
     // 流式对话结束
