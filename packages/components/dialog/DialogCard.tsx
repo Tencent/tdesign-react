@@ -1,23 +1,26 @@
 import React, { forwardRef, isValidElement } from 'react';
-import classNames from 'classnames';
-import { isString, isObject, isFunction } from 'lodash-es';
 import {
+  CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CloseIcon as TdCloseIcon,
   InfoCircleFilledIcon as TdInfoCircleFilledIcon,
-  CheckCircleFilledIcon as TdCheckCircleFilledIcon,
 } from 'tdesign-icons-react';
-import Button, { ButtonProps } from '../button';
-import { TdDialogCardProps } from './type';
-import { StyledProps } from '../common';
+import classNames from 'classnames';
+import { isFunction, isObject, isString } from 'lodash-es';
+
 import parseTNode from '../_util/parseTNode';
+import Button, { type ButtonProps } from '../button';
 import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { dialogCardDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
+
+import type { TdDialogCardProps } from './type';
+import type { StyledProps } from '../common';
 
 export interface DialogCardProps extends TdDialogCardProps, StyledProps, React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
+  mode?: 'modal' | 'modeless' | 'full-screen';
 }
 
 const renderDialogButton = (btn: DialogCardProps['cancelBtn'], defaultProps: ButtonProps) => {
@@ -28,7 +31,7 @@ const renderDialogButton = (btn: DialogCardProps['cancelBtn'], defaultProps: But
   } else if (isValidElement(btn)) {
     result = btn;
   } else if (isObject(btn)) {
-    result = <Button {...defaultProps} {...(btn as {})} />;
+    result = <Button {...defaultProps} {...(btn as ButtonProps)} />;
   } else if (isFunction(btn)) {
     result = btn();
   }
@@ -62,8 +65,11 @@ const DialogCard = forwardRef<HTMLDivElement, DialogCardProps>((props, ref) => {
     cancelBtn = cancelText,
     confirmBtn = confirmText,
     confirmLoading,
+    mode,
     ...otherProps
   } = useDefaultProps<DialogCardProps>(props, dialogCardDefaultProps);
+
+  const isFullScreen = mode === 'full-screen';
 
   const renderHeaderContent = () => {
     const iconMap = {
@@ -92,7 +98,9 @@ const DialogCard = forwardRef<HTMLDivElement, DialogCardProps>((props, ref) => {
 
     return (
       <span
-        className={`${componentCls}__close`}
+        className={classNames(`${componentCls}__close`, {
+          [`${componentCls}__close--fullscreen`]: isFullScreen,
+        })}
         style={{
           marginLeft: 'auto',
         }}
@@ -104,7 +112,11 @@ const DialogCard = forwardRef<HTMLDivElement, DialogCardProps>((props, ref) => {
   };
 
   const renderHeader = () => (
-    <div className={classNames(`${componentCls}__header`)}>
+    <div
+      className={classNames(`${componentCls}__header`, {
+        [`${componentCls}__header--fullscreen`]: isFullScreen,
+      })}
+    >
       {renderHeaderContent()}
       {renderCloseBtn()}
     </div>
@@ -132,13 +144,39 @@ const DialogCard = forwardRef<HTMLDivElement, DialogCardProps>((props, ref) => {
       );
     };
 
-    return <div className={`${componentCls}__footer`}>{parseTNode(footer, null, defaultFooter())}</div>;
+    return (
+      <div
+        className={classNames(`${componentCls}__footer`, {
+          [`${componentCls}__footer--fullscreen`]: isFullScreen,
+        })}
+      >
+        {parseTNode(footer, null, defaultFooter())}
+      </div>
+    );
   };
 
   return (
-    <div ref={ref} {...otherProps} className={classNames(componentCls, `${componentCls}--default`, className)}>
+    <div
+      ref={ref}
+      {...otherProps}
+      className={classNames(
+        componentCls,
+        `${componentCls}--default`,
+        {
+          [`${componentCls}__fullscreen`]: isFullScreen,
+        },
+        className,
+      )}
+    >
       {!!header && renderHeader()}
-      <div className={`${componentCls}__body`}>{body || children}</div>
+      <div
+        className={classNames(`${componentCls}__body`, {
+          [`${componentCls}__body--fullscreen`]: isFullScreen && !!footer,
+          [`${componentCls}__body--fullscreen--without-footer`]: isFullScreen && !footer,
+        })}
+      >
+        {body || children}
+      </div>
       {!!footer && renderFooter()}
     </div>
   );
