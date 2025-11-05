@@ -15,12 +15,12 @@ import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { dialogCardDefaultProps } from './defaultProps';
 
-import type { TdDialogCardProps } from './type';
 import type { StyledProps } from '../common';
+import type { TdDialogCardProps, TdDialogProps } from './type';
 
 export interface DialogCardProps extends TdDialogCardProps, StyledProps, React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
-  mode?: 'modal' | 'modeless' | 'full-screen';
+  mode?: TdDialogProps['mode'];
 }
 
 const renderDialogButton = (btn: DialogCardProps['cancelBtn'], defaultProps: ButtonProps) => {
