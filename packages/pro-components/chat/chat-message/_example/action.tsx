@@ -12,7 +12,12 @@ const message: AIMessage = {
     },
   ],
 };
+
 export default function ChatMessageExample() {
+  const handleAction = (name: string, data?: any) => {
+    console.log('操作', name, data);
+  };
+
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
       <ChatMessage
@@ -23,7 +28,11 @@ export default function ChatMessageExample() {
         content={message.content}
       >
         {/* 植入插槽用来追加消息底部操作栏 */}
-        <ChatActionBar slot="actionbar" copyText={getMessageContentForCopy(message)}></ChatActionBar>
+        <ChatActionBar
+          slot="actionbar"
+          handleAction={handleAction}
+          copyText={getMessageContentForCopy(message)}
+        />
       </ChatMessage>
     </Space>
   );

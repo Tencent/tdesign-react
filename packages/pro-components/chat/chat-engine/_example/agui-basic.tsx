@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   ChatList,
   ChatSender,
@@ -6,7 +6,9 @@ import {
   type TdChatSenderParams,
   type ChatRequestParams,
 } from '@tdesign-react/chat';
-import { useChat } from '../index';
+import { useChat } from '@tdesign-react/chat';
+import { MessagePlugin } from 'tdesign-react';
+import { AGUIAdapter } from '@tdesign-react/chat';
 
 /**
  * AG-UI 协议基础示例
@@ -15,20 +17,11 @@ import { useChat } from '../index';
  * - 开启 AG-UI 协议支持（protocol: 'agui'）
  * - 理解 AG-UI 协议的自动解析机制
  * - 处理文本消息事件（TEXT_MESSAGE_*）
- * 
- * AG-UI 协议说明：
- * AG-UI（Agent-User Interface）是专为 AI Agent 与前端应用交互设计的轻量级协议，
- * 专注于实时交互、状态流式传输和人机协作。
- * 
- * 组件会自动解析以下标准事件：
- * - TEXT_MESSAGE_START/CHUNK/COMPLETE: 文本消息
- * - THINKING_START/CHUNK/COMPLETE: 思考过程
- * - TOOL_CALL_START/CHUNK/COMPLETE: 工具调用
- * - STATE_START/CHUNK/COMPLETE: 状态更新
- * 等等...
+ * - 初始化加载历史消息方法 AGUIAdapter.convertHistoryMessages
  */
 export default function AguiBasicExample() {
   const [inputValue, setInputValue] = useState('AG-UI协议的作用是什么');
+  const listRef = useRef<any>(null);
 
   const { chatEngine, messages, status } = useChat({
     defaultMessages: [],
@@ -39,10 +32,6 @@ export default function AguiBasicExample() {
       stream: true,
       // 自定义请求参数
       onRequest: (params: ChatRequestParams) => ({
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Requested-With': 'XMLHttpRequest',
-        },
         body: JSON.stringify({
           uid: 'agui-demo',
           prompt: params.prompt,
@@ -61,6 +50,26 @@ export default function AguiBasicExample() {
     },
   });
 
+  // 初始化加载历史消息
+  useEffect(() => {
+    const loadHistoryMessages = async () => {
+      try {
+        const response = await fetch(`https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/api/conversation/history?type=simple`);
+        const result = await response.json();
+        if (result.success && result.data) {
+          const messages = AGUIAdapter.convertHistoryMessages(result.data);
+          chatEngine.setMessages(messages);
+          listRef.current?.scrollList({ to: 'bottom' });
+        }
+      } catch (error) {
+        console.error('加载历史消息出错:', error);
+        MessagePlugin.error('加载历史消息出错');
+      }
+    };
+
+    loadHistoryMessages();
+  }, []);
+
   const handleSend = async (e: CustomEvent<TdChatSenderParams>) => {
     const { value } = e.detail;
     await chatEngine.sendUserMessage({ prompt: value });
@@ -69,7 +78,7 @@ export default function AguiBasicExample() {
 
   return (
     <div style={{ height: '500px', display: 'flex', flexDirection: 'column' }}>
-      <ChatList style={{ flex: 1 }}>
+      <ChatList ref={listRef}>
         {messages.map((message) => (
           <ChatMessage
             key={message.id}

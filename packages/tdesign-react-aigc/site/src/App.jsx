@@ -73,7 +73,7 @@ function Components() {
         <td-header ref={tdHeaderRef} slot="header">
           <td-doc-search slot="search" ref={tdDocSearch} />
         </td-header>
-        <td-doc-aside ref={tdDocAsideRef} title="TDesign AIGC for React" />
+        <td-doc-aside ref={tdDocAsideRef} title="TDesign Chat for React" />
 
         <td-doc-content ref={tdDocContentRef}>
           <Outlet />

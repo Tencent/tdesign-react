@@ -95,8 +95,9 @@ export default function CustomUIExample() {
     return actions;
   };
 
-  // 操作按钮处理
+  // 操作按钮处理（函数方式，兼容 ChatActionBar 和 ChatMessage）
   const handleAction = (name: string, data?: any) => {
+    console.log('触发action', name, 'data', data);
     switch (name) {
       case 'replay':
         console.log('重新生成');
@@ -108,8 +109,11 @@ export default function CustomUIExample() {
       case 'bad':
         console.log('点踩', data);
         break;
+      case 'copy':
+        console.log('复制', data);
+        break;
       default:
-        console.log('操作', name, data);
+        console.log('其他操作', name, data);
     }
   };
 

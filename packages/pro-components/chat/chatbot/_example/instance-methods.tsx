@@ -45,6 +45,20 @@ export default function InstanceMethods() {
     });
   };
 
+   const handleSendAIMessage = () => {
+    chatRef.current?.sendAIMessage({
+      content: [
+        {
+          type: 'text',
+          data: '这是通过实例方法发送的AI回答',
+        },
+      ],
+      sendRequest: false,
+    });
+  };
+
+  
+
   // 2. 发送系统消息
   const handleSendSystemMessage = () => {
     chatRef.current?.sendSystemMessage('这是一条系统通知消息');
@@ -118,7 +132,7 @@ export default function InstanceMethods() {
           <Button size="small" variant="outline" onClick={handleSendUserMessage} disabled={!ready}>
             发送用户消息
           </Button>
-          <Button size="small" variant="outline" onClick={handleSendUserMessage} disabled={!ready}>
+          <Button size="small" variant="outline" onClick={handleSendAIMessage} disabled={!ready}>
             发送AI消息
           </Button>
           <Button size="small" variant="outline" onClick={handleSendSystemMessage} disabled={!ready}>

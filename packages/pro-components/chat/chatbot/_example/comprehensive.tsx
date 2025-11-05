@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { InternetIcon } from 'tdesign-icons-react';
 import {
   SSEChunkData,
-  AIMessageContent,
   TdChatMessageConfigItem,
   ChatRequestParams,
   ChatMessagesData,
