@@ -49,7 +49,7 @@ const OptionGroupSelect = () => {
 
   return (
     <Space breakLine style={{ width: '800px' }}>
-      <Select value={value} onChange={onChange} style={{ width: '40%' }} options={groupOptions} filterable />
+      {/* <Select value={value} onChange={onChange} style={{ width: '40%' }} options={groupOptions} filterable /> */}
       <Select value={value2} onChange={onChange2} style={{ width: '40%' }} multiple filterable>
         <Option value="all" label="全选" checkAll></Option>
         <OptionGroup label="分组一" divider={true}>

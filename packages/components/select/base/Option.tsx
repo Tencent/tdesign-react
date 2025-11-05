@@ -1,10 +1,11 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import classNames from 'classnames';
 import { get, isNumber, isString } from 'lodash-es';
 
 import useConfig from '../../hooks/useConfig';
 import useDomRefCallback from '../../hooks/useDomRefCallback';
 import useRipple from '../../hooks/useRipple';
+import { isAllSelected } from '../util/checkAll';
 import { getKeyMapping } from '../util/helper';
 
 import type { StyledProps } from '../../common';
@@ -34,6 +35,9 @@ export interface SelectOptionProps
   optionLength?: number;
   isVirtual?: boolean;
   onRowMounted?: (rowData: { ref: HTMLElement; data: SelectOption }) => void;
+  isHovered?: boolean;
+  currentOptions?: SelectOption[];
+  valueType?: TdSelectProps['valueType'];
 }
 
 const componentType = 'select';
@@ -57,29 +61,26 @@ const Option: React.FC<SelectOptionProps> = (props) => {
     style,
     className,
     isVirtual,
+    isHovered,
+    currentOptions,
+    valueType,
   } = props;
 
   const label = propLabel || value;
   const disabled = propDisabled || (multiple && Array.isArray(selectedValue) && max && selectedValue.length >= max);
-  const initCheckedStatus = !(Array.isArray(selectedValue) && selectedValue.length === props.optionLength);
 
   let selected: boolean;
   let indeterminate: boolean;
-  // 处理存在禁用项时，全选状态无法来回切换的问题
-  const [allSelectableChecked, setAllSelectableChecked] = useState(initCheckedStatus);
 
   const titleContent = useMemo(() => {
-    // 外部设置 props，说明希望受控
     const controlledTitle = Reflect.has(props, 'title');
     if (controlledTitle) return propTitle;
     if (typeof label === 'string') return label;
     return null;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [propTitle, label]);
+  }, [propTitle, label, props]);
 
   const { classPrefix } = useConfig();
 
-  // 使用斜八角动画
   const [optionRef, setRefCurrent] = useDomRefCallback();
   useRipple(optionRef);
 
@@ -106,7 +107,6 @@ const Option: React.FC<SelectOptionProps> = (props) => {
   if (multiple && Array.isArray(selectedValue)) {
     selected = selectedValue.some((item) => {
       if (isNumber(item) || isString(item)) {
-        // 如果非 object 类型
         return item === value;
       }
       return get(item, valueKey) === value;
@@ -121,9 +121,10 @@ const Option: React.FC<SelectOptionProps> = (props) => {
     if (!disabled && !checkAll) {
       onSelect(value, { label: String(label), selected, event, restData });
     }
-    if (checkAll) {
-      props.onCheckAllChange?.(allSelectableChecked, event);
-      setAllSelectableChecked(!allSelectableChecked);
+    if (checkAll && currentOptions) {
+      // 使用工具函数计算当前是否全选
+      const allSelected = isAllSelected(currentOptions, selectedValue, keys, valueType);
+      props.onCheckAllChange?.(!allSelected, event);
     }
   };
 
@@ -161,7 +162,7 @@ const Option: React.FC<SelectOptionProps> = (props) => {
     <li
       className={classNames(className, `${classPrefix}-${componentType}-option`, {
         [`${classPrefix}-is-disabled`]: disabled,
-        [`${classPrefix}-is-selected`]: selected,
+        [`${classPrefix}-is-selected`]: selected && !isHovered,
         [`${classPrefix}-size-s`]: size === 'small',
         [`${classPrefix}-size-l`]: size === 'large',
       })}

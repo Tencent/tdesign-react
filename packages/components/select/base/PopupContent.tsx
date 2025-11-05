@@ -1,12 +1,10 @@
-import React, { Children, cloneElement, isValidElement, useMemo, useRef } from 'react';
+import React, { Children, cloneElement, isValidElement, useEffect, useMemo, useRef } from 'react';
 
 import classNames from 'classnames';
-import { isEqual } from 'lodash-es';
 
 import useConfig from '../../hooks/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import usePanelVirtualScroll from '../hooks/usePanelVirtualScroll';
-import { getSelectValueArr } from '../util/helper';
 import Option, { type SelectOptionProps } from './Option';
 import OptionGroup from './OptionGroup';
 
@@ -36,6 +34,7 @@ interface SelectPopupProps
     | 'panelBottomContent'
     | 'scroll'
   > {
+  onSelect?: SelectOptionProps['onSelect'];
   onChange?: (
     value: SelectValue,
     context?: {
@@ -60,17 +59,14 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     size,
     max,
     multiple,
-    showPopup,
-    setShowPopup,
     empty,
     loadingText,
     loading,
-    valueType,
     children,
     keys,
     panelTopContent,
     panelBottomContent,
-    onChange,
+    onSelect,
     onCheckAllChange,
     getPopupInstance,
     options: propsOptions,
@@ -108,62 +104,82 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
   }, [propsOptions]);
 
   const { classPrefix } = useConfig();
+
+  // 当 hoverIndex 变化时，滚动到对应的选项
+  useEffect(() => {
+    if (props.hoverIndex < 0 || !popupContentRef.current || !props.showPopup) return;
+
+    const rafId = requestAnimationFrame(() => {
+      const hoverOption = popupContentRef.current?.querySelector(`.${classPrefix}-select-option__hover`) as HTMLElement;
+
+      if (hoverOption && popupContentRef.current) {
+        const container = popupContentRef.current;
+        const containerRect = container.getBoundingClientRect();
+        const optionRect = hoverOption.getBoundingClientRect();
+
+        // 计算选项相对于容器的位置
+        const optionTop = optionRect.top - containerRect.top + container.scrollTop;
+        const optionBottom = optionTop + optionRect.height;
+
+        const containerScrollTop = container.scrollTop;
+        const containerScrollBottom = containerScrollTop + container.clientHeight;
+
+        // 添加一个小的缓冲区，避免选项紧贴边缘
+        const buffer = 4;
+
+        // 如果选项在可见区域上方，滚动到选项顶部（向上滚动）
+        if (optionTop < containerScrollTop + buffer) {
+          container.scrollTop = Math.max(0, optionTop - buffer);
+        }
+        // 如果选项在可见区域下方，滚动到选项底部可见（向下滚动）
+        else if (optionBottom > containerScrollBottom - buffer) {
+          container.scrollTop = optionBottom - container.clientHeight + buffer;
+        }
+      }
+    });
+
+    return () => cancelAnimationFrame(rafId);
+  }, [props.hoverIndex, props.showPopup, classPrefix]);
+
   if (!children && !propsOptions) {
     return null;
   }
 
-  const onSelect: SelectOptionProps['onSelect'] = (selectedValue, { label, selected, event, restData }) => {
-    const isValObj = valueType === 'object';
-    let objVal = {};
-    if (isValObj) {
-      objVal = { ...restData };
-      if (!keys?.label) {
-        Object.assign(objVal, { label });
-      }
-      if (!keys?.value) {
-        Object.assign(objVal, { value: selectedValue });
-      }
-    }
-
-    if (!Object.keys(objVal).length) {
-      Object.assign(objVal, { [keys?.label || 'label']: label, [keys?.value || 'value']: selectedValue });
-    }
-
-    if (multiple) {
-      // calc multiple select values
-      const values = getSelectValueArr(value, selectedValue, selected, valueType, keys, objVal);
-      onChange(values, { label, value: selectedValue, e: event, trigger: selected ? 'uncheck' : 'check' });
-    } else {
-      // calc single select value
-      const selectVal = valueType === 'object' ? objVal : selectedValue;
-
-      if (!isEqual(value, selectVal)) {
-        onChange(selectVal, { label, value: selectVal, e: event, trigger: 'check' });
-      }
-      setShowPopup(!showPopup);
-    }
-  };
-
   const childrenWithProps = Children.map(children, (child) => {
     if (isValidElement(child)) {
-      const addedProps = { size, max, multiple, selectedValue: value, onSelect };
+      const addedProps = {
+        size,
+        max,
+        multiple,
+        selectedValue: value,
+        onSelect,
+        currentOptions: propsOptions,
+        valueType: props.valueType,
+        onCheckAllChange,
+        keys,
+      };
       return cloneElement(child, { ...addedProps });
     }
     return child;
   });
 
   // 渲染 options
-  const renderOptions = (options: SelectOption[]) => {
+  const renderOptions = (options: SelectOption[], startFlatIndex = 0) => {
     if (options) {
+      let flatIndex = startFlatIndex;
       // 通过 options API配置的
       return (
         <ul className={`${classPrefix}-select__list`}>
           {options.map((item, index) => {
             const { group, divider, ...rest } = item as SelectOptionGroup;
             if (group) {
+              // 分组：递归渲染子选项，传递当前的 flatIndex
+              const groupContent = renderOptions(rest.children, flatIndex);
+              // 更新 flatIndex，跳过分组内的所有选项
+              flatIndex += rest.children?.length || 0;
               return (
                 <OptionGroup label={group} divider={divider} key={index} {...rest}>
-                  {renderOptions(rest.children)}
+                  {groupContent}
                 </OptionGroup>
               );
             }
@@ -172,12 +188,20 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
             // 当 keys 属性配置 content 作为 value 或 label 时，确保 restData 中也包含它, 不参与渲染计算
             const { content } = item as TdOptionProps;
             const shouldOmitContent = Object.values(keys || {}).includes('content');
+
+            const currentFlatIndex = flatIndex;
+            flatIndex += 1; // 为下一个选项递增
+
+            // 判断当前选项是否被 hover
+            const isHovered = currentFlatIndex === props.hoverIndex;
+
             return (
               <Option
                 key={index}
                 className={classNames({
-                  [`${classPrefix}-select-option__hover`]: index === props.hoverIndex,
+                  [`${classPrefix}-select-option__hover`]: isHovered,
                 })}
+                isHovered={isHovered}
                 max={max}
                 label={label}
                 value={optionValue}
@@ -191,6 +215,8 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
                 keys={keys}
                 onCheckAllChange={onCheckAllChange}
                 onRowMounted={handleRowMounted}
+                currentOptions={propsOptions}
+                valueType={props.valueType}
                 {...(isVirtual
                   ? {
                       isVirtual,

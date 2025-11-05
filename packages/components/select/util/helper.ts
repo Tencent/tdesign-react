@@ -1,5 +1,5 @@
-import { ReactElement } from 'react';
 import { get, isPlainObject } from 'lodash-es';
+import { ReactElement } from 'react';
 import Option from '../base/Option';
 import OptionGroup from '../base/OptionGroup';
 import { isSelectOptionGroup } from '../hooks/useOptions';
@@ -18,6 +18,8 @@ export const getKeyMapping = (keys: SelectKeysType) => {
   const disabledKey = keys?.disabled || 'disabled';
   return { valueKey, labelKey, disabledKey };
 };
+
+export const valueIsObject = (valueType: TdSelectProps['valueType']) => valueType === 'object';
 
 export const setValueToOptionFormOptionDom = (
   dom: ReactElement,
@@ -207,10 +209,10 @@ export const getSelectValueArr = (
 
   if (Array.isArray(values)) {
     let currentValues = [...values];
-    const isValueObj = valueType === 'object';
+    const isValObj = valueIsObject(valueType);
     if (selected) {
       currentValues = currentValues.filter((item: SelectLabeledValue) => {
-        if (isValueObj) {
+        if (isValObj) {
           if (isPlainObject(activeValue)) {
             return get(item, valueKey) !== get(activeValue, valueKey);
           }
@@ -219,7 +221,7 @@ export const getSelectValueArr = (
         return item !== activeValue;
       });
     } else {
-      const item = isValueObj ? objVal : activeValue;
+      const item = isValObj ? objVal : activeValue;
 
       currentValues.push(item as SelectValue);
     }
@@ -241,7 +243,7 @@ export const getSelectedOptions = (
   selectedValue?: SelectValue,
 ) => {
   const { valueKey } = getKeyMapping(keys);
-  const isObjectType = valueType === 'object';
+  const isValObj = valueIsObject(valueType);
 
   // 所有可选项
   const tmpPropOptions = Object.values(valueToOption);
@@ -254,19 +256,19 @@ export const getSelectedOptions = (
   let allSelectedValue: Array<SelectValue>;
 
   if (multiple) {
-    currentSelectedOptions = isObjectType
+    currentSelectedOptions = isValObj
       ? (value as Array<SelectValue>)
       : tmpPropOptions?.filter?.((v) => (value as Array<string | number>).includes?.(v[valueKey]));
 
-    allSelectedValue = isObjectType ? currentSelectedOptions : currentSelectedOptions?.map((v) => v[valueKey]);
+    allSelectedValue = isValObj ? currentSelectedOptions : currentSelectedOptions?.map((v) => v[valueKey]);
 
-    currentOption = isObjectType
+    currentOption = isValObj
       ? (value as Array<SelectValue>).find((v) => v[valueKey] === selectedValue)
       : currentSelectedOptions?.find((option) => option[valueKey] === selectedValue);
   } else {
-    currentSelectedOptions = isObjectType ? [value] : tmpPropOptions?.filter?.((v) => value === v[valueKey]) || [];
+    currentSelectedOptions = isValObj ? [value] : tmpPropOptions?.filter?.((v) => value === v[valueKey]) || [];
     allSelectedValue = currentSelectedOptions;
-    currentOption = isObjectType ? value : currentSelectedOptions?.find((option) => option[valueKey] === selectedValue);
+    currentOption = isValObj ? value : currentSelectedOptions?.find((option) => option[valueKey] === selectedValue);
   }
 
   return { currentSelectedOptions, currentOption, allSelectedValue };
