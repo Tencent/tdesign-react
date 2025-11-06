@@ -377,7 +377,7 @@ export default function CustomContent() {
   );
 
   return (
-    <div style={{ height: '600px', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ height: '400px', display: 'flex', flexDirection: 'column' }}>
       <div style={{ flex: 1, overflow: 'auto' }}>
         <ChatList messages={messages}>
           {messages.map((message) => (

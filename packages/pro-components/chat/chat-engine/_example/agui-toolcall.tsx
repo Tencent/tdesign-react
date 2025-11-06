@@ -11,7 +11,6 @@ import {
   ChatLoading,
   TdChatActionsName,
   ToolCallRenderer,
-  useAgentState,
   useChat,
   useAgentToolcall,
 } from '@tdesign-react/chat';
@@ -28,31 +27,51 @@ interface ImageGenState {
   error?: string;
 }
 
-/**
- * 图片生成进度组件
- * 演示如何通过 useAgentState 订阅 AG-UI 状态事件
- */
-interface ImageGenProgressProps {
-  taskId?: string;
+// 图片生成工具调用类型定义
+interface GenerateImageArgs {
+  taskId: string;
+  prompt: string;
 }
 
-export const ImageGenProgress: React.FC<ImageGenProgressProps> = ({ taskId }) => {
-  // 订阅 AG-UI 状态事件
-  const { stateMap, currentStateKey } = useAgentState({
-    subscribeKey: taskId,
-  });
-
-  // 提取当前任务的状态数据
+/**
+ * 图片生成进度组件
+ * 演示如何通过 agentState 注入获取 AG-UI 状态
+ * 
+ * 💡 最佳实践：在工具组件内部，优先使用注入的 agentState
+ * 
+ * 注意：当配置了 subscribeKey 时，agentState 直接就是订阅的状态对象，
+ * 而不是整个 stateMap。例如：subscribeKey 返回 taskId，则 agentState 就是 stateMap[taskId]
+ */
+const ImageGenProgress: React.FC<ToolcallComponentProps<GenerateImageArgs>> = ({
+  args,
+  agentState,  // 使用注入的 agentState（已经是 taskId 对应的状态对象）
+  status: toolStatus,
+  error: toolError,
+}) => {
+  // agentState 已经是 taskId 对应的状态对象，直接使用
   const genState = useMemo<ImageGenState | null>(() => {
-    const targetKey = taskId || currentStateKey;
-    if (!stateMap || !targetKey || !stateMap[targetKey]) {
+    if (!agentState) {
       return null;
     }
-    return stateMap[targetKey] as ImageGenState;
-  }, [stateMap, taskId, currentStateKey]);
+    return agentState as ImageGenState;
+  }, [agentState]);
 
+  // 工具调用错误
+  if (toolStatus === 'error') {
+    return (
+      <Card bordered hoverShadow style={{ marginTop: '12px' }}>
+        <div style={{ color: '#ff4d4f' }}>解析参数失败: {toolError?.message}</div>
+      </Card>
+    );
+  }
+
+  // 等待状态数据
   if (!genState) {
-    return <div>等待任务开始...</div>;
+    return (
+      <Card bordered hoverShadow style={{ marginTop: '12px' }}>
+        <div>等待任务开始...</div>
+      </Card>
+    );
   }
 
   const { status, progress, message, imageUrl, error } = genState;
@@ -124,12 +143,6 @@ export const ImageGenProgress: React.FC<ImageGenProgressProps> = ({ taskId }) =>
   );
 };
 
-// 图片生成工具调用类型定义
-interface GenerateImageArgs {
-  taskId: string;
-  prompt: string;
-}
-
 // 图片生成工具调用配置
 const imageGenActions: AgentToolcallConfig[] = [
   {
@@ -139,13 +152,28 @@ const imageGenActions: AgentToolcallConfig[] = [
       { name: 'taskId', type: 'string', required: true },
       { name: 'prompt', type: 'string', required: true },
     ],
-    component: ({ status, args, error }: ToolcallComponentProps<GenerateImageArgs>) => {
-      if (status === 'error') {
-        return <div style={{ color: '#ff4d4f' }}>解析参数失败: {error?.message}</div>;
-      }
-      // 使用 taskId 作为状态订阅的 key，确保多轮对话时每个任务的状态是独立的
-      return <ImageGenProgress taskId={args?.taskId} />;
-    },
+    // 不需要订阅状态，只是声明工具
+    component: ({ args }) => (
+      <Card bordered style={{ marginTop: 12 }}>
+        <div style={{ fontSize: 14, fontWeight: 600 }}>
+          🎨 开始生成图片
+        </div>
+        <div style={{ fontSize: 12, color: '#666', marginTop: 4 }}>
+          提示词: {args?.prompt}
+        </div>
+      </Card>
+    ),
+  },
+  {
+    name: 'show_progress',
+    description: '展示图片生成进度',
+    parameters: [
+      { name: 'taskId', type: 'string', required: true },
+    ],
+    // 配置 subscribeKey，告诉 ToolCallRenderer 订阅哪个状态 key
+    subscribeKey: (props) => props.args?.taskId,
+    // 组件会自动接收注入的 agentState
+    component: ImageGenProgress,
   },
 ];
 
@@ -165,11 +193,11 @@ export default function ImageGenAgentChat() {
     endpoint: `https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/image-gen`,
     protocol: 'agui' as const,
     stream: true,
-    onComplete: (isAborted: boolean) => {
-      if (isAborted) {
-        return { status: 'stop' };
-      }
-    },
+    // onComplete: (isAborted: boolean) => {
+    //   if (isAborted) {
+    //     return { status: 'stop' };
+    //   }
+    // },
     onError: (err: Error | Response) => {
       console.error('图片生成服务错误:', err);
     },
@@ -277,7 +305,7 @@ export default function ImageGenAgentChat() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div style={{ maxHeight: '600px', display: 'flex', flexDirection: 'column' }}>
       <ChatList ref={listRef}>
         {messages.map((message, idx) => (
           <ChatMessage key={message.id} {...messageProps[message.role]} message={message as any}>

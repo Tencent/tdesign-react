@@ -40,7 +40,6 @@ spline: aigc
 消息底部操作栏，通过`植入插槽actionbar`的方式实现，可以直接使用`ChatActionBar`组件，也可以完全自定义实现
 {{ action }}
 
-
 ## API
 ### ChatMessage Props
 
@@ -57,7 +56,7 @@ status | String | - | 消息状态。可选项：pending/streaming/complete/stop
 content | AIMessageContent[] / UserMessageContent[] | - | 消息内容数组，根据 role 不同支持不同的内容类型，详见下方 `content 内容类型` 说明 | N
 chatContentProps | Object | - | 消息内容属性配置，用于配置各类型内容的展示行为，详见 `chatContentProps` 说明 | N
 actions | Array/Boolean | ['copy', 'good', 'bad', 'replay'] | 操作按钮配置。传入数组可自定义按钮顺序，可选项：copy/good/bad/replay/share；传入 false 隐藏操作栏 | N
-handleActions | Object | - | 消息内容操作回调函数对象，用于处理建议问题点击、搜索结果点击等交互。格式：`{ suggestion?: (data) => void, searchItem?: (data) => void }`，详见下方 `handleActions 配置说明` | N
+handleActions | Object | - | 操作按钮处理函数对象，key 为操作名称（searchResult/searchItem/suggestion），value 为回调函数 `(data?: any) => void` | N
 message | Object | - | 消息体对象（兼容旧版本），优先级低于直接传入的 role/content/status | N
 id | String | - | 消息唯一标识 | N
 
@@ -136,38 +135,6 @@ layout | String | - | 布局样式。可选项：block/border
 名称 | 类型 | 默认值 | 说明
 -- | -- | -- | --
 directSend | Boolean | - | 点击建议问题是否直接发送（不填充到输入框）
-
-### handleActions 配置说明
-
-`handleActions` 用于处理消息内容中的交互操作，采用对象方式配置，每个操作对应一个回调函数。
-
-**使用示例**：
-
-```tsx
-const handleActions = {
-  suggestion: (data?: any) => {
-    // 点击建议问题时触发
-    console.log('点击建议问题', data.content);
-    // data.content 包含：{ title: string, prompt: string }
-  },
-  searchItem: (data?: any) => {
-    // 点击搜索结果条目时触发
-    console.log('点击搜索结果', data.content);
-    // data.content 包含：ReferenceItem（title, url, content 等）
-  },
-};
-
-<ChatMessage handleActions={handleActions} />
-```
-
-**支持的操作类型**：
-
-| 操作名称 | 触发时机 | data 参数说明 |
-|---------|---------|--------------|
-| suggestion | 点击建议问题 | `{ content: { title: string, prompt: string }, event: Event }` - 建议问题内容和事件对象 |
-| searchItem | 点击搜索结果条目 | `{ content: ReferenceItem, event: Event }` - 搜索结果内容和事件对象 |
-
-**注意**：`handleActions` 仅用于处理消息内容中的交互（如建议问题、搜索结果），不包括底部操作栏的按钮（复制、点赞等）。底部操作栏的事件处理请使用 `ChatActionBar` 组件的 `handleAction` 属性。
 
 ### 插槽
 

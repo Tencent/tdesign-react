@@ -1,128 +1,313 @@
 ---
-title: Chatbot 智能对话
-description: 智能对话聊天组件，适用于需要快速集成智能客服、问答系统等的AI应用
+title: ChatEngine
+description: A low-level conversational engine for AI agents, providing flexible Hook APIs for deep customization.
 isComponent: true
 spline: navigation
 ---
 
-## 基本用法
+## Reading Guide
 
-### 标准化集成
-组件内置状态管理，SSE解析，自动处理消息内容渲染与交互逻辑，可开箱即用快速集成实现标准聊天界面。本示例演示了如何快速创建一个具备以下功能的智能对话组件：
-  - 初始化预设消息
-  - 预设消息内容渲染支持（markdown、搜索、思考、建议等）
-  - 与服务端的SSE（Server-Sent Events）通信，支持流式消息响应
-  - 自定义流式内容结构解析
-  - 自定义请求参数处理
-  - 常用消息操作处理及回调（复制、重试、点赞/点踩）
-  - 支持手动触发填入prompt, 重新生成，发送消息等
+ChatEngine is a low-level conversational engine that provides flexible Hook APIs for deep customization. It supports custom UI structures, message processing, and the AG-UI protocol, making it suitable for building complex AI agent applications such as tool calling, multi-step task planning, and state streaming. Compared to the Chatbot component, it offers greater flexibility and is ideal for scenarios requiring **deep customization of UI structure and message processing flow**. The Chatbot component itself is built on top of ChatEngine.
+
+We recommend following this progressive reading path:
+
+1. **Quick Start** - Learn the basic usage of the useChat Hook and how to compose components to build a chat interface
+2. **Basic Usage** - Master key features including data processing, message management, UI customization, lifecycle, and custom rendering
+3. **AG-UI Protocol** - Learn how to use the AG-UI protocol and its advanced features (tool calling, state subscription, etc.)
+
+> 💡 **Example Notes**: All examples are based on Mock SSE services. You can open the browser developer tools (F12), switch to the Network tab, and view the request and response data to understand the data format.
+
+
+## Quick Start
+
+The simplest example: use the `useChat` Hook to create a conversational engine, and compose `ChatList`, `ChatMessage`, and `ChatSender` components to build a chat interface.
 
 {{ basic }}
 
+## Basic Usage
 
-### 组合式用法
-可以通过 `useChat` Hook提供的对话引擎实例及状态控制方法，同时自行组合拼装`ChatList`，`ChatMessage`, `ChatSender`等组件集成聊天界面，适合需要深度定制组件结构和消息处理流程的场景
-{{ hookComponent }}
+### Initial Messages
 
-## 自定义
-如果组件内置的消息渲染方案不能满足需求，还可以通过自定义**消息结构解析逻辑**和**消息内容渲染组件**来实现更多渲染需求。以下示例给出了一个自定义实现图表渲染的示例，实现自定义渲染需要完成**四步**，概括起来就是：**扩展类型，准备组件，解析数据，植入插槽**：
-- 1、扩展自定义消息体type类型
-- 2、实现自定义渲染的组件，示例中使用了tvision-charts-react实现图表渲染
-- 3、流式数据增量更新回调`onMessage`中可以对返回数据进行标准化解构，返回渲染组件所需的数据结构，同时可以通过返回`strategy`来决定**同类新增内容块**的追加策略（merge/append），如果需要更灵活影响到数据整合可以返回完整消息数组`AIMessageContent[]`，或者注册合并策略方法（参考下方‘任务规划’示例）
-- 4、在render函数中遍历消息内容数组，植入自定义消息体渲染插槽，需保证slot名在list中的唯一性
+Use `defaultMessages` to set static initial messages, or dynamically load message history via `chatEngine.setMessages`.
 
-如果组件内置的几种操作 `TdChatMessageActionName` 不能满足需求，示例中同时给出了**自定义消息操作区**的方法，可以自行实现更多操作。
+{{ initial-messages }}
 
-{{ custom }}
+### Data Processing
+
+`chatServiceConfig` is the core configuration of ChatEngine, controlling communication with the backend and data processing. It serves as the bridge between frontend components and backend services. Its roles include:
+- **Request Configuration** (endpoint, onRequest for setting headers and parameters)
+- **Data Transformation** (onMessage: converting backend data to the format required by components)
+- **Lifecycle Callbacks** (onStart, onComplete, onError, onAbort)
+
+Depending on the backend service protocol, there are two configuration approaches:
+
+- **Custom Protocol**: When the backend uses a custom data format that doesn't match the frontend component's requirements, you need to use `onMessage` for data transformation.
+- **AG-UI Protocol**: When the backend service conforms to the [AG-UI Protocol](/react-aigc/agui), you only need to set `protocol: 'agui'` without writing `onMessage` for data transformation, greatly simplifying the integration process. See the [AG-UI Protocol](#ag-ui-protocol) section below for details.
+
+The configuration usage in this section is consistent with Chatbot. For examples, refer to the [Chatbot Data Processing](/react-aigc/components/chatbot#data-processing) section.
+
+### Instance Methods
+
+Control component behavior (message setting, send management, etc.) by calling [various methods](#chatengine-instance-methods) through `chatEngine`.
+
+{{ instance-methods }}
+
+### Custom Rendering
+
+Use the **dynamic slot mechanism** to implement custom rendering, including custom `content rendering`, custom `action bar`, and custom `input area`.
 
 
-## 场景化示例
-以下再通过几个常见的业务场景，展示下如何使用 `Chatbot` 组件
+- **Custom Content Rendering**: If you need to customize how message content is rendered, follow these steps:
+  - 1. Extend Types: Declare custom content types via TypeScript
+  - 2. Parse Data: Return custom type data structures in `onMessage`
+  - 3. Listen to Changes: Monitor message changes via `onMessageChange` and sync to local state
+  - 4. Insert Slots: Loop through the `messages` array and use the `slot = ${content.type}-${index}` attribute to render custom components
 
-### 代码助手
-通过使用tdesign开发登录框组件的案例，演示了使用Chatbot搭建简单的代码助手场景，该示例你可以了解到如何按需开启**markdown渲染代码块**，如何**自定义实现代码预览**
-{{ code }}
 
-### 文案助手
-以下案例演示了使用Chatbot搭建简单的文案写作助手应用，通过该示例你可以了解到如何**发送附件**，同时演示了**附件类型的内容渲染**
-{{ docs }}
+- **Custom Action Bar**: If the built-in [`ChatActionbar`](/react-aigc/components/chat-actionbar) doesn't meet your needs, you can use the `slot='actionbar'` attribute to render a custom component.
 
-### 图像生成
-以下案例演示了使用Chatbot搭建简单的图像生成应用，通过该示例你可以了解到如何**自定义输入框操作区域**，同时演示了**自定义生图内容渲染**
-{{ image }}
+- **Custom Input Area**: If you need to customize the ChatSender input area, see available slots in [ChatSender Slots](/react-aigc/components/chat-sender?tab=api#slots)
 
-### 任务规划
-以下案例模拟了使用Chatbot搭建任务规划型智能体应用，分步骤依次执行并输出结果，通过该示例你可以了解到如何**注册自定义消息内容合并策略**，**自定义消息插槽名规则**，同时演示了**自定义任务流程渲染**
-{{ agent }}
+
+{{ custom-content }}
+
+### Comprehensive Example
+
+After understanding the usage of the above basic properties, here's a complete example showing how to comprehensively use multiple features in production: initial messages, message configuration, data transformation, request configuration, instance methods, and custom slots.
+
+{{ comprehensive }}
+
+
+## AG-UI Protocol
+
+[AG-UI (Agent-User Interface)](https://docs.ag-ui.com/introduction) is a lightweight protocol designed specifically for AI Agent and frontend application interaction, focusing on real-time interaction, state streaming, and human-machine collaboration. ChatEngine has built-in support for the AG-UI protocol, enabling **seamless integration with backend services that conform to AG-UI standards**.
+
+### Basic Usage
+
+Enable AG-UI protocol support (`protocol: 'agui'`), and the component will automatically parse standard event types (such as `TEXT_MESSAGE_*`, `THINKING_*`, `TOOL_CALL_*`, `STATE_*`, etc.). Use the `AGUIAdapter.convertHistoryMessages` method to backfill message history that conforms to the [`AGUIHistoryMessage`](https://github.com/TDesignOteam/tdesign-web-components/blob/develop/src/chat-engine/adapters/agui/types.ts) data structure.
+
+{{ agui-basic }}
+
+
+### Tool Calling
+
+The AG-UI protocol supports AI Agents calling frontend tool components through `TOOL_CALL_*` events to enable human-machine collaboration.
+
+> **Protocol Compatibility Note**: `useAgentToolcall` and `ToolCallRenderer` are protocol-agnostic; they only depend on the [ToolCall data structure](#toolcall-object-structure) and don't care about the data source. The advantage of the AG-UI protocol is automation (backend directly outputs standard `TOOL_CALL_*` events), while regular protocols require manually converting backend data to the `ToolCall` structure in `onMessage`. Adapters can reduce the complexity of manual conversion.
+
+#### Core Hooks and Components
+
+ChatEngine provides several core Hooks around tool calling, each with its own responsibilities working together:
+
+- **`useAgentToolcall` Hook**: Registers tool configurations (metadata, parameters, UI components). Compared to traditional custom rendering approaches, it provides highly cohesive configuration, unified API interface, complete type safety, and better portability. See [FAQ](/react-aigc/components/chat-engine?tab=demo#faq) below for details
+- **`ToolCallRenderer` Component**: A unified renderer for tool calls, responsible for finding the corresponding configuration based on the tool name, parsing parameters, managing state, and rendering the registered UI component. Simply pass in the `toolCall` object to automatically complete rendering
+- **`useAgentState` Hook**: Subscribes to AG-UI protocol's `STATE_SNAPSHOT` and `STATE_DELTA` events to get real-time task execution status.
+
+#### Usage Flow
+
+1. Use `useAgentToolcall` to register tool configurations (metadata, parameters, UI components)
+2. Use the `ToolCallRenderer` component to render tool calls when rendering messages
+3. `ToolCallRenderer` automatically finds configuration, parses parameters, manages state, and renders UI
+
+
+#### Basic Example
+
+A simulated image generation assistant Agent demonstrating core usage of tool calling and state subscription:
+
+- **Tool Registration**: Use `useAgentToolcall` to register the `generate_image` tool
+- **State Subscription**: Use the injected `agentState` parameter to subscribe to image generation progress (preparing → generating → completed/failed)
+- **Progress Display**: Real-time display of progress bar and status information
+- **Result Presentation**: Display the image after generation is complete
+- **Suggested Questions**: By returning `toolcallName: 'suggestion'`, you can seamlessly integrate with the built-in suggested questions component
+
+{{ agui-toolcall }}
+
+
+### Tool State Subscription
+
+In the AG-UI protocol, besides displaying state inside tool components, sometimes we also need to subscribe to and display tool execution status in **UI outside the conversation component** (such as a progress bar at the top of the page, a task list in the sidebar, etc.). The Agent service implements streaming of state changes and snapshots by adding `STATE_SNAPSHOT` and `STATE_DELTA` events during tool calling.
+
+To facilitate state subscription for external UI components, you can use `useAgentState` to get state data and render task execution progress and status information in real-time. For example, to display the current task's execution progress at the top of the page without showing it in the conversation flow, you can implement it like this:
+
+```javascript
+// External progress panel component
+const GlobalProgressBar: React.FC = () => {
+  // Subscribe to state using useAgentState
+  const { stateMap, currentStateKey } = useAgentState();
+  
+  /* Backend pushes state data through STATE_SNAPSHOT and STATE_DELTA events, sample data as follows:
+  // 
+  // STATE_SNAPSHOT (initial snapshot):
+  // data: {"type":"STATE_SNAPSHOT","snapshot":{"task_xxx":{"progress":0,"message":"Preparing to start planning...","items":[]}}}
+  //
+  // STATE_DELTA (incremental update, using JSON Patch format):
+  // data: {"type":"STATE_DELTA","delta":[
+  //   {"op":"replace","path":"/task_xxx/progress","value":20},
+  //   {"op":"replace","path":"/task_xxx/message","value":"Analyzing destination information"},
+  //   {"op":"replace","path":"/task_xxx/items","value":[{"label":"Analyzing destination information","status":"running"}]}
+  // ]}
+  */ 
+ 
+  // useAgentState internally handles these events automatically, merging snapshot and delta into stateMap
+  
+  // Get current task state
+  const currentState = currentStateKey ? stateMap[currentStateKey] : null;
+  
+  // items array contains information about each step of the task
+  // Each item contains: label (step name), status (state: running/completed/failed)
+  const items = currentState?.items || [];
+  const completedCount = items.filter((item: any) => item.status === 'completed').length;
+  
+  return (
+    <div>
+      <div>Progress: {completedCount}/{items.length}</div>
+      {items.map((item: any, index: number) => (
+        <div key={index}>
+          {item.label} - {item.status}
+        </div>
+      ))}
+    </div>
+  );
+};
+```
+
+When multiple external components need to access the same state, use the Provider pattern. Share state by using `AgentStateProvider` + `useAgentStateContext`.
+
+For a complete example, please refer to the [Comprehensive Example](#comprehensive-example) demonstration below.
+
+### Comprehensive Example
+
+Simulates a complete **travel planning Agent scenario**, demonstrating how to use the AG-UI protocol to build a complex **multi-step task planning** application. First collect user preferences (Human-in-the-Loop), then execute based on the submitted preferences: query weather, display planning steps through tool calls, and finally summarize to generate the final plan.
+
+**Core Features:**
+- **16 Standardized Event Types**: Complete demonstration of the AG-UI protocol event system
+- **Multi-step Flow**: Support for executing complex tasks step by step (such as travel planning)
+- **State Streaming**: Real-time application state updates, supporting state snapshots and incremental updates
+- **Human-in-the-Loop**: Support for human-machine collaboration, inserting user input steps in the flow
+- **Tool Calling**: Integration of external tool calls, such as weather queries, itinerary planning, etc.
+- **External State Subscription**: Demonstrates how to subscribe to and display tool execution status outside the conversation component
+
+**Example Highlights:**
+
+1. **Three Typical Tool Calling Patterns**
+   - Weather Query: Demonstrates basic `TOOL_CALL_*` event handling
+   - Planning Steps: Demonstrates `STATE_*` event subscription + automatic `agentState` injection
+   - User Preferences: Demonstrates Human-in-the-Loop interactive tools
+
+2. **State Usage Inside Tool Components**
+   - Tool components automatically get state through the `agentState` parameter, no additional Hook needed
+   - Configure `subscribeKey` to tell the Renderer which state key to subscribe to
+
+3. **External UI State Subscription**
+   - Use `useAgentState` to subscribe to state outside the conversation component
+   - Real-time display of task execution progress and status information
+
+{{ agui-comprehensive }}
 
 
 ## API
-### Chatbot Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
--- | -- | -- | -- | --
-defaultMessages | Array | - | 初始消息数据列表。TS类型：`ChatMessagesData[]`。[详细类型定义](/react-aigc/components/chat-message?tab=api) | N
-messageProps | Object/Function | - | 消息项配置。按角色聚合了消息项的配置透传`ChatMessage`组件，TS类型：`TdChatMessageConfig \| ((msg: ChatMessagesData) => Omit<TdChatMessageProps, 'message'>)` ，[详细类型定义](https://github.com/TDesignOteam/tdesign-web-components/blob/develop/src/chatbot/type.ts#L151)  | N
-listProps | Object | - | 消息列表配置。TS类型：`TdChatListProps`。 | N
-senderProps | Object | - | 发送框配置，透传`ChatSender`组件。TS类型：`TdChatSenderProps`。[类型定义](./chat-sender?tab=api) | N
-chatServiceConfig | Object | - | 聊天服务配置，见下方详细说明，TS类型：`ChatServiceConfig` | N
-onMessageChange | Function | - | 消息变化回调，TS类型：`(e: CustomEvent<ChatMessagesData[]>) => void` | N
+### useChat
+
+A core Hook for managing chat state and lifecycle, initializing the chat engine, synchronizing message data, subscribing to state changes, and automatically handling resource cleanup when the component unmounts.
+
+#### Parameters
+
+| Parameter         | Type               | Description                                                                                     | Required |
+| ----------------- | ------------------ | ----------------------------------------------------------------------------------------------- | -------- |
+| defaultMessages   | ChatMessagesData[] | Initial message list                                                                            | N        |
+| chatServiceConfig | ChatServiceConfig  | Chat service configuration, see [Chatbot Documentation](/react-aigc/components/chatbot?tab=api#chatserviceconfig-configuration) | Y        |
+
+#### Return Value
+
+| Return Value | Type               | Description                                                                 |
+| ------------ | ------------------ | --------------------------------------------------------------------------- |
+| chatEngine   | ChatEngine         | Chat engine instance, see [ChatEngine Instance Methods](#chatengine-instance-methods) below |
+| messages     | ChatMessagesData[] | Current chat message list                                                   |
+| status       | ChatStatus         | Current chat status (idle/pending/streaming/complete/stop/error)            |
+
+### ChatEngine Instance Methods
+
+ChatEngine instance methods are completely consistent with Chatbot component instance methods. See [Chatbot Instance Methods Documentation](/react-aigc/components/chatbot?tab=api#chatbot-instance-methods-and-properties).
+
+### useAgentToolcall
+
+A Hook for registering tool call configurations, supporting both automatic and manual registration modes.
+
+#### Parameters
+
+| Parameter | Type                                                              | Description                                                     | Required |
+| --------- | ----------------------------------------------------------------- | --------------------------------------------------------------- | -------- |
+| config    | AgentToolcallConfig \\| AgentToolcallConfig[] \\| null \\| undefined | Tool call configuration object or array, auto-registers when passed, manual registration when not passed | N        |
+
+#### Return Value
+
+| Return Value  | Type                                                           | Description                     |
+| ------------- | -------------------------------------------------------------- | ------------------------------- |
+| register      | (config: AgentToolcallConfig \\| AgentToolcallConfig[]) => void | Manually register tool configuration |
+| unregister    | (names: string \\| string[]) => void                            | Unregister tool configuration   |
+| isRegistered  | (name: string) => boolean                                      | Check if tool is registered     |
+| getRegistered | () => string[]                                                 | Get all registered tool names   |
+
+#### AgentToolcallConfig Configuration
+
+| Property     | Type                                        | Description                                       | Required |
+| ------------ | ------------------------------------------- | ------------------------------------------------- | -------- |
+| name         | string                                      | Tool call name, must match the backend-defined tool name | Y        |
+| description  | string                                      | Tool call description                             | Y        |
+| parameters   | ParameterDefinition[]                       | Parameter definition array                        | Y        |
+| component    | React.ComponentType<ToolcallComponentProps> | Custom rendering component                        | Y        |
+| handler      | (args, result?) => Promise<any>             | Handler function for non-interactive tools (optional) | N        |
+| subscribeKey | (props) => string \\| undefined              | State subscription key extraction function (optional) | N        |
+
+#### ToolcallComponentProps Component Properties
+
+| Property   | Type                                                 | Description                                |
+| ---------- | ---------------------------------------------------- | ------------------------------------------ |
+| status     | 'idle' \\| 'inProgress' \\| 'executing' \\| 'complete' \\| 'error' | Tool call status                           |
+| args       | TArgs                                                | Parsed tool call parameters                |
+| result     | TResult                                              | Tool call result                           |
+| error      | Error                                                | Error information (when status is 'error') |
+| respond    | (response: TResponse) => void                        | Response callback function (for interactive tools) |
+| agentState | Record<string, any>                                  | Subscribed state data (auto-injected after configuring subscribeKey) |
+
+### ToolCallRenderer
+
+A unified rendering component for tool calls, responsible for automatically finding configuration based on the tool name, parsing parameters, managing state, and rendering the corresponding UI component.
+
+#### Props
+
+| Property  | Type                                        | Description                                           | Required |
+| --------- | ------------------------------------------- | ----------------------------------------------------- | -------- |
+| toolCall  | ToolCall [Object Structure](https://github.com/TDesignOteam/tdesign-web-components/blob/develop/src/chat-engine/type.ts#L97) | Tool call object, containing toolCallName, args, result, etc. | Y        |
+| onRespond | (toolCall: ToolCall, response: any) => void | Response callback for interactive tools, used to return user input to backend | N        |
 
 
-### TdChatListProps 消息列表配置
+### useAgentState
 
-名称 | 类型 | 默认值 | 说明 | 必传
--- | -- | -- | -- | --
-autoScroll | Boolean | true | 高度变化时列表是否自动滚动到底部 | N
-defaultScrollPosition | String | bottom | 默认初始时滚动定位。可选项：top/bottom/bottom | N
-onScroll | Function | - | 滚动事件回调 | N
+A Hook for subscribing to AG-UI protocol state events, providing a flexible state subscription mechanism.
 
+> 💡 **Usage Recommendation**: For detailed usage instructions and scenario examples, please refer to the [Tool State Subscription](#tool-state-subscription) section above.
 
+#### Parameters
 
-### ChatServiceConfig 类型说明
+| Parameter | Type               | Description             | Required |
+| --------- | ------------------ | ----------------------- | -------- |
+| options   | StateActionOptions | State subscription configuration options | N        |
 
-聊天服务核心配置类型，主要作用包括基础通信配置，请求流程控制及全生命周期管理（初始化→传输→完成/中止），流式数据的分块处理策略，状态通知回调等。
+#### StateActionOptions Configuration
 
-名称 | 类型 | 默认值 | 说明 | 必传
--- | -- | -- | -- | --
-endpoint | String | -  | 聊天服务请求地址url | N
-stream | Boolean | true | 是否使用流式传输 | N
-onRequest | Function | - | 请求前的回调，可修改请求参数。TS类型：`(params: ChatRequestParams) => RequestInit` | N
-onMessage | Function | - | 处理流式消息的回调。TS类型：`(chunk: SSEChunkData) => AIMessageContent / null` | N
-onComplete | Function | - | 请求结束时的回调。TS类型：`(isAborted: boolean, params: RequestInit, result?: any) => void` | N
-onAbort | Function | - | 中止请求时的回调。TS类型：`() => Promise<void>` | N
-onError | Function | - | 错误处理回调。TS类型：`(err: Error \| Response) => void` | N
+| Property     | Type                | Description                                                                 | Required |
+| ------------ | ------------------- | --------------------------------------------------------------------------- | -------- |
+| subscribeKey | string              | Specify the stateKey to subscribe to, subscribes to the latest state when not passed | N        |
+| initialState | Record<string, any> | Initial state value                                                         | N        |
 
-### Chatbot 实例方法
+#### Return Value
 
-名称 | 类型 | 描述 
--- | -- | -- 
-sendUserMessage | (params: ChatRequestParams) => Promise<void> | 发送用户消息，处理请求参数并触发消息流
-sendSystemMessage | (msg: string) => void | 发送系统级通知消息，用于展示系统提示/警告
-abortChat | () => Promise<void> | 中止当前进行中的聊天请求，清理网络连接
-addPrompt | (prompt: string) => void | 将预设提示语添加到输入框，辅助用户快速输入
-selectFile | () => void | 触发文件选择对话框，用于附件上传功能
-regenerate | (keepVersion?: boolean) => Promise<void> | 重新生成最后一条消息，可选保留历史版本
-registerMergeStrategy | (type: T['type'], handler: (chunk: T, existing?: T) => T) => void | 注册自定义消息合并策略，用于处理流式数据更新
-scrollToBottom | () => void | 将消息列表滚动到底部，适用于有新消息时自动定位
-chatMessageValue | ChatMessagesData[] | 获取当前消息列表的只读副本
-chatStatus | ChatStatus | 获取当前聊天状态（空闲/进行中/错误等）
-
-### useChat Hook
-
-useChat 是聊天组件核心逻辑Hook，用于管理聊天状态与生命周期：初始化聊天引擎、同步消息数据、订阅状态变更，并自动处理组件卸载时的资源清理，对外暴露聊天引擎实例/消息列表/状态等核心参数。
-
-- **请求参数说明**
-
-参数名	| 类型	| 说明
--- | -- | --
-defaultMessages |	ChatMessagesData[]	| 初始化消息列表，用于设置聊天记录的初始值
-chatServiceConfig	| ChatServiceConfigSetter	| 聊天服务配置，支持静态配置或动态生成配置的函数，用于设置API端点/重试策略等参数
-
-- **返回值说明**
-
-返回值 |	类型	| 说明
--- | -- | --
-chatEngine |	ChatEngine 实例	| 聊天引擎实例，提供核心操作方法，同上方 `Chatbot 实例方法`
-messages	| ChatMessagesData[]	| 当前聊天消息列表所有数据
-status	| ChatStatus	| 当前聊天状态
+| Return Value    | Type                                                | Description                                     |
+| --------------- | --------------------------------------------------- | ----------------------------------------------- |
+| stateMap        | Record<string, any>                                 | State map, format is { [stateKey]: stateData }  |
+| currentStateKey | string \\| null                                      | Currently active stateKey                       |
+| setStateMap     | (stateMap: Record<string, any> \\| Function) => void | Method to manually set the state map            |
+| getCurrentState | () => Record<string, any>                           | Method to get the current complete state        |
+| getStateByKey   | (key: string) => any                                | Method to get state for a specific key          |

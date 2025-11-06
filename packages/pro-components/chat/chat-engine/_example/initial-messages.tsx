@@ -162,8 +162,8 @@ export default function InitialMessages() {
       </div>
 
       {/* 聊天界面 */}
-      <div style={{ height: '500px', display: 'flex', flexDirection: 'column' }}>
-        <ChatList style={{ flex: 1 }}>
+      <div style={{ height: '400px', display: 'flex', flexDirection: 'column' }}>
+        <ChatList>
           {messages.map((message) => (
             <ChatMessage
               key={message.id}
