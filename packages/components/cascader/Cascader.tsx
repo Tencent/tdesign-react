@@ -102,6 +102,8 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
   const { setVisible, visible, inputVal, setInputVal } = cascaderContext;
 
   const updateScrollTop = (content: HTMLDivElement) => {
+    // virtual scroll not trigger event
+    if (props.scroll) return;
     const cascaderMenuList = content.querySelectorAll(`.${COMPONENT_NAME}__menu`);
     requestAnimationFrame(() => {
       cascaderMenuList.forEach((menu: HTMLDivElement) => {
@@ -235,7 +237,7 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
           {props.panelTopContent && parseTNode(props.panelTopContent)}
           <Panel
             cascaderContext={cascaderContext}
-            {...pick(props, ['trigger', 'onChange', 'empty', 'loading', 'loadingText', 'option'])}
+            {...pick(props, ['trigger', 'onChange', 'empty', 'loading', 'loadingText', 'option', 'scroll'])}
           ></Panel>
           {props.panelBottomContent && parseTNode(props.panelBottomContent)}
         </>

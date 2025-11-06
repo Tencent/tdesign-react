@@ -1,74 +1,45 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
-import Item from './Item';
-
 import useConfig from '../../hooks/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { getPanels } from '../core/helper';
-import { expendClickEffect, valueChangeEffect } from '../core/effect';
-
-import { TreeNode, CascaderContextType } from '../interface';
+import { CascaderContextType } from '../interface';
 import { TdCascaderProps } from '../type';
 import { StyledProps } from '../../common';
-import parseTNode from '../../_util/parseTNode';
+import List from './List';
+import { PanelContext } from '../context';
 
 export interface CascaderPanelProps
   extends StyledProps,
-    Pick<TdCascaderProps, 'trigger' | 'empty' | 'onChange' | 'loading' | 'loadingText' | 'option'> {
+    Pick<TdCascaderProps, 'trigger' | 'empty' | 'onChange' | 'loading' | 'loadingText' | 'option' | 'scroll'> {
   cascaderContext: CascaderContextType;
 }
 
 const Panel = (props: CascaderPanelProps) => {
-  const { cascaderContext, option } = props;
+  const { cascaderContext, option, scroll, trigger } = props;
+
+  const [global] = useLocaleReceiver('cascader');
+  const { classPrefix } = useConfig();
+  const COMPONENT_NAME = `${classPrefix}-cascader`;
 
   const panels = useMemo(() => getPanels(cascaderContext.treeNodes), [cascaderContext.treeNodes]);
 
-  const handleExpand = (node: TreeNode, trigger: 'hover' | 'click') => {
-    const { trigger: propsTrigger, cascaderContext } = props;
-    expendClickEffect(propsTrigger, trigger, node, cascaderContext);
-  };
-
-  const { classPrefix } = useConfig();
-  const [global] = useLocaleReceiver('cascader');
-  const COMPONENT_NAME = `${classPrefix}-cascader`;
-
-  const renderItem = (node: TreeNode, index: number) => (
-    <Item
-      key={index}
-      node={node}
-      optionChild={node.data.content || parseTNode(option, { item: node.data, index, context: { node } })}
-      cascaderContext={cascaderContext}
-      onClick={() => {
-        handleExpand(node, 'click');
-      }}
-      onMouseEnter={() => {
-        handleExpand(node, 'hover');
-      }}
-      onChange={() => {
-        valueChangeEffect(node, cascaderContext);
-      }}
-    />
-  );
-
-  const renderList = (treeNodes: TreeNode[], isFilter = false, segment = true, key = '1') => (
-    <ul
-      className={classNames(`${COMPONENT_NAME}__menu`, 'narrow-scrollbar', {
-        [`${COMPONENT_NAME}__menu--segment`]: segment,
-        [`${COMPONENT_NAME}__menu--filter`]: isFilter,
-      })}
-      key={key}
-    >
-      {treeNodes.map((node: TreeNode, index: number) => renderItem(node, index))}
-    </ul>
-  );
-
   const renderPanels = () => {
     const { inputVal, treeNodes } = props.cascaderContext;
-    return inputVal
-      ? renderList(treeNodes, true)
-      : panels.map((treeNodes, index: number) =>
-          renderList(treeNodes, false, index !== panels.length - 1, `${COMPONENT_NAME}__menu${index}`),
-        );
+    return inputVal ? (
+      <List treeNodes={treeNodes} isFilter />
+    ) : (
+      panels.map((panelNodes, index: number) => (
+        <List
+          treeNodes={panelNodes}
+          isFilter={false}
+          segment={index !== panels.length - 1}
+          key={`${COMPONENT_NAME}__menu${index}`}
+          listKey={`${COMPONENT_NAME}__menu${index}`}
+          level={index}
+        />
+      ))
+    );
   };
 
   let content;
@@ -81,17 +52,25 @@ const Panel = (props: CascaderPanelProps) => {
       <div className={`${COMPONENT_NAME}__panel--empty`}>{props.empty ?? global.empty}</div>
     );
   }
+
+  const memoContext = useMemo(
+    () => ({ option, cascaderContext, scroll, trigger }),
+    [cascaderContext, option, scroll, trigger],
+  );
+
   return (
-    <div
-      className={classNames(
-        `${COMPONENT_NAME}__panel`,
-        { [`${COMPONENT_NAME}--normal`]: panels.length && !props.loading },
-        props.className,
-      )}
-      style={props.style}
-    >
-      {content}
-    </div>
+    <PanelContext.Provider value={memoContext}>
+      <div
+        className={classNames(
+          `${COMPONENT_NAME}__panel`,
+          { [`${COMPONENT_NAME}--normal`]: panels.length && !props.loading },
+          props.className,
+        )}
+        style={props.style}
+      >
+        {content}
+      </div>
+    </PanelContext.Provider>
   );
 };
 
