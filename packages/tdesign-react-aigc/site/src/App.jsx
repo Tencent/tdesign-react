@@ -23,7 +23,7 @@ const renderRouter = docRoutes.map((nav, i) => {
   return (
     <Route
       key={i}
-      path={nav.path.replace('/react-aigc/', '')}
+      path={nav.path.replace('/react-chat/', '')}
       element={
         <Suspense fallback={<Loading text="拼命加载中..." loading />}>
           <LazyCom />
@@ -89,20 +89,20 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/" element={<Navigate replace to="/react-aigc/getting-started" />} />
-        <Route exact path="/react-aigc" element={<Navigate replace to="/react-aigc/getting-started" />} />
+        <Route exact path="/" element={<Navigate replace to="/react-chat/getting-started" />} />
+        <Route exact path="/react-chat" element={<Navigate replace to="/react-chat/getting-started" />} />
         <Route
-          path="/react-aigc/demos/*"
+          path="/react-chat/demos/*"
           element={
             <Suspense fallback={<Loading text="拼命加载中..." loading />}>
               <LazyDemo />
             </Suspense>
           }
         />
-        <Route path="/react-aigc/*" element={<Components />}>
+        <Route path="/react-chat/*" element={<Components />}>
           {renderRouter}
         </Route>
-        <Route path="*" element={<Navigate replace to="/react-aigc/getting-started" />} />
+        <Route path="*" element={<Navigate replace to="/react-chat/getting-started" />} />
       </Routes>
     </BrowserRouter>
   );

@@ -63,7 +63,7 @@ spline: navigation
 
 | 名称              | 类型            | 默认值 | 说明                                                                                                                                                                                                                                                                         | 必传 |
 | ----------------- | --------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
-| defaultMessages   | Array           | -      | 初始消息数据列表。TS 类型：`ChatMessagesData[]`。[详细类型定义](/react-aigc/components/chat-message?tab=api)                                                                                                                                                                 | N    |
+| defaultMessages   | Array           | -      | 初始消息数据列表。TS 类型：`ChatMessagesData[]`。[详细类型定义](/react-chat/components/chat-message?tab=api)                                                                                                                                                                 | N    |
 | messageProps      | Object/Function | -      | 消息项配置。按角色聚合了消息项的配置透传`ChatMessage`组件，可以是静态配置对象或动态配置函数。TS 类型：`TdChatMessageConfig \| ((msg: ChatMessagesData) => Omit<TdChatMessageProps, 'message'>)` ，[详细类型定义](https://github.com/TDesignOteam/tdesign-web-components/blob/develop/src/chatbot/type.ts) | N    |
 | listProps         | Object          | -      | 消息列表配置，见下方详细说明。TS 类型：`TdChatListProps`。                                                                                                                                                                                                                                   | N    |
 | senderProps       | Object          | -      | 发送框配置，透传`ChatSender`组件。TS 类型：`TdChatSenderProps`。[类型定义](./chat-sender?tab=api)                                                                                                                                                                            | N    |
@@ -167,7 +167,7 @@ spline: navigation
 每条消息必须包含以下字段：
 - `id`：消息唯一标识
 - `role`：消息角色（user/assistant/system）
-- `content`：消息内容数组，详见 [ChatMessage 组件文档](/react-aigc/components/chat-message?tab=api)
+- `content`：消息内容数组，详见 [ChatMessage 组件文档](/react-chat/components/chat-message?tab=api)
 - `datetime`：消息时间（可选）
 - `status`：消息状态（可选），AI 消息建议设置为 'complete'
 

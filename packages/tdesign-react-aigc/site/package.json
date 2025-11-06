@@ -16,7 +16,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.2.2",
     "tdesign-icons-react": "^0.4.5",
-    "tdesign-react":"^1.12.1",
+    "tdesign-react": "^1.12.1",
     "tdesign-site-components": "^0.15.3",
     "tdesign-theme-generator": "^1.1.3"
   },

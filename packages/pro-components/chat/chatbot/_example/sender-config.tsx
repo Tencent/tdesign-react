@@ -28,7 +28,7 @@ import type { UploadFile } from 'tdesign-react';
  * - 学会处理输入事件
  * 
  * 相关文档：
- * - ChatSender 组件详细文档：https://tdesign.tencent.com/react-aigc/components/chat-sender
+ * - ChatSender 组件详细文档：https://tdesign.tencent.com/react-chat/components/chat-sender
  */
 export default function SenderConfig() {
   const chatRef = useRef<HTMLElement & TdChatbotApi>(null);

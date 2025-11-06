@@ -31,13 +31,13 @@ Chatbot 作为高度封装且功能完备的一体化智能对话组件，专为
 
 ### 角色消息配置
 
-使用 `messageProps` 配置不同角色的消息展示效果，这些配置会透传给内部的 [ChatMessage](/react-aigc/components/chat-message) 组件。包括**消息样式**（气泡样式、位置、头像、昵称）、**操作回调**（复制、点赞、点踩、重试）、**内容展示**行为（思考过程、搜索结果、Markdown 等）。支持静态配置对象和动态配置函数两种方式。篇幅有限更多配置项和示例请参考 [ChatMessage 文档](/react-aigc/components/chat-message)。
+使用 `messageProps` 配置不同角色的消息展示效果，这些配置会透传给内部的 [ChatMessage](/react-chat/components/chat-message) 组件。包括**消息样式**（气泡样式、位置、头像、昵称）、**操作回调**（复制、点赞、点踩、重试）、**内容展示**行为（思考过程、搜索结果、Markdown 等）。支持静态配置对象和动态配置函数两种方式。篇幅有限更多配置项和示例请参考 [ChatMessage 文档](/react-chat/components/chat-message)。
 
 {{ role-message-config }}
 
 ### 输入配置
 
-使用 `senderProps` 配置输入框的各种行为，这些配置会透传给内部的 [ChatSender](/react-aigc/components/chat-sender) 组件。包括基础配置（占位符、自动高度）、附件上传配置（文件类型、附件展示）、输入事件回调等。更多配置项和高级用法请参考 [ChatSender 文档](/react-aigc/components/chat-sender)。
+使用 `senderProps` 配置输入框的各种行为，这些配置会透传给内部的 [ChatSender](/react-chat/components/chat-sender) 组件。包括基础配置（占位符、自动高度）、附件上传配置（文件类型、附件展示）、输入事件回调等。更多配置项和高级用法请参考 [ChatSender 文档](/react-chat/components/chat-sender)。
 
 {{ sender-config }}
 
@@ -51,13 +51,13 @@ Chatbot 作为高度封装且功能完备的一体化智能对话组件，专为
 
 {{ service-config }}
 
-**AG-UI 协议**：当后端服务符合 [AG-UI 协议](/react-aigc/agui) 时，只需设置 `protocol: 'agui'`，无需编写 `onMessage` 进行数据转换，大大简化了接入流程。这里只给出了一个简单的文本对话示例，更多复杂的AG-UI场景可以参考 [ChatEngine集成方式](/react-aigc/components/chat-engine)。
+**AG-UI 协议**：当后端服务符合 [AG-UI 协议](/react-chat/agui) 时，只需设置 `protocol: 'agui'`，无需编写 `onMessage` 进行数据转换，大大简化了接入流程。这里只给出了一个简单的文本对话示例，更多复杂的AG-UI场景可以参考 [ChatEngine集成方式](/react-chat/components/chat-engine)。
 
 {{ agui }}
 
 ### 实例方法
 
-通过 ref 获取组件实例，调用[各种方法](/react-aigc/components/chatbot?tab=api#chatbot-实例方法和属性)控制组件行为（消息设置、发送管理、列表滚动等）。
+通过 ref 获取组件实例，调用[各种方法](/react-chat/components/chatbot?tab=api#chatbot-实例方法和属性)控制组件行为（消息设置、发送管理、列表滚动等）。
 
 {{ instance-methods }}
 
@@ -71,9 +71,9 @@ Chatbot 作为高度封装且功能完备的一体化智能对话组件，专为
   - 3. 监听变化：通过 `onMessageChange` 监听消息变化并同步到本地状态
   - 4. 植入插槽：循环 `messages` 数组，使用 `slot = ${msg.id}-${content.type}-${index}` 属性来渲染自定义组件
 
-- **自定义操作栏**：如果组件库内置的 [`ChatActionbar`](/react-aigc/components/chat-actionbar) 不能满足需求，可以通过 `slot = ${msg.id}-actionbar` 属性来渲染自定义组件。
+- **自定义操作栏**：如果组件库内置的 [`ChatActionbar`](/react-chat/components/chat-actionbar) 不能满足需求，可以通过 `slot = ${msg.id}-actionbar` 属性来渲染自定义组件。
 
-- **自定义输入区域**：如果需要自定义ChatSender输入区，可以通过 `slot = sender-${slotName}` 属性，可用插槽slotName详见[ChatSender插槽](/react-aigc/components/chat-sender?tab=api#插槽) 
+- **自定义输入区域**：如果需要自定义ChatSender输入区，可以通过 `slot = sender-${slotName}` 属性，可用插槽slotName详见[ChatSender插槽](/react-chat/components/chat-sender?tab=api#插槽) 
 
 {{ custom-content }}
 
@@ -143,10 +143,10 @@ Chatbot 作为高度封装且功能完备的一体化智能对话组件，专为
 
 | 名称              | 类型            | 默认值 | 说明                                                                                                                                                                                                                                                                         | 必传 |
 | ----------------- | --------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
-| defaultMessages   | Array           | -      | 初始消息数据列表。TS 类型：`ChatMessagesData[]`。[详细类型定义](/react-aigc/components/chat-message?tab=api)                                                                                                                                                                 | N    |
-| messageProps      | Object/Function | -      | 消息项配置，透传给内部 [ChatMessage](/react-aigc/components/chat-message) 组件。按角色聚合了消息项的配置，可以是静态配置对象或动态配置函数。TS 类型：`TdChatMessageConfig \| ((msg: ChatMessagesData) => Omit<TdChatMessageProps, 'message'>)` ，[详细类型定义](https://github.com/TDesignOteam/tdesign-web-components/blob/develop/src/chatbot/type.ts) | N    |
+| defaultMessages   | Array           | -      | 初始消息数据列表。TS 类型：`ChatMessagesData[]`。[详细类型定义](/react-chat/components/chat-message?tab=api)                                                                                                                                                                 | N    |
+| messageProps      | Object/Function | -      | 消息项配置，透传给内部 [ChatMessage](/react-chat/components/chat-message) 组件。按角色聚合了消息项的配置，可以是静态配置对象或动态配置函数。TS 类型：`TdChatMessageConfig \| ((msg: ChatMessagesData) => Omit<TdChatMessageProps, 'message'>)` ，[详细类型定义](https://github.com/TDesignOteam/tdesign-web-components/blob/develop/src/chatbot/type.ts) | N    |
 | listProps         | Object          | -      | 消息列表配置，见下方详细说明。TS 类型：`TdChatListProps`。                                                                                                                                                                                                                                   | N    |
-| senderProps       | Object          | -      | 发送框配置，透传给内部 [ChatSender](/react-aigc/components/chat-sender) 组件。TS 类型：`TdChatSenderProps`。[详细 API 文档](/react-aigc/components/chat-sender?tab=api)                                                                                                                                                                            | N    |
+| senderProps       | Object          | -      | 发送框配置，透传给内部 [ChatSender](/react-chat/components/chat-sender) 组件。TS 类型：`TdChatSenderProps`。[详细 API 文档](/react-chat/components/chat-sender?tab=api)                                                                                                                                                                            | N    |
 | chatServiceConfig | Object          | -      | 聊天服务配置，包含网络请求和回调配置，见下方详细说明，TS 类型：`ChatServiceConfig`                                                                                                                                                                                                                   | N    |
 | onMessageChange   | Function        | -      | 消息列表数据变化回调，TS 类型：`(e: CustomEvent<ChatMessagesData[]>) => void`                                                                                                                                                                                                | N    |
 | onChatReady       | Function        | -      | 内部对话引擎初始化完成回调，TS 类型：`(e: CustomEvent) => void`                                                                                                                                                                                                              | N    |
@@ -248,7 +248,7 @@ chatbotRef.current.setMessages(newMessages, 'append');
 每条消息必须包含以下字段：
 - `id`：消息唯一标识
 - `role`：消息角色（user/assistant/system）
-- `content`：消息内容数组，详见 [ChatMessage 组件文档](/react-aigc/components/chat-message?tab=api)
+- `content`：消息内容数组，详见 [ChatMessage 组件文档](/react-chat/components/chat-message?tab=api)
 - `datetime`：消息时间（可选）
 - `status`：消息状态（可选），AI 消息建议设置为 'complete'
 
