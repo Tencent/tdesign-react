@@ -52,6 +52,8 @@ export interface FormItemInstance {
   resetValidate?: () => void;
 }
 
+const READONLY_SUPPORTED_COMP = ['Input', 'Textarea', 'InputNumber', 'TagInput', 'RadioGroup', 'Select', 'ColorPicker'];
+
 const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref) => {
   const [locale, t] = useLocaleReceiver('form');
   const { classPrefix, form: globalFormConfig } = useConfig();
@@ -524,9 +526,13 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
                 ctrlKey = ctrlKeyMap.get(child.type) || 'value';
               }
               const childProps = child.props as any;
-              return React.cloneElement(child, {
+
+              // @ts-ignore
+              const readOnlyKey = READONLY_SUPPORTED_COMP.includes(child?.type?.displayName) ? 'readonly' : 'readOnly';
+
+              const cloneProps = {
                 disabled: disabledFromContext,
-                readOnly: readonlyFromContext,
+                [readOnlyKey]: readonlyFromContext,
                 ...childProps,
                 [ctrlKey]: formValue,
                 onChange: (value: any, ...args: any[]) => {
@@ -538,7 +544,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
                   handleItemBlur();
                   childProps?.onBlur?.call?.(null, value, ...args);
                 },
-              });
+              };
+              return React.cloneElement(child, cloneProps);
             }
             return child;
           })}
