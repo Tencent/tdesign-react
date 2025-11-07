@@ -136,7 +136,7 @@ TDesign Chat 为 AG-UI 协议提供了两个专用 Hook：
 - **`useAgentToolcall`**：用于注册和管理工具调用组件，当 Agent 发送`TOOL_CALL_*`事件时自动渲染对应的工具组件
 - **`useAgentState`**：用于订阅 AG-UI 协议的状态事件，支持`STATE_SNAPSHOT`和`STATE_DELTA`事件的自动处理和状态同步
 
-详细的使用方法请参考[ChatBot 组件文档](/react-chat/components/chatbot#ag-ui-协议适配)。
+详细的使用方法请参考[ChatEngine 工具调用](/react-chat/components/chat-engine#工具调用)。
 
 ## 总结
 
@@ -145,5 +145,4 @@ AG-UI 协议为 AI 应用开发提供了完整的标准化解决方案，通过�
 ## 相关资源
 
 - [AG-UI 官方文档](https://docs.ag-ui.com/)
-- [TDesign Chat 组件文档](/react-chat/components/chatbot)
-- [快速开始指南](/react-chat/docs/getting-started)
+- [TDesign ChatEngine 组件文档](/react-chat/components/chat-engine)

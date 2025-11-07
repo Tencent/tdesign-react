@@ -37,7 +37,7 @@ spline: aigc
 
 
 ### 消息底部操作栏
-消息底部操作栏，通过`植入插槽actionbar`的方式实现，可以直接使用`ChatActionBar`组件，也可以完全自定义实现
+消息底部操作栏，通过`植入插槽actionbar`的方式实现，可以直接使用[`ChatActionBar`组件](/react-chat/components/chat-actionbar)，也可以完全自定义实现
 {{ action }}
 
 ## API
