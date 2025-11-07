@@ -193,11 +193,6 @@ export default function ImageGenAgentChat() {
     endpoint: `https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/image-gen`,
     protocol: 'agui' as const,
     stream: true,
-    // onComplete: (isAborted: boolean) => {
-    //   if (isAborted) {
-    //     return { status: 'stop' };
-    //   }
-    // },
     onError: (err: Error | Response) => {
       console.error('图片生成服务错误:', err);
     },

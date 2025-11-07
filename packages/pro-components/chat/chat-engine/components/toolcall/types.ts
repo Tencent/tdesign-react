@@ -5,7 +5,7 @@ import React from 'react';
  */
 export interface ToolcallComponentProps<TArgs extends object = any, TResult = any, TResponse = any> {
   /** 组件的当前渲染状态 */
-  status: 'idle' | 'inProgress' | 'executing' | 'complete' | 'error';
+  status: 'idle' | 'executing' | 'complete' | 'error';
   /** Agent 调用时传入的初始参数 */
   args: TArgs;
   /** 当 status 为 'complete' 时，包含 Toolcall 的最终执行结果 */
@@ -23,8 +23,8 @@ export interface ToolcallComponentProps<TArgs extends object = any, TResult = an
 // 场景一：非交互式 Toolcall 的配置 (有 handler)
 interface NonInteractiveToolcallConfig<TArgs extends object, TResult> {
   name: string;
-  description: string;
-  parameters: any[];
+  description?: string;
+  parameters?: Array<{ name: string; type: string; required?: boolean }>;
   /** 业务逻辑执行器，支持可选的后端结果作为第二个参数 */
   handler: (args: TArgs, backendResult?: any) => Promise<TResult>;
   /** 状态显示组件 */
@@ -37,7 +37,7 @@ interface NonInteractiveToolcallConfig<TArgs extends object, TResult> {
 interface InteractiveToolcallConfig<TArgs extends object, TResult, TResponse> {
   name: string;
   description: string;
-  parameters?: any[];
+  parameters?: Array<{ name: string; type: string; required?: boolean }>;
   /** 交互式UI组件 */
   component: React.FC<ToolcallComponentProps<TArgs, TResult, TResponse>>;
   /** handler 属性不存在，以此作为区分标志 */

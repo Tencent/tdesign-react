@@ -254,22 +254,23 @@ ChatEngine 实例方法与 Chatbot 组件实例方法完全一致，详见 [Chat
 | 属性名       | 类型                                        | 说明                                       | 必传 |
 | ------------ | ------------------------------------------- | ------------------------------------------ | ---- |
 | name         | string                                      | 工具调用名称，需要与后端定义的工具名称一致 | Y    |
-| description  | string                                      | 工具调用描述                               | Y    |
-| parameters   | ParameterDefinition[]                       | 参数定义数组                               | Y    |
+| description  | string                                      | 工具调用描述                               | N   |
+| parameters   | Array<{ name: string; type: string; required?: boolean }> | 参数定义数组                               | N    |
 | component    | React.ComponentType<ToolcallComponentProps> | 自定义渲染组件                             | Y    |
-| handler      | (args, result?) => Promise<any>             | 非交互式工具的处理函数（可选）             | N    |
-| subscribeKey | (props) => string \\| undefined              | 状态订阅 key 提取函数（可选）              | N    |
+| handler      | (args: TArgs, backendResult?: any) => Promise<TResult>           | 非交互式工具的处理函数（可选）             | N    |
+| subscribeKey |  (props: ToolcallComponentProps<TArgs, TResult>) => string | undefined             | 状态订阅 key 提取函数（可选）, 返回值用于订阅对应的状态数据，不配置或不返回则订阅所有的状态变化              | N    |
 
 #### ToolcallComponentProps 组件属性
 
 | 属性名     | 类型                                                 | 说明                                |
 | ---------- | ---------------------------------------------------- | ----------------------------------- |
-| status     | 'idle' \\| 'inProgress' \\| 'executing' \\| 'complete' \\| 'error' | 工具调用状态                        |
+| status     | 'idle' \\| 'executing' \\| 'complete' \\| 'error' | 工具调用状态                        |
 | args       | TArgs                                                | 解析后的工具调用参数                |
 | result     | TResult                                              | 工具调用结果                        |
 | error      | Error                                                | 错误信息（当 status 为 'error' 时） |
 | respond    | (response: TResponse) => void                        | 响应回调函数（用于交互式工具）      |
-| agentState | Record<string, any>                                  | 订阅的状态数据（配置 subscribeKey 后自动注入） |
+| agentState | Record<string, any>                                  | 订阅的状态数据，返回依赖subscribeKey这里的配置 |
+
 
 ### ToolCallRenderer
 
