@@ -101,7 +101,6 @@ ChatEngine 围绕工具调用提供了几个核心 Hook，它们各司其职，�
 
 - **`useAgentToolcall` Hook**：注册工具配置（元数据、参数、UI 组件），相比传统的自定义渲染方式，提供了高度内聚的配置、统一的 API 接口、完整的类型安全和更好的可移植性。详见下方[常见问题](/react-aigc/components/chat-engine?tab=demo#常见问题)
 - **`ToolCallRenderer` 组件**：工具调用的统一渲染器，负责根据工具名称查找对应的配置，解析参数，管理状态并渲染注册的 UI 组件。使用时只需传入 `toolCall` 对象即可自动完成渲染
-- **`useAgentState` Hook**：订阅 AG-UI 协议的 `STATE_SNAPSHOT` 和 `STATE_DELTA` 事件，实时获取任务执行状态。
 
 #### 使用流程
 
@@ -174,6 +173,7 @@ const GlobalProgressBar: React.FC = () => {
 当多个外部组件需要访问同一份状态时，使用 Provider 模式。通过使用 `AgentStateProvider` + `useAgentStateContext` 来共享状态
 
 完整示例请参考下方 [综合示例](#综合示例) 演示。
+
 
 ### 综合示例
 

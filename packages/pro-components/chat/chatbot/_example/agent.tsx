@@ -199,7 +199,7 @@ export default function ChatBotReact() {
   }, []);
 
   return (
-    <div style={{ height: '600px' }}>
+    <div style={{ height: '400px' }}>
       <ChatBot
         ref={chatRef}
         style={{ height: '100%' }}

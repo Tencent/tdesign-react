@@ -100,7 +100,7 @@ export default function CustomMerge() {
 
   // 聊天服务配置
   const chatServiceConfig: ChatServiceConfig = {
-    endpoint: 'http://localhost:3000/sse/progress',
+    endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/progress',
     stream: true,
 
     // 3. 在 onMessage 中返回不同类型的数据

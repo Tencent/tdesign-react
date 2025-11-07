@@ -25,7 +25,7 @@ export default function AguiProtocol() {
   };
 
   return (
-    <div>
+    <div style={{ maxHeight: '400px' }}>
       <ChatBot chatServiceConfig={chatServiceConfig} />
     </div>
   );

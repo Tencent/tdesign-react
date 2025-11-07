@@ -273,7 +273,7 @@ export default function chatSample() {
   }, [ratio, style]);
 
   return (
-    <div style={{ height: '600px' }}>
+    <div style={{ height: '400px' }}>
       <ChatBot
         ref={chatRef}
         defaultMessages={mockData}

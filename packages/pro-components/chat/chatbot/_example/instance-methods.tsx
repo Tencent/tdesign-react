@@ -167,7 +167,7 @@ export default function InstanceMethods() {
       </div>
 
       {/* 聊天组件 */}
-      <div style={{ height: '500px' }}>
+      <div style={{ height: '400px' }}>
         <ChatBot ref={chatRef} chatServiceConfig={chatServiceConfig} onChatReady={handleChatReady} />
       </div>
     </div>

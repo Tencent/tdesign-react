@@ -12,7 +12,7 @@ export const createChatServiceConfig = ({
   planningState,
 }: ChatServiceConfigProps) => ({
   // 对话服务地址 - 使用现有的服务
-  endpoint: `http://localhost:3000/sse/agui`,
+  endpoint: `https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/agui`,
   protocol: 'agui',
   stream: true,
   // 流式对话结束

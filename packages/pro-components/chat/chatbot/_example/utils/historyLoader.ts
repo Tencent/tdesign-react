@@ -4,7 +4,7 @@ import { AGUIAdapter } from '@tdesign-react/chat';
 // 加载历史消息的函数
 export const loadHistoryMessages = async (): Promise<ChatMessagesData[]> => {
   try {
-    const response = await fetch('http://localhost:3000/api/conversation/history');
+    const response = await fetch('https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/api/conversation/history');
     if (response.ok) {
       const result = await response.json();
       const historyMessages: AGUIHistoryMessage[] = result.data;

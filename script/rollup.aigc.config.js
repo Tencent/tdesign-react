@@ -10,7 +10,7 @@ import { DEFAULT_EXTENSIONS } from '@babel/core';
 import multiInput from 'rollup-plugin-multi-input';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import analyzer from 'rollup-plugin-analyzer';
-import { visualizer } from 'rollup-plugin-visualizer';
+// import { visualizer } from 'rollup-plugin-visualizer';
 import { resolve } from 'path';
 
 import pkg from '../packages/tdesign-react-aigc/package.json';
@@ -42,37 +42,6 @@ const getAnalyzePlugins = (buildType = 'aigc') => {
       summaryOnly: false,
       hideDeps: false,
       showExports: true,
-    })
-  );
-  
-  // 可视化分析器 - 生成 HTML 报告
-  plugins.push(
-    visualizer({
-      filename: `packages/tdesign-react-aigc/bundle-analysis/stats-${buildType}.html`,
-      title: `TDesign React AIGC Bundle Analysis - ${buildType.toUpperCase()}`,
-      template: 'treemap', // treemap, sunburst, network
-      open: false,
-      gzipSize: true,
-      brotliSize: true,
-      projectRoot: resolve(__dirname, '..'),
-    }),
-    visualizer({
-      filename: `packages/tdesign-react-aigc/bundle-analysis/stats-${buildType}-sunburst.html`,
-      title: `TDesign React AIGC Bundle Analysis - ${buildType.toUpperCase()} (Sunburst)`,
-      template: 'sunburst',
-      open: false,
-      gzipSize: true,
-      brotliSize: true,
-      projectRoot: resolve(__dirname, '..'),
-    }),
-    visualizer({
-      filename: `packages/tdesign-react-aigc/bundle-analysis/stats-${buildType}-network.html`,
-      title: `TDesign React AIGC Bundle Analysis - ${buildType.toUpperCase()} (Network)`,
-      template: 'network',
-      open: false,
-      gzipSize: true,
-      brotliSize: true,
-      projectRoot: resolve(__dirname, '..'),
     })
   );
   
