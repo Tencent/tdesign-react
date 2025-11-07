@@ -45,7 +45,7 @@ TDesign Chat 提供了两种主要的使用方式，适用于不同的业务场�
 
 ### 用法一：一体化组件集成
 
-直接使用 `ChatBot` 组件，内置完整的 UI 结构和交互逻辑，适合快速集成标准聊天界面的场景，参考[ChatBot 用法](/react-aigc/components/chatbot)。
+直接使用 `ChatBot` 组件，内置完整的 UI 结构和交互逻辑，适合快速集成标准聊天界面的场景，参考[ChatBot 用法](/react-chat/components/chatbot)。
 
 #### 最简示例
 
@@ -80,7 +80,7 @@ export default function () {
 
 ### 用法二：组合式开发
 
-通过使用 `useChat` Hook来获取chatEngine对话引擎实例和实时消息数据，自由组合独立的 UI 组件（`ChatList`、`ChatMessage`、`ChatSender`），或者可以完全自己实现 UI 部分，适合需要深度定制 UI 结构和交互逻辑的场景，参考[ChatEngine SDK 用法](/react-aigc/components/chat-engine)。
+通过使用 `useChat` Hook 来获取 chatEngine 对话引擎实例和实时消息数据，自由组合独立的 UI 组件（`ChatList`、`ChatMessage`、`ChatSender`），或者可以完全自己实现 UI 部分，适合需要深度定制 UI 结构和交互逻辑的场景，参考[ChatEngine SDK 用法](/react-chat/components/chat-engine)。
 
 ```js
 import React, { useState } from 'react';
@@ -121,7 +121,6 @@ export default function CompositeChat() {
     </Space>
   );
 }
-
 ```
 
 - 组合式开发的优势
@@ -131,14 +130,13 @@ export default function CompositeChat() {
   - **渐进增强**：可以逐步添加功能
   - **复用性强**：组件可在不同场景复用
 
-
 ## 配置服务
 
-TDesign Chat 支持两种后端AI Agent服务返回数据协议模式：**自定义协议**和**AG-UI标准协议**。您可以根据后端服务的实际情况选择合适的协议模式。
+TDesign Chat 支持两种后端 AI Agent 服务返回数据协议模式：**自定义协议**和**AG-UI 标准协议**。您可以根据后端服务的实际情况选择合适的协议模式。
 
 ### 自定义协议模式
 
-适用于已有后端服务或需要自定义数据结构的场景，您的后端服务只需要返回标准SSE格式即可。
+适用于已有后端服务或需要自定义数据结构的场景，您的后端服务只需要返回标准 SSE 格式即可。
 
 ```js
 // 自定义后端接口（/api/chat）返回案例
@@ -175,14 +173,11 @@ const chatServiceConfig = {
 };
 ```
 
-
-
-
 ### AG-UI 标准协议
 
-**AG-UI协议**是专为AI代理与前端应用交互设计的标准化轻量级协议，内置支持工具调用、状态管理、多步骤任务等高级功能。AG-UI协议支持16种标准化事件类型，组件会自动解析并渲染，包括对话生命周期`RUN_*`、文本消息`TEXT_MESSAGE_*`、思考过程`THINKING_*`、工具调用`TOOL_CALL_*`、状态更新`STATE_*`等。
+**AG-UI 协议**是专为 AI 代理与前端应用交互设计的标准化轻量级协议，内置支持工具调用、状态管理、多步骤任务等高级功能。AG-UI 协议支持 16 种标准化事件类型，组件会自动解析并渲染，包括对话生命周期`RUN_*`、文本消息`TEXT_MESSAGE_*`、思考过程`THINKING_*`、工具调用`TOOL_CALL_*`、状态更新`STATE_*`等。
 
-TDesign Chat内置支持**AG-UI协议数据双向转换**，符合该协议的后端Agent服务，可以无缝接入使用，只需在配置中开启即可。详细介绍见[与AG-UI协议集成](/react-aigc/agui) 
+TDesign Chat 内置支持**AG-UI 协议数据双向转换**，符合该协议的后端 Agent 服务，可以无缝接入使用，只需在配置中开启即可。详细介绍见[与 AG-UI 协议集成](/react-chat/agui)
 
 ```js
 // 符合AG-UI协议的后端接口（/api/agui/chat）返回案例
@@ -201,17 +196,16 @@ const chatServiceConfig = {
 };
 ```
 
-
 ### 协议选择建议
 
-| 场景 | 推荐协议 | 理由 |
-|------|---------|------|
-| 快速集成到现有服务 | 自定义协议 | 灵活适配现有数据结构 |
-| 构建复杂AI应用 | AG-UI协议 | 业界标准、功能完整、扩展性强 |
-| 多工具调用场景 | AG-UI协议 | 内置工具注册、调用及状态管理Hook |
-| 简单问答场景 | 自定义协议 | 配置简单、开发快速 |
+| 场景               | 推荐协议   | 理由                              |
+| ------------------ | ---------- | --------------------------------- |
+| 快速集成到现有服务 | 自定义协议 | 灵活适配现有数据结构              |
+| 构建复杂 AI 应用   | AG-UI 协议 | 业界标准、功能完整、扩展性强      |
+| 多工具调用场景     | AG-UI 协议 | 内置工具注册、调用及状态管理 Hook |
+| 简单问答场景       | 自定义协议 | 配置简单、开发快速                |
 
-更多详细配置和示例请参考[组件文档](/react-aigc/components/chatbot)。
+更多详细配置和示例请参考[组件文档](/react-chat/components/chatbot)。
 
 ## 下一步
 

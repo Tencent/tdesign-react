@@ -28,7 +28,7 @@ import { MessagePlugin } from 'tdesign-react';
  * - 学会使用 chatContentProps 控制内容展示行为
  * 
  * 相关文档：
- * - ChatMessage 组件详细文档：https://tdesign.tencent.com/react-aigc/components/chat-message
+ * - ChatMessage 组件详细文档：https://tdesign.tencent.com/react-chat/components/chat-message
  */
 export default function RoleMessageConfig() {
   // 初始化消息：展示各种内置支持的渲染类型
@@ -77,7 +77,7 @@ export default function RoleMessageConfig() {
               },
               {
                 title: 'TDesign AIGC',
-                url: 'https://tdesign.tencent.com/react-aigc',
+                url: 'https://tdesign.tencent.com/react-chat',
                 content: 'TDesign 的 AI 对话组件库',
               },
             ],

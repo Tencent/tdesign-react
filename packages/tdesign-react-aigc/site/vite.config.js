@@ -5,8 +5,8 @@ import tdocPlugin from './plugin-tdoc';
 
 const publicPathMap = {
   preview: '/',
-  intranet: '/react-aigc/',
-  production: 'https://static.tdesign.tencent.com/react-aigc/',
+  intranet: '/react-chat/',
+  production: 'https://static.tdesign.tencent.com/react-chat/',
 };
 
 const disableTreeShakingPlugin = (paths) => ({
