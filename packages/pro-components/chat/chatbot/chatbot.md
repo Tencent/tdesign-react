@@ -12,8 +12,12 @@ Chatbot 作为高度封装且功能完备的一体化智能对话组件，专为
 本文档按照**从简单到复杂**的顺序组织，建议按以下路径循序渐进阅读：
 
 1. **快速开始** - 5分钟上手，了解最基本的配置
-2. **基础用法** - 了解常用功能特性，掌握核心概念，查看“综合示例”
+2. **基础用法** - 了解常用功能特性，结合各项示例掌握数据处理、消息配置、自定义渲染等主要功能
 3. **场景示例** - 参考实战案例，快速应用到项目中
+
+
+> 💡 **示例说明**：所有示例都基于 Mock SSE 服务，您可以打开浏览器开发者工具（F12），切换到 Network（网络）标签，查看接口的请求和响应数据，了解数据格式。
+
 
 ## 快速开始
 
@@ -100,8 +104,6 @@ Chatbot 作为高度封装且功能完备的一体化智能对话组件，专为
 ## 场景示例
 
 在了解了以上各个基础属性的用法后，这里给出一个完整的示例，展示如何在生产实践中综合使用多个功能：初始消息、消息配置、数据转换、请求配置、实例方法和自定义插槽。
-
-> 💡 **示例说明**：所有示例都基于 Mock SSE 服务，您可以打开浏览器开发者工具（F12），切换到 Network（网络）标签，查看接口的请求和响应数据，了解数据格式。
 
 ### 基础问答
 
@@ -190,198 +192,3 @@ Chatbot 作为高度封装且功能完备的一体化智能对话组件，专为
 | chatMessageValue      | ChatMessagesData[]                                                                | 获取当前消息列表的只读副本                   |
 | chatStatus            | ChatStatus                                                                        | 获取当前聊天状态（空闲/进行中/错误等）       |
 | senderLoading         | boolean                                                                           | 当前输入框按钮是否在'输出中'                 |
-
-## 常见问题
-
-### 如何回填消息（初始化消息/加载历史消息）？
-
-组件支持两种方式回填消息：
-
-**1. 初始化时回填**
-
-通过 `defaultMessages` 属性传入初始消息列表：
-
-```tsx
-<Chatbot
-  defaultMessages={[
-    {
-      id: '1',
-      role: 'user',
-      content: [{ type: 'text', data: '你好' }],
-      datetime: '2024-01-01 10:00:00'
-    },
-    {
-      id: '2',
-      role: 'assistant',
-      content: [{ type: 'text', data: '你好！有什么可以帮助你的吗？' }],
-      datetime: '2024-01-01 10:00:01',
-      status: 'complete'
-    }
-  ]}
-/>
-```
-
-**2. 动态加载历史消息**
-
-通过 ref 调用 `setMessages` 方法，支持三种模式：
-
-```tsx
-const chatbotRef = useRef(null);
-
-// 替换所有消息
-chatbotRef.current.setMessages(historyMessages, 'replace');
-
-// 在顶部追加历史消息（适用于上拉加载更多）
-chatbotRef.current.setMessages(olderMessages, 'prepend');
-
-// 在底部追加消息
-chatbotRef.current.setMessages(newMessages, 'append');
-```
-
-**消息数据结构说明**：
-
-每条消息必须包含以下字段：
-- `id`：消息唯一标识
-- `role`：消息角色（user/assistant/system）
-- `content`：消息内容数组，详见 [ChatMessage 组件文档](/react-chat/components/chat-message?tab=api)
-- `datetime`：消息时间（可选）
-- `status`：消息状态（可选），AI 消息建议设置为 'complete'
-
-### 如何处理后端返回的消息数据转换？
-
-后端返回的数据格式通常与组件所需的消息结构不一致，需要在 `onMessage` 回调中进行转换。
-
-**核心概念**：
-- `onMessage` 的返回值决定了如何更新消息内容
-- 返回 `null` 或 `undefined` 表示忽略本次数据块，不更新消息
-- 返回 `AIMessageContent` 表示要添加/更新单个内容块
-- 返回 `AIMessageContent[]` 表示批量更新多个内容块
-
-**场景 1：简单文本流式响应**
-
-```tsx
-chatServiceConfig={{
-  onMessage: (chunk) => {
-    // 后端返回：{ event: 'message', data: { text: '你好' } }
-    if (chunk.event === 'message') {
-      return {
-        type: 'text',
-        data: chunk.data.text,
-        strategy: 'merge'  // 合并到同一个文本块
-      };
-    }
-    return null;  // 忽略其他事件
-  }
-}}
-```
-
-**场景 2：多种消息类型混合**
-
-```tsx
-chatServiceConfig={{
-  onMessage: (chunk) => {
-    const { type, ...rest } = chunk.data;
-    
-    // 处理思考过程
-    if (type === 'think') {
-      return {
-        type: 'thinking',
-        data: { text: rest.content, title: '思考中' }
-      };
-    }
-    
-    // 处理搜索结果
-    if (type === 'search') {
-      return {
-        type: 'search',
-        data: {
-          title: rest.title,
-          references: rest.content
-        }
-      };
-    }
-    
-    // 处理文本内容
-    if (type === 'text') {
-      return {
-        type: 'markdown',
-        data: rest.content,
-        strategy: 'merge'
-      };
-    }
-    
-    return null;  // 忽略未知事件
-  }
-}}
-```
-
-**场景 3：批量更新多个内容块**
-
-```tsx
-chatServiceConfig={{
-  onMessage: (chunk, message) => {
-    // message 是当前正在构建的消息对象
-    const { event, data } = chunk;
-    
-    // 返回数组表示批量更新多个内容块
-    if (event === 'batch_update') {
-      return [
-        {
-          type: 'thinking',
-          data: { text: data.thinking, title: '分析中' },
-          id: 'thinking-1'  // 通过 id 或 type 匹配已存在的内容块
-        },
-        {
-          type: 'markdown',
-          data: data.answer,
-          id: 'answer-1'
-        }
-      ];
-    }
-    
-    // 也可以根据当前消息内容动态决定
-    if (event === 'complete') {
-      const currentContent = message?.content || [];
-      // 移除思考过程，只保留最终答案
-      return currentContent.filter(c => c.type !== 'thinking');
-    }
-    
-    return null;
-  }
-}}
-```
-
-**返回值处理逻辑**：
-
-| 返回值类型 | 处理逻辑 | 适用场景 |
-|-----------|---------|---------|
-| `null` / `undefined` | 忽略本次数据块，不更新消息 | 过滤无关事件、跳过中间状态 |
-| `AIMessageContent` | 根据 `strategy` 字段决定：<br>• `merge`（默认）：查找相同 type 的最后一个内容块并合并<br>• `append`：追加为新的独立内容块 | 大多数流式响应场景 |
-| `AIMessageContent[]` | 遍历数组，根据 `id` 或 `type` 匹配已存在的内容块：<br>• 匹配到：更新该内容块<br>• 未匹配：追加到末尾 | 批量更新多个内容块、动态调整内容结构 |
-
-**strategy 字段说明**：
-
-- `merge`（默认）：查找相同 type 的**最后一个**内容块进行合并，适用于流式文本累积
-- `append`：始终追加为新的独立内容块，适用于多段落、多图片等场景
-
-**内容块匹配规则**（返回数组时）：
-
-当返回 `AIMessageContent[]` 时，组件会遍历数组中的每个内容块：
-1. 优先通过 `id` 字段匹配已存在的内容块
-2. 如果没有 `id` 或未匹配到，则通过 `type` 字段匹配
-3. 匹配到则更新该内容块，未匹配到则追加到末尾
-
-**调试技巧**：
-
-```tsx
-onMessage: (chunk, message) => {
-  console.log('收到数据块:', chunk);
-  console.log('当前消息:', message);
-  console.log('当前内容块:', message?.content);
-  
-  const result = /* 你的转换逻辑 */;
-  console.log('返回结果:', result);
-  
-  return result;
-}
-```
