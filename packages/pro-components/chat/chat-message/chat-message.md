@@ -54,7 +54,7 @@ datetime | String/TNode | - | 消息发送时间 | N
 role | String | - | 消息角色类型。可选项：user/assistant/system | Y
 status | String | - | 消息状态。可选项：pending/streaming/complete/stop/error | N
 content | AIMessageContent[] / UserMessageContent[] | - | 消息内容数组，根据 role 不同支持不同的内容类型，详见下方 `content 内容类型` 说明 | N
-chatContentProps | Object | - | 消息内容属性配置，用于配置各类型内容的展示行为，详见 `chatContentProps` 说明 | N
+chatContentProps | Object | - | 消息内容属性配置，用于配置各类型内容的展示行为，[详见 `TdChatContentProps` 说明](https://github.com/TDesignOteam/tdesign-web-components/blob/develop/src/chat-message/type.ts) | N
 actions | Array/Boolean | ['copy', 'good', 'bad', 'replay'] | 操作按钮配置。传入数组可自定义按钮顺序，可选项：copy/good/bad/replay/share；传入 false 隐藏操作栏 | N
 handleActions | Object | - | 操作按钮处理函数对象，key 为操作名称（searchResult/searchItem/suggestion），value 为回调函数 `(data?: any) => void` | N
 message | Object | - | 消息体对象（兼容旧版本），优先级低于直接传入的 role/content/status | N
