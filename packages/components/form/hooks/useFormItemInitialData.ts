@@ -67,7 +67,7 @@ export default function useFormItemInitialData(name: FormItemProps['name']) {
       return initialData;
     }
 
-    if (name && formListInitialData.length) {
+    if (name && formListInitialData?.length) {
       const defaultInitialData = get(formListInitialData, name);
       if (typeof defaultInitialData !== 'undefined') return defaultInitialData;
     }
