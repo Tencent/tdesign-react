@@ -464,6 +464,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     fullPath,
     value: formValue,
     isUpdated: isUpdatedRef.current,
+    isFormList: false,
     getValue: () => valueRef.current,
     setValue: (newVal: any) => updateFormValue(newVal, true, true),
     setField,

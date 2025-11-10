@@ -77,20 +77,18 @@ export function objectToArray(obj: Record<string | number, any>) {
   return result;
 }
 
-export function calcFieldValue(name: NamePath, value: any) {
-  const processedValue = Array.isArray(value) ? value.slice() : value;
+export function calcFieldValue(name: NamePath, value: any, numericKeyAsIndex = true) {
+  const processedValue = Array.isArray(value) ? value : value;
   if (!Array.isArray(name)) {
     return { [name]: processedValue };
   }
-
   let result: any = processedValue;
   for (let i = name.length - 1; i >= 0; i--) {
     const key = name[i];
-    const isIndex = typeof key === 'number';
-
-    if (isIndex) {
+    const isNumberKey = typeof key === 'number' && numericKeyAsIndex;
+    if (isNumberKey) {
       const arr: any[] = [];
-      arr[key] = result; // 构建稀疏数组
+      arr[key] = result; // 稀疏数组
       result = arr;
     } else {
       result = { [key]: result };

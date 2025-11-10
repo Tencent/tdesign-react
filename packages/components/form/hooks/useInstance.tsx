@@ -1,4 +1,4 @@
-import { get, isEmpty, isFunction, merge, set } from 'lodash-es';
+import { cloneDeep, get, isEmpty, isFunction, merge, set } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
 import useConfig from '../../hooks/useConfig';
 import { calcFieldValue, findFormItem, findFormItemDeep, objectToArray, travelMapFromObject } from '../utils';
@@ -123,8 +123,9 @@ export default function useInstance(
 
     const processField = (name: string, formItemRef: any) => {
       if (!formItemRef?.current) return;
-      const value = formItemRef.current.getValue?.();
-      const fieldValue = calcFieldValue(name, value);
+      const { getValue } = formItemRef.current;
+      const value = getValue?.();
+      const fieldValue = calcFieldValue(name, value, !props.supportNumberKey);
       merge(fieldsValue, fieldValue);
     };
 
@@ -146,7 +147,7 @@ export default function useInstance(
         processField(name, formItemRef);
       }
     }
-    return fieldsValue;
+    return cloneDeep(fieldsValue);
   }
 
   // 对外方法，设置对应 formItem 的值
