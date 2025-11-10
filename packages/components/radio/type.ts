@@ -42,8 +42,13 @@ export interface TdRadioProps<T = RadioValue> {
   name?: string;
   /**
    * 只读状态
+   * @deprecated It will be removed in the future. Please use `readOnly` instead.
    */
   readonly?: boolean;
+  /**
+   * 只读状态
+   */
+  readOnly?: boolean;
   /**
    * 单选按钮的值
    */

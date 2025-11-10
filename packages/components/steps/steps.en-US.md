@@ -12,7 +12,7 @@ current | String / Number | - | \- | N
 defaultCurrent | String / Number | - | uncontrolled property | N
 layout | String | horizontal | options：horizontal/vertical | N
 options | Array | - | Typescript：`Array<TdStepItemProps>` | N
-readonly | Boolean | false | \- | N
+readOnly | Boolean | false | \- | N
 separator | String | line | options：line/dashed/arrow | N
 sequence | String | positive | options：positive/reverse | N
 theme | String | default | options：default/dot | N

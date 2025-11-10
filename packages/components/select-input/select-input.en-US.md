@@ -29,7 +29,7 @@ popupProps | Object | - | Typescript：`PopupProps`，[Popup API Documents](./po
 popupVisible | Boolean | - | \- | N
 defaultPopupVisible | Boolean | - | uncontrolled property | N
 prefixIcon | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-readonly | Boolean | false | \- | N
+readOnly | Boolean | false | \- | N
 reserveKeyword | Boolean | false | \- | N
 size | String | medium | options: small/medium/large。Typescript：`SizeEnum`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 status | String | default | options: default/success/warning/error | N

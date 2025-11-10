@@ -10,6 +10,7 @@ const StepsContext = React.createContext<{
   current: 0,
   theme: 'default',
   readonly: false,
+  readOnly: false,
   onChange: null,
 });
 

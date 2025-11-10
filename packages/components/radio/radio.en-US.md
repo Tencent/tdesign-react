@@ -15,7 +15,7 @@ children | TNode | - | Typescript：`string \| TNode`。[see more ts definition]
 disabled | Boolean | undefined | \- | N
 label | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 name | String | - | \- | N
-readonly | Boolean | undefined | \- | N
+readOnly | Boolean | undefined | \- | N
 value | String / Number / Boolean | undefined | Typescript：`T` | N
 onChange | Function |  | Typescript：`(checked: boolean, context: { e: ChangeEvent }) => void`<br/> | N
 onClick | Function |  | Typescript：`(context: { e: MouseEvent }) => void`<br/>trigger on click | N
@@ -31,7 +31,7 @@ allowUncheck | Boolean | false | \- | N
 disabled | Boolean | undefined | \- | N
 name | String | - | \- | N
 options | Array | - | Typescript：`Array<RadioOption>` `type RadioOption = string \| number \| RadioOptionObj` `interface RadioOptionObj { label?: string \| TNode; value?: string \| number \| boolean; disabled?: boolean }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/radio/type.ts) | N
-readonly | Boolean | undefined | \- | N
+readOnly | Boolean | undefined | \- | N
 theme | String | radio | options：radio/button。 | N
 size | String | medium | options: small/medium/large。Typescript：`SizeEnum`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 value | String / Number / Boolean | - | Typescript：`T` `type RadioValue = string \| number \| boolean`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/radio/type.ts) | N

@@ -24,7 +24,7 @@ maxRows | Number | - | max tag rows | N
 minCollapsedNum | Number | 0 | \- | N
 placeholder | String | undefined | placeholder description | N
 prefixIcon | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-readonly | Boolean | false | \- | N
+readOnly | Boolean | false | \- | N
 size | String | medium | options: small/medium/large。Typescript：`SizeEnum`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 status | String | - | options: default/success/warning/error | N
 suffix | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
