@@ -2,6 +2,15 @@ import { get, has, isArray, isEmpty, isObject } from 'lodash-es';
 import type { FormItemInstance } from '../FormItem';
 import type { NamePath } from '../type';
 
+export function normalizeNamePath(name: NamePath) {
+  if (name === undefined || name === null) return [];
+  return Array.isArray(name) ? name : [name];
+}
+
+export function concatNamePath(...paths: NamePath[]) {
+  return paths.flatMap((p) => normalizeNamePath(p));
+}
+
 /**
  * 在 `formMap` 中查找指定的 `FormItem`
  * (仅查找当前层级)
@@ -28,16 +37,22 @@ export function findFormItemDeep(
   formMapRef: React.MutableRefObject<Map<any, any>>,
 ): React.RefObject<FormItemInstance> | undefined {
   if (!formMapRef?.current) return;
-  const targetPath = Array.isArray(name) ? name : [name];
+  const targetPath = normalizeNamePath(name);
+
+  // 直接查找
   for (const [key, ref] of formMapRef.current.entries()) {
+    const keyPath = normalizeNamePath(key);
+    if (String(keyPath) === String(targetPath)) {
+      return ref;
+    }
+  }
+
+  // 递归查找嵌套的 FormList
+  for (const [, ref] of formMapRef.current.entries()) {
     const formItem = ref?.current;
     if (!formItem?.isFormList || !formItem.formListMapRef) continue;
-    const { formListMapRef } = formItem;
-    for (const [itemKey, itemRef] of formListMapRef.current.entries()) {
-      const fullPath = [key, itemKey].flat();
-      if (String(fullPath) === String(targetPath)) return itemRef;
-    }
-    const found = findFormItemDeep(name, formListMapRef);
+
+    const found = findFormItemDeep(name, formItem.formListMapRef);
     if (found) return found;
   }
 }
@@ -62,26 +77,26 @@ export function objectToArray(obj: Record<string | number, any>) {
   return result;
 }
 
-// 将数据整理成对象，数组 name 转化嵌套对象: ['user', 'name'] => { user: { name: '' } }
-export function calcFieldValue(name: NamePath, value: any, isFormList = true) {
-  if (Array.isArray(name)) {
-    if (isFormList) {
-      const fieldValue = name.reduceRight((prev, curr) => {
-        const arr = [];
-        if (/^\d+$/.test(String(curr))) arr[curr] = prev;
-        return arr.length ? arr : { [curr]: prev };
-      }, value);
-      return { ...fieldValue };
-    }
-    return name.reduceRight((prev, curr, currentIndex) => {
-      if (currentIndex === name.length - 1) {
-        return { [curr]: value };
-      }
-      return { [curr]: prev };
-    }, {});
+export function calcFieldValue(name: NamePath, value: any) {
+  const processedValue = Array.isArray(value) ? value.slice() : value;
+  if (!Array.isArray(name)) {
+    return { [name]: processedValue };
   }
 
-  return { [name]: value };
+  let result: any = processedValue;
+  for (let i = name.length - 1; i >= 0; i--) {
+    const key = name[i];
+    const isIndex = typeof key === 'number';
+
+    if (isIndex) {
+      const arr: any[] = [];
+      arr[key] = result; // 构建稀疏数组
+      result = arr;
+    } else {
+      result = { [key]: result };
+    }
+  }
+  return result;
 }
 
 // 通过对象数据类型获取 map 引用: { user: { name: '' } } => formMap.get(['user', 'name'])

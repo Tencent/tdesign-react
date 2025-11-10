@@ -113,7 +113,7 @@ export interface TdFormProps<FormData extends Data = Data> {
   /**
    * 字段值更新时触发的回调事件
    */
-  onValuesChange?: (changedValues: Record<string, unknown>, allValues: Record<string, unknown>) => void;
+  onValuesChange?: (changedValues: Record<string, any>, allValues: Record<string, any>) => void;
 }
 
 /** 组件实例方法 */
