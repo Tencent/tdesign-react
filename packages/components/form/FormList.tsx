@@ -1,6 +1,6 @@
-import log from '@tdesign/common-js/log/index';
-import { cloneDeep, get, isEqual, merge, set, unset } from 'lodash-es';
 import React, { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { cloneDeep, get, isEqual, merge, set, unset } from 'lodash-es';
+import log from '@tdesign/common-js/log/index';
 import { FormListContext, useFormContext, useFormListContext } from './FormContext';
 import { HOOK_MARK } from './hooks/useForm';
 import { calcFieldValue, concatNamePath, normalizeNamePath } from './utils';
@@ -26,12 +26,14 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     const normalizedName = normalizeNamePath(name);
     const normalizedParentPath = normalizeNamePath(parentFullPath);
     // 如果没有父路径，直接使用 name
-    if (!parentFullPath || normalizedParentPath.length === 0) {
+    if (normalizedParentPath.length === 0) {
       return normalizedName;
     }
     // 检查 name 是否已经包含了完整的父路径
     // 兼容场景：https://github.com/Tencent/tdesign-react/issues/3843
-    const isAbsolutePath = normalizedParentPath.every((segment, index) => normalizedName[index] === segment);
+    const isAbsolutePath =
+      normalizedName.length >= normalizedParentPath.length &&
+      normalizedParentPath.every((segment, index) => normalizedName[index] === segment);
     if (isAbsolutePath) return normalizedName;
     // 如果是相对路径，与父路径拼接
     return concatNamePath(parentFullPath, name);
@@ -263,7 +265,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
           setFormListValue(data);
           const newFields = data?.map((data, index) => ({
             data: { ...data },
-            key: (globalKey += 1), 
+            key: (globalKey += 1),
             name: index,
             isListField: true,
           }));
