@@ -182,6 +182,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     (): FormItemInstance => ({
       name,
       isFormList: true,
+      formListMapRef,
       getValue() {
         const formListValue = [];
         [...formListMapRef.current.values()].forEach((formItemRef) => {
@@ -214,26 +215,26 @@ const FormList: React.FC<TdFormListProps> = (props) => {
         });
       },
       // TODO 支持局部更新数据
-      setValue: (fieldData: any[], originData) => {
+      setValue: (fieldData, originalData) => {
         setListFields(
           fieldData,
           (formItemRef, data) => {
             formItemRef?.current?.setValue?.(data);
           },
-          originData,
+          originalData,
         );
       },
-      setField: (fieldData: { value?: any[]; status?: string }, originData) => {
+      setField: (fieldData, originalData) => {
         const { value, status } = fieldData;
         setListFields(
           value,
           (formItemRef, data) => {
             formItemRef?.current?.setField?.({ value: data, status });
           },
-          originData,
+          originalData,
         );
       },
-      resetField: (type: string) => {
+      resetField: (type) => {
         const resetType = type || resetTypeFromContext;
 
         if (resetType === 'initial') {
