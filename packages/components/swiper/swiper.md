@@ -3,7 +3,7 @@
 ## API
 ### Swiper Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
@@ -25,7 +25,7 @@ onChange | Function |  | TS 类型：`(current: number, context: { source: Swipe
 
 ### SwiperNavigation
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 placement | String | inside | 导航器位置，位于主体的内侧或是外侧。可选项：inside/outside | N
 showSlideBtn | String | always | 何时显示导航器的翻页按钮：始终显示、悬浮显示、永不显示。可选项：always/hover/never | N
