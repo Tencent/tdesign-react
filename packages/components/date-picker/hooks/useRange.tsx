@@ -77,7 +77,7 @@ export default function useRange(props: TdDateRangePickerProps) {
       e.stopPropagation();
       handlePopupInvisible();
       onChange([], { dayjsValue: [], trigger: 'clear' });
-      props.onClear?.({ e });
+      props.onClear?.({ e: e as React.MouseEvent<SVGSVGElement, MouseEvent> });
     },
     onBlur: (newVal: string[], { e, position }) => {
       props.onBlur?.({ value: newVal, partial: PARTIAL_MAP[position], e });
@@ -89,7 +89,7 @@ export default function useRange(props: TdDateRangePickerProps) {
     onChange: (newVal: string[], { e, position }) => {
       const index = position === 'first' ? 0 : 1;
 
-      props.onInput?.({ input: newVal[index], value, partial: PARTIAL_MAP[position], e });
+      props.onInput?.({ input: newVal[index], value, partial: PARTIAL_MAP[position], e: e as React.FormEvent<HTMLInputElement> });
       setInputValue(newVal);
 
       // 跳过不符合格式化的输入框内容
