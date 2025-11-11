@@ -124,6 +124,10 @@ export interface CheckboxOptionObj {
   label?: string | TNode;
   value?: string | number | boolean;
   disabled?: boolean;
+  /**
+   * @deprecated It will be removed in the future. Please use `readOnly` instead.
+   */
+  readonly?: boolean;
   readOnly?: boolean;
   name?: string;
   checkAll?: boolean;

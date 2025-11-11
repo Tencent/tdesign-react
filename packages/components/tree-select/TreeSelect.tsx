@@ -49,7 +49,6 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
   const {
     className,
     onInputChange,
-    readonly,
     disabled,
     multiple,
     prefixIcon,
@@ -74,6 +73,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
     onRemove,
     onEnter,
   } = props;
+  const readOnly = props.readOnly || props.readonly;
 
   const selectInputProps = useTreeSelectPassThroughProps(props);
   const [value, onChange] = useControlled(props, 'value', props.onChange);
@@ -286,7 +286,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
   /* ---------------------------------render---------------------------------------- */
 
   const renderTree = () => {
-    if (readonly) return empty;
+    if (readOnly) return empty;
     if (showLoading) return loadingItem;
     return (
       <>
@@ -347,7 +347,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
       onMouseleave={hoverAction.off}
       suffixIcon={
         props.suffixIcon ||
-        (readonly ? null : (
+        (readOnly ? null : (
           <SelectArrow isActive={popupVisible} isHighlight={hover || popupVisible} disabled={disabled} />
         ))
       }

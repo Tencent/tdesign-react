@@ -84,8 +84,13 @@ export interface TdRadioGroupProps<T = RadioValue> {
   options?: Array<RadioOption>;
   /**
    * 只读状态
+   * @deprecated It will be removed in the future. Please use `readOnly` instead.
    */
   readonly?: boolean;
+  /**
+   * 只读状态
+   */
+  readOnly?: boolean;
   /**
    * 组件尺寸【讨论中】
    * @default medium

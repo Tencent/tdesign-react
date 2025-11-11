@@ -74,7 +74,6 @@ const Input = forwardRefWithStatics(
       showClearIconOnEmpty,
       autofocus,
       autocomplete,
-      readonly,
       label,
       suffix,
       showInput = true,
@@ -102,6 +101,7 @@ const Input = forwardRefWithStatics(
       onChange: onChangeFromProps,
       ...restProps
     } = props;
+    const readOnly = props.readOnly || props.readonly;
 
     const [value, onChange] = useControlled(props, 'value', onChangeFromProps);
     const { limitNumber, getValueByLimitNumber, tStatus } = useLengthLimit({
@@ -126,7 +126,7 @@ const Input = forwardRefWithStatics(
     const [composingValue, setComposingValue] = useState<string>('');
 
     // 组件内部 input 原生控件是否处于 readonly 状态，当整个组件 readonly 时，或者处于不可输入时
-    const isInnerInputReadonly = readonly || !allowInput;
+    const isInnerInputReadonly = readOnly || !allowInput;
     const isValueEnabled = value && !disabled;
     const alwaysShowClearIcon = inputConfig?.clearTrigger === 'always';
     const isShowClearIcon =
@@ -248,7 +248,7 @@ const Input = forwardRefWithStatics(
     const renderInputNode = (
       <div
         className={classNames(inputClass, `${classPrefix}-input`, {
-          [`${classPrefix}-is-readonly`]: readonly,
+          [`${classPrefix}-is-readonly`]: readOnly,
           [`${classPrefix}-is-disabled`]: disabled,
           [`${classPrefix}-is-focused`]: isFocused,
           [`${classPrefix}-size-s`]: size === 'small',
@@ -390,12 +390,12 @@ const Input = forwardRefWithStatics(
     }
 
     function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
-      !readonly && toggleIsHover(true);
+      !readOnly && toggleIsHover(true);
       onMouseenter?.({ e });
     }
 
     function handleMouseLeave(e: React.MouseEvent<HTMLDivElement>) {
-      !readonly && toggleIsHover(false);
+      !readOnly && toggleIsHover(false);
       onMouseleave?.({ e });
     }
 

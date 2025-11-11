@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { isValidDate, formatDate, getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
-import { RangeInputRefInterface } from '../../range-input';
+import { RangeInputProps, RangeInputRefInterface } from '../../range-input';
 import { TdDateRangePickerProps, DateValue } from '../type';
 import useRangeValue from './useRangeValue';
 import type { TdPopupProps } from '../../popup/type';
@@ -53,15 +53,16 @@ export default function useRange(props: TdDateRangePickerProps) {
   };
 
   // input 设置
-  const rangeInputProps = {
+  const rangeInputProps: RangeInputProps = {
     ...props.rangeInputProps,
+    // @ts-ignore
     ref: inputRef,
     borderless: props.borderless,
     size: props.size,
     separator: props.separator ?? globalDatePickerConfig.rangeSeparator,
     clearable: props.clearable,
     prefixIcon: props.prefixIcon,
-    readonly: !props.allowInput,
+    readOnly: !props.allowInput,
     placeholder: props.placeholder ?? globalDatePickerConfig.placeholder[props.mode],
     activeIndex: popupVisible ? activeIndex : undefined,
     suffixIcon: props.suffixIcon ?? <CalendarIcon />,

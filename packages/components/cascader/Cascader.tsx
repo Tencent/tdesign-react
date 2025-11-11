@@ -156,7 +156,7 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
       allowInput={isFilterable}
       minCollapsedNum={props.minCollapsedNum}
       collapsedItems={props.collapsedItems as any}
-      readonly={props.readonly}
+      readOnly={props.readOnly || props.readonly}
       clearable={props.clearable}
       placeholder={inputPlaceholder}
       multiple={props.multiple}
