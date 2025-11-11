@@ -1,6 +1,6 @@
 import React from 'react';
 import { MinusCircleIcon } from 'tdesign-icons-react';
-import { Button, Form, Input, Select } from 'tdesign-react';
+import { Button, Form, Input, Select, Space } from 'tdesign-react';
 
 const { FormItem, FormList } = Form;
 
@@ -29,25 +29,48 @@ export default function BaseForm() {
           { city: 'sh', area: '浦东区' },
         ],
       }}
+      onValuesChange={(change, all) => {
+        console.log('change:', change, JSON.stringify(change));
+        console.log('all:', all, JSON.stringify(all));
+      }}
       resetType="initial"
     >
       <FormList name="address">
-        {(fields, { add, remove }) => (
+        {(fields, { add, remove, move }) => (
           <>
-            {fields.map(({ key, name, ...restField }) => (
+            {fields.map(({ key, name, ...restField }, index) => (
               <FormItem key={key}>
                 <FormItem name={[name, 'city']} label="城市" rules={[{ required: true, type: 'error' }]} {...restField}>
-                  <Select options={cityOptions}></Select>
+                  <Select options={cityOptions} />
                 </FormItem>
-                <FormItem {...restField} name={[name, 'area']} label="地区" rules={[{ required: true, type: 'error' }]}>
+
+                <FormItem name={[name, 'area']} label="地区" rules={[{ required: true, type: 'error' }]} {...restField}>
                   <Input />
                 </FormItem>
 
                 <FormItem>
-                  <MinusCircleIcon size="20px" style={{ cursor: 'pointer' }} onClick={() => remove(name)} />
+                  <Space>
+                    <MinusCircleIcon
+                      size="20px"
+                      style={{ cursor: 'pointer', marginRight: 12 }}
+                      onClick={() => remove(name)}
+                    />
+                    <Button
+                      size="small"
+                      disabled={index === 0}
+                      onClick={() => move(index, index - 1)}
+                      style={{ marginRight: 8 }}
+                    >
+                      上移
+                    </Button>
+                    <Button size="small" disabled={index === fields.length - 1} onClick={() => move(index, index + 1)}>
+                      下移
+                    </Button>
+                  </Space>
                 </FormItem>
               </FormItem>
             ))}
+
             <FormItem style={{ marginLeft: 100 }}>
               <Button theme="default" variant="dashed" onClick={() => add({ city: 'sz', area: '南山区' })}>
                 新增指定项
@@ -56,6 +79,7 @@ export default function BaseForm() {
           </>
         )}
       </FormList>
+
       <FormItem style={{ marginLeft: 100 }}>
         <Button type="submit" theme="primary">
           提交
