@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import useMouseEvent from '../../hooks/useMouseEvent';
 
 interface DialogDragProps {
@@ -9,17 +9,50 @@ interface DialogDragProps {
 const useDialogDrag = (props: DialogDragProps) => {
   const { dialogCardRef, canDraggable } = props;
 
-  const validWindow = typeof window === 'object';
-  const screenHeight = validWindow ? window.innerHeight || document.documentElement.clientHeight : undefined;
-  const screenWidth = validWindow ? window.innerWidth || document.documentElement.clientWidth : undefined;
-
   const dragOffset = useRef({ x: 0, y: 0 });
+
+  /**
+   * Ensure the dialog stays within viewport bounds when window is resized
+   */
+  const clampPosition = () => {
+    const { offsetWidth, offsetHeight, style } = dialogCardRef.current;
+
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+
+    let left = parseFloat(style.left || '0');
+    let top = parseFloat(style.top || '0');
+
+    if (isNaN(left)) left = 0;
+    if (isNaN(top)) top = 0;
+
+    let newLeft = left;
+    let newTop = top;
+
+    if (newLeft < 0) newLeft = 0;
+    if (newTop < 0) newTop = 0;
+
+    if (newLeft + offsetWidth > screenWidth) {
+      newLeft = screenWidth - offsetWidth;
+    }
+
+    if (newTop + offsetHeight > screenHeight) {
+      newTop = screenHeight - offsetHeight;
+    }
+
+    style.left = `${newLeft}px`;
+    style.top = `${newTop}px`;
+  };
 
   useMouseEvent(dialogCardRef, {
     enabled: canDraggable,
     onDown: (e) => {
       const { offsetLeft, offsetTop, offsetWidth, offsetHeight, style } = dialogCardRef.current;
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+
       if (offsetWidth > screenWidth || offsetHeight > screenHeight) return;
+
       style.cursor = 'move';
       dragOffset.current = {
         x: e.clientX - offsetLeft,
@@ -28,13 +61,18 @@ const useDialogDrag = (props: DialogDragProps) => {
     },
     onMove: (e) => {
       const { offsetWidth, offsetHeight, style } = dialogCardRef.current;
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+
       let diffX = e.clientX - dragOffset.current.x;
       let diffY = e.clientY - dragOffset.current.y;
-      // 拖拽上左边界限制
+
       if (diffX < 0) diffX = 0;
       if (diffY < 0) diffY = 0;
+
       if (screenWidth - offsetWidth - diffX < 0) diffX = screenWidth - offsetWidth;
       if (screenHeight - offsetHeight - diffY < 0) diffY = screenHeight - offsetHeight;
+
       style.position = 'absolute';
       style.left = `${diffX}px`;
       style.top = `${diffY}px`;
@@ -43,6 +81,13 @@ const useDialogDrag = (props: DialogDragProps) => {
       dialogCardRef.current.style.cursor = 'default';
     },
   });
+
+  useEffect(() => {
+    if (!canDraggable) return;
+    window.addEventListener('resize', clampPosition);
+    return () => window.removeEventListener('resize', clampPosition);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [canDraggable]);
 };
 
 export default useDialogDrag;
