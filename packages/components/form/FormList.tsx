@@ -1,6 +1,6 @@
 import React, { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import log from '@tdesign/common-js/log/index';
 import { castArray, get, isEqual, merge, set, unset } from 'lodash-es';
+import log from '@tdesign/common-js/log/index';
 import { FormListContext, useFormContext, useFormListContext } from './FormContext';
 import { HOOK_MARK } from './hooks/useForm';
 import { calcFieldValue, concatName, convertNameToArray, swap } from './utils';
@@ -69,48 +69,38 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     add(defaultValue?: any, insertIndex?: number) {
       const newFields = [...fields];
       const index = insertIndex ?? newFields.length;
-
       newFields.splice(index, 0, {
         key: (globalKey += 1),
         name: index,
         isListField: true,
       });
-
       const newFormListValue = [...formListValue];
       newFormListValue.splice(index, 0, defaultValue);
-
       updateFormList(newFields, newFormListValue);
     },
     remove(index: number | number[]) {
       const indices = castArray(index);
-
-      const newFields = fields.filter((f) => !indices.includes(f.name));
-      const newFormListValue = fields.filter((_, i) => !indices.includes(i));
-
+      const newFields = [...fields].filter((f) => !indices.includes(f.name)).map((field, i) => ({ ...field, name: i })); // 重新编号
+      const newFormListValue = [...formListValue].filter((_, i) => !indices.includes(i));
       updateFormList(newFields, newFormListValue);
     },
-
     move(from: number, to: number) {
       const newFields = [...fields];
       const newFormListValue = [...formListValue];
-
       swap(newFields, from, to);
       swap(newFormListValue, from, to);
-      // 确保 name 与新索引位置保持一致
       newFields[from].name = from;
       newFields[to].name = to;
-
       updateFormList(newFields, newFormListValue);
     },
   };
 
   function setListFields(fieldData: any[], callback: Function) {
-    const formList = get(form?.store, fullPath) || [];
-    if (isEqual(formList, fieldData)) return;
+    if (isEqual(formListValue, fieldData)) return;
 
     const newFields = fieldData.map((_, index) => {
       const currField = fields[index];
-      const oldItem = formList[index];
+      const oldItem = formListValue[index];
       const newItem = fieldData[index];
       const noChange = currField && isEqual(oldItem, newItem);
       return {
@@ -139,17 +129,6 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [snakeName]);
-
-  useEffect(() => {
-    [...formListMapRef.current.values()].forEach((formItemRef) => {
-      if (!formItemRef.current) return;
-      const { name, isUpdated } = formItemRef.current;
-      if (isUpdated) return; // 内部更新过值则跳过
-
-      const data = get(formListValue, name);
-      formItemRef.current.setField({ value: data, status: 'not' });
-    });
-  }, [formListValue]);
 
   useEffect(() => {
     // fields 变化通知 watch 事件

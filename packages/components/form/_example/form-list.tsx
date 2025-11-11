@@ -70,11 +70,15 @@ export default function BaseForm() {
                 </FormItem>
               </FormItem>
             ))}
-
             <FormItem style={{ marginLeft: 100 }}>
-              <Button theme="default" variant="dashed" onClick={() => add({ city: 'sz', area: '南山区' })}>
-                新增指定项
-              </Button>
+              <Space>
+                <Button theme="default" variant="dashed" onClick={() => add({ city: 'sz', area: '南山区' })}>
+                  新增指定项
+                </Button>
+                <Button theme="default" variant="dashed" onClick={() => add()}>
+                  新增空白项
+                </Button>
+              </Space>
             </FormItem>
           </>
         )}

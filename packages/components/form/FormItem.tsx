@@ -39,7 +39,6 @@ export interface FormItemInstance {
   name?: NamePath;
   fullPath?: NamePath[];
   value?: any;
-  isUpdated?: boolean;
   isFormList?: boolean;
   formListMapRef?: React.MutableRefObject<Map<any, any>>;
   getValue?: () => any;
@@ -129,7 +128,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const formItemRef = useRef<FormItemInstance>(null); // 当前 formItem 实例
   const innerFormItemsRef = useRef([]);
   const shouldEmitChangeRef = useRef(false); // onChange 冒泡开关
-  const isUpdatedRef = useRef(false); // 校验开关
   const shouldValidate = useRef(false); // 校验开关
   const valueRef = useRef(formValue); // 当前最新值
   const errorListMapRef = useRef(new Map());
@@ -174,7 +172,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     const { setPrevStore } = form?.getInternalHooks?.(HOOK_MARK) || {};
     setPrevStore?.(form?.getFieldsValue?.(true));
     shouldEmitChangeRef.current = shouldEmitChange;
-    isUpdatedRef.current = true;
     shouldValidate.current = validate;
     valueRef.current = newVal;
     const fieldValue = get(form?.store, fullPath);
@@ -465,7 +462,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     name,
     fullPath,
     value: formValue,
-    isUpdated: isUpdatedRef.current,
     isFormList: false,
     getValue: () => valueRef.current,
     setValue: (newVal: any) => updateFormValue(newVal, true, true),

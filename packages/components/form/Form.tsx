@@ -77,8 +77,10 @@ const Form = forwardRefWithStatics(
     }
 
     function onFormItemValueChange(changedValue: Record<string, unknown>) {
-      const allFields = formInstance.getFieldsValue(true);
-      onValuesChange(changedValue, allFields);
+      requestAnimationFrame(() => {
+        const allFields = formInstance.getFieldsValue(true);
+        onValuesChange(changedValue, allFields);
+      });
     }
 
     function onKeyDownHandler(e: React.KeyboardEvent<HTMLFormElement>) {
