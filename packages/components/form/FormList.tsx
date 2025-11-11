@@ -1,9 +1,9 @@
 import React, { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { cloneDeep, get, isEqual, merge, set, unset } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
+import { castArray, get, isEqual, merge, set, unset } from 'lodash-es';
 import { FormListContext, useFormContext, useFormListContext } from './FormContext';
 import { HOOK_MARK } from './hooks/useForm';
-import { calcFieldValue, concatNamePath, normalizeNamePath } from './utils';
+import { calcFieldValue, concatName, convertNameToArray, swap } from './utils';
 
 import type { FormItemInstance } from './FormItem';
 import type { FormListField, FormListFieldOperation, NamePath, TdFormListProps } from './type';
@@ -23,8 +23,8 @@ const FormList: React.FC<TdFormListProps> = (props) => {
   const { fullPath: parentFullPath, initialData: parentInitialData } = useFormListContext();
 
   const fullPath = useMemo(() => {
-    const normalizedName = normalizeNamePath(name);
-    const normalizedParentPath = normalizeNamePath(parentFullPath);
+    const normalizedName = convertNameToArray(name);
+    const normalizedParentPath = convertNameToArray(parentFullPath);
     // 如果没有父路径，直接使用 name
     if (normalizedParentPath.length === 0) {
       return normalizedName;
@@ -36,7 +36,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
       normalizedParentPath.every((segment, index) => normalizedName[index] === segment);
     if (isAbsolutePath) return normalizedName;
     // 如果是相对路径，与父路径拼接
-    return concatNamePath(parentFullPath, name);
+    return concatName(parentFullPath, name);
   }, [parentFullPath, name]);
 
   const initialData = useMemo(() => {
@@ -44,7 +44,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     if (props.initialData) {
       propsInitialData = props.initialData;
     } else if (parentFullPath && parentInitialData) {
-      const relativePath = fullPath.slice(normalizeNamePath(parentFullPath).length);
+      const relativePath = fullPath.slice(convertNameToArray(parentFullPath).length);
       propsInitialData = get(parentInitialData, relativePath);
     } else {
       propsInitialData = get(initialDataFromForm, fullPath);
@@ -54,7 +54,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
 
   const [formListValue, setFormListValue] = useState(() => get(form?.store, fullPath) || initialData || []);
   const [fields, setFields] = useState<FormListField[]>(() =>
-    formListValue?.map((data, index) => ({
+    formListValue.map((data, index) => ({
       data: { ...data },
       key: (globalKey += 1),
       name: index,
@@ -62,8 +62,10 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     })),
   );
 
-  const formListMapRef = useRef<Map<NamePath, React.RefObject<FormItemInstance>>>(new Map());
+  // 暴露给 Form 的当前 FormList 实例
   const formListRef = useRef<FormItemInstance>(null);
+  // 存储当前 FormList 下所有的 FormItem 实例
+  const formListMapRef = useRef<Map<NamePath, React.RefObject<FormItemInstance>>>(new Map());
 
   const snakeName = []
     .concat(name)
@@ -72,92 +74,60 @@ const FormList: React.FC<TdFormListProps> = (props) => {
 
   const isMounted = useRef(false);
 
-  const buildDefaultFieldMap = () => {
-    if (formListMapRef.current.size <= 0) return {};
-    const defaultValues: Record<string, any> = {};
-    formListMapRef.current.forEach((_, itemPath) => {
-      const itemPathArray = normalizeNamePath(itemPath);
-      if (itemPathArray.length !== normalizeNamePath(fullPath).length + 2) return;
-      const fieldName = itemPathArray[itemPathArray.length - 1];
-      // add 没有传参时，构建一个包含所有子字段名称的对象，用 undefined 作为值，仅用于占位，确保回调给用户的数据结构完整
-      defaultValues[fieldName] = undefined;
-    });
-    return defaultValues;
+  const updateFormList = (newFields: any, newFormListValue: any) => {
+    setFields(newFields);
+    setFormListValue(newFormListValue);
+    set(form?.store, fullPath, newFormListValue);
+    const changeValue = calcFieldValue(fullPath, newFormListValue);
+    onFormItemValueChange?.(changeValue);
   };
 
   const operation: FormListFieldOperation = {
     add(defaultValue?: any, insertIndex?: number) {
-      const cloneFields = [...fields];
-      const index = insertIndex ?? cloneFields.length;
-      cloneFields.splice(index, 0, {
+      const newFields = [...fields];
+      const index = insertIndex ?? newFields.length;
+
+      newFields.splice(index, 0, {
         key: (globalKey += 1),
         name: index,
         isListField: true,
       });
-      cloneFields.forEach((field, index) => Object.assign(field, { name: index }));
-      setFields(cloneFields);
 
-      const nextFormListValue = cloneDeep(formListValue);
+      const newFormListValue = [...formListValue];
+      newFormListValue.splice(index, 0, defaultValue);
 
-      let finalValue = defaultValue;
-      if (finalValue === undefined) {
-        finalValue = buildDefaultFieldMap();
-      }
-      if (finalValue) {
-        nextFormListValue?.splice(index, 0, cloneDeep(finalValue));
-        setFormListValue(nextFormListValue);
-      }
-
-      set(form?.store, fullPath, nextFormListValue);
-      const newPath = [...normalizeNamePath(fullPath), index];
-      const fieldValue = calcFieldValue(newPath, finalValue);
-      onFormItemValueChange?.(fieldValue);
+      updateFormList(newFields, newFormListValue);
     },
     remove(index: number | number[]) {
-      const indices = Array.isArray(index) ? index : [index];
+      const indices = castArray(index);
 
-      const nextFields = fields
-        .filter((item) => !indices.includes(item.name))
-        .map((field, i) => ({ ...field, name: i }));
-      setFields(nextFields);
+      const newFields = fields.filter((f) => !indices.includes(f.name));
+      const newFormListValue = fields.filter((_, i) => !indices.includes(i));
 
-      const nextFormListValue = cloneDeep(formListValue).filter((_, idx) => !indices.includes(idx));
-      setFormListValue(nextFormListValue);
-      if (nextFormListValue.length) {
-        set(form?.store, fullPath, nextFormListValue);
-      }
-      const fieldValue = calcFieldValue(fullPath, nextFormListValue);
-      onFormItemValueChange?.(fieldValue);
+      updateFormList(newFields, newFormListValue);
     },
+
     move(from: number, to: number) {
-      const cloneFields = [...fields];
-      const fromItem = { ...cloneFields[from] };
-      const toItem = { ...cloneFields[to] };
-      cloneFields[to] = fromItem;
-      cloneFields[from] = toItem;
-      set(form?.store, fullPath, []);
-      setFields(cloneFields);
-    },
-  };
+      const newFields = [...fields];
+      const newFormListValue = [...formListValue];
 
-  const handleFieldUpdateTasks = (fieldData: any[], callback: Function) => {
-    Array.from(formListMapRef.current.values()).forEach((formItemRef) => {
-      if (!formItemRef.current) return;
-      const { name: childName } = formItemRef.current;
-      const data = get(fieldData, childName);
-      if (data !== undefined) callback(formItemRef, data);
-    });
-    const fieldValue = calcFieldValue(fullPath, fieldData);
-    onFormItemValueChange?.(fieldValue);
+      swap(newFields, from, to);
+      swap(newFormListValue, from, to);
+      // 确保 name 与新索引位置保持一致
+      newFields[from].name = from;
+      newFields[to].name = to;
+
+      updateFormList(newFields, newFormListValue);
+    },
   };
 
   function setListFields(fieldData: any[], callback: Function) {
-    const currList = get(form?.store, fullPath) || [];
-    if (isEqual(currList, fieldData)) return;
+    const formList = get(form?.store, fullPath) || [];
+    if (isEqual(formList, fieldData)) return;
 
     const newFields = fieldData.map((_, index) => {
       const currField = fields[index];
-      const oldItem = currList[index];
+      const oldItem = formList[index];
       const newItem = fieldData[index];
       const noChange = currField && isEqual(oldItem, newItem);
       return {
@@ -167,15 +137,19 @@ const FormList: React.FC<TdFormListProps> = (props) => {
       };
     });
 
-    setFields(newFields);
-    set(form?.store, fullPath, fieldData);
-    handleFieldUpdateTasks(fieldData, callback);
+    Array.from(formListMapRef.current.values()).forEach((formItemRef) => {
+      if (!formItemRef.current) return;
+      const { name: childName } = formItemRef.current;
+      const data = get(fieldData, childName);
+      if (data !== undefined) callback(formItemRef, data);
+    });
+
+    updateFormList(newFields, fieldData);
   }
 
   useEffect(() => {
     if (!name || !formMapRef) return;
     formMapRef.current.set(fullPath, formListRef);
-
     return () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       formMapRef.current.delete(fullPath);
@@ -260,7 +234,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
         const resetType = type || resetTypeFromContext;
         if (resetType === 'initial') {
           const currentData = get(form?.store, fullPath);
-          const data = cloneDeep(initialData) || [];
+          const data = initialData || [];
           if (isEqual(currentData, initialData)) return;
           setFormListValue(data);
           const newFields = data?.map((data, index) => ({

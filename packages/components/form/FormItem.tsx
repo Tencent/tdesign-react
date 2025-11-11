@@ -16,7 +16,7 @@ import { parseMessage, validate as validateModal } from './formModel';
 import { HOOK_MARK } from './hooks/useForm';
 import useFormItemInitialData, { ctrlKeyMap } from './hooks/useFormItemInitialData';
 import useFormItemStyle from './hooks/useFormItemStyle';
-import { calcFieldValue, concatNamePath } from './utils';
+import { calcFieldValue, concatName } from './utils';
 
 import type { StyledProps } from '../common';
 import type {
@@ -106,7 +106,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const { getDefaultInitialData } = useFormItemInitialData(name);
 
   const { fullPath: parentFullPath } = useFormListContext();
-  const fullPath = concatNamePath(parentFullPath, name);
+  const fullPath = concatName(parentFullPath, name);
 
   const [, forceUpdate] = useState({}); // custom render state
   const [freeShowErrorMessage, setFreeShowErrorMessage] = useState(undefined);
@@ -434,8 +434,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     formMapRef.current.set(fullPath, formItemRef);
     return () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      formMapRef.current.delete(fullPath);
-      unset(form?.store, name);
+      // formMapRef.current.delete(fullPath);
+      // unset(form?.store, name);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [snakeName, formListName]);

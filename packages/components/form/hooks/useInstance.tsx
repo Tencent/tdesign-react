@@ -1,7 +1,7 @@
 import { cloneDeep, get, isEmpty, isFunction, merge, set } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
 import useConfig from '../../hooks/useConfig';
-import { calcFieldValue, findFormItem, findFormItemDeep, objectToArray, travelMapFromObject } from '../utils';
+import { calcFieldValue, findFormItem, objectToArray, travelMapFromObject } from '../utils';
 
 import type { FormItemInstance } from '../FormItem';
 import type {
@@ -110,10 +110,7 @@ export default function useInstance(
   // 对外方法，获取对应 formItem 的值
   function getFieldValue(name: NamePath) {
     if (!name) return null;
-    let formItemRef = findFormItem(name, formMapRef);
-    if (!formItemRef) {
-      formItemRef = findFormItemDeep(name, formMapRef);
-    }
+    const formItemRef = findFormItem(name, formMapRef);
     return formItemRef?.current?.getValue?.();
   }
 
@@ -155,10 +152,7 @@ export default function useInstance(
     const nameLists = objectToArray(fields);
     nameLists.forEach((nameList) => {
       const fieldValue = get(fields, nameList);
-      let formItemRef = findFormItem(nameList, formMapRef);
-      if (!formItemRef) {
-        formItemRef = findFormItemDeep(nameList, formMapRef);
-      }
+      const formItemRef = findFormItem(nameList, formMapRef);
       if (formItemRef?.current) {
         formItemRef.current.setValue?.(fieldValue);
       } else {
@@ -173,10 +167,7 @@ export default function useInstance(
 
     fields.forEach((field) => {
       const { name, ...restFields } = field;
-      let formItemRef = findFormItem(name, formMapRef);
-      if (!formItemRef) {
-        formItemRef = findFormItemDeep(name, formMapRef);
-      }
+      const formItemRef = findFormItem(name, formMapRef);
       formItemRef?.current?.setField(restFields);
     });
   }
@@ -190,10 +181,7 @@ export default function useInstance(
     } else {
       const { type = 'initial', fields = [] } = params;
       fields.forEach((name) => {
-        let formItemRef = findFormItem(name, formMapRef);
-        if (!formItemRef) {
-          formItemRef = findFormItemDeep(name, formMapRef);
-        }
+        const formItemRef = findFormItem(name, formMapRef);
         formItemRef?.current?.resetField(type);
       });
     }
@@ -213,12 +201,8 @@ export default function useInstance(
       });
     } else {
       if (!Array.isArray(fields)) throw new TypeError('The parameter of "clearValidate" must be an array');
-
       fields.forEach((name) => {
-        let formItemRef = findFormItem(name, formMapRef);
-        if (!formItemRef) {
-          formItemRef = findFormItemDeep(name, formMapRef);
-        }
+        const formItemRef = findFormItem(name, formMapRef);
         formItemRef?.current?.resetValidate();
       });
     }
@@ -242,10 +226,7 @@ export default function useInstance(
         ? [...formMapRef.current.values()]
         : fields
             .map((name) => {
-              let formItemRef = findFormItem(name, formMapRef);
-              if (!formItemRef) {
-                formItemRef = findFormItemDeep(name, formMapRef);
-              }
+              const formItemRef = findFormItem(name, formMapRef);
               return formItemRef;
             })
             .filter(Boolean);

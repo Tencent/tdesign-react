@@ -1,6 +1,5 @@
 import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import classNames from 'classnames';
-import { cloneDeep } from 'lodash-es';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import noop from '../_util/noop';
 import useConfig from '../hooks/useConfig';
@@ -79,7 +78,7 @@ const Form = forwardRefWithStatics(
 
     function onFormItemValueChange(changedValue: Record<string, unknown>) {
       const allFields = formInstance.getFieldsValue(true);
-      onValuesChange(cloneDeep(changedValue), allFields);
+      onValuesChange(changedValue, allFields);
     }
 
     function onKeyDownHandler(e: React.KeyboardEvent<HTMLFormElement>) {
