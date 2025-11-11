@@ -85,7 +85,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   useDialogPosition(visible, dialogCardRef);
   useDialogDrag({
     dialogCardRef,
-    canDraggable: draggable && isModeless,
+    canDraggable: !isFullScreen && draggable,
   });
 
   useDeepEffect(() => {
