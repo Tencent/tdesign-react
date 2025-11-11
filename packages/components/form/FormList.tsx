@@ -57,8 +57,6 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     .filter((item) => item !== undefined)
     .toString(); // 转化 name
 
-  const isMounted = useRef(false);
-
   const updateFormList = (newFields: any, newFormListValue: any) => {
     setFields(newFields);
     setFormListValue(newFormListValue);
@@ -154,10 +152,6 @@ const FormList: React.FC<TdFormListProps> = (props) => {
   }, [formListValue]);
 
   useEffect(() => {
-    if (!isMounted.current) {
-      isMounted.current = true;
-      return;
-    }
     // fields 变化通知 watch 事件
     form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.(name);
     // eslint-disable-next-line react-hooks/exhaustive-deps
