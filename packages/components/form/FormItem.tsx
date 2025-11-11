@@ -421,9 +421,10 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     // 记录填写 name 属性 formItem
     if (typeof name === 'undefined') return;
 
-    // formList 下特殊处理
+    // FormList 下特殊处理
     if (formListName && isSameForm) {
       formListMapRef.current.set(fullPath, formItemRef);
+      set(form?.store, fullPath, formValue);
       return () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         formListMapRef.current.delete(fullPath);
@@ -432,10 +433,11 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     }
     if (!formMapRef) return;
     formMapRef.current.set(fullPath, formItemRef);
+    set(form?.store, fullPath, formValue);
     return () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      // formMapRef.current.delete(fullPath);
-      // unset(form?.store, name);
+      formMapRef.current.delete(fullPath);
+      unset(form?.store, fullPath);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [snakeName, formListName]);
