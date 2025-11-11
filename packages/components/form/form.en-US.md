@@ -83,7 +83,7 @@ name | type | default | description | required
 -- | -- | -- | -- | --
 className | String | - | className of component | N
 style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
-children | Function | - | Typescript：`(fields: FormListField[], operation: FormListFieldOperation) => React.ReactNode` `type FormListField = { key: number; name: number; isListField: boolean }` `type FormListFieldOperation = { add: (defaultValue?: any, insertIndex?: number) => void, remove: (index: number \| number[]) => void, move: (from: number, to: number) => void  }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/form/type.ts) | N
+children | Function | - | Typescript：`(fields: FormListField[], operation: FormListFieldOperation) => React.ReactNode` `type FormListField = { key: number; name: number; isListField: boolean }` `type FormListFieldOperation = { add: (initialData?: any, insertIndex?: number) => void, remove: (index: number \| number[]) => void, move: (from: number, to: number) => void  }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/form/type.ts) | N
 initialData | Array | - | Typescript：`Array<any>` | N
 name | String / Number / Array | - | Typescript：`NamePath` | N
 rules | Object / Array | - | Typescript：`{ [field in keyof FormData]: Array<FormRule> } \| Array<FormRule>` | N

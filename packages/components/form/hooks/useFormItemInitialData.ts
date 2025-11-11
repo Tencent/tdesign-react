@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { get, unset, isEmpty } from 'lodash-es';
+import { get, unset, isEmpty, has } from 'lodash-es';
 
 // 兼容特殊数据结构和受控 key
 import Tree from '../../tree/Tree';
@@ -14,7 +14,9 @@ import DateRangePicker from '../../date-picker/DateRangePicker';
 import TimeRangePicker from '../../time-picker/TimeRangePicker';
 
 import { useFormContext, useFormListContext } from '../FormContext';
-import { FormItemProps } from '../FormItem';
+
+import type { FormItemProps } from '../FormItem';
+import type { NamePath } from '../type';
 
 // FormItem 子组件受控 key
 export const ctrlKeyMap = new Map();
@@ -31,11 +33,10 @@ export const initialDataMap = new Map();
   initialDataMap.set(component, false);
 });
 
-export default function useFormItemInitialData(name: FormItemProps['name']) {
+export default function useFormItemInitialData(name: NamePath, fullPath: NamePath) {
   let hadReadFloatingFormData = false;
 
-  const { floatingFormDataRef, initialData: formContextInitialData } = useFormContext();
-
+  const { form, floatingFormDataRef, initialData: formContextInitialData } = useFormContext();
   const { name: formListName, initialData: formListInitialData } = useFormListContext();
 
   // 组件渲染后删除对应游离值
@@ -58,8 +59,21 @@ export default function useFormItemInitialData(name: FormItemProps['name']) {
       const nameList = formListName ? [formListName, name].flat() : name;
       const defaultInitialData = get(floatingFormDataRef.current, nameList);
       if (typeof defaultInitialData !== 'undefined') {
+        // 首次渲染
         hadReadFloatingFormData = true;
         return defaultInitialData;
+      }
+    }
+
+    // 动态表单场景
+    if (formListName && Array.isArray(fullPath)) {
+      const pathPrefix = fullPath.slice(0, -1);
+      const pathExisted = has(form.store, pathPrefix);
+      if (pathExisted) {
+        // 只要路径存在，哪怕值为 undefined 也取 store 里的值
+        // 兼容 add() 或者 add({}) 导致的空对象场景
+        // https://github.com/Tencent/tdesign-react/issues/2329
+        return get(form.store, fullPath);
       }
     }
 

@@ -219,7 +219,7 @@ describe('Form List 组件测试', () => {
     expect(fn).toHaveBeenCalledTimes(1);
   });
 
-  test('Nested FormList with relative path', async () => {
+  test('Multiple nested FormList', async () => {
     const TestView = () => {
       const [form] = Form.useForm();
 

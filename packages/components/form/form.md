@@ -166,7 +166,7 @@ valueFormat | Function | - | 当用户交互产生数据变化时触发，用于
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-children | Function | - | 渲染函数。TS 类型：`(fields: FormListField[], operation: FormListFieldOperation) => React.ReactNode` `type FormListField = { key: number; name: number; isListField: boolean }` `type FormListFieldOperation = { add: (defaultValue?: any, insertIndex?: number) => void, remove: (index: number \| number[]) => void, move: (from: number, to: number) => void  }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/form/type.ts) | N
+children | Function | - | 渲染函数。TS 类型：`(fields: FormListField[], operation: FormListFieldOperation) => React.ReactNode` `type FormListField = { key: number; name: number; isListField: boolean }` `type FormListFieldOperation = { add: (initialData?: any, insertIndex?: number) => void, remove: (index: number \| number[]) => void, move: (from: number, to: number) => void  }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/form/type.ts) | N
 initialData | Array | - | 设置子元素默认值，如果与 FormItem 的 initialData 冲突则以 FormItem 为准。TS 类型：`Array<any>` | N
 name | String / Number / Array | - | 表单字段名称。TS 类型：`NamePath` | N
 rules | Object / Array | - | 表单字段校验规则。TS 类型：`{ [field in keyof FormData]: Array<FormRule> } \| Array<FormRule>` | N

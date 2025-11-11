@@ -39,6 +39,7 @@ export interface FormItemInstance {
   name?: NamePath;
   fullPath?: NamePath[];
   value?: any;
+  initialData?: any;
   isFormList?: boolean;
   formListMapRef?: React.MutableRefObject<Map<any, any>>;
   getValue?: () => any;
@@ -102,10 +103,10 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     requiredMark = requiredMarkFromContext,
   } = props;
 
-  const { getDefaultInitialData } = useFormItemInitialData(name);
-
   const { fullPath: parentFullPath } = useFormListContext();
   const fullPath = concatName(parentFullPath, name);
+
+  const { getDefaultInitialData } = useFormItemInitialData(name, fullPath);
 
   const [, forceUpdate] = useState({}); // custom render state
   const [freeShowErrorMessage, setFreeShowErrorMessage] = useState(undefined);
@@ -114,16 +115,12 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const [verifyStatus, setVerifyStatus] = useState('validating');
   const [resetValidating, setResetValidating] = useState(false);
   const [needResetField, setNeedResetField] = useState(false);
-  const [formValue, setFormValue] = useState(() => {
-    const storeValue = get(form?.store, fullPath);
-    return (
-      storeValue ??
-      getDefaultInitialData({
-        children,
-        initialData,
-      })
-    );
-  });
+  const [formValue, setFormValue] = useState(() =>
+    getDefaultInitialData({
+      children,
+      initialData,
+    }),
+  );
 
   const formItemRef = useRef<FormItemInstance>(null); // 当前 formItem 实例
   const innerFormItemsRef = useRef([]);
@@ -462,6 +459,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     name,
     fullPath,
     value: formValue,
+    initialData,
     isFormList: false,
     getValue: () => valueRef.current,
     setValue: (newVal: any) => updateFormValue(newVal, true, true),

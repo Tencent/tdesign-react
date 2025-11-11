@@ -482,7 +482,10 @@ export type FormItemFormatType = (value: any) => any;
 export type FormListField = { key: number; name: number; isListField: boolean };
 
 export type FormListFieldOperation = {
-  add: (defaultValue?: any, insertIndex?: number) => void;
+  /**
+   * @param initialData 不传参时会使用 FormItem 自身的 initialData 作为初始值
+   */
+  add: (initialData?: any, insertIndex?: number) => void;
   remove: (index: number | number[]) => void;
   move: (from: number, to: number) => void;
 };

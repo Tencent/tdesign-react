@@ -57,6 +57,21 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     .filter((item) => item !== undefined)
     .toString(); // 转化 name
 
+  const buildDefaultFieldMap = () => {
+    if (formListMapRef.current.size <= 0) return {};
+    const defaultValues: Record<string, any> = {};
+    formListMapRef.current.forEach((item, itemPath) => {
+      const itemPathArray = convertNameToArray(itemPath);
+      const isChildField = itemPathArray.length === convertNameToArray(fullPath).length + 2;
+      console.log(isChildField, itemPathArray, fullPath);
+      if (!isChildField) return;
+      const fieldName = itemPathArray[itemPathArray.length - 1];
+      // add 没有传参时，构建一个包含所有子字段的对象用于占位，确保回调给用户的数据结构完整
+      defaultValues[fieldName] = item.current.initialData;
+    });
+    return defaultValues;
+  };
+
   const updateFormList = (newFields: any, newFormListValue: any) => {
     setFields(newFields);
     setFormListValue(newFormListValue);
@@ -75,13 +90,18 @@ const FormList: React.FC<TdFormListProps> = (props) => {
         isListField: true,
       });
       const newFormListValue = [...formListValue];
-      newFormListValue.splice(index, 0, defaultValue);
+      if (defaultValue !== undefined) {
+        newFormListValue.splice(index, 0, defaultValue);
+      } else {
+        newFormListValue.splice(index, 0, buildDefaultFieldMap());
+      }
       updateFormList(newFields, newFormListValue);
     },
     remove(index: number | number[]) {
       const indices = castArray(index);
-      const newFields = [...fields].filter((f) => !indices.includes(f.name)).map((field, i) => ({ ...field, name: i })); // 重新编号
+      const newFields = [...fields].filter((f) => !indices.includes(f.name)).map((field, i) => ({ ...field, name: i }));
       const newFormListValue = [...formListValue].filter((_, i) => !indices.includes(i));
+      unset(form?.store, fullPath);
       updateFormList(newFields, newFormListValue);
     },
     move(from: number, to: number) {
@@ -141,13 +161,14 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     (): FormItemInstance => ({
       name,
       fullPath,
+      value: formListValue,
+      initialData,
       isFormList: true,
       formListMapRef,
       getValue() {
         const formListValue = [];
         [...formListMapRef.current.values()].forEach((formItemRef) => {
           if (!formItemRef.current) return;
-
           const { name, getValue } = formItemRef.current;
           const fieldValue = calcFieldValue(name, getValue());
           merge(formListValue, fieldValue);
