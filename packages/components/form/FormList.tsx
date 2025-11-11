@@ -22,22 +22,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
   } = useFormContext();
   const { fullPath: parentFullPath, initialData: parentInitialData } = useFormListContext();
 
-  const fullPath = useMemo(() => {
-    const normalizedName = convertNameToArray(name);
-    const normalizedParentPath = convertNameToArray(parentFullPath);
-    // 如果没有父路径，直接使用 name
-    if (normalizedParentPath.length === 0) {
-      return normalizedName;
-    }
-    // 检查 name 是否已经包含了完整的父路径
-    // 兼容场景：https://github.com/Tencent/tdesign-react/issues/3843
-    const isAbsolutePath =
-      normalizedName.length >= normalizedParentPath.length &&
-      normalizedParentPath.every((segment, index) => normalizedName[index] === segment);
-    if (isAbsolutePath) return normalizedName;
-    // 如果是相对路径，与父路径拼接
-    return concatName(parentFullPath, name);
-  }, [parentFullPath, name]);
+  const fullPath = concatName(parentFullPath, name);
 
   const initialData = useMemo(() => {
     let propsInitialData;
