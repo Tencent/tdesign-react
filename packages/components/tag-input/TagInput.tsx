@@ -162,6 +162,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       } as React.CSSProperties)
     : {};
 
+    console.log('>>', inputProps?.readOnly, inputProps?.readonly);
   return (
     <TInput
       ref={tagInputRef as React.RefObject<InputRef>}
@@ -173,7 +174,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       onWheel={onWheel}
       size={size}
       borderless={borderless}
-      readonly={readOnly}
+      readOnly={readOnly}
       disabled={disabled}
       label={renderLabel({ displayNode, label })}
       className={classnames(classes)}
@@ -187,7 +188,8 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       suffix={suffix}
       prefixIcon={prefixIcon}
       suffixIcon={suffixIconNode}
-      showInput={!inputProps?.readOnly || !inputProps?.readonly || !tagValue || !tagValue?.length}
+      // showInput={!inputProps?.readOnly || !inputProps?.readonly || !tagValue || !tagValue?.length}
+      showInput={!inputProps?.readonly || !tagValue || !tagValue?.length}
       keepWrapperWidth={!autoWidth}
       onPaste={onPaste}
       onClick={onInnerClick}

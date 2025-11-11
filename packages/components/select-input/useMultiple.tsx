@@ -118,6 +118,7 @@ export default function useMultiple(props: SelectInputProps) {
         {...props.tagInputProps}
         inputProps={{
           ...props.inputProps,
+          readOnly: !props.allowInput || readOnly,
           readonly: !props.allowInput || readOnly,
           inputClass: classNames(props.tagInputProps?.className, {
             [`${classPrefix}-input--focused`]: p.popupVisible,

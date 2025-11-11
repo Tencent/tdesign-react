@@ -57,6 +57,8 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
     suffixIcon,
     clearable,
     showClearIconOnEmpty,
+    readOnly,
+    readonly,
     onClick,
     onEnter,
     onClear,
@@ -67,7 +69,7 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
     onChange: onChangeFromProps,
     ...restProps
   } = props;
-  const readOnly = props.readOnly || props.readonly;
+  const readOnlyProp = readOnly || readonly;
 
   const name = `${classPrefix}-range-input`;
 
@@ -189,7 +191,7 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
           })}
           placeholder={firstPlaceholder}
           disabled={disabled}
-          readOnly={readOnly}
+          readOnly={readOnlyProp}
           format={firstFormat}
           value={firstValue}
           onClick={({ e }) => onClick?.({ e, position: 'first' })}
@@ -211,7 +213,7 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
           })}
           placeholder={secondPlaceholder}
           disabled={disabled}
-          readOnly={readOnly}
+          readOnly={readOnlyProp}
           format={secondFormat}
           value={secondValue}
           onClick={({ e }) => onClick?.({ e, position: 'second' })}

@@ -1,10 +1,10 @@
 import React, { useState, useRef, useImperativeHandle, useEffect } from 'react';
-import classNames from 'classnames';
 import {
   BrowseIcon as TdBrowseIcon,
   BrowseOffIcon as TdBrowseOffIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
 } from 'tdesign-icons-react';
+import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
 import useLayoutEffect from '../hooks/useLayoutEffect';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
@@ -82,6 +82,8 @@ const Input = forwardRefWithStatics(
       allowInput,
       allowInputOverMax,
       name,
+      readOnly,
+      readonly,
       format,
       onClick,
       onClear,
@@ -101,7 +103,7 @@ const Input = forwardRefWithStatics(
       onChange: onChangeFromProps,
       ...restProps
     } = props;
-    const readOnly = props.readOnly || props.readonly;
+    const readOnlyProp = readOnly || readonly;
 
     const [value, onChange] = useControlled(props, 'value', onChangeFromProps);
     const { limitNumber, getValueByLimitNumber, tStatus } = useLengthLimit({
@@ -126,7 +128,7 @@ const Input = forwardRefWithStatics(
     const [composingValue, setComposingValue] = useState<string>('');
 
     // 组件内部 input 原生控件是否处于 readonly 状态，当整个组件 readonly 时，或者处于不可输入时
-    const isInnerInputReadonly = readOnly || !allowInput;
+    const isInnerInputReadonly = readOnlyProp || !allowInput;
     const isValueEnabled = value && !disabled;
     const alwaysShowClearIcon = inputConfig?.clearTrigger === 'always';
     const isShowClearIcon =
@@ -248,7 +250,7 @@ const Input = forwardRefWithStatics(
     const renderInputNode = (
       <div
         className={classNames(inputClass, `${classPrefix}-input`, {
-          [`${classPrefix}-is-readonly`]: readOnly,
+          [`${classPrefix}-is-readonly`]: readOnlyProp,
           [`${classPrefix}-is-disabled`]: disabled,
           [`${classPrefix}-is-focused`]: isFocused,
           [`${classPrefix}-size-s`]: size === 'small',
