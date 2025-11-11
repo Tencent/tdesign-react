@@ -526,7 +526,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
               const childProps = child.props as any;
               return React.cloneElement(child, {
                 disabled: disabledFromContext,
-                readonly: readonlyFromContext,
+                readOnly: readonlyFromContext,
                 ...childProps,
                 [ctrlKey]: formValue,
                 onChange: (value: any, ...args: any[]) => {
