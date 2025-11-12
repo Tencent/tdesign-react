@@ -93,6 +93,7 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
     [children],
   );
   const childrenLength = childrenList.length;
+  const swiperItemLength = childrenLength;
   const startIndex = loop ? -1 : 0;
   const endIndex = loop ? childrenLength : childrenLength - 1;
 
@@ -109,7 +110,6 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
       ...child.props,
     }),
   );
-  const swiperItemLength = childrenList.length;
 
   // 子节点不为空时，复制第一个子节点到列表最后
   if (loop && childrenLength > 0 && type === 'default') {
