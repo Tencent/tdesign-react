@@ -74,7 +74,7 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
     navigationConfig = { ...defaultNavigation, ...(navigation as SwiperNavigation) };
   }
 
-  const [currentIndex, setCurrentIndex] = useState(defaultCurrent);
+  const [currentIndex, setCurrentIndex] = useState(() => current ?? defaultCurrent);
   const [needAnimation, setNeedAnimation] = useState(false);
   const [arrowShow, setArrowShow] = useState(() => navigationConfig.showSlideBtn === 'always');
   const swiperTimer = useRef<ReturnType<typeof setTimeout>>(null); // 计时器指针
@@ -92,8 +92,9 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
       ),
     [children],
   );
-
   const childrenLength = childrenList.length;
+  const startIndex = loop ? -1 : 0;
+  const endIndex = loop ? childrenLength : childrenLength - 1;
 
   // 创建渲染用的节点列表
   const swiperItemList = childrenList.map((child: React.ReactElement<any>, index) =>
@@ -108,6 +109,8 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
       ...child.props,
     }),
   );
+  const swiperItemLength = swiperItemList.length;
+
   // 子节点不为空时，复制第一个子节点到列表最后
   if (loop && childrenLength > 0 && type === 'default') {
     const firstEle = swiperItemList[0];
@@ -117,9 +120,6 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
       React.cloneElement(firstEle, { ...firstEle.props, key: childrenLength, index: childrenLength }),
     );
   }
-  const swiperItemLength = swiperItemList.length;
-  const startIndex = loop ? -1 : 0;
-  const endIndex = loop ? React.Children.count(children) : React.Children.count(children) - 1;
 
   // 统一跳转处理函数
   const swiperTo = useCallback(
@@ -161,11 +161,7 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
   useEffect(() => {
     if (current !== undefined) {
       const nextCurrent = current % childrenLength;
-      if (nextCurrent === 0) {
-        swiperTo(childrenLength, { source: 'autoplay' });
-      } else {
-        swiperTo(nextCurrent, { source: 'autoplay' });
-      }
+      swiperTo(nextCurrent, { source: 'autoplay' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current, childrenLength]);
