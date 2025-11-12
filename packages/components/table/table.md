@@ -3,7 +3,7 @@
 ## API
 ### BaseTable Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
@@ -73,7 +73,7 @@ scrollToElement | `(params: ScrollToElementParams)` | \- | 必需。虚拟滚动
 
 ### BaseTableCol
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 align | String | left | 列横向对齐方式。可选项：left/right/center | N
 attrs | Object / Function | - | 透传 HTML 属性到列元素。TS 类型：`BaseTableColumnAttributes<T>` `type BaseTableColumnAttributes<T> = { [key: string]: any } \| ((context: CellData<T>) => { [key: string]: any })`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/table/type.ts) | N
@@ -97,7 +97,7 @@ width | String / Number | - | 列宽，可以作为最小宽度使用。当列�
 
 ### PrimaryTable Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
@@ -160,7 +160,7 @@ validateTableData | \- | `Promise<{ result: TableErrorListMap }>` | 必需。校
 
 ### PrimaryTableCol
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 cell | String / Function | - | 自定义单元格渲染，优先级高于 render。泛型 T 指表格数据类型。TS 类型：`string \| TNode<PrimaryTableCellParams<T>>` `interface PrimaryTableCellParams<T> { row: T; rowIndex: number; col: PrimaryTableCol<T>; colIndex: number }`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/table/type.ts) | N
 checkProps | Object / Function | - | 透传参数，`colKey` 值为 `row-select` 时，配置有效。具体定义参考 Checkbox 组件 和 Radio 组件。泛型 T 指表格数据类型。TS 类型：`CheckProps<T>` `type CheckProps<T> = CheckboxProps \| RadioProps \| ((options: { row: T; rowIndex: number }) => CheckboxProps \| RadioProps)` `import { CheckboxProps } from '@Checkbox'`，[Radio API Documents](./radio?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/table/type.ts) | N
@@ -178,7 +178,7 @@ type | String | single | `colKey` 值为 `row-select` 时表示行选中列，�
 
 ### EnhancedTable Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
@@ -215,7 +215,7 @@ toggleExpandData | `(p: { row: T,  rowIndex: number})` | \- | 必需。展开或
 
 ### TableRowState
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 disabled | Boolean | false | 表格行是否禁用选中 | N
 expandChildrenLength | Number | - | 当前节点展开的子节点数量 | N
@@ -229,7 +229,7 @@ rowIndex | Number | - | 必需。表格行下标，值为 `-1` 标识当前行�
 
 ### TableColumnFilter
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 attrs | Object | - | 用于透传筛选器属性到自定义组件 `component`，HTML 原生属性。TS 类型：`HTMLElementAttributes`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 classNames | String | - | 透传类名到自定义组件 `component`。TS 类型：`ClassName`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
@@ -245,7 +245,7 @@ type | String | - | 用于设置筛选器类型：单选按钮筛选器、复选
 
 ### TableColumnController
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 buttonProps | Object | - | 自定义列配置按钮，包括 Button 组件的全部属性。比如：按钮颜色和文本。TS 类型：`ButtonProps`，[Button API Documents](./button?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/table/type.ts) | N
 checkboxProps | Object | - | 透传复选框组件全部特性。TS 类型：`CheckboxGroupProps`，[Checkbox API Documents](./checkbox?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/table/type.ts) | N
@@ -257,7 +257,7 @@ placement | String | top-right | 列配置按钮基于表格的放置位置：�
 
 ### TableEditableCellConfig
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 abortEditOnEvent | Array | - | 除了点击非自身元素退出编辑态之外，还有哪些事件退出编辑态。示例：`abortEditOnEvent: ['onChange']`。TS 类型：`string[]` | N
 component | \- | - | 组件定义，如：`Input` `Select`。对于完全自定义的组件（非组件库内的组件），组件需要支持 `value` 和 `onChange` ；如果还需要支持校验规则，则组件还需实现 `tips` 和 `status` 两个 API，实现规则可参考 `Input` 组件。TS 类型：`ComponentType`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
@@ -272,7 +272,7 @@ validateTrigger | String | 'exit' | 触发校验的时机，有 2 种：退出�
 
 ### TableTreeConfig
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 checkStrictly | Boolean | false | 表示树形结构的行选中（多选），父子行选中是否独立 | N
 childrenKey | String | children | 树形结构子节点字段，示例：`childrenKey='list'`。一般应用在数据 `data` 的子节点字段不是 `children` 的场景 | N
@@ -283,7 +283,7 @@ treeNodeColumnIndex | Number | 0 | 树结点在第几列渲染，默认为第一
 
 ### TScroll
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 bufferSize | Number | 20 | 表示除可视区域外，额外渲染的行数，避免快速滚动过程中，新出现的内容来不及渲染从而出现空白 | N
 isFixedRowHeight | Boolean | false | 表示每行内容是否同一个固定高度，仅在 `scroll.type` 为 `virtual` 时有效，该属性设置为 `true` 时，可用于简化虚拟滚动内部计算逻辑，提升性能，此时则需要明确指定 `scroll.rowHeight` 属性的值 | N
