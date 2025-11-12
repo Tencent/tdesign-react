@@ -434,7 +434,7 @@ describe('Form List 组件测试', () => {
 
     // Test setFields
     fireEvent.click(queryByText('setFields'));
-    await mockTimeout(() => true);
+    await mockTimeout();
     expect((getByPlaceholderText('user-name-0') as HTMLInputElement).value).toBe('Alice');
     expect((getByPlaceholderText('project-name-0-0') as HTMLInputElement).value).toBe('Website Redesign');
     expect((getByPlaceholderText('task-name-0-0-0') as HTMLInputElement).value).toBe('Design mockups');
@@ -444,7 +444,7 @@ describe('Form List 组件测试', () => {
 
     // Test setFieldsValue
     fireEvent.click(queryByText('setFieldsValue'));
-    await mockTimeout(() => true);
+    await mockTimeout();
     expect((getByPlaceholderText('user-name-0') as HTMLInputElement).value).toBe('Bob');
     expect((getByPlaceholderText('project-name-0-0') as HTMLInputElement).value).toBe('Mobile App');
     expect((getByPlaceholderText('task-name-0-0-0') as HTMLInputElement).value).toBe('API integration');
@@ -452,14 +452,9 @@ describe('Form List 组件测试', () => {
     expect((getByPlaceholderText('task-name-0-0-1') as HTMLInputElement).value).toBe('UI implementation');
     expect((getByPlaceholderText('task-status-0-0-1') as HTMLInputElement).value).toBe('in-progress');
 
-    // Wait a bit more to ensure DOM is fully updated before next operation
-    await mockTimeout(() => true);
-
     // Test addNestedData - multiple users with nested projects and tasks
     fireEvent.click(queryByText('addNestedData'));
-    await mockTimeout(() => true);
-    // Add another wait to ensure all nested FormLists are fully rendered
-    await mockTimeout(() => true);
+    await mockTimeout();
 
     expect((getByPlaceholderText('user-name-0') as HTMLInputElement).value).toBe('Charlie');
     expect((getByPlaceholderText('project-name-0-0') as HTMLInputElement).value).toBe('Backend Service');
@@ -480,7 +475,7 @@ describe('Form List 组件测试', () => {
     // Test remove nested task - remove first task of Charlie's Backend Service project
     const removeTaskBtn = container.querySelector('.test-remove-task-0-0-0');
     fireEvent.click(removeTaskBtn);
-    await mockTimeout(() => true);
+    await mockTimeout();
     expect((getByPlaceholderText('user-name-0') as HTMLInputElement).value).toBe('Charlie');
     // After removing first task, the second task (API development) becomes the first one
     expect((getByPlaceholderText('task-name-0-0-0') as HTMLInputElement).value).toBe('API development');
@@ -493,7 +488,7 @@ describe('Form List 组件测试', () => {
     // Test remove project - remove Charlie's second project (DevOps)
     const removeProjectBtn = container.querySelector('.test-remove-project-0-1');
     fireEvent.click(removeProjectBtn);
-    await mockTimeout(() => true);
+    await mockTimeout();
     // After removing DevOps project, only Backend Service should remain for Charlie
     expect(container.querySelector('[placeholder="project-name-0-1"]')).toBeFalsy();
     expect(container.querySelector('[placeholder="task-name-0-1-0"]')).toBeFalsy();
@@ -501,7 +496,7 @@ describe('Form List 组件测试', () => {
     // Test remove user - remove David
     const removeUserBtn = container.querySelector('.test-remove-user-1');
     fireEvent.click(removeUserBtn);
-    await mockTimeout(() => true);
+    await mockTimeout();
     // After removing David, only Charlie should remain
     expect(container.querySelector('[placeholder="user-name-1"]')).toBeFalsy();
     expect(container.querySelector('[placeholder="project-name-1-0"]')).toBeFalsy();
@@ -509,16 +504,16 @@ describe('Form List 组件测试', () => {
     // Add an empty user to test validation
     const addUserBtn = container.querySelector('#test-add-user');
     fireEvent.click(addUserBtn);
-    await mockTimeout(() => true);
+    await mockTimeout();
 
     // Test validate on nested FormList
     fireEvent.click(queryByText('validate'));
-    await mockTimeout(() => true);
+    await mockTimeout();
     expect(queryByText('用户名必填')).toBeTruthy();
 
     // Test clearValidate
     fireEvent.click(queryByText('clearValidate'));
-    await mockTimeout(() => true);
+    await mockTimeout();
     expect(queryByText('用户名必填')).not.toBeTruthy();
   });
 });

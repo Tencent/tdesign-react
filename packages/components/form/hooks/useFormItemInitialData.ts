@@ -65,7 +65,6 @@ export default function useFormItemInitialData(name: NamePath, fullPath: NamePat
       }
     }
 
-    // 动态表单场景
     if (formListName && Array.isArray(fullPath)) {
       const pathPrefix = fullPath.slice(0, -1);
       const pathExisted = has(form.store, pathPrefix);
@@ -81,7 +80,7 @@ export default function useFormItemInitialData(name: NamePath, fullPath: NamePat
       return initialData;
     }
 
-    if (name && formListInitialData?.length) {
+    if (name && formListInitialData.length) {
       const defaultInitialData = get(formListInitialData, name);
       if (typeof defaultInitialData !== 'undefined') return defaultInitialData;
     }

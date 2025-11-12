@@ -1,7 +1,7 @@
 /* eslint-disable */
+import { fireEvent, mockDelay, mockTimeout, render, vi } from '@test/utils';
 import React, { useEffect, useState } from 'react';
 import { HelpCircleIcon } from 'tdesign-icons-react';
-import { fireEvent, mockDelay, mockTimeout, render, vi } from '@test/utils';
 import Button from '../../button';
 import Checkbox from '../../checkbox';
 import Input from '../../input';
@@ -96,9 +96,11 @@ describe('Form 组件测试', () => {
     expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual('');
     fireEvent.click(getByText('setFields'));
     expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual('setFields');
+    await mockTimeout();
     expect(fn).toHaveBeenCalled();
 
     fireEvent.click(getByText('setFieldsValue'));
+    await mockTimeout();
     expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual('setFieldsValue');
     expect(fn).toHaveBeenCalled();
 
@@ -694,6 +696,7 @@ describe('Form 组件测试', () => {
     expect(container.querySelector('.t-is-checked')).toBe(null);
     fireEvent.click(getByText('setFields'));
     expect((container.querySelector('.t-is-checked input') as HTMLInputElement).value).toEqual('la');
+    await mockTimeout();
     expect(fn).toHaveBeenCalledTimes(1);
     fireEvent.click(getByText('setFields'));
     expect(fn).toHaveBeenCalledTimes(1);

@@ -229,7 +229,6 @@ const FormList: React.FC<TdFormListProps> = (props) => {
           setFormListValue([]);
           setFields([]);
           unset(form?.store, fullPath);
-          formListMapRef.current.clear();
         }
       },
       setValidateMessage: (fieldData) => {

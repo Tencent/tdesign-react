@@ -4,11 +4,11 @@ import { Button, Form, Input, Select, Space } from 'tdesign-react';
 
 const { FormItem, FormList } = Form;
 
-const cityOptions = [
-  { label: '北京', value: 'bj' },
-  { label: '上海', value: 'sh' },
-  { label: '广州', value: 'gz' },
-  { label: '深圳', value: 'sz' },
+const taskTypeOptions = [
+  { label: '需求评审', value: 'review' },
+  { label: '交互设计', value: 'ui' },
+  { label: '开发任务', value: 'dev' },
+  { label: '功能测试', value: 'test' },
 ];
 
 export default function BaseForm() {
@@ -23,43 +23,38 @@ export default function BaseForm() {
     <Form
       form={form}
       onSubmit={onSubmit}
-      initialData={{
-        address: [
-          { city: 'bj', area: '海淀区' },
-          { city: 'sh', area: '浦东区' },
-        ],
-      }}
+      initialData={{ task: [{ type: 'review' }, { type: 'ui' }] }}
       onValuesChange={(change, all) => {
         console.log('change:', change, JSON.stringify(change));
         console.log('all:', all, JSON.stringify(all));
       }}
       resetType="initial"
     >
-      <FormList name="address">
+      <FormList name="task">
         {(fields, { add, remove, move }) => (
           <>
             {fields.map(({ key, name, ...restField }, index) => (
               <FormItem key={key}>
-                <FormItem name={[name, 'city']} label="城市" rules={[{ required: true, type: 'error' }]} {...restField}>
-                  <Select options={cityOptions} />
+                <FormItem name={[name, 'type']} label="类型" {...restField}>
+                  <Select options={taskTypeOptions} />
                 </FormItem>
 
-                <FormItem name={[name, 'area']} label="地区" rules={[{ required: true, type: 'error' }]} {...restField}>
+                <FormItem name={[name, 'notes']} label="备注" initialData="排期中" {...restField}>
                   <Input />
                 </FormItem>
 
                 <FormItem>
                   <Space>
                     <MinusCircleIcon
-                      size="20px"
                       style={{ cursor: 'pointer', marginRight: 12 }}
+                      size="20px"
                       onClick={() => remove(name)}
                     />
                     <Button
+                      style={{ marginRight: 8 }}
                       size="small"
                       disabled={index === 0}
                       onClick={() => move(index, index - 1)}
-                      style={{ marginRight: 8 }}
                     >
                       上移
                     </Button>
@@ -70,14 +65,11 @@ export default function BaseForm() {
                 </FormItem>
               </FormItem>
             ))}
+
             <FormItem style={{ marginLeft: 100 }}>
               <Space>
-                <Button theme="default" variant="dashed" onClick={() => add({ city: 'sz', area: '南山区' })}>
-                  新增指定项
-                </Button>
-                <Button theme="default" variant="dashed" onClick={() => add()}>
-                  新增空白项
-                </Button>
+                <Button onClick={() => add({ taskType: 'dev', notes: '已交付' })}>新增指定项</Button>
+                <Button onClick={() => add()}>新增默认项</Button>
               </Space>
             </FormItem>
           </>
@@ -85,10 +77,10 @@ export default function BaseForm() {
       </FormList>
 
       <FormItem style={{ marginLeft: 100 }}>
-        <Button type="submit" theme="primary">
+        <Button type="submit" theme="default">
           提交
         </Button>
-        <Button type="reset" style={{ marginLeft: 12 }}>
+        <Button type="reset" theme="default" style={{ marginLeft: 12 }}>
           重置
         </Button>
       </FormItem>
