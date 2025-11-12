@@ -21,7 +21,7 @@ const mockData: ChatMessagesData[] = [
       {
         type: 'text',
         status: 'complete',
-        data: '欢迎使用TDesign Chatbot智能代码助手，请输入你的问题',
+        data: '欢迎使用 TDesign Chatbot 智能代码助手，请输入你的问题',
       },
     ],
   },
@@ -191,7 +191,7 @@ export default function chatSample() {
           setMockMessage(e.detail);
         }}
         senderProps={{
-          defaultValue: '使用tdesign组件库实现一个登录表单的例子',
+          defaultValue: '使用 TDesign 组件库实现一个登录表单的例子',
           placeholder: '有问题，尽管问～ Enter 发送，Shift+Enter 换行',
         }}
         chatServiceConfig={chatServiceConfig}

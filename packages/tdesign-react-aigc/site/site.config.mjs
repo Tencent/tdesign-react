@@ -134,16 +134,8 @@ export const docs = [
         component: () => import('@tdesign/pro-components-chat/chat-loading/chat-loading.md'),
         componentEn: () => import('@tdesign/pro-components-chat/chat-loading/chat-loading.en-US.md'),
       },
-      // {
-      //   title: 'FileCard 文件缩略卡片',
-      //   titleEn: 'FileCard',
-      //   name: 'filecard',
-      //   path: '/react-chat/components/chat-filecard',
-      //   component: () => import('@tdesign/pro-components-chat/chat-filecard/chat-filecard.md'),
-      //   componentEn: () => import('@tdesign/pro-components-chat/chat-filecard/chat-filecard.en-US.md'),
-      // },
       {
-        title: 'Attachments 附件列表',
+        title: 'Attachments 文件附件',
         titleEn: 'Attachments',
         name: 'attachment',
         path: '/react-chat/components/chat-attachments',

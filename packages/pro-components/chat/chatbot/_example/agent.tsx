@@ -69,7 +69,7 @@ const mockData: ChatMessagesData[] = [
     content: [
       {
         type: 'text',
-        data: '欢迎使用TDesign Agent家庭活动策划助手，请给我布置任务吧～',
+        data: '欢迎使用 TDesign Agent 家庭活动策划助手，请给我布置任务吧～',
       },
     ],
   },

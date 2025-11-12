@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { InternetIcon } from 'tdesign-icons-react';
 import {
   SSEChunkData,
   TdChatMessageConfigItem,
@@ -9,7 +8,8 @@ import {
   ChatBot,
   type TdChatbotApi,
 } from '@tdesign-react/chat';
-import { Button, Space } from 'tdesign-react';
+import { Button, Space, Select } from 'tdesign-react';
+import { SystemSumIcon } from 'tdesign-icons-react';
 
 // 默认初始化消息
 const mockData: ChatMessagesData[] = [
@@ -20,7 +20,7 @@ const mockData: ChatMessagesData[] = [
       {
         type: 'text',
         status: 'complete',
-        data: '欢迎使用TDesign Chatbot智能助手，你可以这样问我：',
+        data: '欢迎使用 TDesign Chatbot 智能助手，你可以这样问我：',
       },
       {
         type: 'suggestion',
@@ -40,10 +40,24 @@ const mockData: ChatMessagesData[] = [
   },
 ];
 
+const selectOptions = [
+  {
+    label: '默认模型',
+    value: 'default',
+  },
+  {
+    label: 'Deepseek',
+    value: 'deepseek-r1',
+  },
+  {
+    label: '混元',
+    value: 'hunyuan',
+  },
+];
+
 export default function chatSample() {
   const chatRef = useRef<HTMLElement & TdChatbotApi>(null);
-  const [activeR1, setR1Active] = useState(true);
-  const [activeSearch, setSearchActive] = useState(true);
+  const [activeSearch, setSearchActive] = useState(false);
   const [ready, setReady] = useState(false);
   const reqParamsRef = useRef<{ think: boolean; search: boolean }>({ think: false, search: false });
 
@@ -153,10 +167,9 @@ export default function chatSample() {
 
   useEffect(() => {
     reqParamsRef.current = {
-      think: activeR1,
       search: activeSearch,
     };
-  }, [activeR1, activeSearch]);
+  }, [activeSearch]);
 
   useEffect(() => {
     if (ready) {
@@ -175,33 +188,43 @@ export default function chatSample() {
           placeholder: '有问题，尽管问～ Enter 发送，Shift+Enter 换行',
         }}
         chatServiceConfig={chatServiceConfig}
-        onChatReady={(e) => {
+        onChatReady={() => {
           setReady(true);
         }}
       >
         {/* 自定义输入框底部区域slot，可以增加模型选项 */}
         <div slot="sender-footer-prefix">
           <Space align="center" size={'small'}>
+            <Select
+              defaultValue={'default'}
+              options={selectOptions}
+              className="test"
+              style={{
+                width: '112px',
+                // @ts-ignore
+                '--td-radius-default': '32px',
+                '--td-comp-paddingLR-s': '12px',
+              }}
+            />
+
             <Button
               variant="outline"
+              icon={<SystemSumIcon />}
               shape="round"
-              theme={activeR1 ? 'primary' : 'default'}
-              size="small"
-              onClick={() => setR1Active(!activeR1)}
-            >
-              R1.深度思考
-            </Button>
-            <Button
-              variant="outline"
-              theme={activeSearch ? 'primary' : 'default'}
-              icon={<InternetIcon />}
-              size="small"
-              shape="round"
+              style={
+                activeSearch
+                  ? {
+                      border: '1px solid var(--td-brand-color-focus)',
+                      background: 'var(--td-brand-color-light)',
+                      color: 'var(--td-text-color-brand)',
+                    }
+                  : {}
+              }
               onClick={() => {
                 setSearchActive(!activeSearch);
               }}
             >
-              联网查询
+              深度思考
             </Button>
           </Space>
         </div>

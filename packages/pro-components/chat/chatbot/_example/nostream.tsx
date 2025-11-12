@@ -1,14 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { InternetIcon } from 'tdesign-icons-react';
-import {
-  TdChatMessageConfigItem,
-  ChatRequestParams,
-  ChatMessagesData,
-  ChatServiceConfig,
-  ChatBot,
-  type TdChatbotApi,
-} from '@tdesign-react/chat';
-import { Button, Space } from 'tdesign-react';
+import { ChatRequestParams, ChatServiceConfig, ChatBot, type TdChatbotApi } from '@tdesign-react/chat';
 
 export default function chatSample() {
   const chatRef = useRef<HTMLElement & TdChatbotApi>(null);

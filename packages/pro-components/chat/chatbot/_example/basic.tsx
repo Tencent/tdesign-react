@@ -119,7 +119,7 @@ export default function chatSample() {
     onAbort: async () => {},
     // 自定义流式数据结构解析
     onMessage: (chunk: SSEChunkData): AIMessageContent => {
-      console.log("====chunk", chunk)
+      console.log('====chunk', chunk);
       const { type, ...rest } = chunk.data;
       switch (type) {
         case 'search':
@@ -190,7 +190,7 @@ export default function chatSample() {
           placeholder: '有问题，尽管问～ Enter 发送，Shift+Enter 换行',
         }}
         chatServiceConfig={chatServiceConfig}
-        onChatReady={(e) => {
+        onChatReady={() => {
           setReady(true);
         }}
       >
@@ -208,9 +208,7 @@ export default function chatSample() {
             </Button>
             <Button
               variant="outline"
-              theme={activeSearch ? 'primary' : 'default'}
               icon={<InternetIcon />}
-              size="small"
               shape="round"
               onClick={() => {
                 setSearchActive(!activeSearch);

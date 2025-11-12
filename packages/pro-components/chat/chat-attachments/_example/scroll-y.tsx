@@ -59,7 +59,7 @@ const ChatAttachmentExample = () => {
 
   return (
     <Space style={{ width: '680px' }}>
-      <Attachments items={list} overflow="wrap" onRemove={onRemove} imageViewer={true}></Attachments>
+      <Attachments items={list} overflow="scrollY" onRemove={onRemove} imageViewer={true}></Attachments>
     </Space>
   );
 };

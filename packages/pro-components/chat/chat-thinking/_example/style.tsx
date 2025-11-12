@@ -55,24 +55,6 @@ export default function ThinkContentDemo() {
 
   return (
     <Space direction="vertical">
-      <Space>
-        <Space direction="vertical">
-          <h5>layout：</h5>
-          <Radio.Group value={layout} onChange={(val: TdChatThinkContentProps['layout']) => setLayout(val)}>
-            <Radio value="border">border</Radio>
-            <Radio value="block">block</Radio>
-          </Radio.Group>
-        </Space>
-        <Space direction="vertical">
-          <h5>animation：</h5>
-          <Radio.Group value={animation} onChange={(val: TdChatThinkContentProps['animation']) => setAnimation(val)}>
-            {/* <Radio value="skeleton">skeleton</Radio> */}
-            <Radio value="moving">moving</Radio>
-            <Radio value="gradient">gradient</Radio>
-            <Radio value="circle">circle</Radio>
-          </Radio.Group>
-        </Space>
-      </Space>
       <ChatThinking
         content={{
           title,
