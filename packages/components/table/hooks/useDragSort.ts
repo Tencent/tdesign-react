@@ -78,11 +78,15 @@ export default function useDragSort(
   }
 
   const registerRowDragEvent = (element: HTMLElement) => {
-    if (!isRowHandlerDraggable && !isRowDraggable) return;
+    /**
+     * 若table内容未渲染（即element子元素为空）或者 表格无拖动配置，拖拽事件不注册
+     */
+    if (element?.children?.length === 0 || (!isRowHandlerDraggable && !isRowDraggable)) return;
     // 拖拽实例
     let dragInstanceTmp: Sortable = null;
     const dragContainer = element?.querySelector('tbody');
     if (!dragContainer) {
+      console.error('tbody does not exist.');
       return null;
     }
     const baseOptions: SortableOptions = {
