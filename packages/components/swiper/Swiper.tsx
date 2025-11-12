@@ -109,7 +109,7 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
       ...child.props,
     }),
   );
-  const swiperItemLength = swiperItemList.length;
+  const swiperItemLength = childrenList.length;
 
   // 子节点不为空时，复制第一个子节点到列表最后
   if (loop && childrenLength > 0 && type === 'default') {
