@@ -22,8 +22,6 @@ import { primaryTableDefaultProps } from './defaultProps';
 import { CheckboxGroupValue } from '../checkbox';
 import useDefaultProps from '../hooks/useDefaultProps';
 
-export { BASE_TABLE_ALL_EVENTS } from './BaseTable';
-
 export interface TPrimaryTableProps extends PrimaryTableProps, StyledProps {}
 
 const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalProps, ref) => {
