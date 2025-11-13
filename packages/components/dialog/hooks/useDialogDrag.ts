@@ -9,12 +9,14 @@ interface DialogDragProps {
 const useDialogDrag = (props: DialogDragProps) => {
   const { dialogCardRef, canDraggable } = props;
 
+  const isInputInteracting = useRef(false);
   const dragOffset = useRef({ x: 0, y: 0 });
 
   /**
    * Ensure the dialog stays within viewport bounds when window is resized
    */
   const clampPosition = () => {
+    if (!dialogCardRef.current) return;
     const { offsetWidth, offsetHeight, style } = dialogCardRef.current;
 
     const screenWidth = window.innerWidth;
@@ -47,6 +49,14 @@ const useDialogDrag = (props: DialogDragProps) => {
   useMouseEvent(dialogCardRef, {
     enabled: canDraggable,
     onDown: (e) => {
+      const target = e.target as HTMLElement;
+      // 避免无法复制输入框内容
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
+        isInputInteracting.current = true;
+        return;
+      }
+      isInputInteracting.current = false;
+
       const { offsetLeft, offsetTop, offsetWidth, offsetHeight, style } = dialogCardRef.current;
       const screenWidth = window.innerWidth;
       const screenHeight = window.innerHeight;
@@ -60,6 +70,8 @@ const useDialogDrag = (props: DialogDragProps) => {
       };
     },
     onMove: (e) => {
+      if (isInputInteracting.current) return;
+
       const { offsetWidth, offsetHeight, style } = dialogCardRef.current;
       const screenWidth = window.innerWidth;
       const screenHeight = window.innerHeight;
@@ -88,6 +100,10 @@ const useDialogDrag = (props: DialogDragProps) => {
     return () => window.removeEventListener('resize', clampPosition);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [canDraggable]);
+
+  return {
+    isInputInteracting,
+  };
 };
 
 export default useDialogDrag;

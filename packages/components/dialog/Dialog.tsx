@@ -83,7 +83,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
   useDialogEsc(visible, wrapRef);
   useDialogPosition(visible, dialogCardRef);
-  useDialogDrag({
+  const { isInputInteracting } = useDialogDrag({
     dialogCardRef,
     canDraggable: !isFullScreen && draggable,
   });
@@ -119,7 +119,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   }
 
   const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (isModeless) return;
+    if (isModeless || isInputInteracting) return;
 
     if (showOverlay && (closeOnOverlayClick ?? local.closeOnOverlayClick)) {
       // 判断点击事件初次点击是否为内容区域
