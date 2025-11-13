@@ -42,9 +42,9 @@ const Demo = () => {
 
   return (
     <Form form={form}>
-      <Form.Item name="username">
+      <FormItem name="username">
         <Input />
-      </Form.Item>
+      </FormItem>
     </Form>
   );
 };
