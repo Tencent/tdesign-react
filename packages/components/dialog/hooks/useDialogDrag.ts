@@ -51,7 +51,7 @@ const useDialogDrag = (props: DialogDragProps) => {
     onDown: (e) => {
       const target = e.target as HTMLElement;
       // 避免无法复制输入框内容
-      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
         isInputInteracting.current = true;
         return;
       }
