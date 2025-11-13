@@ -135,11 +135,24 @@ const Select = forwardRefWithStatics(
 
     // 可以根据触发来源，自由定制标签变化时的筛选器行为
     const onTagChange = (_currentTags: SelectInputValue, context) => {
-      const { trigger, index, item, e } = context;
-      // backspace
-      if (trigger === 'backspace') {
-        e.stopPropagation();
+      const handleRemove = (removeIndex, trigger, e, label) => {
+        const values = getSelectValueArr(value, value[removeIndex], true, valueType, keys);
+        const { currentSelectedOptions } = getSelectedOptions(values, multiple, valueType, keys, valueToOption);
+        onChange(values, { e, trigger, selectedOptions: currentSelectedOptions });
+        onRemove?.({
+          value: value[removeIndex],
+          data: {
+            label,
+            value: value[removeIndex],
+          },
+          e,
+        });
+      };
 
+      const { trigger, index, item, e } = context;
+      e.stopPropagation();
+
+      if (trigger === 'backspace') {
         let closest = -1;
         let len = index;
         while (len >= 0) {
@@ -150,34 +163,16 @@ const Select = forwardRefWithStatics(
           }
           len -= 1;
         }
-        if (closest < 0) {
-          return;
+        if (closest >= 0) {
+          const label = get(selectedOptions[closest], getKeyMapping(keys).labelKey);
+          handleRemove(closest, trigger, e, label);
         }
-        const values = getSelectValueArr(value, value[closest], true, valueType, keys);
-
-        // 处理onChange回调中的selectedOptions参数
-        const { currentSelectedOptions } = getSelectedOptions(values, multiple, valueType, keys, valueToOption);
-        onChange(values, { e, trigger, selectedOptions: currentSelectedOptions });
         return;
       }
 
       if (trigger === 'tag-remove') {
         e?.stopPropagation?.();
-        const values = getSelectValueArr(value, value[index], true, valueType, keys);
-        // 处理onChange回调中的selectedOptions参数
-        const { currentSelectedOptions } = getSelectedOptions(values, multiple, valueType, keys, valueToOption);
-
-        onChange(values, { e, trigger, selectedOptions: currentSelectedOptions });
-        if (isFunction(onRemove)) {
-          onRemove({
-            value: value[index],
-            data: {
-              label: item,
-              value: value[index],
-            },
-            e,
-          });
-        }
+        handleRemove(index, trigger, e, item);
       }
     };
 
