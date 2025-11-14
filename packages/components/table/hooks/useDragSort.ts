@@ -32,6 +32,8 @@ interface DragSortOptions {
   innerPagination: React.MutableRefObject<PaginationProps>;
 }
 
+export const EXPANDED_SUFFIX = '__expanded';
+
 function useDragSort(props: TdEnhancedTableProps, options: DragSortOptions) {
   const { sortOnRowDraggable, dragSort, data, onDragSort } = props;
   const { primaryTableRef, innerPagination } = options;
@@ -208,16 +210,13 @@ function useDragSort(props: TdEnhancedTableProps, options: DragSortOptions) {
         childRows.forEach((row) => {
           // eslint-disable-next-line no-param-reassign
           row.style.display = '';
-          if (!row.getAttribute('style')) {
-            row.removeAttribute('style');
-          }
         });
         let targetId = evt.to.children[evt.newIndex]?.getAttribute('data-id');
-        if (targetId.startsWith('EXPANDED__')) {
-          targetId = targetId.replace('EXPANDED__', '');
+        if (targetId.endsWith(EXPANDED_SUFFIX)) {
+          targetId = targetId.replace(EXPANDED_SUFFIX, ''); // 找到父节点
         }
 
-        const filteredTrIdList = trIdList.current.filter((id) => !id.startsWith('EXPANDED__'));
+        const filteredTrIdList = trIdList.current.filter((id) => !id.endsWith(EXPANDED_SUFFIX));
         const dataIdList = tData.current.map((item) => String(get(item, props.rowKey)));
 
         let currentIndex = dataIdList.indexOf(dragId);

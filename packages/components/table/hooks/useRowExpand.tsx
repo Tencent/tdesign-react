@@ -1,8 +1,7 @@
 import React, { MouseEvent, ReactNode, useCallback } from 'react';
-
+import { ChevronRightCircleIcon as TdChevronRightCircleIcon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import { get, isFunction } from 'lodash-es';
-import { ChevronRightCircleIcon as TdChevronRightCircleIcon } from 'tdesign-icons-react';
 
 import { parseContentTNode } from '../../_util/parseTNode';
 import useControlled from '../../hooks/useControlled';
@@ -10,6 +9,7 @@ import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { enableRowDrag } from '../utils';
 import useClassName from './useClassName';
+import { EXPANDED_SUFFIX } from './useDragSort';
 
 import type {
   PrimaryTableCellParams,
@@ -106,11 +106,14 @@ function useRowExpand(props: TdPrimaryTableProps) {
     if (!tExpandedRowKeys || !tExpandedRowKeys.includes(rowId)) return null;
 
     const isFixedLeft = p.isWidthOverflow && props.columns.find((item) => item.fixed === 'left');
-    const dragAttr = enableRowDrag(props.dragSort) && { 'data-id': `EXPANDED__${rowId}`, 'data-parent-id': rowId };
+    const dragAttr = enableRowDrag(props.dragSort) && {
+      'data-id': `${rowId}${EXPANDED_SUFFIX}`,
+      'data-parent-id': rowId,
+    };
 
     return (
       <tr
-        key={`EXPANDED__${rowId}`}
+        key={`${rowId}${EXPANDED_SUFFIX}`}
         {...dragAttr}
         className={classNames([tableExpandClasses.row, { [tableFullRowClasses.base]: isFixedLeft }])}
       >
