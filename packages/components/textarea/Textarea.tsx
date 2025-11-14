@@ -88,6 +88,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     [`${classPrefix}-is-disabled`]: disabled,
     [`${classPrefix}-is-focused`]: isFocused,
     [`${classPrefix}-resize-none`]: typeof autosize === 'object',
+    [`${classPrefix}-hide-scrollbar`]: autosize === true,
   });
 
   const adjustTextareaHeight = useEventCallback(() => {

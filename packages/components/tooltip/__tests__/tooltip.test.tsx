@@ -23,7 +23,7 @@ describe('Tooltip 组件测试', () => {
     expect(queryByTestId(tooltipTestId)).toBeNull();
 
     // 模拟鼠标进入
-    fireEvent.mouseEnter(getByText(triggerElement));
+    await fireEvent.mouseEnter(getByText(triggerElement));
 
     // 鼠标进入后，有元素，而且内容为 tooltipText
     const popupElement = queryByTestId(tooltipTestId);
@@ -34,7 +34,7 @@ describe('Tooltip 组件测试', () => {
     });
 
     // 模拟鼠标离开
-    fireEvent.mouseLeave(getByText(triggerElement));
+    await fireEvent.mouseLeave(getByText(triggerElement));
 
     // 鼠标离开，style 的 display 应该为 none
     const popupElement2 = queryByTestId(tooltipTestId);
@@ -53,7 +53,7 @@ describe('Tooltip 组件测试', () => {
         </Tooltip>,
       );
 
-      fireEvent.mouseEnter(result.getByText(triggerElement));
+      await fireEvent.mouseEnter(result.getByText(triggerElement));
       await waitFor(() => result.queryByTestId(tooltipTestId));
 
       return {

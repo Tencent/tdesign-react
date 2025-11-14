@@ -1,20 +1,24 @@
 import React, { forwardRef, useCallback, useEffect } from 'react';
+
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { isDate } from 'lodash-es';
+
 import { formatDate, formatTime, getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
 import { addMonth, covertToDate, extractTimeObj, isSame, subtractMonth } from '@tdesign/common-js/date-picker/utils';
-import type { StyledProps } from '../common';
+
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useLatest from '../hooks/useLatest';
 import useUpdateEffect from '../hooks/useUpdateEffect';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import SelectInput from '../select-input';
-import type { TagInputRemoveContext } from '../tag-input';
 import { datePickerDefaultProps } from './defaultProps';
 import useSingle from './hooks/useSingle';
 import SinglePanel from './panel/SinglePanel';
+
+import type { StyledProps } from '../common';
+import type { TagInputRemoveContext } from '../tag-input';
 import type { DateMultipleValue, DateValue, PresetDate, TdDatePickerProps } from './type';
 
 export interface DatePickerProps extends TdDatePickerProps, StyledProps {}
@@ -153,7 +157,6 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
         dayjsValue: parseToDayjs(date, format),
         trigger: 'pick',
       });
-      handlePopupInvisible();
     } else {
       if (multiple) {
         const newDate = processDate(date);
@@ -163,11 +166,11 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
         });
         return;
       }
+      handlePopupInvisible();
       onChange(formatDate(date, { format, targetFormat: valueType }), {
         dayjsValue: parseToDayjs(date, format),
         trigger: 'pick',
       });
-      handlePopupInvisible();
     }
   }
   // 头部快速切换
@@ -218,7 +221,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
   function onConfirmClick({ e }) {
     const nextValue = formatDate(inputValue, { format });
     props?.onConfirm?.({ e, date: nextValue });
-
+    handlePopupInvisible();
     if (nextValue) {
       onChange(formatDate(inputValue, { format, targetFormat: valueType }), {
         dayjsValue: parseToDayjs(inputValue, format),
@@ -227,7 +230,6 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     } else {
       setInputValue(formatDate(value, { format }));
     }
-    handlePopupInvisible();
   }
 
   // 预设
@@ -236,19 +238,24 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     if (typeof preset === 'function') {
       presetValue = preset();
     }
-    const formattedPresetValue = formatDate(presetValue, { format, targetFormat: valueType });
-    const formattedInputValue = formatDate(presetValue, { format });
+    const formattedPreset = formatDate(presetValue, { format, targetFormat: valueType });
+    const formattedInput = formatDate(presetValue, { format });
 
-    // preset 不需要 confirm 就同步
-    setInputValue(formattedInputValue);
-    setCacheValue(formattedInputValue);
+    setInputValue(formattedInput);
+    setCacheValue(formattedInput);
 
-    onChange(formattedPresetValue, {
+    setTime(formatTime(presetValue, format, timeFormat, props.defaultTime));
+    setYear(parseToDayjs(presetValue, format).year());
+    setMonth(parseToDayjs(presetValue, format).month());
+
+    // 先回调 onVisibleChange
+    handlePopupInvisible();
+    // 再回调 onChange（方便用户覆盖弹窗开闭状态）
+    onChange(formattedPreset, {
       dayjsValue: parseToDayjs(presetValue, format),
       trigger: 'preset',
     });
     props.onPresetClick?.(context);
-    handlePopupInvisible();
   }
 
   const onYearChange = useCallback((year: number) => {

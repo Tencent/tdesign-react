@@ -51,7 +51,7 @@ describe('Watermark 组件测试', () => {
 
   test('mutationObserver', async () => {
     const wrapper = render(
-      <Watermark watermarkContent={{ text: '@水印' }} className="test-observer" y={100}>
+      <Watermark watermarkContent={{ text: '@水印' }} className="test-observer" y={100} removable={false}>
         <div data-testid={childTestID} style={{ height: 300 }}></div>
       </Watermark>,
     );

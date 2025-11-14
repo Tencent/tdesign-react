@@ -120,7 +120,10 @@ function useDragSort(props: TdEnhancedTableProps, options: DragSortOptions) {
   };
 
   const registerRowDragEvent = (element: HTMLElement) => {
-    if (!isRowHandlerDraggable && !isRowDraggable) return;
+    /**
+     * 若table内容未渲染（即element子元素为空）或者 表格无拖动配置，拖拽事件不注册
+     */
+    if (element?.children?.length === 0 || (!isRowHandlerDraggable && !isRowDraggable)) return;
 
     const dragContainer = element?.querySelector('tbody');
     if (!dragContainer) return null;

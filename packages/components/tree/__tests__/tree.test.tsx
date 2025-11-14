@@ -1,7 +1,7 @@
 import React from 'react';
-import { render, fireEvent, vi, mockTimeout, mockDelay } from '@test/utils';
-import Tree from '../Tree';
+import { fireEvent, mockDelay, mockTimeout, render, vi } from '@test/utils';
 import Button from '../../button';
+import Tree from '../Tree';
 import { TdTreeProps } from '../type';
 
 // TODO
@@ -9,21 +9,21 @@ describe('Tree test', () => {
   // label 类型定义有问题
   const items = [
     {
-      label: '第1一段',
+      label: '第 1 段',
       value: 1,
       children: [
         {
-          label: '第二段',
+          label: '第 1-1 段',
           value: '1-1',
         },
         {
-          label: '第二段',
+          label: '第 1-2 段',
           value: '1-2',
         },
       ],
     },
     {
-      label: '第二段',
+      label: '第 2 段',
       value: 2,
     },
   ];
@@ -214,15 +214,15 @@ describe('Tree test', () => {
   describe('Test props.line', async () => {
     const data = [
       {
-        label: '第1一段',
+        label: '第 1 段',
         value: 1,
         children: [
           {
-            label: '第二段',
+            label: '第 1-1 段',
             value: '1-1',
             children: [
               {
-                label: '第三段',
+                label: '第 1-1-1 段',
                 value: '1-1-1',
               },
             ],
@@ -230,15 +230,15 @@ describe('Tree test', () => {
         ],
       },
       {
-        label: '第二段',
+        label: '第 2 段',
         value: 2,
         children: [
           {
-            label: '2.1',
+            label: '第 2-1 段',
             value: '2-1',
             children: [
               {
-                label: '2.1.1',
+                label: '第 2-1-1 段',
                 value: '2-1-1',
               },
             ],
@@ -246,7 +246,7 @@ describe('Tree test', () => {
         ],
       },
     ];
-    it('wehen props.line is customized, it works fine', async () => {
+    it('when props.line is customized, it works fine', async () => {
       const { container } = await renderTreeWithProps({
         data,
         expandAll: true,
@@ -256,7 +256,7 @@ describe('Tree test', () => {
       expect(container.querySelectorAll('.custom-line').length).toBe(6);
     });
 
-    it('wehen props.line is a customized function, it works fine', async () => {
+    it('when props.line is a customized function, it works fine', async () => {
       const line: any = () => <span className="custom-line"></span>;
       const { container } = await renderTreeWithProps({
         data,
@@ -300,19 +300,19 @@ describe('Tree test', () => {
   test('TreeNodeState.loading works fine', async () => {
     const data = [
       {
-        label: '第1一段',
+        label: '第 1 段',
         value: 1,
         loading: true,
         expanded: true,
         children: [
           {
-            label: '第二段',
+            label: '第 1-1 段',
             value: '1-1',
           },
         ],
       },
       {
-        label: '第二段',
+        label: '第 2 段',
         value: 2,
       },
     ];
@@ -324,17 +324,17 @@ describe('Tree test', () => {
   test('custom label', async () => {
     const data = [
       {
-        label: '第1一段',
+        label: '第 1 段',
         value: 1,
         children: [
           {
-            label: '第二段',
+            label: '第 1-1 段',
             value: '1-1',
           },
         ],
       },
       {
-        label: '第二段',
+        label: '第 2 段',
         value: 2,
       },
     ];

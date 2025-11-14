@@ -1,12 +1,13 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import { isUndefined } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
-import type { StyledProps } from '../common';
+import { pxCompat } from '@tdesign/common-js/utils/helper';
 import Portal from '../common/Portal';
 import useAttach from '../hooks/useAttach';
 import useConfig from '../hooks/useConfig';
+import useDeepEffect from '../hooks/useDeepEffect';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useSetState from '../hooks/useSetState';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
@@ -16,8 +17,8 @@ import useDialogDrag from './hooks/useDialogDrag';
 import useDialogEsc from './hooks/useDialogEsc';
 import useDialogPosition from './hooks/useDialogPosition';
 import useLockStyle from './hooks/useLockStyle';
+import type { StyledProps } from '../common';
 import type { DialogInstance, TdDialogProps } from './type';
-import { parseValueToPx } from './utils';
 
 export interface DialogProps extends TdDialogProps, StyledProps {
   isPlugin?: boolean; // 是否以插件形式调用
@@ -81,13 +82,11 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     canDraggable: draggable && mode === 'modeless',
   });
 
-  useEffect(() => {
-    if (isPlugin) {
-      return;
-    }
+  useDeepEffect(() => {
+    if (isPlugin) return;
     // 插件式调用不会更新props, 只有组件式调用才会更新props
     setState((prevState) => ({ ...prevState, ...props }));
-  }, [props, setState, isPlugin]);
+  }, [props, setState]);
 
   useImperativeHandle(ref, () => ({
     show() {
@@ -222,7 +221,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
                 [`${componentCls}--top`]: !!props.top || props.placement === 'top',
                 [`${componentCls}--center`]: props.placement === 'center' && !props.top,
               })}
-              style={{ paddingTop: parseValueToPx(props.top) }}
+              style={{ paddingTop: pxCompat(props.top) }}
               onClick={onMaskClick}
             >
               <CSSTransition
@@ -238,7 +237,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
                   ref={dialogCardRef}
                   {...restState}
                   className={dialogClassName}
-                  style={{ ...style, width: parseValueToPx(width || style?.width) }}
+                  style={{ ...style, width: pxCompat(width || style?.width) }}
                   onConfirm={onConfirm}
                   onCancel={handleCancel}
                   onCloseBtnClick={handleClose}

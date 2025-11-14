@@ -1,20 +1,23 @@
-import React, { Children, isValidElement, cloneElement, useRef, CSSProperties, useMemo } from 'react';
+import React, { Children, cloneElement, isValidElement, useMemo, useRef } from 'react';
+
 import classNames from 'classnames';
 import { isEqual } from 'lodash-es';
+
+import useConfig from '../../hooks/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import usePanelVirtualScroll from '../hooks/usePanelVirtualScroll';
 import { getSelectValueArr } from '../util/helper';
-import {
-  TdSelectProps,
-  SelectValue,
-  TdOptionProps,
-  SelectValueChangeTrigger,
+import Option, { type SelectOptionProps } from './Option';
+import OptionGroup from './OptionGroup';
+
+import type {
   SelectOption,
   SelectOptionGroup,
+  SelectValue,
+  SelectValueChangeTrigger,
+  TdOptionProps,
+  TdSelectProps,
 } from '../type';
-import useConfig from '../../hooks/useConfig';
-import usePanelVirtualScroll from '../hooks/usePanelVirtualScroll';
-import Option, { SelectOptionProps } from './Option';
-import OptionGroup from './OptionGroup';
 
 interface SelectPopupProps
   extends Pick<
@@ -93,17 +96,16 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     size,
   });
 
-  // 全部可选选项
-  const selectableOptions = useMemo(() => {
+  const optionsExcludedCheckAll = useMemo(() => {
     const uniqueOptions = {};
     propsOptions?.forEach((option: SelectOption) => {
       if ((option as SelectOptionGroup).group) {
         (option as SelectOptionGroup).children.forEach((item) => {
-          if (!item.disabled && !item.checkAll) {
+          if (!item.checkAll) {
             uniqueOptions[item.value] = item;
           }
         });
-      } else if (!(option as TdOptionProps).disabled && !(option as TdOptionProps).checkAll) {
+      } else if (!(option as TdOptionProps).checkAll) {
         uniqueOptions[(option as TdOptionProps).value] = option;
       }
     });
@@ -165,13 +167,16 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
             const { group, divider, ...rest } = item as SelectOptionGroup;
             if (group) {
               return (
-                <OptionGroup label={group} divider={divider} key={index}>
+                <OptionGroup label={group} divider={divider} key={index} {...rest}>
                   {renderOptions(rest.children)}
                 </OptionGroup>
               );
             }
 
-            const { value: optionValue, label, disabled, content, children, ...restData } = item as TdOptionProps;
+            const { value: optionValue, label, disabled, children, ...restData } = item as TdOptionProps;
+            // 当 keys 属性配置 content 作为 value 或 label 时，确保 restData 中也包含它, 不参与渲染计算
+            const { content } = item as TdOptionProps;
+            const shouldOmitContent = Object.values(keys || {}).includes('content');
             return (
               <Option
                 key={index}
@@ -180,13 +185,12 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
                 value={optionValue}
                 onSelect={onSelect}
                 selectedValue={value}
-                optionLength={selectableOptions.length}
+                optionLength={optionsExcludedCheckAll.length}
                 multiple={multiple}
                 size={size}
                 disabled={disabled}
                 restData={restData}
                 keys={keys}
-                content={content}
                 onCheckAllChange={onCheckAllChange}
                 onRowMounted={handleRowMounted}
                 {...(isVirtual
@@ -197,6 +201,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
                     }
                   : {})}
                 {...restData}
+                content={shouldOmitContent ? null : content}
               >
                 {children}
               </Option>
@@ -211,7 +216,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
   const isEmpty =
     (Array.isArray(childrenWithProps) && !childrenWithProps.length) || (propsOptions && propsOptions.length === 0);
 
-  const renderPanel = (renderedOptions: SelectOption[], extraStyle?: CSSProperties) => (
+  const renderPanel = (renderedOptions: SelectOption[], extraStyle?: React.CSSProperties) => (
     <div
       ref={ref}
       className={classNames(`${classPrefix}-select__dropdown-inner`, {

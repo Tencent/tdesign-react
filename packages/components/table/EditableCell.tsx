@@ -75,10 +75,8 @@ const EditableCell = (props: EditableCellProps) => {
     [col, row, colIndex, rowIndex],
   );
 
-  const cellValue = useMemo(() => get(row, col.colKey), [row, col.colKey]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const currentRow = useMemo(() => getCurrentRow(row, col.colKey, editValue), [col.colKey, editValue, row]);
+  const cellValue = get(row, col.colKey);
+  const currentRow = getCurrentRow(row, col.colKey, editValue);
 
   const updateEditedCellValue = (val: any) => {
     setEditValue(val);

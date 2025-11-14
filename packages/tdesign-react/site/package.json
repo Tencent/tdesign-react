@@ -6,7 +6,6 @@
     "start": "pnpm run dev",
     "dev": "vite --configLoader runner",
     "build": "vite build --configLoader runner",
-    "intranet": "vite build --mode intranet --configLoader runner",
     "preview": "vite build --mode preview --configLoader runner && cp dist/index.html dist/404.html"
   },
   "author": "tdesign",
@@ -16,8 +15,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.2.2",
-    "tdesign-icons-react": "^0.5.1",
-    "tdesign-icons-view": "^0.3.7",
+    "tdesign-icons-react": "^0.6.1",
     "@tdesign/site-components": "^0.17.0",
     "tdesign-theme-generator": "^1.1.6"
   },

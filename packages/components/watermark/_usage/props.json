@@ -1,0 +1,35 @@
+[
+  {
+    "name": "movable",
+    "type": "Boolean",
+    "defaultValue": false,
+    "options": []
+  },
+  {
+    "name": "isRepeat",
+    "type": "Boolean",
+    "defaultValue": true,
+    "options": []
+  },
+  {
+    "name": "removable",
+    "type": "Boolean",
+    "defaultValue": true,
+    "options": []
+  },
+  {
+    "name": "layout",
+    "type": "enum",
+    "defaultValue": "rectangular",
+    "options": [
+      {
+        "label": "rectangular",
+        "value": "rectangular"
+      },
+      {
+        "label": "hexagonal",
+        "value": "hexagonal"
+      }
+    ]
+  }
+]
