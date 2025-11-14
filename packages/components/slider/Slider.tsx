@@ -1,20 +1,22 @@
 import React, { useMemo, useRef } from 'react';
 import classNames from 'classnames';
-import { isFunction, isString, isNumber } from 'lodash-es';
+import { isFunction, isNumber, isString } from 'lodash-es';
+
 import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
 import { accAdd } from '../_util/number';
-import type { StyledProps, TNode } from '../common';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
-import type { MouseCallback } from '../hooks/useMouseEvent';
 import InputNumber from '../input-number/InputNumber';
 import { sliderDefaultProps } from './defaultProps';
 import SliderHandleButton from './SliderHandleButton';
-import type { TdSliderProps } from './type';
 import { numberToPercent } from './utils/handleNumber';
 
-export type SliderProps = TdSliderProps & StyledProps;
+import type { StyledProps, TNode } from '../common';
+import type { MouseCallback } from '../hooks/useMouseEvent';
+import type { SliderValue, TdSliderProps } from './type';
+
+export interface SliderProps<T extends SliderValue = SliderValue> extends TdSliderProps<T>, StyledProps {}
 
 const LEFT_NODE = 0;
 const RIGHT_NODE = 1;
@@ -264,4 +266,6 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
 
 Slider.displayName = 'Slider';
 
-export default Slider;
+export default Slider as <T extends SliderValue = SliderValue>(
+  props: SliderProps<T> & React.RefAttributes<HTMLDivElement>,
+) => React.ReactElement;
