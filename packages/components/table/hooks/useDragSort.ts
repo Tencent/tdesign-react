@@ -3,11 +3,11 @@
  * @docs https://github.com/SortableJS/Sortable
  *
  * (1) toArray() 会返回所有当前容器内的所有 tr 节点的 dataIdAttr 列表
- * - 与是否标记过 dataIdAttr 无关，firstFullRow、lastFullRow、expandedRow 等都会被包含在内
- * - 如果节点没有 dataIdAttr，该库会分配一个随机值
+ * - 与是否手动标记过 `data-id` 无关，firstFullRow、lastFullRow、expandedRow 等都会被包含在内
+ * - 如果节点没有 `data-id`，该库会分配一个随机值存在内部
  *
  * (2) sort([id1, id2]) 会根据传入的数组，自动重新排序 DOM 节点
- * - 用于处理受控，恢复拖拽前的顺序，不 onEnd 后直接更新，而是等外部数据更新，再进行重绘
+ * - 用于处理受控，恢复拖拽前的顺序，避免 onEnd 后直接更新，而是等外部数据更新，再进行重绘
  */
 
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -236,7 +236,7 @@ function useDragSort(props: TdEnhancedTableProps, options: DragSortOptions) {
            * https://github.com/SortableJS/Sortable/issues/2336
            * - 属于该库内置缺陷，在使用虚拟滚动时，如果在拖拽过程中发生滚动
            * - 当原始节点最终不在可见范围内时，会意外在首行生成一个新的 `draggable = false` 的节点
-           * - 下面算是一个 HACK 方案
+           * - 下面算是一个 HACK 方案，手动移除该节点，避免影响后续的排序逻辑
            */
           const draggableTr = primaryTableRef.current?.tableContentElement?.querySelector('tr[draggable="false"]');
           if (!draggableTr || !draggableTr.parentNode) return;
