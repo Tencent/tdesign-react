@@ -124,7 +124,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
         onLoad: () => {
           setTimeout(() => {
             store.refreshNodes();
-            treeNodesEffect(inputVal, store, setTreeNodes, props.filter, checkStrictly, isParentFilterable);
+            treeNodesEffect(inputVal, store, setTreeNodes, props.filter, isParentFilterable);
           });
         },
       });
@@ -135,7 +135,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
       treeStore.reload(options);
       treeStore.refreshNodes();
       treeStoreExpendEffect(treeStore, scopeVal, []);
-      treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, checkStrictly, isParentFilterable);
+      treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, isParentFilterable);
     }
   };
 
@@ -181,8 +181,8 @@ export const useCascaderContext = (props: TdCascaderProps) => {
 
   useEffect(() => {
     if (!treeStore) return;
-    treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, checkStrictly, isParentFilterable);
-  }, [inputVal, treeStore, props.filter, checkStrictly, isParentFilterable]);
+    treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, isParentFilterable);
+  }, [inputVal, treeStore, props.filter, isParentFilterable]);
 
   useEffect(() => {
     if (!treeStore) return;
@@ -197,7 +197,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
 
   useEffect(() => {
     const { inputVal, treeStore, setTreeNodes } = cascaderContext;
-    treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, checkStrictly, isParentFilterable);
+    treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, isParentFilterable);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputVal, scopeVal, isParentFilterable]);
 

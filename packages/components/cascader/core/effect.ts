@@ -185,7 +185,6 @@ export const treeNodesEffect = (
   treeStore: CascaderContextType['treeStore'],
   setTreeNodes: CascaderContextType['setTreeNodes'],
   filter: CascaderContextType['filter'],
-  checkStrictly: CascaderContextType['checkStrictly'],
   isParentFilterable: boolean,
 ) => {
   if (!treeStore) return;
