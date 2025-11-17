@@ -30,10 +30,11 @@ export const useCascaderContext = (props: TdCascaderProps) => {
   const [expend, setExpend] = useState<TreeNodeValue[]>([]);
   const [scopeVal, setScopeVal] = useState(undefined);
 
-  const isParentFilterable = useMemo(() => {
-    // valueMode = 'parentFirst' || 'all'  和 checkStrictly 都允许父节点被选中。
-    return !!((['parentFirst', 'all'].includes(props.valueMode) || props.checkStrictly) && inputVal);
-  }, [props.valueMode, props.checkStrictly, inputVal]);
+  // valueMode = 'parentFirst' || 'all'  和 checkStrictly 都允许父节点被选中。
+  const isParentFilterable = useMemo(
+    () => !!((['parentFirst', 'all'].includes(props.valueMode) || props.checkStrictly) && inputVal),
+    [props.valueMode, props.checkStrictly, inputVal],
+  );
 
   const cascaderContext = useMemo(() => {
     const {
@@ -78,7 +79,17 @@ export const useCascaderContext = (props: TdCascaderProps) => {
       setExpend,
       isParentFilterable,
     };
-  }, [props, scopeVal, innerPopupVisible, treeStore, treeNodes, inputVal, setInnerValue, setPopupVisible]);
+  }, [
+    props,
+    scopeVal,
+    innerPopupVisible,
+    treeStore,
+    treeNodes,
+    inputVal,
+    setInnerValue,
+    setPopupVisible,
+    isParentFilterable,
+  ]);
 
   const isFilterable = useMemo(
     () => Boolean(props.filterable || isFunction(props.filter)),
