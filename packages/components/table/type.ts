@@ -359,7 +359,7 @@ export interface BaseTableCol<T extends TableRowData = TableRowData> {
   /**
    * 限制拖拽调整的最小宽度和最大宽度。`resize.minWidth` 默认为 `80`，`resize.maxWidth` 默认为 `600`
    */
-  resize?: TableColumnResizeConfig;
+  resize?: Partial<TableColumnResizeConfig>;
   /**
    * 是否阻止当列单元格点击事件冒泡
    */
