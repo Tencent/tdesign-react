@@ -1,10 +1,10 @@
-import { flattenDeep, get, isEqual, isFunction, isObject, isString, merge, set, unset } from 'lodash-es';
 import React, { forwardRef, ReactNode, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
+import { flattenDeep, get, isEqual, isFunction, isObject, isString, merge, set, unset } from 'lodash-es';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
@@ -14,7 +14,7 @@ import { formItemDefaultProps } from './defaultProps';
 import { useFormContext, useFormListContext } from './FormContext';
 import { parseMessage, validate as validateModal } from './formModel';
 import { HOOK_MARK } from './hooks/useForm';
-import useFormItemInitialData, { ctrlKeyMap } from './hooks/useFormItemInitialData';
+import useFormItemInitialData, { CTRL_KEY_MAP } from './hooks/useFormItemInitialData';
 import useFormItemStyle from './hooks/useFormItemStyle';
 import { calcFieldValue } from './utils';
 
@@ -521,7 +521,9 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
                 });
               }
               if (typeof child.type === 'object') {
-                ctrlKey = ctrlKeyMap.get(child.type) || 'value';
+                // @ts-ignore
+                const componentName = child.type?.displayName;
+                ctrlKey = CTRL_KEY_MAP.get(componentName) || 'value';
               }
               const childProps = child.props as any;
               return React.cloneElement(child, {
