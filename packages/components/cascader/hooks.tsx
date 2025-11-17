@@ -30,6 +30,11 @@ export const useCascaderContext = (props: TdCascaderProps) => {
   const [expend, setExpend] = useState<TreeNodeValue[]>([]);
   const [scopeVal, setScopeVal] = useState(undefined);
 
+  const isParentFilterable = useMemo(() => {
+    // valueMode = 'parentFirst' || 'all'  和 checkStrictly 都允许父节点被选中。
+    return !!((['parentFirst', 'all'].includes(props.valueMode) || props.checkStrictly) && inputVal);
+  }, [props.valueMode, props.checkStrictly, inputVal]);
+
   const cascaderContext = useMemo(() => {
     const {
       size,
@@ -71,6 +76,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
       inputVal,
       setInputVal,
       setExpend,
+      isParentFilterable,
     };
   }, [props, scopeVal, innerPopupVisible, treeStore, treeNodes, inputVal, setInnerValue, setPopupVisible]);
 
@@ -107,7 +113,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
         onLoad: () => {
           setTimeout(() => {
             store.refreshNodes();
-            treeNodesEffect(inputVal, store, setTreeNodes, props.filter, checkStrictly);
+            treeNodesEffect(inputVal, store, setTreeNodes, props.filter, checkStrictly, isParentFilterable);
           });
         },
       });
@@ -118,7 +124,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
       treeStore.reload(options);
       treeStore.refreshNodes();
       treeStoreExpendEffect(treeStore, scopeVal, []);
-      treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, checkStrictly);
+      treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, checkStrictly, isParentFilterable);
     }
   };
 
@@ -164,8 +170,8 @@ export const useCascaderContext = (props: TdCascaderProps) => {
 
   useEffect(() => {
     if (!treeStore) return;
-    treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, checkStrictly);
-  }, [inputVal, treeStore, props.filter, checkStrictly]);
+    treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, checkStrictly, isParentFilterable);
+  }, [inputVal, treeStore, props.filter, checkStrictly, isParentFilterable]);
 
   useEffect(() => {
     if (!treeStore) return;
@@ -180,9 +186,9 @@ export const useCascaderContext = (props: TdCascaderProps) => {
 
   useEffect(() => {
     const { inputVal, treeStore, setTreeNodes } = cascaderContext;
-    treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, checkStrictly);
+    treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, checkStrictly, isParentFilterable);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputVal, scopeVal]);
+  }, [inputVal, scopeVal, isParentFilterable]);
 
   const getCascaderItems = (
     arrValue: CascaderValue[],

@@ -15,8 +15,19 @@ export function expendClickEffect(
   node: TreeNode,
   cascaderContext: CascaderContextType,
 ) {
-  const { checkStrictly, multiple, treeStore, setVisible, setValue, setTreeNodes, setExpend, value, max, valueType } =
-    cascaderContext;
+  const {
+    checkStrictly,
+    multiple,
+    treeStore,
+    setVisible,
+    setValue,
+    setTreeNodes,
+    setExpend,
+    value,
+    max,
+    valueType,
+    isParentFilterable,
+  } = cascaderContext;
 
   const isDisabled = node.disabled || (multiple && (value as TreeNodeValue[]).length >= max && max !== 0);
 
@@ -30,7 +41,7 @@ export function expendClickEffect(
     setTreeNodes(nodes);
 
     // 多选条件下手动维护expend
-    if (multiple) {
+    if (multiple && !isParentFilterable) {
       setExpend(expanded);
     }
   }
@@ -175,12 +186,13 @@ export const treeNodesEffect = (
   setTreeNodes: CascaderContextType['setTreeNodes'],
   filter: CascaderContextType['filter'],
   checkStrictly: CascaderContextType['checkStrictly'],
+  isParentFilterable: boolean,
 ) => {
   if (!treeStore) return;
   let nodes = [];
   if (inputVal) {
     const filterMethods = (node: TreeNode) => {
-      if (!checkStrictly && !node.isLeaf()) return;
+      if (!node.isLeaf() && !isParentFilterable) return;
       if (isFunction(filter)) {
         return filter(`${inputVal}`, node as TreeNodeModel & TreeNode);
       }
