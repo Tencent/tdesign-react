@@ -13,9 +13,9 @@ import SliderHandleButton from './SliderHandleButton';
 
 import type { StyledProps, TNode } from '../common';
 import type { MouseCallback } from '../hooks/useMouseEvent';
-import type { TdSliderProps } from './type';
+import type { SliderValue, TdSliderProps } from './type';
 
-export type SliderProps = TdSliderProps & StyledProps;
+export interface SliderProps<T extends SliderValue = SliderValue> extends TdSliderProps<T>, StyledProps {}
 
 const LEFT_NODE = 0;
 const RIGHT_NODE = 1;
@@ -265,4 +265,6 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
 
 Slider.displayName = 'Slider';
 
-export default Slider;
+export default Slider as <T extends SliderValue = SliderValue>(
+  props: SliderProps<T> & React.RefAttributes<HTMLDivElement>,
+) => React.ReactElement;
