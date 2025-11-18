@@ -178,7 +178,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       // eslint-disable-next-line react-hooks/exhaustive-deps
       setLastLeafColumns(spansAndLeafNodes.leafColumns);
     }
-    setEffectColMap(spansAndLeafNodes.leafColumns, null);
+    setEffectColMap(spansAndLeafNodes.leafColumns, props.columns);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spansAndLeafNodes.leafColumns]);
 

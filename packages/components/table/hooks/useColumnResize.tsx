@@ -6,8 +6,8 @@
  * - 若表格宽度未超出，改变左侧列宽的同时，调整右侧列或最后一列的宽度以保持总宽度不变
  */
 
-import React, { CSSProperties, MutableRefObject, useEffect, useRef, useState } from 'react';
 import { isNumber } from 'lodash-es';
+import React, { CSSProperties, MutableRefObject, useEffect, useRef, useState } from 'react';
 import { off, on } from '../../_util/listener';
 import type { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
 
@@ -50,9 +50,25 @@ export default function useColumnResize(params: {
     onColumnResizeChange,
   } = params;
 
+  const resizeParams = {
+    isResizing: false,
+    resizeEl: null as HTMLElement,
+    resizeCol: null as BaseTableCol<TableRowData>,
+    resizeStart: 0,
+    resizeLineStyle: {} as CSSProperties,
+  };
+
   const resizeLineRef = useRef<HTMLDivElement>(null);
   const effectColMap = useRef<{ [colKey: string]: any }>({});
+
   const [leafColumns, setLeafColumns] = useState([]);
+  const [allColumns, setAllColumns] = useState([]);
+  const [resizeLineStyle, setResizeLineStyle] = useState<CSSProperties>({
+    display: 'none',
+    left: '10px',
+    height: '10px',
+    bottom: '0',
+  });
 
   useEffect(() => {
     const hasDocument = typeof document !== 'undefined';
@@ -72,124 +88,125 @@ export default function useColumnResize(params: {
     return nodes[i];
   };
 
-  // 递归查找列宽度变化后，受影响的相关列
-  const setEffectColMap = (nodes: BaseTableCol<TableRowData>[], parent: BaseTableCol<TableRowData> | null) => {
-    if (!nodes) return;
-    setLeafColumns(nodes);
-    nodes.forEach((n, index) => {
-      const prevNode = getSiblingResizableCol(nodes, index - 1, 'prev');
-      const nextNode = getSiblingResizableCol(nodes, index + 1, 'next');
-      const parentPrevCol = parent ? effectColMap.current[parent.colKey].prev : nextNode;
-      const parentNextCol = parent ? effectColMap.current[parent.colKey].next : prevNode;
-      const prev = index === 0 ? parentPrevCol : prevNode;
-      const next = index === nodes.length - 1 ? parentNextCol : nextNode;
+  const setEffectColMap = (
+    leafColumns: BaseTableCol<TableRowData>[],
+    originalColumns: BaseTableCol<TableRowData>[],
+  ) => {
+    if (!leafColumns) return;
+
+    const collectAllColumns = (cols: BaseTableCol<TableRowData>[], result: BaseTableCol<TableRowData>[] = []) => {
+      if (!cols) return result;
+      cols.forEach((col) => {
+        result.push(col);
+        if (col.children?.length) {
+          collectAllColumns(col.children, result);
+        }
+      });
+      return result;
+    };
+
+    setAllColumns(collectAllColumns(originalColumns));
+    setLeafColumns(leafColumns);
+
+    leafColumns.forEach((n, index) => {
       effectColMap.current[n.colKey] = {
-        prev,
-        next,
-        current: {
-          prevSibling: getSiblingResizableCol(nodes, index - 1, 'prev'),
-          nextSibling: getSiblingResizableCol(nodes, index + 1, 'next'),
-        },
+        prevSibling: getSiblingResizableCol(leafColumns, index - 1, 'prev'),
+        nextSibling: getSiblingResizableCol(leafColumns, index + 1, 'next'),
       };
-      setEffectColMap(n.children, n);
     });
   };
 
-  const resizeLineParams = {
-    isDragging: false,
-    draggingCol: null as HTMLElement,
-    draggingStart: 0,
-    // 列宽调整类型：影响右侧列宽度、影响左侧列宽度、或者仅影响自身
-    effectCol: 'next' as 'next' | 'prev',
-    resizeLineStyle: {} as CSSProperties,
-  };
-
-  const [resizeLineStyle, setResizeLineStyle] = useState<CSSProperties>({
-    display: 'none',
-    left: '10px',
-    height: '10px',
-    bottom: '0',
-  });
-
-  // 当前列是否配置右侧固定并且处于固定激活状态
   const isColRightFixActive = (col: BaseTableCol<TableRowData>) => col.fixed === 'right' && showColumnShadow.right;
 
-  // 表格列宽拖拽事件
-  // 只在表头显示拖拽图标
+  const getLeafColumns = (col: BaseTableCol<TableRowData>): BaseTableCol<TableRowData>[] => {
+    if (!col.children || col.children.length === 0) {
+      return [col];
+    }
+    const leaves: BaseTableCol<TableRowData>[] = [];
+    col.children.forEach((child) => {
+      leaves.push(...getLeafColumns(child));
+    });
+    return leaves;
+  };
+
   const onColumnMouseover = (e: React.MouseEvent<HTMLTableCellElement, MouseEvent>) => {
-    // calculate mouse cursor before drag start
-    if (!resizeLineRef.current || resizeLineParams.isDragging || !e.target) return;
+    if (!resizeLineRef.current || resizeParams.isResizing || !e.target) return;
+
     const target = (e.target as HTMLElement).closest('th');
     if (!target) return;
-    // 判断是否为叶子阶段，仅叶子结点允许拖拽
+
     const colKey = target.getAttribute('data-colkey');
-    const targetCol = leafColumns.find((t) => t.colKey === colKey);
+
+    // 先在所有列中查找（包括父级列）
+    const targetCol = allColumns.find((t) => t.colKey === colKey);
     if (!targetCol) return;
 
+    // 多级表头，获取实际用于调整的叶子节点列
+    let resizeCol = targetCol;
+    if (targetCol.children && targetCol.children.length > 0) {
+      const leaves = getLeafColumns(targetCol);
+      // 使用最右侧的叶子节点
+      resizeCol = leaves[leaves.length - 1];
+    }
+
     const targetBoundRect = target.getBoundingClientRect();
-    const thRightCursor = targetBoundRect.right - e.pageX <= DISTANCE;
-    const thLeftCursor = e.pageX - targetBoundRect.left <= DISTANCE;
-    const isFixedToRight = isColRightFixActive(targetCol);
+    const shouldResizeCurrCol = targetBoundRect.right - e.pageX <= DISTANCE;
+    const shouldResizePrevCol = e.pageX - targetBoundRect.left <= DISTANCE;
+    const targetIndex = leafColumns.findIndex((t) => t.colKey === resizeCol.colKey);
 
-    const targetIndex = leafColumns.findIndex((t) => t.colKey === targetCol.colKey);
+    const updateResizeTarget = (element?: HTMLElement | null, resizeCol?: BaseTableCol<TableRowData>) => {
+      if (element) {
+        // eslint-disable-next-line no-param-reassign
+        element.style.cursor = 'col-resize';
+        // 存储实际用于调整的列
+        resizeParams.resizeEl = element;
+        resizeParams.resizeCol = resizeCol || null;
+      } else {
+        target.style.cursor = '';
+        resizeParams.resizeEl = null;
+        resizeParams.resizeCol = null;
+      }
+    };
 
-    if (isFixedToRight) {
-      const colResizable = targetCol.resizable ?? true;
-      if (colResizable) {
-        target.style.cursor = 'col-resize';
-        if (thLeftCursor) {
-          const prevEl = target.previousElementSibling as HTMLElement;
-          if (prevEl) {
-            resizeLineParams.draggingCol = prevEl;
-            resizeLineParams.effectCol = 'next';
-          }
-        } else if (thRightCursor) {
-          resizeLineParams.draggingCol = target;
-          resizeLineParams.effectCol = 'next';
-        }
+    // 处理右侧固定列
+    if (isColRightFixActive(resizeCol)) {
+      const colResizable = resizeCol.resizable ?? true;
+      if (!colResizable) {
+        updateResizeTarget(null);
         return;
       }
-    }
-    // 普通列的处理：拖拽右侧边界调整当前列（左侧列）
-    else if (thRightCursor) {
-      const colResizable = targetCol.resizable ?? true;
-      if (colResizable) {
-        target.style.cursor = 'col-resize';
-        resizeLineParams.draggingCol = target;
-        resizeLineParams.effectCol = 'next';
-        return;
+      if (shouldResizePrevCol) {
+        updateResizeTarget(target.previousElementSibling as HTMLElement);
+      } else if (shouldResizeCurrCol) {
+        updateResizeTarget(target, resizeCol);
+      } else {
+        updateResizeTarget(null);
       }
+      return;
     }
-    // 拖拽左侧边界调整前一列（左侧列）
-    else if (thLeftCursor && targetIndex > 0) {
+
+    // 处理普通列
+    if (shouldResizeCurrCol) {
+      const colResizable = resizeCol.resizable ?? true;
+      updateResizeTarget(colResizable ? target : null, resizeCol);
+    } else if (shouldResizePrevCol && targetIndex > 0) {
       const prevCol = leafColumns[targetIndex - 1];
       const prevColResizable = prevCol?.resizable ?? true;
       if (prevColResizable) {
-        target.style.cursor = 'col-resize';
-
-        // 在 DOM 中查找前一列的 th 元素
         const allThs = target.parentElement?.querySelectorAll('th[data-colkey]');
-        let prevThElement: HTMLElement | null = null;
         if (allThs) {
           for (let i = 0; i < allThs.length; i++) {
             if (allThs[i].getAttribute('data-colkey') === prevCol.colKey) {
-              prevThElement = allThs[i] as HTMLElement;
-              break;
+              updateResizeTarget(allThs[i] as HTMLElement, prevCol);
+              return;
             }
           }
         }
-
-        if (prevThElement) {
-          resizeLineParams.draggingCol = prevThElement;
-          resizeLineParams.effectCol = 'next';
-          return;
-        }
       }
+      updateResizeTarget(null);
+    } else {
+      updateResizeTarget(null);
     }
-    // 重置记录值
-    target.style.cursor = '';
-    resizeLineParams.draggingCol = null;
-    resizeLineParams.effectCol = null;
   };
 
   const getMinMaxColWidth = (targetCol: BaseTableCol<TableRowData>) => {
@@ -229,7 +246,7 @@ export default function useColumnResize(params: {
     };
   };
 
-  const getTotalTableWidth = (thWidthList: { [key: string]: number }): number => {
+  const getTotalTableWidth = (thWidthList: { [key: string]: number }) => {
     let tableWidth = 0;
     leafColumns.forEach((col) => {
       tableWidth += thWidthList[col.colKey];
@@ -252,129 +269,103 @@ export default function useColumnResize(params: {
     return !(isWidthAbnormal || isWidthOverflow || index === leafColumns.length - 1);
   };
 
-  // 调整表格列宽
   const onColumnMousedown = (e: React.MouseEvent<HTMLTableCellElement, MouseEvent>) => {
-    if (e.button === CONTEXTMENU || !resizeLineParams.draggingCol) return;
-    const target = resizeLineParams.draggingCol;
-    const targetColKey = target.getAttribute('data-colkey');
-    const targetCol = leafColumns.find((t) => t.colKey === targetColKey);
+    if (e.button === CONTEXTMENU || !resizeParams.resizeEl) return;
+    const target = resizeParams.resizeEl;
+
+    let targetCol: BaseTableCol<TableRowData>;
+    if (resizeParams.resizeCol) {
+      targetCol = resizeParams.resizeCol;
+    } else {
+      const targetColKey = target.getAttribute('data-colkey');
+      targetCol = leafColumns.find((t) => t.colKey === targetColKey);
+    }
+
     if (!targetCol) return;
 
     const targetBoundRect = target.getBoundingClientRect();
     const tableBoundRect = tableContentRef.current?.getBoundingClientRect();
-    const effectNextCol = effectColMap.current[targetCol.colKey]?.next;
-    const effectPrevCol = effectColMap.current[targetCol.colKey]?.prev;
+    const targetColInfo = effectColMap.current[targetCol.colKey];
 
     const { resizeLinePos, minResizeLineLeft, maxResizeLineLeft } = isColRightFixActive(targetCol)
-      ? getFixedToRightResizeInfo(target, targetCol, effectNextCol, targetBoundRect, tableBoundRect)
+      ? getFixedToRightResizeInfo(target, targetCol, targetColInfo?.nextSibling, targetBoundRect, tableBoundRect)
       : getNormalResizeInfo(targetCol, targetBoundRect, tableBoundRect);
     // 开始拖拽，记录下鼠标起始位置
-    resizeLineParams.isDragging = true;
-    resizeLineParams.draggingStart = e.pageX || 0;
+    resizeParams.isResizing = true;
+    resizeParams.resizeStart = e.pageX || 0;
 
     // 初始化 resizeLine 标记线
     if (resizeLineRef?.current) {
-      const styles: CSSProperties = { ...resizeLineStyle };
+      const styles = { ...resizeLineStyle };
       styles.display = 'block';
       styles.height = `${tableBoundRect.bottom - targetBoundRect.top}px`;
       styles.left = `${resizeLinePos}px`;
       const parent = tableContentRef.current.parentElement.getBoundingClientRect();
       styles.bottom = `${parent.bottom - tableBoundRect.bottom}px`;
       setResizeLineStyle(styles);
-      resizeLineParams.resizeLineStyle = styles;
+      resizeParams.resizeLineStyle = styles;
     }
 
     const onDragOver: EventListener = (e: MouseEvent) => {
-      if (resizeLineParams.isDragging) {
-        const left = resizeLinePos + e.x - resizeLineParams.draggingStart;
+      if (resizeParams.isResizing) {
+        const left = resizeLinePos + e.x - resizeParams.resizeStart;
         let finalLeft = Math.min(Math.max(left, minResizeLineLeft), maxResizeLineLeft);
 
         // 检查是否允许调整相邻列宽
         const thWidthList = getThWidthList('calculate');
-        const currentCol = effectColMap.current[targetCol.colKey]?.current;
-        const rightCol = resizeLineParams.effectCol === 'next' ? currentCol.nextSibling : targetCol;
+        const rightCol = targetColInfo?.nextSibling;
         const moveDistance = resizeLinePos - finalLeft;
         const targetIndex = leafColumns.findIndex((t) => t.colKey === targetCol.colKey);
-        const canResizeSiblingColWidth = getSiblingColCanResizable(thWidthList, rightCol, moveDistance, targetIndex);
+        const siblingColResizable = getSiblingColCanResizable(thWidthList, rightCol, moveDistance, targetIndex);
 
-        // 当表格已超出且不允许调整相邻列时的特殊处理
-        // 注意：moveDistance < 0 表示向右拖拽（扩大列宽），moveDistance > 0 表示向左拖拽（缩小列宽）
-        if (!canResizeSiblingColWidth && isWidthOverflow) {
-          if (resizeLineParams.effectCol === 'next') {
-            // effectCol='next' 表示拖拽分割线调整左侧列
-            // 向右拖拽（moveDistance < 0）= 扩大左侧列 = 增加表格总宽度 ✅ 允许
-            // 向左拖拽（moveDistance > 0）= 缩小左侧列 = 减少表格总宽度 ✅ 允许
-            // 所以不需要任何限制！
-          } else if (resizeLineParams.effectCol === 'prev') {
-            finalLeft = Math.max(finalLeft, resizeLinePos);
-          }
+        // 表格超出时，不允许向右拖拽扩大列宽
+        if (!siblingColResizable && isWidthOverflow) {
+          finalLeft = Math.min(finalLeft, resizeLinePos);
         }
 
         const styles = {
-          ...resizeLineParams.resizeLineStyle,
+          ...resizeParams.resizeLineStyle,
           left: `${finalLeft}px`,
         };
-        resizeLineParams.resizeLineStyle = styles;
+        resizeParams.resizeLineStyle = styles;
         setResizeLineStyle(styles);
       }
     };
 
     // 拖拽时鼠标可能会超出 table 范围，需要给 document 绑定拖拽相关事件
     const onDragEnd = () => {
-      if (!resizeLineParams.isDragging) return;
-      const moveDistance = resizeLinePos - (parseFloat(String(resizeLineParams.resizeLineStyle?.left || '')) || 0);
+      if (!resizeParams.isResizing) return;
+      const moveDistance = resizeLinePos - (parseFloat(String(resizeParams.resizeLineStyle?.left || '')) || 0);
 
       const thWidthList = getThWidthList('calculate');
-      const currentCol = effectColMap.current[targetCol.colKey]?.current;
-      const currentSibling = resizeLineParams.effectCol === 'next' ? currentCol.prevSibling : currentCol.nextSibling;
-      // 多行表头，列宽为最后一层的宽度，即叶子结点宽度
       const newThWidthList = { ...thWidthList };
       const initTableElmWidth = getTotalTableWidth(newThWidthList);
 
       // 当前列不允许修改宽度，就调整相邻列的宽度
-      const tmpCurrentCol = targetCol.resizable !== false ? targetCol : currentSibling;
+      const tmpCurrentCol = targetCol.resizable !== false ? targetCol : targetColInfo?.prevSibling;
 
-      const rightCol = resizeLineParams.effectCol === 'next' ? currentCol.nextSibling : targetCol;
+      const rightCol = targetColInfo?.nextSibling;
       const targetIndex = leafColumns.findIndex((t) => t.colKey === targetCol.colKey);
       const siblingColResizable = getSiblingColCanResizable(newThWidthList, rightCol, moveDistance, targetIndex);
 
-      if (resizeLineParams.effectCol === 'next') {
-        // 右侧激活态的固定列，需特殊调整
-        if (isColRightFixActive(targetCol)) {
-          // 如果不相同，则表示改变相临的右侧列宽
-          if (target.dataset.colkey !== targetCol.colKey) {
-            newThWidthList[effectNextCol.colKey] += moveDistance;
-          } else {
-            newThWidthList[tmpCurrentCol.colKey] += moveDistance;
-          }
+      // 右侧激活态的固定列，需特殊调整
+      if (isColRightFixActive(targetCol)) {
+        // 如果不相同，则表示改变相临的右侧列宽
+        if (target.dataset.colkey !== targetCol.colKey) {
+          newThWidthList[targetColInfo.nextSibling.colKey] += moveDistance;
         } else {
-          // 非右侧激活态的固定列
-          newThWidthList[tmpCurrentCol.colKey] -= moveDistance;
-          if (siblingColResizable) {
-            newThWidthList[effectNextCol.colKey] += moveDistance;
-          } else {
-            // 不允许调整相邻列时，将减少的宽度分配给最后一列，保持表格总宽度不变
-            const lastCol = leafColumns[leafColumns.length - 1];
-            if (lastCol && lastCol.colKey !== tmpCurrentCol.colKey) {
-              newThWidthList[lastCol.colKey] += moveDistance;
-            }
-          }
+          newThWidthList[tmpCurrentCol.colKey] += moveDistance;
         }
-      } else if (resizeLineParams.effectCol === 'prev') {
-        // 计算当前列的新宽度
-        const { minColWidth } = getMinMaxColWidth(tmpCurrentCol);
-        const newCurrentColWidth = Math.max(minColWidth, newThWidthList[tmpCurrentCol.colKey] - moveDistance);
-        const actualMoveDistance = newThWidthList[tmpCurrentCol.colKey] - newCurrentColWidth;
-
-        newThWidthList[tmpCurrentCol.colKey] = newCurrentColWidth;
-
-        if (siblingColResizable && effectPrevCol) {
-          newThWidthList[effectPrevCol.colKey] += actualMoveDistance;
+      } else {
+        // 非右侧激活态的固定列
+        newThWidthList[tmpCurrentCol.colKey] -= moveDistance;
+        if (siblingColResizable) {
+          newThWidthList[targetColInfo.nextSibling.colKey] += moveDistance;
         } else {
           // 不允许调整相邻列时，将减少的宽度分配给最后一列，保持表格总宽度不变
           const lastCol = leafColumns[leafColumns.length - 1];
           if (lastCol && lastCol.colKey !== tmpCurrentCol.colKey) {
-            newThWidthList[lastCol.colKey] += actualMoveDistance;
+            newThWidthList[lastCol.colKey] += moveDistance;
           }
         }
       }
@@ -384,15 +375,15 @@ export default function useColumnResize(params: {
       const tableWidth = getTotalTableWidth(newThWidthList);
 
       // 整个表格只有一列可以调整的场景
-      if (!effectNextCol?.colKey) setTableElmWidth(Math.max(initTableElmWidth, Math.round(tableWidth)));
+      if (!targetColInfo?.nextSibling?.colKey) setTableElmWidth(Math.max(initTableElmWidth, Math.round(tableWidth)));
       else setTableElmWidth(Math.round(tableWidth));
       updateTableAfterColumnResize();
 
       // 恢复设置
-      resizeLineParams.isDragging = false;
-      resizeLineParams.draggingCol = null;
-      resizeLineParams.effectCol = null;
-      resizeLineParams.resizeLineStyle = null;
+      resizeParams.isResizing = false;
+      resizeParams.resizeEl = null;
+      resizeParams.resizeCol = null;
+      resizeParams.resizeLineStyle = null;
       target.style.cursor = '';
       setResizeLineStyle({
         ...resizeLineStyle,
