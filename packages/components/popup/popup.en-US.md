@@ -66,7 +66,7 @@ onScroll | Function |  | Typescript：`(context: { e: WheelEvent }) => void`<br/
 onScrollToBottom | Function |  | Typescript：`(context: { e: WheelEvent }) => void`<br/> | N
 onVisibleChange | Function |  | Typescript：`(visible: boolean, context: PopupVisibleChangeContext) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/popup/type.ts)。<br/>`interface PopupVisibleChangeContext { e?: PopupTriggerEvent; trigger?: PopupTriggerSource }`<br/><br/>`type PopupTriggerEvent = MouseEvent \| FocusEvent \| KeyboardEvent`<br/><br/>`type PopupTriggerSource = 'document' \| 'trigger-element-click' \| 'trigger-element-hover' \| 'trigger-element-blur' \| 'trigger-element-focus' \| 'trigger-element-mousedown' \| 'context-menu' \| 'keydown-esc'`<br/> | N
 
-### PopupInstanceFunctions 组件实例方法
+### PopupInstanceFunctions
 
 name | params | return | description
 -- | -- | -- | --
