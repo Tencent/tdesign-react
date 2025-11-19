@@ -212,14 +212,14 @@ export default function useDragSort(
 
   // 注册拖拽事件
   useEffect(() => {
-    if (!primaryTableRef || !primaryTableRef.current) return;
-    registerRowDragEvent(primaryTableRef.current?.tableElement);
-    registerColDragEvent(primaryTableRef.current?.tableHtmlElement);
-    primaryTableRef.current.onAffixHeaderMount((node) => {
-      registerColDragEvent(node);
+    if (!primaryTableRef.current) return;
+    registerRowDragEvent(primaryTableRef.current.tableElement);
+    registerColDragEvent(primaryTableRef.current.tableHtmlElement);
+    primaryTableRef.current.onAffixHeaderMount((el) => {
+      registerColDragEvent(el);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [primaryTableRef, columns, dragSort, innerPagination]);
+  }, [columns, dragSort, innerPagination]);
 
   return {
     isRowDraggable,
