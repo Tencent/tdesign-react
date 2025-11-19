@@ -43,6 +43,7 @@
   },
   "include": [
     "./packages/components",
+    "./packages/pro-components",
     "./globals.d.ts",
     "./test/config/index.d.ts",
     "**/**/__tests__/*"

@@ -256,9 +256,8 @@ export default function Comprehensive() {
         onChange={(e) => setInputValue(e.detail)}
         onSend={handleSend}
         onStop={() => chatEngine.abortChat()}
-      >
-        {/* 自定义输入框底部区域slot，可以增加模型选项 */}
-        <div slot="footer-prefix">
+        footerPrefix={
+          /* 自定义输入框底部区域slot，可以增加模型选项 */
           <Space align="center" size="small">
             <Button
               variant="outline"
@@ -280,8 +279,8 @@ export default function Comprehensive() {
               联网查询
             </Button>
           </Space>
-        </div>
-      </ChatSender>
+        }
+      ></ChatSender>
     </div>
   );
 }

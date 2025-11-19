@@ -18,7 +18,10 @@ spline: aigc
 
 ## 自定义
 
-目前仅支持有限的自定义，包括调整顺序，展示指定项
+对于自定义 React 组件：
+- 默认会自动包裹与预设操作一致的样式（如 hover 背景）。
+- 如果需要完全自定义样式，可以给组件添加 `ignoreWrapper` 属性。
+- 可以直接在组件上绑定 `onClick` 等事件。
 
 {{ custom }}
 
@@ -34,3 +37,4 @@ handleAction | Function | - | 操作回调函数。TS类型：`(name: TdChatActi
 comment | ChatComment | - | 用户反馈状态，可选项：'good'/'bad' | N
 copyText | string | - | 复制按钮的复制文本 | N
 tooltipProps | TooltipProps | - | tooltip的属性 [类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tooltip/type.ts)  | N
+ignoreWrapper | boolean | false | 在自定义 React 节点上添加此属性，可取消继承默认的样式包裹 | N
