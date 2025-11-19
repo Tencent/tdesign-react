@@ -306,7 +306,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     <colgroup>
       {finalColumns.map((col, index) => {
         const style: Styles = {
-          width: formatCSSUnit((isFixedHeader || resizable ? thWidthList.current[col.colKey] : undefined) || col.width),
+          width: formatCSSUnit((isFixedHeader || resizable ? thWidthList[col.colKey] : undefined) || col.width),
         };
         if (col.minWidth) {
           style.minWidth = formatCSSUnit(col.minWidth);
@@ -328,7 +328,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     height: props.height,
     spansAndLeafNodes,
     thList,
-    thWidthList: thWidthList.current,
+    thWidthList,
     resizable: props.resizable,
     columnResizeParams,
     classPrefix,
@@ -465,7 +465,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
               columns={spansAndLeafNodes?.leafColumns || columns}
               rowAttributes={props.rowAttributes}
               rowClassName={props.rowClassName}
-              thWidthList={thWidthList.current}
+              thWidthList={thWidthList}
               footerSummary={props.footerSummary}
               rowspanAndColspanInFooter={props.rowspanAndColspanInFooter}
             ></TFoot>
@@ -527,7 +527,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         {renderColGroup(false)}
         {useMemo(() => {
           if (!showHeader) return null;
-          return <THead {...{ ...headProps, thWidthList: resizable ? thWidthList.current : {} }} />;
+          return <THead {...{ ...headProps, thWidthList: resizable ? thWidthList : {} }} />;
           // eslint-disable-next-line
         }, headUseMemoDependencies)}
 
@@ -572,7 +572,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
               columns={spansAndLeafNodes?.leafColumns || columns}
               rowAttributes={props.rowAttributes}
               rowClassName={props.rowClassName}
-              thWidthList={thWidthList.current}
+              thWidthList={thWidthList}
               footerSummary={props.footerSummary}
               rowspanAndColspanInFooter={props.rowspanAndColspanInFooter}
               virtualScroll={virtualConfig.isVirtualScroll}

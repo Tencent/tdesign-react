@@ -111,9 +111,10 @@ export default function useFixed(
     left: 0,
     top: 0,
   });
+  const [thWidthList, setThWidthList] = useState<{ [colKey: string]: number }>({});
+
   const tableWidth = useRef(0);
   const tableElmWidth = useRef(0);
-  const thWidthList = useRef<{ [colKey: string]: number }>({});
 
   const [isFixedColumn, setIsFixedColumn] = useState(false);
   const [isFixedRightColumn, setIsFixedRightColumn] = useState(false);
@@ -416,16 +417,17 @@ export default function useFixed(
   };
 
   const updateThWidthList = (trList: HTMLCollection | { [colKey: string]: number }) => {
+    let newThWidthList: { [colKey: string]: number };
     if (trList instanceof HTMLCollection) {
       if (columnResizable) return;
-      thWidthList.current = calculateThWidthList(trList);
+      newThWidthList = calculateThWidthList(trList);
     } else {
-      thWidthList.current = thWidthList.current || {};
+      newThWidthList = { ...thWidthList };
       Object.entries(trList).forEach(([colKey, width]) => {
-        thWidthList.current[colKey] = width;
+        newThWidthList[colKey] = width;
       });
     }
-    return thWidthList.current;
+    setThWidthList(newThWidthList);
   };
 
   const updateThWidthListHandler = () => {
@@ -452,7 +454,7 @@ export default function useFixed(
       const trList = tableContentRef.current?.querySelector('thead')?.children;
       return calculateThWidthList(trList);
     }
-    return thWidthList.current || {};
+    return thWidthList || {};
   };
 
   const updateTableElmWidthOnColumnChange = (
