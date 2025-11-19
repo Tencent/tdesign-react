@@ -57,6 +57,7 @@ interface SelectPopupProps
   children?: React.ReactNode;
   onCheckAllChange?: (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => void;
   getPopupInstance?: () => HTMLDivElement;
+  hoverIndex: number;
 }
 
 const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, ref) => {
@@ -80,6 +81,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     getPopupInstance,
     options: propsOptions,
     scroll: propsScroll,
+    hoverIndex,
   } = props;
 
   // 国际化文本初始化
@@ -191,6 +193,8 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
                 disabled={disabled}
                 restData={restData}
                 keys={keys}
+                index={index}
+                hoverIndex={hoverIndex}
                 onCheckAllChange={onCheckAllChange}
                 onRowMounted={handleRowMounted}
                 {...(isVirtual

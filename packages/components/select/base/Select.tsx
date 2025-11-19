@@ -25,6 +25,7 @@ import SelectInput, { type SelectInputValue, type SelectInputValueChangeContext 
 import Tag from '../../tag';
 import { selectDefaultProps } from '../defaultProps';
 import useOptions, { isSelectOptionGroup } from '../hooks/useOptions';
+import useKeyboardControl from '../hooks/useKeyboardControl';
 import { getKeyMapping, getSelectValueArr, getSelectedOptions } from '../util/helper';
 import Option from './Option';
 import OptionGroup from './OptionGroup';
@@ -118,6 +119,16 @@ const Select = forwardRefWithStatics(
       reserveKeyword,
     );
 
+    const { handleKeyDown, hoverIndex } = useKeyboardControl({
+      displayOptions: currentOptions as TdOptionProps[],
+      max,
+      multiple,
+      setInnerPopupVisible: setShowPopup,
+      innerPopupVisible: showPopup,
+      setInnerValue: onChange,
+      innerValue: value,
+    });
+
     const selectedLabel = useMemo(() => {
       const { labelKey } = getKeyMapping(keys);
       if (multiple) {
@@ -128,8 +139,7 @@ const Select = forwardRefWithStatics(
 
     const handleShowPopup = (visible: boolean, ctx: PopupVisibleChangeContext) => {
       if (disabled) return;
-      visible && toggleIsScrolling(false);
-      !visible && onInputChange('', { trigger: 'blur' });
+      visible ? toggleIsScrolling(false) : onInputChange('', { trigger: 'blur' });
       setShowPopup(visible, ctx);
     };
 
@@ -415,6 +425,7 @@ const Select = forwardRefWithStatics(
         onCheckAllChange,
         getPopupInstance,
         scroll,
+        hoverIndex,
       };
       return <PopupContent {...popupContentProps}>{childrenWithProps}</PopupContent>;
     };
@@ -580,6 +591,7 @@ const Select = forwardRefWithStatics(
           inputProps={{
             size,
             ...inputProps,
+            onKeydown: handleKeyDown,
           }}
           minCollapsedNum={minCollapsedNum}
           collapsedItems={collapsedItems}
