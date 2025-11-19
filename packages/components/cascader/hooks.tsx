@@ -30,7 +30,7 @@ export const useCascaderContext = (props: TdCascaderProps) => {
   const [expend, setExpend] = useState<TreeNodeValue[]>([]);
   const [scopeVal, setScopeVal] = useState(undefined);
 
-  // valueMode = 'parentFirst' || 'all'  和 checkStrictly 都允许父节点被选中。
+  // valueMode = 'parentFirst' || 'all' 和 checkStrictly 都允许父节点被选中
   const isParentFilterable = useMemo(
     () => !!((['parentFirst', 'all'].includes(props.valueMode) || props.checkStrictly) && inputVal),
     [props.valueMode, props.checkStrictly, inputVal],
