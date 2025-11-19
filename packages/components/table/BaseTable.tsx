@@ -17,9 +17,9 @@ import { baseTableDefaultProps } from './defaultProps';
 import useAffix from './hooks/useAffix';
 import useClassName from './hooks/useClassName';
 import useColumnResize from './hooks/useColumnResize';
+import useDomRefLifecycle from '../hooks/useDomRefLifecycle';
 import useFixed from './hooks/useFixed';
 import usePagination from './hooks/usePagination';
-import useDomRef from './hooks/useDomRef';
 import useStyle, { formatCSSUnit } from './hooks/useStyle';
 import useTableHeader from './hooks/useTableHeader';
 import { getAffixProps } from './utils';
@@ -149,7 +149,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     { [tableBaseClass.fullHeight]: height },
   ]);
 
-  const { onMount: onAffixHeaderMount } = useDomRef(affixHeaderRef);
+  const { onMount: onAffixHeaderMount } = useDomRefLifecycle(affixHeaderRef);
 
   const showRightDivider = useMemo(
     () => props.bordered && isFixedHeader && ((isMultipleHeader && isWidthOverflow) || !isMultipleHeader),
