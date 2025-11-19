@@ -113,6 +113,7 @@ exports[`Guide Component > GuideStep.body works fine 1`] = `
   />
   <div
     class="t-portal-wrapper appear appear-active"
+    style="position: absolute; width: 100%;"
   >
     <div
       class="t-popup t-guide__popup t-popup--animation-enter-active t-popup--animation-enter-to"
@@ -290,6 +291,7 @@ exports[`Guide Component > GuideStep.children works fine 1`] = `
   />
   <div
     class="t-portal-wrapper appear appear-active"
+    style="position: absolute; width: 100%;"
   >
     <div
       class="t-popup t-guide__popup t-popup--animation-enter-active t-popup--animation-enter-to"
@@ -427,6 +429,7 @@ exports[`Guide Component > GuideStep.content works fine 1`] = `
   />
   <div
     class="t-portal-wrapper appear appear-active"
+    style="position: absolute; width: 100%;"
   >
     <div
       class="t-popup t-guide__popup t-popup--animation-enter-active t-popup--animation-enter-to"
@@ -571,6 +574,7 @@ exports[`Guide Component > GuideStep.highlightContent works fine 1`] = `
   />
   <div
     class="t-portal-wrapper appear appear-active"
+    style="position: absolute; width: 100%;"
   >
     <div
       class="t-popup t-guide__popup t-popup--animation-enter-active t-popup--animation-enter-to"
@@ -940,6 +944,7 @@ exports[`Guide Component > GuideStep.placement is equal to bottom-left 1`] = `
   />
   <div
     class="t-portal-wrapper appear appear-active"
+    style="position: absolute; width: 100%;"
   >
     <div
       class="t-popup t-guide__popup t-popup--animation-enter-active t-popup--animation-enter-to"
@@ -1113,6 +1118,7 @@ exports[`Guide Component > GuideStep.stepOverlayClass is equal to t-test-guide-s
   />
   <div
     class="t-portal-wrapper appear appear-active"
+    style="position: absolute; width: 100%;"
   >
     <div
       class="t-popup t-guide__popup t-test-guide-step-overlay t-popup--animation-enter-active t-popup--animation-enter-to"
@@ -1286,6 +1292,7 @@ exports[`Guide Component > GuideStep.title works fine 1`] = `
   />
   <div
     class="t-portal-wrapper appear appear-active"
+    style="position: absolute; width: 100%;"
   >
     <div
       class="t-popup t-guide__popup t-popup--animation-enter-active t-popup--animation-enter-to"
