@@ -436,7 +436,9 @@ export default function useFixed(
       if (!thead) return;
       updateThWidthList(thead.children);
       clearTimeout(timer);
-    }, 0);
+      // 将 Table 放在 Dialog 等使用 CSSTransition 包裹的元素
+      // 动画效果影响元素宽度的计算时机
+    }, 150);
   };
 
   const emitScrollEvent = (e: React.WheelEvent<HTMLDivElement>) => {

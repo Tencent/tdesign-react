@@ -1,14 +1,13 @@
 /* eslint-disable */
-import { render, fireEvent, mockDelay, mockTimeout, vi } from '@test/utils';
 import React, { useEffect, useState } from 'react';
-
-import Form, { TdFormProps } from '../index';
-import Input from '../../input';
-import Button from '../../button';
-import Radio from '../../radio';
 import { HelpCircleIcon } from 'tdesign-icons-react';
+import { fireEvent, mockDelay, mockTimeout, render, vi } from '@test/utils';
+import Button from '../../button';
+import Checkbox from '../../checkbox';
+import Input from '../../input';
 import InputNumber from '../../input-number';
-import { Checkbox } from 'tdesign-react';
+import Radio from '../../radio';
+import Form, { type TdFormProps } from '../index';
 
 const { FormItem, FormList } = Form;
 
@@ -284,6 +283,108 @@ describe('Form 组件测试', () => {
     expect(container.querySelector('.empty .t-input__extra')).toBeNull();
     expect(container.querySelector('.username .t-input__extra').innerHTML).toBe('custom error message');
     expect(container.querySelector('.password .t-input__extra').innerHTML).toBe('custom warning message');
+  });
+
+  test('Form.getValidateMessage works fine', async () => {
+    const TestForm = () => {
+      const [form] = Form.useForm();
+      const [message, setMessage] = useState<any>(null);
+
+      const handleGetAll = () => {
+        const msg = form.getValidateMessage();
+        setMessage(msg);
+      };
+
+      const handleGetSpecific = () => {
+        const msg = form.getValidateMessage(['username', 'email']);
+        setMessage(msg);
+      };
+
+      const handleValidate = async () => {
+        await form.validate();
+        const msg = form.getValidateMessage();
+        setMessage(msg);
+      };
+
+      return (
+        <div>
+          <Form form={form}>
+            <FormItem
+              className="username"
+              label="username"
+              name="username"
+              rules={[{ required: true, message: 'username is required' }]}
+            >
+              <Input placeholder="username" />
+            </FormItem>
+            <FormItem
+              className="email"
+              label="email"
+              name="email"
+              rules={[{ required: true, message: 'email is required', type: 'error' }]}
+            >
+              <Input placeholder="email" />
+            </FormItem>
+            <FormItem
+              className="phone"
+              label="phone"
+              name="phone"
+              rules={[{ required: true, message: 'phone is required', type: 'warning' }]}
+            >
+              <Input placeholder="phone" />
+            </FormItem>
+            <FormItem
+              className="nested"
+              label="nested"
+              name={['user', 'address']}
+              rules={[{ required: true, message: 'address is required' }]}
+            >
+              <Input placeholder="address" />
+            </FormItem>
+            <FormItem>
+              <Button onClick={handleValidate}>validate</Button>
+              <Button onClick={handleGetAll}>getAllMessages</Button>
+              <Button onClick={handleGetSpecific}>getSpecificMessages</Button>
+            </FormItem>
+          </Form>
+          {message && (
+            <div className="message-display" data-testid="message-display">
+              <pre>{JSON.stringify(message, null, 2)}</pre>
+            </div>
+          )}
+        </div>
+      );
+    };
+
+    const { getByText, queryByTestId, getByTestId } = render(<TestForm />);
+
+    // getValidateMessage returns undefined when no validation errors
+    fireEvent.click(getByText('getAllMessages'));
+    await mockDelay();
+    expect(queryByTestId('message-display')).toBeNull();
+
+    // getValidateMessage returns all validation messages after validate
+    fireEvent.click(getByText('validate'));
+    await mockDelay();
+    fireEvent.click(getByText('getAllMessages'));
+    await mockDelay();
+    const allMessagesDisplay = getByTestId('message-display');
+    expect(allMessagesDisplay.textContent).toContain('username is required');
+    expect(allMessagesDisplay.textContent).toContain('email is required');
+    expect(allMessagesDisplay.textContent).toContain('phone is required');
+    expect(allMessagesDisplay.textContent).toContain('address is required');
+    // array field name is converted to string key
+    expect(allMessagesDisplay.textContent).toContain('user,address');
+
+    // getValidateMessage returns specific field messages
+    fireEvent.click(getByText('getSpecificMessages'));
+    await mockDelay();
+    const specificMessagesDisplay = getByTestId('message-display');
+    const messageContent = specificMessagesDisplay.textContent;
+    expect(messageContent).toContain('username is required');
+    expect(messageContent).toContain('email is required');
+    expect(messageContent).not.toContain('phone is required');
+    expect(messageContent).not.toContain('address is required');
   });
 
   test('Form disabled `input` keydown enter submit form', async () => {
