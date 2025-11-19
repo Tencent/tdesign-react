@@ -1,8 +1,9 @@
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import { Placement, type Options } from '@popperjs/core';
 import classNames from 'classnames';
 import { debounce, isFunction } from 'lodash-es';
-import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { CSSTransition } from 'react-transition-group';
+
 import { getRefDom } from '../_util/ref';
 import { getCssVarsValue } from '../_util/style';
 import Portal from '../common/Portal';
@@ -12,12 +13,13 @@ import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useMutationObserver from '../hooks/useMutationObserver';
-import usePopper from '../hooks/usePopper';
+import usePopper, { type InnerInstance } from '../hooks/usePopper';
 import useWindowSize from '../hooks/useWindowSize';
 import { popupDefaultProps } from './defaultProps';
 import useTrigger from './hooks/useTrigger';
-import type { TdPopupProps } from './type';
 import { getTransitionParams } from './utils/transition';
+
+import type { PopupInstanceFunctions, TdPopupProps } from './type';
 
 export interface PopupProps extends TdPopupProps {
   // 是否触发展开收起动画，内部下拉式组件使用
@@ -26,20 +28,18 @@ export interface PopupProps extends TdPopupProps {
   updateScrollTop?: (content: HTMLDivElement) => void;
 }
 
-export interface PopupRef {
-  /** 获取 popper 实例 */
-  getPopper: () => ReturnType<typeof usePopper>;
-  /** 获取 Popup dom 元素 */
+export interface PopupRef extends PopupInstanceFunctions {
+  /** @internal 获取 Popup DOM 元素 */
   getPopupElement: () => HTMLDivElement;
-  /** 获取 portal dom 元素 */
+  /** @internal 获取 Portal DOM 元素 */
   getPortalElement: () => HTMLDivElement;
-  /** 获取内容区域 dom 元素 */
+  /** @internal 获取内容区域 DOM 元素 */
   getPopupContentElement: () => HTMLDivElement;
-  /** 设置 popup 显示隐藏 */
+  /** @internal 设置 Popup 显示隐藏 */
   setVisible: (visible: boolean) => void;
 }
 
-const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
+const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref) => {
   const props = useDefaultProps<PopupProps>(originalProps, popupDefaultProps);
   const {
     trigger,
@@ -72,12 +72,12 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
   const [visible, onVisibleChange] = useControlled(props, 'visible', props.onVisibleChange);
   const [isOverlayHover, setIsOverlayHover] = useState(false);
 
-  const [popupElement, setPopupElement] = useState(null);
+  const [popupElement, setPopupElement] = useState<HTMLDivElement>(null);
   const triggerRef = useRef(null); // 记录 trigger 元素
-  const popupRef = useRef(null); // popup dom 元素，css transition 需要用
+  const popupRef = useRef<HTMLDivElement>(null); // popup dom 元素，css transition 需要用
   const portalRef = useRef(null); // portal dom 元素
-  const contentRef = useRef(null); // 内容部分
-  const popperRef = useRef(null); // 保存 popper 实例
+  const contentRef = useRef<HTMLDivElement>(null); // 内容部分
+  const popperRef = useRef<InnerInstance>(null); // 保存 popper 实例
 
   // 默认动画时长
   const DEFAULT_TRANSITION_TIMEOUT = 180;
@@ -289,10 +289,21 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
     getPortalElement: () => portalRef.current,
     // 未公开
     getPopupContentElement: () => contentRef.current,
-    /// 未公开
+    // 未公开
     setVisible: (visible: boolean) => onVisibleChange(visible, { trigger: 'document' }),
     /** 获取 popper 实例 */
-    getPopper: () => popperRef.current,
+    getPopper: () => {
+      const popper = popperRef.current;
+      if (!popper) return null;
+      // 返回不含内部 styles 和 attributes 的对象
+      return {
+        state: popper.state,
+        update: popper.update,
+        forceUpdate: popper.forceUpdate,
+        destroy: popper.destroy,
+        setOptions: popper.setOptions,
+      };
+    },
     /** 获取浮层元素 */
     getOverlay: () => portalRef.current,
     /** 获取浮层悬浮状态 */
