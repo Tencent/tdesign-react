@@ -1,6 +1,7 @@
 import React, { forwardRef, RefAttributes, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { pick } from 'lodash-es';
+
 import log from '@tdesign/common-js/log/index';
 import { getIEVersion } from '@tdesign/common-js/utils/helper';
 import Affix, { type AffixRef } from '../affix';
@@ -18,6 +19,7 @@ import useClassName from './hooks/useClassName';
 import useColumnResize from './hooks/useColumnResize';
 import useFixed from './hooks/useFixed';
 import usePagination from './hooks/usePagination';
+import useRefCallback from './hooks/useRefCallback';
 import useStyle, { formatCSSUnit } from './hooks/useStyle';
 import useTableHeader from './hooks/useTableHeader';
 import { getAffixProps } from './utils';
@@ -52,11 +54,12 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const tableRef = useRef<HTMLDivElement>(null);
   const tableElmRef = useRef<HTMLTableElement>(null);
   const bottomContentRef = useRef<HTMLDivElement>(null);
-  const [tableFootHeight, setTableFootHeight] = useState(0);
 
-  const allTableClasses = useClassName();
+  const [tableFootHeight, setTableFootHeight] = useState(0);
+  const [dividerBottom, setDividerBottom] = useState(0);
+
   const { classPrefix, virtualScrollClasses, tableLayoutClasses, tableBaseClass, tableColFixedClasses } =
-    allTableClasses;
+    useClassName();
   // 表格基础样式类
   const { tableClasses, sizeClassNames, tableContentStyles, tableElementStyles } = useStyle(props);
   const { isMultipleHeader, spansAndLeafNodes, thList } = useTableHeader({ columns: props.columns });
@@ -146,12 +149,13 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     { [tableBaseClass.fullHeight]: height },
   ]);
 
+  const { onMount: onAffixHeaderMount } = useRefCallback(affixHeaderRef);
+
   const showRightDivider = useMemo(
     () => props.bordered && isFixedHeader && ((isMultipleHeader && isWidthOverflow) || !isMultipleHeader),
     [isFixedHeader, isMultipleHeader, isWidthOverflow, props.bordered],
   );
 
-  const [dividerBottom, setDividerBottom] = useState(0);
   useEffect(() => {
     if (!bordered) return;
     const bottomRect = bottomContentRef.current?.getBoundingClientRect();
@@ -255,7 +259,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const scrollColumnIntoView = (colKey: string) => {
     if (!tableContentRef.current) return;
     const thDom = tableContentRef.current.querySelector(`th[data-colkey="${colKey}"]`);
-    const fixedThDom = tableContentRef.current.querySelectorAll('th.t-table__cell--fixed-left');
+    const fixedThDom = tableContentRef.current.querySelectorAll(`th.${classPrefix}-table__cell--fixed-left`);
     let totalWidth = 0;
     for (let i = 0, len = fixedThDom.length; i < len; i++) {
       totalWidth += fixedThDom[i].getBoundingClientRect().width;
@@ -272,6 +276,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     tableHtmlElement: tableElmRef.current,
     tableContentElement: tableContentRef.current,
     affixHeaderElement: affixHeaderRef.current,
+    onAffixHeaderMount,
     refreshTable,
     scrollToElement: virtualConfig.scrollToElement,
     scrollColumnIntoView,
@@ -375,7 +380,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     };
     const affixedHeader = Boolean((headerAffixedTop || virtualConfig.isVirtualScroll) && tableWidth.current) && (
       <div
-        ref={affixHeaderRef}
+        ref={onAffixHeaderMount}
         style={{ width: `${tableWidth.current - affixedLeftBorder - barWidth}px`, opacity: headerOpacity }}
         className={classNames([
           'scrollbar',
@@ -489,7 +494,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     tableContentRef,
     tableWidth,
     isWidthOverflow,
-    allTableClasses,
     rowKey,
     scroll: props.scroll,
     cellEmptyContent: props.cellEmptyContent,
@@ -537,7 +541,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
           ),
           // eslint-disable-next-line
           [
-            allTableClasses,
             tableBodyProps.ellipsisOverlayClassName,
             tableBodyProps.rowAndColFixedPosition,
             tableBodyProps.showColumnShadow,

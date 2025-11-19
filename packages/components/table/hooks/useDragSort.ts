@@ -215,16 +215,9 @@ export default function useDragSort(
     if (!primaryTableRef || !primaryTableRef.current) return;
     registerRowDragEvent(primaryTableRef.current?.tableElement);
     registerColDragEvent(primaryTableRef.current?.tableHtmlElement);
-    /** 待表头节点准备完成后 */
-    const timer = setTimeout(() => {
-      if (primaryTableRef.current?.affixHeaderElement) {
-        registerColDragEvent(primaryTableRef.current.affixHeaderElement);
-      }
-      clearTimeout(timer);
+    primaryTableRef.current.onAffixHeaderMount((node) => {
+      registerColDragEvent(node);
     });
-    return () => {
-      clearTimeout(timer);
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [primaryTableRef, columns, dragSort, innerPagination]);
 
