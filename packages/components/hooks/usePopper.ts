@@ -141,7 +141,7 @@ const usePopper = (
     attributes: state.attributes,
     styles: state.styles,
     // 与官方 API 一致
-    state: popperInstanceRef.current ? popperInstanceRef.current.state : null,
+    state: popperInstanceRef.current?.state,
     destroy: popperInstanceRef.current?.destroy,
     forceUpdate: popperInstanceRef.current?.forceUpdate,
     update: popperInstanceRef.current?.update,
