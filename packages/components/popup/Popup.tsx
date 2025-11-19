@@ -13,7 +13,7 @@ import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useMutationObserver from '../hooks/useMutationObserver';
-import usePopper, { type InnerInstance } from '../hooks/usePopper';
+import usePopper, { type InnerPopperInstance } from '../hooks/usePopper';
 import useWindowSize from '../hooks/useWindowSize';
 import { popupDefaultProps } from './defaultProps';
 import useTrigger from './hooks/useTrigger';
@@ -77,7 +77,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
   const popupRef = useRef<HTMLDivElement>(null); // popup dom 元素，css transition 需要用
   const portalRef = useRef(null); // portal dom 元素
   const contentRef = useRef<HTMLDivElement>(null); // 内容部分
-  const popperRef = useRef<InnerInstance>(null); // 保存 popper 实例
+  const popperRef = useRef<InnerPopperInstance>(null); // 保存 popper 实例
 
   // 默认动画时长
   const DEFAULT_TRANSITION_TIMEOUT = 180;

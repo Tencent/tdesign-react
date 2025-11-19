@@ -6,7 +6,7 @@ import { flushSync } from 'react-dom';
 import isEqual from 'react-fast-compare';
 import {
   createPopper as defaultCreatePopper,
-  type Instance,
+  type Instance as PopperInstance,
   type Options as PopperOptions,
   type VirtualElement,
 } from '@popperjs/core';
@@ -38,7 +38,7 @@ const fromEntries = (entries: Array<[string, any]>): { [key: string]: any } =>
     return acc;
   }, {});
 
-export interface InnerInstance extends Instance {
+export interface InnerPopperInstance extends PopperInstance {
   attributes: Attributes;
   styles: Record<string, Styles>;
 }
@@ -47,7 +47,7 @@ const usePopper = (
   referenceElement?: Element | VirtualElement,
   popperElement?: HTMLElement,
   options: Options = {},
-): InnerInstance => {
+): InnerPopperInstance => {
   const prevOptions = useRef<PopperOptions>(null);
 
   const optionsWithDefaults = {
@@ -112,7 +112,7 @@ const usePopper = (
     updateStateModifier,
   ]);
 
-  const popperInstanceRef = useRef<Instance>(null);
+  const popperInstanceRef = useRef<PopperInstance>(null);
 
   useIsomorphicLayoutEffect(() => {
     if (popperInstanceRef.current) {
