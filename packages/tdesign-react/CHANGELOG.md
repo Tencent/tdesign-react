@@ -218,7 +218,7 @@ spline: explain
 ## 🌈 1.13.1 `2025-07-11`
 
 ### 🐞 Bug Fixes
-- `QRCode`: 修复 `canvas` 二维码 Safari 样式兼容问题 @lifeiFront ([common#2207])(https://github.com/Tencent/tdesign-common/pull/2207)
+- `QRCode`: 修复 `canvas` 二维码 Safari 样式兼容问题 @lifeiFront ([common#2207](https://github.com/Tencent/tdesign-common/pull/2207))
 
 ## 🌈 1.13.0 `2025-07-10` 
 ### 🚀 Features
