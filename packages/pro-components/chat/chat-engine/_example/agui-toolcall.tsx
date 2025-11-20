@@ -14,7 +14,15 @@ import {
   useChat,
   useAgentToolcall,
 } from '@tdesign-react/chat';
-import type { TdChatMessageConfig, ChatMessagesData, ChatRequestParams, AIMessageContent, ToolCall, AgentToolcallConfig, ToolcallComponentProps } from '@tdesign-react/chat';
+import type {
+  TdChatMessageConfig,
+  ChatMessagesData,
+  ChatRequestParams,
+  AIMessageContent,
+  ToolCall,
+  AgentToolcallConfig,
+  ToolcallComponentProps,
+} from '@tdesign-react/chat';
 
 /**
  * 图片生成进度状态接口
@@ -36,15 +44,14 @@ interface GenerateImageArgs {
 /**
  * 图片生成进度组件
  * 演示如何通过 agentState 注入获取 AG-UI 状态
- * 
+ *
  * 💡 最佳实践：在工具组件内部，优先使用注入的 agentState
- * 
+ *
  * 注意：当配置了 subscribeKey 时，agentState 直接就是订阅的状态对象，
  * 而不是整个 stateMap。例如：subscribeKey 返回 taskId，则 agentState 就是 stateMap[taskId]
  */
 const ImageGenProgress: React.FC<ToolcallComponentProps<GenerateImageArgs>> = ({
-  args,
-  agentState,  // 使用注入的 agentState（已经是 taskId 对应的状态对象）
+  agentState, // 使用注入的 agentState（已经是 taskId 对应的状态对象）
   status: toolStatus,
   error: toolError,
 }) => {
@@ -111,11 +118,7 @@ const ImageGenProgress: React.FC<ToolcallComponentProps<GenerateImageArgs>> = ({
               <span>图片生成完成</span>
             </div>
             {imageUrl && (
-              <Image
-                src={imageUrl}
-                fit="cover"
-                style={{ width: '100%', maxWidth: '400px', borderRadius: '8px' }}
-              />
+              <Image src={imageUrl} fit="cover" style={{ width: '100%', maxWidth: '400px', borderRadius: '8px' }} />
             )}
           </Space>
         );
@@ -155,21 +158,15 @@ const imageGenActions: AgentToolcallConfig[] = [
     // 不需要订阅状态，只是声明工具
     component: ({ args }) => (
       <Card bordered style={{ marginTop: 12 }}>
-        <div style={{ fontSize: 14, fontWeight: 600 }}>
-          🎨 开始生成图片
-        </div>
-        <div style={{ fontSize: 12, color: '#666', marginTop: 4 }}>
-          提示词: {args?.prompt}
-        </div>
+        <div style={{ fontSize: 14, fontWeight: 600 }}>🎨 开始生成图片</div>
+        <div style={{ fontSize: 12, color: '#666', marginTop: 4 }}>提示词: {args?.prompt}</div>
       </Card>
     ),
   },
   {
     name: 'show_progress',
     description: '展示图片生成进度',
-    parameters: [
-      { name: 'taskId', type: 'string', required: true },
-    ],
+    parameters: [{ name: 'taskId', type: 'string', required: true }],
     // 配置 subscribeKey，告诉 ToolCallRenderer 订阅哪个状态 key
     subscribeKey: (props) => props.args?.taskId,
     // 组件会自动接收注入的 agentState
@@ -228,7 +225,7 @@ export default function ImageGenAgentChat() {
         suggestion: (data) => {
           setInputValue(data.content.prompt);
         },
-      }
+      },
     },
   };
 
@@ -278,13 +275,10 @@ export default function ImageGenAgentChat() {
     <>
       {message.content?.map((item, index) => renderMessageContent(item, index, isLast))}
       {isAIMessage(message) && message.status === 'complete' ? (
-        <ChatActionBar
-          slot="actionbar"
-          actionBar={getActionBar(isLast)}
-          handleAction={handleAction}
-        />
+        <ChatActionBar slot="actionbar" actionBar={getActionBar(isLast)} handleAction={handleAction} />
       ) : (
-        isLast && message.status !== 'stop' && (
+        isLast &&
+        message.status !== 'stop' && (
           <div slot="actionbar">
             <ChatLoading animation="dot" />
           </div>

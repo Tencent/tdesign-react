@@ -11,21 +11,21 @@ import { Progress } from 'tdesign-react';
 
 /**
  * 自定义合并策略示例
- * 
+ *
  * 本示例展示流式数据的两种合并方式：
- * 
+ *
  * 1. **strategy 配置**：使用内置的合并策略
  *    - 'merge'（默认）：查找相同 type 的最后一个内容块并合并
  *    - 'append'：始终追加为新的独立内容块
- * 
+ *
  * 2. **registerMergeStrategy**：注册自定义合并策略
  *    - 适用于复杂的合并逻辑（如状态机、累积计算等）
  *    - 完全控制数据的合并方式
- * 
+ *
  * 使用场景：
  * - 简单场景：使用 strategy 配置即可（文本累积、多段落等）
  * - 复杂场景：使用 registerMergeStrategy（进度条、任务步骤、嵌套结构等）
- * 
+ *
  * 学习目标：
  * - 理解 strategy 的两种取值及其区别
  * - 掌握 registerMergeStrategy 的使用方法
@@ -51,8 +51,7 @@ declare global {
 const ProgressDemo = ({ data }) => {
   // 计算百分比并保留两位小数
   const percentage = Math.round((data.current / data.total) * 10000) / 100;
-  const isCompleted = data.completed || percentage === 100;
-  
+
   return (
     <div style={{ padding: '16px 0' }}>
       {/* 根据完成状态显示不同的文案 */}
@@ -70,7 +69,6 @@ const ProgressDemo = ({ data }) => {
 export default function CustomMerge() {
   const chatRef = useRef<HTMLElement & typeof ChatBot>(null);
   const [messages, setMessages] = useState<ChatMessagesData[]>([]);
-  const [isProgressCompleted, setIsProgressCompleted] = useState(false);
 
   useEffect(() => {
     if (!chatRef.current?.isChatEngineReady) {
@@ -104,7 +102,7 @@ export default function CustomMerge() {
     stream: true,
 
     // 3. 在 onMessage 中返回不同类型的数据
-    onMessage: (chunk: SSEChunkData, message): AIMessageContent | AIMessageContent[] | null => {
+    onMessage: (chunk: SSEChunkData): AIMessageContent | AIMessageContent[] | null => {
       const { type, ...rest } = chunk.data;
 
       switch (type) {
@@ -125,7 +123,6 @@ export default function CustomMerge() {
               label: rest.label || '处理中',
               completed: rest.completed || false,
             },
-            
           } as any;
 
         default:

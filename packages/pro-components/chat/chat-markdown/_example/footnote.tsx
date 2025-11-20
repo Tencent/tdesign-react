@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 import React, { useEffect } from 'react';
 import { ChatMarkdown, MarkdownEngine } from '@tdesign-react/chat';
 
@@ -177,7 +178,6 @@ const FootnoteDemo = () => {
 
   return (
     <ChatMarkdown
-      className="hover-markdown"
       content={markdownContent}
       options={{
         engine: {

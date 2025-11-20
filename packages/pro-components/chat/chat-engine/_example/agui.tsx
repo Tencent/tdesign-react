@@ -46,7 +46,7 @@ export default function ComponentsBuild() {
         console.error('Chatservice Error:', err);
       },
       // 流式对话过程中用户主动结束对话业务自定义行为
-      onAbort: async () => {},
+      onAbort: async () => '',
       // 自定义请求参数
       onRequest: (innerParams: ChatRequestParams) => {
         const { prompt } = innerParams;

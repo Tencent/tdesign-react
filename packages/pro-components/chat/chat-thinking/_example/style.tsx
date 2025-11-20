@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react';
-import { Radio, Space } from 'tdesign-react';
+import { Space } from 'tdesign-react';
 import { ChatThinking } from '@tdesign-react/chat';
 
 import type { TdChatThinkContentProps, ChatMessageStatus } from 'tdesign-web-components';
@@ -19,6 +20,7 @@ export default function ThinkContentDemo() {
 
   useEffect(() => {
     // 每次layout变化时重置状态
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     resetTypingEffect();
     // 模拟打字效果
     const typeEffect = () => {

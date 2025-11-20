@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useRef, useState } from 'react';
 import { BrowseIcon, Filter3Icon, ImageAddIcon, Transform1Icon } from 'tdesign-icons-react';
 import type {
@@ -8,7 +9,6 @@ import type {
   ChatServiceConfig,
   TdAttachmentItem,
   TdChatSenderParams,
-  UploadFile,
   TdChatMessageConfig,
   TdChatbotApi,
 } from '@tdesign-react/chat';
@@ -170,8 +170,7 @@ export default function chatSample() {
     onError: (err: Error | Response) => {
       console.error('Chatservice Error:', err);
     },
-    // 流式对话过程中用户主动结束对话业务自定义行为
-    onAbort: async () => {},
+
     // 自定义流式数据结构解析
     onMessage: (chunk: SSEChunkData): AIMessageContent => {
       const { type, ...rest } = chunk.data;
@@ -219,7 +218,7 @@ export default function chatSample() {
     const newFile = {
       ...e.detail[0],
       name: e.detail[0].name,
-      status: 'progress' as UploadFile['status'],
+      status: 'progress' as ['status'],
       description: '上传中',
     };
 
@@ -293,7 +292,7 @@ export default function chatSample() {
           onFileRemove,
         }}
         chatServiceConfig={chatServiceConfig}
-        onMessageChange={() => {
+        onMessageChange={(e) => {
           setMockMessage(e.detail);
         }}
       >

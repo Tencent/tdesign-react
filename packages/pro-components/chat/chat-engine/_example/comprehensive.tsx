@@ -81,9 +81,6 @@ export default function Comprehensive() {
         console.error('Chatservice Error:', err);
       },
 
-      // 用户主动结束对话
-      onAbort: async () => {},
-
       // 自定义流式数据结构解析
       onMessage: (chunk: SSEChunkData): AIMessageContent | null => {
         const { type, ...rest } = chunk.data;

@@ -11,22 +11,22 @@ import { MessagePlugin } from 'tdesign-react';
 
 /**
  * 角色消息配置示例
- * 
+ *
  * 本示例展示如何通过 messageProps 配置不同角色的消息展示效果。
  * messageProps 会透传给内部的 ChatMessage 组件，用于控制消息的渲染和交互。
- * 
+ *
  * 配置内容包括：
  * - 消息样式配置（气泡样式、位置、头像、昵称等）
  * - 消息操作按钮配置（复制、点赞、点踩、重试）
  * - 内容类型展示配置（思考过程、搜索结果、Markdown 等）
  * - 静态配置 vs 动态配置的使用场景
- * 
+ *
  * 学习目标：
  * - 掌握 messageProps 动态配置函数的使用方式
  * - 了解如何根据消息内容、状态动态调整配置
  * - 学会配置消息操作按钮及其回调
  * - 学会使用 chatContentProps 控制内容展示行为
- * 
+ *
  * 相关文档：
  * - ChatMessage 组件详细文档：https://tdesign.tencent.com/react-chat/components/chat-message
  */
@@ -124,7 +124,7 @@ console.log(greeting);
     endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/normal',
     stream: true,
     onMessage: (chunk: SSEChunkData): AIMessageContent => {
-      const { type, ...rest } = chunk.data;
+      const { ...rest } = chunk.data;
       return {
         type: 'markdown',
         data: rest?.msg || '',
@@ -135,7 +135,7 @@ console.log(greeting);
   // 动态配置消息展示函数：根据消息内容、状态等动态调整配置
   // 适用于需要根据不同消息特征返回不同配置的场景
   const messageProps = (msg: ChatMessagesData): TdChatMessageConfigItem => {
-    const { role, content, status } = msg;
+    const { role } = msg;
 
     // 用户消息配置
     if (role === 'user') {
@@ -150,7 +150,6 @@ console.log(greeting);
     // AI 消息配置
     if (role === 'assistant') {
       // 检查是否包含思考过程
-      const hasThinking = content.some((item) => item.type === 'thinking');
 
       return {
         variant: 'text',
@@ -197,7 +196,8 @@ console.log(greeting);
             collapsed: false,
           },
           // markdown文本
-          markdown: {  // 透传cherryMarkdown引擎配置
+          markdown: {
+            // 透传cherryMarkdown引擎配置
             options: {
               themeSettings: {
                 codeBlockTheme: 'light',
@@ -213,11 +213,7 @@ console.log(greeting);
 
   return (
     <div style={{ height: '600px' }}>
-      <ChatBot
-        defaultMessages={defaultMessages}
-        messageProps={messageProps}
-        chatServiceConfig={chatServiceConfig}
-      />
+      <ChatBot defaultMessages={defaultMessages} messageProps={messageProps} chatServiceConfig={chatServiceConfig} />
     </div>
   );
 }

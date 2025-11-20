@@ -33,7 +33,6 @@ export default function renderDemo(md, container) {
             <td-doc-demo component-name="${componentName.trim()}" demo-name="${demoName}" languages="TypeScript,JavaScript" data-JavaScript={${demoJsxCodeDefName}} data-TypeScript={${demoCodeDefName}}>
               <div slot="action">
                 <Stackblitz code={${demoCodeDefName}} demoName="${demoName}"/>
-                <Codesandbox code={${demoCodeDefName}} demoName="${demoName}"/>
               </div>
               <div className="tdesign-demo-item__body">
                 <div style={{width: '100%'}}><${demoDefName} /></div>

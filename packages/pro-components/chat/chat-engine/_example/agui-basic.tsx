@@ -6,13 +6,12 @@ import {
   type TdChatSenderParams,
   type ChatRequestParams,
 } from '@tdesign-react/chat';
-import { useChat } from '@tdesign-react/chat';
+import { useChat, AGUIAdapter } from '@tdesign-react/chat';
 import { MessagePlugin } from 'tdesign-react';
-import { AGUIAdapter } from '@tdesign-react/chat';
 
 /**
  * AG-UI 协议基础示例
- * 
+ *
  * 学习目标：
  * - 开启 AG-UI 协议支持（protocol: 'agui'）
  * - 理解 AG-UI 协议的自动解析机制
@@ -54,7 +53,9 @@ export default function AguiBasicExample() {
   useEffect(() => {
     const loadHistoryMessages = async () => {
       try {
-        const response = await fetch(`https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/api/conversation/history?type=simple`);
+        const response = await fetch(
+          `https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/api/conversation/history?type=simple`,
+        );
         const result = await response.json();
         if (result.success && result.data) {
           const messages = AGUIAdapter.convertHistoryMessages(result.data);
@@ -68,6 +69,7 @@ export default function AguiBasicExample() {
     };
 
     loadHistoryMessages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSend = async (e: CustomEvent<TdChatSenderParams>) => {

@@ -104,6 +104,7 @@ export default function ChatBotReact() {
       console.error('Chatservice Error:', err);
     },
     // 流式对话过程中用户主动结束对话业务自定义行为
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onAbort: async () => {},
     onMessage: (chunk: SSEChunkData): AIMessageContent => {
       const { type, ...rest } = chunk.data;

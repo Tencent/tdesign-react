@@ -3,7 +3,7 @@ import { ChatBot, SSEChunkData, AIMessageContent, ChatServiceConfig } from '@tde
 
 /**
  * 快速开始示例
- * 
+ *
  * 学习目标：
  * - 了解 Chatbot 组件的最小配置
  * - 理解 endpoint 和 onMessage 的作用
@@ -18,7 +18,7 @@ export default function QuickStart() {
     stream: true,
     // 解析后端返回的数据，转换为组件所需格式
     onMessage: (chunk: SSEChunkData): AIMessageContent => {
-      const { type, ...rest } = chunk.data;
+      const { ...rest } = chunk.data;
       return {
         type: 'markdown',
         data: rest?.msg || '',

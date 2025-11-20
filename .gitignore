@@ -29,7 +29,7 @@ results/
 ## site files
 site/dist
 _static_site
-packages/components/**/_example-js/
+packages/**/_example-js/
 
 
 ## lock files

@@ -13,20 +13,20 @@ import type { UploadFile } from 'tdesign-react';
 
 /**
  * 输入配置示例
- * 
+ *
  * 本示例展示如何通过 senderProps 配置输入框的基础行为。
  * senderProps 会透传给内部的 ChatSender 组件，用于控制输入框的功能和交互。
- * 
+ *
  * 配置内容包括：
  * - 输入框基础配置（占位符、自动高度等）
  * - 附件上传配置（文件类型、附件展示等）
  * - 输入事件回调（输入、聚焦、失焦等）
- * 
+ *
  * 学习目标：
  * - 掌握 senderProps 的常用配置项
  * - 了解如何处理附件上传
  * - 学会处理输入事件
- * 
+ *
  * 相关文档：
  * - ChatSender 组件详细文档：https://tdesign.tencent.com/react-chat/components/chat-sender
  */
@@ -39,7 +39,7 @@ export default function SenderConfig() {
     endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/normal',
     stream: true,
     onMessage: (chunk: SSEChunkData): AIMessageContent => {
-      const { type, ...rest } = chunk.data;
+      const { ...rest } = chunk.data;
       return {
         type: 'markdown',
         data: rest?.msg || '',
@@ -70,10 +70,10 @@ export default function SenderConfig() {
     onChange: (e: CustomEvent<string>) => {
       console.log('输入内容:', e.detail);
     },
-    onFocus: (e: CustomEvent<string>) => {
+    onFocus: () => {
       console.log('输入框获得焦点');
     },
-    onBlur: (e: CustomEvent<string>) => {
+    onBlur: () => {
       console.log('输入框失去焦点');
     },
     onFileSelect: (e: CustomEvent<File[]>) => {
@@ -87,7 +87,7 @@ export default function SenderConfig() {
       };
 
       setFiles((prev) => [newFile, ...prev]);
-      
+
       // 模拟上传完成
       setTimeout(() => {
         setFiles((prevState) =>
@@ -113,12 +113,7 @@ export default function SenderConfig() {
   };
 
   // 快捷指令列表
-  const quickPrompts = [
-    '介绍一下 TDesign',
-    '如何使用 Chatbot 组件？',
-    '有哪些内容类型？',
-    '如何自定义样式？',
-  ];
+  const quickPrompts = ['介绍一下 TDesign', '如何使用 Chatbot 组件？', '有哪些内容类型？', '如何自定义样式？'];
 
   return (
     <div>

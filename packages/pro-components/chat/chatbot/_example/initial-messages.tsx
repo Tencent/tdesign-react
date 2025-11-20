@@ -11,7 +11,7 @@ import { Button, Space } from 'tdesign-react';
 
 /**
  * 初始化消息示例
- * 
+ *
  * 学习目标：
  * - 使用 defaultMessages 设置欢迎语和建议问题
  * - 通过 setMessages 动态加载历史消息
@@ -121,7 +121,7 @@ export default function InitialMessages() {
     endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/normal',
     stream: true,
     onMessage: (chunk: SSEChunkData): AIMessageContent => {
-      const { type, ...rest } = chunk.data;
+      const { ...rest } = chunk.data;
       return {
         type: 'markdown',
         data: rest?.msg || '',
