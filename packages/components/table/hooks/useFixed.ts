@@ -377,20 +377,16 @@ export default function useFixed(
   };
 
   const updateTableWidth = () => {
-    // 确保数据渲染后再获取宽度，避免数据更新后可能存在滚动条
-    // 导致元素宽度再次更新，产生闪烁
-    setTimeout(() => {
-      const tRef = tableContentRef.current;
-      const rect = tRef?.getBoundingClientRect?.();
-      if (!rect) return;
-      // 存在纵向滚动条，且固定表头时，需去除滚动条宽度
-      const reduceWidth = isFixedHeader ? scrollbarWidth : 0;
-      tableWidth.current = rect.width - reduceWidth - (props.bordered ? 1 : 0);
-      const elmRect = tableElmRef?.current?.getBoundingClientRect();
-      if (elmRect?.width) {
-        setTableElmWidth(elmRect?.width);
-      }
-    }, 0);
+    const tRef = tableContentRef.current;
+    const rect = tRef?.getBoundingClientRect?.();
+    if (!rect) return;
+    // 存在纵向滚动条，且固定表头时，需去除滚动条宽度
+    const reduceWidth = isFixedHeader ? scrollbarWidth : 0;
+    tableWidth.current = rect.width - reduceWidth - (props.bordered ? 1 : 0);
+    const elmRect = tableElmRef?.current?.getBoundingClientRect();
+    if (elmRect?.width) {
+      setTableElmWidth(elmRect?.width);
+    }
   };
 
   // 在表格高度变化的时候 需要手动调整affix的位置 因为affix本身无法监听到这些变化触发重新计算
@@ -436,9 +432,7 @@ export default function useFixed(
       if (!thead) return;
       updateThWidthList(thead.children);
       clearTimeout(timer);
-      // 将 Table 放在 Dialog 等使用 CSSTransition 包裹的元素
-      // 动画效果影响元素宽度的计算时机
-    }, 150);
+    }, 0);
   };
 
   const emitScrollEvent = (e: React.WheelEvent<HTMLDivElement>) => {
