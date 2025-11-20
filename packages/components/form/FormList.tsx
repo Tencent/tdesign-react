@@ -165,16 +165,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
       initialData,
       isFormList: true,
       formListMapRef,
-      getValue() {
-        const formListValue = [];
-        [...formListMapRef.current.values()].forEach((formItemRef) => {
-          if (!formItemRef.current) return;
-          const { name, getValue } = formItemRef.current;
-          const fieldValue = calcFieldValue(name, getValue());
-          merge(formListValue, fieldValue);
-        });
-        return formListValue;
-      },
+      getValue: () => get(form?.store, fullPath),
       validate: (trigger = 'all') => {
         const resultList = [];
         const validates = [...formListMapRef.current.values()].map((formItemRef) =>

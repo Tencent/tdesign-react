@@ -305,6 +305,38 @@ describe('Form List 组件测试', () => {
         form.clearValidate();
       }
 
+      function getFieldsValueAll() {
+        const allValues = form.getFieldsValue(true);
+        console.log('getFieldsValue(true):', allValues);
+        document.getElementById('all-values-result')?.setAttribute('data-result', JSON.stringify(allValues));
+      }
+
+      function getFieldsValueByPath() {
+        // Test 1: Get specific user's data
+        const usersPath = form.getFieldsValue(['users']);
+
+        // Test 2: Get specific nested path - first user's projects
+        const firstUserProjects = form.getFieldsValue([['users', 0, 'projects']]);
+
+        // Test 3: Get specific nested path - first user's first project's tasks
+        const firstProjectTasks = form.getFieldsValue([['users', 0, 'projects', 0, 'tasks']]);
+
+        // Test 4: Get multiple paths at once
+        const multiplePaths = form.getFieldsValue([
+          ['users', 0, 'name'],
+          ['users', 1, 'name'],
+          ['users', 0, 'projects', 0, 'projectName'],
+        ]);
+
+        const result = {
+          usersPath,
+          firstUserProjects,
+          firstProjectTasks,
+          multiplePaths,
+        };
+        document.getElementById('path-values-result')?.setAttribute('data-result', JSON.stringify(result));
+      }
+
       return (
         <Form form={form}>
           <FormList name="users">
@@ -425,7 +457,11 @@ describe('Form List 组件测试', () => {
             <Button onClick={addNestedData}>addNestedData</Button>
             <Button onClick={validate}>validate</Button>
             <Button onClick={clearValidate}>clearValidate</Button>
+            <Button onClick={getFieldsValueAll}>getFieldsValue(true)</Button>
+            <Button onClick={getFieldsValueByPath}>getFieldsValue(namePath)</Button>
           </FormItem>
+          <div id="all-values-result" data-result="" />
+          <div id="path-values-result" data-result="" />
         </Form>
       );
     };
@@ -471,6 +507,59 @@ describe('Form List 组件测试', () => {
     expect((getByPlaceholderText('project-name-1-0') as HTMLInputElement).value).toBe('Documentation');
     expect((getByPlaceholderText('task-name-1-0-0') as HTMLInputElement).value).toBe('Write API docs');
     expect((getByPlaceholderText('task-status-1-0-0') as HTMLInputElement).value).toBe('in-progress');
+
+    // Test getFieldsValue(true) - should get all form values
+    fireEvent.click(queryByText('getFieldsValue(true)'));
+    await mockTimeout();
+    const allValuesResult = container.querySelector('#all-values-result')?.getAttribute('data-result');
+    const allValues = JSON.parse(allValuesResult || '{}');
+    expect(allValues).toHaveProperty('users');
+    expect(Array.isArray(allValues.users)).toBe(true);
+    expect(allValues.users.length).toBe(2);
+    expect(allValues.users[0].name).toBe('Charlie');
+    expect(allValues.users[0].projects.length).toBe(2);
+    expect(allValues.users[0].projects[0].projectName).toBe('Backend Service');
+    expect(allValues.users[0].projects[0].tasks.length).toBe(3);
+    expect(allValues.users[1].name).toBe('David');
+
+    // Test getFieldsValue with complex namePath
+    fireEvent.click(queryByText('getFieldsValue(namePath)'));
+    await mockTimeout();
+    const pathValuesResult = container.querySelector('#path-values-result')?.getAttribute('data-result');
+    const pathValues = JSON.parse(pathValuesResult || '{}');
+
+    // Test 1: Verify users path returns all users data
+    expect(pathValues.usersPath).toHaveProperty('users');
+    expect(Array.isArray(pathValues.usersPath.users)).toBe(true);
+    expect(pathValues.usersPath.users.length).toBe(2);
+    expect(pathValues.usersPath.users[0].name).toBe('Charlie');
+    expect(pathValues.usersPath.users[1].name).toBe('David');
+
+    // Test 2: Verify nested path returns first user's projects
+    expect(pathValues.firstUserProjects).toHaveProperty('users');
+    expect(pathValues.firstUserProjects.users[0]).toHaveProperty('projects');
+    expect(Array.isArray(pathValues.firstUserProjects.users[0].projects)).toBe(true);
+    expect(pathValues.firstUserProjects.users[0].projects.length).toBe(2);
+    expect(pathValues.firstUserProjects.users[0].projects[0].projectName).toBe('Backend Service');
+    expect(pathValues.firstUserProjects.users[0].projects[1].projectName).toBe('DevOps');
+
+    // Test 3: Verify deep nested path returns first project's tasks
+    expect(pathValues.firstProjectTasks).toHaveProperty('users');
+    expect(pathValues.firstProjectTasks.users[0].projects[0]).toHaveProperty('tasks');
+    expect(Array.isArray(pathValues.firstProjectTasks.users[0].projects[0].tasks)).toBe(true);
+    expect(pathValues.firstProjectTasks.users[0].projects[0].tasks.length).toBe(3);
+    expect(pathValues.firstProjectTasks.users[0].projects[0].tasks[0].taskName).toBe('Database design');
+    expect(pathValues.firstProjectTasks.users[0].projects[0].tasks[1].taskName).toBe('API development');
+    expect(pathValues.firstProjectTasks.users[0].projects[0].tasks[2].taskName).toBe('Testing');
+
+    // Test 4: Verify multiple paths returns specific fields
+    expect(pathValues.multiplePaths).toHaveProperty('users');
+    expect(pathValues.multiplePaths.users[0]).toHaveProperty('name');
+    expect(pathValues.multiplePaths.users[0].name).toBe('Charlie');
+    expect(pathValues.multiplePaths.users[1]).toHaveProperty('name');
+    expect(pathValues.multiplePaths.users[1].name).toBe('David');
+    expect(pathValues.multiplePaths.users[0].projects[0]).toHaveProperty('projectName');
+    expect(pathValues.multiplePaths.users[0].projects[0].projectName).toBe('Backend Service');
 
     // Test remove nested task - remove first task of Charlie's Backend Service project
     const removeTaskBtn = container.querySelector('.test-remove-task-0-0-0');
