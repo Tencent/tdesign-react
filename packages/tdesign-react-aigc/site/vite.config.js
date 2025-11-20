@@ -5,7 +5,6 @@ import tdocPlugin from './plugin-tdoc';
 
 const publicPathMap = {
   preview: '/',
-  intranet: '/react-chat/',
   production: 'https://static.tdesign.tencent.com/react-chat/',
 };
 

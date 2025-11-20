@@ -40,11 +40,11 @@ export default function Stackblitz(props) {
       >
         {isTypeScriptDemo ? (
           <>
-            <input type="hidden" name="project[files][src/demo.jsx]" value={code} />
+            <input type="hidden" name="project[files][src/demo.tsx]" value={code} />
             <input type="hidden" name="project[files][tsconfig.json]" value={tsconfigContent} />
           </>
         ) : (
-          <input type="hidden" name="project[files][src/demo.tsx]" value={code} />
+          <input type="hidden" name="project[files][src/demo.jsx]" value={code} />
         )}
         <input type="hidden" name="project[files][src/index.css]" value={styleContent} />
         <input type="hidden" name="project[files][src/index.jsx]" value={mainJsContent} />

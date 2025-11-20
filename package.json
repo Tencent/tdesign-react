@@ -11,7 +11,6 @@
     "site:preview": "pnpm run build:jsx-demo && pnpm -C packages/tdesign-react/site preview",
     "dev:aigc": "pnpm run build:aigc-jsx-demo && pnpm -C packages/tdesign-react-aigc/site dev",
     "site:aigc": "pnpm run build:aigc-jsx-demo && pnpm -C packages/tdesign-react-aigc/site build",
-    "site:aigc-intranet": "pnpm -C packages/tdesign-react-aigc/site intranet",
     "site:aigc-preview": "pnpm -C packages/tdesign-react-aigc/site preview",
     "lint": "pnpm run lint:tsc && eslint --ext .ts,.tsx ./ --max-warnings 0",
     "lint:fix": "eslint --ext .ts,.tsx ./packages/components --ignore-pattern packages/components/__tests__ --max-warnings 0 --fix",
