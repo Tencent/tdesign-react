@@ -23,7 +23,7 @@ jobs:
 
       - run: pnpm install
 
-      - run: pnpm run build
+      - run: pnpm exec run-p build build:aigc
 
       - run: node ./script/workflows/pkg-pr-new-generate-template.mjs
 
