@@ -1,11 +1,16 @@
 // 行选中相关功能：单选 + 多选
 
-import React, { useEffect, useState, MouseEvent, useMemo } from 'react';
-import { intersection, get, isFunction } from 'lodash-es';
-import { isRowSelectedDisabled } from '@tdesign/common-js/table/utils';
+import React, { MouseEvent, useEffect, useMemo, useState } from 'react';
+import { get, isFunction } from 'lodash-es';
+
 import log from '@tdesign/common-js/log/index';
+import { isRowSelectedDisabled } from '@tdesign/common-js/table/utils';
+import Checkbox from '../../checkbox';
 import useControlled from '../../hooks/useControlled';
-import {
+import Radio from '../../radio';
+
+import type { ClassName } from '../../common';
+import type {
   PrimaryTableCellParams,
   PrimaryTableCol,
   RowClassNameParams,
@@ -13,10 +18,8 @@ import {
   TdBaseTableProps,
   TdPrimaryTableProps,
 } from '../type';
-import { TableClassName } from './useClassName';
-import Checkbox from '../../checkbox';
-import Radio from '../../radio';
-import { ClassName } from '../../common';
+import type { TableClassName } from './useClassName';
+import { DEFAULT_CURRENT, DEFAULT_PAGE_SIZE } from './usePagination';
 
 const selectedRowDataMap = new Map<string | number, TableRowData>();
 
@@ -24,8 +27,15 @@ export default function useRowSelect(
   props: TdPrimaryTableProps,
   tableSelectedClasses: TableClassName['tableSelectedClasses'],
 ) {
-  const { selectedRowKeys, columns, data, rowKey, indeterminateSelectedRowKeys } = props;
-  const { pagination, reserveSelectedRowOnPaginate } = props;
+  const {
+    selectedRowKeys,
+    columns,
+    data,
+    rowKey,
+    indeterminateSelectedRowKeys,
+    pagination,
+    reserveSelectedRowOnPaginate,
+  } = props;
   const [currentPaginateData, setCurrentPaginateData] = useState<TableRowData[]>(data);
   const [selectedRowClassNames, setSelectedRowClassNames] = useState<TdBaseTableProps['rowClassName']>();
   const [tSelectedRowKeys, setTSelectedRowKeys] = useControlled(props, 'selectedRowKeys', props.onSelectChange, {
@@ -39,24 +49,22 @@ export default function useRowSelect(
     // eslint-disable-next-line
   }, [reserveSelectedRowOnPaginate, data, currentPaginateData]);
 
-  // 选中的行，和所有可以选择的行，交集，用于计算 isSelectedAll 和 isIndeterminate
-  const intersectionKeys = intersection(
-    tSelectedRowKeys,
-    canSelectedRows.map((t) => get(t, rowKey || 'id')),
-  );
-
   useEffect(
     () => {
       if (reserveSelectedRowOnPaginate) return;
       // 分页变化时，在 onPageChange 中设置 setCurrentPaginateData，PrimaryTable 中
+      if (!pagination) {
+        setCurrentPaginateData(data);
+        return;
+      }
       const { pageSize, current, defaultPageSize, defaultCurrent } = pagination;
-      const tPageSize = pageSize || defaultPageSize;
-      const tCurrent = current || defaultCurrent;
+      const tPageSize = pageSize || defaultPageSize || DEFAULT_PAGE_SIZE;
+      const tCurrent = current || defaultCurrent || DEFAULT_CURRENT;
       const newData = data.slice(tPageSize * (tCurrent - 1), tPageSize * tCurrent);
       setCurrentPaginateData(newData);
     },
     // eslint-disable-next-line
-    [data, reserveSelectedRowOnPaginate],
+    [data, reserveSelectedRowOnPaginate, pagination],
   );
 
   useEffect(
@@ -81,22 +89,48 @@ export default function useRowSelect(
     return isRowSelectedDisabled(selectColumn, row, rowIndex);
   }
 
-  function getSelectedHeader() {
-    return () => {
-      const isIndeterminate = intersectionKeys.length > 0 && intersectionKeys.length < canSelectedRows.length;
-      const isChecked =
-        intersectionKeys.length !== 0 &&
-        canSelectedRows.length !== 0 &&
-        intersectionKeys.length === canSelectedRows.length;
-      return (
-        <Checkbox
-          checked={isChecked}
-          indeterminate={isIndeterminate}
-          disabled={!canSelectedRows.length}
-          onChange={handleSelectAll}
-        />
-      );
+  function renderCheckAll() {
+    const currentData = reserveSelectedRowOnPaginate ? data : currentPaginateData;
+    const totalRowCount = currentData?.length || 0;
+
+    const currentPageRowKeys = currentData?.map((row) => get(row, rowKey)) || [];
+    const selectedInCurrentPage = tSelectedRowKeys.filter((key) => currentPageRowKeys.includes(key));
+
+    const isChecked = totalRowCount > 0 && selectedInCurrentPage.length === totalRowCount;
+    const isIndeterminate = selectedInCurrentPage.length > 0 && selectedInCurrentPage.length < totalRowCount;
+
+    const handleSelectAll = () => {
+      const canSelectedRowKeys = canSelectedRows.map((record) => get(record, rowKey));
+
+      const currentData = reserveSelectedRowOnPaginate ? data : currentPaginateData;
+      const disabledRowKeys =
+        currentData?.filter((row, rowIndex) => isDisabled(row, rowIndex)).map((row) => get(row, rowKey)) || [];
+
+      const disabledSelectedRowKeys = selectedRowKeys?.filter((id) => disabledRowKeys.includes(id)) || [];
+      const allSelectableRowsSelected = canSelectedRowKeys.every((key) => tSelectedRowKeys.includes(key));
+      const shouldSelectAll = !allSelectableRowsSelected;
+
+      const allIds = shouldSelectAll
+        ? [...disabledSelectedRowKeys, ...canSelectedRowKeys]
+        : [...disabledSelectedRowKeys];
+
+      setTSelectedRowKeys(allIds, {
+        selectedRowData: shouldSelectAll
+          ? allIds.map((t) => selectedRowDataMap.get(t))
+          : disabledSelectedRowKeys.map((t) => selectedRowDataMap.get(t)),
+        type: shouldSelectAll ? 'check' : 'uncheck',
+        currentRowKey: 'CHECK_ALL_BOX',
+      });
     };
+
+    return (
+      <Checkbox
+        checked={isChecked}
+        indeterminate={isIndeterminate}
+        disabled={!canSelectedRows.length}
+        onChange={handleSelectAll}
+      />
+    );
   }
 
   function getRowSelectDisabledData(p: PrimaryTableCellParams<TableRowData>) {
@@ -165,18 +199,6 @@ export default function useRowSelect(
     });
   }
 
-  function handleSelectAll(checked: boolean) {
-    const reRowKey = rowKey || 'id';
-    const canSelectedRowKeys = canSelectedRows.map((record) => get(record, reRowKey));
-    const disabledSelectedRowKeys = selectedRowKeys?.filter((id) => !canSelectedRowKeys.includes(id)) || [];
-    const allIds = checked ? [...disabledSelectedRowKeys, ...canSelectedRowKeys] : [...disabledSelectedRowKeys];
-    setTSelectedRowKeys(allIds, {
-      selectedRowData: checked ? allIds.map((t) => selectedRowDataMap.get(t)) : [],
-      type: checked ? 'check' : 'uncheck',
-      currentRowKey: 'CHECK_ALL_BOX',
-    });
-  }
-
   function formatToRowSelectColumn(col: PrimaryTableCol) {
     const isSelection = ['multiple', 'single'].includes(col.type);
     if (!isSelection) return col;
@@ -185,7 +207,7 @@ export default function useRowSelect(
       width: col.width || 64,
       className: tableSelectedClasses.checkCell,
       cell: (p: PrimaryTableCellParams<TableRowData>) => renderSelectCell(p),
-      title: col.type === 'multiple' ? getSelectedHeader() : col.title,
+      title: col.type === 'multiple' ? renderCheckAll() : col.title,
     };
   }
 
