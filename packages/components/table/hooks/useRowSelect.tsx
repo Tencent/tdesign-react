@@ -8,6 +8,7 @@ import { isRowSelectedDisabled } from '@tdesign/common-js/table/utils';
 import Checkbox from '../../checkbox';
 import useControlled from '../../hooks/useControlled';
 import Radio from '../../radio';
+import { DEFAULT_CURRENT, DEFAULT_PAGE_SIZE } from './usePagination';
 
 import type { ClassName } from '../../common';
 import type {
@@ -19,7 +20,6 @@ import type {
   TdPrimaryTableProps,
 } from '../type';
 import type { TableClassName } from './useClassName';
-import { DEFAULT_CURRENT, DEFAULT_PAGE_SIZE } from './usePagination';
 
 const selectedRowDataMap = new Map<string | number, TableRowData>();
 
