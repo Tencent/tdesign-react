@@ -1,9 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
-import { StyledProps, TNode } from '../common';
-import { TdMenuGroupProps } from './type';
+
 import useConfig from '../hooks/useConfig';
-import { cacularPaddingLeft } from './_util/cacularPaddingLeft';
+import { calculatePaddingLeft } from './_util/calculatePaddingLeft';
+import type { StyledProps, TNode } from '../common';
+import type { TdMenuGroupProps } from './type';
 
 export interface MenuGroupProps extends TdMenuGroupProps, StyledProps {
   children?: TNode;
@@ -14,7 +15,7 @@ const MenuGroup: React.FC<MenuGroupProps> = ({ title, className, style, children
   const { classPrefix } = useConfig();
 
   const itemAndGroupPaddingBias = 28;
-  const menuPaddingLeft = cacularPaddingLeft(level - 1) - itemAndGroupPaddingBias;
+  const menuPaddingLeft = calculatePaddingLeft(level - 1) - itemAndGroupPaddingBias;
 
   return (
     <div className={classNames(className, `${classPrefix}-menu-group`)} style={style}>

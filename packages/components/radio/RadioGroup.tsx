@@ -1,16 +1,19 @@
 import React, { CSSProperties, ReactNode, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
+
 import observe from '@tdesign/common-js/utils/observe';
-import useConfig from '../hooks/useConfig';
-import { TdRadioGroupProps } from './type';
-import useControlled from '../hooks/useControlled';
+import { CheckContext, type CheckContextValue } from '../common/Check';
 import useCommonClassName from '../hooks/useCommonClassName';
-import { StyledProps } from '../common';
-import { CheckContext, CheckContextValue } from '../common/Check';
+import useConfig from '../hooks/useConfig';
+import useControlled from '../hooks/useControlled';
+import useDefaultProps from '../hooks/useDefaultProps';
+import useMutationObserver from '../hooks/useMutationObserver';
 import Radio from './Radio';
 import { radioGroupDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
 import useKeyboard from './useKeyboard';
+
+import type { StyledProps } from '../common';
+import type { TdRadioGroupProps } from './type';
 
 /**
  * RadioGroup 组件所接收的属性
@@ -26,11 +29,11 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
   const { classPrefix } = useConfig();
 
   const props = useDefaultProps<RadioGroupProps>(originalProps, radioGroupDefaultProps);
-
   const { disabled, readonly, children, onChange, size, variant, options = [], className, style, theme } = props;
 
   const [internalValue, setInternalValue] = useControlled(props, 'value', onChange);
   const [barStyle, setBarStyle] = useState<Partial<CSSProperties> | null>(null);
+
   const radioGroupRef = useRef<HTMLDivElement>(null);
   const observerRef = useRef<IntersectionObserver>(null);
 
@@ -70,7 +73,10 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
     if (!variant.includes('filled')) return;
 
     const checkedRadio = radioGroupRef.current.querySelector?.(checkedRadioCls) as HTMLElement;
-    if (!checkedRadio) return;
+    if (!checkedRadio) {
+      setBarStyle(null);
+      return;
+    }
 
     const { offsetWidth, offsetHeight, offsetLeft, offsetTop } = checkedRadio;
     setBarStyle({
@@ -81,11 +87,24 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
     });
   };
 
+  // 针对子元素更新的场景，包括 value 变化等
+  useMutationObserver(radioGroupRef.current, (mutations) => {
+    // 排除高亮元素自身的变化，避免重复触发
+    const filteredMutations = mutations.filter((mutation) => {
+      const target = mutation.target as HTMLElement;
+      return !target.classList?.contains(`${classPrefix}-radio-group__bg-block`);
+    });
+
+    if (filteredMutations.length > 0) {
+      calcBarStyle();
+    }
+  });
+
   useEffect(() => {
     calcBarStyle();
-
     if (!radioGroupRef.current) return;
 
+    // 针对父元素初始化时隐藏导致无法正确计算尺寸的问题
     const observer = observe(radioGroupRef.current, null, calcBarStyle, 0);
     observerRef.current = observer;
 
@@ -93,10 +112,10 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
       observerRef.current?.disconnect();
       observerRef.current = null;
     };
-  }, [radioGroupRef.current, internalValue]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const renderBlock = () => {
-    if (!variant.includes('filled')) {
+    if (!variant.includes('filled') || !barStyle) {
       return null;
     }
     return <div style={barStyle} className={`${classPrefix}-radio-group__bg-block`}></div>;
