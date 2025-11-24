@@ -123,12 +123,12 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
 
   const onKeydown = (value: string, context: { e: React.KeyboardEvent<HTMLInputElement> }) => {
     onInputBackspaceKeyDown(value, context);
-    inputProps.onKeydown?.(value, context);
+    inputProps?.onKeydown?.(value, context);
   };
 
   const onKeyup = (value: string, context: { e: React.KeyboardEvent<HTMLInputElement> }) => {
     onInputBackspaceKeyUp(value);
-    inputProps.onKeyup?.(value, context);
+    inputProps?.onKeyup?.(value, context);
   };
 
   const suffixIconNode = showClearIcon ? (

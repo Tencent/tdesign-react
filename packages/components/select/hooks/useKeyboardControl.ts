@@ -16,6 +16,7 @@ export type useKeyboardControlType = {
   max: number;
   selectInputRef: any;
 };
+
 export default function useKeyboardControl({
   displayOptions,
   innerPopupVisible,
@@ -28,8 +29,8 @@ export default function useKeyboardControl({
   selectInputRef,
 }: useKeyboardControlType) {
   const [hoverIndex, changeHoverIndex] = useState(-1);
-  const filteredOptions = useState([]); // 处理普通场景选项过滤键盘选中的问题
-  const virtualFilteredOptions = useState([]); // 处理虚拟滚动下选项过滤通过键盘选择的问题
+  const [hoverOption, changeHoverOption] = useState<TdOptionProps>(undefined);
+
   const { classPrefix } = useConfig();
   // 全选判断
   const isCheckAll = useRef(false);
@@ -74,6 +75,8 @@ export default function useKeyboardControl({
           newIndex -= 1;
         }
         changeHoverIndex(newIndex);
+
+        changeHoverOption(displayOptions[newIndex]);
         handleKeyboardScroll(newIndex);
         break;
       case 'ArrowDown':
@@ -88,6 +91,8 @@ export default function useKeyboardControl({
           newIndex += 1;
         }
         changeHoverIndex(newIndex);
+        changeHoverOption(displayOptions[newIndex]);
+
         handleKeyboardScroll(newIndex);
         break;
       case 'Enter':
@@ -139,8 +144,6 @@ export default function useKeyboardControl({
 
   return {
     handleKeyDown,
-    hoverIndex,
-    filteredOptions,
-    virtualFilteredOptions,
+    hoverOption,
   };
 }

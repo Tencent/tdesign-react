@@ -6,9 +6,24 @@ import { getKeyMapping, getValueToOption, type ValueToOption } from '../util/hel
 
 import type { SelectKeysType, SelectOption, SelectOptionGroup, SelectValue, TdOptionProps } from '../type';
 
+// 针对分组的相关判断和扁平处理
 export function isSelectOptionGroup(option: SelectOption): option is SelectOptionGroup {
   return !!option && 'group' in option && 'children' in option;
 }
+
+export const flattenOptions = (options: SelectOption[] = []) => {
+  const flattened = [];
+  options.forEach((option) => {
+    if (isSelectOptionGroup(option)) {
+      if (option.children) {
+        flattened.push(...option.children);
+      }
+    } else {
+      flattened.push(option);
+    }
+  });
+  return flattened;
+};
 
 type OptionValueType = SelectValue<SelectOption>;
 
@@ -23,6 +38,7 @@ function useOptions(
 ) {
   const [valueToOption, setValueToOption] = useState<ValueToOption>({});
   const [currentOptions, setCurrentOptions] = useState<SelectOption[]>([]);
+  const [flattenedOptions, setFlattenedOptions] = useState<SelectOption[]>([]);
   const [tmpPropOptions, setTmpPropOptions] = useState<SelectOption[]>([]);
   const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>([]);
 
@@ -65,6 +81,7 @@ function useOptions(
     }
     setCurrentOptions(transformedOptions);
     setTmpPropOptions(transformedOptions);
+    setFlattenedOptions(flattenOptions(transformedOptions));
 
     setValueToOption(getValueToOption(children as ReactElement, options as TdOptionProps[], keys) || {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -115,6 +132,7 @@ function useOptions(
     setValueToOption,
     selectedOptions,
     setSelectedOptions,
+    flattenedOptions,
   };
 }
 

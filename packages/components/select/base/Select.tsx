@@ -110,21 +110,13 @@ const Select = forwardRefWithStatics(
     const [showPopup, setShowPopup] = useControlled(props, 'popupVisible', onPopupVisibleChange);
     const [inputValue, onInputChange] = useControlled(props, 'inputValue', props.onInputChange);
 
-    const { currentOptions, setCurrentOptions, tmpPropOptions, valueToOption, selectedOptions } = useOptions(
-      keys,
-      options,
-      children,
-      valueType,
-      value,
-      reserveKeyword,
-    );
+    const { currentOptions, setCurrentOptions, tmpPropOptions, valueToOption, selectedOptions, flattenedOptions } =
+      useOptions(keys, options, children, valueType, value, reserveKeyword);
 
     const onCheckAllChange = useCallback(
       (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => {
         const isDisabledCheckAll = (opt: TdOptionProps) => opt.checkAll && opt.disabled;
-        if (!multiple || currentOptions.some((opt) => !isSelectOptionGroup(opt) && isDisabledCheckAll(opt))) {
-          return;
-        }
+        if (!multiple || currentOptions.some((opt) => !isSelectOptionGroup(opt) && isDisabledCheckAll(opt))) return;
 
         const { valueKey } = getKeyMapping(keys);
         const isObjectType = valueType === 'object';
@@ -189,8 +181,8 @@ const Select = forwardRefWithStatics(
       [currentOptions, keys, multiple, onChange, value, valueToOption, valueType],
     );
 
-    const { handleKeyDown, hoverIndex } = useKeyboardControl({
-      displayOptions: currentOptions as TdOptionProps[],
+    const { handleKeyDown, hoverOption } = useKeyboardControl({
+      displayOptions: flattenedOptions as TdOptionProps[],
       max,
       multiple,
       setInnerPopupVisible: setShowPopup,
@@ -430,7 +422,7 @@ const Select = forwardRefWithStatics(
         onCheckAllChange,
         getPopupInstance,
         scroll,
-        hoverIndex,
+        hoverOption,
       };
       return <PopupContent {...popupContentProps}>{childrenWithProps}</PopupContent>;
     };

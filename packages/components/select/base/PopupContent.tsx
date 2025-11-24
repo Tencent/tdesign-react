@@ -57,7 +57,7 @@ interface SelectPopupProps
   children?: React.ReactNode;
   onCheckAllChange?: (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => void;
   getPopupInstance?: () => HTMLDivElement;
-  hoverIndex: number;
+  hoverOption: TdOptionProps;
 }
 
 const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, ref) => {
@@ -81,7 +81,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     getPopupInstance,
     options: propsOptions,
     scroll: propsScroll,
-    hoverIndex,
+    hoverOption,
   } = props;
 
   // 国际化文本初始化
@@ -179,7 +179,8 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
             // 当 keys 属性配置 content 作为 value 或 label 时，确保 restData 中也包含它, 不参与渲染计算
             const { content } = item as TdOptionProps;
             const shouldOmitContent = Object.values(keys || {}).includes('content');
-            const isKeyboardHovered = hoverIndex === index;
+
+            const isKeyboardHovered = hoverOption?.value === optionValue;
             return (
               <Option
                 key={index}
