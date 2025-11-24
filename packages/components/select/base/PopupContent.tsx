@@ -179,6 +179,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
             // 当 keys 属性配置 content 作为 value 或 label 时，确保 restData 中也包含它, 不参与渲染计算
             const { content } = item as TdOptionProps;
             const shouldOmitContent = Object.values(keys || {}).includes('content');
+            const isKeyboardHovered = hoverIndex === index;
             return (
               <Option
                 key={index}
@@ -193,8 +194,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
                 disabled={disabled}
                 restData={restData}
                 keys={keys}
-                index={index}
-                hoverIndex={hoverIndex}
+                isKeyboardHovered={isKeyboardHovered}
                 onCheckAllChange={onCheckAllChange}
                 onRowMounted={handleRowMounted}
                 {...(isVirtual

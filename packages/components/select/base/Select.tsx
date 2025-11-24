@@ -119,6 +119,76 @@ const Select = forwardRefWithStatics(
       reserveKeyword,
     );
 
+    const onCheckAllChange = useCallback(
+      (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => {
+        const isDisabledCheckAll = (opt: TdOptionProps) => opt.checkAll && opt.disabled;
+        if (!multiple || currentOptions.some((opt) => !isSelectOptionGroup(opt) && isDisabledCheckAll(opt))) {
+          return;
+        }
+
+        const { valueKey } = getKeyMapping(keys);
+        const isObjectType = valueType === 'object';
+
+        const enabledOptions: SelectOption[] = [];
+
+        currentOptions.forEach((option) => {
+          // 如果涉及分组，需要将分组内的选项进行计算，否则会影响全选的功能
+          if (isSelectOptionGroup(option)) {
+            option.children?.forEach((item) => {
+              if (!item.checkAll && !item.disabled) {
+                enabledOptions.push(item);
+              }
+            });
+          } else {
+            !option.checkAll && !option.disabled && enabledOptions.push(option);
+          }
+        });
+
+        const currentValues = Array.isArray(value) ? value : [];
+        const disabledSelectedOptions: SelectOption[] = [];
+
+        const isDisabledAndSelected = (opt: TdOptionProps) => {
+          if (opt.checkAll || !opt.disabled) return false;
+          if (isObjectType) return currentValues.some((v) => get(v, valueKey) === opt[valueKey]);
+          return currentValues.includes(opt[valueKey]);
+        };
+
+        currentOptions.forEach((opt) => {
+          if (isSelectOptionGroup(opt)) {
+            // 处理分组内的禁用选项
+            opt.children?.forEach((item) => {
+              if (isDisabledAndSelected(item)) {
+                disabledSelectedOptions.push(item);
+              }
+            });
+          } else if (isDisabledAndSelected(opt)) {
+            disabledSelectedOptions.push(opt);
+          }
+        });
+
+        let checkAllValue: SelectValue[];
+
+        if (checkAll) {
+          // 全选：选中所有未禁用的选项 + 保留已选中的禁用选项
+          const enabledValues = enabledOptions.map((opt) => (isObjectType ? opt : opt[valueKey]));
+          const disabledValues = disabledSelectedOptions.map((opt) => (isObjectType ? opt : opt[valueKey]));
+          checkAllValue = [...disabledValues, ...enabledValues];
+        } else {
+          // 取消全选：只保留已选中的禁用选项
+          checkAllValue = disabledSelectedOptions.map((opt) => (isObjectType ? opt : opt[valueKey]));
+        }
+
+        const { currentSelectedOptions } = getSelectedOptions(checkAllValue, multiple, valueType, keys, valueToOption);
+
+        onChange?.(checkAllValue, {
+          e,
+          trigger: checkAll ? 'check' : 'uncheck',
+          selectedOptions: currentSelectedOptions,
+        });
+      },
+      [currentOptions, keys, multiple, onChange, value, valueToOption, valueType],
+    );
+
     const { handleKeyDown, hoverIndex } = useKeyboardControl({
       displayOptions: currentOptions as TdOptionProps[],
       max,
@@ -127,6 +197,8 @@ const Select = forwardRefWithStatics(
       innerPopupVisible: showPopup,
       setInnerValue: onChange,
       innerValue: value,
+      onCheckAllChange,
+      selectInputRef,
     });
 
     const selectedLabel = useMemo(() => {
@@ -189,73 +261,6 @@ const Select = forwardRefWithStatics(
           });
         }
       }
-    };
-
-    const onCheckAllChange = (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => {
-      const isDisabledCheckAll = (opt: TdOptionProps) => opt.checkAll && opt.disabled;
-      if (!multiple || currentOptions.some((opt) => !isSelectOptionGroup(opt) && isDisabledCheckAll(opt))) {
-        return;
-      }
-
-      const { valueKey } = getKeyMapping(keys);
-      const isObjectType = valueType === 'object';
-
-      const enabledOptions: SelectOption[] = [];
-
-      currentOptions.forEach((option) => {
-        // 如果涉及分组，需要将分组内的选项进行计算，否则会影响全选的功能
-        if (isSelectOptionGroup(option)) {
-          option.children?.forEach((item) => {
-            if (!item.checkAll && !item.disabled) {
-              enabledOptions.push(item);
-            }
-          });
-        } else {
-          !option.checkAll && !option.disabled && enabledOptions.push(option);
-        }
-      });
-
-      const currentValues = Array.isArray(value) ? value : [];
-      const disabledSelectedOptions: SelectOption[] = [];
-
-      const isDisabledAndSelected = (opt: TdOptionProps) => {
-        if (opt.checkAll || !opt.disabled) return false;
-        if (isObjectType) return currentValues.some((v) => get(v, valueKey) === opt[valueKey]);
-        return currentValues.includes(opt[valueKey]);
-      };
-
-      currentOptions.forEach((opt) => {
-        if (isSelectOptionGroup(opt)) {
-          // 处理分组内的禁用选项
-          opt.children?.forEach((item) => {
-            if (isDisabledAndSelected(item)) {
-              disabledSelectedOptions.push(item);
-            }
-          });
-        } else if (isDisabledAndSelected(opt)) {
-          disabledSelectedOptions.push(opt);
-        }
-      });
-
-      let checkAllValue: SelectValue[];
-
-      if (checkAll) {
-        // 全选：选中所有未禁用的选项 + 保留已选中的禁用选项
-        const enabledValues = enabledOptions.map((opt) => (isObjectType ? opt : opt[valueKey]));
-        const disabledValues = disabledSelectedOptions.map((opt) => (isObjectType ? opt : opt[valueKey]));
-        checkAllValue = [...disabledValues, ...enabledValues];
-      } else {
-        // 取消全选：只保留已选中的禁用选项
-        checkAllValue = disabledSelectedOptions.map((opt) => (isObjectType ? opt : opt[valueKey]));
-      }
-
-      const { currentSelectedOptions } = getSelectedOptions(checkAllValue, multiple, valueType, keys, valueToOption);
-
-      onChange?.(checkAllValue, {
-        e,
-        trigger: checkAll ? 'check' : 'uncheck',
-        selectedOptions: currentSelectedOptions,
-      });
     };
 
     // 选中 Popup 某项

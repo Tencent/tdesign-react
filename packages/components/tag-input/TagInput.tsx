@@ -121,6 +121,16 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
     props.onClear?.({ e });
   };
 
+  const onKeydown = (value: string, context: { e: React.KeyboardEvent<HTMLInputElement> }) => {
+    onInputBackspaceKeyDown(value, context);
+    inputProps.onKeydown?.(value, context);
+  };
+
+  const onKeyup = (value: string, context: { e: React.KeyboardEvent<HTMLInputElement> }) => {
+    onInputBackspaceKeyUp(value);
+    inputProps.onKeyup?.(value, context);
+  };
+
   const suffixIconNode = showClearIcon ? (
     <CloseCircleFilledIcon className={CLEAR_CLASS} onClick={onClearClick} />
   ) : (
@@ -192,8 +202,6 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       onPaste={onPaste}
       onClick={onInnerClick}
       onEnter={onInputEnter}
-      onKeydown={onInputBackspaceKeyDown}
-      onKeyup={onInputBackspaceKeyUp}
       onMouseenter={(context) => {
         addHover(context);
         scrollToRightOnEnter();
@@ -214,6 +222,8 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       onCompositionstart={onInputCompositionstart}
       onCompositionend={onInputCompositionend}
       {...inputProps}
+      onKeydown={onKeydown}
+      onKeyup={onKeyup}
     />
   );
 });

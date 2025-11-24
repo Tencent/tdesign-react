@@ -1,15 +1,20 @@
-import { useState, KeyboardEvent } from 'react';
-import type { SelectOption, TdOptionProps, SelectValue } from '../type';
+import { useState, KeyboardEvent, useRef, useEffect } from 'react';
+
+import useConfig from '../../hooks/useConfig';
 import { getSelectValueArr } from '../util/helper';
+
+import type { SelectOption, TdOptionProps, SelectValue } from '../type';
 
 export type useKeyboardControlType = {
   displayOptions: TdOptionProps[];
   innerPopupVisible: boolean;
   setInnerPopupVisible: any;
+  onCheckAllChange: (checkAll: boolean, e?: React.MouseEvent<HTMLLIElement>) => void;
   setInnerValue: Function;
   innerValue: SelectValue<SelectOption>;
   multiple: boolean;
   max: number;
+  selectInputRef: any;
 };
 export default function useKeyboardControl({
   displayOptions,
@@ -19,10 +24,36 @@ export default function useKeyboardControl({
   innerValue,
   multiple,
   max,
+  onCheckAllChange,
+  selectInputRef,
 }: useKeyboardControlType) {
   const [hoverIndex, changeHoverIndex] = useState(-1);
   const filteredOptions = useState([]); // 处理普通场景选项过滤键盘选中的问题
   const virtualFilteredOptions = useState([]); // 处理虚拟滚动下选项过滤通过键盘选择的问题
+  const { classPrefix } = useConfig();
+  // 全选判断
+  const isCheckAll = useRef(false);
+  useEffect(() => {
+    if (!Array.isArray(innerValue)) return;
+    isCheckAll.current = innerValue.length === displayOptions.filter((v) => !(v.disabled || v.checkAll)).length;
+  }, [innerValue, displayOptions]);
+
+  const handleKeyboardScroll = (hoverIndex: number) => {
+    const popupContent = selectInputRef.current.getPopupContentElement();
+
+    const optionSelector = `.${classPrefix}-select-option`;
+    const selector = `.${classPrefix}-select-option__hover`;
+    const firstSelectedNode: HTMLDivElement = popupContent.querySelector(selector);
+    if (firstSelectedNode) {
+      // 小于0时不需要特殊处理，会被设为0
+      const scrollHeight = popupContent.querySelector(optionSelector).clientHeight * hoverIndex;
+
+      popupContent.scrollTo({
+        top: scrollHeight,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   const handleKeyDown = (_value, { e }: { e: KeyboardEvent }) => {
     const optionsListLength = displayOptions.length;
@@ -43,6 +74,7 @@ export default function useKeyboardControl({
           newIndex -= 1;
         }
         changeHoverIndex(newIndex);
+        handleKeyboardScroll(newIndex);
         break;
       case 'ArrowDown':
         e.preventDefault();
@@ -56,6 +88,7 @@ export default function useKeyboardControl({
           newIndex += 1;
         }
         changeHoverIndex(newIndex);
+        handleKeyboardScroll(newIndex);
         break;
       case 'Enter':
         if (hoverIndex === -1) break;
@@ -78,7 +111,7 @@ export default function useKeyboardControl({
           if (hoverIndex === -1) return;
 
           if (displayOptions[hoverIndex].checkAll) {
-            // onCheckAllChange(!isCheckAll);
+            onCheckAllChange(!isCheckAll.current);
             return;
           }
 
