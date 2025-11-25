@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import useConfig from '../../hooks/useConfig';
 import { getSelectValueArr } from '../util/helper';
 
-import type { SelectOption, TdOptionProps, SelectValueChangeTrigger, SelectValue } from '../type';
+import type { SelectOption, SelectValue, SelectValueChangeTrigger, TdOptionProps } from '../type';
 
 export type useKeyboardControlType = {
   max: number;
@@ -64,10 +64,16 @@ export default function useKeyboardControl({
   };
 
   useEffect(() => {
+    if (!innerPopupVisible) {
+      changeHoverIndex(-1);
+    }
+  }, [innerPopupVisible]);
+
+  useEffect(() => {
     changeHoverOption(hoverIndex === -1 ? undefined : displayOptions[hoverIndex]);
   }, [hoverIndex, displayOptions]);
 
-  const handleKeyDown = (_value, { e }: { e: React.KeyboardEvent<HTMLInputElement> }) => {
+  const handleKeyDown = (_value: string, { e }: { e: React.KeyboardEvent<HTMLInputElement> }) => {
     const optionsListLength = displayOptions.length;
 
     let newIndex = hoverIndex;
