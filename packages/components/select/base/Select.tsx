@@ -106,15 +106,21 @@ const Select = forwardRefWithStatics(
     const [isScrolling, toggleIsScrolling] = useState(false);
 
     const name = `${classPrefix}-select`; // t-select
-
-    const [showPopup, setShowPopup] = useControlled(props, 'popupVisible', onPopupVisibleChange);
     const [inputValue, onInputChange] = useControlled(props, 'inputValue', props.onInputChange);
+
+    const [innerPopupVisible, setInnerPopupVisible] = useControlled(props, 'popupVisible', onPopupVisibleChange);
+
+    const handlePopupVisibleChange = (visible: boolean, ctx: PopupVisibleChangeContext) => {
+      if (disabled) return;
+      visible ? toggleIsScrolling(false) : onInputChange('', { trigger: 'blur' });
+      setInnerPopupVisible(visible, ctx);
+    };
 
     const { currentOptions, setCurrentOptions, tmpPropOptions, valueToOption, selectedOptions, flattenedOptions } =
       useOptions(keys, options, children, valueType, value, reserveKeyword);
 
     const onCheckAllChange = useCallback(
-      (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => {
+      (checkAll: boolean, e: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLInputElement>) => {
         const isDisabledCheckAll = (opt: TdOptionProps) => opt.checkAll && opt.disabled;
         if (!multiple || currentOptions.some((opt) => !isSelectOptionGroup(opt) && isDisabledCheckAll(opt))) return;
 
@@ -181,18 +187,6 @@ const Select = forwardRefWithStatics(
       [currentOptions, keys, multiple, onChange, value, valueToOption, valueType],
     );
 
-    const { handleKeyDown, hoverOption } = useKeyboardControl({
-      displayOptions: flattenedOptions as TdOptionProps[],
-      max,
-      multiple,
-      setInnerPopupVisible: setShowPopup,
-      innerPopupVisible: showPopup,
-      setInnerValue: onChange,
-      innerValue: value,
-      onCheckAllChange,
-      selectInputRef,
-    });
-
     const selectedLabel = useMemo(() => {
       const { labelKey } = getKeyMapping(keys);
       if (multiple) {
@@ -200,12 +194,6 @@ const Select = forwardRefWithStatics(
       }
       return get(selectedOptions[0] || {}, labelKey) || undefined;
     }, [selectedOptions, keys, multiple]);
-
-    const handleShowPopup = (visible: boolean, ctx: PopupVisibleChangeContext) => {
-      if (disabled) return;
-      visible ? toggleIsScrolling(false) : onInputChange('', { trigger: 'blur' });
-      setShowPopup(visible, ctx);
-    };
 
     // 可以根据触发来源，自由定制标签变化时的筛选器行为
     const onTagChange = (_currentTags: SelectInputValue, context) => {
@@ -259,10 +247,10 @@ const Select = forwardRefWithStatics(
     const handleChange = (
       value: string | number | Array<string | number | Record<string, string | number>>,
       context: {
-        e: React.MouseEvent<HTMLLIElement>;
+        e: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLInputElement>;
         trigger: SelectValueChangeTrigger;
         value?: SelectValue;
-        label?: string;
+        label?: string | number;
       },
     ) => {
       const selectedValue = multiple ? context.value : value;
@@ -301,6 +289,18 @@ const Select = forwardRefWithStatics(
         });
       }
     };
+
+    const { handleKeyDown, hoverOption } = useKeyboardControl({
+      displayOptions: flattenedOptions as TdOptionProps[],
+      max,
+      multiple,
+      handlePopupVisibleChange,
+      innerPopupVisible,
+      handleChange,
+      value,
+      onCheckAllChange,
+      selectInputRef,
+    });
 
     // 处理filter逻辑
     const handleFilter = (value: string) => {
@@ -388,7 +388,9 @@ const Select = forwardRefWithStatics(
         );
       }
 
-      return showArrow && <FakeArrow className={`${name}__right-icon`} isActive={showPopup} disabled={disabled} />;
+      return (
+        showArrow && <FakeArrow className={`${name}__right-icon`} isActive={innerPopupVisible} disabled={disabled} />
+      );
     };
     const getPopupInstance = useCallback(() => (selectInputRef as any).current?.getPopupContentElement(), []);
 
@@ -407,9 +409,9 @@ const Select = forwardRefWithStatics(
         className,
         size,
         multiple,
-        showPopup,
+        showPopup: innerPopupVisible,
         // popup弹出层内容只会在点击事件之后触发 并且无任何透传参数
-        setShowPopup: (show: boolean) => handleShowPopup(show, {}),
+        setShowPopup: (show: boolean) => handlePopupVisibleChange(show, {}),
         options: currentOptions,
         empty,
         max,
@@ -578,7 +580,9 @@ const Select = forwardRefWithStatics(
           prefixIcon={prefixIcon}
           suffixIcon={renderSuffixIcon()}
           panel={renderContent()}
-          placeholder={!multiple && showPopup && selectedLabel ? selectedLabel : placeholder || t(local.placeholder)}
+          placeholder={
+            !multiple && innerPopupVisible && selectedLabel ? selectedLabel : placeholder || t(local.placeholder)
+          }
           inputValue={inputValue}
           tagInputProps={{
             size,
@@ -598,8 +602,8 @@ const Select = forwardRefWithStatics(
             onScroll: handleScroll,
             ...restPopupProps,
           }}
-          popupVisible={showPopup}
-          onPopupVisibleChange={handleShowPopup}
+          popupVisible={innerPopupVisible}
+          onPopupVisibleChange={handlePopupVisibleChange}
           onTagChange={onTagChange}
           onInputChange={handleInputChange}
           onFocus={onFocus}

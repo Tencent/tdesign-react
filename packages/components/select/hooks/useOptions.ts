@@ -42,6 +42,9 @@ function useOptions(
   const [tmpPropOptions, setTmpPropOptions] = useState<SelectOption[]>([]);
   const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>([]);
 
+  useEffect(() => {
+    setFlattenedOptions(flattenOptions(currentOptions));
+  }, [currentOptions]);
   // 处理设置 option 的逻辑
   useEffect(() => {
     let transformedOptions = options;
@@ -81,7 +84,6 @@ function useOptions(
     }
     setCurrentOptions(transformedOptions);
     setTmpPropOptions(transformedOptions);
-    setFlattenedOptions(flattenOptions(transformedOptions));
 
     setValueToOption(getValueToOption(children as ReactElement, options as TdOptionProps[], keys) || {});
     // eslint-disable-next-line react-hooks/exhaustive-deps

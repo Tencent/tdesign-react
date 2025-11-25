@@ -1,30 +1,36 @@
-import { useState, KeyboardEvent, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import useConfig from '../../hooks/useConfig';
 import { getSelectValueArr } from '../util/helper';
 
-import type { SelectOption, TdOptionProps, SelectValue } from '../type';
+import type { SelectOption, TdOptionProps, SelectValueChangeTrigger, SelectValue } from '../type';
 
 export type useKeyboardControlType = {
-  displayOptions: TdOptionProps[];
-  innerPopupVisible: boolean;
-  setInnerPopupVisible: any;
-  onCheckAllChange: (checkAll: boolean, e?: React.MouseEvent<HTMLLIElement>) => void;
-  setInnerValue: Function;
-  innerValue: SelectValue<SelectOption>;
-  multiple: boolean;
   max: number;
+  multiple: boolean;
+  value: SelectValue<SelectOption>;
+  handleChange: (
+    value: SelectValue,
+    context: {
+      e: React.KeyboardEvent<HTMLInputElement>;
+      trigger: SelectValueChangeTrigger;
+    },
+  ) => void;
+  innerPopupVisible: boolean;
+  handlePopupVisibleChange: (visible: boolean, ctx: { e: React.KeyboardEvent<HTMLInputElement> }) => void;
+  displayOptions: TdOptionProps[];
+  onCheckAllChange: (checkAll: boolean, e?: React.KeyboardEvent<HTMLInputElement>) => void;
   selectInputRef: any;
 };
 
 export default function useKeyboardControl({
-  displayOptions,
-  innerPopupVisible,
-  setInnerPopupVisible,
-  setInnerValue,
-  innerValue,
-  multiple,
   max,
+  multiple,
+  value,
+  handleChange,
+  innerPopupVisible,
+  handlePopupVisibleChange,
+  displayOptions,
   onCheckAllChange,
   selectInputRef,
 }: useKeyboardControlType) {
@@ -35,9 +41,10 @@ export default function useKeyboardControl({
   // 全选判断
   const isCheckAll = useRef(false);
   useEffect(() => {
-    if (!Array.isArray(innerValue)) return;
-    isCheckAll.current = innerValue.length === displayOptions.filter((v) => !(v.disabled || v.checkAll)).length;
-  }, [innerValue, displayOptions]);
+    if (!Array.isArray(value)) return;
+    isCheckAll.current =
+      value.length === displayOptions.filter((v) => !((v.disabled || v.checkAll) && !value.includes(v.value))).length;
+  }, [value, displayOptions]);
 
   const handleKeyboardScroll = (hoverIndex: number) => {
     const popupContent = selectInputRef.current.getPopupContentElement();
@@ -56,7 +63,11 @@ export default function useKeyboardControl({
     }
   };
 
-  const handleKeyDown = (_value, { e }: { e: KeyboardEvent }) => {
+  useEffect(() => {
+    changeHoverOption(hoverIndex === -1 ? undefined : displayOptions[hoverIndex]);
+  }, [hoverIndex, displayOptions]);
+
+  const handleKeyDown = (_value, { e }: { e: React.KeyboardEvent<HTMLInputElement> }) => {
     const optionsListLength = displayOptions.length;
 
     let newIndex = hoverIndex;
@@ -64,57 +75,45 @@ export default function useKeyboardControl({
     switch (e.code) {
       case 'ArrowUp':
         e.preventDefault();
-        if (hoverIndex === -1) {
-          newIndex = 0;
-        } else if (hoverIndex === 0 || hoverIndex > optionsListLength - 1) {
-          newIndex = optionsListLength - 1;
-        } else {
-          newIndex -= 1;
-        }
-        if (displayOptions[newIndex]?.disabled) {
-          newIndex -= 1;
-        }
-        changeHoverIndex(newIndex);
+        if (hoverIndex === -1) newIndex = 0;
+        else if (hoverIndex === 0 || hoverIndex > optionsListLength - 1) newIndex = optionsListLength - 1;
+        else newIndex -= 1;
 
-        changeHoverOption(displayOptions[newIndex]);
+        if (displayOptions[newIndex]?.disabled) newIndex -= 1;
+
+        changeHoverIndex(newIndex);
         handleKeyboardScroll(newIndex);
         break;
       case 'ArrowDown':
         e.preventDefault();
+        if (hoverIndex === -1 || hoverIndex >= optionsListLength - 1) newIndex = 0;
+        else newIndex += 1;
 
-        if (hoverIndex === -1 || hoverIndex >= optionsListLength - 1) {
-          newIndex = 0;
-        } else {
-          newIndex += 1;
-        }
-        if (displayOptions[newIndex]?.disabled) {
-          newIndex += 1;
-        }
+        if (displayOptions[newIndex]?.disabled) newIndex += 1;
+
         changeHoverIndex(newIndex);
-        changeHoverOption(displayOptions[newIndex]);
-
         handleKeyboardScroll(newIndex);
         break;
       case 'Enter':
-        if (hoverIndex === -1) break;
-
         if (!innerPopupVisible) {
-          setInnerPopupVisible(true, { e });
+          handlePopupVisibleChange(true, { e });
           break;
         }
 
+        if (hoverIndex === -1) return;
+
         if (!multiple) {
           const selectedOptions = displayOptions[hoverIndex];
-          setInnerValue(selectedOptions.value, {
-            option: selectedOptions?.[0],
-            selectedOptions: displayOptions[hoverIndex],
-            trigger: 'check',
-            e,
-          });
-          setInnerPopupVisible(false, { e });
-        } else {
-          if (hoverIndex === -1) return;
 
+          if (selectedOptions)
+            handleChange(selectedOptions.value, {
+              trigger: 'check',
+              e,
+            });
+          handlePopupVisibleChange(false, { e });
+          changeHoverIndex(-1);
+          handleKeyboardScroll(0);
+        } else {
           if (displayOptions[hoverIndex].checkAll) {
             onCheckAllChange(!isCheckAll.current);
             return;
@@ -123,22 +122,23 @@ export default function useKeyboardControl({
           const optionValue = displayOptions[hoverIndex]?.value;
 
           if (!optionValue) return;
-          const newValue = innerValue as Array<SelectValue>;
+          const newValue = value as Array<SelectValue>;
           const valueIndex = newValue.indexOf(optionValue);
           const isSelected = valueIndex > -1;
 
-          const values = getSelectValueArr(innerValue, optionValue, isSelected);
+          const values = getSelectValueArr(value, optionValue, isSelected);
 
           if (max > 0 && values.length > max) return; // 如果已选达到最大值 则不处理
-          setInnerValue(values, {
-            option: [],
+          handleChange(values, {
             trigger: !isSelected ? 'check' : 'uncheck',
             e,
           });
         }
         break;
       case 'Escape':
-        setInnerPopupVisible(false, { e });
+        handlePopupVisibleChange(false, { e });
+        changeHoverIndex(-1);
+        handleKeyboardScroll(0);
     }
   };
 
