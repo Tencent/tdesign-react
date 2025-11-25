@@ -1,31 +1,52 @@
-import React from 'react';
-import { Swiper } from 'tdesign-react';
+import React, { useState } from 'react';
+import { Slider, Space, Swiper, Tag } from 'tdesign-react';
 
 const { SwiperItem } = Swiper;
 
+const DEFAULT_SCALE = 210 / 332;
+
 export default function BasicSwiper() {
+  const [cardScale, setCardScale] = useState(DEFAULT_SCALE);
+
   return (
     <div className="tdesign-demo-block--swiper">
-      <Swiper type={'card'} height={280}>
-        <SwiperItem>
-          <div className="demo-item">1</div>
-        </SwiperItem>
-        <SwiperItem>
-          <div className="demo-item">2</div>
-        </SwiperItem>
-        <SwiperItem>
-          <div className="demo-item">3</div>
-        </SwiperItem>
-        <SwiperItem>
-          <div className="demo-item">4</div>
-        </SwiperItem>
-        <SwiperItem>
-          <div className="demo-item">5</div>
-        </SwiperItem>
-        <SwiperItem>
-          <div className="demo-item">6</div>
-        </SwiperItem>
-      </Swiper>
+      <Space direction="vertical" size={50} style={{ width: '800px' }}>
+        <Space direction="vertical" style={{ width: '100%' }}>
+          <Tag theme="primary" variant="outline">
+            卡片缩放比例
+          </Tag>
+          <Slider<number>
+            min={0}
+            max={1}
+            step={0.01}
+            value={cardScale}
+            onChange={setCardScale}
+            marks={{
+              [DEFAULT_SCALE]: 'Default',
+            }}
+          />
+        </Space>
+        <Swiper type="card" height={280} autoplay={false} cardScale={cardScale}>
+          <SwiperItem>
+            <div className="demo-item">1</div>
+          </SwiperItem>
+          <SwiperItem>
+            <div className="demo-item">2</div>
+          </SwiperItem>
+          <SwiperItem>
+            <div className="demo-item">3</div>
+          </SwiperItem>
+          <SwiperItem>
+            <div className="demo-item">4</div>
+          </SwiperItem>
+          <SwiperItem>
+            <div className="demo-item">5</div>
+          </SwiperItem>
+          <SwiperItem>
+            <div className="demo-item">6</div>
+          </SwiperItem>
+        </Swiper>
+      </Space>
     </div>
   );
 }
