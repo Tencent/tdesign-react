@@ -27,24 +27,11 @@ export default function BasicSwiper() {
           />
         </Space>
         <Swiper type="card" height={280} autoplay={false} cardScale={cardScale}>
-          <SwiperItem>
-            <div className="demo-item">1</div>
-          </SwiperItem>
-          <SwiperItem>
-            <div className="demo-item">2</div>
-          </SwiperItem>
-          <SwiperItem>
-            <div className="demo-item">3</div>
-          </SwiperItem>
-          <SwiperItem>
-            <div className="demo-item">4</div>
-          </SwiperItem>
-          <SwiperItem>
-            <div className="demo-item">5</div>
-          </SwiperItem>
-          <SwiperItem>
-            <div className="demo-item">6</div>
-          </SwiperItem>
+          {Array.from({ length: 6 }, (_, i) => (
+            <SwiperItem key={i + 1}>
+              <div className="demo-item">{i + 1}</div>
+            </SwiperItem>
+          ))}
         </Swiper>
       </Space>
     </div>
