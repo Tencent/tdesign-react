@@ -21,6 +21,7 @@ export type useKeyboardControlType = {
   displayOptions: TdOptionProps[];
   onCheckAllChange: (checkAll: boolean, e?: React.KeyboardEvent<HTMLInputElement>) => void;
   selectInputRef: any;
+  toggleIsScrolling: (isScrolling: boolean) => void;
 };
 
 export default function useKeyboardControl({
@@ -33,6 +34,7 @@ export default function useKeyboardControl({
   displayOptions,
   onCheckAllChange,
   selectInputRef,
+  toggleIsScrolling,
 }: useKeyboardControlType) {
   const [hoverIndex, changeHoverIndex] = useState(-1);
   const [hoverOption, changeHoverOption] = useState<TdOptionProps>(undefined);
@@ -53,6 +55,9 @@ export default function useKeyboardControl({
     const selector = `.${classPrefix}-select-option__hover`;
     const firstSelectedNode: HTMLDivElement = popupContent.querySelector(selector);
     if (firstSelectedNode) {
+      // 避免与 updateScrollTop 冲突
+      toggleIsScrolling(true);
+
       // 小于0时不需要特殊处理，会被设为0
       const scrollHeight = popupContent.querySelector(optionSelector).clientHeight * hoverIndex;
 
@@ -66,8 +71,12 @@ export default function useKeyboardControl({
   useEffect(() => {
     if (!innerPopupVisible) {
       changeHoverIndex(-1);
+    } else if (!multiple) {
+      // 单选时，hoverIndex 初始值为选中值的索引
+      const index = displayOptions.findIndex((option) => option.value === value);
+      changeHoverIndex(index >= 0 ? index : -1);
     }
-  }, [innerPopupVisible]);
+  }, [innerPopupVisible, multiple, value, displayOptions]);
 
   useEffect(() => {
     changeHoverOption(hoverIndex === -1 ? undefined : displayOptions[hoverIndex]);

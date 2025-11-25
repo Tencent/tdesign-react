@@ -24,8 +24,8 @@ import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import SelectInput, { type SelectInputValue, type SelectInputValueChangeContext } from '../../select-input';
 import Tag from '../../tag';
 import { selectDefaultProps } from '../defaultProps';
-import useOptions, { isSelectOptionGroup } from '../hooks/useOptions';
 import useKeyboardControl from '../hooks/useKeyboardControl';
+import useOptions, { isSelectOptionGroup } from '../hooks/useOptions';
 import { getKeyMapping, getSelectValueArr, getSelectedOptions } from '../util/helper';
 import Option from './Option';
 import OptionGroup from './OptionGroup';
@@ -300,6 +300,7 @@ const Select = forwardRefWithStatics(
       value,
       onCheckAllChange,
       selectInputRef,
+      toggleIsScrolling,
     });
 
     // 处理filter逻辑
