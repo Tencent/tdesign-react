@@ -87,7 +87,7 @@ export default function TR(props: TrProps) {
   const classNames = useClassName();
 
   const trStyles = getRowFixedStyles(
-    get(row, rowKey || 'id'),
+    get(row, rowKey),
     rowIndex,
     dataLength,
     fixedRows,
@@ -102,7 +102,7 @@ export default function TR(props: TrProps) {
   );
 
   const classes = useMemo(() => {
-    const customClasses = formatRowClassNames(rowClassName, { row, rowIndex, rowKey, type: 'body' }, rowKey || 'id');
+    const customClasses = formatRowClassNames(rowClassName, { row, rowIndex, rowKey, type: 'body' }, rowKey);
     return [trStyles?.classes, customClasses];
   }, [row, rowClassName, rowIndex, rowKey, trStyles?.classes]);
 
@@ -151,7 +151,6 @@ export default function TR(props: TrProps) {
         columnLength={props.columns.length}
         cellSpans={cellSpans}
         cellEmptyContent={props.cellEmptyContent}
-        tableClassNames={classNames}
         rowspanAndColspan={props.rowspanAndColspan}
         onClick={onClick}
         tableRef={props.tableRef}

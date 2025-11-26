@@ -27,15 +27,7 @@ export default function useRowSelect(
   props: TdPrimaryTableProps,
   tableSelectedClasses: TableClassName['tableSelectedClasses'],
 ) {
-  const {
-    selectedRowKeys,
-    columns,
-    data,
-    rowKey,
-    indeterminateSelectedRowKeys,
-    pagination,
-    reserveSelectedRowOnPaginate,
-  } = props;
+  const { columns, data, rowKey, indeterminateSelectedRowKeys, pagination, reserveSelectedRowOnPaginate } = props;
   const [currentPaginateData, setCurrentPaginateData] = useState<TableRowData[]>(data);
   const [selectedRowClassNames, setSelectedRowClassNames] = useState<TdBaseTableProps['rowClassName']>();
   const [tSelectedRowKeys, setTSelectedRowKeys] = useControlled(props, 'selectedRowKeys', props.onSelectChange, {
@@ -106,7 +98,7 @@ export default function useRowSelect(
       const disabledRowKeys =
         currentData?.filter((row, rowIndex) => isDisabled(row, rowIndex)).map((row) => get(row, rowKey)) || [];
 
-      const disabledSelectedRowKeys = selectedRowKeys?.filter((id) => disabledRowKeys.includes(id)) || [];
+      const disabledSelectedRowKeys = tSelectedRowKeys?.filter((id) => disabledRowKeys.includes(id)) || [];
       const allSelectableRowsSelected = canSelectedRowKeys.every((key) => tSelectedRowKeys.includes(key));
       const shouldSelectAll = !allSelectableRowsSelected;
 
