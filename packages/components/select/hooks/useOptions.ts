@@ -1,5 +1,6 @@
+import React, { ReactElement, ReactNode, useEffect, useMemo, useState } from 'react';
 import { get } from 'lodash-es';
-import React, { ReactElement, ReactNode, useEffect, useState } from 'react';
+
 import Option from '../base/Option';
 import OptionGroup from '../base/OptionGroup';
 import { getKeyMapping, getValueToOption, type ValueToOption } from '../util/helper';
@@ -42,6 +43,8 @@ function useOptions(
   const [tmpPropOptions, setTmpPropOptions] = useState<SelectOption[]>([]);
   const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>([]);
 
+  const { valueKey, labelKey } = useMemo(() => getKeyMapping(keys), [keys]);
+
   useEffect(() => {
     setFlattenedOptions(flattenOptions(currentOptions));
   }, [currentOptions]);
@@ -74,7 +77,6 @@ function useOptions(
       transformedOptions = arrayChildren?.map<SelectOption>((v) => handlerOptionElement(v));
     }
     if (keys) {
-      const { valueKey, labelKey } = getKeyMapping(keys);
       // 如果有定制 keys 先做转换
       transformedOptions = transformedOptions?.map<SelectOption>((option) => ({
         ...option,
@@ -91,8 +93,6 @@ function useOptions(
 
   // 同步 value 对应的 options
   useEffect(() => {
-    const { valueKey, labelKey } = getKeyMapping(keys);
-
     setSelectedOptions((oldSelectedOptions: SelectOption[]) => {
       const createOptionFromValue = (item: OptionValueType) => {
         if (valueType === 'value') {

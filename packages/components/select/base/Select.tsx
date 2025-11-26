@@ -100,6 +100,9 @@ const Select = forwardRefWithStatics(
     } = props;
 
     const [value, onChange] = useControlled(props, 'value', props.onChange);
+
+    const { valueKey, labelKey, disabledKey } = useMemo(() => getKeyMapping(keys), [keys]);
+
     const selectInputRef = useRef(null);
     const { classPrefix } = useConfig();
     const { overlayClassName, onScroll, onScrollToBottom, ...restPopupProps } = popupProps || {};
@@ -124,9 +127,7 @@ const Select = forwardRefWithStatics(
         const isDisabledCheckAll = (opt: TdOptionProps) => opt.checkAll && opt.disabled;
         if (!multiple || currentOptions.some((opt) => !isSelectOptionGroup(opt) && isDisabledCheckAll(opt))) return;
 
-        const { valueKey } = getKeyMapping(keys);
         const isObjectType = valueType === 'object';
-
         const enabledOptions: SelectOption[] = [];
 
         currentOptions.forEach((option) => {
@@ -184,16 +185,15 @@ const Select = forwardRefWithStatics(
           selectedOptions: currentSelectedOptions,
         });
       },
-      [currentOptions, keys, multiple, onChange, value, valueToOption, valueType],
+      [currentOptions, keys, multiple, value, valueKey, valueToOption, valueType, onChange],
     );
 
     const selectedLabel = useMemo(() => {
-      const { labelKey } = getKeyMapping(keys);
       if (multiple) {
         return selectedOptions.map((selectedOption) => get(selectedOption || {}, labelKey) || '');
       }
       return get(selectedOptions[0] || {}, labelKey) || undefined;
-    }, [selectedOptions, keys, multiple]);
+    }, [multiple, selectedOptions, labelKey]);
 
     // 可以根据触发来源，自由定制标签变化时的筛选器行为
     const onTagChange = (_currentTags: SelectInputValue, context) => {
@@ -291,6 +291,7 @@ const Select = forwardRefWithStatics(
     };
 
     const { hoverIndex, handleKeyDown } = useKeyboardControl({
+      keys,
       displayOptions: flattenedOptions as TdOptionProps[],
       max,
       multiple,
@@ -440,7 +441,6 @@ const Select = forwardRefWithStatics(
         }
         return ({ value: val }) =>
           val.slice(0, minCollapsedNum ? minCollapsedNum : val.length).map((_, index: number) => {
-            const { valueKey, labelKey, disabledKey } = getKeyMapping(keys);
             const targetVal = get(selectedOptions[index], valueKey);
             const targetLabel = get(selectedOptions[index], labelKey);
             const targetOption = valueToOption[targetVal];

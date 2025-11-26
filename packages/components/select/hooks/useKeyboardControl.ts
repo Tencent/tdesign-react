@@ -1,11 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import useConfig from '../../hooks/useConfig';
-import { getSelectValueArr } from '../util/helper';
+import { getKeyMapping, getSelectValueArr } from '../util/helper';
 
-import type { SelectOption, SelectValue, SelectValueChangeTrigger, TdOptionProps } from '../type';
+import type { SelectOption, SelectValue, SelectValueChangeTrigger, TdOptionProps, TdSelectProps } from '../type';
 
 export type useKeyboardControlType = {
+  keys: TdSelectProps['keys'];
   max: number;
   multiple: boolean;
   value: SelectValue<SelectOption>;
@@ -25,6 +26,7 @@ export type useKeyboardControlType = {
 };
 
 export default function useKeyboardControl({
+  keys,
   max,
   multiple,
   value,
@@ -36,11 +38,26 @@ export default function useKeyboardControl({
   selectInputRef,
   toggleIsScrolling,
 }: useKeyboardControlType) {
+  const { classPrefix } = useConfig();
+
+  const isCheckAll = useRef(false);
   const [hoverIndex, changeHoverIndex] = useState(-1);
 
-  const { classPrefix } = useConfig();
-  // 全选判断
-  const isCheckAll = useRef(false);
+  const { valueKey, disabledKey } = useMemo(() => getKeyMapping(keys), [keys]);
+
+  useEffect(() => {
+    if (!innerPopupVisible) {
+      changeHoverIndex(-1);
+    } else if (!multiple) {
+      // 单选时，hoverIndex 初始值为选中值的索引
+      const index = displayOptions.findIndex((option) => option.value === value);
+      changeHoverIndex(index >= 0 ? index : -1);
+    } else {
+      changeHoverIndex(-1);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [innerPopupVisible]);
+
   useEffect(() => {
     if (!Array.isArray(value)) return;
     isCheckAll.current =
@@ -67,19 +84,6 @@ export default function useKeyboardControl({
     }
   };
 
-  useEffect(() => {
-    if (!innerPopupVisible) {
-      changeHoverIndex(-1);
-    } else if (!multiple) {
-      // 单选时，hoverIndex 初始值为选中值的索引
-      const index = displayOptions.findIndex((option) => option.value === value);
-      changeHoverIndex(index >= 0 ? index : -1);
-    } else {
-      changeHoverIndex(-1);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [innerPopupVisible]);
-
   const handleKeyDown = (_value: string, { e }: { e: React.KeyboardEvent<HTMLInputElement> }) => {
     const optionsListLength = displayOptions.length;
 
@@ -92,7 +96,7 @@ export default function useKeyboardControl({
         else if (hoverIndex === 0 || hoverIndex > optionsListLength - 1) newIndex = optionsListLength - 1;
         else newIndex -= 1;
 
-        if (displayOptions[newIndex]?.disabled) newIndex -= 1;
+        if (displayOptions[newIndex]?.[disabledKey]) newIndex -= 1;
 
         changeHoverIndex(newIndex);
         handleKeyboardScroll(newIndex);
@@ -119,7 +123,7 @@ export default function useKeyboardControl({
           const selectedOptions = displayOptions[hoverIndex];
 
           if (selectedOptions)
-            handleChange(selectedOptions.value, {
+            handleChange(selectedOptions[valueKey], {
               trigger: 'check',
               e,
             });
@@ -128,17 +132,16 @@ export default function useKeyboardControl({
           handleKeyboardScroll(0);
         } else {
           if (displayOptions[hoverIndex].checkAll) {
-            onCheckAllChange(!isCheckAll.current);
+            onCheckAllChange(!isCheckAll.current, e);
             return;
           }
 
-          const optionValue = displayOptions[hoverIndex]?.value;
-
+          const optionValue = displayOptions[hoverIndex]?.[valueKey];
           if (!optionValue) return;
+
           const newValue = value as Array<SelectValue>;
           const valueIndex = newValue.indexOf(optionValue);
           const isSelected = valueIndex > -1;
-
           const values = getSelectValueArr(value, optionValue, isSelected);
 
           if (max > 0 && values.length > max) return; // 如果已选达到最大值 则不处理
