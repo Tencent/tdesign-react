@@ -31,7 +31,7 @@ an example | *an example* | **an example**
     - Green
         - Blue
 
-This is [an example](http://example.com/ "Title") inline link.
+This is [an example](https://developers.weixin.qq.com/miniprogram/introduction/qrcode.html#%E4%BA%8C%E7%BB%B4%E7%A0%81%E5%86%85%E5%AE%B9%E8%8E%B7%E5%8F%96 "Title") inline link.
 
 <http://example.com/>
 
@@ -100,7 +100,7 @@ export default function ThinkContentDemo() {
         const char = doc[currentIndex.current];
         currentIndex.current += 1;
         setDisplayText((prev) => prev + char);
-        timerRef.current = setTimeout(typeEffect, 10);
+        timerRef.current = setTimeout(typeEffect, 30);
       } else {
         // 输入完成时自动停止
         setIsTyping(false);
