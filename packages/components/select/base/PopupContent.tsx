@@ -46,6 +46,8 @@ interface SelectPopupProps
       trigger: SelectValueChangeTrigger;
     },
   ) => void;
+  hoverIndex: number;
+  children?: React.ReactNode;
   /**
    * 是否展示popup
    */
@@ -54,10 +56,8 @@ interface SelectPopupProps
    * 控制popup展示的函数
    */
   setShowPopup: (show: boolean) => void;
-  children?: React.ReactNode;
   onCheckAllChange?: (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => void;
   getPopupInstance?: () => HTMLDivElement;
-  hoverOption: TdOptionProps;
 }
 
 const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, ref) => {
@@ -81,7 +81,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     getPopupInstance,
     options: propsOptions,
     scroll: propsScroll,
-    hoverOption,
+    hoverIndex,
   } = props;
 
   // 国际化文本初始化
@@ -160,19 +160,23 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
   });
 
   // 渲染 options
-  const renderOptions = (options: SelectOption[]) => {
+  const renderOptions = (options: SelectOption[], startIndex = 0) => {
     if (options) {
+      let currentIndex = startIndex;
       // 通过 options API配置的
       return (
         <ul className={`${classPrefix}-select__list`}>
           {options.map((item, index) => {
             const { group, divider, ...rest } = item as SelectOptionGroup;
             if (group) {
-              return (
+              const groupElement = (
                 <OptionGroup label={group} divider={divider} key={index} {...rest}>
-                  {renderOptions(rest.children)}
+                  {renderOptions(rest.children, currentIndex)}
                 </OptionGroup>
               );
+              // group 的 children 数量需要累加
+              currentIndex += rest.children.length;
+              return groupElement;
             }
 
             const { value: optionValue, label, disabled, children, ...restData } = item as TdOptionProps;
@@ -180,8 +184,10 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
             const { content } = item as TdOptionProps;
             const shouldOmitContent = Object.values(keys || {}).includes('content');
 
-            const isKeyboardHovered = hoverOption?.value === optionValue;
-            return (
+            const isKeyboardHovered = hoverIndex === currentIndex;
+            currentIndex += 1;
+
+            const optionElement = (
               <Option
                 key={index}
                 max={max}
@@ -211,6 +217,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
                 {children}
               </Option>
             );
+            return optionElement;
           })}
         </ul>
       );

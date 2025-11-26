@@ -290,7 +290,7 @@ const Select = forwardRefWithStatics(
       }
     };
 
-    const { handleKeyDown, hoverOption } = useKeyboardControl({
+    const { hoverIndex, handleKeyDown } = useKeyboardControl({
       displayOptions: flattenedOptions as TdOptionProps[],
       max,
       multiple,
@@ -425,7 +425,7 @@ const Select = forwardRefWithStatics(
         onCheckAllChange,
         getPopupInstance,
         scroll,
-        hoverOption,
+        hoverIndex,
       };
       return <PopupContent {...popupContentProps}>{childrenWithProps}</PopupContent>;
     };

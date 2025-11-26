@@ -37,7 +37,6 @@ export default function useKeyboardControl({
   toggleIsScrolling,
 }: useKeyboardControlType) {
   const [hoverIndex, changeHoverIndex] = useState(-1);
-  const [hoverOption, changeHoverOption] = useState<TdOptionProps>(undefined);
 
   const { classPrefix } = useConfig();
   // 全选判断
@@ -75,12 +74,11 @@ export default function useKeyboardControl({
       // 单选时，hoverIndex 初始值为选中值的索引
       const index = displayOptions.findIndex((option) => option.value === value);
       changeHoverIndex(index >= 0 ? index : -1);
+    } else {
+      changeHoverIndex(-1);
     }
-  }, [innerPopupVisible, multiple, value, displayOptions]);
-
-  useEffect(() => {
-    changeHoverOption(hoverIndex === -1 ? undefined : displayOptions[hoverIndex]);
-  }, [hoverIndex, displayOptions]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [innerPopupVisible]);
 
   const handleKeyDown = (_value: string, { e }: { e: React.KeyboardEvent<HTMLInputElement> }) => {
     const optionsListLength = displayOptions.length;
@@ -158,7 +156,7 @@ export default function useKeyboardControl({
   };
 
   return {
+    hoverIndex,
     handleKeyDown,
-    hoverOption,
   };
 }
