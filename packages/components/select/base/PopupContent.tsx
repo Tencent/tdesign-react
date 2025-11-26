@@ -6,7 +6,7 @@ import { isEqual } from 'lodash-es';
 import useConfig from '../../hooks/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import usePanelVirtualScroll from '../hooks/usePanelVirtualScroll';
-import { getSelectValueArr } from '../util/helper';
+import { getKeyMapping, getSelectValueArr } from '../util/helper';
 import Option, { type SelectOptionProps } from './Option';
 import OptionGroup from './OptionGroup';
 
@@ -83,12 +83,12 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     scroll: propsScroll,
     hoverIndex,
   } = props;
+  const { classPrefix } = useConfig();
 
-  // 国际化文本初始化
   const [local, t] = useLocaleReceiver('select');
   const emptyText = t(local.empty);
-  const popupContentRef = useRef<HTMLDivElement>(null);
 
+  const popupContentRef = useRef<HTMLDivElement>(null);
   popupContentRef.current = getPopupInstance();
 
   const { visibleData, handleRowMounted, isVirtual, panelStyle, cursorStyle } = usePanelVirtualScroll({
@@ -97,6 +97,9 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     options: propsOptions,
     size,
   });
+
+  const isObjectType = useMemo(() => valueType === 'object', [valueType]);
+  const { valueKey, labelKey } = useMemo(() => getKeyMapping(keys), [keys]);
 
   const optionsExcludedCheckAll = useMemo(() => {
     const uniqueOptions = {};
@@ -114,36 +117,18 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     return Object.values(uniqueOptions);
   }, [propsOptions]);
 
-  const { classPrefix } = useConfig();
-  if (!children && !propsOptions) {
-    return null;
-  }
-
   const onSelect: SelectOptionProps['onSelect'] = (selectedValue, { label, selected, event, restData }) => {
-    const isValObj = valueType === 'object';
-    let objVal = {};
-    if (isValObj) {
-      objVal = { ...restData };
-      if (!keys?.label) {
-        Object.assign(objVal, { label });
-      }
-      if (!keys?.value) {
-        Object.assign(objVal, { value: selectedValue });
-      }
-    }
-
-    if (!Object.keys(objVal).length) {
-      Object.assign(objVal, { [keys?.label || 'label']: label, [keys?.value || 'value']: selectedValue });
-    }
+    const objVal = {
+      ...(isObjectType ? { ...restData } : {}),
+      [labelKey]: label,
+      [valueKey]: selectedValue,
+    };
 
     if (multiple) {
-      // calc multiple select values
       const values = getSelectValueArr(value, selectedValue, selected, valueType, keys, objVal);
       onChange(values, { label, value: selectedValue, e: event, trigger: selected ? 'uncheck' : 'check' });
     } else {
-      // calc single select value
       const selectVal = valueType === 'object' ? objVal : selectedValue;
-
       if (!isEqual(value, selectVal)) {
         onChange(selectVal, { label, value: selectVal, e: event, trigger: 'check' });
       }
@@ -158,6 +143,9 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     }
     return child;
   });
+
+  const isEmpty =
+    (Array.isArray(childrenWithProps) && !childrenWithProps.length) || (propsOptions && propsOptions.length === 0);
 
   // 渲染 options
   const renderOptions = (options: SelectOption[], startIndex = 0) => {
@@ -225,9 +213,6 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     return <ul className={`${classPrefix}-select__list`}>{childrenWithProps}</ul>;
   };
 
-  const isEmpty =
-    (Array.isArray(childrenWithProps) && !childrenWithProps.length) || (propsOptions && propsOptions.length === 0);
-
   const renderPanel = (renderedOptions: SelectOption[], extraStyle?: React.CSSProperties) => (
     <div
       ref={ref}
@@ -245,6 +230,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
       {!loading && !isEmpty && renderOptions(renderedOptions)}
     </div>
   );
+
   if (isVirtual) {
     return (
       <>
@@ -257,6 +243,8 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
       </>
     );
   }
+
+  if (!children && !propsOptions) return null;
 
   return (
     <>

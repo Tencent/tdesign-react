@@ -291,16 +291,17 @@ const Select = forwardRefWithStatics(
     };
 
     const { hoverIndex, handleKeyDown } = useKeyboardControl({
-      keys,
       displayOptions: flattenedOptions as TdOptionProps[],
+      keys,
+      innerPopupVisible,
       max,
       multiple,
-      handlePopupVisibleChange,
-      innerPopupVisible,
-      handleChange,
-      value,
-      onCheckAllChange,
       selectInputRef,
+      value,
+      valueType,
+      handlePopupVisibleChange,
+      handleChange,
+      onCheckAllChange,
       toggleIsScrolling,
     });
 

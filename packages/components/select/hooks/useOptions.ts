@@ -123,7 +123,7 @@ function useOptions(
 
       return [];
     });
-  }, [value, keys, valueType, valueToOption, setSelectedOptions]);
+  }, [value, keys, valueType, valueToOption, valueKey, labelKey, setSelectedOptions]);
 
   return {
     currentOptions,

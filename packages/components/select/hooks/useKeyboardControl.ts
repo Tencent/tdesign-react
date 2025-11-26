@@ -6,10 +6,11 @@ import { getKeyMapping, getSelectValueArr } from '../util/helper';
 import type { SelectOption, SelectValue, SelectValueChangeTrigger, TdOptionProps, TdSelectProps } from '../type';
 
 export type useKeyboardControlType = {
-  keys: TdSelectProps['keys'];
   max: number;
   multiple: boolean;
+  keys: TdSelectProps['keys'];
   value: SelectValue<SelectOption>;
+  valueType: TdSelectProps['valueType'];
   handleChange: (
     value: SelectValue,
     context: {
@@ -26,10 +27,11 @@ export type useKeyboardControlType = {
 };
 
 export default function useKeyboardControl({
-  keys,
   max,
   multiple,
+  keys,
   value,
+  valueType,
   handleChange,
   innerPopupVisible,
   handlePopupVisibleChange,
@@ -43,6 +45,7 @@ export default function useKeyboardControl({
   const isCheckAll = useRef(false);
   const [hoverIndex, changeHoverIndex] = useState(-1);
 
+  const isObjectType = useMemo(() => valueType === 'object', [valueType]);
   const { valueKey, disabledKey } = useMemo(() => getKeyMapping(keys), [keys]);
 
   useEffect(() => {
@@ -111,46 +114,39 @@ export default function useKeyboardControl({
         changeHoverIndex(newIndex);
         handleKeyboardScroll(newIndex);
         break;
-      case 'Enter':
-        if (!innerPopupVisible) {
-          handlePopupVisibleChange(true, { e });
-          break;
-        }
-
+      case 'Enter': {
         if (hoverIndex === -1) return;
 
-        if (!multiple) {
-          const selectedOptions = displayOptions[hoverIndex];
+        if (displayOptions[hoverIndex].checkAll) {
+          onCheckAllChange(!isCheckAll.current, e);
+          return;
+        }
 
-          if (selectedOptions)
-            handleChange(selectedOptions[valueKey], {
-              trigger: 'check',
-              e,
-            });
+        const selectedOptions = displayOptions[hoverIndex];
+        const optionValue = isObjectType ? selectedOptions : selectedOptions[valueKey];
+
+        if (!multiple) {
+          handleChange(optionValue, {
+            trigger: 'check',
+            e,
+          });
           handlePopupVisibleChange(false, { e });
           changeHoverIndex(-1);
           handleKeyboardScroll(0);
         } else {
-          if (displayOptions[hoverIndex].checkAll) {
-            onCheckAllChange(!isCheckAll.current, e);
-            return;
-          }
-
-          const optionValue = displayOptions[hoverIndex]?.[valueKey];
-          if (!optionValue) return;
-
-          const newValue = value as Array<SelectValue>;
-          const valueIndex = newValue.indexOf(optionValue);
+          const valueIndex = (value as SelectValue[]).indexOf(optionValue);
           const isSelected = valueIndex > -1;
-          const values = getSelectValueArr(value, optionValue, isSelected);
+          const values = getSelectValueArr(value, optionValue, isSelected, valueType, keys, selectedOptions);
 
           if (max > 0 && values.length > max) return; // 如果已选达到最大值 则不处理
+
           handleChange(values, {
             trigger: !isSelected ? 'check' : 'uncheck',
             e,
           });
         }
         break;
+      }
       case 'Escape':
         handlePopupVisibleChange(false, { e });
         changeHoverIndex(-1);
