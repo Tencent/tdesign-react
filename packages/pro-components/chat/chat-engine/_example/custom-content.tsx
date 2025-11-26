@@ -1,5 +1,13 @@
 import React, { useEffect, useRef, useState, ReactNode } from 'react';
-import { BrowseIcon, Filter3Icon, ImageAddIcon, Transform1Icon, CopyIcon, EditIcon, SoundIcon } from 'tdesign-icons-react';
+import {
+  BrowseIcon,
+  Filter3Icon,
+  ImageAddIcon,
+  Transform1Icon,
+  CopyIcon,
+  EditIcon,
+  SoundIcon,
+} from 'tdesign-icons-react';
 import type {
   SSEChunkData,
   AIMessageContent,
@@ -16,23 +24,23 @@ import { useChat, ChatList, ChatMessage, ChatSender, isAIMessage } from '@tdesig
 
 /**
  * 自定义内容渲染示例 - AI 生图助手
- * 
+ *
  * 本示例展示如何使用 ChatEngine 的插槽机制实现自定义渲染，包括：
  * 1. 自定义内容渲染：扩展自定义内容类型（如图片预览）
  * 2. 自定义操作栏：为消息添加自定义操作按钮
  * 3. 自定义输入框：添加参考图上传、比例选择、风格选择等功能
- * 
+ *
  * 插槽类型：
  * - 内容插槽：`${content.type}-${index}` - 用于渲染自定义内容
  * - 操作栏插槽：`actionbar` - 用于渲染自定义操作栏
  * - 输入框插槽：`footer-prefix` - 用于自定义输入框底部区域
- * 
+ *
  * 实现步骤：
  * 1. 扩展类型：通过 TypeScript 模块扩展声明自定义内容类型
  * 2. 解析数据：在 onMessage 中返回自定义类型的数据结构
  * 3. 监听变化：通过 useChat Hook 获取 messages 数据
  * 4. 植入插槽：使用 slot 属性渲染自定义组件
- * 
+ *
  * 学习目标：
  * - 掌握插槽机制的使用方法
  * - 理解插槽命名规则和渲染时机
@@ -64,7 +72,7 @@ const mockData: ChatMessagesData[] = [
       {
         type: 'text',
         status: 'complete',
-        data: '欢迎使用TDesign智能生图助手，请先写下你的创意，可以试试上传参考图哦～',
+        data: '欢迎使用 TDesign 智能生图助手，请先写下你的创意，可以试试上传参考图哦～',
       },
     ],
   },
@@ -202,7 +210,7 @@ export default function CustomContent() {
   const [style, setStyle] = useState('');
   const reqParamsRef = useRef<{ ratio: number; style: string; file?: string }>({ ratio: 0, style: '' });
   const [files, setFiles] = useState<TdAttachmentItem[]>([]);
-  const [inputValue, setInputValue] = useState('请为Tdesign设计三张品牌宣传图');
+  const [inputValue, setInputValue] = useState('请为 TDesign 设计三张品牌宣传图');
 
   // 聊天服务配置
   const chatServiceConfig: ChatServiceConfig = {
@@ -217,8 +225,6 @@ export default function CustomContent() {
     onError: (err: Error | Response) => {
       console.error('Chatservice Error:', err);
     },
-    // 流式对话过程中用户主动结束对话业务自定义行为
-    onAbort: async () => {},
     // 自定义流式数据结构解析
     onMessage: (chunk: SSEChunkData): AIMessageContent => {
       const { type, ...rest } = chunk.data;
@@ -353,14 +359,15 @@ export default function CustomContent() {
   const renderActionBar = (message: ChatMessagesData): ReactNode => {
     if (isAIMessage(message) && message.status === 'complete') {
       // 提取消息文本内容用于复制
-      const textContent = message.content
-        ?.filter((item) => item.type === 'text' || item.type === 'markdown')
-        .map((item) => item.data)
-        .join('\n') || '';
+      const textContent =
+        message.content
+          ?.filter((item) => item.type === 'text' || item.type === 'markdown')
+          .map((item) => item.data)
+          .join('\n') || '';
 
       // 操作栏插槽命名规则：actionbar
       return (
-        <div slot='actionbar' key={`${message.id}-actionbar`}>
+        <div slot="actionbar" key={`${message.id}-actionbar`}>
           <CustomActionBar textContent={textContent} />
         </div>
       );

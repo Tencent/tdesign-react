@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react';
-import { Radio, Space } from 'tdesign-react';
+import { Space } from 'tdesign-react';
 import { ChatThinking } from '@tdesign-react/chat';
 
 import type { TdChatThinkContentProps, ChatMessageStatus } from 'tdesign-web-components';
@@ -19,6 +20,7 @@ export default function ThinkContentDemo() {
 
   useEffect(() => {
     // 每次layout变化时重置状态
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     resetTypingEffect();
     // 模拟打字效果
     const typeEffect = () => {
@@ -55,24 +57,6 @@ export default function ThinkContentDemo() {
 
   return (
     <Space direction="vertical">
-      <Space>
-        <Space direction="vertical">
-          <h5>layout：</h5>
-          <Radio.Group value={layout} onChange={(val: TdChatThinkContentProps['layout']) => setLayout(val)}>
-            <Radio value="border">border</Radio>
-            <Radio value="block">block</Radio>
-          </Radio.Group>
-        </Space>
-        <Space direction="vertical">
-          <h5>animation：</h5>
-          <Radio.Group value={animation} onChange={(val: TdChatThinkContentProps['animation']) => setAnimation(val)}>
-            {/* <Radio value="skeleton">skeleton</Radio> */}
-            <Radio value="moving">moving</Radio>
-            <Radio value="gradient">gradient</Radio>
-            <Radio value="circle">circle</Radio>
-          </Radio.Group>
-        </Space>
-      </Space>
       <ChatThinking
         content={{
           title,

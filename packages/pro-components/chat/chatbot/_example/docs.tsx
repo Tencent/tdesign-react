@@ -1,7 +1,16 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useRef, useState } from 'react';
-import type { TdAttachmentItem, ChatRequestParams, TdChatMessageConfig, TdChatbotApi } from '@tdesign-react/chat';
+import type {
+  TdAttachmentItem,
+  ChatRequestParams,
+  TdChatMessageConfig,
+  TdChatbotApi,
+  SSEChunkData,
+  AIMessageContent,
+  ChatMessagesData,
+  ChatServiceConfig,
+} from '@tdesign-react/chat';
 import { ChatBot } from '@tdesign-react/chat';
-import { SSEChunkData, AIMessageContent, ChatMessagesData, ChatServiceConfig } from '../index';
 
 // 默认初始化消息
 const mockData: ChatMessagesData[] = [
@@ -59,8 +68,6 @@ export default function chatSample() {
     onError: (err: Error | Response) => {
       console.error('Chatservice Error:', err);
     },
-    // 流式对话过程中用户主动结束对话业务自定义行为
-    onAbort: async () => {},
     // 自定义流式数据结构解析
     onMessage: (chunk: SSEChunkData): AIMessageContent => {
       const { type, ...rest } = chunk.data;

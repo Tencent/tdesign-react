@@ -8,6 +8,8 @@ import {
   TdChatSenderApi,
   ChatActionBar,
   isAIMessage,
+  getMessageContentForCopy,
+  AGUIAdapter,
 } from '@tdesign-react/chat';
 import { LoadingIcon, HistoryIcon } from 'tdesign-icons-react';
 import type {
@@ -21,7 +23,6 @@ import type {
   ToolCall,
   AGUIHistoryMessage,
 } from '@tdesign-react/chat';
-import { getMessageContentForCopy, AGUIAdapter } from '@tdesign-react/chat';
 import { ToolCallRenderer, useAgentToolcall, useChat } from '../index';
 import './travel.css';
 import { travelActions } from './travel-actions';
@@ -69,6 +70,7 @@ export default function TravelPlannerChat() {
   // 注册旅游相关的 Agent Toolcalls
   useAgentToolcall(travelActions);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentStep, setCurrentStep] = useState<string>('');
 
   // 加载历史消息

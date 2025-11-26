@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import React, { useEffect } from 'react';
 import { ChatMarkdown, MarkdownEngine } from '@tdesign-react/chat';
 
@@ -23,7 +24,6 @@ const colorText = MarkdownEngine.createSyntaxHook('important', MarkdownEngine.co
   },
   rule() {
     // 匹配 !!...!! 语法
-    // eslint-disable-next-line no-useless-escape
     return { reg: /(\!\!)([^\!]+)\1/g };
   },
 });

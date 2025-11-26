@@ -8,5 +8,3 @@ export * from './chat-markdown';
 export * from './chat-message';
 export * from './chat-sender';
 export * from './chat-thinking';
-export * from './chat-markdown';
-

@@ -15,6 +15,10 @@ import {
   useChat,
   useAgentToolcall,
   isUserMessage,
+  ChatMessagesData,
+  ChatRequestParams,
+  AIMessageContent,
+  ToolCall,
 } from '@tdesign-react/chat';
 import { Steps, Card, Tag } from 'tdesign-react';
 import {
@@ -26,7 +30,6 @@ import {
   LoadingIcon,
   ChevronRightIcon,
 } from 'tdesign-icons-react';
-import type { ChatMessagesData, ChatRequestParams, AIMessageContent, ToolCall } from '@tdesign-react/chat';
 import type { AgentToolcallConfig, ToolcallComponentProps } from '../components/toolcall/types';
 import './videoclipAgent.css';
 
@@ -245,6 +248,7 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey })
   const [isManualSelection, setIsManualSelection] = useState<boolean>(false);
 
   // 可点击的状态
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const canClickState = ['completed', 'running'];
 
   // 提取当前组件关心的状态数据

@@ -13,6 +13,7 @@ export const mainJsContent = `
   import Demo from './demo';
   import './index.css';
   import 'tdesign-react/dist/tdesign.css';
+  import '@tdesign-react/chat/es/style/index.js';
 
   const rootElement = document.getElementById('app');
   const root = createRoot(rootElement);
@@ -89,8 +90,8 @@ export const tsconfigContent = `{
 
 export const stackblitzRc = `
   {
-    "installDependencies": true,
-    "startCommand": "npm run dev"
+     "installDependencies": false,
+     "startCommand": "pnpm install && pnpm dev"
   }
 `;
 
@@ -122,9 +123,10 @@ export const packageJSONContent = JSON.stringify(
       '@types/react': orgPkg.devDependencies['@types/react'],
       '@types/react-dom': orgPkg.devDependencies['@types/react-dom'],
       'lodash-es': orgPkg.dependencies['lodash-es'],
+      'tvision-charts-react': '^3.3.12',
     },
     devDependencies: {
-      vite: orgPkg.devDependencies.vite,
+      vite: '^6.2.0',
       '@vitejs/plugin-react': orgPkg.devDependencies['@vitejs/plugin-react'],
       typescript: orgPkg.devDependencies.typescript,
     },

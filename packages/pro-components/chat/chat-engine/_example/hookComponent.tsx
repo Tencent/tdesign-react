@@ -146,7 +146,7 @@ export default function ComponentsBuild() {
           comment={message.role === 'assistant' ? message.comment : undefined}
         />
       ) : (
-        <ChatLoading animation="dot"></ChatLoading>
+        <ChatLoading animation="dots"></ChatLoading>
       )}
     </>
   );
@@ -174,13 +174,9 @@ export default function ComponentsBuild() {
     chatEngine.abortChat();
   };
 
-  const onScrollHandler = (e) => {
-    // console.log('===scroll', e, e.detail);
-  };
-
   return (
     <div style={{ height: '600px', display: 'flex', flexDirection: 'column' }} className="accessible-chat">
-      <ChatList ref={listRef} style={{ width: '100%' }} onScroll={onScrollHandler}>
+      <ChatList ref={listRef} style={{ width: '100%' }}>
         {messages.map((message, idx) => (
           <ChatMessage key={message.id} {...messageProps[message.role]} message={message}>
             {renderMsgContents(message, idx === messages.length - 1)}

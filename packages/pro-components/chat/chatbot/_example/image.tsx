@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useRef, useState } from 'react';
 import { BrowseIcon, Filter3Icon, ImageAddIcon, Transform1Icon } from 'tdesign-icons-react';
 import type {
@@ -8,7 +9,6 @@ import type {
   ChatServiceConfig,
   TdAttachmentItem,
   TdChatSenderParams,
-  UploadFile,
   TdChatMessageConfig,
   TdChatbotApi,
 } from '@tdesign-react/chat';
@@ -66,7 +66,7 @@ const mockData: ChatMessagesData[] = [
       {
         type: 'text',
         status: 'complete',
-        data: '欢迎使用TDesign智能生图助手，请先写下你的创意，可以试试上传参考图哦～',
+        data: '欢迎使用 TDesign 智能生图助手，请先写下你的创意，可以试试上传参考图哦～',
       },
     ],
   },
@@ -170,8 +170,7 @@ export default function chatSample() {
     onError: (err: Error | Response) => {
       console.error('Chatservice Error:', err);
     },
-    // 流式对话过程中用户主动结束对话业务自定义行为
-    onAbort: async () => {},
+
     // 自定义流式数据结构解析
     onMessage: (chunk: SSEChunkData): AIMessageContent => {
       const { type, ...rest } = chunk.data;
@@ -219,7 +218,7 @@ export default function chatSample() {
     const newFile = {
       ...e.detail[0],
       name: e.detail[0].name,
-      status: 'progress' as UploadFile['status'],
+      status: 'progress' as ['status'],
       description: '上传中',
     };
 
@@ -279,7 +278,7 @@ export default function chatSample() {
         defaultMessages={mockData}
         messageProps={messageProps}
         senderProps={{
-          defaultValue: '请为Tdesign设计三张品牌宣传图',
+          defaultValue: '请为 TDesign 设计三张品牌宣传图',
           placeholder: '描述你的生图需求~',
           uploadProps: {
             multiple: false,
@@ -317,16 +316,16 @@ export default function chatSample() {
         {/* 自定义输入框底部区域slot，可以增加模型选项 */}
         <div slot="sender-footer-prefix">
           <Space align="center" size={'small'}>
-            <Button shape="round" variant="outline" size="small" icon={<ImageAddIcon />} onClick={onAttachClick}>
+            <Button shape="round" variant="outline" icon={<ImageAddIcon />} onClick={onAttachClick}>
               参考图
             </Button>
             <Dropdown options={RatioOptions} onClick={switchRatio} trigger="click">
-              <Button shape="round" variant="outline" icon={<Transform1Icon size="16" />} size="small">
+              <Button shape="round" variant="outline" icon={<Transform1Icon size="16" />}>
                 {RatioOptions.filter((item) => item.value === ratio)?.[0]?.content || '比例'}
               </Button>
             </Dropdown>
             <Dropdown options={StyleOptions} onClick={switchStyle} trigger="click">
-              <Button shape="round" variant="outline" icon={<Filter3Icon size="16" />} size="small">
+              <Button shape="round" variant="outline" icon={<Filter3Icon size="16" />}>
                 {StyleOptions.filter((item) => item.value === style)?.[0]?.content || '风格'}
               </Button>
             </Dropdown>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import {
   ChatList,
   ChatSender,
@@ -11,7 +11,7 @@ import { useChat } from '@tdesign-react/chat';
 
 /**
  * 快速开始示例
- * 
+ *
  * 学习目标：
  * - 使用 useChat Hook 创建聊天引擎
  * - 组合 ChatList、ChatMessage、ChatSender 组件
@@ -28,7 +28,7 @@ export default function BasicExample() {
       stream: true,
       // 数据转换
       onMessage: (chunk: SSEChunkData): AIMessageContent => {
-        const { type, ...rest } = chunk.data;
+        const { ...rest } = chunk.data;
         return {
           type: 'markdown',
           data: rest?.msg || '',

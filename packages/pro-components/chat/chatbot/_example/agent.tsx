@@ -69,7 +69,7 @@ const mockData: ChatMessagesData[] = [
     content: [
       {
         type: 'text',
-        data: '欢迎使用TDesign Agent家庭活动策划助手，请给我布置任务吧～',
+        data: '欢迎使用 TDesign Agent 家庭活动策划助手，请给我布置任务吧～',
       },
     ],
   },
@@ -104,6 +104,7 @@ export default function ChatBotReact() {
       console.error('Chatservice Error:', err);
     },
     // 流式对话过程中用户主动结束对话业务自定义行为
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onAbort: async () => {},
     onMessage: (chunk: SSEChunkData): AIMessageContent => {
       const { type, ...rest } = chunk.data;

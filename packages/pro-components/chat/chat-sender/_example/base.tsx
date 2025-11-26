@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ChatSender } from '@tdesign-react/chat';
 
 const ChatSenderExample = () => {
-  const [inputValue, setInputValue] = useState('输入内容');
+  const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
 
   // 输入变化处理
@@ -27,7 +27,7 @@ const ChatSenderExample = () => {
   return (
     <ChatSender
       value={inputValue}
-      placeholder="请输入内容"
+      placeholder="请输入消息..."
       loading={loading}
       autosize={{ minRows: 2 }}
       onChange={handleChange}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Button, Space } from 'tdesign-react';
+import { Space } from 'tdesign-react';
 import { ChatMarkdown, findTargetElement } from '@tdesign-react/chat';
 
 const doc = `
@@ -34,7 +34,15 @@ an example | *an example* | **an example**
 This is [an example](https://developers.weixin.qq.com/miniprogram/introduction/qrcode.html#%E4%BA%8C%E7%BB%B4%E7%A0%81%E5%86%85%E5%AE%B9%E8%8E%B7%E5%8F%96 "Title") inline link.
 
 <http://example.com/>
+# TDesign（腾讯设计体系）核心特性与技术架构
 
+以下是关于 TDesign（腾讯设计体系）的核心特性与技术架构的表格化总结：
+
+| 分类 | 核心内容 | 关键技术/特性 |
+|------|----------|---------------|
+| **设计理念** | • 设计价值观：用户为本、科技向善、突破创新... | • 设计原子单元 |
+| **核心组件库** | • 基础组件：Button/Input/Table/Modal... | • 组件覆盖率  |
+| **技术特性** | • 多框架支持：Vue/React/Angular... | • 按需加载 |
 \`\`\`bash
 $ npm i tdesign-vue-next
 \`\`\`
@@ -48,17 +56,15 @@ import App from './app.vue';
 const app = createApp(App);
 app.use(TDesignChat);
 \`\`\`
-
----
-
 \`\`\`mermaid
 graph TD;
     A-->B;
     A-->C;
     B-->D;
-    C-->D; 
+    C-->D;
+
 \`\`\`
-`;
+  `;
 
 export default function ThinkContentDemo() {
   const [displayText, setDisplayText] = useState(doc);
@@ -122,17 +128,8 @@ export default function ThinkContentDemo() {
     };
   }, [isTyping]);
 
-  const toggleTyping = () => {
-    if (currentIndex.current >= doc.length) {
-      currentIndex.current = 0;
-      setDisplayText('');
-    }
-    setIsTyping(!isTyping);
-  };
-
   return (
     <Space direction="vertical">
-      <Button onClick={toggleTyping}>{isTyping ? '暂停' : '流式输出'}</Button>
       <ChatMarkdown content={displayText} />
     </Space>
   );

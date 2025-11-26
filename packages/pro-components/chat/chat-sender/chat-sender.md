@@ -6,18 +6,18 @@ usage: { title: '', description: '' }
 spline: navigation
 ---
 
-## 基础用法
+### 基础用法
 
 受控进行输入/发送等状态管理
 {{ base }}
 
 
-## 附件输入
+### 附件输入
 支持选择附件及展示附件列表，受控进行文件数据管理，示例中模拟了文件上传流程
 {{ attachment }}
 
 
-## 自定义
+### 自定义
 通过植入具名插槽来实现输入框的自定义，内置支持的扩展位置包括：
 
 输入框上方区域`header`，输入框内头部区域`inner-header`，可输入区域前置部分`input-prefix`，输入框底部左侧区域`footer-prefix`，输入框底部操作区域`actions`

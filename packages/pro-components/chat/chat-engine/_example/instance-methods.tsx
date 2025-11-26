@@ -12,11 +12,11 @@ import { Button, Space, MessagePlugin } from 'tdesign-react';
 
 /**
  * 实例方法示例
- * 
+ *
  * 学习目标：
  * - 通过 chatEngine 调用实例方法
  * - 了解各种实例方法的使用场景
- * 
+ *
  * 方法分类：
  * 1. 消息设置：sendUserMessage、sendSystemMessage、setMessages
  * 2. 发送控制: regenerateAIMessage、abortChat
@@ -31,7 +31,7 @@ export default function InstanceMethods() {
       endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/normal',
       stream: true,
       onMessage: (chunk: SSEChunkData): AIMessageContent => {
-        const { type, ...rest } = chunk.data;
+        const { ...rest } = chunk.data;
         return {
           type: 'markdown',
           data: rest?.msg || '',
@@ -52,10 +52,12 @@ export default function InstanceMethods() {
       params: {
         prompt: '这是通过实例方法发送的用户消息',
       },
-      content: [{
-        type: 'text',
-        data: '这是通过实例方法发送的AI回答',
-      }],
+      content: [
+        {
+          type: 'text',
+          data: '这是通过实例方法发送的AI回答',
+        },
+      ],
       sendRequest: false,
     });
   };

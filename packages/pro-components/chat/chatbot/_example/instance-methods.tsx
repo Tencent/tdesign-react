@@ -4,12 +4,12 @@ import { Button, Space, Divider, MessagePlugin } from 'tdesign-react';
 
 /**
  * 实例方法示例
- * 
+ *
  * 学习目标：
  * - 通过 ref 获取组件实例
  * - 调用实例方法控制组件行为
  * - 了解各种实例方法的使用场景
- * 
+ *
  * 方法分类：
  * 1. 消息设置：sendUserMessage、sendSystemMessage、setMessages
  * 2. 发送控制: addPrompt、regenerate、abortChat、selectFile、scrollList
@@ -24,7 +24,7 @@ export default function InstanceMethods() {
     endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/normal',
     stream: true,
     onMessage: (chunk: SSEChunkData): AIMessageContent => {
-      const { type, ...rest } = chunk.data;
+      const { ...rest } = chunk.data;
       return {
         type: 'markdown',
         data: rest?.msg || '',
@@ -45,7 +45,7 @@ export default function InstanceMethods() {
     });
   };
 
-   const handleSendAIMessage = () => {
+  const handleSendAIMessage = () => {
     chatRef.current?.sendAIMessage({
       content: [
         {
@@ -56,8 +56,6 @@ export default function InstanceMethods() {
       sendRequest: false,
     });
   };
-
-  
 
   // 2. 发送系统消息
   const handleSendSystemMessage = () => {
@@ -129,39 +127,39 @@ export default function InstanceMethods() {
         <div style={{ marginBottom: '16px', padding: '12px', background: '#f5f5f5', borderRadius: '4px' }}>
           <div style={{ marginBottom: '8px', fontSize: '14px', fontWeight: 500 }}>快捷指令：</div>
           <Space size="small" breakLine>
-          <Button size="small" variant="outline" onClick={handleSendUserMessage} disabled={!ready}>
-            发送用户消息
-          </Button>
-          <Button size="small" variant="outline" onClick={handleSendAIMessage} disabled={!ready}>
-            发送AI消息
-          </Button>
-          <Button size="small" variant="outline" onClick={handleSendSystemMessage} disabled={!ready}>
-            发送系统消息
-          </Button>
-          <Button size="small" variant="outline" onClick={handleSetMessages} disabled={!ready}>
-            批量设置消息
-          </Button>
-          <Button size="small" variant="outline" onClick={handleClearMessages} disabled={!ready}>
-            清空消息
-          </Button>
-          <Button size="small" variant="outline" onClick={handleRegenerate} disabled={!ready}>
-            重新生成
-          </Button>
-          <Button size="small" variant="outline" onClick={handleAbort} disabled={!ready}>
-            中止请求
-          </Button>
-          <Button size="small" variant="outline" onClick={handleScrollToBottom} disabled={!ready}>
-            滚动列表
-          </Button>
-          <Button size="small" variant="outline" onClick={handleAddPrompt} disabled={!ready}>
-            填充提示语
-          </Button>
-          <Button size="small" variant="outline" onClick={handleSelectFile} disabled={!ready}>
-            选择文件
-          </Button>
-          <Button size="small" variant="outline" onClick={handleGetStatus} disabled={!ready}>
-            获取状态
-          </Button>
+            <Button size="small" variant="outline" onClick={handleSendUserMessage} disabled={!ready}>
+              发送用户消息
+            </Button>
+            <Button size="small" variant="outline" onClick={handleSendAIMessage} disabled={!ready}>
+              发送AI消息
+            </Button>
+            <Button size="small" variant="outline" onClick={handleSendSystemMessage} disabled={!ready}>
+              发送系统消息
+            </Button>
+            <Button size="small" variant="outline" onClick={handleSetMessages} disabled={!ready}>
+              批量设置消息
+            </Button>
+            <Button size="small" variant="outline" onClick={handleClearMessages} disabled={!ready}>
+              清空消息
+            </Button>
+            <Button size="small" variant="outline" onClick={handleRegenerate} disabled={!ready}>
+              重新生成
+            </Button>
+            <Button size="small" variant="outline" onClick={handleAbort} disabled={!ready}>
+              中止请求
+            </Button>
+            <Button size="small" variant="outline" onClick={handleScrollToBottom} disabled={!ready}>
+              滚动列表
+            </Button>
+            <Button size="small" variant="outline" onClick={handleAddPrompt} disabled={!ready}>
+              填充提示语
+            </Button>
+            <Button size="small" variant="outline" onClick={handleSelectFile} disabled={!ready}>
+              选择文件
+            </Button>
+            <Button size="small" variant="outline" onClick={handleGetStatus} disabled={!ready}>
+              获取状态
+            </Button>
           </Space>
         </div>
       </div>

@@ -117,8 +117,7 @@ export default function ChatBotReact() {
     onError: (err: Error | Response) => {
       console.error('Chatservice Error:', err);
     },
-    // 流式对话过程中用户主动结束对话业务自定义行为
-    onAbort: async () => {},
+
     // 流式消息输出时的回调
     onMessage: (chunk: SSEChunkData): AIContentChunkUpdate => {
       const { type, ...rest } = chunk.data;

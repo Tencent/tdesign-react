@@ -1,13 +1,13 @@
 ---
 title: 快速上手
 order: 2
-description: TDesign Chat 智能对话组件库快速上手指南
+description: TDesign 适配桌面端的 AI Chat 组件库，适合在 React 18+ 技术栈中的 AI Chat 组件。
 spline: ai
 ---
 
 ## 安装
 
-### 环境要求
+### 依赖要求
 
 - React >= 18.0.0
 - TypeScript >= 4.0 (可选，但推荐)

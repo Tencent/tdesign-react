@@ -3,7 +3,7 @@ import type { UploadFile } from 'tdesign-react';
 import { ChatSender, TdAttachmentItem } from '@tdesign-react/chat';
 
 const ChatSenderExample = () => {
-  const [inputValue, setInputValue] = useState('输入内容');
+  const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState<TdAttachmentItem[]>([
     {
@@ -18,6 +18,10 @@ const ChatSenderExample = () => {
       name: 'image-file.png',
       size: 333333,
       url: 'https://tdesign.gtimg.com/site/avatar.jpg',
+    },
+    {
+      name: 'pdf-file.pdf',
+      size: 4444,
     },
   ]);
 
@@ -76,7 +80,7 @@ const ChatSenderExample = () => {
   return (
     <ChatSender
       value={inputValue}
-      placeholder="请输入内容"
+      placeholder="请输入消息..."
       loading={loading}
       actions={['attachment', 'send']}
       attachmentsProps={{

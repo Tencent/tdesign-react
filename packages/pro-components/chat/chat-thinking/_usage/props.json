@@ -8,7 +8,7 @@
   {
     "name": "layout",
     "type": "enum",
-    "defaultValue": "border",
+    "defaultValue": "block",
     "options": [
       {
         "label": "border",
@@ -32,6 +32,10 @@
       {
         "label": "gradient",
         "value": "gradient"
+      },
+      {
+        "label": "dots",
+        "value": "dots"
       },
       {
         "label": "circle",

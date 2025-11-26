@@ -20,7 +20,7 @@ import { Avatar, Button, Space } from 'tdesign-react';
 
 /**
  * 综合示例
- * 
+ *
  * 本示例展示如何综合使用多个功能：
  * - 初始消息和建议问题
  * - 消息配置（样式、操作按钮）
@@ -44,7 +44,7 @@ export default function Comprehensive() {
         {
           type: 'text',
           status: 'complete',
-          data: '欢迎使用TDesign Chatbot智能助手，你可以这样问我：',
+          data: '欢迎使用 TDesign Chatbot 智能助手，你可以这样问我：',
         },
         {
           type: 'suggestion',
@@ -80,9 +80,6 @@ export default function Comprehensive() {
       onError: (err: Error | Response) => {
         console.error('Chatservice Error:', err);
       },
-
-      // 用户主动结束对话
-      onAbort: async () => {},
 
       // 自定义流式数据结构解析
       onMessage: (chunk: SSEChunkData): AIMessageContent | null => {

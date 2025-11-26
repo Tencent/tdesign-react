@@ -19,7 +19,7 @@ Object.keys(demoFiles).forEach((key) => {
 
 export default function Demo() {
   const location = useLocation();
-  const match = location.pathname.match(/\/react\/demos\/([\w-]+)\/?([\w-]+)?/);
+  const match = location.pathname.match(/\/react-chat\/demos\/([\w-]+)\/?([\w-]+)?/);
   const [, componentName, demoName] = match;
 
   const demoList = demoObject[componentName];

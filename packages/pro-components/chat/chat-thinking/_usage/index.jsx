@@ -19,12 +19,11 @@ export default function Usage() {
 
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
-  const panelList = [{ label: 'ChatMessage', value: 'ChatMessage' }];
+  const panelList = [{ label: 'ChatThinking', value: 'ChatThinking' }];
 
   const { panel, onPanelChange } = usePanelChange(panelList);
 
   const [renderComp, setRenderComp] = useState();
-  
 
   useEffect(() => {
     setRenderComp(
@@ -33,7 +32,10 @@ export default function Usage() {
           content={{
             title: '思考中',
             text: fullText,
-          }} maxHeight={100} {...changedProps} />
+          }}
+          maxHeight={100}
+          {...changedProps}
+        />
       </div>,
     );
   }, [changedProps]);

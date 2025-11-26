@@ -51,12 +51,7 @@ interface UserPreferencesResponse {
 // ==================== 工具组件 ====================
 
 // 1. 天气查询组件（展示 TOOL_CALL 基础用法）
-const WeatherCard: React.FC<ToolcallComponentProps<WeatherArgs, WeatherResult>> = ({
-  status,
-  args,
-  result,
-  error,
-}) => {
+const WeatherCard: React.FC<ToolcallComponentProps<WeatherArgs, WeatherResult>> = ({ status, args, result, error }) => {
   if (error) {
     return (
       <Card bordered style={{ marginTop: 8 }}>
@@ -67,9 +62,7 @@ const WeatherCard: React.FC<ToolcallComponentProps<WeatherArgs, WeatherResult>> 
 
   return (
     <Card bordered style={{ marginTop: 8 }}>
-      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 8 }}>
-        {args?.city} 天气信息
-      </div>
+      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 8 }}>{args?.city} 天气信息</div>
       {status === 'executing' && <div style={{ color: '#0052d9' }}>正在查询天气...</div>}
       {status === 'complete' && result && (
         <Space direction="vertical" size="small">
@@ -83,15 +76,10 @@ const WeatherCard: React.FC<ToolcallComponentProps<WeatherArgs, WeatherResult>> 
 };
 
 // 2. 规划步骤组件（展示 STATE 订阅 + agentState 注入）
-const PlanningSteps: React.FC<ToolcallComponentProps<PlanningArgs>> = ({
-  status,
-  args,
-  respond,
-  agentState,
-}) => {
+const PlanningSteps: React.FC<ToolcallComponentProps<PlanningArgs>> = ({ status, args, respond, agentState }) => {
   // 因为配置了 subscribeKey，agentState 已经是 taskId 对应的状态对象
   const planningState = agentState || {};
-  
+
   const isComplete = status === 'complete';
 
   React.useEffect(() => {
@@ -105,14 +93,12 @@ const PlanningSteps: React.FC<ToolcallComponentProps<PlanningArgs>> = ({
       <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>
         正在为您规划 {args?.destination} {args?.days}日游
       </div>
-      
+
       {/* 只保留进度条 */}
       {planningState?.progress !== undefined && (
         <div>
           <Progress percentage={planningState.progress} />
-          <div style={{ fontSize: 12, color: '#888', marginTop: 4 }}>
-            {planningState.message || '规划中...'}
-          </div>
+          <div style={{ fontSize: 12, color: '#888', marginTop: 4 }}>{planningState.message || '规划中...'}</div>
         </div>
       )}
     </Card>
@@ -140,19 +126,11 @@ const UserPreferencesForm: React.FC<ToolcallComponentProps<UserPreferencesArgs, 
   if (status === 'complete' && result) {
     return (
       <Card bordered style={{ marginTop: 8 }}>
-        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 8, color: '#00a870' }}>
-          ✓ 已收到您的偏好设置
-        </div>
+        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 8, color: '#00a870' }}>✓ 已收到您的偏好设置</div>
         <Space direction="vertical" size="small">
-          <div style={{ fontSize: 12, color: '#666' }}>
-            预算：¥{result.budget}
-          </div>
-          <div style={{ fontSize: 12, color: '#666' }}>
-            兴趣：{result.interests.join('、')}
-          </div>
-          <div style={{ fontSize: 12, color: '#666' }}>
-            住宿：{result.accommodation}
-          </div>
+          <div style={{ fontSize: 12, color: '#666' }}>预算：¥{result.budget}</div>
+          <div style={{ fontSize: 12, color: '#666' }}>兴趣：{result.interests.join('、')}</div>
+          <div style={{ fontSize: 12, color: '#666' }}>住宿：{result.accommodation}</div>
         </Space>
       </Card>
     );
@@ -160,9 +138,7 @@ const UserPreferencesForm: React.FC<ToolcallComponentProps<UserPreferencesArgs, 
 
   return (
     <Card bordered style={{ marginTop: 8 }}>
-      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>
-        请设置您的旅游偏好
-      </div>
+      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>请设置您的旅游偏好</div>
       <Space direction="vertical" size="large" style={{ width: '100%' }}>
         <div>
           <div style={{ marginBottom: 4, fontSize: 12 }}>预算（元）</div>
@@ -212,9 +188,9 @@ const UserPreferencesForm: React.FC<ToolcallComponentProps<UserPreferencesArgs, 
 /**
  * 右侧进度面板组件
  * 演示如何在对话组件外部使用 useAgentState 获取状态
- * 
+ *
  * 💡 使用场景：展示规划行程的详细子步骤（从后端 STATE_DELTA 事件推送）
- * 
+ *
  * 实现方式：
  * 1. 使用 useAgentState 订阅状态更新
  * 2. 从 stateMap 中获取规划步骤的详细进度
@@ -222,7 +198,7 @@ const UserPreferencesForm: React.FC<ToolcallComponentProps<UserPreferencesArgs, 
 const ProgressPanel: React.FC = () => {
   // 使用 useAgentState 订阅状态更新
   const { stateMap, currentStateKey } = useAgentState();
-  
+
   // 获取规划状态
   const planningState = useMemo(() => {
     if (!currentStateKey || !stateMap[currentStateKey]) {
@@ -259,43 +235,48 @@ const ProgressPanel: React.FC = () => {
   };
 
   return (
-    <div style={{ 
-      position: 'fixed',
-      right: '200px',
-      top: '50%',
-      transform: 'translateY(-50%)',
-      width: '200px',
-      background: '#fff', 
-      padding: '16px',
-      borderRadius: '8px',
-      boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
-      border: '1px solid #e7e7e7',
-      zIndex: 1000,
-    }}>
-      <div style={{ 
-        marginBottom: '12px',
-        paddingBottom: '8px',
-        borderBottom: '1px solid #e7e7e7'
-      }}>
-        <div style={{ fontSize: '14px', fontWeight: 600, color: '#000', marginBottom: '4px' }}>
-          规划进度
-        </div>
+    <div
+      style={{
+        position: 'fixed',
+        right: '200px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        width: '200px',
+        background: '#fff',
+        padding: '16px',
+        borderRadius: '8px',
+        boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
+        border: '1px solid #e7e7e7',
+        zIndex: 1000,
+      }}
+    >
+      <div
+        style={{
+          marginBottom: '12px',
+          paddingBottom: '8px',
+          borderBottom: '1px solid #e7e7e7',
+        }}
+      >
+        <div style={{ fontSize: '14px', fontWeight: 600, color: '#000', marginBottom: '4px' }}>规划进度</div>
         <Tag theme="primary" variant="light" size="small">
           {completedCount}/{totalCount}
         </Tag>
       </div>
-      
+
       {/* 步骤列表 */}
       <Space direction="vertical" size="small" style={{ width: '100%' }}>
         {items.map((item: any, index: number) => (
           <div key={index} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             {getStatusIcon(item.status)}
-            <span style={{ 
-              flex: 1, 
-              fontSize: '12px',
-              color: item.status === 'completed' ? '#00a870' : (item.status === 'running' ? '#0052d9' : '#666'),
-              fontWeight: item.status === 'running' ? 600 : 400,
-            }}>
+            <span
+              style={{
+                flex: 1,
+                fontSize: '12px',
+                // eslint-disable-next-line no-nested-ternary
+                color: item.status === 'completed' ? '#00a870' : item.status === 'running' ? '#0052d9' : '#666',
+                fontWeight: item.status === 'running' ? 600 : 400,
+              }}
+            >
               {item.label}
             </span>
           </div>
@@ -409,9 +390,7 @@ const TravelPlannerContent: React.FC = () => {
   );
 
   const renderMsgContents = (message: ChatMessagesData) => (
-    <>
-      {message.content?.map((item: any, index: number) => renderMessageContent(item, index))}
-    </>
+    <>{message.content?.map((item: any, index: number) => renderMessageContent(item, index))}</>
   );
 
   const sendHandler = async (e: CustomEvent<TdChatSenderParams>) => {
@@ -424,7 +403,7 @@ const TravelPlannerContent: React.FC = () => {
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', position: 'relative' }}>
       {/* 右侧进度面板：使用 useAgentState 订阅状态 */}
       <ProgressPanel />
-      
+
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         <ChatList ref={listRef}>
           {messages.map((message) => (
