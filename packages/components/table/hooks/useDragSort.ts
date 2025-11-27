@@ -215,7 +215,7 @@ export default function useDragSort(
     if (!primaryTableRef.current) return;
     registerRowDragEvent(primaryTableRef.current.tableElement);
     registerColDragEvent(primaryTableRef.current.tableHtmlElement);
-    primaryTableRef.current.onAffixHeaderMount((el) => {
+    primaryTableRef.current.onAffixHeaderMount((el: HTMLDivElement) => {
       registerColDragEvent(el);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps

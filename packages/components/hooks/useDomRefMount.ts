@@ -1,6 +1,6 @@
 import { useCallback, useRef } from 'react';
 
-function useDomRefLifecycle<T extends HTMLElement = HTMLElement>(ref?: React.MutableRefObject<T | null>) {
+function useDomRefMount<T extends HTMLElement = HTMLElement>(ref: React.MutableRefObject<T | null>) {
   const callbacks = useRef<Array<(node: T) => void>>([]);
   const unmountCallbacks = useRef<Array<() => void>>([]);
 
@@ -57,4 +57,4 @@ function useDomRefLifecycle<T extends HTMLElement = HTMLElement>(ref?: React.Mut
   };
 }
 
-export default useDomRefLifecycle;
+export default useDomRefMount;

@@ -6,6 +6,7 @@ import log from '@tdesign/common-js/log/index';
 import { getIEVersion } from '@tdesign/common-js/utils/helper';
 import Affix, { type AffixRef } from '../affix';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useDomRefMount from '../hooks/useDomRefMount';
 import useElementLazyRender from '../hooks/useElementLazyRender';
 import useVirtualScroll from '../hooks/useVirtualScroll';
 import Loading from '../loading';
@@ -17,7 +18,6 @@ import { baseTableDefaultProps } from './defaultProps';
 import useAffix from './hooks/useAffix';
 import useClassName from './hooks/useClassName';
 import useColumnResize from './hooks/useColumnResize';
-import useDomRefLifecycle from '../hooks/useDomRefLifecycle';
 import useFixed from './hooks/useFixed';
 import usePagination from './hooks/usePagination';
 import useStyle, { formatCSSUnit } from './hooks/useStyle';
@@ -117,6 +117,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     footerBottomAffixRef,
   });
 
+  const { onMount: onAffixHeaderMount } = useDomRefMount(affixHeaderRef);
+
   const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination(props, tableContentRef);
 
   // 列宽拖拽逻辑
@@ -148,8 +150,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     [tableLayoutClasses[tableLayout || 'fixed']],
     { [tableBaseClass.fullHeight]: height },
   ]);
-
-  const { onMount: onAffixHeaderMount } = useDomRefLifecycle(affixHeaderRef);
 
   const showRightDivider = useMemo(
     () => props.bordered && isFixedHeader && ((isMultipleHeader && isWidthOverflow) || !isMultipleHeader),
