@@ -1,34 +1,33 @@
 import React, { useEffect } from 'react';
-import { get, unset, isEmpty } from 'lodash-es';
-
-// 兼容特殊数据结构和受控 key
-import Tree from '../../tree/Tree';
-import Upload from '../../upload/upload';
-import CheckTag from '../../tag/CheckTag';
-import Checkbox from '../../checkbox/Checkbox';
-import TagInput from '../../tag-input/TagInput';
-import RangeInput from '../../range-input/RangeInput';
-import Transfer from '../../transfer/Transfer';
-import CheckboxGroup from '../../checkbox/CheckboxGroup';
-import DateRangePicker from '../../date-picker/DateRangePicker';
-import TimeRangePicker from '../../time-picker/TimeRangePicker';
+import { get, isEmpty, unset } from 'lodash-es';
 
 import { useFormContext, useFormListContext } from '../FormContext';
-import { FormItemProps } from '../FormItem';
+import type { FormItemProps } from '../FormItem';
 
-// FormItem 子组件受控 key
-export const ctrlKeyMap = new Map();
-ctrlKeyMap.set(Checkbox, 'checked');
-ctrlKeyMap.set(CheckTag, 'checked');
-ctrlKeyMap.set(Upload, 'files');
+export const CTRL_KEY_MAP = new Map<string, string>();
+CTRL_KEY_MAP.set('Checkbox', 'checked');
+CTRL_KEY_MAP.set('CheckTag', 'checked');
+CTRL_KEY_MAP.set('Upload', 'files');
 
-// FormItem 默认数据类型
-export const initialDataMap = new Map();
-[Tree, Upload, Transfer, TagInput, RangeInput, CheckboxGroup, DateRangePicker, TimeRangePicker].forEach((component) => {
-  initialDataMap.set(component, []);
+const ARRAY_DEFAULT_COMPONENTS = [
+  'Tree',
+  'Upload',
+  'Transfer',
+  'TagInput',
+  'RangeInput',
+  'CheckboxGroup',
+  'DateRangePicker',
+  'TimeRangePicker',
+];
+const BOOLEAN_DEFAULT_COMPONENTS = ['Checkbox'];
+
+export const initialDataMap = new Map<string, any>();
+
+ARRAY_DEFAULT_COMPONENTS.forEach((componentName) => {
+  initialDataMap.set(componentName, []);
 });
-[Checkbox].forEach((component) => {
-  initialDataMap.set(component, false);
+BOOLEAN_DEFAULT_COMPONENTS.forEach((componentName) => {
+  initialDataMap.set(componentName, false);
 });
 
 export default function useFormItemInitialData(name: FormItemProps['name']) {
@@ -81,9 +80,10 @@ export default function useFormItemInitialData(name: FormItemProps['name']) {
       const childList = React.Children.toArray(children);
       const lastChild = childList[childList.length - 1];
       if (lastChild && React.isValidElement(lastChild)) {
-        // @ts-ignore
         const isMultiple = lastChild?.props?.multiple;
-        return isMultiple ? [] : initialDataMap.get(lastChild.type);
+        // @ts-ignore
+        const componentName = lastChild.type.displayName;
+        return isMultiple ? [] : initialDataMap.get(componentName);
       }
     }
   }
