@@ -1,6 +1,6 @@
-import classNames from 'classnames';
 import React, { FC, ReactElement, useContext, useMemo, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import classNames from 'classnames';
 
 import parseTNode from '../_util/parseTNode';
 import FakeArrow from '../common/FakeArrow';
@@ -12,7 +12,6 @@ import { Popup, type PopupPlacement } from '../popup';
 import { calculatePaddingLeft } from './_util/calculatePaddingLeft';
 import { checkIsMenuGroup, checkIsSubMenu } from './_util/checkMenuType';
 import checkSubMenuChildrenActive from './_util/checkSubMenuChildrenActive';
-import { getSubMenuMaxHeight } from './_util/getSubMenuChildStyle';
 import { MenuContext } from './MenuContext';
 
 import type { StyledProps } from '../common';
@@ -59,11 +58,6 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
     }),
   );
 
-  // 计算有多少子节点并设置最大高度，为做出动画效果
-  const childStyle = {
-    maxHeight: isExpand || (open && isPopUp) ? getSubMenuMaxHeight(children) : 0,
-  };
-
   // 是否展开（popup 与 expand 两种状态）
   const isOpen = useMemo(() => {
     if (disabled) return false;
@@ -99,7 +93,6 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
         [`${classPrefix}-is-opened`]: isOpen,
       })}
       key="popup"
-      style={childStyle}
     >
       {popupChildren}
     </ul>
@@ -130,7 +123,6 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
             key="normal"
             style={
               {
-                ...childStyle,
                 '--padding-left': `${menuPaddingLeft}px`,
                 overflow: 'hidden',
               } as React.CSSProperties
