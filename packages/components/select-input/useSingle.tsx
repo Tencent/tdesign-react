@@ -9,6 +9,7 @@ import Input, { type InputRef, type TdInputProps } from '../input';
 import Loading from '../loading';
 
 import type { SelectInputCommonProperties } from './interface';
+import type { SelectInputProps } from './SelectInput';
 import type { TdSelectInputProps } from './type';
 
 export interface RenderSelectSingleInputParams {
@@ -43,7 +44,7 @@ function getOptionLabel(value: TdSelectInputProps['value'], keys: TdSelectInputP
   return isObject(value) ? value[iKeys.label] : value;
 }
 
-export default function useSingle(props: TdSelectInputProps) {
+export default function useSingle(props: SelectInputProps) {
   const { value, loading } = props;
   const commonInputProps: SelectInputCommonProperties = {
     ...pick(props, COMMON_PROPERTIES),
@@ -55,9 +56,11 @@ export default function useSingle(props: TdSelectInputProps) {
 
   const inputRef = useRef<InputRef>(null);
   const blurTimeoutRef = useRef(null);
+  const customElementRef = useRef<HTMLDivElement>(null);
 
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const [labelWidth, setLabelWidth] = useState<number>(0);
+  const [customElementWidth, setCustomElementWidth] = useState<number>(0);
 
   const singleValueDisplay = useMemo(
     () => props.valueDisplay ?? getOptionLabel(value, props.keys),
@@ -88,6 +91,13 @@ export default function useSingle(props: TdSelectInputProps) {
       setLabelWidth(prefixWidth);
     }
   }, [props.label, classPrefix]);
+
+  useEffect(() => {
+    if (showCustomElement && customElementRef.current) {
+      const { width } = customElementRef.current.getBoundingClientRect();
+      setCustomElementWidth(width);
+    }
+  }, [showCustomElement, singleValueDisplay]);
 
   const renderSelectSingle = (
     popupVisible: boolean,
@@ -143,9 +153,10 @@ export default function useSingle(props: TdSelectInputProps) {
 
     const labelNode = showCustomElement ? (
       <div
+        ref={customElementRef}
         style={{
           position: 'absolute',
-          left: `${labelWidth + 16}px`,
+          left: `${labelWidth + 8}px`,
           top: '50%',
           transform: 'translateY(-50%)',
           pointerEvents: 'none',
@@ -158,6 +169,13 @@ export default function useSingle(props: TdSelectInputProps) {
         {singleValueDisplay}
       </div>
     ) : null;
+
+    const hasCustomWidth = props.style?.width || props.inputProps?.style?.width || props.inputProps?.style?.minWidth;
+    // customElement 定位为 absolute，无法撑开 input 宽度
+    const inputWidth =
+      !hasCustomWidth && showCustomElement && customElementWidth > 0
+        ? `${customElementWidth + labelWidth + 48}px`
+        : undefined;
 
     return (
       <Input
@@ -175,6 +193,10 @@ export default function useSingle(props: TdSelectInputProps) {
           ))
         }
         autoWidth={props.autoWidth}
+        style={{
+          ...(props.inputProps?.style || {}),
+          minWidth: inputWidth,
+        }}
         allowInput={props.allowInput}
         label={props.label}
         value={displayedValue()}
