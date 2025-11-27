@@ -1,15 +1,17 @@
-import { isEmpty, isFunction, isEqual, merge, get, set } from 'lodash-es';
+import { get, isEmpty, isEqual, isFunction, merge, set } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
+import useConfig from '../../hooks/useConfig';
+import { calcFieldValue, findFormItem, findFormItemDeep, objectToArray, travelMapFromObject } from '../utils';
+
+import type { FormItemInstance } from '../FormItem';
 import type {
-  TdFormProps,
-  FormValidateResult,
+  AllValidateResult,
   FormResetParams,
   FormValidateMessage,
-  AllValidateResult,
+  FormValidateResult,
   NamePath,
+  TdFormProps,
 } from '../type';
-import useConfig from '../../hooks/useConfig';
-import { getMapValue, objectToArray, travelMapFromObject, calcFieldValue } from '../utils';
 
 // 检测是否需要校验 默认全量校验
 function needValidate(name: NamePath, fields: string[]) {
@@ -40,7 +42,7 @@ function formatValidateResult(validateResultList) {
 
 export default function useInstance(
   props: TdFormProps,
-  formRef,
+  formRef: React.RefObject<HTMLFormElement>,
   formMapRef: React.MutableRefObject<Map<any, any>>,
   floatingFormDataRef: React.RefObject<Record<any, any>>,
 ) {
@@ -109,7 +111,7 @@ export default function useInstance(
   function getFieldValue(name: NamePath) {
     if (!name) return null;
 
-    const formItemRef = getMapValue(name, formMapRef);
+    const formItemRef = findFormItem(name, formMapRef);
     return formItemRef?.current?.getValue?.();
   }
 
@@ -130,12 +132,12 @@ export default function useInstance(
       }
     } else {
       if (!Array.isArray(nameList)) {
-        log.error('Form', '`getFieldsValue` 参数需要 Array 类型');
+        log.error('Form', 'The parameter of "getFieldsValue" must be an array');
         return {};
       }
 
       nameList.forEach((name) => {
-        const formItemRef = getMapValue(name, formMapRef);
+        const formItemRef = findFormItem(name, formMapRef);
         if (!formItemRef) return;
 
         const fieldValue = calcFieldValue(name, formItemRef?.current.getValue?.());
@@ -175,13 +177,15 @@ export default function useInstance(
 
   // 对外方法，设置对应 formItem 的数据
   function setFields(fields = []) {
-    if (!Array.isArray(fields)) throw new Error('setFields 参数需要 Array 类型');
+    if (!Array.isArray(fields)) throw new TypeError('The parameter of "setFields" must be an array');
 
     fields.forEach((field) => {
       const { name, ...restFields } = field;
-      const formItemRef = getMapValue(name, formMapRef);
-
-      formItemRef?.current?.setField(restFields, field);
+      let formItemRef = findFormItem(name, formMapRef);
+      if (!formItemRef) {
+        formItemRef = findFormItemDeep(name, formMapRef);
+      }
+      formItemRef?.current?.setField(restFields);
     });
   }
 
@@ -196,7 +200,7 @@ export default function useInstance(
       const { type = 'initial', fields = [] } = params;
 
       fields.forEach((name) => {
-        const formItemRef = getMapValue(name, formMapRef);
+        const formItemRef = findFormItem(name, formMapRef);
         formItemRef?.current?.resetField(type);
       });
     }
@@ -211,10 +215,10 @@ export default function useInstance(
         formItemRef?.current?.resetValidate();
       });
     } else {
-      if (!Array.isArray(fields)) throw new Error('clearValidate 参数需要 Array 类型');
+      if (!Array.isArray(fields)) throw new TypeError('The parameter of "clearValidate" must be an array');
 
       fields.forEach((name) => {
-        const formItemRef = getMapValue(name, formMapRef);
+        const formItemRef = findFormItem(name, formMapRef);
         formItemRef?.current?.resetValidate();
       });
     }
@@ -229,24 +233,32 @@ export default function useInstance(
 
   // 对外方法，获取 formItem 的错误信息
   function getValidateMessage(fields?: Array<keyof FormData>) {
-    const message = {};
-
-    if (typeof fields === 'undefined') {
-      [...formMapRef.current.values()].forEach((formItemRef) => {
-        const item = formItemRef?.current?.getValidateMessage?.();
-        if (isEmpty(item)) return;
-        message[formItemRef?.current?.name] = item;
-      });
-    } else {
-      if (!Array.isArray(fields)) throw new Error('getValidateMessage 参数需要 Array 类型');
-
-      fields.forEach((name) => {
-        const formItemRef = getMapValue(name, formMapRef);
-        const item = formItemRef?.current?.getValidateMessage?.();
-        if (isEmpty(item)) return;
-        message[formItemRef?.current?.name] = item;
-      });
+    if (typeof fields !== 'undefined' && !Array.isArray(fields)) {
+      throw new TypeError('The parameter of "getValidateMessage" must be an array');
     }
+
+    const formItemRefs =
+      typeof fields === 'undefined'
+        ? [...formMapRef.current.values()]
+        : fields.map((name) => findFormItem(name, formMapRef)).filter(Boolean);
+
+    const extractValidateMessage = (formItemRef: React.RefObject<FormItemInstance>) => {
+      const item = formItemRef?.current?.getValidateMessage?.();
+      if (isEmpty(item)) return null;
+      const nameKey = formItemRef?.current?.name;
+      return { nameKey, item };
+    };
+
+    const message: Record<string, any> = {};
+
+    formItemRefs.forEach((formItemRef) => {
+      const result = extractValidateMessage(formItemRef);
+      if (!result) return;
+      const key = Array.isArray(result.nameKey)
+        ? result.nameKey.toString() // 将 数组 [a,b] 转为 a,b 作为 key
+        : String(result.nameKey);
+      message[key] = result.item;
+    });
 
     if (isEmpty(message)) return;
 

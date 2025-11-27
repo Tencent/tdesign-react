@@ -1,14 +1,15 @@
-import React, { useState, useEffect, useMemo, CSSProperties } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import classnames from 'classnames';
 import { canUseDocument } from '../_util/dom';
-import useConfig from '../hooks/useConfig';
-import { StyledProps } from '../common';
-import { TdLoadingProps } from './type';
-import Portal from '../common/Portal';
-import Gradient from './gradient';
-import { loadingDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
 import { addClass, removeClass } from '../_util/style';
+import Portal from '../common/Portal';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { loadingDefaultProps } from './defaultProps';
+import Gradient from './gradient';
+
+import type { StyledProps } from '../common';
+import type { TdLoadingProps } from './type';
 
 export interface LoadingProps extends TdLoadingProps, StyledProps {}
 
@@ -61,7 +62,7 @@ const Loading: React.FC<LoadingProps> = (props) => {
   }, [delay, loading]);
 
   const calcStyles = useMemo<React.CSSProperties>(() => {
-    const styles: CSSProperties = {};
+    const styles: React.CSSProperties = {};
 
     if (zIndex !== undefined) {
       styles.zIndex = zIndex;
@@ -113,7 +114,7 @@ const Loading: React.FC<LoadingProps> = (props) => {
   };
 
   if (fullscreen) {
-    return loading ? (
+    return showLoading ? (
       <div className={classnames(name, fullscreenClass, centerClass, overlayClass)} style={{ ...calcStyles, ...style }}>
         <div className={baseClasses}>{commonContent()}</div>
       </div>
@@ -140,7 +141,7 @@ const Loading: React.FC<LoadingProps> = (props) => {
   if (attach) {
     return (
       <Portal attach={attach}>
-        {loading ? (
+        {showLoading ? (
           <div
             className={classnames(name, baseClasses, fullClass, { [overlayClass]: showOverlay })}
             style={{ ...calcStyles, ...style }}
@@ -152,7 +153,7 @@ const Loading: React.FC<LoadingProps> = (props) => {
     );
   }
 
-  return loading ? (
+  return showLoading ? (
     <div className={classnames(name, baseClasses)} style={{ ...calcStyles, ...style }}>
       {commonContent()}
     </div>
