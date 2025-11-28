@@ -1,4 +1,4 @@
-import React, { useRef, useImperativeHandle, useEffect } from 'react';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import classNames from 'classnames';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import noop from '../_util/noop';
@@ -77,8 +77,10 @@ const Form = forwardRefWithStatics(
     }
 
     function onFormItemValueChange(changedValue: Record<string, unknown>) {
-      const allFields = formInstance.getFieldsValue(true);
-      onValuesChange(changedValue, allFields);
+      requestAnimationFrame(() => {
+        const allFields = formInstance.getFieldsValue(true);
+        onValuesChange(changedValue, allFields);
+      });
     }
 
     function onKeyDownHandler(e: React.KeyboardEvent<HTMLFormElement>) {
