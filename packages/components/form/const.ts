@@ -10,7 +10,6 @@ export const READONLY_SUPPORTED_COMP = [
   'Cascader',
   'Checkbox',
   'CheckboxGroup',
-  'ColorPicker',
   'Input',
   'InputNumber',
   'Radio',
