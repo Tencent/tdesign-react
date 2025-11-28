@@ -300,7 +300,6 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
           disabled={disabled}
           empty={empty}
           expandOnClickNode={false}
-          allowFoldNodeOnFilter
           keys={tKeys}
           {...(multiple
             ? {
