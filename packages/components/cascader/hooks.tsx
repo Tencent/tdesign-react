@@ -177,7 +177,7 @@ export const useCascaderContext = (originalProps: TdCascaderProps) => {
       setInputVal('');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [innerValue]);
+  }, [innerValue, multiple, reserveKeyword]);
 
   useEffect(() => {
     if (!treeStore) return;
@@ -198,7 +198,7 @@ export const useCascaderContext = (originalProps: TdCascaderProps) => {
     if (!innerPopupVisible && isFilterable) {
       setInputVal('');
     }
-  }, [innerPopupVisible, isFilterable, multiple, reserveKeyword]);
+  }, [innerPopupVisible, isFilterable]);
 
   useEffect(() => {
     const { inputVal, treeStore, setTreeNodes } = cascaderContext;

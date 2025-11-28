@@ -209,7 +209,6 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
     }
     // 单选选择后收起弹框
     setPopupVisible(false, { ...context, trigger: 'trigger-element-click' });
-    setFilterInput('', { trigger: 'blur' });
   });
 
   const handleMultiChange = usePersistFn<TreeProps['onChange']>((value, context) => {
