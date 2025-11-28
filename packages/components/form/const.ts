@@ -4,3 +4,21 @@ export const enum ValidateStatus {
   ERROR = 'error',
   VALIDATING = 'validating',
 }
+
+export const READONLY_SUPPORTED_COMP = [
+  'AutoComplete',
+  'Cascader',
+  'Checkbox',
+  'CheckboxGroup',
+  'ColorPicker',
+  'Input',
+  'InputNumber',
+  'Radio',
+  'RadioGroup',
+  'RangeInput',
+  'Select',
+  'SelectInput',
+  'TagInput',
+  'Textarea',
+  'TreeSelect',
+];
