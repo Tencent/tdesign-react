@@ -14,6 +14,7 @@ export const tagInputDefaultProps: TdTagInputProps = {
   minCollapsedNum: 0,
   placeholder: undefined,
   readonly: false,
+  readOnly: false,
   size: 'medium',
   defaultValue: [],
 };

@@ -16,6 +16,7 @@ export const radioGroupDefaultProps: TdRadioGroupProps = {
   allowUncheck: false,
   disabled: undefined,
   readonly: undefined,
+  readOnly: undefined,
   size: 'medium',
   variant: 'outline',
   theme: 'radio',

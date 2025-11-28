@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { isValidDate, formatDate, getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
-import { RangeInputRefInterface } from '../../range-input';
+import { RangeInputProps, RangeInputRefInterface } from '../../range-input';
 import { TdDateRangePickerProps, DateValue } from '../type';
 import useRangeValue from './useRangeValue';
 import type { TdPopupProps } from '../../popup/type';
@@ -53,15 +53,16 @@ export default function useRange(props: TdDateRangePickerProps) {
   };
 
   // input 设置
-  const rangeInputProps = {
+  const rangeInputProps: RangeInputProps = {
     ...props.rangeInputProps,
+    // @ts-ignore
     ref: inputRef,
     borderless: props.borderless,
     size: props.size,
     separator: props.separator ?? globalDatePickerConfig.rangeSeparator,
     clearable: props.clearable,
     prefixIcon: props.prefixIcon,
-    readonly: !props.allowInput,
+    readOnly: !props.allowInput,
     placeholder: props.placeholder ?? globalDatePickerConfig.placeholder[props.mode],
     activeIndex: popupVisible ? activeIndex : undefined,
     suffixIcon: props.suffixIcon ?? <CalendarIcon />,
@@ -76,7 +77,7 @@ export default function useRange(props: TdDateRangePickerProps) {
       e.stopPropagation();
       handlePopupInvisible();
       onChange([], { dayjsValue: [], trigger: 'clear' });
-      props.onClear?.({ e });
+      props.onClear?.({ e: e as React.MouseEvent<SVGSVGElement, MouseEvent> });
     },
     onBlur: (newVal: string[], { e, position }) => {
       props.onBlur?.({ value: newVal, partial: PARTIAL_MAP[position], e });
@@ -88,7 +89,7 @@ export default function useRange(props: TdDateRangePickerProps) {
     onChange: (newVal: string[], { e, position }) => {
       const index = position === 'first' ? 0 : 1;
 
-      props.onInput?.({ input: newVal[index], value, partial: PARTIAL_MAP[position], e });
+      props.onInput?.({ input: newVal[index], value, partial: PARTIAL_MAP[position], e: e as React.FormEvent<HTMLInputElement> });
       setInputValue(newVal);
 
       // 跳过不符合格式化的输入框内容

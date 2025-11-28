@@ -60,8 +60,13 @@ export interface TdFormProps<FormData extends Data = Data> {
   preventSubmitDefault?: boolean;
   /**
    * 是否整个表单只读
+   * @deprecated It will be removed in the future. Please use `readOnly` instead.
    */
   readonly?: boolean;
+  /**
+   * 是否整个表单只读
+   */
+  readOnly?: boolean;
   /**
    * 是否显示必填符号（*），默认显示
    */

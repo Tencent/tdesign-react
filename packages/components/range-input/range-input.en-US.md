@@ -12,13 +12,13 @@ activeIndex | Number | - | \- | N
 borderless | Boolean | false | \- | N
 clearable | Boolean | false | \- | N
 disabled | Boolean | - | \- | N
-format | Array / Function | - | Typescript: `InputFormatType \| Array<InputFormatType>` | N
-inputProps | Object / Array | - | Typescript: `InputProps \| Array<InputProps>`，[Input API Documents](./input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/range-input/type.ts) | N
-label | TNode | - | Typescript: `string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-placeholder | String / Array | - | Typescript: `string \| Array<string>` | N
-prefixIcon | TElement | - | Typescript: `TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-readonly | Boolean | false | \- | N
-separator | TNode | '-' | Typescript: `string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+format | Array / Function | - | Typescript：`InputFormatType \| Array<InputFormatType>` | N
+inputProps | Object / Array | - | Typescript：`InputProps \| Array<InputProps>`，[Input API Documents](./input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/range-input/type.ts) | N
+label | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+placeholder | String / Array | - | Typescript：`string \| Array<string>` | N
+prefixIcon | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+readOnly | Boolean | false | \- | N
+separator | TNode | '-' | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 showClearIconOnEmpty | Boolean | false | \- | N
 size | String | medium | options: small/medium/large | N
 status | String | default | options: default/success/warning/error | N
@@ -61,7 +61,7 @@ label | TNode | - | Typescript: `string \| TNode`。[see more ts definition](htt
 panel | TNode | - | Typescript: `string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 popupProps | Object | - | Typescript: `PopupProps`，[Popup API Documents](./popup?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/range-input/type.ts) | N
 popupVisible | Boolean | - | \- | N
-rangeInputProps | Object | - | Typescript: `RangeInputProps`，[RangeInput API Documents](./range-input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/range-input/type.ts) | N
+rangeInputProps | Object | - | Typescript：`RangeInputProps`，[RangeInput API Documents](./range-input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/range-input/type.ts) | N
 readonly | Boolean | false | \- | N
 status | String | default | options: default/success/warning/error | N
 tips | TNode | - | Typescript: `string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N

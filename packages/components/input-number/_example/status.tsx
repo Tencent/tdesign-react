@@ -22,7 +22,7 @@ export default function Status() {
               <InputNumber style={{ width: 300 }} disabled />
             </FormItem>
             <FormItem label="只读">
-              <InputNumber style={{ width: 300 }} readonly />
+              <InputNumber style={{ width: 300 }} readOnly />
             </FormItem>
             <FormItem label="正常">
               <InputNumber style={{ width: 300 }} />

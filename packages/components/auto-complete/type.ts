@@ -75,9 +75,14 @@ export interface TdAutoCompleteProps<T extends AutoCompleteOption = AutoComplete
    */
   popupProps?: PopupProps;
   /**
-   * 是否只读
+   * 只读状态
+   * @deprecated It will be removed in the future. Please use `readOnly` instead.
    */
   readonly?: boolean;
+  /**
+   * 只读状态
+   */
+  readOnly?: boolean;
   /**
    * 组件尺寸
    * @default medium

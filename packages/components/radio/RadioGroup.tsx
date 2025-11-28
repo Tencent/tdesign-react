@@ -29,7 +29,8 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
   const { classPrefix } = useConfig();
 
   const props = useDefaultProps<RadioGroupProps>(originalProps, radioGroupDefaultProps);
-  const { disabled, readonly, children, onChange, size, variant, options = [], className, style, theme } = props;
+  const { disabled, children, onChange, size, variant, options = [], className, style, theme } = props;
+  const readOnly = props.readOnly || props.readonly;
 
   const [internalValue, setInternalValue] = useControlled(props, 'value', onChange);
   const [barStyle, setBarStyle] = useState<Partial<CSSProperties> | null>(null);
@@ -58,7 +59,7 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
         allowUncheck: checkProps.allowUncheck || props.allowUncheck,
         checked: internalValue === checkProps.value,
         disabled: checkProps.disabled || disabled,
-        readonly: checkProps.readonly || readonly,
+        readonly: checkProps.readOnly || checkProps.readonly || readOnly,
         onChange(checked, { e }) {
           if (typeof checkProps.onChange === 'function') {
             checkProps.onChange(checked, { e });

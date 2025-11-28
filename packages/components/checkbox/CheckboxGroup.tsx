@@ -53,8 +53,10 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
     children,
     max,
     options = [],
-    readonly,
+    ...resetProps
   } = useDefaultProps<CheckboxGroupProps<T>>(props, checkboxGroupDefaultProps);
+
+  const readOnly = resetProps.readOnly || resetProps.readonly;
 
   // 去掉所有 checkAll 之后的 options
   const intervalOptions =
@@ -77,17 +79,17 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
     const enabledValues = [];
     const disabledValues = [];
     optionsWithoutCheckAll.forEach((option) => {
-      const isOptionDisabled = typeof option === 'object' && (option.disabled || option.readonly);
+      const isOptionDisabled = typeof option === 'object' && (option.disabled || option.readOnly || option.readonly);
       const value = getCheckboxValue(option);
 
-      if (isOptionDisabled || disabled || readonly) {
+      if (isOptionDisabled || disabled || readOnly) {
         disabledValues.push(value);
       } else {
         enabledValues.push(value);
       }
     });
     return { enabledValues, disabledValues };
-  }, [optionsWithoutCheckAll, disabled, readonly]);
+  }, [optionsWithoutCheckAll, disabled, readOnly]);
 
   const [internalValue, setInternalValue] = useControlled(props, 'value', onChange);
   const [localMax, setLocalMax] = useState(max);
@@ -142,7 +144,7 @@ const indeterminate = useMemo(() => {
         checked: checkProps.checkAll ? checkAllChecked : checkedSet.has(checkValue),
         indeterminate: checkProps.checkAll ? indeterminate : checkProps.indeterminate,
         disabled: checkProps.disabled || disabled || (checkedSet.size >= localMax && !checkedSet.has(checkValue)),
-        readonly: checkProps.readonly || readonly,
+        readOnly: checkProps.readonly || readOnly,
         onChange(checked, { e }) {
           if (typeof checkProps.onChange === 'function') {
             checkProps.onChange(checked, { e });
@@ -219,7 +221,7 @@ const indeterminate = useMemo(() => {
                       {...vs}
                       key={index}
                       disabled={vs.disabled || disabled}
-                      readonly={vs.readonly || readonly}
+                      readOnly={vs.readOnly || vs.readonly || readOnly}
                     />
                   );
                 }

@@ -71,7 +71,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     labelWidth: labelWidthFromContext,
     showErrorMessage: showErrorMessageFromContext,
     disabled: disabledFromContext,
-    readonly: readonlyFromContext,
+    readOnly: readOnlyFromContext,
     resetType: resetTypeFromContext,
     rules: rulesFromContext,
     statusIcon: statusIconFromContext,
@@ -505,9 +505,9 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
                 ctrlKey = ctrlKeyMap.get(child.type) || 'value';
               }
               const childProps = child.props as any;
-              return React.cloneElement(child, {
+              const cloneProps = {
                 disabled: disabledFromContext,
-                readOnly: readonlyFromContext,
+                readOnly: readOnlyFromContext,
                 ...childProps,
                 [ctrlKey]: formValue,
                 onChange: (value: any, ...args: any[]) => {
@@ -519,7 +519,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
                   handleItemBlur();
                   childProps?.onBlur?.call?.(null, value, ...args);
                 },
-              });
+              };
+              return React.cloneElement(child, cloneProps);
             }
             return child;
           })}

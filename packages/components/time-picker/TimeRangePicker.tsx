@@ -190,7 +190,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
           onClick: handleClick,
           onFocus: handleFocus,
           onBlur: handleInputBlur,
-          readonly: !allowInput,
+          readOnly: !allowInput,
           activeIndex: currentPanelIdx,
           label,
           ...props.rangeInputProps,

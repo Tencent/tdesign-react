@@ -10,4 +10,5 @@ export const textareaDefaultProps: TdTextareaProps = {
   autosize: false,
   placeholder: undefined,
   readonly: false,
+  readOnly: false,
 };

@@ -18,6 +18,7 @@ export const inputDefaultProps: TdInputProps = {
   placeholder: undefined,
   // 是否只读，在只读模式下，输入框不能输入，且没有清除按钮，优先级高于 allowInput、clearable
   readonly: false,
+  readOnly: false,
   showClearIconOnEmpty: false,
   showLimitNumber: false,
   size: 'medium',

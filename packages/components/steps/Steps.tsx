@@ -1,15 +1,16 @@
 import React, { useCallback, useMemo } from 'react';
 import classnames from 'classnames';
+import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
-import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import { TdStepsProps, TdStepItemProps } from './type';
-import { StyledProps } from '../common';
+import useDefaultProps from '../hooks/useDefaultProps';
 import StepItem from './StepItem';
 import StepsContext from './StepsContext';
 import { stepsDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
+
+import type { StyledProps } from '../common';
 import type { StepItemProps } from './StepItem';
+import type { TdStepItemProps, TdStepsProps } from './type';
 
 export interface StepsProps extends TdStepsProps, StyledProps {
   children?: React.ReactNode;
@@ -18,7 +19,7 @@ export interface StepsProps extends TdStepsProps, StyledProps {
 const Steps = forwardRefWithStatics(
   (originalProps: StepsProps, ref) => {
     const props = useDefaultProps<StepsProps>(originalProps, stepsDefaultProps);
-    const { style, readonly, layout, theme, sequence, separator, children, options } = props;
+    const { style, layout, theme, sequence, separator, children, options } = props;
     const { classPrefix } = useConfig();
 
     const [current, onChange] = useControlled(props, 'current', props.onChange);
@@ -109,7 +110,14 @@ const Steps = forwardRefWithStatics(
     }, [options, children, sequence, handleStatus]);
 
     return (
-      <StepsContext.Provider value={{ current, theme, readonly, onChange }}>
+      <StepsContext.Provider
+        value={{
+          current,
+          theme,
+          readOnly: props.readOnly || props.readonly,
+          onChange,
+        }}
+      >
         <div
           ref={ref}
           style={style}

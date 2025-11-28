@@ -1,11 +1,12 @@
-import React, { useState, MouseEvent, KeyboardEvent, ReactNode, Fragment } from 'react';
+import React, { Fragment, KeyboardEvent, MouseEvent, ReactNode, useState } from 'react';
 import { isFunction } from 'lodash-es';
-import { TagInputChangeContext, TagInputValue, TdTagInputProps } from './type';
-import { InputValue } from '../input';
-import Tag from '../tag';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
-import { DragSortInnerProps } from '../hooks/useDragSorter';
+import Tag from '../tag';
+
+import type { DragSortInnerProps } from '../hooks/useDragSorter';
+import type { InputValue } from '../input';
+import type { TagInputChangeContext, TagInputValue, TdTagInputProps } from './type';
 
 export type ChangeParams = [TagInputChangeContext];
 
@@ -16,8 +17,9 @@ interface TagInputProps extends TdTagInputProps, DragSortInnerProps {
 // handle tag add and remove
 export default function useTagList(props: TagInputProps) {
   const { classPrefix: prefix } = useConfig();
-  const { onRemove, max, minCollapsedNum, size, disabled, readonly, tagProps, tag, collapsedItems, getDragProps } =
-    props;
+  const { onRemove, max, minCollapsedNum, size, disabled, tagProps, tag, collapsedItems, getDragProps } = props;
+  const readOnly = props.readOnly || props.readonly;
+
   // handle controlled property and uncontrolled property
   const [tagValue, setTagValue] = useControlled(props, 'value', props.onChange);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -59,7 +61,7 @@ export default function useTagList(props: TagInputProps) {
   // 按下回退键，删除标签
   const onInputBackspaceKeyDown = (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => {
     const { e } = context;
-    if (!tagValue || !tagValue.length || readonly) return;
+    if (!tagValue || !tagValue.length || readOnly) return;
     // 回车键删除，输入框值为空时，才允许 Backspace 删除标签
     if (!value && ['Backspace', 'NumpadDelete'].includes(e.key)) {
       const index = tagValue.length - 1;
@@ -84,7 +86,7 @@ export default function useTagList(props: TagInputProps) {
               size={size}
               disabled={disabled}
               onClose={(context) => onClose({ e: context.e, index })}
-              closable={!readonly && !disabled}
+              closable={!readOnly && !disabled}
               {...getDragProps?.(index, item)}
               {...tagProps}
             >

@@ -22,6 +22,8 @@ export interface AutoCompleteRef {
 
 const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((originalProps, ref) => {
   const props = useDefaultProps(originalProps, autoCompleteDefaultProps);
+  const readOnly = props.readOnly || props.readonly;
+
   const inputRef = useRef(null);
   const popupRef = useRef(null);
   const [tValue, setTValue] = useControlled(props, 'value', props.onChange);
@@ -104,7 +106,7 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((originalPro
   };
 
   const onInnerSelect: OptionsListProps['onSelect'] = (value, context) => {
-    if (props.readonly || props.disabled) return;
+    if (readOnly || props.disabled) return;
     setPopupVisible(false);
     setTValue(value, context);
     props.onSelect?.(value, context);
@@ -123,7 +125,7 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((originalPro
       placeholder={props.placeholder ?? global.placeholder}
       tips={props.tips}
       status={props.status}
-      readonly={props.readonly}
+      readOnly={readOnly}
       disabled={props.disabled}
       clearable={props.clearable}
       autofocus={props.autofocus}

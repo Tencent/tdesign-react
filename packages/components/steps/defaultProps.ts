@@ -9,6 +9,7 @@ export const stepItemDefaultProps: TdStepItemProps = { icon: true, status: 'defa
 export const stepsDefaultProps: TdStepsProps = {
   layout: 'horizontal',
   readonly: false,
+  readOnly: false,
   separator: 'line',
   sequence: 'positive',
   theme: 'default',
