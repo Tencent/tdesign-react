@@ -7,6 +7,41 @@ spline: explain
 
 ## 🌈 1.15.9 `2025-11-28` 
 ### 🚀 Features
+- `Cascader`: 支持当 `valueMode` 为 `all` 或者 `parentFirst` 时，在 `filterable` 选项中显示非叶子节点 @lifeiFront ([#3964](https://github.com/Tencent/tdesign-react/pull/3964))
+- `Popup`:  新增多个组件实例方法，`getOverlay` 用于获取浮层元素，`getOverlayState` 用于获取浮层悬浮状态，`getPopper` 用于获取当前组件 popper 实例，`update` 用于更新浮层内容 @RSS1102 ([#3925](https://github.com/Tencent/tdesign-react/pull/3925))
+- `Select`: 支持通过键盘进行选项操作 @uyarn ([#3969](https://github.com/Tencent/tdesign-react/pull/3969))
+- `Swiper`: 支持 `cardScale` API，用于控制卡片的缩放比例 @RylanBot ([#3978](https://github.com/Tencent/tdesign-react/pull/3978))
+### 🐞 Bug Fixes
+- `Cascader`: 修复 `reserveKeyword` 不生效的问题 @RylanBot ([#3984](https://github.com/Tencent/tdesign-react/pull/3984))
+- `Description`: 修复无边框模式下 `itemLayout='vertical'` 的间距问题 @mikasayw ([common#2321](https://github.com/Tencent/tdesign-common/pull/2321))
+- `Table`: 表格内容未渲染时，设置 `dragSort` 相关拖动事件报错的问题 @lifeiFront ([#3958](https://github.com/Tencent/tdesign-react/pull/3958))
+- `Title`: 添加兜底机制，避免错误使用 `level` 导致页面直接白屏的问题  @RylanBot ([#3975](https://github.com/Tencent/tdesign-react/pull/3975))
+- `Select`: 修复使用 `backspace` 键删除标签时，没有触发 `onRemove` 的问题 @RylanBot ([#3961](https://github.com/Tencent/tdesign-react/pull/3961))
+- `Slider`: 修复浮点误差导致的滑块位置异常问题 @RylanBot ([#3947](https://github.com/Tencent/tdesign-react/pull/3947))
+- `Swiper`: 修复受控模式下 `current` 初始化错误的问题 @HaixingOoO ([#3959](https://github.com/Tencent/tdesign-react/pull/3959))
+- `Upload`: 修复不支持文件数组上传的问题 @GATING ([common#2078](https://github.com/Tencent/tdesign-common/pull/2078))
+- `Calendar`:  @shumuuu ([#3938](https://github.com/Tencent/tdesign-react/pull/3938))
+  - 修复当 `range` 为同一年内时，终止月份之后的月份选项没有正常禁用的问题
+  - 修复年份选项错误地使用了月份选项禁用范围判定逻辑的问题
+- `Form`:  修复 `readonly` 属性在不同组件中的兼容问题 @RylanBot ([#3986](https://github.com/Tencent/tdesign-react/pull/3986))
+- `Form`: @RylanBot ([#3957](https://github.com/Tencent/tdesign-react/pull/3957))
+  - 修复嵌套三层及以上的 FormList 相关方法失效的问题 
+  - 修复 `reset` 时没有触发 `onValueChange` 的问题
+  - 修复初始化调用 `setFieldsValue` 时没有触发 `onValuesChange` 的问题
+  - 修复非动态表单场景下，`name` 为数字或含有数字时 `setFieldValues` 失败的问题
+  - 优化 `key` 的生成，更新值与当前表单值相同时不刷新元素
+- `Tree`: 
+  - 修复过滤节点被意外禁用的问题 @RylanBot ([#3984](https://github.com/Tencent/tdesign-react/pull/3984))
+  - 修复 `setData` 没有自动触发 UI 刷新的问题 @RylanBot ([common#2283](https://github.com/Tencent/tdesign-common/pull/2283))
+- `TreeSelect`: @RylanBot ([#3984](https://github.com/Tencent/tdesign-react/pull/3984))
+  - 修复过滤节点的父节点也可以被选中的问题
+  - 修复 `blur` 时，输入框内容没有清空的问题
+
+### 🚧 Others
+- `Slider`: 加强组件的泛型支持，便于 `value` 与 `onChange` 联动 @RylanBot ([#3962](https://github.com/Tencent/tdesign-react/pull/3962))
+
+## 🌈 1.15.9 `2025-11-28` 
+### 🚀 Features
 - `Upload`: 请求参数支持数组 @GATING ([common#2078](https://github.com/Tencent/tdesign-common/pull/2078))
 - `Popup`:  新增多个组件实例方法，`getOverlay` 用于获取浮层元素，`getOverlayState` 用于获取浮层悬浮状态，`getPopper` 用于获取当前组件 popper 实例，`update` 用于更新浮层内容 @RSS1102 ([#3925](https://github.com/Tencent/tdesign-react/pull/3925))
 - `Cascader`: 支持当 `valueMode` 为 `all` 或者 `parentFirst` 时，在 `filterable` 选项中显示非叶子节点 @lifeiFront ([#3964](https://github.com/Tencent/tdesign-react/pull/3964))
