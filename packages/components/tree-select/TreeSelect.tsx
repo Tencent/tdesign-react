@@ -70,7 +70,6 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
     inputProps,
     valueType,
     collapsedItems,
-    reserveKeyword,
     onBlur,
     onFocus,
     onSearch,
@@ -227,7 +226,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
 
   const onInnerPopupVisibleChange: SelectInputProps['onPopupVisibleChange'] = (visible, ctx) => {
     setPopupVisible(visible, { e: ctx.e });
-    if (!visible && !(multiple && reserveKeyword)) {
+    if (!visible) {
       setFilterInput('', { trigger: 'blur' });
     }
   };

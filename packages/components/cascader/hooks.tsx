@@ -172,6 +172,10 @@ export const useCascaderContext = (originalProps: TdCascaderProps) => {
     } else {
       setScopeVal(multiple ? [] : '');
     }
+
+    if (multiple && !reserveKeyword) {
+      setInputVal('');
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [innerValue]);
 
@@ -191,7 +195,7 @@ export const useCascaderContext = (originalProps: TdCascaderProps) => {
   }, [options, scopeVal, treeStore, multiple]);
 
   useEffect(() => {
-    if (!innerPopupVisible && isFilterable && !(multiple && reserveKeyword)) {
+    if (!innerPopupVisible && isFilterable) {
       setInputVal('');
     }
   }, [innerPopupVisible, isFilterable, multiple, reserveKeyword]);
