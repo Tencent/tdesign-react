@@ -70,6 +70,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
     inputProps,
     valueType,
     collapsedItems,
+    reserveKeyword,
     onBlur,
     onFocus,
     onSearch,
@@ -221,6 +222,9 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
           trigger: value.length > normalizedValue.length ? 'check' : 'uncheck',
         },
       );
+    }
+    if (!reserveKeyword) {
+      setFilterInput('', { trigger: 'change' });
     }
   });
 
