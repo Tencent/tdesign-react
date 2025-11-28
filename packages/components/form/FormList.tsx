@@ -63,7 +63,6 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     formListMapRef.current.forEach((item, itemPath) => {
       const itemPathArray = convertNameToArray(itemPath);
       const isChildField = itemPathArray.length === convertNameToArray(fullPath).length + 2;
-      console.log(isChildField, itemPathArray, fullPath);
       if (!isChildField) return;
       const fieldName = itemPathArray[itemPathArray.length - 1];
       // add 没有传参时，构建一个包含所有子字段的对象用于占位，确保回调给用户的数据结构完整
