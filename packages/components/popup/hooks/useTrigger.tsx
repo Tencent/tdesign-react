@@ -42,9 +42,13 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     } else {
       element = getRefDom(triggerRef);
     }
-    return element;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
+    if (element && typeof element === 'object' && 'addEventListener' in element) {
+      return element;
+    }
+
+    return null;
+  }, [triggerElementIsString, triggerElement]);
 
   useEffect(() => clearTimeout(visibleTimer.current), []);
 
@@ -159,7 +163,8 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
       off(element, 'touchstart', handleTouchStart, { passive: true });
       off(element, 'keydown', handleKeyDown);
     };
-  }, [classPrefix, shouldToggle, appearDelay, exitDelay, trigger, visible, onVisibleChange, getTriggerElement]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [classPrefix, shouldToggle, appearDelay, exitDelay, trigger, visible, onVisibleChange]);
 
   useEffect(() => {
     if (!shouldToggle) return;
