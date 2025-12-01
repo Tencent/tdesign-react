@@ -1,4 +1,4 @@
-import React, { useRef, useImperativeHandle, useEffect } from 'react';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import classNames from 'classnames';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import noop from '../_util/noop';
@@ -39,6 +39,7 @@ const Form = forwardRefWithStatics(
       resetType,
       rules,
       errorMessage = globalFormConfig.errorMessage,
+      preventSubmitDefault,
       disabled,
       readonly,
       children,
@@ -76,8 +77,19 @@ const Form = forwardRefWithStatics(
     }
 
     function onFormItemValueChange(changedValue: Record<string, unknown>) {
-      const allFields = formInstance.getFieldsValue(true);
-      onValuesChange(changedValue, allFields);
+      requestAnimationFrame(() => {
+        const allFields = formInstance.getFieldsValue(true);
+        onValuesChange(changedValue, allFields);
+      });
+    }
+
+    function onKeyDownHandler(e: React.KeyboardEvent<HTMLFormElement>) {
+      // 禁用 input 输入框回车自动提交 form
+      if ((e.target as Element).tagName.toLowerCase() !== 'input') return;
+      if (preventSubmitDefault && e.key === 'Enter') {
+        e.preventDefault?.();
+        e.stopPropagation?.();
+      }
     }
 
     return (
@@ -111,6 +123,7 @@ const Form = forwardRefWithStatics(
           className={formClass}
           onSubmit={formInstance.submit}
           onReset={onResetHandler}
+          onKeyDown={onKeyDownHandler}
         >
           {children}
         </form>

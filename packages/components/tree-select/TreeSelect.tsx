@@ -7,7 +7,6 @@ import parseTNode from '../_util/parseTNode';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
-import useInnerPopupVisible from '../hooks/useInnerPopupVisible';
 import { usePersistFn } from '../hooks/usePersistFn';
 import useSwitch from '../hooks/useSwitch';
 import SelectInput, { type SelectInputProps } from '../select-input/SelectInput';
@@ -71,6 +70,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
     inputProps,
     valueType,
     collapsedItems,
+    reserveKeyword,
     onBlur,
     onFocus,
     onSearch,
@@ -222,11 +222,17 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
         },
       );
     }
+    if (!reserveKeyword) {
+      setFilterInput('', { trigger: 'change' });
+    }
   });
 
-  const handlePopupVisibleChange = useInnerPopupVisible((visible, ctx) => {
+  const onInnerPopupVisibleChange: SelectInputProps['onPopupVisibleChange'] = (visible, ctx) => {
     setPopupVisible(visible, { e: ctx.e });
-  });
+    if (!visible) {
+      setFilterInput('', { trigger: 'blur' });
+    }
+  };
 
   const handleClear = usePersistFn<SelectInputProps['onClear']>((ctx) => {
     ctx.e.stopPropagation();
@@ -303,7 +309,6 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
           disabled={disabled}
           empty={empty}
           expandOnClickNode={false}
-          allowFoldNodeOnFilter
           keys={tKeys}
           {...(multiple
             ? {
@@ -340,7 +345,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
       placeholder={inputPlaceholder}
       popupVisible={popupVisible && !disabled}
       onInputChange={handleFilterChange}
-      onPopupVisibleChange={handlePopupVisibleChange}
+      onPopupVisibleChange={onInnerPopupVisibleChange}
       onFocus={useMergeFn(handleFocus)}
       onBlur={useMergeFn(handleBlur)}
       onClear={handleClear}

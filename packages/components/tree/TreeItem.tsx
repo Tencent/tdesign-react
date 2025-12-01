@@ -50,7 +50,6 @@ const TreeItem = forwardRef(
       expandOnClickNode,
       activable,
       checkProps,
-      disableCheck,
       operations,
       onClick,
       onChange,
@@ -242,32 +241,20 @@ const TreeItem = forwardRef(
       });
 
       if (node.isCheckable()) {
-        let checkboxDisabled: boolean;
-        if (typeof disableCheck === 'function') {
-          checkboxDisabled = disableCheck(node.getModel());
-        } else {
-          checkboxDisabled = !!disableCheck;
-        }
-
-        if (node.isDisabled()) {
-          checkboxDisabled = true;
-        }
-
         let checkboxProps: CheckboxProps;
         if (typeof checkProps === 'function') {
           checkboxProps = checkProps(node.getModel());
         } else {
           checkboxProps = checkProps;
         }
-
         return (
           <Checkbox
             ref={setRefCurrent}
             checked={node.checked}
             indeterminate={node.indeterminate}
-            disabled={checkboxDisabled}
+            disabled={node.disabled}
             name={String(node.value)}
-            onChange={(checked, ctx) => onChange(node, ctx)}
+            onChange={(_, ctx) => onChange(node, ctx)}
             className={labelClasses}
             stopLabelTrigger={expandOnClickNode && !!node.children}
             {...checkboxProps}
@@ -308,7 +295,7 @@ const TreeItem = forwardRef(
 
       if (operationsView) {
         return (
-          <span className={treeClassNames.treeOperations} data-target="operations">
+          <span className={treeClassNames.treeOperations} data-target="operations" onClick={stopPropagation}>
             {operationsView}
           </span>
         );
