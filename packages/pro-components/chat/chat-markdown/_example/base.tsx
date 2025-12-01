@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Space } from 'tdesign-react';
+import { Space, Switch } from 'tdesign-react';
 import { ChatMarkdown, findTargetElement } from '@tdesign-react/chat';
 
 const doc = `
@@ -69,9 +69,10 @@ graph TD;
 export default function ThinkContentDemo() {
   const [displayText, setDisplayText] = useState(doc);
   const [isTyping, setIsTyping] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>(null);
-  const currentIndex = useRef(doc.length);
-  const startTimeRef = useRef(Date.now());
+  const [streamEnabled, setStreamEnabled] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const currentIndex = useRef<number>(doc.length);
+  const startTimeRef = useRef<number>(Date.now());
 
   // 自定义链接的点击
   useEffect(() => {
@@ -96,6 +97,24 @@ export default function ThinkContentDemo() {
       document.removeEventListener('click', handleResourceClick);
     };
   }, []);
+
+  // 控制流式输出开关
+  useEffect(() => {
+    if (streamEnabled) {
+      // 当开关打开时，重新开始流式输出
+      currentIndex.current = 0;
+      setDisplayText('');
+      setIsTyping(true);
+    } else {
+      // 当开关关闭时，停止流式输出并显示完整内容
+      setIsTyping(false);
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+      setDisplayText(doc);
+      currentIndex.current = doc.length;
+    }
+  }, [streamEnabled]);
 
   useEffect(() => {
     // 模拟打字效果
@@ -130,6 +149,9 @@ export default function ThinkContentDemo() {
 
   return (
     <Space direction="vertical">
+      <div style={{ marginBottom: 16 }}>
+        <Switch value={streamEnabled} onChange={setStreamEnabled} label="流式输出" />
+      </div>
       <ChatMarkdown content={displayText} />
     </Space>
   );

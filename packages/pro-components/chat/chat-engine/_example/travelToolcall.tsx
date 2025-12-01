@@ -10,6 +10,7 @@ import {
   isAIMessage,
   getMessageContentForCopy,
   AGUIAdapter,
+  isToolCallContent,
 } from '@tdesign-react/chat';
 import { LoadingIcon, HistoryIcon } from 'tdesign-icons-react';
 import type {
@@ -243,7 +244,7 @@ export default function TravelPlannerChat() {
 
   const renderMessageContent = useCallback(
     ({ item, index }: MessageRendererProps): React.ReactNode => {
-      if (item.type === 'toolcall') {
+      if (isToolCallContent(item)) {
         const { data, type } = item;
 
         // 使用统一的 ToolCallRenderer 处理所有工具调用

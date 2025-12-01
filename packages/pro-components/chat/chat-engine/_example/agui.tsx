@@ -14,6 +14,7 @@ import {
   isAIMessage,
   getMessageContentForCopy,
   AGUIAdapter,
+  isToolCallContent,
 } from '@tdesign-react/chat';
 import { Button, Space, MessagePlugin } from 'tdesign-react';
 import { useChat } from '../index';
@@ -138,7 +139,7 @@ export default function ComponentsBuild() {
       if (type === 'reasoning') {
         // reasoning 类型包含一个 data 数组，需要遍历渲染每个子项
         return data.map((subItem: any, subIndex: number) => {
-          if (subItem.type === 'toolcall') {
+          if (isToolCallContent(subItem)) {
             return (
               <div
                 slot={`reasoning-toolcall-${subIndex}`}

@@ -7,7 +7,7 @@ spline: navigation
 
 ## 阅读指引
 
-ChatEngine 是一个底层对话引擎，提供灵活的 Hook API 用于深度定制。支持自定义 UI 结构、消息处理和 AG-UI 协议，适合构建复杂智能体应用，如工具调用、多步骤任务规划、状态流式传输等场景，相比 Chatbot 组件提供了更高的灵活性，适合需要**深度定制 UI 结构和消息处理流程**的场景。Chatbot组件本身也是基于 ChatEngine 构建的。
+ChatEngine 是一个底层对话引擎（Headless Core），提供灵活的 Hook API 用于深度定制。支持自定义 UI 结构、消息处理和 AG-UI 协议，适合构建复杂智能体应用，如工具调用、多步骤任务规划、状态流式传输等场景，相比 Chatbot 组件提供了更高的灵活性，适合需要**深度定制 UI 结构和消息处理流程**的场景。Chatbot组件本身也是基于 ChatEngine 构建的 (ChatEngine + Preset UI)。
 
 建议按以下路径循序渐进阅读:
 

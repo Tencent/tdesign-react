@@ -19,6 +19,7 @@ import {
   ChatRequestParams,
   AIMessageContent,
   ToolCall,
+  isToolCallContent,
 } from '@tdesign-react/chat';
 import { Steps, Card, Tag } from 'tdesign-react';
 import {
@@ -560,7 +561,7 @@ export default function VideoClipAgentChatWithSubscription() {
       // 只有最后一条消息才需要展示suggestion，其他消息将slot内容置空
       return <div slot={`${type}-${index}`} key={`suggestion-${index}`} className="content-card"></div>;
     }
-    if (item.type === 'toolcall') {
+    if (isToolCallContent(item)) {
       // 使用统一的 ToolCallRenderer 处理所有工具调用
       return (
         <div slot={`${type}-${index}`} key={`toolcall-${index}`} className="content-card">

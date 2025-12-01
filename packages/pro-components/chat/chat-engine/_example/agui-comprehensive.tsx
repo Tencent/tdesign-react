@@ -10,6 +10,7 @@ import {
   useAgentToolcall,
   useChat,
   useAgentState,
+  isToolCallContent,
 } from '@tdesign-react/chat';
 import { CheckCircleFilledIcon, TimeFilledIcon, ErrorCircleFilledIcon, LoadingIcon } from 'tdesign-icons-react';
 import type {
@@ -377,9 +378,9 @@ const TravelPlannerContent: React.FC = () => {
   // 渲染消息内容
   const renderMessageContent = useCallback(
     (item: any, index: number) => {
-      if (item.type === 'toolcall') {
+      if (isToolCallContent(item)) {
         return (
-          <div slot={`toolcall-${index}`} key={`toolcall-${index}`}>
+          <div slot={`${item.type}-${index}`} key={`toolcall-${index}`}>
             <ToolCallRenderer toolCall={item.data} onRespond={handleToolCallRespond} />
           </div>
         );

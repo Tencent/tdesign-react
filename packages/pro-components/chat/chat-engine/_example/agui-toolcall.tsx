@@ -13,6 +13,7 @@ import {
   ToolCallRenderer,
   useChat,
   useAgentToolcall,
+  isToolCallContent,
 } from '@tdesign-react/chat';
 import type {
   TdChatMessageConfig,
@@ -260,7 +261,7 @@ export default function ImageGenAgentChat() {
     if (item.type === 'suggestion' && !isLast) {
       return <div slot={`${item.type}-${index}`} key={`suggestion-${index}`} />;
     }
-    if (item.type === 'toolcall' && item.data) {
+    if (isToolCallContent(item) && item.data) {
       return (
         <div slot={`${item.type}-${index}`} key={`toolcall-${index}`}>
           <ToolCallRenderer toolCall={item.data} onRespond={handleToolCallRespond} />
