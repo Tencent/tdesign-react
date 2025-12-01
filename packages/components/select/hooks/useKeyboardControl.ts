@@ -115,6 +115,11 @@ export default function useKeyboardControl({
         handleKeyboardScroll(newIndex);
         break;
       case 'Enter': {
+        if (!innerPopupVisible) {
+          handlePopupVisibleChange(true, { e });
+          break;
+        }
+
         if (hoverIndex === -1) return;
 
         if (displayOptions[hoverIndex].checkAll) {
