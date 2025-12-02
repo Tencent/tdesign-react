@@ -3,6 +3,9 @@ import useConfig from '../../hooks/useConfig';
 import Pagination, { PageInfo, PaginationProps } from '../../pagination';
 import type { TableRowData, TdBaseTableProps } from '../type';
 
+export const DEFAULT_CURRENT = 1;
+export const DEFAULT_PAGE_SIZE = 10;
+
 // 分页功能包含：远程数据排序受控、远程数据排序非受控、本地数据排序受控、本地数据排序非受控 等 4 类功能
 export default function usePagination(props: TdBaseTableProps, tableContentRef: React.RefObject<HTMLDivElement>) {
   const { pagination, data, disableDataPage } = props;
@@ -15,7 +18,7 @@ export default function usePagination(props: TdBaseTableProps, tableContentRef: 
   const isControlled = pagination?.current !== undefined;
 
   const calculatePaginatedData = useCallback(
-    (current = 1, pageSize = 10) => {
+    (current = DEFAULT_CURRENT, pageSize = DEFAULT_PAGE_SIZE) => {
       // data 数据数量超出分页大小时，则自动启动本地数据分页
       const shouldPaginate = Boolean(!disableDataPage && data.length > pageSize);
       let newData: TableRowData[] = [];
@@ -32,7 +35,7 @@ export default function usePagination(props: TdBaseTableProps, tableContentRef: 
   );
 
   const updateDataSourceAndPaginate = useCallback(
-    (current = 1, pageSize = 10) => {
+    (current = DEFAULT_CURRENT, pageSize = DEFAULT_PAGE_SIZE) => {
       const { newData, shouldPaginate } = calculatePaginatedData(current, pageSize);
       setIsPaginateData(shouldPaginate);
       setDataSource(newData);
@@ -50,7 +53,7 @@ export default function usePagination(props: TdBaseTableProps, tableContentRef: 
   // 受控情况
   useEffect(() => {
     if (!pagination || !isControlled) return;
-    const [current, pageSize] = [pagination?.current || 1, pagination?.pageSize ?? 10];
+    const [current, pageSize] = [pagination?.current || DEFAULT_CURRENT, pagination?.pageSize || DEFAULT_PAGE_SIZE];
     updateDataSourceAndPaginate(current, pageSize);
     setInnerPagination({ current, pageSize });
   }, [pagination, isControlled, updateDataSourceAndPaginate]);
@@ -58,7 +61,10 @@ export default function usePagination(props: TdBaseTableProps, tableContentRef: 
   // 非受控情况
   useEffect(() => {
     if (!pagination || isControlled) return;
-    const [current, pageSize] = [pagination?.defaultCurrent || 1, pagination?.defaultPageSize ?? 10];
+    const [current, pageSize] = [
+      pagination?.defaultCurrent || DEFAULT_CURRENT,
+      pagination?.defaultPageSize || DEFAULT_PAGE_SIZE,
+    ];
     updateDataSourceAndPaginate(current, pageSize);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isControlled, updateDataSourceAndPaginate]);

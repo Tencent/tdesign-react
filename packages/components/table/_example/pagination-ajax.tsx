@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import { Table, Tag } from 'tdesign-react';
-import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 import type { PrimaryTableProps, TableProps } from 'tdesign-react';
 
@@ -81,7 +81,7 @@ export default function TableBasic() {
       const { current, pageSize } = pageInfo;
       // 请求可能存在跨域问题
       const url = new URL('https://randomuser.me/api');
-      const params = { page: current, results: pageSize };
+      const params = { page: current, results: pageSize, seed: 'tdesign' };
       Object.keys(params).forEach((key) => url.searchParams.append(key, params[key]));
       const response = await fetch(url.toString()).then((x) => x.json());
       setData(response.results);

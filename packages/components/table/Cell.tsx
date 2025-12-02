@@ -1,14 +1,16 @@
 import React, { MouseEvent, MutableRefObject, ReactNode } from 'react';
 import classNames from 'classnames';
-import { isFunction, get } from 'lodash-es';
+import { get, isFunction } from 'lodash-es';
+
 import TEllipsis from './Ellipsis';
-import { BaseTableCellParams, RowspanColspan, TableRowData, TdBaseTableProps } from './type';
-import { RowAndColFixedPosition } from './interface';
+import useClassName from './hooks/useClassName';
 import { getColumnFixedStyles } from './hooks/useFixed';
-import { TableClassName } from './hooks/useClassName';
 import { formatClassNames } from './utils';
-import { TooltipProps } from '../tooltip';
-import { PaginationProps } from '../pagination';
+
+import type { PaginationProps } from '../pagination';
+import type { TooltipProps } from '../tooltip';
+import type { RowAndColFixedPosition } from './interface';
+import type { BaseTableCellParams, RowspanColspan, TableRowData, TdBaseTableProps } from './type';
 
 export interface RenderEllipsisCellParams {
   cellNode: ReactNode;
@@ -25,7 +27,6 @@ export interface CellProps {
   dataLength: number;
   cellSpans: RowspanColspan;
   cellEmptyContent: TdBaseTableProps['cellEmptyContent'];
-  tableClassNames: TableClassName;
   tableRef?: MutableRefObject<HTMLDivElement>;
   classPrefix?: string;
   overlayClassName?: string;
@@ -94,11 +95,11 @@ function renderEllipsisCell(cellParams: BaseTableCellParams<TableRowData>, param
 }
 
 const Cell = (props: CellProps) => {
-  const { cellParams, tableClassNames, tableRef, columnLength, classPrefix, overlayClassName, pagination } = props;
+  const { cellParams, tableRef, columnLength, classPrefix, overlayClassName, pagination } = props;
   const { col, colIndex, rowIndex } = cellParams;
   const { cellSpans, dataLength, rowAndColFixedPosition, cellEmptyContent, rowspanAndColspan, onClick } = props;
   const { tableColFixedClasses, tdEllipsisClass, tableBaseClass, tdAlignClasses, tableDraggableClasses } =
-    tableClassNames;
+    useClassName();
 
   const cellNode = renderCell(cellParams, { cellEmptyContent, pagination });
   const tdStyles = getColumnFixedStyles(col, colIndex, rowAndColFixedPosition, tableColFixedClasses);

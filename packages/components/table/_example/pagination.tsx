@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Table, Space, Radio, Tag } from 'tdesign-react';
-import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
+import { Radio, Space, Table, Tag } from 'tdesign-react';
 
 import type { TableProps } from 'tdesign-react';
 
@@ -10,11 +10,11 @@ const statusNameListMap = {
   2: { label: '审批过期', theme: 'warning', icon: <ErrorCircleFilledIcon /> },
 };
 
+const TOTAL = 60;
 const data: TableProps['data'] = [];
-const total = 59;
-for (let i = 0; i < total; i++) {
+for (let i = 0; i < TOTAL; i++) {
   data.push({
-    index: i,
+    index: i + 1,
     applicant: ['贾明', '张三', '王芳'][i % 3],
     status: i % 3,
     channel: ['电子签署', '纸质签署', '纸质签署'][i % 3],
@@ -28,6 +28,12 @@ for (let i = 0; i < total; i++) {
 }
 
 const columns: TableProps['columns'] = [
+  {
+    colKey: 'row-select',
+    type: 'multiple',
+    width: 46,
+    disabled: ({ row }) => row.index % 4 === 0,
+  },
   { colKey: 'serial-number', width: 80, title: '序号' },
   { colKey: 'applicant', title: '申请人', width: '100' },
   {
@@ -51,12 +57,14 @@ const columns: TableProps['columns'] = [
   { colKey: 'channel', title: '签署方式', width: '120' },
   // { colKey: 'detail.email', title: '邮箱地址', ellipsis: true },
   { colKey: 'createTime', title: '申请时间' },
-  { colKey: 'row-select', type: 'multiple', width: 46 },
 ];
 
 export default function TableBasic() {
   const [reserveSelectedRowOnPaginate, setReserveSelectedRowOnPaginate] = useState(true);
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [selectedRowKeys, setSelectedRowKeys] = useState(
+    Array.from({ length: TOTAL }, (_, i) => i + 1).filter((n) => n % 8 === 0),
+  );
+
   // const [current, setCurrent] = useState(2);
   // const [pageSize, setPageSize] = useState(5);
 
@@ -82,7 +90,7 @@ export default function TableBasic() {
         pagination={{
           defaultCurrent: 2,
           defaultPageSize: 5,
-          total,
+          total: TOTAL,
           showJumper: true,
           onChange(pageInfo) {
             console.log(pageInfo, 'onChange pageInfo');
@@ -123,8 +131,8 @@ export default function TableBasic() {
         }}
         selectedRowKeys={selectedRowKeys}
         onSelectChange={(val, context) => {
-          setSelectedRowKeys(val);
-          console.log(val, context);
+          setSelectedRowKeys(val as number[]);
+          console.log('onSelectChange', val, context);
         }}
         reserveSelectedRowOnPaginate={reserveSelectedRowOnPaginate}
       />

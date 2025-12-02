@@ -1,16 +1,20 @@
 // 表格 行拖拽 + 列拖拽功能
 import { MutableRefObject, useEffect, useMemo, useRef, useState } from 'react';
-import Sortable, { SortableEvent, SortableOptions, MoveEvent } from 'sortablejs';
 import { get } from 'lodash-es';
+import Sortable, { MoveEvent, SortableEvent, SortableOptions } from 'sortablejs';
+
+
 import log from '@tdesign/common-js/log/index';
-import swapDragArrayElement from '@tdesign/common-js/utils/swapDragArrayElement';
 import { getColumnDataByKey, getColumnIndexByKey } from '@tdesign/common-js/table/utils';
-import { PaginationProps } from '../../pagination';
-import { TableRowData, TdPrimaryTableProps, DragSortContext } from '../type';
-import useClassName from './useClassName';
+import swapDragArrayElement from '@tdesign/common-js/utils/swapDragArrayElement';
 import { hasClass } from '../../_util/style';
 import useLatest from '../../hooks/useLatest';
-import { BaseTableColumns } from '../interface';
+import useClassName from './useClassName';
+import { DEFAULT_CURRENT, DEFAULT_PAGE_SIZE } from './usePagination';
+
+import type { PaginationProps } from '../../pagination';
+import type { BaseTableColumns } from '../interface';
+import type { DragSortContext, TableRowData, TdPrimaryTableProps } from '../type';
 
 export default function useDragSort(
   props: TdPrimaryTableProps,
@@ -68,8 +72,8 @@ export default function useDragSort(
 
   // 本地分页的表格，index 不同，需加上分页计数
   function getDataPageIndex(index: number, pagination: PaginationProps) {
-    const current = pagination.current ?? pagination.defaultCurrent;
-    const pageSize = pagination.pageSize ?? pagination.defaultPageSize;
+    const current = pagination.current || pagination.defaultCurrent || DEFAULT_CURRENT;
+    const pageSize = pagination.pageSize || pagination.defaultPageSize || DEFAULT_PAGE_SIZE;
     // 开启本地分页的场景
     if (!props.disableDataPage && pagination && data.length > pageSize) {
       return pageSize * (current - 1) + index;
