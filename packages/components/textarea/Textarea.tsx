@@ -65,7 +65,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
 
   const { classPrefix } = useConfig();
 
-  const textareaPropsNames = Object.keys(otherProps).filter((key) => !/^on[A-Z]/.test(key));
+  const textareaPropsNames = Object.keys(otherProps).filter((key) => !/^on[A-Z]/.test(key) && key !== 'defaultValue');
   const textareaProps = textareaPropsNames.reduce(
     (textareaProps, key) => Object.assign(textareaProps, { [key]: props[key] }),
     {},
