@@ -18,9 +18,30 @@ spline: navigation
 
 
 ### 自定义
-通过植入具名插槽来实现输入框的自定义，内置支持的扩展位置包括：
+支持通过 **Props** 或 **插槽(slot)** 两种方式来实现输入框的自定义，内置支持的扩展位置包括：
 
-输入框上方区域`header`，输入框内头部区域`inner-header`，可输入区域前置部分`input-prefix`，输入框底部左侧区域`footer-prefix`，输入框底部操作区域`actions`
+- `header` - 输入框上方区域
+- `innerHeader` - 输入框内头部区域
+- `inputPrefix` - 可输入区域前置部分
+- `footerPrefix` - 输入框底部左侧区域
+- `actions` - 输入框底部操作区域
+
+**Props 写法**：直接将 React 元素作为 props 传递
+```tsx
+<ChatSender
+  innerHeader={<div>引用内容</div>}
+  footerPrefix={<Space><Button>附件</Button></Space>}
+  actions={<Button>发送</Button>}
+/>
+```
+
+**插槽写法**：通过 `slot` 属性指定插入位置，兼容 Web Components 原生写法
+```tsx
+<ChatSender>
+  <div slot="inner-header">引用内容</div>
+  <div slot="footer-prefix">...</div>
+</ChatSender>
+```
 
 同时示例中演示了通过`CSS变量覆盖`实现样式定制
 

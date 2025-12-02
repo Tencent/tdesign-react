@@ -190,9 +190,8 @@ export default function chatSample() {
         onChatReady={() => {
           setReady(true);
         }}
-      >
-        {/* 自定义输入框底部区域slot，可以增加模型选项 */}
-        <div slot="sender-footer-prefix">
+        senderFooterPrefix={
+          /* 自定义输入框底部区域slot，可以增加模型选项 */
           <Space align="center" size={'small'}>
             <Select
               defaultValue={'default'}
@@ -226,8 +225,8 @@ export default function chatSample() {
               深度思考
             </Button>
           </Space>
-        </div>
-      </ChatBot>
+        }
+      />
     </div>
   );
 }

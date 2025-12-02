@@ -120,10 +120,9 @@ const ChatSenderExample = () => {
       attachmentsProps={{
         items: files,
       }}
-    >
-      {/* 自定义输入框上方区域，可用来引用内容或提示场景 */}
-      {showRef && (
-        <div slot="inner-header">
+      innerHeader={
+        /* 自定义输入框上方区域，可用来引用内容或提示场景 */
+        showRef && (
           <Space
             style={{
               width: '100%',
@@ -143,10 +142,18 @@ const ChatSenderExample = () => {
               <CloseIcon size="14px" style={{ color: 'rgba(0, 0, 0, 0.26)' }} />
             </div>
           </Space>
-        </div>
-      )}
-      {/* 自定义输入框底部区域slot，可以增加模型选项 */}
-      <div slot="footer-prefix">
+        )
+      }
+      inputPrefix={
+        /* 自定义输入框左侧区域，可以用来触发工具场景切换 */
+        <Dropdown options={options} onClick={switchScene} trigger="click" style={{ padding: 0 }}>
+          <Tag shape="round" variant="light" color="#0052D9" style={{ marginRight: 4, cursor: 'pointer' }}>
+            {options.filter((item) => item.value === scene)[0].content}
+          </Tag>
+        </Dropdown>
+      }
+      footerPrefix={
+        /* 自定义输入框底部区域，可以增加模型选项 */
         <Space align="center" size={'small'}>
           <Tooltip content="只支持上传图片，总大小不超过20M">
             <Button shape="round" variant="outline" size="small" icon={<AttachIcon />} onClick={onAttachClick} />
@@ -171,30 +178,22 @@ const ChatSenderExample = () => {
             联网查询
           </Button>
         </Space>
-      </div>
-      {/* 自定义输入框左侧区域slot，可以用来触发工具场景切换 */}
-      <div slot="input-prefix">
-        <Dropdown options={options} onClick={switchScene} trigger="click" style={{ padding: 0 }}>
-          <Tag shape="round" variant="light" color="#0052D9" style={{ marginRight: 4, cursor: 'pointer' }}>
-            {options.filter((item) => item.value === scene)[0].content}
-          </Tag>
-        </Dropdown>
-      </div>
-      {/* 自定义提交区域slot */}
-      <div slot="actions">
-        {!loading ? (
+      }
+      actions={
+        /* 自定义提交区域 */
+        !loading ? (
           <Button
             shape="circle"
             disabled={inputValue === ''}
             icon={<ArrowUpIcon size={24} />}
             onClick={handleSend}
             style={{ opacity: inputValue ? '1' : '0.5' }}
-          ></Button>
+          />
         ) : (
-          <Button shape="circle" icon={<StopIcon size={32} />} onClick={handleStop}></Button>
-        )}
-      </div>
-    </ChatSender>
+          <Button shape="circle" icon={<StopIcon size={32} />} onClick={handleStop} />
+        )
+      }
+    />
   );
 };
 
