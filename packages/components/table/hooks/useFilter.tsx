@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { getColumnsResetValue } from '@tdesign/common-js/table/utils';
 import { isFunction } from 'lodash-es';
+import { getColumnsResetValue } from '@tdesign/common-js/table/utils';
 import TButton from '../../button';
 import useControlled from '../../hooks/useControlled';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import TableFilterController from '../FilterController';
+import useClassName from './useClassName';
 import type { PrimaryTableRef } from '../interface';
 import type {
   FilterValue,
@@ -13,7 +14,6 @@ import type {
   TableRowData,
   TdPrimaryTableProps,
 } from '../type';
-import useClassName from './useClassName';
 
 function isFilterValueExist(value: any) {
   const isArrayTrue = value instanceof Array && value.length;
@@ -48,6 +48,7 @@ export default function useFilter(
 
   // 过滤内部值
   const [innerFilterValue, setInnerFilterValue] = useState<FilterValue>(tFilterValue);
+  const [popupVisibilities, setPopupVisibilities] = useState<Record<string, boolean>>({});
 
   const hasEmptyCondition = (() => {
     const filterEmpty = filterEmptyData(tFilterValue || {});
@@ -156,6 +157,16 @@ export default function useFilter(
     emitFilterChange(innerFilterValue, 'confirm', column);
   }
 
+  function onPopupVisibleChange(visible: boolean, colKey: string) {
+    setPopupVisibilities((prev) => ({
+      ...prev,
+      [colKey]: visible,
+    }));
+    if (visible && !isTableOverflowHidden) {
+      setIsTableOverflowHidden(visible);
+    }
+  }
+
   // 图标：内置图标，组件自定义图标，全局配置图标
   function renderFilterIcon({ col, colIndex }: { col: PrimaryTableCol<TableRowData>; colIndex: number }) {
     return (
@@ -173,15 +184,10 @@ export default function useFilter(
         onConfirm={onConfirm}
         onInnerFilterChange={onInnerFilterChange}
         primaryTableElement={primaryTableRef?.current?.tableElement}
+        visible={popupVisibilities[col.colKey]}
         onVisibleChange={onPopupVisibleChange}
       ></TableFilterController>
     );
-  }
-
-  function onPopupVisibleChange(visible: boolean) {
-    if (visible && !isTableOverflowHidden) {
-      setIsTableOverflowHidden(!visible);
-    }
   }
 
   return {
