@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, vi, act } from '@test/utils';
+import { render, fireEvent, vi, act, mockTimeout } from '@test/utils';
 import userEvent from '@testing-library/user-event';
 import Input from '../Input';
 
@@ -47,6 +47,7 @@ describe('Input 组件测试', () => {
     fireEvent.mouseUp(clearIcon);
     fireEvent.click(clearIcon);
     expect(blurFn).toBeCalledTimes(0);
+    await mockTimeout(() => true);
     fireEvent.blur(InputDom);
     expect(blurFn).toBeCalledTimes(1);
   });
