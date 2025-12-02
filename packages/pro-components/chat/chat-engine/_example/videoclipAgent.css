@@ -1,0 +1,194 @@
+.videoclip-agent-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.chat-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.content-card {
+  margin: 8px 0;
+  width: 100%;
+}
+
+.videoclip-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e7e7e7;
+  background-color: #f9f9f9;
+}
+
+.videoclip-transfer-view {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+/* 状态内容布局 */
+.state-content {
+  display: flex;
+  gap: 24px;
+}
+
+.main-steps {
+  flex: 0 0 200px;
+  border-right: 1px solid #eaeaea;
+  padding-right: 16px;
+}
+
+.step-detail {
+  flex: 1;
+  padding-left: 8px;
+}
+
+/* 步骤样式 */
+.steps-vertical {
+  height: 100%;
+}
+
+.step-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.step-arrow {
+  color: #0052d9;
+  font-size: 14px;
+}
+
+.main-content {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  margin-bottom: 16px;
+  padding: 8px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+/* 子步骤样式 */
+.sub-steps-container {
+  margin-top: 16px;
+}
+
+.sub-steps-title {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.sub-step-card {
+  margin-bottom: 12px;
+}
+
+.sub-step-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sub-step-content {
+  padding: 8px 0;
+}
+
+.sub-step-content pre {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  margin-bottom: 8px;
+}
+
+.item-actions {
+  display: flex;
+  margin-top: 8px;
+  gap: 16px;
+}
+
+.action-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #0052d9;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.action-link:hover {
+  text-decoration: underline;
+}
+
+/* 状态图标样式 */
+.status-icon {
+  font-size: 16px;
+}
+
+.status-icon.pending {
+  color: #999;
+}
+
+.status-icon.running {
+  color: #0052d9;
+}
+
+.status-icon.success {
+  color: #00a870;
+}
+
+.status-icon.failed {
+  color: #e34d59;
+}
+
+/* 消息头部样式 */
+.message-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-loading {
+  color: #0052d9;
+  animation: spin 1s linear infinite;
+}
+
+.header-content {
+  font-weight: 500;
+  color: #333;
+}
+
+.header-time {
+  margin-left: auto;
+  font-size: 13px;
+  color: #999;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 工具调用样式 */
+.videoclip-toolcall {
+  padding: 12px;
+  border: 1px solid #eaeaea;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.videoclip-toolcall.error {
+  border-color: #ffccc7;
+  background-color: #fff2f0;
+  color: #e34d59;
+}

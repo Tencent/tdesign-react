@@ -23,8 +23,8 @@ jobs:
 
       - run: pnpm install
 
-      - run: pnpm run build
+      - run: pnpm exec run-p build build:aigc
 
       - run: node ./script/workflows/pkg-pr-new-generate-template.mjs
 
-      - run: pnpm dlx pkg-pr-new publish './packages/tdesign-react' --compact --template ./tdesign-react-demo
+      - run: pnpm dlx pkg-pr-new publish './packages/tdesign-react' './packages/tdesign-react-aigc' --template ./tdesign-react-demo
