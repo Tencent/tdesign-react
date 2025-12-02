@@ -122,7 +122,6 @@ const Input = forwardRefWithStatics(
     // inputPreRef 用于预存输入框宽度，应用在 auto width 模式中
     const inputPreRef: React.RefObject<HTMLInputElement> = useRef(null);
     const wrapperRef: React.RefObject<HTMLDivElement> = useRef(null);
-    const isClickingIconRef = useRef(false);
 
     const [isHover, toggleIsHover] = useState(false);
     const [isFocused, toggleIsFocused] = useState(false);
@@ -139,14 +138,15 @@ const Input = forwardRefWithStatics(
     const prefixIconContent = renderIcon(classPrefix, 'prefix', parseTNode(prefixIcon));
     let suffixIconNew = suffixIcon;
 
-    if (isShowClearIcon)
+    if (isShowClearIcon) {
       suffixIconNew = (
         <CloseCircleFilledIcon
           className={`${classPrefix}-input__suffix-clear`}
-          onMouseDown={handleMouseDown}
+          onMouseDown={handleIconMouseDown}
           onClick={handleClear}
         />
       );
+    }
     if (type === 'password' && typeof suffixIcon === 'undefined') {
       const PASSWORD_ICON_MAP = {
         password: BrowseOffIcon,
@@ -155,11 +155,7 @@ const Input = forwardRefWithStatics(
       const PasswordIcon = PASSWORD_ICON_MAP[renderType];
       if (PasswordIcon) {
         suffixIconNew = (
-          <PasswordIcon
-            className={`${classPrefix}-input__suffix-clear`}
-            onMouseDown={handleMouseDown}
-            onClick={togglePasswordVisible}
-          />
+          <PasswordIcon className={`${classPrefix}-input__suffix-clear`} onClick={togglePasswordVisible} />
         );
       }
     }
@@ -273,6 +269,7 @@ const Input = forwardRefWithStatics(
         })}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onMouseDown={handleMouseDown}
         onWheel={(e) => onWheel?.({ e })}
         onClick={(e) => {
           inputRef.current?.focus();
@@ -308,7 +305,6 @@ const Input = forwardRefWithStatics(
 
       requestAnimationFrame(() => {
         inputEl?.setSelectionRange(cursorPosition, cursorPosition);
-        isClickingIconRef.current = false;
       });
     }
 
@@ -328,20 +324,20 @@ const Input = forwardRefWithStatics(
         onChange(newStr, { e, trigger });
       }
     }
-    // 添加MouseDown阻止冒泡，防止點擊Clear value會導致彈窗閃爍一下
-    // https://github.com/Tencent/tdesign-react/issues/2320
-    function handleMouseDown(e: React.MouseEvent<SVGSVGElement, globalThis.MouseEvent>) {
+    function handleIconMouseDown(e: React.MouseEvent<SVGSVGElement>) {
+      e.preventDefault();
+      // 阻止冒泡，防止点击 icon 会导致弹窗闪烁一下
+      // https://github.com/Tencent/tdesign-react/issues/2320
       e.stopPropagation();
-      // 兼容React16
+      // 兼容 React 16
       e.nativeEvent.stopImmediatePropagation();
-      isClickingIconRef.current = true;
+    }
+    function handleMouseDown(e: React.MouseEvent<HTMLDivElement>) {
+      e.preventDefault(); // 防止焦点转移
     }
     function handleClear(e: React.MouseEvent<SVGSVGElement>) {
       onChange?.('', { e, trigger: 'clear' });
       onClear?.({ e });
-      requestAnimationFrame(() => {
-        isClickingIconRef.current = false;
-      });
     }
     function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
       const {
@@ -382,7 +378,6 @@ const Input = forwardRefWithStatics(
     }
 
     function handleFocus(e: React.FocusEvent<HTMLInputElement>) {
-      if (isClickingIconRef.current) return;
       const {
         currentTarget: { value },
       } = e;
@@ -392,7 +387,6 @@ const Input = forwardRefWithStatics(
     }
 
     function handleBlur(e: React.FocusEvent<HTMLInputElement>) {
-      if (isClickingIconRef.current) return;
       const {
         currentTarget: { value },
       } = e;
