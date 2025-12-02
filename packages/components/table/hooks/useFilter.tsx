@@ -16,10 +16,13 @@ import type {
 import useClassName from './useClassName';
 
 function isFilterValueExist(value: any) {
-  const isArrayTrue = value instanceof Array && value.length;
-  const isObject = typeof value === 'object' && !(value instanceof Array);
-  const isObjectTrue = isObject && Object.keys(value || {}).length;
-  return isArrayTrue || isObjectTrue || ![null, '', undefined].includes(value);
+  if (Array.isArray(value)) return value.length > 0;
+  if (typeof value === 'object' && value !== null) {
+    // 处理 Map/Set 等
+    if (value instanceof Map || value instanceof Set) return value.size > 0;
+    return Object.keys(value).length > 0;
+  }
+  return value !== null && value !== '' && value !== undefined;
 }
 
 // 筛选条件不为空，才需要显示筛选结果行
