@@ -22,6 +22,8 @@ type MouseEventOptions = {
   onUp?: (e: MouseCallback, ctx: MouseContext) => void;
   onEnter?: (e: MouseCallback, ctx: MouseContext) => void;
   onLeave?: (e: MouseCallback, ctx: MouseContext) => void;
+
+  alwaysEmitOnMove?: boolean
 };
 
 const useMouseEvent = (elementRef: React.RefObject<HTMLElement>, options: MouseEventOptions) => {
@@ -66,7 +68,7 @@ const useMouseEvent = (elementRef: React.RefObject<HTMLElement>, options: MouseE
   };
 
   const handleMouseMove = (e: MouseEventLike) => {
-    if (!isMovingRef.current) return;
+    if (!isMovingRef.current && !options.alwaysEmitOnMove) return;
     e.preventDefault();
     emitMouseChange(e, options.onMove);
   };
