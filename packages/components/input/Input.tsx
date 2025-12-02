@@ -1,24 +1,26 @@
-import React, { useState, useRef, useImperativeHandle, useEffect } from 'react';
-import classNames from 'classnames';
+import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import {
   BrowseIcon as TdBrowseIcon,
   BrowseOffIcon as TdBrowseOffIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
 } from 'tdesign-icons-react';
+import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
-import useLayoutEffect from '../hooks/useLayoutEffect';
+
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
+import parseTNode from '../_util/parseTNode';
 import useConfig from '../hooks/useConfig';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import { TdInputProps } from './type';
-import { StyledProps, TNode, TElement } from '../common';
-import InputGroup from './InputGroup';
 import useControlled from '../hooks/useControlled';
+import useDefaultProps from '../hooks/useDefaultProps';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import useLayoutEffect from '../hooks/useLayoutEffect';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { inputDefaultProps } from './defaultProps';
-import parseTNode from '../_util/parseTNode';
+import InputGroup from './InputGroup';
 import useLengthLimit from './useLengthLimit';
-import useDefaultProps from '../hooks/useDefaultProps';
+
+import type { StyledProps, TElement, TNode } from '../common';
+import type { TdInputProps } from './type';
 
 export interface InputProps extends TdInputProps, StyledProps {
   showInput?: boolean; // 控制透传readonly同时是否展示input 默认保留 因为正常Input需要撑开宽度
@@ -114,15 +116,17 @@ const Input = forwardRefWithStatics(
     });
 
     const { classPrefix, input: inputConfig } = useConfig();
+
     const composingRef = useRef(false);
     const inputRef: React.RefObject<HTMLInputElement> = useRef(null);
     // inputPreRef 用于预存输入框宽度，应用在 auto width 模式中
     const inputPreRef: React.RefObject<HTMLInputElement> = useRef(null);
     const wrapperRef: React.RefObject<HTMLDivElement> = useRef(null);
+    const isClickingIconRef = useRef(false);
+
     const [isHover, toggleIsHover] = useState(false);
     const [isFocused, toggleIsFocused] = useState(false);
     const [renderType, setRenderType] = useState(type);
-
     const [composingValue, setComposingValue] = useState<string>('');
 
     // 组件内部 input 原生控件是否处于 readonly 状态，当整个组件 readonly 时，或者处于不可输入时
@@ -144,12 +148,19 @@ const Input = forwardRefWithStatics(
         />
       );
     if (type === 'password' && typeof suffixIcon === 'undefined') {
-      if (renderType === 'password') {
+      const PASSWORD_ICON_MAP = {
+        password: BrowseOffIcon,
+        text: BrowseIcon,
+      };
+      const PasswordIcon = PASSWORD_ICON_MAP[renderType];
+      if (PasswordIcon) {
         suffixIconNew = (
-          <BrowseOffIcon className={`${classPrefix}-input__suffix-clear`} onClick={togglePasswordVisible} />
+          <PasswordIcon
+            className={`${classPrefix}-input__suffix-clear`}
+            onMouseDown={handleMouseDown}
+            onClick={togglePasswordVisible}
+          />
         );
-      } else if (renderType === 'text') {
-        suffixIconNew = <BrowseIcon className={`${classPrefix}-input__suffix-clear`} onClick={togglePasswordVisible} />;
       }
     }
 
@@ -297,6 +308,7 @@ const Input = forwardRefWithStatics(
 
       requestAnimationFrame(() => {
         inputEl?.setSelectionRange(cursorPosition, cursorPosition);
+        isClickingIconRef.current = false;
       });
     }
 
@@ -322,10 +334,15 @@ const Input = forwardRefWithStatics(
       e.stopPropagation();
       // 兼容React16
       e.nativeEvent.stopImmediatePropagation();
+      isClickingIconRef.current = true;
     }
     function handleClear(e: React.MouseEvent<SVGSVGElement>) {
+      isClickingIconRef.current = true;
       onChange?.('', { e, trigger: 'clear' });
       onClear?.({ e });
+      requestAnimationFrame(() => {
+        isClickingIconRef.current = false;
+      });
     }
     function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
       const {
@@ -366,6 +383,7 @@ const Input = forwardRefWithStatics(
     }
 
     function handleFocus(e: React.FocusEvent<HTMLInputElement>) {
+      if (isClickingIconRef.current) return;
       const {
         currentTarget: { value },
       } = e;
@@ -375,6 +393,7 @@ const Input = forwardRefWithStatics(
     }
 
     function handleBlur(e: React.FocusEvent<HTMLInputElement>) {
+      if (isClickingIconRef.current) return;
       const {
         currentTarget: { value },
       } = e;
