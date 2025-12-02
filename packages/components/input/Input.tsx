@@ -337,7 +337,6 @@ const Input = forwardRefWithStatics(
       isClickingIconRef.current = true;
     }
     function handleClear(e: React.MouseEvent<SVGSVGElement>) {
-      isClickingIconRef.current = true;
       onChange?.('', { e, trigger: 'clear' });
       onClear?.({ e });
       requestAnimationFrame(() => {
