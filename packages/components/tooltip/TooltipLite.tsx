@@ -130,6 +130,6 @@ const TooltipLite: React.FC<TooltipLiteProps> = (originalProps) => {
   );
 };
 
-TooltipLite.displayName = 'Tooltiplite';
+TooltipLite.displayName = 'TooltipLite';
 
 export default React.memo(TooltipLite);

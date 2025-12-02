@@ -22,7 +22,7 @@ import useGlobalIcon from '../hooks/useGlobalIcon';
 import Checkbox from '../checkbox';
 import { useTreeConfig } from './hooks/useTreeConfig';
 import useDraggable from './hooks/useDraggable';
-import composeRefs from '../_util/composeRefs';
+import { composeRefs } from '../_util/ref';
 import useConfig from '../hooks/useConfig';
 
 import type { CheckboxProps } from '../checkbox'
