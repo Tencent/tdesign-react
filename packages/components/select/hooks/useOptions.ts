@@ -7,9 +7,15 @@ import { getKeyMapping, getValueToOption, type ValueToOption } from '../util/hel
 
 import type { SelectKeysType, SelectOption, SelectOptionGroup, SelectValue, TdOptionProps } from '../type';
 
+type OptionValueType = SelectValue<SelectOption>;
+
 // 针对分组的相关判断和扁平处理
 export function isSelectOptionGroup(option: SelectOption): option is SelectOptionGroup {
   return !!option && 'group' in option && 'children' in option;
+}
+
+export function isValueSelected(v: SelectValue, key: string, valueType: string, valueKey: string) {
+  return valueType === 'value' ? String(v) === String(key) : get(v, valueKey) === key;
 }
 
 export const flattenOptions = (options: SelectOption[] = []) => {
@@ -25,8 +31,6 @@ export const flattenOptions = (options: SelectOption[] = []) => {
   });
   return flattened;
 };
-
-type OptionValueType = SelectValue<SelectOption>;
 
 // 处理 options 的逻辑
 function useOptions(
@@ -48,6 +52,7 @@ function useOptions(
   useEffect(() => {
     setFlattenedOptions(flattenOptions(currentOptions));
   }, [currentOptions]);
+
   // 处理设置 option 的逻辑
   useEffect(() => {
     let transformedOptions = options;
@@ -76,6 +81,7 @@ function useOptions(
       };
       transformedOptions = arrayChildren?.map<SelectOption>((v) => handlerOptionElement(v));
     }
+
     if (keys) {
       // 如果有定制 keys 先做转换
       transformedOptions = transformedOptions?.map<SelectOption>((option) => ({
@@ -84,10 +90,28 @@ function useOptions(
         label: get(option, labelKey),
       }));
     }
+
     setCurrentOptions(transformedOptions);
     setTmpPropOptions(transformedOptions);
 
-    setValueToOption(getValueToOption(children as ReactElement, options as TdOptionProps[], keys) || {});
+    setValueToOption((prevValueToOption) => {
+      const newValueToOption = getValueToOption(children as ReactElement, options as TdOptionProps[], keys) || {};
+      const mergedValueToOption = { ...newValueToOption };
+
+      // 保持之前选中的 option 在映射中，避免远程搜索时，状态丢失
+      Object.keys(prevValueToOption).forEach((key) => {
+        if (mergedValueToOption[key]) return;
+        const isSelected = Array.isArray(value)
+          ? value.some((v) => isValueSelected(v, key, valueType, valueKey))
+          : isValueSelected(value, key, valueType, valueKey);
+
+        if (isSelected) {
+          mergedValueToOption[key] = prevValueToOption[key];
+        }
+      });
+
+      return mergedValueToOption;
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options, keys, children, reserveKeyword]);
 
