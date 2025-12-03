@@ -228,6 +228,19 @@ export default class Truncate extends React.Component<TruncateProps, TruncateSta
 
   trimRight = (text: string) => text.replace(/\s+$/, '');
 
+  breakAtWordBoundary = (text: string) => {
+    // Try to break at word boundary to avoid splitting words
+    // Look backwards for a space or punctuation
+    const wordBoundaryMatch = text.match(/^(.*[\s\-,;.!?])/);
+    if (wordBoundaryMatch) {
+      const [, boundaryText] = wordBoundaryMatch;
+      if (boundaryText.trim().length > 0) {
+        return boundaryText;
+      }
+    }
+    return text;
+  };
+
   createMarkup = (str: string) => (
     <span className={this.props.lineClassName} dangerouslySetInnerHTML={{ __html: str }} />
   );
@@ -296,6 +309,7 @@ export default class Truncate extends React.Component<TruncateProps, TruncateSta
         }
 
         let lastLineText = textRest.slice(0, lower);
+        lastLineText = this.breakAtWordBoundary(lastLineText);
 
         if (trimWhitespace) {
           lastLineText = trimRight(lastLineText);
@@ -345,9 +359,15 @@ export default class Truncate extends React.Component<TruncateProps, TruncateSta
           continue;
         }
 
-        resultLine = textWords.slice(0, lower).join('');
+        let resultLineText = textWords.slice(0, lower).join('');
 
-        resultLine = restoreReplacedLinks(resultLine);
+        const boundaryText = this.breakAtWordBoundary(resultLineText);
+        if (boundaryText !== resultLineText) {
+          resultLineText = boundaryText;
+          lower = boundaryText.length;
+        }
+
+        resultLine = restoreReplacedLinks(resultLineText);
 
         textLines[0].splice(0, lower);
       }
