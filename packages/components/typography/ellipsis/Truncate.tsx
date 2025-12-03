@@ -230,7 +230,7 @@ export default class Truncate extends React.Component<TruncateProps, TruncateSta
 
   breakAtWordBoundary = (text: string) => {
     // Try to break at word boundary to avoid splitting words
-    // Look backwards for a space or punctuation
+    // Find the last word boundary (space or punctuation) to break at
     const wordBoundaryMatch = text.match(/^(.*[\s\-,;.!?])/);
     if (wordBoundaryMatch) {
       const [, boundaryText] = wordBoundaryMatch;
