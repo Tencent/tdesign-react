@@ -1,20 +1,41 @@
-import React from 'react';
-import { Switch, Space } from 'tdesign-react';
+import React, { useState } from 'react';
 import { Icon } from 'tdesign-icons-react';
+import { Space, Switch } from 'tdesign-react';
+
+type Status = 'on' | 'off';
 
 export default function SwitchBasic() {
-  const renderActiveContent = () => <Icon name="check" />;
-  const renderInactiveContent = () => <Icon name="close" />;
+  const [status, setStatus] = useState<Status>('on');
+  const [enabled, setEnabled] = useState(true);
+
+  const handleStatusChange = (value: Status) => {
+    console.log('Status:', value);
+    setStatus(value);
+  };
+
+  const handleEnableChange = (value: boolean) => {
+    console.log('Enabled:', value);
+    setEnabled(value);
+  };
+
+  const renderActiveIcon = () => <Icon name="check" />;
+  const renderInactiveIcon = () => <Icon name="close" />;
+
   return (
-    <Space direction="vertical">
-      <Space>
-        <Switch size="large" label={['开', '关']} />
-        <Switch size="large" defaultValue label={['开', '关']} />
-      </Space>
-      <Space>
-        <Switch size="large" label={[renderActiveContent(), renderInactiveContent()]} />
-        <Switch size="large" defaultValue label={[renderActiveContent(), renderInactiveContent()]} />
-      </Space>
+    <Space>
+      <Switch<Status>
+        size="large"
+        value={status}
+        customValue={['on', 'off']}
+        label={['ON', 'OFF']}
+        onChange={handleStatusChange}
+      />
+      <Switch<boolean>
+        size="large"
+        value={enabled}
+        label={[renderActiveIcon(), renderInactiveIcon()]}
+        onChange={handleEnableChange}
+      />
     </Space>
   );
 }

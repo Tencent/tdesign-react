@@ -1,5 +1,6 @@
-import React, { ReactElement, ReactNode, useEffect, useState } from 'react';
+import React, { ReactElement, ReactNode, useEffect, useMemo, useState } from 'react';
 import { get } from 'lodash-es';
+
 import Option from '../base/Option';
 import OptionGroup from '../base/OptionGroup';
 import { getKeyMapping, getValueToOption, type ValueToOption } from '../util/helper';
@@ -8,6 +9,7 @@ import type { SelectKeysType, SelectOption, SelectOptionGroup, SelectValue, TdOp
 
 type OptionValueType = SelectValue<SelectOption>;
 
+// 针对分组的相关判断和扁平处理
 export function isSelectOptionGroup(option: SelectOption): option is SelectOptionGroup {
   return !!option && 'group' in option && 'children' in option;
 }
@@ -16,6 +18,21 @@ export function isValueSelected(v: SelectValue, key: string, valueType: string, 
   return valueType === 'value' ? String(v) === String(key) : get(v, valueKey) === key;
 }
 
+export const flattenOptions = (options: SelectOption[] = []) => {
+  const flattened = [];
+  options.forEach((option) => {
+    if (isSelectOptionGroup(option)) {
+      if (option.children) {
+        flattened.push(...option.children);
+      }
+    } else {
+      flattened.push(option);
+    }
+  });
+  return flattened;
+};
+
+// 处理 options 的逻辑
 function useOptions(
   keys: SelectKeysType,
   options: SelectOption[],
@@ -26,8 +43,15 @@ function useOptions(
 ) {
   const [valueToOption, setValueToOption] = useState<ValueToOption>({});
   const [currentOptions, setCurrentOptions] = useState<SelectOption[]>([]);
+  const [flattenedOptions, setFlattenedOptions] = useState<SelectOption[]>([]);
   const [tmpPropOptions, setTmpPropOptions] = useState<SelectOption[]>([]);
   const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>([]);
+
+  const { valueKey, labelKey } = useMemo(() => getKeyMapping(keys), [keys]);
+
+  useEffect(() => {
+    setFlattenedOptions(flattenOptions(currentOptions));
+  }, [currentOptions]);
 
   // 处理设置 option 的逻辑
   useEffect(() => {
@@ -57,8 +81,8 @@ function useOptions(
       };
       transformedOptions = arrayChildren?.map<SelectOption>((v) => handlerOptionElement(v));
     }
+
     if (keys) {
-      const { valueKey, labelKey } = getKeyMapping(keys);
       // 如果有定制 keys 先做转换
       transformedOptions = transformedOptions?.map<SelectOption>((option) => ({
         ...option,
@@ -66,12 +90,12 @@ function useOptions(
         label: get(option, labelKey),
       }));
     }
+
     setCurrentOptions(transformedOptions);
     setTmpPropOptions(transformedOptions);
 
     setValueToOption((prevValueToOption) => {
       const newValueToOption = getValueToOption(children as ReactElement, options as TdOptionProps[], keys) || {};
-      const { valueKey } = getKeyMapping(keys);
       const mergedValueToOption = { ...newValueToOption };
 
       // 保持之前选中的 option 在映射中，避免远程搜索时，状态丢失
@@ -93,8 +117,6 @@ function useOptions(
 
   // 同步 value 对应的 options
   useEffect(() => {
-    const { valueKey, labelKey } = getKeyMapping(keys);
-
     setSelectedOptions((oldSelectedOptions: SelectOption[]) => {
       const createOptionFromValue = (item: OptionValueType) => {
         if (valueType === 'value') {
@@ -125,7 +147,7 @@ function useOptions(
 
       return [];
     });
-  }, [value, keys, valueType, valueToOption, setSelectedOptions]);
+  }, [value, keys, valueType, valueToOption, valueKey, labelKey, setSelectedOptions]);
 
   return {
     currentOptions,
@@ -136,6 +158,7 @@ function useOptions(
     setValueToOption,
     selectedOptions,
     setSelectedOptions,
+    flattenedOptions,
   };
 }
 
