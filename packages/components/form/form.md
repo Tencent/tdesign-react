@@ -30,7 +30,6 @@
 
 创建 Form 实例，用于管理所有数据状态。
 
-
 ### Form.useWatch
 
 用于直接获取 form 中字段对应的值。
@@ -52,34 +51,64 @@ const Demo = () => {
 
 ## FAQ
 
-### 为什么被 FormItem 包裹的组件 value、defaultValue 没有效果？
+### 为什么被 FormItem 包裹的组件 `value`、`defaultValue` 没有效果？
 
-Form 组件设计的初衷是为了解放开发者配置大量的 `value`、`onChange` 受控属性，所以 Form.FormItem 被设计成需要拦截嵌套组件的受控属性，如需定义初始值请使用 `initialData` 属性。
+Form 的设计初衷是自动托管表单字段的 `value` 和 `onChange`，FormItem 会向包裹的第一个组件注入状态，即内部组件自身的 `defaultValue`、`value` 将被拦截，不会生效。如果需要设置初始值，应该使用 FormItem 的 `initialData`。
 
-由于 Form.FormItem 只会拦截第一层子节点的受控属性，所以如不希望 Form.FormItem 拦截受控属性希望自行管理 state 的话，可以在 Form.FormItem 下包裹一层 `div` 节点脱离 Form.FormItem 的代理，但同时也会失去 Form 组件的校验能力。
+```js
+<FormItem name="ui" label="组件库" initialData="TDesign">
+  <Input />
+</FormItem>
+```
+
+如果第一层组件不支持 `value` 属性，会导致 Form 无法接管组件的行为：
+
+```js
+// ❌ div 的 value 无意义，Form 部分 API 失效
+<FormItem name="ui" label="组件库" >
+  <div style={{ border: '1px dotted blue', padding: 5 }}>
+    <Input />
+  </div>
+</FormItem>
+```
+
+如果想要自定义排版样式，可以考虑下面的写法：
+
+```js
+// ✅ value 自动会传递给 input，Form 相关 API 正常
+const CustomInput = (props) => (
+  <div style={{ border: '1px dotted blue', padding: 5 }}>
+    <Input {...props} />
+  </div>
+);
+
+<FormItem name="ui" label="组件库" initialData="TDesign">
+  <CustomInput />
+</FormItem>
+```
 
 ### 我只想要 Form 组件的布局效果，校验能力我自己业务来实现可以吗？
 
-可以的，Form 的校验能力只跟 `name` 属性关联，不指定 Form.FormItem 的 `name` 属性是可以当成布局组件来使用的，甚至可以实现各种嵌套自定义内容的布局效果。
+可以的，Form 的校验能力只跟 `name` 属性关联，不指定 FormItem 的 `name` 属性是可以当成布局组件来使用的，甚至可以实现各种嵌套自定义内容的布局效果。
 
 ```js
 // 可以单独使用 FormItem 组件
-<Form.FormItem label="姓名">
+<FormItem label="姓名">
   <div>可以任意定制内容</div>
   <Input />
   <div>可以任意定制内容</div>
-</Form.FormItem>
+</FormItem>
 ```
 
-### getFieldsValue 返回的数据如何支持嵌套数据结构？
+### `getFieldsValue` 返回的数据如何支持嵌套数据结构？
 
 将 `name` 设置成数组形式可以支持嵌套数据结构。
 
 ```js
 // ['user', 'name'] => { user: { name: '' } }
-<Form.FormItem label="姓名" name={['user', 'name']}>
+<FormItem label="姓名" name={['user', 'name']}>
   <Input />
-</Form.FormItem>
+</FormItem>
 ```
 
 ## API
