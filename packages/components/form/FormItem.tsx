@@ -10,7 +10,7 @@ import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { READONLY_SUPPORTED_COMP, ValidateStatus } from './const';
+import { NATIVE_INPUT_COMP, TD_READONLY_COMP, ValidateStatus } from './const';
 import { formItemDefaultProps } from './defaultProps';
 import { useFormContext, useFormListContext } from './FormContext';
 import { parseMessage, validate as validateModal } from './formModel';
@@ -490,41 +490,53 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
         <div className={`${classPrefix}-form__controls-content`}>
           {React.Children.map(children, (child, index) => {
             if (!child) return null;
+            if (!React.isValidElement(child)) return child;
 
-            let ctrlKey = 'value';
-            if (React.isValidElement(child)) {
-              if (child.type === FormItem) {
-                return React.cloneElement(child, {
-                  // @ts-ignore
-                  ref: (el) => {
-                    if (!el) return;
-                    innerFormItemsRef.current[index] = el;
-                  },
-                });
-              }
-              if (typeof child.type === 'object') {
-                ctrlKey = ctrlKeyMap.get(child.type) || 'value';
-              }
-              const childProps = child.props as any;
-              // @ts-ignore
-              const readOnlyKey = READONLY_SUPPORTED_COMP.includes(child?.type?.displayName) ? 'readonly' : 'readOnly';
+            const childType = child.type;
+            const isCustomComp = typeof childType === 'object' || typeof childType === 'function';
+            // @ts-ignore
+            const childName = isCustomComp ? childType.displayName : childType;
+
+            if (childName === 'FormItem') {
               return React.cloneElement(child, {
-                disabled: disabledFromContext,
-                [readOnlyKey]: readonlyFromContext,
-                ...childProps,
-                [ctrlKey]: formValue,
-                onChange: (value: any, ...args: any[]) => {
-                  const newValue = valueFormat ? valueFormat(value) : value;
-                  updateFormValue(newValue, true, true);
-                  childProps?.onChange?.call?.(null, value, ...args);
-                },
-                onBlur: (value: any, ...args: any[]) => {
-                  handleItemBlur();
-                  childProps?.onBlur?.call?.(null, value, ...args);
+                // @ts-ignore
+                ref: (el) => {
+                  if (!el) return;
+                  innerFormItemsRef.current[index] = el;
                 },
               });
             }
-            return child;
+
+            const childProps = child.props as any;
+            const readOnlyKey = TD_READONLY_COMP.includes(childName) ? 'readonly' : 'readOnly';
+            const commonProps = {
+              disabled: disabledFromContext,
+              [readOnlyKey]: readonlyFromContext,
+              ...child.props,
+            };
+
+            if (!isCustomComp && !NATIVE_INPUT_COMP.includes(childName)) {
+              return React.cloneElement(child, commonProps);
+            }
+
+            let ctrlKey = 'value';
+            if (isCustomComp) {
+              ctrlKey = ctrlKeyMap.get(childType) || 'value';
+            }
+
+            return React.cloneElement(child, {
+              ...commonProps,
+              [ctrlKey]: formValue,
+              onChange: (value: any, ...args: any[]) => {
+                const newValue = valueFormat ? valueFormat(value) : value;
+                updateFormValue(newValue, true, true);
+                childProps?.onChange?.call?.(null, value, ...args);
+              },
+              onBlur: (value: any, ...args: any[]) => {
+                handleItemBlur();
+                childProps?.onBlur?.call?.(null, value, ...args);
+              },
+            });
           })}
           {renderSuffixIcon()}
         </div>

@@ -5,7 +5,7 @@ export const enum ValidateStatus {
   VALIDATING = 'validating',
 }
 
-export const READONLY_SUPPORTED_COMP = [
+export const TD_READONLY_COMP = [
   'AutoComplete',
   'Cascader',
   'Checkbox',
@@ -21,3 +21,8 @@ export const READONLY_SUPPORTED_COMP = [
   'Textarea',
   'TreeSelect',
 ];
+
+/**
+ * 原生支持 value 属性的组件
+ */
+export const NATIVE_INPUT_COMP = ['input', 'textarea', 'select', 'progress'];
