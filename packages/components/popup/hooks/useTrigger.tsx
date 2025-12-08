@@ -36,18 +36,13 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
   }
 
   const getTriggerElement = useCallback(() => {
-    let element: HTMLElement | null = null;
+    let element = null;
     if (triggerElementIsString) {
       element = document.querySelector(triggerElement);
     } else {
       element = getRefDom(triggerRef);
     }
-
-    if (element && typeof element === 'object' && 'addEventListener' in element) {
-      return element;
-    }
-
-    return null;
+    return element instanceof HTMLElement ? element : null;
   }, [triggerElementIsString, triggerElement]);
 
   useEffect(() => clearTimeout(visibleTimer.current), []);
@@ -200,8 +195,8 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
 
     if (supportNodeRef(children)) {
       const childRef = getNodeRef(children);
-      const mergedRef = childRef ? composeRefs(triggerRef, childRef) : triggerRef;
-      return React.cloneElement(children, { ref: mergedRef });
+      const ref = composeRefs(triggerRef, childRef);
+      return React.cloneElement(children, { ref });
     }
 
     return (
