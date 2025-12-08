@@ -67,7 +67,7 @@ export default function useFormItemInitialData(name: NamePath, fullPath: NamePat
 
     if (formListName && Array.isArray(fullPath)) {
       const pathPrefix = fullPath.slice(0, -1);
-      const pathExisted = has(form.store, pathPrefix);
+      const pathExisted = has(form?.store, pathPrefix);
       if (pathExisted) {
         // 只要路径存在，哪怕值为 undefined 也取 store 里的值
         // 兼容 add() 或者 add({}) 导致的空对象场景
@@ -80,7 +80,7 @@ export default function useFormItemInitialData(name: NamePath, fullPath: NamePat
       return initialData;
     }
 
-    if (name && formListInitialData.length) {
+    if (name && formListInitialData?.length) {
       const defaultInitialData = get(formListInitialData, name);
       if (typeof defaultInitialData !== 'undefined') return defaultInitialData;
     }
