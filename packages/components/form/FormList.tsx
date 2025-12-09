@@ -183,10 +183,14 @@ const FormList: React.FC<TdFormListProps> = (props) => {
         return new Promise((resolve) => {
           Promise.all(validates).then((validateResult) => {
             validateResult.forEach((result) => {
+              if (typeof result !== 'object') return;
               const errorValue = Object.values(result)[0];
               merge(resultList, errorValue);
             });
-            const errorItems = validateResult.filter((item) => Object.values(item)[0] !== true);
+            const errorItems = validateResult.filter((item) => {
+              if (typeof item !== 'object') return;
+              return Object.values(item)[0] !== true;
+            });
             if (errorItems.length) {
               resolve({ [snakeName]: resultList });
             } else {
