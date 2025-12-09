@@ -39,7 +39,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
   }, [fullPath, parentFullPath, initialDataFromForm, parentInitialData, props.initialData]);
 
   const [formListValue, setFormListValue] = useState(() => {
-    const value = cloneDeep(get(form?.store, fullPath) || initialData || []);
+    const value = get(form?.store, fullPath) || initialData || [];
     if (value.length && !get(form?.store, fullPath)) {
       set(form?.store, fullPath, value);
     }
@@ -65,22 +65,6 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     .filter((item) => item !== undefined)
     .toString(); // 转化 name
 
-  const buildDefaultFieldMap = () => {
-    if (formListMapRef.current.size <= 0) return {};
-    const defaultValues: Record<string, any> = {};
-    formListMapRef.current.forEach((item, itemPath) => {
-      const itemPathArray = convertNameToArray(itemPath);
-      const isChildField = itemPathArray.length === convertNameToArray(fullPath).length + 2;
-      if (!isChildField) return;
-      const fieldName = itemPathArray[itemPathArray.length - 1];
-      // add 没有传参时，构建一个包含所有子字段的对象用于占位，确保回调给用户的数据结构完整
-      // 兼容 add() 或者 add({}) 导致的空对象场景
-      // https://github.com/Tencent/tdesign-react/issues/2329
-      defaultValues[fieldName] = item.current.initialData;
-    });
-    return defaultValues;
-  };
-
   const updateFormList = (newFields: any, newFormListValue: any) => {
     setFields(newFields);
     setFormListValue(newFormListValue);
@@ -98,12 +82,8 @@ const FormList: React.FC<TdFormListProps> = (props) => {
         name: index,
         isListField: true,
       });
-      const newFormListValue = cloneDeep(formListValue);
-      if (defaultValue !== undefined) {
-        newFormListValue.splice(index, 0, defaultValue);
-      } else {
-        newFormListValue.splice(index, 0, buildDefaultFieldMap());
-      }
+      const newFormListValue = [...formListValue];
+      newFormListValue.splice(index, 0, cloneDeep(defaultValue));
       updateFormList(newFields, newFormListValue);
     },
     remove(index: number | number[]) {
