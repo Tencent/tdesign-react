@@ -1,5 +1,6 @@
 import React, { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { castArray, get, isEqual, merge, set, unset } from 'lodash-es';
+import { castArray, cloneDeep, get, isEqual, merge, set, unset } from 'lodash-es';
+
 import log from '@tdesign/common-js/log/index';
 import { FormListContext, useFormContext, useFormListContext } from './FormContext';
 import { HOOK_MARK } from './hooks/useForm';
@@ -37,7 +38,14 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     return propsInitialData;
   }, [fullPath, parentFullPath, initialDataFromForm, parentInitialData, props.initialData]);
 
-  const [formListValue, setFormListValue] = useState(() => get(form?.store, fullPath) || initialData || []);
+  const [formListValue, setFormListValue] = useState(() => {
+    const value = cloneDeep(get(form?.store, fullPath) || initialData || []);
+    if (value.length && !get(form?.store, fullPath)) {
+      set(form?.store, fullPath, value);
+    }
+    return value;
+  });
+
   const [fields, setFields] = useState<FormListField[]>(() =>
     formListValue.map((data, index) => ({
       data: { ...data },
@@ -66,6 +74,8 @@ const FormList: React.FC<TdFormListProps> = (props) => {
       if (!isChildField) return;
       const fieldName = itemPathArray[itemPathArray.length - 1];
       // add 没有传参时，构建一个包含所有子字段的对象用于占位，确保回调给用户的数据结构完整
+      // 兼容 add() 或者 add({}) 导致的空对象场景
+      // https://github.com/Tencent/tdesign-react/issues/2329
       defaultValues[fieldName] = item.current.initialData;
     });
     return defaultValues;
@@ -88,7 +98,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
         name: index,
         isListField: true,
       });
-      const newFormListValue = [...formListValue];
+      const newFormListValue = cloneDeep(formListValue);
       if (defaultValue !== undefined) {
         newFormListValue.splice(index, 0, defaultValue);
       } else {

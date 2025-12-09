@@ -33,13 +33,13 @@ export default function BaseForm() {
       <FormList name="task">
         {(fields, { add, remove, move }) => (
           <>
-            {fields.map(({ key, name, ...restField }, index) => (
+            {fields.map(({ key, name }, index) => (
               <FormItem key={key}>
-                <FormItem name={[name, 'type']} label="类型" {...restField}>
+                <FormItem name={[name, 'type']} label="类型">
                   <Select options={taskTypeOptions} />
                 </FormItem>
 
-                <FormItem name={[name, 'notes']} label="备注" initialData="排期中" {...restField}>
+                <FormItem name={[name, 'notes']} label="备注" initialData="排期中">
                   <Input />
                 </FormItem>
 
