@@ -58,6 +58,10 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
     }),
   );
 
+  const childStyle = {
+    maxHeight: isExpand ? undefined : 0,
+  };
+
   // 是否展开（popup 与 expand 两种状态）
   const isOpen = useMemo(() => {
     if (disabled) return false;
@@ -93,6 +97,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
         [`${classPrefix}-is-opened`]: isOpen,
       })}
       key="popup"
+      style={childStyle}
     >
       {popupChildren}
     </ul>
@@ -123,6 +128,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
             key="normal"
             style={
               {
+                ...childStyle,
                 '--padding-left': `${menuPaddingLeft}px`,
                 overflow: 'hidden',
               } as React.CSSProperties
