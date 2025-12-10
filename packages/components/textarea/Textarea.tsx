@@ -201,7 +201,6 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   const textTips = tips && (
     <div
       className={classNames(`${classPrefix}-textarea__tips`, {
-        [`${classPrefix}-textarea__tips--normal`]: !status,
         [`${classPrefix}-textarea__tips--${status}`]: status,
       })}
     >
