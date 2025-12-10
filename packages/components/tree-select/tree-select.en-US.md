@@ -36,7 +36,7 @@ popupVisible | Boolean | undefined | show popup | N
 defaultPopupVisible | Boolean | undefined | show popup。uncontrolled property | N
 prefixIcon | TElement | - | Typescript: `TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 readonly | Boolean | false | \- | N
-reserveKeyword | Boolean | false | \- | N
+reserveKeyword | Boolean | true | \- | N
 selectInputProps | Object | - | Typescript: `SelectInputProps`，[SelectInput API Documents](./select-input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree-select/type.ts) | N
 size | String | medium | options: small/medium/large | N
 status | String | default | options: default/success/warning/error | N
