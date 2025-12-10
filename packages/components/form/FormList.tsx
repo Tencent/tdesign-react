@@ -35,7 +35,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     } else {
       propsInitialData = get(initialDataFromForm, fullPath);
     }
-    return propsInitialData;
+    return cloneDeep(propsInitialData);
   }, [fullPath, parentFullPath, initialDataFromForm, parentInitialData, props.initialData]);
 
   const [formListValue, setFormListValue] = useState(() => {
