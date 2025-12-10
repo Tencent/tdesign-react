@@ -83,11 +83,16 @@ export default function useRowSelect(
 
   function getSelectedHeader() {
     return () => {
-      const isIndeterminate = intersectionKeys.length > 0 && intersectionKeys.length < canSelectedRows.length;
+      const isIndeterminate =
+        // 一些可见的行已被选中，但不是全部
+        (intersectionKeys.length > 0 && intersectionKeys.length < canSelectedRows.length) ||
+        // 某些被选中的行不可见（例如折叠的树子节点）
+        intersectionKeys.length < tSelectedRowKeys.length;
       const isChecked =
-        intersectionKeys.length !== 0 &&
         canSelectedRows.length !== 0 &&
-        intersectionKeys.length === canSelectedRows.length;
+        intersectionKeys.length === canSelectedRows.length &&
+        // 确保所有已选中的行都是可见的（没有被折叠而隐藏的选中项）
+        intersectionKeys.length === tSelectedRowKeys.length;
       return (
         <Checkbox
           checked={isChecked}

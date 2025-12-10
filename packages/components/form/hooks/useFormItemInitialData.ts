@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
-import { get, isEmpty, unset } from 'lodash-es';
+import { get, has, isEmpty, unset } from 'lodash-es';
 
 import { useFormContext, useFormListContext } from '../FormContext';
-import type { FormItemProps } from '../FormItem';
+import { FormItemProps } from '../FormItem';
+
+import type { NamePath } from '../type';
 
 export const CTRL_KEY_MAP = new Map<string, string>();
 CTRL_KEY_MAP.set('Checkbox', 'checked');
@@ -30,11 +32,10 @@ BOOLEAN_DEFAULT_COMPONENTS.forEach((componentName) => {
   initialDataMap.set(componentName, false);
 });
 
-export default function useFormItemInitialData(name: FormItemProps['name']) {
+export default function useFormItemInitialData(name: NamePath, fullPath: NamePath) {
   let hadReadFloatingFormData = false;
 
-  const { floatingFormDataRef, initialData: formContextInitialData } = useFormContext();
-
+  const { form, floatingFormDataRef, initialData: formContextInitialData } = useFormContext();
   const { name: formListName, initialData: formListInitialData } = useFormListContext();
 
   // 组件渲染后删除对应游离值
@@ -57,8 +58,20 @@ export default function useFormItemInitialData(name: FormItemProps['name']) {
       const nameList = formListName ? [formListName, name].flat() : name;
       const defaultInitialData = get(floatingFormDataRef.current, nameList);
       if (typeof defaultInitialData !== 'undefined') {
+        // 首次渲染
         hadReadFloatingFormData = true;
         return defaultInitialData;
+      }
+    }
+
+    if (formListName && Array.isArray(fullPath)) {
+      const pathPrefix = fullPath.slice(0, -1);
+      const pathExisted = has(form.store, pathPrefix);
+      if (pathExisted) {
+        // 只要路径存在，哪怕值为 undefined 也取 store 里的值
+        // 兼容 add() 或者 add({}) 导致的空对象场景
+        // https://github.com/Tencent/tdesign-react/issues/2329
+        return get(form.store, fullPath);
       }
     }
 
