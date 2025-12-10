@@ -151,6 +151,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   const renderLimitText = (current: number, max: number) => {
     if (count === false) return null;
 
+    // 不设置 maxLength 或 maxCharacter，也支持渲染自定义节点
     if (typeof count === 'function') {
       return parseTNode(count, {
         value,
@@ -159,6 +160,8 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
         maxCharacter: hasMaxcharacter ? maxcharacter : undefined,
       });
     }
+
+    if (!max) return;
     return (
       <span className={`${classPrefix}-textarea__limit`}>
         {isOvermax && allowInputOverMax ? (
@@ -206,13 +209,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     </div>
   );
 
-  const showCount =
-    count === true || typeof count === 'function' || (count === undefined && (maxlength || maxcharacter));
-
-  const limitText = showCount
-    ? (hasMaxcharacter && renderLimitText(characterLength, maxcharacter)) ||
-      (!hasMaxcharacter && maxlength && renderLimitText(currentLength, maxlength))
-    : null;
+  const limitText = renderLimitText(currentLength, maxlength ?? maxcharacter);
 
   return (
     <div style={style} ref={wrapperRef} className={classNames(`${classPrefix}-textarea`, className)}>
