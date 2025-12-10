@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState, MouseEvent } from 'react';
+import React, { useEffect, useMemo, useRef, useState, MouseEvent, useCallback } from 'react';
 import { get, set, isFunction, cloneDeep } from 'lodash-es';
 import { Edit1Icon as TdEdit1Icon } from 'tdesign-icons-react';
 import classNames from 'classnames';
@@ -78,14 +78,39 @@ const EditableCell = (props: EditableCellProps) => {
   const cellValue = get(row, col.colKey);
   const currentRow = getCurrentRow(row, col.colKey, editValue);
 
-  const updateEditedCellValue = (val: any) => {
-    setEditValue(val);
-  };
+  const updateEditedCellValue = useCallback(
+    (val: any) => {
+      if (typeof val === 'object' && val !== null && !Array.isArray(val)) {
+        const { rowValue, ...otherFields } = val;
+        const newRow = { ...currentRow };
+        // 更新当前单元格的值
+        if (rowValue !== undefined) {
+          set(newRow, col.colKey, rowValue);
+          setEditValue(rowValue);
+        }
+        // 更新其他字段
+        Object.keys(otherFields).forEach((key) => {
+          set(newRow, key, otherFields[key]);
+        });
+
+        const params = {
+          ...cellParams,
+          value: rowValue !== undefined ? rowValue : get(newRow, col.colKey),
+          editedRow: newRow,
+        };
+        props.onChange?.(params);
+        props.onRuleChange?.(params);
+      } else {
+        setEditValue(val);
+      }
+    },
+    [currentRow, cellParams, col, props],
+  );
 
   const editOnListeners = useMemo(
     () => col.edit?.on?.({ ...cellParams, editedRow: currentRow, updateEditedCellValue }) || {},
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [cellParams, currentRow],
+    [cellParams, currentRow, updateEditedCellValue],
   );
 
   const cellNode = useMemo(() => {
@@ -114,7 +139,7 @@ const EditableCell = (props: EditableCellProps) => {
       delete editProps[item];
     });
     return editProps;
-  }, [currentRow, cellParams, col]);
+  }, [currentRow, cellParams, col, updateEditedCellValue]);
 
   const isAbortEditOnChange = useMemo(() => {
     const { edit } = col;
