@@ -1,18 +1,19 @@
-import React, { useRef, useImperativeHandle } from 'react';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import classNames from 'classnames';
-import useConfig from '../hooks/useConfig';
-import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import type { TdFormProps } from './type';
-import useInstance from './hooks/useInstance';
-import useForm, { HOOK_MARK } from './hooks/useForm';
-import useWatch from './hooks/useWatch';
-import { StyledProps } from '../common';
+import noop from '../_util/noop';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
 import FormContext from './FormContext';
 import FormItem from './FormItem';
 import FormList from './FormList';
 import { formDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
+import useForm, { HOOK_MARK } from './hooks/useForm';
+import useInstance from './hooks/useInstance';
+import useWatch from './hooks/useWatch';
+
+import type { StyledProps } from '../common';
+import type { TdFormProps } from './type';
 
 export interface FormProps extends TdFormProps, StyledProps {
   children?: React.ReactNode;
@@ -38,8 +39,8 @@ const Form = forwardRefWithStatics(
       resetType,
       rules,
       errorMessage = globalFormConfig.errorMessage,
-      preventSubmitDefault,
       disabled,
+      readonly,
       children,
       id,
       onReset,
@@ -61,7 +62,7 @@ const Form = forwardRefWithStatics(
     form?.getInternalHooks?.(HOOK_MARK)?.setForm?.(formInstance);
 
     // form 初始化后清空队列
-    React.useEffect(() => {
+    useEffect(() => {
       form?.getInternalHooks?.(HOOK_MARK)?.flashQueue?.();
     }, [form]);
 
@@ -75,17 +76,10 @@ const Form = forwardRefWithStatics(
     }
 
     function onFormItemValueChange(changedValue: Record<string, unknown>) {
-      const allFields = formInstance.getFieldsValue(true);
-      onValuesChange(changedValue, allFields);
-    }
-
-    function onKeyDownHandler(e: React.KeyboardEvent<HTMLFormElement>) {
-      // 禁用 input 输入框回车自动提交 form
-      if ((e.target as Element).tagName.toLowerCase() !== 'input') return;
-      if (preventSubmitDefault && e.key === 'Enter') {
-        e.preventDefault?.();
-        e.stopPropagation?.();
-      }
+      requestAnimationFrame(() => {
+        const allFields = formInstance.getFieldsValue(true);
+        onValuesChange(changedValue, allFields);
+      });
     }
 
     return (
@@ -106,6 +100,7 @@ const Form = forwardRefWithStatics(
           resetType,
           rules,
           disabled,
+          readonly,
           formMapRef,
           floatingFormDataRef,
           onFormItemValueChange,
@@ -118,7 +113,6 @@ const Form = forwardRefWithStatics(
           className={formClass}
           onSubmit={formInstance.submit}
           onReset={onResetHandler}
-          onKeyDown={onKeyDownHandler}
         >
           {children}
         </form>
