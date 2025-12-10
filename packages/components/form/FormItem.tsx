@@ -10,12 +10,12 @@ import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { READONLY_SUPPORTED_COMP, ValidateStatus } from './const';
+import { READONLY_SUPPORTED_COMP, TD_CTRL_KEY_MAP, ValidateStatus } from './const';
 import { formItemDefaultProps } from './defaultProps';
 import { useFormContext, useFormListContext } from './FormContext';
 import { parseMessage, validate as validateModal } from './formModel';
 import { HOOK_MARK } from './hooks/useForm';
-import useFormItemInitialData, { CTRL_KEY_MAP } from './hooks/useFormItemInitialData';
+import useFormItemInitialData from './hooks/useFormItemInitialData';
 import useFormItemStyle from './hooks/useFormItemStyle';
 import { calcFieldValue, concatName } from './utils';
 
@@ -505,7 +505,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
               if (typeof child.type === 'object') {
                 // @ts-ignore
                 const componentName = child.type?.displayName;
-                ctrlKey = CTRL_KEY_MAP.get(componentName) || 'value';
+                ctrlKey = TD_CTRL_KEY_MAP.get(componentName) || 'value';
               }
               const childProps = child.props as any;
               // @ts-ignore

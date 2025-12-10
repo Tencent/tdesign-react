@@ -3,34 +3,9 @@ import { get, has, isEmpty, unset } from 'lodash-es';
 
 import { useFormContext, useFormListContext } from '../FormContext';
 import { FormItemProps } from '../FormItem';
+import { TD_INIT_MAP } from '../const';
 
 import type { NamePath } from '../type';
-
-export const CTRL_KEY_MAP = new Map<string, string>();
-CTRL_KEY_MAP.set('Checkbox', 'checked');
-CTRL_KEY_MAP.set('CheckTag', 'checked');
-CTRL_KEY_MAP.set('Upload', 'files');
-
-const ARRAY_DEFAULT_COMPONENTS = [
-  'Tree',
-  'Upload',
-  'Transfer',
-  'TagInput',
-  'RangeInput',
-  'CheckboxGroup',
-  'DateRangePicker',
-  'TimeRangePicker',
-];
-const BOOLEAN_DEFAULT_COMPONENTS = ['Checkbox'];
-
-export const initialDataMap = new Map<string, any>();
-
-ARRAY_DEFAULT_COMPONENTS.forEach((componentName) => {
-  initialDataMap.set(componentName, []);
-});
-BOOLEAN_DEFAULT_COMPONENTS.forEach((componentName) => {
-  initialDataMap.set(componentName, false);
-});
 
 export default function useFormItemInitialData(name: NamePath, fullPath: NamePath) {
   let hadReadFloatingFormData = false;
@@ -96,7 +71,7 @@ export default function useFormItemInitialData(name: NamePath, fullPath: NamePat
         const isMultiple = lastChild?.props?.multiple;
         // @ts-ignore
         const componentName = lastChild.type.displayName;
-        return isMultiple ? [] : initialDataMap.get(componentName);
+        return isMultiple ? [] : TD_INIT_MAP.get(componentName);
       }
     }
   }
