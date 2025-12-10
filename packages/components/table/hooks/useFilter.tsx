@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { getColumnsResetValue } from '@tdesign/common-js/table/utils';
 import { isFunction } from 'lodash-es';
+import { getColumnsResetValue } from '@tdesign/common-js/table/utils';
+
 import TButton from '../../button';
 import useControlled from '../../hooks/useControlled';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import TableFilterController from '../FilterController';
+import useClassName from './useClassName';
+
 import type { PrimaryTableRef } from '../interface';
 import type {
   FilterValue,
@@ -13,7 +16,6 @@ import type {
   TableRowData,
   TdPrimaryTableProps,
 } from '../type';
-import useClassName from './useClassName';
 
 function isFilterValueExist(value: any) {
   const isArrayTrue = value instanceof Array && value.length;
@@ -123,7 +125,7 @@ export default function useFilter(
     column?: PrimaryTableCol,
   ) {
     setTFilterValue(filterValue, { col: column, trigger });
-    props.onChange?.({ filter: filterValue }, { trigger: 'filter' });
+    props.onChange?.({ filter: filterValue }, { trigger: 'filter', currentData: props.data });
     // 重置表格滚动位置
     requestAnimationFrame(() => {
       primaryTableRef.current?.scrollToElement({
