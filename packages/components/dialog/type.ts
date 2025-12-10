@@ -112,6 +112,11 @@ export interface TdDialogProps {
    */
   showOverlay?: boolean;
   /**
+   * 弹窗大小可拖拽调整。`sizeDraggable.maxWidth`、`sizeDraggable.minWidth`、`sizeDraggable.maxHeight`、`sizeDraggable.minHeight` 用于控制拖拽尺寸大小限制。
+   * @default false
+   */
+  sizeDraggable?: boolean | DialogSizeDragLimit;
+  /**
    * 对话框风格
    * @default default
    */
@@ -228,6 +233,13 @@ export interface DialogInstance {
    * 更新弹框内容
    */
   update: (props: DialogOptions) => void;
+}
+
+export interface DialogSizeDragLimit {
+  maxWidth: number | undefined;
+  minWidth: number | undefined;
+  maxHeight: number | undefined;
+  minHeight: number | undefined;
 }
 
 export type DialogEventSource = 'esc' | 'close-btn' | 'cancel' | 'overlay';
