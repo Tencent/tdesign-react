@@ -12,7 +12,14 @@ const img = [
 ];
 
 const Svg = () => (
-  <div style={{ width: 160, height: 160 }}>
+  <div
+    style={{
+      width: 160,
+      height: 160,
+      border: '4px solid var(--td-bg-color-secondarycontainer)',
+      borderRadius: 'var(--td-radius-medium)',
+    }}
+  >
     <ImageViewer images={img} zIndex={10000} />
   </div>
 );

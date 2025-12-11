@@ -14,7 +14,15 @@ export default function BasicImageViewer() {
   return (
     <Space>
       {images.map((imgSrc, index) => (
-        <div key={imgSrc} style={{ width: 160, height: 160 }}>
+        <div
+          key={imgSrc}
+          style={{
+            width: 160,
+            height: 160,
+            border: '4px solid var(--td-bg-color-secondarycontainer)',
+            borderRadius: 'var(--td-radius-medium)',
+          }}
+        >
           <ImageViewer key={imgSrc} images={images} defaultIndex={index} zIndex={10000} />
         </div>
       ))}

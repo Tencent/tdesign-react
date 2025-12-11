@@ -46,19 +46,22 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
     [setVisible],
   );
 
-  const open = useCallback((index?: number) => {
-    if (!images) return;
-    if (isNumber(index)) {
-      setIndex(index);
-    }
-    setVisible(true, null);
-    setVisibled(true);
-  }, [images, setVisible]);
+  const open = useCallback(
+    (index?: number) => {
+      if (!images) return;
+      if (isNumber(index)) {
+        setIndex(index);
+      }
+      setVisible(true, null);
+      setVisibled(true);
+    },
+    [images, setVisible, setIndex],
+  );
 
   const uiImage: TNode = useMemo(() => {
     // 如果 trigger 为空，则使用默认触发器
-    if (!trigger && list.length) {
-      const { mainImage, thumbnail } = list[props.defaultIndex || 0] || {};
+    if (!trigger && imageList.length) {
+      const { mainImage, thumbnail } = imageList[props.defaultIndex || 0] || {};
       // 如果 mainImage 为空，则使用 thumbnail
       const showImage = mainImage || thumbnail;
       return <DefaultTrigger showImage={showImage} onClick={open} />;
@@ -66,7 +69,7 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
     // todo 兼容旧api，新： open close 旧： onOpen, onClose
     // @ts-ignore TODO 待类型完善后移除
     return isFunction(trigger) ? trigger({ open, close, onOpen: open, onClose: close }) : trigger;
-  }, [close, list, open, props.defaultIndex, trigger]);
+  }, [close, imageList, open, props.defaultIndex, trigger]);
 
   const attachElement = useMemo(() => {
     if (!canUseDocument || !imageViewerAttach) return null;

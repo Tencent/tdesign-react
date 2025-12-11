@@ -14,10 +14,24 @@ export default function BasicImageViewer() {
 
   return (
     <Space breakLine size={16}>
-      <div style={{ width: 160, height: 160 }}>
+      <div
+        style={{
+          width: 160,
+          height: 160,
+          border: '4px solid var(--td-bg-color-secondarycontainer)',
+          borderRadius: 'var(--td-radius-medium)',
+        }}
+      >
         <ImageViewer images={images} zIndex={10000} />
       </div>
-      <div style={{ width: 160, height: 160 }}>
+      <div
+        style={{
+          width: 160,
+          height: 160,
+          border: '4px solid var(--td-bg-color-secondarycontainer)',
+          borderRadius: 'var(--td-radius-medium)',
+        }}
+      >
         <ImageViewer images={[images[0].mainImage]} zIndex={10000} />
       </div>
     </Space>

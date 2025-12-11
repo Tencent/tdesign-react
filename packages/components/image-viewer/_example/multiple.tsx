@@ -19,7 +19,15 @@ export default function BasicImageViewer() {
   return (
     <Space breakLine size={16}>
       {images.map((_, index) => (
-        <div key={index} style={{ width: 160, height: 160 }}>
+        <div
+          key={index}
+          style={{
+            width: 160,
+            height: 160,
+            border: '4px solid var(--td-bg-color-secondarycontainer)',
+            borderRadius: 'var(--td-radius-medium)',
+          }}
+        >
           <ImageViewer images={images} defaultIndex={index} zIndex={10000} />
         </div>
       ))}

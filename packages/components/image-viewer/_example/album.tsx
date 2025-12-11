@@ -9,7 +9,16 @@ export default function BasicImageViewer() {
   const images = [img, imgV, imgH];
 
   return (
-    <Space breakLine size={16} style={{ width: 240, height: 240 }}>
+    <Space
+      breakLine
+      size={16}
+      style={{
+        width: 240,
+        height: 240,
+        border: '4px solid var(--td-bg-color-secondarycontainer)',
+        borderRadius: 'var(--td-radius-medium)',
+      }}
+    >
       <ImageViewer images={images} title="相册封面标题" zIndex={10000} />
     </Space>
   );
