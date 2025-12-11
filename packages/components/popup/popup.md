@@ -66,3 +66,12 @@ onOverlayClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void
 onScroll | Function |  | TS 类型：`(context: { e: WheelEvent }) => void`<br/>下拉选项滚动事件 | N
 onScrollToBottom | Function |  | TS 类型：`(context: { e: WheelEvent }) => void`<br/>下拉滚动触底事件，常用于滚动到底执行具体业务逻辑 | N
 onVisibleChange | Function |  | TS 类型：`(visible: boolean, context: PopupVisibleChangeContext) => void`<br/>当浮层隐藏或显示时触发，`trigger=document` 表示点击非浮层元素触发；`trigger=context-menu` 表示右击触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/popup/type.ts)。<br/>`interface PopupVisibleChangeContext { e?: PopupTriggerEvent; trigger?: PopupTriggerSource }`<br/><br/>`type PopupTriggerEvent = MouseEvent \| FocusEvent \| KeyboardEvent`<br/><br/>`type PopupTriggerSource = 'document' \| 'trigger-element-click' \| 'trigger-element-hover' \| 'trigger-element-blur' \| 'trigger-element-focus' \| 'trigger-element-mousedown' \| 'context-menu' \| 'keydown-esc'`<br/> | N
+
+### PopupInstanceFunctions 组件实例方法
+
+名称 | 参数 | 返回值 | 描述
+-- | -- | -- | --
+getOverlay | \- | `HTMLElement \| null` | 获取浮层元素
+getOverlayState | \- | `{ hover: boolean }` | 获取浮层悬浮状态
+getPopper | \- | `Instance \| null` | 获取当前组件 popper 实例。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/popup/type.ts)。<br/>`import { Instance } from '@popperjs/core'`<br/>
+update | \- | \- | 更新浮层内容

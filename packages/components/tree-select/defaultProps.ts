@@ -19,7 +19,7 @@ export const treeSelectDefaultProps: TdTreeSelectProps = {
   defaultPopupVisible: undefined,
   readonly: false,
   readOnly: false,
-  reserveKeyword: false,
+  reserveKeyword: true,
   size: 'medium',
   status: 'default',
   valueType: 'value',

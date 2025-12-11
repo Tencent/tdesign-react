@@ -123,7 +123,7 @@ describe('Cascader 组件测试', () => {
     const spy = vi.spyOn(selectInputProps, 'onInputChange');
     render(<Cascader options={options} selectInputProps={selectInputProps} filterable />);
     // 模拟用户键盘输入 "test" ，一共会触发四次 onInputChange
-    userEvent.type(document.querySelector('input'), enterText);
+    await userEvent.type(document.querySelector('input'), enterText);
     await mockTimeout(() => expect(spy).toHaveBeenCalledTimes(enterText.length));
   });
 
@@ -244,17 +244,17 @@ describe('Cascader 组件测试', () => {
     );
     // 搜索 子选项一 ，共有两个结果，成功匹配的内容应该高亮
     fireEvent.focus(getByPlaceholderText(placeholder));
-    userEvent.type(getByPlaceholderText(placeholder), filterContent);
+    await userEvent.type(getByPlaceholderText(placeholder), filterContent);
     await mockTimeout(() =>
       expect(document.querySelector(popupSelector).querySelectorAll('.t-cascader__item-label--filter').length).toBe(2),
     );
     // 清空搜索项，无匹配任何高亮内容
-    userEvent.type(getByPlaceholderText(placeholder), '{backspace}{backspace}{backspace}{backspace}');
+    await userEvent.type(getByPlaceholderText(placeholder), '{backspace}{backspace}{backspace}{backspace}');
     await mockTimeout(() =>
       expect(document.querySelector(popupSelector).querySelectorAll('.t-cascader__item-label--filter').length).toBe(0),
     );
     // 匹配不到任何内容
-    userEvent.type(getByPlaceholderText(placeholder), 'null');
+    await userEvent.type(getByPlaceholderText(placeholder), 'null');
     await mockTimeout(() => expect(getByText('暂无数据')).toBeInTheDocument());
   });
 
