@@ -17,7 +17,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
   // 禁用和无内容时不展示
   const shouldToggle = useMemo(() => {
     if (disabled) return false;
-    return !!content;
+    return content === 0 ? true : !!content;
   }, [disabled, content]);
 
   // 解析 delay 数据类型
