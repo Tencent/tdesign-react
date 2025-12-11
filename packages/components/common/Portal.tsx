@@ -70,7 +70,8 @@ const Portal = forwardRef((props: PortalProps, ref) => {
     if (!mounted) {
       setMounted(true);
     }
-  }, [mounted]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useImperativeHandle(ref, () => container);
 
