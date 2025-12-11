@@ -38,9 +38,10 @@ https://popper.js.org/docs/v2/constructors/#types
 ```
 
 ## API
+
 ### Popup Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 attach | String / Function | 'body' | 制定挂载节点。数据类型为 String 时，会被当作选择器处理，进行节点查询。示例：'body' 或 () => document.body。TS 类型：`AttachNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 children | TNode | - | 触发元素，同 triggerElement。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
@@ -61,6 +62,16 @@ triggerElement | TNode | - | 触发元素。值类型为字符串表示元素选
 visible | Boolean | - | 是否显示浮层。TS 类型：`boolean` | N
 defaultVisible | Boolean | - | 是否显示浮层。非受控属性。TS 类型：`boolean` | N
 zIndex | Number | - | 组件层级，Web 侧样式默认为 5500，移动端和小程序样式默认为 1500 | N
+onOverlayClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>内容面板点击时触发 | N
 onScroll | Function |  | TS 类型：`(context: { e: WheelEvent }) => void`<br/>下拉选项滚动事件 | N
 onScrollToBottom | Function |  | TS 类型：`(context: { e: WheelEvent }) => void`<br/>下拉滚动触底事件，常用于滚动到底执行具体业务逻辑 | N
 onVisibleChange | Function |  | TS 类型：`(visible: boolean, context: PopupVisibleChangeContext) => void`<br/>当浮层隐藏或显示时触发，`trigger=document` 表示点击非浮层元素触发；`trigger=context-menu` 表示右击触发。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/popup/type.ts)。<br/>`interface PopupVisibleChangeContext { e?: PopupTriggerEvent; trigger?: PopupTriggerSource }`<br/><br/>`type PopupTriggerEvent = MouseEvent \| FocusEvent \| KeyboardEvent`<br/><br/>`type PopupTriggerSource = 'document' \| 'trigger-element-click' \| 'trigger-element-hover' \| 'trigger-element-blur' \| 'trigger-element-focus' \| 'trigger-element-mousedown' \| 'context-menu' \| 'keydown-esc'`<br/> | N
+
+### PopupInstanceFunctions 组件实例方法
+
+名称 | 参数 | 返回值 | 描述
+-- | -- | -- | --
+getOverlay | \- | `HTMLElement \| null` | 获取浮层元素
+getOverlayState | \- | `{ hover: boolean }` | 获取浮层悬浮状态
+getPopper | \- | `Instance \| null` | 获取当前组件 popper 实例。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/popup/type.ts)。<br/>`import { Instance } from '@popperjs/core'`<br/>
+update | \- | \- | 更新浮层内容
