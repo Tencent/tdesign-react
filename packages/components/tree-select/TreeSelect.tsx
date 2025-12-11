@@ -1,25 +1,27 @@
-import React, { useCallback, useMemo, useRef, forwardRef, ElementRef, useImperativeHandle } from 'react';
-import { isFunction } from 'lodash-es';
+import React, { ElementRef, forwardRef, useCallback, useImperativeHandle, useMemo, useRef } from 'react';
 import classNames from 'classnames';
-import type { TdTreeSelectProps, TreeSelectValue } from './type';
-import type { StyledProps, TreeOptionData } from '../common';
+import { isFunction } from 'lodash-es';
+
+import noop from '../_util/noop';
+import parseTNode from '../_util/parseTNode';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
-import Tree from '../tree';
-import type { TreeInstanceFunctions, TreeProps } from '../tree';
-import SelectInput, { SelectInputProps } from '../select-input/SelectInput';
+import useDefaultProps from '../hooks/useDefaultProps';
 import { usePersistFn } from '../hooks/usePersistFn';
 import useSwitch from '../hooks/useSwitch';
-import noop from '../_util/noop';
+import SelectInput, { type SelectInputProps } from '../select-input/SelectInput';
+import Tree from '../tree';
+import { treeSelectDefaultProps } from './defaultProps';
+import { useTreeSelectLocale } from './hooks/useTreeSelectLocale';
+import { useTreeSelectPassThroughProps } from './hooks/useTreeSelectPassthroughProps';
 import { useTreeSelectUtils } from './hooks/useTreeSelectUtils';
 import { SelectArrow } from './SelectArrow';
-import { useTreeSelectPassThroughProps } from './hooks/useTreeSelectPassthroughProps';
-import { useTreeSelectLocale } from './hooks/useTreeSelectLocale';
-import { treeSelectDefaultProps } from './defaultProps';
-import parseTNode from '../_util/parseTNode';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { PopupRef } from '../popup';
-import { InputRef } from '../input';
+
+import type { StyledProps, TreeOptionData } from '../common';
+import type { InputRef } from '../input';
+import type { PopupRef } from '../popup';
+import type { TreeInstanceFunctions, TreeProps } from '../tree';
+import type { TdTreeSelectProps, TreeSelectValue } from './type';
 
 export interface TreeSelectProps<DataOption extends TreeOptionData = TreeOptionData>
   extends TdTreeSelectProps<DataOption>,
@@ -68,6 +70,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
     inputProps,
     valueType,
     collapsedItems,
+    reserveKeyword,
     onBlur,
     onFocus,
     onSearch,
@@ -219,10 +222,16 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
         },
       );
     }
+    if (!reserveKeyword) {
+      setFilterInput('', { trigger: 'change' });
+    }
   });
 
   const onInnerPopupVisibleChange: SelectInputProps['onPopupVisibleChange'] = (visible, ctx) => {
     setPopupVisible(visible, { e: ctx.e });
+    if (!visible) {
+      setFilterInput('', { trigger: 'blur' });
+    }
   };
 
   const handleClear = usePersistFn<SelectInputProps['onClear']>((ctx) => {
@@ -244,13 +253,13 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
       const node = getNodeItem(normalizedValue[index].value);
       onChange(
         normalizedValue.filter((value, i) => i !== index).map(({ value, label }) => formatValue(value, label)),
-        { node, data: node.data, trigger, e },
+        { node, data: node?.data, trigger, e },
       );
       onRemove?.({
         value: node.value,
         node,
         index,
-        data: { value: node.value, label: node.label, ...node.data },
+        data: { value: node?.value, label: node?.label, ...node?.data },
         e,
         trigger,
       });
@@ -300,7 +309,6 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
           disabled={disabled}
           empty={empty}
           expandOnClickNode={false}
-          allowFoldNodeOnFilter
           keys={tKeys}
           {...(multiple
             ? {

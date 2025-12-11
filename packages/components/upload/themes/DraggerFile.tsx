@@ -59,7 +59,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
       <div className={`${uploadPrefix}__dragger-img-wrap`}>
         <ImageViewer
           images={[url]}
-          trigger={({ open }) => <Image src={url || file.raw} onClick={open} />}
+          trigger={({ open }) => <Image src={url || file.raw} onClick={() => open()} />}
           {...props.imageViewerProps}
         ></ImageViewer>
       </div>

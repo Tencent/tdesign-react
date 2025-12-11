@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, MouseEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { isArray, isFunction } from 'lodash-es';
 import {
@@ -7,15 +7,15 @@ import {
   MirrorIcon as TdMirrorIcon,
   RotationIcon as TdRotationIcon,
 } from 'tdesign-icons-react';
+
+import { downloadImage } from '@tdesign/common-js/image-viewer/utils';
 import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
-import type { TNode } from '../common';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useImagePreviewUrl from '../hooks/useImagePreviewUrl';
 import Image from '../image';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TooltipLite } from '../tooltip';
-import type { ImageViewerProps } from './ImageViewer';
 import { ImageModalMini } from './ImageViewerMini';
 import useIconMap from './hooks/useIconMap';
 import useIndex from './hooks/useIndex';
@@ -23,8 +23,10 @@ import useMirror from './hooks/useMirror';
 import usePosition from './hooks/usePosition';
 import useRotate from './hooks/useRotate';
 import useScale from './hooks/useScale';
+
+import type { TNode } from '../common';
+import type { ImageViewerProps } from './ImageViewer';
 import type { ImageInfo, ImageScale, ImageViewerScale, TdImageViewerProps } from './type';
-import { downloadFile } from './utils';
 
 const ImageError = ({ errorText }: { errorText: string }) => {
   const { classPrefix } = useConfig();
@@ -196,7 +198,7 @@ interface ImageModalIconProps {
   className?: string;
   disabled?: boolean;
   isRange?: boolean;
-  onClick?: (e: MouseEvent<HTMLElement>) => void;
+  onClick?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 const ImageModalIcon = ({ onClick, className, disabled, isRange, name, label, size = '16px' }: ImageModalIconProps) => {
@@ -304,7 +306,7 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
                 onDownload(currentImage.mainImage);
                 return;
               }
-              downloadFile(currentImage.mainImage);
+              downloadImage(currentImage.mainImage);
             }}
           />
         )}
@@ -396,10 +398,13 @@ export interface ImageModalProps {
   closeBtn: boolean | TNode;
   closeOnEscKeydown?: boolean;
   imageReferrerpolicy?: ImageViewerProps['imageReferrerpolicy'];
-  onClose: (context: { trigger: 'close-btn' | 'overlay' | 'esc'; e: MouseEvent<HTMLElement> | KeyboardEvent }) => void;
+  onClose: (context: {
+    trigger: 'close-btn' | 'overlay' | 'esc';
+    e: React.MouseEvent<HTMLElement> | React.KeyboardEvent;
+  }) => void;
   onOpen: () => void;
   onDownload?: TdImageViewerProps['onDownload'];
-  onIndexChange?: (index: number, context: { trigger: 'prev' | 'next' }) => void;
+  onIndexChange?: (index: number, context: { trigger: 'prev' | 'next' | 'current' }) => void;
 }
 
 // 弹窗基础组件
@@ -407,6 +412,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   const {
     closeOnOverlay,
     showOverlay = true,
+    index,
     zIndex,
     images,
     isMini,
@@ -421,13 +427,12 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
     onOpen,
     onClose,
     onDownload,
-    ...resProps
+    onIndexChange,
   } = props;
   const { classPrefix } = useConfig();
   const [locale, t] = useLocaleReceiver('imageViewer');
 
-  if (resProps.index === undefined) delete resProps.index;
-  const { index, next, prev, setIndex } = useIndex(resProps, images);
+  const { next, prev } = useIndex(props, images);
   const { rotateZ, onResetRotate, onRotate } = useRotate();
   const { scale, onZoom, onZoomOut, onResetScale } = useScale(imageScale, visible);
   const { mirror, onResetMirror, onMirror } = useMirror();
@@ -514,7 +519,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         name="close"
         size="24px"
         className={`${classPrefix}-image-viewer__modal-close-bt `}
-        onClick={(e: MouseEvent<HTMLElement>) => onClose && onClose({ trigger: 'close-btn', e })}
+        onClick={(e: React.MouseEvent<HTMLElement>) => onClose && onClose({ trigger: 'close-btn', e })}
       />
     );
   } else if (isFunction(closeBtn)) closeNode = closeBtn({ onClose, onOpen });
@@ -529,7 +534,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
       {!!showOverlay && (
         <div
           className={`${classPrefix}-image-viewer__modal-mask`}
-          onClick={(e: MouseEvent<HTMLElement>) => closeOnOverlay && onClose?.({ trigger: 'overlay', e })}
+          onClick={(e: React.MouseEvent<HTMLElement>) => closeOnOverlay && onClose?.({ trigger: 'overlay', e })}
         />
       )}
       {images.length > 1 && (
@@ -537,7 +542,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
           <ImageViewerHeader
             images={images}
             currentIndex={index}
-            onImgClick={setIndex}
+            onImgClick={onIndexChange}
             imageReferrerpolicy={imageReferrerpolicy}
           />
           <div className={`${classPrefix}-image-viewer__modal-index`}>

@@ -82,6 +82,10 @@ const useMouseEvent = (elementRef: React.RefObject<HTMLElement>, options: MouseE
   };
 
   const handleMouseDown = (e: MouseEventLike) => {
+    // 只处理鼠标左键，忽略中和右键
+    // 触摸事件没有 button 属性，会正常处理
+    if ('button' in e && e.button !== 0) return;
+
     isMovingRef.current = true;
     emitMouseChange(e, options.onDown);
     document.addEventListener('mouseup', handleMouseUp);

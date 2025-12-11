@@ -83,7 +83,7 @@ export interface TdImageViewerProps {
   /**
    * 触发图片预览的元素，可能是一个预览按钮，可能是一张缩略图，完全自定义
    */
-  trigger?: TNode | TNode<{ open: () => void }>;
+  trigger?: TNode | TNode<{ open: (index?: number) => void }>;
   /**
    * 限制预览器缩放的最小宽度和最小高度，仅 `mode=modeless` 时有效
    */
@@ -99,7 +99,7 @@ export interface TdImageViewerProps {
    */
   defaultVisible?: boolean;
   /**
-   * 层级，默认为 2000
+   * 层级，默认为 3000
    */
   zIndex?: number;
   /**

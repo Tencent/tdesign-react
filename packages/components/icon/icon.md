@@ -80,7 +80,7 @@
 
 ### Icon Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 size | String | undefined | 图标尺寸，支持 'small', 'medium', 'large'，'35px', '3em' 等 | N
 onClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>点击时触发 | N
@@ -91,7 +91,7 @@ fillColor | String / Array | - | 描边图标的填充颜色和填充图标的�
 
 ### IconSVG Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
@@ -104,7 +104,7 @@ onClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>�
 
 ### Iconfont Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N

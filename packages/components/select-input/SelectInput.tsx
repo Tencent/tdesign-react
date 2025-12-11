@@ -1,15 +1,18 @@
-import React, { useRef, useImperativeHandle } from 'react';
+import React, { useImperativeHandle, useRef } from 'react';
+
 import classNames from 'classnames';
+
 import useConfig from '../hooks/useConfig';
-import Popup, { PopupRef, PopupVisibleChangeContext } from '../popup';
-import useSingle from './useSingle';
+import useDefaultProps from '../hooks/useDefaultProps';
+import Popup, { type PopupRef, type PopupVisibleChangeContext } from '../popup';
+import { selectInputDefaultProps } from './defaultProps';
 import useMultiple from './useMultiple';
 import useOverlayInnerStyle from './useOverlayInnerStyle';
-import { TdSelectInputProps } from './type';
-import { StyledProps } from '../common';
-import { selectInputDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { InputRef } from '../input';
+import useSingle from './useSingle';
+
+import type { StyledProps } from '../common';
+import type { InputRef } from '../input';
+import type { TdSelectInputProps } from './type';
 
 export interface SelectInputProps extends TdSelectInputProps, StyledProps {
   updateScrollTop?: (content: HTMLDivElement) => void;
@@ -17,17 +20,23 @@ export interface SelectInputProps extends TdSelectInputProps, StyledProps {
 }
 
 const SelectInput = React.forwardRef<Partial<PopupRef & InputRef>, SelectInputProps>((originalProps, ref) => {
+  const { classPrefix: prefix } = useConfig();
+
   const props = useDefaultProps<SelectInputProps>(originalProps, selectInputDefaultProps);
+  const { multiple, value, popupVisible, popupProps, borderless, disabled } = props;
+
   const selectInputRef = useRef<PopupRef>(null);
   const selectInputWrapRef = useRef<HTMLDivElement>(null);
-  const { classPrefix: prefix } = useConfig();
-  const { multiple, value, popupVisible, popupProps, borderless, disabled } = props;
-  const { commonInputProps, inputRef, singleInputValue, onInnerClear, renderSelectSingle } = useSingle(props);
-  const { tagInputRef, multipleInputValue, renderSelectMultiple } = useMultiple(props);
 
-  const { tOverlayInnerStyle, innerPopupVisible, onInnerPopupVisibleChange } = useOverlayInnerStyle(props, {
-    afterHidePopup: onInnerBlur,
-  });
+  const { commonInputProps, inputRef, singleInputValue, onInnerClear, renderSelectSingle } = useSingle(props);
+  const { tagInputRef, tags, multipleInputValue, renderSelectMultiple } = useMultiple(props);
+
+  const { tOverlayInnerStyle, innerPopupVisible, onInnerPopupVisibleChange, skipNextBlur } = useOverlayInnerStyle(
+    props,
+    {
+      afterHidePopup: onInnerBlur,
+    },
+  );
 
   const popupClasses = classNames([
     props.className,
@@ -49,11 +58,16 @@ const SelectInput = React.forwardRef<Partial<PopupRef & InputRef>, SelectInputPr
   // 浮层显示的受控与非受控
   const visibleProps = { visible: popupVisible ?? innerPopupVisible };
 
-  // SelectInput.blur is not equal to Input or TagInput, example: click popup panel.
-  // if trigger blur on click popup panel, filter data of tree select can not be checked.
+  /* SelectInput 与普通 Input 的 blur 事件触发时机不同
+    该组件的 blur 事件在 popup 隐藏时才触发，避免点击浮层内容时触发 blur 事件 */
   function onInnerBlur(ctx: PopupVisibleChangeContext) {
+    if (skipNextBlur.current) return;
     const inputValue = props.multiple ? multipleInputValue : singleInputValue;
-    const params: Parameters<TdSelectInputProps['onBlur']>[1] = { e: ctx.e, inputValue };
+    const params: Parameters<TdSelectInputProps['onBlur']>[1] = {
+      e: ctx.e,
+      inputValue,
+      ...(props.multiple && { tagInputValue: tags }),
+    };
     props.onBlur?.(props.value, params);
   }
 
@@ -76,11 +90,12 @@ const SelectInput = React.forwardRef<Partial<PopupRef & InputRef>, SelectInputPr
         {multiple
           ? renderSelectMultiple({
               commonInputProps,
-              onInnerClear,
               popupVisible: visibleProps.visible,
               allowInput: props.allowInput,
+              onInnerClear,
+              onInnerBlur,
             })
-          : renderSelectSingle(visibleProps.visible)}
+          : renderSelectSingle(visibleProps.visible, onInnerBlur)}
       </Popup>
     </div>
   );

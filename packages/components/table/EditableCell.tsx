@@ -1,22 +1,24 @@
-import React, { useEffect, useMemo, useRef, useState, MouseEvent } from 'react';
-import { get, set, isFunction, cloneDeep } from 'lodash-es';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Edit1Icon as TdEdit1Icon } from 'tdesign-icons-react';
 import classNames from 'classnames';
+import { cloneDeep, get, isFunction, set } from 'lodash-es';
+
 import log from '@tdesign/common-js/log/index';
-import {
-  TableRowData,
+import { validate } from '../form/formModel';
+import useConfig from '../hooks/useConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import { renderCell } from './Cell';
+import { TableClassName } from './hooks/useClassName';
+
+import type { AllValidateResult } from '../form/type';
+import type {
+  PrimaryTableCellParams,
   PrimaryTableCol,
   PrimaryTableRowEditContext,
   PrimaryTableRowValidateContext,
+  TableRowData,
   TdBaseTableProps,
-  PrimaryTableCellParams,
 } from './type';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import { TableClassName } from './hooks/useClassName';
-import { renderCell } from './Cell';
-import { validate } from '../form/formModel';
-import { AllValidateResult } from '../form/type';
-import useConfig from '../hooks/useConfig';
 
 export interface EditableCellProps {
   row: TableRowData;
@@ -75,10 +77,8 @@ const EditableCell = (props: EditableCellProps) => {
     [col, row, colIndex, rowIndex],
   );
 
-  const cellValue = useMemo(() => get(row, col.colKey), [row, col.colKey]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const currentRow = useMemo(() => getCurrentRow(row, col.colKey, editValue), [col.colKey, editValue, row]);
+  const cellValue = get(row, col.colKey);
+  const currentRow = getCurrentRow(row, col.colKey, editValue);
 
   const updateEditedCellValue = (val: any) => {
     setEditValue(val);
@@ -215,10 +215,11 @@ const EditableCell = (props: EditableCellProps) => {
 
   const onEditChange = (val: any, ...args: any) => {
     setEditValue(val);
+    const editedRow = getCurrentRow(props.row, props.col.colKey, val);
     const params = {
       ...cellParams,
       value: val,
-      editedRow: set({ ...props.row }, props.col.colKey, val),
+      editedRow,
     };
     props.onChange?.(params);
     props.onRuleChange?.(params);
@@ -233,7 +234,7 @@ const EditableCell = (props: EditableCellProps) => {
         {
           value: val,
           trigger: 'onChange',
-          newRowData: getCurrentRow(currentRow, col.colKey, val),
+          newRowData: editedRow,
           rowIndex: props.rowIndex,
         },
         ...args,
@@ -312,7 +313,7 @@ const EditableCell = (props: EditableCellProps) => {
     return (
       <div
         className={classNames(tableBaseClass.cellEditable)}
-        onClick={(e: MouseEvent<HTMLDivElement>) => {
+        onClick={(e) => {
           setIsEdit(true);
           e.stopPropagation();
           e.nativeEvent.stopImmediatePropagation();

@@ -10,7 +10,7 @@
 ## API
 ### Notification Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
@@ -27,7 +27,7 @@ onDurationEnd | Function |  | TS 类型：`() => void`<br/>计时结束时触发
 
 ### NotificationOptions
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 attach | String / Function | 'body' | 指定消息通知挂载的父节点。数据类型为 String 时，会被当作选择器处理，进行节点查询。示例：'body' 或 () => document.body。TS 类型：`AttachNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 offset | Array | - | 相对于 placement 的偏移量，示例：[-10, 20] 或 ['10em', '8rem']。TS 类型：`Array<string \| number>` | N
