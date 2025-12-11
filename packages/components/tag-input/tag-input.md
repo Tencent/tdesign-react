@@ -24,7 +24,7 @@ maxRows | Number | - | 最大允许显示的行数，超出会出现滚动条，
 minCollapsedNum | Number | 0 | 最小折叠数量，用于标签数量过多的情况下折叠选中项，超出该数值的选中项折叠。值为 0 则表示不折叠 | N
 placeholder | String | undefined | 占位符 | N
 prefixIcon | TElement | - | 组件前置图标。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-readonly | Boolean | false | 只读状态，值为真会隐藏标签移除按钮和输入框 | N
+readOnly | Boolean | false | 只读状态，值为真会隐藏标签移除按钮和输入框 | N
 size | String | medium | 组件尺寸。可选项：small/medium/large。TS 类型：`SizeEnum`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 status | String | - | 输入框状态。可选项：default/success/warning/error | N
 suffix | TNode | - | 后置图标前的后置内容。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N

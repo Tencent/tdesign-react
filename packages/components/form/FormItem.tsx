@@ -10,7 +10,7 @@ import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { READONLY_SUPPORTED_COMP, ValidateStatus } from './const';
+import { ValidateStatus } from './const';
 import { formItemDefaultProps } from './defaultProps';
 import { useFormContext, useFormListContext } from './FormContext';
 import { parseMessage, validate as validateModal } from './formModel';
@@ -72,7 +72,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     labelWidth: labelWidthFromContext,
     showErrorMessage: showErrorMessageFromContext,
     disabled: disabledFromContext,
-    readonly: readonlyFromContext,
+    readOnly: readOnlyFromContext,
     resetType: resetTypeFromContext,
     rules: rulesFromContext,
     statusIcon: statusIconFromContext,
@@ -506,11 +506,9 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
                 ctrlKey = ctrlKeyMap.get(child.type) || 'value';
               }
               const childProps = child.props as any;
-              // @ts-ignore
-              const readOnlyKey = READONLY_SUPPORTED_COMP.includes(child?.type?.displayName) ? 'readonly' : 'readOnly';
               return React.cloneElement(child, {
                 disabled: disabledFromContext,
-                [readOnlyKey]: readonlyFromContext,
+                readOnly: readOnlyFromContext,
                 ...childProps,
                 [ctrlKey]: formValue,
                 onChange: (value: any, ...args: any[]) => {
