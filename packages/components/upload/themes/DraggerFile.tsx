@@ -18,7 +18,7 @@ import Image from '../../image';
 
 export interface DraggerProps extends CommonDisplayFileProps {
   trigger?: TdUploadProps['trigger'];
-  triggerUpload?: () => void;
+  triggerUpload?: (e: MouseEvent) => void;
   uploadFiles?: (toFiles?: UploadFile[]) => void;
   cancelUpload?: (context: { e: MouseEvent<HTMLElement>; file: UploadFile }) => void;
   dragEvents: UploadDragEvents;
@@ -169,9 +169,13 @@ const DraggerFile: FC<DraggerProps> = (props) => {
     return dragActive ? activeElement : unActiveElement;
   };
 
-  const getContent = () => {
+  const hasActiveFile = useMemo(() => {
     const file = displayFiles[0];
-    if (file && (['progress', 'success', 'fail', 'waiting'].includes(file.status) || !file.status)) {
+    return !!file && (['progress', 'success', 'fail', 'waiting'].includes(file.status) || !file.status);
+  }, [displayFiles]);
+
+  const getContent = () => {
+    if (hasActiveFile) {
       return renderMainPreview();
     }
     return (
@@ -179,6 +183,12 @@ const DraggerFile: FC<DraggerProps> = (props) => {
         {props.children || renderDefaultDragElement()}
       </div>
     );
+  };
+
+  const handleDraggerClick = (e: MouseEvent) => {
+    if (!hasActiveFile) {
+      props.triggerUpload?.(e);
+    }
   };
 
   return (
@@ -189,6 +199,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
       onDragEnter={drag.handleDragenter}
       onDragOver={drag.handleDragover}
       onDragLeave={drag.handleDragleave}
+      onClick={handleDraggerClick}
     >
       {parseContentTNode?.(trigger, { files: displayFiles, dragActive }) || getContent()}
     </div>
