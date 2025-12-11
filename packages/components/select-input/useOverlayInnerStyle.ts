@@ -12,6 +12,7 @@ export type overlayStyleProps = Pick<
   | 'popupProps'
   | 'autoWidth'
   | 'readonly'
+  | 'readOnly'
   | 'onPopupVisibleChange'
   | 'disabled'
   | 'allowInput'
@@ -28,7 +29,9 @@ export default function useOverlayInnerStyle(
     afterHidePopup?: (ctx: PopupVisibleChangeContext) => void;
   },
 ) {
-  const { popupProps, autoWidth, readonly, disabled, onPopupVisibleChange, allowInput } = props;
+  const { popupProps, autoWidth, disabled, onPopupVisibleChange, allowInput } = props;
+  const readonly = props.readOnly || props.readonly;
+
   const [innerPopupVisible, setInnerPopupVisible] = useControlled(props, 'popupVisible', onPopupVisibleChange);
 
   const skipNextBlur = useRef(false);

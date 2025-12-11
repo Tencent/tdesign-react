@@ -13,17 +13,15 @@ import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { popupDefaultProps } from './defaultProps';
 
-import type { TNode } from '../common';
+import type { AttachNode, TNode } from '../common';
 import type { TdPopupProps } from './type';
 
 export interface PopupPluginApi {
   config: TdPopupProps;
 }
 
-type TriggerEl = string | HTMLElement;
-
 export interface OverlayProps extends TdPopupProps {
-  triggerEl: TriggerEl;
+  triggerEl: AttachNode;
   renderCallback: (instance: HTMLElement) => void;
 }
 
@@ -175,7 +173,7 @@ function removeOverlayInstance() {
   }
 }
 
-export type PluginMethod = (triggerEl: TriggerEl, content: TNode, popupProps?: TdPopupProps) => Promise<Instance>;
+export type PluginMethod = (triggerEl: AttachNode, content: TNode, popupProps?: TdPopupProps) => Promise<Instance>;
 
 const renderInstance = (props, attach: HTMLElement): Promise<HTMLElement> =>
   new Promise((resolve) => {
