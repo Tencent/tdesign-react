@@ -1,19 +1,22 @@
-import React, { FC, useContext, useState, ReactElement, useMemo, useRef } from 'react';
 import classNames from 'classnames';
+import React, { FC, ReactElement, useContext, useMemo, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { StyledProps } from '../common';
-import type { TdSubmenuProps } from './type';
+
+import parseTNode from '../_util/parseTNode';
+import FakeArrow from '../common/FakeArrow';
 import useConfig from '../hooks/useConfig';
-import { MenuContext } from './MenuContext';
+import useControlled from '../hooks/useControlled';
 import useDomRefCallback from '../hooks/useDomRefCallback';
 import useRipple from '../hooks/useRipple';
-import { getSubMenuMaxHeight } from './_util/getSubMenuChildStyle';
+import { Popup, type PopupPlacement } from '../popup';
+import { calculatePaddingLeft } from './_util/calculatePaddingLeft';
+import { checkIsMenuGroup, checkIsSubMenu } from './_util/checkMenuType';
 import checkSubMenuChildrenActive from './_util/checkSubMenuChildrenActive';
-import FakeArrow from '../common/FakeArrow';
-import { checkIsSubMenu, checkIsMenuGroup } from './_util/checkMenuType';
-import { cacularPaddingLeft } from './_util/cacularPaddingLeft';
-import { Popup, PopupPlacement } from '../popup';
-import parseTNode from '../_util/parseTNode';
+import { getSubMenuMaxHeight } from './_util/getSubMenuChildStyle';
+import { MenuContext } from './MenuContext';
+
+import type { StyledProps } from '../common';
+import type { TdSubmenuProps } from './type';
 
 export interface SubMenuProps extends TdSubmenuProps, StyledProps {}
 
@@ -25,25 +28,24 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
   const { content, children = content, disabled, icon, title, value, className, style, level = 1, popupProps } = props;
   const { overlayClassName, overlayInnerClassName, ...restPopupProps } = popupProps || {};
 
+  const [open, setOpen] = useControlled(popupProps, 'visible', restPopupProps.onVisibleChange);
+
   const { classPrefix } = useConfig();
 
-  // popup 状态下控制开关
-  const [open, setOpen] = useState(false);
   const { expanded = [], onExpand, active, expandType, theme = 'light' } = useContext(MenuContext);
 
   const isPopUp = expandType === 'popup';
-
   // 非 popup 展开
   const isExpand = expanded.includes(value) && !disabled && !isPopUp;
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
     onExpand(value, expanded);
-    setOpen(false);
+    setOpen(false, {});
   };
 
-  const handleVisibleChange = (visible: boolean) => {
-    setOpen(visible);
+  const handleVisibleChange = (visible: boolean, ctx) => {
+    setOpen(visible, ctx);
   };
 
   const popupChildren = React.Children.map(children, (child) =>
@@ -70,7 +72,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
   }, [disabled, isPopUp, open, isExpand]);
 
   // 计算左边距，兼容多层级子菜单
-  const menuPaddingLeft = cacularPaddingLeft(level - 1);
+  const menuPaddingLeft = calculatePaddingLeft(level - 1);
 
   const fakeArrowStyle = isPopUp && level > 1 ? { transform: 'rotate(-90deg)' } : {};
 
@@ -160,9 +162,9 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
           { [`${classPrefix}-menu-is-nested`]: level > 1 },
           overlayClassName,
         ]}
-        visible={open}
         placement="right-top"
         content={pupContent}
+        visible={open}
         onVisibleChange={handleVisibleChange}
       >
         {submenu}
@@ -175,17 +177,16 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
 
 const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
   const { className, style, children, disabled, icon, title, value, level = 1, popupProps } = props;
-
   const { overlayClassName, overlayInnerClassName, ...restPopupProps } = popupProps || {};
 
+  const [open, setOpen] = useControlled(popupProps, 'visible', restPopupProps.onVisibleChange);
   const { active, onChange, expandType, theme = 'light' } = useContext(MenuContext);
   const { classPrefix } = useConfig();
-  const [open, setOpen] = useState(false);
 
   const handleClick = () => onChange(value);
 
-  const handleVisibleChange = (visible: boolean) => {
-    setOpen(visible);
+  const handleVisibleChange = (visible: boolean, ctx) => {
+    setOpen(visible, ctx);
   };
 
   // 斜八角动画
@@ -262,9 +263,9 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
           { [`${classPrefix}-menu-is-nested`]: level > 1 },
           overlayClassName,
         ]}
-        visible={open}
         placement={placement as PopupPlacement}
         content={pupContent}
+        visible={open}
         onVisibleChange={handleVisibleChange}
       >
         {submenu}
