@@ -9,7 +9,7 @@ import useInnerPopupVisible from '../../hooks/useInnerPopupVisible';
 import useRangeValue from './useRangeValue';
 
 import type { TdPopupProps } from '../../popup/type';
-import type { RangeInputRefInterface } from '../../range-input';
+import type { RangeInputProps, RangeInputRefInterface } from '../../range-input';
 import type { DateValue, TdDateRangePickerProps } from '../type';
 
 export const PARTIAL_MAP = { first: 'start', second: 'end' };
