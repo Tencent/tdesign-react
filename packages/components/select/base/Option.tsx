@@ -34,6 +34,7 @@ export interface SelectOptionProps
   optionLength?: number;
   isVirtual?: boolean;
   onRowMounted?: (rowData: { ref: HTMLElement; data: SelectOption }) => void;
+  isKeyboardHovered?: boolean;
 }
 
 const componentType = 'select';
@@ -57,6 +58,7 @@ const Option: React.FC<SelectOptionProps> = (props) => {
     style,
     className,
     isVirtual,
+    isKeyboardHovered,
   } = props;
 
   const label = propLabel || value;
@@ -164,6 +166,7 @@ const Option: React.FC<SelectOptionProps> = (props) => {
         [`${classPrefix}-is-selected`]: selected,
         [`${classPrefix}-size-s`]: size === 'small',
         [`${classPrefix}-size-l`]: size === 'large',
+        [`${classPrefix}-${componentType}-option__hover`]: isKeyboardHovered,
       })}
       key={value}
       onClick={handleSelect}

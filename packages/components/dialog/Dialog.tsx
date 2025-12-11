@@ -1,9 +1,11 @@
-import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import { isUndefined } from 'lodash-es';
+
 import log from '@tdesign/common-js/log/index';
 import { pxCompat } from '@tdesign/common-js/utils/helper';
+import { canUseDocument } from '../_util/dom';
 import Portal from '../common/Portal';
 import useAttach from '../hooks/useAttach';
 import useConfig from '../hooks/useConfig';
@@ -20,6 +22,28 @@ import useLockStyle from './hooks/useLockStyle';
 
 import type { StyledProps } from '../common';
 import type { DialogInstance, TdDialogProps } from './type';
+
+type MousePosition = { x: number; y: number } | null;
+
+let mousePosition: MousePosition;
+
+const getClickPosition = (e: MouseEvent) => {
+  mousePosition = {
+    x: e.pageX,
+    y: e.pageY,
+  };
+  // 100ms 内发生过点击事件，则从点击位置动画展示
+  // 否则直接 zoom 展示
+  // 这样可以兼容非点击方式展开
+  setTimeout(() => {
+    mousePosition = null;
+  }, 100);
+};
+
+// 只有点击事件支持从鼠标位置动画展开
+if (canUseDocument) {
+  document.documentElement.addEventListener('click', getClickPosition, true);
+}
 
 export interface DialogProps extends TdDialogProps, StyledProps {
   isPlugin?: boolean; // 是否以插件形式调用
@@ -79,6 +103,8 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const isFullScreen = mode === 'full-screen';
 
   const dialogAttach = useAttach('dialog', attach);
+  const [animationVisible, setAnimationVisible] = useState(visible);
+  const [dialogAnimationVisible, setDialogAnimationVisible] = useState(false);
 
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
   useDialogEsc(visible, wrapRef);
@@ -93,6 +119,18 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     // 插件式调用不会更新props, 只有组件式调用才会更新props
     setState((prevState) => ({ ...prevState, ...props }));
   }, [props, setState]);
+
+  useEffect(() => {
+    if (dialogAnimationVisible) {
+      wrapRef.current?.focus();
+      if (mousePosition && dialogCardRef.current) {
+        const offsetX = mousePosition.x - dialogCardRef.current.offsetLeft;
+        const offsetY = mousePosition.y - dialogCardRef.current.offsetTop;
+
+        dialogCardRef.current.style.transformOrigin = `${offsetX}px ${offsetY}px`;
+      }
+    }
+  }, [dialogAnimationVisible]);
 
   useImperativeHandle(ref, () => ({
     show() {
@@ -157,25 +195,30 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     }
   };
 
+  // Portal Animation
+  const onAnimateStart = () => {
+    onBeforeOpen?.();
+    setAnimationVisible(true);
+    if (!wrapRef.current) return;
+    wrapRef.current.style.display = 'block';
+  };
+
   const onAnimateLeave = () => {
     onClosed?.();
-
+    setAnimationVisible(false);
     if (!wrapRef.current) return;
     wrapRef.current.style.display = 'none';
   };
 
-  const onAnimateStart = () => {
-    if (!wrapRef.current) return;
-    onBeforeOpen?.();
-    wrapRef.current.style.display = 'block';
-  };
-
+  // Dialog Animation
   const onInnerAnimateStart = () => {
+    setDialogAnimationVisible(true);
     if (!dialogCardRef.current) return;
     dialogCardRef.current.style.display = 'block';
   };
 
   const onInnerAnimateLeave = () => {
+    setDialogAnimationVisible(false);
     if (!dialogCardRef.current) return;
     dialogCardRef.current.style.display = 'none';
   };
@@ -208,7 +251,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
       nodeRef={portalRef}
       onEnter={onAnimateStart}
       onEntered={onOpened}
-      onExit={() => onBeforeClose?.()}
+      onExit={onBeforeClose}
       onExited={onAnimateLeave}
     >
       <Portal attach={dialogAttach} ref={portalRef}>
@@ -219,7 +262,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
             [`${componentCls}__ctx--absolute`]: showInAttachedElement,
             [`${componentCls}__ctx--modeless`]: isModeless,
           })}
-          style={{ zIndex, display: 'none' }}
+          style={{ zIndex, display: animationVisible ? undefined : 'none' }}
           onKeyDown={handleKeyDown}
           tabIndex={0}
         >

@@ -9,7 +9,7 @@ import { KeyboardEvent, FocusEvent, FormEvent } from 'react';
 
 export interface TdTextareaProps {
   /**
-   * 超出maxlength或maxcharacter之后是否还允许输入
+   * 超出 `maxlength` 或 `maxcharacter` 之后是否还允许输入
    * @default false
    */
   allowInputOverMax?: boolean;
@@ -24,14 +24,14 @@ export interface TdTextareaProps {
    */
   autosize?: boolean | { minRows?: number; maxRows?: number };
   /**
+   * 文字计数元素。设置 `maxlength` 或 `maxchanacter` 时，默认为 true
+   */
+  count?: boolean | ((ctx: { value: string; count: number; maxLength?: number; maxCharacter?: number }) => TNode);
+  /**
    * 是否禁用文本框
    * @default false
    */
   disabled?: boolean;
-  /**
-   * 左侧文本
-   */
-  label?: TNode;
   /**
    * 用户最多可以输入的字符个数，一个中文汉字表示两个字符长度
    */
@@ -56,6 +56,7 @@ export interface TdTextareaProps {
   readonly?: boolean;
   /**
    * 文本框状态
+   * @default default
    */
   status?: 'default' | 'success' | 'warning' | 'error';
   /**

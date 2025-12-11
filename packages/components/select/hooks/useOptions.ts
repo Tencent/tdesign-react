@@ -1,14 +1,30 @@
+import React, { ReactElement, ReactNode, useEffect, useMemo, useState } from 'react';
 import { get } from 'lodash-es';
-import React, { ReactElement, ReactNode, useEffect, useState } from 'react';
+
 import Option from '../base/Option';
 import OptionGroup from '../base/OptionGroup';
 import { getKeyMapping, getValueToOption, type ValueToOption } from '../util/helper';
 
 import type { SelectKeysType, SelectOption, SelectOptionGroup, SelectValue, TdOptionProps } from '../type';
 
+// 针对分组的相关判断和扁平处理
 export function isSelectOptionGroup(option: SelectOption): option is SelectOptionGroup {
   return !!option && 'group' in option && 'children' in option;
 }
+
+export const flattenOptions = (options: SelectOption[] = []) => {
+  const flattened = [];
+  options.forEach((option) => {
+    if (isSelectOptionGroup(option)) {
+      if (option.children) {
+        flattened.push(...option.children);
+      }
+    } else {
+      flattened.push(option);
+    }
+  });
+  return flattened;
+};
 
 type OptionValueType = SelectValue<SelectOption>;
 
@@ -23,9 +39,15 @@ function useOptions(
 ) {
   const [valueToOption, setValueToOption] = useState<ValueToOption>({});
   const [currentOptions, setCurrentOptions] = useState<SelectOption[]>([]);
+  const [flattenedOptions, setFlattenedOptions] = useState<SelectOption[]>([]);
   const [tmpPropOptions, setTmpPropOptions] = useState<SelectOption[]>([]);
   const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>([]);
 
+  const { valueKey, labelKey } = useMemo(() => getKeyMapping(keys), [keys]);
+
+  useEffect(() => {
+    setFlattenedOptions(flattenOptions(currentOptions));
+  }, [currentOptions]);
   // 处理设置 option 的逻辑
   useEffect(() => {
     let transformedOptions = options;
@@ -55,7 +77,6 @@ function useOptions(
       transformedOptions = arrayChildren?.map<SelectOption>((v) => handlerOptionElement(v));
     }
     if (keys) {
-      const { valueKey, labelKey } = getKeyMapping(keys);
       // 如果有定制 keys 先做转换
       transformedOptions = transformedOptions?.map<SelectOption>((option) => ({
         ...option,
@@ -72,8 +93,6 @@ function useOptions(
 
   // 同步 value 对应的 options
   useEffect(() => {
-    const { valueKey, labelKey } = getKeyMapping(keys);
-
     setSelectedOptions((oldSelectedOptions: SelectOption[]) => {
       const createOptionFromValue = (item: OptionValueType) => {
         if (valueType === 'value') {
@@ -104,7 +123,7 @@ function useOptions(
 
       return [];
     });
-  }, [value, keys, valueType, valueToOption, setSelectedOptions]);
+  }, [value, keys, valueType, valueToOption, valueKey, labelKey, setSelectedOptions]);
 
   return {
     currentOptions,
@@ -115,6 +134,7 @@ function useOptions(
     setValueToOption,
     selectedOptions,
     setSelectedOptions,
+    flattenedOptions,
   };
 }
 
