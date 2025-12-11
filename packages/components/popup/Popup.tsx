@@ -199,7 +199,12 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
       onEnter={handleEnter}
       onExited={handleExited}
     >
-      <Portal triggerNode={triggerEl} attach={popupAttach} ref={portalRef}>
+      <Portal
+        ref={portalRef}
+        triggerNode={triggerEl}
+        attach={popupAttach}
+        style={{ position: 'absolute', width: '100%' }}
+      >
         <CSSTransition
           appear
           timeout={0}
