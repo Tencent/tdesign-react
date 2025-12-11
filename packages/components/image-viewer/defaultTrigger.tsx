@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowseIcon } from 'tdesign-icons-react';
 import { Image } from '../image';
 import useConfig from '../hooks/useConfig';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 interface DefaultTriggerProps {
   // 需要展示的图片
@@ -18,6 +19,7 @@ interface DefaultTriggerProps {
  */
 export const DefaultTrigger: React.FC<DefaultTriggerProps> = ({ showImage, onClick }) => {
   const { classPrefix } = useConfig();
+  const [local] = useLocaleReceiver('imageViewer');
 
   return (
     <div className={`${classPrefix}-image-viewer__trigger`} onClick={onClick}>
@@ -25,7 +27,7 @@ export const DefaultTrigger: React.FC<DefaultTriggerProps> = ({ showImage, onCli
       <div className={`${classPrefix}-image-viewer__trigger--hover`}>
         <span>
           <BrowseIcon size="1.4em" className={`${classPrefix}-image-viewer__trigger-icon`} />
-          预览
+          {local.previewText}
         </span>
       </div>
     </div>

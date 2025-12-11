@@ -36,7 +36,7 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
   const imageScale = useImageScale(imageScaleD);
   const viewerScale = useViewerScale(viewerScaleD);
 
-  const isMini = useMemo(() => mode === 'modeless', [mode]);
+  const isMini = mode === 'modeless';
 
   const close: ImageModalProps['onClose'] = useCallback(
     (context) => {
@@ -62,7 +62,7 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
     // 如果 trigger 为空，则使用默认触发器
     if (!trigger && imageList.length) {
       const { mainImage, thumbnail } = imageList[props.defaultIndex || 0] || {};
-      // 如果 mainImage 为空，则使用 thumbnail
+
       const showImage = mainImage || thumbnail;
       return <DefaultTrigger showImage={showImage} onClick={open} />;
     }
