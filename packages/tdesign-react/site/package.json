@@ -6,7 +6,6 @@
     "start": "pnpm run dev",
     "dev": "vite --configLoader runner",
     "build": "vite build --configLoader runner",
-    "intranet": "vite build --mode intranet --configLoader runner",
     "preview": "vite build --mode preview --configLoader runner && cp dist/index.html dist/404.html"
   },
   "author": "tdesign",
@@ -16,9 +15,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.2.2",
-    "tdesign-icons-react": "^0.5.0",
-    "tdesign-icons-view": "^0.3.6",
-    "tdesign-site-components": "^0.16.1",
+    "tdesign-icons-react": "^0.6.1",
+    "@tdesign/site-components": "^0.17.0",
     "tdesign-theme-generator": "^1.1.6"
   },
   "devDependencies": {
@@ -28,7 +26,7 @@
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@types/rimraf": "^4.0.5",
-    "@vitejs/plugin-react": "^4.3.1",
+    "@vitejs/plugin-react": "^5.1.1",
     "camelcase": "^6.2.1",
     "gray-matter": "^4.0.3",
     "markdown-it-fence": "^0.1.3",

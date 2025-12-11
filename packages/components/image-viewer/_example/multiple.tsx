@@ -33,7 +33,7 @@ export default function BasicImageViewer() {
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
-              onClick={open}
+              onClick={() => open(index)}
             >
               <span>
                 <BrowseIcon size="16px" name={'browse'} /> 预览
@@ -59,7 +59,7 @@ export default function BasicImageViewer() {
           );
         };
 
-        return <ImageViewer key={index} trigger={trigger} images={images} defaultIndex={index} zIndex={10000} />;
+        return <ImageViewer key={index} trigger={trigger} images={images} zIndex={10000} />;
       })}
     </Space>
   );

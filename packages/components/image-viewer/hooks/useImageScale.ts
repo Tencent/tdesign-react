@@ -1,15 +1,12 @@
 import { ImageScale } from '../type';
 
-const useImageScale = (imageScale: ImageScale) => {
+const useImageScale = (imageScale?: Partial<ImageScale>) => {
   const result: ImageScale = {
-    ...imageScale,
-    max: 2,
-    min: 0.5,
-    step: 0.5,
+    max: imageScale?.max ?? 2,
+    min: imageScale?.min ?? 0.5,
+    step: imageScale?.step ?? 0.5,
+    defaultScale: imageScale?.defaultScale,
   };
-  if (imageScale?.min !== undefined) result.min = imageScale.min;
-  if (imageScale?.max !== undefined) result.max = imageScale.max;
-  if (imageScale?.step !== undefined) result.step = imageScale.step;
   // defaultScale 不能超出本身设置的最大和最小值
   if (imageScale?.defaultScale !== undefined) {
     if (imageScale.defaultScale > result.max) {

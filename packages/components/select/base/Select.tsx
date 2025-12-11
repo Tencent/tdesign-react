@@ -1,39 +1,39 @@
 import React, {
-  useEffect,
-  useMemo,
-  KeyboardEvent,
-  WheelEvent,
-  useRef,
-  useCallback,
   Children,
   cloneElement,
   isValidElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
   useState,
 } from 'react';
 import classNames from 'classnames';
-import { isFunction, get, debounce } from 'lodash-es';
-import { getOffsetTopToContainer } from '../../_util/helper';
-import useControlled from '../../hooks/useControlled';
-import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import useConfig from '../../hooks/useConfig';
+import { debounce, get, isFunction } from 'lodash-es';
+import composeRefs from '../../_util/composeRefs';
 import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
-import { getSelectValueArr, getSelectedOptions } from '../util/helper';
+import { getOffsetTopToContainer } from '../../_util/helper';
 import noop from '../../_util/noop';
+import { parseContentTNode } from '../../_util/parseTNode';
 import FakeArrow from '../../common/FakeArrow';
+import useConfig from '../../hooks/useConfig';
+import useControlled from '../../hooks/useControlled';
+import useDefaultProps from '../../hooks/useDefaultProps';
 import Loading from '../../loading';
-import SelectInput, { SelectInputValue, SelectInputValueChangeContext } from '../../select-input';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import SelectInput, { type SelectInputValue, type SelectInputValueChangeContext } from '../../select-input';
+import Tag from '../../tag';
+import { selectDefaultProps } from '../defaultProps';
+import useKeyboardControl from '../hooks/useKeyboardControl';
+import useOptions, { isSelectOptionGroup } from '../hooks/useOptions';
+import { getKeyMapping, getSelectValueArr, getSelectedOptions } from '../util/helper';
 import Option from './Option';
 import OptionGroup from './OptionGroup';
 import PopupContent from './PopupContent';
-import Tag from '../../tag';
-import { TdSelectProps, TdOptionProps, SelectOption, SelectValueChangeTrigger, SelectValue } from '../type';
-import { StyledProps } from '../../common';
-import { selectDefaultProps } from '../defaultProps';
-import { PopupVisibleChangeContext } from '../../popup';
-import useOptions, { isSelectOptionGroup } from '../hooks/useOptions';
-import composeRefs from '../../_util/composeRefs';
-import { parseContentTNode } from '../../_util/parseTNode';
-import useDefaultProps from '../../hooks/useDefaultProps';
+
+import type { StyledProps } from '../../common';
+import type { PopupVisibleChangeContext } from '../../popup';
+import type { SelectOption, SelectValue, SelectValueChangeTrigger, TdOptionProps, TdSelectProps } from '../type';
 
 export interface SelectProps<T = SelectOption> extends TdSelectProps<T>, StyledProps {
   // 子节点
@@ -100,46 +100,121 @@ const Select = forwardRefWithStatics(
     } = props;
 
     const [value, onChange] = useControlled(props, 'value', props.onChange);
+
+    const { valueKey, labelKey, disabledKey } = useMemo(() => getKeyMapping(keys), [keys]);
+
     const selectInputRef = useRef(null);
     const { classPrefix } = useConfig();
     const { overlayClassName, onScroll, onScrollToBottom, ...restPopupProps } = popupProps || {};
     const [isScrolling, toggleIsScrolling] = useState(false);
 
     const name = `${classPrefix}-select`; // t-select
-
-    const [showPopup, setShowPopup] = useControlled(props, 'popupVisible', onPopupVisibleChange);
     const [inputValue, onInputChange] = useControlled(props, 'inputValue', props.onInputChange);
 
-    const { currentOptions, setCurrentOptions, tmpPropOptions, valueToOption, selectedOptions } = useOptions(
-      keys,
-      options,
-      children,
-      valueType,
-      value,
-      reserveKeyword,
+    const [innerPopupVisible, setInnerPopupVisible] = useControlled(props, 'popupVisible', onPopupVisibleChange);
+
+    const handlePopupVisibleChange = (visible: boolean, ctx: PopupVisibleChangeContext) => {
+      if (disabled) return;
+      visible ? toggleIsScrolling(false) : onInputChange('', { trigger: 'blur' });
+      setInnerPopupVisible(visible, ctx);
+    };
+
+    const { currentOptions, setCurrentOptions, tmpPropOptions, valueToOption, selectedOptions, flattenedOptions } =
+      useOptions(keys, options, children, valueType, value, reserveKeyword);
+
+    const onCheckAllChange = useCallback(
+      (checkAll: boolean, e: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLInputElement>) => {
+        const isDisabledCheckAll = (opt: TdOptionProps) => opt.checkAll && opt.disabled;
+        if (!multiple || currentOptions.some((opt) => !isSelectOptionGroup(opt) && isDisabledCheckAll(opt))) return;
+
+        const isObjectType = valueType === 'object';
+        const enabledOptions: SelectOption[] = [];
+
+        currentOptions.forEach((option) => {
+          // 如果涉及分组，需要将分组内的选项进行计算，否则会影响全选的功能
+          if (isSelectOptionGroup(option)) {
+            option.children?.forEach((item) => {
+              if (!item.checkAll && !item.disabled) {
+                enabledOptions.push(item);
+              }
+            });
+          } else {
+            !option.checkAll && !option.disabled && enabledOptions.push(option);
+          }
+        });
+
+        const currentValues = Array.isArray(value) ? value : [];
+        const disabledSelectedOptions: SelectOption[] = [];
+
+        const isDisabledAndSelected = (opt: TdOptionProps) => {
+          if (opt.checkAll || !opt.disabled) return false;
+          if (isObjectType) return currentValues.some((v) => get(v, valueKey) === opt[valueKey]);
+          return currentValues.includes(opt[valueKey]);
+        };
+
+        currentOptions.forEach((opt) => {
+          if (isSelectOptionGroup(opt)) {
+            // 处理分组内的禁用选项
+            opt.children?.forEach((item) => {
+              if (isDisabledAndSelected(item)) {
+                disabledSelectedOptions.push(item);
+              }
+            });
+          } else if (isDisabledAndSelected(opt)) {
+            disabledSelectedOptions.push(opt);
+          }
+        });
+
+        let checkAllValue: SelectValue[];
+
+        if (checkAll) {
+          // 全选：选中所有未禁用的选项 + 保留已选中的禁用选项
+          const enabledValues = enabledOptions.map((opt) => (isObjectType ? opt : opt[valueKey]));
+          const disabledValues = disabledSelectedOptions.map((opt) => (isObjectType ? opt : opt[valueKey]));
+          checkAllValue = [...disabledValues, ...enabledValues];
+        } else {
+          // 取消全选：只保留已选中的禁用选项
+          checkAllValue = disabledSelectedOptions.map((opt) => (isObjectType ? opt : opt[valueKey]));
+        }
+
+        const { currentSelectedOptions } = getSelectedOptions(checkAllValue, multiple, valueType, keys, valueToOption);
+
+        onChange?.(checkAllValue, {
+          e,
+          trigger: checkAll ? 'check' : 'uncheck',
+          selectedOptions: currentSelectedOptions,
+        });
+      },
+      [currentOptions, keys, multiple, value, valueKey, valueToOption, valueType, onChange],
     );
 
     const selectedLabel = useMemo(() => {
       if (multiple) {
-        return selectedOptions.map((selectedOption) => get(selectedOption || {}, keys?.label || 'label') || '');
+        return selectedOptions.map((selectedOption) => get(selectedOption || {}, labelKey) || '');
       }
-      return get(selectedOptions[0] || {}, keys?.label || 'label') || undefined;
-    }, [selectedOptions, keys, multiple]);
-
-    const handleShowPopup = (visible: boolean, ctx: PopupVisibleChangeContext) => {
-      if (disabled) return;
-      visible && toggleIsScrolling(false);
-      !visible && onInputChange('', { trigger: 'blur' });
-      setShowPopup(visible, ctx);
-    };
+      return get(selectedOptions[0] || {}, labelKey) || undefined;
+    }, [multiple, selectedOptions, labelKey]);
 
     // 可以根据触发来源，自由定制标签变化时的筛选器行为
     const onTagChange = (_currentTags: SelectInputValue, context) => {
-      const { trigger, index, item, e } = context;
-      // backspace
-      if (trigger === 'backspace') {
-        e.stopPropagation();
+      const handleRemove = (removeIndex, trigger, e, label) => {
+        const values = getSelectValueArr(value, value[removeIndex], true, valueType, keys);
+        const { currentSelectedOptions } = getSelectedOptions(values, multiple, valueType, keys, valueToOption);
+        onChange(values, { e, trigger, selectedOptions: currentSelectedOptions });
+        onRemove?.({
+          value: value[removeIndex],
+          data: {
+            label,
+            value: value[removeIndex],
+          },
+          e,
+        });
+      };
 
+      const { trigger, index, item, e } = context;
+      e.stopPropagation();
+
+      if (trigger === 'backspace') {
         let closest = -1;
         let len = index;
         while (len >= 0) {
@@ -150,98 +225,40 @@ const Select = forwardRefWithStatics(
           }
           len -= 1;
         }
-        if (closest < 0) {
-          return;
+        if (closest >= 0) {
+          const label = get(selectedOptions[closest], getKeyMapping(keys).labelKey);
+          handleRemove(closest, trigger, e, label);
         }
-        const values = getSelectValueArr(value, value[closest], true, valueType, keys);
-
-        // 处理onChange回调中的selectedOptions参数
-        const { currentSelectedOptions } = getSelectedOptions(values, multiple, valueType, keys, valueToOption);
-        onChange(values, { e, trigger, selectedOptions: currentSelectedOptions });
         return;
       }
 
       if (trigger === 'tag-remove') {
         e?.stopPropagation?.();
-        const values = getSelectValueArr(value, value[index], true, valueType, keys);
-        // 处理onChange回调中的selectedOptions参数
-        const { currentSelectedOptions } = getSelectedOptions(values, multiple, valueType, keys, valueToOption);
-
-        onChange(values, { e, trigger, selectedOptions: currentSelectedOptions });
-        if (isFunction(onRemove)) {
-          onRemove({
-            value: value[index],
-            data: {
-              label: item,
-              value: value[index],
-            },
-            e,
-          });
-        }
+        handleRemove(index, trigger, e, item);
       }
-    };
-
-    const onCheckAllChange = (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => {
-      const isDisabledCheckAll = (opt: TdOptionProps) => opt.checkAll && opt.disabled;
-      if (!multiple || currentOptions.some((opt) => !isSelectOptionGroup(opt) && isDisabledCheckAll(opt))) {
-        return;
-      }
-
-      const isSelectableOption = (opt: TdOptionProps) => !opt.checkAll && !opt.disabled;
-      const getOptionValue = (option: SelectOption) =>
-        valueType === 'object' ? option : option[keys?.value || 'value'];
-
-      const values = [];
-      currentOptions.forEach((option) => {
-        if (isSelectOptionGroup(option)) {
-          option.children.forEach((item) => {
-            if (isSelectableOption(item)) {
-              values.push(getOptionValue(item));
-            }
-          });
-        } else if (isSelectableOption(option)) {
-          values.push(getOptionValue(option));
-        }
-      });
-
-      const { currentSelectedOptions, allSelectedValue } = getSelectedOptions(
-        values,
-        multiple,
-        valueType,
-        keys,
-        valueToOption,
-      );
-
-      const checkAllValue =
-        !checkAll && allSelectedValue.length !== (props.value as Array<SelectOption>)?.length ? allSelectedValue : [];
-
-      onChange?.(checkAllValue, {
-        e,
-        trigger: !checkAll ? 'check' : 'uncheck',
-        selectedOptions: currentSelectedOptions,
-      });
     };
 
     // 选中 Popup 某项
     const handleChange = (
       value: string | number | Array<string | number | Record<string, string | number>>,
       context: {
-        e: React.MouseEvent<HTMLLIElement>;
+        e: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLInputElement>;
         trigger: SelectValueChangeTrigger;
         value?: SelectValue;
-        label?: string;
+        label?: string | number;
       },
     ) => {
+      const selectedValue = multiple ? context.value : value;
+
       if (multiple) {
         !reserveKeyword && inputValue && onInputChange('', { e: context.e, trigger: 'change' });
       }
       if (creatable && isFunction(onCreate)) {
-        if ((options as OptionsType).filter((option) => option.value === value).length === 0) {
-          onCreate(value as string); // 手动输入 此时为string
+        if ((options as OptionsType).filter((option) => option.value === selectedValue).length === 0) {
+          onCreate(selectedValue as string); // 手动输入 此时为string
         }
       }
       // 处理onChange回调中的selectedOptions参数
-      const selectedValue = multiple ? context.value : value;
       const { currentSelectedOptions, currentOption } = getSelectedOptions(
         value,
         multiple,
@@ -250,7 +267,6 @@ const Select = forwardRefWithStatics(
         valueToOption,
         selectedValue,
       );
-
       onChange?.(value, {
         e: context.e,
         trigger: context.trigger,
@@ -260,7 +276,7 @@ const Select = forwardRefWithStatics(
 
       if (multiple && context?.trigger === 'uncheck' && isFunction(onRemove)) {
         const value = context?.value;
-        const option = (options as OptionsType).find((option) => option.value === value);
+        const option = (options as OptionsType)?.find((option) => option.value === value);
         onRemove({
           value,
           data: option,
@@ -268,6 +284,21 @@ const Select = forwardRefWithStatics(
         });
       }
     };
+
+    const { hoverIndex, handleKeyDown } = useKeyboardControl({
+      displayOptions: flattenedOptions as TdOptionProps[],
+      keys,
+      innerPopupVisible,
+      max,
+      multiple,
+      selectInputRef,
+      value,
+      valueType,
+      handlePopupVisibleChange,
+      handleChange,
+      onCheckAllChange,
+      toggleIsScrolling,
+    });
 
     // 处理filter逻辑
     const handleFilter = (value: string) => {
@@ -322,7 +353,7 @@ const Select = forwardRefWithStatics(
         return;
       }
       if (isFunction(onSearch)) {
-        onSearch(value, { e: context.e as KeyboardEvent<HTMLDivElement> });
+        onSearch(value, { e: context.e as React.KeyboardEvent<HTMLDivElement> });
         return;
       }
     };
@@ -355,7 +386,9 @@ const Select = forwardRefWithStatics(
         );
       }
 
-      return showArrow && <FakeArrow className={`${name}__right-icon`} isActive={showPopup} disabled={disabled} />;
+      return (
+        showArrow && <FakeArrow className={`${name}__right-icon`} isActive={innerPopupVisible} disabled={disabled} />
+      );
     };
     const getPopupInstance = useCallback(() => (selectInputRef as any).current?.getPopupContentElement(), []);
 
@@ -374,9 +407,9 @@ const Select = forwardRefWithStatics(
         className,
         size,
         multiple,
-        showPopup,
+        showPopup: innerPopupVisible,
         // popup弹出层内容只会在点击事件之后触发 并且无任何透传参数
-        setShowPopup: (show: boolean) => handleShowPopup(show, {}),
+        setShowPopup: (show: boolean) => handlePopupVisibleChange(show, {}),
         options: currentOptions,
         empty,
         max,
@@ -389,11 +422,12 @@ const Select = forwardRefWithStatics(
         onCheckAllChange,
         getPopupInstance,
         scroll,
+        hoverIndex,
       };
       return <PopupContent {...popupContentProps}>{childrenWithProps}</PopupContent>;
     };
 
-    const renderValueDisplay = () => {
+    const renderValueDisplay = useMemo(() => {
       if (!valueDisplay) {
         if (!multiple) {
           if (typeof selectedLabel !== 'string') {
@@ -402,18 +436,21 @@ const Select = forwardRefWithStatics(
           return '';
         }
         return ({ value: val }) =>
-          val.slice(0, minCollapsedNum ? minCollapsedNum : val.length).map((v: string, key: number) => {
-            const filterOption: SelectOption & { disabled?: boolean } = options?.find((option) => option.label === v);
+          val.slice(0, minCollapsedNum ? minCollapsedNum : val.length).map((_, index: number) => {
+            const targetVal = get(selectedOptions[index], valueKey);
+            const targetLabel = get(selectedOptions[index], labelKey);
+            const targetOption = valueToOption[targetVal];
+            if (!targetOption) return null;
             return (
               <Tag
-                key={key}
-                closable={!filterOption?.disabled && !disabled && !readonly}
+                key={index}
+                closable={!get(targetOption, disabledKey) && !disabled && !readonly}
                 size={size}
                 {...tagProps}
                 onClose={({ e }) => {
                   e.stopPropagation();
                   e?.nativeEvent?.stopImmediatePropagation?.();
-                  const values = getSelectValueArr(value, value[key], true, valueType, keys);
+                  const values = getSelectValueArr(value, value[index], true, valueType, keys);
 
                   const { currentSelectedOptions } = getSelectedOptions(
                     values,
@@ -431,13 +468,13 @@ const Select = forwardRefWithStatics(
                   tagProps?.onClose?.({ e });
 
                   onRemove?.({
-                    value: value[key],
-                    data: { label: v, value: value[key] },
+                    value: targetVal,
+                    data: { label: targetLabel, value: targetVal },
                     e: e as unknown as React.MouseEvent<HTMLDivElement, MouseEvent>,
                   });
                 }}
               >
-                {v}
+                {targetLabel}
               </Tag>
             );
           });
@@ -449,7 +486,24 @@ const Select = forwardRefWithStatics(
         return ({ onClose }) => parseContentTNode(valueDisplay, { value: selectedOptions, onClose });
       }
       return parseContentTNode(valueDisplay, { value: selectedLabel, onClose: noop });
-    };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [
+      valueDisplay,
+      multiple,
+      selectedLabel,
+      minCollapsedNum,
+      options,
+      disabled,
+      readonly,
+      size,
+      tagProps,
+      value,
+      valueType,
+      keys,
+      valueToOption,
+      onRemove,
+      selectedOptions,
+    ]);
 
     // 将第一个选中的 option 置于列表可见范围的最后一位
     const updateScrollTop = (content: HTMLDivElement) => {
@@ -478,11 +532,11 @@ const Select = forwardRefWithStatics(
 
     const { onMouseEnter, onMouseLeave } = props;
 
-    const handleEnter = (_, context: { inputValue: string; e: KeyboardEvent<HTMLDivElement> }) => {
+    const handleEnter = (_, context: { inputValue: string; e: React.KeyboardEvent<HTMLDivElement> }) => {
       onEnter?.({ ...context, value });
     };
 
-    const handleScroll = ({ e }: { e: WheelEvent<HTMLDivElement> }) => {
+    const handleScroll = ({ e }: { e: React.WheelEvent<HTMLDivElement> }) => {
       toggleIsScrolling(true);
 
       onScroll?.({ e });
@@ -512,7 +566,7 @@ const Select = forwardRefWithStatics(
           multiple={multiple}
           value={selectedLabel}
           options={selectedOptions}
-          valueDisplay={renderValueDisplay()}
+          valueDisplay={renderValueDisplay}
           clearable={clearable}
           disabled={disabled}
           status={props.status}
@@ -523,7 +577,9 @@ const Select = forwardRefWithStatics(
           prefixIcon={prefixIcon}
           suffixIcon={renderSuffixIcon()}
           panel={renderContent()}
-          placeholder={!multiple && showPopup && selectedLabel ? selectedLabel : placeholder || t(local.placeholder)}
+          placeholder={
+            !multiple && innerPopupVisible && selectedLabel ? selectedLabel : placeholder || t(local.placeholder)
+          }
           inputValue={inputValue}
           tagInputProps={{
             size,
@@ -533,6 +589,7 @@ const Select = forwardRefWithStatics(
           inputProps={{
             size,
             ...inputProps,
+            onKeydown: handleKeyDown,
           }}
           minCollapsedNum={minCollapsedNum}
           collapsedItems={collapsedItems}
@@ -542,8 +599,8 @@ const Select = forwardRefWithStatics(
             onScroll: handleScroll,
             ...restPopupProps,
           }}
-          popupVisible={showPopup}
-          onPopupVisibleChange={handleShowPopup}
+          popupVisible={innerPopupVisible}
+          onPopupVisibleChange={handlePopupVisibleChange}
           onTagChange={onTagChange}
           onInputChange={handleInputChange}
           onFocus={onFocus}

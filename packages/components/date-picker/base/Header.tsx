@@ -1,13 +1,15 @@
-import React, { useState, useMemo, useEffect, useCallback, useRef } from 'react';
-import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import useConfig from '../../hooks/useConfig';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import { PaginationMini, type TdPaginationMiniProps } from '../../pagination';
 import Select from '../../select';
-import { TdDatePickerProps } from '../type';
-import { PaginationMini, TdPaginationMiniProps } from '../../pagination';
+import type { TdDatePickerProps } from '../type';
 
 export interface DatePickerHeaderProps extends Pick<TdDatePickerProps, 'mode'> {
   year?: number;
   month?: number;
+  internalYear: Array<number>;
+  partial: 'start' | 'end';
   onMonthChange?: Function;
   onYearChange?: Function;
   onJumperClick?: TdPaginationMiniProps['onChange'];
@@ -31,7 +33,7 @@ const useDatePickerLocalConfig = () => {
 const DatePickerHeader = (props: DatePickerHeaderProps) => {
   const { classPrefix } = useConfig();
 
-  const { mode, year, month, onMonthChange, onYearChange, onJumperClick } = props;
+  const { mode, year, month, onMonthChange, onYearChange, onJumperClick, partial, internalYear = [] } = props;
 
   const { now, months, preMonth, preYear, nextMonth, nextYear, preDecade, nextDecade } = useDatePickerLocalConfig();
 
@@ -66,10 +68,14 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
   const [yearOptions, setYearOptions] = useState(() => initOptions(year));
 
   // 年份选择展示区间
-  const nearestYear: number = useMemo(
-    () => yearOptions.find((option) => option.value - year <= 9 && option.value - year >= 0)?.value || year,
-    [yearOptions, year],
-  );
+  const nearestYear: number = useMemo(() => {
+    // 右侧面板年份选择需要保持大于左侧面板年份选择
+    const extraYear = partial === 'end' && mode === 'year' && internalYear[1] - internalYear[0] <= 9 ? 9 : 0;
+    return (
+      yearOptions.find((option) => option.value - (year + extraYear) <= 9 && option.value - (year + extraYear) >= 0)
+        ?.value || year
+    );
+  }, [yearOptions, year, mode, partial, internalYear]);
 
   useEffect(() => {
     const yearRange = initOptions(year);
@@ -204,7 +210,11 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
           }}
           popupProps={{
             onScroll: handleScroll,
-            updateScrollTop: handleUpdateScrollTop,
+            updateScrollTop: (el) => {
+              setTimeout(() => {
+                handleUpdateScrollTop(el);
+              }, 0);
+            },
             attach: (triggerElement: HTMLElement) => triggerElement.parentNode as HTMLElement,
             overlayClassName: `${headerClassName}-controller-year-popup`,
           }}

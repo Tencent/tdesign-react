@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { List } from 'tdesign-react';
 
 import type { ListProps } from 'tdesign-react';
@@ -9,16 +9,16 @@ export default function BasicList() {
   const [listData, setListData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [pageNum, setPageNum] = useState(1);
-  const pageSize = 5;
 
   const dataSource: any = [];
-  const total = 30;
+  const total = 3000;
+  const pageSize = 50;
   for (let i = 0; i < total; i++) {
     dataSource.push({
       id: i,
       content: '列表内容列表内容列表内容',
       icon: 'https://tdesign.gtimg.com/list-icon.png',
-      title: '列表主内容',
+      title: `列表标题 ${i + 1}`,
     });
   }
 

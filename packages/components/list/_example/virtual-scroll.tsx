@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { List, Space, Button } from 'tdesign-react';
-import type { ListRef } from '../List';
+import { Button, List, Space } from 'tdesign-react';
+import type { ListInstanceFunctions } from 'tdesign-react';
 
 const { ListItem, ListItemMeta } = List;
 
@@ -8,7 +8,7 @@ const imageUrl = 'https://tdesign.gtimg.com/site/avatar.jpg';
 
 const VirtualScroll = () => {
   const [data, setData] = useState([]); // 存储列表数据
-  const listRef = useRef<ListRef>(null);
+  const listRef = useRef<ListInstanceFunctions>(null);
   const handleScroll = () => {
     // scroll 属性需要设置 rowHeight 参数
     listRef.current?.scrollTo({

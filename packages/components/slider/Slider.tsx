@@ -1,18 +1,21 @@
 import React, { useMemo, useRef } from 'react';
 import classNames from 'classnames';
-import { isFunction, isString } from 'lodash-es';
-import { TdSliderProps } from './type';
+import { isFunction, isNumber, isString } from 'lodash-es';
+
+import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
+import { accAdd, numberToPercent } from '../_util/number';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
-import { numberToPercent } from './utils/handleNumber';
-import { StyledProps, TNode } from '../common';
-import InputNumber from '../input-number/InputNumber';
-import SliderHandleButton from './SliderHandleButton';
-import { accAdd } from '../_util/number';
-import { sliderDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import InputNumber from '../input-number/InputNumber';
+import { sliderDefaultProps } from './defaultProps';
+import SliderHandleButton from './SliderHandleButton';
 
-export type SliderProps = TdSliderProps & StyledProps;
+import type { StyledProps, TNode } from '../common';
+import type { MouseCallback } from '../hooks/useMouseEvent';
+import type { SliderValue, TdSliderProps } from './type';
+
+export interface SliderProps<T extends SliderValue = SliderValue> extends TdSliderProps<T>, StyledProps {}
 
 const LEFT_NODE = 0;
 const RIGHT_NODE = 1;
@@ -45,6 +48,11 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
   const start = (renderValue[LEFT_NODE] - min) / (max - min);
   const width = (renderValue[RIGHT_NODE] - renderValue[LEFT_NODE]) / (max - min);
   const end = start + width;
+
+  const precision = useMemo(() => {
+    if (!Number.isInteger(step)) return step.toString().split('.')[1].length;
+    return undefined;
+  }, [step]);
 
   const dots = useMemo<{ value: number; label: TNode; position: number }[]>(() => {
     // 当 marks 为数字数组
@@ -95,6 +103,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
   const handleInputChange = (newValue: number, nodeIndex: SliderHandleNode) => {
     const safeValue = Number(newValue.toFixed(32));
     let resultValue = Math.max(Math.min(max, safeValue), min);
+    if (precision) resultValue = Number(largeNumberToFixed(String(resultValue), precision));
     // 判断是否出现左值大于右值
     if (nodeIndex === LEFT_NODE && value && safeValue > value[RIGHT_NODE]) resultValue = value[RIGHT_NODE];
     // 判断是否出现右值大于左值
@@ -154,7 +163,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
     }
   };
 
-  const onSliderChange = (event: React.MouseEvent | MouseEvent, nodeIndex?: SliderHandleNode) => {
+  const onSliderChange = (event: MouseCallback, nodeIndex?: SliderHandleNode) => {
     if (disabled || !sliderRef.current) return;
 
     const clientKey = isVertical ? 'clientY' : 'clientX';
@@ -180,6 +189,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
     if (isString(label)) {
       tipLabel = label.replace(/\$\{value\}/g, currentValue.toString());
     }
+    if (isNumber(tipLabel) && precision) tipLabel = largeNumberToFixed(String(tipLabel), precision);
 
     return (
       <SliderHandleButton
@@ -255,4 +265,6 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
 
 Slider.displayName = 'Slider';
 
-export default Slider;
+export default Slider as <T extends SliderValue = SliderValue>(
+  props: SliderProps<T> & React.RefAttributes<HTMLDivElement>,
+) => React.ReactElement;

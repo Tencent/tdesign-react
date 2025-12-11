@@ -1,38 +1,30 @@
-import React, {
-  useRef,
-  useMemo,
-  useImperativeHandle,
-  forwardRef,
-  useEffect,
-  useState,
-  WheelEvent,
-  RefAttributes,
-} from 'react';
-import { pick } from 'lodash-es';
+import React, { forwardRef, RefAttributes, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
-import { getIEVersion } from '@tdesign/common-js/utils/helper';
+import { pick } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
-import TBody, { extendTableProps, TableBodyProps } from './TBody';
-import { Affix, AffixRef } from '../affix';
-import { ROW_LISTENERS } from './TR';
-import THead, { TheadProps } from './THead';
-import TFoot from './TFoot';
-import useTableHeader from './hooks/useTableHeader';
-import useColumnResize from './hooks/useColumnResize';
-import useElementLazyRender from '../hooks/useElementLazyRender';
-import useFixed from './hooks/useFixed';
-import useAffix from './hooks/useAffix';
-import usePagination from './hooks/usePagination';
-import Loading from '../loading';
-import { BaseTableProps, BaseTableRef } from './interface';
-import useStyle, { formatCSSUnit } from './hooks/useStyle';
-import useClassName from './hooks/useClassName';
-import { getAffixProps } from './utils';
-import { baseTableDefaultProps } from './defaultProps';
-import { Styles } from '../common';
-import { TableRowData } from './type';
-import useVirtualScroll from '../hooks/useVirtualScroll';
+import { getIEVersion } from '@tdesign/common-js/utils/helper';
+import Affix, { type AffixRef } from '../affix';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useElementLazyRender from '../hooks/useElementLazyRender';
+import useVirtualScroll from '../hooks/useVirtualScroll';
+import Loading from '../loading';
+import TBody, { extendTableProps, type TableBodyProps } from './TBody';
+import TFoot from './TFoot';
+import THead, { type TheadProps } from './THead';
+import { ROW_LISTENERS } from './TR';
+import { baseTableDefaultProps } from './defaultProps';
+import useAffix from './hooks/useAffix';
+import useClassName from './hooks/useClassName';
+import useColumnResize from './hooks/useColumnResize';
+import useFixed from './hooks/useFixed';
+import usePagination from './hooks/usePagination';
+import useStyle, { formatCSSUnit } from './hooks/useStyle';
+import useTableHeader from './hooks/useTableHeader';
+import { getAffixProps } from './utils';
+
+import type { Styles } from '../common';
+import type { BaseTableProps, BaseTableRef } from './interface';
+import type { TableRowData } from './type';
 
 export const BASE_TABLE_EVENTS = ['page-change', 'cell-click', 'scroll', 'scrollX', 'scrollY'];
 export const BASE_TABLE_ALL_EVENTS = ROW_LISTENERS.map((t) => `row-${t}`).concat(BASE_TABLE_EVENTS);
@@ -44,7 +36,8 @@ export interface TableListeners {
 const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) => {
   const props = useDefaultProps<BaseTableProps<TableRowData>>(originalProps, baseTableDefaultProps);
   const {
-    showHeader = true,
+    rowKey,
+    showHeader,
     tableLayout,
     height,
     data,
@@ -60,8 +53,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const tableElmRef = useRef<HTMLTableElement>(null);
   const bottomContentRef = useRef<HTMLDivElement>(null);
   const [tableFootHeight, setTableFootHeight] = useState(0);
-  const allTableClasses = useClassName();
 
+  const allTableClasses = useClassName();
   const { classPrefix, virtualScrollClasses, tableLayoutClasses, tableBaseClass, tableColFixedClasses } =
     allTableClasses;
   // 表格基础样式类
@@ -121,7 +114,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     footerBottomAffixRef,
   });
 
-  const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination(props);
+  const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination(props, tableContentRef);
 
   // 列宽拖拽逻辑
   const columnResizeParams = useColumnResize({
@@ -197,17 +190,50 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     }, 0);
   };
 
-  const virtualScrollParams = useMemo(
-    () => ({
-      data,
+  const virtualScrollParams = useMemo(() => {
+    let virtualData: any[] = data;
+
+    // HACK：虚拟滚动时，需要考虑 fullRow 的高度，因此在这插入占位数据
+    if (props.firstFullRow) {
+      const firstFullRowData = {
+        __VIRTUAL_FAKE_DATA: 'FIRST_FULL_ROW',
+      };
+      // 不使用展开运算符进行合并，而是保留原有引用
+      // 否则会导致 Reflect.set 时，数据无法同步到原始 data
+      virtualData = ([firstFullRowData] as any[]).concat(data);
+    }
+    if (props.lastFullRow) {
+      const lastFullRowData = {
+        __VIRTUAL_FAKE_DATA: 'LAST_FULL_ROW',
+      };
+      virtualData = virtualData.concat(lastFullRowData);
+    }
+
+    return {
+      data: virtualData,
       scroll: { ...props.scroll, fixedRows: props.fixedRows },
-    }),
-    [data, props.scroll, props.fixedRows],
-  );
+    };
+  }, [data, props.firstFullRow, props.lastFullRow, props.scroll, props.fixedRows]);
+
   const virtualConfig = useVirtualScroll(tableContentRef, virtualScrollParams);
 
+  useEffect(() => {
+    // 仅处理「初始化 data 数量已达到虚拟滚动阈值」的场景（此时 visibleData 为 []）
+    // 如果是通过滚动过程陆续新增数据，再触发虚拟滚动，不需要这一步，以避免卡顿
+    if (!virtualConfig.isVirtualScroll || virtualConfig.visibleData.length) return;
+    setTimeout(() => {
+      if (!tableContentRef.current) return;
+      // HACK：强制触发重绘，确保滚动条长度正确
+      // 若未来有更优实现，可替换此方案
+      tableContentRef.current.style.display = 'none';
+      tableContentRef.current.offsetHeight;
+      tableContentRef.current.style.display = '';
+    }, 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tableContentRef, virtualConfig.isVirtualScroll]);
+
   let lastScrollY = -1;
-  const onInnerVirtualScroll = (e: WheelEvent<HTMLDivElement>) => {
+  const onInnerVirtualScroll = (e: React.WheelEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
     const top = target.scrollTop;
     // 排除横向滚动触发的纵向虚拟滚动计算
@@ -218,14 +244,13 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       updateColumnFixedShadow(target);
     }
     lastScrollY = top;
+    onHorizontalScroll(target);
     emitScrollEvent(e);
   };
 
   /**
    * 横向滚动到指定列
    * 对外暴露方法，修改时需谨慎（expose）
-   * @param colKey
-   * @returns
    */
   const scrollColumnIntoView = (colKey: string) => {
     if (!tableContentRef.current) return;
@@ -255,16 +280,14 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
   // used for top margin
   const getTFootHeight = () => {
-    const timer = setTimeout(() => {
+    requestAnimationFrame(() => {
       if (!tableElmRef.current) return;
-      const height = tableElmRef.current.querySelector('tfoot')?.getBoundingClientRect().height;
-      setTableFootHeight(height);
-    }, 1);
-
-    return () => {
-      clearTimeout(timer);
-    };
+      const height = tableElmRef.current.querySelector('tfoot')?.offsetHeight;
+      setTableFootHeight(height || 0);
+    });
   };
+
+  useEffect(getTFootHeight, [tableElmRef, props.footData, props.footerSummary]);
 
   useEffect(() => {
     setTableContentRef(tableContentRef.current);
@@ -276,8 +299,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [tableRef],
   );
-
-  useEffect(getTFootHeight, [tableElmRef, props.footData, props.footerSummary]);
 
   const newData = isPaginateData ? dataSource : data;
 
@@ -355,7 +376,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     const affixedHeader = Boolean((headerAffixedTop || virtualConfig.isVirtualScroll) && tableWidth.current) && (
       <div
         ref={affixHeaderRef}
-        style={{ width: `${tableWidth.current - affixedLeftBorder}px`, opacity: headerOpacity }}
+        style={{ width: `${tableWidth.current - affixedLeftBorder - barWidth}px`, opacity: headerOpacity }}
         className={classNames([
           'scrollbar',
           {
@@ -411,6 +432,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       marginScrollbarWidth += 1;
     }
     // Hack: Affix 组件，marginTop 临时使用 负 margin 定位位置
+    const totalMarginTop = tableFootHeight + marginScrollbarWidth;
     const affixedFooter = Boolean(
       (virtualConfig.isVirtualScroll || props.footerAffixedBottom) && props.footData?.length && tableWidth.current,
     ) && (
@@ -420,7 +442,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         offsetBottom={marginScrollbarWidth || 0}
         {...getAffixProps(props.footerAffixedBottom)}
         ref={footerBottomAffixRef}
-        style={{ marginTop: `${-1 * ((tableFootHeight || 0) + marginScrollbarWidth)}px` }}
+        style={{ marginTop: `${-1 * totalMarginTop}px` }}
       >
         <div
           ref={affixFooterRef}
@@ -468,7 +490,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     tableWidth,
     isWidthOverflow,
     allTableClasses,
-    rowKey: props.rowKey || 'id',
+    rowKey,
     scroll: props.scroll,
     cellEmptyContent: props.cellEmptyContent,
     renderExpandedRow: props.renderExpandedRow,
@@ -543,7 +565,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         {useMemo(
           () => (
             <TFoot
-              rowKey={props.rowKey}
+              rowKey={rowKey}
               isFixedHeader={isFixedHeader}
               rowAndColFixedPosition={rowAndColFixedPosition}
               footData={props.footData}
@@ -577,7 +599,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
   const { loading, loadingProps } = props;
   const customLoadingText = loading;
-  const loadingContent = loading !== undefined && (
+  const loadingContent = tableRef.current && loading !== undefined && (
     <Loading
       loading={!!loading}
       text={customLoadingText}
@@ -585,7 +607,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       showOverlay
       size="small"
       {...loadingProps}
-    ></Loading>
+    />
   );
 
   const { topContent, bottomContent } = props;
@@ -705,7 +727,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
       {tableContent}
 
-      {/* eslint-disable-next-line */}
       {affixedFooterContent}
 
       {loadingContent}

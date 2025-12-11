@@ -1,21 +1,21 @@
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { isArray, isFunction } from 'lodash-es';
-import React, { KeyboardEvent, MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
 import {
   ImageErrorIcon as TdImageErrorIcon,
   ImageIcon as TdImageIcon,
   MirrorIcon as TdMirrorIcon,
   RotationIcon as TdRotationIcon,
 } from 'tdesign-icons-react';
+
+import { downloadImage } from '@tdesign/common-js/image-viewer/utils';
 import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
-import { TNode } from '../common';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useImagePreviewUrl from '../hooks/useImagePreviewUrl';
 import Image from '../image';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TooltipLite } from '../tooltip';
-import { ImageViewerProps } from './ImageViewer';
 import { ImageModalMini } from './ImageViewerMini';
 import useIconMap from './hooks/useIconMap';
 import useIndex from './hooks/useIndex';
@@ -23,7 +23,9 @@ import useMirror from './hooks/useMirror';
 import usePosition from './hooks/usePosition';
 import useRotate from './hooks/useRotate';
 import useScale from './hooks/useScale';
-import { downloadFile } from './utils';
+
+import type { TNode } from '../common';
+import type { ImageViewerProps } from './ImageViewer';
 import type { ImageInfo, ImageScale, ImageViewerScale, TdImageViewerProps } from './type';
 
 const ImageError = ({ errorText }: { errorText: string }) => {
@@ -64,20 +66,27 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
 }) => {
   const { classPrefix } = useConfig();
 
-  const [position, onMouseDown] = usePosition({ initPosition: [0, 0] });
+  const imgRef = useRef<HTMLImageElement>(null);
+  const svgRef = useRef<HTMLDivElement>(null);
+
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
-  const attachSvgElRef = useRef<HTMLDivElement>(null);
 
   const imgStyle = {
     transform: `rotateZ(${rotateZ}deg) scale(${scale})`,
     display: !preSrc || loaded ? 'block' : 'none',
   };
-  const preImgStyle = { transform: `rotateZ(${rotateZ}deg) scale(${scale})`, display: !loaded ? 'block' : 'none' };
-  const boxStyle = { transform: `translate(${position[0]}px, ${position[1]}px) scale(${mirror}, 1)` };
 
   const { previewUrl: preSrcImagePreviewUrl } = useImagePreviewUrl(preSrc);
   const { previewUrl: mainImagePreviewUrl } = useImagePreviewUrl(src);
+
+  const displayRef = useMemo(() => {
+    if (isSvg) return svgRef;
+    return imgRef;
+  }, [isSvg]);
+  const { position } = usePosition(displayRef);
+  const preImgStyle = { transform: `rotateZ(${rotateZ}deg) scale(${scale})`, display: !loaded ? 'block' : 'none' };
+  const boxStyle = { transform: `translate(${position[0]}px, ${position[1]}px) scale(${mirror}, 1)` };
 
   const createSvgShadow = async (url: string) => {
     const response = await fetch(url);
@@ -88,7 +97,7 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
 
     const svgText = await response.text();
 
-    const element = attachSvgElRef.current;
+    const element = svgRef.current;
     element.innerHTML = '';
     element.classList?.add(`${classPrefix}-image-viewer__modal-image-svg`);
     const shadowRoot = element.attachShadow({ mode: 'closed' });
@@ -139,13 +148,10 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
     <div className={`${classPrefix}-image-viewer__modal-pic`}>
       <div className={`${classPrefix}-image-viewer__modal-box`} style={boxStyle}>
         {error && <ImageError errorText={errorText} />}
+        {/* 预览图 */}
         {!error && !!preSrc && preSrcImagePreviewUrl && (
           <img
             className={`${classPrefix}-image-viewer__modal-image`}
-            onMouseDown={(event) => {
-              event.stopPropagation();
-              onMouseDown(event);
-            }}
             src={preSrcImagePreviewUrl}
             style={preImgStyle}
             referrerPolicy={imageReferrerpolicy}
@@ -153,13 +159,11 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
             draggable="false"
           />
         )}
+        {/* 普通主图 */}
         {!error && mainImagePreviewUrl && !isSvg && (
           <img
+            ref={imgRef}
             className={`${classPrefix}-image-viewer__modal-image`}
-            onMouseDown={(event) => {
-              event.stopPropagation();
-              onMouseDown(event);
-            }}
             src={mainImagePreviewUrl}
             style={imgStyle}
             onLoad={() => setLoaded(true)}
@@ -169,14 +173,11 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
             draggable="false"
           />
         )}
+        {/* SVG 主图 */}
         {!error && !!mainImagePreviewUrl && isSvg && (
           <div
-            ref={attachSvgElRef}
+            ref={svgRef}
             className={`${classPrefix}-image-viewer__modal-image`}
-            onMouseDown={(event) => {
-              event.stopPropagation();
-              onMouseDown(event);
-            }}
             style={imgStyle}
             data-alt="svg"
             draggable="false"
@@ -197,7 +198,7 @@ interface ImageModalIconProps {
   className?: string;
   disabled?: boolean;
   isRange?: boolean;
-  onClick?: (e: MouseEvent<HTMLElement>) => void;
+  onClick?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 const ImageModalIcon = ({ onClick, className, disabled, isRange, name, label, size = '16px' }: ImageModalIconProps) => {
@@ -305,7 +306,7 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
                 onDownload(currentImage.mainImage);
                 return;
               }
-              downloadFile(currentImage.mainImage);
+              downloadImage(currentImage.mainImage);
             }}
           />
         )}
@@ -397,10 +398,13 @@ export interface ImageModalProps {
   closeBtn: boolean | TNode;
   closeOnEscKeydown?: boolean;
   imageReferrerpolicy?: ImageViewerProps['imageReferrerpolicy'];
-  onClose: (context: { trigger: 'close-btn' | 'overlay' | 'esc'; e: MouseEvent<HTMLElement> | KeyboardEvent }) => void;
+  onClose: (context: {
+    trigger: 'close-btn' | 'overlay' | 'esc';
+    e: React.MouseEvent<HTMLElement> | React.KeyboardEvent;
+  }) => void;
   onOpen: () => void;
   onDownload?: TdImageViewerProps['onDownload'];
-  onIndexChange?: (index: number, context: { trigger: 'prev' | 'next' }) => void;
+  onIndexChange?: (index: number, context: { trigger: 'prev' | 'next' | 'current' }) => void;
 }
 
 // 弹窗基础组件
@@ -408,6 +412,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   const {
     closeOnOverlay,
     showOverlay = true,
+    index,
     zIndex,
     images,
     isMini,
@@ -422,13 +427,12 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
     onOpen,
     onClose,
     onDownload,
-    ...resProps
+    onIndexChange,
   } = props;
   const { classPrefix } = useConfig();
   const [locale, t] = useLocaleReceiver('imageViewer');
 
-  if (resProps.index === undefined) delete resProps.index;
-  const { index, next, prev, setIndex } = useIndex(resProps, images);
+  const { next, prev } = useIndex(props, images);
   const { rotateZ, onResetRotate, onRotate } = useRotate();
   const { scale, onZoom, onZoomOut, onResetScale } = useScale(imageScale, visible);
   const { mirror, onResetMirror, onMirror } = useMirror();
@@ -515,7 +519,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         name="close"
         size="24px"
         className={`${classPrefix}-image-viewer__modal-close-bt `}
-        onClick={(e: MouseEvent<HTMLElement>) => onClose && onClose({ trigger: 'close-btn', e })}
+        onClick={(e: React.MouseEvent<HTMLElement>) => onClose && onClose({ trigger: 'close-btn', e })}
       />
     );
   } else if (isFunction(closeBtn)) closeNode = closeBtn({ onClose, onOpen });
@@ -530,7 +534,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
       {!!showOverlay && (
         <div
           className={`${classPrefix}-image-viewer__modal-mask`}
-          onClick={(e: MouseEvent<HTMLElement>) => closeOnOverlay && onClose?.({ trigger: 'overlay', e })}
+          onClick={(e: React.MouseEvent<HTMLElement>) => closeOnOverlay && onClose?.({ trigger: 'overlay', e })}
         />
       )}
       {images.length > 1 && (
@@ -538,7 +542,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
           <ImageViewerHeader
             images={images}
             currentIndex={index}
-            onImgClick={setIndex}
+            onImgClick={onIndexChange}
             imageReferrerpolicy={imageReferrerpolicy}
           />
           <div className={`${classPrefix}-image-viewer__modal-index`}>

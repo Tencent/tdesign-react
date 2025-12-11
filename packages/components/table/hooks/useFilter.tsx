@@ -1,12 +1,21 @@
-import React, { useEffect, useState, MutableRefObject } from 'react';
+import React, { useEffect, useState } from 'react';
 import { isFunction } from 'lodash-es';
 import { getColumnsResetValue } from '@tdesign/common-js/table/utils';
-import useClassName from './useClassName';
+
 import TButton from '../../button';
-import { TdPrimaryTableProps, PrimaryTableCol, TableRowData, FilterValue, TableFilterChangeContext } from '../type';
 import useControlled from '../../hooks/useControlled';
-import TableFilterController from '../FilterController';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import TableFilterController from '../FilterController';
+import useClassName from './useClassName';
+
+import type { PrimaryTableRef } from '../interface';
+import type {
+  FilterValue,
+  PrimaryTableCol,
+  TableFilterChangeContext,
+  TableRowData,
+  TdPrimaryTableProps,
+} from '../type';
 
 function isFilterValueExist(value: any) {
   const isArrayTrue = value instanceof Array && value.length;
@@ -27,7 +36,10 @@ function filterEmptyData(data: FilterValue) {
   return newFilterValue;
 }
 
-export default function useFilter(props: TdPrimaryTableProps, primaryTableRef: MutableRefObject<any>) {
+export default function useFilter(
+  props: TdPrimaryTableProps,
+  primaryTableRef: React.MutableRefObject<PrimaryTableRef>,
+) {
   const { columns } = props;
   const [locale, t] = useLocaleReceiver('table');
   const { tableFilterClasses, isFocusClass } = useClassName();
@@ -113,7 +125,13 @@ export default function useFilter(props: TdPrimaryTableProps, primaryTableRef: M
     column?: PrimaryTableCol,
   ) {
     setTFilterValue(filterValue, { col: column, trigger });
-    props.onChange?.({ filter: filterValue }, { trigger: 'filter' });
+    props.onChange?.({ filter: filterValue }, { trigger: 'filter', currentData: props.data });
+    // 重置表格滚动位置
+    requestAnimationFrame(() => {
+      primaryTableRef.current?.scrollToElement({
+        index: -1,
+      });
+    });
   }
 
   function onReset(column: PrimaryTableCol) {

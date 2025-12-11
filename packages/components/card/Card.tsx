@@ -31,6 +31,12 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     theme,
     status,
     loadingProps,
+    bodyClassName,
+    bodyStyle,
+    footerClassName,
+    footerStyle,
+    headerClassName,
+    headerStyle,
   } = useDefaultProps<CardProps>(props, cardDefaultProps);
 
   const children = props.children ?? props.content;
@@ -50,7 +56,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
   const showHeader =
     header || title || subtitle || description || avatar || (actions && !isPoster2) || (status && isPoster2);
 
-  const headerClass = classNames({
+  const headerClass = classNames(headerClassName, {
     [`${classPrefix}-card__header`]: showHeader,
     [`${classPrefix}-card__title--bordered`]: headerBordered,
   });
@@ -67,7 +73,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     [`${classPrefix}-card__actions`]: actions,
   });
 
-  const footerClass = classNames({
+  const footerClass = classNames(footerClassName, {
     [`${classPrefix}-card__footer`]: footer,
   });
 
@@ -79,7 +85,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     [`${classPrefix}-card__avatar`]: avatar,
   });
 
-  const bodyClass = classNames({
+  const bodyClass = classNames(bodyClassName, {
     [`${classPrefix}-card__body`]: children,
   });
 
@@ -102,10 +108,14 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
 
   const renderHeader = () => {
     if (header) {
-      return <div className={headerClass}>{header}</div>;
+      return (
+        <div className={headerClass} style={headerStyle}>
+          {header}
+        </div>
+      );
     }
     return (
-      <div className={headerClass}>
+      <div className={headerClass} style={headerStyle}>
         <div className={`${classPrefix}-card__header-wrapper`}>
           {renderAvatar}
           <div>
@@ -124,10 +134,14 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     <div className={coverClass}>{typeof cover === 'string' ? <img src={cover} alt=""></img> : cover}</div>
   ) : null;
 
-  const renderChildren = children && <div className={bodyClass}>{children}</div>;
+  const renderChildren = children && (
+    <div className={bodyClass} style={bodyStyle}>
+      {children}
+    </div>
+  );
 
   const renderFooter = footer && (
-    <div className={footerClass}>
+    <div className={footerClass} style={footerStyle}>
       <div className={`${classPrefix}-card__footer-wrapper`}>{footer}</div>
       {renderFooterActions}
     </div>

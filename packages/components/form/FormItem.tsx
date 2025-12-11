@@ -4,28 +4,33 @@ import {
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
-import { flattenDeep, get, isEqual, isFunction, isObject, isString, merge, set, unset } from 'lodash-es';
-import { StyledProps } from '../common';
+import { get, isEqual, isFunction, isObject, isString, set, unset } from 'lodash-es';
+
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { ValidateStatus } from './const';
+import { READONLY_SUPPORTED_COMP, ValidateStatus } from './const';
 import { formItemDefaultProps } from './defaultProps';
 import { useFormContext, useFormListContext } from './FormContext';
 import { parseMessage, validate as validateModal } from './formModel';
 import { HOOK_MARK } from './hooks/useForm';
 import useFormItemInitialData, { ctrlKeyMap } from './hooks/useFormItemInitialData';
 import useFormItemStyle from './hooks/useFormItemStyle';
+import { calcFieldValue, concatName } from './utils';
+
+import type { StyledProps } from '../common';
 import type {
+  FieldData,
   FormInstanceFunctions,
   FormItemValidateMessage,
   FormRule,
   NamePath,
   TdFormItemProps,
+  TdFormProps,
+  ValidateTriggerType,
   ValueType,
 } from './type';
-import { calcFieldValue } from './utils';
 
 export interface FormItemProps extends TdFormItemProps, StyledProps {
   children?: React.ReactNode | React.ReactNode[] | ((form: FormInstanceFunctions) => React.ReactElement);
@@ -33,18 +38,20 @@ export interface FormItemProps extends TdFormItemProps, StyledProps {
 
 export interface FormItemInstance {
   name?: NamePath;
-  isUpdated?: boolean;
+  fullPath?: NamePath[];
   value?: any;
-  getValue?: Function;
-  setValue?: Function;
-  setField?: Function;
-  validate?: Function;
-  resetField?: Function;
-  setValidateMessage?: Function;
-  getValidateMessage?: Function;
-  resetValidate?: Function;
-  validateOnly?: Function;
+  initialData?: any;
   isFormList?: boolean;
+  formListMapRef?: React.MutableRefObject<Map<any, any>>;
+  getValue?: () => any;
+  setValue?: (newVal: any) => void;
+  setField?: (field: Omit<FieldData, 'name'>) => void;
+  validate?: (trigger?: ValidateTriggerType, showErrorMessage?: boolean) => Promise<Record<string, any>>;
+  validateOnly?: (trigger?: ValidateTriggerType) => Promise<Record<string, any>>;
+  resetField?: (type?: TdFormProps['resetType']) => void;
+  setValidateMessage?: (message: FormItemValidateMessage[]) => void;
+  getValidateMessage?: FormInstanceFunctions['getValidateMessage'];
+  resetValidate?: () => void;
 }
 
 const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref) => {
@@ -65,6 +72,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     labelWidth: labelWidthFromContext,
     showErrorMessage: showErrorMessageFromContext,
     disabled: disabledFromContext,
+    readonly: readonlyFromContext,
     resetType: resetTypeFromContext,
     rules: rulesFromContext,
     statusIcon: statusIconFromContext,
@@ -73,8 +81,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     onFormItemValueChange,
   } = useFormContext();
 
-  const { name: formListName, rules: formListRules, formListMapRef } = useFormListContext();
-
+  const { name: formListName, rules: formListRules, formListMapRef, form: formOfFormList } = useFormListContext();
   const props = useDefaultProps<FormItemProps>(originalProps, formItemDefaultProps);
 
   const {
@@ -97,7 +104,10 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     requiredMark = requiredMarkFromContext,
   } = props;
 
-  const { getDefaultInitialData } = useFormItemInitialData(name);
+  const { fullPath: parentFullPath } = useFormListContext();
+  const fullPath = concatName(parentFullPath, name);
+
+  const { getDefaultInitialData } = useFormItemInitialData(name, fullPath);
 
   const [, forceUpdate] = useState({}); // custom render state
   const [freeShowErrorMessage, setFreeShowErrorMessage] = useState(undefined);
@@ -106,28 +116,23 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const [verifyStatus, setVerifyStatus] = useState('validating');
   const [resetValidating, setResetValidating] = useState(false);
   const [needResetField, setNeedResetField] = useState(false);
-  const [formValue, setFormValue] = useState(() => {
-    const fieldName = flattenDeep([formListName, name]);
-    const storeValue = get(form?.store, fieldName);
-    // if (!storeValue && formListName) return; // TODO 针对新增空的动态表单情况，避免回填默认值
-    return (
-      storeValue ??
-      getDefaultInitialData({
-        children,
-        initialData,
-      })
-    );
-  });
+  const [formValue, setFormValue] = useState(() =>
+    getDefaultInitialData({
+      children,
+      initialData,
+    }),
+  );
 
   const formItemRef = useRef<FormItemInstance>(null); // 当前 formItem 实例
   const innerFormItemsRef = useRef([]);
   const shouldEmitChangeRef = useRef(false); // onChange 冒泡开关
-  const isUpdatedRef = useRef(false); // 校验开关
   const shouldValidate = useRef(false); // 校验开关
   const valueRef = useRef(formValue); // 当前最新值
   const errorListMapRef = useRef(new Map());
+
+  const isSameForm = useMemo(() => isEqual(form, formOfFormList), [form, formOfFormList]); // 用于处理 Form 嵌套的情况
   const snakeName = []
-    .concat(formListName, name)
+    .concat(isSameForm ? formListName : undefined, name)
     .filter((item) => item !== undefined)
     .toString(); // 转化 name
 
@@ -164,32 +169,19 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const updateFormValue = (newVal: any, validate = true, shouldEmitChange = false) => {
     const { setPrevStore } = form?.getInternalHooks?.(HOOK_MARK) || {};
     setPrevStore?.(form?.getFieldsValue?.(true));
-
     shouldEmitChangeRef.current = shouldEmitChange;
-    isUpdatedRef.current = true;
     shouldValidate.current = validate;
     valueRef.current = newVal;
-
-    let fieldName = [].concat(name);
-    let fieldValue = formValue;
-
-    if (formListName) {
-      fieldName = [].concat(formListName, name);
-      fieldValue = get(form?.store, fieldName);
-    }
-
-    fieldName = fieldName.filter((item) => item !== undefined);
-
-    if (!fieldName) return;
+    const fieldValue = get(form?.store, fullPath);
     if (isEqual(fieldValue, newVal)) return;
-    set(form?.store, fieldName, newVal);
+    set(form?.store, fullPath, newVal);
     setFormValue(newVal);
   };
 
   // 初始化 rules，最终以 formItem 上优先级最高
   function getInnerRules(name, formRules, formListName, formListRules): FormRule[] {
     if (Array.isArray(name)) {
-      return get(formRules?.[formListName], name) || get(formListRules, name) || [];
+      return get(formRules?.[formListName], name) || get(formListRules, name) || get(formRules, name.join('.')) || [];
     }
     return formRules?.[name] || formListRules || [];
   }
@@ -226,7 +218,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     return null;
   };
 
-  async function analysisValidateResult(trigger) {
+  async function analysisValidateResult(trigger: ValidateTriggerType) {
     const result = {
       successList: [],
       errorList: [],
@@ -263,7 +255,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     return result;
   }
 
-  async function validate(trigger = 'all', showErrorMessage?: boolean) {
+  async function validate(trigger: ValidateTriggerType = 'all', showErrorMessage?: boolean) {
     if (innerFormItemsRef.current.length) {
       return innerFormItemsRef.current.map((innerFormItem) => innerFormItem?.validate(trigger, showErrorMessage));
     }
@@ -312,13 +304,12 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
       resetHandler();
     }
     setResetValidating(false);
-
     return {
       [snakeName]: innerErrorList.length === 0 ? true : resultList,
     };
   }
 
-  async function validateOnly(trigger = 'all') {
+  async function validateOnly(trigger: ValidateTriggerType = 'all') {
     const { errorList: innerErrorList, resultList } = await analysisValidateResult(trigger);
 
     return {
@@ -329,11 +320,10 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   // blur 下触发校验
   function handleItemBlur() {
     const filterRules = innerRules.filter((item) => item.trigger === 'blur');
-
     filterRules.length && validate('blur');
   }
 
-  function getResetValue(resetType: string): ValueType {
+  function getResetValue(resetType: TdFormProps['resetType']): ValueType {
     if (resetType === 'initial') {
       return getDefaultInitialData({
         children,
@@ -353,7 +343,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     return emptyValue;
   }
 
-  function resetField(type: string) {
+  function resetField(type: TdFormProps['resetType']) {
     if (typeof name === 'undefined') return;
 
     const resetType = type || resetTypeFromContext;
@@ -375,7 +365,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     setVerifyStatus(ValidateStatus.VALIDATING);
   }
 
-  function setField(field: { value?: string; status?: ValidateStatus; validateMessage?: FormItemValidateMessage }) {
+  function setField(field: Omit<FieldData, 'name'>) {
     const { value, status, validateMessage } = field;
     if (typeof status !== 'undefined') {
       setErrorList(validateMessage ? [validateMessage] : []);
@@ -410,6 +400,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     if (!shouldUpdate || !form) return;
 
     const { getPrevStore, registerWatch } = form?.getInternalHooks?.(HOOK_MARK) || {};
+
     const cancelRegister = registerWatch?.(() => {
       const currStore = form?.getFieldsValue?.(true) || {};
       let updateFlag = shouldUpdate as boolean;
@@ -425,22 +416,23 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     // 记录填写 name 属性 formItem
     if (typeof name === 'undefined') return;
 
-    // formList 下特殊处理
-    if (formListName) {
-      formListMapRef.current.set(name, formItemRef);
+    // FormList 下特殊处理
+    if (formListName && isSameForm) {
+      formListMapRef.current.set(fullPath, formItemRef);
+      set(form?.store, fullPath, formValue);
       return () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        formListMapRef.current.delete(name);
-        unset(form?.store, name);
+        formListMapRef.current.delete(fullPath);
+        unset(form?.store, fullPath);
       };
     }
-
     if (!formMapRef) return;
-    formMapRef.current.set(name, formItemRef);
+    formMapRef.current.set(fullPath, formItemRef);
+    set(form?.store, fullPath, formValue);
     return () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      formMapRef.current.delete(name);
-      unset(form?.store, name);
+      formMapRef.current.delete(fullPath);
+      unset(form?.store, fullPath);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [snakeName, formListName]);
@@ -452,18 +444,9 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     // 控制是否需要校验
     if (!shouldValidate.current) return;
 
-    // value change event
     if (typeof name !== 'undefined' && shouldEmitChangeRef.current) {
-      if (formListName) {
-        // 整理 formItem 的值
-        const formListValue = merge([], calcFieldValue(name, formValue));
-        // 整理 formList 的值
-        const fieldValue = calcFieldValue(formListName, formListValue);
-        onFormItemValueChange?.({ ...fieldValue });
-      } else {
-        const fieldValue = calcFieldValue(name, formValue);
-        onFormItemValueChange?.({ ...fieldValue });
-      }
+      const fieldValue = calcFieldValue(fullPath, formValue);
+      onFormItemValueChange?.(fieldValue);
     }
 
     const filterRules = innerRules.filter((item) => (item.trigger || 'change') === 'change');
@@ -475,8 +458,10 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   // 暴露 ref 实例方法
   const instance: FormItemInstance = {
     name,
+    fullPath,
     value: formValue,
-    isUpdated: isUpdatedRef.current,
+    initialData,
+    isFormList: false,
     getValue: () => valueRef.current,
     setValue: (newVal: any) => updateFormValue(newVal, true, true),
     setField,
@@ -521,8 +506,11 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
                 ctrlKey = ctrlKeyMap.get(child.type) || 'value';
               }
               const childProps = child.props as any;
+              // @ts-ignore
+              const readOnlyKey = READONLY_SUPPORTED_COMP.includes(child?.type?.displayName) ? 'readonly' : 'readOnly';
               return React.cloneElement(child, {
                 disabled: disabledFromContext,
+                [readOnlyKey]: readonlyFromContext,
                 ...childProps,
                 [ctrlKey]: formValue,
                 onChange: (value: any, ...args: any[]) => {

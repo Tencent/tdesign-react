@@ -50,7 +50,6 @@ const TreeItem = forwardRef(
       expandOnClickNode,
       activable,
       checkProps,
-      disableCheck,
       operations,
       onClick,
       onChange,
@@ -242,44 +241,32 @@ const TreeItem = forwardRef(
       });
 
       if (node.isCheckable()) {
-        let checkboxDisabled: boolean;
-        if (typeof disableCheck === 'function') {
-          checkboxDisabled = disableCheck(node.getModel());
-        } else {
-          checkboxDisabled = !!disableCheck;
-        }
-
-        if (node.isDisabled()) {
-          checkboxDisabled = true;
-        }
-
         let checkboxProps: CheckboxProps;
         if (typeof checkProps === 'function') {
           checkboxProps = checkProps(node.getModel());
         } else {
           checkboxProps = checkProps;
         }
-
         return (
           <Checkbox
             ref={setRefCurrent}
             checked={node.checked}
             indeterminate={node.indeterminate}
-            disabled={checkboxDisabled}
+            disabled={node.disabled}
             name={String(node.value)}
-            onChange={(checked, ctx) => onChange(node, ctx)}
+            onChange={(_, ctx) => onChange(node, ctx)}
             className={labelClasses}
             stopLabelTrigger={expandOnClickNode && !!node.children}
             {...checkboxProps}
           >
-            <span date-target="label">{labelText}</span>
+            <span data-target="label">{labelText}</span>
           </Checkbox>
         );
       }
       return (
         <span
           ref={setRefCurrent}
-          date-target="label"
+          data-target="label"
           className={labelClasses}
           // label 可以传入 ReactNode， 如果直接取里面的 children 值，当多层级的时候会有问题
           // 所以这里判断如果 label是 ReactNode， 并且 text没有值 就不展示 title
@@ -308,7 +295,7 @@ const TreeItem = forwardRef(
 
       if (operationsView) {
         return (
-          <span className={treeClassNames.treeOperations} date-target="operations">
+          <span className={treeClassNames.treeOperations} data-target="operations" onClick={stopPropagation}>
             {operationsView}
           </span>
         );
@@ -362,7 +349,6 @@ const TreeItem = forwardRef(
       evt.preventDefault();
       setDragStatus('drop', evt);
     };
-    const childrenKey = props.keys?.children || 'children';
 
     return (
       <div
@@ -370,14 +356,10 @@ const TreeItem = forwardRef(
         data-value={node.value}
         data-level={level}
         className={classNames(treeClassNames.treeNode, {
-          [treeClassNames.treeNodeOpen]:
-            node.expanded &&
-            (typeof node.data[childrenKey] === 'boolean'
-              ? node.data[childrenKey]
-              : node.data[childrenKey] !== undefined),
+          [treeClassNames.treeNodeOpen]: node.expanded,
           [treeClassNames.actived]: node.isActivable() ? node.actived : false,
           [treeClassNames.disabled]: node.isDisabled(),
-          [treeClassNames.treeNodeDraggable]: node.isDraggable(),
+          [treeClassNames.treeNodeDraggable]: !node.isDisabled() && node.isDraggable(),
           [treeClassNames.treeNodeDragging]: isDragging,
           [treeClassNames.treeNodeDragTipTop]: isDragOver && dropPosition < 0,
           [treeClassNames.treeNodeDragTipBottom]: isDragOver && dropPosition > 0,
@@ -390,7 +372,7 @@ const TreeItem = forwardRef(
           } as CSSProperties
         }
         onClick={handleClick}
-        draggable={node.isDraggable()}
+        draggable={!node.isDisabled() && node.isDraggable()}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
         onDragOver={handleDragOver}

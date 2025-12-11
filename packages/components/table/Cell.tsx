@@ -120,7 +120,7 @@ const Cell = (props: CellProps) => {
   return (
     <td
       key={col.colKey || colIndex}
-      className={classNames(classes)}
+      className={classNames(classes) || undefined}
       style={tdStyles.style}
       {...attrs}
       onClick={onClick}

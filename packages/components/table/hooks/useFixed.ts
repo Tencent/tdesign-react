@@ -1,16 +1,19 @@
-import { useEffect, useState, useMemo, useRef, WheelEvent, useCallback, MutableRefObject } from 'react';
+import { type MutableRefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { get, pick, xorWith } from 'lodash-es';
-import { getIEVersion } from '@tdesign/common-js/utils/helper';
+
 import log from '@tdesign/common-js/log/index';
 import { getScrollbarWidthWithCSS } from '@tdesign/common-js/utils/getScrollbarWidth';
-import { ClassName, Styles } from '../../common';
-import { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
-import { FixedColumnInfo, TableRowFixedClasses, RowAndColFixedPosition, TableColFixedClasses } from '../interface';
-import useDebounce from '../../hooks/useDebounce';
-import usePrevious from '../../hooks/usePrevious';
-import { resizeObserverElement, isLessThanIE11OrNotHaveResizeObserver } from '../utils';
+import { getIEVersion } from '@tdesign/common-js/utils/helper';
 import { off, on } from '../../_util/listener';
-import { AffixRef } from '../../affix';
+import useDebounce from '../../hooks/useDebounce';
+import useDeepEffect from '../../hooks/useDeepEffect';
+import usePrevious from '../../hooks/usePrevious';
+import { isLessThanIE11OrNotHaveResizeObserver, resizeObserverElement } from '../utils';
+
+import type { AffixRef } from '../../affix';
+import type { ClassName, Styles } from '../../common';
+import type { FixedColumnInfo, RowAndColFixedPosition, TableColFixedClasses, TableRowFixedClasses } from '../interface';
+import type { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
 
 // 固定列相关类名处理
 export function getColumnFixedStyles(
@@ -266,7 +269,12 @@ export default function useFixed(
       initialColumnMap.set(rowId, { ...thisRowInfo, height: tr?.getBoundingClientRect?.().height });
     }
     for (let i = data.length - 1; i >= data.length - fixedBottomRows; i--) {
-      const tr = trList[i] as HTMLElement;
+      /**
+       * 下面是一个 Hack
+       * 开启虚拟滚动的时候，当尾部冻结行不在可视区域，无法获取到高度
+       * 目前取第一个数据行的高度进行计算，但在动态行高的场景下会有误差
+       */
+      const tr = trList[i] || trList[0];
       const rowId = get(data[i], rowKey);
       const thisRowInfo = initialColumnMap.get(rowId) || {};
       const lastRowId = get(data[i + 1], rowKey);
@@ -335,15 +343,9 @@ export default function useFixed(
   const updateFixedStatus = () => {
     const { newColumnsMap, levelNodes } = getColumnMap(columns);
     setIsLastOrFirstFixedCol(levelNodes);
-    const timer = setTimeout(() => {
-      if (isFixedColumn || fixedRows?.length) {
-        updateRowAndColFixedPosition(tableContentRef.current, newColumnsMap);
-      }
-      clearTimeout(timer);
-    }, 0);
-    return () => {
-      clearTimeout(timer);
-    };
+    if (isFixedColumn || fixedRows?.length) {
+      updateRowAndColFixedPosition(tableContentRef.current, newColumnsMap);
+    }
   };
 
   // 使用 useCallback 来优化性能
@@ -359,9 +361,6 @@ export default function useFixed(
       top: pos?.top,
       left: pos?.left,
     });
-
-    // updateTableWidth(isHeightOverflow);
-    // updateThWidthListHandler();
   }, []);
 
   const setTableElmWidth = (width: number) => {
@@ -417,17 +416,13 @@ export default function useFixed(
   };
 
   const updateThWidthListHandler = () => {
-    const timer = setTimeout(() => {
-      updateTableWidth();
-      if (notNeedThWidthList) return;
-      const thead = tableContentRef.current?.querySelector('thead');
-      if (!thead) return;
-      updateThWidthList(thead.children);
-      clearTimeout(timer);
-    }, 0);
+    if (notNeedThWidthList) return;
+    const thead = tableContentRef.current?.querySelector('thead');
+    if (!thead) return;
+    updateThWidthList(thead.children);
   };
 
-  const emitScrollEvent = (e: WheelEvent<HTMLDivElement>) => {
+  const emitScrollEvent = (e: React.WheelEvent<HTMLDivElement>) => {
     props.onScrollX?.({ e });
     props.onScrollY?.({ e });
     props.onScroll?.({ e });
@@ -466,7 +461,7 @@ export default function useFixed(
     }
   };
 
-  useEffect(
+  useDeepEffect(
     updateFixedStatus,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
@@ -486,13 +481,10 @@ export default function useFixed(
   );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (isFixedColumn) {
-        updateColumnFixedShadow(tableContentRef.current);
-      }
-      clearTimeout(timer);
-    }, 0);
+  useDeepEffect(() => {
+    if (isFixedColumn) {
+      updateColumnFixedShadow(tableContentRef.current);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFixedColumn, columns, tableContentRef]);
 
@@ -510,28 +502,23 @@ export default function useFixed(
     }
   }, [updateFixedHeaderByUseDebounce]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(updateFixedHeaderByUseDebounce, [maxHeight, data, columns, bordered, tableContentRef]);
+  useDeepEffect(updateFixedHeader, [maxHeight, data, columns, bordered, tableContentRef]);
 
-  useEffect(() => {
+  useDeepEffect(() => {
     updateTableElmWidthOnColumnChange(finalColumns, preFinalColumns);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finalColumns]);
 
   // 影响表头宽度的元素
-  useEffect(
+  useDeepEffect(
     () => {
-      const timer = setTimeout(() => {
-        // updateTableWidth(isFixedHeader);
-        updateThWidthListHandler();
-        updateAffixPosition();
-        clearTimeout(timer);
-      }, 10);
+      updateThWidthListHandler();
+      updateAffixPosition();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
-      // data,
       bordered,
+      columns,
       tableLayout,
       fixedRows,
       headerAffixedTop,
@@ -544,6 +531,7 @@ export default function useFixed(
   const refreshTable = () => {
     updateThWidthListHandler();
     updateFixedHeader();
+    updateTableWidth();
     updateAffixPosition();
 
     if (isFixedColumn || isFixedHeader) {
@@ -566,10 +554,7 @@ export default function useFixed(
     if (!tableElmWidth.current) return;
     // 抽离 resize 为单独的方法，通过回调来执行操作
     return resizeObserverElement(tableElement, () => {
-      const timer = setTimeout(() => {
-        refreshTable();
-        clearTimeout(timer);
-      }, 60);
+      refreshTable();
     });
   }
 

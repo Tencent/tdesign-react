@@ -32,6 +32,8 @@ export interface CascaderContextType
   inputVal: TdSelectInputProps['inputValue'];
   setInputVal: (val: TdSelectInputProps['inputValue']) => void;
   setExpend: (val: TreeNodeValue[]) => void;
+  // 支持 filterable 与 checkStrictly 及valueMode = parentFirst 或 all 配合使用，展示非叶子节点的效果
+  isParentFilterable: boolean;
 }
 
 export { TreeNode } from '@tdesign/common-js/tree-v1/tree-node';

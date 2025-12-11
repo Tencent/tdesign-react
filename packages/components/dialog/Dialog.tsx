@@ -1,23 +1,24 @@
 import React, { forwardRef, useEffect, useRef, useImperativeHandle, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
-import log from '@tdesign/common-js/log/index';
 import { isUndefined } from 'lodash-es';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { TdDialogProps, DialogInstance } from './type';
-import { StyledProps } from '../common';
+import log from '@tdesign/common-js/log/index';
+import { pxCompat } from '@tdesign/common-js/utils/helper';
 import Portal from '../common/Portal';
-import useSetState from '../hooks/useSetState';
+import useAttach from '../hooks/useAttach';
 import useConfig from '../hooks/useConfig';
+import useDeepEffect from '../hooks/useDeepEffect';
+import useDefaultProps from '../hooks/useDefaultProps';
+import useSetState from '../hooks/useSetState';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { dialogDefaultProps } from './defaultProps';
 import DialogCard from './DialogCard';
 import useDialogEsc from './hooks/useDialogEsc';
 import useLockStyle from './hooks/useLockStyle';
 import useDialogDrag from './hooks/useDialogDrag';
-import { parseValueToPx } from './utils';
-import useDefaultProps from '../hooks/useDefaultProps';
-import useAttach from '../hooks/useAttach';
 import { canUseDocument } from '../_util/dom';
+import type { StyledProps } from '../common';
+import type { DialogInstance, TdDialogProps } from './type';
 
 type MousePosition = { x: number; y: number } | null;
 
@@ -99,20 +100,16 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
 
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
   useDialogEsc(visible, wrapRef);
-
-  const { onDialogMoveStart } = useDialogDrag({
+  useDialogDrag({
     dialogCardRef,
-    contentClickRef,
     canDraggable: draggable && mode === 'modeless',
   });
 
-  useEffect(() => {
-    if (isPlugin) {
-      return;
-    }
+  useDeepEffect(() => {
+    if (isPlugin) return;
     // 插件式调用不会更新props, 只有组件式调用才会更新props
     setState((prevState) => ({ ...prevState, ...props }));
-  }, [props, setState, isPlugin]);
+  }, [props, setState]);
 
   useEffect(() => {
     if (dialogAnimationVisible) {
@@ -265,7 +262,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
                 [`${componentCls}--top`]: !!props.top || props.placement === 'top',
                 [`${componentCls}--center`]: props.placement === 'center' && !props.top,
               })}
-              style={{ paddingTop: parseValueToPx(props.top) }}
+              style={{ paddingTop: pxCompat(props.top) }}
               onClick={onMaskClick}
             >
               <CSSTransition
@@ -281,11 +278,10 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
                   ref={dialogCardRef}
                   {...restState}
                   className={dialogClassName}
-                  style={{ ...style, width: parseValueToPx(width || style?.width) }}
+                  style={{ ...style, width: pxCompat(width || style?.width) }}
                   onConfirm={onConfirm}
                   onCancel={handleCancel}
                   onCloseBtnClick={handleClose}
-                  onMouseDown={onDialogMoveStart}
                 >
                   {children}
                 </DialogCard>

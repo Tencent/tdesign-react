@@ -104,7 +104,7 @@ const Item = forwardRef(
     };
 
     const RenderCheckBox = (node: TreeNode, cascaderContext: CascaderContextType) => {
-      const { checkProps, value, max, inputVal } = cascaderContext;
+      const { checkProps, value, max, inputVal, isParentFilterable } = cascaderContext;
       const label = RenderLabelInner(node, cascaderContext);
       return (
         <Checkbox
@@ -112,7 +112,7 @@ const Item = forwardRef(
           indeterminate={node.indeterminate}
           disabled={node.isDisabled() || (value && (value as TreeNodeValue[]).length >= max && max !== 0)}
           name={String(node.value)}
-          stopLabelTrigger={!!node.children}
+          stopLabelTrigger={!!node.children && !isParentFilterable}
           title={inputVal ? getFullPathLabel(node) : node.label}
           onChange={() => {
             onChange(node);
@@ -146,8 +146,8 @@ const Item = forwardRef(
         }}
       >
         {multiple ? RenderCheckBox(node, cascaderContext) : RenderLabelContent(node, cascaderContext)}
-        {!cascaderContext.inputVal &&
-          node.children &&
+        {node.children &&
+          !cascaderContext.isParentFilterable &&
           (node.loading ? (
             <TLoading className={iconClass} loading={true} size="small" />
           ) : (

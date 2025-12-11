@@ -1,9 +1,11 @@
-import React, { forwardRef, useImperativeHandle, useState, useEffect } from 'react';
+import React, { forwardRef, useImperativeHandle, useState, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
-import { AttachNode, AttachNodeReturnValue } from '../common';
+
 import { canUseDocument } from '../_util/dom';
 import useConfig from '../hooks/useConfig';
 import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
+
+import type { AttachNode, AttachNodeReturnValue } from '../common';
 
 export interface PortalProps {
   /**
@@ -15,6 +17,7 @@ export interface PortalProps {
    */
   triggerNode?: HTMLElement;
   children: React.ReactNode;
+  style?: React.CSSProperties;
 }
 
 export function getAttach(attach: PortalProps['attach'], triggerNode?: HTMLElement): AttachNodeReturnValue {
@@ -38,15 +41,20 @@ export function getAttach(attach: PortalProps['attach'], triggerNode?: HTMLEleme
 }
 
 const Portal = forwardRef((props: PortalProps, ref) => {
-  const { attach, children, triggerNode } = props;
+  const { attach, children, triggerNode, style } = props;
   const { classPrefix } = useConfig();
-  const [container] = useState(() => {
+  const [mounted, setMounted] = useState(false);
+
+  const container = useMemo(() => {
     if (!canUseDocument) return null;
     const el = document.createElement('div');
     el.className = `${classPrefix}-portal-wrapper`;
+    if (typeof style === 'object') {
+      Object.assign(el.style, style);
+    }
     return el;
-  });
-  const [mounted, setMounted] = useState(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [classPrefix]);
 
   useIsomorphicLayoutEffect(() => {
     if (!mounted) return;

@@ -27,8 +27,8 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
   }, [delay]);
 
   function callFuncWithDelay({ delay, callback }: { delay?: number; callback: Function }) {
+    clearTimeout(visibleTimer.current);
     if (delay) {
-      clearTimeout(visibleTimer.current);
       visibleTimer.current = setTimeout(callback, delay);
     } else {
       callback();

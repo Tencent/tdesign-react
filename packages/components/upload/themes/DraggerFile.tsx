@@ -40,13 +40,16 @@ const DraggerFile: FC<DraggerProps> = (props) => {
     ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
   });
 
+  const firstFile = displayFiles[0];
+  const firstFileStatus = firstFile?.status;
+
   const classes = useMemo(
     () => [
       `${uploadPrefix}__dragger`,
-      { [`${uploadPrefix}__dragger-center`]: !displayFiles[0] },
-      { [`${uploadPrefix}__dragger-error`]: displayFiles[0]?.status === 'fail' },
+      { [`${uploadPrefix}__dragger-center`]: !firstFile },
+      { [`${uploadPrefix}__dragger-error`]: firstFileStatus === 'fail' },
     ],
-    [displayFiles, uploadPrefix],
+    [firstFile, firstFileStatus, uploadPrefix],
   );
 
   const renderImage = () => {
@@ -56,7 +59,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
       <div className={`${uploadPrefix}__dragger-img-wrap`}>
         <ImageViewer
           images={[url]}
-          trigger={({ open }) => <Image src={url || file.raw} onClick={open} />}
+          trigger={({ open }) => <Image src={url || file.raw} onClick={() => open()} />}
           {...props.imageViewerProps}
         ></ImageViewer>
       </div>
@@ -134,7 +137,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
                 theme="primary"
                 hover="color"
                 disabled={disabled}
-                className={`${uploadPrefix}__dragger-progress-reupload`}
+                className={`${uploadPrefix}__dragger-progress-cancel`}
                 onClick={props.triggerUpload}
               >
                 {locale.triggerUploadText.reupload}

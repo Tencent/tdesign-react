@@ -1,11 +1,12 @@
-import { useEffect, useMemo, MutableRefObject, useCallback, CSSProperties } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import useVirtualScroll from '../../hooks/useVirtualScroll';
-import { TdSelectProps } from '../type';
-import { TScroll, SizeEnum } from '../../common';
+
+import type { SizeEnum, TScroll } from '../../common';
+import type { TdSelectProps } from '../type';
 
 interface PanelVirtualScroll {
   scroll?: TdSelectProps['scroll'];
-  popupContentRef: MutableRefObject<HTMLDivElement>;
+  popupContentRef: React.MutableRefObject<HTMLDivElement>;
   options: TdSelectProps['options'];
   size: SizeEnum;
 }
@@ -14,9 +15,10 @@ const usePanelVirtualScroll = ({ popupContentRef, scroll, options, size }: Panel
   const scrollThreshold = scroll?.threshold || 100;
   const scrollType = scroll?.type;
 
+  const enableVirtual = useMemo<boolean>(() => scrollType === 'virtual', [scrollType]);
   const isVirtual = useMemo<boolean>(
-    () => scrollType === 'virtual' && options?.length > scrollThreshold,
-    [scrollType, scrollThreshold, options],
+    () => enableVirtual && options?.length > scrollThreshold,
+    [enableVirtual, options?.length, scrollThreshold],
   );
 
   const scrollParams = useMemo<TScroll>(() => {
@@ -42,6 +44,7 @@ const usePanelVirtualScroll = ({ popupContentRef, scroll, options, size }: Panel
     translateY = null,
     handleRowMounted = null,
   } = useVirtualScroll(popupContentRef, {
+    enable: enableVirtual,
     data: options || [],
     scroll: scrollParams,
   });
@@ -62,7 +65,7 @@ const usePanelVirtualScroll = ({ popupContentRef, scroll, options, size }: Panel
     } else {
       lastScrollY = -1;
     }
-  }, []);
+  }, [isVirtual, handleVirtualScroll]);
 
   // 监听popup滚动 处理虚拟滚动时的virtualData变化
   useEffect(() => {
@@ -88,14 +91,14 @@ const usePanelVirtualScroll = ({ popupContentRef, scroll, options, size }: Panel
     MsTransform: `translate(0, ${scrollHeight}px)`,
     MozTransform: `translate(0, ${scrollHeight}px)`,
     WebkitTransform: `translate(0, ${scrollHeight}px)`,
-  } as CSSProperties;
+  } as React.CSSProperties;
 
   const panelStyle = {
     transform: `translate(0, ${translateY}px)`,
     MsTransform: `translate(0, ${translateY}px)`,
     MozTransform: `translate(0, ${translateY}px)`,
     WebkitTransform: `translate(0, ${translateY}px)`,
-  } as CSSProperties;
+  } as React.CSSProperties;
 
   return {
     scrollHeight,

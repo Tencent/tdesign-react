@@ -1,56 +1,49 @@
 import React, {
   forwardRef,
-  useState,
+  MouseEvent,
+  RefObject,
+  useCallback,
   useImperativeHandle,
   useMemo,
-  RefObject,
-  MouseEvent,
   useRef,
-  useCallback,
+  useState,
 } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import { get } from 'lodash-es';
 
-import TreeNode from '@tdesign/common-js/tree-v1/tree-node';
 import log from '@tdesign/common-js/log/index';
+import TreeNode from '@tdesign/common-js/tree-v1/tree-node';
 import type {
   TreeNodeState,
   TreeNodeValue,
   TypeTreeNodeData,
   TypeTreeNodeModel,
 } from '@tdesign/common-js/tree-v1/types';
-import { TreeOptionData, StyledProps, ComponentScrollToElementParams } from '../common';
-import { TreeItemProps } from './interface';
-import TreeItem from './TreeItem';
 
+import parseTNode from '../_util/parseTNode';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { usePersistFn } from '../hooks/usePersistFn';
+import { treeDefaultProps } from './defaultProps';
+import { TreeDraggableContext } from './hooks/TreeDraggableContext';
 import useControllable from './hooks/useControllable';
 import { useStore } from './hooks/useStore';
 import { useTreeConfig } from './hooks/useTreeConfig';
-import { TreeDraggableContext } from './hooks/TreeDraggableContext';
-import parseTNode from '../_util/parseTNode';
-import { usePersistFn } from '../hooks/usePersistFn';
 import useTreeVirtualScroll from './hooks/useTreeVirtualScroll';
+import TreeItem from './TreeItem';
 
-import type { TreeInstanceFunctions, TdTreeProps } from './type';
-import useDefaultProps from '../hooks/useDefaultProps';
+import type { ComponentScrollToElementParams, StyledProps, TreeOptionData } from '../common';
+import type { TreeItemProps } from './interface';
+import type { TdTreeProps, TreeInstanceFunctions } from './type';
 
 export type TreeProps = TdTreeProps & StyledProps;
 
 const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((originalProps, ref) => {
   const { treeClassNames, transitionNames, transitionClassNames, transitionDuration, locale } = useTreeConfig();
-  const props = useDefaultProps<TreeProps>(originalProps, {
-    data: [],
-    expandLevel: 0,
-    icon: true,
-    line: false,
-    transition: true,
-    lazy: true,
-    valueMode: 'onlyLeaf',
-  });
 
-  // 可见节点集合
-  const [visibleNodes, setVisibleNodes] = useState([]);
+  const { value, onChange, expanded, onExpand, onActive, actived, setTreeIndeterminate, indeterminate } =
+    useControllable(originalProps);
+  const props = useDefaultProps<TreeProps>(originalProps, treeDefaultProps);
   const {
     empty,
     activable,
@@ -73,11 +66,11 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     onScroll,
   } = props;
 
-  const { value, onChange, expanded, onExpand, onActive, actived, setTreeIndeterminate, indeterminate } =
-    useControllable(props);
+  // 可见节点集合
+  const [visibleNodes, setVisibleNodes] = useState([]);
 
   // 国际化文本初始化
-  const emptyText = locale('empty');
+  const emptyText = empty || locale('empty');
 
   const store = useStore(
     {
@@ -186,11 +179,12 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
   };
 
   const handleChange: TreeItemProps['onChange'] = (node, ctx) => {
-    if (!node || disabled || node.disabled) {
-      return;
-    }
-    setChecked(node, !node.isChecked(), { ...ctx, trigger: 'node-click' });
+    if (!node || disabled || node.disabled) return;
+    const checked = node.toggleChecked();
+    const treeNodeModel = node?.getModel();
+    onChange?.(checked, { node: treeNodeModel, ...ctx, trigger: 'node-click' });
   };
+
   const handleScrollToElement = useCallback(
     (params: ComponentScrollToElementParams) => {
       let { index } = params;
@@ -302,7 +296,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     [visibleNodes],
   );
 
-  const renderEmpty = () => parseTNode(empty, null, emptyText);
+  const renderEmpty = () => parseTNode(emptyText);
 
   const renderItems = (renderNode: TreeNode[]) => {
     if (renderNode.length <= 0) {

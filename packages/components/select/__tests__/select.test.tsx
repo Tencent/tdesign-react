@@ -1,12 +1,12 @@
 /* eslint-disable */
-import { render, fireEvent, mockTimeout, mockDelay, act } from '@test/utils';
 import React, { useState } from 'react';
+import { act, fireEvent, mockTimeout, render } from '@test/utils';
 import userEvent from '@testing-library/user-event';
 
-import { Select, SelectProps } from '../index';
 import Popup from '../../popup';
 import Space from '../../space';
 import Tag from '../../tag';
+import { Select, SelectProps } from '../index';
 
 const { Option, OptionGroup } = Select;
 
@@ -17,6 +17,7 @@ describe('Select 组件测试', () => {
     {
       label: 'Apple',
       value: 'apple',
+      disabled: true,
     },
     {
       label: 'Banana',
@@ -189,7 +190,7 @@ describe('Select 组件测试', () => {
       return (
         <Select value={value} onChange={onChange} multiple>
           <Option key="all" label="All" value="all" checkAll />
-          <Option key="apple" label="Apple" value="apple" />
+          <Option key="apple" label="Apple" value="apple" disabled />
           <Option key="orange" label="Orange" value="orange" />
           <Option key="banana" label="Banana" value="banana" />
         </Select>
@@ -200,15 +201,18 @@ describe('Select 组件测试', () => {
 
     fireEvent.click(document.querySelector('.t-input'));
 
+    const disabledApple = document.querySelector('.t-select-option.t-is-disabled');
+    expect(disabledApple).toHaveTextContent('Apple');
+
     // 点击全选，input 展示 Apple、Banana、Orange 选项
     fireEvent.click(getByText('All'));
     expect(document.querySelector(selectSelector)).toHaveTextContent('Apple');
     expect(document.querySelector(selectSelector)).toHaveTextContent('Banana');
     expect(document.querySelector(selectSelector)).toHaveTextContent('Orange');
 
-    // 再次点击全选，input 清空选项
+    // 再次点击全选，input 清空选项（保留原本禁用项）
     fireEvent.click(getByText('All'));
-    expect(document.querySelector(selectSelector)).not.toHaveTextContent('Apple');
+    expect(document.querySelector(selectSelector)).toHaveTextContent('Apple');
     expect(document.querySelector(selectSelector)).not.toHaveTextContent('Banana');
     expect(document.querySelector(selectSelector)).not.toHaveTextContent('Orange');
   });
@@ -254,6 +258,41 @@ describe('Select 组件测试', () => {
         display: 'none',
       }),
     );
+  });
+
+  test('分组选择器全选测试', async () => {
+    const OptionGroupCheckAllSelect = () => {
+      const [value, setValue] = useState(['apple']);
+      const onChange = (value) => {
+        setValue(value);
+      };
+
+      return (
+        <Select value={value} onChange={onChange} multiple>
+          <Option key="all" label="All" value="all" checkAll />
+          <OptionGroup label="Fruit">
+            {options.map((item, index) => (
+              <Option label={item.label} value={item.value} disabled={item.disabled} key={index} />
+            ))}
+          </OptionGroup>
+        </Select>
+      );
+    };
+
+    const { getByText } = render(<OptionGroupCheckAllSelect />);
+    fireEvent.click(document.querySelector('.t-input'));
+
+    // 点击全选，input 展示 Apple、Banana、Orange 选项
+    fireEvent.click(getByText('All'));
+    expect(document.querySelector(selectSelector)).toHaveTextContent('Apple');
+    expect(document.querySelector(selectSelector)).toHaveTextContent('Banana');
+    expect(document.querySelector(selectSelector)).toHaveTextContent('Orange');
+
+    // 再次点击全选，input 清空选项（保留原本禁用项）
+    fireEvent.click(getByText('All'));
+    expect(document.querySelector(selectSelector)).toHaveTextContent('Apple');
+    expect(document.querySelector(selectSelector)).not.toHaveTextContent('Banana');
+    expect(document.querySelector(selectSelector)).not.toHaveTextContent('Orange');
   });
 
   test('可过滤选择器测试', async () => {
@@ -472,17 +511,23 @@ describe('Select 组件测试', () => {
       );
     };
     const { getByText, container } = render(<MultipleSelect />);
-    const tags0 = container.querySelectorAll('.t-tag');
-    expect(tags0.length).toBe(0);
 
-    // 检测第一次select value
+    // 初始化无 tag 展示
+    const tags = container.querySelectorAll('.t-tag');
+    expect(tags.length).toBe(0);
+
+    // 选择 Apple
     expect(document.querySelectorAll(popupSelector).length).toBe(0);
     fireEvent.click(document.querySelector('.t-input'));
     fireEvent.click(getByText('Apple'));
+    const tags0 = container.querySelectorAll('.t-tag');
+    expect(tags0.length).toBe(0); // 禁用项不可选中
+
+    // 选择 Banana
+    fireEvent.click(getByText('Banana'));
     const tags1 = container.querySelectorAll('.t-tag');
     expect(tags1.length).toBe(1);
-    expect(tags1[0]).toHaveTextContent('Apple');
-    //input popup 消失
+    expect(tags1[0]).toHaveTextContent('Banana');
     fireEvent.click(document.querySelector('.t-input'));
     expect(document.querySelectorAll(popupSelector).length).toBe(1);
     await mockTimeout(() => {
@@ -491,7 +536,7 @@ describe('Select 组件测试', () => {
       });
     });
 
-    // 检测第二次 select value
+    // 选择 Orange
     fireEvent.click(document.querySelector('.t-input'));
     await mockTimeout(() => {
       expect(document.querySelector(popupSelector)).toHaveStyle({
@@ -501,9 +546,10 @@ describe('Select 组件测试', () => {
     fireEvent.click(getByText('Orange'));
     const tags2 = container.querySelectorAll('.t-tag');
     expect(tags2.length).toBe(2);
-    expect(tags2[0]).toHaveTextContent('Apple');
+    expect(tags2[0]).toHaveTextContent('Banana');
     expect(tags2[1]).toHaveTextContent('More(1)');
-    //input popup 消失
+
+    // input popup 消失
     fireEvent.click(document.querySelector('.t-input'));
     await mockTimeout(() => {
       expect(document.querySelectorAll(popupSelector).length).toBe(1);
@@ -511,41 +557,35 @@ describe('Select 组件测试', () => {
         display: 'none',
       });
     });
-    // collapsedItems popup 展示
+
+    // 悬停 More，展示 collapsedItems popup
     fireEvent.mouseEnter(tags2[1]);
     expect(document.querySelectorAll(popupSelector).length).toBe(2);
-    // 判断展示的tag
     const collapsedTags2 = document.querySelectorAll('.collapsed-items-popup .t-tag');
     expect(collapsedTags2.length).toBe(1);
     expect(collapsedTags2[0]).toHaveTextContent('Orange');
 
-    // 检测第三次 select value
+    // 取消选中 Orange
     fireEvent.click(document.querySelector('.t-input'));
     await mockTimeout(() => {
       expect(document.querySelector(popupSelector)).toHaveStyle({
         display: 'block',
       });
     });
-    fireEvent.click(getByText('Banana'));
+    const selectOptions = document.querySelectorAll('.t-select-option');
+    const orangeOption = Array.from(selectOptions).find((option) => option.textContent.includes('Orange'));
+    fireEvent.click(orangeOption);
     const tags3 = container.querySelectorAll('.t-tag');
-    expect(tags3.length).toBe(2);
-    expect(tags3[0]).toHaveTextContent('Apple');
-    expect(tags3[1]).toHaveTextContent('More(2)');
-    //input popup 消失
+    expect(tags3.length).toBe(1);
+    expect(tags3[0]).toHaveTextContent('Banana');
+
+    // input popup 消失
     fireEvent.click(document.querySelector('.t-input'));
     await mockTimeout(() => {
-      expect(document.querySelectorAll(popupSelector).length).toBe(2);
+      expect(document.querySelectorAll(popupSelector).length).toBe(1);
       expect(document.querySelector(popupSelector)).toHaveStyle({
         display: 'none',
       });
     });
-    // collapsedItems popup 展示
-    fireEvent.mouseEnter(tags3[1]);
-    expect(document.querySelectorAll(popupSelector).length).toBe(2);
-    // 判断展示的tag
-    const collapsedTags3 = document.querySelectorAll('.collapsed-items-popup .t-tag');
-    expect(collapsedTags3.length).toBe(2);
-    expect(collapsedTags3[0]).toHaveTextContent('Orange');
-    expect(collapsedTags3[1]).toHaveTextContent('Banana');
   });
 });

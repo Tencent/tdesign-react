@@ -33,15 +33,19 @@ export function getNodeStatusClass(
   STATUS: Record<string, string>,
   cascaderContext: CascaderContextType,
 ) {
-  const { checkStrictly, multiple, value, max, inputVal } = cascaderContext;
+  const { checkStrictly, multiple, value, max, inputVal, isParentFilterable } = cascaderContext;
   const expandedActive =
-    (!checkStrictly && node.expanded && (multiple ? !node.isLeaf() : true)) || (checkStrictly && node.expanded);
+    (!checkStrictly && node.expanded && (multiple ? !node.isLeaf() : true)) ||
+    (checkStrictly && node.expanded && !isParentFilterable);
 
   const isLeaf = node.isLeaf();
 
   const isDisabled = node.disabled || (multiple && (value as TreeNodeValue[]).length >= max && max !== 0);
 
-  const isSelected = node.checked || (multiple && !checkStrictly && node.expanded && !isLeaf);
+  let isSelected = node.checked || (multiple && !checkStrictly && node.expanded && !isLeaf);
+  if (!multiple && !checkStrictly && !isLeaf) {
+    isSelected = node.expanded;
+  }
 
   return [
     {
@@ -68,14 +72,14 @@ export function getCascaderItemClass(
   STATUS: Record<string, string>,
   cascaderContext: CascaderContextType,
 ) {
-  const { size } = cascaderContext;
+  const { size, isParentFilterable } = cascaderContext;
   return [
     `${prefix}-cascader__item`,
     ...getNodeStatusClass(node, STATUS, cascaderContext),
     SIZE[size],
     {
       [`${prefix}-cascader__item--with-icon`]: !!node.children,
-      [`${prefix}-cascader__item--leaf`]: node.isLeaf(),
+      [`${prefix}-cascader__item--leaf`]: node.isLeaf() || isParentFilterable,
     },
   ];
 }
