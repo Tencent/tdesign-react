@@ -111,11 +111,6 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     setState((prevState) => ({ ...prevState, ...props }));
   }, [props, setState]);
 
-  // Synchronize animationVisible with visible prop
-  useEffect(() => {
-    setAnimationVisible(visible);
-  }, [visible]);
-
   useEffect(() => {
     if (dialogAnimationVisible) {
       wrapRef.current?.focus();
