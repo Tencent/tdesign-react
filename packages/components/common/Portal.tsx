@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useMemo } from 'react';
+import React, { forwardRef, useImperativeHandle, useState, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 
 import { canUseDocument } from '../_util/dom';
@@ -43,6 +43,7 @@ export function getAttach(attach: PortalProps['attach'], triggerNode?: HTMLEleme
 const Portal = forwardRef((props: PortalProps, ref) => {
   const { attach, children, triggerNode, style } = props;
   const { classPrefix } = useConfig();
+  const [mounted, setMounted] = useState(false);
 
   const container = useMemo(() => {
     if (!canUseDocument) return null;
@@ -56,17 +57,25 @@ const Portal = forwardRef((props: PortalProps, ref) => {
   }, [classPrefix]);
 
   useIsomorphicLayoutEffect(() => {
+    if (!mounted) return;
+
     const parentElement = getAttach(attach, triggerNode);
     parentElement?.appendChild?.(container);
-
     return () => {
       parentElement?.removeChild?.(container);
     };
-  }, [container, attach, triggerNode]);
+  }, [container, attach, triggerNode, mounted]);
+
+  useEffect(() => {
+    if (!mounted) {
+      setMounted(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useImperativeHandle(ref, () => container);
 
-  return canUseDocument ? createPortal(children, container) : null;
+  return canUseDocument && mounted ? createPortal(children, container) : null;
 });
 
 Portal.displayName = 'Portal';

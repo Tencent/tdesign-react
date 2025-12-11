@@ -167,7 +167,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
       // eslint-disable-next-line no-param-reassign
       content.scrollTop = content.scrollHeight - 30 * 10;
     } else {
-      const firstSelectedNode: HTMLDivElement = content.querySelector(`.${classPrefix}-is-selected`);
+      const firstSelectedNode: HTMLDivElement = content?.querySelector(`.${classPrefix}-is-selected`);
 
       if (firstSelectedNode) {
         const { paddingBottom } = getComputedStyle(firstSelectedNode);
