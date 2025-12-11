@@ -72,9 +72,10 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
   const { keepExpand, keepFade } = useAnimation();
   const { height: windowHeight, width: windowWidth } = useWindowSize();
   const [visible, onVisibleChange] = useControlled(props, 'visible', props.onVisibleChange);
-  const [isOverlayHover, setIsOverlayHover] = useState(false);
 
+  const [isOverlayHover, setIsOverlayHover] = useState(false);
   const [popupElement, setPopupElement] = useState<HTMLDivElement>(null);
+
   const popupRef = useRef<HTMLDivElement>(null); // popup dom 元素，css transition 需要用
   const portalRef = useRef(null); // portal dom 元素
   const contentRef = useRef<HTMLDivElement>(null); // 内容部分
@@ -110,18 +111,25 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
   });
   const triggerEl = getTriggerElement();
 
-  const popperOptions = props.popperOptions as Options;
+  const popperOptions = useMemo(() => {
+    const baseOptions = { ...(props.popperOptions as Options) };
+    const modifiers = baseOptions.modifiers || [];
+    const hasArrowModifiers = modifiers.some((m) => m.name === 'arrow');
+    // https://popper.js.org/docs/v2/modifiers/arrow/
+    if (showArrow && !hasArrowModifiers) {
+      modifiers.push({ name: 'arrow' });
+    }
+    return {
+      ...baseOptions,
+      modifiers,
+    };
+  }, [props.popperOptions, showArrow]);
+
   popperRef.current = usePopper(triggerEl, popupElement, {
     placement: popperPlacement,
     ...popperOptions,
   });
-  /**
-   * 是否启用 popper.js 的 arrow 修饰符
-   * - 会自动根据属性 data-popper-arrow 来识别箭头元素
-   * - 从而支持使用 padding 调整箭头位置
-   * @ see https://popper.js.org/docs/v2/modifiers/arrow/
-   */
-  const hasArrowModifier = popperOptions?.modifiers?.some((modifier) => modifier.name === 'arrow');
+
   const { styles, attributes } = popperRef.current;
 
   const triggerNode = isFunction(children) ? getTriggerNode(children({ visible })) : getTriggerNode(children);
@@ -146,10 +154,10 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
 
   // 下拉展开时更新内部滚动条
   useEffect(() => {
-    if (visible) {
+    if (visible && popupElement) {
       updateScrollTop?.(contentRef.current);
     }
-  }, [visible, updateScrollTop]);
+  }, [visible, popupElement, updateScrollTop]);
 
   function handleExited() {
     setIsOverlayHover(false);
@@ -232,7 +240,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
                 <div
                   style={styles.arrow}
                   className={`${classPrefix}-popup__arrow`}
-                  {...(hasArrowModifier && { 'data-popper-arrow': '' })}
+                  {...(showArrow && { 'data-popper-arrow': '' })}
                 />
               )}
             </div>
