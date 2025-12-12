@@ -44,6 +44,18 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     return element instanceof HTMLElement ? element : null;
   }, [triggerElementIsString, triggerElement]);
 
+  const handleMouseLeave = (e: MouseEvent | React.MouseEvent) => {
+    if (trigger === 'hover') {
+      const relatedTarget = e.relatedTarget as HTMLElement;
+      const isMovingToContent = relatedTarget?.closest?.(`.${classPrefix}-popup`);
+      if (isMovingToContent) return;
+      callFuncWithDelay({
+        delay: exitDelay,
+        callback: () => onVisibleChange(false, { e, trigger: 'trigger-element-hover' }),
+      });
+    }
+  };
+
   useEffect(() => clearTimeout(visibleTimer.current), []);
 
   useEffect(() => {
@@ -75,15 +87,6 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
         callFuncWithDelay({
           delay: appearDelay,
           callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
-        });
-      }
-    };
-
-    const handleMouseLeave = (e: MouseEvent) => {
-      if (trigger === 'hover') {
-        callFuncWithDelay({
-          delay: exitDelay,
-          callback: () => onVisibleChange(false, { e, trigger: 'trigger-element-hover' }),
         });
       }
     };
@@ -204,6 +207,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
 
   return {
     triggerElementIsString,
+    handleMouseLeave,
     getTriggerElement,
     getTriggerNode,
   };

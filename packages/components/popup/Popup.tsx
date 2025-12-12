@@ -100,7 +100,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
     [placement],
   );
 
-  const { triggerElementIsString, getTriggerElement, getTriggerNode } = useTrigger({
+  const { triggerElementIsString, handleMouseLeave, getTriggerElement, getTriggerNode } = useTrigger({
     triggerElement,
     content,
     disabled,
@@ -227,6 +227,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
             className={classNames(`${classPrefix}-popup`, overlayClassName)}
             {...attributes.popper}
             onClick={(e) => props.onOverlayClick?.({ e })}
+            onMouseLeave={handleMouseLeave}
           >
             <div
               ref={contentRef}
