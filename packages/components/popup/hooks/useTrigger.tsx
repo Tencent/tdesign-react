@@ -12,7 +12,6 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
 
   const triggerRef = useRef<HTMLElement>(null);
   const visibleTimer = useRef(null);
-  const leaveFlag = useRef(false); // 防止多次触发显隐
 
   // 禁用和无内容时不展示
   const shouldToggle = useMemo(() => {
@@ -73,7 +72,6 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
 
     const handleMouseEnter = (e: MouseEvent) => {
       if (trigger === 'hover') {
-        leaveFlag.current = false;
         callFuncWithDelay({
           delay: appearDelay,
           callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
@@ -83,7 +81,6 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
 
     const handleMouseLeave = (e: MouseEvent) => {
       if (trigger === 'hover') {
-        leaveFlag.current = false;
         callFuncWithDelay({
           delay: exitDelay,
           callback: () => onVisibleChange(false, { e, trigger: 'trigger-element-hover' }),
@@ -121,7 +118,6 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
 
     const handleTouchStart = (e: TouchEvent) => {
       if (trigger === 'hover' || trigger === 'mousedown') {
-        leaveFlag.current = false;
         callFuncWithDelay({
           delay: appearDelay,
           callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
