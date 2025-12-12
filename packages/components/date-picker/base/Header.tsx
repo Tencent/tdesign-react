@@ -1,9 +1,9 @@
-import React, { useState, useMemo, useEffect, useCallback, useRef } from 'react';
-import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import useConfig from '../../hooks/useConfig';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import { PaginationMini, type TdPaginationMiniProps } from '../../pagination';
 import Select from '../../select';
-import { TdDatePickerProps } from '../type';
-import { PaginationMini, TdPaginationMiniProps } from '../../pagination';
+import type { TdDatePickerProps } from '../type';
 
 export interface DatePickerHeaderProps extends Pick<TdDatePickerProps, 'mode'> {
   year?: number;
@@ -167,7 +167,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
       // eslint-disable-next-line no-param-reassign
       content.scrollTop = content.scrollHeight - 30 * 10;
     } else {
-      const firstSelectedNode: HTMLDivElement = content.querySelector(`.${classPrefix}-is-selected`);
+      const firstSelectedNode: HTMLDivElement = content?.querySelector(`.${classPrefix}-is-selected`);
 
       if (firstSelectedNode) {
         const { paddingBottom } = getComputedStyle(firstSelectedNode);
@@ -210,7 +210,11 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
           }}
           popupProps={{
             onScroll: handleScroll,
-            updateScrollTop: handleUpdateScrollTop,
+            updateScrollTop: (el) => {
+              setTimeout(() => {
+                handleUpdateScrollTop(el);
+              }, 0);
+            },
             attach: (triggerElement: HTMLElement) => triggerElement.parentNode as HTMLElement,
             overlayClassName: `${headerClassName}-controller-year-popup`,
           }}

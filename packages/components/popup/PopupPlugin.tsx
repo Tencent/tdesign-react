@@ -1,26 +1,25 @@
+import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import { createPopper, Instance, Placement, type Options } from '@popperjs/core';
 import classNames from 'classnames';
 import { isString } from 'lodash-es';
-import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { CSSTransition } from 'react-transition-group';
 import { getAttach } from '../_util/dom';
 import { off, on } from '../_util/listener';
 import { render, unmount } from '../_util/react-render';
-import type { TNode } from '../common';
 import PluginContainer from '../common/PluginContainer';
 import ConfigProvider from '../config-provider';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { popupDefaultProps } from './defaultProps';
+
+import type { AttachNode, TNode } from '../common';
 import type { TdPopupProps } from './type';
 
 export interface PopupPluginApi {
   config: TdPopupProps;
 }
 
-type TriggerEl = string | HTMLElement;
-
 export interface OverlayProps extends TdPopupProps {
-  triggerEl: TriggerEl;
+  triggerEl: AttachNode;
   renderCallback: (instance: HTMLElement) => void;
 }
 
@@ -172,7 +171,7 @@ function removeOverlayInstance() {
   }
 }
 
-export type PluginMethod = (triggerEl: TriggerEl, content: TNode, popupProps?: TdPopupProps) => Promise<Instance>;
+export type PluginMethod = (triggerEl: AttachNode, content: TNode, popupProps?: TdPopupProps) => Promise<Instance>;
 
 const renderInstance = (props, attach: HTMLElement): Promise<HTMLElement> =>
   new Promise((resolve) => {

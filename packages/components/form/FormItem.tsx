@@ -10,7 +10,7 @@ import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { NATIVE_INPUT_COMP, TD_READONLY_COMP, ValidateStatus } from './const';
+import { NATIVE_INPUT_COMP, ValidateStatus } from './const';
 import { formItemDefaultProps } from './defaultProps';
 import { useFormContext, useFormListContext } from './FormContext';
 import { parseMessage, validate as validateModal } from './formModel';
@@ -72,7 +72,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     labelWidth: labelWidthFromContext,
     showErrorMessage: showErrorMessageFromContext,
     disabled: disabledFromContext,
-    readonly: readonlyFromContext,
+    readOnly: readOnlyFromContext,
     resetType: resetTypeFromContext,
     rules: rulesFromContext,
     statusIcon: statusIconFromContext,
@@ -508,10 +508,9 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
             }
 
             const childProps = child.props as any;
-            const readOnlyKey = TD_READONLY_COMP.includes(childName) ? 'readonly' : 'readOnly';
             const commonProps = {
               disabled: disabledFromContext,
-              [readOnlyKey]: readonlyFromContext,
+              readOnly: readOnlyFromContext,
               ...child.props,
             };
 

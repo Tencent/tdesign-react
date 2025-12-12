@@ -5,23 +5,6 @@ export const enum ValidateStatus {
   VALIDATING = 'validating',
 }
 
-export const TD_READONLY_COMP = [
-  'AutoComplete',
-  'Cascader',
-  'Checkbox',
-  'CheckboxGroup',
-  'Input',
-  'InputNumber',
-  'Radio',
-  'RadioGroup',
-  'RangeInput',
-  'Select',
-  'SelectInput',
-  'TagInput',
-  'Textarea',
-  'TreeSelect',
-];
-
 /**
  * 原生支持 value 属性的组件
  */
