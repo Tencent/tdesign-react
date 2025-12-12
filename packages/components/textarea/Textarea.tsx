@@ -37,7 +37,6 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     maxlength,
     maxcharacter,
     className,
-    readonly,
     autofocus,
     style,
     onKeydown = noop,
@@ -184,8 +183,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
 
   useEffect(() => {
     handleAutoFocus();
-    adjustTextareaHeight();
-  }, [handleAutoFocus, adjustTextareaHeight]);
+  }, [handleAutoFocus]);
 
   useEffect(() => {
     if (allowInputOverMax) {
@@ -201,7 +199,6 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   const textTips = tips && (
     <div
       className={classNames(`${classPrefix}-textarea__tips`, {
-        [`${classPrefix}-textarea__tips--normal`]: !status,
         [`${classPrefix}-textarea__tips--${status}`]: status,
       })}
     >
@@ -220,7 +217,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
         value={composingRef.current ? composingValue : value}
         style={textareaStyle}
         className={textareaClassNames}
-        readOnly={readonly}
+        readOnly={props.readOnly || props.readonly}
         autoFocus={autofocus}
         disabled={disabled}
         onChange={inputValueChangeHandle}

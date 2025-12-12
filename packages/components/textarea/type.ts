@@ -51,11 +51,18 @@ export interface TdTextareaProps {
   placeholder?: string;
   /**
    * 只读状态
+   * @deprecated It will be removed in the future. Please use `readOnly` instead.
    * @default false
    */
   readonly?: boolean;
   /**
+   * 只读状态
+   * @default false
+   */
+  readOnly?: boolean;
+  /**
    * 文本框状态
+   * @default default
    */
   status?: 'default' | 'success' | 'warning' | 'error';
   /**

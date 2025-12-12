@@ -39,6 +39,9 @@ export interface PopupRef extends PopupInstanceFunctions {
   setVisible: (visible: boolean) => void;
 }
 
+// 默认动画时长
+const DEFAULT_TRANSITION_TIMEOUT = 180;
+
 const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref) => {
   const props = useDefaultProps<PopupProps>(originalProps, popupDefaultProps);
   const {
@@ -70,17 +73,15 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
   const { keepExpand, keepFade } = useAnimation();
   const { height: windowHeight, width: windowWidth } = useWindowSize();
   const [visible, onVisibleChange] = useControlled(props, 'visible', props.onVisibleChange);
-  const [isOverlayHover, setIsOverlayHover] = useState(false);
 
+  const [isOverlayHover, setIsOverlayHover] = useState(false);
   const [popupElement, setPopupElement] = useState<HTMLDivElement>(null);
+
   const triggerRef = useRef(null); // 记录 trigger 元素
   const popupRef = useRef<HTMLDivElement>(null); // popup dom 元素，css transition 需要用
   const portalRef = useRef(null); // portal dom 元素
   const contentRef = useRef<HTMLDivElement>(null); // 内容部分
   const popperRef = useRef<InnerPopperInstance>(null); // 保存 popper 实例
-
-  // 默认动画时长
-  const DEFAULT_TRANSITION_TIMEOUT = 180;
 
   // 处理切换 panel 为 null 和正常内容动态切换的情况
   useEffect(() => {
@@ -111,18 +112,25 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
     onVisibleChange,
   });
 
-  const popperOptions = props.popperOptions as Options;
+  const popperOptions = useMemo(() => {
+    const baseOptions = { ...(props.popperOptions as Options) };
+    const modifiers = baseOptions.modifiers || [];
+    const hasArrowModifiers = modifiers.some((m) => m.name === 'arrow');
+    // https://popper.js.org/docs/v2/modifiers/arrow/
+    if (showArrow && !hasArrowModifiers) {
+      modifiers.push({ name: 'arrow' });
+    }
+    return {
+      ...baseOptions,
+      modifiers,
+    };
+  }, [props.popperOptions, showArrow]);
+
   popperRef.current = usePopper(getRefDom(triggerRef), popupElement, {
     placement: popperPlacement,
     ...popperOptions,
   });
-  /**
-   * 是否启用 popper.js 的 arrow 修饰符
-   * - 会自动根据属性 data-popper-arrow 来识别箭头元素
-   * - 从而支持使用 padding 调整箭头位置
-   * @ see https://popper.js.org/docs/v2/modifiers/arrow/
-   */
-  const hasArrowModifier = popperOptions?.modifiers?.some((modifier) => modifier.name === 'arrow');
+
   const { styles, attributes } = popperRef.current;
 
   const triggerNode = isFunction(children) ? getTriggerNode(children({ visible })) : getTriggerNode(children);
@@ -148,10 +156,10 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
   // 下拉展开时更新内部滚动条
   useEffect(() => {
     if (!triggerRef.current) triggerRef.current = getTriggerDom();
-    if (visible) {
+    if (visible && popupElement) {
       updateScrollTop?.(contentRef.current);
     }
-  }, [visible, updateScrollTop, getTriggerDom]);
+  }, [visible, popupElement, updateScrollTop, getTriggerDom]);
 
   function handleExited() {
     setIsOverlayHover(false);
@@ -194,7 +202,12 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
       onEnter={handleEnter}
       onExited={handleExited}
     >
-      <Portal triggerNode={getRefDom(triggerRef)} attach={popupAttach} ref={portalRef}>
+      <Portal
+        ref={portalRef}
+        triggerNode={getRefDom(triggerRef)}
+        attach={popupAttach}
+        style={{ position: 'absolute', width: '100%' }}
+      >
         <CSSTransition
           appear
           timeout={0}
@@ -236,7 +249,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
                 <div
                   style={styles.arrow}
                   className={`${classPrefix}-popup__arrow`}
-                  {...(hasArrowModifier && { 'data-popper-arrow': '' })}
+                  {...(showArrow && { 'data-popper-arrow': '' })}
                 />
               )}
             </div>

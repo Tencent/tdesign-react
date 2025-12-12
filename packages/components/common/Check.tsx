@@ -44,7 +44,6 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
     label,
     className,
     style,
-    readonly,
     onClick,
     ...htmlProps
   } = props;
@@ -64,11 +63,12 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
     [`${classPrefix}-is-indeterminate`]: indeterminate,
   });
 
-  const isDisabled = disabled || readonly;
+  const readOnly = props.readOnly || props.readonly;
+  const isDisabled = disabled || readOnly;
 
   const input = (
     <input
-      readOnly={readonly}
+      readOnly={readOnly}
       type={type === 'radio-button' ? 'radio' : type}
       className={`${classPrefix}-${type}__former`}
       checked={internalChecked}

@@ -5,23 +5,6 @@ export const enum ValidateStatus {
   VALIDATING = 'validating',
 }
 
-export const READONLY_SUPPORTED_COMP = [
-  'AutoComplete',
-  'Cascader',
-  'Checkbox',
-  'CheckboxGroup',
-  'Input',
-  'InputNumber',
-  'Radio',
-  'RadioGroup',
-  'RangeInput',
-  'Select',
-  'SelectInput',
-  'TagInput',
-  'Textarea',
-  'TreeSelect',
-];
-
 export const TD_CTRL_KEY_MAP = new Map<string, string>([
   ['Checkbox', 'checked'],
   ['CheckTag', 'checked'],
