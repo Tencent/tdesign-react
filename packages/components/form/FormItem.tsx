@@ -10,7 +10,7 @@ import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { TD_CTRL_KEY_MAP, ValidateStatus } from './const';
+import { TD_CTRL_PROP_MAP, ValidateStatus } from './const';
 import { formItemDefaultProps } from './defaultProps';
 import { useFormContext, useFormListContext } from './FormContext';
 import { parseMessage, validate as validateModal } from './formModel';
@@ -492,8 +492,11 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
             if (!child) return null;
 
             let ctrlKey = 'value';
+
             if (React.isValidElement(child)) {
-              if (child.type === FormItem) {
+              // @ts-ignore
+              const componentName = child.type?.displayName;
+              if (componentName === 'FormItem') {
                 return React.cloneElement(child, {
                   // @ts-ignore
                   ref: (el) => {
@@ -502,11 +505,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
                   },
                 });
               }
-              if (typeof child.type === 'object') {
-                // @ts-ignore
-                const componentName = child.type?.displayName;
-                ctrlKey = TD_CTRL_KEY_MAP.get(componentName) || 'value';
-              }
+              ctrlKey = TD_CTRL_PROP_MAP.get(componentName) || 'value';
               const childProps = child.props as any;
               return React.cloneElement(child, {
                 disabled: disabledFromContext,

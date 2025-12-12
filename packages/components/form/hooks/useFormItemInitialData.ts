@@ -3,7 +3,7 @@ import { get, has, isEmpty, unset } from 'lodash-es';
 
 import { useFormContext, useFormListContext } from '../FormContext';
 import { FormItemProps } from '../FormItem';
-import { TD_INIT_MAP } from '../const';
+import { TD_DEFAULT_VALUE_MAP } from '../const';
 
 import type { NamePath } from '../type';
 
@@ -71,7 +71,7 @@ export default function useFormItemInitialData(name: NamePath, fullPath: NamePat
         const isMultiple = lastChild?.props?.multiple;
         // @ts-ignore
         const componentName = lastChild.type.displayName;
-        return isMultiple ? [] : TD_INIT_MAP.get(componentName);
+        return isMultiple ? [] : TD_DEFAULT_VALUE_MAP.get(componentName);
       }
     }
   }

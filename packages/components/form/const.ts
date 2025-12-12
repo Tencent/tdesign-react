@@ -5,7 +5,7 @@ export const enum ValidateStatus {
   VALIDATING = 'validating',
 }
 
-export const TD_CTRL_KEY_MAP = new Map<string, string>([
+export const TD_CTRL_PROP_MAP = new Map<string, string>([
   ['Checkbox', 'checked'],
   ['CheckTag', 'checked'],
   ['Upload', 'files'],
@@ -22,7 +22,7 @@ const TD_ARRAY_COMP = [
   'DateRangePicker',
   'TimeRangePicker',
 ];
-export const TD_INIT_MAP = (() => {
+export const TD_DEFAULT_VALUE_MAP = (() => {
   const map = new Map<string, any>();
 
   TD_ARRAY_COMP.forEach((componentName) => {
