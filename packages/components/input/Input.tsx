@@ -333,7 +333,9 @@ const Input = forwardRefWithStatics(
       e.nativeEvent.stopImmediatePropagation();
     }
     function handleMouseDown(e: React.MouseEvent<HTMLDivElement>) {
-      e.preventDefault(); // 防止焦点转移
+      if (e.target !== inputRef.current) {
+        e.preventDefault(); // 避免焦点转移
+      }
     }
     function handleClear(e: React.MouseEvent<SVGSVGElement>) {
       onChange?.('', { e, trigger: 'clear' });
