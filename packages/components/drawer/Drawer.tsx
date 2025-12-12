@@ -49,7 +49,6 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     showOverlay,
     size: propsSize,
     placement,
-    onSizeDragEnd,
     showInAttachedElement,
     closeOnOverlayClick,
     closeOnEscKeydown,
@@ -64,7 +63,7 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     lazy,
   } = state;
 
-  const { onBeforeOpen, onBeforeClose, onCancel, onConfirm, onClose, onCloseBtnClick, onOverlayClick, onEscKeydown } =
+  const { onBeforeOpen, onBeforeClose, onCancel, onConfirm, onClose, onCloseBtnClick, onOverlayClick, onEscKeydown, onSizeDragEnd } =
     props;
 
   const size = propsSize ?? local.size;
