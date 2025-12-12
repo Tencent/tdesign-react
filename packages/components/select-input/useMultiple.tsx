@@ -32,6 +32,8 @@ export interface SelectInputProps extends TdSelectInputProps, StyledProps {
 
 export default function useMultiple(props: SelectInputProps) {
   const { value } = props;
+  const readOnly = props.readOnly || props.readonly;
+
   const { classPrefix } = useConfig();
 
   const [tInputValue, setTInputValue] = useControlled(props, 'inputValue', props.onInputChange);
@@ -79,7 +81,7 @@ export default function useMultiple(props: SelectInputProps) {
         ref={tagInputRef}
         {...p.commonInputProps}
         autoWidth={props.autoWidth}
-        readonly={props.readonly}
+        readOnly={readOnly}
         minCollapsedNum={props.minCollapsedNum}
         collapsedItems={props.collapsedItems}
         tag={props.tag}
@@ -102,7 +104,8 @@ export default function useMultiple(props: SelectInputProps) {
         {...props.tagInputProps}
         inputProps={{
           ...props.inputProps,
-          readonly: !props.allowInput || props.readonly,
+          readOnly: !props.allowInput || readOnly,
+          readonly: !props.allowInput || readOnly,
           inputClass: classNames(props.tagInputProps?.className, {
             [`${classPrefix}-input--focused`]: p.popupVisible,
             [`${classPrefix}-is-focused`]: p.popupVisible,

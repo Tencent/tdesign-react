@@ -39,9 +39,7 @@ const Form = forwardRefWithStatics(
       resetType,
       rules,
       errorMessage = globalFormConfig.errorMessage,
-      preventSubmitDefault,
       disabled,
-      readonly,
       children,
       id,
       onReset,
@@ -83,15 +81,6 @@ const Form = forwardRefWithStatics(
       });
     }
 
-    function onKeyDownHandler(e: React.KeyboardEvent<HTMLFormElement>) {
-      // 禁用 input 输入框回车自动提交 form
-      if ((e.target as Element).tagName.toLowerCase() !== 'input') return;
-      if (preventSubmitDefault && e.key === 'Enter') {
-        e.preventDefault?.();
-        e.stopPropagation?.();
-      }
-    }
-
     return (
       <FormContext.Provider
         value={{
@@ -110,7 +99,7 @@ const Form = forwardRefWithStatics(
           resetType,
           rules,
           disabled,
-          readonly,
+          readOnly: props.readOnly || props.readonly,
           formMapRef,
           floatingFormDataRef,
           onFormItemValueChange,
@@ -123,7 +112,6 @@ const Form = forwardRefWithStatics(
           className={formClass}
           onSubmit={formInstance.submit}
           onReset={onResetHandler}
-          onKeyDown={onKeyDownHandler}
         >
           {children}
         </form>

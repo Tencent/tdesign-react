@@ -87,7 +87,7 @@ const MultipleSelect = () => {
         collapsedItems={renderCollapsedItems}
         size={size}
         disabled={disabled}
-        readonly={readonly}
+        readOnly={readonly}
       />
     </Space>
   );
