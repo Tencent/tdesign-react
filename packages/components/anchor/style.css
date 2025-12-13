@@ -1,0 +1,22 @@
+  .t-anchor-horizontal{
+    .t-anchor__line{
+      top: auto;
+      bottom: 0;
+      height: 1px;
+      .t-anchor__line-cursor-wrapper{
+          height: 1px;
+          opacity: 1;
+
+          .t-anchor__line-cursor{
+            width: 100%;
+          }
+        }
+    }
+}
+.t-anchor-vertical{
+  .t-anchor__line-cursor-wrapper{
+    opacity: 1 !important;
+    transform: translateY(-50%);
+  }
+}
+
