@@ -1,5 +1,6 @@
 import React, { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { castArray, get, isEqual, merge, set, unset } from 'lodash-es';
+import { castArray, cloneDeep, get, isEqual, merge, set, unset } from 'lodash-es';
+
 import log from '@tdesign/common-js/log/index';
 import { FormListContext, useFormContext, useFormListContext } from './FormContext';
 import { HOOK_MARK } from './hooks/useForm';
@@ -25,6 +26,9 @@ const FormList: React.FC<TdFormListProps> = (props) => {
   const fullPath = concatName(parentFullPath, name);
 
   const initialData = useMemo(() => {
+    const storeValue = get(form?.store, fullPath);
+    if (storeValue) return storeValue;
+
     let propsInitialData;
     if (props.initialData) {
       propsInitialData = props.initialData;
@@ -34,10 +38,11 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     } else {
       propsInitialData = get(initialDataFromForm, fullPath);
     }
-    return propsInitialData;
-  }, [fullPath, parentFullPath, initialDataFromForm, parentInitialData, props.initialData]);
+    return cloneDeep(propsInitialData || []);
+  }, [props.initialData, form?.store, fullPath, parentFullPath, parentInitialData, initialDataFromForm]);
 
-  const [formListValue, setFormListValue] = useState(() => get(form?.store, fullPath) || initialData || []);
+  const [formListValue, setFormListValue] = useState(initialData);
+
   const [fields, setFields] = useState<FormListField[]>(() =>
     formListValue.map((data, index) => ({
       data: { ...data },
@@ -57,20 +62,6 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     .filter((item) => item !== undefined)
     .toString(); // 转化 name
 
-  const buildDefaultFieldMap = () => {
-    if (formListMapRef.current.size <= 0) return {};
-    const defaultValues: Record<string, any> = {};
-    formListMapRef.current.forEach((item, itemPath) => {
-      const itemPathArray = convertNameToArray(itemPath);
-      const isChildField = itemPathArray.length === convertNameToArray(fullPath).length + 2;
-      if (!isChildField) return;
-      const fieldName = itemPathArray[itemPathArray.length - 1];
-      // add 没有传参时，构建一个包含所有子字段的对象用于占位，确保回调给用户的数据结构完整
-      defaultValues[fieldName] = item.current.initialData;
-    });
-    return defaultValues;
-  };
-
   const updateFormList = (newFields: any, newFormListValue: any) => {
     setFields(newFields);
     setFormListValue(newFormListValue);
@@ -89,11 +80,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
         isListField: true,
       });
       const newFormListValue = [...formListValue];
-      if (defaultValue !== undefined) {
-        newFormListValue.splice(index, 0, defaultValue);
-      } else {
-        newFormListValue.splice(index, 0, buildDefaultFieldMap());
-      }
+      newFormListValue.splice(index, 0, cloneDeep(defaultValue));
       updateFormList(newFields, newFormListValue);
     },
     remove(index: number | number[]) {
@@ -141,7 +128,9 @@ const FormList: React.FC<TdFormListProps> = (props) => {
 
   useEffect(() => {
     if (!name || !formMapRef) return;
+    // 初始化
     formMapRef.current.set(fullPath, formListRef);
+    set(form?.store, fullPath, initialData);
     return () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       formMapRef.current.delete(fullPath);
@@ -173,10 +162,14 @@ const FormList: React.FC<TdFormListProps> = (props) => {
         return new Promise((resolve) => {
           Promise.all(validates).then((validateResult) => {
             validateResult.forEach((result) => {
+              if (typeof result !== 'object') return;
               const errorValue = Object.values(result)[0];
               merge(resultList, errorValue);
             });
-            const errorItems = validateResult.filter((item) => Object.values(item)[0] !== true);
+            const errorItems = validateResult.filter((item) => {
+              if (typeof item !== 'object') return;
+              return Object.values(item)[0] !== true;
+            });
             if (errorItems.length) {
               resolve({ [snakeName]: resultList });
             } else {

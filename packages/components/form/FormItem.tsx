@@ -4,7 +4,7 @@ import {
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
-import { get, isEqual, isFunction, isObject, isString, set, unset } from 'lodash-es';
+import { get, isEqual, isFunction, isObject, isString, set } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -81,7 +81,14 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     onFormItemValueChange,
   } = useFormContext();
 
-  const { name: formListName, rules: formListRules, formListMapRef, form: formOfFormList } = useFormListContext();
+  const {
+    name: formListName,
+    fullPath: parentFullPath,
+    rules: formListRules,
+    formListMapRef,
+    form: formOfFormList,
+  } = useFormListContext();
+
   const props = useDefaultProps<FormItemProps>(originalProps, formItemDefaultProps);
 
   const {
@@ -104,10 +111,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     requiredMark = requiredMarkFromContext,
   } = props;
 
-  const { fullPath: parentFullPath } = useFormListContext();
   const fullPath = concatName(parentFullPath, name);
-
-  const { getDefaultInitialData } = useFormItemInitialData(name, fullPath);
+  const { defaultInitialData } = useFormItemInitialData(name, fullPath, initialData, children);
 
   const [, forceUpdate] = useState({}); // custom render state
   const [freeShowErrorMessage, setFreeShowErrorMessage] = useState(undefined);
@@ -116,12 +121,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const [verifyStatus, setVerifyStatus] = useState('validating');
   const [resetValidating, setResetValidating] = useState(false);
   const [needResetField, setNeedResetField] = useState(false);
-  const [formValue, setFormValue] = useState(() =>
-    getDefaultInitialData({
-      children,
-      initialData,
-    }),
-  );
+  const [formValue, setFormValue] = useState(defaultInitialData);
 
   const formItemRef = useRef<FormItemInstance>(null); // 当前 formItem 实例
   const innerFormItemsRef = useRef([]);
@@ -325,10 +325,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
   function getResetValue(resetType: TdFormProps['resetType']): ValueType {
     if (resetType === 'initial') {
-      return getDefaultInitialData({
-        children,
-        initialData,
-      });
+      return defaultInitialData;
     }
 
     let emptyValue: ValueType;
@@ -413,26 +410,22 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   }, [shouldUpdate, form]);
 
   useEffect(() => {
-    // 记录填写 name 属性 formItem
     if (typeof name === 'undefined') return;
 
-    // FormList 下特殊处理
-    if (formListName && isSameForm) {
-      formListMapRef.current.set(fullPath, formItemRef);
-      set(form?.store, fullPath, formValue);
-      return () => {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        formListMapRef.current.delete(fullPath);
-        unset(form?.store, fullPath);
-      };
-    }
-    if (!formMapRef) return;
-    formMapRef.current.set(fullPath, formItemRef);
-    set(form?.store, fullPath, formValue);
+    const isFormList = formListName && isSameForm;
+    const mapRef = isFormList ? formListMapRef : formMapRef;
+    if (!mapRef.current) return;
+
+    // 注册实例
+    mapRef.current.set(fullPath, formItemRef);
+
+    // 初始化
+    set(form?.store, fullPath, defaultInitialData);
+    setFormValue(defaultInitialData);
+
     return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      formMapRef.current.delete(fullPath);
-      unset(form?.store, fullPath);
+      mapRef.current.delete(fullPath);
+      set(form?.store, fullPath, defaultInitialData);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [snakeName, formListName]);
