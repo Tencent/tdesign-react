@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+import { debounce, get, isFunction } from 'lodash-es';
 import React, {
   Children,
   cloneElement,
@@ -8,8 +10,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import classNames from 'classnames';
-import { debounce, get, isFunction } from 'lodash-es';
 import composeRefs from '../../_util/composeRefs';
 import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
 import { getOffsetTopToContainer } from '../../_util/helper';
@@ -117,6 +117,12 @@ const Select = forwardRefWithStatics(
       if (disabled) return;
       visible ? toggleIsScrolling(false) : onInputChange('', { trigger: 'blur' });
       setInnerPopupVisible(visible, ctx);
+
+      if (visible && isFunction(onSearch) && !inputValue) {
+        // @ts-ignore
+        // 实际是由 click 触发而非键盘事件，待补充类型
+        onSearch('', { e: ctx.e });
+      }
     };
 
     const { currentOptions, setCurrentOptions, tmpPropOptions, valueToOption, selectedOptions, flattenedOptions } =
