@@ -112,7 +112,7 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
       className={labelClassName}
       title={props.title}
       style={style}
-      {...omit(htmlProps, ['checkAll', 'stopLabelTrigger'])}
+      {...omit(htmlProps, ['checkAll', 'stopLabelTrigger', 'readonly'])}
       onClick={onInnerClick}
     >
       {input}
