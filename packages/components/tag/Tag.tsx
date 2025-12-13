@@ -1,14 +1,16 @@
-import React, { ForwardRefRenderFunction, FocusEvent, forwardRef, useMemo } from 'react';
-import classNames from 'classnames';
+import React, { FocusEvent, forwardRef, ForwardRefRenderFunction, useMemo } from 'react';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
+import classNames from 'classnames';
 import tinycolor from 'tinycolor2';
+
 import noop from '../_util/noop';
 import useConfig from '../hooks/useConfig';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import { StyledProps } from '../common';
-import { TdTagProps } from './type';
-import { tagDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import { tagDefaultProps } from './defaultProps';
+
+import type { StyledProps } from '../common';
+import type { TdTagProps } from './type';
 
 /**
  * Tag 组件支持的属性。
@@ -44,11 +46,12 @@ export const TagFunction: ForwardRefRenderFunction<HTMLDivElement, TagProps> = (
     ...otherTagProps
   } = props;
 
-  const { classPrefix } = useConfig();
+  const { classPrefix, tag: tagConfig } = useConfig();
+  const tagClassPrefix = `${classPrefix}-tag`;
+
   const { CloseIcon } = useGlobalIcon({
     CloseIcon: TdCloseIcon,
   });
-  const tagClassPrefix = `${classPrefix}-tag`;
 
   const sizeMap = {
     large: `${classPrefix}-size-l`,
@@ -68,18 +71,20 @@ export const TagFunction: ForwardRefRenderFunction<HTMLDivElement, TagProps> = (
     className,
   );
 
-  /**
-   * 删除 Icon
-   */
-  const deleteIcon = (
-    <CloseIcon
-      onClick={(e) => {
-        if (disabled) return;
-        onClose({ e });
-      }}
-      className={`${tagClassPrefix}__icon-close`}
-    />
-  );
+  const TagCloseIcon = () => {
+    const iconNode = tagConfig?.closeIcon ? tagConfig.closeIcon : <CloseIcon />;
+    if (React.isValidElement(iconNode)) {
+      const element = iconNode as React.ReactElement<any>;
+      return React.cloneElement<any>(element, {
+        onClick: (e) => {
+          if (disabled) return;
+          element.props?.onClick?.(e);
+          onClose({ e });
+        },
+        className: classNames(element.props?.className, `${tagClassPrefix}__icon-close`),
+      });
+    }
+  };
 
   const title = useMemo(() => {
     if (Reflect.has(props, 'title')) return titleAttr;
@@ -138,7 +143,7 @@ export const TagFunction: ForwardRefRenderFunction<HTMLDivElement, TagProps> = (
         <span className={maxWidth ? `${tagClassPrefix}--text` : undefined} style={getTextStyle} {...titleAttribute}>
           {children ?? content}
         </span>
-        {closable && !disabled && deleteIcon}
+        {closable && !disabled && <TagCloseIcon />}
       </>
     </div>
   );
