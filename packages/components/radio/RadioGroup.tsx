@@ -89,17 +89,33 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
   };
 
   // 针对子元素更新的场景，包括 value 变化等
-  useMutationObserver(radioGroupRef.current, (mutations) => {
-    // 排除高亮元素自身的变化，避免重复触发
-    const filteredMutations = mutations.filter((mutation) => {
-      const target = mutation.target as HTMLElement;
-      return !target.classList?.contains(`${classPrefix}-radio-group__bg-block`);
-    });
+  // 只监听 class 属性变化，避免 bg-block 元素或子组件（如 Badge）导致无限循环
+  useMutationObserver(
+    radioGroupRef.current,
+    (mutations) => {
+      const hasRelevantChange = mutations.some((mutation) => {
+        const target = mutation.target as HTMLElement;
+        // 只关注 radio-button 元素的 class 变化（checked 状态变化）
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          return target.classList?.contains(`${classPrefix}-radio-button`);
+        }
+        return false;
+      });
 
-    if (filteredMutations.length > 0) {
-      calcBarStyle();
-    }
-  });
+      if (hasRelevantChange) {
+        calcBarStyle();
+      }
+    },
+    {
+      config: {
+        attributes: true,
+        attributeFilter: ['class'],
+        childList: false,
+        characterData: false,
+        subtree: true,
+      },
+    },
+  );
 
   useEffect(() => {
     calcBarStyle();
