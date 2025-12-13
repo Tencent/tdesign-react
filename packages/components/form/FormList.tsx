@@ -26,6 +26,9 @@ const FormList: React.FC<TdFormListProps> = (props) => {
   const fullPath = concatName(parentFullPath, name);
 
   const initialData = useMemo(() => {
+    const storeValue = get(form?.store, fullPath);
+    if (storeValue) return storeValue;
+
     let propsInitialData;
     if (props.initialData) {
       propsInitialData = props.initialData;
@@ -35,16 +38,10 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     } else {
       propsInitialData = get(initialDataFromForm, fullPath);
     }
-    return cloneDeep(propsInitialData);
-  }, [fullPath, parentFullPath, initialDataFromForm, parentInitialData, props.initialData]);
+    return cloneDeep(propsInitialData || []);
+  }, [props.initialData, form?.store, fullPath, parentFullPath, parentInitialData, initialDataFromForm]);
 
-  const [formListValue, setFormListValue] = useState(() => {
-    const value = get(form?.store, fullPath) || initialData || [];
-    if (value.length && !get(form?.store, fullPath)) {
-      set(form?.store, fullPath, value);
-    }
-    return value;
-  });
+  const [formListValue, setFormListValue] = useState(initialData);
 
   const [fields, setFields] = useState<FormListField[]>(() =>
     formListValue.map((data, index) => ({
@@ -131,7 +128,9 @@ const FormList: React.FC<TdFormListProps> = (props) => {
 
   useEffect(() => {
     if (!name || !formMapRef) return;
+    // 初始化
     formMapRef.current.set(fullPath, formListRef);
+    set(form?.store, fullPath, initialData);
     return () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       formMapRef.current.delete(fullPath);

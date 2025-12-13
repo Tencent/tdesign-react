@@ -53,8 +53,8 @@ const BasicForm = (props: FormProps & { operation }) => {
   );
 };
 
-describe('Form List 组件测试', () => {
-  test('form list 测试', async () => {
+describe('FormList 组件测试', () => {
+  test('FormList basic API', async () => {
     const TestView = () => {
       const [form] = Form.useForm();
 
@@ -143,7 +143,7 @@ describe('Form List 组件测试', () => {
     expect(queryByText('地区必填')).not.toBeTruthy();
   });
 
-  test('reset to initial data', async () => {
+  test('FormList reset to initial data', async () => {
     const TestView = () => {
       const [form] = Form.useForm();
 
@@ -165,14 +165,40 @@ describe('Form List 组件测试', () => {
     };
 
     const { container, queryByText, getByPlaceholderText } = render(<TestView />);
-    const resetBtn = queryByText('reset');
 
-    const removeBtn = container.querySelector('.test-remove-0');
-    fireEvent.click(removeBtn);
+    // 验证初始数据渲染正确
+    expect((getByPlaceholderText('area-input-0') as HTMLInputElement).value).toBe('shenzhen');
+    expect((getByPlaceholderText('area-input-1') as HTMLInputElement).value).toBe('beijing');
+
+    // 删除 beijing
+    const removeBtn1 = container.querySelector('.test-remove-1');
+    fireEvent.click(removeBtn1);
     await mockTimeout(() => true);
-    expect((getByPlaceholderText('area-input-0') as HTMLInputElement).value).toBe('beijing');
+    // 只剩 shenzhen
+    expect((getByPlaceholderText('area-input-0') as HTMLInputElement).value).toBe('shenzhen');
+    expect(container.querySelector('[placeholder="area-input-1"]')).toBeFalsy();
+
+    // 添加空数据
+    const addBtn = container.querySelector('#test-add');
+    fireEvent.click(addBtn);
+    await mockTimeout(() => true);
+    expect((getByPlaceholderText('area-input-0') as HTMLInputElement).value).toBe('shenzhen');
+    expect(container.querySelector('[placeholder="area-input-1"]')).toBeTruthy();
+    expect((getByPlaceholderText('area-input-1') as HTMLInputElement).value).toBe('');
+
+    // 再删除 shenzhen
+    const removeBtn0 = container.querySelector('.test-remove-0');
+    fireEvent.click(removeBtn0);
+    await mockTimeout(() => true);
+    expect((getByPlaceholderText('area-input-0') as HTMLInputElement).value).toBe('');
+    expect(container.querySelector('[placeholder="area-input-1"]')).toBeFalsy();
+
+    // 点击 reset 重置
+    const resetBtn = queryByText('reset');
     fireEvent.click(resetBtn);
     await mockTimeout(() => true);
+
+    // 恢复到初始化数据
     expect((getByPlaceholderText('area-input-0') as HTMLInputElement).value).toBe('shenzhen');
     expect((getByPlaceholderText('area-input-1') as HTMLInputElement).value).toBe('beijing');
   });
@@ -220,7 +246,7 @@ describe('Form List 组件测试', () => {
     expect(fn).toHaveBeenCalledTimes(1);
   });
 
-  test('Multiple nested FormList', async () => {
+  test('FormList with nested structures', async () => {
     const TestView = () => {
       const [form] = Form.useForm();
 
@@ -343,88 +369,74 @@ describe('Form List 组件测试', () => {
           <FormList name="users">
             {(userFields, { add: addUser, remove: removeUser }) => (
               <>
-                {userFields.map(({ key: userKey, name: userName, ...userRestField }, userIndex) => (
+                {userFields.map(({ key: userKey, name: userName }, userIndex) => (
                   <FormItem key={userKey}>
-                    <FormItem
-                      {...userRestField}
-                      name={[userName, 'name']}
-                      label="用户名"
-                      rules={[{ required: true, type: 'error' }]}
-                    >
+                    <FormItem name={[userName, 'name']} label="用户名" rules={[{ required: true, type: 'error' }]}>
                       <Input placeholder={`user-name-${userIndex}`} />
                     </FormItem>
 
                     <FormList name={[userName, 'projects']}>
                       {(projectFields, { add: addProject, remove: removeProject }) => (
                         <>
-                          {projectFields.map(
-                            ({ key: projectKey, name: projectName, ...projectRestField }, projectIndex) => (
-                              <FormItem key={projectKey}>
-                                <FormItem
-                                  {...projectRestField}
-                                  name={[projectName, 'projectName']}
-                                  label="项目名称"
-                                  rules={[{ required: true, type: 'error' }]}
-                                >
-                                  <Input placeholder={`project-name-${userIndex}-${projectIndex}`} />
-                                </FormItem>
-
-                                <FormList name={[projectName, 'tasks']}>
-                                  {(taskFields, { add: addTask, remove: removeTask }) => (
-                                    <>
-                                      {taskFields.map(
-                                        ({ key: taskKey, name: taskName, ...taskRestField }, taskIndex) => (
-                                          <FormItem key={taskKey}>
-                                            <FormItem
-                                              {...taskRestField}
-                                              name={[taskName, 'taskName']}
-                                              label="任务名称"
-                                              rules={[{ required: true, type: 'error' }]}
-                                            >
-                                              <Input
-                                                placeholder={`task-name-${userIndex}-${projectIndex}-${taskIndex}`}
-                                              />
-                                            </FormItem>
-                                            <FormItem
-                                              {...taskRestField}
-                                              name={[taskName, 'status']}
-                                              label="状态"
-                                              rules={[{ required: true, type: 'error' }]}
-                                            >
-                                              <Input
-                                                placeholder={`task-status-${userIndex}-${projectIndex}-${taskIndex}`}
-                                              />
-                                            </FormItem>
-                                            <FormItem>
-                                              <MinusCircleIcon
-                                                className={`test-remove-task-${userIndex}-${projectIndex}-${taskIndex}`}
-                                                onClick={() => removeTask(taskName)}
-                                              />
-                                            </FormItem>
-                                          </FormItem>
-                                        ),
-                                      )}
-                                      <FormItem>
-                                        <Button
-                                          id={`test-add-task-${userIndex}-${projectIndex}`}
-                                          onClick={() => addTask({ taskName: 'New Task', status: 'pending' })}
-                                        >
-                                          Add Task
-                                        </Button>
-                                      </FormItem>
-                                    </>
-                                  )}
-                                </FormList>
-
-                                <FormItem>
-                                  <MinusCircleIcon
-                                    className={`test-remove-project-${userIndex}-${projectIndex}`}
-                                    onClick={() => removeProject(projectName)}
-                                  />
-                                </FormItem>
+                          {projectFields.map(({ key: projectKey, name: projectName }, projectIndex) => (
+                            <FormItem key={projectKey}>
+                              <FormItem
+                                name={[projectName, 'projectName']}
+                                label="项目名称"
+                                rules={[{ required: true, type: 'error' }]}
+                              >
+                                <Input placeholder={`project-name-${userIndex}-${projectIndex}`} />
                               </FormItem>
-                            ),
-                          )}
+
+                              <FormList name={[projectName, 'tasks']}>
+                                {(taskFields, { add: addTask, remove: removeTask }) => (
+                                  <>
+                                    {taskFields.map(({ key: taskKey, name: taskName }, taskIndex) => (
+                                      <FormItem key={taskKey}>
+                                        <FormItem
+                                          name={[taskName, 'taskName']}
+                                          label="任务名称"
+                                          rules={[{ required: true, type: 'error' }]}
+                                        >
+                                          <Input placeholder={`task-name-${userIndex}-${projectIndex}-${taskIndex}`} />
+                                        </FormItem>
+                                        <FormItem
+                                          name={[taskName, 'status']}
+                                          label="状态"
+                                          rules={[{ required: true, type: 'error' }]}
+                                        >
+                                          <Input
+                                            placeholder={`task-status-${userIndex}-${projectIndex}-${taskIndex}`}
+                                          />
+                                        </FormItem>
+                                        <FormItem>
+                                          <MinusCircleIcon
+                                            className={`test-remove-task-${userIndex}-${projectIndex}-${taskIndex}`}
+                                            onClick={() => removeTask(taskName)}
+                                          />
+                                        </FormItem>
+                                      </FormItem>
+                                    ))}
+                                    <FormItem>
+                                      <Button
+                                        id={`test-add-task-${userIndex}-${projectIndex}`}
+                                        onClick={() => addTask({ taskName: 'New Task', status: 'pending' })}
+                                      >
+                                        Add Task
+                                      </Button>
+                                    </FormItem>
+                                  </>
+                                )}
+                              </FormList>
+
+                              <FormItem>
+                                <MinusCircleIcon
+                                  className={`test-remove-project-${userIndex}-${projectIndex}`}
+                                  onClick={() => removeProject(projectName)}
+                                />
+                              </FormItem>
+                            </FormItem>
+                          ))}
                           <FormItem>
                             <Button
                               id={`test-add-project-${userIndex}`}
