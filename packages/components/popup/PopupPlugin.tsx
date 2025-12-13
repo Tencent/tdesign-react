@@ -1,13 +1,15 @@
 import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { createPopper, Instance, Placement, type Options } from '@popperjs/core';
+import { createPopper, type Instance, type Placement, type Options } from '@popperjs/core';
 import classNames from 'classnames';
 import { isString } from 'lodash-es';
+
 import { getAttach } from '../_util/dom';
 import { off, on } from '../_util/listener';
 import { render, unmount } from '../_util/react-render';
 import PluginContainer from '../common/PluginContainer';
 import ConfigProvider from '../config-provider';
+import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { popupDefaultProps } from './defaultProps';
 
@@ -29,8 +31,6 @@ let popperInstance: Instance;
 let overlayInstance: HTMLElement;
 let timeout: NodeJS.Timeout;
 let triggerEl: HTMLElement;
-
-const componentName = 't-popup';
 
 const triggerType = (triggerProps: string) =>
   triggers.reduce(
@@ -61,6 +61,9 @@ const Overlay: React.FC<OverlayProps> = (originalProps) => {
     renderCallback,
   } = props;
 
+  const { classPrefix } = useConfig();
+  const componentName = `${classPrefix}-popup`;
+
   const [visibleState, setVisibleState] = useState(false);
   const popperRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -79,7 +82,6 @@ const Overlay: React.FC<OverlayProps> = (originalProps) => {
     };
   };
 
-  // useMemo
   const hasTrigger = useMemo(() => triggerType(trigger), [trigger]);
   const overlayClasses = useMemo(
     () => [
@@ -91,7 +93,7 @@ const Overlay: React.FC<OverlayProps> = (originalProps) => {
       },
       overlayInnerClassName,
     ],
-    [content, overlayInnerClassName, showArrow, disabled],
+    [componentName, content, showArrow, disabled, overlayInnerClassName],
   );
 
   // method

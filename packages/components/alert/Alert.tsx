@@ -16,7 +16,7 @@ import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TdAlertProps } from './type';
 import { StyledProps } from '../common';
 import { alertDefaultProps } from './defaultProps';
-import composeRefs from '../_util/composeRefs';
+import { composeRefs } from '../_util/ref';
 import useDefaultProps from '../hooks/useDefaultProps';
 
 const transitionTime = 200;

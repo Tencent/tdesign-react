@@ -38,6 +38,7 @@ export const supportRef = (nodeOrComponent: any): boolean => {
 // 获取 ref 中的 dom 元素
 export function getRefDom(domRef: React.RefObject<any>) {
   if (domRef.current && typeof domRef.current === 'object' && 'currentElement' in domRef.current) {
+    // 兼容 TD 部分组件的 ref 被 useImperativeHandle 覆盖，无法拿到实际 DOM 节点的情况
     return domRef.current.currentElement;
   }
   return domRef.current;
@@ -70,3 +71,17 @@ export const getNodeRef: <T = any>(node: React.ReactNode) => React.Ref<T> | null
   }
   return null;
 };
+
+export function composeRefs<T>(...refs: React.Ref<T>[]) {
+  return (instance: T) => {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const ref of refs) {
+      if (typeof ref === 'function') {
+        ref(instance);
+      } else if (ref) {
+        (ref as any).current = instance;
+      }
+    }
+  };
+}
+
