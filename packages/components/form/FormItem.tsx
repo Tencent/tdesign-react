@@ -410,29 +410,21 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   }, [shouldUpdate, form]);
 
   useEffect(() => {
-    // 记录填写 name 属性 formItem
     if (typeof name === 'undefined') return;
 
-    // FormList 下特殊处理
-    if (formListName && isSameForm) {
-      formListMapRef.current.set(fullPath, formItemRef);
-      set(form?.store, fullPath, defaultInitialData);
-      setFormValue(defaultInitialData);
-      return () => {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        formListMapRef.current.delete(fullPath);
-        set(form?.store, fullPath, defaultInitialData);
-      };
-    }
+    const isFormList = formListName && isSameForm;
+    const mapRef = isFormList ? formListMapRef : formMapRef;
+    if (!mapRef.current) return;
 
-    if (!formMapRef) return;
-    formMapRef.current.set(fullPath, formItemRef);
+    // 注册实例
+    mapRef.current.set(fullPath, formItemRef);
+
+    // 初始化
     set(form?.store, fullPath, defaultInitialData);
     setFormValue(defaultInitialData);
 
     return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      formMapRef.current.delete(fullPath);
+      mapRef.current.delete(fullPath);
       set(form?.store, fullPath, defaultInitialData);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

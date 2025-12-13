@@ -35,16 +35,10 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     } else {
       propsInitialData = get(initialDataFromForm, fullPath);
     }
-    return cloneDeep(propsInitialData);
-  }, [fullPath, parentFullPath, initialDataFromForm, parentInitialData, props.initialData]);
+    return cloneDeep(propsInitialData || []);
+  }, [props.initialData, fullPath, parentFullPath, parentInitialData, initialDataFromForm]);
 
-  const [formListValue, setFormListValue] = useState(() => {
-    const value = get(form?.store, fullPath) || initialData || [];
-    if (value.length && !get(form?.store, fullPath)) {
-      set(form?.store, fullPath, value);
-    }
-    return value;
-  });
+  const [formListValue, setFormListValue] = useState(() => get(form?.store, fullPath) || initialData);
 
   const [fields, setFields] = useState<FormListField[]>(() =>
     formListValue.map((data, index) => ({
@@ -131,7 +125,9 @@ const FormList: React.FC<TdFormListProps> = (props) => {
 
   useEffect(() => {
     if (!name || !formMapRef) return;
+    // 初始化
     formMapRef.current.set(fullPath, formListRef);
+    set(form?.store, fullPath, formListValue);
     return () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       formMapRef.current.delete(fullPath);
@@ -197,17 +193,16 @@ const FormList: React.FC<TdFormListProps> = (props) => {
         const resetType = type || resetTypeFromContext;
         if (resetType === 'initial') {
           const currentData = get(form?.store, fullPath);
-          const data = initialData || [];
           if (isEqual(currentData, initialData)) return;
-          setFormListValue(data);
-          const newFields = data?.map((data, index) => ({
+          setFormListValue(initialData);
+          const newFields = initialData?.map((data, index) => ({
             data: { ...data },
             key: (globalKey += 1),
             name: index,
             isListField: true,
           }));
           setFields(newFields);
-          set(form?.store, fullPath, data);
+          set(form?.store, fullPath, initialData);
         } else {
           // 重置为空
           setFormListValue([]);
