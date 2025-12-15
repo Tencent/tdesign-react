@@ -1,4 +1,4 @@
-import React, { useState, useRef, useImperativeHandle, useEffect } from 'react';
+import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import {
   BrowseIcon as TdBrowseIcon,
   BrowseOffIcon as TdBrowseOffIcon,
@@ -6,19 +6,21 @@ import {
 } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
-import useLayoutEffect from '../hooks/useLayoutEffect';
+
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
+import parseTNode from '../_util/parseTNode';
 import useConfig from '../hooks/useConfig';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import { TdInputProps } from './type';
-import { StyledProps, TNode, TElement } from '../common';
-import InputGroup from './InputGroup';
 import useControlled from '../hooks/useControlled';
+import useDefaultProps from '../hooks/useDefaultProps';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import useLayoutEffect from '../hooks/useLayoutEffect';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { inputDefaultProps } from './defaultProps';
-import parseTNode from '../_util/parseTNode';
+import InputGroup from './InputGroup';
 import useLengthLimit from './useLengthLimit';
-import useDefaultProps from '../hooks/useDefaultProps';
+
+import type { StyledProps, TElement, TNode } from '../common';
+import type { TdInputProps } from './type';
 
 export interface InputProps extends TdInputProps, StyledProps {
   showInput?: boolean; // 控制透传readonly同时是否展示input 默认保留 因为正常Input需要撑开宽度
@@ -138,13 +140,7 @@ const Input = forwardRefWithStatics(
     let suffixIconNew = suffixIcon;
 
     if (isShowClearIcon)
-      suffixIconNew = (
-        <CloseCircleFilledIcon
-          className={`${classPrefix}-input__suffix-clear`}
-          onMouseDown={handleMouseDown}
-          onClick={handleClear}
-        />
-      );
+      suffixIconNew = <CloseCircleFilledIcon className={`${classPrefix}-input__suffix-clear`} onClick={handleClear} />;
     if (type === 'password' && typeof suffixIcon === 'undefined') {
       if (renderType === 'password') {
         suffixIconNew = (
@@ -317,13 +313,6 @@ const Input = forwardRefWithStatics(
         setComposingValue(newStr);
         onChange(newStr, { e, trigger });
       }
-    }
-    // 添加MouseDown阻止冒泡，防止點擊Clear value會導致彈窗閃爍一下
-    // https://github.com/Tencent/tdesign-react/issues/2320
-    function handleMouseDown(e: React.MouseEvent<SVGSVGElement, globalThis.MouseEvent>) {
-      e.stopPropagation();
-      // 兼容React16
-      e.nativeEvent.stopImmediatePropagation();
     }
     function handleClear(e: React.MouseEvent<SVGSVGElement>) {
       onChange?.('', { e, trigger: 'clear' });
