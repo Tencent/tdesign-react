@@ -111,7 +111,15 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     requiredMark = requiredMarkFromContext,
   } = props;
 
-  const fullPath = concatName(parentFullPath, name);
+  /* 用于处理嵌套 Form 的情况 （例如 FormList 内有一个 Dialog + Form） */
+  const isSameForm = useMemo(() => isEqual(form, formOfFormList), [form, formOfFormList]);
+
+  const validParentFullPath = useMemo(() => {
+    if (!formListName || !isSameForm) return undefined;
+    return parentFullPath;
+  }, [formListName, isSameForm, parentFullPath]);
+
+  const fullPath = concatName(validParentFullPath, name);
   const { defaultInitialData } = useFormItemInitialData(name, fullPath, initialData, children);
 
   const [, forceUpdate] = useState({}); // custom render state
@@ -130,7 +138,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const valueRef = useRef(formValue); // 当前最新值
   const errorListMapRef = useRef(new Map());
 
-  const isSameForm = useMemo(() => isEqual(form, formOfFormList), [form, formOfFormList]); // 用于处理 Form 嵌套的情况
   const snakeName = []
     .concat(isSameForm ? formListName : undefined, name)
     .filter((item) => item !== undefined)
