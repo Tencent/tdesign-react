@@ -22,6 +22,7 @@ spline: explain
 - `Textarea`: 更正 `status` 对应的初始值与 class 名为 `default`，内部 class 进行了相应调整，之前有覆盖 tips 类名请注意此变更 ⚠️ @RylanBot ([#4007](https://github.com/Tencent/tdesign-react/pull/4007))
 - `Avatar`: 修复样式与设计稿不一致的问题 @liweijie0812 ([common#2364](https://github.com/Tencent/tdesign-common/pull/2364))
 - `ConfigProvider`: 修复 `tag.closeIcon` 不生效的问题 @RylanBot ([#4004](https://github.com/Tencent/tdesign-react/pull/4004))
+- `Form`: 修复初始化表单值时引入多余组件，导致未使用组件也被打包的问题 @RylanBot ([#3965](https://github.com/Tencent/tdesign-react/pull/3965))
 - `Menu`: 修复菜单选项默认边距和图标大小的问题 @liweijie0812 ([common#2369](https://github.com/Tencent/tdesign-common/pull/2369))
 - `Select`: 优化键盘操作过程中再次进行回车操作的使用体验 @uyarn ([#3989](https://github.com/Tencent/tdesign-react/pull/3989))
 - `Tree`: 修复子节点为自定义的 Input 等元素时，选中文本的高亮样式被隐藏的问题 @RylanBot ([common#2370](https://github.com/Tencent/tdesign-common/pull/2370))
