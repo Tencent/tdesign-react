@@ -9,6 +9,7 @@ export const radioDefaultProps: TdRadioProps = {
   defaultChecked: false,
   disabled: undefined,
   readonly: undefined,
+  readOnly: undefined,
   value: undefined,
 };
 

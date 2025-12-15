@@ -1,13 +1,15 @@
 import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { createPopper, Instance, Placement, type Options } from '@popperjs/core';
+import { createPopper, type Instance, type Options, type Placement } from '@popperjs/core';
 import classNames from 'classnames';
 import { isString } from 'lodash-es';
+
 import { getAttach } from '../_util/dom';
 import { off, on } from '../_util/listener';
 import { render, unmount } from '../_util/react-render';
 import PluginContainer from '../common/PluginContainer';
 import ConfigProvider from '../config-provider';
+import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { popupDefaultProps } from './defaultProps';
 
@@ -29,8 +31,6 @@ let popperInstance: Instance;
 let overlayInstance: HTMLElement;
 let timeout: NodeJS.Timeout;
 let triggerEl: HTMLElement;
-
-const componentName = 't-popup';
 
 const triggerType = (triggerProps: string) =>
   triggers.reduce(
@@ -61,6 +61,9 @@ const Overlay: React.FC<OverlayProps> = (originalProps) => {
     renderCallback,
   } = props;
 
+  const { classPrefix } = useConfig();
+  const componentName = `${classPrefix}-popup`;
+
   const [visibleState, setVisibleState] = useState(false);
   const popperRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -79,7 +82,6 @@ const Overlay: React.FC<OverlayProps> = (originalProps) => {
     };
   };
 
-  // useMemo
   const hasTrigger = useMemo(() => triggerType(trigger), [trigger]);
   const overlayClasses = useMemo(
     () => [
@@ -91,8 +93,26 @@ const Overlay: React.FC<OverlayProps> = (originalProps) => {
       },
       overlayInnerClassName,
     ],
-    [content, overlayInnerClassName, showArrow, disabled],
+    [componentName, content, showArrow, disabled, overlayInnerClassName],
   );
+
+  const popperOptions = useMemo(() => {
+    const baseOptions = { ...(props.popperOptions as Options) };
+    const modifiers = baseOptions.modifiers?.slice() || [];
+    const hasArrowModifier = modifiers.some((m) => m.name === 'arrow');
+    if (showArrow && !hasArrowModifier) {
+      modifiers.unshift({ name: 'arrow' });
+    }
+    return {
+      ...baseOptions,
+      modifiers,
+    };
+  }, [props.popperOptions, showArrow]);
+
+  const arrowModifierEnabled = useMemo(() => {
+    const arrowModifier = popperOptions.modifiers?.find((m) => m.name === 'arrow');
+    return arrowModifier && arrowModifier.enabled !== false;
+  }, [popperOptions]);
 
   // method
   const handleMouseLeave = () => {
@@ -130,8 +150,6 @@ const Overlay: React.FC<OverlayProps> = (originalProps) => {
     onMouseMove: handleMouseEnter,
   };
 
-  const hasArrowModifier = (props.popperOptions as Options)?.modifiers?.some((modifier) => modifier.name === 'arrow');
-
   // render node
   const renderNode = (
     <div
@@ -146,7 +164,7 @@ const Overlay: React.FC<OverlayProps> = (originalProps) => {
       <div ref={overlayRef} className={classNames(overlayClasses)} style={overlayInnerStyleMerge()}>
         {content}
         {showArrow && (
-          <div className={`${componentName}__arrow`} {...(hasArrowModifier && { 'data-popper-arrow': '' })} />
+          <div className={`${componentName}__arrow`} {...(arrowModifierEnabled && { 'data-popper-arrow': '' })} />
         )}
       </div>
     </div>
@@ -223,9 +241,18 @@ const createPopupInstance: PluginMethod = async (trigger, content, popupProps) =
     on(triggerEl, 'focusout', focusoutEvent);
   }
 
+  const baseOptions = { ...(popupProps?.popperOptions as Options) };
+  const modifiers = baseOptions.modifiers?.slice() || [];
+  const hasArrowModifier = modifiers.some((m) => m.name === 'arrow');
+
+  if (popupProps?.showArrow && !hasArrowModifier) {
+    modifiers.unshift({ name: 'arrow' });
+  }
+
   popperInstance = createPopper(triggerEl, instance, {
     placement: getPopperPlacement(popupProps?.placement || ('top' as TdPopupProps['placement'])),
-    ...popupProps?.popperOptions,
+    ...baseOptions,
+    modifiers,
   });
   return popperInstance;
 };
