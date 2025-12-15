@@ -1,7 +1,8 @@
-import { isFunction, isObject } from 'lodash-es';
 import React, { useMemo, useRef } from 'react';
+import { isFunction, isObject } from 'lodash-es';
 
 import useControlled from '../hooks/useControlled';
+import useInnerPopupVisible from '../hooks/useInnerPopupVisible';
 
 import type { PopupVisibleChangeContext, TdPopupProps } from '../popup';
 import type { TdSelectInputProps } from './type';
@@ -11,6 +12,7 @@ export type overlayStyleProps = Pick<
   | 'popupProps'
   | 'autoWidth'
   | 'readonly'
+  | 'readOnly'
   | 'onPopupVisibleChange'
   | 'disabled'
   | 'allowInput'
@@ -27,7 +29,9 @@ export default function useOverlayInnerStyle(
     afterHidePopup?: (ctx: PopupVisibleChangeContext) => void;
   },
 ) {
-  const { popupProps, autoWidth, readonly, disabled, onPopupVisibleChange, allowInput } = props;
+  const { popupProps, autoWidth, disabled, onPopupVisibleChange, allowInput } = props;
+  const readonly = props.readOnly || props.readonly;
+
   const [innerPopupVisible, setInnerPopupVisible] = useControlled(props, 'popupVisible', onPopupVisibleChange);
 
   const skipNextBlur = useRef(false);
@@ -70,7 +74,7 @@ export default function useOverlayInnerStyle(
     };
   };
 
-  const onInnerPopupVisibleChange = (visible: boolean, context: PopupVisibleChangeContext) => {
+  const onInnerPopupVisibleChange = useInnerPopupVisible((visible: boolean, context: PopupVisibleChangeContext) => {
     skipNextBlur.current = false;
     if (disabled || readonly) return;
     // 如果点击触发元素（输入框）且为可输入状态，则继续显示下拉框
@@ -82,7 +86,7 @@ export default function useOverlayInnerStyle(
         skipNextBlur.current = true;
       }
     }
-  };
+  });
 
   const tOverlayInnerStyle = useMemo(() => {
     let result: TdPopupProps['overlayInnerStyle'] = {};

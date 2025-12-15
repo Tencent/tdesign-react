@@ -5,19 +5,33 @@ export const enum ValidateStatus {
   VALIDATING = 'validating',
 }
 
-export const READONLY_SUPPORTED_COMP = [
-  'AutoComplete',
-  'Cascader',
-  'Checkbox',
-  'CheckboxGroup',
-  'Input',
-  'InputNumber',
-  'Radio',
-  'RadioGroup',
-  'RangeInput',
-  'Select',
-  'SelectInput',
+export const TD_CTRL_PROP_MAP = new Map<string, string>([
+  ['Checkbox', 'checked'],
+  ['CheckTag', 'checked'],
+  ['Upload', 'files'],
+]);
+
+const TD_BOOLEAN_COMP = ['Checkbox'];
+const TD_ARRAY_COMP = [
+  'Tree',
+  'Upload',
+  'Transfer',
   'TagInput',
-  'Textarea',
-  'TreeSelect',
+  'RangeInput',
+  'CheckboxGroup',
+  'DateRangePicker',
+  'TimeRangePicker',
 ];
+export const TD_DEFAULT_VALUE_MAP = (() => {
+  const map = new Map<string, any>();
+
+  TD_ARRAY_COMP.forEach((componentName) => {
+    map.set(componentName, []);
+  });
+
+  TD_BOOLEAN_COMP.forEach((componentName) => {
+    map.set(componentName, false);
+  });
+
+  return map;
+})();

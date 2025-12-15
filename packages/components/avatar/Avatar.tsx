@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import useConfig from '../hooks/useConfig';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useCommonClassName from '../hooks/useCommonClassName';
-import composeRefs from '../_util/composeRefs';
+import { composeRefs } from '../_util/ref';
 import { TdAvatarProps } from './type';
 import { StyledProps } from '../common';
 import AvatarContext from './AvatarContext';
