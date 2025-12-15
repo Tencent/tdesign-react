@@ -12,6 +12,7 @@ spline: explain
 - 支持 `readonly`  的组件新增 API  `readOnly`，与 `readonly` 效果一致。原有的 `readonly` 会被保留，未来版本将废弃，建议及时更换 ⚠️ @RylanBot ([#3955](https://github.com/Tencent/tdesign-react/pull/3955))
 - 支持 `.dark` 类名，丰富切换深色模式的方式 @liweijie0812 ([common#2355](https://github.com/Tencent/tdesign-common/pull/2355))
 - `Dialog`: 优化渲染阶段，避免子元素计算异常的问题，此前有在 Dialog 内进行复杂内容渲染的请注意此变更 ⚠️ @HaixingOoO ([#3705](https://github.com/Tencent/tdesign-react/pull/3705))
+- `Form`: 保留原始 HTML 效果，当输入框按下 Enter 键自动触发 submit 事件，如果需要拦截该行为，可以给输入框绑定 `onEnter={(e)=>e.preventDefault()}`，此前有依赖此内置特性请注意此变更 ⚠️ @RylanBot ([#3943](https://github.com/Tencent/tdesign-react/pull/3943))
 - `MessagePlugin`: 新增开启和关闭时的动画效果 @RylanBot ([#3820](https://github.com/Tencent/tdesign-react/pull/3820))
 - `Textarea`: 支持 `count` API，用于自定义计数元素的渲染 @RylanBot ([#4003](https://github.com/Tencent/tdesign-react/pull/4003))
 - `ImageViewer`: 
