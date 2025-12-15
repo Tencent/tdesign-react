@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { createPopper, type Instance, type Placement, type Options } from '@popperjs/core';
+import { createPopper, type Instance, type Options, type Placement } from '@popperjs/core';
 import classNames from 'classnames';
 import { isString } from 'lodash-es';
 
@@ -96,6 +96,24 @@ const Overlay: React.FC<OverlayProps> = (originalProps) => {
     [componentName, content, showArrow, disabled, overlayInnerClassName],
   );
 
+  const popperOptions = useMemo(() => {
+    const baseOptions = { ...(props.popperOptions as Options) };
+    const modifiers = baseOptions.modifiers?.slice() || [];
+    const hasArrowModifier = modifiers.some((m) => m.name === 'arrow');
+    if (showArrow && !hasArrowModifier) {
+      modifiers.unshift({ name: 'arrow' });
+    }
+    return {
+      ...baseOptions,
+      modifiers,
+    };
+  }, [props.popperOptions, showArrow]);
+
+  const arrowModifierEnabled = useMemo(() => {
+    const arrowModifier = popperOptions.modifiers?.find((m) => m.name === 'arrow');
+    return arrowModifier && arrowModifier.enabled !== false;
+  }, [popperOptions]);
+
   // method
   const handleMouseLeave = () => {
     setVisibleState(false);
@@ -132,8 +150,6 @@ const Overlay: React.FC<OverlayProps> = (originalProps) => {
     onMouseMove: handleMouseEnter,
   };
 
-  const hasArrowModifier = (props.popperOptions as Options)?.modifiers?.some((modifier) => modifier.name === 'arrow');
-
   // render node
   const renderNode = (
     <div
@@ -148,7 +164,7 @@ const Overlay: React.FC<OverlayProps> = (originalProps) => {
       <div ref={overlayRef} className={classNames(overlayClasses)} style={overlayInnerStyleMerge()}>
         {content}
         {showArrow && (
-          <div className={`${componentName}__arrow`} {...(hasArrowModifier && { 'data-popper-arrow': '' })} />
+          <div className={`${componentName}__arrow`} {...(arrowModifierEnabled && { 'data-popper-arrow': '' })} />
         )}
       </div>
     </div>
@@ -225,9 +241,18 @@ const createPopupInstance: PluginMethod = async (trigger, content, popupProps) =
     on(triggerEl, 'focusout', focusoutEvent);
   }
 
+  const baseOptions = { ...(popupProps?.popperOptions as Options) };
+  const modifiers = baseOptions.modifiers?.slice() || [];
+  const hasArrowModifier = modifiers.some((m) => m.name === 'arrow');
+
+  if (popupProps?.showArrow && !hasArrowModifier) {
+    modifiers.unshift({ name: 'arrow' });
+  }
+
   popperInstance = createPopper(triggerEl, instance, {
     placement: getPopperPlacement(popupProps?.placement || ('top' as TdPopupProps['placement'])),
-    ...popupProps?.popperOptions,
+    ...baseOptions,
+    modifiers,
   });
   return popperInstance;
 };
