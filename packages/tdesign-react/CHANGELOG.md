@@ -5,6 +5,16 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.15.11 `2025-12-15` 
+### 🚀 Features
+- `Textarea`: 支持 `count` API，用于自定义计数元素的渲染
+### 🐞 Bug Fixes
+- `RadioGroup`: 修复 NextJS 中，`variant="default-filled` 时，子组件含动态内容时导致无限循环的问题
+
+## 🌈 1.15.10 `2025-12-12` 
+### 🐞 Bug Fixes
+- `Drawer`: 修复回调事件错误缓存的问题
+
 ## 🌈 1.15.9 `2025-11-28` 
 ### 🚀 Features
 - `Cascader`: 支持当 `valueMode` 为 `all` 或者 `parentFirst` 时，在 `filterable` 选项中显示非叶子节点 @lifeiFront ([#3964](https://github.com/Tencent/tdesign-react/pull/3964))
