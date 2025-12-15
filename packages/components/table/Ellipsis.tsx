@@ -55,7 +55,8 @@ export default function Ellipsis(props: EllipsisProps) {
   let content = null;
   const { tooltipProps } = props;
   if (isOverflow) {
-    const rProps = {
+    const rProps: TooltipProps = {
+      theme: 'light',
       content: props.popupContent || cellNode,
       destroyOnClose: true,
       zIndex: props.zIndex,
