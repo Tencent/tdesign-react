@@ -1,21 +1,21 @@
+import { get, isEqual, isFunction, isObject, isString, set, unset } from 'lodash-es';
 import React, { forwardRef, ReactNode, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
-import { get, isEqual, isFunction, isObject, isString, set, unset } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { ValidateStatus } from './const';
+import { TD_CTRL_PROP_MAP, ValidateStatus } from './const';
 import { formItemDefaultProps } from './defaultProps';
 import { useFormContext, useFormListContext } from './FormContext';
 import { parseMessage, validate as validateModal } from './formModel';
 import { HOOK_MARK } from './hooks/useForm';
-import useFormItemInitialData, { ctrlKeyMap } from './hooks/useFormItemInitialData';
+import useFormItemInitialData from './hooks/useFormItemInitialData';
 import useFormItemStyle from './hooks/useFormItemStyle';
 import { calcFieldValue, concatName } from './utils';
 
@@ -492,8 +492,11 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
             if (!child) return null;
 
             let ctrlKey = 'value';
+
             if (React.isValidElement(child)) {
-              if (child.type === FormItem) {
+              // @ts-ignore
+              const componentName = child.type?.displayName;
+              if (componentName === 'FormItem') {
                 return React.cloneElement(child, {
                   // @ts-ignore
                   ref: (el) => {
@@ -502,9 +505,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
                   },
                 });
               }
-              if (typeof child.type === 'object') {
-                ctrlKey = ctrlKeyMap.get(child.type) || 'value';
-              }
+              ctrlKey = TD_CTRL_PROP_MAP.get(componentName) || 'value';
               const childProps = child.props as any;
               return React.cloneElement(child, {
                 disabled: disabledFromContext,

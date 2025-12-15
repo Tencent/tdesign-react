@@ -113,17 +113,22 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
 
   const popperOptions = useMemo(() => {
     const baseOptions = { ...(props.popperOptions as Options) };
-    const modifiers = baseOptions.modifiers || [];
+    const modifiers = baseOptions.modifiers?.slice() || [];
     const hasArrowModifiers = modifiers.some((m) => m.name === 'arrow');
     // https://popper.js.org/docs/v2/modifiers/arrow/
     if (showArrow && !hasArrowModifiers) {
-      modifiers.push({ name: 'arrow' });
+      modifiers.unshift({ name: 'arrow' });
     }
     return {
       ...baseOptions,
       modifiers,
     };
   }, [props.popperOptions, showArrow]);
+
+  const arrowModifierEnabled = useMemo(() => {
+    const arrowModifier = popperOptions.modifiers?.find((m) => m.name === 'arrow');
+    return arrowModifier && arrowModifier.enabled !== false;
+  }, [popperOptions]);
 
   popperRef.current = usePopper(triggerEl, popupElement, {
     placement: popperPlacement,
@@ -246,7 +251,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
                 <div
                   style={styles.arrow}
                   className={`${classPrefix}-popup__arrow`}
-                  {...(showArrow && { 'data-popper-arrow': '' })}
+                  {...(arrowModifierEnabled && { 'data-popper-arrow': '' })}
                 />
               )}
             </div>
