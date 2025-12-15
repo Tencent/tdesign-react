@@ -1,23 +1,22 @@
-import React, { useRef, useEffect, isValidElement, useCallback, useMemo } from 'react';
-import { isFragment } from 'react-is';
-import classNames from 'classnames';
-import { supportRef, getRefDom, getNodeRef } from '../../_util/ref';
-import composeRefs from '../../_util/composeRefs';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { off, on } from '../../_util/listener';
+import { composeRefs, getNodeRef, getRefDom, supportNodeRef } from '../../_util/ref';
+import useConfig from '../../hooks/useConfig';
 
 const ESC_KEY = 'Escape';
 
-export default function useTrigger({ content, disabled, trigger, visible, onVisibleChange, triggerRef, delay }) {
-  const hasPopupMouseDown = useRef(false);
-  const mouseDownTimer = useRef(0);
+export default function useTrigger({ triggerElement, content, disabled, trigger, visible, onVisibleChange, delay }) {
+  const { classPrefix } = useConfig();
+
+  const triggerElementIsString = typeof triggerElement === 'string';
+
+  const triggerRef = useRef<HTMLElement>(null);
   const visibleTimer = useRef(null);
-  const triggerDataKey = useRef(`t-popup--${Math.random().toFixed(10)}`);
-  const leaveFlag = useRef(false); // 防止多次触发显隐
 
   // 禁用和无内容时不展示
   const shouldToggle = useMemo(() => {
-    if (disabled) return false; // 禁用
-    return !disabled && content === 0 ? true : content; // 无内容时
+    if (disabled) return false;
+    return content === 0 ? true : !!content;
   }, [disabled, content]);
 
   // 解析 delay 数据类型
@@ -35,179 +34,181 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
     }
   }
 
-  // 点击 trigger overlay 以外的元素关闭
+  const getTriggerElement = useCallback(() => {
+    let element = null;
+    if (triggerElementIsString) {
+      element = document.querySelector(triggerElement);
+    } else {
+      element = getRefDom(triggerRef);
+    }
+    return element instanceof HTMLElement ? element : null;
+  }, [triggerElementIsString, triggerElement]);
+
+  const handleMouseLeave = (e: MouseEvent | React.MouseEvent) => {
+    if (trigger === 'hover') {
+      const relatedTarget = e.relatedTarget as HTMLElement;
+      const isMovingToContent = relatedTarget?.closest?.(`.${classPrefix}-popup`);
+      if (isMovingToContent) return;
+      callFuncWithDelay({
+        delay: exitDelay,
+        callback: () => onVisibleChange(false, { e, trigger: 'trigger-element-hover' }),
+      });
+    }
+  };
+
+  useEffect(() => clearTimeout(visibleTimer.current), []);
+
+  useEffect(() => {
+    if (!shouldToggle) return;
+
+    const element = getTriggerElement();
+    if (!element) return;
+
+    const handleClick = (e: MouseEvent) => {
+      if (trigger === 'click') {
+        callFuncWithDelay({
+          delay: visible ? appearDelay : exitDelay,
+          callback: () => onVisibleChange(!visible, { e, trigger: 'trigger-element-click' }),
+        });
+      }
+    };
+
+    const handleMouseDown = (e: MouseEvent) => {
+      if (trigger === 'mousedown') {
+        callFuncWithDelay({
+          delay: visible ? appearDelay : exitDelay,
+          callback: () => onVisibleChange(!visible, { e, trigger: 'trigger-element-mousedown' }),
+        });
+      }
+    };
+
+    const handleMouseEnter = (e: MouseEvent) => {
+      if (trigger === 'hover') {
+        callFuncWithDelay({
+          delay: appearDelay,
+          callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
+        });
+      }
+    };
+
+    const handleFocus = (e: FocusEvent) => {
+      if (trigger === 'focus') {
+        callFuncWithDelay({
+          delay: appearDelay,
+          callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-focus' }),
+        });
+      }
+    };
+
+    const handleBlur = (e: FocusEvent) => {
+      if (trigger === 'focus') {
+        callFuncWithDelay({
+          delay: exitDelay,
+          callback: () => onVisibleChange(false, { e, trigger: 'trigger-element-blur' }),
+        });
+      }
+    };
+
+    const handleContextMenu = (e: MouseEvent) => {
+      if (trigger === 'context-menu') {
+        e.preventDefault();
+        callFuncWithDelay({
+          delay: appearDelay,
+          callback: () => onVisibleChange(true, { e, trigger: 'context-menu' }),
+        });
+      }
+    };
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (trigger === 'hover' || trigger === 'mousedown') {
+        callFuncWithDelay({
+          delay: appearDelay,
+          callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
+        });
+      }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e?.key === ESC_KEY) {
+        callFuncWithDelay({
+          delay: exitDelay,
+          callback: () => onVisibleChange(false, { e, trigger: 'keydown-esc' }),
+        });
+      }
+    };
+
+    on(element, 'click', handleClick);
+    on(element, 'mousedown', handleMouseDown);
+    on(element, 'mouseenter', handleMouseEnter);
+    on(element, 'mouseleave', handleMouseLeave);
+    on(element, 'focus', handleFocus);
+    on(element, 'blur', handleBlur);
+    on(element, 'contextmenu', handleContextMenu);
+    on(element, 'touchstart', handleTouchStart, { passive: true });
+    on(element, 'keydown', handleKeyDown);
+    return () => {
+      off(element, 'click', handleClick);
+      off(element, 'mousedown', handleMouseDown);
+      off(element, 'mouseenter', handleMouseEnter);
+      off(element, 'mouseleave', handleMouseLeave);
+      off(element, 'focus', handleFocus);
+      off(element, 'blur', handleBlur);
+      off(element, 'contextmenu', handleContextMenu);
+      off(element, 'touchstart', handleTouchStart, { passive: true });
+      off(element, 'keydown', handleKeyDown);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [classPrefix, shouldToggle, appearDelay, exitDelay, trigger, visible, onVisibleChange]);
+
   useEffect(() => {
     if (!shouldToggle) return;
 
     const handleDocumentClick = (e: any) => {
-      if (getRefDom(triggerRef)?.contains?.(e.target) || hasPopupMouseDown.current) {
-        return;
-      }
+      const element = getTriggerElement();
+      if (element?.contains?.(e.target) || e.target?.closest?.(`.${classPrefix}-popup`)) return;
       visible && onVisibleChange(false, { e, trigger: 'document' });
     };
+
     on(document, 'mousedown', handleDocumentClick);
-    on(document, 'touchend', handleDocumentClick);
+    on(document, 'touchend', handleDocumentClick, { passive: true });
     return () => {
       off(document, 'mousedown', handleDocumentClick);
-      off(document, 'touchend', handleDocumentClick);
+      off(document, 'touchend', handleDocumentClick, { passive: true });
     };
-  }, [shouldToggle, visible, onVisibleChange, triggerRef]);
+  }, [classPrefix, shouldToggle, visible, onVisibleChange, getTriggerElement]);
 
-  // 弹出内容交互处理
-  function getPopupProps(): any {
-    if (!shouldToggle) return {};
-
-    return {
-      onMouseEnter: (e: MouseEvent) => {
-        if (trigger === 'hover' && !leaveFlag.current) {
-          clearTimeout(visibleTimer.current);
-          onVisibleChange(true, { e, trigger: 'trigger-element-hover' });
-        }
-      },
-      onMouseLeave: (e: MouseEvent) => {
-        if (trigger === 'hover') {
-          leaveFlag.current = true;
-          clearTimeout(visibleTimer.current);
-          onVisibleChange(false, { e, trigger: 'trigger-element-hover' });
-        }
-      },
-      onMouseDown: () => {
-        clearTimeout(mouseDownTimer.current);
-        hasPopupMouseDown.current = true;
-        mouseDownTimer.current = window.setTimeout(() => {
-          hasPopupMouseDown.current = false;
-        });
-      },
-      onTouchEnd: () => {
-        clearTimeout(mouseDownTimer.current);
-        hasPopupMouseDown.current = true;
-        mouseDownTimer.current = window.setTimeout(() => {
-          hasPopupMouseDown.current = false;
-        });
-      },
-    };
-  }
-
-  // 整理 trigger props
-  function getTriggerProps(triggerNode: React.ReactElement<any>) {
-    if (!shouldToggle) return {};
-
-    const triggerProps: any = {
-      className: visible ? classNames(triggerNode.props.className, `t-popup-open`) : triggerNode.props.className,
-      onMouseDown: (e: MouseEvent) => {
-        if (trigger === 'mousedown') {
-          callFuncWithDelay({
-            delay: visible ? appearDelay : exitDelay,
-            callback: () => onVisibleChange(!visible, { e, trigger: 'trigger-element-mousedown' }),
-          });
-        }
-        triggerNode.props.onMouseDown?.(e);
-      },
-      onClick: (e: MouseEvent) => {
-        if (trigger === 'click') {
-          callFuncWithDelay({
-            delay: visible ? appearDelay : exitDelay,
-            callback: () => onVisibleChange(!visible, { e, trigger: 'trigger-element-click' }),
-          });
-        }
-        triggerNode.props.onClick?.(e);
-      },
-      onTouchStart: (e: TouchEvent) => {
-        if (trigger === 'hover' || trigger === 'mousedown') {
-          leaveFlag.current = false;
-          callFuncWithDelay({
-            delay: appearDelay,
-            callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
-          });
-        }
-        triggerNode.props.onTouchStart?.(e);
-      },
-      onMouseEnter: (e: MouseEvent) => {
-        if (trigger === 'hover') {
-          leaveFlag.current = false;
-          callFuncWithDelay({
-            delay: appearDelay,
-            callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
-          });
-        }
-        triggerNode.props.onMouseEnter?.(e);
-      },
-      onMouseLeave: (e: MouseEvent) => {
-        if (trigger === 'hover') {
-          leaveFlag.current = false;
-          callFuncWithDelay({
-            delay: exitDelay,
-            callback: () => onVisibleChange(false, { e, trigger: 'trigger-element-hover' }),
-          });
-        }
-        triggerNode.props.onMouseLeave?.(e);
-      },
-      onFocus: (...args: any) => {
-        if (trigger === 'focus') {
-          callFuncWithDelay({
-            delay: appearDelay,
-            callback: () => onVisibleChange(true, { trigger: 'trigger-element-focus' }),
-          });
-        }
-        triggerNode.props.onFocus?.(...args);
-      },
-      onBlur: (...args: any) => {
-        if (trigger === 'focus') {
-          callFuncWithDelay({
-            delay: appearDelay,
-            callback: () => onVisibleChange(false, { trigger: 'trigger-element-blur' }),
-          });
-        }
-        triggerNode.props.onBlur?.(...args);
-      },
-      onContextMenu: (e: MouseEvent) => {
-        if (trigger === 'context-menu') {
-          e.preventDefault();
-          callFuncWithDelay({
-            delay: appearDelay,
-            callback: () => onVisibleChange(true, { e, trigger: 'context-menu' }),
-          });
-        }
-        triggerNode.props.onContextMenu?.(e);
-      },
-      onKeyDown: (e: KeyboardEvent) => {
-        if (e?.key === ESC_KEY) {
-          callFuncWithDelay({
-            delay: exitDelay,
-            callback: () => onVisibleChange(false, { e, trigger: 'keydown-esc' }),
-          });
-        }
-        triggerNode.props.onKeyDown?.(e);
-      },
-    };
-
-    if (supportRef(triggerNode)) {
-      triggerProps.ref = composeRefs(triggerRef, getNodeRef(triggerNode as any));
+  useEffect(() => {
+    const element = getTriggerElement();
+    if (visible) {
+      element?.classList.add(`${classPrefix}-popup-open`);
     } else {
-      // 标记 trigger 元素
-      triggerProps['data-popup'] = triggerDataKey.current;
+      element?.classList.remove(`${classPrefix}-popup-open`);
+    }
+    return () => {
+      element?.classList.remove(`${classPrefix}-popup-open`);
+    };
+  }, [visible, classPrefix, getTriggerElement]);
+
+  function getTriggerNode(children: React.ReactNode) {
+    if (triggerElementIsString) return;
+
+    if (supportNodeRef(children)) {
+      const childRef = getNodeRef(children);
+      const ref = composeRefs(triggerRef, childRef);
+      return React.cloneElement(children, { ref });
     }
 
-    return triggerProps;
+    return (
+      <span ref={triggerRef} className={`${classPrefix}-trigger`}>
+        {children}
+      </span>
+    );
   }
-
-  // 整理 trigger 元素
-  function getTriggerNode(children: React.ReactNode) {
-    const triggerNode =
-      isValidElement(children) && !isFragment(children) ? children : <span className="t-trigger">{children}</span>;
-
-    return React.cloneElement(triggerNode, getTriggerProps(triggerNode));
-  }
-
-  // ref 透传失败时使用 dom 查找
-  const getTriggerDom = useCallback(() => {
-    if (typeof document === 'undefined') return {};
-    return document.querySelector(`[data-popup="${triggerDataKey.current}"]`);
-  }, []);
 
   return {
+    triggerElementIsString,
+    handleMouseLeave,
+    getTriggerElement,
     getTriggerNode,
-    getPopupProps,
-    getTriggerDom,
   };
 }
