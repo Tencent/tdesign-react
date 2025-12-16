@@ -275,9 +275,11 @@ class TableResizable {
         this.initResizeHandles(col.children, false);
       }
 
-      // If column is disabled, add disabled style but no handle
+      // If column is disabled, still add handle but with disabled cursor
       if (col.disabled) {
-        col.element.style.cursor = 'not-allowed';
+        const handle = this.createResizeHandle(false);
+        handle.style.cursor = 'not-allowed';
+        col.element.appendChild(handle);
         return;
       }
 
