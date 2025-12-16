@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-param-reassign */
-import type { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
+import type { BaseTableCol, TableRowData } from '../type';
 
 interface ColumnConfig {
   colKey: string;
@@ -10,6 +10,14 @@ interface ColumnConfig {
   maxWidth?: number;
   disabled?: boolean;
   fixed?: 'left' | 'right';
+}
+
+interface CallbackContext {
+  columnsWidth: { [colKey: string]: number };
+}
+
+interface ResizeCallbackParams {
+  onMouseMove?: (e: MouseEvent, ctx: CallbackContext) => void;
 }
 
 const MIN_WIDTH = 80;
@@ -38,20 +46,20 @@ class TableResizable {
 
   private minTableWidth = 0;
 
-  private onColumnResizeChange?: TdBaseTableProps['onColumnResizeChange'];
+  private callback: ResizeCallbackParams;
 
   constructor(
     classPrefix: string,
     table: HTMLTableElement,
     columns: BaseTableCol<TableRowData>[],
-    onColumnResizeChange?: TdBaseTableProps['onColumnResizeChange'],
+    callback: ResizeCallbackParams,
   ) {
     this.handleClass = `${classPrefix}-${HANDLE_CLASS_SUFFIX}`;
     this.tableEl = table;
     this.columns = this.mapColumnsToConfig(columns);
     this.tableContentEl = this.tableEl.closest(`.${classPrefix}-table__content`);
     this.minTableWidth = this.tableContentEl.offsetWidth;
-    this.onColumnResizeChange = onColumnResizeChange;
+    this.callback = callback;
     this.init();
   }
 
@@ -83,7 +91,7 @@ class TableResizable {
     });
   }
 
-  private initializeColumnsWidth(): void {
+  private initColumnsWidth(): void {
     this.columnsWidth = this.columns.map((col) => {
       if (!col?.element) return 0;
       return col.element.offsetWidth;
@@ -150,7 +158,14 @@ class TableResizable {
 
   private init(): void {
     // 初始化所有列的宽度
-    this.initializeColumnsWidth();
+    this.initColumnsWidth();
+
+    // 应用配置的列宽到 DOM，确保固定列位置计算时能读取到正确的宽度
+    this.columns.forEach((col, index) => {
+      if (col?.width && col?.element) {
+        this.updateColumnWidth(index, col.width);
+      }
+    });
 
     // 找到最后一个未被禁用的列
     let lastEnabledColumnIndex = -1;
@@ -171,7 +186,6 @@ class TableResizable {
 
       const isLastColumn = index === lastEnabledColumnIndex;
       const handle = this.createResizeHandle(isLastColumn);
-      col.element.style.position = 'relative';
       col.element.appendChild(handle);
 
       handle.addEventListener('mousedown', (e) => this.onMouseDown(e, index));
@@ -323,6 +337,12 @@ class TableResizable {
     // 确保表格宽度不小于容器宽度
     newTableWidth = Math.max(newTableWidth, this.minTableWidth);
     this.tableEl.style.width = `${newTableWidth}px`;
+
+    const columnsWidth = this.columns.reduce((acc, col, index) => {
+      acc[col.colKey] = this.columnsWidth[index];
+      return acc;
+    }, {} as Record<string, number>);
+    this.callback.onMouseMove?.(e, { columnsWidth });
   };
 
   private onMouseUp = () => {
@@ -338,13 +358,6 @@ class TableResizable {
 
       // 更新所有列的拖拽手柄光标状态
       this.updateAllHandleCursors();
-
-      this.onColumnResizeChange?.({
-        columnsWidth: this.columns.reduce((acc, col, index) => {
-          acc[col.colKey] = this.columnsWidth[index];
-          return acc;
-        }, {} as Record<string, number>),
-      });
     }
 
     this.activeColumn = null;

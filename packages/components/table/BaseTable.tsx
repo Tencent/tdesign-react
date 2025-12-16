@@ -103,6 +103,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     setUseFixedTableElmRef,
     updateColumnFixedShadow,
     addTableResizeObserver,
+    updateTableAfterColumnResize,
   } = useFixed(props, finalColumns, {
     paginationAffixRef,
     horizontalScrollAffixRef,
@@ -115,6 +116,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   useColumnResize(tableElmRef.current, {
     enable: resizable,
     columns,
+    updateTableAfterColumnResize,
     onColumnResizeChange: props.onColumnResizeChange,
   });
 

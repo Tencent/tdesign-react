@@ -8,10 +8,14 @@ import type { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
 type Options = {
   enable: boolean;
   columns: BaseTableCol<TableRowData>[];
+  updateTableAfterColumnResize?: () => void;
   onColumnResizeChange?: TdBaseTableProps['onColumnResizeChange'];
 };
 
-function useColumnResize(tableElement: HTMLTableElement, { enable, columns, onColumnResizeChange }: Options) {
+function useColumnResize(
+  tableElement: HTMLTableElement,
+  { enable, columns, updateTableAfterColumnResize, onColumnResizeChange }: Options,
+) {
   const { classPrefix } = useConfig();
   const resizableRef = useRef<TableResizable | null>(null);
 
@@ -23,7 +27,12 @@ function useColumnResize(tableElement: HTMLTableElement, { enable, columns, onCo
   useDeepEffect(() => {
     if (!tableElement || !enable) return;
     if (resizableRef.current) cleanUp();
-    resizableRef.current = new TableResizable(classPrefix, tableElement, columns, onColumnResizeChange);
+    resizableRef.current = new TableResizable(classPrefix, tableElement, columns, {
+      onMouseMove: (_, ctx) => {
+        updateTableAfterColumnResize();
+        onColumnResizeChange?.(ctx);
+      },
+    });
     return () => {
       cleanUp();
     };
