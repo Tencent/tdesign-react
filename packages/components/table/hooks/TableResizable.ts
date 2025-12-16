@@ -10,6 +10,10 @@ interface ColumnConfig {
   maxWidth?: number;
   disabled?: boolean;
   fixed?: 'left' | 'right';
+  children?: ColumnConfig[];
+  isLeaf?: boolean;
+  // Indices of leaf columns that belong to this column (for parent columns)
+  leafIndices?: number[];
 }
 
 interface CallbackContext {
@@ -34,6 +38,9 @@ class TableResizable {
 
   private columns: ColumnConfig[];
 
+  // Flat list of leaf columns for width calculations
+  private leafColumns: ColumnConfig[] = [];
+
   private columnsWidth: number[] = [];
 
   private activeColumn: number | null = null;
@@ -56,18 +63,40 @@ class TableResizable {
   ) {
     this.handleClass = `${classPrefix}-${HANDLE_CLASS_SUFFIX}`;
     this.tableEl = table;
-    this.columns = this.mapColumnsToConfig(columns);
     this.tableContentEl = this.tableEl.closest(`.${classPrefix}-table__content`);
     this.minTableWidth = this.tableContentEl.offsetWidth;
     this.callback = callback;
+    this.columns = this.mapColumnsToConfig(columns);
+    this.leafColumns = this.getLeafColumns(this.columns);
     this.init();
   }
 
-  private mapColumnsToConfig(columns: BaseTableCol<TableRowData>[]) {
-    const thElements = this.tableEl.querySelectorAll('thead th');
-    if (!thElements) return;
-    return columns.map((col, index) => {
-      const element = thElements[index] as HTMLElement;
+  private mapColumnsToConfig(columns: BaseTableCol<TableRowData>[]): ColumnConfig[] {
+    // Build a map of colKey -> th element for leaf columns
+    // and track header row structure for parent columns
+    const headerRows = this.tableEl.querySelectorAll('thead tr');
+    const thByColKey = new Map<string, HTMLElement>();
+
+    // Process each header row to map th elements to their colKeys
+    headerRows.forEach((row) => {
+      const ths = row.querySelectorAll('th');
+      ths.forEach((th) => {
+        // Try to get colKey from class name (format: xxx-table__th-{colKey})
+        const classMatch = Array.from(th.classList).find((cls) => cls.includes('-table__th-'));
+        if (classMatch) {
+          const colKey = classMatch.split('-table__th-')[1];
+          if (colKey) {
+            thByColKey.set(colKey, th as HTMLElement);
+          }
+        }
+      });
+    });
+
+    let leafIndex = 0;
+
+    const mapColumn = (col: BaseTableCol<TableRowData>): ColumnConfig => {
+      const hasChildren = col.children && col.children.length > 0;
+      const element = thByColKey.get(col.colKey) || null;
 
       const resizeConfig = col.resize;
       const minWidth = resizeConfig?.minWidth ?? MIN_WIDTH;
@@ -80,26 +109,80 @@ class TableResizable {
         width = typeof col.width === 'number' ? col.width : parseInt(col.width, 10);
       }
 
-      return {
+      const config: ColumnConfig = {
         colKey: col.colKey,
         element,
         minWidth,
         maxWidth,
         width,
         disabled,
-      } as ColumnConfig;
-    });
+        fixed: col.fixed,
+        isLeaf: !hasChildren,
+        leafIndices: [],
+      };
+
+      if (hasChildren) {
+        config.children = col.children.map((child) => mapColumn(child));
+        // Collect all leaf indices for this parent column
+        config.leafIndices = this.collectLeafIndices(config.children);
+      } else {
+        // This is a leaf column, assign its index
+        config.leafIndices = [leafIndex];
+        leafIndex += 1;
+      }
+
+      return config;
+    };
+
+    return columns.map((col) => mapColumn(col));
+  }
+
+  private collectLeafIndices(children: ColumnConfig[]): number[] {
+    const indices: number[] = [];
+    const collect = (cols: ColumnConfig[]) => {
+      cols.forEach((col) => {
+        if (col.children && col.children.length > 0) {
+          collect(col.children);
+        } else {
+          indices.push(...(col.leafIndices || []));
+        }
+      });
+    };
+    collect(children);
+    return indices;
+  }
+
+  private getLeafColumns(columns: ColumnConfig[]): ColumnConfig[] {
+    const leaves: ColumnConfig[] = [];
+    const collect = (cols: ColumnConfig[]) => {
+      cols.forEach((col) => {
+        if (col.children && col.children.length > 0) {
+          collect(col.children);
+        } else {
+          leaves.push(col);
+        }
+      });
+    };
+    collect(columns);
+    return leaves;
   }
 
   private initColumnsWidth(): void {
-    this.columnsWidth = this.columns.map((col) => {
+    // Get colgroup col elements for accurate width reading
+    const colElements = this.tableEl.querySelectorAll('colgroup col');
+    this.columnsWidth = this.leafColumns.map((col, index) => {
+      // Prefer colgroup width, fallback to element offsetWidth
+      const colEl = colElements[index] as HTMLElement;
+      if (colEl?.style?.width) {
+        return parseInt(colEl.style.width, 10);
+      }
       if (!col?.element) return 0;
       return col.element.offsetWidth;
     });
   }
 
   private updateColumnWidth(columnIndex: number, width: number): void {
-    const column = this.columns[columnIndex];
+    const column = this.leafColumns[columnIndex];
     if (!column?.element) return;
 
     column.element.style.width = `${width}px`;
@@ -134,19 +217,19 @@ class TableResizable {
   }
 
   private updateHandleCursor(columnIndex: number, handle: HTMLElement) {
-    // 找到最后一个未被禁用的列
-    let lastColumnIndex = this.columns.length - 1;
-    while (lastColumnIndex >= 0 && this.columns[lastColumnIndex]?.disabled) {
+    // Find the last non-disabled leaf column
+    let lastColumnIndex = this.leafColumns.length - 1;
+    while (lastColumnIndex >= 0 && this.leafColumns[lastColumnIndex]?.disabled) {
       lastColumnIndex -= 1;
     }
 
-    // 如果是最后一个有效列，检查是否应该显示 not-allowed
+    // If this is the last valid column, check if we should show not-allowed
     if (columnIndex === lastColumnIndex) {
       const currentTableWidth = this.tableEl.offsetWidth;
-      const lastColumn = this.columns[lastColumnIndex];
-      const currentColumnWidth = lastColumn.element.offsetWidth;
+      const lastColumn = this.leafColumns[lastColumnIndex];
+      const currentColumnWidth = lastColumn.element?.offsetWidth || 0;
 
-      // 只有当最后一列已经达到最小宽度且表格宽度小于容器宽度时才显示 not-allowed
+      // Only show not-allowed when last column is at min width and table width is less than container
       if (currentColumnWidth <= (lastColumn.minWidth || MIN_WIDTH) && currentTableWidth < this.minTableWidth) {
         handle.style.cursor = 'not-allowed';
         return;
@@ -157,85 +240,173 @@ class TableResizable {
   }
 
   private init(): void {
-    // 初始化所有列的宽度
+    // Initialize all leaf column widths
     this.initColumnsWidth();
 
-    // 应用配置的列宽到 DOM，确保固定列位置计算时能读取到正确的宽度
-    this.columns.forEach((col, index) => {
+    // Apply configured widths to DOM
+    this.leafColumns.forEach((col, index) => {
       if (col?.width && col?.element) {
         this.updateColumnWidth(index, col.width);
       }
     });
 
-    // 找到最后一个未被禁用的列
-    let lastEnabledColumnIndex = -1;
-    for (let i = this.columns.length - 1; i >= 0; i--) {
-      if (this.columns[i] && !this.columns[i].disabled) {
-        lastEnabledColumnIndex = i;
-        break;
-      }
-    }
-
-    this.columns.forEach((col, index) => {
-      if (!col?.element) return;
-      // 如果列被禁用，添加禁用样式但不添加拖拽手柄
-      if (col.disabled) {
-        col.element.style.cursor = 'not-allowed';
-        return;
-      }
-
-      const isLastColumn = index === lastEnabledColumnIndex;
-      const handle = this.createResizeHandle(isLastColumn);
-      col.element.appendChild(handle);
-
-      handle.addEventListener('mousedown', (e) => this.onMouseDown(e, index));
-    });
+    // Add resize handles to all columns (both leaf and parent)
+    this.initResizeHandles(this.columns);
 
     document.addEventListener('mousemove', this.onMouseMove);
     document.addEventListener('mouseup', this.onMouseUp);
   }
 
-  private onMouseDown = (e: MouseEvent, columnIndex: number) => {
+  private initResizeHandles(columns: ColumnConfig[], isTopLevel = true): void {
+    // Find the last non-disabled column at this level
+    let lastEnabledColumnIndex = -1;
+    for (let i = columns.length - 1; i >= 0; i--) {
+      if (columns[i] && !columns[i].disabled) {
+        lastEnabledColumnIndex = i;
+        break;
+      }
+    }
+
+    columns.forEach((col, index) => {
+      if (!col?.element) return;
+
+      // Recursively add handles to children
+      if (col.children && col.children.length > 0) {
+        this.initResizeHandles(col.children, false);
+      }
+
+      // If column is disabled, add disabled style but no handle
+      if (col.disabled) {
+        col.element.style.cursor = 'not-allowed';
+        return;
+      }
+
+      const isLastColumn = index === lastEnabledColumnIndex && isTopLevel;
+      const handle = this.createResizeHandle(isLastColumn);
+      col.element.appendChild(handle);
+
+      // Store info about whether this is a parent column
+      const isParentColumn = col.children && col.children.length > 0;
+      handle.dataset.isParent = isParentColumn ? 'true' : 'false';
+      handle.dataset.colKey = col.colKey;
+      handle.dataset.leafIndices = JSON.stringify(col.leafIndices);
+
+      handle.addEventListener('mousedown', (e) => this.onMouseDownColumn(e, col));
+    });
+  }
+
+  private onMouseDownColumn = (e: MouseEvent, column: ColumnConfig) => {
     e.preventDefault();
     e.stopPropagation();
 
-    const column = this.columns[columnIndex];
     if (column.disabled) {
       return;
     }
 
-    // 找到最后一个未被禁用的列
-    let lastColumnIndex = this.columns.length - 1;
-    while (lastColumnIndex >= 0 && this.columns[lastColumnIndex]?.disabled) {
+    const isParentColumn = column.children && column.children.length > 0;
+    const leafIndices = column.leafIndices || [];
+
+    if (leafIndices.length === 0) return;
+
+    // Find the last non-disabled leaf column
+    let lastLeafIndex = this.leafColumns.length - 1;
+    while (lastLeafIndex >= 0 && this.leafColumns[lastLeafIndex]?.disabled) {
+      lastLeafIndex -= 1;
+    }
+
+    // Check if this column contains the last leaf column
+    const containsLastLeaf = leafIndices.includes(lastLeafIndex);
+
+    if (containsLastLeaf) {
+      const currentTableWidth = this.tableEl.offsetWidth;
+      // Calculate total width of all leaf columns in this parent
+      const totalWidth = leafIndices.reduce((sum, idx) => sum + (this.leafColumns[idx]?.element?.offsetWidth || 0), 0);
+      const totalMinWidth = leafIndices.reduce((sum, idx) => sum + (this.leafColumns[idx]?.minWidth || MIN_WIDTH), 0);
+
+      // Block drag if at minimum and table is smaller than container
+      if (totalWidth <= totalMinWidth && currentTableWidth < this.minTableWidth) {
+        return;
+      }
+    }
+
+    // Store active column info
+    (this as any).activeColumnConfig = column;
+    (this as any).isParentDrag = isParentColumn;
+
+    // For parent columns, calculate the combined starting width
+    if (isParentColumn) {
+      this.startWidth = leafIndices.reduce((sum, idx) => sum + (this.leafColumns[idx]?.element?.offsetWidth || 0), 0);
+    } else {
+      // For leaf columns, use the first (and only) leaf index
+      // this.activeColumn = leafIndices[0];
+      [this.activeColumn] = leafIndices;
+
+      this.startWidth = this.leafColumns[this.activeColumn]?.element?.offsetWidth || 0;
+    }
+
+    this.startX = e.pageX;
+    this.startTableWidth = this.tableEl.offsetWidth;
+
+    // Capture current widths of all leaf columns
+    this.columnsWidth = this.leafColumns.map((col) => col?.element?.offsetWidth || 0);
+
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+  };
+
+  private onMouseDown = (e: MouseEvent, columnIndex: number) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const column = this.leafColumns[columnIndex];
+    if (column.disabled) {
+      return;
+    }
+
+    // Find the last non-disabled leaf column
+    let lastColumnIndex = this.leafColumns.length - 1;
+    while (lastColumnIndex >= 0 && this.leafColumns[lastColumnIndex]?.disabled) {
       lastColumnIndex -= 1;
     }
 
-    // 如果是最后一个有效列，检查是否允许拖拽
+    // If this is the last valid column, check if drag is allowed
     if (columnIndex === lastColumnIndex) {
       const currentTableWidth = this.tableEl.offsetWidth;
-      const currentColumnWidth = column.element.offsetWidth;
+      const currentColumnWidth = column.element?.offsetWidth || 0;
 
-      // 只有当最后一列已经达到最小宽度且表格宽度小于容器宽度时，阻止拖拽
+      // Block drag when last column is at min width and table width is less than container
       if (currentColumnWidth <= (column.minWidth || MIN_WIDTH) && currentTableWidth < this.minTableWidth) {
         return;
       }
     }
 
     this.activeColumn = columnIndex;
+    (this as any).activeColumnConfig = null;
+    (this as any).isParentDrag = false;
     this.startX = e.pageX;
-    this.startWidth = column.element.offsetWidth;
+    this.startWidth = column.element?.offsetWidth || 0;
     this.startTableWidth = this.tableEl.offsetWidth;
 
-    this.columnsWidth = this.columns.map((col) => col?.element?.offsetWidth || 0);
+    this.columnsWidth = this.leafColumns.map((col) => col?.element?.offsetWidth || 0);
 
     document.body.style.cursor = 'col-resize';
     document.body.style.userSelect = 'none';
   };
 
   private onMouseMove = (e: MouseEvent) => {
+    const activeColumnConfig = (this as any).activeColumnConfig as ColumnConfig | null;
+    const isParentDrag = (this as any).isParentDrag as boolean;
+
+    // Handle parent column drag (proportional resize)
+    if (activeColumnConfig && isParentDrag) {
+      this.handleParentColumnResize(e, activeColumnConfig);
+      return;
+    }
+
+    // Handle leaf column drag (original logic)
     if (this.activeColumn === null) return;
 
-    const col = this.columns[this.activeColumn];
+    const col = this.leafColumns[this.activeColumn];
     const diff = e.pageX - this.startX;
 
     const newWidth = this.startWidth + diff;
@@ -248,7 +419,7 @@ class TableResizable {
       actualWidth = Math.min(actualWidth, col.maxWidth);
     }
 
-    // 检查是否达到边界，更新光标
+    // Check if boundary is reached, update cursor
     const reachedBoundary = actualWidth !== newWidth;
     if (reachedBoundary) {
       document.body.style.cursor = 'not-allowed';
@@ -258,34 +429,26 @@ class TableResizable {
 
     this.updateColumnWidth(this.activeColumn, actualWidth);
 
-    // 找到最后一个未被禁用的列
-    let lastColumnIndex = this.columns.length - 1;
-    while (lastColumnIndex >= 0 && this.columns[lastColumnIndex]?.disabled) {
+    // Find the last non-disabled leaf column
+    let lastColumnIndex = this.leafColumns.length - 1;
+    while (lastColumnIndex >= 0 && this.leafColumns[lastColumnIndex]?.disabled) {
       lastColumnIndex -= 1;
     }
 
-    // 计算新的表格宽度（不包含最后一列的调整）
+    // Calculate new table width
     let newTableWidth = this.startTableWidth + (actualWidth - this.startWidth);
 
-    // 如果找到了有效的最后一列，且不是当前拖拽的列
+    // Handle last column adjustment logic
     if (lastColumnIndex >= 0 && lastColumnIndex !== this.activeColumn) {
-      const lastColumn = this.columns[lastColumnIndex];
+      const lastColumn = this.leafColumns[lastColumnIndex];
       const lastColumnOriginalWidth = this.columnsWidth[lastColumnIndex];
 
-      // 先设置新的表格宽度，然后检查是否溢出
       this.tableEl.style.width = `${newTableWidth}px`;
-
-      // 检查表格是否真正溢出（产生滚动条）
       const isOverflow = this.isTableOverflow();
-
-      // 计算表格宽度与容器宽度的差值
       const widthDiff = newTableWidth - this.minTableWidth;
 
       if (widthDiff < 0) {
-        // 情况1：表格宽度小于容器宽度，需要填充最后一列以充满容器
         const lastColumnNewWidth = lastColumnOriginalWidth - widthDiff;
-
-        // 应用最后一列的宽度限制
         let finalLastColumnWidth = lastColumnNewWidth;
         if (lastColumn.minWidth !== undefined) {
           finalLastColumnWidth = Math.max(finalLastColumnWidth, lastColumn.minWidth);
@@ -295,26 +458,17 @@ class TableResizable {
         }
 
         this.updateColumnWidth(lastColumnIndex, finalLastColumnWidth);
-        // 重新计算表格宽度
         newTableWidth =
           this.startTableWidth + (actualWidth - this.startWidth) + (finalLastColumnWidth - lastColumnOriginalWidth);
       } else if (isOverflow) {
-        // 情况2：表格已经溢出，不需要压缩最后一列，保持原始宽度
         this.updateColumnWidth(lastColumnIndex, lastColumnOriginalWidth);
-        // 表格宽度保持当前计算值，允许无限溢出
       } else {
-        // 情况3：表格宽度大于等于容器宽度，但还没有真正溢出
-        // 恢复最后一列的原始宽度，让表格自然增长
         this.updateColumnWidth(lastColumnIndex, lastColumnOriginalWidth);
       }
     } else if (lastColumnIndex >= 0 && lastColumnIndex === this.activeColumn) {
-      // 如果当前拖拽的就是最后一列，需要确保表格始终填满容器
       const widthDiff = newTableWidth - this.minTableWidth;
       if (widthDiff < 0) {
-        // 表格宽度小于容器宽度，调整当前列宽度以填满容器
         const adjustedWidth = actualWidth - widthDiff;
-
-        // 应用宽度限制
         let finalWidth = adjustedWidth;
         if (col.minWidth !== undefined) {
           finalWidth = Math.max(finalWidth, col.minWidth);
@@ -323,9 +477,7 @@ class TableResizable {
           finalWidth = Math.min(finalWidth, col.maxWidth);
         }
 
-        // 如果调整后的宽度不同于计算的宽度，说明受到了限制
         if (finalWidth !== adjustedWidth) {
-          // 受到限制时，保持原宽度，但确保表格至少等于容器宽度
           newTableWidth = Math.max(newTableWidth, this.minTableWidth);
         } else {
           this.updateColumnWidth(this.activeColumn, finalWidth);
@@ -334,45 +486,165 @@ class TableResizable {
       }
     }
 
-    // 确保表格宽度不小于容器宽度
     newTableWidth = Math.max(newTableWidth, this.minTableWidth);
     this.tableEl.style.width = `${newTableWidth}px`;
 
-    const columnsWidth = this.columns.reduce((acc, col, index) => {
+    const columnsWidth = this.leafColumns.reduce((acc, col, index) => {
       acc[col.colKey] = this.columnsWidth[index];
       return acc;
     }, {} as Record<string, number>);
     this.callback.onMouseMove?.(e, { columnsWidth });
   };
 
-  private onMouseUp = () => {
-    if (this.activeColumn !== null) {
-      const col = this.columns[this.activeColumn];
-      const handle = col.element.getElementsByClassName(this.handleClass)[0] as HTMLElement;
-      if (handle) {
-        this.updateHandleCursor(this.activeColumn, handle);
+  private handleParentColumnResize(e: MouseEvent, column: ColumnConfig): void {
+    const leafIndices = column.leafIndices || [];
+    if (leafIndices.length === 0) return;
+
+    const diff = e.pageX - this.startX;
+    const newTotalWidth = this.startWidth + diff;
+
+    // Calculate total min/max width for all children
+    const totalMinWidth = leafIndices.reduce((sum, idx) => sum + (this.leafColumns[idx]?.minWidth || MIN_WIDTH), 0);
+    const totalMaxWidth = leafIndices.reduce((sum, idx) => {
+      const maxW = this.leafColumns[idx]?.maxWidth;
+      return sum + (maxW !== undefined ? maxW : MAX_WIDTH);
+    }, 0);
+
+    // Clamp the new total width
+    const actualTotalWidth = Math.max(totalMinWidth, Math.min(totalMaxWidth, newTotalWidth));
+
+    // Check boundary
+    const reachedBoundary = actualTotalWidth !== newTotalWidth;
+    if (reachedBoundary) {
+      document.body.style.cursor = 'not-allowed';
+    } else {
+      document.body.style.cursor = 'col-resize';
+    }
+
+    // Store original widths for this parent's children
+    const originalWidths = leafIndices.map((idx) => this.columnsWidth[idx]);
+    const originalTotal = originalWidths.reduce((sum, w) => sum + w, 0);
+
+    // Distribute width proportionally to each child
+    let remainingWidth = actualTotalWidth;
+    leafIndices.forEach((idx, i) => {
+      const leafCol = this.leafColumns[idx];
+      const proportion = originalWidths[i] / originalTotal;
+      let targetWidth = Math.round(actualTotalWidth * proportion);
+
+      // Apply min/max constraints
+      if (leafCol.minWidth !== undefined) {
+        targetWidth = Math.max(targetWidth, leafCol.minWidth);
+      }
+      if (leafCol.maxWidth !== undefined) {
+        targetWidth = Math.min(targetWidth, leafCol.maxWidth);
       }
 
-      // 更新保存的列宽 - 更新所有列的实际宽度，确保下次拖拽时使用正确的宽度
-      this.columnsWidth = this.columns.map((col) => col?.element?.offsetWidth || 0);
+      // For the last child, use remaining width to avoid rounding errors
+      if (i === leafIndices.length - 1) {
+        targetWidth = remainingWidth;
+        if (leafCol.minWidth !== undefined) {
+          targetWidth = Math.max(targetWidth, leafCol.minWidth);
+        }
+        if (leafCol.maxWidth !== undefined) {
+          targetWidth = Math.min(targetWidth, leafCol.maxWidth);
+        }
+      }
 
-      // 更新所有列的拖拽手柄光标状态
+      this.updateColumnWidth(idx, targetWidth);
+      remainingWidth -= targetWidth;
+    });
+
+    // Handle table width adjustment
+    const widthChange = actualTotalWidth - this.startWidth;
+    let newTableWidth = this.startTableWidth + widthChange;
+
+    // Find the last non-disabled leaf column
+    let lastLeafIndex = this.leafColumns.length - 1;
+    while (lastLeafIndex >= 0 && this.leafColumns[lastLeafIndex]?.disabled) {
+      lastLeafIndex -= 1;
+    }
+
+    // If the dragged parent doesn't contain the last column, adjust last column
+    const containsLastLeaf = leafIndices.includes(lastLeafIndex);
+
+    if (!containsLastLeaf && lastLeafIndex >= 0) {
+      const lastColumn = this.leafColumns[lastLeafIndex];
+      const lastColumnOriginalWidth = this.columnsWidth[lastLeafIndex];
+
+      this.tableEl.style.width = `${newTableWidth}px`;
+      const widthDiff = newTableWidth - this.minTableWidth;
+
+      if (widthDiff < 0) {
+        // Table is narrower than container, expand last column
+        const lastColumnNewWidth = lastColumnOriginalWidth - widthDiff;
+        let finalLastColumnWidth = lastColumnNewWidth;
+        if (lastColumn.minWidth !== undefined) {
+          finalLastColumnWidth = Math.max(finalLastColumnWidth, lastColumn.minWidth);
+        }
+        if (lastColumn.maxWidth !== undefined) {
+          finalLastColumnWidth = Math.min(finalLastColumnWidth, lastColumn.maxWidth);
+        }
+
+        this.updateColumnWidth(lastLeafIndex, finalLastColumnWidth);
+        newTableWidth = this.startTableWidth + widthChange + (finalLastColumnWidth - lastColumnOriginalWidth);
+      } else {
+        this.updateColumnWidth(lastLeafIndex, lastColumnOriginalWidth);
+      }
+    }
+
+    newTableWidth = Math.max(newTableWidth, this.minTableWidth);
+    this.tableEl.style.width = `${newTableWidth}px`;
+
+    // Trigger callback
+    const columnsWidth = this.leafColumns.reduce((acc, col, index) => {
+      acc[col.colKey] = this.leafColumns[index]?.element?.offsetWidth || 0;
+      return acc;
+    }, {} as Record<string, number>);
+    this.callback.onMouseMove?.(e, { columnsWidth });
+  }
+
+  private onMouseUp = () => {
+    const activeColumnConfig = (this as any).activeColumnConfig as ColumnConfig | null;
+
+    if (this.activeColumn !== null || activeColumnConfig) {
+      // Update saved column widths
+      this.columnsWidth = this.leafColumns.map((col) => col?.element?.offsetWidth || 0);
+
+      // Update all handle cursors
       this.updateAllHandleCursors();
     }
 
     this.activeColumn = null;
+    (this as any).activeColumnConfig = null;
+    (this as any).isParentDrag = false;
     document.body.style.cursor = '';
     document.body.style.userSelect = '';
   };
 
   private updateAllHandleCursors() {
-    this.columns.forEach((col, index) => {
-      if (col?.disabled) return;
-      const handle = col.element.getElementsByClassName(this.handleClass)[0] as HTMLElement;
-      if (handle) {
-        this.updateHandleCursor(index, handle);
-      }
-    });
+    const updateHandles = (columns: ColumnConfig[]) => {
+      columns.forEach((col) => {
+        if (col?.disabled) return;
+
+        // Update this column's handle if it exists
+        if (col.element) {
+          const handle = col.element.getElementsByClassName(this.handleClass)[0] as HTMLElement;
+          if (handle && col.isLeaf) {
+            const leafIndex = col.leafIndices?.[0];
+            if (leafIndex !== undefined) {
+              this.updateHandleCursor(leafIndex, handle);
+            }
+          }
+        }
+
+        // Recursively update children
+        if (col.children && col.children.length > 0) {
+          updateHandles(col.children);
+        }
+      });
+    };
+    updateHandles(this.columns);
   }
 
   private isTableOverflow(): boolean {
@@ -384,12 +656,20 @@ class TableResizable {
     document.removeEventListener('mousemove', this.onMouseMove);
     document.removeEventListener('mouseup', this.onMouseUp);
 
-    this.columns.forEach((col) => {
-      const handle = col.element.getElementsByClassName(this.handleClass)[0] as HTMLElement;
-      if (handle) {
-        handle.remove();
-      }
-    });
+    const removeHandles = (columns: ColumnConfig[]) => {
+      columns.forEach((col) => {
+        if (col.element) {
+          const handle = col.element.getElementsByClassName(this.handleClass)[0] as HTMLElement;
+          if (handle) {
+            handle.remove();
+          }
+        }
+        if (col.children && col.children.length > 0) {
+          removeHandles(col.children);
+        }
+      });
+    };
+    removeHandles(this.columns);
   }
 }
 
