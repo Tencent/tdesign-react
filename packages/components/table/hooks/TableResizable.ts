@@ -1,10 +1,8 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-param-reassign */
 import type { BaseTableCol, TableRowData } from '../type';
 
 interface ColumnConfig {
   colKey: string;
-  element: HTMLElement;
+  element?: HTMLElement;
   width?: number;
   minWidth?: number;
   maxWidth?: number;
@@ -137,7 +135,8 @@ class TableResizable {
     return columns.map((col) => mapColumn(col));
   }
 
-  private collectLeafIndices(children: ColumnConfig[]): number[] {
+  // eslint-disable-next-line class-methods-use-this
+  private collectLeafIndices(children: ColumnConfig[]) {
     const indices: number[] = [];
     const collect = (cols: ColumnConfig[]) => {
       cols.forEach((col) => {
@@ -152,7 +151,8 @@ class TableResizable {
     return indices;
   }
 
-  private getLeafColumns(columns: ColumnConfig[]): ColumnConfig[] {
+  // eslint-disable-next-line class-methods-use-this
+  private getLeafColumns(columns: ColumnConfig[]) {
     const leaves: ColumnConfig[] = [];
     const collect = (cols: ColumnConfig[]) => {
       cols.forEach((col) => {
@@ -211,13 +211,14 @@ class TableResizable {
     handle.style.cursor = 'col-resize';
     handle.style.height = '100%';
     handle.style.userSelect = 'none';
+
     handle.classList.add(this.handleClass);
     handle.dataset.resizable = 'true';
     return handle;
   }
 
   private updateHandleCursor(columnIndex: number, handle: HTMLElement) {
-    // Find the last non-disabled leaf column
+    // 寻找最后一列非禁用列
     let lastColumnIndex = this.leafColumns.length - 1;
     while (lastColumnIndex >= 0 && this.leafColumns[lastColumnIndex]?.disabled) {
       lastColumnIndex -= 1;
@@ -229,21 +230,20 @@ class TableResizable {
       const lastColumn = this.leafColumns[lastColumnIndex];
       const currentColumnWidth = lastColumn.element?.offsetWidth || 0;
 
-      // Only show not-allowed when last column is at min width and table width is less than container
       if (currentColumnWidth <= (lastColumn.minWidth || MIN_WIDTH) && currentTableWidth < this.minTableWidth) {
+        // eslint-disable-next-line no-param-reassign
         handle.style.cursor = 'not-allowed';
         return;
       }
     }
 
+    // eslint-disable-next-line no-param-reassign
     handle.style.cursor = 'col-resize';
   }
 
   private init(): void {
-    // Initialize all leaf column widths
     this.initColumnsWidth();
 
-    // Apply configured widths to DOM
     this.leafColumns.forEach((col, index) => {
       if (col?.width && col?.element) {
         this.updateColumnWidth(index, col.width);
@@ -421,8 +421,43 @@ class TableResizable {
       actualWidth = Math.min(actualWidth, col.maxWidth);
     }
 
-    // Check if boundary is reached, update cursor
-    const reachedBoundary = actualWidth !== newWidth;
+    console.log(actualWidth, newWidth);
+
+    // Check if boundary is reached (column min/max constraint)
+    let reachedBoundary = actualWidth !== newWidth;
+
+    // Also check if table width constraint is reached
+    // When shrinking a column, if the table width would go below minTableWidth and we can't compensate
+    // by expanding the last column, we've reached a boundary
+    if (!reachedBoundary && diff < 0) {
+      // Find the last non-disabled leaf column
+      let lastColumnIndex = this.leafColumns.length - 1;
+      while (lastColumnIndex >= 0 && this.leafColumns[lastColumnIndex]?.disabled) {
+        lastColumnIndex -= 1;
+      }
+
+      const projectedTableWidth = this.startTableWidth + (actualWidth - this.startWidth);
+
+      if (projectedTableWidth < this.minTableWidth) {
+        // Table would be smaller than container, check if last column can compensate
+        if (lastColumnIndex === this.activeColumn) {
+          // This is the last column, can't shrink if already at table min width
+          reachedBoundary = true;
+        } else if (lastColumnIndex >= 0) {
+          // Check if last column can expand enough to compensate
+          const lastColumn = this.leafColumns[lastColumnIndex];
+          const lastColumnOriginalWidth = this.columnsWidth[lastColumnIndex];
+          const widthDeficit = this.minTableWidth - projectedTableWidth;
+          const lastColumnNewWidth = lastColumnOriginalWidth + widthDeficit;
+
+          // If last column would exceed its maxWidth, we've reached a boundary
+          if (lastColumn.maxWidth !== undefined && lastColumnNewWidth > lastColumn.maxWidth) {
+            reachedBoundary = true;
+          }
+        }
+      }
+    }
+
     if (reachedBoundary) {
       document.body.style.cursor = 'not-allowed';
     } else {
@@ -515,8 +550,40 @@ class TableResizable {
     // Clamp the new total width
     const actualTotalWidth = Math.max(totalMinWidth, Math.min(totalMaxWidth, newTotalWidth));
 
-    // Check boundary
-    const reachedBoundary = actualTotalWidth !== newTotalWidth;
+    // Check boundary (column min/max constraint)
+    let reachedBoundary = actualTotalWidth !== newTotalWidth;
+
+    // Also check if table width constraint is reached when shrinking
+    if (!reachedBoundary && diff < 0) {
+      // Find the last non-disabled leaf column
+      let lastLeafIndex = this.leafColumns.length - 1;
+      while (lastLeafIndex >= 0 && this.leafColumns[lastLeafIndex]?.disabled) {
+        lastLeafIndex -= 1;
+      }
+
+      const widthChange = actualTotalWidth - this.startWidth;
+      const projectedTableWidth = this.startTableWidth + widthChange;
+      const containsLastLeaf = leafIndices.includes(lastLeafIndex);
+
+      if (projectedTableWidth < this.minTableWidth) {
+        if (containsLastLeaf) {
+          // This parent contains the last column, can't shrink if already at table min width
+          reachedBoundary = true;
+        } else if (lastLeafIndex >= 0) {
+          // Check if last column can expand enough to compensate
+          const lastColumn = this.leafColumns[lastLeafIndex];
+          const lastColumnOriginalWidth = this.columnsWidth[lastLeafIndex];
+          const widthDeficit = this.minTableWidth - projectedTableWidth;
+          const lastColumnNewWidth = lastColumnOriginalWidth + widthDeficit;
+
+          // If last column would exceed its maxWidth, we've reached a boundary
+          if (lastColumn.maxWidth !== undefined && lastColumnNewWidth > lastColumn.maxWidth) {
+            reachedBoundary = true;
+          }
+        }
+      }
+    }
+
     if (reachedBoundary) {
       document.body.style.cursor = 'not-allowed';
     } else {
