@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Table, Checkbox, Radio, Space, Tag } from 'tdesign-react';
-import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
+import { Checkbox, Radio, Space, Table, Tag } from 'tdesign-react';
 
 import type { TableProps } from 'tdesign-react';
 
@@ -44,7 +44,12 @@ export default function TableBasic() {
     <Table
       data={data}
       columns={[
-        { colKey: 'applicant', title: '申请人', width: '100' },
+        {
+          colKey: 'applicant',
+          title: '申请人',
+          // width: 50,
+
+        },
         {
           colKey: 'status',
           title: '申请状态',
@@ -100,7 +105,7 @@ export default function TableBasic() {
   );
 
   return (
-    <Space direction="vertical">
+    <Space direction="vertical" style={{ width: 1300 }}>
       <RadioGroup value={size} variant="default-filled" onChange={(size: SizeEnum) => setSize(size)}>
         <RadioButton value="small">小尺寸</RadioButton>
         <RadioButton value="medium">中尺寸</RadioButton>
@@ -123,8 +128,7 @@ export default function TableBasic() {
           显示表头
         </Checkbox>
       </Space>
-
-      {table}
+      <div style={{ width: '100%' }}>{table}</div>
     </Space>
   );
 }

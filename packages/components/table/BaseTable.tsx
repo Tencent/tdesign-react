@@ -1,8 +1,8 @@
-import React, { forwardRef, RefAttributes, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import classNames from 'classnames';
-import { pick } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
 import { getIEVersion } from '@tdesign/common-js/utils/helper';
+import classNames from 'classnames';
+import { noop, pick } from 'lodash-es';
+import React, { forwardRef, RefAttributes, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import Affix, { type AffixRef } from '../affix';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useElementLazyRender from '../hooks/useElementLazyRender';
@@ -15,7 +15,6 @@ import { ROW_LISTENERS } from './TR';
 import { baseTableDefaultProps } from './defaultProps';
 import useAffix from './hooks/useAffix';
 import useClassName from './hooks/useClassName';
-import useColumnResize from './hooks/useColumnResize';
 import useFixed from './hooks/useFixed';
 import usePagination from './hooks/usePagination';
 import useStyle, { formatCSSUnit } from './hooks/useStyle';
@@ -23,6 +22,7 @@ import useTableHeader from './hooks/useTableHeader';
 import { getAffixProps } from './utils';
 
 import type { Styles } from '../common';
+import useColumnResize from './hooks/useColumnResize';
 import type { BaseTableProps, BaseTableRef } from './interface';
 import type { TableRowData } from './type';
 
@@ -99,14 +99,10 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     rowAndColFixedPosition,
     setData,
     refreshTable,
-    setTableElmWidth,
     emitScrollEvent,
     setUseFixedTableElmRef,
     updateColumnFixedShadow,
-    getThWidthList,
-    updateThWidthList,
     addTableResizeObserver,
-    updateTableAfterColumnResize,
   } = useFixed(props, finalColumns, {
     paginationAffixRef,
     horizontalScrollAffixRef,
@@ -116,18 +112,11 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
   const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination(props, tableContentRef);
 
-  // 列宽拖拽逻辑
-  const columnResizeParams = useColumnResize({
-    isWidthOverflow,
-    tableContentRef,
-    showColumnShadow,
-    getThWidthList,
-    updateThWidthList,
-    setTableElmWidth,
-    updateTableAfterColumnResize,
+  useColumnResize(tableElmRef.current, {
+    enable: resizable,
+    columns,
     onColumnResizeChange: props.onColumnResizeChange,
   });
-  const { resizeLineRef, resizeLineStyle, setEffectColMap, updateTableWidthOnColumnChange } = columnResizeParams;
 
   const dynamicBaseTableClasses = classNames(
     tableClasses.concat({
@@ -178,7 +167,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       // eslint-disable-next-line react-hooks/exhaustive-deps
       setLastLeafColumns(spansAndLeafNodes.leafColumns);
     }
-    setEffectColMap(spansAndLeafNodes.leafColumns, null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spansAndLeafNodes.leafColumns]);
 
@@ -266,6 +254,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     tableContentRef.current.scrollTo({ left: distance, behavior: 'smooth' });
   };
 
+  // temp
+  const updateTableWidthOnColumnChange = noop;
   useImperativeHandle(ref, () => ({
     showColumnShadow,
     tableElement: tableRef.current,
@@ -330,7 +320,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     thList,
     thWidthList: thWidthList.current,
     resizable: props.resizable,
-    columnResizeParams,
     classPrefix,
     ellipsisOverlayClassName: props.size !== 'medium' ? sizeClassNames[props.size] : '',
     attach: props.attach,
@@ -346,7 +335,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     isMultipleHeader,
     spansAndLeafNodes,
     thList,
-    columnResizeParams,
     classPrefix,
     props.bordered,
     props.resizable,
@@ -518,10 +506,11 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         className={classNames(tableElmClasses)}
         style={{
           ...tableElementStyles,
-          width:
-            resizable && isWidthOverflow && tableElmWidth.current
-              ? `${tableElmWidth.current}px`
-              : tableElementStyles.width,
+
+          // width:
+          //   resizable && isWidthOverflow && tableElmWidth.current
+          //     ? `${tableElmWidth.current}px`
+          //     : tableElementStyles.width,
         }}
       >
         {renderColGroup(false)}
@@ -740,9 +729,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
       {/* 吸底的分页器 */}
       {affixedPaginationContent}
-
-      {/* 调整列宽时的指示线。由于层级需要比较高，因而放在根节点，避免被吸顶表头覆盖。非必要情况，请勿调整辅助线位置 */}
-      {resizable && <div ref={resizeLineRef} className={tableBaseClass.resizeLine} style={resizeLineStyle}></div>}
     </>
   );
 
