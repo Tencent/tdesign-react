@@ -5,6 +5,53 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.16.0 `2025-12-15` 
+### 🚨 Breaking Changes
+- `MessagePlugin`: 移除消息容器的 `id='tdesign-message-container--${placement}'`，之前依赖该属性的业务注意此变更 ⚠️ @RylanBot ([#3820](https://github.com/Tencent/tdesign-react/pull/3820))
+### 🚀 Features
+- 支持 `readonly`  的组件新增 API  `readOnly`，与 `readonly` 效果一致。原有的 `readonly` 会被保留，未来版本将废弃，建议及时更换 ⚠️ @RylanBot ([#3955](https://github.com/Tencent/tdesign-react/pull/3955))
+- 支持 `.dark` 类名，丰富切换深色模式的方式 @liweijie0812 ([common#2355](https://github.com/Tencent/tdesign-common/pull/2355))
+- `Dialog`: 优化渲染阶段，避免子元素计算异常的问题，此前有在 Dialog 内进行复杂内容渲染的请注意此变更 ⚠️ @HaixingOoO ([#3705](https://github.com/Tencent/tdesign-react/pull/3705))
+- `Form`: 保留原始 HTML 效果，当输入框按下 Enter 键自动触发 submit 事件，如果需要拦截该行为，可以给输入框绑定 `onEnter={(e)=>e.preventDefault()}`，此前有依赖此内置特性请注意此变更 ⚠️ @RylanBot ([#3943](https://github.com/Tencent/tdesign-react/pull/3943))
+- `MessagePlugin`: 新增开启和关闭时的动画效果 @RylanBot ([#3820](https://github.com/Tencent/tdesign-react/pull/3820))
+- `Textarea`: 支持 `count` API，用于自定义计数元素的渲染 @RylanBot ([#4003](https://github.com/Tencent/tdesign-react/pull/4003))
+- `ImageViewer`: 
+  - 新增默认 trigger 渲染 ，默认为当前使用的图片作为默认 trigger，降低组件的使用复杂度，具体参考相关示例改动 @wonkzhang ([#3819](https://github.com/Tencent/tdesign-react/pull/3819))
+  - 优化下载跨域图片时的格式处理和压缩比例 @RylanBot ([#3919](https://github.com/Tencent/tdesign-react/pull/3919))
+  - 支持直接下载同域图片，避免二次转换导致体积增大和动图失效等问题 @RylanBot ([#3919](https://github.com/Tencent/tdesign-react/pull/3919))
+### 🐞 Bug Fixes
+- `Textarea`: 更正 `status` 对应的初始值与 class 名为 `default`，内部 class 进行了相应调整，之前有覆盖 tips 类名请注意此变更 ⚠️ @RylanBot ([#4007](https://github.com/Tencent/tdesign-react/pull/4007))
+- `Avatar`: 修复样式与设计稿不一致的问题 @liweijie0812 ([common#2364](https://github.com/Tencent/tdesign-common/pull/2364))
+- `ConfigProvider`: 修复 `tag.closeIcon` 不生效的问题 @RylanBot ([#4004](https://github.com/Tencent/tdesign-react/pull/4004))
+- `Form`: 修复初始化表单值时引入多余组件，导致未使用组件也被打包的问题 @RylanBot ([#3965](https://github.com/Tencent/tdesign-react/pull/3965))
+- `Menu`: 修复菜单选项默认边距和图标大小的问题 @liweijie0812 ([common#2369](https://github.com/Tencent/tdesign-common/pull/2369))
+- `Select`: 优化键盘操作过程中再次进行回车操作的使用体验 @uyarn ([#3989](https://github.com/Tencent/tdesign-react/pull/3989))
+- `Tree`: 修复子节点为自定义的 Input 等元素时，选中文本的高亮样式被隐藏的问题 @RylanBot ([common#2370](https://github.com/Tencent/tdesign-common/pull/2370))
+- `MessagePlugin`: @RylanBot ([#3820](https://github.com/Tencent/tdesign-react/pull/3820))
+  - 修复自定义 `attach` 后，后续其它全局消息也被绑定到该节点中的异常
+  - 修复 `closeAll` 无法关闭所有消息的异常
+- `EnhancedTable`: 修复子节点收缩时，表头全选状态异常的问题 @liweijie0812 ([#3988](https://github.com/Tencent/tdesign-react/pull/3988))
+- `Table`: 
+  - 修复多级表头场景下，`editable` 单元格编辑后数据没有同步的问题 @RylanBot ([#3982](https://github.com/Tencent/tdesign-react/pull/3982))
+  - 修复 `onChange` 的 `context.currentData` 在过滤场景下缺失的问题 @RylanBot ([#3982](https://github.com/Tencent/tdesign-react/pull/3982))
+  - 修复由于表格宽度计算时机不稳定，导致表头无法对齐、空状态不居中等问题 @RylanBot ([#3972](https://github.com/Tencent/tdesign-react/pull/3972))
+- `Popup`: 
+  - 修复空间不足时，箭头偏移的问题 @RylanBot ([#3980](https://github.com/Tencent/tdesign-react/pull/3980))
+  - 将容器的位置统一设为 `absolute`，修复部分场景下定位异常的问题 @RylanBot ([#3916](https://github.com/Tencent/tdesign-react/pull/3916))
+  - 修复 `triggerElement` 类型为字符串时未正确作为元素选择器解析的问题 @RylanBot ([#3940](https://github.com/Tencent/tdesign-react/pull/3940))
+  - 修复 `children` 为不支持 `ref` 穿透的封装组件时，弹窗无法正常出现的问题 @RylanBot ([#3940](https://github.com/Tencent/tdesign-react/pull/3940))
+- `PopupPlugin`: 修复 `classPrefix` 不生效的问题 @RylanBot ([#3940](https://github.com/Tencent/tdesign-react/pull/3940))
+
+## 🌈 1.15.11 `2025-12-15` 
+### 🚀 Features
+- `Textarea`: 支持 `count` API，用于自定义计数元素的渲染
+### 🐞 Bug Fixes
+- `RadioGroup`: 修复 NextJS 中，`variant="default-filled` 时，子组件含动态内容时导致无限循环的问题
+
+## 🌈 1.15.10 `2025-12-12` 
+### 🐞 Bug Fixes
+- `Drawer`: 修复回调事件错误缓存的问题
+
 ## 🌈 1.15.9 `2025-11-28` 
 ### 🚀 Features
 - `Cascader`: 支持当 `valueMode` 为 `all` 或者 `parentFirst` 时，在 `filterable` 选项中显示非叶子节点 @lifeiFront ([#3964](https://github.com/Tencent/tdesign-react/pull/3964))

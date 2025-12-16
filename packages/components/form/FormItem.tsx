@@ -10,12 +10,12 @@ import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { NATIVE_INPUT_COMP, ValidateStatus } from './const';
+import { NATIVE_INPUT_COMP, TD_CTRL_PROP_MAP, ValidateStatus } from './const';
 import { formItemDefaultProps } from './defaultProps';
 import { useFormContext, useFormListContext } from './FormContext';
 import { parseMessage, validate as validateModal } from './formModel';
 import { HOOK_MARK } from './hooks/useForm';
-import useFormItemInitialData, { ctrlKeyMap } from './hooks/useFormItemInitialData';
+import useFormItemInitialData from './hooks/useFormItemInitialData';
 import useFormItemStyle from './hooks/useFormItemStyle';
 import { calcFieldValue, concatName } from './utils';
 
@@ -495,9 +495,9 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
             const childType = child.type;
             const isCustomComp = typeof childType === 'object' || typeof childType === 'function';
             // @ts-ignore
-            const childName = isCustomComp ? childType.displayName : childType;
+            const componentName = isCustomComp ? childType.displayName : childType;
 
-            if (childName === 'FormItem') {
+            if (componentName === 'FormItem') {
               return React.cloneElement(child, {
                 // @ts-ignore
                 ref: (el) => {
@@ -511,20 +511,22 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
             const commonProps = {
               disabled: disabledFromContext,
               readOnly: readOnlyFromContext,
-              ...child.props,
+              ...childProps,
             };
 
-            if (!isCustomComp && !NATIVE_INPUT_COMP.includes(childName)) {
+            if (!isCustomComp && !NATIVE_INPUT_COMP.includes(componentName)) {
               return React.cloneElement(child, commonProps);
             }
 
             let ctrlKey = 'value';
             if (isCustomComp) {
-              ctrlKey = ctrlKeyMap.get(childType) || 'value';
+              ctrlKey = TD_CTRL_PROP_MAP.get(componentName) || 'value';
             }
 
             return React.cloneElement(child, {
-              ...commonProps,
+              disabled: disabledFromContext,
+              readOnly: readOnlyFromContext,
+              ...childProps,
               [ctrlKey]: formValue,
               onChange: (value: any, ...args: any[]) => {
                 const newValue = valueFormat ? valueFormat(value) : value;

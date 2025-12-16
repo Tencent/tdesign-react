@@ -10,7 +10,7 @@ import React, {
 } from 'react';
 import classNames from 'classnames';
 import { debounce, get, isFunction } from 'lodash-es';
-import composeRefs from '../../_util/composeRefs';
+import { composeRefs } from '../../_util/ref';
 import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
 import { getOffsetTopToContainer } from '../../_util/helper';
 import noop from '../../_util/noop';
