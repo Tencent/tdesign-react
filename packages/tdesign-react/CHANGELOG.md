@@ -12,8 +12,8 @@ spline: explain
 - 支持 `readonly`  的组件新增 API  `readOnly`，与 `readonly` 效果一致。原有的 `readonly` 会被保留，未来版本将废弃，建议及时更换 ⚠️ @RylanBot ([#3955](https://github.com/Tencent/tdesign-react/pull/3955))
 - 支持 `.dark` 类名，丰富切换深色模式的方式 @liweijie0812 ([common#2355](https://github.com/Tencent/tdesign-common/pull/2355))
 - `Dialog`: 优化渲染阶段，避免子元素计算异常的问题，此前有在 Dialog 内进行复杂内容渲染的请注意此变更 ⚠️ @HaixingOoO ([#3705](https://github.com/Tencent/tdesign-react/pull/3705))
+- `Form`: 保留原始 HTML 效果，当输入框按下 Enter 键自动触发 submit 事件，如果需要拦截该行为，可以给输入框绑定 `onEnter={(e)=>e.preventDefault()}`，此前有依赖此内置特性请注意此变更 ⚠️ @RylanBot ([#3943](https://github.com/Tencent/tdesign-react/pull/3943))
 - `MessagePlugin`: 新增开启和关闭时的动画效果 @RylanBot ([#3820](https://github.com/Tencent/tdesign-react/pull/3820))
-- `Textarea`: 支持 `count` API，用于自定义计数元素的渲染 @RylanBot ([#4003](https://github.com/Tencent/tdesign-react/pull/4003))
 - `ImageViewer`: 
   - 新增默认 trigger 渲染 ，默认为当前使用的图片作为默认 trigger，降低组件的使用复杂度，具体参考相关示例改动 @wonkzhang ([#3819](https://github.com/Tencent/tdesign-react/pull/3819))
   - 优化下载跨域图片时的格式处理和压缩比例 @RylanBot ([#3919](https://github.com/Tencent/tdesign-react/pull/3919))
@@ -43,13 +43,13 @@ spline: explain
 
 ## 🌈 1.15.11 `2025-12-15` 
 ### 🚀 Features
-- `Textarea`: 支持 `count` API，用于自定义计数元素的渲染
+- `Textarea`: 支持 `count` API，用于自定义计数元素的渲染 @RylanBot ([#4003](https://github.com/Tencent/tdesign-react/pull/4003))
 ### 🐞 Bug Fixes
-- `RadioGroup`: 修复 NextJS 中，`variant="default-filled` 时，子组件含动态内容时导致无限循环的问题
+- `RadioGroup`: 修复 NextJS 中，`variant="default-filled` 时，子组件含动态内容时导致无限循环的问题 @tingtingcheng6 ([#3921](https://github.com/Tencent/tdesign-react/pull/3921))
 
 ## 🌈 1.15.10 `2025-12-12` 
 ### 🐞 Bug Fixes
-- `Drawer`: 修复回调事件错误缓存的问题
+- `Drawer`: 修复回调事件错误缓存的问题 @uyarn ([#4008](https://github.com/Tencent/tdesign-react/pull/3921))
 
 ## 🌈 1.15.9 `2025-11-28` 
 ### 🚀 Features
