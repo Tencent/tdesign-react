@@ -172,7 +172,6 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       } as React.CSSProperties)
     : {};
 
-    console.log('>>', inputProps?.readOnly, inputProps?.readonly);
   return (
     <TInput
       ref={tagInputRef as React.RefObject<InputRef>}
