@@ -1,21 +1,21 @@
-import { DEFAULT_EXTENSIONS } from '@babel/core';
-import babel from '@rollup/plugin-babel';
-import commonjs from '@rollup/plugin-commonjs';
-import json from '@rollup/plugin-json';
-import nodeResolve from '@rollup/plugin-node-resolve';
-import replace from '@rollup/plugin-replace';
 import url from '@rollup/plugin-url';
-import { copy as fileCopy } from 'fs-extra';
-import { join, resolve } from 'path';
-import analyzer from 'rollup-plugin-analyzer';
+import json from '@rollup/plugin-json';
+import babel from '@rollup/plugin-babel';
+import styles from 'rollup-plugin-styles';
 import copy from 'rollup-plugin-copy';
 import esbuild from 'rollup-plugin-esbuild';
-import ignoreImport from 'rollup-plugin-ignore-import';
-import multiInput from 'rollup-plugin-multi-input';
 import postcss from 'rollup-plugin-postcss';
-import staticImport from 'rollup-plugin-static-import';
-import styles from 'rollup-plugin-styles';
+import replace from '@rollup/plugin-replace';
+import analyzer from 'rollup-plugin-analyzer';
 import { terser } from 'rollup-plugin-terser';
+import commonjs from '@rollup/plugin-commonjs';
+import { DEFAULT_EXTENSIONS } from '@babel/core';
+import multiInput from 'rollup-plugin-multi-input';
+import nodeResolve from '@rollup/plugin-node-resolve';
+import staticImport from 'rollup-plugin-static-import';
+import ignoreImport from 'rollup-plugin-ignore-import';
+import { resolve, join } from 'path';
+import { copy as fileCopy } from 'fs-extra';
 
 import pkg from '../packages/tdesign-react/package.json';
 
@@ -144,26 +144,9 @@ const getPlugins = ({
   return plugins;
 };
 
-function removeSourceMapComment() {
-  return {
-    name: 'remove-sourcemap-comment',
-    generateBundle(_, bundle) {
-      Object.keys(bundle).forEach((fileName) => {
-        const file = bundle[fileName];
-        if (file.type === 'asset' && fileName.endsWith('.css')) {
-          file.source = file.source
-            .toString()
-            .replace(/\/\*#\s*sourceMappingURL=.*?\*\/\s*/g, '')
-            .trim();
-        }
-      });
-    },
-  };
-}
-
 const cssConfig = {
   input: ['packages/components/**/style/index.js'],
-  plugins: [multiInput({ relative: 'packages/components/' }), styles({ mode: 'extract' }), removeSourceMapComment()],
+  plugins: [multiInput({ relative: 'packages/components/' }), styles({ mode: 'extract' })],
   output: {
     banner,
     dir: './packages/tdesign-react/es',
@@ -253,7 +236,7 @@ const umdConfig = {
   plugins: getPlugins({
     env: 'development',
     extractOneCss: true,
-  }).concat(analyzer({ limit: 5, summaryOnly: true }), removeSourceMapComment()),
+  }).concat(analyzer({ limit: 5, summaryOnly: true })),
   output: {
     name: 'TDesign',
     banner,
@@ -272,7 +255,7 @@ const umdMinConfig = {
     isProd: true,
     extractOneCss: true,
     env: 'production',
-  }).concat(removeSourceMapComment()),
+  }),
   output: {
     name: 'TDesign',
     banner,
@@ -290,7 +273,7 @@ const resetCss = {
   output: {
     file: 'packages/tdesign-react/dist/reset.css',
   },
-  plugins: [postcss({ extract: true }), removeSourceMapComment()],
+  plugins: [postcss({ extract: true })],
 };
 
 // 适配 React 19 的 adapter
