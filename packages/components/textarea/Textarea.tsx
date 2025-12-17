@@ -16,6 +16,7 @@ import type { StyledProps } from '../common';
 import type { TdTextareaProps } from './type';
 
 const DEFAULT_TEXTAREA_STYLE = { height: 'auto', minHeight: 'auto' };
+const OMIT_PROPS = ['defaultValue', 'readonly'];
 
 export interface TextareaProps
   extends Omit<
@@ -71,7 +72,9 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
 
   const { classPrefix } = useConfig();
 
-  const textareaPropsNames = Object.keys(otherProps).filter((key) => !/^on[A-Z]/.test(key));
+  const textareaPropsNames = Object.keys(otherProps).filter(
+    (key) => !/^on[A-Z]/.test(key) && !OMIT_PROPS.includes(key),
+  );
   const textareaProps = textareaPropsNames.reduce(
     (textareaProps, key) => Object.assign(textareaProps, { [key]: props[key] }),
     {},
