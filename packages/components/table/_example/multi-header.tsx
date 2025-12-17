@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Table, Checkbox, Space, Tag } from 'tdesign-react';
-import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
+import { Checkbox, Space, Table, Tag } from 'tdesign-react';
 
 import type { TableProps, TableSort } from 'tdesign-react';
 
@@ -186,7 +186,7 @@ export default function TableExample() {
     },
   ];
   return (
-    <Space direction="vertical" size="large" style={{ width: '100%' }}>
+    <Space direction="vertical" size="large" style={{ width: 1200 }}>
       {/* <!-- 按钮操作区域 --> */}
       <Space>
         <Checkbox checked={bordered} onChange={setBordered}>
@@ -207,6 +207,7 @@ export default function TableExample() {
       </Space>
 
       <Table
+        resizable
         data={data}
         bordered={bordered}
         columns={columns}

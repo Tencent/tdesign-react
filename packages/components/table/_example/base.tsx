@@ -47,12 +47,12 @@ export default function TableBasic() {
         {
           colKey: 'applicant',
           title: '申请人',
-          // width: 50,
-
+          width: 150,
         },
         {
           colKey: 'status',
           title: '申请状态',
+          // resizable: false,
           cell: ({ row }) => (
             <Tag
               shape="round"
@@ -64,9 +64,23 @@ export default function TableBasic() {
             </Tag>
           ),
         },
-        { colKey: 'channel', title: '签署方式' },
-        { colKey: 'detail.email', title: '邮箱地址', ellipsis: true },
-        { colKey: 'createTime', title: '申请时间' },
+        {
+          colKey: 'channel',
+          title: '签署方式',
+
+          resizable: false,
+        },
+        {
+          colKey: 'detail.email',
+          title: '邮箱地址',
+          ellipsis: true,
+        },
+        {
+          colKey: 'createTime',
+          title: '申请时间',
+
+          resizable: false,
+        },
       ]}
       rowKey="index"
       verticalAlign="top"
@@ -128,7 +142,7 @@ export default function TableBasic() {
           显示表头
         </Checkbox>
       </Space>
-      <div style={{ width: '100%' }}>{table}</div>
+      <div style={{ width: 1200 }}>{table}</div>
     </Space>
   );
 }

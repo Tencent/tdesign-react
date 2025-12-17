@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { Table, Radio, Checkbox, Space, Tag, Link } from 'tdesign-react';
-import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
+import { Checkbox, Link, Radio, Space, Table, Tag } from 'tdesign-react';
 
 import type { TableProps } from 'tdesign-react';
 
@@ -54,7 +54,7 @@ export default function TableFixedColumn() {
         {
           colKey: 'status',
           title: '审批状态',
-          width: 150,
+
           fixed: leftFixedColumn >= 2 ? 'left' : undefined,
           cell: ({ row }) => (
             <Tag
@@ -67,13 +67,13 @@ export default function TableFixedColumn() {
             </Tag>
           ),
         },
-        { colKey: 'detail.email', title: '邮箱地址', width: 180 },
-        { colKey: 'matters', title: '申请事项', width: 200 },
-        { colKey: 'createTime', title: '申请日期', width: 120, fixed: rightFixedColumn >= 2 ? 'right' : undefined },
+        { colKey: 'detail.email', title: '邮箱地址' },
+        { colKey: 'matters', title: '申请事项' },
+        { colKey: 'createTime', title: '申请日期', fixed: rightFixedColumn >= 2 ? 'right' : undefined },
         {
           colKey: 'operation',
           title: '操作',
-          width: 100,
+
           fixed: 'right',
           cell: ({ row }) => (
             <Link theme="primary" hover="color">
@@ -86,7 +86,7 @@ export default function TableFixedColumn() {
   );
 
   return (
-    <Space direction="vertical" style={{ width: '100%' }}>
+    <Space direction="vertical">
       <Radio.Group value={leftFixedColumn} variant="default-filled" onChange={(val: number) => setLeftFixedColumn(val)}>
         <Radio.Button value={1}>左侧固定一列</Radio.Button>
         <Radio.Button value={2}>左侧固定两列</Radio.Button>
@@ -115,7 +115,7 @@ export default function TableFixedColumn() {
         </Checkbox>
       </div>
 
-      {table}
+      <div style={{ width: 1600 }}>{table}</div>
     </Space>
   );
 }

@@ -208,6 +208,8 @@ class TableResizable {
       handle.style.width = '16px'; // 左右各 8px
     }
 
+    // 如果是affix 再添加zIndex？(css 变量以+1计算？)
+    handle.style.zIndex = '52';
     handle.style.cursor = 'col-resize';
     handle.style.height = '100%';
     handle.style.userSelect = 'none';
@@ -286,12 +288,6 @@ class TableResizable {
       const isLastColumn = index === lastEnabledColumnIndex && isTopLevel;
       const handle = this.createResizeHandle(isLastColumn);
       col.element.appendChild(handle);
-
-      // Store info about whether this is a parent column
-      const isParentColumn = col.children && col.children.length > 0;
-      handle.dataset.isParent = isParentColumn ? 'true' : 'false';
-      handle.dataset.colKey = col.colKey;
-      handle.dataset.leafIndices = JSON.stringify(col.leafIndices);
 
       handle.addEventListener('mousedown', (e) => this.onMouseDownColumn(e, col));
     });

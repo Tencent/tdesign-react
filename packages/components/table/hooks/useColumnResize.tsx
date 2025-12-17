@@ -9,12 +9,13 @@ type Options = {
   enable: boolean;
   columns: BaseTableCol<TableRowData>[];
   updateTableAfterColumnResize?: () => void;
+  updateThWidthList?: (trList: HTMLCollection | { [colKey: string]: number }) => { [colKey: string]: number };
   onColumnResizeChange?: TdBaseTableProps['onColumnResizeChange'];
 };
 
 function useColumnResize(
   tableElement: HTMLTableElement,
-  { enable, columns, updateTableAfterColumnResize, onColumnResizeChange }: Options,
+  { enable, columns, updateThWidthList, updateTableAfterColumnResize }: Options,
 ) {
   const { classPrefix } = useConfig();
   const resizableRef = useRef<TableResizable | null>(null);
@@ -30,7 +31,7 @@ function useColumnResize(
     resizableRef.current = new TableResizable(classPrefix, tableElement, columns, {
       onMouseMove: (_, ctx) => {
         updateTableAfterColumnResize();
-        onColumnResizeChange?.(ctx);
+        updateThWidthList?.(ctx.columnsWidth);
       },
     });
     return () => {
