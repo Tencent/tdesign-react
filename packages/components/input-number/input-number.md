@@ -20,7 +20,7 @@ largeNumber | Boolean | false | 是否作为大数使用。JS 支持的最大数
 max | String / Number | Infinity | 最大值。如果是大数，请传入字符串。TS 类型：`InputNumberValue` | N
 min | String / Number | -Infinity | 最小值。如果是大数，请传入字符串。TS 类型：`InputNumberValue` | N
 placeholder | String | undefined | 占位符 | N
-readonly | Boolean | undefined | 只读状态 | N
+readOnly | Boolean | undefined | 只读状态 | N
 size | String | medium | 组件尺寸。可选项：small/medium/large | N
 status | String | default | 文本框状态。可选项：default/success/warning/error | N
 step | String / Number | 1 | 数值改变步数，可以是小数。如果是大数，请保证数据类型为字符串。TS 类型：`InputNumberValue` | N

@@ -1,13 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { CalendarIcon as TdCalendarIcon } from 'tdesign-icons-react';
 import classNames from 'classnames';
-import { isValidDate, formatDate, getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
+
+import { formatDate, getDefaultFormat, isValidDate, parseToDayjs } from '@tdesign/common-js/date-picker/format';
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
-import { RangeInputRefInterface } from '../../range-input';
-import { TdDateRangePickerProps, DateValue } from '../type';
+import useInnerPopupVisible from '../../hooks/useInnerPopupVisible';
 import useRangeValue from './useRangeValue';
+
 import type { TdPopupProps } from '../../popup/type';
+import type { RangeInputProps, RangeInputRefInterface } from '../../range-input';
+import type { DateValue, TdDateRangePickerProps } from '../type';
 
 export const PARTIAL_MAP = { first: 'start', second: 'end' };
 
@@ -53,15 +56,16 @@ export default function useRange(props: TdDateRangePickerProps) {
   };
 
   // input 设置
-  const rangeInputProps = {
+  const rangeInputProps: RangeInputProps = {
     ...props.rangeInputProps,
+    // @ts-ignore
     ref: inputRef,
     borderless: props.borderless,
     size: props.size,
     separator: props.separator ?? globalDatePickerConfig.rangeSeparator,
     clearable: props.clearable,
     prefixIcon: props.prefixIcon,
-    readonly: !props.allowInput,
+    readOnly: !props.allowInput,
     placeholder: props.placeholder ?? globalDatePickerConfig.placeholder[props.mode],
     activeIndex: popupVisible ? activeIndex : undefined,
     suffixIcon: props.suffixIcon ?? <CalendarIcon />,
@@ -76,7 +80,7 @@ export default function useRange(props: TdDateRangePickerProps) {
       e.stopPropagation();
       handlePopupInvisible();
       onChange([], { dayjsValue: [], trigger: 'clear' });
-      props.onClear?.({ e });
+      props.onClear?.({ e: e as React.MouseEvent<SVGSVGElement, MouseEvent> });
     },
     onBlur: (newVal: string[], { e, position }) => {
       props.onBlur?.({ value: newVal, partial: PARTIAL_MAP[position], e });
@@ -88,7 +92,7 @@ export default function useRange(props: TdDateRangePickerProps) {
     onChange: (newVal: string[], { e, position }) => {
       const index = position === 'first' ? 0 : 1;
 
-      props.onInput?.({ input: newVal[index], value, partial: PARTIAL_MAP[position], e });
+      props.onInput?.({ input: newVal[index], value, partial: PARTIAL_MAP[position], e: e as React.FormEvent<HTMLInputElement> });
       setInputValue(newVal);
 
       // 跳过不符合格式化的输入框内容
@@ -123,6 +127,19 @@ export default function useRange(props: TdDateRangePickerProps) {
     },
   };
 
+  const handleInnerVisibleChange = useInnerPopupVisible((visible, context) => {
+    if (props.disabled) return;
+    // 这里劫持了进一步向 popup 传递的 onVisibleChange 事件，为了保证可以在 Datepicker 中使用 popupProps.onVisibleChange，故此处理
+    props.popupProps?.onVisibleChange?.(visible, context);
+    // 输入框点击不关闭面板
+    if (context.trigger === 'trigger-element-mousedown') {
+      const indexMap = { 0: 'first', 1: 'second' };
+      inputRef.current.focus({ position: indexMap[activeIndex] });
+      return setPopupVisible(true);
+    }
+    setPopupVisible(visible);
+  });
+
   // popup 设置
   const popupProps = {
     expandAnimation: true,
@@ -130,19 +147,7 @@ export default function useRange(props: TdDateRangePickerProps) {
     trigger: 'mousedown' as TdPopupProps['trigger'],
     overlayInnerStyle: props.popupProps?.overlayInnerStyle ?? { width: 'auto' },
     overlayClassName: classNames(props.popupProps?.overlayClassName, `${name}__panel-container`),
-    onVisibleChange: (visible: boolean, context) => {
-      if (props.disabled) return;
-      // 这里劫持了进一步向 popup 传递的 onVisibleChange 事件，为了保证可以在 Datepicker 中使用 popupProps.onVisibleChange，故此处理
-      props.popupProps?.onVisibleChange?.(visible, context);
-      // 输入框点击不关闭面板
-      if (context.trigger === 'trigger-element-mousedown') {
-        const indexMap = { 0: 'first', 1: 'second' };
-        inputRef.current.focus({ position: indexMap[activeIndex] });
-        return setPopupVisible(true);
-      }
-
-      setPopupVisible(visible);
-    },
+    onVisibleChange: handleInnerVisibleChange,
   };
 
   // 输入框响应 value 变化

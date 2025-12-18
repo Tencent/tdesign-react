@@ -80,7 +80,8 @@ const Watermark: React.FC<WatermarkProps> = (originalProps) => {
         fontColor,
         layout,
       },
-      (url, { width }) => {
+      (url, param) => {
+        const { width } = param || {};
         backgroundSize.current = width ? `${width}px` : null;
         setBase64Url(url);
       },

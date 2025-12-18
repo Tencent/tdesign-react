@@ -60,8 +60,13 @@ export interface TdFormProps<FormData extends Data = Data> {
   preventSubmitDefault?: boolean;
   /**
    * 是否整个表单只读
+   * @deprecated It will be removed in the future. Please use `readOnly` instead.
    */
   readonly?: boolean;
+  /**
+   * 是否整个表单只读
+   */
+  readOnly?: boolean;
   /**
    * 是否显示必填符号（*），默认显示
    */
@@ -113,7 +118,7 @@ export interface TdFormProps<FormData extends Data = Data> {
   /**
    * 字段值更新时触发的回调事件
    */
-  onValuesChange?: (changedValues: Record<string, unknown>, allValues: Record<string, unknown>) => void;
+  onValuesChange?: (changedValues: Record<string, any>, allValues: Record<string, any>) => void;
 }
 
 /** 组件实例方法 */
@@ -482,7 +487,10 @@ export type FormItemFormatType = (value: any) => any;
 export type FormListField = { key: number; name: number; isListField: boolean };
 
 export type FormListFieldOperation = {
-  add: (defaultValue?: any, insertIndex?: number) => void;
+  /**
+   * @param initialData 不传参时会使用 FormItem 自身的 initialData 作为初始值
+   */
+  add: (initialData?: any, insertIndex?: number) => void;
   remove: (index: number | number[]) => void;
   move: (from: number, to: number) => void;
 };

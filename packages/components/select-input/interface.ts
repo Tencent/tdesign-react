@@ -8,6 +8,7 @@ export interface SelectInputCommonProperties {
   label?: TdSelectInputProps['label'];
   placeholder?: TdSelectInputProps['placeholder'];
   readonly?: TdSelectInputProps['readonly'];
+  readOnly?: TdSelectInputProps['readOnly'];
   suffix?: TdSelectInputProps['suffix'];
   suffixIcon?: TdSelectInputProps['suffixIcon'];
   size?: TdSelectInputProps['size'];

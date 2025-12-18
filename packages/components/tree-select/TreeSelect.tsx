@@ -1,7 +1,7 @@
 import React, { ElementRef, forwardRef, useCallback, useImperativeHandle, useMemo, useRef } from 'react';
 import classNames from 'classnames';
-import { isFunction } from 'lodash-es';
-import noop from '../_util/noop';
+import { isFunction, noop } from 'lodash-es';
+
 import parseTNode from '../_util/parseTNode';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
@@ -50,7 +50,6 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
   const {
     className,
     onInputChange,
-    readonly,
     disabled,
     multiple,
     prefixIcon,
@@ -69,6 +68,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
     inputProps,
     valueType,
     collapsedItems,
+    reserveKeyword,
     onBlur,
     onFocus,
     onSearch,
@@ -76,6 +76,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
     onEnter,
   } = props;
 
+  const readOnly = props.readOnly || props.readonly;
   const showLoading = !disabled && loading;
 
   const selectInputProps = useTreeSelectPassThroughProps(props);
@@ -194,10 +195,16 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
         },
       );
     }
+    if (!reserveKeyword) {
+      setFilterInput('', { trigger: 'change' });
+    }
   });
 
   const onInnerPopupVisibleChange: SelectInputProps['onPopupVisibleChange'] = (visible, ctx) => {
     setPopupVisible(visible, { e: ctx.e });
+    if (!visible) {
+      setFilterInput('', { trigger: 'blur' });
+    }
   };
 
   const handleClear = usePersistFn<SelectInputProps['onClear']>((ctx) => {
@@ -261,7 +268,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
   /* ---------------------------------render---------------------------------------- */
 
   const renderTree = () => {
-    if (readonly) return empty;
+    if (readOnly) return empty;
     if (showLoading) return loadingItem;
     return (
       <>
@@ -275,7 +282,6 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
           disabled={disabled}
           empty={empty}
           expandOnClickNode={false}
-          allowFoldNodeOnFilter
           keys={tKeys}
           {...(multiple
             ? {
@@ -322,7 +328,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
       onMouseleave={hoverAction.off}
       suffixIcon={
         props.suffixIcon ||
-        (readonly ? null : (
+        (readOnly ? null : (
           <SelectArrow isActive={popupVisible} isHighlight={hover || popupVisible} disabled={disabled} />
         ))
       }

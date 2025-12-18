@@ -1,9 +1,11 @@
-import React, { forwardRef, useMemo, useImperativeHandle } from 'react';
+import React, { forwardRef, useImperativeHandle, useState, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
-import { AttachNode, AttachNodeReturnValue } from '../common';
+
 import { canUseDocument } from '../_util/dom';
 import useConfig from '../hooks/useConfig';
 import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
+
+import type { AttachNode, AttachNodeReturnValue } from '../common';
 
 export interface PortalProps {
   /**
@@ -15,6 +17,7 @@ export interface PortalProps {
    */
   triggerNode?: HTMLElement;
   children: React.ReactNode;
+  style?: React.CSSProperties;
 }
 
 export function getAttach(attach: PortalProps['attach'], triggerNode?: HTMLElement): AttachNodeReturnValue {
@@ -38,28 +41,41 @@ export function getAttach(attach: PortalProps['attach'], triggerNode?: HTMLEleme
 }
 
 const Portal = forwardRef((props: PortalProps, ref) => {
-  const { attach, children, triggerNode } = props;
+  const { attach, children, triggerNode, style } = props;
   const { classPrefix } = useConfig();
+  const [mounted, setMounted] = useState(false);
 
   const container = useMemo(() => {
     if (!canUseDocument) return null;
     const el = document.createElement('div');
     el.className = `${classPrefix}-portal-wrapper`;
+    if (typeof style === 'object') {
+      Object.assign(el.style, style);
+    }
     return el;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [classPrefix]);
 
   useIsomorphicLayoutEffect(() => {
+    if (!mounted) return;
+
     const parentElement = getAttach(attach, triggerNode);
     parentElement?.appendChild?.(container);
-
     return () => {
       parentElement?.removeChild?.(container);
     };
-  }, [container, attach, triggerNode]);
+  }, [container, attach, triggerNode, mounted]);
+
+  useEffect(() => {
+    if (!mounted) {
+      setMounted(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useImperativeHandle(ref, () => container);
 
-  return canUseDocument ? createPortal(children, container) : null;
+  return canUseDocument && mounted ? createPortal(children, container) : null;
 });
 
 Portal.displayName = 'Portal';
