@@ -437,6 +437,12 @@ const reactify = <T extends AnyProps = AnyProps>(
           const isSlotProp = prop.endsWith('Slot');
           const possibleSlotName = hyphenate(isSlotProp ? prop.slice(0, -4) : prop);
 
+          // react元素优先作为slot处理
+          if (isReactElement(val)) {
+            this.handleSlotProp(prop, val);
+            return;
+          }
+
           // 将react组件的prop当做slot处理
           // 1. 检查webc中shadow dom是否存在该slot
           let hasSlotInDOM = this.ref.current?.shadowRoot?.querySelector(`slot[name="${possibleSlotName}"]`) !== null;
@@ -512,8 +518,16 @@ const reactify = <T extends AnyProps = AnyProps>(
 
     render() {
       const { children, className, ...rest } = this.props;
-
-      return createElement(WC, { class: className, ...rest, ref: this.ref }, children);
+      // 过滤掉不应该作为attribute传递的props，它们会在update()中处理
+      const filteredProps: Record<string, any> = {};
+      Object.keys(rest).forEach((key) => {
+        const val = rest[key];
+        // 仅允许基本类型作为 attribute 传递
+        if (typeof val === 'string' || typeof val === 'number' || typeof val === 'boolean') {
+          filteredProps[key] = val;
+        }
+      });
+      return createElement(WC, { class: className, ...filteredProps, ref: this.ref }, children);
     }
   }
 
