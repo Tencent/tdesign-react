@@ -295,6 +295,24 @@ export default function chatSample() {
         onMessageChange={(e) => {
           setMockMessage(e.detail);
         }}
+        senderFooterPrefix={
+          /* 自定义输入框底部区域，可以增加模型选项 */
+          <Space align="center" size={'small'}>
+            <Button shape="round" variant="outline" icon={<ImageAddIcon />} onClick={onAttachClick}>
+              参考图
+            </Button>
+            <Dropdown options={RatioOptions} onClick={switchRatio} trigger="click">
+              <Button shape="round" variant="outline" icon={<Transform1Icon size="16" />}>
+                {RatioOptions.filter((item) => item.value === ratio)?.[0]?.content || '比例'}
+              </Button>
+            </Dropdown>
+            <Dropdown options={StyleOptions} onClick={switchStyle} trigger="click">
+              <Button shape="round" variant="outline" icon={<Filter3Icon size="16" />}>
+                {StyleOptions.filter((item) => item.value === style)?.[0]?.content || '风格'}
+              </Button>
+            </Dropdown>
+          </Space>
+        }
       >
         {mockMessage
           ?.map((msg) =>
@@ -313,24 +331,6 @@ export default function chatSample() {
             }),
           )
           .flat()}
-        {/* 自定义输入框底部区域slot，可以增加模型选项 */}
-        <div slot="sender-footer-prefix">
-          <Space align="center" size={'small'}>
-            <Button shape="round" variant="outline" icon={<ImageAddIcon />} onClick={onAttachClick}>
-              参考图
-            </Button>
-            <Dropdown options={RatioOptions} onClick={switchRatio} trigger="click">
-              <Button shape="round" variant="outline" icon={<Transform1Icon size="16" />}>
-                {RatioOptions.filter((item) => item.value === ratio)?.[0]?.content || '比例'}
-              </Button>
-            </Dropdown>
-            <Dropdown options={StyleOptions} onClick={switchStyle} trigger="click">
-              <Button shape="round" variant="outline" icon={<Filter3Icon size="16" />}>
-                {StyleOptions.filter((item) => item.value === style)?.[0]?.content || '风格'}
-              </Button>
-            </Dropdown>
-          </Space>
-        </div>
       </ChatBot>
     </div>
   );

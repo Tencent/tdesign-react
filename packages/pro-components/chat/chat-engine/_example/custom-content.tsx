@@ -418,9 +418,8 @@ export default function CustomContent() {
         onStop={onStop}
         onFileSelect={onFileSelect}
         onFileRemove={onFileRemove}
-      >
-        {/* 自定义输入框底部区域slot */}
-        <div slot="footer-prefix">
+        footerPrefix={
+          /* 自定义输入框底部区域slot */
           <SenderFooterControls
             ratio={ratio}
             style={style}
@@ -428,8 +427,8 @@ export default function CustomContent() {
             onRatioChange={switchRatio}
             onStyleChange={switchStyle}
           />
-        </div>
-      </ChatSender>
+        }
+      />
     </div>
   );
 }
