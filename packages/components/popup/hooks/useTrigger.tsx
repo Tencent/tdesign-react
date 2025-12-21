@@ -12,6 +12,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
   const triggerElementIsString = typeof triggerElement === 'string';
 
   const triggerRef = useRef<HTMLElement>(null);
+  const hasPopupMouseDown = useRef(false);
   const visibleTimer = useRef(null);
 
   // 禁用和无内容时不展示
@@ -53,6 +54,13 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
         callback: () => onVisibleChange(false, { e, trigger: 'trigger-element-hover' }),
       });
     }
+  };
+
+  const handlePopupMouseDown = () => {
+    hasPopupMouseDown.current = true;
+    requestAnimationFrame(() => {
+      hasPopupMouseDown.current = false;
+    });
   };
 
   useEffect(() => clearTimeout(visibleTimer.current), []);
@@ -163,16 +171,18 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     if (!shouldToggle) return;
 
     const handleDocumentClick = (e: any) => {
-      const element = getTriggerElement();
-      if (element?.contains?.(e.target) || e.target?.closest?.(`.${classPrefix}-popup`)) return;
-      visible && onVisibleChange(false, { e, trigger: 'document' });
+      if (!visible || getTriggerElement()?.contains?.(e.target) || hasPopupMouseDown.current) return;
+      onVisibleChange(false, { e, trigger: 'document' });
     };
 
     on(document, 'mousedown', handleDocumentClick);
     on(document, 'touchend', handleDocumentClick, { passive: true });
+
     return () => {
-      off(document, 'mousedown', handleDocumentClick);
-      off(document, 'touchend', handleDocumentClick, { passive: true });
+      requestAnimationFrame(() => {
+        off(document, 'mousedown', handleDocumentClick);
+        off(document, 'touchend', handleDocumentClick, { passive: true });
+      });
     };
   }, [classPrefix, shouldToggle, visible, onVisibleChange, getTriggerElement]);
 
@@ -204,10 +214,18 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     );
   }
 
+  function getPopupProps() {
+    return {
+      onMouseLeave: handleMouseLeave,
+      onMouseDown: handlePopupMouseDown,
+      onTouchEnd: handlePopupMouseDown,
+    };
+  }
+
   return {
     triggerElementIsString,
-    handleMouseLeave,
     getTriggerElement,
     getTriggerNode,
+    getPopupProps,
   };
 }
