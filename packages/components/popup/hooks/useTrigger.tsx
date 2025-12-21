@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import { canUseDocument } from '../../_util/dom';
 import { off, on } from '../../_util/listener';
 import { composeRefs, getNodeRef, getRefDom, supportNodeRef } from '../../_util/ref';
 import useConfig from '../../hooks/useConfig';
@@ -34,14 +35,12 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     }
   }
 
-  const getTriggerElement = useCallback(() => {
-    let element = null;
+  const getTriggerElement = useCallback((): HTMLElement | null => {
     if (triggerElementIsString) {
-      element = document.querySelector(triggerElement);
-    } else {
-      element = getRefDom(triggerRef);
+      return canUseDocument ? document.querySelector(triggerElement) : null;
     }
-    return element instanceof HTMLElement ? element : null;
+    const element = getRefDom(triggerRef);
+    return typeof HTMLElement !== 'undefined' && element instanceof HTMLElement ? element : null;
   }, [triggerElementIsString, triggerElement]);
 
   const handleMouseLeave = (e: MouseEvent | React.MouseEvent) => {
