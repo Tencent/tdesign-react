@@ -5,6 +5,17 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.16.1 `2025-12-22` 
+### 🐞 Bug Fixes
+- `Textarea`: 修复使用 `defaultValue` 或 `readonly` 产生的警告问题 @RylanBot ([#4019](https://github.com/Tencent/tdesign-react/pull/4019))
+- `Text`: 修复读取到 `undefined` 产生的报错问题 @RylanBot ([#4020](https://github.com/Tencent/tdesign-react/pull/4020))
+- `Popup`: 
+  - 修复 `1.16.0` 版本的重构导致 `SSR` 环境下产生的报错问题 @RylanBot ([#4026](https://github.com/Tencent/tdesign-react/pull/4026))
+  - 修复 `1.16.0` 版本的重构导致嵌套场景下，内层弹窗无法正常关闭的问题 @RylanBot ([#4023](https://github.com/Tencent/tdesign-react/pull/4023))
+### 🚧 Others
+- 修复 `1.16.0` 版本打包产物中有不存在的 `sourceMap` 引用而产生的警告 @RylanBot ([#4022](https://github.com/Tencent/tdesign-react/pull/4022))
+- `TagInput`: 移除 `1.16.0` 版本引入的多余日志 @RylanBot ([#4021](https://github.com/Tencent/tdesign-react/pull/4021))
+
 ## 🌈 1.16.0 `2025-12-15` 
 ### 🚨 Breaking Changes
 - `MessagePlugin`: 移除消息容器的 `id='tdesign-message-container--${placement}'`，之前依赖该属性的业务注意此变更 ⚠️ @RylanBot ([#3820](https://github.com/Tencent/tdesign-react/pull/3820))
