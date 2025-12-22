@@ -29,18 +29,19 @@ const currentVersion = packageJson.version.replace(/\./g, '_');
 const docRoutes = [...getRoute(siteConfig.default.docs, []), ...getRoute(siteConfig.default.enDocs, [])];
 const renderRouter = docRoutes.map((nav, i) => {
   const LazyCom = lazy(nav.component);
-
-  return (
-    <Route
-      key={i}
-      path={nav.path.replace('/react/', '')}
-      element={
-        <Suspense fallback={<Loading text="拼命加载中..." loading />}>
-          <LazyCom />
-        </Suspense>
-      }
-    />
-  );
+  if (/\/react\//.test(nav.path))
+    return (
+      <Route
+        key={i}
+        path={nav.path?.replace('/react/', '')}
+        element={
+          <Suspense fallback={<Loading text="拼命加载中..." loading />}>
+            <LazyCom />
+          </Suspense>
+        }
+      />
+    );
+  return <Route key={i} element={<Navigate replace to={nav.redirect} />} />;
 });
 
 function Components() {
@@ -135,6 +136,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Navigate replace to="/react/overview" />} />
         <Route exact path="/react" element={<Navigate replace to="/react/overview" />} />
+        <Route exact path="/react-chat" element={<Navigate replace to="/react-chat" />} />
         <Route
           path="/react/demos/*"
           element={
