@@ -1,0 +1,161 @@
+export const docs = [
+  {
+    title: '开始',
+    titleEn: 'Start',
+    type: 'doc',
+    children: [
+      {
+        title: '概述',
+        titleEn: 'Overview',
+        name: 'overview',
+        path: '/react-chat/overview',
+        component: () => import('./docs/intro.md'),
+      },
+      {
+        title: '快速开始',
+        titleEn: 'Getting Started',
+        name: 'getting-started',
+        path: '/react-chat/getting-started',
+        component: () => import('./docs/getting-started.md'),
+      },
+      {
+        title: '什么是流式输出',
+        titleEn: 'SSE',
+        name: 'sse',
+        path: '/react-chat/sse',
+        component: () => import('./docs/sse.md'),
+      },
+      {
+        title: '与AG-UI协议集成',
+        titleEn: 'AG-UI',
+        name: 'agui',
+        path: '/react-chat/agui',
+        component: () => import('./docs/agui.md'),
+      },
+    ],
+  },
+  {
+    title: '全局配置',
+    titleEn: 'Global Config',
+    type: 'doc',
+    children: [
+      {
+        title: '自定义主题',
+        titleEn: 'Theme Customization',
+        name: 'custom-theme',
+        path: '/react-chat/custom-theme',
+        component: () => import('@tdesign/common/docs/web/theme.md'),
+        componentEn: () => import('@tdesign/common/docs/web/theme.en-US.md'),
+      },
+      {
+        title: '深色模式',
+        titleEn: 'Dark Mode',
+        name: 'dark-mode',
+        path: '/react-chat/dark-mode',
+        component: () => import('@tdesign/common/docs/dark-mode.md'),
+        componentEn: () => import('@tdesign/common/docs/dark-mode.en-US.md'),
+      },
+      {
+        title: '自定义样式',
+        titleEn: 'Style Customization',
+        name: 'custom-style',
+        path: '/react-chat/custom-style',
+        component: () => import('./docs/style.md'),
+      },
+    ],
+  },
+  {
+    title: '智能对话',
+    titleEn: 'ChatBot',
+    type: 'component',
+    children: [
+      {
+        title: 'Chatbot 智能对话',
+        titleEn: 'Chatbot',
+        name: 'chatbot',
+        path: '/react-chat/components/chatbot',
+        component: () => import('@tdesign/pro-components-chat/chatbot/chatbot.md'),
+        componentEn: () => import('@tdesign/pro-components-chat/chatbot/chatbot.en-US.md'),
+      },
+      {
+        title: 'ChatEngine 对话引擎',
+        titleEn: 'ChatEngine',
+        name: 'chat-engine',
+        path: '/react-chat/components/chat-engine',
+        component: () => import('@tdesign/pro-components-chat/chat-engine/chat-engine.md'),
+        componentEn: () => import('@tdesign/pro-components-chat/chat-engine/chat-engine.en-US.md'),
+      },
+      {
+        title: 'ChatSender 对话输入',
+        titleEn: 'ChatSender',
+        name: 'chat-sender',
+        path: '/react-chat/components/chat-sender',
+        component: () => import('@tdesign/pro-components-chat/chat-sender/chat-sender.md'),
+        componentEn: () => import('@tdesign/pro-components-chat/chat-sender/chat-sender.en-US.md'),
+      },
+      {
+        title: 'ChatMessage 对话消息体',
+        titleEn: 'ChatMessage',
+        name: 'chat-message',
+        path: '/react-chat/components/chat-message',
+        component: () => import('@tdesign/pro-components-chat/chat-message/chat-message.md'),
+        componentEn: () => import('@tdesign/pro-components-chat/chat-message/chat-message.en-US.md'),
+      },
+      {
+        title: 'ChatActionBar 对话操作栏',
+        titleEn: 'ChatActionBar',
+        name: 'chat-actionbar',
+        path: '/react-chat/components/chat-actionbar',
+        component: () => import('@tdesign/pro-components-chat/chat-actionbar/chat-actionbar.md'),
+        componentEn: () => import('@tdesign/pro-components-chat/chat-actionbar/chat-actionbar.en-US.md'),
+      },
+      {
+        title: 'ChatMarkdown 消息内容',
+        titleEn: 'ChatMarkdown',
+        name: 'chat-markdown',
+        path: '/react-chat/components/chat-markdown',
+        component: () => import('@tdesign/pro-components-chat/chat-markdown/chat-markdown.md'),
+        componentEn: () => import('@tdesign/pro-components-chat/chat-markdown/chat-markdown.en-US.md'),
+      },
+      {
+        title: 'ChatThinking 思考过程',
+        titleEn: 'ChatThinking',
+        name: 'chat-thinking',
+        path: '/react-chat/components/chat-thinking',
+        component: () => import('@tdesign/pro-components-chat/chat-thinking/chat-thinking.md'),
+        componentEn: () => import('@tdesign/pro-components-chat/chat-thinking/chat-thinking.en-US.md'),
+      },
+
+      {
+        title: 'ChatLoading 对话加载',
+        titleEn: 'ChatLoading',
+        name: 'chat-loading',
+        path: '/react-chat/components/chat-loading',
+        component: () => import('@tdesign/pro-components-chat/chat-loading/chat-loading.md'),
+        componentEn: () => import('@tdesign/pro-components-chat/chat-loading/chat-loading.en-US.md'),
+      },
+      {
+        title: 'Attachments 文件附件',
+        titleEn: 'Attachments',
+        name: 'attachment',
+        path: '/react-chat/components/chat-attachments',
+        component: () => import('@tdesign/pro-components-chat/chat-attachments/chat-attachments.md'),
+        componentEn: () => import('@tdesign/pro-components-chat/chat-attachments/chat-attachments.en-US.md'),
+      },
+    ],
+  },
+];
+
+const enDocs = docs.map((doc) => ({
+  ...doc,
+  title: doc.titleEn,
+  children: doc?.children?.map((child) => ({
+    title: child.titleEn,
+    name: `${child.name}-en`,
+    path: `${child.path}-en`,
+    meta: { lang: 'en' },
+    component: child.componentEn || child.component,
+  })),
+}));
+
+export default { docs, enDocs };

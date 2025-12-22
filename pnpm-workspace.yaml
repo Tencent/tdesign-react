@@ -1,4 +1,4 @@
 packages:
   - 'packages/**'
-  - 'site'
+  - 'internal/**'
   - 'test'
