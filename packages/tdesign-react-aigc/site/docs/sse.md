@@ -24,15 +24,15 @@ group:
 
 在 Python 中，可以使用 fastAPI 框架来实现 Server-Sent Events。以下是一个示例：
 
-1. 安装 FastAPI 和 Uvicorn
-   首先，确保你已经安装了 FastAPI 和 Uvicorn ：
+安装 FastAPI 和 Uvicorn。
+首先，确保你已经安装了 FastAPI 和 Uvicorn ：
 
 ```
 pip install fastapi uvicorn
 ```
 
-2. 创建 FastAPI 应用
-   接下来，创建一个 FastAPI 应用，并定义一个流式接口。我们将使用异步生成器来逐步生成数据，并使用 StreamingResponse 来流式发送数据给客户端。
+创建 FastAPI 应用
+接下来，创建一个 FastAPI 应用，并定义一个流式接口。我们将使用异步生成器来逐步生成数据，并使用 StreamingResponse 来流式发送数据给客户端。
 
 ```js
 import json
@@ -70,22 +70,21 @@ if __name__ == '__main__':
 
 ```
 
-3. 运行应用
-   保存上述代码到一个文件（例如 main.py），然后运行应用：
+运行应用。保存上述代码到一个文件（例如 main.py），然后运行应用：
 
 ```
 python3 main.py
 ```
 
-4. 测试流式接口
+测试流式接口
 
-- get 接口
+**GET 接口**
 
 ```
 curl http://0.0.0.0:4000/events
 ```
 
-- post 接口
+**POST 接口**
 
 ```
 curl -X POST "http://0.0.0.0:4000/events" -H "Content-Type: application/json"
