@@ -136,7 +136,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Navigate replace to="/react/overview" />} />
         <Route exact path="/react" element={<Navigate replace to="/react/overview" />} />
-        <Route exact path="/react-chat" element={<Navigate replace to="/react-chat" />} />
+        <Route path="/react-chat" element={<Navigate to="https://tdesign.tencent.com/react-chat" />} />
         <Route
           path="/react/demos/*"
           element={
