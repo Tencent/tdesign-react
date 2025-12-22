@@ -2,6 +2,7 @@
   "extends": "./tsconfig",
   "include": [
     "./packages/components",
+    "./packages/pro-components/chat",
   ],
   "exclude": [
     "**/**/__tests__/*",
@@ -20,7 +21,8 @@
     "paths": {
       "tdesign-react": ["packages/components"],
       "@test/utils": ["test/utils"],
-      "@common/*": ["packages/common/*"]
+      "@common/*": ["packages/common/*"],
+      "@tdesign-react/chat": ["packages/pro-components/chat"],
     },
   }
 }
