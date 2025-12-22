@@ -37,11 +37,5 @@ package-lock.json
 yarn.lock
 pnpm-lock.yaml
 
-## mock server
-server/*
-
-## chat调试
-packages/pro-components/chat/chatbot/docs/*
-packages/pro-components/chat/chat-engine/core/*
-
+## analysis files
 bundle-analysis
