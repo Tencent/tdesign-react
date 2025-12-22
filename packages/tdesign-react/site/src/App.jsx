@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
+import React, { useEffect, useRef, useState, lazy, Suspense, use } from 'react';
 import { BrowserRouter, Routes, Navigate, Route, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import semver from 'semver';
 import Loading from '@tdesign/components/loading';
@@ -43,6 +43,13 @@ const renderRouter = docRoutes.map((nav, i) => {
     );
   return <Route key={i} element={<Navigate replace to={nav.redirect} />} />;
 });
+
+const RedirectReactChat = () => {
+  useEffect(() => {
+    window.location.href = 'https://tdesign.tencent.com/react-chat/overview';
+  }, []);
+  return null;
+};
 
 function Components() {
   const location = useLocation();
@@ -136,7 +143,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Navigate replace to="/react/overview" />} />
         <Route exact path="/react" element={<Navigate replace to="/react/overview" />} />
-        <Route path="/react-chat" element={<Navigate to="https://tdesign.tencent.com/react-chat" />} />
+        <Route path="/react-chat" element={<RedirectReactChat />} />
         <Route
           path="/react/demos/*"
           element={
