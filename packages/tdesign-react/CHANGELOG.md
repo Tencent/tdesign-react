@@ -9,6 +9,7 @@ spline: explain
 ### 🐞 Bug Fixes
 - `Textarea`: 修复使用 `defaultValue` 或 `readonly` 产生的警告问题 @RylanBot ([#4019](https://github.com/Tencent/tdesign-react/pull/4019))
 - `Text`: 修复读取到 `undefined` 产生的报错问题 @RylanBot ([#4020](https://github.com/Tencent/tdesign-react/pull/4020))
+- `Guide`: 修复在某些场景下可能读取到 `null` 而产生的报错问题 @RylanBot ([#4027](https://github.com/Tencent/tdesign-react/pull/4027))
 - `Popup`: 
   - 修复 `1.16.0` 版本的重构导致 `SSR` 环境下产生的报错问题 @RylanBot ([#4026](https://github.com/Tencent/tdesign-react/pull/4026))
   - 修复 `1.16.0` 版本的重构导致嵌套场景下，内层弹窗无法正常关闭的问题 @RylanBot ([#4023](https://github.com/Tencent/tdesign-react/pull/4023))
