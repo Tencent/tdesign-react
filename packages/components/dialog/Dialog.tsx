@@ -1,9 +1,11 @@
-import React, { forwardRef, useEffect, useRef, useImperativeHandle, useState } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import { isUndefined } from 'lodash-es';
+
 import log from '@tdesign/common-js/log/index';
 import { pxCompat } from '@tdesign/common-js/utils/helper';
+import { canUseDocument } from '../_util/dom';
 import Portal from '../common/Portal';
 import useAttach from '../hooks/useAttach';
 import useConfig from '../hooks/useConfig';
@@ -13,10 +15,10 @@ import useSetState from '../hooks/useSetState';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { dialogDefaultProps } from './defaultProps';
 import DialogCard from './DialogCard';
+import useDialogDrag from './hooks/useDialogDrag';
 import useDialogEsc from './hooks/useDialogEsc';
 import useLockStyle from './hooks/useLockStyle';
-import useDialogDrag from './hooks/useDialogDrag';
-import { canUseDocument } from '../_util/dom';
+
 import type { StyledProps } from '../common';
 import type { DialogInstance, TdDialogProps } from './type';
 
@@ -98,8 +100,8 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const [animationVisible, setAnimationVisible] = useState(visible);
   const [dialogAnimationVisible, setDialogAnimationVisible] = useState(false);
 
+  const { focusTopDialog } = useDialogEsc(visible, wrapRef);
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
-  useDialogEsc(visible, wrapRef);
   useDialogDrag({
     dialogCardRef,
     canDraggable: draggable && mode === 'modeless',
@@ -195,6 +197,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const onAnimateLeave = () => {
     onClosed?.();
     setAnimationVisible(false);
+    focusTopDialog();
     if (!wrapRef.current) return;
     wrapRef.current.style.display = 'none';
   };
