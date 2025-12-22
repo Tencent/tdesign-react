@@ -10,7 +10,6 @@ import { DEFAULT_EXTENSIONS } from '@babel/core';
 import multiInput from 'rollup-plugin-multi-input';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import analyzer from 'rollup-plugin-analyzer';
-// import { visualizer } from 'rollup-plugin-visualizer';
 import { resolve } from 'path';
 
 import pkg from '../packages/tdesign-react-aigc/package.json';
@@ -30,11 +29,11 @@ const banner = `/**
 `;
 
 // 获取分析插件
-const getAnalyzePlugins = (buildType = 'aigc') => {
+const getAnalyzePlugins = () => {
   if (!isAnalyze) return [];
-  
+
   const plugins = [];
-  
+
   // 基础分析器 - 控制台输出
   plugins.push(
     analyzer({
@@ -42,9 +41,9 @@ const getAnalyzePlugins = (buildType = 'aigc') => {
       summaryOnly: false,
       hideDeps: false,
       showExports: true,
-    })
+    }),
   );
-  
+
   return plugins;
 };
 const inputList = [
@@ -69,7 +68,7 @@ const getPlugins = ({ env, isProd = false } = {}) => {
       jsx: 'transform',
       jsxFactory: 'React.createElement',
       jsxFragment: 'React.Fragment',
-      tsconfig: resolve(__dirname, '../tsconfig.build.json'),
+      tsconfig: resolve(__dirname, '../tsconfig.aigc.build.json'),
     }),
     babel({
       babelHelpers: 'runtime',
