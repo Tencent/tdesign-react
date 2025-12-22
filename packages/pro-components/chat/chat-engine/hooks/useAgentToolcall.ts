@@ -90,6 +90,7 @@ export function useAgentToolcall<TArgs extends object = any, TResult = any, TRes
     return () => {
       configs.forEach((cfg) => {
         agentToolcallRegistry.unregister(cfg.name);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         autoRegisteredNamesRef.current.delete(cfg.name);
       });
     };

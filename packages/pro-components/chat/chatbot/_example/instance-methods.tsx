@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { ChatBot, SSEChunkData, AIMessageContent, ChatServiceConfig, type TdChatbotApi } from '@tdesign-react/chat';
-import { Button, Space, Divider, MessagePlugin } from 'tdesign-react';
+import { Button, Space, MessagePlugin } from 'tdesign-react';
 
 /**
  * 实例方法示例

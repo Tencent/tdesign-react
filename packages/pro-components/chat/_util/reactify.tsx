@@ -5,7 +5,7 @@ import { createRoot } from 'react-dom/client';
 // 检测 React 版本
 const isReact18Plus = () => typeof createRoot !== 'undefined';
 const isReact19Plus = (): boolean => {
-  const majorVersion = parseInt(React.version.split('.')[0]);
+  const majorVersion = parseInt(React.version.split('.')[0], 10);
   return majorVersion >= 19;
 };
 
@@ -217,6 +217,7 @@ const reactify = <T extends AnyProps = AnyProps>(
     }
 
     // 安全清理渲染器
+    // eslint-disable-next-line class-methods-use-this
     private safeCleanupRenderer(cleanup: () => void) {
       try {
         cleanup();
@@ -437,7 +438,7 @@ const reactify = <T extends AnyProps = AnyProps>(
     }
 
     render() {
-      const { children, className, innerRef, ...rest } = this.props;
+      const { children, className, ...rest } = this.props;
 
       return createElement(WC, { class: className, ...rest, ref: this.ref }, children);
     }

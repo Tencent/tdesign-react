@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Space, MessagePlugin } from 'tdesign-react';
 import { ChatMessage, AIMessage } from '@tdesign-react/chat';
 
@@ -53,12 +53,11 @@ const message: AIMessage = {
 
 /**
  * handleActions 使用示例
- * 
+ *
  * handleActions 用于处理消息内容中的交互操作，采用对象方式配置。
  * 支持的操作：suggestion（建议问题点击）、searchItem（搜索结果点击）
  */
 export default function HandleActionsExample() {
-
   // 配置消息内容操作回调
   const handleActions = {
     // 点击建议问题时触发

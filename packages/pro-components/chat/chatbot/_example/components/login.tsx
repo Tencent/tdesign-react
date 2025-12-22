@@ -13,7 +13,7 @@ export default function BaseForm() {
     }
   };
 
-  const onReset: FormProps['onReset'] = (e) => {
+  const onReset: FormProps['onReset'] = () => {
     MessagePlugin.info('重置成功');
   };
 

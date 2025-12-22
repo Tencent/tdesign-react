@@ -34,8 +34,10 @@ export const useDynamicStyle = (elementRef: MutableRefObject<HTMLElement | null>
     return () => {
       document.head.removeChild(styleElement);
       if (currentElement) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         currentElement.classList.remove(styleId.current);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cssVariables]);
 };

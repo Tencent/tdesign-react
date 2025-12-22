@@ -1,6 +1,6 @@
 import React from 'react';
-import { Divider, Space, Select } from 'tdesign-react';
-import { AIMessage, ChatMessage, TdChatLoadingProps } from '@tdesign-react/chat';
+import { Divider, Space } from 'tdesign-react';
+import { AIMessage, ChatMessage } from '@tdesign-react/chat';
 
 const messages: Record<string, AIMessage> = {
   loading: {

@@ -37,7 +37,8 @@
     "Popconfirm",
     "Swiper",
     "tdesign",
-    "aigc"
+    "aigc",
+    "toolcall"
   ],
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,

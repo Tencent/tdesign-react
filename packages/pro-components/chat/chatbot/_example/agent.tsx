@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { ChatBot } from '@tdesign-react/chat';
 import type {
   TdChatMessageConfig,
   AIMessageContent,
@@ -12,11 +13,9 @@ import { Timeline } from 'tdesign-react';
 
 import { CheckCircleFilledIcon } from 'tdesign-icons-react';
 
-import { ChatBot } from '@tdesign-react/chat';
-
 import './index.css';
 
-const AgentTimeline = ({ steps }) => (
+const AgentTimeline = ({ steps }: { steps: any[] }) => (
   <div style={{ paddingLeft: 10, marginTop: 14 }}>
     <Timeline mode="same" theme="dot">
       {steps.map((step) => (
@@ -27,7 +26,7 @@ const AgentTimeline = ({ steps }) => (
         >
           <div className={'step'}>
             <div className={'title'}>{step.step}</div>
-            {step?.tasks?.map((task, taskIndex) => (
+            {step?.tasks?.map((task: any, taskIndex: number) => (
               <div key={`${step.agent_id}_task_${taskIndex}`}>
                 <div className={task.type}>{task.text}</div>
               </div>
@@ -48,6 +47,7 @@ type AgentContent = ChatBaseContent<
     content: {
       steps?: {
         step: string;
+        // eslint-disable-next-line camelcase
         agent_id: string;
         status: string;
         tasks?: {
@@ -148,7 +148,7 @@ export default function ChatBotReact() {
     }
     // 此处增加自定义消息内容合并策略逻辑
     // 该示例agent类型结构比较复杂，根据任务步骤的state有不同的策略，组件内onMessage这里提供了的strategy无法满足，可以通过注册合并策略自行实现
-    chatRef.current.registerMergeStrategy<AgentContent>('agent', (newChunk, existing) => {
+    chatRef.current.registerMergeStrategy<AgentContent>('agent', (newChunk: SSEChunkData, existing: AgentContent) => {
       console.log('newChunk, existing', newChunk, existing);
       // 创建新对象避免直接修改原状态
       const updated = {
@@ -159,7 +159,7 @@ export default function ChatBotReact() {
         },
       };
 
-      const stepIndex = updated.content.steps.findIndex((step) => step.agent_id === newChunk.content.agent_id);
+      const stepIndex = updated.content.steps.findIndex((step: any) => step.agent_id === newChunk.content.agent_id);
 
       if (stepIndex === -1) return updated;
 
@@ -179,10 +179,10 @@ export default function ChatBotReact() {
         });
       } else if (newChunk.state === 'result') {
         // 新增每个步骤执行的结论是流式输出，需要分情况处理
-        const resultTaskIndex = step.tasks.findIndex((task) => task.type === 'result');
+        const resultTaskIndex = step.tasks.findIndex((task: any) => task.type === 'result');
         if (resultTaskIndex >= 0) {
           // 合并到已有结果
-          step.tasks = step.tasks.map((task, index) =>
+          step.tasks = step.tasks.map((task: any, index: number) =>
             index === resultTaskIndex ? { ...task, text: task.text + newChunk.content.text } : task,
           );
         } else {
@@ -216,7 +216,7 @@ export default function ChatBotReact() {
       >
         {mockMessage
           ?.map((msg) =>
-            msg?.content?.map((item, index) => {
+            msg?.content?.map((item: any, index: number) => {
               if (item.type === 'agent') {
                 return (
                   <div slot={`${msg.id}-${item.type}-${index}`} key={`${msg.id}-${item.state}-${item.id}`}>

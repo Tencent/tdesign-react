@@ -51,6 +51,7 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
           }));
         }
       },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       [toolCall.toolCallId, onRespond],
     );
 
@@ -127,6 +128,7 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
       };
 
       return subscribeKeyExtractor(fullProps);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [subscribeKeyExtractor, args, actionState]);
 
     // 监听组件注册事件, 无论何时注册，都能正确触发重新渲染
@@ -166,6 +168,7 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
     // 使用registry的缓存渲染函数
     const MemoizedComponent = useMemo(
       () => agentToolcallRegistry.getRenderFunction(toolCall.toolCallName),
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       [toolCall.toolCallName, isRegistered],
     );
 
