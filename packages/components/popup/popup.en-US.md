@@ -62,7 +62,15 @@ triggerElement | TNode | - | Typescript: `string \| TNode`。[see more ts defini
 visible | Boolean | - | Typescript: `boolean` | N
 defaultVisible | Boolean | - | uncontrolled property。Typescript: `boolean` | N
 zIndex | Number | - | \- | N
-onOverlayClick | Function |  | Typescript: `(context: { e: MouseEvent }) => void`<br/>trigger on popup content click | N
-onScroll | Function |  | Typescript: `(context: { e: WheelEvent }) => void`<br/> | N
-onScrollToBottom | Function |  | Typescript: `(context: { e: WheelEvent }) => void`<br/> | N
-onVisibleChange | Function |  | Typescript: `(visible: boolean, context: PopupVisibleChangeContext) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/popup/type.ts)。<br/>`interface PopupVisibleChangeContext { e?: PopupTriggerEvent; trigger?: PopupTriggerSource }`<br/><br/>`type PopupTriggerEvent = MouseEvent \| FocusEvent \| KeyboardEvent`<br/><br/>`type PopupTriggerSource = 'document' \| 'trigger-element-click' \| 'trigger-element-hover' \| 'trigger-element-blur' \| 'trigger-element-focus' \| 'trigger-element-mousedown' \| 'context-menu' \| 'keydown-esc'`<br/> | N
+onScroll | Function |  | Typescript：`(context: { e: WheelEvent }) => void`<br/> | N
+onScrollToBottom | Function |  | Typescript：`(context: { e: WheelEvent }) => void`<br/> | N
+onVisibleChange | Function |  | Typescript：`(visible: boolean, context: PopupVisibleChangeContext) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/popup/type.ts)。<br/>`interface PopupVisibleChangeContext { e?: PopupTriggerEvent; trigger?: PopupTriggerSource }`<br/><br/>`type PopupTriggerEvent = MouseEvent \| FocusEvent \| KeyboardEvent`<br/><br/>`type PopupTriggerSource = 'document' \| 'trigger-element-click' \| 'trigger-element-hover' \| 'trigger-element-blur' \| 'trigger-element-focus' \| 'trigger-element-mousedown' \| 'context-menu' \| 'keydown-esc'`<br/> | N
+
+### PopupInstanceFunctions
+
+name | params | return | description
+-- | -- | -- | --
+getOverlay | \- | `HTMLElement \| null` | used to get overly html element
+getOverlayState | \- | `{ hover: boolean }` | get mouseover state of overlay
+getPopper | \- | `Instance \| null` | get the popup component popper instance。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/popup/type.ts)。<br/>`import { Instance } from '@popperjs/core'`<br/>
+update | \- | \- | used to update overlay content

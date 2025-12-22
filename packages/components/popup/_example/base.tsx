@@ -1,9 +1,24 @@
-import React from 'react';
-import { Button, Popup } from 'tdesign-react';
+import React, { useRef } from 'react';
+import { Button, Popup, type PopupInstanceFunctions } from 'tdesign-react';
 
 export default function BasicUsage() {
+  const popupRef = useRef<PopupInstanceFunctions>(null);
+
+  const handleMouseEnter = () => {
+    const popupInstance = popupRef.current;
+    if (!popupInstance) return;
+    console.log('getOverlay', popupInstance.getOverlay());
+    console.log('getOverlayState', popupInstance.getOverlayState());
+    console.log('getOverlayState', popupInstance.getPopper());
+  };
+
   return (
-    <Popup trigger="hover" showArrow content="这是一个弹出框">
+    <Popup
+      ref={popupRef}
+      trigger="hover"
+      showArrow
+      content={<span onMouseEnter={handleMouseEnter}>这是一个弹出框</span>}
+    >
       <Button>Hover me</Button>
     </Popup>
   );

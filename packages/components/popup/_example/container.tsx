@@ -3,7 +3,7 @@ import { Button, Popup, Space } from 'tdesign-react';
 
 export default function Attach() {
   return (
-    <Space className='attach-container' style={{ position: 'relative' }}>
+    <Space className='attach-container'>
       <Popup trigger="click" content="触发元素的父元素是组件根元素，通过 CSS Selector 定义" attach=".attach-container">
         <Button>点击查看我的父元素(CSS Selector)</Button>
       </Popup>

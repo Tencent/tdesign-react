@@ -42,9 +42,9 @@ const Demo = () => {
 
   return (
     <Form form={form}>
-      <Form.Item name="username">
+      <FormItem name="username">
         <Input />
-      </Form.Item>
+      </FormItem>
     </Form>
   );
 };
@@ -101,7 +101,7 @@ labelAlign | String | right | 表单字段标签对齐方式：左对齐、右�
 labelWidth | String / Number | '100px' | 可以整体设置label标签宽度，默认为100px | N
 layout | String | vertical | 表单布局，有两种方式：纵向布局 和 行内布局。可选项：vertical/inline | N
 preventSubmitDefault | Boolean | true | 是否阻止表单提交默认事件（表单提交默认事件会刷新页面），设置为 `true` 可以避免刷新 | N
-readonly | Boolean | undefined | 是否整个表单只读 | N
+readOnly | Boolean | undefined | 是否整个表单只读 | N
 requiredMark | Boolean | true | 是否显示必填符号（*），默认显示 | N
 requiredMarkPosition | String | left | 表单必填符号（*）显示位置。可选项：left/right | N
 resetType | String | empty | 重置表单的方式，值为 empty 表示重置表单为空，值为 initial 表示重置表单数据为初始值。可选项：empty/initial | N
@@ -166,7 +166,7 @@ valueFormat | Function | - | 当用户交互产生数据变化时触发，用于
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-children | Function | - | 渲染函数。TS 类型：`(fields: FormListField[], operation: FormListFieldOperation) => React.ReactNode` `type FormListField = { key: number; name: number; isListField: boolean }` `type FormListFieldOperation = { add: (defaultValue?: any, insertIndex?: number) => void, remove: (index: number \| number[]) => void, move: (from: number, to: number) => void  }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/form/type.ts) | N
+children | Function | - | 渲染函数。TS 类型：`(fields: FormListField[], operation: FormListFieldOperation) => React.ReactNode` `type FormListField = { key: number; name: number; isListField: boolean }` `type FormListFieldOperation = { add: (initialData?: any, insertIndex?: number) => void, remove: (index: number \| number[]) => void, move: (from: number, to: number) => void  }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/form/type.ts) | N
 initialData | Array | - | 设置子元素默认值，如果与 FormItem 的 initialData 冲突则以 FormItem 为准。TS 类型：`Array<any>` | N
 name | String / Number / Array | - | 表单字段名称。TS 类型：`NamePath` | N
 rules | Object / Array | - | 表单字段校验规则。TS 类型：`{ [field in keyof FormData]: Array<FormRule> } \| Array<FormRule>` | N
