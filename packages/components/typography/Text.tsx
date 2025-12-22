@@ -72,7 +72,7 @@ const Text = forwardRef<HTMLSpanElement, TypographyTextProps>((originalProps, re
   const copyProps =
     typeof copyable === 'boolean'
       ? {
-          text: children.toString(),
+          text: children?.toString(),
           onCopy: Function.prototype,
           tooltipProps: isCopied
             ? {
@@ -81,7 +81,7 @@ const Text = forwardRef<HTMLSpanElement, TypographyTextProps>((originalProps, re
             : null,
         }
       : {
-          text: copyable?.text || children.toString(),
+          text: copyable?.text || children?.toString(),
           onCopy: copyable?.onCopy?.(),
           tooltipProps: {
             ...copyable?.tooltipProps,
