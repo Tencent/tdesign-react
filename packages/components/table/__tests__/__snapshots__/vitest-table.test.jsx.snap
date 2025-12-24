@@ -25,6 +25,7 @@ exports[`BaseTable Component > props.showHeader: BaseTable contains element \`th
         </colgroup>
         <thead
           class="t-table__header"
+          style="opacity: 0;"
         >
           <tr>
             <th
@@ -180,6 +181,7 @@ exports[`BaseTable Component > props.size is equal to large 1`] = `
         </colgroup>
         <thead
           class="t-table__header"
+          style="opacity: 0;"
         >
           <tr>
             <th
@@ -335,6 +337,7 @@ exports[`BaseTable Component > props.size is equal to medium 1`] = `
         </colgroup>
         <thead
           class="t-table__header"
+          style="opacity: 0;"
         >
           <tr>
             <th
@@ -490,6 +493,7 @@ exports[`BaseTable Component > props.size is equal to small 1`] = `
         </colgroup>
         <thead
           class="t-table__header"
+          style="opacity: 0;"
         >
           <tr>
             <th
@@ -639,6 +643,7 @@ exports[`BaseTable Component > props.tableLayout is equal to auto 1`] = `
         </colgroup>
         <thead
           class="t-table__header"
+          style="opacity: 0;"
         >
           <tr>
             <th
@@ -794,6 +799,7 @@ exports[`BaseTable Component > props.tableLayout is equal to fixed 1`] = `
         </colgroup>
         <thead
           class="t-table__header"
+          style="opacity: 0;"
         >
           <tr>
             <th

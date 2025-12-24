@@ -1,15 +1,17 @@
-import React, { useRef, MutableRefObject, CSSProperties, useMemo } from 'react';
-import { isFunction } from 'lodash-es';
+import React, { CSSProperties, MutableRefObject, useMemo, useRef } from 'react';
 import classNames from 'classnames';
-import { getColumnFixedStyles } from './hooks/useFixed';
-import { RowAndColFixedPosition } from './interface';
-import { TableColumns, ThRowspanAndColspan } from './hooks/useMultiHeader';
-import useClassName from './hooks/useClassName';
-import { BaseTableCol, TableRowData, TdBaseTableProps } from './type';
-import { renderTitle } from './hooks/useTableHeader';
+import { isFunction } from 'lodash-es';
+
 import TEllipsis from './Ellipsis';
+import useClassName from './hooks/useClassName';
+import { getColumnFixedStyles } from './hooks/useFixed';
+import { renderTitle } from './hooks/useTableHeader';
 import { formatClassNames } from './utils';
-import { AttachNode } from '../common';
+
+import type { AttachNode } from '../common';
+import type { TableColumns, ThRowspanAndColspan } from './hooks/useMultiHeader';
+import type { RowAndColFixedPosition } from './interface';
+import type { BaseTableCol, TableRowData, TdBaseTableProps } from './type';
 
 export interface TheadProps {
   classPrefix: string;
@@ -33,6 +35,7 @@ export interface TheadProps {
   resizable?: boolean;
   attach?: AttachNode;
   showColumnShadow?: { left: boolean; right: boolean };
+  theadStyle?: CSSProperties;
   columnResizeParams?: {
     resizeLineRef: MutableRefObject<HTMLDivElement>;
     resizeLineStyle: CSSProperties;
@@ -195,7 +198,7 @@ export default function THead(props: TheadProps) {
   };
 
   return (
-    <thead ref={theadRef} className={classNames(theadClasses)}>
+    <thead ref={theadRef} className={classNames(theadClasses)} style={props.theadStyle}>
       {renderThNodeList(props.rowAndColFixedPosition, props.thWidthList)}
     </thead>
   );

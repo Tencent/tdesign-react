@@ -306,6 +306,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       })}
     </colgroup>
   );
+
+  const theadStyle = useMemo(() => (showAffixHeader ? { opacity: 0 } : undefined), [showAffixHeader]);
+
   const headProps: TheadProps = {
     isFixedHeader,
     rowAndColFixedPosition,
@@ -338,6 +341,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     props.bordered,
     props.resizable,
     props.size,
+    theadStyle,
   ];
 
   // 多级表头左边线缺失
@@ -518,7 +522,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         {renderColGroup(false)}
         {useMemo(() => {
           if (!showHeader) return null;
-          return <THead {...{ ...headProps, thWidthList: resizable ? thWidthList.current : {} }} />;
+          return <THead {...{ ...headProps, theadStyle, thWidthList: resizable ? thWidthList.current : {} }} />;
           // eslint-disable-next-line
         }, headUseMemoDependencies)}
 
