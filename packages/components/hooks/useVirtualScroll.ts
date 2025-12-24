@@ -5,6 +5,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { isEqual } from 'lodash-es';
 import useResizeObserver from './useResizeObserver';
+
 import type { ScrollToElementParams, TScroll } from '../common';
 
 export type UseVirtualScrollParams = {
@@ -201,7 +202,9 @@ const useVirtualScroll = (container: React.MutableRefObject<HTMLElement>, params
         }
       }
     },
-    isVirtualScroll,
+    {
+      enabled: isVirtualScroll,
+    },
   );
 
   // 固定高度场景，可直接通过数据长度计算出最大滚动高度

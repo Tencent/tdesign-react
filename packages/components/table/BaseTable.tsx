@@ -1,11 +1,14 @@
 import React, { forwardRef, RefAttributes, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { pick } from 'lodash-es';
+
 import log from '@tdesign/common-js/log/index';
 import { getIEVersion } from '@tdesign/common-js/utils/helper';
 import Affix, { type AffixRef } from '../affix';
+import useDebounce from '../hooks/useDebounce';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useElementLazyRender from '../hooks/useElementLazyRender';
+import useResizeObserver from '../hooks/useResizeObserver';
 import useVirtualScroll from '../hooks/useVirtualScroll';
 import Loading from '../loading';
 import TBody, { extendTableProps, type TableBodyProps } from './TBody';
@@ -49,9 +52,11 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     lazyLoad,
     pagination,
   } = props;
+
   const tableRef = useRef<HTMLDivElement>(null);
-  const tableElmRef = useRef<HTMLTableElement>(null);
   const bottomContentRef = useRef<HTMLDivElement>(null);
+  const scrolledRef = useRef(false);
+
   const [tableFootHeight, setTableFootHeight] = useState(0);
 
   const allTableClasses = useClassName();
@@ -89,6 +94,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const {
     scrollbarWidth,
     tableWidth,
+    tableElmRef,
     tableElmWidth,
     tableContentRef,
     isFixedHeader,
@@ -101,11 +107,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     refreshTable,
     setTableElmWidth,
     emitScrollEvent,
-    setUseFixedTableElmRef,
     updateColumnFixedShadow,
     getThWidthList,
     updateThWidthList,
-    addTableResizeObserver,
     updateTableAfterColumnResize,
   } = useFixed(props, finalColumns, {
     paginationAffixRef,
@@ -113,6 +117,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     headerTopAffixRef,
     footerBottomAffixRef,
   });
+
+  const debouncedRefreshTable = useDebounce(refreshTable, 100);
+  useResizeObserver(tableRef, debouncedRefreshTable);
 
   const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination(props, tableContentRef);
 
@@ -161,11 +168,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   }, [bottomContentRef, paginationRef, bordered]);
 
   useEffect(() => {
-    setUseFixedTableElmRef(tableElmRef.current);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tableElmRef]);
-
-  useEffect(() => {
     setData(isPaginateData ? dataSource : props.data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.data, dataSource, isPaginateData]);
@@ -183,11 +185,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   }, [spansAndLeafNodes.leafColumns]);
 
   const onFixedChange = () => {
-    const timer = setTimeout(() => {
-      onHorizontalScroll();
-      updateAffixHeaderOrFooter();
-      clearTimeout(timer);
-    }, 0);
+    onHorizontalScroll();
+    updateAffixHeaderOrFooter();
   };
 
   const virtualScrollParams = useMemo(() => {
@@ -230,10 +229,11 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       tableContentRef.current.style.display = '';
     }, 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tableContentRef, virtualConfig.isVirtualScroll]);
+  }, [virtualConfig.isVirtualScroll]);
 
   let lastScrollY = -1;
   const onInnerVirtualScroll = (e: React.WheelEvent<HTMLDivElement>) => {
+    scrolledRef.current = true;
     const target = e.target as HTMLElement;
     const top = target.scrollTop;
     // 排除横向滚动触发的纵向虚拟滚动计算
@@ -280,25 +280,12 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
   // used for top margin
   const getTFootHeight = () => {
-    requestAnimationFrame(() => {
-      if (!tableElmRef.current) return;
-      const height = tableElmRef.current.querySelector('tfoot')?.offsetHeight;
-      setTableFootHeight(height || 0);
-    });
+    if (!tableElmRef.current) return;
+    const height = tableElmRef.current.querySelector('tfoot')?.offsetHeight;
+    setTableFootHeight(height || 0);
   };
 
   useEffect(getTFootHeight, [tableElmRef, props.footData, props.footerSummary]);
-
-  useEffect(() => {
-    setTableContentRef(tableContentRef.current);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tableContentRef]);
-
-  useEffect(
-    () => addTableResizeObserver(tableRef.current),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [tableRef],
-  );
 
   const newData = isPaginateData ? dataSource : data;
 
@@ -373,10 +360,11 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       height: `${affixHeaderWrapHeight}px`,
       opacity: headerOpacity,
     };
+
     const affixedHeader = Boolean((headerAffixedTop || virtualConfig.isVirtualScroll) && tableWidth.current) && (
       <div
         ref={affixHeaderRef}
-        style={{ width: `${tableWidth.current - affixedLeftBorder - barWidth}px`, opacity: headerOpacity }}
+        style={{ width: `${tableWidth.current - affixedLeftBorder}px`, opacity: headerOpacity }}
         className={classNames([
           'scrollbar',
           {
@@ -506,7 +494,10 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   };
   const tableContent = (
     <div
-      ref={tableContentRef}
+      ref={(el) => {
+        tableContentRef.current = el;
+        setTableContentRef(el);
+      }}
       className={tableBaseClass.content}
       style={tableContentStyles}
       onScroll={onInnerVirtualScroll}
@@ -752,6 +743,16 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       'table-layout can not be `auto`, cause you are using column resizable, set `table-layout: fixed` please.',
     );
   }
+
+  useEffect(() => {
+    const table = tableRef.current;
+    // 针对 Table 在 Dialog 等有动画效果组件的内部时，元素尺寸计算不稳定
+    // 初始化时依赖 virtualStyle.transform 判断是否稳定
+    // 滚动后不再触发
+    if (!table || !showElement || !virtualConfig.isVirtualScroll || scrolledRef.current) return;
+    debouncedRefreshTable();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showElement, virtualConfig.isVirtualScroll, virtualStyle.transform]);
 
   if (!showElement) {
     <div ref={tableRef}></div>;

@@ -3,12 +3,8 @@ import { get, pick, xorWith } from 'lodash-es';
 
 import log from '@tdesign/common-js/log/index';
 import { getScrollbarWidthWithCSS } from '@tdesign/common-js/utils/getScrollbarWidth';
-import { getIEVersion } from '@tdesign/common-js/utils/helper';
-import { off, on } from '../../_util/listener';
-import useDebounce from '../../hooks/useDebounce';
 import useDeepEffect from '../../hooks/useDeepEffect';
 import usePrevious from '../../hooks/usePrevious';
-import { isLessThanIE11OrNotHaveResizeObserver, resizeObserverElement } from '../utils';
 
 import type { AffixRef } from '../../affix';
 import type { ClassName, Styles } from '../../common';
@@ -476,7 +472,6 @@ export default function useFixed(
       fixedRows,
       firstFullRow,
       lastFullRow,
-      tableContentRef,
     ],
   );
 
@@ -486,23 +481,9 @@ export default function useFixed(
       updateColumnFixedShadow(tableContentRef.current);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFixedColumn, columns, tableContentRef]);
+  }, [isFixedColumn, columns]);
 
-  // 使用防抖函数，避免频繁触发
-  const updateFixedHeaderByUseDebounce = useDebounce(() => {
-    updateFixedHeader();
-  }, 30);
-
-  /**
-   * 通过监测表格大小变化，来调用 updateFixedHeader 修改状态
-   */
-  useEffect(() => {
-    if (tableContentRef.current) {
-      return resizeObserverElement(tableContentRef.current, updateFixedHeaderByUseDebounce);
-    }
-  }, [updateFixedHeaderByUseDebounce]);
-
-  useDeepEffect(updateFixedHeader, [maxHeight, data, columns, bordered, tableContentRef]);
+  useDeepEffect(updateFixedHeader, [maxHeight, data, columns, bordered]);
 
   useDeepEffect(() => {
     updateTableElmWidthOnColumnChange(finalColumns, preFinalColumns);
@@ -516,16 +497,7 @@ export default function useFixed(
       updateAffixPosition();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [
-      bordered,
-      columns,
-      tableLayout,
-      fixedRows,
-      headerAffixedTop,
-      tableContentWidth,
-      notNeedThWidthList,
-      tableContentRef,
-    ],
+    [bordered, columns, tableLayout, fixedRows, headerAffixedTop, tableContentWidth, notNeedThWidthList],
   );
 
   const refreshTable = () => {
@@ -540,45 +512,11 @@ export default function useFixed(
     }
   };
 
-  const onResize = useDebounce(() => {
-    refreshTable();
-  }, 30);
-
-  function addTableResizeObserver(tableElement: HTMLDivElement) {
-    /**
-     * IE 11 以下使用 window resize；IE 11 以上使用 ResizeObserver
-     * 抽离相关判断为单独的方法
-     */
-    if (isLessThanIE11OrNotHaveResizeObserver()) return;
-    off(window, 'resize', onResize);
-    if (!tableElmWidth.current) return;
-    // 抽离 resize 为单独的方法，通过回调来执行操作
-    return resizeObserverElement(tableElement, () => {
-      refreshTable();
-    });
-  }
-
   useEffect(() => {
     const scrollWidth = getScrollbarWidthWithCSS();
     setScrollbarWidth(scrollWidth);
-
-    const isWatchResize = isFixedColumn || isFixedHeader || !notNeedThWidthList || !data.length;
-    const hasWindow = typeof window !== 'undefined';
-    const hasResizeObserver = hasWindow && typeof window.ResizeObserver !== 'undefined';
     updateTableWidth();
     updateThWidthListHandler();
-    // IE 11 以下使用 window resize；IE 11 以上使用 ResizeObserver
-    if ((isWatchResize && getIEVersion() < 11) || !hasResizeObserver) {
-      on(window, 'resize', onResize);
-    }
-
-    return () => {
-      if ((isWatchResize && getIEVersion() < 11) || !hasResizeObserver) {
-        if (typeof window !== 'undefined') {
-          off(window, 'resize', onResize);
-        }
-      }
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFixedColumn]);
 
@@ -588,6 +526,7 @@ export default function useFixed(
   };
 
   return {
+    tableElmRef,
     tableWidth,
     tableElmWidth,
     thWidthList,
@@ -608,7 +547,6 @@ export default function useFixed(
     setUseFixedTableElmRef,
     getThWidthList,
     updateThWidthList,
-    addTableResizeObserver,
     updateTableAfterColumnResize,
   };
 }
