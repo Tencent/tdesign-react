@@ -1,5 +1,3 @@
-import classNames from 'classnames';
-import { debounce, get, isFunction } from 'lodash-es';
 import React, {
   Children,
   cloneElement,
@@ -10,7 +8,9 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import composeRefs from '../../_util/composeRefs';
+import classNames from 'classnames';
+import { debounce, get, isFunction } from 'lodash-es';
+import { composeRefs } from '../../_util/ref';
 import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
 import { getOffsetTopToContainer } from '../../_util/helper';
 import noop from '../../_util/noop';
@@ -52,7 +52,6 @@ const Select = forwardRefWithStatics(
     const emptyText = t(local.loadingText);
 
     const {
-      readonly,
       borderless,
       autoWidth,
       creatable,
@@ -98,6 +97,7 @@ const Select = forwardRefWithStatics(
       onEnter,
       onPopupVisibleChange,
     } = props;
+    const readOnly = props.readOnly || props.readonly;
 
     const [value, onChange] = useControlled(props, 'value', props.onChange);
 
@@ -450,7 +450,7 @@ const Select = forwardRefWithStatics(
             return (
               <Tag
                 key={index}
-                closable={!get(targetOption, disabledKey) && !disabled && !readonly}
+                closable={!get(targetOption, disabledKey) && !disabled && !readOnly}
                 size={size}
                 {...tagProps}
                 onClose={({ e }) => {
@@ -500,7 +500,7 @@ const Select = forwardRefWithStatics(
       minCollapsedNum,
       options,
       disabled,
-      readonly,
+      readOnly,
       size,
       tagProps,
       value,
@@ -566,7 +566,7 @@ const Select = forwardRefWithStatics(
           autoWidth={!style?.width && autoWidth}
           ref={composeRefs(ref, selectInputRef)}
           className={name}
-          readonly={readonly}
+          readonly={readOnly}
           autofocus={props.autofocus}
           allowInput={(filterable ?? local.filterable) || isFunction(filter)}
           multiple={multiple}

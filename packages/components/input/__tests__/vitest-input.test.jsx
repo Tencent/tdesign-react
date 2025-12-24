@@ -175,11 +175,11 @@ describe('Input Component', () => {
     const container1 = wrapper1.container.querySelector('.t-input');
     expect(container1.querySelector(`.${'t-is-readonly'}`)).toBeFalsy();
     // readonly = true
-    const wrapper2 = render(<Input readonly={true}></Input>);
+    const wrapper2 = render(<Input readOnly={true}></Input>);
     const container2 = wrapper2.container.querySelector('.t-input');
     expect(container2).toHaveClass('t-is-readonly');
     // readonly = false
-    const wrapper3 = render(<Input readonly={false}></Input>);
+    const wrapper3 = render(<Input readOnly={false}></Input>);
     const container3 = wrapper3.container.querySelector('.t-input');
     expect(container3.querySelector(`.${'t-is-readonly'}`)).toBeFalsy();
   });
