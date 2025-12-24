@@ -1,7 +1,7 @@
-import { useState, useRef, useMemo, useEffect } from 'react';
-import { TdBaseTableProps } from '../type';
-import { AffixProps } from '../../affix';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { off, on } from '../../_util/listener';
+import type { AffixProps } from '../../affix';
+import type { TdBaseTableProps } from '../type';
 
 /**
  * 1. 表头吸顶（普通表头吸顶 和 虚拟滚动表头吸顶）
@@ -10,6 +10,16 @@ import { off, on } from '../../_util/listener';
  * 4. 分页器吸底
  */
 export default function useAffix(props: TdBaseTableProps, { showElement }: { showElement: boolean }) {
+  const isAffixed = useMemo(
+    () => !!(props.headerAffixedTop || props.footerAffixedBottom || props.horizontalScrollAffixedBottom),
+    [props.footerAffixedBottom, props.headerAffixedTop, props.horizontalScrollAffixedBottom],
+  );
+  const isVirtualScroll = useMemo(
+    () => props.scroll && props.scroll.type === 'virtual' && (props.scroll.threshold || 100) < props.data.length,
+    [props.data.length, props.scroll],
+  );
+  const enableAffix = isAffixed || isVirtualScroll;
+
   const tableContentRef = useRef<HTMLDivElement>(null);
   // 吸顶表头
   const affixHeaderRef = useRef<HTMLDivElement>(null);
@@ -20,21 +30,11 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
   // 吸底分页器
   const paginationRef = useRef<HTMLDivElement>(null);
   // 当表格完全滚动消失在视野时，需要隐藏吸顶表头
-  const [showAffixHeader, setShowAffixHeader] = useState(true);
+  const [showAffixHeader, setShowAffixHeader] = useState(enableAffix);
   // 当表格完全滚动消失在视野时，需要隐藏吸底尾部
   const [showAffixFooter, setShowAffixFooter] = useState(true);
   // 当表格完全滚动消失在视野时，需要隐藏吸底分页器
   const [showAffixPagination, setShowAffixPagination] = useState(true);
-
-  const isVirtualScroll = useMemo(
-    () => props.scroll && props.scroll.type === 'virtual' && (props.scroll.threshold || 100) < props.data.length,
-    [props.data.length, props.scroll],
-  );
-
-  const isAffixed = useMemo(
-    () => !!(props.headerAffixedTop || props.footerAffixedBottom || props.horizontalScrollAffixedBottom),
-    [props.footerAffixedBottom, props.headerAffixedTop, props.horizontalScrollAffixedBottom],
-  );
 
   let lastScrollLeft = 0;
   const onHorizontalScroll = (scrollElement?: HTMLElement) => {
@@ -73,7 +73,7 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
   };
 
   const updateAffixHeaderOrFooter = () => {
-    if (!isAffixed && !isVirtualScroll) return;
+    if (!enableAffix) return;
     const pos = tableContentRef.current?.getBoundingClientRect();
     if (!pos) return;
     const headerRect = tableContentRef.current?.querySelector('thead')?.getBoundingClientRect();

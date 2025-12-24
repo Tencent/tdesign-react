@@ -160,7 +160,6 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
       </colgroup>
       <thead
         class="t-table__header"
-        style="opacity: 0;"
       >
         <tr>
           <th
