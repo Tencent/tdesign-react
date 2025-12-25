@@ -1,0 +1,62 @@
+name: preview-build
+
+on:
+  pull_request:
+    branches: [develop, main]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  tdesign-react-site:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{ github.event.number }} > pr-id.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pr-id
+          path: pr-id.txt
+          retention-days: 5
+
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm -C packages/tdesign-react/site run preview
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tdesign-react-site
+          path: packages/tdesign-react/site/dist
+          retention-days: 5
+
+  tdesign-react-chat-site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm -C packages/tdesign-react-aigc/site run preview
+      
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tdesign-react-chat-site
+          path: packages/tdesign-react-aigc/site/dist
+          retention-days: 5
