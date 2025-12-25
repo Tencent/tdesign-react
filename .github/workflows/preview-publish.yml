@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs: 
       pr_id: ${{ steps.pr.outputs.id }}
-      tdesign_vue_next_domain: ${{ steps.tdesign-react-domain.outputs.tdesign_vue_next_domain }}
-      tdesign_vue_next_chat_domain: ${{ steps.tdesign-react-chat-domain.outputs.tdesign_vue_next_chat_domain }}
+      tdesign_react_domain: ${{ steps.tdesign-react-domain.outputs.tdesign_react_domain }}
+      tdesign_react_chat_domain: ${{ steps.tdesign-react-chat-domain.outputs.tdesign_react_chat_domain }}
     steps:
       - name: Download pr id
         uses: dawidd6/action-download-artifact@v8
@@ -29,11 +29,11 @@ jobs:
 
       - name: tdesign-react-domain
         id: tdesign-react-domain
-        run: echo "tdesign_vue_next_domain=https://preview-pr-${{ steps.pr.outputs.id }}-tdesign-react.surge.sh" >> $GITHUB_OUTPUT
+        run: echo "tdesign_react_domain=https://preview-pr-${{ steps.pr.outputs.id }}-tdesign-react.surge.sh" >> $GITHUB_OUTPUT
 
       - name: tdesign-react-chat-domain
         id: tdesign-react-chat-domain
-        run: echo "tdesign_vue_next_chat_domain=https://preview-pr-${{ steps.pr.outputs.id }}-tdesign-react-chat.surge.sh" >> $GITHUB_OUTPUT
+        run: echo "tdesign_react_chat_domain=https://preview-pr-${{ steps.pr.outputs.id }}-tdesign-react-chat.surge.sh" >> $GITHUB_OUTPUT
   
   tdesign-react:
     if: github.event.workflow_run.conclusion == 'success'
@@ -46,7 +46,7 @@ jobs:
           run_id: ${{ github.event.workflow_run.id }}
           name: tdesign-react-site
       - run: |
-          export DEPLOY_DOMAIN=${{ needs.preview-context.outputs.tdesign_vue_next_domain }}
+          export DEPLOY_DOMAIN=${{ needs.preview-context.outputs.tdesign_react_domain }}
           npx surge --project ./ --domain $DEPLOY_DOMAIN --token ${{ secrets.TDESIGN_SURGE_TOKEN }}  
   
   tdesign-react-chat:
@@ -60,7 +60,7 @@ jobs:
           run_id: ${{ github.event.workflow_run.id }}
           name: tdesign-react-chat-site
       - run: |
-          export DEPLOY_DOMAIN=${{ needs.preview-context.outputs.tdesign_vue_next_chat_domain }}
+          export DEPLOY_DOMAIN=${{ needs.preview-context.outputs.tdesign_react_chat_domain }}
           npx surge --project ./ --domain $DEPLOY_DOMAIN --token ${{ secrets.TDESIGN_SURGE_TOKEN }}           
   
   preview-comment:
@@ -77,8 +77,8 @@ jobs:
         with:
           script: |
             const pr_id = ${{ needs.preview-context.outputs.pr_id }};
-            const tdesign_vue_next_domain = "${{ needs.preview-context.outputs.tdesign_vue_next_domain }}";
-            const tdesign_vue_next_chat_domain = "${{ needs.preview-context.outputs.tdesign_vue_next_chat_domain }}";
+            const tdesign_react_domain = "${{ needs.preview-context.outputs.tdesign_react_domain }}";
+            const tdesign_react_chat_domain = "${{ needs.preview-context.outputs.tdesign_react_chat_domain }}";
 
             const { data: { jobs } } = await github.rest.actions.listJobsForWorkflowRun({
               owner: context.repo.owner,
@@ -103,10 +103,10 @@ jobs:
                   tdesign[job.name].status = preview_success;
                   if (job.name === "tdesign-react") {
                     
-                    tdesign[job.name].report_url = tdesign_vue_next_domain;
+                    tdesign[job.name].report_url = tdesign_react_domain;
                   }
                   if (job.name === "tdesign-react-chat") {
-                    tdesign[job.name].report_url = tdesign_vue_next_chat_domain;
+                    tdesign[job.name].report_url = tdesign_react_chat_domain;
                   }
                 }
               });
