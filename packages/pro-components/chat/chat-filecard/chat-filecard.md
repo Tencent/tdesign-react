@@ -16,7 +16,7 @@ spline: aigc
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
-item |  Object | - | TS类型：TdAttachmentItem。[类型定义](?tab=api#tdattachmentitem-类型说明) | Y
+item |  Object | - | TS类型：TdAttachmentItem。[类型定义](https://tdesign.tencent.com/react-chat/components/attachments?tab=api) | Y
 removable | Boolean | true | 是否显示删除按钮 | N
 disabled | Boolean | false | 禁用状态 | N
 imageViewer | Boolean | true | 图片预览开关 | N

@@ -38,7 +38,7 @@ defaultValue | String | - | 输入框默认内容(非受控) | N
 loading | Boolean | false | 是否显示加载状态 | N
 autosize | Object | `{ minRows: 2 }` | 输入框自适应高度配置 | N
 actions | Array/Boolean | - | 操作按钮配置，TS 类型：`<'attachment' \| 'send'>[]` | N
-attachmentsProps | Object | `{ items: [], overflow: 'scrollX' }` | 附件配置透传`ChatAttachment`，详见[ChatAttachment](https://tdesign.gtimg.com/chatbot/doc/react/api/chat-attachment?tab=api) | N
+attachmentsProps | Object | `{ items: [], overflow: 'scrollX' }` | 附件配置透传`ChatAttachment`，详见[ChatAttachment](https://tdesign.tencent.com/react-chat/components/attachments?tab=api) | N
 textareaProps | Object | - | 输入框额外属性，部分透传`Textarea`，TS 类型：`Partial<Omit<TdTextareaProps, 'value' \| 'defaultValue' \| 'placeholder' \| 'disabled' \| 'autosize'>>`，详见[TdTextareaProps](https://tdesign.tencent.com/react/components/textarea?tab=api) | N
 uploadProps | Object | - | 文件上传属性，TS 类型：`{ accept: string; multiple: boolean; }` | N
 onSend | Function | - | 发送消息事件。TS 类型：`(e: CustomEvent<TdChatSenderParams>) => ChatRequestParams | void` | N
