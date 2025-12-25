@@ -440,7 +440,6 @@ const Select = forwardRefWithStatics(
             const targetVal = get(selectedOptions[index], valueKey);
             const targetLabel = get(selectedOptions[index], labelKey);
             const targetOption = valueToOption[targetVal];
-            if (!targetOption) return null;
             return (
               <Tag
                 key={index}
