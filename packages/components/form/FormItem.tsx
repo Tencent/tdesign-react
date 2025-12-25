@@ -114,12 +114,11 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   /* 用于处理嵌套 Form 的情况 （例如 FormList 内有一个 Dialog + Form） */
   const isSameForm = useMemo(() => isEqual(form, formOfFormList), [form, formOfFormList]);
 
-  const validParentFullPath = useMemo(() => {
-    if (!formListName || !isSameForm) return undefined;
-    return parentFullPath;
-  }, [formListName, isSameForm, parentFullPath]);
+  const fullPath = useMemo(() => {
+    const validParentFullPath = formListName && isSameForm ? parentFullPath : undefined;
+    return concatName(validParentFullPath, name);
+  }, [formListName, parentFullPath, name, isSameForm]);
 
-  const fullPath = concatName(validParentFullPath, name);
   const { defaultInitialData } = useFormItemInitialData(name, fullPath, initialData, children);
 
   const [, forceUpdate] = useState({}); // custom render state
