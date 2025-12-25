@@ -2,7 +2,7 @@
   "name": "@tdesign-react/chat",
   "version": "1.0.1",
   "title": "@tdesign-react/chat",
-  "description": "TDesign Pro Component for AIGC",
+  "description": "AI Chat Component for React",
   "module": "es/index.js",
   "typings": "es/index.d.ts",
   "files": [

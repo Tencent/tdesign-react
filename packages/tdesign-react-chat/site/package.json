@@ -1,5 +1,5 @@
 {
-  "name": "@tdesign/react-aigc-site",
+  "name": "@tdesign-react/chat-site",
   "private": true,
   "scripts": {
     "start": "pnpm run dev",
