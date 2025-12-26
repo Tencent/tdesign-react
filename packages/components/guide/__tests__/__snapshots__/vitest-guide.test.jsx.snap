@@ -170,8 +170,7 @@ exports[`Guide Component > GuideStep.body works fine 1`] = `
         </div>
         <div
           class="t-popup__arrow"
-          data-popper-arrow=""
-          style="position: absolute; left: 0px; transform: translate(0px, 0px);"
+          style="left: 8px; margin-left: 0px;"
         />
       </div>
     </div>
@@ -628,8 +627,7 @@ exports[`Guide Component > GuideStep.highlightContent works fine 1`] = `
         </div>
         <div
           class="t-popup__arrow"
-          data-popper-arrow=""
-          style="position: absolute; left: 0px; transform: translate(0px, 0px);"
+          style="left: 8px; margin-left: 0px;"
         />
       </div>
     </div>
@@ -999,8 +997,7 @@ exports[`Guide Component > GuideStep.placement is equal to bottom-left 1`] = `
         </div>
         <div
           class="t-popup__arrow"
-          data-popper-arrow=""
-          style="position: absolute; left: 0px; transform: translate(0px, 0px);"
+          style="left: 8px; margin-left: 0px;"
         />
       </div>
     </div>
@@ -1174,8 +1171,7 @@ exports[`Guide Component > GuideStep.stepOverlayClass is equal to t-test-guide-s
         </div>
         <div
           class="t-popup__arrow"
-          data-popper-arrow=""
-          style="position: absolute; left: 0px; transform: translate(0px, 0px);"
+          style="left: 8px; margin-left: 0px;"
         />
       </div>
     </div>
@@ -1353,8 +1349,7 @@ exports[`Guide Component > GuideStep.title works fine 1`] = `
         </div>
         <div
           class="t-popup__arrow"
-          data-popper-arrow=""
-          style="position: absolute; left: 0px; transform: translate(0px, 0px);"
+          style="left: 8px; margin-left: 0px;"
         />
       </div>
     </div>
