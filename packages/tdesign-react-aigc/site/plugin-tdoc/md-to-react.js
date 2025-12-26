@@ -95,6 +95,7 @@ export default async function mdToReact(options) {
                 ref={tdDocHeader}
                 spline="${mdSegment.spline}"
                 platform="web"
+                changelog="false"
               >
               </td-doc-header>`
               : ''
