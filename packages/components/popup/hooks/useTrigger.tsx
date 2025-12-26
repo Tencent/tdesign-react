@@ -221,6 +221,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
       onMouseLeave: handleMouseLeave,
       onMouseDown: handlePopupMouseDown,
       onMouseUp: handlePopupMouseUp,
+      onTouchStart: handlePopupMouseDown,
       onTouchEnd: handlePopupMouseUp,
     };
   }
