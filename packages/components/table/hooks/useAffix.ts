@@ -224,12 +224,13 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
   }, [affixHeaderRef, affixFooterRef, horizontalScrollbarRef, tableContentRef, showElement]);
 
   useEffect(() => {
+    setShowAffixHeader(enableAffix);
     addVerticalScrollListener();
     return () => {
       off(document, 'scroll', onDocumentScroll);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAffixed]);
+  }, [enableAffix]);
 
   useEffect(() => {
     addHorizontalScrollListeners();
