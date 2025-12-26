@@ -1328,7 +1328,7 @@ spline: explain
 ## 🌈 1.0.4 `2023-03-16` 
 ### 🚀 Features
 - `Table`: @chaishi ([#2047](https://github.com/Tencent/tdesign-react/pull/2047))
-    - Column width adjustment functionality, updated column width adjustment rule: when column width is small and doesn't exceed, column width adjustment表现为当前列和相邻列的变化；when column width exceeds and horizontal scrollbar exists, column width adjustment only affects current column and total column width
+    - Updated the resizing behavior so that when there is no overflow, resizing affects the current and adjacent columns, and when horizontal scrolling exists, it affects only the current column and the total width.
     - Editable cell(row) functionality, support real-time validation when data changes in edit mode, `col.edit.validateTrigger`
     - Only when fixed columns exist will class names `.t-table__content--scrollable-to-left` and `.t-table__content--scrollable-to-right` appear
     - Drag functionality, support disabling fixed columns from being dragged to adjust order
