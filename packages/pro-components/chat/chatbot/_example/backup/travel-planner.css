@@ -1,0 +1,552 @@
+/* 旅游规划器容器 */
+.travel-planner-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: relative;
+}
+
+.chat-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+/* 右下角固定规划状态面板 */
+.planning-panel-fixed {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 220px;
+  z-index: 1000;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e7e7e7;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.planning-panel-fixed:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .planning-panel-fixed {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    left: 10px;
+    width: auto;
+    max-height: 300px;
+  }
+  
+  .chat-content {
+    margin-bottom: 320px; /* 为固定面板留出空间 */
+  }
+}
+
+/* 内容卡片通用样式 */
+.content-card {
+  margin: 8px 0;
+}
+
+/* TDesign 组件样式增强 */
+.t-travel-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.t-travel-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* 卡片头部简化样式 */
+.t-card__header {
+  background: #fafafa;
+  border-bottom: 1px solid #e7e7e7;
+  padding: 16px 20px;
+}
+
+.t-card__body {
+  padding: 20px;
+}
+
+/* 标签样式增强 */
+.t-tag {
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+/* 按钮样式增强 */
+.t-button {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.t-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 输入框样式增强 */
+.t-input {
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.t-input:focus {
+  box-shadow: 0 0 0 2px rgba(0, 82, 217, 0.2);
+}
+
+/* 选择框样式增强 */
+.t-select {
+  border-radius: 8px;
+}
+
+/* 复选框样式增强 */
+.t-checkbox {
+  border-radius: 4px;
+}
+
+/* 分割线样式 */
+.t-divider {
+  margin: 16px 0;
+}
+
+/* 空间组件样式 */
+.t-space {
+  width: 100%;
+}
+
+/* 加载状态样式 */
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* 错误状态样式 */
+.error-container {
+  padding: 16px;
+  border-radius: 8px;
+  background: #fff2f0;
+  border: 1px solid #ffccc7;
+}
+
+/* 成功状态样式 */
+.success-container {
+  padding: 16px;
+  border-radius: 8px;
+  background: #f6ffed;
+  border: 1px solid #b7eb8f;
+}
+
+/* 警告状态样式 */
+.warning-container {
+  padding: 16px;
+  border-radius: 8px;
+  background: #fffbe6;
+  border: 1px solid #ffe58f;
+}
+
+/* 信息状态样式 */
+.info-container {
+  padding: 16px;
+  border-radius: 8px;
+  background: #e6f7ff;
+  border: 1px solid #91d5ff;
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.travel-card-animation {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* 响应式设计增强 */
+@media (max-width: 768px) {
+  .t-card {
+    margin: 8px;
+    border-radius: 8px;
+  }
+  
+  .t-card__header {
+    padding: 12px 16px;
+  }
+  
+  .t-card__body {
+    padding: 16px;
+  }
+  
+  .t-space {
+    gap: 8px !important;
+  }
+  
+  .t-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+
+/* 深色模式支持 */
+@media (prefers-color-scheme: dark) {
+  .t-card {
+    background: #1f1f1f;
+    border-color: #333;
+  }
+  
+  .t-card__header {
+    background: #2a2a2a;
+    border-bottom-color: #444;
+  }
+  
+  .t-input {
+    background: #2a2a2a;
+    border-color: #444;
+  }
+  
+  .t-select {
+    background: #2a2a2a;
+    border-color: #444;
+  }
+}
+
+/* 天气卡片样式 */
+.weather-card {
+  border: 1px solid #e7e7e7;
+}
+
+.weather-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.weather-title {
+  font-weight: 600;
+  color: #333;
+}
+
+.weather-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.weather-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.weather-item .day {
+  font-weight: 500;
+  color: #333;
+}
+
+.weather-item .condition {
+  color: #666;
+}
+
+.weather-item .temp {
+  font-weight: 600;
+  color: #0052d9;
+}
+
+/* 行程规划卡片样式 */
+.itinerary-card {
+  border: 1px solid #e7e7e7;
+}
+
+.itinerary-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.itinerary-title {
+  font-weight: 600;
+  color: #333;
+}
+
+.day-activities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.activity-tag {
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
+/* 酒店推荐卡片样式 */
+.hotel-card {
+  border: 1px solid #e7e7e7;
+}
+
+.hotel-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.hotel-title {
+  font-weight: 600;
+  color: #333;
+}
+
+.hotel-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hotel-item {
+  padding: 12px;
+  border: 1px solid #e7e7e7;
+  border-radius: 6px;
+  background: #f8f9fa;
+}
+
+.hotel-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hotel-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.hotel-details {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hotel-price {
+  font-weight: 600;
+  color: #e34d59;
+}
+
+/* 规划状态面板样式 */
+.planning-state-panel {
+  border: 1px solid #e7e7e7;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.panel-title {
+  font-weight: 600;
+  color: #333;
+  flex: 1;
+}
+
+.progress-steps {
+  margin: 16px 0;
+}
+
+.step-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.step-title {
+  font-weight: 500;
+  color: #333;
+}
+
+.summary-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.summary-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Human-in-the-Loop 表单样式 */
+/* 动态表单组件样式 */
+.human-input-form {
+  border: 2px solid #0052d9;
+  border-radius: 8px;
+  padding: 20px;
+  background: #f8f9ff;
+  margin: 16px 0;
+  max-width: 500px;
+}
+
+.form-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.form-title {
+  font-weight: 600;
+  color: #0052d9;
+  font-size: 16px;
+}
+
+.form-description {
+  color: #666;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field-label {
+  font-weight: 500;
+  color: #333;
+  font-size: 14px;
+}
+
+.required {
+  color: #e34d59;
+  margin-left: 4px;
+}
+
+.field-wrapper {
+  width: 100%;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.error-message {
+  color: #e34d59;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #e7e7e7;
+}
+
+/* 加载动画 */
+.loading-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .human-input-form {
+    max-width: 100%;
+    padding: 16px;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+}
+
+/* 用户输入结果展示样式 */
+.human-input-result {
+  border: 1px solid #e7e7e7;
+  border-radius: 8px;
+  padding: 16px;
+  background: #f8f9fa;
+  max-width: 500px;
+}
+
+.user-input-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #e7e7e7;
+}
+
+.summary-item .label {
+  font-weight: 500;
+  color: #666;
+  min-width: 80px;
+}
+
+.summary-item .value {
+  color: #333;
+  font-weight: 600;
+}

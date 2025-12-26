@@ -76,7 +76,7 @@ function TdInputNumber<T extends InputNumberValue = InputNumberValue>(
         ref={inputRef}
         autocomplete="off"
         disabled={props.disabled}
-        readonly={props.readonly}
+        readOnly={props.readOnly || props.readonly}
         placeholder={props.placeholder}
         autoWidth={props.autoWidth}
         align={props.align || (props.theme === 'row' ? 'center' : undefined)}

@@ -55,16 +55,29 @@ export const docs = [
         titleEn: 'Theme Customization',
         name: 'custom-theme',
         path: '/react/custom-theme',
-        component: () => import('@tdesign/common/theme.md'),
-        componentEn: () => import('@tdesign/common/theme.en-US.md'),
+        component: () => import('@tdesign/common/docs/web/theme.md'),
+        componentEn: () => import('@tdesign/common/docs/web/theme.en-US.md'),
       },
       {
         title: '深色模式',
         titleEn: 'Dark Mode',
         name: 'dark-mode',
         path: '/react/dark-mode',
-        component: () => import('@tdesign/common/dark-mode.md'),
-        componentEn: () => import('@tdesign/common/dark-mode.en-US.md'),
+        component: () => import('@tdesign/common/docs/dark-mode.md'),
+        componentEn: () => import('@tdesign/common/docs/dark-mode.en-US.md'),
+      },
+    ],
+  },
+  {
+    title: '高阶组件',
+    titleEn: 'Pro',
+    type: 'component', // 组件文档
+    children: [
+      {
+        title: 'AI Chat 对话',
+        titleEn: 'Chat',
+        name: 'chat',
+        path: '/react-chat',
       },
     ],
   },
