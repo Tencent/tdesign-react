@@ -1,7 +1,7 @@
-import React, { ReactElement, ReactNode } from 'react';
+import React, { type ReactElement, type ReactNode } from 'react';
 import { isFunction } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
-import { TNode } from '../common';
+import type { TNode } from '../common';
 
 // 解析 TNode 数据结构
 export default function parseTNode(
@@ -36,4 +36,18 @@ export function parseContentTNode<T>(tnode: TNode<T>, props: T) {
     log.warn('parseContentTNode', `${tnode} is not a valid ReactNode`);
     return null;
   }
+}
+
+export function extractTextFromTNode(node: TNode): string {
+  if (typeof node === 'string' || typeof node === 'number' || typeof node === 'boolean') return String(node);
+  if (React.isValidElement(node)) {
+    const { children } = node.props || {};
+    if (children) return extractTextFromTNode(children);
+  }
+  if (Array.isArray(node)) {
+    return node.map(extractTextFromTNode).join('');
+  }
+
+  // todo：兼容 ((props: T) => ReactNode) 函数类型
+  return '';
 }

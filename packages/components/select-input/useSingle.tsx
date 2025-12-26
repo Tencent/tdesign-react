@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import classNames from 'classnames';
 import { isObject, pick } from 'lodash-es';
@@ -9,6 +9,7 @@ import Input, { type InputRef, type TdInputProps } from '../input';
 import Loading from '../loading';
 
 import type { SelectInputCommonProperties } from './interface';
+import type { SelectInputProps } from './SelectInput';
 import type { TdSelectInputProps } from './type';
 
 export interface RenderSelectSingleInputParams {
@@ -38,24 +39,38 @@ const DEFAULT_KEYS: TdSelectInputProps['keys'] = {
   value: 'value',
 };
 
-function getInputValue(value: TdSelectInputProps['value'], keys: TdSelectInputProps['keys']) {
+function getOptionLabel(value: TdSelectInputProps['value'], keys: TdSelectInputProps['keys']) {
   const iKeys = keys || DEFAULT_KEYS;
   return isObject(value) ? value[iKeys.label] : value;
 }
 
-export default function useSingle(props: TdSelectInputProps) {
-  const { value, keys, loading } = props;
-  const { classPrefix } = useConfig();
-
-  const inputRef = useRef<InputRef>(null);
-  const blurTimeoutRef = useRef(null);
-
-  const [inputValue, setInputValue] = useControlled(props, 'inputValue', props.onInputChange);
-
+export default function useSingle(props: SelectInputProps) {
+  const { value, loading } = props;
   const commonInputProps: SelectInputCommonProperties = {
     ...pick(props, COMMON_PROPERTIES),
     suffixIcon: loading ? <Loading loading size="small" /> : props.suffixIcon,
   };
+
+  const { classPrefix } = useConfig();
+  const [inputValue, setInputValue] = useControlled(props, 'inputValue', props.onInputChange);
+
+  const inputRef = useRef<InputRef>(null);
+  const blurTimeoutRef = useRef(null);
+  const customElementRef = useRef<HTMLDivElement>(null);
+
+  const [isTyping, setIsTyping] = useState<boolean>(false);
+  const [labelWidth, setLabelWidth] = useState<number>(0);
+  const [customElementWidth, setCustomElementWidth] = useState<number>(0);
+
+  const singleValueDisplay = useMemo(
+    () => props.valueDisplay ?? getOptionLabel(value, props.keys),
+    [value, props.valueDisplay, props.keys],
+  );
+
+  const showCustomElement = useMemo(
+    () => !isTyping && !inputValue && React.isValidElement(singleValueDisplay),
+    [isTyping, inputValue, singleValueDisplay],
+  );
 
   const onInnerClear = (context: { e: React.MouseEvent<SVGSVGElement> }) => {
     context?.e?.stopPropagation();
@@ -69,14 +84,25 @@ export default function useSingle(props: TdSelectInputProps) {
     }
   };
 
+  useEffect(() => {
+    const labelEl = inputRef.current?.currentElement.querySelector(`.${classPrefix}-input__prefix`);
+    if (labelEl) {
+      const prefixWidth = labelEl.getBoundingClientRect().width;
+      setLabelWidth(prefixWidth);
+    }
+  }, [props.label, classPrefix]);
+
+  useEffect(() => {
+    if (showCustomElement && customElementRef.current) {
+      const { width } = customElementRef.current.getBoundingClientRect();
+      setCustomElementWidth(width);
+    }
+  }, [showCustomElement, singleValueDisplay]);
+
   const renderSelectSingle = (
     popupVisible: boolean,
     onInnerBlur?: (context: { e: React.FocusEvent<HTMLInputElement> }) => void,
   ) => {
-    // 单选，值的呈现方式
-    const singleValueDisplay: any = !props.multiple ? props.valueDisplay : null;
-    const displayedValue = popupVisible && props.allowInput ? inputValue : getInputValue(value, keys);
-
     const handleBlur = (value, ctx) => {
       if (blurTimeoutRef.current) {
         clearTimeout(blurTimeoutRef.current);
@@ -104,22 +130,77 @@ export default function useSingle(props: TdSelectInputProps) {
       // !popupVisible && setInputValue(getInputValue(value, keys), { ...context, trigger: 'input' });
     };
 
+    const displayedValue = () => {
+      if (popupVisible && inputValue) {
+        return inputValue;
+      }
+      if (props.allowInput && popupVisible && !showCustomElement) {
+        return '';
+      }
+      if (!showCustomElement) {
+        return singleValueDisplay;
+      }
+      return inputValue;
+    };
+
+    const displayedPlaceholder = () => {
+      if (popupVisible && singleValueDisplay && !showCustomElement) {
+        return singleValueDisplay;
+      }
+      if (showCustomElement) return '';
+      return props.placeholder;
+    };
+
+    const labelNode = showCustomElement ? (
+      <div
+        ref={customElementRef}
+        style={{
+          position: 'absolute',
+          left: `${labelWidth + 8}px`,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          pointerEvents: 'none',
+          textAlign: 'initial',
+          zIndex: 3,
+          // 输入状态，降低透明度，仿造 placeholder 效果
+          opacity: popupVisible && props.allowInput ? 0.5 : undefined,
+        }}
+      >
+        {singleValueDisplay}
+      </div>
+    ) : null;
+
+    const hasCustomWidth = props.style?.width || props.inputProps?.style?.width || props.inputProps?.style?.minWidth;
+    // customElement 定位为 absolute，无法撑开 input 宽度
+    const inputWidth =
+      !hasCustomWidth && showCustomElement && customElementWidth > 0
+        ? `${customElementWidth + labelWidth + 48}px`
+        : undefined;
+
     return (
       <Input
         ref={inputRef}
+        // 当 valueDisplay 为 自定义元素时，选中内容时 input 依旧为空，确保此时 clear icon 可见
+        showClearIconOnEmpty={props.clearable && showCustomElement}
         {...commonInputProps}
-        autoWidth={props.autoWidth}
-        allowInput={props.allowInput}
-        placeholder={singleValueDisplay ? '' : props.placeholder}
-        value={singleValueDisplay ? ' ' : displayedValue}
-        label={
-          (props.label || singleValueDisplay) && (
+        suffix={
+          labelNode ||
+          (commonInputProps.suffix && (
             <>
-              {props.label}
-              {singleValueDisplay as React.ReactNode}
+              {labelNode}
+              {commonInputProps.suffix}
             </>
-          )
+          ))
         }
+        autoWidth={props.autoWidth}
+        style={{
+          ...(props.inputProps?.style || {}),
+          minWidth: inputWidth,
+        }}
+        allowInput={props.allowInput}
+        label={props.label}
+        value={displayedValue()}
+        placeholder={displayedPlaceholder()}
         onChange={onInnerInputChange}
         onClear={onInnerClear}
         // [Important Info]: SelectInput.blur is not equal to Input, example: click popup panel
@@ -130,7 +211,15 @@ export default function useSingle(props: TdSelectInputProps) {
         // onBlur need to triggered by input when popup panel is null or when popupVisible is forced to false
         onBlur={handleBlur}
         {...props.inputProps}
-        inputClass={classNames(props.inputProps?.className, {
+        onCompositionstart={(v, ctx) => {
+          setIsTyping(true);
+          props.inputProps?.onCompositionstart?.(v, ctx);
+        }}
+        onCompositionend={(v, ctx) => {
+          setIsTyping(false);
+          props.inputProps?.onCompositionend?.(v, ctx);
+        }}
+        inputClass={classNames(props.inputProps?.inputClass, {
           [`${classPrefix}-input--focused`]: popupVisible,
           [`${classPrefix}-is-focused`]: popupVisible,
         })}
