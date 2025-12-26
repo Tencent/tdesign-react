@@ -208,7 +208,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
         ref={portalRef}
         triggerNode={triggerEl}
         attach={popupAttach}
-        style={{ position: 'absolute', width: '100%' }}
+        style={{ position: 'absolute', top: 0, left: 0, width: '100%' }}
       >
         <CSSTransition
           appear
