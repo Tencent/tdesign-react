@@ -32,6 +32,8 @@ jobs:
         with:
           token: ${{ secrets.TDESIGN_BOT_TOKEN }}
           packages: 'tdesign-react,@tdesign-react/chat'
+          tmt-secret-id: ${{ secrets.TMT_SECRET_ID }}
+          tmt-secret-key: ${{ secrets.TMT_SECRET_KEY }}
 
   commit-changelog:
     if: github.event.issue.pull_request
