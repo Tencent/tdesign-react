@@ -22,10 +22,11 @@ export const docs = [
       },
       {
         title: '更新日志',
-        titleEn: 'CHANGELOG',
+        titleEn: 'Changelog',
         name: 'changelog',
         path: '/react/changelog',
         component: () => import('../CHANGELOG.md'),
+        componentEn: () => import('../CHANGELOG.en-US.md'),
       },
       {
         title: '组件概览',
