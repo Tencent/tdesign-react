@@ -38,7 +38,9 @@ export default function changelog2Json() {
       });
     },
 
-    async closeBundle() {
+    async closeBundle(error) {
+      // 构建失败时跳过
+      if (error) return;
       // 生产构建时写入物理文件
       if (process.env.NODE_ENV !== 'production') return;
       await Promise.all(
