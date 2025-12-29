@@ -4,7 +4,7 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TNode } from '../common';
+import { TNode, TElement } from '../common';
 import { MouseEvent } from 'react';
 
 export interface TdTimelineProps {
@@ -47,7 +47,7 @@ export interface TdTimelineItemProps {
   /**
    * 用于自定义时间轴节点元素
    */
-  dot?: TNode;
+  dot?: TElement;
   /**
    * 时间轴颜色，内置 `primary/warning/error/default` 四种色值，可传入 16 进制颜色码或 RGB 颜色值
    * @default primary
