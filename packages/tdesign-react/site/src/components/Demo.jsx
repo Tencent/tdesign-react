@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { Button } from '@tdesign/components';
@@ -70,19 +70,7 @@ export default function Demo() {
   const hasSpecificDemo = demoObject[`${componentName}/${demoName}`];
 
   return hasSpecificDemo ? (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '100vh',
-        padding: '0 40px',
-      }}
-    >
-      <div>
-        <DynamicDemo componentName={componentName} demoName={demoName} />
-      </div>
-    </div>
+<DynamicDemo componentName={componentName} demoName={demoName} />
   ) : (
     <ul style={{ margin: '48px 200px' }}>
       {demoList?.map((demoName) => (

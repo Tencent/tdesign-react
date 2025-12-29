@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Checkbox, Space, Link, Tag } from 'tdesign-react';
-import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
-import type { TableProps } from 'tdesign-react';
+import React, { useEffect, useState } from 'react';
+import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
+import { Checkbox, Link, Space, Table, Tag } from 'tdesign-react';
 
 const statusNameListMap = {
   0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
@@ -60,12 +59,7 @@ const getColumns = ({ fixedLeftColumn, fixedRightColumn }) => [
     title: '申请状态',
     width: '150',
     cell: ({ row }) => (
-      <Tag
-        shape="round"
-        theme={statusNameListMap[row.status].theme}
-        variant="light-outline"
-        icon={statusNameListMap[row.status].icon}
-      >
+      <Tag shape="round" theme={statusNameListMap[row.status].theme} variant="light-outline">
         {statusNameListMap[row.status].label}
       </Tag>
     ),
@@ -101,16 +95,6 @@ const TableAffixDemo = () => {
   const [fixedRightColumn, setFixedRightColumn] = useState(true);
   const [horizontalScrollAffixedBottom, setHorizontalScrollAffixedBottom] = useState(false);
   const [paginationAffixedBottom, setPaginationAffixedBottom] = useState(false);
-
-  // type 可选值：foot 和 body
-  const rowClassName: TableProps['rowClassName'] = ({ type }) => {
-    if (type === 'foot') return 't-tdesign__custom-footer-tr';
-    return 't-tdesign__custom-body-tr';
-  };
-
-  const onDragSortChange: TableProps['onDragSort'] = ({ newData }) => {
-    setColumns(newData);
-  };
 
   // 表尾吸顶和底部滚动条，二选一即可，也只能二选一
   useEffect(() => {
@@ -171,9 +155,7 @@ const TableAffixDemo = () => {
         data={data}
         columns={columns}
         footData={footData}
-        rowClassName={rowClassName}
-        pagination={{ defaultCurrent: 1, defaultPageSize: 5, total: TOTAL }}
-        headerAffixedTop={{ offsetTop: 87, zIndex: 1000 }}
+        headerAffixedTop={true}
         footerAffixedBottom={
           footerAffixedBottom ? { offsetBottom: paginationAffixedBottom ? 60 : 0, zIndex: 1000 } : false
         }
@@ -182,11 +164,9 @@ const TableAffixDemo = () => {
         }
         paginationAffixedBottom={paginationAffixedBottom}
         tableLayout="fixed"
-        dragSort="col"
         bordered
         resizable
-        onDragSort={onDragSortChange}
-        lazyLoad
+        maxHeight={800}
       ></Table>
     </Space>
   );

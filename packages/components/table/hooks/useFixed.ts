@@ -1,5 +1,5 @@
-import { type MutableRefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { get, pick, xorWith } from 'lodash-es';
+import { type MutableRefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import log from '@tdesign/common-js/log/index';
 import { getScrollbarWidthWithCSS } from '@tdesign/common-js/utils/getScrollbarWidth';
@@ -110,7 +110,7 @@ export default function useFixed(
   });
   const tableWidth = useRef(0);
   const tableElmWidth = useRef(0);
-  const thWidthList = useRef<{ [colKey: string]: number }>({});
+  const [thWidthList, setThWidthList] = useState<{ [colKey: string]: number }>({});
 
   const [isFixedColumn, setIsFixedColumn] = useState(false);
   const [isFixedRightColumn, setIsFixedRightColumn] = useState(false);
@@ -401,21 +401,29 @@ export default function useFixed(
   const updateThWidthList = (trList: HTMLCollection | { [colKey: string]: number }) => {
     if (trList instanceof HTMLCollection) {
       if (columnResizable) return;
-      thWidthList.current = calculateThWidthList(trList);
-    } else {
-      thWidthList.current = thWidthList.current || {};
-      Object.entries(trList).forEach(([colKey, width]) => {
-        thWidthList.current[colKey] = width;
-      });
+      const newWidthList = calculateThWidthList(trList);
+      setThWidthList(newWidthList);
+      return newWidthList;
     }
-    return thWidthList.current;
+    setThWidthList((prev) => ({
+      ...prev,
+      ...trList,
+    }));
+    return { ...thWidthList, ...trList };
   };
 
   const updateThWidthListHandler = () => {
     if (notNeedThWidthList) return;
     const thead = tableContentRef.current?.querySelector('thead');
     if (!thead) return;
-    updateThWidthList(thead.children);
+    // When columnResizable is enabled, calculate widths from DOM and pass as object
+    // to bypass the HTMLCollection check in updateThWidthList
+    if (columnResizable) {
+      const widthMap = calculateThWidthList(thead.children);
+      updateThWidthList(widthMap);
+    } else {
+      updateThWidthList(thead.children);
+    }
   };
 
   const emitScrollEvent = (e: React.WheelEvent<HTMLDivElement>) => {
@@ -429,7 +437,7 @@ export default function useFixed(
       const trList = tableContentRef.current?.querySelector('thead')?.children;
       return calculateThWidthList(trList);
     }
-    return thWidthList.current || {};
+    return thWidthList || {};
   };
 
   const updateTableElmWidthOnColumnChange = (
