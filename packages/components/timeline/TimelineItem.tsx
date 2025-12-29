@@ -1,6 +1,6 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import classNames from 'classnames';
-import { isString, omit } from 'lodash-es';
+import { omit } from 'lodash-es';
 import { TdTimelineItemProps } from './type';
 import { StyledProps } from '../common';
 import useConfig from '../hooks/useConfig';
