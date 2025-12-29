@@ -35,6 +35,8 @@ class TableResizable {
 
   private affixTableEl: HTMLTableElement | null;
 
+  private affixFooterTableEl: HTMLTableElement | null;
+
   private tableContentEl: HTMLDivElement;
 
   private columns: ColumnConfig[];
@@ -62,10 +64,12 @@ class TableResizable {
     columns: BaseTableCol<TableRowData>[],
     callback: ResizeCallbackParams,
     affixTable?: HTMLTableElement | null,
+    affixFooterTable?: HTMLTableElement | null,
   ) {
     this.handleClass = `${classPrefix}-${HANDLE_CLASS_SUFFIX}`;
     this.tableEl = table;
     this.affixTableEl = affixTable || null;
+    this.affixFooterTableEl = affixFooterTable || null;
     this.tableContentEl = this.tableEl.closest(`.${classPrefix}-table__content`);
     this.minTableWidth = this.tableContentEl.offsetWidth;
     this.callback = callback;
@@ -231,6 +235,16 @@ class TableResizable {
       const affixColElement = affixColElements[columnIndex] as HTMLElement;
       if (affixColElement) {
         affixColElement.style.width = `${width}px`;
+      }
+    }
+
+    // Also update affix footer table colgroup col element
+    // This ensures footer columns stay aligned with header during resize
+    if (this.affixFooterTableEl) {
+      const affixFooterColElements = this.affixFooterTableEl.querySelectorAll('colgroup col');
+      const affixFooterColElement = affixFooterColElements[columnIndex] as HTMLElement;
+      if (affixFooterColElement) {
+        affixFooterColElement.style.width = `${width}px`;
       }
     }
   }
@@ -533,6 +547,9 @@ class TableResizable {
       if (this.affixTableEl) {
         this.affixTableEl.style.width = `${newTableWidth}px`;
       }
+      if (this.affixFooterTableEl) {
+        this.affixFooterTableEl.style.width = `${newTableWidth}px`;
+      }
       const isOverflow = this.isTableOverflow();
       const widthDiff = newTableWidth - this.minTableWidth;
 
@@ -579,6 +596,9 @@ class TableResizable {
     this.tableEl.style.width = `${newTableWidth}px`;
     if (this.affixTableEl) {
       this.affixTableEl.style.width = `${newTableWidth}px`;
+    }
+    if (this.affixFooterTableEl) {
+      this.affixFooterTableEl.style.width = `${newTableWidth}px`;
     }
 
     // Use current actual widths from DOM elements, not the initial widths
@@ -701,6 +721,9 @@ class TableResizable {
       if (this.affixTableEl) {
         this.affixTableEl.style.width = `${newTableWidth}px`;
       }
+      if (this.affixFooterTableEl) {
+        this.affixFooterTableEl.style.width = `${newTableWidth}px`;
+      }
       const widthDiff = newTableWidth - this.minTableWidth;
 
       if (widthDiff < 0) {
@@ -725,6 +748,9 @@ class TableResizable {
     this.tableEl.style.width = `${newTableWidth}px`;
     if (this.affixTableEl) {
       this.affixTableEl.style.width = `${newTableWidth}px`;
+    }
+    if (this.affixFooterTableEl) {
+      this.affixFooterTableEl.style.width = `${newTableWidth}px`;
     }
 
     // Trigger callback

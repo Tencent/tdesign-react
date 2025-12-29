@@ -58,6 +58,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const bottomContentRef = useRef<HTMLDivElement>(null);
   const scrolledRef = useRef(false);
   const affixTableElmRef = useRef<HTMLTableElement>(null);
+  const affixFooterTableElmRef = useRef<HTMLTableElement>(null);
 
   const [tableFootHeight, setTableFootHeight] = useState(0);
 
@@ -129,6 +130,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     enable: resizable,
     columns,
     affixTableElement: affixTableElmRef.current,
+    affixFooterTableElement: affixFooterTableElmRef.current,
     updateThWidthList,
     updateTableAfterColumnResize,
     onColumnResizeChange: props.onColumnResizeChange,
@@ -283,7 +285,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     setTableFootHeight(height || 0);
   };
 
-  useEffect(getTFootHeight, [tableElmRef, props.footData, props.footerSummary]);
+  useEffect(getTFootHeight, [tableElmRef, props.footData, props.footerSummary, thWidthList]);
 
   const newData = isPaginateData ? dataSource : data;
 
@@ -448,6 +450,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
           ])}
         >
           <table
+            ref={affixFooterTableElmRef}
             className={tableElmClasses}
             style={{ ...tableElementStyles, width: tableElmWidth.current ? `${tableElmWidth.current}px` : undefined }}
           >

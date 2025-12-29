@@ -9,6 +9,7 @@ type Options = {
   enable: boolean;
   columns: BaseTableCol<TableRowData>[];
   affixTableElement?: HTMLTableElement | null;
+  affixFooterTableElement?: HTMLTableElement | null;
   updateTableAfterColumnResize?: () => void;
   updateThWidthList?: (trList: HTMLCollection | { [colKey: string]: number }) => { [colKey: string]: number };
   onColumnResizeChange?: TdBaseTableProps['onColumnResizeChange'];
@@ -16,7 +17,14 @@ type Options = {
 
 function useColumnResize(
   tableElement: HTMLTableElement,
-  { enable, columns, affixTableElement, updateThWidthList, updateTableAfterColumnResize }: Options,
+  {
+    enable,
+    columns,
+    affixTableElement,
+    affixFooterTableElement,
+    updateThWidthList,
+    updateTableAfterColumnResize,
+  }: Options,
 ) {
   const { classPrefix } = useConfig();
   const resizableRef = useRef<TableResizable | null>(null);
@@ -40,11 +48,12 @@ function useColumnResize(
         },
       },
       affixTableElement,
+      affixFooterTableElement,
     );
     return () => {
       cleanUp();
     };
-  }, [classPrefix, columns, enable, tableElement, affixTableElement]);
+  }, [classPrefix, columns, enable, tableElement, affixTableElement, affixFooterTableElement]);
 }
 
 export default useColumnResize;
