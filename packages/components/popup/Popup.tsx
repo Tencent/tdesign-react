@@ -44,9 +44,6 @@ const DEFAULT_TRANSITION_TIMEOUT = 180;
 // 箭头相关常量
 const ARROW_WIDTH = 8; // 对应 CSS 变量 @popup-arrow-width
 const ARROW_HEIGHT = 8; // 对应 CSS 变量 @popup-arrow-height
-const ARROW_HALF_WIDTH = ARROW_WIDTH / 2;
-const ARROW_HALF_HEIGHT = ARROW_HEIGHT / 2;
-const ARROW_MIN_HORIZONTAL_DISTANCE = ARROW_WIDTH + ARROW_HALF_WIDTH;
 
 const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref) => {
   const props = useDefaultProps<PopupProps>(originalProps, popupDefaultProps);
@@ -153,20 +150,21 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
 
     const inRange = (value: number, min: number, max: number) => value >= min && value <= max;
 
+    // 垂直方向
     if (placement.startsWith('top') || placement.startsWith('bottom')) {
       // 计算 trigger 中心点相对于弹出层左边缘的距离
       const offsetLeft = Math.abs(triggerRect.left + triggerRect.width / 2 - popupRect.left);
       const popupWidth = popupElement.offsetWidth || popupElement.clientWidth;
 
       // 保留 padding 的安全 offset
-      const maxPopupOffsetLeft = popupWidth - ARROW_HALF_WIDTH;
-      const minPopupOffsetLeft = ARROW_MIN_HORIZONTAL_DISTANCE;
+      const maxPopupOffsetLeft = popupWidth - ARROW_WIDTH / 2;
+      const minPopupOffsetLeft = ARROW_WIDTH + ARROW_WIDTH / 2;
 
       // 偏移在元素范围内
       if (inRange(offsetLeft, 0, popupWidth)) {
         return {
           // 减去箭头中心点偏移，使箭头中心对齐 trigger 中心
-          left: `${Math.max(minPopupOffsetLeft, Math.min(maxPopupOffsetLeft, offsetLeft)) - ARROW_HALF_WIDTH}px`,
+          left: `${Math.max(minPopupOffsetLeft, Math.min(maxPopupOffsetLeft, offsetLeft)) - ARROW_WIDTH / 2}px`,
           // 覆盖可能的 margin
           marginLeft: 0,
         };
@@ -175,6 +173,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
       return {};
     }
 
+    // 水平方向
     const offsetTop = triggerRect.top + triggerRect.height / 2 - popupRect.top;
     const popupHeight = popupElement.offsetHeight || popupElement.clientHeight;
 
@@ -183,7 +182,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
 
     if (inRange(offsetTop, 0, popupHeight)) {
       return {
-        top: `${Math.max(minPopupOffsetTop, Math.min(maxPopupOffsetTop, offsetTop)) - ARROW_HALF_HEIGHT}px`,
+        top: `${Math.max(minPopupOffsetTop, Math.min(maxPopupOffsetTop, offsetTop)) - ARROW_HEIGHT / 2}px`,
         marginTop: 0,
       };
     }
