@@ -54,8 +54,6 @@ class TableResizable {
 
   private startTableWidth = 0;
 
-  private minTableWidth = 0;
-
   private callback: ResizeCallbackParams;
 
   constructor(
@@ -71,7 +69,6 @@ class TableResizable {
     this.affixTableEl = affixTable || null;
     this.affixFooterTableEl = affixFooterTable || null;
     this.tableContentEl = this.tableEl.closest(`.${classPrefix}-table__content`);
-    this.minTableWidth = this.tableContentEl.offsetWidth;
     this.callback = callback;
     this.columns = this.mapColumnsToConfig(columns);
     this.leafColumns = this.getLeafColumns(this.columns);
@@ -274,30 +271,6 @@ class TableResizable {
     return handle;
   }
 
-  private updateHandleCursor(columnIndex: number, handle: HTMLElement) {
-    // 寻找最后一列非禁用列
-    let lastColumnIndex = this.leafColumns.length - 1;
-    while (lastColumnIndex >= 0 && this.leafColumns[lastColumnIndex]?.disabled) {
-      lastColumnIndex -= 1;
-    }
-
-    // If this is the last valid column, check if we should show not-allowed
-    if (columnIndex === lastColumnIndex) {
-      const currentTableWidth = this.tableEl.offsetWidth;
-      const lastColumn = this.leafColumns[lastColumnIndex];
-      const currentColumnWidth = lastColumn.element?.offsetWidth || 0;
-
-      if (currentColumnWidth <= (lastColumn.minWidth || MIN_WIDTH) && currentTableWidth < this.minTableWidth) {
-        // eslint-disable-next-line no-param-reassign
-        handle.style.cursor = 'not-allowed';
-        return;
-      }
-    }
-
-    // eslint-disable-next-line no-param-reassign
-    handle.style.cursor = 'col-resize';
-  }
-
   private init(): void {
     this.initColumnsWidth();
 
@@ -351,18 +324,18 @@ class TableResizable {
       const handle = this.createResizeHandle(isLastColumn);
       col.element.appendChild(handle);
 
-      handle.addEventListener('mousedown', (e) => this.onMouseDownColumn(e, col));
+      handle.addEventListener('mousedown', (e) => this.onMouseDown(e, col));
 
       // Also add resize handle to affix element if exists
       if (col.affixElement) {
         const affixHandle = this.createResizeHandle(isLastColumn);
         col.affixElement.appendChild(affixHandle);
-        affixHandle.addEventListener('mousedown', (e) => this.onMouseDownColumn(e, col));
+        affixHandle.addEventListener('mousedown', (e) => this.onMouseDown(e, col));
       }
     });
   }
 
-  private onMouseDownColumn = (e: MouseEvent, column: ColumnConfig) => {
+  private onMouseDown = (e: MouseEvent, column: ColumnConfig) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -374,27 +347,6 @@ class TableResizable {
     const leafIndices = column.leafIndices || [];
 
     if (leafIndices.length === 0) return;
-
-    // Find the last non-disabled leaf column
-    let lastLeafIndex = this.leafColumns.length - 1;
-    while (lastLeafIndex >= 0 && this.leafColumns[lastLeafIndex]?.disabled) {
-      lastLeafIndex -= 1;
-    }
-
-    // Check if this column contains the last leaf column
-    const containsLastLeaf = leafIndices.includes(lastLeafIndex);
-
-    if (containsLastLeaf) {
-      const currentTableWidth = this.tableEl.offsetWidth;
-      // Calculate total width of all leaf columns in this parent
-      const totalWidth = leafIndices.reduce((sum, idx) => sum + (this.leafColumns[idx]?.element?.offsetWidth || 0), 0);
-      const totalMinWidth = leafIndices.reduce((sum, idx) => sum + (this.leafColumns[idx]?.minWidth || MIN_WIDTH), 0);
-
-      // Block drag if at minimum and table is smaller than container
-      if (totalWidth <= totalMinWidth && currentTableWidth < this.minTableWidth) {
-        return;
-      }
-    }
 
     // Store active column info
     (this as any).activeColumnConfig = column;
@@ -415,45 +367,6 @@ class TableResizable {
     this.startTableWidth = this.tableEl.offsetWidth;
 
     // Capture current widths of all leaf columns
-    this.columnsWidth = this.leafColumns.map((col) => col?.element?.offsetWidth || 0);
-
-    document.body.style.cursor = 'col-resize';
-    document.body.style.userSelect = 'none';
-  };
-
-  private onMouseDown = (e: MouseEvent, columnIndex: number) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const column = this.leafColumns[columnIndex];
-    if (column.disabled) {
-      return;
-    }
-
-    // Find the last non-disabled leaf column
-    let lastColumnIndex = this.leafColumns.length - 1;
-    while (lastColumnIndex >= 0 && this.leafColumns[lastColumnIndex]?.disabled) {
-      lastColumnIndex -= 1;
-    }
-
-    // If this is the last valid column, check if drag is allowed
-    if (columnIndex === lastColumnIndex) {
-      const currentTableWidth = this.tableEl.offsetWidth;
-      const currentColumnWidth = column.element?.offsetWidth || 0;
-
-      // Block drag when last column is at min width and table width is less than container
-      if (currentColumnWidth <= (column.minWidth || MIN_WIDTH) && currentTableWidth < this.minTableWidth) {
-        return;
-      }
-    }
-
-    this.activeColumn = columnIndex;
-    (this as any).activeColumnConfig = null;
-    (this as any).isParentDrag = false;
-    this.startX = e.pageX;
-    this.startWidth = column.element?.offsetWidth || 0;
-    this.startTableWidth = this.tableEl.offsetWidth;
-
     this.columnsWidth = this.leafColumns.map((col) => col?.element?.offsetWidth || 0);
 
     document.body.style.cursor = 'col-resize';
@@ -487,39 +400,7 @@ class TableResizable {
     }
 
     // Check if boundary is reached (column min/max constraint)
-    let reachedBoundary = actualWidth !== newWidth;
-
-    // Also check if table width constraint is reached
-    // When shrinking a column, if the table width would go below minTableWidth and we can't compensate
-    // by expanding the last column, we've reached a boundary
-    if (!reachedBoundary && diff < 0) {
-      // Find the last non-disabled leaf column
-      let lastColumnIndex = this.leafColumns.length - 1;
-      while (lastColumnIndex >= 0 && this.leafColumns[lastColumnIndex]?.disabled) {
-        lastColumnIndex -= 1;
-      }
-
-      const projectedTableWidth = this.startTableWidth + (actualWidth - this.startWidth);
-
-      if (projectedTableWidth < this.minTableWidth) {
-        // Table would be smaller than container, check if last column can compensate
-        if (lastColumnIndex === this.activeColumn) {
-          // This is the last column, can't shrink if already at table min width
-          reachedBoundary = true;
-        } else if (lastColumnIndex >= 0) {
-          // Check if last column can expand enough to compensate
-          const lastColumn = this.leafColumns[lastColumnIndex];
-          const lastColumnOriginalWidth = this.columnsWidth[lastColumnIndex];
-          const widthDeficit = this.minTableWidth - projectedTableWidth;
-          const lastColumnNewWidth = lastColumnOriginalWidth + widthDeficit;
-
-          // If last column would exceed its maxWidth, we've reached a boundary
-          if (lastColumn.maxWidth !== undefined && lastColumnNewWidth > lastColumn.maxWidth) {
-            reachedBoundary = true;
-          }
-        }
-      }
-    }
+    const reachedBoundary = actualWidth !== newWidth;
 
     if (reachedBoundary) {
       document.body.style.cursor = 'not-allowed';
@@ -529,70 +410,8 @@ class TableResizable {
 
     this.updateColumnWidth(this.activeColumn, actualWidth);
 
-    // Find the last non-disabled leaf column
-    let lastColumnIndex = this.leafColumns.length - 1;
-    while (lastColumnIndex >= 0 && this.leafColumns[lastColumnIndex]?.disabled) {
-      lastColumnIndex -= 1;
-    }
-
-    // Calculate new table width
-    let newTableWidth = this.startTableWidth + (actualWidth - this.startWidth);
-
-    // Handle last column adjustment logic
-    if (lastColumnIndex >= 0 && lastColumnIndex !== this.activeColumn) {
-      const lastColumn = this.leafColumns[lastColumnIndex];
-      const lastColumnOriginalWidth = this.columnsWidth[lastColumnIndex];
-
-      this.tableEl.style.width = `${newTableWidth}px`;
-      if (this.affixTableEl) {
-        this.affixTableEl.style.width = `${newTableWidth}px`;
-      }
-      if (this.affixFooterTableEl) {
-        this.affixFooterTableEl.style.width = `${newTableWidth}px`;
-      }
-      const isOverflow = this.isTableOverflow();
-      const widthDiff = newTableWidth - this.minTableWidth;
-
-      if (widthDiff < 0) {
-        const lastColumnNewWidth = lastColumnOriginalWidth - widthDiff;
-        let finalLastColumnWidth = lastColumnNewWidth;
-        if (lastColumn.minWidth !== undefined) {
-          finalLastColumnWidth = Math.max(finalLastColumnWidth, lastColumn.minWidth);
-        }
-        if (lastColumn.maxWidth !== undefined) {
-          finalLastColumnWidth = Math.min(finalLastColumnWidth, lastColumn.maxWidth);
-        }
-
-        this.updateColumnWidth(lastColumnIndex, finalLastColumnWidth);
-        newTableWidth =
-          this.startTableWidth + (actualWidth - this.startWidth) + (finalLastColumnWidth - lastColumnOriginalWidth);
-      } else if (isOverflow) {
-        this.updateColumnWidth(lastColumnIndex, lastColumnOriginalWidth);
-      } else {
-        this.updateColumnWidth(lastColumnIndex, lastColumnOriginalWidth);
-      }
-    } else if (lastColumnIndex >= 0 && lastColumnIndex === this.activeColumn) {
-      const widthDiff = newTableWidth - this.minTableWidth;
-      if (widthDiff < 0) {
-        const adjustedWidth = actualWidth - widthDiff;
-        let finalWidth = adjustedWidth;
-        if (col.minWidth !== undefined) {
-          finalWidth = Math.max(finalWidth, col.minWidth);
-        }
-        if (col.maxWidth !== undefined) {
-          finalWidth = Math.min(finalWidth, col.maxWidth);
-        }
-
-        if (finalWidth !== adjustedWidth) {
-          newTableWidth = Math.max(newTableWidth, this.minTableWidth);
-        } else {
-          this.updateColumnWidth(this.activeColumn, finalWidth);
-          newTableWidth = this.minTableWidth;
-        }
-      }
-    }
-
-    newTableWidth = Math.max(newTableWidth, this.minTableWidth);
+    // Calculate new table width - simply adjust by the column width change
+    const newTableWidth = this.startTableWidth + (actualWidth - this.startWidth);
     this.tableEl.style.width = `${newTableWidth}px`;
     if (this.affixTableEl) {
       this.affixTableEl.style.width = `${newTableWidth}px`;
@@ -627,38 +446,7 @@ class TableResizable {
     const actualTotalWidth = Math.max(totalMinWidth, Math.min(totalMaxWidth, newTotalWidth));
 
     // Check boundary (column min/max constraint)
-    let reachedBoundary = actualTotalWidth !== newTotalWidth;
-
-    // Also check if table width constraint is reached when shrinking
-    if (!reachedBoundary && diff < 0) {
-      // Find the last non-disabled leaf column
-      let lastLeafIndex = this.leafColumns.length - 1;
-      while (lastLeafIndex >= 0 && this.leafColumns[lastLeafIndex]?.disabled) {
-        lastLeafIndex -= 1;
-      }
-
-      const widthChange = actualTotalWidth - this.startWidth;
-      const projectedTableWidth = this.startTableWidth + widthChange;
-      const containsLastLeaf = leafIndices.includes(lastLeafIndex);
-
-      if (projectedTableWidth < this.minTableWidth) {
-        if (containsLastLeaf) {
-          // This parent contains the last column, can't shrink if already at table min width
-          reachedBoundary = true;
-        } else if (lastLeafIndex >= 0) {
-          // Check if last column can expand enough to compensate
-          const lastColumn = this.leafColumns[lastLeafIndex];
-          const lastColumnOriginalWidth = this.columnsWidth[lastLeafIndex];
-          const widthDeficit = this.minTableWidth - projectedTableWidth;
-          const lastColumnNewWidth = lastColumnOriginalWidth + widthDeficit;
-
-          // If last column would exceed its maxWidth, we've reached a boundary
-          if (lastColumn.maxWidth !== undefined && lastColumnNewWidth > lastColumn.maxWidth) {
-            reachedBoundary = true;
-          }
-        }
-      }
-    }
+    const reachedBoundary = actualTotalWidth !== newTotalWidth;
 
     if (reachedBoundary) {
       document.body.style.cursor = 'not-allowed';
@@ -700,51 +488,9 @@ class TableResizable {
       remainingWidth -= targetWidth;
     });
 
-    // Handle table width adjustment
+    // Handle table width adjustment - simply adjust by the total width change
     const widthChange = actualTotalWidth - this.startWidth;
-    let newTableWidth = this.startTableWidth + widthChange;
-
-    // Find the last non-disabled leaf column
-    let lastLeafIndex = this.leafColumns.length - 1;
-    while (lastLeafIndex >= 0 && this.leafColumns[lastLeafIndex]?.disabled) {
-      lastLeafIndex -= 1;
-    }
-
-    // If the dragged parent doesn't contain the last column, adjust last column
-    const containsLastLeaf = leafIndices.includes(lastLeafIndex);
-
-    if (!containsLastLeaf && lastLeafIndex >= 0) {
-      const lastColumn = this.leafColumns[lastLeafIndex];
-      const lastColumnOriginalWidth = this.columnsWidth[lastLeafIndex];
-
-      this.tableEl.style.width = `${newTableWidth}px`;
-      if (this.affixTableEl) {
-        this.affixTableEl.style.width = `${newTableWidth}px`;
-      }
-      if (this.affixFooterTableEl) {
-        this.affixFooterTableEl.style.width = `${newTableWidth}px`;
-      }
-      const widthDiff = newTableWidth - this.minTableWidth;
-
-      if (widthDiff < 0) {
-        // Table is narrower than container, expand last column
-        const lastColumnNewWidth = lastColumnOriginalWidth - widthDiff;
-        let finalLastColumnWidth = lastColumnNewWidth;
-        if (lastColumn.minWidth !== undefined) {
-          finalLastColumnWidth = Math.max(finalLastColumnWidth, lastColumn.minWidth);
-        }
-        if (lastColumn.maxWidth !== undefined) {
-          finalLastColumnWidth = Math.min(finalLastColumnWidth, lastColumn.maxWidth);
-        }
-
-        this.updateColumnWidth(lastLeafIndex, finalLastColumnWidth);
-        newTableWidth = this.startTableWidth + widthChange + (finalLastColumnWidth - lastColumnOriginalWidth);
-      } else {
-        this.updateColumnWidth(lastLeafIndex, lastColumnOriginalWidth);
-      }
-    }
-
-    newTableWidth = Math.max(newTableWidth, this.minTableWidth);
+    const newTableWidth = this.startTableWidth + widthChange;
     this.tableEl.style.width = `${newTableWidth}px`;
     if (this.affixTableEl) {
       this.affixTableEl.style.width = `${newTableWidth}px`;
@@ -784,13 +530,12 @@ class TableResizable {
       columns.forEach((col) => {
         if (col?.disabled) return;
 
-        // Update this column's handle if it exists
         if (col.element) {
           const handle = col.element.getElementsByClassName(this.handleClass)[0] as HTMLElement;
           if (handle && col.isLeaf) {
             const leafIndex = col.leafIndices?.[0];
             if (leafIndex !== undefined) {
-              this.updateHandleCursor(leafIndex, handle);
+              handle.style.cursor = 'col-resize';
             }
           }
         }
