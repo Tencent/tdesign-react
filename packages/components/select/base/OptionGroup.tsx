@@ -35,7 +35,6 @@ const OptionGroup: React.FC<SelectGOptionGroupProps> = (props) => {
       {children}
     </li>
   );
-  return;
 };
 
 export default OptionGroup;
