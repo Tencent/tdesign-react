@@ -357,18 +357,26 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const renderFixedHeader = () => {
     if (!showHeader) return null;
     // 两类场景：1. 虚拟滚动，永久显示表头，直到表头消失在可视区域； 2. 表头吸顶，根据滚动情况判断是否显示吸顶表头
-    const headerOpacity = headerAffixedTop ? Number(showAffixHeader) : 1;
+    // Use visibility instead of opacity to avoid creating a new stacking context
+    // which would prevent fixed column z-index from working correctly
+    // showAffixHeader: true = 需要显示吸顶表头（原始表头已滚出可视区域）
+    // showAffixHeader: false = 不需要显示吸顶表头（原始表头还在可视区域内）
+    const headerVisibility = showAffixHeader ? 'visible' : 'hidden';
+    console.log('showAffixHeader', showAffixHeader);
     const barWidth = isWidthOverflow ? scrollbarWidth : 0;
     const affixHeaderWrapHeight = affixHeaderHeight - barWidth;
     const affixHeaderWrapHeightStyle = {
       width: `${tableWidth.current}px`,
       height: `${affixHeaderWrapHeight}px`,
-      opacity: headerOpacity,
+      visibility: headerVisibility as 'visible' | 'hidden',
     };
     const affixedHeader = Boolean((headerAffixedTop || virtualConfig.isVirtualScroll) && tableWidth.current) && (
       <div
         ref={affixHeaderRef}
-        style={{ width: `${tableWidth.current - affixedLeftBorder - barWidth}px`, opacity: headerOpacity }}
+        style={{
+          width: `${tableWidth.current - affixedLeftBorder - barWidth}px`,
+          visibility: headerVisibility as 'visible' | 'hidden',
+        }}
         className={classNames([
           'scrollbar',
           {
