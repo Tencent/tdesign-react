@@ -121,11 +121,6 @@ const Select = forwardRefWithStatics(
       if (disabled) return;
       visible ? toggleIsScrolling(false) : onInputChange('', { trigger: 'blur' });
       setInnerPopupVisible(visible, ctx);
-      if (visible && isFunction(onSearch) && !inputValue) {
-        // @ts-ignore
-        // 实际是由 click 触发而非键盘事件，待补充类型
-        onSearch('', { e: ctx.e });
-      }
     };
 
     const { currentOptions, setCurrentOptions, tmpPropOptions, valueToOption, selectedOptions, flattenedOptions } =
