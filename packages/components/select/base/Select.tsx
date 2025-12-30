@@ -10,11 +10,11 @@ import React, {
 } from 'react';
 import classNames from 'classnames';
 import { debounce, get, isFunction } from 'lodash-es';
-import { composeRefs } from '../../_util/ref';
 import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
 import { getOffsetTopToContainer } from '../../_util/helper';
 import noop from '../../_util/noop';
 import { parseContentTNode } from '../../_util/parseTNode';
+import { composeRefs } from '../../_util/ref';
 import FakeArrow from '../../common/FakeArrow';
 import useConfig from '../../hooks/useConfig';
 import useControlled from '../../hooks/useControlled';
@@ -444,7 +444,6 @@ const Select = forwardRefWithStatics(
             const targetVal = get(selectedOptions[index], valueKey);
             const targetLabel = get(selectedOptions[index], labelKey);
             const targetOption = valueToOption[targetVal];
-            if (!targetOption) return null;
             return (
               <Tag
                 key={index}
