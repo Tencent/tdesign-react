@@ -1,6 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, MessagePlugin, Space, Select } from 'tdesign-react';
-import type { FormProps } from 'tdesign-react';
+import { Button, Form, Input, Select, Space } from 'tdesign-react';
 
 interface ICourseSelect {
   value?: {
@@ -30,10 +29,17 @@ function CourseSelect(props: ICourseSelect) {
         ]}
         value={value?.type}
         onChange={(v) => {
+          // type 改变时，清空 name
           onChange?.({
-            ...value,
             type: v as string,
+            name: '',
           });
+
+          // type 改变时，保留 name
+          // onChange?.({
+          //   ...value,
+          //   type: v as string,
+          // });
         }}
         placeholder="请选择课程类型"
       />
@@ -54,21 +60,23 @@ function CourseSelect(props: ICourseSelect) {
 export default function BaseForm() {
   const [form] = Form.useForm();
 
-  const onSubmit: FormProps['onSubmit'] = (e) => {
-    console.log(e);
-    if (e.validateResult === true) {
-      MessagePlugin.info('提交成功');
-    }
-  };
-
   return (
-    <Form form={form} onSubmit={onSubmit} colon labelWidth={100}>
+    <Form form={form} colon labelWidth={100}>
       <FormItem label="课程" name="course">
         <CourseSelect />
       </FormItem>
       <FormItem style={{ marginLeft: 100 }}>
-        <Button type="submit" theme="primary">
-          提交
+        <Button
+          onClick={() => {
+            form.setFieldsValue({
+              course: {
+                type: 'math',
+                name: '线性代数',
+              },
+            });
+          }}
+        >
+          设置数据
         </Button>
       </FormItem>
     </Form>
