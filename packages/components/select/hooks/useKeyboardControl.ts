@@ -59,7 +59,7 @@ export default function useKeyboardControl({
       changeHoverIndex(-1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [innerPopupVisible]);
+  }, [innerPopupVisible, displayOptions]);
 
   useEffect(() => {
     if (!Array.isArray(value)) return;

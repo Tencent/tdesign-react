@@ -5,6 +5,19 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.16.2 `2025-12-30` 
+
+### 🐞 Bug Fixes
+- `Popup`: 
+  - 修复 `1.16.0` 版本的重构导致开启 `'trigger='hover'` 且外部元素动态更新时，弹窗意外被关闭的问题 @RylanBot ([#4046](https://github.com/Tencent/tdesign-react/pull/4046))
+  - 修复 `1.16.0` 版本的重构导致弹窗在某些场景下位置不稳定的问题 @xiaody ([#4046](https://github.com/Tencent/tdesign-react/pull/4046))
+  - 完善 `1.16.0` 版本中关于空间不足时箭头偏移的优化方案 @RylanBot ([#4042](https://github.com/Tencent/tdesign-react/pull/4042))
+- `Select`: 
+  - 修复 `valueDisplay` 的 `onClose` 回调函数读取到 `undefined` 的问题 @RSS1102 ([#4047](https://github.com/Tencent/tdesign-react/pull/4047))
+  - 修复 `1.15.7` 版本后，开启 `multiple` 时，不在 `options` 里的 `value` 无法渲染的问题 @RylanBot ([#4037](https://github.com/Tencent/tdesign-react/pull/4037))
+  - 修复开启 `filterable` 后，选项变化但键盘导航高亮项未更新的问题 @RylanBot ([#4037](https://github.com/Tencent/tdesign-react/pull/4037))
+
+
 ## 🌈 1.16.1 `2025-12-22` 
 ### 🐞 Bug Fixes
 - `Textarea`: 修复使用 `defaultValue` 或 `readonly` 产生的警告问题 @RylanBot ([#4019](https://github.com/Tencent/tdesign-react/pull/4019))
