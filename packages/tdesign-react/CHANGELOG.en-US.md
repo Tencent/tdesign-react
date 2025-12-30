@@ -5,6 +5,18 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.16.2 `2025-12-30` 
+
+### 🐞 Bug Fixes
+- `Popup`: 
+  - Fixed an issue where the popup would unexpectedly close when `'trigger='hover'` was enabled and external elements were dynamically updated, due to the restructuring in version `1.16.0` @RylanBot ([#4046](https://github.com/Tencent/tdesign-react/pull/4046))
+  - Fixed an issue where the position of the popup became unstable in certain scenarios after the restructuring in version `1.16.0` @xiaody ([#4046](https://github.com/Tencent/tdesign-react/pull/4046))
+  - Improved the optimization for arrow offset when there is not enough space, implemented in version `1.16.0` @RylanBot ([#4042](https://github.com/Tencent/tdesign-react/pull/4042))
+- `Select`: 
+  - Fixed an issue where the `onClose` callback function of `valueDisplay` would receive `undefined` as a value @RSS1102 ([#4047](https://github.com/Tencent/tdesign-react/pull/4047))
+  - Fixed an issue where values that were not included in the `options` list could not be rendered when the `multiple` option was enabled after version `1.15.7` @RylanBot ([#4037](https://github.com/Tencent/tdesign-react/pull/4037))
+  - Fixed an issue where, after the `filterable` option was enabled, the highlighted items in the keyboard navigation would not update even when the options changed @RylanBot ([#4037](https://github.com/Tencent/tdesign-react/pull/4037))
+
 ## 🌈 1.16.1 `2025-12-22` 
 ### 🐞 Bug Fixes
 - `Textarea`: Fixed warning issues caused by using `defaultValue` or `readonly` @RylanBot ([#4019](https://github.com/Tencent/tdesign-react/pull/4019))
