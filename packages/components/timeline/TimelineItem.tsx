@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import classNames from 'classnames';
 import { omit } from 'lodash-es';
 import { TdTimelineItemProps } from './type';
@@ -55,17 +55,6 @@ const TimelineItem: React.FC<TimelineItemProps> = (props) => {
     return '';
   };
 
-  const dotElement = useMemo(() => {
-    const ele = parseTNode(dot);
-
-    if (React.isValidElement(ele)) {
-      return React.cloneElement<any>(ele, {
-        className: classNames((ele as any)?.props?.className, `${classPrefix}-timeline-item__dot-content`),
-      });
-    }
-    return ele;
-  }, [dot, classPrefix]);
-
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     onClick?.({ e, item: omit(props, ['children', 'index', 'onClick']) });
   };
@@ -86,25 +75,36 @@ const TimelineItem: React.FC<TimelineItemProps> = (props) => {
     [`${classPrefix}-timeline-item__tail--status-${itemsStatus[index]}`]: reverse,
   });
 
-  // 圆圈类名
-  const dotClassName = classNames({
-    [`${classPrefix}-timeline-item__dot`]: true,
-    [`${classPrefix}-timeline-item__dot--custom`]: !!dotElement || (!dotElement && loading),
-    [`${classPrefix}-timeline-item__dot--${dotColor}`]: DefaultTheme.includes(dotColor),
-  });
-
   const labelClassName = classNames(`${classPrefix}-timeline-item__label`, {
     [`${classPrefix}-timeline-item__label--${mode}`]: true,
   });
 
+  const renderDotContent = () => {
+    const dotContent = parseTNode(dot);
+    const isLoading = !dotContent && loading;
+
+    return (
+      <div
+        className={classNames({
+          [`${classPrefix}-timeline-item__dot`]: true,
+          [`${classPrefix}-timeline-item__dot--custom`]: !!dotContent || isLoading,
+          [`${classPrefix}-timeline-item__dot--${dotColor}`]: DefaultTheme.includes(dotColor),
+        })}
+        style={{ borderColor: !DefaultTheme.includes(dotColor) && dotColor }}
+      >
+        {dotContent || isLoading ? (
+          <div className={classNames(`${classPrefix}-timeline-item__dot-content`)}>
+            {isLoading ? <Loading size="12px"></Loading> : dotContent}
+          </div>
+        ) : null}
+      </div>
+    );
+  };
   return (
     <li className={itemClassName} style={style} onClick={handleClick}>
       {mode === 'alternate' && label && <div className={labelClassName}>{label}</div>}
       <div className={`${classPrefix}-timeline-item__wrapper`}>
-        <div className={dotClassName} style={{ borderColor: !DefaultTheme.includes(dotColor) && dotColor }}>
-          {!dotElement && loading && <Loading size="12px" className={`${classPrefix}-timeline-item__dot-content`} />}
-          {dotElement}
-        </div>
+        {renderDotContent()}
         <div className={tailClassName} />
       </div>
       <div className={`${classPrefix}-timeline-item__content`}>
