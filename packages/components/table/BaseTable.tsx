@@ -5,7 +5,6 @@ import React, { forwardRef, RefAttributes, useEffect, useImperativeHandle, useMe
 import log from '@tdesign/common-js/log/index';
 import { getIEVersion } from '@tdesign/common-js/utils/helper';
 import Affix, { type AffixRef } from '../affix';
-import useDebounce from '../hooks/useDebounce';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useElementLazyRender from '../hooks/useElementLazyRender';
 import useResizeObserver from '../hooks/useResizeObserver';
@@ -32,6 +31,9 @@ import type { TableRowData } from './type';
 
 export const BASE_TABLE_EVENTS = ['page-change', 'cell-click', 'scroll', 'scrollX', 'scrollY'];
 export const BASE_TABLE_ALL_EVENTS = ROW_LISTENERS.map((t) => `row-${t}`).concat(BASE_TABLE_EVENTS);
+
+// IE 浏览器需要遮挡 header 吸顶滚动条，要减去 getBoundingClientRect.height 的滚动条高度 4 像素
+const IE_HEADER_WRAP = getIEVersion() <= 11 ? 4 : 0;
 
 export interface TableListeners {
   [key: string]: Function;
@@ -60,7 +62,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const affixTableElmRef = useRef<HTMLTableElement>(null);
   const affixFooterTableElmRef = useRef<HTMLTableElement>(null);
 
+  const [affixHeaderHeight, setAffixHeaderHeight] = useState(0);
   const [tableFootHeight, setTableFootHeight] = useState(0);
+  const [dividerBottom, setDividerBottom] = useState(0);
 
   const allTableClasses = useClassName();
   const { classPrefix, virtualScrollClasses, tableLayoutClasses, tableBaseClass, tableColFixedClasses } =
@@ -120,8 +124,17 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     headerTopAffixRef,
     footerBottomAffixRef,
   });
-  const debouncedRefreshTable = useDebounce(refreshTable, 100);
-  useResizeObserver(tableRef, debouncedRefreshTable);
+
+  useResizeObserver(
+    tableRef,
+    () => {
+      refreshTable();
+      scrolledRef.current = false;
+    },
+    {
+      debounce: 100,
+    },
+  );
 
   const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination(props, tableContentRef);
 
@@ -158,7 +171,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     [isFixedHeader, isMultipleHeader, isWidthOverflow, props.bordered],
   );
 
-  const [dividerBottom, setDividerBottom] = useState(0);
   useEffect(() => {
     if (!bordered) return;
     const bottomRect = bottomContentRef.current?.getBoundingClientRect();
@@ -287,7 +299,14 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
   useEffect(getTFootHeight, [tableElmRef, props.footData, props.footerSummary, thWidthList]);
 
-  const newData = isPaginateData ? dataSource : data;
+  useEffect(() => {
+    const updateAffixHeaderHeight = () => {
+      const height = affixHeaderRef.current?.getBoundingClientRect().height - IE_HEADER_WRAP;
+      setAffixHeaderHeight(height || 0);
+    };
+    updateAffixHeaderHeight();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [thWidthList]);
 
   const renderColGroup = (isFixedHeader = true) => (
     <colgroup>
@@ -307,9 +326,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     </colgroup>
   );
 
-  // IE浏览器需要遮挡header吸顶滚动条，要减去getBoundingClientRect.height的滚动条高度4像素
-  const IEHeaderWrap = getIEVersion() <= 11 ? 4 : 0;
-  const affixHeaderHeight = (affixHeaderRef.current?.getBoundingClientRect().height || 0) - IEHeaderWrap;
   const theadStyle = useMemo(
     () => (showAffixHeader && affixHeaderHeight ? { opacity: 0 } : undefined),
     [affixHeaderHeight, showAffixHeader],
@@ -479,7 +495,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     ellipsisOverlayClassName: props.size !== 'medium' ? sizeClassNames[props.size] : '',
     rowAndColFixedPosition,
     showColumnShadow,
-    data: newData,
+    data: isPaginateData ? dataSource : data,
     virtualConfig,
     handleRowMounted: virtualConfig.handleRowMounted,
     columns: spansAndLeafNodes?.leafColumns || columns,
@@ -757,7 +773,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     // 初始化时依赖 virtualStyle.transform 判断是否稳定
     // 滚动后不再触发
     if (!table || !showElement || !virtualConfig.isVirtualScroll || scrolledRef.current) return;
-    debouncedRefreshTable();
+    refreshTable();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showElement, virtualConfig.isVirtualScroll, virtualStyle.transform]);
 
