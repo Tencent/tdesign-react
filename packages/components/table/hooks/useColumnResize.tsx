@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import useConfig from '../../hooks/useConfig';
 import useDeepEffect from '../../hooks/useDeepEffect';
 import TableResizable from './TableResizable';
@@ -28,6 +28,8 @@ function useColumnResize(
 ) {
   const { classPrefix } = useConfig();
   const resizableRef = useRef<TableResizable | null>(null);
+  // Track whether user has triggered resize operation
+  const [hasResized, setHasResized] = useState(false);
 
   const cleanUp = () => {
     resizableRef.current?.destroy();
@@ -43,6 +45,8 @@ function useColumnResize(
       columns,
       {
         onMouseMove: (_, ctx) => {
+          // Mark that user has triggered resize
+          setHasResized(true);
           updateTableAfterColumnResize();
           updateThWidthList?.(ctx.columnsWidth);
         },
@@ -54,6 +58,8 @@ function useColumnResize(
       cleanUp();
     };
   }, [classPrefix, columns, enable, tableElement, affixTableElement, affixFooterTableElement]);
+
+  return { hasResized };
 }
 
 export default useColumnResize;

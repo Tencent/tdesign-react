@@ -139,7 +139,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination(props, tableContentRef);
 
   // 列宽拖拽逻辑
-  useColumnResize(tableElmRef.current, {
+  const { hasResized } = useColumnResize(tableElmRef.current, {
     enable: resizable,
     columns,
     affixTableElement: affixTableElmRef.current,
@@ -311,8 +311,11 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const renderColGroup = (isFixedHeader = true) => (
     <colgroup>
       {finalColumns.map((col, index) => {
+        // For resizable mode: only use thWidthList width if user has triggered resize
+        // Otherwise, let the table use natural column sizing from col.width
+        const useThWidth = isFixedHeader || (resizable && hasResized);
         const style: Styles = {
-          width: formatCSSUnit((isFixedHeader || resizable ? thWidthList[col.colKey] : undefined) || col.width),
+          width: formatCSSUnit((useThWidth ? thWidthList[col.colKey] : undefined) || col.width),
         };
         if (col.minWidth) {
           style.minWidth = formatCSSUnit(col.minWidth);

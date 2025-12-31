@@ -274,11 +274,9 @@ class TableResizable {
   private init(): void {
     this.initColumnsWidth();
 
-    this.leafColumns.forEach((col, index) => {
-      if (col?.width && col?.element) {
-        this.updateColumnWidth(index, col.width);
-      }
-    });
+    // Note: We intentionally do NOT set column widths during initialization.
+    // This allows the table to maintain its natural responsive behavior.
+    // Column widths will only be explicitly set after user triggers a resize action.
 
     // Add resize handles to all columns (both leaf and parent)
     this.initResizeHandles(this.columns);
