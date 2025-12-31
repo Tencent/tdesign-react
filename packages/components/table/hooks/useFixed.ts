@@ -344,14 +344,13 @@ export default function useFixed(
     }
   };
 
-  // 使用 useCallback 来优化性能
   const updateFixedHeader = useCallback(() => {
     const tRef = tableContentRef?.current;
     if (!tRef) return;
 
     const isHeightOverflow = tRef.scrollHeight > tRef.clientHeight;
     setIsFixedHeader(isHeightOverflow);
-    setIsWidthOverflow(tRef.scrollWidth > tRef.clientWidth);
+    // setIsWidthOverflow(tRef.scrollWidth > tRef.clientWidth);
     const pos = tRef?.getBoundingClientRect?.();
     setVirtualScrollHeaderPos({
       top: pos?.top,
@@ -531,6 +530,7 @@ export default function useFixed(
   const updateTableAfterColumnResize = () => {
     updateFixedStatus();
     updateFixedHeader();
+    updateTableWidth();
   };
 
   return {

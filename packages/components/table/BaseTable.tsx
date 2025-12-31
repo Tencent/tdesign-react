@@ -166,10 +166,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     { [tableBaseClass.fullHeight]: height },
   ]);
 
-  const showRightDivider = useMemo(
-    () => props.bordered && isFixedHeader && ((isMultipleHeader && isWidthOverflow) || !isMultipleHeader),
-    [isFixedHeader, isMultipleHeader, isWidthOverflow, props.bordered],
-  );
+  const showRightDivider = useMemo(() => bordered && isFixedHeader, [isFixedHeader, bordered]);
 
   useEffect(() => {
     if (!bordered) return;
@@ -180,11 +177,11 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   }, [bottomContentRef, paginationRef, bordered]);
 
   useEffect(() => {
-    setData(isPaginateData ? dataSource : props.data);
+    setData(isPaginateData ? dataSource : data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.data, dataSource, isPaginateData]);
+  }, [data, dataSource, isPaginateData]);
 
-  const [lastLeafColumns, setLastLeafColumns] = useState(props.columns || []);
+  const [lastLeafColumns, setLastLeafColumns] = useState(columns || []);
 
   useEffect(() => {
     if (lastLeafColumns.map((t) => t.colKey).join() !== spansAndLeafNodes.leafColumns.map((t) => t.colKey).join()) {
@@ -372,7 +369,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   ];
 
   // 多级表头左边线缺失
-  const affixedLeftBorder = props.bordered ? 1 : 0;
+  const borderWidth = props.bordered ? 1 : 0;
 
   /**
    * Affixed Header
@@ -386,7 +383,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     // 两类场景：1. 虚拟滚动，永久显示表头，直到表头消失在可视区域； 2. 表头吸顶，根据滚动情况判断是否显示吸顶表头
     const headerOpacity = headerAffixedTop ? Number(showAffixHeader) : 1;
     const opacity = headerOpacity < 1 ? { opacity: headerOpacity } : {};
-    const affixHeaderWrapHeightStyle = {
+    const affixHeaderWrapHeightStyle: Styles = {
       // width: '100%',
       width: `${tableWidth}px`,
       height: `${affixHeaderWrapHeight}px`,
@@ -397,7 +394,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     const affixedHeader = Boolean((headerAffixedTop || virtualConfig.isVirtualScroll) && tableWidth) && (
       <div
         ref={affixHeaderRef}
-        style={{ width: `${tableWidth - affixedLeftBorder}px`, ...opacity }}
+        style={{ width: `${tableWidth - borderWidth}px`, overflow: 'hidden', ...opacity }}
         className={classNames([
           'scrollbar',
           {
@@ -410,7 +407,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
           className={classNames(tableElmClasses)}
           style={{
             ...tableElementStyles,
-            width: hasResized && isWidthOverflow && tableElmWidth ? `${tableElmWidth}px` : tableElementStyles.width,
+            width: hasResized && tableElmWidth ? `${tableElmWidth}px` : tableElementStyles.width,
           }}
         >
           {renderColGroup(true)}
@@ -453,9 +450,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
    */
   const renderAffixedFooter = () => {
     let marginScrollbarWidth = isWidthOverflow ? scrollbarWidth : 0;
-    if (bordered) {
-      marginScrollbarWidth += 1;
-    }
+    marginScrollbarWidth += borderWidth;
     // Hack: Affix 组件，marginTop 临时使用 负 margin 定位位置
     const totalMarginTop = tableFootHeight + marginScrollbarWidth;
     const affixedFooter = Boolean(
@@ -471,7 +466,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       >
         <div
           ref={affixFooterRef}
-          style={{ width: `${tableWidth - affixedLeftBorder}px`, opacity: Number(showAffixFooter) }}
+          style={{ width: `${tableWidth - borderWidth}px`, overflow: 'hidden', opacity: Number(showAffixFooter) }}
           className={classNames([
             'scrollbar',
             { [tableBaseClass.affixedFooterElm]: props.footerAffixedBottom || virtualConfig.isVirtualScroll },
@@ -530,6 +525,15 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     MozTransform: translate,
     WebkitTransform: translate,
   };
+  const mergedTableContentStyles = useMemo(() => {
+    const styles: Styles = { ...tableContentStyles };
+    // When fixed header and resized, add scrollbar width to content width to prevent extra horizontal scrollbar
+    if (hasResized && isFixedHeader && tableElmWidth) {
+      styles.width = `${tableElmWidth + scrollbarWidth}px`;
+    }
+    return styles;
+  }, [tableContentStyles, hasResized, isFixedHeader, tableElmWidth, scrollbarWidth]);
+
   const tableContent = (
     <div
       ref={(el) => {
@@ -537,7 +541,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         setTableContentRef(el);
       }}
       className={tableBaseClass.content}
-      style={tableContentStyles}
+      style={mergedTableContentStyles}
       onScroll={onInnerVirtualScroll}
     >
       {virtualConfig.isVirtualScroll && <div className={virtualScrollClasses.cursor} style={virtualStyle} />}
@@ -547,7 +551,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         className={classNames(tableElmClasses)}
         style={{
           ...tableElementStyles,
-          width: resizable && isWidthOverflow && tableElmWidth ? `${tableElmWidth}px` : tableElementStyles.width,
+          width: hasResized && tableElmWidth ? `${tableElmWidth}px` : tableElementStyles.width,
         }}
       >
         {renderColGroup(false)}
@@ -572,7 +576,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
             tableRef,
             tableContentRef,
             tableWidth,
-            isWidthOverflow,
+            // isWidthOverflow,
             virtualConfig,
             props.rowKey,
             props.rowClassName,
@@ -658,7 +662,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       tableWidth,
       tableElmWidth,
       affixHeaderRef,
-      affixedLeftBorder,
+      borderWidth,
       tableElmClasses,
       tableElementStyles,
       columns,
@@ -683,9 +687,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       tableElementStyles,
       tableElmWidth,
       affixFooterRef,
-      affixedLeftBorder,
-      bordered,
-      isWidthOverflow,
+      borderWidth,
+      // isWidthOverflow,
       scrollbarWidth,
       tableElmClasses,
       tableFootHeight,
@@ -794,19 +797,18 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     <div ref={tableRef}></div>;
   }
 
-  const tableContainerStyle = useMemo(() => {
+  const tableStyle = useMemo(() => {
     const baseStyle: Styles = { position: 'relative', ...style };
-    // When user has resized columns and table width is available, sync the width to container
     if (hasResized && tableElmWidth) {
-      // Subtract scrollbar width when fixed header exists to avoid horizontal overflow
-      const reduceWidth = isFixedHeader ? scrollbarWidth : 0;
-      baseStyle.width = `${tableElmWidth + reduceWidth}px`;
+      let extraWidth = isFixedHeader ? scrollbarWidth : 0;
+      extraWidth += borderWidth;
+      baseStyle.width = `${tableElmWidth + extraWidth}px`;
     }
     return baseStyle;
-  }, [style, hasResized, tableElmWidth, isFixedHeader, scrollbarWidth]);
+  }, [style, hasResized, tableElmWidth, isFixedHeader, scrollbarWidth, borderWidth]);
 
   return (
-    <div ref={tableRef} className={classNames(dynamicBaseTableClasses)} style={tableContainerStyle}>
+    <div ref={tableRef} className={classNames(dynamicBaseTableClasses)} style={tableStyle}>
       {tableElements}
     </div>
   );

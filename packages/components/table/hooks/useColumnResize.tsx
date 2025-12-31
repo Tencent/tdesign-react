@@ -5,7 +5,7 @@ import TableResizable from './TableResizable';
 
 import type { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
 
-type Options = {
+type ResizeOptions = {
   enable: boolean;
   columns: BaseTableCol<TableRowData>[];
   affixTableElement?: HTMLTableElement | null;
@@ -24,11 +24,10 @@ function useColumnResize(
     affixFooterTableElement,
     updateThWidthList,
     updateTableAfterColumnResize,
-  }: Options,
+  }: ResizeOptions,
 ) {
   const { classPrefix } = useConfig();
   const resizableRef = useRef<TableResizable | null>(null);
-  // Track whether user has triggered resize operation
   const [hasResized, setHasResized] = useState(false);
 
   const cleanUp = () => {
@@ -45,7 +44,6 @@ function useColumnResize(
       columns,
       {
         onMouseMove: (_, ctx) => {
-          // Mark that user has triggered resize
           setHasResized(true);
           updateTableAfterColumnResize();
           updateThWidthList?.(ctx.columnsWidth);

@@ -305,6 +305,7 @@ const TableDemo: React.FC<TableDemoProps> = ({
 
   return (
     <Table
+      bordered
       rowKey="id"
       data={computedProps.tableRows}
       footData={computedProps.footRows}
@@ -352,7 +353,6 @@ export default function App() {
     <div
     //  style={{ width: 1400 }}
     >
-      <style>{`body{margin:8px}`}</style>
       <TableDemo
         onClickCallback={showDialog}
         tableMaxHeight={tableMaxHeight}
