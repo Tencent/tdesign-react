@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
-import React, { type CSSProperties, type MutableRefObject, type ReactNode, useMemo } from 'react';
 import classNames from 'classnames';
 import { camelCase, get, pick } from 'lodash-es';
+import React, { type CSSProperties, type MutableRefObject, type ReactNode, useMemo } from 'react';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TableClassName } from './hooks/useClassName';
 import useRowspanAndColspan from './hooks/useRowspanAndColspan';
@@ -21,7 +21,7 @@ export interface TableBodyProps extends BaseTableProps {
   tableRef?: MutableRefObject<HTMLDivElement>;
   tableContentRef?: MutableRefObject<HTMLDivElement>;
   cellEmptyContent: TdBaseTableProps['cellEmptyContent'];
-  tableWidth?: MutableRefObject<number>;
+  tableWidth?: number;
   isWidthOverflow?: boolean;
   virtualConfig: VirtualScrollConfig;
   pagination?: PaginationProps;
@@ -95,7 +95,7 @@ export default function TBody(props: TableBodyProps) {
       <td colSpan={columns.length}>
         <div
           className={classNames([tableBaseClass.empty, { [tableFullRowClasses.innerFullRow]: props.isWidthOverflow }])}
-          style={props.isWidthOverflow ? { width: `${props.tableWidth.current}px` } : {}}
+          style={props.isWidthOverflow ? { width: `${props.tableWidth}px` } : {}}
         >
           {props.empty || t(global.empty)}
         </div>
@@ -139,7 +139,7 @@ export default function TBody(props: TableBodyProps) {
         <td colSpan={columns.length}>
           <div
             className={classNames({ [tableFullRowClasses.innerFullRow]: isFixedToLeft }) || undefined}
-            style={isFixedToLeft ? { width: `${props.tableWidth.current}px` } : {}}
+            style={isFixedToLeft ? { width: `${props.tableWidth}px` } : {}}
           >
             <div className={tableFullRowClasses.innerFullElement}>{fullRowNode}</div>
           </div>
@@ -153,7 +153,7 @@ export default function TBody(props: TableBodyProps) {
       row,
       index: rowIndex,
       columns,
-      tableWidth: props.tableWidth.current,
+      tableWidth: props.tableWidth,
       isWidthOverflow: props.isWidthOverflow,
     };
     return props.renderExpandedRow?.(p);

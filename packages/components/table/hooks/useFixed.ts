@@ -108,8 +108,8 @@ export default function useFixed(
     left: 0,
     top: 0,
   });
-  const tableWidth = useRef(0);
-  const tableElmWidth = useRef(0);
+  const [tableWidth, setTableWidth] = useState(0);
+  const [tableElmWidth, setTableElmWidth] = useState(0);
   const [thWidthList, setThWidthList] = useState<{ [colKey: string]: number }>({});
 
   const [isFixedColumn, setIsFixedColumn] = useState(false);
@@ -359,9 +359,8 @@ export default function useFixed(
     });
   }, []);
 
-  const setTableElmWidth = (width: number) => {
-    if (tableElmWidth.current === width) return;
-    tableElmWidth.current = width;
+  const updateTableElmWidth = (width: number) => {
+    setTableElmWidth((prev) => (prev === width ? prev : width));
   };
 
   const updateTableWidth = () => {
@@ -369,10 +368,11 @@ export default function useFixed(
     if (!rect) return;
     // 存在纵向滚动条，且固定表头时，需去除滚动条宽度
     const reduceWidth = isFixedHeader ? scrollbarWidth : 0;
-    tableWidth.current = rect.width - reduceWidth - (props.bordered ? 1 : 0);
+    const newTableWidth = rect.width - reduceWidth - (props.bordered ? 1 : 0);
+    setTableWidth((prev) => (prev === newTableWidth ? prev : newTableWidth));
     const elmRect = tableElmRef?.current?.getBoundingClientRect();
     if (elmRect?.width) {
-      setTableElmWidth(elmRect?.width);
+      updateTableElmWidth(elmRect?.width);
     }
   };
 
@@ -461,7 +461,7 @@ export default function useFixed(
       // 使用不包含滚动条的可视化区域宽度，意味着当不再溢出的时候，将宽度设置回完整宽度
       const contentWidth = tableContentRef.current.clientWidth;
       const widthToReserve = oldTotalWidth - reduceWidth;
-      setTableElmWidth(Math.max(contentWidth, widthToReserve));
+      updateTableElmWidth(Math.max(contentWidth, widthToReserve));
     }
   };
 
@@ -548,7 +548,7 @@ export default function useFixed(
     scrollbarWidth,
     setData,
     refreshTable,
-    setTableElmWidth,
+    setTableElmWidth: updateTableElmWidth,
     emitScrollEvent,
     updateThWidthListHandler,
     updateColumnFixedShadow,
