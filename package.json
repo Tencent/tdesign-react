@@ -127,7 +127,7 @@
     "react-router-dom": "^6.2.2",
     "resize-observer-polyfill": "^1.5.1",
     "rimraf": "^6.0.1",
-    "rollup": "^2.74.1",
+    "rollup": "^4.54.0",
     "rollup-plugin-analyzer": "^4.0.0",
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-esbuild": "^4.9.1",
