@@ -5,6 +5,15 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.16.3 `2026-01-04` 
+
+### 🐞 Bug Fixes
+- `Dialog`: 修复 `1.16.0` 的优化导致无法使用 `esc` 键关闭嵌套对话框的问题 @RylanBot ([#4030](https://github.com/Tencent/tdesign-react/pull/4030))
+- `Popup`: @RylanBot ([#4057](https://github.com/Tencent/tdesign-react/pull/4057))
+  - 修复 `1.16.0` 版本的重构导致 `trigger` 为 SVG 等元素时弹出层无法出现的问题 
+  - 修复 `1.16.0` 版本的重构导致 `trigger` 被 `disabled` 依旧能触发弹出层的问题
+
+
 ## 🌈 1.16.2 `2025-12-30` 
 
 ### 🐞 Bug Fixes
