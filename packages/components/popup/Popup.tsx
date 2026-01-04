@@ -86,7 +86,6 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
   const portalRef = useRef(null); // portal dom 元素
   const contentRef = useRef<HTMLDivElement>(null); // 内容部分
   const popperRef = useRef<InnerPopperInstance>(null); // 保存 popper 实例
-  const arrowRef = useRef<HTMLDivElement>(null); // 箭头元素
 
   // 处理切换 panel 为 null 和正常内容动态切换的情况
   useEffect(() => {
@@ -116,7 +115,9 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
     delay,
     onVisibleChange,
   });
-  const triggerEl = getTriggerElement();
+
+  // TODO: 理论上类型是 Element（包括 SVGElement 等情况，但涉及修改的地方较多，暂时断言）
+  const triggerEl = getTriggerElement() as HTMLElement;
 
   const arrowModifierEnabled = useMemo(() => {
     const arrowModifier = (popperOptions as Options)?.modifiers?.find((m) => m.name === 'arrow');
@@ -211,7 +212,9 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
   useEffect(() => {
     if (visible && popupElement) {
       updateScrollTop?.(contentRef.current);
-      updateArrowPosition();
+      requestAnimationFrame(() => {
+        updateArrowPosition();
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible, popupElement, updateScrollTop]);
@@ -301,7 +304,6 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
               {content}
               {showArrow && (
                 <div
-                  ref={arrowRef}
                   style={{ ...styles.arrow, ...arrowStyle }}
                   className={`${classPrefix}-popup__arrow`}
                   {...(arrowModifierEnabled && { 'data-popper-arrow': '' })}

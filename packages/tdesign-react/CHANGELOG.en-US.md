@@ -5,6 +5,14 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.16.3 `2026-01-04` 
+
+### 🐞 Bug Fixes
+- `Dialog`: Fixed an issue where the optimization implemented in version `1.16.0` prevented the use of the `esc` key to close nested dialog boxes @RylanBot ([#4030](https://github.com/Tencent/tdesign-react/pull/4030))
+- `Popup`: @RylanBot ([#4057](https://github.com/Tencent/tdesign-react/pull/4057))
+  - Fixed an issue where a refactor in version `1.16.0` caused the popup layer not to appear when the `trigger` element was an SVG or similar type 
+  - Fixed an issue where a refactor in version `1.16.0` allowed the popup layer to be triggered even when the `trigger` element was set to `disabled`
+
 ## 🌈 1.16.2 `2025-12-30` 
 
 ### 🐞 Bug Fixes
