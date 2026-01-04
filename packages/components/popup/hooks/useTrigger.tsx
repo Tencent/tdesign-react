@@ -6,6 +6,12 @@ import useConfig from '../../hooks/useConfig';
 
 const ESC_KEY = 'Escape';
 
+const isEventFromDisabledElement = (e: Event | React.SyntheticEvent, container: Element) => {
+  const target = e.target as Element;
+  const disabledEl = target?.closest?.('[disabled]');
+  return !!(disabledEl && container.contains(disabledEl));
+};
+
 export default function useTrigger({ triggerElement, content, disabled, trigger, visible, onVisibleChange, delay }) {
   const { classPrefix } = useConfig();
 
@@ -36,15 +42,15 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     }
   }
 
-  const getTriggerElement = useCallback((): HTMLElement | null => {
-    if (triggerElementIsString) {
-      return canUseDocument ? document.querySelector(triggerElement) : null;
-    }
+  const getTriggerElement = useCallback(() => {
+    if (!canUseDocument) return null;
+    if (triggerElementIsString) return document.querySelector(triggerElement);
     const element = getRefDom(triggerRef);
-    return typeof HTMLElement !== 'undefined' && element instanceof HTMLElement ? element : null;
+    return element instanceof Element ? element : null;
   }, [triggerElementIsString, triggerElement]);
 
   const handleMouseLeave = (e: MouseEvent | React.MouseEvent) => {
+    if (isEventFromDisabledElement(e, getTriggerElement())) return;
     if (trigger !== 'hover' || hasPopupMouseDown.current) return;
     const relatedTarget = e.relatedTarget as HTMLElement;
     const isMovingToContent = relatedTarget?.closest?.(`.${classPrefix}-popup`);
@@ -74,6 +80,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     if (!element) return;
 
     const handleClick = (e: MouseEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
       if (trigger === 'click') {
         callFuncWithDelay({
           delay: visible ? appearDelay : exitDelay,
@@ -83,6 +90,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     };
 
     const handleMouseDown = (e: MouseEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
       if (trigger === 'mousedown') {
         callFuncWithDelay({
           delay: visible ? appearDelay : exitDelay,
@@ -92,6 +100,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     };
 
     const handleMouseEnter = (e: MouseEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
       if (trigger === 'hover') {
         callFuncWithDelay({
           delay: appearDelay,
@@ -101,6 +110,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     };
 
     const handleFocus = (e: FocusEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
       if (trigger === 'focus') {
         callFuncWithDelay({
           delay: appearDelay,
@@ -110,6 +120,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     };
 
     const handleBlur = (e: FocusEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
       if (trigger === 'focus') {
         callFuncWithDelay({
           delay: exitDelay,
@@ -119,6 +130,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     };
 
     const handleContextMenu = (e: MouseEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
       if (trigger === 'context-menu') {
         e.preventDefault();
         callFuncWithDelay({
@@ -129,6 +141,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     };
 
     const handleTouchStart = (e: TouchEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
       if (trigger === 'hover' || trigger === 'mousedown') {
         callFuncWithDelay({
           delay: appearDelay,
@@ -138,6 +151,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
       if (e?.key === ESC_KEY) {
         callFuncWithDelay({
           delay: exitDelay,
