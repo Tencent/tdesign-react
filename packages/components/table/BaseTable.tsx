@@ -59,7 +59,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const tableRef = useRef<HTMLDivElement>(null);
   const bottomContentRef = useRef<HTMLDivElement>(null);
   const scrolledRef = useRef(false);
-  const affixTableElmRef = useRef<HTMLTableElement>(null);
+  const affixHeaderTableElmRef = useRef<HTMLTableElement>(null);
   const affixFooterTableElmRef = useRef<HTMLTableElement>(null);
 
   const [affixHeaderHeight, setAffixHeaderHeight] = useState(0);
@@ -142,7 +142,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const { hasResized, isResizing } = useColumnResize(tableElmRef.current, {
     enable: resizable,
     columns,
-    affixTableElement: affixTableElmRef.current,
+    affixHeaderTableElement: affixHeaderTableElmRef.current,
     affixFooterTableElement: affixFooterTableElmRef.current,
     updateThWidthList,
     updateTableAfterColumnResize,
@@ -403,7 +403,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         ])}
       >
         <table
-          ref={affixTableElmRef}
+          ref={affixHeaderTableElmRef}
           className={classNames(tableElmClasses)}
           style={{
             ...tableElementStyles,

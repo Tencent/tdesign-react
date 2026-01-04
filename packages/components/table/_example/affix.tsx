@@ -13,7 +13,7 @@ const classStyles = `
 /*
  * table-layout: auto 模式下，table 元素的宽度设置很重要很重要。
  * 如果不设置，列多了之后会挤在一起
- * **/
+ */
 .tdesign-demo__table-affix table {
   width: 1200px;
 }
@@ -117,7 +117,8 @@ const TableAffixDemo = () => {
 
   useEffect(() => {
     // 添加示例代码所需样式
-    document.head.insertAdjacentHTML('beforeend', classStyles);
+    // 不开启resizable时候才设置
+    // document.head.insertAdjacentHTML('beforeend', classStyles);
   }, []);
 
   const marginStyle = {
@@ -151,6 +152,7 @@ const TableAffixDemo = () => {
         </Checkbox>
       </div>
       <Table
+        // style={{ width: 1000 }}
         rowKey="index"
         data={data}
         columns={columns}

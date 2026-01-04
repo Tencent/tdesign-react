@@ -8,7 +8,7 @@ import type { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
 type ResizeOptions = {
   enable: boolean;
   columns: BaseTableCol<TableRowData>[];
-  affixTableElement?: HTMLTableElement | null;
+  affixHeaderTableElement?: HTMLTableElement | null;
   affixFooterTableElement?: HTMLTableElement | null;
   updateTableAfterColumnResize?: () => void;
   updateThWidthList?: (trList: HTMLCollection | { [colKey: string]: number }) => { [colKey: string]: number };
@@ -20,7 +20,7 @@ function useColumnResize(
   {
     enable,
     columns,
-    affixTableElement,
+    affixHeaderTableElement,
     affixFooterTableElement,
     updateThWidthList,
     updateTableAfterColumnResize,
@@ -55,13 +55,13 @@ function useColumnResize(
           setIsResizing(false);
         },
       },
-      affixTableElement,
+      affixHeaderTableElement,
       affixFooterTableElement,
     );
     return () => {
       cleanUp();
     };
-  }, [classPrefix, columns, enable, tableElement, affixTableElement, affixFooterTableElement]);
+  }, [classPrefix, columns, enable, tableElement, affixHeaderTableElement, affixFooterTableElement]);
 
   return { hasResized, isResizing };
 }

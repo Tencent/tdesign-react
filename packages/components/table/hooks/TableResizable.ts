@@ -11,7 +11,6 @@ interface ColumnConfig {
   fixed?: 'left' | 'right';
   children?: ColumnConfig[];
   isLeaf?: boolean;
-  // Indices of leaf columns that belong to this column (for parent columns)
   leafIndices?: number[];
 }
 
@@ -27,22 +26,19 @@ interface ResizeCallbackParams {
 const DEFAULT_MIN_WIDTH = 80;
 const DEFAULT_MAX_WIDTH = 600;
 
-const HANDLE_CLASS_SUFFIX = '-table__resize-handle';
+const HANDLE_CLASS_SUFFIX = 'table__resize-handle';
 
 class TableResizable {
   private readonly handleClass: string;
 
   private tableEl: HTMLTableElement;
 
-  private affixTableEl: HTMLTableElement | null;
+  private affixHeaderTableEl: HTMLTableElement | null;
 
   private affixFooterTableEl: HTMLTableElement | null;
 
-  private tableContentEl: HTMLDivElement;
-
   private columns: ColumnConfig[];
 
-  // Flat list of leaf columns for width calculations
   private leafColumns: ColumnConfig[] = [];
 
   private columnsWidth: number[] = [];
@@ -62,14 +58,13 @@ class TableResizable {
     table: HTMLTableElement,
     columns: BaseTableCol<TableRowData>[],
     callback: ResizeCallbackParams,
-    affixTable?: HTMLTableElement | null,
+    affixHeaderTable?: HTMLTableElement | null,
     affixFooterTable?: HTMLTableElement | null,
   ) {
     this.handleClass = `${classPrefix}-${HANDLE_CLASS_SUFFIX}`;
     this.tableEl = table;
-    this.affixTableEl = affixTable || null;
+    this.affixHeaderTableEl = affixHeaderTable || null;
     this.affixFooterTableEl = affixFooterTable || null;
-    this.tableContentEl = this.tableEl.closest(`.${classPrefix}-table__content`);
     this.callback = callback;
     this.columns = this.mapColumnsToConfig(columns);
     this.leafColumns = this.getLeafColumns(this.columns);
@@ -98,8 +93,8 @@ class TableResizable {
     });
 
     // Also process affix table header if exists
-    if (this.affixTableEl) {
-      const affixHeaderRows = this.affixTableEl.querySelectorAll('thead tr');
+    if (this.affixHeaderTableEl) {
+      const affixHeaderRows = this.affixHeaderTableEl.querySelectorAll('thead tr');
       affixHeaderRows.forEach((row) => {
         const ths = row.querySelectorAll('th');
         ths.forEach((th) => {
@@ -228,7 +223,7 @@ class TableResizable {
     };
 
     const colElements = this.tableEl.querySelectorAll('colgroup col');
-    const affixColElements = this.affixTableEl?.querySelectorAll('colgroup col');
+    const affixColElements = this.affixHeaderTableEl?.querySelectorAll('colgroup col');
     const affixFooterColElements = this.affixFooterTableEl?.querySelectorAll('colgroup col');
 
     this.leafColumns.forEach((col, index) => {
@@ -266,12 +261,12 @@ class TableResizable {
 
     // Also update affix table elements to keep resize handles in sync
     // This ensures immediate visual feedback during resize operations
-    if (this.affixTableEl && column.affixElement) {
+    if (this.affixHeaderTableEl && column.affixElement) {
       // Update affix table header th element
       column.affixElement.style.width = `${width}px`;
 
       // Update affix table colgroup col element
-      const affixColElements = this.affixTableEl.querySelectorAll('colgroup col');
+      const affixColElements = this.affixHeaderTableEl.querySelectorAll('colgroup col');
       const affixColElement = affixColElements[columnIndex] as HTMLElement;
       if (affixColElement) {
         affixColElement.style.width = `${width}px`;
@@ -470,8 +465,8 @@ class TableResizable {
     // Calculate new table width - simply adjust by the column width change
     const newTableWidth = this.startTableWidth + (actualWidth - this.startWidth);
     this.tableEl.style.width = `${newTableWidth}px`;
-    if (this.affixTableEl) {
-      this.affixTableEl.style.width = `${newTableWidth}px`;
+    if (this.affixHeaderTableEl) {
+      this.affixHeaderTableEl.style.width = `${newTableWidth}px`;
     }
     if (this.affixFooterTableEl) {
       this.affixFooterTableEl.style.width = `${newTableWidth}px`;
@@ -552,8 +547,8 @@ class TableResizable {
     const widthChange = actualTotalWidth - this.startWidth;
     const newTableWidth = this.startTableWidth + widthChange;
     this.tableEl.style.width = `${newTableWidth}px`;
-    if (this.affixTableEl) {
-      this.affixTableEl.style.width = `${newTableWidth}px`;
+    if (this.affixHeaderTableEl) {
+      this.affixHeaderTableEl.style.width = `${newTableWidth}px`;
     }
     if (this.affixFooterTableEl) {
       this.affixFooterTableEl.style.width = `${newTableWidth}px`;
@@ -608,6 +603,84 @@ class TableResizable {
       });
     };
     updateHandles(this.columns);
+  }
+
+  /**
+   * Update affix table references dynamically.
+   * This is useful when affix header/footer tables are conditionally rendered
+   * and become available after the initial TableResizable instance is created.
+   */
+  public updateAffixTables(
+    affixHeaderTable?: HTMLTableElement | null,
+    affixFooterTable?: HTMLTableElement | null,
+  ): void {
+    const headerChanged = affixHeaderTable !== undefined && affixHeaderTable !== this.affixHeaderTableEl;
+    const footerChanged = affixFooterTable !== undefined && affixFooterTable !== this.affixFooterTableEl;
+
+    if (!headerChanged && !footerChanged) return;
+
+    if (headerChanged) {
+      this.affixHeaderTableEl = affixHeaderTable || null;
+    }
+
+    if (footerChanged) {
+      this.affixFooterTableEl = affixFooterTable || null;
+    }
+
+    // Re-apply min/max width constraints to the new affix tables
+    this.initColumnMinMaxWidth();
+
+    // Sync current column widths to the new affix tables
+    this.syncAffixTableWidths();
+  }
+
+  /**
+   * Sync current column widths from main table to affix tables.
+   * This ensures affix tables stay aligned when they are dynamically added.
+   */
+  private syncAffixTableWidths(): void {
+    const colElements = this.tableEl.querySelectorAll('colgroup col');
+    const tableWidth = this.tableEl.style.width;
+
+    // Sync table width
+    if (tableWidth) {
+      if (this.affixHeaderTableEl) {
+        this.affixHeaderTableEl.style.width = tableWidth;
+      }
+      if (this.affixFooterTableEl) {
+        this.affixFooterTableEl.style.width = tableWidth;
+      }
+    }
+
+    // Sync column widths
+    colElements.forEach((colEl, index) => {
+      const { width } = (colEl as HTMLElement).style;
+      if (!width) return;
+
+      // Update affix header
+      if (this.affixHeaderTableEl) {
+        const affixColElements = this.affixHeaderTableEl.querySelectorAll('colgroup col');
+        const affixColElement = affixColElements[index] as HTMLElement;
+        if (affixColElement) {
+          affixColElement.style.width = width;
+        }
+
+        // Also update th element
+        const col = this.leafColumns[index];
+        if (col?.affixElement) {
+          col.affixElement.style.width = width;
+        }
+      }
+
+      // Update affix footer
+      if (this.affixFooterTableEl) {
+        const affixFooterColElements = this.affixFooterTableEl.querySelectorAll('colgroup col');
+        const affixFooterColElement = affixFooterColElements[index] as HTMLElement;
+        if (affixFooterColElement) {
+          affixFooterColElement.style.width = width;
+        }
+      }
+    });
   }
 
   public destroy() {
