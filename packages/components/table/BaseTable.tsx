@@ -139,7 +139,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination(props, tableContentRef);
 
   // 列宽拖拽逻辑
-  const { hasResized } = useColumnResize(tableElmRef.current, {
+  const { hasResized, isResizing } = useColumnResize(tableElmRef.current, {
     enable: resizable,
     columns,
     affixTableElement: affixTableElmRef.current,
@@ -531,8 +531,11 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     if (hasResized && isFixedHeader && tableElmWidth) {
       styles.width = `${tableElmWidth + scrollbarWidth}px`;
     }
+    if (isResizing) {
+      styles.overflow = 'hidden';
+    }
     return styles;
-  }, [tableContentStyles, hasResized, isFixedHeader, tableElmWidth, scrollbarWidth]);
+  }, [tableContentStyles, hasResized, isFixedHeader, tableElmWidth, isResizing, scrollbarWidth]);
 
   const tableContent = (
     <div

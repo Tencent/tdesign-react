@@ -28,7 +28,9 @@ function useColumnResize(
 ) {
   const { classPrefix } = useConfig();
   const resizableRef = useRef<TableResizable | null>(null);
+
   const [hasResized, setHasResized] = useState(false);
+  const [isResizing, setIsResizing] = useState(false);
 
   const cleanUp = () => {
     resizableRef.current?.destroy();
@@ -45,8 +47,12 @@ function useColumnResize(
       {
         onMouseMove: (_, ctx) => {
           setHasResized(true);
+          setIsResizing(true);
           updateTableAfterColumnResize();
           updateThWidthList?.(ctx.columnsWidth);
+        },
+        onMouseUp: () => {
+          setIsResizing(false);
         },
       },
       affixTableElement,
@@ -57,7 +63,7 @@ function useColumnResize(
     };
   }, [classPrefix, columns, enable, tableElement, affixTableElement, affixFooterTableElement]);
 
-  return { hasResized };
+  return { hasResized, isResizing };
 }
 
 export default useColumnResize;

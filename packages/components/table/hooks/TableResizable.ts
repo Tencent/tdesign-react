@@ -21,10 +21,11 @@ interface CallbackContext {
 
 interface ResizeCallbackParams {
   onMouseMove?: (e: MouseEvent, ctx: CallbackContext) => void;
+  onMouseUp?: (e: MouseEvent) => void;
 }
 
-const MIN_WIDTH = 80;
-const MAX_WIDTH = Infinity;
+const DEFAULT_MIN_WIDTH = 80;
+const DEFAULT_MAX_WIDTH = 600;
 
 const HANDLE_CLASS_SUFFIX = '-table__resize-handle';
 
@@ -122,8 +123,8 @@ class TableResizable {
       const affixElement = thByColKey.get(`affix-${col.colKey}`) || null;
 
       const resizeConfig = col.resize;
-      const minWidth = resizeConfig?.minWidth ?? MIN_WIDTH;
-      const maxWidth = resizeConfig?.maxWidth ?? MAX_WIDTH;
+      const minWidth = resizeConfig?.minWidth ?? DEFAULT_MIN_WIDTH;
+      const maxWidth = resizeConfig?.maxWidth ?? DEFAULT_MAX_WIDTH;
 
       const disabled = col.resizable === false;
 
@@ -207,6 +208,48 @@ class TableResizable {
     });
   }
 
+  /**
+   * Initialize min-width and max-width for columns that have these constraints.
+   * This prevents the "jump" effect when user first resizes a column
+   * whose initial width is less than its minWidth or greater than its maxWidth.
+   */
+  private initColumnMinMaxWidth(): void {
+    const applyMinMaxWidth = (el: HTMLElement, minWidth?: number, maxWidth?: number) => {
+      if (!el) return;
+
+      if (minWidth !== undefined) {
+        // eslint-disable-next-line no-param-reassign
+        el.style.minWidth = `${minWidth}px`;
+      }
+      if (maxWidth !== undefined) {
+        // eslint-disable-next-line no-param-reassign
+        el.style.maxWidth = `${maxWidth}px`;
+      }
+    };
+
+    const colElements = this.tableEl.querySelectorAll('colgroup col');
+    const affixColElements = this.affixTableEl?.querySelectorAll('colgroup col');
+    const affixFooterColElements = this.affixFooterTableEl?.querySelectorAll('colgroup col');
+
+    this.leafColumns.forEach((col, index) => {
+      const { minWidth, maxWidth } = col;
+
+      if (minWidth === undefined && maxWidth === undefined) return;
+
+      const targets: Array<HTMLElement | null | undefined> = [
+        col.element,
+        colElements[index] as HTMLElement | undefined,
+        col.affixElement,
+        affixColElements?.[index] as HTMLElement | undefined,
+        affixFooterColElements?.[index] as HTMLElement | undefined,
+      ];
+
+      targets.forEach((el) => {
+        applyMinMaxWidth(el, minWidth, maxWidth);
+      });
+    });
+  }
+
   private updateColumnWidth(columnIndex: number, width: number): void {
     const column = this.leafColumns[columnIndex];
     if (!column?.element) return;
@@ -277,10 +320,14 @@ class TableResizable {
     // Note: We intentionally do NOT set column widths during initialization.
     // This allows the table to maintain its natural responsive behavior.
     // Column widths will only be explicitly set after user triggers a resize action.
+    // However, we set min-width to ensure columns don't shrink below their minWidth
+    // constraint, which prevents the "jump" effect on first resize.
+    this.initColumnMinMaxWidth();
 
     // Add resize handles to all columns (both leaf and parent)
     this.initResizeHandles(this.columns);
 
+    // can use dom
     document.addEventListener('mousemove', this.onMouseMove);
     document.addEventListener('mouseup', this.onMouseUp);
   }
@@ -362,10 +409,22 @@ class TableResizable {
     }
 
     this.startX = e.pageX;
-    this.startTableWidth = this.tableEl.offsetWidth;
 
     // Capture current widths of all leaf columns
     this.columnsWidth = this.leafColumns.map((col) => col?.element?.offsetWidth || 0);
+
+    // On first resize, we need to lock all column widths to their current values
+    // This prevents the "jump" effect when table transitions from auto to fixed width
+    const hasExplicitWidth = !!this.tableEl.style.width;
+    if (!hasExplicitWidth) {
+      // Lock all column widths before setting table width
+      this.columnsWidth.forEach((width, index) => {
+        this.updateColumnWidth(index, width);
+      });
+    }
+
+    // Use the actual table width (now that all columns are locked)
+    this.startTableWidth = this.tableEl.offsetWidth;
 
     document.body.style.cursor = 'col-resize';
     document.body.style.userSelect = 'none';
@@ -434,10 +493,13 @@ class TableResizable {
     const newTotalWidth = this.startWidth + diff;
 
     // Calculate total min/max width for all children
-    const totalMinWidth = leafIndices.reduce((sum, idx) => sum + (this.leafColumns[idx]?.minWidth || MIN_WIDTH), 0);
+    const totalMinWidth = leafIndices.reduce(
+      (sum, idx) => sum + (this.leafColumns[idx]?.minWidth || DEFAULT_MIN_WIDTH),
+      0,
+    );
     const totalMaxWidth = leafIndices.reduce((sum, idx) => {
       const maxW = this.leafColumns[idx]?.maxWidth;
-      return sum + (maxW !== undefined ? maxW : MAX_WIDTH);
+      return sum + (maxW !== undefined ? maxW : DEFAULT_MAX_WIDTH);
     }, 0);
 
     // Clamp the new total width
@@ -505,7 +567,7 @@ class TableResizable {
     this.callback.onMouseMove?.(e, { columnsWidth });
   }
 
-  private onMouseUp = () => {
+  private onMouseUp = (e: MouseEvent) => {
     const activeColumnConfig = (this as any).activeColumnConfig as ColumnConfig | null;
 
     if (this.activeColumn !== null || activeColumnConfig) {
@@ -514,6 +576,7 @@ class TableResizable {
 
       // Update all handle cursors
       this.updateAllHandleCursors();
+      this.callback.onMouseUp?.(e);
     }
 
     this.activeColumn = null;
@@ -545,11 +608,6 @@ class TableResizable {
       });
     };
     updateHandles(this.columns);
-  }
-
-  private isTableOverflow(): boolean {
-    if (!this.tableContentEl) return false;
-    return this.tableContentEl.scrollWidth > this.tableContentEl.clientWidth;
   }
 
   public destroy() {
