@@ -55,8 +55,8 @@
         "value": "modeless"
       },
       {
-        "label": "normal",
-        "value": "normal"
+        "label": "full-screen",
+        "value": "full-screen"
       }
     ]
   },
@@ -119,11 +119,5 @@
         "value": "success"
       }
     ]
-  },
-  {
-    "name": "visible",
-    "type": "Boolean",
-    "defaultValue": false,
-    "options": []
   }
 ]
