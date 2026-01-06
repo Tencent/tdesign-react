@@ -252,6 +252,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
           className={classNames(className, `${componentCls}__ctx`, `${componentCls}__${mode}`, {
             [`${componentCls}__ctx--fixed`]: !showInAttachedElement,
             [`${componentCls}__ctx--absolute`]: showInAttachedElement,
+            [`${componentCls}__ctx--modeless`]: mode === 'modeless',
           })}
           style={{ zIndex, display: animationVisible ? undefined : 'none' }}
           onKeyDown={handleKeyDown}
