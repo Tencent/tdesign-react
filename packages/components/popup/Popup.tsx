@@ -20,6 +20,9 @@ import { getTransitionParams } from './utils/transition';
 
 import type { PopupInstanceFunctions, TdPopupProps } from './type';
 
+/**
+ * @internal
+ */
 export interface PopupProps extends TdPopupProps {
   // 是否触发展开收起动画，内部下拉式组件使用
   expandAnimation?: boolean;
@@ -217,7 +220,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [visible, popupElement, updateScrollTop]);
+  }, [visible, popupElement]);
 
   function handleExited() {
     setIsOverlayHover(false);
