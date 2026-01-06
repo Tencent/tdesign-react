@@ -152,17 +152,17 @@ export default function useInstance(
           processField(name, formItemRef);
         } else {
           const floatingValue = get(floatingFormDataRef.current, name);
-          if (floatingValue !== undefined) {
-            const fieldValue = calcFieldValue(name, floatingValue, !props.supportNumberKey);
-            merge(fieldsValue, fieldValue);
-          }
+          const fieldValue = calcFieldValue(name, floatingValue, !props.supportNumberKey);
+          merge(fieldsValue, fieldValue);
         }
       }
     }
     return cloneDeep(fieldsValue);
   }
 
-  // 对外方法，设置对应 formItem 的值
+  /**
+   * 对外方法，设置对应 FormItem 的值
+   */
   function setFieldsValue(fields = {}) {
     const nameLists = objectToArray(fields);
     nameLists.forEach((nameList) => {
@@ -172,13 +172,15 @@ export default function useInstance(
         formItemRef.current.setValue?.(fieldValue);
       } else {
         set(floatingFormDataRef.current, nameList, fieldValue);
-        // 同时写入 form.store，确保 store 始终包含所有被 set 的字段
+        // 确保 store 始终包含所有被 set 的字段
         set(form?.store, nameList, fieldValue);
       }
     });
   }
 
-  // 对外方法，设置对应 formItem 的数据
+  /**
+   * 对外方法，设置对应 FormItem 的状态
+   */
   function setFields(fields = []) {
     if (!Array.isArray(fields)) throw new TypeError('The parameter of "setFields" must be an array');
 
