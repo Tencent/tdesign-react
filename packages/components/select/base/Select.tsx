@@ -10,18 +10,22 @@ import React, {
 } from 'react';
 import classNames from 'classnames';
 import { debounce, get, isFunction } from 'lodash-es';
-import composeRefs from '../../_util/composeRefs';
 import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
 import { getOffsetTopToContainer } from '../../_util/helper';
 import noop from '../../_util/noop';
 import { parseContentTNode } from '../../_util/parseTNode';
+import { composeRefs } from '../../_util/ref';
 import FakeArrow from '../../common/FakeArrow';
 import useConfig from '../../hooks/useConfig';
 import useControlled from '../../hooks/useControlled';
 import useDefaultProps from '../../hooks/useDefaultProps';
 import Loading from '../../loading';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import SelectInput, { type SelectInputValue, type SelectInputValueChangeContext } from '../../select-input';
+import SelectInput, {
+  SelectInputChangeContext,
+  type SelectInputValue,
+  type SelectInputValueChangeContext,
+} from '../../select-input';
 import Tag from '../../tag';
 import { selectDefaultProps } from '../defaultProps';
 import useKeyboardControl from '../hooks/useKeyboardControl';
@@ -52,7 +56,6 @@ const Select = forwardRefWithStatics(
     const emptyText = t(local.loadingText);
 
     const {
-      readonly,
       borderless,
       autoWidth,
       creatable,
@@ -98,6 +101,7 @@ const Select = forwardRefWithStatics(
       onEnter,
       onPopupVisibleChange,
     } = props;
+    const readOnly = props.readOnly || props.readonly;
 
     const [value, onChange] = useControlled(props, 'value', props.onChange);
 
@@ -196,7 +200,7 @@ const Select = forwardRefWithStatics(
     }, [multiple, selectedOptions, labelKey]);
 
     // 可以根据触发来源，自由定制标签变化时的筛选器行为
-    const onTagChange = (_currentTags: SelectInputValue, context) => {
+    const onTagChange = (_currentTags: SelectInputValue, context: SelectInputChangeContext) => {
       const handleRemove = (removeIndex, trigger, e, label) => {
         const values = getSelectValueArr(value, value[removeIndex], true, valueType, keys);
         const { currentSelectedOptions } = getSelectedOptions(values, multiple, valueType, keys, valueToOption);
@@ -212,7 +216,7 @@ const Select = forwardRefWithStatics(
       };
 
       const { trigger, index, item, e } = context;
-      e.stopPropagation();
+      e?.stopPropagation();
 
       if (trigger === 'backspace') {
         let closest = -1;
@@ -440,11 +444,10 @@ const Select = forwardRefWithStatics(
             const targetVal = get(selectedOptions[index], valueKey);
             const targetLabel = get(selectedOptions[index], labelKey);
             const targetOption = valueToOption[targetVal];
-            if (!targetOption) return null;
             return (
               <Tag
                 key={index}
-                closable={!get(targetOption, disabledKey) && !disabled && !readonly}
+                closable={!get(targetOption, disabledKey) && !disabled && !readOnly}
                 size={size}
                 {...tagProps}
                 onClose={({ e }) => {
@@ -494,7 +497,7 @@ const Select = forwardRefWithStatics(
       minCollapsedNum,
       options,
       disabled,
-      readonly,
+      readOnly,
       size,
       tagProps,
       value,
@@ -560,7 +563,7 @@ const Select = forwardRefWithStatics(
           autoWidth={!style?.width && autoWidth}
           ref={composeRefs(ref, selectInputRef)}
           className={name}
-          readonly={readonly}
+          readonly={readOnly}
           autofocus={props.autofocus}
           allowInput={(filterable ?? local.filterable) || isFunction(filter)}
           multiple={multiple}

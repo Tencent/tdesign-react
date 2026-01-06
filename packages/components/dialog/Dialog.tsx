@@ -106,6 +106,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const [animationVisible, setAnimationVisible] = useState(visible);
   const [dialogAnimationVisible, setDialogAnimationVisible] = useState(false);
 
+  const { focusTopDialog } = useDialogEsc(visible, wrapRef);
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
   useDialogEsc(visible, wrapRef);
   useDialogPosition(visible, dialogCardRef);
@@ -206,6 +207,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const onAnimateLeave = () => {
     onClosed?.();
     setAnimationVisible(false);
+    focusTopDialog();
     if (!wrapRef.current) return;
     wrapRef.current.style.display = 'none';
   };

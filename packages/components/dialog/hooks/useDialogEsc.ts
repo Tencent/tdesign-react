@@ -1,34 +1,48 @@
-import { MutableRefObject, useEffect } from 'react';
+import { MutableRefObject, useCallback, useEffect, useRef } from 'react';
 
-const dialogSet: Set<MutableRefObject<HTMLDivElement>> = new Set();
+const dialogStack: MutableRefObject<HTMLDivElement>[] = [];
 
 const useDialogEsc = (visible: boolean, dialog: MutableRefObject<HTMLDivElement>) => {
-  useEffect(() => {
-    if (visible) {
-      // 将 dialog 添加至 Set 对象
-      if (dialog?.current) {
-        dialogSet.add(dialog);
-        // 避免 CSSTransition 的动画效果，导致首次打开弹窗时 focus 失败
-        setTimeout(() => {
-          dialog?.current?.focus();
-        }, 0);
-      }
-    } else if (dialogSet.has(dialog)) {
-      // 将 dialog 从 Set 对象删除
-      dialogSet.delete(dialog);
-      const dialogList = [...dialogSet];
-      // 将 Set 对象中最后一个 dialog 设置为 focus
-      dialogList[dialogList.length - 1]?.current?.focus();
+  const addedToStackRef = useRef<boolean>(false);
+
+  // 关闭动画完成后调用，聚焦顶层 dialog
+  const focusTopDialog = useCallback(() => {
+    const lastDialog = dialogStack[dialogStack.length - 1];
+    if (lastDialog?.current) {
+      lastDialog.current.focus();
     }
+  }, []);
+
+  // 每次渲染都执行，确保捕捉到的 current 不为 null
+  useEffect(() => {
+    if (visible && dialog?.current && !addedToStackRef.current) {
+      dialogStack.push(dialog);
+      addedToStackRef.current = true;
+      dialog.current.focus();
+    }
+  });
+
+  // 处理 visible 变化
+  useEffect(() => {
+    if (!visible && addedToStackRef.current) {
+      const index = dialogStack.indexOf(dialog);
+      if (index > -1) {
+        dialogStack.splice(index, 1);
+      }
+      addedToStackRef.current = false;
+    }
+
     return () => {
-      // 从 Set 对象删除无效的 dialog
-      dialogSet.forEach((item) => {
-        if (item.current === null) {
-          dialogSet.delete(item);
+      // 清理无效的 dialog
+      for (let i = dialogStack.length - 1; i >= 0; i--) {
+        if (dialogStack[i].current === null) {
+          dialogStack.splice(i, 1);
         }
-      });
+      }
     };
   }, [visible, dialog]);
+
+  return { focusTopDialog };
 };
 
 export default useDialogEsc;

@@ -90,9 +90,15 @@ export interface TdTagInputProps {
   prefixIcon?: TElement;
   /**
    * 只读状态，值为真会隐藏标签移除按钮和输入框
+   * @deprecated It will be removed in the future. Please use `readOnly` instead.
    * @default false
    */
   readonly?: boolean;
+  /**
+   * 只读状态，值为真会隐藏标签移除按钮和输入框
+   * @default false
+   */
+  readOnly?: boolean;
   /**
    * 组件尺寸
    * @default medium
