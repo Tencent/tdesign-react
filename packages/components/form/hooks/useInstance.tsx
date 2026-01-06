@@ -12,6 +12,7 @@ import type {
   NamePath,
   TdFormProps,
 } from '../type';
+import type { InternalFormInstance } from './interface';
 
 // 检测是否需要校验 默认全量校验
 function needValidate(name: NamePath, fields: string[]) {
@@ -44,7 +45,8 @@ export default function useInstance(
   props: TdFormProps,
   formRef: React.RefObject<HTMLFormElement>,
   formMapRef: React.MutableRefObject<Map<any, any>>,
-  floatingFormDataRef: React.RefObject<Record<any, any>>,
+  floatingFormDataRef: React.MutableRefObject<Record<any, any>>,
+  form: InternalFormInstance,
 ) {
   const { classPrefix } = useConfig();
 
@@ -170,6 +172,8 @@ export default function useInstance(
         formItemRef.current.setValue?.(fieldValue);
       } else {
         set(floatingFormDataRef.current, nameList, fieldValue);
+        // 同时写入 form.store，确保 store 始终包含所有被 set 的字段
+        set(form?.store, nameList, fieldValue);
       }
     });
   }
