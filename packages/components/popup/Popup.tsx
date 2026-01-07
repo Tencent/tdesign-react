@@ -220,7 +220,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [visible, popupElement]);
+  }, [visible, content]);
 
   function handleExited() {
     setIsOverlayHover(false);
