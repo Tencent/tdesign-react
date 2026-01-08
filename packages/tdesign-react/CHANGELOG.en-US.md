@@ -92,6 +92,7 @@ spline: explain
 ### 🐞 Bug Fixes
 - `Cascader`: Fixed `reserveKeyword` not working @RylanBot ([#3984](https://github.com/Tencent/tdesign-react/pull/3984))
 - `Description`: Fixed spacing issue with `itemLayout='vertical'` in borderless mode @mikasayw ([common#2321](https://github.com/Tencent/tdesign-common/pull/2321))
+- `Input`: Fixed issue where `autoWidth` failed on initial render in Safari for the component and upstream components such as `Select` @Cat1007 ([common#2336](https://github.com/Tencent/tdesign-common/pull/2336))
 - `Table`: Fixed error in drag-related events when table content is not rendered and `dragSort` is set @lifeiFront ([#3958](https://github.com/Tencent/tdesign-react/pull/3958))
 - `Title`: Added fallback mechanism to avoid page white screen caused by incorrect use of `level` @RylanBot ([#3975](https://github.com/Tencent/tdesign-react/pull/3975))
 - `Select`: Fixed issue where `onRemove` was not triggered when using backspace key to delete tags @RylanBot ([#3961](https://github.com/Tencent/tdesign-react/pull/3961))

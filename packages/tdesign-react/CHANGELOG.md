@@ -94,6 +94,7 @@ spline: explain
 ### 🐞 Bug Fixes
 - `Cascader`: 修复 `reserveKeyword` 不生效的问题 @RylanBot ([#3984](https://github.com/Tencent/tdesign-react/pull/3984))
 - `Description`: 修复无边框模式下 `itemLayout='vertical'` 的间距问题 @mikasayw ([common#2321](https://github.com/Tencent/tdesign-common/pull/2321))
+- `Input`: 修正组件及上层 `Select` 等组件在 Safari 中初次渲染 `autoWidth` 失效的问题 @Cat1007 ([common#2336](https://github.com/Tencent/tdesign-common/pull/2336))
 - `Table`: 表格内容未渲染时，设置 `dragSort` 相关拖动事件报错的问题 @lifeiFront ([#3958](https://github.com/Tencent/tdesign-react/pull/3958))
 - `Title`: 添加兜底机制，避免错误使用 `level` 导致页面直接白屏的问题  @RylanBot ([#3975](https://github.com/Tencent/tdesign-react/pull/3975))
 - `Select`: 修复使用 `backspace` 键删除标签时，没有触发 `onRemove` 的问题 @RylanBot ([#3961](https://github.com/Tencent/tdesign-react/pull/3961))
