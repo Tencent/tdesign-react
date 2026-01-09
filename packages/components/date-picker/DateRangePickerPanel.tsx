@@ -1,20 +1,22 @@
-import React, { forwardRef, useState, useMemo } from 'react';
+import React, { forwardRef, useMemo, useState } from 'react';
 import dayjs from 'dayjs';
-import { formatDate, getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
-import { subtractMonth, addMonth, extractTimeObj } from '@tdesign/common-js/date-picker/utils';
+import { formatDate, formatTime, getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
+import { addMonth, extractTimeObj, subtractMonth } from '@tdesign/common-js/date-picker/utils';
 import log from '@tdesign/common-js/log/index';
-import { StyledProps } from '../common';
-import {
-  TdDateRangePickerPanelProps,
-  DatePickerYearChangeTrigger,
+import useDefaultProps from '../hooks/useDefaultProps';
+import useRangeValue from './hooks/useRangeValue';
+import RangePanel from './panel/RangePanel';
+import { dateCorrection } from './utils';
+
+import type { StyledProps } from '../common';
+import type {
   DatePickerMonthChangeTrigger,
   DatePickerTimeChangeTrigger,
+  DatePickerYearChangeTrigger,
+  DateRangeValue,
   PresetDate,
+  TdDateRangePickerPanelProps,
 } from './type';
-import RangePanel from './panel/RangePanel';
-import useRangeValue from './hooks/useRangeValue';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { dateCorrection } from './utils';
 
 export interface DateRangePickerPanelProps extends TdDateRangePickerPanelProps, StyledProps {}
 
@@ -50,7 +52,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     setCacheValue,
   } = useRangeValue(props);
 
-  const { format } = getDefaultFormat({
+  const { format, timeFormat } = getDefaultFormat({
     mode,
     enableTimePicker,
     format: props.format,
@@ -61,6 +63,18 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
   const [isHoverCell, setIsHoverCell] = useState(false);
   const [hoverValue, setHoverValue] = useState([]);
   const activeIndex = useMemo(() => (isFirstValueSelected ? 1 : 0), [isFirstValueSelected]);
+
+  const handleSyncPanelValue = (value: DateRangeValue) => {
+    // 同年同月时，确保右侧面板月份比左侧大，避免两侧面板月份一致
+    const nextMonth = value.map((v: string) => parseToDayjs(v, format).month());
+    const nextYear = value.map((v: string) => parseToDayjs(v, format).year());
+    if (nextYear[0] === nextYear[1] && nextMonth[0] === nextMonth[1]) {
+      nextMonth[0] === 11 ? (nextMonth[0] -= 1) : (nextMonth[1] += 1);
+    }
+    setMonth(nextMonth);
+    setYear(nextYear);
+    setTime(formatTime(value, format, timeFormat, props.defaultTime));
+  };
 
   // 日期 hover
   function onCellMouseEnter(date: Date) {
@@ -223,7 +237,12 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     if (!Array.isArray(presetVal)) {
       log.error('DateRangePickerPanel', `preset: ${presetValue} must be Array!`);
     } else {
-      onChange(formatDate(presetVal, { format, autoSwap: true }), {
+      const formattedPreset = formatDate(presetVal, { format });
+      setCacheValue(formattedPreset);
+      setIsFirstValueSelected(true);
+      setIsSelected(true);
+      handleSyncPanelValue(formattedPreset);
+      onChange(formattedPreset, {
         dayjsValue: presetVal.map((p) => parseToDayjs(p, format)),
         trigger: 'preset',
       });

@@ -22,6 +22,7 @@ export interface PanelContentProps {
   multiple?: SinglePanelProps['multiple'];
   popupVisible?: boolean;
   tableData: any[];
+  internalYear?: Array<number>;
   onMonthChange: SinglePanelProps['onMonthChange'] | RangePanelProps['onMonthChange'];
   onYearChange: SinglePanelProps['onYearChange'] | RangePanelProps['onYearChange'];
   onJumperClick: SinglePanelProps['onJumperClick'] | RangePanelProps['onJumperClick'];
@@ -48,6 +49,7 @@ export default function PanelContent(props: PanelContentProps) {
     partial = 'start',
     time,
     tableData,
+    internalYear,
     onJumperClick,
     onCellClick,
     onCellMouseEnter,
@@ -92,6 +94,8 @@ export default function PanelContent(props: PanelContentProps) {
           mode={mode}
           year={year}
           month={month}
+          internalYear={internalYear}
+          partial={partial}
           onMonthChange={onMonthChangeInner}
           onYearChange={onYearChangeInner}
           onJumperClick={onJumperClickInner}
