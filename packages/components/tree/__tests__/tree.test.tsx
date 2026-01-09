@@ -246,7 +246,7 @@ describe('Tree test', () => {
         ],
       },
     ];
-    it('wehen props.line is customized, it works fine', async () => {
+    it('when props.line is customized, it works fine', async () => {
       const { container } = await renderTreeWithProps({
         data,
         expandAll: true,
@@ -256,7 +256,7 @@ describe('Tree test', () => {
       expect(container.querySelectorAll('.custom-line').length).toBe(6);
     });
 
-    it('wehen props.line is a customized function, it works fine', async () => {
+    it('when props.line is a customized function, it works fine', async () => {
       const line: any = () => <span className="custom-line"></span>;
       const { container } = await renderTreeWithProps({
         data,

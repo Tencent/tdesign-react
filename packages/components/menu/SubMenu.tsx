@@ -201,7 +201,7 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
 
   useRipple(subMenuDom);
 
-  // pupup 导航
+  // popup 导航
   const isPopUp = expandType === 'popup';
   // 当前二级导航激活
   const isActive = checkSubMenuChildrenActive(children, active) || active === value;
