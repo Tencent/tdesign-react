@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import log from '@tdesign/common-js/log/index';
-import type { NamePath } from '../type';
+import type { FormInstanceFunctions, NamePath } from '../type';
 import type { WatchCallBack, InternalHooks, InternalFormInstance, Store } from './interface';
 
 export const HOOK_MARK = 'TD_FORM_INTERNAL_HOOKS';
@@ -102,7 +102,7 @@ class FormStore {
   };
 }
 
-export default function useForm(form?: InternalFormInstance) {
+export default function useForm(form?: FormInstanceFunctions) {
   const formRef = useRef<InternalFormInstance>(Object.create({}));
   const [, forceUpdate] = useState({});
 
