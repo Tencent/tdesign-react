@@ -213,6 +213,7 @@ const Progress = forwardRef<HTMLDivElement, ProgressProps>((props, ref) => {
           [`${statusClassName}`]: status,
           [`${classPrefix}-progress--over-ten`]: percentage > PLUMP_SEPARATE,
           [`${classPrefix}-progress--under-ten`]: percentage <= PLUMP_SEPARATE,
+          [`${classPrefix}-size-s`]: size === 'small',
         })}
         style={trackStyle}
       >
@@ -238,6 +239,7 @@ const Progress = forwardRef<HTMLDivElement, ProgressProps>((props, ref) => {
         ref={ref}
         className={classNames(`${classPrefix}-progress--thin`, {
           [`${statusClassName}`]: status,
+          [`${classPrefix}-size-s`]: size === 'small',
         })}
       >
         <div className={`${classPrefix}-progress__bar`} style={trackStyle}>
