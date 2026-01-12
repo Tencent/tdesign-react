@@ -1,10 +1,10 @@
-import { get, isEqual, isFunction, isObject, isString, set, unset } from 'lodash-es';
 import React, { forwardRef, ReactNode, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
+import { get, isEqual, isFunction, isObject, isString, set, unset } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -13,7 +13,7 @@ import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TD_CTRL_PROP_MAP, ValidateStatus } from './const';
 import { formItemDefaultProps } from './defaultProps';
 import { useFormContext, useFormListContext } from './FormContext';
-import { parseMessage, validate as validateModal } from './formModel';
+import { parseMessage, validate as validateModel } from './formModel';
 import { HOOK_MARK } from './hooks/useForm';
 import useFormItemInitialData from './hooks/useFormItemInitialData';
 import useFormItemStyle from './hooks/useFormItemStyle';
@@ -232,10 +232,13 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
       return result;
     }
     result.allowSetValue = true;
-    result.resultList = await validateModal(formValue, result.rules);
+    result.resultList = await validateModel(formValue, result.rules);
     result.errorList = result.resultList
-      .filter((item) => item.result !== true)
+      .filter((item) => item?.result !== true)
       .map((item) => {
+        if (!item || typeof item !== 'object') {
+          return item;
+        }
         Object.keys(item).forEach((key) => {
           if (!item.message && errorMessages[key]) {
             // eslint-disable-next-line
@@ -249,9 +252,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
       });
     // 仅有自定义校验方法才会存在 successList
     result.successList = result.resultList.filter(
-      (item) => item.result === true && item.message && item.type === 'success',
+      (item) => item && item.result === true && item.message && item.type === 'success',
     );
-
     return result;
   }
 
