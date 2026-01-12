@@ -1,10 +1,10 @@
 import React, { forwardRef, ReactNode, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { get, isEqual, isFunction, isObject, isString, set } from 'lodash-es';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
-import { get, isEqual, isFunction, isObject, isString, set } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -13,7 +13,7 @@ import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TD_CTRL_PROP_MAP, ValidateStatus } from './const';
 import { formItemDefaultProps } from './defaultProps';
 import { useFormContext, useFormListContext } from './FormContext';
-import { parseMessage, validate as validateModal } from './formModel';
+import { parseMessage, validate as validateModel } from './formModel';
 import { HOOK_MARK } from './hooks/useForm';
 import useFormItemInitialData from './hooks/useFormItemInitialData';
 import useFormItemStyle from './hooks/useFormItemStyle';
@@ -238,7 +238,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
       return result;
     }
     result.allowSetValue = true;
-    result.resultList = await validateModal(formValue, result.rules);
+    result.resultList = await validateModel(formValue, result.rules);
     result.errorList = result.resultList
       .filter((item) => item.result !== true)
       .map((item) => {
@@ -431,7 +431,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
     return () => {
       mapRef.current.delete(fullPath);
-      set(form?.store, fullPath, defaultInitialData);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [snakeName, formListName]);

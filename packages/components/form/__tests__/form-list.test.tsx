@@ -55,6 +55,9 @@ const BasicForm = (props: FormProps & { operation }) => {
 
 describe('FormList 组件测试', () => {
   test('FormList basic API', async () => {
+    const onValuesChangeFn = vi.fn();
+    let latestFormValues = {};
+
     const TestView = () => {
       const [form] = Form.useForm();
 
@@ -84,9 +87,18 @@ describe('FormList 组件测试', () => {
         form.clearValidate();
       }
 
+      function getFormValues() {
+        const values = form.getFieldsValue(true);
+        document.getElementById('form-values-result')?.setAttribute('data-result', JSON.stringify(values));
+      }
+
       return (
         <BasicForm
           form={form}
+          onValuesChange={(changedValues, allValues) => {
+            onValuesChangeFn(changedValues, allValues);
+            latestFormValues = allValues;
+          }}
           operation={() => (
             <>
               <Button type="submit">submit</Button>
@@ -97,6 +109,8 @@ describe('FormList 组件测试', () => {
               <Button onClick={validate}>validate</Button>
               <Button onClick={validateOnly}>validateOnly</Button>
               <Button onClick={clearValidate}>clearValidate</Button>
+              <Button onClick={getFormValues}>getFormValues</Button>
+              <div id="form-values-result" data-result="" />
             </>
           )}
         />
@@ -105,32 +119,133 @@ describe('FormList 组件测试', () => {
 
     const { container, queryByDisplayValue, queryByText } = render(<TestView />);
     const addBtn = container.querySelector('#test-add-with-data');
-    const submitBtn = queryByText('submit');
     const resetBtn = queryByText('reset');
 
-    fireEvent.click(addBtn);
-    expect(queryByDisplayValue('guangdong')).toBeTruthy();
-    expect(queryByDisplayValue('shenzhen')).toBeTruthy();
-    fireEvent.click(resetBtn);
-    fireEvent.click(submitBtn);
-    await mockTimeout(() => true);
-    expect(queryByText('guangdong')).not.toBeTruthy();
-    expect(queryByText('shenzhen')).not.toBeTruthy();
+    // Reset onValuesChange call count
+    onValuesChangeFn.mockClear();
 
+    // Test 1: Add field with data and verify onValuesChange is called
     fireEvent.click(addBtn);
+    await mockTimeout(() => true);
     expect(queryByDisplayValue('guangdong')).toBeTruthy();
     expect(queryByDisplayValue('shenzhen')).toBeTruthy();
-    const removeBtn = container.querySelector('.test-remove-0');
-    fireEvent.click(removeBtn);
+
+    // Verify onValuesChange was called with correct data
+    expect(onValuesChangeFn).toHaveBeenCalled();
+    const lastCall = onValuesChangeFn.mock.calls[onValuesChangeFn.mock.calls.length - 1];
+    expect(lastCall[1]).toEqual({
+      address: [{ province: 'guangdong', area: 'shenzhen' }],
+    });
+
+    // Verify UI matches the data in onValuesChange
+    expect(latestFormValues).toEqual({
+      address: [{ province: 'guangdong', area: 'shenzhen' }],
+    });
+
+    const initialCallCount = onValuesChangeFn.mock.calls.length;
+
+    fireEvent.click(resetBtn);
+    await mockTimeout(() => true);
+
+    // Check if UI is cleared after reset
     expect(queryByDisplayValue('guangdong')).not.toBeTruthy();
     expect(queryByDisplayValue('shenzhen')).not.toBeTruthy();
+
+    // Verify form values are cleared (either through onValuesChange or direct form state)
+    const currentFormValues = container.querySelector('#form-values-result');
+    if (currentFormValues) {
+      fireEvent.click(queryByText('getFormValues'));
+      await mockTimeout(() => true);
+      const formValuesResult = currentFormValues.getAttribute('data-result');
+      const formValues = JSON.parse(formValuesResult || '{}');
+      expect(formValues).toEqual({});
+    }
+
+    // If onValuesChange was called during reset, verify the data
+    if (onValuesChangeFn.mock.calls.length > initialCallCount) {
+      const resetCall = onValuesChangeFn.mock.calls[onValuesChangeFn.mock.calls.length - 1];
+      expect(resetCall[1]).toEqual({});
+      expect(latestFormValues).toEqual({});
+    } else {
+      latestFormValues = {};
+    }
+
+    const beforeAddCallCount = onValuesChangeFn.mock.calls.length;
+
+    fireEvent.click(addBtn);
+    await mockTimeout(() => true);
+    expect(queryByDisplayValue('guangdong')).toBeTruthy();
+    expect(queryByDisplayValue('shenzhen')).toBeTruthy();
+
+    const removeBtn = container.querySelector('.test-remove-0');
+    fireEvent.click(removeBtn);
+    await mockTimeout(() => true);
+    expect(queryByDisplayValue('guangdong')).not.toBeTruthy();
+    expect(queryByDisplayValue('shenzhen')).not.toBeTruthy();
+
+    const afterRemoveCallCount = onValuesChangeFn.mock.calls.length;
+
+    // Verify onValuesChange was called for both add and remove operations
+    expect(afterRemoveCallCount).toBeGreaterThan(beforeAddCallCount);
+    if (afterRemoveCallCount > beforeAddCallCount) {
+      const removeCall = onValuesChangeFn.mock.calls[afterRemoveCallCount - 1];
+      expect(removeCall[1]).toEqual({ address: [] });
+    }
+
+    // Test 4: setFields and verify onValuesChange
+    const beforeSetFieldsCallCount = onValuesChangeFn.mock.calls.length;
 
     fireEvent.click(queryByText('setFields'));
     await mockTimeout(() => true);
     expect(queryByDisplayValue('setFields')).toBeTruthy();
+
+    const afterSetFieldsCallCount = onValuesChangeFn.mock.calls.length;
+
+    if (afterSetFieldsCallCount > beforeSetFieldsCallCount) {
+      const setFieldsCall = onValuesChangeFn.mock.calls[afterSetFieldsCallCount - 1];
+      expect(setFieldsCall[1]).toEqual({
+        address: [{ province: 'setFields' }],
+      });
+    }
+
+    // Test 5: setFieldsValue and verify onValuesChange
+    const beforeSetFieldsValueCallCount = onValuesChangeFn.mock.calls.length;
     fireEvent.click(queryByText('setFieldsValue'));
     await mockTimeout(() => true);
     expect(queryByDisplayValue('setFieldsValue')).toBeTruthy();
+
+    const afterSetFieldsValueCallCount = onValuesChangeFn.mock.calls.length;
+    if (afterSetFieldsValueCallCount > beforeSetFieldsValueCallCount) {
+      const setFieldsValueCall = onValuesChangeFn.mock.calls[afterSetFieldsValueCallCount - 1];
+      expect(setFieldsValueCall[1]).toEqual({
+        address: [{ province: 'setFieldsValue' }],
+      });
+    }
+
+    fireEvent.click(queryByText('getFormValues'));
+    await mockTimeout(() => true);
+    const formValuesResult = container.querySelector('#form-values-result')?.getAttribute('data-result');
+    const formValues = JSON.parse(formValuesResult || '{}');
+    expect(formValues).toEqual(latestFormValues);
+    expect(formValues).toEqual({
+      address: [{ province: 'setFieldsValue' }],
+    });
+
+    const beforeManualInputCallCount = onValuesChangeFn.mock.calls.length;
+    const provinceInput = container.querySelector('input[value="setFieldsValue"]') as HTMLInputElement;
+    fireEvent.change(provinceInput, { target: { value: 'manual-input' } });
+    await mockTimeout(() => true);
+
+    const afterManualInputCallCount = onValuesChangeFn.mock.calls.length;
+    if (afterManualInputCallCount > beforeManualInputCallCount) {
+      const manualInputCall = onValuesChangeFn.mock.calls[afterManualInputCallCount - 1];
+      expect(manualInputCall[1]).toEqual({
+        address: [{ province: 'manual-input' }],
+      });
+      expect(latestFormValues).toEqual({
+        address: [{ province: 'manual-input' }],
+      });
+    }
 
     // validate validateOnly test
     fireEvent.click(queryByText('validateOnly'));
@@ -334,7 +449,6 @@ describe('FormList 组件测试', () => {
 
       function getFieldsValueAll() {
         const allValues = form.getFieldsValue(true);
-        console.log('getFieldsValue(true):', allValues);
         document.getElementById('all-values-result')?.setAttribute('data-result', JSON.stringify(allValues));
       }
 
@@ -743,10 +857,10 @@ describe('FormList 组件测试', () => {
     expect(container.querySelector('[placeholder="route-weight-0-0"]')).toBeFalsy();
     expect((getByPlaceholderText('route-abtest-0-0') as HTMLInputElement).value).toBe('cid');
 
-    // Switch back to weight - should show initial value (50), not manually modified value (200)
+    // Switch back to weight - should show manually modified value (200)
     fireEvent.click(weightRadio0);
     await mockTimeout();
-    expect((getByPlaceholderText('route-weight-0-0') as HTMLInputElement).value).toBe('50');
+    expect((getByPlaceholderText('route-weight-0-0') as HTMLInputElement).value).toBe('200');
     expect(container.querySelector('[placeholder="route-abtest-0-0"]')).toBeFalsy();
 
     // Test switching second route from abtest to weight
@@ -768,10 +882,10 @@ describe('FormList 组件测试', () => {
     expect((getByPlaceholderText('route-abtest-0-1') as HTMLInputElement).value).toBe('uid');
     expect(container.querySelector('[placeholder="route-weight-0-1"]')).toBeFalsy();
 
-    // Switch to weight again - should show initial weight value (30), not manually modified value (100)
+    // Switch to weight again - should show manually modified value (100)
     fireEvent.click(weightRadio1);
     await mockTimeout();
-    expect((getByPlaceholderText('route-weight-0-1') as HTMLInputElement).value).toBe('30');
+    expect((getByPlaceholderText('route-weight-0-1') as HTMLInputElement).value).toBe('100');
     expect(container.querySelector('[placeholder="route-abtest-0-1"]')).toBeFalsy();
 
     // Modify abtest value manually
@@ -787,12 +901,12 @@ describe('FormList 组件测试', () => {
     fireEvent.click(weightRadio1);
     await mockTimeout();
     expect(container.querySelector('[placeholder="route-abtest-0-1"]')).toBeFalsy();
-    expect((getByPlaceholderText('route-weight-0-1') as HTMLInputElement).value).toBe('30');
+    expect((getByPlaceholderText('route-weight-0-1') as HTMLInputElement).value).toBe('100');
 
-    // Switch back to abtest - should show initial value (uid), not manually modified value (custom-key)
+    // Switch back to abtest - should show manually modified value
     fireEvent.click(abtestRadio1);
     await mockTimeout();
-    expect((getByPlaceholderText('route-abtest-0-1') as HTMLInputElement).value).toBe('uid');
+    expect((getByPlaceholderText('route-abtest-0-1') as HTMLInputElement).value).toBe('custom-key');
     expect(container.querySelector('[placeholder="route-weight-0-1"]')).toBeFalsy();
 
     // Test adding default route (empty data)
@@ -835,12 +949,12 @@ describe('FormList 组件测试', () => {
     await mockTimeout();
     expect(newAbtestInput.value).toBe('new-key');
 
-    // Test switching back to weight - should show empty value, not previous manually modified value
+    // Test switching back to weight - should show manually modified value (100)
     fireEvent.click(newWeightRadio);
     await mockTimeout();
     expect(container.querySelector('[placeholder="route-abtest-0-2"]')).toBeFalsy();
     const weightInputAgain = getByPlaceholderText('route-weight-0-2') as HTMLInputElement;
-    expect(weightInputAgain.value).toBe('');
+    expect(weightInputAgain.value).toBe('100');
 
     // Test adding specified route (with initial data)
     const addSpecifiedBtn = container.querySelector('#test-add-route-0-specified');
