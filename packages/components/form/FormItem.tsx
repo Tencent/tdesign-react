@@ -431,7 +431,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
     return () => {
       mapRef.current.delete(fullPath);
-      set(form?.store, fullPath, defaultInitialData);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [snakeName, formListName]);
