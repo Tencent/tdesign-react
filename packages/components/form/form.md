@@ -89,16 +89,17 @@ const CustomInput = (props) => (
 
 ### 我只想要 Form 组件的布局效果，校验能力我自己业务来实现可以吗？
 
-可以的，Form 的校验能力只跟 `name` 属性关联，不指定 FormItem 的 `name` 属性是可以当成布局组件来使用的，甚至可以实现各种嵌套自定义内容的布局效果。
+可以，表单的校验和存储能力只跟 `name` 属性关联（但无论有无 `name`，第一层子节点的 `value` 和 `onChange` 目前依旧会被拦截）。
 
 ```js
-// 可以单独使用 FormItem 组件
 <FormItem label="姓名">
   <div>可以任意定制内容</div>
   <Input />
   <div>可以任意定制内容</div>
 </FormItem>
 ```
+
+- 如果仅需要展示信息或纯样式布局，更推荐使用 `Description` 组件。
 
 ### `getFieldsValue` 返回的数据如何支持嵌套数据结构？
 
