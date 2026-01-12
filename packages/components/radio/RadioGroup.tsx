@@ -6,19 +6,19 @@ import { CheckContext, type CheckContextValue } from '../common/Check';
 import useCommonClassName from '../hooks/useCommonClassName';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
+import useDeepEffect from '../hooks/useDeepEffect';
 import useDefaultProps from '../hooks/useDefaultProps';
-import useMutationObserver from '../hooks/useMutationObserver';
 import Radio from './Radio';
 import { radioGroupDefaultProps } from './defaultProps';
 import useKeyboard from './useKeyboard';
 
 import type { StyledProps } from '../common';
-import type { TdRadioGroupProps } from './type';
+import type { RadioValue, TdRadioGroupProps } from './type';
 
 /**
  * RadioGroup 组件所接收的属性
  */
-export interface RadioGroupProps extends TdRadioGroupProps, StyledProps {
+export interface RadioGroupProps<T extends RadioValue = RadioValue> extends TdRadioGroupProps<T>, StyledProps {
   children?: ReactNode;
 }
 
@@ -88,48 +88,20 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
     });
   };
 
-  // 针对子元素更新的场景，包括 value 变化等
-  // 只监听 class 属性变化，避免 bg-block 元素或子组件（如 Badge）导致无限循环
-  useMutationObserver(
-    radioGroupRef.current,
-    (mutations) => {
-      const hasRelevantChange = mutations.some((mutation) => {
-        const target = mutation.target as HTMLElement;
-        // 只关注 radio-button 元素的 class 变化（checked 状态变化）
-        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-          return target.classList?.contains(`${classPrefix}-radio-button`);
-        }
-        return false;
-      });
-
-      if (hasRelevantChange) {
-        calcBarStyle();
-      }
-    },
-    {
-      config: {
-        attributes: true,
-        attributeFilter: ['class'],
-        childList: false,
-        characterData: false,
-        subtree: true,
-      },
-    },
-  );
-
   useEffect(() => {
-    calcBarStyle();
     if (!radioGroupRef.current) return;
-
     // 针对父元素初始化时隐藏导致无法正确计算尺寸的问题
     const observer = observe(radioGroupRef.current, null, calcBarStyle, 0);
     observerRef.current = observer;
-
     return () => {
-      observerRef.current?.disconnect();
-      observerRef.current = null;
+      observer?.disconnect();
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useDeepEffect(() => {
+    calcBarStyle();
+  }, [internalValue, options]);
 
   const renderBlock = () => {
     if (!variant.includes('filled') || !barStyle) {
@@ -180,4 +152,4 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
 
 RadioGroup.displayName = 'RadioGroup';
 
-export default RadioGroup;
+export default RadioGroup as <T extends RadioValue = RadioValue>(props: RadioGroupProps<T>) => React.ReactElement;
