@@ -44,6 +44,7 @@ export interface MessagePlugin {
 
 interface MessageContainerProps {
   placement?: MessagePlacementList;
+  zIndex?: number;
   children?: React.ReactNode;
 }
 
@@ -51,6 +52,7 @@ interface ContainerInstance {
   container: HTMLDivElement;
   messages: MessageItem[];
   placement: MessagePlacementList;
+  zIndex?: number;
 }
 
 interface MessageItem extends MessageInstance {
@@ -66,7 +68,7 @@ let messageKey = 1;
 const MessageContainerMaps: Map<HTMLElement, Map<MessagePlacementList, ContainerInstance>> = new Map();
 
 const MessageContainer: React.FC<MessageContainerProps> = (props) => {
-  const { placement, children } = props;
+  const { placement, children, zIndex } = props;
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -76,6 +78,10 @@ const MessageContainer: React.FC<MessageContainerProps> = (props) => {
   });
   if (placement.includes('top')) {
     style.top = `${globalConfig.top}px`;
+  }
+  // 允许自定义消息列表的层级，默认使用全局配置值
+  if (typeof zIndex !== 'undefined') {
+    style.zIndex = zIndex;
   }
 
   const { tdMessagePlacementClassGenerator, tdMessageListClass } = useMessageClass();
@@ -98,13 +104,13 @@ function getAttachNodeMap(attachNode: HTMLElement) {
   return MessageContainerMaps.get(attachNode);
 }
 
-function createContainer(placement: MessagePlacementList, attachNode: HTMLElement): HTMLDivElement {
+function createContainer(placement: MessagePlacementList, attachNode: HTMLElement, zIndex?: number): HTMLDivElement {
   const mGlobalConfig = ConfigProvider.getGlobalConfig();
   const containerWrapper = document.createElement('div');
   attachNode.appendChild(containerWrapper);
   render(
     <PluginContainer globalConfig={mGlobalConfig}>
-      <MessageContainer placement={placement} />
+      <MessageContainer placement={placement} zIndex={zIndex} />
     </PluginContainer>,
     containerWrapper,
   );
@@ -115,7 +121,7 @@ function renderContainer(containerInstance: ContainerInstance) {
   const mGlobalConfig = ConfigProvider.getGlobalConfig();
   render(
     <PluginContainer globalConfig={mGlobalConfig}>
-      <MessageContainer placement={containerInstance.placement}>
+      <MessageContainer placement={containerInstance.placement} zIndex={containerInstance.zIndex}>
         {containerInstance.messages.map((item) => (
           <MessageComponent key={item.key} ref={item.ref} {...item.config} theme={item.theme} />
         ))}
@@ -146,19 +152,23 @@ function destroyContainer(containerInstance: ContainerInstance, attachNode: HTML
 }
 
 function renderElement(theme: MessageThemeList, config: MessageOptions): MessageInstance {
-  const { attach, placement = 'top' } = config;
+  const { attach, placement = 'top', zIndex } = config;
   const attachNode = getAttach(attach);
   const attachNodeMap = getAttachNodeMap(attachNode);
 
   let containerInstance = attachNodeMap.get(placement);
   if (!containerInstance) {
-    const container = createContainer(placement, attachNode);
+    const container = createContainer(placement, attachNode, zIndex);
     containerInstance = {
       container,
       messages: [],
       placement,
+      zIndex,
     };
     attachNodeMap.set(placement, containerInstance);
+  } else if (typeof zIndex !== 'undefined') {
+    // 已有容器也需要更新层级，保持后续调用一致
+    containerInstance.zIndex = zIndex;
   }
 
   let style: React.CSSProperties = { ...config.style };
