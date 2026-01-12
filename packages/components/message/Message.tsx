@@ -262,6 +262,4 @@ MessagePlugin.closeAll = () => {
   });
 };
 
-MessageComponent.displayName = 'Message';
-
 export default MessageComponent;
