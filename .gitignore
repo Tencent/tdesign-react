@@ -39,3 +39,9 @@ pnpm-lock.yaml
 
 ## analysis files
 bundle-analysis
+
+## mock files
+mock-server
+packages/**/chat-engine/core
+packages/**/chatbot/docs
+
