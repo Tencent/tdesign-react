@@ -311,10 +311,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         if (col.minWidth) {
           style.minWidth = formatCSSUnit(col.minWidth);
         }
-        // 没有设置任何宽度的场景下，需要保留表格正常显示的最小宽度，否则会出现因宽度过小的抖动问题
-        if (!style.width && !col.minWidth && props.tableLayout === 'fixed') {
-          style.minWidth = '80px';
-        }
         return <col key={col.colKey || index} style={style} />;
       })}
     </colgroup>
