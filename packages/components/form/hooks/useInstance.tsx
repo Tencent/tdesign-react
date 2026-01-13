@@ -26,7 +26,7 @@ function formatValidateResult(validateResultList) {
     if (result[key] === true) {
       delete result[key];
     } else if (Array.isArray(result[key])) {
-      result[key] = result[key].filter((fr: AllValidateResult) => fr && fr.result === false);
+      result[key] = result[key].filter((fr: AllValidateResult) => fr?.result === false);
     }
 
     // 整理嵌套数据
