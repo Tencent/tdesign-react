@@ -102,7 +102,13 @@ const Text = forwardRef<HTMLSpanElement, TypographyTextProps>((originalProps, re
   const renderContent = (withChildren: boolean) => {
     const { tooltipProps } = copyProps;
     const wrapWithTooltip = (wrapContent: React.ReactNode) =>
-      tooltipProps ? <Tooltip {...tooltipProps}>{wrapContent}</Tooltip> : wrapContent;
+      tooltipProps ? (
+        <Tooltip hideEmptyPopup {...tooltipProps}>
+          {wrapContent}
+        </Tooltip>
+      ) : (
+        wrapContent
+      );
 
     const getSuffix = (): ReactElement => {
       if (typeof copyProps?.suffix === 'function') {
