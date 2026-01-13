@@ -38,50 +38,29 @@ AG-UI 采用**事件驱动模型**，通过标准化的事件流实现前后端�
 
 ## 协议要点
 
-### 事件机制
+### 事件类型速查
 
 AG-UI 定义了[16 种标准事件类型](https://docs.ag-ui.com/concepts/events)，覆盖 AI 交互的完整生命周期：
 
-| 事件分类         | 事件名                                   | 含义                                                        |
-| ---------------- | ---------------------------------------- | ----------------------------------------------------------- |
-| **生命周期事件** | `RUN_STARTED`                            | 开始执行，可显示进度指示                                    |
-|                  | `RUN_FINISHED`                           | 执行完成                                                    |
-|                  | `RUN_ERROR`                              | 执行错误，包含错误信息                                      |
-| **思考过程事件** | `THINKING_START/END`                     | 新的思考过程开始、结束                                      |
-|                  | `THINKING_TEXT_MESSAGE_START/CONTEN/END` | 思考过程文本内容（段）的过程起止，通过 CONTENT 事件增量传输 |
-| **文本消息事件** | `TEXT_MESSAGE_START`                     | 开始新消息，建立 messageId                                  |
-|                  | `TEXT_MESSAGE_CONTENT`                   | 流式文本内容，通过 delta 增量传输                           |
-|                  | `TEXT_MESSAGE_END`                       | 消息结束，可触发后续操作                                    |
-| **思考过程事件** | `THINKING_START`                         | 开始思考阶段                                                |
-|                  | `THINKING_END`                           | 思考结束                                                    |
-| **工具调用事件** | `TOOL_CALL_START`                        | 开始调用工具，显示工具名称                                  |
-|                  | `TOOL_CALL_ARGS`                         | 工具参数，支持流式传输 JSON 片段                            |
-|                  | `TOOL_CALL_END`                          | 工具调用完成                                                |
-|                  | `TOOL_CALL_RESULT`                       | 工具执行结果                                                |
-| **状态管理事件** | `STATE_SNAPSHOT`                         | 完整状态快照，用于初始化或同步                              |
-|                  | `STATE_DELTA`                            | 增量状态更新，基于 JSON Patch（RFC 6902）                   |
-|                  | `MESSAGES_SNAPSHOT`                      | 消息历史快照                                                |
+| 事件分类         | 事件名                                                      | 含义                                                        |
+| ---------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| **生命周期事件** | `RUN_STARTED` / `RUN_FINISHED` / `RUN_ERROR`                | 必须成对出现，标记 Agent 运行边界                           |
+| **文本消息事件** | `TEXT_MESSAGE_START` / `TEXT_MESSAGE_CONTENT` / `TEXT_MESSAGE_END` | 流式文本输出，通过 delta 增量传输                           |
+| **思考过程事件** | `THINKING_START` / `THINKING_END`                           | 思考过程的起止                                              |
+|                  | `THINKING_TEXT_MESSAGE_START` / `CONTENT` / `END`           | 思考过程文本内容的流式传输                                  |
+| **工具调用事件** | `TOOL_CALL_START` / `TOOL_CALL_ARGS` / `TOOL_CALL_END`      | 工具调用生命周期                                            |
+|                  | `TOOL_CALL_RESULT`                                          | 工具执行结果                                                |
+| **状态管理事件** | `STATE_SNAPSHOT` / `STATE_DELTA`                            | 全局状态同步，Delta 基于 JSON Patch（RFC 6902）             |
+|                  | `MESSAGES_SNAPSHOT`                                         | 消息历史快照                                                |
+| **Activity 事件** | `ACTIVITY_SNAPSHOT` / `ACTIVITY_DELTA`                     | 动态内容展示（图表、进度条等）                              |
+| **步骤追踪事件** | `STEP_STARTED` / `STEP_FINISHED`                            | 可选，用于多步骤任务进度追踪                                |
 
-以下是一段符合 AG-UI 协议的事件流响应示例：
+### 事件流模式
 
-```js
-data: {"type": "RUN_STARTED", "runId": "run_456"}
+AG-UI 事件遵循两种核心模式：
 
-data: {"type": "TEXT_MESSAGE_START", "messageId": "msg_789", "role": "assistant"}
-data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "msg_789", "delta": "我来帮您查询"}
-
-// 前端可以根据不同的toolCallName定义不同的工具组件来渲染
-data: {"type": "TOOL_CALL_START", "toolCallId": "tool_001", "toolCallName": "weather_query"}
-data: {"type": "TOOL_CALL_ARGS", "toolCallId": "tool_001", "delta": "{\"city\":\"北京\"}"}
-data: {"type": "TOOL_CALL_END", "toolCallId": "tool_001"}
-data: {"type": "TOOL_CALL_RESULT", "toolCallId": "tool_001", "content": "北京今日晴，22°C"}
-
-data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "msg_789", "delta": "北京的天气"}
-data: {"type": "TEXT_MESSAGE_END", "messageId": "msg_789"}
-
-data: {"type": "RUN_FINISHED", "runId": "run_456"}
-
-```
+1. **Start → Content → End 模式**：用于流式内容（文本消息、工具调用）
+2. **Snapshot → Delta 模式**：用于状态同步（全局状态、Activity）
 
 ### 交互流程
 
@@ -103,7 +82,7 @@ AG-UI 基于事件驱动架构，实现前后端的实时双向通信：
 
 这些能力构成了 AG-UI 成为生产级 Agent 应用的关键基础。
 
-## TDesign Chat 集成方式
+## 前端 TDesign Chat 集成方式
 
 ### 基础配置
 
@@ -131,16 +110,185 @@ export default function AguiChat() {
 
 ### 高级功能
 
-TDesign Chat 为 AG-UI 协议提供了两个专用 Hook：
+TDesign Chat 为 AG-UI 协议提供了专用 Hook：
 
-- **`useAgentToolcall`**：用于注册和管理工具调用组件，当 Agent 发送`TOOL_CALL_*`事件时自动渲染对应的工具组件
-- **`useAgentState`**：用于订阅 AG-UI 协议的状态事件，支持`STATE_SNAPSHOT`和`STATE_DELTA`事件的自动处理和状态同步
+| Hook | 用途 | 对应事件 |
+|------|------|----------|
+| `useAgentToolcall` | 注册和管理工具调用组件 | `TOOL_CALL_*` |
+| `useAgentState` | 订阅全局状态变化 | `STATE_SNAPSHOT` / `STATE_DELTA` |
+| `useAgentActivity` | 注册动态展示组件 | `ACTIVITY_SNAPSHOT` / `ACTIVITY_DELTA` |
 
-详细的使用方法请参考[ChatEngine 工具调用](/react-chat/components/chat-engine#工具调用)。
+详细的使用方法请参考 [ChatEngine 工具调用](/react-chat/components/chat-engine#工具调用)。
+
+## 后端事件输出规范
+
+本节帮助后端开发者正确输出符合 AG-UI 协议的事件流。
+
+### 1. 生命周期事件（必须）
+
+每次 Agent 运行**必须**以 `RUN_STARTED` 开始，以 `RUN_FINISHED` 或 `RUN_ERROR` 结束：
+
+```javascript
+// ✅ 正确：完整的生命周期
+data: {"type": "RUN_STARTED", "threadId": "thread_1", "runId": "run_1"}
+data: {"type": "TEXT_MESSAGE_START", "messageId": "msg_1", "role": "assistant"}
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "msg_1", "delta": "你好！"}
+data: {"type": "TEXT_MESSAGE_END", "messageId": "msg_1"}
+data: {"type": "RUN_FINISHED", "threadId": "thread_1", "runId": "run_1"}
+
+// ❌ 错误：缺少 RUN_STARTED 或 RUN_FINISHED
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "msg_1", "delta": "你好！"}
+```
+
+### 2. 文本消息事件
+
+文本消息遵循 Start → Content → End 模式，`messageId` 必须保持一致：
+
+```javascript
+// 流式输出文本
+data: {"type": "TEXT_MESSAGE_START", "messageId": "msg_1", "role": "assistant"}
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "msg_1", "delta": "我来"}
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "msg_1", "delta": "帮你"}
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "msg_1", "delta": "分析..."}
+data: {"type": "TEXT_MESSAGE_END", "messageId": "msg_1"}
+```
+
+### 3. 工具调用事件
+
+工具调用同样遵循 Start → Args → End 模式，参数以 JSON 片段流式输出：
+
+```javascript
+// 调用天气查询工具
+data: {"type": "TOOL_CALL_START", "toolCallId": "tc_1", "toolCallName": "get_weather", "parentMessageId": "msg_1"}
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "tc_1", "delta": "{\"city\":"}
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "tc_1", "delta": "\"北京\"}"}
+data: {"type": "TOOL_CALL_END", "toolCallId": "tc_1"}
+
+// 工具执行完成后返回结果
+data: {"type": "TOOL_CALL_RESULT", "toolCallId": "tc_1", "content": "{\"temp\": 25, \"weather\": \"晴\"}"}
+```
+
+> **前端对接**：使用 `useAgentToolcall` 注册对应 `toolCallName` 的 UI 组件，`ToolCallRenderer` 会自动匹配并渲染。
+
+### 4. 状态事件
+
+状态事件用于在工具组件中展示执行进度，支持快照和增量更新：
+
+```javascript
+// 初始状态快照
+data: {"type": "STATE_SNAPSHOT", "snapshot": {"task_1": {"progress": 0, "message": "开始处理..."}}}
+
+// 增量更新（使用 JSON Patch RFC 6902）
+data: {"type": "STATE_DELTA", "delta": [
+  {"op": "replace", "path": "/task_1/progress", "value": 50},
+  {"op": "replace", "path": "/task_1/message", "value": "处理中..."}
+]}
+```
+
+> **前端对接**：工具组件通过 `agentState` 参数自动获取状态，或使用 `useAgentState` 在外部订阅。
+
+### 5. Activity 事件
+
+Activity 事件用于展示实时动态内容（图表、进度条等），同样支持快照和增量更新：
+
+```javascript
+// Activity 快照
+data: {"type": "ACTIVITY_SNAPSHOT", "messageId": "activity_1", "activityType": "stock-chart", "content": {"title": "腾讯控股", "data": [], "status": "loading"}}
+
+// Activity 增量更新
+data: {"type": "ACTIVITY_DELTA", "messageId": "activity_1", "activityType": "stock-chart", "patch": [
+  {"op": "add", "path": "/data/-", "value": {"time": "09:30", "price": 350.2}},
+  {"op": "replace", "path": "/status", "value": "active"}
+]}
+```
+
+> **前端对接**：使用 `useAgentActivity` 注册对应 `activityType` 的展示组件。
+
+### 6. Human-in-the-Loop 模式
+
+当需要用户输入时，使用工具调用等待用户响应：
+
+```javascript
+// 1. Agent 发起工具调用，请求用户输入
+data: {"type": "TOOL_CALL_START", "toolCallId": "tc_pref", "toolCallName": "collect_preferences"}
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "tc_pref", "delta": "{\"prompt\": \"请选择您的偏好\"}"}
+data: {"type": "TOOL_CALL_END", "toolCallId": "tc_pref"}
+// 此时 Agent 暂停，等待前端返回用户输入
+
+// 2. 用户在前端填写表单后，前端调用 respond 回调
+// 3. 前端将用户响应发送给后端，Agent 继续执行
+```
+
+> **前端对接**：工具组件通过 `respond` 回调将用户输入返回给后端。
 
 ## 总结
 
-AG-UI 协议为 AI 应用开发提供了完整的标准化解决方案，通过采用 AG-UI 协议，TDesign Chat 为开发者提供了构建专业级 AI 交互应用的完整工具链，让 AI 功能集成变得简单、高效、可维护。
+AG-UI 协议为 AI 应用开发提供了完整的标准化解决方案。通过采用 AG-UI 协议，TDesign Chat 为开发者提供了构建专业级 AI 交互应用的完整工具链，让 AI 功能集成变得简单、高效、可维护。
+
+### 完整事件流示例
+
+以下是一个旅游规划 Agent 的完整事件流示例，展示了各类事件的协作：
+
+```javascript
+// 1. 运行开始
+data: {"type": "RUN_STARTED", "threadId": "t1", "runId": "r1"}
+
+// 2. 初始状态
+data: {"type": "STATE_SNAPSHOT", "snapshot": {"plan_task": {"progress": 0, "steps": []}}}
+
+// 3. 开始回复
+data: {"type": "TEXT_MESSAGE_START", "messageId": "m1", "role": "assistant"}
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "m1", "delta": "好的，我来帮您规划行程..."}
+data: {"type": "TEXT_MESSAGE_END", "messageId": "m1"}
+
+// 4. 调用天气工具
+data: {"type": "TOOL_CALL_START", "toolCallId": "tc1", "toolCallName": "get_weather"}
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "tc1", "delta": "{\"city\": \"北京\"}"}
+data: {"type": "TOOL_CALL_END", "toolCallId": "tc1"}
+data: {"type": "TOOL_CALL_RESULT", "toolCallId": "tc1", "content": "{\"temp\": 25}"}
+
+// 5. 更新状态进度
+data: {"type": "STATE_DELTA", "delta": [{"op": "replace", "path": "/plan_task/progress", "value": 50}]}
+
+// 6. 展示实时数据（Activity）
+data: {"type": "ACTIVITY_SNAPSHOT", "messageId": "a1", "activityType": "stock-chart", "content": {"title": "相关股票", "data": []}}
+data: {"type": "ACTIVITY_DELTA", "messageId": "a1", "activityType": "stock-chart", "patch": [{"op": "add", "path": "/data/-", "value": {"price": 100}}]}
+
+// 7. 收集用户偏好（Human-in-the-Loop）
+data: {"type": "TOOL_CALL_START", "toolCallId": "tc2", "toolCallName": "collect_preferences"}
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "tc2", "delta": "{\"options\": [\"经济型\", \"舒适型\"]}"}
+data: {"type": "TOOL_CALL_END", "toolCallId": "tc2"}
+// 等待用户响应...
+
+// 8. 用户响应后继续
+data: {"type": "TOOL_CALL_RESULT", "toolCallId": "tc2", "content": "{\"choice\": \"舒适型\"}"}
+
+// 9. 最终回复
+data: {"type": "TEXT_MESSAGE_START", "messageId": "m2", "role": "assistant"}
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "m2", "delta": "根据您的偏好，推荐以下行程..."}
+data: {"type": "TEXT_MESSAGE_END", "messageId": "m2"}
+
+// 10. 运行结束
+data: {"type": "RUN_FINISHED", "threadId": "t1", "runId": "r1"}
+```
+
+### 前后端协作要点
+
+| 职责 | 后端（Agent 服务） | 前端（TDesign Chat） |
+|------|-------------------|----------------------|
+| **事件生成** | 按协议格式输出 SSE 事件流 | 自动解析和处理事件 |
+| **工具定义** | 定义工具的 name、参数结构 | 使用 `useAgentToolcall` 注册 UI 组件 |
+| **状态管理** | 输出 `STATE_*` 事件 | 使用 `useAgentState` 或 `agentState` 订阅 |
+| **Activity** | 输出 `ACTIVITY_*` 事件 | 使用 `useAgentActivity` 注册展示组件 |
+| **Human-in-the-Loop** | 发起工具调用并等待 | 调用 `respond` 返回用户输入 |
+
+### 调试建议
+
+1. **打开浏览器 Network 面板**：查看 SSE 事件流，确认事件格式正确
+2. **检查 ID 一致性**：同一消息/工具的所有事件必须使用相同的 `messageId` / `toolCallId`
+3. **验证 JSON Patch 格式**：`STATE_DELTA` 和 `ACTIVITY_DELTA` 必须符合 [RFC 6902](https://datatracker.ietf.org/doc/html/rfc6902)
+4. **确保生命周期完整**：每次运行必须有 `RUN_STARTED` 和 `RUN_FINISHED` / `RUN_ERROR`
+
 
 ## 相关资源
 

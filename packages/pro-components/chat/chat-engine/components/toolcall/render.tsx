@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, Component, ErrorInfo } from 'react';
 import type { ToolCall } from 'tdesign-web-components/lib/chat-engine';
 import { isNonInteractiveConfig, type ToolcallComponentProps } from './types';
 import { agentToolcallRegistry } from './registry';
@@ -7,6 +7,42 @@ import { AgentStateContext, useAgentStateDataByKey } from '../../hooks/useAgentS
 interface ToolCallRendererProps {
   toolCall: ToolCall;
   onRespond?: (toolCall: ToolCall, response: any) => void;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+}
+
+/**
+ * ToolCall 错误边界组件
+ * 捕获子组件渲染错误，防止整个对话列表崩溃
+ */
+class ToolCallErrorBoundary extends Component<
+  { children: React.ReactNode; toolCallName: string },
+  ErrorBoundaryState
+> {
+  constructor(props: { children: React.ReactNode; toolCallName: string }) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    console.error(`[ToolCallRenderer] Error in tool "${this.props.toolCallName}":`, error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // 空白兜底，仅在控制台输出错误
+      return null;
+    }
+
+    return this.props.children;
+  }
 }
 
 export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
@@ -176,7 +212,11 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
       return null;
     }
 
-    return <MemoizedComponent {...componentProps} />;
+    return (
+      <ToolCallErrorBoundary toolCallName={toolCall.toolCallName}>
+        <MemoizedComponent {...componentProps} />
+      </ToolCallErrorBoundary>
+    );
   },
   (prevProps, nextProps) =>
     prevProps.toolCall.toolCallId === nextProps.toolCall.toolCallId &&
