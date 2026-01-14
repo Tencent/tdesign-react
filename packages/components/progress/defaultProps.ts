@@ -4,4 +4,11 @@
 
 import { TdProgressProps } from './type';
 
-export const progressDefaultProps: TdProgressProps = { label: true, percentage: 0, size: 'medium', theme: 'line' };
+export const progressDefaultProps: TdProgressProps = {
+  color: '',
+  label: true,
+  percentage: 0,
+  size: 'medium',
+  theme: 'line',
+  trackColor: '',
+};
