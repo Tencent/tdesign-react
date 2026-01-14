@@ -33,7 +33,7 @@ const Form = forwardRefWithStatics(
       colon,
       initialData,
       requiredMark = globalFormConfig.requiredMark,
-      requiredMarkPosition = globalFormConfig.requiredMarkPosition,
+      requiredMarkPosition,
       scrollToFirstError,
       showErrorMessage,
       resetType,

@@ -13,7 +13,7 @@ import { subtractMonth, addMonth, extractTimeObj } from '@tdesign/common-js/date
 import log from '@tdesign/common-js/log/index';
 import useConfig from '../hooks/useConfig';
 import { StyledProps } from '../common';
-import { TdDateRangePickerProps, PresetDate } from './type';
+import { TdDateRangePickerProps, PresetDate, DateRangeValue } from './type';
 import { RangeInputPopup } from '../range-input';
 import RangePanel from './panel/RangePanel';
 import useRange from './hooks/useRange';
