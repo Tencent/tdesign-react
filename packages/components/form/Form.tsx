@@ -1,18 +1,19 @@
-import React, { useRef, useImperativeHandle } from 'react';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import classNames from 'classnames';
-import useConfig from '../hooks/useConfig';
-import noop from '../_util/noop';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import type { TdFormProps } from './type';
-import useInstance from './hooks/useInstance';
-import useForm, { HOOK_MARK } from './hooks/useForm';
-import useWatch from './hooks/useWatch';
-import { StyledProps } from '../common';
+import noop from '../_util/noop';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
 import FormContext from './FormContext';
 import FormItem from './FormItem';
 import FormList from './FormList';
 import { formDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
+import useForm, { HOOK_MARK } from './hooks/useForm';
+import useInstance from './hooks/useInstance';
+import useWatch from './hooks/useWatch';
+
+import type { StyledProps } from '../common';
+import type { TdFormProps } from './type';
 
 export interface FormProps extends TdFormProps, StyledProps {
   children?: React.ReactNode;
@@ -32,12 +33,12 @@ const Form = forwardRefWithStatics(
       colon,
       initialData,
       requiredMark = globalFormConfig.requiredMark,
+      requiredMarkPosition,
       scrollToFirstError,
       showErrorMessage,
       resetType,
       rules,
       errorMessage = globalFormConfig.errorMessage,
-      preventSubmitDefault,
       disabled,
       children,
       id,
@@ -50,7 +51,7 @@ const Form = forwardRefWithStatics(
     });
 
     const [form] = useForm(props.form); // 内部与外部共享 form 实例，外部不传则内部创建
-    const formRef = useRef<HTMLFormElement>();
+    const formRef = useRef<HTMLFormElement>(null);
     const formMapRef = useRef(new Map()); // 收集所有包含 name 属性 formItem 实例
     const floatingFormDataRef = useRef({}); // 储存游离值的 formData
     const formInstance = useInstance(props, formRef, formMapRef, floatingFormDataRef);
@@ -60,7 +61,7 @@ const Form = forwardRefWithStatics(
     form?.getInternalHooks?.(HOOK_MARK)?.setForm?.(formInstance);
 
     // form 初始化后清空队列
-    React.useEffect(() => {
+    useEffect(() => {
       form?.getInternalHooks?.(HOOK_MARK)?.flashQueue?.();
     }, [form]);
 
@@ -74,17 +75,10 @@ const Form = forwardRefWithStatics(
     }
 
     function onFormItemValueChange(changedValue: Record<string, unknown>) {
-      const allFields = formInstance.getFieldsValue(true);
-      onValuesChange(changedValue, allFields);
-    }
-
-    function onKeyDownHandler(e: React.KeyboardEvent<HTMLFormElement>) {
-      // 禁用 input 输入框回车自动提交 form
-      if ((e.target as Element).tagName.toLowerCase() !== 'input') return;
-      if (preventSubmitDefault && e.key === 'Enter') {
-        e.preventDefault?.();
-        e.stopPropagation?.();
-      }
+      requestAnimationFrame(() => {
+        const allFields = formInstance.getFieldsValue(true);
+        onValuesChange(changedValue, allFields);
+      });
     }
 
     return (
@@ -98,12 +92,14 @@ const Form = forwardRefWithStatics(
           colon,
           initialData,
           requiredMark,
+          requiredMarkPosition,
           errorMessage,
           showErrorMessage,
           scrollToFirstError,
           resetType,
           rules,
           disabled,
+          readOnly: props.readOnly || props.readonly,
           formMapRef,
           floatingFormDataRef,
           onFormItemValueChange,
@@ -116,7 +112,6 @@ const Form = forwardRefWithStatics(
           className={formClass}
           onSubmit={formInstance.submit}
           onReset={onResetHandler}
-          onKeyDown={onKeyDownHandler}
         >
           {children}
         </form>

@@ -1,13 +1,56 @@
-import { render, fireEvent, mockTimeout, vi } from '@test/utils';
 import React from 'react';
-
 import { MinusCircleIcon } from 'tdesign-icons-react';
-import Input from '../../input';
-import Form from '../index';
-import FormList from '../FormList';
+import { fireEvent, mockTimeout, render, vi } from '@test/utils';
+
 import Button from '../../button';
+import Input from '../../input';
+import FormList from '../FormList';
+import Form, { type FormProps } from '../index';
 
 const { FormItem } = Form;
+
+const BasicForm = (props: FormProps & { operation }) => {
+  const { form, operation, ...restField } = props;
+
+  return (
+    <Form form={form} {...restField}>
+      <FormList name="address">
+        {(fields, { add, remove }) => (
+          <>
+            {fields.map(({ key, name, ...restField }, index) => (
+              <FormItem key={key}>
+                <FormItem
+                  {...restField}
+                  name={[name, 'province']}
+                  label="省份"
+                  rules={[{ required: true, type: 'error' }]}
+                >
+                  <Input />
+                </FormItem>
+                <FormItem {...restField} name={[name, 'area']} label="地区" rules={[{ required: true, type: 'error' }]}>
+                  <Input placeholder={`area-input-${index}`} />
+                </FormItem>
+
+                <FormItem>
+                  <MinusCircleIcon className={`test-remove-${index}`} onClick={() => remove(name)} />
+                </FormItem>
+              </FormItem>
+            ))}
+            <FormItem style={{ marginLeft: 100 }}>
+              <Button id="test-add" onClick={() => add()}>
+                Add empty field
+              </Button>
+              <Button id="test-add-with-data" onClick={() => add({ province: 'guangdong', area: 'shenzhen' })}>
+                Add field with data
+              </Button>
+            </FormItem>
+          </>
+        )}
+      </FormList>
+      <FormItem>{operation()}</FormItem>
+    </Form>
+  );
+};
 
 describe('Form List 组件测试', () => {
   test('form list 测试', async () => {
@@ -41,58 +84,26 @@ describe('Form List 组件测试', () => {
       }
 
       return (
-        <Form form={form}>
-          <FormList name="address">
-            {(fields, { add, remove }) => (
-              <>
-                {fields.map(({ key, name, ...restField }) => (
-                  <FormItem key={key}>
-                    <FormItem
-                      {...restField}
-                      name={[name, 'province']}
-                      label="省份"
-                      rules={[{ required: true, type: 'error' }]}
-                    >
-                      <Input />
-                    </FormItem>
-                    <FormItem
-                      {...restField}
-                      name={[name, 'area']}
-                      label="地区"
-                      rules={[{ required: true, type: 'error' }]}
-                    >
-                      <Input />
-                    </FormItem>
-
-                    <FormItem>
-                      <MinusCircleIcon className="test-remove" onClick={() => remove(name)} />
-                    </FormItem>
-                  </FormItem>
-                ))}
-                <FormItem style={{ marginLeft: 100 }}>
-                  <Button id="test-add" onClick={() => add({ province: 'guangdong', area: 'shenzhen' })}>
-                    Add field
-                  </Button>
-                </FormItem>
-              </>
-            )}
-          </FormList>
-          <FormItem>
-            <Button type="submit">submit</Button>
-            <Button type="reset">reset</Button>
-            <Button onClick={setFields}>setFields</Button>
-            <Button onClick={setFieldsValue}>setFieldsValue</Button>
-            <Button onClick={setValidateMessage}>setValidateMessage</Button>
-            <Button onClick={validate}>validate</Button>
-            <Button onClick={validateOnly}>validateOnly</Button>
-            <Button onClick={clearValidate}>clearValidate</Button>
-          </FormItem>
-        </Form>
+        <BasicForm
+          form={form}
+          operation={() => (
+            <>
+              <Button type="submit">submit</Button>
+              <Button type="reset">reset</Button>
+              <Button onClick={setFields}>setFields</Button>
+              <Button onClick={setFieldsValue}>setFieldsValue</Button>
+              <Button onClick={setValidateMessage}>setValidateMessage</Button>
+              <Button onClick={validate}>validate</Button>
+              <Button onClick={validateOnly}>validateOnly</Button>
+              <Button onClick={clearValidate}>clearValidate</Button>
+            </>
+          )}
+        />
       );
     };
 
     const { container, queryByDisplayValue, queryByText } = render(<TestView />);
-    const addBtn = container.querySelector('#test-add');
+    const addBtn = container.querySelector('#test-add-with-data');
     const submitBtn = queryByText('submit');
     const resetBtn = queryByText('reset');
 
@@ -108,7 +119,7 @@ describe('Form List 组件测试', () => {
     fireEvent.click(addBtn);
     expect(queryByDisplayValue('guangdong')).toBeTruthy();
     expect(queryByDisplayValue('shenzhen')).toBeTruthy();
-    const removeBtn = container.querySelector('.test-remove');
+    const removeBtn = container.querySelector('.test-remove-0');
     fireEvent.click(removeBtn);
     expect(queryByDisplayValue('guangdong')).not.toBeTruthy();
     expect(queryByDisplayValue('shenzhen')).not.toBeTruthy();
@@ -129,6 +140,40 @@ describe('Form List 组件测试', () => {
     expect(queryByText('地区必填')).toBeTruthy();
     fireEvent.click(queryByText('clearValidate'));
     expect(queryByText('地区必填')).not.toBeTruthy();
+  });
+
+  test('reset to initial data', async () => {
+    const TestView = () => {
+      const [form] = Form.useForm();
+
+      const initialFormData = {
+        address: [
+          { province: 'guangdong', area: 'shenzhen' },
+          { province: 'beijing', area: 'beijing' },
+        ],
+      };
+
+      return (
+        <BasicForm
+          form={form}
+          initialData={initialFormData}
+          resetType="initial"
+          operation={() => <Button type="reset">reset</Button>}
+        />
+      );
+    };
+
+    const { container, queryByText, getByPlaceholderText } = render(<TestView />);
+    const resetBtn = queryByText('reset');
+
+    const removeBtn = container.querySelector('.test-remove-0');
+    fireEvent.click(removeBtn);
+    await mockTimeout(() => true);
+    expect((getByPlaceholderText('area-input-0') as HTMLInputElement).value).toBe('beijing');
+    fireEvent.click(resetBtn);
+    await mockTimeout(() => true);
+    expect((getByPlaceholderText('area-input-0') as HTMLInputElement).value).toBe('shenzhen');
+    expect((getByPlaceholderText('area-input-1') as HTMLInputElement).value).toBe('beijing');
   });
 
   test('FormList setFields not trigger onValueChange', async () => {
@@ -165,11 +210,399 @@ describe('Form List 组件测试', () => {
 
     const { queryByText } = render(<TestView />);
 
+    // 第一次更新会触发，后续相同值更新不再触发
     fireEvent.click(queryByText('setFields'));
     await mockTimeout();
     expect(fn).toHaveBeenCalledTimes(1);
     fireEvent.click(queryByText('setFields'));
     await mockTimeout();
     expect(fn).toHaveBeenCalledTimes(1);
+  });
+
+  test('Multiple nested FormList', async () => {
+    const TestView = () => {
+      const [form] = Form.useForm();
+
+      function setFields() {
+        form.setFields([
+          {
+            name: 'users',
+            value: [
+              {
+                name: 'Alice',
+                projects: [
+                  {
+                    projectName: 'Website Redesign',
+                    tasks: [
+                      { taskName: 'Design mockups', status: 'completed' },
+                      { taskName: 'Frontend development', status: 'in-progress' },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ]);
+      }
+
+      function setFieldsValue() {
+        form.setFieldsValue({
+          users: [
+            {
+              name: 'Bob',
+              projects: [
+                {
+                  projectName: 'Mobile App',
+                  tasks: [
+                    { taskName: 'API integration', status: 'pending' },
+                    { taskName: 'UI implementation', status: 'in-progress' },
+                  ],
+                },
+              ],
+            },
+          ],
+        });
+      }
+
+      function addNestedData() {
+        form.setFieldsValue({
+          users: [
+            {
+              name: 'Charlie',
+              projects: [
+                {
+                  projectName: 'Backend Service',
+                  tasks: [
+                    { taskName: 'Database design', status: 'completed' },
+                    { taskName: 'API development', status: 'in-progress' },
+                    { taskName: 'Testing', status: 'pending' },
+                  ],
+                },
+                {
+                  projectName: 'DevOps',
+                  tasks: [{ taskName: 'CI/CD setup', status: 'completed' }],
+                },
+              ],
+            },
+            {
+              name: 'David',
+              projects: [
+                {
+                  projectName: 'Documentation',
+                  tasks: [{ taskName: 'Write API docs', status: 'in-progress' }],
+                },
+              ],
+            },
+          ],
+        });
+      }
+
+      function validate() {
+        form.validate();
+      }
+
+      function clearValidate() {
+        form.clearValidate();
+      }
+
+      function getFieldsValueAll() {
+        const allValues = form.getFieldsValue(true);
+        console.log('getFieldsValue(true):', allValues);
+        document.getElementById('all-values-result')?.setAttribute('data-result', JSON.stringify(allValues));
+      }
+
+      function getFieldsValueByPath() {
+        // Test 1: Get specific user's data
+        const usersPath = form.getFieldsValue(['users']);
+
+        // Test 2: Get specific nested path - first user's projects
+        const firstUserProjects = form.getFieldsValue([['users', 0, 'projects']]);
+
+        // Test 3: Get specific nested path - first user's first project's tasks
+        const firstProjectTasks = form.getFieldsValue([['users', 0, 'projects', 0, 'tasks']]);
+
+        // Test 4: Get multiple paths at once
+        const multiplePaths = form.getFieldsValue([
+          ['users', 0, 'name'],
+          ['users', 1, 'name'],
+          ['users', 0, 'projects', 0, 'projectName'],
+        ]);
+
+        const result = {
+          usersPath,
+          firstUserProjects,
+          firstProjectTasks,
+          multiplePaths,
+        };
+        document.getElementById('path-values-result')?.setAttribute('data-result', JSON.stringify(result));
+      }
+
+      return (
+        <Form form={form}>
+          <FormList name="users">
+            {(userFields, { add: addUser, remove: removeUser }) => (
+              <>
+                {userFields.map(({ key: userKey, name: userName, ...userRestField }, userIndex) => (
+                  <FormItem key={userKey}>
+                    <FormItem
+                      {...userRestField}
+                      name={[userName, 'name']}
+                      label="用户名"
+                      rules={[{ required: true, type: 'error' }]}
+                    >
+                      <Input placeholder={`user-name-${userIndex}`} />
+                    </FormItem>
+
+                    <FormList name={[userName, 'projects']}>
+                      {(projectFields, { add: addProject, remove: removeProject }) => (
+                        <>
+                          {projectFields.map(
+                            ({ key: projectKey, name: projectName, ...projectRestField }, projectIndex) => (
+                              <FormItem key={projectKey}>
+                                <FormItem
+                                  {...projectRestField}
+                                  name={[projectName, 'projectName']}
+                                  label="项目名称"
+                                  rules={[{ required: true, type: 'error' }]}
+                                >
+                                  <Input placeholder={`project-name-${userIndex}-${projectIndex}`} />
+                                </FormItem>
+
+                                <FormList name={[projectName, 'tasks']}>
+                                  {(taskFields, { add: addTask, remove: removeTask }) => (
+                                    <>
+                                      {taskFields.map(
+                                        ({ key: taskKey, name: taskName, ...taskRestField }, taskIndex) => (
+                                          <FormItem key={taskKey}>
+                                            <FormItem
+                                              {...taskRestField}
+                                              name={[taskName, 'taskName']}
+                                              label="任务名称"
+                                              rules={[{ required: true, type: 'error' }]}
+                                            >
+                                              <Input
+                                                placeholder={`task-name-${userIndex}-${projectIndex}-${taskIndex}`}
+                                              />
+                                            </FormItem>
+                                            <FormItem
+                                              {...taskRestField}
+                                              name={[taskName, 'status']}
+                                              label="状态"
+                                              rules={[{ required: true, type: 'error' }]}
+                                            >
+                                              <Input
+                                                placeholder={`task-status-${userIndex}-${projectIndex}-${taskIndex}`}
+                                              />
+                                            </FormItem>
+                                            <FormItem>
+                                              <MinusCircleIcon
+                                                className={`test-remove-task-${userIndex}-${projectIndex}-${taskIndex}`}
+                                                onClick={() => removeTask(taskName)}
+                                              />
+                                            </FormItem>
+                                          </FormItem>
+                                        ),
+                                      )}
+                                      <FormItem>
+                                        <Button
+                                          id={`test-add-task-${userIndex}-${projectIndex}`}
+                                          onClick={() => addTask({ taskName: 'New Task', status: 'pending' })}
+                                        >
+                                          Add Task
+                                        </Button>
+                                      </FormItem>
+                                    </>
+                                  )}
+                                </FormList>
+
+                                <FormItem>
+                                  <MinusCircleIcon
+                                    className={`test-remove-project-${userIndex}-${projectIndex}`}
+                                    onClick={() => removeProject(projectName)}
+                                  />
+                                </FormItem>
+                              </FormItem>
+                            ),
+                          )}
+                          <FormItem>
+                            <Button
+                              id={`test-add-project-${userIndex}`}
+                              onClick={() => addProject({ projectName: 'New Project', tasks: [] })}
+                            >
+                              Add Project
+                            </Button>
+                          </FormItem>
+                        </>
+                      )}
+                    </FormList>
+                    <FormItem>
+                      <MinusCircleIcon
+                        className={`test-remove-user-${userIndex}`}
+                        onClick={() => removeUser(userName)}
+                      />
+                    </FormItem>
+                  </FormItem>
+                ))}
+                <FormItem>
+                  <Button id="test-add-user" onClick={() => addUser({ name: '', projects: [] })}>
+                    Add User
+                  </Button>
+                </FormItem>
+              </>
+            )}
+          </FormList>
+          <FormItem>
+            <Button onClick={setFields}>setFields</Button>
+            <Button onClick={setFieldsValue}>setFieldsValue</Button>
+            <Button onClick={addNestedData}>addNestedData</Button>
+            <Button onClick={validate}>validate</Button>
+            <Button onClick={clearValidate}>clearValidate</Button>
+            <Button onClick={getFieldsValueAll}>getFieldsValue(true)</Button>
+            <Button onClick={getFieldsValueByPath}>getFieldsValue(namePath)</Button>
+          </FormItem>
+          <div id="all-values-result" data-result="" />
+          <div id="path-values-result" data-result="" />
+        </Form>
+      );
+    };
+
+    const { container, queryByText, getByPlaceholderText } = render(<TestView />);
+
+    // Test setFields
+    fireEvent.click(queryByText('setFields'));
+    await mockTimeout();
+    expect((getByPlaceholderText('user-name-0') as HTMLInputElement).value).toBe('Alice');
+    expect((getByPlaceholderText('project-name-0-0') as HTMLInputElement).value).toBe('Website Redesign');
+    expect((getByPlaceholderText('task-name-0-0-0') as HTMLInputElement).value).toBe('Design mockups');
+    expect((getByPlaceholderText('task-status-0-0-0') as HTMLInputElement).value).toBe('completed');
+    expect((getByPlaceholderText('task-name-0-0-1') as HTMLInputElement).value).toBe('Frontend development');
+    expect((getByPlaceholderText('task-status-0-0-1') as HTMLInputElement).value).toBe('in-progress');
+
+    // Test setFieldsValue
+    fireEvent.click(queryByText('setFieldsValue'));
+    await mockTimeout();
+    expect((getByPlaceholderText('user-name-0') as HTMLInputElement).value).toBe('Bob');
+    expect((getByPlaceholderText('project-name-0-0') as HTMLInputElement).value).toBe('Mobile App');
+    expect((getByPlaceholderText('task-name-0-0-0') as HTMLInputElement).value).toBe('API integration');
+    expect((getByPlaceholderText('task-status-0-0-0') as HTMLInputElement).value).toBe('pending');
+    expect((getByPlaceholderText('task-name-0-0-1') as HTMLInputElement).value).toBe('UI implementation');
+    expect((getByPlaceholderText('task-status-0-0-1') as HTMLInputElement).value).toBe('in-progress');
+
+    // Test addNestedData - multiple users with nested projects and tasks
+    fireEvent.click(queryByText('addNestedData'));
+    await mockTimeout();
+
+    expect((getByPlaceholderText('user-name-0') as HTMLInputElement).value).toBe('Charlie');
+    expect((getByPlaceholderText('project-name-0-0') as HTMLInputElement).value).toBe('Backend Service');
+    expect((getByPlaceholderText('task-name-0-0-0') as HTMLInputElement).value).toBe('Database design');
+    expect((getByPlaceholderText('task-status-0-0-0') as HTMLInputElement).value).toBe('completed');
+    expect((getByPlaceholderText('task-name-0-0-1') as HTMLInputElement).value).toBe('API development');
+    expect((getByPlaceholderText('task-status-0-0-1') as HTMLInputElement).value).toBe('in-progress');
+    expect((getByPlaceholderText('task-name-0-0-2') as HTMLInputElement).value).toBe('Testing');
+    expect((getByPlaceholderText('task-status-0-0-2') as HTMLInputElement).value).toBe('pending');
+    expect((getByPlaceholderText('project-name-0-1') as HTMLInputElement).value).toBe('DevOps');
+    expect((getByPlaceholderText('task-name-0-1-0') as HTMLInputElement).value).toBe('CI/CD setup');
+    expect((getByPlaceholderText('task-status-0-1-0') as HTMLInputElement).value).toBe('completed');
+    expect((getByPlaceholderText('user-name-1') as HTMLInputElement).value).toBe('David');
+    expect((getByPlaceholderText('project-name-1-0') as HTMLInputElement).value).toBe('Documentation');
+    expect((getByPlaceholderText('task-name-1-0-0') as HTMLInputElement).value).toBe('Write API docs');
+    expect((getByPlaceholderText('task-status-1-0-0') as HTMLInputElement).value).toBe('in-progress');
+
+    // Test getFieldsValue(true) - should get all form values
+    fireEvent.click(queryByText('getFieldsValue(true)'));
+    await mockTimeout();
+    const allValuesResult = container.querySelector('#all-values-result')?.getAttribute('data-result');
+    const allValues = JSON.parse(allValuesResult || '{}');
+    expect(allValues).toHaveProperty('users');
+    expect(Array.isArray(allValues.users)).toBe(true);
+    expect(allValues.users.length).toBe(2);
+    expect(allValues.users[0].name).toBe('Charlie');
+    expect(allValues.users[0].projects.length).toBe(2);
+    expect(allValues.users[0].projects[0].projectName).toBe('Backend Service');
+    expect(allValues.users[0].projects[0].tasks.length).toBe(3);
+    expect(allValues.users[1].name).toBe('David');
+
+    // Test getFieldsValue with complex namePath
+    fireEvent.click(queryByText('getFieldsValue(namePath)'));
+    await mockTimeout();
+    const pathValuesResult = container.querySelector('#path-values-result')?.getAttribute('data-result');
+    const pathValues = JSON.parse(pathValuesResult || '{}');
+
+    // Test 1: Verify users path returns all users data
+    expect(pathValues.usersPath).toHaveProperty('users');
+    expect(Array.isArray(pathValues.usersPath.users)).toBe(true);
+    expect(pathValues.usersPath.users.length).toBe(2);
+    expect(pathValues.usersPath.users[0].name).toBe('Charlie');
+    expect(pathValues.usersPath.users[1].name).toBe('David');
+
+    // Test 2: Verify nested path returns first user's projects
+    expect(pathValues.firstUserProjects).toHaveProperty('users');
+    expect(pathValues.firstUserProjects.users[0]).toHaveProperty('projects');
+    expect(Array.isArray(pathValues.firstUserProjects.users[0].projects)).toBe(true);
+    expect(pathValues.firstUserProjects.users[0].projects.length).toBe(2);
+    expect(pathValues.firstUserProjects.users[0].projects[0].projectName).toBe('Backend Service');
+    expect(pathValues.firstUserProjects.users[0].projects[1].projectName).toBe('DevOps');
+
+    // Test 3: Verify deep nested path returns first project's tasks
+    expect(pathValues.firstProjectTasks).toHaveProperty('users');
+    expect(pathValues.firstProjectTasks.users[0].projects[0]).toHaveProperty('tasks');
+    expect(Array.isArray(pathValues.firstProjectTasks.users[0].projects[0].tasks)).toBe(true);
+    expect(pathValues.firstProjectTasks.users[0].projects[0].tasks.length).toBe(3);
+    expect(pathValues.firstProjectTasks.users[0].projects[0].tasks[0].taskName).toBe('Database design');
+    expect(pathValues.firstProjectTasks.users[0].projects[0].tasks[1].taskName).toBe('API development');
+    expect(pathValues.firstProjectTasks.users[0].projects[0].tasks[2].taskName).toBe('Testing');
+
+    // Test 4: Verify multiple paths returns specific fields
+    expect(pathValues.multiplePaths).toHaveProperty('users');
+    expect(pathValues.multiplePaths.users[0]).toHaveProperty('name');
+    expect(pathValues.multiplePaths.users[0].name).toBe('Charlie');
+    expect(pathValues.multiplePaths.users[1]).toHaveProperty('name');
+    expect(pathValues.multiplePaths.users[1].name).toBe('David');
+    expect(pathValues.multiplePaths.users[0].projects[0]).toHaveProperty('projectName');
+    expect(pathValues.multiplePaths.users[0].projects[0].projectName).toBe('Backend Service');
+
+    // Test remove nested task - remove first task of Charlie's Backend Service project
+    const removeTaskBtn = container.querySelector('.test-remove-task-0-0-0');
+    fireEvent.click(removeTaskBtn);
+    await mockTimeout();
+    expect((getByPlaceholderText('user-name-0') as HTMLInputElement).value).toBe('Charlie');
+    // After removing first task, the second task (API development) becomes the first one
+    expect((getByPlaceholderText('task-name-0-0-0') as HTMLInputElement).value).toBe('API development');
+    expect((getByPlaceholderText('task-status-0-0-0') as HTMLInputElement).value).toBe('in-progress');
+    expect((getByPlaceholderText('task-name-0-0-1') as HTMLInputElement).value).toBe('Testing');
+    expect((getByPlaceholderText('task-status-0-0-1') as HTMLInputElement).value).toBe('pending');
+    // The third task placeholder should not exist anymore
+    expect(container.querySelector('[placeholder="task-name-0-0-2"]')).toBeFalsy();
+
+    // Test remove project - remove Charlie's second project (DevOps)
+    const removeProjectBtn = container.querySelector('.test-remove-project-0-1');
+    fireEvent.click(removeProjectBtn);
+    await mockTimeout();
+    // After removing DevOps project, only Backend Service should remain for Charlie
+    expect(container.querySelector('[placeholder="project-name-0-1"]')).toBeFalsy();
+    expect(container.querySelector('[placeholder="task-name-0-1-0"]')).toBeFalsy();
+
+    // Test remove user - remove David
+    const removeUserBtn = container.querySelector('.test-remove-user-1');
+    fireEvent.click(removeUserBtn);
+    await mockTimeout();
+    // After removing David, only Charlie should remain
+    expect(container.querySelector('[placeholder="user-name-1"]')).toBeFalsy();
+    expect(container.querySelector('[placeholder="project-name-1-0"]')).toBeFalsy();
+
+    // Add an empty user to test validation
+    const addUserBtn = container.querySelector('#test-add-user');
+    fireEvent.click(addUserBtn);
+    await mockTimeout();
+
+    // Test validate on nested FormList
+    fireEvent.click(queryByText('validate'));
+    await mockTimeout();
+    expect(queryByText('用户名必填')).toBeTruthy();
+
+    // Test clearValidate
+    fireEvent.click(queryByText('clearValidate'));
+    await mockTimeout();
+    expect(queryByText('用户名必填')).not.toBeTruthy();
   });
 });
