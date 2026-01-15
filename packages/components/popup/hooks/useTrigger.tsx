@@ -3,6 +3,7 @@ import { canUseDocument } from '../../_util/dom';
 import { off, on } from '../../_util/listener';
 import { composeRefs, getNodeRef, getRefDom, supportNodeRef } from '../../_util/ref';
 import useConfig from '../../hooks/useConfig';
+import useResizeObserver from '../../hooks/useResizeObserver';
 
 const ESC_KEY = 'Escape';
 
@@ -50,7 +51,6 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
   }, [triggerElementIsString, triggerElement]);
 
   const handleMouseLeave = (e: MouseEvent | React.MouseEvent) => {
-    if (isEventFromDisabledElement(e, getTriggerElement())) return;
     if (trigger !== 'hover' || hasPopupMouseDown.current) return;
     const relatedTarget = e.relatedTarget as HTMLElement;
     const isMovingToContent = relatedTarget?.closest?.(`.${classPrefix}-popup`);
@@ -100,7 +100,6 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     };
 
     const handleMouseEnter = (e: MouseEvent) => {
-      if (isEventFromDisabledElement(e, element)) return;
       if (trigger === 'hover') {
         callFuncWithDelay({
           delay: appearDelay,
@@ -195,6 +194,9 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     on(document, 'touchend', handleDocumentClick, { passive: true });
 
     return () => {
+      // 嵌套使用，父 Popup 关闭时，子 Popup 也要关闭
+      // 针对父 Popup 关闭时，trigger 元素直接从 DOM 移除的场景
+      // 避免监听器提早被销毁无法触发
       requestAnimationFrame(() => {
         off(document, 'mousedown', handleDocumentClick);
         off(document, 'touchend', handleDocumentClick, { passive: true });
@@ -213,6 +215,20 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
       element?.classList.remove(`${classPrefix}-popup-open`);
     };
   }, [visible, classPrefix, getTriggerElement]);
+
+  useResizeObserver(
+    triggerRef,
+    (entries) => {
+      entries.forEach((entry) => {
+        // 嵌套使用
+        // 针对父 Popup 关闭时，trigger 隐藏（尺寸变为 0x0）的场景
+        if (entry.contentRect.width === 0 && entry.contentRect.height === 0) {
+          onVisibleChange(false, { trigger: 'document' });
+        }
+      });
+    },
+    visible && shouldToggle,
+  );
 
   function getTriggerNode(children: React.ReactNode) {
     if (triggerElementIsString) return;

@@ -36,7 +36,7 @@ spline: explain
 - `Guide`: 修复在某些场景下可能读取到 `null` 而产生的报错问题 @RylanBot ([#4027](https://github.com/Tencent/tdesign-react/pull/4027))
 - `Popup`:
   - 修复 `1.16.0` 版本的重构导致 `SSR` 环境下产生的报错问题 @RylanBot ([#4026](https://github.com/Tencent/tdesign-react/pull/4026))
-  - 修复 `1.16.0` 版本的重构导致嵌套场景下，内层弹窗无法正常关闭的问题 @RylanBot ([#4023](https://github.com/Tencent/tdesign-react/pull/4023))
+  - 修复 `1.16.0` 版本的重构导致嵌套场景下，外层弹窗被销毁时，内层弹窗无法正常关闭的问题 @RylanBot ([#4023](https://github.com/Tencent/tdesign-react/pull/4023))
 
 ### 🚧 Others
 
