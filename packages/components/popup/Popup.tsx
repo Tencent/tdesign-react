@@ -213,14 +213,14 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
 
   // 下拉展开时更新内部滚动条和箭头位置
   useEffect(() => {
-    if (visible && popupElement) {
-      updateScrollTop?.(contentRef.current);
+    if (visible && popupElement && contentRef.current) {
       requestAnimationFrame(() => {
+        updateScrollTop?.(contentRef.current);
         updateArrowPosition();
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [visible, content]);
+  }, [visible, content, popupElement]);
 
   function handleExited() {
     setIsOverlayHover(false);
@@ -284,7 +284,6 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
               if (node) {
                 popupRef.current = node;
                 setPopupElement(node);
-                updateScrollTop?.(node);
               }
             }}
             style={{ ...styles.popper, zIndex, ...getOverlayStyle(overlayStyle) }}
