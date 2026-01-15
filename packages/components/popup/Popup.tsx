@@ -284,6 +284,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
               if (node) {
                 popupRef.current = node;
                 setPopupElement(node);
+                updateScrollTop?.(node);
               }
             }}
             style={{ ...styles.popper, zIndex, ...getOverlayStyle(overlayStyle) }}
