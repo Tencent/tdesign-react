@@ -1,0 +1,233 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  SSEChunkData,
+  TdChatMessageConfigItem,
+  ChatRequestParams,
+  ChatMessagesData,
+  ChatServiceConfig,
+  ChatBot,
+  type TdChatbotApi,
+} from '@tdesign-react/chat';
+import { Button, Space, Select } from 'tdesign-react';
+import { SystemSumIcon } from 'tdesign-icons-react';
+
+// 默认初始化消息
+const mockData: ChatMessagesData[] = [
+  {
+    id: '123',
+    role: 'assistant',
+    content: [
+      {
+        type: 'text',
+        status: 'complete',
+        data: '欢迎使用 TDesign Chatbot 智能助手，你可以这样问我：',
+      },
+      {
+        type: 'suggestion',
+        status: 'complete',
+        data: [
+          {
+            title: '南极的自动提款机叫什么名字',
+            prompt: '南极的自动提款机叫什么名字？',
+          },
+          {
+            title: '南极自动提款机在哪里',
+            prompt: '南极自动提款机在哪里',
+          },
+        ],
+      },
+    ],
+  },
+];
+
+const selectOptions = [
+  {
+    label: '默认模型',
+    value: 'default',
+  },
+  {
+    label: 'Deepseek',
+    value: 'deepseek-r1',
+  },
+  {
+    label: '混元',
+    value: 'hunyuan',
+  },
+];
+
+export default function chatSample() {
+  const chatRef = useRef<HTMLElement & TdChatbotApi>(null);
+  const [activeSearch, setSearchActive] = useState(false);
+  const [ready, setReady] = useState(false);
+  const reqParamsRef = useRef<{ think: boolean; search: boolean }>({ think: false, search: false });
+
+  // 消息属性配置
+  const messageProps = (msg: ChatMessagesData): TdChatMessageConfigItem => {
+    const { role, content } = msg;
+    // 假设只有单条thinking
+    const thinking = content.find((item) => item.type === 'thinking');
+    if (role === 'user') {
+      return {
+        variant: 'base',
+        placement: 'right',
+        avatar: 'https://tdesign.gtimg.com/site/avatar.jpg',
+      };
+    }
+    if (role === 'assistant') {
+      return {
+        placement: 'left',
+        actions: ['replay', 'copy', 'good', 'bad'],
+        handleActions: {
+          replay: ({ message, active }) => {
+            console.log('自定义重新回复', message, active);
+            chatRef?.current?.regenerate();
+          },
+          suggestion: ({ content }) => {
+            // 点建议问题自动填入输入框
+            chatRef?.current?.addPrompt(content.prompt);
+            // 也可以点建议问题直接发送消息
+            // chatRef?.current?.sendUserMessage({ prompt: content.prompt });
+          },
+        },
+        // 内置的消息渲染配置
+        chatContentProps: {
+          thinking: {
+            maxHeight: 100, // 思考框最大高度，超过会自动滚动
+            layout: 'block', // 思考内容样式，border|block
+            collapsed: thinking?.status === 'complete', // 是否折叠，这里设置内容输出完成后折叠
+          },
+        },
+      };
+    }
+  };
+
+  // 聊天服务配置
+  const chatServiceConfig: ChatServiceConfig = {
+    // 对话服务地址
+    endpoint: `https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/normal`,
+    stream: true,
+    // 流式对话结束（aborted为true时，表示用户主动结束对话，params为请求参数）
+    onComplete: (aborted: boolean, params: RequestInit) => {
+      console.log('onComplete', aborted, params);
+    },
+    // 流式对话过程中出错业务自定义行为
+    onError: (err: Error | Response) => {
+      console.error('Chatservice Error:', err);
+    },
+    // 自定义流式数据结构解析
+    onMessage: (chunk: SSEChunkData) => {
+      const { type, ...rest } = chunk.data;
+      switch (type) {
+        case 'search':
+          // 搜索
+          return {
+            type: 'search',
+            data: {
+              title: rest.title || `搜索到${rest?.docs.length}条内容`,
+              references: rest?.content,
+            },
+          };
+        // 思考
+        case 'think':
+          return {
+            type: 'thinking',
+            status: /耗时/.test(rest?.title) ? 'complete' : 'streaming',
+            data: {
+              title: rest.title || '深度思考中',
+              text: rest.content || '',
+            },
+          };
+        // 正文
+        case 'text':
+          return {
+            type: 'markdown',
+            data: rest?.msg || '',
+          };
+      }
+      return null;
+    },
+    // 自定义请求参数
+    onRequest: (innerParams: ChatRequestParams) => {
+      const { prompt } = innerParams;
+      return {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        body: JSON.stringify({
+          uid: 'tdesign-chat',
+          prompt,
+          ...reqParamsRef.current,
+        }),
+      };
+    },
+  };
+
+  useEffect(() => {
+    reqParamsRef.current = {
+      search: activeSearch,
+    };
+  }, [activeSearch]);
+
+  useEffect(() => {
+    if (ready) {
+      // 设置消息内容
+      chatRef.current?.setMessages(mockData, 'replace');
+    }
+  }, [ready]);
+
+  return (
+    <div style={{ height: '600px' }}>
+      <ChatBot
+        ref={chatRef}
+        defaultMessages={[]}
+        messageProps={messageProps}
+        senderProps={{
+          placeholder: '有问题，尽管问～ Enter 发送，Shift+Enter 换行',
+        }}
+        chatServiceConfig={chatServiceConfig}
+        onChatReady={() => {
+          setReady(true);
+        }}
+      >
+        {/* 自定义输入框底部区域slot，可以增加模型选项 */}
+        <div slot="sender-footer-prefix">
+          <Space align="center" size={'small'}>
+            <Select
+              defaultValue={'default'}
+              options={selectOptions}
+              className="test"
+              style={{
+                width: '112px',
+                // @ts-ignore
+                '--td-radius-default': '32px',
+                '--td-comp-paddingLR-s': '12px',
+              }}
+            />
+
+            <Button
+              variant="outline"
+              icon={<SystemSumIcon />}
+              shape="round"
+              style={
+                activeSearch
+                  ? {
+                      border: '1px solid var(--td-brand-color-focus)',
+                      background: 'var(--td-brand-color-light)',
+                      color: 'var(--td-text-color-brand)',
+                    }
+                  : {}
+              }
+              onClick={() => {
+                setSearchActive(!activeSearch);
+              }}
+            >
+              深度思考
+            </Button>
+          </Space>
+        </div>
+      </ChatBot>
+    </div>
+  );
+}
