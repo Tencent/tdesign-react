@@ -1,6 +1,8 @@
 import React, { useRef } from 'react';
 import { Button, Popup, Space, type PopupInstanceFunctions } from 'tdesign-react';
 
+const CUSTOM_STYLE = { fontStyle: 'italic', fontFamily: 'Times' };
+
 export default function BasicUsage() {
   const popupRef = useRef<PopupInstanceFunctions>(null);
 
@@ -14,11 +16,18 @@ export default function BasicUsage() {
 
   return (
     <Space>
-      <Popup ref={popupRef} showArrow content={<span onMouseEnter={handleMouseEnter}>这是一个弹出框</span>}>
+      <Popup
+        ref={popupRef}
+        showArrow
+        content={
+          <div style={CUSTOM_STYLE} onMouseEnter={handleMouseEnter}>
+            Access Granted
+          </div>
+        }
+      >
         <Button>Hover me</Button>
       </Popup>
-
-      <Popup showArrow content={<span>可以在浮层内容中描述禁用原因</span>}>
+      <Popup showArrow content={<div style={CUSTOM_STYLE}>Permission Denied</div>}>
         <Button disabled>Hover me</Button>
       </Popup>
     </Space>
