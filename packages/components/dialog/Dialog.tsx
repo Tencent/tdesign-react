@@ -17,6 +17,7 @@ import { dialogDefaultProps } from './defaultProps';
 import DialogCard from './DialogCard';
 import useDialogDrag from './hooks/useDialogDrag';
 import useDialogEsc from './hooks/useDialogEsc';
+import useDialogPosition from './hooks/useDialogPosition';
 import useLockStyle from './hooks/useLockStyle';
 
 import type { StyledProps } from '../common';
@@ -51,15 +52,17 @@ export interface DialogProps extends TdDialogProps, StyledProps {
 const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const props = useDefaultProps<DialogProps>(originalProps, dialogDefaultProps);
   const { children, ...restProps } = props;
-  const { classPrefix } = useConfig();
 
+  const { classPrefix } = useConfig();
   const componentCls = `${classPrefix}-dialog`;
+
   const wrapRef = useRef<HTMLDivElement>(null);
   const maskRef = useRef<HTMLDivElement>(null);
   const contentClickRef = useRef(false);
   const dialogCardRef = useRef<HTMLDivElement>(null);
   const dialogPosition = useRef(null);
   const portalRef = useRef(null);
+
   const [state, setState] = useSetState<DialogProps>({ isPlugin: false, ...restProps });
   const [local] = useLocaleReceiver('dialog');
 
@@ -96,15 +99,20 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     ...restState
   } = state;
 
+  const isModeless = mode === 'modeless';
+  const isFullScreen = mode === 'full-screen';
+
   const dialogAttach = useAttach('dialog', attach);
   const [animationVisible, setAnimationVisible] = useState(visible);
   const [dialogAnimationVisible, setDialogAnimationVisible] = useState(false);
 
   const { focusTopDialog } = useDialogEsc(visible, wrapRef);
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
-  useDialogDrag({
+  useDialogEsc(visible, wrapRef);
+  useDialogPosition(visible, dialogCardRef);
+  const { isInputInteracting } = useDialogDrag({
     dialogCardRef,
-    canDraggable: draggable && mode === 'modeless',
+    canDraggable: !isFullScreen && draggable,
   });
 
   useDeepEffect(() => {
@@ -150,7 +158,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   }
 
   const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!showOverlay) return;
+    if (!showOverlay || isModeless || isInputInteracting) return;
     // 判断点击事件初次点击是否为内容区域
     if (contentClickRef.current) {
       contentClickRef.current = false;
@@ -256,6 +264,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
           className={classNames(className, `${componentCls}__ctx`, `${componentCls}__${mode}`, {
             [`${componentCls}__ctx--fixed`]: !showInAttachedElement,
             [`${componentCls}__ctx--absolute`]: showInAttachedElement,
+            [`${componentCls}__ctx--modeless`]: isModeless,
           })}
           style={{ zIndex, display: animationVisible ? undefined : 'none' }}
           onKeyDown={handleKeyDown}
@@ -265,11 +274,14 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
           <div className={`${componentCls}__wrap`}>
             <div
               ref={dialogPosition}
-              className={classNames(`${componentCls}__position`, {
-                [`${componentCls}--top`]: !!props.top || props.placement === 'top',
-                [`${componentCls}--center`]: props.placement === 'center' && !props.top,
-              })}
-              style={{ paddingTop: pxCompat(props.top) }}
+              className={classNames(
+                isFullScreen ? `${componentCls}__position_fullscreen` : `${componentCls}__position`,
+                {
+                  [`${componentCls}--top`]: !isFullScreen && (!!props.top || props.placement === 'top'),
+                  [`${componentCls}--center`]: !isFullScreen && props.placement === 'center' && !props.top,
+                },
+              )}
+              style={{ paddingTop: isFullScreen ? undefined : pxCompat(props.top) }}
               onClick={onMaskClick}
             >
               <CSSTransition
@@ -284,6 +296,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
                 <DialogCard
                   ref={dialogCardRef}
                   {...restState}
+                  mode={mode}
                   className={dialogClassName}
                   style={{ ...style, width: pxCompat(width || style?.width) }}
                   onConfirm={onConfirm}

@@ -91,4 +91,6 @@ const MessageComponent = forwardRef<HTMLDivElement, MessageComponentProps>((prop
   );
 });
 
+MessageComponent.displayName = 'Message';
+
 export default MessageComponent;

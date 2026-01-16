@@ -4,6 +4,7 @@ import { Placement, type Options } from '@popperjs/core';
 import classNames from 'classnames';
 import { debounce, isFunction } from 'lodash-es';
 
+import { canUseDocument } from '../_util/dom';
 import { getCssVarsValue } from '../_util/style';
 import Portal from '../common/Portal';
 import useAnimation from '../hooks/useAnimation';
@@ -20,6 +21,9 @@ import { getTransitionParams } from './utils/transition';
 
 import type { PopupInstanceFunctions, TdPopupProps } from './type';
 
+/**
+ * @internal
+ */
 export interface PopupProps extends TdPopupProps {
   // 是否触发展开收起动画，内部下拉式组件使用
   expandAnimation?: boolean;
@@ -210,14 +214,14 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
 
   // 下拉展开时更新内部滚动条和箭头位置
   useEffect(() => {
-    if (visible && popupElement) {
-      updateScrollTop?.(contentRef.current);
+    if (visible && popupElement && contentRef.current) {
       requestAnimationFrame(() => {
+        updateScrollTop?.(contentRef.current);
         updateArrowPosition();
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [visible, popupElement, updateScrollTop]);
+  }, [visible, content, popupElement]);
 
   function handleExited() {
     setIsOverlayHover(false);
@@ -320,7 +324,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
   function updatePopper() {
     const popper = popperRef.current;
     // 如果没有渲染弹层或不可见则不触发更新
-    if (!popper || !visible) return;
+    if (!canUseDocument || !popper || !visible) return;
 
     try {
       // web component 的元素可能在 shadow root 内，需要特殊处理
@@ -331,12 +335,19 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
         if (popper.state) popper.state.elements.reference = triggerEl;
         popper.update();
       } else {
-        const rect = triggerEl?.getBoundingClientRect();
+        // 检查元素是否在 DOM 树中或通过 CSS 样式被隐藏
         let parent = triggerEl as HTMLElement | null;
         while (parent && parent !== document.body) {
           parent = parent.parentElement;
         }
-        const isHidden = parent !== document.body || (rect && rect.width === 0 && rect.height === 0);
+
+        const computedStyle = window.getComputedStyle(triggerEl);
+        const isHidden =
+          parent !== document.body ||
+          computedStyle.display === 'none' ||
+          computedStyle.visibility === 'hidden' ||
+          computedStyle.opacity === '0';
+
         if (!isHidden) {
           if (popper.state) popper.state.elements.reference = triggerEl;
           popper.update();
