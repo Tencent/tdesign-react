@@ -1,4 +1,4 @@
-import { cloneDeep, isArray, isEmpty, isFunction, isObject, merge, set } from 'lodash-es';
+import { cloneDeep, isArray, isEmpty, isFunction, isObject, merge, set, get } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
 import useConfig from '../../hooks/useConfig';
 import { calcFieldValue, findFormItem, travelMapFromObject } from '../utils';
@@ -180,9 +180,9 @@ export default function useInstance(
           setValueByPath(value[key], [...path, key]);
         });
       } else {
-        set(floatingFormDataRef.current, path, value);;
+        set(floatingFormDataRef.current, path, value);
         // 确保 store 始终包含所有被 set 的字段
-        set(form?.store, nameList, fieldValue);
+        set(form?.store, path, value);
       }
     };
 
