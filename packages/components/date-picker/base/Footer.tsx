@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { isFunction } from 'lodash-es';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import Button from '../../button';
 import useConfig from '../../hooks/useConfig';
@@ -34,23 +35,29 @@ const DatePickerFooter = (props: DatePickerFooterProps) => {
     `${classPrefix}-date-picker__footer--${presetsPlacement}`,
   );
 
+  const renderPresets = () => {
+    if (presets) {
+      if (React.isValidElement(presets)) return presets;
+
+      if (isFunction(presets)) return presets();
+
+      return Object.keys(presets).map((key: string) => (
+        <Button
+          key={key}
+          size="small"
+          variant="text"
+          onClick={(e) => onPresetClick(presets[key], { e, preset: { [key]: presets[key] } })}
+        >
+          {key}
+        </Button>
+      ));
+    }
+
+    return null;
+  };
   return (
     <div className={footerClass}>
-      {
-        <div className={`${classPrefix}-date-picker__presets`}>
-          {presets &&
-            Object.keys(presets).map((key: string) => (
-              <Button
-                key={key}
-                size="small"
-                variant="text"
-                onClick={(e) => onPresetClick(presets[key], { e, preset: { [key]: presets[key] } })}
-              >
-                {key}
-              </Button>
-            ))}
-        </div>
-      }
+      <div className={`${classPrefix}-date-picker__presets`}>{renderPresets()}</div>
       {enableTimePicker && needConfirm && (
         <Button disabled={!selectedValue} size="small" theme="primary" onClick={(e) => onConfirmClick({ e })}>
           {confirmText}
