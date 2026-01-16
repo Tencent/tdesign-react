@@ -2,7 +2,7 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TdSelectProps, TdOptionProps, TdOptionGroupProps } from './type';
+import { TdOptionGroupProps, TdOptionProps, TdSelectProps } from './type';
 
 export const selectDefaultProps: TdSelectProps = {
   autoWidth: false,
@@ -16,6 +16,7 @@ export const selectDefaultProps: TdSelectProps = {
   multiple: false,
   placeholder: undefined,
   readonly: false,
+  readOnly: false,
   reserveKeyword: false,
   showArrow: true,
   size: 'medium',

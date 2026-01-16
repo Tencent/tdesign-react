@@ -39,7 +39,6 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
     excessTagsDisplayType,
     autoWidth,
     borderless,
-    readonly,
     disabled,
     clearable,
     placeholder,
@@ -58,6 +57,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
     onFocus,
     onBlur,
   } = props;
+  const readOnly = props.readOnly || props.readonly;
 
   const [tInputValue, setTInputValue] = useControlled(props, 'inputValue', props.onInputChange);
 
@@ -88,7 +88,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
 
   const tagInputPlaceholder = !tagValue?.length ? placeholder : '';
 
-  const showClearIcon = Boolean(!readonly && !disabled && clearable && isHover && tagValue?.length);
+  const showClearIcon = Boolean(!readOnly && !disabled && clearable && isHover && tagValue?.length);
 
   useImperativeHandle(ref as InputRef, () => ({ ...(tagInputRef.current || {}) }));
 
@@ -160,7 +160,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       [`${prefix}-is-empty`]: isEmpty,
       [`${prefix}-tag-input--with-tag`]: !isEmpty,
       [`${prefix}-tag-input--max-rows`]: excessTagsDisplayType === 'break-line' && maxRows,
-      [`${prefix}-tag-input--drag-sort`]: props.dragSort && !disabled && !readonly,
+      [`${prefix}-tag-input--drag-sort`]: props.dragSort && !disabled && !readOnly,
     },
     props.className,
   ];
@@ -183,7 +183,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       onWheel={onWheel}
       size={size}
       borderless={borderless}
-      readonly={readonly}
+      readOnly={readOnly}
       disabled={disabled}
       label={renderLabel({ displayNode, label })}
       className={classnames(classes)}
@@ -197,6 +197,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       suffix={suffix}
       prefixIcon={prefixIcon}
       suffixIcon={suffixIconNode}
+      // showInput={!inputProps?.readOnly || !inputProps?.readonly || !tagValue || !tagValue?.length}
       showInput={!inputProps?.readonly || !tagValue || !tagValue?.length}
       keepWrapperWidth={!autoWidth}
       onPaste={onPaste}

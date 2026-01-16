@@ -11,5 +11,6 @@ export const searchDefaultProps: TdSearchProps = {
   clearable: true,
   multiline: false,
   readonly: false,
+  readOnly: false,
   defaultValue: '',
 };

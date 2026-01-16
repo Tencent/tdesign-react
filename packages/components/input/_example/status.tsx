@@ -7,7 +7,7 @@ export default function InputExample() {
     <Space size={50}>
       <Space direction="vertical" size={28}>
         <Input placeholder="禁用状态" disabled value={value} onChange={onChange} />
-        <Input placeholder="只读状态" readonly value={value} onChange={onChange} />
+        <Input placeholder="只读状态" readOnly value={value} onChange={onChange} />
       </Space>
       <Space direction="vertical" size={28}>
         <Input placeholder="成功状态" value={value} onChange={onChange} status="success" />
