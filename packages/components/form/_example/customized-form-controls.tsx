@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Form, Input, Select, Space } from 'tdesign-react';
+import type { FormProps } from 'tdesign-react';
 
 interface ICourseSelect {
   value?: {
@@ -60,8 +61,12 @@ function CourseSelect(props: ICourseSelect) {
 export default function BaseForm() {
   const [form] = Form.useForm();
 
+  const handleSubmit: FormProps['onSubmit'] = () => {
+    console.log('form.getFieldsValue', form.getFieldsValue(true));
+  };
+
   return (
-    <Form form={form} colon labelWidth={100}>
+    <Form form={form} colon labelWidth={100} onSubmit={handleSubmit}>
       <FormItem label="课程" name="course">
         <CourseSelect />
       </FormItem>
@@ -77,6 +82,9 @@ export default function BaseForm() {
           }}
         >
           设置数据
+        </Button>
+        <Button type="submit" theme="primary" style={{ marginLeft: 12 }}>
+          提交
         </Button>
       </FormItem>
     </Form>
