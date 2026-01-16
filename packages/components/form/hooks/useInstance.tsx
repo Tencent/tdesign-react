@@ -1,7 +1,7 @@
-import { cloneDeep, get, isEmpty, isFunction, merge, set } from 'lodash-es';
+import { cloneDeep, isArray, isEmpty, isFunction, isObject, merge, set, get } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
 import useConfig from '../../hooks/useConfig';
-import { calcFieldValue, findFormItem, objectToArray, travelMapFromObject } from '../utils';
+import { calcFieldValue, findFormItem, travelMapFromObject } from '../utils';
 
 import type { FormItemInstance } from '../FormItem';
 import type {
@@ -164,18 +164,29 @@ export default function useInstance(
    * 对外方法，设置对应 FormItem 的值
    */
   function setFieldsValue(fields = {}) {
-    const nameLists = objectToArray(fields);
-    nameLists.forEach((nameList) => {
-      const fieldValue = get(fields, nameList);
-      const formItemRef = findFormItem(nameList, formMapRef);
+    const setValueByPath = (value: any, path: (string | number)[] = []) => {
+      // 当前路径对应的 FormItem 存在，直接设置
+      const formItemRef = findFormItem(path, formMapRef);
       if (formItemRef?.current) {
-        formItemRef.current.setValue?.(fieldValue);
-      } else {
-        set(floatingFormDataRef.current, nameList, fieldValue);
-        // 确保 store 始终包含所有被 set 的字段
-        set(form?.store, nameList, fieldValue);
+        formItemRef.current.setValue?.(value);
+        return;
       }
-    });
+
+      // 递归处理对象
+      // { user: { name: '' } } => [['user', 'name']]
+      // { user: [{ name: '' }]} => [['user']]
+      if (isObject(value) && !isArray(value) && !isEmpty(value)) {
+        Object.keys(value).forEach((key) => {
+          setValueByPath(value[key], [...path, key]);
+        });
+      } else {
+        set(floatingFormDataRef.current, path, value);
+        // 确保 store 始终包含所有被 set 的字段
+        set(form?.store, path, value);
+      }
+    };
+
+    setValueByPath(fields);
   }
 
   /**
