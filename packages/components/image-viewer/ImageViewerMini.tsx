@@ -1,4 +1,5 @@
 import React, { KeyboardEvent, MouseEvent } from 'react';
+import classNames from 'classnames';
 import { TNode } from '../common';
 import Dialog from '../dialog';
 import useConfig from '../hooks/useConfig';
@@ -25,6 +26,8 @@ export interface ImageModalMiniProps {
     originalSize: string;
   };
   imageReferrerpolicy?: TdImageViewerProps['imageReferrerpolicy'];
+  className?: string;
+  style?: React.CSSProperties;
   prev: () => void;
   next: () => void;
   onMirror: () => void;
@@ -62,6 +65,8 @@ export const ImageModalMini: React.FC<ImageModalMiniProps> = (props) => {
     currentImage,
     draggable,
     tipText,
+    className,
+    style,
     onZoomOut,
     onZoom,
     onClose,
@@ -90,7 +95,8 @@ export const ImageModalMini: React.FC<ImageModalMiniProps> = (props) => {
 
   return (
     <Dialog
-      className={`${classPrefix}-image-viewer__dialog`}
+      className={classNames(`${classPrefix}-image-viewer__dialog`, className)}
+      style={style}
       draggable={draggable}
       visible={visible}
       width="min(90vw, 1000px)"

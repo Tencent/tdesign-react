@@ -398,6 +398,8 @@ export interface ImageModalProps {
   closeBtn: boolean | TNode;
   closeOnEscKeydown?: boolean;
   imageReferrerpolicy?: ImageViewerProps['imageReferrerpolicy'];
+  className?: string;
+  style?: React.CSSProperties;
   onClose: (context: {
     trigger: 'close-btn' | 'overlay' | 'esc';
     e: React.MouseEvent<HTMLElement> | React.KeyboardEvent;
@@ -424,6 +426,8 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
     title,
     closeOnEscKeydown,
     imageReferrerpolicy,
+    className,
+    style,
     onOpen,
     onClose,
     onDownload,
@@ -499,6 +503,8 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         errorText={errorText}
         tipText={tipText}
         imageReferrerpolicy={imageReferrerpolicy}
+        className={className}
+        style={style}
         prev={prev}
         next={next}
         onMirror={onMirror}
@@ -526,10 +532,14 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
 
   return (
     <div
-      className={classNames(`${classPrefix}-image-viewer-preview-image`, {
-        [`${classPrefix}-is-hide`]: !visible,
-      })}
-      style={{ zIndex }}
+      className={classNames(
+        `${classPrefix}-image-viewer-preview-image`,
+        {
+          [`${classPrefix}-is-hide`]: !visible,
+        },
+        className,
+      )}
+      style={{ zIndex, ...style }}
     >
       {!!showOverlay && (
         <div
