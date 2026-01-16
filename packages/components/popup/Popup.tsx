@@ -21,6 +21,9 @@ import { getTransitionParams } from './utils/transition';
 
 import type { PopupInstanceFunctions, TdPopupProps } from './type';
 
+/**
+ * @internal
+ */
 export interface PopupProps extends TdPopupProps {
   // 是否触发展开收起动画，内部下拉式组件使用
   expandAnimation?: boolean;
@@ -211,14 +214,14 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
 
   // 下拉展开时更新内部滚动条和箭头位置
   useEffect(() => {
-    if (visible && popupElement) {
-      updateScrollTop?.(contentRef.current);
+    if (visible && popupElement && contentRef.current) {
       requestAnimationFrame(() => {
+        updateScrollTop?.(contentRef.current);
         updateArrowPosition();
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [visible, popupElement, updateScrollTop]);
+  }, [visible, content, popupElement]);
 
   function handleExited() {
     setIsOverlayHover(false);
