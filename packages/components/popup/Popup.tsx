@@ -4,6 +4,7 @@ import { Placement, type Options } from '@popperjs/core';
 import classNames from 'classnames';
 import { debounce, isFunction } from 'lodash-es';
 
+import { canUseDocument } from '../_util/dom';
 import { getCssVarsValue } from '../_util/style';
 import Portal from '../common/Portal';
 import useAnimation from '../hooks/useAnimation';
@@ -20,6 +21,9 @@ import { getTransitionParams } from './utils/transition';
 
 import type { PopupInstanceFunctions, TdPopupProps } from './type';
 
+/**
+ * @internal
+ */
 export interface PopupProps extends TdPopupProps {
   // 是否触发展开收起动画，内部下拉式组件使用
   expandAnimation?: boolean;
@@ -41,6 +45,10 @@ export interface PopupRef extends PopupInstanceFunctions {
 // 默认动画时长
 const DEFAULT_TRANSITION_TIMEOUT = 180;
 
+// 箭头相关常量
+const ARROW_WIDTH = 8; // 对应 CSS 变量 @popup-arrow-width
+const ARROW_HEIGHT = 8; // 对应 CSS 变量 @popup-arrow-height
+
 const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref) => {
   const props = useDefaultProps<PopupProps>(originalProps, popupDefaultProps);
   const {
@@ -57,6 +65,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
     triggerElement,
     children = triggerElement,
     disabled,
+    popperOptions,
     zIndex,
     onScroll,
     onScrollToBottom,
@@ -75,6 +84,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
 
   const [isOverlayHover, setIsOverlayHover] = useState(false);
   const [popupElement, setPopupElement] = useState<HTMLDivElement>(null);
+  const [arrowStyle, setArrowStyle] = useState<React.CSSProperties>({});
 
   const popupRef = useRef<HTMLDivElement>(null); // popup dom 元素，css transition 需要用
   const portalRef = useRef(null); // portal dom 元素
@@ -109,24 +119,12 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
     delay,
     onVisibleChange,
   });
-  const triggerEl = getTriggerElement();
 
-  const popperOptions = useMemo(() => {
-    const baseOptions = { ...(props.popperOptions as Options) };
-    const modifiers = baseOptions.modifiers?.slice() || [];
-    const hasArrowModifiers = modifiers.some((m) => m.name === 'arrow');
-    // https://popper.js.org/docs/v2/modifiers/arrow/
-    if (showArrow && !hasArrowModifiers) {
-      modifiers.unshift({ name: 'arrow' });
-    }
-    return {
-      ...baseOptions,
-      modifiers,
-    };
-  }, [props.popperOptions, showArrow]);
+  // TODO: 理论上类型是 Element（包括 SVGElement 等情况，但涉及修改的地方较多，暂时断言）
+  const triggerEl = getTriggerElement() as HTMLElement;
 
   const arrowModifierEnabled = useMemo(() => {
-    const arrowModifier = popperOptions.modifiers?.find((m) => m.name === 'arrow');
+    const arrowModifier = (popperOptions as Options)?.modifiers?.find((m) => m.name === 'arrow');
     return arrowModifier && arrowModifier.enabled !== false;
   }, [popperOptions]);
 
@@ -134,7 +132,6 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
     placement: popperPlacement,
     ...popperOptions,
   });
-
   const { styles, attributes } = popperRef.current;
 
   const triggerNode = isFunction(children) ? getTriggerNode(children({ visible })) : getTriggerNode(children);
@@ -150,19 +147,81 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
   });
   useEffect(() => () => clearTimeout(updateTimeRef.current), []);
 
+  const calculateArrowStyle = () => {
+    if (!triggerEl || !popupElement || !showArrow) return {};
+
+    const triggerRect = triggerEl.getBoundingClientRect();
+    const popupRect = popupElement.getBoundingClientRect();
+
+    const inRange = (value: number, min: number, max: number) => value >= min && value <= max;
+
+    // 垂直方向
+    if (placement.startsWith('top') || placement.startsWith('bottom')) {
+      // 计算 trigger 中心点相对于弹出层左边缘的距离
+      const offsetLeft = Math.abs(triggerRect.left + triggerRect.width / 2 - popupRect.left);
+      const popupWidth = popupElement.offsetWidth || popupElement.clientWidth;
+
+      // 保留 padding 的安全 offset
+      const maxPopupOffsetLeft = popupWidth - ARROW_WIDTH / 2;
+      const minPopupOffsetLeft = ARROW_WIDTH + ARROW_WIDTH / 2;
+
+      // 偏移在元素范围内
+      if (inRange(offsetLeft, 0, popupWidth)) {
+        return {
+          // 减去箭头中心点偏移，使箭头中心对齐 trigger 中心
+          left: `${Math.max(minPopupOffsetLeft, Math.min(maxPopupOffsetLeft, offsetLeft)) - ARROW_WIDTH / 2}px`,
+          // 覆盖可能的 margin
+          marginLeft: 0,
+        };
+      }
+
+      return {};
+    }
+
+    // 水平方向
+    const offsetTop = triggerRect.top + triggerRect.height / 2 - popupRect.top;
+    const popupHeight = popupElement.offsetHeight || popupElement.clientHeight;
+
+    const maxPopupOffsetTop = popupHeight - ARROW_HEIGHT;
+    const minPopupOffsetTop = ARROW_HEIGHT;
+
+    if (inRange(offsetTop, 0, popupHeight)) {
+      return {
+        top: `${Math.max(minPopupOffsetTop, Math.min(maxPopupOffsetTop, offsetTop)) - ARROW_HEIGHT / 2}px`,
+        marginTop: 0,
+      };
+    }
+
+    return {};
+  };
+
+  const updateArrowPosition = () => {
+    if (visible && popupElement && showArrow) {
+      const newArrowStyle = calculateArrowStyle();
+      setArrowStyle(newArrowStyle);
+    }
+  };
+
   // 窗口尺寸变化时调整位置
   useEffect(() => {
     if (visible) {
-      requestAnimationFrame(() => popperRef.current?.update?.());
+      requestAnimationFrame(() => {
+        popperRef.current?.update?.();
+      });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible, content, windowHeight, windowWidth]);
 
-  // 下拉展开时更新内部滚动条
+  // 下拉展开时更新内部滚动条和箭头位置
   useEffect(() => {
-    if (visible && popupElement) {
-      updateScrollTop?.(contentRef.current);
+    if (visible && popupElement && contentRef.current) {
+      requestAnimationFrame(() => {
+        updateScrollTop?.(contentRef.current);
+        updateArrowPosition();
+      });
     }
-  }, [visible, popupElement, updateScrollTop]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible, content, popupElement]);
 
   function handleExited() {
     setIsOverlayHover(false);
@@ -208,7 +267,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
         ref={portalRef}
         triggerNode={triggerEl}
         attach={popupAttach}
-        style={{ position: 'absolute', width: '100%' }}
+        style={{ position: 'absolute', top: 0, left: 0, width: '100%' }}
       >
         <CSSTransition
           appear
@@ -249,7 +308,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
               {content}
               {showArrow && (
                 <div
-                  style={styles.arrow}
+                  style={{ ...styles.arrow, ...arrowStyle }}
                   className={`${classPrefix}-popup__arrow`}
                   {...(arrowModifierEnabled && { 'data-popper-arrow': '' })}
                 />
@@ -265,7 +324,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
   function updatePopper() {
     const popper = popperRef.current;
     // 如果没有渲染弹层或不可见则不触发更新
-    if (!popper || !visible) return;
+    if (!canUseDocument || !popper || !visible) return;
 
     try {
       // web component 的元素可能在 shadow root 内，需要特殊处理
@@ -276,12 +335,19 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
         if (popper.state) popper.state.elements.reference = triggerEl;
         popper.update();
       } else {
-        const rect = triggerEl?.getBoundingClientRect();
+        // 检查元素是否在 DOM 树中或通过 CSS 样式被隐藏
         let parent = triggerEl as HTMLElement | null;
         while (parent && parent !== document.body) {
           parent = parent.parentElement;
         }
-        const isHidden = parent !== document.body || (rect && rect.width === 0 && rect.height === 0);
+
+        const computedStyle = window.getComputedStyle(triggerEl);
+        const isHidden =
+          parent !== document.body ||
+          computedStyle.display === 'none' ||
+          computedStyle.visibility === 'hidden' ||
+          computedStyle.opacity === '0';
+
         if (!isHidden) {
           if (popper.state) popper.state.elements.reference = triggerEl;
           popper.update();
@@ -294,6 +360,8 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
       // 直接尝试更新
       popper.update();
     }
+    // 更新箭头位置
+    updateArrowPosition();
   }
 
   useImperativeHandle(ref, () => ({

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { render, act, fireEvent, waitFor, mockTimeout } from '@test/utils';
+import { act, fireEvent, mockTimeout, render, waitFor } from '@test/utils';
 import Popup from '../Popup';
 
 describe('Popup 组件测试', () => {
@@ -354,5 +354,44 @@ describe('Popup 组件测试', () => {
     // 有元素，并且是渲染在 body 上
     const popupContainer = await waitFor(() => document.querySelector(`.${testClassName}`));
     expect(popupContainer.parentElement.parentElement).toBe(document.body);
+  });
+
+  test('disabled 子组件触发测试：hover 可触发，click 不可触发', async () => {
+    const hoverPopupTestId = 'hover-popup-test-id';
+    const clickPopupTestId = 'click-popup-test-id';
+    const disabledButtonText = 'Disabled Button';
+
+    const { getByText, queryByTestId } = render(
+      <div>
+        <Popup trigger="hover" content={<div data-testid={hoverPopupTestId}>Hover Popup Content</div>}>
+          <button disabled>{disabledButtonText}</button>
+        </Popup>
+
+        <Popup trigger="click" content={<div data-testid={clickPopupTestId}>Click Popup Content</div>}>
+          <button disabled>Disabled Click Button</button>
+        </Popup>
+      </div>,
+    );
+
+    const disabledButton = getByText(disabledButtonText);
+    expect(queryByTestId(hoverPopupTestId)).toBeNull();
+    act(() => {
+      fireEvent.mouseEnter(disabledButton);
+    });
+    const hoverPopup = await waitFor(() => queryByTestId(hoverPopupTestId));
+    expect(hoverPopup).not.toBeNull();
+    expect(hoverPopup).toHaveTextContent('Hover Popup Content');
+    act(() => {
+      fireEvent.mouseLeave(disabledButton);
+    });
+
+    const disabledClickButton = getByText('Disabled Click Button');
+    expect(queryByTestId(clickPopupTestId)).toBeNull();
+    act(() => {
+      fireEvent.click(disabledClickButton);
+    });
+    await waitFor(() => {
+      expect(queryByTestId(clickPopupTestId)).toBeNull();
+    });
   });
 });

@@ -1,9 +1,11 @@
-import React, { forwardRef, useEffect, useRef, useImperativeHandle, useState } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import { isUndefined } from 'lodash-es';
+
 import log from '@tdesign/common-js/log/index';
 import { pxCompat } from '@tdesign/common-js/utils/helper';
+import { canUseDocument } from '../_util/dom';
 import Portal from '../common/Portal';
 import useAttach from '../hooks/useAttach';
 import useConfig from '../hooks/useConfig';
@@ -13,10 +15,10 @@ import useSetState from '../hooks/useSetState';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { dialogDefaultProps } from './defaultProps';
 import DialogCard from './DialogCard';
+import useDialogDrag from './hooks/useDialogDrag';
 import useDialogEsc from './hooks/useDialogEsc';
 import useLockStyle from './hooks/useLockStyle';
-import useDialogDrag from './hooks/useDialogDrag';
-import { canUseDocument } from '../_util/dom';
+
 import type { StyledProps } from '../common';
 import type { DialogInstance, TdDialogProps } from './type';
 
@@ -98,8 +100,8 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const [animationVisible, setAnimationVisible] = useState(visible);
   const [dialogAnimationVisible, setDialogAnimationVisible] = useState(false);
 
+  const { focusTopDialog } = useDialogEsc(visible, wrapRef);
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
-  useDialogEsc(visible, wrapRef);
   useDialogDrag({
     dialogCardRef,
     canDraggable: draggable && mode === 'modeless',
@@ -148,14 +150,18 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   }
 
   const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (showOverlay && (closeOnOverlayClick ?? local.closeOnOverlayClick)) {
-      // 判断点击事件初次点击是否为内容区域
-      if (contentClickRef.current) {
-        contentClickRef.current = false;
-      } else if (e.target === dialogPosition.current) {
-        onOverlayClick?.({ e });
-        onClose?.({ e, trigger: 'overlay' });
-      }
+    if (!showOverlay) return;
+    // 判断点击事件初次点击是否为内容区域
+    if (contentClickRef.current) {
+      contentClickRef.current = false;
+      return;
+    }
+    if (e.target !== dialogPosition.current) return;
+    // 触发蒙层点击事件
+    onOverlayClick?.({ e });
+    // 触发关闭事件
+    if (closeOnOverlayClick ?? local.closeOnOverlayClick) {
+      onClose?.({ e, trigger: 'overlay' });
     }
   };
 
@@ -195,6 +201,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const onAnimateLeave = () => {
     onClosed?.();
     setAnimationVisible(false);
+    focusTopDialog();
     if (!wrapRef.current) return;
     wrapRef.current.style.display = 'none';
   };

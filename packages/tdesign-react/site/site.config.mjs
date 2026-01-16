@@ -22,10 +22,11 @@ export const docs = [
       },
       {
         title: '更新日志',
-        titleEn: 'CHANGELOG',
+        titleEn: 'Changelog',
         name: 'changelog',
         path: '/react/changelog',
         component: () => import('../CHANGELOG.md'),
+        componentEn: () => import('../CHANGELOG.en-US.md'),
       },
       {
         title: '组件概览',
@@ -65,6 +66,19 @@ export const docs = [
         path: '/react/dark-mode',
         component: () => import('@tdesign/common/docs/dark-mode.md'),
         componentEn: () => import('@tdesign/common/docs/dark-mode.en-US.md'),
+      },
+    ],
+  },
+  {
+    title: '高阶组件',
+    titleEn: 'Pro',
+    type: 'component', // 组件文档
+    children: [
+      {
+        title: 'AI Chat 对话',
+        titleEn: 'Chat',
+        name: 'chat',
+        path: '/react-chat',
       },
     ],
   },
