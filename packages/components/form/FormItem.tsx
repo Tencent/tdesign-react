@@ -4,7 +4,7 @@ import {
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
-import { get, isEqual, isFunction, isObject, isString, set, unset } from 'lodash-es';
+import { get, isEqual, isFunction, isObject, isString, set } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
