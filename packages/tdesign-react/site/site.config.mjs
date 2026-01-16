@@ -22,10 +22,11 @@ export const docs = [
       },
       {
         title: '更新日志',
-        titleEn: 'CHANGELOG',
+        titleEn: 'Changelog',
         name: 'changelog',
         path: '/react/changelog',
         component: () => import('../CHANGELOG.md'),
+        // componentEn: () => import('../CHANGELOG.en-US.md'),
       },
       {
         title: '组件概览',
@@ -68,6 +69,19 @@ export const docs = [
       },
     ],
   },
+  // {
+  //   title: '高阶组件',
+  //   titleEn: 'Pro',
+  //   type: 'component', // 组件文档
+  //   children: [
+  //     {
+  //       title: 'AI Chat 对话',
+  //       titleEn: 'Chat',
+  //       name: 'chat',
+  //       path: '/react-chat',
+  //     },
+  //   ],
+  // },
   {
     title: '基础',
     titleEn: 'Base',
