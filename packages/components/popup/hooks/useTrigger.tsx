@@ -221,9 +221,16 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     (entries) => {
       entries.forEach((entry) => {
         // 嵌套使用
-        // 针对父 Popup 关闭时，trigger 隐藏（尺寸变为 0x0）的场景
+        // 针对父 Popup 关闭时，trigger 隐藏的场景
         if (entry.contentRect.width === 0 && entry.contentRect.height === 0) {
-          onVisibleChange(false, { trigger: 'document' });
+          const element = entry.target as HTMLElement;
+          // 检查元素是否真的被隐藏（完全通过判断尺寸为 0x0，会误判 inline 元素）
+          const computedStyle = window.getComputedStyle(element);
+          const isHidden =
+            computedStyle.display === 'none' || computedStyle.visibility === 'hidden' || computedStyle.opacity === '0';
+          if (isHidden) {
+            onVisibleChange(false, { trigger: 'document' });
+          }
         }
       });
     },
