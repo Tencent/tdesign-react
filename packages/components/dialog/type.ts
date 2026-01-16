@@ -61,7 +61,7 @@ export interface TdDialogProps {
    */
   dialogClassName?: string;
   /**
-   * 对话框是否可以拖拽（仅在非模态对话框时有效）
+   * 是否可以拖拽（对全屏对话框无效）
    * @default false
    */
   draggable?: boolean;
