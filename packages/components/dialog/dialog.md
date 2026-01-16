@@ -22,6 +22,7 @@
 
 {{ plugin }}
 ## API
+
 ### DialogCard Props
 
 名称 | 类型 | 默认值 | 描述 | 必传
@@ -49,9 +50,8 @@ confirmLoading | Boolean | undefined | 确认按钮加载状态 | N
 confirmOnEnter | Boolean | - | 是否在按下回车键时，触发确认事件 | N
 destroyOnClose | Boolean | false | 是否在关闭弹框的时候销毁子元素 | N
 dialogClassName | String | - | 弹框元素类名，示例：'t-class-dialog-first t-class-dialog-second' | N
-draggable | Boolean | false | 对话框是否可以拖拽（仅在非模态对话框时有效） | N
+draggable | Boolean | false | 是否可以拖拽（对全屏对话框无效） | N
 footer | TNode | true | 底部操作栏，默认会有“确认”和“取消”两个按钮。值为 true 显示默认操作按钮，值为 false 不显示任何内容，值类型为 Function 表示自定义底部内容。TS 类型：`boolean \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-forceRender | Boolean | false | 是否强制渲染Dialog，已废弃，请更为使用 `lazy` 兼容支持 | N
 header | TNode | true | 头部内容。值为 true 显示空白头部，值为 false 不显示任何内容，值类型为 string 则直接显示值，值类型为 Function 表示自定义头部内容。TS 类型：`string \| boolean \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 lazy | Boolean | true | 是否启用对话框懒加载，启用时对话框内的内容不渲染 | N
 mode | String | modal | 对话框类型，有 3 种：模态对话框、非模态对话框、全屏对话框。弹出「模态对话框」时，只能操作对话框里面的内容，不能操作其他内容。弹出「非模态对话框」时，则可以操作页面内所有内容。「普通对话框」是指没有脱离文档流的对话框，可以在这个基础上开发更多的插件。可选项：modal/modeless/full-screen | N
@@ -99,8 +99,6 @@ update | `(props: DialogOptions)` | \- | 必需。更新弹框内容
 参数名称 | 参数类型 | 参数默认值 | 参数描述
 -- | -- | -- | --
 options | \- | - | TS 类型：`DialogOptions`
-
-插件返回值：`DialogInstance`
 
 ### dialog.confirm 或 DialogPlugin.confirm
 
