@@ -10,7 +10,6 @@ interface ColumnConfig {
   fixed?: 'left' | 'right';
   children?: ColumnConfig[];
   isLeaf?: boolean;
-  // Indices of leaf columns that belong to this column (for parent columns)
   leafIndices?: number[];
 }
 
@@ -36,7 +35,7 @@ class TableResizable {
 
   private columns: ColumnConfig[];
 
-  // Flat list of leaf columns for width calculations
+
   private leafColumns: ColumnConfig[] = [];
 
   private columnsWidth: number[] = [];
@@ -199,14 +198,8 @@ class TableResizable {
     handle.style.position = 'absolute';
     handle.style.top = '0';
 
-    if (isLastColumn) {
-      // 最后一列的手柄不向右延伸，避免占据表格外的空间
-      handle.style.right = '0px';
-      handle.style.width = '8px';
-    } else {
       handle.style.right = '-8px';
       handle.style.width = '16px'; // 左右各 8px
-    }
 
     // 如果是affix 再添加zIndex？(css 变量以+1计算？)
     handle.style.zIndex = '52';
