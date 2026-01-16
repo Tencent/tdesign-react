@@ -1,9 +1,17 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import { canUseDocument } from '../../_util/dom';
 import { off, on } from '../../_util/listener';
 import { composeRefs, getNodeRef, getRefDom, supportNodeRef } from '../../_util/ref';
 import useConfig from '../../hooks/useConfig';
+import useResizeObserver from '../../hooks/useResizeObserver';
 
 const ESC_KEY = 'Escape';
+
+const isEventFromDisabledElement = (e: Event | React.SyntheticEvent, container: Element) => {
+  const target = e.target as Element;
+  const disabledEl = target?.closest?.('[disabled]');
+  return !!(disabledEl && container.contains(disabledEl));
+};
 
 export default function useTrigger({ triggerElement, content, disabled, trigger, visible, onVisibleChange, delay }) {
   const { classPrefix } = useConfig();
@@ -11,6 +19,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
   const triggerElementIsString = typeof triggerElement === 'string';
 
   const triggerRef = useRef<HTMLElement>(null);
+  const hasPopupMouseDown = useRef(false);
   const visibleTimer = useRef(null);
 
   // 禁用和无内容时不展示
@@ -35,25 +44,31 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
   }
 
   const getTriggerElement = useCallback(() => {
-    let element = null;
-    if (triggerElementIsString) {
-      element = document.querySelector(triggerElement);
-    } else {
-      element = getRefDom(triggerRef);
-    }
-    return element instanceof HTMLElement ? element : null;
+    if (!canUseDocument) return null;
+    if (triggerElementIsString) return document.querySelector(triggerElement);
+    const element = getRefDom(triggerRef);
+    return element instanceof Element ? element : null;
   }, [triggerElementIsString, triggerElement]);
 
   const handleMouseLeave = (e: MouseEvent | React.MouseEvent) => {
-    if (trigger === 'hover') {
-      const relatedTarget = e.relatedTarget as HTMLElement;
-      const isMovingToContent = relatedTarget?.closest?.(`.${classPrefix}-popup`);
-      if (isMovingToContent) return;
-      callFuncWithDelay({
-        delay: exitDelay,
-        callback: () => onVisibleChange(false, { e, trigger: 'trigger-element-hover' }),
-      });
-    }
+    if (trigger !== 'hover' || hasPopupMouseDown.current) return;
+    const relatedTarget = e.relatedTarget as HTMLElement;
+    const isMovingToContent = relatedTarget?.closest?.(`.${classPrefix}-popup`);
+    if (isMovingToContent) return;
+    callFuncWithDelay({
+      delay: exitDelay,
+      callback: () => onVisibleChange(false, { e, trigger: 'trigger-element-hover' }),
+    });
+  };
+
+  const handlePopupMouseDown = () => {
+    hasPopupMouseDown.current = true;
+  };
+
+  const handlePopupMouseUp = () => {
+    requestAnimationFrame(() => {
+      hasPopupMouseDown.current = false;
+    });
   };
 
   useEffect(() => clearTimeout(visibleTimer.current), []);
@@ -65,6 +80,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     if (!element) return;
 
     const handleClick = (e: MouseEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
       if (trigger === 'click') {
         callFuncWithDelay({
           delay: visible ? appearDelay : exitDelay,
@@ -74,6 +90,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     };
 
     const handleMouseDown = (e: MouseEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
       if (trigger === 'mousedown') {
         callFuncWithDelay({
           delay: visible ? appearDelay : exitDelay,
@@ -92,6 +109,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     };
 
     const handleFocus = (e: FocusEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
       if (trigger === 'focus') {
         callFuncWithDelay({
           delay: appearDelay,
@@ -101,6 +119,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     };
 
     const handleBlur = (e: FocusEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
       if (trigger === 'focus') {
         callFuncWithDelay({
           delay: exitDelay,
@@ -110,6 +129,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     };
 
     const handleContextMenu = (e: MouseEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
       if (trigger === 'context-menu') {
         e.preventDefault();
         callFuncWithDelay({
@@ -120,6 +140,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     };
 
     const handleTouchStart = (e: TouchEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
       if (trigger === 'hover' || trigger === 'mousedown') {
         callFuncWithDelay({
           delay: appearDelay,
@@ -129,6 +150,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
       if (e?.key === ESC_KEY) {
         callFuncWithDelay({
           delay: exitDelay,
@@ -164,16 +186,21 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     if (!shouldToggle) return;
 
     const handleDocumentClick = (e: any) => {
-      const element = getTriggerElement();
-      if (element?.contains?.(e.target) || e.target?.closest?.(`.${classPrefix}-popup`)) return;
-      visible && onVisibleChange(false, { e, trigger: 'document' });
+      if (!visible || getTriggerElement()?.contains?.(e.target) || hasPopupMouseDown.current) return;
+      onVisibleChange(false, { e, trigger: 'document' });
     };
 
     on(document, 'mousedown', handleDocumentClick);
     on(document, 'touchend', handleDocumentClick, { passive: true });
+
     return () => {
-      off(document, 'mousedown', handleDocumentClick);
-      off(document, 'touchend', handleDocumentClick, { passive: true });
+      // 嵌套使用，父 Popup 关闭时，子 Popup 也要关闭
+      // 针对父 Popup 关闭时，trigger 元素直接从 DOM 移除的场景
+      // 避免监听器提早被销毁无法触发
+      requestAnimationFrame(() => {
+        off(document, 'mousedown', handleDocumentClick);
+        off(document, 'touchend', handleDocumentClick, { passive: true });
+      });
     };
   }, [classPrefix, shouldToggle, visible, onVisibleChange, getTriggerElement]);
 
@@ -188,6 +215,27 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
       element?.classList.remove(`${classPrefix}-popup-open`);
     };
   }, [visible, classPrefix, getTriggerElement]);
+
+  useResizeObserver(
+    triggerRef,
+    (entries) => {
+      entries.forEach((entry) => {
+        // 嵌套使用
+        // 针对父 Popup 关闭时，trigger 隐藏的场景
+        if (entry.contentRect.width === 0 && entry.contentRect.height === 0) {
+          const element = entry.target as HTMLElement;
+          // 检查元素是否真的被隐藏（完全通过判断尺寸为 0x0，会误判 inline 元素）
+          const computedStyle = window.getComputedStyle(element);
+          const isHidden =
+            computedStyle.display === 'none' || computedStyle.visibility === 'hidden' || computedStyle.opacity === '0';
+          if (isHidden) {
+            onVisibleChange(false, { trigger: 'document' });
+          }
+        }
+      });
+    },
+    visible && shouldToggle,
+  );
 
   function getTriggerNode(children: React.ReactNode) {
     if (triggerElementIsString) return;
@@ -205,10 +253,20 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     );
   }
 
+  function getPopupProps() {
+    return {
+      onMouseLeave: handleMouseLeave,
+      onMouseDown: handlePopupMouseDown,
+      onMouseUp: handlePopupMouseUp,
+      onTouchStart: handlePopupMouseDown,
+      onTouchEnd: handlePopupMouseUp,
+    };
+  }
+
   return {
     triggerElementIsString,
-    handleMouseLeave,
     getTriggerElement,
     getTriggerNode,
+    getPopupProps,
   };
 }

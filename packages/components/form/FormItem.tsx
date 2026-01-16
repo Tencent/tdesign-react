@@ -4,13 +4,13 @@ import {
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
-import { get, isEqual, isFunction, isObject, isString, set } from 'lodash-es';
+import { get, isEqual, isFunction, isObject, isString, set, unset } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { TD_CTRL_PROP_MAP, ValidateStatus } from './const';
+import { NATIVE_INPUT_COMP, TD_CTRL_PROP_MAP, ValidateStatus } from './const';
 import { formItemDefaultProps } from './defaultProps';
 import { useFormContext, useFormListContext } from './FormContext';
 import { parseMessage, validate as validateModal } from './formModel';
@@ -488,40 +488,54 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
         <div className={`${classPrefix}-form__controls-content`}>
           {React.Children.map(children, (child, index) => {
             if (!child) return null;
+            if (!React.isValidElement(child)) return child;
 
-            let ctrlKey = 'value';
+            const childType = child.type;
+            const isCustomComp = typeof childType === 'object' || typeof childType === 'function';
+            // @ts-ignore
+            const componentName = isCustomComp ? childType.displayName : childType;
 
-            if (React.isValidElement(child)) {
-              // @ts-ignore
-              const componentName = child.type?.displayName;
-              if (componentName === 'FormItem') {
-                return React.cloneElement(child, {
-                  // @ts-ignore
-                  ref: (el) => {
-                    if (!el) return;
-                    innerFormItemsRef.current[index] = el;
-                  },
-                });
-              }
-              ctrlKey = TD_CTRL_PROP_MAP.get(componentName) || 'value';
-              const childProps = child.props as any;
+            if (componentName === 'FormItem') {
               return React.cloneElement(child, {
-                disabled: disabledFromContext,
-                readOnly: readOnlyFromContext,
-                ...childProps,
-                [ctrlKey]: formValue,
-                onChange: (value: any, ...args: any[]) => {
-                  const newValue = valueFormat ? valueFormat(value) : value;
-                  updateFormValue(newValue, true, true);
-                  childProps?.onChange?.call?.(null, value, ...args);
-                },
-                onBlur: (value: any, ...args: any[]) => {
-                  handleItemBlur();
-                  childProps?.onBlur?.call?.(null, value, ...args);
+                // @ts-ignore
+                ref: (el) => {
+                  if (!el) return;
+                  innerFormItemsRef.current[index] = el;
                 },
               });
             }
-            return child;
+
+            const childProps = child.props as any;
+            const commonProps = {
+              disabled: disabledFromContext,
+              readOnly: readOnlyFromContext,
+              ...childProps,
+            };
+
+            if (!isCustomComp && !NATIVE_INPUT_COMP.includes(componentName)) {
+              return React.cloneElement(child, commonProps);
+            }
+
+            let ctrlKey = 'value';
+            if (isCustomComp) {
+              ctrlKey = TD_CTRL_PROP_MAP.get(componentName) || 'value';
+            }
+
+            return React.cloneElement(child, {
+              disabled: disabledFromContext,
+              readOnly: readOnlyFromContext,
+              ...childProps,
+              [ctrlKey]: formValue,
+              onChange: (value: any, ...args: any[]) => {
+                const newValue = valueFormat ? valueFormat(value) : value;
+                updateFormValue(newValue, true, true);
+                childProps?.onChange?.call?.(null, value, ...args);
+              },
+              onBlur: (value: any, ...args: any[]) => {
+                handleItemBlur();
+                childProps?.onBlur?.call?.(null, value, ...args);
+              },
+            });
           })}
           {renderSuffixIcon()}
         </div>
