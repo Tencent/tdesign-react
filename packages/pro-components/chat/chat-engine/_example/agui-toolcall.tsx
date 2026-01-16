@@ -56,6 +56,7 @@ const ImageGenProgress: React.FC<ToolcallComponentProps<GenerateImageArgs>> = ({
   status: toolStatus,
   error: toolError,
 }) => {
+
   // agentState 已经是 taskId 对应的状态对象，直接使用
   const genState = useMemo<ImageGenState | null>(() => {
     if (!agentState) {

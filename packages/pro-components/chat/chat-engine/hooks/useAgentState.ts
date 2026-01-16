@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useRef, createContext, useContext, useMemo } from 'react';
-import { stateManager } from 'tdesign-web-components/lib/chat-engine';
+// import { stateManager } from 'tdesign-web-components/lib/chat-engine';
+import { stateManager } from '../core';
 
 /**
  * 状态订阅相关类型定义

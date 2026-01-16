@@ -44,4 +44,4 @@ bundle-analysis
 mock-server
 packages/**/chat-engine/core
 packages/**/chatbot/docs
-
+.codebuddy

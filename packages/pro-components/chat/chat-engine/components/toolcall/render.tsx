@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback, useMemo, Component, ErrorInfo } from 'react';
-import type { ToolCall } from 'tdesign-web-components/lib/chat-engine';
 import { isNonInteractiveConfig, type ToolcallComponentProps } from './types';
 import { agentToolcallRegistry } from './registry';
 import { AgentStateContext, useAgentStateDataByKey } from '../../hooks/useAgentState';
+import { AGUIEventType, ToolCall } from '../../core';
 
 interface ToolCallRendererProps {
   toolCall: ToolCall;
@@ -141,11 +141,14 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
             error: error as Error,
           });
         }
+      } else if (toolCall.eventType === AGUIEventType.TOOL_CALL_END || toolCall.eventType === AGUIEventType.TOOL_CALL_RESULT) {
+        // 工具调用已结束（无 result 的情况，如 show_progress）
+        setActionState({ status: 'complete' });
       } else {
-        // 等待用户交互
+        // 等待用户交互或工具执行中
         setActionState({ status: 'executing' });
       }
-    }, [config, args, toolCall.result]);
+    }, [config, args, toolCall.result, toolCall.eventType]);
 
     // 从配置中获取 subscribeKey 提取函数
     const subscribeKeyExtractor = useMemo(() => config?.subscribeKey, [config]);
@@ -223,6 +226,7 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
     prevProps.toolCall.toolCallName === nextProps.toolCall.toolCallName &&
     prevProps.toolCall.args === nextProps.toolCall.args &&
     prevProps.toolCall.result === nextProps.toolCall.result &&
+    prevProps.toolCall.eventType === nextProps.toolCall.eventType &&
     prevProps.onRespond === nextProps.onRespond,
 );
 // 用于调试，可以在控制台查看每次渲染的参数

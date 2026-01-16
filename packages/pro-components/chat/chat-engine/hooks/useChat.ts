@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import ChatEngine from 'tdesign-web-components/lib/chat-engine';
-import type { ChatMessagesData, ChatServiceConfig, ChatStatus } from 'tdesign-web-components/lib/chat-engine';
+import ChatEngine from '../core';
+import type { ChatMessagesData, ChatServiceConfig, ChatStatus } from '../core';
+// import ChatEngine from 'tdesign-web-components/lib/chat-engine';
+// import type { ChatMessagesData, ChatServiceConfig, ChatStatus } from 'tdesign-web-components/lib/chat-engine';
+
 
 export type IUseChat = {
   defaultMessages?: ChatMessagesData[];
