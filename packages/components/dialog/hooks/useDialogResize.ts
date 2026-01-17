@@ -144,7 +144,7 @@ const useDialogResize = (props: DialogResizeProps) => {
 
       // Do resize.
       const dir = resizingDirection.current;
-      const {style} = dialogCardRef.current;
+      const { style } = dialogCardRef.current;
 
       style.position = 'absolute';
 
