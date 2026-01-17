@@ -223,6 +223,89 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible, content, popupElement]);
 
+
+  // 监听 trigger 位置变化调整位置
+  // 缺陷：无法监听鼠标滚动。
+  const positionState = useRef({ x: 0, y: 0, width: 0, height: 0 });
+  const frameIdRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const triggerEl = getRefDom(triggerRef);
+    if (!visible || !triggerEl) {
+      return;
+    }
+
+    const checkPosition = (once = false) => {
+      const { x, y, width, height } = triggerEl.getBoundingClientRect();
+      if (
+        x !== positionState.current.x ||
+        y !== positionState.current.y ||
+        width !== positionState.current.width ||
+        height !== positionState.current.height
+      ) {
+        popperRef.current?.update?.();
+        positionState.current = { x, y, width, height };
+      }
+
+      if (!once) {
+        // 持续请求下一帧
+        frameIdRef.current = requestAnimationFrame(() => checkPosition(once));
+      }
+    };
+
+    const startLoop = () => {
+      if (frameIdRef.current === null) {
+        checkPosition();
+      }
+    };
+
+    const stopLoop = () => {
+      if (frameIdRef.current !== null) {
+        cancelAnimationFrame(frameIdRef.current);
+        frameIdRef.current = null;
+      }
+    };
+
+
+    window.addEventListener('pointerdown', startLoop);
+    window.addEventListener('pointerup', stopLoop);
+
+    return () => {
+      stopLoop();
+      window.removeEventListener('pointerdown', startLoop);
+      window.removeEventListener('pointerup', stopLoop);
+    };
+  }, [visible]);
+
+
+  // 对 React Flow 的特殊适配，可同时支持滚动、缩放等场景
+  useEffect(() => {
+    const triggerEl = getRefDom(triggerRef);
+    if (!visible || !triggerEl) {
+      return;
+    }
+
+    const viewportEl = triggerEl.closest('.react-flow__viewport');
+
+    if (!viewportEl) {
+      return;  // 未检测到 react-flow，不用管了。
+    }
+    
+    const observer = new MutationObserver(() => {
+      popperRef.current?.update?.();
+    });
+
+    observer.observe(viewportEl, {
+      attributes: true,
+      attributeFilter: ['style'], // 只关心 'style' 这一个属性，性能更好。
+    });
+    
+    return () => {
+      observer.disconnect();
+    };
+  }, [visible]);
+
+
   function handleExited() {
     setIsOverlayHover(false);
     !destroyOnClose && popupElement && (popupElement.style.display = 'none');
