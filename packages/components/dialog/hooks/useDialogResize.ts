@@ -13,7 +13,7 @@ interface DialogResizeProps {
 }
 
 
-type ResizeDirection = 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw' | false;
+type ResizeDirection = 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | false;
 
 
 function mouseOnBorder(
@@ -30,21 +30,21 @@ function mouseOnBorder(
   const onTopBorder = mouseY >= top - borderWidth && mouseY <= top + borderWidth;
   const onBottomBorder = mouseY >= top + height - borderWidth && mouseY <= top + height + borderWidth;
   if (onLeftBorder && onTopBorder)
-    return 'nw';
+    return 'top-left';
   if (onRightBorder && onBottomBorder)
-    return 'se';
+    return 'bottom-right';
   if (onRightBorder && onTopBorder)
-    return 'ne';
+    return 'top-right';
   if (onLeftBorder && onBottomBorder)
-    return 'sw';
+    return 'bottom-left';
   if (onLeftBorder)
-    return 'w';
+    return 'left';
   if (onRightBorder)
-    return 'e';
+    return 'right';
   if (onTopBorder)
-    return 'n';
+    return 'top';
   if (onBottomBorder)
-    return 's';
+    return 'bottom';
   return false;
 }
 
@@ -126,13 +126,13 @@ const useDialogResize = (props: DialogResizeProps) => {
       const direction = mouseOnBorder(e, dialogCardRef);
       if (direction) {
         let cursor = '';
-        if (direction === 'n' || direction === 's')
+        if (direction === 'top' || direction === 'bottom')
           cursor = `${direction}-resize`;
-        else if (direction === 'e' || direction === 'w')
+        else if (direction === 'right' || direction === 'left')
           cursor = `${direction}-resize`;
-        else if (direction === 'ne' || direction === 'sw')
+        else if (direction === 'top-right' || direction === 'bottom-left')
           cursor = 'nesw-resize';
-        else if (direction === 'nw' || direction === 'se')
+        else if (direction === 'top-left' || direction === 'bottom-right')
           cursor = 'nwse-resize';
         dialogCardRef.current.style.cursor = cursor;
       } else if (resizingDirection.current === false)
