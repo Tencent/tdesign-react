@@ -28,6 +28,7 @@ const requestAnimationFrame =
 const useVirtualScroll = (container: React.MutableRefObject<HTMLElement>, params: UseVirtualScrollParams) => {
   const { enable = true, data, scroll } = params;
 
+  const isUpdating = useRef(false);
   const dataRef = useRef(data);
   const containerHeight = useRef(0);
 
@@ -74,6 +75,8 @@ const useVirtualScroll = (container: React.MutableRefObject<HTMLElement>, params
   };
 
   const updateVisibleData = (trScrollTopHeightList: number[], scrollTop: number) => {
+    if (isUpdating.current) return;
+
     let currentIndex = -1;
     // 获取当前滚动到哪一个元素（大数据场景不建议使用 forEach 一类函数迭代）
     for (let i = 0, len = trScrollTopHeightList.length; i < len; i++) {
@@ -121,13 +124,26 @@ const useVirtualScroll = (container: React.MutableRefObject<HTMLElement>, params
     }
 
     if (startAndEndIndex.join() !== [startIndex, endIndex].join() && startIndex >= 0) {
+      isUpdating.current = true;
+
       const tmpVisibleData = fixedStartData.concat(data.slice(startIndex, endIndex)).concat(fixedEndData);
       setVisibleData(tmpVisibleData);
-      const lastScrollTop = trScrollTopHeightList[startIndex - 1];
-      const top = lastScrollTop > 0 ? lastScrollTop : 0;
+
+      const topOffset = trScrollTopHeightList[startIndex - 1] ?? 0;
       const stickyHeight = trScrollTopHeightList[Math.min(startIndex, fixedStart) - 1] || 0;
-      setTranslateY(top - stickyHeight);
-      setStartAndEndIndex([startIndex, endIndex]);
+      setTranslateY(topOffset - stickyHeight); // 先计当前帧的位移
+      setStartAndEndIndex([startIndex, endIndex]); // 再更新索引，确保数值稳定
+
+      const targetScrollTop = scrollTop;
+      setTimeout(() => {
+        const currentScrollTop = container.current?.scrollTop;
+        const scrollTopDiff = Math.abs(currentScrollTop - targetScrollTop);
+        if (scrollTopDiff > 0) {
+          // eslint-disable-next-line no-param-reassign
+          container.current.scrollTop = targetScrollTop;
+        }
+        isUpdating.current = false;
+      }, 0);
     }
   };
 
@@ -251,7 +267,7 @@ const useVirtualScroll = (container: React.MutableRefObject<HTMLElement>, params
           trScrollTopHeightList.current = scrollTopHeightList;
           clearTimeout(timer);
         }
-      }, 1);
+      }, 0);
     },
     // eslint-disable-next-line
     [container, data, tScroll, isVirtualScroll, startAndEndIndex, trHeightList],
