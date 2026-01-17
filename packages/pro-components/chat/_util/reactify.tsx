@@ -20,9 +20,7 @@ const styleObjectToString = (style: any) => {
     .join(';');
 };
 
-const isReactElement = (node: any): boolean => {
-  return React.isValidElement(node);
-};
+const isReactElement = (node: any): boolean => React.isValidElement(node);
 
 const isValidReactNode = (node: any): node is React.ReactNode =>
   node !== null &&
@@ -163,12 +161,18 @@ const reactify = <T extends AnyProps = AnyProps>(
           return;
         }
 
-        // 检查是否是slot prop
         if (isReactElement(val) && !prop.match(/^on[A-Za-z]/)) {
           const componentClass = this.ref.current?.constructor as any;
           const declaredSlots = componentClass?.slotProps || [];
+          // 如果webc组件的slotProps显式声明了这个slot，或prop以“Slot”结尾，就把传入的reactdom挂载到webc组件对应的<slot></slot>占位符上
+          const isDeclaredSlot = declaredSlots.includes(prop) || prop.endsWith('Slot');
 
-          if (declaredSlots.includes(prop) || prop.endsWith('Slot')) {
+          // 允许通过shadow dom检测到的slot自动挂载
+          const possibleSlotName = hyphenate(prop.endsWith('Slot') ? prop.slice(0, -4) : prop);
+          const hasShadowSlot =
+            this.ref.current?.shadowRoot?.querySelector(`slot[name="${possibleSlotName}"]`) !== null;
+
+          if (isDeclaredSlot || hasShadowSlot) {
             this.handleSlotProp(prop, val);
             return;
           }
@@ -236,7 +240,15 @@ const reactify = <T extends AnyProps = AnyProps>(
 
     render() {
       const { children, className, ...rest } = this.props;
-      return createElement(WC, { class: className, ...rest, ref: this.ref }, children);
+      // 仅将基本类型作为attribute传递，其余复杂类型在update中处理
+      const filteredProps: Record<string, any> = {};
+      Object.keys(rest).forEach((key) => {
+        const val = (rest as Record<string, any>)[key];
+        if (typeof val === 'string' || typeof val === 'number' || typeof val === 'boolean') {
+          filteredProps[key] = val;
+        }
+      });
+      return createElement(WC, { class: className, ...filteredProps, ref: this.ref }, children);
     }
   }
 
