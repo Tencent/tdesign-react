@@ -26,8 +26,8 @@ function formatValidateResult(validateResultList) {
   Object.keys(result).forEach((key) => {
     if (result[key] === true) {
       delete result[key];
-    } else {
-      result[key] = result[key].filter((fr: AllValidateResult) => fr.result === false);
+    } else if (Array.isArray(result[key])) {
+      result[key] = result[key].filter((fr: AllValidateResult) => fr?.result === false);
     }
 
     // 整理嵌套数据
