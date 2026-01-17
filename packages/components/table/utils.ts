@@ -1,15 +1,17 @@
-import { isFunction, get, isObject } from 'lodash-es';
+import { get, isFunction, isObject } from 'lodash-es';
+
 import { getIEVersion } from '@tdesign/common-js/utils/helper';
-import {
+import { AffixProps } from '../affix';
+import { ClassName, HTMLElementAttributes } from '../common';
+import type {
   BaseTableCellParams,
   CellData,
   RowClassNameParams,
   TableColumnClassName,
   TableRowData,
   TdBaseTableProps,
+  TdPrimaryTableProps,
 } from './type';
-import { ClassName, HTMLElementAttributes } from '../common';
-import { AffixProps } from '../affix';
 
 export function toString(obj: any): string {
   return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
@@ -32,6 +34,16 @@ export interface FormatRowAttributesParams {
   rowIndex: number;
   type: 'body' | 'foot';
 }
+
+/**
+ * 是否启用行拖拽
+ */
+export const enableRowDrag = (dragSort: TdPrimaryTableProps['dragSort']) => {
+  if (!dragSort) return false;
+  const validType = ['row', 'row-handler', 'row-handler-col'];
+  if (validType.includes(dragSort)) return true;
+  return false;
+};
 
 // 行属性
 export function formatRowAttributes(attributes: TdBaseTableProps['rowAttributes'], params: FormatRowAttributesParams) {
