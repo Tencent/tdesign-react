@@ -48,7 +48,6 @@ export default function useSingle(props: TdSelectInputProps) {
   const { classPrefix } = useConfig();
 
   const inputRef = useRef<InputRef>(null);
-  const blurTimeoutRef = useRef(null);
 
   const [inputValue, setInputValue] = useControlled(props, 'inputValue', props.onInputChange);
 
@@ -78,27 +77,14 @@ export default function useSingle(props: TdSelectInputProps) {
     const displayedValue = popupVisible && props.allowInput ? inputValue : getInputValue(value, keys);
 
     const handleBlur = (value, ctx) => {
-      if (blurTimeoutRef.current) {
-        clearTimeout(blurTimeoutRef.current);
+      if (!popupVisible) {
+        onInnerBlur(ctx);
+      } else if (!props.panel) {
+        props.onBlur?.(value, { e: ctx.e, inputValue: value });
       }
-      // 强制把 popupVisible 设置为 false 时，点击 input，会出现 blur -> focus 的情况，因此忽略前面短暂的 blur 事件
-      blurTimeoutRef.current = setTimeout(() => {
-        if (blurTimeoutRef.current) {
-          if (!popupVisible) {
-            onInnerBlur(ctx);
-          } else if (!props.panel) {
-            props.onBlur?.(value, { e: ctx.e, inputValue: value });
-          }
-        }
-        blurTimeoutRef.current = null;
-      }, 150);
     };
 
     const handleFocus = (val, context) => {
-      if (blurTimeoutRef.current) {
-        clearTimeout(blurTimeoutRef.current);
-        blurTimeoutRef.current = null;
-      }
       props.onFocus?.(value, { ...context, inputValue: val });
       // focus might not need to change input value. it will caught some curious errors in tree-select
       // !popupVisible && setInputValue(getInputValue(value, keys), { ...context, trigger: 'input' });
