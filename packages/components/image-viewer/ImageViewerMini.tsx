@@ -1,5 +1,6 @@
 import React, { KeyboardEvent, MouseEvent } from 'react';
 import classNames from 'classnames';
+import { ClassName } from '@tdesign/common-js/common';
 import { TNode } from '../common';
 import Dialog from '../dialog';
 import useConfig from '../hooks/useConfig';
@@ -36,6 +37,7 @@ export interface ImageModalMiniProps {
   onReset: () => void;
   onRotate: (red: number) => void;
   onClose: (context: { trigger: 'close-btn' | 'overlay' | 'esc'; e: MouseEvent<HTMLElement> | KeyboardEvent }) => void;
+  innerClassName: ClassName;
 }
 
 export const ImageModalMiniContent: React.FC<ImageModalMiniProps> = (props) => {
@@ -73,6 +75,7 @@ export const ImageModalMini: React.FC<ImageModalMiniProps> = (props) => {
     onRotate,
     onMirror,
     onReset,
+    innerClassName,
   } = props;
 
   const { classPrefix } = useConfig();
@@ -96,6 +99,7 @@ export const ImageModalMini: React.FC<ImageModalMiniProps> = (props) => {
   return (
     <Dialog
       className={classNames(`${classPrefix}-image-viewer__dialog`, className)}
+      dialogClassName={innerClassName}
       style={style}
       draggable={draggable}
       visible={visible}

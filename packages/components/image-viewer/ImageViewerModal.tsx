@@ -10,6 +10,7 @@ import {
 
 import { downloadImage } from '@tdesign/common-js/image-viewer/utils';
 import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
+import { ClassName } from '@tdesign/common-js/common';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useImagePreviewUrl from '../hooks/useImagePreviewUrl';
@@ -51,6 +52,7 @@ interface ImageModalItemProps {
   errorText: string;
   imageReferrerpolicy?: TdImageViewerProps['imageReferrerpolicy'];
   isSvg: boolean;
+  innerClassName: ClassName;
 }
 
 // 单个弹窗实例
@@ -63,6 +65,7 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
   errorText,
   imageReferrerpolicy,
   isSvg,
+  innerClassName,
 }) => {
   const { classPrefix } = useConfig();
 
@@ -145,7 +148,7 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
   }, [mainImagePreviewUrl]);
 
   return (
-    <div className={`${classPrefix}-image-viewer__modal-pic`}>
+    <div className={classNames(`${classPrefix}-image-viewer__modal-pic`, innerClassName)}>
       <div className={`${classPrefix}-image-viewer__modal-box`} style={boxStyle}>
         {error && <ImageError errorText={errorText} />}
         {/* 预览图 */}
@@ -407,6 +410,7 @@ export interface ImageModalProps {
   onOpen: () => void;
   onDownload?: TdImageViewerProps['onDownload'];
   onIndexChange?: (index: number, context: { trigger: 'prev' | 'next' | 'current' }) => void;
+  innerClassName?: ClassName;
 }
 
 // 弹窗基础组件
@@ -432,6 +436,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
     onClose,
     onDownload,
     onIndexChange,
+    innerClassName,
   } = props;
   const { classPrefix } = useConfig();
   const [locale, t] = useLocaleReceiver('imageViewer');
@@ -488,6 +493,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   if (isMini) {
     return (
       <ImageModalMini
+        innerClassName={innerClassName}
         visible={visible}
         draggable={draggable}
         index={index}
@@ -589,6 +595,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
       />
       {closeNode}
       <ImageModalItem
+        innerClassName={innerClassName}
         scale={scale}
         rotateZ={rotateZ}
         mirror={mirror}

@@ -32,6 +32,7 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
     viewerScale: viewerScaleD,
     className,
     style,
+    innerClassName,
   } = props;
 
   const imageViewerAttach = useAttach('imageViewer', attach);
@@ -98,6 +99,7 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
       {(visibled || visible) &&
         createPortal(
           <ImageModal
+            innerClassName={innerClassName}
             title={title}
             visible={visible}
             images={imageList}
