@@ -3,7 +3,6 @@ import { canUseDocument } from '../../_util/dom';
 import { off, on } from '../../_util/listener';
 import { composeRefs, getNodeRef, getRefDom, supportNodeRef } from '../../_util/ref';
 import useConfig from '../../hooks/useConfig';
-import useResizeObserver from '../../hooks/useResizeObserver';
 
 const ESC_KEY = 'Escape';
 
@@ -13,7 +12,16 @@ const isEventFromDisabledElement = (e: Event | React.SyntheticEvent, container: 
   return !!(disabledEl && container.contains(disabledEl));
 };
 
-export default function useTrigger({ triggerElement, content, disabled, trigger, visible, onVisibleChange, delay }) {
+export default function useTrigger({
+  triggerElement,
+  content,
+  disabled,
+  trigger,
+  visible,
+  onVisibleChange,
+  delay,
+  popupElement,
+}) {
   const { classPrefix } = useConfig();
 
   const triggerElementIsString = typeof triggerElement === 'string';
@@ -53,8 +61,8 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
   const handleMouseLeave = (e: MouseEvent | React.MouseEvent) => {
     if (trigger !== 'hover' || hasPopupMouseDown.current) return;
     const relatedTarget = e.relatedTarget as HTMLElement;
-    const isMovingToContent = relatedTarget?.closest?.(`.${classPrefix}-popup`);
-    if (isMovingToContent) return;
+    const isMovingToCurrentPopup = relatedTarget && popupElement && popupElement.contains(relatedTarget);
+    if (isMovingToCurrentPopup) return;
     callFuncWithDelay({
       delay: exitDelay,
       callback: () => onVisibleChange(false, { e, trigger: 'trigger-element-hover' }),
@@ -215,27 +223,6 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
       element?.classList.remove(`${classPrefix}-popup-open`);
     };
   }, [visible, classPrefix, getTriggerElement]);
-
-  useResizeObserver(
-    triggerRef,
-    (entries) => {
-      entries.forEach((entry) => {
-        // 嵌套使用
-        // 针对父 Popup 关闭时，trigger 隐藏的场景
-        if (entry.contentRect.width === 0 && entry.contentRect.height === 0) {
-          const element = entry.target as HTMLElement;
-          // 检查元素是否真的被隐藏（完全通过判断尺寸为 0x0，会误判 inline 元素）
-          const computedStyle = window.getComputedStyle(element);
-          const isHidden =
-            computedStyle.display === 'none' || computedStyle.visibility === 'hidden' || computedStyle.opacity === '0';
-          if (isHidden) {
-            onVisibleChange(false, { trigger: 'document' });
-          }
-        }
-      });
-    },
-    visible && shouldToggle,
-  );
 
   function getTriggerNode(children: React.ReactNode) {
     if (triggerElementIsString) return;

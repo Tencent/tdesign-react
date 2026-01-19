@@ -10,7 +10,7 @@ spline: explain
 ### 🚀 Features
 
 - `DatePicker`: `presets` 支持 ReactNode，用于完全自定义渲染 @uyarn ([#4089](https://github.com/Tencent/tdesign-react/pull/4089))
-- `Dialog`:  @RylanBot ([#3950](https://github.com/Tencent/tdesign-react/pull/3950))
+- `Dialog`: @RylanBot ([#3950](https://github.com/Tencent/tdesign-react/pull/3950))
   - 支持 `mode="full-screen"` 的弹窗
   - 支持 `draggable` 在 `mode="modeless"` 生效
 - `Form`: 支持 `getFieldsValue` 和 `getFieldValue` 返回未渲染的数值 @RylanBot ([#4050](https://github.com/Tencent/tdesign-react/pull/4050))
@@ -34,7 +34,6 @@ spline: explain
 - `InputNumber`: 修复大数计算前导零被错误清除的问题 @Liumingxun ([common#2394](https://github.com/Tencent/tdesign-common/pull/2394))
 - `Menu`: 优化 Safari 浏览器中点击展开图标没有变换方向的问题 @liweijie0812 ([#4056](https://github.com/Tencent/tdesign-react/pull/4056))
 - `Popup`: 
-  - 修复嵌套场景下，外层弹窗隐藏时，内层弹窗无法正常关闭的问题 @RylanBot ([#4085](https://github.com/Tencent/tdesign-react/pull/4085))
   - 修复 `triggerElement` 被 `disabled` 的场景下，`hover` 时无法正常显示弹出层的问题 @RylanBot ([#4085](https://github.com/Tencent/tdesign-react/pull/4085))
   - 修复 `content` 动态修改时，箭头位置不稳定的问题 @RylanBot ([#4062](https://github.com/Tencent/tdesign-react/pull/4062))
 - `Select`: 

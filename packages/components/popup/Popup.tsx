@@ -112,6 +112,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
 
   const { triggerElementIsString, getTriggerElement, getTriggerNode, getPopupProps } = useTrigger({
     triggerElement,
+    popupElement,
     content,
     disabled,
     trigger,
