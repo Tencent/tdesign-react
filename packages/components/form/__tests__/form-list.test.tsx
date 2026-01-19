@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MinusCircleIcon } from 'tdesign-icons-react';
-import { fireEvent, mockTimeout, render, vi } from '@test/utils';
+import { fireEvent, mockTimeout, render, vi, waitFor, within } from '@test/utils';
 
 import Button from '../../button';
+import Dialog from '../../dialog';
 import Input from '../../input';
 import Radio from '../../radio';
 import FormList from '../FormList';
@@ -361,7 +362,7 @@ describe('FormList 组件测试', () => {
     expect(fn).toHaveBeenCalledTimes(1);
   });
 
-  test('FormList with nested structures', async () => {
+  test('FormList with nested objects', async () => {
     const TestView = () => {
       const [form] = Form.useForm();
 
@@ -733,6 +734,167 @@ describe('FormList 组件测试', () => {
     expect(queryByText('用户名必填')).not.toBeTruthy();
   });
 
+  test('FormList with nested arrays', async () => {
+    const onValuesChangeFn = vi.fn();
+    let latestChangedValues = {};
+    let latestFormValues = {};
+
+    const TestView = () => {
+      const [form] = Form.useForm();
+
+      const INIT_DATA = {
+        vector: ['v1', 'v2', 'v3'],
+        matrix: [['m11', 'm12'], ['m21', 'm22', 'm23'], ['m31']],
+      };
+
+      return (
+        <Form
+          form={form}
+          initialData={INIT_DATA}
+          onValuesChange={(changedValues, allValues) => {
+            onValuesChangeFn(changedValues, allValues);
+            latestChangedValues = changedValues;
+            latestFormValues = allValues;
+          }}
+        >
+          <div data-testid="vector">
+            <FormList name="vector">
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map(({ key, name }) => (
+                    <div key={key}>
+                      <FormItem name={name}>
+                        <Input />
+                      </FormItem>
+                      <Button onClick={() => remove(name)}>Remove</Button>
+                    </div>
+                  ))}
+                  <Button onClick={() => add('v-new')}>Add Vector</Button>
+                </>
+              )}
+            </FormList>
+          </div>
+
+          <div data-testid="matrix">
+            <FormList name="matrix">
+              {(rowFields, { add: addRow, remove: removeRow }) => (
+                <>
+                  {rowFields.map(({ key, name: rowName }) => (
+                    <div key={key}>
+                      <div>Row {rowName}</div>
+                      <FormList name={rowName}>
+                        {(colFields, { add: addCol, remove: removeCol }) => (
+                          <>
+                            {colFields.map(({ key, name: colName }) => (
+                              <div key={key}>
+                                <FormItem name={colName}>
+                                  <Input />
+                                </FormItem>
+                                <Button onClick={() => removeCol(colName)}>Remove Col</Button>
+                              </div>
+                            ))}
+                            <Button onClick={() => addCol('m-new')}>Add Col</Button>
+                          </>
+                        )}
+                      </FormList>
+                      <Button onClick={() => removeRow(rowName)}>Remove Row</Button>
+                    </div>
+                  ))}
+                  <Button onClick={() => addRow(['m-row'])}>Add Row</Button>
+                </>
+              )}
+            </FormList>
+          </div>
+        </Form>
+      );
+    };
+
+    const { getByText, getByTestId, getAllByText } = render(<TestView />);
+
+    const getInputValues = (testId: string) =>
+      within(getByTestId(testId))
+        .getAllByRole('textbox')
+        .map((el) => (el as HTMLInputElement).value);
+
+    // ===== initial =====
+    expect(getInputValues('vector')).toEqual(['v1', 'v2', 'v3']);
+    expect(getInputValues('matrix')).toEqual(['m11', 'm12', 'm21', 'm22', 'm23', 'm31']);
+
+    // ===== vector: add =====
+    fireEvent.click(getByText('Add Vector'));
+    await mockTimeout(() => true);
+    expect(getInputValues('vector')).toEqual(['v1', 'v2', 'v3', 'v-new']);
+    expect(onValuesChangeFn).toHaveBeenCalled();
+    expect(latestChangedValues).toEqual({
+      vector: ['v1', 'v2', 'v3', 'v-new'],
+    });
+    expect(latestFormValues).toEqual({
+      vector: ['v1', 'v2', 'v3', 'v-new'],
+      matrix: [['m11', 'm12'], ['m21', 'm22', 'm23'], ['m31']],
+    });
+
+    // ===== vector: remove =====
+    fireEvent.click(within(getByTestId('vector')).getAllByText('Remove')[0]);
+    await mockTimeout(() => true);
+    expect(latestChangedValues).toEqual({
+      vector: ['v2', 'v3', 'v-new'],
+    });
+    expect(latestFormValues).toEqual({
+      vector: ['v2', 'v3', 'v-new'],
+      matrix: [['m11', 'm12'], ['m21', 'm22', 'm23'], ['m31']],
+    });
+
+    // ===== matrix: add col (row 0) =====
+    const matrix = getByTestId('matrix');
+    fireEvent.click(within(matrix).getAllByText('Add Col')[0]);
+    await mockTimeout(() => true);
+    const expectedChangedMatrix1 = [];
+    expectedChangedMatrix1[0] = ['m11', 'm12', 'm-new'];
+    expect(latestChangedValues).toEqual({
+      matrix: expectedChangedMatrix1,
+    });
+    expect(latestFormValues).toEqual({
+      vector: ['v2', 'v3', 'v-new'],
+      matrix: [['m11', 'm12', 'm-new'], ['m21', 'm22', 'm23'], ['m31']],
+    });
+
+    // ===== matrix: remove col =====
+    const row0 = getAllByText(/^Row /)[0].parentElement;
+    fireEvent.click(within(row0).getAllByText('Remove Col')[0]);
+    await mockTimeout(() => true);
+    const expectedChangedMatrix2 = [];
+    expectedChangedMatrix2[0] = ['m12', 'm-new'];
+    expect(latestChangedValues).toEqual({
+      matrix: expectedChangedMatrix2,
+    });
+    expect(latestFormValues).toEqual({
+      vector: ['v2', 'v3', 'v-new'],
+      matrix: [['m12', 'm-new'], ['m21', 'm22', 'm23'], ['m31']],
+    });
+
+    // ===== matrix: add row =====
+    fireEvent.click(getByText('Add Row'));
+    await mockTimeout(() => true);
+    expect(latestChangedValues).toEqual({
+      matrix: [['m12', 'm-new'], ['m21', 'm22', 'm23'], ['m31'], ['m-row']],
+    });
+    expect(latestFormValues).toEqual({
+      vector: ['v2', 'v3', 'v-new'],
+      matrix: [['m12', 'm-new'], ['m21', 'm22', 'm23'], ['m31'], ['m-row']],
+    });
+
+    // ===== matrix: remove row =====
+    fireEvent.click(within(getAllByText(/^Row /)[0].parentElement).getByText('Remove Row'));
+    await mockTimeout(() => true);
+    expect(latestChangedValues).toEqual({
+      matrix: [['m21', 'm22', 'm23'], ['m31'], ['m-row']],
+    });
+    expect(latestFormValues).toEqual({
+      vector: ['v2', 'v3', 'v-new'],
+      matrix: [['m21', 'm22', 'm23'], ['m31'], ['m-row']],
+    });
+  });
+
   test('FormList with shouldUpdate', async () => {
     const TestView = () => {
       const [form] = Form.useForm();
@@ -984,5 +1146,106 @@ describe('FormList 组件测试', () => {
     const specifiedWeightInputAgain = getByPlaceholderText('route-weight-0-3') as HTMLInputElement;
     expect(specifiedWeightInputAgain.value).toBe('50');
     expect(container.querySelector('[placeholder="route-abtest-0-3"]')).toBeFalsy();
+  });
+
+  test('FormList with Form in Dialog', async () => {
+    const TestView = () => {
+      const [mainForm] = Form.useForm();
+      const [dialogForm] = Form.useForm();
+
+      const [dialogVisible, setDialogVisible] = useState(false);
+      const [editingIndex, setEditingIndex] = useState<number | null>(null);
+
+      const openDialog = (index: number) => {
+        setEditingIndex(index);
+        const currentAmount = mainForm.getFieldValue(['main', index, 'userAmount']) || '';
+        dialogForm.setFieldsValue({ amount: currentAmount });
+        setDialogVisible(true);
+      };
+
+      const handleConfirm = () => {
+        const amount = dialogForm.getFieldValue('amount');
+        mainForm.setFieldsValue({
+          main: mainForm
+            .getFieldValue('main')
+            .map((item: any, idx: number) => (idx === editingIndex ? { ...item, userAmount: amount } : item)),
+        });
+        setDialogVisible(false);
+      };
+
+      return (
+        <Form form={mainForm} initialData={{ main: [{ userAmount: '' }] }}>
+          <FormList name="main">
+            {(fields, { add }) => (
+              <>
+                {fields.map(({ key, name }) => (
+                  <div key={key}>
+                    <FormItem name={[name, 'userAmount']} label={`用户金额 ${name + 1}`}>
+                      <Input disabled data-testid={`amount-${name}`} />
+                    </FormItem>
+                    <Button onClick={() => openDialog(name)}>设置金额</Button>
+                  </div>
+                ))}
+
+                <Button onClick={() => add({ userAmount: '' })}>新增一项</Button>
+
+                <Dialog visible={dialogVisible} onConfirm={handleConfirm} onCancel={() => setDialogVisible(false)}>
+                  <Form form={dialogForm}>
+                    <FormItem name="amount">
+                      <Input data-testid="dialog-input" />
+                    </FormItem>
+                  </Form>
+                </Dialog>
+              </>
+            )}
+          </FormList>
+        </Form>
+      );
+    };
+
+    const { getByText, getAllByText, getByTestId, findByTestId } = render(<TestView />);
+
+    // ===== 初始值 =====
+    expect(getByText('用户金额 1')).toBeInTheDocument();
+
+    // ===== 新增一项 =====
+    fireEvent.click(getByText('新增一项'));
+    expect(getByText('用户金额 2')).toBeInTheDocument();
+
+    // ===== 设置第一项金额 =====
+    fireEvent.click(getAllByText('设置金额')[0]);
+    const dialogInputWrapper1 = await findByTestId('dialog-input');
+    const dialogInput1 = within(dialogInputWrapper1).getByRole('textbox');
+    fireEvent.change(dialogInput1, { target: { value: '100' } });
+    const confirmButton1 = document.querySelector('.t-dialog__confirm') as HTMLButtonElement;
+    fireEvent.click(confirmButton1);
+    await waitFor(() => {
+      const amountInput1 = within(getByTestId('amount-0')).getByRole('textbox');
+      expect(amountInput1).toHaveValue('100');
+    });
+
+    // ===== 设置第二项金额 =====
+    fireEvent.click(getAllByText('设置金额')[1]);
+    const dialogInputWrapper2 = await findByTestId('dialog-input');
+    const dialogInput2 = within(dialogInputWrapper2).getByRole('textbox');
+    fireEvent.change(dialogInput2, { target: { value: '200' } });
+    const confirmButton2 = document.querySelector('.t-dialog__confirm') as HTMLButtonElement;
+    fireEvent.click(confirmButton2);
+    await waitFor(() => {
+      const amountInput2 = within(getByTestId('amount-1')).getByRole('textbox');
+      expect(amountInput2).toHaveValue('200');
+    });
+
+    // ===== 取消不生效 =====
+    fireEvent.click(getAllByText('设置金额')[0]);
+    const dialogInputWrapper3 = await findByTestId('dialog-input');
+    const dialogInput3 = within(dialogInputWrapper3).getByRole('textbox');
+    fireEvent.change(dialogInput3, { target: { value: '999' } });
+    const cancelButton = document.querySelector('.t-dialog__cancel') as HTMLButtonElement;
+    fireEvent.click(cancelButton);
+    await waitFor(() => {
+      const firstAmountInputAfterCancel = within(getByTestId('amount-0')).getByRole('textbox');
+      expect(firstAmountInputAfterCancel).toHaveValue('100');
+    });
   });
 });

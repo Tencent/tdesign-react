@@ -46,8 +46,8 @@ export default function useFormItemInitialData(
 
     if (formListName && Array.isArray(fullPath)) {
       const pathPrefix = fullPath.slice(0, -1);
-      const pathExisted = has(form.store, pathPrefix);
-      if (pathExisted) {
+      const parentPathExisted = has(form.store, pathPrefix);
+      if (parentPathExisted) {
         // 只要路径存在，哪怕值为 undefined 也取 store 里的值
         // 兼容 add() 或者 add({}) 导致的空对象场景
         // https://github.com/Tencent/tdesign-react/issues/2329
@@ -55,11 +55,30 @@ export default function useFormItemInitialData(
       }
     }
 
-    if (Array.isArray(name) && formListInitialData?.length) {
+    if (formListInitialData?.length && (typeof name === 'number' || Array.isArray(name))) {
+      const fullPathExisted = has(form.store, fullPath);
+      if (fullPathExisted) {
+        return get(form.store, fullPath);
+      }
+
       let defaultInitialData;
-      const [index, ...relativePath] = name;
-      if (formListInitialData[index]) {
-        defaultInitialData = get(formListInitialData[index], relativePath);
+      let index: number;
+      let relativePath: NamePath = [];
+
+      if (typeof name === 'number') {
+        index = name;
+      } else {
+        // @ts-ignore
+        [index, ...relativePath] = name;
+      }
+
+      const itemData = formListInitialData[index];
+      if (itemData) {
+        if (Array.isArray(relativePath) && relativePath.length === 0) {
+          defaultInitialData = itemData;
+        } else if (typeof itemData === 'object') {
+          defaultInitialData = get(itemData, relativePath);
+        }
       }
       if (typeof defaultInitialData !== 'undefined') return defaultInitialData;
     }
