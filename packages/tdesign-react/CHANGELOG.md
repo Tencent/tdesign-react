@@ -5,6 +5,53 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.16.4 `2026-01-16`
+
+### 🚀 Features
+
+- `DatePicker`: `presets` 支持 ReactNode，用于完全自定义渲染 @uyarn ([#4089](https://github.com/Tencent/tdesign-react/pull/4089))
+- `Dialog`:  @RylanBot ([#3950](https://github.com/Tencent/tdesign-react/pull/3950))
+  - 支持 `mode="full-screen"` 的弹窗
+  - 支持 `draggable` 在 `mode="modeless"` 生效
+- `Form`: 支持 `getFieldsValue` 和 `getFieldValue` 返回未渲染的数值 @RylanBot ([#4050](https://github.com/Tencent/tdesign-react/pull/4050))
+
+### 🐞 Bug Fixes
+
+- `Cascader`: 
+  - 修复在弹出层可见期间，滚动位置被意外更新的问题 @RylanBot ([#4062](https://github.com/Tencent/tdesign-react/pull/4062))
+  - 优化 Safari 浏览器中点击展开图标没有变换方向的问题 @liweijie0812 ([#4056](https://github.com/Tencent/tdesign-react/pull/4056))
+- `Dialog`: 
+  - 修复 `closeOnOverlayClick` 为 `false` 时，`onOverlayClick` 无法触发的问题 @TidySongS ([#4065](https://github.com/Tencent/tdesign-react/pull/4065))
+  - 修复 `mode="modeless"` 的弹窗，点击空白地方会被关闭的问题 @RylanBot ([#3950](https://github.com/Tencent/tdesign-react/pull/3950))
+  - 修复开启 `draggable` 时，无法选中内部 `Input` 等元素中文本的问题 @RylanBot ([#3950](https://github.com/Tencent/tdesign-react/pull/3950))
+- `Form`: 
+  - 修复自定义控件时 `setFieldsValue` 失败的问题 @RylanBot ([#4029](https://github.com/Tencent/tdesign-react/pull/4029))
+  - 修复使用 `shouldUpdate` 时，必须给 `FormItem` 加 `key` 才能生效的问题 @RylanBot ([#4005](https://github.com/Tencent/tdesign-react/pull/4005))
+- `FormList`:  @RylanBot ([#4005](https://github.com/Tencent/tdesign-react/pull/4005))
+  - 修复子节点存在另一个 Form 时，部分 API 异常的问题
+  - 修复结合 `shouldUpdate` 使用时，`initialData` 不生效的问题
+  - 修复 `add` 过程中缺乏拷贝从而污染用户原始数据的问题 @RylanBot
+- `InputNumber`: 修复大数计算前导零被错误清除的问题 @Liumingxun ([common#2394](https://github.com/Tencent/tdesign-common/pull/2394))
+- `Menu`: 优化 Safari 浏览器中点击展开图标没有变换方向的问题 @liweijie0812 ([#4056](https://github.com/Tencent/tdesign-react/pull/4056))
+- `Popup`: 
+  - 修复嵌套场景下，外层弹窗隐藏时，内层弹窗无法正常关闭的问题 @RylanBot ([#4085](https://github.com/Tencent/tdesign-react/pull/4085))
+  - 修复 `triggerElement` 被 `disabled` 的场景下，`hover` 时无法正常显示弹出层的问题 @RylanBot ([#4085](https://github.com/Tencent/tdesign-react/pull/4085))
+  - 修复 `content` 动态修改时，箭头位置不稳定的问题 @RylanBot ([#4062](https://github.com/Tencent/tdesign-react/pull/4062))
+- `Select`: 
+  - 修复 `tagInputProps.tagProps` 不生效的问题 @RylanBot ([#4070](https://github.com/Tencent/tdesign-react/pull/4070))
+  - 优化 Safari 浏览器中点击展开图标没有变换方向的问题 @liweijie0812 ([#4056](https://github.com/Tencent/tdesign-react/pull/4056))
+- `SelectInput`:  @RylanBot ([#4070](https://github.com/Tencent/tdesign-react/pull/4070))
+  - 修复 `1.16.0` 版本的修复导致点击 `closable` 图标时无法清除选项的问题
+  - 修复传入 `tagInputProps.tagProps.onClose` 时，`onTagChange` 不生效的问题
+- `Text`: 修复在关闭 `copyable` 的 `Tooltip` 时，元素未同步隐藏的问题 @RylanBot ([#4067](https://github.com/Tencent/tdesign-react/pull/4067))
+- `Textarea`: 修复 `count` 计算逻辑没有遵循 `maxcharacter` 或 `maxlength` 的问题 @RylanBot ([#4088](https://github.com/Tencent/tdesign-react/pull/4088))
+- `TreeSelect`: 优化 Safari 浏览器中点击展开图标没有变换方向的问题 @liweijie0812 ([#4056](https://github.com/Tencent/tdesign-react/pull/4056))
+
+### 🚧 Others
+
+- `Form`: 调整 `useForm` 返回实例的 TS 类型，避免内部变量的暴露 @RylanBot ([#4050](https://github.com/Tencent/tdesign-react/pull/4050))
+- `Message`: 新增组件的 `displayName` @TidySongS ([#4074](https://github.com/Tencent/tdesign-react/pull/4074))
+
 ## 🌈 1.16.3 `2026-01-04`
 
 ### 🐞 Bug Fixes
