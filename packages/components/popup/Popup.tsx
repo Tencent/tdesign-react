@@ -90,6 +90,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
   const portalRef = useRef(null); // portal dom 元素
   const contentRef = useRef<HTMLDivElement>(null); // 内容部分
   const popperRef = useRef<InnerPopperInstance>(null); // 保存 popper 实例
+  const prevVisible = useRef(visible);
 
   // 处理切换 panel 为 null 和正常内容动态切换的情况
   useEffect(() => {
@@ -214,12 +215,13 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
 
   // 下拉展开时更新内部滚动条和箭头位置
   useEffect(() => {
-    if (visible && popupElement && contentRef.current) {
-      requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      prevVisible.current = visible;
+      if (!prevVisible.current && visible && popupElement && contentRef.current) {
         updateScrollTop?.(contentRef.current);
-        updateArrowPosition();
-      });
-    }
+      }
+      updateArrowPosition();
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible, content, popupElement]);
 
