@@ -62,24 +62,20 @@ export default function useFormItemInitialData(
       }
 
       let defaultInitialData;
-      let index: number;
-      let relativePath: NamePath = [];
+      let index;
+      let relativePath = [];
 
       if (typeof name === 'number') {
         index = name;
       } else {
-        // @ts-ignore
         [index, ...relativePath] = name;
       }
 
       const itemData = formListInitialData[index];
       if (itemData) {
-        if (Array.isArray(relativePath) && relativePath.length === 0) {
-          defaultInitialData = itemData;
-        } else if (typeof itemData === 'object') {
-          defaultInitialData = get(itemData, relativePath);
-        }
+        defaultInitialData = relativePath.length ? get(itemData, relativePath) : itemData;
       }
+
       if (typeof defaultInitialData !== 'undefined') return defaultInitialData;
     }
 
