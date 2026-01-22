@@ -90,7 +90,6 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
   const portalRef = useRef(null); // portal dom 元素
   const contentRef = useRef<HTMLDivElement>(null); // 内容部分
   const popperRef = useRef<InnerPopperInstance>(null); // 保存 popper 实例
-  const prevVisible = useRef(visible);
 
   // 处理切换 panel 为 null 和正常内容动态切换的情况
   useEffect(() => {
