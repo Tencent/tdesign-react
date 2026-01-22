@@ -58,7 +58,7 @@ export default function useTrigger({
     return element instanceof Element ? element : null;
   }, [triggerElementIsString, triggerElement]);
 
-  const handleMouseEnter = (e: MouseEvent) => {
+  const handleMouseEnter = (e: MouseEvent | React.MouseEvent) => {
     if (trigger === 'hover') {
       callFuncWithDelay({
         delay: appearDelay,
