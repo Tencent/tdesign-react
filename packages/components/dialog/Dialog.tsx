@@ -297,7 +297,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
                   ref={dialogCardRef}
                   {...restState}
                   mode={mode}
-                  className={dialogClassName}
+                  className={classNames(dialogClassName)}
                   style={{ ...style, width: pxCompat(width || style?.width) }}
                   onConfirm={onConfirm}
                   onCancel={handleCancel}
