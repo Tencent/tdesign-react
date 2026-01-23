@@ -50,6 +50,15 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     return element instanceof Element ? element : null;
   }, [triggerElementIsString, triggerElement]);
 
+  const handleMouseEnter = (e: MouseEvent | React.MouseEvent) => {
+    if (trigger === 'hover') {
+      callFuncWithDelay({
+        delay: appearDelay,
+        callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
+      });
+    }
+  };
+
   const handleMouseLeave = (e: MouseEvent | React.MouseEvent) => {
     if (trigger !== 'hover' || hasPopupMouseDown.current) return;
     const relatedTarget = e.relatedTarget as HTMLElement;
@@ -95,15 +104,6 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
         callFuncWithDelay({
           delay: visible ? appearDelay : exitDelay,
           callback: () => onVisibleChange(!visible, { e, trigger: 'trigger-element-mousedown' }),
-        });
-      }
-    };
-
-    const handleMouseEnter = (e: MouseEvent) => {
-      if (trigger === 'hover') {
-        callFuncWithDelay({
-          delay: appearDelay,
-          callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
         });
       }
     };
@@ -255,6 +255,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
 
   function getPopupProps() {
     return {
+      onMouseEnter: handleMouseEnter,
       onMouseLeave: handleMouseLeave,
       onMouseDown: handlePopupMouseDown,
       onMouseUp: handlePopupMouseUp,
