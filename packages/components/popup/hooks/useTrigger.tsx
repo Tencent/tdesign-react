@@ -13,7 +13,16 @@ const isEventFromDisabledElement = (e: Event | React.SyntheticEvent, container: 
   return !!(disabledEl && container.contains(disabledEl));
 };
 
-export default function useTrigger({ triggerElement, content, disabled, trigger, visible, onVisibleChange, delay }) {
+export default function useTrigger({
+  triggerElement,
+  content,
+  disabled,
+  trigger,
+  visible,
+  onVisibleChange,
+  delay,
+  popupElement,
+}) {
   const { classPrefix } = useConfig();
 
   const triggerElementIsString = typeof triggerElement === 'string';
@@ -53,8 +62,10 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
   const handleMouseLeave = (e: MouseEvent | React.MouseEvent) => {
     if (trigger !== 'hover' || hasPopupMouseDown.current) return;
     const relatedTarget = e.relatedTarget as HTMLElement;
-    const isMovingToContent = relatedTarget?.closest?.(`.${classPrefix}-popup`);
-    if (isMovingToContent) return;
+    const closestPopup = relatedTarget?.closest(`.${classPrefix}-popup`);
+
+    const isMovingToCurrentPopup = popupElement ? popupElement?.isEqualNode(closestPopup) : closestPopup;
+    if (isMovingToCurrentPopup) return;
     callFuncWithDelay({
       delay: exitDelay,
       callback: () => onVisibleChange(false, { e, trigger: 'trigger-element-hover' }),
