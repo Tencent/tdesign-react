@@ -264,62 +264,6 @@ describe('Popup 组件测试', () => {
     expect(popupContainer).toBeNull();
   });
 
-  test('测试浮层嵌套', async () => {
-    const wrappedTriggerElement = '嵌套触发元素';
-    const wrappedPopupTestId = 'wrapped-popup-test-id';
-    const wrappedPopupText = '嵌套弹出层内容';
-    const { getByText, queryByTestId } = render(
-      <Popup
-        placement="top"
-        trigger="click"
-        destroyOnClose
-        content={
-          <Popup
-            placement="top"
-            trigger="click"
-            destroyOnClose
-            content={<div data-testid={wrappedPopupTestId}>{wrappedPopupText}</div>}
-          >
-            <div data-testid={popupTestId}>{wrappedTriggerElement}</div>
-          </Popup>
-        }
-      >
-        {triggerElement}
-      </Popup>,
-    );
-
-    // 初始时，所有浮层都不存在
-    const popupElement1 = await waitFor(() => queryByTestId(popupTestId));
-    const wrappedPopupElement1 = await waitFor(() => queryByTestId(wrappedPopupTestId));
-    expect(popupElement1).toBeNull();
-    expect(wrappedPopupElement1).toBeNull();
-
-    // 触发浮层和嵌套浮层
-    act(() => {
-      fireEvent.click(getByText(triggerElement));
-    });
-    act(() => {
-      fireEvent.click(getByText(wrappedTriggerElement));
-    });
-
-    // 所有浮层都展示出来
-    const popupElement2 = await waitFor(() => queryByTestId(popupTestId));
-    const wrappedPopupElement2 = await waitFor(() => queryByTestId(wrappedPopupTestId));
-    expect(popupElement2).not.toBeNull();
-    expect(wrappedPopupElement2).not.toBeNull();
-
-    // 嵌套元素的浮层触发 mouseDown，不应该关闭任何浮层
-    act(() => {
-      fireEvent.mouseDown(queryByTestId(wrappedPopupTestId));
-    });
-
-    // 所有浮层都展示出来
-    const popupElement3 = await waitFor(() => queryByTestId(popupTestId));
-    const wrappedPopupElement3 = await waitFor(() => queryByTestId(wrappedPopupTestId));
-    expect(popupElement3).not.toBeNull();
-    expect(wrappedPopupElement3).not.toBeNull();
-  });
-
   test('异常情况：浮层隐藏时点击其他地方，浮层不可以展示出来', async () => {
     const testClassName = 'test-class-name';
     render(
@@ -392,6 +336,110 @@ describe('Popup 组件测试', () => {
     });
     await waitFor(() => {
       expect(queryByTestId(clickPopupTestId)).toBeNull();
+    });
+  });
+});
+
+describe('Popup 嵌套组件测试', () => {
+  const popupTestId = 'popup-test-id';
+  const wrappedPopupTestId = 'wrapped-popup-test-id';
+  const triggerElement = '外层触发元素';
+  const wrappedTriggerElement = '内层触发元素';
+  const wrappedPopupText = '内层浮层内容';
+
+  const renderNestedPopup = (trigger: 'click' | 'hover') =>
+    render(
+      <Popup
+        placement="top"
+        trigger={trigger}
+        destroyOnClose
+        content={
+          <Popup
+            placement="top"
+            trigger={trigger}
+            destroyOnClose
+            content={<div data-testid={wrappedPopupTestId}>{wrappedPopupText}</div>}
+          >
+            <div data-testid={popupTestId}>{wrappedTriggerElement}</div>
+          </Popup>
+        }
+      >
+        {triggerElement}
+      </Popup>,
+    );
+
+  test('trigger="click"', async () => {
+    const { getByText, queryByTestId } = renderNestedPopup('click');
+
+    // 初始状态，浮层不存在
+    expect(queryByTestId(popupTestId)).toBeNull();
+    expect(queryByTestId(wrappedPopupTestId)).toBeNull();
+
+    // click 外层触发器
+    act(() => {
+      fireEvent.click(getByText(triggerElement));
+    });
+    const popupElement = await waitFor(() => queryByTestId(popupTestId));
+    expect(popupElement).not.toBeNull();
+
+    // click 内层触发器
+    act(() => {
+      fireEvent.click(getByText(wrappedTriggerElement));
+    });
+    const wrappedPopupElement = await waitFor(() => queryByTestId(wrappedPopupTestId));
+    expect(wrappedPopupElement).not.toBeNull();
+    expect(wrappedPopupElement).toHaveTextContent(wrappedPopupText);
+
+    // mouseDown 内层内容不关闭
+    act(() => {
+      fireEvent.mouseDown(queryByTestId(wrappedPopupTestId) as HTMLElement);
+    });
+    await waitFor(() => {
+      expect(popupElement).not.toBeNull();
+      expect(wrappedPopupElement).not.toBeNull();
+    });
+  });
+
+  test('trigger="hover"', async () => {
+    const { getByText, getByTestId, queryByTestId } = renderNestedPopup('hover');
+
+    // 初始状态，浮层不存在
+    expect(queryByTestId(popupTestId)).toBeNull();
+    expect(queryByTestId(wrappedPopupTestId)).toBeNull();
+
+    // hover 外层触发器
+    act(() => {
+      fireEvent.mouseEnter(getByText(triggerElement));
+    });
+    const popupElement = await waitFor(() => queryByTestId(popupTestId));
+    expect(popupElement).not.toBeNull();
+
+    // hover 内层触发器
+    act(() => {
+      fireEvent.mouseEnter(getByTestId(popupTestId));
+    });
+    const wrappedPopupElement = await waitFor(() => queryByTestId(wrappedPopupTestId));
+    expect(wrappedPopupElement).not.toBeNull();
+    expect(wrappedPopupElement).toHaveTextContent(wrappedPopupText);
+
+    // mouseLeave 内层触发器
+    act(() => {
+      fireEvent.mouseLeave(getByTestId(popupTestId));
+    });
+
+    // 等待内层浮层销毁
+    await waitFor(() => {
+      expect(queryByTestId(wrappedPopupTestId)).toBeNull();
+    });
+
+    // mouseLeave 外层触发器
+    act(() => {
+      fireEvent.mouseLeave(getByText(triggerElement));
+    });
+
+    // 等待外层浮层销毁
+    await waitFor(() => {
+      expect(queryByTestId(popupTestId)).toBeNull();
     });
   });
 });
