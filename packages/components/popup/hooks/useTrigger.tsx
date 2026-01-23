@@ -3,7 +3,6 @@ import { canUseDocument } from '../../_util/dom';
 import { off, on } from '../../_util/listener';
 import { composeRefs, getNodeRef, getRefDom, supportNodeRef } from '../../_util/ref';
 import useConfig from '../../hooks/useConfig';
-import useResizeObserver from '../../hooks/useResizeObserver';
 
 const ESC_KEY = 'Escape';
 
@@ -226,27 +225,6 @@ export default function useTrigger({
       element?.classList.remove(`${classPrefix}-popup-open`);
     };
   }, [visible, classPrefix, getTriggerElement]);
-
-  useResizeObserver(
-    triggerRef,
-    (entries) => {
-      entries.forEach((entry) => {
-        // 嵌套使用
-        // 针对父 Popup 关闭时，trigger 隐藏的场景
-        if (entry.contentRect.width === 0 && entry.contentRect.height === 0) {
-          const element = entry.target as HTMLElement;
-          // 检查元素是否真的被隐藏（完全通过判断尺寸为 0x0，会误判 inline 元素）
-          const computedStyle = window.getComputedStyle(element);
-          const isHidden =
-            computedStyle.display === 'none' || computedStyle.visibility === 'hidden' || computedStyle.opacity === '0';
-          if (isHidden) {
-            onVisibleChange(false, { trigger: 'document' });
-          }
-        }
-      });
-    },
-    visible && shouldToggle,
-  );
 
   function getTriggerNode(children: React.ReactNode) {
     if (triggerElementIsString) return;
