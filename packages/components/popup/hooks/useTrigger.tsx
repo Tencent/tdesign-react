@@ -62,9 +62,9 @@ export default function useTrigger({
   const handleMouseLeave = (e: MouseEvent | React.MouseEvent) => {
     if (trigger !== 'hover' || hasPopupMouseDown.current) return;
     const relatedTarget = e.relatedTarget as HTMLElement;
-    const closestPopup = relatedTarget?.closest(`.${classPrefix}-popup`);
+    const closestPopup = relatedTarget?.closest?.(`.${classPrefix}-popup`);
 
-    const isMovingToCurrentPopup = popupElement ? popupElement?.isEqualNode(closestPopup) : closestPopup;
+    const isMovingToCurrentPopup = popupElement ? popupElement?.isEqualNode?.(closestPopup) : closestPopup;
     if (isMovingToCurrentPopup) return;
     callFuncWithDelay({
       delay: exitDelay,
