@@ -158,7 +158,8 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   }
 
   const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!showOverlay || isModeless || isInputInteracting) return;
+    if (!showOverlay || isModeless || isInputInteracting.current) return;
+
     // 判断点击事件初次点击是否为内容区域
     if (contentClickRef.current) {
       contentClickRef.current = false;
