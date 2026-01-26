@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, Component, ErrorInfo } from 'react';
 import type { ActivityComponentProps } from './types';
 import { activityRegistry } from './registry';
-import { type ActivityData } from 'tdesign-web-components/lib/chat-engine';
+import { type ActivityData } from '../../core';
 
 interface ActivityRendererProps {
   activity: ActivityData;
@@ -56,7 +56,7 @@ const DefaultActivityRenderer: React.FC<ActivityRendererProps> = ({ activity }) 
 
 /**
  * Activity 渲染器组件
- * 根据 activityType 查找注册的组件进行渲染
+ * 根据 activityType 精确匹配查找注册的组件进行渲染
  */
 export const ActivityRenderer = React.memo<ActivityRendererProps>(
   ({ activity }) => {
@@ -79,6 +79,7 @@ export const ActivityRenderer = React.memo<ActivityRendererProps>(
     useEffect(() => {
       if (!isRegistered) {
         const handleRegistered = (event: CustomEvent) => {
+          // 精确匹配
           if (event.detail?.activityType === activity.activityType) {
             setIsRegistered(true);
           }

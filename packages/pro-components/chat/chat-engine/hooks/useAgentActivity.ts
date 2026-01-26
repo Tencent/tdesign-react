@@ -10,8 +10,7 @@ export interface UseAgentActivityReturn {
 }
 
 /**
- * Activity 注册管理 Hook
- * 简化版的 useAgentToolcall，专门用于 Activity 组件的注册管理
+ * Activity 注册管理 Hook，专门用于 Activity 组件的注册管理
  * 
  * 支持两种使用模式：
  * 1. 自动注册模式：传入配置，自动注册和清理

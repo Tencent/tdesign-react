@@ -1,6 +1,6 @@
 {
   "name": "@tdesign-react/chat",
-  "version": "1.0.2-alpha.11",
+  "version": "1.0.2-alpha.15",
   "title": "@tdesign-react/chat",
   "description": "TDesign Pro Component for AIGC",
   "module": "es/index.js",
@@ -50,11 +50,13 @@
   },
   "dependencies": {
     "@babel/runtime": "~7.26.7",
-    "tdesign-web-components": "1.2.11-alpha.9",
+    "tdesign-web-components": "1.2.11-alpha.11",
     "classnames": "~2.5.1",
     "lodash-es": "^4.17.21",
     "zod": "^3.24.2",
-    "cherry-markdown": "^0.10.0"
+    "cherry-markdown": "^0.10.0",
+    "@json-render/core": "^0.3.0",
+    "@json-render/react": "^0.2.0"
   },
   "devDependencies": {
     "cors": "^2.8.5",

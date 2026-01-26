@@ -7,7 +7,7 @@ import type { ChatMessagesData, ChatServiceConfig, ChatStatus } from '../core';
 
 export type IUseChat = {
   defaultMessages?: ChatMessagesData[];
-  chatServiceConfig: ChatServiceConfig;
+  chatServiceConfig: ChatServiceConfig | (() => ChatServiceConfig);
 };
 
 export const useChat = ({ defaultMessages: initialMessages, chatServiceConfig }: IUseChat) => {

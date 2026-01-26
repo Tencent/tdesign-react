@@ -42,6 +42,11 @@ bundle-analysis
 
 ## mock files
 mock-server
-packages/**/chat-engine/core
-packages/**/chatbot/docs
+packages/**/docs
+packages/pro-components/chat/**/docs/
 .codebuddy
+
+.zip
+openspec
+*.d.ts
+*.zip

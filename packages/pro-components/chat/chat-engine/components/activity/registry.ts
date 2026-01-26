@@ -3,7 +3,7 @@ import type { ActivityConfig, ActivityRegistry, ActivityComponentProps } from '.
 
 /**
  * Activity 注册表管理器
- * 参考 AgentToolcallRegistryManager 的设计，但简化了复杂的状态管理
+ * 业务方注册具体的 activityType（如 json-render-main-card），精确匹配
  */
 class ActivityRegistryManager {
   private registry: ActivityRegistry = {};

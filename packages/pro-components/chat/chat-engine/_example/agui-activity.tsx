@@ -8,17 +8,16 @@ import {
   useAgentActivity,
   ActivityRenderer,
 } from '@tdesign-react/chat';
-import { Card, Space, Tag } from 'tdesign-react';
+import { Card, Space, Tag, Progress } from 'tdesign-react';
 import { CheckCircleFilledIcon, TimeFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 import type { ActivityComponentProps } from '@tdesign-react/chat';
 
 /**
  * Activity 示例 - 规划步骤（Plan TodoList）
  * 
- * 演示如何使用 Activity 事件展示动态规划步骤：
- * 1. 后端通过 ACTIVITY_SNAPSHOT 初始化规划步骤列表
- * 2. 通过 ACTIVITY_DELTA 逐步更新每个步骤的完成状态
- * 3. 前端实时展示步骤进度，逐个打钩完成
+ * 演示如何使用 Activity 事件展示动态规划步骤，支持：
+ * 1. 标准模式：后端先发 ACTIVITY_SNAPSHOT，再发 ACTIVITY_DELTA
+ * 2. 纯增量模式：后端只发 ACTIVITY_DELTA，无 SNAPSHOT（前端自动初始化）
  */
 
 // ==================== Activity 组件定义 ====================
@@ -116,22 +115,11 @@ const PlanTodoActivity: React.FC<ActivityComponentProps<PlanTodoContent>> = ({ c
         )}
 
         {/* 进度条 */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <div style={{ flex: 1, height: 6, background: '#f0f0f0', borderRadius: 3 }}>
-            <div
-              style={{
-                width: `${progress}%`,
-                height: '100%',
-                background: status === 'completed' ? '#52c41a' : '#1890ff',
-                borderRadius: 3,
-                transition: 'width 0.3s ease',
-              }}
-            />
-          </div>
-          <span style={{ fontSize: 12, color: '#666', minWidth: 60 }}>
-            {completedCount}/{totalCount} 完成
-          </span>
-        </div>
+        <Progress 
+          percentage={progress} 
+          status={status === 'completed' ? 'success' : 'active'}
+          label={<span style={{ fontSize: 12, color: '#666' }}>{completedCount}/{totalCount} 完成</span>}
+        />
 
         {/* 步骤列表 */}
         <div style={{ marginTop: 8 }}>
@@ -179,6 +167,88 @@ const PlanTodoActivity: React.FC<ActivityComponentProps<PlanTodoContent>> = ({ c
   );
 };
 
+// ==================== 第二个 Activity 组件定义 ====================
+
+/**
+ * 进度条内容类型
+ */
+interface TravelProgressContent {
+  title: string;
+  totalTasks: number;
+  completedTasks: number;
+  currentTask: string;
+  percentage: number;
+  status: 'preparing' | 'running' | 'completed';
+}
+
+/**
+ * 行程规划进度 Activity 组件
+ * 展示整体规划进度，与步骤列表组件同时显示
+ */
+const TravelProgressActivity: React.FC<ActivityComponentProps<TravelProgressContent>> = ({ content }) => {
+  const { title, totalTasks, completedTasks, currentTask, percentage, status } = content;
+
+  // 获取状态颜色
+  const getStatusColor = () => {
+    if (status === 'completed') return '#52c41a';
+    if (status === 'running') return '#1890ff';
+    return '#faad14';
+  };
+
+  // 获取状态文本
+  const getStatusText = () => {
+    if (status === 'completed') return '已完成';
+    if (status === 'running') return '进行中';
+    return '准备中';
+  };
+
+  // 获取状态标签主题
+  const getStatusTheme = () => {
+    if (status === 'completed') return 'success';
+    if (status === 'running') return 'primary';
+    return 'warning';
+  };
+
+  // 获取进度条状态
+  const getProgressStatus = () => {
+    if (status === 'completed') return 'success';
+    if (status === 'running') return 'active';
+    return 'warning';
+  };
+
+  return (
+    <Card bordered style={{ marginTop: 8, width: '100%', background: '#fafafa' }}>
+      <Space direction="vertical" style={{ width: '100%' }}>
+        {/* 标题和状态 */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ fontSize: 14, fontWeight: 600, color: '#666' }}>{title}</span>
+          <Tag theme={getStatusTheme()} variant="light">
+            {getStatusText()}
+          </Tag>
+        </div>
+
+        {/* 进度条 */}
+        <Progress 
+          theme="plump"
+          percentage={percentage} 
+          status={getProgressStatus()}
+          color={getStatusColor()}
+        />
+
+        {/* 当前任务和统计 */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ fontSize: 12, color: '#999' }}>
+            {currentTask}
+          </span>
+          <span style={{ fontSize: 12, color: '#666' }}>
+            {completedTasks}/{totalTasks} 任务
+          </span>
+        </div>
+      </Space>
+    </Card>
+  );
+};
+
 // ==================== 主组件 ====================
 
 const ActivityExample: React.FC = () => {
@@ -193,59 +263,18 @@ const ActivityExample: React.FC = () => {
       component: PlanTodoActivity as React.FC<ActivityComponentProps>,
       description: '规划步骤展示',
     },
+    {
+      activityType: 'travel-progress',
+      component: TravelProgressActivity as React.FC<ActivityComponentProps>,
+      description: '行程规划进度',
+    },
   ]);
 
-  // 历史消息（包含已完成的规划 Activity）
-  const defaultMessages = useMemo(
-    () =>
-      [
-        {
-          id: 'history-1',
-          role: 'user' as const,
-          content: '帮我规划一次周末读书计划',
-          timestamp: Date.now() - 300000,
-        },
-        {
-          id: 'history-2',
-          role: 'assistant' as const,
-          content: '好的，我来帮您规划周末读书计划：',
-          timestamp: Date.now() - 290000,
-        },
-        {
-          id: 'history-3',
-          role: 'assistant' as const,
-          content: [
-            {
-              type: 'activity' as const,
-              data: {
-                activityType: 'plan-todo',
-                messageId: 'history_plan_1',
-                content: {
-                  title: '周末读书计划',
-                  description: '两天完成一本书的阅读',
-                  status: 'completed',
-                  steps: [
-                    { id: '1', label: '选择要阅读的书籍', status: 'completed', description: '根据兴趣选择一本书' },
-                    { id: '2', label: '准备阅读环境', status: 'completed', description: '找一个安静舒适的地方' },
-                    { id: '3', label: '阅读前半部分', status: 'completed', description: '周六完成1-5章' },
-                    { id: '4', label: '阅读后半部分', status: 'completed', description: '周日完成6-10章' },
-                    { id: '5', label: '整理读书笔记', status: 'completed', description: '记录关键观点和感想' },
-                  ],
-                },
-              },
-            },
-          ],
-          timestamp: Date.now() - 280000,
-        },
-      ] as any[],
-    [],
-  );
-
-  // 聊天配置
+  // 聊天配置 - 根据模式切换 endpoint
   const { chatEngine, messages, status } = useChat({
-    defaultMessages,
+    defaultMessages: [],
     chatServiceConfig: {
-      endpoint: 'http://localhost:9000/sse/agui-activity',
+      endpoint: 'http://localhost:9001/sse/agui-activity',
       protocol: 'agui',
       stream: true,
       onRequest: (params) => ({
@@ -255,6 +284,7 @@ const ActivityExample: React.FC = () => {
         },
         body: JSON.stringify({
           prompt: params.prompt,
+          mode: 'standard',
         }),
       }),
     },
@@ -300,15 +330,18 @@ const ActivityExample: React.FC = () => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+    <Space direction='vertical' style={{ width: '100%' }}>
       <div style={{ marginBottom: '16px', padding: '12px', background: '#f5f5f5', borderRadius: '4px' }}>
         <div style={{ marginBottom: '8px', fontSize: '14px', fontWeight: 500 }}>示例说明：</div>
-        <p style={{ margin: '8px 0 0', fontSize: '14px', color: '#666' }}>
-          演示 Activity 事件的流式更新：先列出规划步骤，然后逐步打钩完成
+        <p style={{ margin: '8px 0', fontSize: '14px', color: '#666' }}>
+          演示多个不同 activityType 的 Activity 同时流式更新：
         </p>
+        <ul style={{ margin: '8px 0', fontSize: '13px', color: '#666', paddingLeft: '20px' }}>
+          <li>plan-todo: 规划步骤列表，逐步打钩完成</li>
+          <li>travel-progress: 整体进度条，同步更新百分比</li>
+        </ul>
       </div>
-
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', height: '500px' }}>
         <ChatList ref={listRef}>
           {messages.map((message) => (
             <ChatMessage key={message.id} {...messageProps[message.role]} message={message}>
@@ -316,20 +349,17 @@ const ActivityExample: React.FC = () => {
             </ChatMessage>
           ))}
         </ChatList>
-
-        <div style={{ padding: '16px', borderTop: '1px solid #e8e8e8' }}>
-          <ChatSender
-            ref={inputRef}
-            value={inputValue}
-            placeholder="输入规划需求，例如：帮我规划一次北京三日游"
-            loading={senderLoading}
-            onChange={(e: any) => setInputValue(e.detail)}
-            onSend={sendHandler}
-            onStop={() => chatEngine.abortChat()}
-          />
-        </div>
+        <ChatSender
+          ref={inputRef}
+          value={inputValue}
+          placeholder="输入规划需求，例如：帮我规划一次北京三日游"
+          loading={senderLoading}
+          onChange={(e: any) => setInputValue(e.detail)}
+          onSend={sendHandler}
+          onStop={() => chatEngine.abortChat()}
+        />
       </div>
-    </div>
+    </Space>
   );
 };
 
