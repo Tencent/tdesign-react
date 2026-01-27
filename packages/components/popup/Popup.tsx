@@ -112,6 +112,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
 
   const { triggerElementIsString, getTriggerElement, getTriggerNode, getPopupProps } = useTrigger({
     triggerElement,
+    popupElement,
     content,
     disabled,
     trigger,
@@ -234,7 +235,9 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
 
   function handleExited() {
     setIsOverlayHover(false);
-    !destroyOnClose && popupElement && (popupElement.style.display = 'none');
+    if (!destroyOnClose && popupElement) popupElement.style.display = 'none';
+    // 如果是 destroyOnClose 需要重置 popupElement 否则影响二次操作的判断
+    else setPopupElement(null);
   }
   function handleEnter() {
     setIsOverlayHover(true);
