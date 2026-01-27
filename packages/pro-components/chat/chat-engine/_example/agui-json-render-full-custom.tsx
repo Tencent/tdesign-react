@@ -7,6 +7,7 @@
  * 3. 完整的两层架构演示
  */
 import React, { useState, useRef, useMemo } from 'react';
+import { MessagePlugin } from 'tdesign-react';
 import {
   ChatList,
   ChatSender,
@@ -16,13 +17,10 @@ import {
   ActivityRenderer,
 } from '@tdesign-react/chat';
 import { useChat, useAgentActivity } from '@tdesign-react/chat';
-import { MessagePlugin } from 'tdesign-react';
-import { z } from 'zod';
-
 import {
   createJsonRenderActivityConfig,
   createCustomRegistry,
-} from '../components/json-render';
+} from '@tdesign-react/chat';
 
 // 导入自定义组件
 import { StatusCard, ProgressBar } from './components';

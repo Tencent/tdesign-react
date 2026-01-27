@@ -22,12 +22,8 @@ import {
   isActivityContent,
   ActivityRenderer,
 } from '@tdesign-react/chat';
-import { useChat, useAgentActivity } from '@tdesign-react/chat';
+import { useChat, useAgentActivity, createA2UIJsonRenderActivityConfig } from '@tdesign-react/chat';
 import { MessagePlugin } from 'tdesign-react';
-
-import {
-  createA2UIJsonRenderActivityConfig,
-} from '../components/json-render';
 
 // Mock Server 地址
 const MOCK_SERVER = 'http://localhost:9001';

@@ -20,7 +20,7 @@ import {
   createJsonRenderActivityConfig,
   createCustomRegistry,
   type JsonRenderActivityProps,
-} from '../components/json-render';
+} from '@tdesign-react/chat';
 
 // 导入自定义组件
 import { StatusCard, ProgressBar } from './components';
