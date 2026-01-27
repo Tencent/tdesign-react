@@ -210,7 +210,9 @@ export {
   createCustomCatalog,
   tdesignComponentList,
   tdesignActionList,
+  generateCatalogPrompt,
 } from '../catalog';
+export type { PromptTemplateMode, CustomTemplateGenerator, ComponentDoc, NormalizedComponentDoc } from '../catalog';
 
 // ==================== 重新导出 A2UI Registry ====================
 // A2UI 专用组件，支持 valuePath/disabledPath/action.context 自动绑定

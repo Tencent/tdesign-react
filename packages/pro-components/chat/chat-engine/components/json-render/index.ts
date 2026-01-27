@@ -41,8 +41,10 @@ export {
   createCustomCatalog,
   tdesignComponentList,
   tdesignActionList,
+  generateCatalogPrompt,
 } from './catalog/index';
 export type { Catalog } from '@json-render/core';
+export type { PromptTemplateMode, CustomTemplateGenerator, ComponentDoc, NormalizedComponentDoc } from './catalog';
 
 // A2UI 专用 Registry（支持 valuePath/disabledPath/action.context 自动绑定）
 export { a2uiRegistry, createA2UIRegistry, A2UITextField, A2UIButton } from './catalog/index';
@@ -130,3 +132,6 @@ export {
   type RendererProps,
   type JSONUIProviderProps,
 } from "./renderer";
+
+
+export * from './catalog';

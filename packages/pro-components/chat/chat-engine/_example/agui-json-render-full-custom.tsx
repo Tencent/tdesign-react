@@ -8,6 +8,7 @@
  */
 import React, { useState, useRef, useMemo } from 'react';
 import { MessagePlugin } from 'tdesign-react';
+import { z } from 'zod';
 import {
   ChatList,
   ChatSender,
@@ -16,11 +17,12 @@ import {
   isActivityContent,
   ActivityRenderer,
 } from '@tdesign-react/chat';
-import { useChat, useAgentActivity } from '@tdesign-react/chat';
+import { useChat, useAgentActivity, generateCatalogPrompt } from '@tdesign-react/chat';
 import {
   createJsonRenderActivityConfig,
   createCustomRegistry,
 } from '@tdesign-react/chat';
+
 
 // 导入自定义组件
 import { StatusCard, ProgressBar } from './components';
@@ -32,6 +34,46 @@ export default function AguiJsonRenderFullCustomExample() {
   const [inputValue, setInputValue] = useState('创建一个任务进度表单，包含状态卡片和进度条');
   const [currentStage, setCurrentStage] = useState<string>('');
   const listRef = useRef<any>(null);
+
+
+  // ==================== 步骤 1: 创建自定义 Catalog（约束层） ====================
+  // 定义自定义组件的 props schema 和 actions 白名单
+  // 这个 Catalog 用于告诉 AI/服务端可以生成哪些组件及其约束
+  // 注意：本 demo 主要演示前端渲染，Catalog 在实际生产中应传给后端服务（这里暂时用请求参数传递）
+  const customCatalog = useMemo(
+    () =>
+      generateCatalogPrompt({
+        name: 'my-dashboard',
+        components: {
+          // 定义 StatusCard 的 props schema
+          StatusCard: {
+            props: z.object({
+              title: z.string(),
+              status: z.enum(['success', 'warning', 'error', 'info']),
+              description: z.string().nullable(),
+              icon: z.string().nullable(),
+            }),
+            description: 'Custom status card component for displaying status information',
+          },
+
+          // 定义 ProgressBar 的 props schema
+          ProgressBar: {
+            props: z.object({
+              label: z.string().nullable(),
+              percentage: z.number().min(0).max(100),
+              showInfo: z.boolean().nullable(),
+            }),
+            description: 'Custom progress bar component for showing completion status',
+          },
+        },
+        actions: {
+          // 除了内置的 submit/reset/cancel，添加自定义 actions
+          refresh: { description: 'Refresh data from server' },
+          export: { description: 'Export data to file' },
+        },
+      }),
+    [],
+  );
 
   // 使用 useChat 创建 ChatEngine 实例
   const { chatEngine, messages, status } = useChat({
@@ -45,6 +87,7 @@ export default function AguiJsonRenderFullCustomExample() {
           uid: 'agui-json-render-full-custom-demo',
           prompt: params.prompt,
           demoMode: true,
+          systemPrompt: customCatalog,
         };
 
         if ((params as any).userActionMessage) {
@@ -68,45 +111,6 @@ export default function AguiJsonRenderFullCustomExample() {
       },
     },
   });
-
-  // ==================== 步骤 1: 创建自定义 Catalog（约束层） ====================
-  // 定义自定义组件的 props schema 和 actions 白名单
-  // 这个 Catalog 用于告诉 AI/服务端可以生成哪些组件及其约束
-  // 注意：本 demo 主要演示前端渲染，Catalog 在实际生产中应传给后端服务
-  // const customCatalog = useMemo(
-  //   () =>
-  //     createCustomCatalog({
-  //       name: 'my-dashboard',
-  //       components: {
-  //         // 定义 StatusCard 的 props schema
-  //         StatusCard: {
-  //           props: z.object({
-  //             title: z.string(),
-  //             status: z.enum(['success', 'warning', 'error', 'info']),
-  //             description: z.string().nullable(),
-  //             icon: z.string().nullable(),
-  //           }),
-  //           description: 'Custom status card component for displaying status information',
-  //         },
-
-  //         // 定义 ProgressBar 的 props schema
-  //         ProgressBar: {
-  //           props: z.object({
-  //             label: z.string().nullable(),
-  //             percentage: z.number().min(0).max(100),
-  //             showInfo: z.boolean().nullable(),
-  //           }),
-  //           description: 'Custom progress bar component for showing completion status',
-  //         },
-  //       },
-  //       actions: {
-  //         // 除了内置的 submit/reset/cancel，添加自定义 actions
-  //         refresh: { description: 'Refresh data from server' },
-  //         export: { description: 'Export data to file' },
-  //       },
-  //     }),
-  //   [],
-  // );
 
   // ==================== 步骤 2: 创建自定义 ComponentRegistry（渲染层） ====================
   // 注册自定义组件的 React 实现
