@@ -17,9 +17,7 @@ spline: explain
 
 ### 🐞 Bug Fixes
 
-- `Cascader`: 
-  - 修复在弹出层可见期间，滚动位置被意外更新的问题 @RylanBot ([#4062](https://github.com/Tencent/tdesign-react/pull/4062))
-  - 优化 Safari 浏览器中点击展开图标没有变换方向的问题 @liweijie0812 ([#4056](https://github.com/Tencent/tdesign-react/pull/4056))
+- `Cascader`: 优化 Safari 浏览器中点击展开图标没有变换方向的问题 @liweijie0812 ([#4056](https://github.com/Tencent/tdesign-react/pull/4056))
 - `Dialog`: 
   - 修复 `closeOnOverlayClick` 为 `false` 时，`onOverlayClick` 无法触发的问题 @TidySongS ([#4065](https://github.com/Tencent/tdesign-react/pull/4065))
   - 修复 `mode="modeless"` 的弹窗，点击空白地方会被关闭的问题 @RylanBot ([#3950](https://github.com/Tencent/tdesign-react/pull/3950))
