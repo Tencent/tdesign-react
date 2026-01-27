@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import type { ComponentRegistry } from '@json-render/react';
+import type { ComponentRegistry } from './renderer';
 import type { ActivityConfig } from '../activity/types';
 import type { JsonRenderActivityProps } from './types';
 import { JsonRenderActivityRenderer } from './JsonRenderActivityRenderer';

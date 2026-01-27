@@ -15,7 +15,7 @@
 
 import React from 'react';
 import isEqual from 'react-fast-compare';
-import type { ComponentRegistry, ComponentRenderProps } from '@json-render/react';
+import type { ComponentRegistry, ComponentRenderProps } from '../renderer';
 import { JsonRenderButton } from './button';
 import { JsonRenderInput, JsonRenderTextField } from './input';
 import { JsonRenderCard } from './card';

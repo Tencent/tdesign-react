@@ -74,5 +74,59 @@ export type { JsonRenderActivityConfigOptions } from './config';
 // 适配器
 export * from './adapters';
 
+// Surface 状态管理器（跨轮次状态维护）
+export { surfaceStateManager, SurfaceStateManager } from './SurfaceStateManager';
+export type { SurfaceCache, SurfaceSubscriber } from './SurfaceStateManager';
+
 // 默认导出配置函数
 export { createJsonRenderActivityConfig as default } from './config';
+
+// Contexts
+export {
+  DataProvider,
+  useData,
+  useDataValue,
+  useDataBinding,
+  type DataContextValue,
+  type DataProviderProps,
+} from "./contexts/data";
+
+export {
+  VisibilityProvider,
+  useVisibility,
+  useIsVisible,
+  type VisibilityContextValue,
+  type VisibilityProviderProps,
+} from "./contexts/visibility";
+
+export {
+  ActionProvider,
+  useActions,
+  useAction,
+  ConfirmDialog,
+  type ActionContextValue,
+  type ActionProviderProps,
+  type PendingConfirmation,
+  type ConfirmDialogProps,
+} from "./contexts/actions";
+
+export {
+  ValidationProvider,
+  useValidation,
+  useFieldValidation,
+  type ValidationContextValue,
+  type ValidationProviderProps,
+  type FieldValidationState,
+} from "./contexts/validation";
+
+// Renderer
+export {
+  Renderer,
+  JSONUIProvider,
+  createRendererFromCatalog,
+  type ComponentRenderProps,
+  type ComponentRenderer,
+  type ComponentRegistry,
+  type RendererProps,
+  type JSONUIProviderProps,
+} from "./renderer";

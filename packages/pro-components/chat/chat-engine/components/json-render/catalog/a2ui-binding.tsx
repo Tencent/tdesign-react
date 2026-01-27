@@ -37,7 +37,7 @@
 
 import React, { useCallback, useRef, memo, useMemo } from 'react';
 import type { ComponentRenderProps } from '@json-render/react';
-import { useData } from '@json-render/react';
+import { useData } from '../';
 import { getByPath } from '@json-render/core';
 import type { Action } from '@json-render/core';
 

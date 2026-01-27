@@ -11,9 +11,10 @@
  */
 
 import React, { useMemo } from 'react';
-import { Renderer, DataProvider, ActionProvider, VisibilityProvider } from '@json-render/react';
-import type { ComponentRegistry } from '@json-render/react';
 import isEqual from 'react-fast-compare';
+import { Renderer, ActionProvider, VisibilityProvider } from './';
+import { DataProvider } from './contexts/data';
+import type { ComponentRegistry } from './renderer';
 import type { JsonRenderActivityProps } from './types';
 
 export interface JsonRenderActivityRendererProps extends JsonRenderActivityProps {

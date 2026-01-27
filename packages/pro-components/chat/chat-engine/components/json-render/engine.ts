@@ -4,7 +4,7 @@
  */
 
 import type { UIElement } from '@json-render/core';
-import type { ComponentRegistry } from '@json-render/react';
+import type { ComponentRegistry } from './renderer';
 import type { JsonRenderSchema, DeltaInfo } from './types';
 
 /**
