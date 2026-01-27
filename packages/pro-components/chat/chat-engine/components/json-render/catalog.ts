@@ -547,6 +547,114 @@ export function generateCatalogPrompt(options: {
     '}',
     '```',
     '',
+    '## AG-UI ACTIVITY_DELTA Format (for Incremental Updates)',
+    '',
+    'For updating existing UI, you can also generate AG-UI ACTIVITY_DELTA messages:',
+    '```json',
+    '{',
+    '  "type": "ACTIVITY_DELTA",',
+    '  "messageId": "unique_message_id",',
+    '  "activityType": "json-render-main-card",',
+    '  "patch": [',
+    '    {"op": "add", "path": "/elements/new-element", "value": {...}},',
+    '    {"op": "replace", "path": "/elements/parent/children", "value": [...]}',
+    '  ]',
+    '}',
+    '```',
+    '',
+    '### JSON Patch Operations for ACTIVITY_DELTA',
+    '',
+    '**Add New Element:**',
+    '```json',
+    '{"op": "add", "path": "/elements/new-button", "value": {',
+    '  "key": "new-button",',
+    '  "type": "Button",',
+    '  "props": {"children": "Click Me", "theme": "primary"}',
+    '}}',
+    '```',
+    '',
+    '**Update Element Properties:**',
+    '```json',
+    '{"op": "replace", "path": "/elements/my-card/props/title", "value": "Updated Title"}',
+    '```',
+    '',
+    '**Replace Children Array:**',
+    '```json',
+    '{"op": "replace", "path": "/elements/container/children", "value": ["child1", "child2", "new-child"]}',
+    '```',
+    '',
+    '**Add Child to Parent:**',
+    '```json',
+    '{"op": "add", "path": "/elements/parent/children/-", "value": "new-child-id"}',
+    '```',
+    '',
+    '**Update Data Model:**',
+    '```json',
+    '{"op": "replace", "path": "/data/user/name", "value": "John Doe"}',
+    '```',
+    '',
+    '**Complete ACTIVITY_DELTA Example:**',
+    '```json',
+    '{',
+    '  "type": "ACTIVITY_DELTA",',
+    '  "messageId": "update_123456",',
+    '  "activityType": "json-render-main-card",',
+    '  "patch": [',
+    '    {',
+    '      "op": "add",',
+    '      "path": "/elements/success-message",',
+    '      "value": {',
+    '        "key": "success-message",',
+    '        "type": "Text",',
+    '        "props": {',
+    '          "content": "Operation completed successfully!",',
+    '          "color": "success"',
+    '        }',
+    '      }',
+    '    },',
+    '    {',
+    '      "op": "add",',
+    '      "path": "/elements/main-container/children/-",',
+    '      "value": "success-message"',
+    '    }',
+    '  ]',
+    '}',
+    '```',
+    '',
+    '## JSON-Render Data Structure Details',
+    '',
+    'Understanding the structure is crucial for generating valid UI:',
+    '',
+    '### Root Level Properties',
+    '- `root`: String - ID of the root element (must exist in elements)',
+    '- `elements`: Object - Contains all UI elements indexed by their IDs',
+    '- `data`: Object - Optional data model for form bindings and dynamic content',
+    '',
+    '### Element Structure',
+    'Each element in the `elements` object has:',
+    '- `key`: String - Unique identifier (should match the object key)',
+    '- `type`: String - Component type name (must be from available components)',
+    '- `props`: Object - Component-specific properties',
+    '- `children`: Array<String> - Optional array of child element IDs',
+    '',
+    '### Element Hierarchy Rules',
+    '1. **Root Element**: Must be specified in `root` and exist in `elements`',
+    '2. **Parent-Child Relationship**: Parent elements reference children by ID in `children` array',
+    '3. **Child Order**: Order in `children` array determines rendering order',
+    '4. **Unique IDs**: Each element must have a unique ID across the entire structure',
+    '5. **Container Components**: Only components marked with "can have children" support `children`',
+    '',
+    '### Data Binding Paths',
+    'Form components can bind to data using dot notation:',
+    '- `"valuePath": "user.name"` → binds to `data.user.name`',
+    '- `"valuePath": "settings.theme"` → binds to `data.settings.theme`',
+    '- `"disabledPath": "form.disabled"` → controls disabled state from `data.form.disabled`',
+    '',
+    '### Element ID Best Practices',
+    '- Use descriptive names: `"user_name_field"` instead of `"field1"`',
+    '- Use consistent naming: `snake_case` or `kebab-case`',
+    '- Include purpose: `"submit_button"`, `"main_container"`, `"status_card"`',
+    '',
     '## Available Components',
     '',
   ];
@@ -588,32 +696,34 @@ export function generateCatalogPrompt(options: {
 
   // 示例
   if (includeExample) {
-    lines.push('## Example');
+    lines.push('## Examples');
     lines.push('');
-    lines.push('A simple form with two text fields and a submit button:');
+    
+    lines.push('### 1. Simple Form Structure');
+    lines.push('A basic form with validation and data binding:');
     lines.push('```json');
     lines.push(JSON.stringify({
-      root: 'card1',
+      root: 'main_card',
       elements: {
-        card1: {
-          key: 'card1',
+        main_card: {
+          key: 'main_card',
           type: 'Card',
-          props: { title: 'User Information' },
-          children: ['form_column'],
+          props: { title: 'User Registration', bordered: true },
+          children: ['form_layout'],
         },
-        form_column: {
-          key: 'form_column',
+        form_layout: {
+          key: 'form_layout',
           type: 'Column',
           props: { gap: 16 },
-          children: ['name_field', 'email_field', 'button_row'],
+          children: ['name_field', 'email_field', 'button_group'],
         },
         name_field: {
           key: 'name_field',
           type: 'TextField',
           props: {
-            label: 'Name',
+            label: 'Full Name',
             valuePath: 'user.name',
-            placeholder: 'Enter your name',
+            placeholder: 'Enter your full name',
             required: true,
           },
         },
@@ -621,39 +731,193 @@ export function generateCatalogPrompt(options: {
           key: 'email_field',
           type: 'TextField',
           props: {
-            label: 'Email',
+            label: 'Email Address',
             valuePath: 'user.email',
             placeholder: 'Enter your email',
             type: 'email',
+            required: true,
           },
         },
-        button_row: {
-          key: 'button_row',
+        button_group: {
+          key: 'button_group',
           type: 'Space',
           props: { direction: 'horizontal', size: 'medium' },
-          children: ['submit_btn', 'cancel_btn'],
+          children: ['submit_btn', 'reset_btn'],
         },
         submit_btn: {
           key: 'submit_btn',
           type: 'Button',
           props: {
-            children: 'Submit',
+            children: 'Register',
             theme: 'primary',
-            action: { name: 'submit', params: { source: 'form' } },
+            action: { name: 'submit', params: { form: 'registration' } },
           },
         },
-        cancel_btn: {
-          key: 'cancel_btn',
+        reset_btn: {
+          key: 'reset_btn',
           type: 'Button',
           props: {
-            children: 'Cancel',
+            children: 'Reset',
             variant: 'outline',
-            action: 'cancel',
+            action: 'reset',
           },
         },
       },
       data: {
         user: { name: '', email: '' },
+      },
+    }, null, 2));
+    lines.push('```');
+    lines.push('');
+    
+    lines.push('### 2. Dashboard Layout');
+    lines.push('A more complex layout with grid system and multiple components:');
+    lines.push('```json');
+    lines.push(JSON.stringify({
+      root: 'dashboard',
+      elements: {
+        dashboard: {
+          key: 'dashboard',
+          type: 'Column',
+          props: { gap: 24 },
+          children: ['header', 'content_row'],
+        },
+        header: {
+          key: 'header',
+          type: 'Card',
+          props: { title: 'Dashboard Overview' },
+          children: ['status_text'],
+        },
+        status_text: {
+          key: 'status_text',
+          type: 'Text',
+          props: {
+            content: 'System is running normally',
+            color: 'success',
+            weight: 'medium',
+          },
+        },
+        content_row: {
+          key: 'content_row',
+          type: 'Row',
+          props: { gutter: 16 },
+          children: ['left_col', 'right_col'],
+        },
+        left_col: {
+          key: 'left_col',
+          type: 'Col',
+          props: { span: 16 },
+          children: ['main_content'],
+        },
+        right_col: {
+          key: 'right_col',
+          type: 'Col',
+          props: { span: 8 },
+          children: ['sidebar_card'],
+        },
+        main_content: {
+          key: 'main_content',
+          type: 'Card',
+          props: { title: 'Main Content', shadow: true },
+          children: ['content_text'],
+        },
+        content_text: {
+          key: 'content_text',
+          type: 'Text',
+          props: { content: 'This is the main content area.' },
+        },
+        sidebar_card: {
+          key: 'sidebar_card',
+          type: 'Card',
+          props: { title: 'Quick Actions' },
+          children: ['action_buttons'],
+        },
+        action_buttons: {
+          key: 'action_buttons',
+          type: 'Column',
+          props: { gap: 8 },
+          children: ['refresh_btn', 'export_btn'],
+        },
+        refresh_btn: {
+          key: 'refresh_btn',
+          type: 'Button',
+          props: {
+            children: 'Refresh Data',
+            block: true,
+            action: 'refresh',
+          },
+        },
+        export_btn: {
+          key: 'export_btn',
+          type: 'Button',
+          props: {
+            children: 'Export Report',
+            variant: 'outline',
+            block: true,
+            action: 'export',
+          },
+        },
+      },
+      data: {
+        lastUpdated: new Date().toISOString(),
+      },
+    }, null, 2));
+    lines.push('```');
+    lines.push('');
+    
+    lines.push('### 3. Dynamic Content with Data Binding');
+    lines.push('Form with conditional disabled states:');
+    lines.push('```json');
+    lines.push(JSON.stringify({
+      root: 'settings_form',
+      elements: {
+        settings_form: {
+          key: 'settings_form',
+          type: 'Card',
+          props: { title: 'Settings' },
+          children: ['form_fields'],
+        },
+        form_fields: {
+          key: 'form_fields',
+          type: 'Column',
+          props: { gap: 16 },
+          children: ['enable_notifications', 'email_field', 'save_btn'],
+        },
+        enable_notifications: {
+          key: 'enable_notifications',
+          type: 'TextField',
+          props: {
+            label: 'Enable Notifications',
+            valuePath: 'settings.notifications',
+            type: 'text',
+          },
+        },
+        email_field: {
+          key: 'email_field',
+          type: 'TextField',
+          props: {
+            label: 'Notification Email',
+            valuePath: 'settings.email',
+            disabledPath: 'settings.emailDisabled',
+            placeholder: 'Enter email for notifications',
+          },
+        },
+        save_btn: {
+          key: 'save_btn',
+          type: 'Button',
+          props: {
+            children: 'Save Settings',
+            theme: 'primary',
+            action: 'submit',
+          },
+        },
+      },
+      data: {
+        settings: {
+          notifications: 'enabled',
+          email: '',
+          emailDisabled: false,
+        },
       },
     }, null, 2));
     lines.push('```');
@@ -681,7 +945,98 @@ function generateA2UIPrompt(context: {
     '',
     'You can generate dynamic UI using A2UI protocol messages.',
     '',
-    '## A2UI Message Types',
+    '## AG-UI ACTIVITY_DELTA Format',
+    '',
+    'When generating UI updates, use the AG-UI ACTIVITY_DELTA message format:',
+    '```json',
+    '{',
+    '  "type": "ACTIVITY_DELTA",',
+    '  "messageId": "unique_message_id",',
+    '  "activityType": "json-render-main-card",',
+    '  "patch": [',
+    '    {"op": "add", "path": "/elements/element-id", "value": {...}},',
+    '    {"op": "replace", "path": "/elements/parent/children", "value": [...]}',
+    '  ]',
+    '}',
+    '```',
+    '',
+    '## JSON Patch Operations for AG-UI ACTIVITY_DELTA',
+    '',
+    'The `patch` array contains JSON Patch operations that modify the UI structure:',
+    '',
+    '### Add New Element',
+    'Create a new UI element in the elements object:',
+    '```json',
+    '{"op": "add", "path": "/elements/new-element-id", "value": {',
+    '  "key": "new-element-id",',
+    '  "type": "ComponentName",',
+    '  "props": {...},',
+    '  "children": ["child1", "child2"]  // optional',
+    '}}',
+    '```',
+    '',
+    '### Update Element Properties',
+    'Modify specific properties of an existing element:',
+    '```json',
+    '{"op": "replace", "path": "/elements/element-id/props/title", "value": "New Title"}',
+    '```',
+    '',
+    '### Replace Children Array',
+    'Update the children of a container element:',
+    '```json',
+    '{"op": "replace", "path": "/elements/parent-id/children", "value": ["child1", "child2", "new-child"]}',
+    '```',
+    '',
+    '### Add Child to Parent',
+    'Append a child to the end of parent\'s children array:',
+    '```json',
+    '{"op": "add", "path": "/elements/parent-id/children/-", "value": "new-child-id"}',
+    '```',
+    '',
+    '### Remove Element',
+    'Delete an element (ensure it\'s removed from parent\'s children first):',
+    '```json',
+    '{"op": "remove", "path": "/elements/element-id"}',
+    '```',
+    '',
+    '### Update Data Model',
+    'Modify the data model for form bindings:',
+    '```json',
+    '{"op": "replace", "path": "/data/user/name", "value": "John Doe"}',
+    '```',
+    '',
+    '### Complete AG-UI ACTIVITY_DELTA Example',
+    'Adding a status card and updating container children:',
+    '```json',
+    '{',
+    '  "type": "ACTIVITY_DELTA",',
+    '  "messageId": "update_1234567890",',
+    '  "activityType": "json-render-main-card",',
+    '  "patch": [',
+    '    {',
+    '      "op": "add",',
+    '      "path": "/elements/status-card",',
+    '      "value": {',
+    '        "key": "status-card",',
+    '        "type": "Card",',
+    '        "props": {',
+    '          "title": "Status Update",',
+    '          "description": "Operation completed successfully"',
+    '        }',
+    '      }',
+    '    },',
+    '    {',
+    '      "op": "replace",',
+    '      "path": "/elements/main-container/children",',
+    '      "value": ["existing-element", "status-card"]',
+    '    }',
+    '  ]',
+    '}',
+    '```',
+    '',
+    '## A2UI Message Types (Alternative Formats)',
+    '',
+    'Besides AG-UI ACTIVITY_DELTA, A2UI also supports these message types:',
     '',
     '### createSurface',
     'Create a new UI surface with initial elements:',
@@ -698,12 +1053,14 @@ function generateA2UIPrompt(context: {
     '```',
     '',
     '### updateComponents',
-    'Update existing UI elements:',
+    'Update existing UI elements (similar to ACTIVITY_DELTA but different format):',
     '```json',
     '{',
     '  "type": "updateComponents",',
     '  "surfaceId": "existing_surface_id",',
-    '  "elements": { ... }',
+    '  "patch": [',
+    '    {"op": "add", "path": "/elements/new-element", "value": {...}}',
+    '  ]',
     '}',
     '```',
     '',
@@ -755,9 +1112,10 @@ function generateA2UIPrompt(context: {
 
   // 示例
   if (includeExample) {
-    lines.push('## Example');
+    lines.push('## Examples');
     lines.push('');
-    lines.push('Create a form surface:');
+    
+    lines.push('### 1. Create a form surface:');
     lines.push('```json');
     lines.push(JSON.stringify({
       type: 'createSurface',
@@ -784,6 +1142,53 @@ function generateA2UIPrompt(context: {
         },
       },
       data: { user: { name: '' } },
+    }, null, 2));
+    lines.push('```');
+    lines.push('');
+    
+    lines.push('### 2. Update existing surface with JSON Patch:');
+    lines.push('Add a status card and update the form title:');
+    lines.push('```json');
+    lines.push(JSON.stringify({
+      type: 'updateComponents',
+      surfaceId: 'user_form_1',
+      patch: [
+        {
+          op: 'replace',
+          path: '/elements/form_card/props/title',
+          value: 'Updated User Form'
+        },
+        {
+          op: 'add',
+          path: '/elements/status_card',
+          value: {
+            key: 'status_card',
+            type: 'Card',
+            props: { 
+              title: 'Status',
+              description: 'Form is ready for submission'
+            }
+          }
+        },
+        {
+          op: 'add',
+          path: '/elements/form_card/children/0',
+          value: 'status_card'
+        }
+      ]
+    }, null, 2));
+    lines.push('```');
+    lines.push('');
+    
+    lines.push('### 3. Update data model:');
+    lines.push('```json');
+    lines.push(JSON.stringify({
+      type: 'updateDataModel',
+      surfaceId: 'user_form_1',
+      data: { 
+        user: { name: 'John Doe' },
+        formStatus: 'ready'
+      }
     }, null, 2));
     lines.push('```');
   }

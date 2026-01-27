@@ -1,5 +1,3 @@
-import { applyPatch } from 'fast-json-patch';
-
 import type {
   ActivityContent,
   AIMessageContent,
@@ -14,6 +12,7 @@ import type {
   ToolCallContent,
   UserMessageContent,
 } from '../type';
+import { applyPatch } from './json-patch';
 
 /**
  * 应用JSON Patch操作到状态对象
