@@ -5,6 +5,28 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.16.5 `2026-01-28`
+
+### 🚀 New Features
+
+- `Dialog`: The `dialogClassName` property has been enhanced to support multiple formats. @RSS1102 ([#4096](https://github.com/Tencent/tdesign-react/pull/4096))
+- `Icon`: 217 new icons related to artificial intelligence, documents, logos, and files have been added. @uyarn ([#4097](https://github.com/Tencent/tdesign-react/pull/4097))
+- `ImageViewer`: The `innerClassName` property has been introduced to allow for customization of the content area’s class name. Multiple formats are now supported. @RSS1102 ([#4087](https://github.com/Tencent/tdesign-react/pull/4087))
+
+### 🐞 Bug Fixes
+
+- `Cascader`: An issue where the scroll position was accidentally updated while the pop-up was visible has been fixed. @RylanBot ([#4094](https://github.com/Tencent/tdesign-react/pull/4094))
+- `Dialog`: A problem in version 1.16.4 where `onOverlayClick` and `onClose` events did not trigger upon clicking the overlay has been resolved. @RylanBot ([#4098](https://github.com/Tencent/tdesign-react/pull/4098))
+- `ImageViewer`: Issues with the `className` and `style` properties not taking effect have been fixed. @RSS1102 ([#4087](https://github.com/Tencent/tdesign-react/pull/4087))
+- `Popup`:
+  - A problem where the pop-up closed before the mouse entered it when `trigger="hover"` was used and there was a sufficient distance between the trigger element and the pop-up has been fixed. @RylanBot ([#4100](https://github.com/Tencent/tdesign-react/pull/4100))
+  - The closing logic when components are nested has been improved. @uyarn ([#4099](https://github.com/Tencent/tdesign-react/pull/4099))
+- `Typography`: An issue where a complete English word was split into two lines when `ellipsis` was enabled has been fixed. @RylanBot ([#3997](https://github.com/Tencent/tdesign-react/pull/3997))
+
+### 🚧 Other Improvements
+
+- `Popup`: The internal state during the `destroyOnClose` process has been optimized to ensure proper functionality. @uyarn ([#4099](https://github.com/Tencent/tdesign-react/pull/4099))
+
 ## 🌈 1.16.4 `2026-01-16`
 
 ### 🚀 New Features
