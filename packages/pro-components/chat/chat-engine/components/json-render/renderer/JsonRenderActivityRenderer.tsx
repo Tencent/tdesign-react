@@ -12,10 +12,9 @@
 
 import React, { useMemo } from 'react';
 import isEqual from 'react-fast-compare';
-import { Renderer, ActionProvider, VisibilityProvider } from './';
-import { DataProvider } from './contexts/data';
-import type { ComponentRegistry } from './renderer';
-import type { JsonRenderActivityProps } from './types';
+import { type ComponentRegistry, JsonRenderElement } from '../renderer';
+import { DataProvider, ActionProvider, VisibilityProvider } from '../contexts';
+import type { JsonRenderActivityProps } from '../types';
 
 export interface JsonRenderActivityRendererProps extends JsonRenderActivityProps {
   /** 组件注册表（必须） */
@@ -75,7 +74,7 @@ const JsonRenderActivityRendererInner: React.FC<JsonRenderActivityRendererProps>
       <DataProvider initialData={renderData}>
         <VisibilityProvider>
           <ActionProvider handlers={actionHandlers}>
-            <Renderer tree={content} registry={registry} />
+            <JsonRenderElement tree={content} registry={registry} />
           </ActionProvider>
         </VisibilityProvider>
       </DataProvider>

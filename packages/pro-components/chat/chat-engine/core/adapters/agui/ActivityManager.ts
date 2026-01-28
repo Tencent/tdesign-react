@@ -1,3 +1,4 @@
+import { ActivityData } from '../../type';
 import { applyJsonPatch } from '../../utils';
 
 /**
@@ -12,16 +13,6 @@ import { applyJsonPatch } from '../../utils';
  * - 如需监听 Activity 变化，应使用 eventBus 的 MESSAGE_UPDATE 事件
  */
 
-export interface ActivityData {
-  activityType: string;
-  content: Record<string, any>;
-  messageId?: string;
-  /** 增量更新信息 */
-  deltaInfo?: {
-    fromIndex: number;
-    toIndex: number;
-  };
-}
 
 export interface ActivityManager {
   /**

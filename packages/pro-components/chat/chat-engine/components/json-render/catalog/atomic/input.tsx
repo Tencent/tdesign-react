@@ -8,8 +8,8 @@
 import React from 'react';
 import { Input, Space } from 'tdesign-react';
 import type { InputProps } from 'tdesign-react';
-import type { ComponentRenderProps } from '../types';
-import { useData } from '../';
+import type { ComponentRenderProps } from '../../types';
+import { useData } from '../..';
 import { getByPath } from '@json-render/core';
 
 /**

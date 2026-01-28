@@ -10,8 +10,8 @@
  */
 
 import type { UIElement } from '@json-render/core';
-import type { JsonRenderSchema } from '../types';
-import type { A2UIComponent, A2UIMessage, A2UISurfaceState } from './a2ui-types';
+import type { JsonRenderSchema } from './types/core';
+import type { A2UIComponent, A2UIMessage, A2UISurfaceState } from './types/a2ui';
 
 /**
  * 组件类型映射表

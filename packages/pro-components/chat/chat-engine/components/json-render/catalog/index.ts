@@ -16,17 +16,17 @@
 import React from 'react';
 import isEqual from 'react-fast-compare';
 import type { ComponentRegistry, ComponentRenderProps } from '../renderer';
-import { JsonRenderButton } from './button';
-import { JsonRenderInput, JsonRenderTextField } from './input';
-import { JsonRenderCard } from './card';
-import { JsonRenderText } from './text';
+import { JsonRenderButton } from './atomic/button';
+import { JsonRenderInput, JsonRenderTextField } from './atomic/input';
+import { JsonRenderCard } from './atomic/card';
+import { JsonRenderText } from './atomic/text';
 import {
   JsonRenderRow,
   JsonRenderCol,
   JsonRenderSpace,
   JsonRenderColumn,
   JsonRenderDivider,
-} from './layout';
+} from './atomic/layout';
 
 /**
  * 高性能组件包装器
@@ -203,23 +203,22 @@ export function createCustomRegistry(
   };
 }
 
-// ==================== 重新导出 Catalog（约束层）====================
-// 从 ../catalog.ts 重新导出，避免路径混淆
-export {
-  tdesignCatalog,
-  createCustomCatalog,
-  tdesignComponentList,
-  tdesignActionList,
-  generateCatalogPrompt,
-} from '../catalog';
-export type { PromptTemplateMode, CustomTemplateGenerator, ComponentDoc, NormalizedComponentDoc } from '../catalog';
-
 // ==================== 重新导出 A2UI Registry ====================
 // A2UI 专用组件，支持 valuePath/disabledPath/action.context 自动绑定
 export { a2uiRegistry, createA2UIRegistry, A2UITextField, A2UIButton } from './a2ui-registry';
 
+
+// 配置工厂
+export {
+  createJsonRenderActivityConfig,
+  createA2UIJsonRenderActivityConfig,
+} from './config';
+export type { JsonRenderActivityConfigOptions } from './config';
+
+// 默认导出配置函数
+export { createJsonRenderActivityConfig as default } from './config';
+
 // ==================== 重新导出 A2UI Binding HOC ====================
 export { withA2UIBinding } from './a2ui-binding';
 export type { A2UIBindingConfig } from './a2ui-binding';
-
-export default tdesignRegistry;
+export * from './catalog-to-prompt';

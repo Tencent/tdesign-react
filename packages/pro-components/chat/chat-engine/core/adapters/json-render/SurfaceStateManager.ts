@@ -1,5 +1,5 @@
 /**
- * Surface 状态管理器
+ * Surface 状态管理器（框架无关）
  * 
  * 职责：
  * 1. 缓存已创建的 Surface Schema（跨消息/跨轮次）
@@ -15,8 +15,8 @@
  * 3. 转换逻辑由 a2ui-to-jsonrender.ts 中的函数完成
  */
 
-import type { JsonRenderSchema } from './types';
-import { applyA2UIDataUpdate } from './adapters';
+import type { JsonRenderSchema } from './types/core';
+import { applyA2UIDataUpdate } from './a2ui-to-jsonrender';
 
 export interface SurfaceCache {
   /** Surface ID */
@@ -37,6 +37,7 @@ export type SurfaceSubscriber = (schema: JsonRenderSchema) => void;
 /**
  * Surface 状态管理器
  * 单例模式，全局共享 Surface 缓存
+ * 框架无关，不依赖 React 或其他 UI 框架
  */
 class SurfaceStateManager {
   private surfaces: Map<string, SurfaceCache> = new Map();
@@ -70,7 +71,6 @@ class SurfaceStateManager {
     this.surfaces.set(surfaceId, cache);
     
     if (this.debug) {
-      // eslint-disable-next-line no-console
       console.log('[SurfaceStateManager] 注册 Surface:', {
         surfaceId,
         elementsCount: Object.keys(schema.elements).length,
@@ -96,7 +96,6 @@ class SurfaceStateManager {
     const cache = this.surfaces.get(surfaceId);
     if (!cache) {
       if (this.debug) {
-        // eslint-disable-next-line no-console
         console.warn('[SurfaceStateManager] updateData: Surface 不存在', surfaceId);
       }
       return false;
@@ -107,7 +106,6 @@ class SurfaceStateManager {
     cache.updatedAt = Date.now();
 
     if (this.debug) {
-      // eslint-disable-next-line no-console
       console.log('[SurfaceStateManager] 更新数据:', {
         surfaceId,
         path,
@@ -137,7 +135,6 @@ class SurfaceStateManager {
     this.subscribers.get(surfaceId)!.add(subscriber);
 
     if (this.debug) {
-      // eslint-disable-next-line no-console
       console.log('[SurfaceStateManager] 订阅 Surface:', surfaceId);
     }
 
@@ -151,14 +148,13 @@ class SurfaceStateManager {
         }
       }
       if (this.debug) {
-        // eslint-disable-next-line no-console
         console.log('[SurfaceStateManager] 取消订阅 Surface:', surfaceId);
       }
     };
   }
 
   /**
-   * 异步通知订阅者（避免在 React 渲染期间调用 setState）
+   * 异步通知订阅者（避免在渲染期间调用回调）
    */
   private notifySubscribersAsync(surfaceId: string, schema: JsonRenderSchema): void {
     const subs = this.subscribers.get(surfaceId);
@@ -167,11 +163,10 @@ class SurfaceStateManager {
     }
 
     if (this.debug) {
-      // eslint-disable-next-line no-console
       console.log('[SurfaceStateManager] 准备通知订阅者:', { surfaceId, subscriberCount: subs.size });
     }
 
-    // 使用 queueMicrotask 延迟到当前渲染完成后执行
+    // 使用 queueMicrotask 延迟到当前执行栈完成后执行
     queueMicrotask(() => {
       // 重新获取订阅者（可能在这期间已被取消）
       const currentSubs = this.subscribers.get(surfaceId);
@@ -180,7 +175,6 @@ class SurfaceStateManager {
       }
 
       if (this.debug) {
-        // eslint-disable-next-line no-console
         console.log('[SurfaceStateManager] 执行通知订阅者:', { surfaceId });
       }
 
@@ -188,7 +182,6 @@ class SurfaceStateManager {
         try {
           subscriber(schema);
         } catch (e) {
-          // eslint-disable-next-line no-console
           console.error('[SurfaceStateManager] 订阅者回调出错:', e);
         }
       });
@@ -231,7 +224,6 @@ class SurfaceStateManager {
     const deleted = this.surfaces.delete(surfaceId);
     
     if (this.debug && deleted) {
-      // eslint-disable-next-line no-console
       console.log('[SurfaceStateManager] 删除 Surface:', surfaceId);
     }
     
@@ -245,7 +237,6 @@ class SurfaceStateManager {
     this.surfaces.clear();
     this.subscribers.clear();
     if (this.debug) {
-      // eslint-disable-next-line no-console
       console.log('[SurfaceStateManager] 清除所有缓存');
     }
   }

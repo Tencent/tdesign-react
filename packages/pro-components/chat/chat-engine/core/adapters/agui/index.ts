@@ -1,8 +1,8 @@
 /* eslint-disable class-methods-use-this */
 import type { AIMessageContent, ChatMessagesData, ChatRequestParams, SSEChunkData, ToolCall } from '../../type';
 import { AGUIEventMapper } from './event-mapper';
-import type { BaseEvent, RunErrorEvent, RunFinishedEvent, RunStartedEvent } from './events';
-import { AGUIEventType } from './events';
+import type { BaseEvent, RunErrorEvent, RunFinishedEvent, RunStartedEvent } from './types/events';
+import { AGUIEventType } from './types/events';
 import type { AGUIAssistantHistoryMessage, AGUIHistoryMessage, AGUIUserHistoryMessage, AGUIActivityMessage } from './types';
 import { buildToolCallMap, processReasoningContent, processToolCalls } from './utils';
 
@@ -206,13 +206,6 @@ export class AGUIAdapter {
 
   private aguiEventMapper: AGUIEventMapper;
 
-  /**
-   * 暴露 activityManager，供外部直接访问当前 Activity 数据
-   */
-  public get activityManager() {
-    return this.aguiEventMapper.activityManager;
-  }
-
   constructor() {
     this.aguiEventMapper = new AGUIEventMapper();
   }
@@ -307,6 +300,6 @@ export class AGUIAdapter {
 /**
  * 状态订阅机制导出
  */
-export * from './state-manager';
-
-export * from './events';
+export * from './StateManager';
+export * from './ActivityManager';
+export * from './types';

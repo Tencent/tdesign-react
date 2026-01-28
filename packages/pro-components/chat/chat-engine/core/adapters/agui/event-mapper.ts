@@ -7,9 +7,9 @@ import {
   isTextMessageEvent,
   isThinkingEvent,
   isToolCallEvent,
-} from './events';
-import { stateManager } from './state-manager';
-import { activityManager } from './activity-manager';
+} from './types/events';
+import { stateManager } from './StateManager';
+import { activityManager } from './ActivityManager';
 import {
   addToReasoningData,
   createActivityContent,

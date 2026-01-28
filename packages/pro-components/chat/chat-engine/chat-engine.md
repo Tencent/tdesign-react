@@ -22,7 +22,7 @@ ChatEngine 是一个底层对话引擎（Headless Core），提供灵活的 Hook
 
 最简单的示例，使用 `useChat` Hook 创建对话引擎，组合 `ChatList`、`ChatMessage`、`ChatSender` 组件构建对话界面。
 
-{{ agui-chunk }}
+{{ basic }}
 
 ## 基础用法
 

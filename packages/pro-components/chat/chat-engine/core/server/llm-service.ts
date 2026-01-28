@@ -45,12 +45,10 @@ export class LLMService implements ILLMService {
     });
 
     const req = (await config.onRequest?.(params)) || params;
-    // 支持 onRequest 返回 url 覆盖默认 endpoint
-    const url = (req as any).url || config.endpoint;
 
     try {
       const data = await this.batchClient.request<AIMessageContent>(
-        url!,
+        config.endpoint!,
         {
           method: 'POST',
           headers: {
@@ -59,7 +57,7 @@ export class LLMService implements ILLMService {
           },
           body: req.body,
         },
-        config.timeout,
+        config.timeout, // 现在timeout属性已存在
       );
       if (data) {
         const result = config.onComplete?.(false, req, data);
@@ -78,12 +76,10 @@ export class LLMService implements ILLMService {
    * 处理流式请求
    */
   async handleStreamRequest(params: ChatRequestParams, config: ChatServiceConfig): Promise<void> {
-    const req = (await config.onRequest?.(params)) || {};
-    // 支持 onRequest 返回 url 覆盖默认 endpoint
-    const url = (req as any).url || config.endpoint;
+    if (!config.endpoint) return;
+    this.sseClient = new SSEClient(config.endpoint);
 
-    if (!url) return;
-    this.sseClient = new SSEClient(url);
+    const req = (await config.onRequest?.(params)) || {};
 
     // 设置事件处理器
     this.sseClient.on('start', (chunk) => {

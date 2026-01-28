@@ -14,12 +14,12 @@
  */
 
 import React, { useMemo, useEffect, useState, useCallback } from 'react';
-import type { ComponentRegistry } from './renderer';
-import type { JsonRenderActivityProps, JsonRenderSchema } from './types';
+import { convertA2UIMessagesToJsonRender, surfaceStateManager } from '../../../core';
+import type { A2UIMessage, JsonRenderSchema } from '../../../core';
+import type { ComponentRegistry } from '../renderer';
+import type { JsonRenderActivityProps } from '../types';
 import { JsonRenderActivityRenderer } from './JsonRenderActivityRenderer';
-import { convertA2UIMessagesToJsonRender } from './adapters';
-import { surfaceStateManager } from './SurfaceStateManager';
-import type { A2UIMessage } from './adapters';
+
 
 export interface A2UIJsonRenderActivityRendererProps extends Omit<JsonRenderActivityProps, 'content'> {
   /** A2UI content（包含 messages 数组） */

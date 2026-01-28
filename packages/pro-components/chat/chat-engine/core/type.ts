@@ -1,4 +1,4 @@
-import type { ToolCallEventType } from './adapters/agui/events';
+import type { ToolCallEventType } from './adapters/agui/types/events';
 
 export type ChatMessageRole = 'user' | 'assistant' | 'system';
 export type ChatMessageStatus = 'pending' | 'streaming' | 'complete' | 'stop' | 'error';
@@ -112,6 +112,11 @@ export type ActivityData<TContent = Record<string, any>> = {
   activityType: string;
   messageId?: string;
   content: TContent;
+   /** 增量更新信息 */
+  deltaInfo?: {
+    fromIndex: number;
+    toIndex: number;
+  };
 };
 
 export type ActivityContent<TContent = Record<string, any>> = ChatBaseContent<'activity', ActivityData<TContent>>;
@@ -203,13 +208,12 @@ export interface ChatNetworkConfig {
   protocol?: 'default' | 'agui';
 }
 
-// onRequest 返回类型，支持通过 url 覆盖默认 endpoint
-export type OnRequestResult = ChatRequestParams & RequestInit & { url?: string };
-
 // TDesign 默认引擎的回调配置
 export interface DefaultEngineCallbacks {
-  /** 请求发送前配置，可返回 url 覆盖默认 endpoint */
-  onRequest?: (params: ChatRequestParams) => OnRequestResult | Promise<OnRequestResult>;
+  /** 请求发送前配置 */
+  onRequest?: (
+    params: ChatRequestParams,
+  ) => (ChatRequestParams & RequestInit) | Promise<ChatRequestParams & RequestInit>;
   onStart?: (chunk: string) => void;
   /** 接收到消息数据块 - 用于解析和处理聊天内容 */
   onMessage?: (
@@ -217,19 +221,6 @@ export interface DefaultEngineCallbacks {
     message?: ChatMessagesData,
     parsedResult?: AIMessageContent | AIMessageContent[] | null,
   ) => AIMessageContent | AIMessageContent[] | null;
-  /**
-   * 流式输出状态变化回调
-   * @param isStreaming 是否正在接收流式数据（true 表示有数据流入，false 表示暂停/停止）
-   * @param messageId 当前消息 ID
-   * @description 用于感知流式输出的活跃状态，当服务端 SSE chunk 暂停输出时可用于显示 loading
-   */
-  onStreaming?: (isStreaming: boolean, messageId?: string) => void;
-  /**
-   * 流式输出超时时间（毫秒）
-   * @default 3000
-   * @description 超过此时间未收到新的流式数据，则认为流式输出暂停，触发 onStreaming(false)
-   */
-  streamingTimeout?: number;
   onComplete?: (
     isAborted: boolean,
     params?: ChatRequestParams,

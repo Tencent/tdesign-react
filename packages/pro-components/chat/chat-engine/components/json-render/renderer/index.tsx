@@ -1,6 +1,6 @@
 "use client";
 
-import React, { type ComponentType, type ReactNode, useMemo } from "react";
+import React, { type ComponentType, type ReactNode } from "react";
 import type {
   UIElement,
   UITree,
@@ -8,8 +8,8 @@ import type {
   Catalog,
   ComponentDefinition,
 } from "@json-render/core";
-import { useIsVisible } from "./contexts/visibility";
-import { useActions } from "./contexts/actions";
+import { useIsVisible, useActions, ConfirmDialog } from "../contexts";
+import { DataProvider, ValidationProvider, ActionProvider, VisibilityProvider } from "../contexts";
 
 /**
  * Props passed to component renderers
@@ -111,7 +111,7 @@ function ElementRenderer({
 /**
  * Main renderer component
  */
-export function Renderer({ tree, registry, loading, fallback }: RendererProps) {
+export function JsonRenderElement({ tree, registry, loading, fallback }: RendererProps) {
   if (!tree || !tree.root) {
     return null;
   }
@@ -159,12 +159,6 @@ export interface JSONUIProviderProps {
   children: ReactNode;
 }
 
-// Import the providers
-import { DataProvider } from "./contexts/data";
-import { VisibilityProvider } from "./contexts/visibility";
-import { ActionProvider } from "./contexts/actions";
-import { ValidationProvider } from "./contexts/validation";
-import { ConfirmDialog } from "./contexts/actions";
 
 /**
  * Combined provider for all JSONUI contexts
@@ -226,6 +220,6 @@ export function createRendererFromCatalog<
   registry: ComponentRegistry,
 ): ComponentType<Omit<RendererProps, "registry">> {
   return function CatalogRenderer(props: Omit<RendererProps, "registry">) {
-    return <Renderer {...props} registry={registry} />;
+    return <JsonRenderElement {...props} registry={registry} />;
   };
 }

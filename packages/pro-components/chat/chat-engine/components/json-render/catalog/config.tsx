@@ -4,13 +4,13 @@
  */
 
 import React from 'react';
-import type { ComponentRegistry } from './renderer';
-import type { ActivityConfig } from '../activity/types';
-import type { JsonRenderActivityProps } from './types';
-import { JsonRenderActivityRenderer } from './JsonRenderActivityRenderer';
-import { A2UIJsonRenderActivityRenderer } from './A2UIJsonRenderActivityRenderer';
-import { tdesignRegistry } from './catalog/index';
-import { a2uiRegistry } from './catalog/a2ui-registry';
+import type { ComponentRegistry } from '../renderer';
+import type { ActivityConfig } from '../../activity/types';
+import type { JsonRenderActivityProps } from '../types';
+import { JsonRenderActivityRenderer } from '../renderer/JsonRenderActivityRenderer';
+import { A2UIJsonRenderActivityRenderer } from '../renderer/A2UIJsonRenderActivityRenderer';
+import { tdesignRegistry } from './index';
+import { a2uiRegistry } from './a2ui-registry';
 
 /**
  * json-render Activity 配置选项
@@ -151,12 +151,6 @@ export function createJsonRenderActivityConfig(
 }
 
 /**
- * 默认 json-render Activity 配置
- * 使用默认 TDesign Catalog，适用于大多数场景
- */
-export const defaultJsonRenderActivityConfig = createJsonRenderActivityConfig();
-
-/**
  * 创建 A2UI + json-render Activity 配置
  * 支持将 A2UI 协议转换为 json-render Schema 渲染
  * 
@@ -203,10 +197,5 @@ export function createA2UIJsonRenderActivityConfig(
     description,
   };
 }
-
-/**
- * 默认 A2UI + json-render Activity 配置
- */
-export const defaultA2UIJsonRenderActivityConfig = createA2UIJsonRenderActivityConfig();
 
 export default createJsonRenderActivityConfig;

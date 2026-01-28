@@ -2,21 +2,21 @@
  * json-render 集成相关类型定义
  */
 
-import type { UITree, UIElement } from '@json-render/core';
 // 直接从 @json-render/react 导入标准类型
-import type { ComponentRenderProps, ComponentRegistry } from '@json-render/react';
+import { type JsonRenderSchema } from '../../core';
+import type { ComponentRenderProps, ComponentRegistry } from './renderer';
 
 /**
  * json-render Activity 内容格式
  * 用于 ACTIVITY_SNAPSHOT 和 ACTIVITY_DELTA 事件
  */
-export interface JsonRenderSchema extends UITree {
-  // json-render 标准 UITree 结构
-  root: string;
-  elements: Record<string, UIElement>;
-  // 可选的数据模型
-  data?: Record<string, unknown>;
-}
+// export interface JsonRenderSchema extends UITree {
+//   // json-render 标准 UITree 结构
+//   root: string;
+//   elements: Record<string, UIElement>;
+//   // 可选的数据模型
+//   data?: Record<string, unknown>;
+// }
 
 /**
  * 组件目录（Catalog）定义
@@ -66,16 +66,4 @@ export interface JsonRenderActivityProps {
     deltaInfo?: DeltaInfo;
     [key: string]: any;
   };
-}
-
-/**
- * A2UI → json-render 转换配置
- */
-export interface A2UIAdapterConfig {
-  /** 启用适配模式 */
-  enabled: boolean;
-  /** 自定义类型映射表 */
-  typeMapping?: Record<string, string>;
-  /** 自定义属性映射 */
-  propsMapping?: Record<string, (value: any) => any>;
 }

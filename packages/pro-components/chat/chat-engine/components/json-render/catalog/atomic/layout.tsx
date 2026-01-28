@@ -6,7 +6,7 @@
 import React from 'react';
 import { Row, Col, Space, Divider } from 'tdesign-react';
 import type { RowProps, ColProps, SpaceProps, DividerProps } from 'tdesign-react';
-import type { ComponentRenderProps } from '../types';
+import type { ComponentRenderProps } from '../../renderer';
 
 /**
  * json-render Row 组件

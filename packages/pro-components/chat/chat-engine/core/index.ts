@@ -685,8 +685,7 @@ export default class ChatEngine implements IChatEngine {
 }
 
 export * from './utils';
-export * from './adapters/agui';
+export * from './adapters';
 export * from './event-bus';
-export { stateManager } from './adapters/agui/state-manager';
-export { activityManager } from './adapters/agui/activity-manager';
+export * from './adapters';
 export type * from './type';
