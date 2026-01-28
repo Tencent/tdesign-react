@@ -10,7 +10,6 @@ import {
 
 import { downloadImage } from '@tdesign/common-js/image-viewer/utils';
 import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
-import { ClassName } from '@tdesign/common-js/common';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useImagePreviewUrl from '../hooks/useImagePreviewUrl';
@@ -52,7 +51,7 @@ interface ImageModalItemProps {
   errorText: string;
   imageReferrerpolicy?: TdImageViewerProps['imageReferrerpolicy'];
   isSvg: boolean;
-  innerClassName: ClassName;
+  innerClassName: TdImageViewerProps['innerClassName'];
 }
 
 // 单个弹窗实例
@@ -410,7 +409,7 @@ export interface ImageModalProps {
   onOpen: () => void;
   onDownload?: TdImageViewerProps['onDownload'];
   onIndexChange?: (index: number, context: { trigger: 'prev' | 'next' | 'current' }) => void;
-  innerClassName?: ClassName;
+  innerClassName?: TdImageViewerProps['innerClassName'];
 }
 
 // 弹窗基础组件

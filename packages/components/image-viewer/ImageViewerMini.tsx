@@ -1,6 +1,5 @@
 import React, { KeyboardEvent, MouseEvent } from 'react';
 import classNames from 'classnames';
-import { ClassName } from '@tdesign/common-js/common';
 import { TNode } from '../common';
 import Dialog from '../dialog';
 import useConfig from '../hooks/useConfig';
@@ -37,7 +36,7 @@ export interface ImageModalMiniProps {
   onReset: () => void;
   onRotate: (red: number) => void;
   onClose: (context: { trigger: 'close-btn' | 'overlay' | 'esc'; e: MouseEvent<HTMLElement> | KeyboardEvent }) => void;
-  innerClassName: ClassName;
+  innerClassName: TdImageViewerProps['innerClassName'];
 }
 
 export const ImageModalMiniContent: React.FC<ImageModalMiniProps> = (props) => {
