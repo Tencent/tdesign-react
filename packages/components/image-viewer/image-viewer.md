@@ -18,7 +18,7 @@ imageScale | Object | - |  图片缩放相关配置。`imageScale.max` 缩放的
 images | Array | [] | 图片数组。`mainImage` 表示主图，必传；`thumbnail` 表示缩略图，如果不存在，则使用主图显示；`download` 是否允许下载图片，默认允许下载。示例: `['img_url_1', 'img_url_2']`，`[{ thumbnail: 'small_image_url', mainImage: 'big_image_url', download: false }]`。TS 类型：`Array<string \| File \| ImageInfo>` `interface ImageInfo { mainImage: string \| File; thumbnail?: string \| File; download?: boolean; isSvg?: boolean }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/image-viewer/type.ts) | N
 index | Number | 0 | 当前预览图片所在的下标 | N
 defaultIndex | Number | 0 | 当前预览图片所在的下标。非受控属性 | N
-innerClassName | String / Object / Array | - | `1.17.0`。内容部分的类名，支持多种格式：字符串（例如 `'name1 name2 name3'`）、数组（例如 `['name1', 'name2']`）或对象数组（例如 `[{ 'name1': true }]`）。TS 类型：`ClassName`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+innerClassName | String / Object / Array | - | `1.16.5`。内容部分的类名，支持多种格式：字符串（例如 `'name1 name2 name3'`）、数组（例如 `['name1', 'name2']`）或对象数组（例如 `[{ 'name1': true }]`）。TS 类型：`ClassName`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 mode | String | modal | 模态预览（modal）和非模态预览（modeless)。可选项：modal/modeless | N
 navigationArrow | TNode | true | 切换预览图片的左图标，可自定义。TS 类型：`boolean \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 showOverlay | Boolean | undefined | 是否显示遮罩层。`mode=modal` 时，默认显示；`mode=modeless` 时，默认不显示 | N
