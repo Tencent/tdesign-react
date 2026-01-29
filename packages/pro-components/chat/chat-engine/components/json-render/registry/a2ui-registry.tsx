@@ -30,15 +30,15 @@ import type { ComponentRegistry } from '../renderer';
 import { withA2UIBinding } from './a2ui-binding';
 
 // 导入纯净组件和布局组件（这些不需要 A2UI 绑定）
-import { JsonRenderCard } from './atomic/card';
-import { JsonRenderText } from './atomic/text';
+import { JsonRenderCard } from '../catalog/atomic/card';
+import { JsonRenderText } from '../catalog/atomic/text';
 import {
   JsonRenderRow,
   JsonRenderCol,
   JsonRenderSpace,
   JsonRenderColumn,
   JsonRenderDivider,
-} from './atomic/layout';
+} from '../catalog/atomic/layout';
 
 // ==================== 基础组件包装器 ====================
 

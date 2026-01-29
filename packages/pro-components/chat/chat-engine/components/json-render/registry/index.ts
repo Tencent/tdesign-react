@@ -16,17 +16,17 @@
 import React from 'react';
 import isEqual from 'react-fast-compare';
 import type { ComponentRegistry, ComponentRenderProps } from '../renderer';
-import { JsonRenderButton } from './atomic/button';
-import { JsonRenderInput, JsonRenderTextField } from './atomic/input';
-import { JsonRenderCard } from './atomic/card';
-import { JsonRenderText } from './atomic/text';
+import { JsonRenderButton } from '../catalog/atomic/button';
+import { JsonRenderInput, JsonRenderTextField } from '../catalog/atomic/input';
+import { JsonRenderCard } from '../catalog/atomic/card';
+import { JsonRenderText } from '../catalog/atomic/text';
 import {
   JsonRenderRow,
   JsonRenderCol,
   JsonRenderSpace,
   JsonRenderColumn,
   JsonRenderDivider,
-} from './atomic/layout';
+} from '../catalog/atomic/layout';
 
 /**
  * 高性能组件包装器
@@ -41,6 +41,10 @@ import {
  * - react-fast-compare 比 JSON.stringify 更快（短路比较）
  * - 发现第一个不同属性时立即停止，不会遍历整个对象
  * - 处理了循环引用等边缘情况
+ * 
+ * 重要：必须同时比较 element.props 和 children
+ * - element.props 变化：组件自身的属性发生变化
+ * - children 变化：子组件树发生变化（深层更新场景）
  */
 export function withStableProps<P extends ComponentRenderProps>(
   Component: React.ComponentType<P>,
@@ -49,15 +53,21 @@ export function withStableProps<P extends ComponentRenderProps>(
     const prevElement = prevProps.element as any;
     const nextElement = nextProps.element as any;
     
-    // 1. 引用相同，直接返回 true（不渲染）
+    // 1. children 变化必须重渲染
+    // 深层更新时，父组件的 element 可能不变，但 children（子组件树）会变化
+    if (prevProps.children !== nextProps.children) {
+      return false;
+    }
+    
+    // 2. element 引用相同，跳过渲染
     if (prevElement === nextElement) return true;
     
-    // 2. 快速路径：id 或 type 不同，需要重渲染
+    // 3. 快速路径：id 或 type 不同，需要重渲染
     if (prevElement.id !== nextElement.id || prevElement.type !== nextElement.type) {
       return false;
     }
     
-    // 3. 使用 react-fast-compare 进行高效深比较
+    // 4. 使用 react-fast-compare 进行高效深比较
     return isEqual(prevElement.props, nextElement.props);
   });
 }
@@ -209,16 +219,10 @@ export { a2uiRegistry, createA2UIRegistry, A2UITextField, A2UIButton } from './a
 
 
 // 配置工厂
-export {
-  createJsonRenderActivityConfig,
-  createA2UIJsonRenderActivityConfig,
-} from './config';
 export type { JsonRenderActivityConfigOptions } from './config';
-
 // 默认导出配置函数
-export { createJsonRenderActivityConfig as default } from './config';
+export { createJsonRenderActivityConfig, createA2UIJsonRenderActivityConfig } from './config';
 
 // ==================== 重新导出 A2UI Binding HOC ====================
 export { withA2UIBinding } from './a2ui-binding';
 export type { A2UIBindingConfig } from './a2ui-binding';
-export * from './catalog-to-prompt';

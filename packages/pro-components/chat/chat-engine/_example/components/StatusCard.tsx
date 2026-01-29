@@ -31,7 +31,6 @@ export const StatusCard: React.FC<ComponentRenderProps> = ({ element }) => {
     info: 'ℹ',
   };
 
-  console.log("====StatusCard render");
   return (
     <div
       style={{

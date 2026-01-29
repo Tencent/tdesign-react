@@ -6,13 +6,12 @@
  * 1. 支持 ACTIVITY_SNAPSHOT 全量渲染
  * 2. 支持 ACTIVITY_DELTA 增量更新（Delta Merge 由数据层完成，此处接收完整 Schema）
  * 3. 使用 React.memo + react-fast-compare 优化渲染性能
- * 4. 与现有 A2UI 渲染器并行工作
  * 
  */
 
 import React, { useMemo } from 'react';
 import isEqual from 'react-fast-compare';
-import { type ComponentRegistry, JsonRenderElement } from '../renderer';
+import { type ComponentRegistry, JsonRenderElement } from './';
 import { DataProvider, ActionProvider, VisibilityProvider } from '../contexts';
 import type { JsonRenderActivityProps } from '../types';
 
@@ -38,14 +37,6 @@ export interface JsonRenderActivityRendererProps extends JsonRenderActivityProps
 
 /**
  * json-render Activity 渲染器组件
- * 
- * 性能优化策略：
- * 1. 使用 React.memo + react-fast-compare 进行高效的 props 对比
- * 2. 直接使用 props.content 渲染，避免 Double Render
- * 3. Delta Merge 在数据层（ChatEngine）完成，此组件只负责渲染完整 Schema
- * 
- * 数据同步策略：
- * - DataProvider 使用 initialData 初始化
  */
 const JsonRenderActivityRendererInner: React.FC<JsonRenderActivityRendererProps> = ({
   activityType,
@@ -68,7 +59,6 @@ const JsonRenderActivityRendererInner: React.FC<JsonRenderActivityRendererProps>
   //     </div>
   //   );
   // }
-
   return (
     <div data-activity-type={activityType} data-message-id={messageId}>
       <DataProvider initialData={renderData}>

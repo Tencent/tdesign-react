@@ -25,13 +25,13 @@ import {
 
 
 // 导入自定义组件
-import { StatusCard, ProgressBar } from './components';
+import { StatusCard, ProgressBar, NestedPanel } from './components';
 
 // Mock Server 地址
 const MOCK_SERVER = 'http://localhost:9001';
 
 export default function AguiJsonRenderFullCustomExample() {
-  const [inputValue, setInputValue] = useState('创建一个任务进度表单，包含状态卡片和进度条');
+  const [inputValue, setInputValue] = useState('测试深层嵌套更新');
   const [currentStage, setCurrentStage] = useState<string>('');
   const listRef = useRef<any>(null);
 
@@ -64,6 +64,18 @@ export default function AguiJsonRenderFullCustomExample() {
               showInfo: z.boolean().nullable(),
             }),
             description: 'Custom progress bar component for showing completion status',
+          },
+
+          // 定义 NestedPanel 的 props schema（用于验证深层嵌套更新）
+          NestedPanel: {
+            props: z.object({
+              title: z.string(),
+              level: z.number().min(1).max(10).nullable(),
+              collapsed: z.boolean().nullable(),
+              borderColor: z.string().nullable(),
+              backgroundColor: z.string().nullable(),
+            }),
+            description: 'Nested panel container for testing deep nesting updates. Can contain other components including itself.',
           },
         },
         actions: {
@@ -121,6 +133,13 @@ export default function AguiJsonRenderFullCustomExample() {
         // 注册 React 组件实现（必须与 Catalog 中的组件名一致）
         StatusCard,
         ProgressBar,
+        NestedPanel,
+        // 注册基础 Div 组件（用于渲染后端返回的 Div 类型元素）
+        Div: ({element, children}) => {
+          const {props} = element;
+          // const {props, children} = element;
+          return <div {...props} >{element.props.children || children}</div>
+        }
       }),
     [],
   );
@@ -278,7 +297,7 @@ export default function AguiJsonRenderFullCustomExample() {
       {/* 输入区域 */}
       <ChatSender
         value={inputValue}
-        placeholder="试试：创建一个任务进度表单，包含状态卡片、进度条和刷新按钮"
+        placeholder="试试：测试深层嵌套更新、创建任务进度表单"
         loading={status === 'pending' || status === 'streaming'}
         onChange={(e: CustomEvent<string>) => setInputValue(e.detail)}
         onSend={handleSend as any}

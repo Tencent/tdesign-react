@@ -9,8 +9,7 @@ import type { ActivityConfig } from '../../activity/types';
 import type { JsonRenderActivityProps } from '../types';
 import { JsonRenderActivityRenderer } from '../renderer/JsonRenderActivityRenderer';
 import { A2UIJsonRenderActivityRenderer } from '../renderer/A2UIJsonRenderActivityRenderer';
-import { tdesignRegistry } from './index';
-import { a2uiRegistry } from './a2ui-registry';
+import { a2uiRegistry, tdesignRegistry } from '.';
 
 /**
  * json-render Activity 配置选项
@@ -197,5 +196,3 @@ export function createA2UIJsonRenderActivityConfig(
     description,
   };
 }
-
-export default createJsonRenderActivityConfig;

@@ -39,7 +39,7 @@ import React, { useCallback, useRef, memo, useMemo } from 'react';
 import type { ComponentRenderProps } from '../renderer';
 import { getByPath } from '@json-render/core';
 import type { Action } from '@json-render/core';
-import { useData } from '../';
+import { useData } from '..';
 
 /**
  * A2UI 绑定配置

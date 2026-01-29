@@ -10,4 +10,5 @@ export { HumanInputForm } from './HumanInputForm';
 // json-render custom components
 export { StatusCard } from './StatusCard';
 export { ProgressBar } from './ProgressBar';
+export { NestedPanel } from './NestedPanel';
 
