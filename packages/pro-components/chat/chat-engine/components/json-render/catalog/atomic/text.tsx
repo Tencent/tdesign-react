@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import type { ComponentRenderProps } from '../../renderer';
+import type { ComponentRenderProps } from '../../renderer/JsonUIRenderer';
 
 /**
  * json-render Text 组件

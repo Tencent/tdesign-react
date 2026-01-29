@@ -10,28 +10,6 @@ export { type JsonRenderActivityRendererProps, JsonRenderActivityRenderer } from
 // A2UI 渲染器组件
 export { type A2UIJsonRenderActivityRendererProps, A2UIJsonRenderActivityRenderer } from './renderer/A2UIJsonRenderActivityRenderer';
 
-// 基础渲染器组件
-export {
-  JsonRenderElement,
-  JSONUIProvider,
-  createRendererFromCatalog,
-} from "./renderer";
-export type {
-  ComponentRenderProps,
-  ComponentRenderer,
-  ComponentRegistry,
-  RendererProps,
-  JSONUIProviderProps,
-} from "./renderer";
-
-// ==================== 类型定义 ====================
-export type {
-  ComponentCatalog,
-  JsonRenderContext,
-  DeltaInfo,
-  JsonRenderActivityProps,
-} from './types';
-
 // ==================== 上下文 (Contexts) ====================
 export * from './contexts';
 
@@ -60,3 +38,10 @@ export {
 
 // ==================== 目录 (Catalog) ====================
 export * from './catalog/catalog-to-prompt';
+
+
+// ==================== 类型定义 ====================
+export type * from './types';
+export type {
+  JSONUIProviderProps,
+} from "./renderer/JsonUIRenderer";

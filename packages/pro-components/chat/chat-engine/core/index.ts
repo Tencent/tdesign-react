@@ -82,6 +82,7 @@ export default class ChatEngine implements IChatEngine {
 
     // 清理消息存储
     this.messageStore.clearHistory();
+    this.messageStore.destroy();
 
     // 清理适配器
     this.aguiAdapter = null;

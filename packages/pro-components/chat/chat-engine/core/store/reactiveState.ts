@@ -130,6 +130,16 @@ export default class ReactiveState<T extends object> {
   }
 
   /**
+   * 销毁方法，清理资源
+   */
+  public destroy() {
+    this.subscribers.clear();
+    this.pathSubscribers.clear();
+    this.pendingChanges = [];
+    this.notificationScheduled = false;
+  }
+
+  /**
    * 调试方法（开发时使用）
    * @param label 调试标签（默认'State'）
    * @returns 当前实例（支持链式调用）

@@ -4,7 +4,6 @@ export {
   useData,
   useDataValue,
   useDataBinding,
-  type DataContextValue,
   type DataProviderProps,
 } from "./data";
 

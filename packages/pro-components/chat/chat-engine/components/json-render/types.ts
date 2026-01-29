@@ -2,9 +2,54 @@
  * json-render 集成相关类型定义
  */
 
-// 直接从 @json-render/react 导入标准类型
+import { type ComponentType, type ReactNode } from "react";
+import type {
+  UIElement,
+  UITree,
+  Action,
+} from "@json-render/core";
 import { type JsonRenderSchema } from '../../core';
-import type { ComponentRenderProps, ComponentRegistry } from './renderer';
+
+/**
+ * Props passed to component renderers
+ */
+export interface ComponentRenderProps<P = Record<string, unknown>> {
+  /** The element being rendered */
+  element: UIElement<string, P>;
+  /** Rendered children */
+  children?: ReactNode;
+  /** Execute an action */
+  onAction?: (action: Action) => void;
+  /** Whether the parent is loading */
+  loading?: boolean;
+}
+
+/**
+ * Component renderer type
+ */
+export type ComponentRenderer<P = Record<string, unknown>> = ComponentType<
+  ComponentRenderProps<P>
+>;
+
+/**
+ * Registry of component renderers
+ */
+export type ComponentRegistry = Record<string, ComponentRenderer<any>>;
+
+/**
+ * Props for the Renderer component
+ */
+export interface RendererProps {
+  /** The UI tree to render */
+  tree: UITree | null;
+  /** Component registry */
+  registry: ComponentRegistry;
+  /** Whether the tree is currently loading/streaming */
+  loading?: boolean;
+  /** Fallback component for unknown types */
+  fallback?: ComponentRenderer;
+}
+
 
 /**
  * json-render Activity 内容格式
@@ -24,9 +69,6 @@ import type { ComponentRenderProps, ComponentRegistry } from './renderer';
  * 使用 @json-render/react 的 ComponentRegistry 类型
  */
 export type ComponentCatalog = ComponentRegistry;
-
-// 重新导出 ComponentRenderProps 方便使用
-export type { ComponentRenderProps };
 
 /**
  * 渲染上下文配置

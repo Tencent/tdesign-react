@@ -4,9 +4,8 @@
  */
 
 import React from 'react';
-import type { ComponentRegistry } from '../renderer';
 import type { ActivityConfig } from '../../activity/types';
-import type { JsonRenderActivityProps } from '../types';
+import type { JsonRenderActivityProps, ComponentRegistry } from '../types';
 import { JsonRenderActivityRenderer } from '../renderer/JsonRenderActivityRenderer';
 import { A2UIJsonRenderActivityRenderer } from '../renderer/A2UIJsonRenderActivityRenderer';
 import { a2uiRegistry, tdesignRegistry } from '.';

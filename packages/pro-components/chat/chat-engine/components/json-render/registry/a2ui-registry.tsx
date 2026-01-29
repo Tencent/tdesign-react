@@ -26,7 +26,6 @@
 import React from 'react';
 import { Input, Button, Space } from 'tdesign-react';
 import type { InputProps, ButtonProps } from 'tdesign-react';
-import type { ComponentRegistry } from '../renderer';
 import { withA2UIBinding } from './a2ui-binding';
 
 // 导入纯净组件和布局组件（这些不需要 A2UI 绑定）
@@ -39,6 +38,8 @@ import {
   JsonRenderColumn,
   JsonRenderDivider,
 } from '../catalog/atomic/layout';
+
+import { type ComponentRegistry } from '../types';
 
 // ==================== 基础组件包装器 ====================
 

@@ -6,6 +6,7 @@ import React, {
   useState,
   useCallback,
   useMemo,
+  useRef,
   type ReactNode,
 } from "react";
 import {
@@ -16,7 +17,8 @@ import {
   type ActionConfirm,
   type ResolvedAction,
 } from "@json-render/core";
-import { useData } from "./data";
+import { useDataStore, type DataStore } from "./data";
+import { useStableCallback } from "./store";
 
 /**
  * Pending confirmation state
@@ -67,18 +69,35 @@ export interface ActionProviderProps {
 
 /**
  * Provider for action execution
+ * 
+ * 性能优化：
+ * - execute 函数使用 DataStore 延迟读取 data，避免 data 变化导致函数重建
+ * - handlers 和 navigate 通过 ref 访问，保持 execute 引用稳定
+ * - Context value 只在必要时更新
  */
 export function ActionProvider({
   handlers: initialHandlers = {},
   navigate,
   children,
 }: ActionProviderProps) {
-  const { data, set } = useData();
+  // 获取 DataStore 实例，不订阅状态变化
+  const dataStore = useDataStore();
+  
   const [handlers, setHandlers] =
     useState<Record<string, ActionHandler>>(initialHandlers);
   const [loadingActions, setLoadingActions] = useState<Set<string>>(new Set());
   const [pendingConfirmation, setPendingConfirmation] =
     useState<PendingConfirmation | null>(null);
+
+  // 使用 ref 存储依赖，保持 execute 函数引用稳定
+  const storeRef = useRef<DataStore>(dataStore);
+  storeRef.current = dataStore;
+  
+  const handlersRef = useRef(handlers);
+  handlersRef.current = handlers;
+  
+  const navigateRef = useRef(navigate);
+  navigateRef.current = navigate;
 
   const registerHandler = useCallback(
     (name: string, handler: ActionHandler) => {
@@ -87,77 +106,86 @@ export function ActionProvider({
     [],
   );
 
-  const execute = useCallback(
-    async (action: Action) => {
-      const resolved = resolveAction(action, data);
-      const handler = handlers[resolved.name];
+  // executeRef 用于递归调用
+  const executeRef = useRef<(action: Action) => Promise<void>>();
 
-      if (!handler) {
-        console.warn(`No handler registered for action: ${resolved.name}`);
-        return;
-      }
+  // execute 函数引用稳定，通过 ref 访问最新依赖
+  const execute = useStableCallback(async (action: Action) => {
+    const store = storeRef.current;
+    const data = store.getData();
+    const setData = (path: string, value: unknown) => store.setByPath(path, value);
+    const currentHandlers = handlersRef.current;
+    const currentNavigate = navigateRef.current;
 
-      // If confirmation is required, show dialog
-      if (resolved.confirm) {
-        return new Promise<void>((resolve, reject) => {
-          setPendingConfirmation({
-            action: resolved,
-            handler,
-            resolve: () => {
-              setPendingConfirmation(null);
-              resolve();
-            },
-            reject: () => {
-              setPendingConfirmation(null);
-              reject(new Error("Action cancelled"));
-            },
-          });
-        }).then(async () => {
-          setLoadingActions((prev) => new Set(prev).add(resolved.name));
-          try {
-            await executeAction({
-              action: resolved,
-              handler,
-              setData: set,
-              navigate,
-              executeAction: async (name) => {
-                const subAction: Action = { name };
-                await execute(subAction);
-              },
-            });
-          } finally {
-            setLoadingActions((prev) => {
-              const next = new Set(prev);
-              next.delete(resolved.name);
-              return next;
-            });
-          }
-        });
-      }
+    const resolved = resolveAction(action, data);
+    const handler = currentHandlers[resolved.name];
 
-      // Execute immediately
-      setLoadingActions((prev) => new Set(prev).add(resolved.name));
-      try {
-        await executeAction({
+    if (!handler) {
+      console.warn(`No handler registered for action: ${resolved.name}`);
+      return;
+    }
+
+    // If confirmation is required, show dialog
+    if (resolved.confirm) {
+      return new Promise<void>((resolve, reject) => {
+        setPendingConfirmation({
           action: resolved,
           handler,
-          setData: set,
-          navigate,
-          executeAction: async (name) => {
-            const subAction: Action = { name };
-            await execute(subAction);
+          resolve: () => {
+            setPendingConfirmation(null);
+            resolve();
+          },
+          reject: () => {
+            setPendingConfirmation(null);
+            reject(new Error("Action cancelled"));
           },
         });
-      } finally {
-        setLoadingActions((prev) => {
-          const next = new Set(prev);
-          next.delete(resolved.name);
-          return next;
-        });
-      }
-    },
-    [data, handlers, set, navigate],
-  );
+      }).then(async () => {
+        setLoadingActions((prev) => new Set(prev).add(resolved.name));
+        try {
+          await executeAction({
+            action: resolved,
+            handler,
+            setData,
+            navigate: currentNavigate,
+            executeAction: async (name) => {
+              const subAction: Action = { name };
+              await executeRef.current?.(subAction);
+            },
+          });
+        } finally {
+          setLoadingActions((prev) => {
+            const next = new Set(prev);
+            next.delete(resolved.name);
+            return next;
+          });
+        }
+      });
+    }
+
+    // Execute immediately
+    setLoadingActions((prev) => new Set(prev).add(resolved.name));
+    try {
+      await executeAction({
+        action: resolved,
+        handler,
+        setData,
+        navigate: currentNavigate,
+        executeAction: async (name) => {
+          const subAction: Action = { name };
+          await executeRef.current?.(subAction);
+        },
+      });
+    } finally {
+      setLoadingActions((prev) => {
+        const next = new Set(prev);
+        next.delete(resolved.name);
+        return next;
+      });
+    }
+  });
+
+  executeRef.current = execute;
 
   const confirm = useCallback(() => {
     pendingConfirmation?.resolve();

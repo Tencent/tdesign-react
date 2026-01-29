@@ -16,8 +16,7 @@
 import React, { useMemo, useEffect, useState, useCallback } from 'react';
 import { convertA2UIMessagesToJsonRender, surfaceStateManager } from '../../../core';
 import type { A2UIMessage, JsonRenderSchema } from '../../../core';
-import type { ComponentRegistry } from '../renderer';
-import type { JsonRenderActivityProps } from '../types';
+import type { JsonRenderActivityProps, ComponentRegistry } from '../types';
 import { JsonRenderActivityRenderer } from './JsonRenderActivityRenderer';
 
 

@@ -15,7 +15,6 @@
 
 import React from 'react';
 import isEqual from 'react-fast-compare';
-import type { ComponentRegistry, ComponentRenderProps } from '../renderer';
 import { JsonRenderButton } from '../catalog/atomic/button';
 import { JsonRenderInput, JsonRenderTextField } from '../catalog/atomic/input';
 import { JsonRenderCard } from '../catalog/atomic/card';
@@ -27,24 +26,28 @@ import {
   JsonRenderColumn,
   JsonRenderDivider,
 } from '../catalog/atomic/layout';
+import type { ComponentRegistry, ComponentRenderProps } from '../types';
 
 /**
- * 高性能组件包装器
+ * 高性能组件包装器（可选）
  * 使用 React.memo + react-fast-compare 实现深比较
+ * 
+ * 注意：由于 ElementRenderer 已经实现了 React.memo + 深比较优化，
+ * 大多数情况下叶子组件不需要再使用 withStableProps 包装。
+ * 
+ * 使用场景：
+ * - 组件内部有复杂的计算逻辑，希望进一步减少重渲染
+ * - 组件使用了 Context，需要避免 Context 变化导致的不必要渲染
  * 
  * 原理：
  * - json-render 每次渲染都会创建新的 element 对象引用
  * - 默认的 React.memo 浅比较会认为 props 变化了
  * - 使用 react-fast-compare 进行高效深比较，只在内容真正变化时才重渲染
  * 
- * 性能说明（来自 performance_suggestion.md）：
+ * 性能说明：
  * - react-fast-compare 比 JSON.stringify 更快（短路比较）
  * - 发现第一个不同属性时立即停止，不会遍历整个对象
  * - 处理了循环引用等边缘情况
- * 
- * 重要：必须同时比较 element.props 和 children
- * - element.props 变化：组件自身的属性发生变化
- * - children 变化：子组件树发生变化（深层更新场景）
  */
 export function withStableProps<P extends ComponentRenderProps>(
   Component: React.ComponentType<P>,
@@ -143,7 +146,10 @@ export interface CreateCustomRegistryOptions {
    * 是否自动包装组件以优化性能
    * 使用 React.memo + react-fast-compare 深比较 element.props
    * 
-   * @default true
+   * 注意：由于 ElementRenderer 已经实现了 memo 优化，
+   * 默认关闭此选项。仅在组件有复杂内部逻辑时考虑开启。
+   * 
+   * @default false
    */
   enableStableProps?: boolean;
 }
@@ -153,10 +159,10 @@ export interface CreateCustomRegistryOptions {
  * 
  * 用于渲染层：扩展自定义业务组件的 React 实现
  * 
- * 性能优化（默认开启）：
- * - 自动使用 withStableProps 包装组件
- * - 使用 react-fast-compare 进行高效深比较
- * - 业务组件无需手动写 React.memo 比较函数
+ * 性能说明：
+ * - ElementRenderer 已经使用 React.memo + 深比较优化，会自动跳过无变化节点
+ * - 默认情况下，自定义组件无需额外的 memo 包装
+ * - 如果组件有复杂内部逻辑，可以设置 enableStableProps: true 进行双重优化
  * 
  * @example
  * ```tsx
@@ -172,16 +178,16 @@ export interface CreateCustomRegistryOptions {
  *   <div className="progress-bar" style={{ width: `${element.props.percentage}%` }} />
  * );
  * 
- * // 扩展 registry（自动优化性能）
+ * // 扩展 registry（ElementRenderer 已有优化，无需额外包装）
  * const customRegistry = createCustomRegistry({
  *   StatusCard,
  *   ProgressBar,
  * });
  * 
- * // 禁用自动优化（如果需要自己控制）
+ * // 如果组件有复杂内部逻辑，可以开启双重优化
  * const customRegistry = createCustomRegistry(
  *   { StatusCard, ProgressBar },
- *   { enableStableProps: false }
+ *   { enableStableProps: true }
  * );
  * ```
  * 
@@ -194,7 +200,7 @@ export function createCustomRegistry(
   customComponents: ComponentRegistry,
   options: CreateCustomRegistryOptions = {},
 ): ComponentRegistry {
-  const { enableStableProps = true } = options;
+  const { enableStableProps = false } = options;
 
   // 如果启用性能优化，自动包装组件
   const processedComponents: ComponentRegistry = {};

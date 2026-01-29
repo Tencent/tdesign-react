@@ -9,7 +9,7 @@ import React, { useCallback } from 'react';
 import { Button } from 'tdesign-react';
 import type { ButtonProps } from 'tdesign-react';
 import type { Action } from '@json-render/core';
-import { ComponentRenderProps } from '../../renderer';
+import { ComponentRenderProps } from '../../renderer/JsonUIRenderer';
 
 /**
  * json-render Button 组件
