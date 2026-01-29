@@ -14,7 +14,7 @@ import {
   type ValidationFunction,
   type ValidationResult,
 } from "@json-render/core";
-import { useData } from "./data";
+import { useDataState } from "./data";
 
 /**
  * Field validation state
@@ -66,7 +66,7 @@ export function ValidationProvider({
   customFunctions = {},
   children,
 }: ValidationProviderProps) {
-  const { data, authState } = useData();
+  const { data, authState } = useDataState();
   const [fieldStates, setFieldStates] = useState<
     Record<string, FieldValidationState>
   >({});

@@ -210,39 +210,14 @@ export function DataProvider({
 }
 
 /**
- * Hook to access the data context（兼容旧 API）
- * 
- * 注意：此 hook 订阅整个 data，任何数据变化都会触发重渲染
- * 推荐使用 useDataValue() 进行细粒度订阅
- */
-export function useData(): DataContextValue {
-  const store = useDataStore();
-  const state = useDataStoreState();
-
-  // 使用稳定回调，避免函数重建
-  const get = useStableCallback((path: string) => store.getByPath(path));
-  const set = useStableCallback((path: string, value: unknown) =>
-    store.setByPath(path, value),
-  );
-  const update = useStableCallback((updates: Record<string, unknown>) =>
-    store.updatePaths(updates),
-  );
-
-  return {
-    data: state.data,
-    authState: state.authState,
-    get,
-    set,
-    update,
-  };
-}
-
-/**
- * Hook to get a value from the data model（细粒度订阅）
+ * 获取指定路径的值（细粒度订阅）
  * 
  * 性能优化：只有指定路径的值变化时才重渲染
+ * 
+ * @example
+ * const name = useDataValue<string>('/userInfo/name');
  */
-export function useDataValue<T>(path: string): T | undefined {
+export function useDataValue<T>(path?: string): T | undefined {
   const store = useDataStore();
 
   const subscribe = useCallback(
@@ -251,6 +226,7 @@ export function useDataValue<T>(path: string): T | undefined {
   );
 
   const getSnapshot = useCallback(() => {
+    if (!path) return undefined;
     return store.getByPath(path) as T | undefined;
   }, [store, path]);
 
@@ -258,17 +234,57 @@ export function useDataValue<T>(path: string): T | undefined {
 }
 
 /**
- * Hook to get and set a value from the data model (like useState)
+ * 数据绑定 hook（类似 useState 的 API）
+ * 
+ * 返回 [value, setValue] 元组，value 支持细粒度订阅，setValue 引用稳定
+ * 
+ * @example
+ * const [name, setName] = useDataBinding<string>('/userInfo/name');
  */
 export function useDataBinding<T>(
-  path: string,
+  path?: string,
 ): [T | undefined, (value: T) => void] {
   const store = useDataStore();
   const value = useDataValue<T>(path);
   
   const setValue = useStableCallback((newValue: T) => {
-    store.setByPath(path, newValue);
+    if (path) {
+      store.setByPath(path, newValue);
+    }
   });
 
   return [value, setValue];
+}
+
+/**
+ * 批量更新多个路径
+ * 
+ * @example
+ * const updatePaths = useDataUpdate();
+ * updatePaths({ '/name': 'Alice', '/age': 30 });
+ */
+export function useDataUpdate(): (updates: Record<string, unknown>) => void {
+  const store = useDataStore();
+  
+  return useStableCallback((updates: Record<string, unknown>) => {
+    store.updatePaths(updates);
+  });
+}
+
+/**
+ * 获取整个 data 和 authState（订阅所有变化）
+ * 
+ * ⚠️ 警告：此 hook 会订阅整个 data 对象，任何数据变化都会触发重渲染
+ * 仅在以下场景使用：
+ * - 需要遍历整个 data 对象
+ * - 需要同时访问 data 和 authState
+ * - ValidationProvider 等基础设施层
+ * 
+ * 普通组件请使用：
+ * - useDataValue() - 细粒度订阅
+ * - useDataBinding() - 双向绑定
+ */
+export function useDataState(): { data: DataModel; authState?: AuthState } {
+  const state = useDataStoreState();
+  return { data: state.data, authState: state.authState };
 }

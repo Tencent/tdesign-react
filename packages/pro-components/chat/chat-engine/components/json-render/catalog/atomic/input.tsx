@@ -9,8 +9,7 @@ import React from 'react';
 import { Input, Space } from 'tdesign-react';
 import type { InputProps } from 'tdesign-react';
 import type { ComponentRenderProps } from '../../types';
-import { useData } from '../..';
-import { getByPath } from '@json-render/core';
+import { useDataBinding } from '../..';
 
 /**
  * json-render Input 组件（基础版本，不带数据绑定）
@@ -79,15 +78,8 @@ export const JsonRenderTextField: React.FC<ComponentRenderProps> = ({ element })
     valuePath?: string;
   };
 
-  const { data, set } = useData();
-
-  const value = valuePath ? (getByPath(data, valuePath) as string) ?? '' : '';
-
-  const handleChange = (newValue: string) => {
-    if (valuePath) {
-      set(valuePath, newValue);
-    }
-  };
+  // 细粒度订阅 + 稳定的 setValue（类似 useState 的 API）
+  const [value = '', setValue] = useDataBinding<string>(valuePath!);
 
   if (label) {
     return (
@@ -99,7 +91,7 @@ export const JsonRenderTextField: React.FC<ComponentRenderProps> = ({ element })
           type={type}
           disabled={disabled}
           size={size}
-          onChange={handleChange}
+          onChange={setValue}
           {...restProps}
         />
       </Space>
@@ -113,7 +105,7 @@ export const JsonRenderTextField: React.FC<ComponentRenderProps> = ({ element })
       type={type}
       disabled={disabled}
       size={size}
-      onChange={handleChange}
+      onChange={setValue}
       {...restProps}
     />
   );

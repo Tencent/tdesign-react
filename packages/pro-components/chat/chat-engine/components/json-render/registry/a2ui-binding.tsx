@@ -38,7 +38,7 @@
 import React, { useCallback, useRef, memo, useMemo } from 'react';
 import { getByPath } from '@json-render/core';
 import type { Action } from '@json-render/core';
-import { useData } from '..';
+import { useDataValue, useDataBinding, useDataStore } from '..';
 import { type ComponentRenderProps } from '../types';
 /**
  * A2UI 绑定配置
@@ -132,8 +132,6 @@ function A2UIBoundInner<P extends Record<string, any>>({
   supportsAction,
   actionTrigger,
 }: A2UIBoundInnerProps<P>) {
-  const { data, set } = useData();
-  
   // 提取 A2UI 特有字段
   const {
     valuePath,
@@ -148,36 +146,31 @@ function A2UIBoundInner<P extends Record<string, any>>({
     disabled?: boolean;
   };
 
-  // 使用 ref 缓存 data，action 触发时获取最新值
-  const dataRef = useRef(data);
-  dataRef.current = data;
+  // 细粒度订阅：只订阅需要的路径
+  const [boundValue, setBoundValue] = useDataBinding(valuePath!);
+  const disabledValue = useDataValue(disabledPath);
+  
+  // 获取 store（用于 action 触发时读取最新 data）
+  const store = useDataStore();
+  
+  // 使用 ref 缓存 store，action 触发时获取最新值
+  const storeRef = useRef(store);
+  storeRef.current = store;
 
-  // 提取绑定的值（只在真正需要的路径变化时才变）
-  const boundValue = useMemo(() => {
-    if (valuePath) {
-      return getByPath(data, valuePath) ?? '';
-    }
-    return undefined;
-  }, [valuePath, valuePath ? getByPath(data, valuePath) : undefined]);
-
-  // 提取 disabled 状态
+  // 计算 disabled 状态
   const boundDisabled = useMemo(() => {
     if (disabledPath) {
-      return Boolean(getByPath(data, disabledPath));
+      return Boolean(disabledValue);
     }
     return staticDisabled ?? false;
-  }, [disabledPath, disabledPath ? getByPath(data, disabledPath) : undefined, staticDisabled]);
+  }, [disabledPath, disabledValue, staticDisabled]);
 
-  // 使用 ref 缓存 set 函数，避免 handleChange 重建
-  const setRef = useRef(set);
-  setRef.current = set;
-
-  // 创建稳定的 onChange 处理器
+  // 创建稳定的 onChange 处理器（useDataBinding 已返回稳定函数）
   const handleChange = useCallback((newValue: unknown) => {
-    if (valuePath) {
-      setRef.current(valuePath, newValue);
+    if (valuePath && setBoundValue) {
+      setBoundValue(newValue as any);
     }
-  }, [valuePath]);
+  }, [valuePath, setBoundValue]);
 
   // 创建稳定的 action 处理器（延迟解析，触发时才获取最新 data）
   const handleAction = useCallback(() => {
@@ -189,8 +182,9 @@ function A2UIBoundInner<P extends Record<string, any>>({
       : action;
 
     // 使用最新的 data 解析参数
+    const currentData = storeRef.current.getData();
     const resolvedParams = actionObj.params
-      ? resolveActionParams(actionObj.params as Record<string, unknown>, dataRef.current)
+      ? resolveActionParams(actionObj.params as Record<string, unknown>, currentData)
       : {};
 
     const resolvedAction: Action = {
@@ -217,13 +211,13 @@ function A2UIBoundInner<P extends Record<string, any>>({
     // 如果支持 action，注入到指定的触发事件
     if (supportsAction && action) {
       const originalHandler = componentProps[actionTrigger];
-      props[actionTrigger] = (...args: unknown[]) => {
+      props[actionTrigger] = (...args: any[]) => {
         // 先调用原始处理器
         if (typeof originalHandler === 'function') {
           originalHandler(...args);
         }
         // 再触发 action
-        handleAction(...args);
+        handleAction();
       };
     }
 

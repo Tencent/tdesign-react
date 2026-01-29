@@ -1,9 +1,11 @@
 // Contexts
 export {
   DataProvider,
-  useData,
   useDataValue,
   useDataBinding,
+  useDataUpdate,
+  useDataState,
+  useDataStore,
   type DataProviderProps,
 } from "./data";
 

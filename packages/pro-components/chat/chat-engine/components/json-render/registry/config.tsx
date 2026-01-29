@@ -37,7 +37,6 @@ export interface JsonRenderActivityConfigOptions {
    *   
    *   // 表单重置
    *   reset: async (params) => {
-   *     // 注意：如需清空表单，应在组件内部使用 useData().update()
    *     MessagePlugin.info('表单已重置');
    *   },
    *   
