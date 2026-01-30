@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { EnhancedTable, Radio, Space, Button, MessagePlugin, Tag } from 'tdesign-react';
+import React, { useEffect, useRef, useState } from 'react';
 import { cloneDeep } from 'lodash-es';
-import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+
+import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
+import { Button, EnhancedTable, MessagePlugin, Radio, Space, Tag } from 'tdesign-react';
+
 import type { EnhancedTableProps, TableProps } from 'tdesign-react';
 
 const statusNameListMap = {
@@ -15,7 +17,7 @@ const CHILDREN_KEY = 'childrenList';
 const initData: EnhancedTableProps['data'] = [];
 for (let i = 0; i < 500; i++) {
   const obj = {
-    key: `first_level_${i}`,
+    key: `${i + 1}`,
     applicant: ['贾明', '张三', '王芳'][i % 3],
     status: i % 3,
     channel: ['电子签署', '纸质签署', '纸质签署'][i % 3],
@@ -25,42 +27,41 @@ for (let i = 0; i < 500; i++) {
     createTime: ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01', '2022-05-01'][i % 4],
     childrenList: [],
   };
-  obj.childrenList = new Array(5).fill(null).map((t, j) => {
-    const secondIndex = 100 * j + (i + 1) * 10;
+
+  obj.childrenList = new Array(5).fill(null).map((_, j) => {
     const secondObj = {
       ...obj,
-      status: secondIndex % 3,
-      key: `second_level_${secondIndex}`,
-      applicant: ['贾明', '张三', '王芳'][secondIndex % 3],
+      status: (i + j) % 3,
+      key: `${i + 1}-${j + 1}`, // 第二层：1-1, 1-2, 1-3...
+      applicant: ['贾明', '张三', '王芳'][(i + j) % 3],
+      childrenList: [],
     };
-    secondObj.childrenList = new Array(3).fill(null).map((m, n) => {
-      const thirdIndex = secondIndex * 1000 + 100 * m + (n + 1) * 10;
-      return {
-        ...obj,
-        status: thirdIndex % 3,
-        key: `third_level_${thirdIndex}`,
-        applicant: ['贾明', '张三', '王芳'][thirdIndex % 3],
-      };
-    });
+
+    secondObj.childrenList = new Array(3).fill(null).map((_, n) => ({
+      ...obj,
+      status: (i + j + n) % 3,
+      key: `${i + 1}-${j + 1}-${n + 1}`,
+      applicant: ['贾明', '张三', '王芳'][(i + j + n) % 3],
+    }));
     return secondObj;
   });
   initData.push(obj);
 }
+
 const columns: TableProps['columns'] = [
   {
     colKey: 'row-select',
     type: 'multiple',
     // 禁用行选中方式一：使用 disabled 禁用行（示例代码有效，勿删）。disabled 参数：{row: RowData; rowIndex: number })
     // 这种方式禁用行选中，当前行会添加行类名 t-table__row--disabled，禁用行文字变灰
-    // disabled: ({ rowIndex }) => rowIndex === 1 || rowIndex === 3,
-
+    disabled: ({ row }) => row.status === 1,
     // 禁用行选中方式二：使用 checkProps 禁用行（示例代码有效，勿删）
     // 这种方式禁用行选中，行文本不会变灰
-    checkProps: ({ row }) => ({ disabled: !row.childrenList && row.status !== 0 }),
+    // checkProps: ({ row }) => ({ disabled: row.status === 1 }),
     // 自由调整宽度，如果发现元素看不见，请加大宽度
     width: 50,
   },
-  { colKey: 'serial-number', title: '序号' },
+  { colKey: 'key', title: '编号' },
   { colKey: 'applicant', title: '申请人' },
   {
     colKey: 'status',
@@ -77,27 +78,22 @@ const columns: TableProps['columns'] = [
     ),
   },
   { colKey: 'matters', title: '申请事项' },
-  // { colKey: 'email', title: '邮箱地址' },
 ];
 
-const defaultSelectedRowKeys: EnhancedTableProps['selectedRowKeys'] = [];
+const defaultSelectedRowKeys: EnhancedTableProps['selectedRowKeys'] = ['2-1-1', '5-2-1'];
 
 export default function TableSingleSort() {
+  // treeTableRef.current 包含各类树形操作方法
+  const treeTableRef = useRef(null);
+
   const [data, setData] = useState([...initData]);
   const [selectedRowKeys, setSelectedRowKeys] = useState<EnhancedTableProps['selectedRowKeys']>(defaultSelectedRowKeys);
   const [checkStrictly, setCheckStrictly] = useState(false);
-  const [expandedRowKeys, setExpandedRowKeys] = useState([]);
-  const treeTableRef = useRef(null);
-
-  useEffect(() => {
-    // 包含 treeDataMap 及各类树形操作方法
-    console.log(treeTableRef.current);
-  }, []);
 
   useEffect(
     () => {
       setSelectedRowKeys(defaultSelectedRowKeys);
-      setData(cloneDeep(data));
+      setData(cloneDeep(initData));
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [checkStrictly],
@@ -107,10 +103,6 @@ export default function TableSingleSort() {
   const onSelectChange: EnhancedTableProps['onSelectChange'] = (value, selectOptions) => {
     console.log('onSelectChange', value, selectOptions);
     setSelectedRowKeys(value);
-  };
-
-  const onExpandChange: EnhancedTableProps['onExpandChange'] = (val) => {
-    setExpandedRowKeys(val);
   };
 
   const getTreeExpandedRow = () => {
@@ -124,10 +116,6 @@ export default function TableSingleSort() {
     console.log('全部行信息：', treeExpandedRowState);
 
     MessagePlugin.success('获取成功，请打开控制台查看');
-  };
-
-  const onRowClick: EnhancedTableProps['onRowClick'] = (data) => {
-    console.log(data);
   };
 
   const scrollToElement = () => {
@@ -144,15 +132,12 @@ export default function TableSingleSort() {
     });
   };
 
-  // 树节点展开，受控示例
-  // const [expandedTreeNodes, setExpandedTreeNodes] = useState(['first_level_0']);
-
   return (
     <Space direction="vertical">
       <Space>
         <Radio.Group value={checkStrictly} onChange={(val: boolean) => setCheckStrictly(val)} variant="default-filled">
-          <Radio.Button value={true}>父子行选中独立</Radio.Button>
           <Radio.Button value={false}>父子行选中关联</Radio.Button>
+          <Radio.Button value={true}>父子行选中独立</Radio.Button>
         </Radio.Group>
         <Button onClick={getTreeExpandedRow}>获取树形结构展开的节点</Button>
         <Button onClick={scrollToElement}>滚动到指定元素</Button>
@@ -163,7 +148,6 @@ export default function TableSingleSort() {
         rowKey="key"
         data={data}
         columns={columns}
-        // indeterminateSelectedRowKeys={[1]}
         selectedRowKeys={selectedRowKeys}
         onSelectChange={onSelectChange}
         tree={{
@@ -174,13 +158,7 @@ export default function TableSingleSort() {
         }}
         height={300}
         scroll={{ type: 'virtual' }}
-        expandedRow={({ row }) => <div>这是展开项数据，我是 {row.key} 号</div>}
-        expandedRowKeys={expandedRowKeys}
-        onExpandChange={onExpandChange}
-        onRowClick={onRowClick}
         lazyLoad
-        // expandedTreeNodes={expandedTreeNodes}
-        // onExpandedTreeNodesChange={setExpandedTreeNodes}
       />
     </Space>
   );

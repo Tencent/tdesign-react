@@ -1,49 +1,65 @@
 // 行选中相关功能：单选 + 多选
+import React, { MouseEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { get, isFunction } from 'lodash-es';
 
-import React, { useEffect, useState, MouseEvent, useMemo } from 'react';
-import { intersection, get, isFunction } from 'lodash-es';
-import { isRowSelectedDisabled } from '@tdesign/common-js/table/utils';
 import log from '@tdesign/common-js/log/index';
+import { isRowSelectedDisabled } from '@tdesign/common-js/table/utils';
+import Checkbox from '../../checkbox';
+import { ClassName } from '../../common';
 import useControlled from '../../hooks/useControlled';
-import {
+import Radio from '../../radio';
+import { TableClassName } from './useClassName';
+
+import type { InternalPrimaryTableProps } from '../PrimaryTable';
+import type {
   PrimaryTableCellParams,
   PrimaryTableCol,
   RowClassNameParams,
   TableRowData,
   TdBaseTableProps,
-  TdPrimaryTableProps,
 } from '../type';
-import { TableClassName } from './useClassName';
-import Checkbox from '../../checkbox';
-import Radio from '../../radio';
-import { ClassName } from '../../common';
-
-const selectedRowDataMap = new Map<string | number, TableRowData>();
 
 export default function useRowSelect(
-  props: TdPrimaryTableProps,
+  props: InternalPrimaryTableProps,
   tableSelectedClasses: TableClassName['tableSelectedClasses'],
 ) {
-  const { selectedRowKeys, columns, data, rowKey, indeterminateSelectedRowKeys } = props;
-  const { pagination, reserveSelectedRowOnPaginate } = props;
+  const { columns, data, rowKey, indeterminateSelectedRowKeys, pagination, reserveSelectedRowOnPaginate, treeDataMap } =
+    props;
+
   const [currentPaginateData, setCurrentPaginateData] = useState<TableRowData[]>(data);
   const [selectedRowClassNames, setSelectedRowClassNames] = useState<TdBaseTableProps['rowClassName']>();
+
   const [tSelectedRowKeys, setTSelectedRowKeys] = useControlled(props, 'selectedRowKeys', props.onSelectChange, {
     defaultSelectedRowKeys: props.defaultSelectedRowKeys || [],
   });
+
+  const selectedRowDataMapRef = useRef<Map<string | number, TableRowData>>(new Map());
+
   const selectColumn = columns.find(({ type }) => ['multiple', 'single'].includes(type));
+  const selectedRowKeysSet = useMemo(() => new Set(tSelectedRowKeys), [tSelectedRowKeys]);
 
-  const canSelectedRows = useMemo(() => {
-    const currentData = reserveSelectedRowOnPaginate ? data : currentPaginateData;
-    return currentData?.filter((row, rowIndex): boolean => !isDisabled(row, rowIndex)) || [];
-    // eslint-disable-next-line
-  }, [reserveSelectedRowOnPaginate, data, currentPaginateData]);
+  const allTreeRows = useMemo(() => {
+    if (!treeDataMap || treeDataMap.size === 0) return data;
+    const treeRows: TableRowData[] = [];
+    treeDataMap.forEach((rowState) => {
+      if (rowState.row) {
+        treeRows.push(rowState.row);
+      }
+    });
+    return treeRows;
+  }, [data, treeDataMap]);
 
-  // 选中的行，和所有可以选择的行，交集，用于计算 isSelectedAll 和 isIndeterminate
-  const intersectionKeys = intersection(
-    tSelectedRowKeys,
-    canSelectedRows.map((t) => get(t, rowKey || 'id')),
+  const currentRows = useMemo(() => allTreeRows || currentPaginateData, [allTreeRows, currentPaginateData]);
+
+  const selectableRows = useMemo(
+    () => currentRows?.filter((row, rowIndex) => !isRowSelectedDisabled(selectColumn, row, rowIndex)) || [],
+    [currentRows, selectColumn],
   );
+
+  const selectedSelectableKeys = useMemo(() => {
+    const selectableRowKeys = new Set(selectableRows.map((t) => get(t, rowKey)));
+    return tSelectedRowKeys.filter((key) => selectableRowKeys.has(key));
+  }, [tSelectedRowKeys, selectableRows, rowKey]);
 
   useEffect(
     () => {
@@ -59,45 +75,71 @@ export default function useRowSelect(
     [data, reserveSelectedRowOnPaginate],
   );
 
-  useEffect(
-    () => {
-      if (!selectColumn && (!tSelectedRowKeys || !tSelectedRowKeys.length)) return;
-      const disabledRowFunc = (p: RowClassNameParams<TableRowData>): ClassName =>
-        selectColumn.disabled(p) ? tableSelectedClasses.disabled : '';
-      const disabledRowClass = selectColumn?.disabled ? disabledRowFunc : undefined;
-      const selected = new Set(tSelectedRowKeys);
-      const selectedRowClassFunc = ({ row }: RowClassNameParams<TableRowData>) => {
-        const rowId = get(row, rowKey || 'id');
-        return selected.has(rowId) ? tableSelectedClasses.selected : '';
-      };
-      const selectedRowClass = selected.size ? selectedRowClassFunc : undefined;
-      setSelectedRowClassNames([disabledRowClass, selectedRowClass]);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data, columns, tSelectedRowKeys, selectColumn, rowKey],
-  );
+  useEffect(() => {
+    if (!selectColumn && !tSelectedRowKeys?.length) return;
+    const disabledRowFunc = (p: RowClassNameParams<TableRowData>): ClassName =>
+      selectColumn.disabled(p) ? tableSelectedClasses.disabled : '';
+    const disabledRowClass = selectColumn?.disabled ? disabledRowFunc : undefined;
 
-  function isDisabled(row: Record<string, any>, rowIndex: number): boolean {
-    return isRowSelectedDisabled(selectColumn, row, rowIndex);
+    const selectedRowClassFunc = ({ row }: RowClassNameParams<TableRowData>) => {
+      const rowId = get(row, rowKey);
+      return selectedRowKeysSet.has(rowId) ? tableSelectedClasses.selected : '';
+    };
+    const selectedRowClass = selectedRowKeysSet.size ? selectedRowClassFunc : undefined;
+    setSelectedRowClassNames([disabledRowClass, selectedRowClass]);
+  }, [selectColumn, tSelectedRowKeys, selectedRowKeysSet, rowKey, tableSelectedClasses]);
+
+  function handleSelectAll(checked: boolean) {
+    const selectableRowKeys = selectableRows.map((record) => get(record, rowKey));
+    const selectableRowKeysSet = new Set(selectableRowKeys);
+
+    const selectedDisabledRowKeys = tSelectedRowKeys.filter((id) => !selectableRowKeysSet.has(id));
+    const indeterminateKeysInSelected = indeterminateSelectedRowKeys?.filter((id) => selectedRowKeysSet.has(id)) || [];
+
+    const selectedSelectableKeysSet = new Set(selectedSelectableKeys);
+    const allSelectableRowsSelected = selectableRowKeys.every((key) => selectedSelectableKeysSet.has(key));
+    const hasDisabledSelected = selectedDisabledRowKeys.length > 0;
+    const shouldSelectAll = hasDisabledSelected && allSelectableRowsSelected ? false : checked;
+
+    const allIds = shouldSelectAll
+      ? [...selectedDisabledRowKeys, ...selectableRowKeys, ...indeterminateKeysInSelected]
+      : [...selectedDisabledRowKeys, ...indeterminateKeysInSelected];
+
+    setTSelectedRowKeys(allIds, {
+      selectedRowData: allIds.map((t) => selectedRowDataMapRef.current.get(t)),
+      type: shouldSelectAll ? 'check' : 'uncheck',
+      currentRowKey: 'CHECK_ALL_BOX',
+    });
   }
 
-  function getSelectedHeader() {
+  function renderCheckAll() {
     return () => {
-      const isIndeterminate =
-        // 一些可见的行已被选中，但不是全部
-        (intersectionKeys.length > 0 && intersectionKeys.length < canSelectedRows.length) ||
-        // 某些被选中的行不可见（例如折叠的树子节点）
-        intersectionKeys.length < tSelectedRowKeys.length;
+      const allCurrentRowKeys = currentRows?.map((row) => get(row, rowKey)) || [];
+      const allCurrentRowKeysSet = new Set(allCurrentRowKeys);
+
+      const selectedInCurrentData = tSelectedRowKeys.filter((key) => allCurrentRowKeysSet.has(key));
+      const selectedSelectableKeysSet = new Set(selectedSelectableKeys);
+      const selectedDisabledRows = selectedInCurrentData.filter((key) => !selectedSelectableKeysSet.has(key));
+
+      const selectedNotInCurrentData = reserveSelectedRowOnPaginate
+        ? 0
+        : tSelectedRowKeys.length - selectedInCurrentData.length;
+
       const isChecked =
-        canSelectedRows.length !== 0 &&
-        intersectionKeys.length === canSelectedRows.length &&
-        // 确保所有已选中的行都是可见的（没有被折叠而隐藏的选中项）
-        intersectionKeys.length === tSelectedRowKeys.length;
+        selectableRows.length !== 0 &&
+        selectedSelectableKeys.length === selectableRows.length &&
+        selectedNotInCurrentData === 0 &&
+        selectedDisabledRows.length === 0;
+
+      const isIndeterminate =
+        !isChecked &&
+        (selectedSelectableKeys.length > 0 || selectedNotInCurrentData > 0 || selectedDisabledRows.length > 0);
+
       return (
         <Checkbox
           checked={isChecked}
           indeterminate={isIndeterminate}
-          disabled={!canSelectedRows.length}
+          disabled={!selectableRows.length}
           onChange={handleSelectAll}
         />
       );
@@ -116,7 +158,7 @@ export default function useRowSelect(
 
   function renderSelectCell(p: PrimaryTableCellParams<TableRowData>) {
     const { col: column, row = {} } = p;
-    const checked = tSelectedRowKeys.includes(get(row, rowKey || 'id'));
+    const checked = selectedRowKeysSet.has(get(row, rowKey));
     const { disabled, checkProps } = getRowSelectDisabledData(p);
     const selectBoxProps = {
       checked,
@@ -150,35 +192,22 @@ export default function useRowSelect(
 
   function handleSelectChange(row: TableRowData = {}) {
     let selectedRowKeys = [...tSelectedRowKeys];
-    const reRowKey = rowKey || 'id';
-    const id = get(row, reRowKey);
-    const selectedRowIndex = selectedRowKeys.indexOf(id);
+    const rowId = get(row, rowKey);
+    const selectedRowIndex = selectedRowKeys.indexOf(rowId);
     const isExisted = selectedRowIndex !== -1;
     if (selectColumn.type === 'multiple') {
-      isExisted ? selectedRowKeys.splice(selectedRowIndex, 1) : selectedRowKeys.push(id);
+      isExisted ? selectedRowKeys.splice(selectedRowIndex, 1) : selectedRowKeys.push(rowId);
     } else if (selectColumn.type === 'single') {
-      selectedRowKeys = isExisted && allowUncheck ? [] : [id];
+      selectedRowKeys = isExisted && allowUncheck ? [] : [rowId];
     } else {
       log.warn('Table', '`column.type` must be one of `multiple` and `single`');
       return;
     }
     setTSelectedRowKeys(selectedRowKeys, {
-      selectedRowData: selectedRowKeys.map((t) => selectedRowDataMap.get(t)),
-      currentRowKey: id,
+      selectedRowData: selectedRowKeys.map((t) => selectedRowDataMapRef.current.get(t)),
+      currentRowKey: rowId,
       currentRowData: row,
       type: isExisted ? 'uncheck' : 'check',
-    });
-  }
-
-  function handleSelectAll(checked: boolean) {
-    const reRowKey = rowKey || 'id';
-    const canSelectedRowKeys = canSelectedRows.map((record) => get(record, reRowKey));
-    const disabledSelectedRowKeys = selectedRowKeys?.filter((id) => !canSelectedRowKeys.includes(id)) || [];
-    const allIds = checked ? [...disabledSelectedRowKeys, ...canSelectedRowKeys] : [...disabledSelectedRowKeys];
-    setTSelectedRowKeys(allIds, {
-      selectedRowData: checked ? allIds.map((t) => selectedRowDataMap.get(t)) : [],
-      type: checked ? 'check' : 'uncheck',
-      currentRowKey: 'CHECK_ALL_BOX',
     });
   }
 
@@ -190,11 +219,11 @@ export default function useRowSelect(
       width: col.width || 64,
       className: tableSelectedClasses.checkCell,
       cell: (p: PrimaryTableCellParams<TableRowData>) => renderSelectCell(p),
-      title: col.type === 'multiple' ? getSelectedHeader() : col.title,
+      title: col.type === 'multiple' ? renderCheckAll() : col.title,
     };
   }
 
-  const onInnerSelectRowClick: TdPrimaryTableProps['onRowClick'] = ({ row, index }) => {
+  const onInnerSelectRowClick: InternalPrimaryTableProps['onRowClick'] = ({ row, index }) => {
     const selectedColIndex = props.columns.findIndex((item) => item.colKey === 'row-select');
     if (selectedColIndex === -1) return;
     const { disabled } = getRowSelectDisabledData({
@@ -208,9 +237,12 @@ export default function useRowSelect(
   };
 
   useEffect(() => {
+    const newMap = new Map<string | number, TableRowData>();
     for (let i = 0, len = data.length; i < len; i++) {
-      selectedRowDataMap.set(get(data[i], rowKey || 'id'), data[i]);
+      const key = get(data[i], rowKey);
+      newMap.set(key, data[i]);
     }
+    selectedRowDataMapRef.current = newMap;
   }, [data, rowKey]);
 
   return {

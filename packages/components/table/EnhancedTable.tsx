@@ -1,13 +1,14 @@
 import React, { RefAttributes, forwardRef, useImperativeHandle, useRef } from 'react';
 import { get } from 'lodash-es';
-import PrimaryTable from './PrimaryTable';
-import { PrimaryTableCol, TableRowData, DragSortContext, TdPrimaryTableProps } from './type';
+
+import useConfig from '../hooks/useConfig';
 import useTreeData from './hooks/useTreeData';
 import useTreeSelect from './hooks/useTreeSelect';
-import { EnhancedTableProps, EnhancedTableRef, PrimaryTableProps } from './interface';
-import useConfig from '../hooks/useConfig';
+import PrimaryTable, { type InternalPrimaryTableProps } from './PrimaryTable';
 
-import { StyledProps } from '../common';
+import type { StyledProps } from '../common';
+import type { EnhancedTableProps, EnhancedTableRef } from './interface';
+import type { DragSortContext, PrimaryTableCol, TableRowData, TdPrimaryTableProps } from './type';
 
 export interface TEnhancedTableProps extends EnhancedTableProps, StyledProps {}
 
@@ -78,14 +79,17 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
     props.onDragSort?.(params);
   };
 
-  const primaryTableProps: PrimaryTableProps = {
+  const isTreeData = Boolean(tree && Object.keys(tree).length);
+  const primaryTableProps: InternalPrimaryTableProps = {
     ...props,
     data: dataSource,
     columns: tColumns,
     // 半选状态节点
     indeterminateSelectedRowKeys: tIndeterminateSelectedRowKeys,
     // 树形结构不允许本地数据分页
-    disableDataPage: Boolean(tree && Object.keys(tree).length),
+    disableDataPage: isTreeData,
+    reserveSelectedRowOnPaginate: isTreeData ? true : props.reserveSelectedRowOnPaginate,
+    treeDataMap: isTreeData ? treeDataMap : undefined,
     onSelectChange: onInnerSelectChange,
     onDragSort: onDragSortChange,
     rowClassName: ({ row }) => {
