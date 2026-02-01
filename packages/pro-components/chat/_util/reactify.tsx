@@ -66,6 +66,14 @@ const reactify = <T extends AnyProps = AnyProps>(
       this.ref.current?.addEventListener(event, val);
     }
 
+    // 根据shadow DOM中实际存在的slot解析正确的slot名
+    private resolveSlotName(prop: string) {
+      const baseName = prop.endsWith('Slot') ? prop.slice(0, -4) : prop;
+      const kebabName = hyphenate(baseName);
+      const hasKebabSlot = this.ref.current?.shadowRoot?.querySelector(`slot[name="${kebabName}"]`) !== null;
+      return hasKebabSlot ? kebabName : baseName;
+    }
+
     // 处理slot相关的prop
     handleSlotProp(prop: string, val: any) {
       const webComponent = this.ref.current as any;
@@ -120,15 +128,17 @@ const reactify = <T extends AnyProps = AnyProps>(
       const webComponent = this.ref.current;
       if (!webComponent) return;
 
+      const resolveSlotName = this.resolveSlotName(slotName);
+
       let instance = this.slotInstances.get(slotName);
 
       if (!instance) {
         // 检查是否已经有相同的slot容器存在
-        let container = webComponent.querySelector(`[slot="${slotName}"]`) as HTMLElement;
+        let container = webComponent.querySelector(`[slot="${resolveSlotName}"]`) as HTMLElement;
         if (!container) {
           container = document.createElement('div');
           container.style.display = 'contents';
-          container.setAttribute('slot', slotName);
+          container.setAttribute('slot', resolveSlotName);
           webComponent.appendChild(container);
         }
 
