@@ -433,8 +433,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     }
     // Hack: Affix 组件，marginTop 临时使用 负 margin 定位位置
     const totalMarginTop = tableFootHeight + marginScrollbarWidth;
+    const hasFooter = props.footData?.length || props.footerSummary;
     const affixedFooter = Boolean(
-      (virtualConfig.isVirtualScroll || props.footerAffixedBottom) && props.footData?.length && tableWidth.current,
+      (virtualConfig.isVirtualScroll || props.footerAffixedBottom) && hasFooter && tableWidth.current,
     ) && (
       <Affix
         className={tableBaseClass.affixedFooterWrap}
