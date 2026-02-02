@@ -158,7 +158,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   }
 
   const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!showOverlay || isModeless || isInputInteracting) return;
+    if (!showOverlay || isModeless || isInputInteracting.current) return;
     // 判断点击事件初次点击是否为内容区域
     if (contentClickRef.current) {
       contentClickRef.current = false;
@@ -297,7 +297,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
                   ref={dialogCardRef}
                   {...restState}
                   mode={mode}
-                  className={dialogClassName}
+                  className={classNames(dialogClassName)}
                   style={{ ...style, width: pxCompat(width || style?.width) }}
                   onConfirm={onConfirm}
                   onCancel={handleCancel}

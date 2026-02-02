@@ -5,6 +5,28 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.16.5 `2026-01-28`
+
+### 🚀 Features
+
+- `Dialog`: 增强 `dialogClassName` 属性以支持多种格式 @RSS1102 ([#4096](https://github.com/Tencent/tdesign-react/pull/4096))
+- `Icon`: 新增 217 个与人工智能、文档、徽标和文件相关的图标 @uyarn  ([#4097](https://github.com/Tencent/tdesign-react/pull/4097))
+- `ImageViewer`: 添加 `innerClassName`，内容部分的类名，支持多种格式 @RSS1102 ([#4087](https://github.com/Tencent/tdesign-react/pull/4087))
+
+### 🐞 Bug Fixes
+
+- `Cascader`: 修复在弹出层可见期间，滚动位置被意外更新的问题 @RylanBot ([#4094](https://github.com/Tencent/tdesign-react/pull/4094))
+- `Dialog`: 修复 `1.16.4` 版本导致点击蒙层时，`onOverlayClick` 和 `onClose` 无法触发的问题 @RylanBot ([#4098](https://github.com/Tencent/tdesign-react/pull/4098))
+- `ImageViewer`: 修复 `className` 和 `style` 属性失效的问题 @RSS1102 ([#4087](https://github.com/Tencent/tdesign-react/pull/4087))
+- `Popup`: 
+  - 修复 `trigger="hover"` 且弹层与触发元素间距较大时，鼠标还未移入弹层就关闭的问题 @RylanBot ([#4100](https://github.com/Tencent/tdesign-react/pull/4100))
+  - 修复组件嵌套使用时的关闭逻辑 @uyarn ([#4099](https://github.com/Tencent/tdesign-react/pull/4099))
+- `Typography`: 修复开启 `ellipsis` 时，将一个完整英文单词切割放在两行的问题 @RylanBot ([#3997](https://github.com/Tencent/tdesign-react/pull/3997))
+
+### 🚧 Others
+
+- `Popup`: 优化开启 `destroyOnClose` 时的内部状态，确保逻辑正常 @uyarn ([#4099](https://github.com/Tencent/tdesign-react/pull/4099))
+
 ## 🌈 1.16.4 `2026-01-16`
 
 ### 🚀 Features
@@ -17,9 +39,7 @@ spline: explain
 
 ### 🐞 Bug Fixes
 
-- `Cascader`: 
-  - 修复在弹出层可见期间，滚动位置被意外更新的问题 @RylanBot ([#4062](https://github.com/Tencent/tdesign-react/pull/4062))
-  - 优化 Safari 浏览器中点击展开图标没有变换方向的问题 @liweijie0812 ([#4056](https://github.com/Tencent/tdesign-react/pull/4056))
+- `Cascader`: 优化 Safari 浏览器中点击展开图标没有变换方向的问题 @liweijie0812 ([#4056](https://github.com/Tencent/tdesign-react/pull/4056))
 - `Dialog`: 
   - 修复 `closeOnOverlayClick` 为 `false` 时，`onOverlayClick` 无法触发的问题 @TidySongS ([#4065](https://github.com/Tencent/tdesign-react/pull/4065))
   - 修复 `mode="modeless"` 的弹窗，点击空白地方会被关闭的问题 @RylanBot ([#3950](https://github.com/Tencent/tdesign-react/pull/3950))
@@ -836,8 +856,8 @@ spline: explain
 
 ### 🐞 Bug Fixes
 
-- `Select`: 修复`valueDisplay`下的`onClose`回调问题 @uyarn ([#3154](https://github.com/Tencent/tdesign-react/pull/3154))
-- `Typography`: 修复 `Typography` 的`Ellipsis` 功能在中文下的问题 @HaixingOoO ([#3158](https://github.com/Tencent/tdesign-react/pull/3158))
+- `Select`: 修复 `valueDisplay` 下的 `onClose` 回调问题 @uyarn ([#3154](https://github.com/Tencent/tdesign-react/pull/3154))
+- `Typography`: 修复 `ellipsis` 功能在中文下的问题 @HaixingOoO ([#3158](https://github.com/Tencent/tdesign-react/pull/3158))
 - `Form`: 修复 `FormList` 或 `FormItem` 数据中的 `getFieldsValue` 问题 @HaixingOoO ([#3149](https://github.com/Tencent/tdesign-react/pull/3149))
 - `Form`: 修复动态渲染表单无法使用 `setFieldsValue` 预设数据的问题 @l123wx ([#3145](https://github.com/Tencent/tdesign-react/pull/3145))
 - `lib`: 修复`1.9.2`升级依赖改动导致`lib`错误携带`style`导致在`next`下不可用的异常 @honkinglin ([#3165](https://github.com/Tencent/tdesign-react/pull/3165))

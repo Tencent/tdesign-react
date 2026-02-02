@@ -22,7 +22,18 @@ export interface ImageViewerProps extends TdImageViewerProps, StyledProps {}
 
 const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
   const props = useDefaultProps<ImageViewerProps>(originalProps, imageViewerDefaultProps);
-  const { attach, mode, trigger, images, title, imageScale: imageScaleD, viewerScale: viewerScaleD } = props;
+  const {
+    attach,
+    mode,
+    trigger,
+    images,
+    title,
+    imageScale: imageScaleD,
+    viewerScale: viewerScaleD,
+    className,
+    style,
+    innerClassName,
+  } = props;
 
   const imageViewerAttach = useAttach('imageViewer', attach);
   const [visible, setVisible] = useControlled(props, 'visible', (visible, context) => {
@@ -88,6 +99,7 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
       {(visibled || visible) &&
         createPortal(
           <ImageModal
+            innerClassName={innerClassName}
             title={title}
             visible={visible}
             images={imageList}
@@ -107,6 +119,8 @@ const ImageViewer: React.FC<ImageViewerProps> = (originalProps) => {
             onClose={close}
             onOpen={open}
             imageReferrerpolicy={props.imageReferrerpolicy}
+            className={className}
+            style={style}
           />,
           attachElement,
         )}
