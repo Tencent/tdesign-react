@@ -1,15 +1,13 @@
-// 行选中相关功能：单选 + 多选
 import React, { MouseEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { get, isFunction } from 'lodash-es';
 
 import log from '@tdesign/common-js/log/index';
 import { isRowSelectedDisabled } from '@tdesign/common-js/table/utils';
 import Checkbox from '../../checkbox';
-import { ClassName } from '../../common';
 import useControlled from '../../hooks/useControlled';
 import Radio from '../../radio';
-import { TableClassName } from './useClassName';
 
+import type { ClassName } from '../../common';
 import type { InternalPrimaryTableProps } from '../PrimaryTable';
 import type {
   PrimaryTableCellParams,
@@ -18,6 +16,7 @@ import type {
   TableRowData,
   TdBaseTableProps,
 } from '../type';
+import type { TableClassName } from './useClassName';
 
 export default function useRowSelect(
   props: InternalPrimaryTableProps,
@@ -51,15 +50,17 @@ export default function useRowSelect(
 
   const currentRows = useMemo(() => allTreeRows || currentPaginateData, [allTreeRows, currentPaginateData]);
 
-  const selectableRows = useMemo(
+  // 未禁用行
+  const enabledRows = useMemo(
     () => currentRows?.filter((row, rowIndex) => !isRowSelectedDisabled(selectColumn, row, rowIndex)) || [],
     [currentRows, selectColumn],
   );
 
-  const selectedSelectableKeys = useMemo(() => {
-    const selectableRowKeys = new Set(selectableRows.map((t) => get(t, rowKey)));
+  // 已选中的未禁用行
+  const selectedEnabledKeys = useMemo(() => {
+    const selectableRowKeys = new Set(enabledRows.map((t) => get(t, rowKey)));
     return tSelectedRowKeys.filter((key) => selectableRowKeys.has(key));
-  }, [tSelectedRowKeys, selectableRows, rowKey]);
+  }, [tSelectedRowKeys, enabledRows, rowKey]);
 
   useEffect(
     () => {
@@ -90,23 +91,29 @@ export default function useRowSelect(
   }, [selectColumn, tSelectedRowKeys, selectedRowKeysSet, rowKey, tableSelectedClasses]);
 
   function handleSelectAll(checked: boolean) {
-    const selectableRowKeys = selectableRows.map((record) => get(record, rowKey));
-    const selectableRowKeysSet = new Set(selectableRowKeys);
+    const enabledRowKeys = enabledRows.map((record) => get(record, rowKey));
+    const enabledRowKeysSet = new Set(enabledRowKeys);
 
-    const selectedDisabledRowKeys = tSelectedRowKeys.filter((id) => !selectableRowKeysSet.has(id));
+    const selectedDisabledRowKeys = tSelectedRowKeys.filter((id) => !enabledRowKeysSet.has(id));
     const indeterminateKeysInSelected = indeterminateSelectedRowKeys?.filter((id) => selectedRowKeysSet.has(id)) || [];
 
-    const selectedSelectableKeysSet = new Set(selectedSelectableKeys);
-    const allSelectableRowsSelected = selectableRowKeys.every((key) => selectedSelectableKeysSet.has(key));
-    const hasDisabledSelected = selectedDisabledRowKeys.length > 0;
-    const shouldSelectAll = hasDisabledSelected && allSelectableRowsSelected ? false : checked;
+    const selectedEnabledKeysSet = new Set(selectedEnabledKeys);
+    const allEnabledRowsSelected = enabledRowKeys.every((key) => selectedEnabledKeysSet.has(key));
 
-    const allIds = shouldSelectAll
-      ? [...selectedDisabledRowKeys, ...selectableRowKeys, ...indeterminateKeysInSelected]
+    const hasDisabledRows = enabledRows.length < currentRows.length;
+
+    // 节点为半选状态时，再次点击：
+    // 1) 所有未禁用项都被选中 -> uncheck
+    // 2) 仍存在可选项 -> check
+    // 才能确保状态的来回切换
+    const shouldSelectAll = hasDisabledRows && allEnabledRowsSelected ? false : checked;
+
+    const keys = shouldSelectAll
+      ? [...selectedDisabledRowKeys, ...enabledRowKeys, ...indeterminateKeysInSelected]
       : [...selectedDisabledRowKeys, ...indeterminateKeysInSelected];
 
-    setTSelectedRowKeys(allIds, {
-      selectedRowData: allIds.map((t) => selectedRowDataMapRef.current.get(t)),
+    setTSelectedRowKeys(keys, {
+      selectedRowData: keys.map((t) => selectedRowDataMapRef.current.get(t)),
       type: shouldSelectAll ? 'check' : 'uncheck',
       currentRowKey: 'CHECK_ALL_BOX',
     });
@@ -118,28 +125,30 @@ export default function useRowSelect(
       const allCurrentRowKeysSet = new Set(allCurrentRowKeys);
 
       const selectedInCurrentData = tSelectedRowKeys.filter((key) => allCurrentRowKeysSet.has(key));
-      const selectedSelectableKeysSet = new Set(selectedSelectableKeys);
-      const selectedDisabledRows = selectedInCurrentData.filter((key) => !selectedSelectableKeysSet.has(key));
 
       const selectedNotInCurrentData = reserveSelectedRowOnPaginate
         ? 0
         : tSelectedRowKeys.length - selectedInCurrentData.length;
 
+      const disabledRows =
+        currentRows?.filter((row, rowIndex) => isRowSelectedDisabled(selectColumn, row, rowIndex)) || [];
+      const disabledRowKeys = disabledRows.map((row) => get(row, rowKey));
+      const selectedDisabledKeys = disabledRowKeys.filter((key) => selectedRowKeysSet.has(key));
+
+      const allEnabledSelected = enabledRows.length > 0 && selectedEnabledKeys.length === enabledRows.length;
+      const allDisabledSelected =
+        disabledRowKeys.length === 0 || selectedDisabledKeys.length === disabledRowKeys.length;
+
       const isChecked =
-        selectableRows.length !== 0 &&
-        selectedSelectableKeys.length === selectableRows.length &&
-        selectedNotInCurrentData === 0 &&
-        selectedDisabledRows.length === 0;
+        currentRows.length !== 0 && allEnabledSelected && allDisabledSelected && selectedNotInCurrentData === 0;
 
       const isIndeterminate =
-        !isChecked &&
-        (selectedSelectableKeys.length > 0 || selectedNotInCurrentData > 0 || selectedDisabledRows.length > 0);
-
+        currentRows.length !== 0 && !isChecked && (selectedInCurrentData.length > 0 || selectedNotInCurrentData > 0);
       return (
         <Checkbox
           checked={isChecked}
           indeterminate={isIndeterminate}
-          disabled={!selectableRows.length}
+          disabled={!enabledRows.length}
           onChange={handleSelectAll}
         />
       );

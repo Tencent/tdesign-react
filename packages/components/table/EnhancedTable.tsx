@@ -20,10 +20,11 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
   // treeInstanceFunctions 属于对外暴露的 Ref 方法
   const { store, dataSource, formatTreeColumn, swapData, onExpandFoldIconClick, ...treeInstanceFunctions } =
     useTreeData(props);
-
   const treeDataMap = store?.treeDataMap;
 
-  const { tIndeterminateSelectedRowKeys, onInnerSelectChange } = useTreeSelect(props, treeDataMap);
+  const { innerIndeterminateSelectedRowKeys, innerSelectedRowKeys, onInnerSelectChange } = useTreeSelect(props, {
+    treeDataMap,
+  });
 
   // 影响列和单元格内容的因素有：树形节点需要添加操作符 [+] [-]
   const getColumns = (columns: PrimaryTableCol<TableRowData>[]) => {
@@ -84,8 +85,8 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
     ...props,
     data: dataSource,
     columns: tColumns,
-    // 半选状态节点
-    indeterminateSelectedRowKeys: tIndeterminateSelectedRowKeys,
+    selectedRowKeys: isTreeData ? innerSelectedRowKeys : props.selectedRowKeys,
+    indeterminateSelectedRowKeys: innerIndeterminateSelectedRowKeys,
     // 树形结构不允许本地数据分页
     disableDataPage: isTreeData,
     reserveSelectedRowOnPaginate: isTreeData ? true : props.reserveSelectedRowOnPaginate,
