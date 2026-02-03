@@ -2,12 +2,9 @@ import React, { forwardRef, ReactNode, RefAttributes, useImperativeHandle, useRe
 import classNames from 'classnames';
 import { get } from 'lodash-es';
 
+import type { TableTreeDataMap } from '@tdesign/common-js/table/tree-store';
 
-import { TableTreeDataMap } from '@tdesign/common-js/table/tree-store';
-import { CheckboxGroupValue } from '../checkbox';
-import { StyledProps } from '../common';
 import useDefaultProps from '../hooks/useDefaultProps';
-import { PageInfo, PaginationProps } from '../pagination';
 import BaseTable from './BaseTable';
 import { primaryTableDefaultProps } from './defaultProps';
 import EditableCell, { type EditableCellProps } from './EditableCell';
@@ -23,6 +20,9 @@ import useSorter from './hooks/useSorter';
 import useStyle from './hooks/useStyle';
 import useTableHeader, { renderTitle } from './hooks/useTableHeader';
 
+import type { CheckboxGroupValue } from '../checkbox';
+import type { StyledProps } from '../common';
+import type { PageInfo, PaginationProps } from '../pagination';
 import type { BaseTableProps, PrimaryTableProps, PrimaryTableRef } from './interface';
 import type { PrimaryTableCellParams, PrimaryTableCol, TableRowData, TdPrimaryTableProps } from './type';
 
@@ -35,7 +35,7 @@ export interface InternalPrimaryTableProps extends PrimaryTableProps, StyledProp
 const PrimaryTable = forwardRef<PrimaryTableRef, InternalPrimaryTableProps>((originalProps, ref) => {
   const props = useDefaultProps<InternalPrimaryTableProps>(originalProps, primaryTableDefaultProps);
   const { columns, columnController, editableRowKeys, style, className } = props;
-  
+
   const primaryTableRef = useRef(null);
   const innerPagination = useRef<PaginationProps>(props.pagination);
   const { classPrefix, tableDraggableClasses, tableBaseClass, tableSelectedClasses, tableSortClasses } = useClassName();
