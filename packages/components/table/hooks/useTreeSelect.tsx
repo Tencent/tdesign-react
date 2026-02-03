@@ -23,13 +23,9 @@ export function getChildrenData(
 
   if (!children || !children.length) return result;
 
-  const selectableChildren = children.filter((item: TableRowData) => {
-    const itemKey = get(item, keys.rowKey);
-    const mapValue = treeDataMap.get(itemKey);
-    return !mapValue?.disabled;
-  });
+  const enabledChildren = children.filter((item: TableRowData) => !treeDataMap.get(get(item, keys.rowKey))?.disabled);
 
-  result.allChildren = [...new Set(result.allChildren.concat(selectableChildren))];
+  result.allChildren = [...new Set(result.allChildren.concat(enabledChildren))];
 
   for (let i = 0, len = children.length; i < len; i++) {
     const tItem = children[i];
@@ -96,10 +92,7 @@ export function getRowDataByKeys(p: GetRowDataParams) {
   const result = [];
   for (let i = 0, len = selectedRowKeys.length; i < len; i++) {
     const key = selectedRowKeys[i];
-    const nodeState = treeDataMap.get(key);
-    if (nodeState?.row) {
-      result.push(nodeState.row);
-    }
+    result.push(treeDataMap.get(key));
   }
   return result;
 }
