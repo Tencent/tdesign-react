@@ -32,6 +32,13 @@ export const docs = [
         path: '/react-chat/agui',
         component: () => import('./docs/agui.md'),
       },
+      {
+        title: '生成式UI支持',
+        titleEn: 'genui',
+        name: 'genui',
+        path: '/react-chat/genui',
+        component: () => import('./docs/genui.md'),
+      },
     ],
   },
   {

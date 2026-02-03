@@ -153,6 +153,7 @@
     "@tdesign/pro-components-chat": "workspace:^",
     "@tdesign/react-site": "workspace:^",
     "expr-eval": "^2.0.2",
-    "tdesign-react": "workspace:^"
+    "tdesign-react": "workspace:^",
+    "tdesign-web-components": "https://pkg.pr.new/TDesignOteam/tdesign-web-components@359"
   }
 }

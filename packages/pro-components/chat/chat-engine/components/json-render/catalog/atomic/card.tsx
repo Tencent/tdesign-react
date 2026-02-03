@@ -5,7 +5,7 @@
 import React from 'react';
 import { Card } from 'tdesign-react';
 import type { CardProps } from 'tdesign-react';
-import type { ComponentRenderProps } from '../../renderer/JsonUIRenderer';
+import { ComponentRenderProps } from '../../types';
 
 /**
  * json-render Card 组件
