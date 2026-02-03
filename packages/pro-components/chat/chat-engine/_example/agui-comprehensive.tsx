@@ -4,22 +4,23 @@ import {
   ChatList,
   ChatSender,
   ChatMessage,
-  TdChatListApi,
-  TdChatSenderApi,
   ToolCallRenderer,
   useAgentToolcall,
+  useAgentActivity,
   useChat,
   useAgentState,
   isToolCallContent,
+  ActivityRenderer,
+  isActivityContent,
 } from '@tdesign-react/chat';
-import { CheckCircleFilledIcon, TimeFilledIcon, ErrorCircleFilledIcon, LoadingIcon } from 'tdesign-icons-react';
+import { CheckCircleFilledIcon, TimeFilledIcon, ErrorCircleFilledIcon, LoadingIcon, StarFilledIcon } from 'tdesign-icons-react';
 import type {
-  TdChatMessageConfig,
-  TdChatSenderParams,
   ChatMessagesData,
   ChatRequestParams,
   ToolCall,
   ToolcallComponentProps,
+  ActivityComponentProps,
+  AIMessageContent,
 } from '@tdesign-react/chat';
 
 // ==================== 类型定义 ====================
@@ -47,6 +48,22 @@ interface UserPreferencesResponse {
   budget: number;
   interests: string[];
   accommodation: string;
+}
+
+// Activity 相关类型
+interface HotelOption {
+  id: string;
+  name: string;
+  price: number;
+  rating: number;
+  image: string;
+  amenities: string[];
+}
+
+interface BookingConfirmation {
+  hotelId: string;
+  roomType: string;
+  totalPrice: number;
 }
 
 // ==================== 工具组件 ====================
@@ -145,7 +162,7 @@ const UserPreferencesForm: React.FC<ToolcallComponentProps<UserPreferencesArgs, 
           <div style={{ marginBottom: 4, fontSize: 12 }}>预算（元）</div>
           <Input
             type="number"
-            value={budget}
+            value={String(budget)}
             onChange={(value: string | number) => setBudget(Number(value))}
             placeholder="请输入预算"
           />
@@ -180,6 +197,101 @@ const UserPreferencesForm: React.FC<ToolcallComponentProps<UserPreferencesArgs, 
           确认提交
         </Button>
       </Space>
+    </Card>
+  );
+};
+
+// 4. 酒店预订 Activity 组件（展示 Activity 多步骤交互流程）
+interface HotelBookingActivityContent {
+  currentStep: 'search' | 'select_room' | 'confirm';
+  hotels: HotelOption[];
+  confirmation?: BookingConfirmation;
+}
+
+interface HotelBookingActivityProps extends ActivityComponentProps<HotelBookingActivityContent> {
+  onAction?: (action: { type: string; data: any }) => void;
+}
+
+const HotelBookingActivity: React.FC<HotelBookingActivityProps> = ({
+  content,
+}) => {
+  // 从 content 获取当前步骤和数据
+  const { currentStep, hotels, confirmation } = content;
+
+  // 渲染酒店卡片（纯展示，无交互）
+  const renderHotelCard = (hotel: HotelOption) => (
+    <div
+      key={hotel.id}
+      style={{
+        marginBottom: 12,
+        border: '1px solid #e7e7e7',
+        borderRadius: 8,
+        padding: 12,
+      }}
+    >
+      <div style={{ display: 'flex', gap: 12 }}>
+        <img
+          src={hotel.image}
+          alt={hotel.name}
+          style={{ width: 120, height: 90, objectFit: 'cover', borderRadius: 4 }}
+        />
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>{hotel.name}</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 4 }}>
+            {Array.from({ length: 5 }).map((_, i) => (
+              <StarFilledIcon
+                key={i}
+                style={{
+                  fontSize: 12,
+                  color: i < hotel.rating ? '#faad14' : '#e7e7e7',
+                }}
+              />
+            ))}
+            <span style={{ fontSize: 12, color: '#666', marginLeft: 4 }}>{hotel.rating}分</span>
+          </div>
+          <div style={{ fontSize: 12, color: '#666', marginBottom: 4 }}>
+            {hotel.amenities.slice(0, 3).join(' • ')}
+          </div>
+          <div style={{ fontSize: 16, fontWeight: 600, color: '#e34d59' }}>¥{hotel.price}/晚</div>
+        </div>
+      </div>
+    </div>
+  );
+
+  if (currentStep === 'confirm' && confirmation) {
+    return (
+      <Card bordered style={{ marginTop: 8 }}>
+        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12, color: '#00a870' }}>
+          ✓ 预订成功！
+        </div>
+        <Space direction="vertical" size="small">
+          <div style={{ fontSize: 12, color: '#666' }}>房型：{confirmation.roomType}</div>
+          <div style={{ fontSize: 12, color: '#666' }}>总价：¥{confirmation.totalPrice}</div>
+        </Space>
+      </Card>
+    );
+  }
+
+  return (
+    <Card bordered style={{ marginTop: 8 }}>
+      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>
+        🏨 为您推荐酒店
+      </div>
+
+      {currentStep === 'search' && (
+        <div>
+          {hotels.length > 0 ? (
+            <div>
+              {hotels.map((hotel: HotelOption) => renderHotelCard(hotel))}
+            </div>
+          ) : (
+            <div style={{ textAlign: 'center', padding: 20, color: '#666' }}>
+              <LoadingIcon style={{ fontSize: 16, marginRight: 8 }} />
+              正在搜索酒店...
+            </div>
+          )}
+        </div>
+      )}
     </Card>
   );
 };
@@ -289,23 +401,23 @@ const ProgressPanel: React.FC = () => {
 
 // ==================== 主组件 ====================
 const TravelPlannerContent: React.FC = () => {
-  const listRef = useRef<TdChatListApi & HTMLElement>(null);
-  const inputRef = useRef<TdChatSenderApi & HTMLElement>(null);
+  const listRef = useRef<any>(null);
+  const inputRef = useRef<any>(null);
   const [inputValue, setInputValue] = useState<string>('请为我规划一个北京3日游行程');
 
   // 注册工具配置
   useAgentToolcall([
     {
+      name: 'query_weather',
+      description: '查询目的地天气',
+      parameters: [{ name: 'city', type: 'string', required: true }],
+      component: WeatherCard as any,
+    },
+    {
       name: 'collect_user_preferences',
       description: '收集用户偏好',
       parameters: [{ name: 'destination', type: 'string', required: true }],
       component: UserPreferencesForm as any,
-    },
-    {
-      name: 'query_weather',
-      description: '查询目的地天气',
-      parameters: [{ name: 'city', type: 'string', required: true }],
-      component: WeatherCard,
     },
     {
       name: 'show_planning_steps',
@@ -317,7 +429,16 @@ const TravelPlannerContent: React.FC = () => {
       ],
       component: PlanningSteps as any,
       // 配置 subscribeKey，让组件订阅对应 taskId 的状态
-      subscribeKey: (props) => props.args?.taskId,
+      subscribeKey: (props: any) => props.args?.taskId,
+    },
+  ]);
+
+  // 注册 Activity 组件
+  useAgentActivity([
+    {
+      activityType: 'hotel-booking',
+      component: HotelBookingActivity,
+      description: '酒店预订流程',
     },
   ]);
 
@@ -325,7 +446,7 @@ const TravelPlannerContent: React.FC = () => {
   const { chatEngine, messages, status } = useChat({
     defaultMessages: [],
     chatServiceConfig: {
-      endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/travel-planner',
+      endpoint: 'http://localhost:9001/sse/travel-planner',
       protocol: 'agui',
       stream: true,
       onRequest: (params: ChatRequestParams) => ({
@@ -344,7 +465,7 @@ const TravelPlannerContent: React.FC = () => {
   const senderLoading = useMemo(() => status === 'pending' || status === 'streaming', [status]);
 
   // 消息配置
-  const messageProps: TdChatMessageConfig = {
+  const messageProps: any = {
     user: {
       variant: 'base',
       placement: 'right',
@@ -377,7 +498,8 @@ const TravelPlannerContent: React.FC = () => {
 
   // 渲染消息内容
   const renderMessageContent = useCallback(
-    (item: any, index: number) => {
+    (item: AIMessageContent, index: number) => {
+      // 处理工具调用
       if (isToolCallContent(item)) {
         return (
           <div slot={`${item.type}-${index}`} key={`toolcall-${index}`}>
@@ -385,6 +507,16 @@ const TravelPlannerContent: React.FC = () => {
           </div>
         );
       }
+      
+      // 处理 Activity
+      if (isActivityContent(item)) {
+        return (
+          <div slot={`${item.type}-${index}`} key={`activity-${index}`}>
+            <ActivityRenderer activity={item.data} />
+          </div>
+        );
+      }
+      
       return null;
     },
     [handleToolCallRespond],
@@ -394,7 +526,7 @@ const TravelPlannerContent: React.FC = () => {
     <>{message.content?.map((item: any, index: number) => renderMessageContent(item, index))}</>
   );
 
-  const sendHandler = async (e: CustomEvent<TdChatSenderParams>) => {
+  const sendHandler = async (e: any) => {
     const { value } = e.detail;
     await chatEngine.sendUserMessage({ prompt: value });
     setInputValue('');
@@ -418,7 +550,7 @@ const TravelPlannerContent: React.FC = () => {
           value={inputValue}
           placeholder="请输入您的旅游需求，例如：请为我规划一个北京3日游行程"
           loading={senderLoading}
-          onChange={(e: CustomEvent) => setInputValue(e.detail)}
+          onChange={(e: any) => setInputValue(e.detail)}
           onSend={sendHandler}
           onStop={() => chatEngine.abortChat()}
         />

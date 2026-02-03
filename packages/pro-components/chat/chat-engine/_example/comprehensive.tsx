@@ -68,7 +68,7 @@ export default function Comprehensive() {
     defaultMessages,
     chatServiceConfig: {
       // 对话服务地址
-      endpoint: `https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/normal`,
+      endpoint: `http://localhost:9001/sse/normal`,
       stream: true,
 
       // 流式对话结束

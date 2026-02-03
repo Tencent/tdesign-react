@@ -39,3 +39,5 @@ pnpm-lock.yaml
 
 ## analysis files
 bundle-analysis
+packages/**/chat-engine/core
+.zip

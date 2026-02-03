@@ -188,7 +188,7 @@ export default function ImageGenAgentChat() {
 
   // 创建聊天服务配置
   const createChatServiceConfig = () => ({
-    endpoint: `https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/image-gen`,
+    endpoint: `http://localhost:9001/sse/image-gen`,
     protocol: 'agui' as const,
     stream: true,
     onError: (err: Error | Response) => {
@@ -281,7 +281,7 @@ export default function ImageGenAgentChat() {
         isLast &&
         message.status !== 'stop' && (
           <div slot="actionbar">
-            <ChatLoading animation="dot" />
+            <ChatLoading animation="dots" />
           </div>
         )
       )}

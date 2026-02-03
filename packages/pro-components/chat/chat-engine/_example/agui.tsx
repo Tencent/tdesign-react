@@ -31,7 +31,7 @@ export default function ComponentsBuild() {
     // 聊天服务配置
     chatServiceConfig: {
       // 对话服务地址
-      endpoint: `https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/agui-simple`,
+      endpoint: `http://localhost:9001/sse/agui-simple`,
       // 开启agui协议解析支持
       protocol: 'agui',
       stream: true,
