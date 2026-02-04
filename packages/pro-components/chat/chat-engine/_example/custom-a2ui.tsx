@@ -34,7 +34,7 @@ import {
 import { A2UISurfaceRenderer, defaultComponentRegistry } from '../components/a2ui';
 
 // Mock Server 地址
-const MOCK_SERVER = 'http://localhost:9001';
+const MOCK_SERVER = 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com';
 
 /**
  * 自定义协议消息类型

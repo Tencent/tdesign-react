@@ -26,7 +26,7 @@ import { useChat, useAgentActivity, createA2UIJsonRenderActivityConfig } from '@
 import { MessagePlugin } from 'tdesign-react';
 
 // Mock Server 地址
-const MOCK_SERVER = 'http://localhost:9001';
+const MOCK_SERVER = 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com';
 
 export default function AguiA2UIJsonRenderExample() {
   const [inputValue, setInputValue] = useState('创建一个用户信息表单（A2UI + json-render）');

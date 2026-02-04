@@ -1,0 +1,179 @@
+# TDesign ChatEngine SDK
+
+## Documentation Index
+- [Quick Start](https://tdesign.tencent.com/react-chat/getting-started): Get started with TDesign ChatEngine.
+- [AG-UI Integration](https://tdesign.tencent.com/react-chat/agui): Learn how to integrate with AG-UI protocol.
+- [Generative UI](https://tdesign.tencent.com/react-chat/genui): Explore Generative UI capabilities.
+
+## Project Identity
+A React SDK for building production-ready AI chat applications. It features a headless `ChatEngine` for logic reuse, a `ChatBot` component for rapid development, and native support for the **AG-UI Protocol** and **Generative UI**.
+
+## Core Concepts
+- **ChatEngine**: Headless logic core handling message state, SSE streaming, and event bus.
+- **ChatBot**: All-in-one UI component with built-in rendering for Markdown, Thinking, and Tools.
+- **AG-UI**: Standard protocol for Agent-UI interaction (Tool calls, State sync, Activity).
+- **Generative UI**: AI-generated UI based on **json-render** architecture (Catalog + Registry), supporting both native adjacency-list schema and **A2UI** protocol via adapter.
+
+## Key APIs
+
+### Hooks
+- `useChat(config)`: Initialize chat engine and state. Returns `{ chatEngine, messages, status }`.
+- `useAgentToolcall(config)`: Register custom UI components for AI tool calls.
+- `useAgentActivity(config)`: Register components for dynamic content (Generative UI).
+- `useAgentState(options)`: Subscribe to shared agent state updates.
+
+### Components
+- `<ChatBot />`: Main UI component. Props: `chatServiceConfig`, `headerSlot`, `messageSlot`, etc.
+- `<ChatList />`, `<ChatMessage />`, `<ChatSender />`: Atomic components for custom layouts.
+- `<ToolCallRenderer />`: Renders tool calls based on registered configuration.
+- `<ActivityRenderer />`: Renders generative UI based on registered configuration.
+
+### Configuration Types
+- `ChatServiceConfig`: `{ endpoint: string, protocol: 'agui' | 'custom', stream: boolean, onRequest?, onMessage? }`
+- `AgentToolcallConfig`: `{ name: string, component: ReactComponent, subscribeKey?: fn }`
+- `ActivityConfig`: `{ activityType: string, component: ReactComponent }`
+
+## Minimal Perfect Snippets
+
+### 1. Basic AG-UI Chat
+```tsx
+import { ChatBot } from '@tdesign-react/chat';
+
+export default function App() {
+  return (
+    <ChatBot
+      chatServiceConfig={{
+        endpoint: '/api/chat',
+        protocol: 'agui', // Enables standard agent features
+        stream: true
+      }}
+    />
+  );
+}
+```
+
+### 2. Custom Tool Call Registration
+```tsx
+import { ChatBot, useAgentToolcall } from '@tdesign-react/chat';
+
+// Component receives: args (input), result (output), status (idle/executing/complete/error)
+const WeatherCard = ({ args, result, status }) => (
+  <div className="weather-card">
+    <h4>Weather in {args.city}</h4>
+    {status === 'executing' && <p>Loading...</p>}
+    {result && <p>{result.temp}°C</p>}
+  </div>
+);
+
+export default function App() {
+  // Register tool to match backend tool name
+  useAgentToolcall({ name: 'get_weather', component: WeatherCard });
+  
+  return <ChatBot chatServiceConfig={{ protocol: 'agui', endpoint: '/api/chat' }} />;
+}
+```
+
+### 3. Generative UI (json-render)
+```tsx
+import { ChatBot, useAgentActivity, createJsonRenderActivityConfig, createCustomRegistry } from '@tdesign-react/chat';
+
+// 1. Define how to render components (Registry)
+const registry = createCustomRegistry({
+  StatusCard: ({ element }) => <div>{element.props.title}</div>
+});
+
+// 2. Create config (Catalog is defined on backend/prompt)
+const config = createJsonRenderActivityConfig({
+  activityType: 'json-render',
+  registry
+});
+
+export default function App() {
+  // 3. Register activity
+  useAgentActivity(config);
+  return <ChatBot chatServiceConfig={{ protocol: 'agui', endpoint: '/api/chat' }} />;
+}
+```
+
+### 4. Custom Layout (Headless Mode)
+```tsx
+import { useChat, ChatList, ChatSender } from '@tdesign-react/chat';
+
+export default function CustomChat() {
+  const { chatEngine, messages, status } = useChat({
+    chatServiceConfig: { endpoint: '/api/chat', protocol: 'agui' }
+  });
+
+  return (
+    <div className="flex flex-col h-full">
+      <ChatList>{/* Renders messages automatically */}</ChatList>
+      <ChatSender 
+        loading={status === 'streaming'}
+        onSend={(e) => chatEngine.sendUserMessage({ params: { prompt: e.detail.value } })} 
+      />
+    </div>
+  );
+}
+```
+
+### 5. External State Subscription (Progress Bar)
+```tsx
+import { useAgentState } from '@tdesign-react/chat';
+
+// Renders outside the chat window
+export function GlobalProgress() {
+  // Subscribe to AG-UI STATE_* events
+  const { stateMap } = useAgentState();
+  const taskState = stateMap['current_task']; // Key defined by backend
+
+  if (!taskState) return null;
+  return <ProgressBar value={taskState.progress} label={taskState.status} />;
+}
+```
+
+### 6. Side-Panel Generative UI
+```tsx
+import { useChat, ChatEngineEventType, ActivityRenderer } from '@tdesign-react/chat';
+
+export function SplitViewChat() {
+  const { chatEngine } = useChat({ /* config */ });
+  const [sideContent, setSideContent] = useState(null);
+
+  useEffect(() => {
+    // Listen for specific activity events to render in side panel
+    return chatEngine.eventBus.on(ChatEngineEventType.AGUI_ACTIVITY, (event) => {
+      if (event.activityType === 'dashboard') {
+        setSideContent(event);
+      }
+    });
+  }, [chatEngine]);
+
+  return (
+    <div className="flex">
+      <ChatBot className="flex-1" />
+      {sideContent && (
+        <div className="w-1/3 border-l">
+          <ActivityRenderer activity={sideContent} />
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+### 7. A2UI Protocol Support
+```tsx
+import { useAgentActivity, createA2UIJsonRenderActivityConfig } from '@tdesign-react/chat';
+
+export default function A2UIChat() {
+  // Automatically adapts A2UI protocol to json-render architecture
+  useAgentActivity(createA2UIJsonRenderActivityConfig({
+    activityType: 'a2ui-render', // Backend must send this activityType
+    actionHandlers: {
+      submit: async (data) => console.log('Form submitted:', data)
+    }
+  }));
+
+  return <ChatBot chatServiceConfig={{ protocol: 'agui', endpoint: '/api/chat' }} />;
+}
+```

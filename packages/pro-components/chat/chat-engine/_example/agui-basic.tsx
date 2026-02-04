@@ -25,7 +25,7 @@ export default function AguiBasicExample() {
   const { chatEngine, messages, status } = useChat({
     defaultMessages: [],
     chatServiceConfig: {
-      endpoint: 'http://localhost:9001/sse/agui-simple',
+      endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/agui-simple',
       // 开启 AG-UI 协议解析支持
       protocol: 'agui',
       stream: true,
@@ -54,7 +54,7 @@ export default function AguiBasicExample() {
     const loadHistoryMessages = async () => {
       try {
         const response = await fetch(
-          `http://localhost:9001/api/conversation/history?type=simple`,
+          `https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/api/conversation/history?type=simple`,
         );
         const result = await response.json();
         if (result.success && result.data) {

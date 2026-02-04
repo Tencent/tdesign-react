@@ -28,7 +28,7 @@ import {
 import { StatusCard, ProgressBar, NestedPanel } from './components';
 
 // Mock Server 地址
-const MOCK_SERVER = 'http://localhost:9001';
+const MOCK_SERVER = 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com';
 
 export default function AguiJsonRenderFullCustomExample() {
   const [inputValue, setInputValue] = useState('测试深层嵌套更新');
@@ -266,6 +266,9 @@ export default function AguiJsonRenderFullCustomExample() {
         <h3 style={{ margin: 0, fontSize: '16px' }}>完整自定义组件 + json-render 演示</h3>
         <p style={{ margin: '4px 0 0', fontSize: '12px', color: 'var(--td-text-color-secondary)' }}>
           演示 Catalog（约束层）+ ComponentRegistry（渲染层）完整架构
+        </p>
+        <p style={{ margin: '4px 0 0', fontSize: '12px', color: 'var(--td-text-color-secondary)' }}>
+          尝试输入不同提示词，来查看渐进式生成效果：“表单”，“名片“, ”深层嵌套“
         </p>
         {currentStage && (
           <div

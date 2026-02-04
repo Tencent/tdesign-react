@@ -26,7 +26,7 @@ import {
 import { StatusCard, ProgressBar } from './components';
 
 // Mock Server 地址
-const MOCK_SERVER = 'http://localhost:9001';
+const MOCK_SERVER = 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com';
 
 export default function AguiJsonRenderExternalPanelExample() {
   const [inputValue, setInputValue] = useState('创建一个任务进度表单，包含状态卡片和进度条');
