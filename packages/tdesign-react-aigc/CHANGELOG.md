@@ -5,6 +5,23 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.0.2 `2026-02-05`
+
+### 🚀 Features
+
+- `ChatEngine`: 
+  - 支持AG-UI Activity-Snapshot/Delta事件的适配，新增useAgentActivity注册hook，并增加示例 @carolin913 ([#4119](https://github.com/Tencent/tdesign-react/pull/4119))
+  - 增加在无 UI 场景下使用 ChatEngine 事件总线机制，并增加示例 @carolin913 ([#4119](https://github.com/Tencent/tdesign-react/pull/4119))
+  - ToolCallRender 增加错误边界处理 @carolin913 ([#4119](https://github.com/Tencent/tdesign-react/pull/4119))
+  - AG-UI协议下几个Delta事件，支持自动初始化接收无Snapshot情况下SSE Chunk流 @carolin913 ([#4119](https://github.com/Tencent/tdesign-react/pull/4119))
+  - Immutable JSON Patch 性能优化，并支持append操作用来追加字符串 @carolin913 ([#4119](https://github.com/Tencent/tdesign-react/pull/4119))
+- `ChatMarkdown`: 大幅优化依赖CherryMarkdown造成的打包体积膨胀问题，**不再内置highlight代码块样式高亮**，需要业务自行引入配置 @LzhengH @carolin913 ([#4119](https://github.com/Tencent/tdesign-react/pull/4119))
+- `ChatSender`: 支持readyToSend可以接管发送前校验  @LzhengH ([#4119](https://github.com/Tencent/tdesign-react/pull/4119))
+
+### 📝 Documentation
+
+- `ChatEngine`: 增加AI友好型文档：AGENTS.md和llm.txt @carolin913 ([#4119](https://github.com/Tencent/tdesign-react/pull/4119))
+
 ## 🌈 1.0.0 `2026-11-20`
 
 - Release 1st version
