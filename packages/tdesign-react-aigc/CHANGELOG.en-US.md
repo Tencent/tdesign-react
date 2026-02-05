@@ -1,5 +1,5 @@
 ---
-title: 更新日志
+title: Changelog
 docClass: timeline
 toc: false
 spline: explain
