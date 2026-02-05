@@ -446,7 +446,7 @@ const TravelPlannerContent: React.FC = () => {
   const { chatEngine, messages, status } = useChat({
     defaultMessages: [],
     chatServiceConfig: {
-      endpoint: 'http://localhost:9001/sse/travel-planner',
+      endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/travel-planner',
       protocol: 'agui',
       stream: true,
       onRequest: (params: ChatRequestParams) => ({

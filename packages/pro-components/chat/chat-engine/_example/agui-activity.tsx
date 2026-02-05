@@ -274,7 +274,7 @@ const ActivityExample: React.FC = () => {
   const { chatEngine, messages, status } = useChat({
     defaultMessages: [],
     chatServiceConfig: {
-      endpoint: 'http://localhost:9001/sse/agui-activity',
+      endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/agui-activity',
       protocol: 'agui',
       stream: true,
       onRequest: (params) => ({

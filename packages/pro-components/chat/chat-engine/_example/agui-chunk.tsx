@@ -235,9 +235,9 @@ const ModeOptions = [
 
 // 模式对应的 endpoint
 const EndpointMap: Record<string, string> = {
-  text: 'http://localhost:9001/sse/agui-text-chunk',
-  toolcall: 'http://localhost:9001/sse/agui-toolcall-chunk',
-  mixed: 'http://localhost:9001/sse/agui-mixed-chunk',
+  text: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/agui-text-chunk',
+  toolcall: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/agui-toolcall-chunk',
+  mixed: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/agui-mixed-chunk',
 };
 
 const AguiChunkExample: React.FC = () => {

@@ -8,7 +8,7 @@ import {
   useAgentActivity,
   ActivityRenderer,
 } from '@tdesign-react/chat';
-import { Card, Space, Tag, Radio } from 'tdesign-react';
+import { Card, Space, Tag } from 'tdesign-react';
 import { CheckCircleFilledIcon, TimeFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 import type { ActivityComponentProps } from '@tdesign-react/chat';
 
@@ -172,7 +172,7 @@ const ActivityDeltaTest: React.FC = () => {
   const { chatEngine, messages, status } = useChat({
     defaultMessages: [],
     chatServiceConfig: {
-      endpoint: 'http://localhost:9001/sse/agui-activity-delta-test',
+      endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/agui-activity-delta-test',
       protocol: 'agui',
       stream: true,
       onRequest: (params) => ({
