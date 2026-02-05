@@ -29,7 +29,6 @@ ChatEngine 是一个底层对话引擎（Headless Core），提供灵活的 Hook
 ### 初始化消息
 
 使用 `defaultMessages` 设置静态初始化消息，或通过 `chatEngine.setMessages` 动态加载历史消息。
-
 {{ initial-messages }}
 
 ### 数据处理
@@ -49,8 +48,8 @@ ChatEngine 是一个底层对话引擎（Headless Core），提供灵活的 Hook
 ### 实例方法
 
 通过 `chatEngine` 调用[各种方法](#chatengine-实例方法)控制组件行为（消息设置、发送管理等）。
-
 {{ instance-methods }}
+
 
 ### 自定义渲染
 
@@ -78,13 +77,20 @@ ChatEngine 是一个底层对话引擎（Headless Core），提供灵活的 Hook
 {{ comprehensive }}
 
 
+## Headless 事件总线
+
+ChatEngine 内置了事件总线（EventBus），支持在无 UI 场景下进行事件分发，适用于日志监控、跨组件通信、外部系统集成等场景。[支持的事件类型](/react-chat/components/chat-engine?tab=api#支持的事件类型)
+
+{{ headless-eventbus }}
+
+
 ## AG-UI 协议
 
 [AG-UI（Agent-User Interface)](https://docs.ag-ui.com/introduction) 是一个专为 AI Agent 与前端应用交互设计的轻量级协议，专注于实时交互、状态流式传输和人机协作。ChatEngine 内置了对 AG-UI 协议的支持，可以**无缝集成符合 AG-UI 标准的后端服务**。
 
 ### 基础用法
 
-开启 AG-UI 协议支持（`protocol: 'agui'`），组件会自动解析标准事件类型（如 `TEXT_MESSAGE_*`、`THINKING_*`、`TOOL_CALL_*`、`STATE_*` 等）。使用`AGUIAdapter.convertHistoryMessages`方法即可实现符合[`AGUIHistoryMessage`](https://github.com/TDesignOteam/tdesign-web-components/blob/develop/src/chat-engine/adapters/agui/types.ts)数据结构的历史消息回填。
+开启 AG-UI 协议支持（`protocol: 'agui'`），组件会自动解析标准事件类型（如 `TEXT_MESSAGE_*`、`THINKING_*`、`TOOL_CALL_*`、`ACTIVITY_*`、`STATE_*` 等）。使用`AGUIAdapter.convertHistoryMessages`方法即可实现符合[`AGUIHistoryMessage`](https://github.com/TDesignOteam/tdesign-web-components/blob/develop/src/chat-engine/adapters/agui/types.ts)数据结构的历史消息回填。
 
 {{ agui-basic }}
 
@@ -175,34 +181,31 @@ const GlobalProgressBar: React.FC = () => {
 完整示例请参考下方 [综合示例](#综合示例) 演示。
 
 
+### Activity 事件
+
+AG-UI 协议支持通过 `ACTIVITY_*` 事件展示动态内容组件（如实时图表、进度条等）。Activity 专注于**纯展示场景**，通过 `ACTIVITY_SNAPSHOT` 初始化数据，`ACTIVITY_DELTA` 增量更新。
+- **`useAgentActivity`**：注册 Activity 配置（类型、UI 组件）
+- **`ActivityRenderer`**：根据 `activityType` 自动匹配并渲染组件
+- **事件流程**：`ACTIVITY_SNAPSHOT` → `ACTIVITY_DELTA` → `ACTIVITY_DELTA`...
+
+{{ agui-activity }}
+
+
 ### 综合示例
 
-模拟一个完整的**旅游规划 Agent 场景**，演示了如何使用 AG-UI 协议构建复杂的**多步骤任务规划**应用。先收集用户偏好（Human-in-the-Loop），然后根据用户提交的偏好依次执行：查询天气、展示规划步骤的工具调用，最后总结生成最终计划
+模拟一个完整的**旅游规划 Agent 场景**，演示了如何使用 AG-UI 协议构建复杂的**多步骤任务规划**应用。先收集用户偏好（Human-in-the-Loop），然后根据用户提交的偏好依次执行：查询天气、展示规划步骤的工具调用，同时展示实时数据（如股票图表、进度条等 Activity），最后总结生成最终计划
 
 **核心特性：**
-- **16 种标准化事件类型**：完整展示 AG-UI 协议的事件体系
+- **完整事件体系**：展示 AG-UI 协议的所有事件类型，包括 `TEXT_MESSAGE_*`、`THINKING_*`、`TOOL_CALL_*`、`ACTIVITY_*`、`STATE_*` 等
 - **多步骤流程**：支持分步骤执行复杂任务（如旅游规划）
 - **状态流式传输**：实时更新应用状态，支持状态快照和增量更新
 - **Human-in-the-Loop**：支持人机协作，在流程中插入用户输入环节
 - **工具调用**：集成外部工具调用，如天气查询、行程规划等
+- **Activity 展示**：支持动态内容展示，如实时图表、进度条等
 - **外部状态订阅**：演示如何在对话组件外部订阅和展示工具执行状态
 
-**示例要点：**
-
-1. **三种典型工具调用模式**
-   - 天气查询：展示基础的 `TOOL_CALL_*` 事件处理
-   - 规划步骤：展示 `STATE_*` 事件订阅 + `agentState` 自动注入
-   - 用户偏好：展示 Human-in-the-Loop 交互式工具
-
-2. **工具组件内状态使用**
-   - 工具组件通过 `agentState` 参数自动获取状态，无需额外 Hook
-   - 配置 `subscribeKey` 告诉 Renderer 订阅哪个状态 key
-
-3. **外部 UI 状态订阅**
-   - 使用 `useAgentState` 在对话组件外部订阅状态
-   - 实时展示任务执行进度和状态信息
-
 {{ agui-comprehensive }}
+
 
 
 ## API
@@ -229,6 +232,50 @@ const GlobalProgressBar: React.FC = () => {
 ### ChatEngine 实例方法
 
 ChatEngine 实例方法与 Chatbot 组件实例方法完全一致，详见 [Chatbot 实例方法文档](/react-chat/components/chatbot?tab=api#chatbot-实例方法和属性)。
+
+#### eventBus 事件总线
+
+通过 `chatEngine.eventBus` 访问事件总线实例，支持以下方法：
+
+| 方法 | 参数 | 返回值 | 说明 |
+|------|------|--------|------|
+| on | `(event, callback)` | `() => void` | 订阅事件，返回取消订阅函数 |
+| once | `(event, callback)` | `() => void` | 一次性订阅 |
+| off | `(event, callback?)` | `void` | 取消订阅，不传 callback 则取消全部 |
+| emit | `(event, payload)` | `void` | 发布事件 |
+| waitFor | `(event, timeout?)` | `Promise` | 等待事件触发 |
+| waitForMatch | `(event, filter, timeout?)` | `Promise` | 带条件等待 |
+| onCustom | `(eventName, callback)` | `() => void` | 订阅自定义事件 |
+| emitCustom | `(eventName, data)` | `void` | 发布自定义事件 |
+| getHistory | `()` | `EventHistoryItem[]` | 获取事件历史 |
+| clear | `()` | `void` | 清理所有订阅 |
+| destroy | `()` | `void` | 销毁事件总线 |
+
+
+#### 支持的事件类型
+
+| 事件类型 | 事件名 | 说明 | 载荷字段 |
+|---------|--------|------|---------|
+| **生命周期** | | | |
+| ENGINE_INIT | `engine:init` | 引擎初始化完成 | `timestamp` |
+| ENGINE_DESTROY | `engine:destroy` | 引擎销毁 | `timestamp` |
+| **消息事件** | | | |
+| MESSAGE_CREATE | `message:create` | 消息创建 | `message`, `messages` |
+| MESSAGE_UPDATE | `message:update` | 消息更新 | `messageId`, `content`, `message` |
+| MESSAGE_DELETE | `message:delete` | 消息删除 | `messageId`, `messages` |
+| MESSAGE_CLEAR | `message:clear` | 消息清空 | `timestamp` |
+| MESSAGE_STATUS_CHANGE | `message:status` | 消息状态变更 | `messageId`, `status`, `previousStatus` |
+| **请求事件** | | | |
+| REQUEST_START | `request:start` | 请求开始 | `params`, `messageId` |
+| REQUEST_STREAM | `request:stream` | 每次接收到 SSE chunk 时触发（高频） | `messageId`, `chunk`, `content` |
+| REQUEST_COMPLETE | `request:complete` | 请求完成 | `messageId`, `params`, `message` |
+| REQUEST_ERROR | `request:error` | 请求错误 | `messageId`, `error`, `params` |
+| REQUEST_ABORT | `request:abort` | 请求中止 | `messageId`, `params` |
+| **AG-UI 事件** | | | |
+| AGUI_RUN_START | `agui:run:start` | AG-UI 运行开始 | `runId`, `threadId`, `timestamp` |
+| AGUI_RUN_COMPLETE | `agui:run:complete` | AG-UI 运行完成 | `runId`, `threadId`, `timestamp` |
+| AGUI_RUN_ERROR | `agui:run:error` | AG-UI 运行错误 | `error`, `runId` |
+
 
 ### useAgentToolcall
 
@@ -312,3 +359,116 @@ ChatEngine 实例方法与 Chatbot 组件实例方法完全一致，详见 [Chat
 | setStateMap     | (stateMap: Record<string, any> \\| Function) => void | 手动设置状态映射表的方法                 |
 | getCurrentState | () => Record<string, any>                           | 获取当前完整状态的方法                   |
 | getStateByKey   | (key: string) => any                                | 获取特定 key 状态的方法                  |
+
+### useAgentActivity
+
+用于注册 Activity 配置的 Hook，支持自动注册和手动注册两种模式。Activity 专注于纯展示场景，通过流式更新实现动态内容展示。
+
+#### 参数
+
+| 参数名 | 类型                                                              | 说明                                                     | 必传 |
+| ------ | ----------------------------------------------------------------- | -------------------------------------------------------- | ---- |
+| config | ActivityConfig \\| ActivityConfig[] \\| null \\| undefined | Activity 配置对象或数组，传入时自动注册，不传入时手动注册 | N    |
+
+#### 返回值
+
+| 返回值        | 类型                                                           | 说明                     |
+| ------------- | -------------------------------------------------------------- | ------------------------ |
+| register      | (config: ActivityConfig \\| ActivityConfig[]) => void | 手动注册 Activity 配置         |
+| unregister    | (names: string \\| string[]) => void                            | 取消注册 Activity 配置         |
+| isRegistered  | (name: string) => boolean                                      | 检查 Activity 是否已注册       |
+| getRegistered | () => string[]                                                 | 获取所有已注册的 Activity 类型 |
+
+#### ActivityConfig 配置
+
+| 属性名       | 类型                                        | 说明                                       | 必传 |
+| ------------ | ------------------------------------------- | ------------------------------------------ | ---- |
+| activityType | string                                      | Activity 类型名称，需要与后端定义的类型一致 | Y    |
+| description  | string                                      | Activity 描述                               | N   |
+| component    | React.ComponentType<ActivityComponentProps> | 自定义渲染组件                             | Y    |
+
+#### ActivityComponentProps 组件属性
+
+| 属性名       | 类型   | 说明                                |
+| ------------ | ------ | ----------------------------------- |
+| activityType | string | Activity 类型名称                    |
+| content      | any    | Activity 内容数据                    |
+| messageId    | string | 消息 ID                             |
+
+### ActivityRenderer
+
+Activity 的统一渲染组件，负责根据 Activity 类型自动查找配置并渲染对应的 UI 组件。
+
+#### Props
+
+| 属性名   | 类型         | 说明                                           | 必传 |
+| -------- | ------------ | ---------------------------------------------- | ---- |
+| activity | ActivityData | Activity 数据对象，包含 activityType、content、messageId 等信息 | Y    |
+
+#### ActivityData 对象结构
+
+| 属性名       | 类型   | 说明                                |
+| ------------ | ------ | ----------------------------------- |
+| activityType | string | Activity 类型名称                    |
+| content      | any    | Activity 内容数据                    |
+| messageId    | string | 消息 ID                             |
+
+
+## 常见问题
+
+### 回调机制 vs 事件总线如何选择？
+
+ChatEngine 提供了两种机制处理事件：`chatServiceConfig` 中的回调函数和 `eventBus` 事件总线。
+
+| 场景 | 回调机制 | 事件总线 | 说明 |
+|------|:--------:|:--------:|------|
+| 解析 SSE 数据转换为消息内容 | ✅ 推荐 | ❌ | `onMessage` 可 return 值影响消息 |
+| 自定义请求参数/headers | ✅ 推荐 | ❌ | `onRequest` 处理请求配置 |
+| 日志记录和监控 | ⚠️ 可用 | ✅ 推荐 | 事件总线更解耦 |
+| 跨组件状态同步 | ❌ | ✅ 推荐 | 多组件订阅同一事件 |
+| 埋点和数据分析 | ⚠️ 可用 | ✅ 推荐 | 副作用与数据流分离 |
+| 等待特定事件完成（Promise） | ❌ | ✅ 推荐 | `waitFor` 独有能力 |
+
+**简单判断**：
+- **数据转换**用回调（`onMessage`/`onRequest`）—— 可以 return 值影响数据流
+- **副作用处理**用事件总线 —— 日志、统计、通知、跨组件通信
+
+```javascript
+// 推荐：混合使用
+const { chatEngine } = useChat({
+  chatServiceConfig: {
+    // ✅ 回调：数据转换
+    onMessage: (chunk) => ({ type: 'text', data: chunk.data?.content }),
+  },
+});
+
+// ✅ 事件总线：副作用
+useEffect(() => {
+  const unsub = chatEngine.eventBus.on(ChatEngineEventType.REQUEST_COMPLETE, () => {
+    // 埋点、通知等
+  });
+  return unsub;
+}, [chatEngine.eventBus]);
+```
+
+### Activity 和 ToolCall 如何选择？
+
+| 场景 | 推荐 | 理由 |
+|------|------|------|
+| 纯展示类 UI（图表、进度条、数据可视化） | Activity | 轻量、专注展示 |
+| 需要流式增量更新的内容（实时股票、日志流） | Activity | 原生支持 JSON Patch |
+| 需要用户交互的表单收集（Human-in-the-Loop） | ToolCall | 支持 `respond` 回调 |
+| 需要订阅全局 `agentState` 的组件 | ToolCall | 支持 `subscribeKey` |
+| 需要细粒度生命周期控制（idle/executing/complete/error） | ToolCall | 完整状态机 |
+
+**简单判断**：只展示后端数据 → Activity；需要交互或全局状态 → ToolCall。
+
+### 为什么使用 useAgentToolcall 而不是自定义渲染？
+
+| 对比项 | useAgentToolcall | 自定义渲染 |
+|--------|------------------|------------|
+| 配置内聚性 | ✅ 工具定义、参数、UI 集中管理 | ❌ 分散在多处 |
+| 类型安全 | ✅ 完整的 TypeScript 支持 | ⚠️ 需手动维护 |
+| 状态订阅 | ✅ 内置 `subscribeKey` + `agentState` | ❌ 需自行实现 |
+| 可移植性 | ✅ 配置可跨项目复用 | ❌ 与业务代码耦合 |
+| 错误边界 | ✅ 内置保护 | ❌ 需自行添加 |

@@ -82,7 +82,7 @@ const Text = forwardRef<HTMLSpanElement, TypographyTextProps>((originalProps, re
         }
       : {
           text: copyable?.text || children?.toString(),
-          onCopy: copyable?.onCopy?.(),
+          onCopy: copyable?.onCopy,
           tooltipProps: {
             ...copyable?.tooltipProps,
             content: isCopied ? copiedText : copyable?.tooltipProps?.content,

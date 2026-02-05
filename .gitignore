@@ -39,3 +39,11 @@ pnpm-lock.yaml
 
 ## analysis files
 bundle-analysis
+packages/**/chat-engine/core
+packages/**/chat-engine/docs
+packages/**/chatbot/docs
+*.zip
+.codebuddy
+mock-server
+openspec
+.fue
