@@ -41,4 +41,9 @@ pnpm-lock.yaml
 bundle-analysis
 packages/**/chat-engine/core
 packages/**/chat-engine/docs
+packages/**/chatbot/docs
 *.zip
+.codebuddy
+mock-server
+openspec
+.fue

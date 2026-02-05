@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, Component, ErrorInfo } from 'react';
 import isEqual from 'react-fast-compare';
-import { type ActivityData } from 'tdesign-web-components/lib/chat-engine';
+import { type ActivityData } from 'tdesign-web-components';
 import type { ActivityComponentProps } from './types';
 import { activityRegistry } from './registry';
 
