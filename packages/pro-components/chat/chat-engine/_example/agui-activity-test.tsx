@@ -8,7 +8,7 @@ import {
   useAgentActivity,
   ActivityRenderer,
 } from '@tdesign-react/chat';
-import { Card, Space, Tag, Radio } from 'tdesign-react';
+import { Card, Space, Tag } from 'tdesign-react';
 import { CheckCircleFilledIcon, TimeFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 import type { ActivityComponentProps } from '@tdesign-react/chat';
 
