@@ -26,15 +26,11 @@ import {
 import { useChat } from '@tdesign-react/chat';
 import { MessagePlugin } from 'tdesign-react';
 
-import {
-  A2uiMessageProcessor,
-  createA2uiProcessor,
-  type A2UIServerMessage,
-} from '../core/a2ui';
+import { A2uiMessageProcessor, createA2uiProcessor, type A2UIServerMessage } from '../core/a2ui';
 import { A2UISurfaceRenderer, defaultComponentRegistry } from '../components/a2ui';
 
 // Mock Server 地址
-const MOCK_SERVER = 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com';
+const MOCK_SERVER = 'http://localhost:9001';
 
 /**
  * 自定义协议消息类型
@@ -63,10 +59,7 @@ interface CustomA2UIOperation {
 /**
  * 将自定义协议转换为 A2UI v0.9 标准格式
  */
-function convertToA2UIMessages(
-  msg: CustomMessage,
-  initialData?: Record<string, unknown>,
-): A2UIServerMessage[] {
+function convertToA2UIMessages(msg: CustomMessage, initialData?: Record<string, unknown>): A2UIServerMessage[] {
   if (msg.type !== 'a2ui' || !msg.surfaceId) return [];
 
   const messages: A2UIServerMessage[] = [];
@@ -157,9 +150,7 @@ function flattenComponents(root: any): any[] {
     const component = { ...node, id: nodeId };
 
     if (Array.isArray(node.children)) {
-      component.children = node.children.map((child: any) =>
-        typeof child === 'string' ? child : flatten(child),
-      );
+      component.children = node.children.map((child: any) => (typeof child === 'string' ? child : flatten(child)));
     }
 
     if (node.child && typeof node.child === 'object') {
@@ -201,11 +192,7 @@ export default function CustomA2UIExample() {
   const processor = processorRef.current;
 
   // 订阅 processor 状态变化（用于触发重渲染）
-  const surfaceSnapshot = useSyncExternalStore(
-    processor.subscribe,
-    processor.getSnapshot,
-    processor.getServerSnapshot,
-  );
+  const surfaceSnapshot = useSyncExternalStore(processor.subscribe, processor.getSnapshot, processor.getServerSnapshot);
 
   // 自定义消息处理函数
   const handleCustomMessage = useCallback(
@@ -298,9 +285,7 @@ export default function CustomA2UIExample() {
   // 自定义消息渲染
   const renderMessage = (message: ChatMessagesData) => {
     // 检查是否有关联的 A2UI Surface
-    const relatedSurfaceId = Array.from(surfaceMessageMap.entries()).find(
-      ([, msgId]) => msgId === message.id,
-    )?.[0];
+    const relatedSurfaceId = Array.from(surfaceMessageMap.entries()).find(([, msgId]) => msgId === message.id)?.[0];
 
     return (
       <div key={message.id}>
@@ -348,11 +333,7 @@ export default function CustomA2UIExample() {
           .filter((id) => !surfaceMessageMap.has(id))
           .map((surfaceId) => (
             <div key={surfaceId} style={{ marginTop: '16px' }}>
-              <A2UISurfaceRenderer
-                processor={processor}
-                surfaceId={surfaceId}
-                registry={defaultComponentRegistry}
-              />
+              <A2UISurfaceRenderer processor={processor} surfaceId={surfaceId} registry={defaultComponentRegistry} />
             </div>
           ))}
       </ChatList>

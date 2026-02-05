@@ -60,7 +60,7 @@ export default function InitialMessages() {
   const { chatEngine, messages, status } = useChat({
     defaultMessages,
     chatServiceConfig: {
-      endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/normal',
+      endpoint: 'http://localhost:9001/sse/normal',
       stream: true,
       onMessage: (chunk: SSEChunkData): AIMessageContent => {
         const { ...rest } = chunk.data;

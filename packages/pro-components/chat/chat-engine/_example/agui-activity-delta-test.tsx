@@ -14,7 +14,7 @@ import type { ActivityComponentProps } from '@tdesign-react/chat';
 
 /**
  * Activity 纯增量模式验证示例
- * 
+ *
  * 验证没有 ACTIVITY_SNAPSHOT，只有 ACTIVITY_DELTA 的情况下的处理逻辑
  * 基于 text.txt 中的真实数据进行测试
  */
@@ -107,9 +107,7 @@ const NodeLifecycleActivity: React.FC<ActivityComponentProps<NodeLifecycleConten
                 {getStatusText(node.phase)}
               </Tag>
             </div>
-            <div style={{ fontSize: 12, color: '#666' }}>
-              阶段: {node.phase}
-            </div>
+            <div style={{ fontSize: 12, color: '#666' }}>阶段: {node.phase}</div>
           </div>
         )}
 
@@ -123,15 +121,9 @@ const NodeLifecycleActivity: React.FC<ActivityComponentProps<NodeLifecycleConten
                 需要确认
               </Tag>
             </div>
-            <div style={{ fontSize: 12, color: '#666', marginBottom: 4 }}>
-              键: {interrupt.key}
-            </div>
-            <div style={{ fontSize: 12, color: '#666', marginBottom: 4 }}>
-              检查点ID: {interrupt.checkpointId}
-            </div>
-            <div style={{ fontSize: 12, color: '#666', marginBottom: 4 }}>
-              提示: {interrupt.prompt}
-            </div>
+            <div style={{ fontSize: 12, color: '#666', marginBottom: 4 }}>键: {interrupt.key}</div>
+            <div style={{ fontSize: 12, color: '#666', marginBottom: 4 }}>检查点ID: {interrupt.checkpointId}</div>
+            <div style={{ fontSize: 12, color: '#666', marginBottom: 4 }}>提示: {interrupt.prompt}</div>
           </div>
         )}
 
@@ -172,7 +164,7 @@ const ActivityDeltaTest: React.FC = () => {
   const { chatEngine, messages, status } = useChat({
     defaultMessages: [],
     chatServiceConfig: {
-      endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/agui-activity-delta-test',
+      endpoint: 'http://localhost:9001/sse/agui-activity-delta-test',
       protocol: 'agui',
       stream: true,
       onRequest: (params) => ({
@@ -227,7 +219,7 @@ const ActivityDeltaTest: React.FC = () => {
   };
 
   return (
-    <Space direction='vertical' style={{ width: '100%' }}>
+    <Space direction="vertical" style={{ width: '100%' }}>
       <div style={{ marginBottom: '16px', padding: '12px', background: '#f5f5f5', borderRadius: '4px' }}>
         <div style={{ marginBottom: '8px', fontSize: '14px', fontWeight: 500 }}>纯增量模式验证：</div>
         <p style={{ margin: '8px 0', fontSize: '14px', color: '#666' }}>

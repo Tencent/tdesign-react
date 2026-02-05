@@ -26,7 +26,7 @@ import { useChat, useAgentActivity, createA2UIJsonRenderActivityConfig } from '@
 import { MessagePlugin } from 'tdesign-react';
 
 // Mock Server 地址
-const MOCK_SERVER = 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com';
+const MOCK_SERVER = 'http://localhost:9001';
 
 export default function AguiA2UIJsonRenderExample() {
   const [inputValue, setInputValue] = useState('创建一个用户信息表单（A2UI + json-render）');
@@ -48,13 +48,13 @@ export default function AguiA2UIJsonRenderExample() {
           prompt: params.prompt,
           demoMode: true,
         };
-        
+
         // 如果有用户操作消息，添加到请求体
         if ((params as any).userActionMessage) {
           requestBody.userActionMessage = (params as any).userActionMessage;
           console.log('📤 发送用户操作到服务端:', requestBody.userActionMessage);
         }
-        
+
         return {
           body: JSON.stringify(requestBody),
         };
@@ -174,19 +174,19 @@ export default function AguiA2UIJsonRenderExample() {
   return (
     <div style={{ height: '800px', display: 'flex', flexDirection: 'column' }}>
       {/* 标题区域 */}
-      <div
-        style={{ marginBottom: '16px', padding: '12px', background: '#f5f5f5', borderRadius: '4px' }}
-      >
+      <div style={{ marginBottom: '16px', padding: '12px', background: '#f5f5f5', borderRadius: '4px' }}>
         <h3 style={{ margin: 0, fontSize: '16px' }}>AG-UI + A2UI + json-render 集成演示</h3>
         <p style={{ margin: '4px 0 0', fontSize: '12px', color: 'var(--td-text-color-secondary)' }}>
           使用 A2UI 协议定义 UI，通过 json-render 高性能渲染引擎渲染
         </p>
         {currentStage && (
-          <div style={{ 
-            marginTop: '8px', 
-            fontSize: '12px',
-            color: 'var(--td-text-color-primary)'
-          }}>
+          <div
+            style={{
+              marginTop: '8px',
+              fontSize: '12px',
+              color: 'var(--td-text-color-primary)',
+            }}
+          >
             当前状态: {currentStage}
           </div>
         )}

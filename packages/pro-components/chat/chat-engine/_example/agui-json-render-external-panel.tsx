@@ -3,16 +3,12 @@
  *
  * 演示内容：
  * ⭐ 通过 eventBus.on('AGUI_ACTIVITY') 监听消息变化，在对话框外部独立渲染生成式 UI
- * 
+ *
  * 使用场景：
  * - 需要将生成的 UI 渲染到页面的其他区域，如弹窗、侧边栏等，进行额外的控制和管理
  */
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
-import {
-  type ChatRequestParams,
-  ActivityRenderer,
-  ChatEngineEventType,
-} from '@tdesign-react/chat';
+import { type ChatRequestParams, ActivityRenderer, ChatEngineEventType } from '@tdesign-react/chat';
 import { useChat, useAgentActivity } from '@tdesign-react/chat';
 import { MessagePlugin, Button, Card, Space, Input } from 'tdesign-react';
 
@@ -26,7 +22,7 @@ import {
 import { StatusCard, ProgressBar } from './components';
 
 // Mock Server 地址
-const MOCK_SERVER = 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com';
+const MOCK_SERVER = 'http://localhost:9001';
 
 export default function AguiJsonRenderExternalPanelExample() {
   const [inputValue, setInputValue] = useState('创建一个任务进度表单，包含状态卡片和进度条');
@@ -34,7 +30,7 @@ export default function AguiJsonRenderExternalPanelExample() {
   // ==================== ⭐ 旁路 UI 渲染状态 ====================
   // 用于控制外部面板可见性
   const [externalPanelVisible, setExternalPanelVisible] = useState(true);
-  
+
   // 外部 Activity 内容（通过 eventBus 监听获取）
   const [externalActivity, setExternalActivity] = useState<JsonRenderActivityProps['content'] | null>(null);
 
@@ -79,24 +75,24 @@ export default function AguiJsonRenderExternalPanelExample() {
 
   // 创建 Activity 配置
   const jsonRenderConfig = createJsonRenderActivityConfig({
-        activityType: 'json-render-main-card',
-        registry: customRegistry,
-        actionHandlers: {
-          submit: async () => {
-            MessagePlugin.success('提交成功');
-          },
-          refresh: async () => {
-            MessagePlugin.info('数据已刷新');
-          },
-          export: async () => {
-            MessagePlugin.info('开始导出数据');
-            // 模拟导出
-            setTimeout(() => {
-              MessagePlugin.success('导出成功');
-            }, 1000);
-          },
-        },
-      });
+    activityType: 'json-render-main-card',
+    registry: customRegistry,
+    actionHandlers: {
+      submit: async () => {
+        MessagePlugin.success('提交成功');
+      },
+      refresh: async () => {
+        MessagePlugin.info('数据已刷新');
+      },
+      export: async () => {
+        MessagePlugin.info('开始导出数据');
+        // 模拟导出
+        setTimeout(() => {
+          MessagePlugin.success('导出成功');
+        }, 1000);
+      },
+    },
+  });
 
   // 注册 json-render Activity 渲染器
   useAgentActivity(jsonRenderConfig);
@@ -138,9 +134,9 @@ export default function AguiJsonRenderExternalPanelExample() {
   const isLoading = status === 'pending' || status === 'streaming';
 
   return (
-    <Space direction='vertical'>
+    <Space direction="vertical">
       {/* ==================== 左侧：控制面板 ==================== */}
-      <Space direction='vertical'>
+      <Space direction="vertical">
         {/* 输入和控制区域 */}
         <Card bordered header={<div style={{ fontWeight: 600 }}>发送请求</div>}>
           <Space direction="vertical" size="large" style={{ width: '100%' }}>
@@ -184,9 +180,7 @@ export default function AguiJsonRenderExternalPanelExample() {
           header={
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
-                <div style={{ fontSize: '16px', fontWeight: 600, color: 'var(--td-brand-color)' }}>
-                  ⚡ 外部渲染面板
-                </div>
+                <div style={{ fontSize: '16px', fontWeight: 600, color: 'var(--td-brand-color)' }}>⚡ 外部渲染面板</div>
                 <div style={{ fontSize: '12px', color: 'var(--td-text-color-secondary)', marginTop: '2px' }}>
                   独立于对话框的 UI 渲染区域
                 </div>
@@ -199,9 +193,7 @@ export default function AguiJsonRenderExternalPanelExample() {
               <>
                 {/* 调试：展示原始 JSON */}
                 <details style={{ marginBottom: '12px', fontSize: '11px' }}>
-                  <summary
-                    style={{ cursor: 'pointer', padding: '4px', background: '#f0f0f0', borderRadius: '4px' }}
-                  >
+                  <summary style={{ cursor: 'pointer', padding: '4px', background: '#f0f0f0', borderRadius: '4px' }}>
                     🔍 查看原始 Schema
                   </summary>
                   <pre
@@ -220,7 +212,7 @@ export default function AguiJsonRenderExternalPanelExample() {
 
                 {/* 使用 ActivityRenderer 渲染 */}
                 <div style={{ borderRadius: '4px' }}>
-                   <ActivityRenderer
+                  <ActivityRenderer
                     activity={{
                       activityType: 'json-render-main-card',
                       content: externalActivity,

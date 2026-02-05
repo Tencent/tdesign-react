@@ -17,24 +17,24 @@ import {
   isActivityContent,
   ActivityRenderer,
 } from '@tdesign-react/chat';
-import { useChat, useAgentActivity, generateCatalogPrompt } from '@tdesign-react/chat';
 import {
+  useChat,
+  useAgentActivity,
+  generateCatalogPrompt,
   createJsonRenderActivityConfig,
   createCustomRegistry,
 } from '@tdesign-react/chat';
-
 
 // 导入自定义组件
 import { StatusCard, ProgressBar, NestedPanel } from './components';
 
 // Mock Server 地址
-const MOCK_SERVER = 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com';
+const MOCK_SERVER = 'http://localhost:9001';
 
 export default function AguiJsonRenderFullCustomExample() {
   const [inputValue, setInputValue] = useState('测试深层嵌套更新');
   const [currentStage, setCurrentStage] = useState<string>('');
   const listRef = useRef<any>(null);
-
 
   // ==================== 步骤 1: 创建自定义 Catalog（约束层） ====================
   // 定义自定义组件的 props schema 和 actions 白名单
@@ -75,7 +75,8 @@ export default function AguiJsonRenderFullCustomExample() {
               borderColor: z.string().nullable(),
               backgroundColor: z.string().nullable(),
             }),
-            description: 'Nested panel container for testing deep nesting updates. Can contain other components including itself.',
+            description:
+              'Nested panel container for testing deep nesting updates. Can contain other components including itself.',
           },
         },
         actions: {
@@ -135,91 +136,90 @@ export default function AguiJsonRenderFullCustomExample() {
         ProgressBar,
         NestedPanel,
         // 注册基础 Div 组件（用于渲染后端返回的 Div 类型元素）
-        Div: ({element, children}) => {
-          const {props} = element;
+        Div: ({ element, children }) => {
+          const { props } = element;
           // const {props, children} = element;
-          return <div {...props} >{element.props.children || children}</div>
-        }
+          return <div {...props}>{element.props.children || children}</div>;
+        },
       }),
     [],
   );
 
   // ==================== 步骤 3: 创建 Activity 配置 ====================
-  const jsonRenderConfig =
-      createJsonRenderActivityConfig({
-        activityType: 'json-render-main-card',
-        registry: customRegistry, // 使用自定义 registry（渲染层）
-        debug: true,
-        // 预定义 action handlers（必须与 Catalog 中的 actions 一致）
-        actionHandlers: {
-          // 内置 actions
-          submit: async (params) => {
-            setCurrentStage('提交表单...');
+  const jsonRenderConfig = createJsonRenderActivityConfig({
+    activityType: 'json-render-main-card',
+    registry: customRegistry, // 使用自定义 registry（渲染层）
+    debug: true,
+    // 预定义 action handlers（必须与 Catalog 中的 actions 一致）
+    actionHandlers: {
+      // 内置 actions
+      submit: async (params) => {
+        setCurrentStage('提交表单...');
 
-            try {
-              await chatEngine.sendAIMessage({
-                params: {
-                  userActionMessage: {
-                    name: 'submit',
-                    params,
-                    timestamp: new Date().toISOString(),
-                  },
-                },
-                sendRequest: true,
-              });
+        try {
+          await chatEngine.sendAIMessage({
+            params: {
+              userActionMessage: {
+                name: 'submit',
+                params,
+                timestamp: new Date().toISOString(),
+              },
+            },
+            sendRequest: true,
+          });
 
-              setCurrentStage('表单提交成功');
-              MessagePlugin.success('提交成功');
-              listRef.current?.scrollList({ to: 'bottom' });
-            } catch (error) {
-              MessagePlugin.error(`提交失败: ${error instanceof Error ? error.message : '未知错误'}`);
-              setCurrentStage('提交失败');
-            }
-          },
+          setCurrentStage('表单提交成功');
+          MessagePlugin.success('提交成功');
+          listRef.current?.scrollList({ to: 'bottom' });
+        } catch (error) {
+          MessagePlugin.error(`提交失败: ${error instanceof Error ? error.message : '未知错误'}`);
+          setCurrentStage('提交失败');
+        }
+      },
 
-          reset: async () => {
-            MessagePlugin.info('表单已重置');
-            setCurrentStage('表单已重置');
-          },
+      reset: async () => {
+        MessagePlugin.info('表单已重置');
+        setCurrentStage('表单已重置');
+      },
 
-          cancel: async () => {
-            MessagePlugin.info('已取消');
-            setCurrentStage('已取消');
-          },
+      cancel: async () => {
+        MessagePlugin.info('已取消');
+        setCurrentStage('已取消');
+      },
 
-          // 自定义 actions（与 Catalog 中定义的一致）
-          refresh: async (params) => {
-            MessagePlugin.info('数据已刷新');
-            setCurrentStage('数据已刷新');
+      // 自定义 actions（与 Catalog 中定义的一致）
+      refresh: async (params) => {
+        MessagePlugin.info('数据已刷新');
+        setCurrentStage('数据已刷新');
 
-            try {
-              await chatEngine.sendAIMessage({
-                params: {
-                  userActionMessage: {
-                    name: 'refresh',
-                    params,
-                    timestamp: new Date().toISOString(),
-                  },
-                },
-                sendRequest: true,
-              });
-            } catch (error) {
-              console.error('刷新失败:', error);
-            }
-          },
+        try {
+          await chatEngine.sendAIMessage({
+            params: {
+              userActionMessage: {
+                name: 'refresh',
+                params,
+                timestamp: new Date().toISOString(),
+              },
+            },
+            sendRequest: true,
+          });
+        } catch (error) {
+          console.error('刷新失败:', error);
+        }
+      },
 
-          export: async () => {
-            MessagePlugin.info('开始导出数据');
-            setCurrentStage('导出数据中...');
+      export: async () => {
+        MessagePlugin.info('开始导出数据');
+        setCurrentStage('导出数据中...');
 
-            // 模拟导出
-            setTimeout(() => {
-              MessagePlugin.success('导出成功');
-              setCurrentStage('导出完成');
-            }, 1000);
-          },
-        },
-      })
+        // 模拟导出
+        setTimeout(() => {
+          MessagePlugin.success('导出成功');
+          setCurrentStage('导出完成');
+        }, 1000);
+      },
+    },
+  });
 
   // 注册 json-render Activity 渲染器
   useAgentActivity(jsonRenderConfig);

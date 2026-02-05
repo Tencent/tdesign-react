@@ -24,19 +24,17 @@ import {
 import { useChat, useAgentActivity } from '@tdesign-react/chat';
 import { MessagePlugin } from 'tdesign-react';
 
-import {
-  createA2UIActivityConfig,
-} from '../components/a2ui';
+import { createA2UIActivityConfig } from '../components/a2ui';
 
 // Mock Server 地址
-const MOCK_SERVER = 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com';
+const MOCK_SERVER = 'http://localhost:9001';
 
 export default function AguiA2UIExample() {
   const [inputValue, setInputValue] = useState('帮我创建一个用户信息表单');
   const [currentStage, setCurrentStage] = useState<string>('');
   const listRef = useRef<any>(null);
 
-    // 使用 useChat 创建 ChatEngine 实例
+  // 使用 useChat 创建 ChatEngine 实例
   const { chatEngine, messages, status } = useChat({
     defaultMessages: [],
     chatServiceConfig: {
@@ -52,13 +50,13 @@ export default function AguiA2UIExample() {
           prompt: params.prompt,
           demoMode: true,
         };
-        
+
         // 如果有用户操作消息，添加到请求体
         if ((params as any).userActionMessage) {
           requestBody.userActionMessage = (params as any).userActionMessage;
           console.log('📤 发送用户操作到服务端:', requestBody.userActionMessage);
         }
-        
+
         return {
           body: JSON.stringify(requestBody),
         };
@@ -92,7 +90,7 @@ export default function AguiA2UIExample() {
         onAction: async ({ userActionMessage, action, actionContext }) => {
           console.log('🎯 A2UI Action 触发:', userActionMessage);
           setCurrentStage(`处理操作: ${userActionMessage.name}`);
-          
+
           // 根据 action.name 决定处理方式
           if (action.name === 'reset') {
             // 本地处理：重置表单数据，不发送请求
@@ -105,14 +103,14 @@ export default function AguiA2UIExample() {
             setCurrentStage('表单已重置');
             return;
           }
-          
+
           // 其他操作：发送请求到服务端
           try {
             await chatEngine.sendAIMessage({
               params: { userActionMessage },
               sendRequest: true,
             });
-            
+
             setCurrentStage(`操作 "${userActionMessage.name}" 已发送到服务端`);
             listRef.current?.scrollList({ to: 'bottom' });
           } catch (error) {
@@ -168,19 +166,19 @@ export default function AguiA2UIExample() {
   return (
     <div style={{ height: '800px', display: 'flex', flexDirection: 'column' }}>
       {/* 标题区域 */}
-      <div
-       style={{ marginBottom: '16px', padding: '12px', background: '#f5f5f5', borderRadius: '4px' }}
-      >
+      <div style={{ marginBottom: '16px', padding: '12px', background: '#f5f5f5', borderRadius: '4px' }}>
         <h3 style={{ margin: 0, fontSize: '16px' }}>AG-UI + A2UI 用户信息采集演示 (v0.9)</h3>
         <p style={{ margin: '4px 0 0', fontSize: '12px', color: 'var(--td-text-color-secondary)' }}>
           演示完整的用户信息采集流程：流式渲染 → 用户填写 → 操作反馈 → 数据处理
         </p>
         {currentStage && (
-          <div style={{ 
-            marginTop: '8px', 
-            fontSize: '12px',
-            color: 'var(--td-text-color-primary)'
-          }}>
+          <div
+            style={{
+              marginTop: '8px',
+              fontSize: '12px',
+              color: 'var(--td-text-color-primary)',
+            }}
+          >
             当前状态: {currentStage}
           </div>
         )}
@@ -212,4 +210,3 @@ export default function AguiA2UIExample() {
     </div>
   );
 }
-

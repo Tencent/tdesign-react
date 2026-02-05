@@ -1,10 +1,5 @@
 import React, { useState, useRef, useMemo, ReactNode } from 'react';
-import {
-  ChatList,
-  ChatSender,
-  ChatMessage,
-  useChat,
-} from '@tdesign-react/chat';
+import { ChatList, ChatSender, ChatMessage, useChat } from '@tdesign-react/chat';
 import type {
   SSEChunkData,
   AIMessageContent,
@@ -180,7 +175,7 @@ const AguiErrorExample: React.FC = () => {
   // 聊天服务配置
   const chatServiceConfig: ChatServiceConfig = useMemo(
     () => ({
-      endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/agui-error',
+      endpoint: 'http://localhost:9001/sse/agui-error',
       protocol: 'agui',
       stream: true,
       onRequest: (params: ChatRequestParams) => ({

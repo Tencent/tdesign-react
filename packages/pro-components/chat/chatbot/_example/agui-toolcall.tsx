@@ -191,7 +191,7 @@ export default function AguiBasicExample() {
 
   // 聊天服务配置
   const chatServiceConfig: ChatServiceConfig = {
-    endpoint: 'http://localhost:9000/sse/agui-simple',
+    endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/agui-simple',
     // 开启 AG-UI 协议解析支持
     protocol: 'agui',
     stream: true,
