@@ -1,9 +1,11 @@
+import { PATH_SEPARATOR } from '@tdesign/common-js/tree-v1/tree-node-model';
 import { isEmpty } from 'lodash-es';
-import {
-  TreeNode,
+
+import type {
   CascaderContextType,
-  TdCascaderProps,
   CascaderValue,
+  TdCascaderProps,
+  TreeNode,
   TreeNodeValue,
   TreeOptionData,
 } from '../interface';
@@ -15,20 +17,34 @@ import {
  * @returns
  */
 export function getSingleContent(cascaderContext: CascaderContextType): string {
-  const { value, multiple, treeStore, showAllLevels } = cascaderContext;
-  const BooleanIsFalseExceptZero = 0;
-  if (multiple || (!value && value !== BooleanIsFalseExceptZero)) return '';
+  const { value, multiple, treeStore, showAllLevels, valueType } = cascaderContext;
 
-  if (Array.isArray(value)) return '';
-  const node = treeStore && treeStore.getNodes(value as TreeNodeValue | TreeNode);
-  if (!(node && node.length)) {
-    return value as string;
+  const isEmpty = (!value && value !== 0) || (Array.isArray(value) && value.length === 0);
+  const isInvalidFullPathValue = valueType === 'full' && !Array.isArray(value);
+  if (multiple || isEmpty || isInvalidFullPathValue) return '';
+
+  const formatContent = (path: TreeNode[]) => {
+    if (!path?.length) return '';
+    return showAllLevels ? path.map((node) => node.label).join(` ${PATH_SEPARATOR} `) : path[path.length - 1].label;
+  };
+
+  const getDefaultDisplay = (val: any) => (Array.isArray(val) ? val.join(` ${PATH_SEPARATOR} `) : String(val));
+
+  // valueType = 'full'
+  if (valueType === 'full' && Array.isArray(value) && value.length > 0) {
+    const node = treeStore?.getNode(value as string[]);
+    const path = node?.getPath();
+    return path?.length ? formatContent(path) : getDefaultDisplay(value);
   }
-  const path = node && node[0].getPath();
-  if (path && path.length) {
-    return showAllLevels ? path.map((node: TreeNode) => node.label).join(' / ') : path[path.length - 1].label;
+
+  // valueType = 'single'
+  const nodes = treeStore?.getNodes(value as TreeNodeValue | TreeNode);
+  if (!nodes?.length) {
+    return getDefaultDisplay(value);
   }
-  return value as string;
+
+  const path = nodes[0].getPath();
+  return path?.length ? formatContent(path) : getDefaultDisplay(value);
 }
 
 /**
@@ -38,18 +54,23 @@ export function getSingleContent(cascaderContext: CascaderContextType): string {
  * @returns
  */
 export function getMultipleContent(cascaderContext: CascaderContextType) {
-  const { value, multiple, treeStore, showAllLevels } = cascaderContext;
+  const { value, multiple, treeStore, showAllLevels, valueType } = cascaderContext;
 
   if (!multiple) return [];
   if (multiple && !Array.isArray(value)) return [];
 
-  const node = treeStore && treeStore.getNodes(value as TreeNodeValue | TreeNode);
-  if (!node) return [];
-
   return (value as TreeNodeValue[])
     .map((item: TreeNodeValue) => {
-      const node = treeStore.getNodes(item);
-      return showAllLevels ? getFullPathLabel(node?.[0]) : node?.[0]?.label;
+      let node: TreeNode | undefined;
+      // valueType='full' 时，item 是路径数组，使用 getNode 获取节点
+      if (valueType === 'full' && Array.isArray(item)) {
+        node = treeStore?.getNode(item as string[]);
+      } else {
+        const nodes = treeStore?.getNodes(item);
+        node = nodes?.[0];
+      }
+      if (!node) return undefined;
+      return showAllLevels ? getFullPathLabel(node) : node?.label;
     })
     .filter((item) => !!item);
 }
@@ -107,20 +128,16 @@ export const getTreeValue = (value: CascaderContextType['value']) => {
 };
 
 /**
- * 按数据类型计算通用数值
- * @param value
- * @param showAllLevels
- * @param multiple
- * @returns
+ * 获取用于展开的节点值
  */
-export const getCascaderValue = (value: CascaderValue, valueType: TdCascaderProps['valueType'], multiple: boolean) => {
-  if (valueType === 'single') {
-    return value;
+export const getExpandValue = (value: CascaderContextType['value'], valueType?: TdCascaderProps['valueType']) => {
+  if (valueType === 'full' && Array.isArray(value) && value.length > 0) {
+    // valueType='full' 时，value 是完整路径数组
+    // 返回最后一个值用于展开
+    return value[value.length - 1] as TreeNodeValue;
   }
-  if (multiple) {
-    return (value as Array<CascaderValue>).map((item: TreeNodeValue[]) => item[item.length - 1]);
-  }
-  return value[(value as Array<CascaderValue>).length - 1];
+  const treeValue = getTreeValue(value);
+  return treeValue[0];
 };
 
 /**
