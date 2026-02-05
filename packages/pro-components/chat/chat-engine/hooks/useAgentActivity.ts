@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useRef, useEffect } from 'react';
 import type { ActivityConfig } from '../components/activity/types';
 import { activityRegistry } from '../components/activity/registry';

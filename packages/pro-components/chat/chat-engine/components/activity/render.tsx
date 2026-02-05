@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useMemo, Component, ErrorInfo } from 'react';
 import isEqual from 'react-fast-compare';
 import { type ActivityData } from 'tdesign-web-components';
