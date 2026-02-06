@@ -132,14 +132,16 @@ export default function useInstance(
     };
 
     if (nameList === true) {
+      // 先用 floatingFormDataRef 作为基础，支持没有对应 FormItem 渲染也能返回数据的场景
+      merge(fieldsValue, cloneDeep(floatingFormDataRef.current));
+
+      // 再用 FormItem 实例的实际值覆盖，确保有 FormItem 时以它为准
       // 嵌套数组子节点先添加，导致外层数据被覆盖，因而需要倒序遍历
       const entries = Array.from(formMapRef.current.entries());
       for (let i = entries.length - 1; i >= 0; i--) {
         const [name, formItemRef] = entries[i];
         processField(name, formItemRef);
       }
-      // 即使没有对应的 FormItem 渲染，也返回数据，用于支持动态 set 的场景
-      merge(fieldsValue, cloneDeep(floatingFormDataRef.current));
     } else {
       if (!Array.isArray(nameList)) {
         log.error('Form', 'The parameter of "getFieldsValue" must be an array');
