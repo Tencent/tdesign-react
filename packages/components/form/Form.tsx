@@ -71,7 +71,6 @@ const Form = forwardRefWithStatics(
       });
       form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.([]);
       form.store = {};
-      floatingFormDataRef.current = {};
       onReset?.({ e });
     }
 
