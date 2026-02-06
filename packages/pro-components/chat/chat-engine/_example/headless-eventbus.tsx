@@ -46,7 +46,7 @@ export default function HeadlessEventBusExample() {
 
     // 初始化配置
     engine.init({
-      endpoint: 'http://localhost:9001/sse/normal',
+      endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/normal',
       stream: true,
       onMessage: (chunk: SSEChunkData): AIMessageContent => ({
         type: 'markdown',

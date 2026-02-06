@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import type { AIMessageContent, ChatMessagesData, ChatRequestParams, SSEChunkData, ToolCall } from '../../type';
+import type { AIMessageContent, ChatMessagesData, ChatRequestParams, SSEChunkData, ToolCall, UserMessageContent } from '../../type';
 import { AGUIEventMapper } from './event-mapper';
 import type { BaseEvent, RunErrorEvent, RunFinishedEvent, RunStartedEvent } from './types/events';
 import { AGUIEventType } from './types/events';
@@ -160,6 +160,26 @@ export class AGUIAdapter {
     };
 
     /**
+     * 处理用户消息的 content 字段
+     * 兼容两种格式：
+     * 1. 标准 AG-UI 格式：content 是字符串
+     * 2. 已转换格式：content 已经是数组 [{ type, data }]
+     */
+    const processUserContent = (content: any): UserMessageContent[] => {
+      // 如果 content 已经是数组格式，直接返回
+      if (Array.isArray(content)) {
+        return content as UserMessageContent[];
+      }
+      // 如果是字符串，包装为标准格式
+      return [
+        {
+          type: 'text',
+          data: content,
+        },
+      ];
+    };
+
+    /**
      * 处理当前消息组
      */
     const flushCurrentGroup = () => {
@@ -168,12 +188,7 @@ export class AGUIAdapter {
         convertedMessages.push({
           id: currentUserMessage.id,
           role: 'user',
-          content: [
-            {
-              type: 'text',
-              data: currentUserMessage.content,
-            },
-          ],
+          content: processUserContent(currentUserMessage.content),
           datetime: new Date(currentUserMessage.timestamp || Date.now()).toISOString(),
         });
       }

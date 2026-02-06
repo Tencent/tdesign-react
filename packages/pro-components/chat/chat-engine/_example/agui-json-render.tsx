@@ -27,7 +27,7 @@ import { MessagePlugin } from 'tdesign-react';
 import { createJsonRenderActivityConfig } from '../components/json-render';
 
 // Mock Server 地址
-const MOCK_SERVER = 'http://localhost:9001';
+const MOCK_SERVER = 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com';
 
 export default function AguiJsonRenderExample() {
   const [inputValue, setInputValue] = useState('使用 json-render 创建一个用户信息表单');

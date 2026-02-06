@@ -47,7 +47,7 @@ export default function HeadlessPureExample() {
     // 2. 初始化配置
     log('2. 初始化配置...');
     engine.init({
-      endpoint: 'http://localhost:9001/sse/normal',
+      endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/normal',
       stream: true,
       onMessage: (chunk: SSEChunkData): AIMessageContent => ({
         type: 'markdown',
@@ -117,7 +117,7 @@ export default function HeadlessPureExample() {
     engineRef.current = engine;
 
     engine.init({
-      endpoint: 'http://localhost:9001/sse/normal',
+      endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/normal',
       stream: true,
       onMessage: (chunk: SSEChunkData): AIMessageContent => ({
         type: 'markdown',
@@ -157,7 +157,7 @@ export default function HeadlessPureExample() {
     engineRef.current = engine;
 
     engine.init({
-      endpoint: 'http://localhost:9001/sse/normal',
+      endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/normal',
       stream: true,
     });
 

@@ -25,7 +25,7 @@ export default function AguiBasicExample() {
   const { chatEngine, messages, status } = useChat({
     defaultMessages: [],
     chatServiceConfig: {
-      endpoint: 'http://localhost:9001/sse/agui-simple',
+      endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/agui-simple',
       // 开启 AG-UI 协议解析支持
       protocol: 'agui',
       stream: true,
@@ -53,10 +53,36 @@ export default function AguiBasicExample() {
   useEffect(() => {
     const loadHistoryMessages = async () => {
       try {
-        const response = await fetch(`http://localhost:9001/api/conversation/history?type=simple`);
+        const response = await fetch(`https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/api/conversation/history?type=simple`);
         const result = await response.json();
         if (result.success && result.data) {
-          const messages = AGUIAdapter.convertHistoryMessages(result.data);
+          const messages = AGUIAdapter.convertHistoryMessages([
+    {
+        "id": "34560ac6-b64a-4bcf-90a3-621dea69acce",
+        "role": "user",
+        "content": [
+            {
+                "type": "text",
+                "data": "你好"
+            },
+            {
+                "type": "attachment",
+                "data": [
+                    {
+                        "fileType": "image",
+                        "name": "20260205090555_40916970.png",
+                        "url": "http://tlab-test-1258344699.cos-internal.ap-guangzhou.tencentcos.cn/ai-chat/env-agent-langgraph/statics/images/20260205090555_40916970.png"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "b3e5fa37-83ff-493e-91d9-0aba93b1ac98",
+        "role": "assistant",
+        "content": "你好！看起来你正在查看或编辑某个配置文件（可能是 package.json 或类似依赖列表），其中包含多个前端库及其版本号，还有一条报错信息：\n\n```\nDuplicate \"previewTitle\" attribute in JSX element\n```\n\n这通常是在使用 React/JSX 时，某个元素重复定义了 `previewTitle` 属性导致的语法错误。\n\n如果你需要：\n- **理解这个错误的原因和修复方法** → 我可以帮你分析（路由到 `knowledge`）\n- **排查具体哪段代码出问题** → 需要更多上下文（可路由到 `diagnosis`）\n- **直接修改配置或生成修复代码** → 明确说“帮我修复”或“生成修正后的代码”（路由到 `craft`）\n\n请告诉我你想做什么？😊"
+    }
+]);
           chatEngine.setMessages(messages);
           listRef.current?.scrollList({ to: 'bottom' });
         }

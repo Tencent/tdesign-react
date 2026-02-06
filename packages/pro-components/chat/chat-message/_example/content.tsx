@@ -121,6 +121,36 @@ export default function ChatMessageExample() {
           },
         ]}
       ></ChatMessage>
+      <Divider style={{ color: 'var(--td-text-color-placeholder)' }}>附件内容</Divider>
+      <ChatMessage
+        role={'user'}
+        chatContentProps={{
+          thinking: { maxHeight: 100, collapsed: false },
+        }}
+        content={[
+          {
+            type: 'text',
+            data: '给我生成个图片，参考这个图',
+          },
+          {
+            type: 'attachment',
+            data: [
+              {
+                fileType: 'image',
+                name: 'demo1.png',
+                url: 'https://tdesign.gtimg.com/site/chat-avatar.png',
+                size: 12312,
+              },
+              {
+                fileType: 'image',
+                name: 'demo2.png',
+                url: 'https://tdesign.gtimg.com/site/avatar.jpg',
+                size: 34333,
+              },
+            ],
+          },
+        ]}
+      ></ChatMessage>
     </Space>
   );
 }

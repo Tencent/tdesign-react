@@ -29,7 +29,7 @@ import {
 import { StatusCard, ProgressBar, NestedPanel } from './components';
 
 // Mock Server 地址
-const MOCK_SERVER = 'http://localhost:9001';
+const MOCK_SERVER = 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com';
 
 export default function AguiJsonRenderFullCustomExample() {
   const [inputValue, setInputValue] = useState('测试深层嵌套更新');
