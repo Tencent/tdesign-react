@@ -19,6 +19,10 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tencent/tdesign-react.git"
+  },
   "scripts": {
     "start": "pnpm dev",
     "dev": "vite",

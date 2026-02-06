@@ -18,10 +18,6 @@ spline: explain
 - `ChatMarkdown`: 大幅优化依赖CherryMarkdown造成的打包体积膨胀问题，**不再内置highlight代码块样式高亮**，需要业务自行引入配置 @LzhengH @carolin913 ([#4119](https://github.com/Tencent/tdesign-react/pull/4119))
 - `ChatSender`: 支持readyToSend可以接管发送前校验  @LzhengH ([#4119](https://github.com/Tencent/tdesign-react/pull/4119))
 
-### 📝 Documentation
-
-- `ChatEngine`: 增加AI友好型文档：AGENTS.md和llm.txt @carolin913 ([#4119](https://github.com/Tencent/tdesign-react/pull/4119))
-
 ## 🌈 1.0.0 `2026-11-20`
 
 - Release 1st version

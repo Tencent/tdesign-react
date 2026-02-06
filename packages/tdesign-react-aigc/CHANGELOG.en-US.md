@@ -18,10 +18,6 @@ spline: explain
 - **ChatMarkdown**: The issue of increased packaging size caused by dependency on CherryMarkdown has been significantly resolved. Highlighting for code blocks is no longer built-in; businesses need to introduce this functionality manually via configuration @LzhengH @carolin913 ([#4119](https://github.com/Tencent/tdesign-react/pull/4119)).
 - **ChatSender**: The `readyToSend` property now allows for pre-sending validation to be handled  @LzhengH ([#4119](https://github.com/Tencent/tdesign-react/pull/4119).
 
-### 📝 Documentation
-
-- For **ChatEngine**, AI-friendly documentation has been added: AGENTS.md and llm.txt @carolin913 ([#4119](https://github.com/Tencent/tdesign-react/pull/4119))
-
 ## 🌈 1.0.0 `2026-11-20`
 
 - Release 1st version
