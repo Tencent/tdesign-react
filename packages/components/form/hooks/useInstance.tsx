@@ -1,4 +1,4 @@
-import { cloneDeep, isArray, isEmpty, isFunction, isObject, merge, set, get } from 'lodash-es';
+import { cloneDeep, get, isArray, isEmpty, isFunction, isObject, merge, set } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
 import useConfig from '../../hooks/useConfig';
 import { calcFieldValue, findFormItem, travelMapFromObject } from '../utils';
@@ -208,6 +208,11 @@ export default function useInstance(
       [...formMapRef.current.values()].forEach((formItemRef) => {
         formItemRef?.current?.resetField();
       });
+
+      // eslint-disable-next-line no-param-reassign
+      floatingFormDataRef.current = {};
+      // eslint-disable-next-line no-param-reassign
+      form.store = {};
     } else {
       const { type = 'initial', fields = [] } = params;
       fields.forEach((name) => {
