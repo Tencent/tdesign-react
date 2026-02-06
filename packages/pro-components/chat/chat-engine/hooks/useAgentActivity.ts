@@ -11,7 +11,7 @@ export interface UseAgentActivityReturn {
 
 /**
  * Activity 注册管理 Hook，专门用于 Activity 组件的注册管理
- * 
+ *
  * 支持两种使用模式：
  * 1. 自动注册模式：传入配置，自动注册和清理
  * 2. 手动注册模式：不传配置，返回注册方法由业务控制
@@ -54,9 +54,8 @@ export function useAgentActivity<TContent = any>(
 
   // 检查是否已注册
   const isRegistered = useCallback(
-    (activityType: string) => 
-      registeredTypesRef.current.has(activityType) || 
-      autoRegisteredTypesRef.current.has(activityType),
+    (activityType: string) =>
+      registeredTypesRef.current.has(activityType) || autoRegisteredTypesRef.current.has(activityType),
     [],
   );
 
@@ -73,7 +72,6 @@ export function useAgentActivity<TContent = any>(
     }
 
     const configs = Array.isArray(config) ? config : [config];
-    
     configs.forEach((cfg) => {
       if (activityRegistry.has(cfg.activityType)) {
         console.warn(`[useAgentActivity] Activity 类型 "${cfg.activityType}" 已存在于注册表中，将被覆盖`);

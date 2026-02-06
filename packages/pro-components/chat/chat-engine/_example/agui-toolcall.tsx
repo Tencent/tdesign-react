@@ -281,7 +281,7 @@ export default function ImageGenAgentChat() {
         isLast &&
         message.status !== 'stop' && (
           <div slot="actionbar">
-            <ChatLoading animation="dot" />
+            <ChatLoading animation="dots" />
           </div>
         )
       )}

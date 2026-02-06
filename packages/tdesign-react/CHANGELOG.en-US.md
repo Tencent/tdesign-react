@@ -5,6 +5,75 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.16.5 `2026-01-28`
+
+### 🚀 New Features
+
+- `Dialog`: The `dialogClassName` property has been enhanced to support multiple formats. @RSS1102 ([#4096](https://github.com/Tencent/tdesign-react/pull/4096))
+- `Icon`: 217 new icons related to artificial intelligence, documents, logos, and files have been added. @uyarn ([#4097](https://github.com/Tencent/tdesign-react/pull/4097))
+- `ImageViewer`: The `innerClassName` property has been introduced to allow for customization of the content area’s class name. Multiple formats are now supported. @RSS1102 ([#4087](https://github.com/Tencent/tdesign-react/pull/4087))
+
+### 🐞 Bug Fixes
+
+- `Cascader`: An issue where the scroll position was accidentally updated while the pop-up was visible has been fixed. @RylanBot ([#4094](https://github.com/Tencent/tdesign-react/pull/4094))
+- `Dialog`: A problem in version 1.16.4 where `onOverlayClick` and `onClose` events did not trigger upon clicking the overlay has been resolved. @RylanBot ([#4098](https://github.com/Tencent/tdesign-react/pull/4098))
+- `ImageViewer`: Issues with the `className` and `style` properties not taking effect have been fixed. @RSS1102 ([#4087](https://github.com/Tencent/tdesign-react/pull/4087))
+- `Popup`:
+  - A problem where the pop-up closed before the mouse entered it when `trigger="hover"` was used and there was a sufficient distance between the trigger element and the pop-up has been fixed. @RylanBot ([#4100](https://github.com/Tencent/tdesign-react/pull/4100))
+  - The closing logic when components are nested has been improved. @uyarn ([#4099](https://github.com/Tencent/tdesign-react/pull/4099))
+- `Typography`: An issue where a complete English word was split into two lines when `ellipsis` was enabled has been fixed. @RylanBot ([#3997](https://github.com/Tencent/tdesign-react/pull/3997))
+
+### 🚧 Other Improvements
+
+- `Popup`: The internal state during the `destroyOnClose` process has been optimized to ensure proper functionality. @uyarn ([#4099](https://github.com/Tencent/tdesign-react/pull/4099))
+
+## 🌈 1.16.4 `2026-01-16`
+
+### 🚀 New Features
+
+- `DatePicker`: The `presets` now support ReactNode, allowing for complete custom rendering of this component. @uyarn ([#4089](https://github.com/Tencent/tdesign-react/pull/4089))
+- `Dialog`: @RylanBot ([#3950](https://github.com/Tencent/tdesign-react/pull/3950))
+  - Pop-ups with `mode="full-screen"` are now supported.
+  - The `draggable` feature can now be used in `mode="modeless"`.
+- `Form`: Methods like `getFieldsValue` and `getFieldValue` now return unrendered values. @RylanBot ([#4050](https://github.com/Tencent/tdesign-react/pull/4050))
+
+### 🐞 Bug Fixes
+
+- `Cascader`: 
+  - The issue where the scroll position was accidentally updated while the pop-up was visible has been fixed. @RylanBot ([#4062](https://github.com/Tencent/tdesign-react/pull/4062))
+  - The problem of the expand icon not changing direction when clicked in Safari has been resolved. @liweijie0812 ([#4056](https://github.com/Tencent/tdesign-react/pull/4056))
+- `Dialog`: 
+  - The issue where `onOverlayClick` couldn’t be triggered when `closeOnOverlayClick` was set to `false` has been fixed. @TidySongS ([#4065](https://github.com/Tencent/tdesign-react/pull/4065))
+  - Pop-ups in `mode="modeless"` no longer close when the user clicks on blank areas. @RylanBot ([#3950](https://github.com/Tencent/tdesign-react/pull/3950))
+  - The problem of not being able to select text within internal elements like `Input` when `draggable` was enabled has been fixed. @RylanBot ([#3950](https://github.com/Tencent/tdesign-react/pull/3950))
+- `Form`: 
+  - The issue where `setFieldsValue` failed when custom controls were used has been fixed. @RylanBot ([#4029](https://github.com/Tencent/tdesign-react/pull/4029))
+  - The problem where using `shouldUpdate` required adding a `key` to `FormItem` for it to function correctly has been fixed. @RylanBot ([#4005](https://github.com/Tencent/tdesign-react/pull/4005))
+- `FormList`:  @RylanBot ([#4005](https://github.com/Tencent/tdesign-react/pull/4005))
+  - The issue of certain APIs malfunctioning when a child node contained another `Form` has been fixed.
+  - The problem of `initialData` not taking effect when `shouldUpdate` was used has been fixed.
+  - The issue of the user’s original data being altered due to a lack of copying during the `add` process has been fixed.
+- `InputNumber`: Leading zeros were incorrectly removed before calculating large numbers. This issue has been fixed. @Liumingxun ([common#2394](https://github.com/Tencent/tdesign-common/pull/2394)) ([#4082](https://github.com/Tencent/tdesign-react/pull/4082))
+- `Menu`: The problem of the expand icon not changing direction when clicked in Safari has been resolved. @liweijie0812 ([#4056](https://github.com/Tencent/tdesign-react/pull/4056))
+- `Popup`: 
+  - In nested scenarios, the inner popup no longer fails to close when the outer popup is hidden. @RylanBot ([#4085](https://github.com/Tencent/tdesign-react/pull/4085))
+  - The popup no longer fails to appear when the `triggerElement` is disabled and the user hovers over it. @RylanBot ([#4085](https://github.com/Tencent/tdesign-react/pull/4085))
+  - The issue of the arrow position becoming unstable when the `content` was dynamically modified has been fixed. @RylanBot ([#4062](https://github.com/Tencent/tdesign-react/pull/4062))
+- `Select`: 
+  - The issue where `tagInputProps.tagProps` did not function correctly has been fixed. @RylanBot ([#4070](https://github.com/Tencent/tdesign-react/pull/4070))
+  - The problem of the expand icon not changing direction when clicked in Safari has been resolved. @liweijie0812 ([#4056](https://github.com/Tencent/tdesign-react/pull/4056))
+- `SelectInput`: @RylanBot ([#4070](https://github.com/Tencent/tdesign-react/pull/4070))
+  - The issue where clicking the `closable` icon did not allow options to be cleared, which was caused by a fix in version `1.16.0`, has been fixed.
+  - The issue where `onTagChange` did not function correctly when `tagInputProps.tagProps.onClose` was passed as an argument has been fixed.
+- `Text`: The element no longer fails to hide simultaneously when the `copyable` property of a `Tooltip` is disabled. @RylanBot ([#4067](https://github.com/Tencent/tdesign-react/pull/4067))
+- `Textarea`: The logic for calculating the `count` value now takes into account the `maxcharacter` or `maxlength` settings. @RylanBot ([#4088](https://github.com/Tencent/tdesign-react/pull/4088))
+- `TreeSelect`: The problem of the expand icon not changing direction when clicked in Safari has been resolved. @liweijie0812 ([#4056](https://github.com/Tencent/tdesign-react/pull/4056))
+
+### 🚧 Other Changes
+
+- `Form`: The TS type of the instance returned by `useForm` has been adjusted to prevent internal variables from being exposed. @RylanBot ([#4050](https://github.com/Tencent/tdesign-react/pull/4050))
+- `Message`: A new `displayName` property has been added to this component. @TidySongS ([#4074](https://github.com/Tencent/tdesign-react/pull/4074))
+
 ## 🌈 1.16.3 `2026-01-04`
 
 ### 🐞 Bug Fixes

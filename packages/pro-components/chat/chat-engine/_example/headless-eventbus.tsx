@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Button, Card, Space, Tag, Divider, List, MessagePlugin } from 'tdesign-react';
 import ChatEngine, { ChatEngineEventType, type SSEChunkData, type AIMessageContent } from '../core';
-import type { ChatEngineEventPayloadMap, EventHistoryItem } from '../core/event-bus/types';
 
 /**
  * Headless 事件总线示例

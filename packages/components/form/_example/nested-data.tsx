@@ -78,17 +78,16 @@ export default function BaseForm() {
       <FormList name={['user', 'address']}>
         {(fields, { add, remove }) => (
           <>
-            {fields.map(({ key, name, ...restField }) => (
+            {fields.map(({ key, name }) => (
               <FormItem key={key}>
                 <FormItem
-                  {...restField}
                   name={[name, 'province']}
                   label="省份"
                   rules={[{ required: true, type: 'error' }]}
                 >
                   <Input />
                 </FormItem>
-                <FormItem {...restField} name={[name, 'area']} label="地区" rules={[{ required: true, type: 'error' }]}>
+                <FormItem name={[name, 'area']} label="地区" rules={[{ required: true, type: 'error' }]}>
                   <Input />
                 </FormItem>
                 <FormItem>

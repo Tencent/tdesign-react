@@ -13,13 +13,7 @@ import {
   ActivityRenderer,
   isActivityContent,
 } from '@tdesign-react/chat';
-import {
-  CheckCircleFilledIcon,
-  TimeFilledIcon,
-  ErrorCircleFilledIcon,
-  LoadingIcon,
-  StarFilledIcon,
-} from 'tdesign-icons-react';
+import { CheckCircleFilledIcon, TimeFilledIcon, ErrorCircleFilledIcon, LoadingIcon, StarFilledIcon } from 'tdesign-icons-react';
 import type {
   ChatMessagesData,
   ChatRequestParams,
@@ -218,7 +212,9 @@ interface HotelBookingActivityProps extends ActivityComponentProps<HotelBookingA
   onAction?: (action: { type: string; data: any }) => void;
 }
 
-const HotelBookingActivity: React.FC<HotelBookingActivityProps> = ({ content }) => {
+const HotelBookingActivity: React.FC<HotelBookingActivityProps> = ({
+  content,
+}) => {
   // 从 content 获取当前步骤和数据
   const { currentStep, hotels, confirmation } = content;
 
@@ -253,7 +249,9 @@ const HotelBookingActivity: React.FC<HotelBookingActivityProps> = ({ content }) 
             ))}
             <span style={{ fontSize: 12, color: '#666', marginLeft: 4 }}>{hotel.rating}分</span>
           </div>
-          <div style={{ fontSize: 12, color: '#666', marginBottom: 4 }}>{hotel.amenities.slice(0, 3).join(' • ')}</div>
+          <div style={{ fontSize: 12, color: '#666', marginBottom: 4 }}>
+            {hotel.amenities.slice(0, 3).join(' • ')}
+          </div>
           <div style={{ fontSize: 16, fontWeight: 600, color: '#e34d59' }}>¥{hotel.price}/晚</div>
         </div>
       </div>
@@ -263,7 +261,9 @@ const HotelBookingActivity: React.FC<HotelBookingActivityProps> = ({ content }) 
   if (currentStep === 'confirm' && confirmation) {
     return (
       <Card bordered style={{ marginTop: 8 }}>
-        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12, color: '#00a870' }}>✓ 预订成功！</div>
+        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12, color: '#00a870' }}>
+          ✓ 预订成功！
+        </div>
         <Space direction="vertical" size="small">
           <div style={{ fontSize: 12, color: '#666' }}>房型：{confirmation.roomType}</div>
           <div style={{ fontSize: 12, color: '#666' }}>总价：¥{confirmation.totalPrice}</div>
@@ -274,12 +274,16 @@ const HotelBookingActivity: React.FC<HotelBookingActivityProps> = ({ content }) 
 
   return (
     <Card bordered style={{ marginTop: 8 }}>
-      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>🏨 为您推荐酒店</div>
+      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>
+        🏨 为您推荐酒店
+      </div>
 
       {currentStep === 'search' && (
         <div>
           {hotels.length > 0 ? (
-            <div>{hotels.map((hotel: HotelOption) => renderHotelCard(hotel))}</div>
+            <div>
+              {hotels.map((hotel: HotelOption) => renderHotelCard(hotel))}
+            </div>
           ) : (
             <div style={{ textAlign: 'center', padding: 20, color: '#666' }}>
               <LoadingIcon style={{ fontSize: 16, marginRight: 8 }} />
@@ -503,7 +507,7 @@ const TravelPlannerContent: React.FC = () => {
           </div>
         );
       }
-
+      
       // 处理 Activity
       if (isActivityContent(item)) {
         return (
@@ -512,7 +516,7 @@ const TravelPlannerContent: React.FC = () => {
           </div>
         );
       }
-
+      
       return null;
     },
     [handleToolCallRespond],

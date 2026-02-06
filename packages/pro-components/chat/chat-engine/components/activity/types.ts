@@ -30,12 +30,3 @@ export interface ActivityConfig<TContent = any> {
 export interface ActivityRegistry {
   [activityType: string]: ActivityConfig;
 }
-
-/**
- * Activity 数据结构（从 ActivityContent 中提取）
- */
-// export interface ActivityData {
-//   activityType: string;
-//   content: Record<string, any>;
-//   messageId?: string;
-// }

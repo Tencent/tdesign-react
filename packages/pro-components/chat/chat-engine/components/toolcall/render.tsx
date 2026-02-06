@@ -18,10 +18,7 @@ interface ErrorBoundaryState {
  * ToolCall 错误边界组件
  * 捕获子组件渲染错误，防止整个对话列表崩溃
  */
-class ToolCallErrorBoundary extends Component<
-  { children: React.ReactNode; toolCallName: string },
-  ErrorBoundaryState
-> {
+class ToolCallErrorBoundary extends Component<{ children: React.ReactNode; toolCallName: string }, ErrorBoundaryState> {
   constructor(props: { children: React.ReactNode; toolCallName: string }) {
     super(props);
     this.state = { hasError: false, error: null };
@@ -141,7 +138,10 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
             error: error as Error,
           });
         }
-      } else if (toolCall.eventType === AGUIEventType.TOOL_CALL_END || toolCall.eventType === AGUIEventType.TOOL_CALL_RESULT) {
+      } else if (
+        toolCall.eventType === AGUIEventType.TOOL_CALL_END ||
+        toolCall.eventType === AGUIEventType.TOOL_CALL_RESULT
+      ) {
         // 工具调用已结束（无 result 的情况，如 show_progress）
         setActionState({ status: 'complete' });
       } else {

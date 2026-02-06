@@ -12,7 +12,16 @@ const isEventFromDisabledElement = (e: Event | React.SyntheticEvent, container: 
   return !!(disabledEl && container.contains(disabledEl));
 };
 
-export default function useTrigger({ triggerElement, content, disabled, trigger, visible, onVisibleChange, delay }) {
+export default function useTrigger({
+  triggerElement,
+  content,
+  disabled,
+  trigger,
+  visible,
+  onVisibleChange,
+  delay,
+  popupElement,
+}) {
   const { classPrefix } = useConfig();
 
   const triggerElementIsString = typeof triggerElement === 'string';
@@ -49,12 +58,22 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     return element instanceof Element ? element : null;
   }, [triggerElementIsString, triggerElement]);
 
+  const handleMouseEnter = (e: MouseEvent | React.MouseEvent) => {
+    if (trigger === 'hover') {
+      callFuncWithDelay({
+        delay: appearDelay,
+        callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
+      });
+    }
+  };
+
   const handleMouseLeave = (e: MouseEvent | React.MouseEvent) => {
-    if (isEventFromDisabledElement(e, getTriggerElement())) return;
     if (trigger !== 'hover' || hasPopupMouseDown.current) return;
     const relatedTarget = e.relatedTarget as HTMLElement;
-    const isMovingToContent = relatedTarget?.closest?.(`.${classPrefix}-popup`);
-    if (isMovingToContent) return;
+    const closestPopup = relatedTarget?.closest?.(`.${classPrefix}-popup`);
+
+    const isMovingToCurrentPopup = popupElement ? popupElement?.isEqualNode?.(closestPopup) : closestPopup;
+    if (isMovingToCurrentPopup) return;
     callFuncWithDelay({
       delay: exitDelay,
       callback: () => onVisibleChange(false, { e, trigger: 'trigger-element-hover' }),
@@ -95,16 +114,6 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
         callFuncWithDelay({
           delay: visible ? appearDelay : exitDelay,
           callback: () => onVisibleChange(!visible, { e, trigger: 'trigger-element-mousedown' }),
-        });
-      }
-    };
-
-    const handleMouseEnter = (e: MouseEvent) => {
-      if (isEventFromDisabledElement(e, element)) return;
-      if (trigger === 'hover') {
-        callFuncWithDelay({
-          delay: appearDelay,
-          callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
         });
       }
     };
@@ -195,6 +204,9 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     on(document, 'touchend', handleDocumentClick, { passive: true });
 
     return () => {
+      // 嵌套使用，父 Popup 关闭时，子 Popup 也要关闭
+      // 针对父 Popup 关闭时，trigger 元素直接从 DOM 移除的场景
+      // 避免监听器提早被销毁无法触发
       requestAnimationFrame(() => {
         off(document, 'mousedown', handleDocumentClick);
         off(document, 'touchend', handleDocumentClick, { passive: true });
@@ -232,6 +244,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
 
   function getPopupProps() {
     return {
+      onMouseEnter: handleMouseEnter,
       onMouseLeave: handleMouseLeave,
       onMouseDown: handlePopupMouseDown,
       onMouseUp: handlePopupMouseUp,
