@@ -1,10 +1,10 @@
+import { get, isEqual, isFunction, isObject, isString, set } from 'lodash-es';
 import React, { forwardRef, ReactNode, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
-import { get, isEqual, isFunction, isObject, isString, set } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -351,9 +351,9 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
     const resetType = type || resetTypeFromContext;
     const resetValue = getResetValue(resetType);
-    // reset 不校验
-    updateFormValue(resetValue, false);
-
+    valueRef.current = resetValue;
+    set(form?.store, fullPath, resetValue);
+    setFormValue(resetValue);
     if (resetValidating) {
       setNeedResetField(true);
     } else {
