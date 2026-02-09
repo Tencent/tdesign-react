@@ -105,7 +105,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     updateColumnFixedShadow,
     getThWidthList,
     updateThWidthList,
-    addTableResizeObserver,
     updateTableAfterColumnResize,
   } = useFixed(props, finalColumns, {
     paginationAffixRef,
@@ -293,12 +292,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     setTableContentRef(tableContentRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tableContentRef]);
-
-  useEffect(
-    () => addTableResizeObserver(tableRef.current),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [tableRef],
-  );
 
   const newData = isPaginateData ? dataSource : data;
 

@@ -1,14 +1,13 @@
-import { type MutableRefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { get, pick, xorWith } from 'lodash-es';
+import { type MutableRefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import log from '@tdesign/common-js/log/index';
 import { getScrollbarWidthWithCSS } from '@tdesign/common-js/utils/getScrollbarWidth';
 import { getIEVersion } from '@tdesign/common-js/utils/helper';
 import { off, on } from '../../_util/listener';
-import useDebounce from '../../hooks/useDebounce';
 import useDeepEffect from '../../hooks/useDeepEffect';
 import usePrevious from '../../hooks/usePrevious';
-import { isLessThanIE11OrNotHaveResizeObserver, resizeObserverElement } from '../utils';
+import { resizeObserverElement } from '../utils';
 
 import type { AffixRef } from '../../affix';
 import type { ClassName, Styles } from '../../common';
@@ -369,10 +368,13 @@ export default function useFixed(
   };
 
   const updateTableWidth = () => {
-    const rect = tableContentRef.current?.getBoundingClientRect?.();
+    const tRef = tableContentRef.current;
+    const rect = tRef?.getBoundingClientRect?.();
     if (!rect) return;
-    // 存在纵向滚动条，且固定表头时，需去除滚动条宽度
-    const reduceWidth = isFixedHeader ? scrollbarWidth : 0;
+    // 直接从 DOM 判断是否存在纵向溢出，避免依赖异步的 React state
+    const isCurrentHeightOverflow = tRef.scrollHeight > tRef.clientHeight;
+    // 去除滚动条宽度
+    const reduceWidth = isCurrentHeightOverflow ? scrollbarWidth : 0;
     tableWidth.current = rect.width - reduceWidth - (props.bordered ? 1 : 0);
     const elmRect = tableElmRef?.current?.getBoundingClientRect();
     if (elmRect?.width) {
@@ -488,20 +490,6 @@ export default function useFixed(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFixedColumn, columns, tableContentRef]);
 
-  // 使用防抖函数，避免频繁触发
-  const updateFixedHeaderByUseDebounce = useDebounce(() => {
-    updateFixedHeader();
-  }, 30);
-
-  /**
-   * 通过监测表格大小变化，来调用 updateFixedHeader 修改状态
-   */
-  useEffect(() => {
-    if (tableContentRef.current) {
-      return resizeObserverElement(tableContentRef.current, updateFixedHeaderByUseDebounce);
-    }
-  }, [updateFixedHeaderByUseDebounce]);
-
   useDeepEffect(updateFixedHeader, [maxHeight, data, columns, bordered, tableContentRef]);
 
   useDeepEffect(() => {
@@ -540,23 +528,12 @@ export default function useFixed(
     }
   };
 
-  const onResize = useDebounce(() => {
-    refreshTable();
-  }, 30);
-
-  function addTableResizeObserver(tableElement: HTMLDivElement) {
-    /**
-     * IE 11 以下使用 window resize；IE 11 以上使用 ResizeObserver
-     * 抽离相关判断为单独的方法
-     */
-    if (isLessThanIE11OrNotHaveResizeObserver()) return;
-    off(window, 'resize', onResize);
-    if (!tableElmWidth.current) return;
-    // 抽离 resize 为单独的方法，通过回调来执行操作
-    return resizeObserverElement(tableElement, () => {
-      refreshTable();
-    });
-  }
+  useEffect(() => {
+    if (!tableContentRef.current) return;
+    // IE 11 以上使用 ResizeObserver
+    return resizeObserverElement(tableContentRef.current, refreshTable);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useDeepEffect(() => {
     const scrollWidth = getScrollbarWidthWithCSS();
@@ -567,19 +544,35 @@ export default function useFixed(
     const hasResizeObserver = hasWindow && typeof window.ResizeObserver !== 'undefined';
     updateTableWidth();
     updateThWidthListHandler();
-    // IE 11 以下使用 window resize；IE 11 以上使用 ResizeObserver
+    // IE 11 以下使用 window resize
     if ((isWatchResize && getIEVersion() < 11) || !hasResizeObserver) {
-      on(window, 'resize', onResize);
+      on(window, 'resize', refreshTable);
     }
 
     return () => {
       if ((isWatchResize && getIEVersion() < 11) || !hasResizeObserver) {
         if (typeof window !== 'undefined') {
-          off(window, 'resize', onResize);
+          off(window, 'resize', refreshTable);
         }
       }
     };
   }, [isFixedColumn, isFixedHeader, isWidthOverflow, scrollbarWidth, notNeedThWidthList, data]);
+
+  useEffect(() => {
+    // 针对表格放在 Dialog 等有动画效果元素里的场景
+    const tableContent = tableContentRef.current;
+    if (!tableContent) return;
+    const onAnimationEnd = (e: AnimationEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target || !target.contains(tableContent)) return;
+      refreshTable();
+    };
+    on(document, 'animationend', onAnimationEnd, { capture: true });
+    return () => {
+      off(document, 'animationend', onAnimationEnd, { capture: true });
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const updateTableAfterColumnResize = () => {
     updateFixedStatus();
@@ -607,7 +600,6 @@ export default function useFixed(
     setUseFixedTableElmRef,
     getThWidthList,
     updateThWidthList,
-    addTableResizeObserver,
     updateTableAfterColumnResize,
   };
 }
