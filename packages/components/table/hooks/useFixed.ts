@@ -558,7 +558,7 @@ export default function useFixed(
     });
   }
 
-  useEffect(() => {
+  useDeepEffect(() => {
     const scrollWidth = getScrollbarWidthWithCSS();
     setScrollbarWidth(scrollWidth);
 
@@ -579,8 +579,7 @@ export default function useFixed(
         }
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFixedColumn]);
+  }, [isFixedColumn, isFixedHeader, isWidthOverflow, scrollbarWidth, notNeedThWidthList, data]);
 
   const updateTableAfterColumnResize = () => {
     updateFixedStatus();
