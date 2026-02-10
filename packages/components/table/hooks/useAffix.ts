@@ -1,7 +1,7 @@
-import { useState, useRef, useMemo, useEffect } from 'react';
-import { TdBaseTableProps } from '../type';
-import { AffixProps } from '../../affix';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { off, on } from '../../_util/listener';
+import type { AffixProps } from '../../affix';
+import type { TdBaseTableProps } from '../type';
 
 /**
  * 1. 表头吸顶（普通表头吸顶 和 虚拟滚动表头吸顶）
@@ -11,6 +11,8 @@ import { off, on } from '../../_util/listener';
  */
 export default function useAffix(props: TdBaseTableProps, { showElement }: { showElement: boolean }) {
   const tableContentRef = useRef<HTMLDivElement>(null);
+  // 自定义滚动容器
+  const scrollContainersRef = useRef<HTMLElement[]>([]);
   // 吸顶表头
   const affixHeaderRef = useRef<HTMLDivElement>(null);
   // 吸底表尾
@@ -198,14 +200,38 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
     }
   };
 
+  const getAffixContainers = () => {
+    const containers: HTMLElement[] = [];
+    const affixConfigs = [props.headerAffixedTop, props.footerAffixedBottom, props.horizontalScrollAffixedBottom];
+    for (let i = 0; i < affixConfigs.length; i++) {
+      const config = affixConfigs[i];
+      if (typeof config === 'object' && config && typeof config.container === 'function') {
+        const el = config.container();
+        if (el instanceof HTMLElement && !containers.includes(el)) {
+          containers.push(el);
+        }
+      }
+    }
+    return containers;
+  };
+
   const addVerticalScrollListener = () => {
     if (typeof document === 'undefined') return;
     if (!isAffixed && !props.paginationAffixedBottom) return;
     const timer = setTimeout(() => {
       if (isAffixed || props.paginationAffixedBottom) {
         on(document, 'scroll', onDocumentScroll);
+        const containers = getAffixContainers();
+        scrollContainersRef.current = containers;
+        for (let i = 0; i < containers.length; i++) {
+          on(containers[i], 'scroll', onDocumentScroll);
+        }
       } else {
         off(document, 'scroll', onDocumentScroll);
+        for (let i = 0; i < scrollContainersRef.current.length; i++) {
+          off(scrollContainersRef.current[i], 'scroll', onDocumentScroll);
+        }
+        scrollContainersRef.current = [];
       }
       clearTimeout(timer);
     });
@@ -227,6 +253,10 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
     addVerticalScrollListener();
     return () => {
       off(document, 'scroll', onDocumentScroll);
+      for (let i = 0; i < scrollContainersRef.current.length; i++) {
+        off(scrollContainersRef.current[i], 'scroll', onDocumentScroll);
+      }
+      scrollContainersRef.current = [];
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAffixed]);
