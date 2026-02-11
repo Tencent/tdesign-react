@@ -14,6 +14,8 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
   const tableContentRef = useRef<HTMLDivElement>(null);
   // 自定义滚动容器
   const scrollContainersRef = useRef<HTMLElement[]>([]);
+  // 用于记录上一次滚动位置，避免闭包问题
+  const lastScrollLeftRef = useRef(0);
   // 吸顶表头
   const affixHeaderRef = useRef<HTMLDivElement>(null);
   // 吸底表尾
@@ -28,8 +30,6 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
   const [showAffixFooter, setShowAffixFooter] = useState(true);
   // 当表格完全滚动消失在视野时，需要隐藏吸底分页器
   const [showAffixPagination, setShowAffixPagination] = useState(true);
-  // 用于记录上一次滚动位置，避免闭包问题
-  const lastScrollLeftRef = useRef(0);
 
   const isVirtualScroll = useMemo(
     () => props.scroll && props.scroll.type === 'virtual' && (props.scroll.threshold || 100) < props.data.length,
@@ -225,7 +225,7 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
     const affixConfigs = [props.headerAffixedTop, props.footerAffixedBottom, props.horizontalScrollAffixedBottom];
     for (let i = 0; i < affixConfigs.length; i++) {
       const config = affixConfigs[i];
-      if (typeof config === 'object' && config && typeof config.container === 'function') {
+      if (typeof config === 'object' && config?.container) {
         const el = getScrollContainer(config.container);
         if (el instanceof HTMLElement && !containers.includes(el)) {
           containers.push(el);

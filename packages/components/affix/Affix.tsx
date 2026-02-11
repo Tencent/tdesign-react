@@ -1,6 +1,7 @@
-import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { isFunction } from 'lodash-es';
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 
+import { isWindow } from '../_util/dom';
 import { getScrollContainer } from '../_util/scroll';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -37,31 +38,46 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
         // top = 节点到页面顶部的距离，包含 scroll 中的高度
         const {
           top: wrapToTop = 0,
+          bottom: wrapToBottom = 0,
           width: wrapWidth = 0,
           height: wrapHeight = 0,
-        } = affixWrapRef.current?.getBoundingClientRect() ?? { top: 0 };
+        } = affixWrapRef.current?.getBoundingClientRect() ?? { top: 0, bottom: 0 };
 
         // 容器到页面顶部的距离, windows 为0
         let containerToTop = 0;
-        if (scrollContainer.current instanceof HTMLElement) {
-          containerToTop = scrollContainer.current.getBoundingClientRect().top;
+        let containerToBottom = 0;
+        if (isWindow(scrollContainer.current)) {
+          containerToBottom = scrollContainer.current.innerHeight;
+        } else if (scrollContainer.current instanceof HTMLElement) {
+          const rect = scrollContainer.current.getBoundingClientRect();
+          containerToTop = rect.top;
+          containerToBottom = rect.bottom;
         }
 
         const calcTop = wrapToTop - containerToTop; // 节点顶部到 container 顶部的距离
-        const containerHeight =
-          scrollContainer.current?.[scrollContainer.current instanceof Window ? 'innerHeight' : 'clientHeight'] -
-          wrapHeight;
-        const calcBottom = containerToTop + containerHeight - (offsetBottom ?? 0); // 计算 bottom 相对应的 top 值
 
         let fixedTop: number | false;
-        if (calcTop <= offsetTop) {
-          // top 的触发
-          fixedTop = containerToTop + offsetTop;
-        } else if (wrapToTop >= calcBottom) {
-          // bottom 的触发
-          fixedTop = calcBottom;
+        if (props.offsetBottom !== undefined && props.offsetTop === undefined) {
+          const bottomThreshold = containerToBottom - (offsetBottom ?? 0);
+          if (wrapToBottom >= bottomThreshold) {
+            fixedTop = bottomThreshold - wrapHeight;
+          } else {
+            fixedTop = false;
+          }
         } else {
-          fixedTop = false;
+          const containerHeight =
+            scrollContainer.current?.[isWindow(scrollContainer.current) ? 'innerHeight' : 'clientHeight'] -
+            wrapHeight;
+          const calcBottom = containerToTop + containerHeight - (offsetBottom ?? 0); // 计算 bottom 相对应的 top 值
+          if (calcTop <= offsetTop) {
+            // top 的触发
+            fixedTop = containerToTop + offsetTop;
+          } else if (wrapToTop >= calcBottom) {
+            // bottom 的触发
+            fixedTop = calcBottom;
+          } else {
+            fixedTop = false;
+          }
         }
 
         if (affixRef.current) {
@@ -106,7 +122,7 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
       });
     }
     ticking.current = true;
-  }, [classPrefix, offsetBottom, offsetTop, onFixedChange, zIndex]);
+  }, [classPrefix, offsetBottom, offsetTop, zIndex, onFixedChange, props.offsetBottom, props.offsetTop]);
 
   useImperativeHandle(ref, () => ({
     handleScroll,
@@ -120,7 +136,7 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
   useEffect(() => {
     const checkContainerExist = () => {
       const el = getScrollContainer(container);
-      const isReady = el instanceof Window || el instanceof HTMLElement;
+      const isReady = isWindow(el) || el instanceof HTMLElement;
       setContainerReady(isReady);
       return isReady;
     };
@@ -138,7 +154,9 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
       subtree: true,
     });
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+    };
   }, [container]);
 
   useEffect(() => {
@@ -146,7 +164,6 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
 
     const newContainer = getScrollContainer(container);
     if (!newContainer) return; // 容器没准备好
-    if (scrollContainer.current === newContainer) return; // 绑定到相同的容器
 
     // 清理旧的监听器
     if (scrollContainer.current) {
@@ -159,11 +176,21 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
     scrollContainer.current.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleScroll);
 
+    // 当 container 不是 window 时，也需要监听 window 的 scroll 事件
+    // 这样当整个页面滚动时，可以确保 affix 元素不会超出容器范围
+    const isContainerNotWindow = !isWindow(scrollContainer.current);
+    if (isContainerNotWindow) {
+      window.addEventListener('scroll', handleScroll);
+    }
+
     return () => {
       if (scrollContainer.current) {
         scrollContainer.current.removeEventListener('scroll', handleScroll);
       }
       window.removeEventListener('resize', handleScroll);
+      if (isContainerNotWindow) {
+        window.removeEventListener('scroll', handleScroll);
+      }
     };
   }, [container, containerReady, handleScroll]);
 
