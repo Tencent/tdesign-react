@@ -1,11 +1,13 @@
-import React, { useEffect, forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { isFunction } from 'lodash-es';
-import { StyledProps, ScrollContainerElement } from '../common';
-import { TdAffixProps } from './type';
-import useConfig from '../hooks/useConfig';
-import { affixDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
+
 import { getScrollContainer } from '../_util/scroll';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { affixDefaultProps } from './defaultProps';
+
+import type { ScrollContainerElement, StyledProps } from '../common';
+import type { TdAffixProps } from './type';
 
 export interface AffixProps extends TdAffixProps, StyledProps {}
 
@@ -18,6 +20,8 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
     useDefaultProps(props, affixDefaultProps);
 
   const { classPrefix } = useConfig();
+
+  const [containerReady, setContainerReady] = useState(false);
 
   const affixRef = useRef<HTMLDivElement>(null);
   const affixWrapRef = useRef<HTMLDivElement>(null);
@@ -114,18 +118,54 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
   }, []);
 
   useEffect(() => {
-    scrollContainer.current = getScrollContainer(container);
-    if (scrollContainer.current) {
-      handleScroll();
-      scrollContainer.current.addEventListener('scroll', handleScroll);
-      window.addEventListener('resize', handleScroll);
+    const checkContainerExist = () => {
+      const el = getScrollContainer(container);
+      const isReady = el instanceof Window || el instanceof HTMLElement;
+      setContainerReady(isReady);
+      return isReady;
+    };
 
-      return () => {
-        scrollContainer.current.removeEventListener('scroll', handleScroll);
-        window.removeEventListener('resize', handleScroll);
-      };
+    if (checkContainerExist()) return;
+
+    const observer = new MutationObserver(() => {
+      if (checkContainerExist()) {
+        observer.disconnect();
+      }
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
+    return () => observer.disconnect();
+  }, [container]);
+
+  useEffect(() => {
+    if (!containerReady) return;
+
+    const newContainer = getScrollContainer(container);
+    if (!newContainer) return; // 容器没准备好
+    if (scrollContainer.current === newContainer) return; // 绑定到相同的容器
+
+    // 清理旧的监听器
+    if (scrollContainer.current) {
+      scrollContainer.current.removeEventListener('scroll', handleScroll);
     }
-  }, [container, handleScroll]);
+
+    scrollContainer.current = newContainer;
+
+    handleScroll();
+    scrollContainer.current.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+
+    return () => {
+      if (scrollContainer.current) {
+        scrollContainer.current.removeEventListener('scroll', handleScroll);
+      }
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, [container, containerReady, handleScroll]);
 
   return (
     <div ref={affixWrapRef} className={className} style={style}>
