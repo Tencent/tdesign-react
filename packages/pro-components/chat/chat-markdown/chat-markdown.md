@@ -30,6 +30,12 @@ spline: aigc
 
 {{ footnote }}
 
+## 自定义代码块
+
+以下展示了如何基于`cherry markdown`语法配置来实现自定义代码块。更多代码块相关配置，可参考[cherry-markdown 扩展代码块语法](https://github.com/Tencent/cherry-markdown/wiki/%E6%89%A9%E5%B1%95%E4%BB%A3%E7%A0%81%E5%9D%97%E8%AF%AD%E6%B3%95)
+
+{{ customCodeBlock }}
+
 ## API
 ### ChatMarkdown Props
 
