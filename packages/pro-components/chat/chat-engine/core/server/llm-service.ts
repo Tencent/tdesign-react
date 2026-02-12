@@ -87,7 +87,10 @@ export class LLMService implements ILLMService {
     });
 
     this.sseClient.on('message', (msg) => {
-      config.onMessage?.(msg as SSEChunkData);
+      const chunk = msg as SSEChunkData;
+      // 如果配置了 isValidChunk 且返回 false，则跳过该 chunk
+      if (config.isValidChunk && !config.isValidChunk(chunk)) return;
+      config.onMessage?.(chunk);
     });
 
     this.sseClient.on('error', (error) => {

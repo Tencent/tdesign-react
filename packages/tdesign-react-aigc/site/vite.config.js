@@ -29,6 +29,8 @@ export default ({ mode }) =>
         'tdesign-react/es': path.resolve(__dirname, '../../components'),
         'tdesign-react': path.resolve(__dirname, '../../components'),
       },
+      // 添加 dedupe，强制使用子包中的依赖
+      dedupe: ['tdesign-web-components'],
     },
     build: {
       rollupOptions: {

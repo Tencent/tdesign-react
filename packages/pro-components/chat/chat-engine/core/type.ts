@@ -229,6 +229,25 @@ export interface DefaultEngineCallbacks {
   onAbort?: () => Promise<void>;
   /** 错误处理 */
   onError?: (err: Error | Response) => void;
+  /**
+   * Chunk 验证器 - 用于验证 SSE 数据块是否有效
+   *
+   * 当后端返回空内容或无效数据时，可以通过此配置判断 chunk 是否有效，
+   * 只有有效的 chunk 才会被处理，避免过早进入 streaming 状态。
+   *
+   * @param chunk SSE 数据块
+   * @returns 返回 true 表示该 chunk 有效（需要处理），返回 false 表示无效（跳过）
+   *
+   * @example
+   * ```ts
+   * // 只处理 content 不为空的 chunk
+   * isValidChunk: (chunk) => {
+   *   const content = chunk.data?.choices?.[0]?.delta?.content;
+   *   return content !== '' && content !== undefined;
+   * }
+   * ```
+   */
+  isValidChunk?: (chunk: SSEChunkData) => boolean;
 }
 
 // 默认引擎完整的服务配置

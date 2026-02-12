@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable class-methods-use-this */
 import { AGUIAdapter } from './adapters/agui';
-import { ChatEventBus, ChatEngineEventType } from './event-bus';
-import type { ChatEventBusOptions, IChatEventBus } from './event-bus';
 import { MessageStore } from './store/message';
+import type { ChatEventBusOptions, IChatEventBus } from './event-bus';
+import { ChatEngineEventType, ChatEventBus } from './event-bus';
 import MessageProcessor from './processor';
 import { LLMService } from './server';
 import type {
@@ -382,7 +382,6 @@ export default class ChatEngine implements IChatEngine {
   }
 
   private handleError(id: string, error: unknown) {
-
     this.setMessageStatus(id, 'error');
     this.config.onError?.(error as Error);
 
@@ -427,6 +426,7 @@ export default class ChatEngine implements IChatEngine {
   /**
    * 处理流式请求
    * 根据协议类型选择不同的处理策略
+   * SSE 原始数据 → isValidChunk验证 → onMessage解析 → processMessageResult
    */
   private async handleStreamRequest(params: ChatRequestParams) {
     const id = params.messageID;
@@ -571,21 +571,10 @@ export default class ChatEngine implements IChatEngine {
   private processMessageResult(messageId: string, result: AIMessageContent | AIMessageContent[] | null) {
     if (!result) return;
 
-    // 处理工具调用 - 仅在AGUI协议下处理
-    // if (this.aguiAdapter) {
-    //   const toolCalls = this.aguiAdapter.processToolCalls(result);
-    //   if (toolCalls.length > 0) {
-    //     this.messageStore.setMessageToolCalls(messageId, toolCalls);
-    //   }
-    // }
-
-    if (Array.isArray(result)) {
-      // 处理多个内容块
-      this.messageStore.updateMultipleContents(messageId, result);
-    } else {
-      // 处理单个内容块
-      this.processContentUpdate(messageId, result);
-    }
+    // 根据原始类型选择更新方式
+    Array.isArray(result)
+      ? this.messageStore.updateMultipleContents(messageId, result)
+      : this.processContentUpdate(messageId, result);
 
     // 发布消息更新事件
     const message = this.messageStore.getMessageByID(messageId);

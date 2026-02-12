@@ -60,6 +60,7 @@ const ToolMessageSchema = z.object({
   content: z.string(),
   role: z.literal('tool'),
   toolCallId: z.string(),
+  timestamp: z.number().optional(),
 });
 
 const ActivityMessageSchema = z.object({
@@ -67,6 +68,7 @@ const ActivityMessageSchema = z.object({
   role: z.literal("activity"),
   activityType: z.string(),
   content: z.record(z.any()),
+  timestamp: z.number().optional(),
 });
 
 export const AGUIMessageSchema = z.discriminatedUnion('role', [
