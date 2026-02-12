@@ -63,6 +63,7 @@
   },
   "devDependencies": {
     "cors": "^2.8.5",
+    "highlight.js": "^11.11.1",
     "tdesign-icons-react": "0.5.0",
     "tvision-charts-react": "^3.3.12",
     "express": "^4.17.3"
