@@ -1,5 +1,5 @@
-import { get, pick, xorWith } from 'lodash-es';
 import { type MutableRefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { get, pick, xorWith } from 'lodash-es';
 
 import log from '@tdesign/common-js/log/index';
 import { getScrollbarWidthWithCSS } from '@tdesign/common-js/utils/getScrollbarWidth';
@@ -371,10 +371,8 @@ export default function useFixed(
     const tRef = tableContentRef.current;
     const rect = tRef?.getBoundingClientRect?.();
     if (!rect) return;
-    // 直接从 DOM 判断是否存在纵向溢出，避免依赖异步状态
-    const isOverflow = tRef.scrollHeight > tRef.clientHeight;
     // 去除滚动条宽度
-    const reduceWidth = isOverflow ? scrollbarWidth : 0;
+    const reduceWidth = isWidthOverflow ? scrollbarWidth : 0;
     tableWidth.current = rect.width - reduceWidth - (props.bordered ? 1 : 0);
     const elmRect = tableElmRef?.current?.getBoundingClientRect();
     if (elmRect?.width) {
