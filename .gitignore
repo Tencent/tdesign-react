@@ -47,3 +47,4 @@ packages/**/chatbot/docs
 mock-server
 openspec
 .fue
+*.d.ts
