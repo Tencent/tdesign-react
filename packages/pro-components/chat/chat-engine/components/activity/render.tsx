@@ -1,44 +1,12 @@
-import React, { useState, useEffect, useMemo, Component, ErrorInfo } from 'react';
+import React, { useMemo } from 'react';
 import isEqual from 'react-fast-compare';
 import type { ActivityComponentProps } from './types';
-import { activityRegistry } from './registry';
+import { activityRegistry, ACTIVITY_REGISTERED_EVENT, ACTIVITY_EVENT_DETAIL_KEY } from './registry';
+import { ComponentErrorBoundary, useRegistrationListener } from '../shared';
 import { type ActivityData } from '../../core';
 
 interface ActivityRendererProps {
   activity: ActivityData;
-}
-
-interface ErrorBoundaryState {
-  hasError: boolean;
-  error: Error | null;
-}
-
-/**
- * Activity 错误边界组件
- * 捕获子组件渲染错误，防止整个对话列表崩溃
- * TODO: 后续支持配置化的错误 UI
- */
-class ActivityErrorBoundary extends Component<{ children: React.ReactNode; activityType: string }, ErrorBoundaryState> {
-  constructor(props: { children: React.ReactNode; activityType: string }) {
-    super(props);
-    this.state = { hasError: false, error: null };
-  }
-
-  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
-    return { hasError: true, error };
-  }
-
-  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    console.error(`[ActivityRenderer] Error in activity "${this.props.activityType}":`, error, errorInfo);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return null;
-    }
-
-    return this.props.children;
-  }
 }
 
 /**
@@ -62,8 +30,13 @@ const DefaultActivityRenderer: React.FC<ActivityRendererProps> = ({ activity }) 
  */
 export const ActivityRenderer = React.memo<ActivityRendererProps>(
   ({ activity }) => {
-    // 添加注册状态监听
-    const [isRegistered, setIsRegistered] = useState(() => !!activityRegistry.getRenderFunction(activity.activityType));
+    // 使用公共 Hook 监听动态注册
+    const { MemoizedComponent } = useRegistrationListener<ActivityComponentProps>({
+      componentKey: activity.activityType,
+      eventName: ACTIVITY_REGISTERED_EVENT,
+      eventDetailKey: ACTIVITY_EVENT_DETAIL_KEY,
+      getRenderFunction: activityRegistry.getRenderFunction,
+    });
 
     // 缓存组件 props
     const componentProps = useMemo<ActivityComponentProps>(
@@ -75,40 +48,15 @@ export const ActivityRenderer = React.memo<ActivityRendererProps>(
       [activity.activityType, activity.content, activity.messageId],
     );
 
-    // 监听组件注册事件，支持动态注册
-    useEffect(() => {
-      if (!isRegistered) {
-        const handleRegistered = (event: CustomEvent) => {
-          // 精确匹配
-          if (event.detail?.activityType === activity.activityType) {
-            setIsRegistered(true);
-          }
-        };
-
-        // 添加事件监听
-        window.addEventListener('activity-registered', handleRegistered as EventListener);
-
-        return () => {
-          window.removeEventListener('activity-registered', handleRegistered as EventListener);
-        };
-      }
-    }, [activity.activityType, isRegistered]);
-
-    // 使用 registry 的缓存渲染函数
-    const MemoizedComponent = useMemo(
-      () => activityRegistry.getRenderFunction(activity.activityType),
-      [activity.activityType, isRegistered],
-    );
-
     // 如果没有注册对应的组件，使用默认渲染器
     if (!MemoizedComponent) {
       return <DefaultActivityRenderer activity={activity} />;
     }
 
     return (
-      <ActivityErrorBoundary activityType={activity.activityType}>
+      <ComponentErrorBoundary componentName={activity.activityType} logPrefix="ActivityRenderer">
         <MemoizedComponent {...componentProps} />
-      </ActivityErrorBoundary>
+      </ComponentErrorBoundary>
     );
   },
   (prevProps, nextProps) => {

@@ -1,4 +1,3 @@
 export * from './types';
-export * from './registry';
 export * from './render';
-export { activityRegistry } from './registry';
+export { activityRegistry, ACTIVITY_REGISTERED_EVENT, ACTIVITY_EVENT_DETAIL_KEY } from './registry';
