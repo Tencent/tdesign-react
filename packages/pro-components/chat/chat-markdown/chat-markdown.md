@@ -22,13 +22,16 @@ spline: aigc
 {{ plugin }}
 
 ## Mermaid加载渲染
-`cherry-markdown` 支持Mermaid语法渲染，但是需要自行通过`<script>`引入Mermaid库，并放置在项目主脚本文件（如/src/main.js ）之前。
+`cherry-markdown` 支持Mermaid语法渲染，但是需要自行通过`<script>`引入Mermaid库，并放置在项目主脚本文件之前。
 
-```html
+```javascript
+
+// 确保此脚本标签位于'主脚本'之前加载
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-```
 
-确保此脚本标签位于**主脚本**之前加载。
+<script src="/dist/main.min.js"></script>
+
+```
 
 {{ mermaid }}
 
