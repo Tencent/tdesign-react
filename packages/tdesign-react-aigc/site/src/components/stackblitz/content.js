@@ -124,6 +124,7 @@ export const packageJSONContent = JSON.stringify(
       '@types/react-dom': orgPkg.devDependencies['@types/react-dom'],
       'lodash-es': orgPkg.dependencies['lodash-es'],
       'tvision-charts-react': '^3.3.12',
+      'highlight.js': '^11.11.1',
     },
     devDependencies: {
       vite: '^6.2.0',
