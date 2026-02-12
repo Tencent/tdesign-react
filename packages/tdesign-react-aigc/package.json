@@ -65,6 +65,7 @@
     "express": "^4.17.3",
     "tdesign-icons-react": "0.6.2",
     "tdesign-react": "workspace:^",
-    "tvision-charts-react": "^3.3.12"
+    "tvision-charts-react": "^3.3.12",
+    "highlight.js": "^11.11.1"
   }
 }
