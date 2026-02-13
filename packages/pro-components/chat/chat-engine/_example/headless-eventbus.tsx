@@ -272,7 +272,12 @@ export default function HeadlessEventBusExample() {
           <div>
             <h4>事件日志（最新20条）</h4>
             <List
-              style={{ maxHeight: 400, overflow: 'auto', background: '#f5f5f5', borderRadius: 4 }}
+              style={{
+                maxHeight: 400,
+                overflow: 'auto',
+                background: 'var(--td-bg-color-secondarycontainer)',
+                borderRadius: 4,
+              }}
               size="small"
               split
             >
