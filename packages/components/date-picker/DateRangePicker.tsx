@@ -19,10 +19,16 @@ import { RangeInputPopup } from '../range-input';
 import { dateRangePickerDefaultProps } from './defaultProps';
 import useRange from './hooks/useRange';
 import RangePanel from './panel/RangePanel';
-import { dateCorrection } from './utils';
+import { dateCorrection, triggerMap } from './utils';
 
 import type { StyledProps } from '../common';
-import type { DateRangeValue, PresetDate, TdDateRangePickerProps } from './type';
+import type {
+  DateRangeValue,
+  PresetDate,
+  TdDateRangePickerProps,
+  DatePickerYearChangeTrigger,
+  DatePickerMonthChangeTrigger,
+} from './type';
 
 export interface DateRangePickerProps extends TdDateRangePickerProps, StyledProps {}
 
@@ -251,6 +257,28 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
 
     setYear(nextYear);
     setMonth(nextMonth);
+
+    const yearChanged = year[partialIndex] !== nextYear[partialIndex];
+    const monthChanged = month[partialIndex] !== nextMonth[partialIndex];
+    // 触发年份变化事件
+    if (yearChanged) {
+      props.onYearChange?.({
+        partial,
+        year: nextYear[partialIndex],
+        date: value.map((v) => dayjs(v).toDate()),
+        trigger: trigger === 'current' ? 'today' : (`year-${triggerMap[trigger]}` as DatePickerYearChangeTrigger),
+      });
+    }
+
+    // 触发月份变化事件
+    if (monthChanged) {
+      props.onMonthChange?.({
+        partial,
+        month: nextMonth[partialIndex],
+        date: value.map((v) => dayjs(v).toDate()),
+        trigger: trigger === 'current' ? 'today' : (`month-${triggerMap[trigger]}` as DatePickerMonthChangeTrigger),
+      });
+    }
   }
 
   // time-picker 点击
@@ -355,13 +383,20 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
 
     setYear(nextYear);
     !onlyYearSelect && setMonth(nextMonth);
+    props.onYearChange?.({
+      partial,
+      year: nextYear[partialIndex],
+      date: value.map((v) => dayjs(v).toDate()),
+      trigger: 'year-select',
+    });
   }
 
   function onMonthChange(nextVal: number, { partial }) {
     let partialIndex = partial === 'start' ? 0 : 1;
+    const nextMonth = [...month];
     if (enableTimePicker) partialIndex = activeIndex;
-    setMonth((currentMonth) => {
-      const nextMonth = [...currentMonth];
+
+    setMonth(() => {
       nextMonth[partialIndex] = nextVal;
       // 保证左侧时间不大于右侧
       if (year[0] === year[1]) {
@@ -389,7 +424,15 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
           }
         }
       }
+
       return nextMonth;
+    });
+
+    props.onMonthChange?.({
+      partial,
+      month: nextMonth[partialIndex],
+      date: value.map((v) => dayjs(v).toDate()),
+      trigger: 'month-select',
     });
   }
 
