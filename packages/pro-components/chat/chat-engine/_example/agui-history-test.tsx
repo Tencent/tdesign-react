@@ -226,7 +226,7 @@ const AGUIHistoryTest: React.FC = () => {
             <pre
               style={{
                 fontSize: 11,
-                background: '#f5f5f5',
+                background: 'var(--td-bg-color-secondarycontainer)',
                 padding: 8,
                 borderRadius: 4,
                 marginTop: 4,
