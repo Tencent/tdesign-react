@@ -87,9 +87,13 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
   const handleSyncPanelValue = (value: DateRangeValue) => {
     // 同年同月时，确保右侧面板月份比左侧大 避免两侧面板月份一致
     const nextMonth = value.map((v: string) => parseToDayjs(v, format).month());
-    const nextYear = value.map((v: string) => parseToDayjs(v, format).year());
+    let nextYear = value.map((v: string) => parseToDayjs(v, format).year());
     if (nextYear[0] === nextYear[1] && nextMonth[0] === nextMonth[1]) {
       nextMonth[0] === 11 ? (nextMonth[0] -= 1) : (nextMonth[1] += 1);
+    }
+    // 月份、季度选择时需要确保右侧面板年份始终比左侧大
+    if (['month', 'quarter'].includes(props.mode) && nextYear[0] === nextYear[1]) {
+      nextYear = [nextYear[0], nextYear[0] + 1];
     }
     setMonth(nextMonth);
     setYear(nextYear);
