@@ -217,10 +217,10 @@ export interface TdDateRangePickerProps {
    */
   disabled?: boolean;
   /**
-   * 是否显示时间选择
+   * 是否显示时间选择, 默认不展示，设置为 true 时，默认模式为 parallel ，与日期面板并列展示，可以通过配置 mode 为 switch 调整展示方式
    * @default false
    */
-  enableTimePicker?: boolean;
+  enableTimePicker?: boolean | TimePanelConfig;
   /**
    * 第一天从星期几开始
    */
@@ -558,6 +558,12 @@ export type DisableRangeDate =
   | ((context: { date: DateRangeValue; partial: DateRangePickerPartial }) => boolean);
 
 export type DateRangePickerPartial = 'start' | 'end';
+
+export interface TimePanelConfig {
+  mode?: TimePanelMode;
+}
+
+export type TimePanelMode = 'parallel' | 'switch';
 
 export interface PresetRange {
   [range: string]: DateRange | (() => DateRange);
