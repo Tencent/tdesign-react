@@ -14,7 +14,7 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
   const tableContentRef = useRef<HTMLDivElement>(null);
   // 自定义滚动容器
   const scrollContainersRef = useRef<HTMLElement[]>([]);
-  // 用于记录上一次滚动位置，避免闭包问题
+  // 上一次滚动位置
   const lastScrollLeftRef = useRef(0);
   // 吸顶表头
   const affixHeaderRef = useRef<HTMLDivElement>(null);
@@ -41,34 +41,31 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
     [props.footerAffixedBottom, props.headerAffixedTop, props.horizontalScrollAffixedBottom],
   );
 
-  const onHorizontalScroll = useCallback(
-    (scrollElement?: HTMLElement) => {
-      if (!isAffixed && !isVirtualScroll) return;
-      let target = scrollElement;
-      if (!target && tableContentRef.current) {
-        lastScrollLeftRef.current = 0;
-        target = tableContentRef.current;
+  const onHorizontalScroll = (scrollElement?: HTMLElement) => {
+    if (!isAffixed && !isVirtualScroll) return;
+    let target = scrollElement;
+    if (!target && tableContentRef.current) {
+      lastScrollLeftRef.current = 0;
+      target = tableContentRef.current;
+    }
+    if (!target) return;
+    const left = target.scrollLeft;
+    // 如果 lastScrollLeft 等于 left，说明不是横向滚动，不需要更新横向滚动距离
+    if (lastScrollLeftRef.current === left) return;
+    lastScrollLeftRef.current = left;
+    // 表格内容、吸顶表头、吸底表尾、吸底横向滚动更新
+    const toUpdateScrollElement = [
+      tableContentRef.current,
+      affixHeaderRef.current,
+      affixFooterRef.current,
+      horizontalScrollbarRef.current,
+    ];
+    for (let i = 0, len = toUpdateScrollElement.length; i < len; i++) {
+      if (toUpdateScrollElement[i] && scrollElement !== toUpdateScrollElement[i]) {
+        toUpdateScrollElement[i].scrollLeft = left;
       }
-      if (!target) return;
-      const left = target.scrollLeft;
-      // 如果 lastScrollLeft 等于 left，说明不是横向滚动，不需要更新横向滚动距离
-      if (lastScrollLeftRef.current === left) return;
-      lastScrollLeftRef.current = left;
-      // 表格内容、吸顶表头、吸底表尾、吸底横向滚动更新
-      const toUpdateScrollElement = [
-        tableContentRef.current,
-        affixHeaderRef.current,
-        affixFooterRef.current,
-        horizontalScrollbarRef.current,
-      ];
-      for (let i = 0, len = toUpdateScrollElement.length; i < len; i++) {
-        if (toUpdateScrollElement[i] && scrollElement !== toUpdateScrollElement[i]) {
-          toUpdateScrollElement[i].scrollLeft = left;
-        }
-      }
-    },
-    [isAffixed, isVirtualScroll],
-  );
+    }
+  };
 
   // 吸底的元素（footer、横向滚动条、分页器）是否显示
   const isAffixedBottomElementShow = useCallback(
