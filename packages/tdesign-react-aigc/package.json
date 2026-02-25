@@ -21,7 +21,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Tencent/tdesign-react.git"
+    "url": "git+https://github.com/Tencent/tdesign-react.git",
+    "directory": "packages/tdesign-react-aigc"
   },
   "scripts": {
     "start": "pnpm dev",
