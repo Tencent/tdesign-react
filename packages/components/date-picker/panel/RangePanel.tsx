@@ -254,6 +254,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
           presetsPlacement={presetsPlacement}
           needConfirm={needConfirm}
           onTimeModeChange={onTimeModeChange}
+          isDateRangeContent={isDateRangeContent}
         />
       ) : null}
       <div className={`${panelName}-content-wrapper`}>{renderPanelContent()}</div>
@@ -265,6 +266,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
           onPresetClick={onPresetClick}
           onConfirmClick={onConfirmClick}
           onTimeModeChange={onTimeModeChange}
+          isDateRangeContent={isDateRangeContent}
           presetsPlacement={presetsPlacement}
           needConfirm={needConfirm}
         />

@@ -11,6 +11,7 @@ export interface ExtraContentProps
   selectedValue?: DateValue | DateMultipleValue;
   presets?: TdDatePickerProps['presets'] | TdDateRangePickerProps['presets'];
   onTimeModeChange?: () => void;
+  isDateRangeContent?: boolean;
 }
 
 export default function ExtraContent(props: ExtraContentProps) {
@@ -29,6 +30,7 @@ export default function ExtraContent(props: ExtraContentProps) {
       selectedValue={selectedValue}
       needConfirm={needConfirm}
       onTimePanelChange={props.onTimeModeChange}
+      isDateRangeContent={props.isDateRangeContent}
     />
   ) : null;
 }

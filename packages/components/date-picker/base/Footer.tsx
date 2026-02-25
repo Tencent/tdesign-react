@@ -13,6 +13,7 @@ interface DatePickerFooterProps extends Pick<TdDatePickerProps, 'presetsPlacemen
   selectedValue?: DateValue | DateMultipleValue;
   onTimePanelChange?: () => void;
   enableTimePicker?: TdDateRangePickerProps['enableTimePicker'] | TdDatePickerProps['enableTimePicker'];
+  isDateRangeContent?: boolean;
 }
 
 const DatePickerFooter = (props: DatePickerFooterProps) => {
@@ -66,7 +67,7 @@ const DatePickerFooter = (props: DatePickerFooterProps) => {
       <div>
         {isSwitchMode && (
           <Button style={{ marginRight: 16 }} size="small" theme="primary" variant="text" onClick={onTimePanelChange}>
-            {t(local.selectTime)}
+            {props.isDateRangeContent ? t(local.selectTime) : t(local.selectDate)}
           </Button>
         )}
         {enableTimePicker && needConfirm && (
