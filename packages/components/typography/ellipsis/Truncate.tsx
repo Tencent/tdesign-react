@@ -159,9 +159,10 @@ export default class Truncate extends React.Component<TruncateProps, TruncateSta
     const div = document.createElement('div');
     const contentKey = 'innerText' in window.HTMLElement.prototype ? 'innerText' : 'textContent';
 
-    const escapedHtml = this.escapeHtml(node.innerHTML);
+    const replacedHtml = this.extractReplaceLinksKeys(node.innerHTML);
+    const escapedHtml = this.escapeHtml(replacedHtml);
     const content = escapedHtml.replace(/\r\n|\r|\n/g, ' ');
-    div.innerHTML = this.extractReplaceLinksKeys(content);
+    div.innerHTML = content;
 
     let text = div[contentKey];
 
