@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { isBoolean, isObject } from 'lodash-es';
 import { getDefaultFormat } from '@tdesign/common-js/date-picker/format';
 import DateHeader from '../base/Header';
 import DateTable from '../base/Table';
@@ -62,7 +63,9 @@ export default function PanelContent(props: PanelContentProps) {
 
   const { timeFormat } = getDefaultFormat({ mode, format, enableTimePicker });
 
-  const showTimePicker = enableTimePicker && mode === 'date';
+  const showTimePicker =
+    (isBoolean(enableTimePicker) && enableTimePicker) ||
+    (isObject(enableTimePicker) && enableTimePicker.mode !== 'switch' && mode === 'date');
 
   const defaultTime = '00:00:00';
 
