@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { isFunction, isObject } from 'lodash-es';
+import { isFunction } from 'lodash-es';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import Button from '../../button';
 import useConfig from '../../hooks/useConfig';

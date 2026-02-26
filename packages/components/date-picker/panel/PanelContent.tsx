@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import { isBoolean, isObject } from 'lodash-es';
 import { getDefaultFormat } from '@tdesign/common-js/date-picker/format';
 import DateHeader from '../base/Header';
 import DateTable from '../base/Table';
