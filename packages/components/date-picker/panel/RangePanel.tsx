@@ -9,6 +9,7 @@ import ExtraContent from './ExtraContent';
 import useTableData from '../hooks/useTableData';
 import useDisableDate from '../hooks/useDisableDate';
 import useDefaultProps from '../../hooks/useDefaultProps';
+
 import { parseToDateTime } from '../utils';
 import { TimePickerPanel } from '../../time-picker';
 
@@ -25,6 +26,7 @@ export interface RangePanelProps extends Omit<TdDateRangePickerProps, 'onYearCha
   month?: number[];
   time?: string[];
   cancelRangeSelectLimit?: boolean;
+  isSwitchTimeMode?: boolean;
   onClick?: (context: { e: React.MouseEvent<HTMLDivElement> }) => void;
   onCellClick?: (date: Date, context: { e: React.MouseEvent<HTMLDivElement>; partial: 'start' | 'end' }) => void;
   onCellMouseEnter?: (date: Date, context: { partial: 'start' | 'end' }) => void;
@@ -50,6 +52,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
     presetsPlacement: 'bottom',
     needConfirm: true,
   });
+
   const {
     value = [],
     hoverValue = [],
@@ -75,6 +78,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
     disableTime,
     onTimePickerChange,
     popupVisible,
+    isSwitchTimeMode,
   } = props;
 
   const { format, timeFormat } = getDefaultFormat({
@@ -98,10 +102,11 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
   });
 
   useEffect(() => {
-    if (!popupVisible) {
+    if (popupVisible && isSwitchTimeMode) {
       toggleDateRangeContent(true);
     }
-  }, [popupVisible]);
+  }, [popupVisible, isSwitchTimeMode]);
+
   const disableTimeOptions: TdTimePickerProps['disableTime'] = (h, m, s, ms) => {
     if (!isFunction(disableTime)) {
       return {};
@@ -172,7 +177,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
 
   const renderPanelContent = () => {
     // 没有开启时间选择，或者开启时间选择但模式是切换（switch），则日期面板和时间面板分开展示
-    if (!enableTimePicker || (isObject(enableTimePicker) && enableTimePicker.mode === 'switch')) {
+    if (!enableTimePicker || isSwitchTimeMode) {
       if (isDateRangeContent)
         return (
           <>
@@ -239,8 +244,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
       style={style}
       className={classNames(panelName, className, {
         [`${panelName}--direction-row`]: ['left', 'right'].includes(presetsPlacement),
-        [`${panelName}--switch-mode`]:
-          enableTimePicker && isObject(enableTimePicker) && enableTimePicker.mode === 'switch',
+        [`${panelName}--switch-mode`]: isSwitchTimeMode,
       })}
       onClick={(e) => onClick?.({ e })}
     >

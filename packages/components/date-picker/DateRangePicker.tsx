@@ -201,7 +201,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     setCacheValue(nextValue);
     setInputValue(nextValue);
 
-    // 有时间选择器走 confirm 逻辑
+    // 有时间选择器且非 switch mode，走 confirm 逻辑
     if (enableTimePicker && !isSwitchTimeMode) return;
 
     // 确保两端都是有效值
@@ -334,6 +334,8 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
         });
       }
     }
+
+    if (isSwitchTimeMode && nextValue.every(Boolean)) handlePopupInvisible();
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
     if (!isFirstValueSelected || !activeIndex) {
@@ -472,6 +474,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     onMonthChange,
     onTimePickerChange,
     disableTime,
+    isSwitchTimeMode,
   };
 
   return (
