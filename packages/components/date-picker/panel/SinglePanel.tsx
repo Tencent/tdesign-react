@@ -6,18 +6,21 @@ import useConfig from '../../hooks/useConfig';
 import { StyledProps } from '../../common';
 import PanelContent from './PanelContent';
 import ExtraContent from './ExtraContent';
-import type { DateValue, TdDatePickerProps } from '../type';
+import type { DateValue, TdDatePickerProps, TdDateRangePickerProps } from '../type';
 import type { TdTimePickerProps } from '../../time-picker';
 import useTableData from '../hooks/useTableData';
 import useDisableDate from '../hooks/useDisableDate';
 import useDefaultProps from '../../hooks/useDefaultProps';
 import { parseToDateTime } from '../utils';
 
-export interface SinglePanelProps extends Omit<TdDatePickerProps, 'onYearChange' | 'onMonthChange'>, StyledProps {
+export interface SinglePanelProps
+  extends Omit<TdDatePickerProps, 'enableTimePicker' | 'onYearChange' | 'onMonthChange'>,
+    StyledProps {
   year?: number;
   month?: number;
   time?: string;
   popupVisible?: boolean;
+  enableTimePicker?: TdDateRangePickerProps['enableTimePicker'] | TdDatePickerProps['enableTimePicker'];
   onPanelClick?: (context: { e: React.MouseEvent<HTMLDivElement> }) => void;
   onCellClick?: (date: Date, context: { e: React.MouseEvent<HTMLDivElement> }) => void;
   onCellMouseEnter?: (date: Date) => void;
