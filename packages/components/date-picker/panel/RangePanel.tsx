@@ -1,6 +1,6 @@
 import React, { forwardRef, useState, useEffect } from 'react';
 import classNames from 'classnames';
-import { isFunction, isObject } from 'lodash-es';
+import { isFunction } from 'lodash-es';
 import { getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
 import useConfig from '../../hooks/useConfig';
 import { StyledProps } from '../../common';
