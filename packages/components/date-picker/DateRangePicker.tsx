@@ -225,7 +225,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
     if (!isFirstValueSelected || !activeIndex || isSwitchTimeMode) {
       let nextIndex = notValidIndex;
-      if (isSwitchTimeMode && activeIndex === 1) return;
+      if (isSwitchTimeMode && activeIndex === 1 && isFirstValueSelected) return;
       if (nextIndex === -1) nextIndex = activeIndex ? 0 : 1;
       setActiveIndex(nextIndex);
       setIsFirstValueSelected(!!nextValue[0]);
