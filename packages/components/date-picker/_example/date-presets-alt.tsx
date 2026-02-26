@@ -17,7 +17,12 @@ export default function YearDatePicker() {
     <Space direction="vertical">
       <DateRangePicker value={range1} presets={presets} onChange={(val) => setRange1(val)} />
 
-      <DateRangePicker value={range2} presets={presets} onChange={(val) => setRange2(val)} enableTimePicker />
+      <DateRangePicker
+        value={range2}
+        presets={presets}
+        onChange={(val) => setRange2(val)}
+        enableTimePicker={{ mode: 'switch' }}
+      />
     </Space>
   );
 }

@@ -16,10 +16,18 @@ import SelectInput from '../select-input';
 import { datePickerDefaultProps } from './defaultProps';
 import useSingle from './hooks/useSingle';
 import SinglePanel from './panel/SinglePanel';
+import { triggerMap } from './utils';
 
 import type { StyledProps } from '../common';
 import type { TagInputRemoveContext } from '../tag-input';
-import type { DateMultipleValue, DateValue, PresetDate, TdDatePickerProps } from './type';
+import type {
+  DateMultipleValue,
+  DateValue,
+  PresetDate,
+  TdDatePickerProps,
+  DatePickerYearChangeTrigger,
+  DatePickerMonthChangeTrigger,
+} from './type';
 
 export interface DatePickerProps extends TdDatePickerProps, StyledProps {}
 
@@ -195,8 +203,23 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
 
       setYear(nextYear);
       setMonth(nextMonth);
+      if (nextYear !== year) {
+        props.onYearChange?.({
+          year: nextYear,
+          date: parseToDayjs(value as DateValue, format).toDate(),
+          trigger: trigger === 'current' ? 'today' : (`year-${triggerMap[trigger]}` as DatePickerYearChangeTrigger),
+        });
+      }
+      if (nextMonth !== month) {
+        props.onMonthChange?.({
+          month: nextMonth,
+          date: parseToDayjs(value as DateValue, format).toDate(),
+          trigger: trigger === 'current' ? 'today' : (`month-${triggerMap[trigger]}` as DatePickerMonthChangeTrigger),
+        });
+      }
     },
-    [year, month, mode, setYear, setMonth],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [year, month, mode, setYear, setMonth, value],
   );
 
   // timePicker 点击
@@ -258,15 +281,31 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     props.onPresetClick?.(context);
   }
 
-  const onYearChange = useCallback((year: number) => {
-    setYear(year);
-    // eslint-disable-next-line
-  }, []);
+  const onYearChange = useCallback(
+    (year: number) => {
+      setYear(year);
+      props.onYearChange?.({
+        year,
+        date: parseToDayjs(value as DateValue, format).toDate(),
+        trigger: 'year-select',
+      });
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [value],
+  );
 
-  const onMonthChange = useCallback((month: number) => {
-    setMonth(month);
-    // eslint-disable-next-line
-  }, []);
+  const onMonthChange = useCallback(
+    (month: number) => {
+      setMonth(month);
+      props.onMonthChange?.({
+        month,
+        date: parseToDayjs(value as DateValue, format).toDate(),
+        trigger: 'month-select',
+      });
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [value],
+  );
 
   function processDate(date: Date) {
     let isSameDate: boolean;

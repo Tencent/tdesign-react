@@ -14,7 +14,7 @@ import type { ActivityComponentProps } from '@tdesign-react/chat';
 
 /**
  * Activity 示例 - 规划步骤（Plan TodoList）
- * 
+ *
  * 演示如何使用 Activity 事件展示动态规划步骤，支持：
  * 1. 标准模式：后端先发 ACTIVITY_SNAPSHOT，再发 ACTIVITY_DELTA
  * 2. 纯增量模式：后端只发 ACTIVITY_DELTA，无 SNAPSHOT（前端自动初始化）
@@ -48,7 +48,7 @@ const PlanTodoActivity: React.FC<ActivityComponentProps<PlanTodoContent>> = ({ c
   const { title, description, steps, status } = content;
 
   // 计算完成进度
-  const completedCount = steps?.filter(s => s.status === 'completed').length || 0;
+  const completedCount = steps?.filter((s) => s.status === 'completed').length || 0;
   const totalCount = steps?.length || 0;
   const progress = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
@@ -104,15 +104,11 @@ const PlanTodoActivity: React.FC<ActivityComponentProps<PlanTodoContent>> = ({ c
         {/* 标题和状态 */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{ fontSize: 16, fontWeight: 600 }}>{title}</span>
-          <Tag theme={getStatusTheme()}>
-            {getStatusText()}
-          </Tag>
+          <Tag theme={getStatusTheme()}>{getStatusText()}</Tag>
         </div>
 
         {/* 描述 */}
-        {description && (
-          <div style={{ fontSize: 13, color: '#666' }}>{description}</div>
-        )}
+        {description && <div style={{ fontSize: 13, color: '#666' }}>{description}</div>}
 
         {/* 进度条 */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -145,9 +141,7 @@ const PlanTodoActivity: React.FC<ActivityComponentProps<PlanTodoContent>> = ({ c
                 opacity: step.status === 'pending' ? 0.6 : 1,
               }}
             >
-              <div style={{ marginRight: 12, marginTop: 2 }}>
-                {getStepIcon(step.status)}
-              </div>
+              <div style={{ marginRight: 12, marginTop: 2 }}>{getStepIcon(step.status)}</div>
               <div style={{ flex: 1 }}>
                 <div
                   style={{
@@ -160,9 +154,7 @@ const PlanTodoActivity: React.FC<ActivityComponentProps<PlanTodoContent>> = ({ c
                   {step.label}
                 </div>
                 {step.description && (
-                  <div style={{ fontSize: 12, color: '#999', marginTop: 2 }}>
-                    {step.description}
-                  </div>
+                  <div style={{ fontSize: 12, color: '#999', marginTop: 2 }}>{step.description}</div>
                 )}
               </div>
               {step.status === 'running' && (
@@ -254,8 +246,15 @@ const ActivityExample: React.FC = () => {
   };
 
   return (
-    <Space direction='vertical' style={{ width: '100%' }}>
-      <div style={{ marginBottom: '16px', padding: '12px', background: '#f5f5f5', borderRadius: '4px' }}>
+    <Space direction="vertical" style={{ width: '100%' }}>
+      <div
+        style={{
+          marginBottom: '16px',
+          padding: '12px',
+          background: 'var(--td-bg-color-secondarycontainer)',
+          borderRadius: '4px',
+        }}
+      >
         <div style={{ marginBottom: '8px', fontSize: '14px', fontWeight: 500 }}>示例说明：</div>
         <p style={{ margin: '8px 0', fontSize: '14px', color: '#666' }}>
           演示 Activity 事件的流式更新：先列出规划步骤，然后逐步打钩完成
