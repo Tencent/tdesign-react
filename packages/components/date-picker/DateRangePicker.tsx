@@ -78,6 +78,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     setIsFirstValueSelected,
     cacheValue,
     setCacheValue,
+    isSwitchTimeMode,
   } = useRange(props);
 
   const { format, timeFormat, valueType } = getDefaultFormat({
@@ -154,7 +155,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
         const { year: defaultYear, month: defaultMonth } = initYearMonthTime({ value, mode, format, enableTimePicker });
         setYear(defaultYear);
         setMonth(defaultMonth);
-      } else if (value.length === 2 && !enableTimePicker) {
+      } else if (value.length === 2 && (!enableTimePicker || isSwitchTimeMode)) {
         handleSyncPanelValue(value);
       } else {
         setYear(value.map((v: string) => parseToDayjs(v, format).year()));
@@ -200,8 +201,8 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     setCacheValue(nextValue);
     setInputValue(nextValue);
 
-    // 有时间选择器走 confirm 逻辑
-    if (enableTimePicker) return;
+    // 有时间选择器且非 switch mode，走 confirm 逻辑
+    if (enableTimePicker && !isSwitchTimeMode) return;
 
     // 确保两端都是有效值
     const notValidIndex = nextValue.findIndex((v) => !v || !isValidDate(v, format));
@@ -222,8 +223,9 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     }
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
-    if (!isFirstValueSelected || !activeIndex) {
+    if (!isFirstValueSelected || !activeIndex || isSwitchTimeMode) {
       let nextIndex = notValidIndex;
+      if (isSwitchTimeMode && activeIndex === 1 && isFirstValueSelected) return;
       if (nextIndex === -1) nextIndex = activeIndex ? 0 : 1;
       setActiveIndex(nextIndex);
       setIsFirstValueSelected(!!nextValue[0]);
@@ -286,13 +288,13 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
   }
 
   // time-picker 点击
-  function onTimePickerChange(val: string) {
+  function onTimePickerChange(val: string, context?: { activeIndex: 0 | 1 }) {
     const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(val);
-
+    const currentIndex = context.activeIndex ?? activeIndex;
     const nextInputValue = [...inputValue];
-    const changedInputValue = inputValue[activeIndex];
+    const changedInputValue = inputValue[currentIndex];
     const currentDate = !dayjs(changedInputValue, format).isValid()
-      ? dayjs().year(year[activeIndex]).month(month[activeIndex])
+      ? dayjs().year(year[currentIndex]).month(month[currentIndex])
       : dayjs(changedInputValue, format);
     // am pm 12小时制转化 24小时制
     let nextHours = hours;
@@ -300,10 +302,10 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
 
     const nextDate = currentDate.hour(nextHours).minute(minutes).second(seconds).millisecond(milliseconds).toDate();
-    nextInputValue[activeIndex] = nextDate;
+    nextInputValue[currentIndex] = nextDate;
 
     const nextTime = [...time];
-    nextTime[activeIndex] = val;
+    nextTime[currentIndex] = val;
     setTime(nextTime);
 
     setIsSelected(true);
@@ -332,6 +334,8 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
         });
       }
     }
+
+    if (isSwitchTimeMode && nextValue.every(Boolean)) handlePopupInvisible();
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
     if (!isFirstValueSelected || !activeIndex) {
@@ -470,6 +474,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     onMonthChange,
     onTimePickerChange,
     disableTime,
+    isSwitchTimeMode,
   };
 
   return (

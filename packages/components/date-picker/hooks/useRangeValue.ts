@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { isObject } from 'lodash-es';
 import {
   isValidDate,
   formatDate,
@@ -47,6 +48,11 @@ export default function useRange(props: TdDateRangePickerProps) {
   const [year, setYear] = useState<Array<number>>(() => initYearMonthTime({ value, mode: props.mode, format }).year);
   const [cacheValue, setCacheValue] = useState(() => formatDate(value, { format })); // 缓存选中值，panel 点击时更改
 
+  const isSwitchTimeMode = useMemo(
+    () => isObject(props.enableTimePicker) && props.enableTimePicker.mode === 'switch',
+    [props.enableTimePicker],
+  );
+
   // 输入框响应 value 变化
   useEffect(() => {
     if (!value) {
@@ -73,5 +79,6 @@ export default function useRange(props: TdDateRangePickerProps) {
     setIsFirstValueSelected,
     cacheValue,
     setCacheValue,
+    isSwitchTimeMode,
   };
 }
