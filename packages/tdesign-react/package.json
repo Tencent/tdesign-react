@@ -70,7 +70,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Tencent/tdesign-react.git"
+    "url": "git+https://github.com/Tencent/tdesign-react.git",
+    "directory": "packages/tdesign-react"
   },
   "homepage": "https://github.com/Tencent/tdesign-react/tree/develop#readme",
   "bugs": {

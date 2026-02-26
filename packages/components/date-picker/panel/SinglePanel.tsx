@@ -13,7 +13,9 @@ import useDisableDate from '../hooks/useDisableDate';
 import useDefaultProps from '../../hooks/useDefaultProps';
 import { parseToDateTime } from '../utils';
 
-export interface SinglePanelProps extends Omit<TdDatePickerProps, 'enableTimePicker'>, StyledProps {
+export interface SinglePanelProps
+  extends Omit<TdDatePickerProps, 'enableTimePicker' | 'onYearChange' | 'onMonthChange'>,
+    StyledProps {
   year?: number;
   month?: number;
   time?: string;
