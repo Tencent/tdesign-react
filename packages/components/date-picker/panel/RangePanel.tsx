@@ -158,6 +158,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
     firstDayOfWeek,
     popupVisible,
     enableTimePicker: props.enableTimePicker,
+    isSwitchTimeMode,
     timePickerProps: {
       disableTime: disableTimeOptions,
       ...props.timePickerProps,
@@ -213,6 +214,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
             format={timeFormat}
             value={time[0]}
             onChange={(val) => onTimePickerChange(val, { activeIndex: 0 })}
+            {...props.timePickerProps}
           />
           <TimePickerPanel
             key="endPanel"
@@ -220,6 +222,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
             format={timeFormat}
             value={time[1]}
             onChange={(val) => onTimePickerChange(val, { activeIndex: 1 })}
+            {...props.timePickerProps}
           />
         </>
       );
@@ -259,6 +262,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
           needConfirm={needConfirm}
           onTimeModeChange={onTimeModeChange}
           isDateRangeContent={isDateRangeContent}
+          isSwitchTimeMode={isSwitchTimeMode}
         />
       ) : null}
       <div className={`${panelName}-content-wrapper`}>{renderPanelContent()}</div>
@@ -271,6 +275,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
           onConfirmClick={onConfirmClick}
           onTimeModeChange={onTimeModeChange}
           isDateRangeContent={isDateRangeContent}
+          isSwitchTimeMode={isSwitchTimeMode}
           presetsPlacement={presetsPlacement}
           needConfirm={needConfirm}
         />

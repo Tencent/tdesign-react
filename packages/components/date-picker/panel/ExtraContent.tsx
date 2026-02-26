@@ -12,11 +12,20 @@ export interface ExtraContentProps
   presets?: TdDatePickerProps['presets'] | TdDateRangePickerProps['presets'];
   onTimeModeChange?: () => void;
   isDateRangeContent?: boolean;
+  isSwitchTimeMode?: boolean;
 }
 
 export default function ExtraContent(props: ExtraContentProps) {
-  const { presets, enableTimePicker, presetsPlacement, onPresetClick, onConfirmClick, selectedValue, needConfirm } =
-    props;
+  const {
+    presets,
+    enableTimePicker,
+    presetsPlacement,
+    onPresetClick,
+    onConfirmClick,
+    selectedValue,
+    needConfirm,
+    isSwitchTimeMode,
+  } = props;
 
   const showPanelFooter = (enableTimePicker && needConfirm) || presets;
 
@@ -31,6 +40,7 @@ export default function ExtraContent(props: ExtraContentProps) {
       needConfirm={needConfirm}
       onTimePanelChange={props.onTimeModeChange}
       isDateRangeContent={props.isDateRangeContent}
+      isSwitchTimeMode={isSwitchTimeMode}
     />
   ) : null;
 }

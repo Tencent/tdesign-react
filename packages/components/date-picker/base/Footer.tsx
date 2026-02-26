@@ -14,6 +14,7 @@ interface DatePickerFooterProps extends Pick<TdDatePickerProps, 'presetsPlacemen
   onTimePanelChange?: () => void;
   enableTimePicker?: TdDateRangePickerProps['enableTimePicker'] | TdDatePickerProps['enableTimePicker'];
   isDateRangeContent?: boolean;
+  isSwitchTimeMode?: boolean;
 }
 
 const DatePickerFooter = (props: DatePickerFooterProps) => {
@@ -31,15 +32,13 @@ const DatePickerFooter = (props: DatePickerFooterProps) => {
     selectedValue,
     needConfirm,
     onTimePanelChange,
+    isSwitchTimeMode,
   } = props;
 
   const footerClass = classNames(
     `${classPrefix}-date-picker__footer`,
     `${classPrefix}-date-picker__footer--${presetsPlacement}`,
   );
-
-  // 在日期区间选择器下，可能存在两种时间选择面板的展示方式：并列展示（parallel）和切换展示（switch）
-  const isSwitchMode = isObject(enableTimePicker) && enableTimePicker?.mode === 'switch';
 
   const renderPresets = () => {
     if (presets) {
@@ -65,7 +64,7 @@ const DatePickerFooter = (props: DatePickerFooterProps) => {
     <div className={footerClass}>
       <div className={`${classPrefix}-date-picker__presets`}>{renderPresets()}</div>
       <div>
-        {isSwitchMode && (
+        {isSwitchTimeMode && (
           <Button style={{ marginRight: 16 }} size="small" theme="primary" variant="text" onClick={onTimePanelChange}>
             {props.isDateRangeContent ? t(local.selectTime) : t(local.selectDate)}
           </Button>
