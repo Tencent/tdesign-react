@@ -14,7 +14,7 @@ import { parseToDateTime } from '../utils';
 import type { TdDateRangePickerProps } from '../type';
 import type { TdTimePickerProps } from '../../time-picker';
 
-export interface RangePanelProps extends TdDateRangePickerProps, StyledProps {
+export interface RangePanelProps extends Omit<TdDateRangePickerProps, 'onYearChange' | 'onMonthChange'>, StyledProps {
   hoverValue?: string[];
   activeIndex?: number;
   isFirstValueSelected?: boolean;
