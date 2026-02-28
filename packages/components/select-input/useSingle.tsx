@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 import classNames from 'classnames';
 import { isObject, pick } from 'lodash-es';
@@ -50,6 +50,8 @@ export default function useSingle(props: TdSelectInputProps) {
   const inputRef = useRef<InputRef>(null);
   const blurTimeoutRef = useRef(null);
 
+  const [isInputFocused, setIsInputFocused] = useState(false);
+
   const [inputValue, setInputValue] = useControlled(props, 'inputValue', props.onInputChange);
 
   const commonInputProps: SelectInputCommonProperties = {
@@ -84,6 +86,7 @@ export default function useSingle(props: TdSelectInputProps) {
       // 强制把 popupVisible 设置为 false 时，点击 input，会出现 blur -> focus 的情况，因此忽略前面短暂的 blur 事件
       blurTimeoutRef.current = setTimeout(() => {
         if (blurTimeoutRef.current) {
+          setIsInputFocused(false);
           if (!popupVisible) {
             onInnerBlur(ctx);
           } else if (!props.panel) {
@@ -99,6 +102,7 @@ export default function useSingle(props: TdSelectInputProps) {
         clearTimeout(blurTimeoutRef.current);
         blurTimeoutRef.current = null;
       }
+      setIsInputFocused(true);
       props.onFocus?.(value, { ...context, inputValue: val });
       // focus might not need to change input value. it will caught some curious errors in tree-select
       // !popupVisible && setInputValue(getInputValue(value, keys), { ...context, trigger: 'input' });
@@ -131,8 +135,8 @@ export default function useSingle(props: TdSelectInputProps) {
         onBlur={handleBlur}
         {...props.inputProps}
         inputClass={classNames(props.inputProps?.className, {
-          [`${classPrefix}-input--focused`]: popupVisible,
-          [`${classPrefix}-is-focused`]: popupVisible,
+          [`${classPrefix}-input--focused`]: popupVisible || isInputFocused,
+          [`${classPrefix}-is-focused`]: popupVisible || isInputFocused,
         })}
       />
     );
