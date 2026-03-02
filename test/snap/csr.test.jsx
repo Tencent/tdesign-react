@@ -9,11 +9,19 @@ import { IGNORE_ASYNC_EXAMPLE_LIST } from './ssr.test';
 MockDate.set('2020-12-28 00:00:00');
 
 class ResizeObserver {
+  constructor(callback) {
+    this.callback = callback;
+  }
+
   observe() {
     return this;
   }
 
   unobserve() {
+    return this;
+  }
+
+  disconnect() {
     return this;
   }
 }
