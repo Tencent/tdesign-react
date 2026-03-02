@@ -5,7 +5,7 @@
  * @FilePath: /tdesign-react/src/progress/__tests__/progress.test.tsx
  */
 import React from 'react';
-import { render, waitFor, act } from '@test/utils';
+import { render, waitFor } from '@test/utils';
 import { vi } from 'vitest';
 import Progress from '../Progress';
 import { ThemeEnum } from '../type';
