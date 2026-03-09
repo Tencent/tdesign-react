@@ -36,6 +36,13 @@ export const docs = [
         component: () => import('@tdesign/common/docs/web/overview.md'),
         componentEn: () => import('@tdesign/common/docs/web/overview.en-US.md'),
       },
+      {
+        title: 'MCP',
+        titleEn: 'MCP',
+        name: 'mcp',
+        path: '/react/mcp',
+        redirect: 'https://cloud.tencent.com/developer/mcp/server/11721',
+      },
     ],
   },
   {
@@ -78,7 +85,8 @@ export const docs = [
         title: 'AI Chat 对话',
         titleEn: 'Chat',
         name: 'chat',
-        path: '/react-chat',
+        path: '/chat',
+        redirect: 'https://tdesign.tencent.com/react-chat/overview',
       },
     ],
   },
