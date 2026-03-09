@@ -5,11 +5,14 @@
 import { TdSliderProps } from './type';
 
 export const sliderDefaultProps: TdSliderProps = {
+  disabled: undefined,
   inputNumberProps: false,
   label: true,
   layout: 'horizontal',
   max: 100,
   min: 0,
   range: false,
+  showStep: false,
   step: 1,
+  defaultValue: 0,
 };
