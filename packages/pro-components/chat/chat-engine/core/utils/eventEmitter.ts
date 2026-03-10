@@ -21,6 +21,14 @@ export default class SimpleEventEmitter {
     }
   }
 
+  once(event: string, listener: (...args: any[]) => void): void {
+    const wrapper = (...args: any[]) => {
+      this.off(event, wrapper);
+      listener(...args);
+    };
+    this.on(event, wrapper);
+  }
+
   emit(event: string, ...args: any[]): boolean {
     const listeners = this.events.get(event);
     if (listeners && listeners.length > 0) {

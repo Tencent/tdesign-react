@@ -532,6 +532,7 @@ const TravelPlannerContent: React.FC = () => {
     setInputValue('');
   };
 
+  console.log("====message", messages)
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', position: 'relative' }}>
       {/* 右侧进度面板：使用 useAgentState 订阅状态 */}

@@ -281,7 +281,7 @@ export default function AguiBasicExample() {
   const { chatEngine, messages, status } = useChat({
     defaultMessages: [],
     chatServiceConfig: {
-      endpoint: 'http://localhost:9000/sse/agui-activity',
+      endpoint: 'http://localhost:9001/sse/agui-activity',
       // 开启 AG-UI 协议解析支持
       protocol: 'agui',
       stream: true,

@@ -258,17 +258,15 @@ export default function AguiJsonRenderFullCustomExample() {
     }
     return null;
   };
+  
 
   return (
-    <div style={{ height: '800px', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ height: '600px', display: 'flex', flexDirection: 'column' }}>
       {/* 标题区域 */}
       <div style={{ marginBottom: '16px', padding: '12px', background: '#f5f5f5', borderRadius: '4px' }}>
         <h3 style={{ margin: 0, fontSize: '16px' }}>完整自定义组件 + json-render 演示</h3>
         <p style={{ margin: '4px 0 0', fontSize: '12px', color: 'var(--td-text-color-secondary)' }}>
-          演示 Catalog（约束层）+ ComponentRegistry（渲染层）完整架构
-        </p>
-        <p style={{ margin: '4px 0 0', fontSize: '12px', color: 'var(--td-text-color-secondary)' }}>
-          尝试输入不同提示词，来查看渐进式生成效果：“表单”，“名片“, ”深层嵌套“
+          AI 生成符合 Catalog 约束的 JSON → json-render 引擎解析 → Registry 查找组件实现 → 渲染真实 UI
         </p>
         {currentStage && (
           <div

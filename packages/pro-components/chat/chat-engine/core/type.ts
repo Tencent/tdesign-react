@@ -205,7 +205,13 @@ export interface ChatNetworkConfig {
   /** 请求超时时间（毫秒） */
   timeout?: number; // 添加timeout属性
   /** 协议类型 */
-  protocol?: 'default' | 'agui';
+  protocol?: 'default' | 'agui' | 'openclaw';
+  /**
+   * OpenClaw 专属配置（仅协议层必需项）
+   * 只在 protocol: 'openclaw' 时生效
+   * 业务参数（sessionKey、token 等）通过 onRequest 回调传入
+   */
+  openclaw?: import('./adapters/openclaw/types/config').OpenClawConfig;
 }
 
 // TDesign 默认引擎的回调配置

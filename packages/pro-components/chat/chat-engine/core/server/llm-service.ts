@@ -2,6 +2,10 @@ import type { AIMessageContent, ChatRequestParams, ChatServiceConfig, SSEChunkDa
 import { LoggerManager } from '../utils/logger';
 import { BatchClient } from './batch-client';
 import { SSEClient } from './sse-client';
+import {
+  OpenClawAdapter,
+  type OpenClawAdapterConfig,
+} from '../adapters/openclaw';
 
 // 与原有接口保持兼容
 export interface ILLMService {
@@ -26,6 +30,8 @@ export class LLMService implements ILLMService {
   private sseClient: SSEClient | null = null;
 
   private batchClient: BatchClient | null = null;
+
+  private openclawAdapter: OpenClawAdapter | null = null;
 
   private isDestroyed = false;
 
@@ -77,6 +83,13 @@ export class LLMService implements ILLMService {
    */
   async handleStreamRequest(params: ChatRequestParams, config: ChatServiceConfig): Promise<void> {
     if (!config.endpoint) return;
+
+    // OpenClaw WebSocket 协议
+    if (config.protocol === 'openclaw') {
+      await this.handleOpenClawStreamRequest(params, config);
+      return;
+    }
+
     this.sseClient = new SSEClient(config.endpoint);
 
     const req = (await config.onRequest?.(params)) || {};
@@ -105,6 +118,67 @@ export class LLMService implements ILLMService {
   }
 
   /**
+   * 处理 OpenClaw WebSocket 流式请求
+   */
+  private async handleOpenClawStreamRequest(params: ChatRequestParams, config: ChatServiceConfig): Promise<void> {
+    const openclawConfig = config.openclaw || {};
+
+    // 构建适配器配置
+    const adapterConfig: OpenClawAdapterConfig = {
+      endpoint: config.endpoint!,
+      timeout: config.timeout,
+      maxRetries: config.maxRetries,
+      retryInterval: config.retryInterval,
+      ...openclawConfig,
+    };
+
+    // 复用或创建适配器
+    if (!this.openclawAdapter) {
+      this.openclawAdapter = new OpenClawAdapter(adapterConfig);
+    }
+
+    // 设置回调
+    this.openclawAdapter.setCallbacks({
+      onConnected: () => {
+        this.logger.info('OpenClaw connected, sending message...');
+      },
+      onStart: () => {
+        config.onStart?.('openclaw:stream:start');
+      },
+      onMessage: (content) => {
+        // 将 OpenClaw 事件转换为 SSEChunkData 格式，保持与 ChatEngine 的兼容性
+        const chunk: SSEChunkData = {
+          event: 'openclaw',
+          data: content,
+        };
+        config.onMessage?.(chunk);
+      },
+      onComplete: (isAborted, requestParams) => {
+        config.onComplete?.(isAborted, requestParams);
+      },
+      onError: (error) => {
+        config.onError?.(error);
+      },
+    });
+
+    try {
+      // 连接 WebSocket（如果未连接）
+      if (!this.openclawAdapter.isAuthenticated()) {
+        await this.openclawAdapter.connect();
+      }
+
+      // 通过 onRequest 获取用户自定义的业务参数
+      const requestParams = (await config.onRequest?.(params)) || {};
+
+      // 发送消息（requestParams 包含用户自定义的 sessionKey、token 等）
+      await this.openclawAdapter.sendMessage(params, requestParams as Record<string, unknown>);
+    } catch (error) {
+      config.onError?.(error as Error);
+      throw error;
+    }
+  }
+
+  /**
    * 关闭所有客户端连接
    */
   closeConnect(): void {
@@ -115,6 +189,9 @@ export class LLMService implements ILLMService {
     if (this.batchClient) {
       this.batchClient.abort();
       this.batchClient = null;
+    }
+    if (this.openclawAdapter) {
+      this.openclawAdapter.abort();
     }
   }
 
@@ -137,6 +214,10 @@ export class LLMService implements ILLMService {
   async destroy(): Promise<void> {
     this.isDestroyed = true;
     this.closeConnect();
+    if (this.openclawAdapter) {
+      await this.openclawAdapter.destroy();
+      this.openclawAdapter = null;
+    }
     this.logger.info('Enhanced LLM Service destroyed');
   }
 }

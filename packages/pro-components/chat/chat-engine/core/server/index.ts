@@ -16,6 +16,7 @@ export * from './errors';
 
 export { ConnectionManager } from './connection-manager';
 export { SSEClient } from './sse-client';
+export { WebSocketClient, type WebSocketClientConfig, WebSocketConnectionState } from './websocket-client';
 
 // 导出服务（保持向后兼容）
 export { LLMService, type ILLMService } from './llm-service';

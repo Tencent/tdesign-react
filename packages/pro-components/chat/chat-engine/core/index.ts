@@ -107,6 +107,12 @@ export default class ChatEngine implements IChatEngine {
       this.aguiAdapter = new AGUIAdapter();
     }
 
+    // 初始化OpenClaw适配器（由 LLMService 内部管理连接生命周期）
+    // if (this.config.protocol === 'openclaw') {
+    //   // OpenClaw 适配器通过 LLMService 自动创建和管理
+    //   // 这里仅标记协议类型，无需提前创建适配器实例
+    // }
+
     // 发布初始化事件
     this.eventBus.emit(ChatEngineEventType.ENGINE_INIT, {
       timestamp: Date.now(),
@@ -431,6 +437,7 @@ export default class ChatEngine implements IChatEngine {
   private async handleStreamRequest(params: ChatRequestParams) {
     const id = params.messageID;
     const isAGUI = this.config.protocol === 'agui';
+    const isOpenClaw = this.config.protocol === 'openclaw';
 
     if (id) {
       this.setMessageStatus(id, 'streaming');
@@ -439,6 +446,8 @@ export default class ChatEngine implements IChatEngine {
     // 根据协议类型选择处理策略
     if (isAGUI && this.aguiAdapter) {
       await this.handleAGUIStreamRequest(params, id);
+    } else if (isOpenClaw) {
+      await this.handleOpenClawStreamRequest(params, id);
     } else {
       await this.handleDefaultStreamRequest(params, id);
     }
@@ -540,6 +549,54 @@ export default class ChatEngine implements IChatEngine {
         // 使用默认的消息处理
         if (this.config.onMessage) {
           result = this.config.onMessage(chunk, this.messageStore.getMessageByID(messageId));
+        }
+
+        // 发布流数据事件
+        this.eventBus.emit(ChatEngineEventType.REQUEST_STREAM, {
+          messageId,
+          chunk,
+          content: result,
+        });
+
+        // 处理消息结果
+        this.processMessageResult(messageId, result);
+        return result;
+      },
+      onError: (error) => {
+        if (messageId) this.handleError(messageId, error);
+      },
+      onComplete: (isAborted) => {
+        if (messageId) {
+          this.handleComplete(messageId, isAborted, params);
+        }
+      },
+    });
+  }
+
+  /**
+   * 处理 OpenClaw 协议的流式请求
+   *
+   * OpenClaw 使用 WebSocket 连接，消息流由 LLMService 内部的 OpenClawAdapter 处理。
+   * Adapter 将 OpenClaw 事件转换为 AIMessageContent 后，通过 onMessage 回调传递给 ChatEngine。
+   */
+  private async handleOpenClawStreamRequest(params: ChatRequestParams, messageId?: string) {
+    await this.llmService.handleStreamRequest(params, {
+      ...this.config,
+      onStart: (chunk) => {
+        this.config.onStart?.(chunk);
+      },
+      onMessage: (chunk: SSEChunkData) => {
+        if (this.stopReceive || !messageId) return null;
+
+        // OpenClaw 的 chunk.data 已经是 AIMessageContent 格式（由 OpenClawAdapter 转换）
+        let result: AIMessageContent | AIMessageContent[] | null = chunk.data;
+
+        // 允许用户通过 onMessage 进行自定义处理
+        if (this.config.onMessage) {
+          const userResult = this.config.onMessage(chunk, this.messageStore.getMessageByID(messageId), result);
+          if (userResult) {
+            result = userResult;
+          }
         }
 
         // 发布流数据事件

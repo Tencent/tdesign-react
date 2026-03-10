@@ -22,7 +22,7 @@ ChatEngine 是一个底层对话引擎（Headless Core），提供灵活的 Hook
 
 最简单的示例，使用 `useChat` Hook 创建对话引擎，组合 `ChatList`、`ChatMessage`、`ChatSender` 组件构建对话界面。
 
-{{ basic }}
+{{ agui-test }}
 
 ## 基础用法
 
@@ -205,6 +205,47 @@ AG-UI 协议支持通过 `ACTIVITY_*` 事件展示动态内容组件（如实时
 - **外部状态订阅**：演示如何在对话组件外部订阅和展示工具执行状态
 
 {{ agui-comprehensive }}
+
+
+## OpenClaw 协议
+
+[OpenClaw](https://openclaw.io) 是一个基于 WebSocket 的 AI Agent 网关协议，采用 RPC 风格的消息通信，支持实时双向交互、流式消息推送、连接保活等特性。ChatEngine 内置了对 OpenClaw 协议的支持，可以方便地接入 OpenClaw Gateway。
+
+### 设计原则
+
+- **配置精简**：OpenClaw 专属配置只保留协议层必需项（`heartbeatInterval`、`client`、`protocolVersion`），业务参数通过 `onRequest` 回调传入
+- **复用外层配置**：`endpoint`、`maxRetries`、`retryInterval`、`timeout` 等通用网络配置复用 `ChatNetworkConfig`
+- **安全考虑**：token 等敏感信息不在静态配置中暴露，通过 `onRequest` 动态获取
+
+### 基础用法
+
+设置 `protocol: 'openclaw'`，即可启用 OpenClaw WebSocket 连接。ChatEngine 会自动处理：
+- WebSocket 连接建立和 `connect.challenge` 握手
+- 心跳保活和自动重连
+- 将 OpenClaw 事件（`chat`、`agent`）自动转换为 `AIMessageContent` 格式
+
+> ⚠️ 本示例需要启动本地 Mock Server：`cd mock-server/online2 && node app.js`
+
+{{ openclaw-basic }}
+
+### Toolcall + Activity 综合
+
+在 OpenClaw 协议中，通过 `stream` 字段区分不同的事件流类型：
+
+- **`stream=assistant`**（默认）：文本流式传输
+- **`stream=tool`**：工具调用四阶段（start → args → result → end），对应前端的 `ToolCallRenderer` 组件
+- **`stream=activity`**：Activity 组件的 snapshot + delta 增量更新，对应前端的 `ActivityRenderer` 组件
+
+本示例重点展示 **Human-in-the-Loop 交互式 Toolcall** 的完整流程：
+
+1. 输入"交互"关键字 → 服务端推送天气查询 Toolcall + 用户偏好收集 Toolcall（交互式，只推 start+args，不推 result）
+2. 前端展示偏好表单 → 用户填写预算、兴趣等 → 点击"确认提交"
+3. 前端通过 `sendAIMessage({ toolCallMessage })` 将表单数据回传后端
+4. 后端收到后推送 Toolcall result/end（完成生命周期）+ 酒店推荐 Activity（根据偏好个性化推荐）
+
+> ⚠️ 本示例需要启动本地 Mock Server：`cd mock-server/online2 && node app.js`
+
+{{ openclaw-toolcall-activity }}
 
 
 ## 生成式UI
