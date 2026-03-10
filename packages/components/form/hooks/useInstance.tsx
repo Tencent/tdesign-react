@@ -163,6 +163,15 @@ export default function useInstance(
   }
 
   /**
+   * 将值同步写入 floatingFormDataRef 和 form.store
+   *（无对应 FormItem 时的 fallback）
+   */
+  function updateFloatingValue(name: NamePath, value: any) {
+    set(floatingFormDataRef.current, name, value);
+    set(form?.store, name, value);
+  }
+
+  /**
    * 对外方法，设置对应 FormItem 的值
    */
   function setFieldsValue(fields = {}) {
@@ -182,9 +191,8 @@ export default function useInstance(
           setValueByPath(value[key], [...path, key]);
         });
       } else {
-        set(floatingFormDataRef.current, path, value);
         // 确保 store 始终包含所有被 set 的字段
-        set(form?.store, path, value);
+        updateFloatingValue(path, value);
       }
     };
 
@@ -203,8 +211,7 @@ export default function useInstance(
       if (formItemRef?.current) {
         formItemRef.current.setField({ value, ...restFields });
       } else if ('value' in field) {
-        set(floatingFormDataRef.current, name, value);
-        set(form?.store, name, value);
+        updateFloatingValue(name, value);
       }
     });
   }
