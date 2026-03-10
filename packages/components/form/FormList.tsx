@@ -122,7 +122,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
       if (data !== undefined) callback(formItemRef, data);
     });
 
-    updateFormList(newFields, fieldData);
+    updateFormList(newFields, cloneDeep(fieldData));
   }
 
   useEffect(() => {
@@ -177,8 +177,21 @@ const FormList: React.FC<TdFormListProps> = (props) => {
           });
         });
       },
-      // TODO 支持局部更新数据
       setValue: (fieldData) => {
+        // 支持局部更新数据: { [index]: value }
+        if (fieldData !== null && typeof fieldData === 'object' && !Array.isArray(fieldData)) {
+          const currentValue = cloneDeep(get(form?.store, fullPath) || []);
+          Object.keys(fieldData).forEach((key) => {
+            const index = Number(key);
+            if (!Number.isNaN(index)) {
+              currentValue[index] = merge({}, currentValue[index], fieldData[key]);
+            }
+          });
+          setListFields(currentValue, (formItemRef, data) => {
+            formItemRef?.current?.setValue?.(data);
+          });
+          return;
+        }
         setListFields(fieldData, (formItemRef, data) => {
           formItemRef?.current?.setValue?.(data);
         });
