@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import { isUndefined } from 'lodash-es';
@@ -80,6 +80,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const isFullScreen = mode === 'full-screen';
 
   const dialogAttach = useAttach('dialog', attach);
+  const [dialogAnimationVisible, setDialogAnimationVisible] = useState(false);
 
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
   const { activateDialog } = useDialogEsc(visible, wrapRef);
@@ -94,6 +95,17 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     // 插件式调用不会更新props, 只有组件式调用才会更新props
     setState((prevState) => ({ ...prevState, ...props }));
   }, [props, setState]);
+
+  useEffect(() => {
+    if (!dialogCardRef.current) return;
+    dialogCardRef.current.style.display = dialogAnimationVisible ? 'block' : 'none';
+
+    if (dialogAnimationVisible) {
+      activateDialog();
+      applyTransform();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dialogAnimationVisible]);
 
   useImperativeHandle(ref, () => ({
     show() {
@@ -164,7 +176,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const onAnimateStart = () => {
     onBeforeOpen?.();
     if (!wrapRef.current) return;
-    wrapRef.current.style.display = '';
+    wrapRef.current.style.display = 'block';
   };
 
   const onAnimateLeave = () => {
@@ -175,20 +187,11 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
 
   // Dialog Animation
   const onInnerAnimateStart = () => {
-    const dialogCard = dialogCardRef.current;
-    if (!dialogCard) return;
-    dialogCard.style.display = 'block';
-    requestAnimationFrame(() => {
-      if (!wrapRef.current) return;
-      wrapRef.current.style.display = '';
-      activateDialog();
-      applyTransform();
-    });
+    setDialogAnimationVisible(true);
   };
 
   const onInnerAnimateLeave = () => {
-    if (!dialogCardRef.current) return;
-    dialogCardRef.current.style.display = 'none';
+    setDialogAnimationVisible(false);
   };
 
   const renderMask = () => {

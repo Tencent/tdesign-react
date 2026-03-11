@@ -16,9 +16,7 @@ const useDialogEsc = (visible: boolean, dialog: MutableRefObject<HTMLDivElement>
     if (dialog?.current && !addedToStackRef.current) {
       dialogStack.push(dialog);
       addedToStackRef.current = true;
-      requestAnimationFrame(() => {
-        focusTopDialog();
-      });
+      focusTopDialog();
     }
   }, [dialog, focusTopDialog]);
 
