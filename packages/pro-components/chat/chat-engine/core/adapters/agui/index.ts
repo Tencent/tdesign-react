@@ -3,8 +3,8 @@ import type { AIMessageContent, ChatMessagesData, ChatRequestParams, SSEChunkDat
 import { AGUIEventMapper } from './event-mapper';
 import type { BaseEvent, RunErrorEvent, RunFinishedEvent, RunStartedEvent } from './types/events';
 import { AGUIEventType } from './types/events';
-import type { AGUIAssistantHistoryMessage, AGUIHistoryMessage, AGUIUserHistoryMessage, AGUIActivityMessage } from './types';
-import { buildToolCallMap, processReasoningContent, processToolCalls } from './utils';
+import type { AGUIHistoryMessage, AGUIUserHistoryMessage } from './types';
+import { buildToolCallMap, processMessageGroup } from './utils';
 
 // 重新导出类型，以便其他文件可以使用
 export type {
@@ -73,72 +73,10 @@ export class AGUIAdapter {
 
     /**
      * 处理消息组，构建AI消息的content数组
-     *
-     * 处理顺序（保持原始顺序）：
-     * 1. assistant 的 reasoningContent（思考过程）
-     * 2. assistant 的 content（文本回复）
-     * 3. assistant 的 toolCalls（工具调用）
-     * 4. activity 消息（活动/状态展示）
+     * 复用 utils.ts 中的 processMessageGroup 公共函数
      */
-    const processMessageGroup = (messages: AGUIHistoryMessage[]): AIMessageContent[] => {
-      const allContent: AIMessageContent[] = [];
-
-      messages.forEach((msg) => {
-        if (msg.role === 'assistant') {
-          const assistantMsg = msg as AGUIAssistantHistoryMessage;
-
-          // 处理 reasoningContent（支持 reasoning 和 thinking 两种类型）
-          if (assistantMsg.reasoningContent) {
-            const reasoningContentResult = processReasoningContent(assistantMsg.reasoningContent);
-            if (reasoningContentResult) {
-              allContent.push(reasoningContentResult);
-            }
-          }
-
-          // 处理普通文本内容
-          if (assistantMsg.content) {
-            allContent.push({
-              type: 'markdown',
-              data: assistantMsg.content,
-            });
-          }
-
-          // 处理工具调用内容
-          if (assistantMsg.toolCalls && assistantMsg.toolCalls.length > 0) {
-            const toolCallContents = processToolCalls(assistantMsg.toolCalls, toolCallMap);
-            allContent.push(...(toolCallContents as AIMessageContent[]));
-          }
-        } else if (msg.role === 'activity') {
-          const activityMsg = msg as AGUIActivityMessage;
-          
-          // 检查是否是存储为 Activity 的 CUSTOM 事件
-          if (activityMsg.activityType === AGUIEventType.CUSTOM) {
-            // 将存储为 Activity 的 CUSTOM 事件转换为标准 custom 格式，业务层自行处理
-            const customContent: any = {
-              type: 'custom',
-              data: {
-                name: activityMsg.content?.name || '',
-                value: activityMsg.content?.value,
-              },
-              status: 'complete',
-            };
-            allContent.push(customContent);
-          } else {
-            // 普通 Activity 处理
-            // 使用 activity-${activityType} 格式的 type，与流式传输时的处理保持一致
-            allContent.push({
-              type: `activity-${activityMsg.activityType}`,
-              data: {
-                activityType: activityMsg.activityType,
-                content: activityMsg.content,
-              },
-              status: 'complete',
-            } as any);
-          }
-        }
-      });
-
-      return allContent;
+    const processGroup = (messages: AGUIHistoryMessage[]): AIMessageContent[] => {
+      return processMessageGroup(messages, toolCallMap) as AIMessageContent[];
     };
 
     /**
@@ -146,7 +84,7 @@ export class AGUIAdapter {
      */
     const createAIMessage = (messages: AGUIHistoryMessage[]): void => {
       if (messages.length > 0) {
-        const allContent = processMessageGroup(messages);
+        const allContent = processGroup(messages);
         if (allContent.length > 0) {
           const firstMessageInGroup = messages[0];
           convertedMessages.push({

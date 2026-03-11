@@ -54,23 +54,99 @@ export function extractStateKeyFromDelta(event: { type: string; delta?: any[] })
 }
 
 /**
+ * 处理一组 AG-UI 标准格式的消息，转换为前端内部的 AIMessageContent[] 格式
+ *
+ * 这是 convertHistoryMessages 和 handleMessagesSnapshot 的共享核心逻辑。
+ * 处理顺序（保持原始顺序）：
+ * 1. assistant 的 reasoningContent（思考过程）
+ * 2. assistant 的 content（文本回复）
+ * 3. assistant 的 toolCalls（工具调用，关联 tool 消息的结果）
+ * 4. activity 消息（活动/状态展示）
+ *
+ * @param messages 一组 AG-UI 标准格式的消息（assistant、tool、activity 等）
+ * @param toolCallMap 工具调用结果映射（通过 buildToolCallMap 构建）
+ * @returns 转换后的 AIMessageContent 数组
+ */
+export function processMessageGroup(messages: any[], toolCallMap: Map<string, any>): any[] {
+  const allContent: any[] = [];
+
+  messages.forEach((msg: any) => {
+    if (msg.role === 'assistant') {
+      // 处理 reasoningContent（支持 reasoning 和 thinking 两种类型）
+      if (msg.reasoningContent) {
+        const reasoningContentResult = processReasoningContent(msg.reasoningContent);
+        if (reasoningContentResult) {
+          allContent.push(reasoningContentResult);
+        }
+      }
+
+      // 处理普通文本内容
+      if (msg.content) {
+        allContent.push({
+          type: 'markdown',
+          data: msg.content,
+        });
+      }
+
+      // 处理工具调用内容
+      if (msg.toolCalls && msg.toolCalls.length > 0) {
+        const toolCallContents = processToolCalls(msg.toolCalls, toolCallMap);
+        allContent.push(...toolCallContents);
+      }
+    } else if (msg.role === 'activity') {
+      // 检查是否是存储为 Activity 的 CUSTOM 事件
+      if (msg.activityType === 'CUSTOM') {
+        const customContent: any = {
+          type: 'custom',
+          data: {
+            name: msg.content?.name || '',
+            value: msg.content?.value,
+          },
+          status: 'complete',
+        };
+        allContent.push(customContent);
+      } else {
+        // 普通 Activity 处理
+        allContent.push({
+          type: `activity-${msg.activityType}`,
+          data: {
+            activityType: msg.activityType,
+            content: msg.content,
+          },
+          status: 'complete',
+        });
+      }
+    }
+  });
+
+  return allContent;
+}
+
+/**
  * 处理消息快照
- * @param messages 消息数组
- * @returns 处理后的消息内容数组
+ *
+ * 支持两种场景：
+ * 1. 正常流中收到 MESSAGES_SNAPSHOT（如初始化同步）
+ * 2. 断点恢复场景：后端推送已产生内容的快照，前端一次性恢复
+ *
+ * MESSAGES_SNAPSHOT 的 messages 遵循 AG-UI 协议标准格式（AGUIMessage[]），
+ * 和历史消息接口返回的格式一致。直接复用 processMessageGroup 进行转换。
+ *
+ * @param messages 消息数组（来自 MESSAGES_SNAPSHOT 事件的 messages 字段，AG-UI 标准格式）
+ * @returns 处理后的消息内容数组，带 _isSnapshot 标记用于区分快照 vs 增量
  */
 export function handleMessagesSnapshot(messages: any[]): any[] {
-  // 只取assistant消息
-  if (!messages) return [];
-  return messages.flatMap((msg: any) => {
-    if (msg.role === 'assistant' && Array.isArray(msg.content)) {
-      return msg.content.map((content: any) => ({
-        type: content.type || 'markdown',
-        data: content.data,
-        status: 'complete',
-      }));
-    }
-    return [];
-  });
+  if (!messages || messages.length === 0) return [];
+
+  const toolCallMap = buildToolCallMap(messages);
+  const result = processMessageGroup(messages, toolCallMap);
+
+  // 标记为快照结果，让上层使用 replaceContent 语义
+  if (result.length > 0) {
+    (result as any)._isSnapshot = true;
+  }
+
+  return result;
 }
 
 /**

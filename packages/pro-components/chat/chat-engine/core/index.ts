@@ -230,6 +230,42 @@ export default class ChatEngine implements IChatEngine {
   }
 
   /**
+   * 恢复未完成的 Agent 运行（断点续传）
+   *
+   * 适用场景：用户离开页面后重新进入，后端 Agent 仍在运行。
+   *
+   * 流程：
+   * 1. 创建一条空的 AI 消息（用于承载后续推送的内容）
+   * 2. 调用 sendRequest 发起 SSE 连接
+   * 3. 后端推 MESSAGES_SNAPSHOT 恢复已产生的中间内容（replaceContent）
+   * 4. 后端继续推增量事件（TEXT_MESSAGE_CONTENT 等），Processor 正常 append
+   * 5. 后端推 RUN_FINISHED 结束
+   *
+   * @param params 请求参数，应包含 threadId / runId 等后端识别续传所需的信息
+   * @returns 新创建的 AI 消息 ID
+   */
+  public async resumeRun(params: ChatRequestParams = {}): Promise<string> {
+    // 创建空的 AI 消息，状态为 pending（等待后端推送内容）
+    const newAIMessage = this.messageProcessor.createAssistantMessage({
+      content: [],
+      status: 'pending',
+    });
+    this.messageStore.createMessage(newAIMessage);
+
+    // 发布消息创建事件
+    this.eventBus.emit(ChatEngineEventType.MESSAGE_CREATE, {
+      message: newAIMessage,
+      messages: this.messages,
+    });
+
+    // 发起请求，后端会通过 MESSAGES_SNAPSHOT 恢复已有内容，然后继续推增量
+    params.messageID = newAIMessage.id;
+    await this.sendRequest(params);
+
+    return newAIMessage.id;
+  }
+
+  /**
    * 中止当前进行中的聊天请求
    * @description 停止接收流式响应，关闭连接，并调用配置的onAbort回调
    */
@@ -487,12 +523,19 @@ export default class ChatEngine implements IChatEngine {
   /**
    * 统一处理消息结果
    * 支持单个内容块、多个内容块和增量更新
+   * 支持 MESSAGES_SNAPSHOT 的 replaceContent 语义（_isSnapshot 标记）
    */
   private processMessageResult(messageId: string, result: AIMessageContent | AIMessageContent[] | null) {
     if (!result) return;
 
-    // 委托 MessageProcessor 处理内容更新
-    this.messageProcessor.applyContentUpdate(this.messageStore, messageId, result);
+    // MESSAGES_SNAPSHOT 场景：使用 replaceContent 一次性替换消息内容
+    // 而非逐个 append，避免与已有内容产生拼接冲突
+    if (Array.isArray(result) && (result as any)._isSnapshot) {
+      this.messageStore.replaceContent(messageId, result);
+    } else {
+      // 委托 MessageProcessor 处理内容更新
+      this.messageProcessor.applyContentUpdate(this.messageStore, messageId, result);
+    }
 
     // 发布消息更新事件
     const message = this.messageStore.getMessageByID(messageId);

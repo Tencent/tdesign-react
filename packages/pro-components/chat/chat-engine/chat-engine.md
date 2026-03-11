@@ -206,6 +206,19 @@ AG-UI 协议支持通过 `ACTIVITY_*` 事件展示动态内容组件（如实时
 
 {{ agui-comprehensive }}
 
+### 断点恢复（Resume）
+
+当用户离开页面后重新进入时，如果后端 Agent 仍在运行，可以通过断点恢复机制续接进行中的任务。
+
+**核心流程**：
+1. 请求历史消息接口，获取已完成的消息 + `pendingRun` 标识
+2. 使用 `AGUIAdapter.convertHistoryMessages` 转换并渲染已完成的消息
+3. 如果有 `pendingRun`，调用 `chatEngine.resumeRun({ threadId, runId })` 发起续传
+4. 后端推 `MESSAGES_SNAPSHOT` 事件一次性恢复已产生的中间内容（思考、工具调用、部分文本）
+5. 后端继续推增量事件直到 `RUN_FINISHED`
+
+{{ agui-resume }}
+
 
 ## OpenClaw 协议
 

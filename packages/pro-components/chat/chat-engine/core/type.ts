@@ -301,6 +301,15 @@ export interface IChatEngine {
   }): Promise<void>;
 
   /**
+   * 恢复未完成的 Agent 运行（断点续传）
+   * @param params 请求参数，应包含 threadId / runId 等后端识别续传所需的信息
+   * @returns 新创建的 AI 消息 ID
+   * @description 创建空的 AI 消息后发起请求，后端通过 MESSAGES_SNAPSHOT 恢复已有内容，
+   * 然后继续推增量事件直到 RUN_FINISHED
+   */
+  resumeRun(params?: ChatRequestParams): Promise<string>;
+
+  /**
    * 重新生成AI回复
    * @param keepVersion 是否保留历史版本，默认为false
    * @description
