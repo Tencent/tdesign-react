@@ -6,8 +6,14 @@ import type { ChatEventBusOptions, IChatEventBus } from './event-bus';
 import { ChatEngineEventType, ChatEventBus } from './event-bus';
 import MessageProcessor from './processor';
 import { LLMService } from './server';
+import {
+  createStreamHandler,
+  type IStreamHandler,
+  type StreamContext,
+  AGUIStreamHandler,
+  OpenClawStreamHandler,
+} from './stream-handlers';
 import type {
-  AIContentChunkUpdate,
   AIMessageContent,
   ChatMessagesData,
   ChatMessageSetterMode,
@@ -16,11 +22,9 @@ import type {
   ChatServiceConfigSetter,
   ChatStatus,
   IChatEngine,
-  SSEChunkData,
   SystemMessage,
   ToolCall,
 } from './type';
-import { isAIMessage } from './utils';
 
 export default class ChatEngine implements IChatEngine {
   public messageStore: MessageStore;
@@ -42,6 +46,9 @@ export default class ChatEngine implements IChatEngine {
   private stopReceive = false;
 
   private aguiAdapter: AGUIAdapter | null = null;
+
+  /** 流式处理策略（由协议类型决定） */
+  private streamHandler!: IStreamHandler;
 
   constructor(eventBusOptions?: ChatEventBusOptions) {
     this.messageProcessor = new MessageProcessor();
@@ -84,8 +91,9 @@ export default class ChatEngine implements IChatEngine {
     this.messageStore.clearHistory();
     this.messageStore.destroy();
 
-    // 清理适配器
+    // 清理适配器和 StreamHandler
     this.aguiAdapter = null;
+    this.streamHandler?.destroy?.();
 
     // 销毁事件总线
     this.eventBus.destroy();
@@ -95,29 +103,33 @@ export default class ChatEngine implements IChatEngine {
    * 初始化聊天引擎
    * @param configSetter 聊天服务配置或配置生成函数
    * @param initialMessages 初始消息列表，用于恢复历史对话
-   * @description 设置初始消息、配置服务参数，并根据协议类型初始化适配器
+   * @description 设置初始消息、配置服务参数，并根据协议类型初始化适配器和 StreamHandler
    */
   public init(configSetter: ChatServiceConfigSetter, initialMessages?: ChatMessagesData[]) {
     this.messageStore.initialize(this.convertMessages(initialMessages));
     this.config = typeof configSetter === 'function' ? configSetter() : configSetter || {};
     this.llmService = new LLMService();
 
-    // 初始化AGUI适配器
+    // 初始化 AGUI 适配器
     if (this.config.protocol === 'agui') {
       this.aguiAdapter = new AGUIAdapter();
     }
 
+    // 创建协议对应的 StreamHandler（Strategy 模式）
+    this.streamHandler = createStreamHandler({
+      protocol: this.config.protocol,
+      llmService: this.llmService,
+      aguiAdapter: this.aguiAdapter,
+    });
+
     // OpenClaw 协议：立即建立 WebSocket 连接并完成握手
     // Gateway 会在 connect 响应中推送历史消息，通过 onHistoryLoaded 自动回填
-    if (this.config.protocol === 'openclaw' && this.config.endpoint) {
-      this.llmService.connectOpenClaw({
-        ...this.config,
-        onHistoryLoaded: (historyMessages) => {
-          if (historyMessages && historyMessages.length > 0) {
-            this.messageStore.setMessages(historyMessages, 'replace');
-            this.config.onHistoryLoaded?.(historyMessages);
-          }
-        },
+    if (this.config.protocol === 'openclaw' && this.config.endpoint && this.streamHandler instanceof OpenClawStreamHandler) {
+      (this.streamHandler as OpenClawStreamHandler).initConnection(this.config, (historyMessages) => {
+        if (historyMessages && historyMessages.length > 0) {
+          this.messageStore.setMessages(historyMessages, 'replace');
+          this.config.onHistoryLoaded?.(historyMessages);
+        }
       });
     }
 
@@ -230,6 +242,10 @@ export default class ChatEngine implements IChatEngine {
 
     try {
       this.llmService.closeConnect();
+      // OpenClaw 的 abort 由 StreamHandler 管理
+      if (this.streamHandler instanceof OpenClawStreamHandler) {
+        (this.streamHandler as OpenClawStreamHandler).abort();
+      }
       if (!this.config.stream) {
         // 只有在批量模式下才删除最后一条AI消息
         if (this.messageStore.lastAIMessage?.id) {
@@ -439,197 +455,33 @@ export default class ChatEngine implements IChatEngine {
 
   /**
    * 处理流式请求
-   * 根据协议类型选择不同的处理策略
-   * SSE 原始数据 → isValidChunk验证 → onMessage解析 → processMessageResult
+   * 委托给 StreamHandler 策略处理（Default/AGUI/OpenClaw）
    */
   private async handleStreamRequest(params: ChatRequestParams) {
     const id = params.messageID;
-    const isAGUI = this.config.protocol === 'agui';
-    const isOpenClaw = this.config.protocol === 'openclaw';
 
     if (id) {
       this.setMessageStatus(id, 'streaming');
     }
 
-    // 根据协议类型选择处理策略
-    if (isAGUI && this.aguiAdapter) {
-      await this.handleAGUIStreamRequest(params, id);
-    } else if (isOpenClaw) {
-      await this.handleOpenClawStreamRequest(params, id);
-    } else {
-      await this.handleDefaultStreamRequest(params, id);
-    }
+    const context = this.buildStreamContext(id);
+    await this.streamHandler.handleStream(params, context);
   }
 
   /**
-   * 处理AGUI协议的流式请求
+   * 构建 StreamHandler 所需的上下文
    */
-  private async handleAGUIStreamRequest(params: ChatRequestParams, messageId?: string) {
-    await this.llmService.handleStreamRequest(params, {
-      ...this.config,
-      onMessage: (chunk: SSEChunkData) => {
-        if (this.stopReceive || !messageId) return null;
-
-        let result: AIMessageContent | AIMessageContent[] | null = null;
-
-        // SSE数据 → AGUIEventMapper.mapEvent → 用户自定义onMessage(解析后数据 + 原始chunk)
-        // 首先使用AGUI适配器进行通用协议解析
-        if (this.aguiAdapter) {
-          result = this.aguiAdapter.handleAGUIEvent(chunk, {
-            onRunStart: (event) => {
-              // 重置适配器状态，确保新一轮对话从干净状态开始
-              this.aguiAdapter?.reset();
-              this.config.onStart?.(JSON.stringify(event));
-              // 发布 AGUI 运行开始事件
-              this.eventBus.emit(ChatEngineEventType.AGUI_RUN_START, {
-                runId: event.runId || '',
-                threadId: event.threadId,
-                timestamp: Date.now(),
-              });
-            },
-            onRunComplete: (isAborted, requestParams, event) => {
-              this.handleComplete(messageId, isAborted, requestParams, event);
-              // 发布 AGUI 运行完成事件
-              if (!isAborted) {
-                this.eventBus.emit(ChatEngineEventType.AGUI_RUN_COMPLETE, {
-                  runId: event?.runId || '',
-                  threadId: event?.threadId,
-                  timestamp: Date.now(),
-                });
-              }
-            },
-            onRunError: (error) => {
-              this.handleError(messageId, error);
-              // 发布 AGUI 运行错误事件
-              this.eventBus.emit(ChatEngineEventType.AGUI_RUN_ERROR, {
-                error,
-              });
-            },
-          });
-        }
-
-        // 然后调用用户自定义的onMessage，传入解析后的结果和原始数据
-        if (this.config.onMessage) {
-          const userResult = this.config.onMessage(chunk, this.messageStore.getMessageByID(messageId), result);
-          // 如果用户返回了自定义结果，使用用户的结果
-          if (userResult) {
-            result = userResult;
-          }
-        }
-
-        // 发布流数据事件
-        this.eventBus.emit(ChatEngineEventType.REQUEST_STREAM, {
-          messageId,
-          chunk,
-          content: result,
-        });
-
-        // 处理消息结果
-        this.processMessageResult(messageId, result);
-        return result;
-      },
-      onError: (error) => {
-        if (messageId) this.handleError(messageId, error);
-      },
-      onComplete: (isAborted) => {
-        // AGUI的完成事件由AGUIAdapter内部处理，这里只处理中断情况
-        if (isAborted && messageId) {
-          this.handleComplete(messageId, isAborted, params);
-        }
-      },
-    });
-  }
-
-  /**
-   * 处理默认协议的流式请求
-   */
-  private async handleDefaultStreamRequest(params: ChatRequestParams, messageId?: string) {
-    await this.llmService.handleStreamRequest(params, {
-      ...this.config,
-      onStart: (chunk) => {
-        this.config.onStart?.(chunk);
-      },
-      onMessage: (chunk: SSEChunkData) => {
-        if (this.stopReceive || !messageId) return null;
-
-        let result = null;
-
-        // 使用默认的消息处理
-        if (this.config.onMessage) {
-          result = this.config.onMessage(chunk, this.messageStore.getMessageByID(messageId));
-        }
-
-        // 发布流数据事件
-        this.eventBus.emit(ChatEngineEventType.REQUEST_STREAM, {
-          messageId,
-          chunk,
-          content: result,
-        });
-
-        // 处理消息结果
-        this.processMessageResult(messageId, result);
-        return result;
-      },
-      onError: (error) => {
-        if (messageId) this.handleError(messageId, error);
-      },
-      onComplete: (isAborted) => {
-        if (messageId) {
-          this.handleComplete(messageId, isAborted, params);
-        }
-      },
-    });
-  }
-
-  /**
-   * 处理 OpenClaw 协议的流式请求
-   *
-   * OpenClaw 使用 WebSocket 连接，消息流由 LLMService 内部的 OpenClawAdapter 处理。
-   * Adapter 将 OpenClaw 事件转换为 AIMessageContent 后，通过 onMessage 回调传递给 ChatEngine。
-   *
-   * 注意：WebSocket 连接已在 init() 阶段建立，历史消息也在那时自动回填，
-   * 这里只处理消息发送和流式响应。
-   */
-  private async handleOpenClawStreamRequest(params: ChatRequestParams, messageId?: string) {
-    await this.llmService.handleStreamRequest(params, {
-      ...this.config,
-      onStart: (chunk) => {
-        this.config.onStart?.(chunk);
-      },
-      onMessage: (chunk: SSEChunkData) => {
-        if (this.stopReceive || !messageId) return null;
-
-        // OpenClaw 的 chunk.data 已经是 AIMessageContent 格式（由 OpenClawAdapter 转换）
-        let result: AIMessageContent | AIMessageContent[] | null = chunk.data;
-
-        // 允许用户通过 onMessage 进行自定义处理
-        if (this.config.onMessage) {
-          const userResult = this.config.onMessage(chunk, this.messageStore.getMessageByID(messageId), result);
-          if (userResult) {
-            result = userResult;
-          }
-        }
-
-        // 发布流数据事件
-        this.eventBus.emit(ChatEngineEventType.REQUEST_STREAM, {
-          messageId,
-          chunk,
-          content: result,
-        });
-
-        // 处理消息结果
-        this.processMessageResult(messageId, result);
-        return result;
-      },
-      onError: (error) => {
-        if (messageId) this.handleError(messageId, error);
-      },
-      onComplete: (isAborted) => {
-        if (messageId) {
-          this.handleComplete(messageId, isAborted, params);
-        }
-      },
-    });
+  private buildStreamContext(messageId?: string): StreamContext {
+    return {
+      messageId,
+      config: this.config,
+      getStopReceive: () => this.stopReceive,
+      processMessageResult: (id, result) => this.processMessageResult(id, result),
+      handleError: (id, error) => this.handleError(id, error),
+      handleComplete: (id, isAborted, params, chunk?) => this.handleComplete(id, isAborted, params, chunk),
+      messageStore: this.messageStore,
+      eventBus: this.eventBus,
+    };
   }
 
   /**
@@ -639,10 +491,8 @@ export default class ChatEngine implements IChatEngine {
   private processMessageResult(messageId: string, result: AIMessageContent | AIMessageContent[] | null) {
     if (!result) return;
 
-    // 根据原始类型选择更新方式
-    Array.isArray(result)
-      ? this.messageStore.updateMultipleContents(messageId, result)
-      : this.processContentUpdate(messageId, result);
+    // 委托 MessageProcessor 处理内容更新
+    this.messageProcessor.applyContentUpdate(this.messageStore, messageId, result);
 
     // 发布消息更新事件
     const message = this.messageStore.getMessageByID(messageId);
@@ -653,36 +503,9 @@ export default class ChatEngine implements IChatEngine {
         message,
       });
 
-      // AG-UI 协议：发布细粒度事件
-      if (this.aguiAdapter) {
-        this.emitAGUIDetailEvents(messageId, result);
-      }
-    }
-  }
-
-  /**
-   * 发布 AG-UI 细粒度事件
-   * 根据内容类型分发到对应的事件通道
-   * todo: 这里的类型 any问题
-   */
-  private emitAGUIDetailEvents(messageId: string, result: AIMessageContent | AIMessageContent[]) {
-    const contents = Array.isArray(result) ? result : [result];
-    for (const content of contents) {
-      // Activity 事件
-      if ((content as any).data.activityType) {
-        this.eventBus.emit(ChatEngineEventType.AGUI_ACTIVITY, {
-          activityType: (content as any).data.activityType,
-          messageId,
-          content: (content as any)?.data?.content,
-        });
-      }
-
-      // ToolCall 事件
-      if ((content as any)?.data?.eventType?.startsWith('TOOL_CALL')) {
-        this.eventBus.emit(ChatEngineEventType.AGUI_TOOLCALL, {
-          toolCall: (content as any).data,
-          eventType: (content as any).data.eventType,
-        });
+      // AG-UI 协议：发布细粒度事件（委托给 AGUIStreamHandler）
+      if (this.streamHandler instanceof AGUIStreamHandler) {
+        (this.streamHandler as AGUIStreamHandler).emitDetailEvents(messageId, result, this.eventBus);
       }
     }
   }
@@ -710,40 +533,10 @@ export default class ChatEngine implements IChatEngine {
     }
   }
 
-  // 处理内容更新逻辑
-  private processContentUpdate(messageId: string, rawChunk: AIContentChunkUpdate) {
-    const message = this.messageStore.messages.find((m) => m.id === messageId);
-    if (!message || !isAIMessage(message) || !message.content) return;
-
-    let targetIndex: number;
-    // 作为新的内容块追加
-    if ((rawChunk as any)?.strategy === 'append') {
-      targetIndex = -1;
-    } else {
-      // merge 策略：按 type 查找最后一个匹配的类型
-      // 通过 type (如 toolcall-${toolCallName}) 来定位要更新的内容块
-      targetIndex = message.content.findIndex((content: AIMessageContent) => content.type === rawChunk.type);
-      if (targetIndex !== -1) {
-        // 找到最后一个匹配的类型（从后往前查找）
-        for (let i = message.content.length - 1; i >= 0; i--) {
-          if (message.content[i].type === rawChunk.type) {
-            targetIndex = i;
-            break;
-          }
-        }
-      }
-    }
-    const processed = this.messageProcessor.processContentUpdate(
-      targetIndex !== -1 ? message.content[targetIndex] : undefined,
-      rawChunk,
-    );
-
-    this.messageStore.appendContent(messageId, processed, targetIndex);
-  }
 }
 
 export * from './utils';
 export * from './adapters';
 export * from './event-bus';
-export * from './adapters';
+export * from './stream-handlers';
 export type * from './type';
