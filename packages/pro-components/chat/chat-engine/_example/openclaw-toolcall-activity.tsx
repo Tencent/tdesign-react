@@ -314,12 +314,13 @@ const HotelRecommendation: React.FC<ActivityComponentProps<HotelBookingActivityC
 // ==================== 主组件 ====================
 
 /**
- * OpenClaw 协议 - Toolcall + Activity 综合示例
+ * OpenClaw 协议 - Toolcall + Activity + 历史消息 综合示例
  *
  * 学习目标：
- * - Toolcall：通过 stream=tool 实现工具调用四阶段（start/args/result/end）
+ * - Toolcall：通过 stream=tool 实现工具调用（phase=start/result，对照 OpenClaw 实际协议）
  * - Activity：通过 stream=activity 实现 snapshot + delta 增量 UI
  * - 双向 Action：通过 node.invoke RPC 支持 Human-in-the-Loop 交互
+ * - 历史消息：OpenClaw Gateway 在 connect 响应中自动推送历史消息，ChatEngine 自动回填
  * - 完整演示：文本 + Toolcall + Activity 混合流
  *
  * 关键字触发说明（Mock Server 根据用户消息分发不同流式模式）：
@@ -363,9 +364,8 @@ export default function OpenClawToolcallActivity() {
 
   // 聊天配置 - 使用 OpenClaw WebSocket 协议
   const { chatEngine, messages, status } = useChat({
-    defaultMessages: [],
     chatServiceConfig: {
-      endpoint: 'ws://127.0.0.1:18789',
+      endpoint: 'ws://127.0.0.1:18790',
       protocol: 'openclaw',
       stream: true,
 
@@ -386,6 +386,12 @@ export default function OpenClawToolcallActivity() {
         // 透传 toolCallMessage（交互式 Toolcall 用户回传时携带）
         ...(params.toolCallMessage ? { toolCallMessage: params.toolCallMessage } : {}),
       }),
+
+      // 历史消息回调：OpenClaw Gateway 在 connect 响应中自动推送历史消息
+      // ChatEngine 内部会自动调用 setMessages 回填，此处可做额外处理（如 UI 提示）
+      onHistoryLoaded: (historyMessages) => {
+        console.log('[OpenClaw] History auto-loaded from connect response:', historyMessages.length, 'messages');
+      },
 
       // 生命周期回调
       onStart: (chunk) => {
@@ -487,6 +493,9 @@ export default function OpenClawToolcallActivity() {
         <strong>天气/tool</strong> → Toolcall |{' '}
         <strong>酒店/activity</strong> → Activity |{' '}
         <strong>完整/full</strong> → 全部
+        <span style={{ marginLeft: 12, color: '#888' }}>
+          📜 历史消息由 Gateway connect 响应自动推送
+        </span>
       </div>
 
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>

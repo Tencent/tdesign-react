@@ -19,9 +19,10 @@ export const useChat = ({ defaultMessages: initialMessages, chatServiceConfig }:
 
   const chatEngine = chatEngineRef.current;
 
-  const syncState = (state: ChatMessagesData[]) => {
-    setMessage(state);
-    setStatus(state.at(-1)?.status || 'idle');
+  const syncState = (state?: ChatMessagesData[]) => {
+    const msgs = state || [];
+    setMessage(msgs);
+    setStatus(msgs.at(-1)?.status || 'idle');
   };
 
   const subscribeToChat = () => {

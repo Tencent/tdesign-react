@@ -345,19 +345,24 @@ export class WebSocketClient extends EventEmitter {
 
   /**
    * 启动心跳
+   *
+   * 注意：OpenClaw Gateway 不支持 RPC 方式的 heartbeat 方法，
+   * 这里仅通过检测连接活跃度来判断是否需要重连，
+   * 不再主动发送 heartbeat 请求帧。
    */
   private startHeartbeat(): void {
     if (this.config.heartbeatInterval <= 0) return;
 
     this.heartbeatTimer = setInterval(() => {
-      if (this.isConnected()) {
-        // 发送心跳请求
-        this.send({
-          type: 'req',
-          id: `heartbeat_${Date.now()}`,
-          method: 'heartbeat',
-          params: { ts: Date.now() },
-        });
+      if (!this.isConnected()) {
+        return;
+      }
+
+      // 检测连接是否长时间无活动（2倍心跳间隔），如果是则主动关闭触发重连
+      const idleTime = Date.now() - this.connectionInfo.lastActivity;
+      if (idleTime > this.config.heartbeatInterval * 2) {
+        this.logger.warn(`WebSocket ${this.connectionId} idle for ${idleTime}ms, reconnecting...`);
+        this.ws?.close(4000, 'Heartbeat timeout');
       }
     }, this.config.heartbeatInterval);
   }

@@ -27,7 +27,7 @@ export default function OpenClawBasicExample() {
     defaultMessages: [],
     chatServiceConfig: {
       // WebSocket 端点
-      endpoint: 'ws://127.0.0.1:18789',
+      endpoint: 'ws://127.0.0.1:18790',
       // 开启 OpenClaw 协议
       protocol: 'openclaw',
       stream: true,

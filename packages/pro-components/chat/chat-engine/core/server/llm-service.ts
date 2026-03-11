@@ -118,9 +118,34 @@ export class LLMService implements ILLMService {
   }
 
   /**
-   * 处理 OpenClaw WebSocket 流式请求
+   * 提前初始化 OpenClaw 适配器并建立 WebSocket 连接
+   *
+   * 在 ChatEngine.init() 阶段调用，使得页面加载时就建立连接、完成握手，
+   * 并自动接收 Gateway 在 connect 响应中推送的历史消息。
+   * 后续 sendMessage 时可直接复用已认证的连接，无需等待。
    */
-  private async handleOpenClawStreamRequest(params: ChatRequestParams, config: ChatServiceConfig): Promise<void> {
+  async connectOpenClaw(config: ChatServiceConfig): Promise<void> {
+    this.ensureOpenClawAdapter(config);
+    this.updateOpenClawCallbacks(config);
+
+    try {
+      if (!this.openclawAdapter!.isAuthenticated()) {
+        await this.openclawAdapter!.connect();
+      }
+    } catch (error) {
+      config.onError?.(error as Error);
+      // 连接失败不抛出，允许后续 sendMessage 时重试
+      this.logger.error('OpenClaw pre-connect failed:', error);
+    }
+  }
+
+  /**
+   * 确保 OpenClaw 适配器已创建
+   * 只负责创建适配器实例，不设置回调（回调由调用方通过 updateOpenClawCallbacks 设置）
+   */
+  private ensureOpenClawAdapter(config: ChatServiceConfig): void {
+    if (this.openclawAdapter) return;
+
     const openclawConfig = config.openclaw || {};
 
     // 构建适配器配置
@@ -132,15 +157,21 @@ export class LLMService implements ILLMService {
       ...openclawConfig,
     };
 
-    // 复用或创建适配器
-    if (!this.openclawAdapter) {
-      this.openclawAdapter = new OpenClawAdapter(adapterConfig);
-    }
+    this.openclawAdapter = new OpenClawAdapter(adapterConfig);
+  }
 
-    // 设置回调
+  /**
+   * 更新 OpenClaw 适配器的回调
+   *
+   * 每次进入新的阶段（init 连接 / 发送消息）都需要更新回调，
+   * 确保 onMessage、onComplete 等指向当前阶段的正确处理函数。
+   */
+  private updateOpenClawCallbacks(config: ChatServiceConfig): void {
+    if (!this.openclawAdapter) return;
+
     this.openclawAdapter.setCallbacks({
       onConnected: () => {
-        this.logger.info('OpenClaw connected, sending message...');
+        this.logger.info('OpenClaw connected');
       },
       onStart: () => {
         config.onStart?.('openclaw:stream:start');
@@ -159,19 +190,34 @@ export class LLMService implements ILLMService {
       onError: (error) => {
         config.onError?.(error);
       },
+      onHistoryLoaded: (messages) => {
+        // 桥接 OpenClaw connect 响应中推送的历史消息到上层
+        this.logger.info(`OpenClaw history loaded: ${messages.length} messages`);
+        config.onHistoryLoaded?.(messages);
+      },
     });
+  }
+
+  /**
+   * 处理 OpenClaw WebSocket 流式请求
+   */
+  private async handleOpenClawStreamRequest(params: ChatRequestParams, config: ChatServiceConfig): Promise<void> {
+    // 确保适配器已创建（如果 init 阶段已 connectOpenClaw 过，这里会直接复用）
+    this.ensureOpenClawAdapter(config);
+    // 关键：更新回调，让 onMessage/onComplete 等指向发送阶段的处理函数
+    this.updateOpenClawCallbacks(config);
 
     try {
-      // 连接 WebSocket（如果未连接）
-      if (!this.openclawAdapter.isAuthenticated()) {
-        await this.openclawAdapter.connect();
+      // 连接 WebSocket（如果未连接，比如 init 阶段连接失败需要重试）
+      if (!this.openclawAdapter!.isAuthenticated()) {
+        await this.openclawAdapter!.connect();
       }
 
       // 通过 onRequest 获取用户自定义的业务参数
       const requestParams = (await config.onRequest?.(params)) || {};
 
       // 发送消息（requestParams 包含用户自定义的 sessionKey、token 等）
-      await this.openclawAdapter.sendMessage(params, requestParams as Record<string, unknown>);
+      await this.openclawAdapter!.sendMessage(params, requestParams as Record<string, unknown>);
     } catch (error) {
       config.onError?.(error as Error);
       throw error;

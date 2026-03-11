@@ -110,6 +110,9 @@ export interface ConnectParams {
 
 /**
  * connect 方法响应
+ *
+ * OpenClaw Gateway 在 connect 响应中可能附带历史消息（messages 字段），
+ * 用于页面刷新后自动回填历史对话记录。
  */
 export interface ConnectResponse {
   /** 协商后的协议版本 */
@@ -120,6 +123,12 @@ export interface ConnectResponse {
   serverVersion?: string;
   /** 支持的能力列表 */
   capabilities?: string[];
+  /** 会话标识（Gateway 推送历史消息时附带） */
+  sessionKey?: string;
+  /** 历史消息（Gateway 在 connect 响应中主动推送，用于页面刷新后回填） */
+  messages?: Array<Record<string, unknown>>;
+  /** 思考级别（Gateway 附带） */
+  thinkingLevel?: string;
 }
 
 /**

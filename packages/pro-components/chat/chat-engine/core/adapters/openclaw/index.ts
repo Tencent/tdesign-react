@@ -32,10 +32,25 @@ import {
   formatWebSocketUrl,
 } from './utils';
 
+import {
+  convertOpenClawHistory,
+  convertOpenClawHistoryResponse,
+  type OpenClawHistoryMessage,
+  type OpenClawHistoryResponse,
+  type ConvertHistoryOptions,
+} from './history-converter';
+
 // 重新导出类型
 export * from './types';
 export { OpenClawEventMapper, type EventMapResult } from './event-mapper';
 export { OpenClawRPCHandler, RPCError } from './rpc-handler';
+export {
+  convertOpenClawHistory,
+  convertOpenClawHistoryResponse,
+  type OpenClawHistoryMessage,
+  type OpenClawHistoryResponse,
+  type ConvertHistoryOptions,
+} from './history-converter';
 
 /**
  * OpenClaw 适配器回调接口
@@ -53,6 +68,14 @@ export interface OpenClawAdapterCallbacks {
   onError?: (error: Error) => void;
   /** 消息内容更新 */
   onMessage?: (content: AIMessageContent | AIMessageContent[]) => void;
+  /**
+   * 历史消息加载完成
+   *
+   * OpenClaw Gateway 在 connect 响应中可能附带历史消息（messages 字段），
+   * 当检测到历史消息时，适配器会自动将其转换为 ChatEngine 格式并触发此回调。
+   * 上层可以通过 chatEngine.setMessages(messages, 'replace') 回填到对话界面。
+   */
+  onHistoryLoaded?: (messages: import('../../type').ChatMessagesData[]) => void;
 }
 
 /**
@@ -290,6 +313,34 @@ export class OpenClawAdapter extends EventEmitter {
   }
 
   /**
+   * 获取会话历史消息
+   *
+   * 通过 OpenClaw 的 sessions.history RPC 方法获取指定会话的历史消息，
+   * 并自动转换为 ChatEngine 的 ChatMessagesData 格式。
+   *
+   * @param sessionKey - 会话标识
+   * @param options - 转换选项
+   * @returns ChatEngine 格式的消息数组，可直接传给 chatEngine.setMessages() 或 useChat 的 defaultMessages
+   *
+   * @example
+   * ```tsx
+   * const messages = await adapter.fetchHistory('agent:main:main');
+   * chatEngine.setMessages(messages, 'replace');
+   * ```
+   */
+  async fetchHistory(
+    sessionKey: string,
+    options?: ConvertHistoryOptions,
+  ): Promise<import('../../type').ChatMessagesData[]> {
+    if (this.connectionState !== OpenClawConnectionState.AUTHENTICATED) {
+      throw new Error('Not authenticated. Please connect first.');
+    }
+
+    const response = await this.rpcHandler.sessionsHistory({ sessionKey }) as OpenClawHistoryResponse;
+    return convertOpenClawHistoryResponse(response, options);
+  }
+
+  /**
    * 断开连接
    */
   async disconnect(): Promise<void> {
@@ -435,6 +486,9 @@ export class OpenClawAdapter extends EventEmitter {
 
   /**
    * 处理连接挑战（握手）
+   *
+   * 认证成功后，如果 connect 响应中包含 messages 字段（历史消息），
+   * 会自动转换为 ChatEngine 格式并触发 onHistoryLoaded 回调。
    */
   private async handleConnectChallenge(payload: ConnectChallengePayload): Promise<void> {
     this.logger.debug('Received connect.challenge, sending connect request');
@@ -462,6 +516,28 @@ export class OpenClawAdapter extends EventEmitter {
       this.logger.info('OpenClaw authenticated successfully:', response);
       this.callbacks.onConnected?.();
       this.emit('connected', response);
+
+      // 检查 connect 响应中是否包含历史消息
+      // OpenClaw Gateway 会在 connect 响应的 payload 中附带 messages 数组，
+      // 用于页面刷新后自动回填历史对话记录（无需额外 RPC 请求）
+      const connectPayload = response as Record<string, unknown>;
+      if (Array.isArray(connectPayload?.messages) && connectPayload.messages.length > 0) {
+        this.logger.info(`OpenClaw connect response contains ${connectPayload.messages.length} history messages, converting...`);
+        try {
+          const historyResponse = {
+            sessionKey: (connectPayload.sessionKey as string) || '',
+            sessionId: (connectPayload.sessionId as string) || '',
+            messages: connectPayload.messages as OpenClawHistoryMessage[],
+          };
+          const convertedMessages = convertOpenClawHistory(historyResponse.messages);
+          this.logger.info(`Converted ${convertedMessages.length} history messages`);
+          this.callbacks.onHistoryLoaded?.(convertedMessages);
+          this.emit('historyLoaded', convertedMessages);
+        } catch (historyError) {
+          this.logger.warn('Failed to convert history messages from connect response:', historyError);
+          // 历史消息转换失败不影响正常连接
+        }
+      }
     } catch (error) {
       this.connectionState = OpenClawConnectionState.ERROR;
       this.logger.error('OpenClaw authentication failed:', error);

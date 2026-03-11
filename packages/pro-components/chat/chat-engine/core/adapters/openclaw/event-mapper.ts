@@ -422,54 +422,84 @@ export class OpenClawEventMapper {
   /**
    * 处理 tool stream
    *
-   * OpenClaw tool stream data 约定：
+   * OpenClaw 实际返回的 tool stream data 结构（经过对真实 Gateway 数据抓取确认）：
+   *
+   * phase: 'start' (开始，包含完整 args):
    * {
-   *   toolCallId: string,       // 工具调用 ID
-   *   toolCallName: string,     // 工具名称
-   *   state: 'start' | 'args' | 'result' | 'end',
-   *   delta?: string,           // args 增量
-   *   content?: string,         // result 内容
-   *   args?: string,            // 全量 args（snapshot 模式）
-   *   result?: string,          // 全量 result（snapshot 模式）
-   *   parentMessageId?: string, // 父消息 ID
+   *   phase: 'start',
+   *   name: 'read',                    // 工具名称（字段名是 name，不是 toolCallName）
+   *   toolCallId: 'read:0',            // 工具调用 ID
+   *   args: { file_path: '...' },      // 完整参数对象（非 JSON 字符串，start 阶段就包含全部 args）
    * }
+   *
+   * phase: 'result' (结果):
+   * {
+   *   phase: 'result',
+   *   name: 'read',
+   *   toolCallId: 'read:0',
+   *   meta: 'from ~/.openclaw/workspace/memory/2026-03-11.md',  // 结果元信息
+   *   isError: true,                   // 是否出错
+   * }
+   *
+   * 注意：
+   * 1. 只有 start 和 result 两个 phase（没有 args 和 end 阶段）
+   * 2. 字段名是 name 不是 toolCallName
+   * 3. args 在 start 阶段就是完整对象，不需要增量拼接
+   * 4. result 的具体内容通过 toolResult 角色的消息传递（在 chat final 中），
+   *    tool stream 的 result phase 只包含 meta 和 isError
    */
   private handleToolStream(data: AgentEventPayload['data']): EventMapResult {
     if (!data?.toolCallId) {
       return { content: null, isFinal: false, hasError: false };
     }
 
-    const { toolCallId, toolCallName, state } = data;
+    // OpenClaw 使用 phase 字段（不是 state），工具名使用 name 字段（不是 toolCallName）
+    const phase = (data.phase || data.state) as string;
+    const toolCallId = data.toolCallId as string;
+    const toolCallName = (data.name || data.toolCallName || 'unknown') as string;
 
-    switch (state) {
+    switch (phase) {
       case 'start':
-        return this.handleToolCallStart(toolCallId as string, toolCallName as string, data);
-      case 'args':
-        return this.handleToolCallArgs(toolCallId as string, data);
+        return this.handleToolCallStart(toolCallId, toolCallName, data);
       case 'result':
-        return this.handleToolCallResult(toolCallId as string, data);
+        return this.handleToolCallResult(toolCallId, data);
+      case 'args':
+        // 兼容 Mock Server 或其他 Gateway 实现可能使用的 args 增量阶段
+        return this.handleToolCallArgs(toolCallId, data);
       case 'end':
-        return this.handleToolCallEnd(toolCallId as string);
+        // 兼容可能的 end 阶段
+        return this.handleToolCallEnd(toolCallId);
       default:
-        // 兜底：如果没有 state，尝试从 data 推断
+        // 兜底：如果没有 phase/state，尝试从 data 推断
         return this.handleToolCallGeneric(data);
     }
   }
 
   /**
-   * 处理工具调用开始
+   * 处理工具调用开始（phase: 'start'）
+   *
+   * OpenClaw 实际行为：start 阶段就包含完整的 args 对象（不是 JSON 字符串）
+   * 因此直接序列化 args 并创建 toolcall 内容
    */
   private handleToolCallStart(toolCallId: string, toolCallName: string, data: AgentEventPayload['data']): EventMapResult {
+    // OpenClaw 的 args 在 start 阶段是完整对象，需要序列化为 JSON 字符串
+    const rawArgs = data?.args;
+    let argsStr = '';
+    if (rawArgs !== undefined && rawArgs !== null) {
+      argsStr = typeof rawArgs === 'string' ? rawArgs : JSON.stringify(rawArgs);
+    }
+
     this.toolCallMap[toolCallId] = {
       eventType: 'TOOL_CALL_START',
       toolCallId,
       toolCallName: toolCallName || 'unknown',
       parentMessageId: (data?.parentMessageId as string) || '',
-      args: (data?.args as string) || (data?.delta as string) || '',
+      args: argsStr,
     };
 
+    // OpenClaw 的 start 阶段已包含完整 args，状态可以直接标记为 executing（streaming）
     return {
-      content: createToolCallContent(this.toolCallMap[toolCallId], 'pending', 'append'),
+      content: createToolCallContent(this.toolCallMap[toolCallId], 'streaming', 'append'),
       isFinal: false,
       hasError: false,
       runId: this.currentRunId || undefined,
@@ -477,7 +507,7 @@ export class OpenClawEventMapper {
   }
 
   /**
-   * 处理工具调用参数增量
+   * 处理工具调用参数增量（兼容 args 增量阶段）
    */
   private handleToolCallArgs(toolCallId: string, data: AgentEventPayload['data']): EventMapResult {
     if (!this.toolCallMap[toolCallId]) {
@@ -501,23 +531,41 @@ export class OpenClawEventMapper {
   }
 
   /**
-   * 处理工具调用结果
+   * 处理工具调用结果（phase: 'result'）
+   *
+   * OpenClaw 实际行为：
+   * - result phase 的 data 包含 meta（描述性信息）和 isError（是否出错）
+   * - 工具调用的具体结果文本通过 chat final 中的 toolResult 角色消息传递
+   * - 因此此处不一定有 content/result 文本，但应标记 toolcall 为 complete
    */
   private handleToolCallResult(toolCallId: string, data: AgentEventPayload['data']): EventMapResult {
     if (!this.toolCallMap[toolCallId]) {
-      return { content: null, isFinal: false, hasError: false };
+      // 如果之前没有 start 事件，先创建 toolcall 记录
+      const toolCallName = (data?.name || data?.toolCallName || 'unknown') as string;
+      this.toolCallMap[toolCallId] = {
+        eventType: 'TOOL_CALL_START',
+        toolCallId,
+        toolCallName,
+        parentMessageId: '',
+        args: '',
+      };
     }
 
-    const currentResult = this.toolCallMap[toolCallId].result || '';
-    const newResult = mergeStringContent(
-      currentResult,
-      (data?.content as string) || (data?.result as string) || '',
-    );
+    // 从 data 中提取结果信息
+    const resultContent = (data?.content as string) || (data?.result as string) || '';
+    const meta = (data?.meta as string) || '';
+    const isError = data?.isError as boolean;
+
+    // 构建 result 文本：优先使用 content/result，其次使用 meta 描述
+    const resultStr = resultContent || meta || '';
 
     this.toolCallMap[toolCallId] = updateToolCall(this.toolCallMap[toolCallId], {
       eventType: 'TOOL_CALL_RESULT',
-      result: newResult,
+      result: resultStr,
+      ...(isError !== undefined ? { ext: { isError } } : {}),
     });
+
+    this.toolCallEnded.add(toolCallId);
 
     // 复用 suggestion 特殊处理
     const suggestionContent = handleSuggestionToolCall(this.toolCallMap[toolCallId]);
@@ -539,7 +587,7 @@ export class OpenClawEventMapper {
   }
 
   /**
-   * 处理工具调用结束
+   * 处理工具调用结束（兼容 end 阶段）
    */
   private handleToolCallEnd(toolCallId: string): EventMapResult {
     this.toolCallEnded.add(toolCallId);
@@ -562,7 +610,7 @@ export class OpenClawEventMapper {
   }
 
   /**
-   * 兜底处理工具调用数据（无 state 字段时）
+   * 兜底处理工具调用数据（无 phase/state 字段时）
    */
   private handleToolCallGeneric(data: AgentEventPayload['data']): EventMapResult {
     if (!data?.toolCallId) {
@@ -570,7 +618,7 @@ export class OpenClawEventMapper {
     }
 
     const toolCallId = data.toolCallId as string;
-    const toolCallName = data.toolCallName as string;
+    const toolCallName = (data.name || data.toolCallName || 'unknown') as string;
 
     // 如果还没有这个 toolCall 的记录，当作 start 处理
     if (!this.toolCallMap[toolCallId]) {
@@ -582,8 +630,8 @@ export class OpenClawEventMapper {
       return this.handleToolCallArgs(toolCallId, data);
     }
 
-    // 如果有 content/result，当作 result 更新
-    if (data.content || data.result) {
+    // 如果有 content/result/meta/isError，当作 result 更新
+    if (data.content || data.result || data.meta || data.isError !== undefined) {
       return this.handleToolCallResult(toolCallId, data);
     }
 
@@ -601,7 +649,7 @@ export class OpenClawEventMapper {
     }
     return this.handleToolCallStart(
       data.toolCallId as string,
-      (data.toolCallName as string) || 'unknown',
+      (data.name as string) || (data.toolCallName as string) || 'unknown',
       data,
     );
   }

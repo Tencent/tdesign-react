@@ -107,11 +107,19 @@ export default class ChatEngine implements IChatEngine {
       this.aguiAdapter = new AGUIAdapter();
     }
 
-    // 初始化OpenClaw适配器（由 LLMService 内部管理连接生命周期）
-    // if (this.config.protocol === 'openclaw') {
-    //   // OpenClaw 适配器通过 LLMService 自动创建和管理
-    //   // 这里仅标记协议类型，无需提前创建适配器实例
-    // }
+    // OpenClaw 协议：立即建立 WebSocket 连接并完成握手
+    // Gateway 会在 connect 响应中推送历史消息，通过 onHistoryLoaded 自动回填
+    if (this.config.protocol === 'openclaw' && this.config.endpoint) {
+      this.llmService.connectOpenClaw({
+        ...this.config,
+        onHistoryLoaded: (historyMessages) => {
+          if (historyMessages && historyMessages.length > 0) {
+            this.messageStore.setMessages(historyMessages, 'replace');
+            this.config.onHistoryLoaded?.(historyMessages);
+          }
+        },
+      });
+    }
 
     // 发布初始化事件
     this.eventBus.emit(ChatEngineEventType.ENGINE_INIT, {
@@ -578,6 +586,9 @@ export default class ChatEngine implements IChatEngine {
    *
    * OpenClaw 使用 WebSocket 连接，消息流由 LLMService 内部的 OpenClawAdapter 处理。
    * Adapter 将 OpenClaw 事件转换为 AIMessageContent 后，通过 onMessage 回调传递给 ChatEngine。
+   *
+   * 注意：WebSocket 连接已在 init() 阶段建立，历史消息也在那时自动回填，
+   * 这里只处理消息发送和流式响应。
    */
   private async handleOpenClawStreamRequest(params: ChatRequestParams, messageId?: string) {
     await this.llmService.handleStreamRequest(params, {

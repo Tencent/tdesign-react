@@ -1,6 +1,6 @@
 {
   "name": "@tdesign-react/chat",
-  "version": "1.1.0-alpha.12",
+  "version": "1.1.0-alpha.16",
   "title": "@tdesign-react/chat",
   "description": "TDesign Pro Component for AIGC",
   "module": "es/index.js",

@@ -105,6 +105,8 @@ export enum OpenClawMethod {
   SESSIONS_PATCH = 'sessions.patch',
   /** 会话列表 */
   SESSIONS_LIST = 'sessions.list',
+  /** 会话历史消息 */
+  SESSIONS_HISTORY = 'sessions.history',
   /** 心跳 */
   HEARTBEAT = 'heartbeat',
   /** 节点列表 */

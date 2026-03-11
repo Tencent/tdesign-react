@@ -236,6 +236,16 @@ export interface DefaultEngineCallbacks {
   /** 错误处理 */
   onError?: (err: Error | Response) => void;
   /**
+   * 历史消息加载回调（OpenClaw 专属）
+   *
+   * OpenClaw Gateway 在 connect 响应中可能附带历史消息（messages 字段），
+   * 当检测到时会自动转换为 ChatEngine 格式并触发此回调。
+   * 上层可据此回填历史对话到界面。
+   *
+   * @param messages 已转换为 ChatEngine 格式的历史消息数组
+   */
+  onHistoryLoaded?: (messages: ChatMessagesData[]) => void;
+  /**
    * Chunk 验证器 - 用于验证 SSE 数据块是否有效
    *
    * 当后端返回空内容或无效数据时，可以通过此配置判断 chunk 是否有效，

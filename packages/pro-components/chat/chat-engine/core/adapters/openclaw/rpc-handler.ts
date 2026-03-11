@@ -229,6 +229,22 @@ export class OpenClawRPCHandler {
   }
 
   /**
+   * 获取会话历史消息
+   *
+   * 通过 OpenClaw 的 sessions.history RPC 方法获取指定会话的历史消息。
+   * 返回的消息需要通过 convertOpenClawHistory 转换为 ChatEngine 格式。
+   *
+   * @param params.sessionKey - 会话标识
+   * @returns 包含 sessionKey, sessionId, messages 的响应对象
+   */
+  async sessionsHistory(params: {
+    sessionKey: string;
+    [key: string]: unknown;
+  }): Promise<unknown> {
+    return this.request(OpenClawMethod.SESSIONS_HISTORY, params as unknown as Record<string, unknown>);
+  }
+
+  /**
    * 取消所有待处理的请求
    */
   cancelAll(reason = 'Cancelled'): void {
