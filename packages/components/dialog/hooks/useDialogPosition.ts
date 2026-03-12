@@ -26,12 +26,15 @@ export default function useDialogPosition(dialogCardRef: MutableRefObject<HTMLEl
     const el = dialogCardRef.current;
     if (!el || !mousePosition) return;
 
-    el.style.transformOrigin = '';
-
     const { x, y } = mousePosition;
-    const rect = el.getBoundingClientRect();
-    const offsetX = x - rect.left;
-    const offsetY = y - rect.top;
+
+    const parentRect = el.offsetParent?.getBoundingClientRect() || { left: 0, top: 0 };
+
+    const top = parentRect.top + el.offsetTop;
+    const left = parentRect.left + el.offsetLeft;
+
+    const offsetX = x - left;
+    const offsetY = y - top;
 
     el.style.transformOrigin = `${offsetX}px ${offsetY}px`;
   }, [dialogCardRef]);
