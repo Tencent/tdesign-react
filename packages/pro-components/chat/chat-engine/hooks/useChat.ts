@@ -34,9 +34,9 @@ export const useChat = ({ defaultMessages: initialMessages, chatServiceConfig }:
     });
   };
 
-  const initChat = () => {
+  const initChat = async () => {
     // @ts-ignore
-    chatEngine.init(chatServiceConfig, initialMessages);
+    await chatEngine.init(chatServiceConfig, initialMessages);
     // @ts-ignore
     syncState(initialMessages);
     subscribeToChat();

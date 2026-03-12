@@ -145,7 +145,7 @@ export class WebSocketClient extends EventEmitter {
    * 关闭连接
    */
   async close(): Promise<void> {
-    if (this.state === WebSocketConnectionState.DISCONNECTED || this.state === WebSocketConnectionState.CLOSING) {
+    if (this.state === WebSocketConnectionState.DISCONNECTED || this.state === WebSocketConnectionState.CLOSING || this.state === WebSocketConnectionState.CLOSED) {
       return;
     }
 
@@ -156,6 +156,13 @@ export class WebSocketClient extends EventEmitter {
       this.clearTimers();
 
       if (this.ws) {
+        // 如果 WebSocket 还在 CONNECTING 阶段，先移除事件处理器以避免触发错误回调
+        if (this.ws.readyState === WebSocket.CONNECTING) {
+          this.ws.onopen = null;
+          this.ws.onmessage = null;
+          this.ws.onerror = null;
+          this.ws.onclose = null;
+        }
         this.ws.close(1000, 'Client initiated close');
         this.ws = null;
       }

@@ -241,24 +241,6 @@ AG-UI 协议支持通过 `ACTIVITY_*` 事件展示动态内容组件（如实时
 
 {{ openclaw-basic }}
 
-### Toolcall + Activity 综合
-
-在 OpenClaw 协议中，通过 `stream` 字段区分不同的事件流类型：
-
-- **`stream=assistant`**（默认）：文本流式传输
-- **`stream=tool`**：工具调用四阶段（start → args → result → end），对应前端的 `ToolCallRenderer` 组件
-- **`stream=activity`**：Activity 组件的 snapshot + delta 增量更新，对应前端的 `ActivityRenderer` 组件
-
-本示例重点展示 **Human-in-the-Loop 交互式 Toolcall** 的完整流程：
-
-1. 输入"交互"关键字 → 服务端推送天气查询 Toolcall + 用户偏好收集 Toolcall（交互式，只推 start+args，不推 result）
-2. 前端展示偏好表单 → 用户填写预算、兴趣等 → 点击"确认提交"
-3. 前端通过 `sendAIMessage({ toolCallMessage })` 将表单数据回传后端
-4. 后端收到后推送 Toolcall result/end（完成生命周期）+ 酒店推荐 Activity（根据偏好个性化推荐）
-
-> ⚠️ 本示例需要启动本地 Mock Server：`cd mock-server/online2 && node app.js`
-
-{{ openclaw-toolcall-activity }}
 
 
 ## 生成式UI

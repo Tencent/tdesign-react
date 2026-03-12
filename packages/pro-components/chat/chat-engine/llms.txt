@@ -6,32 +6,87 @@
 - [Generative UI](https://tdesign.tencent.com/react-chat/genui): Explore Generative UI capabilities.
 
 ## Project Identity
-A React SDK for building production-ready AI chat applications. It features a headless `ChatEngine` for logic reuse, a `ChatBot` component for rapid development, and native support for the **AG-UI Protocol** and **Generative UI**.
+A React SDK for building production-ready AI chat applications. It features a headless `ChatEngine` for logic reuse, a `ChatBot` component for rapid development, and native support for **AG-UI Protocol**, **OpenClaw Protocol** (WebSocket), and **Generative UI** (json-render & A2UI).
 
 ## Core Concepts
-- **ChatEngine**: Headless logic core handling message state, SSE streaming, and event bus.
-- **ChatBot**: All-in-one UI component with built-in rendering for Markdown, Thinking, and Tools.
-- **AG-UI**: Standard protocol for Agent-UI interaction (Tool calls, State sync, Activity).
-- **Generative UI**: AI-generated UI based on **json-render** architecture (Catalog + Registry), supporting both native adjacency-list schema and **A2UI** protocol via adapter.
+- **ChatEngine**: Headless logic core handling message state, SSE/WebSocket streaming, event bus, and resume/replay.
+- **ChatBot**: All-in-one UI component with built-in rendering for Markdown, Thinking, Tools, and Suggestions.
+- **AG-UI**: Standard SSE protocol for Agent-UI interaction (Tool calls, State sync, Activity, Messages Snapshot).
+- **OpenClaw**: WebSocket protocol for real-time AI chat with heartbeat, handshake, and history auto-load.
+- **Generative UI**: AI-generated UI based on **json-render** architecture (Catalog + Registry), supporting both native adjacency-list schema and **A2UI** protocol via adapter. Includes `DataProvider`, `VisibilityProvider`, `ActionProvider`, `ValidationProvider` contexts.
 
 ## Key APIs
 
 ### Hooks
 - `useChat(config)`: Initialize chat engine and state. Returns `{ chatEngine, messages, status }`.
-- `useAgentToolcall(config)`: Register custom UI components for AI tool calls.
-- `useAgentActivity(config)`: Register components for dynamic content (Generative UI).
-- `useAgentState(options)`: Subscribe to shared agent state updates.
+- `useAgentToolcall(config)`: Register custom UI for AI tool calls. Supports single, array, and batch registration. Returns `{ register, unregister, isRegistered, getRegistered, config }`.
+- `useAgentActivity(config)`: Register components for dynamic content (Generative UI). Returns `{ register, unregister, isRegistered, getRegistered }`.
+- `useAgentState(options)`: Subscribe to shared agent state updates. Returns `{ stateMap, currentStateKey, setStateMap, getCurrentState, getStateByKey }`.
+- `useAgentStateDataByKey(stateKey?)`: Simplified state selector (auto-detects Context vs standalone).
 
 ### Components
-- `<ChatBot />`: Main UI component. Props: `chatServiceConfig`, `headerSlot`, `messageSlot`, etc.
+- `<ChatBot />`: Main UI component. Props: `chatServiceConfig`, `headerSlot`, `messageSlot`, `senderSlot`, `footerSlot`, etc.
 - `<ChatList />`, `<ChatMessage />`, `<ChatSender />`: Atomic components for custom layouts.
+- `<ChatActionBar />`, `<ChatMarkdown />`, `<MarkdownEngine />`, `<ChatThinking />`, `<ChatLoading />`: Auxiliary UI components.
+- `<Filecard />`, `<Attachments />`, `<ChatSearchContent />`, `<ChatSuggestionContent />`: Content display components.
 - `<ToolCallRenderer />`: Renders tool calls based on registered configuration.
 - `<ActivityRenderer />`: Renders generative UI based on registered configuration.
+- `<JsonRenderActivityRenderer />`, `<A2UIJsonRenderActivityRenderer />`: Protocol-specific renderers.
+- `<ComponentErrorBoundary />`: Error boundary for dynamic components.
+
+### ChatEngine Instance Methods
+- `sendUserMessage(params)`: Send user message and trigger AI response.
+- `sendAIMessage(options)`: Programmatically create AI message.
+- `sendSystemMessage(msg)`: Add system message.
+- `resumeRun(params?)`: Resume interrupted Agent run (backend sends `MESSAGES_SNAPSHOT`).
+- `regenerateAIMessage(keepVersion?)`: Regenerate response; `keepVersion=true` for branching.
+- `sendRequest(params)`: Raw request without auto message creation.
+- `abortChat()`: Abort current streaming request.
+- `setMessages(msgs, mode?)`: Set messages with mode `'replace'` | `'prepend'` | `'append'`.
+- `clearMessages()`: Clear all messages.
+- `getToolcallByName(name)`: Get tool call object by name (AG-UI).
+- `registerMergeStrategy(type, handler)`: Register custom content merge logic.
+
+### Event Bus
+- `eventBus.on(event, callback)`: Subscribe to events. Returns unsubscribe function.
+- `eventBus.once(event, callback)`: One-time subscription.
+- `eventBus.waitFor(event, timeout?)`: Promise-based event waiting.
+- `eventBus.waitForMatch(event, filterFn, timeout?)`: Wait for event matching filter.
+- `eventBus.onCustom(name, callback)`: Subscribe to custom user-defined events.
+- `eventBus.emitCustom(name, data)`: Emit custom events.
+- `eventBus.getHistory()`: Get event history.
+- Events: `ENGINE_INIT`, `ENGINE_DESTROY`, `MESSAGE_CREATE`, `MESSAGE_UPDATE`, `MESSAGE_DELETE`, `MESSAGE_CLEAR`, `MESSAGE_STATUS_CHANGE`, `MESSAGE_CONTENT_APPEND`, `REQUEST_START`, `REQUEST_STREAM`, `REQUEST_COMPLETE`, `REQUEST_ERROR`, `REQUEST_ABORT`, `AGUI_RUN_START`, `AGUI_RUN_COMPLETE`, `AGUI_RUN_ERROR`, `AGUI_STATE_UPDATE`, `AGUI_TOOLCALL`, `AGUI_ACTIVITY`, `CUSTOM`.
 
 ### Configuration Types
-- `ChatServiceConfig`: `{ endpoint: string, protocol: 'agui' | 'custom', stream: boolean, onRequest?, onMessage? }`
-- `AgentToolcallConfig`: `{ name: string, component: ReactComponent, subscribeKey?: fn }`
-- `ActivityConfig`: `{ activityType: string, component: ReactComponent }`
+- `ChatServiceConfig`: `{ endpoint, protocol: 'agui' | 'openclaw' | 'default', stream, timeout?, maxRetries?, retryInterval?, openclaw?, onRequest?, onStart?, onMessage?, onComplete?, onError?, onAbort?, isValidChunk?, onHistoryLoaded? }`
+- `AgentToolcallConfig`: `{ name, component, handler?, subscribeKey? }` — with `handler` → non-interactive; without → interactive (Human-in-the-Loop)
+- `ActivityConfig`: `{ activityType, component, description? }`
+- `OpenClawConfig`: `{ heartbeatInterval?, client?: { id, version, mode }, protocolVersion?: { min, max } }`
+
+### Generative UI Helpers
+- `generateCatalogPrompt(catalog)`: Generate LLM system prompt from Catalog.
+- `createCustomRegistry(components, options?)`: Create component registry.
+- `createJsonRenderActivityConfig(options)`: Configure json-render Activity.
+- `createA2UIJsonRenderActivityConfig(options)`: Configure A2UI Activity.
+- `tdesignRegistry`: Built-in TDesign components (Button, Input, Card, Text, Row, Col, Space, Column, Divider).
+- `a2uiRegistry`, `createA2UIRegistry(...)`: A2UI component registries.
+- `withStableProps(Component)`: Performance HOC (`React.memo` + deep compare).
+- `withA2UIBinding(Component, config)`: A2UI data-binding HOC.
+
+### Generative UI Contexts
+- `DataProvider` + `useDataValue`, `useDataBinding`, `useDataUpdate`, `useDataState`, `useDataStore`
+- `VisibilityProvider` + `useVisibility`, `useIsVisible`
+- `ActionProvider` + `useActions`, `useAction`, `ConfirmDialog`
+- `ValidationProvider` + `useValidation`, `useFieldValidation`
+
+### Type Guards
+- `isUserMessage`, `isAIMessage`, `isTextContent`, `isMarkdownContent`, `isThinkingContent`, `isImageContent`, `isSearchContent`, `isSuggestionContent`, `isAttachmentContent`, `isToolCallContent`, `isActivityContent`, `isReasoningContent`
+
+### Utilities
+- `applyJsonPatch(state, delta)`: Immutable JSON Patch (RFC 6902) with structural sharing.
+- `safeParseJSON(value, fallback?, context?)`: Safe JSON.parse.
+- `getMessageContentForCopy(message)`: Extract text for clipboard.
+- Content factories: `createMarkdownContent`, `createTextContent`, `createThinkingContent`, `createReasoningContent`, `createSuggestionContent`, `createToolCallContent`, `createActivityContent`, `createAIMessageContent`
 
 ## Minimal Perfect Snippets
 
@@ -44,7 +99,7 @@ export default function App() {
     <ChatBot
       chatServiceConfig={{
         endpoint: '/api/chat',
-        protocol: 'agui', // Enables standard agent features
+        protocol: 'agui',
         stream: true
       }}
     />
@@ -56,7 +111,7 @@ export default function App() {
 ```tsx
 import { ChatBot, useAgentToolcall } from '@tdesign-react/chat';
 
-// Component receives: args (input), result (output), status (idle/executing/complete/error)
+// Component receives: args, result, status, respond (for interactive mode)
 const WeatherCard = ({ args, result, status }) => (
   <div className="weather-card">
     <h4>Weather in {args.city}</h4>
@@ -66,36 +121,48 @@ const WeatherCard = ({ args, result, status }) => (
 );
 
 export default function App() {
-  // Register tool to match backend tool name
   useAgentToolcall({ name: 'get_weather', component: WeatherCard });
-  
   return <ChatBot chatServiceConfig={{ protocol: 'agui', endpoint: '/api/chat' }} />;
 }
 ```
 
-### 3. Generative UI (json-render)
+### 3. Interactive Tool Call (Human-in-the-Loop)
+```tsx
+import { ChatBot, useAgentToolcall } from '@tdesign-react/chat';
+
+const FlightForm = ({ args, respond, status }) => (
+  <form onSubmit={(e) => { e.preventDefault(); respond({ confirmed: true }); }}>
+    <p>Book flight to {args.destination}?</p>
+    <button type="submit" disabled={status === 'complete'}>Confirm</button>
+  </form>
+);
+
+export default function App() {
+  useAgentToolcall({ name: 'book_flight', component: FlightForm });
+  return <ChatBot chatServiceConfig={{ protocol: 'agui', endpoint: '/api/chat' }} />;
+}
+```
+
+### 4. Generative UI (json-render)
 ```tsx
 import { ChatBot, useAgentActivity, createJsonRenderActivityConfig, createCustomRegistry } from '@tdesign-react/chat';
 
-// 1. Define how to render components (Registry)
 const registry = createCustomRegistry({
   StatusCard: ({ element }) => <div>{element.props.title}</div>
 });
 
-// 2. Create config (Catalog is defined on backend/prompt)
 const config = createJsonRenderActivityConfig({
   activityType: 'json-render',
   registry
 });
 
 export default function App() {
-  // 3. Register activity
   useAgentActivity(config);
   return <ChatBot chatServiceConfig={{ protocol: 'agui', endpoint: '/api/chat' }} />;
 }
 ```
 
-### 4. Custom Layout (Headless Mode)
+### 5. Custom Layout (Headless Mode)
 ```tsx
 import { useChat, ChatList, ChatSender } from '@tdesign-react/chat';
 
@@ -106,32 +173,30 @@ export default function CustomChat() {
 
   return (
     <div className="flex flex-col h-full">
-      <ChatList>{/* Renders messages automatically */}</ChatList>
-      <ChatSender 
+      <ChatList />
+      <ChatSender
         loading={status === 'streaming'}
-        onSend={(e) => chatEngine.sendUserMessage({ params: { prompt: e.detail.value } })} 
+        onSend={(e) => chatEngine.sendUserMessage({ params: { prompt: e.detail.value } })}
       />
     </div>
   );
 }
 ```
 
-### 5. External State Subscription (Progress Bar)
+### 6. External State Subscription (Progress Bar)
 ```tsx
 import { useAgentState } from '@tdesign-react/chat';
 
-// Renders outside the chat window
 export function GlobalProgress() {
-  // Subscribe to AG-UI STATE_* events
   const { stateMap } = useAgentState();
-  const taskState = stateMap['current_task']; // Key defined by backend
+  const taskState = stateMap['current_task'];
 
   if (!taskState) return null;
   return <ProgressBar value={taskState.progress} label={taskState.status} />;
 }
 ```
 
-### 6. Side-Panel Generative UI
+### 7. Side-Panel Generative UI
 ```tsx
 import { useChat, ChatEngineEventType, ActivityRenderer } from '@tdesign-react/chat';
 
@@ -140,7 +205,6 @@ export function SplitViewChat() {
   const [sideContent, setSideContent] = useState(null);
 
   useEffect(() => {
-    // Listen for specific activity events to render in side panel
     return chatEngine.eventBus.on(ChatEngineEventType.AGUI_ACTIVITY, (event) => {
       if (event.activityType === 'dashboard') {
         setSideContent(event);
@@ -161,19 +225,84 @@ export function SplitViewChat() {
 }
 ```
 
-### 7. A2UI Protocol Support
+### 8. A2UI Protocol Support
 ```tsx
 import { useAgentActivity, createA2UIJsonRenderActivityConfig } from '@tdesign-react/chat';
 
 export default function A2UIChat() {
-  // Automatically adapts A2UI protocol to json-render architecture
   useAgentActivity(createA2UIJsonRenderActivityConfig({
-    activityType: 'a2ui-render', // Backend must send this activityType
+    activityType: 'a2ui-render',
     actionHandlers: {
       submit: async (data) => console.log('Form submitted:', data)
     }
   }));
 
   return <ChatBot chatServiceConfig={{ protocol: 'agui', endpoint: '/api/chat' }} />;
+}
+```
+
+### 9. OpenClaw WebSocket Chat
+```tsx
+import { ChatBot } from '@tdesign-react/chat';
+
+export default function OpenClawChat() {
+  return (
+    <ChatBot
+      chatServiceConfig={{
+        endpoint: 'wss://api.example.com/ws',
+        protocol: 'openclaw',
+        openclaw: {
+          heartbeatInterval: 30000,
+          client: { id: 'my-app', version: '1.0' }
+        }
+      }}
+    />
+  );
+}
+```
+
+### 10. Resume Interrupted Run
+```tsx
+import { useChat } from '@tdesign-react/chat';
+
+export function ResumableChat() {
+  const { chatEngine, messages } = useChat({
+    chatServiceConfig: { endpoint: '/api/chat', protocol: 'agui' }
+  });
+
+  const handleResume = async () => {
+    // Backend sends MESSAGES_SNAPSHOT to restore previous state, then continues streaming
+    await chatEngine.resumeRun({ params: { runId: 'last-run-id' } });
+  };
+
+  return (
+    <div>
+      <button onClick={handleResume}>Resume Last Run</button>
+      {/* chat UI */}
+    </div>
+  );
+}
+```
+
+### 11. Event Bus Advanced Usage
+```tsx
+import { useChat, ChatEngineEventType } from '@tdesign-react/chat';
+
+export function EventBusDemo() {
+  const { chatEngine } = useChat({ /* config */ });
+
+  useEffect(() => {
+    // Promise-based: wait for specific event with timeout
+    chatEngine.eventBus.waitFor(ChatEngineEventType.AGUI_RUN_COMPLETE, 30000)
+      .then((result) => console.log('Run completed:', result))
+      .catch(() => console.log('Timeout'));
+
+    // Custom events for cross-component communication
+    chatEngine.eventBus.onCustom('my-custom-event', (data) => {
+      console.log('Custom event:', data);
+    });
+
+    return () => chatEngine.eventBus.clear();
+  }, [chatEngine]);
 }
 ```

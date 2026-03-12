@@ -53,5 +53,5 @@ export interface IStreamHandler {
   /**
    * 销毁处理器，释放资源
    */
-  destroy?(): void;
+  destroy?(): void | Promise<void>;
 }

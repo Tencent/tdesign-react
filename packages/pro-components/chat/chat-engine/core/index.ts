@@ -105,7 +105,17 @@ export default class ChatEngine implements IChatEngine {
    * @param initialMessages 初始消息列表，用于恢复历史对话
    * @description 设置初始消息、配置服务参数，并根据协议类型初始化适配器和 StreamHandler
    */
-  public init(configSetter: ChatServiceConfigSetter, initialMessages?: ChatMessagesData[]) {
+  public async init(configSetter: ChatServiceConfigSetter, initialMessages?: ChatMessagesData[]) {
+    // 清理上一次 init 遗留的资源（防止 React StrictMode 重复调用导致孤儿连接）
+    if (this.streamHandler) {
+      try {
+        await this.streamHandler.destroy();
+      } catch {
+        // 旧连接可能尚在 CONNECTING 阶段，忽略关闭时的异常
+      }
+    }
+    this.aguiAdapter = null;
+
     this.messageStore.initialize(this.convertMessages(initialMessages));
     this.config = typeof configSetter === 'function' ? configSetter() : configSetter || {};
     this.llmService = new LLMService();
