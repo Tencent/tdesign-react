@@ -152,7 +152,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
       initialData,
       isFormList: true,
       formListMapRef,
-      getValue: () => get(form?.store, fullPath),
+      getValue: () => cloneDeep(get(form?.store, fullPath)),
       validate: (trigger = 'all') => {
         const resultList = [];
         const validates = [...formListMapRef.current.values()].map((formItemRef) =>

@@ -4,7 +4,7 @@ import {
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
-import { get, isEqual, isFunction, isObject, isString, set } from 'lodash-es';
+import { cloneDeep, get, isEqual, isFunction, isNil, isObject, isString, set } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -115,7 +115,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const isSameForm = useMemo(() => isEqual(form, formOfFormList), [form, formOfFormList]);
 
   const fullPath = useMemo(() => {
-    const validParentFullPath = formListName && isSameForm ? parentFullPath : undefined;
+    const validParentFullPath = !isNil(formListName) && isSameForm ? parentFullPath : undefined;
     return concatName(validParentFullPath, name);
   }, [formListName, parentFullPath, name, isSameForm]);
 
@@ -460,7 +460,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     value: formValue,
     initialData,
     isFormList: false,
-    getValue: () => valueRef.current,
+    getValue: () => cloneDeep(valueRef.current),
     setValue: (newVal: any) => updateFormValue(newVal, true, true),
     setField,
     validate,
