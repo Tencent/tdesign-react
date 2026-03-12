@@ -1,4 +1,4 @@
-import { cloneDeep, isArray, isEmpty, isFunction, isObject, merge, set, get } from 'lodash-es';
+import { cloneDeep, get, isArray, isEmpty, isFunction, isObject, merge, set } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
 import useConfig from '../../hooks/useConfig';
 import { calcFieldValue, findFormItem, travelMapFromObject } from '../utils';
@@ -163,6 +163,15 @@ export default function useInstance(
   }
 
   /**
+   * 将值同步写入 floatingFormDataRef 和 form.store
+   *（无对应 FormItem 时的 fallback）
+   */
+  function updateFloatingValue(name: NamePath, value: any) {
+    set(floatingFormDataRef.current, name, value);
+    set(form?.store, name, value);
+  }
+
+  /**
    * 对外方法，设置对应 FormItem 的值
    */
   function setFieldsValue(fields = {}) {
@@ -182,9 +191,8 @@ export default function useInstance(
           setValueByPath(value[key], [...path, key]);
         });
       } else {
-        set(floatingFormDataRef.current, path, value);
         // 确保 store 始终包含所有被 set 的字段
-        set(form?.store, path, value);
+        updateFloatingValue(path, value);
       }
     };
 
@@ -198,9 +206,13 @@ export default function useInstance(
     if (!Array.isArray(fields)) throw new TypeError('The parameter of "setFields" must be an array');
 
     fields.forEach((field) => {
-      const { name, ...restFields } = field;
+      const { name, value, ...restFields } = field;
       const formItemRef = findFormItem(name, formMapRef);
-      formItemRef?.current?.setField(restFields);
+      if (formItemRef?.current) {
+        formItemRef.current.setField({ value, ...restFields });
+      } else if ('value' in field) {
+        updateFloatingValue(name, value);
+      }
     });
   }
 
