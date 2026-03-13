@@ -1,6 +1,6 @@
 import React, { useMemo, useRef } from 'react';
 import classNames from 'classnames';
-import { isFunction, isNumber, isString } from 'lodash-es';
+import { isEqual, isFunction, isNumber, isString } from 'lodash-es';
 
 import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
 import { accAdd, numberToPercent } from '../_util/number';
@@ -33,11 +33,13 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
     max,
     min,
     range,
+    showStep,
     step,
     tooltipProps,
     className,
     style,
     onChange,
+    onChangeEnd,
   } = props;
 
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -100,7 +102,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
   const sizeKey = isVertical ? 'height' : 'width';
   const renderDots = isVertical ? dots.map((item) => ({ ...item, position: 1 - item.position })) : dots;
 
-  const handleInputChange = (newValue: number, nodeIndex: SliderHandleNode) => {
+  const handleInputChange = (newValue: number, nodeIndex: SliderHandleNode, isEnd?: boolean) => {
     const safeValue = Number(newValue.toFixed(32));
     let resultValue = Math.max(Math.min(max, safeValue), min);
     if (precision) resultValue = Number(largeNumberToFixed(String(resultValue), precision));
@@ -108,13 +110,21 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
     if (nodeIndex === LEFT_NODE && value && safeValue > value[RIGHT_NODE]) resultValue = value[RIGHT_NODE];
     // 判断是否出现右值大于左值
     if (nodeIndex === RIGHT_NODE && value && safeValue < value[LEFT_NODE]) resultValue = value[LEFT_NODE];
+    let finalValue: SliderValue;
     if (Array.isArray(value)) {
       const arrValue = value.slice();
       arrValue[nodeIndex] = resultValue;
-      internalOnChange(arrValue);
+      finalValue = arrValue;
     } else {
-      internalOnChange(resultValue);
+      finalValue = resultValue;
     }
+    if (isEqual(value, finalValue)) {
+      if (isEnd) {
+        onChangeEnd?.(finalValue);
+      }
+      return;
+    }
+    internalOnChange(finalValue);
   };
 
   const createInput = (nodeIndex: SliderHandleNode) => {
@@ -139,13 +149,13 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
     );
   };
 
-  const nearbyValueChange = (value: number) => {
+  const nearbyValueChange = (value: number, isEnd?: boolean) => {
     const buttonBias =
       Math.abs(value - renderValue[LEFT_NODE]) > Math.abs(value - renderValue[RIGHT_NODE]) ? RIGHT_NODE : LEFT_NODE;
-    handleInputChange(value, buttonBias);
+    handleInputChange(value, buttonBias, isEnd);
   };
 
-  const setPosition = (position: number, nodeIndex?: SliderHandleNode) => {
+  const setPosition = (position: number, nodeIndex?: SliderHandleNode, isEnd?: boolean) => {
     let index = 0;
     let minDistance = 1;
     for (let i = 0; i < allDots.length; i++) {
@@ -157,25 +167,25 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
     }
     const { value } = allDots[index];
     if (nodeIndex === undefined && range) {
-      nearbyValueChange(value);
+      nearbyValueChange(value, isEnd);
     } else {
-      handleInputChange(value, nodeIndex);
+      handleInputChange(value, nodeIndex, isEnd);
     }
   };
 
-  const onSliderChange = (event: MouseCallback, nodeIndex?: SliderHandleNode) => {
+  const onSliderChange = (event: MouseCallback, nodeIndex?: SliderHandleNode, isEnd?: boolean) => {
     if (disabled || !sliderRef.current) return;
 
     const clientKey = isVertical ? 'clientY' : 'clientX';
     const sliderPositionInfo = sliderRef.current.getBoundingClientRect();
     const sliderOffset = sliderPositionInfo[startDirection];
     const position = ((event[clientKey] - sliderOffset) / sliderPositionInfo[sizeKey]) * (isVertical ? -1 : 1);
-    setPosition(position, nodeIndex);
+    setPosition(position, nodeIndex, isEnd);
   };
 
   const handleClickMarks = (event: React.MouseEvent, value: number) => {
     event.stopPropagation();
-    nearbyValueChange(value);
+    nearbyValueChange(value, true);
   };
 
   const createHandleButton = (nodeIndex: SliderHandleNode, style: React.CSSProperties) => {
@@ -196,8 +206,10 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
         toolTipProps={{ content: tipLabel, ...tooltipProps }}
         hideTips={label === false}
         classPrefix={classPrefix}
+        layout={layout}
         style={style}
         onChange={(e) => onSliderChange(e, nodeIndex)}
+        onChangeEnd={(e) => onSliderChange(e, nodeIndex, true)}
       />
     );
   };
@@ -215,7 +227,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
           [`${classPrefix}-slider--vertical`]: isVertical,
           [`${classPrefix}-slider--with-input`]: inputNumberProps,
         })}
-        onClick={onSliderChange}
+        onClick={(e) => onSliderChange(e, undefined, true)}
       >
         <div className={classNames(`${classPrefix}-slider__rail`)}>
           <div
@@ -225,18 +237,15 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
           {range ? createHandleButton(LEFT_NODE, { [startDirection]: numberToPercent(start) }) : null}
           {createHandleButton(RIGHT_NODE, { [startDirection]: numberToPercent(end) })}
           <div className={`${classPrefix}-slider__stops`}>
-            {renderDots.map(({ position, value }) => {
-              if (position === 0 || position === 1) {
-                return null;
-              }
-              return (
+            {(showStep ? allDots : renderDots)
+              .filter(({ position }) => position !== 0 && position !== 1)
+              .map(({ value: dotValue, position }) => (
                 <div
-                  key={value}
+                  key={dotValue}
                   style={{ [stepDirection]: numberToPercent(position) }}
                   className={classNames(`${classPrefix}-slider__stop`)}
                 ></div>
-              );
-            })}
+              ))}
           </div>
           <div className={classNames(`${classPrefix}-slider__mark`)}>
             {renderDots.map(({ position, value, label }) => (
