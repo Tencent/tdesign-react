@@ -15,7 +15,7 @@ role | String | - | 发送者角色 | N
 variant | String | text | 消息变体样式。可选项：base/outline/text | N
 chatContentProps | Object | - | 消息内容属性配置。类型支持见 `chatContentProps` | N
 handleActions | Object | - | 操作按钮处理函数 | N
-animation | String | skeleton | 加载动画类型。可选项：skeleton/moving/gradient/circle | N
+animation | String | skeleton | 加载动画类型。可选项：skeleton/moving/gradient/dots/circle | N
 
 ### ChatMessagesData 消息对象结构
 

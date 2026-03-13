@@ -1,5 +1,6 @@
+import tdesignReactPkg from '../../../../../tdesign-react/package.json';
+import tdesignReactChatPkg from '../../../../package.json';
 import orgPkg from '../../../package.json';
-import tdesignReactPkg from '../../../../package.json';
 
 export const htmlContent = `
   <div id="app"></div>
@@ -117,8 +118,8 @@ export const packageJSONContent = JSON.stringify(
     dependencies: {
       react: orgPkg.dependencies.react,
       'react-dom': orgPkg.dependencies['react-dom'],
-      'tdesign-react': orgPkg.dependencies['tdesign-react'],
-      '@tdesign-react/chat': tdesignReactPkg.version,
+      'tdesign-react': tdesignReactPkg.version,
+      '@tdesign-react/chat': tdesignReactChatPkg.version,
       'tdesign-icons-react': orgPkg.dependencies['tdesign-icons-react'],
       '@types/react': orgPkg.devDependencies['@types/react'],
       '@types/react-dom': orgPkg.devDependencies['@types/react-dom'],
