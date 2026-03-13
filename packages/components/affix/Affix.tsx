@@ -34,7 +34,7 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
   // 这里是通过控制 wrap 的 border-top 到浏览器顶部距离和 offsetTop 比较
   const handleScroll = useCallback(() => {
     if (!ticking.current) {
-      window.requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
         // top = 节点到页面顶部的距离，包含 scroll 中的高度
         const {
           top: wrapToTop = 0,
@@ -175,11 +175,21 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
     scrollContainer.current.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleScroll);
 
+    // 当 container 不是 window 时，也需要监听 window 的 scroll 事件
+    // 这样当整个页面滚动时，可以确保 affix 元素不会超出容器范围
+    const isContainerNotWindow = !isWindow(scrollContainer.current);
+    if (isContainerNotWindow) {
+      window.addEventListener('scroll', handleScroll);
+    }
+
     return () => {
       if (scrollContainer.current) {
         scrollContainer.current.removeEventListener('scroll', handleScroll);
       }
       window.removeEventListener('resize', handleScroll);
+      if (isContainerNotWindow) {
+        window.removeEventListener('scroll', handleScroll);
+      }
     };
   }, [container, containerReady, handleScroll]);
 
