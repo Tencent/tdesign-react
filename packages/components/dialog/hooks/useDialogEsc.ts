@@ -1,11 +1,10 @@
-import { MutableRefObject, useCallback, useEffect, useRef } from 'react';
+import { type MutableRefObject, useCallback, useEffect, useRef } from 'react';
 
 const dialogStack: MutableRefObject<HTMLDivElement>[] = [];
 
 const useDialogEsc = (visible: boolean, dialog: MutableRefObject<HTMLDivElement>) => {
   const addedToStackRef = useRef<boolean>(false);
 
-  // 关闭动画完成后调用，聚焦顶层 dialog
   const focusTopDialog = useCallback(() => {
     const lastDialog = dialogStack[dialogStack.length - 1];
     if (lastDialog?.current) {
@@ -13,16 +12,14 @@ const useDialogEsc = (visible: boolean, dialog: MutableRefObject<HTMLDivElement>
     }
   }, []);
 
-  // 每次渲染都执行，确保捕捉到的 current 不为 null
-  useEffect(() => {
-    if (visible && dialog?.current && !addedToStackRef.current) {
+  const activateDialog = useCallback(() => {
+    if (dialog?.current && !addedToStackRef.current) {
       dialogStack.push(dialog);
       addedToStackRef.current = true;
-      dialog.current.focus();
+      focusTopDialog();
     }
-  });
+  }, [dialog, focusTopDialog]);
 
-  // 处理 visible 变化
   useEffect(() => {
     if (!visible && addedToStackRef.current) {
       const index = dialogStack.indexOf(dialog);
@@ -30,6 +27,7 @@ const useDialogEsc = (visible: boolean, dialog: MutableRefObject<HTMLDivElement>
         dialogStack.splice(index, 1);
       }
       addedToStackRef.current = false;
+      focusTopDialog();
     }
 
     return () => {
@@ -40,9 +38,10 @@ const useDialogEsc = (visible: boolean, dialog: MutableRefObject<HTMLDivElement>
         }
       }
     };
-  }, [visible, dialog]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible]);
 
-  return { focusTopDialog };
+  return { activateDialog };
 };
 
 export default useDialogEsc;
