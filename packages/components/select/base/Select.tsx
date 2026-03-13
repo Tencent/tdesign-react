@@ -22,7 +22,8 @@ import useDefaultProps from '../../hooks/useDefaultProps';
 import Loading from '../../loading';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import SelectInput, {
-  SelectInputChangeContext,
+  type SelectInputChangeContext,
+  type SelectInputRef,
   type SelectInputValue,
   type SelectInputValueChangeContext,
 } from '../../select-input';
@@ -49,7 +50,7 @@ export interface SelectProps<T = SelectOption> extends TdSelectProps<T>, StyledP
 type OptionsType = TdOptionProps[];
 
 const Select = forwardRefWithStatics(
-  (originalProps: SelectProps, ref: React.Ref<HTMLDivElement>) => {
+  (originalProps: SelectProps, ref: React.Ref<SelectInputRef>) => {
     const props = useDefaultProps<SelectProps>(originalProps, selectDefaultProps);
     // 国际化文本初始化
     const [local, t] = useLocaleReceiver('select');
@@ -107,7 +108,7 @@ const Select = forwardRefWithStatics(
 
     const { valueKey, labelKey, disabledKey } = useMemo(() => getKeyMapping(keys), [keys]);
 
-    const selectInputRef = useRef(null);
+    const selectInputRef = useRef<SelectInputRef>(null);
     const { classPrefix } = useConfig();
     const { overlayClassName, onScroll, onScrollToBottom, ...restPopupProps } = popupProps || {};
     const [isScrolling, toggleIsScrolling] = useState(false);
@@ -291,6 +292,7 @@ const Select = forwardRefWithStatics(
 
     const { hoverIndex, handleKeyDown } = useKeyboardControl({
       displayOptions: flattenedOptions as TdOptionProps[],
+      filterable,
       keys,
       innerPopupVisible,
       max,
