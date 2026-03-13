@@ -47,7 +47,7 @@ spline: aigc
 -- | -- | -- | -- | --
 placement | String | left | 消息显示位置。可选项：left/right | N
 variant | String | text | 消息气泡样式变体。可选项：base/outline/text | N
-animation | String | skeleton | 加载动画类型。可选项：skeleton/moving/gradient/circle | N
+animation | String | skeleton | 加载动画类型。可选项：skeleton/moving/gradient/dots/circle | N
 name | String/TNode | - | 发送者名称，支持字符串或自定义渲染 | N
 avatar | String/TNode | - | 发送者头像，支持 URL 字符串或自定义渲染 | N
 datetime | String/TNode | - | 消息发送时间 | N
@@ -117,7 +117,7 @@ collapsed | Boolean | - | 是否默认折叠
 名称 | 类型 | 默认值 | 说明
 -- | -- | -- | --
 maxHeight | Number | - | 思考内容最大高度（px）
-animation | String | - | 加载动画类型。可选项：skeleton/moving/gradient/circle
+animation | String | - | 加载动画类型。可选项：skeleton/moving/gradient/dots/circle
 collapsed | Boolean | - | 是否默认折叠
 layout | String | - | 布局样式。可选项：block/border
 
@@ -126,7 +126,7 @@ layout | String | - | 布局样式。可选项：block/border
 名称 | 类型 | 默认值 | 说明
 -- | -- | -- | --
 maxHeight | Number | - | 推理内容最大高度（px）
-animation | String | - | 加载动画类型。可选项：skeleton/moving/gradient/circle
+animation | String | - | 加载动画类型。可选项：skeleton/moving/gradient/dots/circle
 collapsed | Boolean | - | 是否默认折叠
 layout | String | - | 布局样式。可选项：block/border
 
