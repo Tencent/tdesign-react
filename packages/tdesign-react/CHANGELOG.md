@@ -5,6 +5,30 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.16.7 `2026-03-13`
+
+### 🚀 Features
+
+- `Progress`: 当 `theme=plump` 时，当进度条填色区域大小足够容下百分比内容时，百分比内容将显示于进度条填色区域内，否则将显示于进度条填色区域的右侧，具体呈现请参考文档示例 @RSS1102 ([#4154](https://github.com/Tencent/tdesign-react/pull/4154))
+
+### 🐞 Bug Fixes
+
+- `Affix`: 
+  - 修复自定义容器时，DOM 节点未准备好就监听导致失败的问题 @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
+  - 修复自定义容器时，滚动整个页面元素会偏离的问题 @HaixingOoO @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
+- `FormList`: 修复 `setFieldsValue` 缺乏拷贝从而污染数据的问题 @RylanBot ([#4155](https://github.com/Tencent/tdesign-react/pull/4155))
+- `InputNumber`: 修复 `disabled` 时，hover 对应颜色异常的问题 @RylanBot ([common#2402](https://github.com/Tencent/tdesign-common/pull/2402))
+- `Popconfirm`: 修复 `className` 没传参时，被转为 `undefined` 字符串的问题 @RylanBot ([#4159](https://github.com/Tencent/tdesign-react/pull/4159))
+- `SelectInput`: 修复多选时，点击删除图标会打开 `Popup` 的问题 @RylanBot ([#4158](https://github.com/Tencent/tdesign-react/pull/4158))
+- `Table`: 
+  - 修复虚拟滚动时，合并单元格消失的问题 @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
+  - 修复页面自适应时，`empty` 宽度比超出表格的问题 @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
+  - 修复在 `Dialog` 内使用时，吸顶表头、吸底表尾、吸底滚动条与表格对齐不稳定的问题 @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
+- `TagInput`: 
+  - 修复 `inputProps` 传入 `className` 后，标签换行异常的问题 @RylanBot ([#4156](https://github.com/Tencent/tdesign-react/pull/4156))
+  - 修复 `inputProps` 传入 `onCompositionstart` 或 `onCompositionend` 后，中文输入兼容异常的问题 @RylanBot ([#4156](https://github.com/Tencent/tdesign-react/pull/4156))
+- `Typography`: 修复开启 `ellipsis` 时，字符串被渲染为 HTML 标签的问题 @RylanBot ([#4117](https://github.com/Tencent/tdesign-react/pull/4117))
+
 ## 🌈 1.16.6 `2026-02-26`
 
 ### 🚀 Features

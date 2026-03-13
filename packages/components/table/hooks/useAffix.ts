@@ -1,7 +1,8 @@
-import { useState, useRef, useMemo, useEffect } from 'react';
-import { TdBaseTableProps } from '../type';
-import { AffixProps } from '../../affix';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { off, on } from '../../_util/listener';
+import { getScrollContainer } from '../../_util/scroll';
+import type { AffixProps } from '../../affix';
+import type { TdBaseTableProps } from '../type';
 
 /**
  * 1. 表头吸顶（普通表头吸顶 和 虚拟滚动表头吸顶）
@@ -11,6 +12,10 @@ import { off, on } from '../../_util/listener';
  */
 export default function useAffix(props: TdBaseTableProps, { showElement }: { showElement: boolean }) {
   const tableContentRef = useRef<HTMLDivElement>(null);
+  // 自定义滚动容器
+  const scrollContainersRef = useRef<HTMLElement[]>([]);
+  // 上一次滚动位置
+  const lastScrollLeftRef = useRef(0);
   // 吸顶表头
   const affixHeaderRef = useRef<HTMLDivElement>(null);
   // 吸底表尾
@@ -36,19 +41,18 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
     [props.footerAffixedBottom, props.headerAffixedTop, props.horizontalScrollAffixedBottom],
   );
 
-  let lastScrollLeft = 0;
   const onHorizontalScroll = (scrollElement?: HTMLElement) => {
     if (!isAffixed && !isVirtualScroll) return;
     let target = scrollElement;
     if (!target && tableContentRef.current) {
-      lastScrollLeft = 0;
+      lastScrollLeftRef.current = 0;
       target = tableContentRef.current;
     }
     if (!target) return;
     const left = target.scrollLeft;
     // 如果 lastScrollLeft 等于 left，说明不是横向滚动，不需要更新横向滚动距离
-    if (lastScrollLeft === left) return;
-    lastScrollLeft = left;
+    if (lastScrollLeftRef.current === left) return;
+    lastScrollLeftRef.current = left;
     // 表格内容、吸顶表头、吸底表尾、吸底横向滚动更新
     const toUpdateScrollElement = [
       tableContentRef.current,
@@ -64,8 +68,23 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
   };
 
   // 吸底的元素（footer、横向滚动条、分页器）是否显示
-  const isAffixedBottomElementShow = (elementRect: DOMRect, tableRect: DOMRect, headerHeight: number) =>
-    tableRect.top + headerHeight < elementRect.top && elementRect.top > elementRect.height;
+  const isAffixedBottomElementShow = useCallback(
+    (elementRect: DOMRect, tableRect: DOMRect, headerHeight: number, scrollContainer?: HTMLElement) => {
+      // 如果有自定义滚动容器，需要相对于容器计算
+      if (scrollContainer) {
+        const containerRect = scrollContainer.getBoundingClientRect();
+        const containerBottom = containerRect.bottom;
+        // 表格内容区域在容器可视区内
+        const tableVisibleInContainer = tableRect.top + headerHeight < containerBottom;
+        // 表格底部超出容器底部（需要吸底滚动条）
+        const tableBottomBelowContainer = tableRect.bottom > containerBottom;
+        return tableVisibleInContainer && tableBottomBelowContainer;
+      }
+      // 默认相对于 viewport 计算
+      return tableRect.top + headerHeight < elementRect.top && elementRect.top > elementRect.height;
+    },
+    [],
+  );
 
   const getOffsetTop = (props: boolean | Partial<AffixProps>) => {
     if (typeof props === 'boolean') return 0;
@@ -198,17 +217,44 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
     }
   };
 
+  const getAffixContainers = useCallback(() => {
+    const containers: HTMLElement[] = [];
+    const affixConfigs = [props.headerAffixedTop, props.footerAffixedBottom, props.horizontalScrollAffixedBottom];
+    for (let i = 0; i < affixConfigs.length; i++) {
+      const config = affixConfigs[i];
+      if (typeof config === 'object' && config?.container) {
+        const el = getScrollContainer(config.container);
+        if (el instanceof HTMLElement && !containers.includes(el)) {
+          containers.push(el);
+        }
+      }
+    }
+    return containers;
+  }, [props.headerAffixedTop, props.footerAffixedBottom, props.horizontalScrollAffixedBottom]);
+
   const addVerticalScrollListener = () => {
     if (typeof document === 'undefined') return;
     if (!isAffixed && !props.paginationAffixedBottom) return;
-    const timer = setTimeout(() => {
-      if (isAffixed || props.paginationAffixedBottom) {
-        on(document, 'scroll', onDocumentScroll);
-      } else {
-        off(document, 'scroll', onDocumentScroll);
+
+    if (isAffixed || props.paginationAffixedBottom) {
+      on(document, 'scroll', onDocumentScroll);
+      const containers = getAffixContainers();
+      // 移除旧的监听器
+      for (let i = 0; i < scrollContainersRef.current.length; i++) {
+        off(scrollContainersRef.current[i], 'scroll', onDocumentScroll);
       }
-      clearTimeout(timer);
-    });
+      scrollContainersRef.current = containers;
+      for (let i = 0; i < containers.length; i++) {
+        on(containers[i], 'scroll', onDocumentScroll);
+      }
+      updateAffixHeaderOrFooter();
+    } else {
+      off(document, 'scroll', onDocumentScroll);
+      for (let i = 0; i < scrollContainersRef.current.length; i++) {
+        off(scrollContainersRef.current[i], 'scroll', onDocumentScroll);
+      }
+      scrollContainersRef.current = [];
+    }
   };
 
   useEffect(() => {
@@ -227,6 +273,10 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
     addVerticalScrollListener();
     return () => {
       off(document, 'scroll', onDocumentScroll);
+      for (let i = 0; i < scrollContainersRef.current.length; i++) {
+        off(scrollContainersRef.current[i], 'scroll', onDocumentScroll);
+      }
+      scrollContainersRef.current = [];
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAffixed]);
