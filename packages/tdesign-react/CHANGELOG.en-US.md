@@ -5,6 +5,30 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.16.7 `2026-03-13`
+
+### 🚀 Features
+
+- `Progress`: When `theme=plump`, if the colored area of the progress bar is large enough to display the percentage value, it will be shown within that area. Otherwise, it will be displayed to the right of the colored area. For details, refer to the documentation example @RSS1102 ([#4154](https://github.com/Tencent/tdesign-react/pull/4154))
+
+### 🐞 Bug Fixes
+
+- `Affix`:
+  - Fixed an issue where listening events failed due to DOM nodes not being ready when a custom container was used @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
+  - Fixed an issue where scrolling the entire page caused elements to shift position @HaixingOoO @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
+- `FormList`: Fixed an issue where `setFieldsValue` didn’t properly copy data, leading to data corruption @RylanBot ([#4155](https://github.com/Tencent/tdesign-react/pull/4155))
+- `InputNumber`: Fixed an issue where the hover color was incorrect when `disabled` was set @RylanBot ([common#2402](https://github.com/Tencent/tdesign-common/pull/2402))
+- `Popconfirm`: Fixed an issue where `className` became `undefined` when no value was passed @RylanBot ([#4159](https://github.com/Tencent/tdesign-react/pull/4159))
+- `SelectInput`: Fixed an issue where clicking the delete icon in multiple-selection mode would trigger the `Popup` @RylanBot ([#4158](https://github.com/Tencent/tdesign-react/pull/4158))
+- `Table`:
+  - Fixed an issue where merged cells disappeared during virtual scrolling @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
+  - Fixed an issue where the width of empty rows exceeded that of the table during responsive layout @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
+  - Fixed an issue with alignment of fixed headers, footers, and scroll bars with the table when used inside a `Dialog` @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
+- `TagInput`:
+  - Fixed an issue where tags were rendered incorrectly after `className` was passed in `inputProps` @RylanBot ([#4156](https://github.com/Tencent/tdesign-react/pull/4156))
+  - Fixed an issue with Chinese input compatibility when `onCompositionstart` or `onCompositionend` was passed in `inputProps` @RylanBot ([#4156](https://github.com/Tencent/tdesign-react/pull/4156))
+- `Typography`: Fixed an issue where strings were rendered as HTML tags when `ellipsis` was enabled @RylanBot ([#4117](https://github.com/Tencent/tdesign-react/pull/4117))
+
 ## 🌈 1.16.6 `2026-02-26`
 
 ### 🚀 Features
