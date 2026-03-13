@@ -102,11 +102,11 @@ const FormList: React.FC<TdFormListProps> = (props) => {
 
   function setListFields(fieldData: any[], callback: Function) {
     if (isEqual(formListValue, fieldData)) return;
-
-    const newFields = fieldData.map((_, index) => {
+    const newFieldData = [...fieldData];
+    const newFields = newFieldData.map((_, index) => {
       const currField = fields[index];
       const oldItem = formListValue[index];
-      const newItem = fieldData[index];
+      const newItem = newFieldData[index];
       const noChange = currField && isEqual(oldItem, newItem);
       return {
         key: noChange ? currField.key : (globalKey += 1),
@@ -118,11 +118,11 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     Array.from(formListMapRef.current.values()).forEach((formItemRef) => {
       if (!formItemRef.current) return;
       const { name: childName } = formItemRef.current;
-      const data = get(fieldData, childName);
+      const data = get(newFieldData, childName);
       if (data !== undefined) callback(formItemRef, data);
     });
 
-    updateFormList(newFields, fieldData);
+    updateFormList(newFields, newFieldData);
   }
 
   useEffect(() => {
@@ -152,7 +152,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
       initialData,
       isFormList: true,
       formListMapRef,
-      getValue: () => get(form?.store, fullPath),
+      getValue: () => cloneDeep(get(form?.store, fullPath)),
       validate: (trigger = 'all') => {
         const resultList = [];
         const validates = [...formListMapRef.current.values()].map((formItemRef) =>
