@@ -49,6 +49,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     lazyLoad,
     pagination,
   } = props;
+
+  const borderWidth = props.bordered ? 1 : 0;
+
   const tableRef = useRef<HTMLDivElement>(null);
   const tableElmRef = useRef<HTMLTableElement>(null);
   const bottomContentRef = useRef<HTMLDivElement>(null);
@@ -105,7 +108,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     updateColumnFixedShadow,
     getThWidthList,
     updateThWidthList,
-    addTableResizeObserver,
     updateTableAfterColumnResize,
   } = useFixed(props, finalColumns, {
     paginationAffixRef,
@@ -156,9 +158,12 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     if (!bordered) return;
     const bottomRect = bottomContentRef.current?.getBoundingClientRect();
     const paginationRect = paginationRef.current?.getBoundingClientRect();
-    const bottom = (bottomRect?.height || 0) + (paginationRect?.height || 0);
+    let bottom = (bottomRect?.height || 0) + (paginationRect?.height || 0);
+    if (props.horizontalScrollAffixedBottom) {
+      bottom -= scrollbarWidth + borderWidth;
+    }
     setDividerBottom(bottom);
-  }, [bottomContentRef, paginationRef, bordered]);
+  }, [bottomContentRef, paginationRef, bordered, props.horizontalScrollAffixedBottom, scrollbarWidth, borderWidth]);
 
   useEffect(() => {
     setUseFixedTableElmRef(tableElmRef.current);
@@ -294,12 +299,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tableContentRef]);
 
-  useEffect(
-    () => addTableResizeObserver(tableRef.current),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [tableRef],
-  );
-
   const newData = isPaginateData ? dataSource : data;
 
   const renderColGroup = (isFixedHeader = true) => (
@@ -353,9 +352,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     props.size,
   ];
 
-  // 多级表头左边线缺失
-  const affixedLeftBorder = props.bordered ? 1 : 0;
-
   // IE浏览器需要遮挡header吸顶滚动条，要减去getBoundingClientRect.height的滚动条高度4像素
   const IEHeaderWrap = getIEVersion() <= 11 ? 4 : 0;
   const affixHeaderHeight = (affixHeaderRef.current?.getBoundingClientRect().height || 0) - IEHeaderWrap;
@@ -376,7 +372,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     const affixedHeader = Boolean((headerAffixedTop || virtualConfig.isVirtualScroll) && tableWidth.current) && (
       <div
         ref={affixHeaderRef}
-        style={{ width: `${tableWidth.current - affixedLeftBorder - barWidth}px`, opacity: headerOpacity }}
+        style={{ width: `${tableWidth.current - borderWidth}px`, opacity: headerOpacity }}
         className={classNames([
           'scrollbar',
           {
@@ -447,7 +443,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       >
         <div
           ref={affixFooterRef}
-          style={{ width: `${tableWidth.current - affixedLeftBorder}px`, opacity: Number(showAffixFooter) }}
+          style={{ width: `${tableWidth.current - borderWidth}px`, opacity: Number(showAffixFooter) }}
           className={classNames([
             'scrollbar',
             { [tableBaseClass.affixedFooterElm]: props.footerAffixedBottom || virtualConfig.isVirtualScroll },
@@ -633,7 +629,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       tableWidth,
       tableElmWidth,
       affixHeaderRef,
-      affixedLeftBorder,
+      borderWidth,
       tableElmClasses,
       tableElementStyles,
       columns,
@@ -658,7 +654,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       tableElementStyles,
       tableElmWidth,
       affixFooterRef,
-      affixedLeftBorder,
+      borderWidth,
       bordered,
       isWidthOverflow,
       scrollbarWidth,
