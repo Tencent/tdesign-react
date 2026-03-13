@@ -76,6 +76,8 @@ const FormList: React.FC<TdFormListProps> = (props) => {
         name: index,
         isListField: true,
       });
+      // 重新计算插入位置之后所有元素的 name 索引
+      newFields.forEach((field, index) => Object.assign(field, { name: index }));
       const newFormListValue = [...formListValue];
       newFormListValue.splice(index, 0, cloneDeep(defaultValue));
       updateFormList(newFields, newFormListValue);

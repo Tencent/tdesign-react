@@ -166,6 +166,15 @@ export interface TdDatePickerProps {
    */
   onFocus?: (context: { value: DateValue | DateMultipleValue; e: FocusEvent<HTMLInputElement> }) => void;
   /**
+   * 月份切换发生变化时触发
+   */
+  onMonthChange?: (context: {
+    month: number;
+    date: Date;
+    e?: MouseEvent<HTMLDivElement>;
+    trigger: DatePickerMonthChangeTrigger;
+  }) => void;
+  /**
    * 面板选中值后触发
    */
   onPick?: (value: DateValue) => void;
@@ -173,6 +182,15 @@ export interface TdDatePickerProps {
    * 点击预设按钮后触发
    */
   onPresetClick?: (context: { preset: PresetDate; e: MouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 年份切换发生变化时触发
+   */
+  onYearChange?: (context: {
+    year: number;
+    date: Date;
+    trigger: DatePickerYearChangeTrigger;
+    e?: MouseEvent<HTMLDivElement>;
+  }) => void;
 }
 
 export interface TdDateRangePickerProps {
@@ -217,10 +235,10 @@ export interface TdDateRangePickerProps {
    */
   disabled?: boolean;
   /**
-   * 是否显示时间选择
+   * 是否显示时间选择, 默认不展示，设置为 true 时，默认模式为 parallel ，与日期面板并列展示，可以通过配置 mode 为 switch 调整展示方式
    * @default false
    */
-  enableTimePicker?: boolean;
+  enableTimePicker?: boolean | TimePanelConfig;
   /**
    * 第一天从星期几开始
    */
@@ -358,6 +376,16 @@ export interface TdDateRangePickerProps {
     e: FormEvent<HTMLInputElement>;
   }) => void;
   /**
+   * 月份切换发生变化时触发
+   */
+  onMonthChange?: (context: {
+    month: number;
+    date: Date[];
+    partial: DateRangePickerPartial;
+    e?: MouseEvent<HTMLDivElement>;
+    trigger: DatePickerMonthChangeTrigger;
+  }) => void;
+  /**
    * 选中日期时触发，可能是开始日期，也可能是结束日期，第二个参数可以区分是开始日期或是结束日期
    */
   onPick?: (value: DateValue, context: PickContext) => void;
@@ -365,6 +393,16 @@ export interface TdDateRangePickerProps {
    * 点击预设按钮后触发
    */
   onPresetClick?: (context: { preset: PresetDate; e: MouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 年份切换发生变化时触发
+   */
+  onYearChange?: (context: {
+    year: number;
+    date: Date[];
+    partial: DateRangePickerPartial;
+    trigger: DatePickerYearChangeTrigger;
+    e?: MouseEvent<HTMLDivElement>;
+  }) => void;
 }
 
 export interface TdDatePickerPanelProps
@@ -558,6 +596,12 @@ export type DisableRangeDate =
   | ((context: { date: DateRangeValue; partial: DateRangePickerPartial }) => boolean);
 
 export type DateRangePickerPartial = 'start' | 'end';
+
+export interface TimePanelConfig {
+  mode?: TimePanelMode;
+}
+
+export type TimePanelMode = 'parallel' | 'switch';
 
 export interface PresetRange {
   [range: string]: DateRange | (() => DateRange);

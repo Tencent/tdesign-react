@@ -5,6 +5,29 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.16.6 `2026-02-26`
+
+### 🚀 Features
+
+- `DatePicker`: Added `onYearChange` and `onMonthChange` callback methods @uyarn ([#4138](https://github.com/Tencent/tdesign-react/pull/4138))
+- `DateRangePicker`: 
+  - The date-time range picker now supports additional interaction modes, which can be configured using the `enableTimePicker.mode` API. For details, see the sample code @uyarn ([#4141](https://github.com/Tencent/tdesign-react/pull/4141))
+  - Added `onYearChange` and `onMonthChange` callback methods @uyarn ([#4138](https://github.com/Tencent/tdesign-react/pull/4138))
+
+### 🐞 Bug Fixes
+
+- `DateRangePicker`: Ensured that the year in the right panel is always greater than that in the left panel @uyarn ([#4137](https://github.com/Tencent/tdesign-react/pull/4137))
+- `Drawer`: Fixed an issue where the component couldn’t be closed using the `esc` key when it was opened for the first time @RylanBot ([#4115](https://github.com/Tencent/tdesign-react/pull/4115))
+- `Form`: Fixed an issue where the data returned by `getFieldsValue` was incorrectly overwritten @RylanBot ([#4125](https://github.com/Tencent/tdesign-react/pull/4125))
+- `FormList`: Fixed an issue where using an old index during `add` operations caused exceptions in `remove` operations @RylanBot ([#4135](https://github.com/Tencent/tdesign-react/pull/4135))
+- `Popup`: Fixed an issue where the `trigger="focus"` property didn’t work in encapsulated components @RylanBot ([#4143](https://github.com/Tencent/tdesign-react/pull/4143))
+- `Table`: Fixed an issue where `footerSummary` wasn’t displayed when virtual scrolling was enabled @RylanBot ([#4112](https://github.com/Tencent/tdesign-react/pull/4112))
+- `Typography`: Fixed an issue where `copyable.onCopy` was executed immediately upon initialization @RSS1102 ([#4105](https://github.com/Tencent/tdesign-react/pull/4105))
+
+### 🚧 Others
+
+- `Dialog`: Removed redundant `useDialogEsc` hook @RylanBot ([#4115](https://github.com/Tencent/tdesign-react/pull/4115))
+
 ## 🌈 1.16.5 `2026-01-28`
 
 ### 🚀 New Features
