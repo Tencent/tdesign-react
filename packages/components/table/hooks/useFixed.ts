@@ -562,7 +562,7 @@ export default function useFixed(
     if (!tableContent) return;
     const onAnimationEnd = (e: AnimationEvent) => {
       const target = e.target as HTMLElement;
-      if (!target || !target.contains(tableContent)) return;
+      if (!target?.contains(tableContent)) return;
       refreshTable();
     };
     on(document, 'animationend', onAnimationEnd, { capture: true });

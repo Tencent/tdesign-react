@@ -1,5 +1,5 @@
-import { isFunction } from 'lodash-es';
 import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { isFunction } from 'lodash-es';
 
 import { isWindow } from '../_util/dom';
 import { getScrollContainer } from '../_util/scroll';
@@ -41,7 +41,7 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
           bottom: wrapToBottom = 0,
           width: wrapWidth = 0,
           height: wrapHeight = 0,
-        } = affixWrapRef.current?.getBoundingClientRect() ?? { top: 0, bottom: 0 };
+        } = affixWrapRef.current?.getBoundingClientRect() ?? {};
 
         // 容器到页面顶部的距离, windows 为0
         let containerToTop = 0;
@@ -66,8 +66,7 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
           }
         } else {
           const containerHeight =
-            scrollContainer.current?.[isWindow(scrollContainer.current) ? 'innerHeight' : 'clientHeight'] -
-            wrapHeight;
+            scrollContainer.current?.[isWindow(scrollContainer.current) ? 'innerHeight' : 'clientHeight'] - wrapHeight;
           const calcBottom = containerToTop + containerHeight - (offsetBottom ?? 0); // 计算 bottom 相对应的 top 值
           if (calcTop <= offsetTop) {
             // top 的触发
@@ -176,21 +175,11 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
     scrollContainer.current.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleScroll);
 
-    // 当 container 不是 window 时，也需要监听 window 的 scroll 事件
-    // 这样当整个页面滚动时，可以确保 affix 元素不会超出容器范围
-    const isContainerNotWindow = !isWindow(scrollContainer.current);
-    if (isContainerNotWindow) {
-      window.addEventListener('scroll', handleScroll);
-    }
-
     return () => {
       if (scrollContainer.current) {
         scrollContainer.current.removeEventListener('scroll', handleScroll);
       }
       window.removeEventListener('resize', handleScroll);
-      if (isContainerNotWindow) {
-        window.removeEventListener('scroll', handleScroll);
-      }
     };
   }, [container, containerReady, handleScroll]);
 
