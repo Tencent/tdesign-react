@@ -27,27 +27,20 @@ export default function OpenClawBasicExample() {
     defaultMessages: [],
     chatServiceConfig: {
       // WebSocket 端点
-      endpoint: 'ws://127.0.0.1:18790',
+      endpoint: 'ws://127.0.0.1:18789',
       // 开启 OpenClaw 协议
       protocol: 'openclaw',
       stream: true,
 
       // OpenClaw 专属配置（仅协议层必需项，有默认值可不传）
-      openclaw: {
-        heartbeatInterval: 30000,
-        client: {
-          id: 'tdesign-demo',
-          version: '1.0.0',
-          mode: 'webchat',
-        },
-      },
-
       // 通过 onRequest 传入业务参数
       // sessionKey、token 等敏感/业务相关参数在这里配置
       onRequest: (params: ChatRequestParams) => ({
         sessionKey: 'demo-session',
         message: params.prompt,
-        // token: await getTokenFromBackend(),  // 实际业务中可从后端获取
+        auth: {
+          token: 'xx',
+        },
       }),
 
       // 生命周期回调

@@ -69,10 +69,8 @@ export enum AgentStreamType {
   ASSISTANT = 'assistant',
   /** 工具流 */
   TOOL = 'tool',
-  /** 系统流 */
-  SYSTEM = 'system',
-  /** Activity 组件流 */
-  ACTIVITY = 'activity',
+  /** 生命周期流（agent 启动/停止等，不包含文本内容） */
+  LIFECYCLE = 'lifecycle',
 }
 
 /**

@@ -44,6 +44,8 @@ export class OpenClawStreamHandler implements IStreamHandler {
 
     try {
       if (!this.openclawAdapter!.isAuthenticated()) {
+        // 在 connect 前获取认证信息（token 等），传给 adapter 用于握手
+        await this.prepareConnectAuth(config);
         await this.openclawAdapter!.connect();
       }
     } catch (error) {
@@ -62,6 +64,7 @@ export class OpenClawStreamHandler implements IStreamHandler {
     try {
       // 连接 WebSocket（如果未连接，比如 init 阶段连接失败需要重试）
       if (!this.openclawAdapter!.isAuthenticated()) {
+        await this.prepareConnectAuth(config);
         await this.openclawAdapter!.connect();
       }
 
@@ -103,6 +106,30 @@ export class OpenClawStreamHandler implements IStreamHandler {
   }
 
   // ==================== 内部方法 ====================
+
+  /**
+   * 从 onRequest 获取认证信息，传给 adapter 用于 connect 握手
+   *
+   * onRequest 返回值中如果包含 `auth` 字段（如 `{ auth: { token: '...' } }`），
+   * 会被提取出来作为 connect 握手的认证参数。
+   * 其他字段（如 sessionKey、message）属于 sendMessage 阶段使用，不会传入 connect。
+   */
+  private async prepareConnectAuth(config: ChatServiceConfig): Promise<void> {
+    if (!this.openclawAdapter || !config.onRequest) return;
+
+    try {
+      // 用空的 params 调用 onRequest，仅获取 auth 信息
+      const requestParams = await config.onRequest({ prompt: '' } as ChatRequestParams);
+      if (requestParams) {
+        const { auth } = requestParams as Record<string, unknown>;
+        if (auth && typeof auth === 'object') {
+          this.openclawAdapter.setConnectAuth(auth as Record<string, unknown>);
+        }
+      }
+    } catch (error) {
+      this.logger.warn('Failed to get connect auth from onRequest:', error);
+    }
+  }
 
   /**
    * 确保 OpenClaw 适配器已创建

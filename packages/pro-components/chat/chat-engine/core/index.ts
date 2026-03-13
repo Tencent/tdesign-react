@@ -50,6 +50,9 @@ export default class ChatEngine implements IChatEngine {
   /** 流式处理策略（由协议类型决定） */
   private streamHandler!: IStreamHandler;
 
+  /** 是否已完成初始化（防止 React StrictMode 等场景下重复调用 init） */
+  private initialized = false;
+
   constructor(eventBusOptions?: ChatEventBusOptions) {
     this.messageProcessor = new MessageProcessor();
     this.messageStore = new MessageStore();
@@ -106,6 +109,10 @@ export default class ChatEngine implements IChatEngine {
    * @description 设置初始消息、配置服务参数，并根据协议类型初始化适配器和 StreamHandler
    */
   public async init(configSetter: ChatServiceConfigSetter, initialMessages?: ChatMessagesData[]) {
+    // 防止重复初始化（React StrictMode 等场景下 init 可能被调用多次）
+    if (this.initialized) return;
+    this.initialized = true;
+
     // 清理上一次 init 遗留的资源（防止 React StrictMode 重复调用导致孤儿连接）
     if (this.streamHandler) {
       try {

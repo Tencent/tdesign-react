@@ -53,6 +53,29 @@ export interface OpenClawConfig {
    * 一般不需要修改，除非服务端有特殊要求
    */
   protocolVersion?: OpenClawProtocolVersion;
+
+  /**
+   * 设备认证配置
+   * - true: 启用设备认证，使用 Ed25519 密钥对签名 nonce
+   * - false: 禁用设备认证（默认）
+   */
+  deviceAuth?: boolean;
+
+  /**
+   * 连接认证信息
+   * 在 connect 握手时传入 Gateway，通常包含 token 等
+   *
+   * @example
+   * ```ts
+   * openclaw: {
+   *   auth: { token: 'your-token-here' }
+   * }
+   * ```
+   */
+  auth?: {
+    token?: string;
+    [key: string]: unknown;
+  };
 }
 
 /**
@@ -69,6 +92,8 @@ export const DEFAULT_OPENCLAW_CONFIG: Required<OpenClawConfig> = {
     min: 3,
     max: 3,
   },
+  deviceAuth: false,
+  auth: {},
 };
 
 /**
@@ -85,5 +110,7 @@ export function mergeOpenClawConfig(config?: OpenClawConfig): Required<OpenClawC
       ...DEFAULT_OPENCLAW_CONFIG.protocolVersion,
       ...config?.protocolVersion,
     },
+    deviceAuth: config?.deviceAuth ?? DEFAULT_OPENCLAW_CONFIG.deviceAuth,
+    auth: config?.auth ?? DEFAULT_OPENCLAW_CONFIG.auth,
   };
 }

@@ -102,6 +102,19 @@ export interface ConnectParams {
     token?: string;
     [key: string]: unknown;
   };
+  /** 设备身份信息（由 DeviceKeyManager 自动生成） */
+  device?: {
+    /** 设备 ID */
+    id: string;
+    /** 公钥（hex 编码） */
+    publicKey: string;
+    /** nonce 签名（hex 编码） */
+    signature: string;
+    /** 签名时间戳（Unix 秒级时间戳） */
+    signedAt: number;
+    /** 回传的 challenge nonce */
+    nonce: string;
+  };
   /** User Agent */
   userAgent?: string;
   /** 语言环境 */

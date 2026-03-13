@@ -6,21 +6,17 @@
  * 支持的 stream 类型：
  * - assistant：文本流（标准文本对话）
  * - tool：工具调用流（start → args → result → end 四阶段）
- * - activity：Activity 组件流（snapshot / delta 增量合并）
  */
 import type { AIMessageContent, TextContent, ToolCall } from '../../type';
 import type { OpenClawEventFrame, ChatEventPayload, AgentEventPayload } from './types';
 import { OpenClawEventType, ChatEventState, AgentStreamType, AgentDataType } from './types/events';
 
-// 从共享层引入通用工具函数
 import {
   createToolCallContent,
-  createActivityContent,
   mergeStringContent,
   updateToolCall,
   handleSuggestionToolCall,
 } from '../shared';
-import { activityManager } from '../shared/activity-manager';
 
 /**
  * 事件映射结果
@@ -81,6 +77,17 @@ export class OpenClawEventMapper {
 
   /**
    * 映射 chat 事件
+   *
+   * 职责划分：
+   * - chat 事件只负责会话生命周期管理（final / error / aborted）
+   * - chat delta 的文本内容不处理（文本统一从 agent 事件获取）
+   *
+   * 原因：
+   * OpenClaw Gateway 对同一段文本同时推送 agent（stream: "assistant"，增量式）
+   * 和 chat（state: "delta"，全量快照式）两种事件。
+   * agent 事件面向需要细粒度控制的客户端（前端 UI），
+   * chat delta 面向只关心最终消息的客户端（如 WhatsApp/Telegram 适配器）。
+   * 如果两者都处理，会导致文本重复。
    */
   private mapChatEvent(payload: ChatEventPayload): EventMapResult {
     const { state, message, runId, errorMessage } = payload;
@@ -89,7 +96,8 @@ export class OpenClawEventMapper {
 
     switch (state) {
       case ChatEventState.DELTA:
-        return this.handleChatDelta(message);
+        // chat delta 的文本不处理，文本统一从 agent 事件获取，避免重复
+        return { content: null, isFinal: false, hasError: false };
 
       case ChatEventState.FINAL:
         return this.handleChatFinal(message);
@@ -114,47 +122,6 @@ export class OpenClawEventMapper {
       default:
         return { content: null, isFinal: false, hasError: false };
     }
-  }
-
-  /**
-   * 处理 chat delta（增量更新）
-   *
-   * chat 事件的 message.content 包含全量文本快照。
-   * 需要计算与上次的增量，只返回新增部分，
-   * 因为 ChatEngine 的 text handler 会拼接内容。
-   */
-  private handleChatDelta(message?: ChatEventPayload['message']): EventMapResult {
-    if (!message?.content) {
-      return { content: null, isFinal: false, hasError: false };
-    }
-
-    // 从 content 数组中提取文本（全量快照）
-    const text = this.extractTextFromContent(message.content);
-    if (text === null) {
-      return { content: null, isFinal: false, hasError: false };
-    }
-
-    // 计算增量
-    const prevBuffer = this.textBuffer;
-    this.textBuffer = text;
-    const delta = text.startsWith(prevBuffer) ? text.slice(prevBuffer.length) : text;
-
-    if (!delta) {
-      return { content: null, isFinal: false, hasError: false };
-    }
-
-    const textContent: TextContent = {
-      type: 'text',
-      data: delta,
-      status: 'streaming',
-    };
-
-    return {
-      content: textContent,
-      isFinal: false,
-      hasError: false,
-      runId: this.currentRunId || undefined,
-    };
   }
 
   /**
@@ -197,13 +164,18 @@ export class OpenClawEventMapper {
 
     this.currentRunId = runId || this.currentRunId;
 
+    console.log(`[OpenClaw EventMapper] agent stream="${stream}", data=`, JSON.stringify(data).slice(0, 300));
+
     // 根据 stream 类型分发
     switch (stream) {
       case AgentStreamType.TOOL:
         return this.handleToolStream(data);
 
-      case AgentStreamType.ACTIVITY:
-        return this.handleActivityStream(data);
+
+      case AgentStreamType.LIFECYCLE:
+        // lifecycle/system 流是 agent 生命周期事件，不包含文本内容，跳过
+        console.log(`[OpenClaw EventMapper] Skipping ${stream} stream event`);
+        return { content: null, isFinal: false, hasError: false };
 
       case AgentStreamType.ASSISTANT:
       case undefined:
@@ -267,12 +239,6 @@ export class OpenClawEventMapper {
           errorMessage: data?.text,
           runId: this.currentRunId || undefined,
         };
-
-      case AgentDataType.TOOL_CALL:
-        return this.handleToolCall(data);
-
-      case AgentDataType.TOOL_RESULT:
-        return this.handleToolResult(data);
 
       default:
         // 尝试从 data 中提取文本（兜底处理）
@@ -638,92 +604,6 @@ export class OpenClawEventMapper {
     return { content: null, isFinal: false, hasError: false };
   }
 
-  // ==================== 旧版 Tool 处理（兼容 assistant stream 中的 type 字段） ====================
-
-  /**
-   * 处理旧版工具调用（通过 type 字段而非 stream=tool）
-   */
-  private handleToolCall(data?: AgentEventPayload['data']): EventMapResult {
-    if (!data?.toolCallId) {
-      return { content: null, isFinal: false, hasError: false };
-    }
-    return this.handleToolCallStart(
-      data.toolCallId as string,
-      (data.name as string) || (data.toolCallName as string) || 'unknown',
-      data,
-    );
-  }
-
-  /**
-   * 处理旧版工具结果（通过 type 字段而非 stream=tool）
-   */
-  private handleToolResult(data?: AgentEventPayload['data']): EventMapResult {
-    if (!data?.toolCallId) {
-      return { content: null, isFinal: false, hasError: false };
-    }
-    return this.handleToolCallResult(data.toolCallId as string, data);
-  }
-
-  // ==================== Activity Stream ====================
-
-  /**
-   * 处理 activity stream
-   *
-   * 直接复用 activityManager 的 snapshot/delta 处理逻辑。
-   *
-   * OpenClaw activity stream data 约定：
-   * {
-   *   activityType: string,                  // Activity 组件类型
-   *   state: 'snapshot' | 'delta',           // 全量 or 增量
-   *   content?: Record<string, any>,         // snapshot 全量数据
-   *   patch?: any[],                         // delta JSON Patch 数组
-   *   messageId?: string,                    // 关联消息 ID
-   * }
-   */
-  private handleActivityStream(data: AgentEventPayload['data']): EventMapResult {
-    if (!data?.activityType) {
-      return { content: null, isFinal: false, hasError: false };
-    }
-
-    const activityType = data.activityType as string;
-    const state = data.state as string;
-
-    // 将 OpenClaw 的 state 映射为 AG-UI 兼容的事件 type
-    const eventType = state === 'snapshot' ? 'ACTIVITY_SNAPSHOT' : 'ACTIVITY_DELTA';
-
-    // 委托给 activityManager 处理（复用 AG-UI 的 snapshot/delta 合并逻辑）
-    const activityData = activityManager.handleActivityEvent({
-      type: eventType,
-      activityType,
-      content: data.content as Record<string, any>,
-      patch: data.patch as any[],
-      messageId: data.messageId as string,
-    });
-
-    if (!activityData) {
-      return { content: null, isFinal: false, hasError: false };
-    }
-
-    // 判断是否需要 append（新建内容块）
-    const isSnapshot = state === 'snapshot';
-    // 首次 delta 时 activityManager 内部已经处理了初始化
-    const existingActivity = activityManager.getActivity(activityType);
-    const isFirstEvent = isSnapshot || (!existingActivity && state === 'delta');
-
-    return {
-      content: createActivityContent(
-        activityType,
-        activityData.content,
-        'streaming',
-        isFirstEvent ? 'append' : 'merge',
-        activityData.deltaInfo,
-      ),
-      isFinal: false,
-      hasError: false,
-      runId: this.currentRunId || undefined,
-    };
-  }
-
   // ==================== 通用事件处理 ====================
 
   /**
@@ -751,20 +631,6 @@ export class OpenClawEventMapper {
   }
 
   // ==================== 工具方法 ====================
-
-  /**
-   * 从 content 数组中提取文本
-   */
-  private extractTextFromContent(content: Array<{ type: string; text?: string }>): string | null {
-    if (!Array.isArray(content)) {
-      return null;
-    }
-
-    return content
-      .filter((c) => c?.type === 'text' && c?.text)
-      .map((c) => c.text!)
-      .join('');
-  }
 
   /**
    * 创建错误内容
@@ -820,6 +686,5 @@ export class OpenClawEventMapper {
     this.currentRunId = null;
     this.toolCallMap = {};
     this.toolCallEnded.clear();
-    activityManager.clear();
   }
 }

@@ -100,14 +100,32 @@ export class AGUIAdapter {
 
     /**
      * 处理用户消息的 content 字段
-     * 兼容两种格式：
+     * 兼容三种格式：
      * 1. 标准 AG-UI 格式：content 是字符串
-     * 2. 已转换格式：content 已经是数组 [{ type, data }]
+     * 2. 后端返回格式：content 是数组 [{ type, text }]（text 字段存储文本）
+     * 3. 已转换格式：content 已经是数组 [{ type, data }]
      */
     const processUserContent = (content: any): UserMessageContent[] => {
-      // 如果 content 已经是数组格式，直接返回
+      // 如果 content 已经是数组格式，需要做字段适配
       if (Array.isArray(content)) {
-        return content as UserMessageContent[];
+        return content.map((item: any) => {
+          // 如果已经有 data 字段，说明已经是 ChatEngine 格式
+          if (item.data !== undefined) {
+            return item as UserMessageContent;
+          }
+          // 后端返回的格式用 text 字段存储文本，需要映射为 data 字段
+          if (item.type === 'text' && item.text !== undefined) {
+            return {
+              type: 'text' as const,
+              data: item.text,
+            };
+          }
+          // 其他类型的数组元素，尝试用 text 字段兜底
+          return {
+            type: item.type || 'text',
+            data: item.text || item.data || '',
+          } as UserMessageContent;
+        });
       }
       // 如果是字符串，包装为标准格式
       return [

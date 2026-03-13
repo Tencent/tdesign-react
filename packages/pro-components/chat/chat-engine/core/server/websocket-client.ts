@@ -85,6 +85,9 @@ export class WebSocketClient extends EventEmitter {
 
   private firstMessageReceived = false;
 
+  /** 用于在 close 时 reject 正在等待的 connect promise */
+  private connectReject: ((reason: Error) => void) | null = null;
+
   constructor(url: string) {
     super();
     this.url = url;
@@ -155,6 +158,13 @@ export class WebSocketClient extends EventEmitter {
     try {
       this.clearTimers();
 
+      // 如果 connect 还在 pending（CONNECTING 阶段被 close），reject 它
+      if (this.connectReject) {
+        const rejectFn = this.connectReject;
+        this.connectReject = null;
+        rejectFn(new ConnectionError('Connection closed before established'));
+      }
+
       if (this.ws) {
         // 如果 WebSocket 还在 CONNECTING 阶段，先移除事件处理器以避免触发错误回调
         if (this.ws.readyState === WebSocket.CONNECTING) {
@@ -213,6 +223,9 @@ export class WebSocketClient extends EventEmitter {
    */
   private establishConnection(): Promise<void> {
     return new Promise((resolve, reject) => {
+      // 保存 reject，以便 close() 时可以 reject 这个 pending promise
+      this.connectReject = reject;
+
       try {
         this.ws = new WebSocket(this.url);
 
@@ -229,6 +242,7 @@ export class WebSocketClient extends EventEmitter {
 
         this.ws.onopen = () => {
           this.clearTimeout();
+          this.connectReject = null;
           this.setState(WebSocketConnectionState.CONNECTED);
           this.retryCount = 0;
           this.connectionInfo.lastActivity = Date.now();
@@ -293,6 +307,8 @@ export class WebSocketClient extends EventEmitter {
   private handleClose(code: number, reason: string): void {
     this.clearTimers();
     this.ws = null;
+
+    this.logger.warn(`[WS handleClose] code=${code}, reason="${reason}", manualClose=${this.manualClose}`);
 
     if (this.manualClose || code === 1000) {
       // 正常关闭

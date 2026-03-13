@@ -6,19 +6,15 @@ import {
   ChatMessage,
   ToolCallRenderer,
   useAgentToolcall,
-  useAgentActivity,
   useChat,
   isToolCallContent,
-  ActivityRenderer,
-  isActivityContent,
 } from '@tdesign-react/chat';
-import { CheckCircleFilledIcon, LoadingIcon, StarFilledIcon, CloudIcon } from 'tdesign-icons-react';
+import { CheckCircleFilledIcon, LoadingIcon, CloudIcon } from 'tdesign-icons-react';
 import type {
   ChatMessagesData,
   ChatRequestParams,
   ToolCall,
   ToolcallComponentProps,
-  ActivityComponentProps,
   AIMessageContent,
 } from '@tdesign-react/chat';
 
@@ -46,32 +42,12 @@ interface UserPreferencesResponse {
   accommodation: string;
 }
 
-// Activity: 酒店推荐
-interface HotelOption {
-  id: string;
-  name: string;
-  price: number;
-  rating: number;
-  amenities: string[];
-}
-
-interface HotelBookingActivityContent {
-  currentStep: 'searching' | 'results' | 'booked';
-  hotels: HotelOption[];
-  selectedHotel?: string;
-  confirmation?: {
-    hotelName: string;
-    roomType: string;
-    totalPrice: number;
-  };
-}
-
 // ==================== 工具组件 ====================
 
 /**
  * 1. 天气查询组件（非交互式 Toolcall）
  *
- * 展示 OpenClaw stream=tool 四阶段（start → args → result → end）
+ * 展示 OpenClaw stream=tool 两阶段（start → result）
  */
 const WeatherCard: React.FC<ToolcallComponentProps<WeatherArgs, WeatherResult>> = ({
   status,
@@ -211,124 +187,21 @@ const UserPreferencesForm: React.FC<
   );
 };
 
-// ==================== Activity 组件 ====================
-
-/**
- * 3. 酒店推荐 Activity 组件
- *
- * 展示 OpenClaw stream=activity 的 snapshot + delta 增量更新：
- * - snapshot：初始搜索状态
- * - delta：逐步添加酒店结果 / 更新状态
- */
-const HotelRecommendation: React.FC<ActivityComponentProps<HotelBookingActivityContent>> = ({
-  content,
-}) => {
-  const { currentStep, hotels, confirmation } = content || {};
-
-  // 预订成功
-  if (currentStep === 'booked' && confirmation) {
-    return (
-      <Card bordered style={{ marginTop: 8, maxWidth: 480 }}>
-        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12, color: '#00a870' }}>
-          <CheckCircleFilledIcon style={{ marginRight: 4 }} />
-          预订成功！
-        </div>
-        <Space direction="vertical" size="small">
-          <div style={{ fontSize: 13 }}>🏨 酒店：{confirmation.hotelName}</div>
-          <div style={{ fontSize: 13 }}>🛏️ 房型：{confirmation.roomType}</div>
-          <div style={{ fontSize: 16, fontWeight: 600, color: '#e34d59' }}>
-            💰 总价：¥{confirmation.totalPrice}
-          </div>
-        </Space>
-      </Card>
-    );
-  }
-
-  return (
-    <Card bordered style={{ marginTop: 8, maxWidth: 480 }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-        <span style={{ fontSize: 14, fontWeight: 600 }}>🏨 为您推荐酒店</span>
-        {currentStep === 'searching' && (
-          <Tag theme="primary" variant="light" size="small">
-            <LoadingIcon style={{ fontSize: 12, marginRight: 4 }} />
-            搜索中
-          </Tag>
-        )}
-        {currentStep === 'results' && hotels?.length > 0 && (
-          <Tag theme="success" variant="light" size="small">
-            找到 {hotels.length} 家
-          </Tag>
-        )}
-      </div>
-
-      {(!hotels || hotels.length === 0) && currentStep === 'searching' && (
-        <div style={{ textAlign: 'center', padding: 20, color: '#888' }}>
-          <LoadingIcon style={{ fontSize: 20 }} />
-          <div style={{ marginTop: 8, fontSize: 12 }}>正在搜索酒店...</div>
-        </div>
-      )}
-
-      {hotels && hotels.length > 0 && (
-        <Space direction="vertical" size={12} style={{ width: '100%' }}>
-          {hotels.map((hotel: HotelOption) => (
-            <div
-              key={hotel.id}
-              style={{
-                border: '1px solid #e7e7e7',
-                borderRadius: 8,
-                padding: 12,
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div>
-                  <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>{hotel.name}</div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 2, marginBottom: 4 }}>
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <StarFilledIcon
-                        key={i}
-                        style={{
-                          fontSize: 12,
-                          color: i < hotel.rating ? '#faad14' : '#e7e7e7',
-                        }}
-                      />
-                    ))}
-                    <span style={{ fontSize: 11, color: '#666', marginLeft: 4 }}>{hotel.rating}分</span>
-                  </div>
-                  <div style={{ fontSize: 12, color: '#888' }}>
-                    {hotel.amenities?.slice(0, 3).join(' · ')}
-                  </div>
-                </div>
-                <div style={{ fontSize: 18, fontWeight: 600, color: '#e34d59' }}>
-                  ¥{hotel.price}
-                  <span style={{ fontSize: 11, fontWeight: 400, color: '#999' }}>/晚</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </Space>
-      )}
-    </Card>
-  );
-};
-
 // ==================== 主组件 ====================
 
 /**
- * OpenClaw 协议 - Toolcall + Activity + 历史消息 综合示例
+ * OpenClaw 协议 - Toolcall + 历史消息 综合示例
  *
  * 学习目标：
  * - Toolcall：通过 stream=tool 实现工具调用（phase=start/result，对照 OpenClaw 实际协议）
- * - Activity：通过 stream=activity 实现 snapshot + delta 增量 UI
  * - 双向 Action：通过 node.invoke RPC 支持 Human-in-the-Loop 交互
  * - 历史消息：OpenClaw Gateway 在 connect 响应中自动推送历史消息，ChatEngine 自动回填
- * - 完整演示：文本 + Toolcall + Activity 混合流
+ * - 完整演示：文本 + Toolcall 混合流
  *
  * 关键字触发说明（Mock Server 根据用户消息分发不同流式模式）：
  * - 输入包含 "交互" / "互动" / "偏好"：触发交互式 Toolcall 演示（Human-in-the-Loop）
- *   → 天气查询 + 用户偏好表单 → 用户填写提交 → 服务端接收后继续推送酒店推荐
+ *   → 天气查询 + 用户偏好表单 → 用户填写提交 → 服务端接收后继续推送总结文本
  * - 输入包含 "tool" / "工具" / "天气"：触发非交互式 Toolcall 演示
- * - 输入包含 "activity" / "酒店"：触发 Activity 演示
- * - 输入包含 "full" / "完整" / "全部"：触发完整演示（文本 + Tool + Activity）
  * - 其他输入：普通文本对话
  *
  * 注意：需要启动 Mock Server：cd mock-server/online2 && node app.js
@@ -353,38 +226,19 @@ export default function OpenClawToolcallActivity() {
     },
   ]);
 
-  // 注册 Activity 组件
-  useAgentActivity([
-    {
-      activityType: 'hotel-recommendation',
-      component: HotelRecommendation,
-      description: '酒店推荐列表',
-    },
-  ]);
-
   // 聊天配置 - 使用 OpenClaw WebSocket 协议
   const { chatEngine, messages, status } = useChat({
     chatServiceConfig: {
-      endpoint: 'ws://127.0.0.1:18790',
+      endpoint: 'ws://127.0.0.1:18789',
       protocol: 'openclaw',
       stream: true,
-
-      // OpenClaw 专属配置
-      openclaw: {
-        heartbeatInterval: 30000,
-        client: {
-          id: 'tdesign-openclaw-demo',
-          version: '1.0.0',
-          mode: 'webchat',
-        },
-      },
-
       // 通过 onRequest 传入业务参数
       onRequest: (params: ChatRequestParams) => ({
         sessionKey: 'demo-toolcall-activity',
         message: params.prompt,
-        // 透传 toolCallMessage（交互式 Toolcall 用户回传时携带）
-        ...(params.toolCallMessage ? { toolCallMessage: params.toolCallMessage } : {}),
+        auth: {
+          token: 'xx',
+        },
       }),
 
       // 历史消息回调：OpenClaw Gateway 在 connect 响应中自动推送历史消息
@@ -453,15 +307,6 @@ export default function OpenClawToolcallActivity() {
         );
       }
 
-      // 渲染 Activity 组件
-      if (isActivityContent(item)) {
-        return (
-          <div slot={`${item.type}-${index}`} key={`activity-${index}`}>
-            <ActivityRenderer activity={item.data} />
-          </div>
-        );
-      }
-
       return null;
     },
     [handleToolCallRespond],
@@ -490,9 +335,7 @@ export default function OpenClawToolcallActivity() {
         }}
       >
         💡 输入提示：<strong>交互/互动/偏好</strong> → 🌟 交互式 Toolcall 演示（Human-in-the-Loop）|{' '}
-        <strong>天气/tool</strong> → Toolcall |{' '}
-        <strong>酒店/activity</strong> → Activity |{' '}
-        <strong>完整/full</strong> → 全部
+        <strong>天气/tool</strong> → Toolcall
         <span style={{ marginLeft: 12, color: '#888' }}>
           📜 历史消息由 Gateway connect 响应自动推送
         </span>

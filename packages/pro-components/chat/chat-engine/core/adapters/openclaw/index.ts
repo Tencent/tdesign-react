@@ -39,11 +39,13 @@ import {
   type OpenClawHistoryResponse,
   type ConvertHistoryOptions,
 } from './history-converter';
+import { DeviceKeyManager } from './device-key-manager';
 
 // 重新导出类型
 export * from './types';
 export { OpenClawEventMapper, type EventMapResult } from './event-mapper';
 export { OpenClawRPCHandler, RPCError } from './rpc-handler';
+export { DeviceKeyManager, type DeviceKeyPair, type DeviceIdentity } from './device-key-manager';
 export {
   convertOpenClawHistory,
   convertOpenClawHistoryResponse,
@@ -118,6 +120,11 @@ export class OpenClawAdapter extends EventEmitter {
 
   private currentRequestParams: ChatRequestParams | null = null;
 
+  private deviceKeyManager: DeviceKeyManager | null = null;
+
+  /** 动态传入的认证信息，用于 connect 握手（一次性使用） */
+  private pendingAuth: Record<string, unknown> | null = null;
+
   constructor(config: OpenClawAdapterConfig) {
     super();
     this.adapterConfig = config;
@@ -125,6 +132,11 @@ export class OpenClawAdapter extends EventEmitter {
     this.instanceId = generateUUID();
     this.rpcHandler = new OpenClawRPCHandler({ timeout: config.timeout });
     this.eventMapper = new OpenClawEventMapper();
+
+    // 启用设备认证时，初始化密钥管理器
+    if (this.config.deviceAuth) {
+      this.deviceKeyManager = new DeviceKeyManager(this.config.client.id);
+    }
   }
 
   /**
@@ -132,6 +144,16 @@ export class OpenClawAdapter extends EventEmitter {
    */
   setCallbacks(callbacks: OpenClawAdapterCallbacks): void {
     this.callbacks = callbacks;
+  }
+
+  /**
+   * 设置连接认证信息（在 connect 之前调用）
+   *
+   * 传入的 auth 会在下一次 connect 握手时使用（一次性），
+   * 用于从 onRequest 动态获取 token 等认证信息。
+   */
+  setConnectAuth(auth: Record<string, unknown>): void {
+    this.pendingAuth = auth;
   }
 
   /**
@@ -229,11 +251,12 @@ export class OpenClawAdapter extends EventEmitter {
     this.isStreaming = true;
     this.eventMapper.reset();
 
-    // 合并用户自定义参数
+    // 合并用户自定义参数（剔除 auth，auth 仅用于 connect 握手）
+    const { auth: _auth, ...sendParams } = requestParams || {};
     const chatParams = {
       message: params.prompt || '',
       idempotencyKey: generateUUID(),
-      ...requestParams,
+      ...sendParams,
     };
 
     try {
@@ -410,12 +433,14 @@ export class OpenClawAdapter extends EventEmitter {
     });
 
     this.wsClient.on('error', (error: Error) => {
-      this.logger.error('OpenClaw WebSocket error:', error);
+      this.logger.error('[OpenClaw] WebSocket error:', error?.message || error);
       this.callbacks.onError?.(error);
     });
 
     this.wsClient.on('complete', (isAborted: boolean) => {
+      console.warn(`[OpenClaw] WebSocket complete event! isAborted=${isAborted}, isStreaming=${this.isStreaming}`);
       if (this.isStreaming) {
+        console.warn('[OpenClaw] ⚠️ WebSocket closed while still streaming! This caused onComplete to fire prematurely.');
         this.isStreaming = false;
         this.callbacks.onComplete?.(isAborted, this.currentRequestParams || undefined);
       }
@@ -434,11 +459,17 @@ export class OpenClawAdapter extends EventEmitter {
    * 处理 WebSocket 消息
    */
   private handleWebSocketMessage(data: unknown): void {
+    // DEBUG: 打印所有原始 WebSocket 消息（排查真实 OpenClaw 返回格式）
+    const rawStr = typeof data === 'string' ? data : JSON.stringify(data);
+    console.log(`[OpenClaw RAW] ${rawStr.slice(0, 800)}`);
+
     const frame = parseFrame(data as string | object);
     if (!frame) {
-      this.logger.warn('Failed to parse OpenClaw frame:', data);
+      console.warn('[OpenClaw] Failed to parse frame, raw data:', rawStr.slice(0, 500));
       return;
     }
+
+    console.log(`[OpenClaw Frame] type="${frame.type}", event=${(frame as any).event}, isStreaming=${this.isStreaming}`);
 
     // 处理响应帧
     if (frame.type === 'res') {
@@ -464,9 +495,20 @@ export class OpenClawAdapter extends EventEmitter {
       return;
     }
 
+    // 忽略心跳、健康检查等非业务事件
+    if (event === OpenClawEventType.HEALTH || event === OpenClawEventType.HEARTBEAT || event === 'tick' as any) {
+      console.log(`[OpenClaw] Skipping non-business event: "${event}"`);
+      return;
+    }
+
+    // DEBUG: 打印所有业务事件，帮助排查真实 OpenClaw 的返回格式
+    console.log(`[OpenClaw Event] event="${event}", isStreaming=${this.isStreaming}, payload=`, JSON.stringify(payload).slice(0, 500));
+
     // 流式消息事件
     if (this.isStreaming) {
       const result = this.eventMapper.mapEvent(frame);
+
+      console.log(`[OpenClaw mapResult] content=${result.content ? JSON.stringify(result.content).slice(0, 200) : 'null'}, isFinal=${result.isFinal}, hasError=${result.hasError}`);
 
       if (result.content) {
         this.callbacks.onMessage?.(result.content);
@@ -481,6 +523,9 @@ export class OpenClawAdapter extends EventEmitter {
       if (result.hasError && result.errorMessage) {
         this.callbacks.onError?.(new Error(result.errorMessage));
       }
+    } else {
+      // 非流式状态下收到了业务事件，打印警告帮助排查
+      console.warn(`[OpenClaw] Received event "${event}" but isStreaming=false, event may be lost. Payload:`, JSON.stringify(payload).slice(0, 300));
     }
   }
 
@@ -505,10 +550,28 @@ export class OpenClawAdapter extends EventEmitter {
       },
       role: 'operator',
       scopes: ['operator.admin'],
-      caps: [],
       userAgent: getUserAgent(),
       locale: getLocale(),
     };
+
+    // 认证信息：优先使用动态传入的 auth，其次使用配置中的 auth
+    const auth = this.pendingAuth || (Object.keys(this.config.auth).length > 0 ? this.config.auth : undefined);
+    if (auth) {
+      connectParams.auth = auth;
+    }
+    this.pendingAuth = null;
+
+    // 设备认证：使用 nonce 签名生成 device 字段
+    if (this.deviceKeyManager && payload.nonce) {
+      try {
+        await this.deviceKeyManager.initialize();
+        const deviceIdentity = await this.deviceKeyManager.signChallenge(payload.nonce);
+        connectParams.device = deviceIdentity;
+        this.logger.debug(`Device auth: signed nonce, deviceId=${deviceIdentity.id}`);
+      } catch (deviceError) {
+        this.logger.warn('Device auth: failed to sign challenge, connecting without device identity:', deviceError);
+      }
+    }
 
     try {
       const response = await this.rpcHandler.connect(connectParams);
