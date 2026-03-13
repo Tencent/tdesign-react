@@ -1,13 +1,14 @@
 import React, { RefAttributes, forwardRef, useImperativeHandle, useRef } from 'react';
 import { get } from 'lodash-es';
-import PrimaryTable from './PrimaryTable';
-import { PrimaryTableCol, TableRowData, DragSortContext, TdPrimaryTableProps } from './type';
+
+import useConfig from '../hooks/useConfig';
 import useTreeData from './hooks/useTreeData';
 import useTreeSelect from './hooks/useTreeSelect';
-import { EnhancedTableProps, EnhancedTableRef, PrimaryTableProps } from './interface';
-import useConfig from '../hooks/useConfig';
+import PrimaryTable, { type InternalPrimaryTableProps } from './PrimaryTable';
 
-import { StyledProps } from '../common';
+import type { StyledProps } from '../common';
+import type { EnhancedTableProps, EnhancedTableRef } from './interface';
+import type { DragSortContext, PrimaryTableCol, TableRowData, TdPrimaryTableProps } from './type';
 
 export interface TEnhancedTableProps extends EnhancedTableProps, StyledProps {}
 
@@ -19,10 +20,11 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
   // treeInstanceFunctions 属于对外暴露的 Ref 方法
   const { store, dataSource, formatTreeColumn, swapData, onExpandFoldIconClick, ...treeInstanceFunctions } =
     useTreeData(props);
-
   const treeDataMap = store?.treeDataMap;
 
-  const { tIndeterminateSelectedRowKeys, onInnerSelectChange } = useTreeSelect(props, treeDataMap);
+  const { innerIndeterminateSelectedRowKeys, innerSelectedRowKeys, onInnerSelectChange } = useTreeSelect(props, {
+    treeDataMap,
+  });
 
   // 影响列和单元格内容的因素有：树形节点需要添加操作符 [+] [-]
   const getColumns = (columns: PrimaryTableCol<TableRowData>[]) => {
@@ -78,14 +80,17 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
     props.onDragSort?.(params);
   };
 
-  const primaryTableProps: PrimaryTableProps = {
+  const isTreeData = Boolean(tree && Object.keys(tree).length);
+  const primaryTableProps: InternalPrimaryTableProps = {
     ...props,
     data: dataSource,
     columns: tColumns,
-    // 半选状态节点
-    indeterminateSelectedRowKeys: tIndeterminateSelectedRowKeys,
+    selectedRowKeys: isTreeData ? innerSelectedRowKeys : props.selectedRowKeys || [],
+    indeterminateSelectedRowKeys: innerIndeterminateSelectedRowKeys,
     // 树形结构不允许本地数据分页
-    disableDataPage: Boolean(tree && Object.keys(tree).length),
+    disableDataPage: isTreeData,
+    reserveSelectedRowOnPaginate: isTreeData ? true : props.reserveSelectedRowOnPaginate,
+    treeDataMap: isTreeData ? treeDataMap : undefined,
     onSelectChange: onInnerSelectChange,
     onDragSort: onDragSortChange,
     rowClassName: ({ row }) => {
