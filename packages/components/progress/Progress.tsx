@@ -1,4 +1,4 @@
-import React, { forwardRef, isValidElement } from 'react';
+import React, { forwardRef, isValidElement, useRef, useState, useEffect, useCallback } from 'react';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CheckIcon as TdCheckIcon,
@@ -54,6 +54,42 @@ const Progress = forwardRef<HTMLDivElement, ProgressProps>((props, ref) => {
   } = useDefaultProps<ProgressProps>(props, progressDefaultProps);
 
   const status = !customizeStatus && percentage >= 100 ? 'success' : customizeStatus;
+
+  // plump 模式下的 label 位置计算
+  const innerRef = useRef<HTMLDivElement>(null);
+  const labelRef = useRef<HTMLDivElement>(null);
+  const [labelPosition, setLabelPosition] = useState<'inside' | 'outside'>('inside');
+
+  const getLabelPosition = useCallback(() => {
+    if (!innerRef.current || !labelRef.current) return 'inside';
+
+    const innerWidth = innerRef.current.offsetWidth; // 填充区域宽度
+    const labelWidth = labelRef.current.offsetWidth; // 文字实际宽度
+    const padding = 8; // 左右 padding
+
+    return innerWidth >= labelWidth + padding ? 'inside' : 'outside';
+  }, []);
+
+  useEffect(() => {
+    // 仅在 plump 模式下启用
+    if (theme !== 'plump') return;
+
+    // 初始计算
+    setLabelPosition(getLabelPosition() as 'inside' | 'outside');
+
+    // 如果不支持 ResizeObserver，仅使用初始计算
+    if (typeof ResizeObserver === 'undefined') return;
+
+    const observer = new ResizeObserver(() => {
+      setLabelPosition(getLabelPosition() as 'inside' | 'outside');
+    });
+
+    if (innerRef.current) {
+      observer.observe(innerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [theme, percentage, label, getLabelPosition]);
 
   let iconMap = {
     success: CheckCircleFilledIcon,
@@ -205,29 +241,32 @@ const Progress = forwardRef<HTMLDivElement, ProgressProps>((props, ref) => {
     borderRadius: getHeight(),
   } as React.CSSProperties;
   if (theme === 'plump') {
-    const PLUMP_SEPARATE = 10;
     progressDom = (
       <div
         ref={ref}
         className={classNames(`${classPrefix}-progress__bar`, `${classPrefix}-progress--plump`, {
           [`${statusClassName}`]: status,
-          [`${classPrefix}-progress--over-ten`]: percentage > PLUMP_SEPARATE,
-          [`${classPrefix}-progress--under-ten`]: percentage <= PLUMP_SEPARATE,
+          [`${classPrefix}-progress--over-ten`]: labelPosition === 'inside',
+          [`${classPrefix}-progress--under-ten`]: labelPosition === 'outside',
         })}
         style={trackStyle}
       >
-        {percentage > PLUMP_SEPARATE ? (
-          <div className={`${classPrefix}-progress__inner`} style={barStyle}>
+        {labelPosition === 'inside' ? (
+          <div ref={innerRef} className={`${classPrefix}-progress__inner`} style={barStyle}>
             {label && (
-              <div className={`${classPrefix}-progress__info`} style={{ color: '#fff' }}>
+              <div ref={labelRef} className={`${classPrefix}-progress__info`} style={{ color: '#fff' }}>
                 {isValidElement(label) ? label : `${percentage}%`}
               </div>
             )}
           </div>
         ) : (
           <>
-            <div className={`${classPrefix}-progress__inner`} style={barStyle}></div>
-            {getInfoContent()}
+            <div ref={innerRef} className={`${classPrefix}-progress__inner`} style={barStyle}></div>
+            {label && (
+              <div ref={labelRef} className={`${classPrefix}-progress__info`}>
+                {isValidElement(label) ? label : `${percentage}%`}
+              </div>
+            )}
           </>
         )}
       </div>

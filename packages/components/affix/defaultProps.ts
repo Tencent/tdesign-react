@@ -4,4 +4,4 @@
 
 import { TdAffixProps } from './type';
 
-export const affixDefaultProps: TdAffixProps = { container: () => window, offsetBottom: 0, offsetTop: 0 };
+export const affixDefaultProps: TdAffixProps = { container: () => window, offsetTop: 0 };

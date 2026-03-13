@@ -1,78 +1,61 @@
 import React, { useState, useEffect } from 'react';
 import { Progress, Space } from 'tdesign-react';
 
-import type { CSSProperties } from 'react';
-
-const commonStyle: CSSProperties = {
-  textAlign: 'center',
-};
-
-export default function LineProgress() {
-  const [percent, setPercent] = useState(0);
+export default function CircleProgress() {
+  const [percent, setPercent] = useState(10);
 
   useEffect(() => {
-    const timer = setInterval(() => setPercent((percent) => (percent % 100) + 10), 1000);
+    const timer = setInterval(() => setPercent((v) => (v % 100) + 10), 1000);
     return () => clearInterval(timer);
   }, []);
 
   return (
-    <Space direction="vertical" size="large">
-      <Space style={commonStyle}>
-        <Space direction="vertical">
-          <div>默认样式</div>
-          <Progress theme={'circle'} percentage={percent}></Progress>
+    <Space direction="vertical">
+      <div>默认</div>
+      {/* 重要：strokeWidth 大小不能超过 size 的一半，否则无法渲染出环形 */}
+      <Space size="large" style={{ margin: '20px 0 10px' }}>
+        <Space align="center" direction="vertical" size="small" style={{ margin: 15, minWidth: 160 }}>
+          <div style={{ marginBottom: 10 }}>默认样式</div>
+          <Progress theme="circle" percentage={percent} />
         </Space>
-        <Space direction="vertical">
-          <div>不显示数字</div>
-          <Progress theme={'circle'} label={false} percentage={percent}></Progress>
+        <Space align="center" direction="vertical" size="small" style={{ margin: 15, minWidth: 160 }}>
+          <div style={{ marginBottom: 10 }}>不显示数字</div>
+          <Progress theme="circle" label={false} percentage={percent} />
         </Space>
-        <Space direction="vertical">
-          <div>自定义内容</div>
-          <Progress theme={'circle'} label={<div>75 day</div>} percentage={percent}></Progress>
-        </Space>
-      </Space>
-
-      <Space style={commonStyle}>
-        <Space direction="vertical">
-          <div>进度完成</div>
-          <Progress theme={'circle'} status={'success'} percentage={100}></Progress>
-        </Space>
-        <Space direction="vertical">
-          <div>进度发生错误</div>
-          <Progress theme={'circle'} status={'error'} percentage={percent}></Progress>
-        </Space>
-        <Space direction="vertical">
-          <div>进度被中断</div>
-          <Progress theme={'circle'} status={'warning'} percentage={percent}></Progress>
-        </Space>
-        <Space direction="vertical">
-          <div>自定义颜色</div>
-          <Progress
-            theme={'circle'}
-            status={'error'}
-            color={'#00f'}
-            trackColor={'#0f0'}
-            percentage={percent}
-          ></Progress>
+        <Space align="center" direction="vertical" size="small" style={{ margin: 15, minWidth: 160 }}>
+          <div style={{ marginBottom: 10 }}>自定义内容</div>
+          <Progress theme="circle" label={<div>{percent}day</div>} percentage={percent} />
         </Space>
       </Space>
 
-      <Space align="center" style={commonStyle}>
-        <Space direction="vertical">
-          <div>小尺寸</div>
-          <Progress theme={'circle'} size={'small'} percentage={percent}></Progress>
+      <Space size="large" style={{ margin: '20px 0 10px' }}>
+        <Space align="center" direction="vertical" size="small" style={{ margin: 15, minWidth: 160 }}>
+          <div style={{ marginBottom: 10 }}>进度状态完成</div>
+          <Progress theme="circle" percentage={100} status="success" />
         </Space>
-        <Space direction="vertical">
-          <div>默认尺寸</div>
-          <Progress theme={'circle'} percentage={percent}></Progress>
+        <Space align="center" direction="vertical" size="small" style={{ margin: 15, minWidth: 160 }}>
+          <div style={{ marginBottom: 10 }}>进度状态发生重大错误</div>
+          <Progress theme="circle" percentage={75} status="error" />
         </Space>
-        <Space direction="vertical">
-          <div>大尺寸</div>
-          <Progress theme={'circle'} size={'large'} percentage={percent}></Progress>
+        <Space align="center" direction="vertical" size="small" style={{ margin: 15, minWidth: 160 }}>
+          <div style={{ marginBottom: 10 }}>进度状态被中断</div>
+          <Progress theme="circle" percentage={50} status="warning" />
         </Space>
-        <Space direction="vertical">
-          <div>自定义尺寸</div>
-          <Progress theme={'circle'} percentage={percent} strokeWidth={50}></Progress>
+      </Space>
+
+      <div>默认不同尺寸</div>
+      <Space size="large" style={{ margin: '20px 0 10px' }}>
+        <Space align="center" direction="vertical" size="small" style={{ margin: 15, minWidth: 160 }}>
+          <div style={{ marginBottom: 10 }}>小尺寸</div>
+          <Progress theme="circle" percentage={30} size="small" />
+        </Space>
+        <Space align="center" direction="vertical" size="small" style={{ margin: 15, minWidth: 160 }}>
+          <div style={{ marginBottom: 10 }}>默认尺寸</div>
+          <Progress theme="circle" percentage={30} size="medium" />
+        </Space>
+        <Space align="center" direction="vertical" size="small" style={{ margin: 15, minWidth: 160, marginLeft: 60 }}>
+          <div style={{ marginBottom: 10 }}>大尺寸</div>
+          <Progress theme="circle" percentage={75} size="large" />
         </Space>
       </Space>
     </Space>
