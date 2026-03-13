@@ -81,7 +81,7 @@ export default function TBody(props: TableBodyProps) {
 
   const [global, t] = useLocaleReceiver('table');
 
-  const { skipSpansMap } = useRowspanAndColspan(data, columns, rowKey, props.rowspanAndColspan);
+  const { skipSpansMap } = useRowspanAndColspan(renderData, columns, rowKey, props.rowspanAndColspan);
   const isSkipSnapsMapNotFinish = Boolean(props.rowspanAndColspan && !skipSpansMap.size);
 
   const { tableFullRowClasses, tableBaseClass } = allTableClasses;
