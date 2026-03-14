@@ -91,13 +91,20 @@ export default function useFixed(
     maxHeight,
     headerAffixedTop,
     bordered,
+    resizable: columnResizable,
   } = props;
+
   const preFinalColumns = usePrevious(finalColumns);
-  const [data, setData] = useState<TableRowData[]>([]);
+
   const tableContentRef = useRef<HTMLDivElement>(null);
+  const tableElmRef = useRef<HTMLTableElement>(null);
+  const thWidthList = useRef<{ [colKey: string]: number }>({});
+
+  const [data, setData] = useState<TableRowData[]>([]);
   const [isFixedHeader, setIsFixedHeader] = useState(false);
   const [isWidthOverflow, setIsWidthOverflow] = useState(false);
-  const tableElmRef = useRef<HTMLTableElement>(null);
+  const [tableWidth, setTableWidth] = useState(0);
+  const [tableElmWidth, setTableElmWidthState] = useState(0);
   // CSS 样式设置了固定 6px
   const [scrollbarWidth, setScrollbarWidth] = useState(6);
   // 固定列、固定表头、固定表尾等内容的位置信息
@@ -111,15 +118,9 @@ export default function useFixed(
     left: 0,
     top: 0,
   });
-  const tableWidth = useRef(0);
-  const tableElmWidth = useRef(0);
-  const thWidthList = useRef<{ [colKey: string]: number }>({});
-
   const [isFixedColumn, setIsFixedColumn] = useState(false);
   const [isFixedRightColumn, setIsFixedRightColumn] = useState(false);
   const [isFixedLeftColumn, setIsFixedLeftColumn] = useState(false);
-
-  const columnResizable = props.resizable;
 
   // 没有表头吸顶，没有虚拟滚动，则不需要表头宽度计算
   const notNeedThWidthList = useMemo(
@@ -363,16 +364,15 @@ export default function useFixed(
   }, []);
 
   const setTableElmWidth = (width: number) => {
-    if (tableElmWidth.current === width) return;
-    tableElmWidth.current = width;
+    if (tableElmWidth === width) return;
+    setTableElmWidthState(width);
   };
 
   const updateTableWidth = () => {
     const tRef = tableContentRef.current;
     if (!tRef) return;
     // clientWidth excludes border and scrollbar
-    // which is exactly the visible content width
-    tableWidth.current = tRef.clientWidth;
+    setTableWidth(tRef.clientWidth);
 
     const elmRect = tableElmRef?.current?.getBoundingClientRect();
     if (elmRect?.width) {
