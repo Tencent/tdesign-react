@@ -372,7 +372,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     const affixedHeader = Boolean((headerAffixedTop || virtualConfig.isVirtualScroll) && tableWidth.current) && (
       <div
         ref={affixHeaderRef}
-        style={{ width: `${tableWidth.current - borderWidth}px`, opacity: headerOpacity }}
+        style={{ width: `${tableWidth.current}px`, opacity: headerOpacity }}
         className={classNames([
           'scrollbar',
           {
@@ -443,7 +443,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       >
         <div
           ref={affixFooterRef}
-          style={{ width: `${tableWidth.current - borderWidth}px`, opacity: Number(showAffixFooter) }}
+          style={{ width: `${tableWidth.current}px`, opacity: Number(showAffixFooter) }}
           className={classNames([
             'scrollbar',
             { [tableBaseClass.affixedFooterElm]: props.footerAffixedBottom || virtualConfig.isVirtualScroll },

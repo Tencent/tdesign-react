@@ -369,11 +369,11 @@ export default function useFixed(
 
   const updateTableWidth = () => {
     const tRef = tableContentRef.current;
-    const rect = tRef?.getBoundingClientRect?.();
-    if (!rect) return;
-    // 去除滚动条宽度
-    const reduceWidth = isWidthOverflow ? scrollbarWidth : 0;
-    tableWidth.current = rect.width - reduceWidth - (props.bordered ? 1 : 0);
+    if (!tRef) return;
+    // clientWidth excludes border and scrollbar
+    // which is exactly the visible content width
+    tableWidth.current = tRef.clientWidth;
+
     const elmRect = tableElmRef?.current?.getBoundingClientRect();
     if (elmRect?.width) {
       setTableElmWidth(elmRect?.width);
