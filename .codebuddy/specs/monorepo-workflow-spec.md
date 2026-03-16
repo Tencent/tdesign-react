@@ -234,10 +234,3 @@ pnpm lint      # TypeScript 类型检查 + ESLint
 # 自动修复
 pnpm lint:fix  # ESLint 自动修复
 ```
-
-## 7. 发布流程
-
-详见 `.codebuddy/skills/tdesign-release/SKILL.md`
-
-- **基础组件**：`tdesign-react` → 从 `develop` 分支创建 release 分支 → CI 自动发布
-- **AIGC 组件**：`@tdesign-react/chat` → 独立发布流程
