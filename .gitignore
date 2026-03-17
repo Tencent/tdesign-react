@@ -43,7 +43,8 @@ packages/**/chat-engine/core
 packages/**/chat-engine/docs
 packages/**/chatbot/docs
 *.zip
-.codebuddy
+.codebuddy/memory
+.codebuddy/plans
 mock-server
 openspec
 .fue
