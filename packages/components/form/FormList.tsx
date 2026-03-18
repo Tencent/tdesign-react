@@ -200,6 +200,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
         if (resetType === 'initial') {
           const currentData = get(form?.store, fullPath);
           if (isEqual(currentData, initialData)) return;
+          set(form?.store, fullPath, initialData);
           setFormListValue(initialData);
           const newFields = initialData?.map((data, index) => ({
             data: { ...data },
@@ -208,12 +209,11 @@ const FormList: React.FC<TdFormListProps> = (props) => {
             isListField: true,
           }));
           setFields(newFields);
-          set(form?.store, fullPath, initialData);
         } else {
           // 重置为空
+          unset(form?.store, fullPath);
           setFormListValue([]);
           setFields([]);
-          unset(form?.store, fullPath);
         }
       },
       setValidateMessage: (fieldData) => {
