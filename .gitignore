@@ -35,7 +35,6 @@ packages/**/_example-js/
 ## lock files
 package-lock.json
 yarn.lock
-pnpm-lock.yaml
 
 ## analysis files
 bundle-analysis
