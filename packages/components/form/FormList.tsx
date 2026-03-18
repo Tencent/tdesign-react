@@ -60,9 +60,13 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     .toString(); // 转化 name
 
   const updateFormList = (newFields: any, newFormListValue: any) => {
+    // Sync store before setState to ensure conditional FormItems read correct values on mount
+    // This is critical in React 17, where updates outside React event handlers are not batched
+    // (e.g. setTimeout, Promise callbacks). Without this, multiple
+    // setState calls may trigger intermediate renders with stale store values.
+    set(form?.store, fullPath, newFormListValue);
     setFields(newFields);
     setFormListValue(newFormListValue);
-    set(form?.store, fullPath, newFormListValue);
     const changeValue = calcFieldValue(fullPath, newFormListValue);
     onFormItemValueChange?.(changeValue);
   };
