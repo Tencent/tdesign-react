@@ -59,7 +59,9 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
         let fixedTop: number | false;
         if (props.offsetBottom !== undefined && props.offsetTop === undefined) {
           const bottomThreshold = containerToBottom - (offsetBottom ?? 0);
-          if (wrapToBottom >= bottomThreshold) {
+          // When the container has scrolled out of the viewport
+          // the affix element should not be fixed to avoid a negative top value
+          if (containerToBottom > 0 && wrapToBottom >= bottomThreshold) {
             fixedTop = bottomThreshold - wrapHeight;
           } else {
             fixedTop = false;
