@@ -207,13 +207,13 @@ spline: explain
 
 ### 🐞 Bug Fixes
 
-- `RadioGroup`: 修复 NextJS 中，`variant="default-filled` 时，子组件含动态内容时导致无限循环的问题 @tingtingcheng6 ([#3921](https://github.com/Tencent/tdesign-react/pull/3921))
+- `RadioGroup`: 修复 NextJS 中，`variant="default-filled` 时，子组件含动态内容时导致无限循环的问题 @tingtingcheng6 ([#4010](https://github.com/Tencent/tdesign-react/pull/4010))
 
 ## 🌈 1.15.10 `2025-12-12`
 
 ### 🐞 Bug Fixes
 
-- `Drawer`: 修复回调事件错误缓存的问题 @uyarn ([#4008](https://github.com/Tencent/tdesign-react/pull/3921))
+- `Drawer`: 修复回调事件错误缓存的问题 @uyarn ([#4008](https://github.com/Tencent/tdesign-react/pull/4008))
 
 ## 🌈 1.15.9 `2025-11-28`
 
