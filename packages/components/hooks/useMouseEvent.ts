@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import useLatest from './useLatest';
 
 export type MouseEventLike = MouseEvent | React.MouseEvent | TouchEvent | React.TouchEvent;
 export type MouseCallback = MouseEvent | React.MouseEvent | Touch | React.Touch;
@@ -10,6 +11,7 @@ export interface MouseCoordinate {
   x: number;
   y: number;
 }
+
 export interface MouseContext {
   coordinate: MouseCoordinate;
 }
@@ -26,6 +28,7 @@ type MouseEventOptions = {
 
 const useMouseEvent = (elementRef: React.RefObject<HTMLElement>, options: MouseEventOptions) => {
   const { enabled = true, enableTouch = true } = options;
+  const optionsRef = useLatest(options);
   const isMovingRef = useRef(false);
 
   const normalizeEvent = (e: MouseEventLike) => {
@@ -61,6 +64,7 @@ const useMouseEvent = (elementRef: React.RefObject<HTMLElement>, options: MouseE
   const emitMouseChange = (e: MouseEventLike, handler?: (e: MouseCallback, ctx: MouseContext) => void) => {
     if (!handler) return;
     const event = normalizeEvent(e);
+    if (!event) return;
     const coordinate = getCoordinate(event);
     handler(event, { coordinate });
   };
@@ -68,13 +72,13 @@ const useMouseEvent = (elementRef: React.RefObject<HTMLElement>, options: MouseE
   const handleMouseMove = (e: MouseEventLike) => {
     if (!isMovingRef.current) return;
     e.preventDefault();
-    emitMouseChange(e, options.onMove);
+    emitMouseChange(e, optionsRef.current.onMove);
   };
 
   const handleMouseUp = (e: MouseEventLike) => {
     if (!isMovingRef.current) return;
     isMovingRef.current = false;
-    emitMouseChange(e, options.onUp);
+    emitMouseChange(e, optionsRef.current.onUp);
     document.removeEventListener('mouseup', handleMouseUp);
     document.removeEventListener('mousemove', handleMouseMove);
     document.removeEventListener('touchend', handleMouseUp);
@@ -87,50 +91,48 @@ const useMouseEvent = (elementRef: React.RefObject<HTMLElement>, options: MouseE
     if ('button' in e && e.button !== 0) return;
 
     isMovingRef.current = true;
-    emitMouseChange(e, options.onDown);
+    emitMouseChange(e, optionsRef.current.onDown);
     document.addEventListener('mouseup', handleMouseUp);
     document.addEventListener('mousemove', handleMouseMove);
-    if (!enableTouch) return;
+    if (!optionsRef.current.enableTouch) return;
     document.addEventListener('touchend', handleMouseUp);
     document.addEventListener('touchmove', handleMouseMove, { passive: false });
   };
 
   const handleMouseEnter = (e: MouseEventLike) => {
-    emitMouseChange(e, options.onEnter);
+    emitMouseChange(e, optionsRef.current.onEnter);
   };
 
   const handleMouseLeave = (e: MouseEventLike) => {
-    emitMouseChange(e, options.onLeave);
+    emitMouseChange(e, optionsRef.current.onLeave);
   };
 
   useEffect(() => {
     const el = elementRef.current;
     if (!el || !enabled) return;
 
-    // 基本上只要开启了鼠标事件，就会用到这三个
-    // 有的组件虽然只需要 mousemove 的回调结果，但也需要 mousedown 和 mouseup 来控制状态
     el.addEventListener('mousedown', handleMouseDown);
-    el.addEventListener('mousemove', handleMouseMove);
-    el.addEventListener('mouseup', handleMouseUp);
     // 下面这两个一般是为了处理 hover 状态，可选性监听
-    options.onEnter && el.addEventListener('mouseenter', handleMouseEnter);
-    options.onLeave && el.addEventListener('mouseleave', handleMouseLeave);
+    optionsRef.current.onEnter && el.addEventListener('mouseenter', handleMouseEnter);
+    optionsRef.current.onLeave && el.addEventListener('mouseleave', handleMouseLeave);
 
-    if (!enableTouch) return;
-    el.addEventListener('touchstart', handleMouseDown, { passive: false });
-    el.addEventListener('touchend', handleMouseUp);
+    if (enableTouch) {
+      el.addEventListener('touchstart', handleMouseDown, { passive: false });
+      el.addEventListener('touchend', handleMouseUp);
+    }
 
     return () => {
       el.removeEventListener('mousedown', handleMouseDown);
-      el.removeEventListener('mouseenter', handleMouseDown);
+      el.removeEventListener('mouseenter', handleMouseEnter);
       el.removeEventListener('mouseleave', handleMouseLeave);
-      el.removeEventListener('mousemove', handleMouseMove);
-      el.removeEventListener('mouseup', handleMouseUp);
-      el.removeEventListener('touchstart', handleMouseDown);
-      el.removeEventListener('touchend', handleMouseUp);
+
+      if (enableTouch) {
+        el.removeEventListener('touchstart', handleMouseDown);
+        el.removeEventListener('touchend', handleMouseUp);
+      }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [elementRef.current, options, enabled]);
+  }, [options, enabled, enableTouch]);
 
   return {
     isMoving: isMovingRef.current,

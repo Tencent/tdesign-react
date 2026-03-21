@@ -11,7 +11,6 @@ import { TNode } from '../common';
 export interface TdSliderProps<T = SliderValue> {
   /**
    * 是否禁用组件
-   * @default false
    */
   disabled?: boolean;
   /**
@@ -49,6 +48,11 @@ export interface TdSliderProps<T = SliderValue> {
    */
   range?: boolean;
   /**
+   * 控制步长刻度值显示
+   * @default false
+   */
+  showStep?: boolean;
+  /**
    * 步长
    * @default 1
    */
@@ -59,16 +63,22 @@ export interface TdSliderProps<T = SliderValue> {
   tooltipProps?: TooltipProps;
   /**
    * 滑块值
+   * @default 0
    */
   value?: SliderValue;
   /**
    * 滑块值，非受控属性
+   * @default 0
    */
   defaultValue?: SliderValue;
   /**
    * 滑块值变化时触发
    */
   onChange?: (value: T) => void;
+  /**
+   * 松开拖动 `mouseup` 或点击滑块条时触发，适合不希望在拖动滑块过程频繁触发回调的场景实用
+   */
+  onChangeEnd?: (value: T) => void;
 }
 
 export interface SliderMarks {
