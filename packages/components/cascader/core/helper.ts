@@ -1,9 +1,9 @@
 import { isEmpty } from 'lodash-es';
-import {
-  TreeNode,
+import type {
   CascaderContextType,
-  TdCascaderProps,
   CascaderValue,
+  TdCascaderProps,
+  TreeNode,
   TreeNodeValue,
   TreeOptionData,
 } from '../interface';
@@ -141,6 +141,25 @@ export function isEmptyValues(value: unknown): boolean {
  * @returns boolean
  */
 export function isValueInvalid(value: CascaderValue, cascaderContext: CascaderContextType) {
-  const { multiple, showAllLevels } = cascaderContext;
-  return (multiple && !Array.isArray(value)) || (!multiple && Array.isArray(value) && !showAllLevels);
+  const { multiple, showAllLevels, valueType } = cascaderContext;
+
+  // 多选模式：
+  // value 必须是数组
+  if (multiple) {
+    return !Array.isArray(value);
+  }
+
+  // 单选模式：
+  // valueType === 'full' 时，使用完整路径数组
+  if (valueType === 'full') {
+    return !Array.isArray(value);
+  }
+
+  // 其它情况默认 value 为非数组
+  // 若是数组，仅在 showAllLevels=true 时合法
+  if (Array.isArray(value)) {
+    return !showAllLevels;
+  }
+
+  return false;
 }

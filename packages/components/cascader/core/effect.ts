@@ -1,6 +1,6 @@
-import { isNumber, isFunction, cloneDeep } from 'lodash-es';
-import { TreeNode, CascaderContextType, TdCascaderProps, TreeNodeValue, TreeNodeModel } from '../interface';
+import { cloneDeep, isFunction, isNumber } from 'lodash-es';
 import { getFullPathLabel, getTreeValue } from './helper';
+import type { CascaderContextType, TdCascaderProps, TreeNode, TreeNodeModel, TreeNodeValue } from '../interface';
 
 /**
  * 点击item的副作用
@@ -47,8 +47,10 @@ export function expendClickEffect(
   }
 
   if (!multiple && (node.isLeaf() || checkStrictly) && trigger === 'click') {
+    if (node.checked) return;
+
     treeStore.resetChecked();
-    const checked = node.setChecked(!node.checked);
+    const checked = node.setChecked(true);
     const [value] = checked;
 
     // 非受控状态下更新状态
