@@ -23,6 +23,10 @@ const Popcontent: React.FC<PopcontentProps & PopconfirmProps> = (props) => {
   const hideConfirm = confirmBtn === null || confirmBtn === undefined;
 
   function renderIcon() {
+    if (icon === null) {
+      return null;
+    }
+
     let color = '#0052D9';
     // theme 为 default 时不展示图标，否则根据 theme 的值设置图标颜色样式
     const defaultIcon = <InfoCircleFilledIcon />;
