@@ -105,7 +105,6 @@ const Input = forwardRefWithStatics(
       onChange: onChangeFromProps,
       ...restProps
     } = props;
-    const readOnlyProp = readOnly || readonly;
 
     const [value, onChange] = useControlled(props, 'value', onChangeFromProps);
     const { limitNumber, getValueByLimitNumber, tStatus } = useLengthLimit({
@@ -118,17 +117,19 @@ const Input = forwardRefWithStatics(
     });
 
     const { classPrefix, input: inputConfig } = useConfig();
+
     const composingRef = useRef(false);
     const inputRef: React.RefObject<HTMLInputElement> = useRef(null);
     // inputPreRef 用于预存输入框宽度，应用在 auto width 模式中
     const inputPreRef: React.RefObject<HTMLInputElement> = useRef(null);
     const wrapperRef: React.RefObject<HTMLDivElement> = useRef(null);
+
     const [isHover, toggleIsHover] = useState(false);
     const [isFocused, toggleIsFocused] = useState(false);
     const [renderType, setRenderType] = useState(type);
-
     const [composingValue, setComposingValue] = useState<string>('');
 
+    const readOnlyProp = readOnly || readonly;
     // 组件内部 input 原生控件是否处于 readonly 状态，当整个组件 readonly 时，或者处于不可输入时
     const isInnerInputReadonly = readOnlyProp || !allowInput;
     const isValueEnabled = value && !disabled;
@@ -140,14 +141,23 @@ const Input = forwardRefWithStatics(
     let suffixIconNew = suffixIcon;
 
     if (isShowClearIcon)
-      suffixIconNew = <CloseCircleFilledIcon className={`${classPrefix}-input__suffix-clear`} onClick={handleClear} />;
+      suffixIconNew = (
+        <CloseCircleFilledIcon
+          className={`${classPrefix}-input__suffix-clear`}
+          onMouseDown={handleIconMouseDown}
+          onClick={handleClear}
+        />
+      );
     if (type === 'password' && typeof suffixIcon === 'undefined') {
-      if (renderType === 'password') {
+      const PASSWORD_ICON_MAP = {
+        password: BrowseOffIcon,
+        text: BrowseIcon,
+      };
+      const PasswordIcon = PASSWORD_ICON_MAP[renderType];
+      if (PasswordIcon) {
         suffixIconNew = (
-          <BrowseOffIcon className={`${classPrefix}-input__suffix-clear`} onClick={togglePasswordVisible} />
+          <PasswordIcon className={`${classPrefix}-input__suffix-clear`} onClick={togglePasswordVisible} />
         );
-      } else if (renderType === 'text') {
-        suffixIconNew = <BrowseIcon className={`${classPrefix}-input__suffix-clear`} onClick={togglePasswordVisible} />;
       }
     }
 
@@ -260,6 +270,7 @@ const Input = forwardRefWithStatics(
         })}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onMouseDown={handleMouseDown}
         onWheel={(e) => onWheel?.({ e })}
         onClick={(e) => {
           inputRef.current?.focus();
@@ -312,6 +323,19 @@ const Input = forwardRefWithStatics(
         // 完成中文输入时同步一次 composingValue
         setComposingValue(newStr);
         onChange(newStr, { e, trigger });
+      }
+    }
+    function handleIconMouseDown(e: React.MouseEvent<SVGSVGElement>) {
+      e.preventDefault();
+      // 阻止冒泡，防止点击 icon 会导致弹窗闪烁一下
+      // https://github.com/Tencent/tdesign-react/issues/2320
+      e.stopPropagation();
+      // 兼容 React 16
+      e.nativeEvent.stopImmediatePropagation();
+    }
+    function handleMouseDown(e: React.MouseEvent<HTMLDivElement>) {
+      if (e.target !== inputRef.current) {
+        e.preventDefault(); // 避免焦点转移
       }
     }
     function handleClear(e: React.MouseEvent<SVGSVGElement>) {
@@ -381,12 +405,12 @@ const Input = forwardRefWithStatics(
     }
 
     function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
-      !readOnly && toggleIsHover(true);
+      !readOnlyProp && toggleIsHover(true);
       onMouseenter?.({ e });
     }
 
     function handleMouseLeave(e: React.MouseEvent<HTMLDivElement>) {
-      !readOnly && toggleIsHover(false);
+      !readOnlyProp && toggleIsHover(false);
       onMouseleave?.({ e });
     }
 
