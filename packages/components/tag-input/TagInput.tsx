@@ -85,6 +85,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
   const WITH_SUFFIX_ICON_CLASS = `${prefix}-tag-input__with-suffix-icon`;
   const CLEAR_CLASS = `${prefix}-tag-input__suffix-clear`;
   const BREAK_LINE_CLASS = `${prefix}-tag-input--break-line`;
+  const SCROLL_CLASS = `${prefix}-tag-input--scroll`;
 
   const tagInputPlaceholder = !tagValue?.length ? placeholder : '';
 
@@ -156,6 +157,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
     NAME_CLASS,
     {
       [BREAK_LINE_CLASS]: excessTagsDisplayType === 'break-line',
+      [SCROLL_CLASS]: excessTagsDisplayType === 'scroll',
       [WITH_SUFFIX_ICON_CLASS]: !!suffixIconNode,
       [`${prefix}-is-empty`]: isEmpty,
       [`${prefix}-tag-input--with-tag`]: !isEmpty,
@@ -196,8 +198,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       suffix={suffix}
       prefixIcon={prefixIcon}
       suffixIcon={suffixIconNode}
-      // showInput={!inputProps?.readOnly || !inputProps?.readonly || !tagValue || !tagValue?.length}
-      showInput={!inputProps?.readonly || !tagValue || !tagValue?.length}
+      showInput={!inputProps?.readOnly || !inputProps?.readonly || !tagValue || !tagValue?.length}
       keepWrapperWidth={!autoWidth}
       onPaste={onPaste}
       onClick={onInnerClick}
