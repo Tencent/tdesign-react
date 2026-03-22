@@ -4,10 +4,13 @@ import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { PaginationMini, type TdPaginationMiniProps } from '../../pagination';
 import Select from '../../select';
 import type { TdDatePickerProps } from '../type';
+import { SinglePanelProps } from '../panel/SinglePanel';
+import { useSelectRange } from '../hooks/useSelectRange';
 
 export interface DatePickerHeaderProps extends Pick<TdDatePickerProps, 'mode'> {
   year?: number;
   month?: number;
+  range?: SinglePanelProps['range'];
   internalYear: Array<number>;
   partial: 'start' | 'end';
   onMonthChange?: Function;
@@ -33,13 +36,24 @@ const useDatePickerLocalConfig = () => {
 const DatePickerHeader = (props: DatePickerHeaderProps) => {
   const { classPrefix } = useConfig();
 
-  const { mode, year, month, onMonthChange, onYearChange, onJumperClick, partial, internalYear = [] } = props;
+  const { mode, year, month, range, onMonthChange, onYearChange, onJumperClick, partial, internalYear = [] } = props;
 
   const { now, months, preMonth, preYear, nextMonth, nextYear, preDecade, nextDecade } = useDatePickerLocalConfig();
 
   const scrollAnchorRef = useRef('default');
-
-  const monthOptions = months.map((item: string, index: number) => ({ label: item, value: index }));
+  const {
+    paginationDisabled,
+    monthHasAnyAllowed,
+    yearHasAnyAllowed,
+    decadeHasAnyAllowed,
+    canLoadMoreTop,
+    canLoadMoreBottom,
+  } = useSelectRange({
+    range,
+    mode,
+    year,
+    month,
+  });
 
   const initOptions = useCallback(
     (year: number) => {
@@ -50,21 +64,28 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
         const maxYear = year - extraYear + 100;
 
         for (let i = minYear; i <= maxYear; i += 10) {
-          options.push({ label: `${i} - ${i + 9}`, value: i + 9 });
+          const end = i + 9;
+          // 仅加入可选的年代
+          if (decadeHasAnyAllowed(end)) {
+            options.push({ label: `${i} - ${end}`, value: i + 9, disabled: false });
+          }
         }
       } else {
-        options.push({ label: `${year}`, value: year });
+        // 中心年份（仅在可选范围内时加入）
+        yearHasAnyAllowed(year) && options.push({ label: `${year}`, value: year, disabled: false });
 
         for (let i = 1; i <= 10; i++) {
-          options.push({ label: `${year + i}`, value: year + i });
-          options.unshift({ label: `${year - i}`, value: year - i });
+          yearHasAnyAllowed(year + i) && options.push({ label: `${year + i}`, value: year + i, disabled: false });
+          yearHasAnyAllowed(year - i) && options.unshift({ label: `${year - i}`, value: year - i, disabled: false });
         }
       }
 
       return options;
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [mode],
   );
+
   const [yearOptions, setYearOptions] = useState(() => initOptions(year));
 
   // 年份选择展示区间
@@ -77,10 +98,26 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
     );
   }, [yearOptions, year, mode, partial, internalYear]);
 
-  useEffect(() => {
-    const yearRange = initOptions(year);
-    setYearOptions(yearRange);
-  }, [initOptions, year]);
+  const monthOptions = months.map((item: string, index: number) => ({
+    label: item,
+    value: index,
+    disabled: !monthHasAnyAllowed(year, index),
+  }));
+
+  // 顶部/底部是否展示“加载更多”内容（...）
+  const showPanelTop = useMemo(() => {
+    const options = yearOptions;
+    if (!options.length) return false;
+    const first = options[0].value;
+    return canLoadMoreTop(first);
+  }, [canLoadMoreTop, yearOptions]);
+
+  const showPanelBottom = useMemo(() => {
+    const options = yearOptions;
+    if (!options.length) return false;
+    const last = options[options.length - 1].value;
+    return canLoadMoreBottom(last);
+  }, [canLoadMoreBottom, yearOptions]);
 
   function loadMoreYear(year: number, type?: 'add' | 'reduce') {
     const options = [];
@@ -88,20 +125,22 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
       const extraYear = year % 10;
       if (type === 'add') {
         for (let i = year - extraYear + 10; i <= year - extraYear + 50; i += 10) {
-          options.push({ label: `${i} - ${i + 9}`, value: i });
+          const end = i + 9;
+          // 仅加入可选的年
+          decadeHasAnyAllowed(end) && options.push({ label: `${i} - ${end}`, value: i, disabled: false });
         }
       } else {
         for (let i = year - extraYear - 1; i > year - extraYear - 50; i -= 10) {
-          options.unshift({ label: `${i - 9} - ${i}`, value: i });
+          decadeHasAnyAllowed(i) && options.unshift({ label: `${i - 9} - ${i}`, value: i, disabled: false });
         }
       }
     } else if (type === 'add') {
       for (let i = year + 1; i <= year + 10; i++) {
-        options.push({ label: `${i}`, value: i });
+        yearHasAnyAllowed(i) && options.push({ label: `${i}`, value: i, disabled: false });
       }
     } else {
       for (let i = year - 1; i > year - 10; i--) {
-        options.unshift({ label: `${i}`, value: i });
+        yearHasAnyAllowed(i) && options.unshift({ label: `${i}`, value: i, disabled: false });
       }
     }
 
@@ -151,10 +190,10 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
   // 滚动顶部底部自动加载
   function handleScroll({ e }) {
     if (e.target.scrollTop === 0) {
-      handlePanelTopClick();
+      showPanelTop && handlePanelTopClick();
       scrollAnchorRef.current = 'top';
     } else if (e.target.scrollTop === e.target.scrollHeight - e.target.clientHeight) {
-      handlePanelBottomClick();
+      showPanelBottom && handlePanelBottomClick();
       scrollAnchorRef.current = 'bottom';
     }
   }
@@ -184,6 +223,11 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
       }
     }
   }
+
+  useEffect(() => {
+    const yearRange = initOptions(year);
+    setYearOptions(yearRange);
+  }, [initOptions, year]);
 
   return (
     <div className={headerClassName}>
@@ -219,19 +263,23 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
             overlayClassName: `${headerClassName}-controller-year-popup`,
           }}
           panelTopContent={
-            <div className={`${classPrefix}-select-option`} onClick={handlePanelTopClick}>
-              ...
-            </div>
+            showPanelTop && (
+              <div className={`${classPrefix}-select-option`} onClick={handlePanelTopClick}>
+                ...
+              </div>
+            )
           }
           panelBottomContent={
-            <div className={`${classPrefix}-select-option`} onClick={handlePanelBottomClick}>
-              ...
-            </div>
+            showPanelBottom && (
+              <div className={`${classPrefix}-select-option`} onClick={handlePanelBottomClick}>
+                ...
+              </div>
+            )
           }
         />
       </div>
 
-      <PaginationMini tips={labelMap[mode]} size="small" onChange={onJumperClick} />
+      <PaginationMini tips={labelMap[mode]} size="small" disabled={paginationDisabled} onChange={onJumperClick} />
     </div>
   );
 };

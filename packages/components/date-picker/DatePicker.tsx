@@ -2,10 +2,17 @@ import React, { forwardRef, useCallback, useEffect } from 'react';
 
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-import { isDate } from 'lodash-es';
+import { isArray, isDate } from 'lodash-es';
 
 import { formatDate, formatTime, getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
-import { addMonth, covertToDate, extractTimeObj, isSame, subtractMonth } from '@tdesign/common-js/date-picker/utils';
+import {
+  addMonth,
+  covertToDate,
+  extractTimeObj,
+  isSame,
+  subtractMonth,
+  getRangeBounds,
+} from '@tdesign/common-js/date-picker/utils';
 
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -51,6 +58,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     needConfirm,
     multiple,
     label,
+    range,
     disableTime,
     onClear,
     onPick,
@@ -126,8 +134,16 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     setInputValue(formatDate(dateValue, { format }));
 
     if (popupVisible) {
-      setYear(parseToDayjs(value as DateValue, format).year());
-      setMonth(parseToDayjs(value as DateValue, format).month());
+      if (((props.range && isArray(props.range)) || props.panelActiveDate) && !value) {
+        const rangeBounds = getRangeBounds(props.range);
+        const yearFromRange = rangeBounds.min?.getFullYear() ?? rangeBounds.max?.getFullYear();
+        const monthFromRange = rangeBounds.min?.getMonth() ?? rangeBounds.max?.getMonth();
+        setYear((props.panelActiveDate?.year ?? yearFromRange) as number);
+        setMonth(props.panelActiveDate?.month ? Number(props.panelActiveDate?.month) - 1 : monthFromRange);
+      } else {
+        setYear(parseToDayjs(value as DateValue, format).year());
+        setMonth(parseToDayjs(value as DateValue, format).month());
+      }
       setTime(formatTime(value, format, timeFormat, defaultTime));
     } else {
       setIsHoverCell(false);
@@ -371,6 +387,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     popupVisible,
     needConfirm,
     multiple,
+    range,
     onCellClick,
     onCellMouseEnter,
     onCellMouseLeave,
