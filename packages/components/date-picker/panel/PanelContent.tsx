@@ -14,6 +14,7 @@ export interface PanelContentProps {
   year: SinglePanelProps['year'];
   month: SinglePanelProps['month'];
   mode: SinglePanelProps['mode'];
+  range?: SinglePanelProps['range'];
   format: SinglePanelProps['format'];
   enableTimePicker: SinglePanelProps['enableTimePicker'];
   timePickerProps: SinglePanelProps['timePickerProps'];
@@ -40,12 +41,12 @@ export default function PanelContent(props: PanelContentProps) {
     value,
     year,
     month,
+    range,
     mode,
     format,
     enableTimePicker,
     timePickerProps,
     firstDayOfWeek,
-
     partial = 'start',
     time,
     tableData,
@@ -94,6 +95,7 @@ export default function PanelContent(props: PanelContentProps) {
           mode={mode}
           year={year}
           month={month}
+          range={range}
           internalYear={internalYear}
           partial={partial}
           onMonthChange={onMonthChangeInner}

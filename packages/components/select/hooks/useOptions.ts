@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode, useEffect, useMemo, useState } from 'react';
-import { get } from 'lodash-es';
+import { get, isNumber } from 'lodash-es';
 
 import Option from '../base/Option';
 import OptionGroup from '../base/OptionGroup';
@@ -100,7 +100,7 @@ function useOptions(
             valueToOption[item as string | number] ||
             oldSelectedOptions.find((option) => get(option, valueKey) === item) || {
               [valueKey]: item,
-              [labelKey]: item,
+              [labelKey]: isNumber(item) ? String(item) : item,
             }
           );
         }
