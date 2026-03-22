@@ -24,6 +24,7 @@ export interface PanelContentProps {
   popupVisible?: boolean;
   tableData: any[];
   internalYear?: Array<number>;
+  isSwitchTimeMode?: boolean;
   onMonthChange: SinglePanelProps['onMonthChange'] | RangePanelProps['onMonthChange'];
   onYearChange: SinglePanelProps['onYearChange'] | RangePanelProps['onYearChange'];
   onJumperClick: SinglePanelProps['onJumperClick'] | RangePanelProps['onJumperClick'];
@@ -56,6 +57,7 @@ export default function PanelContent(props: PanelContentProps) {
     onCellMouseEnter,
     onCellMouseLeave,
     onTimePickerChange,
+    isSwitchTimeMode,
   } = props;
 
   const onMonthChange = useEventCallback(props.onMonthChange);
@@ -63,7 +65,7 @@ export default function PanelContent(props: PanelContentProps) {
 
   const { timeFormat } = getDefaultFormat({ mode, format, enableTimePicker });
 
-  const showTimePicker = enableTimePicker && mode === 'date';
+  const showTimePicker = enableTimePicker && !isSwitchTimeMode && mode === 'date';
 
   const defaultTime = '00:00:00';
 

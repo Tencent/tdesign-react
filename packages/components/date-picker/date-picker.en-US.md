@@ -45,9 +45,10 @@ onChange | Function |  | Typescript: `(value: DateValue, context: { dayjsValue?:
 onClear | Function |  | Typescript: `(context: { e: MouseEvent }) => void`<br/>Triggered when the clear button is clicked | N
 onConfirm | Function |  | Typescript: `(context: { date: Date, e: MouseEvent }) => void`<br/> | N
 onFocus | Function |  | Typescript: `(context: { value: DateValue; e: FocusEvent }) => void`<br/> | N
+onMonthChange | Function |  | Typescript: `(context: { month: number, date: Date, e?: MouseEvent, trigger: DatePickerMonthChangeTrigger }) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/date-picker/type.ts)。<br/>`type DatePickerMonthChangeTrigger = 'month-select' \| 'month-arrow-next' \| 'month-arrow-previous' \| 'today'`<br/> | N
 onPick | Function |  | Typescript: `(value: DateValue) => void`<br/> | N
 onPresetClick | Function |  | Typescript: `(context: { preset: PresetDate, e: MouseEvent }) => void`<br/> | N
-
+onYearChange | Function |  | Typescript: `(context: { year: number, date: Date, trigger: DatePickerYearChangeTrigger, e?: MouseEvent }) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/date-picker/type.ts)。<br/>`type DatePickerYearChangeTrigger = 'year-select' \| 'year-arrow-next' \| 'year-arrow-previous' \| 'today'`<br/> | N
 
 ### DateRangePicker Props
 
@@ -63,7 +64,7 @@ defaultTime | Array | ["00:00:00", "23:59:59"] | Time selector default value。T
 disableDate | Object / Array / Function | - | Typescript: `DisableRangeDate` `type DisableRangeDate = Array<DateValue> \| DisableDateObj \| ((context: { date: DateRangeValue; partial: DateRangePickerPartial }) => boolean)` `interface DisableDateObj { from?: string; to?: string; before?: string; after?: string }` `type DateRangePickerPartial = 'start' \| 'end'`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/date-picker/type.ts) | N
 disableTime | Function | - | disable time config function。Typescript: `(times: Array<Date \| null>, context: { partial: DateRangePickerPartial }) => Partial<{ hour: Array<number>, minute: Array<number>, second: Array<number> }>` | N
 disabled | Boolean | - | \- | N
-enableTimePicker | Boolean | false | \- | N
+enableTimePicker | Boolean / Object | false | Typescript: `boolean \| TimePanelConfig` `interface TimePanelConfig { mode?: TimePanelMode }` `type TimePanelMode = 'parallel' \| 'switch' `。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/date-picker/type.ts) | N
 firstDayOfWeek | Number | - | options: 1/2/3/4/5/6/7 | N
 format | String | - | \- | N
 label | TNode | - | Typescript: `string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
@@ -92,8 +93,10 @@ onClear | Function |  | Typescript: `(context: { e: MouseEvent }) => void`<br/>T
 onConfirm | Function |  | Typescript: `(context: { date: Date[], e: MouseEvent, partial: DateRangePickerPartial }) => void`<br/> | N
 onFocus | Function |  | Typescript: `(context: { value: DateRangeValue; partial: DateRangePickerPartial; e: FocusEvent }) => void`<br/> | N
 onInput | Function |  | Typescript: `(context: { input: string; value: DateRangeValue; partial: DateRangePickerPartial; e: InputEvent }) => void`<br/> | N
+onMonthChange | Function |  | Typescript: `(context: { month: number, date: Date[], partial: DateRangePickerPartial, e?: MouseEvent, trigger: DatePickerMonthChangeTrigger }) => void`<br/> | N
 onPick | Function |  | Typescript: `(value: DateValue, context: PickContext) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/date-picker/type.ts)。<br/>`interface PickContext { e: MouseEvent; partial: DateRangePickerPartial }`<br/> | N
 onPresetClick | Function |  | Typescript: `(context: { preset: PresetDate, e: MouseEvent }) => void`<br/> | N
+onYearChange | Function |  | Typescript: `(context: { year: number, date: Date[], partial: DateRangePickerPartial, trigger: DatePickerYearChangeTrigger, e?: MouseEvent }) => void`<br/> | N
 
 
 ### DatePickerPanel Props

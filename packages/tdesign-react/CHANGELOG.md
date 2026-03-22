@@ -5,6 +5,53 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.16.7 `2026-03-13`
+
+### 🚀 Features
+
+- `Progress`: 当 `theme=plump` 时，当进度条填色区域大小足够容下百分比内容时，百分比内容将显示于进度条填色区域内，否则将显示于进度条填色区域的右侧，具体呈现请参考文档示例 @RSS1102 ([#4154](https://github.com/Tencent/tdesign-react/pull/4154))
+
+### 🐞 Bug Fixes
+
+- `Affix`: 
+  - 修复自定义容器时，DOM 节点未准备好就监听导致失败的问题 @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
+  - 修复自定义容器时，滚动整个页面元素会偏离的问题 @HaixingOoO @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
+- `FormList`: 修复 `setFieldsValue` 缺乏拷贝从而污染数据的问题 @RylanBot ([#4155](https://github.com/Tencent/tdesign-react/pull/4155))
+- `InputNumber`: 修复 `disabled` 时，hover 对应颜色异常的问题 @RylanBot ([common#2402](https://github.com/Tencent/tdesign-common/pull/2402))
+- `Popconfirm`: 修复 `className` 没传参时，被转为 `undefined` 字符串的问题 @RylanBot ([#4159](https://github.com/Tencent/tdesign-react/pull/4159))
+- `SelectInput`: 修复多选时，点击删除图标会打开 `Popup` 的问题 @RylanBot ([#4158](https://github.com/Tencent/tdesign-react/pull/4158))
+- `Table`: 
+  - 修复虚拟滚动时，合并单元格消失的问题 @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
+  - 修复页面自适应时，`empty` 宽度比超出表格的问题 @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
+  - 修复在 `Dialog` 内使用时，吸顶表头、吸底表尾、吸底滚动条与表格对齐不稳定的问题 @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
+- `TagInput`: 
+  - 修复 `inputProps` 传入 `className` 后，标签换行异常的问题 @RylanBot ([#4156](https://github.com/Tencent/tdesign-react/pull/4156))
+  - 修复 `inputProps` 传入 `onCompositionstart` 或 `onCompositionend` 后，中文输入兼容异常的问题 @RylanBot ([#4156](https://github.com/Tencent/tdesign-react/pull/4156))
+- `Typography`: 修复开启 `ellipsis` 时，字符串被渲染为 HTML 标签的问题 @RylanBot ([#4117](https://github.com/Tencent/tdesign-react/pull/4117))
+
+## 🌈 1.16.6 `2026-02-26`
+
+### 🚀 Features
+
+- `DatePicker`: 新增 `onYearChange` 和 `onMonthChange` 回调方法 @uyarn ([#4138](https://github.com/Tencent/tdesign-react/pull/4138))
+- `DateRangePicker`: 
+  - 日期时间范围选择器新增交互模式，通过 `enableTimePicker.mode` API 配置，具体可参考示例代码 @uyarn ([#4141](https://github.com/Tencent/tdesign-react/pull/4141))
+  - 新增 `onYearChange` 和 `onMonthChange` 回调方法 @uyarn ([#4138](https://github.com/Tencent/tdesign-react/pull/4138))
+
+### 🐞 Bug Fixes
+
+- `DateRangePicker`: 确保右侧面板年份始终大于左侧面板年份 @uyarn ([#4137](https://github.com/Tencent/tdesign-react/pull/4137))
+- `Drawer`: 修复首次打开时，无法使用 `esc` 关闭组件的问题 @RylanBot ([#4115](https://github.com/Tencent/tdesign-react/pull/4115))
+- `Form`: 修复 `getFieldsValue` 数据被错误覆盖的问题 @RylanBot ([#4125](https://github.com/Tencent/tdesign-react/pull/4125))
+- `FormList`: 修复 `add` 读取到旧索引导致 `remove` 异常的问题 @RylanBot ([#4135](https://github.com/Tencent/tdesign-react/pull/4135))
+- `Popup`: 修复 `trigger="focus"` 在封装组件中不生效的问题 @RylanBot ([#4143](https://github.com/Tencent/tdesign-react/pull/4143))
+- `Table`: 修复开启虚拟滚动时，`footerSummary` 不生效的问题 @RylanBot ([#4112](https://github.com/Tencent/tdesign-react/pull/4112))
+- `Typography`: 修复 `copyable.onCopy` 在初始化时被立即执行的问题 @RSS1102 ([#4105](https://github.com/Tencent/tdesign-react/pull/4105))
+
+### 🚧 Others
+
+- `Dialog`: 移除冗余的 `useDialogEsc` hook @RylanBot ([#4115](https://github.com/Tencent/tdesign-react/pull/4115))
+
 ## 🌈 1.16.5 `2026-01-28`
 
 ### 🚀 Features

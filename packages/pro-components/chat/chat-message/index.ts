@@ -4,7 +4,7 @@ import reactify from '../_util/reactify';
 
 export const ChatMessage: React.ForwardRefExoticComponent<
   Omit<TdChatMessageProps & React.PropsWithChildren, 'ref'> & React.RefAttributes<HTMLElement | undefined>
-> = reactify<TdChatMessageProps>('t-chat-item');
+> = reactify<TdChatMessageProps>('t-chat-item', 'ChatMessage');
 
 export default ChatMessage;
 

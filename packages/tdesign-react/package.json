@@ -1,6 +1,6 @@
 {
   "name": "tdesign-react",
-  "version": "1.16.5",
+  "version": "1.16.7",
   "title": "tdesign-react",
   "description": "TDesign Component for React",
   "main": "lib/index.js",
@@ -70,7 +70,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Tencent/tdesign-react.git"
+    "url": "git+https://github.com/Tencent/tdesign-react.git",
+    "directory": "packages/tdesign-react"
   },
   "homepage": "https://github.com/Tencent/tdesign-react/tree/develop#readme",
   "bugs": {

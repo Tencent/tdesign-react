@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo } from 'react';
+import React, { forwardRef, useState, useEffect, useMemo } from 'react';
 import classNames from 'classnames';
 import { isArray, isFunction } from 'lodash-es';
 import { getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
@@ -10,12 +10,14 @@ import ExtraContent from './ExtraContent';
 import useTableData from '../hooks/useTableData';
 import useDisableDate from '../hooks/useDisableDate';
 import useDefaultProps from '../../hooks/useDefaultProps';
+
 import { parseToDateTime } from '../utils';
+import { TimePickerPanel } from '../../time-picker';
 
 import type { PickerDateRange, TdDateRangePickerProps } from '../type';
 import type { TdTimePickerProps } from '../../time-picker';
 
-export interface RangePanelProps extends TdDateRangePickerProps, StyledProps {
+export interface RangePanelProps extends Omit<TdDateRangePickerProps, 'onYearChange' | 'onMonthChange'>, StyledProps {
   hoverValue?: string[];
   activeIndex?: number;
   isFirstValueSelected?: boolean;
@@ -25,6 +27,7 @@ export interface RangePanelProps extends TdDateRangePickerProps, StyledProps {
   month?: number[];
   time?: string[];
   cancelRangeSelectLimit?: boolean;
+  isSwitchTimeMode?: boolean;
   onClick?: (context: { e: React.MouseEvent<HTMLDivElement> }) => void;
   onCellClick?: (date: Date, context: { e: React.MouseEvent<HTMLDivElement>; partial: 'start' | 'end' }) => void;
   onCellMouseEnter?: (date: Date, context: { partial: 'start' | 'end' }) => void;
@@ -34,12 +37,15 @@ export interface RangePanelProps extends TdDateRangePickerProps, StyledProps {
   onPresetClick?: any;
   onYearChange?: (year: number, context: { partial: 'start' | 'end' }) => void;
   onMonthChange?: (month: number, context: { partial: 'start' | 'end' }) => void;
-  onTimePickerChange?: TdTimePickerProps['onChange'];
+  onTimePickerChange?: (value: string, context?: { activeIndex: 0 | 1 }) => void;
 }
 
 const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, ref) => {
   const { classPrefix, datePicker: globalDatePickerConfig } = useConfig();
   const panelName = `${classPrefix}-date-range-picker__panel`;
+
+  const [isDateRangeContent, toggleDateRangeContent] = useState(true);
+
   const props = useDefaultProps<RangePanelProps>(originalProps, {
     mode: 'date',
     panelPreselection: true,
@@ -47,6 +53,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
     presetsPlacement: 'bottom',
     needConfirm: true,
   });
+
   const {
     value = [],
     hoverValue = [],
@@ -71,9 +78,12 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
     onClick,
     onConfirmClick,
     disableTime,
+    onTimePickerChange,
+    popupVisible,
+    isSwitchTimeMode,
   } = props;
 
-  const { format } = getDefaultFormat({
+  const { format, timeFormat } = getDefaultFormat({
     mode: props.mode,
     format: props.format,
     enableTimePicker: props.enableTimePicker,
@@ -169,9 +179,9 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
     mode,
     format,
     firstDayOfWeek,
-
-    popupVisible: props.popupVisible,
+    popupVisible,
     enableTimePicker: props.enableTimePicker,
+    isSwitchTimeMode,
     timePickerProps: {
       disableTime: disableTimeOptions,
       ...props.timePickerProps,
@@ -185,12 +195,91 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
     onTimePickerChange: props.onTimePickerChange,
   };
 
+  const onTimeModeChange = () => {
+    toggleDateRangeContent((prev) => !prev);
+  };
+
+  const renderPanelContent = () => {
+    // 没有开启时间选择，或者开启时间选择但模式是切换（switch），则日期面板和时间面板分开展示
+    if (!enableTimePicker || isSwitchTimeMode) {
+      if (isDateRangeContent)
+        return (
+          <>
+            <PanelContent
+              key="startPanel"
+              partial={'start'}
+              year={startYear}
+              month={startMonth}
+              time={time[activeIndex]}
+              tableData={startTableData}
+              value={value}
+              range={rangeValue.start}
+              {...panelContentProps}
+            />
+            <PanelContent
+              key="endPanel"
+              partial={'end'}
+              year={endYear}
+              month={endMonth}
+              time={time[activeIndex]}
+              value={value}
+              tableData={endTableData}
+              internalYear={year}
+              range={rangeValue.end}
+              {...panelContentProps}
+            />
+          </>
+        );
+
+      return (
+        <>
+          <TimePickerPanel
+            key="startPanel"
+            position={'start'}
+            format={timeFormat}
+            value={time[0]}
+            onChange={(val) => onTimePickerChange(val, { activeIndex: 0 })}
+            {...props.timePickerProps}
+          />
+          <TimePickerPanel
+            key="endPanel"
+            position={'end'}
+            format={timeFormat}
+            value={time[1]}
+            onChange={(val) => onTimePickerChange(val, { activeIndex: 1 })}
+            {...props.timePickerProps}
+          />
+        </>
+      );
+    }
+    return (
+      <PanelContent
+        key="start"
+        partial={activeIndex ? 'end' : 'start'}
+        year={activeIndex ? endYear : startYear}
+        month={activeIndex ? endMonth : startMonth}
+        time={activeIndex ? time[1] : time[0]}
+        value={value}
+        tableData={activeIndex ? endTableData : startTableData}
+        range={activeIndex ? rangeValue.end : rangeValue.start}
+        {...panelContentProps}
+      />
+    );
+  };
+
+  useEffect(() => {
+    if (popupVisible && isSwitchTimeMode) {
+      toggleDateRangeContent(true);
+    }
+  }, [popupVisible, isSwitchTimeMode]);
+
   return (
     <div
       ref={ref}
       style={style}
       className={classNames(panelName, className, {
         [`${panelName}--direction-row`]: ['left', 'right'].includes(presetsPlacement),
+        [`${panelName}--switch-mode`]: isSwitchTimeMode,
       })}
       onClick={(e) => onClick?.({ e })}
     >
@@ -203,49 +292,12 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
           onConfirmClick={onConfirmClick}
           presetsPlacement={presetsPlacement}
           needConfirm={needConfirm}
+          onTimeModeChange={onTimeModeChange}
+          isDateRangeContent={isDateRangeContent}
+          isSwitchTimeMode={isSwitchTimeMode}
         />
       ) : null}
-      <div className={`${panelName}-content-wrapper`}>
-        {!enableTimePicker ? (
-          [
-            <PanelContent
-              key="startPanel"
-              partial={'start'}
-              year={startYear}
-              month={startMonth}
-              time={time[activeIndex]}
-              tableData={startTableData}
-              value={value}
-              range={rangeValue.start}
-              {...panelContentProps}
-            />,
-            <PanelContent
-              key="endPanel"
-              partial={'end'}
-              year={endYear}
-              month={endMonth}
-              time={time[activeIndex]}
-              value={value}
-              tableData={endTableData}
-              internalYear={year}
-              range={rangeValue.end}
-              {...panelContentProps}
-            />,
-          ]
-        ) : (
-          <PanelContent
-            key="start"
-            partial={activeIndex ? 'end' : 'start'}
-            year={activeIndex ? endYear : startYear}
-            month={activeIndex ? endMonth : startMonth}
-            time={activeIndex ? time[1] : time[0]}
-            value={value}
-            tableData={activeIndex ? endTableData : startTableData}
-            range={activeIndex ? rangeValue.end : rangeValue.start}
-            {...panelContentProps}
-          />
-        )}
-      </div>
+      <div className={`${panelName}-content-wrapper`}>{renderPanelContent()}</div>
       {['bottom', 'right'].includes(presetsPlacement) ? (
         <ExtraContent
           presets={presets}
@@ -253,6 +305,9 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
           enableTimePicker={enableTimePicker}
           onPresetClick={onPresetClick}
           onConfirmClick={onConfirmClick}
+          onTimeModeChange={onTimeModeChange}
+          isDateRangeContent={isDateRangeContent}
+          isSwitchTimeMode={isSwitchTimeMode}
           presetsPlacement={presetsPlacement}
           needConfirm={needConfirm}
         />
