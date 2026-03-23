@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { isArray, isFunction } from 'lodash-es';
 import {
@@ -20,13 +20,44 @@ import { ImageModalMini } from './ImageViewerMini';
 import useIconMap from './hooks/useIconMap';
 import useIndex from './hooks/useIndex';
 import useMirror from './hooks/useMirror';
-import usePosition from './hooks/usePosition';
+import usePosition, { PositionType } from './hooks/usePosition';
 import useRotate from './hooks/useRotate';
-import useScale from './hooks/useScale';
+import useScale, { type UseScaleOptions } from './hooks/useScale';
 
 import type { TNode } from '../common';
 import type { ImageViewerProps } from './ImageViewer';
 import type { ImageInfo, ImageScale, ImageViewerScale, TdImageViewerProps } from './type';
+
+/** 向中心缩放动画时长（ms） */
+const ZOOM_TO_CENTER_DURATION = 150;
+
+/** 检测图片是否超出视口 */
+const isImageExceedsViewport = (container: HTMLDivElement, modalBox: HTMLDivElement): boolean => {
+  const containerRect = container.getBoundingClientRect();
+  const modalRect = modalBox.getBoundingClientRect();
+  return (
+    modalRect.left < containerRect.left ||
+    modalRect.right > containerRect.right ||
+    modalRect.top < containerRect.top ||
+    modalRect.bottom > containerRect.bottom
+  );
+};
+
+/** ImageModalItem 暴露给父组件的接口 */
+export interface ImageModalItemRef {
+  /** modal-box 容器 DOM 引用 */
+  modalBoxRef: React.RefObject<HTMLDivElement>;
+  /** 当前位移 */
+  position: PositionType;
+  /** 设置位移 */
+  setPosition: React.Dispatch<React.SetStateAction<PositionType>>;
+  /** 重置位移 */
+  resetPosition: () => void;
+  /** 是否正在拖拽 */
+  isDragging: boolean;
+  /** 设置是否正在缩放向中心动画 */
+  setIsZoomingToCenter: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 const ImageError = ({ errorText }: { errorText: string }) => {
   const { classPrefix } = useConfig();
@@ -55,7 +86,7 @@ interface ImageModalItemProps {
 }
 
 // 单个弹窗实例
-export const ImageModalItem: React.FC<ImageModalItemProps> = ({
+export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItemProps>(({
   rotateZ,
   scale,
   src,
@@ -65,14 +96,17 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
   imageReferrerpolicy,
   isSvg,
   innerClassName,
-}) => {
+}, ref) => {
   const { classPrefix } = useConfig();
 
   const imgRef = useRef<HTMLImageElement>(null);
   const svgRef = useRef<HTMLDivElement>(null);
+  const modalBoxRef = useRef<HTMLDivElement>(null);
 
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
+  // 是否正在进行向中心缩放动画
+  const [isZoomingToCenter, setIsZoomingToCenter] = useState(false);
 
   const imgStyle = {
     transform: `rotateZ(${rotateZ}deg) scale(${scale})`,
@@ -86,9 +120,23 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
     if (isSvg) return svgRef;
     return imgRef;
   }, [isSvg]);
-  const { position } = usePosition(displayRef);
+  const { position, setPosition, resetPosition, isDragging } = usePosition(displayRef);
   const preImgStyle = { transform: `rotateZ(${rotateZ}deg) scale(${scale})`, display: !loaded ? 'block' : 'none' };
-  const boxStyle = { transform: `translate(${position[0]}px, ${position[1]}px) scale(${mirror}, 1)` };
+  // 只在非拖拽且正在向中心缩放时启用 transition
+  const boxStyle: React.CSSProperties = {
+    transform: `translate(${position[0]}px, ${position[1]}px) scale(${mirror}, 1)`,
+    ...(isZoomingToCenter && !isDragging ? { transition: `transform ${ZOOM_TO_CENTER_DURATION}ms ease-out` } : {}),
+  };
+
+  // 暴露内部状态，供父组件在缩放时读写 position
+  useImperativeHandle(ref, () => ({
+    modalBoxRef,
+    position,
+    setPosition,
+    resetPosition,
+    isDragging,
+    setIsZoomingToCenter,
+  }), [position, resetPosition, isDragging]);
 
   const createSvgShadow = async (url: string) => {
     const response = await fetch(url);
@@ -148,7 +196,7 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
 
   return (
     <div className={classNames(`${classPrefix}-image-viewer__modal-pic`, innerClassName)}>
-      <div className={`${classPrefix}-image-viewer__modal-box`} style={boxStyle}>
+      <div ref={modalBoxRef} className={`${classPrefix}-image-viewer__modal-box`} style={boxStyle}>
         {error && <ImageError errorText={errorText} />}
         {/* 预览图 */}
         {!error && !!preSrc && preSrcImagePreviewUrl && (
@@ -188,7 +236,9 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
       </div>
     </div>
   );
-};
+});
+
+ImageModalItem.displayName = 'ImageModalItem';
 
 // 旋转角度单位
 const ROTATE_COUNT = 90;
@@ -442,13 +492,68 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
 
   const { next, prev } = useIndex(props, images);
   const { rotateZ, onResetRotate, onRotate } = useRotate();
-  const { scale, onZoom, onZoomOut, onResetScale } = useScale(imageScale, visible);
   const { mirror, onResetMirror, onMirror } = useMirror();
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const imageItemRef = useRef<ImageModalItemRef>(null);
+
+  // 自定义滚轮缩放处理：超出视口时向中心收敛
+  const handleWheelZoom = useCallback<NonNullable<UseScaleOptions['onWheelZoom']>>(
+    (e, { onZoomOut }) => {
+      const isZoomingOut = e.deltaY > 0;
+      // 仅处理缩小场景
+      if (!isZoomingOut) return false;
+
+      const container = containerRef.current;
+      const modalBox = imageItemRef.current?.modalBoxRef?.current;
+      // 图片未超出视口时，使用默认逻辑
+      if (!container || !modalBox || !isImageExceedsViewport(container, modalBox)) {
+        return false;
+      }
+
+      // 超出视口：以视口中心为基准，向中心收敛
+      const currentPosition = imageItemRef.current?.position ?? [0, 0];
+      const result = onZoomOut({
+        mouseOffsetX: 0,
+        mouseOffsetY: 0,
+        currentTranslate: {
+          translateX: currentPosition[0],
+          translateY: currentPosition[1],
+        },
+      });
+
+      if (result?.newTranslate) {
+        // 启用向中心缩放的 transition 动画
+        imageItemRef.current?.setIsZoomingToCenter?.(true);
+        imageItemRef.current?.setPosition?.([result.newTranslate.translateX, result.newTranslate.translateY]);
+
+        // 动画结束后关闭 transition（使用 once: true 自动移除监听器）
+        modalBox.addEventListener(
+          'transitionend',
+          () => imageItemRef.current?.setIsZoomingToCenter?.(false),
+          { once: true },
+        );
+
+        // 兜底：防止 transitionend 未触发（如动画被中断）
+        setTimeout(() => {
+          imageItemRef.current?.setIsZoomingToCenter?.(false);
+        }, ZOOM_TO_CENTER_DURATION + 50);
+      }
+
+      return true; // 已处理，不执行默认逻辑
+    },
+    [],
+  );
+
+  const { scale, onZoom, onZoomOut, onResetScale } = useScale(imageScale, visible, {
+    onWheelZoom: handleWheelZoom,
+  });
 
   const onReset = useCallback(() => {
     onResetScale();
     onResetRotate();
     onResetMirror();
+    imageItemRef.current?.resetPosition?.();
   }, [onResetMirror, onResetScale, onResetRotate]);
 
   const onKeyDown = useCallback(
@@ -537,6 +642,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
 
   return (
     <div
+      ref={containerRef}
       className={classNames(
         `${classPrefix}-image-viewer-preview-image`,
         {
@@ -594,6 +700,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
       />
       {closeNode}
       <ImageModalItem
+        ref={imageItemRef}
         innerClassName={innerClassName}
         scale={scale}
         rotateZ={rotateZ}

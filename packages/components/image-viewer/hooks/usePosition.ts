@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import useMouseEvent from '../../hooks/useMouseEvent';
 
 export type PositionType = [number, number];
@@ -11,12 +11,14 @@ const usePosition = (imgRef: React.RefObject<HTMLDivElement>, options?: Position
   const { initPosition = [0, 0] } = options || {};
 
   const [position, setPosition] = useState<PositionType>(initPosition);
+  const [isDragging, setIsDragging] = useState(false);
   const lastScreenPositionRef = useRef<{ x: number; y: number } | null>(null);
 
   useMouseEvent(imgRef, {
     onDown: (e) => {
       const { screenX, screenY } = e;
       lastScreenPositionRef.current = { x: screenX, y: screenY };
+      setIsDragging(true);
     },
     onMove: (e) => {
       if (!lastScreenPositionRef.current) return;
@@ -30,11 +32,19 @@ const usePosition = (imgRef: React.RefObject<HTMLDivElement>, options?: Position
     },
     onUp: () => {
       lastScreenPositionRef.current = null;
+      setIsDragging(false);
     },
   });
 
+  const resetPosition = useCallback(() => {
+    setPosition(initPosition);
+  }, [initPosition]);
+
   return {
     position,
+    setPosition,
+    resetPosition,
+    isDragging,
   };
 };
 
