@@ -1,7 +1,8 @@
-import React, { forwardRef, useState, useEffect } from 'react';
+import React, { forwardRef, useState, useEffect, useMemo } from 'react';
 import classNames from 'classnames';
-import { isFunction } from 'lodash-es';
+import { isArray, isFunction } from 'lodash-es';
 import { getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
+import log from '@tdesign/common-js/log/index';
 import useConfig from '../../hooks/useConfig';
 import { StyledProps } from '../../common';
 import PanelContent from './PanelContent';
@@ -13,7 +14,7 @@ import useDefaultProps from '../../hooks/useDefaultProps';
 import { parseToDateTime } from '../utils';
 import { TimePickerPanel } from '../../time-picker';
 
-import type { TdDateRangePickerProps } from '../type';
+import type { PickerDateRange, TdDateRangePickerProps } from '../type';
 import type { TdTimePickerProps } from '../../time-picker';
 
 export interface RangePanelProps extends Omit<TdDateRangePickerProps, 'onYearChange' | 'onMonthChange'>, StyledProps {
@@ -69,6 +70,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
     activeIndex,
     year,
     month,
+    range,
     time = [],
     panelPreselection,
     onPresetClick,
@@ -101,11 +103,30 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
         : undefined,
   });
 
-  useEffect(() => {
-    if (popupVisible && isSwitchTimeMode) {
-      toggleDateRangeContent(true);
+  // 处理 range 参数
+  // - 如果 range 是数组并且其元素为函数或数组（表示左右面板分别的范围），则拆分为 startRange / endRange；
+  // - 否则将整个 range 视为单一范围，左右面板共用。
+  const rangeValue = useMemo(() => {
+    let startRange = range as PickerDateRange;
+    let endRange = range as PickerDateRange;
+
+    if (isArray(range)) {
+      if (range.length !== 2) {
+        log.warn('DateRangePicker', '`range` length must be 2 when `range` is an array.');
+      }
+      const first = range[0];
+      const second = range[1];
+      if ((isArray(first) || isFunction(first)) && (isArray(second) || isFunction(second))) {
+        startRange = first;
+        endRange = second;
+      }
     }
-  }, [popupVisible, isSwitchTimeMode]);
+
+    return {
+      start: startRange,
+      end: endRange,
+    };
+  }, [range]);
 
   const disableTimeOptions: TdTimePickerProps['disableTime'] = (h, m, s, ms) => {
     if (!isFunction(disableTime)) {
@@ -133,6 +154,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
     hoverEnd: !hidePreselection && hoverValue[1] ? parseToDayjs(hoverValue[1], format).toDate() : undefined,
     year: startYear,
     month: startMonth,
+    range: rangeValue.start,
     mode,
     firstDayOfWeek,
     cancelRangeSelectLimit,
@@ -146,6 +168,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
     hoverEnd: !hidePreselection && hoverValue[1] ? parseToDayjs(hoverValue[1], format).toDate() : undefined,
     year: mode === 'year' && endYear - startYear <= 9 ? endYear + 9 : endYear,
     month: endMonth,
+    range: rangeValue.end,
     mode,
     firstDayOfWeek,
     cancelRangeSelectLimit,
@@ -190,6 +213,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
               time={time[activeIndex]}
               tableData={startTableData}
               value={value}
+              range={rangeValue.start}
               {...panelContentProps}
             />
             <PanelContent
@@ -201,6 +225,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
               value={value}
               tableData={endTableData}
               internalYear={year}
+              range={rangeValue.end}
               {...panelContentProps}
             />
           </>
@@ -236,10 +261,17 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
         time={activeIndex ? time[1] : time[0]}
         value={value}
         tableData={activeIndex ? endTableData : startTableData}
+        range={activeIndex ? rangeValue.end : rangeValue.start}
         {...panelContentProps}
       />
     );
   };
+
+  useEffect(() => {
+    if (popupVisible && isSwitchTimeMode) {
+      toggleDateRangeContent(true);
+    }
+  }, [popupVisible, isSwitchTimeMode]);
 
   return (
     <div
