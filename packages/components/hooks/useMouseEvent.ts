@@ -122,7 +122,7 @@ const useMouseEvent = (elementRef: React.RefObject<HTMLElement>, options: MouseE
 
     return () => {
       el.removeEventListener('mousedown', handleMouseDown);
-      el.removeEventListener('mouseenter', handleMouseDown);
+      el.removeEventListener('mouseenter', handleMouseEnter);
       el.removeEventListener('mouseleave', handleMouseLeave);
       el.removeEventListener('mousemove', handleMouseMove);
       el.removeEventListener('mouseup', handleMouseUp);
