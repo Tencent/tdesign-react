@@ -136,7 +136,7 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
     resetPosition,
     isDragging,
     setIsZoomingToCenter,
-  }), [position, resetPosition, isDragging]);
+  }), [position, setPosition, resetPosition, isDragging]);
 
   const createSvgShadow = async (url: string) => {
     const response = await fetch(url);
