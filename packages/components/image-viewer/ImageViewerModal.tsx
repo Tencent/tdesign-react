@@ -28,9 +28,6 @@ import type { TNode } from '../common';
 import type { ImageViewerProps } from './ImageViewer';
 import type { ImageInfo, ImageScale, ImageViewerScale, TdImageViewerProps } from './type';
 
-/** 向中心缩放动画时长（ms） */
-const ZOOM_TO_CENTER_DURATION = 150;
-
 /** 检测图片是否超出视口 */
 const isImageExceedsViewport = (container: HTMLDivElement, modalBox: HTMLDivElement): boolean => {
   const containerRect = container.getBoundingClientRect();
@@ -55,8 +52,8 @@ export interface ImageModalItemRef {
   resetPosition: () => void;
   /** 是否正在拖拽 */
   isDragging: boolean;
-  /** 设置是否正在缩放向中心动画 */
-  setIsZoomingToCenter: React.Dispatch<React.SetStateAction<boolean>>;
+  /** 启用向中心缩放动画（CSS 类名驱动） */
+  enableTransition: () => void;
 }
 
 const ImageError = ({ errorText }: { errorText: string }) => {
@@ -96,8 +93,6 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
 
     const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState(false);
-    // 是否正在进行向中心缩放动画
-    const [isZoomingToCenter, setIsZoomingToCenter] = useState(false);
 
     const imgStyle = {
       transform: `rotateZ(${rotateZ}deg) scale(${scale})`,
@@ -113,11 +108,44 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
     }, [isSvg]);
     const { position, setPosition, resetPosition, isDragging } = usePosition(displayRef);
     const preImgStyle = { transform: `rotateZ(${rotateZ}deg) scale(${scale})`, display: !loaded ? 'block' : 'none' };
-    // 只在非拖拽且正在向中心缩放时启用 transition
     const boxStyle: React.CSSProperties = {
       transform: `translate(${position[0]}px, ${position[1]}px) scale(${mirror}, 1)`,
-      ...(isZoomingToCenter && !isDragging ? { transition: `transform ${ZOOM_TO_CENTER_DURATION}ms ease-out` } : {}),
     };
+
+    // 动画类名，与 CSS 中 &--transitioning { transition: transform } 强关联
+    const transitioningClass = `${classPrefix}-image-viewer__modal-box--transitioning`;
+    const transitionEndHandlerRef = useRef<((e: TransitionEvent) => void) | null>(null);
+
+    // 清理监听器和类名
+    const cleanupTransition = useCallback(() => {
+      const modalBox = modalBoxRef.current;
+      if (transitionEndHandlerRef.current && modalBox) {
+        modalBox.removeEventListener('transitionend', transitionEndHandlerRef.current);
+      }
+      transitionEndHandlerRef.current = null;
+      modalBox?.classList.remove(transitioningClass);
+    }, [transitioningClass]);
+
+    // 启用向中心缩放动画：先加 CSS 类名启用 transition，再更新 transform 触发动画
+    const enableTransition = useCallback(() => {
+      const modalBox = modalBoxRef.current;
+      if (!modalBox) return;
+
+      cleanupTransition();
+      // 读取 offsetHeight 强制重绘，确保类名移除后再添加能触发新动画
+      const { offsetHeight } = modalBox;
+      if (offsetHeight < 0) return; // 永不执行，仅消除 unused 警告
+      modalBox.classList.add(transitioningClass);
+
+      const handleTransitionEnd = (e: TransitionEvent) => {
+        if (e.propertyName !== 'transform') return;
+        cleanupTransition();
+      };
+      transitionEndHandlerRef.current = handleTransitionEnd;
+      modalBox.addEventListener('transitionend', handleTransitionEnd);
+    }, [transitioningClass, cleanupTransition]);
+
+    useEffect(() => cleanupTransition, [cleanupTransition]);
 
     // 暴露内部状态，供父组件在缩放时读写 position
     useImperativeHandle(
@@ -128,9 +156,9 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
         setPosition,
         resetPosition,
         isDragging,
-        setIsZoomingToCenter,
+        enableTransition,
       }),
-      [position, setPosition, resetPosition, isDragging],
+      [position, setPosition, resetPosition, isDragging, enableTransition],
     );
 
     const createSvgShadow = async (url: string) => {
@@ -518,19 +546,9 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
     });
 
     if (result?.newTranslate) {
-      // 启用向中心缩放的 transition 动画
-      imageItemRef.current?.setIsZoomingToCenter?.(true);
+      // 启用向中心缩放的 transition 动画（CSS 类名驱动）
+      imageItemRef.current?.enableTransition?.();
       imageItemRef.current?.setPosition?.([result.newTranslate.translateX, result.newTranslate.translateY]);
-
-      // 动画结束后关闭 transition（使用 once: true 自动移除监听器）
-      modalBox.addEventListener('transitionend', () => imageItemRef.current?.setIsZoomingToCenter?.(false), {
-        once: true,
-      });
-
-      // 兜底：防止 transitionend 未触发（如动画被中断）
-      setTimeout(() => {
-        imageItemRef.current?.setIsZoomingToCenter?.(false);
-      }, ZOOM_TO_CENTER_DURATION + 50);
     }
 
     return true; // 已处理，不执行默认逻辑
