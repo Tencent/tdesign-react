@@ -86,157 +86,153 @@ interface ImageModalItemProps {
 }
 
 // 单个弹窗实例
-export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItemProps>(({
-  rotateZ,
-  scale,
-  src,
-  preSrc,
-  mirror,
-  errorText,
-  imageReferrerpolicy,
-  isSvg,
-  innerClassName,
-}, ref) => {
-  const { classPrefix } = useConfig();
+export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItemProps>(
+  ({ rotateZ, scale, src, preSrc, mirror, errorText, imageReferrerpolicy, isSvg, innerClassName }, ref) => {
+    const { classPrefix } = useConfig();
 
-  const imgRef = useRef<HTMLImageElement>(null);
-  const svgRef = useRef<HTMLDivElement>(null);
-  const modalBoxRef = useRef<HTMLDivElement>(null);
+    const imgRef = useRef<HTMLImageElement>(null);
+    const svgRef = useRef<HTMLDivElement>(null);
+    const modalBoxRef = useRef<HTMLDivElement>(null);
 
-  const [loaded, setLoaded] = useState(false);
-  const [error, setError] = useState(false);
-  // 是否正在进行向中心缩放动画
-  const [isZoomingToCenter, setIsZoomingToCenter] = useState(false);
+    const [loaded, setLoaded] = useState(false);
+    const [error, setError] = useState(false);
+    // 是否正在进行向中心缩放动画
+    const [isZoomingToCenter, setIsZoomingToCenter] = useState(false);
 
-  const imgStyle = {
-    transform: `rotateZ(${rotateZ}deg) scale(${scale})`,
-    display: !preSrc || loaded ? 'block' : 'none',
-  };
+    const imgStyle = {
+      transform: `rotateZ(${rotateZ}deg) scale(${scale})`,
+      display: !preSrc || loaded ? 'block' : 'none',
+    };
 
-  const { previewUrl: preSrcImagePreviewUrl } = useImagePreviewUrl(preSrc);
-  const { previewUrl: mainImagePreviewUrl } = useImagePreviewUrl(src);
+    const { previewUrl: preSrcImagePreviewUrl } = useImagePreviewUrl(preSrc);
+    const { previewUrl: mainImagePreviewUrl } = useImagePreviewUrl(src);
 
-  const displayRef = useMemo(() => {
-    if (isSvg) return svgRef;
-    return imgRef;
-  }, [isSvg]);
-  const { position, setPosition, resetPosition, isDragging } = usePosition(displayRef);
-  const preImgStyle = { transform: `rotateZ(${rotateZ}deg) scale(${scale})`, display: !loaded ? 'block' : 'none' };
-  // 只在非拖拽且正在向中心缩放时启用 transition
-  const boxStyle: React.CSSProperties = {
-    transform: `translate(${position[0]}px, ${position[1]}px) scale(${mirror}, 1)`,
-    ...(isZoomingToCenter && !isDragging ? { transition: `transform ${ZOOM_TO_CENTER_DURATION}ms ease-out` } : {}),
-  };
+    const displayRef = useMemo(() => {
+      if (isSvg) return svgRef;
+      return imgRef;
+    }, [isSvg]);
+    const { position, setPosition, resetPosition, isDragging } = usePosition(displayRef);
+    const preImgStyle = { transform: `rotateZ(${rotateZ}deg) scale(${scale})`, display: !loaded ? 'block' : 'none' };
+    // 只在非拖拽且正在向中心缩放时启用 transition
+    const boxStyle: React.CSSProperties = {
+      transform: `translate(${position[0]}px, ${position[1]}px) scale(${mirror}, 1)`,
+      ...(isZoomingToCenter && !isDragging ? { transition: `transform ${ZOOM_TO_CENTER_DURATION}ms ease-out` } : {}),
+    };
 
-  // 暴露内部状态，供父组件在缩放时读写 position
-  useImperativeHandle(ref, () => ({
-    modalBoxRef,
-    position,
-    setPosition,
-    resetPosition,
-    isDragging,
-    setIsZoomingToCenter,
-  }), [position, setPosition, resetPosition, isDragging]);
+    // 暴露内部状态，供父组件在缩放时读写 position
+    useImperativeHandle(
+      ref,
+      () => ({
+        modalBoxRef,
+        position,
+        setPosition,
+        resetPosition,
+        isDragging,
+        setIsZoomingToCenter,
+      }),
+      [position, setPosition, resetPosition, isDragging],
+    );
 
-  const createSvgShadow = async (url: string) => {
-    const response = await fetch(url);
-    if (!response.ok) {
-      setError(true);
-      throw new Error(`Failed to fetch SVG: ${response.statusText}`);
-    }
-
-    const svgText = await response.text();
-
-    const element = svgRef.current;
-    element.innerHTML = '';
-    element.classList?.add(`${classPrefix}-image-viewer__modal-image-svg`);
-    const shadowRoot = element.attachShadow({ mode: 'closed' });
-
-    const container = document.createElement('div');
-    container.style.background = 'transparent';
-    container.innerHTML = svgText;
-    shadowRoot.appendChild(container);
-
-    const svgElement = container.querySelector('svg');
-    if (svgElement) {
-      const svgViewBox = svgElement.getAttribute('viewBox');
-      if (svgViewBox) {
-        const viewBoxValues = svgViewBox
-          .split(/[\s,]/)
-          .filter((v) => v)
-          .map(parseFloat);
-
-        // svg viewbox x(0) and y(1) offset, width(2) and height(3),eg
-        const svgViewBoxWidth = viewBoxValues[2];
-        const svgViewBoxHeight = viewBoxValues[3];
-        container.style.width = `${svgViewBoxWidth}px`;
-        container.style.height = `${svgViewBoxHeight}px`;
-      } else {
-        const bbox = svgElement.getBBox();
-        const calculatedViewBox = `${bbox.x} ${bbox.y} ${bbox.width} ${bbox.height}`;
-        svgElement.setAttribute('viewBox', calculatedViewBox);
-
-        container.style.width = `${bbox.width}px`;
-        container.style.height = `${bbox.height}px`;
+    const createSvgShadow = async (url: string) => {
+      const response = await fetch(url);
+      if (!response.ok) {
+        setError(true);
+        throw new Error(`Failed to fetch SVG: ${response.statusText}`);
       }
-    }
-    setLoaded(true);
-  };
 
-  useEffect(() => {
-    setError(false);
-  }, [preSrcImagePreviewUrl, mainImagePreviewUrl]);
+      const svgText = await response.text();
 
-  useEffect(() => {
-    if (isSvg && mainImagePreviewUrl) {
-      createSvgShadow(mainImagePreviewUrl);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mainImagePreviewUrl]);
+      const element = svgRef.current;
+      element.innerHTML = '';
+      element.classList?.add(`${classPrefix}-image-viewer__modal-image-svg`);
+      const shadowRoot = element.attachShadow({ mode: 'closed' });
 
-  return (
-    <div className={classNames(`${classPrefix}-image-viewer__modal-pic`, innerClassName)}>
-      <div ref={modalBoxRef} className={`${classPrefix}-image-viewer__modal-box`} style={boxStyle}>
-        {error && <ImageError errorText={errorText} />}
-        {/* 预览图 */}
-        {!error && !!preSrc && preSrcImagePreviewUrl && (
-          <img
-            className={`${classPrefix}-image-viewer__modal-image`}
-            src={preSrcImagePreviewUrl}
-            style={preImgStyle}
-            referrerPolicy={imageReferrerpolicy}
-            alt="image"
-            draggable="false"
-          />
-        )}
-        {/* 普通主图 */}
-        {!error && mainImagePreviewUrl && !isSvg && (
-          <img
-            ref={imgRef}
-            className={`${classPrefix}-image-viewer__modal-image`}
-            src={mainImagePreviewUrl}
-            style={imgStyle}
-            onLoad={() => setLoaded(true)}
-            onError={() => setError(true)}
-            referrerPolicy={imageReferrerpolicy}
-            alt="image"
-            draggable="false"
-          />
-        )}
-        {/* SVG 主图 */}
-        {!error && !!mainImagePreviewUrl && isSvg && (
-          <div
-            ref={svgRef}
-            className={`${classPrefix}-image-viewer__modal-image`}
-            style={imgStyle}
-            data-alt="svg"
-            draggable="false"
-          />
-        )}
+      const container = document.createElement('div');
+      container.style.background = 'transparent';
+      container.innerHTML = svgText;
+      shadowRoot.appendChild(container);
+
+      const svgElement = container.querySelector('svg');
+      if (svgElement) {
+        const svgViewBox = svgElement.getAttribute('viewBox');
+        if (svgViewBox) {
+          const viewBoxValues = svgViewBox
+            .split(/[\s,]/)
+            .filter((v) => v)
+            .map(parseFloat);
+
+          // svg viewbox x(0) and y(1) offset, width(2) and height(3),eg
+          const svgViewBoxWidth = viewBoxValues[2];
+          const svgViewBoxHeight = viewBoxValues[3];
+          container.style.width = `${svgViewBoxWidth}px`;
+          container.style.height = `${svgViewBoxHeight}px`;
+        } else {
+          const bbox = svgElement.getBBox();
+          const calculatedViewBox = `${bbox.x} ${bbox.y} ${bbox.width} ${bbox.height}`;
+          svgElement.setAttribute('viewBox', calculatedViewBox);
+
+          container.style.width = `${bbox.width}px`;
+          container.style.height = `${bbox.height}px`;
+        }
+      }
+      setLoaded(true);
+    };
+
+    useEffect(() => {
+      setError(false);
+    }, [preSrcImagePreviewUrl, mainImagePreviewUrl]);
+
+    useEffect(() => {
+      if (isSvg && mainImagePreviewUrl) {
+        createSvgShadow(mainImagePreviewUrl);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [mainImagePreviewUrl]);
+
+    return (
+      <div className={classNames(`${classPrefix}-image-viewer__modal-pic`, innerClassName)}>
+        <div ref={modalBoxRef} className={`${classPrefix}-image-viewer__modal-box`} style={boxStyle}>
+          {error && <ImageError errorText={errorText} />}
+          {/* 预览图 */}
+          {!error && !!preSrc && preSrcImagePreviewUrl && (
+            <img
+              className={`${classPrefix}-image-viewer__modal-image`}
+              src={preSrcImagePreviewUrl}
+              style={preImgStyle}
+              referrerPolicy={imageReferrerpolicy}
+              alt="image"
+              draggable="false"
+            />
+          )}
+          {/* 普通主图 */}
+          {!error && mainImagePreviewUrl && !isSvg && (
+            <img
+              ref={imgRef}
+              className={`${classPrefix}-image-viewer__modal-image`}
+              src={mainImagePreviewUrl}
+              style={imgStyle}
+              onLoad={() => setLoaded(true)}
+              onError={() => setError(true)}
+              referrerPolicy={imageReferrerpolicy}
+              alt="image"
+              draggable="false"
+            />
+          )}
+          {/* SVG 主图 */}
+          {!error && !!mainImagePreviewUrl && isSvg && (
+            <div
+              ref={svgRef}
+              className={`${classPrefix}-image-viewer__modal-image`}
+              style={imgStyle}
+              data-alt="svg"
+              draggable="false"
+            />
+          )}
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  },
+);
 
 ImageModalItem.displayName = 'ImageModalItem';
 
@@ -498,52 +494,47 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   const imageItemRef = useRef<ImageModalItemRef>(null);
 
   // 自定义滚轮缩放处理：超出视口时向中心收敛
-  const handleWheelZoom = useCallback<NonNullable<UseScaleOptions['onWheelZoom']>>(
-    (e, { onZoomOut }) => {
-      const isZoomingOut = e.deltaY > 0;
-      // 仅处理缩小场景
-      if (!isZoomingOut) return false;
+  const handleWheelZoom = useCallback<NonNullable<UseScaleOptions['onWheelZoom']>>((e, { onZoomOut }) => {
+    const isZoomingOut = e.deltaY > 0;
+    // 仅处理缩小场景
+    if (!isZoomingOut) return false;
 
-      const container = containerRef.current;
-      const modalBox = imageItemRef.current?.modalBoxRef?.current;
-      // 图片未超出视口时，使用默认逻辑
-      if (!container || !modalBox || !isImageExceedsViewport(container, modalBox)) {
-        return false;
-      }
+    const container = containerRef.current;
+    const modalBox = imageItemRef.current?.modalBoxRef?.current;
+    // 图片未超出视口时，使用默认逻辑
+    if (!container || !modalBox || !isImageExceedsViewport(container, modalBox)) {
+      return false;
+    }
 
-      // 超出视口：以视口中心为基准，向中心收敛
-      const currentPosition = imageItemRef.current?.position ?? [0, 0];
-      const result = onZoomOut({
-        mouseOffsetX: 0,
-        mouseOffsetY: 0,
-        currentTranslate: {
-          translateX: currentPosition[0],
-          translateY: currentPosition[1],
-        },
+    // 超出视口：以视口中心为基准，向中心收敛
+    const currentPosition = imageItemRef.current?.position ?? [0, 0];
+    const result = onZoomOut({
+      mouseOffsetX: 0,
+      mouseOffsetY: 0,
+      currentTranslate: {
+        translateX: currentPosition[0],
+        translateY: currentPosition[1],
+      },
+    });
+
+    if (result?.newTranslate) {
+      // 启用向中心缩放的 transition 动画
+      imageItemRef.current?.setIsZoomingToCenter?.(true);
+      imageItemRef.current?.setPosition?.([result.newTranslate.translateX, result.newTranslate.translateY]);
+
+      // 动画结束后关闭 transition（使用 once: true 自动移除监听器）
+      modalBox.addEventListener('transitionend', () => imageItemRef.current?.setIsZoomingToCenter?.(false), {
+        once: true,
       });
 
-      if (result?.newTranslate) {
-        // 启用向中心缩放的 transition 动画
-        imageItemRef.current?.setIsZoomingToCenter?.(true);
-        imageItemRef.current?.setPosition?.([result.newTranslate.translateX, result.newTranslate.translateY]);
+      // 兜底：防止 transitionend 未触发（如动画被中断）
+      setTimeout(() => {
+        imageItemRef.current?.setIsZoomingToCenter?.(false);
+      }, ZOOM_TO_CENTER_DURATION + 50);
+    }
 
-        // 动画结束后关闭 transition（使用 once: true 自动移除监听器）
-        modalBox.addEventListener(
-          'transitionend',
-          () => imageItemRef.current?.setIsZoomingToCenter?.(false),
-          { once: true },
-        );
-
-        // 兜底：防止 transitionend 未触发（如动画被中断）
-        setTimeout(() => {
-          imageItemRef.current?.setIsZoomingToCenter?.(false);
-        }, ZOOM_TO_CENTER_DURATION + 50);
-      }
-
-      return true; // 已处理，不执行默认逻辑
-    },
-    [],
-  );
+    return true; // 已处理，不执行默认逻辑
+  }, []);
 
   const { scale, onZoom, onZoomOut, onResetScale } = useScale(imageScale, visible, {
     onWheelZoom: handleWheelZoom,

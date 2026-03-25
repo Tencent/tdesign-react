@@ -17,7 +17,10 @@ export interface ZoomResult {
 
 export interface UseScaleOptions {
   /** 自定义滚轮处理函数，返回 true 表示已处理，不执行默认逻辑 */
-  onWheelZoom?: (e: WheelEvent, handlers: { onZoom: () => void; onZoomOut: (options?: ZoomOptions) => ZoomResult }) => boolean;
+  onWheelZoom?: (
+    e: WheelEvent,
+    handlers: { onZoom: () => void; onZoomOut: (options?: ZoomOptions) => ZoomResult },
+  ) => boolean;
 }
 
 /**
