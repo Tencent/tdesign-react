@@ -85,7 +85,7 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
     // 半选状态节点
     indeterminateSelectedRowKeys: tIndeterminateSelectedRowKeys,
     // 树形结构不允许本地数据分页
-    disableDataPage: Boolean(tree && Object.keys(tree).length),
+    disableDataPage: Boolean(tree && Object.keys(tree).length) || props.disableDataPage,
     onSelectChange: onInnerSelectChange,
     onDragSort: onDragSortChange,
     rowClassName: ({ row }) => {
