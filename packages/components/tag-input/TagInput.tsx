@@ -74,6 +74,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
   });
 
   const suffixWidthRef = useRef<number>(0);
+  const suffixIconWidthRef = useRef<number>(0);
   const isCompositionRef = useRef(false);
 
   const { scrollToRight, onWheel, scrollToRightOnEnter, scrollToLeftOnLeave, tagInputRef } = useTagScroll(props);
@@ -96,29 +97,41 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
 
   useImperativeHandle(ref as InputRef, () => ({ ...(tagInputRef.current || {}) }));
 
+  const updateSuffixWidth = (selector: string, cssVar: string, widthRef: React.MutableRefObject<number>) => {
+    const wrapperEl = tagInputRef.current?.currentElement as HTMLElement;
+    if (!wrapperEl) return;
+
+    const inputEl = wrapperEl.querySelector(`.${prefix}-input`) as HTMLElement;
+    if (!inputEl) return;
+
+    const targetEl = wrapperEl.querySelector(selector);
+    const width = targetEl ? targetEl.getBoundingClientRect().width : 0;
+    if (width !== widthRef.current) {
+      // eslint-disable-next-line no-param-reassign
+      widthRef.current = width;
+      if (width) {
+        inputEl.style.setProperty(cssVar, `${Math.ceil(width + 8)}px`);
+      } else {
+        inputEl.style.removeProperty(cssVar);
+      }
+    }
+  };
+
   useEffect(() => {
     if (!isBreakLine || !suffix) return;
 
-    // 避免换行模式时，suffix 与 tag 重合
-    const updateSuffixWidth = () => {
-      const wrapperEl = tagInputRef.current?.currentElement as HTMLElement;
-      if (!wrapperEl) return;
+    // 避免 suffix 左侧 与 tag 重合
+    updateSuffixWidth(
+      `.${prefix}-input__suffix:not(.${prefix}-input__suffix-icon)`,
+      `--${prefix}-tag-input-suffix-width`,
+      suffixWidthRef,
+    );
 
-      const inputEl = wrapperEl.querySelector(`.${prefix}-input`) as HTMLElement;
-      const suffixEl = wrapperEl.querySelector(
-        `.${prefix}-input__suffix:not(.${prefix}-input__suffix-icon)`,
-      ) as HTMLElement;
-      if (!inputEl || !suffixEl) return;
+    // 确定 suffix 右侧到 input 边框的距离
+    updateSuffixWidth(`.${prefix}-input__suffix-icon`, `--${prefix}-tag-input-suffix-icon-width`, suffixIconWidthRef);
 
-      const { width } = suffixEl.getBoundingClientRect();
-      if (width !== suffixWidthRef.current) {
-        suffixWidthRef.current = width;
-        inputEl.style.setProperty(`--${prefix}-tag-input-suffix-width`, `${Math.ceil(width)}px`);
-      }
-    };
-
-    updateSuffixWidth();
-  }, [excessTagsDisplayType, suffix, prefix, tagInputRef, isBreakLine]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [excessTagsDisplayType, suffix, suffixIcon, showClearIcon, prefix, tagInputRef, isBreakLine]);
 
   const onInputCompositionstart = (value: InputValue, context: { e: CompositionEvent<HTMLInputElement> }) => {
     isCompositionRef.current = true;
