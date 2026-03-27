@@ -21,8 +21,8 @@ import useHover from './useHover';
 import useTagList from './useTagList';
 import useTagScroll from './useTagScroll';
 
-import type { TdTagInputProps } from './type';
 import type { StyledProps } from '../common';
+import type { TdTagInputProps } from './type';
 
 export interface TagInputProps extends TdTagInputProps, StyledProps {
   options?: any[]; // 参数穿透options, 给SelectInput/SelectInput 自定义选中项呈现的内容和多选状态下设置折叠项内容
@@ -186,7 +186,6 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       readOnly={readOnly}
       disabled={disabled}
       label={renderLabel({ displayNode, label })}
-      className={classnames(classes)}
       style={{
         ...props.style,
         ...maxRowsStyle,
@@ -220,11 +219,12 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
         }
         onBlur?.(tagValue, { e: context.e, inputValue });
       }}
+      {...inputProps}
       onCompositionstart={onInputCompositionstart}
       onCompositionend={onInputCompositionend}
-      {...inputProps}
       onKeydown={onKeydown}
       onKeyup={onKeyup}
+      className={classnames(classes, inputProps?.className)}
     />
   );
 });

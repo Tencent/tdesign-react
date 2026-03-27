@@ -23,53 +23,107 @@ TDesign AIGC Components for React Framework
 
 # 📦 Installation
 
-```shell
-npm i @tdesign-react/chat
-```
+```bash
+# npm
+npm install @tdesign-react/chat
 
-```shell
+# yarn
 yarn add @tdesign-react/chat
-```
 
-```shell
+# pnpm
 pnpm add @tdesign-react/chat
 ```
 
-# 🔨 Usage
+**依赖要求**: React >= 18.0.0
+
+# 🔨 Quick Start
+
+## 一体化组件集成
+
+直接使用 `ChatBot` 组件，内置完整的 UI 结构和交互逻辑，适合快速集成标准聊天界面。
 
 ```tsx
 import React from 'react';
 import { ChatBot } from '@tdesign-react/chat';
 import '@tdesign-react/chat/es/style/index.js';
 
-function App() {
+export default function App() {
   return (
-    <div style={{ height: '600px' }}>
-      <ChatBot
-        chatServiceConfig={{
-          endpoint: 'https://your-api-endpoint.com/chat',
-        }}
-      />
-    </div>
+    <ChatBot
+      chatServiceConfig={{
+        endpoint: 'https://your-api-endpoint.com/chat',
+        stream: true,
+      }}
+    />
   );
 }
-
-ReactDOM.createRoot(document.getElementById('app')).render(<App />);
 ```
+
+## 组合式开发
+
+通过 `useChat` Hook 自由组合 UI 组件，适合需要深度定制 UI 结构和交互逻辑的场景。
+
+```tsx
+import React from 'react';
+import { useChat, ChatList, ChatMessage, ChatSender } from '@tdesign-react/chat';
+import '@tdesign-react/chat/es/style/index.js';
+
+export default function CompositeChat() {
+  const { chatEngine, messages, status } = useChat({
+    chatServiceConfig: {
+      endpoint: 'https://your-api-endpoint.com/chat',
+      stream: true,
+    },
+  });
+
+  return (
+    <>
+      <ChatList>
+        {messages.map((message) => (
+          <ChatMessage key={message.id} message={message} />
+        ))}
+      </ChatList>
+      <ChatSender
+        loading={status === 'streaming'}
+        onSend={(e) => chatEngine.sendUserMessage({ prompt: e.detail.value })}
+        onStop={() => chatEngine.abortChat()}
+      />
+    </>
+  );
+}
+```
+
+## 协议配置
+
+支持**自定义协议**和**AG-UI 标准协议**两种模式：
+
+| 场景               | 推荐协议   |
+| ------------------ | ---------- |
+| 快速集成到现有服务 | 自定义协议 |
+| 构建复杂 AI 应用   | AG-UI 协议 |
+| 多工具调用场景     | AG-UI 协议 |
+
+```javascript
+// 通过 onMessage 解析数据
+const customConfig = {
+  endpoint: '/api/chat',
+  protocol: 'agui', // 开启 AG-UI 协议，自动解析标准事件
+  onMessage: (chunk) => chunk.data,
+};
+
+```
+
+📖 [体验示例和完整文档](https://tdesign.tencent.com/react-chat/overview)
 
 # Browser Support
 
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/> IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Safari |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Edge >=84                                                                                                                                                                                                        | Firefox >=83                                                                                                                                                                                                      | Chrome >=84                                                                                                                                                                                                   | Safari >=14.1                                                                                                                                                                                                 |
-
-Read our [browser compatibility](https://github.com/Tencent/tdesign/wiki/Browser-Compatibility) for more details.
-
+| IE / Edge | Firefox      | Chrome      | Safari        |
+| --------- | ------------ | ----------- | ------------- |
+| Edge >=84 | Firefox >=83 | Chrome >=84 | Safari >=14.1 |
 
 # Contributing
 
 Contributing is welcome. Read [guidelines for contributing](https://github.com/Tencent/tdesign-react/blob/develop/CONTRIBUTING.md) before submitting your [Pull Request](https://github.com/Tencent/tdesign-react/pulls).
-
 
 # Feedback
 

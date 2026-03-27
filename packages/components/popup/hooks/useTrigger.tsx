@@ -12,7 +12,16 @@ const isEventFromDisabledElement = (e: Event | React.SyntheticEvent, container: 
   return !!(disabledEl && container.contains(disabledEl));
 };
 
-export default function useTrigger({ triggerElement, content, disabled, trigger, visible, onVisibleChange, delay }) {
+export default function useTrigger({
+  triggerElement,
+  content,
+  disabled,
+  trigger,
+  visible,
+  onVisibleChange,
+  delay,
+  popupElement,
+}) {
   const { classPrefix } = useConfig();
 
   const triggerElementIsString = typeof triggerElement === 'string';
@@ -49,12 +58,22 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     return element instanceof Element ? element : null;
   }, [triggerElementIsString, triggerElement]);
 
+  const handleMouseEnter = (e: MouseEvent | React.MouseEvent) => {
+    if (trigger === 'hover') {
+      callFuncWithDelay({
+        delay: appearDelay,
+        callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
+      });
+    }
+  };
+
   const handleMouseLeave = (e: MouseEvent | React.MouseEvent) => {
-    if (isEventFromDisabledElement(e, getTriggerElement())) return;
     if (trigger !== 'hover' || hasPopupMouseDown.current) return;
     const relatedTarget = e.relatedTarget as HTMLElement;
-    const isMovingToContent = relatedTarget?.closest?.(`.${classPrefix}-popup`);
-    if (isMovingToContent) return;
+    const closestPopup = relatedTarget?.closest?.(`.${classPrefix}-popup`);
+
+    const isMovingToCurrentPopup = popupElement ? popupElement?.isEqualNode?.(closestPopup) : closestPopup;
+    if (isMovingToCurrentPopup) return;
     callFuncWithDelay({
       delay: exitDelay,
       callback: () => onVisibleChange(false, { e, trigger: 'trigger-element-hover' }),
@@ -99,16 +118,6 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
       }
     };
 
-    const handleMouseEnter = (e: MouseEvent) => {
-      if (isEventFromDisabledElement(e, element)) return;
-      if (trigger === 'hover') {
-        callFuncWithDelay({
-          delay: appearDelay,
-          callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
-        });
-      }
-    };
-
     const handleFocus = (e: FocusEvent) => {
       if (isEventFromDisabledElement(e, element)) return;
       if (trigger === 'focus') {
@@ -121,6 +130,9 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
 
     const handleBlur = (e: FocusEvent) => {
       if (isEventFromDisabledElement(e, element)) return;
+      // relatedTarget is the element receiving focus; if it's still within the trigger element, don't close
+      const relatedTarget = (e as FocusEvent).relatedTarget as HTMLElement;
+      if (relatedTarget && element.contains(relatedTarget)) return;
       if (trigger === 'focus') {
         callFuncWithDelay({
           delay: exitDelay,
@@ -164,8 +176,8 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     on(element, 'mousedown', handleMouseDown);
     on(element, 'mouseenter', handleMouseEnter);
     on(element, 'mouseleave', handleMouseLeave);
-    on(element, 'focus', handleFocus);
-    on(element, 'blur', handleBlur);
+    on(element, 'focusin', handleFocus);
+    on(element, 'focusout', handleBlur);
     on(element, 'contextmenu', handleContextMenu);
     on(element, 'touchstart', handleTouchStart, { passive: true });
     on(element, 'keydown', handleKeyDown);
@@ -174,8 +186,8 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
       off(element, 'mousedown', handleMouseDown);
       off(element, 'mouseenter', handleMouseEnter);
       off(element, 'mouseleave', handleMouseLeave);
-      off(element, 'focus', handleFocus);
-      off(element, 'blur', handleBlur);
+      off(element, 'focusin', handleFocus);
+      off(element, 'focusout', handleBlur);
       off(element, 'contextmenu', handleContextMenu);
       off(element, 'touchstart', handleTouchStart, { passive: true });
       off(element, 'keydown', handleKeyDown);
@@ -195,6 +207,9 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
     on(document, 'touchend', handleDocumentClick, { passive: true });
 
     return () => {
+      // 嵌套使用，父 Popup 关闭时，子 Popup 也要关闭
+      // 针对父 Popup 关闭时，trigger 元素直接从 DOM 移除的场景
+      // 避免监听器提早被销毁无法触发
       requestAnimationFrame(() => {
         off(document, 'mousedown', handleDocumentClick);
         off(document, 'touchend', handleDocumentClick, { passive: true });
@@ -232,6 +247,7 @@ export default function useTrigger({ triggerElement, content, disabled, trigger,
 
   function getPopupProps() {
     return {
+      onMouseEnter: handleMouseEnter,
       onMouseLeave: handleMouseLeave,
       onMouseDown: handlePopupMouseDown,
       onMouseUp: handlePopupMouseUp,

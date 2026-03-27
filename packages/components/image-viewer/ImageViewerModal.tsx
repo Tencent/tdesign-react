@@ -51,6 +51,7 @@ interface ImageModalItemProps {
   errorText: string;
   imageReferrerpolicy?: TdImageViewerProps['imageReferrerpolicy'];
   isSvg: boolean;
+  innerClassName: TdImageViewerProps['innerClassName'];
 }
 
 // 单个弹窗实例
@@ -63,6 +64,7 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
   errorText,
   imageReferrerpolicy,
   isSvg,
+  innerClassName,
 }) => {
   const { classPrefix } = useConfig();
 
@@ -145,7 +147,7 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
   }, [mainImagePreviewUrl]);
 
   return (
-    <div className={`${classPrefix}-image-viewer__modal-pic`}>
+    <div className={classNames(`${classPrefix}-image-viewer__modal-pic`, innerClassName)}>
       <div className={`${classPrefix}-image-viewer__modal-box`} style={boxStyle}>
         {error && <ImageError errorText={errorText} />}
         {/* 预览图 */}
@@ -398,6 +400,8 @@ export interface ImageModalProps {
   closeBtn: boolean | TNode;
   closeOnEscKeydown?: boolean;
   imageReferrerpolicy?: ImageViewerProps['imageReferrerpolicy'];
+  className?: string;
+  style?: React.CSSProperties;
   onClose: (context: {
     trigger: 'close-btn' | 'overlay' | 'esc';
     e: React.MouseEvent<HTMLElement> | React.KeyboardEvent;
@@ -405,6 +409,7 @@ export interface ImageModalProps {
   onOpen: () => void;
   onDownload?: TdImageViewerProps['onDownload'];
   onIndexChange?: (index: number, context: { trigger: 'prev' | 'next' | 'current' }) => void;
+  innerClassName?: TdImageViewerProps['innerClassName'];
 }
 
 // 弹窗基础组件
@@ -424,10 +429,13 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
     title,
     closeOnEscKeydown,
     imageReferrerpolicy,
+    className,
+    style,
     onOpen,
     onClose,
     onDownload,
     onIndexChange,
+    innerClassName,
   } = props;
   const { classPrefix } = useConfig();
   const [locale, t] = useLocaleReceiver('imageViewer');
@@ -484,6 +492,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   if (isMini) {
     return (
       <ImageModalMini
+        innerClassName={innerClassName}
         visible={visible}
         draggable={draggable}
         index={index}
@@ -499,6 +508,8 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         errorText={errorText}
         tipText={tipText}
         imageReferrerpolicy={imageReferrerpolicy}
+        className={className}
+        style={style}
         prev={prev}
         next={next}
         onMirror={onMirror}
@@ -526,10 +537,14 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
 
   return (
     <div
-      className={classNames(`${classPrefix}-image-viewer-preview-image`, {
-        [`${classPrefix}-is-hide`]: !visible,
-      })}
-      style={{ zIndex }}
+      className={classNames(
+        `${classPrefix}-image-viewer-preview-image`,
+        {
+          [`${classPrefix}-is-hide`]: !visible,
+        },
+        className,
+      )}
+      style={{ zIndex, ...style }}
     >
       {!!showOverlay && (
         <div
@@ -579,6 +594,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
       />
       {closeNode}
       <ImageModalItem
+        innerClassName={innerClassName}
         scale={scale}
         rotateZ={rotateZ}
         mirror={mirror}

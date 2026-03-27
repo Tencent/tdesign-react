@@ -1,6 +1,7 @@
-import useIsomorphicLayoutEffect from './useLayoutEffect';
+import { useRef } from 'react';
 import { canUseDocument } from '../_util/dom';
 import useLatest from './useLatest';
+import useIsomorphicLayoutEffect from './useLayoutEffect';
 
 export default function useResizeObserver(
   container: React.MutableRefObject<HTMLElement | null>,
@@ -8,27 +9,27 @@ export default function useResizeObserver(
   enabled = true,
 ) {
   const callbackRef = useLatest(callback);
+  const observerRef = useRef<ResizeObserver | null>(null);
 
   useIsomorphicLayoutEffect(() => {
     const isSupport = canUseDocument && window.ResizeObserver;
     const element = container.current;
-    let observer: ResizeObserver = null;
 
     if (!enabled) return;
 
-    if (isSupport && element) {
+    if (isSupport && element && element instanceof Element) {
       const resizeCallback: ResizeObserverCallback = (entries) => {
         callbackRef.current(entries);
       };
-      observer = new ResizeObserver(resizeCallback);
-      observer.observe(element);
+      observerRef.current = new ResizeObserver(resizeCallback);
+      observerRef.current.observe(element);
     }
 
     return () => {
-      if (observer && element) {
-        observer.unobserve(element);
-        observer.disconnect?.();
-        observer = null;
+      if (observerRef.current && element && element instanceof Element) {
+        observerRef.current.unobserve(element);
+        observerRef.current.disconnect?.();
+        observerRef.current = null;
       }
     };
     // eslint-disable-next-line

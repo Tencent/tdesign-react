@@ -85,6 +85,10 @@ export interface TdDatePickerProps {
    */
   needConfirm?: boolean;
   /**
+   * 日期选择器中年月下拉框的选中值
+   */
+  panelActiveDate?: PanelActiveDate;
+  /**
    * 占位符
    */
   placeholder?: string;
@@ -99,12 +103,16 @@ export interface TdDatePickerProps {
   /**
    * 预设快捷日期选择，示例：`{ '元旦': '2021-01-01', '昨天':  dayjs().subtract(1, 'day').format('YYYY-MM-DD'), '特定日期': () => ['2021-02-01'] }`
    */
-  presets?: PresetDate;
+  presets?: TNode | PresetDate;
   /**
    * 预设面板展示区域（包含确定按钮）
    * @default bottom
    */
   presetsPlacement?: 'left' | 'top' | 'right' | 'bottom';
+  /**
+   * 日期可选择范围。示例：`['2025-01-01', '2025-12-31']` 表示'2025-01-01'至'2025-12-31'为可选日期。值为`null`表示不限制；`['2025-01-01', null]` 表示可选日期从'2025-01-01'开始，不限制结束。类型为 Function 则函数返回值为 `true` 的日期为可选。⚠️ 此参数应与 `panelActiveDate` 一起使用，若未设置 `panelActiveDate` 则以 `range` 左区间为默认面板展示，如果没有左区间，则以右区间为默认展示。与`disableDate`共用时，`disableDate`优先级更高。
+   */
+  range?: PickerDateRange;
   /**
    * 输入框尺寸
    * @default medium
@@ -166,6 +174,15 @@ export interface TdDatePickerProps {
    */
   onFocus?: (context: { value: DateValue | DateMultipleValue; e: FocusEvent<HTMLInputElement> }) => void;
   /**
+   * 月份切换发生变化时触发
+   */
+  onMonthChange?: (context: {
+    month: number;
+    date: Date;
+    e?: MouseEvent<HTMLDivElement>;
+    trigger: DatePickerMonthChangeTrigger;
+  }) => void;
+  /**
    * 面板选中值后触发
    */
   onPick?: (value: DateValue) => void;
@@ -173,6 +190,15 @@ export interface TdDatePickerProps {
    * 点击预设按钮后触发
    */
   onPresetClick?: (context: { preset: PresetDate; e: MouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 年份切换发生变化时触发
+   */
+  onYearChange?: (context: {
+    year: number;
+    date: Date;
+    trigger: DatePickerYearChangeTrigger;
+    e?: MouseEvent<HTMLDivElement>;
+  }) => void;
 }
 
 export interface TdDateRangePickerProps {
@@ -217,10 +243,10 @@ export interface TdDateRangePickerProps {
    */
   disabled?: boolean;
   /**
-   * 是否显示时间选择
+   * 是否显示时间选择, 默认不展示，设置为 true 时，默认模式为 parallel ，与日期面板并列展示，可以通过配置 mode 为 switch 调整展示方式
    * @default false
    */
-  enableTimePicker?: boolean;
+  enableTimePicker?: boolean | TimePanelConfig;
   /**
    * 第一天从星期几开始
    */
@@ -245,6 +271,10 @@ export interface TdDateRangePickerProps {
    */
   needConfirm?: boolean;
   /**
+   * 日期选择器中年月下拉框的选中值
+   */
+  panelActiveDate?: PanelActiveDate | [PanelActiveDate, PanelActiveDate];
+  /**
    * 在开始日期选中之前，面板是否显示预选状态，即是否高亮预选日期
    * @default true
    */
@@ -264,12 +294,16 @@ export interface TdDateRangePickerProps {
   /**
    * 预设快捷日期选择，示例：{ '特定日期范围': ['2021-01-01', '2022-01-01'], '本月': [dayjs().startOf('month'), dayjs().endOf('month')] }
    */
-  presets?: PresetRange;
+  presets?: TNode | PresetRange;
   /**
    * 预设面板展示区域（包含确定按钮）
    * @default bottom
    */
   presetsPlacement?: 'left' | 'top' | 'right' | 'bottom';
+  /**
+   * 日期可选择范围。值为数组则第一项是开始面板的可选范围，第二项是结束面板的可选范围。示例：`['2025-01-01', '2025-12-31']` 表示'2025-01-01'至'2025-12-31'为可选日期。值为`null`表示不限制；`['2025-01-01', null]` 表示可选日期从'2025-01-01'开始，不限制结束。`[['2025-01-01', '2025-02-01'], ['2025-12-31', '2026-01-01']]` 表示开始面板的'2025-01-01'至'2025-02-01'为可选日期，结束面板的'2025-12-31'至'2026-01-01'为可选日期。类型为 Function 则函数返回值为 `true` 的日期为可选。⚠️ 此API应与 `panelActiveDate` 一起使用，若未设置 `panelActiveDate` 则以 `range` 左区间为默认面板展示，如果没有左区间，则以右区间为默认展示。与`disableDate`共用时，`disableDate`优先级更高。
+   */
+  range?: PickerDateRange | PickerDateRange[];
   /**
    * 透传给范围输入框 RangeInput 组件的参数
    */
@@ -358,6 +392,16 @@ export interface TdDateRangePickerProps {
     e: FormEvent<HTMLInputElement>;
   }) => void;
   /**
+   * 月份切换发生变化时触发
+   */
+  onMonthChange?: (context: {
+    month: number;
+    date: Date[];
+    partial: DateRangePickerPartial;
+    e?: MouseEvent<HTMLDivElement>;
+    trigger: DatePickerMonthChangeTrigger;
+  }) => void;
+  /**
    * 选中日期时触发，可能是开始日期，也可能是结束日期，第二个参数可以区分是开始日期或是结束日期
    */
   onPick?: (value: DateValue, context: PickContext) => void;
@@ -365,6 +409,16 @@ export interface TdDateRangePickerProps {
    * 点击预设按钮后触发
    */
   onPresetClick?: (context: { preset: PresetDate; e: MouseEvent<HTMLDivElement> }) => void;
+  /**
+   * 年份切换发生变化时触发
+   */
+  onYearChange?: (context: {
+    year: number;
+    date: Date[];
+    partial: DateRangePickerPartial;
+    trigger: DatePickerYearChangeTrigger;
+    e?: MouseEvent<HTMLDivElement>;
+  }) => void;
 }
 
 export interface TdDatePickerPanelProps
@@ -529,9 +583,16 @@ export interface DisableDateObj {
   after?: string;
 }
 
+export interface PanelActiveDate {
+  year?: DateValue;
+  month?: DateValue;
+}
+
 export interface PresetDate {
   [name: string]: DateValue | (() => DateValue);
 }
+
+export type PickerDateRange = DateValue[] | ((date: DateValue) => boolean);
 
 export type DateValue = string | number | Date;
 
@@ -558,6 +619,12 @@ export type DisableRangeDate =
   | ((context: { date: DateRangeValue; partial: DateRangePickerPartial }) => boolean);
 
 export type DateRangePickerPartial = 'start' | 'end';
+
+export interface TimePanelConfig {
+  mode?: TimePanelMode;
+}
+
+export type TimePanelMode = 'parallel' | 'switch';
 
 export interface PresetRange {
   [range: string]: DateRange | (() => DateRange);

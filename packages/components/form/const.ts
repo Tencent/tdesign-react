@@ -35,3 +35,8 @@ export const TD_DEFAULT_VALUE_MAP = (() => {
 
   return map;
 })();
+
+/**
+ * 原生支持 value 属性的组件
+ */
+export const NATIVE_INPUT_COMP = ['input', 'textarea', 'select', 'progress'];

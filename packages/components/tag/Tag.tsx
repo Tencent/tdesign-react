@@ -71,7 +71,7 @@ export const TagFunction: ForwardRefRenderFunction<HTMLDivElement, TagProps> = (
     className,
   );
 
-  const TagCloseIcon = () => {
+  const tagCloseIcon = useMemo(() => {
     const iconNode = tagConfig?.closeIcon ? tagConfig.closeIcon : <CloseIcon />;
     if (React.isValidElement(iconNode)) {
       const element = iconNode as React.ReactElement<any>;
@@ -84,7 +84,8 @@ export const TagFunction: ForwardRefRenderFunction<HTMLDivElement, TagProps> = (
         className: classNames(element.props?.className, `${tagClassPrefix}__icon-close`),
       });
     }
-  };
+    return null;
+  }, [CloseIcon, disabled, tagClassPrefix, tagConfig.closeIcon, onClose]);
 
   const title = useMemo(() => {
     if (Reflect.has(props, 'title')) return titleAttr;
@@ -143,7 +144,7 @@ export const TagFunction: ForwardRefRenderFunction<HTMLDivElement, TagProps> = (
         <span className={maxWidth ? `${tagClassPrefix}--text` : undefined} style={getTextStyle} {...titleAttribute}>
           {children ?? content}
         </span>
-        {closable && !disabled && <TagCloseIcon />}
+        {closable && !disabled && tagCloseIcon}
       </>
     </div>
   );

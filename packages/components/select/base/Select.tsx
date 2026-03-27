@@ -87,7 +87,6 @@ const Select = forwardRefWithStatics(
       panelTopContent,
       selectInputProps,
       tagInputProps,
-      tagProps,
       scroll,
       suffixIcon,
       label,
@@ -102,6 +101,7 @@ const Select = forwardRefWithStatics(
       onPopupVisibleChange,
     } = props;
     const readOnly = props.readOnly || props.readonly;
+    const tagProps = { ...props.tagProps, ...props.tagInputProps?.tagProps };
 
     const [value, onChange] = useControlled(props, 'value', props.onChange);
 

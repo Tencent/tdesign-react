@@ -123,7 +123,7 @@ defaultFilterValue | Object | - | 过滤数据的值。非受控属性。TS 类�
 hideSortTips | Boolean | - | 隐藏排序文本提示，支持全局配置 `GlobalConfigProvider`，默认全局配置值为 `false` | N
 indeterminateSelectedRowKeys | Array | - | 半选状态行。选中行请更为使用 `selectedRowKeys` 控制。TS 类型：`Array<string \| number>` | N
 multipleSort | Boolean | false | 是否支持多列排序 | N
-reserveSelectedRowOnPaginate | Boolean | true | 行选中功能，是否在分页时保留上一页选中结果不清空，本地数据分页场景下，会全选所有页数据。值为 `false` 则表示全部选中操作停留在当前页，不跨分页；本地数据分页场景下，全选仅选中当前页 | N
+reserveSelectedRowOnPaginate | Boolean | true | 行选中功能，是否在分页时保留上一页选中结果不清空。分页场景下，会全选所有页数据，保留跨分页数据。值为 `false` 则表示全部选中操作停留在当前页，不跨分页。 | N
 selectOnRowClick | Boolean | - | 是否在点击整行时选中 | N
 selectedRowKeys | Array | [] | 选中行，控制属性。半选状态行请更为使用 `indeterminateSelectedRowKeys` 控制。TS 类型：`Array<string \| number>` | N
 defaultSelectedRowKeys | Array | [] | 选中行，控制属性。半选状态行请更为使用 `indeterminateSelectedRowKeys` 控制。非受控属性。TS 类型：`Array<string \| number>` | N

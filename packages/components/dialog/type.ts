@@ -6,7 +6,7 @@
 
 import { KeyboardEvent, MouseEvent } from 'react';
 import { ButtonProps } from '../button';
-import { AttachNode, Styles, TNode } from '../common';
+import { AttachNode, ClassName, Styles, TNode } from '../common';
 
 export interface TdDialogProps {
   /**
@@ -56,12 +56,11 @@ export interface TdDialogProps {
    */
   destroyOnClose?: boolean;
   /**
-   * 弹框元素类名，示例：'t-class-dialog-first t-class-dialog-second'
-   * @default ''
+   * 内容部分的类名，支持多种格式：字符串（例如 `'name1 name2 name3'`）、数组（例如 `['name1', 'name2']`）或对象数组（例如 `[{ 'name1': true }]`）
    */
-  dialogClassName?: string;
+  dialogClassName?: ClassName;
   /**
-   * 对话框是否可以拖拽（仅在非模态对话框时有效）
+   * 是否可以拖拽（对全屏对话框无效）
    * @default false
    */
   draggable?: boolean;

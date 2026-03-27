@@ -144,7 +144,14 @@ export default function InitialMessages() {
   return (
     <div>
       {/* 操作按钮 */}
-      <div style={{ marginBottom: '16px', padding: '12px', background: '#f5f5f5', borderRadius: '4px' }}>
+      <div
+        style={{
+          marginBottom: '16px',
+          padding: '12px',
+          background: 'var(--td-bg-color-secondarycontainer)',
+          borderRadius: '4px',
+        }}
+      >
         <div style={{ marginBottom: '8px', fontSize: '14px', fontWeight: 500 }}>快捷指令：</div>
         <Space>
           <Button variant="outline" size="small" onClick={loadHistory} disabled={hasHistory}>

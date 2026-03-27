@@ -146,13 +146,23 @@ export default class Truncate extends React.Component<TruncateProps, TruncateSta
     return this.createMarkup(content) as unknown as string;
   };
 
+  escapeHtml = (html: string) =>
+    html
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+
   // Shim innerText to consistently break lines at <br/> but not at \n
   innerText = (node: HTMLElement) => {
     const div = document.createElement('div');
     const contentKey = 'innerText' in window.HTMLElement.prototype ? 'innerText' : 'textContent';
 
-    const content = node.innerHTML.replace(/\r\n|\r|\n/g, ' ');
-    div.innerHTML = this.extractReplaceLinksKeys(content);
+    const replacedHtml = this.extractReplaceLinksKeys(node.innerHTML);
+    const escapedHtml = this.escapeHtml(replacedHtml);
+    const content = escapedHtml.replace(/\r\n|\r|\n/g, ' ');
+    div.innerHTML = content;
 
     let text = div[contentKey];
 
@@ -228,6 +238,19 @@ export default class Truncate extends React.Component<TruncateProps, TruncateSta
 
   trimRight = (text: string) => text.replace(/\s+$/, '');
 
+  breakAtWordBoundary = (text: string) => {
+    // Try to break at word boundary to avoid splitting words
+    // Find the last word boundary (space or punctuation) to break at
+    const wordBoundaryMatch = text.match(/^(.*[\s\-,;.!?])/);
+    if (wordBoundaryMatch) {
+      const [, boundaryText] = wordBoundaryMatch;
+      if (boundaryText.trim().length > 0) {
+        return boundaryText;
+      }
+    }
+    return text;
+  };
+
   createMarkup = (str: string) => (
     <span className={this.props.lineClassName} dangerouslySetInnerHTML={{ __html: str }} />
   );
@@ -296,6 +319,7 @@ export default class Truncate extends React.Component<TruncateProps, TruncateSta
         }
 
         let lastLineText = textRest.slice(0, lower);
+        lastLineText = this.breakAtWordBoundary(lastLineText);
 
         if (trimWhitespace) {
           lastLineText = trimRight(lastLineText);
@@ -345,9 +369,15 @@ export default class Truncate extends React.Component<TruncateProps, TruncateSta
           continue;
         }
 
-        resultLine = textWords.slice(0, lower).join('');
+        let resultLineText = textWords.slice(0, lower).join('');
 
-        resultLine = restoreReplacedLinks(resultLine);
+        const boundaryText = this.breakAtWordBoundary(resultLineText);
+        if (boundaryText !== resultLineText) {
+          resultLineText = boundaryText;
+          lower = boundaryText.length;
+        }
+
+        resultLine = restoreReplacedLinks(resultLineText);
 
         textLines[0].splice(0, lower);
       }
