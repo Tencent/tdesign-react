@@ -265,7 +265,6 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
 
 ImageModalItem.displayName = 'ImageModalItem';
 
-
 interface ImageModalIconProps {
   name?: string;
   size?: string;
@@ -520,10 +519,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageItemRef = useRef<ImageModalItemRef>(null);
 
-  const { scale, onZoom, onZoomOut, onResetScale, onTouchStart, onTouchMove, onTouchEnd } = useScale(
-    imageScale,
-    visible,
-  );
+  const { scale, onZoom, onZoomOut, onResetScale, onTouchStart, onTouchMove, onTouchEnd } = useScale(imageScale);
 
   // 容器级滚轮缩放处理（原生事件版）
   // ⚠️ 不能用 React 的 onWheel —— React 17+ 将 wheel 注册为 passive: true，

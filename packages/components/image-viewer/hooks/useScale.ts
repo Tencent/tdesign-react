@@ -1,14 +1,14 @@
 import { useCallback, useRef, useState } from 'react';
 import { throttle } from 'lodash-es';
 import { zoomIn, zoomOut, clampScale } from '@tdesign/common-js/image-viewer/transform';
-import type { ZoomOptions, ZoomResult, TranslateOffset } from '@tdesign/common-js/image-viewer/types';
+import type { ZoomOptions, ZoomResult, TranslateOffset } from '@tdesign/common-js/image-viewer/transform';
 import type { ImageScale } from '../type';
 import { DEFAULT_IMAGE_SCALE } from './constants';
 
 // 从 common 包重新导出类型，保持向后兼容
 export type { ZoomOptions, ZoomResult, TranslateOffset };
 
-const useScale = (imageScale: ImageScale, _visible: boolean) => {
+const useScale = (imageScale: ImageScale) => {
   const { max, min, step, defaultScale } = { ...DEFAULT_IMAGE_SCALE, ...imageScale };
 
   const calcDefaultScale = useCallback(() => clampScale(defaultScale, min, max), [defaultScale, max, min]);
@@ -21,13 +21,19 @@ const useScale = (imageScale: ImageScale, _visible: boolean) => {
   // 存储上一次缩放的结果，供节流后同步返回
   const lastZoomResultRef = useRef<ZoomResult>({});
 
+  // 用 ref 追踪最新的 imageScale 参数，供 throttle 闭包读取
+  const paramsRef = useRef({ step, min, max });
+  paramsRef.current = { step, min, max };
+
   // 节流内部实现（50ms 间隔），与 Vue 版本保持一致
+  // 通过闭包直接引用 scaleRef / paramsRef，避免作为参数传入触发 no-param-reassign
   const doZoomRef = useRef(
     throttle(
-      (scaleRefObj: React.MutableRefObject<number>, stepVal: number, minVal: number, maxVal: number) => {
-        const { newScale, zoomResult } = zoomIn(scaleRefObj.current, stepVal, minVal, maxVal);
+      () => {
+        const { step: s, min: mi, max: ma } = paramsRef.current;
+        const { newScale, zoomResult } = zoomIn(scaleRef.current, s, mi, ma);
         lastZoomResultRef.current = zoomResult;
-        scaleRefObj.current = newScale;
+        scaleRef.current = newScale;
         setScale(newScale);
       },
       50,
@@ -35,18 +41,14 @@ const useScale = (imageScale: ImageScale, _visible: boolean) => {
     ),
   );
 
+  const zoomOptionsRef = useRef<ZoomOptions | undefined>();
   const doZoomOutRef = useRef(
     throttle(
-      (
-        scaleRefObj: React.MutableRefObject<number>,
-        stepVal: number,
-        minVal: number,
-        maxVal: number,
-        zoomOptions?: ZoomOptions,
-      ) => {
-        const { newScale, zoomResult } = zoomOut(scaleRefObj.current, stepVal, minVal, maxVal, zoomOptions);
+      () => {
+        const { step: s, min: mi, max: ma } = paramsRef.current;
+        const { newScale, zoomResult } = zoomOut(scaleRef.current, s, mi, ma, zoomOptionsRef.current);
         lastZoomResultRef.current = zoomResult;
-        scaleRefObj.current = newScale;
+        scaleRef.current = newScale;
         setScale(newScale);
       },
       50,
@@ -55,16 +57,14 @@ const useScale = (imageScale: ImageScale, _visible: boolean) => {
   );
 
   const onZoom = useCallback(() => {
-    doZoomRef.current(scaleRef, step, min, max);
-  }, [step, min, max]);
+    doZoomRef.current();
+  }, []);
 
-  const onZoomOut = useCallback(
-    (zoomOptions?: ZoomOptions): ZoomResult => {
-      doZoomOutRef.current(scaleRef, step, min, max, zoomOptions);
-      return lastZoomResultRef.current;
-    },
-    [step, min, max],
-  );
+  const onZoomOut = useCallback((zoomOptions?: ZoomOptions): ZoomResult => {
+    zoomOptionsRef.current = zoomOptions;
+    doZoomOutRef.current();
+    return lastZoomResultRef.current;
+  }, []);
 
   const onResetScale = useCallback(() => {
     const defaultVal = calcDefaultScale();
