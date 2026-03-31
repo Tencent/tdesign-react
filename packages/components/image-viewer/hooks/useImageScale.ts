@@ -1,11 +1,11 @@
 import { ImageScale } from '../type';
+import { DEFAULT_IMAGE_SCALE } from './constants';
 
 const useImageScale = (imageScale?: Partial<ImageScale>) => {
+  // 合并默认值和用户设置
   const result: ImageScale = {
-    max: imageScale?.max ?? 2,
-    min: imageScale?.min ?? 0.5,
-    step: imageScale?.step ?? 0.5,
-    defaultScale: imageScale?.defaultScale,
+    ...DEFAULT_IMAGE_SCALE,
+    ...imageScale,
   };
   // defaultScale 不能超出本身设置的最大和最小值
   if (imageScale?.defaultScale !== undefined) {

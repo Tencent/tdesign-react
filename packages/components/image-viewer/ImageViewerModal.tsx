@@ -9,6 +9,7 @@ import {
 } from 'tdesign-icons-react';
 
 import { downloadImage } from '@tdesign/common-js/image-viewer/utils';
+import { isImageExceedsViewport } from '@tdesign/common-js/image-viewer/transform';
 import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
@@ -22,30 +23,18 @@ import useIndex from './hooks/useIndex';
 import useMirror from './hooks/useMirror';
 import usePosition, { PositionType } from './hooks/usePosition';
 import useRotate from './hooks/useRotate';
-import useScale, { type UseScaleOptions } from './hooks/useScale';
+import useScale from './hooks/useScale';
 
 import type { TNode } from '../common';
 import type { ImageViewerProps } from './ImageViewer';
 import type { ImageInfo, ImageScale, ImageViewerScale, TdImageViewerProps } from './type';
 
-/** 检测图片是否超出视口 */
-const isImageExceedsViewport = (container: HTMLDivElement, modalBox: HTMLDivElement): boolean => {
-  const containerRect = container.getBoundingClientRect();
-  const modalRect = modalBox.getBoundingClientRect();
-  return (
-    modalRect.left < containerRect.left ||
-    modalRect.right > containerRect.right ||
-    modalRect.top < containerRect.top ||
-    modalRect.bottom > containerRect.bottom
-  );
-};
-
 /** ImageModalItem 暴露给父组件的接口 */
 export interface ImageModalItemRef {
   /** modal-box 容器 DOM 引用 */
   modalBoxRef: React.RefObject<HTMLDivElement>;
-  /** 当前位移 */
-  position: PositionType;
+  /** 当前位移（ref，始终最新） */
+  positionRef: React.RefObject<PositionType>;
   /** 设置位移 */
   setPosition: React.Dispatch<React.SetStateAction<PositionType>>;
   /** 重置位移 */
@@ -94,7 +83,11 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
     const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState(false);
 
-    const imgStyle = {
+    // 双层 transform 架构（和旧版 React / Vue 保持一致）：
+    // - modal-image（内层）：rotateZ + scale → CSS 自带 transition: all 自动驱动平滑动画
+    // - modal-box（外层）：translate(拖拽位移) + scale(mirror, 1) → 位移和镜像
+    // 这样旋转/缩放变化由 CSS transition 自动做平滑过渡，无需手动管理动画时序。
+    const imgStyle: React.CSSProperties = {
       transform: `rotateZ(${rotateZ}deg) scale(${scale})`,
       display: !preSrc || loaded ? 'block' : 'none',
     };
@@ -107,7 +100,15 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
       return imgRef;
     }, [isSvg]);
     const { position, setPosition, resetPosition, isDragging } = usePosition(displayRef);
-    const preImgStyle = { transform: `rotateZ(${rotateZ}deg) scale(${scale})`, display: !loaded ? 'block' : 'none' };
+    // 用 ref 同步追踪最新位移，避免 useImperativeHandle 暴露的 position 是过时快照
+    const positionRef = useRef(position);
+    positionRef.current = position;
+
+    const preImgStyle: React.CSSProperties = {
+      transform: `rotateZ(${rotateZ}deg) scale(${scale})`,
+      display: !loaded ? 'block' : 'none',
+    };
+    // modal-box 只管位移 + 镜像（无 CSS transition，拖拽时不需要动画延迟）
     const boxStyle: React.CSSProperties = {
       transform: `translate(${position[0]}px, ${position[1]}px) scale(${mirror}, 1)`,
     };
@@ -152,13 +153,13 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
       ref,
       () => ({
         modalBoxRef,
-        position,
+        positionRef,
         setPosition,
         resetPosition,
         isDragging,
         enableTransition,
       }),
-      [position, setPosition, resetPosition, isDragging, enableTransition],
+      [setPosition, resetPosition, isDragging, enableTransition],
     );
 
     const createSvgShadow = async (url: string) => {
@@ -264,8 +265,6 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
 
 ImageModalItem.displayName = 'ImageModalItem';
 
-// 旋转角度单位
-const ROTATE_COUNT = 90;
 
 interface ImageModalIconProps {
   name?: string;
@@ -306,7 +305,7 @@ interface ImageViewerUtilsProps {
   };
   zIndex: number;
   onMirror: () => void;
-  onRotate: (ROTATE_COUNT: number) => void;
+  onRotate: () => void;
   onZoom: () => void;
   onZoomOut: () => void;
   onReset: () => void;
@@ -351,7 +350,7 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
           showShadow={false}
           zIndex={zIndex}
         >
-          <div className={`${classPrefix}-image-viewer__modal-icon`} onClick={() => onRotate(-ROTATE_COUNT)}>
+          <div className={`${classPrefix}-image-viewer__modal-icon`} onClick={() => onRotate()}>
             <RotationIcon size="medium" />
           </div>
         </TooltipLite>
@@ -521,42 +520,68 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageItemRef = useRef<ImageModalItemRef>(null);
 
-  // 自定义滚轮缩放处理：超出视口时向中心收敛
-  const handleWheelZoom = useCallback<NonNullable<UseScaleOptions['onWheelZoom']>>((e, { onZoomOut }) => {
-    const isZoomingOut = e.deltaY > 0;
-    // 仅处理缩小场景
-    if (!isZoomingOut) return false;
+  const { scale, onZoom, onZoomOut, onResetScale, onTouchStart, onTouchMove, onTouchEnd } = useScale(
+    imageScale,
+    visible,
+  );
 
+  // 容器级滚轮缩放处理（原生事件版）
+  // ⚠️ 不能用 React 的 onWheel —— React 17+ 将 wheel 注册为 passive: true，
+  //    导致 e.preventDefault() 无效，无法阻止页面滚动。
+  //    必须用原生 addEventListener + { passive: false } 绕过。
+  const handleWheel = useCallback(
+    (e: WheelEvent) => {
+      e.preventDefault();
+
+      const isZoomOut = e.deltaY > 0;
+      const container = containerRef.current;
+      const modalBox = imageItemRef.current?.modalBoxRef?.current;
+
+      // 无视口信息时，直接缩放
+      if (!container || !modalBox) {
+        isZoomOut ? onZoomOut() : onZoom();
+        return;
+      }
+
+      // 缩小且图片超出视口：以视口中心为基准，向视口中心收敛
+      if (isZoomOut && isImageExceedsViewport(container, modalBox)) {
+        const currentPosition = imageItemRef.current?.positionRef?.current ?? [0, 0];
+
+        const result = onZoomOut({
+          mouseOffsetX: 0,
+          mouseOffsetY: 0,
+          currentTranslate: {
+            translateX: currentPosition[0],
+            translateY: currentPosition[1],
+          },
+        });
+        if (result?.newTranslate) {
+          imageItemRef.current?.enableTransition?.();
+          imageItemRef.current?.setPosition?.([result.newTranslate.translateX, result.newTranslate.translateY]);
+        }
+      } else {
+        isZoomOut ? onZoomOut() : onZoom();
+      }
+    },
+    [onZoom, onZoomOut],
+  );
+
+  // 容器级 wheel + 触摸缩放事件绑定
+  // wheel 必须用原生绑定 { passive: false } 才能 preventDefault
+  useEffect(() => {
+    if (!visible) return;
     const container = containerRef.current;
-    const modalBox = imageItemRef.current?.modalBoxRef?.current;
-    // 图片未超出视口时，使用默认逻辑
-    if (!container || !modalBox || !isImageExceedsViewport(container, modalBox)) {
-      return false;
-    }
-
-    // 超出视口：以视口中心为基准，向中心收敛
-    const currentPosition = imageItemRef.current?.position ?? [0, 0];
-    const result = onZoomOut({
-      mouseOffsetX: 0,
-      mouseOffsetY: 0,
-      currentTranslate: {
-        translateX: currentPosition[0],
-        translateY: currentPosition[1],
-      },
-    });
-
-    if (result?.newTranslate) {
-      // 启用向中心缩放的 transition 动画（CSS 类名驱动）
-      imageItemRef.current?.enableTransition?.();
-      imageItemRef.current?.setPosition?.([result.newTranslate.translateX, result.newTranslate.translateY]);
-    }
-
-    return true; // 已处理，不执行默认逻辑
-  }, []);
-
-  const { scale, onZoom, onZoomOut, onResetScale } = useScale(imageScale, visible, {
-    onWheelZoom: handleWheelZoom,
-  });
+    container?.addEventListener('wheel', handleWheel, { passive: false });
+    document.addEventListener('touchstart', onTouchStart, { passive: false });
+    document.addEventListener('touchmove', onTouchMove, { passive: false });
+    document.addEventListener('touchend', onTouchEnd);
+    return () => {
+      container?.removeEventListener('wheel', handleWheel);
+      document.removeEventListener('touchstart', onTouchStart);
+      document.removeEventListener('touchmove', onTouchMove);
+      document.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [visible, handleWheel, onTouchStart, onTouchMove, onTouchEnd]);
 
   const onReset = useCallback(() => {
     onResetScale();

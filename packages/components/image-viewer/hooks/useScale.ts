@@ -1,89 +1,69 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
+import { throttle } from 'lodash-es';
+import { zoomIn, zoomOut, clampScale } from '@tdesign/common-js/image-viewer/transform';
+import type { ZoomOptions, ZoomResult, TranslateOffset } from '@tdesign/common-js/image-viewer/types';
 import type { ImageScale } from '../type';
+import { DEFAULT_IMAGE_SCALE } from './constants';
 
-export interface ZoomOptions {
-  /** 缩放中心点 X 坐标（相对于预览图片容器中心的偏移量） */
-  mouseOffsetX?: number;
-  /** 缩放中心点 Y 坐标（相对于预览图片容器中心的偏移量） */
-  mouseOffsetY?: number;
-  /** 当前位移 */
-  currentTranslate?: { translateX: number; translateY: number };
-}
+// 从 common 包重新导出类型，保持向后兼容
+export type { ZoomOptions, ZoomResult, TranslateOffset };
 
-export interface ZoomResult {
-  /** 缩放后的新位移 */
-  newTranslate?: { translateX: number; translateY: number };
-}
+const useScale = (imageScale: ImageScale, _visible: boolean) => {
+  const { max, min, step, defaultScale } = { ...DEFAULT_IMAGE_SCALE, ...imageScale };
 
-export interface UseScaleOptions {
-  /** 自定义滚轮处理函数，返回 true 表示已处理，不执行默认逻辑 */
-  onWheelZoom?: (
-    e: WheelEvent,
-    handlers: { onZoom: () => void; onZoomOut: (options?: ZoomOptions) => ZoomResult },
-  ) => boolean;
-}
-
-/**
- * 计算缩放后的位移补偿
- * 公式：newTranslate = scaleRatio * T + (1 - scaleRatio) * Z
- * 其中 Z 为缩放中心，T 为当前位移，scaleRatio = newScale / oldScale
- */
-const calculateTranslateOffset = (
-  oldScale: number,
-  newScale: number,
-  options: ZoomOptions,
-): { translateX: number; translateY: number } | undefined => {
-  const { mouseOffsetX, mouseOffsetY, currentTranslate } = options;
-  // 缺少缩放中心信息时，不计算位移补偿
-  if (mouseOffsetX == null || mouseOffsetY == null) {
-    return undefined;
-  }
-
-  const scaleRatio = newScale / oldScale;
-  const { translateX = 0, translateY = 0 } = currentTranslate ?? {};
-
-  return {
-    translateX: scaleRatio * translateX + (1 - scaleRatio) * mouseOffsetX,
-    translateY: scaleRatio * translateY + (1 - scaleRatio) * mouseOffsetY,
-  };
-};
-
-const useScale = (imageScale: ImageScale, visible: boolean, options?: UseScaleOptions) => {
-  const { max = Infinity, min = 0, step = 0.1, defaultScale = 1 } = imageScale;
-
-  const calcDefaultScale = useCallback(() => Math.max(Math.min(defaultScale, max), min), [defaultScale, max, min]);
+  const calcDefaultScale = useCallback(() => clampScale(defaultScale, min, max), [defaultScale, max, min]);
 
   const distance = useRef(0);
   const [scale, setScale] = useState(calcDefaultScale());
   // 用 ref 追踪最新的 scale 值，以便同步计算位移补偿
   const scaleRef = useRef(scale);
 
-  // 复用的 clamp 函数
-  const clamp = useCallback((value: number) => Math.max(min, Math.min(max, value)), [max, min]);
+  // 存储上一次缩放的结果，供节流后同步返回
+  const lastZoomResultRef = useRef<ZoomResult>({});
+
+  // 节流内部实现（50ms 间隔），与 Vue 版本保持一致
+  const doZoomRef = useRef(
+    throttle(
+      (scaleRefObj: React.MutableRefObject<number>, stepVal: number, minVal: number, maxVal: number) => {
+        const { newScale, zoomResult } = zoomIn(scaleRefObj.current, stepVal, minVal, maxVal);
+        lastZoomResultRef.current = zoomResult;
+        scaleRefObj.current = newScale;
+        setScale(newScale);
+      },
+      50,
+      { leading: true, trailing: false },
+    ),
+  );
+
+  const doZoomOutRef = useRef(
+    throttle(
+      (
+        scaleRefObj: React.MutableRefObject<number>,
+        stepVal: number,
+        minVal: number,
+        maxVal: number,
+        zoomOptions?: ZoomOptions,
+      ) => {
+        const { newScale, zoomResult } = zoomOut(scaleRefObj.current, stepVal, minVal, maxVal, zoomOptions);
+        lastZoomResultRef.current = zoomResult;
+        scaleRefObj.current = newScale;
+        setScale(newScale);
+      },
+      50,
+      { leading: true, trailing: false },
+    ),
+  );
 
   const onZoom = useCallback(() => {
-    const newScale = clamp(scaleRef.current + step);
-    scaleRef.current = newScale;
-    setScale(newScale);
-  }, [clamp, step]);
+    doZoomRef.current(scaleRef, step, min, max);
+  }, [step, min, max]);
 
   const onZoomOut = useCallback(
     (zoomOptions?: ZoomOptions): ZoomResult => {
-      const currentScale = scaleRef.current;
-      const newScale = clamp(currentScale - step);
-
-      // 先计算位移补偿（使用同步的 scale 值）
-      const result: ZoomResult = zoomOptions
-        ? { newTranslate: calculateTranslateOffset(currentScale, newScale, zoomOptions) }
-        : {};
-
-      // 再更新 scale
-      scaleRef.current = newScale;
-      setScale(newScale);
-
-      return result;
+      doZoomOutRef.current(scaleRef, step, min, max, zoomOptions);
+      return lastZoomResultRef.current;
     },
-    [clamp, step],
+    [step, min, max],
   );
 
   const onResetScale = useCallback(() => {
@@ -91,19 +71,6 @@ const useScale = (imageScale: ImageScale, visible: boolean, options?: UseScaleOp
     scaleRef.current = defaultVal;
     setScale(defaultVal);
   }, [calcDefaultScale]);
-
-  // 鼠标滚轮缩放
-  const onWheel = useCallback(
-    (e: WheelEvent) => {
-      e.preventDefault();
-      // 如果提供了自定义处理函数且返回 true，不执行默认逻辑
-      if (options?.onWheelZoom?.(e, { onZoom, onZoomOut })) {
-        return;
-      }
-      e.deltaY < 0 ? onZoom() : onZoomOut();
-    },
-    [onZoom, onZoomOut, options],
-  );
 
   // 双指缩放
   const onTouchStart = useCallback((e: TouchEvent) => {
@@ -133,25 +100,14 @@ const useScale = (imageScale: ImageScale, visible: boolean, options?: UseScaleOp
     distance.current = 0;
   }, []);
 
-  useEffect(() => {
-    if (!visible) return;
-    document.addEventListener('wheel', onWheel, { passive: false });
-    document.addEventListener('touchstart', onTouchStart, { passive: false });
-    document.addEventListener('touchmove', onTouchMove, { passive: false });
-    document.addEventListener('touchend', onTouchEnd);
-    return () => {
-      document.removeEventListener('wheel', onWheel);
-      document.removeEventListener('touchstart', onTouchStart);
-      document.removeEventListener('touchmove', onTouchMove);
-      document.removeEventListener('touchend', onTouchEnd);
-    };
-  }, [visible, onWheel, onTouchStart, onTouchMove, onTouchEnd]);
-
   return {
     scale,
     onZoom,
     onZoomOut,
     onResetScale,
+    onTouchStart,
+    onTouchMove,
+    onTouchEnd,
   };
 };
 

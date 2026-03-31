@@ -34,7 +34,7 @@ export interface ImageModalMiniProps {
   onZoom: () => void;
   onZoomOut: () => void;
   onReset: () => void;
-  onRotate: (red: number) => void;
+  onRotate: () => void;
   onClose: (context: { trigger: 'close-btn' | 'overlay' | 'esc'; e: MouseEvent<HTMLElement> | KeyboardEvent }) => void;
   innerClassName: TdImageViewerProps['innerClassName'];
 }

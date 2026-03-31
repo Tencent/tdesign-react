@@ -1,14 +1,15 @@
 // 镜像控制
 import { useCallback, useState } from 'react';
+import { toggleMirror, MIRROR_DEFAULT } from '@tdesign/common-js/image-viewer/transform';
 
 const useMirror = () => {
-  const [mirror, setMirror] = useState(1);
+  const [mirror, setMirror] = useState(MIRROR_DEFAULT);
 
   const onMirror = useCallback(() => {
-    setMirror((mirror) => (mirror > 0 ? -1 : 1));
+    setMirror((current) => toggleMirror(current));
   }, []);
 
-  const onResetMirror = useCallback(() => setMirror(1), []);
+  const onResetMirror = useCallback(() => setMirror(MIRROR_DEFAULT), []);
 
   return {
     mirror,
