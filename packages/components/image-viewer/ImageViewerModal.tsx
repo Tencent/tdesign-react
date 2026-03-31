@@ -521,6 +521,16 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
 
   const { scale, onZoom, onZoomOut, onResetScale, onTouchStart, onTouchMove, onTouchEnd } = useScale(imageScale);
 
+  // imageScale 动态变化时重置缩放
+  const isFirstRender = useRef(true);
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    onResetScale();
+  }, [imageScale, onResetScale]);
+
   // 容器级滚轮缩放处理（原生事件版）
   // ⚠️ 不能用 React 的 onWheel —— React 17+ 将 wheel 注册为 passive: true，
   //    导致 e.preventDefault() 无效，无法阻止页面滚动。

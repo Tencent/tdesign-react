@@ -27,11 +27,13 @@ const useScale = (imageScale: ImageScale) => {
 
   // 节流内部实现（50ms 间隔），与 Vue 版本保持一致
   // 通过闭包直接引用 scaleRef / paramsRef，避免作为参数传入触发 no-param-reassign
+  const zoomOptionsRef = useRef<ZoomOptions | undefined>();
+
   const doZoomRef = useRef(
     throttle(
       () => {
         const { step: s, min: mi, max: ma } = paramsRef.current;
-        const { newScale, zoomResult } = zoomIn(scaleRef.current, s, mi, ma);
+        const { newScale, zoomResult } = zoomIn(scaleRef.current, s, mi, ma, zoomOptionsRef.current);
         lastZoomResultRef.current = zoomResult;
         scaleRef.current = newScale;
         setScale(newScale);
@@ -41,12 +43,12 @@ const useScale = (imageScale: ImageScale) => {
     ),
   );
 
-  const zoomOptionsRef = useRef<ZoomOptions | undefined>();
+  const zoomOutOptionsRef = useRef<ZoomOptions | undefined>();
   const doZoomOutRef = useRef(
     throttle(
       () => {
         const { step: s, min: mi, max: ma } = paramsRef.current;
-        const { newScale, zoomResult } = zoomOut(scaleRef.current, s, mi, ma, zoomOptionsRef.current);
+        const { newScale, zoomResult } = zoomOut(scaleRef.current, s, mi, ma, zoomOutOptionsRef.current);
         lastZoomResultRef.current = zoomResult;
         scaleRef.current = newScale;
         setScale(newScale);
@@ -56,12 +58,14 @@ const useScale = (imageScale: ImageScale) => {
     ),
   );
 
-  const onZoom = useCallback(() => {
+  const onZoom = useCallback((zoomOptions?: ZoomOptions): ZoomResult => {
+    zoomOptionsRef.current = zoomOptions;
     doZoomRef.current();
+    return lastZoomResultRef.current;
   }, []);
 
   const onZoomOut = useCallback((zoomOptions?: ZoomOptions): ZoomResult => {
-    zoomOptionsRef.current = zoomOptions;
+    zoomOutOptionsRef.current = zoomOptions;
     doZoomOutRef.current();
     return lastZoomResultRef.current;
   }, []);
