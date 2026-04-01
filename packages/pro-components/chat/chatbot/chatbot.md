@@ -77,7 +77,7 @@ Chatbot 作为高度封装且功能完备的一体化智能对话组件，专为
 
 - **自定义操作栏**：如果组件库内置的 [`ChatActionbar`](/react-chat/components/chat-actionbar) 不能满足需求，可以通过 `slot = ${msg.id}-actionbar` 属性来渲染自定义组件。
 
-- **自定义输入区域**：如果需要自定义ChatSender输入区，可以通过 `slot = sender-${slotName}` 属性，可用插槽slotName详见[ChatSender插槽](/react-chat/components/chat-sender?tab=api#插槽) 
+- **自定义输入区域**：如果需要自定义ChatSender输入区，可以通过 `slot = sender-${slotName}` 属性，可用插槽slotName详见[ChatSender插槽](/react-chat/components/chat-sender?tab=api#插槽)
 
 {{ custom-content }}
 
