@@ -209,7 +209,7 @@ describe('ImageViewerModal', () => {
   test('closeBtn', async () => {
     const BasicImageViewer = () => {
       const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
-      return <ImageViewer trigger={trigger} images={[imgUrl]} closeBtn={() => <span>closeBtn</span>} />;
+      return <ImageViewer trigger={trigger} images={[imgUrl]} closeBtn={<span>closeBtn</span>} />;
     };
     const { getByText } = render(<BasicImageViewer />);
 
