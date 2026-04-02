@@ -76,7 +76,7 @@ export interface TdSliderProps<T = SliderValue> {
    */
   onChange?: (value: T) => void;
   /**
-   * 松开拖动 `mouseup` 或点击滑块条时触发，适合不希望在拖动滑块过程频繁触发回调的场景实用
+   * 松开拖动 `mouseup` 或点击滑块条时触发，适合不希望在拖动滑块过程频繁触发回调的场景中使用
    */
   onChangeEnd?: (value: T) => void;
 }
