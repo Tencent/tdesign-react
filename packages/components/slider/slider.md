@@ -22,4 +22,4 @@ tooltipProps | Object | - | 透传提示组件属性。TS 类型：`TooltipProps
 value | Number / Array | 0 | 滑块值。TS 类型：`SliderValue` `type SliderValue = number \| Array<number>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/slider/type.ts) | N
 defaultValue | Number / Array | 0 | 滑块值。非受控属性。TS 类型：`SliderValue` `type SliderValue = number \| Array<number>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/slider/type.ts) | N
 onChange | Function |  | TS 类型：`(value: SliderValue) => void`<br/>滑块值变化时触发 | N
-onChangeEnd | Function |  | TS 类型：`(value: SliderValue) => void`<br/>松开拖动 `mouseup` 或点击滑块条时触发，适合不希望在拖动滑块过程频繁触发回调的场景实用 | N
+onChangeEnd | Function |  | TS 类型：`(value: SliderValue) => void`<br/>松开拖动 `mouseup` 或点击滑块条时触发，适合不希望在拖动滑块过程频繁触发回调的场景中使用 | N
