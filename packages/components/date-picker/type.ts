@@ -25,6 +25,10 @@ export interface TdDatePickerProps {
    */
   borderless?: boolean;
   /**
+   * 用于自定义日期单元格的内容
+   */
+  cell?: TNode<{ value: DateValue }>;
+  /**
    * 是否显示清除按钮
    * @default false
    */
@@ -217,6 +221,10 @@ export interface TdDateRangePickerProps {
    * @default false
    */
   cancelRangeSelectLimit?: boolean;
+  /**
+   * 用于自定义日期单元格的内容
+   */
+  cell?: TNode<{ value: DateValue }>;
   /**
    * 是否显示清除按钮
    * @default false
