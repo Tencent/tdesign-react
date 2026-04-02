@@ -29,10 +29,6 @@ spline: explain
 - `Select`: 修复 `onScrollToBottom` 在浏览器缩放时无法触发的问题 @RylanBot ([#4181](https://github.com/Tencent/tdesign-react/pull/4181))
 - `TagInput`: 修复 `excessTagsDisplayType="break-line"` 时，`suffix` 没有固定在右侧的问题 @RylanBot ([#4178](https://github.com/Tencent/tdesign-react/pull/4178))
 
-### 🚧 Others
-
-- 移除部分重复的内容 @uyarn ([#4200](https://github.com/Tencent/tdesign-react/pull/4200))
-
 ## 🌈 1.16.7 `2026-03-13`
 
 ### 🚀 Features
