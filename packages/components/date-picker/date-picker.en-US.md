@@ -10,6 +10,7 @@ className | String | - | className of component | N
 style | Object | - | CSS(Cascading Style Sheets)，Typescript: `React.CSSProperties` | N
 allowInput | Boolean | false | \- | N
 borderless | Boolean | false | \- | N
+cell | TElement | - | Typescript: `TNode<{ value: DateValue }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 clearable | Boolean | false | \- | N
 defaultTime | String | '00:00:00' | Time selector default value | N
 disableDate | Object / Array / Function | - | Typescript: `DisableDate` `type DisableDate = Array<DateValue> \| DisableDateObj \| ((date: DateValue) => boolean)` `interface DisableDateObj { from?: string; to?: string; before?: string; after?: string }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/date-picker/type.ts) | N
@@ -59,6 +60,7 @@ style | Object | - | CSS(Cascading Style Sheets)，Typescript: `React.CSSPropert
 allowInput | Boolean | false | \- | N
 borderless | Boolean | false | \- | N
 cancelRangeSelectLimit | Boolean | false | The default date selection interaction is determined based on the order of dates clicked and will be restricted. For example, if a user first clicks on the start date input box and chooses a date, for instance, 2020-05-15, the interaction will automatically shift focus to the end date input box, waiting for the user to select the end time. At this point, the user can only select a date later than 2020-05-15 (previous dates will be grayed out and disabled, restricting the user's selection). When this value is set to `true`, this restriction is lifted | N
+cell | TElement | - | Typescript: `TNode<{ value: DateValue }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 clearable | Boolean | false | \- | N
 defaultTime | Array | ["00:00:00", "23:59:59"] | Time selector default value。Typescript: `string[]` | N
 disableDate | Object / Array / Function | - | Typescript: `DisableRangeDate` `type DisableRangeDate = Array<DateValue> \| DisableDateObj \| ((context: { date: DateRangeValue; partial: DateRangePickerPartial }) => boolean)` `interface DisableDateObj { from?: string; to?: string; before?: string; after?: string }` `type DateRangePickerPartial = 'start' \| 'end'`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/date-picker/type.ts) | N
