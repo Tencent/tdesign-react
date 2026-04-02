@@ -64,7 +64,7 @@
   "devDependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.3",
-    "tdesign-icons-react": "0.6.3",
+    "tdesign-icons-react": "0.6.4",
     "tdesign-react": "workspace:^",
     "tvision-charts-react": "^3.3.12"
   }
