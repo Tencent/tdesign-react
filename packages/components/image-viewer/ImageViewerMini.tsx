@@ -31,7 +31,7 @@ export interface ImageModalMiniProps {
   prev: () => void;
   next: () => void;
   onMirror: () => void;
-  onZoom: () => void;
+  onZoomIn: () => void;
   onZoomOut: () => void;
   onReset: () => void;
   onRotate: () => void;
@@ -70,7 +70,7 @@ export const ImageModalMini: React.FC<ImageModalMiniProps> = (props) => {
     className,
     style,
     onZoomOut,
-    onZoom,
+    onZoomIn,
     onClose,
     onRotate,
     onMirror,
@@ -87,7 +87,7 @@ export const ImageModalMini: React.FC<ImageModalMiniProps> = (props) => {
         tipText={tipText}
         currentImage={currentImage}
         zIndex={props.zIndex + 1}
-        onZoom={onZoom}
+        onZoomIn={onZoomIn}
         onZoomOut={onZoomOut}
         onRotate={onRotate}
         onMirror={onMirror}

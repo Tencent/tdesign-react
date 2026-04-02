@@ -186,7 +186,7 @@ describe('ImageViewerModal', () => {
     expect(getComputedStyle(img).transform).toBe('rotateZ(0deg) scale(1)');
 
     await user.type(document.body, '{ArrowUp}');
-    expect(getComputedStyle(img).transform).toBe('rotateZ(0deg) scale(1.5)');
+    expect(getComputedStyle(img).transform).toBe('rotateZ(0deg) scale(1.2)');
 
     await user.type(document.body, '{ArrowDown}');
     expect(getComputedStyle(img).transform).toBe('rotateZ(0deg) scale(1)');

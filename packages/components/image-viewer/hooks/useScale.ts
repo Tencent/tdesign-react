@@ -1,9 +1,8 @@
 import { useCallback, useRef, useState } from 'react';
 import { throttle } from 'lodash-es';
-import { zoomIn, zoomOut, clampScale } from '@tdesign/common-js/image-viewer/transform';
+import { zoomIn, zoomOut, clampScale, DEFAULT_IMAGE_SCALE } from '@tdesign/common-js/image-viewer/transform';
 import type { ZoomOptions, ZoomResult, TranslateOffset } from '@tdesign/common-js/image-viewer/transform';
 import type { ImageScale } from '../type';
-import { DEFAULT_IMAGE_SCALE } from './constants';
 
 // 从 common 包重新导出类型，保持向后兼容
 export type { ZoomOptions, ZoomResult, TranslateOffset };
@@ -58,7 +57,7 @@ const useScale = (imageScale: ImageScale) => {
     ),
   );
 
-  const onZoom = useCallback((zoomOptions?: ZoomOptions): ZoomResult => {
+  const onZoomIn = useCallback((zoomOptions?: ZoomOptions): ZoomResult => {
     zoomOptionsRef.current = zoomOptions;
     doZoomRef.current();
     return lastZoomResultRef.current;
@@ -91,13 +90,13 @@ const useScale = (imageScale: ImageScale) => {
       const [touch1, touch2] = Array.from(e.touches);
       const currentDistance = Math.hypot(touch2.pageX - touch1.pageX, touch2.pageY - touch1.pageY);
       if (currentDistance > distance.current) {
-        onZoom();
+        onZoomIn();
       } else {
         onZoomOut();
       }
       distance.current = currentDistance;
     },
-    [onZoom, onZoomOut],
+    [onZoomIn, onZoomOut],
   );
 
   const onTouchEnd = useCallback(() => {
@@ -106,7 +105,7 @@ const useScale = (imageScale: ImageScale) => {
 
   return {
     scale,
-    onZoom,
+    onZoomIn,
     onZoomOut,
     onResetScale,
     onTouchStart,

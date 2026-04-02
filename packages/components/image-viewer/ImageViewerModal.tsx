@@ -133,9 +133,8 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
       if (!modalBox) return;
 
       cleanupTransition();
-      // 读取 offsetHeight 强制重绘，确保类名移除后再添加能触发新动画
-      const { offsetHeight } = modalBox;
-      if (offsetHeight < 0) return; // 永不执行，仅消除 unused 警告
+      // 强制浏览器 reflow，确保类名移除生效后再添加能触发新的 transition 动画
+      modalBox.getBoundingClientRect();
       modalBox.classList.add(transitioningClass);
 
       const handleTransitionEnd = (e: TransitionEvent) => {
@@ -305,7 +304,7 @@ interface ImageViewerUtilsProps {
   zIndex: number;
   onMirror: () => void;
   onRotate: () => void;
-  onZoom: () => void;
+  onZoomIn: () => void;
   onZoomOut: () => void;
   onReset: () => void;
   onDownload?: TdImageViewerProps['onDownload'];
@@ -318,7 +317,7 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
   zIndex,
   onMirror,
   onRotate,
-  onZoom,
+  onZoomIn,
   onZoomOut,
   onReset,
   onDownload,
@@ -359,7 +358,7 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
           size="medium"
           label={`${largeNumberToFixed(String(scale * 100))}%`}
         />
-        <ImageModalIcon size="medium" name="zoom-in" onClick={onZoom} />
+        <ImageModalIcon size="medium" name="zoom-in" onClick={onZoomIn} />
         <TooltipLite
           className={`${classPrefix}-image-viewer__utils--tip`}
           content={tipText.originalSize}
@@ -519,7 +518,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageItemRef = useRef<ImageModalItemRef>(null);
 
-  const { scale, onZoom, onZoomOut, onResetScale, onTouchStart, onTouchMove, onTouchEnd } = useScale(imageScale);
+  const { scale, onZoomIn, onZoomOut, onResetScale, onTouchStart, onTouchMove, onTouchEnd } = useScale(imageScale);
 
   // imageScale 动态变化时重置缩放
   const isFirstRender = useRef(true);
@@ -545,7 +544,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
 
       // 无视口信息时，直接缩放
       if (!container || !modalBox) {
-        isZoomOut ? onZoomOut() : onZoom();
+        isZoomOut ? onZoomOut() : onZoomIn();
         return;
       }
 
@@ -566,10 +565,10 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
           imageItemRef.current?.setPosition?.([result.newTranslate.translateX, result.newTranslate.translateY]);
         }
       } else {
-        isZoomOut ? onZoomOut() : onZoom();
+        isZoomOut ? onZoomOut() : onZoomIn();
       }
     },
-    [onZoom, onZoomOut],
+    [onZoomIn, onZoomOut],
   );
 
   // 容器级 wheel + 触摸缩放事件绑定
@@ -604,14 +603,14 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         case 'ArrowLeft':
           return prev();
         case 'ArrowUp':
-          return onZoom();
+          return onZoomIn();
         case 'ArrowDown':
           return onZoomOut();
         case 'Escape':
           return closeOnEscKeydown && onClose?.({ trigger: 'esc', e: event });
       }
     },
-    [next, onClose, prev, onZoom, onZoomOut, closeOnEscKeydown],
+    [next, onClose, prev, onZoomIn, onZoomOut, closeOnEscKeydown],
   );
 
   useEffect(() => {
@@ -659,7 +658,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         next={next}
         onMirror={onMirror}
         onRotate={onRotate}
-        onZoom={onZoom}
+        onZoomIn={onZoomIn}
         onZoomOut={onZoomOut}
         onReset={onReset}
         onClose={onClose}
@@ -731,7 +730,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         tipText={tipText}
         currentImage={currentImage}
         zIndex={zIndex + 1}
-        onZoom={onZoom}
+        onZoomIn={onZoomIn}
         onZoomOut={onZoomOut}
         onDownload={onDownload}
         onRotate={onRotate}
