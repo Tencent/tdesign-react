@@ -112,11 +112,6 @@ const Select = forwardRefWithStatics(
     const { overlayClassName, onScroll, onScrollToBottom, ...restPopupProps } = popupProps || {};
     const [isScrolling, toggleIsScrolling] = useState(false);
 
-    const debounceOnScrollBottom = useMemo(
-      () => (onScrollToBottom ? debounce((e) => onScrollToBottom({ e }), 100) : null),
-      [onScrollToBottom],
-    );
-
     const name = `${classPrefix}-select`; // t-select
     const [inputValue, onInputChange] = useControlled(props, 'inputValue', props.onInputChange);
 
@@ -548,7 +543,8 @@ const Select = forwardRefWithStatics(
       toggleIsScrolling(true);
 
       onScroll?.({ e });
-      if (debounceOnScrollBottom) {
+      if (onScrollToBottom) {
+        const debounceOnScrollBottom = debounce((e) => onScrollToBottom({ e }), 100);
         const { scrollTop, clientHeight, scrollHeight } = e.target as HTMLDivElement;
         if (Math.abs(scrollHeight - clientHeight - scrollTop) <= 1) {
           debounceOnScrollBottom(e);
