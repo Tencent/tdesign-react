@@ -5,6 +5,34 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.16.8 `2026-04-02`
+
+### 🚀 Features
+
+- 新增导出当前版本号，用于具体业务中判断版本号进行下一步逻辑处理 @uyarn ([#4199](https://github.com/Tencent/tdesign-react/pull/4199))
+- `DatePicker`: 
+  - 新增 `range` 和  `panelActiveDate` API，用于支持定义日期选择范围，具体使用请参考示例 @HaixingOoO  ([#4139](https://github.com/Tencent/tdesign-react/pull/4139))
+  - 新增 `cell` API，支持如自定义日期单元格、农历等内容，具体使用请查看示例。 @uyarn ([#4200](https://github.com/Tencent/tdesign-react/pull/4200))
+- `DateRangePicker`: 
+  - 新增 `range` 和  `panelActiveDate` API，用于支持定义日期选择范围，具体使用请参考示例 @HaixingOoO @uyarn ([#4139](https://github.com/Tencent/tdesign-react/pull/4139))
+  - 新增 `cell` API，支持如自定义日期单元格、农历等内容，具体使用请参考示例 @uyarn ([#4200](https://github.com/Tencent/tdesign-react/pull/4200))
+
+### 🐞 Bug Fixes
+
+- `Calendar`: 修复 `className` 没传参时，被转为 `undefined` 字符串的问题 @RylanBot ([#4175](https://github.com/Tencent/tdesign-react/pull/4175))
+- `EnhancedTable`: 修复 `disableDataPage` 不生效的问题 @HaixingOoO ([#4186](https://github.com/Tencent/tdesign-react/pull/4186))
+- `Form`: 修复 `initialData` 覆盖 `setFieldsValue` 设置值的问题 @RylanBot ([#4201](https://github.com/Tencent/tdesign-react/pull/4201))
+- `FormList`: 
+  - 修复 `setFieldsValue` 缺乏拷贝从而污染数据的问题 @RylanBot ([#4174](https://github.com/Tencent/tdesign-react/pull/4174))
+  - 修复 React 17 环境下首次渲染后，异步更新中 `setFieldsValue` 失败的问题 @RylanBot ([#4179](https://github.com/Tencent/tdesign-react/pull/4179))
+- `MessagePlugin`: 修复 `zIndex` 不生效的问题 @TidySongS ([#4077](https://github.com/Tencent/tdesign-react/pull/4077))
+- `Select`: 修复 `onScrollToBottom` 在浏览器缩放时无法触发的问题 @RylanBot ([#4181](https://github.com/Tencent/tdesign-react/pull/4181))
+- `TagInput`: 修复 `excessTagsDisplayType="break-line"` 时，`suffix` 没有固定在右侧的问题 @RylanBot ([#4178](https://github.com/Tencent/tdesign-react/pull/4178))
+
+### 🚧 Others
+
+- 移除部分重复的内容 @uyarn ([#4200](https://github.com/Tencent/tdesign-react/pull/4200))
+
 ## 🌈 1.16.7 `2026-03-13`
 
 ### 🚀 Features
