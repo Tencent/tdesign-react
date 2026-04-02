@@ -31,24 +31,6 @@ export default function DatePickerRangeDemo() {
       />
 
       {/* 2026开始，不限制结束 */}
-      <DatePicker
-        range={['2026-01-01', null]}
-        panelActiveDate={{
-          year: 2005,
-          month: 10,
-        }}
-        placeholder="2026开始，不限制结束"
-      />
-      <DateRangePicker
-        range={['2026-01-01', null]}
-        panelActiveDate={{
-          year: 2005,
-          month: 10,
-        }}
-        placeholder="2026开始，不限制结束"
-      />
-
-      {/* 2026开始，不限制结束 */}
       <DatePicker range={['2026-01-01', null]} placeholder="2026开始，不限制结束" />
       <DateRangePicker range={['2026-01-01', null]} placeholder="2026开始，不限制结束" />
 

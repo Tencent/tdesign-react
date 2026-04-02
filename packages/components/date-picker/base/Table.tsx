@@ -17,7 +17,7 @@ import type { DateMultipleValue, DateRangeValue, DateValue, TdDatePickerProps } 
 dayjs.extend(isoWeek);
 
 export interface DatePickerTableProps
-  extends Pick<TdDatePickerProps, 'mode' | 'firstDayOfWeek' | 'format' | 'multiple'>,
+  extends Pick<TdDatePickerProps, 'mode' | 'firstDayOfWeek' | 'format' | 'multiple' | 'cell'>,
     Pick<SinglePanelProps, 'onCellClick' | 'onCellMouseEnter' | 'onCellMouseLeave'>,
     Pick<PanelContentProps, 'value'> {
   data?: Array<any>;
@@ -27,7 +27,8 @@ export interface DatePickerTableProps
 const DatePickerTable = (props: DatePickerTableProps) => {
   const { classPrefix } = useConfig();
 
-  const { value, format, mode, data, time, onCellClick, onCellMouseEnter, onCellMouseLeave, firstDayOfWeek } = props;
+  const { value, format, mode, data, time, cell, onCellClick, onCellMouseEnter, onCellMouseLeave, firstDayOfWeek } =
+    props;
 
   const [local, t] = useLocaleReceiver('datePicker');
   const weekdays = t(local.weekdays);
@@ -129,7 +130,14 @@ const DatePickerTable = (props: DatePickerTableProps) => {
               })}
             >
               {row.map((col: any, j: number) => (
-                <DatePickerCell {...col} key={j} time={time} onClick={onCellClick} onMouseEnter={onCellMouseEnter} />
+                <DatePickerCell
+                  {...col}
+                  key={j}
+                  time={time}
+                  cell={cell}
+                  onClick={onCellClick}
+                  onMouseEnter={onCellMouseEnter}
+                />
               ))}
             </tr>
           ))}

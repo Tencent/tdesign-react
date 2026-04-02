@@ -71,6 +71,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
     year,
     month,
     range,
+    cell,
     time = [],
     panelPreselection,
     onPresetClick,
@@ -178,6 +179,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
   const panelContentProps = {
     mode,
     format,
+    cell,
     firstDayOfWeek,
     popupVisible,
     enableTimePicker: props.enableTimePicker,
