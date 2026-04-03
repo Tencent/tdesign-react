@@ -5,6 +5,30 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.16.8 `2026-04-02` 
+
+### 🚀 Features
+
+- Added functionality to export the current version number, which can be used in specific applications to determine the version and proceed with further processing. @uyarn ([#4199](https://github.com/Tencent/tdesign-react/pull/4199))
+- `DatePicker`:
+  - New `range` and `panelActiveDate` APIs added to allow specifying a date range. Refer to the example for details. @HaixingOoO ([#4139](https://github.com/Tencent/tdesign-react/pull/4139))
+  - New `cell` API added to enable customization of date display, including lunar calendars. Refer to the example for details. @uyarn ([#4200](https://github.com/Tencent/tdesign-react/pull/4200))
+- `DateRangePicker`:
+  - New `range` and `panelActiveDate` APIs added to allow specifying a date range. Refer to the example for details. @HaixingOoO and @uyarn. [#4139](https://github.com/Tencent/tdesign-react/pull/4139))
+  - New `cell` API added to enable customization of date display, including lunar calendars. Refer to the example for details. @uyarn ([#4200](https://github.com/Tencent/tdesign-react/pull/4200))
+
+### 🐞 Bug Fixes
+
+- `Calendar`: Fixed an issue where `className` became `undefined` when no value was passed. @RylanBot ([#4175](https://github.com/Tencent/tdesign-react/pull/4175))
+- `EnhancedTable`: Fixed an issue where `disableDataPage` didn’t take effect as intended. @HaixingOoO ([#4186](https://github.com/Tencent/tdesign-react/pull/4186))
+- `Form`: Fixed an issue where `initialData` overwrote values set by `setFieldsValue`. @RylanBot ([#4201](https://github.com/Tencent/tdesign-react/pull/4201))
+- `FormList`:
+  - Fixed an issue where `setFieldsValue` failed to update data correctly due to lack of data copying. @RylanBot ([#4174](https://github.com/Tencent/tdesign-react/pull/4174))
+  - Fixed an issue in React 17 environments where `setFieldsValue` failed during asynchronous updates after initial rendering. @RylanBot ([#4179](https://github.com/Tencent/tdesign-react/pull/4179))
+- `MessagePlugin`: Fixed an issue where `zIndex` wasn’t applied as expected. @TidySongS ([#4077](https://github.com/Tencent/tdesign-react/pull/4077))
+- `Select`: Fixed an issue where `onScrollToBottom` didn’t trigger when the browser’s zoom level changed. @RylanBot ([#4181](https://github.com/Tencent/tdesign-react/pull/4181))
+- `TagInput`: Fixed an issue where the `suffix` wasn’t displayed on the right side when `excessTagsDisplayType="break-line"` was set. @RylanBot ([#4178](https://github.com/Tencent/tdesign-react/pull/4178))
+
 ## 🌈 1.16.7 `2026-03-13`
 
 ### 🚀 Features
