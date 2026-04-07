@@ -23,26 +23,27 @@ const DropdownMenu: React.FC<DropdownProps> = (props) => {
   const { classPrefix } = useConfig();
   const dropdownClass = `${classPrefix}-dropdown`;
   const dropdownMenuClass = `${dropdownClass}__menu`;
-  const [panelTopContentHeight, setPanelTopContentHeight] = useState(null);
+  const [panelTopContentHeight, setPanelTopContentHeight] = useState(0);
   const { ChevronRightIcon } = useGlobalIcon({
     ChevronRightIcon: TdIconChevronRight,
   });
 
   const menuRef = useRef<HTMLDivElement>(null);
   const [isOverMaxHeight, setIsOverMaxHeight] = useState(false);
-  const [calcScrollTopMap, setScrollTopMap] = useState({});
+  const [calcScrollTopMap, setScrollTopMap] = useState<Record<number, number>>({});
 
   useEffect(() => {
     const menuElement = menuRef.current;
     if (menuElement) {
-      const menuHeight = menuElement.childNodes?.length * 30;
+      const menuChildren = menuElement.children;
       requestAnimationFrame(() => {
         if (panelTopContent) {
-          const panelTopHeight =
-            parseInt(getComputedStyle(menuElement.childNodes?.[0] as HTMLElement)?.height, 10) || 0;
-          setPanelTopContentHeight(panelTopHeight);
+          const firstEl = menuChildren[0];
+          const panelTopHeight = firstEl ? parseInt(getComputedStyle(firstEl)?.height, 10) : 0;
+          setPanelTopContentHeight(panelTopHeight || 0);
         }
       });
+      const menuHeight = menuChildren?.length * 30;
       if (menuHeight >= maxHeight) setIsOverMaxHeight(true);
     }
   }, [maxHeight, panelTopContent]);
@@ -65,7 +66,7 @@ const DropdownMenu: React.FC<DropdownProps> = (props) => {
 
   // 处理options渲染的场景
   const renderOptions = (data: Array<DropdownOption | React.ReactElement>, deep: number) => {
-    const arr = [];
+    const arr: React.ReactElement[] = [];
     let renderContent: React.ReactElement;
     data.forEach?.((menu, idx) => {
       const optionItem = { ...(menu as DropdownOption) };
@@ -76,7 +77,7 @@ const DropdownMenu: React.FC<DropdownProps> = (props) => {
 
       const itemIdx = isOverflow ? idx - onViewIdx : idx;
       if (optionItem.children) {
-        optionItem.children = renderOptions(optionItem.children, deep + 1);
+        (optionItem.children as unknown as React.ReactElement[]) = renderOptions(optionItem.children, deep + 1);
         renderContent = (
           <div key={idx}>
             <DropdownItem
