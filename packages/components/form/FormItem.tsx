@@ -420,7 +420,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
     const isFormList = formListName && isSameForm;
     const mapRef = isFormList ? formListMapRef : formMapRef;
-    if (!mapRef.current) return;
+    if (!mapRef?.current) return;
 
     // 注册实例
     mapRef.current.set(fullPath, formItemRef);
