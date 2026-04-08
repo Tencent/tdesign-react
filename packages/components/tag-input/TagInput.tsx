@@ -144,9 +144,15 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
   };
 
   const onInputEnter = (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => {
+    // 阻止 Enter 默认行为，避免在 Form 中触发 submit 事件
+    context.e?.preventDefault?.();
     setTInputValue('', { e: context.e, trigger: 'enter' });
     !isCompositionRef.current && onInnerEnter(value, context);
-    scrollToRight();
+    // 使用 setTimeout 确保 DOM 更新后再滚动，与 Vue Next 的 nextTick 对齐
+    setTimeout(() => {
+      scrollToRight();
+      isCompositionRef.current = false;
+    }, 0);
   };
 
   const onInnerClick = (context: { e: MouseEvent<HTMLDivElement> }) => {
