@@ -146,27 +146,56 @@ describe('ImageViewerModal', () => {
     };
     const { getByText } = render(<BasicImageViewer />);
 
-    // 模拟鼠标点击
+    // 打开弹窗
     act(() => {
       fireEvent.click(getByText(triggerText));
     });
 
-    // 模拟键盘事件
-    await user.type(document.body, '{Escape}');
-    expect(onClose).toHaveBeenCalledTimes(1);
-
+    // 键盘切图
     await user.type(document.body, '{ArrowRight}');
     expect(onIndexChange).toHaveBeenCalledTimes(1);
 
     await user.type(document.body, '{ArrowLeft}');
     expect(onIndexChange).toHaveBeenCalledTimes(2);
 
-    // 鼠标点击遮罩
+    // ESC 关闭
+    await user.type(document.body, '{Escape}');
+    expect(onClose).toHaveBeenCalledTimes(1);
+
+    // 重新打开，点遮罩关闭
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
     const mask = await waitFor(() => document.querySelector('.t-image-viewer__modal-mask'));
     act(() => {
       fireEvent.click(mask);
     });
     expect(onClose).toHaveBeenCalledTimes(2);
+  });
+
+  test('keyboard events are disabled after modal closes', async () => {
+    const user = userEvent.setup();
+    const onIndexChange = vi.fn();
+    const BasicImageViewer = () => {
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
+      return <ImageViewer trigger={trigger} images={[imgUrl, imgUrl2]} onIndexChange={onIndexChange} />;
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    // 打开弹窗，按方向键切图
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+    await user.type(document.body, '{ArrowRight}');
+    expect(onIndexChange).toHaveBeenCalledTimes(1);
+
+    // ESC 关闭弹窗
+    await user.type(document.body, '{Escape}');
+
+    // 关闭后键盘操作不应再触发 onIndexChange
+    await user.type(document.body, '{ArrowRight}');
+    await user.type(document.body, '{ArrowLeft}');
+    expect(onIndexChange).toHaveBeenCalledTimes(1);
   });
 
   test('single', async () => {

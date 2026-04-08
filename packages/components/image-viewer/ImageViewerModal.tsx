@@ -595,28 +595,28 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
     imageItemRef.current?.resetPosition?.();
   }, [onResetMirror, onResetScale, onResetRotate]);
 
-  const onKeyDown = useCallback(
-    (event) => {
-      switch (event.key) {
-        case 'ArrowRight':
-          return next();
-        case 'ArrowLeft':
-          return prev();
-        case 'ArrowUp':
-          return onZoomIn();
-        case 'ArrowDown':
-          return onZoomOut();
-        case 'Escape':
-          return closeOnEscKeydown && onClose?.({ trigger: 'esc', e: event });
-      }
-    },
-    [next, onClose, prev, onZoomIn, onZoomOut, closeOnEscKeydown],
-  );
+  // 用 ref 保存最新的 handlers，避免 keydown listener 因闭包 stale 而丢失事件
+  const keyHandlersRef = useRef({ next, prev, onZoomIn, onZoomOut, onClose, closeOnEscKeydown });
+  keyHandlersRef.current = { next, prev, onZoomIn, onZoomOut, onClose, closeOnEscKeydown };
 
+  const onKeyDown = useCallback((event: KeyboardEvent) => {
+    const handlers = keyHandlersRef.current;
+    const keyActionMap: Partial<Record<string, () => void>> = {
+      ArrowRight: () => handlers.next(),
+      ArrowLeft: () => handlers.prev(),
+      ArrowUp: () => handlers.onZoomIn(),
+      ArrowDown: () => handlers.onZoomOut(),
+      Escape: () => handlers.closeOnEscKeydown && handlers.onClose?.({ trigger: 'esc', e: event as any }),
+    };
+    keyActionMap[event.key]?.();
+  }, []);
+
+  // 弹窗可见时绑定键盘事件，关闭后解绑
   useEffect(() => {
+    if (!visible) return;
     document.addEventListener('keydown', onKeyDown);
     return () => document.removeEventListener('keydown', onKeyDown);
-  }, [onKeyDown]);
+  }, [visible, onKeyDown]);
 
   useEffect(() => {
     onReset();
