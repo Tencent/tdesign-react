@@ -18,8 +18,6 @@ export default function useTagScroll(props: TdTagInputProps) {
   // 使用 useRef 避免 useState 闭包陷阱：赋值后立即可用，与 Vue ref() 行为一致
   const scrollElementRef = useRef<HTMLElement>();
   const scrollDistanceRef = useRef(0);
-  // isScrollable 也使用 useRef + 直接 DOM 操作，避免 setState 触发 re-render 打断滚动动画
-  const isScrollableRef = useRef(false);
   const mouseEnterTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const scrollElementClass = `${prefix}-input__prefix`;
@@ -29,11 +27,7 @@ export default function useTagScroll(props: TdTagInputProps) {
     if (!element) return;
     const scrollEl = element.querySelector(`.${scrollElementClass}`);
     if (!scrollEl) return;
-    if (scrollable) {
-      scrollEl.classList.add(`${scrollElementClass}--scrollable`);
-    } else {
-      scrollEl.classList.remove(`${scrollElementClass}--scrollable`);
-    }
+    scrollEl.classList.toggle(`${scrollElementClass}--scrollable`, scrollable);
   };
 
   const updateScrollElement = (element: HTMLElement) => {
@@ -49,13 +43,11 @@ export default function useTagScroll(props: TdTagInputProps) {
     scrollDistanceRef.current = scrollElementRef.current.scrollWidth - scrollElementRef.current.clientWidth;
   };
 
-  const scrollTo = (distance: number) => {
-    if (isFunction(scrollElementRef.current?.scroll)) {
-      scrollElementRef.current.scroll({ left: distance, behavior: 'smooth' });
-    }
-  };
-
-  const scrollToRight = () => {
+  /**
+   * 滚动到最右侧
+   * @param behavior - 'auto' 立即跳转（适用于 layoutEffect 同步时机），'smooth' 平滑动画（适用于用户交互）
+   */
+  const scrollToRight = (behavior: ScrollBehavior = 'auto') => {
     // 重新获取滚动元素，确保元素引用是最新的
     const element = tagInputRef.current?.currentElement as HTMLElement;
     if (element) {
@@ -63,19 +55,11 @@ export default function useTagScroll(props: TdTagInputProps) {
     }
     if (!scrollElementRef.current) return;
 
-    // 使用 setTimeout 确保 DOM 布局完成后再计算滚动距离
-    setTimeout(() => {
-      updateScrollDistance();
-      scrollTo(scrollDistanceRef.current);
-      setTimeout(() => {
-        isScrollableRef.current = true;
-        setScrollableClass(true);
-      }, 200);
-    }, 0);
-  };
-
-  const scrollToLeft = () => {
-    scrollTo(0);
+    updateScrollDistance();
+    if (isFunction(scrollElementRef.current?.scroll)) {
+      scrollElementRef.current.scroll({ left: scrollDistanceRef.current, behavior });
+    }
+    setScrollableClass(true);
   };
 
   // MAC 电脑横向滚动使用 deltaX，Windows 纵向滚动使用 deltaY
@@ -84,64 +68,49 @@ export default function useTagScroll(props: TdTagInputProps) {
     if (!scrollElementRef.current) return;
     // 使用 deltaX 或 deltaY 来判断滚动方向，优先使用绝对值更大的
     const delta = Math.abs(e.deltaX) >= Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-    if (delta > 0) {
-      updateScrollDistance();
-      // 滚轮是高频连续事件，直接设置 scrollLeft 即时响应，不用 smooth 避免动画互相打断导致不跟手
-      scrollElementRef.current.scrollLeft = Math.min(
-        scrollElementRef.current.scrollLeft + 120,
-        scrollDistanceRef.current,
-      );
-    } else if (delta < 0) {
-      scrollElementRef.current.scrollLeft = Math.max(scrollElementRef.current.scrollLeft - 120, 0);
-    }
+    if (delta === 0) return;
+    updateScrollDistance();
+    // 直接使用用户真实的 delta 值，而非固定步长，保证触控板和鼠标滚轮都跟手
+    const newScrollLeft = scrollElementRef.current.scrollLeft + delta;
+    scrollElementRef.current.scrollLeft = Math.max(0, Math.min(newScrollLeft, scrollDistanceRef.current));
   };
 
   // 鼠标 hover，自动滑动到最右侧，以便输入新标签
   const scrollToRightOnEnter = () => {
     if (excessTagsDisplayType !== 'scroll') return;
-    // 一闪而过的 mousenter 不需要执行
+    // 一闪而过的 mouseenter 不需要执行
     mouseEnterTimerRef.current = setTimeout(() => {
-      scrollToRight();
-      if (mouseEnterTimerRef.current) clearTimeout(mouseEnterTimerRef.current);
+      scrollToRight('smooth');
     }, 100);
   };
 
   const scrollToLeftOnLeave = () => {
     if (excessTagsDisplayType !== 'scroll') return;
-    isScrollableRef.current = false; // 离开焦点不可滚动
     setScrollableClass(false);
-    scrollTo(0);
+    if (isFunction(scrollElementRef.current?.scroll)) {
+      scrollElementRef.current.scroll({ left: 0, behavior: 'smooth' });
+    }
     if (mouseEnterTimerRef.current) {
       clearTimeout(mouseEnterTimerRef.current);
     }
-  };
-
-  const clearScroll = () => {
-    if (mouseEnterTimerRef.current) {
-      clearTimeout(mouseEnterTimerRef.current);
-    }
-  };
-
-  const initScroll = (element: HTMLElement) => {
-    if (!element) return;
-    updateScrollElement(element);
   };
 
   useEffect(() => {
-    initScroll(tagInputRef.current?.currentElement as HTMLElement);
-    return clearScroll;
+    const element = tagInputRef.current?.currentElement as HTMLElement;
+    if (element) {
+      updateScrollElement(element);
+    }
+    return () => {
+      if (mouseEnterTimerRef.current) {
+        clearTimeout(mouseEnterTimerRef.current);
+      }
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {
     tagInputRef,
-    scrollElement: scrollElementRef,
-    scrollDistance: scrollDistanceRef,
-    scrollTo,
     scrollToRight,
-    scrollToLeft,
-    updateScrollElement,
-    updateScrollDistance,
     onWheel,
     scrollToRightOnEnter,
     scrollToLeftOnLeave,

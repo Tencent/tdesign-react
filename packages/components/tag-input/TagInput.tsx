@@ -16,6 +16,7 @@ import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useDragSorter from '../hooks/useDragSorter';
 import useGlobalIcon from '../hooks/useGlobalIcon';
+import useUpdateLayoutEffect from '../hooks/useUpdateLayoutEffect';
 import TInput, { type InputRef, type InputValue } from '../input';
 import { tagInputDefaultProps } from './defaultProps';
 import useHover from './useHover';
@@ -86,6 +87,14 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       getDragProps,
     });
 
+  // 标签列表变化后，在浏览器绘制前同步执行滚动，避免滚动位置闪烁
+  useUpdateLayoutEffect(() => {
+    if (excessTagsDisplayType === 'scroll') {
+      scrollToRight();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tagValue]);
+
   const NAME_CLASS = `${prefix}-tag-input`;
   const WITH_SUFFIX_ICON_CLASS = `${prefix}-tag-input__with-suffix-icon`;
   const CLEAR_CLASS = `${prefix}-tag-input__suffix-clear`;
@@ -147,12 +156,10 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
     // 阻止 Enter 默认行为，避免在 Form 中触发 submit 事件
     context.e?.preventDefault?.();
     setTInputValue('', { e: context.e, trigger: 'enter' });
-    !isCompositionRef.current && onInnerEnter(value, context);
-    // 使用 setTimeout 确保 DOM 更新后再滚动，与 Vue Next 的 nextTick 对齐
-    setTimeout(() => {
-      scrollToRight();
-      isCompositionRef.current = false;
-    }, 0);
+    if (!isCompositionRef.current) {
+      onInnerEnter(value, context);
+    }
+    // 滚动由 useUpdateLayoutEffect 监听 tagValue 变化自动触发，无需手动处理
   };
 
   const onInnerClick = (context: { e: MouseEvent<HTMLDivElement> }) => {
