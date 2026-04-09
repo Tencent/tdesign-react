@@ -118,16 +118,18 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
   };
 
   useEffect(() => {
-    if (!isBreakLine || !suffix) return;
+    if (!isBreakLine) return;
 
-    // 避免 suffix 左侧 与 tag 重合
-    updateSuffixWidth(
-      `.${prefix}-input__suffix:not(.${prefix}-input__suffix-icon)`,
-      `--${prefix}-tag-input-suffix-width`,
-      suffixWidthRef,
-    );
+    if (suffix) {
+      // 避免 suffix 左侧 与 tag 重合
+      updateSuffixWidth(
+        `.${prefix}-input__suffix:not(.${prefix}-input__suffix-icon)`,
+        `--${prefix}-tag-input-suffix-width`,
+        suffixWidthRef,
+      );
+    }
 
-    // 确定 suffix 右侧到 input 边框的距离
+    // 确定 suffixIcon 右侧到 input 边框的距离
     updateSuffixWidth(`.${prefix}-input__suffix-icon`, `--${prefix}-tag-input-suffix-icon-width`, suffixIconWidthRef);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
