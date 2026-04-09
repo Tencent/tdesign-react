@@ -87,7 +87,6 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       getDragProps,
     });
 
-  // 标签列表变化后，在浏览器绘制前同步执行滚动，避免滚动位置闪烁
   useUpdateLayoutEffect(() => {
     if (excessTagsDisplayType === 'scroll') {
       scrollToRight();
@@ -153,13 +152,11 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
   };
 
   const onInputEnter = (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => {
-    // 阻止 Enter 默认行为，避免在 Form 中触发 submit 事件
     context.e?.preventDefault?.();
     setTInputValue('', { e: context.e, trigger: 'enter' });
     if (!isCompositionRef.current) {
       onInnerEnter(value, context);
     }
-    // 滚动由 useUpdateLayoutEffect 监听 tagValue 变化自动触发，无需手动处理
   };
 
   const onInnerClick = (context: { e: MouseEvent<HTMLDivElement> }) => {
