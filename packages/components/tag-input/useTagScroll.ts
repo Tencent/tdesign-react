@@ -1,6 +1,5 @@
 /**
- * TagInput scroll 模式下的滚动逻辑 Hook
- * 如果标签过多时的处理方式是标签省略，则不需要此功能
+ * 当标签数量过多时，输入框显示不下，则需要滚动查看，以下为滚动逻辑
  */
 import { useEffect, useRef, WheelEvent } from 'react';
 import {

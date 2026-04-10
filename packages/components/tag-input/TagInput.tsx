@@ -91,7 +91,6 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
     if (excessTagsDisplayType === 'scroll') {
       scrollToRight();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tagValue]);
 
   const NAME_CLASS = `${prefix}-tag-input`;
