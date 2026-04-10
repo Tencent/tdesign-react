@@ -100,7 +100,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
 
   const tagInputPlaceholder = !tagValue?.length ? placeholder : '';
 
-  const showClearIcon = Boolean(!readOnly && !disabled && clearable && isHover && tagValue?.length);
+  const showClearIcon = Boolean(!readOnly && !disabled && clearable && isHover && (tagValue?.length || tInputValue));
 
   useImperativeHandle(ref as InputRef, () => ({ ...(tagInputRef.current || {}) }));
 
@@ -246,7 +246,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       suffix={suffix}
       prefixIcon={prefixIcon}
       suffixIcon={suffixIconNode}
-      showInput={!inputProps?.readOnly || !inputProps?.readonly || !tagValue || !tagValue?.length}
+      showInput={!readOnly || !tagValue || !tagValue?.length}
       keepWrapperWidth={!autoWidth}
       onPaste={onPaste}
       onClick={onInnerClick}
