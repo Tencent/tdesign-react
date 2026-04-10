@@ -3,13 +3,13 @@
  * 如果标签过多时的处理方式是标签省略，则不需要此功能
  */
 import { useEffect, useRef, WheelEvent } from 'react';
-import useConfig from '../hooks/useConfig';
 import {
   getScrollContainer,
   handleWheelScroll,
   scrollToRight as scrollToRightBase,
   scrollToLeft as scrollToLeftBase,
-} from '../../common/js/utils/tagInputScroll';
+} from '@tdesign/common-js/utils/tagInputScroll';
+import useConfig from '../hooks/useConfig';
 import type { InputRef } from '../input';
 import type { TdTagInputProps } from './type';
 
