@@ -14,18 +14,13 @@ const useScale = (imageScale: ImageScale) => {
 
   const distance = useRef(0);
   const [scale, setScale] = useState(calcDefaultScale());
-  // 用 ref 追踪最新的 scale 值，以便同步计算位移补偿
   const scaleRef = useRef(scale);
-
-  // 存储上一次缩放的结果，供节流后同步返回
   const lastZoomResultRef = useRef<ZoomResult>({});
 
-  // 用 ref 追踪最新的 imageScale 参数，供 throttle 闭包读取
   const paramsRef = useRef({ step, min, max });
   paramsRef.current = { step, min, max };
 
-  // 节流内部实现（50ms 间隔），与 Vue 版本保持一致
-  // 通过闭包直接引用 scaleRef / paramsRef，避免作为参数传入触发 no-param-reassign
+  // --- 节流（50ms，leading-only）：防止高频滚轮/触摸过度触发 ---
   const zoomOptionsRef = useRef<ZoomOptions | undefined>();
 
   const doZoomRef = useRef(
@@ -59,13 +54,19 @@ const useScale = (imageScale: ImageScale) => {
 
   const onZoomIn = useCallback((zoomOptions?: ZoomOptions): ZoomResult => {
     zoomOptionsRef.current = zoomOptions;
+    const prevScale = scaleRef.current;
     doZoomRef.current();
+    // 被节流丢弃或已达边界 → 返回空结果，避免调用方使用过期的位移数据
+    if (scaleRef.current === prevScale) return {};
     return lastZoomResultRef.current;
   }, []);
 
   const onZoomOut = useCallback((zoomOptions?: ZoomOptions): ZoomResult => {
     zoomOutOptionsRef.current = zoomOptions;
+    const prevScale = scaleRef.current;
     doZoomOutRef.current();
+    // 被节流丢弃或已达边界 → 返回空结果，避免调用方使用过期的位移数据
+    if (scaleRef.current === prevScale) return {};
     return lastZoomResultRef.current;
   }, []);
 

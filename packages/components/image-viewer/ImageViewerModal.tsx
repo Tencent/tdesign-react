@@ -39,8 +39,8 @@ export interface ImageModalItemRef {
   setPosition: React.Dispatch<React.SetStateAction<PositionType>>;
   /** 重置位移 */
   resetPosition: () => void;
-  /** 是否正在拖拽 */
-  isDragging: boolean;
+  /** 是否正在拖拽（ref，始终最新） */
+  isDraggingRef: React.RefObject<boolean>;
   /** 启用向中心缩放动画（CSS 类名驱动） */
   enableTransition: () => void;
 }
@@ -103,6 +103,9 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
     // 用 ref 同步追踪最新位移，避免 useImperativeHandle 暴露的 position 是过时快照
     const positionRef = useRef(position);
     positionRef.current = position;
+    // 用 ref 追踪最新 isDragging，避免 useImperativeHandle 因 isDragging 变化而频繁重建
+    const isDraggingRef = useRef(isDragging);
+    isDraggingRef.current = isDragging;
 
     const preImgStyle: React.CSSProperties = {
       transform: `rotateZ(${rotateZ}deg) scale(${scale})`,
@@ -116,6 +119,7 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
     // 动画类名，与 CSS 中 &--transitioning { transition: transform } 强关联
     const transitioningClass = `${classPrefix}-image-viewer__modal-box--transitioning`;
     const transitionEndHandlerRef = useRef<((e: TransitionEvent) => void) | null>(null);
+    const fallbackTimerRef = useRef<ReturnType<typeof setTimeout>>();
 
     // 清理监听器和类名
     const cleanupTransition = useCallback(() => {
@@ -124,6 +128,7 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
         modalBox.removeEventListener('transitionend', transitionEndHandlerRef.current);
       }
       transitionEndHandlerRef.current = null;
+      clearTimeout(fallbackTimerRef.current);
       modalBox?.classList.remove(transitioningClass);
     }, [transitioningClass]);
 
@@ -136,6 +141,10 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
       // 强制浏览器 reflow，确保类名移除生效后再添加能触发新的 transition 动画
       modalBox.getBoundingClientRect();
       modalBox.classList.add(transitioningClass);
+
+      // fallback 超时：transitionend 可能因 DOM 移除/动画合并等原因不触发，
+      // 350ms（略大于 CSS transition duration）后自动清理，避免类名残留导致拖拽粘滞
+      fallbackTimerRef.current = setTimeout(cleanupTransition, 350);
 
       const handleTransitionEnd = (e: TransitionEvent) => {
         if (e.propertyName !== 'transform') return;
@@ -155,10 +164,10 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
         positionRef,
         setPosition,
         resetPosition,
-        isDragging,
+        isDraggingRef,
         enableTransition,
       }),
-      [setPosition, resetPosition, isDragging, enableTransition],
+      [setPosition, resetPosition, enableTransition],
     );
 
     const createSvgShadow = async (url: string) => {
