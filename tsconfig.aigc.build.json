@@ -1,20 +1,18 @@
 {
   "extends": "./tsconfig",
-  "include": ["packages/pro-components/chat", "packages/ai-core/packages/chat-engine", "packages/ai-core/packages/shared"],
+  "include": ["packages/pro-components/chat"],
   "exclude": [
     "**/**/__tests__/*",
     "**/**/_example/*",
     "**/**/_example-js/*",
     "**/**/_usage/*",
     "es",
-    "node_modules",
-    "packages/ai-core/packages/chat-engine/adapters/a2ui/**",
-    "packages/ai-core/packages/chat-engine/adapters/json-render/**"
+    "node_modules"
   ],
   "compilerOptions": {
     "jsx": "react-jsx",
     "emitDeclarationOnly": true,
-    "rootDir": ".",
+    "rootDir": "packages/pro-components/chat",
     "skipLibCheck": true
   }
 }
