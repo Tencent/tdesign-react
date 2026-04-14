@@ -33,7 +33,13 @@
       ],
       "@common/*": [
         "packages/common/*"
-      ]
+      ],
+      "@tdesign/ai-chat-engine": [
+        "packages/ai-core/packages/chat-engine/index.ts"
+      ],
+      "@tdesign/ai-chat-engine/*": [
+        "packages/ai-core/packages/chat-engine/*"
+      ],
     },
     "allowJs": true,
     "checkJs": true,
