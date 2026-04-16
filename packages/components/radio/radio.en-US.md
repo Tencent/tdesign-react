@@ -15,7 +15,7 @@ children | TNode | - | Typescript: `string \| TNode`。[see more ts definition](
 disabled | Boolean | undefined | \- | N
 label | TNode | - | Typescript: `string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 name | String | - | \- | N
-readonly | Boolean | undefined | \- | N
+readOnly | Boolean | undefined | \- | N
 value | String / Number / Boolean | undefined | Typescript: `T` | N
 onChange | Function |  | Typescript: `(checked: boolean, context: { e: ChangeEvent }) => void`<br/> | N
 onClick | Function |  | Typescript: `(context: { e: MouseEvent }) => void`<br/>trigger on click | N
