@@ -29,7 +29,7 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
   const { classPrefix } = useConfig();
 
   const props = useDefaultProps<RadioGroupProps>(originalProps, radioGroupDefaultProps);
-  const { disabled, children, onChange, size, variant, options = [], className, style, theme } = props;
+  const { disabled, children, onChange, size, variant, options = [], className, style, theme, direction } = props;
   const readOnly = props.readOnly || props.readonly;
 
   const [internalValue, setInternalValue] = useControlled(props, 'value', onChange);
@@ -169,6 +169,7 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
           [`${classPrefix}-radio-group__outline`]: variant === 'outline',
           [`${classPrefix}-radio-group--filled`]: variant.includes('filled'),
           [`${classPrefix}-radio-group--primary-filled`]: variant === 'primary-filled',
+          [`${classPrefix}-radio-group--vertical`]: direction === 'vertical',
         })}
       >
         {children || renderOptions()}
