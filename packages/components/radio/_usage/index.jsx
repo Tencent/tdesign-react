@@ -18,9 +18,9 @@ export default function Usage() {
   const { changedProps, onConfigChange } = useConfigChange(configList);
 
   const panelList = [
-    { label: 'radio', value: 'radio', config: RadioConfigProps },
+    { label: 'Radio', value: 'radio', config: RadioConfigProps },
     {
-      label: 'radioGroup',
+      label: 'RadioGroup',
       value: 'radioGroup',
       config: RadioGroupConfigProps,
     },
@@ -30,7 +30,7 @@ export default function Usage() {
 
   const panelMap = {
     radio: <Radio {...changedProps}>单选框</Radio>,
-    radioGroup: <Radio.Group options={radioOptions} {...changedProps} />,
+    radioGroup: <Radio.Group options={radioOptions} defaultValue="选项一" {...changedProps} />,
   };
 
   const { panel, onPanelChange } = usePanelChange(panelList);
