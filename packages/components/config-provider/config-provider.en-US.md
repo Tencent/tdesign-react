@@ -1,5 +1,57 @@
 :: BASE_DOC ::
 
+### Global component prefix
+
+TDesign uses `t` as the component prefix. In some business scenarios, it may be necessary to change the component prefix to meet the specific needs of the business.
+You can use the `esm` version (which ensures you can modify less vars), modify `classPrefix` through global configuration, and use less-loader to modify the `@prefix` less vars to ensure the component styles are correct.
+
+```js
+import { ConfigProvider, Button } from 'tdesign-react/esm'
+import 'tdesign-react/esm/style/index.js'
+
+...
+<ConfigProvider globalConfig={{ classPrefix: 'any'}}>
+    <Button>TDesign to any design</Button>
+</ConfigProvider>
+```
+
+```js
+{
+    loaderOptions: {
+        less: {
+            lessOptions: {
+                modifyVars: {
+                    '@prefix': 'any', // Please note that it needs to be consistent with classPrefix.
+                },
+                javascriptEnabled: true,
+            },
+        },
+    }
+}
+```
+
+### Functional calls to plugins
+
+When using functional calls, if you need to override `Plugin`, you need to configure `isContextEffectPlugin` (a global configuration to determine whether it affects the components used by the functional call method).
+
+```js
+const globalConfig: GlobalConfigProvider = {
+  ...enConfig,
+  dialog: {
+    confirm: 'confirm',
+    cancel: 'cancel',
+    confirmBtnTheme: {
+      default: 'primary',
+      info: 'primary',
+      warning: 'warning',
+      danger: 'danger',
+      success: 'success',
+    },
+  },
+  isContextEffectPlugin:true,
+};
+```
+
 ## API
 
 ### ConfigProvider Props
