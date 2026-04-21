@@ -149,13 +149,13 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
     >
       <colgroup>
         <col
-          style="min-width: 80px;"
+          style="width: 80px;"
         />
         <col
-          style="min-width: 80px;"
+          style="width: 80px;"
         />
         <col
-          style="min-width: 80px;"
+          style="width: 80px;"
         />
       </colgroup>
       <thead
