@@ -420,7 +420,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
     const isFormList = formListName && isSameForm;
     const mapRef = isFormList ? formListMapRef : formMapRef;
-    if (!mapRef.current) return;
+    if (!mapRef?.current) return;
 
     // 注册实例
     mapRef.current.set(fullPath, formItemRef);
@@ -488,7 +488,9 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
         <div className={`${classPrefix}-form__controls-content`}>
           {React.Children.map(children, (child, index) => {
             if (!child) return null;
-            if (!React.isValidElement(child)) return child;
+
+            // Fragment can only have `key` and `children` props, skip props injection
+            if (!React.isValidElement(child) || child.type === React.Fragment) return child;
 
             const childType = child.type;
             const isCustomComp = typeof childType === 'object' || typeof childType === 'function';
