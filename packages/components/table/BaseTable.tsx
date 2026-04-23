@@ -1,9 +1,17 @@
-import React, { forwardRef, type RefAttributes, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  type RefAttributes,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import classNames from 'classnames';
 import { pick } from 'lodash-es';
 
 import log from '@tdesign/common-js/log/index';
-import { getIEVersion, isChromium } from '@tdesign/common-js/utils/helper';
+import { getIEVersion, isFirefox, isSafari } from '@tdesign/common-js/utils/helper';
 import Affix, { type AffixRef } from '../affix';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useElementLazyRender from '../hooks/useElementLazyRender';
@@ -52,6 +60,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   } = props;
 
   const borderWidth = props.bordered ? 1 : 0;
+  const notFirefoxOrSafari = !isFirefox() && !isSafari();
 
   const tableRef = useRef<HTMLDivElement>(null);
   const tableElmRef = useRef<HTMLTableElement>(null);
@@ -309,7 +318,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
           width: formatCSSUnit((isFixedHeader || resizable ? thWidthList.current[col.colKey] : undefined) || col.width),
         };
         if (col.minWidth) {
-          if (isChromium()) {
+          if (notFirefoxOrSafari) {
             style.minWidth = formatCSSUnit(col.minWidth);
           } else {
             style.width = formatCSSUnit(col.minWidth);
@@ -317,7 +326,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         }
         // 没有设置任何宽度的场景下，需要保留表格正常显示的最小宽度，否则会出现因宽度过小的抖动问题
         if (!style.width && !col.minWidth && props.tableLayout === 'fixed') {
-          if (isChromium()) {
+          if (notFirefoxOrSafari) {
             style.minWidth = '80px';
           } else {
             // 非 Chromium 内核浏览器中，min-width 兼容性差
@@ -525,10 +534,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         className={classNames(tableElmClasses)}
         style={{
           ...tableElementStyles,
-          width:
-            resizable && isWidthOverflow && tableElmWidth
-              ? `${tableElmWidth}px`
-              : tableElementStyles.width,
+          width: resizable && isWidthOverflow && tableElmWidth ? `${tableElmWidth}px` : tableElementStyles.width,
         }}
       >
         {renderColGroup(false)}
