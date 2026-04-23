@@ -246,7 +246,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       suffix={suffix}
       prefixIcon={prefixIcon}
       suffixIcon={suffixIconNode}
-      showInput={!readOnly || !tagValue || !tagValue?.length}
+      showInput={!inputProps?.readOnly || !inputProps?.readonly || !tagValue || !tagValue?.length}
       keepWrapperWidth={!autoWidth}
       onPaste={onPaste}
       onClick={onInnerClick}
