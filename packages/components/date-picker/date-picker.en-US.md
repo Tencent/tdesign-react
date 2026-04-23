@@ -10,6 +10,7 @@ className | String | - | className of component | N
 style | Object | - | CSS(Cascading Style Sheets)，Typescript: `React.CSSProperties` | N
 allowInput | Boolean | false | \- | N
 borderless | Boolean | false | \- | N
+cell | TElement | - | Typescript: `TNode<{ value: DateValue }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 clearable | Boolean | false | \- | N
 defaultTime | String | '00:00:00' | Time selector default value | N
 disableDate | Object / Array / Function | - | Typescript: `DisableDate` `type DisableDate = Array<DateValue> \| DisableDateObj \| ((date: DateValue) => boolean)` `interface DisableDateObj { from?: string; to?: string; before?: string; after?: string }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/date-picker/type.ts) | N
@@ -23,11 +24,13 @@ label | TNode | - | Typescript: `string \| TNode`。[see more ts definition](htt
 mode | String | date | options: year/quarter/month/week/date | N
 multiple | Boolean | false | support multiple date，but not support being use together with range-picker、enableTimePicker and allowInput。Typescript: `boolean` | N
 needConfirm | Boolean | true | whether a confirmation button needs to be clicked to complete the action in the date-time picker scenario, default is true | N
+panelActiveDate | Object | - | Typescript: `PanelActiveDate` `interface PanelActiveDate {year?: DateValue, month?: DateValue}`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/date-picker/type.ts) | N
 placeholder | String / Array | undefined | Typescript: `string` | N
 popupProps | Object | - | Typescript: `PopupProps`，[Popup API Documents](./popup?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/date-picker/type.ts) | N
 prefixIcon | TElement | - | Typescript: `TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 presets | TNode | - | Typescript: `TNode \| PresetDate` `interface PresetDate { [name: string]: DateValue \| (() => DateValue) }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/date-picker/type.ts) | N
 presetsPlacement | String | bottom | options: left/top/right/bottom | N
+range | Array / Function | - | Typescript: `PickerDateRange` `type PickerDateRange = DateValue[] \| ((date: DateValue) => boolean)`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/date-picker/type.ts) | N
 selectInputProps | Object | - | Typescript: `SelectInputProps`，[SelectInput API Documents](./select-input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/date-picker/type.ts) | N
 size | String | medium | options: small/medium/large。Typescript: `SizeEnum`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 status | String | default | options: default/success/warning/error | N
@@ -57,6 +60,7 @@ style | Object | - | CSS(Cascading Style Sheets)，Typescript: `React.CSSPropert
 allowInput | Boolean | false | \- | N
 borderless | Boolean | false | \- | N
 cancelRangeSelectLimit | Boolean | false | The default date selection interaction is determined based on the order of dates clicked and will be restricted. For example, if a user first clicks on the start date input box and chooses a date, for instance, 2020-05-15, the interaction will automatically shift focus to the end date input box, waiting for the user to select the end time. At this point, the user can only select a date later than 2020-05-15 (previous dates will be grayed out and disabled, restricting the user's selection). When this value is set to `true`, this restriction is lifted | N
+cell | TElement | - | Typescript: `TNode<{ value: DateValue }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 clearable | Boolean | false | \- | N
 defaultTime | Array | ["00:00:00", "23:59:59"] | Time selector default value。Typescript: `string[]` | N
 disableDate | Object / Array / Function | - | Typescript: `DisableRangeDate` `type DisableRangeDate = Array<DateValue> \| DisableDateObj \| ((context: { date: DateRangeValue; partial: DateRangePickerPartial }) => boolean)` `interface DisableDateObj { from?: string; to?: string; before?: string; after?: string }` `type DateRangePickerPartial = 'start' \| 'end'`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/date-picker/type.ts) | N
@@ -68,11 +72,13 @@ format | String | - | \- | N
 label | TNode | - | Typescript: `string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 mode | String | date | options: year/quarter/month/week/date | N
 needConfirm | Boolean | true | whether a confirmation button needs to be clicked to complete the action in the date-time range picker scenario, default is true | N
+panelActiveDate | Object | - | Typescript: `PanelActiveDate \| [PanelActiveDate, PanelActiveDate]` `interface PanelActiveDate {year?: DateValue, month?: DateValue}`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/date-picker/type.ts) | N
 panelPreselection | Boolean | true | \- | N
 placeholder | String / Array | - | Typescript: `string \| Array<string>` | N
 popupProps | Object | - | Typescript: `PopupProps`，[Popup API Documents](./popup?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/date-picker/type.ts) | N
 prefixIcon | TElement | - | Typescript: `TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 presets | TNode | - | Typescript: `TNode \| PresetRange` `interface PresetRange { [range: string]: DateRange \| (() => DateRange)}` `type DateRange = [DateValue, DateValue]`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/date-picker/type.ts) | N
+range | Array / Function | - | Typescript: `PickerDateRange \| PickerDateRange[]` `type PickerDateRange = DateValue[] \| ((date: DateValue) => boolean)`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/date-picker/type.ts) | N
 rangeInputProps | Object | - | Typescript: `RangeInputProps`，[RangeInput API Documents](./range-input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/date-picker/type.ts) | N
 separator | String | - | \- | N
 size | String | medium | options: small/medium/large。Typescript: `SizeEnum`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N

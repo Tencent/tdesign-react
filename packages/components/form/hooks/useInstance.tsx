@@ -170,7 +170,7 @@ export default function useInstance(
       // 当前路径对应的 FormItem 存在，直接设置
       const formItemRef = findFormItem(path, formMapRef);
       if (formItemRef?.current) {
-        formItemRef.current.setValue?.(value);
+        formItemRef.current.setValue?.(cloneDeep(value));
         return;
       }
 

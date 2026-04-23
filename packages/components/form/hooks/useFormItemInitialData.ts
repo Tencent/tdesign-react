@@ -28,7 +28,7 @@ export default function useFormItemInitialData(
 
   const defaultInitialData = getDefaultInitialData(children, initialData);
 
-  // 优先级：floatFormData > FormItem.initialData > FormList.initialData > Form.initialData
+  // 优先级：floatFormData > store > FormItem.initialData > FormList.initialData > Form.initialData
   function getDefaultInitialData(children: FormItemProps['children'], initialData: FormItemProps['initialData']) {
     if (name && floatingFormDataRef?.current && !isEmpty(floatingFormDataRef.current)) {
       const nameList = formListName ? [formListName, name].flat() : name;
@@ -40,11 +40,19 @@ export default function useFormItemInitialData(
       }
     }
 
+    const isFormList = formListName && Array.isArray(fullPath);
+
     if (typeof initialData !== 'undefined') {
+      if (isFormList) {
+        const storeValue = get(form.store, fullPath);
+        if (typeof storeValue !== 'undefined') {
+          return storeValue;
+        }
+      }
       return initialData;
     }
 
-    if (formListName && Array.isArray(fullPath)) {
+    if (isFormList) {
       const pathPrefix = fullPath.slice(0, -1);
       const pathExisted = has(form.store, pathPrefix);
       if (pathExisted) {

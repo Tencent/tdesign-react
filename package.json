@@ -1,6 +1,6 @@
 {
   "name": "tdesign-react-mono",
-  "packageManager": "pnpm@9.15.9",
+  "packageManager": "pnpm@10.33.0",
   "private": true,
   "scripts": {
     "pnpm:devPreinstall": "node script/pnpm-dev-preinstall.js",
@@ -47,7 +47,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx}": [
+    "packages/**/*.{ts,tsx}": [
       "prettier --write",
       "pnpm run lint:fix"
     ]

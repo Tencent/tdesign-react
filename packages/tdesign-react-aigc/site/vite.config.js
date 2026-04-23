@@ -2,6 +2,7 @@ import path from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tdocPlugin from './plugin-tdoc';
+import pkg from '../package.json';
 
 const publicPathMap = {
   preview: '/',
@@ -22,6 +23,9 @@ const disableTreeShakingPlugin = (paths) => ({
 export default ({ mode }) =>
   defineConfig({
     base: publicPathMap[mode],
+    define: {
+      __VERSION__: JSON.stringify(pkg.version),
+    },
     resolve: {
       alias: {
         '@tdesign-react/chat': path.resolve(__dirname, '../../pro-components/chat'),

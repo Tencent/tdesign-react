@@ -14,7 +14,9 @@ export interface PanelContentProps {
   year: SinglePanelProps['year'];
   month: SinglePanelProps['month'];
   mode: SinglePanelProps['mode'];
+  range?: SinglePanelProps['range'];
   format: SinglePanelProps['format'];
+  cell?: SinglePanelProps['cell'];
   enableTimePicker: SinglePanelProps['enableTimePicker'];
   timePickerProps: SinglePanelProps['timePickerProps'];
   firstDayOfWeek: SinglePanelProps['firstDayOfWeek'];
@@ -41,8 +43,10 @@ export default function PanelContent(props: PanelContentProps) {
     value,
     year,
     month,
+    range,
     mode,
     format,
+    cell,
     enableTimePicker,
     timePickerProps,
     firstDayOfWeek,
@@ -95,6 +99,7 @@ export default function PanelContent(props: PanelContentProps) {
           mode={mode}
           year={year}
           month={month}
+          range={range}
           internalYear={internalYear}
           partial={partial}
           onMonthChange={onMonthChangeInner}
@@ -108,6 +113,7 @@ export default function PanelContent(props: PanelContentProps) {
           value={value}
           time={time}
           format={format}
+          cell={cell}
           firstDayOfWeek={firstDayOfWeek}
           multiple={props.multiple}
           onCellClick={(date: Date, { e }) => onCellClick?.(date, { e, partial })}

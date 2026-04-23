@@ -4,7 +4,7 @@ import {
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
-import { get, isEqual, isFunction, isObject, isString, set } from 'lodash-es';
+import { cloneDeep, get, isEqual, isFunction, isObject, isString, set } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -460,7 +460,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     value: formValue,
     initialData,
     isFormList: false,
-    getValue: () => valueRef.current,
+    getValue: () => cloneDeep(valueRef.current),
     setValue: (newVal: any) => updateFormValue(newVal, true, true),
     setField,
     validate,
@@ -488,7 +488,9 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
         <div className={`${classPrefix}-form__controls-content`}>
           {React.Children.map(children, (child, index) => {
             if (!child) return null;
-            if (!React.isValidElement(child)) return child;
+
+            // Fragment can only have `key` and `children` props, skip props injection
+            if (!React.isValidElement(child) || child.type === React.Fragment) return child;
 
             const childType = child.type;
             const isCustomComp = typeof childType === 'object' || typeof childType === 'function';
