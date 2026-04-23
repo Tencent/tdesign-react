@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { TagInput, Space } from 'tdesign-react';
+import { Space, TagInput } from 'tdesign-react';
 import type { TagInputValue } from 'tdesign-react';
 
 export default function TagInputExcessExample() {
-  const [tags, setTags] = useState<TagInputValue>(['Vue', 'React']);
+  const [tags, setTags] = useState<TagInputValue>(['Vue', 'React', 'Angular', 'Miniprogram', 'Uniapp', 'Flutter']);
   return (
     <Space direction="vertical" style={{ width: '80%' }}>
       {/* <!-- 标签数量超出时，滚动显示 --> */}
