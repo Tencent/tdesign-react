@@ -4,8 +4,8 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TNode, SizeEnum } from '../common';
-import { MouseEvent, ChangeEvent } from 'react';
+import type { TNode, SizeEnum } from '../common';
+import type { MouseEvent, ChangeEvent } from 'react';
 
 export interface TdRadioProps<T = RadioValue> {
   /**
@@ -70,7 +70,12 @@ export interface TdRadioGroupProps<T = RadioValue> {
    */
   allowUncheck?: boolean;
   /**
-   * 是否禁用全部子单选框。优先级：Radio.disabled > RadioGroup.disabled
+   * 单选框按钮排列方式
+   * @default horizontal
+   */
+  direction?: 'horizontal' | 'vertical';
+  /**
+   * 是否禁用全部子单选框。优先级：Radio.disabled > RadioGroup.disabled > Form.disabled
    */
   disabled?: boolean;
   /**
@@ -97,7 +102,7 @@ export interface TdRadioGroupProps<T = RadioValue> {
    */
   size?: SizeEnum;
   /**
-   * 组件风格
+   * 用于在使用 options 方式渲染时决定组件的风格
    * @default radio
    */
   theme?: 'radio' | 'button';
