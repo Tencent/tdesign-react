@@ -36,6 +36,14 @@ export const docs = [
         component: () => import('@tdesign/common/docs/web/overview.md'),
         componentEn: () => import('@tdesign/common/docs/web/overview.en-US.md'),
       },
+      {
+        title: 'MCP',
+        titleEn: 'MCP',
+        name: 'mcp',
+        path: '/react/mcp',
+        component: () => import('@tdesign/common/docs/mcp.md'),
+        componentEn: () => import('@tdesign/common/docs/mcp.en-US.md'),
+      },
     ],
   },
   {
@@ -78,7 +86,8 @@ export const docs = [
         title: 'AI Chat 对话',
         titleEn: 'Chat',
         name: 'chat',
-        path: '/react-chat',
+        path: '/chat',
+        redirect: 'https://tdesign.tencent.com/react-chat/overview',
       },
     ],
   },
@@ -699,6 +708,17 @@ export const docs = [
   },
 ];
 
+const TDESIGN_HOST_PATTERN = /^https?:\/\/tdesign\.tencent\.com/;
+
+function getEnRedirect(child) {
+  if (child.redirectEn) return child.redirectEn; // 显式声明优先
+  if (!child.redirect) return;
+  if (TDESIGN_HOST_PATTERN.test(child.redirect)) {
+    return `${child.redirect}-en`; // TDesign 站点自动追加 -en
+  }
+  return child.redirect; // 其它外链保持不变
+}
+
 const enDocs = docs.map((doc) => ({
   ...doc,
   title: doc.titleEn,
@@ -708,6 +728,7 @@ const enDocs = docs.map((doc) => ({
     path: `${child.path}-en`,
     meta: { lang: 'en' },
     component: child.componentEn || child.component,
+    redirect: getEnRedirect(child),
   })),
 }));
 

@@ -108,7 +108,6 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
 
   const { focusTopDialog } = useDialogEsc(visible, wrapRef);
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
-  useDialogEsc(visible, wrapRef);
   useDialogPosition(visible, dialogCardRef);
   const { isInputInteracting } = useDialogDrag({
     dialogCardRef,

@@ -146,13 +146,23 @@ export default class Truncate extends React.Component<TruncateProps, TruncateSta
     return this.createMarkup(content) as unknown as string;
   };
 
+  escapeHtml = (html: string) =>
+    html
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+
   // Shim innerText to consistently break lines at <br/> but not at \n
   innerText = (node: HTMLElement) => {
     const div = document.createElement('div');
     const contentKey = 'innerText' in window.HTMLElement.prototype ? 'innerText' : 'textContent';
 
-    const content = node.innerHTML.replace(/\r\n|\r|\n/g, ' ');
-    div.innerHTML = this.extractReplaceLinksKeys(content);
+    const replacedHtml = this.extractReplaceLinksKeys(node.innerHTML);
+    const escapedHtml = this.escapeHtml(replacedHtml);
+    const content = escapedHtml.replace(/\r\n|\r|\n/g, ' ');
+    div.innerHTML = content;
 
     let text = div[contentKey];
 

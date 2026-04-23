@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { act, fireEvent, mockTimeout, render, waitFor } from '@test/utils';
+import Input from '../../input';
 import Popup from '../Popup';
 
 describe('Popup 组件测试', () => {
@@ -82,33 +83,33 @@ describe('Popup 组件测试', () => {
   });
 
   test('focus 触发测试', async () => {
-    const { getByText, queryByTestId } = render(
-      <Popup trigger="focus" placement="top" content={<div data-testid={popupTestId}>{popupText}</div>}>
-        {triggerElement}
+    const inputPlaceholder = 'focus-trigger-input';
+    const { getByPlaceholderText, queryByTestId } = render(
+      <Popup trigger="focus" content={<div data-testid={popupTestId}>{popupText}</div>}>
+        <Input placeholder={inputPlaceholder} />
       </Popup>,
     );
 
-    // 鼠标进入前，没有元素存在
+    // 聚焦前，没有元素存在
     const popupElement1 = await waitFor(() => queryByTestId(popupTestId));
     expect(popupElement1).toBeNull();
 
-    // 模拟鼠标聚焦
+    const inputEl = getByPlaceholderText(inputPlaceholder);
     act(() => {
-      fireEvent.focus(getByText(triggerElement));
+      fireEvent.focus(inputEl);
     });
 
-    // 鼠标进入后，有元素，而且内容为 popupText
+    // 聚焦后，有元素，而且内容为 popupText
     const popupElement2 = await waitFor(() => queryByTestId(popupTestId));
     expect(popupElement2).not.toBeNull();
     expect(popupElement2).toHaveTextContent(popupText);
     expect(popupElement2.parentNode.parentNode).toHaveClass('t-popup--animation-enter-active');
 
-    // 模拟鼠标失焦
     act(() => {
-      fireEvent.blur(getByText(triggerElement));
+      fireEvent.blur(inputEl);
     });
 
-    // 鼠标离开，style 的 display 应该为 none
+    // 失焦后，浮层进入离开动画
     const popupElement3 = await waitFor(() => queryByTestId(popupTestId));
     expect(popupElement3).not.toBeNull();
     expect(popupElement3.parentNode.parentNode).toHaveClass('t-popup--animation-leave-active');

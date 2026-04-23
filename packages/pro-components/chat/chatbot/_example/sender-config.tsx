@@ -118,7 +118,14 @@ export default function SenderConfig() {
   return (
     <div>
       {/* 快捷指令区域 */}
-      <div style={{ marginBottom: '16px', padding: '12px', background: '#f5f5f5', borderRadius: '4px' }}>
+      <div
+        style={{
+          marginBottom: '16px',
+          padding: '12px',
+          background: 'var(--td-bg-color-secondarycontainer)',
+          borderRadius: '4px',
+        }}
+      >
         <div style={{ marginBottom: '8px', fontSize: '14px', fontWeight: 500 }}>快捷指令：</div>
         <Space size="small" breakLine>
           {quickPrompts.map((prompt, index) => (

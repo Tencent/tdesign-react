@@ -46,7 +46,7 @@ export default function ChatMessageExample() {
       ></ChatMessage>
       <ChatMessage
         avatar="https://tdesign.gtimg.com/site/chat-avatar.png"
-        animation="dot"
+        animation="dots"
         name="TDesignAI"
         {...messages.loading}
       ></ChatMessage>
