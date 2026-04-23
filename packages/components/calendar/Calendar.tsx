@@ -1,19 +1,22 @@
-import React, { useMemo, useState, useCallback, useEffect, forwardRef } from 'react';
+import React, { forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
 import dayjs from 'dayjs';
-import Button from '../button';
-import Select from '../select';
-import Radio from '../radio';
-import CheckTag from '../tag/CheckTag';
+
 import noop from '../_util/noop';
-import usePrefixClass from './hooks/usePrefixClass';
+import Button from '../button';
+
+import useDefaultProps from '../hooks/useDefaultProps';
 import useLayoutEffect from '../hooks/useLayoutEffect';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { TdCalendarProps, ControllerOptions, CalendarCell, CalendarValue, CalendarController } from './type';
-import { StyledProps } from '../common';
-import { blockName, minYear, createDateList, createMonthList } from './_util';
+import Radio from '../radio';
+import Select from '../select';
+import CheckTag from '../tag/CheckTag';
+import { blockName, createDateList, createMonthList, minYear } from './_util';
 import CalendarCellComp from './CalendarCellComp';
 import { calendarDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
+import usePrefixClass from './hooks/usePrefixClass';
+
+import type { StyledProps } from '../common';
+import type { CalendarCell, CalendarController, CalendarValue, ControllerOptions, TdCalendarProps } from './type';
 
 export interface CalendarProps extends TdCalendarProps, StyledProps {}
 
@@ -337,7 +340,7 @@ const Calendar = forwardRef<CalendarMethods, CalendarProps>((props, ref) => {
   const controlSectionSize = theme === 'card' ? 'small' : 'medium';
 
   return (
-    <div className={prefixCls(blockName, [blockName, '', theme]).concat(' ', className)} style={style}>
+    <div className={prefixCls(blockName, [blockName, '', theme, className])} style={style}>
       {/* 操作部分 */}
       {visible && (
         <div className={prefixCls([blockName, 'control'])}>

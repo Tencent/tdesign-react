@@ -87,7 +87,6 @@ const Select = forwardRefWithStatics(
       panelTopContent,
       selectInputProps,
       tagInputProps,
-      tagProps,
       scroll,
       suffixIcon,
       label,
@@ -102,6 +101,7 @@ const Select = forwardRefWithStatics(
       onPopupVisibleChange,
     } = props;
     const readOnly = props.readOnly || props.readonly;
+    const tagProps = { ...props.tagProps, ...props.tagInputProps?.tagProps };
 
     const [value, onChange] = useControlled(props, 'value', props.onChange);
 
@@ -545,9 +545,8 @@ const Select = forwardRefWithStatics(
       onScroll?.({ e });
       if (onScrollToBottom) {
         const debounceOnScrollBottom = debounce((e) => onScrollToBottom({ e }), 100);
-
         const { scrollTop, clientHeight, scrollHeight } = e.target as HTMLDivElement;
-        if (clientHeight + Math.floor(scrollTop) === scrollHeight) {
+        if (Math.abs(scrollHeight - clientHeight - scrollTop) <= 1) {
           debounceOnScrollBottom(e);
         }
       }

@@ -2,6 +2,8 @@ import path from 'path';
 import { defineConfig } from 'vitest/config';
 import { InlineConfig } from 'vitest/node';
 
+import pkg from './packages/tdesign-react/package.json';
+
 // 单元测试相关配置
 const testConfig: InlineConfig = {
   include:
@@ -22,6 +24,9 @@ const testConfig: InlineConfig = {
 };
 
 export default defineConfig({
+  define: {
+    __VERSION__: JSON.stringify(pkg.version),
+  },
   resolve: {
     alias: {
       'tdesign-react/es': path.resolve(__dirname, './packages/components'),

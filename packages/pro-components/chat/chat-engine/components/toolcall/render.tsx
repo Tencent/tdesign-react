@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import type { ToolCall } from 'tdesign-web-components/lib/chat-engine';
+import React, { useState, useEffect, useCallback, useMemo, Component, ErrorInfo } from 'react';
+import { AGUIEventType, ToolCall } from 'tdesign-web-components/lib/chat-engine';
 import { isNonInteractiveConfig, type ToolcallComponentProps } from './types';
 import { agentToolcallRegistry } from './registry';
 import { AgentStateContext, useAgentStateDataByKey } from '../../hooks/useAgentState';
@@ -7,6 +7,39 @@ import { AgentStateContext, useAgentStateDataByKey } from '../../hooks/useAgentS
 interface ToolCallRendererProps {
   toolCall: ToolCall;
   onRespond?: (toolCall: ToolCall, response: any) => void;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+}
+
+/**
+ * ToolCall 错误边界组件
+ * 捕获子组件渲染错误，防止整个对话列表崩溃
+ */
+class ToolCallErrorBoundary extends Component<{ children: React.ReactNode; toolCallName: string }, ErrorBoundaryState> {
+  constructor(props: { children: React.ReactNode; toolCallName: string }) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    console.error(`[ToolCallRenderer] Error in tool "${this.props.toolCallName}":`, error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // 空白兜底，仅在控制台输出错误
+      return null;
+    }
+
+    return this.props.children;
+  }
 }
 
 export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
@@ -105,11 +138,17 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
             error: error as Error,
           });
         }
+      } else if (
+        toolCall.eventType === AGUIEventType.TOOL_CALL_END ||
+        toolCall.eventType === AGUIEventType.TOOL_CALL_RESULT
+      ) {
+        // 工具调用已结束（无 result 的情况，如 show_progress）
+        setActionState({ status: 'complete' });
       } else {
-        // 等待用户交互
+        // 等待用户交互或工具执行中
         setActionState({ status: 'executing' });
       }
-    }, [config, args, toolCall.result]);
+    }, [config, args, toolCall.result, toolCall.eventType]);
 
     // 从配置中获取 subscribeKey 提取函数
     const subscribeKeyExtractor = useMemo(() => config?.subscribeKey, [config]);
@@ -176,13 +215,18 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
       return null;
     }
 
-    return <MemoizedComponent {...componentProps} />;
+    return (
+      <ToolCallErrorBoundary toolCallName={toolCall.toolCallName}>
+        <MemoizedComponent {...componentProps} />
+      </ToolCallErrorBoundary>
+    );
   },
   (prevProps, nextProps) =>
     prevProps.toolCall.toolCallId === nextProps.toolCall.toolCallId &&
     prevProps.toolCall.toolCallName === nextProps.toolCall.toolCallName &&
     prevProps.toolCall.args === nextProps.toolCall.args &&
     prevProps.toolCall.result === nextProps.toolCall.result &&
+    prevProps.toolCall.eventType === nextProps.toolCall.eventType &&
     prevProps.onRespond === nextProps.onRespond,
 );
 // 用于调试，可以在控制台查看每次渲染的参数

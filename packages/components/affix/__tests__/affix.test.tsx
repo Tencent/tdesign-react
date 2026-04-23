@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, describe, vi, mockTimeout } from '@test/utils';
+import { describe, mockTimeout, render, vi } from '@test/utils';
 import Affix from '../index';
 
 describe('Affix 组件测试', () => {
@@ -97,12 +97,18 @@ describe('Affix 组件测试', () => {
     expect(getByText('固钉').parentNode).not.toHaveClass('t-affix');
     expect(getByText('固钉').parentElement?.style.zIndex).toBe('');
 
-    // offsetBottom
-    const isWindow = getByText('固钉').parentElement && window instanceof Window;
-    const { clientHeight } = document.documentElement;
     const { innerHeight } = window;
-    await mockScrollTo((isWindow ? innerHeight : clientHeight) - 40);
-    await mockScrollTo(isWindow ? innerHeight : clientHeight);
+    mockFn.mockImplementation(() => ({
+      top: innerHeight - 10,
+      bottom: innerHeight,
+      left: 0,
+      right: 0,
+      height: 10,
+      width: 0,
+      x: 0,
+      y: 0,
+      toJSON: () => ({}),
+    }));
     await mockTimeout(() => false, 200);
     expect(onFixedChangeMock).toHaveBeenCalledTimes(1);
 

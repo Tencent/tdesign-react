@@ -1,11 +1,12 @@
 import React from 'react';
-import { Form, Radio, Button } from 'tdesign-react';
+import { Button, Form, Radio } from 'tdesign-react';
 
 const { FormItem } = Form;
 
 export default function FormExample() {
   const [form] = Form.useForm();
-  const setMessage = () => {
+
+  const applyColdPreset = () => {
     form.setFieldsValue({
       type: 'cold',
       ice: '1',
@@ -24,7 +25,7 @@ export default function FormExample() {
         {({ getFieldValue }) => {
           if (getFieldValue('type') === 'cold') {
             return (
-              <FormItem label="冰量" key="ice" name="ice">
+              <FormItem label="冰量" name="ice">
                 <Radio.Group>
                   <Radio value="0">正常冰</Radio>
                   <Radio value="1">少冰</Radio>
@@ -38,7 +39,7 @@ export default function FormExample() {
       </FormItem>
 
       <FormItem style={{ marginLeft: 100 }}>
-        <Button onClick={setMessage}>选择冷饮-少冰</Button>
+        <Button onClick={applyColdPreset}>选择冷饮-少冰</Button>
       </FormItem>
     </Form>
   );

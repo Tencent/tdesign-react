@@ -1,4 +1,4 @@
-import React, { forwardRef, isValidElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, isValidElement, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
 import classnames from 'classnames';
@@ -102,13 +102,6 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
       setState((prevState) => ({ ...prevState, ...options }));
     },
   }));
-
-  useEffect(() => {
-    if (visible) {
-      // 聚焦到 Drawer 最外层元素即 containerRef.current，KeyDown 事件才有效。
-      containerRef.current?.focus?.();
-    }
-  }, [visible]);
 
   useDeepEffect(() => {
     // 非插件式调用 更新props
@@ -220,7 +213,10 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
       unmountOnExit={destroyOnClose}
       timeout={{ appear: 10, enter: 10, exit: 300 }}
       onEnter={() => onBeforeOpen?.()}
-      onEntered={() => setAnimationStart(true)}
+      onEntered={() => {
+        setAnimationStart(true);
+        containerRef.current?.focus?.();
+      }}
       onExit={() => onBeforeClose?.()}
       onExited={() => setAnimationStart(false)}
     >

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, vi, mockDelay } from '@test/utils';
+import { fireEvent, mockDelay, render, vi } from '@test/utils';
 import { AngryIcon, SmileIcon } from 'tdesign-icons-react';
 import { Typography } from '..';
 
@@ -17,23 +17,23 @@ describe('Typography 组件测试', () => {
     mockGetCanvasContext.mockReturnValue({
       font: vi.fn(),
       measureText: vi.fn(),
-    });
+    } as unknown as CanvasRenderingContext2D);
     mockGetCanvasToDataURL.mockReturnValue('test');
   });
 
   test('title 测试', async () => {
     const { container } = render(<Title>{shortText}</Title>);
-    expect(container.firstChild.innerHTML).toBe(shortText);
+    expect((container.firstChild as HTMLElement).innerHTML).toBe(shortText);
   });
 
   test('paragraph 测试', async () => {
     const { container } = render(<Paragraph>{shortText}</Paragraph>);
-    expect(container.firstChild.innerHTML).toBe(shortText);
+    expect((container.firstChild as HTMLElement).innerHTML).toBe(shortText);
   });
 
   test('text 测试', async () => {
     const { container } = render(<Text>{shortText}</Text>);
-    expect(container.firstChild.innerHTML).toBe(shortText);
+    expect((container.firstChild as HTMLElement).innerHTML).toBe(shortText);
   });
 
   test('text code 测试', async () => {
@@ -115,5 +115,24 @@ describe('Typography 组件测试', () => {
     expect(container.querySelector('.t-icon-angry')).toBeTruthy();
     fireEvent.click(container.querySelector('.t-button'));
     expect(container.querySelector('.t-icon-smile')).toBeTruthy();
+  });
+
+  test('ellipsis 模式下 HTML 标签不被解析为真实元素', async () => {
+    const htmlStrings = [
+      { text: '<b>bold text</b>', tag: 'b' },
+      { text: '<a href="https://example.com">link</a>', tag: 'a' },
+      { text: '<script>alert("xss")</script>', tag: 'script' },
+    ];
+
+    for (const { text, tag } of htmlStrings) {
+      const { container, unmount } = render(
+        <div style={{ width: 200 }}>
+          <Text ellipsis>{text}</Text>
+        </div>,
+      );
+      expect(container.querySelector(tag)).toBeNull();
+      expect(container.querySelector('.t-typography-ellipsis-symbol-wrapper')).toHaveTextContent('...');
+      unmount();
+    }
   });
 });

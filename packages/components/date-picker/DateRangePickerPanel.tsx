@@ -50,6 +50,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     setIsFirstValueSelected,
     cacheValue,
     setCacheValue,
+    isSwitchTimeMode,
   } = useRangeValue(props);
 
   const { format, timeFormat } = getDefaultFormat({
@@ -112,8 +113,8 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
       }
     }
 
-    // 有时间选择器走 confirm 逻辑
-    if (enableTimePicker) return;
+    // 有时间选择器且非 switch mode，走 confirm 逻辑
+    if (enableTimePicker && !isSwitchTimeMode) return;
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
     if (nextValue.length === 2 && isFirstValueSelected) {
@@ -179,13 +180,14 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
   }
 
   // time-picker 点击
-  function onTimePickerChange(val: string) {
+  function onTimePickerChange(val: string, context?: { activeIndex: 0 | 1 }) {
     const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(val);
+    const currentIndex = context.activeIndex ?? activeIndex;
 
     const nextInputValue = [...cacheValue];
-    const changedInputValue = cacheValue[activeIndex];
+    const changedInputValue = cacheValue[currentIndex];
     const currentDate = !dayjs(changedInputValue, format).isValid()
-      ? dayjs().year(year[activeIndex]).month(month[activeIndex])
+      ? dayjs().year(year[currentIndex]).month(month[currentIndex])
       : dayjs(changedInputValue, format);
     // am pm 12小时制转化 24小时制
     let nextHours = hours;
@@ -193,10 +195,10 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
 
     const nextDate = currentDate.hour(nextHours).minute(minutes).second(seconds).millisecond(milliseconds).toDate();
-    nextInputValue[activeIndex] = nextDate;
+    nextInputValue[currentIndex] = nextDate;
 
     const nextTime = [...time];
-    nextTime[activeIndex] = val;
+    nextTime[currentIndex] = val;
     setTime(nextTime);
 
     setIsSelected(true);
@@ -204,7 +206,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
 
     props.onTimeChange?.({
       time: val,
-      partial: activeIndex ? 'end' : 'start',
+      partial: currentIndex ? 'end' : 'start',
       date: value.map((v) => dayjs(v).toDate()),
       trigger: 'time-hour' as DatePickerTimeChangeTrigger,
     });
@@ -346,8 +348,8 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     onMonthChange,
     onTimePickerChange,
     onPanelClick,
+    isSwitchTimeMode,
   };
-
   return <RangePanel ref={ref} className={className} style={style} {...panelProps} />;
 });
 

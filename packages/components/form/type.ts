@@ -138,7 +138,7 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
   /**
    * 获取单个字段值
    */
-  getFieldValue: (field: NamePath) => unknown;
+  getFieldValue: (field: NamePath) => any;
   /**
    * 获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据
    */
