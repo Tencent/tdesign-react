@@ -49,7 +49,16 @@ export function expendClickEffect(
   }
 
   if (!multiple && (node.isLeaf() || checkStrictly) && trigger === 'click') {
-    if (node.checked) return;
+    // 当 trigger 为 hover 时，点击节点一定是关闭 panel 的操作
+    const shouldClosePanel = !checkStrictly || propsTrigger === 'hover';
+
+    // 再次点击已选中节点，无需重复更新值，但仍需关闭弹窗
+    if (node.checked) {
+      if (shouldClosePanel) {
+        setVisible(false, {});
+      }
+      return;
+    }
 
     treeStore.resetChecked();
     const checked = node.setChecked(true);
@@ -58,8 +67,7 @@ export function expendClickEffect(
     // 非受控状态下更新状态
     setValue(valueType === 'single' ? value : node.getPath().map((item) => item.value), 'check', node.getModel());
 
-    // 当 trigger 为 hover 时 ，点击节点一定是关闭 panel 的操作
-    if (!checkStrictly || propsTrigger === 'hover') {
+    if (shouldClosePanel) {
       setVisible(false, {});
     }
   }
