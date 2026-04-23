@@ -93,7 +93,7 @@ spline: explain
 
 ### 🐞 Bug Fixes
 
-- `RadioGroup`: 修复 NextJS 中，`variant="default-filled` 时，子组件含动态内容时导致无限循环的问题 @tingtingcheng6 ([#4010](https://github.com/Tencent/tdesign-react/pull/4010))
+- `RadioGroup`: 修复 NextJS 中，`variant="default-filled` 时，子组件含动态内容时导致无限循环的问题 @Ylushen ([#4010](https://github.com/Tencent/tdesign-react/pull/4010))
 
 ## 🌈 1.15.10 `2025-12-12`
 
