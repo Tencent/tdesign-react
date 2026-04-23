@@ -1,6 +1,7 @@
-import React, { forwardRef, RefAttributes, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, type RefAttributes, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { pick } from 'lodash-es';
+
 import log from '@tdesign/common-js/log/index';
 import { getIEVersion, isChromium } from '@tdesign/common-js/utils/helper';
 import Affix, { type AffixRef } from '../affix';
@@ -374,14 +375,14 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     const barWidth = isWidthOverflow ? scrollbarWidth : 0;
     const affixHeaderWrapHeight = affixHeaderHeight - barWidth;
     const affixHeaderWrapHeightStyle = {
-      width: `${tableWidth.current}px`,
+      width: `${tableWidth}px`,
       height: `${affixHeaderWrapHeight}px`,
       opacity: headerOpacity,
     };
-    const affixedHeader = Boolean((headerAffixedTop || virtualConfig.isVirtualScroll) && tableWidth.current) && (
+    const affixedHeader = Boolean((headerAffixedTop || virtualConfig.isVirtualScroll) && tableWidth) && (
       <div
         ref={affixHeaderRef}
-        style={{ width: `${tableWidth.current - borderWidth}px`, opacity: headerOpacity }}
+        style={{ width: `${tableWidth}px`, opacity: headerOpacity }}
         className={classNames([
           'scrollbar',
           {
@@ -391,7 +392,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       >
         <table
           className={classNames(tableElmClasses)}
-          style={{ ...tableElementStyles, width: tableElmWidth.current ? `${tableElmWidth.current}px` : undefined }}
+          style={{ ...tableElementStyles, width: tableElmWidth ? `${tableElmWidth}px` : undefined }}
         >
           {renderColGroup(true)}
           {showHeader && <THead {...headProps} />}
@@ -440,7 +441,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     const totalMarginTop = tableFootHeight + marginScrollbarWidth;
     const hasFooter = props.footData?.length || props.footerSummary;
     const affixedFooter = Boolean(
-      (virtualConfig.isVirtualScroll || props.footerAffixedBottom) && hasFooter && tableWidth.current,
+      (virtualConfig.isVirtualScroll || props.footerAffixedBottom) && hasFooter && tableWidth,
     ) && (
       <Affix
         className={tableBaseClass.affixedFooterWrap}
@@ -452,7 +453,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       >
         <div
           ref={affixFooterRef}
-          style={{ width: `${tableWidth.current - borderWidth}px`, opacity: Number(showAffixFooter) }}
+          style={{ width: `${tableWidth}px`, opacity: Number(showAffixFooter) }}
           className={classNames([
             'scrollbar',
             { [tableBaseClass.affixedFooterElm]: props.footerAffixedBottom || virtualConfig.isVirtualScroll },
@@ -460,7 +461,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         >
           <table
             className={tableElmClasses}
-            style={{ ...tableElementStyles, width: tableElmWidth.current ? `${tableElmWidth.current}px` : undefined }}
+            style={{ ...tableElementStyles, width: tableElmWidth ? `${tableElmWidth}px` : undefined }}
           >
             {renderColGroup(true)}
             <TFoot
@@ -525,8 +526,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         style={{
           ...tableElementStyles,
           width:
-            resizable && isWidthOverflow && tableElmWidth.current
-              ? `${tableElmWidth.current}px`
+            resizable && isWidthOverflow && tableElmWidth
+              ? `${tableElmWidth}px`
               : tableElementStyles.width,
         }}
       >
@@ -642,7 +643,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       tableElmClasses,
       tableElementStyles,
       columns,
-      spansAndLeafNodes,
       showHeader,
       props.headerAffixedTop,
     ],
@@ -664,7 +664,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       tableElmWidth,
       affixFooterRef,
       borderWidth,
-      bordered,
       isWidthOverflow,
       scrollbarWidth,
       tableElmClasses,
@@ -678,7 +677,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       props.footerSummary,
       props.footerAffixedBottom,
       props.rowspanAndColspanInFooter,
-      tableWidth.current,
     ],
   );
 
@@ -707,12 +705,12 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         ref={horizontalScrollbarRef}
         className={classNames(['scrollbar', tableBaseClass.obviousScrollbar])}
         style={{
-          width: `${tableWidth.current}px`,
+          width: `${tableWidth}px`,
           overflow: 'auto',
           opacity: Number(showAffixFooter),
         }}
       >
-        <div style={{ width: `${tableElmWidth.current}px`, height: '5px' }}></div>
+        <div style={{ width: `${tableElmWidth}px`, height: '5px' }}></div>
       </div>
     </Affix>
   );
