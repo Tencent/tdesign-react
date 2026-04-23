@@ -1,9 +1,17 @@
-import React, { forwardRef, type RefAttributes, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { pick } from 'lodash-es';
+import React, {
+  forwardRef,
+  type RefAttributes,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import log from '@tdesign/common-js/log/index';
-import { getIEVersion } from '@tdesign/common-js/utils/helper';
+import { getIEVersion, isFirefox, isSafari } from '@tdesign/common-js/utils/helper';
 import Affix, { type AffixRef } from '../affix';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useElementLazyRender from '../hooks/useElementLazyRender';
@@ -74,6 +82,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const horizontalScrollAffixRef = useRef<AffixRef>(null);
   const headerTopAffixRef = useRef<AffixRef>(null);
   const footerBottomAffixRef = useRef<AffixRef>(null);
+
+  const [supportMinWidth, setSupportMinWidth] = useState(() => !isFirefox() && !isSafari());
 
   // 1. 表头吸顶；2. 表尾吸底；3. 底部滚动条吸底；4. 分页器吸底
   const {
@@ -153,6 +163,11 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     () => props.bordered && isFixedHeader && ((isMultipleHeader && isWidthOverflow) || !isMultipleHeader),
     [isFixedHeader, isMultipleHeader, isWidthOverflow, props.bordered],
   );
+
+  useEffect(() => {
+    // 通过 rerender，避免 SSR 环境下的水合不匹配的问题
+    setSupportMinWidth(!isFirefox() && !isSafari());
+  }, []);
 
   const [dividerBottom, setDividerBottom] = useState(0);
   useEffect(() => {
@@ -309,11 +324,20 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
           width: formatCSSUnit((isFixedHeader || resizable ? thWidthList.current[col.colKey] : undefined) || col.width),
         };
         if (col.minWidth) {
-          style.minWidth = formatCSSUnit(col.minWidth);
+          if (supportMinWidth) {
+            style.minWidth = formatCSSUnit(col.minWidth);
+          } else {
+            style.width = formatCSSUnit(col.minWidth);
+          }
         }
         // 没有设置任何宽度的场景下，需要保留表格正常显示的最小宽度，否则会出现因宽度过小的抖动问题
         if (!style.width && !col.minWidth && props.tableLayout === 'fixed') {
-          style.minWidth = '80px';
+          if (supportMinWidth) {
+            style.minWidth = '80px';
+          } else {
+            // 非 Chromium 内核浏览器中，min-width 兼容性差
+            style.width = '80px';
+          }
         }
         return <col key={col.colKey || index} style={style} />;
       })}
@@ -516,10 +540,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         className={classNames(tableElmClasses)}
         style={{
           ...tableElementStyles,
-          width:
-            resizable && isWidthOverflow && tableElmWidth
-              ? `${tableElmWidth}px`
-              : tableElementStyles.width,
+          width: resizable && isWidthOverflow && tableElmWidth ? `${tableElmWidth}px` : tableElementStyles.width,
         }}
       >
         {renderColGroup(false)}
