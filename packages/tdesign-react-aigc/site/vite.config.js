@@ -23,6 +23,9 @@ const disableTreeShakingPlugin = (paths) => ({
 export default ({ mode }) =>
   defineConfig({
     base: publicPathMap[mode],
+    define: {
+      __VERSION__: JSON.stringify(pkg.version),
+    },
     resolve: {
       alias: {
         '@tdesign-react/chat': path.resolve(__dirname, '../../pro-components/chat'),
