@@ -1,7 +1,7 @@
-import 'tdesign-web-components/lib/chatbot';
-import 'tdesign-web-components/lib/chat-message/content/reasoning-content';
-import 'tdesign-web-components/lib/chat-message/content/search-content';
-import 'tdesign-web-components/lib/chat-message/content/suggestion-content';
+import '@tdesign/web-components-chat/lib/chatbot';
+import '@tdesign/web-components-chat/lib/chat-message/content/reasoning-content';
+import '@tdesign/web-components-chat/lib/chat-message/content/search-content';
+import '@tdesign/web-components-chat/lib/chat-message/content/suggestion-content';
 import type {
   TdChatbotApi,
   TdChatListApi,
@@ -9,7 +9,7 @@ import type {
   TdChatProps,
   TdChatSearchContentProps,
   TdChatSuggestionContentProps,
-} from 'tdesign-web-components';
+} from '@tdesign/web-components-chat';
 import reactify from '../_util/reactify';
 
 const ChatBot: React.ForwardRefExoticComponent<
@@ -32,4 +32,4 @@ const ChatList: React.ForwardRefExoticComponent<
 export { ChatBot, ChatSearchContent, ChatSuggestionContent, ChatList };
 
 // 导出类型和工具
-export type * from 'tdesign-web-components/lib/chatbot/type';
+export type * from '@tdesign/web-components-chat/lib/chatbot/type';

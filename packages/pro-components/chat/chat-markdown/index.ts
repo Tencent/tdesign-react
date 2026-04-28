@@ -1,4 +1,4 @@
-import { TdChatMarkdownContentProps, TdMarkdownEngine } from 'tdesign-web-components';
+import { TdChatMarkdownContentProps, TdMarkdownEngine } from '@tdesign/web-components-chat';
 import reactify from '../_util/reactify';
 
 export const MarkdownEngine: typeof TdMarkdownEngine = TdMarkdownEngine;
@@ -7,7 +7,7 @@ export const ChatMarkdown: React.ForwardRefExoticComponent<
 > = reactify<TdChatMarkdownContentProps>('t-chat-md-content');
 
 // eslint-disable-next-line import/first
-import 'tdesign-web-components/lib/chat-message/content/markdown-content';
+import '@tdesign/web-components-chat/lib/chat-message/content/markdown-content';
 
 export default ChatMarkdown;
-export type { TdChatMarkdownContentProps } from 'tdesign-web-components';
+export type { TdChatMarkdownContentProps } from '@tdesign/web-components-chat';

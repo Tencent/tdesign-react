@@ -32,6 +32,8 @@ export default ({ mode }) =>
         '@tdesign/react-aigc-site': path.resolve(__dirname, './'),
         'tdesign-react/es': path.resolve(__dirname, '../../components'),
         'tdesign-react': path.resolve(__dirname, '../../components'),
+        // Dev: resolve to locally built web components (via dev:link script)
+        '@tdesign/web-components-chat': path.resolve(__dirname, '../../node_modules/@tdesign/web-components-chat'),
       },
     },
     build: {

@@ -4,7 +4,7 @@ import ChatEngine, {
   ChatEngineEventType,
   type SSEChunkData,
   type AIMessageContent,
-} from 'tdesign-web-components/lib/chat-engine';
+} from '@tdesign/web-components-chat/lib/chat-engine';
 
 /**
  * 纯 Headless 示例 - 无 UI 依赖的 ChatEngine 使用方式

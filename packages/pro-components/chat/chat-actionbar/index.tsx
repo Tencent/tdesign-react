@@ -1,5 +1,5 @@
-import { TdChatActionProps } from 'tdesign-web-components';
-import 'tdesign-web-components/lib/chat-action';
+import { TdChatActionProps } from '@tdesign/web-components-chat';
+import '@tdesign/web-components-chat/lib/chat-action';
 import reactify from '../_util/reactify';
 
 export const ChatActionBar: React.ForwardRefExoticComponent<
@@ -10,7 +10,7 @@ export const ChatActionBar: React.ForwardRefExoticComponent<
 > = reactify<TdChatActionProps>('t-chat-action');
 
 export default ChatActionBar;
-export type { TdChatActionProps, TdChatActionsName } from 'tdesign-web-components';
+export type { TdChatActionProps, TdChatActionsName } from '@tdesign/web-components-chat';
 
 // 方案1
 // import { reactifyLazy } from './_util/reactifyLazy';
