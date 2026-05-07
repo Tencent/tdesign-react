@@ -4,6 +4,7 @@ import { get } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
 import useClassName from './hooks/useClassName';
+import { DATA_PARENT_ID_ATTR } from './hooks/useDragSort';
 import useTreeData from './hooks/useTreeData';
 import useTreeSelect from './hooks/useTreeSelect';
 import PrimaryTable from './PrimaryTable';
@@ -116,7 +117,7 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
         const formatAttrs: HTMLElementAttributes = !Array.isArray(originalAttrs) ? { ...originalAttrs } : {};
         if (rowState?.parent) {
           // 启用行拖拽时，如果有父节点，补充属性
-          formatAttrs['data-parent-id'] = String(rowState.parent.id);
+          formatAttrs[DATA_PARENT_ID_ATTR] = String(rowState.parent.id);
         }
         return formatAttrs;
       },

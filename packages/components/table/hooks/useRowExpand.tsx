@@ -1,5 +1,6 @@
 import React, { MouseEvent, ReactNode, useCallback } from 'react';
 import { ChevronRightCircleIcon as TdChevronRightCircleIcon } from 'tdesign-icons-react';
+
 import classNames from 'classnames';
 import { get, isFunction } from 'lodash-es';
 
@@ -9,7 +10,7 @@ import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { enableRowDrag } from '../utils';
 import useClassName from './useClassName';
-import { EXPANDED_SUFFIX } from './useDragSort';
+import { DATA_ID_ATTR, DATA_PARENT_ID_ATTR, EXPANDED_SUFFIX } from './useDragSort';
 
 import type {
   PrimaryTableCellParams,
@@ -107,8 +108,8 @@ function useRowExpand(props: TdPrimaryTableProps) {
 
     const isFixedLeft = p.isWidthOverflow && props.columns.find((item) => item.fixed === 'left');
     const dragAttr = enableRowDrag(props.dragSort) && {
-      'data-id': `${rowId}${EXPANDED_SUFFIX}`,
-      'data-parent-id': rowId,
+      [DATA_ID_ATTR]: `${rowId}${EXPANDED_SUFFIX}`,
+      [DATA_PARENT_ID_ATTR]: rowId,
     };
 
     return (
