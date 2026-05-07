@@ -1,8 +1,9 @@
 import { get, isFunction, isObject } from 'lodash-es';
 
 import { getIEVersion } from '@tdesign/common-js/utils/helper';
-import { AffixProps } from '../affix';
-import { ClassName, HTMLElementAttributes } from '../common';
+
+import type { AffixProps } from '../affix';
+import type { ClassName, HTMLElementAttributes } from '../common';
 import type {
   BaseTableCellParams,
   CellData,
