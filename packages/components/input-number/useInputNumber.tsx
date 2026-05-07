@@ -34,6 +34,7 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
 
   const { max, min, largeNumber, decimalPlaces, allowInputOverLimit, onValidate } = props;
 
+  const readOnly = props.readOnly || props.readonly;
   const disabledReduce = props.disabled || !canReduceNumber(tValue, props.min, props.largeNumber);
   const disabledAdd = props.disabled || !canAddNumber(tValue, props.max, props.largeNumber);
 
@@ -126,14 +127,14 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
   };
 
   const handleReduce = (e: any) => {
-    if (disabledReduce || props.readonly) return;
+    if (disabledReduce || readOnly) return;
     const r = handleStepValue('reduce');
     if (r.overLimit && !allowInputOverLimit) return;
     onChange(r.newValue, { type: 'reduce', e });
   };
 
   const handleAdd = (e: any) => {
-    if (disabledAdd || props.readonly) return;
+    if (disabledAdd || readOnly) return;
     const r = handleStepValue('add');
     if (r.overLimit && !allowInputOverLimit) return;
     onChange(r.newValue, { type: 'add', e });

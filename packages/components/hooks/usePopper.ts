@@ -3,16 +3,16 @@
 // to maintain this hook in the repo since upgrading to support React 19.0
 import { useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
+import isEqual from 'react-fast-compare';
 import {
   createPopper as defaultCreatePopper,
+  type Instance as PopperInstance,
   type Options as PopperOptions,
   type VirtualElement,
-  type State as PopperState,
-  type Instance as PopperInstance,
 } from '@popperjs/core';
 
-import isEqual from 'react-fast-compare';
 import useIsomorphicLayoutEffect from './useLayoutEffect';
+
 import type { Styles } from '../common';
 
 type Options = Partial<
@@ -32,25 +32,22 @@ type State = {
 
 const EMPTY_MODIFIERS = [];
 
-type UsePopperResult = {
-  state?: PopperState;
-  styles: Styles;
-  attributes: Attributes;
-  update: PopperInstance['update'];
-  forceUpdate: PopperInstance['forceUpdate'];
-};
-
 const fromEntries = (entries: Array<[string, any]>): { [key: string]: any } =>
   entries.reduce((acc, [key, value]) => {
     acc[key] = value;
     return acc;
   }, {});
 
+export interface InnerPopperInstance extends PopperInstance {
+  attributes: Attributes;
+  styles: Record<string, Styles>;
+}
+
 const usePopper = (
   referenceElement?: Element | VirtualElement,
   popperElement?: HTMLElement,
   options: Options = {},
-): UsePopperResult => {
+): InnerPopperInstance => {
   const prevOptions = useRef<PopperOptions>(null);
 
   const optionsWithDefaults = {
@@ -115,7 +112,7 @@ const usePopper = (
     updateStateModifier,
   ]);
 
-  const popperInstanceRef = useRef(null);
+  const popperInstanceRef = useRef<PopperInstance>(null);
 
   useIsomorphicLayoutEffect(() => {
     if (popperInstanceRef.current) {
@@ -140,11 +137,15 @@ const usePopper = (
   }, [referenceElement, popperElement, options.createPopper]);
 
   return {
-    state: popperInstanceRef.current ? popperInstanceRef.current.state : null,
-    styles: state.styles,
+    // 内部使用
     attributes: state.attributes,
-    update: popperInstanceRef.current ? popperInstanceRef.current.update : null,
-    forceUpdate: popperInstanceRef.current ? popperInstanceRef.current.forceUpdate : null,
+    styles: state.styles,
+    // 与官方 API 一致
+    state: popperInstanceRef.current?.state,
+    destroy: popperInstanceRef.current?.destroy,
+    forceUpdate: popperInstanceRef.current?.forceUpdate,
+    update: popperInstanceRef.current?.update,
+    setOptions: popperInstanceRef.current?.setOptions,
   };
 };
 

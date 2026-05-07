@@ -1,4 +1,5 @@
 import React, { KeyboardEvent, MouseEvent } from 'react';
+import classNames from 'classnames';
 import { TNode } from '../common';
 import Dialog from '../dialog';
 import useConfig from '../hooks/useConfig';
@@ -25,6 +26,8 @@ export interface ImageModalMiniProps {
     originalSize: string;
   };
   imageReferrerpolicy?: TdImageViewerProps['imageReferrerpolicy'];
+  className?: string;
+  style?: React.CSSProperties;
   prev: () => void;
   next: () => void;
   onMirror: () => void;
@@ -33,6 +36,7 @@ export interface ImageModalMiniProps {
   onReset: () => void;
   onRotate: (red: number) => void;
   onClose: (context: { trigger: 'close-btn' | 'overlay' | 'esc'; e: MouseEvent<HTMLElement> | KeyboardEvent }) => void;
+  innerClassName: TdImageViewerProps['innerClassName'];
 }
 
 export const ImageModalMiniContent: React.FC<ImageModalMiniProps> = (props) => {
@@ -49,6 +53,7 @@ export const ImageModalMiniContent: React.FC<ImageModalMiniProps> = (props) => {
         errorText={props.errorText}
         imageReferrerpolicy={props.imageReferrerpolicy}
         isSvg={props.currentImage.isSvg}
+        innerClassName={props.innerClassName}
       />
     </div>
   );
@@ -62,12 +67,15 @@ export const ImageModalMini: React.FC<ImageModalMiniProps> = (props) => {
     currentImage,
     draggable,
     tipText,
+    className,
+    style,
     onZoomOut,
     onZoom,
     onClose,
     onRotate,
     onMirror,
     onReset,
+    innerClassName,
   } = props;
 
   const { classPrefix } = useConfig();
@@ -90,7 +98,9 @@ export const ImageModalMini: React.FC<ImageModalMiniProps> = (props) => {
 
   return (
     <Dialog
-      className={`${classPrefix}-image-viewer__dialog`}
+      className={classNames(`${classPrefix}-image-viewer__dialog`, className)}
+      dialogClassName={innerClassName}
+      style={style}
       draggable={draggable}
       visible={visible}
       width="min(90vw, 1000px)"

@@ -150,41 +150,41 @@ describe('TagInput Component', () => {
     expect(container.getAttribute('placeholder')).toBe('This is TagInput placeholder');
   });
 
-  it('props.readonly works fine', () => {
+  it('props.readOnly works fine', () => {
     // readonly default value is false
     const wrapper1 = render(<TagInput></TagInput>);
     const container1 = wrapper1.container.querySelector('.t-input');
     expect(container1.querySelector(`.${'t-is-readonly'}`)).toBeFalsy();
     // readonly = true
-    const wrapper2 = render(<TagInput readonly={true}></TagInput>);
+    const wrapper2 = render(<TagInput readOnly={true}></TagInput>);
     const container2 = wrapper2.container.querySelector('.t-input');
     expect(container2).toHaveClass('t-is-readonly');
     // readonly = false
-    const wrapper3 = render(<TagInput readonly={false}></TagInput>);
+    const wrapper3 = render(<TagInput readOnly={false}></TagInput>);
     const container3 = wrapper3.container.querySelector('.t-input');
     expect(container3.querySelector(`.${'t-is-readonly'}`)).toBeFalsy();
     // readonly = false backspace able
     const onRemoveFn = vi.fn();
-    const wrapper4 = getTagInputValueMount(TagInput, { readonly: false }, { onRemove: onRemoveFn });
+    const wrapper4 = getTagInputValueMount(TagInput, { readOnly: false }, { onRemove: onRemoveFn });
     fireEvent.keyDown(wrapper4.container.querySelector('input'), { key: 'Backspace', code: 'Backspace', charCode: 8 });
     expect(onRemoveFn).toHaveBeenCalled();
     // readonly = false backspace disable
     const onRemoveFnUn = vi.fn();
-    const wrapper5 = getTagInputValueMount(TagInput, { readonly: true }, { onRemove: onRemoveFnUn });
+    const wrapper5 = getTagInputValueMount(TagInput, { readOnly: true }, { onRemove: onRemoveFnUn });
     fireEvent.keyDown(wrapper5.container.querySelector('input'), { key: 'Backspace', code: 'Backspace', charCode: 8 });
     expect(onRemoveFnUn).not.toHaveBeenCalled();
   });
 
-  it('props.readonly: readonly TagInput does not need clearIcon', async () => {
+  it('props.readOnly: readOnly TagInput does not need clearIcon', async () => {
     const on0Fn = vi.fn();
-    const { container } = getTagInputValueMount(TagInput, { readonly: true }, { on0: on0Fn });
+    const { container } = getTagInputValueMount(TagInput, { readOnly: true }, { on0: on0Fn });
     fireEvent.mouseEnter(container.querySelector('.t-input'));
     await mockDelay();
   });
 
-  it('props.readonly: readonly TagInput still can trigger focus event', () => {
+  it('props.readOnly: readOnly TagInput still can trigger focus event', () => {
     const onFocusFn = vi.fn();
-    const { container } = render(<TagInput readonly={true} onFocus={onFocusFn}></TagInput>);
+    const { container } = render(<TagInput readOnly={true} onFocus={onFocusFn}></TagInput>);
     fireEvent.click(container.querySelector('.t-input'));
     expect(onFocusFn).toHaveBeenCalled();
   });

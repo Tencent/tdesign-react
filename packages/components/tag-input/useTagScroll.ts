@@ -2,16 +2,19 @@
  * 当标签数量过多时，输入框显示不下，则需要滚动查看，以下为滚动逻辑
  * 如果标签过多时的处理方式，是标签省略，则不需要此功能
  */
-
+import { useEffect, useRef, useState, WheelEvent } from 'react';
 import { isFunction } from 'lodash-es';
-import { useRef, useEffect, useState, WheelEvent } from 'react';
-import { TdTagInputProps } from './type';
+import type { InputRef } from '../input';
+import type { TdTagInputProps } from './type';
 
 let mouseEnterTimer = null;
 
 export default function useTagScroll(props: TdTagInputProps) {
-  const tagInputRef = useRef<{ currentElement: HTMLDivElement }>(null);
-  const { excessTagsDisplayType = 'scroll', readonly, disabled } = props;
+  const { excessTagsDisplayType = 'scroll', disabled } = props;
+  const readOnly = props.readOnly || props.readonly;
+
+  const tagInputRef = useRef<InputRef>(null);
+
   // 允许向右滚动的最大距离
   const [scrollDistance, setScrollDistance] = useState(0);
   const [scrollElement, setScrollElement] = useState<HTMLDivElement>();
@@ -43,7 +46,7 @@ export default function useTagScroll(props: TdTagInputProps) {
 
   // TODO：MAC 电脑横向滚动，Windows 纵向滚动。当前只处理了横向滚动
   const onWheel = ({ e }: { e: WheelEvent<HTMLDivElement> }) => {
-    if (readonly || disabled) return;
+    if (readOnly || disabled) return;
     if (!scrollElement) return;
     if (e.deltaX > 0) {
       const distance = Math.min(scrollElement.scrollLeft + 120, scrollDistance);

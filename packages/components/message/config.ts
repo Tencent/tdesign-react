@@ -1,5 +1,5 @@
-import { MessageOptions } from './type';
 import { messageDefaultProps } from './defaultProps';
+import type { MessageOptions } from './type';
 
 /**
  * @name: globalConfig

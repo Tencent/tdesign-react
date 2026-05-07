@@ -19,7 +19,7 @@ export default function TagInputStatusExample() {
 
       <Space>
         <label>只读状态：</label>
-        <TagInput style={style} value={tags2} onChange={setTags2} tips="这是普通文本提示" readonly />
+        <TagInput style={style} value={tags2} onChange={setTags2} tips="这是普通文本提示" readOnly />
       </Space>
 
       <Space>

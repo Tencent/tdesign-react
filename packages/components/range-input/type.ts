@@ -52,9 +52,15 @@ export interface TdRangeInputProps {
   prefixIcon?: TElement;
   /**
    * 只读状态
+   * @deprecated It will be removed in the future. Please use `readOnly` instead.
    * @default false
    */
   readonly?: boolean;
+  /**
+   * 只读状态
+   * @default false
+   */
+  readOnly?: boolean;
   /**
    * 范围分隔符
    * @default '-'
@@ -203,9 +209,15 @@ export interface TdRangeInputPopupProps {
   rangeInputProps?: RangeInputProps;
   /**
    * 只读状态，值为真会隐藏输入框，且无法打开下拉框
+   * @deprecated It will be removed in the future. Please use `readOnly` instead.
    * @default false
    */
   readonly?: boolean;
+  /**
+   * 只读状态，值为真会隐藏输入框，且无法打开下拉框
+   * @default false
+   */
+  readOnly?: boolean;
   /**
    * 输入框状态
    * @default default

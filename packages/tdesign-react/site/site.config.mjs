@@ -22,10 +22,11 @@ export const docs = [
       },
       {
         title: '更新日志',
-        titleEn: 'CHANGELOG',
+        titleEn: 'Changelog',
         name: 'changelog',
         path: '/react/changelog',
         component: () => import('../CHANGELOG.md'),
+        componentEn: () => import('../CHANGELOG.en-US.md'),
       },
       {
         title: '组件概览',
@@ -34,6 +35,14 @@ export const docs = [
         path: '/react/overview',
         component: () => import('@tdesign/common/docs/web/overview.md'),
         componentEn: () => import('@tdesign/common/docs/web/overview.en-US.md'),
+      },
+      {
+        title: 'MCP',
+        titleEn: 'MCP',
+        name: 'mcp',
+        path: '/react/mcp',
+        component: () => import('@tdesign/common/docs/mcp.md'),
+        componentEn: () => import('@tdesign/common/docs/mcp.en-US.md'),
       },
     ],
   },
@@ -55,16 +64,30 @@ export const docs = [
         titleEn: 'Theme Customization',
         name: 'custom-theme',
         path: '/react/custom-theme',
-        component: () => import('@tdesign/common/theme.md'),
-        componentEn: () => import('@tdesign/common/theme.en-US.md'),
+        component: () => import('@tdesign/common/docs/web/theme.md'),
+        componentEn: () => import('@tdesign/common/docs/web/theme.en-US.md'),
       },
       {
         title: '深色模式',
         titleEn: 'Dark Mode',
         name: 'dark-mode',
         path: '/react/dark-mode',
-        component: () => import('@tdesign/common/dark-mode.md'),
-        componentEn: () => import('@tdesign/common/dark-mode.en-US.md'),
+        component: () => import('@tdesign/common/docs/dark-mode.md'),
+        componentEn: () => import('@tdesign/common/docs/dark-mode.en-US.md'),
+      },
+    ],
+  },
+  {
+    title: '高阶组件',
+    titleEn: 'Pro',
+    type: 'component', // 组件文档
+    children: [
+      {
+        title: 'AI Chat 对话',
+        titleEn: 'Chat',
+        name: 'chat',
+        path: '/chat',
+        redirect: 'https://tdesign.tencent.com/react-chat/overview',
       },
     ],
   },
@@ -685,6 +708,17 @@ export const docs = [
   },
 ];
 
+const TDESIGN_HOST_PATTERN = /^https?:\/\/tdesign\.tencent\.com/;
+
+function getEnRedirect(child) {
+  if (child.redirectEn) return child.redirectEn; // 显式声明优先
+  if (!child.redirect) return;
+  if (TDESIGN_HOST_PATTERN.test(child.redirect)) {
+    return `${child.redirect}-en`; // TDesign 站点自动追加 -en
+  }
+  return child.redirect; // 其它外链保持不变
+}
+
 const enDocs = docs.map((doc) => ({
   ...doc,
   title: doc.titleEn,
@@ -694,6 +728,7 @@ const enDocs = docs.map((doc) => ({
     path: `${child.path}-en`,
     meta: { lang: 'en' },
     component: child.componentEn || child.component,
+    redirect: getEnRedirect(child),
   })),
 }));
 

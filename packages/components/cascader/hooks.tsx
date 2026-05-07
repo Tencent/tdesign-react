@@ -1,26 +1,30 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
-
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { isArray, isEqual, isFunction } from 'lodash-es';
 
+import { pathToKey } from '@tdesign/common-js/tree-v1/tree-node-model';
 import TreeStore from '@tdesign/common-js/tree-v1/tree-store';
 import type { TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
-import { getTreeValue, getCascaderValue, isEmptyValues, isValueInvalid } from './core/helper';
-import { treeNodesEffect, treeStoreExpendEffect } from './core/effect';
 
 import useControlled from '../hooks/useControlled';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { treeNodesEffect, treeStoreExpendEffect } from './core/effect';
+import { getTreeValue, isEmptyValues, isValueInvalid } from './core/helper';
+import { cascaderDefaultProps } from './defaultProps';
 
+import type { TreeOptionData } from '../common';
 import type {
-  TreeNode,
-  TreeNodeValue,
-  TdCascaderProps,
-  TreeNodeModel,
   CascaderChangeSource,
   CascaderValue,
+  TdCascaderProps,
+  TreeNode,
+  TreeNodeModel,
+  TreeNodeValue,
 } from './interface';
 
-import { TreeOptionData } from '../common';
+export const useCascaderContext = (originalProps: TdCascaderProps) => {
+  const props = useDefaultProps(originalProps, cascaderDefaultProps);
+  const { disabled, options, keys = {}, checkStrictly, lazy, multiple, reserveKeyword, valueMode, load } = props;
 
-export const useCascaderContext = (props: TdCascaderProps) => {
   const [innerValue, setInnerValue] = useControlled(props, 'value', props.onChange);
   const [innerPopupVisible, setPopupVisible] = useControlled(props, 'popupVisible', props.onPopupVisibleChange);
 
@@ -29,6 +33,12 @@ export const useCascaderContext = (props: TdCascaderProps) => {
   const [treeNodes, setTreeNodes] = useState<TreeNode[]>([]);
   const [expend, setExpend] = useState<TreeNodeValue[]>([]);
   const [scopeVal, setScopeVal] = useState(undefined);
+
+  // valueMode = 'parentFirst' || 'all' 和 checkStrictly 都允许父节点被选中
+  const isParentFilterable = useMemo(
+    () => !!((['parentFirst', 'all'].includes(props.valueMode) || props.checkStrictly) && inputVal),
+    [props.valueMode, props.checkStrictly, inputVal],
+  );
 
   const cascaderContext = useMemo(() => {
     const {
@@ -71,8 +81,19 @@ export const useCascaderContext = (props: TdCascaderProps) => {
       inputVal,
       setInputVal,
       setExpend,
+      isParentFilterable,
     };
-  }, [props, scopeVal, innerPopupVisible, treeStore, treeNodes, inputVal, setInnerValue, setPopupVisible]);
+  }, [
+    props,
+    scopeVal,
+    innerPopupVisible,
+    treeStore,
+    treeNodes,
+    inputVal,
+    setInnerValue,
+    setPopupVisible,
+    isParentFilterable,
+  ]);
 
   const isFilterable = useMemo(
     () => Boolean(props.filterable || isFunction(props.filter)),
@@ -82,8 +103,6 @@ export const useCascaderContext = (props: TdCascaderProps) => {
   /**
    * build tree
    */
-
-  const { disabled, options = [], keys = {}, checkStrictly = false, lazy = true, load, valueMode = 'onlyLeaf' } = props;
 
   const optionCurrent = useRef([]);
 
@@ -104,10 +123,11 @@ export const useCascaderContext = (props: TdCascaderProps) => {
           ...keys,
           children: typeof keys.children === 'string' ? keys.children : 'children',
         },
+        allowDuplicateValue: props.valueType === 'full',
         onLoad: () => {
           setTimeout(() => {
             store.refreshNodes();
-            treeNodesEffect(inputVal, store, setTreeNodes, props.filter, checkStrictly);
+            treeNodesEffect(inputVal, store, setTreeNodes, props.filter, isParentFilterable);
           });
         },
       });
@@ -117,8 +137,8 @@ export const useCascaderContext = (props: TdCascaderProps) => {
     } else {
       treeStore.reload(options);
       treeStore.refreshNodes();
-      treeStoreExpendEffect(treeStore, scopeVal, []);
-      treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, checkStrictly);
+      treeStoreExpendEffect(treeStore, scopeVal, [], props.valueType);
+      treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, isParentFilterable);
     }
   };
 
@@ -143,34 +163,57 @@ export const useCascaderContext = (props: TdCascaderProps) => {
 
   // value 校验逻辑
   useEffect(() => {
-    const { setValue, multiple, valueType = 'single' } = cascaderContext;
+    const { setValue, multiple } = cascaderContext;
 
     if (isValueInvalid(innerValue, cascaderContext)) {
       setValue(multiple ? [] : '', 'invalid-value');
     }
 
     if (!isEmptyValues(innerValue)) {
-      setScopeVal(getCascaderValue(innerValue, valueType, multiple));
+      setScopeVal(innerValue);
     } else {
       setScopeVal(multiple ? [] : '');
     }
+
+    if (multiple && !reserveKeyword) {
+      setInputVal('');
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [innerValue]);
+  }, [innerValue, multiple, reserveKeyword]);
 
   useEffect(() => {
     if (!treeStore) return;
-    treeStoreExpendEffect(treeStore, scopeVal, expend);
-  }, [treeStore, scopeVal, expend]);
+    treeStoreExpendEffect(treeStore, scopeVal, expend, props.valueType);
+  }, [treeStore, scopeVal, expend, props.valueType]);
 
   useEffect(() => {
     if (!treeStore) return;
-    treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, checkStrictly);
-  }, [inputVal, treeStore, props.filter, checkStrictly]);
+    treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, isParentFilterable);
+  }, [inputVal, treeStore, props.filter, isParentFilterable]);
 
   useEffect(() => {
     if (!treeStore) return;
-    treeStore.replaceChecked(getTreeValue(scopeVal));
-  }, [options, scopeVal, treeStore, cascaderContext.multiple]);
+
+    const { valueType } = props;
+
+    const getCheckedKeys = (): TreeNodeValue[] => {
+      if (valueType !== 'full') {
+        return getTreeValue(scopeVal);
+      }
+
+      const isValidPath = (path: unknown): path is TreeNodeValue[] => Array.isArray(path) && path.length > 0;
+
+      // 多选模式
+      if (multiple && Array.isArray(scopeVal)) {
+        return (scopeVal as TreeNodeValue[][]).filter(isValidPath).map(pathToKey);
+      }
+
+      // 单选模式
+      return isValidPath(scopeVal) ? [pathToKey(scopeVal)] : [];
+    };
+
+    treeStore.replaceChecked(getCheckedKeys());
+  }, [options, scopeVal, treeStore, multiple, props]);
 
   useEffect(() => {
     if (!innerPopupVisible && isFilterable) {
@@ -180,9 +223,9 @@ export const useCascaderContext = (props: TdCascaderProps) => {
 
   useEffect(() => {
     const { inputVal, treeStore, setTreeNodes } = cascaderContext;
-    treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, checkStrictly);
+    treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, isParentFilterable);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputVal, scopeVal]);
+  }, [inputVal, scopeVal, isParentFilterable]);
 
   const getCascaderItems = (
     arrValue: CascaderValue[],
@@ -190,31 +233,28 @@ export const useCascaderContext = (props: TdCascaderProps) => {
     multiple: TdCascaderProps['multiple'],
   ) => {
     const { treeStore } = cascaderContext;
+    if (!treeStore) return [];
+
     const optionsData: TreeOptionData[] = [];
 
-    if (!treeStore) return optionsData;
+    const pushNodeData = (node?: TreeNode) => {
+      if (node?.data) optionsData.push(node.data);
+    };
 
     if (valueType === 'full') {
-      if (multiple) {
-        // 未来需支持全路径拼接搜索
-        arrValue.forEach((value) => {
-          if (isArray(value) && value.length) {
-            const nodeValue = value[value.length - 1];
-            const [node] = treeStore.getNodes(nodeValue) || [];
-            node?.data && optionsData.push(node.data);
-          }
-        });
-      } else if (isArray(arrValue) && arrValue.length) {
-        const nodeValue = arrValue[arrValue.length - 1];
-        const [node] = treeStore.getNodes(nodeValue) || [];
-        node?.data && optionsData.push(node.data);
-      }
-    } else if (valueType === 'single') {
-      arrValue.forEach((value) => {
-        const [node] = treeStore.getNodes(value) || [];
-        node?.data && optionsData.push(node.data);
+      const values = multiple ? arrValue : [arrValue];
+      values.forEach((v) => {
+        if (isArray(v) && v.length) {
+          pushNodeData(treeStore.getNode(v as TreeNodeValue[]));
+        }
       });
+      return optionsData;
     }
+
+    arrValue.forEach((v) => {
+      const node = treeStore.getNodes(v)?.[0];
+      pushNodeData(node);
+    });
 
     return optionsData;
   };

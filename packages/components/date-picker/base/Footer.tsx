@@ -1,16 +1,20 @@
 import React from 'react';
 import classNames from 'classnames';
+import { isFunction } from 'lodash-es';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import Button from '../../button';
 import useConfig from '../../hooks/useConfig';
 import { TdDatePickerProps, TdDateRangePickerProps, DateValue, DateMultipleValue } from '../type';
 
-interface DatePickerFooterProps
-  extends Pick<TdDatePickerProps, 'enableTimePicker' | 'presetsPlacement' | 'needConfirm'> {
+interface DatePickerFooterProps extends Pick<TdDatePickerProps, 'presetsPlacement' | 'needConfirm'> {
   presets?: TdDatePickerProps['presets'] | TdDateRangePickerProps['presets'];
   onPresetClick?: Function;
   onConfirmClick?: Function;
   selectedValue?: DateValue | DateMultipleValue;
+  onTimePanelChange?: () => void;
+  enableTimePicker?: TdDateRangePickerProps['enableTimePicker'] | TdDatePickerProps['enableTimePicker'];
+  isDateRangeContent?: boolean;
+  isSwitchTimeMode?: boolean;
 }
 
 const DatePickerFooter = (props: DatePickerFooterProps) => {
@@ -27,6 +31,8 @@ const DatePickerFooter = (props: DatePickerFooterProps) => {
     onPresetClick,
     selectedValue,
     needConfirm,
+    onTimePanelChange,
+    isSwitchTimeMode,
   } = props;
 
   const footerClass = classNames(
@@ -34,28 +40,41 @@ const DatePickerFooter = (props: DatePickerFooterProps) => {
     `${classPrefix}-date-picker__footer--${presetsPlacement}`,
   );
 
+  const renderPresets = () => {
+    if (presets) {
+      if (React.isValidElement(presets)) return presets;
+
+      if (isFunction(presets)) return presets();
+
+      return Object.keys(presets).map((key: string) => (
+        <Button
+          key={key}
+          size="small"
+          variant="text"
+          onClick={(e) => onPresetClick(presets[key], { e, preset: { [key]: presets[key] } })}
+        >
+          {key}
+        </Button>
+      ));
+    }
+
+    return null;
+  };
   return (
     <div className={footerClass}>
-      {
-        <div className={`${classPrefix}-date-picker__presets`}>
-          {presets &&
-            Object.keys(presets).map((key: string) => (
-              <Button
-                key={key}
-                size="small"
-                variant="text"
-                onClick={(e) => onPresetClick(presets[key], { e, preset: { [key]: presets[key] } })}
-              >
-                {key}
-              </Button>
-            ))}
-        </div>
-      }
-      {enableTimePicker && needConfirm && (
-        <Button disabled={!selectedValue} size="small" theme="primary" onClick={(e) => onConfirmClick({ e })}>
-          {confirmText}
-        </Button>
-      )}
+      <div className={`${classPrefix}-date-picker__presets`}>{renderPresets()}</div>
+      <div>
+        {isSwitchTimeMode && (
+          <Button style={{ marginRight: 16 }} size="small" theme="primary" variant="text" onClick={onTimePanelChange}>
+            {props.isDateRangeContent ? t(local.selectTime) : t(local.selectDate)}
+          </Button>
+        )}
+        {enableTimePicker && needConfirm && (
+          <Button disabled={!selectedValue} size="small" theme="primary" onClick={(e) => onConfirmClick({ e })}>
+            {confirmText}
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

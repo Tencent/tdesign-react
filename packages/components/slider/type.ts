@@ -8,7 +8,7 @@ import { InputNumberProps } from '../input-number';
 import { TooltipProps } from '../tooltip';
 import { TNode } from '../common';
 
-export interface TdSliderProps {
+export interface TdSliderProps<T = SliderValue> {
   /**
    * 是否禁用组件
    * @default false
@@ -68,7 +68,7 @@ export interface TdSliderProps {
   /**
    * 滑块值变化时触发
    */
-  onChange?: (value: SliderValue) => void;
+  onChange?: (value: T) => void;
 }
 
 export interface SliderMarks {

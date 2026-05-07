@@ -1,7 +1,7 @@
-import { get, isEmpty, isEqual, isFunction, merge, set } from 'lodash-es';
+import { cloneDeep, isArray, isEmpty, isFunction, isObject, merge, set, get } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
 import useConfig from '../../hooks/useConfig';
-import { calcFieldValue, findFormItem, findFormItemDeep, objectToArray, travelMapFromObject } from '../utils';
+import { calcFieldValue, findFormItem, travelMapFromObject } from '../utils';
 
 import type { FormItemInstance } from '../FormItem';
 import type {
@@ -12,6 +12,7 @@ import type {
   NamePath,
   TdFormProps,
 } from '../type';
+import type { InternalFormInstance } from './interface';
 
 // 检测是否需要校验 默认全量校验
 function needValidate(name: NamePath, fields: string[]) {
@@ -44,7 +45,8 @@ export default function useInstance(
   props: TdFormProps,
   formRef: React.RefObject<HTMLFormElement>,
   formMapRef: React.MutableRefObject<Map<any, any>>,
-  floatingFormDataRef: React.RefObject<Record<any, any>>,
+  floatingFormDataRef: React.MutableRefObject<Record<any, any>>,
+  form: InternalFormInstance,
 ) {
   const { classPrefix } = useConfig();
 
@@ -110,101 +112,116 @@ export default function useInstance(
   // 对外方法，获取对应 formItem 的值
   function getFieldValue(name: NamePath) {
     if (!name) return null;
-
     const formItemRef = findFormItem(name, formMapRef);
-    return formItemRef?.current?.getValue?.();
+    if (formItemRef?.current) {
+      return formItemRef.current.getValue?.();
+    }
+    return get(floatingFormDataRef.current, name);
   }
 
   // 对外方法，获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有值
   function getFieldsValue(nameList: string[] | boolean) {
-    const fieldsValue = {};
+    const fieldsValue: Record<string, any> = {};
+
+    const processField = (name: string, formItemRef: any) => {
+      if (!formItemRef?.current) return;
+      const { getValue } = formItemRef.current;
+      const value = getValue?.();
+      const fieldValue = calcFieldValue(name, value, !props.supportNumberKey);
+      merge(fieldsValue, fieldValue);
+    };
 
     if (nameList === true) {
-      // 嵌套数组子节点先添加导致外层数据覆盖因而需要倒序遍历
-      for (const [name, formItemRef] of [...formMapRef.current.entries()].reverse()) {
-        let fieldValue = null;
-        if (formItemRef?.current.isFormList) {
-          fieldValue = calcFieldValue(name, formItemRef?.current.getValue?.());
-        } else {
-          fieldValue = calcFieldValue(name, formItemRef?.current.getValue?.(), !props.supportNumberKey);
-        }
-        merge(fieldsValue, fieldValue);
+      // 先用 floatingFormDataRef 作为基础，支持没有对应 FormItem 渲染也能返回数据的场景
+      merge(fieldsValue, cloneDeep(floatingFormDataRef.current));
+
+      // 再用 FormItem 实例的实际值覆盖，确保有 FormItem 时以它为准
+      // 嵌套数组子节点先添加，导致外层数据被覆盖，因而需要倒序遍历
+      const entries = Array.from(formMapRef.current.entries());
+      for (let i = entries.length - 1; i >= 0; i--) {
+        const [name, formItemRef] = entries[i];
+        processField(name, formItemRef);
       }
     } else {
       if (!Array.isArray(nameList)) {
         log.error('Form', 'The parameter of "getFieldsValue" must be an array');
         return {};
       }
-
-      nameList.forEach((name) => {
+      for (let i = 0; i < nameList.length; i++) {
+        const name = nameList[i];
         const formItemRef = findFormItem(name, formMapRef);
-        if (!formItemRef) return;
-
-        const fieldValue = calcFieldValue(name, formItemRef?.current.getValue?.());
-        merge(fieldsValue, fieldValue);
-      });
-    }
-    return fieldsValue;
-  }
-
-  // 对外方法，设置对应 formItem 的值
-  function setFieldsValue(fields = {}) {
-    const nameLists = objectToArray(fields);
-
-    nameLists.forEach((nameList) => {
-      const fieldValue = get(fields, nameList);
-
-      let formItemRef;
-      if (nameList.length > 1) {
-        // 如果是数组，由于内存地址不一致，不能直接使用 Map.get 获取到 formItemRef
-        for (const [mapNameList, _formItemRef] of formMapRef.current.entries()) {
-          if (isEqual(nameList, mapNameList)) {
-            formItemRef = _formItemRef;
-            break;
-          }
+        if (formItemRef?.current) {
+          processField(name, formItemRef);
+        } else {
+          const floatingValue = get(floatingFormDataRef.current, name);
+          const fieldValue = calcFieldValue(name, floatingValue, !props.supportNumberKey);
+          merge(fieldsValue, fieldValue);
         }
-      } else {
-        formItemRef = formMapRef.current.get(nameList[0]);
       }
-
-      if (formItemRef?.current) {
-        formItemRef?.current?.setValue?.(fieldValue, fields);
-      } else {
-        set(floatingFormDataRef.current, nameList, fieldValue);
-      }
-    });
+    }
+    return cloneDeep(fieldsValue);
   }
 
-  // 对外方法，设置对应 formItem 的数据
+  /**
+   * 对外方法，设置对应 FormItem 的值
+   */
+  function setFieldsValue(fields = {}) {
+    const setValueByPath = (value: any, path: (string | number)[] = []) => {
+      // 当前路径对应的 FormItem 存在，直接设置
+      const formItemRef = findFormItem(path, formMapRef);
+      if (formItemRef?.current) {
+        formItemRef.current.setValue?.(cloneDeep(value));
+        return;
+      }
+
+      // 递归处理对象
+      // { user: { name: '' } } => [['user', 'name']]
+      // { user: [{ name: '' }]} => [['user']]
+      if (isObject(value) && !isArray(value) && !isEmpty(value)) {
+        Object.keys(value).forEach((key) => {
+          setValueByPath(value[key], [...path, key]);
+        });
+      } else {
+        set(floatingFormDataRef.current, path, value);
+        // 确保 store 始终包含所有被 set 的字段
+        set(form?.store, path, value);
+      }
+    };
+
+    setValueByPath(fields);
+  }
+
+  /**
+   * 对外方法，设置对应 FormItem 的状态
+   */
   function setFields(fields = []) {
     if (!Array.isArray(fields)) throw new TypeError('The parameter of "setFields" must be an array');
 
     fields.forEach((field) => {
       const { name, ...restFields } = field;
-      let formItemRef = findFormItem(name, formMapRef);
-      if (!formItemRef) {
-        formItemRef = findFormItemDeep(name, formMapRef);
-      }
+      const formItemRef = findFormItem(name, formMapRef);
       formItemRef?.current?.setField(restFields);
     });
   }
 
   // 对外方法，重置对应 formItem 的数据
   function reset(params: FormResetParams<FormData>) {
-    // reset all
     if (typeof params === 'undefined') {
       [...formMapRef.current.values()].forEach((formItemRef) => {
         formItemRef?.current?.resetField();
       });
     } else {
       const { type = 'initial', fields = [] } = params;
-
       fields.forEach((name) => {
         const formItemRef = findFormItem(name, formMapRef);
         formItemRef?.current?.resetField(type);
       });
     }
     onReset?.({});
+    requestAnimationFrame(() => {
+      const fieldValue = getFieldsValue(true);
+      props.onValuesChange?.(fieldValue, fieldValue);
+    });
   }
 
   // 对外方法，重置对应 formItem 的状态
@@ -216,7 +233,6 @@ export default function useInstance(
       });
     } else {
       if (!Array.isArray(fields)) throw new TypeError('The parameter of "clearValidate" must be an array');
-
       fields.forEach((name) => {
         const formItemRef = findFormItem(name, formMapRef);
         formItemRef?.current?.resetValidate();
@@ -240,7 +256,12 @@ export default function useInstance(
     const formItemRefs =
       typeof fields === 'undefined'
         ? [...formMapRef.current.values()]
-        : fields.map((name) => findFormItem(name, formMapRef)).filter(Boolean);
+        : fields
+            .map((name) => {
+              const formItemRef = findFormItem(name, formMapRef);
+              return formItemRef;
+            })
+            .filter(Boolean);
 
     const extractValidateMessage = (formItemRef: React.RefObject<FormItemInstance>) => {
       const item = formItemRef?.current?.getValidateMessage?.();

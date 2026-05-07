@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { isSafari } from '@tdesign/common-js/utils/helper';
 import { ClassName } from '../common';
 
 import useConfig from '../hooks/useConfig';
@@ -18,6 +19,7 @@ function FakeArrow(props: {
       className={classNames(
         `${classPrefix}-fake-arrow`,
         {
+          [`${classPrefix}-fake-arrow--transform`]: isSafari(),
           [`${classPrefix}-fake-arrow--active`]: props?.isActive && !props?.disabled,
         },
         props?.className,

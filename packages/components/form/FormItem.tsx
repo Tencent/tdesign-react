@@ -1,22 +1,23 @@
-import { flattenDeep, get, isEqual, isFunction, isObject, isString, merge, set, unset } from 'lodash-es';
 import React, { forwardRef, ReactNode, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
+import { cloneDeep, get, isEqual, isFunction, isObject, isString, set } from 'lodash-es';
+
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { ValidateStatus } from './const';
+import { NATIVE_INPUT_COMP, TD_CTRL_PROP_MAP, ValidateStatus } from './const';
 import { formItemDefaultProps } from './defaultProps';
 import { useFormContext, useFormListContext } from './FormContext';
 import { parseMessage, validate as validateModal } from './formModel';
 import { HOOK_MARK } from './hooks/useForm';
-import useFormItemInitialData, { ctrlKeyMap } from './hooks/useFormItemInitialData';
+import useFormItemInitialData from './hooks/useFormItemInitialData';
 import useFormItemStyle from './hooks/useFormItemStyle';
-import { calcFieldValue } from './utils';
+import { calcFieldValue, concatName } from './utils';
 
 import type { StyledProps } from '../common';
 import type {
@@ -37,13 +38,14 @@ export interface FormItemProps extends TdFormItemProps, StyledProps {
 
 export interface FormItemInstance {
   name?: NamePath;
+  fullPath?: NamePath[];
   value?: any;
-  isUpdated?: boolean;
+  initialData?: any;
   isFormList?: boolean;
   formListMapRef?: React.MutableRefObject<Map<any, any>>;
   getValue?: () => any;
-  setValue?: (newVal: any, originalData?: any) => void;
-  setField?: (field: Omit<FieldData, 'name'>, originalData?: any) => void;
+  setValue?: (newVal: any) => void;
+  setField?: (field: Omit<FieldData, 'name'>) => void;
   validate?: (trigger?: ValidateTriggerType, showErrorMessage?: boolean) => Promise<Record<string, any>>;
   validateOnly?: (trigger?: ValidateTriggerType) => Promise<Record<string, any>>;
   resetField?: (type?: TdFormProps['resetType']) => void;
@@ -70,7 +72,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     labelWidth: labelWidthFromContext,
     showErrorMessage: showErrorMessageFromContext,
     disabled: disabledFromContext,
-    readonly: readonlyFromContext,
+    readOnly: readOnlyFromContext,
     resetType: resetTypeFromContext,
     rules: rulesFromContext,
     statusIcon: statusIconFromContext,
@@ -79,7 +81,14 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     onFormItemValueChange,
   } = useFormContext();
 
-  const { name: formListName, rules: formListRules, formListMapRef, form: formOfFormList } = useFormListContext();
+  const {
+    name: formListName,
+    fullPath: parentFullPath,
+    rules: formListRules,
+    formListMapRef,
+    form: formOfFormList,
+  } = useFormListContext();
+
   const props = useDefaultProps<FormItemProps>(originalProps, formItemDefaultProps);
 
   const {
@@ -102,7 +111,15 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     requiredMark = requiredMarkFromContext,
   } = props;
 
-  const { getDefaultInitialData } = useFormItemInitialData(name);
+  /* 用于处理嵌套 Form 的情况 （例如 FormList 内有一个 Dialog + Form） */
+  const isSameForm = useMemo(() => isEqual(form, formOfFormList), [form, formOfFormList]);
+
+  const fullPath = useMemo(() => {
+    const validParentFullPath = formListName && isSameForm ? parentFullPath : undefined;
+    return concatName(validParentFullPath, name);
+  }, [formListName, parentFullPath, name, isSameForm]);
+
+  const { defaultInitialData } = useFormItemInitialData(name, fullPath, initialData, children);
 
   const [, forceUpdate] = useState({}); // custom render state
   const [freeShowErrorMessage, setFreeShowErrorMessage] = useState(undefined);
@@ -111,27 +128,15 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const [verifyStatus, setVerifyStatus] = useState('validating');
   const [resetValidating, setResetValidating] = useState(false);
   const [needResetField, setNeedResetField] = useState(false);
-  const [formValue, setFormValue] = useState(() => {
-    const fieldName = flattenDeep([formListName, name]);
-    const storeValue = get(form?.store, fieldName);
-    return (
-      storeValue ??
-      getDefaultInitialData({
-        children,
-        initialData,
-      })
-    );
-  });
+  const [formValue, setFormValue] = useState(defaultInitialData);
 
   const formItemRef = useRef<FormItemInstance>(null); // 当前 formItem 实例
   const innerFormItemsRef = useRef([]);
   const shouldEmitChangeRef = useRef(false); // onChange 冒泡开关
-  const isUpdatedRef = useRef(false); // 校验开关
   const shouldValidate = useRef(false); // 校验开关
   const valueRef = useRef(formValue); // 当前最新值
   const errorListMapRef = useRef(new Map());
 
-  const isSameForm = useMemo(() => isEqual(form, formOfFormList), [form, formOfFormList]); // 用于处理 Form 嵌套的情况
   const snakeName = []
     .concat(isSameForm ? formListName : undefined, name)
     .filter((item) => item !== undefined)
@@ -171,22 +176,11 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     const { setPrevStore } = form?.getInternalHooks?.(HOOK_MARK) || {};
     setPrevStore?.(form?.getFieldsValue?.(true));
     shouldEmitChangeRef.current = shouldEmitChange;
-    isUpdatedRef.current = true;
     shouldValidate.current = validate;
     valueRef.current = newVal;
-
-    let fieldName = [].concat(name);
-    let fieldValue = formValue;
-    if (formListName) {
-      fieldName = [].concat(formListName, name);
-      fieldValue = get(form?.store, fieldName);
-    }
-
-    fieldName = fieldName.filter((item) => item !== undefined);
-
-    if (!fieldName) return;
+    const fieldValue = get(form?.store, fullPath);
     if (isEqual(fieldValue, newVal)) return;
-    set(form?.store, fieldName, newVal);
+    set(form?.store, fullPath, newVal);
     setFormValue(newVal);
   };
 
@@ -332,16 +326,12 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   // blur 下触发校验
   function handleItemBlur() {
     const filterRules = innerRules.filter((item) => item.trigger === 'blur');
-
     filterRules.length && validate('blur');
   }
 
   function getResetValue(resetType: TdFormProps['resetType']): ValueType {
     if (resetType === 'initial') {
-      return getDefaultInitialData({
-        children,
-        initialData,
-      });
+      return defaultInitialData;
     }
 
     let emptyValue: ValueType;
@@ -426,24 +416,21 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   }, [shouldUpdate, form]);
 
   useEffect(() => {
-    // 记录填写 name 属性 formItem
     if (typeof name === 'undefined') return;
 
-    // formList 下特殊处理
-    if (formListName && isSameForm) {
-      formListMapRef.current.set(name, formItemRef);
-      return () => {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        formListMapRef.current.delete(name);
-        unset(form?.store, name);
-      };
-    }
-    if (!formMapRef) return;
-    formMapRef.current.set(name, formItemRef);
+    const isFormList = formListName && isSameForm;
+    const mapRef = isFormList ? formListMapRef : formMapRef;
+    if (!mapRef?.current) return;
+
+    // 注册实例
+    mapRef.current.set(fullPath, formItemRef);
+
+    // 初始化
+    set(form?.store, fullPath, defaultInitialData);
+    setFormValue(defaultInitialData);
+
     return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      formMapRef.current.delete(name);
-      unset(form?.store, name);
+      mapRef.current.delete(fullPath);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [snakeName, formListName]);
@@ -455,18 +442,9 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     // 控制是否需要校验
     if (!shouldValidate.current) return;
 
-    // value change event
     if (typeof name !== 'undefined' && shouldEmitChangeRef.current) {
-      if (formListName && isSameForm) {
-        // 整理 formItem 的值
-        const formListValue = merge([], calcFieldValue(name, formValue));
-        // 整理 formList 的值
-        const fieldValue = calcFieldValue(formListName, formListValue);
-        onFormItemValueChange?.({ ...fieldValue });
-      } else {
-        const fieldValue = calcFieldValue(name, formValue);
-        onFormItemValueChange?.({ ...fieldValue });
-      }
+      const fieldValue = calcFieldValue(fullPath, formValue);
+      onFormItemValueChange?.(fieldValue);
     }
 
     const filterRules = innerRules.filter((item) => (item.trigger || 'change') === 'change');
@@ -478,9 +456,11 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   // 暴露 ref 实例方法
   const instance: FormItemInstance = {
     name,
+    fullPath,
     value: formValue,
-    isUpdated: isUpdatedRef.current,
-    getValue: () => valueRef.current,
+    initialData,
+    isFormList: false,
+    getValue: () => cloneDeep(valueRef.current),
     setValue: (newVal: any) => updateFormValue(newVal, true, true),
     setField,
     validate,
@@ -509,38 +489,55 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
           {React.Children.map(children, (child, index) => {
             if (!child) return null;
 
-            let ctrlKey = 'value';
-            if (React.isValidElement(child)) {
-              if (child.type === FormItem) {
-                return React.cloneElement(child, {
-                  // @ts-ignore
-                  ref: (el) => {
-                    if (!el) return;
-                    innerFormItemsRef.current[index] = el;
-                  },
-                });
-              }
-              if (typeof child.type === 'object') {
-                ctrlKey = ctrlKeyMap.get(child.type) || 'value';
-              }
-              const childProps = child.props as any;
+            // Fragment can only have `key` and `children` props, skip props injection
+            if (!React.isValidElement(child) || child.type === React.Fragment) return child;
+
+            const childType = child.type;
+            const isCustomComp = typeof childType === 'object' || typeof childType === 'function';
+            // @ts-ignore
+            const componentName = isCustomComp ? childType.displayName : childType;
+
+            if (componentName === 'FormItem') {
               return React.cloneElement(child, {
-                disabled: disabledFromContext,
-                readOnly: readonlyFromContext,
-                ...childProps,
-                [ctrlKey]: formValue,
-                onChange: (value: any, ...args: any[]) => {
-                  const newValue = valueFormat ? valueFormat(value) : value;
-                  updateFormValue(newValue, true, true);
-                  childProps?.onChange?.call?.(null, value, ...args);
-                },
-                onBlur: (value: any, ...args: any[]) => {
-                  handleItemBlur();
-                  childProps?.onBlur?.call?.(null, value, ...args);
+                // @ts-ignore
+                ref: (el) => {
+                  if (!el) return;
+                  innerFormItemsRef.current[index] = el;
                 },
               });
             }
-            return child;
+
+            const childProps = child.props as any;
+            const commonProps = {
+              disabled: disabledFromContext,
+              readOnly: readOnlyFromContext,
+              ...childProps,
+            };
+
+            if (!isCustomComp && !NATIVE_INPUT_COMP.includes(componentName)) {
+              return React.cloneElement(child, commonProps);
+            }
+
+            let ctrlKey = 'value';
+            if (isCustomComp) {
+              ctrlKey = TD_CTRL_PROP_MAP.get(componentName) || 'value';
+            }
+
+            return React.cloneElement(child, {
+              disabled: disabledFromContext,
+              readOnly: readOnlyFromContext,
+              ...childProps,
+              [ctrlKey]: formValue,
+              onChange: (value: any, ...args: any[]) => {
+                const newValue = valueFormat ? valueFormat(value) : value;
+                updateFormValue(newValue, true, true);
+                childProps?.onChange?.call?.(null, value, ...args);
+              },
+              onBlur: (value: any, ...args: any[]) => {
+                handleItemBlur();
+                childProps?.onBlur?.call?.(null, value, ...args);
+              },
+            });
           })}
           {renderSuffixIcon()}
         </div>

@@ -1,104 +1,49 @@
 import React, { useState } from 'react';
-import { Dialog, DialogCard, Button, Select } from 'tdesign-react';
+import { Button, Dialog, Space } from 'tdesign-react';
 
 export default function NotModalExample() {
-  const [visible, setVisible] = useState(false);
-  const [visible1, setVisible1] = useState(false);
-  const [visible2, setVisible2] = useState(false);
-  const [value, setValue] = useState('');
+  const [modal, setModal] = useState(false);
+  const [draggableModal, setDraggableModal] = useState(false);
+  const [draggableModeless, setDraggableModeless] = useState(false);
+  const [modeless, setModeless] = useState(false);
 
-  const handleClick = () => {
-    setVisible(true);
-  };
-  const handleClose = () => {
-    setVisible(false);
-  };
-  const handleClose1 = () => {
-    setVisible1(false);
-  };
-  const handleClose2 = () => {
-    setVisible2(false);
-  };
-  const onChange = (value: string) => {
-    setValue(value);
-  };
   return (
     <>
-      <Button theme="primary" onClick={handleClick} style={{ marginRight: 16 }}>
-        模态对话框
-      </Button>
-      <Button
-        theme="primary"
-        onClick={() => {
-          setVisible1(true);
-        }}
-        style={{ marginRight: 16 }}
-      >
-        非模态对话框
-      </Button>
-      <Button
-        theme="primary"
-        onClick={() => {
-          setVisible2(true);
-        }}
-        style={{ marginRight: 16 }}
-      >
-        非模态对话框2
-      </Button>
+      <Space>
+        <Button theme="primary" onClick={() => setModal(true)}>
+          普通对话框（不可拖拽）
+        </Button>
+        <Button theme="primary" variant="outline" onClick={() => setDraggableModal(true)}>
+          普通对话框（可拖拽）
+        </Button>
+        <Button theme="primary" onClick={() => setModeless(true)}>
+          非模态对话框（不可拖拽）
+        </Button>
+        <Button theme="primary" variant="outline" onClick={() => setDraggableModeless(true)}>
+          非模态对话框（可拖拽）
+        </Button>
+      </Space>
 
-      <Dialog
-        width={800}
-        header="模态对话框"
-        visible={visible}
-        onClose={handleClose}
-        onCloseBtnClick={() => {
-          console.log('on click close btn');
-        }}
-        onOpened={() => {
-          console.log('dialog is open');
-        }}
-      >
+      <Dialog header="普通对话框（不可拖拽）" visible={modal} onClose={() => setModal(false)}>
+        <p>This is a dialog</p>
+      </Dialog>
+
+      <Dialog header="普通对话框（可拖拽）" draggable visible={draggableModal} onClose={() => setDraggableModal(false)}>
+        <p>This is a dialog</p>
+      </Dialog>
+
+      <Dialog mode="modeless" header="非模态对话框（不可拖拽）" visible={modeless} onClose={() => setModeless(false)}>
         <p>This is a dialog</p>
       </Dialog>
       <Dialog
         mode="modeless"
-        header="非模态对话框"
-        draggable={true}
-        visible={visible1}
-        onClose={handleClose1}
-        onOpened={() => {
-          console.log('dialog is open');
-        }}
-      >
-        <Select
-          value={value}
-          onChange={onChange}
-          style={{ width: '40%' }}
-          clearable
-          options={[
-            { label: '架构云', value: '1' },
-            { label: '大数据', value: '2' },
-            { label: '区块链', value: '3' },
-            { label: '物联网', value: '4', disabled: true },
-            { label: '人工智能', value: '5' },
-          ]}
-        ></Select>
-      </Dialog>
-      <Dialog
-        mode="modeless"
-        header="非模态对话框2"
-        draggable={true}
-        visible={visible2}
-        onClose={handleClose2}
-        onOpened={() => {
-          console.log('dialog is open');
-        }}
+        header="非模态对话框（可拖拽）"
+        draggable
+        visible={draggableModeless}
+        onClose={() => setDraggableModeless(false)}
       >
         <p>This is a dialog</p>
       </Dialog>
-      <DialogCard header="普通对话框">
-        <p>This is a dialog</p>
-      </DialogCard>
     </>
   );
 }

@@ -6,19 +6,19 @@ import { CheckContext, type CheckContextValue } from '../common/Check';
 import useCommonClassName from '../hooks/useCommonClassName';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
+import useDeepEffect from '../hooks/useDeepEffect';
 import useDefaultProps from '../hooks/useDefaultProps';
-import useMutationObserver from '../hooks/useMutationObserver';
 import Radio from './Radio';
 import { radioGroupDefaultProps } from './defaultProps';
 import useKeyboard from './useKeyboard';
 
 import type { StyledProps } from '../common';
-import type { TdRadioGroupProps } from './type';
+import type { RadioValue, TdRadioGroupProps } from './type';
 
 /**
  * RadioGroup 组件所接收的属性
  */
-export interface RadioGroupProps extends TdRadioGroupProps, StyledProps {
+export interface RadioGroupProps<T extends RadioValue = RadioValue> extends TdRadioGroupProps<T>, StyledProps {
   children?: ReactNode;
 }
 
@@ -29,7 +29,8 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
   const { classPrefix } = useConfig();
 
   const props = useDefaultProps<RadioGroupProps>(originalProps, radioGroupDefaultProps);
-  const { disabled, readonly, children, onChange, size, variant, options = [], className, style, theme } = props;
+  const { disabled, children, onChange, size, variant, options = [], className, style, theme, direction } = props;
+  const readOnly = props.readOnly || props.readonly;
 
   const [internalValue, setInternalValue] = useControlled(props, 'value', onChange);
   const [barStyle, setBarStyle] = useState<Partial<CSSProperties> | null>(null);
@@ -58,7 +59,7 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
         allowUncheck: checkProps.allowUncheck || props.allowUncheck,
         checked: internalValue === checkProps.value,
         disabled: checkProps.disabled || disabled,
-        readonly: checkProps.readonly || readonly,
+        readonly: checkProps.readOnly || checkProps.readonly || readOnly,
         onChange(checked, { e }) {
           if (typeof checkProps.onChange === 'function') {
             checkProps.onChange(checked, { e });
@@ -87,32 +88,20 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
     });
   };
 
-  // 针对子元素更新的场景，包括 value 变化等
-  useMutationObserver(radioGroupRef.current, (mutations) => {
-    // 排除高亮元素自身的变化，避免重复触发
-    const filteredMutations = mutations.filter((mutation) => {
-      const target = mutation.target as HTMLElement;
-      return !target.classList?.contains(`${classPrefix}-radio-group__bg-block`);
-    });
-
-    if (filteredMutations.length > 0) {
-      calcBarStyle();
-    }
-  });
-
   useEffect(() => {
-    calcBarStyle();
     if (!radioGroupRef.current) return;
-
     // 针对父元素初始化时隐藏导致无法正确计算尺寸的问题
     const observer = observe(radioGroupRef.current, null, calcBarStyle, 0);
     observerRef.current = observer;
-
     return () => {
-      observerRef.current?.disconnect();
-      observerRef.current = null;
+      observer?.disconnect();
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useDeepEffect(() => {
+    calcBarStyle();
+  }, [internalValue, options]);
 
   const renderBlock = () => {
     if (!variant.includes('filled') || !barStyle) {
@@ -152,6 +141,7 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
           [`${classPrefix}-radio-group__outline`]: variant === 'outline',
           [`${classPrefix}-radio-group--filled`]: variant.includes('filled'),
           [`${classPrefix}-radio-group--primary-filled`]: variant === 'primary-filled',
+          [`${classPrefix}-radio-group--vertical`]: direction === 'vertical',
         })}
       >
         {children || renderOptions()}
@@ -163,4 +153,4 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
 
 RadioGroup.displayName = 'RadioGroup';
 
-export default RadioGroup;
+export default RadioGroup as <T extends RadioValue = RadioValue>(props: RadioGroupProps<T>) => React.ReactElement;

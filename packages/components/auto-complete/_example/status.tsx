@@ -20,7 +20,7 @@ const AutoCompleteStatus = () => {
         value={value}
         options={options}
         onChange={setValue}
-        readonly
+        readOnly
         tips="这是只读状态"
         placeholder="请输入关键词搜索"
       />

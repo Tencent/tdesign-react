@@ -334,7 +334,7 @@ describe('TreeSelect Component', () => {
   it('props.readonly works fine', () => {
     const onPopupVisibleChangeFn = vi.fn();
     const { container } = render(
-      <TreeSelect readonly={true} onPopupVisibleChange={onPopupVisibleChangeFn}></TreeSelect>,
+      <TreeSelect readOnly={true} onPopupVisibleChange={onPopupVisibleChangeFn}></TreeSelect>,
     );
     fireEvent.click(container.querySelector('.t-input'));
     expect(onPopupVisibleChangeFn).not.toHaveBeenCalled();

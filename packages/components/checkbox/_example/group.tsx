@@ -40,14 +40,7 @@ export default function CheckboxExample() {
       <Space direction="vertical">
         <strong>写法一：使用 options</strong>
         <div>选中值: {city.join('、')}</div>
-        <Checkbox.Group
-          disabled={disabled}
-          value={city}
-          onChange={(value) => {
-            setCity(value);
-          }}
-          options={options}
-        />
+        <Checkbox.Group<string[]> disabled={disabled} value={city} onChange={setCity} options={options} />
       </Space>
 
       <Divider />
@@ -55,13 +48,7 @@ export default function CheckboxExample() {
       <Space direction="vertical">
         <strong>写法二：使用插槽</strong>
         <div>选中值: {city2.join('、')}</div>
-        <Checkbox.Group
-          disabled={disabled}
-          value={city2}
-          onChange={(value) => {
-            setCity2(value);
-          }}
-        >
+        <Checkbox.Group<string[]> disabled={disabled} value={city2} onChange={setCity2}>
           <Checkbox checkAll>全选</Checkbox>
           <Checkbox value="北京">北京</Checkbox>
           <Checkbox value="上海">上海</Checkbox>

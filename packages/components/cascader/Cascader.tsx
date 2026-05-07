@@ -102,9 +102,9 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
   const { setVisible, visible, inputVal, setInputVal } = cascaderContext;
 
   const updateScrollTop = (content: HTMLDivElement) => {
-    const cascaderMenuList = content.querySelectorAll(`.${COMPONENT_NAME}__menu`);
+    const cascaderMenuList = content?.querySelectorAll(`.${COMPONENT_NAME}__menu`);
     requestAnimationFrame(() => {
-      cascaderMenuList.forEach((menu: HTMLDivElement) => {
+      cascaderMenuList?.forEach((menu: HTMLDivElement) => {
         const firstSelectedNode: HTMLDivElement =
           menu?.querySelector(`.${classPrefix}-is-selected`) || menu?.querySelector(`.${classPrefix}-is-expanded`);
 
@@ -156,7 +156,7 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
       allowInput={isFilterable}
       minCollapsedNum={props.minCollapsedNum}
       collapsedItems={props.collapsedItems as any}
-      readonly={props.readonly}
+      readOnly={props.readOnly || props.readonly}
       clearable={props.clearable}
       placeholder={inputPlaceholder}
       multiple={props.multiple}

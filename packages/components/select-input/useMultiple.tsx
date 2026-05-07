@@ -32,6 +32,8 @@ export interface SelectInputProps extends TdSelectInputProps, StyledProps {
 
 export default function useMultiple(props: SelectInputProps) {
   const { value } = props;
+  const readOnly = props.readOnly || props.readonly;
+
   const { classPrefix } = useConfig();
 
   const [tInputValue, setTInputValue] = useControlled(props, 'inputValue', props.onInputChange);
@@ -93,7 +95,7 @@ export default function useMultiple(props: SelectInputProps) {
         ref={tagInputRef}
         {...p.commonInputProps}
         autoWidth={props.autoWidth}
-        readonly={props.readonly}
+        readOnly={readOnly}
         minCollapsedNum={props.minCollapsedNum}
         collapsedItems={props.collapsedItems}
         tag={props.tag}
@@ -108,15 +110,16 @@ export default function useMultiple(props: SelectInputProps) {
           if (context?.trigger === 'enter' || context?.trigger === 'blur') return;
           setTInputValue(val, { trigger: context.trigger, e: context.e });
         }}
-        tagProps={props.tagProps}
         onClear={p.onInnerClear}
         // [Important Info]: SelectInput.blur is not equal to TagInput, example: click popup panel
         onFocus={handleFocus}
         onBlur={handleBlur}
         {...props.tagInputProps}
+        tagProps={{ ...props.tagProps, ...props.tagInputProps?.tagProps }}
         inputProps={{
           ...props.inputProps,
-          readonly: !props.allowInput || props.readonly,
+          readOnly: !props.allowInput || readOnly,
+          readonly: !props.allowInput || readOnly,
           inputClass: classNames(props.tagInputProps?.className, {
             [`${classPrefix}-input--focused`]: p.popupVisible,
             [`${classPrefix}-is-focused`]: p.popupVisible,

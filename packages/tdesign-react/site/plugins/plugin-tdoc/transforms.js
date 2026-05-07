@@ -44,7 +44,8 @@ export default {
     }
 
     // 替换成对应 demo 文件
-    source = source.replace(/\{\{\s+(.+)\s+\}\}/g, (demoStr, demoFileName) => {
+    // 只匹配独立行的 {{ }} 模式，避免影响普通代码块中的内容
+    source = source.replace(/^[ \t]*\{\{\s+(.+?)\s+\}\}[ \t]*$/gm, (demoStr, demoFileName) => {
       const tsxDemoPath = path.resolve(resourceDir, `./_example/${demoFileName}.tsx`);
 
       if (!fs.existsSync(tsxDemoPath)) {

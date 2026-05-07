@@ -1,4 +1,4 @@
-import React, { useRef, useImperativeHandle, useEffect } from 'react';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import classNames from 'classnames';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import noop from '../_util/noop';
@@ -39,9 +39,7 @@ const Form = forwardRefWithStatics(
       resetType,
       rules,
       errorMessage = globalFormConfig.errorMessage,
-      preventSubmitDefault,
       disabled,
-      readonly,
       children,
       id,
       onReset,
@@ -56,7 +54,7 @@ const Form = forwardRefWithStatics(
     const formRef = useRef<HTMLFormElement>(null);
     const formMapRef = useRef(new Map()); // 收集所有包含 name 属性 formItem 实例
     const floatingFormDataRef = useRef({}); // 储存游离值的 formData
-    const formInstance = useInstance(props, formRef, formMapRef, floatingFormDataRef);
+    const formInstance = useInstance(props, formRef, formMapRef, floatingFormDataRef, form);
 
     useImperativeHandle(ref, () => formInstance);
     Object.assign(form, { ...formInstance });
@@ -73,21 +71,15 @@ const Form = forwardRefWithStatics(
       });
       form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.([]);
       form.store = {};
+      floatingFormDataRef.current = {};
       onReset?.({ e });
     }
 
     function onFormItemValueChange(changedValue: Record<string, unknown>) {
-      const allFields = formInstance.getFieldsValue(true);
-      onValuesChange(changedValue, allFields);
-    }
-
-    function onKeyDownHandler(e: React.KeyboardEvent<HTMLFormElement>) {
-      // 禁用 input 输入框回车自动提交 form
-      if ((e.target as Element).tagName.toLowerCase() !== 'input') return;
-      if (preventSubmitDefault && e.key === 'Enter') {
-        e.preventDefault?.();
-        e.stopPropagation?.();
-      }
+      requestAnimationFrame(() => {
+        const allFields = formInstance.getFieldsValue(true);
+        onValuesChange(changedValue, allFields);
+      });
     }
 
     return (
@@ -108,7 +100,7 @@ const Form = forwardRefWithStatics(
           resetType,
           rules,
           disabled,
-          readonly,
+          readOnly: props.readOnly || props.readonly,
           formMapRef,
           floatingFormDataRef,
           onFormItemValueChange,
@@ -121,7 +113,6 @@ const Form = forwardRefWithStatics(
           className={formClass}
           onSubmit={formInstance.submit}
           onReset={onResetHandler}
-          onKeyDown={onKeyDownHandler}
         >
           {children}
         </form>

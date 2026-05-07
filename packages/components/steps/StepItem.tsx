@@ -18,11 +18,11 @@ const StepItem: React.FC<StepItemProps> = (originalProps) => {
   const props = useDefaultProps<StepItemProps>(originalProps, stepItemDefaultProps);
   const { index, icon, title, content, value, children, style, status } = props;
 
-  const { current, theme, onChange, readonly } = useContext(StepsContext);
+  const { current, theme, onChange, readOnly } = useContext(StepsContext);
   const { classPrefix, steps: globalStepsConfig } = useConfig();
   const { CloseIcon, CheckIcon } = useGlobalIcon({ CloseIcon: TdCloseIcon, CheckIcon: TdCheckIcon });
 
-  const canClick = status !== 'process' && !readonly;
+  const canClick = status !== 'process' && !readOnly;
 
   // 步骤条每一步展示的图标
   const iconNode = React.useMemo<React.ReactNode>(() => {

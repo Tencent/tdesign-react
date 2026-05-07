@@ -148,9 +148,15 @@ export interface TdSelectProps<T extends SelectOption = SelectOption> {
   prefixIcon?: TElement;
   /**
    * 只读状态，值为真会隐藏输入框，且无法打开下拉框
+   * @deprecated It will be removed in the future. Please use `readOnly` instead.
    * @default false
    */
   readonly?: boolean;
+  /**
+   * 只读状态，值为真会隐藏输入框，且无法打开下拉框
+   * @default false
+   */
+  readOnly?: boolean;
   /**
    * 多选且可搜索时，是否在选中一个选项后保留当前的搜索关键词
    * @default false

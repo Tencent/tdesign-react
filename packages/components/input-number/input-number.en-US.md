@@ -20,7 +20,7 @@ largeNumber | Boolean | false | \- | N
 max | String / Number | Infinity | Typescript: `InputNumberValue` | N
 min | String / Number | -Infinity | Typescript: `InputNumberValue` | N
 placeholder | String | undefined | \- | N
-readonly | Boolean | undefined | \- | N
+readOnly | Boolean | undefined | \- | N
 size | String | medium | options: small/medium/large | N
 status | String | default | options: default/success/warning/error | N
 step | String / Number | 1 | Typescript: `InputNumberValue` | N

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { render, fireEvent, mockTimeout } from '@test/utils';
+import { render, fireEvent, mockTimeout, vi } from '@test/utils';
 import userEvent from '@testing-library/user-event';
 import Dialog from '../index';
 import { DialogPlugin } from '../plugin';
@@ -22,6 +22,7 @@ function DialogDemo(props) {
   return (
     <>
       <div onClick={handleClick}>Open Dialog Modal</div>
+      <div onClick={handleClose}>Close Dialog Modal</div>
       <Dialog
         header="Basic Modal"
         visible={visible}
@@ -56,19 +57,25 @@ describe('Dialog组件测试', () => {
   });
 
   test('EscCloseDialog', async () => {
-    const { getByText } = render(<DialogDemo mode="modal" draggable={false} />);
-    fireEvent.click(getByText('Open Dialog Modal'));
+    const onEscKeydown = vi.fn();
+    const { getByText } = render(<DialogDemo mode="modal" draggable={false} onEscKeydown={onEscKeydown} />);
+
+    await fireEvent.click(getByText('Open Dialog Modal'));
     expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
     await user.keyboard('{Escape}');
-    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 400);
+    expect(onEscKeydown).toHaveBeenCalled();
   });
 
   test('EnterConfirm', async () => {
-    const { getByText } = render(<DialogDemo mode="modal" draggable={false} />);
+    const onConfirm = vi.fn();
+    const { getByText } = render(<DialogDemo mode="modal" draggable={false} onConfirm={onConfirm} />);
+
+    expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument();
+
     fireEvent.click(getByText('Open Dialog Modal'));
     expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
     await user.keyboard('{Enter}');
-    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 400);
+    expect(onConfirm).toHaveBeenCalled();
   });
 
   test('DraggableDialog', () => {

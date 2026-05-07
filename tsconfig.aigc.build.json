@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig",
+  "include": ["packages/pro-components/chat"],
+  "exclude": ["**/**/__tests__/*", "**/**/_example/*",  "**/**/_example-js/*","**/**/_usage/*", "es", "node_modules"],
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "emitDeclarationOnly": true,
+    "rootDir": "packages/pro-components/chat",
+    "skipLibCheck": true
+  }
+}

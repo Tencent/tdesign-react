@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, MouseEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { isArray, isFunction } from 'lodash-es';
 import {
@@ -7,15 +7,15 @@ import {
   MirrorIcon as TdMirrorIcon,
   RotationIcon as TdRotationIcon,
 } from 'tdesign-icons-react';
+
+import { downloadImage } from '@tdesign/common-js/image-viewer/utils';
 import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
-import type { TNode } from '../common';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useImagePreviewUrl from '../hooks/useImagePreviewUrl';
 import Image from '../image';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TooltipLite } from '../tooltip';
-import type { ImageViewerProps } from './ImageViewer';
 import { ImageModalMini } from './ImageViewerMini';
 import useIconMap from './hooks/useIconMap';
 import useIndex from './hooks/useIndex';
@@ -23,8 +23,10 @@ import useMirror from './hooks/useMirror';
 import usePosition from './hooks/usePosition';
 import useRotate from './hooks/useRotate';
 import useScale from './hooks/useScale';
+
+import type { TNode } from '../common';
+import type { ImageViewerProps } from './ImageViewer';
 import type { ImageInfo, ImageScale, ImageViewerScale, TdImageViewerProps } from './type';
-import { downloadFile } from './utils';
 
 const ImageError = ({ errorText }: { errorText: string }) => {
   const { classPrefix } = useConfig();
@@ -49,6 +51,7 @@ interface ImageModalItemProps {
   errorText: string;
   imageReferrerpolicy?: TdImageViewerProps['imageReferrerpolicy'];
   isSvg: boolean;
+  innerClassName: TdImageViewerProps['innerClassName'];
 }
 
 // 单个弹窗实例
@@ -61,6 +64,7 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
   errorText,
   imageReferrerpolicy,
   isSvg,
+  innerClassName,
 }) => {
   const { classPrefix } = useConfig();
 
@@ -143,7 +147,7 @@ export const ImageModalItem: React.FC<ImageModalItemProps> = ({
   }, [mainImagePreviewUrl]);
 
   return (
-    <div className={`${classPrefix}-image-viewer__modal-pic`}>
+    <div className={classNames(`${classPrefix}-image-viewer__modal-pic`, innerClassName)}>
       <div className={`${classPrefix}-image-viewer__modal-box`} style={boxStyle}>
         {error && <ImageError errorText={errorText} />}
         {/* 预览图 */}
@@ -196,7 +200,7 @@ interface ImageModalIconProps {
   className?: string;
   disabled?: boolean;
   isRange?: boolean;
-  onClick?: (e: MouseEvent<HTMLElement>) => void;
+  onClick?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 const ImageModalIcon = ({ onClick, className, disabled, isRange, name, label, size = '16px' }: ImageModalIconProps) => {
@@ -304,7 +308,7 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
                 onDownload(currentImage.mainImage);
                 return;
               }
-              downloadFile(currentImage.mainImage);
+              downloadImage(currentImage.mainImage);
             }}
           />
         )}
@@ -396,10 +400,16 @@ export interface ImageModalProps {
   closeBtn: boolean | TNode;
   closeOnEscKeydown?: boolean;
   imageReferrerpolicy?: ImageViewerProps['imageReferrerpolicy'];
-  onClose: (context: { trigger: 'close-btn' | 'overlay' | 'esc'; e: MouseEvent<HTMLElement> | KeyboardEvent }) => void;
+  className?: string;
+  style?: React.CSSProperties;
+  onClose: (context: {
+    trigger: 'close-btn' | 'overlay' | 'esc';
+    e: React.MouseEvent<HTMLElement> | React.KeyboardEvent;
+  }) => void;
   onOpen: () => void;
   onDownload?: TdImageViewerProps['onDownload'];
   onIndexChange?: (index: number, context: { trigger: 'prev' | 'next' | 'current' }) => void;
+  innerClassName?: TdImageViewerProps['innerClassName'];
 }
 
 // 弹窗基础组件
@@ -419,10 +429,13 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
     title,
     closeOnEscKeydown,
     imageReferrerpolicy,
+    className,
+    style,
     onOpen,
     onClose,
     onDownload,
     onIndexChange,
+    innerClassName,
   } = props;
   const { classPrefix } = useConfig();
   const [locale, t] = useLocaleReceiver('imageViewer');
@@ -479,6 +492,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   if (isMini) {
     return (
       <ImageModalMini
+        innerClassName={innerClassName}
         visible={visible}
         draggable={draggable}
         index={index}
@@ -494,6 +508,8 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         errorText={errorText}
         tipText={tipText}
         imageReferrerpolicy={imageReferrerpolicy}
+        className={className}
+        style={style}
         prev={prev}
         next={next}
         onMirror={onMirror}
@@ -514,22 +530,26 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         name="close"
         size="24px"
         className={`${classPrefix}-image-viewer__modal-close-bt `}
-        onClick={(e: MouseEvent<HTMLElement>) => onClose && onClose({ trigger: 'close-btn', e })}
+        onClick={(e: React.MouseEvent<HTMLElement>) => onClose && onClose({ trigger: 'close-btn', e })}
       />
     );
   } else if (isFunction(closeBtn)) closeNode = closeBtn({ onClose, onOpen });
 
   return (
     <div
-      className={classNames(`${classPrefix}-image-viewer-preview-image`, {
-        [`${classPrefix}-is-hide`]: !visible,
-      })}
-      style={{ zIndex }}
+      className={classNames(
+        `${classPrefix}-image-viewer-preview-image`,
+        {
+          [`${classPrefix}-is-hide`]: !visible,
+        },
+        className,
+      )}
+      style={{ zIndex, ...style }}
     >
       {!!showOverlay && (
         <div
           className={`${classPrefix}-image-viewer__modal-mask`}
-          onClick={(e: MouseEvent<HTMLElement>) => closeOnOverlay && onClose?.({ trigger: 'overlay', e })}
+          onClick={(e: React.MouseEvent<HTMLElement>) => closeOnOverlay && onClose?.({ trigger: 'overlay', e })}
         />
       )}
       {images.length > 1 && (
@@ -574,6 +594,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
       />
       {closeNode}
       <ImageModalItem
+        innerClassName={innerClassName}
         scale={scale}
         rotateZ={rotateZ}
         mirror={mirror}

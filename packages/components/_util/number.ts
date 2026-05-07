@@ -1,28 +1,21 @@
+export const numberToPercent = (number: number) => `${number * 100}%`;
+
 /**
- ** 加法函数，用来得到精确的加法结果
- ** 说明：javascript 的加法结果会有误差，在两个浮点数相加的时候会比较明显。这个函数返回较为精确的加法结果。
- ** 调用：accAdd(num1,num2)
- ** 返回值：num1 加上num2 的精确结果
- * */
-export function accAdd(num1: number, num2: number) {
-  const isFloat = (n: number) => typeof n === 'number' && !Number.isInteger(n);
+ * 精确加法函数，避免 JavaScript 浮点误差
+ * - 浮点运算会导致类似 0.1 + 0.2 = 0.30000000000000004 的问题
+ * - 该函数通过将数字放大为整数进行运算，再缩小回原精度，得到更精确的结果
+ */
+export function accAdd(num1: number, num2: number): number {
+  // 获取每个数字的小数位长度
+  const precision1 = (num1.toString().split('.')[1] || '').length;
+  const precision2 = (num2.toString().split('.')[1] || '').length;
 
-  if (isFloat(num1) && isFloat(num2)) {
-    const [integer1, precision1] = String(num1).split('.');
-    const [integer2, precision2] = String(num2).split('.');
+  // 取两者中较大的小数位长度，用于计算放大倍数
+  const scale = 10 ** Math.max(precision1, precision2);
 
-    // 获取两个浮点数的最长精度
-    const maxPrecisionLen = Math.max(precision1.length, precision2.length);
-    // 对齐小数部分的精度长度
-    const wholePrecision1 = Number(precision1.padEnd(maxPrecisionLen, '0'));
-    const wholePrecision2 = Number(precision2.padEnd(maxPrecisionLen, '0'));
+  // 将小数放大为整数
+  const sum = Math.round(num1 * scale) + Math.round(num2 * scale);
 
-    // 小数部分转化成整数相加之后除以精度最长的 10 的倍数
-    const precisionVal = (wholePrecision1 + wholePrecision2) / 10 ** maxPrecisionLen;
-    const integerVal = Number(integer1) + Number(integer2);
-
-    return integerVal + precisionVal;
-  }
-
-  return num1 + num2;
+  // 缩放回原精度，得到最终结果
+  return sum / scale;
 }

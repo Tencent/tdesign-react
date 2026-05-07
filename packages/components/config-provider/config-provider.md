@@ -30,6 +30,28 @@ import 'tdesign-react/esm/style/index.js'
 }
 ```
 
+### Plugin的函数式调用
+
+使用函数式调用，需要覆盖 `Plugin` 时，需要配置 `isContextEffectPlugin` (全局配置是否影响函数式调用方法使用的组件)。
+
+```js
+const globalConfig: GlobalConfigProvider = {
+  ...enConfig,
+  dialog: {
+    confirm: 'confirm',
+    cancel: 'cancel',
+    confirmBtnTheme: {
+      default: 'primary',
+      info: 'primary',
+      warning: 'warning',
+      danger: 'danger',
+      success: 'success',
+    },
+  },
+  isContextEffectPlugin:true,
+};
+```
+
 ## API
 
 ### ConfigProvider Props

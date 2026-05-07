@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import useConfig from '../hooks/useConfig';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useCommonClassName from '../hooks/useCommonClassName';
-import composeRefs from '../_util/composeRefs';
+import { composeRefs } from '../_util/ref';
 import { TdAvatarProps } from './type';
 import { StyledProps } from '../common';
 import AvatarContext from './AvatarContext';
@@ -63,7 +63,7 @@ const Avatar = forwardRefWithStatics(
 
     const handleImgLoadError: ImageProps['onError'] = (ctx) => {
       onError?.(ctx);
-      !hideOnLoadFailed && setIsImgExist(false);
+      setIsImgExist(!hideOnLoadFailed);
     };
 
     useEffect(() => {
@@ -101,7 +101,17 @@ const Avatar = forwardRefWithStatics(
     });
     let renderChildren: React.ReactNode;
     if (image && isImgExist) {
-      renderChildren = <Image src={image} alt={alt} style={imageStyle} onError={handleImgLoadError} {...imageProps} />;
+      renderChildren = (
+        <Image
+          src={image}
+          alt={alt}
+          error=""
+          loading=""
+          style={imageStyle}
+          onError={handleImgLoadError}
+          {...imageProps}
+        />
+      );
     } else if (icon) {
       renderChildren = icon;
     } else {

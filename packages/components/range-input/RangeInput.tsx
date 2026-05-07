@@ -48,7 +48,6 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
     inputProps,
     label,
     placeholder,
-    readonly,
     separator,
     status,
     size,
@@ -58,6 +57,8 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
     suffixIcon,
     clearable,
     showClearIconOnEmpty,
+    readOnly,
+    readonly,
     onClick,
     onEnter,
     onClear,
@@ -68,6 +69,7 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
     onChange: onChangeFromProps,
     ...restProps
   } = props;
+  const readOnlyProp = readOnly || readonly;
 
   const name = `${classPrefix}-range-input`;
 
@@ -91,23 +93,13 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
   let suffixIconNew = suffixIcon;
 
   if (isShowClearIcon) {
-    suffixIconNew = (
-      <CloseCircleFilledIcon className={`${name}__suffix-clear`} onMouseDown={handleMouseDown} onClick={handleClear} />
-    );
+    suffixIconNew = <CloseCircleFilledIcon className={`${name}__suffix-clear`} onClick={handleClear} />;
   }
 
   const labelContent = isFunction(label) ? label() : label;
   const prefixIconContent = renderIcon(classPrefix, 'prefix', parseTNode(prefixIcon));
   const suffixContent = isFunction(suffix) ? suffix() : suffix;
   const suffixIconContent = renderIcon(classPrefix, 'suffix', parseTNode(suffixIconNew));
-
-  // 添加MouseDown阻止冒泡，防止點擊Clear value會導致彈窗閃爍一下
-  // https://github.com/Tencent/tdesign-react/issues/2320
-  function handleMouseDown(e: React.MouseEvent<SVGSVGElement, globalThis.MouseEvent>) {
-    e.stopPropagation();
-    // 兼容React16
-    e.nativeEvent.stopImmediatePropagation();
-  }
 
   function handleClear(e: React.MouseEvent<SVGSVGElement>) {
     onClear?.({ e });
@@ -189,7 +181,7 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
           })}
           placeholder={firstPlaceholder}
           disabled={disabled}
-          readonly={readonly}
+          readOnly={readOnlyProp}
           format={firstFormat}
           value={firstValue}
           onClick={({ e }) => onClick?.({ e, position: 'first' })}
@@ -211,7 +203,7 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
           })}
           placeholder={secondPlaceholder}
           disabled={disabled}
-          readonly={readonly}
+          readOnly={readOnlyProp}
           format={secondFormat}
           value={secondValue}
           onClick={({ e }) => onClick?.({ e, position: 'second' })}

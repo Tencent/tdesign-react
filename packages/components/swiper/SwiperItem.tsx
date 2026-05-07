@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import classnames from 'classnames';
 import useConfig from '../hooks/useConfig';
-import { SwiperProps } from './Swiper';
 import useIsFirstRender from '../hooks/useIsFirstRender';
+import type { SwiperProps } from './Swiper';
 
 export interface SwiperItemProps extends SwiperProps {
   currentIndex?: number;
@@ -32,14 +32,20 @@ const disposeIndex = (index: number, currentIndex: number, childrenLength: numbe
   return index;
 };
 
-const calculateTranslate = (index: number, currentIndex: number, parentWidth: number, inStage: boolean) => {
+const calculateTranslate = (
+  index: number,
+  currentIndex: number,
+  parentWidth: number,
+  inStage: boolean,
+  cardScale: number,
+) => {
   if (inStage) {
-    return (parentWidth * ((index - currentIndex) * (1 - itemWidth * CARD_SCALE) - itemWidth + 1)) / 2;
+    return (parentWidth * ((index - currentIndex) * (1 - itemWidth * cardScale) - itemWidth + 1)) / 2;
   }
   if (index < currentIndex) {
-    return (-itemWidth * (1 + CARD_SCALE) * parentWidth) / 2;
+    return (-itemWidth * (1 + cardScale) * parentWidth) / 2;
   }
-  return ((2 + itemWidth * (CARD_SCALE - 1)) * parentWidth) / 2;
+  return ((2 + itemWidth * (cardScale - 1)) * parentWidth) / 2;
 };
 
 const getZindex = (isActivity: boolean, inStage: boolean) => {
@@ -63,6 +69,7 @@ const SwiperItem: React.FC<SwiperItemProps> = (props) => {
     type = 'default',
     childrenLength,
     getWrapAttribute,
+    cardScale = CARD_SCALE,
   } = props;
   const { classPrefix } = useConfig();
   const [, setUpdate] = useState({});
@@ -80,13 +87,13 @@ const SwiperItem: React.FC<SwiperItemProps> = (props) => {
       const translateIndex =
         index !== currentIndex && childrenLength > 2 ? disposeIndex(index, currentIndex, childrenLength) : index;
       const inStage = Math.round(Math.abs(translateIndex - currentIndex)) <= 1;
-      const translate = calculateTranslate(translateIndex, currentIndex, wrapWidth, inStage).toFixed(2);
+      const translate = calculateTranslate(translateIndex, currentIndex, wrapWidth, inStage, cardScale).toFixed(2);
       const isActivity = translateIndex === currentIndex;
       const zIndex = getZindex(isActivity, inStage);
       return {
-        msTransform: `translateX(${translate}px) scale(${isActivity ? 1 : CARD_SCALE})`,
-        WebkitTransform: `translateX(${translate}px) scale(${isActivity ? 1 : CARD_SCALE})`,
-        transform: `translateX(${translate}px) scale(${isActivity ? 1 : CARD_SCALE})`,
+        msTransform: `translateX(${translate}px) scale(${isActivity ? 1 : cardScale})`,
+        WebkitTransform: `translateX(${translate}px) scale(${isActivity ? 1 : cardScale})`,
+        transform: `translateX(${translate}px) scale(${isActivity ? 1 : cardScale})`,
         transition: `transform ${duration / 1000}s ease`,
         zIndex,
       };

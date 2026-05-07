@@ -1,3 +1,5 @@
+export const version = __VERSION__;
+
 export * from './layout';
 export * from './grid';
 export * from './loading';

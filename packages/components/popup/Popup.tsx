@@ -1,9 +1,10 @@
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import { Placement, type Options } from '@popperjs/core';
 import classNames from 'classnames';
 import { debounce, isFunction } from 'lodash-es';
-import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { CSSTransition } from 'react-transition-group';
-import { getRefDom } from '../_util/ref';
+
+import { canUseDocument } from '../_util/dom';
 import { getCssVarsValue } from '../_util/style';
 import Portal from '../common/Portal';
 import useAnimation from '../hooks/useAnimation';
@@ -12,13 +13,17 @@ import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useMutationObserver from '../hooks/useMutationObserver';
-import usePopper from '../hooks/usePopper';
+import usePopper, { type InnerPopperInstance } from '../hooks/usePopper';
 import useWindowSize from '../hooks/useWindowSize';
 import { popupDefaultProps } from './defaultProps';
 import useTrigger from './hooks/useTrigger';
-import type { TdPopupProps } from './type';
 import { getTransitionParams } from './utils/transition';
 
+import type { PopupInstanceFunctions, TdPopupProps } from './type';
+
+/**
+ * @internal
+ */
 export interface PopupProps extends TdPopupProps {
   // 是否触发展开收起动画，内部下拉式组件使用
   expandAnimation?: boolean;
@@ -26,20 +31,25 @@ export interface PopupProps extends TdPopupProps {
   updateScrollTop?: (content: HTMLDivElement) => void;
 }
 
-export interface PopupRef {
-  /** 获取 popper 实例 */
-  getPopper: () => ReturnType<typeof usePopper>;
-  /** 获取 Popup dom 元素 */
+export interface PopupRef extends PopupInstanceFunctions {
+  /** @internal 获取 Popup DOM 元素 */
   getPopupElement: () => HTMLDivElement;
-  /** 获取 portal dom 元素 */
+  /** @internal 获取 Portal DOM 元素 */
   getPortalElement: () => HTMLDivElement;
-  /** 获取内容区域 dom 元素 */
+  /** @internal 获取内容区域 DOM 元素 */
   getPopupContentElement: () => HTMLDivElement;
-  /** 设置 popup 显示隐藏 */
+  /** @internal 设置 Popup 显示隐藏 */
   setVisible: (visible: boolean) => void;
 }
 
-const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
+// 默认动画时长
+const DEFAULT_TRANSITION_TIMEOUT = 180;
+
+// 箭头相关常量
+const ARROW_WIDTH = 8; // 对应 CSS 变量 @popup-arrow-width
+const ARROW_HEIGHT = 8; // 对应 CSS 变量 @popup-arrow-height
+
+const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref) => {
   const props = useDefaultProps<PopupProps>(originalProps, popupDefaultProps);
   const {
     trigger,
@@ -55,6 +65,7 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
     triggerElement,
     children = triggerElement,
     disabled,
+    popperOptions,
     zIndex,
     onScroll,
     onScrollToBottom,
@@ -71,15 +82,14 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
   const { height: windowHeight, width: windowWidth } = useWindowSize();
   const [visible, onVisibleChange] = useControlled(props, 'visible', props.onVisibleChange);
 
-  const [popupElement, setPopupElement] = useState(null);
-  const triggerRef = useRef(null); // 记录 trigger 元素
-  const popupRef = useRef(null); // popup dom 元素，css transition 需要用
-  const portalRef = useRef(null); // portal dom 元素
-  const contentRef = useRef(null); // 内容部分
-  const popperRef = useRef(null); // 保存 popper 实例
+  const [isOverlayHover, setIsOverlayHover] = useState(false);
+  const [popupElement, setPopupElement] = useState<HTMLDivElement>(null);
+  const [arrowStyle, setArrowStyle] = useState<React.CSSProperties>({});
 
-  // 默认动画时长
-  const DEFAULT_TRANSITION_TIMEOUT = 180;
+  const popupRef = useRef<HTMLDivElement>(null); // popup dom 元素，css transition 需要用
+  const portalRef = useRef(null); // portal dom 元素
+  const contentRef = useRef<HTMLDivElement>(null); // 内容部分
+  const popperRef = useRef<InnerPopperInstance>(null); // 保存 popper 实例
 
   // 处理切换 panel 为 null 和正常内容动态切换的情况
   useEffect(() => {
@@ -100,8 +110,9 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
     [placement],
   );
 
-  const { getTriggerNode, getPopupProps, getTriggerDom } = useTrigger({
-    triggerRef,
+  const { triggerElementIsString, getTriggerElement, getTriggerNode, getPopupProps } = useTrigger({
+    triggerElement,
+    popupElement,
     content,
     disabled,
     trigger,
@@ -110,26 +121,26 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
     onVisibleChange,
   });
 
-  const popperOptions = props.popperOptions as Options;
-  popperRef.current = usePopper(getRefDom(triggerRef), popupElement, {
+  // TODO: 理论上类型是 Element（包括 SVGElement 等情况，但涉及修改的地方较多，暂时断言）
+  const triggerEl = getTriggerElement() as HTMLElement;
+
+  const arrowModifierEnabled = useMemo(() => {
+    const arrowModifier = (popperOptions as Options)?.modifiers?.find((m) => m.name === 'arrow');
+    return arrowModifier && arrowModifier.enabled !== false;
+  }, [popperOptions]);
+
+  popperRef.current = usePopper(triggerEl, popupElement, {
     placement: popperPlacement,
     ...popperOptions,
   });
-  /**
-   * 是否启用 popper.js 的 arrow 修饰符
-   * - 会自动根据属性 data-popper-arrow 来识别箭头元素
-   * - 从而支持使用 padding 调整箭头位置
-   * @ see https://popper.js.org/docs/v2/modifiers/arrow/
-   */
-  const hasArrowModifier = popperOptions?.modifiers?.some((modifier) => modifier.name === 'arrow');
   const { styles, attributes } = popperRef.current;
 
   const triggerNode = isFunction(children) ? getTriggerNode(children({ visible })) : getTriggerNode(children);
 
   const updateTimeRef = useRef(null);
   // 监听 trigger 节点或内容变化动态更新 popup 定位
-  useMutationObserver(getRefDom(triggerRef), () => {
-    const isDisplayNone = getCssVarsValue('display', getRefDom(triggerRef)) === 'none';
+  useMutationObserver(triggerEl, () => {
+    const isDisplayNone = getCssVarsValue('display', triggerEl) === 'none';
     if (visible && !isDisplayNone) {
       clearTimeout(updateTimeRef.current);
       updateTimeRef.current = setTimeout(() => popperRef.current?.update?.(), 0);
@@ -137,28 +148,101 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
   });
   useEffect(() => () => clearTimeout(updateTimeRef.current), []);
 
+  const calculateArrowStyle = () => {
+    if (!triggerEl || !popupElement || !showArrow) return {};
+
+    const triggerRect = triggerEl.getBoundingClientRect();
+    const popupRect = popupElement.getBoundingClientRect();
+
+    const inRange = (value: number, min: number, max: number) => value >= min && value <= max;
+
+    // 垂直方向
+    if (placement.startsWith('top') || placement.startsWith('bottom')) {
+      // 计算 trigger 中心点相对于弹出层左边缘的距离
+      const offsetLeft = Math.abs(triggerRect.left + triggerRect.width / 2 - popupRect.left);
+      const popupWidth = popupElement.offsetWidth || popupElement.clientWidth;
+
+      // 保留 padding 的安全 offset
+      const maxPopupOffsetLeft = popupWidth - ARROW_WIDTH / 2;
+      const minPopupOffsetLeft = ARROW_WIDTH + ARROW_WIDTH / 2;
+
+      // 偏移在元素范围内
+      if (inRange(offsetLeft, 0, popupWidth)) {
+        return {
+          // 减去箭头中心点偏移，使箭头中心对齐 trigger 中心
+          left: `${Math.max(minPopupOffsetLeft, Math.min(maxPopupOffsetLeft, offsetLeft)) - ARROW_WIDTH / 2}px`,
+          // 覆盖可能的 margin
+          marginLeft: 0,
+        };
+      }
+
+      return {};
+    }
+
+    // 水平方向
+    const offsetTop = triggerRect.top + triggerRect.height / 2 - popupRect.top;
+    const popupHeight = popupElement.offsetHeight || popupElement.clientHeight;
+
+    const maxPopupOffsetTop = popupHeight - ARROW_HEIGHT;
+    const minPopupOffsetTop = ARROW_HEIGHT;
+
+    if (inRange(offsetTop, 0, popupHeight)) {
+      return {
+        top: `${Math.max(minPopupOffsetTop, Math.min(maxPopupOffsetTop, offsetTop)) - ARROW_HEIGHT / 2}px`,
+        marginTop: 0,
+      };
+    }
+
+    return {};
+  };
+
+  const updateArrowPosition = () => {
+    if (visible && popupElement && showArrow) {
+      const newArrowStyle = calculateArrowStyle();
+      setArrowStyle(newArrowStyle);
+    }
+  };
+
   // 窗口尺寸变化时调整位置
   useEffect(() => {
     if (visible) {
-      requestAnimationFrame(() => popperRef.current?.update?.());
+      requestAnimationFrame(() => {
+        popperRef.current?.update?.();
+      });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible, content, windowHeight, windowWidth]);
 
-  // 下拉展开时更新内部滚动条
+  // 下拉展开或内容变化时，调整箭头位置
   useEffect(() => {
-    if (!triggerRef.current) triggerRef.current = getTriggerDom();
-    if (visible) {
-      updateScrollTop?.(contentRef.current);
+    if (visible && popupElement && contentRef.current) {
+      requestAnimationFrame(() => {
+        updateArrowPosition();
+      });
     }
-  }, [visible, updateScrollTop, getTriggerDom]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible, content, popupElement]);
+
+  // 下拉展开时，触发滚动回调
+  useEffect(() => {
+    if (visible && popupElement && contentRef.current) {
+      requestAnimationFrame(() => {
+        updateScrollTop?.(contentRef.current);
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible, popupElement]);
 
   function handleExited() {
-    !destroyOnClose && popupElement && (popupElement.style.display = 'none');
+    setIsOverlayHover(false);
+    if (!destroyOnClose && popupElement) popupElement.style.display = 'none';
+    // 如果是 destroyOnClose 需要重置 popupElement 否则影响二次操作的判断
+    else setPopupElement(null);
   }
   function handleEnter() {
+    setIsOverlayHover(true);
     !destroyOnClose && popupElement && (popupElement.style.display = 'block');
   }
-
   function handleScroll(e: React.WheelEvent<HTMLDivElement>) {
     onScroll?.({ e });
 
@@ -175,8 +259,8 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
 
   // 整理浮层样式
   function getOverlayStyle(overlayStyle: TdPopupProps['overlayStyle']) {
-    if (getRefDom(triggerRef) && popupRef.current && typeof overlayStyle === 'function') {
-      return { ...overlayStyle(getRefDom(triggerRef), popupRef.current) };
+    if (triggerEl && popupRef.current && typeof overlayStyle === 'function') {
+      return { ...overlayStyle(triggerEl, popupRef.current) };
     }
     return { ...overlayStyle };
   }
@@ -191,7 +275,12 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
       onEnter={handleEnter}
       onExited={handleExited}
     >
-      <Portal triggerNode={getRefDom(triggerRef)} attach={popupAttach} ref={portalRef}>
+      <Portal
+        ref={portalRef}
+        triggerNode={triggerEl}
+        attach={popupAttach}
+        style={{ position: 'absolute', top: 0, left: 0, width: '100%' }}
+      >
         <CSSTransition
           appear
           timeout={0}
@@ -213,8 +302,8 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
             style={{ ...styles.popper, zIndex, ...getOverlayStyle(overlayStyle) }}
             className={classNames(`${classPrefix}-popup`, overlayClassName)}
             {...attributes.popper}
-            {...getPopupProps()}
             onClick={(e) => props.onOverlayClick?.({ e })}
+            {...getPopupProps()}
           >
             <div
               ref={contentRef}
@@ -231,9 +320,9 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
               {content}
               {showArrow && (
                 <div
-                  style={styles.arrow}
+                  style={{ ...styles.arrow, ...arrowStyle }}
                   className={`${classPrefix}-popup__arrow`}
-                  {...(hasArrowModifier && { 'data-popper-arrow': '' })}
+                  {...(arrowModifierEnabled && { 'data-popper-arrow': '' })}
                 />
               )}
             </div>
@@ -243,17 +332,83 @@ const Popup = forwardRef<PopupRef, PopupProps>((originalProps, ref) => {
     </CSSTransition>
   );
 
+  // 处理 shadow root（web component）和 trigger 隐藏的情况
+  function updatePopper() {
+    const popper = popperRef.current;
+    // 如果没有渲染弹层或不可见则不触发更新
+    if (!canUseDocument || !popper || !visible) return;
+
+    try {
+      // web component 的元素可能在 shadow root 内，需要特殊处理
+      const root = triggerEl?.getRootNode();
+      if (root && root instanceof ShadowRoot) {
+        // popper 的实例内部结构可能是 state.elements.reference
+        // 尝试兼容不同实现，先赋值再更新
+        if (popper.state) popper.state.elements.reference = triggerEl;
+        popper.update();
+      } else {
+        // 检查元素是否在 DOM 树中或通过 CSS 样式被隐藏
+        let parent = triggerEl as HTMLElement | null;
+        while (parent && parent !== document.body) {
+          parent = parent.parentElement;
+        }
+
+        const computedStyle = window.getComputedStyle(triggerEl);
+        const isHidden =
+          parent !== document.body ||
+          computedStyle.display === 'none' ||
+          computedStyle.visibility === 'hidden' ||
+          computedStyle.opacity === '0';
+
+        if (!isHidden) {
+          if (popper.state) popper.state.elements.reference = triggerEl;
+          popper.update();
+        } else {
+          // trigger 不在文档流内或被隐藏，则隐藏浮层
+          onVisibleChange(false, { trigger: 'document' });
+        }
+      }
+    } catch (e) {
+      // 直接尝试更新
+      popper.update();
+    }
+    // 更新箭头位置
+    updateArrowPosition();
+  }
+
   useImperativeHandle(ref, () => ({
-    getPopper: () => popperRef.current,
+    // 未公开
     getPopupElement: () => popupRef.current,
+    // 未公开
     getPortalElement: () => portalRef.current,
+    // 未公开
     getPopupContentElement: () => contentRef.current,
+    // 未公开
     setVisible: (visible: boolean) => onVisibleChange(visible, { trigger: 'document' }),
+    /** 获取 popper 实例 */
+    getPopper: () => {
+      const popper = popperRef.current;
+      if (!popper) return null;
+      // 返回不含内部 styles 和 attributes 的对象
+      return {
+        state: popper.state,
+        update: popper.update,
+        forceUpdate: popper.forceUpdate,
+        destroy: popper.destroy,
+        setOptions: popper.setOptions,
+      };
+    },
+    /** 获取浮层元素 */
+    getOverlay: () => portalRef.current,
+    /** 获取浮层悬浮状态 */
+    getOverlayState: () => ({ hover: isOverlayHover }),
+    /** 更新浮层内容 */
+    update: () => updatePopper(),
   }));
 
   return (
     <React.Fragment>
-      {triggerNode}
+      {triggerElementIsString ? null : triggerNode}
       {overlay}
     </React.Fragment>
   );
