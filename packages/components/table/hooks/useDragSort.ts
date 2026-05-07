@@ -419,26 +419,14 @@ function useDragSort(props: TdEnhancedTableProps, options: DragSortOptions) {
 
   // 注册拖拽事件
   useEffect(() => {
-    if (!primaryTableRef || !primaryTableRef.current) return;
-    registerRowDragEvent(primaryTableRef.current?.tableElement);
-    registerColDragEvent(primaryTableRef.current?.tableHtmlElement);
-    /** 待表头节点准备完成后 */
-    const timer = setTimeout(() => {
-      if (primaryTableRef.current?.affixHeaderElement) {
-        registerColDragEvent(primaryTableRef.current.affixHeaderElement);
-      }
-      clearTimeout(timer);
+    if (!primaryTableRef.current) return;
+    registerRowDragEvent(primaryTableRef.current.tableElement);
+    registerColDragEvent(primaryTableRef.current.tableHtmlElement);
+    primaryTableRef.current.onAffixHeaderMount((el: HTMLDivElement) => {
+      registerColDragEvent(el);
     });
-    return () => {
-      clearTimeout(timer);
-      dragRowInstance.current?.destroy();
-      dragRowInstance.current = null;
-      dragColInstance.current?.destroy();
-      dragColInstance.current = null;
-      unlockScrollContainer();
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [primaryTableRef, columns, dragSort, innerPagination]);
+  }, [columns, dragSort, innerPagination]);
 
   return {
     isRowDraggable,
