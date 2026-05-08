@@ -13,3 +13,4 @@ _site
 temp*
 static/
 packages/common
+packages/ai-core
