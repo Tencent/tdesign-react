@@ -1,4 +1,6 @@
-import React, { ReactElement, ReactNode, useEffect, useMemo, useState } from 'react';
+import type { ReactElement, ReactNode } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+
 import { get, isNumber } from 'lodash-es';
 
 import Option from '../base/Option';

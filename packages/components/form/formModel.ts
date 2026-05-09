@@ -1,10 +1,10 @@
 // https://github.com/validatorjs/validator.js
 
+import { getCharacterLength } from '@tdesign/common-js/utils/helper';
+import { isEmpty, isNumber } from 'lodash-es';
 import isDate from 'validator/lib/isDate';
 import isEmail from 'validator/lib/isEmail';
 import isURL from 'validator/lib/isURL';
-import { isEmpty, isNumber } from 'lodash-es';
-import { getCharacterLength } from '@tdesign/common-js/utils/helper';
 
 import type {
   AllValidateResult,

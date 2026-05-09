@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { SelectInput, Radio, Checkbox } from 'tdesign-react';
+
 import { ChevronDownIcon } from 'tdesign-icons-react';
+import { SelectInput, Radio, Checkbox } from 'tdesign-react';
 
 import type { CheckboxGroupProps, SelectInputProps, CheckboxOptionObj } from 'tdesign-react';
 

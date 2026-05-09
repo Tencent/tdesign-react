@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
-import { TdDescriptionsItemProps } from './type';
-import { LayoutEnum } from '../common';
-import useConfig from '../hooks/useConfig';
+
 import { DescriptionsContext } from './DescriptionsContext';
+import useConfig from '../hooks/useConfig';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
+
+import type { LayoutEnum } from '../common';
+import type { TdDescriptionsItemProps } from './type';
 
 export type RowProps = { row: TdDescriptionsItemProps[] };
 

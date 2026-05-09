@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
+
 import { get, has, isEmpty, unset } from 'lodash-es';
 
-import { useFormContext, useFormListContext } from '../FormContext';
-import { FormItemProps } from '../FormItem';
 import { TD_DEFAULT_VALUE_MAP } from '../const';
+import { useFormContext, useFormListContext } from '../FormContext';
 
+import type { FormItemProps } from '../FormItem';
 import type { NamePath } from '../type';
 
 export default function useFormItemInitialData(

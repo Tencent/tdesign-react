@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+
 import { act, fireEvent, mockTimeout, render, waitFor } from '@test/utils';
+
 import Input from '../../input';
 import Popup from '../Popup';
 

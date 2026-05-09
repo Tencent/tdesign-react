@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, fireEvent, mockTimeout, act } from '@test/utils';
+
 import Dropdown from '../Dropdown';
 
 const { DropdownMenu, DropdownItem } = Dropdown;

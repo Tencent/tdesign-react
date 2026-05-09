@@ -1,6 +1,6 @@
-import { TagFunction } from './Tag';
 import _CheckTag from './CheckTag';
 import _CheckTagGroup from './CheckTagGroup';
+import { TagFunction } from './Tag';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import './style/index.js';
 

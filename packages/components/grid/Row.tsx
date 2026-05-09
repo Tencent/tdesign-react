@@ -1,13 +1,16 @@
 import React, { useEffect, useState, forwardRef, createContext } from 'react';
+
 import classNames from 'classnames';
 import { isObject } from 'lodash-es';
-import useConfig from '../hooks/useConfig';
-import { StyledProps } from '../common';
-import { TdRowProps } from './type';
-import { canUseDocument } from '../_util/dom';
+
 import { rowDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
+import { canUseDocument } from '../_util/dom';
 import { getCssVarsValue } from '../_util/style';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
+
+import type { TdRowProps } from './type';
+import type { StyledProps } from '../common';
 
 /**
  * Row 组件支持的属性。

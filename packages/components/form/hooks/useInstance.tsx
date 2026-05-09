@@ -1,5 +1,6 @@
-import { cloneDeep, isArray, isEmpty, isFunction, isObject, merge, set, get } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
+import { cloneDeep, isArray, isEmpty, isFunction, isObject, merge, set, get } from 'lodash-es';
+
 import useConfig from '../../hooks/useConfig';
 import { calcFieldValue, findFormItem, travelMapFromObject } from '../utils';
 

@@ -1,4 +1,6 @@
-import React, { ElementRef, forwardRef, useCallback, useImperativeHandle, useMemo, useRef } from 'react';
+import type { ElementRef } from 'react';
+import React, { forwardRef, useCallback, useImperativeHandle, useMemo, useRef } from 'react';
+
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
 

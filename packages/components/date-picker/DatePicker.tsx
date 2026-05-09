@@ -1,9 +1,5 @@
 import React, { forwardRef, useCallback, useEffect } from 'react';
 
-import classNames from 'classnames';
-import dayjs from 'dayjs';
-import { isArray, isDate } from 'lodash-es';
-
 import { formatDate, formatTime, getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
 import {
   addMonth,
@@ -13,6 +9,9 @@ import {
   subtractMonth,
   getRangeBounds,
 } from '@tdesign/common-js/date-picker/utils';
+import classNames from 'classnames';
+import dayjs from 'dayjs';
+import { isArray, isDate } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';

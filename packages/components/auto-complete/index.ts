@@ -1,5 +1,7 @@
 import _AutoComplete from './AutoComplete';
-import _HighlightOption, { TdHighlightOptionProps } from './HighlightOption';
+import _HighlightOption from './HighlightOption';
+
+import type { TdHighlightOptionProps } from './HighlightOption';
 
 import './style/index.js';
 

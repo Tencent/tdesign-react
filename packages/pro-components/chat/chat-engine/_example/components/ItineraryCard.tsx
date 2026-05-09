@@ -1,6 +1,7 @@
 import React from 'react';
-import { Card, Timeline, Tag } from 'tdesign-react';
+
 import { CalendarIcon, CheckCircleFilledIcon } from 'tdesign-icons-react';
+import { Card, Timeline, Tag } from 'tdesign-react';
 
 interface ItineraryCardProps {
   plan: any[];

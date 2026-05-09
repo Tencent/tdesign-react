@@ -1,8 +1,11 @@
 import React, { useRef, useState } from 'react';
-import { Button, Tree, Space, TreeInstanceFunctions, TreeNodeModel } from 'tdesign-react';
-import { Icon } from 'tdesign-icons-react';
+
 import { cloneDeepWith } from 'lodash-es';
-import { TreeOptionData } from '../../common';
+import { Icon } from 'tdesign-icons-react';
+import { Button, Tree, Space } from 'tdesign-react';
+
+import type { TreeOptionData } from '../../common';
+import type { TreeInstanceFunctions, TreeNodeModel } from 'tdesign-react';
 
 let idx = 2;
 

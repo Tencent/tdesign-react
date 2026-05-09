@@ -1,10 +1,15 @@
-import React, { ReactNode, useMemo } from 'react';
-import { isFunction } from 'lodash-es';
+import type { ReactNode } from 'react';
+import React, { useMemo } from 'react';
+
 import classNames from 'classnames';
-import { BaseTableCol, PrimaryTableCol, TableRowData, TdBaseTableProps } from '../type';
-import { TableColumns, getThRowspanAndColspan, getThList } from './useMultiHeader';
+import { isFunction } from 'lodash-es';
+
 import useClassName from './useClassName';
+import { getThRowspanAndColspan, getThList } from './useMultiHeader';
 import TEllipsis from '../Ellipsis';
+
+import type { BaseTableCol, PrimaryTableCol, TableRowData, TdBaseTableProps } from '../type';
+import type { TableColumns } from './useMultiHeader';
 
 // 渲染表头的通用方法
 export function renderTitle(col: TableColumns[0], index: number) {

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Comment } from 'tdesign-react';
+
 import { CaretRightSmallIcon, ThumbUpIcon, ChatIcon } from 'tdesign-icons-react';
+import { Comment } from 'tdesign-react';
 
 const classStyles = `
 <style>

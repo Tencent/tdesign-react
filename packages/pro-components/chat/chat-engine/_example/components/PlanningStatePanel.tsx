@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react';
-import { Card, Timeline, Tag, Divider } from 'tdesign-react';
+
 import { CheckCircleFilledIcon, LocationIcon, LoadingIcon, TimeIcon, InfoCircleIcon } from 'tdesign-icons-react';
+import { Card, Timeline, Tag, Divider } from 'tdesign-react';
+
 import { useAgentState } from '../../hooks/useAgentState';
 
 interface PlanningStatePanelProps {

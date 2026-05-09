@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
+
 import classnames from 'classnames';
+
 import useConfig from '../hooks/useConfig';
 import useIsFirstRender from '../hooks/useIsFirstRender';
+
 import type { SwiperProps } from './Swiper';
 
 export interface SwiperItemProps extends SwiperProps {

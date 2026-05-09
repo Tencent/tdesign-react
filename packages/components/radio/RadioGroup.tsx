@@ -1,16 +1,18 @@
-import React, { CSSProperties, ReactNode, useEffect, useRef, useState } from 'react';
-import classNames from 'classnames';
+import type { CSSProperties, ReactNode } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import observe from '@tdesign/common-js/utils/observe';
+import classNames from 'classnames';
+
+import { radioGroupDefaultProps } from './defaultProps';
+import Radio from './Radio';
+import useKeyboard from './useKeyboard';
 import { CheckContext, type CheckContextValue } from '../common/Check';
 import useCommonClassName from '../hooks/useCommonClassName';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDeepEffect from '../hooks/useDeepEffect';
 import useDefaultProps from '../hooks/useDefaultProps';
-import Radio from './Radio';
-import { radioGroupDefaultProps } from './defaultProps';
-import useKeyboard from './useKeyboard';
 
 import type { StyledProps } from '../common';
 import type { RadioValue, TdRadioGroupProps } from './type';

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Table, Checkbox, Space, Tag } from 'tdesign-react';
+
 import { CheckCircleFilledIcon, ErrorCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { Table, Checkbox, Space, Tag } from 'tdesign-react';
 
 import type { TableProps, TableSort, SortInfo } from 'tdesign-react';
 

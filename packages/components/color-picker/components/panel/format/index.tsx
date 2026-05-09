@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { Color, getColorFormatOptions } from '@tdesign/common-js/color-picker/index';
-import Select from '../../../../select';
-import type { TdColorPickerProps } from '../../../type';
+
+import { getColorFormatOptions } from '@tdesign/common-js/color-picker/index';
+
 import FormatInputs from './inputs';
+import Select from '../../../../select';
+
+import type { TdColorPickerProps } from '../../../type';
+import type { Color } from '@tdesign/common-js/color-picker/index';
 
 export interface TdColorFormatProps extends TdColorPickerProps {
   onInputChange: () => void;

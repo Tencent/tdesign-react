@@ -1,16 +1,20 @@
 import React, { useState, useRef, useImperativeHandle } from 'react';
+
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
 import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-react';
-import Input, { InputRef } from '../input';
-import useConfig from '../hooks/useConfig';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import useControlled from '../hooks/useControlled';
-import type { StyledProps, TNode } from '../common';
-import parseTNode from '../_util/parseTNode';
-import type { TdRangeInputProps, RangeInputValue, RangeInputInstanceFunctions } from './type';
+
 import { rangeInputDefaultProps } from './defaultProps';
+import parseTNode from '../_util/parseTNode';
+import useConfig from '../hooks/useConfig';
+import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import Input from '../input';
+
+import type { StyledProps, TNode } from '../common';
+import type { InputRef } from '../input';
+import type { TdRangeInputProps, RangeInputValue, RangeInputInstanceFunctions } from './type';
 
 export interface RangeInputProps extends TdRangeInputProps, StyledProps {}
 
@@ -93,9 +97,7 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
   let suffixIconNew = suffixIcon;
 
   if (isShowClearIcon) {
-    suffixIconNew = (
-      <CloseCircleFilledIcon className={`${name}__suffix-clear`} onClick={handleClear} />
-    );
+    suffixIconNew = <CloseCircleFilledIcon className={`${name}__suffix-clear`} onClick={handleClear} />;
   }
 
   const labelContent = isFunction(label) ? label() : label;

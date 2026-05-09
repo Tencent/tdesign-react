@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import type { DependencyList, EffectCallback } from 'react';
+
 import useIsFirstRender from './useIsFirstRender';
 
 const useUpdateEffect = (callback: EffectCallback, dependency: DependencyList) => {

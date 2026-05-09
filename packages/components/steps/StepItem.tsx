@@ -1,13 +1,16 @@
 import React, { useContext } from 'react';
+
 import classNames from 'classnames';
 import { CloseIcon as TdCloseIcon, CheckIcon as TdCheckIcon } from 'tdesign-icons-react';
-import useConfig from '../hooks/useConfig';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import { TdStepItemProps } from './type';
-import { StyledProps } from '../common';
-import StepsContext from './StepsContext';
+
 import { stepItemDefaultProps } from './defaultProps';
+import StepsContext from './StepsContext';
+import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+
+import type { StyledProps } from '../common';
+import type { TdStepItemProps } from './type';
 
 export interface StepItemProps extends TdStepItemProps, StyledProps {
   index?: number;

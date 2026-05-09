@@ -1,19 +1,19 @@
 import React, { forwardRef, useMemo } from 'react';
+
 import classNames from 'classnames';
+import { isFunction } from 'lodash-es';
 import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
 
-import { isFunction } from 'lodash-es';
-import TLoading from '../../loading';
 import Checkbox from '../../checkbox';
-
-import useConfig from '../../hooks/useConfig';
-import useGlobalIcon from '../../hooks/useGlobalIcon';
-import useDomRefCallback from '../../hooks/useDomRefCallback';
 import useCommonClassName from '../../hooks/useCommonClassName';
-
-import { getFullPathLabel } from '../core/helper';
+import useConfig from '../../hooks/useConfig';
+import useDomRefCallback from '../../hooks/useDomRefCallback';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
+import TLoading from '../../loading';
 import { getCascaderItemClass, getCascaderItemIconClass } from '../core/className';
-import { CascaderContextType, TreeNodeValue, TreeNode } from '../interface';
+import { getFullPathLabel } from '../core/helper';
+
+import type { CascaderContextType, TreeNodeValue, TreeNode } from '../interface';
 
 const Item = forwardRef(
   (

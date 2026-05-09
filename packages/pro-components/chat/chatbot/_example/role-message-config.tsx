@@ -1,13 +1,15 @@
 import React from 'react';
-import {
-  ChatBot,
+
+import { ChatBot } from '@tdesign-react/chat';
+import { MessagePlugin } from 'tdesign-react';
+
+import type {
   SSEChunkData,
   AIMessageContent,
   ChatServiceConfig,
   ChatMessagesData,
   TdChatMessageConfigItem,
 } from '@tdesign-react/chat';
-import { MessagePlugin } from 'tdesign-react';
 
 /**
  * 角色消息配置示例

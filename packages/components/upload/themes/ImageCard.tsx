@@ -1,20 +1,24 @@
-import React, { MouseEvent } from 'react';
+import type { MouseEvent } from 'react';
+import React from 'react';
+
+import { abridgeName } from '@tdesign/common-js/upload/utils';
+import classNames from 'classnames';
 import {
   BrowseIcon as TdBrowseIcon,
   DeleteIcon as TdDeleteIcon,
   AddIcon as TdAddIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
-import classNames from 'classnames';
-import { abridgeName } from '@tdesign/common-js/upload/utils';
-import Loading from '../../loading';
-import useGlobalIcon from '../../hooks/useGlobalIcon';
-import ImageViewer from '../../image-viewer';
-import { CommonDisplayFileProps } from '../interface';
-import { TdUploadProps, UploadFile } from '../type';
+
 import parseTNode from '../../_util/parseTNode';
-import Link from '../../link';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
 import Image from '../../image';
+import ImageViewer from '../../image-viewer';
+import Link from '../../link';
+import Loading from '../../loading';
+
+import type { CommonDisplayFileProps } from '../interface';
+import type { TdUploadProps, UploadFile } from '../type';
 
 export interface ImageCardUploadProps extends CommonDisplayFileProps {
   multiple: TdUploadProps['multiple'];

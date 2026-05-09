@@ -1,4 +1,5 @@
 import React, { forwardRef, useMemo } from 'react';
+
 import classNames from 'classnames';
 import { isObject } from 'lodash-es';
 import {
@@ -8,14 +9,16 @@ import {
   ChevronLeftIcon as TdChevronLeftIcon,
   ChevronRightIcon as TdChevronRightIcon,
 } from 'tdesign-icons-react';
-import useConfig from '../hooks/useConfig';
-import useGlobalIcon from '../hooks/useGlobalIcon';
+
 import Button from '../button';
-import { StyledProps } from '../common';
-import type { TdPaginationMiniProps } from './type';
 import { paginationMiniDefaultProps } from './defaultProps';
 import noop from '../_util/noop';
+import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+
+import type { StyledProps } from '../common';
+import type { TdPaginationMiniProps } from './type';
 
 export interface PaginationMiniProps extends TdPaginationMiniProps, StyledProps {}
 

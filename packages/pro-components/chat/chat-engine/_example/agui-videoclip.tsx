@@ -1,27 +1,21 @@
-import React, { ReactNode, useRef, useState, useEffect, useCallback, useMemo } from 'react';
+import type { ReactNode } from 'react';
+import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
+
 import {
-  type TdChatMessageConfig,
   ChatList,
   ChatSender,
   ChatMessage,
   ChatActionBar,
   isAIMessage,
   getMessageContentForCopy,
-  TdChatSenderParams,
   ChatLoading,
-  TdChatActionsName,
   ToolCallRenderer,
   useAgentState,
   useChat,
   useAgentToolcall,
   isUserMessage,
-  ChatMessagesData,
-  ChatRequestParams,
-  AIMessageContent,
-  ToolCall,
   isToolCallContent,
 } from '@tdesign-react/chat';
-import { Steps, Card, Tag } from 'tdesign-react';
 import {
   PlayCircleIcon,
   VideoIcon,
@@ -31,7 +25,19 @@ import {
   LoadingIcon,
   ChevronRightIcon,
 } from 'tdesign-icons-react';
+import { Steps, Card, Tag } from 'tdesign-react';
+
 import type { AgentToolcallConfig, ToolcallComponentProps } from '../components/toolcall/types';
+import type {
+  TdChatSenderParams,
+  TdChatActionsName,
+  ChatMessagesData,
+  ChatRequestParams,
+  AIMessageContent,
+  ToolCall,
+  TdChatMessageConfig,
+} from '@tdesign-react/chat';
+
 import './videoclipAgent.css';
 
 const { StepItem } = Steps;

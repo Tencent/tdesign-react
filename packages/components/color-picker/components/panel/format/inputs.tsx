@@ -1,9 +1,12 @@
 import React, { useRef, useEffect } from 'react';
-import { throttle } from 'lodash-es';
+
 import { Color, getColorFormatInputs, getColorFormatMap } from '@tdesign/common-js/color-picker/index';
-import type { TdColorFormatProps } from '.';
+import { throttle } from 'lodash-es';
+
 import Input from '../../../../input';
 import InputNumber from '../../../../input-number';
+
+import type { TdColorFormatProps } from '.';
 
 const FormatInputs = (props: TdColorFormatProps) => {
   const { format, enableAlpha, inputProps, disabled, onInputChange, color } = props;

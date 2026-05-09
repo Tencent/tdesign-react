@@ -1,12 +1,16 @@
-import React, { CSSProperties, useRef } from 'react';
-import { isFunction, get } from 'lodash-es';
+import type { CSSProperties } from 'react';
+import React, { useRef } from 'react';
+
 import classNames from 'classnames';
-import { BaseTableCellParams, RowspanColspan, TableRowData, TdBaseTableProps } from './type';
-import { formatRowAttributes, formatRowClassNames } from './utils';
-import { RowAndColFixedPosition } from './interface';
+import { isFunction, get } from 'lodash-es';
+
+import useClassName from './hooks/useClassName';
 import { getColumnFixedStyles } from './hooks/useFixed';
 import useRowspanAndColspan, { getCellKey } from './hooks/useRowspanAndColspan';
-import useClassName from './hooks/useClassName';
+import { formatRowAttributes, formatRowClassNames } from './utils';
+
+import type { RowAndColFixedPosition } from './interface';
+import type { BaseTableCellParams, RowspanColspan, TableRowData, TdBaseTableProps } from './type';
 
 export interface TFootProps {
   rowKey: string;

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+
 import observe from '@tdesign/common-js/utils/observe';
 
 export function useElementLazyRender(labelRef: React.RefObject<HTMLElement>, lazyLoad: boolean) {

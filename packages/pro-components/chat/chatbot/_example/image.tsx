@@ -1,6 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useRef, useState } from 'react';
+
+import { ChatBot } from '@tdesign-react/chat';
 import { BrowseIcon, Filter3Icon, ImageAddIcon, Transform1Icon } from 'tdesign-icons-react';
+import { ImageViewer, Skeleton, Button, Dropdown, Space, Image } from 'tdesign-react';
+
 import type {
   SSEChunkData,
   AIMessageContent,
@@ -12,8 +16,7 @@ import type {
   TdChatMessageConfig,
   TdChatbotApi,
 } from '@tdesign-react/chat';
-import { ImageViewer, Skeleton, ImageViewerProps, Button, Dropdown, Space, Image } from 'tdesign-react';
-import { ChatBot } from '@tdesign-react/chat';
+import type { ImageViewerProps } from 'tdesign-react';
 
 const RatioOptions = [
   {

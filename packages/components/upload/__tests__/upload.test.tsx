@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, vi, mockDelay } from '@test/utils';
+
 import Upload from '../upload';
 
 const files = [

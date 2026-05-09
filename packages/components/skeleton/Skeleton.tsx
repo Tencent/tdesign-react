@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { isNumber } from 'lodash-es';
-import classNames from 'classnames';
-import { pxCompat } from '@tdesign/common-js/utils/helper';
-import { SkeletonRowCol, SkeletonRowColObj, TdSkeletonProps } from './type';
 
-import { StyledProps, Styles } from '../common';
-import useConfig from '../hooks/useConfig';
-import parseTNode from '../_util/parseTNode';
+import { pxCompat } from '@tdesign/common-js/utils/helper';
+import classNames from 'classnames';
+import { isNumber } from 'lodash-es';
+
 import { skeletonDefaultProps } from './defaultProps';
+import parseTNode from '../_util/parseTNode';
+import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+
+import type { SkeletonRowCol, SkeletonRowColObj, TdSkeletonProps } from './type';
+import type { StyledProps, Styles } from '../common';
 
 export type SkeletonProps = TdSkeletonProps & StyledProps & { children?: React.ReactNode };
 

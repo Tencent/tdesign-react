@@ -1,5 +1,8 @@
-import React, { useEffect, useState, CSSProperties, useRef } from 'react';
+import type { CSSProperties } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+
 import classNames from 'classnames';
+
 import useConfig from '../hooks/useConfig';
 import useMutationObserver from '../hooks/useMutationObserver';
 import useResizeObserver from '../hooks/useResizeObserver';

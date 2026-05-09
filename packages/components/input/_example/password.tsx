@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Input, Space } from 'tdesign-react';
+
 import { LockOnIcon } from 'tdesign-icons-react';
+import { Input, Space } from 'tdesign-react';
 
 export default function InputExample() {
   const [value, onChange] = useState('');

@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { render, fireEvent } from '@test/utils';
 
 import { Collapse } from '..';
-import { TdCollapseProps, TdCollapsePanelProps } from '../type';
+
+import type { TdCollapseProps, TdCollapsePanelProps } from '../type';
 
 const { Panel } = Collapse;
 

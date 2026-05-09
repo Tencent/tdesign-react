@@ -1,6 +1,7 @@
 import React, { useState, useRef, useMemo } from 'react';
-import { EnhancedTable, MessagePlugin, Button, Popconfirm, Checkbox, Space, Loading, Link } from 'tdesign-react';
+
 import { ChevronRightIcon, ChevronDownIcon, MoveIcon, AddRectangleIcon, MinusRectangleIcon } from 'tdesign-icons-react';
+import { EnhancedTable, MessagePlugin, Button, Popconfirm, Checkbox, Space, Loading, Link } from 'tdesign-react';
 
 import type { TableProps, EnhancedTableProps, TableRowData } from 'tdesign-react';
 

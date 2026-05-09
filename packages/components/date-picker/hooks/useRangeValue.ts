@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { isObject } from 'lodash-es';
+
 import {
   isValidDate,
   formatDate,
@@ -9,8 +9,11 @@ import {
   extractTimeFormat,
 } from '@tdesign/common-js/date-picker/format';
 import log from '@tdesign/common-js/log/index';
+import { isObject } from 'lodash-es';
+
 import useControlled from '../../hooks/useControlled';
-import { TdDateRangePickerProps } from '../type';
+
+import type { TdDateRangePickerProps } from '../type';
 
 export const PARTIAL_MAP = { first: 'start', second: 'end' };
 

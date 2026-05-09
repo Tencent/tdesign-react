@@ -1,11 +1,14 @@
+import type { RefObject, DragEvent } from 'react';
+import { useState, useRef } from 'react';
+
 import { throttle } from 'lodash-es';
-import { RefObject, DragEvent, useState, useRef } from 'react';
-import { TreeNode } from '@tdesign/common-js/tree-v1/tree-node';
+
 import { useTreeDraggableContext } from './TreeDraggableContext';
-import { DropPosition } from '../interface';
 import { usePersistFn } from '../../hooks/usePersistFn';
 
+import type { DropPosition } from '../interface';
 import type { TdTreeProps } from '../type';
+import type { TreeNode } from '@tdesign/common-js/tree-v1/tree-node';
 
 export default function useDraggable(props: {
   nodeRef: RefObject<HTMLElement | undefined>;

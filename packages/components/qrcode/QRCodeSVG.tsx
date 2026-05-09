@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   DEFAULT_BACKGROUND_COLOR,
   DEFAULT_FRONT_COLOR,
@@ -9,7 +10,10 @@ import {
   excavateModules,
   generatePath,
 } from '@tdesign/common-js/qrcode/utils';
-import { useQRCode, QRPropsSVG } from './hooks/useQRCode';
+
+import { useQRCode } from './hooks/useQRCode';
+
+import type { QRPropsSVG } from './hooks/useQRCode';
 
 const QRCodeSVG = React.forwardRef<SVGSVGElement, QRPropsSVG>((props, ref) => {
   const {

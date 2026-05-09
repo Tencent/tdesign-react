@@ -4,6 +4,7 @@
 import { useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import isEqual from 'react-fast-compare';
+
 import {
   createPopper as defaultCreatePopper,
   type Instance as PopperInstance,

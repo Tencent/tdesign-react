@@ -1,6 +1,7 @@
 import React from 'react';
-import { Image, Space, Tag } from 'tdesign-react';
+
 import { PrintIcon } from 'tdesign-icons-react';
+import { Image, Space, Tag } from 'tdesign-react';
 
 export default function ExtraAlwaysImage() {
   const mask = (

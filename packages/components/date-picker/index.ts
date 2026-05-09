@@ -1,6 +1,6 @@
 import _DatePicker from './DatePicker';
-import _DateRangePicker from './DateRangePicker';
 import _DatePickerPanel from './DatePickerPanel';
+import _DateRangePicker from './DateRangePicker';
 import _DateRangePickerPanel from './DateRangePickerPanel';
 
 import './style/index.js';

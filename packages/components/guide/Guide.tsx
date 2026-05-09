@@ -1,21 +1,25 @@
 import React, { useMemo, useEffect, useRef, useState } from 'react';
-import { debounce, isFunction } from 'lodash-es';
-import cx from 'classnames';
 import { createPortal } from 'react-dom';
+
 import setStyle from '@tdesign/common-js/utils/setStyle';
+import cx from 'classnames';
+import { debounce, isFunction } from 'lodash-es';
+
 import Button from '../button';
-import useConfig from '../hooks/useConfig';
-import Popup, { PopupProps } from '../popup';
-import { StepPopupPlacement, TdGuideProps, GuideStep } from './type';
-import { isFixed, canUseDocument } from '../_util/dom';
-import { scrollToParentVisibleArea, getRelativePosition, getTargetElm, scrollToElm } from './utils';
-import useControlled from '../hooks/useControlled';
 import { guideDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
-import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
+import { scrollToParentVisibleArea, getRelativePosition, getTargetElm, scrollToElm } from './utils';
+import { isFixed, canUseDocument } from '../_util/dom';
 import { getWindowScroll } from '../_util/scroll';
 import { addClass, removeClass } from '../_util/style';
+import useConfig from '../hooks/useConfig';
+import useControlled from '../hooks/useControlled';
+import useDefaultProps from '../hooks/useDefaultProps';
 import useEventCallback from '../hooks/useEventCallback';
+import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
+import Popup from '../popup';
+
+import type { StepPopupPlacement, TdGuideProps, GuideStep } from './type';
+import type { PopupProps } from '../popup';
 
 export type GuideProps = TdGuideProps;
 

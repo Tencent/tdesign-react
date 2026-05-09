@@ -1,11 +1,14 @@
 import React from 'react';
+
 import classNames from 'classnames';
-import Popup from '../popup';
+
 import useConfig from '../hooks/useConfig';
+import Popup from '../popup';
 import RangeInput from './RangeInput';
+import useOverlayInnerStyle from '../select-input/useOverlayInnerStyle';
+
 import type { StyledProps } from '../common';
 import type { TdRangeInputPopupProps } from './type';
-import useOverlayInnerStyle from '../select-input/useOverlayInnerStyle';
 
 export interface RangeInputPopupProps extends TdRangeInputPopupProps, StyledProps {}
 

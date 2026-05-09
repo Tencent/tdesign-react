@@ -1,20 +1,25 @@
 /**
  * 自定义显示列控制器，即列配置
  */
-import React, { useEffect, ChangeEvent, useRef } from 'react';
-import { SettingIcon as TdSettingIcon } from 'tdesign-icons-react';
-import { intersection, xorWith } from 'lodash-es';
+import type { ChangeEvent } from 'react';
+import React, { useEffect, useRef } from 'react';
+
 import classNames from 'classnames';
-import Checkbox, { CheckboxGroupValue, CheckboxOptionObj, CheckboxGroupChangeContext } from '../../checkbox';
-import { DialogPlugin } from '../../dialog/plugin';
+import { intersection, xorWith } from 'lodash-es';
+import { SettingIcon as TdSettingIcon } from 'tdesign-icons-react';
+
 import { renderTitle } from './useTableHeader';
-import { PrimaryTableCol, TdPrimaryTableProps } from '../type';
-import useConfig from '../../hooks/useConfig';
-import useGlobalIcon from '../../hooks/useGlobalIcon';
-import useControlled from '../../hooks/useControlled';
-import { getCurrentRowByKey } from '../utils';
-import { DialogInstance } from '../../dialog';
 import TButton from '../../button';
+import Checkbox from '../../checkbox';
+import { DialogPlugin } from '../../dialog/plugin';
+import useConfig from '../../hooks/useConfig';
+import useControlled from '../../hooks/useControlled';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
+import { getCurrentRowByKey } from '../utils';
+
+import type { CheckboxGroupValue, CheckboxOptionObj, CheckboxGroupChangeContext } from '../../checkbox';
+import type { DialogInstance } from '../../dialog';
+import type { PrimaryTableCol, TdPrimaryTableProps } from '../type';
 
 const CheckboxGroup = Checkbox.Group;
 

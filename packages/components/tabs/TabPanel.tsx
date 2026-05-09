@@ -1,10 +1,13 @@
 import React, { useRef } from 'react';
+
 import classNames from 'classnames';
-import type { TdTabPanelProps } from './type';
-import { StyledProps } from '../common';
-import { useTabClass } from './useTabClass';
+
 import { tabPanelDefaultProps } from './defaultProps';
+import { useTabClass } from './useTabClass';
 import useDefaultProps from '../hooks/useDefaultProps';
+
+import type { StyledProps } from '../common';
+import type { TdTabPanelProps } from './type';
 
 export interface TabPanelProps extends TdTabPanelProps, StyledProps {
   children?: React.ReactNode;

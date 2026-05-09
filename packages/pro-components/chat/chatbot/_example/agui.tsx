@@ -1,14 +1,17 @@
 import React from 'react';
-import { ChatBot, ChatServiceConfig } from '@tdesign-react/chat';
+
+import { ChatBot } from '@tdesign-react/chat';
+
+import type { ChatServiceConfig } from '@tdesign-react/chat';
 
 /**
  * AG-UI 协议示例
- * 
+ *
  * 本示例展示如何使用 AG-UI 协议快速接入聊天服务。
  * AG-UI 是一种标准化的 AI 对话协议，当后端服务符合该协议时，
  * 前端无需编写 onMessage 进行数据转换，大大简化了接入流程。
  * 可以通过查看网络输出的数据流来了解协议格式。
- * 
+ *
  * 对比说明：
  * - 自定义协议：需要配置 onMessage 进行数据转换（参考 service-config 示例）
  * - AG-UI 协议：只需设置 protocol: 'agui'，无需 onMessage

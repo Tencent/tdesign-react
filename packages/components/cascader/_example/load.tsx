@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+
 import { Cascader, Space } from 'tdesign-react';
-import type { CascaderProps, CascaderValue } from 'tdesign-react';
 
 import type { TreeOptionData } from '../../common';
+import type { CascaderProps, CascaderValue } from 'tdesign-react';
 
 export default function Example() {
   const [singleValue, setSingleValue] = useState<CascaderValue>('');

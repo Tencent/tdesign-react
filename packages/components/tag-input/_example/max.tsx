@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+
 import { MessagePlugin, TagInput } from 'tdesign-react';
+
 import type { TagInputProps } from 'tdesign-react';
 
 export default function TagInputMaxExample() {

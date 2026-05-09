@@ -1,6 +1,9 @@
 import React from 'react';
+
+import { ChatMessage } from '@tdesign-react/chat';
 import { Divider, Space } from 'tdesign-react';
-import { AIMessage, ChatMessage, SystemMessage, UserMessage } from '@tdesign-react/chat';
+
+import type { AIMessage, SystemMessage, UserMessage } from '@tdesign-react/chat';
 
 const messages = {
   ai: {

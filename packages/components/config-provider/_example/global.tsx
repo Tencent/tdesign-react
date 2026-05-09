@@ -1,8 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
+
 import { ConfigProvider, Space } from 'tdesign-react';
-import type { GlobalConfigProvider } from 'tdesign-react';
 import enConfig from 'tdesign-react/es/locale/en_US';
+
+import type { GlobalConfigProvider } from 'tdesign-react';
 
 export default function GlobalDemo() {
   // 全局特性配置，引入英文语言配置包 enConfig

@@ -1,5 +1,8 @@
-import React, { FunctionComponent, ComponentClass } from 'react';
+import type { FunctionComponent, ComponentClass } from 'react';
+import React from 'react';
+
 import { render, screen, fireEvent, vi } from '@test/utils';
+
 import Link from '../Link';
 
 export interface TestExampleOverrides {

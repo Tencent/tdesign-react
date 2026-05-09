@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, fireEvent, vi } from '@test/utils';
+
 import { Table, BaseTable, PrimaryTable, EnhancedTable } from '..';
 
 const data = new Array(5).fill(null).map((item, index) => ({

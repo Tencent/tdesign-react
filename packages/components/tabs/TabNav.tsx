@@ -1,20 +1,24 @@
-import React, { useCallback, useEffect, useRef, useState, WheelEvent } from 'react';
+import type { WheelEvent } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+
+import { calcMaxOffset, calcValidOffset, calculateOffset, calcPrevOrNextOffset } from '@tdesign/common-js/tabs/base';
 import classNames from 'classnames';
+import { omit, debounce } from 'lodash-es';
 import {
   AddIcon as TdAddIcon,
   ChevronLeftIcon as TdChevronLeftIcon,
   ChevronRightIcon as TdChevronRightIcon,
 } from 'tdesign-icons-react';
-import { omit, debounce } from 'lodash-es';
-import { calcMaxOffset, calcValidOffset, calculateOffset, calcPrevOrNextOffset } from '@tdesign/common-js/tabs/base';
-import { TdTabsProps, TdTabPanelProps, TabValue } from './type';
-import noop from '../_util/noop';
-import { useTabClass } from './useTabClass';
-import TabNavItem from './TabNavItem';
+
 import TabBar from './TabBar';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import type { DragSortInnerProps } from '../hooks/useDragSorter';
+import TabNavItem from './TabNavItem';
+import { useTabClass } from './useTabClass';
+import noop from '../_util/noop';
 import parseTNode from '../_util/parseTNode';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+
+import type { TdTabsProps, TdTabPanelProps, TabValue } from './type';
+import type { DragSortInnerProps } from '../hooks/useDragSorter';
 
 export interface TabNavProps extends TdTabsProps, DragSortInnerProps {
   itemList: TdTabPanelProps[];

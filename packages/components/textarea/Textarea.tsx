@@ -1,8 +1,10 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import classNames from 'classnames';
 
 import calcTextareaHeight from '@tdesign/common-js/utils/calcTextareaHeight';
 import { getCharacterLength, getUnicodeLength, limitUnicodeMaxLength } from '@tdesign/common-js/utils/helper';
+import classNames from 'classnames';
+
+import { textareaDefaultProps } from './defaultProps';
 import noop from '../_util/noop';
 import parseTNode from '../_util/parseTNode';
 import useConfig from '../hooks/useConfig';
@@ -10,7 +12,6 @@ import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useEventCallback from '../hooks/useEventCallback';
 import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
-import { textareaDefaultProps } from './defaultProps';
 
 import type { StyledProps } from '../common';
 import type { TdTextareaProps } from './type';

@@ -5,10 +5,15 @@
  * - 当表格内容没有超出时，即没有出现横向滚动条时，此时认为表格有足够的列宽呈现内容，修改宽度为相邻宽度调整
  * - 当表格内容超出，出现横向滚动条时，会自动调整当前列宽和表格总列宽，不影响相邻列宽
  */
-import React, { useState, useRef, MutableRefObject, CSSProperties, useEffect } from 'react';
+import type { MutableRefObject, CSSProperties } from 'react';
+import type React from 'react';
+import { useState, useRef, useEffect } from 'react';
+
 import { isNumber } from 'lodash-es';
-import { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
+
 import { off, on } from '../../_util/listener';
+
+import type { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
 
 const DEFAULT_MIN_WIDTH = 80;
 const DEFAULT_MAX_WIDTH = 600;

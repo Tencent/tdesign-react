@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { render, fireEvent, vi } from '@test/utils';
 import userEvent from '@testing-library/user-event';
+
 import InputNumber from '../index';
 
 describe('InputNumber 组件测试', () => {

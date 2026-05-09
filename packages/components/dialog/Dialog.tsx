@@ -1,10 +1,13 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import classNames from 'classnames';
-import { isUndefined } from 'lodash-es';
 
 import log from '@tdesign/common-js/log/index';
 import { pxCompat } from '@tdesign/common-js/utils/helper';
+import classNames from 'classnames';
+import { isUndefined } from 'lodash-es';
+
+import { dialogDefaultProps } from './defaultProps';
+import DialogCard from './DialogCard';
 import { canUseDocument } from '../_util/dom';
 import Portal from '../common/Portal';
 import useAttach from '../hooks/useAttach';
@@ -13,8 +16,6 @@ import useDeepEffect from '../hooks/useDeepEffect';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useSetState from '../hooks/useSetState';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { dialogDefaultProps } from './defaultProps';
-import DialogCard from './DialogCard';
 import useDialogDrag from './hooks/useDialogDrag';
 import useDialogEsc from './hooks/useDialogEsc';
 import useDialogPosition from './hooks/useDialogPosition';

@@ -1,5 +1,7 @@
 import { useState, useRef } from 'react';
+
 import log from '@tdesign/common-js/log/index';
+
 import type { FormInstanceFunctions, NamePath } from '../type';
 import type { WatchCallBack, InternalHooks, InternalFormInstance, Store } from './interface';
 

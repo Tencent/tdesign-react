@@ -1,9 +1,12 @@
 import React from 'react';
+
+import Loading from './Loading';
 import { render, unmount } from '../_util/react-render';
-import Loading, { LoadingProps } from './Loading';
-import { LoadingInstance, TdLoadingProps } from './type';
 import PluginContainer from '../common/PluginContainer';
 import ConfigProvider from '../config-provider';
+
+import type { LoadingProps } from './Loading';
+import type { LoadingInstance, TdLoadingProps } from './type';
 
 function createContainer(attach?: TdLoadingProps['attach']) {
   if (typeof attach === 'string') return document.querySelector(attach);
@@ -32,7 +35,12 @@ export const LoadingPlugin: LoadingPluginMethod = (options) => {
 
   const dGlobalConfig = ConfigProvider.getGlobalConfig();
 
-  render(<PluginContainer globalConfig={dGlobalConfig}><Loading {...defaultProps} {...props} attach={null}></Loading></PluginContainer>, div);
+  render(
+    <PluginContainer globalConfig={dGlobalConfig}>
+      <Loading {...defaultProps} {...props} attach={null}></Loading>
+    </PluginContainer>,
+    div,
+  );
 
   container.appendChild(div);
 

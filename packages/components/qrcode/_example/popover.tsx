@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Popup, QRCode, Button } from 'tdesign-react';
 
 export default function QRCodeExample() {

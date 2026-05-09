@@ -1,5 +1,7 @@
-import classNames from 'classnames';
 import React from 'react';
+
+import classNames from 'classnames';
+
 import FakeArrow from '../common/FakeArrow';
 import useConfig from '../hooks/useConfig';
 

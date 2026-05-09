@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { Checkbox, Divider, Space } from 'tdesign-react';
 
 const options = [
@@ -40,12 +41,7 @@ export default function CheckboxExample() {
       <Space direction="vertical">
         <strong>写法一：使用 options</strong>
         <div>选中值: {city.join('、')}</div>
-        <Checkbox.Group<string[]>
-          disabled={disabled}
-          value={city}
-          onChange={setCity}
-          options={options}
-        />
+        <Checkbox.Group<string[]> disabled={disabled} value={city} onChange={setCity} options={options} />
       </Space>
 
       <Divider />

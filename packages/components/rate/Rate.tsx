@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
+
 import classNames from 'classnames';
 import { StarFilledIcon as TdStarFilledIcon } from 'tdesign-icons-react';
-import { TooltipLite } from '../tooltip';
-import { TdRateProps } from './type';
-import { StyledProps } from '../common';
 
-import { useLocaleReceiver } from '../locale/LocalReceiver';
-import useConfig from '../hooks/useConfig';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import useControlled from '../hooks/useControlled';
+import { TooltipLite } from '../tooltip';
 import { rateDefaultProps } from './defaultProps';
+import useConfig from '../hooks/useConfig';
+import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+
+import type { StyledProps } from '../common';
+import type { TdRateProps } from './type';
 
 export interface RateProps extends TdRateProps, StyledProps {}
 

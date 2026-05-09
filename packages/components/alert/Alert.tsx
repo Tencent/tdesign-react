@@ -1,4 +1,7 @@
 import React, { forwardRef, useRef } from 'react';
+import { CSSTransition } from 'react-transition-group';
+
+import log from '@tdesign/common-js/log/index';
 import classNames from 'classnames';
 import {
   CloseIcon as TdCloseIcon,
@@ -6,18 +9,18 @@ import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
-import { CSSTransition } from 'react-transition-group';
-import log from '@tdesign/common-js/log/index';
+
+import { alertDefaultProps } from './defaultProps';
 import noop from '../_util/noop';
 import parseTNode from '../_util/parseTNode';
+import { composeRefs } from '../_util/ref';
 import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { TdAlertProps } from './type';
-import { StyledProps } from '../common';
-import { alertDefaultProps } from './defaultProps';
-import { composeRefs } from '../_util/ref';
-import useDefaultProps from '../hooks/useDefaultProps';
+
+import type { StyledProps } from '../common';
+import type { TdAlertProps } from './type';
 
 const transitionTime = 200;
 

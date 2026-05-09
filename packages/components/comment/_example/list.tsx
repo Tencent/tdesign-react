@@ -1,6 +1,7 @@
 import React from 'react';
-import { Comment, List } from 'tdesign-react';
+
 import { ThumbUpIcon, ChatIcon } from 'tdesign-icons-react';
+import { Comment, List } from 'tdesign-react';
 
 const { ListItem } = List;
 

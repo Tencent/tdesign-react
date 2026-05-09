@@ -1,6 +1,8 @@
-import classNames from 'classnames';
-import React, { FC, ReactElement, useContext, useMemo, useRef } from 'react';
+import type { FC, ReactElement } from 'react';
+import React, { useContext, useMemo, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
+
+import classNames from 'classnames';
 
 import parseTNode from '../_util/parseTNode';
 import FakeArrow from '../common/FakeArrow';

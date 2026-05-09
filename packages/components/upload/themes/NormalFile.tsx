@@ -1,4 +1,7 @@
 import React from 'react';
+
+import { abridgeName } from '@tdesign/common-js/upload/utils';
+import classNames from 'classnames';
 import {
   CloseIcon as TdCloseIcon,
   TimeFilledIcon as TdTimeFilledIcon,
@@ -6,14 +9,14 @@ import {
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
 } from 'tdesign-icons-react';
-import classNames from 'classnames';
-import { abridgeName } from '@tdesign/common-js/upload/utils';
+
 import parseTNode from '../../_util/parseTNode';
-import TLoading from '../../loading';
-import Link from '../../link';
-import { UploadFile } from '../type';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
-import { CommonDisplayFileProps } from '../interface';
+import Link from '../../link';
+import TLoading from '../../loading';
+
+import type { CommonDisplayFileProps } from '../interface';
+import type { UploadFile } from '../type';
 
 export interface NormalFileProps extends CommonDisplayFileProps {
   multiple: boolean;

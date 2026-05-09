@@ -1,5 +1,6 @@
 import React from 'react';
-import { TdCollapseProps, CollapseValue, CollapsePanelValue } from './type';
+
+import type { TdCollapseProps, CollapseValue, CollapsePanelValue } from './type';
 
 const CollapseContext = React.createContext<{
   defaultExpandAll?: TdCollapseProps['defaultExpandAll'];

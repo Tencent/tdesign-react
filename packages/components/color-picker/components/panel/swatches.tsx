@@ -1,10 +1,13 @@
 import React from 'react';
+
+import Color from '@tdesign/common-js/color-picker/color';
 import classnames from 'classnames';
 import { DeleteIcon as TdDeleteIcon, AddIcon as TdAddIcon } from 'tdesign-icons-react';
-import Color from '@tdesign/common-js/color-picker/color';
-import useGlobalIcon from '../../../hooks/useGlobalIcon';
-import { TdColorBaseProps } from '../../interface';
+
 import useCommonClassName from '../../../hooks/useCommonClassName';
+import useGlobalIcon from '../../../hooks/useGlobalIcon';
+
+import type { TdColorBaseProps } from '../../interface';
 
 export interface TdColorSwathcesProps extends TdColorBaseProps {
   colors?: string[];

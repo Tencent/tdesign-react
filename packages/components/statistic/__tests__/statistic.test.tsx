@@ -1,7 +1,9 @@
 import React from 'react';
+
+import { COLOR_MAP } from '@tdesign/common-js/statistic/utils';
 import { render, fireEvent, mockDelay } from '@test/utils';
 import { ArrowTriangleDownFilledIcon, ArrowTriangleUpFilledIcon } from 'tdesign-icons-react';
-import { COLOR_MAP } from '@tdesign/common-js/statistic/utils';
+
 import Statistic from '../index';
 
 describe('Statistic 组件测试', () => {

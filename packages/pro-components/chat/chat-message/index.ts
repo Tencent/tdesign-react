@@ -1,4 +1,5 @@
 import { type TdChatMessageProps } from 'tdesign-web-components';
+
 import 'tdesign-web-components/lib/chat-message';
 import reactify from '../_util/reactify';
 

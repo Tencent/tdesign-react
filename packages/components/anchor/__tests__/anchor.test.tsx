@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { render, fireEvent, vi } from '@test/utils';
-import Anchor from '../Anchor';
+
 import { getScroll } from '../../_util/scroll';
+import Anchor from '../Anchor';
 
 const { AnchorItem, AnchorTarget } = Anchor;
 

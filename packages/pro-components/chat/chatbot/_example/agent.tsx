@@ -1,5 +1,9 @@
 import React, { useEffect, useRef } from 'react';
+
 import { ChatBot } from '@tdesign-react/chat';
+import { CheckCircleFilledIcon } from 'tdesign-icons-react';
+import { Timeline } from 'tdesign-react';
+
 import type {
   TdChatMessageConfig,
   AIMessageContent,
@@ -9,9 +13,6 @@ import type {
   ChatMessagesData,
   SSEChunkData,
 } from '@tdesign-react/chat';
-import { Timeline } from 'tdesign-react';
-
-import { CheckCircleFilledIcon } from 'tdesign-icons-react';
 
 import './index.css';
 

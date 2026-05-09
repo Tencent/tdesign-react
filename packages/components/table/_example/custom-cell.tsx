@@ -1,6 +1,7 @@
 import React from 'react';
-import { Table, Tag } from 'tdesign-react';
+
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, UserIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { Table, Tag } from 'tdesign-react';
 
 import type { TableProps } from 'tdesign-react';
 

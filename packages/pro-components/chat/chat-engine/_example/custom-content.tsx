@@ -1,4 +1,7 @@
-import React, { useEffect, useRef, useState, ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
+import { useChat, ChatList, ChatMessage, ChatSender, isAIMessage } from '@tdesign-react/chat';
 import {
   BrowseIcon,
   Filter3Icon,
@@ -8,6 +11,8 @@ import {
   EditIcon,
   SoundIcon,
 } from 'tdesign-icons-react';
+import { ImageViewer, Skeleton, Button, Dropdown, Space, Image, MessagePlugin } from 'tdesign-react';
+
 import type {
   SSEChunkData,
   AIMessageContent,
@@ -19,8 +24,7 @@ import type {
   UploadFile,
   ChatBaseContent,
 } from '@tdesign-react/chat';
-import { ImageViewer, Skeleton, ImageViewerProps, Button, Dropdown, Space, Image, MessagePlugin } from 'tdesign-react';
-import { useChat, ChatList, ChatMessage, ChatSender, isAIMessage } from '@tdesign-react/chat';
+import type { ImageViewerProps } from 'tdesign-react';
 
 /**
  * 自定义内容渲染示例 - AI 生图助手

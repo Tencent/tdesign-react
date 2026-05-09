@@ -1,6 +1,7 @@
 import React from 'react';
-import { Steps } from 'tdesign-react';
+
 import { LoginIcon, CartIcon, WalletIcon, CheckCircleIcon } from 'tdesign-icons-react';
+import { Steps } from 'tdesign-react';
 
 const { StepItem } = Steps;
 

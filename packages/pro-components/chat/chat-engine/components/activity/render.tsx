@@ -1,9 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useMemo, Component, ErrorInfo } from 'react';
+import type { ErrorInfo } from 'react';
+import React, { useState, useEffect, useMemo, Component } from 'react';
 import isEqual from 'react-fast-compare';
+
 import { type ActivityData } from '@tdesign/ai-chat-engine';
-import type { ActivityComponentProps } from './types';
+
 import { activityRegistry } from './registry';
+
+import type { ActivityComponentProps } from './types';
 
 interface ActivityRendererProps {
   activity: ActivityData;

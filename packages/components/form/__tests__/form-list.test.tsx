@@ -1,6 +1,7 @@
 import React from 'react';
-import { MinusCircleIcon } from 'tdesign-icons-react';
+
 import { fireEvent, mockTimeout, render, vi } from '@test/utils';
+import { MinusCircleIcon } from 'tdesign-icons-react';
 
 import Button from '../../button';
 import Input from '../../input';

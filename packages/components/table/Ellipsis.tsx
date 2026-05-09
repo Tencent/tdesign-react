@@ -1,10 +1,14 @@
-import React, { useRef, useState, MouseEvent } from 'react';
+import type { MouseEvent } from 'react';
+import React, { useRef, useState } from 'react';
+
 import classNames from 'classnames';
 
-import { TNode } from '../common';
 import { isNodeOverflow } from '../_util/scroll';
-import Tooltip, { TooltipProps } from '../tooltip';
 import useDebounce from '../hooks/useDebounce';
+import Tooltip from '../tooltip';
+
+import type { TNode } from '../common';
+import type { TooltipProps } from '../tooltip';
 
 export interface EllipsisProps {
   content?: string | TNode;

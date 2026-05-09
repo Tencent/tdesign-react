@@ -1,10 +1,14 @@
 import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle } from 'react';
+
 import classNames from 'classnames';
-import Popup, { PopupRef, PopupVisibleChangeContext } from '../popup';
-import useConfig from '../hooks/useConfig';
-import { TdTooltipProps } from './type';
+
+import Popup from '../popup';
 import { tooltipDefaultProps } from './defaultProps';
+import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+
+import type { TdTooltipProps } from './type';
+import type { PopupRef, PopupVisibleChangeContext } from '../popup';
 
 export type TooltipProps = TdTooltipProps;
 

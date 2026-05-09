@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+
 import {
   formatDate,
   formatTime,
@@ -8,8 +9,10 @@ import {
   extractTimeFormat,
 } from '@tdesign/common-js/date-picker/format';
 import log from '@tdesign/common-js/log/index';
+
 import useControlled from '../../hooks/useControlled';
-import { TdDatePickerProps } from '../type';
+
+import type { TdDatePickerProps } from '../type';
 
 export default function useSingleValue(props: TdDatePickerProps) {
   const [value, onChange] = useControlled(props, 'value', props.onChange);

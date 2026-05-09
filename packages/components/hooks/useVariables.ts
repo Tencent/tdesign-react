@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
+
 import { THEME_MODE } from '@tdesign/common-js/common';
 import getColorTokenColor from '@tdesign/common-js/utils/getColorTokenColor';
+
 import useMutationObservable from './useMutationObserver';
 import { canUseDocument } from '../_util/dom';
 

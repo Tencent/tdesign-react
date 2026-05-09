@@ -1,5 +1,8 @@
 import React from 'react';
-import { Descriptions, Space, Radio, DescriptionsProps } from 'tdesign-react';
+
+import { Descriptions, Space, Radio } from 'tdesign-react';
+
+import type { DescriptionsProps } from 'tdesign-react';
 
 export default function Column() {
   const [tableLayout, setTableLayout] = React.useState<DescriptionsProps['tableLayout']>('fixed');

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+
 import { act, fireEvent, mockElementSizes, mockIntersectionObserver, render, vi } from '@test/utils';
+
 import Radio from '../Radio';
 
 describe('Radio [basic api]', () => {

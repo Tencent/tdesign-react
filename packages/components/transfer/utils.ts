@@ -1,7 +1,9 @@
-import { isEmpty, isFunction, isString } from 'lodash-es';
 import React from 'react';
-import { DataOption, TransferValue } from './type';
-import { TNode } from '../common';
+
+import { isEmpty, isFunction, isString } from 'lodash-es';
+
+import type { DataOption, TransferValue } from './type';
+import type { TNode } from '../common';
 
 export const getDefaultValue = <T>(value: T | T[], defaultValue?: T): T[] => {
   if (isEmpty(value)) {

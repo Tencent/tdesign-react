@@ -1,10 +1,13 @@
 import React, { useMemo } from 'react';
+
 import classNames from 'classnames';
-import useConfig from '../hooks/useConfig';
-import { StyledProps } from '../common';
-import { TdLayoutProps, TdHeaderProps, TdFooterProps } from './type';
+
 import Aside from './Aside';
 import parseTNode from '../_util/parseTNode';
+import useConfig from '../hooks/useConfig';
+
+import type { TdLayoutProps, TdHeaderProps, TdFooterProps } from './type';
+import type { StyledProps } from '../common';
 
 export interface LayoutProps extends TdLayoutProps, StyledProps, React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;

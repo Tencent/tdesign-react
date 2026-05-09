@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Menu } from 'tdesign-react';
+
 import {
   SearchIcon,
   NotificationFilledIcon,
@@ -14,6 +14,7 @@ import {
   PlayCircleIcon,
   Edit1Icon,
 } from 'tdesign-icons-react';
+import { Layout, Menu } from 'tdesign-react';
 
 const { HeadMenu, MenuItem } = Menu;
 

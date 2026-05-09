@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Space, Statistic } from 'tdesign-react';
 
 const ColorStatistic = () => (

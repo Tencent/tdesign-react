@@ -5,9 +5,11 @@ import React from 'react';
 
 import classNames from 'classnames';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import { TdMessageProps } from './type';
+
 import { useMessageClass } from './useMessageClass';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+
+import type { TdMessageProps } from './type';
 
 export default function MessageClose({ closeBtn, onCloseBtnClick }: TdMessageProps) {
   const { tdMessageClassGenerator } = useMessageClass();

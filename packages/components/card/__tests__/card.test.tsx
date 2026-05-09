@@ -1,7 +1,9 @@
-import { render } from '@test/utils';
 import React from 'react';
-import Card from '../Card';
+
+import { render } from '@test/utils';
+
 import Avatar from '../../avatar';
+import Card from '../Card';
 
 const cover = 'https://tdesign.gtimg.com/site/source/card-demo.png';
 const avatar = 'https://tdesign.gtimg.com/site/avatar.jpg';

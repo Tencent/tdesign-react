@@ -14,6 +14,7 @@ DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS 
 CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 import React from 'react';
+
 import { omit } from 'lodash-es';
 import PropTypes from 'prop-types';
 

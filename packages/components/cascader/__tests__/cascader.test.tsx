@@ -1,7 +1,9 @@
-import { render, fireEvent, mockTimeout, vi, userEvent, mockDelay } from '@test/utils';
 import React, { useState } from 'react';
-import Cascader, { CascaderPanel } from '../index';
+
+import { render, fireEvent, mockTimeout, vi, userEvent, mockDelay } from '@test/utils';
+
 import Tag from '../../tag';
+import Cascader, { CascaderPanel } from '../index';
 
 const options = [
   {

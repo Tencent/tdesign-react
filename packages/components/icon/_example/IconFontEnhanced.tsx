@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { IconFont } from 'tdesign-icons-react';
+
 import type { IconProps } from 'tdesign-icons-react';
 
 const CustomUrlIconFont = ({ name, size, style }: Partial<Pick<IconProps, 'name' | 'size' | 'style'>>) => (

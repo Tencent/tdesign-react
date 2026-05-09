@@ -1,17 +1,20 @@
 import React, { forwardRef, useContext, useEffect, useMemo, useRef, useState } from 'react';
+
 import classNames from 'classnames';
-import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
 import { isFunction } from 'lodash-es';
-import useConfig from '../hooks/useConfig';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import useCommonClassName from '../hooks/useCommonClassName';
-import { BreadcrumbItemProps } from './BreadcrumbProps';
+import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
+
 import { BreadcrumbContext } from './BreadcrumbContext';
-import parseTNode from '../_util/parseTNode';
 import { breadcrumbItemDefaultProps } from './defaultProps';
-import { TooltipLite } from '../tooltip';
-import useDefaultProps from '../hooks/useDefaultProps';
+import parseTNode from '../_util/parseTNode';
 import { isNodeOverflow } from '../_util/scroll';
+import useCommonClassName from '../hooks/useCommonClassName';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import { TooltipLite } from '../tooltip';
+
+import type { BreadcrumbItemProps } from './BreadcrumbProps';
 
 const BreadcrumbItem = forwardRef<HTMLDivElement, BreadcrumbItemProps>((props, ref) => {
   const { classPrefix } = useConfig();

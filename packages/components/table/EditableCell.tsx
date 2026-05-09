@@ -1,16 +1,16 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Edit1Icon as TdEdit1Icon } from 'tdesign-icons-react';
-import classNames from 'classnames';
-import { cloneDeep, get, isFunction, set } from 'lodash-es';
 
 import log from '@tdesign/common-js/log/index';
+import classNames from 'classnames';
+import { cloneDeep, get, isFunction, set } from 'lodash-es';
+import { Edit1Icon as TdEdit1Icon } from 'tdesign-icons-react';
+
+import { renderCell } from './Cell';
 import { validate } from '../form/formModel';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import { renderCell } from './Cell';
-import { TableClassName } from './hooks/useClassName';
 
-import type { AllValidateResult } from '../form/type';
+import type { TableClassName } from './hooks/useClassName';
 import type {
   PrimaryTableCellParams,
   PrimaryTableCol,
@@ -19,6 +19,7 @@ import type {
   TableRowData,
   TdBaseTableProps,
 } from './type';
+import type { AllValidateResult } from '../form/type';
 
 export interface EditableCellProps {
   row: TableRowData;

@@ -1,10 +1,13 @@
 import { useState, useMemo } from 'react';
-import { get, isFunction } from 'lodash-es';
+
 import { getEditableKeysMap } from '@tdesign/common-js/table/utils';
-import { PrimaryTableProps } from '../interface';
+import { get, isFunction } from 'lodash-es';
+
 import { validate } from '../../form/formModel';
-import { AllValidateResult } from '../../form';
-import { PrimaryTableRowEditContext, TableRowData, TableErrorListMap } from '../type';
+
+import type { AllValidateResult } from '../../form';
+import type { PrimaryTableProps } from '../interface';
+import type { PrimaryTableRowEditContext, TableRowData, TableErrorListMap } from '../type';
 
 export type ErrorListObjectType = PrimaryTableRowEditContext<TableRowData> & { errorList: AllValidateResult[] };
 

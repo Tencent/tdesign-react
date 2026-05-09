@@ -1,16 +1,19 @@
-import React, { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import React from 'react';
+
 import classNames from 'classnames';
 import { FileCopyIcon as TdFileCopyIcon } from 'tdesign-icons-react';
-import Popup from '../popup';
-import { MessagePlugin } from '../message';
-import useConfig from '../hooks/useConfig';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import copyText from '../_util/copyText';
 
-import { TdAnchorTargetProps } from './type';
-import { StyledProps } from '../common';
 import { anchorTargetDefaultProps } from './defaultProps';
+import copyText from '../_util/copyText';
+import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import { MessagePlugin } from '../message';
+import Popup from '../popup';
+
+import type { TdAnchorTargetProps } from './type';
+import type { StyledProps } from '../common';
 
 export interface AnchorTargetProps extends TdAnchorTargetProps, StyledProps {
   children?: React.ReactNode;

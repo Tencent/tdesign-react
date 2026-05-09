@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { render } from '@test/utils';
-import Row from '../Row';
+
 import Col from '../Col';
+import Row from '../Row';
 
 describe('Grid 组件测试', () => {
   test('Grid ', async () => {

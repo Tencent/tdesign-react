@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Space, AutoComplete } from 'tdesign-react';
-import type { AutoCompleteProps } from 'tdesign-react';
+
 import { escapeRegExp } from 'lodash-es';
+import { Space, AutoComplete } from 'tdesign-react';
+
+import type { AutoCompleteProps } from 'tdesign-react';
 
 const LIST = ['第一个 AutoComplete 默认联想词', '第二个 AutoComplete 默认联想词', '第三个 AutoComplete 默认联想词'];
 

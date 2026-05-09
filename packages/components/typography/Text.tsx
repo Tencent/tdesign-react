@@ -1,16 +1,18 @@
-import React, { ReactElement, useRef, forwardRef, useState } from 'react';
+import type { ReactElement } from 'react';
+import React, { useRef, forwardRef, useState } from 'react';
+
 import classNames from 'classnames';
 import { CheckIcon, CopyIcon } from 'tdesign-icons-react';
 
+import { textDefaultProps } from './defaultProps';
 import Ellipsis from './ellipsis/Ellipsis';
+import copyText from '../_util/copyText';
 import useConfig from '../hooks/useConfig';
 import useEllipsis from './ellipsis/useEllipsis';
 import Button from '../button/Button';
-import Tooltip from '../tooltip';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
 import useDefaultProps from '../hooks/useDefaultProps';
-import { textDefaultProps } from './defaultProps';
-import copyText from '../_util/copyText';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+import Tooltip from '../tooltip';
 
 import type { StyledProps } from '../common';
 import type { TdTextProps } from './type';

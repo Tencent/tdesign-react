@@ -1,6 +1,7 @@
 import React from 'react';
-import { BackTop, Space } from 'tdesign-react';
 import type { CSSProperties } from 'react';
+
+import { BackTop, Space } from 'tdesign-react';
 
 export default function BasicBackTop() {
   const style: CSSProperties = {

@@ -1,4 +1,5 @@
-import React, { forwardRef, useImperativeHandle, useState, useEffect, useMemo } from 'react';
+import type React from 'react';
+import { forwardRef, useImperativeHandle, useState, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 
 import { canUseDocument } from '../_util/dom';

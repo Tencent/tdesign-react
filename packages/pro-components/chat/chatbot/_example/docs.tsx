@@ -1,5 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useRef, useState } from 'react';
+
+import { ChatBot } from '@tdesign-react/chat';
+
 import type {
   TdAttachmentItem,
   ChatRequestParams,
@@ -10,7 +13,6 @@ import type {
   ChatMessagesData,
   ChatServiceConfig,
 } from '@tdesign-react/chat';
-import { ChatBot } from '@tdesign-react/chat';
 
 // 默认初始化消息
 const mockData: ChatMessagesData[] = [

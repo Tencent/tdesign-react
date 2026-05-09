@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { SelectInput, Tag } from 'tdesign-react';
+
 import { ControlPlatformIcon } from 'tdesign-icons-react';
+import { SelectInput, Tag } from 'tdesign-react';
 
 const classStyles = `
 <style>

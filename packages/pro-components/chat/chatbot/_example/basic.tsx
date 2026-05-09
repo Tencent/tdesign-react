@@ -1,17 +1,19 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useRef, useState } from 'react';
+
+import { ChatBot } from '@tdesign-react/chat';
 import { InternetIcon } from 'tdesign-icons-react';
-import {
+import { Button, Space } from 'tdesign-react';
+
+import type {
   SSEChunkData,
   AIMessageContent,
   TdChatMessageConfigItem,
   ChatRequestParams,
   ChatMessagesData,
   ChatServiceConfig,
-  ChatBot,
-  type TdChatbotApi,
+  TdChatbotApi,
 } from '@tdesign-react/chat';
-import { Button, Space } from 'tdesign-react';
 
 // 默认初始化消息
 const mockData: ChatMessagesData[] = [

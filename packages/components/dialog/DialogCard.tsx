@@ -1,19 +1,20 @@
 import React, { forwardRef, isValidElement } from 'react';
+
+import classNames from 'classnames';
+import { isFunction, isObject, isString } from 'lodash-es';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CloseIcon as TdCloseIcon,
   InfoCircleFilledIcon as TdInfoCircleFilledIcon,
 } from 'tdesign-icons-react';
-import classNames from 'classnames';
-import { isFunction, isObject, isString } from 'lodash-es';
 
 import parseTNode from '../_util/parseTNode';
 import Button, { type ButtonProps } from '../button';
+import { dialogCardDefaultProps } from './defaultProps';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { dialogCardDefaultProps } from './defaultProps';
 
 import type { StyledProps } from '../common';
 import type { TdDialogCardProps, TdDialogProps } from './type';

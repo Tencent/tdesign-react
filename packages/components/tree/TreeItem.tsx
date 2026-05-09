@@ -1,33 +1,25 @@
-import React, {
-  CSSProperties,
-  DragEventHandler,
-  forwardRef,
-  MouseEvent,
-  ReactNode,
-  useRef,
-  DragEvent,
-  isValidElement,
-  useEffect,
-  useState,
-} from 'react';
+import type { CSSProperties, DragEventHandler, MouseEvent, ReactNode, DragEvent } from 'react';
+import React, { forwardRef, useRef, isValidElement, useEffect, useState } from 'react';
+
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
 import { CaretRightSmallIcon as TdCaretRightSmallIcon } from 'tdesign-icons-react';
-import TreeNode from '@tdesign/common-js/tree-v1/tree-node';
-import type { TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
-import Loading from '../loading';
-import useRipple from '../hooks/useRipple';
-import useDomRefCallback from '../hooks/useDomRefCallback';
-import useGlobalIcon from '../hooks/useGlobalIcon';
+
 import Checkbox from '../checkbox';
-import { useTreeConfig } from './hooks/useTreeConfig';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import useDraggable from './hooks/useDraggable';
+import { useTreeConfig } from './hooks/useTreeConfig';
 import { composeRefs } from '../_util/ref';
 import useConfig from '../hooks/useConfig';
+import useDomRefCallback from '../hooks/useDomRefCallback';
+import useRipple from '../hooks/useRipple';
+import Loading from '../loading';
 
-import type { CheckboxProps } from '../checkbox'
-import type { TdTreeProps } from './type';
+import type { CheckboxProps } from '../checkbox';
 import type { TreeItemProps } from './interface';
+import type { TdTreeProps } from './type';
+import type TreeNode from '@tdesign/common-js/tree-v1/tree-node';
+import type { TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
 
 /**
  * 树节点组件

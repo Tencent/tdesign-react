@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render } from '@test/utils';
+
 import Badge from '../Badge';
 
 describe('Badge 组件测试', () => {

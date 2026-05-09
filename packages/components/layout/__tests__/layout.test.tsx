@@ -1,5 +1,7 @@
-import { render } from '@test/utils';
 import React from 'react';
+
+import { render } from '@test/utils';
+
 import Layout from '../index';
 
 const { Header, Content, Footer, Aside } = Layout;

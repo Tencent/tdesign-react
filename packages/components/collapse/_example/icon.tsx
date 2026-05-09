@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Collapse, TagInput, Radio, Checkbox, Space } from 'tdesign-react';
+
 import { StarIcon } from 'tdesign-icons-react';
+import { Collapse, TagInput, Radio, Checkbox, Space } from 'tdesign-react';
 
 const { Panel } = Collapse;
 

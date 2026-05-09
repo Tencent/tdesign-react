@@ -1,10 +1,13 @@
 import React, { forwardRef, isValidElement, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
+
 import classnames from 'classnames';
 import { isFunction, isObject, isString, isUndefined } from 'lodash-es';
+import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
+
 import parseTNode from '../_util/parseTNode';
 import Button, { type ButtonProps } from '../button';
+import { drawerDefaultProps } from './defaultProps';
 import Portal from '../common/Portal';
 import useAttach from '../hooks/useAttach';
 import useConfig from '../hooks/useConfig';
@@ -13,7 +16,6 @@ import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useSetState from '../hooks/useSetState';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { drawerDefaultProps } from './defaultProps';
 import useDrag from './hooks/useDrag';
 import useLockStyle from './hooks/useLockStyle';
 
@@ -63,8 +65,17 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     lazy,
   } = state;
 
-  const { onBeforeOpen, onBeforeClose, onCancel, onConfirm, onClose, onCloseBtnClick, onOverlayClick, onEscKeydown, onSizeDragEnd } =
-    props;
+  const {
+    onBeforeOpen,
+    onBeforeClose,
+    onCancel,
+    onConfirm,
+    onClose,
+    onCloseBtnClick,
+    onOverlayClick,
+    onEscKeydown,
+    onSizeDragEnd,
+  } = props;
 
   const size = propsSize ?? local.size;
   const { classPrefix } = useConfig();

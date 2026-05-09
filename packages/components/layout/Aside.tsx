@@ -1,9 +1,12 @@
 import React from 'react';
+
 import classNames from 'classnames';
+
 import useConfig from '../hooks/useConfig';
-import { TdAsideProps } from './type';
-import { StyledProps } from '../common';
 import useDefaultProps from '../hooks/useDefaultProps';
+
+import type { TdAsideProps } from './type';
+import type { StyledProps } from '../common';
 
 export interface AsideProps extends TdAsideProps, StyledProps {
   /**

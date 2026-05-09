@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { Select, Tag, Space, SelectOption } from 'tdesign-react';
+
+import { Select, Tag, Space } from 'tdesign-react';
+
+import type { SelectOption } from 'tdesign-react';
 
 const options = [
   { label: '选项一', value: '1' },

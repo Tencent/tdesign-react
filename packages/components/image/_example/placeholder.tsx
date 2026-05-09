@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Image, Space, Button } from 'tdesign-react';
+
 import { RefreshIcon, ImageErrorIcon } from 'tdesign-icons-react';
+import { Image, Space, Button } from 'tdesign-react';
 
 export default function PlaceholderImage() {
   const [loadingCount, setLoadingCount] = useState(0);

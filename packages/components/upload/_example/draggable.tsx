@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
-import {
-  Upload,
-  Radio,
-  Switch,
-  Space,
-  MessagePlugin,
-  SwitchProps,
-  type TdRadioGroupProps,
-  UploadProps,
-} from 'tdesign-react';
+
+import { Upload, Radio, Switch, Space, MessagePlugin } from 'tdesign-react';
+
+import type { SwitchProps, UploadProps, TdRadioGroupProps } from 'tdesign-react';
 
 function getCurrentDate(needTime = false) {
   const d = new Date();

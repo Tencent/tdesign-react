@@ -1,6 +1,9 @@
 import React, { useRef, useState } from 'react';
-import { ChatBot, SSEChunkData, AIMessageContent, ChatServiceConfig, type TdChatbotApi } from '@tdesign-react/chat';
+
+import { ChatBot } from '@tdesign-react/chat';
 import { Button, Space, MessagePlugin } from 'tdesign-react';
+
+import type { SSEChunkData, AIMessageContent, ChatServiceConfig, TdChatbotApi } from '@tdesign-react/chat';
 
 /**
  * 实例方法示例

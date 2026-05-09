@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { render, fireEvent, waitFor, screen, mockTimeout } from '@test/utils';
+
 import Tooltip from '../Tooltip';
-import { TdTooltipProps } from '../type';
+
+import type { TdTooltipProps } from '../type';
 
 describe('Tooltip 组件测试', () => {
   const tooltipText = '弹出层内容';

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, Popup } from 'tdesign-react';
 import type { CSSProperties } from 'react';
+
+import { Button, Popup } from 'tdesign-react';
 
 const styles: Record<string, CSSProperties> = {
   container: {

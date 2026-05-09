@@ -1,5 +1,8 @@
-import React, { ReactNode, useState } from 'react';
+import type { ReactNode } from 'react';
+import React, { useState } from 'react';
+
 import { List, Radio } from 'tdesign-react';
+
 import type { ListProps } from 'tdesign-react';
 
 const { ListItem } = List;

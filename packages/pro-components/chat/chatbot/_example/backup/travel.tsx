@@ -1,28 +1,19 @@
-import React, { ReactNode, useMemo, useRef, useState } from 'react';
-import { Button } from 'tdesign-react';
+import type { ReactNode } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
+
 import {
   ChatList,
   ChatSender,
   ChatMessage,
-  TdChatListApi,
-  TdChatSenderApi,
   ChatActionBar,
   AGUIAdapter,
   isAIMessage,
   applyJsonPatch,
   getMessageContentForCopy,
 } from '@tdesign-react/chat';
-import type {
-  TdChatMessageConfig,
-  TdChatActionsName,
-  TdChatSenderParams,
-  ChatMessagesData,
-  ChatRequestParams,
-  ChatBaseContent,
-  AIMessageContent,
-  AGUIHistoryMessage,
-} from '@tdesign-react/chat';
 import { LoadingIcon, HistoryIcon } from 'tdesign-icons-react';
+import { Button } from 'tdesign-react';
+
 import { useChat } from '../../hooks/useChat';
 import {
   PlanningStatePanel,
@@ -32,7 +23,20 @@ import {
   HumanInputResult,
   HumanInputForm,
 } from '../components';
+
 import type { FormConfig } from '../components/HumanInputForm';
+import type {
+  TdChatMessageConfig,
+  TdChatActionsName,
+  TdChatSenderParams,
+  ChatMessagesData,
+  ChatRequestParams,
+  ChatBaseContent,
+  AIMessageContent,
+  AGUIHistoryMessage,
+  TdChatListApi,
+  TdChatSenderApi,
+} from '@tdesign-react/chat';
 import './travel-planner.css';
 
 // 扩展自定义消息体类型

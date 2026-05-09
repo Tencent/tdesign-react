@@ -1,7 +1,9 @@
 import React, { useMemo } from 'react';
+
 import classNames from 'classnames';
-import useConfig from '../../hooks/useConfig';
+
 import parseTNode from '../../_util/parseTNode';
+import useConfig from '../../hooks/useConfig';
 import { ValidateStatus } from '../const';
 
 export default function useFormItemStyle(props) {

@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
 import useConfig from '../../hooks/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { PaginationMini, type TdPaginationMiniProps } from '../../pagination';
 import Select from '../../select';
-import type { TdDatePickerProps } from '../type';
-import { SinglePanelProps } from '../panel/SinglePanel';
 import { useSelectRange } from '../hooks/useSelectRange';
+
+import type { SinglePanelProps } from '../panel/SinglePanel';
+import type { TdDatePickerProps } from '../type';
 
 export interface DatePickerHeaderProps extends Pick<TdDatePickerProps, 'mode'> {
   year?: number;

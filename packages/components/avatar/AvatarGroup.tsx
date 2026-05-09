@@ -1,14 +1,17 @@
 import React, { Fragment } from 'react';
+
 import classNames from 'classnames';
+
 import Avatar from './Avatar';
-import useConfig from '../hooks/useConfig';
 import { AvatarContextProvider } from './AvatarContext';
-import { TdAvatarGroupProps } from './type';
-import { StyledProps } from '../common';
 import { avatarGroupDefaultProps } from './defaultProps';
 import parseTNode from '../_util/parseTNode';
+import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+
+import type { StyledProps } from '../common';
 import type { AvatarProps } from './Avatar';
+import type { TdAvatarGroupProps } from './type';
 
 export interface AvatarGroupProps extends TdAvatarGroupProps, StyledProps {
   children?: React.ReactNode;

@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { QRCode, QrCodeProps, Radio, Space } from 'tdesign-react';
+
+import { QRCode, Radio, Space } from 'tdesign-react';
+
+import type { QrCodeProps } from 'tdesign-react';
 
 export default function QRCodeExample() {
   const [level, setLevel] = useState<QrCodeProps['level']>('L');

@@ -1,5 +1,8 @@
-import React, { Fragment, KeyboardEvent, MouseEvent, ReactNode, useState } from 'react';
+import type { KeyboardEvent, MouseEvent, ReactNode } from 'react';
+import React, { Fragment, useState } from 'react';
+
 import { isFunction } from 'lodash-es';
+
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import Tag from '../tag';

@@ -1,4 +1,5 @@
-import React, { MouseEvent, MutableRefObject, useEffect, useMemo, useRef } from 'react';
+import type { MouseEvent, MutableRefObject } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 
 import classnames from 'classnames';
 import { get } from 'lodash-es';
@@ -7,13 +8,13 @@ import Cell from './Cell';
 import useClassName from './hooks/useClassName';
 import { getRowFixedStyles } from './hooks/useFixed';
 import useLazyLoad from './hooks/useLazyLoad';
-import { getCellKey, SkipSpansValue } from './hooks/useRowspanAndColspan';
-
+import { getCellKey } from './hooks/useRowspanAndColspan';
 import { formatRowAttributes, formatRowClassNames } from './utils';
 
 import type { TScroll } from '../common';
 import type { RowMountedParams, VirtualScrollConfig } from '../hooks/useVirtualScroll';
 import type { PaginationProps } from '../pagination';
+import type { SkipSpansValue } from './hooks/useRowspanAndColspan';
 import type { RowAndColFixedPosition } from './interface';
 import type { RowspanColspan, TableRowData, TdBaseTableProps } from './type';
 

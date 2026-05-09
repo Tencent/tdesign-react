@@ -1,16 +1,20 @@
+import type { ReactNode } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { CSSTransition } from 'react-transition-group';
+
+import getPosition from '@tdesign/common-js/utils/getPosition';
 import classnames from 'classnames';
 import { throttle } from 'lodash-es';
-import React, { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
-import { CSSTransition } from 'react-transition-group';
-import getPosition from '@tdesign/common-js/utils/getPosition';
-import { StyledProps } from '../common';
+
+import { tooltipLiteDefaultProps } from './defaultProps';
 import Portal from '../common/Portal';
 import useAnimation from '../hooks/useAnimation';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useSwitch from '../hooks/useSwitch';
 import { getTransitionParams } from '../popup/utils/transition';
-import { tooltipLiteDefaultProps } from './defaultProps';
+
+import type { StyledProps } from '../common';
 import type { TdTooltipLiteProps } from './type';
 
 export interface TooltipLiteProps extends TdTooltipLiteProps, StyledProps {

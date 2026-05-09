@@ -1,30 +1,15 @@
-import React, {
-  forwardRef,
-  MouseEvent,
-  RefObject,
-  useCallback,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import type { MouseEvent, RefObject } from 'react';
+import React, { forwardRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
+import log from '@tdesign/common-js/log/index';
 import classNames from 'classnames';
 import { get } from 'lodash-es';
 
-import log from '@tdesign/common-js/log/index';
-import TreeNode from '@tdesign/common-js/tree-v1/tree-node';
-import type {
-  TreeNodeState,
-  TreeNodeValue,
-  TypeTreeNodeData,
-  TypeTreeNodeModel,
-} from '@tdesign/common-js/tree-v1/types';
-
+import { treeDefaultProps } from './defaultProps';
 import parseTNode from '../_util/parseTNode';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { usePersistFn } from '../hooks/usePersistFn';
-import { treeDefaultProps } from './defaultProps';
 import { TreeDraggableContext } from './hooks/TreeDraggableContext';
 import useControllable from './hooks/useControllable';
 import { useStore } from './hooks/useStore';
@@ -35,12 +20,17 @@ import TreeItem from './TreeItem';
 import type { ComponentScrollToElementParams, StyledProps, TreeOptionData } from '../common';
 import type { TreeItemProps } from './interface';
 import type { TdTreeProps, TreeInstanceFunctions } from './type';
+import type TreeNode from '@tdesign/common-js/tree-v1/tree-node';
+import type {
+  TreeNodeState,
+  TreeNodeValue,
+  TypeTreeNodeData,
+  TypeTreeNodeModel,
+} from '@tdesign/common-js/tree-v1/types';
 
 export type TreeProps = TdTreeProps & StyledProps;
 
 const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((originalProps, ref) => {
-  const { treeClassNames, transitionNames, transitionClassNames, transitionDuration, locale } = useTreeConfig();
-
   const { value, onChange, expanded, onExpand, onActive, actived, setTreeIndeterminate, indeterminate } =
     useControllable(originalProps);
   const props = useDefaultProps<TreeProps>(originalProps, treeDefaultProps);
@@ -65,6 +55,9 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     allowDrop,
     onScroll,
   } = props;
+
+  const { treeClassNames, transitionNames, transitionClassNames, transitionDuration, locale } =
+    useTreeConfig(transition);
 
   // 可见节点集合
   const [visibleNodes, setVisibleNodes] = useState([]);

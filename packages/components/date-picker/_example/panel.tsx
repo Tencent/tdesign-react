@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { DatePickerPanel, DateRangePickerPanel, Space } from 'tdesign-react';
+
 import type { DatePickerPanelProps, DateRangePickerPanelProps } from 'tdesign-react';
 
 export default function PanelExample() {

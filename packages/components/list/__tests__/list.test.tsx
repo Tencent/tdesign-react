@@ -1,5 +1,7 @@
-import { render, fireEvent, vi } from '@test/utils';
 import React from 'react';
+
+import { render, fireEvent, vi } from '@test/utils';
+
 import List from '../List';
 
 const { ListItem, ListItemMeta } = List;

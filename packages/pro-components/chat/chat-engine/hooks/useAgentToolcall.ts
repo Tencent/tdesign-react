@@ -1,6 +1,8 @@
 import { useCallback, useRef, useEffect } from 'react';
-import type { AgentToolcallConfig, ToolcallComponentProps } from '../components/toolcall/types';
+
 import { agentToolcallRegistry } from '../components/toolcall/registry';
+
+import type { AgentToolcallConfig, ToolcallComponentProps } from '../components/toolcall/types';
 
 export interface UseAgentToolcallReturn {
   register: (config: AgentToolcallConfig | AgentToolcallConfig[]) => void;

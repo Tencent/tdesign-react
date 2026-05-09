@@ -1,19 +1,24 @@
-import React, { forwardRef, type RefAttributes, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import classNames from 'classnames';
-import { pick } from 'lodash-es';
+import React, {
+  forwardRef,
+  type RefAttributes,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import log from '@tdesign/common-js/log/index';
 import { getIEVersion } from '@tdesign/common-js/utils/helper';
+import classNames from 'classnames';
+import { pick } from 'lodash-es';
+
 import Affix, { type AffixRef } from '../affix';
+import Loading from '../loading';
+import { baseTableDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useElementLazyRender from '../hooks/useElementLazyRender';
 import useVirtualScroll from '../hooks/useVirtualScroll';
-import Loading from '../loading';
-import TBody, { extendTableProps, type TableBodyProps } from './TBody';
-import TFoot from './TFoot';
-import THead, { type TheadProps } from './THead';
-import { ROW_LISTENERS } from './TR';
-import { baseTableDefaultProps } from './defaultProps';
 import useAffix from './hooks/useAffix';
 import useClassName from './hooks/useClassName';
 import useColumnResize from './hooks/useColumnResize';
@@ -21,6 +26,10 @@ import useFixed from './hooks/useFixed';
 import usePagination from './hooks/usePagination';
 import useStyle, { formatCSSUnit } from './hooks/useStyle';
 import useTableHeader from './hooks/useTableHeader';
+import TBody, { extendTableProps, type TableBodyProps } from './TBody';
+import TFoot from './TFoot';
+import THead, { type TheadProps } from './THead';
+import { ROW_LISTENERS } from './TR';
 import { getAffixProps } from './utils';
 
 import type { Styles } from '../common';
@@ -516,10 +525,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         className={classNames(tableElmClasses)}
         style={{
           ...tableElementStyles,
-          width:
-            resizable && isWidthOverflow && tableElmWidth
-              ? `${tableElmWidth}px`
-              : tableElementStyles.width,
+          width: resizable && isWidthOverflow && tableElmWidth ? `${tableElmWidth}px` : tableElementStyles.width,
         }}
       >
         {renderColGroup(false)}

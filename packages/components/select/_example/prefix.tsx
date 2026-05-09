@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Select } from 'tdesign-react';
+
 import { BrowseIcon } from 'tdesign-icons-react';
+import { Select } from 'tdesign-react';
 
 const SelectPrefix = () => {
   const [value, setValue] = useState('');

@@ -1,8 +1,11 @@
 import React from 'react';
+
 import { fireEvent, mockDelay, mockTimeout, render, vi } from '@test/utils';
+
 import Button from '../../button';
 import Tree from '../Tree';
-import { TdTreeProps } from '../type';
+
+import type { TdTreeProps } from '../type';
 
 // TODO
 describe('Tree test', () => {

@@ -1,29 +1,29 @@
-import React, { useState, Ref } from 'react';
+import type { Ref } from 'react';
+import React, { useState } from 'react';
+
+import { DEFAULT_STEPS, DEFAULT_FORMAT } from '@tdesign/common-js/time-picker/const';
+import { formatInputValue, validateInputValue } from '@tdesign/common-js/time-picker/utils';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { TimeIcon as TdTimeIcon } from 'tdesign-icons-react';
 
-import { formatInputValue, validateInputValue } from '@tdesign/common-js/time-picker/utils';
-import { DEFAULT_STEPS, DEFAULT_FORMAT } from '@tdesign/common-js/time-picker/const';
-import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import useControlled from '../hooks/useControlled';
-import useConfig from '../hooks/useConfig';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import noop from '../_util/noop';
-
-import SelectInput from '../select-input';
-import type { SelectInputProps, SelectInputValueChangeContext } from '../select-input';
-import TimeRangePicker from './TimeRangePicker';
-import TimePickerPanel from './panel/TimePickerPanel';
-import type { TimePickerPanelProps } from './panel/TimePickerPanel';
-
-import { useTimePickerTextConfig } from './hooks/useTimePickerTextConfig';
 import { timePickerDefaultProps } from './defaultProps';
+import TimeRangePicker from './TimeRangePicker';
+import forwardRefWithStatics from '../_util/forwardRefWithStatics';
+import noop from '../_util/noop';
+import useConfig from '../hooks/useConfig';
+import useControlled from '../hooks/useControlled';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import SelectInput from '../select-input';
+import { useTimePickerTextConfig } from './hooks/useTimePickerTextConfig';
+import TimePickerPanel from './panel/TimePickerPanel';
+import useDefaultProps from '../hooks/useDefaultProps';
 
 import type { StyledProps } from '../common';
+import type { SelectInputProps, SelectInputValueChangeContext } from '../select-input';
+import type { TimePickerPanelProps } from './panel/TimePickerPanel';
 import type { TdTimePickerProps } from './type';
-import useDefaultProps from '../hooks/useDefaultProps';
 
 // https://github.com/iamkun/dayjs/issues/1552
 dayjs.extend(customParseFormat);

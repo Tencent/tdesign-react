@@ -1,12 +1,15 @@
 import React from 'react';
-import log from '@tdesign/common-js/log/index';
-import { render } from '../_util/react-render';
-import DrawerComponent, { DrawerProps } from './Drawer';
 
+import log from '@tdesign/common-js/log/index';
+
+import DrawerComponent from './Drawer';
 import { getAttach } from '../_util/dom';
-import type { DrawerOptions, DrawerMethod, DrawerInstance } from './type';
-import ConfigProvider from '../config-provider';
+import { render } from '../_util/react-render';
 import PluginContainer from '../common/PluginContainer';
+import ConfigProvider from '../config-provider';
+
+import type { DrawerProps } from './Drawer';
+import type { DrawerOptions, DrawerMethod, DrawerInstance } from './type';
 
 const createDrawer: DrawerMethod = (props: DrawerOptions): DrawerInstance => {
   const drawerRef = React.createRef<DrawerInstance>();
@@ -17,7 +20,12 @@ const createDrawer: DrawerMethod = (props: DrawerOptions): DrawerInstance => {
   const fragment = document.createDocumentFragment();
 
   const dGlobalConfig = ConfigProvider.getGlobalConfig();
-  render(<PluginContainer globalConfig={dGlobalConfig}><DrawerComponent {...(props as DrawerProps)} visible={visible} ref={drawerRef} isPlugin /></PluginContainer>, fragment);
+  render(
+    <PluginContainer globalConfig={dGlobalConfig}>
+      <DrawerComponent {...(props as DrawerProps)} visible={visible} ref={drawerRef} isPlugin />
+    </PluginContainer>,
+    fragment,
+  );
 
   const container = getAttach(props.attach);
   if (container) {

@@ -1,6 +1,6 @@
+import _TimePickerPanel from './panel/TimePickerPanel';
 import _TimePicker from './TimePicker';
 import _TimeRangePicker from './TimeRangePicker';
-import _TimePickerPanel from './panel/TimePickerPanel';
 
 import './style/index.js';
 

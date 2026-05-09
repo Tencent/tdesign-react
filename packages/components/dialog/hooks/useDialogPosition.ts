@@ -1,4 +1,6 @@
-import { MutableRefObject, useEffect, useRef } from 'react';
+import type { MutableRefObject } from 'react';
+import { useEffect, useRef } from 'react';
+
 import useIsomorphicLayoutEffect from '../../hooks/useLayoutEffect';
 
 export default function useDialogPosition(visible: boolean, dialogCardRef: MutableRefObject<HTMLElement>) {

@@ -1,15 +1,18 @@
 import React from 'react';
+
 import classNames from 'classnames';
-import { TabValue, TdTabsProps } from './type';
-import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import TabNav from './TabNav';
-import { useTabClass } from './useTabClass';
-import TabPanel from './TabPanel';
-import { StyledProps } from '../common';
+
 import { tabsDefaultProps } from './defaultProps';
-import useDragSorter from '../hooks/useDragSorter';
-import useDefaultProps from '../hooks/useDefaultProps';
+import TabNav from './TabNav';
+import TabPanel from './TabPanel';
+import { useTabClass } from './useTabClass';
+import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useControlled from '../hooks/useControlled';
+import useDefaultProps from '../hooks/useDefaultProps';
+import useDragSorter from '../hooks/useDragSorter';
+
+import type { StyledProps } from '../common';
+import type { TabValue, TdTabsProps } from './type';
 
 export interface TabsProps extends TdTabsProps, StyledProps {
   children?: React.ReactNode;

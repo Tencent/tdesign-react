@@ -1,12 +1,15 @@
-import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
+import type { ReactElement } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+
 import classNames from 'classnames';
 import { isNumber } from 'lodash-es';
+
+import Checkbox from './Checkbox';
+import { checkboxGroupDefaultProps } from './defaultProps';
 import { CheckContext, type CheckContextValue, type CheckProps } from '../common/Check';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
-import Checkbox from './Checkbox';
-import { checkboxGroupDefaultProps } from './defaultProps';
 
 import type { StyledProps } from '../common';
 import type { CheckboxProps } from './Checkbox';
@@ -102,11 +105,11 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
   }, [internalValue]);
   const checkedSet = useMemo(() => getCheckedSet(), [getCheckedSet]);
 
-const indeterminate = useMemo(() => {
-  const allValues = [...enabledValues, ...disabledValues];
-  const checkedCount = allValues.filter((value) => checkedSet.has(value)).length;
-  return checkedCount > 0 && checkedCount < allValues.length;
-}, [checkedSet, enabledValues, disabledValues]); 
+  const indeterminate = useMemo(() => {
+    const allValues = [...enabledValues, ...disabledValues];
+    const checkedCount = allValues.filter((value) => checkedSet.has(value)).length;
+    return checkedCount > 0 && checkedCount < allValues.length;
+  }, [checkedSet, enabledValues, disabledValues]);
 
   const checkAllChecked = useMemo(() => {
     const checkableValues = enabledValues.filter((value) => checkedSet.has(value));

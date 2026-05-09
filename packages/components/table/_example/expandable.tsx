@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Radio, Checkbox, Space, Tag, Link } from 'tdesign-react';
+
 import {
   ChevronRightCircleIcon,
   ChevronRightIcon,
@@ -7,6 +7,7 @@ import {
   ErrorCircleFilledIcon,
   CloseCircleFilledIcon,
 } from 'tdesign-icons-react';
+import { Table, Radio, Checkbox, Space, Tag, Link } from 'tdesign-react';
 
 import type { TableProps } from 'tdesign-react';
 

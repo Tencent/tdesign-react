@@ -1,8 +1,11 @@
 import React, { forwardRef } from 'react';
+
 import classNames from 'classnames';
+
 import useConfig from '../hooks/useConfig';
-import { TdListItemMetaProps } from './type';
-import { StyledProps } from '../common';
+
+import type { TdListItemMetaProps } from './type';
+import type { StyledProps } from '../common';
 
 export interface ListItemMetaProps extends TdListItemMetaProps, StyledProps {}
 /**

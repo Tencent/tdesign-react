@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { render, fireEvent } from '@test/utils';
+
 import Slider from '../Slider';
 
 describe('Slider 组件测试', () => {

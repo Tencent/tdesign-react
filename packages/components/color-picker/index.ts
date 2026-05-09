@@ -1,5 +1,5 @@
-import _ColorPickerPanel from './ColorPickerPanel';
 import _ColorPicker from './ColorPicker';
+import _ColorPickerPanel from './ColorPickerPanel';
 
 import './style';
 

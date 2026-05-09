@@ -1,19 +1,21 @@
 import React from 'react';
-import classNames from 'classnames';
-import useConfig from '../hooks/useConfig';
-import { StyledProps } from '../common';
-import { TdMenuProps } from './type';
-import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import { MenuContext } from './MenuContext';
-import { DEFAULT_MENU_WIDTH } from './_util/constant';
-import useMenuContext from './hooks/useMenuContext';
-import { menuDefaultProps } from './defaultProps';
 
+import classNames from 'classnames';
+
+import { DEFAULT_MENU_WIDTH } from './_util/constant';
+import { menuDefaultProps } from './defaultProps';
 import HeadMenu from './HeadMenu';
-import SubMenu from './SubMenu';
-import MenuItem from './MenuItem';
+import useMenuContext from './hooks/useMenuContext';
+import { MenuContext } from './MenuContext';
 import MenuGroup from './MenuGroup';
+import MenuItem from './MenuItem';
+import SubMenu from './SubMenu';
+import forwardRefWithStatics from '../_util/forwardRefWithStatics';
+import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+
+import type { TdMenuProps } from './type';
+import type { StyledProps } from '../common';
 
 export interface MenuProps extends TdMenuProps, StyledProps {
   children?: React.ReactNode;

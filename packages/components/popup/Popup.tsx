@@ -1,9 +1,10 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { Placement, type Options } from '@popperjs/core';
+
 import classNames from 'classnames';
 import { debounce, isFunction } from 'lodash-es';
 
+import { popupDefaultProps } from './defaultProps';
 import { canUseDocument } from '../_util/dom';
 import { getCssVarsValue } from '../_util/style';
 import Portal from '../common/Portal';
@@ -15,11 +16,11 @@ import useDefaultProps from '../hooks/useDefaultProps';
 import useMutationObserver from '../hooks/useMutationObserver';
 import usePopper, { type InnerPopperInstance } from '../hooks/usePopper';
 import useWindowSize from '../hooks/useWindowSize';
-import { popupDefaultProps } from './defaultProps';
 import useTrigger from './hooks/useTrigger';
 import { getTransitionParams } from './utils/transition';
 
 import type { PopupInstanceFunctions, TdPopupProps } from './type';
+import type { Placement, Options } from '@popperjs/core';
 
 /**
  * @internal

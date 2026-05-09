@@ -1,5 +1,5 @@
-import _Row from './Row';
 import _Col from './Col';
+import _Row from './Row';
 
 import './style/index.js';
 

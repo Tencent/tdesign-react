@@ -1,7 +1,9 @@
 import { useEffect, useCallback, useMemo } from 'react';
+
 import setStyle from '@tdesign/common-js/utils/setStyle';
-import useConfig from './useConfig';
+
 import useAnimation from './useAnimation';
+import useConfig from './useConfig';
 import { canUseDocument } from '../_util/dom';
 
 const period = 200;

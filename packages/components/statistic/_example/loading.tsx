@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Space, Switch, Statistic } from 'tdesign-react';
 
 const LoadingStatistic = () => {

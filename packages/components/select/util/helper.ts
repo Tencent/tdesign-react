@@ -1,5 +1,7 @@
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
+
 import { get, isPlainObject } from 'lodash-es';
+
 import Option from '../base/Option';
 import OptionGroup from '../base/OptionGroup';
 import { isSelectOptionGroup } from '../hooks/useOptions';

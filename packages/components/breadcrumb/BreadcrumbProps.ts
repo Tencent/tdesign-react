@@ -1,6 +1,7 @@
-import React from 'react';
-import { StyledProps } from '../common';
-import { TdBreadcrumbItemProps, TdBreadcrumbProps } from './type';
+import type React from 'react';
+
+import type { StyledProps } from '../common';
+import type { TdBreadcrumbItemProps, TdBreadcrumbProps } from './type';
 
 export interface BreadcrumbProps extends StyledProps, React.PropsWithChildren<TdBreadcrumbProps> {}
 

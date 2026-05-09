@@ -1,19 +1,23 @@
-import React, { forwardRef, useImperativeHandle, useRef, ForwardedRef } from 'react';
+import type { ForwardedRef } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+
+import classNames from 'classnames';
 import {
   ChevronDownIcon as TdChevronDownIcon,
   RemoveIcon as TdRemoveIcon,
   ChevronUpIcon as TdChevronUpIcon,
   AddIcon as TdAddIcon,
 } from 'tdesign-icons-react';
-import classNames from 'classnames';
-import Input from '../input';
+
 import Button from '../button';
-import useInputNumber from './useInputNumber';
-import useGlobalIcon from '../hooks/useGlobalIcon';
 import { inputNumberDefaultProps } from './defaultProps';
-import { InputNumberValue, TdInputNumberProps } from './type';
-import { StyledProps } from '../common';
+import useInputNumber from './useInputNumber';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import Input from '../input';
+
+import type { InputNumberValue, TdInputNumberProps } from './type';
+import type { StyledProps } from '../common';
 
 export interface InputNumberProps<T = InputNumberValue> extends TdInputNumberProps<T>, StyledProps {}
 

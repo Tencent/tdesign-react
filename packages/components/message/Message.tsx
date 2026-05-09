@@ -1,8 +1,9 @@
 import React, { createRef, useRef } from 'react';
+
+import { PLACEMENT_OFFSET, fadeOut } from '@tdesign/common-js/message/index';
 import classNames from 'classnames';
 import { camelCase } from 'lodash-es';
 
-import { PLACEMENT_OFFSET, fadeOut } from '@tdesign/common-js/message/index';
 import { getAttach } from '../_util/dom';
 import { render } from '../_util/react-render';
 import PluginContainer from '../common/PluginContainer';

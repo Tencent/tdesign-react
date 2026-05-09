@@ -2,6 +2,8 @@ import 'tdesign-web-components/lib/chatbot';
 import 'tdesign-web-components/lib/chat-message/content/reasoning-content';
 import 'tdesign-web-components/lib/chat-message/content/search-content';
 import 'tdesign-web-components/lib/chat-message/content/suggestion-content';
+import reactify from '../_util/reactify';
+
 import type {
   TdChatbotApi,
   TdChatListApi,
@@ -10,7 +12,6 @@ import type {
   TdChatSearchContentProps,
   TdChatSuggestionContentProps,
 } from 'tdesign-web-components';
-import reactify from '../_util/reactify';
 
 const ChatBot: React.ForwardRefExoticComponent<
   Omit<TdChatProps & Partial<TdChatbotApi>, 'ref'> & React.RefAttributes<HTMLElement | undefined>

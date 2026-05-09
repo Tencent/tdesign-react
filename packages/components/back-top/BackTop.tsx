@@ -1,12 +1,15 @@
-import classNames from 'classnames';
 import React, { useCallback, useMemo } from 'react';
+
+import classNames from 'classnames';
 import { BacktopIcon } from 'tdesign-icons-react';
-import useConfig from '../hooks/useConfig';
-import { TdBackTopProps } from './type';
+
 import { backTopDefaultProps } from './defaultProps';
 import useScroll from './useScroll';
 import { scrollTo } from '../_util/scroll';
+import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+
+import type { TdBackTopProps } from './type';
 
 export type BackTopProps = TdBackTopProps;
 

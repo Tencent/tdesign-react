@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Space, Switch } from 'tdesign-react';
+
 import { ChatMarkdown, findTargetElement } from '@tdesign-react/chat';
+import { Space, Switch } from 'tdesign-react';
 
 const doc = `
 # This is TDesign

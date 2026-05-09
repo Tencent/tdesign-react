@@ -1,11 +1,13 @@
 import React from 'react';
-import useControlled from '../hooks/useControlled';
-import { StyledProps } from '../common';
-import { checkTagGroupDefaultProps } from './defaultProps';
-import { CheckTagGroupValue, TdCheckTagGroupProps, TdCheckTagProps } from './type';
-import useConfig from '../hooks/useConfig';
+
 import CheckTag from './CheckTag';
+import { checkTagGroupDefaultProps } from './defaultProps';
+import useConfig from '../hooks/useConfig';
+import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
+
+import type { CheckTagGroupValue, TdCheckTagGroupProps, TdCheckTagProps } from './type';
+import type { StyledProps } from '../common';
 
 export interface CheckTagGroupProps extends TdCheckTagGroupProps, StyledProps {}
 

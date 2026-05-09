@@ -1,8 +1,11 @@
 import React, { useCallback, useMemo } from 'react';
+
 import { RefreshIcon, CheckCircleFilledIcon } from 'tdesign-icons-react';
-import type { TdQRCodeProps, StatusRenderInfo } from './type';
+
 import Loading from '../loading';
-import { QRCodeConfig } from '../config-provider/type';
+
+import type { TdQRCodeProps, StatusRenderInfo } from './type';
+import type { QRCodeConfig } from '../config-provider/type';
 
 export type QRcodeStatusProps = {
   locale: QRCodeConfig;

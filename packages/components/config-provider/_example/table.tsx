@@ -1,8 +1,10 @@
 import React from 'react';
-import { ConfigProvider, Table, Space } from 'tdesign-react';
-import type { GlobalConfigProvider } from 'tdesign-react';
+
 import { ChevronRightIcon, CaretDownSmallIcon } from 'tdesign-icons-react';
+import { ConfigProvider, Table, Space } from 'tdesign-react';
 import enConfig from 'tdesign-react/es/locale/en_US';
+
+import type { GlobalConfigProvider } from 'tdesign-react';
 
 const columns = [
   {

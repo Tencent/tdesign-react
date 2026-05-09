@@ -1,4 +1,5 @@
 import React, { useState, useRef, useMemo } from 'react';
+
 import {
   ChatList,
   ChatSender,
@@ -8,8 +9,9 @@ import {
   useAgentActivity,
   ActivityRenderer,
 } from '@tdesign-react/chat';
-import { Card, Space, Tag, Progress } from 'tdesign-react';
 import { CheckCircleFilledIcon, TimeFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { Card, Space, Tag, Progress } from 'tdesign-react';
+
 import type { ActivityComponentProps } from '@tdesign-react/chat';
 
 /**

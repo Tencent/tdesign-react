@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Upload, Space, Radio, Checkbox, Button, MessagePlugin } from 'tdesign-react';
+
 import { CloseIcon } from 'tdesign-icons-react';
+import { Upload, Space, Radio, Checkbox, Button, MessagePlugin } from 'tdesign-react';
 
 import type { UploadProps } from 'tdesign-react';
 

@@ -1,8 +1,11 @@
 import React from 'react';
-import classNames from 'classnames';
+
 import { extractTimeObj } from '@tdesign/common-js/date-picker/utils';
-import useConfig from '../../hooks/useConfig';
+import classNames from 'classnames';
+
 import parseTNode from '../../_util/parseTNode';
+import useConfig from '../../hooks/useConfig';
+
 import type { TNode } from '../../common';
 import type { DateValue } from '../type';
 

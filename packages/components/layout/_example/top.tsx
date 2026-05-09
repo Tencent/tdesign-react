@@ -1,6 +1,7 @@
 import React from 'react';
-import { Layout, Menu } from 'tdesign-react';
+
 import { SearchIcon, NotificationFilledIcon, HomeIcon } from 'tdesign-icons-react';
+import { Layout, Menu } from 'tdesign-react';
 
 const { Header, Content, Footer } = Layout;
 const { HeadMenu, MenuItem } = Menu;

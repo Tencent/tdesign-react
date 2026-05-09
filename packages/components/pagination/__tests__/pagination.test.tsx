@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, fireEvent, vi } from '@test/utils';
+
 import Pagination from '../index';
 
 describe('Pagination test', () => {

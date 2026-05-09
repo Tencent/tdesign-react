@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { SelectInput } from 'tdesign-react';
+
 import { ChevronDownIcon } from 'tdesign-icons-react';
+import { SelectInput } from 'tdesign-react';
 
 import type { SelectInputProps } from 'tdesign-react';
 

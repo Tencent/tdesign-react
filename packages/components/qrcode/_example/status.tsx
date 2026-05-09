@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { QRCode, Space } from 'tdesign-react';
 
 const value = 'https://tdesign.tencent.com/';

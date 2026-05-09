@@ -1,4 +1,5 @@
 import _Upload from './upload';
+
 import type { TdUploadProps as UploadProps } from './type';
 import './style/index.js';
 

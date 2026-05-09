@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
-import classNames from 'classnames';
+import type React from 'react';
+import { useState, useRef, useEffect } from 'react';
+
 import {
   canAddNumber,
   canInputNumber,
@@ -11,12 +12,15 @@ import {
   formatThousandths,
   largeNumberToFixed,
 } from '@tdesign/common-js/input-number/number';
+import classNames from 'classnames';
+
+import useCommonClassName from '../hooks/useCommonClassName';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
-import useCommonClassName from '../hooks/useCommonClassName';
-import { InputNumberValue, TdInputNumberProps } from './type';
+
+import type { InputNumberValue, TdInputNumberProps } from './type';
 // 计算逻辑，统一到 common 中，方便各框架复用（如超过 16 位的大数处理）
-import { InputProps } from '../input';
+import type { InputProps } from '../input';
 
 export const specialCode = ['-', '.', 'e', 'E'];
 

@@ -1,6 +1,6 @@
 import _BaseTable from './BaseTable';
-import _PrimaryTable from './PrimaryTable';
 import _EnhancedTable from './EnhancedTable';
+import _PrimaryTable from './PrimaryTable';
 
 import './style/index.js';
 

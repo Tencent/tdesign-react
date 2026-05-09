@@ -1,5 +1,7 @@
-import { render, fireEvent } from '@test/utils';
 import React from 'react';
+
+import { render, fireEvent } from '@test/utils';
+
 import Loading from '../Loading';
 import { LoadingPlugin as loading } from '../plugin';
 

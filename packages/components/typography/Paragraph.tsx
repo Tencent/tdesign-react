@@ -1,8 +1,9 @@
 import React, { forwardRef } from 'react';
-import classNames from 'classnames';
-import Ellipsis from './ellipsis/Ellipsis';
-import { paragraphDefaultProps } from './defaultProps';
 
+import classNames from 'classnames';
+
+import { paragraphDefaultProps } from './defaultProps';
+import Ellipsis from './ellipsis/Ellipsis';
 import useConfig from '../hooks/useConfig';
 import useEllipsis from './ellipsis/useEllipsis';
 import useDefaultProps from '../hooks/useDefaultProps';

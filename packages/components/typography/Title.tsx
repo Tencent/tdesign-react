@@ -1,9 +1,10 @@
 import React, { forwardRef } from 'react';
+
 import classNames from 'classnames';
 
+import { titleDefaultProps } from './defaultProps';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
-import { titleDefaultProps } from './defaultProps';
 import Ellipsis from './ellipsis/Ellipsis';
 import useEllipsis from './ellipsis/useEllipsis';
 

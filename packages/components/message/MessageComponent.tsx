@@ -1,12 +1,13 @@
 import React, { forwardRef, useEffect, useState } from 'react';
-import classNames from 'classnames';
 
 import { fadeIn } from '@tdesign/common-js/message/index';
-import noop from '../_util/noop';
-import { usePersistFn } from '../hooks/usePersistFn';
+import classNames from 'classnames';
+
 import MessageClose from './MessageClose';
 import MessageIcon from './MessageIcon';
 import { useMessageClass } from './useMessageClass';
+import noop from '../_util/noop';
+import { usePersistFn } from '../hooks/usePersistFn';
 
 import type { StyledProps } from '../common';
 import type { MessagePlacementList, TdMessageProps } from './type';

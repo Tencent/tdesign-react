@@ -1,13 +1,16 @@
-import React, { RefAttributes, forwardRef, useImperativeHandle, useRef } from 'react';
+import type { RefAttributes } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+
 import { get } from 'lodash-es';
-import PrimaryTable from './PrimaryTable';
-import { PrimaryTableCol, TableRowData, DragSortContext, TdPrimaryTableProps } from './type';
+
 import useTreeData from './hooks/useTreeData';
 import useTreeSelect from './hooks/useTreeSelect';
-import { EnhancedTableProps, EnhancedTableRef, PrimaryTableProps } from './interface';
+import PrimaryTable from './PrimaryTable';
 import useConfig from '../hooks/useConfig';
 
-import { StyledProps } from '../common';
+import type { EnhancedTableProps, EnhancedTableRef, PrimaryTableProps } from './interface';
+import type { PrimaryTableCol, TableRowData, DragSortContext, TdPrimaryTableProps } from './type';
+import type { StyledProps } from '../common';
 
 export interface TEnhancedTableProps extends EnhancedTableProps, StyledProps {}
 

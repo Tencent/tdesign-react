@@ -1,7 +1,8 @@
 import { useRef } from 'react';
-import { canUseDocument } from '../_util/dom';
+
 import useLatest from './useLatest';
 import useIsomorphicLayoutEffect from './useLayoutEffect';
+import { canUseDocument } from '../_util/dom';
 
 export default function useResizeObserver(
   container: React.MutableRefObject<HTMLElement | null>,

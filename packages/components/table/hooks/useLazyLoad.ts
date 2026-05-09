@@ -3,6 +3,7 @@
  */
 import { useState, useMemo, useEffect } from 'react';
 import type React from 'react';
+
 import observe from '@tdesign/common-js/utils/observe';
 
 export type UseLazyLoadParams = {

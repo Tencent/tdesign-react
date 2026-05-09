@@ -1,6 +1,7 @@
 import React from 'react';
-import { Space } from 'tdesign-react';
+
 import { Filecard, type TdAttachmentItem } from '@tdesign-react/chat';
+import { Space } from 'tdesign-react';
 
 const filesList: TdAttachmentItem[] = [
   {

@@ -1,8 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { CalendarIcon as TdCalendarIcon } from 'tdesign-icons-react';
-import classNames from 'classnames';
-import dayjs from 'dayjs';
-import { omit } from 'lodash-es';
 
 import {
   formatDate,
@@ -11,10 +7,15 @@ import {
   isValidDate,
   parseToDayjs,
 } from '@tdesign/common-js/date-picker/format';
+import classNames from 'classnames';
+import dayjs from 'dayjs';
+import { omit } from 'lodash-es';
+import { CalendarIcon as TdCalendarIcon } from 'tdesign-icons-react';
+
+import useSingleValue from './useSingleValue';
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import useInnerPopupVisible from '../../hooks/useInnerPopupVisible';
-import useSingleValue from './useSingleValue';
 
 import type { TdPopupProps } from '../../popup/type';
 import type { TdDatePickerProps } from '../type';

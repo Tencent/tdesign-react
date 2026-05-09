@@ -1,4 +1,7 @@
-import React, { RefAttributes, forwardRef } from 'react';
+import type { RefAttributes } from 'react';
+import type React from 'react';
+import { forwardRef } from 'react';
+
 import hoistNonReactStatics from 'hoist-non-react-statics';
 
 export default function forwardRefWithStatics<P, T = any, S = {}>(

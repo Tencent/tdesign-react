@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { render, fireEvent, mockTimeout } from '@test/utils';
+
 import SliderHandleButton from '../SliderHandleButton';
 
 describe('SliderHandleButton 组件测试', () => {

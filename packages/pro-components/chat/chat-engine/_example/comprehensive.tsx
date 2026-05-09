@@ -1,5 +1,6 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
-import { InternetIcon } from 'tdesign-icons-react';
+import type { ReactNode } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
 import {
   ChatList,
   ChatSender,
@@ -16,6 +17,7 @@ import {
   type TdChatSenderParams,
   type TdChatActionsName,
 } from '@tdesign-react/chat';
+import { InternetIcon } from 'tdesign-icons-react';
 import { Avatar, Button, Space } from 'tdesign-react';
 
 /**

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+
 import { render, fireEvent, userEvent, mockTimeout, vi } from '@test/utils';
-import ColorPickerPanel from '../ColorPickerPanel';
+
 import ColorPicker from '../ColorPicker';
+import ColorPickerPanel from '../ColorPickerPanel';
 
 describe('ColorPicker 组件测试', () => {
   const user = userEvent.setup();

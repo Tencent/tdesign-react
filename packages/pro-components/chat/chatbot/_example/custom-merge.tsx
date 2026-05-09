@@ -1,4 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
+
+import { ChatBot } from '@tdesign-react/chat';
+import { Progress } from 'tdesign-react';
+
 import type {
   SSEChunkData,
   ChatServiceConfig,
@@ -6,8 +10,6 @@ import type {
   ChatMessagesData,
   AIMessageContent,
 } from '@tdesign-react/chat';
-import { ChatBot } from '@tdesign-react/chat';
-import { Progress } from 'tdesign-react';
 
 /**
  * 自定义合并策略示例

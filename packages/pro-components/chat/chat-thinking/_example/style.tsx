@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react';
-import { Space } from 'tdesign-react';
+
 import { ChatThinking } from '@tdesign-react/chat';
+import { Space } from 'tdesign-react';
 
 import type { TdChatThinkContentProps, ChatMessageStatus } from 'tdesign-web-components';
 

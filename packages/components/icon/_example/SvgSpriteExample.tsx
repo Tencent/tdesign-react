@@ -1,6 +1,7 @@
 import React from 'react';
-import { Space } from 'tdesign-react';
+
 import { Icon } from 'tdesign-icons-react';
+import { Space } from 'tdesign-react';
 
 export default function SvgSpriteExample() {
   return (
