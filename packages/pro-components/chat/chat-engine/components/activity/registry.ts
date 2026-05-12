@@ -45,7 +45,9 @@ class ActivityRegistryManager {
   /**
    * 获取或创建缓存的组件渲染函数
    */
-  getRenderFunction(activityType: string): React.MemoExoticComponent<React.ComponentType<ActivityComponentProps>> | null {
+  getRenderFunction(
+    activityType: string,
+  ): React.MemoExoticComponent<React.ComponentType<ActivityComponentProps>> | null {
     const config = this.registry[activityType];
     if (!config) return null;
 
@@ -54,9 +56,7 @@ class ActivityRegistryManager {
 
     if (!memoizedComponent) {
       // 创建 memo 化的组件
-      memoizedComponent = React.memo((props: ActivityComponentProps) => 
-        React.createElement(config.component, props)
-      );
+      memoizedComponent = React.memo((props: ActivityComponentProps) => React.createElement(config.component, props));
 
       // 缓存组件
       this.renderFunctionCache.set(activityType, memoizedComponent);

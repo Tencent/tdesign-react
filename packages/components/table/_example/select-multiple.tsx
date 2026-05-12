@@ -48,7 +48,7 @@ const columns: TableProps['columns'] = [
 const initData: TableProps['data'] = [];
 for (let i = 0; i < 5; i++) {
   initData.push({
-    index: i + 100,
+    index: i + 1,
     applicant: ['贾明', '张三', '王芳'][i % 3],
     status: i % 3,
     channel: ['电子签署', '纸质签署', '纸质签署'][i % 3],
@@ -63,11 +63,11 @@ for (let i = 0; i < 5; i++) {
 
 export default function TableSingleSort() {
   const [data] = useState([...initData]);
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([4]);
 
   const onSelectChange: TableProps['onSelectChange'] = (value, { selectedRowData }) => {
     console.log(value, selectedRowData);
-    setSelectedRowKeys(value);
+    setSelectedRowKeys(value as number[]);
   };
 
   return (

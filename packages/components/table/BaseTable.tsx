@@ -1,4 +1,12 @@
-import React, { forwardRef, type RefAttributes, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  type RefAttributes,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import classNames from 'classnames';
 import { pick } from 'lodash-es';
 
@@ -516,10 +524,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         className={classNames(tableElmClasses)}
         style={{
           ...tableElementStyles,
-          width:
-            resizable && isWidthOverflow && tableElmWidth
-              ? `${tableElmWidth}px`
-              : tableElementStyles.width,
+          width: resizable && isWidthOverflow && tableElmWidth ? `${tableElmWidth}px` : tableElementStyles.width,
         }}
       >
         {renderColGroup(false)}

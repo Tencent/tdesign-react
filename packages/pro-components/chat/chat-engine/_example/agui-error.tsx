@@ -1,10 +1,5 @@
 import React, { useState, useRef, useMemo, ReactNode } from 'react';
-import {
-  ChatList,
-  ChatSender,
-  ChatMessage,
-  useChat,
-} from '@tdesign-react/chat';
+import { ChatList, ChatSender, ChatMessage, useChat } from '@tdesign-react/chat';
 import type {
   SSEChunkData,
   AIMessageContent,

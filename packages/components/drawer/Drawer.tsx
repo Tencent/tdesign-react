@@ -63,8 +63,17 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     lazy,
   } = state;
 
-  const { onBeforeOpen, onBeforeClose, onCancel, onConfirm, onClose, onCloseBtnClick, onOverlayClick, onEscKeydown, onSizeDragEnd } =
-    props;
+  const {
+    onBeforeOpen,
+    onBeforeClose,
+    onCancel,
+    onConfirm,
+    onClose,
+    onCloseBtnClick,
+    onOverlayClick,
+    onEscKeydown,
+    onSizeDragEnd,
+  } = props;
 
   const size = propsSize ?? local.size;
   const { classPrefix } = useConfig();

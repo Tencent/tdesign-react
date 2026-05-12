@@ -14,7 +14,7 @@ let messageDefaultConfig: MessageOptions = {
   ...messageDefaultProps,
   duration: 3000,
   placement: 'top',
-  zIndex: 5000
+  zIndex: 5000,
 };
 
 /**
