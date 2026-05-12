@@ -63,7 +63,7 @@ const Avatar = forwardRefWithStatics(
 
     const handleImgLoadError: ImageProps['onError'] = (ctx) => {
       onError?.(ctx);
-      !hideOnLoadFailed && setIsImgExist(false);
+      setIsImgExist(!hideOnLoadFailed);
     };
 
     useEffect(() => {
@@ -101,7 +101,17 @@ const Avatar = forwardRefWithStatics(
     });
     let renderChildren: React.ReactNode;
     if (image && isImgExist) {
-      renderChildren = <Image src={image} alt={alt} style={imageStyle} onError={handleImgLoadError} {...imageProps} />;
+      renderChildren = (
+        <Image
+          src={image}
+          alt={alt}
+          error=""
+          loading=""
+          style={imageStyle}
+          onError={handleImgLoadError}
+          {...imageProps}
+        />
+      );
     } else if (icon) {
       renderChildren = icon;
     } else {

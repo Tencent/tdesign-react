@@ -39,8 +39,6 @@ import type { TdTreeProps, TreeInstanceFunctions } from './type';
 export type TreeProps = TdTreeProps & StyledProps;
 
 const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((originalProps, ref) => {
-  const { treeClassNames, transitionNames, transitionClassNames, transitionDuration, locale } = useTreeConfig();
-
   const { value, onChange, expanded, onExpand, onActive, actived, setTreeIndeterminate, indeterminate } =
     useControllable(originalProps);
   const props = useDefaultProps<TreeProps>(originalProps, treeDefaultProps);
@@ -65,6 +63,9 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     allowDrop,
     onScroll,
   } = props;
+
+  const { treeClassNames, transitionNames, transitionClassNames, transitionDuration, locale } =
+    useTreeConfig(transition);
 
   // 可见节点集合
   const [visibleNodes, setVisibleNodes] = useState([]);

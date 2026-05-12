@@ -1,8 +1,13 @@
-import path from 'path';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import tdocPlugin from './plugin-tdoc';
 import pkg from '../package.json';
+import tdocPlugin from './plugin-tdoc';
+import changelog2Json from './plugins/changelog-to-json';
+
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const publicPathMap = {
   preview: '/',
@@ -29,6 +34,7 @@ export default ({ mode }) =>
     resolve: {
       alias: {
         '@tdesign-react/chat': path.resolve(__dirname, '../../pro-components/chat'),
+        '@tdesign/ai-chat-engine': path.resolve(__dirname, '../../ai-core/packages/chat-engine/index.ts'),
         '@tdesign/react-aigc-site': path.resolve(__dirname, './'),
         'tdesign-react/es': path.resolve(__dirname, '../../components'),
         'tdesign-react': path.resolve(__dirname, '../../components'),
@@ -41,6 +47,9 @@ export default ({ mode }) =>
           playground: 'playground.html',
         },
       },
+    },
+    define: {
+      __VERSION__: JSON.stringify(pkg.version),
     },
     jsx: 'react',
     server: {
@@ -55,5 +64,5 @@ export default ({ mode }) =>
     test: {
       environment: 'jsdom',
     },
-    plugins: [react(), tdocPlugin(), disableTreeShakingPlugin(['style/'])],
+    plugins: [react(), tdocPlugin(), changelog2Json(), disableTreeShakingPlugin(['style/'])],
   });
