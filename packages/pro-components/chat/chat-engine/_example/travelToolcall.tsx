@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import {
@@ -30,6 +29,7 @@ import type {
   TdChatListApi,
   TdChatSenderApi,
 } from '@tdesign-react/chat';
+import type { ReactNode } from 'react';
 
 import './travel.css';
 // 扩展自定义消息体类型

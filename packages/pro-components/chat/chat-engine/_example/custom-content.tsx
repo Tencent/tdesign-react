@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { useChat, ChatList, ChatMessage, ChatSender, isAIMessage } from '@tdesign-react/chat';
@@ -24,6 +23,7 @@ import type {
   UploadFile,
   ChatBaseContent,
 } from '@tdesign-react/chat';
+import type { ReactNode } from 'react';
 import type { ImageViewerProps } from 'tdesign-react';
 
 /**

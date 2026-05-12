@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 
 import {
@@ -37,6 +36,7 @@ import type {
   ToolCall,
   TdChatMessageConfig,
 } from '@tdesign-react/chat';
+import type { ReactNode } from 'react';
 
 import './videoclipAgent.css';
 

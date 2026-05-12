@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
 
-import {
-  ChatList,
-  ChatSender,
-  ChatMessage,
-  useChat,
-  type SSEChunkData,
-  type AIMessageContent,
-  type ChatMessagesData,
-  type TdChatSenderParams,
-} from '@tdesign-react/chat';
+import { ChatList, ChatSender, ChatMessage, useChat } from '@tdesign-react/chat';
 import { Button, Space } from 'tdesign-react';
+
+import type { SSEChunkData, AIMessageContent, ChatMessagesData, TdChatSenderParams } from '@tdesign-react/chat';
 
 /**
  * 初始化消息示例

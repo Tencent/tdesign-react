@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import React, { useMemo, useRef, useState } from 'react';
 
 import {
@@ -25,6 +24,7 @@ import type {
   TdChatActionsName,
   TdChatSenderParams,
 } from '@tdesign-react/chat';
+import type { ReactNode } from 'react';
 
 export default function ComponentsBuild() {
   const listRef = useRef<TdChatListApi>(null);

@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 
-import { ChatEngine, ChatEngineEventType, type SSEChunkData, type AIMessageContent } from '@tdesign-react/chat';
+import { ChatEngine, ChatEngineEventType } from '@tdesign-react/chat';
 import { Card, Button, Space, Divider } from 'tdesign-react';
+
+import type { SSEChunkData, AIMessageContent } from '@tdesign-react/chat';
 
 /**
  * 纯 Headless 示例 - 无 UI 依赖的 ChatEngine 使用方式

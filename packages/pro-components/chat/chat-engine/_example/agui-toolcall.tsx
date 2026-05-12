@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import React, { useRef, useState, useMemo } from 'react';
 
 import {
@@ -27,6 +26,7 @@ import type {
   TdChatSenderParams,
   TdChatActionsName,
 } from '@tdesign-react/chat';
+import type { ReactNode } from 'react';
 
 /**
  * 图片生成进度状态接口

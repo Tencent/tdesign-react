@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import React, { useState, useRef, useMemo } from 'react';
 
 import {
@@ -23,6 +22,7 @@ import type {
   AIMessageContent,
   ChatMessagesData,
 } from '@tdesign-react/chat';
+import type { ReactNode } from 'react';
 
 /**
  * AG-UI 简化 Chunk 模式示例

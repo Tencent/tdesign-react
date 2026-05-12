@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
 
 import {
@@ -10,15 +9,19 @@ import {
   useChat,
   isAIMessage,
   getMessageContentForCopy,
-  type SSEChunkData,
-  type AIMessageContent,
-  type ChatMessagesData,
-  type ChatRequestParams,
-  type TdChatSenderParams,
-  type TdChatActionsName,
 } from '@tdesign-react/chat';
 import { InternetIcon } from 'tdesign-icons-react';
 import { Avatar, Button, Space } from 'tdesign-react';
+
+import type {
+  SSEChunkData,
+  AIMessageContent,
+  ChatMessagesData,
+  ChatRequestParams,
+  TdChatSenderParams,
+  TdChatActionsName,
+} from '@tdesign-react/chat';
+import type { ReactNode } from 'react';
 
 /**
  * 综合示例

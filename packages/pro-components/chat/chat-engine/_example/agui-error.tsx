@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import React, { useState, useRef, useMemo } from 'react';
 
 import { ChatList, ChatSender, ChatMessage, useChat } from '@tdesign-react/chat';
@@ -12,6 +11,7 @@ import type {
   ChatMessagesData,
   ChatServiceConfig,
 } from '@tdesign-react/chat';
+import type { ReactNode } from 'react';
 
 /**
  * AG-UI RUN_ERROR 示例
