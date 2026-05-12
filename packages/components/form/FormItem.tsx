@@ -20,6 +20,8 @@ import useFormItemInitialData from './hooks/useFormItemInitialData';
 import useFormItemStyle from './hooks/useFormItemStyle';
 import { calcFieldValue, concatName } from './utils';
 
+import type { ReactNode } from 'react';
+
 import type { StyledProps } from '../common';
 import type {
   FieldData,
@@ -32,7 +34,6 @@ import type {
   ValidateTriggerType,
   ValueType,
 } from './type';
-import type { ReactNode } from 'react';
 
 export interface FormItemProps extends TdFormItemProps, StyledProps {
   children?: React.ReactNode | React.ReactNode[] | ((form: FormInstanceFunctions) => React.ReactElement);

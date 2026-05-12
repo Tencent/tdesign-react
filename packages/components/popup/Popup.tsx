@@ -19,9 +19,10 @@ import useWindowSize from '../hooks/useWindowSize';
 import useTrigger from './hooks/useTrigger';
 import { getTransitionParams } from './utils/transition';
 
+import type { Placement, Options } from '@popperjs/core';
+
 import type { PopupInstanceFunctions, TdPopupProps } from './type';
 import type { InnerPopperInstance } from '../hooks/usePopper';
-import type { Placement, Options } from '@popperjs/core';
 
 /**
  * @internal

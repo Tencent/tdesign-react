@@ -15,8 +15,9 @@ import { renderCell } from '../Cell';
 import useClassName from './useClassName';
 import useTreeDataExpand from './useTreeDataExpand';
 
-import type { PrimaryTableCol, TableRowData, TableRowState, TableRowValue, TdEnhancedTableProps } from '../type';
 import type { SwapParams } from '@tdesign/common-js/table/tree-store';
+
+import type { PrimaryTableCol, TableRowData, TableRowState, TableRowValue, TdEnhancedTableProps } from '../type';
 
 export interface UseSwapParams<T> extends SwapParams<T> {
   data: T[];

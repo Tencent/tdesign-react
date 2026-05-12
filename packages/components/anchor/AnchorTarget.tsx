@@ -11,9 +11,10 @@ import useGlobalIcon from '../hooks/useGlobalIcon';
 import { MessagePlugin } from '../message';
 import Popup from '../popup';
 
+import type { FunctionComponent } from 'react';
+
 import type { TdAnchorTargetProps } from './type';
 import type { StyledProps } from '../common';
-import type { FunctionComponent } from 'react';
 
 export interface AnchorTargetProps extends TdAnchorTargetProps, StyledProps {
   children?: React.ReactNode;

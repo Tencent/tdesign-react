@@ -7,10 +7,11 @@ import { usePersistFn } from '../../hooks/usePersistFn';
 import usePrevious from '../../hooks/usePrevious';
 import useUpdateLayoutEffect from '../../hooks/useUpdateLayoutEffect';
 
-import type { TypeEventState } from '../interface';
-import type { TdTreeProps } from '../type';
 import type TreeNode from '@tdesign/common-js/tree-v1/tree-node';
 import type { TreeNodeValue, TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
+
+import type { TypeEventState } from '../interface';
+import type { TdTreeProps } from '../type';
 
 export function useStore(
   props: TdTreeProps & { indeterminate: any; setTreeIndeterminate: any },

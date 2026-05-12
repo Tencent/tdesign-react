@@ -23,7 +23,6 @@ import {
   HumanInputForm,
 } from '../components';
 
-import type { FormConfig } from '../components/HumanInputForm';
 import type {
   TdChatMessageConfig,
   TdChatActionsName,
@@ -37,6 +36,8 @@ import type {
   TdChatSenderApi,
 } from '@tdesign-react/chat';
 import type { ReactNode } from 'react';
+
+import type { FormConfig } from '../components/HumanInputForm';
 import './travel-planner.css';
 
 // 扩展自定义消息体类型

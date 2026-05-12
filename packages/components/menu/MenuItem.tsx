@@ -8,9 +8,10 @@ import useDomRefCallback from '../hooks/useDomRefCallback';
 import useRipple from '../hooks/useRipple';
 import TooltipLite from '../tooltip';
 
+import type { FC } from 'react';
+
 import type { TdMenuItemProps } from './type';
 import type { StyledProps } from '../common';
-import type { FC } from 'react';
 
 export interface MenuItemProps extends TdMenuItemProps, StyledProps {}
 

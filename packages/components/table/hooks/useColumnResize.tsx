@@ -11,9 +11,10 @@ import { isNumber } from 'lodash-es';
 
 import { off, on } from '../../_util/listener';
 
-import type { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
 import type React from 'react';
 import type { MutableRefObject, CSSProperties } from 'react';
+
+import type { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
 
 const DEFAULT_MIN_WIDTH = 80;
 const DEFAULT_MAX_WIDTH = 600;

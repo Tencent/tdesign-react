@@ -6,9 +6,10 @@ import Option from '../base/Option';
 import OptionGroup from '../base/OptionGroup';
 import { getKeyMapping, getValueToOption } from '../util/helper';
 
+import type { ReactElement, ReactNode } from 'react';
+
 import type { SelectKeysType, SelectOption, SelectOptionGroup, SelectValue, TdOptionProps } from '../type';
 import type { ValueToOption } from '../util/helper';
-import type { ReactElement, ReactNode } from 'react';
 
 // 针对分组的相关判断和扁平处理
 export function isSelectOptionGroup(option: SelectOption): option is SelectOptionGroup {

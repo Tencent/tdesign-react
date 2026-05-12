@@ -13,9 +13,10 @@ import useDefaultProps from '../hooks/useDefaultProps';
 import useSwitch from '../hooks/useSwitch';
 import { getTransitionParams } from '../popup/utils/transition';
 
+import type { ReactNode } from 'react';
+
 import type { StyledProps } from '../common';
 import type { TdTooltipLiteProps } from './type';
-import type { ReactNode } from 'react';
 
 export interface TooltipLiteProps extends TdTooltipLiteProps, StyledProps {
   children?: ReactNode;

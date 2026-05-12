@@ -1,6 +1,7 @@
+import type { Color } from '@tdesign/common-js/color-picker/color';
+
 import type { ColorObject, ColorPickerChangeTrigger, TdColorPickerProps } from '.';
 import type { StyledProps } from '../common';
-import type { Color } from '@tdesign/common-js/color-picker/color';
 
 export interface ColorPickerProps extends TdColorPickerProps, StyledProps {}
 

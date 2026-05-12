@@ -14,9 +14,10 @@ import ConfigProvider from '../config-provider';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 
+import type { Instance, Options, Placement } from '@popperjs/core';
+
 import type { AttachNode, TNode } from '../common';
 import type { TdPopupProps } from './type';
-import type { Instance, Options, Placement } from '@popperjs/core';
 
 export interface PopupPluginApi {
   config: TdPopupProps;

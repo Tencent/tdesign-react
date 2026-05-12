@@ -8,10 +8,11 @@ import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 
+import type { MouseEvent } from 'react';
+
 import type { TdStickyToolProps, TdStickyItemProps } from './type';
 import type { StyledProps, Styles } from '../common';
 import type { StickyItemProps } from './StickyItem';
-import type { MouseEvent } from 'react';
 
 export interface StickyToolProps extends TdStickyToolProps, StyledProps {
   children?: React.ReactNode;

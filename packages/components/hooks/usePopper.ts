@@ -9,8 +9,9 @@ import { createPopper as defaultCreatePopper } from '@popperjs/core';
 
 import useIsomorphicLayoutEffect from './useLayoutEffect';
 
-import type { Styles } from '../common';
 import type { Instance as PopperInstance, Options as PopperOptions, VirtualElement } from '@popperjs/core';
+
+import type { Styles } from '../common';
 
 type Options = Partial<
   PopperOptions & {

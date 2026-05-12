@@ -15,9 +15,10 @@ import useConfig from '../../hooks/useConfig';
 import useControlled from '../../hooks/useControlled';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
-import type { SizeLimitObj, TdUploadProps, UploadChangeContext, UploadFile, UploadRemoveContext } from '../type';
 import type { InnerProgressContext, OnResponseErrorContext, SuccessContext } from '@tdesign/common-js/upload/types';
 import type { ChangeEventHandler, MouseEvent, ClipboardEventHandler } from 'react';
+
+import type { SizeLimitObj, TdUploadProps, UploadChangeContext, UploadFile, UploadRemoveContext } from '../type';
 
 /**
  * 上传组件全部逻辑，方便脱离 UI，自定义 UI 组件

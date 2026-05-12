@@ -13,10 +13,11 @@ import useControlled from '../hooks/useControlled';
 import useDeepEffect from '../hooks/useDeepEffect';
 import useDefaultProps from '../hooks/useDefaultProps';
 
+import type { CSSProperties, ReactNode } from 'react';
+
 import type { StyledProps } from '../common';
 import type { RadioValue, TdRadioGroupProps } from './type';
 import type { CheckContextValue } from '../common/Check';
-import type { CSSProperties, ReactNode } from 'react';
 
 /**
  * RadioGroup 组件所接收的属性

@@ -7,9 +7,10 @@ import useClassName from './useClassName';
 import { getThRowspanAndColspan, getThList } from './useMultiHeader';
 import TEllipsis from '../Ellipsis';
 
+import type { ReactNode } from 'react';
+
 import type { BaseTableCol, PrimaryTableCol, TableRowData, TdBaseTableProps } from '../type';
 import type { TableColumns } from './useMultiHeader';
-import type { ReactNode } from 'react';
 
 // 渲染表头的通用方法
 export function renderTitle(col: TableColumns[0], index: number) {

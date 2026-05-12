@@ -35,11 +35,12 @@ import Link from '../../link';
 import TLoading from '../../loading';
 import useDrag from '../hooks/useDrag';
 
+import type { MouseEvent } from 'react';
+
 import type { ButtonProps } from '../../button';
 import type { UploadDragEvents } from '../hooks/useDrag';
 import type { CommonDisplayFileProps } from '../interface';
 import type { UploadFile, TdUploadProps } from '../type';
-import type { MouseEvent } from 'react';
 
 export interface ImageFlowListProps extends CommonDisplayFileProps {
   uploadFiles?: (toFiles?: UploadFile[]) => void;

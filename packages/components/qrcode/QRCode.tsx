@@ -11,9 +11,10 @@ import useDefaultProps from '../hooks/useDefaultProps';
 import useVariables from '../hooks/useVariables';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 
+import type { ImageSettings } from '@tdesign/common-js/qrcode/types';
+
 import type { StyledProps } from '../common';
 import type { TdQRCodeProps } from './type';
-import type { ImageSettings } from '@tdesign/common-js/qrcode/types';
 
 export interface QrCodeProps extends TdQRCodeProps, StyledProps {}
 

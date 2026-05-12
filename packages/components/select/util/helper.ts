@@ -4,8 +4,9 @@ import Option from '../base/Option';
 import OptionGroup from '../base/OptionGroup';
 import { isSelectOptionGroup } from '../hooks/useOptions';
 
-import type { SelectKeysType, SelectOption, SelectValue, TdOptionProps, TdSelectProps } from '../type';
 import type { ReactElement } from 'react';
+
+import type { SelectKeysType, SelectOption, SelectValue, TdOptionProps, TdSelectProps } from '../type';
 
 type SelectLabeledValue = Required<Omit<TdOptionProps, 'disabled'>>;
 

@@ -6,9 +6,10 @@ import { useEffect, useRef, useState } from 'react';
 
 import { isFunction } from 'lodash-es';
 
+import type { WheelEvent } from 'react';
+
 import type { InputRef } from '../input';
 import type { TdTagInputProps } from './type';
-import type { WheelEvent } from 'react';
 
 let mouseEnterTimer = null;
 

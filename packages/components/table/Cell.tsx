@@ -7,12 +7,13 @@ import TEllipsis from './Ellipsis';
 import { getColumnFixedStyles } from './hooks/useFixed';
 import { formatClassNames } from './utils';
 
+import type { MouseEvent, MutableRefObject, ReactNode } from 'react';
+
 import type { RowAndColFixedPosition } from './interface';
 import type { BaseTableCellParams, RowspanColspan, TableRowData, TdBaseTableProps } from './type';
 import type { PaginationProps } from '../pagination';
 import type { TooltipProps } from '../tooltip';
 import type { TableClassName } from './hooks/useClassName';
-import type { MouseEvent, MutableRefObject, ReactNode } from 'react';
 
 export interface RenderEllipsisCellParams {
   cellNode: ReactNode;

@@ -8,9 +8,10 @@ import { getColumnFixedStyles } from './hooks/useFixed';
 import useRowspanAndColspan, { getCellKey } from './hooks/useRowspanAndColspan';
 import { formatRowAttributes, formatRowClassNames } from './utils';
 
+import type { CSSProperties } from 'react';
+
 import type { RowAndColFixedPosition } from './interface';
 import type { BaseTableCellParams, RowspanColspan, TableRowData, TdBaseTableProps } from './type';
-import type { CSSProperties } from 'react';
 
 export interface TFootProps {
   rowKey: string;

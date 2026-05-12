@@ -16,9 +16,6 @@ import { useTreeConfig } from './hooks/useTreeConfig';
 import useTreeVirtualScroll from './hooks/useTreeVirtualScroll';
 import TreeItem from './TreeItem';
 
-import type { ComponentScrollToElementParams, StyledProps, TreeOptionData } from '../common';
-import type { TreeItemProps } from './interface';
-import type { TdTreeProps, TreeInstanceFunctions } from './type';
 import type TreeNode from '@tdesign/common-js/tree-v1/tree-node';
 import type {
   TreeNodeState,
@@ -27,6 +24,10 @@ import type {
   TypeTreeNodeModel,
 } from '@tdesign/common-js/tree-v1/types';
 import type { MouseEvent, RefObject } from 'react';
+
+import type { ComponentScrollToElementParams, StyledProps, TreeOptionData } from '../common';
+import type { TreeItemProps } from './interface';
+import type { TdTreeProps, TreeInstanceFunctions } from './type';
 
 export type TreeProps = TdTreeProps & StyledProps;
 

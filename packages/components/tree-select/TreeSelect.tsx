@@ -18,13 +18,14 @@ import { useTreeSelectPassThroughProps } from './hooks/useTreeSelectPassthroughP
 import { useTreeSelectUtils } from './hooks/useTreeSelectUtils';
 import { SelectArrow } from './SelectArrow';
 
+import type { ElementRef } from 'react';
+
 import type { StyledProps, TreeOptionData } from '../common';
 import type { InputRef } from '../input';
 import type { PopupRef } from '../popup';
 import type { SelectInputProps } from '../select-input/SelectInput';
 import type { TreeInstanceFunctions, TreeProps } from '../tree';
 import type { TdTreeSelectProps, TreeSelectValue } from './type';
-import type { ElementRef } from 'react';
 
 export interface TreeSelectProps<DataOption extends TreeOptionData = TreeOptionData>
   extends TdTreeSelectProps<DataOption>,

@@ -14,9 +14,10 @@ import MaintenanceSvg from './assets/MaintenanceSvg';
 import NetworkErrorSvg from './assets/NetworkErrorSvg';
 import SuccessSvg from './assets/SuccessSvg';
 
+import type { ReactNode } from 'react';
+
 import type { TdEmptyProps } from './type';
 import type { StyledProps } from '../common';
-import type { ReactNode } from 'react';
 
 export interface EmptyProps extends TdEmptyProps, StyledProps {}
 

@@ -10,9 +10,10 @@ import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 
+import type { MouseEvent, FocusEvent } from 'react';
+
 import type { StyledProps } from '../common';
 import type { TdCheckTagProps, TdTagProps } from './type';
-import type { MouseEvent, FocusEvent } from 'react';
 
 /**
  * CheckTag 组件支持的属性

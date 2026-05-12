@@ -10,6 +10,8 @@ import useControlled from '../../hooks/useControlled';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
+import type { MouseEvent, ReactNode } from 'react';
+
 import type {
   TdPrimaryTableProps,
   PrimaryTableCol,
@@ -19,7 +21,6 @@ import type {
   RowEventContext,
   RowClassNameParams,
 } from '../type';
-import type { MouseEvent, ReactNode } from 'react';
 
 export default function useRowExpand(props: TdPrimaryTableProps) {
   const { expandIcon, expandedRow } = props;

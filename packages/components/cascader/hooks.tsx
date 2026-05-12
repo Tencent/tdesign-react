@@ -10,6 +10,8 @@ import { treeNodesEffect, treeStoreExpendEffect } from './core/effect';
 import { getTreeValue, isEmptyValues, isValueInvalid } from './core/helper';
 import { cascaderDefaultProps } from './defaultProps';
 
+import type { TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
+
 import type { TreeOptionData } from '../common';
 import type {
   CascaderChangeSource,
@@ -19,7 +21,6 @@ import type {
   TreeNodeModel,
   TreeNodeValue,
 } from './interface';
-import type { TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
 
 export const useCascaderContext = (originalProps: TdCascaderProps) => {
   const props = useDefaultProps(originalProps, cascaderDefaultProps);

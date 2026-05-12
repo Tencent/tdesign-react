@@ -13,9 +13,10 @@ import useDefaultProps from '../hooks/useDefaultProps';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import Tooltip from '../tooltip';
 
+import type { ReactElement } from 'react';
+
 import type { StyledProps } from '../common';
 import type { TdTextProps } from './type';
-import type { ReactElement } from 'react';
 
 export type TypographyTextProps = TdTextProps &
   StyledProps & {

@@ -16,9 +16,10 @@ import ImageViewer from '../../image-viewer';
 import Link from '../../link';
 import Loading from '../../loading';
 
+import type { MouseEvent } from 'react';
+
 import type { CommonDisplayFileProps } from '../interface';
 import type { TdUploadProps, UploadFile } from '../type';
-import type { MouseEvent } from 'react';
 
 export interface ImageCardUploadProps extends CommonDisplayFileProps {
   multiple: TdUploadProps['multiple'];

@@ -101,6 +101,8 @@ module.exports = {
           caseInsensitive: true,
         },
         'newlines-between': 'always',
+        'newlines-between-types': 'always-and-inside-groups',
+        sortTypesGroup: true,
       },
     ],
 

@@ -24,13 +24,14 @@ import THead from './THead';
 import { ROW_LISTENERS } from './TR';
 import { getAffixProps } from './utils';
 
+import type { RefAttributes } from 'react';
+
 import type { TableBodyProps } from './TBody';
 import type { TheadProps } from './THead';
 import type { AffixRef } from '../affix';
 import type { Styles } from '../common';
 import type { BaseTableProps, BaseTableRef } from './interface';
 import type { TableRowData } from './type';
-import type { RefAttributes } from 'react';
 
 export const BASE_TABLE_EVENTS = ['page-change', 'cell-click', 'scroll', 'scrollX', 'scrollY'];
 export const BASE_TABLE_ALL_EVENTS = ROW_LISTENERS.map((t) => `row-${t}`).concat(BASE_TABLE_EVENTS);

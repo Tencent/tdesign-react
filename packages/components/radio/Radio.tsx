@@ -6,8 +6,9 @@ import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import Check from '../common/Check';
 import useDefaultProps from '../hooks/useDefaultProps';
 
-import type { CheckProps } from '../common/Check';
 import type { Ref } from 'react';
+
+import type { CheckProps } from '../common/Check';
 
 export type RadioProps = Omit<CheckProps, 'type'>;
 

@@ -10,10 +10,11 @@ import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 
+import type { MouseEvent } from 'react';
+
 import type { StyledProps } from '../common';
 import type { CollapsePanelProps } from './CollapsePanel';
 import type { TdCollapseProps, CollapsePanelValue, CollapseValue } from './type';
-import type { MouseEvent } from 'react';
 
 export interface CollapseProps extends TdCollapseProps, StyledProps {
   children?: React.ReactNode;

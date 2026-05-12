@@ -9,9 +9,10 @@ import checkSubMenuActive from './_util/checkSubMenuActive';
 import useMenuContext from './hooks/useMenuContext';
 import { MenuContext } from './MenuContext';
 
+import type { FC, ReactElement } from 'react';
+
 import type { TdHeadMenuProps } from './type';
 import type { StyledProps } from '../common';
-import type { FC, ReactElement } from 'react';
 
 const { TabPanel } = Tabs;
 

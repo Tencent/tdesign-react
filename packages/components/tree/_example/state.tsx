@@ -4,8 +4,9 @@ import { cloneDeepWith } from 'lodash-es';
 import { Icon } from 'tdesign-icons-react';
 import { Button, Tree, Space } from 'tdesign-react';
 
-import type { TreeOptionData } from '../../common';
 import type { TreeInstanceFunctions, TreeNodeModel } from 'tdesign-react';
+
+import type { TreeOptionData } from '../../common';
 
 let idx = 2;
 

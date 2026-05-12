@@ -16,10 +16,11 @@ import Link from '../../link';
 import TLoading from '../../loading';
 import useDrag from '../hooks/useDrag';
 
+import type { FC, MouseEvent } from 'react';
+
 import type { UploadDragEvents } from '../hooks/useDrag';
 import type { CommonDisplayFileProps } from '../interface';
 import type { TdUploadProps, UploadFile } from '../type';
-import type { FC, MouseEvent } from 'react';
 
 export interface DraggerProps extends CommonDisplayFileProps {
   trigger?: TdUploadProps['trigger'];

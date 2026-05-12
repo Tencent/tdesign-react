@@ -15,9 +15,10 @@ import Loading from '../loading';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { useListVirtualScroll } from './hooks/useListVirtualScroll';
 
+import type { WheelEvent } from 'react';
+
 import type { StyledProps } from '../common';
 import type { ListInstanceFunctions, TdListProps } from './type';
-import type { WheelEvent } from 'react';
 
 export interface ListProps extends TdListProps, StyledProps {
   /**

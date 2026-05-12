@@ -13,9 +13,10 @@ import useImagePreviewUrl from '../hooks/useImagePreviewUrl';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import Space from '../space';
 
+import type { SyntheticEvent, MouseEvent } from 'react';
+
 import type { StyledProps } from '../common';
 import type { TdImageProps } from './type';
-import type { SyntheticEvent, MouseEvent } from 'react';
 
 export function isImageValid(src: string) {
   return new Promise((resolve) => {

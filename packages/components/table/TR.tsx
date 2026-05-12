@@ -10,13 +10,14 @@ import useLazyLoad from './hooks/useLazyLoad';
 import { getCellKey } from './hooks/useRowspanAndColspan';
 import { formatRowAttributes, formatRowClassNames } from './utils';
 
+import type { MouseEvent, MutableRefObject } from 'react';
+
 import type { TScroll } from '../common';
 import type { RowMountedParams, VirtualScrollConfig } from '../hooks/useVirtualScroll';
 import type { PaginationProps } from '../pagination';
 import type { SkipSpansValue } from './hooks/useRowspanAndColspan';
 import type { RowAndColFixedPosition } from './interface';
 import type { RowspanColspan, TableRowData, TdBaseTableProps } from './type';
-import type { MouseEvent, MutableRefObject } from 'react';
 
 export type TrCommonProps = Pick<TdBaseTableProps, TrPropsKeys>;
 

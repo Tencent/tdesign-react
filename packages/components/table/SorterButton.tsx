@@ -8,10 +8,11 @@ import Tooltip from '../tooltip';
 import useClassName from './hooks/useClassName';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 
+import type { MouseEvent } from 'react';
+
 import type { SortType } from './type';
 import type { TNode } from '../common';
 import type { TooltipProps } from '../tooltip';
-import type { MouseEvent } from 'react';
 
 type SortTypeEnums = Array<'desc' | 'asc'>;
 

@@ -19,11 +19,12 @@ import { useTimePickerTextConfig } from './hooks/useTimePickerTextConfig';
 import TimePickerPanel from './panel/TimePickerPanel';
 import useDefaultProps from '../hooks/useDefaultProps';
 
+import type { Ref } from 'react';
+
 import type { StyledProps } from '../common';
 import type { SelectInputProps, SelectInputValueChangeContext } from '../select-input';
 import type { TimePickerPanelProps } from './panel/TimePickerPanel';
 import type { TdTimePickerProps } from './type';
-import type { Ref } from 'react';
 
 // https://github.com/iamkun/dayjs/issues/1552
 dayjs.extend(customParseFormat);

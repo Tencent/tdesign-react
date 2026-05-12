@@ -6,9 +6,10 @@ import classnames from 'classnames';
 import useMouseEvent from '../../../hooks/useMouseEvent';
 import useStyles from '../../hooks/useStyles';
 
+import type { CSSProperties } from 'react';
+
 import type { MouseCoordinate } from '../../../hooks/useMouseEvent';
 import type { TdColorBaseProps } from '../../interface';
-import type { CSSProperties } from 'react';
 
 export interface TdColorSliderProps extends TdColorBaseProps {
   className?: string;

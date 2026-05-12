@@ -14,12 +14,13 @@ import useDomRefCallback from '../hooks/useDomRefCallback';
 import useRipple from '../hooks/useRipple';
 import Loading from '../loading';
 
-import type { CheckboxProps } from '../checkbox';
-import type { TreeItemProps } from './interface';
-import type { TdTreeProps } from './type';
 import type TreeNode from '@tdesign/common-js/tree-v1/tree-node';
 import type { TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
 import type { CSSProperties, DragEventHandler, MouseEvent, ReactNode, DragEvent } from 'react';
+
+import type { CheckboxProps } from '../checkbox';
+import type { TreeItemProps } from './interface';
+import type { TdTreeProps } from './type';
 
 /**
  * 树节点组件

@@ -5,8 +5,9 @@ import { getColorFormatOptions } from '@tdesign/common-js/color-picker/index';
 import FormatInputs from './inputs';
 import Select from '../../../../select';
 
-import type { TdColorPickerProps } from '../../../type';
 import type { Color } from '@tdesign/common-js/color-picker/index';
+
+import type { TdColorPickerProps } from '../../../type';
 
 export interface TdColorFormatProps extends TdColorPickerProps {
   onInputChange: () => void;

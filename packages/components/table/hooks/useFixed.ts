@@ -10,11 +10,12 @@ import useDeepEffect from '../../hooks/useDeepEffect';
 import usePrevious from '../../hooks/usePrevious';
 import { resizeObserverElement } from '../utils';
 
+import type { MutableRefObject } from 'react';
+
 import type { AffixRef } from '../../affix';
 import type { ClassName, Styles } from '../../common';
 import type { FixedColumnInfo, RowAndColFixedPosition, TableColFixedClasses, TableRowFixedClasses } from '../interface';
 import type { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
-import type { MutableRefObject } from 'react';
 
 // 固定列相关类名处理
 export function getColumnFixedStyles(

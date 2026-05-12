@@ -10,6 +10,8 @@ import Checkbox from '../../checkbox';
 import useControlled from '../../hooks/useControlled';
 import Radio from '../../radio';
 
+import type { MouseEvent } from 'react';
+
 import type {
   PrimaryTableCellParams,
   PrimaryTableCol,
@@ -20,7 +22,6 @@ import type {
 } from '../type';
 import type { TableClassName } from './useClassName';
 import type { ClassName } from '../../common';
-import type { MouseEvent } from 'react';
 
 const selectedRowDataMap = new Map<string | number, TableRowData>();
 

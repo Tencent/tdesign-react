@@ -9,10 +9,11 @@ import Button from '../../button';
 import useConfig from '../../hooks/useConfig';
 import { useTimePickerTextConfig } from '../hooks/useTimePickerTextConfig';
 
+import type { FC } from 'react';
+
 import type { SinglePanelProps } from './SinglePanel';
 import type { TimePickerProps } from '../TimePicker';
 import type { TimeRangePickerProps } from '../TimeRangePicker';
-import type { FC } from 'react';
 
 export interface TimePickerPanelProps extends SinglePanelProps {
   isShowPanel?: boolean;

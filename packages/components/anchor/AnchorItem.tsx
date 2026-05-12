@@ -7,9 +7,10 @@ import { anchorItemDefaultProps } from './defaultProps';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 
+import type { FunctionComponent } from 'react';
+
 import type { StyledProps } from '../common';
 import type { TdAnchorItemProps } from './type';
-import type { FunctionComponent } from 'react';
 
 export interface AnchorItemProps extends TdAnchorItemProps, StyledProps {
   children?: React.ReactNode;

@@ -4,8 +4,9 @@ import { get, intersection } from 'lodash-es';
 
 import useControlled from '../../hooks/useControlled';
 
-import type { TdEnhancedTableProps, TdPrimaryTableProps, TableRowData, PrimaryTableCol } from '../type';
 import type { KeysType, TableTreeDataMap, TreeDataMapType } from '@tdesign/common-js/table/tree-store';
+
+import type { TdEnhancedTableProps, TdPrimaryTableProps, TableRowData, PrimaryTableCol } from '../type';
 
 export interface GetChildrenDataReturnValue {
   allChildren: Array<any>;

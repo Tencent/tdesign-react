@@ -25,9 +25,10 @@ import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import { colorPickerDefaultProps } from '../../defaultProps';
 import useClassName from '../../hooks/useClassNames';
 
+import type { GradientColorPoint, ColorFormat } from '@tdesign/common-js/color-picker/index';
+
 import type { ColorPickerProps, TdColorModes, TdColorSaturationData } from '../../interface';
 import type { ColorPickerChangeTrigger } from '../../type';
-import type { GradientColorPoint, ColorFormat } from '@tdesign/common-js/color-picker/index';
 
 const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
   const baseClassName = useClassName();

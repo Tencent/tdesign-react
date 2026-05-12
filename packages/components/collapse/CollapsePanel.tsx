@@ -9,9 +9,10 @@ import FakeArrow from '../common/FakeArrow';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 
+import type { MouseEvent } from 'react';
+
 import type { StyledProps } from '../common';
 import type { TdCollapsePanelProps } from './type';
-import type { MouseEvent } from 'react';
 
 export interface CollapsePanelProps extends TdCollapsePanelProps, StyledProps {
   children?: React.ReactNode;

@@ -19,13 +19,14 @@ import useTableHeader, { renderTitle } from './hooks/useTableHeader';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useStyle from './hooks/useStyle';
 
+import type { ReactNode, RefAttributes } from 'react';
+
 import type { TdPrimaryTableProps, PrimaryTableCol, TableRowData, PrimaryTableCellParams } from './type';
 import type { PageInfo, PaginationProps } from '../pagination';
 import type { EditableCellProps } from './EditableCell';
 import type { BaseTableProps, PrimaryTableProps, PrimaryTableRef } from './interface';
 import type { CheckboxGroupValue } from '../checkbox';
 import type { StyledProps } from '../common';
-import type { ReactNode, RefAttributes } from 'react';
 
 export { BASE_TABLE_ALL_EVENTS } from './BaseTable';
 

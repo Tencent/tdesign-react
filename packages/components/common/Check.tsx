@@ -7,9 +7,10 @@ import { omit } from '../_util/helper';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 
+import type { MouseEvent, ChangeEvent } from 'react';
+
 import type { TdCheckboxProps } from '../checkbox/type';
 import type { StyledProps } from '../common';
-import type { MouseEvent, ChangeEvent } from 'react';
 
 export interface CheckProps extends TdCheckboxProps, StyledProps {
   type: 'radio' | 'radio-button' | 'checkbox';

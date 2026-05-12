@@ -10,6 +10,8 @@ import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 
+import type { ReactElement } from 'react';
+
 import type { StyledProps } from '../common';
 import type { CheckboxProps } from './Checkbox';
 import type {
@@ -20,7 +22,6 @@ import type {
   TdCheckboxProps,
 } from './type';
 import type { CheckContextValue, CheckProps } from '../common/Check';
-import type { ReactElement } from 'react';
 
 export interface CheckboxGroupProps<T extends CheckboxGroupValue = CheckboxGroupValue>
   extends TdCheckboxGroupProps<T>,

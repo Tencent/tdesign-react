@@ -5,8 +5,9 @@ import { isFunction } from 'lodash-es';
 import useControlled from '../../hooks/useControlled';
 import SorterButton from '../SorterButton';
 
-import type { SortInfo, TdPrimaryTableProps, PrimaryTableCol, TableRowData } from '../type';
 import type { MouseEvent } from 'react';
+
+import type { SortInfo, TdPrimaryTableProps, PrimaryTableCol, TableRowData } from '../type';
 
 export type SortMap = Record<string, SortInfo & { index: number }>;
 

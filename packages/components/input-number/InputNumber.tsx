@@ -15,9 +15,10 @@ import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import Input from '../input';
 
+import type { ForwardedRef } from 'react';
+
 import type { InputNumberValue, TdInputNumberProps } from './type';
 import type { StyledProps } from '../common';
-import type { ForwardedRef } from 'react';
 
 export interface InputNumberProps<T = InputNumberValue> extends TdInputNumberProps<T>, StyledProps {}
 

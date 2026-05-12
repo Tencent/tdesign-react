@@ -16,10 +16,11 @@ import checkSubMenuChildrenActive from './_util/checkSubMenuChildrenActive';
 import { getSubMenuMaxHeight } from './_util/getSubMenuChildStyle';
 import { MenuContext } from './MenuContext';
 
+import type { FC, ReactElement } from 'react';
+
 import type { StyledProps } from '../common';
 import type { PopupPlacement } from '../popup';
 import type { TdSubmenuProps } from './type';
-import type { FC, ReactElement } from 'react';
 
 export interface SubMenuProps extends TdSubmenuProps, StyledProps {}
 

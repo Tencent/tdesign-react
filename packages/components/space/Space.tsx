@@ -8,9 +8,10 @@ import { spaceDefaultProps } from './defaultProps';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 
+import type { CSSProperties, ReactNode } from 'react';
+
 import type { TdSpaceProps } from './type';
 import type { StyledProps } from '../common';
-import type { CSSProperties, ReactNode } from 'react';
 
 // export for test
 export const SizeMap = { small: '8px', medium: '16px', large: '24px' };

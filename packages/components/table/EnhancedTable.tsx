@@ -7,10 +7,11 @@ import useTreeSelect from './hooks/useTreeSelect';
 import PrimaryTable from './PrimaryTable';
 import useConfig from '../hooks/useConfig';
 
+import type { RefAttributes } from 'react';
+
 import type { EnhancedTableProps, EnhancedTableRef, PrimaryTableProps } from './interface';
 import type { PrimaryTableCol, TableRowData, DragSortContext, TdPrimaryTableProps } from './type';
 import type { StyledProps } from '../common';
-import type { RefAttributes } from 'react';
 
 export interface TEnhancedTableProps extends EnhancedTableProps, StyledProps {}
 

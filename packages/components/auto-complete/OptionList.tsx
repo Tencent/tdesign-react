@@ -9,9 +9,10 @@ import { off, on } from '../_util/listener';
 import useConfig from '../hooks/useConfig';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 
+import type { MouseEvent } from 'react';
+
 import type { AutoCompleteOptionObj, TdAutoCompleteProps } from './type';
 import type { CommonClassNameType } from '../hooks/useCommonClassName';
-import type { MouseEvent } from 'react';
 
 export interface OptionsListProps {
   sizeClassNames: CommonClassNameType['sizeClassNames'];

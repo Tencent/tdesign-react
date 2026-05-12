@@ -5,10 +5,11 @@ import { throttle } from 'lodash-es';
 import { useTreeDraggableContext } from './TreeDraggableContext';
 import { usePersistFn } from '../../hooks/usePersistFn';
 
-import type { DropPosition } from '../interface';
-import type { TdTreeProps } from '../type';
 import type { TreeNode } from '@tdesign/common-js/tree-v1/tree-node';
 import type { RefObject, DragEvent } from 'react';
+
+import type { DropPosition } from '../interface';
+import type { TdTreeProps } from '../type';
 
 export default function useDraggable(props: {
   nodeRef: RefObject<HTMLElement | undefined>;

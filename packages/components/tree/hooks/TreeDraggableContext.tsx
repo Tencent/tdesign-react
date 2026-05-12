@@ -2,10 +2,11 @@ import { useRef } from 'react';
 
 import { createHookContext } from '../../_util/createHookContext';
 
-import type { TreeProps } from '../Tree';
-import type { TdTreeProps } from '../type';
 import type TreeNode from '@tdesign/common-js/tree-v1/tree-node';
 import type TreeStore from '@tdesign/common-js/tree-v1/tree-store';
+
+import type { TreeProps } from '../Tree';
+import type { TdTreeProps } from '../type';
 
 interface Value {
   props: TreeProps;

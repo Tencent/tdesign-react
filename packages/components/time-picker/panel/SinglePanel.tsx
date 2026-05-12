@@ -13,8 +13,9 @@ import useDebounce from '../../hooks/useDebounce';
 import { usePropRef } from '../../hooks/usePropsRef';
 import { useTimePickerTextConfig } from '../hooks/useTimePickerTextConfig';
 
-import type { TdTimePickerProps, TimeRangePickerPartial } from '../type';
 import type { FC, CSSProperties, MouseEvent, UIEvent } from 'react';
+
+import type { TdTimePickerProps, TimeRangePickerPartial } from '../type';
 
 const timeArr = [EPickerCols.hour, EPickerCols.minute, EPickerCols.second, EPickerCols.milliSecond];
 

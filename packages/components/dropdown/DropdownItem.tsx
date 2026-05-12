@@ -9,9 +9,10 @@ import useDefaultProps from '../hooks/useDefaultProps';
 import useDomRefCallback from '../hooks/useDomRefCallback';
 import useRipple from '../hooks/useRipple';
 
+import type { RefObject } from 'react';
+
 import type { StyledProps } from '../common';
 import type { DropdownOption, TdDropdownProps, DropdownItemTheme } from './type';
-import type { RefObject } from 'react';
 
 type DropdownItemProps = Pick<DropdownOption, 'value'> &
   Pick<TdDropdownProps, 'maxColumnWidth' | 'minColumnWidth'> &

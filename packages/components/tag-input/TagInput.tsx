@@ -15,10 +15,11 @@ import useHover from './useHover';
 import useTagList from './useTagList';
 import useTagScroll from './useTagScroll';
 
+import type { CompositionEvent, KeyboardEvent, MouseEvent } from 'react';
+
 import type { StyledProps } from '../common';
 import type { InputRef, InputValue } from '../input';
 import type { TdTagInputProps } from './type';
-import type { CompositionEvent, KeyboardEvent, MouseEvent } from 'react';
 
 export interface TagInputProps extends TdTagInputProps, StyledProps {
   options?: any[]; // 参数穿透options, 给SelectInput/SelectInput 自定义选中项呈现的内容和多选状态下设置折叠项内容

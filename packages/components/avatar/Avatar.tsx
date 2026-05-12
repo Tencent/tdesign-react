@@ -13,10 +13,11 @@ import useDefaultProps from '../hooks/useDefaultProps';
 import useResizeObserver from '../hooks/useResizeObserver';
 import Image from '../image';
 
+import type { Ref } from 'react';
+
 import type { TdAvatarProps } from './type';
 import type { StyledProps } from '../common';
 import type { ImageProps } from '../image';
-import type { Ref } from 'react';
 
 export interface AvatarProps extends TdAvatarProps, StyledProps {
   children?: React.ReactNode;

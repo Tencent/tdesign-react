@@ -6,9 +6,10 @@ import Dialog from '../dialog';
 import { ImageModalItem, ImageViewerUtils } from './ImageViewerModal';
 import useConfig from '../hooks/useConfig';
 
+import type { KeyboardEvent, MouseEvent } from 'react';
+
 import type { TNode } from '../common';
 import type { ImageInfo, ImageScale, ImageViewerScale, TdImageViewerProps } from './type';
-import type { KeyboardEvent, MouseEvent } from 'react';
 
 export interface ImageModalMiniProps {
   visible: boolean;

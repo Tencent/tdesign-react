@@ -9,10 +9,11 @@ import DatePickerCell from './Cell';
 import useConfig from '../../hooks/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
+import type { Dayjs } from 'dayjs';
+
 import type { PanelContentProps } from '../panel/PanelContent';
 import type { SinglePanelProps } from '../panel/SinglePanel';
 import type { DateMultipleValue, DateRangeValue, DateValue, TdDatePickerProps } from '../type';
-import type { Dayjs } from 'dayjs';
 
 dayjs.extend(isoWeek);
 

@@ -10,9 +10,10 @@ import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 
+import type { FocusEvent, ForwardRefRenderFunction } from 'react';
+
 import type { StyledProps } from '../common';
 import type { TdTagProps } from './type';
-import type { FocusEvent, ForwardRefRenderFunction } from 'react';
 
 /**
  * Tag 组件支持的属性。

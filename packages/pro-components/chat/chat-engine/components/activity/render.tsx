@@ -4,9 +4,10 @@ import isEqual from 'react-fast-compare';
 
 import { activityRegistry } from './registry';
 
-import type { ActivityComponentProps } from './types';
 import type { ActivityData } from '@tdesign/ai-chat-engine';
 import type { ErrorInfo } from 'react';
+
+import type { ActivityComponentProps } from './types';
 
 interface ActivityRendererProps {
   activity: ActivityData;

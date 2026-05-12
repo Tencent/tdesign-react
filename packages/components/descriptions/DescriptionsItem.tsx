@@ -1,5 +1,6 @@
-import type { TdDescriptionsItemProps } from './type';
 import type React from 'react';
+
+import type { TdDescriptionsItemProps } from './type';
 
 export type DescriptionsItemProps = TdDescriptionsItemProps & { children?: React.ReactNode };
 

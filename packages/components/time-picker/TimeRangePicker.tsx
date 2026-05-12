@@ -17,10 +17,11 @@ import { RangeInputPopup } from '../range-input';
 import { useTimePickerTextConfig } from './hooks/useTimePickerTextConfig';
 import TimePickerPanel from './panel/TimePickerPanel';
 
+import type { FC } from 'react';
+
 import type { StyledProps } from '../common';
 import type { TdTimeRangePickerProps, TimeRangeValue, TimeRangePickerPartial } from './type';
 import type { RangeInputPopupProps, RangeInputPosition } from '../range-input';
-import type { FC } from 'react';
 
 export interface TimeRangePickerProps extends TdTimeRangePickerProps, StyledProps {}
 

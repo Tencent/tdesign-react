@@ -16,10 +16,11 @@ import useControlled from '../../hooks/useControlled';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { getCurrentRowByKey } from '../utils';
 
+import type { ChangeEvent } from 'react';
+
 import type { CheckboxGroupValue, CheckboxOptionObj, CheckboxGroupChangeContext } from '../../checkbox';
 import type { DialogInstance } from '../../dialog';
 import type { PrimaryTableCol, TdPrimaryTableProps } from '../type';
-import type { ChangeEvent } from 'react';
 
 const CheckboxGroup = Checkbox.Group;
 

@@ -15,10 +15,11 @@ import parseTNode from '../_util/parseTNode';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 
+import type { ForwardedRef } from 'react';
+
 import type { UploadDragEvents } from './hooks/useDrag';
 import type { CommonDisplayFileProps, UploadProps, UploadRef } from './interface';
 import type { UploadFile } from './type';
-import type { ForwardedRef } from 'react';
 
 // const Upload = forwardRef((props: UploadProps, ref) => {
 function TdUpload<T extends UploadFile = UploadFile>(originalProps: UploadProps<T>, ref: ForwardedRef<UploadRef>) {

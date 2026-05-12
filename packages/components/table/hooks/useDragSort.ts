@@ -11,11 +11,12 @@ import useClassName from './useClassName';
 import { hasClass } from '../../_util/style';
 import useLatest from '../../hooks/useLatest';
 
+import type { MutableRefObject } from 'react';
+import type { SortableEvent, SortableOptions, MoveEvent } from 'sortablejs';
+
 import type { PaginationProps } from '../../pagination';
 import type { BaseTableColumns } from '../interface';
 import type { TableRowData, TdPrimaryTableProps, DragSortContext } from '../type';
-import type { MutableRefObject } from 'react';
-import type { SortableEvent, SortableOptions, MoveEvent } from 'sortablejs';
 
 export default function useDragSort(
   props: TdPrimaryTableProps,

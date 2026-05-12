@@ -26,7 +26,6 @@ import {
 } from 'tdesign-icons-react';
 import { Steps, Card, Tag } from 'tdesign-react';
 
-import type { AgentToolcallConfig, ToolcallComponentProps } from '../components/toolcall/types';
 import type {
   TdChatSenderParams,
   TdChatActionsName,
@@ -37,6 +36,8 @@ import type {
   TdChatMessageConfig,
 } from '@tdesign-react/chat';
 import type { ReactNode } from 'react';
+
+import type { AgentToolcallConfig, ToolcallComponentProps } from '../components/toolcall/types';
 
 import './videoclipAgent.css';
 
