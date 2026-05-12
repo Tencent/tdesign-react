@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState, MouseEvent, useMemo } from 'react';
 import { intersection, get, isFunction } from 'lodash-es';
-import { isRowSelectedDisabled } from '@tdesign/common-js/table/utils';
 import log from '@tdesign/common-js/log/index';
 import useControlled from '../../hooks/useControlled';
 import {
@@ -31,7 +30,8 @@ export default function useRowSelect(
   const [tSelectedRowKeys, setTSelectedRowKeys] = useControlled(props, 'selectedRowKeys', props.onSelectChange, {
     defaultSelectedRowKeys: props.defaultSelectedRowKeys || [],
   });
-  const selectColumn = columns.find(({ type }) => ['multiple', 'single'].includes(type));
+  const selectColumnIndex = columns.findIndex(({ type }) => ['multiple', 'single'].includes(type));
+  const selectColumn = columns[selectColumnIndex];
 
   const canSelectedRows = useMemo(() => {
     const currentData = reserveSelectedRowOnPaginate ? data : currentPaginateData;
@@ -78,7 +78,8 @@ export default function useRowSelect(
   );
 
   function isDisabled(row: Record<string, any>, rowIndex: number): boolean {
-    return isRowSelectedDisabled(selectColumn, row, rowIndex);
+    if (!selectColumn) return false;
+    return getRowSelectDisabledData({ row, rowIndex, col: selectColumn, colIndex: selectColumnIndex }).disabled;
   }
 
   function getSelectedHeader() {
@@ -109,7 +110,7 @@ export default function useRowSelect(
     const disabled: boolean = typeof col.disabled === 'function' ? col.disabled({ row, rowIndex }) : col.disabled;
     const checkProps = isFunction(col.checkProps) ? col.checkProps({ row, rowIndex }) : col.checkProps;
     return {
-      disabled: disabled || checkProps?.disabled,
+      disabled: Boolean(disabled || checkProps?.disabled),
       checkProps,
     };
   }
