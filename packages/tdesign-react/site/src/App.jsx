@@ -1,15 +1,16 @@
-import React, { useEffect, useRef, useState, lazy, Suspense, use } from 'react';
-import { BrowserRouter, Routes, Navigate, Route, useLocation, useNavigate, Outlet } from 'react-router-dom';
+import React, { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { BrowserRouter, Navigate, Outlet, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import semver from 'semver';
-import Loading from '@tdesign/components/loading';
+
 import ConfigProvider from '@tdesign/components/config-provider';
-import zhConfig from '@tdesign/components/locale/zh_CN';
+import Loading from '@tdesign/components/loading';
 import enConfig from '@tdesign/components/locale/en_US';
+import zhConfig from '@tdesign/components/locale/zh_CN';
 import { getLang } from '@tdesign/site-components';
 
 import packageJson from '../../package.json';
 import * as siteConfig from '../site.config';
-import { getRoute, filterVersions } from './utils';
+import { filterVersions, getRoute } from './utils';
 
 import Demo from './components/Demo';
 
@@ -27,7 +28,26 @@ const registryUrl = 'https://service-edbzjd6y-1257786608.hk.apigw.tencentcs.com/
 const currentVersion = packageJson.version.replace(/\./g, '_');
 
 const docRoutes = [...getRoute(siteConfig.default.docs, []), ...getRoute(siteConfig.default.enDocs, [])];
+
+const redirectPathMap = new Map(
+  docRoutes.filter((nav) => typeof nav.redirect === 'string').map((nav) => [nav.path, nav.redirect]),
+);
+
+const RedirectPage = ({ url }) => {
+  useEffect(() => {
+    // 手动修改 url 跳转时
+    window.location.href = url;
+  }, [url]);
+  return null;
+};
+
 const renderRouter = docRoutes.map((nav, i) => {
+  if (redirectPathMap.has(nav.path)) {
+    const url = redirectPathMap.get(nav.path);
+    const path = nav.path?.replace('/react/', '').replace(/^\//, '');
+    return <Route key={i} path={path} element={<RedirectPage url={url} />} />;
+  }
+
   const LazyCom = lazy(nav.component);
   if (/\/react\//.test(nav.path))
     return (
@@ -43,13 +63,6 @@ const renderRouter = docRoutes.map((nav, i) => {
     );
   return <Route key={i} element={<Navigate replace to={nav.redirect} />} />;
 });
-
-const RedirectReactChat = () => {
-  useEffect(() => {
-    window.location.href = 'https://tdesign.tencent.com/react-chat/overview';
-  }, []);
-  return null;
-};
 
 function Components() {
   const location = useLocation();
@@ -89,6 +102,11 @@ function Components() {
     tdDocAsideRef.current.routerList = isEn ? docsMap.en : docsMap.zh;
 
     tdDocAsideRef.current.onchange = ({ detail }) => {
+      // 从菜单栏点击，直接打开新页面，不改变当前路由
+      if (redirectPathMap.has(detail)) {
+        window.open(redirectPathMap.get(detail), '_blank');
+        return;
+      }
       if (window.location.pathname === detail) return;
       tdDocContentRef.current.pageStatus = 'hidden';
       navigate(detail);
@@ -143,7 +161,6 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Navigate replace to="/react/overview" />} />
         <Route exact path="/react" element={<Navigate replace to="/react/overview" />} />
-        <Route path="/react-chat" element={<RedirectReactChat />} />
         <Route
           path="/react/demos/*"
           element={

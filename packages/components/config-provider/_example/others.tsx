@@ -67,6 +67,7 @@ export default function configDemo() {
     steps: {
       errorIcon: <ErrorIcon />,
     },
+    isContextEffectPlugin: true,
   };
 
   return (

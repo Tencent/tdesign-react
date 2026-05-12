@@ -19,6 +19,13 @@ export const docs = [
         component: () => import('./docs/getting-started.md'),
       },
       {
+        title: '更新日志',
+        titleEn: 'Changelog',
+        name: 'changelog',
+        path: '/react-chat/changelog',
+        component: () => import('../CHANGELOG.md'),
+      },
+      {
         title: '什么是流式输出',
         titleEn: 'SSE',
         name: 'sse',

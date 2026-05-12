@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import ChatEngine from 'tdesign-web-components/lib/chat-engine';
-import type { ChatMessagesData, ChatServiceConfig, ChatStatus } from 'tdesign-web-components/lib/chat-engine';
+import ChatEngine from '@tdesign/ai-chat-engine';
+import type { ChatMessagesData, ChatServiceConfig, ChatStatus } from '@tdesign/ai-chat-engine';
 
 export type IUseChat = {
   defaultMessages?: ChatMessagesData[];
-  chatServiceConfig: ChatServiceConfig;
+  chatServiceConfig: ChatServiceConfig | (() => ChatServiceConfig);
 };
 
 export const useChat = ({ defaultMessages: initialMessages, chatServiceConfig }: IUseChat) => {

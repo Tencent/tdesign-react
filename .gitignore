@@ -2,6 +2,7 @@
 .DS_Store
 .idea
 temp*
+.tmp-aigc-dts
 robotMsg.json
 .history
 
@@ -39,3 +40,12 @@ pnpm-lock.yaml
 
 ## analysis files
 bundle-analysis
+packages/**/chat-engine/core
+packages/**/chat-engine/docs
+packages/**/chatbot/docs
+*.zip
+.codebuddy/memory
+.codebuddy/plans
+mock-server
+openspec
+.fue

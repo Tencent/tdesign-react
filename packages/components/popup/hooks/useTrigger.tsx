@@ -130,6 +130,9 @@ export default function useTrigger({
 
     const handleBlur = (e: FocusEvent) => {
       if (isEventFromDisabledElement(e, element)) return;
+      // relatedTarget is the element receiving focus; if it's still within the trigger element, don't close
+      const relatedTarget = (e as FocusEvent).relatedTarget as HTMLElement;
+      if (relatedTarget && element.contains(relatedTarget)) return;
       if (trigger === 'focus') {
         callFuncWithDelay({
           delay: exitDelay,
@@ -173,8 +176,8 @@ export default function useTrigger({
     on(element, 'mousedown', handleMouseDown);
     on(element, 'mouseenter', handleMouseEnter);
     on(element, 'mouseleave', handleMouseLeave);
-    on(element, 'focus', handleFocus);
-    on(element, 'blur', handleBlur);
+    on(element, 'focusin', handleFocus);
+    on(element, 'focusout', handleBlur);
     on(element, 'contextmenu', handleContextMenu);
     on(element, 'touchstart', handleTouchStart, { passive: true });
     on(element, 'keydown', handleKeyDown);
@@ -183,8 +186,8 @@ export default function useTrigger({
       off(element, 'mousedown', handleMouseDown);
       off(element, 'mouseenter', handleMouseEnter);
       off(element, 'mouseleave', handleMouseLeave);
-      off(element, 'focus', handleFocus);
-      off(element, 'blur', handleBlur);
+      off(element, 'focusin', handleFocus);
+      off(element, 'focusout', handleBlur);
       off(element, 'contextmenu', handleContextMenu);
       off(element, 'touchstart', handleTouchStart, { passive: true });
       off(element, 'keydown', handleKeyDown);
