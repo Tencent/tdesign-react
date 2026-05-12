@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Card, MessagePlugin } from 'tdesign-react';
 
 const clickHandler = () => {

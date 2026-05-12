@@ -1,20 +1,19 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useRef, useState } from 'react';
-
-import { ChatBot } from '@tdesign-react/chat';
 import { BrowseIcon, Filter3Icon, ImageAddIcon, Transform1Icon } from 'tdesign-icons-react';
-import { ImageViewer, Skeleton, Button, Dropdown, Space, Image } from 'tdesign-react';
+import { Button, Dropdown, Image, ImageViewer, Skeleton, Space } from 'tdesign-react';
+import { ChatBot } from '@tdesign-react/chat';
 
 import type {
-  SSEChunkData,
   AIMessageContent,
-  ChatRequestParams,
   ChatMessagesData,
+  ChatRequestParams,
   ChatServiceConfig,
+  SSEChunkData,
   TdAttachmentItem,
-  TdChatSenderParams,
-  TdChatMessageConfig,
   TdChatbotApi,
+  TdChatMessageConfig,
+  TdChatSenderParams,
 } from '@tdesign-react/chat';
 import type { ImageViewerProps } from 'tdesign-react';
 

@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-
+import React, { useEffect, useRef, useState } from 'react';
 import { ChatThinking } from '@tdesign-react/chat';
 
 import type { ChatMessageStatus } from '@tdesign-react/chat';

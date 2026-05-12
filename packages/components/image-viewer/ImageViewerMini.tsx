@@ -1,13 +1,11 @@
 import React from 'react';
-
 import classNames from 'classnames';
 
 import Dialog from '../dialog';
-import { ImageModalItem, ImageViewerUtils } from './ImageViewerModal';
 import useConfig from '../hooks/useConfig';
+import { ImageModalItem, ImageViewerUtils } from './ImageViewerModal';
 
 import type { KeyboardEvent, MouseEvent } from 'react';
-
 import type { TNode } from '../common';
 import type { ImageInfo, ImageScale, ImageViewerScale, TdImageViewerProps } from './type';
 

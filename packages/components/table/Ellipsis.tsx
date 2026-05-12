@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-
 import classNames from 'classnames';
 
 import { isNodeOverflow } from '../_util/scroll';
@@ -7,7 +6,6 @@ import useDebounce from '../hooks/useDebounce';
 import Tooltip from '../tooltip';
 
 import type { MouseEvent } from 'react';
-
 import type { TNode } from '../common';
 import type { TooltipProps } from '../tooltip';
 

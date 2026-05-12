@@ -1,25 +1,23 @@
 import React, { useCallback } from 'react';
-
 import classNames from 'classnames';
 import { get, isFunction } from 'lodash-es';
 import { ChevronRightCircleIcon as TdChevronRightCircleIcon } from 'tdesign-icons-react';
 
-import useClassName from './useClassName';
 import { parseContentTNode } from '../../_util/parseTNode';
 import useControlled from '../../hooks/useControlled';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import useClassName from './useClassName';
 
 import type { MouseEvent, ReactNode } from 'react';
-
 import type {
-  TdPrimaryTableProps,
-  PrimaryTableCol,
-  TableRowData,
   PrimaryTableCellParams,
-  TableExpandedRowParams,
-  RowEventContext,
+  PrimaryTableCol,
   RowClassNameParams,
+  RowEventContext,
+  TableExpandedRowParams,
+  TableRowData,
+  TdPrimaryTableProps,
 } from '../type';
 
 export default function useRowExpand(props: TdPrimaryTableProps) {

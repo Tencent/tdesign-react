@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { fireEvent, mockDelay, render, vi } from '@test/utils';
 
 import { Textarea } from '..';

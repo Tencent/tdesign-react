@@ -1,18 +1,17 @@
-import React, { useState, useEffect, useCallback, useMemo, useRef, isValidElement } from 'react';
-
+import React, { isValidElement, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import classnames from 'classnames';
 import { ChevronLeftIcon as TdChevronLeftIcon, ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
 
-import { swiperDefaultProps } from './defaultProps';
-import SwiperItem from './SwiperItem';
 import noop from '../_util/noop';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
+import { swiperDefaultProps } from './defaultProps';
+import SwiperItem from './SwiperItem';
 
-import type { TdSwiperProps, SwiperChangeSource, SwiperNavigation } from './type';
 import type { StyledProps } from '../common';
 import type { SwiperItemProps } from './SwiperItem';
+import type { SwiperChangeSource, SwiperNavigation, TdSwiperProps } from './type';
 
 export interface SwiperProps extends TdSwiperProps, StyledProps {
   children?: React.ReactNode;

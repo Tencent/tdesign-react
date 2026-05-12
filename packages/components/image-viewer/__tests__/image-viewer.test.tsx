@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { render, act, fireEvent, waitFor, vi, mockTimeout, mockDelay } from '@test/utils';
+import { act, fireEvent, mockDelay, mockTimeout, render, vi, waitFor } from '@test/utils';
 import userEvent from '@testing-library/user-event';
 
 import { ImageViewer } from '../index';

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { ColorPickerPanel, Space } from 'tdesign-react';
 
 export default function SwatchColor() {

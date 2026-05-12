@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { QrCode, QrSegment } from '@tdesign/common-js/qrcode/qrcodegen';
 import { ERROR_LEVEL_MAP, getImageSettings, getMarginSize } from '@tdesign/common-js/qrcode/utils';
 

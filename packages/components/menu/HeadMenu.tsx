@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-
 import classNames from 'classnames';
 import { isObject } from 'lodash-es';
 
@@ -10,9 +9,8 @@ import useMenuContext from './hooks/useMenuContext';
 import { MenuContext } from './MenuContext';
 
 import type { FC, ReactElement } from 'react';
-
-import type { TdHeadMenuProps } from './type';
 import type { StyledProps } from '../common';
+import type { TdHeadMenuProps } from './type';
 
 const { TabPanel } = Tabs;
 

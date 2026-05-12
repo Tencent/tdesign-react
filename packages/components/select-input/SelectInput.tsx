@@ -1,5 +1,4 @@
 import React, { useImperativeHandle, useRef } from 'react';
-
 import classNames from 'classnames';
 
 import useConfig from '../hooks/useConfig';

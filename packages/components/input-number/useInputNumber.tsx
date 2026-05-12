@@ -1,27 +1,25 @@
-import { useState, useRef, useEffect } from 'react';
-
+import { useEffect, useRef, useState } from 'react';
+import classNames from 'classnames';
 import {
   canAddNumber,
   canInputNumber,
   canReduceNumber,
-  formatUnCompleteNumber,
   canSetValue,
+  formatThousandths,
+  formatUnCompleteNumber,
   getMaxOrMinValidateResult,
   getStepValue,
-  formatThousandths,
   largeNumberToFixed,
 } from '@tdesign/common-js/input-number/number';
-import classNames from 'classnames';
 
 import useCommonClassName from '../hooks/useCommonClassName';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 
 import type React from 'react';
-
-import type { InputNumberValue, TdInputNumberProps } from './type';
 // 计算逻辑，统一到 common 中，方便各框架复用（如超过 16 位的大数处理）
 import type { InputProps } from '../input';
+import type { InputNumberValue, TdInputNumberProps } from './type';
 
 export const specialCode = ['-', '.', 'e', 'E'];
 

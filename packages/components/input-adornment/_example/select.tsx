@@ -1,6 +1,5 @@
 ﻿import React from 'react';
-
-import { Select, Input, InputAdornment, Space } from 'tdesign-react';
+import { Input, InputAdornment, Select, Space } from 'tdesign-react';
 
 export default function BaseExample() {
   const protocolSelect = (

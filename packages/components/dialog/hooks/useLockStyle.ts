@@ -1,5 +1,4 @@
-import { useRef, useCallback } from 'react';
-
+import { useCallback, useRef } from 'react';
 import { getScrollbarWidth } from '@tdesign/common-js/utils/getScrollbarWidth';
 
 import useLayoutEffect from '../../hooks/useLayoutEffect';

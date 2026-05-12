@@ -1,18 +1,17 @@
 import React from 'react';
-
 import {
-  SearchIcon,
-  NotificationFilledIcon,
-  HomeIcon,
-  DashboardIcon,
-  ServerIcon,
-  RootListIcon,
   ControlPlatformIcon,
-  PreciseMonitorIcon,
-  MailIcon,
-  UserCircleIcon,
-  PlayCircleIcon,
+  DashboardIcon,
   Edit1Icon,
+  HomeIcon,
+  MailIcon,
+  NotificationFilledIcon,
+  PlayCircleIcon,
+  PreciseMonitorIcon,
+  RootListIcon,
+  SearchIcon,
+  ServerIcon,
+  UserCircleIcon,
 } from 'tdesign-icons-react';
 import { Layout, Menu } from 'tdesign-react';
 

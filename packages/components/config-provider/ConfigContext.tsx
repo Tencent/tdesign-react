@@ -1,7 +1,6 @@
 import { createContext } from 'react';
-
-import defaultConfig from '@tdesign/common-js/global-config/default-config';
 import { merge } from 'lodash-es';
+import defaultConfig from '@tdesign/common-js/global-config/default-config';
 
 import defaultLocale from '../locale/zh_CN';
 

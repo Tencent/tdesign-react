@@ -1,7 +1,6 @@
 import React from 'react';
-
 import { IconFont } from 'tdesign-icons-react';
-import { Space, Statistic, Card, Divider } from 'tdesign-react';
+import { Card, Divider, Space, Statistic } from 'tdesign-react';
 
 const CombinationStatistic = () => {
   const iconStyle = {

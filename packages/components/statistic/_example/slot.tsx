@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { ControlPlatformIcon, ArrowTriangleDownFilledIcon } from 'tdesign-icons-react';
+import { ArrowTriangleDownFilledIcon, ControlPlatformIcon } from 'tdesign-icons-react';
 import { Space, Statistic } from 'tdesign-react';
 
 const SlotStatistic = () => (

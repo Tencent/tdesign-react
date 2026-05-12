@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Input, QRCode, Space } from 'tdesign-react';
 
 export default function QRCodeExample() {

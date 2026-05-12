@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from 'react';
-
-import { SearchIcon, MailIcon, UserIcon, EllipsisIcon } from 'tdesign-icons-react';
-import { Menu, MessagePlugin, Button } from 'tdesign-react';
+import { EllipsisIcon, MailIcon, SearchIcon, UserIcon } from 'tdesign-icons-react';
+import { Button, Menu, MessagePlugin } from 'tdesign-react';
 
 import type { MenuValue } from 'tdesign-react';
 

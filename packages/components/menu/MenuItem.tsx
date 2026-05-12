@@ -1,17 +1,15 @@
 import React, { useContext } from 'react';
-
 import classNames from 'classnames';
 
-import { MenuContext } from './MenuContext';
 import useConfig from '../hooks/useConfig';
 import useDomRefCallback from '../hooks/useDomRefCallback';
 import useRipple from '../hooks/useRipple';
 import TooltipLite from '../tooltip';
+import { MenuContext } from './MenuContext';
 
 import type { FC } from 'react';
-
-import type { TdMenuItemProps } from './type';
 import type { StyledProps } from '../common';
+import type { TdMenuItemProps } from './type';
 
 export interface MenuItemProps extends TdMenuItemProps, StyledProps {}
 

@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-
 import {
   SATURATION_PANEL_DEFAULT_HEIGHT,
   SATURATION_PANEL_DEFAULT_WIDTH,

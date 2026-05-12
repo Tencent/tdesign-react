@@ -1,18 +1,16 @@
 import React, { useMemo } from 'react';
-
 import classNames from 'classnames';
 
-import { qRCodeDefaultProps } from './defaultProps';
-import { QRCodeCanvas } from './QRCodeCanvas';
-import QRcodeStatus from './QRCodeStatus';
-import { QRCodeSVG } from './QRCodeSVG';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useVariables from '../hooks/useVariables';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { qRCodeDefaultProps } from './defaultProps';
+import { QRCodeCanvas } from './QRCodeCanvas';
+import QRcodeStatus from './QRCodeStatus';
+import { QRCodeSVG } from './QRCodeSVG';
 
 import type { ImageSettings } from '@tdesign/common-js/qrcode/types';
-
 import type { StyledProps } from '../common';
 import type { TdQRCodeProps } from './type';
 

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { Button, Dialog, Space } from 'tdesign-react';
 
 export default function NotModalExample() {

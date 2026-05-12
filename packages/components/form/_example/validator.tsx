@@ -1,9 +1,8 @@
 import React, { useRef } from 'react';
-
 import { debounce } from 'lodash-es';
-import { Form, Input, Radio, Checkbox, Button, MessagePlugin } from 'tdesign-react';
+import { Button, Checkbox, Form, Input, MessagePlugin, Radio } from 'tdesign-react';
 
-import type { FormProps, CustomValidator } from 'tdesign-react';
+import type { CustomValidator, FormProps } from 'tdesign-react';
 
 const { FormItem } = Form;
 

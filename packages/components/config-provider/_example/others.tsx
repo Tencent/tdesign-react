@@ -1,23 +1,22 @@
 import React from 'react';
-
-import { ChevronRightIcon, CloseIcon, CloseCircleIcon, ErrorIcon } from 'tdesign-icons-react';
+import { ChevronRightIcon, CloseCircleIcon, CloseIcon, ErrorIcon } from 'tdesign-icons-react';
 import {
+  Cascader,
   ConfigProvider,
   Form,
-  Select,
-  Cascader,
-  TreeSelect,
-  TimePicker,
-  Tag,
-  Tree,
-  Input,
-  Steps,
-  Space,
   Image,
+  Input,
+  Select,
+  Space,
+  Steps,
+  Tag,
+  TimePicker,
+  Tree,
+  TreeSelect,
 } from 'tdesign-react';
 import enConfig from 'tdesign-react/es/locale/en_US';
 
-import type { ImageProps, GlobalConfigProvider } from 'tdesign-react';
+import type { GlobalConfigProvider, ImageProps } from 'tdesign-react';
 
 export default function configDemo() {
   // 全局特性配置，可以引入英文默认配置 enConfig，还可以在默认配置的基础上进行自定义配置

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Anchor } from 'tdesign-react';
 
 const { AnchorItem } = Anchor;

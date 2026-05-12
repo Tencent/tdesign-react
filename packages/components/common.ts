@@ -1,6 +1,6 @@
 /** React 特有全局类型 */
 
-import type { ReactElement, ReactNode, CSSProperties, FormEvent, DragEvent, SyntheticEvent } from 'react';
+import type { CSSProperties, DragEvent, FormEvent, ReactElement, ReactNode, SyntheticEvent } from 'react';
 
 // TElement 表示 API 只接受传入组件
 export type TElement<T = undefined> = T extends undefined ? ReactElement : (props: T) => ReactElement;

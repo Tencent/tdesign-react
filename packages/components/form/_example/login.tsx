@@ -1,7 +1,6 @@
 import React from 'react';
-
 import { DesktopIcon, LockOnIcon } from 'tdesign-icons-react';
-import { Form, Input, Button, MessagePlugin } from 'tdesign-react';
+import { Button, Form, Input, MessagePlugin } from 'tdesign-react';
 
 import type { FormProps } from 'tdesign-react';
 

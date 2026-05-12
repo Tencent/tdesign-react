@@ -1,12 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-
-import TableTreeStore from '@tdesign/common-js/table/tree-store';
 import classNames from 'classnames';
 import { get, isEqual } from 'lodash-es';
 import {
   AddRectangleIcon as TdAddRectangleIcon,
   MinusRectangleIcon as TdMinusRectangleIcon,
 } from 'tdesign-icons-react';
+import TableTreeStore from '@tdesign/common-js/table/tree-store';
 
 import { parseContentTNode } from '../../_util/parseTNode';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
@@ -16,7 +15,6 @@ import useClassName from './useClassName';
 import useTreeDataExpand from './useTreeDataExpand';
 
 import type { SwapParams } from '@tdesign/common-js/table/tree-store';
-
 import type { PrimaryTableCol, TableRowData, TableRowState, TableRowValue, TdEnhancedTableProps } from '../type';
 
 export interface UseSwapParams<T> extends SwapParams<T> {

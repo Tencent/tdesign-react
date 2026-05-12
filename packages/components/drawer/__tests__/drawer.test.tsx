@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { fireEvent, render, vi } from '@test/utils';
 
 import Drawer from '../index';

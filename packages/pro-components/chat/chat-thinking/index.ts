@@ -1,8 +1,8 @@
+import 'tdesign-web-components/lib/chat-message/content/thinking-content';
+
 import reactify from '../_util/reactify';
 
 import type { TdChatThinkContentProps } from 'tdesign-web-components';
-
-import 'tdesign-web-components/lib/chat-message/content/thinking-content';
 
 const ChatThinkContent: React.ForwardRefExoticComponent<
   Omit<TdChatThinkContentProps, 'ref'> & React.RefAttributes<HTMLElement | undefined>

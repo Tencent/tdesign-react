@@ -1,43 +1,42 @@
 import React, { useMemo, useRef, useState } from 'react';
-
-import {
-  ChatList,
-  ChatSender,
-  ChatMessage,
-  ChatActionBar,
-  AGUIAdapter,
-  isAIMessage,
-  applyJsonPatch,
-  getMessageContentForCopy,
-} from '@tdesign-react/chat';
-import { LoadingIcon, HistoryIcon } from 'tdesign-icons-react';
+import { HistoryIcon, LoadingIcon } from 'tdesign-icons-react';
 import { Button } from 'tdesign-react';
+import {
+  AGUIAdapter,
+  applyJsonPatch,
+  ChatActionBar,
+  ChatList,
+  ChatMessage,
+  ChatSender,
+  getMessageContentForCopy,
+  isAIMessage,
+} from '@tdesign-react/chat';
 
 import { useChat } from '../../hooks/useChat';
 import {
+  HotelCard,
+  HumanInputForm,
+  HumanInputResult,
+  ItineraryCard,
   PlanningStatePanel,
   WeatherCard,
-  ItineraryCard,
-  HotelCard,
-  HumanInputResult,
-  HumanInputForm,
 } from '../components';
 
+import type { ReactNode } from 'react';
 import type {
-  TdChatMessageConfig,
-  TdChatActionsName,
-  TdChatSenderParams,
+  AGUIHistoryMessage,
+  AIMessageContent,
+  ChatBaseContent,
   ChatMessagesData,
   ChatRequestParams,
-  ChatBaseContent,
-  AIMessageContent,
-  AGUIHistoryMessage,
+  TdChatActionsName,
   TdChatListApi,
+  TdChatMessageConfig,
   TdChatSenderApi,
+  TdChatSenderParams,
 } from '@tdesign-react/chat';
-import type { ReactNode } from 'react';
-
 import type { FormConfig } from '../components/HumanInputForm';
+
 import './travel-planner.css';
 
 // 扩展自定义消息体类型

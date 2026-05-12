@@ -1,13 +1,12 @@
 import React from 'react';
-
-import { abridgeName } from '@tdesign/common-js/upload/utils';
 import classNames from 'classnames';
 import {
+  AddIcon as TdAddIcon,
   BrowseIcon as TdBrowseIcon,
   DeleteIcon as TdDeleteIcon,
-  AddIcon as TdAddIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
+import { abridgeName } from '@tdesign/common-js/upload/utils';
 
 import parseTNode from '../../_util/parseTNode';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
@@ -17,7 +16,6 @@ import Link from '../../link';
 import Loading from '../../loading';
 
 import type { MouseEvent } from 'react';
-
 import type { CommonDisplayFileProps } from '../interface';
 import type { TdUploadProps, UploadFile } from '../type';
 

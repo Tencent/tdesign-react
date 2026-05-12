@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import { Table, Tag } from 'tdesign-react';
 
 import type { TableProps } from 'tdesign-react';

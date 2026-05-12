@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Pagination } from 'tdesign-react';
 
 import type { PaginationProps } from 'tdesign-react';

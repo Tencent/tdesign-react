@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-
 import log from '@tdesign/common-js/log/index';
 import { getFileUrlByFileRaw } from '@tdesign/common-js/upload/utils';
 

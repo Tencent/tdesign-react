@@ -1,7 +1,6 @@
-import React, { useRef, useEffect } from 'react';
-
-import { Color, getColorFormatInputs, getColorFormatMap } from '@tdesign/common-js/color-picker/index';
+import React, { useEffect, useRef } from 'react';
 import { throttle } from 'lodash-es';
+import { Color, getColorFormatInputs, getColorFormatMap } from '@tdesign/common-js/color-picker/index';
 
 import Input from '../../../../input';
 import InputNumber from '../../../../input-number';

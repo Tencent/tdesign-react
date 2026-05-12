@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Button, ConfigProvider, DialogCard, DialogPlugin, Space } from 'tdesign-react';
 import enConfig from 'tdesign-react/es/locale/en_US';
 

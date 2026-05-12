@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-
 import { Calendar, Switch } from 'tdesign-react';
 
 const classStyles = `

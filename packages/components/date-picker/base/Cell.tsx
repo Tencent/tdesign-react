@@ -1,7 +1,6 @@
 import React from 'react';
-
-import { extractTimeObj } from '@tdesign/common-js/date-picker/utils';
 import classNames from 'classnames';
+import { extractTimeObj } from '@tdesign/common-js/date-picker/utils';
 
 import parseTNode from '../../_util/parseTNode';
 import useConfig from '../../hooks/useConfig';

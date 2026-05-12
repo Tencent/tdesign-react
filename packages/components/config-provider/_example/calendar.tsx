@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { ConfigProvider, Calendar } from 'tdesign-react';
+import { Calendar, ConfigProvider } from 'tdesign-react';
 import enConfig from 'tdesign-react/es/locale/en_US';
 
 import type { GlobalConfigProvider } from 'tdesign-react';

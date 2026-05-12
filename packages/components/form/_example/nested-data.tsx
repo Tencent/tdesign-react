@@ -1,7 +1,6 @@
 import React from 'react';
-
 import { MinusCircleIcon } from 'tdesign-icons-react';
-import { Form, Input, Radio, Checkbox, Button, MessagePlugin, DatePicker } from 'tdesign-react';
+import { Button, Checkbox, DatePicker, Form, Input, MessagePlugin, Radio } from 'tdesign-react';
 
 import type { FormProps } from 'tdesign-react';
 

@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { NotificationPlugin, Button, Space } from 'tdesign-react';
+import { Button, NotificationPlugin, Space } from 'tdesign-react';
 
 export default function NotificationExample() {
   const openMore = () => {

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { InputNumber } from 'tdesign-react';
 
 export default function InputNumberExample() {

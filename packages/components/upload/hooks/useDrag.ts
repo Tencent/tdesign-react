@@ -1,9 +1,7 @@
 import { useState } from 'react';
-
 import { getFileList } from '@tdesign/common-js/upload/utils';
 
 import type { DragEventHandler } from 'react';
-
 import type { TdUploadProps } from '../type';
 
 export interface UploadDragEvents {

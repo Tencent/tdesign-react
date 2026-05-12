@@ -1,21 +1,20 @@
 import React, { forwardRef, useMemo } from 'react';
-
 import classNames from 'classnames';
 import { isObject } from 'lodash-es';
 import {
-  RoundIcon as TdRoundIcon,
-  ChevronUpIcon as TdChevronUpIcon,
   ChevronDownIcon as TdChevronDownIcon,
   ChevronLeftIcon as TdChevronLeftIcon,
   ChevronRightIcon as TdChevronRightIcon,
+  ChevronUpIcon as TdChevronUpIcon,
+  RoundIcon as TdRoundIcon,
 } from 'tdesign-icons-react';
 
-import Button from '../button';
-import { paginationMiniDefaultProps } from './defaultProps';
 import noop from '../_util/noop';
+import Button from '../button';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
+import { paginationMiniDefaultProps } from './defaultProps';
 
 import type { StyledProps } from '../common';
 import type { TdPaginationMiniProps } from './type';

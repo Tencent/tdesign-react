@@ -1,6 +1,5 @@
-import type { TableTreeDataMap } from '@tdesign/common-js/table/tree-store';
 import type { ReactNode } from 'react';
-
+import type { TableTreeDataMap } from '@tdesign/common-js/table/tree-store';
 import type { ScrollToElementParams, StyledProps } from '../common';
 import type { UseTreeDataReturnType } from './hooks/useTreeData';
 import type {

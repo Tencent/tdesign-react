@@ -1,5 +1,4 @@
-import { useRef, useCallback, useMemo, useEffect } from 'react';
-
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { getScrollbarWidth } from '@tdesign/common-js/utils/getScrollbarWidth';
 
 import { hasBodyScrollbar } from '../../_util/scroll';

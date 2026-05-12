@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { describe, mockTimeout, render, vi } from '@test/utils';
 
 import Affix from '../index';

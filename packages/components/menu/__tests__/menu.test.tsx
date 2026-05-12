@@ -1,7 +1,6 @@
 import React from 'react';
-
-import { render, fireEvent, vi, waitFor } from '@test/utils';
 import { UserIcon } from 'tdesign-icons-react';
+import { fireEvent, render, vi, waitFor } from '@test/utils';
 
 import Menu from '../index';
 

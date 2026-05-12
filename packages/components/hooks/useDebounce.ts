@@ -1,5 +1,4 @@
 import { useCallback, useEffect } from 'react';
-
 import { debounce } from 'lodash-es';
 
 import { usePersistFn } from './usePersistFn';

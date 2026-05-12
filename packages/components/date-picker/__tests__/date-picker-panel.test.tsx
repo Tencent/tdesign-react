@@ -1,7 +1,6 @@
 import React from 'react';
-
-import { render, vi, fireEvent } from '@test/utils';
 import dayjs from 'dayjs';
+import { fireEvent, render, vi } from '@test/utils';
 
 import { DatePickerPanel } from '..';
 

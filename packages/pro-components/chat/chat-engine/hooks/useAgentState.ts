@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect, useRef, createContext, useContext, useMemo } from 'react';
-
+import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { stateManager } from '@tdesign/ai-chat-engine';
 
 /**

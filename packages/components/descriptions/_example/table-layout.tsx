@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Descriptions, Space, Radio } from 'tdesign-react';
+import { Descriptions, Radio, Space } from 'tdesign-react';
 
 import type { DescriptionsProps } from 'tdesign-react';
 

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { COLOR_MODES } from '@tdesign/common-js/color-picker/constants';
 
 import { useLocaleReceiver } from '../../../locale/LocalReceiver';

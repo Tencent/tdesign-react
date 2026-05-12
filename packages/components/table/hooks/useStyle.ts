@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
-import useClassName from './useClassName';
 import useCommonClassName from '../../hooks/useCommonClassName';
+import useClassName from './useClassName';
 
 import type { ClassName, Styles } from '../../common';
 import type { BaseTableProps, PrimaryTableProps } from '../interface';

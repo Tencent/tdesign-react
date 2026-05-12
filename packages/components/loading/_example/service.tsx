@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { loading, Button } from 'tdesign-react';
+import { Button, loading } from 'tdesign-react';
 
 export default function Service() {
   const handleFullscreen = () => {

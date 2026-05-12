@@ -1,16 +1,15 @@
 import React, { forwardRef } from 'react';
-
-import { getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
+import { getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
 
-import ExtraContent from './ExtraContent';
-import PanelContent from './PanelContent';
 import useConfig from '../../hooks/useConfig';
 import useDefaultProps from '../../hooks/useDefaultProps';
 import useDisableDate from '../hooks/useDisableDate';
 import useTableData from '../hooks/useTableData';
 import { parseToDateTime } from '../utils';
+import ExtraContent from './ExtraContent';
+import PanelContent from './PanelContent';
 
 import type { StyledProps } from '../../common';
 import type { TdTimePickerProps } from '../../time-picker';

@@ -1,15 +1,15 @@
 import React, { useRef } from 'react';
 
+import useControlled from '../hooks/useControlled';
+import useDefaultProps from '../hooks/useDefaultProps';
 import { Popup } from '../popup';
 import ColorPanel from './components/panel/index';
-import useClassName from './hooks/useClassNames';
-import useControlled from '../hooks/useControlled';
 import ColorTrigger from './components/trigger';
 import { colorPickerDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
+import useClassName from './hooks/useClassNames';
 
-import type { ColorPickerProps, TdColorContext } from './interface';
 import type { PopupProps } from '../popup';
+import type { ColorPickerProps, TdColorContext } from './interface';
 
 const ColorPicker: React.FC<ColorPickerProps> = (props) => {
   const baseClassName = useClassName();

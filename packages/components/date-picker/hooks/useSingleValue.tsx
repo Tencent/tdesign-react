@@ -1,12 +1,11 @@
-import { useState, useEffect } from 'react';
-
+import { useEffect, useState } from 'react';
 import {
+  extractTimeFormat,
   formatDate,
   formatTime,
-  isValidDate,
   getDefaultFormat,
+  isValidDate,
   parseToDayjs,
-  extractTimeFormat,
 } from '@tdesign/common-js/date-picker/format';
 import log from '@tdesign/common-js/log/index';
 

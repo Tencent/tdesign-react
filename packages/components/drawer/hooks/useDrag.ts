@@ -1,6 +1,5 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
-
-import { getSizeDraggable, calcMoveSize } from '@tdesign/common-js/drawer/utils';
+import { calcMoveSize, getSizeDraggable } from '@tdesign/common-js/drawer/utils';
 
 import type { Styles } from '../../common';
 import type { TdDrawerProps } from '../type';

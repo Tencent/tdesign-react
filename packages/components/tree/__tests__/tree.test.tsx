@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { fireEvent, mockDelay, mockTimeout, render, vi } from '@test/utils';
 
 import Button from '../../button';

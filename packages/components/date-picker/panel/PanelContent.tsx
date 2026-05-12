@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-
 import { getDefaultFormat } from '@tdesign/common-js/date-picker/format';
 
 import useConfig from '../../hooks/useConfig';

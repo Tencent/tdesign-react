@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { render, fireEvent, waitFor, mockTimeout, act, vi } from '@test/utils';
+import { act, fireEvent, mockTimeout, render, vi, waitFor } from '@test/utils';
 
 import Alert from '../Alert';
 

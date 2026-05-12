@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Anchor } from 'tdesign-react';
 
 import type { AnchorProps } from 'tdesign-react';

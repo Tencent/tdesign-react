@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 
-import { DescriptionsContext } from './DescriptionsContext';
 import useConfig from '../hooks/useConfig';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { DescriptionsContext } from './DescriptionsContext';
 
 import type { LayoutEnum } from '../common';
 import type { TdDescriptionsItemProps } from './type';

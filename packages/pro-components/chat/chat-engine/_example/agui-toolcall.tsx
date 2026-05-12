@@ -1,32 +1,31 @@
-import React, { useRef, useState, useMemo } from 'react';
-
-import {
-  ChatList,
-  ChatSender,
-  ChatMessage,
-  ChatActionBar,
-  isAIMessage,
-  ChatLoading,
-  ToolCallRenderer,
-  useChat,
-  useAgentToolcall,
-  isToolCallContent,
-} from '@tdesign-react/chat';
+import React, { useMemo, useRef, useState } from 'react';
 import { CheckCircleFilledIcon, CloseCircleFilledIcon, LoadingIcon } from 'tdesign-icons-react';
-import { Card, Progress, Space, Image } from 'tdesign-react';
+import { Card, Image, Progress, Space } from 'tdesign-react';
+import {
+  ChatActionBar,
+  ChatList,
+  ChatLoading,
+  ChatMessage,
+  ChatSender,
+  isAIMessage,
+  isToolCallContent,
+  ToolCallRenderer,
+  useAgentToolcall,
+  useChat,
+} from '@tdesign-react/chat';
 
+import type { ReactNode } from 'react';
 import type {
-  TdChatMessageConfig,
+  AgentToolcallConfig,
+  AIMessageContent,
   ChatMessagesData,
   ChatRequestParams,
-  AIMessageContent,
-  ToolCall,
-  AgentToolcallConfig,
-  ToolcallComponentProps,
-  TdChatSenderParams,
   TdChatActionsName,
+  TdChatMessageConfig,
+  TdChatSenderParams,
+  ToolCall,
+  ToolcallComponentProps,
 } from '@tdesign-react/chat';
-import type { ReactNode } from 'react';
 
 /**
  * 图片生成进度状态接口

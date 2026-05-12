@@ -1,13 +1,12 @@
 import React, { forwardRef } from 'react';
 
-import { radioDefaultProps } from './defaultProps';
-import RadioGroup from './RadioGroup';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import Check from '../common/Check';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { radioDefaultProps } from './defaultProps';
+import RadioGroup from './RadioGroup';
 
 import type { Ref } from 'react';
-
 import type { CheckProps } from '../common/Check';
 
 export type RadioProps = Omit<CheckProps, 'type'>;

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useRef, useState } from 'react';
-
 import { ChatBot } from '@tdesign-react/chat';
 
 import type { ChatRequestParams, ChatServiceConfig, TdChatbotApi } from '@tdesign-react/chat';

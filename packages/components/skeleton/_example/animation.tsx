@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Skeleton } from 'tdesign-react';
 
 const animations = [

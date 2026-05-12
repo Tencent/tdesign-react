@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Descriptions, Space, Radio } from 'tdesign-react';
+import { Descriptions, Radio, Space } from 'tdesign-react';
 
 type SizeEnum = 'large' | 'medium' | 'small';
 export default function Size() {

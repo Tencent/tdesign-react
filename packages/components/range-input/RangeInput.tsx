@@ -1,20 +1,19 @@
-import React, { useState, useRef, useImperativeHandle } from 'react';
-
+import React, { useImperativeHandle, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
 import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-react';
 
-import { rangeInputDefaultProps } from './defaultProps';
 import parseTNode from '../_util/parseTNode';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import Input from '../input';
+import { rangeInputDefaultProps } from './defaultProps';
 
 import type { StyledProps, TNode } from '../common';
 import type { InputRef } from '../input';
-import type { TdRangeInputProps, RangeInputValue, RangeInputInstanceFunctions } from './type';
+import type { RangeInputInstanceFunctions, RangeInputValue, TdRangeInputProps } from './type';
 
 export interface RangeInputProps extends TdRangeInputProps, StyledProps {}
 

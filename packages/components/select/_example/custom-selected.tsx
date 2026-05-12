@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { Select, Tag, Space } from 'tdesign-react';
+import { Select, Space, Tag } from 'tdesign-react';
 
 import type { SelectOption } from 'tdesign-react';
 

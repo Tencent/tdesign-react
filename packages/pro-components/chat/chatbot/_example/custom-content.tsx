@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-
-import { ChatBot } from '@tdesign-react/chat';
 import { CopyIcon, EditIcon, SoundIcon } from 'tdesign-icons-react';
-import { Button, Space, MessagePlugin } from 'tdesign-react';
+import { Button, MessagePlugin, Space } from 'tdesign-react';
 import TvisionTcharts from 'tvision-charts-react';
+import { ChatBot } from '@tdesign-react/chat';
 
 import type {
-  SSEChunkData,
-  ChatServiceConfig,
+  AIMessageContent,
   ChatBaseContent,
   ChatMessagesData,
-  AIMessageContent,
+  ChatServiceConfig,
+  SSEChunkData,
 } from '@tdesign-react/chat';
 
 /**

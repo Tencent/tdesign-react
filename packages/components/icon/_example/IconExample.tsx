@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
-
 import {
-  LettersTIcon,
-  LettersDIcon,
-  LettersSIcon,
-  LettersEIcon,
-  LettersIIcon,
-  LettersNIcon,
-  LettersGIcon,
-  ComponentCheckboxIcon,
-  ComponentInputIcon,
-  ComponentSwitchIcon,
   ComponentBreadcrumbIcon,
+  ComponentCheckboxIcon,
   ComponentDropdownIcon,
+  ComponentInputIcon,
   ComponentRadioIcon,
   ComponentStepsIcon,
+  ComponentSwitchIcon,
+  LettersDIcon,
+  LettersEIcon,
+  LettersGIcon,
+  LettersIIcon,
+  LettersNIcon,
+  LettersSIcon,
+  LettersTIcon,
 } from 'tdesign-icons-react';
-import { Space, Slider } from 'tdesign-react';
+import { Slider, Space } from 'tdesign-react';
 
 export default function IconExample() {
   const [strokeWidth, setStrokeWidth] = useState(2);

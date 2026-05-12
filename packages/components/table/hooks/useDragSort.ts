@@ -1,22 +1,20 @@
 // 表格 行拖拽 + 列拖拽功能
 import { useEffect, useMemo, useRef, useState } from 'react';
-
+import { get } from 'lodash-es';
+import Sortable from 'sortablejs';
 import log from '@tdesign/common-js/log/index';
 import { getColumnDataByKey, getColumnIndexByKey } from '@tdesign/common-js/table/utils';
 import swapDragArrayElement from '@tdesign/common-js/utils/swapDragArrayElement';
-import { get } from 'lodash-es';
-import Sortable from 'sortablejs';
 
-import useClassName from './useClassName';
 import { hasClass } from '../../_util/style';
 import useLatest from '../../hooks/useLatest';
+import useClassName from './useClassName';
 
 import type { MutableRefObject } from 'react';
-import type { SortableEvent, SortableOptions, MoveEvent } from 'sortablejs';
-
+import type { MoveEvent, SortableEvent, SortableOptions } from 'sortablejs';
 import type { PaginationProps } from '../../pagination';
 import type { BaseTableColumns } from '../interface';
-import type { TableRowData, TdPrimaryTableProps, DragSortContext } from '../type';
+import type { DragSortContext, TableRowData, TdPrimaryTableProps } from '../type';
 
 export default function useDragSort(
   props: TdPrimaryTableProps,

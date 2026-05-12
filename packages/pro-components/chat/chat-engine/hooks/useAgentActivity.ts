@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback, useRef, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import { activityRegistry } from '../components/activity/registry';
 

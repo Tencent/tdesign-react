@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { ColorPicker } from 'tdesign-react';
 
 export default function PanelExample() {

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-
 import { escapeRegExp } from 'lodash-es';
-import { Space, AutoComplete } from 'tdesign-react';
+import { AutoComplete, Space } from 'tdesign-react';
 
 import type { AutoCompleteProps } from 'tdesign-react';
 

@@ -1,5 +1,5 @@
-import { pathToKey } from '@tdesign/common-js/tree-v1/tree-node-model';
 import { cloneDeep, isFunction, isNumber } from 'lodash-es';
+import { pathToKey } from '@tdesign/common-js/tree-v1/tree-node-model';
 
 import { getFullPathLabel, getTreeValue } from './helper';
 

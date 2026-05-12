@@ -1,9 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import { Card, Loading, Space } from 'tdesign-react';
+import { ChatBot, isToolCallContent, ToolCallRenderer, useAgentToolcall } from '@tdesign-react/chat';
 
-import { ChatBot, ToolCallRenderer, isToolCallContent, useAgentToolcall } from '@tdesign-react/chat';
-import { Card, Space, Loading } from 'tdesign-react';
-
-import type { ChatServiceConfig, TdChatMessageConfig, ChatMessagesData, ChatRequestParams } from '@tdesign-react/chat';
+import type { ChatMessagesData, ChatRequestParams, ChatServiceConfig, TdChatMessageConfig } from '@tdesign-react/chat';
 
 /**
  * 获取状态背景色

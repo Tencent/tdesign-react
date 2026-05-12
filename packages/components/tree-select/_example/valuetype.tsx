@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { TreeSelect, Space } from 'tdesign-react';
+import { Space, TreeSelect } from 'tdesign-react';
 
 import type { TreeSelectProps, TreeSelectValue } from 'tdesign-react';
 

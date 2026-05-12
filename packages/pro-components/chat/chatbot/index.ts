@@ -2,6 +2,7 @@ import 'tdesign-web-components/lib/chatbot';
 import 'tdesign-web-components/lib/chat-message/content/reasoning-content';
 import 'tdesign-web-components/lib/chat-message/content/search-content';
 import 'tdesign-web-components/lib/chat-message/content/suggestion-content';
+
 import reactify from '../_util/reactify';
 
 import type {
@@ -30,7 +31,7 @@ const ChatList: React.ForwardRefExoticComponent<
 > = reactify<TdChatListProps>('t-chat-list');
 
 // 导出组件
-export { ChatBot, ChatSearchContent, ChatSuggestionContent, ChatList };
+export { ChatBot, ChatList, ChatSearchContent, ChatSuggestionContent };
 
 // 导出类型和工具
 export type * from 'tdesign-web-components/lib/chatbot/type';

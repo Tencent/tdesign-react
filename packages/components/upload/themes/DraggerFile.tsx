@@ -1,11 +1,10 @@
 import React, { useMemo, useRef } from 'react';
-
-import { abridgeName, getFileSizeText } from '@tdesign/common-js/upload/utils';
 import classNames from 'classnames';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
+import { abridgeName, getFileSizeText } from '@tdesign/common-js/upload/utils';
 
 import { parseContentTNode } from '../../_util/parseTNode';
 import useCommonClassName from '../../hooks/useCommonClassName';
@@ -17,7 +16,6 @@ import TLoading from '../../loading';
 import useDrag from '../hooks/useDrag';
 
 import type { FC, MouseEvent } from 'react';
-
 import type { UploadDragEvents } from '../hooks/useDrag';
 import type { CommonDisplayFileProps } from '../interface';
 import type { TdUploadProps, UploadFile } from '../type';

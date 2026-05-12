@@ -1,12 +1,10 @@
 import { useMemo } from 'react';
-
 import log from '@tdesign/common-js/log/index';
 
 import useVirtualScroll from '../../hooks/useVirtualScroll';
 
 import type React from 'react';
-
-import type { Styles, ComponentScrollToElementParams } from '../../common';
+import type { ComponentScrollToElementParams, Styles } from '../../common';
 import type { TdListProps } from '../type';
 
 export const useListVirtualScroll = (

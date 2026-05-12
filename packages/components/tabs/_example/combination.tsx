@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { Tabs, Radio, Space } from 'tdesign-react';
+import { Radio, Space, Tabs } from 'tdesign-react';
 
 import type { TabsProps } from 'tdesign-react';
 

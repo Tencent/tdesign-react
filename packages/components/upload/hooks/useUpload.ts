@@ -1,23 +1,21 @@
-import { useRef, useState, useMemo, useEffect } from 'react';
-
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { merge } from 'lodash-es';
 import {
-  getFilesAndErrors,
-  validateFile,
-  upload,
-  getTriggerTextField,
-  getDisplayFiles,
   formatToUploadFile,
+  getDisplayFiles,
+  getFilesAndErrors,
+  getTriggerTextField,
+  upload,
+  validateFile,
 } from '@tdesign/common-js/upload/main';
 import { getFileList } from '@tdesign/common-js/upload/utils';
-import { merge } from 'lodash-es';
 
 import useConfig from '../../hooks/useConfig';
 import useControlled from '../../hooks/useControlled';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
+import type { ChangeEventHandler, ClipboardEventHandler, MouseEvent } from 'react';
 import type { InnerProgressContext, OnResponseErrorContext, SuccessContext } from '@tdesign/common-js/upload/types';
-import type { ChangeEventHandler, MouseEvent, ClipboardEventHandler } from 'react';
-
 import type { SizeLimitObj, TdUploadProps, UploadChangeContext, UploadFile, UploadRemoveContext } from '../type';
 
 /**

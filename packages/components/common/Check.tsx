@@ -1,5 +1,4 @@
 import React, { forwardRef, useContext } from 'react';
-
 import classNames from 'classnames';
 import { isBoolean } from 'lodash-es';
 
@@ -7,8 +6,7 @@ import { omit } from '../_util/helper';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 
-import type { MouseEvent, ChangeEvent } from 'react';
-
+import type { ChangeEvent, MouseEvent } from 'react';
 import type { TdCheckboxProps } from '../checkbox/type';
 import type { StyledProps } from '../common';
 

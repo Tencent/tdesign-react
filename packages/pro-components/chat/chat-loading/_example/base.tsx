@@ -1,7 +1,6 @@
 import React from 'react';
-
-import { ChatLoading } from '@tdesign-react/chat';
 import { Space } from 'tdesign-react';
+import { ChatLoading } from '@tdesign-react/chat';
 
 const ChatLoadingExample = () => (
   <Space size={60}>

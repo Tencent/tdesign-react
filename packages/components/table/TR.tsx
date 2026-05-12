@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useRef } from 'react';
-
 import classnames from 'classnames';
 import { get } from 'lodash-es';
 
@@ -11,7 +10,6 @@ import { getCellKey } from './hooks/useRowspanAndColspan';
 import { formatRowAttributes, formatRowClassNames } from './utils';
 
 import type { MouseEvent, MutableRefObject } from 'react';
-
 import type { TScroll } from '../common';
 import type { RowMountedParams, VirtualScrollConfig } from '../hooks/useVirtualScroll';
 import type { PaginationProps } from '../pagination';

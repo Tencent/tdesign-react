@@ -1,15 +1,14 @@
 import React from 'react';
-
 import log from '@tdesign/common-js/log/index';
 
-import DialogComponent from './Dialog';
 import { getAttach } from '../_util/dom';
 import { render } from '../_util/react-render';
 import PluginContainer from '../common/PluginContainer';
 import ConfigProvider from '../config-provider';
+import DialogComponent from './Dialog';
 
 import type { DialogProps } from './Dialog';
-import type { DialogOptions, DialogMethod, DialogConfirmMethod, DialogAlertMethod, DialogInstance } from './type';
+import type { DialogAlertMethod, DialogConfirmMethod, DialogInstance, DialogMethod, DialogOptions } from './type';
 
 export interface DialogPluginType extends DialogMethod {
   alert: DialogAlertMethod;

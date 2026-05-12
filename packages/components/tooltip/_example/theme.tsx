@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Button, Tooltip, Space } from 'tdesign-react';
+import { Button, Space, Tooltip } from 'tdesign-react';
 
 export default function Cumstomize() {
   return (

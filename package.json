@@ -104,9 +104,9 @@
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-react": "~7.28.0",
     "eslint-plugin-react-hooks": "^4.0.0",
+    "eslint-plugin-simple-import-sort": "^13.0.0",
     "fs-extra": "^11.3.0",
     "glob": "^9.0.3",
     "husky": "^7.0.4",
@@ -145,7 +145,6 @@
   "dependencies": {
     "@babel/runtime": "~7.26.7",
     "@popperjs/core": "~2.11.2",
-    "tdesign-react": "workspace:^",
     "@tdesign-react/chat": "workspace:^",
     "@tdesign/ai-chat-engine": "workspace:^",
     "@tdesign/common": "workspace:^",
@@ -154,6 +153,7 @@
     "@tdesign/common-style": "workspace:^",
     "@tdesign/components": "workspace:^",
     "@tdesign/pro-components-chat": "workspace:^",
-    "@tdesign/react-site": "workspace:^"
+    "@tdesign/react-site": "workspace:^",
+    "tdesign-react": "workspace:^"
   }
 }

@@ -1,14 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
-
 import classnames from 'classnames';
 
-import { loadingDefaultProps } from './defaultProps';
-import Gradient from './gradient';
 import { canUseDocument } from '../_util/dom';
 import { addClass, removeClass } from '../_util/style';
 import Portal from '../common/Portal';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { loadingDefaultProps } from './defaultProps';
+import Gradient from './gradient';
 
 import type { StyledProps } from '../common';
 import type { TdLoadingProps } from './type';

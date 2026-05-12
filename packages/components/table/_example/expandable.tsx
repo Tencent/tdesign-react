@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useEffect, useState } from 'react';
 import {
+  CheckCircleFilledIcon,
   ChevronRightCircleIcon,
   ChevronRightIcon,
-  CheckCircleFilledIcon,
-  ErrorCircleFilledIcon,
   CloseCircleFilledIcon,
+  ErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
-import { Table, Radio, Checkbox, Space, Tag, Link } from 'tdesign-react';
+import { Checkbox, Link, Radio, Space, Table, Tag } from 'tdesign-react';
 
 import type { TableProps } from 'tdesign-react';
 

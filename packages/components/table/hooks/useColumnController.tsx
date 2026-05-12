@@ -2,12 +2,10 @@
  * 自定义显示列控制器，即列配置
  */
 import React, { useEffect, useRef } from 'react';
-
 import classNames from 'classnames';
 import { intersection, xorWith } from 'lodash-es';
 import { SettingIcon as TdSettingIcon } from 'tdesign-icons-react';
 
-import { renderTitle } from './useTableHeader';
 import TButton from '../../button';
 import Checkbox from '../../checkbox';
 import { DialogPlugin } from '../../dialog/plugin';
@@ -15,10 +13,10 @@ import useConfig from '../../hooks/useConfig';
 import useControlled from '../../hooks/useControlled';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { getCurrentRowByKey } from '../utils';
+import { renderTitle } from './useTableHeader';
 
 import type { ChangeEvent } from 'react';
-
-import type { CheckboxGroupValue, CheckboxOptionObj, CheckboxGroupChangeContext } from '../../checkbox';
+import type { CheckboxGroupChangeContext, CheckboxGroupValue, CheckboxOptionObj } from '../../checkbox';
 import type { DialogInstance } from '../../dialog';
 import type { PrimaryTableCol, TdPrimaryTableProps } from '../type';
 

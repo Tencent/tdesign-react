@@ -1,10 +1,9 @@
 import React from 'react';
-
-import { render, screen, fireEvent, vi } from '@test/utils';
+import { fireEvent, render, screen, vi } from '@test/utils';
 
 import Link from '../Link';
 
-import type { FunctionComponent, ComponentClass } from 'react';
+import type { ComponentClass, FunctionComponent } from 'react';
 
 export interface TestExampleOverrides {
   [exampleFileName: string]: (Component: FunctionComponent<unknown> | ComponentClass<unknown>) => void | Promise<void>;

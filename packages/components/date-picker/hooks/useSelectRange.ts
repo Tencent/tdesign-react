@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-
+import { isArray, isFunction } from 'lodash-es';
 import {
   computePaginationDisabled,
   decadeHasAnyAllowed,
@@ -7,7 +7,6 @@ import {
   monthHasAnyAllowed,
   yearHasAnyAllowed,
 } from '@tdesign/common-js/date-picker/utils';
-import { isArray, isFunction } from 'lodash-es';
 
 import type { TdDatePickerProps } from '../type';
 

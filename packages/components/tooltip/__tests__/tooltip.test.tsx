@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { render, fireEvent, waitFor, screen, mockTimeout } from '@test/utils';
+import { fireEvent, mockTimeout, render, screen, waitFor } from '@test/utils';
 
 import Tooltip from '../Tooltip';
 

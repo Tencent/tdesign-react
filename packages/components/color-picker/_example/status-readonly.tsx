@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { ColorPickerPanel } from 'tdesign-react';
 
 export default function StatusReadonly() {

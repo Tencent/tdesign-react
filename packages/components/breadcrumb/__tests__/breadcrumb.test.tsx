@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { vi, render } from '@test/utils';
+import { render, vi } from '@test/utils';
 
 import Breadcrumb from '../Breadcrumb';
 

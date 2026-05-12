@@ -1,8 +1,7 @@
 import React from 'react';
-
-import Color from '@tdesign/common-js/color-picker/color';
 import classnames from 'classnames';
-import { DeleteIcon as TdDeleteIcon, AddIcon as TdAddIcon } from 'tdesign-icons-react';
+import { AddIcon as TdAddIcon, DeleteIcon as TdDeleteIcon } from 'tdesign-icons-react';
+import Color from '@tdesign/common-js/color-picker/color';
 
 import useCommonClassName from '../../../hooks/useCommonClassName';
 import useGlobalIcon from '../../../hooks/useGlobalIcon';

@@ -1,26 +1,24 @@
 import React, { useState } from 'react';
-
-import { DEFAULT_STEPS, DEFAULT_FORMAT } from '@tdesign/common-js/time-picker/const';
-import { formatInputValue, validateInputValue } from '@tdesign/common-js/time-picker/utils';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { TimeIcon as TdTimeIcon } from 'tdesign-icons-react';
+import { DEFAULT_FORMAT, DEFAULT_STEPS } from '@tdesign/common-js/time-picker/const';
+import { formatInputValue, validateInputValue } from '@tdesign/common-js/time-picker/utils';
 
-import { timePickerDefaultProps } from './defaultProps';
-import TimeRangePicker from './TimeRangePicker';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import noop from '../_util/noop';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
+import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import SelectInput from '../select-input';
+import { timePickerDefaultProps } from './defaultProps';
 import { useTimePickerTextConfig } from './hooks/useTimePickerTextConfig';
 import TimePickerPanel from './panel/TimePickerPanel';
-import useDefaultProps from '../hooks/useDefaultProps';
+import TimeRangePicker from './TimeRangePicker';
 
 import type { Ref } from 'react';
-
 import type { StyledProps } from '../common';
 import type { SelectInputProps, SelectInputValueChangeContext } from '../select-input';
 import type { TimePickerPanelProps } from './panel/TimePickerPanel';

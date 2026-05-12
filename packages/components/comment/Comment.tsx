@@ -1,14 +1,13 @@
 import React, { forwardRef } from 'react';
-
 import classNames from 'classnames';
 
 import Button from '../button';
-import { commentDefaultProps } from './defaultProps';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { commentDefaultProps } from './defaultProps';
 
-import type { TdCommentProps } from './type';
 import type { StyledProps } from '../common';
+import type { TdCommentProps } from './type';
 
 export interface CommentProps extends TdCommentProps, StyledProps {}
 

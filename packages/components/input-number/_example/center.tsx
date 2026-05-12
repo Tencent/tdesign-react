@@ -1,5 +1,4 @@
-import React, { useState, useMemo } from 'react';
-
+import React, { useMemo, useState } from 'react';
 import { InputNumber, Space } from 'tdesign-react';
 
 import type { InputNumberProps, InputNumberValue } from 'tdesign-react';

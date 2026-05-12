@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { BrowseIcon } from 'tdesign-icons-react';
 
 import useConfig from '../hooks/useConfig';

@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
-
-import { ChatList, ChatSender, ChatMessage, useChat, AGUIAdapter } from '@tdesign-react/chat';
+import React, { useEffect, useRef, useState } from 'react';
 import { MessagePlugin } from 'tdesign-react';
+import { AGUIAdapter, ChatList, ChatMessage, ChatSender, useChat } from '@tdesign-react/chat';
 
-import type { TdChatSenderParams, ChatRequestParams } from '@tdesign-react/chat';
+import type { ChatRequestParams, TdChatSenderParams } from '@tdesign-react/chat';
 
 /**
  * AG-UI 协议基础示例

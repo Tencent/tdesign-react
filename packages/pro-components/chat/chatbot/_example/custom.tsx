@@ -1,18 +1,17 @@
 import React, { useRef } from 'react';
-
-import { ChatBot } from '@tdesign-react/chat';
 import { CopyIcon, EditIcon, SoundIcon } from 'tdesign-icons-react';
 import { Button, Space } from 'tdesign-react';
 import TvisionTcharts from 'tvision-charts-react';
+import { ChatBot } from '@tdesign-react/chat';
 
 import type {
-  SSEChunkData,
-  TdChatMessageConfig,
   AIContentChunkUpdate,
-  ChatRequestParams,
-  ChatServiceConfig,
   ChatBaseContent,
   ChatMessagesData,
+  ChatRequestParams,
+  ChatServiceConfig,
+  SSEChunkData,
+  TdChatMessageConfig,
 } from '@tdesign-react/chat';
 
 // 1、扩展自定义消息体类型

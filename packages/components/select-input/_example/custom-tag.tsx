@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useEffect, useState } from 'react';
 import { ControlPlatformIcon } from 'tdesign-icons-react';
 import { SelectInput, Tag } from 'tdesign-react';
 

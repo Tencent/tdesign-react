@@ -1,20 +1,19 @@
 import React, { useMemo, useRef } from 'react';
-
-import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
 import classNames from 'classnames';
 import { isFunction, isNumber, isString } from 'lodash-es';
+import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
 
-import { sliderDefaultProps } from './defaultProps';
-import SliderHandleButton from './SliderHandleButton';
 import { accAdd, numberToPercent } from '../_util/number';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import InputNumber from '../input-number/InputNumber';
+import { sliderDefaultProps } from './defaultProps';
+import SliderHandleButton from './SliderHandleButton';
 
 import type { StyledProps, TNode } from '../common';
-import type { SliderValue, TdSliderProps } from './type';
 import type { MouseCallback } from '../hooks/useMouseEvent';
+import type { SliderValue, TdSliderProps } from './type';
 
 export interface SliderProps<T extends SliderValue = SliderValue> extends TdSliderProps<T>, StyledProps {}
 

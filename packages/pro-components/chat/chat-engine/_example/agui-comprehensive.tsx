@@ -1,34 +1,33 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-
-import {
-  ChatList,
-  ChatSender,
-  ChatMessage,
-  ToolCallRenderer,
-  useAgentToolcall,
-  useAgentActivity,
-  useChat,
-  useAgentState,
-  isToolCallContent,
-  ActivityRenderer,
-  isActivityContent,
-} from '@tdesign-react/chat';
 import {
   CheckCircleFilledIcon,
-  TimeFilledIcon,
   ErrorCircleFilledIcon,
   LoadingIcon,
   StarFilledIcon,
+  TimeFilledIcon,
 } from 'tdesign-icons-react';
-import { Button, Card, Progress, Tag, Space, Input, Select } from 'tdesign-react';
+import { Button, Card, Input, Progress, Select, Space, Tag } from 'tdesign-react';
+import {
+  ActivityRenderer,
+  ChatList,
+  ChatMessage,
+  ChatSender,
+  isActivityContent,
+  isToolCallContent,
+  ToolCallRenderer,
+  useAgentActivity,
+  useAgentState,
+  useAgentToolcall,
+  useChat,
+} from '@tdesign-react/chat';
 
 import type {
+  ActivityComponentProps,
+  AIMessageContent,
   ChatMessagesData,
   ChatRequestParams,
   ToolCall,
   ToolcallComponentProps,
-  ActivityComponentProps,
-  AIMessageContent,
 } from '@tdesign-react/chat';
 
 // ==================== 类型定义 ====================

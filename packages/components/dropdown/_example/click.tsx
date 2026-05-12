@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Dropdown, Button, MessagePlugin } from 'tdesign-react';
+import { Button, Dropdown, MessagePlugin } from 'tdesign-react';
 
 export default function BasicDropdown() {
   const getContent = () => <div>操作四</div>;

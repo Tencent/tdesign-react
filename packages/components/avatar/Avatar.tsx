@@ -1,10 +1,6 @@
-import React, { useRef, useState, useEffect, useContext } from 'react';
-
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 
-import AvatarContext from './AvatarContext';
-import AvatarGroup from './AvatarGroup';
-import { avatarDefaultProps } from './defaultProps';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import { composeRefs } from '../_util/ref';
 import useCommonClassName from '../hooks/useCommonClassName';
@@ -12,12 +8,14 @@ import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useResizeObserver from '../hooks/useResizeObserver';
 import Image from '../image';
+import AvatarContext from './AvatarContext';
+import AvatarGroup from './AvatarGroup';
+import { avatarDefaultProps } from './defaultProps';
 
 import type { Ref } from 'react';
-
-import type { TdAvatarProps } from './type';
 import type { StyledProps } from '../common';
 import type { ImageProps } from '../image';
+import type { TdAvatarProps } from './type';
 
 export interface AvatarProps extends TdAvatarProps, StyledProps {
   children?: React.ReactNode;

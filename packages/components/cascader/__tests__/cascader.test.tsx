@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { render, fireEvent, mockTimeout, vi, userEvent, mockDelay } from '@test/utils';
+import { fireEvent, mockDelay, mockTimeout, render, userEvent, vi } from '@test/utils';
 
 import Tag from '../../tag';
 import Cascader, { CascaderPanel } from '../index';

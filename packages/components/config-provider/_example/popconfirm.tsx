@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { ConfigProvider, Popconfirm, Button, Space } from 'tdesign-react';
+import { Button, ConfigProvider, Popconfirm, Space } from 'tdesign-react';
 import enConfig from 'tdesign-react/es/locale/en_US';
 
 import type { GlobalConfigProvider } from 'tdesign-react';

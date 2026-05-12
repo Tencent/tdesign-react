@@ -1,7 +1,4 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-
-import { downloadImage } from '@tdesign/common-js/image-viewer/utils';
-import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
 import classNames from 'classnames';
 import { isArray, isFunction } from 'lodash-es';
 import {
@@ -10,6 +7,8 @@ import {
   MirrorIcon as TdMirrorIcon,
   RotationIcon as TdRotationIcon,
 } from 'tdesign-icons-react';
+import { downloadImage } from '@tdesign/common-js/image-viewer/utils';
+import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
 
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';

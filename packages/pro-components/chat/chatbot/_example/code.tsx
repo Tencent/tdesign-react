@@ -1,19 +1,18 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useRef } from 'react';
-
+import { Card, DialogPlugin, Space } from 'tdesign-react';
 import { ChatBot } from '@tdesign-react/chat';
-import { DialogPlugin, Card, Space } from 'tdesign-react';
 
 import Login from './components/login';
 
 import type {
-  ChatMessagesData,
-  SSEChunkData,
-  TdChatMessageConfig,
   AIMessageContent,
+  ChatMessagesData,
   ChatRequestParams,
   ChatServiceConfig,
+  SSEChunkData,
   TdChatbotApi,
+  TdChatMessageConfig,
 } from '@tdesign-react/chat';
 
 // 默认初始化消息

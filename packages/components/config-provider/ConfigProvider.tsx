@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-
-import { mergeWith as _mergeWith, cloneDeep } from 'lodash-es';
+import { cloneDeep, mergeWith as _mergeWith } from 'lodash-es';
 
 import ConfigContext, { defaultGlobalConfig } from './ConfigContext';
 

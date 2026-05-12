@@ -1,20 +1,18 @@
-import React, { useRef, forwardRef, useState } from 'react';
-
+import React, { forwardRef, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { CheckIcon, CopyIcon } from 'tdesign-icons-react';
 
-import { textDefaultProps } from './defaultProps';
-import Ellipsis from './ellipsis/Ellipsis';
 import copyText from '../_util/copyText';
-import useConfig from '../hooks/useConfig';
-import useEllipsis from './ellipsis/useEllipsis';
 import Button from '../button/Button';
+import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import Tooltip from '../tooltip';
+import { textDefaultProps } from './defaultProps';
+import Ellipsis from './ellipsis/Ellipsis';
+import useEllipsis from './ellipsis/useEllipsis';
 
 import type { ReactElement } from 'react';
-
 import type { StyledProps } from '../common';
 import type { TdTextProps } from './type';
 

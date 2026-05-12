@@ -1,7 +1,6 @@
 import { useState } from 'react';
-
-import log from '@tdesign/common-js/log/index';
 import { get } from 'lodash-es';
+import log from '@tdesign/common-js/log/index';
 
 import useIsomorphicLayoutEffect from '../../hooks/useLayoutEffect';
 

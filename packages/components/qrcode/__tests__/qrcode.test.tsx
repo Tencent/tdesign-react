@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { render, waitFor } from '@test/utils';
 
 import QRCode from '../QRCode';

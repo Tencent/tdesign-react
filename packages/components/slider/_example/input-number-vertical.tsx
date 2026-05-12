@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { Slider } from 'tdesign-react';
 
 import type { SliderProps, SliderValue } from 'tdesign-react';

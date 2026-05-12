@@ -1,7 +1,6 @@
 import React from 'react';
-
-import { Filecard } from '@tdesign-react/chat';
 import { Space } from 'tdesign-react';
+import { Filecard } from '@tdesign-react/chat';
 
 import type { TdAttachmentItem } from '@tdesign-react/chat';
 

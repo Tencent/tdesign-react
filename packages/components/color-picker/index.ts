@@ -1,7 +1,7 @@
+import './style';
+
 import _ColorPicker from './ColorPicker';
 import _ColorPickerPanel from './ColorPickerPanel';
-
-import './style';
 
 export type { ColorPickerProps } from './interface';
 export * from './type';

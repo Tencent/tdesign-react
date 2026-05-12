@@ -1,23 +1,21 @@
-import React, { forwardRef, useRef, isValidElement, useEffect, useState } from 'react';
-
+import React, { forwardRef, isValidElement, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
 import { CaretRightSmallIcon as TdCaretRightSmallIcon } from 'tdesign-icons-react';
 
-import Checkbox from '../checkbox';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import useDraggable from './hooks/useDraggable';
-import { useTreeConfig } from './hooks/useTreeConfig';
 import { composeRefs } from '../_util/ref';
+import Checkbox from '../checkbox';
 import useConfig from '../hooks/useConfig';
 import useDomRefCallback from '../hooks/useDomRefCallback';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import useRipple from '../hooks/useRipple';
 import Loading from '../loading';
+import useDraggable from './hooks/useDraggable';
+import { useTreeConfig } from './hooks/useTreeConfig';
 
+import type { CSSProperties, DragEvent, DragEventHandler, MouseEvent, ReactNode } from 'react';
 import type TreeNode from '@tdesign/common-js/tree-v1/tree-node';
 import type { TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
-import type { CSSProperties, DragEventHandler, MouseEvent, ReactNode, DragEvent } from 'react';
-
 import type { CheckboxProps } from '../checkbox';
 import type { TreeItemProps } from './interface';
 import type { TdTreeProps } from './type';

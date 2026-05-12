@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-
-import { Attachments } from '@tdesign-react/chat';
 import { Space } from 'tdesign-react';
+import { Attachments } from '@tdesign-react/chat';
 
 import type { TdAttachmentItem } from '@tdesign-react/chat';
 

@@ -1,8 +1,8 @@
+import 'tdesign-web-components/lib/chat-sender';
+
 import reactify from '../_util/reactify';
 
 import type { TdChatSenderProps } from 'tdesign-web-components';
-
-import 'tdesign-web-components/lib/chat-sender';
 
 export const ChatSender: React.ForwardRefExoticComponent<
   Omit<TdChatSenderProps & React.PropsWithChildren, 'ref'> & React.RefAttributes<HTMLElement | undefined>

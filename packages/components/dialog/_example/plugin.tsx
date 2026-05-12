@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { DialogPlugin, Button, Space } from 'tdesign-react';
+import { Button, DialogPlugin, Space } from 'tdesign-react';
 
 const buttonStyle = { marginRight: 16 };
 

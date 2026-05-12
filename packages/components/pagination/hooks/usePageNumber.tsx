@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useMemo } from 'react';
-
+import React, { useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import {
-  EllipsisIcon as TdEllipsisIcon,
   ChevronLeftDoubleIcon as TdChevronLeftDoubleIcon,
   ChevronRightDoubleIcon as TdChevronRightDoubleIcon,
+  EllipsisIcon as TdEllipsisIcon,
 } from 'tdesign-icons-react';
 
 import useConfig from '../../hooks/useConfig';

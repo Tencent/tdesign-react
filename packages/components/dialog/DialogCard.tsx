@@ -1,5 +1,4 @@
 import React, { forwardRef, isValidElement } from 'react';
-
 import classNames from 'classnames';
 import { isFunction, isObject, isString } from 'lodash-es';
 import {
@@ -10,11 +9,11 @@ import {
 
 import parseTNode from '../_util/parseTNode';
 import Button from '../button';
-import { dialogCardDefaultProps } from './defaultProps';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { dialogCardDefaultProps } from './defaultProps';
 
 import type { ButtonProps } from '../button';
 import type { StyledProps } from '../common';

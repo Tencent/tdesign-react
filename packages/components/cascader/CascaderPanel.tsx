@@ -1,15 +1,14 @@
 import React from 'react';
-
 import classNames from 'classnames';
 import { pick } from 'lodash-es';
 
+import useDefaultProps from '../hooks/useDefaultProps';
 import Panel from './components/Panel';
 import { cascaderDefaultProps } from './defaultProps';
 import { useCascaderContext } from './hooks';
-import useDefaultProps from '../hooks/useDefaultProps';
 
-import type { TdCascaderProps } from './interface';
 import type { StyledProps } from '../common';
+import type { TdCascaderProps } from './interface';
 
 export interface CascaderProps extends TdCascaderProps, StyledProps {}
 

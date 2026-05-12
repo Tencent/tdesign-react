@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { WeatherCard, ItineraryCard, HotelCard, HumanInputResult } from '../components';
+import { HotelCard, HumanInputResult, ItineraryCard, WeatherCard } from '../components';
 
 import type { AIMessageContent, ChatMessagesData } from '@tdesign-react/chat';
 

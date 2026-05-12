@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import { AutoComplete, HighlightOption } from 'tdesign-react';
 
 const classStyles = `

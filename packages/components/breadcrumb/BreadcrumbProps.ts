@@ -1,5 +1,4 @@
 import type React from 'react';
-
 import type { StyledProps } from '../common';
 import type { TdBreadcrumbItemProps, TdBreadcrumbProps } from './type';
 

@@ -1,16 +1,14 @@
 import React, { Children, cloneElement, isValidElement, useMemo, useRef } from 'react';
-
 import classNames from 'classnames';
 import { isEqual } from 'lodash-es';
 
-import Option from './Option';
-import OptionGroup from './OptionGroup';
 import useConfig from '../../hooks/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import usePanelVirtualScroll from '../hooks/usePanelVirtualScroll';
 import { getKeyMapping, getSelectValueArr } from '../util/helper';
+import Option from './Option';
+import OptionGroup from './OptionGroup';
 
-import type { SelectOptionProps } from './Option';
 import type {
   SelectOption,
   SelectOptionGroup,
@@ -19,6 +17,7 @@ import type {
   TdOptionProps,
   TdSelectProps,
 } from '../type';
+import type { SelectOptionProps } from './Option';
 
 interface SelectPopupProps
   extends Pick<

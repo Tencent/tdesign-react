@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { render, fireEvent, userEvent, mockTimeout, vi } from '@test/utils';
+import { fireEvent, mockTimeout, render, userEvent, vi } from '@test/utils';
 
 import ColorPicker from '../ColorPicker';
 import ColorPickerPanel from '../ColorPickerPanel';

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Avatar, Space } from 'tdesign-react';
 
 export default function ShapeAvatar() {

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Timeline } from 'tdesign-react';
 
 const CommonStyle = {

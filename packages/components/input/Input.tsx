@@ -1,5 +1,4 @@
 import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
-
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
 import {
@@ -8,9 +7,6 @@ import {
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
 } from 'tdesign-icons-react';
 
-import { inputDefaultProps } from './defaultProps';
-import InputGroup from './InputGroup';
-import useLengthLimit from './useLengthLimit';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import parseTNode from '../_util/parseTNode';
 import useConfig from '../hooks/useConfig';
@@ -19,6 +15,9 @@ import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useLayoutEffect from '../hooks/useLayoutEffect';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { inputDefaultProps } from './defaultProps';
+import InputGroup from './InputGroup';
+import useLengthLimit from './useLengthLimit';
 
 import type { StyledProps, TElement, TNode } from '../common';
 import type { TdInputProps } from './type';

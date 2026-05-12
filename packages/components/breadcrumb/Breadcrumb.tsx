@@ -1,16 +1,15 @@
 import React, { Children, useCallback, useMemo } from 'react';
-
-import log from '@tdesign/common-js/log/index';
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
 import { EllipsisIcon } from 'tdesign-icons-react';
+import log from '@tdesign/common-js/log/index';
 
-import { BreadcrumbContext } from './BreadcrumbContext';
-import BreadcrumbItem from './BreadcrumbItem';
-import { breadcrumbDefaultProps } from './defaultProps';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { BreadcrumbContext } from './BreadcrumbContext';
+import BreadcrumbItem from './BreadcrumbItem';
+import { breadcrumbDefaultProps } from './defaultProps';
 
 import type { BreadcrumbProps } from './BreadcrumbProps';
 import type { TdBreadcrumbItemProps } from './type';

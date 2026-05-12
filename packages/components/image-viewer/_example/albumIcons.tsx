@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { BrowseIcon, EllipsisIcon } from 'tdesign-icons-react';
 import { Image, ImageViewer, Popup, Space } from 'tdesign-react';
 

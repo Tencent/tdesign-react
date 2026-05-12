@@ -1,19 +1,17 @@
-import React, { useEffect, useMemo, useState, useCallback } from 'react';
-
-import log from '@tdesign/common-js/log/index';
-import { DEFAULT_STEPS, DEFAULT_FORMAT } from '@tdesign/common-js/time-picker/const';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import dayjs from 'dayjs';
+import log from '@tdesign/common-js/log/index';
+import { DEFAULT_FORMAT, DEFAULT_STEPS } from '@tdesign/common-js/time-picker/const';
 
-import SinglePanel from './SinglePanel';
 import Button from '../../button';
 import useConfig from '../../hooks/useConfig';
 import { useTimePickerTextConfig } from '../hooks/useTimePickerTextConfig';
+import SinglePanel from './SinglePanel';
 
 import type { FC } from 'react';
-
-import type { SinglePanelProps } from './SinglePanel';
 import type { TimePickerProps } from '../TimePicker';
 import type { TimeRangePickerProps } from '../TimeRangePicker';
+import type { SinglePanelProps } from './SinglePanel';
 
 export interface TimePickerPanelProps extends SinglePanelProps {
   isShowPanel?: boolean;

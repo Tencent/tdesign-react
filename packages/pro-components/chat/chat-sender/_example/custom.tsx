@@ -1,8 +1,7 @@
 import React, { useRef, useState } from 'react';
-
+import { ArrowUpIcon, AttachIcon, CloseIcon, EnterIcon, InternetIcon, StopIcon } from 'tdesign-icons-react';
+import { Button, Dropdown, Space, Tag, Tooltip } from 'tdesign-react';
 import { ChatSender } from '@tdesign-react/chat';
-import { EnterIcon, InternetIcon, AttachIcon, CloseIcon, ArrowUpIcon, StopIcon } from 'tdesign-icons-react';
-import { Space, Button, Tag, Dropdown, Tooltip } from 'tdesign-react';
 
 import { useDynamicStyle } from '../../_util/useDynamicStyle';
 

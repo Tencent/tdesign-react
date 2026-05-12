@@ -1,6 +1,5 @@
 import React, { useContext, useMemo, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
-
 import classNames from 'classnames';
 
 import parseTNode from '../_util/parseTNode';
@@ -17,7 +16,6 @@ import { getSubMenuMaxHeight } from './_util/getSubMenuChildStyle';
 import { MenuContext } from './MenuContext';
 
 import type { FC, ReactElement } from 'react';
-
 import type { StyledProps } from '../common';
 import type { PopupPlacement } from '../popup';
 import type { TdSubmenuProps } from './type';

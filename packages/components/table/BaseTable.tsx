@@ -1,16 +1,15 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-
-import log from '@tdesign/common-js/log/index';
-import { getIEVersion } from '@tdesign/common-js/utils/helper';
 import classNames from 'classnames';
 import { pick } from 'lodash-es';
+import log from '@tdesign/common-js/log/index';
+import { getIEVersion } from '@tdesign/common-js/utils/helper';
 
 import Affix from '../affix';
-import Loading from '../loading';
-import { baseTableDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useElementLazyRender from '../hooks/useElementLazyRender';
 import useVirtualScroll from '../hooks/useVirtualScroll';
+import Loading from '../loading';
+import { baseTableDefaultProps } from './defaultProps';
 import useAffix from './hooks/useAffix';
 import useClassName from './hooks/useClassName';
 import useColumnResize from './hooks/useColumnResize';
@@ -25,12 +24,11 @@ import { ROW_LISTENERS } from './TR';
 import { getAffixProps } from './utils';
 
 import type { RefAttributes } from 'react';
-
-import type { TableBodyProps } from './TBody';
-import type { TheadProps } from './THead';
 import type { AffixRef } from '../affix';
 import type { Styles } from '../common';
 import type { BaseTableProps, BaseTableRef } from './interface';
+import type { TableBodyProps } from './TBody';
+import type { TheadProps } from './THead';
 import type { TableRowData } from './type';
 
 export const BASE_TABLE_EVENTS = ['page-change', 'cell-click', 'scroll', 'scrollX', 'scrollY'];

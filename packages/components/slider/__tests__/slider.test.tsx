@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { render, fireEvent } from '@test/utils';
+import { fireEvent, render } from '@test/utils';
 
 import Slider from '../Slider';
 

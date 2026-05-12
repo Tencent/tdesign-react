@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Loading from './Loading';
 import { render, unmount } from '../_util/react-render';
 import PluginContainer from '../common/PluginContainer';
 import ConfigProvider from '../config-provider';
+import Loading from './Loading';
 
 import type { LoadingProps } from './Loading';
 import type { LoadingInstance, TdLoadingProps } from './type';

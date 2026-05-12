@@ -1,15 +1,14 @@
 import React from 'react';
-
 import {
   DEFAULT_BACKGROUND_COLOR,
   DEFAULT_FRONT_COLOR,
-  DEFAULT_NEED_MARGIN,
   DEFAULT_LEVEL,
   DEFAULT_MINVERSION,
+  DEFAULT_NEED_MARGIN,
   DEFAULT_SIZE,
-  isSupportPath2d,
   excavateModules,
   generatePath,
+  isSupportPath2d,
 } from '@tdesign/common-js/qrcode/utils';
 
 import { useQRCode } from './hooks/useQRCode';

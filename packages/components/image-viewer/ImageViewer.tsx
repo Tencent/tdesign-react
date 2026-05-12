@@ -1,19 +1,18 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
-
-import { formatImages } from '@tdesign/common-js/image-viewer/utils';
 import { isFunction, isNumber } from 'lodash-es';
+import { formatImages } from '@tdesign/common-js/image-viewer/utils';
 
-import { imageViewerDefaultProps } from './defaultProps';
-import { DefaultTrigger } from './defaultTrigger';
-import { ImageModal } from './ImageViewerModal';
 import { canUseDocument } from '../_util/dom';
 import useAttach from '../hooks/useAttach';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { imageViewerDefaultProps } from './defaultProps';
+import { DefaultTrigger } from './defaultTrigger';
 import useImageScale from './hooks/useImageScale';
 import useIndex from './hooks/useIndex';
 import useViewerScale from './hooks/useViewerScale';
+import { ImageModal } from './ImageViewerModal';
 
 import type { StyledProps, TNode } from '../common';
 import type { ImageModalProps } from './ImageViewerModal';

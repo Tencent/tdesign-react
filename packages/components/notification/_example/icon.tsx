@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Notification, Space } from 'tdesign-react';
 
 export default function NotificationExample() {

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Comment } from 'tdesign-react';
 
 export default function BasicComment() {

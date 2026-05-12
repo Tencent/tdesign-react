@@ -1,5 +1,7 @@
 import React, { forwardRef, useEffect, useState } from 'react';
-
+import classNames from 'classnames';
+import dayjs from 'dayjs';
+import { isArray, isFunction } from 'lodash-es';
 import {
   formatDate,
   formatTime,
@@ -10,9 +12,6 @@ import {
 } from '@tdesign/common-js/date-picker/format';
 import { addMonth, extractTimeObj, getRangeBounds, subtractMonth } from '@tdesign/common-js/date-picker/utils';
 import log from '@tdesign/common-js/log/index';
-import classNames from 'classnames';
-import dayjs from 'dayjs';
-import { isArray, isFunction } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -26,12 +25,12 @@ import { dateCorrection, triggerMap } from './utils';
 
 import type { StyledProps } from '../common';
 import type {
+  DatePickerMonthChangeTrigger,
+  DatePickerYearChangeTrigger,
   DateRangeValue,
+  PickerDateRange,
   PresetDate,
   TdDateRangePickerProps,
-  DatePickerYearChangeTrigger,
-  DatePickerMonthChangeTrigger,
-  PickerDateRange,
 } from './type';
 
 export interface DateRangePickerProps extends TdDateRangePickerProps, StyledProps {}

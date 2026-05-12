@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { render, screen } from '@test/utils';
 
 import Descriptions from '../index';

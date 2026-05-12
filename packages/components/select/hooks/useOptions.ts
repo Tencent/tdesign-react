@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react';
-
 import { get, isNumber } from 'lodash-es';
 
 import Option from '../base/Option';
@@ -7,7 +6,6 @@ import OptionGroup from '../base/OptionGroup';
 import { getKeyMapping, getValueToOption } from '../util/helper';
 
 import type { ReactElement, ReactNode } from 'react';
-
 import type { SelectKeysType, SelectOption, SelectOptionGroup, SelectValue, TdOptionProps } from '../type';
 import type { ValueToOption } from '../util/helper';
 

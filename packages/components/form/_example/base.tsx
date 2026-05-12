@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Form, Input, Radio, Checkbox, Button, Switch, MessagePlugin, DatePicker, Tooltip, Space } from 'tdesign-react';
+import { Button, Checkbox, DatePicker, Form, Input, MessagePlugin, Radio, Space, Switch, Tooltip } from 'tdesign-react';
 
 import type { FormProps } from 'tdesign-react';
 

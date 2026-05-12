@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-
-import { TipsIcon, UserIcon, HeartIcon, HomeIcon } from 'tdesign-icons-react';
-import { Timeline, Space, Radio } from 'tdesign-react';
+import { HeartIcon, HomeIcon, TipsIcon, UserIcon } from 'tdesign-icons-react';
+import { Radio, Space, Timeline } from 'tdesign-react';
 
 const color = 'var(--td-brand-color)';
 

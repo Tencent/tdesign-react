@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { QRCode, Radio, Space } from 'tdesign-react';
 
 import type { QrCodeProps } from 'tdesign-react';

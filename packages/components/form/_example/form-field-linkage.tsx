@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Button, Form, Radio } from 'tdesign-react';
 
 const { FormItem } = Form;

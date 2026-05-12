@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { Button, MessagePlugin, Input, Space } from 'tdesign-react';
+import { Button, Input, MessagePlugin, Space } from 'tdesign-react';
 
 import type { CSSProperties } from 'react';
 import type { InputValue } from 'tdesign-react';

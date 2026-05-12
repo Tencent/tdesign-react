@@ -1,14 +1,12 @@
 import React, { useContext, useEffect } from 'react';
-
 import classNames from 'classnames';
 
-import { AnchorContext } from './AnchorContext';
-import { anchorItemDefaultProps } from './defaultProps';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { AnchorContext } from './AnchorContext';
+import { anchorItemDefaultProps } from './defaultProps';
 
 import type { FunctionComponent } from 'react';
-
 import type { StyledProps } from '../common';
 import type { TdAnchorItemProps } from './type';
 

@@ -1,18 +1,16 @@
 import React from 'react';
-
 import classNames from 'classnames';
 import { ChevronDownIcon as TdChevronDownIcon } from 'tdesign-icons-react';
 
 import useGlobalIcon from '../hooks/useGlobalIcon';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import Tooltip from '../tooltip';
 import useClassName from './hooks/useClassName';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 import type { MouseEvent } from 'react';
-
-import type { SortType } from './type';
 import type { TNode } from '../common';
 import type { TooltipProps } from '../tooltip';
+import type { SortType } from './type';
 
 type SortTypeEnums = Array<'desc' | 'asc'>;
 

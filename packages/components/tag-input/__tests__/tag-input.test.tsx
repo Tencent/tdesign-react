@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { fireEvent, vi, render, act } from '@test/utils';
+import { act, fireEvent, render, vi } from '@test/utils';
 
 import { TagInput } from '../index';
 import { getTagInputValueMount } from './mount';

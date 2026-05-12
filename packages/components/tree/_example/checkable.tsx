@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
+import { Form, Radio, Space, Switch, Tree } from 'tdesign-react';
 
-import { Radio, Tree, Form, Switch, Space } from 'tdesign-react';
-
-import type { TreeProps, RadioGroupProps } from 'tdesign-react';
+import type { RadioGroupProps, TreeProps } from 'tdesign-react';
 
 const valueOptions = [
   {

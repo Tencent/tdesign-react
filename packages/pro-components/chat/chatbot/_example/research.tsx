@@ -1,18 +1,17 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useRef, useState } from 'react';
-
 import { ChatBot } from '@tdesign-react/chat';
 
 import type {
-  SSEChunkData,
   AIMessageContent,
   ChatMessagesData,
-  ChatServiceConfig,
-  TdAttachmentItem,
-  UploadFile,
   ChatRequestParams,
-  TdChatMessageConfig,
+  ChatServiceConfig,
+  SSEChunkData,
+  TdAttachmentItem,
   TdChatbotApi,
+  TdChatMessageConfig,
+  UploadFile,
 } from '@tdesign-react/chat';
 
 // 默认初始化消息

@@ -1,20 +1,18 @@
 import React, { useEffect, useRef } from 'react';
-
 import classnames from 'classnames';
 
-import CollapseContext from './CollapseContext';
-import CollapsePanel from './CollapsePanel';
-import { collapseDefaultProps } from './defaultProps';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
+import CollapseContext from './CollapseContext';
+import CollapsePanel from './CollapsePanel';
+import { collapseDefaultProps } from './defaultProps';
 
 import type { MouseEvent } from 'react';
-
 import type { StyledProps } from '../common';
 import type { CollapsePanelProps } from './CollapsePanel';
-import type { TdCollapseProps, CollapsePanelValue, CollapseValue } from './type';
+import type { CollapsePanelValue, CollapseValue, TdCollapseProps } from './type';
 
 export interface CollapseProps extends TdCollapseProps, StyledProps {
   children?: React.ReactNode;

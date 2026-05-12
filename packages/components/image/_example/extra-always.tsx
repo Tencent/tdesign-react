@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { PrintIcon } from 'tdesign-icons-react';
 import { Image, Space, Tag } from 'tdesign-react';
 

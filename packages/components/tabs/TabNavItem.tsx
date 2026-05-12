@@ -1,19 +1,17 @@
 import React from 'react';
-
 import classNames from 'classnames';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
 
-import { useTabClass } from './useTabClass';
 import noop from '../_util/noop';
 import useDomRefCallback from '../hooks/useDomRefCallback';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useRipple from '../hooks/useRipple';
+import { useTabClass } from './useTabClass';
 
 import type { MouseEvent } from 'react';
-
 import type { StyledProps } from '../common';
-import type { TdTabPanelProps, TdTabsProps } from './type';
 import type { DragSortInnerProps } from '../hooks/useDragSorter';
+import type { TdTabPanelProps, TdTabsProps } from './type';
 
 export interface TabNavItemProps extends TdTabPanelProps, StyledProps {
   // 当前 item 是否处于激活态

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { ConfigProvider, Input } from 'tdesign-react';
 import enConfig from 'tdesign-react/es/locale/en_US';
 

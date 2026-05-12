@@ -1,7 +1,6 @@
 import React from 'react';
-
-import { ChatActionBar, ChatMessage, getMessageContentForCopy } from '@tdesign-react/chat';
 import { Space } from 'tdesign-react';
+import { ChatActionBar, ChatMessage, getMessageContentForCopy } from '@tdesign-react/chat';
 
 import type { AIMessage } from '@tdesign-react/chat';
 

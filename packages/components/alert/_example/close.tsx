@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Alert, Space, Tag } from 'tdesign-react';
 
 export default function AlertClose() {

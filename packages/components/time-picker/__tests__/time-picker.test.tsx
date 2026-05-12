@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-
-import { fireEvent, render, waitFor, vi, mockDelay } from '@test/utils';
 import MockDate from 'mockdate';
+import { fireEvent, mockDelay, render, vi, waitFor } from '@test/utils';
 
 import TimePicker from '../index';
 

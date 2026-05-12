@@ -1,7 +1,6 @@
 import React from 'react';
-
-import { RefreshIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
-import { QRCode, Space, Loading } from 'tdesign-react';
+import { CheckCircleFilledIcon, CloseCircleFilledIcon, RefreshIcon } from 'tdesign-icons-react';
+import { Loading, QRCode, Space } from 'tdesign-react';
 
 import type { QrCodeProps } from 'tdesign-react';
 

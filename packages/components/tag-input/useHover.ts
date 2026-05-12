@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import type { MouseEvent } from 'react';
-
 import type { TdTagInputProps } from './type';
 
 export interface UseHoverParams {

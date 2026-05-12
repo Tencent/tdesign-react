@@ -1,11 +1,10 @@
 import React from 'react';
-
 import classNames from 'classnames';
 
 import useConfig from '../hooks/useConfig';
 import Popup from '../popup';
-import RangeInput from './RangeInput';
 import useOverlayInnerStyle from '../select-input/useOverlayInnerStyle';
+import RangeInput from './RangeInput';
 
 import type { StyledProps } from '../common';
 import type { TdRangeInputPopupProps } from './type';

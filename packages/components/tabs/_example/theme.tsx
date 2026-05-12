@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Tabs, Space } from 'tdesign-react';
+import { Space, Tabs } from 'tdesign-react';
 
 const { TabPanel } = Tabs;
 

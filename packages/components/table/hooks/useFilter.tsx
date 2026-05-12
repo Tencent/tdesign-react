@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-
-import { getColumnsResetValue } from '@tdesign/common-js/table/utils';
 import { isFunction } from 'lodash-es';
+import { getColumnsResetValue } from '@tdesign/common-js/table/utils';
 
 import TButton from '../../button';
 import useControlled from '../../hooks/useControlled';

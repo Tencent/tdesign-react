@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Space, Tree } from 'tdesign-react';
 
 import type { TreeProps } from 'tdesign-react';

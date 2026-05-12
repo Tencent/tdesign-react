@@ -1,20 +1,19 @@
-import React, { useState, useMemo, useEffect } from 'react';
-
+import React, { useEffect, useMemo, useState } from 'react';
 import classnames from 'classnames';
 import { difference, isArray } from 'lodash-es';
-import { ChevronRightIcon as TdChevronRightIcon, ChevronLeftIcon as TdChevronLeftIcon } from 'tdesign-icons-react';
+import { ChevronLeftIcon as TdChevronLeftIcon, ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
 
 import Button from '../button';
-import { transferDefaultProps } from './defaultProps';
-import TransferList from './TransferList';
-import { filterCheckedTreeNodes, getTargetNodes, getDefaultValue, getJSX, getLeafNodes } from './utils';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { transferDefaultProps } from './defaultProps';
+import TransferList from './TransferList';
+import { filterCheckedTreeNodes, getDefaultValue, getJSX, getLeafNodes, getTargetNodes } from './utils';
 
-import type { TNode, StyledProps } from '../common';
-import type { TdTransferProps, DataOption, TransferValue, TransferListType } from './type';
+import type { StyledProps, TNode } from '../common';
+import type { DataOption, TdTransferProps, TransferListType, TransferValue } from './type';
 
 export interface TransferProps extends TdTransferProps, StyledProps {
   content?: Array<TNode>;

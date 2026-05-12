@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-
-import { render, fireEvent, waitFor } from '@test/utils';
+import { fireEvent, render, waitFor } from '@test/utils';
 
 import Tree from '../../tree';
 import Transfer from '../index';
 
-import type { TransferValue, DataOption } from '../index';
+import type { DataOption, TransferValue } from '../index';
 
 describe('Transfer 测试', () => {
   test('Transfer default加入测试', async () => {

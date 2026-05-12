@@ -1,11 +1,8 @@
 import React, { forwardRef, useContext, useEffect, useMemo, useRef, useState } from 'react';
-
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
 import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
 
-import { BreadcrumbContext } from './BreadcrumbContext';
-import { breadcrumbItemDefaultProps } from './defaultProps';
 import parseTNode from '../_util/parseTNode';
 import { isNodeOverflow } from '../_util/scroll';
 import useCommonClassName from '../hooks/useCommonClassName';
@@ -13,6 +10,8 @@ import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { TooltipLite } from '../tooltip';
+import { BreadcrumbContext } from './BreadcrumbContext';
+import { breadcrumbItemDefaultProps } from './defaultProps';
 
 import type { BreadcrumbItemProps } from './BreadcrumbProps';
 

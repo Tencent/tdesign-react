@@ -1,17 +1,16 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useRef, useState } from 'react';
-
-import { ChatBot } from '@tdesign-react/chat';
 import { SystemSumIcon } from 'tdesign-icons-react';
-import { Button, Space, Select } from 'tdesign-react';
+import { Button, Select, Space } from 'tdesign-react';
+import { ChatBot } from '@tdesign-react/chat';
 
 import type {
-  SSEChunkData,
-  TdChatMessageConfigItem,
-  ChatRequestParams,
   ChatMessagesData,
+  ChatRequestParams,
   ChatServiceConfig,
+  SSEChunkData,
   TdChatbotApi,
+  TdChatMessageConfigItem,
 } from '@tdesign-react/chat';
 
 // 默认初始化消息

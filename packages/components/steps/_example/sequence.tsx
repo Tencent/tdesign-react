@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Steps, Space } from 'tdesign-react';
+import { Space, Steps } from 'tdesign-react';
 
 const { StepItem } = Steps;
 

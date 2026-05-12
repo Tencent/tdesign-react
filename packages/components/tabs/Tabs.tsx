@@ -1,15 +1,14 @@
 import React from 'react';
-
 import classNames from 'classnames';
 
-import { tabsDefaultProps } from './defaultProps';
-import TabNav from './TabNav';
-import TabPanel from './TabPanel';
-import { useTabClass } from './useTabClass';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useDragSorter from '../hooks/useDragSorter';
+import { tabsDefaultProps } from './defaultProps';
+import TabNav from './TabNav';
+import TabPanel from './TabPanel';
+import { useTabClass } from './useTabClass';
 
 import type { StyledProps } from '../common';
 import type { TabValue, TdTabsProps } from './type';

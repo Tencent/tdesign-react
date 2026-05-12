@@ -1,5 +1,4 @@
 import React, { forwardRef, useCallback, useImperativeHandle, useMemo, useRef } from 'react';
-
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
 
@@ -19,7 +18,6 @@ import { useTreeSelectUtils } from './hooks/useTreeSelectUtils';
 import { SelectArrow } from './SelectArrow';
 
 import type { ElementRef } from 'react';
-
 import type { StyledProps, TreeOptionData } from '../common';
 import type { InputRef } from '../input';
 import type { PopupRef } from '../popup';

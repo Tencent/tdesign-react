@@ -1,20 +1,18 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-
-import observe from '@tdesign/common-js/utils/observe';
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
 import { ImageErrorIcon as TdImageErrorIcon, ImageIcon as TdImageIcon } from 'tdesign-icons-react';
+import observe from '@tdesign/common-js/utils/observe';
 
-import { imageDefaultProps } from './defaultProps';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useImagePreviewUrl from '../hooks/useImagePreviewUrl';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import Space from '../space';
+import { imageDefaultProps } from './defaultProps';
 
-import type { SyntheticEvent, MouseEvent } from 'react';
-
+import type { MouseEvent, SyntheticEvent } from 'react';
 import type { StyledProps } from '../common';
 import type { TdImageProps } from './type';
 

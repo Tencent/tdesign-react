@@ -1,8 +1,8 @@
-import React, { useRef, forwardRef, useImperativeHandle } from 'react';
-
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import classNames from 'classnames';
 import { get } from 'lodash-es';
 
+import useDefaultProps from '../hooks/useDefaultProps';
 import BaseTable from './BaseTable';
 import { primaryTableDefaultProps } from './defaultProps';
 import EditableCell from './EditableCell';
@@ -15,18 +15,16 @@ import useFilter from './hooks/useFilter';
 import useRowExpand from './hooks/useRowExpand';
 import useRowSelect from './hooks/useRowSelect';
 import useSorter from './hooks/useSorter';
-import useTableHeader, { renderTitle } from './hooks/useTableHeader';
-import useDefaultProps from '../hooks/useDefaultProps';
 import useStyle from './hooks/useStyle';
+import useTableHeader, { renderTitle } from './hooks/useTableHeader';
 
 import type { ReactNode, RefAttributes } from 'react';
-
-import type { TdPrimaryTableProps, PrimaryTableCol, TableRowData, PrimaryTableCellParams } from './type';
+import type { CheckboxGroupValue } from '../checkbox';
+import type { StyledProps } from '../common';
 import type { PageInfo, PaginationProps } from '../pagination';
 import type { EditableCellProps } from './EditableCell';
 import type { BaseTableProps, PrimaryTableProps, PrimaryTableRef } from './interface';
-import type { CheckboxGroupValue } from '../checkbox';
-import type { StyledProps } from '../common';
+import type { PrimaryTableCellParams, PrimaryTableCol, TableRowData, TdPrimaryTableProps } from './type';
 
 export { BASE_TABLE_ALL_EVENTS } from './BaseTable';
 

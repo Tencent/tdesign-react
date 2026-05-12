@@ -1,23 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react';
-
-import observe from '@tdesign/common-js/utils/observe';
 import classNames from 'classnames';
+import observe from '@tdesign/common-js/utils/observe';
 
-import { radioGroupDefaultProps } from './defaultProps';
-import Radio from './Radio';
-import useKeyboard from './useKeyboard';
 import { CheckContext } from '../common/Check';
 import useCommonClassName from '../hooks/useCommonClassName';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDeepEffect from '../hooks/useDeepEffect';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { radioGroupDefaultProps } from './defaultProps';
+import Radio from './Radio';
+import useKeyboard from './useKeyboard';
 
 import type { CSSProperties, ReactNode } from 'react';
-
 import type { StyledProps } from '../common';
-import type { RadioValue, TdRadioGroupProps } from './type';
 import type { CheckContextValue } from '../common/Check';
+import type { RadioValue, TdRadioGroupProps } from './type';
 
 /**
  * RadioGroup 组件所接收的属性

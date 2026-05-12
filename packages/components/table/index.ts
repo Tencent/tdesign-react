@@ -1,11 +1,11 @@
+import './style/index.js';
+
 import _BaseTable from './BaseTable';
 import _EnhancedTable from './EnhancedTable';
 import _PrimaryTable from './PrimaryTable';
 
-import './style/index.js';
-
-export * from './type';
 export * from './interface';
+export * from './type';
 
 /**
  * @deprecated

@@ -3,11 +3,10 @@ module.exports = {
     'airbnb-base',
     'prettier', // eslint-config-prettier 处理冲突
     'plugin:react/recommended',
-    'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
   ],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'react-hooks'],
+  plugins: ['@typescript-eslint', 'react-hooks', 'simple-import-sort'],
   env: {
     browser: true,
     node: true,
@@ -72,6 +71,7 @@ module.exports = {
     'no-shadow': 'off',
 
     // import config
+    'import/order': 'off',
     'import/extensions': 'off',
     'import/no-named-as-default': 'off',
     'import/prefer-default-export': 'off',
@@ -79,32 +79,30 @@ module.exports = {
     'import/no-cycle': 'off',
     'import/no-unresolved': 'off',
     'import/no-relative-packages': 'off',
-    'import/order': [
+    'simple-import-sort/imports': [
       'error',
       {
-        groups: ['builtin', 'external', 'internal', ['parent', 'sibling', 'index'], 'object', 'type'],
-        pathGroups: [
-          {
-            pattern: 'react**',
-            group: 'external',
-            position: 'before',
-          },
-          {
-            pattern: '@/**',
-            group: 'internal',
-            position: 'before',
-          },
+        groups: [
+          // NodeJS 内置模块
+          [
+            '^(assert|buffer|child_process|cluster|console|constants|crypto|dgram|dns|domain|events|fs|http|https|module|net|os|path|punycode|querystring|readline|repl|stream|string_decoder|sys|timers|tls|tty|url|util|vm|zlib)(/.*|$)',
+          ],
+          // 副作用导入（例如 "dotenv/config"
+          ['^\\u0000'],
+          // 第三方包
+          ['^react', '^\\w', '^@\\w'],
+          // 内部路径别名
+          ['^@/'],
+          // 相对路径
+          ['^\\.'],
+          // 类型
+          ['^react\\u0000$', '^@?\\w.*\\u0000$', '^@/.*\\u0000$', '^\\..*\\u0000$'],
+          // css
+          ['\\.css$', '\\.less$'],
         ],
-        pathGroupsExcludedImportTypes: ['builtin', 'object', 'type'],
-        alphabetize: {
-          order: 'asc',
-          caseInsensitive: true,
-        },
-        'newlines-between': 'always',
-        'newlines-between-types': 'always-and-inside-groups',
-        sortTypesGroup: true,
       },
     ],
+    'simple-import-sort/exports': 'error',
 
     // typescript config
     '@typescript-eslint/explicit-module-boundary-types': 'off',

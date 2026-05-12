@@ -1,14 +1,12 @@
 import React, { useMemo } from 'react';
-
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
 
-import useClassName from './useClassName';
-import { getThRowspanAndColspan, getThList } from './useMultiHeader';
 import TEllipsis from '../Ellipsis';
+import useClassName from './useClassName';
+import { getThList, getThRowspanAndColspan } from './useMultiHeader';
 
 import type { ReactNode } from 'react';
-
 import type { BaseTableCol, PrimaryTableCol, TableRowData, TdBaseTableProps } from '../type';
 import type { TableColumns } from './useMultiHeader';
 

@@ -1,17 +1,15 @@
 import React, { forwardRef, useMemo } from 'react';
-
-import { ENTER_REG, SPACE_REG } from '@tdesign/common-js/common';
 import classNames from 'classnames';
+import { ENTER_REG, SPACE_REG } from '@tdesign/common-js/common';
 
-import { checkTagDefaultProps } from './defaultProps';
-import Tag from './Tag';
 import noop from '../_util/noop';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { checkTagDefaultProps } from './defaultProps';
+import Tag from './Tag';
 
-import type { MouseEvent, FocusEvent } from 'react';
-
+import type { FocusEvent, MouseEvent } from 'react';
 import type { StyledProps } from '../common';
 import type { TdCheckTagProps, TdTagProps } from './type';
 

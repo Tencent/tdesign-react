@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { Transfer } from 'tdesign-react';
 
 import type { TransferProps } from 'tdesign-react';

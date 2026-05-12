@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { UserIcon } from 'tdesign-icons-react';
 import { Avatar, Space } from 'tdesign-react';
 

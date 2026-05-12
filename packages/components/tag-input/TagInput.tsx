@@ -1,5 +1,4 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
-
 import classnames from 'classnames';
 import { isFunction } from 'lodash-es';
 import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-react';
@@ -16,7 +15,6 @@ import useTagList from './useTagList';
 import useTagScroll from './useTagScroll';
 
 import type { CompositionEvent, KeyboardEvent, MouseEvent } from 'react';
-
 import type { StyledProps } from '../common';
 import type { InputRef, InputValue } from '../input';
 import type { TdTagInputProps } from './type';

@@ -1,7 +1,6 @@
 import React from 'react';
-
+import { MessagePlugin, Space } from 'tdesign-react';
 import { ChatMessage } from '@tdesign-react/chat';
-import { Space, MessagePlugin } from 'tdesign-react';
 
 import type { AIMessage } from '@tdesign-react/chat';
 

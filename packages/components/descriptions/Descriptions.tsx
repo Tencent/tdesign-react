@@ -1,19 +1,18 @@
 import React from 'react';
-
 import classNames from 'classnames';
-import { isArray, assign } from 'lodash-es';
+import { assign, isArray } from 'lodash-es';
 
-import { descriptionsItemDefaultProps, descriptionsDefaultProps } from './defaultProps';
-import { DescriptionsContext } from './DescriptionsContext';
-import DescriptionsItem from './DescriptionsItem';
-import Row from './Row';
 import useCommonClassName from '../hooks/useCommonClassName';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { descriptionsDefaultProps, descriptionsItemDefaultProps } from './defaultProps';
+import { DescriptionsContext } from './DescriptionsContext';
+import DescriptionsItem from './DescriptionsItem';
+import Row from './Row';
 
-import type { TdDescriptionsItemProps, TdDescriptionsProps } from './type';
 import type { StyledProps } from '../common';
 import type { DescriptionsItemProps } from './DescriptionsItem';
+import type { TdDescriptionsItemProps, TdDescriptionsProps } from './type';
 
 /**
  * 实现思路

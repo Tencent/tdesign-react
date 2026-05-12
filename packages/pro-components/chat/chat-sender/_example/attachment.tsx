@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { ChatSender } from '@tdesign-react/chat';
 
 import type { TdAttachmentItem } from '@tdesign-react/chat';

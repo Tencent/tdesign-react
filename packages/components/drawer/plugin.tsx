@@ -1,15 +1,14 @@
 import React from 'react';
-
 import log from '@tdesign/common-js/log/index';
 
-import DrawerComponent from './Drawer';
 import { getAttach } from '../_util/dom';
 import { render } from '../_util/react-render';
 import PluginContainer from '../common/PluginContainer';
 import ConfigProvider from '../config-provider';
+import DrawerComponent from './Drawer';
 
 import type { DrawerProps } from './Drawer';
-import type { DrawerOptions, DrawerMethod, DrawerInstance } from './type';
+import type { DrawerInstance, DrawerMethod, DrawerOptions } from './type';
 
 const createDrawer: DrawerMethod = (props: DrawerOptions): DrawerInstance => {
   const drawerRef = React.createRef<DrawerInstance>();

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-
 import { ConfigProvider, Pagination } from 'tdesign-react';
 import enConfig from 'tdesign-react/es/locale/en_US';
 
 import type { GlobalConfigProvider } from 'tdesign-react';
-
 import type { JumperProps } from '../type';
 
 const GlobalJumper: React.FC<JumperProps> = ({ current, pageCount, onChange }) => {

@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-
 import classNames from 'classnames';
 import { throttle } from 'lodash-es';
 import { ChevronRightIcon as TdIconChevronRight } from 'tdesign-icons-react';
 
 import TDivider from '../divider';
-import DropdownItem from './DropdownItem';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
+import DropdownItem from './DropdownItem';
 
 import type { DropdownProps } from './Dropdown';
 import type { DropdownOption } from './type';

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { Select, Divider, Button, Input, Space } from 'tdesign-react';
+import { Button, Divider, Input, Select, Space } from 'tdesign-react';
 
 import type { SelectProps } from 'tdesign-react';
 

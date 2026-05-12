@@ -1,7 +1,6 @@
 import React from 'react';
-
-import { ChevronRightIcon, CaretDownSmallIcon } from 'tdesign-icons-react';
-import { ConfigProvider, Table, Space } from 'tdesign-react';
+import { CaretDownSmallIcon, ChevronRightIcon } from 'tdesign-icons-react';
+import { ConfigProvider, Space, Table } from 'tdesign-react';
 import enConfig from 'tdesign-react/es/locale/en_US';
 
 import type { GlobalConfigProvider } from 'tdesign-react';

@@ -1,17 +1,16 @@
 import React, { useEffect, useRef } from 'react';
-
-import { ChatBot } from '@tdesign-react/chat';
 import { CheckCircleFilledIcon } from 'tdesign-icons-react';
 import { Timeline } from 'tdesign-react';
+import { ChatBot } from '@tdesign-react/chat';
 
 import type {
-  TdChatMessageConfig,
   AIMessageContent,
-  ChatRequestParams,
-  ChatServiceConfig,
   ChatBaseContent,
   ChatMessagesData,
+  ChatRequestParams,
+  ChatServiceConfig,
   SSEChunkData,
+  TdChatMessageConfig,
 } from '@tdesign-react/chat';
 
 import './index.css';

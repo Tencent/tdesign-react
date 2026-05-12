@@ -1,13 +1,12 @@
 import React, { Fragment } from 'react';
-
 import classNames from 'classnames';
 
-import Avatar from './Avatar';
-import { AvatarContextProvider } from './AvatarContext';
-import { avatarGroupDefaultProps } from './defaultProps';
 import parseTNode from '../_util/parseTNode';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import Avatar from './Avatar';
+import { AvatarContextProvider } from './AvatarContext';
+import { avatarGroupDefaultProps } from './defaultProps';
 
 import type { StyledProps } from '../common';
 import type { AvatarProps } from './Avatar';

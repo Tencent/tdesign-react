@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { Dialog, Button } from 'tdesign-react';
+import { Button, Dialog } from 'tdesign-react';
 
 type Placement = 'center' | 'top';
 export default function PositionExample() {

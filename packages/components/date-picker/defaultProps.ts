@@ -3,10 +3,10 @@
  * */
 
 import type {
-  TdDatePickerProps,
-  TdDateRangePickerProps,
   TdDatePickerPanelProps,
+  TdDatePickerProps,
   TdDateRangePickerPanelProps,
+  TdDateRangePickerProps,
 } from './type';
 
 export const datePickerDefaultProps: TdDatePickerProps = {

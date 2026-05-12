@@ -1,10 +1,10 @@
 import React from 'react';
 
-import CheckboxGroup from './CheckboxGroup';
-import { checkboxDefaultProps } from './defaultProps';
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import Check from '../common/Check';
 import useDefaultProps from '../hooks/useDefaultProps';
+import CheckboxGroup from './CheckboxGroup';
+import { checkboxDefaultProps } from './defaultProps';
 
 import type { CheckProps } from '../common/Check';
 

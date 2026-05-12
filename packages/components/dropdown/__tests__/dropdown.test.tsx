@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { render, fireEvent, mockTimeout, act } from '@test/utils';
+import { act, fireEvent, mockTimeout, render } from '@test/utils';
 
 import Dropdown from '../Dropdown';
 

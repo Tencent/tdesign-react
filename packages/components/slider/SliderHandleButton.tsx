@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-
 import classNames from 'classnames';
 
 import useMouseEvent from '../hooks/useMouseEvent';

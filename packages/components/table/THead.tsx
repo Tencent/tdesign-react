@@ -1,5 +1,4 @@
-import React, { useRef, useMemo } from 'react';
-
+import React, { useMemo, useRef } from 'react';
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
 
@@ -9,8 +8,7 @@ import { getColumnFixedStyles } from './hooks/useFixed';
 import { renderTitle } from './hooks/useTableHeader';
 import { formatClassNames } from './utils';
 
-import type { MutableRefObject, CSSProperties } from 'react';
-
+import type { CSSProperties, MutableRefObject } from 'react';
 import type { AttachNode } from '../common';
 import type { TableColumns, ThRowspanAndColspan } from './hooks/useMultiHeader';
 import type { RowAndColFixedPosition } from './interface';

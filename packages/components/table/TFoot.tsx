@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
-
 import classNames from 'classnames';
-import { isFunction, get } from 'lodash-es';
+import { get, isFunction } from 'lodash-es';
 
 import useClassName from './hooks/useClassName';
 import { getColumnFixedStyles } from './hooks/useFixed';
@@ -9,7 +8,6 @@ import useRowspanAndColspan, { getCellKey } from './hooks/useRowspanAndColspan';
 import { formatRowAttributes, formatRowClassNames } from './utils';
 
 import type { CSSProperties } from 'react';
-
 import type { RowAndColFixedPosition } from './interface';
 import type { BaseTableCellParams, RowspanColspan, TableRowData, TdBaseTableProps } from './type';
 

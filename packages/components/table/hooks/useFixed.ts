@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-
+import { get, pick, xorWith } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
 import { getScrollbarWidthWithCSS } from '@tdesign/common-js/utils/getScrollbarWidth';
 import { getIEVersion } from '@tdesign/common-js/utils/helper';
-import { get, pick, xorWith } from 'lodash-es';
 
 import { off, on } from '../../_util/listener';
 import useDeepEffect from '../../hooks/useDeepEffect';
@@ -11,7 +10,6 @@ import usePrevious from '../../hooks/usePrevious';
 import { resizeObserverElement } from '../utils';
 
 import type { MutableRefObject } from 'react';
-
 import type { AffixRef } from '../../affix';
 import type { ClassName, Styles } from '../../common';
 import type { FixedColumnInfo, RowAndColFixedPosition, TableColFixedClasses, TableRowFixedClasses } from '../interface';

@@ -1,10 +1,7 @@
-import React, { useState, useMemo, forwardRef, useEffect } from 'react';
-
+import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
-import { omit, isNaN } from 'lodash-es';
+import { isNaN, omit } from 'lodash-es';
 
-import { paginationDefaultProps } from './defaultProps';
-import { pageSizeValidator } from './validators';
 import noop from '../_util/noop';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
@@ -13,10 +10,12 @@ import InputAdornment from '../input-adornment';
 import InputNumber from '../input-number';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import Select from '../select';
+import { paginationDefaultProps } from './defaultProps';
 import useBoundaryJumper from './hooks/useBoundaryJumper';
 import usePageNumber from './hooks/usePageNumber';
 import usePrevNextJumper from './hooks/usePrevNextJumper';
 import useTotal from './hooks/useTotal';
+import { pageSizeValidator } from './validators';
 
 import type { StyledProps } from '../common';
 import type { TdPaginationProps } from './type';

@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
-
+import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 
 import useConfig from '../hooks/useConfig';

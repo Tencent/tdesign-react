@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-
 import { UserIcon } from 'tdesign-icons-react';
-import { Card, Input, Select, Checkbox, Button, Space } from 'tdesign-react';
+import { Button, Card, Checkbox, Input, Select, Space } from 'tdesign-react';
 
 export interface FormField {
   name: string;

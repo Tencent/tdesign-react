@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { Drawer, Button } from 'tdesign-react';
+import { Button, Drawer } from 'tdesign-react';
 
 export default function () {
   const [visible, setVisible] = useState(false);

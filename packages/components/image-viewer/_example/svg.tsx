@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { ImageViewer } from 'tdesign-react';
 
 const img = [

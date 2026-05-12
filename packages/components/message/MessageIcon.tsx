@@ -4,7 +4,6 @@
  * @desc message 展示的 icon，基于 theme 参数，通过 map 映射展示合适的 icon. 借鉴原开发的实现方式,本次修改仅做文件拆分
  */
 import React from 'react';
-
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,

@@ -3,4 +3,4 @@ import { scrollToParentVisibleArea } from './getScrollParent';
 import getTargetElm from './getTargetElm';
 import scrollToElm from './scrollToElm';
 
-export { scrollToParentVisibleArea, getRelativePosition, getTargetElm, scrollToElm };
+export { getRelativePosition, getTargetElm, scrollToElm, scrollToParentVisibleArea };

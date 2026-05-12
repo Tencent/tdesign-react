@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-
+import { isArray, isEqual, isFunction } from 'lodash-es';
 import { pathToKey } from '@tdesign/common-js/tree-v1/tree-node-model';
 import TreeStore from '@tdesign/common-js/tree-v1/tree-store';
-import { isArray, isEqual, isFunction } from 'lodash-es';
 
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -11,7 +10,6 @@ import { getTreeValue, isEmptyValues, isValueInvalid } from './core/helper';
 import { cascaderDefaultProps } from './defaultProps';
 
 import type { TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
-
 import type { TreeOptionData } from '../common';
 import type {
   CascaderChangeSource,

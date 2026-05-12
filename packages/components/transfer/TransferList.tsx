@@ -1,10 +1,8 @@
 import React, { useMemo, useState } from 'react';
-
 import classnames from 'classnames';
-import { isFunction, isEmpty, isString } from 'lodash-es';
+import { isEmpty, isFunction, isString } from 'lodash-es';
 import { SearchIcon as TdSearchIcon } from 'tdesign-icons-react';
 
-import { getLeafNodes } from './utils';
 import { parseContentTNode } from '../_util/parseTNode';
 import Checkbox from '../checkbox';
 import useConfig from '../hooks/useConfig';
@@ -12,10 +10,11 @@ import useGlobalIcon from '../hooks/useGlobalIcon';
 import Input from '../input';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import Pagination from '../pagination';
+import { getLeafNodes } from './utils';
 
-import type { TdTransferProps, TransferListType, TransferValue } from './type';
-import type { TNode, StyledProps } from '../common';
+import type { StyledProps, TNode } from '../common';
 import type { PaginationProps } from '../pagination';
+import type { TdTransferProps, TransferListType, TransferValue } from './type';
 
 interface TransferListProps
   extends Pick<TdTransferProps, 'data' | 'search' | 'checked' | 'transferItem' | 'tree'>,

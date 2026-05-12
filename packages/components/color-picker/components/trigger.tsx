@@ -1,7 +1,6 @@
 import React from 'react';
-
-import { Color, getColorObject } from '@tdesign/common-js/color-picker/color';
 import classNames from 'classnames';
+import { Color, getColorObject } from '@tdesign/common-js/color-picker/color';
 
 import noop from '../../_util/noop';
 import { Input } from '../../input';

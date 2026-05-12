@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { ImageViewer, Space } from 'tdesign-react';
 
 const img = 'https://tdesign.gtimg.com/demo/demo-image-1.png';

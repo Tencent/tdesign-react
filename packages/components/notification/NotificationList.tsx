@@ -1,11 +1,11 @@
-import React, { forwardRef, useImperativeHandle, useState, useEffect } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 
-import NotificationComponent from './Notification';
 import noop from '../_util/noop';
 import { render } from '../_util/react-render';
 import PluginContainer from '../common/PluginContainer';
 import ConfigProvider from '../config-provider';
 import useConfig from '../hooks/useConfig';
+import NotificationComponent from './Notification';
 
 import type { Styles } from '../common';
 import type {

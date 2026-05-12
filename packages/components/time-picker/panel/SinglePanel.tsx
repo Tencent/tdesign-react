@@ -1,11 +1,10 @@
-import React, { useCallback, useEffect, useState, useRef, useMemo } from 'react';
-
-import { AM, PM, EPickerCols, MERIDIEM_LIST, TWELVE_HOUR_FORMAT } from '@tdesign/common-js/time-picker/const';
-import { closestLookup, getPickerCols } from '@tdesign/common-js/time-picker/utils';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { padStart, range } from 'lodash-es';
+import { AM, EPickerCols, MERIDIEM_LIST, PM, TWELVE_HOUR_FORMAT } from '@tdesign/common-js/time-picker/const';
+import { closestLookup, getPickerCols } from '@tdesign/common-js/time-picker/utils';
 
 import noop from '../../_util/noop';
 import useConfig from '../../hooks/useConfig';
@@ -13,8 +12,7 @@ import useDebounce from '../../hooks/useDebounce';
 import { usePropRef } from '../../hooks/usePropsRef';
 import { useTimePickerTextConfig } from '../hooks/useTimePickerTextConfig';
 
-import type { FC, CSSProperties, MouseEvent, UIEvent } from 'react';
-
+import type { CSSProperties, FC, MouseEvent, UIEvent } from 'react';
 import type { TdTimePickerProps, TimeRangePickerPartial } from '../type';
 
 const timeArr = [EPickerCols.hour, EPickerCols.minute, EPickerCols.second, EPickerCols.milliSecond];

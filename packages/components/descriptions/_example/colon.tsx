@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Descriptions, Space, Switch } from 'tdesign-react';
 
 export default function Colon() {

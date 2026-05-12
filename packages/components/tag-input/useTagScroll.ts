@@ -3,11 +3,9 @@
  * 如果标签过多时的处理方式，是标签省略，则不需要此功能
  */
 import { useEffect, useRef, useState } from 'react';
-
 import { isFunction } from 'lodash-es';
 
 import type { WheelEvent } from 'react';
-
 import type { InputRef } from '../input';
 import type { TdTagInputProps } from './type';
 

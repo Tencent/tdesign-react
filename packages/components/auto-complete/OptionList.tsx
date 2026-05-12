@@ -1,18 +1,16 @@
-import React, { useMemo, useState, useRef, useEffect, useImperativeHandle, forwardRef } from 'react';
-
-import log from '@tdesign/common-js/log/index';
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
-import { isFunction, escapeRegExp } from 'lodash-es';
+import { escapeRegExp, isFunction } from 'lodash-es';
+import log from '@tdesign/common-js/log/index';
 
-import HighlightOption from './HighlightOption';
 import { off, on } from '../_util/listener';
 import useConfig from '../hooks/useConfig';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
+import HighlightOption from './HighlightOption';
 
 import type { MouseEvent } from 'react';
-
-import type { AutoCompleteOptionObj, TdAutoCompleteProps } from './type';
 import type { CommonClassNameType } from '../hooks/useCommonClassName';
+import type { AutoCompleteOptionObj, TdAutoCompleteProps } from './type';
 
 export interface OptionsListProps {
   sizeClassNames: CommonClassNameType['sizeClassNames'];

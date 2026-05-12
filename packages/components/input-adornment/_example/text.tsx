@@ -1,6 +1,5 @@
 ﻿import React from 'react';
-
-import { Input, TagInput, InputAdornment, Space } from 'tdesign-react';
+import { Input, InputAdornment, Space, TagInput } from 'tdesign-react';
 
 export default function BaseExample() {
   return (

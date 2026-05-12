@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-
-import { DiscountIcon, ToolsIcon, TipsIcon } from 'tdesign-icons-react';
-import { Tabs, Radio, Space } from 'tdesign-react';
+import { DiscountIcon, TipsIcon, ToolsIcon } from 'tdesign-icons-react';
+import { Radio, Space, Tabs } from 'tdesign-react';
 
 import type { TabsProps } from 'tdesign-react';
 

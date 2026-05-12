@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { MinusIcon, AddIcon } from 'tdesign-icons-react';
+import { AddIcon, MinusIcon } from 'tdesign-icons-react';
 import { Button, QRCode, Space } from 'tdesign-react';
 
 const MIN_SIZE = 48;

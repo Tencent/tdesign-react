@@ -1,6 +1,5 @@
 /* eslint-disable no-useless-escape */
 import React, { useEffect } from 'react';
-
 import { ChatMarkdown, MarkdownEngine } from '@tdesign-react/chat';
 
 const classStyles = `

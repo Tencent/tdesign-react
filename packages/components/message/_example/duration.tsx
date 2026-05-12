@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Button, MessagePlugin, Space } from 'tdesign-react';
 
 let message = null;

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Descriptions } from 'tdesign-react';
 
 export default function CustomStyle() {

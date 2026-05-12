@@ -1,7 +1,6 @@
 import React from 'react';
-
-import { EditIcon, DownloadIcon } from 'tdesign-icons-react';
-import { List, Space, Link, Button } from 'tdesign-react';
+import { DownloadIcon, EditIcon } from 'tdesign-icons-react';
+import { Button, Link, List, Space } from 'tdesign-react';
 
 const { ListItem, ListItemMeta } = List;
 

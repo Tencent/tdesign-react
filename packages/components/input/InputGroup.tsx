@@ -1,5 +1,4 @@
 import React, { forwardRef } from 'react';
-
 import classNames from 'classnames';
 
 import useConfig from '../hooks/useConfig';

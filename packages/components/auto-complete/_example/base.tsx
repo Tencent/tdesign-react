@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-
 import { SearchIcon } from 'tdesign-icons-react';
-import { Space, AutoComplete, Button } from 'tdesign-react';
+import { AutoComplete, Button, Space } from 'tdesign-react';
 
 import type { AutoCompleteProps } from 'tdesign-react';
 

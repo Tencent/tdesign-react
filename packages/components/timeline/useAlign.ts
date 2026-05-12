@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-
 import log from '@tdesign/common-js/log/index';
 
 const DefaultAlign = {

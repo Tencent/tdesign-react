@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-
 import { get, isEqual } from 'lodash-es';
 
-import { HOOK_MARK } from './useForm';
 import noop from '../../_util/noop';
+import { HOOK_MARK } from './useForm';
 
 import type { NamePath } from '../type';
 import type { InternalFormInstance } from './interface';

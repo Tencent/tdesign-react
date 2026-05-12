@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { render } from '@test/utils';
 
 import Avatar from '../../avatar';

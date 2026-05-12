@@ -1,10 +1,9 @@
 import React, { useRef } from 'react';
-
 import classNames from 'classnames';
 
+import useDefaultProps from '../hooks/useDefaultProps';
 import { tabPanelDefaultProps } from './defaultProps';
 import { useTabClass } from './useTabClass';
-import useDefaultProps from '../hooks/useDefaultProps';
 
 import type { StyledProps } from '../common';
 import type { TdTabPanelProps } from './type';

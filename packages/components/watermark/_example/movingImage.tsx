@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Watermark } from 'tdesign-react';
 
 export default function MovingImageWatermark() {

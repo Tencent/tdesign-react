@@ -1,7 +1,9 @@
 import React from 'react';
-
 import classNames from 'classnames';
 
+import forwardRefWithStatics from '../_util/forwardRefWithStatics';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
 import { DEFAULT_MENU_WIDTH } from './_util/constant';
 import { menuDefaultProps } from './defaultProps';
 import HeadMenu from './HeadMenu';
@@ -10,12 +12,9 @@ import { MenuContext } from './MenuContext';
 import MenuGroup from './MenuGroup';
 import MenuItem from './MenuItem';
 import SubMenu from './SubMenu';
-import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import useConfig from '../hooks/useConfig';
-import useDefaultProps from '../hooks/useDefaultProps';
 
-import type { TdMenuProps } from './type';
 import type { StyledProps } from '../common';
+import type { TdMenuProps } from './type';
 
 export interface MenuProps extends TdMenuProps, StyledProps {
   children?: React.ReactNode;

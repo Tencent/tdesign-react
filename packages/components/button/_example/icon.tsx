@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { SearchIcon, AddIcon, CloudUploadIcon, DiscountIcon, CloudDownloadIcon } from 'tdesign-icons-react';
+import { AddIcon, CloudDownloadIcon, CloudUploadIcon, DiscountIcon, SearchIcon } from 'tdesign-icons-react';
 import { Button, Space } from 'tdesign-react';
 
 export default function ButtonExample() {

@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { render, waitFor, fireEvent, act, vi } from '@test/utils';
+import { act, fireEvent, render, vi, waitFor } from '@test/utils';
 
 import TabNav from '../TabNav';
 import TabPanel from '../TabPanel';

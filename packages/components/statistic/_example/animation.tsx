@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Space, Button, Statistic } from 'tdesign-react';
+import { Button, Space, Statistic } from 'tdesign-react';
 
 import type { StatisticRef } from 'tdesign-react';
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { TagInput, Tag, Space } from 'tdesign-react';
+import { Space, Tag, TagInput } from 'tdesign-react';
 
 import type { TagInputValue } from 'tdesign-react';
 

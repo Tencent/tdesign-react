@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { Timeline, Space, Switch } from 'tdesign-react';
+import { Space, Switch, Timeline } from 'tdesign-react';
 
 export default function ReverseTimeLine() {
   const [reverse, setReverse] = useState(false);

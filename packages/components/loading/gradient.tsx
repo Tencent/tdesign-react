@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-
-import circleAdapter from '@tdesign/common-js/loading/circle-adapter';
 import classnames from 'classnames';
+import circleAdapter from '@tdesign/common-js/loading/circle-adapter';
 
 import useConfig from '../hooks/useConfig';
 import useDomRefCallback from '../hooks/useDomRefCallback';

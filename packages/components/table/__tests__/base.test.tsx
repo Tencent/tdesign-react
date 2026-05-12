@@ -1,8 +1,7 @@
 import React from 'react';
+import { fireEvent, render, vi } from '@test/utils';
 
-import { render, fireEvent, vi } from '@test/utils';
-
-import { Table, BaseTable, PrimaryTable, EnhancedTable } from '..';
+import { BaseTable, EnhancedTable, PrimaryTable, Table } from '..';
 
 const data = new Array(5).fill(null).map((item, index) => ({
   id: index + 100,

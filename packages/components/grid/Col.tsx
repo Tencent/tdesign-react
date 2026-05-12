@@ -1,15 +1,14 @@
-import React, { useContext, forwardRef } from 'react';
-
+import React, { forwardRef, useContext } from 'react';
 import classNames from 'classnames';
 import { isObject } from 'lodash-es';
 
-import { colDefaultProps } from './defaultProps';
-import { RowContext } from './Row';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { colDefaultProps } from './defaultProps';
+import { RowContext } from './Row';
 
-import type { TdColProps, TdRowProps } from './type';
 import type { StyledProps } from '../common';
+import type { TdColProps, TdRowProps } from './type';
 
 type FlexType = number | 'none' | 'auto' | string;
 

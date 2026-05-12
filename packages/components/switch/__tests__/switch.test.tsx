@@ -1,7 +1,6 @@
 import React from 'react';
-
 import log from '@tdesign/common-js/log/index';
-import { render, fireEvent, vi } from '@test/utils';
+import { fireEvent, render, vi } from '@test/utils';
 
 import noop from '../../_util/noop';
 import Switch from '../Switch';

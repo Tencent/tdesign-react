@@ -1,7 +1,6 @@
 import React from 'react';
-
-import { isSafari } from '@tdesign/common-js/utils/helper';
 import classNames from 'classnames';
+import { isSafari } from '@tdesign/common-js/utils/helper';
 
 import useConfig from '../hooks/useConfig';
 

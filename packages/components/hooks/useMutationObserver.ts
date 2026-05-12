@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-
 import { debounce, isEqual } from 'lodash-es';
 
 import useLatest from './useLatest';

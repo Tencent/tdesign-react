@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-
 import { CloseCircleFilledIcon } from 'tdesign-icons-react';
-import { Dialog, Button, Space } from 'tdesign-react';
+import { Button, Dialog, Space } from 'tdesign-react';
 
 export default function WarningExample() {
   const [visibleConfirm, setVisibleConfirm] = useState(false);

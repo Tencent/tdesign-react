@@ -1,9 +1,7 @@
 import React, { isValidElement } from 'react';
-
 import cls from 'classnames';
 import { isObject, isString } from 'lodash-es';
 
-import { emptyDefaultProps } from './defaultProps';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import Image from '../image';
@@ -13,11 +11,11 @@ import FailSvg from './assets/FailSvg';
 import MaintenanceSvg from './assets/MaintenanceSvg';
 import NetworkErrorSvg from './assets/NetworkErrorSvg';
 import SuccessSvg from './assets/SuccessSvg';
+import { emptyDefaultProps } from './defaultProps';
 
 import type { ReactNode } from 'react';
-
-import type { TdEmptyProps } from './type';
 import type { StyledProps } from '../common';
+import type { TdEmptyProps } from './type';
 
 export interface EmptyProps extends TdEmptyProps, StyledProps {}
 

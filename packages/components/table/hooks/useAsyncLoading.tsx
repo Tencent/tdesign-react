@@ -1,11 +1,10 @@
 import React from 'react';
-
 import classNames from 'classnames';
 import { isString } from 'lodash-es';
 
-import useClassName from './useClassName';
 import Loading from '../../loading';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import useClassName from './useClassName';
 
 import type { TdPrimaryTableProps } from '../type';
 

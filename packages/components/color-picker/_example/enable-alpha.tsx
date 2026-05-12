@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { ColorPickerPanel } from 'tdesign-react';
 
 import type { ColorPickerProps } from 'tdesign-react';

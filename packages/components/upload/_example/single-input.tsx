@@ -1,6 +1,5 @@
-import React, { useState, useRef } from 'react';
-
-import { Upload, MessagePlugin, Space, Button, Checkbox } from 'tdesign-react';
+import React, { useRef, useState } from 'react';
+import { Button, Checkbox, MessagePlugin, Space, Upload } from 'tdesign-react';
 
 import type { UploadProps } from 'tdesign-react';
 

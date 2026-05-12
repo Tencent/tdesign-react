@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { ChatBot } from '@tdesign-react/chat';
 
 import type { ChatServiceConfig } from '@tdesign-react/chat';

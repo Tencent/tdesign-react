@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { render, act, fireEvent, waitFor, vi } from '@test/utils';
+import { act, fireEvent, render, vi, waitFor } from '@test/utils';
 
 import Popconfirm from '../Popconfirm';
 

@@ -1,6 +1,4 @@
-import React, { forwardRef, isValidElement, useRef, useState, useEffect, useCallback } from 'react';
-
-import { getBackgroundColor } from '@tdesign/common-js/utils/helper';
+import React, { forwardRef, isValidElement, useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
@@ -10,11 +8,12 @@ import {
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
   ErrorIcon as TdErrorIcon,
 } from 'tdesign-icons-react';
+import { getBackgroundColor } from '@tdesign/common-js/utils/helper';
 
-import { progressDefaultProps } from './defaultProps';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
+import { progressDefaultProps } from './defaultProps';
 
 import type { StyledProps } from '../common';
 import type { TdProgressProps } from './type';

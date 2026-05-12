@@ -1,5 +1,4 @@
 ﻿import React, { useState } from 'react';
-
 import { Badge, Checkbox } from 'tdesign-react';
 
 const colors = [

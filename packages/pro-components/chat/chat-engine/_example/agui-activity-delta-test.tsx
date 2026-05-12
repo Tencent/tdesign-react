@@ -1,16 +1,15 @@
-import React, { useState, useRef, useMemo } from 'react';
-
-import {
-  ChatList,
-  ChatSender,
-  ChatMessage,
-  isActivityContent,
-  useChat,
-  useAgentActivity,
-  ActivityRenderer,
-} from '@tdesign-react/chat';
-import { CheckCircleFilledIcon, TimeFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+import React, { useMemo, useRef, useState } from 'react';
+import { CheckCircleFilledIcon, CloseCircleFilledIcon, TimeFilledIcon } from 'tdesign-icons-react';
 import { Card, Space, Tag } from 'tdesign-react';
+import {
+  ActivityRenderer,
+  ChatList,
+  ChatMessage,
+  ChatSender,
+  isActivityContent,
+  useAgentActivity,
+  useChat,
+} from '@tdesign-react/chat';
 
 import type { ActivityComponentProps } from '@tdesign-react/chat';
 

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { Skeleton, Switch } from 'tdesign-react';
 
 const style = {

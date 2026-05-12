@@ -1,35 +1,34 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-
+import { HistoryIcon, LoadingIcon } from 'tdesign-icons-react';
+import { Button } from 'tdesign-react';
 import {
-  ChatList,
-  ChatSender,
-  ChatMessage,
-  ChatActionBar,
-  isAIMessage,
-  getMessageContentForCopy,
   AGUIAdapter,
+  ChatActionBar,
+  ChatList,
+  ChatMessage,
+  ChatSender,
+  getMessageContentForCopy,
+  isAIMessage,
   isToolCallContent,
 } from '@tdesign-react/chat';
-import { LoadingIcon, HistoryIcon } from 'tdesign-icons-react';
-import { Button } from 'tdesign-react';
 
 import { ToolCallRenderer, useAgentToolcall, useChat } from '../index';
 import { travelActions } from './travel-actions';
 
+import type { ReactNode } from 'react';
 import type {
-  TdChatMessageConfig,
-  TdChatActionsName,
-  TdChatSenderParams,
+  AGUIHistoryMessage,
+  AIMessageContent,
+  ChatBaseContent,
   ChatMessagesData,
   ChatRequestParams,
-  ChatBaseContent,
-  AIMessageContent,
-  ToolCall,
-  AGUIHistoryMessage,
+  TdChatActionsName,
   TdChatListApi,
+  TdChatMessageConfig,
   TdChatSenderApi,
+  TdChatSenderParams,
+  ToolCall,
 } from '@tdesign-react/chat';
-import type { ReactNode } from 'react';
 
 import './travel.css';
 // 扩展自定义消息体类型

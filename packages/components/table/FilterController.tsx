@@ -1,9 +1,8 @@
-import React, { useState, useRef } from 'react';
-
-import log from '@tdesign/common-js/log/index';
+import React, { useRef, useState } from 'react';
 import classNames from 'classnames';
 import { isEmpty } from 'lodash-es';
 import { FilterIcon as TdFilterIcon } from 'tdesign-icons-react';
+import log from '@tdesign/common-js/log/index';
 
 import { parseContentTNode } from '../_util/parseTNode';
 import TButton from '../button';
@@ -15,7 +14,7 @@ import Popup from '../popup';
 import Radio from '../radio';
 
 import type { PopupProps } from '../popup';
-import type { PrimaryTableCol, FilterValue, TableRowData, TdPrimaryTableProps } from './type';
+import type { FilterValue, PrimaryTableCol, TableRowData, TdPrimaryTableProps } from './type';
 
 const CheckboxGroup = Checkbox.Group;
 const RadioGroup = Radio.Group;

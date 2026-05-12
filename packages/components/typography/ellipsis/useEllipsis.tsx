@@ -1,6 +1,5 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
-
 import { isFunction } from 'lodash-es';
 
 import { useLocaleReceiver } from '../../locale/LocalReceiver';

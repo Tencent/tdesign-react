@@ -1,15 +1,14 @@
 import React, { isValidElement, useState } from 'react';
-
 import classNames from 'classnames';
 import { omit } from 'lodash-es';
 
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
 import Popup from '../popup';
 import { dropdownDefaultProps } from './defaultProps';
 import DropdownItem from './DropdownItem';
 import DropdownMenu from './DropdownMenu';
-import useConfig from '../hooks/useConfig';
 import useDropdownOptions from './hooks/useDropdownOptions';
-import useDefaultProps from '../hooks/useDefaultProps';
 
 import type { StyledProps } from '../common';
 import type { PopupVisibleChangeContext } from '../popup';

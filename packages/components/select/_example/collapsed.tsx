@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { Select, Space, RadioGroup, Checkbox, Popup, Tag } from 'tdesign-react';
+import { Checkbox, Popup, RadioGroup, Select, Space, Tag } from 'tdesign-react';
 
 import type { SelectProps } from 'tdesign-react';
 

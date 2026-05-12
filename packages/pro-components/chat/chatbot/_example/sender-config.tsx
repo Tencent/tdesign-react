@@ -1,15 +1,14 @@
 import React, { useRef, useState } from 'react';
-
+import { Button, MessagePlugin, Space } from 'tdesign-react';
 import { ChatBot } from '@tdesign-react/chat';
-import { MessagePlugin, Button, Space } from 'tdesign-react';
 
 import type {
-  SSEChunkData,
   AIMessageContent,
   ChatServiceConfig,
-  TdChatSenderActionName,
+  SSEChunkData,
   TdAttachmentItem,
   TdChatbotApi,
+  TdChatSenderActionName,
 } from '@tdesign-react/chat';
 import type { UploadFile } from 'tdesign-react';
 

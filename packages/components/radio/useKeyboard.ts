@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-
 import { CHECKED_CODE_REG } from '@tdesign/common-js/common';
 
 import { off, on } from '../_util/listener';

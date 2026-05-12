@@ -1,17 +1,16 @@
-import React, { useState, useRef, useMemo } from 'react';
-
-import { ChatList, ChatSender, ChatMessage, useChat } from '@tdesign-react/chat';
+import React, { useMemo, useRef, useState } from 'react';
 import { ErrorCircleFilledIcon, RefreshIcon } from 'tdesign-icons-react';
-import { Card, Space, Radio, Tag, Button } from 'tdesign-react';
+import { Button, Card, Radio, Space, Tag } from 'tdesign-react';
+import { ChatList, ChatMessage, ChatSender, useChat } from '@tdesign-react/chat';
 
-import type {
-  SSEChunkData,
-  AIMessageContent,
-  ChatRequestParams,
-  ChatMessagesData,
-  ChatServiceConfig,
-} from '@tdesign-react/chat';
 import type { ReactNode } from 'react';
+import type {
+  AIMessageContent,
+  ChatMessagesData,
+  ChatRequestParams,
+  ChatServiceConfig,
+  SSEChunkData,
+} from '@tdesign-react/chat';
 
 /**
  * AG-UI RUN_ERROR 示例

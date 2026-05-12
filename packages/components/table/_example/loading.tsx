@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { LoadingIcon } from 'tdesign-icons-react';
 import { Table } from 'tdesign-react';
 

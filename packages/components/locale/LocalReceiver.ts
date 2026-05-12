@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { t as commonT } from '@tdesign/common-js/global-config/t';
 
 import { ConfigContext } from '../config-provider';

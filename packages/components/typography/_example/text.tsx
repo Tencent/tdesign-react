@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Typography, Space } from 'tdesign-react';
+import { Space, Typography } from 'tdesign-react';
 
 const { Text } = Typography;
 

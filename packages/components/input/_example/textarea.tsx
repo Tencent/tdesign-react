@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { SearchIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
+import { ErrorCircleFilledIcon, SearchIcon } from 'tdesign-icons-react';
 import { Input } from 'tdesign-react';
 
 export default function InputExample() {

@@ -1,14 +1,13 @@
 import React from 'react';
-
-import { abridgeName } from '@tdesign/common-js/upload/utils';
 import classNames from 'classnames';
 import {
-  CloseIcon as TdCloseIcon,
-  TimeFilledIcon as TdTimeFilledIcon,
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
-  ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
+  CloseIcon as TdCloseIcon,
+  ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
+  TimeFilledIcon as TdTimeFilledIcon,
 } from 'tdesign-icons-react';
+import { abridgeName } from '@tdesign/common-js/upload/utils';
 
 import parseTNode from '../../_util/parseTNode';
 import useGlobalIcon from '../../hooks/useGlobalIcon';

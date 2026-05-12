@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
-
 import { ConfigProvider, Space } from 'tdesign-react';
 import enConfig from 'tdesign-react/es/locale/en_US';
 
