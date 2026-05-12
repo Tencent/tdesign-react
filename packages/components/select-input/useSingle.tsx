@@ -56,11 +56,12 @@ export default function useSingle(props: SelectInputProps) {
 
   const inputRef = useRef<InputRef>(null);
   const blurTimeoutRef = useRef(null);
-  const customElementRef = useRef<HTMLDivElement>(null);
+  const customElementRef = useRef<HTMLSpanElement>(null);
 
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const [labelWidth, setLabelWidth] = useState<number>(0);
   const [customElementWidth, setCustomElementWidth] = useState<number>(0);
+  const [suffixSpace, setSuffixSpace] = useState<number>(0);
 
   const singleValueDisplay = useMemo(
     () => props.valueDisplay ?? getOptionLabel(value, props.keys),
@@ -99,6 +100,45 @@ export default function useSingle(props: SelectInputProps) {
     }
   }, [showCustomElement, singleValueDisplay]);
 
+  useEffect(() => {
+    const inputEl = inputRef.current?.inputElement;
+    if (!inputEl || !props.autoWidth) return;
+    if (showCustomElement && customElementWidth > 0) {
+      inputEl.style.minWidth = `${customElementWidth}px`;
+    } else {
+      inputEl.style.minWidth = '';
+    }
+  }, [props.autoWidth, showCustomElement, customElementWidth]);
+
+  useEffect(() => {
+    // 自定义 valueDisplay 时，labelNode 使用绝对定位
+    // 避免内容延伸盖到右侧的 suffixIcon 区域，需要测量 input 右侧到 wrapper 右侧的距离作为 right 留白
+    if (!showCustomElement) {
+      setSuffixSpace(0);
+      return;
+    }
+    const wrapperEl = inputRef.current?.currentElement;
+    const inputEl = inputRef.current?.inputElement;
+    if (!wrapperEl || !inputEl) return undefined;
+
+    const measure = () => {
+      const wrapperRect = wrapperEl.getBoundingClientRect();
+      const inputRect = inputEl.getBoundingClientRect();
+      // wrapper 右内边距 + suffix 区域 + suffixIcon 区域
+      const space = Math.max(wrapperRect.right - inputRect.right, 0);
+      setSuffixSpace(space);
+    };
+
+    measure();
+
+    wrapperEl.addEventListener('mouseenter', measure);
+    wrapperEl.addEventListener('mouseleave', measure);
+    return () => {
+      wrapperEl.removeEventListener('mouseenter', measure);
+      wrapperEl.removeEventListener('mouseleave', measure);
+    };
+  }, [showCustomElement, singleValueDisplay, props.clearable, props.suffixIcon, props.suffix]);
+
   const renderSelectSingle = (
     popupVisible: boolean,
     onInnerBlur?: (context: { e: React.FocusEvent<HTMLInputElement> }) => void,
@@ -130,7 +170,7 @@ export default function useSingle(props: SelectInputProps) {
       // !popupVisible && setInputValue(getInputValue(value, keys), { ...context, trigger: 'input' });
     };
 
-    const displayedValue = () => {
+    const displayedValue = (): string => {
       if (popupVisible && inputValue) {
         return inputValue;
       }
@@ -143,7 +183,7 @@ export default function useSingle(props: SelectInputProps) {
       return inputValue;
     };
 
-    const displayedPlaceholder = () => {
+    const displayedPlaceholder = (): string => {
       if (popupVisible && singleValueDisplay && !showCustomElement) {
         return singleValueDisplay;
       }
@@ -153,20 +193,22 @@ export default function useSingle(props: SelectInputProps) {
 
     const labelNode = showCustomElement ? (
       <div
-        ref={customElementRef}
         style={{
           position: 'absolute',
           left: `${labelWidth + 8}px`,
+          right: `${suffixSpace}px`,
           top: '50%',
           transform: 'translateY(-50%)',
           pointerEvents: 'none',
           textAlign: 'initial',
-          zIndex: 3,
+          overflow: 'hidden',
           // 输入状态，降低透明度，仿造 placeholder 效果
           opacity: popupVisible && props.allowInput ? 0.5 : undefined,
         }}
       >
-        {singleValueDisplay}
+        <span ref={customElementRef} style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
+          {singleValueDisplay}
+        </span>
       </div>
     ) : null;
 
