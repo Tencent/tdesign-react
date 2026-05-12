@@ -1,4 +1,3 @@
-import type { ReactElement } from 'react';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import classNames from 'classnames';
@@ -6,7 +5,7 @@ import { isNumber } from 'lodash-es';
 
 import Checkbox from './Checkbox';
 import { checkboxGroupDefaultProps } from './defaultProps';
-import { CheckContext, type CheckContextValue, type CheckProps } from '../common/Check';
+import { CheckContext } from '../common/Check';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -20,6 +19,8 @@ import type {
   TdCheckboxGroupProps,
   TdCheckboxProps,
 } from './type';
+import type { CheckContextValue, CheckProps } from '../common/Check';
+import type { ReactElement } from 'react';
 
 export interface CheckboxGroupProps<T extends CheckboxGroupValue = CheckboxGroupValue>
   extends TdCheckboxGroupProps<T>,

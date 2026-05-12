@@ -1,5 +1,3 @@
-import type { ReactNode } from 'react';
-
 import type { ScrollToElementParams, StyledProps } from '../common';
 import type { UseTreeDataReturnType } from './hooks/useTreeData';
 import type {
@@ -14,6 +12,7 @@ import type {
   TdPrimaryTableProps,
 } from './type';
 import type { TableTreeDataMap } from '@tdesign/common-js/table/tree-store';
+import type { ReactNode } from 'react';
 
 export interface BaseTableProps<T extends TableRowData = TableRowData> extends TdBaseTableProps<T>, StyledProps {
   /**

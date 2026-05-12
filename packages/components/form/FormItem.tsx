@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 
 import { cloneDeep, get, isEqual, isFunction, isObject, isString, set } from 'lodash-es';
@@ -33,6 +32,7 @@ import type {
   ValidateTriggerType,
   ValueType,
 } from './type';
+import type { ReactNode } from 'react';
 
 export interface FormItemProps extends TdFormItemProps, StyledProps {
   children?: React.ReactNode | React.ReactNode[] | ((form: FormInstanceFunctions) => React.ReactElement);

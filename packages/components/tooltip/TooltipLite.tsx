@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
@@ -16,6 +15,7 @@ import { getTransitionParams } from '../popup/utils/transition';
 
 import type { StyledProps } from '../common';
 import type { TdTooltipLiteProps } from './type';
+import type { ReactNode } from 'react';
 
 export interface TooltipLiteProps extends TdTooltipLiteProps, StyledProps {
   children?: ReactNode;

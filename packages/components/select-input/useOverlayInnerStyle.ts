@@ -1,4 +1,3 @@
-import type React from 'react';
 import { useMemo, useRef } from 'react';
 
 import { isFunction, isObject } from 'lodash-es';
@@ -8,6 +7,7 @@ import useInnerPopupVisible from '../hooks/useInnerPopupVisible';
 
 import type { PopupVisibleChangeContext, TdPopupProps } from '../popup';
 import type { TdSelectInputProps } from './type';
+import type React from 'react';
 
 export type overlayStyleProps = Pick<
   TdSelectInputProps,

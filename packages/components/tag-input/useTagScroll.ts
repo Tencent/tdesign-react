@@ -2,13 +2,13 @@
  * 当标签数量过多时，输入框显示不下，则需要滚动查看，以下为滚动逻辑
  * 如果标签过多时的处理方式，是标签省略，则不需要此功能
  */
-import type { WheelEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
 import { isFunction } from 'lodash-es';
 
 import type { InputRef } from '../input';
 import type { TdTagInputProps } from './type';
+import type { WheelEvent } from 'react';
 
 let mouseEnterTimer = null;
 

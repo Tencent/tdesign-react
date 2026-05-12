@@ -1,4 +1,3 @@
-import type { FunctionComponent } from 'react';
 import React from 'react';
 
 import classNames from 'classnames';
@@ -14,6 +13,7 @@ import Popup from '../popup';
 
 import type { TdAnchorTargetProps } from './type';
 import type { StyledProps } from '../common';
+import type { FunctionComponent } from 'react';
 
 export interface AnchorTargetProps extends TdAnchorTargetProps, StyledProps {
   children?: React.ReactNode;

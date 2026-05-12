@@ -1,4 +1,4 @@
-import { type MutableRefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import log from '@tdesign/common-js/log/index';
 import { getScrollbarWidthWithCSS } from '@tdesign/common-js/utils/getScrollbarWidth';
@@ -14,6 +14,7 @@ import type { AffixRef } from '../../affix';
 import type { ClassName, Styles } from '../../common';
 import type { FixedColumnInfo, RowAndColFixedPosition, TableColFixedClasses, TableRowFixedClasses } from '../interface';
 import type { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
+import type { MutableRefObject } from 'react';
 
 // 固定列相关类名处理
 export function getColumnFixedStyles(

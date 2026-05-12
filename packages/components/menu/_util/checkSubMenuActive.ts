@@ -1,10 +1,10 @@
-import type { ReactElement } from 'react';
 import React from 'react';
 
 import { checkIsSubMenu } from './checkMenuType';
 import checkSubMenuChildrenActive from './checkSubMenuChildrenActive';
 
 import type { MenuValue } from '../type';
+import type { ReactElement } from 'react';
 
 const checkSubMenuActive = (children: React.ReactNode, active: MenuValue): ReactElement =>
   React.Children.toArray(children).find(

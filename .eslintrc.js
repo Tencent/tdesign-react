@@ -95,12 +95,12 @@ module.exports = {
             position: 'before',
           },
         ],
-        pathGroupsExcludedImportTypes: ['builtin'],
-        'newlines-between': 'always',
+        pathGroupsExcludedImportTypes: ['builtin', 'object', 'type'],
         alphabetize: {
           order: 'asc',
           caseInsensitive: true,
         },
+        'newlines-between': 'always',
       },
     ],
 
@@ -116,12 +116,13 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
+    'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
     '@typescript-eslint/consistent-type-imports': [
       'error',
       {
         prefer: 'type-imports',
-        disallowTypeAnnotations: false,
         fixStyle: 'separate-type-imports',
+        disallowTypeAnnotations: false,
       },
     ],
 

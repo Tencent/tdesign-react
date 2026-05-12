@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
-import TableTreeStore, { type SwapParams } from '@tdesign/common-js/table/tree-store';
+import TableTreeStore from '@tdesign/common-js/table/tree-store';
 import classNames from 'classnames';
 import { get, isEqual } from 'lodash-es';
 import {
@@ -16,6 +16,7 @@ import useClassName from './useClassName';
 import useTreeDataExpand from './useTreeDataExpand';
 
 import type { PrimaryTableCol, TableRowData, TableRowState, TableRowValue, TdEnhancedTableProps } from '../type';
+import type { SwapParams } from '@tdesign/common-js/table/tree-store';
 
 export interface UseSwapParams<T> extends SwapParams<T> {
   data: T[];

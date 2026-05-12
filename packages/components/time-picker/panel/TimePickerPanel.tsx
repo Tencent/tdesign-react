@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import React, { useEffect, useMemo, useState, useCallback } from 'react';
 
 import log from '@tdesign/common-js/log/index';
@@ -13,6 +12,7 @@ import { useTimePickerTextConfig } from '../hooks/useTimePickerTextConfig';
 import type { SinglePanelProps } from './SinglePanel';
 import type { TimePickerProps } from '../TimePicker';
 import type { TimeRangePickerProps } from '../TimeRangePicker';
+import type { FC } from 'react';
 
 export interface TimePickerPanelProps extends SinglePanelProps {
   isShowPanel?: boolean;

@@ -1,6 +1,8 @@
 import React, { useRef } from 'react';
 
-import { Button, Popup, Space, type PopupInstanceFunctions } from 'tdesign-react';
+import { Button, Popup, Space } from 'tdesign-react';
+
+import type { PopupInstanceFunctions } from 'tdesign-react';
 
 const CUSTOM_STYLE = { fontStyle: 'italic', fontFamily: 'Times' };
 

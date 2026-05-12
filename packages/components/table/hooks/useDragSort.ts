@@ -1,5 +1,4 @@
 // 表格 行拖拽 + 列拖拽功能
-import type { MutableRefObject } from 'react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import log from '@tdesign/common-js/log/index';
@@ -15,6 +14,7 @@ import useLatest from '../../hooks/useLatest';
 import type { PaginationProps } from '../../pagination';
 import type { BaseTableColumns } from '../interface';
 import type { TableRowData, TdPrimaryTableProps, DragSortContext } from '../type';
+import type { MutableRefObject } from 'react';
 import type { SortableEvent, SortableOptions, MoveEvent } from 'sortablejs';
 
 export default function useDragSort(

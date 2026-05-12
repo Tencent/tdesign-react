@@ -1,9 +1,8 @@
-import type { MouseEvent, ReactNode } from 'react';
-
 import type { StyledProps } from '../common';
 import type { TdUploadProps, UploadFile, UploadInstanceFunctions, UploadRemoveContext } from './type';
 import type { GlobalConfigProvider } from '../config-provider/type';
 import type { ImageViewerProps } from '../image-viewer';
+import type { MouseEvent, ReactNode } from 'react';
 
 export interface CommonDisplayFileProps {
   accept: string;

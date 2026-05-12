@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
-import Popup, { type PopupRef, type PopupVisibleChangeContext } from '../popup';
+import Popup from '../popup';
 import { selectInputDefaultProps } from './defaultProps';
 import useMultiple from './useMultiple';
 import useOverlayInnerStyle from './useOverlayInnerStyle';
@@ -12,6 +12,7 @@ import useSingle from './useSingle';
 
 import type { StyledProps } from '../common';
 import type { InputRef } from '../input';
+import type { PopupRef, PopupVisibleChangeContext } from '../popup';
 import type { TdSelectInputProps } from './type';
 
 export interface SelectInputProps extends TdSelectInputProps, StyledProps {

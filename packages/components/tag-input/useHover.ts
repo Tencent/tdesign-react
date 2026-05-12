@@ -1,7 +1,7 @@
-import type { MouseEvent } from 'react';
 import { useState } from 'react';
 
 import type { TdTagInputProps } from './type';
+import type { MouseEvent } from 'react';
 
 export interface UseHoverParams {
   readonly: boolean;

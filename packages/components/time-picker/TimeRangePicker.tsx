@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import React, { useState, useEffect } from 'react';
 
 import { TIME_PICKER_EMPTY } from '@tdesign/common-js/time-picker/const';
@@ -21,6 +20,7 @@ import TimePickerPanel from './panel/TimePickerPanel';
 import type { StyledProps } from '../common';
 import type { TdTimeRangePickerProps, TimeRangeValue, TimeRangePickerPartial } from './type';
 import type { RangeInputPopupProps, RangeInputPosition } from '../range-input';
+import type { FC } from 'react';
 
 export interface TimeRangePickerProps extends TdTimeRangePickerProps, StyledProps {}
 

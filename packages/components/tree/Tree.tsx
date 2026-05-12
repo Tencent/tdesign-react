@@ -1,4 +1,3 @@
-import type { MouseEvent, RefObject } from 'react';
 import React, { forwardRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
@@ -27,6 +26,7 @@ import type {
   TypeTreeNodeData,
   TypeTreeNodeModel,
 } from '@tdesign/common-js/tree-v1/types';
+import type { MouseEvent, RefObject } from 'react';
 
 export type TreeProps = TdTreeProps & StyledProps;
 

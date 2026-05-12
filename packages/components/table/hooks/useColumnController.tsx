@@ -1,7 +1,6 @@
 /**
  * 自定义显示列控制器，即列配置
  */
-import type { ChangeEvent } from 'react';
 import React, { useEffect, useRef } from 'react';
 
 import classNames from 'classnames';
@@ -20,6 +19,7 @@ import { getCurrentRowByKey } from '../utils';
 import type { CheckboxGroupValue, CheckboxOptionObj, CheckboxGroupChangeContext } from '../../checkbox';
 import type { DialogInstance } from '../../dialog';
 import type { PrimaryTableCol, TdPrimaryTableProps } from '../type';
+import type { ChangeEvent } from 'react';
 
 const CheckboxGroup = Checkbox.Group;
 

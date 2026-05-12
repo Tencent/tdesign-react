@@ -1,4 +1,3 @@
-import type { FC, ReactElement } from 'react';
 import React, { useMemo } from 'react';
 
 import classNames from 'classnames';
@@ -12,6 +11,7 @@ import { MenuContext } from './MenuContext';
 
 import type { TdHeadMenuProps } from './type';
 import type { StyledProps } from '../common';
+import type { FC, ReactElement } from 'react';
 
 const { TabPanel } = Tabs;
 

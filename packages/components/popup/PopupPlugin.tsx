@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
-import { createPopper, type Instance, type Options, type Placement } from '@popperjs/core';
+import { createPopper } from '@popperjs/core';
 import classNames from 'classnames';
 import { isString } from 'lodash-es';
 
@@ -16,6 +16,7 @@ import useDefaultProps from '../hooks/useDefaultProps';
 
 import type { AttachNode, TNode } from '../common';
 import type { TdPopupProps } from './type';
+import type { Instance, Options, Placement } from '@popperjs/core';
 
 export interface PopupPluginApi {
   config: TdPopupProps;

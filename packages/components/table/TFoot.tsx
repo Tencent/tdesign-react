@@ -1,4 +1,3 @@
-import type { CSSProperties } from 'react';
 import React, { useRef } from 'react';
 
 import classNames from 'classnames';
@@ -11,6 +10,7 @@ import { formatRowAttributes, formatRowClassNames } from './utils';
 
 import type { RowAndColFixedPosition } from './interface';
 import type { BaseTableCellParams, RowspanColspan, TableRowData, TdBaseTableProps } from './type';
+import type { CSSProperties } from 'react';
 
 export interface TFootProps {
   rowKey: string;

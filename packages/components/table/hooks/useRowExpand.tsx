@@ -1,4 +1,3 @@
-import type { MouseEvent, ReactNode } from 'react';
 import React, { useCallback } from 'react';
 
 import classNames from 'classnames';
@@ -20,6 +19,7 @@ import type {
   RowEventContext,
   RowClassNameParams,
 } from '../type';
+import type { MouseEvent, ReactNode } from 'react';
 
 export default function useRowExpand(props: TdPrimaryTableProps) {
   const { expandIcon, expandedRow } = props;

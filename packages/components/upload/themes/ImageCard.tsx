@@ -1,4 +1,3 @@
-import type { MouseEvent } from 'react';
 import React from 'react';
 
 import { abridgeName } from '@tdesign/common-js/upload/utils';
@@ -19,6 +18,7 @@ import Loading from '../../loading';
 
 import type { CommonDisplayFileProps } from '../interface';
 import type { TdUploadProps, UploadFile } from '../type';
+import type { MouseEvent } from 'react';
 
 export interface ImageCardUploadProps extends CommonDisplayFileProps {
   multiple: TdUploadProps['multiple'];

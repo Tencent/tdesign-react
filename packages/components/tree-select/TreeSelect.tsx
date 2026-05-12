@@ -1,4 +1,3 @@
-import type { ElementRef } from 'react';
 import React, { forwardRef, useCallback, useImperativeHandle, useMemo, useRef } from 'react';
 
 import classNames from 'classnames';
@@ -11,7 +10,7 @@ import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { usePersistFn } from '../hooks/usePersistFn';
 import useSwitch from '../hooks/useSwitch';
-import SelectInput, { type SelectInputProps } from '../select-input/SelectInput';
+import SelectInput from '../select-input/SelectInput';
 import Tree from '../tree';
 import { treeSelectDefaultProps } from './defaultProps';
 import { useTreeSelectLocale } from './hooks/useTreeSelectLocale';
@@ -22,8 +21,10 @@ import { SelectArrow } from './SelectArrow';
 import type { StyledProps, TreeOptionData } from '../common';
 import type { InputRef } from '../input';
 import type { PopupRef } from '../popup';
+import type { SelectInputProps } from '../select-input/SelectInput';
 import type { TreeInstanceFunctions, TreeProps } from '../tree';
 import type { TdTreeSelectProps, TreeSelectValue } from './type';
+import type { ElementRef } from 'react';
 
 export interface TreeSelectProps<DataOption extends TreeOptionData = TreeOptionData>
   extends TdTreeSelectProps<DataOption>,

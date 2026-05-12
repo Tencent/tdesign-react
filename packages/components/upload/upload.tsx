@@ -1,4 +1,3 @@
-import type { ForwardedRef } from 'react';
 import React, { forwardRef } from 'react';
 
 import classNames from 'classnames';
@@ -19,6 +18,7 @@ import useGlobalIcon from '../hooks/useGlobalIcon';
 import type { UploadDragEvents } from './hooks/useDrag';
 import type { CommonDisplayFileProps, UploadProps, UploadRef } from './interface';
 import type { UploadFile } from './type';
+import type { ForwardedRef } from 'react';
 
 // const Upload = forwardRef((props: UploadProps, ref) => {
 function TdUpload<T extends UploadFile = UploadFile>(originalProps: UploadProps<T>, ref: ForwardedRef<UploadRef>) {

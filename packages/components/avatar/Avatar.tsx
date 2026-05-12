@@ -1,4 +1,3 @@
-import type { Ref } from 'react';
 import React, { useRef, useState, useEffect, useContext } from 'react';
 
 import classNames from 'classnames';
@@ -17,6 +16,7 @@ import Image from '../image';
 import type { TdAvatarProps } from './type';
 import type { StyledProps } from '../common';
 import type { ImageProps } from '../image';
+import type { Ref } from 'react';
 
 export interface AvatarProps extends TdAvatarProps, StyledProps {
   children?: React.ReactNode;

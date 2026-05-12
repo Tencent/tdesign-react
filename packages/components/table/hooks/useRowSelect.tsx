@@ -1,6 +1,5 @@
 // 行选中相关功能：单选 + 多选
 
-import type { MouseEvent } from 'react';
 import React, { useEffect, useState, useMemo } from 'react';
 
 import log from '@tdesign/common-js/log/index';
@@ -21,6 +20,7 @@ import type {
 } from '../type';
 import type { TableClassName } from './useClassName';
 import type { ClassName } from '../../common';
+import type { MouseEvent } from 'react';
 
 const selectedRowDataMap = new Map<string | number, TableRowData>();
 

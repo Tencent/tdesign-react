@@ -1,5 +1,4 @@
 import React, { isValidElement } from 'react';
-import type { ReactNode } from 'react';
 
 import cls from 'classnames';
 import { isObject, isString } from 'lodash-es';
@@ -17,6 +16,7 @@ import SuccessSvg from './assets/SuccessSvg';
 
 import type { TdEmptyProps } from './type';
 import type { StyledProps } from '../common';
+import type { ReactNode } from 'react';
 
 export interface EmptyProps extends TdEmptyProps, StyledProps {}
 

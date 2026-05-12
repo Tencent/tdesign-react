@@ -1,4 +1,3 @@
-import type { ForwardedRef } from 'react';
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 
 import classNames from 'classnames';
@@ -18,6 +17,7 @@ import Input from '../input';
 
 import type { InputNumberValue, TdInputNumberProps } from './type';
 import type { StyledProps } from '../common';
+import type { ForwardedRef } from 'react';
 
 export interface InputNumberProps<T = InputNumberValue> extends TdInputNumberProps<T>, StyledProps {}
 

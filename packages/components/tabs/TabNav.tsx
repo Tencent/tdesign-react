@@ -1,4 +1,3 @@
-import type { WheelEvent } from 'react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { calcMaxOffset, calcValidOffset, calculateOffset, calcPrevOrNextOffset } from '@tdesign/common-js/tabs/base';
@@ -19,6 +18,7 @@ import useGlobalIcon from '../hooks/useGlobalIcon';
 
 import type { TdTabsProps, TdTabPanelProps, TabValue } from './type';
 import type { DragSortInnerProps } from '../hooks/useDragSorter';
+import type { WheelEvent } from 'react';
 
 export interface TabNavProps extends TdTabsProps, DragSortInnerProps {
   itemList: TdTabPanelProps[];

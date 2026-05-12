@@ -1,4 +1,3 @@
-import type { MouseEvent } from 'react';
 import React, { useRef, useEffect } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
@@ -12,6 +11,7 @@ import useDefaultProps from '../hooks/useDefaultProps';
 
 import type { StyledProps } from '../common';
 import type { TdCollapsePanelProps } from './type';
+import type { MouseEvent } from 'react';
 
 export interface CollapsePanelProps extends TdCollapsePanelProps, StyledProps {
   children?: React.ReactNode;

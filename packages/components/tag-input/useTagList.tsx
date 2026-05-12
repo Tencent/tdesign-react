@@ -1,4 +1,3 @@
-import type { KeyboardEvent, MouseEvent, ReactNode } from 'react';
 import React, { Fragment, useState } from 'react';
 
 import { isFunction } from 'lodash-es';
@@ -10,6 +9,7 @@ import Tag from '../tag';
 import type { DragSortInnerProps } from '../hooks/useDragSorter';
 import type { InputValue } from '../input';
 import type { TagInputChangeContext, TagInputValue, TdTagInputProps } from './type';
+import type { KeyboardEvent, MouseEvent, ReactNode } from 'react';
 
 export type ChangeParams = [TagInputChangeContext];
 

@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import React, { useContext } from 'react';
 
 import classNames from 'classnames';
@@ -11,6 +10,7 @@ import TooltipLite from '../tooltip';
 
 import type { TdMenuItemProps } from './type';
 import type { StyledProps } from '../common';
+import type { FC } from 'react';
 
 export interface MenuItemProps extends TdMenuItemProps, StyledProps {}
 

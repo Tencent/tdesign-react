@@ -1,5 +1,4 @@
 import React, { forwardRef } from 'react';
-import type { RefObject } from 'react';
 
 import { pxCompat } from '@tdesign/common-js/utils/helper';
 import classNames from 'classnames';
@@ -12,6 +11,7 @@ import useRipple from '../hooks/useRipple';
 
 import type { StyledProps } from '../common';
 import type { DropdownOption, TdDropdownProps, DropdownItemTheme } from './type';
+import type { RefObject } from 'react';
 
 type DropdownItemProps = Pick<DropdownOption, 'value'> &
   Pick<TdDropdownProps, 'maxColumnWidth' | 'minColumnWidth'> &

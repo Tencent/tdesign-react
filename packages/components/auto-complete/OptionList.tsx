@@ -1,4 +1,3 @@
-import type { MouseEvent } from 'react';
 import React, { useMemo, useState, useRef, useEffect, useImperativeHandle, forwardRef } from 'react';
 
 import log from '@tdesign/common-js/log/index';
@@ -12,6 +11,7 @@ import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 import type { AutoCompleteOptionObj, TdAutoCompleteProps } from './type';
 import type { CommonClassNameType } from '../hooks/useCommonClassName';
+import type { MouseEvent } from 'react';
 
 export interface OptionsListProps {
   sizeClassNames: CommonClassNameType['sizeClassNames'];

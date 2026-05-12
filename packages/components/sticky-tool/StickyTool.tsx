@@ -1,4 +1,3 @@
-import type { MouseEvent } from 'react';
 import React, { useCallback, useMemo } from 'react';
 
 import classnames from 'classnames';
@@ -12,6 +11,7 @@ import useDefaultProps from '../hooks/useDefaultProps';
 import type { TdStickyToolProps, TdStickyItemProps } from './type';
 import type { StyledProps, Styles } from '../common';
 import type { StickyItemProps } from './StickyItem';
+import type { MouseEvent } from 'react';
 
 export interface StickyToolProps extends TdStickyToolProps, StyledProps {
   children?: React.ReactNode;

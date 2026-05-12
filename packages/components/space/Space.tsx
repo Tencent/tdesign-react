@@ -1,4 +1,3 @@
-import type { CSSProperties, ReactNode } from 'react';
 import React, { useMemo } from 'react';
 import { isFragment } from 'react-is';
 
@@ -11,6 +10,7 @@ import useDefaultProps from '../hooks/useDefaultProps';
 
 import type { TdSpaceProps } from './type';
 import type { StyledProps } from '../common';
+import type { CSSProperties, ReactNode } from 'react';
 
 // export for test
 export const SizeMap = { small: '8px', medium: '16px', large: '24px' };

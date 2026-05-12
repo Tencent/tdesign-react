@@ -1,4 +1,3 @@
-import type { KeyboardEvent, MouseEvent } from 'react';
 import React from 'react';
 
 import classNames from 'classnames';
@@ -9,6 +8,7 @@ import useConfig from '../hooks/useConfig';
 
 import type { TNode } from '../common';
 import type { ImageInfo, ImageScale, ImageViewerScale, TdImageViewerProps } from './type';
+import type { KeyboardEvent, MouseEvent } from 'react';
 
 export interface ImageModalMiniProps {
   visible: boolean;

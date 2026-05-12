@@ -1,4 +1,3 @@
-import type { ReactElement } from 'react';
 import React, { useRef, forwardRef, useState } from 'react';
 
 import classNames from 'classnames';
@@ -16,6 +15,7 @@ import Tooltip from '../tooltip';
 
 import type { StyledProps } from '../common';
 import type { TdTextProps } from './type';
+import type { ReactElement } from 'react';
 
 export type TypographyTextProps = TdTextProps &
   StyledProps & {

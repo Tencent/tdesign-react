@@ -1,4 +1,3 @@
-import type { MutableRefObject, CSSProperties } from 'react';
 import React, { useRef, useMemo } from 'react';
 
 import classNames from 'classnames';
@@ -14,6 +13,7 @@ import type { AttachNode } from '../common';
 import type { TableColumns, ThRowspanAndColspan } from './hooks/useMultiHeader';
 import type { RowAndColFixedPosition } from './interface';
 import type { BaseTableCol, TableRowData, TdBaseTableProps } from './type';
+import type { MutableRefObject, CSSProperties } from 'react';
 
 export interface TheadProps {
   classPrefix: string;

@@ -1,4 +1,3 @@
-import type { CSSProperties, DragEventHandler, MouseEvent, ReactNode, DragEvent } from 'react';
 import React, { forwardRef, useRef, isValidElement, useEffect, useState } from 'react';
 
 import classNames from 'classnames';
@@ -20,6 +19,7 @@ import type { TreeItemProps } from './interface';
 import type { TdTreeProps } from './type';
 import type TreeNode from '@tdesign/common-js/tree-v1/tree-node';
 import type { TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
+import type { CSSProperties, DragEventHandler, MouseEvent, ReactNode, DragEvent } from 'react';
 
 /**
  * 树节点组件

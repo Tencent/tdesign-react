@@ -1,4 +1,3 @@
-import type { MouseEvent } from 'react';
 import React, { useRef, useState } from 'react';
 
 import classNames from 'classnames';
@@ -9,6 +8,7 @@ import Tooltip from '../tooltip';
 
 import type { TNode } from '../common';
 import type { TooltipProps } from '../tooltip';
+import type { MouseEvent } from 'react';
 
 export interface EllipsisProps {
   content?: string | TNode;

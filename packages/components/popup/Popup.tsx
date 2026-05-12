@@ -14,12 +14,13 @@ import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useMutationObserver from '../hooks/useMutationObserver';
-import usePopper, { type InnerPopperInstance } from '../hooks/usePopper';
+import usePopper from '../hooks/usePopper';
 import useWindowSize from '../hooks/useWindowSize';
 import useTrigger from './hooks/useTrigger';
 import { getTransitionParams } from './utils/transition';
 
 import type { PopupInstanceFunctions, TdPopupProps } from './type';
+import type { InnerPopperInstance } from '../hooks/usePopper';
 import type { Placement, Options } from '@popperjs/core';
 
 /**

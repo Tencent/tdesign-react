@@ -1,4 +1,3 @@
-import type { MouseEvent, FocusEvent } from 'react';
 import React, { forwardRef, useMemo } from 'react';
 
 import { ENTER_REG, SPACE_REG } from '@tdesign/common-js/common';
@@ -13,6 +12,7 @@ import useDefaultProps from '../hooks/useDefaultProps';
 
 import type { StyledProps } from '../common';
 import type { TdCheckTagProps, TdTagProps } from './type';
+import type { MouseEvent, FocusEvent } from 'react';
 
 /**
  * CheckTag 组件支持的属性

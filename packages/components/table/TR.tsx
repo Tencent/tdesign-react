@@ -1,4 +1,3 @@
-import type { MouseEvent, MutableRefObject } from 'react';
 import React, { useEffect, useMemo, useRef } from 'react';
 
 import classnames from 'classnames';
@@ -17,6 +16,7 @@ import type { PaginationProps } from '../pagination';
 import type { SkipSpansValue } from './hooks/useRowspanAndColspan';
 import type { RowAndColFixedPosition } from './interface';
 import type { RowspanColspan, TableRowData, TdBaseTableProps } from './type';
+import type { MouseEvent, MutableRefObject } from 'react';
 
 export type TrCommonProps = Pick<TdBaseTableProps, TrPropsKeys>;
 

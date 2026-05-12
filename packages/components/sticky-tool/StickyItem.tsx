@@ -1,4 +1,3 @@
-import type { MouseEvent } from 'react';
 import React, { useCallback, useMemo } from 'react';
 
 import classNames from 'classnames';
@@ -9,6 +8,7 @@ import Popup from '../popup';
 import type { PopupPlacement, PopupProps } from '../popup';
 import type { TdStickyItemProps, TdStickyToolProps } from './type';
 import type { StyledProps, Styles } from '../common';
+import type { MouseEvent } from 'react';
 
 export interface StickyItemProps extends TdStickyItemProps, StyledProps {
   type?: TdStickyToolProps['type'];

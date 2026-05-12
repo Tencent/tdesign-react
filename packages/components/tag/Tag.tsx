@@ -1,4 +1,3 @@
-import type { FocusEvent, ForwardRefRenderFunction } from 'react';
 import React, { forwardRef, useMemo } from 'react';
 
 import classNames from 'classnames';
@@ -13,6 +12,7 @@ import useGlobalIcon from '../hooks/useGlobalIcon';
 
 import type { StyledProps } from '../common';
 import type { TdTagProps } from './type';
+import type { FocusEvent, ForwardRefRenderFunction } from 'react';
 
 /**
  * Tag 组件支持的属性。

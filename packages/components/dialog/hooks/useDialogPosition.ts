@@ -1,7 +1,8 @@
-import type { MutableRefObject } from 'react';
 import { useEffect, useRef } from 'react';
 
 import useIsomorphicLayoutEffect from '../../hooks/useLayoutEffect';
+
+import type { MutableRefObject } from 'react';
 
 export default function useDialogPosition(visible: boolean, dialogCardRef: MutableRefObject<HTMLElement>) {
   const mousePosRef = useRef(null);

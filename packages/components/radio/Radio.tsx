@@ -1,4 +1,3 @@
-import type { Ref } from 'react';
 import React, { forwardRef } from 'react';
 
 import { radioDefaultProps } from './defaultProps';
@@ -8,6 +7,7 @@ import Check from '../common/Check';
 import useDefaultProps from '../hooks/useDefaultProps';
 
 import type { CheckProps } from '../common/Check';
+import type { Ref } from 'react';
 
 export type RadioProps = Omit<CheckProps, 'type'>;
 

@@ -1,4 +1,3 @@
-import type { FunctionComponent } from 'react';
 import React, { useContext, useEffect } from 'react';
 
 import classNames from 'classnames';
@@ -10,6 +9,7 @@ import useDefaultProps from '../hooks/useDefaultProps';
 
 import type { StyledProps } from '../common';
 import type { TdAnchorItemProps } from './type';
+import type { FunctionComponent } from 'react';
 
 export interface AnchorItemProps extends TdAnchorItemProps, StyledProps {
   children?: React.ReactNode;

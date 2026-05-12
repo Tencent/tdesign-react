@@ -1,4 +1,3 @@
-import type { WheelEvent } from 'react';
 import React, { useImperativeHandle, useMemo, useRef } from 'react';
 
 import classNames from 'classnames';
@@ -18,6 +17,7 @@ import { useListVirtualScroll } from './hooks/useListVirtualScroll';
 
 import type { StyledProps } from '../common';
 import type { ListInstanceFunctions, TdListProps } from './type';
+import type { WheelEvent } from 'react';
 
 export interface ListProps extends TdListProps, StyledProps {
   /**

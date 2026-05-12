@@ -1,4 +1,3 @@
-import type React from 'react';
 import { useState, useRef, useEffect } from 'react';
 
 import {
@@ -21,6 +20,7 @@ import useControlled from '../hooks/useControlled';
 import type { InputNumberValue, TdInputNumberProps } from './type';
 // 计算逻辑，统一到 common 中，方便各框架复用（如超过 16 位的大数处理）
 import type { InputProps } from '../input';
+import type React from 'react';
 
 export const specialCode = ['-', '.', 'e', 'E'];
 

@@ -1,4 +1,3 @@
-import type { MouseEvent } from 'react';
 import React from 'react';
 
 import classNames from 'classnames';
@@ -13,6 +12,7 @@ import useRipple from '../hooks/useRipple';
 import type { StyledProps } from '../common';
 import type { TdTabPanelProps, TdTabsProps } from './type';
 import type { DragSortInnerProps } from '../hooks/useDragSorter';
+import type { MouseEvent } from 'react';
 
 export interface TabNavItemProps extends TdTabPanelProps, StyledProps {
   // 当前 item 是否处于激活态

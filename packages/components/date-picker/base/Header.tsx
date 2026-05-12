@@ -2,10 +2,11 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import useConfig from '../../hooks/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import { PaginationMini, type TdPaginationMiniProps } from '../../pagination';
+import { PaginationMini } from '../../pagination';
 import Select from '../../select';
 import { useSelectRange } from '../hooks/useSelectRange';
 
+import type { TdPaginationMiniProps } from '../../pagination';
 import type { SinglePanelProps } from '../panel/SinglePanel';
 import type { TdDatePickerProps } from '../type';
 

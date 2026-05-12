@@ -1,4 +1,3 @@
-import type React from 'react';
 import { forwardRef, useImperativeHandle, useState, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -7,6 +6,7 @@ import useConfig from '../hooks/useConfig';
 import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
 
 import type { AttachNode, AttachNodeReturnValue } from '../common';
+import type React from 'react';
 
 export interface PortalProps {
   /**

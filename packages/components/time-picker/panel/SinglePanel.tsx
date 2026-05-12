@@ -1,4 +1,3 @@
-import type { FC, CSSProperties, MouseEvent, UIEvent } from 'react';
 import React, { useCallback, useEffect, useState, useRef, useMemo } from 'react';
 
 import { AM, PM, EPickerCols, MERIDIEM_LIST, TWELVE_HOUR_FORMAT } from '@tdesign/common-js/time-picker/const';
@@ -15,6 +14,7 @@ import { usePropRef } from '../../hooks/usePropsRef';
 import { useTimePickerTextConfig } from '../hooks/useTimePickerTextConfig';
 
 import type { TdTimePickerProps, TimeRangePickerPartial } from '../type';
+import type { FC, CSSProperties, MouseEvent, UIEvent } from 'react';
 
 const timeArr = [EPickerCols.hour, EPickerCols.minute, EPickerCols.second, EPickerCols.milliSecond];
 

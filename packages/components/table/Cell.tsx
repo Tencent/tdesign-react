@@ -1,4 +1,3 @@
-import type { MouseEvent, MutableRefObject, ReactNode } from 'react';
 import React from 'react';
 
 import classNames from 'classnames';
@@ -13,6 +12,7 @@ import type { BaseTableCellParams, RowspanColspan, TableRowData, TdBaseTableProp
 import type { PaginationProps } from '../pagination';
 import type { TooltipProps } from '../tooltip';
 import type { TableClassName } from './hooks/useClassName';
+import type { MouseEvent, MutableRefObject, ReactNode } from 'react';
 
 export interface RenderEllipsisCellParams {
   cellNode: ReactNode;

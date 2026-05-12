@@ -1,18 +1,20 @@
 /* eslint-disable no-underscore-dangle */
-import React, { type CSSProperties, type MutableRefObject, type ReactNode, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import classNames from 'classnames';
 import { camelCase, get, pick } from 'lodash-es';
 
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import useRowspanAndColspan from './hooks/useRowspanAndColspan';
-import TR, { ROW_LISTENERS, TABLE_PROPS, type TrProps } from './TR';
+import TR, { ROW_LISTENERS, TABLE_PROPS } from './TR';
 
 import type { TableClassName } from './hooks/useClassName';
+import type { TrProps } from './TR';
 import type { RowMountedParams, VirtualScrollConfig } from '../hooks/useVirtualScroll';
 import type { PaginationProps } from '../pagination';
 import type { BaseTableProps, RowAndColFixedPosition } from './interface';
 import type { TableRowData, TdBaseTableProps } from './type';
+import type { CSSProperties, MutableRefObject, ReactNode } from 'react';
 
 export interface TableBodyProps extends BaseTableProps {
   classPrefix: string;

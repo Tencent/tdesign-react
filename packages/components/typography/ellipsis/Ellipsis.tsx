@@ -1,10 +1,11 @@
-import type { ReactNode } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
 
 import classNames from 'classnames';
 
 import Truncate from './Truncate';
 import useConfig from '../../hooks/useConfig';
+
+import type { ReactNode } from 'react';
 
 export type TdEllipsis = {
   className?: string;

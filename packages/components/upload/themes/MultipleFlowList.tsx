@@ -1,4 +1,3 @@
-import type { MouseEvent } from 'react';
 import React, { useMemo, useState } from 'react';
 
 import {
@@ -40,6 +39,7 @@ import type { ButtonProps } from '../../button';
 import type { UploadDragEvents } from '../hooks/useDrag';
 import type { CommonDisplayFileProps } from '../interface';
 import type { UploadFile, TdUploadProps } from '../type';
+import type { MouseEvent } from 'react';
 
 export interface ImageFlowListProps extends CommonDisplayFileProps {
   uploadFiles?: (toFiles?: UploadFile[]) => void;

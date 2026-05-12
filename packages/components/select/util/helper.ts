@@ -1,5 +1,3 @@
-import type { ReactElement } from 'react';
-
 import { get, isPlainObject } from 'lodash-es';
 
 import Option from '../base/Option';
@@ -7,6 +5,7 @@ import OptionGroup from '../base/OptionGroup';
 import { isSelectOptionGroup } from '../hooks/useOptions';
 
 import type { SelectKeysType, SelectOption, SelectValue, TdOptionProps, TdSelectProps } from '../type';
+import type { ReactElement } from 'react';
 
 type SelectLabeledValue = Required<Omit<TdOptionProps, 'disabled'>>;
 

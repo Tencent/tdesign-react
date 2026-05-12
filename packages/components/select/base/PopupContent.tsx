@@ -3,13 +3,14 @@ import React, { Children, cloneElement, isValidElement, useMemo, useRef } from '
 import classNames from 'classnames';
 import { isEqual } from 'lodash-es';
 
-import Option, { type SelectOptionProps } from './Option';
+import Option from './Option';
 import OptionGroup from './OptionGroup';
 import useConfig from '../../hooks/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import usePanelVirtualScroll from '../hooks/usePanelVirtualScroll';
 import { getKeyMapping, getSelectValueArr } from '../util/helper';
 
+import type { SelectOptionProps } from './Option';
 import type {
   SelectOption,
   SelectOptionGroup,

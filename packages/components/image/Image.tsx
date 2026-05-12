@@ -1,4 +1,3 @@
-import type { SyntheticEvent, MouseEvent } from 'react';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 
 import observe from '@tdesign/common-js/utils/observe';
@@ -16,6 +15,7 @@ import Space from '../space';
 
 import type { StyledProps } from '../common';
 import type { TdImageProps } from './type';
+import type { SyntheticEvent, MouseEvent } from 'react';
 
 export function isImageValid(src: string) {
   return new Promise((resolve) => {

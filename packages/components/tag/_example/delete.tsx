@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import { DiscountIcon, AddIcon } from 'tdesign-icons-react';
-import { Tag, Input, Space, type InputRef } from 'tdesign-react';
+import { Tag, Input, Space } from 'tdesign-react';
+
+import type { InputRef } from 'tdesign-react';
 
 export default function ClosableTagExample() {
   const [inputVisible, toggleInputVisible] = useState(false);

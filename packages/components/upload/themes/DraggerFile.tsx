@@ -1,4 +1,3 @@
-import type { FC, MouseEvent } from 'react';
 import React, { useMemo, useRef } from 'react';
 
 import { abridgeName, getFileSizeText } from '@tdesign/common-js/upload/utils';
@@ -20,6 +19,7 @@ import useDrag from '../hooks/useDrag';
 import type { UploadDragEvents } from '../hooks/useDrag';
 import type { CommonDisplayFileProps } from '../interface';
 import type { TdUploadProps, UploadFile } from '../type';
+import type { FC, MouseEvent } from 'react';
 
 export interface DraggerProps extends CommonDisplayFileProps {
   trigger?: TdUploadProps['trigger'];

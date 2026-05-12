@@ -1,4 +1,3 @@
-import type { Ref } from 'react';
 import React, { useState } from 'react';
 
 import { DEFAULT_STEPS, DEFAULT_FORMAT } from '@tdesign/common-js/time-picker/const';
@@ -24,6 +23,7 @@ import type { StyledProps } from '../common';
 import type { SelectInputProps, SelectInputValueChangeContext } from '../select-input';
 import type { TimePickerPanelProps } from './panel/TimePickerPanel';
 import type { TdTimePickerProps } from './type';
+import type { Ref } from 'react';
 
 // https://github.com/iamkun/dayjs/issues/1552
 dayjs.extend(customParseFormat);

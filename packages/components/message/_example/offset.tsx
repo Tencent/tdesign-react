@@ -1,8 +1,8 @@
-import type { CSSProperties } from 'react';
 import React, { useState } from 'react';
 
 import { Button, MessagePlugin, Input, Space } from 'tdesign-react';
 
+import type { CSSProperties } from 'react';
 import type { InputValue } from 'tdesign-react';
 
 const placementStyle: CSSProperties = {

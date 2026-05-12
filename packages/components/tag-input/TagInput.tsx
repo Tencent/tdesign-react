@@ -1,4 +1,3 @@
-import type { CompositionEvent, KeyboardEvent, MouseEvent } from 'react';
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 
 import classnames from 'classnames';
@@ -10,14 +9,16 @@ import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useDragSorter from '../hooks/useDragSorter';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import TInput, { type InputRef, type InputValue } from '../input';
+import TInput from '../input';
 import { tagInputDefaultProps } from './defaultProps';
 import useHover from './useHover';
 import useTagList from './useTagList';
 import useTagScroll from './useTagScroll';
 
 import type { StyledProps } from '../common';
+import type { InputRef, InputValue } from '../input';
 import type { TdTagInputProps } from './type';
+import type { CompositionEvent, KeyboardEvent, MouseEvent } from 'react';
 
 export interface TagInputProps extends TdTagInputProps, StyledProps {
   options?: any[]; // 参数穿透options, 给SelectInput/SelectInput 自定义选中项呈现的内容和多选状态下设置折叠项内容

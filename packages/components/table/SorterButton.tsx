@@ -1,4 +1,3 @@
-import type { MouseEvent } from 'react';
 import React from 'react';
 
 import classNames from 'classnames';
@@ -12,6 +11,7 @@ import { useLocaleReceiver } from '../locale/LocalReceiver';
 import type { SortType } from './type';
 import type { TNode } from '../common';
 import type { TooltipProps } from '../tooltip';
+import type { MouseEvent } from 'react';
 
 type SortTypeEnums = Array<'desc' | 'asc'>;
 

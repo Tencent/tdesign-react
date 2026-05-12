@@ -6,7 +6,7 @@ import { isFunction, isObject, isString, isUndefined } from 'lodash-es';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
 
 import parseTNode from '../_util/parseTNode';
-import Button, { type ButtonProps } from '../button';
+import Button from '../button';
 import { drawerDefaultProps } from './defaultProps';
 import Portal from '../common/Portal';
 import useAttach from '../hooks/useAttach';
@@ -19,6 +19,7 @@ import { useLocaleReceiver } from '../locale/LocalReceiver';
 import useDrag from './hooks/useDrag';
 import useLockStyle from './hooks/useLockStyle';
 
+import type { ButtonProps } from '../button';
 import type { StyledProps } from '../common';
 import type { DrawerEventSource, DrawerInstance, TdDrawerProps } from './type';
 

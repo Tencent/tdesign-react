@@ -1,4 +1,3 @@
-import type { RefAttributes } from 'react';
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 
 import { get } from 'lodash-es';
@@ -11,6 +10,7 @@ import useConfig from '../hooks/useConfig';
 import type { EnhancedTableProps, EnhancedTableRef, PrimaryTableProps } from './interface';
 import type { PrimaryTableCol, TableRowData, DragSortContext, TdPrimaryTableProps } from './type';
 import type { StyledProps } from '../common';
+import type { RefAttributes } from 'react';
 
 export interface TEnhancedTableProps extends EnhancedTableProps, StyledProps {}
 

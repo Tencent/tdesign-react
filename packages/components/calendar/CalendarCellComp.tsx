@@ -1,4 +1,3 @@
-import type { MouseEvent } from 'react';
 import React from 'react';
 
 import { blockName } from './_util';
@@ -7,6 +6,7 @@ import usePrefixClass from './hooks/usePrefixClass';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 import type { CalendarCell, TdCalendarProps } from './type';
+import type { MouseEvent } from 'react';
 
 type extendType = Required<Pick<TdCalendarProps, 'fillWithZero' | 'mode' | 'theme' | 'cell' | 'cellAppend'>>;
 interface CalendarCellProps extends extendType {

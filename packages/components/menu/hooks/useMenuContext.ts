@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { noop } from 'lodash-es';
 
@@ -6,6 +6,7 @@ import { MenuTree } from '../_util/getMenuTree';
 
 import type { MenuMode, MenuState, SetMenuState } from '../MenuContext';
 import type { MenuValue, TdHeadMenuProps, TdMenuProps } from '../type';
+import type { ReactNode } from 'react';
 
 interface UseMenuContextProps extends Extract<TdMenuProps, TdHeadMenuProps> {
   children: ReactNode;

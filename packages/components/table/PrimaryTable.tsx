@@ -1,4 +1,3 @@
-import type { ReactNode, RefAttributes } from 'react';
 import React, { useRef, forwardRef, useImperativeHandle } from 'react';
 
 import classNames from 'classnames';
@@ -26,6 +25,7 @@ import type { EditableCellProps } from './EditableCell';
 import type { BaseTableProps, PrimaryTableProps, PrimaryTableRef } from './interface';
 import type { CheckboxGroupValue } from '../checkbox';
 import type { StyledProps } from '../common';
+import type { ReactNode, RefAttributes } from 'react';
 
 export { BASE_TABLE_ALL_EVENTS } from './BaseTable';
 

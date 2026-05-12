@@ -7,7 +7,9 @@ import Button from '../../button';
 import Input from '../../input';
 import Radio from '../../radio';
 import FormList from '../FormList';
-import Form, { type FormProps } from '../index';
+import Form from '../index';
+
+import type { FormProps } from '../index';
 
 const { FormItem } = Form;
 
