@@ -246,7 +246,7 @@ const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> 
             <div className={`${classPrefix}-image__loading`}>
               {loading || (
                 <Space direction="vertical" size={8} align="center">
-                  <ImageIcon size={24} />
+                  <ImageIcon />
                   {/* support loading = '' to hide loading text */}
                   {typeof loading === 'string' ? loading : t(local.loadingText)}
                 </Space>
@@ -260,7 +260,7 @@ const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> 
         <div className={`${classPrefix}-image__error`}>
           {error || (
             <Space direction="vertical" size={8} align="center">
-              <ImageErrorIcon size={24} />
+              <ImageErrorIcon />
               {typeof error === 'string' ? error : t(local.errorText)}
             </Space>
           )}

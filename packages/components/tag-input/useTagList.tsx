@@ -80,15 +80,19 @@ export default function useTagList(props: TagInputProps) {
       ? [<Fragment key="display-node">{displayNode}</Fragment>]
       : newList?.map((item, index) => {
           const tagContent = isFunction(tag) ? tag({ value: item }) : tag;
+          const handleClose = (context) => {
+            tagProps?.onClose?.(context);
+            onClose({ e: context?.e, index });
+          };
           return (
             <Tag
               key={index}
               size={size}
               disabled={disabled}
-              onClose={(context) => onClose({ e: context.e, index })}
               closable={!readOnly && !disabled}
               {...getDragProps?.(index, item)}
               {...tagProps}
+              onClose={handleClose}
             >
               {tagContent ?? item}
             </Tag>

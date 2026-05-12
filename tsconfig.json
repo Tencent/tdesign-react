@@ -22,12 +22,18 @@
       "tdesign-react/*": [
         "packages/components/*"
       ],
+      "@tdesign-react/chat": [
+        "packages/pro-components/chat"
+      ],
+      "@tdesign-react/chat/*": [
+        "packages/pro-components/chat/*"
+      ],
       "@test/utils": [
         "test/utils"
       ],
       "@common/*": [
         "packages/common/*"
-      ]
+      ],
     },
     "allowJs": true,
     "checkJs": true,
@@ -37,6 +43,7 @@
   },
   "include": [
     "./packages/components",
+    "./packages/pro-components",
     "./globals.d.ts",
     "./test/config/index.d.ts",
     "**/**/__tests__/*"

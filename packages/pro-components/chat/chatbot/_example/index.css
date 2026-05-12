@@ -1,0 +1,23 @@
+.step {
+    color: #4d4d4d;
+}
+
+.title {
+    margin-bottom: 8px;
+}
+
+.command, .result {
+    font-size: 14px;
+    line-height: 22px;
+    margin: 6px 0;
+}
+
+.command {
+    background-color: #efeff0;
+    border-radius: 12px;
+    display: inline-block;  /* 内联块级元素使宽度自适应内容 */
+    padding: 4px 8px;
+    white-space: nowrap;
+    width: fit-content;     /* 宽度精确匹配内容 */
+} 
+

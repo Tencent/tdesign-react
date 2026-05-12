@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { get } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
-import { BaseTableCellParams, BaseTableCol, TableRowData, TableRowspanAndColspanFunc } from '../type';
+import useIsomorphicLayoutEffect from '../../hooks/useLayoutEffect';
+import type { BaseTableCellParams, BaseTableCol, TableRowData, TableRowspanAndColspanFunc } from '../type';
 
 export interface SkipSpansValue {
   colspan?: number;
@@ -80,7 +81,7 @@ export default function useRowspanAndColspan(
     return map;
   };
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (!rowspanAndColspan) return;
     skipSpansMap.clear();
     const result = getSkipSpansMap(data, columns, rowspanAndColspan);

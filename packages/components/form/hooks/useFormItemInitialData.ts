@@ -7,7 +7,12 @@ import { TD_DEFAULT_VALUE_MAP } from '../const';
 
 import type { NamePath } from '../type';
 
-export default function useFormItemInitialData(name: NamePath, fullPath: NamePath) {
+export default function useFormItemInitialData(
+  name: NamePath,
+  fullPath: NamePath,
+  initialData: FormItemProps['initialData'],
+  children: FormItemProps['children'],
+) {
   let hadReadFloatingFormData = false;
 
   const { form, floatingFormDataRef, initialData: formContextInitialData } = useFormContext();
@@ -21,14 +26,10 @@ export default function useFormItemInitialData(name: NamePath, fullPath: NamePat
     }
   }, [hadReadFloatingFormData, floatingFormDataRef, formListName, name]);
 
-  // 整理初始值 优先级：Form.initialData < FormList.initialData < FormItem.initialData < floatFormData
-  function getDefaultInitialData({
-    children,
-    initialData,
-  }: {
-    children: FormItemProps['children'];
-    initialData: FormItemProps['initialData'];
-  }) {
+  const defaultInitialData = getDefaultInitialData(children, initialData);
+
+  // 优先级：floatFormData > store > FormItem.initialData > FormList.initialData > Form.initialData
+  function getDefaultInitialData(children: FormItemProps['children'], initialData: FormItemProps['initialData']) {
     if (name && floatingFormDataRef?.current && !isEmpty(floatingFormDataRef.current)) {
       const nameList = formListName ? [formListName, name].flat() : name;
       const defaultInitialData = get(floatingFormDataRef.current, nameList);
@@ -39,7 +40,19 @@ export default function useFormItemInitialData(name: NamePath, fullPath: NamePat
       }
     }
 
-    if (formListName && Array.isArray(fullPath)) {
+    const isFormList = formListName && Array.isArray(fullPath);
+
+    if (typeof initialData !== 'undefined') {
+      if (isFormList) {
+        const storeValue = get(form.store, fullPath);
+        if (typeof storeValue !== 'undefined') {
+          return storeValue;
+        }
+      }
+      return initialData;
+    }
+
+    if (isFormList) {
       const pathPrefix = fullPath.slice(0, -1);
       const pathExisted = has(form.store, pathPrefix);
       if (pathExisted) {
@@ -50,12 +63,12 @@ export default function useFormItemInitialData(name: NamePath, fullPath: NamePat
       }
     }
 
-    if (typeof initialData !== 'undefined') {
-      return initialData;
-    }
-
-    if (name && formListInitialData.length) {
-      const defaultInitialData = get(formListInitialData, name);
+    if (Array.isArray(name) && formListInitialData?.length) {
+      let defaultInitialData;
+      const [index, ...relativePath] = name;
+      if (formListInitialData[index]) {
+        defaultInitialData = get(formListInitialData[index], relativePath);
+      }
       if (typeof defaultInitialData !== 'undefined') return defaultInitialData;
     }
 
@@ -77,6 +90,6 @@ export default function useFormItemInitialData(name: NamePath, fullPath: NamePat
   }
 
   return {
-    getDefaultInitialData,
+    defaultInitialData,
   };
 }

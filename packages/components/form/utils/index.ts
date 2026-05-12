@@ -1,4 +1,4 @@
-import { get, has, isArray, isEmpty, isObject } from 'lodash-es';
+import { get, has } from 'lodash-es';
 import type { FormItemInstance } from '../FormItem';
 import type { NamePath } from '../type';
 
@@ -60,26 +60,6 @@ function findFormItemDeep(
     const found = findFormItemDeep(name, formItem.formListMapRef);
     if (found) return found;
   }
-}
-
-// { user: { name: '' } } => [['user', 'name']]
-// 不处理数组类型
-// { user: [{ name: '' }]} => [['user']]
-export function objectToArray(obj: Record<string | number, any>) {
-  const result: (string | number)[][] = [];
-
-  function traverse(current: any, path: string[] = []) {
-    if (isObject(current) && !isArray(current) && !isEmpty(current)) {
-      Object.keys(current).forEach((key) => {
-        traverse(current[key], [...path, key]);
-      });
-    } else {
-      result.push(path);
-    }
-  }
-
-  traverse(obj);
-  return result;
 }
 
 export function calcFieldValue(name: NamePath, value: any, numericKeyAsIndex = true) {

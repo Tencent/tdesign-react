@@ -1,4 +1,4 @@
-import type { NamePath, FormInstanceFunctions } from '../type';
+import type { FormInstanceFunctions, NamePath } from '../type';
 
 export type Store = Record<string, any>;
 
@@ -13,6 +13,9 @@ export interface InternalHooks {
   setForm: (form) => void;
 }
 
+/**
+ * @internal
+ */
 export interface InternalFormInstance extends FormInstanceFunctions {
   _init?: boolean;
   store?: Store;

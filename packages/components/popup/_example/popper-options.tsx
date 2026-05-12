@@ -42,10 +42,6 @@ export default function PopperOptions() {
                   offset: [Number(offsetX), Number(offsetY)],
                 },
               },
-              {
-                name: 'arrow',
-                // enabled: false, // 默认箭头始终指向参考系的中心，可通过该配置项禁用
-              },
             ],
           }}
         >

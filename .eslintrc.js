@@ -52,7 +52,7 @@ module.exports = {
     'react/prop-types': 'off',
     'max-len': 'off',
     'no-shadow': 'off',
-    'no-console': 'off',
+    'no-console': ['warn', { allow: ['warn', 'error'] }],
     'no-throw-literal': 'off',
     'no-unused-expressions': 'off',
     'no-bitwise': 'off',
@@ -84,4 +84,12 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: ['**/_example/**/*', '**/__tests__/**/*'],
+      rules: {
+        'no-console': 'off',
+      },
+    },
+  ],
 };

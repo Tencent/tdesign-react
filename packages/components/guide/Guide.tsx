@@ -65,6 +65,8 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
 
   // 设置高亮层的位置
   const setHighlightLayerPosition = (highlightLayer: HTMLElement) => {
+    if (!highlightLayer) return; // 避免在 setTimeout 中访问时，可能元素已经被摧毁
+
     let { top, left } = getRelativePosition(currentHighlightLayerElm.current);
     let { width, height } = currentHighlightLayerElm.current.getBoundingClientRect();
     const highlightPadding = getCurrentCrossProps('highlightPadding');

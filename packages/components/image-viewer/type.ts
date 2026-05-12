@@ -4,7 +4,7 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TNode, AttachNode } from '../common';
+import { TNode, ClassName, AttachNode } from '../common';
 import { MouseEvent, KeyboardEvent } from 'react';
 
 export interface TdImageViewerProps {
@@ -63,6 +63,10 @@ export interface TdImageViewerProps {
    */
   defaultIndex?: number;
   /**
+   * 内容部分的类名，支持多种格式：字符串（例如 `'name1 name2 name3'`）、数组（例如 `['name1', 'name2']`）或对象数组（例如 `[{ 'name1': true }]`）
+   */
+  innerClassName?: ClassName;
+  /**
    * 模态预览（modal）和非模态预览（modeless)
    * @default modal
    */
@@ -81,7 +85,7 @@ export interface TdImageViewerProps {
    */
   title?: TNode;
   /**
-   * 触发图片预览的元素，可能是一个预览按钮，可能是一张缩略图，完全自定义
+   * 触发图片预览的元素，可能是一个预览按钮，可能是一张缩略图，完全自定义，默认为预览图片的缩略图
    */
   trigger?: TNode | TNode<{ open: (index?: number) => void }>;
   /**

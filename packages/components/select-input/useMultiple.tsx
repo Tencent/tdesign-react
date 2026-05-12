@@ -110,12 +110,12 @@ export default function useMultiple(props: SelectInputProps) {
           if (context?.trigger === 'enter' || context?.trigger === 'blur') return;
           setTInputValue(val, { trigger: context.trigger, e: context.e });
         }}
-        tagProps={props.tagProps}
         onClear={p.onInnerClear}
         // [Important Info]: SelectInput.blur is not equal to TagInput, example: click popup panel
         onFocus={handleFocus}
         onBlur={handleBlur}
         {...props.tagInputProps}
+        tagProps={{ ...props.tagProps, ...props.tagInputProps?.tagProps }}
         inputProps={{
           ...props.inputProps,
           readOnly: !props.allowInput || readOnly,

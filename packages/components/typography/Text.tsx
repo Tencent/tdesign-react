@@ -72,7 +72,7 @@ const Text = forwardRef<HTMLSpanElement, TypographyTextProps>((originalProps, re
   const copyProps =
     typeof copyable === 'boolean'
       ? {
-          text: children.toString(),
+          text: children?.toString(),
           onCopy: Function.prototype,
           tooltipProps: isCopied
             ? {
@@ -81,8 +81,8 @@ const Text = forwardRef<HTMLSpanElement, TypographyTextProps>((originalProps, re
             : null,
         }
       : {
-          text: copyable?.text || children.toString(),
-          onCopy: copyable?.onCopy?.(),
+          text: copyable?.text || children?.toString(),
+          onCopy: copyable?.onCopy,
           tooltipProps: {
             ...copyable?.tooltipProps,
             content: isCopied ? copiedText : copyable?.tooltipProps?.content,
@@ -102,7 +102,13 @@ const Text = forwardRef<HTMLSpanElement, TypographyTextProps>((originalProps, re
   const renderContent = (withChildren: boolean) => {
     const { tooltipProps } = copyProps;
     const wrapWithTooltip = (wrapContent: React.ReactNode) =>
-      tooltipProps ? <Tooltip {...tooltipProps}>{wrapContent}</Tooltip> : wrapContent;
+      tooltipProps ? (
+        <Tooltip hideEmptyPopup {...tooltipProps}>
+          {wrapContent}
+        </Tooltip>
+      ) : (
+        wrapContent
+      );
 
     const getSuffix = (): ReactElement => {
       if (typeof copyProps?.suffix === 'function') {

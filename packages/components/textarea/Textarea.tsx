@@ -209,7 +209,10 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     </div>
   );
 
-  const limitText = renderLimitText(currentLength, maxlength ?? maxcharacter);
+  const limitText = renderLimitText(
+    hasMaxcharacter ? characterLength : currentLength,
+    hasMaxcharacter ? maxcharacter : maxlength,
+  );
 
   return (
     <div style={style} ref={wrapperRef} className={classNames(`${classPrefix}-textarea`, className)}>

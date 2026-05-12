@@ -25,21 +25,21 @@ export default function BaseForm() {
       onSubmit={onSubmit}
       initialData={{ task: [{ type: 'review' }, { type: 'ui' }] }}
       onValuesChange={(change, all) => {
-        console.log('change:', change, JSON.stringify(change));
-        console.log('all:', all, JSON.stringify(all));
+        console.log('change:', change, '\n', JSON.stringify(change));
+        console.log('all:', all, '\n', JSON.stringify(all));
       }}
       resetType="initial"
     >
       <FormList name="task">
         {(fields, { add, remove, move }) => (
           <>
-            {fields.map(({ key, name, ...restField }, index) => (
+            {fields.map(({ key, name }, index) => (
               <FormItem key={key}>
-                <FormItem name={[name, 'type']} label="类型" {...restField}>
+                <FormItem name={[name, 'type']} label="类型">
                   <Select options={taskTypeOptions} />
                 </FormItem>
 
-                <FormItem name={[name, 'notes']} label="备注" initialData="排期中" {...restField}>
+                <FormItem name={[name, 'notes']} label="备注" initialData="排期中">
                   <Input />
                 </FormItem>
 
@@ -68,7 +68,7 @@ export default function BaseForm() {
 
             <FormItem style={{ marginLeft: 100 }}>
               <Space>
-                <Button onClick={() => add({ taskType: 'dev', notes: '已交付' })}>新增指定项</Button>
+                <Button onClick={() => add({ type: 'dev', notes: '已交付' })}>新增指定项</Button>
                 <Button onClick={() => add()}>新增默认项</Button>
               </Space>
             </FormItem>

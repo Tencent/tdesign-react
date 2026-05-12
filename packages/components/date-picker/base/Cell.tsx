@@ -2,6 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 import { extractTimeObj } from '@tdesign/common-js/date-picker/utils';
 import useConfig from '../../hooks/useConfig';
+import parseTNode from '../../_util/parseTNode';
+import type { TNode } from '../../common';
+import type { DateValue } from '../type';
 
 export interface DatePickerCellProps {
   time?: string;
@@ -22,6 +25,7 @@ export interface DatePickerCellProps {
   lastDayOfMonth: boolean;
   onClick: Function;
   onMouseEnter: Function;
+  cell?: TNode<{ value: DateValue }>;
 }
 
 const DatePickerCell = (props: DatePickerCellProps) => {
@@ -77,7 +81,9 @@ const DatePickerCell = (props: DatePickerCellProps) => {
 
   return (
     <td className={cellClass} onClick={handleClick} onMouseEnter={handleMouseEnter}>
-      <div className={`${classPrefix}-date-picker__cell-inner`}>{props.text}</div>
+      <div className={`${classPrefix}-date-picker__cell-inner`}>
+        {parseTNode(props.cell, { value: props.value }) ?? props.text}
+      </div>
     </td>
   );
 };

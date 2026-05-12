@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import useConfig from '../../hooks/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 
-export function useTreeConfig() {
+export function useTreeConfig(transition = true) {
   const { classPrefix: prefix } = useConfig();
   const [locale, t] = useLocaleReceiver('tree');
 
@@ -63,8 +63,9 @@ export function useTreeConfig() {
       treeClassNames,
       transitionNames,
       transitionClassNames,
-      transitionDuration: 300,
+      // transition 关闭时立即移除节点，避免 CSSTransition 多等 300ms 造成的关闭延迟
+      transitionDuration: transition ? 300 : 0,
       locale: (key) => t(locale[key]),
     };
-  }, [locale, prefix, t]);
+  }, [locale, prefix, t, transition]);
 }
