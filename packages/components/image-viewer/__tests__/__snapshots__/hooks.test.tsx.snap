@@ -1,0 +1,27 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`usePosition > snapshot: default state > usePosition-default-state 1`] = `
+{
+  "isDragging": false,
+  "position": [
+    0,
+    0,
+  ],
+  "resetPosition": [Function],
+  "setPosition": [Function],
+}
+`;
+
+exports[`useViewerScale > snapshot: custom config > useViewerScale-custom 1`] = `
+{
+  "minHeight": 480,
+  "minWidth": 600,
+}
+`;
+
+exports[`useViewerScale > snapshot: default config > useViewerScale-default 1`] = `
+{
+  "minHeight": 1000,
+  "minWidth": 1000,
+}
+`;

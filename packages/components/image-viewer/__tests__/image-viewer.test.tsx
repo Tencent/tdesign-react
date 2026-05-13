@@ -6,6 +6,7 @@ import { ImageViewer } from '../index';
 
 const imgUrl = 'https://tdesign.gtimg.com/demo/demo-image-1.png';
 const imgUrl2 = 'https://tdesign.gtimg.com/demo/demo-image-2.png';
+const imgUrl3 = 'https://tdesign.gtimg.com/demo/demo-image-3.png';
 // const errorImgUrl = 'https://tdesixxxxxxxxgn.gtimg.com/demo/demo-image-1.png';
 
 describe('ImageViewer', () => {
@@ -410,5 +411,321 @@ describe('ImageViewerModal', () => {
     await mockDelay();
 
     expect(document.querySelector('.t-image-viewer__modal-image')?.getAttribute('referrerpolicy')).toBe(referrerPolicy);
+  });
+});
+
+// ─── 快照测试 ─────────────────────────────────────────────────────────────────
+describe('ImageViewer snapshots', () => {
+  const triggerText = '预览单张图片';
+
+  test('单张图片默认状态', async () => {
+    const BasicImageViewer = () => {
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
+      return <ImageViewer trigger={trigger} images={[imgUrl]} />;
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+
+    await mockDelay();
+    expect(document.body).toMatchSnapshot('image-viewer-single-image-default');
+  });
+
+  test('多张图片默认状态', async () => {
+    const BasicImageViewer = () => {
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
+      return <ImageViewer trigger={trigger} images={[imgUrl, imgUrl2, imgUrl3]} />;
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+
+    await mockDelay();
+    expect(document.body).toMatchSnapshot('image-viewer-multi-image-default');
+  });
+
+  test('自定义关闭按钮', async () => {
+    const BasicImageViewer = () => {
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
+      return <ImageViewer trigger={trigger} images={[imgUrl]} closeBtn={<span className="custom-close">✕</span>} />;
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+
+    await mockDelay();
+    expect(document.body).toMatchSnapshot('image-viewer-custom-close-btn');
+  });
+
+  test('关闭按钮为 false', async () => {
+    const BasicImageViewer = () => {
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
+      return <ImageViewer trigger={trigger} images={[imgUrl]} closeBtn={false} />;
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+
+    await mockDelay();
+    expect(document.body).toMatchSnapshot('image-viewer-close-btn-disabled');
+  });
+
+  test('无遮罩层', async () => {
+    const BasicImageViewer = () => {
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
+      return <ImageViewer trigger={trigger} images={[imgUrl]} showOverlay={false} />;
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+
+    await mockDelay();
+    expect(document.body).toMatchSnapshot('image-viewer-no-overlay');
+  });
+
+  test('不可拖拽', async () => {
+    const BasicImageViewer = () => {
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
+      return <ImageViewer trigger={trigger} images={[imgUrl]} draggable={false} />;
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+
+    await mockDelay();
+    expect(document.body).toMatchSnapshot('image-viewer-not-draggable');
+  });
+
+  test('自定义 imageScale 配置', async () => {
+    const BasicImageViewer = () => {
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
+      return (
+        <ImageViewer
+          trigger={trigger}
+          images={[imgUrl, imgUrl2]}
+          imageScale={{
+            max: 3,
+            min: 0.5,
+            step: 0.5,
+            defaultScale: 2,
+          }}
+        />
+      );
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+
+    await mockDelay();
+    expect(document.body).toMatchSnapshot('image-viewer-custom-scale-config');
+  });
+
+  test('modeless 模式', async () => {
+    const BasicImageViewer = () => {
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
+      return <ImageViewer trigger={trigger} images={[imgUrl]} mode="modeless" />;
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+
+    await mockDelay();
+    expect(document.body).toMatchSnapshot('image-viewer-modeless');
+  });
+
+  test('modeless 模式 - 第二张图片', async () => {
+    const BasicImageViewer = () => {
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
+      return <ImageViewer trigger={trigger} images={[imgUrl, imgUrl2]} mode="modeless" />;
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+
+    // 切换到第二张
+    const user = userEvent.setup();
+    await user.type(document.body, '{ArrowRight}');
+    await mockDelay();
+
+    expect(document.body).toMatchSnapshot('image-viewer-modeless-second-image');
+  });
+
+  test('自定义 title', async () => {
+    const BasicImageViewer = () => {
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
+      return <ImageViewer trigger={trigger} images={[imgUrl, imgUrl2]} title="自定义标题" />;
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+
+    await mockDelay();
+    expect(document.body).toMatchSnapshot('image-viewer-custom-title');
+  });
+
+  test('attach 到指定容器', async () => {
+    const customContainer = document.createElement('div');
+    customContainer.id = 'custom-attach-container';
+    document.body.appendChild(customContainer);
+
+    const BasicImageViewer = () => {
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
+      return <ImageViewer trigger={trigger} images={[imgUrl]} attach={() => customContainer} />;
+    };
+    const { getByText } = render(<BasicImageViewer />);
+
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+
+    await mockDelay();
+    expect(customContainer).toMatchSnapshot('image-viewer-attach-custom-container');
+
+    // 清理
+    document.body.removeChild(customContainer);
+  });
+
+  test('DefaultTrigger 默认触发器渲染快照', async () => {
+    // 不传 trigger，使用默认触发器
+    const { container } = render(<ImageViewer images={[imgUrl]} />);
+    await mockDelay();
+    expect(container).toMatchSnapshot('image-viewer-default-trigger');
+  });
+
+  test('DefaultTrigger 多张图片默认触发器渲染快照', async () => {
+    const { container } = render(<ImageViewer images={[imgUrl, imgUrl2, imgUrl3]} />);
+    await mockDelay();
+    expect(container).toMatchSnapshot('image-viewer-default-trigger-multi');
+  });
+});
+
+// ─── 工具栏事件快照测试 ────────────────────────────────────────────────────────
+describe('ImageViewer toolbar event snapshots', () => {
+  const triggerText = '工具栏测试';
+
+  const openViewer = async (images = [imgUrl]) => {
+    const BasicImageViewer = () => {
+      const trigger = ({ open }) => <span onClick={() => open()}>{triggerText}</span>;
+      return <ImageViewer trigger={trigger} images={images} />;
+    };
+    const { getByText } = render(<BasicImageViewer />);
+    act(() => {
+      fireEvent.click(getByText(triggerText));
+    });
+    await mockDelay();
+    return { getByText };
+  };
+
+  test('点击旋转按钮后快照', async () => {
+    await openViewer();
+    const rotateBtn = document.querySelector('.t-image-viewer__modal-rotate-RR');
+    if (rotateBtn) {
+      act(() => {
+        fireEvent.click(rotateBtn);
+      });
+      await mockDelay();
+    }
+    expect(document.body).toMatchSnapshot('toolbar-after-rotate');
+  });
+
+  test('点击放大按钮后快照', async () => {
+    await openViewer();
+    const zoomInBtn = document.querySelector('.t-image-viewer__modal-zoomIn');
+    if (zoomInBtn) {
+      act(() => {
+        fireEvent.click(zoomInBtn);
+      });
+      await mockDelay();
+    }
+    expect(document.body).toMatchSnapshot('toolbar-after-zoom-in');
+  });
+
+  test('点击缩小按钮后快照', async () => {
+    await openViewer();
+    const zoomOutBtn = document.querySelector('.t-image-viewer__modal-zoomOut');
+    if (zoomOutBtn) {
+      act(() => {
+        fireEvent.click(zoomOutBtn);
+      });
+      await mockDelay();
+    }
+    expect(document.body).toMatchSnapshot('toolbar-after-zoom-out');
+  });
+
+  test('点击镜像按钮后快照', async () => {
+    await openViewer();
+    const mirrorBtn = document.querySelector('.t-image-viewer__modal-mirrorX');
+    if (mirrorBtn) {
+      act(() => {
+        fireEvent.click(mirrorBtn);
+      });
+      await mockDelay();
+    }
+    expect(document.body).toMatchSnapshot('toolbar-after-mirror');
+  });
+
+  test('点击原始大小按钮后快照', async () => {
+    await openViewer();
+    const resetBtn = document.querySelector('.t-image-viewer__modal-original');
+    if (resetBtn) {
+      act(() => {
+        fireEvent.click(resetBtn);
+      });
+      await mockDelay();
+    }
+    expect(document.body).toMatchSnapshot('toolbar-after-reset');
+  });
+
+  test('多图导航：上一张/下一张按钮快照', async () => {
+    await openViewer([imgUrl, imgUrl2, imgUrl3]);
+
+    // 点击下一张
+    const nextBtn = document.querySelector('.t-image-viewer__modal-next-bt');
+    if (nextBtn) {
+      act(() => {
+        fireEvent.click(nextBtn);
+      });
+      await mockDelay();
+    }
+    expect(document.body).toMatchSnapshot('toolbar-navigate-next');
+
+    // 再次点击下一张
+    const nextBtn2 = document.querySelector('.t-image-viewer__modal-next-bt');
+    if (nextBtn2) {
+      act(() => {
+        fireEvent.click(nextBtn2);
+      });
+      await mockDelay();
+    }
+
+    // 点击上一张
+    const prevBtn = document.querySelector('.t-image-viewer__modal-prev-bt');
+    if (prevBtn) {
+      act(() => {
+        fireEvent.click(prevBtn);
+      });
+      await mockDelay();
+    }
+    expect(document.body).toMatchSnapshot('toolbar-navigate-prev');
   });
 });

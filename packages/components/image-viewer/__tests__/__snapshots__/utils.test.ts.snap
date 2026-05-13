@@ -1,0 +1,54 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`formatImages snapshots > ImageInfo objects snapshot > formatImages-image-info-array 1`] = `
+[
+  {
+    "download": true,
+    "mainImage": "main1.jpg",
+    "thumbnail": "thumb1.jpg",
+  },
+  {
+    "download": false,
+    "isSvg": true,
+    "mainImage": "main2.jpg",
+    "thumbnail": "main2.jpg",
+  },
+]
+`;
+
+exports[`formatImages snapshots > empty array snapshot > formatImages-empty 1`] = `[]`;
+
+exports[`formatImages snapshots > mixed array snapshot > formatImages-mixed-array 1`] = `
+[
+  {
+    "download": true,
+    "mainImage": "simple.jpg",
+    "thumbnail": "simple.jpg",
+  },
+  {
+    "download": true,
+    "mainImage": "complex.jpg",
+    "thumbnail": "complex-thumb.jpg",
+  },
+]
+`;
+
+exports[`formatImages snapshots > string images snapshot > formatImages-string-array 1`] = `
+[
+  {
+    "download": true,
+    "mainImage": "img1.jpg",
+    "thumbnail": "img1.jpg",
+  },
+  {
+    "download": true,
+    "mainImage": "img2.png",
+    "thumbnail": "img2.png",
+  },
+  {
+    "download": true,
+    "mainImage": "img3.gif",
+    "thumbnail": "img3.gif",
+  },
+]
+`;
