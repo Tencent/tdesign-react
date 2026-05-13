@@ -5,6 +5,57 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.16.9 `2026-04-23`
+
+### 🚀 Features
+
+- `Cascader`: 支持 `valueType="full"` 在不同层级节点的 value 相同的场景中使用 @RylanBot ([#4145](https://github.com/Tencent/tdesign-react/pull/4145))
+- `RadioGroup`: 新增 `direction` API，支持添加垂直排列特性 @liweijie0812 ([#4214](https://github.com/Tencent/tdesign-react/pull/4214))
+
+### 🐞 Bug Fixes
+
+- `Affix`: 修复 `offsetBottom` 模式下容器滚出视口时 `top` 计算为负值的问题 @RylanBot ([#4172](https://github.com/Tencent/tdesign-react/pull/4172))
+- `Cascader`: 
+  - 修复单选模式下，`showAllLevels={false}` 与 `valueType="full"` 配合使用时，选中状态被清空的问题 @RylanBot ([#4145](https://github.com/Tencent/tdesign-react/pull/4145))
+  - 修复单选模式下，再次点击选中项，面板的选中状态异常的问题 @RylanBot ([#4145](https://github.com/Tencent/tdesign-react/pull/4145))
+- `Form`: 
+  - 修复 `1.16.4` 引入的逻辑导致单独使用 FormItem 时，初始化会产生 `undefined` 报错的问题 @RylanBot ([#4207](https://github.com/Tencent/tdesign-react/pull/4207))
+  - 修复 React 19 下 Fragment 包裹 FormItem 子元素时产生的警告 @RylanBot ([#4212](https://github.com/Tencent/tdesign-react/pull/4212))
+- `RadioGroup`: 修复 `variant="primary-filled"` 时，某些场景下首次高亮异常的问题 @RylanBot ([#4081](https://github.com/Tencent/tdesign-react/pull/4081))
+- `Table`: 修复存在 `fixed` 列时，吸顶表头和吸底表尾和表格不对齐的问题 @RylanBot ([#4172](https://github.com/Tencent/tdesign-react/pull/4172))
+
+### 📝 Documentation
+
+- `Configprovider`: 添加全局配置 `Plugin` 函数使用文档 @HaixingOoO ([#4218](https://github.com/Tencent/tdesign-react/pull/4218))
+
+### 🚧 Others
+
+- `RadioGroup`: 加强组件的泛型支持，便于 `value` 与 `onChange` 联动 @RylanBot ([#4081](https://github.com/Tencent/tdesign-react/pull/4081))
+
+## 🌈 1.16.8 `2026-04-02`
+
+### 🚀 Features
+
+- 新增导出当前版本号，用于具体业务中判断版本号进行下一步逻辑处理 @uyarn ([#4199](https://github.com/Tencent/tdesign-react/pull/4199))
+- `DatePicker`: 
+  - 新增 `range` 和  `panelActiveDate` API，用于支持定义日期选择范围，具体使用请参考示例 @HaixingOoO  ([#4139](https://github.com/Tencent/tdesign-react/pull/4139))
+  - 新增 `cell` API，支持如自定义日期单元格、农历等内容，具体使用请查看示例。 @uyarn ([#4200](https://github.com/Tencent/tdesign-react/pull/4200))
+- `DateRangePicker`: 
+  - 新增 `range` 和  `panelActiveDate` API，用于支持定义日期选择范围，具体使用请参考示例 @HaixingOoO @uyarn ([#4139](https://github.com/Tencent/tdesign-react/pull/4139))
+  - 新增 `cell` API，支持如自定义日期单元格、农历等内容，具体使用请参考示例 @uyarn ([#4200](https://github.com/Tencent/tdesign-react/pull/4200))
+
+### 🐞 Bug Fixes
+
+- `Calendar`: 修复 `className` 没传参时，被转为 `undefined` 字符串的问题 @RylanBot ([#4175](https://github.com/Tencent/tdesign-react/pull/4175))
+- `EnhancedTable`: 修复 `disableDataPage` 不生效的问题 @HaixingOoO ([#4186](https://github.com/Tencent/tdesign-react/pull/4186))
+- `Form`: 修复 `initialData` 覆盖 `setFieldsValue` 设置值的问题 @RylanBot ([#4201](https://github.com/Tencent/tdesign-react/pull/4201))
+- `FormList`: 
+  - 修复 `setFieldsValue` 缺乏拷贝从而污染数据的问题 @RylanBot ([#4174](https://github.com/Tencent/tdesign-react/pull/4174))
+  - 修复 React 17 环境下首次渲染后，异步更新中 `setFieldsValue` 失败的问题 @RylanBot ([#4179](https://github.com/Tencent/tdesign-react/pull/4179))
+- `MessagePlugin`: 修复 `zIndex` 不生效的问题 @TidySongS ([#4077](https://github.com/Tencent/tdesign-react/pull/4077))
+- `Select`: 修复 `onScrollToBottom` 在浏览器缩放时无法触发的问题 @RylanBot ([#4181](https://github.com/Tencent/tdesign-react/pull/4181))
+- `TagInput`: 修复 `excessTagsDisplayType="break-line"` 时，`suffix` 没有固定在右侧的问题 @RylanBot ([#4178](https://github.com/Tencent/tdesign-react/pull/4178))
+
 ## 🌈 1.16.7 `2026-03-13`
 
 ### 🚀 Features
@@ -16,7 +67,6 @@ spline: explain
 - `Affix`: 
   - 修复自定义容器时，DOM 节点未准备好就监听导致失败的问题 @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
   - 修复自定义容器时，滚动整个页面元素会偏离的问题 @HaixingOoO @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
-- `FormList`: 修复 `setFieldsValue` 缺乏拷贝从而污染数据的问题 @RylanBot ([#4155](https://github.com/Tencent/tdesign-react/pull/4155))
 - `InputNumber`: 修复 `disabled` 时，hover 对应颜色异常的问题 @RylanBot ([common#2402](https://github.com/Tencent/tdesign-common/pull/2402))
 - `Popconfirm`: 修复 `className` 没传参时，被转为 `undefined` 字符串的问题 @RylanBot ([#4159](https://github.com/Tencent/tdesign-react/pull/4159))
 - `SelectInput`: 修复多选时，点击删除图标会打开 `Popup` 的问题 @RylanBot ([#4158](https://github.com/Tencent/tdesign-react/pull/4158))
@@ -207,13 +257,13 @@ spline: explain
 
 ### 🐞 Bug Fixes
 
-- `RadioGroup`: 修复 NextJS 中，`variant="default-filled` 时，子组件含动态内容时导致无限循环的问题 @tingtingcheng6 ([#3921](https://github.com/Tencent/tdesign-react/pull/3921))
+- `RadioGroup`: 修复 NextJS 中，`variant="default-filled` 时，子组件含动态内容时导致无限循环的问题 @Ylushen ([#4010](https://github.com/Tencent/tdesign-react/pull/4010))
 
 ## 🌈 1.15.10 `2025-12-12`
 
 ### 🐞 Bug Fixes
 
-- `Drawer`: 修复回调事件错误缓存的问题 @uyarn ([#4008](https://github.com/Tencent/tdesign-react/pull/3921))
+- `Drawer`: 修复回调事件错误缓存的问题 @uyarn ([#4008](https://github.com/Tencent/tdesign-react/pull/4008))
 
 ## 🌈 1.15.9 `2025-11-28`
 

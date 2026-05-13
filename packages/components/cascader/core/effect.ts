@@ -1,6 +1,8 @@
-import { isNumber, isFunction, cloneDeep } from 'lodash-es';
-import { TreeNode, CascaderContextType, TdCascaderProps, TreeNodeValue, TreeNodeModel } from '../interface';
+import { cloneDeep, isFunction, isNumber } from 'lodash-es';
+import { pathToKey } from '@tdesign/common-js/tree-v1/tree-node-model';
 import { getFullPathLabel, getTreeValue } from './helper';
+
+import type { CascaderContextType, TdCascaderProps, TreeNode, TreeNodeModel, TreeNodeValue } from '../interface';
 
 /**
  * 点击item的副作用
@@ -47,15 +49,25 @@ export function expendClickEffect(
   }
 
   if (!multiple && (node.isLeaf() || checkStrictly) && trigger === 'click') {
+    // 当 trigger 为 hover 时，点击节点一定是关闭 panel 的操作
+    const shouldClosePanel = !checkStrictly || propsTrigger === 'hover';
+
+    // 再次点击已选中节点，无需重复更新值，但仍需关闭弹窗
+    if (node.checked) {
+      if (shouldClosePanel) {
+        setVisible(false, {});
+      }
+      return;
+    }
+
     treeStore.resetChecked();
-    const checked = node.setChecked(!node.checked);
+    const checked = node.setChecked(true);
     const [value] = checked;
 
     // 非受控状态下更新状态
     setValue(valueType === 'single' ? value : node.getPath().map((item) => item.value), 'check', node.getModel());
 
-    // 当 trigger 为 hover 时 ，点击节点一定是关闭 panel 的操作
-    if (!checkStrictly || propsTrigger === 'hover') {
+    if (shouldClosePanel) {
       setVisible(false, {});
     }
   }
@@ -211,31 +223,46 @@ export const treeNodesEffect = (
  * @param treeStore
  * @param treeValue
  * @param expend
+ * @param valueType
  */
 export const treeStoreExpendEffect = (
   treeStore: CascaderContextType['treeStore'],
   value: CascaderContextType['value'],
   expend: TreeNodeValue[],
+  valueType?: TdCascaderProps['valueType'],
 ) => {
   const treeValue = getTreeValue(value);
 
   if (!treeStore) return;
+
+  const allowDuplicateValue = treeStore.config?.allowDuplicateValue;
+
   // init expanded, 无expend状态时设置
   if (Array.isArray(treeValue) && expend.length === 0) {
     const expandedMap = new Map();
-    const [val] = treeValue;
-    if (val) {
-      expandedMap.set(val, true);
-      const node = treeStore.getNode(val);
-      if (!node) {
-        treeStore.refreshNodes();
-        return;
+
+    // 对于 valueType='full'，value 本身就是完整路径，用它来查找节点
+    let node = null;
+    if (valueType === 'full' && Array.isArray(value) && value.length > 0) {
+      node = treeStore.getNode(value as TreeNodeValue[]);
+    } else {
+      const [val] = treeValue;
+      if (val) {
+        expandedMap.set(val, true);
+        node = treeStore.getNode(val);
       }
+    }
+
+    if (node) {
       node.getParents().forEach((tn: TreeNode) => {
-        expandedMap.set(tn.value, true);
+        const expandedKey = allowDuplicateValue ? pathToKey(tn.getPath().map((n) => n.value)) : tn.value;
+        expandedMap.set(expandedKey, true);
       });
       const expandedArr = Array.from(expandedMap.keys());
       treeStore.replaceExpanded(expandedArr);
+    } else if (treeValue.length > 0) {
+      treeStore.refreshNodes();
+      return;
     } else {
       treeStore.resetExpanded();
     }

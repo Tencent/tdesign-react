@@ -15,10 +15,11 @@ export const radioDefaultProps: TdRadioProps = {
 
 export const radioGroupDefaultProps: TdRadioGroupProps = {
   allowUncheck: false,
+  direction: 'horizontal',
   disabled: undefined,
   readonly: undefined,
   readOnly: undefined,
   size: 'medium',
-  variant: 'outline',
   theme: 'radio',
+  variant: 'outline',
 };

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import { Affix, Button } from 'tdesign-react';
 
 export default function ContainerExample() {
-  const [container, setContainer] = useState(null);
+  const containerRef = useRef<HTMLDivElement>();
 
   const backgroundStyle = {
     height: '1500px',
@@ -18,7 +18,7 @@ export default function ContainerExample() {
 
   return (
     <div
-      ref={setContainer}
+      ref={containerRef}
       style={{
         border: '1px solid var(--component-stroke)',
         borderRadius: '3px',
@@ -29,10 +29,10 @@ export default function ContainerExample() {
       }}
     >
       <div style={backgroundStyle}>
-        <Affix zIndex={10} offsetTop={50} container={container}>
+        <Affix zIndex={10} offsetTop={50} container={() => containerRef.current}>
           <Button>Top</Button>
         </Affix>
-        <Affix offsetBottom={50} container={container}>
+        <Affix offsetBottom={50} container={() => containerRef.current}>
           <Button>Bottom</Button>
         </Affix>
       </div>
