@@ -37,6 +37,6 @@ jobs:
 
           pnpm dlx https://pkg.pr.new/TDesignOteam/create-tdesign@main react-chat-rspack --template react-chat-rspack
 
-          pnpm dlx https://pkg.pr.new/TDesignOteam/create-tdesign@main react-chat-vike --template react-chat-vik
+          pnpm dlx https://pkg.pr.new/TDesignOteam/create-tdesign@main react-chat-vike --template react-chat-vike
 
       - run: pnpm dlx pkg-pr-new publish './packages/*' --template './templates/*'
