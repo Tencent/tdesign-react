@@ -220,27 +220,27 @@ describe('useScale', () => {
   });
 
   it('default scale value is 1', () => {
-    const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }));
+    const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, true));
     expect(result.current.scale).toBe(1);
   });
 
   it('custom defaultScale', () => {
-    const { result } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.1, defaultScale: 1.5 }));
+    const { result } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.1, defaultScale: 1.5 }, true));
     expect(result.current.scale).toBe(1.5);
   });
 
   it('defaultScale clamped to max', () => {
-    const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 5 }));
+    const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 5 }, true));
     expect(result.current.scale).toBe(2);
   });
 
   it('defaultScale clamped to min', () => {
-    const { result } = renderHook(() => useScale({ max: 2, min: 1.5, step: 0.2, defaultScale: 0.5 }));
+    const { result } = renderHook(() => useScale({ max: 2, min: 1.5, step: 0.2, defaultScale: 0.5 }, true));
     expect(result.current.scale).toBe(1.5);
   });
 
   it('onZoomIn increases scale', () => {
-    const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }));
+    const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
     act(() => {
       result.current.onZoomIn();
@@ -249,7 +249,7 @@ describe('useScale', () => {
   });
 
   it('onZoomOut decreases scale', () => {
-    const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }));
+    const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
     act(() => {
       result.current.onZoomOut();
@@ -258,7 +258,7 @@ describe('useScale', () => {
   });
 
   it('max scale boundary', () => {
-    const { result } = renderHook(() => useScale({ max: 1.5, min: 0.5, step: 0.5, defaultScale: 1 }));
+    const { result } = renderHook(() => useScale({ max: 1.5, min: 0.5, step: 0.5, defaultScale: 1 }, true));
 
     act(() => {
       result.current.onZoomIn();
@@ -274,7 +274,7 @@ describe('useScale', () => {
   });
 
   it('min scale boundary', () => {
-    const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.3, defaultScale: 0.6 }));
+    const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.3, defaultScale: 0.6 }, true));
 
     act(() => {
       result.current.onZoomOut();
@@ -284,7 +284,7 @@ describe('useScale', () => {
   });
 
   it('onResetScale restores defaultScale', () => {
-    const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }));
+    const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
     act(() => {
       result.current.onZoomIn();
@@ -299,7 +299,7 @@ describe('useScale', () => {
   });
 
   it('small step values', () => {
-    const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.05, defaultScale: 1 }));
+    const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.05, defaultScale: 1 }, true));
 
     act(() => {
       result.current.onZoomIn();
@@ -309,7 +309,7 @@ describe('useScale', () => {
   });
 
   it('large scale values', () => {
-    const { result } = renderHook(() => useScale({ max: 10, min: 0.1, step: 1, defaultScale: 5 }));
+    const { result } = renderHook(() => useScale({ max: 10, min: 0.1, step: 1, defaultScale: 5 }, true));
     expect(result.current.scale).toBe(5);
 
     act(() => {
@@ -328,7 +328,7 @@ describe('useScale', () => {
   // ─── ZoomOptions（中心缩放）──────────────────────────────────────────
   describe('ZoomOptions (center zoom)', () => {
     it('onZoomIn with center zoom (mouseOffset = 0)', () => {
-      const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }));
+      const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
       let zoomResult;
       act(() => {
@@ -347,7 +347,7 @@ describe('useScale', () => {
     });
 
     it('onZoomIn with non-zero mouse offset', () => {
-      const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }));
+      const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
       let zoomResult;
       act(() => {
@@ -366,7 +366,7 @@ describe('useScale', () => {
     });
 
     it('onZoomOut with ZoomOptions preserves translate during zoom out', () => {
-      const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }));
+      const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
       let zoomResult;
       act(() => {
@@ -385,7 +385,7 @@ describe('useScale', () => {
     });
 
     it('missing mouseOffset returns empty result', () => {
-      const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }));
+      const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
       let zoomResult;
       act(() => {
@@ -399,7 +399,7 @@ describe('useScale', () => {
     });
 
     it('at max boundary, zoom in returns empty result', () => {
-      const { result } = renderHook(() => useScale({ max: 1.2, min: 0.5, step: 0.2, defaultScale: 1 }));
+      const { result } = renderHook(() => useScale({ max: 1.2, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
       // 先放大到 max
       act(() => {
@@ -422,7 +422,7 @@ describe('useScale', () => {
     });
 
     it('zoom with existing translate and non-zero offset', () => {
-      const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }));
+      const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
       let zoomResult;
       act(() => {
@@ -441,37 +441,28 @@ describe('useScale', () => {
     });
   });
 
-  // ─── 节流行为 ──────────────────────────────────────────────────────────
+  // throttle 已移除，每次调用都直接生效
   describe('throttle behavior', () => {
-    it('throttles rapid onZoomIn calls (50ms, leading-only)', () => {
-      const { result } = renderHook(() => useScale({ max: 5, min: 0.5, step: 0.2, defaultScale: 1 }));
+    it('rapid onZoomIn calls all take effect', () => {
+      const { result } = renderHook(() => useScale({ max: 5, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
       act(() => {
-        // 连续快速调用 — 只有第一次生效（leading）
         result.current.onZoomIn();
         result.current.onZoomIn();
         result.current.onZoomIn();
       });
-      // 节流期间只执行了一次
-      expect(result.current.scale).toBeCloseTo(1.2);
-
-      // 等待节流间隔过去
-      act(() => {
-        vi.advanceTimersByTime(100);
-        result.current.onZoomIn();
-      });
-      expect(result.current.scale).toBeCloseTo(1.4);
+      expect(result.current.scale).toBeCloseTo(1.6);
     });
 
-    it('throttles rapid onZoomOut calls', () => {
-      const { result } = renderHook(() => useScale({ max: 5, min: 0.1, step: 0.2, defaultScale: 1 }));
+    it('rapid onZoomOut calls all take effect', () => {
+      const { result } = renderHook(() => useScale({ max: 5, min: 0.1, step: 0.2, defaultScale: 1 }, true));
 
       act(() => {
         result.current.onZoomOut();
         result.current.onZoomOut();
         result.current.onZoomOut();
       });
-      expect(result.current.scale).toBeCloseTo(0.8);
+      expect(result.current.scale).toBeCloseTo(0.4);
     });
   });
 });
@@ -642,7 +633,7 @@ describe('useScale: touch events', () => {
   };
 
   it('onTouchStart with 2 fingers records initial distance', () => {
-    const { result } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.2, defaultScale: 1 }));
+    const { result } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.2, defaultScale: 1 }, true));
     const touchStart = createTouchEvent(0, 0, 100, 0, 'touchstart');
     act(() => {
       result.current.onTouchStart(touchStart);
@@ -652,7 +643,7 @@ describe('useScale: touch events', () => {
   });
 
   it('onTouchStart with 1 finger does nothing', () => {
-    const { result } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.2, defaultScale: 1 }));
+    const { result } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.2, defaultScale: 1 }, true));
     const touchStart = new TouchEvent('touchstart', {
       touches: [{ pageX: 0, pageY: 0 } as Touch],
       cancelable: true,
@@ -664,7 +655,7 @@ describe('useScale: touch events', () => {
   });
 
   it('onTouchMove pinch out (spread fingers) zooms in', () => {
-    const { result } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.2, defaultScale: 1 }));
+    const { result } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
     // 初始距离 100
     act(() => {
@@ -680,7 +671,7 @@ describe('useScale: touch events', () => {
   });
 
   it('onTouchMove pinch in (shrink fingers) zooms out', () => {
-    const { result } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.2, defaultScale: 1 }));
+    const { result } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
     // 初始距离 200
     act(() => {
@@ -696,7 +687,7 @@ describe('useScale: touch events', () => {
   });
 
   it('onTouchMove with 1 finger does nothing', () => {
-    const { result } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.2, defaultScale: 1 }));
+    const { result } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.2, defaultScale: 1 }, true));
     const touchMove = new TouchEvent('touchmove', {
       touches: [{ pageX: 100, pageY: 0 } as Touch],
       cancelable: true,
@@ -708,7 +699,7 @@ describe('useScale: touch events', () => {
   });
 
   it('onTouchEnd resets distance to 0', () => {
-    const { result } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.2, defaultScale: 1 }));
+    const { result } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
     act(() => {
       result.current.onTouchStart(createTouchEvent(0, 0, 100, 0, 'touchstart'));
@@ -732,7 +723,7 @@ describe('hooks combination', () => {
 
     const { result: mirrorResult } = renderHook(() => useMirror());
     const { result: rotateResult } = renderHook(() => useRotate());
-    const { result: scaleResult } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }));
+    const { result: scaleResult } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
     act(() => {
       mirrorResult.current.onMirror();
@@ -762,7 +753,7 @@ describe('hooks combination', () => {
   it('rapid operations across all hooks', () => {
     vi.useFakeTimers();
 
-    const { result: scaleResult } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.1, defaultScale: 1 }));
+    const { result: scaleResult } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.1, defaultScale: 1 }, true));
     const { result: mirrorResult } = renderHook(() => useMirror());
     const { result: rotateResult } = renderHook(() => useRotate());
 

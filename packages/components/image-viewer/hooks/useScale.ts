@@ -1,10 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { zoomIn, zoomOut, clampScale, DEFAULT_IMAGE_SCALE } from '@tdesign/common-js/image-viewer/transform';
-import type { ZoomOptions, ZoomResult, TranslateOffset } from '@tdesign/common-js/image-viewer/transform';
+import type { ZoomOptions, ZoomResult } from '@tdesign/common-js/image-viewer/transform';
 import type { ImageScale } from '../type';
-
-// 从 common 包重新导出类型，保持向后兼容
-export type { ZoomOptions, ZoomResult, TranslateOffset };
 
 const useScale = (imageScale: ImageScale, visible: boolean, onWheel?: (e: WheelEvent) => void) => {
   const { max, min, step, defaultScale } = { ...DEFAULT_IMAGE_SCALE, ...imageScale };
@@ -96,6 +93,9 @@ const useScale = (imageScale: ImageScale, visible: boolean, onWheel?: (e: WheelE
     onZoomIn,
     onZoomOut,
     onResetScale,
+    onTouchStart,
+    onTouchMove,
+    onTouchEnd,
   };
 };
 
