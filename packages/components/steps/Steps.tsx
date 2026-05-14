@@ -55,13 +55,8 @@ const Steps = forwardRefWithStatics(
           return item.status;
         }
         // value 不存在时，使用 index 进行区分每一个步骤
-        if (item.value === undefined) {
-          if (sequence === 'positive' && typeof current === 'number' && index < current) {
-            return 'finish';
-          }
-          if (sequence === 'reverse' && typeof current === 'number' && index > current) {
-            return 'finish';
-          }
+        if (item.value === undefined && typeof current === 'number' && index < current) {
+          return 'finish';
         }
 
         // value 存在，找匹配位置
@@ -71,10 +66,7 @@ const Steps = forwardRefWithStatics(
             console.warn('TDesign Steps Warn: The current `value` is not exist.');
             return 'default';
           }
-          if (sequence === 'positive' && index < matchIndex) {
-            return 'finish';
-          }
-          if (sequence === 'reverse' && index > matchIndex) {
+          if (index < matchIndex) {
             return 'finish';
           }
         }
@@ -84,27 +76,32 @@ const Steps = forwardRefWithStatics(
         }
         return 'default';
       },
-      [current, sequence, indexMap],
+      [current, indexMap],
     );
 
     const stepItemList = useMemo<React.ReactNode[]>(() => {
       if (options) {
-        const optionsDisplayList = sequence === 'reverse' ? options.reverse() : options;
-        return options.map<React.ReactNode>((item, index) => {
-          const stepIndex = sequence === 'reverse' ? optionsDisplayList.length - index - 1 : index;
-          return <StepItem key={index} {...item} index={stepIndex} status={handleStatus(item, index)} />;
+        const optionsDisplayList = sequence === 'reverse' ? [...options].reverse() : options;
+        const optionsDisplayListLength = optionsDisplayList.length;
+
+        return optionsDisplayList.map<React.ReactNode>((item, index) => {
+          const stepIndex = sequence === 'reverse' ? optionsDisplayListLength - index - 1 : index;
+          return (
+            <StepItem key={item.value ?? index} {...item} index={stepIndex} status={handleStatus(item, stepIndex)} />
+          );
         });
       }
 
       const childrenList = React.Children.toArray(children);
-      const childrenDisplayList = sequence === 'reverse' ? childrenList.reverse() : childrenList;
+      const childrenDisplayList = sequence === 'reverse' ? [...childrenList].reverse() : childrenList;
+      const childrenDisplayListLength = childrenDisplayList.length;
 
-      return childrenList.map((child: React.ReactElement<StepItemProps>, index: number) => {
-        const stepIndex = sequence === 'reverse' ? childrenDisplayList.length - index - 1 : index;
+      return childrenDisplayList.map((child: React.ReactElement<StepItemProps>, index: number) => {
+        const stepIndex = sequence === 'reverse' ? childrenDisplayListLength - index - 1 : index;
         return React.cloneElement(child, {
           ...child.props,
           index: stepIndex,
-          status: handleStatus(child.props, index),
+          status: handleStatus(child.props, stepIndex),
         });
       });
     }, [options, children, sequence, handleStatus]);
