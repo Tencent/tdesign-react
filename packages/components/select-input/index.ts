@@ -2,7 +2,7 @@ import _SelectInput from './SelectInput';
 
 import './style/index.js';
 
-export type { SelectInputProps } from './SelectInput';
+export type { SelectInputProps, SelectInputRef } from './SelectInput';
 export * from './type';
 
 export const SelectInput = _SelectInput;

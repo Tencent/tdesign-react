@@ -19,7 +19,9 @@ export interface SelectInputProps extends TdSelectInputProps, StyledProps {
   options?: any[]; // 参数穿透options, 给SelectInput/SelectInput 自定义选中项呈现的内容和多选状态下设置折叠项内容
 }
 
-const SelectInput = React.forwardRef<Partial<PopupRef & InputRef>, SelectInputProps>((originalProps, ref) => {
+export type SelectInputRef = Partial<PopupRef & InputRef>;
+
+const SelectInput = React.forwardRef<SelectInputRef, SelectInputProps>((originalProps, ref) => {
   const { classPrefix: prefix } = useConfig();
 
   const props = useDefaultProps<SelectInputProps>(originalProps, selectInputDefaultProps);

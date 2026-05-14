@@ -3,11 +3,13 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import useConfig from '../../hooks/useConfig';
 import { getKeyMapping, getSelectValueArr } from '../util/helper';
 
+import type { SelectInputRef } from '../../select-input/SelectInput';
 import type { SelectOption, SelectValue, SelectValueChangeTrigger, TdOptionProps, TdSelectProps } from '../type';
 
 export type useKeyboardControlType = {
   max: number;
   multiple: boolean;
+  filterable: TdSelectProps['filterable'];
   keys: TdSelectProps['keys'];
   value: SelectValue<SelectOption>;
   valueType: TdSelectProps['valueType'];
@@ -22,13 +24,14 @@ export type useKeyboardControlType = {
   handlePopupVisibleChange: (visible: boolean, ctx: { e: React.KeyboardEvent<HTMLInputElement> }) => void;
   displayOptions: TdOptionProps[];
   onCheckAllChange: (checkAll: boolean, e?: React.KeyboardEvent<HTMLInputElement>) => void;
-  selectInputRef: any;
+  selectInputRef: React.MutableRefObject<SelectInputRef>;
   toggleIsScrolling: (isScrolling: boolean) => void;
 };
 
 export default function useKeyboardControl({
   max,
   multiple,
+  filterable,
   keys,
   value,
   valueType,
@@ -93,7 +96,7 @@ export default function useKeyboardControl({
     let newIndex = hoverIndex;
 
     switch (e.code) {
-      case 'ArrowUp':
+      case 'ArrowUp': {
         e.preventDefault();
         if (hoverIndex === -1) newIndex = 0;
         else if (hoverIndex === 0 || hoverIndex > optionsListLength - 1) newIndex = optionsListLength - 1;
@@ -104,7 +107,8 @@ export default function useKeyboardControl({
         changeHoverIndex(newIndex);
         handleKeyboardScroll(newIndex);
         break;
-      case 'ArrowDown':
+      }
+      case 'ArrowDown': {
         e.preventDefault();
         if (hoverIndex === -1 || hoverIndex >= optionsListLength - 1) newIndex = 0;
         else newIndex += 1;
@@ -114,6 +118,7 @@ export default function useKeyboardControl({
         changeHoverIndex(newIndex);
         handleKeyboardScroll(newIndex);
         break;
+      }
       case 'Enter': {
         if (!innerPopupVisible) {
           handlePopupVisibleChange(true, { e });
@@ -152,10 +157,27 @@ export default function useKeyboardControl({
         }
         break;
       }
-      case 'Escape':
+      case 'Escape': {
         handlePopupVisibleChange(false, { e });
         changeHoverIndex(-1);
         handleKeyboardScroll(0);
+        break;
+      }
+      case 'Backspace':
+      case 'Delete': {
+        // 单选模式的删除无意义
+        if (!multiple && !innerPopupVisible) {
+          e.preventDefault();
+        }
+        break;
+      }
+      default: {
+        // filterable 模式，按下其它字符，打开弹窗进入输入态
+        if (filterable && !innerPopupVisible && e.key.length === 1) {
+          handlePopupVisibleChange(true, { e });
+        }
+        break;
+      }
     }
   };
 
