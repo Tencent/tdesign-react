@@ -3813,7 +3813,9 @@ exports[`ImageViewer snapshots > 自定义 title > image-viewer-custom-title 1`]
     <div
       class="t-image-viewer__modal-index"
     >
-      <span />
+      <span>
+        自定义标题
+      </span>
       1/2
     </div>
     <div
