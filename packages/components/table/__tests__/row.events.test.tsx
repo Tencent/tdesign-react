@@ -96,3 +96,28 @@ TABLES.forEach((TTable) => {
     });
   });
 });
+
+describe('PrimaryTable row selection', () => {
+  it('select all skips rows disabled by checkProps', () => {
+    const fn = vi.fn();
+    const columns = [
+      {
+        colKey: 'row-select',
+        type: 'multiple' as const,
+        checkProps: ({ row }) => ({ disabled: row.index === 101 }),
+      },
+      ...SIMPLE_COLUMNS,
+    ];
+
+    const { container } = render(
+      <PrimaryTable rowKey="index" data={data} columns={columns} selectedRowKeys={[]} onSelectChange={fn} />,
+    );
+
+    fireEvent.click(container.querySelector('thead .t-checkbox'));
+
+    expect(fn).toHaveBeenCalledWith(
+      [100, 102, 103, 104],
+      expect.objectContaining({ currentRowKey: 'CHECK_ALL_BOX', type: 'check' }),
+    );
+  });
+});
