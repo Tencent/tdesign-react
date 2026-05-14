@@ -5,6 +5,33 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.16.9 `2026-04-23`
+
+### 🚀 Features
+
+- `Cascader`: Supports using `valueType="full"` in scenarios where values across nested nodes are the same. @RylanBot ([#4145](https://github.com/Tencent/tdesign-react/pull/4145))
+- `RadioGroup`: Added `direction` API to enable vertical arrangement. @liweijie0812 ([#4214](https://github.com/Tencent/tdesign-react/pull/4214))
+
+### 🐞 Bug Fixes
+
+- `Affix`: Fixed an issue where `top` became negative when the container scrolled out of view in `offsetBottom` mode. @RylanBot ([#4172](https://github.com/Tencent/tdesign-react/pull/4172))
+- `Cascader`:
+  - Fixed an issue where, in single-selection mode, the selected state was cleared when `showAllLevels={false}` was used with `valueType="full"`. @RylanBot ([#4145](https://github.com/Tencent/tdesign-react/pull/4145))
+  - Fixed an issue where re-clicking a selected item caused abnormal behavior regarding the selected state. @RylanBot ([#4145](https://github.com/Tencent/tdesign-react/pull/4145))
+- `Form`:
+  - Fixed an error that occurred during initialization when using `FormItem` alone, due to logic introduced in version 1.16.4. @RylanBot ([#4207](https://github.com/Tencent/tdesign-react/pull/4207))
+  - Fixed a warning that appeared when using `Fragment` to wrap `FormItem` elements in React 19. @RylanBot ([#4212](https://github.com/Tencent/tdesign-react/pull/4212))
+- `RadioGroup`: Fixed an issue where initial highlighting didn’t work correctly in certain scenarios when `variant="primary-filled"` was used. @RylanBot ([#4081](https://github.com/Tencent/tdesign-react/pull/4081))
+- `Table`: Fixed an issue where the table header and footer weren’t aligned properly when there were `fixed` columns. @RylanBot ([#4172](https://github.com/Tencent/tdesign-react/pull/4172))
+
+### 📝 Documentation
+
+- `Configprovider`: Added documentation for using the global configuration `Plugin` function. @HaixingOoO ([#4218](https://github.com/Tencent/tdesign-react/pull/4218))
+
+### 🚧 Others
+
+- `RadioGroup`: Improved generic support for the component, making it easier to synchronize `value` and `onChange` events. @RylanBot ([#4081](https://github.com/Tencent/tdesign-react/pull/4081))
+
 ## 🌈 1.16.8 `2026-04-02` 
 
 ### 🚀 Features

@@ -5,6 +5,33 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.16.9 `2026-04-23`
+
+### 🚀 Features
+
+- `Cascader`: 支持 `valueType="full"` 在不同层级节点的 value 相同的场景中使用 @RylanBot ([#4145](https://github.com/Tencent/tdesign-react/pull/4145))
+- `RadioGroup`: 新增 `direction` API，支持添加垂直排列特性 @liweijie0812 ([#4214](https://github.com/Tencent/tdesign-react/pull/4214))
+
+### 🐞 Bug Fixes
+
+- `Affix`: 修复 `offsetBottom` 模式下容器滚出视口时 `top` 计算为负值的问题 @RylanBot ([#4172](https://github.com/Tencent/tdesign-react/pull/4172))
+- `Cascader`: 
+  - 修复单选模式下，`showAllLevels={false}` 与 `valueType="full"` 配合使用时，选中状态被清空的问题 @RylanBot ([#4145](https://github.com/Tencent/tdesign-react/pull/4145))
+  - 修复单选模式下，再次点击选中项，面板的选中状态异常的问题 @RylanBot ([#4145](https://github.com/Tencent/tdesign-react/pull/4145))
+- `Form`: 
+  - 修复 `1.16.4` 引入的逻辑导致单独使用 FormItem 时，初始化会产生 `undefined` 报错的问题 @RylanBot ([#4207](https://github.com/Tencent/tdesign-react/pull/4207))
+  - 修复 React 19 下 Fragment 包裹 FormItem 子元素时产生的警告 @RylanBot ([#4212](https://github.com/Tencent/tdesign-react/pull/4212))
+- `RadioGroup`: 修复 `variant="primary-filled"` 时，某些场景下首次高亮异常的问题 @RylanBot ([#4081](https://github.com/Tencent/tdesign-react/pull/4081))
+- `Table`: 修复存在 `fixed` 列时，吸顶表头和吸底表尾和表格不对齐的问题 @RylanBot ([#4172](https://github.com/Tencent/tdesign-react/pull/4172))
+
+### 📝 Documentation
+
+- `Configprovider`: 添加全局配置 `Plugin` 函数使用文档 @HaixingOoO ([#4218](https://github.com/Tencent/tdesign-react/pull/4218))
+
+### 🚧 Others
+
+- `RadioGroup`: 加强组件的泛型支持，便于 `value` 与 `onChange` 联动 @RylanBot ([#4081](https://github.com/Tencent/tdesign-react/pull/4081))
+
 ## 🌈 1.16.8 `2026-04-02`
 
 ### 🚀 Features
@@ -230,13 +257,13 @@ spline: explain
 
 ### 🐞 Bug Fixes
 
-- `RadioGroup`: 修复 NextJS 中，`variant="default-filled` 时，子组件含动态内容时导致无限循环的问题 @tingtingcheng6 ([#3921](https://github.com/Tencent/tdesign-react/pull/3921))
+- `RadioGroup`: 修复 NextJS 中，`variant="default-filled` 时，子组件含动态内容时导致无限循环的问题 @Ylushen ([#4010](https://github.com/Tencent/tdesign-react/pull/4010))
 
 ## 🌈 1.15.10 `2025-12-12`
 
 ### 🐞 Bug Fixes
 
-- `Drawer`: 修复回调事件错误缓存的问题 @uyarn ([#4008](https://github.com/Tencent/tdesign-react/pull/3921))
+- `Drawer`: 修复回调事件错误缓存的问题 @uyarn ([#4008](https://github.com/Tencent/tdesign-react/pull/4008))
 
 ## 🌈 1.15.9 `2025-11-28`
 
