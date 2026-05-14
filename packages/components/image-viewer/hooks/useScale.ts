@@ -1,5 +1,4 @@
 import { useCallback, useRef, useState } from 'react';
-import { throttle } from 'lodash-es';
 import { zoomIn, zoomOut, clampScale, DEFAULT_IMAGE_SCALE } from '@tdesign/common-js/image-viewer/transform';
 import type { ZoomOptions, ZoomResult, TranslateOffset } from '@tdesign/common-js/image-viewer/transform';
 import type { ImageScale } from '../type';
@@ -15,59 +14,28 @@ const useScale = (imageScale: ImageScale) => {
   const distance = useRef(0);
   const [scale, setScale] = useState(calcDefaultScale());
   const scaleRef = useRef(scale);
-  const lastZoomResultRef = useRef<ZoomResult>({});
 
   const paramsRef = useRef({ step, min, max });
   paramsRef.current = { step, min, max };
 
-  // --- 节流（50ms，leading-only）：防止高频滚轮/触摸过度触发 ---
-  const zoomOptionsRef = useRef<ZoomOptions | undefined>();
-
-  const doZoomRef = useRef(
-    throttle(
-      () => {
-        const { step: s, min: mi, max: ma } = paramsRef.current;
-        const { newScale, zoomResult } = zoomIn(scaleRef.current, s, mi, ma, zoomOptionsRef.current);
-        lastZoomResultRef.current = zoomResult;
-        scaleRef.current = newScale;
-        setScale(newScale);
-      },
-      50,
-      { leading: true, trailing: false },
-    ),
-  );
-
-  const zoomOutOptionsRef = useRef<ZoomOptions | undefined>();
-  const doZoomOutRef = useRef(
-    throttle(
-      () => {
-        const { step: s, min: mi, max: ma } = paramsRef.current;
-        const { newScale, zoomResult } = zoomOut(scaleRef.current, s, mi, ma, zoomOutOptionsRef.current);
-        lastZoomResultRef.current = zoomResult;
-        scaleRef.current = newScale;
-        setScale(newScale);
-      },
-      50,
-      { leading: true, trailing: false },
-    ),
-  );
-
   const onZoomIn = useCallback((zoomOptions?: ZoomOptions): ZoomResult => {
-    zoomOptionsRef.current = zoomOptions;
-    const prevScale = scaleRef.current;
-    doZoomRef.current();
-    // 被节流丢弃或已达边界 → 返回空结果，避免调用方使用过期的位移数据
-    if (scaleRef.current === prevScale) return {};
-    return lastZoomResultRef.current;
+    const { step: s, min: mi, max: ma } = paramsRef.current;
+    const { newScale, zoomResult } = zoomIn(scaleRef.current, s, mi, ma, zoomOptions);
+    // 已达边界，无变化
+    if (newScale === scaleRef.current) return {};
+    scaleRef.current = newScale;
+    setScale(newScale);
+    return zoomResult;
   }, []);
 
   const onZoomOut = useCallback((zoomOptions?: ZoomOptions): ZoomResult => {
-    zoomOutOptionsRef.current = zoomOptions;
-    const prevScale = scaleRef.current;
-    doZoomOutRef.current();
-    // 被节流丢弃或已达边界 → 返回空结果，避免调用方使用过期的位移数据
-    if (scaleRef.current === prevScale) return {};
-    return lastZoomResultRef.current;
+    const { step: s, min: mi, max: ma } = paramsRef.current;
+    const { newScale, zoomResult } = zoomOut(scaleRef.current, s, mi, ma, zoomOptions);
+    // 已达边界，无变化
+    if (newScale === scaleRef.current) return {};
+    scaleRef.current = newScale;
+    setScale(newScale);
+    return zoomResult;
   }, []);
 
   const onResetScale = useCallback(() => {

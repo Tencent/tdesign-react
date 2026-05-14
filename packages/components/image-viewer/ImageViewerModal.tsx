@@ -132,24 +132,26 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
       modalBox?.classList.remove(transitioningClass);
     }, [transitioningClass]);
 
-    // 启用向中心缩放动画：先加 CSS 类名启用 transition，再更新 transform 触发动画
+    // 启用向中心缩放动画：在 scale+position 变化前加上 transition 类，
+    // 浏览器会对后续的变化做平滑过渡
     const enableTransition = useCallback(() => {
       const modalBox = modalBoxRef.current;
       if (!modalBox) return;
 
-      cleanupTransition();
-      // 强制浏览器 reflow，确保类名移除生效后再添加能触发新的 transition 动画
-      modalBox.getBoundingClientRect();
       modalBox.classList.add(transitioningClass);
 
       // fallback 超时：transitionend 可能因 DOM 移除/动画合并等原因不触发，
       // 350ms（略大于 CSS transition duration）后自动清理，避免类名残留导致拖拽粘滞
+      clearTimeout(fallbackTimerRef.current);
       fallbackTimerRef.current = setTimeout(cleanupTransition, 350);
 
       const handleTransitionEnd = (e: TransitionEvent) => {
         if (e.propertyName !== 'transform') return;
         cleanupTransition();
       };
+      if (transitionEndHandlerRef.current) {
+        modalBox.removeEventListener('transitionend', transitionEndHandlerRef.current);
+      }
       transitionEndHandlerRef.current = handleTransitionEnd;
       modalBox.addEventListener('transitionend', handleTransitionEnd);
     }, [transitioningClass, cleanupTransition]);
@@ -560,7 +562,6 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
       // 缩小且图片超出视口：以视口中心为基准，向视口中心收敛
       if (isZoomOut && isImageExceedsViewport(container, modalBox)) {
         const currentPosition = imageItemRef.current?.positionRef?.current ?? [0, 0];
-
         const result = onZoomOut({
           mouseOffsetX: 0,
           mouseOffsetY: 0,
@@ -569,6 +570,9 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
             translateY: currentPosition[1],
           },
         });
+        // 先加 transition 类（DOM 还在旧位置），再触发 position 变化
+        // 浏览器对这次变化做平滑过渡，避免 getBoundingClientRect reflow 导致 scale 提前闪现
+        // scale 到边界时 newTranslate 为空，不加 transition 类避免类名残留
         if (result?.newTranslate) {
           imageItemRef.current?.enableTransition?.();
           imageItemRef.current?.setPosition?.([result.newTranslate.translateX, result.newTranslate.translateY]);
