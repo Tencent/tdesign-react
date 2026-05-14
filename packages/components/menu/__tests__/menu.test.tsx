@@ -1,4 +1,4 @@
-import { render, fireEvent, vi, waitFor } from '@test/utils';
+import { fireEvent, render, vi, waitFor } from '@test/utils';
 import React from 'react';
 import { UserIcon } from 'tdesign-icons-react';
 import Menu from '../index';
@@ -48,19 +48,27 @@ describe('Menu 组件测试', () => {
   });
 
   test('menu defaultExpanded works fine', () => {
-    const { container, queryByText } = renderSubmenu({ defaultExpanded: ['1'] });
+    const { container } = renderSubmenu({ defaultExpanded: ['1'] });
     expect(container.firstChild).not.toHaveClass('t-is-collapsed');
     expect(container.querySelectorAll('.t-submenu.t-is-opened').length).toBe(1);
-    expect(queryByText('菜单二').parentElement.parentElement.parentElement.style.maxHeight).not.toBe('0');
-    expect(queryByText('二级菜单-1').parentElement.parentElement.parentElement.style.maxHeight).toBe('0');
+
+    const submenu1 = container.querySelectorAll('.t-submenu')[0];
+    expect(submenu1).toHaveClass('t-is-opened');
+
+    const submenu2 = container.querySelectorAll('.t-submenu')[1];
+    expect(submenu2).not.toHaveClass('t-is-opened');
   });
 
   test('menu expanded works fine', () => {
-    const { container, queryByText } = renderSubmenu({ expanded: ['1'] });
+    const { container } = renderSubmenu({ expanded: ['1'] });
     expect(container.firstChild).not.toHaveClass('t-is-collapsed');
     expect(container.querySelectorAll('.t-submenu.t-is-opened').length).toBe(1);
-    expect(queryByText('菜单二').parentElement.parentElement.parentElement.style.maxHeight).not.toBe('0');
-    expect(queryByText('二级菜单-1').parentElement.parentElement.parentElement.style.maxHeight).toBe('0');
+
+    const submenu1 = container.querySelectorAll('.t-submenu')[0];
+    expect(submenu1).toHaveClass('t-is-opened');
+
+    const submenu2 = container.querySelectorAll('.t-submenu')[1];
+    expect(submenu2).not.toHaveClass('t-is-opened');
   });
 
   test('menu 测试单层导航', () => {
@@ -151,7 +159,7 @@ describe('Menu 组件测试', () => {
     expect(onExpandFn).toHaveBeenCalledTimes(1);
   });
 
-  test('menu 测试分组导航', () => {
+  test('menu 测试分组导航', () => {
     const clickFn = vi.fn();
     const { container, queryByText, getByText } = render(
       <Menu onChange={clickFn}>
@@ -170,10 +178,12 @@ describe('Menu 组件测试', () => {
     expect(container.querySelectorAll('.t-submenu').length).toBe(1);
     fireEvent.click(getByText('仪表盘'));
     expect(clickFn).toHaveBeenCalledTimes(1);
-    const ulNode = queryByText('基础列表项').parentElement.parentElement;
-    expect(ulNode.style.maxHeight).toBe('0');
+
+    const submenu = container.querySelector('.t-submenu');
+    expect(submenu).not.toHaveClass('t-is-opened');
+
     fireEvent.click(getByText('列表项'));
-    expect(ulNode.style.maxHeight).not.toBe('0');
+    expect(submenu).toHaveClass('t-is-opened');
   });
 
   test('menu 測試 menuItem onClick事件', () => {
