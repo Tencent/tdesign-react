@@ -83,10 +83,6 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
     const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState(false);
 
-    // 双层 transform 架构（和旧版 React / Vue 保持一致）：
-    // - modal-image（内层）：rotateZ + scale → CSS 自带 transition: all 自动驱动平滑动画
-    // - modal-box（外层）：translate(拖拽位移) + scale(mirror, 1) → 位移和镜像
-    // 这样旋转/缩放变化由 CSS transition 自动做平滑过渡，无需手动管理动画时序。
     const imgStyle: React.CSSProperties = {
       transform: `rotateZ(${rotateZ}deg) scale(${scale})`,
       display: !preSrc || loaded ? 'block' : 'none',
@@ -100,10 +96,8 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
       return imgRef;
     }, [isSvg]);
     const { position, setPosition, resetPosition, isDragging } = usePosition(displayRef);
-    // 用 ref 同步追踪最新位移，避免 useImperativeHandle 暴露的 position 是过时快照
     const positionRef = useRef(position);
     positionRef.current = position;
-    // 用 ref 追踪最新 isDragging，避免 useImperativeHandle 因 isDragging 变化而频繁重建
     const isDraggingRef = useRef(isDragging);
     isDraggingRef.current = isDragging;
 
@@ -111,17 +105,14 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
       transform: `rotateZ(${rotateZ}deg) scale(${scale})`,
       display: !loaded ? 'block' : 'none',
     };
-    // modal-box 只管位移 + 镜像（无 CSS transition，拖拽时不需要动画延迟）
     const boxStyle: React.CSSProperties = {
       transform: `translate(${position[0]}px, ${position[1]}px) scale(${mirror}, 1)`,
     };
 
-    // 动画类名，与 CSS 中 &--transitioning { transition: transform } 强关联
     const transitioningClass = `${classPrefix}-image-viewer__modal-box--transitioning`;
     const transitionEndHandlerRef = useRef<((e: TransitionEvent) => void) | null>(null);
     const fallbackTimerRef = useRef<ReturnType<typeof setTimeout>>();
 
-    // 清理监听器和类名
     const cleanupTransition = useCallback(() => {
       const modalBox = modalBoxRef.current;
       if (transitionEndHandlerRef.current && modalBox) {
@@ -132,16 +123,12 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
       modalBox?.classList.remove(transitioningClass);
     }, [transitioningClass]);
 
-    // 启用向中心缩放动画：在 scale+position 变化前加上 transition 类，
-    // 浏览器会对后续的变化做平滑过渡
     const enableTransition = useCallback(() => {
       const modalBox = modalBoxRef.current;
       if (!modalBox) return;
 
       modalBox.classList.add(transitioningClass);
 
-      // fallback 超时：transitionend 可能因 DOM 移除/动画合并等原因不触发，
-      // 350ms（略大于 CSS transition duration）后自动清理，避免类名残留导致拖拽粘滞
       clearTimeout(fallbackTimerRef.current);
       fallbackTimerRef.current = setTimeout(cleanupTransition, 350);
 
@@ -158,7 +145,6 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
 
     useEffect(() => cleanupTransition, [cleanupTransition]);
 
-    // 暴露内部状态，供父组件在缩放时读写 position
     useImperativeHandle(
       ref,
       () => ({
@@ -529,23 +515,15 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageItemRef = useRef<ImageModalItemRef>(null);
 
-  const { scale, onZoomIn, onZoomOut, onResetScale, onTouchStart, onTouchMove, onTouchEnd } = useScale(imageScale);
+  // handleWheel 先用 ref 占位，useScale 之后再赋值，避免循环依赖
+  const handleWheelRef = useRef<(e: WheelEvent) => void>(null);
+  const stableHandleWheel = useCallback((e: WheelEvent) => handleWheelRef.current?.(e), []);
 
-  // imageScale 动态变化时重置缩放
-  const isFirstRender = useRef(true);
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-    onResetScale();
-  }, [imageScale, onResetScale]);
+  const { scale, onZoomIn, onZoomOut, onResetScale } = useScale(imageScale, visible, stableHandleWheel);
 
-  // 容器级滚轮缩放处理（原生事件版）
   // ⚠️ 不能用 React 的 onWheel —— React 17+ 将 wheel 注册为 passive: true，
   //    导致 e.preventDefault() 无效，无法阻止页面滚动。
-  //    必须用原生 addEventListener + { passive: false } 绕过。
-  const handleWheel = useCallback(
+  handleWheelRef.current = useCallback(
     (e: WheelEvent) => {
       e.preventDefault();
 
@@ -553,14 +531,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
       const container = containerRef.current;
       const modalBox = imageItemRef.current?.modalBoxRef?.current;
 
-      // 无视口信息时，直接缩放
-      if (!container || !modalBox) {
-        isZoomOut ? onZoomOut() : onZoomIn();
-        return;
-      }
-
-      // 缩小且图片超出视口：以视口中心为基准，向视口中心收敛
-      if (isZoomOut && isImageExceedsViewport(container, modalBox)) {
+      if (isZoomOut && container && modalBox && isImageExceedsViewport(container, modalBox)) {
         const currentPosition = imageItemRef.current?.positionRef?.current ?? [0, 0];
         const result = onZoomOut({
           mouseOffsetX: 0,
@@ -570,9 +541,6 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
             translateY: currentPosition[1],
           },
         });
-        // 先加 transition 类（DOM 还在旧位置），再触发 position 变化
-        // 浏览器对这次变化做平滑过渡，避免 getBoundingClientRect reflow 导致 scale 提前闪现
-        // scale 到边界时 newTranslate 为空，不加 transition 类避免类名残留
         if (result?.newTranslate) {
           imageItemRef.current?.enableTransition?.();
           imageItemRef.current?.setPosition?.([result.newTranslate.translateX, result.newTranslate.translateY]);
@@ -584,22 +552,15 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
     [onZoomIn, onZoomOut],
   );
 
-  // 容器级 wheel + 触摸缩放事件绑定
-  // wheel 必须用原生绑定 { passive: false } 才能 preventDefault
+  // imageScale 动态变化时重置缩放
+  const isFirstRender = useRef(true);
   useEffect(() => {
-    if (!visible) return;
-    const container = containerRef.current;
-    container?.addEventListener('wheel', handleWheel, { passive: false });
-    document.addEventListener('touchstart', onTouchStart, { passive: false });
-    document.addEventListener('touchmove', onTouchMove, { passive: false });
-    document.addEventListener('touchend', onTouchEnd);
-    return () => {
-      container?.removeEventListener('wheel', handleWheel);
-      document.removeEventListener('touchstart', onTouchStart);
-      document.removeEventListener('touchmove', onTouchMove);
-      document.removeEventListener('touchend', onTouchEnd);
-    };
-  }, [visible, handleWheel, onTouchStart, onTouchMove, onTouchEnd]);
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    onResetScale();
+  }, [imageScale, onResetScale]);
 
   const onReset = useCallback(() => {
     onResetScale();

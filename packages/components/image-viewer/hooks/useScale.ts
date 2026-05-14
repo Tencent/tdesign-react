@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { zoomIn, zoomOut, clampScale, DEFAULT_IMAGE_SCALE } from '@tdesign/common-js/image-viewer/transform';
 import type { ZoomOptions, ZoomResult, TranslateOffset } from '@tdesign/common-js/image-viewer/transform';
 import type { ImageScale } from '../type';
@@ -6,7 +6,7 @@ import type { ImageScale } from '../type';
 // 从 common 包重新导出类型，保持向后兼容
 export type { ZoomOptions, ZoomResult, TranslateOffset };
 
-const useScale = (imageScale: ImageScale) => {
+const useScale = (imageScale: ImageScale, visible: boolean, onWheel?: (e: WheelEvent) => void) => {
   const { max, min, step, defaultScale } = { ...DEFAULT_IMAGE_SCALE, ...imageScale };
 
   const calcDefaultScale = useCallback(() => clampScale(defaultScale, min, max), [defaultScale, max, min]);
@@ -21,7 +21,6 @@ const useScale = (imageScale: ImageScale) => {
   const onZoomIn = useCallback((zoomOptions?: ZoomOptions): ZoomResult => {
     const { step: s, min: mi, max: ma } = paramsRef.current;
     const { newScale, zoomResult } = zoomIn(scaleRef.current, s, mi, ma, zoomOptions);
-    // 已达边界，无变化
     if (newScale === scaleRef.current) return {};
     scaleRef.current = newScale;
     setScale(newScale);
@@ -31,7 +30,6 @@ const useScale = (imageScale: ImageScale) => {
   const onZoomOut = useCallback((zoomOptions?: ZoomOptions): ZoomResult => {
     const { step: s, min: mi, max: ma } = paramsRef.current;
     const { newScale, zoomResult } = zoomOut(scaleRef.current, s, mi, ma, zoomOptions);
-    // 已达边界，无变化
     if (newScale === scaleRef.current) return {};
     scaleRef.current = newScale;
     setScale(newScale);
@@ -72,14 +70,32 @@ const useScale = (imageScale: ImageScale) => {
     distance.current = 0;
   }, []);
 
+  const onWheelRef = useRef(onWheel);
+  onWheelRef.current = onWheel;
+
+  const stableOnWheel = useCallback((e: WheelEvent) => {
+    onWheelRef.current?.(e);
+  }, []);
+
+  useEffect(() => {
+    if (!visible) return;
+    document.addEventListener('wheel', stableOnWheel, { passive: false });
+    document.addEventListener('touchstart', onTouchStart, { passive: false });
+    document.addEventListener('touchmove', onTouchMove, { passive: false });
+    document.addEventListener('touchend', onTouchEnd);
+    return () => {
+      document.removeEventListener('wheel', stableOnWheel);
+      document.removeEventListener('touchstart', onTouchStart);
+      document.removeEventListener('touchmove', onTouchMove);
+      document.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [visible, stableOnWheel, onTouchStart, onTouchMove, onTouchEnd]);
+
   return {
     scale,
     onZoomIn,
     onZoomOut,
     onResetScale,
-    onTouchStart,
-    onTouchMove,
-    onTouchEnd,
   };
 };
 
