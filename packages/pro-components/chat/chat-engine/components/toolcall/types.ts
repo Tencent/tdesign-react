@@ -1,4 +1,4 @@
-import type React from 'react';
+import type * as React from 'react';
 
 /**
  * 智能体可交互组件的标准 Props 接口

@@ -5,7 +5,7 @@ import { canUseDocument } from '../_util/dom';
 import useConfig from '../hooks/useConfig';
 import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
 
-import type React from 'react';
+import type * as React from 'react';
 import type { AttachNode, AttachNodeReturnValue } from '../common';
 
 export interface PortalProps {

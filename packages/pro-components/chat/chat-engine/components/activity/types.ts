@@ -1,4 +1,4 @@
-import type React from 'react';
+import type * as React from 'react';
 
 /**
  * Activity 组件的标准 Props 接口

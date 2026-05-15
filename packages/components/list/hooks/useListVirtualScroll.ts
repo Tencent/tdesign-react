@@ -3,7 +3,7 @@ import log from '@tdesign/common-js/log/index';
 
 import useVirtualScroll from '../../hooks/useVirtualScroll';
 
-import type React from 'react';
+import type * as React from 'react';
 import type { ComponentScrollToElementParams, Styles } from '../../common';
 import type { TdListProps } from '../type';
 

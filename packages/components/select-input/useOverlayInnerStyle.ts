@@ -4,7 +4,7 @@ import { isFunction, isObject } from 'lodash-es';
 import useControlled from '../hooks/useControlled';
 import useInnerPopupVisible from '../hooks/useInnerPopupVisible';
 
-import type React from 'react';
+import type * as React from 'react';
 import type { PopupVisibleChangeContext, TdPopupProps } from '../popup';
 import type { TdSelectInputProps } from './type';
 
