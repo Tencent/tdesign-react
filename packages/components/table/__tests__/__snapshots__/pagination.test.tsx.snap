@@ -148,15 +148,9 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
       class="t-table--layout-fixed"
     >
       <colgroup>
-        <col
-          style="min-width: 80px;"
-        />
-        <col
-          style="min-width: 80px;"
-        />
-        <col
-          style="min-width: 80px;"
-        />
+        <col />
+        <col />
+        <col />
       </colgroup>
       <thead
         class="t-table__header"
