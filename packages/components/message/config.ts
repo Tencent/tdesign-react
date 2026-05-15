@@ -1,5 +1,7 @@
 import { DEFAULT_DURATION, DEFAULT_Z_INDEX } from '@tdesign/common-js/message/index';
+
 import { messageDefaultProps } from './defaultProps';
+
 import type { MessageOptions } from './type';
 
 /**

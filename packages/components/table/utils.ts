@@ -1,6 +1,9 @@
-import { isFunction, get, isObject } from 'lodash-es';
+import { get, isFunction, isObject } from 'lodash-es';
 import { getIEVersion } from '@tdesign/common-js/utils/helper';
-import {
+
+import type { AffixProps } from '../affix';
+import type { ClassName, HTMLElementAttributes } from '../common';
+import type {
   BaseTableCellParams,
   CellData,
   RowClassNameParams,
@@ -8,8 +11,6 @@ import {
   TableRowData,
   TdBaseTableProps,
 } from './type';
-import { ClassName, HTMLElementAttributes } from '../common';
-import { AffixProps } from '../affix';
 
 export function toString(obj: any): string {
   return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();

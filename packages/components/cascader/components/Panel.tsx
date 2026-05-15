@@ -1,16 +1,16 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
-import Item from './Item';
 
+import parseTNode from '../../_util/parseTNode';
 import useConfig from '../../hooks/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import { getPanels } from '../core/helper';
 import { expendClickEffect, valueChangeEffect } from '../core/effect';
+import { getPanels } from '../core/helper';
+import Item from './Item';
 
-import { TreeNode, CascaderContextType } from '../interface';
-import { TdCascaderProps } from '../type';
-import { StyledProps } from '../../common';
-import parseTNode from '../../_util/parseTNode';
+import type { StyledProps } from '../../common';
+import type { CascaderContextType, TreeNode } from '../interface';
+import type { TdCascaderProps } from '../type';
 
 export interface CascaderPanelProps
   extends StyledProps,

@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+
 import useConfig from '../../hooks/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 

@@ -1,37 +1,42 @@
-import React, { ReactNode, useRef, useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  type TdChatMessageConfig,
-  ChatList,
-  ChatSender,
-  ChatMessage,
+  CheckCircleFilledIcon,
+  ChevronRightIcon,
+  CloseCircleFilledIcon,
+  LoadingIcon,
+  PlayCircleIcon,
+  TimeFilledIcon,
+  VideoIcon,
+} from 'tdesign-icons-react';
+import { Card, Steps, Tag } from 'tdesign-react';
+import {
   ChatActionBar,
-  isAIMessage,
-  getMessageContentForCopy,
-  TdChatSenderParams,
+  ChatList,
   ChatLoading,
-  TdChatActionsName,
+  ChatMessage,
+  ChatSender,
+  getMessageContentForCopy,
+  isAIMessage,
+  isToolCallContent,
+  isUserMessage,
   ToolCallRenderer,
   useAgentState,
-  useChat,
   useAgentToolcall,
-  isUserMessage,
+  useChat,
+} from '@tdesign-react/chat';
+
+import type { ReactNode } from 'react';
+import type {
+  AIMessageContent,
   ChatMessagesData,
   ChatRequestParams,
-  AIMessageContent,
+  TdChatActionsName,
+  TdChatMessageConfig,
+  TdChatSenderParams,
   ToolCall,
-  isToolCallContent,
 } from '@tdesign-react/chat';
-import { Steps, Card, Tag } from 'tdesign-react';
-import {
-  PlayCircleIcon,
-  VideoIcon,
-  CheckCircleFilledIcon,
-  CloseCircleFilledIcon,
-  TimeFilledIcon,
-  LoadingIcon,
-  ChevronRightIcon,
-} from 'tdesign-icons-react';
 import type { AgentToolcallConfig, ToolcallComponentProps } from '../components/toolcall/types';
+
 import './videoclipAgent.css';
 
 const { StepItem } = Steps;

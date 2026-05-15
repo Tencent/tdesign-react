@@ -1,21 +1,24 @@
-import React, { MouseEvent, ReactNode, useCallback } from 'react';
-import { ChevronRightCircleIcon as TdChevronRightCircleIcon } from 'tdesign-icons-react';
-import { get, isFunction } from 'lodash-es';
+import React, { useCallback } from 'react';
 import classNames from 'classnames';
-import {
-  TdPrimaryTableProps,
-  PrimaryTableCol,
-  TableRowData,
-  PrimaryTableCellParams,
-  TableExpandedRowParams,
-  RowEventContext,
-  RowClassNameParams,
-} from '../type';
-import useClassName from './useClassName';
+import { get, isFunction } from 'lodash-es';
+import { ChevronRightCircleIcon as TdChevronRightCircleIcon } from 'tdesign-icons-react';
+
+import { parseContentTNode } from '../../_util/parseTNode';
 import useControlled from '../../hooks/useControlled';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import { parseContentTNode } from '../../_util/parseTNode';
+import useClassName from './useClassName';
+
+import type { MouseEvent, ReactNode } from 'react';
+import type {
+  PrimaryTableCellParams,
+  PrimaryTableCol,
+  RowClassNameParams,
+  RowEventContext,
+  TableExpandedRowParams,
+  TableRowData,
+  TdPrimaryTableProps,
+} from '../type';
 
 export default function useRowExpand(props: TdPrimaryTableProps) {
   const { expandIcon, expandedRow } = props;

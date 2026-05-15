@@ -3,7 +3,10 @@ import {
   SATURATION_PANEL_DEFAULT_HEIGHT,
   SATURATION_PANEL_DEFAULT_WIDTH,
 } from '@tdesign/common-js/color-picker/constants';
-import useMouseEvent, { type MouseCoordinate } from '../../../hooks/useMouseEvent';
+
+import useMouseEvent from '../../../hooks/useMouseEvent';
+
+import type { MouseCoordinate } from '../../../hooks/useMouseEvent';
 import type { TdColorBaseProps } from '../../interface';
 
 const Saturation = (props: TdColorBaseProps) => {

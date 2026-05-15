@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowseIcon, EllipsisIcon } from 'tdesign-icons-react';
 import { Image, ImageViewer, Popup, Space } from 'tdesign-react';
+
 import type { ImageViewerProps } from 'tdesign-react';
 
 const imgH = 'https://tdesign.gtimg.com/demo/demo-image-3.png';

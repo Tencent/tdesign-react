@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
+
 import useConfig from '../../hooks/useConfig';
-import Pagination, { PageInfo, PaginationProps } from '../../pagination';
+import Pagination from '../../pagination';
+
+import type { PageInfo, PaginationProps } from '../../pagination';
 import type { TableRowData, TdBaseTableProps } from '../type';
 
 // 分页功能包含：远程数据排序受控、远程数据排序非受控、本地数据排序受控、本地数据排序非受控 等 4 类功能

@@ -1,17 +1,15 @@
 import React, { forwardRef, useCallback, useEffect } from 'react';
-
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { isArray, isDate } from 'lodash-es';
-
 import { formatDate, formatTime, getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
 import {
   addMonth,
   covertToDate,
   extractTimeObj,
+  getRangeBounds,
   isSame,
   subtractMonth,
-  getRangeBounds,
 } from '@tdesign/common-js/date-picker/utils';
 
 import useConfig from '../hooks/useConfig';
@@ -29,11 +27,11 @@ import type { StyledProps } from '../common';
 import type { TagInputRemoveContext } from '../tag-input';
 import type {
   DateMultipleValue,
+  DatePickerMonthChangeTrigger,
+  DatePickerYearChangeTrigger,
   DateValue,
   PresetDate,
   TdDatePickerProps,
-  DatePickerYearChangeTrigger,
-  DatePickerMonthChangeTrigger,
 } from './type';
 
 export interface DatePickerProps extends TdDatePickerProps, StyledProps {}

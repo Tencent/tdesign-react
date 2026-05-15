@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { ChatSender } from '@tdesign-react/chat';
+
+import type { TdAttachmentItem } from '@tdesign-react/chat';
 import type { UploadFile } from 'tdesign-react';
-import { ChatSender, TdAttachmentItem } from '@tdesign-react/chat';
 
 const ChatSenderExample = () => {
   const [inputValue, setInputValue] = useState('');

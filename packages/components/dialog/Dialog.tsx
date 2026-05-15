@@ -2,9 +2,9 @@ import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } f
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import { isUndefined } from 'lodash-es';
-
 import log from '@tdesign/common-js/log/index';
 import { pxCompat } from '@tdesign/common-js/utils/helper';
+
 import { canUseDocument } from '../_util/dom';
 import Portal from '../common/Portal';
 import useAttach from '../hooks/useAttach';
