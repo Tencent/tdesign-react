@@ -1,5 +1,4 @@
-import React, { RefAttributes, forwardRef, useImperativeHandle, useRef } from 'react';
-
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { get } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
@@ -10,6 +9,7 @@ import useTreeSelect from './hooks/useTreeSelect';
 import PrimaryTable from './PrimaryTable';
 import { enableRowDrag } from './utils';
 
+import type { RefAttributes } from 'react';
 import type { HTMLElementAttributes, StyledProps } from '../common';
 import type { EnhancedTableProps, EnhancedTableRef, PrimaryTableProps } from './interface';
 import type { DragSortContext, PrimaryTableCol, TableRowData, TdPrimaryTableProps } from './type';

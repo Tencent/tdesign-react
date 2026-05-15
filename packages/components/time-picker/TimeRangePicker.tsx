@@ -1,25 +1,25 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-
-import { TimeIcon as TdTimeIcon } from 'tdesign-icons-react';
 import { isArray } from 'lodash-es';
-import { formatInputValue, validateInputValue } from '@tdesign/common-js/time-picker/utils';
+import { TimeIcon as TdTimeIcon } from 'tdesign-icons-react';
 import { TIME_PICKER_EMPTY } from '@tdesign/common-js/time-picker/const';
+import { formatInputValue, validateInputValue } from '@tdesign/common-js/time-picker/utils';
+
 import noop from '../_util/noop';
-import useControlled from '../hooks/useControlled';
 import useConfig from '../hooks/useConfig';
+import useControlled from '../hooks/useControlled';
+import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { RangeInputPopup } from '../range-input';
-import type { RangeInputPopupProps, RangeInputPosition } from '../range-input';
+import { timeRangePickerDefaultProps } from './defaultProps';
+import { useTimePickerTextConfig } from './hooks/useTimePickerTextConfig';
 import TimePickerPanel from './panel/TimePickerPanel';
 
-import { useTimePickerTextConfig } from './hooks/useTimePickerTextConfig';
-
-import { TdTimeRangePickerProps, TimeRangeValue, TimeRangePickerPartial } from './type';
-import { StyledProps } from '../common';
-import { timeRangePickerDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
+import type { FC } from 'react';
+import type { StyledProps } from '../common';
+import type { RangeInputPopupProps, RangeInputPosition } from '../range-input';
+import type { TdTimeRangePickerProps, TimeRangePickerPartial, TimeRangeValue } from './type';
 
 export interface TimeRangePickerProps extends TdTimeRangePickerProps, StyledProps {}
 

@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Tree, Switch, Space, Form, Button } from 'tdesign-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Button, Form, Space, Switch, Tree } from 'tdesign-react';
 
 export default () => {
   const [checkable, setCheckable] = useState(true);

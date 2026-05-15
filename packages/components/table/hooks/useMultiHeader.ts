@@ -2,7 +2,7 @@
  * 多级表头相关逻辑
  ** */
 
-import { TdBaseTableProps, RowspanColspan } from '../type';
+import type { RowspanColspan, TdBaseTableProps } from '../type';
 
 export type ThRowspanAndColspan = Map<any, RowspanColspan>;
 

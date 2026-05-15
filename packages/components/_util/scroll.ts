@@ -1,9 +1,11 @@
 import { isString } from 'lodash-es';
 import raf from 'raf';
+
 import { isWindow } from './dom';
-import { easeInOutCubic, EasingFunction } from './easing';
+import { easeInOutCubic } from './easing';
 
 import type { ScrollContainer, ScrollContainerElement } from '../common';
+import type { EasingFunction } from './easing';
 
 export function hasBodyScrollbar() {
   return document.body.scrollHeight > document.documentElement.clientHeight;
@@ -11,7 +13,6 @@ export function hasBodyScrollbar() {
 
 // 用于判断节点内容是否溢出
 export const isNodeOverflow = (ele: Element | Element[]): boolean => {
-  if (!ele) return false;
   const { clientWidth = 0, scrollWidth = 0 } = ele as Element & { clientWidth: number; scrollWidth: number };
 
   if (scrollWidth > clientWidth) {

@@ -1,6 +1,8 @@
 import React from 'react';
-import { ChatBot, SSEChunkData, AIMessageContent, ChatServiceConfig, ChatRequestParams } from '@tdesign-react/chat';
 import { MessagePlugin } from 'tdesign-react';
+import { ChatBot } from '@tdesign-react/chat';
+
+import type { AIMessageContent, ChatRequestParams, ChatServiceConfig, SSEChunkData } from '@tdesign-react/chat';
 
 /**
  * 自定义协议配置示例

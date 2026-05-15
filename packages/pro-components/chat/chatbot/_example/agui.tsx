@@ -1,5 +1,7 @@
 import React from 'react';
-import { ChatBot, ChatServiceConfig } from '@tdesign-react/chat';
+import { ChatBot } from '@tdesign-react/chat';
+
+import type { ChatServiceConfig } from '@tdesign-react/chat';
 
 /**
  * AG-UI 协议示例

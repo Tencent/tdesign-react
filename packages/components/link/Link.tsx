@@ -1,11 +1,13 @@
-import classNames from 'classnames';
 import React from 'react';
-import useConfig from '../hooks/useConfig';
-import { TdLinkProps } from './type';
+import classNames from 'classnames';
+
 import parseTNode from '../_util/parseTNode';
-import { StyledProps } from '../common';
+import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { linkDefaultProps } from './defaultProps';
+
+import type { StyledProps } from '../common';
+import type { TdLinkProps } from './type';
 
 export interface LinkProps extends TdLinkProps, StyledProps {}
 

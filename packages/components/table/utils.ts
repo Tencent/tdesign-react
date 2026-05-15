@@ -1,5 +1,4 @@
 import { get, isFunction, isObject } from 'lodash-es';
-
 import { getIEVersion } from '@tdesign/common-js/utils/helper';
 
 import type { AffixProps } from '../affix';

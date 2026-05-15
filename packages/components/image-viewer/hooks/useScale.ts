@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+
 import type { ImageScale } from '../type';
 
 const useScale = (imageScale: ImageScale, visible: boolean) => {
@@ -32,10 +33,13 @@ const useScale = (imageScale: ImageScale, visible: boolean) => {
   }, [calcDefaultScale]);
 
   // 鼠标滚轮缩放
-  const onWheel = useCallback((e: WheelEvent) => {
-    e.preventDefault();
-    e.deltaY < 0 ? onZoom() : onZoomOut();
-  }, [onZoom, onZoomOut]);
+  const onWheel = useCallback(
+    (e: WheelEvent) => {
+      e.preventDefault();
+      e.deltaY < 0 ? onZoom() : onZoomOut();
+    },
+    [onZoom, onZoomOut],
+  );
 
   // 双指缩放
   const onTouchStart = useCallback((e: TouchEvent) => {
@@ -45,18 +49,21 @@ const useScale = (imageScale: ImageScale, visible: boolean) => {
     distance.current = Math.hypot(touch2.pageX - touch1.pageX, touch2.pageY - touch1.pageY);
   }, []);
 
-  const onTouchMove = useCallback((e: TouchEvent) => {
-    if (e.touches.length !== 2) return;
-    e.preventDefault();
-    const [touch1, touch2] = Array.from(e.touches);
-    const currentDistance = Math.hypot(touch2.pageX - touch1.pageX, touch2.pageY - touch1.pageY);
-    if (currentDistance > distance.current) {
-      onZoom();
-    } else {
-      onZoomOut();
-    }
-    distance.current = currentDistance;
-  }, [onZoom, onZoomOut]);
+  const onTouchMove = useCallback(
+    (e: TouchEvent) => {
+      if (e.touches.length !== 2) return;
+      e.preventDefault();
+      const [touch1, touch2] = Array.from(e.touches);
+      const currentDistance = Math.hypot(touch2.pageX - touch1.pageX, touch2.pageY - touch1.pageY);
+      if (currentDistance > distance.current) {
+        onZoom();
+      } else {
+        onZoomOut();
+      }
+      distance.current = currentDistance;
+    },
+    [onZoom, onZoomOut],
+  );
 
   const onTouchEnd = useCallback(() => {
     distance.current = 0;

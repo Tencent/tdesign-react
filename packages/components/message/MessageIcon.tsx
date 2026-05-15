@@ -10,10 +10,11 @@ import {
   HelpCircleFilledIcon as TdHelpCircleFilledIcon,
   InfoCircleFilledIcon as TdInfoCircleFilledIcon,
 } from 'tdesign-icons-react';
-import useGlobalIcon from '../hooks/useGlobalIcon';
 
-import { TdMessageProps } from './type';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import Loading from '../loading';
+
+import type { TdMessageProps } from './type';
 
 export default function MessageIcon({ theme, onCloseBtnClick }: TdMessageProps) {
   const { CheckCircleFilledIcon, ErrorCircleFilledIcon, HelpCircleFilledIcon, InfoCircleFilledIcon } = useGlobalIcon({

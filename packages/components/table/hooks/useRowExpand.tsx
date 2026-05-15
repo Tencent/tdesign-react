@@ -1,8 +1,7 @@
-import React, { MouseEvent, ReactNode, useCallback } from 'react';
-import { ChevronRightCircleIcon as TdChevronRightCircleIcon } from 'tdesign-icons-react';
-
+import React, { useCallback } from 'react';
 import classNames from 'classnames';
 import { get, isFunction } from 'lodash-es';
+import { ChevronRightCircleIcon as TdChevronRightCircleIcon } from 'tdesign-icons-react';
 
 import { parseContentTNode } from '../../_util/parseTNode';
 import useControlled from '../../hooks/useControlled';
@@ -12,6 +11,7 @@ import { enableRowDrag } from '../utils';
 import useClassName from './useClassName';
 import { DATA_ID_ATTR, DATA_PARENT_ID_ATTR, EXPANDED_SUFFIX } from './useDragSort';
 
+import type { MouseEvent, ReactNode } from 'react';
 import type {
   PrimaryTableCellParams,
   PrimaryTableCol,

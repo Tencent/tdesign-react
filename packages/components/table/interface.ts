@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
-import { TableTreeDataMap } from '@tdesign/common-js/table/tree-store';
-import { ScrollToElementParams, StyledProps } from '../common';
-import { UseTreeDataReturnType } from './hooks/useTreeData';
-import {
+import type { ReactNode } from 'react';
+import type { TableTreeDataMap } from '@tdesign/common-js/table/tree-store';
+import type { ScrollToElementParams, StyledProps } from '../common';
+import type { UseTreeDataReturnType } from './hooks/useTreeData';
+import type {
   BaseTableCol,
   PrimaryTableRowValidateContext,
   PrimaryTableValidateContext,

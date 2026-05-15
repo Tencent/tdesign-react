@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, InputNumber, Space, Radio } from 'tdesign-react';
+import { Form, InputNumber, Radio, Space } from 'tdesign-react';
 
 type TipsType = 'hide' | 'show';
 

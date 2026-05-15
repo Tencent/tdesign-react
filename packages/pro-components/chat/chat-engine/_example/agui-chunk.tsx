@@ -1,25 +1,27 @@
-import React, { useState, useRef, useMemo, ReactNode } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
+import { CheckCircleFilledIcon, LoadingIcon, TimeFilledIcon } from 'tdesign-icons-react';
+import { Card, Radio, Space, Tag } from 'tdesign-react';
 import {
-  ChatList,
-  ChatSender,
-  ChatMessage,
   ChatActionBar,
+  ChatList,
   ChatLoading,
-  useChat,
-  useAgentToolcall,
-  isToolCallContent,
+  ChatMessage,
+  ChatSender,
   isAIMessage,
+  isToolCallContent,
   ToolCallRenderer,
+  useAgentToolcall,
+  useChat,
 } from '@tdesign-react/chat';
+
+import type { ReactNode } from 'react';
 import type {
-  ChatServiceConfig,
   AgentToolcallConfig,
-  ToolcallComponentProps,
   AIMessageContent,
   ChatMessagesData,
+  ChatServiceConfig,
+  ToolcallComponentProps,
 } from '@tdesign-react/chat';
-import { Space, Radio, Card, Tag } from 'tdesign-react';
-import { CheckCircleFilledIcon, LoadingIcon, TimeFilledIcon } from 'tdesign-icons-react';
 
 /**
  * AG-UI 简化 Chunk 模式示例

@@ -1,6 +1,6 @@
-import _List from './List';
-
 import './style/index.js';
+
+import _List from './List';
 
 export type { ListProps } from './List';
 export type { ListItemProps } from './ListItem';

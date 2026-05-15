@@ -1,5 +1,6 @@
 import React from 'react';
-import type { ActivityConfig, ActivityRegistry, ActivityComponentProps } from './types';
+
+import type { ActivityComponentProps, ActivityConfig, ActivityRegistry } from './types';
 
 /**
  * Activity 注册表管理器

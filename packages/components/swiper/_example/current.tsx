@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Swiper, Button, Space } from 'tdesign-react';
+import { Button, Space, Swiper } from 'tdesign-react';
 
 const { SwiperItem } = Swiper;
 
