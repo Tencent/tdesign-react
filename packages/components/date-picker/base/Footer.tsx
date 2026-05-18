@@ -1,10 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
-import { useLocaleReceiver } from '../../locale/LocalReceiver';
+
 import Button from '../../button';
 import useConfig from '../../hooks/useConfig';
-import { TdDatePickerProps, TdDateRangePickerProps, DateValue, DateMultipleValue } from '../type';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
+
+import type { DateMultipleValue, DateValue, TdDatePickerProps, TdDateRangePickerProps } from '../type';
 
 interface DatePickerFooterProps extends Pick<TdDatePickerProps, 'presetsPlacement' | 'needConfirm'> {
   presets?: TdDatePickerProps['presets'] | TdDateRangePickerProps['presets'];

@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+
 import useControlled from '../../hooks/useControlled';
 
 /** ImageViewerModal hooks * */

@@ -1,6 +1,6 @@
-import classNames from 'classnames';
-import React, { FC, ReactElement, useContext, useMemo, useRef } from 'react';
+import React, { useContext, useMemo, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import classNames from 'classnames';
 
 import parseTNode from '../_util/parseTNode';
 import FakeArrow from '../common/FakeArrow';
@@ -8,14 +8,16 @@ import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDomRefCallback from '../hooks/useDomRefCallback';
 import useRipple from '../hooks/useRipple';
-import { Popup, type PopupPlacement } from '../popup';
+import { Popup } from '../popup';
 import { calculatePaddingLeft } from './_util/calculatePaddingLeft';
 import { checkIsMenuGroup, checkIsSubMenu } from './_util/checkMenuType';
 import checkSubMenuChildrenActive from './_util/checkSubMenuChildrenActive';
 import { getSubMenuMaxHeight } from './_util/getSubMenuChildStyle';
 import { MenuContext } from './MenuContext';
 
+import type { FC, ReactElement } from 'react';
 import type { StyledProps } from '../common';
+import type { PopupPlacement } from '../popup';
 import type { TdSubmenuProps } from './type';
 
 export interface SubMenuProps extends TdSubmenuProps, StyledProps {}

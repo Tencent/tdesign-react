@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Switch, Tree, Space } from 'tdesign-react';
+import { Form, Space, Switch, Tree } from 'tdesign-react';
 
 import type { TreeProps } from 'tdesign-react';
 

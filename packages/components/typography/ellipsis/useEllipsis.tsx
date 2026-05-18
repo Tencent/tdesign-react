@@ -2,9 +2,10 @@
 import React, { useState } from 'react';
 import { isFunction } from 'lodash-es';
 
-import { TypographyEllipsis } from '../type';
-import Tooltip from '../../tooltip';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import Tooltip from '../../tooltip';
+
+import type { TypographyEllipsis } from '../type';
 
 export default function useEllipsis(ellipsis: boolean | TypographyEllipsis) {
   const [local, t] = useLocaleReceiver('typography');

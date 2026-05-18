@@ -1,8 +1,13 @@
-import React, { useState, useEffect, useCallback, useMemo, Component, ErrorInfo } from 'react';
-import { AGUIEventType, ToolCall } from 'tdesign-web-components/lib/chat-engine';
-import { isNonInteractiveConfig, type ToolcallComponentProps } from './types';
-import { agentToolcallRegistry } from './registry';
+import React, { Component, useCallback, useEffect, useMemo, useState } from 'react';
+import { AGUIEventType } from '@tdesign/ai-chat-engine';
+
 import { AgentStateContext, useAgentStateDataByKey } from '../../hooks/useAgentState';
+import { agentToolcallRegistry } from './registry';
+import { isNonInteractiveConfig } from './types';
+
+import type { ErrorInfo } from 'react';
+import type { ToolCall } from '@tdesign/ai-chat-engine';
+import type { ToolcallComponentProps } from './types';
 
 interface ToolCallRendererProps {
   toolCall: ToolCall;

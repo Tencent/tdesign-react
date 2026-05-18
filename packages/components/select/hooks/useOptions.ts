@@ -1,11 +1,13 @@
-import React, { ReactElement, ReactNode, useEffect, useMemo, useState } from 'react';
-import { get } from 'lodash-es';
+import React, { useEffect, useMemo, useState } from 'react';
+import { get, isNumber } from 'lodash-es';
 
 import Option from '../base/Option';
 import OptionGroup from '../base/OptionGroup';
-import { getKeyMapping, getValueToOption, type ValueToOption } from '../util/helper';
+import { getKeyMapping, getValueToOption } from '../util/helper';
 
+import type { ReactElement, ReactNode } from 'react';
 import type { SelectKeysType, SelectOption, SelectOptionGroup, SelectValue, TdOptionProps } from '../type';
+import type { ValueToOption } from '../util/helper';
 
 // 针对分组的相关判断和扁平处理
 export function isSelectOptionGroup(option: SelectOption): option is SelectOptionGroup {
@@ -100,7 +102,7 @@ function useOptions(
             valueToOption[item as string | number] ||
             oldSelectedOptions.find((option) => get(option, valueKey) === item) || {
               [valueKey]: item,
-              [labelKey]: item,
+              [labelKey]: isNumber(item) ? String(item) : item,
             }
           );
         }

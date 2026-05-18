@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import log from '@tdesign/common-js/log/index';
-import Loading from '../loading';
-import useConfig from '../hooks/useConfig';
-import { StyledProps } from '../common';
-import useCommonClassName from '../hooks/useCommonClassName';
-import { SwitchValue, TdSwitchProps } from './type';
-import { switchDefaultProps } from './defaultProps';
+
 import parseTNode from '../_util/parseTNode';
+import useCommonClassName from '../hooks/useCommonClassName';
+import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import Loading from '../loading';
+import { switchDefaultProps } from './defaultProps';
+
+import type { StyledProps } from '../common';
+import type { SwitchValue, TdSwitchProps } from './type';
 
 export type SwitchChangeEventHandler = (value: boolean, event: React.MouseEvent<HTMLButtonElement>) => void;
 export type SwitchClickEventHandler = SwitchChangeEventHandler;

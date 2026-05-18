@@ -1,5 +1,8 @@
-import { type MutableRefObject, useCallback } from 'react';
+import { useCallback } from 'react';
+
 import { canUseDocument } from '../../_util/dom';
+
+import type { MutableRefObject } from 'react';
 
 // 模块级别的鼠标位置记录，确保 Plugin 模式也能捕获到点击位置
 let mousePosition: { x: number; y: number } | null = null;

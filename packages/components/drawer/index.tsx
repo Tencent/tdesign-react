@@ -1,7 +1,7 @@
+import './style/index.js';
+
 import _Drawer from './Drawer';
 import { DrawerPlugin as _DrawerPlugin } from './plugin';
-
-import './style/index.js';
 
 export type { DrawerProps } from './Drawer';
 export * from './type';

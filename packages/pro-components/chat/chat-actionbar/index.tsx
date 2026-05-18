@@ -1,6 +1,8 @@
-import { TdChatActionProps } from 'tdesign-web-components';
 import 'tdesign-web-components/lib/chat-action';
+
 import reactify from '../_util/reactify';
+
+import type { TdChatActionProps } from 'tdesign-web-components';
 
 export const ChatActionBar: React.ForwardRefExoticComponent<
   Omit<TdChatActionProps, 'ref'> &

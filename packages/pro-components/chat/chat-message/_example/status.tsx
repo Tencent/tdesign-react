@@ -1,6 +1,8 @@
 import React from 'react';
 import { Divider, Space } from 'tdesign-react';
-import { AIMessage, ChatMessage } from '@tdesign-react/chat';
+import { ChatMessage } from '@tdesign-react/chat';
+
+import type { AIMessage } from '@tdesign-react/chat';
 
 const messages: Record<string, AIMessage> = {
   loading: {
@@ -46,7 +48,7 @@ export default function ChatMessageExample() {
       ></ChatMessage>
       <ChatMessage
         avatar="https://tdesign.gtimg.com/site/chat-avatar.png"
-        animation="dot"
+        animation="dots"
         name="TDesignAI"
         {...messages.loading}
       ></ChatMessage>

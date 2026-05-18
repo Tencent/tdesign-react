@@ -1,5 +1,6 @@
 import React from 'react';
-import { Switch, Calendar } from 'tdesign-react';
+import { Calendar, Switch } from 'tdesign-react';
+
 import type { CalendarProps } from 'tdesign-react';
 
 export default function CalendarExample() {

@@ -1,5 +1,6 @@
-import { cloneDeep, isArray, isEmpty, isFunction, isObject, merge, set, get } from 'lodash-es';
+import { cloneDeep, get, isArray, isEmpty, isFunction, isObject, merge, set } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
+
 import useConfig from '../../hooks/useConfig';
 import { calcFieldValue, findFormItem, travelMapFromObject } from '../utils';
 
@@ -170,7 +171,7 @@ export default function useInstance(
       // 当前路径对应的 FormItem 存在，直接设置
       const formItemRef = findFormItem(path, formMapRef);
       if (formItemRef?.current) {
-        formItemRef.current.setValue?.(value);
+        formItemRef.current.setValue?.(cloneDeep(value));
         return;
       }
 

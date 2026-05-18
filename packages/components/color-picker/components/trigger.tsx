@@ -1,11 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Color, getColorObject } from '@tdesign/common-js/color-picker/color';
-import { Input } from '../../input';
-import { TdColorPickerProps } from '..';
-import useClassName from '../hooks/useClassNames';
-import { TdColorContext } from '../interface';
+
 import noop from '../../_util/noop';
+import { Input } from '../../input';
+import useClassName from '../hooks/useClassNames';
+
+import type { TdColorPickerProps } from '..';
+import type { TdColorContext } from '../interface';
 
 export interface ColorTriggerProps
   extends Pick<TdColorPickerProps, 'disabled' | 'inputProps' | 'borderless' | 'clearable' | 'onClear'> {
