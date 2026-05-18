@@ -46,6 +46,7 @@ export interface BaseTableRef {
   tableHtmlElement: HTMLTableElement;
   tableContentElement: HTMLDivElement;
   affixHeaderElement: HTMLDivElement;
+  onAffixHeaderMount: (nodeOrCallback: HTMLDivElement | ((node: HTMLDivElement) => void)) => HTMLDivElement | void;
   refreshTable: () => void;
   scrollToElement: (params: ScrollToElementParams) => void;
   scrollColumnIntoView: (columnIndex: string) => void;

@@ -254,6 +254,7 @@ const TreeItem = forwardRef(
           </Checkbox>
         );
       }
+
       // 自定义节点（label 为函数或 ReactNode）不展示 title
       const isCustomLabel = label instanceof Function || isValidElement(node.label);
 

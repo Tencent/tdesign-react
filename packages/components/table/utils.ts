@@ -10,6 +10,7 @@ import type {
   TableColumnClassName,
   TableRowData,
   TdBaseTableProps,
+  TdPrimaryTableProps,
 } from './type';
 
 export function toString(obj: any): string {
@@ -33,6 +34,16 @@ export interface FormatRowAttributesParams {
   rowIndex: number;
   type: 'body' | 'foot';
 }
+
+/**
+ * 是否启用行拖拽
+ */
+export const enableRowDrag = (dragSort: TdPrimaryTableProps['dragSort']) => {
+  if (!dragSort) return false;
+  const validType = ['row', 'row-handler', 'row-handler-col'];
+  if (validType.includes(dragSort)) return true;
+  return false;
+};
 
 // 行属性
 export function formatRowAttributes(attributes: TdBaseTableProps['rowAttributes'], params: FormatRowAttributesParams) {
