@@ -152,7 +152,7 @@ export default function TableExpandable() {
         expandedRowKeys={expandedRowKeys}
         expandedRow={expandedRow}
         expandOnRowClick={expandOnRowClick}
-        expandIcon={typeof expandIcon === 'boolean' ? handleExpandIcon : expandIcon}
+        expandIcon={expandIcon === 'custom' ? handleExpandIcon : expandIcon}
         onExpandChange={handleExpandChange}
         {...(dragSort && { dragSort: 'row-handler' })}
         onDragSort={({ newData }) => setData(newData)}
