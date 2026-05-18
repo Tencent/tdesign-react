@@ -1,8 +1,10 @@
 import React, { useRef, useState } from 'react';
 import classNames from 'classnames';
-import useMouseEvent, { type MouseCallback } from '../hooks/useMouseEvent';
+
+import useMouseEvent from '../hooks/useMouseEvent';
 import Tooltip from '../tooltip/Tooltip';
 
+import type { MouseCallback } from '../hooks/useMouseEvent';
 import type { TdTooltipProps } from '../tooltip/type';
 import type { SliderProps } from './Slider';
 

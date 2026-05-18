@@ -1,9 +1,9 @@
-import _Steps from './Steps';
-
 import './style/index.js';
 
-export type { StepsProps } from './Steps';
+import _Steps from './Steps';
+
 export type { StepItemProps } from './StepItem';
+export type { StepsProps } from './Steps';
 export * from './type';
 
 export const Steps = _Steps;

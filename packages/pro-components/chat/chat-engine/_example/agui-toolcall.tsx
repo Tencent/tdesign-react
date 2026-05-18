@@ -1,27 +1,29 @@
-import React, { ReactNode, useRef, useState, useMemo } from 'react';
-import { Card, Progress, Space, Image } from 'tdesign-react';
+import React, { useMemo, useRef, useState } from 'react';
 import { CheckCircleFilledIcon, CloseCircleFilledIcon, LoadingIcon } from 'tdesign-icons-react';
+import { Card, Image, Progress, Space } from 'tdesign-react';
 import {
-  ChatList,
-  ChatSender,
-  ChatMessage,
   ChatActionBar,
-  isAIMessage,
-  TdChatSenderParams,
+  ChatList,
   ChatLoading,
-  TdChatActionsName,
-  ToolCallRenderer,
-  useChat,
-  useAgentToolcall,
+  ChatMessage,
+  ChatSender,
+  isAIMessage,
   isToolCallContent,
+  ToolCallRenderer,
+  useAgentToolcall,
+  useChat,
 } from '@tdesign-react/chat';
+
+import type { ReactNode } from 'react';
 import type {
-  TdChatMessageConfig,
+  AgentToolcallConfig,
+  AIMessageContent,
   ChatMessagesData,
   ChatRequestParams,
-  AIMessageContent,
+  TdChatActionsName,
+  TdChatMessageConfig,
+  TdChatSenderParams,
   ToolCall,
-  AgentToolcallConfig,
   ToolcallComponentProps,
 } from '@tdesign-react/chat';
 

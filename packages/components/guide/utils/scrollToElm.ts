@@ -1,4 +1,4 @@
-import { getWindowSize, elementInViewport } from '../../_util/dom';
+import { elementInViewport, getWindowSize } from '../../_util/dom';
 import { scrollTo } from '../../_util/scroll';
 
 export default function scrollToElm(elm: HTMLElement) {

@@ -1,10 +1,10 @@
-import React, { forwardRef, ReactNode, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { cloneDeep, get, isEqual, isFunction, isObject, isString, set } from 'lodash-es';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
-import { get, isEqual, isFunction, isObject, isString, set } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -19,6 +19,7 @@ import useFormItemInitialData from './hooks/useFormItemInitialData';
 import useFormItemStyle from './hooks/useFormItemStyle';
 import { calcFieldValue, concatName } from './utils';
 
+import type { ReactNode } from 'react';
 import type { StyledProps } from '../common';
 import type {
   FieldData,
@@ -420,7 +421,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
     const isFormList = formListName && isSameForm;
     const mapRef = isFormList ? formListMapRef : formMapRef;
-    if (!mapRef.current) return;
+    if (!mapRef?.current) return;
 
     // 注册实例
     mapRef.current.set(fullPath, formItemRef);
@@ -460,7 +461,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     value: formValue,
     initialData,
     isFormList: false,
-    getValue: () => valueRef.current,
+    getValue: () => cloneDeep(valueRef.current),
     setValue: (newVal: any) => updateFormValue(newVal, true, true),
     setField,
     validate,
@@ -488,7 +489,9 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
         <div className={`${classPrefix}-form__controls-content`}>
           {React.Children.map(children, (child, index) => {
             if (!child) return null;
-            if (!React.isValidElement(child)) return child;
+
+            // Fragment can only have `key` and `children` props, skip props injection
+            if (!React.isValidElement(child) || child.type === React.Fragment) return child;
 
             const childType = child.type;
             const isCustomComp = typeof childType === 'object' || typeof childType === 'function';

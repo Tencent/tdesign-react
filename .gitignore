@@ -2,6 +2,7 @@
 .DS_Store
 .idea
 temp*
+.tmp-aigc-dts
 robotMsg.json
 .history
 
@@ -43,7 +44,8 @@ packages/**/chat-engine/core
 packages/**/chat-engine/docs
 packages/**/chatbot/docs
 *.zip
-.codebuddy
+.codebuddy/memory
+.codebuddy/plans
 mock-server
 openspec
 .fue

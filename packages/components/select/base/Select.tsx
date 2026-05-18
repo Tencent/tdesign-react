@@ -10,6 +10,7 @@ import React, {
 } from 'react';
 import classNames from 'classnames';
 import { debounce, get, isFunction } from 'lodash-es';
+
 import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
 import { getOffsetTopToContainer } from '../../_util/helper';
 import noop from '../../_util/noop';
@@ -21,22 +22,19 @@ import useControlled from '../../hooks/useControlled';
 import useDefaultProps from '../../hooks/useDefaultProps';
 import Loading from '../../loading';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import SelectInput, {
-  SelectInputChangeContext,
-  type SelectInputValue,
-  type SelectInputValueChangeContext,
-} from '../../select-input';
+import SelectInput from '../../select-input';
 import Tag from '../../tag';
 import { selectDefaultProps } from '../defaultProps';
 import useKeyboardControl from '../hooks/useKeyboardControl';
 import useOptions, { isSelectOptionGroup } from '../hooks/useOptions';
-import { getKeyMapping, getSelectValueArr, getSelectedOptions } from '../util/helper';
+import { getKeyMapping, getSelectedOptions, getSelectValueArr } from '../util/helper';
 import Option from './Option';
 import OptionGroup from './OptionGroup';
 import PopupContent from './PopupContent';
 
 import type { StyledProps } from '../../common';
 import type { PopupVisibleChangeContext } from '../../popup';
+import type { SelectInputChangeContext, SelectInputValue, SelectInputValueChangeContext } from '../../select-input';
 import type { SelectOption, SelectValue, SelectValueChangeTrigger, TdOptionProps, TdSelectProps } from '../type';
 
 export interface SelectProps<T = SelectOption> extends TdSelectProps<T>, StyledProps {
@@ -545,9 +543,8 @@ const Select = forwardRefWithStatics(
       onScroll?.({ e });
       if (onScrollToBottom) {
         const debounceOnScrollBottom = debounce((e) => onScrollToBottom({ e }), 100);
-
         const { scrollTop, clientHeight, scrollHeight } = e.target as HTMLDivElement;
-        if (clientHeight + Math.floor(scrollTop) === scrollHeight) {
+        if (Math.abs(scrollHeight - clientHeight - scrollTop) <= 1) {
           debounceOnScrollBottom(e);
         }
       }

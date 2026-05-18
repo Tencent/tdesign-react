@@ -1,7 +1,8 @@
 import React from 'react';
-import { Card, Avatar, Row, Col, Button, Divider, Dropdown, MessagePlugin, Space } from 'tdesign-react';
+import { ChatIcon, HeartIcon, MoreIcon, ShareIcon, ThumbUpIcon, UserIcon } from 'tdesign-icons-react';
+import { Avatar, Button, Card, Col, Divider, Dropdown, MessagePlugin, Row, Space } from 'tdesign-react';
+
 import type { TdDropdownProps } from 'tdesign-react';
-import { UserIcon, ChatIcon, ShareIcon, ThumbUpIcon, HeartIcon, MoreIcon } from 'tdesign-icons-react';
 
 const { Group: AvatarGroup } = Avatar;
 

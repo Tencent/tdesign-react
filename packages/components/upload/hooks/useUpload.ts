@@ -1,19 +1,22 @@
-import { useRef, useState, useMemo, ChangeEventHandler, MouseEvent, useEffect, ClipboardEventHandler } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { merge } from 'lodash-es';
 import {
-  getFilesAndErrors,
-  validateFile,
-  upload,
-  getTriggerTextField,
-  getDisplayFiles,
   formatToUploadFile,
+  getDisplayFiles,
+  getFilesAndErrors,
+  getTriggerTextField,
+  upload,
+  validateFile,
 } from '@tdesign/common-js/upload/main';
 import { getFileList } from '@tdesign/common-js/upload/utils';
-import { InnerProgressContext, OnResponseErrorContext, SuccessContext } from '@tdesign/common-js/upload/types';
-import useControlled from '../../hooks/useControlled';
-import { SizeLimitObj, TdUploadProps, UploadChangeContext, UploadFile, UploadRemoveContext } from '../type';
+
 import useConfig from '../../hooks/useConfig';
+import useControlled from '../../hooks/useControlled';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
+
+import type { ChangeEventHandler, ClipboardEventHandler, MouseEvent } from 'react';
+import type { InnerProgressContext, OnResponseErrorContext, SuccessContext } from '@tdesign/common-js/upload/types';
+import type { SizeLimitObj, TdUploadProps, UploadChangeContext, UploadFile, UploadRemoveContext } from '../type';
 
 /**
  * 上传组件全部逻辑，方便脱离 UI，自定义 UI 组件

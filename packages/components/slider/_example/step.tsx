@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Slider, Space, Switch } from 'tdesign-react';
+
 import type { SliderValue } from 'tdesign-react';
 
 const StepSlider = () => {

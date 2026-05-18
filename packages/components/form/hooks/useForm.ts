@@ -1,7 +1,8 @@
-import { useState, useRef } from 'react';
+import { useRef, useState } from 'react';
 import log from '@tdesign/common-js/log/index';
+
 import type { FormInstanceFunctions, NamePath } from '../type';
-import type { WatchCallBack, InternalHooks, InternalFormInstance, Store } from './interface';
+import type { InternalFormInstance, InternalHooks, Store, WatchCallBack } from './interface';
 
 export const HOOK_MARK = 'TD_FORM_INTERNAL_HOOKS';
 

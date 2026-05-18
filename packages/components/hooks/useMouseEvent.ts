@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+
 import useLatest from './useLatest';
 
 export type MouseEventLike = MouseEvent | React.MouseEvent | TouchEvent | React.TouchEvent;
