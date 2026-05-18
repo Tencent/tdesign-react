@@ -254,14 +254,16 @@ const TreeItem = forwardRef(
           </Checkbox>
         );
       }
+
+      // 自定义节点（label 为函数或 ReactNode）不展示 title
+      const isCustomLabel = label instanceof Function || isValidElement(node.label);
+
       return (
         <span
           ref={setRefCurrent}
           data-target="label"
           className={labelClasses}
-          // label 可以传入 ReactNode， 如果直接取里面的 children 值，当多层级的时候会有问题
-          // 所以这里判断如果 label是 ReactNode， 并且 text没有值 就不展示 title
-          title={isValidElement(node.label) && !node.data?.text ? '' : String(node.data?.text || node.label)}
+          title={isCustomLabel ? undefined : String(node.data?.text || node.label || '')}
         >
           <span style={{ position: 'relative' }}>{labelText}</span>
         </span>
