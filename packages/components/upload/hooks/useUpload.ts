@@ -349,12 +349,12 @@ export default function useUpload(props: TdUploadProps) {
       setToUploadFiles([]);
       xhrReq.current = [];
     } else if (!props.autoUpload) {
-      uploadValue.splice(p.index, 1);
-      updateInternalValue([...uploadValue], changePrams);
+      const newUploadValue = uploadValue.filter((_, i) => i !== p.index);
+      updateInternalValue(newUploadValue, changePrams);
     } else if (p.index < uploadValue.length) {
       // autoUpload 场景下， p.index < uploadValue.length 表示移除已经上传成功的文件；反之表示移除待上传列表文件
-      uploadValue.splice(p.index, 1);
-      updateInternalValue([...uploadValue], changePrams);
+      const newUploadValue = uploadValue.filter((_, i) => i !== p.index);
+      updateInternalValue(newUploadValue, changePrams);
     } else {
       const tmpFiles = [...toUploadFiles];
       tmpFiles.splice(p.index - uploadValue.length, 1);
