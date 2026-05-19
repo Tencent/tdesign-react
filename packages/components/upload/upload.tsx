@@ -1,21 +1,23 @@
-import React, { ForwardedRef, forwardRef } from 'react';
-import { UploadIcon as TdUploadIcon } from 'tdesign-icons-react';
+import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import NormalFile from './themes/NormalFile';
+import { UploadIcon as TdUploadIcon } from 'tdesign-icons-react';
+
+import parseTNode from '../_util/parseTNode';
+import Button from '../button';
+import useDefaultProps from '../hooks/useDefaultProps';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import { uploadDefaultProps } from './defaultProps';
+import useUpload from './hooks/useUpload';
+import CustomFile from './themes/CustomFile';
 import DraggerFile from './themes/DraggerFile';
 import ImageCard from './themes/ImageCard';
 import MultipleFlowList from './themes/MultipleFlowList';
-import useUpload from './hooks/useUpload';
-import Button from '../button';
-import { uploadDefaultProps } from './defaultProps';
-import { CommonDisplayFileProps, UploadProps, UploadRef } from './interface';
-import { UploadDragEvents } from './hooks/useDrag';
-import CustomFile from './themes/CustomFile';
-import { UploadFile } from './type';
-import parseTNode from '../_util/parseTNode';
+import NormalFile from './themes/NormalFile';
 
-import useDefaultProps from '../hooks/useDefaultProps';
-import useGlobalIcon from '../hooks/useGlobalIcon';
+import type { ForwardedRef } from 'react';
+import type { UploadDragEvents } from './hooks/useDrag';
+import type { CommonDisplayFileProps, UploadProps, UploadRef } from './interface';
+import type { UploadFile } from './type';
 
 // const Upload = forwardRef((props: UploadProps, ref) => {
 function TdUpload<T extends UploadFile = UploadFile>(originalProps: UploadProps<T>, ref: ForwardedRef<UploadRef>) {

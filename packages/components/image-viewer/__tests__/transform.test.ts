@@ -10,20 +10,20 @@
  * - isImageExceedsViewport
  * - DEFAULT_IMAGE_SCALE
  */
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
+  calcResetRotation,
+  calculateTranslateOffset,
+  calcZoomInScale,
+  calcZoomOutScale,
+  clampScale,
   DEFAULT_IMAGE_SCALE,
+  isImageExceedsViewport,
   MIRROR_DEFAULT,
   ROTATE_DEG,
   toggleMirror,
-  calcResetRotation,
-  clampScale,
-  calcZoomInScale,
-  calcZoomOutScale,
-  calculateTranslateOffset,
   zoomIn,
   zoomOut,
-  isImageExceedsViewport,
 } from '@tdesign/common-js/image-viewer/transform';
 
 // ─── 常量 ────────────────────────────────────────────────────────────────

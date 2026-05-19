@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { zoomIn, zoomOut, clampScale, DEFAULT_IMAGE_SCALE } from '@tdesign/common-js/image-viewer/transform';
+import { clampScale, DEFAULT_IMAGE_SCALE, zoomIn, zoomOut } from '@tdesign/common-js/image-viewer/transform';
+
 import type { ZoomOptions, ZoomResult } from '@tdesign/common-js/image-viewer/transform';
 import type { ImageScale } from '../type';
 

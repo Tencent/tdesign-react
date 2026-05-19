@@ -1,6 +1,6 @@
 // 旋转控制
 import { useCallback, useRef, useState } from 'react';
-import { ROTATE_DEG, calcResetRotation } from '@tdesign/common-js/image-viewer/transform';
+import { calcResetRotation, ROTATE_DEG } from '@tdesign/common-js/image-viewer/transform';
 
 const useRotate = () => {
   // There is an useEffect in the line 472 of ImageViewerModal.tsx, so we need to use a ref to store the rotateZ value.

@@ -10,16 +10,17 @@
  * - useViewerScale（弹窗尺寸配置）
  * - useIndex（图片切换下标）
  */
-import React from 'react';
-import { renderHook, act, vi } from '@test/utils';
-
 import { DEFAULT_IMAGE_SCALE } from '@tdesign/common-js/image-viewer/transform';
-import useScale from '../hooks/useScale';
-import useMirror from '../hooks/useMirror';
-import useRotate from '../hooks/useRotate';
+import { act, renderHook, vi } from '@test/utils';
+
 import useImageScale from '../hooks/useImageScale';
+import useMirror from '../hooks/useMirror';
 import usePosition from '../hooks/usePosition';
+import useRotate from '../hooks/useRotate';
+import useScale from '../hooks/useScale';
 import useViewerScale from '../hooks/useViewerScale';
+
+import type React from 'react';
 
 // ─── useMirror ───────────────────────────────────────────────────────────
 describe('useMirror', () => {

@@ -1,5 +1,5 @@
-import { PATH_SEPARATOR } from '@tdesign/common-js/tree-v1/tree-node-model';
 import { isEmpty } from 'lodash-es';
+import { PATH_SEPARATOR } from '@tdesign/common-js/tree-v1/tree-node-model';
 
 import type {
   CascaderContextType,

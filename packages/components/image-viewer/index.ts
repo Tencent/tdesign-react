@@ -1,6 +1,6 @@
-import _ImageViewer from './ImageViewer';
-
 import './style/index.js';
+
+import _ImageViewer from './ImageViewer';
 
 export type { ImageViewerProps } from './ImageViewer';
 

@@ -5,9 +5,9 @@
  * - formatImages
  * - downloadImage（含跨域 canvasDownload 路径）
  */
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { downloadImage, formatImages } from '@tdesign/common-js/image-viewer/utils';
 import { act } from '@test/utils';
-import { formatImages, downloadImage } from '@tdesign/common-js/image-viewer/utils';
 
 // ─── formatImages ────────────────────────────────────────────────────────
 describe('formatImages', () => {

@@ -1,5 +1,6 @@
 import { DEFAULT_IMAGE_SCALE } from '@tdesign/common-js/image-viewer/transform';
-import { ImageScale } from '../type';
+
+import type { ImageScale } from '../type';
 
 const useImageScale = (imageScale?: Partial<ImageScale>) => {
   // 合并默认值和用户设置

@@ -1,9 +1,12 @@
-import React, { KeyboardEvent, MouseEvent } from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import { TNode } from '../common';
+
 import Dialog from '../dialog';
 import useConfig from '../hooks/useConfig';
 import { ImageModalItem, ImageViewerUtils } from './ImageViewerModal';
+
+import type { KeyboardEvent, MouseEvent } from 'react';
+import type { TNode } from '../common';
 import type { ImageInfo, ImageScale, ImageViewerScale, TdImageViewerProps } from './type';
 
 export interface ImageModalMiniProps {

@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
+
 import useMouseEvent from '../../hooks/useMouseEvent';
 
 export type PositionType = [number, number];

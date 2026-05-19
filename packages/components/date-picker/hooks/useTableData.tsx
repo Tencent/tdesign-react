@@ -1,16 +1,18 @@
+import dayjs from 'dayjs';
 import { isArray, isFunction } from 'lodash-es';
 import {
-  getWeeks,
-  getYears,
+  flagActive,
   getMonths,
   getQuarters,
-  flagActive,
   getRangeBounds,
+  getWeeks,
+  getYears,
   monthHasAnyAllowed as monthAllowed,
   yearHasAnyAllowed as yearAllowed,
 } from '@tdesign/common-js/date-picker/utils';
-import dayjs from 'dayjs';
+
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
+
 import type { SinglePanelProps } from '../panel/SinglePanel';
 
 export interface TableDataProps extends SinglePanelProps {

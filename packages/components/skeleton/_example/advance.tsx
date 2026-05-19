@@ -1,5 +1,6 @@
 import React from 'react';
 import { Skeleton } from 'tdesign-react';
+
 import type { SkeletonProps } from 'tdesign-react';
 
 const style = {
