@@ -1,33 +1,36 @@
-import React, { ReactNode, useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+import { HistoryIcon, LoadingIcon } from 'tdesign-icons-react';
 import { Button } from 'tdesign-react';
 import {
-  ChatList,
-  ChatSender,
-  ChatMessage,
-  TdChatListApi,
-  TdChatSenderApi,
-  ChatActionBar,
-  isAIMessage,
-  getMessageContentForCopy,
   AGUIAdapter,
+  ChatActionBar,
+  ChatList,
+  ChatMessage,
+  ChatSender,
+  getMessageContentForCopy,
+  isAIMessage,
   isToolCallContent,
 } from '@tdesign-react/chat';
-import { LoadingIcon, HistoryIcon } from 'tdesign-icons-react';
-import type {
-  TdChatMessageConfig,
-  TdChatActionsName,
-  TdChatSenderParams,
-  ChatMessagesData,
-  ChatRequestParams,
-  ChatBaseContent,
-  AIMessageContent,
-  ToolCall,
-  AGUIHistoryMessage,
-} from '@tdesign-react/chat';
+
 import { ToolCallRenderer, useAgentToolcall, useChat } from '../index';
-import './travel.css';
 import { travelActions } from './travel-actions';
 
+import type { ReactNode } from 'react';
+import type {
+  AGUIHistoryMessage,
+  AIMessageContent,
+  ChatBaseContent,
+  ChatMessagesData,
+  ChatRequestParams,
+  TdChatActionsName,
+  TdChatListApi,
+  TdChatMessageConfig,
+  TdChatSenderApi,
+  TdChatSenderParams,
+  ToolCall,
+} from '@tdesign-react/chat';
+
+import './travel.css';
 // 扩展自定义消息体类型
 declare module '@tdesign-react/chat' {
   interface AIContentTypeOverrides {
@@ -47,7 +50,9 @@ interface MessageRendererProps {
 // 加载历史消息的函数
 const loadHistoryMessages = async (): Promise<ChatMessagesData[]> => {
   try {
-    const response = await fetch('https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/api/conversation/history?type=default');
+    const response = await fetch(
+      'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/api/conversation/history?type=default',
+    );
     if (response.ok) {
       const result = await response.json();
       const historyMessages: AGUIHistoryMessage[] = result.data;

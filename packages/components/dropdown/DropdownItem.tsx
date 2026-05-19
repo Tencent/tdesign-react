@@ -1,14 +1,16 @@
 import React, { forwardRef } from 'react';
-import type { RefObject } from 'react';
 import classNames from 'classnames';
 import { pxCompat } from '@tdesign/common-js/utils/helper';
-import { DropdownOption, TdDropdownProps, DropdownItemTheme } from './type';
+
 import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
 import useDomRefCallback from '../hooks/useDomRefCallback';
 import useRipple from '../hooks/useRipple';
 import { dropdownItemDefaultProps } from './defaultProps';
-import { StyledProps } from '../common';
-import useDefaultProps from '../hooks/useDefaultProps';
+
+import type { RefObject } from 'react';
+import type { StyledProps } from '../common';
+import type { DropdownItemTheme, DropdownOption, TdDropdownProps } from './type';
 
 type DropdownItemProps = Pick<DropdownOption, 'value'> &
   Pick<TdDropdownProps, 'maxColumnWidth' | 'minColumnWidth'> &

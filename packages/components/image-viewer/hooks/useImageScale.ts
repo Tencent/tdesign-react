@@ -1,4 +1,4 @@
-import { ImageScale } from '../type';
+import type { ImageScale } from '../type';
 
 const useImageScale = (imageScale?: Partial<ImageScale>) => {
   const result: ImageScale = {

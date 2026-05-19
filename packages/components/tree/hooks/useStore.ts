@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { cloneDeep } from 'lodash-es';
 import TreeStore from '@tdesign/common-js/tree-v1/tree-store';
-import type { TreeNodeValue, TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
-import TreeNode from '@tdesign/common-js/tree-v1/tree-node';
-import useUpdateLayoutEffect from '../../hooks/useUpdateLayoutEffect';
-import usePrevious from '../../hooks/usePrevious';
-import { usePersistFn } from '../../hooks/usePersistFn';
 
-import type { TdTreeProps } from '../type';
+import { usePersistFn } from '../../hooks/usePersistFn';
+import usePrevious from '../../hooks/usePrevious';
+import useUpdateLayoutEffect from '../../hooks/useUpdateLayoutEffect';
+
+import type TreeNode from '@tdesign/common-js/tree-v1/tree-node';
+import type { TreeNodeValue, TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
 import type { TypeEventState } from '../interface';
+import type { TdTreeProps } from '../type';
 
 export function useStore(
   props: TdTreeProps & { indeterminate: any; setTreeIndeterminate: any },

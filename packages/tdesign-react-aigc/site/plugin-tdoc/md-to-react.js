@@ -1,14 +1,20 @@
 /* eslint-disable */
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
 import camelCase from 'camelcase';
+import fs from 'fs';
+import matter from 'gray-matter';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import pluginTransformTypescript from '@babel/plugin-transform-typescript';
+import presetReact from '@babel/preset-react';
 
 import { compileUsage, getGitTimestamp } from '../../../../packages/common/docs/compile';
 
 import testCoverage from '../test-coverage';
 
 import { transformSync } from '@babel/core';
+
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default async function mdToReact(options) {
   const mdSegment = await customRender(options);
@@ -95,7 +101,6 @@ export default async function mdToReact(options) {
                 ref={tdDocHeader}
                 spline="${mdSegment.spline}"
                 platform="web"
-                changelog="false"
               >
               </td-doc-header>`
               : ''
@@ -137,8 +142,8 @@ export default async function mdToReact(options) {
     generatorOpts: {
       decoratorsBeforeExport: true,
     },
-    presets: [require('@babel/preset-react')],
-    plugins: [[require('@babel/plugin-transform-typescript'), { isTSX: true }]],
+    presets: [presetReact],
+    plugins: [[pluginTransformTypescript, { isTSX: true }]],
   });
 
   return { code: result.code, map: result.map };

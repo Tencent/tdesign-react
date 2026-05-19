@@ -7,22 +7,22 @@ import {
   MirrorIcon as TdMirrorIcon,
   RotationIcon as TdRotationIcon,
 } from 'tdesign-icons-react';
-
 import { downloadImage } from '@tdesign/common-js/image-viewer/utils';
 import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
+
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useImagePreviewUrl from '../hooks/useImagePreviewUrl';
 import Image from '../image';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TooltipLite } from '../tooltip';
-import { ImageModalMini } from './ImageViewerMini';
 import useIconMap from './hooks/useIconMap';
 import useIndex from './hooks/useIndex';
 import useMirror from './hooks/useMirror';
 import usePosition from './hooks/usePosition';
 import useRotate from './hooks/useRotate';
 import useScale from './hooks/useScale';
+import { ImageModalMini } from './ImageViewerMini';
 
 import type { TNode } from '../common';
 import type { ImageViewerProps } from './ImageViewer';

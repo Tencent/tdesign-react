@@ -1,6 +1,6 @@
-import _Skeleton from './Skeleton';
-
 import './style/index.js';
+
+import _Skeleton from './Skeleton';
 
 export type { SkeletonProps } from './Skeleton';
 export * from './type';

@@ -1,11 +1,11 @@
 import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
+import classNames from 'classnames';
+import { isFunction } from 'lodash-es';
 import {
   BrowseIcon as TdBrowseIcon,
   BrowseOffIcon as TdBrowseOffIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
 } from 'tdesign-icons-react';
-import classNames from 'classnames';
-import { isFunction } from 'lodash-es';
 
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import parseTNode from '../_util/parseTNode';

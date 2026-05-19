@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, Select, Input, Checkbox, Card, Tag, Space, Divider, Typography, Alert, Loading } from 'tdesign-react';
 import { CloseIcon, InfoCircleIcon } from 'tdesign-icons-react';
+import { Alert, Button, Card, Checkbox, Divider, Input, Loading, Select, Space, Tag, Typography } from 'tdesign-react';
+
 import type { AgentToolcallConfig, ToolcallComponentProps } from '@tdesign-react/chat';
 
 // ==================== 类型定义 ====================
