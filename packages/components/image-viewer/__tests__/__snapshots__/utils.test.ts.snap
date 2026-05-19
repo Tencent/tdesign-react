@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`formatImages snapshots > ImageInfo objects snapshot > formatImages-image-info-array 1`] = `
+exports[`formatImages 快照 > ImageInfo 对象数组快照 > formatImages-image-info-array 1`] = `
 [
   {
     "download": true,
@@ -16,24 +16,7 @@ exports[`formatImages snapshots > ImageInfo objects snapshot > formatImages-imag
 ]
 `;
 
-exports[`formatImages snapshots > empty array snapshot > formatImages-empty 1`] = `[]`;
-
-exports[`formatImages snapshots > mixed array snapshot > formatImages-mixed-array 1`] = `
-[
-  {
-    "download": true,
-    "mainImage": "simple.jpg",
-    "thumbnail": "simple.jpg",
-  },
-  {
-    "download": true,
-    "mainImage": "complex.jpg",
-    "thumbnail": "complex-thumb.jpg",
-  },
-]
-`;
-
-exports[`formatImages snapshots > string images snapshot > formatImages-string-array 1`] = `
+exports[`formatImages 快照 > 字符串数组快照 > formatImages-string-array 1`] = `
 [
   {
     "download": true,
@@ -52,3 +35,20 @@ exports[`formatImages snapshots > string images snapshot > formatImages-string-a
   },
 ]
 `;
+
+exports[`formatImages 快照 > 混合数组快照 > formatImages-mixed-array 1`] = `
+[
+  {
+    "download": true,
+    "mainImage": "simple.jpg",
+    "thumbnail": "simple.jpg",
+  },
+  {
+    "download": true,
+    "mainImage": "complex.jpg",
+    "thumbnail": "complex-thumb.jpg",
+  },
+]
+`;
+
+exports[`formatImages 快照 > 空数组快照 > formatImages-empty 1`] = `[]`;

@@ -1,6 +1,2778 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ImageViewer snapshots > DefaultTrigger 多张图片默认触发器渲染快照 > image-viewer-default-trigger-multi 1`] = `
+exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张按钮快照 > toolbar-navigate-next 1`] = `
+<body>
+  <div>
+    <span>
+      工具栏测试
+    </span>
+  </div>
+  <div
+    class="t-image-viewer-preview-image"
+  >
+    <div
+      class="t-image-viewer__modal-mask"
+    />
+    <div
+      class="t-image-viewer__modal-header t-is-show"
+    >
+      <div
+        class="t-image-viewer__modal-icon t-image-viewer__header-pre-bt"
+      >
+        <svg
+          class="t-icon t-icon-chevron-down"
+          fill="none"
+          height="1em"
+          style="fill: none; font-size: 16px;"
+          viewBox="0 0 24 24"
+          width="1em"
+        >
+          <g
+            id="chevron-down"
+          >
+            <path
+              d="M17.5 9.5L12 15L6.5 9.5"
+              id="stroke1"
+              stroke="currentColor"
+              stroke-linecap="square"
+              stroke-width="2"
+            />
+          </g>
+        </svg>
+      </div>
+      <div
+        class="t-image-viewer__header-prev"
+      >
+        <div
+          class="t-image-viewer__header-trans"
+          style="transform: translateX(calc(-1 * (40px / 9 * 16 + 4px)));"
+        >
+          <div
+            class="t-image-viewer__header-box"
+          >
+            <div
+              class="t-image__wrapper t-image__wrapper--shape-square t-image-viewer__header-img"
+            >
+              <img
+                alt=""
+                class="t-image t-image--fit-fill t-image--position-center"
+                src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+              />
+              <div
+                class="t-image__loading"
+              >
+                <div
+                  class="t-space t-space-align-center t-space-vertical"
+                  style="gap: 8px;"
+                >
+                  <div
+                    class="t-space-item"
+                  >
+                    <svg
+                      class="t-icon t-icon-image"
+                      fill="none"
+                      height="1em"
+                      style="fill: none;"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                    >
+                      <g
+                        id="image"
+                      >
+                        <path
+                          d="M3 21H20L9 10L3 16V21Z"
+                          fill="transparent"
+                          id="fill1"
+                        />
+                        <circle
+                          cx="15.75"
+                          cy="8.25"
+                          fill="transparent"
+                          id="fill2"
+                          r="2"
+                        />
+                        <path
+                          d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
+                          id="stroke1"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                        <circle
+                          cx="15.75"
+                          cy="8.25"
+                          id="stroke2"
+                          r="2"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+                  <div
+                    class="t-space-item"
+                  >
+                    图片加载中
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="t-image-viewer__header-box t-is-active"
+          >
+            <div
+              class="t-image__wrapper t-image__wrapper--shape-square t-image-viewer__header-img"
+            >
+              <img
+                alt=""
+                class="t-image t-image--fit-fill t-image--position-center"
+                src="https://tdesign.gtimg.com/demo/demo-image-2.png"
+              />
+              <div
+                class="t-image__loading"
+              >
+                <div
+                  class="t-space t-space-align-center t-space-vertical"
+                  style="gap: 8px;"
+                >
+                  <div
+                    class="t-space-item"
+                  >
+                    <svg
+                      class="t-icon t-icon-image"
+                      fill="none"
+                      height="1em"
+                      style="fill: none;"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                    >
+                      <g
+                        id="image"
+                      >
+                        <path
+                          d="M3 21H20L9 10L3 16V21Z"
+                          fill="transparent"
+                          id="fill1"
+                        />
+                        <circle
+                          cx="15.75"
+                          cy="8.25"
+                          fill="transparent"
+                          id="fill2"
+                          r="2"
+                        />
+                        <path
+                          d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
+                          id="stroke1"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                        <circle
+                          cx="15.75"
+                          cy="8.25"
+                          id="stroke2"
+                          r="2"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+                  <div
+                    class="t-space-item"
+                  >
+                    图片加载中
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="t-image-viewer__header-box"
+          >
+            <div
+              class="t-image__wrapper t-image__wrapper--shape-square t-image-viewer__header-img"
+            >
+              <img
+                alt=""
+                class="t-image t-image--fit-fill t-image--position-center"
+                src="https://tdesign.gtimg.com/demo/demo-image-3.png"
+              />
+              <div
+                class="t-image__loading"
+              >
+                <div
+                  class="t-space t-space-align-center t-space-vertical"
+                  style="gap: 8px;"
+                >
+                  <div
+                    class="t-space-item"
+                  >
+                    <svg
+                      class="t-icon t-icon-image"
+                      fill="none"
+                      height="1em"
+                      style="fill: none;"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                    >
+                      <g
+                        id="image"
+                      >
+                        <path
+                          d="M3 21H20L9 10L3 16V21Z"
+                          fill="transparent"
+                          id="fill1"
+                        />
+                        <circle
+                          cx="15.75"
+                          cy="8.25"
+                          fill="transparent"
+                          id="fill2"
+                          r="2"
+                        />
+                        <path
+                          d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
+                          id="stroke1"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                        <circle
+                          cx="15.75"
+                          cy="8.25"
+                          id="stroke2"
+                          r="2"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+                  <div
+                    class="t-space-item"
+                  >
+                    图片加载中
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-image-viewer__modal-index"
+    >
+      <span />
+      2/3
+    </div>
+    <div
+      class="t-image-viewer__modal-icon t-image-viewer__modal-prev-bt"
+    >
+      <svg
+        class="t-icon t-icon-chevron-left"
+        fill="none"
+        height="1em"
+        style="fill: none; font-size: 24px;"
+        viewBox="0 0 24 24"
+        width="1em"
+      >
+        <g
+          id="chevron-left"
+        >
+          <path
+            d="M14.5 17.5L9 12L14.5 6.5"
+            id="stroke1"
+            stroke="currentColor"
+            stroke-linecap="square"
+            stroke-width="2"
+          />
+        </g>
+      </svg>
+    </div>
+    <div
+      class="t-image-viewer__modal-icon t-image-viewer__modal-next-bt"
+    >
+      <svg
+        class="t-icon t-icon-chevron-right"
+        fill="none"
+        height="1em"
+        style="fill: none; font-size: 24px;"
+        viewBox="0 0 24 24"
+        width="1em"
+      >
+        <g
+          id="chevron-right"
+        >
+          <path
+            d="M9.5 17.5L15 12L9.5 6.5"
+            id="stroke1"
+            stroke="currentColor"
+            stroke-linecap="square"
+            stroke-width="2"
+          />
+        </g>
+      </svg>
+    </div>
+    <div
+      class="t-image-viewer__utils"
+    >
+      <div
+        class="t-image-viewer__utils-content"
+      >
+        <div>
+          <div
+            class="t-image-viewer__modal-icon"
+          >
+            <svg
+              class="t-icon t-icon-mirror t-size-m"
+              fill="none"
+              height="1em"
+              style="fill: none;"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <g
+                id="mirror"
+              >
+                <g
+                  id="fill1"
+                >
+                  <path
+                    d="M8 8.5V17.5H3L8 8.5Z"
+                    fill="transparent"
+                  />
+                  <path
+                    d="M16 8.5V17.5H21L16 8.5Z"
+                    fill="transparent"
+                  />
+                </g>
+                <path
+                  d="M12 3L12 21"
+                  id="stroke2"
+                  stroke="currentColor"
+                  stroke-linecap="square"
+                  stroke-width="2"
+                />
+                <g
+                  id="stroke1"
+                >
+                  <path
+                    d="M8 8.5V17.5H3L8 8.5Z"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M16 8.5V17.5H21L16 8.5Z"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <div
+            class="t-image-viewer__modal-icon"
+          >
+            <svg
+              class="t-icon t-icon-rotation t-size-m"
+              fill="none"
+              height="1em"
+              style="fill: none;"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <g
+                id="rotation"
+              >
+                <path
+                  d="M12 20C12 15.5818 8.41828 12 4 12M3 3V21H21"
+                  id="stroke1"
+                  stroke="currentColor"
+                  stroke-linecap="square"
+                  stroke-width="2"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon"
+        >
+          <svg
+            class="t-icon t-icon-zoom-out t-size-m"
+            fill="none"
+            height="1em"
+            style="fill: none;"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <g
+              id="zoom-out"
+            >
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
+                fill="transparent"
+                id="fill1"
+              />
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+              <path
+                d="M7.5 10.5H10.5L13.5 10.5"
+                id="stroke2"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon t-image-viewer__utils-scale"
+        >
+          <span
+            class="t-image-viewer__modal-icon-label"
+          >
+            100%
+          </span>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon"
+        >
+          <svg
+            class="t-icon t-icon-zoom-in t-size-m"
+            fill="none"
+            height="1em"
+            style="fill: none;"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <g
+              id="zoom-in"
+            >
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
+                fill="transparent"
+                id="fill1"
+              />
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+              <path
+                d="M10.5 13.5V10.5M10.5 10.5L10.5 7.5M10.5 10.5H7.5M10.5 10.5H13.5"
+                id="stroke2"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
+        </div>
+        <div>
+          <div
+            class="t-image-viewer__modal-icon"
+          >
+            <svg
+              class="t-icon t-icon-image t-size-m"
+              fill="none"
+              height="1em"
+              name="image"
+              style="fill: none;"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <g
+                id="image"
+              >
+                <path
+                  d="M3 21H20L9 10L3 16V21Z"
+                  fill="transparent"
+                  id="fill1"
+                />
+                <circle
+                  cx="15.75"
+                  cy="8.25"
+                  fill="transparent"
+                  id="fill2"
+                  r="2"
+                />
+                <path
+                  d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
+                  id="stroke1"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <circle
+                  cx="15.75"
+                  cy="8.25"
+                  id="stroke2"
+                  r="2"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon"
+        >
+          <svg
+            class="t-icon t-icon-download t-size-m"
+            fill="none"
+            height="1em"
+            style="fill: none;"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <g
+              id="download"
+            >
+              <path
+                d="M16.5 10.5L12 15L7.5 10.5M12 13.75V4"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+              <path
+                d="M20.5 15V20H3.5V15"
+                id="stroke2"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-image-viewer__modal-icon t-image-viewer__modal-close-bt "
+    >
+      <svg
+        class="t-icon t-icon-close"
+        fill="none"
+        height="1em"
+        style="fill: none; font-size: 24px;"
+        viewBox="0 0 24 24"
+        width="1em"
+      >
+        <g
+          id="close"
+        >
+          <path
+            d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
+            id="stroke1"
+            stroke="currentColor"
+            stroke-linecap="square"
+            stroke-width="2"
+          />
+        </g>
+      </svg>
+    </div>
+    <div
+      class="t-image-viewer__modal-pic"
+    >
+      <div
+        class="t-image-viewer__modal-box"
+        style="transform: translate(0px, 0px) scale(1, 1);"
+      >
+        <img
+          alt="image"
+          class="t-image-viewer__modal-image"
+          draggable="false"
+          src="https://tdesign.gtimg.com/demo/demo-image-2.png"
+          style="transform: rotateZ(0deg) scale(1); display: block;"
+        />
+        <img
+          alt="image"
+          class="t-image-viewer__modal-image"
+          draggable="false"
+          src="https://tdesign.gtimg.com/demo/demo-image-2.png"
+          style="transform: rotateZ(0deg) scale(1); display: none;"
+        />
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张按钮快照 > toolbar-navigate-prev 1`] = `
+<body>
+  <div>
+    <span>
+      工具栏测试
+    </span>
+  </div>
+  <div
+    class="t-image-viewer-preview-image"
+  >
+    <div
+      class="t-image-viewer__modal-mask"
+    />
+    <div
+      class="t-image-viewer__modal-header t-is-show"
+    >
+      <div
+        class="t-image-viewer__modal-icon t-image-viewer__header-pre-bt"
+      >
+        <svg
+          class="t-icon t-icon-chevron-down"
+          fill="none"
+          height="1em"
+          style="fill: none; font-size: 16px;"
+          viewBox="0 0 24 24"
+          width="1em"
+        >
+          <g
+            id="chevron-down"
+          >
+            <path
+              d="M17.5 9.5L12 15L6.5 9.5"
+              id="stroke1"
+              stroke="currentColor"
+              stroke-linecap="square"
+              stroke-width="2"
+            />
+          </g>
+        </svg>
+      </div>
+      <div
+        class="t-image-viewer__header-prev"
+      >
+        <div
+          class="t-image-viewer__header-trans"
+          style="transform: translateX(calc(-1 * (40px / 9 * 16 + 4px)));"
+        >
+          <div
+            class="t-image-viewer__header-box"
+          >
+            <div
+              class="t-image__wrapper t-image__wrapper--shape-square t-image-viewer__header-img"
+            >
+              <img
+                alt=""
+                class="t-image t-image--fit-fill t-image--position-center"
+                src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+              />
+              <div
+                class="t-image__loading"
+              >
+                <div
+                  class="t-space t-space-align-center t-space-vertical"
+                  style="gap: 8px;"
+                >
+                  <div
+                    class="t-space-item"
+                  >
+                    <svg
+                      class="t-icon t-icon-image"
+                      fill="none"
+                      height="1em"
+                      style="fill: none;"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                    >
+                      <g
+                        id="image"
+                      >
+                        <path
+                          d="M3 21H20L9 10L3 16V21Z"
+                          fill="transparent"
+                          id="fill1"
+                        />
+                        <circle
+                          cx="15.75"
+                          cy="8.25"
+                          fill="transparent"
+                          id="fill2"
+                          r="2"
+                        />
+                        <path
+                          d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
+                          id="stroke1"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                        <circle
+                          cx="15.75"
+                          cy="8.25"
+                          id="stroke2"
+                          r="2"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+                  <div
+                    class="t-space-item"
+                  >
+                    图片加载中
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="t-image-viewer__header-box t-is-active"
+          >
+            <div
+              class="t-image__wrapper t-image__wrapper--shape-square t-image-viewer__header-img"
+            >
+              <img
+                alt=""
+                class="t-image t-image--fit-fill t-image--position-center"
+                src="https://tdesign.gtimg.com/demo/demo-image-2.png"
+              />
+              <div
+                class="t-image__loading"
+              >
+                <div
+                  class="t-space t-space-align-center t-space-vertical"
+                  style="gap: 8px;"
+                >
+                  <div
+                    class="t-space-item"
+                  >
+                    <svg
+                      class="t-icon t-icon-image"
+                      fill="none"
+                      height="1em"
+                      style="fill: none;"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                    >
+                      <g
+                        id="image"
+                      >
+                        <path
+                          d="M3 21H20L9 10L3 16V21Z"
+                          fill="transparent"
+                          id="fill1"
+                        />
+                        <circle
+                          cx="15.75"
+                          cy="8.25"
+                          fill="transparent"
+                          id="fill2"
+                          r="2"
+                        />
+                        <path
+                          d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
+                          id="stroke1"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                        <circle
+                          cx="15.75"
+                          cy="8.25"
+                          id="stroke2"
+                          r="2"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+                  <div
+                    class="t-space-item"
+                  >
+                    图片加载中
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="t-image-viewer__header-box"
+          >
+            <div
+              class="t-image__wrapper t-image__wrapper--shape-square t-image-viewer__header-img"
+            >
+              <img
+                alt=""
+                class="t-image t-image--fit-fill t-image--position-center"
+                src="https://tdesign.gtimg.com/demo/demo-image-3.png"
+              />
+              <div
+                class="t-image__loading"
+              >
+                <div
+                  class="t-space t-space-align-center t-space-vertical"
+                  style="gap: 8px;"
+                >
+                  <div
+                    class="t-space-item"
+                  >
+                    <svg
+                      class="t-icon t-icon-image"
+                      fill="none"
+                      height="1em"
+                      style="fill: none;"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                    >
+                      <g
+                        id="image"
+                      >
+                        <path
+                          d="M3 21H20L9 10L3 16V21Z"
+                          fill="transparent"
+                          id="fill1"
+                        />
+                        <circle
+                          cx="15.75"
+                          cy="8.25"
+                          fill="transparent"
+                          id="fill2"
+                          r="2"
+                        />
+                        <path
+                          d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
+                          id="stroke1"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                        <circle
+                          cx="15.75"
+                          cy="8.25"
+                          id="stroke2"
+                          r="2"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+                  <div
+                    class="t-space-item"
+                  >
+                    图片加载中
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-image-viewer__modal-index"
+    >
+      <span />
+      2/3
+    </div>
+    <div
+      class="t-image-viewer__modal-icon t-image-viewer__modal-prev-bt"
+    >
+      <svg
+        class="t-icon t-icon-chevron-left"
+        fill="none"
+        height="1em"
+        style="fill: none; font-size: 24px;"
+        viewBox="0 0 24 24"
+        width="1em"
+      >
+        <g
+          id="chevron-left"
+        >
+          <path
+            d="M14.5 17.5L9 12L14.5 6.5"
+            id="stroke1"
+            stroke="currentColor"
+            stroke-linecap="square"
+            stroke-width="2"
+          />
+        </g>
+      </svg>
+    </div>
+    <div
+      class="t-image-viewer__modal-icon t-image-viewer__modal-next-bt"
+    >
+      <svg
+        class="t-icon t-icon-chevron-right"
+        fill="none"
+        height="1em"
+        style="fill: none; font-size: 24px;"
+        viewBox="0 0 24 24"
+        width="1em"
+      >
+        <g
+          id="chevron-right"
+        >
+          <path
+            d="M9.5 17.5L15 12L9.5 6.5"
+            id="stroke1"
+            stroke="currentColor"
+            stroke-linecap="square"
+            stroke-width="2"
+          />
+        </g>
+      </svg>
+    </div>
+    <div
+      class="t-image-viewer__utils"
+    >
+      <div
+        class="t-image-viewer__utils-content"
+      >
+        <div>
+          <div
+            class="t-image-viewer__modal-icon"
+          >
+            <svg
+              class="t-icon t-icon-mirror t-size-m"
+              fill="none"
+              height="1em"
+              style="fill: none;"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <g
+                id="mirror"
+              >
+                <g
+                  id="fill1"
+                >
+                  <path
+                    d="M8 8.5V17.5H3L8 8.5Z"
+                    fill="transparent"
+                  />
+                  <path
+                    d="M16 8.5V17.5H21L16 8.5Z"
+                    fill="transparent"
+                  />
+                </g>
+                <path
+                  d="M12 3L12 21"
+                  id="stroke2"
+                  stroke="currentColor"
+                  stroke-linecap="square"
+                  stroke-width="2"
+                />
+                <g
+                  id="stroke1"
+                >
+                  <path
+                    d="M8 8.5V17.5H3L8 8.5Z"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M16 8.5V17.5H21L16 8.5Z"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <div
+            class="t-image-viewer__modal-icon"
+          >
+            <svg
+              class="t-icon t-icon-rotation t-size-m"
+              fill="none"
+              height="1em"
+              style="fill: none;"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <g
+                id="rotation"
+              >
+                <path
+                  d="M12 20C12 15.5818 8.41828 12 4 12M3 3V21H21"
+                  id="stroke1"
+                  stroke="currentColor"
+                  stroke-linecap="square"
+                  stroke-width="2"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon"
+        >
+          <svg
+            class="t-icon t-icon-zoom-out t-size-m"
+            fill="none"
+            height="1em"
+            style="fill: none;"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <g
+              id="zoom-out"
+            >
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
+                fill="transparent"
+                id="fill1"
+              />
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+              <path
+                d="M7.5 10.5H10.5L13.5 10.5"
+                id="stroke2"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon t-image-viewer__utils-scale"
+        >
+          <span
+            class="t-image-viewer__modal-icon-label"
+          >
+            100%
+          </span>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon"
+        >
+          <svg
+            class="t-icon t-icon-zoom-in t-size-m"
+            fill="none"
+            height="1em"
+            style="fill: none;"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <g
+              id="zoom-in"
+            >
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
+                fill="transparent"
+                id="fill1"
+              />
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+              <path
+                d="M10.5 13.5V10.5M10.5 10.5L10.5 7.5M10.5 10.5H7.5M10.5 10.5H13.5"
+                id="stroke2"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
+        </div>
+        <div>
+          <div
+            class="t-image-viewer__modal-icon"
+          >
+            <svg
+              class="t-icon t-icon-image t-size-m"
+              fill="none"
+              height="1em"
+              name="image"
+              style="fill: none;"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <g
+                id="image"
+              >
+                <path
+                  d="M3 21H20L9 10L3 16V21Z"
+                  fill="transparent"
+                  id="fill1"
+                />
+                <circle
+                  cx="15.75"
+                  cy="8.25"
+                  fill="transparent"
+                  id="fill2"
+                  r="2"
+                />
+                <path
+                  d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
+                  id="stroke1"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <circle
+                  cx="15.75"
+                  cy="8.25"
+                  id="stroke2"
+                  r="2"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon"
+        >
+          <svg
+            class="t-icon t-icon-download t-size-m"
+            fill="none"
+            height="1em"
+            style="fill: none;"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <g
+              id="download"
+            >
+              <path
+                d="M16.5 10.5L12 15L7.5 10.5M12 13.75V4"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+              <path
+                d="M20.5 15V20H3.5V15"
+                id="stroke2"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-image-viewer__modal-icon t-image-viewer__modal-close-bt "
+    >
+      <svg
+        class="t-icon t-icon-close"
+        fill="none"
+        height="1em"
+        style="fill: none; font-size: 24px;"
+        viewBox="0 0 24 24"
+        width="1em"
+      >
+        <g
+          id="close"
+        >
+          <path
+            d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
+            id="stroke1"
+            stroke="currentColor"
+            stroke-linecap="square"
+            stroke-width="2"
+          />
+        </g>
+      </svg>
+    </div>
+    <div
+      class="t-image-viewer__modal-pic"
+    >
+      <div
+        class="t-image-viewer__modal-box"
+        style="transform: translate(0px, 0px) scale(1, 1);"
+      >
+        <img
+          alt="image"
+          class="t-image-viewer__modal-image"
+          draggable="false"
+          src="https://tdesign.gtimg.com/demo/demo-image-2.png"
+          style="transform: rotateZ(0deg) scale(1); display: block;"
+        />
+        <img
+          alt="image"
+          class="t-image-viewer__modal-image"
+          draggable="false"
+          src="https://tdesign.gtimg.com/demo/demo-image-2.png"
+          style="transform: rotateZ(0deg) scale(1); display: none;"
+        />
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`ImageViewer 工具栏操作快照 > 点击原始大小按钮后快照 > toolbar-after-reset 1`] = `
+<body>
+  <div>
+    <span>
+      工具栏测试
+    </span>
+  </div>
+  <div
+    class="t-image-viewer-preview-image"
+  >
+    <div
+      class="t-image-viewer__modal-mask"
+    />
+    <div
+      class="t-image-viewer__utils"
+    >
+      <div
+        class="t-image-viewer__utils-content"
+      >
+        <div>
+          <div
+            class="t-image-viewer__modal-icon"
+          >
+            <svg
+              class="t-icon t-icon-mirror t-size-m"
+              fill="none"
+              height="1em"
+              style="fill: none;"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <g
+                id="mirror"
+              >
+                <g
+                  id="fill1"
+                >
+                  <path
+                    d="M8 8.5V17.5H3L8 8.5Z"
+                    fill="transparent"
+                  />
+                  <path
+                    d="M16 8.5V17.5H21L16 8.5Z"
+                    fill="transparent"
+                  />
+                </g>
+                <path
+                  d="M12 3L12 21"
+                  id="stroke2"
+                  stroke="currentColor"
+                  stroke-linecap="square"
+                  stroke-width="2"
+                />
+                <g
+                  id="stroke1"
+                >
+                  <path
+                    d="M8 8.5V17.5H3L8 8.5Z"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M16 8.5V17.5H21L16 8.5Z"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <div
+            class="t-image-viewer__modal-icon"
+          >
+            <svg
+              class="t-icon t-icon-rotation t-size-m"
+              fill="none"
+              height="1em"
+              style="fill: none;"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <g
+                id="rotation"
+              >
+                <path
+                  d="M12 20C12 15.5818 8.41828 12 4 12M3 3V21H21"
+                  id="stroke1"
+                  stroke="currentColor"
+                  stroke-linecap="square"
+                  stroke-width="2"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon"
+        >
+          <svg
+            class="t-icon t-icon-zoom-out t-size-m"
+            fill="none"
+            height="1em"
+            style="fill: none;"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <g
+              id="zoom-out"
+            >
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
+                fill="transparent"
+                id="fill1"
+              />
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+              <path
+                d="M7.5 10.5H10.5L13.5 10.5"
+                id="stroke2"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon t-image-viewer__utils-scale"
+        >
+          <span
+            class="t-image-viewer__modal-icon-label"
+          >
+            100%
+          </span>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon"
+        >
+          <svg
+            class="t-icon t-icon-zoom-in t-size-m"
+            fill="none"
+            height="1em"
+            style="fill: none;"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <g
+              id="zoom-in"
+            >
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
+                fill="transparent"
+                id="fill1"
+              />
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+              <path
+                d="M10.5 13.5V10.5M10.5 10.5L10.5 7.5M10.5 10.5H7.5M10.5 10.5H13.5"
+                id="stroke2"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
+        </div>
+        <div>
+          <div
+            class="t-image-viewer__modal-icon"
+          >
+            <svg
+              class="t-icon t-icon-image t-size-m"
+              fill="none"
+              height="1em"
+              name="image"
+              style="fill: none;"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <g
+                id="image"
+              >
+                <path
+                  d="M3 21H20L9 10L3 16V21Z"
+                  fill="transparent"
+                  id="fill1"
+                />
+                <circle
+                  cx="15.75"
+                  cy="8.25"
+                  fill="transparent"
+                  id="fill2"
+                  r="2"
+                />
+                <path
+                  d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
+                  id="stroke1"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <circle
+                  cx="15.75"
+                  cy="8.25"
+                  id="stroke2"
+                  r="2"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon"
+        >
+          <svg
+            class="t-icon t-icon-download t-size-m"
+            fill="none"
+            height="1em"
+            style="fill: none;"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <g
+              id="download"
+            >
+              <path
+                d="M16.5 10.5L12 15L7.5 10.5M12 13.75V4"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+              <path
+                d="M20.5 15V20H3.5V15"
+                id="stroke2"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-image-viewer__modal-icon t-image-viewer__modal-close-bt "
+    >
+      <svg
+        class="t-icon t-icon-close"
+        fill="none"
+        height="1em"
+        style="fill: none; font-size: 24px;"
+        viewBox="0 0 24 24"
+        width="1em"
+      >
+        <g
+          id="close"
+        >
+          <path
+            d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
+            id="stroke1"
+            stroke="currentColor"
+            stroke-linecap="square"
+            stroke-width="2"
+          />
+        </g>
+      </svg>
+    </div>
+    <div
+      class="t-image-viewer__modal-pic"
+    >
+      <div
+        class="t-image-viewer__modal-box"
+        style="transform: translate(0px, 0px) scale(1, 1);"
+      >
+        <img
+          alt="image"
+          class="t-image-viewer__modal-image"
+          draggable="false"
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+          style="transform: rotateZ(0deg) scale(1); display: block;"
+        />
+        <img
+          alt="image"
+          class="t-image-viewer__modal-image"
+          draggable="false"
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+          style="transform: rotateZ(0deg) scale(1); display: none;"
+        />
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`ImageViewer 工具栏操作快照 > 点击放大按钮后快照 > toolbar-after-zoom-in 1`] = `
+<body>
+  <div>
+    <span>
+      工具栏测试
+    </span>
+  </div>
+  <div
+    class="t-image-viewer-preview-image"
+  >
+    <div
+      class="t-image-viewer__modal-mask"
+    />
+    <div
+      class="t-image-viewer__utils"
+    >
+      <div
+        class="t-image-viewer__utils-content"
+      >
+        <div>
+          <div
+            class="t-image-viewer__modal-icon"
+          >
+            <svg
+              class="t-icon t-icon-mirror t-size-m"
+              fill="none"
+              height="1em"
+              style="fill: none;"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <g
+                id="mirror"
+              >
+                <g
+                  id="fill1"
+                >
+                  <path
+                    d="M8 8.5V17.5H3L8 8.5Z"
+                    fill="transparent"
+                  />
+                  <path
+                    d="M16 8.5V17.5H21L16 8.5Z"
+                    fill="transparent"
+                  />
+                </g>
+                <path
+                  d="M12 3L12 21"
+                  id="stroke2"
+                  stroke="currentColor"
+                  stroke-linecap="square"
+                  stroke-width="2"
+                />
+                <g
+                  id="stroke1"
+                >
+                  <path
+                    d="M8 8.5V17.5H3L8 8.5Z"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M16 8.5V17.5H21L16 8.5Z"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <div
+            class="t-image-viewer__modal-icon"
+          >
+            <svg
+              class="t-icon t-icon-rotation t-size-m"
+              fill="none"
+              height="1em"
+              style="fill: none;"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <g
+                id="rotation"
+              >
+                <path
+                  d="M12 20C12 15.5818 8.41828 12 4 12M3 3V21H21"
+                  id="stroke1"
+                  stroke="currentColor"
+                  stroke-linecap="square"
+                  stroke-width="2"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon"
+        >
+          <svg
+            class="t-icon t-icon-zoom-out t-size-m"
+            fill="none"
+            height="1em"
+            style="fill: none;"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <g
+              id="zoom-out"
+            >
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
+                fill="transparent"
+                id="fill1"
+              />
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+              <path
+                d="M7.5 10.5H10.5L13.5 10.5"
+                id="stroke2"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon t-image-viewer__utils-scale"
+        >
+          <span
+            class="t-image-viewer__modal-icon-label"
+          >
+            120%
+          </span>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon"
+        >
+          <svg
+            class="t-icon t-icon-zoom-in t-size-m"
+            fill="none"
+            height="1em"
+            style="fill: none;"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <g
+              id="zoom-in"
+            >
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
+                fill="transparent"
+                id="fill1"
+              />
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+              <path
+                d="M10.5 13.5V10.5M10.5 10.5L10.5 7.5M10.5 10.5H7.5M10.5 10.5H13.5"
+                id="stroke2"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
+        </div>
+        <div>
+          <div
+            class="t-image-viewer__modal-icon"
+          >
+            <svg
+              class="t-icon t-icon-image t-size-m"
+              fill="none"
+              height="1em"
+              name="image"
+              style="fill: none;"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <g
+                id="image"
+              >
+                <path
+                  d="M3 21H20L9 10L3 16V21Z"
+                  fill="transparent"
+                  id="fill1"
+                />
+                <circle
+                  cx="15.75"
+                  cy="8.25"
+                  fill="transparent"
+                  id="fill2"
+                  r="2"
+                />
+                <path
+                  d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
+                  id="stroke1"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <circle
+                  cx="15.75"
+                  cy="8.25"
+                  id="stroke2"
+                  r="2"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon"
+        >
+          <svg
+            class="t-icon t-icon-download t-size-m"
+            fill="none"
+            height="1em"
+            style="fill: none;"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <g
+              id="download"
+            >
+              <path
+                d="M16.5 10.5L12 15L7.5 10.5M12 13.75V4"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+              <path
+                d="M20.5 15V20H3.5V15"
+                id="stroke2"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-image-viewer__modal-icon t-image-viewer__modal-close-bt "
+    >
+      <svg
+        class="t-icon t-icon-close"
+        fill="none"
+        height="1em"
+        style="fill: none; font-size: 24px;"
+        viewBox="0 0 24 24"
+        width="1em"
+      >
+        <g
+          id="close"
+        >
+          <path
+            d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
+            id="stroke1"
+            stroke="currentColor"
+            stroke-linecap="square"
+            stroke-width="2"
+          />
+        </g>
+      </svg>
+    </div>
+    <div
+      class="t-image-viewer__modal-pic"
+    >
+      <div
+        class="t-image-viewer__modal-box"
+        style="transform: translate(0px, 0px) scale(1, 1);"
+      >
+        <img
+          alt="image"
+          class="t-image-viewer__modal-image"
+          draggable="false"
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+          style="transform: rotateZ(0deg) scale(1.2); display: block;"
+        />
+        <img
+          alt="image"
+          class="t-image-viewer__modal-image"
+          draggable="false"
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+          style="transform: rotateZ(0deg) scale(1.2); display: none;"
+        />
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`ImageViewer 工具栏操作快照 > 点击旋转按钮后快照 > toolbar-after-rotate 1`] = `
+<body>
+  <div>
+    <span>
+      工具栏测试
+    </span>
+  </div>
+  <div
+    class="t-image-viewer-preview-image"
+  >
+    <div
+      class="t-image-viewer__modal-mask"
+    />
+    <div
+      class="t-image-viewer__utils"
+    >
+      <div
+        class="t-image-viewer__utils-content"
+      >
+        <div>
+          <div
+            class="t-image-viewer__modal-icon"
+          >
+            <svg
+              class="t-icon t-icon-mirror t-size-m"
+              fill="none"
+              height="1em"
+              style="fill: none;"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <g
+                id="mirror"
+              >
+                <g
+                  id="fill1"
+                >
+                  <path
+                    d="M8 8.5V17.5H3L8 8.5Z"
+                    fill="transparent"
+                  />
+                  <path
+                    d="M16 8.5V17.5H21L16 8.5Z"
+                    fill="transparent"
+                  />
+                </g>
+                <path
+                  d="M12 3L12 21"
+                  id="stroke2"
+                  stroke="currentColor"
+                  stroke-linecap="square"
+                  stroke-width="2"
+                />
+                <g
+                  id="stroke1"
+                >
+                  <path
+                    d="M8 8.5V17.5H3L8 8.5Z"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M16 8.5V17.5H21L16 8.5Z"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <div
+            class="t-image-viewer__modal-icon"
+          >
+            <svg
+              class="t-icon t-icon-rotation t-size-m"
+              fill="none"
+              height="1em"
+              style="fill: none;"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <g
+                id="rotation"
+              >
+                <path
+                  d="M12 20C12 15.5818 8.41828 12 4 12M3 3V21H21"
+                  id="stroke1"
+                  stroke="currentColor"
+                  stroke-linecap="square"
+                  stroke-width="2"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon"
+        >
+          <svg
+            class="t-icon t-icon-zoom-out t-size-m"
+            fill="none"
+            height="1em"
+            style="fill: none;"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <g
+              id="zoom-out"
+            >
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
+                fill="transparent"
+                id="fill1"
+              />
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+              <path
+                d="M7.5 10.5H10.5L13.5 10.5"
+                id="stroke2"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon t-image-viewer__utils-scale"
+        >
+          <span
+            class="t-image-viewer__modal-icon-label"
+          >
+            100%
+          </span>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon"
+        >
+          <svg
+            class="t-icon t-icon-zoom-in t-size-m"
+            fill="none"
+            height="1em"
+            style="fill: none;"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <g
+              id="zoom-in"
+            >
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
+                fill="transparent"
+                id="fill1"
+              />
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+              <path
+                d="M10.5 13.5V10.5M10.5 10.5L10.5 7.5M10.5 10.5H7.5M10.5 10.5H13.5"
+                id="stroke2"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
+        </div>
+        <div>
+          <div
+            class="t-image-viewer__modal-icon"
+          >
+            <svg
+              class="t-icon t-icon-image t-size-m"
+              fill="none"
+              height="1em"
+              name="image"
+              style="fill: none;"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <g
+                id="image"
+              >
+                <path
+                  d="M3 21H20L9 10L3 16V21Z"
+                  fill="transparent"
+                  id="fill1"
+                />
+                <circle
+                  cx="15.75"
+                  cy="8.25"
+                  fill="transparent"
+                  id="fill2"
+                  r="2"
+                />
+                <path
+                  d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
+                  id="stroke1"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <circle
+                  cx="15.75"
+                  cy="8.25"
+                  id="stroke2"
+                  r="2"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon"
+        >
+          <svg
+            class="t-icon t-icon-download t-size-m"
+            fill="none"
+            height="1em"
+            style="fill: none;"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <g
+              id="download"
+            >
+              <path
+                d="M16.5 10.5L12 15L7.5 10.5M12 13.75V4"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+              <path
+                d="M20.5 15V20H3.5V15"
+                id="stroke2"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-image-viewer__modal-icon t-image-viewer__modal-close-bt "
+    >
+      <svg
+        class="t-icon t-icon-close"
+        fill="none"
+        height="1em"
+        style="fill: none; font-size: 24px;"
+        viewBox="0 0 24 24"
+        width="1em"
+      >
+        <g
+          id="close"
+        >
+          <path
+            d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
+            id="stroke1"
+            stroke="currentColor"
+            stroke-linecap="square"
+            stroke-width="2"
+          />
+        </g>
+      </svg>
+    </div>
+    <div
+      class="t-image-viewer__modal-pic"
+    >
+      <div
+        class="t-image-viewer__modal-box"
+        style="transform: translate(0px, 0px) scale(1, 1);"
+      >
+        <img
+          alt="image"
+          class="t-image-viewer__modal-image"
+          draggable="false"
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+          style="transform: rotateZ(-90deg) scale(1); display: block;"
+        />
+        <img
+          alt="image"
+          class="t-image-viewer__modal-image"
+          draggable="false"
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+          style="transform: rotateZ(-90deg) scale(1); display: none;"
+        />
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`ImageViewer 工具栏操作快照 > 点击缩小按钮后快照 > toolbar-after-zoom-out 1`] = `
+<body>
+  <div>
+    <span>
+      工具栏测试
+    </span>
+  </div>
+  <div
+    class="t-image-viewer-preview-image"
+  >
+    <div
+      class="t-image-viewer__modal-mask"
+    />
+    <div
+      class="t-image-viewer__utils"
+    >
+      <div
+        class="t-image-viewer__utils-content"
+      >
+        <div>
+          <div
+            class="t-image-viewer__modal-icon"
+          >
+            <svg
+              class="t-icon t-icon-mirror t-size-m"
+              fill="none"
+              height="1em"
+              style="fill: none;"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <g
+                id="mirror"
+              >
+                <g
+                  id="fill1"
+                >
+                  <path
+                    d="M8 8.5V17.5H3L8 8.5Z"
+                    fill="transparent"
+                  />
+                  <path
+                    d="M16 8.5V17.5H21L16 8.5Z"
+                    fill="transparent"
+                  />
+                </g>
+                <path
+                  d="M12 3L12 21"
+                  id="stroke2"
+                  stroke="currentColor"
+                  stroke-linecap="square"
+                  stroke-width="2"
+                />
+                <g
+                  id="stroke1"
+                >
+                  <path
+                    d="M8 8.5V17.5H3L8 8.5Z"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M16 8.5V17.5H21L16 8.5Z"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <div
+            class="t-image-viewer__modal-icon"
+          >
+            <svg
+              class="t-icon t-icon-rotation t-size-m"
+              fill="none"
+              height="1em"
+              style="fill: none;"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <g
+                id="rotation"
+              >
+                <path
+                  d="M12 20C12 15.5818 8.41828 12 4 12M3 3V21H21"
+                  id="stroke1"
+                  stroke="currentColor"
+                  stroke-linecap="square"
+                  stroke-width="2"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon"
+        >
+          <svg
+            class="t-icon t-icon-zoom-out t-size-m"
+            fill="none"
+            height="1em"
+            style="fill: none;"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <g
+              id="zoom-out"
+            >
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
+                fill="transparent"
+                id="fill1"
+              />
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+              <path
+                d="M7.5 10.5H10.5L13.5 10.5"
+                id="stroke2"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon t-image-viewer__utils-scale"
+        >
+          <span
+            class="t-image-viewer__modal-icon-label"
+          >
+            80%
+          </span>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon"
+        >
+          <svg
+            class="t-icon t-icon-zoom-in t-size-m"
+            fill="none"
+            height="1em"
+            style="fill: none;"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <g
+              id="zoom-in"
+            >
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
+                fill="transparent"
+                id="fill1"
+              />
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+              <path
+                d="M10.5 13.5V10.5M10.5 10.5L10.5 7.5M10.5 10.5H7.5M10.5 10.5H13.5"
+                id="stroke2"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
+        </div>
+        <div>
+          <div
+            class="t-image-viewer__modal-icon"
+          >
+            <svg
+              class="t-icon t-icon-image t-size-m"
+              fill="none"
+              height="1em"
+              name="image"
+              style="fill: none;"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <g
+                id="image"
+              >
+                <path
+                  d="M3 21H20L9 10L3 16V21Z"
+                  fill="transparent"
+                  id="fill1"
+                />
+                <circle
+                  cx="15.75"
+                  cy="8.25"
+                  fill="transparent"
+                  id="fill2"
+                  r="2"
+                />
+                <path
+                  d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
+                  id="stroke1"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <circle
+                  cx="15.75"
+                  cy="8.25"
+                  id="stroke2"
+                  r="2"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon"
+        >
+          <svg
+            class="t-icon t-icon-download t-size-m"
+            fill="none"
+            height="1em"
+            style="fill: none;"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <g
+              id="download"
+            >
+              <path
+                d="M16.5 10.5L12 15L7.5 10.5M12 13.75V4"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+              <path
+                d="M20.5 15V20H3.5V15"
+                id="stroke2"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-image-viewer__modal-icon t-image-viewer__modal-close-bt "
+    >
+      <svg
+        class="t-icon t-icon-close"
+        fill="none"
+        height="1em"
+        style="fill: none; font-size: 24px;"
+        viewBox="0 0 24 24"
+        width="1em"
+      >
+        <g
+          id="close"
+        >
+          <path
+            d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
+            id="stroke1"
+            stroke="currentColor"
+            stroke-linecap="square"
+            stroke-width="2"
+          />
+        </g>
+      </svg>
+    </div>
+    <div
+      class="t-image-viewer__modal-pic"
+    >
+      <div
+        class="t-image-viewer__modal-box"
+        style="transform: translate(0px, 0px) scale(1, 1);"
+      >
+        <img
+          alt="image"
+          class="t-image-viewer__modal-image"
+          draggable="false"
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+          style="transform: rotateZ(0deg) scale(0.8); display: block;"
+        />
+        <img
+          alt="image"
+          class="t-image-viewer__modal-image"
+          draggable="false"
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+          style="transform: rotateZ(0deg) scale(0.8); display: none;"
+        />
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`ImageViewer 工具栏操作快照 > 点击镜像按钮后快照 > toolbar-after-mirror 1`] = `
+<body>
+  <div>
+    <span>
+      工具栏测试
+    </span>
+  </div>
+  <div
+    class="t-image-viewer-preview-image"
+  >
+    <div
+      class="t-image-viewer__modal-mask"
+    />
+    <div
+      class="t-image-viewer__utils"
+    >
+      <div
+        class="t-image-viewer__utils-content"
+      >
+        <div>
+          <div
+            class="t-image-viewer__modal-icon"
+          >
+            <svg
+              class="t-icon t-icon-mirror t-size-m"
+              fill="none"
+              height="1em"
+              style="fill: none;"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <g
+                id="mirror"
+              >
+                <g
+                  id="fill1"
+                >
+                  <path
+                    d="M8 8.5V17.5H3L8 8.5Z"
+                    fill="transparent"
+                  />
+                  <path
+                    d="M16 8.5V17.5H21L16 8.5Z"
+                    fill="transparent"
+                  />
+                </g>
+                <path
+                  d="M12 3L12 21"
+                  id="stroke2"
+                  stroke="currentColor"
+                  stroke-linecap="square"
+                  stroke-width="2"
+                />
+                <g
+                  id="stroke1"
+                >
+                  <path
+                    d="M8 8.5V17.5H3L8 8.5Z"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M16 8.5V17.5H21L16 8.5Z"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <div
+            class="t-image-viewer__modal-icon"
+          >
+            <svg
+              class="t-icon t-icon-rotation t-size-m"
+              fill="none"
+              height="1em"
+              style="fill: none;"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <g
+                id="rotation"
+              >
+                <path
+                  d="M12 20C12 15.5818 8.41828 12 4 12M3 3V21H21"
+                  id="stroke1"
+                  stroke="currentColor"
+                  stroke-linecap="square"
+                  stroke-width="2"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon"
+        >
+          <svg
+            class="t-icon t-icon-zoom-out t-size-m"
+            fill="none"
+            height="1em"
+            style="fill: none;"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <g
+              id="zoom-out"
+            >
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
+                fill="transparent"
+                id="fill1"
+              />
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+              <path
+                d="M7.5 10.5H10.5L13.5 10.5"
+                id="stroke2"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon t-image-viewer__utils-scale"
+        >
+          <span
+            class="t-image-viewer__modal-icon-label"
+          >
+            100%
+          </span>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon"
+        >
+          <svg
+            class="t-icon t-icon-zoom-in t-size-m"
+            fill="none"
+            height="1em"
+            style="fill: none;"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <g
+              id="zoom-in"
+            >
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
+                fill="transparent"
+                id="fill1"
+              />
+              <path
+                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+              <path
+                d="M10.5 13.5V10.5M10.5 10.5L10.5 7.5M10.5 10.5H7.5M10.5 10.5H13.5"
+                id="stroke2"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
+        </div>
+        <div>
+          <div
+            class="t-image-viewer__modal-icon"
+          >
+            <svg
+              class="t-icon t-icon-image t-size-m"
+              fill="none"
+              height="1em"
+              name="image"
+              style="fill: none;"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <g
+                id="image"
+              >
+                <path
+                  d="M3 21H20L9 10L3 16V21Z"
+                  fill="transparent"
+                  id="fill1"
+                />
+                <circle
+                  cx="15.75"
+                  cy="8.25"
+                  fill="transparent"
+                  id="fill2"
+                  r="2"
+                />
+                <path
+                  d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
+                  id="stroke1"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <circle
+                  cx="15.75"
+                  cy="8.25"
+                  id="stroke2"
+                  r="2"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          class="t-image-viewer__modal-icon"
+        >
+          <svg
+            class="t-icon t-icon-download t-size-m"
+            fill="none"
+            height="1em"
+            style="fill: none;"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <g
+              id="download"
+            >
+              <path
+                d="M16.5 10.5L12 15L7.5 10.5M12 13.75V4"
+                id="stroke1"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+              <path
+                d="M20.5 15V20H3.5V15"
+                id="stroke2"
+                stroke="currentColor"
+                stroke-linecap="square"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-image-viewer__modal-icon t-image-viewer__modal-close-bt "
+    >
+      <svg
+        class="t-icon t-icon-close"
+        fill="none"
+        height="1em"
+        style="fill: none; font-size: 24px;"
+        viewBox="0 0 24 24"
+        width="1em"
+      >
+        <g
+          id="close"
+        >
+          <path
+            d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
+            id="stroke1"
+            stroke="currentColor"
+            stroke-linecap="square"
+            stroke-width="2"
+          />
+        </g>
+      </svg>
+    </div>
+    <div
+      class="t-image-viewer__modal-pic"
+    >
+      <div
+        class="t-image-viewer__modal-box"
+        style="transform: translate(0px, 0px) scale(-1, 1);"
+      >
+        <img
+          alt="image"
+          class="t-image-viewer__modal-image"
+          draggable="false"
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+          style="transform: rotateZ(0deg) scale(1); display: block;"
+        />
+        <img
+          alt="image"
+          class="t-image-viewer__modal-image"
+          draggable="false"
+          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+          style="transform: rotateZ(0deg) scale(1); display: none;"
+        />
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`ImageViewer 快照测试 > DefaultTrigger 多张图片默认触发器 > image-viewer-default-trigger-multi 1`] = `
 <div>
   <div
     class="t-image-viewer__trigger"
@@ -120,7 +2892,7 @@ exports[`ImageViewer snapshots > DefaultTrigger 多张图片默认触发器渲�
 </div>
 `;
 
-exports[`ImageViewer snapshots > DefaultTrigger 默认触发器渲染快照 > image-viewer-default-trigger 1`] = `
+exports[`ImageViewer 快照测试 > DefaultTrigger 默认触发器 > image-viewer-default-trigger 1`] = `
 <div>
   <div
     class="t-image-viewer__trigger"
@@ -240,7 +3012,7 @@ exports[`ImageViewer snapshots > DefaultTrigger 默认触发器渲染快照 > im
 </div>
 `;
 
-exports[`ImageViewer snapshots > attach 到指定容器 > image-viewer-attach-custom-container 1`] = `
+exports[`ImageViewer 快照测试 > attach 到指定容器 > image-viewer-attach-custom-container 1`] = `
 <div
   id="custom-attach-container"
 >
@@ -547,7 +3319,7 @@ exports[`ImageViewer snapshots > attach 到指定容器 > image-viewer-attach-cu
 </div>
 `;
 
-exports[`ImageViewer snapshots > modeless 模式 > image-viewer-modeless 1`] = `
+exports[`ImageViewer 快照测试 > modeless 模式 > image-viewer-modeless 1`] = `
 <body>
   <div>
     <span>
@@ -570,7 +3342,7 @@ exports[`ImageViewer snapshots > modeless 模式 > image-viewer-modeless 1`] = `
           <div
             class="t-dialog t-dialog--default t-dialog-zoom-appear t-dialog-zoom-appear-active"
             placement="center"
-            style="display: block; transform-origin: NaNpx NaNpx;"
+            style="display: block; transform-origin: 0px 0px;"
           >
             <div
               class="t-dialog__header"
@@ -901,7 +3673,7 @@ exports[`ImageViewer snapshots > modeless 模式 > image-viewer-modeless 1`] = `
 </body>
 `;
 
-exports[`ImageViewer snapshots > modeless 模式 - 第二张图片 > image-viewer-modeless-second-image 1`] = `
+exports[`ImageViewer 快照测试 > modeless 模式切换图片 > image-viewer-modeless-second-image 1`] = `
 <body>
   <div>
     <span>
@@ -924,7 +3696,7 @@ exports[`ImageViewer snapshots > modeless 模式 - 第二张图片 > image-viewe
           <div
             class="t-dialog t-dialog--default t-dialog-zoom-appear t-dialog-zoom-appear-active"
             placement="center"
-            style="display: block; transform-origin: NaNpx NaNpx;"
+            style="display: block; transform-origin: 0px 0px;"
           >
             <div
               class="t-dialog__header"
@@ -1255,7 +4027,7 @@ exports[`ImageViewer snapshots > modeless 模式 - 第二张图片 > image-viewe
 </body>
 `;
 
-exports[`ImageViewer snapshots > 不可拖拽 > image-viewer-not-draggable 1`] = `
+exports[`ImageViewer 快照测试 > 不可拖拽 > image-viewer-not-draggable 1`] = `
 <body>
   <div>
     <span>
@@ -1565,7 +4337,7 @@ exports[`ImageViewer snapshots > 不可拖拽 > image-viewer-not-draggable 1`] =
 </body>
 `;
 
-exports[`ImageViewer snapshots > 关闭按钮为 false > image-viewer-close-btn-disabled 1`] = `
+exports[`ImageViewer 快照测试 > 关闭按钮为 false > image-viewer-close-btn-disabled 1`] = `
 <body>
   <div>
     <span>
@@ -1851,7 +4623,7 @@ exports[`ImageViewer snapshots > 关闭按钮为 false > image-viewer-close-btn-
 </body>
 `;
 
-exports[`ImageViewer snapshots > 单张图片默认状态 > image-viewer-single-image-default 1`] = `
+exports[`ImageViewer 快照测试 > 单张图片默认状态 > image-viewer-single-image-default 1`] = `
 <body>
   <div>
     <span>
@@ -2161,7 +4933,7 @@ exports[`ImageViewer snapshots > 单张图片默认状态 > image-viewer-single-
 </body>
 `;
 
-exports[`ImageViewer snapshots > 多张图片默认状态 > image-viewer-multi-image-default 1`] = `
+exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-multi-image-default 1`] = `
 <body>
   <div>
     <span>
@@ -2772,7 +5544,7 @@ exports[`ImageViewer snapshots > 多张图片默认状态 > image-viewer-multi-i
 </body>
 `;
 
-exports[`ImageViewer snapshots > 无遮罩层 > image-viewer-no-overlay 1`] = `
+exports[`ImageViewer 快照测试 > 无遮罩层 > image-viewer-no-overlay 1`] = `
 <body>
   <div>
     <span>
@@ -3079,7 +5851,7 @@ exports[`ImageViewer snapshots > 无遮罩层 > image-viewer-no-overlay 1`] = `
 </body>
 `;
 
-exports[`ImageViewer snapshots > 自定义 imageScale 配置 > image-viewer-custom-scale-config 1`] = `
+exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-custom-scale-config 1`] = `
 <body>
   <div>
     <span>
@@ -3620,7 +6392,7 @@ exports[`ImageViewer snapshots > 自定义 imageScale 配置 > image-viewer-cust
 </body>
 `;
 
-exports[`ImageViewer snapshots > 自定义 title > image-viewer-custom-title 1`] = `
+exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 1`] = `
 <body>
   <div>
     <span>
@@ -4163,7 +6935,7 @@ exports[`ImageViewer snapshots > 自定义 title > image-viewer-custom-title 1`]
 </body>
 `;
 
-exports[`ImageViewer snapshots > 自定义关闭按钮 > image-viewer-custom-close-btn 1`] = `
+exports[`ImageViewer 快照测试 > 自定义关闭按钮 > image-viewer-custom-close-btn 1`] = `
 <body>
   <div>
     <span>
@@ -4427,2778 +7199,6 @@ exports[`ImageViewer snapshots > 自定义关闭按钮 > image-viewer-custom-clo
     >
       ✕
     </span>
-    <div
-      class="t-image-viewer__modal-pic"
-    >
-      <div
-        class="t-image-viewer__modal-box"
-        style="transform: translate(0px, 0px) scale(1, 1);"
-      >
-        <img
-          alt="image"
-          class="t-image-viewer__modal-image"
-          draggable="false"
-          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-          style="transform: rotateZ(0deg) scale(1); display: block;"
-        />
-        <img
-          alt="image"
-          class="t-image-viewer__modal-image"
-          draggable="false"
-          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-          style="transform: rotateZ(0deg) scale(1); display: none;"
-        />
-      </div>
-    </div>
-  </div>
-</body>
-`;
-
-exports[`ImageViewer toolbar event snapshots > 多图导航：上一张/下一张按钮快照 > toolbar-navigate-next 1`] = `
-<body>
-  <div>
-    <span>
-      工具栏测试
-    </span>
-  </div>
-  <div
-    class="t-image-viewer-preview-image"
-  >
-    <div
-      class="t-image-viewer__modal-mask"
-    />
-    <div
-      class="t-image-viewer__modal-header t-is-show"
-    >
-      <div
-        class="t-image-viewer__modal-icon t-image-viewer__header-pre-bt"
-      >
-        <svg
-          class="t-icon t-icon-chevron-down"
-          fill="none"
-          height="1em"
-          style="fill: none; font-size: 16px;"
-          viewBox="0 0 24 24"
-          width="1em"
-        >
-          <g
-            id="chevron-down"
-          >
-            <path
-              d="M17.5 9.5L12 15L6.5 9.5"
-              id="stroke1"
-              stroke="currentColor"
-              stroke-linecap="square"
-              stroke-width="2"
-            />
-          </g>
-        </svg>
-      </div>
-      <div
-        class="t-image-viewer__header-prev"
-      >
-        <div
-          class="t-image-viewer__header-trans"
-          style="transform: translateX(calc(-1 * (40px / 9 * 16 + 4px)));"
-        >
-          <div
-            class="t-image-viewer__header-box"
-          >
-            <div
-              class="t-image__wrapper t-image__wrapper--shape-square t-image-viewer__header-img"
-            >
-              <img
-                alt=""
-                class="t-image t-image--fit-fill t-image--position-center"
-                src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-              />
-              <div
-                class="t-image__loading"
-              >
-                <div
-                  class="t-space t-space-align-center t-space-vertical"
-                  style="gap: 8px;"
-                >
-                  <div
-                    class="t-space-item"
-                  >
-                    <svg
-                      class="t-icon t-icon-image"
-                      fill="none"
-                      height="1em"
-                      style="fill: none;"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                    >
-                      <g
-                        id="image"
-                      >
-                        <path
-                          d="M3 21H20L9 10L3 16V21Z"
-                          fill="transparent"
-                          id="fill1"
-                        />
-                        <circle
-                          cx="15.75"
-                          cy="8.25"
-                          fill="transparent"
-                          id="fill2"
-                          r="2"
-                        />
-                        <path
-                          d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                          id="stroke1"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        />
-                        <circle
-                          cx="15.75"
-                          cy="8.25"
-                          id="stroke2"
-                          r="2"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        />
-                      </g>
-                    </svg>
-                  </div>
-                  <div
-                    class="t-space-item"
-                  >
-                    图片加载中
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="t-image-viewer__header-box t-is-active"
-          >
-            <div
-              class="t-image__wrapper t-image__wrapper--shape-square t-image-viewer__header-img"
-            >
-              <img
-                alt=""
-                class="t-image t-image--fit-fill t-image--position-center"
-                src="https://tdesign.gtimg.com/demo/demo-image-2.png"
-              />
-              <div
-                class="t-image__loading"
-              >
-                <div
-                  class="t-space t-space-align-center t-space-vertical"
-                  style="gap: 8px;"
-                >
-                  <div
-                    class="t-space-item"
-                  >
-                    <svg
-                      class="t-icon t-icon-image"
-                      fill="none"
-                      height="1em"
-                      style="fill: none;"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                    >
-                      <g
-                        id="image"
-                      >
-                        <path
-                          d="M3 21H20L9 10L3 16V21Z"
-                          fill="transparent"
-                          id="fill1"
-                        />
-                        <circle
-                          cx="15.75"
-                          cy="8.25"
-                          fill="transparent"
-                          id="fill2"
-                          r="2"
-                        />
-                        <path
-                          d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                          id="stroke1"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        />
-                        <circle
-                          cx="15.75"
-                          cy="8.25"
-                          id="stroke2"
-                          r="2"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        />
-                      </g>
-                    </svg>
-                  </div>
-                  <div
-                    class="t-space-item"
-                  >
-                    图片加载中
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="t-image-viewer__header-box"
-          >
-            <div
-              class="t-image__wrapper t-image__wrapper--shape-square t-image-viewer__header-img"
-            >
-              <img
-                alt=""
-                class="t-image t-image--fit-fill t-image--position-center"
-                src="https://tdesign.gtimg.com/demo/demo-image-3.png"
-              />
-              <div
-                class="t-image__loading"
-              >
-                <div
-                  class="t-space t-space-align-center t-space-vertical"
-                  style="gap: 8px;"
-                >
-                  <div
-                    class="t-space-item"
-                  >
-                    <svg
-                      class="t-icon t-icon-image"
-                      fill="none"
-                      height="1em"
-                      style="fill: none;"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                    >
-                      <g
-                        id="image"
-                      >
-                        <path
-                          d="M3 21H20L9 10L3 16V21Z"
-                          fill="transparent"
-                          id="fill1"
-                        />
-                        <circle
-                          cx="15.75"
-                          cy="8.25"
-                          fill="transparent"
-                          id="fill2"
-                          r="2"
-                        />
-                        <path
-                          d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                          id="stroke1"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        />
-                        <circle
-                          cx="15.75"
-                          cy="8.25"
-                          id="stroke2"
-                          r="2"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        />
-                      </g>
-                    </svg>
-                  </div>
-                  <div
-                    class="t-space-item"
-                  >
-                    图片加载中
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-image-viewer__modal-index"
-    >
-      <span />
-      2/3
-    </div>
-    <div
-      class="t-image-viewer__modal-icon t-image-viewer__modal-prev-bt"
-    >
-      <svg
-        class="t-icon t-icon-chevron-left"
-        fill="none"
-        height="1em"
-        style="fill: none; font-size: 24px;"
-        viewBox="0 0 24 24"
-        width="1em"
-      >
-        <g
-          id="chevron-left"
-        >
-          <path
-            d="M14.5 17.5L9 12L14.5 6.5"
-            id="stroke1"
-            stroke="currentColor"
-            stroke-linecap="square"
-            stroke-width="2"
-          />
-        </g>
-      </svg>
-    </div>
-    <div
-      class="t-image-viewer__modal-icon t-image-viewer__modal-next-bt"
-    >
-      <svg
-        class="t-icon t-icon-chevron-right"
-        fill="none"
-        height="1em"
-        style="fill: none; font-size: 24px;"
-        viewBox="0 0 24 24"
-        width="1em"
-      >
-        <g
-          id="chevron-right"
-        >
-          <path
-            d="M9.5 17.5L15 12L9.5 6.5"
-            id="stroke1"
-            stroke="currentColor"
-            stroke-linecap="square"
-            stroke-width="2"
-          />
-        </g>
-      </svg>
-    </div>
-    <div
-      class="t-image-viewer__utils"
-    >
-      <div
-        class="t-image-viewer__utils-content"
-      >
-        <div>
-          <div
-            class="t-image-viewer__modal-icon"
-          >
-            <svg
-              class="t-icon t-icon-mirror t-size-m"
-              fill="none"
-              height="1em"
-              style="fill: none;"
-              viewBox="0 0 24 24"
-              width="1em"
-            >
-              <g
-                id="mirror"
-              >
-                <g
-                  id="fill1"
-                >
-                  <path
-                    d="M8 8.5V17.5H3L8 8.5Z"
-                    fill="transparent"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="transparent"
-                  />
-                </g>
-                <path
-                  d="M12 3L12 21"
-                  id="stroke2"
-                  stroke="currentColor"
-                  stroke-linecap="square"
-                  stroke-width="2"
-                />
-                <g
-                  id="stroke1"
-                >
-                  <path
-                    d="M8 8.5V17.5H3L8 8.5Z"
-                    stroke="currentColor"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    stroke="currentColor"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                  />
-                </g>
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div>
-          <div
-            class="t-image-viewer__modal-icon"
-          >
-            <svg
-              class="t-icon t-icon-rotation t-size-m"
-              fill="none"
-              height="1em"
-              style="fill: none;"
-              viewBox="0 0 24 24"
-              width="1em"
-            >
-              <g
-                id="rotation"
-              >
-                <path
-                  d="M12 20C12 15.5818 8.41828 12 4 12M3 3V21H21"
-                  id="stroke1"
-                  stroke="currentColor"
-                  stroke-linecap="square"
-                  stroke-width="2"
-                />
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon"
-        >
-          <svg
-            class="t-icon t-icon-zoom-out t-size-m"
-            fill="none"
-            height="1em"
-            style="fill: none;"
-            viewBox="0 0 24 24"
-            width="1em"
-          >
-            <g
-              id="zoom-out"
-            >
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
-                fill="transparent"
-                id="fill1"
-              />
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
-                id="stroke1"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
-                d="M7.5 10.5H10.5L13.5 10.5"
-                id="stroke2"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon t-image-viewer__utils-scale"
-        >
-          <span
-            class="t-image-viewer__modal-icon-label"
-          >
-            100%
-          </span>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon"
-        >
-          <svg
-            class="t-icon t-icon-zoom-in t-size-m"
-            fill="none"
-            height="1em"
-            style="fill: none;"
-            viewBox="0 0 24 24"
-            width="1em"
-          >
-            <g
-              id="zoom-in"
-            >
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
-                fill="transparent"
-                id="fill1"
-              />
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
-                id="stroke1"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
-                d="M10.5 13.5V10.5M10.5 10.5L10.5 7.5M10.5 10.5H7.5M10.5 10.5H13.5"
-                id="stroke2"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-        </div>
-        <div>
-          <div
-            class="t-image-viewer__modal-icon"
-          >
-            <svg
-              class="t-icon t-icon-image t-size-m"
-              fill="none"
-              height="1em"
-              name="image"
-              style="fill: none;"
-              viewBox="0 0 24 24"
-              width="1em"
-            >
-              <g
-                id="image"
-              >
-                <path
-                  d="M3 21H20L9 10L3 16V21Z"
-                  fill="transparent"
-                  id="fill1"
-                />
-                <circle
-                  cx="15.75"
-                  cy="8.25"
-                  fill="transparent"
-                  id="fill2"
-                  r="2"
-                />
-                <path
-                  d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                  id="stroke1"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-                <circle
-                  cx="15.75"
-                  cy="8.25"
-                  id="stroke2"
-                  r="2"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon"
-        >
-          <svg
-            class="t-icon t-icon-download t-size-m"
-            fill="none"
-            height="1em"
-            style="fill: none;"
-            viewBox="0 0 24 24"
-            width="1em"
-          >
-            <g
-              id="download"
-            >
-              <path
-                d="M16.5 10.5L12 15L7.5 10.5M12 13.75V4"
-                id="stroke1"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
-                d="M20.5 15V20H3.5V15"
-                id="stroke2"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-image-viewer__modal-icon t-image-viewer__modal-close-bt "
-    >
-      <svg
-        class="t-icon t-icon-close"
-        fill="none"
-        height="1em"
-        style="fill: none; font-size: 24px;"
-        viewBox="0 0 24 24"
-        width="1em"
-      >
-        <g
-          id="close"
-        >
-          <path
-            d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
-            id="stroke1"
-            stroke="currentColor"
-            stroke-linecap="square"
-            stroke-width="2"
-          />
-        </g>
-      </svg>
-    </div>
-    <div
-      class="t-image-viewer__modal-pic"
-    >
-      <div
-        class="t-image-viewer__modal-box"
-        style="transform: translate(0px, 0px) scale(1, 1);"
-      >
-        <img
-          alt="image"
-          class="t-image-viewer__modal-image"
-          draggable="false"
-          src="https://tdesign.gtimg.com/demo/demo-image-2.png"
-          style="transform: rotateZ(0deg) scale(1); display: block;"
-        />
-        <img
-          alt="image"
-          class="t-image-viewer__modal-image"
-          draggable="false"
-          src="https://tdesign.gtimg.com/demo/demo-image-2.png"
-          style="transform: rotateZ(0deg) scale(1); display: none;"
-        />
-      </div>
-    </div>
-  </div>
-</body>
-`;
-
-exports[`ImageViewer toolbar event snapshots > 多图导航：上一张/下一张按钮快照 > toolbar-navigate-prev 1`] = `
-<body>
-  <div>
-    <span>
-      工具栏测试
-    </span>
-  </div>
-  <div
-    class="t-image-viewer-preview-image"
-  >
-    <div
-      class="t-image-viewer__modal-mask"
-    />
-    <div
-      class="t-image-viewer__modal-header t-is-show"
-    >
-      <div
-        class="t-image-viewer__modal-icon t-image-viewer__header-pre-bt"
-      >
-        <svg
-          class="t-icon t-icon-chevron-down"
-          fill="none"
-          height="1em"
-          style="fill: none; font-size: 16px;"
-          viewBox="0 0 24 24"
-          width="1em"
-        >
-          <g
-            id="chevron-down"
-          >
-            <path
-              d="M17.5 9.5L12 15L6.5 9.5"
-              id="stroke1"
-              stroke="currentColor"
-              stroke-linecap="square"
-              stroke-width="2"
-            />
-          </g>
-        </svg>
-      </div>
-      <div
-        class="t-image-viewer__header-prev"
-      >
-        <div
-          class="t-image-viewer__header-trans"
-          style="transform: translateX(calc(-1 * (40px / 9 * 16 + 4px)));"
-        >
-          <div
-            class="t-image-viewer__header-box"
-          >
-            <div
-              class="t-image__wrapper t-image__wrapper--shape-square t-image-viewer__header-img"
-            >
-              <img
-                alt=""
-                class="t-image t-image--fit-fill t-image--position-center"
-                src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-              />
-              <div
-                class="t-image__loading"
-              >
-                <div
-                  class="t-space t-space-align-center t-space-vertical"
-                  style="gap: 8px;"
-                >
-                  <div
-                    class="t-space-item"
-                  >
-                    <svg
-                      class="t-icon t-icon-image"
-                      fill="none"
-                      height="1em"
-                      style="fill: none;"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                    >
-                      <g
-                        id="image"
-                      >
-                        <path
-                          d="M3 21H20L9 10L3 16V21Z"
-                          fill="transparent"
-                          id="fill1"
-                        />
-                        <circle
-                          cx="15.75"
-                          cy="8.25"
-                          fill="transparent"
-                          id="fill2"
-                          r="2"
-                        />
-                        <path
-                          d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                          id="stroke1"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        />
-                        <circle
-                          cx="15.75"
-                          cy="8.25"
-                          id="stroke2"
-                          r="2"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        />
-                      </g>
-                    </svg>
-                  </div>
-                  <div
-                    class="t-space-item"
-                  >
-                    图片加载中
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="t-image-viewer__header-box t-is-active"
-          >
-            <div
-              class="t-image__wrapper t-image__wrapper--shape-square t-image-viewer__header-img"
-            >
-              <img
-                alt=""
-                class="t-image t-image--fit-fill t-image--position-center"
-                src="https://tdesign.gtimg.com/demo/demo-image-2.png"
-              />
-              <div
-                class="t-image__loading"
-              >
-                <div
-                  class="t-space t-space-align-center t-space-vertical"
-                  style="gap: 8px;"
-                >
-                  <div
-                    class="t-space-item"
-                  >
-                    <svg
-                      class="t-icon t-icon-image"
-                      fill="none"
-                      height="1em"
-                      style="fill: none;"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                    >
-                      <g
-                        id="image"
-                      >
-                        <path
-                          d="M3 21H20L9 10L3 16V21Z"
-                          fill="transparent"
-                          id="fill1"
-                        />
-                        <circle
-                          cx="15.75"
-                          cy="8.25"
-                          fill="transparent"
-                          id="fill2"
-                          r="2"
-                        />
-                        <path
-                          d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                          id="stroke1"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        />
-                        <circle
-                          cx="15.75"
-                          cy="8.25"
-                          id="stroke2"
-                          r="2"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        />
-                      </g>
-                    </svg>
-                  </div>
-                  <div
-                    class="t-space-item"
-                  >
-                    图片加载中
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="t-image-viewer__header-box"
-          >
-            <div
-              class="t-image__wrapper t-image__wrapper--shape-square t-image-viewer__header-img"
-            >
-              <img
-                alt=""
-                class="t-image t-image--fit-fill t-image--position-center"
-                src="https://tdesign.gtimg.com/demo/demo-image-3.png"
-              />
-              <div
-                class="t-image__loading"
-              >
-                <div
-                  class="t-space t-space-align-center t-space-vertical"
-                  style="gap: 8px;"
-                >
-                  <div
-                    class="t-space-item"
-                  >
-                    <svg
-                      class="t-icon t-icon-image"
-                      fill="none"
-                      height="1em"
-                      style="fill: none;"
-                      viewBox="0 0 24 24"
-                      width="1em"
-                    >
-                      <g
-                        id="image"
-                      >
-                        <path
-                          d="M3 21H20L9 10L3 16V21Z"
-                          fill="transparent"
-                          id="fill1"
-                        />
-                        <circle
-                          cx="15.75"
-                          cy="8.25"
-                          fill="transparent"
-                          id="fill2"
-                          r="2"
-                        />
-                        <path
-                          d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                          id="stroke1"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        />
-                        <circle
-                          cx="15.75"
-                          cy="8.25"
-                          id="stroke2"
-                          r="2"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        />
-                      </g>
-                    </svg>
-                  </div>
-                  <div
-                    class="t-space-item"
-                  >
-                    图片加载中
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-image-viewer__modal-index"
-    >
-      <span />
-      2/3
-    </div>
-    <div
-      class="t-image-viewer__modal-icon t-image-viewer__modal-prev-bt"
-    >
-      <svg
-        class="t-icon t-icon-chevron-left"
-        fill="none"
-        height="1em"
-        style="fill: none; font-size: 24px;"
-        viewBox="0 0 24 24"
-        width="1em"
-      >
-        <g
-          id="chevron-left"
-        >
-          <path
-            d="M14.5 17.5L9 12L14.5 6.5"
-            id="stroke1"
-            stroke="currentColor"
-            stroke-linecap="square"
-            stroke-width="2"
-          />
-        </g>
-      </svg>
-    </div>
-    <div
-      class="t-image-viewer__modal-icon t-image-viewer__modal-next-bt"
-    >
-      <svg
-        class="t-icon t-icon-chevron-right"
-        fill="none"
-        height="1em"
-        style="fill: none; font-size: 24px;"
-        viewBox="0 0 24 24"
-        width="1em"
-      >
-        <g
-          id="chevron-right"
-        >
-          <path
-            d="M9.5 17.5L15 12L9.5 6.5"
-            id="stroke1"
-            stroke="currentColor"
-            stroke-linecap="square"
-            stroke-width="2"
-          />
-        </g>
-      </svg>
-    </div>
-    <div
-      class="t-image-viewer__utils"
-    >
-      <div
-        class="t-image-viewer__utils-content"
-      >
-        <div>
-          <div
-            class="t-image-viewer__modal-icon"
-          >
-            <svg
-              class="t-icon t-icon-mirror t-size-m"
-              fill="none"
-              height="1em"
-              style="fill: none;"
-              viewBox="0 0 24 24"
-              width="1em"
-            >
-              <g
-                id="mirror"
-              >
-                <g
-                  id="fill1"
-                >
-                  <path
-                    d="M8 8.5V17.5H3L8 8.5Z"
-                    fill="transparent"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="transparent"
-                  />
-                </g>
-                <path
-                  d="M12 3L12 21"
-                  id="stroke2"
-                  stroke="currentColor"
-                  stroke-linecap="square"
-                  stroke-width="2"
-                />
-                <g
-                  id="stroke1"
-                >
-                  <path
-                    d="M8 8.5V17.5H3L8 8.5Z"
-                    stroke="currentColor"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    stroke="currentColor"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                  />
-                </g>
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div>
-          <div
-            class="t-image-viewer__modal-icon"
-          >
-            <svg
-              class="t-icon t-icon-rotation t-size-m"
-              fill="none"
-              height="1em"
-              style="fill: none;"
-              viewBox="0 0 24 24"
-              width="1em"
-            >
-              <g
-                id="rotation"
-              >
-                <path
-                  d="M12 20C12 15.5818 8.41828 12 4 12M3 3V21H21"
-                  id="stroke1"
-                  stroke="currentColor"
-                  stroke-linecap="square"
-                  stroke-width="2"
-                />
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon"
-        >
-          <svg
-            class="t-icon t-icon-zoom-out t-size-m"
-            fill="none"
-            height="1em"
-            style="fill: none;"
-            viewBox="0 0 24 24"
-            width="1em"
-          >
-            <g
-              id="zoom-out"
-            >
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
-                fill="transparent"
-                id="fill1"
-              />
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
-                id="stroke1"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
-                d="M7.5 10.5H10.5L13.5 10.5"
-                id="stroke2"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon t-image-viewer__utils-scale"
-        >
-          <span
-            class="t-image-viewer__modal-icon-label"
-          >
-            100%
-          </span>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon"
-        >
-          <svg
-            class="t-icon t-icon-zoom-in t-size-m"
-            fill="none"
-            height="1em"
-            style="fill: none;"
-            viewBox="0 0 24 24"
-            width="1em"
-          >
-            <g
-              id="zoom-in"
-            >
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
-                fill="transparent"
-                id="fill1"
-              />
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
-                id="stroke1"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
-                d="M10.5 13.5V10.5M10.5 10.5L10.5 7.5M10.5 10.5H7.5M10.5 10.5H13.5"
-                id="stroke2"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-        </div>
-        <div>
-          <div
-            class="t-image-viewer__modal-icon"
-          >
-            <svg
-              class="t-icon t-icon-image t-size-m"
-              fill="none"
-              height="1em"
-              name="image"
-              style="fill: none;"
-              viewBox="0 0 24 24"
-              width="1em"
-            >
-              <g
-                id="image"
-              >
-                <path
-                  d="M3 21H20L9 10L3 16V21Z"
-                  fill="transparent"
-                  id="fill1"
-                />
-                <circle
-                  cx="15.75"
-                  cy="8.25"
-                  fill="transparent"
-                  id="fill2"
-                  r="2"
-                />
-                <path
-                  d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                  id="stroke1"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-                <circle
-                  cx="15.75"
-                  cy="8.25"
-                  id="stroke2"
-                  r="2"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon"
-        >
-          <svg
-            class="t-icon t-icon-download t-size-m"
-            fill="none"
-            height="1em"
-            style="fill: none;"
-            viewBox="0 0 24 24"
-            width="1em"
-          >
-            <g
-              id="download"
-            >
-              <path
-                d="M16.5 10.5L12 15L7.5 10.5M12 13.75V4"
-                id="stroke1"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
-                d="M20.5 15V20H3.5V15"
-                id="stroke2"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-image-viewer__modal-icon t-image-viewer__modal-close-bt "
-    >
-      <svg
-        class="t-icon t-icon-close"
-        fill="none"
-        height="1em"
-        style="fill: none; font-size: 24px;"
-        viewBox="0 0 24 24"
-        width="1em"
-      >
-        <g
-          id="close"
-        >
-          <path
-            d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
-            id="stroke1"
-            stroke="currentColor"
-            stroke-linecap="square"
-            stroke-width="2"
-          />
-        </g>
-      </svg>
-    </div>
-    <div
-      class="t-image-viewer__modal-pic"
-    >
-      <div
-        class="t-image-viewer__modal-box"
-        style="transform: translate(0px, 0px) scale(1, 1);"
-      >
-        <img
-          alt="image"
-          class="t-image-viewer__modal-image"
-          draggable="false"
-          src="https://tdesign.gtimg.com/demo/demo-image-2.png"
-          style="transform: rotateZ(0deg) scale(1); display: block;"
-        />
-        <img
-          alt="image"
-          class="t-image-viewer__modal-image"
-          draggable="false"
-          src="https://tdesign.gtimg.com/demo/demo-image-2.png"
-          style="transform: rotateZ(0deg) scale(1); display: none;"
-        />
-      </div>
-    </div>
-  </div>
-</body>
-`;
-
-exports[`ImageViewer toolbar event snapshots > 点击原始大小按钮后快照 > toolbar-after-reset 1`] = `
-<body>
-  <div>
-    <span>
-      工具栏测试
-    </span>
-  </div>
-  <div
-    class="t-image-viewer-preview-image"
-  >
-    <div
-      class="t-image-viewer__modal-mask"
-    />
-    <div
-      class="t-image-viewer__utils"
-    >
-      <div
-        class="t-image-viewer__utils-content"
-      >
-        <div>
-          <div
-            class="t-image-viewer__modal-icon"
-          >
-            <svg
-              class="t-icon t-icon-mirror t-size-m"
-              fill="none"
-              height="1em"
-              style="fill: none;"
-              viewBox="0 0 24 24"
-              width="1em"
-            >
-              <g
-                id="mirror"
-              >
-                <g
-                  id="fill1"
-                >
-                  <path
-                    d="M8 8.5V17.5H3L8 8.5Z"
-                    fill="transparent"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="transparent"
-                  />
-                </g>
-                <path
-                  d="M12 3L12 21"
-                  id="stroke2"
-                  stroke="currentColor"
-                  stroke-linecap="square"
-                  stroke-width="2"
-                />
-                <g
-                  id="stroke1"
-                >
-                  <path
-                    d="M8 8.5V17.5H3L8 8.5Z"
-                    stroke="currentColor"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    stroke="currentColor"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                  />
-                </g>
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div>
-          <div
-            class="t-image-viewer__modal-icon"
-          >
-            <svg
-              class="t-icon t-icon-rotation t-size-m"
-              fill="none"
-              height="1em"
-              style="fill: none;"
-              viewBox="0 0 24 24"
-              width="1em"
-            >
-              <g
-                id="rotation"
-              >
-                <path
-                  d="M12 20C12 15.5818 8.41828 12 4 12M3 3V21H21"
-                  id="stroke1"
-                  stroke="currentColor"
-                  stroke-linecap="square"
-                  stroke-width="2"
-                />
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon"
-        >
-          <svg
-            class="t-icon t-icon-zoom-out t-size-m"
-            fill="none"
-            height="1em"
-            style="fill: none;"
-            viewBox="0 0 24 24"
-            width="1em"
-          >
-            <g
-              id="zoom-out"
-            >
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
-                fill="transparent"
-                id="fill1"
-              />
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
-                id="stroke1"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
-                d="M7.5 10.5H10.5L13.5 10.5"
-                id="stroke2"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon t-image-viewer__utils-scale"
-        >
-          <span
-            class="t-image-viewer__modal-icon-label"
-          >
-            100%
-          </span>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon"
-        >
-          <svg
-            class="t-icon t-icon-zoom-in t-size-m"
-            fill="none"
-            height="1em"
-            style="fill: none;"
-            viewBox="0 0 24 24"
-            width="1em"
-          >
-            <g
-              id="zoom-in"
-            >
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
-                fill="transparent"
-                id="fill1"
-              />
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
-                id="stroke1"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
-                d="M10.5 13.5V10.5M10.5 10.5L10.5 7.5M10.5 10.5H7.5M10.5 10.5H13.5"
-                id="stroke2"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-        </div>
-        <div>
-          <div
-            class="t-image-viewer__modal-icon"
-          >
-            <svg
-              class="t-icon t-icon-image t-size-m"
-              fill="none"
-              height="1em"
-              name="image"
-              style="fill: none;"
-              viewBox="0 0 24 24"
-              width="1em"
-            >
-              <g
-                id="image"
-              >
-                <path
-                  d="M3 21H20L9 10L3 16V21Z"
-                  fill="transparent"
-                  id="fill1"
-                />
-                <circle
-                  cx="15.75"
-                  cy="8.25"
-                  fill="transparent"
-                  id="fill2"
-                  r="2"
-                />
-                <path
-                  d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                  id="stroke1"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-                <circle
-                  cx="15.75"
-                  cy="8.25"
-                  id="stroke2"
-                  r="2"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon"
-        >
-          <svg
-            class="t-icon t-icon-download t-size-m"
-            fill="none"
-            height="1em"
-            style="fill: none;"
-            viewBox="0 0 24 24"
-            width="1em"
-          >
-            <g
-              id="download"
-            >
-              <path
-                d="M16.5 10.5L12 15L7.5 10.5M12 13.75V4"
-                id="stroke1"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
-                d="M20.5 15V20H3.5V15"
-                id="stroke2"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-image-viewer__modal-icon t-image-viewer__modal-close-bt "
-    >
-      <svg
-        class="t-icon t-icon-close"
-        fill="none"
-        height="1em"
-        style="fill: none; font-size: 24px;"
-        viewBox="0 0 24 24"
-        width="1em"
-      >
-        <g
-          id="close"
-        >
-          <path
-            d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
-            id="stroke1"
-            stroke="currentColor"
-            stroke-linecap="square"
-            stroke-width="2"
-          />
-        </g>
-      </svg>
-    </div>
-    <div
-      class="t-image-viewer__modal-pic"
-    >
-      <div
-        class="t-image-viewer__modal-box"
-        style="transform: translate(0px, 0px) scale(1, 1);"
-      >
-        <img
-          alt="image"
-          class="t-image-viewer__modal-image"
-          draggable="false"
-          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-          style="transform: rotateZ(0deg) scale(1); display: block;"
-        />
-        <img
-          alt="image"
-          class="t-image-viewer__modal-image"
-          draggable="false"
-          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-          style="transform: rotateZ(0deg) scale(1); display: none;"
-        />
-      </div>
-    </div>
-  </div>
-</body>
-`;
-
-exports[`ImageViewer toolbar event snapshots > 点击放大按钮后快照 > toolbar-after-zoom-in 1`] = `
-<body>
-  <div>
-    <span>
-      工具栏测试
-    </span>
-  </div>
-  <div
-    class="t-image-viewer-preview-image"
-  >
-    <div
-      class="t-image-viewer__modal-mask"
-    />
-    <div
-      class="t-image-viewer__utils"
-    >
-      <div
-        class="t-image-viewer__utils-content"
-      >
-        <div>
-          <div
-            class="t-image-viewer__modal-icon"
-          >
-            <svg
-              class="t-icon t-icon-mirror t-size-m"
-              fill="none"
-              height="1em"
-              style="fill: none;"
-              viewBox="0 0 24 24"
-              width="1em"
-            >
-              <g
-                id="mirror"
-              >
-                <g
-                  id="fill1"
-                >
-                  <path
-                    d="M8 8.5V17.5H3L8 8.5Z"
-                    fill="transparent"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="transparent"
-                  />
-                </g>
-                <path
-                  d="M12 3L12 21"
-                  id="stroke2"
-                  stroke="currentColor"
-                  stroke-linecap="square"
-                  stroke-width="2"
-                />
-                <g
-                  id="stroke1"
-                >
-                  <path
-                    d="M8 8.5V17.5H3L8 8.5Z"
-                    stroke="currentColor"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    stroke="currentColor"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                  />
-                </g>
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div>
-          <div
-            class="t-image-viewer__modal-icon"
-          >
-            <svg
-              class="t-icon t-icon-rotation t-size-m"
-              fill="none"
-              height="1em"
-              style="fill: none;"
-              viewBox="0 0 24 24"
-              width="1em"
-            >
-              <g
-                id="rotation"
-              >
-                <path
-                  d="M12 20C12 15.5818 8.41828 12 4 12M3 3V21H21"
-                  id="stroke1"
-                  stroke="currentColor"
-                  stroke-linecap="square"
-                  stroke-width="2"
-                />
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon"
-        >
-          <svg
-            class="t-icon t-icon-zoom-out t-size-m"
-            fill="none"
-            height="1em"
-            style="fill: none;"
-            viewBox="0 0 24 24"
-            width="1em"
-          >
-            <g
-              id="zoom-out"
-            >
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
-                fill="transparent"
-                id="fill1"
-              />
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
-                id="stroke1"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
-                d="M7.5 10.5H10.5L13.5 10.5"
-                id="stroke2"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon t-image-viewer__utils-scale"
-        >
-          <span
-            class="t-image-viewer__modal-icon-label"
-          >
-            100%
-          </span>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon"
-        >
-          <svg
-            class="t-icon t-icon-zoom-in t-size-m"
-            fill="none"
-            height="1em"
-            style="fill: none;"
-            viewBox="0 0 24 24"
-            width="1em"
-          >
-            <g
-              id="zoom-in"
-            >
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
-                fill="transparent"
-                id="fill1"
-              />
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
-                id="stroke1"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
-                d="M10.5 13.5V10.5M10.5 10.5L10.5 7.5M10.5 10.5H7.5M10.5 10.5H13.5"
-                id="stroke2"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-        </div>
-        <div>
-          <div
-            class="t-image-viewer__modal-icon"
-          >
-            <svg
-              class="t-icon t-icon-image t-size-m"
-              fill="none"
-              height="1em"
-              name="image"
-              style="fill: none;"
-              viewBox="0 0 24 24"
-              width="1em"
-            >
-              <g
-                id="image"
-              >
-                <path
-                  d="M3 21H20L9 10L3 16V21Z"
-                  fill="transparent"
-                  id="fill1"
-                />
-                <circle
-                  cx="15.75"
-                  cy="8.25"
-                  fill="transparent"
-                  id="fill2"
-                  r="2"
-                />
-                <path
-                  d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                  id="stroke1"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-                <circle
-                  cx="15.75"
-                  cy="8.25"
-                  id="stroke2"
-                  r="2"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon"
-        >
-          <svg
-            class="t-icon t-icon-download t-size-m"
-            fill="none"
-            height="1em"
-            style="fill: none;"
-            viewBox="0 0 24 24"
-            width="1em"
-          >
-            <g
-              id="download"
-            >
-              <path
-                d="M16.5 10.5L12 15L7.5 10.5M12 13.75V4"
-                id="stroke1"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
-                d="M20.5 15V20H3.5V15"
-                id="stroke2"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-image-viewer__modal-icon t-image-viewer__modal-close-bt "
-    >
-      <svg
-        class="t-icon t-icon-close"
-        fill="none"
-        height="1em"
-        style="fill: none; font-size: 24px;"
-        viewBox="0 0 24 24"
-        width="1em"
-      >
-        <g
-          id="close"
-        >
-          <path
-            d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
-            id="stroke1"
-            stroke="currentColor"
-            stroke-linecap="square"
-            stroke-width="2"
-          />
-        </g>
-      </svg>
-    </div>
-    <div
-      class="t-image-viewer__modal-pic"
-    >
-      <div
-        class="t-image-viewer__modal-box"
-        style="transform: translate(0px, 0px) scale(1, 1);"
-      >
-        <img
-          alt="image"
-          class="t-image-viewer__modal-image"
-          draggable="false"
-          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-          style="transform: rotateZ(0deg) scale(1); display: block;"
-        />
-        <img
-          alt="image"
-          class="t-image-viewer__modal-image"
-          draggable="false"
-          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-          style="transform: rotateZ(0deg) scale(1); display: none;"
-        />
-      </div>
-    </div>
-  </div>
-</body>
-`;
-
-exports[`ImageViewer toolbar event snapshots > 点击旋转按钮后快照 > toolbar-after-rotate 1`] = `
-<body>
-  <div>
-    <span>
-      工具栏测试
-    </span>
-  </div>
-  <div
-    class="t-image-viewer-preview-image"
-  >
-    <div
-      class="t-image-viewer__modal-mask"
-    />
-    <div
-      class="t-image-viewer__utils"
-    >
-      <div
-        class="t-image-viewer__utils-content"
-      >
-        <div>
-          <div
-            class="t-image-viewer__modal-icon"
-          >
-            <svg
-              class="t-icon t-icon-mirror t-size-m"
-              fill="none"
-              height="1em"
-              style="fill: none;"
-              viewBox="0 0 24 24"
-              width="1em"
-            >
-              <g
-                id="mirror"
-              >
-                <g
-                  id="fill1"
-                >
-                  <path
-                    d="M8 8.5V17.5H3L8 8.5Z"
-                    fill="transparent"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="transparent"
-                  />
-                </g>
-                <path
-                  d="M12 3L12 21"
-                  id="stroke2"
-                  stroke="currentColor"
-                  stroke-linecap="square"
-                  stroke-width="2"
-                />
-                <g
-                  id="stroke1"
-                >
-                  <path
-                    d="M8 8.5V17.5H3L8 8.5Z"
-                    stroke="currentColor"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    stroke="currentColor"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                  />
-                </g>
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div>
-          <div
-            class="t-image-viewer__modal-icon"
-          >
-            <svg
-              class="t-icon t-icon-rotation t-size-m"
-              fill="none"
-              height="1em"
-              style="fill: none;"
-              viewBox="0 0 24 24"
-              width="1em"
-            >
-              <g
-                id="rotation"
-              >
-                <path
-                  d="M12 20C12 15.5818 8.41828 12 4 12M3 3V21H21"
-                  id="stroke1"
-                  stroke="currentColor"
-                  stroke-linecap="square"
-                  stroke-width="2"
-                />
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon"
-        >
-          <svg
-            class="t-icon t-icon-zoom-out t-size-m"
-            fill="none"
-            height="1em"
-            style="fill: none;"
-            viewBox="0 0 24 24"
-            width="1em"
-          >
-            <g
-              id="zoom-out"
-            >
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
-                fill="transparent"
-                id="fill1"
-              />
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
-                id="stroke1"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
-                d="M7.5 10.5H10.5L13.5 10.5"
-                id="stroke2"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon t-image-viewer__utils-scale"
-        >
-          <span
-            class="t-image-viewer__modal-icon-label"
-          >
-            100%
-          </span>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon"
-        >
-          <svg
-            class="t-icon t-icon-zoom-in t-size-m"
-            fill="none"
-            height="1em"
-            style="fill: none;"
-            viewBox="0 0 24 24"
-            width="1em"
-          >
-            <g
-              id="zoom-in"
-            >
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
-                fill="transparent"
-                id="fill1"
-              />
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
-                id="stroke1"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
-                d="M10.5 13.5V10.5M10.5 10.5L10.5 7.5M10.5 10.5H7.5M10.5 10.5H13.5"
-                id="stroke2"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-        </div>
-        <div>
-          <div
-            class="t-image-viewer__modal-icon"
-          >
-            <svg
-              class="t-icon t-icon-image t-size-m"
-              fill="none"
-              height="1em"
-              name="image"
-              style="fill: none;"
-              viewBox="0 0 24 24"
-              width="1em"
-            >
-              <g
-                id="image"
-              >
-                <path
-                  d="M3 21H20L9 10L3 16V21Z"
-                  fill="transparent"
-                  id="fill1"
-                />
-                <circle
-                  cx="15.75"
-                  cy="8.25"
-                  fill="transparent"
-                  id="fill2"
-                  r="2"
-                />
-                <path
-                  d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                  id="stroke1"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-                <circle
-                  cx="15.75"
-                  cy="8.25"
-                  id="stroke2"
-                  r="2"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon"
-        >
-          <svg
-            class="t-icon t-icon-download t-size-m"
-            fill="none"
-            height="1em"
-            style="fill: none;"
-            viewBox="0 0 24 24"
-            width="1em"
-          >
-            <g
-              id="download"
-            >
-              <path
-                d="M16.5 10.5L12 15L7.5 10.5M12 13.75V4"
-                id="stroke1"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
-                d="M20.5 15V20H3.5V15"
-                id="stroke2"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-image-viewer__modal-icon t-image-viewer__modal-close-bt "
-    >
-      <svg
-        class="t-icon t-icon-close"
-        fill="none"
-        height="1em"
-        style="fill: none; font-size: 24px;"
-        viewBox="0 0 24 24"
-        width="1em"
-      >
-        <g
-          id="close"
-        >
-          <path
-            d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
-            id="stroke1"
-            stroke="currentColor"
-            stroke-linecap="square"
-            stroke-width="2"
-          />
-        </g>
-      </svg>
-    </div>
-    <div
-      class="t-image-viewer__modal-pic"
-    >
-      <div
-        class="t-image-viewer__modal-box"
-        style="transform: translate(0px, 0px) scale(1, 1);"
-      >
-        <img
-          alt="image"
-          class="t-image-viewer__modal-image"
-          draggable="false"
-          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-          style="transform: rotateZ(0deg) scale(1); display: block;"
-        />
-        <img
-          alt="image"
-          class="t-image-viewer__modal-image"
-          draggable="false"
-          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-          style="transform: rotateZ(0deg) scale(1); display: none;"
-        />
-      </div>
-    </div>
-  </div>
-</body>
-`;
-
-exports[`ImageViewer toolbar event snapshots > 点击缩小按钮后快照 > toolbar-after-zoom-out 1`] = `
-<body>
-  <div>
-    <span>
-      工具栏测试
-    </span>
-  </div>
-  <div
-    class="t-image-viewer-preview-image"
-  >
-    <div
-      class="t-image-viewer__modal-mask"
-    />
-    <div
-      class="t-image-viewer__utils"
-    >
-      <div
-        class="t-image-viewer__utils-content"
-      >
-        <div>
-          <div
-            class="t-image-viewer__modal-icon"
-          >
-            <svg
-              class="t-icon t-icon-mirror t-size-m"
-              fill="none"
-              height="1em"
-              style="fill: none;"
-              viewBox="0 0 24 24"
-              width="1em"
-            >
-              <g
-                id="mirror"
-              >
-                <g
-                  id="fill1"
-                >
-                  <path
-                    d="M8 8.5V17.5H3L8 8.5Z"
-                    fill="transparent"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="transparent"
-                  />
-                </g>
-                <path
-                  d="M12 3L12 21"
-                  id="stroke2"
-                  stroke="currentColor"
-                  stroke-linecap="square"
-                  stroke-width="2"
-                />
-                <g
-                  id="stroke1"
-                >
-                  <path
-                    d="M8 8.5V17.5H3L8 8.5Z"
-                    stroke="currentColor"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    stroke="currentColor"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                  />
-                </g>
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div>
-          <div
-            class="t-image-viewer__modal-icon"
-          >
-            <svg
-              class="t-icon t-icon-rotation t-size-m"
-              fill="none"
-              height="1em"
-              style="fill: none;"
-              viewBox="0 0 24 24"
-              width="1em"
-            >
-              <g
-                id="rotation"
-              >
-                <path
-                  d="M12 20C12 15.5818 8.41828 12 4 12M3 3V21H21"
-                  id="stroke1"
-                  stroke="currentColor"
-                  stroke-linecap="square"
-                  stroke-width="2"
-                />
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon"
-        >
-          <svg
-            class="t-icon t-icon-zoom-out t-size-m"
-            fill="none"
-            height="1em"
-            style="fill: none;"
-            viewBox="0 0 24 24"
-            width="1em"
-          >
-            <g
-              id="zoom-out"
-            >
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
-                fill="transparent"
-                id="fill1"
-              />
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
-                id="stroke1"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
-                d="M7.5 10.5H10.5L13.5 10.5"
-                id="stroke2"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon t-image-viewer__utils-scale"
-        >
-          <span
-            class="t-image-viewer__modal-icon-label"
-          >
-            100%
-          </span>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon"
-        >
-          <svg
-            class="t-icon t-icon-zoom-in t-size-m"
-            fill="none"
-            height="1em"
-            style="fill: none;"
-            viewBox="0 0 24 24"
-            width="1em"
-          >
-            <g
-              id="zoom-in"
-            >
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
-                fill="transparent"
-                id="fill1"
-              />
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
-                id="stroke1"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
-                d="M10.5 13.5V10.5M10.5 10.5L10.5 7.5M10.5 10.5H7.5M10.5 10.5H13.5"
-                id="stroke2"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-        </div>
-        <div>
-          <div
-            class="t-image-viewer__modal-icon"
-          >
-            <svg
-              class="t-icon t-icon-image t-size-m"
-              fill="none"
-              height="1em"
-              name="image"
-              style="fill: none;"
-              viewBox="0 0 24 24"
-              width="1em"
-            >
-              <g
-                id="image"
-              >
-                <path
-                  d="M3 21H20L9 10L3 16V21Z"
-                  fill="transparent"
-                  id="fill1"
-                />
-                <circle
-                  cx="15.75"
-                  cy="8.25"
-                  fill="transparent"
-                  id="fill2"
-                  r="2"
-                />
-                <path
-                  d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                  id="stroke1"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-                <circle
-                  cx="15.75"
-                  cy="8.25"
-                  id="stroke2"
-                  r="2"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon"
-        >
-          <svg
-            class="t-icon t-icon-download t-size-m"
-            fill="none"
-            height="1em"
-            style="fill: none;"
-            viewBox="0 0 24 24"
-            width="1em"
-          >
-            <g
-              id="download"
-            >
-              <path
-                d="M16.5 10.5L12 15L7.5 10.5M12 13.75V4"
-                id="stroke1"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
-                d="M20.5 15V20H3.5V15"
-                id="stroke2"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-image-viewer__modal-icon t-image-viewer__modal-close-bt "
-    >
-      <svg
-        class="t-icon t-icon-close"
-        fill="none"
-        height="1em"
-        style="fill: none; font-size: 24px;"
-        viewBox="0 0 24 24"
-        width="1em"
-      >
-        <g
-          id="close"
-        >
-          <path
-            d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
-            id="stroke1"
-            stroke="currentColor"
-            stroke-linecap="square"
-            stroke-width="2"
-          />
-        </g>
-      </svg>
-    </div>
-    <div
-      class="t-image-viewer__modal-pic"
-    >
-      <div
-        class="t-image-viewer__modal-box"
-        style="transform: translate(0px, 0px) scale(1, 1);"
-      >
-        <img
-          alt="image"
-          class="t-image-viewer__modal-image"
-          draggable="false"
-          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-          style="transform: rotateZ(0deg) scale(1); display: block;"
-        />
-        <img
-          alt="image"
-          class="t-image-viewer__modal-image"
-          draggable="false"
-          src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-          style="transform: rotateZ(0deg) scale(1); display: none;"
-        />
-      </div>
-    </div>
-  </div>
-</body>
-`;
-
-exports[`ImageViewer toolbar event snapshots > 点击镜像按钮后快照 > toolbar-after-mirror 1`] = `
-<body>
-  <div>
-    <span>
-      工具栏测试
-    </span>
-  </div>
-  <div
-    class="t-image-viewer-preview-image"
-  >
-    <div
-      class="t-image-viewer__modal-mask"
-    />
-    <div
-      class="t-image-viewer__utils"
-    >
-      <div
-        class="t-image-viewer__utils-content"
-      >
-        <div>
-          <div
-            class="t-image-viewer__modal-icon"
-          >
-            <svg
-              class="t-icon t-icon-mirror t-size-m"
-              fill="none"
-              height="1em"
-              style="fill: none;"
-              viewBox="0 0 24 24"
-              width="1em"
-            >
-              <g
-                id="mirror"
-              >
-                <g
-                  id="fill1"
-                >
-                  <path
-                    d="M8 8.5V17.5H3L8 8.5Z"
-                    fill="transparent"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="transparent"
-                  />
-                </g>
-                <path
-                  d="M12 3L12 21"
-                  id="stroke2"
-                  stroke="currentColor"
-                  stroke-linecap="square"
-                  stroke-width="2"
-                />
-                <g
-                  id="stroke1"
-                >
-                  <path
-                    d="M8 8.5V17.5H3L8 8.5Z"
-                    stroke="currentColor"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    stroke="currentColor"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                  />
-                </g>
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div>
-          <div
-            class="t-image-viewer__modal-icon"
-          >
-            <svg
-              class="t-icon t-icon-rotation t-size-m"
-              fill="none"
-              height="1em"
-              style="fill: none;"
-              viewBox="0 0 24 24"
-              width="1em"
-            >
-              <g
-                id="rotation"
-              >
-                <path
-                  d="M12 20C12 15.5818 8.41828 12 4 12M3 3V21H21"
-                  id="stroke1"
-                  stroke="currentColor"
-                  stroke-linecap="square"
-                  stroke-width="2"
-                />
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon"
-        >
-          <svg
-            class="t-icon t-icon-zoom-out t-size-m"
-            fill="none"
-            height="1em"
-            style="fill: none;"
-            viewBox="0 0 24 24"
-            width="1em"
-          >
-            <g
-              id="zoom-out"
-            >
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
-                fill="transparent"
-                id="fill1"
-              />
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
-                id="stroke1"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
-                d="M7.5 10.5H10.5L13.5 10.5"
-                id="stroke2"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon t-image-viewer__utils-scale"
-        >
-          <span
-            class="t-image-viewer__modal-icon-label"
-          >
-            100%
-          </span>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon"
-        >
-          <svg
-            class="t-icon t-icon-zoom-in t-size-m"
-            fill="none"
-            height="1em"
-            style="fill: none;"
-            viewBox="0 0 24 24"
-            width="1em"
-          >
-            <g
-              id="zoom-in"
-            >
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
-                fill="transparent"
-                id="fill1"
-              />
-              <path
-                d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
-                id="stroke1"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
-                d="M10.5 13.5V10.5M10.5 10.5L10.5 7.5M10.5 10.5H7.5M10.5 10.5H13.5"
-                id="stroke2"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-        </div>
-        <div>
-          <div
-            class="t-image-viewer__modal-icon"
-          >
-            <svg
-              class="t-icon t-icon-image t-size-m"
-              fill="none"
-              height="1em"
-              name="image"
-              style="fill: none;"
-              viewBox="0 0 24 24"
-              width="1em"
-            >
-              <g
-                id="image"
-              >
-                <path
-                  d="M3 21H20L9 10L3 16V21Z"
-                  fill="transparent"
-                  id="fill1"
-                />
-                <circle
-                  cx="15.75"
-                  cy="8.25"
-                  fill="transparent"
-                  id="fill2"
-                  r="2"
-                />
-                <path
-                  d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                  id="stroke1"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-                <circle
-                  cx="15.75"
-                  cy="8.25"
-                  id="stroke2"
-                  r="2"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div
-          class="t-image-viewer__modal-icon"
-        >
-          <svg
-            class="t-icon t-icon-download t-size-m"
-            fill="none"
-            height="1em"
-            style="fill: none;"
-            viewBox="0 0 24 24"
-            width="1em"
-          >
-            <g
-              id="download"
-            >
-              <path
-                d="M16.5 10.5L12 15L7.5 10.5M12 13.75V4"
-                id="stroke1"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
-                d="M20.5 15V20H3.5V15"
-                id="stroke2"
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-        </div>
-      </div>
-    </div>
-    <div
-      class="t-image-viewer__modal-icon t-image-viewer__modal-close-bt "
-    >
-      <svg
-        class="t-icon t-icon-close"
-        fill="none"
-        height="1em"
-        style="fill: none; font-size: 24px;"
-        viewBox="0 0 24 24"
-        width="1em"
-      >
-        <g
-          id="close"
-        >
-          <path
-            d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
-            id="stroke1"
-            stroke="currentColor"
-            stroke-linecap="square"
-            stroke-width="2"
-          />
-        </g>
-      </svg>
-    </div>
     <div
       class="t-image-viewer__modal-pic"
     >

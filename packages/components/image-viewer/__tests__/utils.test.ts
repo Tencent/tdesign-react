@@ -5,26 +5,24 @@
  * - formatImages
  * - downloadImage（含跨域 canvasDownload 路径）
  */
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { downloadImage, formatImages } from '@tdesign/common-js/image-viewer/utils';
 import { act } from '@test/utils';
 
 // ─── formatImages ────────────────────────────────────────────────────────
-describe('formatImages', () => {
-  it('non-array input returns empty array', () => {
-    expect(formatImages(null)).toEqual([]);
-    expect(formatImages(undefined)).toEqual([]);
-    // @ts-expect-error testing invalid input
-    expect(formatImages('string')).toEqual([]);
-    // @ts-expect-error testing invalid input
-    expect(formatImages(123)).toEqual([]);
+describe('formatImages 图片格式化', () => {
+  test('非数组输入返回空数组', () => {
+    expect(formatImages(null as unknown as ImageInfo[])).toEqual([]);
+    expect(formatImages(undefined as unknown as ImageInfo[])).toEqual([]);
+    expect(formatImages('string' as unknown as ImageInfo[])).toEqual([]);
+    expect(formatImages(123 as unknown as ImageInfo[])).toEqual([]);
   });
 
-  it('empty array', () => {
+  test('空数组', () => {
     expect(formatImages([])).toEqual([]);
   });
 
-  it('string images with default properties', () => {
+  test('字符串数组：使用默认属性', () => {
     const images = ['image1.jpg', 'image2.png'];
     const result = formatImages(images);
 
@@ -34,7 +32,7 @@ describe('formatImages', () => {
     ]);
   });
 
-  it('ImageInfo objects with defaults', () => {
+  test('ImageInfo 对象：补全默认属性', () => {
     const images = [{ mainImage: 'main1.jpg' }, { mainImage: 'main2.jpg', thumbnail: 'thumb2.jpg' }];
     const result = formatImages(images);
 
@@ -42,13 +40,13 @@ describe('formatImages', () => {
     expect(result[1]).toEqual({ mainImage: 'main2.jpg', thumbnail: 'thumb2.jpg', download: true });
   });
 
-  it('custom download setting preserved', () => {
+  test('自定义 download 设置被保留', () => {
     const images = [{ mainImage: 'main.jpg', download: false }];
     const result = formatImages(images);
     expect(result[0].download).toBeFalsy();
   });
 
-  it('mixed string and ImageInfo array', () => {
+  test('字符串与 ImageInfo 混合数组', () => {
     const images = ['string-image.jpg', { mainImage: 'object-main.jpg', thumbnail: 'object-thumb.jpg' }];
     const result = formatImages(images);
 
@@ -58,7 +56,7 @@ describe('formatImages', () => {
     ]);
   });
 
-  it('File objects in images', () => {
+  test('File 对象作为图片输入', () => {
     const file = new File(['test'], 'test.png', { type: 'image/png' });
     const result = formatImages([file]);
 
@@ -67,19 +65,19 @@ describe('formatImages', () => {
     expect(result[0].download).toBeTruthy();
   });
 
-  it('ImageInfo with all properties', () => {
+  test('ImageInfo 包含全部属性', () => {
     const images = [{ mainImage: 'main.jpg', thumbnail: 'thumb.jpg', download: true, isSvg: true }];
     const result = formatImages(images);
     expect(result[0]).toEqual({ mainImage: 'main.jpg', thumbnail: 'thumb.jpg', download: true, isSvg: true });
   });
 
-  it('thumbnail defaults to mainImage', () => {
+  test('thumbnail 默认等于 mainImage', () => {
     const images = [{ mainImage: 'only-main.jpg' }];
     const result = formatImages(images);
     expect(result[0].thumbnail).toBe('only-main.jpg');
   });
 
-  it('large array of images', () => {
+  test('大数组处理（100 张图片）', () => {
     const images = Array.from({ length: 100 }, (_, i) => `image-${i}.jpg`);
     const result = formatImages(images);
     expect(result).toHaveLength(100);
@@ -92,7 +90,7 @@ describe('formatImages', () => {
 });
 
 // ─── downloadImage ───────────────────────────────────────────────────────
-describe('downloadImage', () => {
+describe('downloadImage 图片下载', () => {
   let mockCreateObjectURL: ReturnType<typeof vi.fn>;
   let mockRevokeObjectURL: ReturnType<typeof vi.fn>;
   let mockCreateElement: typeof document.createElement;
@@ -110,7 +108,7 @@ describe('downloadImage', () => {
     vi.restoreAllMocks();
   });
 
-  it('File input uses URL.createObjectURL', () => {
+  test('File 输入使用 URL.createObjectURL', () => {
     const mockClick = vi.fn();
     const mockRemove = vi.fn();
     const mockAnchor = { href: '', download: '', click: mockClick, remove: mockRemove };
@@ -128,7 +126,7 @@ describe('downloadImage', () => {
     expect(mockClick).toHaveBeenCalled();
   });
 
-  it('same-origin URL direct download', () => {
+  test('同源 URL 直接下载', () => {
     const mockClick = vi.fn();
     const mockRemove = vi.fn();
     const mockAnchor = { href: '', download: '', click: mockClick, remove: mockRemove };
@@ -146,7 +144,7 @@ describe('downloadImage', () => {
     expect(mockClick).toHaveBeenCalled();
   });
 
-  it('extracts filename from URL with query parameters', () => {
+  test('从带查询参数的 URL 提取文件名', () => {
     const mockClick = vi.fn();
     const mockRemove = vi.fn();
     const mockAnchor = { href: '', download: '', click: mockClick, remove: mockRemove };
@@ -161,7 +159,7 @@ describe('downloadImage', () => {
     expect(mockAnchor.download).toBe('image.png');
   });
 
-  it('extracts filename from URL with hash', () => {
+  test('从带 hash 的 URL 提取文件名', () => {
     const mockClick = vi.fn();
     const mockRemove = vi.fn();
     const mockAnchor = { href: '', download: '', click: mockClick, remove: mockRemove };
@@ -176,8 +174,7 @@ describe('downloadImage', () => {
     expect(mockAnchor.download).toBe('image.jpg');
   });
 
-  it('cross-origin URL triggers canvasDownload (Image load path)', () => {
-    // 跨域 URL 进入 canvasDownload 分支，创建 Image 元素
+  test('跨域 URL 触发 canvasDownload 路径', () => {
     const crossOriginUrl = 'https://cross-origin.example.com/photo.jpg';
 
     const setAttribute = vi.fn();
@@ -195,14 +192,12 @@ describe('downloadImage', () => {
 
     downloadImage(crossOriginUrl);
 
-    // 应该新建 Image 并通过 setAttribute 设置 crossOrigin
     expect(setAttribute).toHaveBeenCalledWith('crossOrigin', 'anonymous');
     expect(mockImage.src).toBe(crossOriginUrl);
-    // click 不会被触发（图片还未 onload）
     expect(mockClick).not.toHaveBeenCalled();
   });
 
-  it('cross-origin image onload triggers canvas download', () => {
+  test('跨域图片 onload 后触发 canvas 下载', () => {
     const crossOriginUrl = 'https://cross-origin.example.com/photo.png';
 
     const mockCanvas = {
@@ -242,7 +237,6 @@ describe('downloadImage', () => {
 
     downloadImage(crossOriginUrl);
 
-    // 触发 onload
     expect(onloadFn).toBeTruthy();
     act(() => {
       onloadFn?.();
@@ -252,7 +246,7 @@ describe('downloadImage', () => {
     expect(mockCanvas.toBlob).toHaveBeenCalled();
   });
 
-  it('random name when URL has no filename', () => {
+  test('URL 无文件名时使用随机名称', () => {
     const mockClick = vi.fn();
     const mockRemove = vi.fn();
     const mockAnchor = { href: '', download: '', click: mockClick, remove: mockRemove };
@@ -267,16 +261,93 @@ describe('downloadImage', () => {
     expect(mockAnchor.download).toBeTruthy();
     expect(mockClick).toHaveBeenCalled();
   });
+
+  test('URL 含多个 / 和复杂路径时正确提取文件名', () => {
+    const mockClick = vi.fn();
+    const mockRemove = vi.fn();
+    const mockAnchor = { href: '', download: '', click: mockClick, remove: mockRemove };
+
+    vi.spyOn(document, 'createElement').mockImplementation((tag) => {
+      if (tag === 'a') return mockAnchor as unknown as HTMLAnchorElement;
+      return mockCreateElement(tag);
+    });
+
+    const deepUrl = `${window.location.origin}/a/b/c/deep-image.png`;
+    downloadImage(deepUrl);
+    expect(mockAnchor.download).toBe('deep-image.png');
+  });
+
+  test('File 对象下载后调用 revokeObjectURL', () => {
+    const mockClick = vi.fn();
+    const mockRemove = vi.fn();
+    const mockAnchor = { href: '', download: '', click: mockClick, remove: mockRemove };
+
+    vi.spyOn(document, 'createElement').mockImplementation((tag) => {
+      if (tag === 'a') return mockAnchor as unknown as HTMLAnchorElement;
+      return mockCreateElement(tag);
+    });
+
+    const file = new File(['test'], 'photo.jpg', { type: 'image/jpeg' });
+    downloadImage(file);
+
+    expect(mockCreateObjectURL).toHaveBeenCalledWith(file);
+    expect(mockClick).toHaveBeenCalled();
+    // revokeObjectURL is called after click, need to verify
+    expect(mockRevokeObjectURL).toHaveBeenCalled();
+  });
+
+  test('跨域 URL jpg 扩展名使用 image/jpeg mime', () => {
+    const crossOriginUrl = 'https://other.com/photo.jpg';
+
+    let onloadFn: (() => void) | null = null;
+    const mockImage: Partial<HTMLImageElement> & { width: number; height: number } = {
+      setAttribute: vi.fn(),
+      width: 100,
+      height: 100,
+    };
+    Object.defineProperty(mockImage, 'onload', {
+      set(fn) {
+        onloadFn = fn;
+      },
+    });
+    const ImageSpy = vi.fn().mockImplementation(() => mockImage);
+    (global as any).Image = ImageSpy;
+
+    const mockCanvas = {
+      width: 0,
+      height: 0,
+      getContext: vi.fn().mockReturnValue({ drawImage: vi.fn() }),
+      toBlob: vi.fn(),
+    };
+
+    const mockBlobClick = vi.fn();
+    const mockBlobAnchor = { href: '', download: '', click: mockBlobClick, remove: vi.fn() };
+    vi.spyOn(document, 'createElement').mockImplementation((tag) => {
+      if (tag === 'canvas') return mockCanvas as unknown as HTMLCanvasElement;
+      if (tag === 'a') return mockBlobAnchor as unknown as HTMLAnchorElement;
+      return mockCreateElement(tag);
+    });
+
+    downloadImage(crossOriginUrl);
+
+    expect(onloadFn).toBeTruthy();
+    act(() => {
+      onloadFn?.();
+    });
+
+    // toBlob should be called with jpeg mime for .jpg extension
+    expect(mockCanvas.toBlob).toHaveBeenCalledWith(expect.any(Function), 'image/jpeg');
+  });
 });
 
 // ─── 快照测试 ────────────────────────────────────────────────────────────
-describe('formatImages snapshots', () => {
-  it('string images snapshot', () => {
+describe('formatImages 快照', () => {
+  test('字符串数组快照', () => {
     const result = formatImages(['img1.jpg', 'img2.png', 'img3.gif']);
     expect(result).toMatchSnapshot('formatImages-string-array');
   });
 
-  it('ImageInfo objects snapshot', () => {
+  test('ImageInfo 对象数组快照', () => {
     const result = formatImages([
       { mainImage: 'main1.jpg', thumbnail: 'thumb1.jpg', download: true },
       { mainImage: 'main2.jpg', download: false, isSvg: true },
@@ -284,12 +355,12 @@ describe('formatImages snapshots', () => {
     expect(result).toMatchSnapshot('formatImages-image-info-array');
   });
 
-  it('mixed array snapshot', () => {
+  test('混合数组快照', () => {
     const result = formatImages(['simple.jpg', { mainImage: 'complex.jpg', thumbnail: 'complex-thumb.jpg' }]);
     expect(result).toMatchSnapshot('formatImages-mixed-array');
   });
 
-  it('empty array snapshot', () => {
+  test('空数组快照', () => {
     expect(formatImages([])).toMatchSnapshot('formatImages-empty');
   });
 });

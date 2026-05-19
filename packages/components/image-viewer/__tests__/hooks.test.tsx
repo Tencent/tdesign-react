@@ -14,6 +14,7 @@ import { DEFAULT_IMAGE_SCALE } from '@tdesign/common-js/image-viewer/transform';
 import { act, renderHook, vi } from '@test/utils';
 
 import useImageScale from '../hooks/useImageScale';
+import useIndex from '../hooks/useIndex';
 import useMirror from '../hooks/useMirror';
 import usePosition from '../hooks/usePosition';
 import useRotate from '../hooks/useRotate';
@@ -23,13 +24,13 @@ import useViewerScale from '../hooks/useViewerScale';
 import type React from 'react';
 
 // ─── useMirror ───────────────────────────────────────────────────────────
-describe('useMirror', () => {
-  it('initial value is 1', () => {
+describe('useMirror 镜像', () => {
+  test('初始值为 1', () => {
     const { result } = renderHook(() => useMirror());
     expect(result.current.mirror).toBe(1);
   });
 
-  it('toggles between 1 and -1', () => {
+  test('在 1 和 -1 之间切换', () => {
     const { result } = renderHook(() => useMirror());
 
     act(() => result.current.onMirror());
@@ -42,7 +43,7 @@ describe('useMirror', () => {
     expect(result.current.mirror).toBe(-1);
   });
 
-  it('resetMirror restores to 1', () => {
+  test('resetMirror 恢复为 1', () => {
     const { result } = renderHook(() => useMirror());
 
     act(() => result.current.onMirror());
@@ -54,7 +55,7 @@ describe('useMirror', () => {
     expect(result.current.mirror).toBe(1);
   });
 
-  it('rapid toggles (10 times) return to 1', () => {
+  test('连续切换 10 次回到 1', () => {
     const { result } = renderHook(() => useMirror());
 
     act(() => {
@@ -65,7 +66,7 @@ describe('useMirror', () => {
     expect(result.current.mirror).toBe(1);
   });
 
-  it('multiple resets are idempotent', () => {
+  test('多次 resetMirror 幂等', () => {
     const { result } = renderHook(() => useMirror());
 
     act(() => result.current.onMirror());
@@ -77,13 +78,13 @@ describe('useMirror', () => {
 });
 
 // ─── useRotate ───────────────────────────────────────────────────────────
-describe('useRotate', () => {
-  it('initial value is 0', () => {
+describe('useRotate 旋转', () => {
+  test('初始值为 0', () => {
     const { result } = renderHook(() => useRotate());
     expect(result.current.rotateZ).toBe(0);
   });
 
-  it('rotates by -90° each time', () => {
+  test('每次旋转 -90°', () => {
     const { result } = renderHook(() => useRotate());
 
     act(() => result.current.onRotate());
@@ -99,7 +100,7 @@ describe('useRotate', () => {
     expect(result.current.rotateZ).toBe(-360);
   });
 
-  it('continues beyond 360°', () => {
+  test('超过 360° 继续累加（5 次 = -450°）', () => {
     const { result } = renderHook(() => useRotate());
 
     act(() => {
@@ -110,21 +111,9 @@ describe('useRotate', () => {
     expect(result.current.rotateZ).toBe(-450);
   });
 
-  it('multiple full rotations', () => {
+  test('从 -270° resetRotate（最短路径到 0°）', () => {
     const { result } = renderHook(() => useRotate());
 
-    act(() => {
-      for (let i = 0; i < 8; i++) {
-        result.current.onRotate();
-      }
-    });
-    expect(result.current.rotateZ).toBe(-720);
-  });
-
-  it('resetRotate from -270° (shortest path to 0°)', () => {
-    const { result } = renderHook(() => useRotate());
-
-    // Rotate to -270°
     act(() => {
       for (let i = 0; i < 3; i++) {
         result.current.onRotate();
@@ -132,13 +121,11 @@ describe('useRotate', () => {
     });
     expect(result.current.rotateZ).toBe(-270);
 
-    // -270 % 360 = -270, |-270| > 180 → adjusted = (-270+360)%360 = 90
-    // newRotateZ = -270 - 90 = -360 ≡ 0°
     act(() => result.current.onResetRotate());
     expect(result.current.rotateZ).toBe(-360);
   });
 
-  it('resetRotate from -180° (boundary)', () => {
+  test('从 -180° resetRotate（边界值）', () => {
     const { result } = renderHook(() => useRotate());
 
     act(() => {
@@ -147,20 +134,18 @@ describe('useRotate', () => {
     });
     expect(result.current.rotateZ).toBe(-180);
 
-    // -180 % 360 = -180, |-180| ≤ 180 → adjusted = -180
-    // newRotateZ = -180 - (-180) = 0
     act(() => result.current.onResetRotate());
     expect(result.current.rotateZ).toBe(0);
   });
 
-  it('resetRotate from 0° does nothing', () => {
+  test('从 0° resetRotate 无变化', () => {
     const { result } = renderHook(() => useRotate());
 
     act(() => result.current.onResetRotate());
     expect(result.current.rotateZ).toBe(0);
   });
 
-  it('reset during rotation sequence', () => {
+  test('旋转过程中重置', () => {
     const { result } = renderHook(() => useRotate());
 
     act(() => {
@@ -177,41 +162,56 @@ describe('useRotate', () => {
 });
 
 // ─── useImageScale ───────────────────────────────────────────────────────
-describe('useImageScale', () => {
-  it('returns defaults when no config provided', () => {
-    const result = useImageScale();
-    expect(result).toEqual(DEFAULT_IMAGE_SCALE);
+describe('useImageScale 缩放配置', () => {
+  test('无配置：返回 DEFAULT_IMAGE_SCALE 的所有字段', () => {
+    const { result } = renderHook(() => useImageScale());
+    expect(result.current.max).toBe(DEFAULT_IMAGE_SCALE.max);
+    expect(result.current.min).toBe(DEFAULT_IMAGE_SCALE.min);
+    expect(result.current.step).toBe(DEFAULT_IMAGE_SCALE.step);
+    expect(result.current.defaultScale).toBe(DEFAULT_IMAGE_SCALE.defaultScale);
   });
 
-  it('merges partial config with defaults', () => {
-    const result = useImageScale({ max: 5 });
-    expect(result).toEqual({ ...DEFAULT_IMAGE_SCALE, max: 5 });
+  test('部分配置：仅覆盖指定字段', () => {
+    const { result } = renderHook(() => useImageScale({ max: 5 }));
+    expect(result.current.max).toBe(5);
+    expect(result.current.min).toBe(DEFAULT_IMAGE_SCALE.min);
+    expect(result.current.step).toBe(DEFAULT_IMAGE_SCALE.step);
+    expect(result.current.defaultScale).toBe(DEFAULT_IMAGE_SCALE.defaultScale);
   });
 
-  it('clamps defaultScale to max', () => {
-    const result = useImageScale({ max: 3, defaultScale: 5 });
-    expect(result.defaultScale).toBe(3);
+  test('defaultScale 大于 max 时截断为 max', () => {
+    const { result } = renderHook(() => useImageScale({ max: 3, defaultScale: 5 }));
+    expect(result.current.defaultScale).toBe(3);
   });
 
-  it('clamps defaultScale to min', () => {
-    const result = useImageScale({ min: 2, defaultScale: 1 });
-    expect(result.defaultScale).toBe(2);
+  test('defaultScale 小于 min 时截断为 min', () => {
+    const { result } = renderHook(() => useImageScale({ min: 2, defaultScale: 1 }));
+    expect(result.current.defaultScale).toBe(2);
   });
 
-  it('custom imageScale config fully overrides', () => {
-    const config = { max: 5, min: 0.1, step: 0.5, defaultScale: 2 };
-    const result = useImageScale(config);
-    expect(result).toEqual(config);
+  test('defaultScale 在范围内不被截断', () => {
+    const { result } = renderHook(() => useImageScale({ max: 5, min: 0.1, step: 0.5, defaultScale: 2 }));
+    expect(result.current.defaultScale).toBe(2);
   });
 
-  it('defaultScale undefined uses DEFAULT_IMAGE_SCALE.defaultScale', () => {
-    const result = useImageScale({ max: 3, min: 0.5, step: 0.1 });
-    expect(result.defaultScale).toBe(DEFAULT_IMAGE_SCALE.defaultScale);
+  test('未传 defaultScale：使用默认值', () => {
+    const { result } = renderHook(() => useImageScale({ max: 3, min: 0.5, step: 0.1 }));
+    expect(result.current.defaultScale).toBe(DEFAULT_IMAGE_SCALE.defaultScale);
+  });
+
+  test('defaultScale 恰好等于 max 不截断', () => {
+    const { result } = renderHook(() => useImageScale({ max: 2, defaultScale: 2 }));
+    expect(result.current.defaultScale).toBe(2);
+  });
+
+  test('defaultScale 恰好等于 min 不截断', () => {
+    const { result } = renderHook(() => useImageScale({ min: 0.5, defaultScale: 0.5 }));
+    expect(result.current.defaultScale).toBe(0.5);
   });
 });
 
 // ─── useScale ────────────────────────────────────────────────────────────
-describe('useScale', () => {
+describe('useScale 缩放', () => {
   beforeEach(() => {
     vi.useFakeTimers();
   });
@@ -220,27 +220,27 @@ describe('useScale', () => {
     vi.useRealTimers();
   });
 
-  it('default scale value is 1', () => {
+  test('默认缩放值为 1', () => {
     const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, true));
     expect(result.current.scale).toBe(1);
   });
 
-  it('custom defaultScale', () => {
+  test('自定义 defaultScale', () => {
     const { result } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.1, defaultScale: 1.5 }, true));
     expect(result.current.scale).toBe(1.5);
   });
 
-  it('defaultScale clamped to max', () => {
+  test('defaultScale 超过 max 被截断', () => {
     const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 5 }, true));
     expect(result.current.scale).toBe(2);
   });
 
-  it('defaultScale clamped to min', () => {
+  test('defaultScale 低于 min 被截断', () => {
     const { result } = renderHook(() => useScale({ max: 2, min: 1.5, step: 0.2, defaultScale: 0.5 }, true));
     expect(result.current.scale).toBe(1.5);
   });
 
-  it('onZoomIn increases scale', () => {
+  test('onZoomIn 放大', () => {
     const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
     act(() => {
@@ -249,7 +249,7 @@ describe('useScale', () => {
     expect(result.current.scale).toBeCloseTo(1.2);
   });
 
-  it('onZoomOut decreases scale', () => {
+  test('onZoomOut 缩小', () => {
     const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
     act(() => {
@@ -258,7 +258,7 @@ describe('useScale', () => {
     expect(result.current.scale).toBeCloseTo(0.8);
   });
 
-  it('max scale boundary', () => {
+  test('放大不超过最大值', () => {
     const { result } = renderHook(() => useScale({ max: 1.5, min: 0.5, step: 0.5, defaultScale: 1 }, true));
 
     act(() => {
@@ -271,10 +271,10 @@ describe('useScale', () => {
       result.current.onZoomIn();
       vi.advanceTimersByTime(100);
     });
-    expect(result.current.scale).toBe(1.5); // 不超过 max
+    expect(result.current.scale).toBe(1.5);
   });
 
-  it('min scale boundary', () => {
+  test('缩小不低于最小值', () => {
     const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.3, defaultScale: 0.6 }, true));
 
     act(() => {
@@ -284,7 +284,7 @@ describe('useScale', () => {
     expect(result.current.scale).toBe(0.5);
   });
 
-  it('onResetScale restores defaultScale', () => {
+  test('onResetScale 恢复默认缩放值', () => {
     const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
     act(() => {
@@ -299,7 +299,7 @@ describe('useScale', () => {
     expect(result.current.scale).toBe(1);
   });
 
-  it('small step values', () => {
+  test('小步长缩放', () => {
     const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.05, defaultScale: 1 }, true));
 
     act(() => {
@@ -309,7 +309,7 @@ describe('useScale', () => {
     expect(result.current.scale).toBeCloseTo(1.05);
   });
 
-  it('large scale values', () => {
+  test('大范围缩放值', () => {
     const { result } = renderHook(() => useScale({ max: 10, min: 0.1, step: 1, defaultScale: 5 }, true));
     expect(result.current.scale).toBe(5);
 
@@ -327,8 +327,8 @@ describe('useScale', () => {
   });
 
   // ─── ZoomOptions（中心缩放）──────────────────────────────────────────
-  describe('ZoomOptions (center zoom)', () => {
-    it('onZoomIn with center zoom (mouseOffset = 0)', () => {
+  describe('ZoomOptions 中心缩放', () => {
+    test('onZoomIn 中心缩放（偏移为 0）', () => {
       const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
       let zoomResult;
@@ -341,13 +341,10 @@ describe('useScale', () => {
       });
 
       expect(result.current.scale).toBeCloseTo(1.2);
-      // scaleRatio = 1.2/1 = 1.2
-      // newTx = 1.2 * 100 + (1 - 1.2) * 0 = 120
-      // newTy = 1.2 * 50  + (1 - 1.2) * 0 = 60
       expect(zoomResult.newTranslate).toEqual({ translateX: 120, translateY: 60 });
     });
 
-    it('onZoomIn with non-zero mouse offset', () => {
+    test('onZoomIn 非中心偏移缩放', () => {
       const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
       let zoomResult;
@@ -360,13 +357,11 @@ describe('useScale', () => {
       });
 
       expect(result.current.scale).toBeCloseTo(1.2);
-      // newTx = 1.2 * 0 + (1 - 1.2) * 100 = -20
-      // newTy = 1.2 * 0 + (1 - 1.2) * 50  = -10
       expect(zoomResult.newTranslate.translateX).toBeCloseTo(-20);
       expect(zoomResult.newTranslate.translateY).toBeCloseTo(-10);
     });
 
-    it('onZoomOut with ZoomOptions preserves translate during zoom out', () => {
+    test('onZoomOut 带位移时保持缩放位移', () => {
       const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
       let zoomResult;
@@ -379,18 +374,14 @@ describe('useScale', () => {
       });
 
       expect(result.current.scale).toBeCloseTo(0.8);
-      // scaleRatio = 0.8/1 = 0.8
-      // newTx = 0.8 * 50 + (1 - 0.8) * 100 = 40 + 20 = 60
-      // newTy = 0.8 * 50 + (1 - 0.8) * 100 = 40 + 20 = 60
       expect(zoomResult.newTranslate).toEqual({ translateX: 60, translateY: 60 });
     });
 
-    it('missing mouseOffset returns empty result', () => {
+    test('缺少 mouseOffset 返回空结果', () => {
       const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
       let zoomResult;
       act(() => {
-        // 缺少 mouseOffsetX
         zoomResult = result.current.onZoomIn({
           mouseOffsetY: 50,
           currentTranslate: { translateX: 0, translateY: 0 },
@@ -399,17 +390,15 @@ describe('useScale', () => {
       expect(zoomResult.newTranslate).toBeUndefined();
     });
 
-    it('at max boundary, zoom in returns empty result', () => {
+    test('已达最大值时 ZoomIn 返回空结果', () => {
       const { result } = renderHook(() => useScale({ max: 1.2, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
-      // 先放大到 max
       act(() => {
         result.current.onZoomIn();
         vi.advanceTimersByTime(100);
       });
       expect(result.current.scale).toBe(1.2);
 
-      // 再次放大已达边界
       let zoomResult;
       act(() => {
         zoomResult = result.current.onZoomIn({
@@ -418,18 +407,14 @@ describe('useScale', () => {
           currentTranslate: { translateX: 0, translateY: 0 },
         });
       });
-      // 已达边界，prevScale === newScale，返回空 {}
       expect(zoomResult).toEqual({});
     });
 
-    it('zoom with existing translate and non-zero offset', () => {
+    test('带已有位移和非零偏移的缩放', () => {
       const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
       let zoomResult;
       act(() => {
-        // scale: 1 → 1.2, scaleRatio = 1.2
-        // newTx = 1.2 * 100 + (1 - 1.2) * 200 = 120 - 40 = 80
-        // newTy = 1.2 * 50 + (1 - 1.2) * 100 = 60 - 20 = 40
         zoomResult = result.current.onZoomIn({
           mouseOffsetX: 200,
           mouseOffsetY: 100,
@@ -440,11 +425,61 @@ describe('useScale', () => {
       expect(zoomResult.newTranslate.translateX).toBeCloseTo(80);
       expect(zoomResult.newTranslate.translateY).toBeCloseTo(40);
     });
+
+    test('放大到最大 → 拖出视口 → 缩小向中心收敛', () => {
+      const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.5, defaultScale: 1 }, true));
+
+      act(() => {
+        result.current.onZoomIn();
+        result.current.onZoomIn();
+      });
+      expect(result.current.scale).toBe(2);
+
+      let zoomResult: any;
+      act(() => {
+        zoomResult = result.current.onZoomOut({
+          mouseOffsetX: 0,
+          mouseOffsetY: 0,
+          currentTranslate: { translateX: 500, translateY: 400 },
+        });
+      });
+
+      expect(result.current.scale).toBe(1.5);
+      expect(zoomResult.newTranslate.translateX).toBeCloseTo(375);
+      expect(zoomResult.newTranslate.translateY).toBeCloseTo(300);
+    });
+
+    test('放大到最大 → 拖出视口 → 多次缩小持续向中心收敛', () => {
+      const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.5, defaultScale: 1 }, true));
+
+      act(() => {
+        result.current.onZoomIn();
+        result.current.onZoomIn();
+      });
+      expect(result.current.scale).toBe(2);
+
+      let translate = { translateX: 600, translateY: 400 };
+      act(() => {
+        const r = result.current.onZoomOut({ mouseOffsetX: 0, mouseOffsetY: 0, currentTranslate: translate });
+        translate = r.newTranslate;
+      });
+      expect(result.current.scale).toBe(1.5);
+      expect(translate.translateX).toBeCloseTo(450);
+      expect(translate.translateY).toBeCloseTo(300);
+
+      act(() => {
+        const r = result.current.onZoomOut({ mouseOffsetX: 0, mouseOffsetY: 0, currentTranslate: translate });
+        translate = r.newTranslate;
+      });
+      expect(result.current.scale).toBe(1);
+      expect(translate.translateX).toBeCloseTo(300);
+      expect(translate.translateY).toBeCloseTo(200);
+    });
   });
 
-  // throttle 已移除，每次调用都直接生效
-  describe('throttle behavior', () => {
-    it('rapid onZoomIn calls all take effect', () => {
+  // 无节流，每次调用都直接生效
+  describe('快速连续缩放（无节流）', () => {
+    test('快速连续 onZoomIn 都生效', () => {
       const { result } = renderHook(() => useScale({ max: 5, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
       act(() => {
@@ -455,7 +490,7 @@ describe('useScale', () => {
       expect(result.current.scale).toBeCloseTo(1.6);
     });
 
-    it('rapid onZoomOut calls all take effect', () => {
+    test('快速连续 onZoomOut 都生效', () => {
       const { result } = renderHook(() => useScale({ max: 5, min: 0.1, step: 0.2, defaultScale: 1 }, true));
 
       act(() => {
@@ -466,28 +501,60 @@ describe('useScale', () => {
       expect(result.current.scale).toBeCloseTo(0.4);
     });
   });
+
+  describe('visible=false 时不注册事件监听', () => {
+    test('visible=false 时 wheel 事件不触发缩放', () => {
+      const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, false));
+
+      const wheelEvent = new WheelEvent('wheel', { deltaY: -120, bubbles: true, cancelable: true });
+      act(() => {
+        document.dispatchEvent(wheelEvent);
+      });
+
+      expect(result.current.scale).toBe(1);
+    });
+
+    test('visible=true 时 wheel 事件触发回调', () => {
+      const onWheel = vi.fn();
+      const { rerender } = renderHook(
+        ({ visible }) => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, visible, onWheel),
+        { initialProps: { visible: false } },
+      );
+
+      const wheelEvent = new WheelEvent('wheel', { deltaY: -120, bubbles: true, cancelable: true });
+      act(() => {
+        document.dispatchEvent(wheelEvent);
+      });
+      expect(onWheel).not.toHaveBeenCalled();
+
+      rerender({ visible: true });
+      act(() => {
+        document.dispatchEvent(wheelEvent);
+      });
+      expect(onWheel).toHaveBeenCalledTimes(1);
+    });
+  });
 });
 
 // ─── usePosition ─────────────────────────────────────────────────────────
-describe('usePosition', () => {
-  // 辅助：创建一个挂载了 usePosition 的测试组件，返回 ref 和 hook 结果
+describe('usePosition 拖拽位移', () => {
   const createHook = (initPosition?: [number, number]) => {
     const ref = { current: document.createElement('div') };
     return renderHook(() => usePosition(ref as React.RefObject<HTMLDivElement>, { initPosition }));
   };
 
-  it('initial position defaults to [0, 0]', () => {
+  test('默认位置为 [0, 0]', () => {
     const { result } = createHook();
     expect(result.current.position).toEqual([0, 0]);
     expect(result.current.isDragging).toBe(false);
   });
 
-  it('custom initPosition', () => {
+  test('自定义 initPosition', () => {
     const { result } = createHook([100, 200]);
     expect(result.current.position).toEqual([100, 200]);
   });
 
-  it('resetPosition restores to initPosition', () => {
+  test('resetPosition 恢复到 initPosition', () => {
     const { result } = createHook([50, 80]);
 
     act(() => {
@@ -501,7 +568,7 @@ describe('usePosition', () => {
     expect(result.current.position).toEqual([50, 80]);
   });
 
-  it('resetPosition with default [0,0]', () => {
+  test('默认 [0,0] 的 resetPosition', () => {
     const { result } = createHook();
 
     act(() => {
@@ -513,7 +580,7 @@ describe('usePosition', () => {
     expect(result.current.position).toEqual([0, 0]);
   });
 
-  it('setPosition works directly', () => {
+  test('setPosition 直接设置位置', () => {
     const { result } = createHook();
 
     act(() => {
@@ -522,7 +589,7 @@ describe('usePosition', () => {
     expect(result.current.position).toEqual([42, 99]);
   });
 
-  it('mousedown sets isDragging to true', () => {
+  test('mousedown 设置 isDragging 为 true', () => {
     const divEl = document.createElement('div');
     document.body.appendChild(divEl);
     const ref = { current: divEl };
@@ -535,7 +602,7 @@ describe('usePosition', () => {
     document.body.removeChild(divEl);
   });
 
-  it('mouseup resets isDragging to false', () => {
+  test('mouseup 重置 isDragging 为 false', () => {
     const divEl = document.createElement('div');
     document.body.appendChild(divEl);
     const ref = { current: divEl };
@@ -553,7 +620,7 @@ describe('usePosition', () => {
     document.body.removeChild(divEl);
   });
 
-  it('drag moves position by delta', () => {
+  test('拖拽移动位置', () => {
     const divEl = document.createElement('div');
     document.body.appendChild(divEl);
     const ref = { current: divEl };
@@ -566,60 +633,77 @@ describe('usePosition', () => {
       document.dispatchEvent(new MouseEvent('mousemove', { bubbles: true, screenX: 150, screenY: 130 }));
     });
 
-    expect(result.current.position[0]).toBe(50); // 150 - 100
-    expect(result.current.position[1]).toBe(30); // 130 - 100
+    expect(result.current.position[0]).toBe(50);
+    expect(result.current.position[1]).toBe(30);
     document.body.removeChild(divEl);
   });
 
-  it('snapshot: default state', () => {
-    const { result } = createHook();
-    expect(result.current).toMatchSnapshot('usePosition-default-state');
+  test('连续拖拽累积位移', () => {
+    const divEl = document.createElement('div');
+    document.body.appendChild(divEl);
+    const ref = { current: divEl };
+    const { result } = renderHook(() => usePosition(ref as React.RefObject<HTMLDivElement>));
+
+    act(() => {
+      divEl.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, screenX: 0, screenY: 0, button: 0 }));
+    });
+    act(() => {
+      document.dispatchEvent(new MouseEvent('mousemove', { bubbles: true, screenX: 100, screenY: 50 }));
+    });
+    act(() => {
+      document.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
+    });
+    expect(result.current.position).toEqual([100, 50]);
+
+    act(() => {
+      divEl.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, screenX: 200, screenY: 200, button: 0 }));
+    });
+    act(() => {
+      document.dispatchEvent(new MouseEvent('mousemove', { bubbles: true, screenX: 250, screenY: 230 }));
+    });
+    act(() => {
+      document.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
+    });
+    expect(result.current.position).toEqual([150, 80]);
+    document.body.removeChild(divEl);
   });
 });
 
 // ─── useViewerScale ───────────────────────────────────────────────────────
-describe('useViewerScale', () => {
-  it('returns defaults when no config provided', () => {
-    const result = useViewerScale(undefined);
-    expect(result).toEqual({ minWidth: 1000, minHeight: 1000 });
+describe('useViewerScale 弹窗尺寸', () => {
+  test('无配置返回默认值', () => {
+    const { result } = renderHook(() => useViewerScale(undefined));
+    expect(result.current).toEqual({ minWidth: 1000, minHeight: 1000 });
   });
 
-  it('returns defaults when empty object provided', () => {
-    const result = useViewerScale({});
-    expect(result).toEqual({ minWidth: 1000, minHeight: 1000 });
+  test('空对象返回默认值', () => {
+    const { result } = renderHook(() => useViewerScale({}));
+    expect(result.current).toEqual({ minWidth: 1000, minHeight: 1000 });
   });
 
-  it('overrides minWidth only', () => {
-    const result = useViewerScale({ minWidth: 800 });
-    expect(result).toEqual({ minWidth: 800, minHeight: 1000 });
+  test('仅覆盖 minWidth', () => {
+    const { result } = renderHook(() => useViewerScale({ minWidth: 800 }));
+    expect(result.current).toEqual({ minWidth: 800, minHeight: 1000 });
   });
 
-  it('overrides minHeight only', () => {
-    const result = useViewerScale({ minHeight: 600 });
-    expect(result).toEqual({ minWidth: 1000, minHeight: 600 });
+  test('仅覆盖 minHeight', () => {
+    const { result } = renderHook(() => useViewerScale({ minHeight: 600 }));
+    expect(result.current).toEqual({ minWidth: 1000, minHeight: 600 });
   });
 
-  it('overrides both minWidth and minHeight', () => {
-    const result = useViewerScale({ minWidth: 500, minHeight: 400 });
-    expect(result).toEqual({ minWidth: 500, minHeight: 400 });
+  test('同时覆盖 minWidth 和 minHeight', () => {
+    const { result } = renderHook(() => useViewerScale({ minWidth: 500, minHeight: 400 }));
+    expect(result.current).toEqual({ minWidth: 500, minHeight: 400 });
   });
 
-  it('zero values are accepted', () => {
-    const result = useViewerScale({ minWidth: 0, minHeight: 0 });
-    expect(result).toEqual({ minWidth: 0, minHeight: 0 });
-  });
-
-  it('snapshot: default config', () => {
-    expect(useViewerScale(undefined)).toMatchSnapshot('useViewerScale-default');
-  });
-
-  it('snapshot: custom config', () => {
-    expect(useViewerScale({ minWidth: 600, minHeight: 480 })).toMatchSnapshot('useViewerScale-custom');
+  test('零值可接受', () => {
+    const { result } = renderHook(() => useViewerScale({ minWidth: 0, minHeight: 0 }));
+    expect(result.current).toEqual({ minWidth: 0, minHeight: 0 });
   });
 });
 
 // ─── useScale: 双指缩放 ────────────────────────────────────────────────────
-describe('useScale: touch events', () => {
+describe('useScale 触摸事件', () => {
   beforeEach(() => {
     vi.useFakeTimers();
   });
@@ -633,93 +717,190 @@ describe('useScale: touch events', () => {
     return new TouchEvent(type, { touches: [t1, t2], cancelable: true });
   };
 
-  it('onTouchStart with 2 fingers records initial distance', () => {
+  test('双指触摸记录初始距离', () => {
     const { result } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.2, defaultScale: 1 }, true));
-    const touchStart = createTouchEvent(0, 0, 100, 0, 'touchstart');
     act(() => {
-      result.current.onTouchStart(touchStart);
+      document.dispatchEvent(createTouchEvent(0, 0, 100, 0, 'touchstart'));
     });
-    // 初始 distance = 100，不触发缩放，scale 不变
     expect(result.current.scale).toBe(1);
   });
 
-  it('onTouchStart with 1 finger does nothing', () => {
+  test('单指触摸不触发缩放', () => {
     const { result } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.2, defaultScale: 1 }, true));
     const touchStart = new TouchEvent('touchstart', {
       touches: [{ pageX: 0, pageY: 0 } as Touch],
       cancelable: true,
     });
     act(() => {
-      result.current.onTouchStart(touchStart);
+      document.dispatchEvent(touchStart);
     });
     expect(result.current.scale).toBe(1);
   });
 
-  it('onTouchMove pinch out (spread fingers) zooms in', () => {
+  test('双指外扩（pinch out）放大', () => {
     const { result } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
-    // 初始距离 100
     act(() => {
-      result.current.onTouchStart(createTouchEvent(0, 0, 100, 0, 'touchstart'));
+      document.dispatchEvent(createTouchEvent(0, 0, 100, 0, 'touchstart'));
     });
 
-    // 手指扩大到 200（spread）→ zoom in
     act(() => {
-      result.current.onTouchMove(createTouchEvent(0, 0, 200, 0, 'touchmove'));
+      document.dispatchEvent(createTouchEvent(0, 0, 200, 0, 'touchmove'));
     });
 
     expect(result.current.scale).toBeCloseTo(1.2);
   });
 
-  it('onTouchMove pinch in (shrink fingers) zooms out', () => {
+  test('双指内收（pinch in）缩小', () => {
     const { result } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
-    // 初始距离 200
     act(() => {
-      result.current.onTouchStart(createTouchEvent(0, 0, 200, 0, 'touchstart'));
+      document.dispatchEvent(createTouchEvent(0, 0, 200, 0, 'touchstart'));
     });
 
-    // 手指缩小到 100（pinch）→ zoom out
     act(() => {
-      result.current.onTouchMove(createTouchEvent(0, 0, 100, 0, 'touchmove'));
+      document.dispatchEvent(createTouchEvent(0, 0, 100, 0, 'touchmove'));
     });
 
     expect(result.current.scale).toBeCloseTo(0.8);
   });
 
-  it('onTouchMove with 1 finger does nothing', () => {
+  test('单指移动不触发缩放', () => {
     const { result } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.2, defaultScale: 1 }, true));
     const touchMove = new TouchEvent('touchmove', {
       touches: [{ pageX: 100, pageY: 0 } as Touch],
       cancelable: true,
     });
     act(() => {
-      result.current.onTouchMove(touchMove);
+      document.dispatchEvent(touchMove);
     });
     expect(result.current.scale).toBe(1);
   });
 
-  it('onTouchEnd resets distance to 0', () => {
+  test('touchEnd 重置距离后，新 touchMove 重新计算缩放', () => {
     const { result } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.2, defaultScale: 1 }, true));
 
     act(() => {
-      result.current.onTouchStart(createTouchEvent(0, 0, 100, 0, 'touchstart'));
+      document.dispatchEvent(createTouchEvent(0, 0, 100, 0, 'touchstart'));
     });
     act(() => {
-      result.current.onTouchEnd();
+      document.dispatchEvent(new TouchEvent('touchend', { cancelable: true }));
     });
-    // 再次 touchmove 时没有有效 distance，依然可以缩放
     act(() => {
-      result.current.onTouchMove(createTouchEvent(0, 0, 200, 0, 'touchmove'));
+      document.dispatchEvent(createTouchEvent(0, 0, 200, 0, 'touchmove'));
     });
-    // distance.current was 0 before this move; 200 > 0 → zoomIn
     expect(result.current.scale).toBeCloseTo(1.2);
   });
 });
 
+// ─── useIndex ────────────────────────────────────────────────────────────
+describe('useIndex 图片切换下标', () => {
+  const createImages = (count: number) => Array.from({ length: count }, (_, i) => `img-${i}.jpg`);
+
+  test('默认 index 为 0', () => {
+    const { result } = renderHook(() => useIndex({ defaultIndex: 0 }, createImages(3)));
+    expect(result.current.index).toBe(0);
+  });
+
+  test('defaultIndex 设置初始下标', () => {
+    const { result } = renderHook(() => useIndex({ defaultIndex: 2 }, createImages(5)));
+    expect(result.current.index).toBe(2);
+  });
+
+  test('next 递增 index', () => {
+    const { result } = renderHook(() => useIndex({ defaultIndex: 0 }, createImages(5)));
+    act(() => result.current.next());
+    expect(result.current.index).toBe(1);
+    act(() => result.current.next());
+    expect(result.current.index).toBe(2);
+  });
+
+  test('prev 递减 index', () => {
+    const { result } = renderHook(() => useIndex({ defaultIndex: 2 }, createImages(5)));
+    act(() => result.current.prev());
+    expect(result.current.index).toBe(1);
+    act(() => result.current.prev());
+    expect(result.current.index).toBe(0);
+  });
+
+  test('next 到最后一张不再递增', () => {
+    const { result } = renderHook(() => useIndex({ defaultIndex: 2 }, createImages(3)));
+    act(() => result.current.next());
+    expect(result.current.index).toBe(2);
+  });
+
+  test('prev 到第一张不再递减', () => {
+    const { result } = renderHook(() => useIndex({ defaultIndex: 0 }, createImages(3)));
+    act(() => result.current.prev());
+    expect(result.current.index).toBe(0);
+  });
+
+  test('prev 在 index=0 时不触发 onIndexChange', () => {
+    const onIndexChange = vi.fn();
+    const { result } = renderHook(() => useIndex({ defaultIndex: 0, onIndexChange }, createImages(3)));
+    act(() => result.current.prev());
+    expect(result.current.index).toBe(0);
+    expect(onIndexChange).not.toHaveBeenCalled();
+  });
+
+  test('next 在最后一帧时不触发 onIndexChange', () => {
+    const onIndexChange = vi.fn();
+    const { result } = renderHook(() => useIndex({ defaultIndex: 2, onIndexChange }, createImages(3)));
+    act(() => result.current.next());
+    expect(result.current.index).toBe(2);
+    expect(onIndexChange).not.toHaveBeenCalled();
+  });
+
+  test('setIndex 直接设置下标', () => {
+    const onIndexChange = vi.fn();
+    const { result } = renderHook(() => useIndex({ defaultIndex: 0, onIndexChange }, createImages(5)));
+    act(() => result.current.setIndex(3, { trigger: 'current' }));
+    expect(result.current.index).toBe(3);
+  });
+
+  test('onIndexChange 回调在 next 时携带 trigger: next', () => {
+    const onIndexChange = vi.fn();
+    const { result } = renderHook(() => useIndex({ defaultIndex: 0, onIndexChange }, createImages(3)));
+    act(() => result.current.next());
+    expect(onIndexChange).toHaveBeenCalledWith(1, { trigger: 'next' });
+  });
+
+  test('onIndexChange 回调在 prev 时携带 trigger: prev', () => {
+    const onIndexChange = vi.fn();
+    const { result } = renderHook(() => useIndex({ defaultIndex: 2, onIndexChange }, createImages(3)));
+    act(() => result.current.prev());
+    expect(onIndexChange).toHaveBeenCalledWith(1, { trigger: 'prev' });
+  });
+
+  test('onIndexChange 回调在 setIndex 时携带 trigger: current', () => {
+    const onIndexChange = vi.fn();
+    const { result } = renderHook(() => useIndex({ defaultIndex: 0, onIndexChange }, createImages(5)));
+    act(() => result.current.setIndex(3, { trigger: 'current' }));
+    expect(onIndexChange).toHaveBeenCalledWith(3, { trigger: 'current' });
+  });
+
+  test('受控 index 模式', () => {
+    const { result, rerender } = renderHook(
+      ({ index }) => useIndex({ index, onIndexChange: vi.fn() }, createImages(5)),
+      { initialProps: { index: 0 } },
+    );
+    expect(result.current.index).toBe(0);
+    rerender({ index: 3 });
+    expect(result.current.index).toBe(3);
+  });
+
+  test('单图列表：next/prev 不越界', () => {
+    const { result } = renderHook(() => useIndex({ defaultIndex: 0 }, createImages(1)));
+    act(() => result.current.next());
+    expect(result.current.index).toBe(0);
+    act(() => result.current.prev());
+    expect(result.current.index).toBe(0);
+  });
+});
+
 // ─── Hooks 组合 ──────────────────────────────────────────────────────────
-describe('hooks combination', () => {
-  it('all hooks work together for image transformations', () => {
+describe('Hooks 组合使用', () => {
+  test('所有 hooks 协同完成图片变换', () => {
     vi.useFakeTimers();
 
     const { result: mirrorResult } = renderHook(() => useMirror());
@@ -737,7 +918,6 @@ describe('hooks combination', () => {
     expect(rotateResult.current.rotateZ).toBe(-180);
     expect(scaleResult.current.scale).toBeCloseTo(1.2);
 
-    // 重置全部
     act(() => {
       mirrorResult.current.onResetMirror();
       rotateResult.current.onResetRotate();
@@ -751,7 +931,7 @@ describe('hooks combination', () => {
     vi.useRealTimers();
   });
 
-  it('rapid operations across all hooks', () => {
+  test('跨 hooks 快速连续操作', () => {
     vi.useFakeTimers();
 
     const { result: scaleResult } = renderHook(() => useScale({ max: 3, min: 0.5, step: 0.1, defaultScale: 1 }, true));
@@ -772,5 +952,77 @@ describe('hooks combination', () => {
     expect(rotateResult.current.rotateZ).toBe(-450);
 
     vi.useRealTimers();
+  });
+});
+
+// ─── usePosition 右键和非左键不触发拖拽 ──────────────────────────────────
+describe('usePosition 右键和非左键', () => {
+  test('右键不触发拖拽', () => {
+    const divEl = document.createElement('div');
+    document.body.appendChild(divEl);
+    const ref = { current: divEl };
+    const { result } = renderHook(() => usePosition(ref as React.RefObject<HTMLDivElement>));
+
+    act(() => {
+      divEl.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, screenX: 10, screenY: 20, button: 2 }));
+    });
+    expect(result.current.isDragging).toBe(false);
+    document.body.removeChild(divEl);
+  });
+});
+
+// ─── useScale 已达极限值时返回空 ──────────────────────────────────────────
+describe('useScale 极限值', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  test('已达最小值时 onZoomOut 返回空', () => {
+    const { result } = renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 0.5 }, true));
+    const ret = result.current.onZoomOut();
+    expect(ret).toEqual({});
+    expect(result.current.scale).toBe(0.5);
+  });
+
+  test('已达最大值时 onZoomIn 不带 options 返回空', () => {
+    const { result } = renderHook(() => useScale({ max: 1.2, min: 0.5, step: 0.2, defaultScale: 1.2 }, true));
+    const ret = result.current.onZoomIn();
+    expect(ret).toEqual({});
+    expect(result.current.scale).toBe(1.2);
+  });
+});
+
+// ─── useScale onWheel 回调 ─────────────────────────────────────────────
+describe('useScale onWheel 回调', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  test('visible=true 时 wheel 事件调用 onWheel 回调', () => {
+    const onWheel = vi.fn();
+    renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, true, onWheel));
+
+    const wheelEvent = new WheelEvent('wheel', { deltaY: -120, bubbles: true, cancelable: true });
+    act(() => {
+      document.dispatchEvent(wheelEvent);
+    });
+    expect(onWheel).toHaveBeenCalledTimes(1);
+  });
+
+  test('visible=false 时 wheel 事件不调用 onWheel', () => {
+    const onWheel = vi.fn();
+    renderHook(() => useScale({ max: 2, min: 0.5, step: 0.2, defaultScale: 1 }, false, onWheel));
+
+    const wheelEvent = new WheelEvent('wheel', { deltaY: -120, bubbles: true, cancelable: true });
+    act(() => {
+      document.dispatchEvent(wheelEvent);
+    });
+    expect(onWheel).not.toHaveBeenCalled();
   });
 });

@@ -10,7 +10,7 @@
  * - isImageExceedsViewport
  * - DEFAULT_IMAGE_SCALE
  */
-import { describe, expect, it } from 'vitest';
+import { describe, expect, test } from 'vitest';
 import {
   calcResetRotation,
   calculateTranslateOffset,
@@ -27,8 +27,8 @@ import {
 } from '@tdesign/common-js/image-viewer/transform';
 
 // ─── 常量 ────────────────────────────────────────────────────────────────
-describe('constants', () => {
-  it('DEFAULT_IMAGE_SCALE', () => {
+describe('常量', () => {
+  test('DEFAULT_IMAGE_SCALE 默认缩放配置', () => {
     expect(DEFAULT_IMAGE_SCALE).toEqual({
       max: 2,
       min: 0.5,
@@ -37,26 +37,26 @@ describe('constants', () => {
     });
   });
 
-  it('MIRROR_DEFAULT = 1', () => {
+  test('MIRROR_DEFAULT 默认值为 1', () => {
     expect(MIRROR_DEFAULT).toBe(1);
   });
 
-  it('ROTATE_DEG = -90', () => {
+  test('ROTATE_DEG 旋转角度为 -90', () => {
     expect(ROTATE_DEG).toBe(-90);
   });
 });
 
 // ─── toggleMirror ────────────────────────────────────────────────────────
-describe('toggleMirror', () => {
-  it('toggles from default(1) to -1', () => {
+describe('toggleMirror 镜像切换', () => {
+  test('从默认值 1 切换为 -1', () => {
     expect(toggleMirror(1)).toBe(-1);
   });
 
-  it('toggles from -1 back to 1', () => {
+  test('从 -1 切换回 1', () => {
     expect(toggleMirror(-1)).toBe(1);
   });
 
-  it('rapid toggles (10 times) return to 1', () => {
+  test('连续切换 10 次回到 1', () => {
     let mirror = MIRROR_DEFAULT;
     for (let i = 0; i < 10; i++) {
       mirror = toggleMirror(mirror);
@@ -64,7 +64,7 @@ describe('toggleMirror', () => {
     expect(mirror).toBe(1);
   });
 
-  it('odd number of toggles gives -1', () => {
+  test('奇数次切换结果为 -1', () => {
     let mirror = MIRROR_DEFAULT;
     for (let i = 0; i < 5; i++) {
       mirror = toggleMirror(mirror);
@@ -74,120 +74,135 @@ describe('toggleMirror', () => {
 });
 
 // ─── calcResetRotation ──────────────────────────────────────────────────
-describe('calcResetRotation', () => {
-  it('0° → no adjustment', () => {
+describe('calcResetRotation 旋转重置', () => {
+  test('0° 时无需调整', () => {
     expect(calcResetRotation(0)).toBe(0);
   });
 
-  it('-90° → -90 (|deg| ≤ 180, same value)', () => {
+  test('-90° 时保持不变（|deg| ≤ 180）', () => {
     expect(calcResetRotation(-90)).toBe(-90);
   });
 
-  it('-180° → -180 (boundary, |deg| = 180)', () => {
+  test('-180° 边界值保持不变', () => {
     expect(calcResetRotation(-180)).toBe(-180);
   });
 
-  it('-270° → 90 (|deg| > 180, shortest path via +90)', () => {
+  test('-270° 走最短路径（+90）', () => {
     expect(calcResetRotation(-270)).toBe(90);
   });
 
-  it('-360° → no adjustment (full rotation)', () => {
+  test('-360° 整圈旋转无需调整', () => {
     expect(calcResetRotation(-360)).toBe(0);
   });
 
-  it('-450° → -90 (-450 % 360 = -90)', () => {
+  test('-450° 等价于 -90°', () => {
     expect(calcResetRotation(-450)).toBe(-90);
   });
 
-  it('-720° → no adjustment (two full rotations)', () => {
+  test('-720° 两圈旋转无需调整', () => {
     expect(calcResetRotation(-720)).toBe(0);
   });
 
-  it('positive 90° → 90', () => {
+  test('正 90° 保持不变', () => {
     expect(calcResetRotation(90)).toBe(90);
   });
 
-  it('positive 270° → shortest path', () => {
-    // 270 % 360 = 270, |270| > 180 → (270 + 360) % 360 = 270
+  test('正 270° 走最短路径', () => {
     expect(calcResetRotation(270)).toBe(270);
+  });
+
+  test('正 360° 整圈旋转无需调整', () => {
+    expect(calcResetRotation(360)).toBe(0);
+  });
+
+  test('正 180° 保持不变', () => {
+    expect(calcResetRotation(180)).toBe(180);
+  });
+
+  test('正 540° 等价于 180°', () => {
+    expect(calcResetRotation(540)).toBe(180);
+  });
+
+  test('负 630° 最短路径', () => {
+    expect(calcResetRotation(-630)).toBe(90);
   });
 });
 
 // ─── clampScale ──────────────────────────────────────────────────────────
-describe('clampScale', () => {
-  it('within range returns same value', () => {
+describe('clampScale 缩放值限制', () => {
+  test('范围内值不变', () => {
     expect(clampScale(1, 0.5, 2)).toBe(1);
   });
 
-  it('below min returns min', () => {
+  test('低于最小值返回最小值', () => {
     expect(clampScale(0.1, 0.5, 2)).toBe(0.5);
   });
 
-  it('above max returns max', () => {
+  test('超过最大值返回最大值', () => {
     expect(clampScale(5, 0.5, 2)).toBe(2);
   });
 
-  it('equal to min', () => {
+  test('等于最小值', () => {
     expect(clampScale(0.5, 0.5, 2)).toBe(0.5);
   });
 
-  it('equal to max', () => {
+  test('等于最大值', () => {
     expect(clampScale(2, 0.5, 2)).toBe(2);
   });
 
-  it('zero', () => {
+  test('零值被限制为最小值', () => {
     expect(clampScale(0, 0.5, 2)).toBe(0.5);
   });
 
-  it('negative value', () => {
+  test('负值被限制为最小值', () => {
     expect(clampScale(-1, 0.5, 2)).toBe(0.5);
   });
 });
 
 // ─── calcZoomInScale / calcZoomOutScale ──────────────────────────────────
-describe('calcZoomInScale', () => {
-  it('basic zoom in', () => {
+describe('calcZoomInScale 放大计算', () => {
+  test('基本放大', () => {
     expect(calcZoomInScale(1, 0.2, 0.5, 2)).toBeCloseTo(1.2);
   });
 
-  it('clamps at max', () => {
+  test('放大到最大值时截断', () => {
     expect(calcZoomInScale(1.9, 0.2, 0.5, 2)).toBe(2);
   });
 
-  it('already at max returns max', () => {
+  test('已在最大值时保持不变', () => {
     expect(calcZoomInScale(2, 0.2, 0.5, 2)).toBe(2);
   });
 
-  it('large step', () => {
+  test('大步长放大', () => {
     expect(calcZoomInScale(1, 1, 0.5, 2)).toBe(2);
   });
 
-  it('small step', () => {
+  test('小步长放大', () => {
     expect(calcZoomInScale(1, 0.05, 0.5, 2)).toBeCloseTo(1.05);
   });
 });
 
-describe('calcZoomOutScale', () => {
-  it('basic zoom out', () => {
+describe('calcZoomOutScale 缩小计算', () => {
+  test('基本缩小', () => {
     expect(calcZoomOutScale(1, 0.2, 0.5, 2)).toBeCloseTo(0.8);
   });
 
-  it('clamps at min', () => {
+  test('缩小到最小值时截断', () => {
     expect(calcZoomOutScale(0.6, 0.2, 0.5, 2)).toBe(0.5);
   });
 
-  it('already at min returns min', () => {
+  test('已在最小值时保持不变', () => {
     expect(calcZoomOutScale(0.5, 0.2, 0.5, 2)).toBe(0.5);
   });
 
-  it('large step', () => {
+  test('大步长缩小', () => {
     expect(calcZoomOutScale(1, 1, 0.5, 2)).toBe(0.5);
   });
 });
 
 // ─── calculateTranslateOffset ────────────────────────────────────────────
-describe('calculateTranslateOffset', () => {
-  it('returns undefined when mouseOffsetX is missing', () => {
+describe('calculateTranslateOffset 位移计算', () => {
+  test('缺少 mouseOffsetX 时返回 undefined', () => {
     const result = calculateTranslateOffset(1, 1.2, {
       mouseOffsetY: 50,
       currentTranslate: { translateX: 0, translateY: 0 },
@@ -195,7 +210,7 @@ describe('calculateTranslateOffset', () => {
     expect(result).toBeUndefined();
   });
 
-  it('returns undefined when mouseOffsetY is missing', () => {
+  test('缺少 mouseOffsetY 时返回 undefined', () => {
     const result = calculateTranslateOffset(1, 1.2, {
       mouseOffsetX: 50,
       currentTranslate: { translateX: 0, translateY: 0 },
@@ -203,21 +218,18 @@ describe('calculateTranslateOffset', () => {
     expect(result).toBeUndefined();
   });
 
-  it('returns undefined when both offsets missing', () => {
+  test('两个偏移都缺失时返回 undefined', () => {
     const result = calculateTranslateOffset(1, 1.2, {
       currentTranslate: { translateX: 0, translateY: 0 },
     });
     expect(result).toBeUndefined();
   });
 
-  it('returns undefined when options is undefined', () => {
+  test('options 为 undefined 时返回 undefined', () => {
     expect(calculateTranslateOffset(1, 1.2)).toBeUndefined();
   });
 
-  it('center zoom (mouseOffset = 0): newT = scaleRatio * T', () => {
-    // scaleRatio = 1.2/1 = 1.2, T = {100, 50}
-    // newTx = 1.2 * 100 + (1 - 1.2) * 0 = 120
-    // newTy = 1.2 * 50  + (1 - 1.2) * 0 = 60
+  test('中心缩放（偏移为 0）：newT = scaleRatio * T', () => {
     const result = calculateTranslateOffset(1, 1.2, {
       mouseOffsetX: 0,
       mouseOffsetY: 0,
@@ -226,10 +238,7 @@ describe('calculateTranslateOffset', () => {
     expect(result).toEqual({ translateX: 120, translateY: 60 });
   });
 
-  it('non-center zoom: formula verification', () => {
-    // scaleRatio = 1.2/1 = 1.2
-    // newTx = 1.2 * 0 + (1 - 1.2) * 100 = -20
-    // newTy = 1.2 * 0 + (1 - 1.2) * 50  = -10
+  test('非中心缩放：公式验证', () => {
     const result = calculateTranslateOffset(1, 1.2, {
       mouseOffsetX: 100,
       mouseOffsetY: 50,
@@ -239,10 +248,7 @@ describe('calculateTranslateOffset', () => {
     expect(result.translateY).toBeCloseTo(-10);
   });
 
-  it('zoom out with existing translate', () => {
-    // scaleRatio = 0.8/1 = 0.8
-    // newTx = 0.8 * 50  + (1 - 0.8) * 100 = 40 + 20 = 60
-    // newTy = 0.8 * 50  + (1 - 0.8) * 100 = 40 + 20 = 60
+  test('缩小并带已有位移', () => {
     const result = calculateTranslateOffset(1, 0.8, {
       mouseOffsetX: 100,
       mouseOffsetY: 100,
@@ -251,7 +257,7 @@ describe('calculateTranslateOffset', () => {
     expect(result).toEqual({ translateX: 60, translateY: 60 });
   });
 
-  it('same scale (ratio = 1) returns same translate', () => {
+  test('缩放比例为 1 时位移不变', () => {
     const result = calculateTranslateOffset(1, 1, {
       mouseOffsetX: 200,
       mouseOffsetY: 200,
@@ -260,9 +266,7 @@ describe('calculateTranslateOffset', () => {
     expect(result).toEqual({ translateX: 50, translateY: 50 });
   });
 
-  it('missing currentTranslate defaults to {0, 0}', () => {
-    // scaleRatio = 1.2/1 = 1.2
-    // newTx = 1.2 * 0 + (1 - 1.2) * 100 = -20
+  test('缺少 currentTranslate 时默认为 {0, 0}', () => {
     const result = calculateTranslateOffset(1, 1.2, {
       mouseOffsetX: 100,
       mouseOffsetY: 100,
@@ -273,14 +277,14 @@ describe('calculateTranslateOffset', () => {
 });
 
 // ─── zoomIn / zoomOut (组合函数) ─────────────────────────────────────────
-describe('zoomIn', () => {
-  it('basic zoom in without options', () => {
+describe('zoomIn 放大', () => {
+  test('无 ZoomOptions 时只返回 newScale', () => {
     const { newScale, zoomResult } = zoomIn(1, 0.2, 0.5, 2);
     expect(newScale).toBeCloseTo(1.2);
     expect(zoomResult.newTranslate).toBeUndefined();
   });
 
-  it('zoom in with ZoomOptions', () => {
+  test('带 ZoomOptions 时计算新位移', () => {
     const { newScale, zoomResult } = zoomIn(1, 0.2, 0.5, 2, {
       mouseOffsetX: 0,
       mouseOffsetY: 0,
@@ -290,21 +294,21 @@ describe('zoomIn', () => {
     expect(zoomResult.newTranslate).toEqual({ translateX: 120, translateY: 60 });
   });
 
-  it('zoom in at max boundary', () => {
+  test('已达最大值时只返回 newScale', () => {
     const { newScale, zoomResult } = zoomIn(2, 0.2, 0.5, 2);
     expect(newScale).toBe(2);
     expect(zoomResult.newTranslate).toBeUndefined();
   });
 });
 
-describe('zoomOut', () => {
-  it('basic zoom out without options', () => {
+describe('zoomOut 缩小', () => {
+  test('无 ZoomOptions 时只返回 newScale', () => {
     const { newScale, zoomResult } = zoomOut(1, 0.2, 0.5, 2);
     expect(newScale).toBeCloseTo(0.8);
     expect(zoomResult.newTranslate).toBeUndefined();
   });
 
-  it('zoom out with ZoomOptions', () => {
+  test('带 ZoomOptions 时计算新位移', () => {
     const { newScale, zoomResult } = zoomOut(1, 0.2, 0.5, 2, {
       mouseOffsetX: 100,
       mouseOffsetY: 100,
@@ -314,7 +318,7 @@ describe('zoomOut', () => {
     expect(zoomResult.newTranslate).toEqual({ translateX: 60, translateY: 60 });
   });
 
-  it('zoom out at min boundary', () => {
+  test('已达最小值时只返回 newScale', () => {
     const { newScale, zoomResult } = zoomOut(0.5, 0.2, 0.5, 2);
     expect(newScale).toBe(0.5);
     expect(zoomResult.newTranslate).toBeUndefined();
@@ -322,7 +326,7 @@ describe('zoomOut', () => {
 });
 
 // ─── isImageExceedsViewport ──────────────────────────────────────────────
-describe('isImageExceedsViewport', () => {
+describe('isImageExceedsViewport 图片是否超出视口', () => {
   const createMockElement = (rect: Partial<DOMRect>) => {
     const el = document.createElement('div');
     el.getBoundingClientRect = () => ({
@@ -341,45 +345,69 @@ describe('isImageExceedsViewport', () => {
     return el;
   };
 
-  it('image within viewport', () => {
+  test('图片在视口内', () => {
     const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
     const modalBox = createMockElement({ left: 100, right: 700, top: 50, bottom: 550 });
     expect(isImageExceedsViewport(container, modalBox)).toBe(false);
   });
 
-  it('image exceeds left', () => {
+  test('图片超出左侧', () => {
     const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
     const modalBox = createMockElement({ left: -50, right: 700, top: 50, bottom: 550 });
     expect(isImageExceedsViewport(container, modalBox)).toBe(true);
   });
 
-  it('image exceeds right', () => {
+  test('图片超出右侧', () => {
     const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
     const modalBox = createMockElement({ left: 100, right: 900, top: 50, bottom: 550 });
     expect(isImageExceedsViewport(container, modalBox)).toBe(true);
   });
 
-  it('image exceeds top', () => {
+  test('图片超出顶部', () => {
     const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
     const modalBox = createMockElement({ left: 100, right: 700, top: -10, bottom: 550 });
     expect(isImageExceedsViewport(container, modalBox)).toBe(true);
   });
 
-  it('image exceeds bottom', () => {
+  test('图片超出底部', () => {
     const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
     const modalBox = createMockElement({ left: 100, right: 700, top: 50, bottom: 650 });
     expect(isImageExceedsViewport(container, modalBox)).toBe(true);
   });
 
-  it('image exceeds all sides', () => {
+  test('图片四边均超出', () => {
     const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
     const modalBox = createMockElement({ left: -100, right: 900, top: -100, bottom: 700 });
     expect(isImageExceedsViewport(container, modalBox)).toBe(true);
   });
 
-  it('image matches viewport exactly', () => {
+  test('图片与视口完全重合', () => {
     const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
     const modalBox = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
+    expect(isImageExceedsViewport(container, modalBox)).toBe(false);
+  });
+
+  test('图片左边与容器左边对齐（边界不超出）', () => {
+    const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
+    const modalBox = createMockElement({ left: 0, right: 700, top: 50, bottom: 550 });
+    expect(isImageExceedsViewport(container, modalBox)).toBe(false);
+  });
+
+  test('图片右边与容器右边对齐（边界不超出）', () => {
+    const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
+    const modalBox = createMockElement({ left: 100, right: 800, top: 50, bottom: 550 });
+    expect(isImageExceedsViewport(container, modalBox)).toBe(false);
+  });
+
+  test('图片上边与容器上边对齐（边界不超出）', () => {
+    const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
+    const modalBox = createMockElement({ left: 100, right: 700, top: 0, bottom: 550 });
+    expect(isImageExceedsViewport(container, modalBox)).toBe(false);
+  });
+
+  test('图片下边与容器下边对齐（边界不超出）', () => {
+    const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
+    const modalBox = createMockElement({ left: 100, right: 700, top: 50, bottom: 600 });
     expect(isImageExceedsViewport(container, modalBox)).toBe(false);
   });
 });

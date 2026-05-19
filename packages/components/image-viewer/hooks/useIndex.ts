@@ -14,9 +14,10 @@ const useIndex = (resProps, images) => {
   }, [setIndex, index, images.length]);
 
   const prev = useCallback(() => {
-    const newIndex = index - 1 > 0 ? index - 1 : 0;
+    const newIndex = index - 1;
+    if (newIndex < 0) return index;
     setIndex(newIndex, { trigger: 'prev' });
-  }, [index, setIndex]);
+  }, [setIndex, index]);
 
   return {
     index,
