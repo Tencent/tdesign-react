@@ -15,6 +15,13 @@ const usePosition = (imgRef: React.RefObject<HTMLDivElement>, options?: Position
   const [isDragging, setIsDragging] = useState(false);
   const lastScreenPositionRef = useRef<{ x: number; y: number } | null>(null);
 
+  // 始终保持最新值的 ref，供外部免订阅地读取
+  const positionRef = useRef<PositionType>(position);
+  positionRef.current = position;
+
+  const isDraggingRef = useRef<boolean>(isDragging);
+  isDraggingRef.current = isDragging;
+
   useMouseEvent(imgRef, {
     onDown: (e) => {
       const { screenX, screenY } = e;
@@ -43,9 +50,11 @@ const usePosition = (imgRef: React.RefObject<HTMLDivElement>, options?: Position
 
   return {
     position,
+    positionRef,
     setPosition,
     resetPosition,
     isDragging,
+    isDraggingRef,
   };
 };
 

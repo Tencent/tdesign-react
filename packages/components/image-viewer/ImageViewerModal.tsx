@@ -1,12 +1,7 @@
 import React, { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { isArray, isFunction } from 'lodash-es';
-import {
-  ImageErrorIcon as TdImageErrorIcon,
-  ImageIcon as TdImageIcon,
-  MirrorIcon as TdMirrorIcon,
-  RotationIcon as TdRotationIcon,
-} from 'tdesign-icons-react';
+import { ImageErrorIcon as TdImageErrorIcon } from 'tdesign-icons-react';
 import { isImageExceedsViewport } from '@tdesign/common-js/image-viewer/transform';
 import { downloadImage } from '@tdesign/common-js/image-viewer/utils';
 import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
@@ -96,11 +91,8 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
       if (isSvg) return svgRef;
       return imgRef;
     }, [isSvg]);
-    const { position, setPosition, resetPosition, isDragging } = usePosition(displayRef);
-    const positionRef = useRef(position);
-    positionRef.current = position;
-    const isDraggingRef = useRef(isDragging);
-    isDraggingRef.current = isDragging;
+    // positionRef / isDraggingRef 由 usePosition 内部维护并直接返回
+    const { position, positionRef, setPosition, resetPosition, isDraggingRef } = usePosition(displayRef);
 
     const preImgStyle: React.CSSProperties = {
       transform: `rotateZ(${rotateZ}deg) scale(${scale})`,
@@ -156,53 +148,56 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
         isDraggingRef,
         enableTransition,
       }),
-      [setPosition, resetPosition, enableTransition],
+      [positionRef, setPosition, isDraggingRef, resetPosition, enableTransition],
     );
 
-    const createSvgShadow = async (url: string) => {
-      const response = await fetch(url);
-      if (!response.ok) {
-        setError(true);
-        throw new Error(`Failed to fetch SVG: ${response.statusText}`);
-      }
-
-      const svgText = await response.text();
-
-      const element = svgRef.current;
-      element.innerHTML = '';
-      element.classList?.add(`${classPrefix}-image-viewer__modal-image-svg`);
-      const shadowRoot = element.attachShadow({ mode: 'closed' });
-
-      const container = document.createElement('div');
-      container.style.background = 'transparent';
-      container.innerHTML = svgText;
-      shadowRoot.appendChild(container);
-
-      const svgElement = container.querySelector('svg');
-      if (svgElement) {
-        const svgViewBox = svgElement.getAttribute('viewBox');
-        if (svgViewBox) {
-          const viewBoxValues = svgViewBox
-            .split(/[\s,]/)
-            .filter((v) => v)
-            .map(parseFloat);
-
-          // svg viewbox x(0) and y(1) offset, width(2) and height(3),eg
-          const svgViewBoxWidth = viewBoxValues[2];
-          const svgViewBoxHeight = viewBoxValues[3];
-          container.style.width = `${svgViewBoxWidth}px`;
-          container.style.height = `${svgViewBoxHeight}px`;
-        } else {
-          const bbox = svgElement.getBBox();
-          const calculatedViewBox = `${bbox.x} ${bbox.y} ${bbox.width} ${bbox.height}`;
-          svgElement.setAttribute('viewBox', calculatedViewBox);
-
-          container.style.width = `${bbox.width}px`;
-          container.style.height = `${bbox.height}px`;
+    const createSvgShadow = useCallback(
+      async (url: string) => {
+        const response = await fetch(url);
+        if (!response.ok) {
+          setError(true);
+          throw new Error(`Failed to fetch SVG: ${response.statusText}`);
         }
-      }
-      setLoaded(true);
-    };
+
+        const svgText = await response.text();
+
+        const element = svgRef.current;
+        if (!element) return;
+
+        element.innerHTML = '';
+        element.classList?.add(`${classPrefix}-image-viewer__modal-image-svg`);
+        const shadowRoot = element.attachShadow({ mode: 'closed' });
+
+        const container = document.createElement('div');
+        container.style.background = 'transparent';
+        container.innerHTML = svgText;
+        shadowRoot.appendChild(container);
+
+        const svgElement = container.querySelector('svg');
+        if (svgElement) {
+          const svgViewBox = svgElement.getAttribute('viewBox');
+          if (svgViewBox) {
+            const viewBoxValues = svgViewBox
+              .split(/[\s,]/)
+              .filter((v) => v)
+              .map(parseFloat);
+
+            // svg viewbox x(0) and y(1) offset, width(2) and height(3)
+            container.style.width = `${viewBoxValues[2]}px`;
+            container.style.height = `${viewBoxValues[3]}px`;
+          } else {
+            const bbox = svgElement.getBBox();
+            const calculatedViewBox = `${bbox.x} ${bbox.y} ${bbox.width} ${bbox.height}`;
+            svgElement.setAttribute('viewBox', calculatedViewBox);
+
+            container.style.width = `${bbox.width}px`;
+            container.style.height = `${bbox.height}px`;
+          }
+        }
+        setLoaded(true);
+      },
+      [classPrefix],
+    );
 
     useEffect(() => {
       setError(false);
@@ -212,8 +207,7 @@ export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItem
       if (isSvg && mainImagePreviewUrl) {
         createSvgShadow(mainImagePreviewUrl);
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [mainImagePreviewUrl]);
+    }, [isSvg, mainImagePreviewUrl, createSvgShadow]);
 
     return (
       <div className={classNames(`${classPrefix}-image-viewer__modal-pic`, innerClassName)}>
@@ -321,11 +315,6 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
   onDownload,
 }) => {
   const { classPrefix } = useConfig();
-  const { MirrorIcon, RotationIcon, ImageIcon } = useGlobalIcon({
-    MirrorIcon: TdMirrorIcon,
-    RotationIcon: TdRotationIcon,
-    ImageIcon: TdImageIcon,
-  });
 
   return (
     <div className={`${classPrefix}-image-viewer__utils`}>
@@ -336,9 +325,7 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
           showShadow={false}
           zIndex={zIndex}
         >
-          <div className={`${classPrefix}-image-viewer__modal-icon`} onClick={onMirror}>
-            <MirrorIcon size="medium" />
-          </div>
+          <ImageModalIcon name="mirror" size="medium" onClick={onMirror} />
         </TooltipLite>
         <TooltipLite
           className={`${classPrefix}-image-viewer__utils--tip`}
@@ -346,9 +333,7 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
           showShadow={false}
           zIndex={zIndex}
         >
-          <div className={`${classPrefix}-image-viewer__modal-icon`} onClick={() => onRotate()}>
-            <RotationIcon size="medium" />
-          </div>
+          <ImageModalIcon name="rotation" size="medium" onClick={onRotate} />
         </TooltipLite>
         <ImageModalIcon size="medium" name="zoom-out" onClick={onZoomOut} />
         <ImageModalIcon
@@ -363,9 +348,7 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
           showShadow={false}
           zIndex={zIndex}
         >
-          <div className={`${classPrefix}-image-viewer__modal-icon`} onClick={onReset}>
-            <ImageIcon size="medium" name="image" />
-          </div>
+          <ImageModalIcon name="image" size="medium" onClick={onReset} />
         </TooltipLite>
         {currentImage.download && (
           <ImageModalIcon
@@ -373,7 +356,6 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
             name="download"
             onClick={() => {
               if (isFunction(onDownload)) {
-                // 自定义图片预览下载
                 onDownload(currentImage.mainImage);
                 return;
               }
@@ -516,7 +498,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageItemRef = useRef<ImageModalItemRef>(null);
 
-  // handleWheel 先用 ref 占位，useScale 之后再赋值，避免循环依赖
+  // handleWheel 用 ref 存储最新版本，传给 useScale 注册 passive:false 的 wheel 监听
   const handleWheelRef = useRef<(e: WheelEvent) => void>(null);
   const stableHandleWheel = useCallback((e: WheelEvent) => handleWheelRef.current?.(e), []);
 
@@ -524,34 +506,32 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
 
   // ⚠️ 不能用 React 的 onWheel —— React 17+ 将 wheel 注册为 passive: true，
   //    导致 e.preventDefault() 无效，无法阻止页面滚动。
-  handleWheelRef.current = useCallback(
-    (e: WheelEvent) => {
-      e.preventDefault();
+  // 直接赋值给 ref（无需额外 useCallback，ref 赋值本身不触发重渲染）
+  handleWheelRef.current = (e: WheelEvent) => {
+    e.preventDefault();
 
-      const isZoomOut = e.deltaY > 0;
-      const container = containerRef.current;
-      const modalBox = imageItemRef.current?.modalBoxRef?.current;
+    const isZoomOut = e.deltaY > 0;
+    const container = containerRef.current;
+    const modalBox = imageItemRef.current?.modalBoxRef?.current;
 
-      if (isZoomOut && container && modalBox && isImageExceedsViewport(container, modalBox)) {
-        const currentPosition = imageItemRef.current?.positionRef?.current ?? [0, 0];
-        const result = onZoomOut({
-          mouseOffsetX: 0,
-          mouseOffsetY: 0,
-          currentTranslate: {
-            translateX: currentPosition[0],
-            translateY: currentPosition[1],
-          },
-        });
-        if (result?.newTranslate) {
-          imageItemRef.current?.enableTransition?.();
-          imageItemRef.current?.setPosition?.([result.newTranslate.translateX, result.newTranslate.translateY]);
-        }
-      } else {
-        isZoomOut ? onZoomOut() : onZoomIn();
+    if (isZoomOut && container && modalBox && isImageExceedsViewport(container, modalBox)) {
+      const currentPosition = imageItemRef.current?.positionRef?.current ?? [0, 0];
+      const result = onZoomOut({
+        mouseOffsetX: 0,
+        mouseOffsetY: 0,
+        currentTranslate: {
+          translateX: currentPosition[0],
+          translateY: currentPosition[1],
+        },
+      });
+      if (result?.newTranslate) {
+        imageItemRef.current?.enableTransition?.();
+        imageItemRef.current?.setPosition?.([result.newTranslate.translateX, result.newTranslate.translateY]);
       }
-    },
-    [onZoomIn, onZoomOut],
-  );
+    } else {
+      isZoomOut ? onZoomOut() : onZoomIn();
+    }
+  };
 
   // imageScale 动态变化时重置缩放
   const isFirstRender = useRef(true);
@@ -581,7 +561,9 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
       ArrowLeft: () => handlers.prev(),
       ArrowUp: () => handlers.onZoomIn(),
       ArrowDown: () => handlers.onZoomOut(),
-      Escape: () => handlers.closeOnEscKeydown && handlers.onClose?.({ trigger: 'esc', e: event as any }),
+      Escape: () =>
+        handlers.closeOnEscKeydown &&
+        handlers.onClose?.({ trigger: 'esc', e: event as unknown as React.KeyboardEvent }),
     };
     keyActionMap[event.key]?.();
   }, []);
@@ -641,8 +623,8 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
     );
   }
 
-  // boolean控制显示，tnode直接展示
-  let closeNode: TNode = closeBtn;
+  // boolean 控制显示，tnode 直接展示
+  let closeNode: TNode = null;
   if (closeBtn === true) {
     closeNode = (
       <ImageModalIcon
@@ -652,7 +634,9 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         onClick={(e: React.MouseEvent<HTMLElement>) => onClose && onClose({ trigger: 'close-btn', e })}
       />
     );
-  } else if (isFunction(closeBtn)) closeNode = closeBtn({ onClose, onOpen });
+  } else if (closeBtn !== false) {
+    closeNode = isFunction(closeBtn) ? closeBtn({ onClose, onOpen }) : closeBtn;
+  }
 
   return (
     <div
