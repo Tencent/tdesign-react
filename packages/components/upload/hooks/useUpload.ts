@@ -27,20 +27,13 @@ export default function useUpload(props: TdUploadProps) {
   const { disabled, autoUpload, isBatchUpload } = props;
   const { classPrefix } = useConfig();
   const [globalLocale, t] = useLocaleReceiver('upload');
+
   const [uploadValue, setUploadValue] = useControlled(props, 'files', props.onChange);
+
   const xhrReq = useRef<{ files: UploadFile[]; xhrReq: XMLHttpRequest }[]>([]);
   const [toUploadFiles, setToUploadFiles] = useState<UploadFile[]>([]);
   const [sizeOverLimitMessage, setSizeOverLimitMessage] = useState('');
   const [update, forceUpdate] = useState({});
-
-  // 标记 setUploadValue 是否由组件内部主动触发
-  // - true：内部调用（如选择文件、上传成功、onRemove 等），不需要进行外部清空联动
-  // - false：外部主动修改 props.files，需要联动清空 toUploadFiles
-  const internalUpdateRef = useRef(false);
-  const updateInternalValue: typeof setUploadValue = (value, ...args) => {
-    internalUpdateRef.current = true;
-    setUploadValue(value, ...args);
-  };
 
   const locale = useMemo(() => merge({}, globalLocale, props.locale), [globalLocale, props.locale]);
 
@@ -100,7 +93,7 @@ export default function useUpload(props: TdUploadProps) {
     if (props.autoUpload) {
       setToUploadFiles([...toFiles]);
     } else {
-      updateInternalValue([...uploadValue], {
+      setUploadValue([...uploadValue], {
         e: p.event,
         trigger,
         index: uploadValue.length,
@@ -158,7 +151,7 @@ export default function useUpload(props: TdUploadProps) {
   const handleNotAutoUpload = (toFiles: UploadFile[]) => {
     const tmpFiles = props.multiple && !isBatchUpload ? uploadValue.concat(toFiles) : toFiles;
     if (!tmpFiles.length) return;
-    updateInternalValue(tmpFiles, {
+    setUploadValue(tmpFiles, {
       trigger: 'add',
       index: uploadValue.length,
       file: toFiles[0],
@@ -302,7 +295,7 @@ export default function useUpload(props: TdUploadProps) {
         }).then(({ status, data, list, failedFiles }) => {
           setUploading(false);
           if (status === 'success') {
-            updateInternalValue([...data.files], {
+            setUploadValue([...data.files], {
               trigger: 'add',
               file: data.files[0],
             });
@@ -348,16 +341,16 @@ export default function useUpload(props: TdUploadProps) {
     // remove all files for batchUpload
     if (isBatchUpload || !props.multiple) {
       props.onWaitingUploadFilesChange?.({ files: [], trigger: 'remove' });
-      updateInternalValue([], changePrams);
+      setUploadValue([], changePrams);
       setToUploadFiles([]);
       xhrReq.current = [];
     } else if (!props.autoUpload) {
       const newUploadValue = uploadValue.filter((_, i) => i !== p.index);
-      updateInternalValue(newUploadValue, changePrams);
+      setUploadValue(newUploadValue, changePrams);
     } else if (p.index < uploadValue.length) {
       // autoUpload 场景下， p.index < uploadValue.length 表示移除已经上传成功的文件；反之表示移除待上传列表文件
       const newUploadValue = uploadValue.filter((_, i) => i !== p.index);
-      updateInternalValue(newUploadValue, changePrams);
+      setUploadValue(newUploadValue, changePrams);
     } else {
       const tmpFiles = [...toUploadFiles];
       tmpFiles.splice(p.index - uploadValue.length, 1);
@@ -383,7 +376,7 @@ export default function useUpload(props: TdUploadProps) {
     if (autoUpload) {
       setToUploadFiles([]);
     } else {
-      updateInternalValue(
+      setUploadValue(
         uploadValue.map((item) => {
           if (item.status !== 'success') {
             return { ...item, status: 'waiting' };
@@ -404,21 +397,9 @@ export default function useUpload(props: TdUploadProps) {
   // 矫正数据格式为数组
   useEffect(() => {
     if (!Array.isArray(uploadValue)) {
-      updateInternalValue([], { trigger: 'default' });
+      setUploadValue([], { trigger: 'default' });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [uploadValue]);
-
-  useEffect(() => {
-    // 监听受控值 props.files 的引用变化：
-    // - 若变化由组件内部触发（internalUpdateRef === true），消费标记后跳过
-    // - 若变化由外部主动触发且新值为空数组，则同步清空内部维护的 toUploadFiles，确保失败/等待的文件能被一起清除
-    if (internalUpdateRef.current) {
-      internalUpdateRef.current = false;
-      return;
-    }
-    const currentLen = Array.isArray(uploadValue) ? uploadValue.length : 0;
-    if (currentLen === 0 && toUploadFiles.length > 0) {
+    if (Array.isArray(uploadValue) && uploadValue.length === 0 && toUploadFiles.length > 0 && !uploading) {
       setToUploadFiles([]);
       props.onWaitingUploadFilesChange?.({ files: [], trigger: 'remove' });
     }
