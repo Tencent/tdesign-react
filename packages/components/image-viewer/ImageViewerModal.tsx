@@ -1,7 +1,12 @@
 import React, { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { isArray, isFunction } from 'lodash-es';
-import { ImageErrorIcon as TdImageErrorIcon } from 'tdesign-icons-react';
+import {
+  ImageErrorIcon as TdImageErrorIcon,
+  ImageIcon as TdImageIcon,
+  MirrorIcon as TdMirrorIcon,
+  RotationIcon as TdRotationIcon,
+} from 'tdesign-icons-react';
 import { isImageExceedsViewport } from '@tdesign/common-js/image-viewer/transform';
 import { downloadImage } from '@tdesign/common-js/image-viewer/utils';
 import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
@@ -315,6 +320,11 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
   onDownload,
 }) => {
   const { classPrefix } = useConfig();
+  const { MirrorIcon, RotationIcon, ImageIcon } = useGlobalIcon({
+    MirrorIcon: TdMirrorIcon,
+    RotationIcon: TdRotationIcon,
+    ImageIcon: TdImageIcon,
+  });
 
   return (
     <div className={`${classPrefix}-image-viewer__utils`}>
@@ -325,7 +335,9 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
           showShadow={false}
           zIndex={zIndex}
         >
-          <ImageModalIcon name="mirror" size="medium" onClick={onMirror} />
+          <div className={`${classPrefix}-image-viewer__modal-icon`} onClick={onMirror}>
+            <MirrorIcon size="medium" />
+          </div>
         </TooltipLite>
         <TooltipLite
           className={`${classPrefix}-image-viewer__utils--tip`}
@@ -333,7 +345,9 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
           showShadow={false}
           zIndex={zIndex}
         >
-          <ImageModalIcon name="rotation" size="medium" onClick={onRotate} />
+          <div className={`${classPrefix}-image-viewer__modal-icon`} onClick={onRotate}>
+            <RotationIcon size="medium" />
+          </div>
         </TooltipLite>
         <ImageModalIcon size="medium" name="zoom-out" onClick={onZoomOut} />
         <ImageModalIcon
@@ -348,7 +362,9 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
           showShadow={false}
           zIndex={zIndex}
         >
-          <ImageModalIcon name="image" size="medium" onClick={onReset} />
+          <div className={`${classPrefix}-image-viewer__modal-icon`} onClick={onReset}>
+            <ImageIcon size="medium" name="image" />
+          </div>
         </TooltipLite>
         {currentImage.download && (
           <ImageModalIcon
