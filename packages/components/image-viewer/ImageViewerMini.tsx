@@ -46,6 +46,8 @@ export const ImageModalMiniContent: React.FC<ImageModalMiniProps> = (props) => {
   const { classPrefix } = useConfig();
 
   return (
+    // TODO: viewerScale（minWidth/minHeight）应作为 style 应用到此容器，参考 tdesign-next-vue 实现
+    // 需将 viewerScale 从 TdImageViewerProps → ImageViewer → ImageModal → ImageModalMini → ImageModalMiniContent 完整透传
     <div className={`${classPrefix}-image-viewer-mini__content`}>
       <ImageModalItem
         rotateZ={props.rotateZ}
