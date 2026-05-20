@@ -295,7 +295,7 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
           zIndex={zIndex}
         >
           <div className={`${classPrefix}-image-viewer__modal-icon`} onClick={onReset}>
-            <ImageIcon size="medium" name="image" />
+            <ImageIcon size="medium" />
           </div>
         </TooltipLite>
         {currentImage.download && (
