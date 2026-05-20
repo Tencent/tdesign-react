@@ -1,6 +1,6 @@
-import React, { FocusEvent, forwardRef, ForwardRefRenderFunction, useMemo } from 'react';
-import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
+import React, { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
+import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
 import tinycolor from 'tinycolor2';
 
 import noop from '../_util/noop';
@@ -9,6 +9,7 @@ import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { tagDefaultProps } from './defaultProps';
 
+import type { FocusEvent, ForwardRefRenderFunction } from 'react';
 import type { StyledProps } from '../common';
 import type { TdTagProps } from './type';
 

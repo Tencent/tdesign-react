@@ -1,14 +1,14 @@
 import React, { forwardRef, useMemo } from 'react';
-import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
+import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
 
 import Checkbox from '../../checkbox';
-import TLoading from '../../loading';
 import useCommonClassName from '../../hooks/useCommonClassName';
 import useConfig from '../../hooks/useConfig';
 import useDomRefCallback from '../../hooks/useDomRefCallback';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
+import TLoading from '../../loading';
 import { getCascaderItemClass, getCascaderItemIconClass } from '../core/className';
 import { getFullPathLabel } from '../core/helper';
 

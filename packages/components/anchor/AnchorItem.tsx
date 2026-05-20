@@ -1,11 +1,14 @@
-import React, { FunctionComponent, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import classNames from 'classnames';
-import { TdAnchorItemProps } from './type';
+
 import useConfig from '../hooks/useConfig';
-import { StyledProps } from '../common';
+import useDefaultProps from '../hooks/useDefaultProps';
 import { AnchorContext } from './AnchorContext';
 import { anchorItemDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
+
+import type { FunctionComponent } from 'react';
+import type { StyledProps } from '../common';
+import type { TdAnchorItemProps } from './type';
 
 export interface AnchorItemProps extends TdAnchorItemProps, StyledProps {
   children?: React.ReactNode;

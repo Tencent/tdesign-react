@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, fireEvent, mockTimeout } from '@test/utils';
+import { fireEvent, mockTimeout, render } from '@test/utils';
+
 import { Notification, NotificationPlugin } from '../index';
 
 describe('Notification test', () => {

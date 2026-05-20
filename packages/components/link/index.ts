@@ -1,6 +1,6 @@
-import _Link from './Link';
-
 import './style/index.js';
+
+import _Link from './Link';
 
 export type { LinkProps } from './Link';
 

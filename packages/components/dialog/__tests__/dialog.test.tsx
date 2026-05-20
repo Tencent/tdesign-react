@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { render, fireEvent, mockTimeout, vi } from '@test/utils';
+import { fireEvent, mockTimeout, render, vi } from '@test/utils';
 import userEvent from '@testing-library/user-event';
+
 import Dialog from '../index';
 import { DialogPlugin } from '../plugin';
 

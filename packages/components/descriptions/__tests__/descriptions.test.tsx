@@ -1,7 +1,9 @@
 import React from 'react';
 import { render, screen } from '@test/utils';
+
 import Descriptions from '../index';
-import { SizeEnum } from '../../common';
+
+import type { SizeEnum } from '../../common';
 
 const { DescriptionsItem } = Descriptions;
 

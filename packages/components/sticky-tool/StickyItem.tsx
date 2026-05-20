@@ -1,9 +1,13 @@
-import React, { useCallback, useMemo, MouseEvent } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import classNames from 'classnames';
+
 import useConfig from '../hooks/useConfig';
-import type { TdStickyItemProps, TdStickyToolProps } from './type';
-import Popup, { PopupPlacement, PopupProps } from '../popup';
+import Popup from '../popup';
+
+import type { MouseEvent } from 'react';
 import type { StyledProps, Styles } from '../common';
+import type { PopupPlacement, PopupProps } from '../popup';
+import type { TdStickyItemProps, TdStickyToolProps } from './type';
 
 export interface StickyItemProps extends TdStickyItemProps, StyledProps {
   type?: TdStickyToolProps['type'];

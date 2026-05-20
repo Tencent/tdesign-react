@@ -1,17 +1,19 @@
 /* eslint-disable no-nested-ternary */
-import React, { useCallback, useState, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
+import injectStyle from '@tdesign/common-js/utils/injectStyle';
 import generateBase64Url from '@tdesign/common-js/watermark/generateBase64Url';
 import randomMovingStyle from '@tdesign/common-js/watermark/randomMovingStyle';
-import injectStyle from '@tdesign/common-js/utils/injectStyle';
-import { StyledProps } from '../common';
+
 import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
 import useMutationObserver from '../hooks/useMutationObserver';
-import { TdWatermarkProps } from './type';
+import useVariables from '../hooks/useVariables';
 import { watermarkDefaultProps } from './defaultProps';
 import { getStyleStr } from './utils';
-import useDefaultProps from '../hooks/useDefaultProps';
-import useVariables from '../hooks/useVariables';
+
+import type { StyledProps } from '../common';
+import type { TdWatermarkProps } from './type';
 
 export interface WatermarkProps extends TdWatermarkProps, StyledProps {}
 

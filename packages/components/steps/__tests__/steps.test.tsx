@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, waitFor, fireEvent, vi } from '@test/utils';
+import { fireEvent, render, vi, waitFor } from '@test/utils';
+
 import Steps from '../Steps';
 
 const { StepItem } = Steps;

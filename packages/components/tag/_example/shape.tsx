@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { Tag, Space } from 'tdesign-react';
+import { Space, Tag } from 'tdesign-react';
 
 export default function ShapeTagExample() {
   const style = { marginRight: 5 };

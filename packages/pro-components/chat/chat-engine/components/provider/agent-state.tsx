@@ -1,5 +1,8 @@
 import React from 'react';
-import { AgentStateContext, type StateActionOptions, useAgentState } from '../../hooks/useAgentState';
+
+import { AgentStateContext, useAgentState } from '../../hooks/useAgentState';
+
+import type { StateActionOptions } from '../../hooks/useAgentState';
 
 // 导出 Provider 组件
 export const AgentStateProvider = ({

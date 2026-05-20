@@ -1,6 +1,8 @@
-import React, { type ReactElement, type ReactNode } from 'react';
+import React from 'react';
 import { isFunction } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
+
+import type { ReactElement, ReactNode } from 'react';
 import type { TNode } from '../common';
 
 // 解析 TNode 数据结构

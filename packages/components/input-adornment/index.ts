@@ -1,9 +1,9 @@
-import _InputAdornment from './InputAdornment';
-
 import './style/index.js';
 
-export * from './type';
+import _InputAdornment from './InputAdornment';
+
 export type { InputAdornmentProps } from './InputAdornment';
+export * from './type';
 
 export const InputAdornment = _InputAdornment;
 
