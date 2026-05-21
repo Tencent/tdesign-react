@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Space } from 'tdesign-react';
-import { useChat, ChatList, ChatMessage, ChatSender } from '@tdesign-react/chat';
+import { ChatList, ChatMessage, ChatSender, useChat } from '@tdesign-react/chat';
 
 export default function CompositeChat() {
   const [inputValue, setInputValue] = useState<string>('问个问题吧');

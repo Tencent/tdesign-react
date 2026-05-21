@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import classnames from 'classnames';
+
 import { canUseDocument } from '../_util/dom';
 import { addClass, removeClass } from '../_util/style';
 import Portal from '../common/Portal';

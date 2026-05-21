@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { InputAdornment, Input, Tree, Space, InputProps } from 'tdesign-react';
+import { Input, InputAdornment, Space, Tree } from 'tdesign-react';
 
-import type { TreeProps } from 'tdesign-react';
-import { TreeNodeValue } from '../../cascader/interface';
+import type { InputProps, TreeProps } from 'tdesign-react';
+import type { TreeNodeValue } from '../../cascader/interface';
 
 const items = [
   {

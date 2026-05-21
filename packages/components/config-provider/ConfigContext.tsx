@@ -1,8 +1,10 @@
 import { createContext } from 'react';
 import { merge } from 'lodash-es';
 import defaultConfig from '@tdesign/common-js/global-config/default-config';
+
 import defaultLocale from '../locale/zh_CN';
-import { GlobalConfigProvider } from './type';
+
+import type { GlobalConfigProvider } from './type';
 
 export enum EAnimationType {
   ripple = 'ripple',

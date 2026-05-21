@@ -1,22 +1,26 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { InternetIcon } from 'tdesign-icons-react';
-import {
-  ChatList,
-  ChatSender,
-  ChatMessage,
-  ChatActionBar,
-  ChatLoading,
-  useChat,
-  isAIMessage,
-  getMessageContentForCopy,
-  type SSEChunkData,
-  type AIMessageContent,
-  type ChatMessagesData,
-  type ChatRequestParams,
-  type TdChatSenderParams,
-  type TdChatActionsName,
-} from '@tdesign-react/chat';
 import { Avatar, Button, Space } from 'tdesign-react';
+import {
+  ChatActionBar,
+  ChatList,
+  ChatLoading,
+  ChatMessage,
+  ChatSender,
+  getMessageContentForCopy,
+  isAIMessage,
+  useChat,
+} from '@tdesign-react/chat';
+
+import type { ReactNode } from 'react';
+import type {
+  AIMessageContent,
+  ChatMessagesData,
+  ChatRequestParams,
+  SSEChunkData,
+  TdChatActionsName,
+  TdChatSenderParams,
+} from '@tdesign-react/chat';
 
 /**
  * 综合示例

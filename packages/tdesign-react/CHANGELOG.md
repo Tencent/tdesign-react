@@ -5,6 +5,48 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.17.0 `2026-05-21`
+
+### 🚨 Breaking Changes
+
+- `Message`: 调整组件的 `z-index` 为 6000，之前依赖该属性的业务注意此变更 ⚠️ @RylanBot ([#4235](https://github.com/Tencent/tdesign-react/pull/4235))
+
+### 🚀 Features
+
+- `EnhancedTable`: 优化拖拽时的预览效果，使展开子行与父行一起移动，同时禁止子行跨级拖拽 @RylanBot ([#4229](https://github.com/Tencent/tdesign-react/pull/4229))
+- `ImageViewer`: 优化组件行为，支持视口之外的图片向中心缩放 @RSS1102 ([#4184](https://github.com/Tencent/tdesign-react/pull/4184))
+- `Slider`: 
+  - 新增默认值为 `0` 的逻辑，之前依赖该属性的业务注意此变更 ⚠️ @RylanBot ([#4163](https://github.com/Tencent/tdesign-react/pull/4163))
+  - 新增 `onChangeEnd` 与 `showStep` API @RylanBot ([#4163](https://github.com/Tencent/tdesign-react/pull/4163))
+
+### 🐞 Bug Fixes
+
+- `Avatar`: 修复图片加载时加载失败图标不显示的问题 @liweijie0812 ([#4227](https://github.com/Tencent/tdesign-react/pull/4227))
+- `Dialog`: 修复弹出动画未从点击位置展开的问题 @RylanBot ([#4165](https://github.com/Tencent/tdesign-react/pull/4165))
+- `Form`: 
+  - 修复 Portal 场景下，内部组件的 `reset` 和 `submit` 事件冒泡导致外层组件事件被误触发的问题 @RylanBot ([#4243](https://github.com/Tencent/tdesign-react/pull/4243))
+  - 修复 `onValueChange` 不稳定的问题 @RylanBot ([#4217](https://github.com/Tencent/tdesign-react/pull/4217))
+- `Image`: 修复错误提示字体大小错误的问题 @liweijie0812 ([#4227](https://github.com/Tencent/tdesign-react/pull/4227))
+- `Slider`: 
+  - 修复拖动过程中数值没变但重复触发 `onChange` 的问题 @RylanBot ([#4163](https://github.com/Tencent/tdesign-react/pull/4163))
+  - 修复 `layout="vertical"` 时，`label` 显示在上方而非右侧的问题 @RylanBot ([#4163](https://github.com/Tencent/tdesign-react/pull/4163))
+- `Table`: 
+  - 修复开启虚拟滚动或 `expandedRow` 时，行拖拽异常的问题 @RylanBot ([#4229](https://github.com/Tencent/tdesign-react/pull/4229))
+  - 修复开启虚拟滚动或 `headerAffixedTop` 时，列拖拽失效的问题 @RylanBot ([#4229](https://github.com/Tencent/tdesign-react/pull/4229))
+- `TagInput`: 
+  - 修复 `suffixIcon` 与输入文本重叠的问题 @RylanBot ([#4209](https://github.com/Tencent/tdesign-react/pull/4209))
+  - 修复没有 `suffixIcon` 时，输入文本和右侧边框太贴近的问题 @RylanBot ([#4209](https://github.com/Tencent/tdesign-react/pull/4209))
+- `Tree`: 
+  - 修复关闭 `transition` API 后，由于内部 duration 没有移除导致出现的卡顿表现 @uyarn ([#4231](https://github.com/Tencent/tdesign-react/pull/4231))
+  - 当自定义渲染节点时不渲染默认 `title` @uyarn ([#4234](https://github.com/Tencent/tdesign-react/pull/4234))
+- `Upload`: 
+  - 修复上传失败后重置文件没有触发 UI 变化的问题 @uyarn ([#4232](https://github.com/Tencent/tdesign-react/pull/4232))
+  - 修复组件在 Form 下时，需要点击多次才能触发删除的问题 @RylanBot ([#4232](https://github.com/Tencent/tdesign-react/pull/4232))
+
+### 📈 Performance
+
+- `Dropdown`: 优化下拉菜单获取子元素的逻辑 @HaixingOoO ([#4206](https://github.com/Tencent/tdesign-react/pull/4206))
+
 ## 🌈 1.16.9 `2026-04-23`
 
 ### 🚀 Features

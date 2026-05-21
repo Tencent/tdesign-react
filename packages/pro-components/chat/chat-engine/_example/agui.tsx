@@ -1,24 +1,29 @@
-import React, { ReactNode, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
+import { Button, MessagePlugin, Space } from 'tdesign-react';
 import {
-  type TdChatMessageConfig,
-  type ChatRequestParams,
-  type ChatMessagesData,
-  type TdChatActionsName,
-  type TdChatSenderParams,
-  ChatList,
-  ChatSender,
-  ChatMessage,
-  TdChatListApi,
-  TdChatSenderApi,
-  ChatActionBar,
-  isAIMessage,
-  getMessageContentForCopy,
   AGUIAdapter,
+  ChatActionBar,
+  ChatList,
+  ChatMessage,
+  ChatSender,
+  getMessageContentForCopy,
+  isAIMessage,
   isToolCallContent,
 } from '@tdesign-react/chat';
-import { Button, Space, MessagePlugin } from 'tdesign-react';
+
 import { useChat } from '../index';
 import CustomToolCallRenderer from './components/Toolcall';
+
+import type { ReactNode } from 'react';
+import type {
+  ChatMessagesData,
+  ChatRequestParams,
+  TdChatActionsName,
+  TdChatListApi,
+  TdChatMessageConfig,
+  TdChatSenderApi,
+  TdChatSenderParams,
+} from '@tdesign-react/chat';
 
 export default function ComponentsBuild() {
   const listRef = useRef<TdChatListApi>(null);

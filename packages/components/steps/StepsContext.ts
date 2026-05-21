@@ -1,5 +1,6 @@
 import React from 'react';
-import { TdStepsProps } from './type';
+
+import type { TdStepsProps } from './type';
 
 const StepsContext = React.createContext<{
   current: TdStepsProps['current'];
