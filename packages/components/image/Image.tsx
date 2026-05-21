@@ -1,17 +1,20 @@
-import React, { Fragment, useEffect, useRef, useState, SyntheticEvent, MouseEvent } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
 import { ImageErrorIcon as TdImageErrorIcon, ImageIcon as TdImageIcon } from 'tdesign-icons-react';
 import observe from '@tdesign/common-js/utils/observe';
+
 import useConfig from '../hooks/useConfig';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { TdImageProps } from './type';
-import { imageDefaultProps } from './defaultProps';
-import Space from '../space';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import { StyledProps } from '../common';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import useImagePreviewUrl from '../hooks/useImagePreviewUrl';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+import Space from '../space';
+import { imageDefaultProps } from './defaultProps';
+
+import type { MouseEvent, SyntheticEvent } from 'react';
+import type { StyledProps } from '../common';
+import type { TdImageProps } from './type';
 
 export function isImageValid(src: string) {
   return new Promise((resolve) => {

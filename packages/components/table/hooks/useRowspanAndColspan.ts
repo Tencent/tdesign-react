@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { get } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
+
 import useIsomorphicLayoutEffect from '../../hooks/useLayoutEffect';
+
 import type { BaseTableCellParams, BaseTableCol, TableRowData, TableRowspanAndColspanFunc } from '../type';
 
 export interface SkipSpansValue {

@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
 import { off, on } from '../../_util/listener';
 import { getScrollContainer } from '../../_util/scroll';
+
 import type { AffixProps } from '../../affix';
 import type { TdBaseTableProps } from '../type';
 

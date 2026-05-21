@@ -1,5 +1,6 @@
 import React from 'react';
-import { vi, render, simulateImageEvent, mockDelay } from '@test/utils';
+import { mockDelay, render, simulateImageEvent, vi } from '@test/utils';
+
 import Avatar from '../Avatar';
 
 describe('Avatar 组件测试', () => {

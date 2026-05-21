@@ -1,5 +1,6 @@
 import React from 'react';
-import { Space, Cascader, Tag } from 'tdesign-react';
+import { Cascader, Space, Tag } from 'tdesign-react';
+
 import type { CascaderProps, CascaderValue } from 'tdesign-react';
 
 const SingleValueDisplay: CascaderProps['valueDisplay'] = ({ value, selectedOptions }) =>

@@ -1,8 +1,9 @@
-import { useEffect, useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import setStyle from '@tdesign/common-js/utils/setStyle';
-import useConfig from './useConfig';
-import useAnimation from './useAnimation';
+
 import { canUseDocument } from '../_util/dom';
+import useAnimation from './useAnimation';
+import useConfig from './useConfig';
 
 const period = 200;
 const noneRippleBg = 'rgba(0, 0, 0, 0)';

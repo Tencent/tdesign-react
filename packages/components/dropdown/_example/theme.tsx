@@ -1,8 +1,8 @@
 import React from 'react';
-import { Dropdown, Button, MessagePlugin } from 'tdesign-react';
-import type { DropdownProps, DropdownOption } from 'tdesign-react';
-
 import { Icon } from 'tdesign-icons-react';
+import { Button, Dropdown, MessagePlugin } from 'tdesign-react';
+
+import type { DropdownOption, DropdownProps } from 'tdesign-react';
 
 export default function ThemeDropdown() {
   const options: DropdownOption[] = [

@@ -1,6 +1,7 @@
 import React from 'react';
-import { fireEvent, mockDelay, render, vi } from '@test/utils';
 import { AngryIcon, SmileIcon } from 'tdesign-icons-react';
+import { fireEvent, mockDelay, render, vi } from '@test/utils';
+
 import { Typography } from '..';
 
 const { Text, Title, Paragraph } = Typography;

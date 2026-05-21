@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Space, Select, Input, Divider } from 'tdesign-react';
+import { Divider, Input, Select, Space } from 'tdesign-react';
 
 const { Option } = Select;
 

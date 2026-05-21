@@ -1,6 +1,6 @@
-import _Anchor from './Anchor';
-
 import './style/index.js';
+
+import _Anchor from './Anchor';
 
 export type { AnchorProps } from './Anchor';
 export type { AnchorItemProps } from './AnchorItem';

@@ -1,28 +1,22 @@
-import React, {
-  CompositionEvent,
-  forwardRef,
-  KeyboardEvent,
-  MouseEvent,
-  useEffect,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-} from 'react';
-import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-react';
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import classnames from 'classnames';
 import { isFunction } from 'lodash-es';
+import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-react';
+
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useDragSorter from '../hooks/useDragSorter';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import TInput, { type InputRef, type InputValue } from '../input';
+import TInput from '../input';
 import { tagInputDefaultProps } from './defaultProps';
 import useHover from './useHover';
 import useTagList from './useTagList';
 import useTagScroll from './useTagScroll';
 
+import type { CompositionEvent, KeyboardEvent, MouseEvent } from 'react';
 import type { StyledProps } from '../common';
+import type { InputRef, InputValue } from '../input';
 import type { TdTagInputProps } from './type';
 
 export interface TagInputProps extends TdTagInputProps, StyledProps {

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react';
+
 import useVirtualScroll from '../../hooks/useVirtualScroll';
 
 import type { SizeEnum, TScroll } from '../../common';
@@ -51,21 +52,24 @@ const usePanelVirtualScroll = ({ popupContentRef, scroll, options, size }: Panel
 
   let lastScrollY = -1;
 
-  const onInnerVirtualScroll = useCallback((e: WheelEvent) => {
-    if (!isVirtual) {
-      return;
-    }
-    const target = e.target as HTMLElement;
-    const top = target.scrollTop;
-    // 排除横向滚动触发的纵向虚拟滚动计算
-    if (Math.abs(lastScrollY - top) > 5) {
-      handleVirtualScroll();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      lastScrollY = top;
-    } else {
-      lastScrollY = -1;
-    }
-  }, [isVirtual, handleVirtualScroll]);
+  const onInnerVirtualScroll = useCallback(
+    (e: WheelEvent) => {
+      if (!isVirtual) {
+        return;
+      }
+      const target = e.target as HTMLElement;
+      const top = target.scrollTop;
+      // 排除横向滚动触发的纵向虚拟滚动计算
+      if (Math.abs(lastScrollY - top) > 5) {
+        handleVirtualScroll();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        lastScrollY = top;
+      } else {
+        lastScrollY = -1;
+      }
+    },
+    [isVirtual, handleVirtualScroll],
+  );
 
   // 监听popup滚动 处理虚拟滚动时的virtualData变化
   useEffect(() => {

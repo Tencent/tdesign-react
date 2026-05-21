@@ -1,4 +1,4 @@
-import { CascaderContextType, TreeNode, TreeNodeValue } from '../interface';
+import type { CascaderContextType, TreeNode, TreeNodeValue } from '../interface';
 
 /**
  * icon Class

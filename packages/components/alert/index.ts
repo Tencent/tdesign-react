@@ -1,6 +1,6 @@
-import _Alert from './Alert';
-
 import './style/index.js';
+
+import _Alert from './Alert';
 
 export type { AlertProps } from './Alert';
 export * from './type';
