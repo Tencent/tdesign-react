@@ -77,10 +77,8 @@ const Form = forwardRefWithStatics(
     }
 
     function onFormItemValueChange(changedValue: Record<string, unknown>) {
-      requestAnimationFrame(() => {
-        const allFields = formInstance.getFieldsValue(true);
-        onValuesChange(changedValue, allFields);
-      });
+      const allFields = formInstance.getFieldsValue(true);
+      onValuesChange(changedValue, allFields);
     }
 
     return (
