@@ -16,6 +16,8 @@ import useControlled from '../../hooks/useControlled';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { parseContentTNode } from '../../_util/parseTNode';
+import { enableRowDrag } from '../utils';
+import { DATA_ID_ATTR, DATA_PARENT_ID_ATTR, EXPANDED_SUFFIX } from './useDragSort';
 
 export default function useRowExpand(props: TdPrimaryTableProps) {
   const { expandIcon, expandedRow } = props;
@@ -100,10 +102,17 @@ export default function useRowExpand(props: TdPrimaryTableProps) {
   ) => {
     const rowId = get(p.row, props.rowKey || 'id');
     if (!tExpandedRowKeys || !tExpandedRowKeys.includes(rowId)) return null;
+
     const isFixedLeft = p.isWidthOverflow && props.columns.find((item) => item.fixed === 'left');
+    const dragAttr = enableRowDrag(props.dragSort) && {
+      [DATA_ID_ATTR]: `${rowId}${EXPANDED_SUFFIX}`,
+      [DATA_PARENT_ID_ATTR]: rowId,
+    };
+
     return (
       <tr
-        key={`expand_${rowId}`}
+        key={`${rowId}${EXPANDED_SUFFIX}`}
+        {...dragAttr}
         className={classNames([tableExpandClasses.row, { [tableFullRowClasses.base]: isFixedLeft }])}
       >
         <td colSpan={p.columns.length}>

@@ -5,6 +5,7 @@ import log from '@tdesign/common-js/log/index';
 import { getIEVersion } from '@tdesign/common-js/utils/helper';
 import Affix, { type AffixRef } from '../affix';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useDomRefMount from '../hooks/useDomRefMount';
 import useElementLazyRender from '../hooks/useElementLazyRender';
 import useVirtualScroll from '../hooks/useVirtualScroll';
 import Loading from '../loading';
@@ -113,6 +114,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     headerTopAffixRef,
     footerBottomAffixRef,
   });
+
+  const { onMount: onAffixHeaderMount } = useDomRefMount(affixHeaderRef);
 
   const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination(props, tableContentRef);
 
@@ -255,7 +258,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const scrollColumnIntoView = (colKey: string) => {
     if (!tableContentRef.current) return;
     const thDom = tableContentRef.current.querySelector(`th[data-colkey="${colKey}"]`);
-    const fixedThDom = tableContentRef.current.querySelectorAll('th.t-table__cell--fixed-left');
+    const fixedThDom = tableContentRef.current.querySelectorAll(`th.${classPrefix}-table__cell--fixed-left`);
     let totalWidth = 0;
     for (let i = 0, len = fixedThDom.length; i < len; i++) {
       totalWidth += fixedThDom[i].getBoundingClientRect().width;
@@ -272,6 +275,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     tableHtmlElement: tableElmRef.current,
     tableContentElement: tableContentRef.current,
     affixHeaderElement: affixHeaderRef.current,
+    onAffixHeaderMount,
     refreshTable,
     scrollToElement: virtualConfig.scrollToElement,
     scrollColumnIntoView,
@@ -375,7 +379,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     };
     const affixedHeader = Boolean((headerAffixedTop || virtualConfig.isVirtualScroll) && tableWidth.current) && (
       <div
-        ref={affixHeaderRef}
+        ref={onAffixHeaderMount}
         style={{ width: `${tableWidth.current - affixedLeftBorder - barWidth}px`, opacity: headerOpacity }}
         className={classNames([
           'scrollbar',
@@ -489,7 +493,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     tableContentRef,
     tableWidth,
     isWidthOverflow,
-    allTableClasses,
     rowKey,
     scroll: props.scroll,
     cellEmptyContent: props.cellEmptyContent,

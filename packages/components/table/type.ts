@@ -514,7 +514,7 @@ export interface TdPrimaryTableProps<T extends TableRowData = TableRowData>
    */
   sortIcon?: TElement;
   /**
-   * 允许表格行拖拽时排序。请更为使用 `dragSort=\"row\"`
+   * 允许表格行拖拽时排序。请更为使用 `dragSort="row"`
    * @default false
    * @deprecated
    */

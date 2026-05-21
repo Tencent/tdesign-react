@@ -35,15 +35,7 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
   const { sizeClassNames } = useStyle(props);
   // 自定义列配置功能
   const { tDisplayColumns, renderColumnController } = useColumnController(props, { onColumnReduce });
-  // 展开/收起行功能
-  const {
-    showExpandedRow,
-    showExpandIconColumn,
-    getExpandColumn,
-    renderExpandedRow,
-    onInnerExpandRowClick,
-    getExpandedRowClass,
-  } = useRowExpand(props);
+
   // 排序功能
   const { renderSortIcon } = useSorter(props);
   // 行选中功能
@@ -60,10 +52,23 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
     primaryTableRef,
   );
   // 拖拽排序功能
-  const { isRowHandlerDraggable, isRowDraggable, isColDraggable, setDragSortColumns } = useDragSort(props, {
-    primaryTableRef,
-    innerPagination,
-  });
+  const { isRowHandlerDraggable, isRowDraggable, isColDraggable, setDragSortColumns, updateLastRowList } = useDragSort(
+    props,
+    {
+      primaryTableRef,
+      innerPagination,
+    },
+  );
+
+  // 展开/收起行功能
+  const {
+    showExpandedRow,
+    showExpandIconColumn,
+    getExpandColumn,
+    renderExpandedRow,
+    onInnerExpandRowClick,
+    getExpandedRowClass,
+  } = useRowExpand(props);
 
   const { renderTitleWidthIcon } = useTableHeader({ columns: props.columns });
   const { renderAsyncLoading } = useAsyncLoading(props);
@@ -264,6 +269,12 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
     lastFullRow,
     thDraggable: ['col', 'row-handler-col'].includes(props.dragSort),
     onPageChange: onInnerPageChange,
+    onScroll: (...args) => {
+      props.onScroll?.(...args);
+      if (props.scroll?.type === 'virtual' && props.data.length > (props.scroll?.threshold || 100)) {
+        updateLastRowList();
+      }
+    },
     renderExpandedRow: showExpandedRow ? renderExpandedRow : undefined,
   } as BaseTableProps;
 
