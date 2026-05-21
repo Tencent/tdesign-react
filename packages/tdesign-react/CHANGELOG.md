@@ -291,6 +291,15 @@ spline: explain
   - 修复 `children` 为不支持 `ref` 穿透的封装组件时，弹窗无法正常出现的问题 @RylanBot ([#3940](https://github.com/Tencent/tdesign-react/pull/3940))
 - `PopupPlugin`: 修复 `classPrefix` 不生效的问题 @RylanBot ([#3940](https://github.com/Tencent/tdesign-react/pull/3940))
 
+## 🌈 1.15.12 `2026-05-21`
+### 🚀 Features
+- `EnhancedTable`: 优化拖拽时的预览效果，使展开子行与父行一起移动，同时禁止子行跨级拖拽 @RylanBot ([#4229](https://github.com/Tencent/tdesign-react/pull/4229))
+
+### 🐞 Bug Fixes
+- `Table`: 
+  - 修复开启虚拟滚动或 `expandedRow` 时，行拖拽异常的问题 @RylanBot ([#4229](https://github.com/Tencent/tdesign-react/pull/4229))
+  - 修复开启虚拟滚动或 `headerAffixedTop` 时，列拖拽失效的问题 @RylanBot ([#4229](https://github.com/Tencent/tdesign-react/pull/4229))
+
 ## 🌈 1.15.11 `2025-12-15`
 
 ### 🚀 Features
