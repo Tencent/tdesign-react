@@ -27,7 +27,9 @@ export default function useUpload(props: TdUploadProps) {
   const { disabled, autoUpload, isBatchUpload } = props;
   const { classPrefix } = useConfig();
   const [globalLocale, t] = useLocaleReceiver('upload');
+
   const [uploadValue, setUploadValue] = useControlled(props, 'files', props.onChange);
+
   const xhrReq = useRef<{ files: UploadFile[]; xhrReq: XMLHttpRequest }[]>([]);
   const [toUploadFiles, setToUploadFiles] = useState<UploadFile[]>([]);
   const [sizeOverLimitMessage, setSizeOverLimitMessage] = useState('');
@@ -343,12 +345,12 @@ export default function useUpload(props: TdUploadProps) {
       setToUploadFiles([]);
       xhrReq.current = [];
     } else if (!props.autoUpload) {
-      uploadValue.splice(p.index, 1);
-      setUploadValue([...uploadValue], changePrams);
+      const newUploadValue = uploadValue.filter((_, i) => i !== p.index);
+      setUploadValue(newUploadValue, changePrams);
     } else if (p.index < uploadValue.length) {
       // autoUpload 场景下， p.index < uploadValue.length 表示移除已经上传成功的文件；反之表示移除待上传列表文件
-      uploadValue.splice(p.index, 1);
-      setUploadValue([...uploadValue], changePrams);
+      const newUploadValue = uploadValue.filter((_, i) => i !== p.index);
+      setUploadValue(newUploadValue, changePrams);
     } else {
       const tmpFiles = [...toUploadFiles];
       tmpFiles.splice(p.index - uploadValue.length, 1);
@@ -396,6 +398,10 @@ export default function useUpload(props: TdUploadProps) {
   useEffect(() => {
     if (!Array.isArray(uploadValue)) {
       setUploadValue([], { trigger: 'default' });
+    }
+    if (Array.isArray(uploadValue) && uploadValue.length === 0 && toUploadFiles.length > 0 && !uploading) {
+      setToUploadFiles([]);
+      props.onWaitingUploadFilesChange?.({ files: [], trigger: 'remove' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uploadValue]);
