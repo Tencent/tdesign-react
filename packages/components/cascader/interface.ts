@@ -1,7 +1,8 @@
 import type TreeNode from '@tdesign/common-js/tree-v1/tree-node';
 import type TreeStore from '@tdesign/common-js/tree-v1/tree-store';
-import type { TreeNodeModel, TreeNodeValue } from '@tdesign/common-js/tree-v1/types';
+import type { TreeNodeModel, TreeNodeValue, TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
 import type { TdSelectInputProps } from '../select-input/type';
+import type { TreeOptionData } from './interface';
 import type { CascaderChangeSource, CascaderValue, TdCascaderProps } from './type';
 
 export * from './type';
@@ -43,3 +44,12 @@ export { TreeNode } from '@tdesign/common-js/tree-v1/tree-node';
 export type { TreeNodeValue } from '@tdesign/common-js/tree-v1/types';
 
 export const EVENT_NAME_WITH_KEBAB = ['remove', 'blur', 'focus'];
+
+export type CascaderOption = TreeOptionData | TypeTreeNodeData;
+
+export interface FilterState {
+  filters: Record<number, string | ((node: CascaderOption, panelIndex: number) => boolean)>;
+  maxLevel: number;
+}
+
+export type FilterValue = string | ((node: CascaderOption, panelIndex: number) => boolean);
