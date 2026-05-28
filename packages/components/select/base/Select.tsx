@@ -14,7 +14,7 @@ import { debounce, get, isFunction } from 'lodash-es';
 import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
 import { getOffsetTopToContainer } from '../../_util/helper';
 import noop from '../../_util/noop';
-import { parseContentTNode } from '../../_util/parseTNode';
+import { extractTextFromTNode, parseContentTNode } from '../../_util/parseTNode';
 import { composeRefs } from '../../_util/ref';
 import FakeArrow from '../../common/FakeArrow';
 import useConfig from '../../hooks/useConfig';
@@ -319,7 +319,8 @@ const Select = forwardRefWithStatics(
           return filter(value, option);
         }
         const upperValue = value.toUpperCase();
-        return (option?.label || '').toUpperCase().includes(upperValue);
+        const searchableText = extractTextFromTNode(option.label);
+        return searchableText.toUpperCase().includes(upperValue);
       };
 
       tmpPropOptions?.forEach((option) => {
@@ -431,12 +432,7 @@ const Select = forwardRefWithStatics(
 
     const renderValueDisplay = useMemo(() => {
       if (!valueDisplay) {
-        if (!multiple) {
-          if (typeof selectedLabel !== 'string') {
-            return selectedLabel;
-          }
-          return '';
-        }
+        if (!multiple) return selectedLabel;
         return ({ value: val }) =>
           val.slice(0, minCollapsedNum ? minCollapsedNum : val.length).map((_, index: number) => {
             const targetVal = get(selectedOptions[index], valueKey);
