@@ -71,7 +71,6 @@ const Option: React.FC<SelectOptionProps> = (props) => {
   const [allSelectableChecked, setAllSelectableChecked] = useState(initCheckedStatus);
 
   const displayedContent = children || content || label;
-  const isCustomElement = React.isValidElement(displayedContent);
 
   const titleContent = useMemo(() => {
     // 外部设置 props，说明希望受控
@@ -173,10 +172,7 @@ const Option: React.FC<SelectOptionProps> = (props) => {
       key={value}
       onClick={handleSelect}
       ref={setRefCurrent}
-      style={{
-        ...(isCustomElement ? { height: 'auto' } : {}),
-        ...style,
-      }}
+      style={style}
     >
       {renderItem()}
     </li>
