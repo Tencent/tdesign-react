@@ -5,6 +5,48 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.17.0 `2026-05-21`
+
+### 🚨 Breaking Changes
+
+- `Message`: The `z-index` of the component has been adjusted to 6000. Please note this change for any services that rely on this property ⚠️ @RylanBot ([#4235](https://github.com/Tencent/tdesign-react/pull/4235))
+
+### 🚀 Features
+
+- `EnhancedTable`: Improved the preview effect during dragging. Now, when a sub-row is expanded, it moves together with the parent row. Additionally, cross-level dragging of sub-rows is now prohibited. @RylanBot ([#4229](https://github.com/Tencent/tdesign-react/pull/4229))
+- `ImageViewer`: Improved the behavior of the ImageViewer so that images outside the viewport are zoomed in to the center. @RSS1102 ([#4184](https://github.com/Tencent/tdesign-react/pull/4184))
+- `Slider`:
+  - A default value of `0` has been added. Please note this change for any services that rely on this property ⚠️ @RylanBot ([#4163](https://github.com/Tencent/tdesign-react/pull/4163))
+  - New APIs `onChangeEnd` and `showStep` have been added. @RylanBot ([#4163](https://github.com/Tencent/tdesign-react/pull/4163))
+
+### 🐞 Bug Fixes
+
+- `Avatar`: Fixed an issue where the loading icon wasn’t displayed when images failed to load. @liweijie0812 ([#4227](https://github.com/Tencent/tdesign-react/pull/4227))
+- `Dialog`: Fixed an issue where the popup didn’t open from the clicked position. @RylanBot ([#4165](https://github.com/Tencent/tdesign-react/pull/4165))
+- `Form`: 
+  - Fixed an issue where `reset` and `submit` events from internal components caused external components to trigger events accidentally in Portal scenarios. @RylanBot ([#4243](https://github.com/Tencent/tdesign-react/pull/4243))
+  - Fixed an issue where `onValueChange` wasn’t functioning properly. @RylanBot ([#4217](https://github.com/Tencent/tdesign-react/pull/4217))
+- `Image`: Fixed an issue with incorrect font size in error messages. @liweijie0812 ([#4227](https://github.com/Tencent/tdesign-react/pull/4227))
+- `Slider`:
+  - Fixed an issue where `onChange` was triggered repeatedly even though the value didn’t change during dragging. @RylanBot ([#4163](https://github.com/Tencent/tdesign-react/pull/4163))
+  - Fixed an issue where, when `layout="vertical"`, the `label` was displayed above instead of to the right. @RylanBot ([#4163](https://github.com/Tencent/tdesign-react/pull/4163))
+- `Table`:
+  - Fixed issues with row dragging when virtual scrolling or `expandedRow` was enabled. @RylanBot ([#4229](https://github.com/Tencent/tdesign-react/pull/4229))
+  - Fixed an issue where column dragging didn’t work when virtual scrolling or `headerAffixedTop` was enabled. @RylanBot ([#4229](https://github.com/Tencent/tdesign-react/pull/4229))
+- `TagInput`:
+  - Fixed an issue where the `suffixIcon` overlapped with the input text. @RylanBot ([#4209](https://github.com/Tencent/tdesign-react/pull/4209))
+  - Fixed an issue where, when there was no `suffixIcon`, the input text was too close to the right border. @RylanBot ([#4209](https://github.com/Tencent/tdesign-react/pull/4209))
+- `Tree`:
+  - Fixed a lagging issue that occurred after disabling the `transition` API, due to the remaining duration setting. @uyarn ([#4231](https://github.com/Tencent/tdesign-react/pull/4231))
+  - When custom rendering nodes were used, the default title wasn’t displayed. @uyarn ([#4234](https://github.com/Tencent/tdesign-react/pull/4234))
+- `Upload`:
+  - Fixed an issue where resetting the file after an upload failure didn’t trigger any UI changes. @uyarn ([#4232](https://github.com/Tencent/tdesign-react/pull/4232))
+  - Fixed an issue where multiple clicks were required to delete an item when the component was inside a Form. @RylanBot ([#4232](https://github.com/Tencent/tdesign-react/pull/4232))
+
+### 📈 Performance
+
+- `Dropdown`: Improved the logic for retrieving child elements in the dropdown menu. @HaixingOoO ([#4206](https://github.com/Tencent/tdesign-react/pull/4206))
+
 ## 🌈 1.16.9 `2026-04-23`
 
 ### 🚀 Features
