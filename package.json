@@ -112,7 +112,7 @@
     "husky": "^7.0.4",
     "immer": "^10.0.0",
     "jest-canvas-mock": "^2.4.0",
-    "jsdom": "^20.0.1",
+    "jsdom": "^29.1.1",
     "less": "4.4.2",
     "lint-staged": "^13.2.2",
     "mockdate": "^3.0.5",
