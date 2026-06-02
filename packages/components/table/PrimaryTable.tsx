@@ -19,6 +19,7 @@ import useStyle from './hooks/useStyle';
 import useTableHeader, { renderTitle } from './hooks/useTableHeader';
 
 import type { ReactNode, RefAttributes } from 'react';
+import type { TableTreeDataMap } from '@tdesign/common-js/table/tree-store';
 import type { CheckboxGroupValue } from '../checkbox';
 import type { StyledProps } from '../common';
 import type { PageInfo, PaginationProps } from '../pagination';
@@ -28,10 +29,15 @@ import type { PrimaryTableCellParams, PrimaryTableCol, TableRowData, TdPrimaryTa
 
 export { BASE_TABLE_ALL_EVENTS } from './BaseTable';
 
-export interface TPrimaryTableProps extends PrimaryTableProps, StyledProps {}
+/**
+ * @internal
+ */
+export interface InternalPrimaryTableProps extends PrimaryTableProps, StyledProps {
+  treeDataMap?: TableTreeDataMap;
+}
 
-const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalProps, ref) => {
-  const props = useDefaultProps<TPrimaryTableProps>(originalProps, primaryTableDefaultProps);
+const PrimaryTable = forwardRef<PrimaryTableRef, InternalPrimaryTableProps>((originalProps, ref) => {
+  const props = useDefaultProps<InternalPrimaryTableProps>(originalProps, primaryTableDefaultProps);
   const { columns, columnController, editableRowKeys, style, className } = props;
   const primaryTableRef = useRef(null);
   const innerPagination = useRef<PaginationProps>(props.pagination);
