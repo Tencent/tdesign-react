@@ -1,25 +1,8 @@
-import React, {
-  forwardRef,
-  MouseEvent,
-  RefObject,
-  useCallback,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { forwardRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import { get } from 'lodash-es';
-
 import log from '@tdesign/common-js/log/index';
-import TreeNode from '@tdesign/common-js/tree-v1/tree-node';
-import type {
-  TreeNodeState,
-  TreeNodeValue,
-  TypeTreeNodeData,
-  TypeTreeNodeModel,
-} from '@tdesign/common-js/tree-v1/types';
 
 import parseTNode from '../_util/parseTNode';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -32,6 +15,14 @@ import { useTreeConfig } from './hooks/useTreeConfig';
 import useTreeVirtualScroll from './hooks/useTreeVirtualScroll';
 import TreeItem from './TreeItem';
 
+import type { MouseEvent, RefObject } from 'react';
+import type TreeNode from '@tdesign/common-js/tree-v1/tree-node';
+import type {
+  TreeNodeState,
+  TreeNodeValue,
+  TypeTreeNodeData,
+  TypeTreeNodeModel,
+} from '@tdesign/common-js/tree-v1/types';
 import type { ComponentScrollToElementParams, StyledProps, TreeOptionData } from '../common';
 import type { TreeItemProps } from './interface';
 import type { TdTreeProps, TreeInstanceFunctions } from './type';

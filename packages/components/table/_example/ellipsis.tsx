@@ -1,6 +1,6 @@
 import React from 'react';
+import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon, FileCopyIcon } from 'tdesign-icons-react';
 import { MessagePlugin, Table, Tag } from 'tdesign-react';
-import { FileCopyIcon, ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 
 import type { TableProps } from 'tdesign-react';
 

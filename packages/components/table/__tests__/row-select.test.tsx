@@ -1,6 +1,7 @@
 import React from 'react';
 import { vi } from '@test/utils';
 import { fireEvent, render } from '@testing-library/react';
+
 import { EnhancedTable, Table } from '..';
 
 const columns = [

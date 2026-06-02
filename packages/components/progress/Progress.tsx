@@ -1,4 +1,5 @@
-import React, { forwardRef, isValidElement, useRef, useState, useEffect, useCallback } from 'react';
+import React, { forwardRef, isValidElement, useCallback, useEffect, useRef, useState } from 'react';
+import classNames from 'classnames';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CheckIcon as TdCheckIcon,
@@ -7,9 +8,8 @@ import {
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
   ErrorIcon as TdErrorIcon,
 } from 'tdesign-icons-react';
-import classNames from 'classnames';
-
 import { getBackgroundColor } from '@tdesign/common-js/utils/helper';
+
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';

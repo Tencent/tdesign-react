@@ -1,6 +1,6 @@
-import _InputNumber from './InputNumber';
-
 import './style/index.js';
+
+import _InputNumber from './InputNumber';
 
 export type { InputNumberProps } from './InputNumber';
 export * from './type';

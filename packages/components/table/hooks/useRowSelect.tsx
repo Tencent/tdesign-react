@@ -1,12 +1,13 @@
-import React, { MouseEvent, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { get, isFunction } from 'lodash-es';
-
 import log from '@tdesign/common-js/log/index';
 import { isRowSelectedDisabled } from '@tdesign/common-js/table/utils';
+
 import Checkbox from '../../checkbox';
 import useControlled from '../../hooks/useControlled';
 import Radio from '../../radio';
 
+import type { MouseEvent } from 'react';
 import type { ClassName } from '../../common';
 import type { InternalPrimaryTableProps } from '../PrimaryTable';
 import type {

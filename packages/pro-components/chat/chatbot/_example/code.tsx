@@ -1,17 +1,19 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useRef } from 'react';
-import { DialogPlugin, Card, Space } from 'tdesign-react';
-import {
-  ChatBot,
-  ChatMessagesData,
-  SSEChunkData,
-  TdChatMessageConfig,
+import { Card, DialogPlugin, Space } from 'tdesign-react';
+import { ChatBot } from '@tdesign-react/chat';
+
+import Login from './components/login';
+
+import type {
   AIMessageContent,
+  ChatMessagesData,
   ChatRequestParams,
   ChatServiceConfig,
+  SSEChunkData,
   TdChatbotApi,
+  TdChatMessageConfig,
 } from '@tdesign-react/chat';
-import Login from './components/login';
 
 // 默认初始化消息
 const mockData: ChatMessagesData[] = [

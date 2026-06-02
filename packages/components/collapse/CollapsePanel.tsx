@@ -1,13 +1,16 @@
-import React, { useRef, useEffect, MouseEvent } from 'react';
-import classnames from 'classnames';
+import React, { useEffect, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { useCollapseContext } from './CollapseContext';
+import classnames from 'classnames';
+
 import FakeArrow from '../common/FakeArrow';
 import useConfig from '../hooks/useConfig';
-import { TdCollapsePanelProps } from './type';
-import { StyledProps } from '../common';
-import { collapsePanelDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { useCollapseContext } from './CollapseContext';
+import { collapsePanelDefaultProps } from './defaultProps';
+
+import type { MouseEvent } from 'react';
+import type { StyledProps } from '../common';
+import type { TdCollapsePanelProps } from './type';
 
 export interface CollapsePanelProps extends TdCollapsePanelProps, StyledProps {
   children?: React.ReactNode;

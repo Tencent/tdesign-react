@@ -1,6 +1,8 @@
 import React from 'react';
+
+import { HotelCard, HumanInputResult, ItineraryCard, WeatherCard } from '../components';
+
 import type { AIMessageContent, ChatMessagesData } from '@tdesign-react/chat';
-import { WeatherCard, ItineraryCard, HotelCard, HumanInputResult } from '../components';
 
 interface MessageRendererProps {
   item: AIMessageContent;

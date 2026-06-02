@@ -1,0 +1,54 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`formatImages 快照 > ImageInfo 对象数组快照 > formatImages-image-info-array 1`] = `
+[
+  {
+    "download": true,
+    "mainImage": "main1.jpg",
+    "thumbnail": "thumb1.jpg",
+  },
+  {
+    "download": false,
+    "isSvg": true,
+    "mainImage": "main2.jpg",
+    "thumbnail": "main2.jpg",
+  },
+]
+`;
+
+exports[`formatImages 快照 > 字符串数组快照 > formatImages-string-array 1`] = `
+[
+  {
+    "download": true,
+    "mainImage": "img1.jpg",
+    "thumbnail": "img1.jpg",
+  },
+  {
+    "download": true,
+    "mainImage": "img2.png",
+    "thumbnail": "img2.png",
+  },
+  {
+    "download": true,
+    "mainImage": "img3.gif",
+    "thumbnail": "img3.gif",
+  },
+]
+`;
+
+exports[`formatImages 快照 > 混合数组快照 > formatImages-mixed-array 1`] = `
+[
+  {
+    "download": true,
+    "mainImage": "simple.jpg",
+    "thumbnail": "simple.jpg",
+  },
+  {
+    "download": true,
+    "mainImage": "complex.jpg",
+    "thumbnail": "complex-thumb.jpg",
+  },
+]
+`;
+
+exports[`formatImages 快照 > 空数组快照 > formatImages-empty 1`] = `[]`;

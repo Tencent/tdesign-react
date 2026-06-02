@@ -1,7 +1,7 @@
 import React, { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { castArray, cloneDeep, get, isEqual, merge, set, unset } from 'lodash-es';
-
 import log from '@tdesign/common-js/log/index';
+
 import { FormListContext, useFormContext, useFormListContext } from './FormContext';
 import { HOOK_MARK } from './hooks/useForm';
 import { calcFieldValue, concatName, convertNameToArray, swap } from './utils';

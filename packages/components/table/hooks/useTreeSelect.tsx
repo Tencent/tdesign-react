@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { get } from 'lodash-es';
 
+import useControlled from '../../hooks/useControlled';
+
 import type { KeysType, TableTreeDataMap, TreeDataMapType } from '@tdesign/common-js/table/tree-store';
 import type { PrimaryTableCol, TableRowData, TdEnhancedTableProps, TdPrimaryTableProps } from '../type';
-
-import useControlled from '../../hooks/useControlled';
 
 export interface GetChildrenDataReturnValue {
   allChildren: Array<any>;

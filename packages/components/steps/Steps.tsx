@@ -1,12 +1,13 @@
 import React, { useCallback, useMemo } from 'react';
 import classnames from 'classnames';
+
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { stepsDefaultProps } from './defaultProps';
 import StepItem from './StepItem';
 import StepsContext from './StepsContext';
-import { stepsDefaultProps } from './defaultProps';
 
 import type { StyledProps } from '../common';
 import type { StepItemProps } from './StepItem';
