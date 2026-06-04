@@ -2,7 +2,7 @@ name: preview-publish
 
 on:
   workflow_run:
-    workflows: 
+    workflows:
       - preview-build
     types:
       - completed
@@ -11,7 +11,7 @@ jobs:
   preview-context:
     if: github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
-    outputs: 
+    outputs:
       pr_id: ${{ steps.pr.outputs.id }}
       tdesign_react_domain: ${{ steps.tdesign-react-domain.outputs.tdesign_react_domain }}
       tdesign_react_chat_domain: ${{ steps.tdesign-react-chat-domain.outputs.tdesign_react_chat_domain }}
@@ -22,9 +22,9 @@ jobs:
           workflow: ${{ github.event.workflow_run.workflow_id }}
           run_id: ${{ github.event.workflow_run.id }}
           name: pr-id
-          
+
       - name: Set pr id
-        id : pr
+        id: pr
         run: echo "id=$(cat pr-id.txt)" >> $GITHUB_OUTPUT
 
       - name: tdesign-react-domain
@@ -34,7 +34,7 @@ jobs:
       - name: tdesign-react-chat-domain
         id: tdesign-react-chat-domain
         run: echo "tdesign_react_chat_domain=https://preview-pr-${{ steps.pr.outputs.id }}-tdesign-react-chat.surge.sh" >> $GITHUB_OUTPUT
-  
+
   tdesign-react:
     if: github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
@@ -47,8 +47,8 @@ jobs:
           name: tdesign-react-site
       - run: |
           export DEPLOY_DOMAIN=${{ needs.preview-context.outputs.tdesign_react_domain }}
-          npx surge --project ./ --domain $DEPLOY_DOMAIN --token ${{ secrets.TDESIGN_SURGE_TOKEN }}  
-  
+          npx surge --project ./ --domain $DEPLOY_DOMAIN --token ${{ secrets.TDESIGN_SURGE_TOKEN }}
+
   tdesign-react-chat:
     if: github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
@@ -61,8 +61,8 @@ jobs:
           name: tdesign-react-chat-site
       - run: |
           export DEPLOY_DOMAIN=${{ needs.preview-context.outputs.tdesign_react_chat_domain }}
-          npx surge --project ./ --domain $DEPLOY_DOMAIN --token ${{ secrets.TDESIGN_SURGE_TOKEN }}           
-  
+          npx surge --project ./ --domain $DEPLOY_DOMAIN --token ${{ secrets.TDESIGN_SURGE_TOKEN }}
+
   preview-comment:
     if: always()
     needs:
@@ -86,7 +86,7 @@ jobs:
               run_id: context.runId,
               per_page: 100
             })
-            
+
             const tdesign = {
               "tdesign-react": { status: "", report_url: "" },
               "tdesign-react-chat": { status: "", report_url: "" },
@@ -131,13 +131,13 @@ jobs:
 
               <!-- AUTO_PREVIEW_HOOK -->
               `;
-            
+
             core.setOutput('comment', comment);
-      
+
       - name: comment
-        uses:TDesignOteam/workflows/actions/maintain-one-comment@main
+        uses: TDesignOteam/workflows/actions/maintain-one-comment@main
         with:
-            token: ${{ secrets.TDESIGN_BOT_TOKEN }}
-            number: ${{needs.preview-context.outputs.pr_id}}
-            body: ${{ steps.report.outputs.comment }}
-            body-include: '<!-- AUTO_PREVIEW_HOOK -->'
+          token: ${{ secrets.TDESIGN_BOT_TOKEN }}
+          number: ${{needs.preview-context.outputs.pr_id}}
+          body: ${{ steps.report.outputs.comment }}
+          body-include: '<!-- AUTO_PREVIEW_HOOK -->'
