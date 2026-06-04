@@ -101,12 +101,15 @@ export const TreeDraggableContext = createHookContext((value: Value) => {
     });
   };
 
+  const getDragNode = () => dragNode.current;
+
   return {
     onDragStart,
     onDragEnd,
     onDragOver,
     onDragLeave,
     onDrop,
+    getDragNode,
   };
 });
 
