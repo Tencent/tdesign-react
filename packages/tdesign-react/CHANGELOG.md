@@ -5,6 +5,19 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.17.1 `2026-06-05`
+
+### 🐞 Bug Fixes
+
+- `Menu`: 修复子菜单图标与文字间隔的问题 @liweijie0812 ([common#2512](https://github.com/Tencent/tdesign-common/pull/2512))
+- `Select`: 修复在输入搜索过滤选项时，出现系统的自动输入选项的问题 @liweijie0812 ([#4261](https://github.com/Tencent/tdesign-react/pull/4261))
+- `Tabs`: 修复 `disabled` 时，点击组件还会触发动画效果的问题 @RylanBot ([#4264](https://github.com/Tencent/tdesign-react/pull/4264))
+- `TagInput`: 修复 `value` 为 undefined 时报错的问题 @RylanBot ([#4249](https://github.com/Tencent/tdesign-react/pull/4249))
+
+### 🚧 Others
+
+- `Tabs`: 加强组件的泛型支持，便于 `value` 与 `onChange` 联动 @RylanBot ([#4260](https://github.com/Tencent/tdesign-react/pull/4260))
+
 ## 🌈 1.17.0 `2026-05-21`
 
 ### 🚨 Breaking Changes
