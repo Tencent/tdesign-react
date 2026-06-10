@@ -16,7 +16,7 @@ jobs:
           path: pr-id.txt
           retention-days: 5
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           submodules: recursive
 
@@ -39,7 +39,7 @@ jobs:
   tdesign-react-chat-site:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           submodules: recursive
 
