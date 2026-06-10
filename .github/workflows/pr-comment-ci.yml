@@ -227,7 +227,7 @@ jobs:
           git status
           git commit -am "chore: merge develop"
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
 
       - uses: actions/setup-node@v4
         with:
@@ -287,7 +287,7 @@ jobs:
             })
             return comment.id
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
 
       - uses: actions/setup-node@v4
         with:
