@@ -12,7 +12,7 @@ autoWidth | Boolean | false | \- | N
 borderless | Boolean | false | \- | N
 clearable | Boolean | false | \- | N
 collapsedItems | TElement | - | Typescript: `TNode<{ value: TagInputValue; collapsedSelectedItems: TagInputValue; count: number; onClose: (context: { index: number,  e?: MouseEvent }) => void }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-disabled | Boolean | - | \- | N
+disabled | Boolean | undefined | \- | N
 dragSort | Boolean | false | \- | N
 excessTagsDisplayType | String | break-line | options: scroll/break-line | N
 inputProps | Object | - | Typescript: `InputProps`，[Input API Documents](./input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tag-input/type.ts) | N
@@ -20,16 +20,16 @@ inputValue | String / Number | '' | input value。Typescript: `string` | N
 defaultInputValue | String / Number | '' | input value。uncontrolled property。Typescript: `string` | N
 label | TNode | - | Typescript: `string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 max | Number | - | max tag number | N
-maxRows | Number | - | max tag rows | N
 minCollapsedNum | Number | 0 | \- | N
 placeholder | String | undefined | placeholder description | N
-prefixIcon | TElement | - | Typescript：`TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-readOnly | Boolean | false | \- | N
-size | String | medium | options: small/medium/large。Typescript：`SizeEnum`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+prefixIcon | TElement | - | Typescript: `TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+readonly | Boolean | undefined | \- | N
+size | String | medium | options: small/medium/large。Typescript: `SizeEnum`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 status | String | - | options: default/success/warning/error | N
 suffix | TNode | - | Typescript: `string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 suffixIcon | TElement | - | Typescript: `TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 tag | TNode | - | Typescript: `string \| TNode<{ value: string \| number }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+tagDisplay | Function | - | Typescript: `TNode<{ value: string \| number; index: number; onClose: (context?: { e?: MouseEvent }) => void; }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 tagProps | Object | - | Typescript: `TagProps`，[Tag API Documents](./tag?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tag-input/type.ts) | N
 tips | TNode | - | Typescript: `string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 value | Array | [] | value。Typescript: `TagInputValue` `type TagInputValue = Array<string \| number>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tag-input/type.ts) | N
