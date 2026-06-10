@@ -13,7 +13,7 @@ import { useTabClass } from './useTabClass';
 import type { StyledProps } from '../common';
 import type { TabValue, TdTabsProps } from './type';
 
-export interface TabsProps extends TdTabsProps, StyledProps {
+export interface TabsProps<T extends TabValue = TabValue> extends TdTabsProps<T>, StyledProps {
   children?: React.ReactNode;
 }
 
@@ -94,4 +94,8 @@ const Tabs = forwardRefWithStatics(
 
 Tabs.displayName = 'Tabs';
 
-export default Tabs;
+export default Tabs as (<T extends TabValue = TabValue>(
+  props: TabsProps<T> & React.RefAttributes<HTMLDivElement>,
+) => React.ReactElement) & {
+  TabPanel: typeof TabPanel;
+};

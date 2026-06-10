@@ -5,6 +5,19 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.17.1 `2026-06-05`
+
+### 🐞 Bug Fixes
+
+- `Menu`: Fixed the issue with the spacing between sub-menu icons and text @liweijie0812 ([common#2512](https://github.com/Tencent/tdesign-common/pull/2512))
+- `Select`: Fixed the problem where the system’s auto-complete options appeared when searching for filter options @liweijie0812 ([#4261](https://github.com/Tencent/tdesign-react/pull/4261))
+- `Tabs`: Fixed an issue where animations were still triggered when clicking on a disabled tab component @RylanBot ([#4264](https://github.com/Tencent/tdesign-react/pull/4264))
+- `TagInput`: Fixed an error that occurred when `value` was undefined @RylanBot ([#4249](https://github.com/Tencent/tdesign-react/pull/4249))
+
+### 🚧 Others
+
+- `Tabs`: Improved the component’s support for generics, making it easier to integrate `value` and `onChange` functionality @RylanBot ([#4260](https://github.com/Tencent/tdesign-react/pull/4260))
+
 ## 🌈 1.17.0 `2026-05-21`
 
 ### 🚨 Breaking Changes

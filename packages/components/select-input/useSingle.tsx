@@ -225,6 +225,7 @@ export default function useSingle(props: SelectInputProps) {
         // 当 valueDisplay 为 自定义元素时，选中内容时 input 依旧为空，确保此时 clear icon 可见
         showClearIconOnEmpty={props.clearable && showCustomElement}
         {...commonInputProps}
+        autocomplete="off"
         suffix={
           labelNode ||
           (commonInputProps.suffix && (

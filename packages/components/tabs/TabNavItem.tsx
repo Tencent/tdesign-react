@@ -54,7 +54,7 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
 
   // 斜八度动画
   const [navItemDom, setRefCurrent] = useDomRefCallback();
-  useRipple(navItemDom);
+  useRipple(disabled ? null : navItemDom);
   return (
     <div
       {...dragProps}
