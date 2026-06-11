@@ -17,7 +17,7 @@ jobs:
       tdesign_react_chat_domain: ${{ steps.tdesign-react-chat-domain.outputs.tdesign_react_chat_domain }}
     steps:
       - name: Download pr id
-        uses: dawidd6/action-download-artifact@v8
+        uses: dawidd6/action-download-artifact@v21
         with:
           workflow: ${{ github.event.workflow_run.workflow_id }}
           run_id: ${{ github.event.workflow_run.id }}
@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: preview-context
     steps:
-      - uses: dawidd6/action-download-artifact@v8
+      - uses: dawidd6/action-download-artifact@v21
         with:
           workflow: ${{ github.event.workflow_run.workflow_id }}
           run_id: ${{ github.event.workflow_run.id }}
@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: preview-context
     steps:
-      - uses: dawidd6/action-download-artifact@v8
+      - uses: dawidd6/action-download-artifact@v21
         with:
           workflow: ${{ github.event.workflow_run.workflow_id }}
           run_id: ${{ github.event.workflow_run.id }}
