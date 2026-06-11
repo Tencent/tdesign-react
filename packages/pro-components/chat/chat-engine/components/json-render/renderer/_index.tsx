@@ -1,15 +1,19 @@
-"use client";
+'use client';
 
-import React, { type ComponentType, type ReactNode } from "react";
-import type {
-  UIElement,
-  UITree,
-  Action,
-  Catalog,
-  ComponentDefinition,
-} from "@json-render/core";
-import { useIsVisible, useActions, ConfirmDialog } from "../contexts";
-import { DataProvider, ValidationProvider, ActionProvider, VisibilityProvider } from "../contexts";
+import React from 'react';
+
+import {
+  ActionProvider,
+  ConfirmDialog,
+  DataProvider,
+  useActions,
+  useIsVisible,
+  ValidationProvider,
+  VisibilityProvider,
+} from '../contexts';
+
+import type { ComponentType, ReactNode } from 'react';
+import type { ActionBinding, Catalog, Spec, UIElement } from '@json-render/core';
 
 /**
  * Props passed to component renderers
@@ -20,7 +24,7 @@ export interface ComponentRenderProps<P = Record<string, unknown>> {
   /** Rendered children */
   children?: ReactNode;
   /** Execute an action */
-  onAction?: (action: Action) => void;
+  onAction?: (action: ActionBinding) => void;
   /** Whether the parent is loading */
   loading?: boolean;
 }
@@ -28,9 +32,7 @@ export interface ComponentRenderProps<P = Record<string, unknown>> {
 /**
  * Component renderer type
  */
-export type ComponentRenderer<P = Record<string, unknown>> = ComponentType<
-  ComponentRenderProps<P>
->;
+export type ComponentRenderer<P = Record<string, unknown>> = ComponentType<ComponentRenderProps<P>>;
 
 /**
  * Registry of component renderers
@@ -42,7 +44,7 @@ export type ComponentRegistry = Record<string, ComponentRenderer<any>>;
  */
 export interface RendererProps {
   /** The UI tree to render */
-  tree: UITree | null;
+  tree: Spec | null;
   /** Component registry */
   registry: ComponentRegistry;
   /** Whether the tree is currently loading/streaming */
@@ -62,7 +64,7 @@ function ElementRenderer({
   fallback,
 }: {
   element: UIElement;
-  tree: UITree;
+  tree: Spec;
   registry: ComponentRegistry;
   loading?: boolean;
   fallback?: ComponentRenderer;
@@ -122,13 +124,7 @@ export function JsonRenderElement({ tree, registry, loading, fallback }: Rendere
   }
 
   return (
-    <ElementRenderer
-      element={rootElement}
-      tree={tree}
-      registry={registry}
-      loading={loading}
-      fallback={fallback}
-    />
+    <ElementRenderer element={rootElement} tree={tree} registry={registry} loading={loading} fallback={fallback} />
   );
 }
 
@@ -143,28 +139,20 @@ export interface JSONUIProviderProps {
   /** Auth state */
   authState?: { isSignedIn: boolean; user?: Record<string, unknown> };
   /** Action handlers */
-  actionHandlers?: Record<
-    string,
-    (params: Record<string, unknown>) => Promise<unknown> | unknown
-  >;
+  actionHandlers?: Record<string, (params: Record<string, unknown>) => Promise<unknown> | unknown>;
   /** Navigation function */
   navigate?: (path: string) => void;
   /** Custom validation functions */
-  validationFunctions?: Record<
-    string,
-    (value: unknown, args?: Record<string, unknown>) => boolean
-  >;
+  validationFunctions?: Record<string, (value: unknown, args?: Record<string, unknown>) => boolean>;
   /** Callback when data changes */
   onDataChange?: (path: string, value: unknown) => void;
   children: ReactNode;
 }
 
-
 /**
  * Combined provider for all JSONUI contexts
  */
 export function JSONUIProvider({
-  registry,
   initialData,
   authState,
   actionHandlers,
@@ -174,11 +162,7 @@ export function JSONUIProvider({
   children,
 }: JSONUIProviderProps) {
   return (
-    <DataProvider
-      initialData={initialData}
-      authState={authState}
-      onDataChange={onDataChange}
-    >
+    <DataProvider initialData={initialData} authState={authState} onDataChange={onDataChange}>
       <VisibilityProvider>
         <ActionProvider handlers={actionHandlers} navigate={navigate}>
           <ValidationProvider customFunctions={validationFunctions}>
@@ -201,25 +185,17 @@ function ConfirmationDialogManager() {
     return null;
   }
 
-  return (
-    <ConfirmDialog
-      confirm={pendingConfirmation.action.confirm}
-      onConfirm={confirm}
-      onCancel={cancel}
-    />
-  );
+  return <ConfirmDialog confirm={pendingConfirmation.action.confirm} onConfirm={confirm} onCancel={cancel} />;
 }
 
 /**
  * Helper to create a renderer component from a catalog
  */
-export function createRendererFromCatalog<
-  C extends Catalog<Record<string, ComponentDefinition>>,
->(
+export function createRendererFromCatalog<C extends Catalog>(
   _catalog: C,
   registry: ComponentRegistry,
-): ComponentType<Omit<RendererProps, "registry">> {
-  return function CatalogRenderer(props: Omit<RendererProps, "registry">) {
+): ComponentType<Omit<RendererProps, 'registry'>> {
+  return function CatalogRenderer(props: Omit<RendererProps, 'registry'>) {
     return <JsonRenderElement {...props} registry={registry} />;
   };
 }

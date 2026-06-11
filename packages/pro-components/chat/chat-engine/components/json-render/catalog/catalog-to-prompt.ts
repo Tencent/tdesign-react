@@ -8,7 +8,24 @@
  */
 
 import { z } from 'zod';
-import { createCatalog } from '@json-render/core';
+
+type CatalogConfig = {
+  name: string;
+  components: Record<string, any>;
+  actions?: Record<string, { description: string }>;
+  validation?: 'strict' | 'warn';
+};
+
+function createCatalog<T extends CatalogConfig>(config: T) {
+  const actions = config.actions || {};
+
+  return {
+    ...config,
+    actions,
+    componentNames: Object.keys(config.components),
+    actionNames: Object.keys(actions),
+  };
+}
 
 /**
  * TDesign 内置组件 Catalog
@@ -35,13 +52,13 @@ export const tdesignCatalog = createCatalog({
         disabled: z.boolean().nullable(),
         loading: z.boolean().nullable(),
         block: z.boolean().nullable(),
-        // action 支持字符串（action 名称）或 Action 对象 { name, params }
+        // action 支持字符串（action 名称）或 ActionBinding 对象 { action, params }
         action: z
           .union([
             z.string(),
             z.object({
-              name: z.string(),
-              params: z.record(z.any()).optional(),
+              action: z.string(),
+              params: z.record(z.string(), z.any()).optional(),
             }),
           ])
           .nullable(),
@@ -262,7 +279,7 @@ const BUILTIN_COMPONENT_DOCS: Record<
       disabled: 'boolean - Whether button is disabled',
       loading: 'boolean - Whether to show loading state',
       block: 'boolean - Whether button should be full width',
-      action: 'string | { name: string, params?: object } - Action to trigger on click',
+      action: 'string | { action: string, params?: object } - ActionBinding to trigger on click',
     },
   },
   Input: {
@@ -404,12 +421,12 @@ function zodSchemaToPropsDoc(schema: z.ZodObject<any>): Record<string, string> {
 function zodTypeToString(type: z.ZodTypeAny): string {
   // 处理 nullable
   if (type instanceof z.ZodNullable) {
-    return `${zodTypeToString(type.unwrap())} (nullable)`;
+    return `${zodTypeToString(type.unwrap() as z.ZodTypeAny)} (nullable)`;
   }
 
   // 处理 optional
   if (type instanceof z.ZodOptional) {
-    return `${zodTypeToString(type.unwrap())} (optional)`;
+    return `${zodTypeToString(type.unwrap() as z.ZodTypeAny)} (optional)`;
   }
 
   // 处理 enum
@@ -683,7 +700,7 @@ export function generateCatalogPrompt(
   lines.push('');
   lines.push('Actions can be triggered by Button components. Use the `action` prop:');
   lines.push('- Simple: `"action": "actionName"`');
-  lines.push('- With params: `"action": { "name": "actionName", "params": { ... } }`');
+  lines.push('- With params: `"action": { "action": "actionName", "params": { ... } }`');
   lines.push('');
   for (const [name, def] of Object.entries(allActions)) {
     lines.push(`- \`${name}\`: ${def.description}`);
@@ -756,7 +773,7 @@ export function generateCatalogPrompt(
               props: {
                 children: 'Register',
                 theme: 'primary',
-                action: { name: 'submit', params: { form: 'registration' } },
+                action: { action: 'submit', params: { form: 'registration' } },
               },
             },
             reset_btn: {

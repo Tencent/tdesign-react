@@ -2,13 +2,9 @@
  * json-render 集成相关类型定义
  */
 
-import { type ComponentType, type ReactNode } from "react";
-import type {
-  UIElement,
-  UITree,
-  Action,
-} from "@json-render/core";
-import { type JsonRenderSchema } from '../../core';
+import type { ComponentType, ReactNode } from 'react';
+import type { ActionBinding, Spec, UIElement } from '@json-render/core';
+import type { JsonRenderSchema } from '../../core';
 
 /**
  * Props passed to component renderers
@@ -19,7 +15,7 @@ export interface ComponentRenderProps<P = Record<string, unknown>> {
   /** Rendered children */
   children?: ReactNode;
   /** Execute an action */
-  onAction?: (action: Action) => void;
+  onAction?: (action: ActionBinding) => void;
   /** Whether the parent is loading */
   loading?: boolean;
 }
@@ -27,9 +23,7 @@ export interface ComponentRenderProps<P = Record<string, unknown>> {
 /**
  * Component renderer type
  */
-export type ComponentRenderer<P = Record<string, unknown>> = ComponentType<
-  ComponentRenderProps<P>
->;
+export type ComponentRenderer<P = Record<string, unknown>> = ComponentType<ComponentRenderProps<P>>;
 
 /**
  * Registry of component renderers
@@ -41,7 +35,7 @@ export type ComponentRegistry = Record<string, ComponentRenderer<any>>;
  */
 export interface RendererProps {
   /** The UI tree to render */
-  tree: UITree | null;
+  tree: Spec | null;
   /** Component registry */
   registry: ComponentRegistry;
   /** Whether the tree is currently loading/streaming */
@@ -50,13 +44,12 @@ export interface RendererProps {
   fallback?: ComponentRenderer;
 }
 
-
 /**
  * json-render Activity 内容格式
  * 用于 ACTIVITY_SNAPSHOT 和 ACTIVITY_DELTA 事件
  */
-// export interface JsonRenderSchema extends UITree {
-//   // json-render 标准 UITree 结构
+// export interface JsonRenderSchema extends Spec {
+//   // json-render 标准 Spec 结构
 //   root: string;
 //   elements: Record<string, UIElement>;
 //   // 可选的数据模型

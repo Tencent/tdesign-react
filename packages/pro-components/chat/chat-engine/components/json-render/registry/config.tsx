@@ -4,11 +4,13 @@
  */
 
 import React from 'react';
-import type { ActivityConfig } from '../../activity/types';
-import type { JsonRenderActivityProps, ComponentRegistry } from '../types';
-import { JsonRenderActivityRenderer } from '../renderer/JsonRenderActivityRenderer';
+
 import { A2UIJsonRenderActivityRenderer } from '../renderer/A2UIJsonRenderActivityRenderer';
+import { JsonRenderActivityRenderer } from '../renderer/JsonRenderActivityRenderer';
 import { a2uiRegistry, tdesignRegistry } from '.';
+
+import type { ActivityConfig } from '../../activity/types';
+import type { ComponentRegistry,JsonRenderActivityProps } from '../types';
 
 /**
  * json-render Activity 配置选项
@@ -18,14 +20,14 @@ export interface JsonRenderActivityConfigOptions {
   activityType?: string;
   /** 组件注册表，默认使用 tdesignRegistry */
   registry?: ComponentRegistry;
-  /** 
+  /**
    * Action 处理器映射表
-   * 
+   *
    * 重要：json-render 采用预定义 action 模式
    * - AI/服务端只能生成在此预定义的 action 名称
    * - 每个 action 对应一个具体的处理函数
    * - 这确保了生成式 UI 的安全性和可控性
-   * 
+   *
    * @example
    * ```tsx
    * actionHandlers: {
@@ -34,17 +36,17 @@ export interface JsonRenderActivityConfigOptions {
    *     await api.submitForm(params);
    *     MessagePlugin.success('提交成功');
    *   },
-   *   
+   *
    *   // 表单重置
    *   reset: async (params) => {
    *     MessagePlugin.info('表单已重置');
    *   },
-   *   
+   *
    *   // 删除操作
    *   delete: async (params) => {
    *     await api.deleteItem(params.id);
    *   },
-   *   
+   *
    *   // 刷新数据
    *   refresh: async () => {
    *     await refetchData();
@@ -61,7 +63,7 @@ export interface JsonRenderActivityConfigOptions {
 
 /**
  * 创建 json-render Activity 配置
- * 
+ *
  * @example
  * 基础用法 - 预定义 action handlers
  * ```tsx
@@ -81,10 +83,10 @@ export interface JsonRenderActivityConfigOptions {
  *     }
  *   },
  * });
- * 
+ *
  * useAgentActivity(jsonRenderConfig);
  * ```
- * 
+ *
  * @example
  * 结合 ChatEngine 发送消息到服务端
  * ```tsx
@@ -93,7 +95,7 @@ export interface JsonRenderActivityConfigOptions {
  *     submit: async (params) => {
  *       // 发送到服务端处理
  *       await chatEngine.sendAIMessage({
- *         params: { userActionMessage: { name: 'submit', params } },
+ *         params: { userActionMessage: { action: 'submit', params } },
  *         sendRequest: true,
  *       });
  *     },
@@ -104,12 +106,12 @@ export interface JsonRenderActivityConfigOptions {
  *   },
  * });
  * ```
- * 
+ *
  * @example
  * 配合自定义组件注册表
  * ```tsx
  * import { createCustomRegistry } from './catalog';
- * 
+ *
  * const jsonRenderConfig = createJsonRenderActivityConfig({
  *   registry: createCustomRegistry({
  *     MyCustomComponent: MyComponentRenderer,
@@ -136,12 +138,7 @@ export function createJsonRenderActivityConfig(
   return {
     activityType,
     component: React.memo((props: JsonRenderActivityProps) => (
-      <JsonRenderActivityRenderer
-        {...props}
-        registry={registry}
-        actionHandlers={actionHandlers}
-        debug={debug}
-      />
+      <JsonRenderActivityRenderer {...props} registry={registry} actionHandlers={actionHandlers} debug={debug} />
     )),
     description,
   };
@@ -150,9 +147,9 @@ export function createJsonRenderActivityConfig(
 /**
  * 创建 A2UI + json-render Activity 配置
  * 支持将 A2UI 协议转换为 json-render Schema 渲染
- * 
+ *
  * 注意：默认使用 a2uiRegistry，自动支持 valuePath/disabledPath/action.context 绑定
- * 
+ *
  * @example
  * ```tsx
  * const a2uiJsonRenderConfig = createA2UIJsonRenderActivityConfig({
@@ -166,13 +163,11 @@ export function createJsonRenderActivityConfig(
  *     },
  *   },
  * });
- * 
+ *
  * useAgentActivity(a2uiJsonRenderConfig);
  * ```
  */
-export function createA2UIJsonRenderActivityConfig(
-  options: JsonRenderActivityConfigOptions = {},
-): ActivityConfig<any> {
+export function createA2UIJsonRenderActivityConfig(options: JsonRenderActivityConfigOptions = {}): ActivityConfig<any> {
   const {
     activityType = 'a2ui-json-render',
     registry = a2uiRegistry, // A2UI 默认使用 a2uiRegistry
@@ -184,12 +179,7 @@ export function createA2UIJsonRenderActivityConfig(
   return {
     activityType,
     component: React.memo((props: any) => (
-      <A2UIJsonRenderActivityRenderer
-        {...props}
-        registry={registry}
-        actionHandlers={actionHandlers}
-        debug={debug}
-      />
+      <A2UIJsonRenderActivityRenderer {...props} registry={registry} actionHandlers={actionHandlers} debug={debug} />
     )),
     description,
   };

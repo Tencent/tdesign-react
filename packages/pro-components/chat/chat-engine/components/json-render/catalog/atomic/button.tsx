@@ -1,15 +1,16 @@
 /**
  * TDesign Button 组件适配 json-render
- * 
+ *
  * 这是纯净的 json-render Button 组件，不包含 A2UI 协议绑定逻辑
  * 如需 A2UI 支持，请使用 a2uiRegistry 中的 A2UIButton
  */
 
 import React, { useCallback } from 'react';
 import { Button } from 'tdesign-react';
+
+import type { ActionBinding } from '@json-render/core';
 import type { ButtonProps } from 'tdesign-react';
-import type { Action } from '@json-render/core';
-import { ComponentRenderProps } from '../../types';
+import type { ComponentRenderProps } from '../../types';
 
 /**
  * json-render Button 组件
@@ -36,23 +37,20 @@ export const JsonRenderButton: React.FC<ComponentRenderProps> = ({
     ...restProps
   } = element.props as ButtonProps & {
     label?: string;
-    action?: string | Action;
+    action?: string | ActionBinding;
     [key: string]: any;
   };
 
   // 处理点击事件
   const handleClick = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
+    (e: React.MouseEvent<HTMLElement>) => {
       if (onClick) {
         onClick(e);
       }
 
       if (action && onAction) {
-        const actionObj: Action = typeof action === 'string'
-          ? { name: action, params: {} }
-          : action;
+        const actionObj: ActionBinding = typeof action === 'string' ? { action, params: {} } : action;
 
-        console.log('[JsonRenderButton] 触发 action:', actionObj);
         onAction(actionObj);
       }
     },
