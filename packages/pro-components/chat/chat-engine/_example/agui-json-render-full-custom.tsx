@@ -6,27 +6,26 @@
  * 2. 使用 createCustomRegistry 注册自定义组件的 React 实现（渲染层）
  * 3. 完整的两层架构演示
  */
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { MessagePlugin } from 'tdesign-react';
 import { z } from 'zod';
 import {
-  ChatList,
-  ChatSender,
-  ChatMessage,
-  type ChatRequestParams,
-  isActivityContent,
   ActivityRenderer,
-} from '@tdesign-react/chat';
-import {
-  useChat,
-  useAgentActivity,
-  generateCatalogPrompt,
-  createJsonRenderActivityConfig,
+  ChatList,
+  ChatMessage,
+  ChatSender,
   createCustomRegistry,
+  createJsonRenderActivityConfig,
+  generateCatalogPrompt,
+  isActivityContent,
+  useAgentActivity,
+  useChat,
 } from '@tdesign-react/chat';
 
 // 导入自定义组件
-import { StatusCard, ProgressBar, NestedPanel } from './components';
+import { NestedPanel, ProgressBar, StatusCard } from './components';
+
+import type { ChatRequestParams } from '@tdesign-react/chat';
 
 // Mock Server 地址
 const MOCK_SERVER = 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com';
@@ -258,7 +257,6 @@ export default function AguiJsonRenderFullCustomExample() {
     }
     return null;
   };
-  
 
   return (
     <div style={{ height: '600px', display: 'flex', flexDirection: 'column' }}>

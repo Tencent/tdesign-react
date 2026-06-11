@@ -1,6 +1,6 @@
 /**
- * A2UI v0.9 + json-render Activity 渲染器
- * 将 A2UI v0.9 协议转换为 json-render Schema 进行渲染
+ * A2UI v0.9.1 + json-render Activity 渲染器
+ * 将 A2UI v0.9.1 协议转换为 json-render Schema 进行渲染
  *
  * 工作流程：
  * 1. 接收 ACTIVITY_SNAPSHOT/DELTA 中的 A2UI content
@@ -72,7 +72,7 @@ function hasCreationMessages(messages: A2UIMessage[]): boolean {
 }
 
 /**
- * A2UI v0.9 + json-render Activity 渲染器组件
+ * A2UI v0.9.1 + json-render Activity 渲染器组件
  */
 export const A2UIJsonRenderActivityRenderer: React.FC<A2UIJsonRenderActivityRendererProps> = ({
   activityType,
