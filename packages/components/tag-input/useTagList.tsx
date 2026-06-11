@@ -20,7 +20,8 @@ interface TagInputProps extends TdTagInputProps, DragSortInnerProps {
 // handle tag add and remove
 export default function useTagList(props: TagInputProps) {
   const { classPrefix: prefix } = useConfig();
-  const { onRemove, max, minCollapsedNum, size, disabled, tagProps, tag, collapsedItems, getDragProps } = props;
+  const { onRemove, max, minCollapsedNum, size, disabled, tagProps, tag, tagDisplay, collapsedItems, getDragProps } =
+    props;
   const readOnly = props.readOnly || props.readonly;
 
   // handle controlled property and uncontrolled property
@@ -95,11 +96,21 @@ export default function useTagList(props: TagInputProps) {
     const list = displayNode
       ? [<Fragment key="display-node">{displayNode}</Fragment>]
       : newList?.map((item, index) => {
-          const tagContent = isFunction(tag) ? tag({ value: item }) : tag;
           const handleClose = (context) => {
             tagProps?.onClose?.(context);
             onClose({ e: context?.e, index });
           };
+          // tagDisplay 优先级高于 tag
+          // 完全接管单个标签的渲染，组件不再包裹 <Tag> 外壳
+          if (isFunction(tagDisplay)) {
+            const node = tagDisplay({
+              value: item,
+              index,
+              onClose: (context) => handleClose(context ?? {}),
+            });
+            return <Fragment key={index}>{node}</Fragment>;
+          }
+          const tagContent = isFunction(tag) ? tag({ value: item }) : tag;
           return (
             <Tag
               key={index}
