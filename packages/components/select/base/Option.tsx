@@ -70,6 +70,8 @@ const Option: React.FC<SelectOptionProps> = (props) => {
   // 处理存在禁用项时，全选状态无法来回切换的问题
   const [allSelectableChecked, setAllSelectableChecked] = useState(initCheckedStatus);
 
+  const displayedContent = children || content || label;
+
   const titleContent = useMemo(() => {
     // 外部设置 props，说明希望受控
     const controlledTitle = Reflect.has(props, 'title');
@@ -130,7 +132,6 @@ const Option: React.FC<SelectOptionProps> = (props) => {
   };
 
   const renderItem = () => {
-    const displayContent = children || content || label;
     if (multiple) {
       return (
         <label
@@ -152,11 +153,11 @@ const Option: React.FC<SelectOptionProps> = (props) => {
             }}
           />
           <span className={classNames(`${classPrefix}-checkbox__input`)}></span>
-          <span className={classNames(`${classPrefix}-checkbox__label`)}>{displayContent}</span>
+          <span className={classNames(`${classPrefix}-checkbox__label`)}>{displayedContent}</span>
         </label>
       );
     }
-    return <span title={titleContent}>{displayContent}</span>;
+    return <span title={titleContent}>{displayedContent}</span>;
   };
 
   return (
