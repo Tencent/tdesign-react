@@ -1,24 +1,25 @@
 /**
  * A2UI v0.9 + json-render Activity 渲染器
  * 将 A2UI v0.9 协议转换为 json-render Schema 进行渲染
- * 
+ *
  * 工作流程：
  * 1. 接收 ACTIVITY_SNAPSHOT/DELTA 中的 A2UI content
  * 2. 区分消息类型：UI型 vs 纯数据型
  * 3. UI型：转换为 Schema 并注册到 SurfaceStateManager，渲染 UI
  * 4. 纯数据型：通过 SurfaceStateManager 更新数据，触发订阅者重渲染，本组件不渲染
- * 
+ *
  * 消息分类：
  * - UI型消息：包含 createSurface / updateComponents / deleteSurface → 需要渲染/更新 UI
  * - 纯数据型消息：仅包含 updateDataModel → 只更新状态，不渲染新 UI
  */
 
-import React, { useMemo, useEffect, useState, useCallback } from 'react';
-import { convertA2UIMessagesToJsonRender, surfaceStateManager } from '../../../core';
-import type { A2UIMessage, JsonRenderSchema } from '../../../core';
-import type { JsonRenderActivityProps, ComponentRegistry } from '../types';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { convertA2UIMessagesToJsonRender, surfaceStateManager } from '@tdesign/ai-chat-engine';
+
 import { JsonRenderActivityRenderer } from './JsonRenderActivityRenderer';
 
+import type { A2UIMessage, JsonRenderSchema } from '@tdesign/ai-chat-engine';
+import type { ComponentRegistry, JsonRenderActivityProps } from '../types';
 
 export interface A2UIJsonRenderActivityRendererProps extends Omit<JsonRenderActivityProps, 'content'> {
   /** A2UI content（包含 messages 数组） */
@@ -53,21 +54,21 @@ function extractSurfaceId(messages: A2UIMessage[]): string | null {
  * 只有纯 updateDataModel 消息不需要渲染
  */
 function isUIMessages(messages: A2UIMessage[]): boolean {
-  return messages.some(msg => msg.createSurface || msg.updateComponents || msg.deleteSurface);
+  return messages.some((msg) => msg.createSurface || msg.updateComponents || msg.deleteSurface);
 }
 
 /**
  * 判断消息是否包含删除操作
  */
 function hasDeletionMessages(messages: A2UIMessage[]): boolean {
-  return messages.some(msg => msg.deleteSurface);
+  return messages.some((msg) => msg.deleteSurface);
 }
 
 /**
  * 判断消息是否包含创建/更新操作（需要渲染 UI 的）
  */
 function hasCreationMessages(messages: A2UIMessage[]): boolean {
-  return messages.some(msg => msg.createSurface || msg.updateComponents);
+  return messages.some((msg) => msg.createSurface || msg.updateComponents);
 }
 
 /**
@@ -117,8 +118,11 @@ export const A2UIJsonRenderActivityRenderer: React.FC<A2UIJsonRenderActivityRend
         messageId,
         surfaceId,
         messagesCount: messages.length,
-        messageTypes: messages.map(m => 
-          Object.keys(m).filter(k => ['createSurface', 'updateComponents', 'updateDataModel', 'deleteSurface'].includes(k))[0]
+        messageTypes: messages.map(
+          (m) =>
+            Object.keys(m).filter((k) =>
+              ['createSurface', 'updateComponents', 'updateDataModel', 'deleteSurface'].includes(k),
+            )[0],
         ),
         isUI,
         isCreation,
@@ -142,9 +146,9 @@ export const A2UIJsonRenderActivityRenderer: React.FC<A2UIJsonRenderActivityRend
       const schema = convertA2UIMessagesToJsonRender(messages);
       if (schema) {
         // 提取 catalogId
-        const catalogId = messages.find(m => m.createSurface)?.createSurface?.catalogId;
+        const catalogId = messages.find((m) => m.createSurface)?.createSurface?.catalogId;
         surfaceStateManager.registerSurface(surfaceId, schema, catalogId);
-        
+
         if (debug) {
           // eslint-disable-next-line no-console
           console.log('[A2UI Adapter] 创建型消息，注册 Surface:', {
@@ -162,7 +166,7 @@ export const A2UIJsonRenderActivityRenderer: React.FC<A2UIJsonRenderActivityRend
       if (msg.updateDataModel) {
         const { path, op, value } = msg.updateDataModel;
         const success = surfaceStateManager.updateData(surfaceId, path, op || 'replace', value);
-        
+
         if (debug) {
           // eslint-disable-next-line no-console
           console.log('[A2UI Adapter] 更新型消息，更新数据:', {
@@ -186,7 +190,7 @@ export const A2UIJsonRenderActivityRenderer: React.FC<A2UIJsonRenderActivityRend
       // eslint-disable-next-line no-console
       console.log('[A2UI Adapter] 收到状态更新通知，触发重渲染');
     }
-    setSchemaVersion(v => v + 1);
+    setSchemaVersion((v) => v + 1);
   }, [debug]);
 
   // 订阅 Surface 状态变化（仅当是创建型消息时）
@@ -218,7 +222,7 @@ export const A2UIJsonRenderActivityRenderer: React.FC<A2UIJsonRenderActivityRend
     }
     // schemaVersion 变化时从缓存获取最新 Schema
     return surfaceStateManager.getSchema(surfaceId) || initialSchema;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCreation, surfaceId, initialSchema, schemaVersion]);
 
   // 非 UI 型消息不渲染（仅 updateDataModel 的消息）
