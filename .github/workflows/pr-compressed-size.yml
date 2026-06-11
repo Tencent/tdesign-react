@@ -1,13 +1,12 @@
-name: Compressed Size
+name: pr-compressed-size
 
 on:
   pull_request:
     types: [opened, synchronize]
 
 jobs:
-  compressed-size:
+  tdesign-react:
     runs-on: ubuntu-latest
-    if: startsWith(github.head_ref, 'release/')
     steps:
       - uses: actions/checkout@v6
         with:
@@ -15,7 +14,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
 
@@ -23,4 +22,27 @@ jobs:
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           install-script: "pnpm install"
+          build-script: "build"
           pattern: "packages/tdesign-react/dist/**/*.{js,css}"
+          comment-key: tdesign-react
+
+  tdesign-react-chat:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: recursive
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .node-version
+
+      - uses: preactjs/compressed-size-action@v2
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          install-script: "pnpm install"
+          build-script: "build:aigc"
+          pattern: "packages/tdesign-react-aigc/es/**/*.{js,css}"
+          comment-key: tdesign-react-chat
