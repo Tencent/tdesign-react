@@ -12,7 +12,7 @@ import type { CascaderContextType, TdCascaderProps, TreeNode, TreeNodeModel, Tre
  * @param node
  * @param cascaderContext
  */
-export function expendClickEffect(
+export function expandClickEffect(
   propsTrigger: TdCascaderProps['trigger'],
   trigger: TdCascaderProps['trigger'],
   node: TreeNode,

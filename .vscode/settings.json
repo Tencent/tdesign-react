@@ -1,5 +1,5 @@
 {
-  "typescript.preferences.importModuleSpecifier": "relative",
+  "js/ts.preferences.importModuleSpecifier": "relative",
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "[html]": {
     "editor.formatOnSave": true,
