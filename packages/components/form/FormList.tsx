@@ -1,7 +1,7 @@
 import React, { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { castArray, cloneDeep, get, isEqual, merge, set, unset } from 'lodash-es';
-
 import log from '@tdesign/common-js/log/index';
+
 import { FormListContext, useFormContext, useFormListContext } from './FormContext';
 import { HOOK_MARK } from './hooks/useForm';
 import { calcFieldValue, concatName, convertNameToArray, swap } from './utils';
@@ -60,9 +60,13 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     .toString(); // 转化 name
 
   const updateFormList = (newFields: any, newFormListValue: any) => {
+    // Sync store before setState to ensure conditional FormItems read correct values on mount
+    // This is critical in React 17, where updates outside React event handlers are not batched
+    // (e.g. setTimeout, Promise callbacks). Without this, multiple
+    // setState calls may trigger intermediate renders with stale store values.
+    set(form?.store, fullPath, newFormListValue);
     setFields(newFields);
     setFormListValue(newFormListValue);
-    set(form?.store, fullPath, newFormListValue);
     const changeValue = calcFieldValue(fullPath, newFormListValue);
     onFormItemValueChange?.(changeValue);
   };
@@ -76,6 +80,8 @@ const FormList: React.FC<TdFormListProps> = (props) => {
         name: index,
         isListField: true,
       });
+      // 重新计算插入位置之后所有元素的 name 索引
+      newFields.forEach((field, index) => Object.assign(field, { name: index }));
       const newFormListValue = [...formListValue];
       newFormListValue.splice(index, 0, cloneDeep(defaultValue));
       updateFormList(newFields, newFormListValue);
@@ -100,11 +106,11 @@ const FormList: React.FC<TdFormListProps> = (props) => {
 
   function setListFields(fieldData: any[], callback: Function) {
     if (isEqual(formListValue, fieldData)) return;
-
-    const newFields = fieldData.map((_, index) => {
+    const newFieldData = [...fieldData];
+    const newFields = newFieldData.map((_, index) => {
       const currField = fields[index];
       const oldItem = formListValue[index];
-      const newItem = fieldData[index];
+      const newItem = newFieldData[index];
       const noChange = currField && isEqual(oldItem, newItem);
       return {
         key: noChange ? currField.key : (globalKey += 1),
@@ -116,11 +122,11 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     Array.from(formListMapRef.current.values()).forEach((formItemRef) => {
       if (!formItemRef.current) return;
       const { name: childName } = formItemRef.current;
-      const data = get(fieldData, childName);
+      const data = get(newFieldData, childName);
       if (data !== undefined) callback(formItemRef, data);
     });
 
-    updateFormList(newFields, fieldData);
+    updateFormList(newFields, newFieldData);
   }
 
   useEffect(() => {
@@ -150,7 +156,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
       initialData,
       isFormList: true,
       formListMapRef,
-      getValue: () => get(form?.store, fullPath),
+      getValue: () => cloneDeep(get(form?.store, fullPath)),
       validate: (trigger = 'all') => {
         const resultList = [];
         const validates = [...formListMapRef.current.values()].map((formItemRef) =>
@@ -194,6 +200,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
         if (resetType === 'initial') {
           const currentData = get(form?.store, fullPath);
           if (isEqual(currentData, initialData)) return;
+          set(form?.store, fullPath, initialData);
           setFormListValue(initialData);
           const newFields = initialData?.map((data, index) => ({
             data: { ...data },
@@ -202,12 +209,11 @@ const FormList: React.FC<TdFormListProps> = (props) => {
             isListField: true,
           }));
           setFields(newFields);
-          set(form?.store, fullPath, initialData);
         } else {
           // 重置为空
+          unset(form?.store, fullPath);
           setFormListValue([]);
           setFields([]);
-          unset(form?.store, fullPath);
         }
       },
       setValidateMessage: (fieldData) => {

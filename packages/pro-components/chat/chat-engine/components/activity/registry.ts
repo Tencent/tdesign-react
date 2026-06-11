@@ -1,5 +1,6 @@
 import { createRegistryManager } from '../shared';
-import type { ActivityConfig, ActivityComponentProps } from './types';
+
+import type { ActivityComponentProps, ActivityConfig } from './types';
 
 /** Activity 注册事件名称 */
 export const ACTIVITY_REGISTERED_EVENT = 'activity-registered';

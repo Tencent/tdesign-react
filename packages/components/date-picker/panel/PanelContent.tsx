@@ -1,12 +1,14 @@
 import React, { useCallback } from 'react';
 import { getDefaultFormat } from '@tdesign/common-js/date-picker/format';
-import DateHeader from '../base/Header';
-import DateTable from '../base/Table';
-import { TimePickerPanel } from '../../time-picker';
-import type { SinglePanelProps } from './SinglePanel';
-import type { RangePanelProps } from './RangePanel';
+
 import useConfig from '../../hooks/useConfig';
 import useEventCallback from '../../hooks/useEventCallback';
+import { TimePickerPanel } from '../../time-picker';
+import DateHeader from '../base/Header';
+import DateTable from '../base/Table';
+
+import type { RangePanelProps } from './RangePanel';
+import type { SinglePanelProps } from './SinglePanel';
 
 export interface PanelContentProps {
   partial?: 'start' | 'end';
@@ -14,7 +16,9 @@ export interface PanelContentProps {
   year: SinglePanelProps['year'];
   month: SinglePanelProps['month'];
   mode: SinglePanelProps['mode'];
+  range?: SinglePanelProps['range'];
   format: SinglePanelProps['format'];
+  cell?: SinglePanelProps['cell'];
   enableTimePicker: SinglePanelProps['enableTimePicker'];
   timePickerProps: SinglePanelProps['timePickerProps'];
   firstDayOfWeek: SinglePanelProps['firstDayOfWeek'];
@@ -23,6 +27,7 @@ export interface PanelContentProps {
   popupVisible?: boolean;
   tableData: any[];
   internalYear?: Array<number>;
+  isSwitchTimeMode?: boolean;
   onMonthChange: SinglePanelProps['onMonthChange'] | RangePanelProps['onMonthChange'];
   onYearChange: SinglePanelProps['onYearChange'] | RangePanelProps['onYearChange'];
   onJumperClick: SinglePanelProps['onJumperClick'] | RangePanelProps['onJumperClick'];
@@ -40,12 +45,13 @@ export default function PanelContent(props: PanelContentProps) {
     value,
     year,
     month,
+    range,
     mode,
     format,
+    cell,
     enableTimePicker,
     timePickerProps,
     firstDayOfWeek,
-
     partial = 'start',
     time,
     tableData,
@@ -55,6 +61,7 @@ export default function PanelContent(props: PanelContentProps) {
     onCellMouseEnter,
     onCellMouseLeave,
     onTimePickerChange,
+    isSwitchTimeMode,
   } = props;
 
   const onMonthChange = useEventCallback(props.onMonthChange);
@@ -62,7 +69,7 @@ export default function PanelContent(props: PanelContentProps) {
 
   const { timeFormat } = getDefaultFormat({ mode, format, enableTimePicker });
 
-  const showTimePicker = enableTimePicker && mode === 'date';
+  const showTimePicker = enableTimePicker && !isSwitchTimeMode && mode === 'date';
 
   const defaultTime = '00:00:00';
 
@@ -94,6 +101,7 @@ export default function PanelContent(props: PanelContentProps) {
           mode={mode}
           year={year}
           month={month}
+          range={range}
           internalYear={internalYear}
           partial={partial}
           onMonthChange={onMonthChangeInner}
@@ -107,6 +115,7 @@ export default function PanelContent(props: PanelContentProps) {
           value={value}
           time={time}
           format={format}
+          cell={cell}
           firstDayOfWeek={firstDayOfWeek}
           multiple={props.multiple}
           onCellClick={(date: Date, { e }) => onCellClick?.(date, { e, partial })}

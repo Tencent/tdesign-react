@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { CalendarIcon as TdCalendarIcon } from 'tdesign-icons-react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
-
+import { isObject } from 'lodash-es';
+import { CalendarIcon as TdCalendarIcon } from 'tdesign-icons-react';
 import { formatDate, getDefaultFormat, isValidDate, parseToDayjs } from '@tdesign/common-js/date-picker/format';
+
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import useInnerPopupVisible from '../../hooks/useInnerPopupVisible';
@@ -21,6 +22,11 @@ export default function useRange(props: TdDateRangePickerProps) {
 
   const isMountedRef = useRef(false);
   const inputRef = useRef<RangeInputRefInterface>(null);
+
+  const isSwitchTimeMode = useMemo(
+    () => isObject(props.enableTimePicker) && props.enableTimePicker.mode === 'switch',
+    [props.enableTimePicker],
+  );
 
   const {
     value,
@@ -92,7 +98,12 @@ export default function useRange(props: TdDateRangePickerProps) {
     onChange: (newVal: string[], { e, position }) => {
       const index = position === 'first' ? 0 : 1;
 
-      props.onInput?.({ input: newVal[index], value, partial: PARTIAL_MAP[position], e: e as React.FormEvent<HTMLInputElement> });
+      props.onInput?.({
+        input: newVal[index],
+        value,
+        partial: PARTIAL_MAP[position],
+        e: e as React.FormEvent<HTMLInputElement>,
+      });
       setInputValue(newVal);
 
       // 跳过不符合格式化的输入框内容
@@ -197,5 +208,6 @@ export default function useRange(props: TdDateRangePickerProps) {
     setIsFirstValueSelected,
     cacheValue,
     setCacheValue,
+    isSwitchTimeMode,
   };
 }

@@ -1,9 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useMemo } from 'react';
 import isEqual from 'react-fast-compare';
-import type { ActivityComponentProps } from './types';
-import { activityRegistry, ACTIVITY_REGISTERED_EVENT, ACTIVITY_EVENT_DETAIL_KEY } from './registry';
+
 import { ComponentErrorBoundary, useRegistrationListener } from '../shared';
-import { type ActivityData } from '../../core';
+import { ACTIVITY_EVENT_DETAIL_KEY, ACTIVITY_REGISTERED_EVENT, activityRegistry } from './registry';
+
+import type { ActivityData } from '@tdesign/ai-chat-engine';
+import type { ActivityComponentProps } from './types';
 
 interface ActivityRendererProps {
   activity: ActivityData;

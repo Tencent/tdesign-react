@@ -1,7 +1,9 @@
 import React from 'react';
+
 import DateFooter from '../base/Footer';
+
+import type { DateMultipleValue, DateValue, TdDatePickerProps, TdDateRangePickerProps } from '../type';
 import type { SinglePanelProps } from './SinglePanel';
-import type { TdDatePickerProps, TdDateRangePickerProps, DateValue, DateMultipleValue } from '../type';
 
 export interface ExtraContentProps
   extends Pick<
@@ -10,11 +12,22 @@ export interface ExtraContentProps
   > {
   selectedValue?: DateValue | DateMultipleValue;
   presets?: TdDatePickerProps['presets'] | TdDateRangePickerProps['presets'];
+  onTimeModeChange?: () => void;
+  isDateRangeContent?: boolean;
+  isSwitchTimeMode?: boolean;
 }
 
 export default function ExtraContent(props: ExtraContentProps) {
-  const { presets, enableTimePicker, presetsPlacement, onPresetClick, onConfirmClick, selectedValue, needConfirm } =
-    props;
+  const {
+    presets,
+    enableTimePicker,
+    presetsPlacement,
+    onPresetClick,
+    onConfirmClick,
+    selectedValue,
+    needConfirm,
+    isSwitchTimeMode,
+  } = props;
 
   const showPanelFooter = (enableTimePicker && needConfirm) || presets;
 
@@ -27,6 +40,9 @@ export default function ExtraContent(props: ExtraContentProps) {
       presetsPlacement={presetsPlacement}
       selectedValue={selectedValue}
       needConfirm={needConfirm}
+      onTimePanelChange={props.onTimeModeChange}
+      isDateRangeContent={props.isDateRangeContent}
+      isSwitchTimeMode={isSwitchTimeMode}
     />
   ) : null;
 }

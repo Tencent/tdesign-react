@@ -1,11 +1,6 @@
 {
   "typescript.preferences.importModuleSpecifier": "relative",
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "[html]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -76,5 +71,5 @@
     "*.xaml": "$(capture).xaml.cs",
     "tsconfig.json": "tsconfig.*.json",
     "vitest.config.ts": "babel.config.js, postcss.config.js"
-  },
+  }
 }

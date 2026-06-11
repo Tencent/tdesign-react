@@ -1,7 +1,8 @@
-import MenuItem from '../MenuItem';
-import SubMenu from '../SubMenu';
-import MenuGroup from '../MenuGroup';
 import { MenuBlockType } from './type';
+
+import type MenuGroup from '../MenuGroup';
+import type MenuItem from '../MenuItem';
+import type SubMenu from '../SubMenu';
 
 export const checkIsSubMenu = (child: React.ReactElement) => {
   if (!child) return false;

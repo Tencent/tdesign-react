@@ -1,25 +1,27 @@
-import React, { useState, useRef, useMemo, ReactNode } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
+import { CheckCircleFilledIcon, LoadingIcon, TimeFilledIcon } from 'tdesign-icons-react';
+import { Card, Radio, Space, Tag } from 'tdesign-react';
 import {
-  ChatList,
-  ChatSender,
-  ChatMessage,
   ChatActionBar,
+  ChatList,
   ChatLoading,
-  useChat,
-  useAgentToolcall,
-  isToolCallContent,
+  ChatMessage,
+  ChatSender,
   isAIMessage,
+  isToolCallContent,
   ToolCallRenderer,
+  useAgentToolcall,
+  useChat,
 } from '@tdesign-react/chat';
+
+import type { ReactNode } from 'react';
 import type {
-  ChatServiceConfig,
   AgentToolcallConfig,
-  ToolcallComponentProps,
   AIMessageContent,
   ChatMessagesData,
+  ChatServiceConfig,
+  ToolcallComponentProps,
 } from '@tdesign-react/chat';
-import { Space, Radio, Card, Tag } from 'tdesign-react';
-import { CheckCircleFilledIcon, LoadingIcon, TimeFilledIcon } from 'tdesign-icons-react';
 
 /**
  * AG-UI 简化 Chunk 模式示例
@@ -74,7 +76,15 @@ const SearchToolComponent: React.FC<ToolcallComponentProps<SearchArgs>> = ({ arg
         </div>
 
         {/* 流式展示参数 */}
-        <div style={{ marginTop: 8, padding: 12, background: '#f5f5f5', borderRadius: 4, fontFamily: 'monospace' }}>
+        <div
+          style={{
+            marginTop: 8,
+            padding: 12,
+            background: 'var(--td-bg-color-secondarycontainer)',
+            borderRadius: 4,
+            fontFamily: 'monospace',
+          }}
+        >
           <div style={{ fontSize: 12, color: '#666', marginBottom: 8 }}>参数 (流式接收中):</div>
           <pre style={{ margin: 0, fontSize: 12, whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
             {args ? JSON.stringify(args, null, 2) : '等待参数...'}
@@ -130,7 +140,9 @@ const CalculateToolComponent: React.FC<ToolcallComponentProps<CalculateArgs>> = 
           </Tag>
         </div>
 
-        <div style={{ marginTop: 8, padding: 12, background: '#f5f5f5', borderRadius: 4 }}>
+        <div
+          style={{ marginTop: 8, padding: 12, background: 'var(--td-bg-color-secondarycontainer)', borderRadius: 4 }}
+        >
           <div style={{ fontSize: 13 }}>
             <strong>表达式：</strong>
             <code style={{ marginLeft: 8, padding: '2px 6px', background: '#e8e8e8', borderRadius: 4 }}>
@@ -378,7 +390,9 @@ const AguiChunkExample: React.FC = () => {
           </div>
 
           {/* 模式说明 */}
-          <div style={{ marginTop: 12, padding: 12, background: '#f5f5f5', borderRadius: 4 }}>
+          <div
+            style={{ marginTop: 12, padding: 12, background: 'var(--td-bg-color-secondarycontainer)', borderRadius: 4 }}
+          >
             {mode === 'text' && (
               <div style={{ fontSize: 12, color: '#666' }}>
                 <strong>纯文本 Chunk 模式：</strong>

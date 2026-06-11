@@ -7,7 +7,7 @@
 import { TNode } from '../common';
 import { MouseEvent } from 'react';
 
-export interface TdTabsProps {
+export interface TdTabsProps<T extends TabValue = TabValue> {
   /**
    * 选项卡右侧的操作区域
    */
@@ -30,7 +30,7 @@ export interface TdTabsProps {
   /**
    * 选项卡列表
    */
-  list?: Array<TdTabPanelProps>;
+  list?: Array<TdTabPanelProps<T>>;
   /**
    * 选项卡位置
    * @default top
@@ -54,11 +54,11 @@ export interface TdTabsProps {
   /**
    * 激活的选项卡值
    */
-  value?: TabValue;
+  value?: T;
   /**
    * 激活的选项卡值，非受控属性
    */
-  defaultValue?: TabValue;
+  defaultValue?: T;
   /**
    * 添加选项卡时触发
    */
@@ -66,18 +66,18 @@ export interface TdTabsProps {
   /**
    * 激活的选项卡发生变化时触发
    */
-  onChange?: (value: TabValue) => void;
+  onChange?: (value: T) => void;
   /**
    * 拖拽排序时触发
    */
-  onDragSort?: (context: TabsDragSortContext) => void;
+  onDragSort?: (context: TabsDragSortContext<T>) => void;
   /**
    * 删除选项卡时触发
    */
-  onRemove?: (options: { value: TabValue; index: number; e: MouseEvent<HTMLSpanElement> }) => void;
+  onRemove?: (options: { value: T; index: number; e: MouseEvent<HTMLSpanElement> }) => void;
 }
 
-export interface TdTabPanelProps {
+export interface TdTabPanelProps<T extends TabValue = TabValue> {
   /**
    * 选项卡内容隐藏时是否销毁
    * @default true
@@ -114,18 +114,18 @@ export interface TdTabPanelProps {
   /**
    * 选项卡的值，唯一标识
    */
-  value?: TabValue;
+  value?: T;
   /**
    * 点击删除按钮时触发
    */
-  onRemove?: (options: { value: TabValue; e: MouseEvent<HTMLSpanElement> }) => void;
+  onRemove?: (options: { value: T; e: MouseEvent<HTMLSpanElement> }) => void;
 }
 
 export type TabValue = string | number;
 
-export interface TabsDragSortContext {
+export interface TabsDragSortContext<T extends TabValue = TabValue> {
   currentIndex: number;
-  current: TabValue;
+  current: T;
   targetIndex: number;
-  target: TabValue;
+  target: T;
 }

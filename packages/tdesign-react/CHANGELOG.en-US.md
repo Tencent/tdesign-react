@@ -5,6 +5,159 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.17.1 `2026-06-05`
+
+### 🐞 Bug Fixes
+
+- `Menu`: Fixed the issue with the spacing between sub-menu icons and text @liweijie0812 ([common#2512](https://github.com/Tencent/tdesign-common/pull/2512))
+- `Select`: Fixed the problem where the system’s auto-complete options appeared when searching for filter options @liweijie0812 ([#4261](https://github.com/Tencent/tdesign-react/pull/4261))
+- `Tabs`: Fixed an issue where animations were still triggered when clicking on a disabled tab component @RylanBot ([#4264](https://github.com/Tencent/tdesign-react/pull/4264))
+- `TagInput`: Fixed an error that occurred when `value` was undefined @RylanBot ([#4249](https://github.com/Tencent/tdesign-react/pull/4249))
+
+### 🚧 Others
+
+- `Tabs`: Improved the component’s support for generics, making it easier to integrate `value` and `onChange` functionality @RylanBot ([#4260](https://github.com/Tencent/tdesign-react/pull/4260))
+
+## 🌈 1.17.0 `2026-05-21`
+
+### 🚨 Breaking Changes
+
+- `Message`: The `z-index` of the component has been adjusted to 6000. Please note this change for any services that rely on this property ⚠️ @RylanBot ([#4235](https://github.com/Tencent/tdesign-react/pull/4235))
+
+### 🚀 Features
+
+- `EnhancedTable`: Improved the preview effect during dragging. Now, when a sub-row is expanded, it moves together with the parent row. Additionally, cross-level dragging of sub-rows is now prohibited. @RylanBot ([#4229](https://github.com/Tencent/tdesign-react/pull/4229))
+- `ImageViewer`: Improved the behavior of the ImageViewer so that images outside the viewport are zoomed in to the center. @RSS1102 ([#4184](https://github.com/Tencent/tdesign-react/pull/4184))
+- `Slider`:
+  - A default value of `0` has been added. Please note this change for any services that rely on this property ⚠️ @RylanBot ([#4163](https://github.com/Tencent/tdesign-react/pull/4163))
+  - New APIs `onChangeEnd` and `showStep` have been added. @RylanBot ([#4163](https://github.com/Tencent/tdesign-react/pull/4163))
+
+### 🐞 Bug Fixes
+
+- `Avatar`: Fixed an issue where the loading icon wasn’t displayed when images failed to load. @liweijie0812 ([#4227](https://github.com/Tencent/tdesign-react/pull/4227))
+- `Dialog`: Fixed an issue where the popup didn’t open from the clicked position. @RylanBot ([#4165](https://github.com/Tencent/tdesign-react/pull/4165))
+- `Form`: 
+  - Fixed an issue where `reset` and `submit` events from internal components caused external components to trigger events accidentally in Portal scenarios. @RylanBot ([#4243](https://github.com/Tencent/tdesign-react/pull/4243))
+  - Fixed an issue where `onValueChange` wasn’t functioning properly. @RylanBot ([#4217](https://github.com/Tencent/tdesign-react/pull/4217))
+- `Image`: Fixed an issue with incorrect font size in error messages. @liweijie0812 ([#4227](https://github.com/Tencent/tdesign-react/pull/4227))
+- `Slider`:
+  - Fixed an issue where `onChange` was triggered repeatedly even though the value didn’t change during dragging. @RylanBot ([#4163](https://github.com/Tencent/tdesign-react/pull/4163))
+  - Fixed an issue where, when `layout="vertical"`, the `label` was displayed above instead of to the right. @RylanBot ([#4163](https://github.com/Tencent/tdesign-react/pull/4163))
+- `Table`:
+  - Fixed issues with row dragging when virtual scrolling or `expandedRow` was enabled. @RylanBot ([#4229](https://github.com/Tencent/tdesign-react/pull/4229))
+  - Fixed an issue where column dragging didn’t work when virtual scrolling or `headerAffixedTop` was enabled. @RylanBot ([#4229](https://github.com/Tencent/tdesign-react/pull/4229))
+- `TagInput`:
+  - Fixed an issue where the `suffixIcon` overlapped with the input text. @RylanBot ([#4209](https://github.com/Tencent/tdesign-react/pull/4209))
+  - Fixed an issue where, when there was no `suffixIcon`, the input text was too close to the right border. @RylanBot ([#4209](https://github.com/Tencent/tdesign-react/pull/4209))
+- `Tree`:
+  - Fixed a lagging issue that occurred after disabling the `transition` API, due to the remaining duration setting. @uyarn ([#4231](https://github.com/Tencent/tdesign-react/pull/4231))
+  - When custom rendering nodes were used, the default title wasn’t displayed. @uyarn ([#4234](https://github.com/Tencent/tdesign-react/pull/4234))
+- `Upload`:
+  - Fixed an issue where resetting the file after an upload failure didn’t trigger any UI changes. @uyarn ([#4232](https://github.com/Tencent/tdesign-react/pull/4232))
+  - Fixed an issue where multiple clicks were required to delete an item when the component was inside a Form. @RylanBot ([#4232](https://github.com/Tencent/tdesign-react/pull/4232))
+
+### 📈 Performance
+
+- `Dropdown`: Improved the logic for retrieving child elements in the dropdown menu. @HaixingOoO ([#4206](https://github.com/Tencent/tdesign-react/pull/4206))
+
+## 🌈 1.16.9 `2026-04-23`
+
+### 🚀 Features
+
+- `Cascader`: Supports using `valueType="full"` in scenarios where values across nested nodes are the same. @RylanBot ([#4145](https://github.com/Tencent/tdesign-react/pull/4145))
+- `RadioGroup`: Added `direction` API to enable vertical arrangement. @liweijie0812 ([#4214](https://github.com/Tencent/tdesign-react/pull/4214))
+
+### 🐞 Bug Fixes
+
+- `Affix`: Fixed an issue where `top` became negative when the container scrolled out of view in `offsetBottom` mode. @RylanBot ([#4172](https://github.com/Tencent/tdesign-react/pull/4172))
+- `Cascader`:
+  - Fixed an issue where, in single-selection mode, the selected state was cleared when `showAllLevels={false}` was used with `valueType="full"`. @RylanBot ([#4145](https://github.com/Tencent/tdesign-react/pull/4145))
+  - Fixed an issue where re-clicking a selected item caused abnormal behavior regarding the selected state. @RylanBot ([#4145](https://github.com/Tencent/tdesign-react/pull/4145))
+- `Form`:
+  - Fixed an error that occurred during initialization when using `FormItem` alone, due to logic introduced in version 1.16.4. @RylanBot ([#4207](https://github.com/Tencent/tdesign-react/pull/4207))
+  - Fixed a warning that appeared when using `Fragment` to wrap `FormItem` elements in React 19. @RylanBot ([#4212](https://github.com/Tencent/tdesign-react/pull/4212))
+- `RadioGroup`: Fixed an issue where initial highlighting didn’t work correctly in certain scenarios when `variant="primary-filled"` was used. @RylanBot ([#4081](https://github.com/Tencent/tdesign-react/pull/4081))
+- `Table`: Fixed an issue where the table header and footer weren’t aligned properly when there were `fixed` columns. @RylanBot ([#4172](https://github.com/Tencent/tdesign-react/pull/4172))
+
+### 📝 Documentation
+
+- `Configprovider`: Added documentation for using the global configuration `Plugin` function. @HaixingOoO ([#4218](https://github.com/Tencent/tdesign-react/pull/4218))
+
+### 🚧 Others
+
+- `RadioGroup`: Improved generic support for the component, making it easier to synchronize `value` and `onChange` events. @RylanBot ([#4081](https://github.com/Tencent/tdesign-react/pull/4081))
+
+## 🌈 1.16.8 `2026-04-02` 
+
+### 🚀 Features
+
+- Added functionality to export the current version number, which can be used in specific applications to determine the version and proceed with further processing. @uyarn ([#4199](https://github.com/Tencent/tdesign-react/pull/4199))
+- `DatePicker`:
+  - New `range` and `panelActiveDate` APIs added to allow specifying a date range. Refer to the example for details. @HaixingOoO ([#4139](https://github.com/Tencent/tdesign-react/pull/4139))
+  - New `cell` API added to enable customization of date display, including lunar calendars. Refer to the example for details. @uyarn ([#4200](https://github.com/Tencent/tdesign-react/pull/4200))
+- `DateRangePicker`:
+  - New `range` and `panelActiveDate` APIs added to allow specifying a date range. Refer to the example for details. @HaixingOoO and @uyarn. [#4139](https://github.com/Tencent/tdesign-react/pull/4139))
+  - New `cell` API added to enable customization of date display, including lunar calendars. Refer to the example for details. @uyarn ([#4200](https://github.com/Tencent/tdesign-react/pull/4200))
+
+### 🐞 Bug Fixes
+
+- `Calendar`: Fixed an issue where `className` became `undefined` when no value was passed. @RylanBot ([#4175](https://github.com/Tencent/tdesign-react/pull/4175))
+- `EnhancedTable`: Fixed an issue where `disableDataPage` didn’t take effect as intended. @HaixingOoO ([#4186](https://github.com/Tencent/tdesign-react/pull/4186))
+- `Form`: Fixed an issue where `initialData` overwrote values set by `setFieldsValue`. @RylanBot ([#4201](https://github.com/Tencent/tdesign-react/pull/4201))
+- `FormList`:
+  - Fixed an issue where `setFieldsValue` failed to update data correctly due to lack of data copying. @RylanBot ([#4174](https://github.com/Tencent/tdesign-react/pull/4174))
+  - Fixed an issue in React 17 environments where `setFieldsValue` failed during asynchronous updates after initial rendering. @RylanBot ([#4179](https://github.com/Tencent/tdesign-react/pull/4179))
+- `MessagePlugin`: Fixed an issue where `zIndex` wasn’t applied as expected. @TidySongS ([#4077](https://github.com/Tencent/tdesign-react/pull/4077))
+- `Select`: Fixed an issue where `onScrollToBottom` didn’t trigger when the browser’s zoom level changed. @RylanBot ([#4181](https://github.com/Tencent/tdesign-react/pull/4181))
+- `TagInput`: Fixed an issue where the `suffix` wasn’t displayed on the right side when `excessTagsDisplayType="break-line"` was set. @RylanBot ([#4178](https://github.com/Tencent/tdesign-react/pull/4178))
+
+## 🌈 1.16.7 `2026-03-13`
+
+### 🚀 Features
+
+- `Progress`: When `theme=plump`, if the colored area of the progress bar is large enough to display the percentage value, it will be shown within that area. Otherwise, it will be displayed to the right of the colored area. For details, refer to the documentation example @RSS1102 ([#4154](https://github.com/Tencent/tdesign-react/pull/4154))
+
+### 🐞 Bug Fixes
+
+- `Affix`:
+  - Fixed an issue where listening events failed due to DOM nodes not being ready when a custom container was used @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
+  - Fixed an issue where scrolling the entire page caused elements to shift position @HaixingOoO @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
+- `FormList`: Fixed an issue where `setFieldsValue` didn’t properly copy data, leading to data corruption @RylanBot ([#4155](https://github.com/Tencent/tdesign-react/pull/4155))
+- `InputNumber`: Fixed an issue where the hover color was incorrect when `disabled` was set @RylanBot ([common#2402](https://github.com/Tencent/tdesign-common/pull/2402))
+- `Popconfirm`: Fixed an issue where `className` became `undefined` when no value was passed @RylanBot ([#4159](https://github.com/Tencent/tdesign-react/pull/4159))
+- `SelectInput`: Fixed an issue where clicking the delete icon in multiple-selection mode would trigger the `Popup` @RylanBot ([#4158](https://github.com/Tencent/tdesign-react/pull/4158))
+- `Table`:
+  - Fixed an issue where merged cells disappeared during virtual scrolling @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
+  - Fixed an issue where the width of empty rows exceeded that of the table during responsive layout @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
+  - Fixed an issue with alignment of fixed headers, footers, and scroll bars with the table when used inside a `Dialog` @RylanBot ([#4131](https://github.com/Tencent/tdesign-react/pull/4131))
+- `TagInput`:
+  - Fixed an issue where tags were rendered incorrectly after `className` was passed in `inputProps` @RylanBot ([#4156](https://github.com/Tencent/tdesign-react/pull/4156))
+  - Fixed an issue with Chinese input compatibility when `onCompositionstart` or `onCompositionend` was passed in `inputProps` @RylanBot ([#4156](https://github.com/Tencent/tdesign-react/pull/4156))
+- `Typography`: Fixed an issue where strings were rendered as HTML tags when `ellipsis` was enabled @RylanBot ([#4117](https://github.com/Tencent/tdesign-react/pull/4117))
+
+## 🌈 1.16.6 `2026-02-26`
+
+### 🚀 Features
+
+- `DatePicker`: Added `onYearChange` and `onMonthChange` callback methods @uyarn ([#4138](https://github.com/Tencent/tdesign-react/pull/4138))
+- `DateRangePicker`: 
+  - The date-time range picker now supports additional interaction modes, which can be configured using the `enableTimePicker.mode` API. For details, see the sample code @uyarn ([#4141](https://github.com/Tencent/tdesign-react/pull/4141))
+  - Added `onYearChange` and `onMonthChange` callback methods @uyarn ([#4138](https://github.com/Tencent/tdesign-react/pull/4138))
+
+### 🐞 Bug Fixes
+
+- `DateRangePicker`: Ensured that the year in the right panel is always greater than that in the left panel @uyarn ([#4137](https://github.com/Tencent/tdesign-react/pull/4137))
+- `Drawer`: Fixed an issue where the component couldn’t be closed using the `esc` key when it was opened for the first time @RylanBot ([#4115](https://github.com/Tencent/tdesign-react/pull/4115))
+- `Form`: Fixed an issue where the data returned by `getFieldsValue` was incorrectly overwritten @RylanBot ([#4125](https://github.com/Tencent/tdesign-react/pull/4125))
+- `FormList`: Fixed an issue where using an old index during `add` operations caused exceptions in `remove` operations @RylanBot ([#4135](https://github.com/Tencent/tdesign-react/pull/4135))
+- `Popup`: Fixed an issue where the `trigger="focus"` property didn’t work in encapsulated components @RylanBot ([#4143](https://github.com/Tencent/tdesign-react/pull/4143))
+- `Table`: Fixed an issue where `footerSummary` wasn’t displayed when virtual scrolling was enabled @RylanBot ([#4112](https://github.com/Tencent/tdesign-react/pull/4112))
+- `Typography`: Fixed an issue where `copyable.onCopy` was executed immediately upon initialization @RSS1102 ([#4105](https://github.com/Tencent/tdesign-react/pull/4105))
+
+### 🚧 Others
+
+- `Dialog`: Removed redundant `useDialogEsc` hook @RylanBot ([#4115](https://github.com/Tencent/tdesign-react/pull/4115))
+
 ## 🌈 1.16.5 `2026-01-28`
 
 ### 🚀 New Features

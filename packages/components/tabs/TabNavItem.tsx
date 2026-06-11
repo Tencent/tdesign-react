@@ -1,13 +1,14 @@
-import React, { MouseEvent } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
-import useRipple from '../hooks/useRipple';
-import useDomRefCallback from '../hooks/useDomRefCallback';
 
 import noop from '../_util/noop';
-import { useTabClass } from './useTabClass';
+import useDomRefCallback from '../hooks/useDomRefCallback';
 import useGlobalIcon from '../hooks/useGlobalIcon';
+import useRipple from '../hooks/useRipple';
+import { useTabClass } from './useTabClass';
 
+import type { MouseEvent } from 'react';
 import type { StyledProps } from '../common';
 import type { DragSortInnerProps } from '../hooks/useDragSorter';
 import type { TdTabPanelProps, TdTabsProps } from './type';
@@ -53,7 +54,7 @@ const TabNavItem: React.FC<TabNavItemProps> = (props) => {
 
   // 斜八度动画
   const [navItemDom, setRefCurrent] = useDomRefCallback();
-  useRipple(navItemDom);
+  useRipple(disabled ? null : navItemDom);
   return (
     <div
       {...dragProps}

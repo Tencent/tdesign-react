@@ -1,4 +1,5 @@
 import { createRegistryManager } from '../shared';
+
 import type { AgentToolcallConfig, ToolcallComponentProps } from './types';
 
 /** Toolcall 注册事件名称 */

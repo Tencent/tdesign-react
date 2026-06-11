@@ -1,7 +1,9 @@
 import { useRef } from 'react';
-import TreeNode from '@tdesign/common-js/tree-v1/tree-node';
-import TreeStore from '@tdesign/common-js/tree-v1/tree-store';
+
 import { createHookContext } from '../../_util/createHookContext';
+
+import type TreeNode from '@tdesign/common-js/tree-v1/tree-node';
+import type TreeStore from '@tdesign/common-js/tree-v1/tree-store';
 import type { TreeProps } from '../Tree';
 import type { TdTreeProps } from '../type';
 

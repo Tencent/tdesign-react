@@ -1,5 +1,6 @@
 import React from 'react';
 import { DateRangePicker, Space } from 'tdesign-react';
+
 import type { DateRangePickerProps } from 'tdesign-react';
 
 export default function YearDatePicker() {
@@ -24,6 +25,8 @@ export default function YearDatePicker() {
     <Space direction="vertical">
       <DateRangePicker onPick={onPick} allowInput clearable onChange={onChange} />
       <DateRangePicker enableTimePicker allowInput clearable onPick={onPick} onChange={onChange} />
+      {/* 可以通过 enableTimePicker 的 mode 属性控制时间选择器的显示方式 */}
+      <DateRangePicker enableTimePicker={{ mode: 'switch' }} allowInput clearable onPick={onPick} onChange={onChange} />
     </Space>
   );
 }

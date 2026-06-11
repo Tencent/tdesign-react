@@ -1,7 +1,10 @@
-import React from 'react';
-import { TdChatActionProps, TdChatActionsName } from 'tdesign-web-components';
 import 'tdesign-web-components/lib/chat-action';
+
+import React from 'react';
+
 import reactify from '../_util/reactify';
+
+import type { TdChatActionProps, TdChatActionsName } from 'tdesign-web-components';
 
 type ChatActionBarAction =
   | TdChatActionsName

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space, Divider } from 'tdesign-react';
+import { Divider, Space } from 'tdesign-react';
 import { ChatMessage } from '@tdesign-react/chat';
 
 export default function ChatMessageExample() {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { DatePickerPanel, DateRangePickerPanel, Space } from 'tdesign-react';
+
 import type { DatePickerPanelProps, DateRangePickerPanelProps } from 'tdesign-react';
 
 export default function PanelExample() {
@@ -33,6 +34,13 @@ export default function PanelExample() {
       </div>
       <div style={{ border: '1px solid var(--td-border-level-2-color)', width: 'fit-content', borderRadius: 3 }}>
         <DateRangePickerPanel enableTimePicker onCellClick={handleRangeCellClick} onChange={handleRangeChange} />
+      </div>
+      <div style={{ border: '1px solid var(--td-border-level-2-color)', width: 'fit-content', borderRadius: 3 }}>
+        <DateRangePickerPanel
+          enableTimePicker={{ mode: 'switch' }}
+          onCellClick={handleRangeCellClick}
+          onChange={handleRangeChange}
+        />
       </div>
     </Space>
   );

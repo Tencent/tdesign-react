@@ -1,7 +1,8 @@
 import '@testing-library/jest-dom';
-import { createEvent, fireEvent, act } from '@testing-library/react';
+import { act, createEvent, fireEvent } from '@testing-library/react';
 import _userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
+
 import { EVENTS_MAP } from './events';
 
 export * from '@testing-library/react';
@@ -18,10 +19,14 @@ export function mockTimeout(callback, timeout = 300) {
 
 export async function mockDelay(timeout) {
   if (!timeout) {
-    await act(() => {});
+    await act(() => {
+      //
+    });
   } else {
     await act(async () => {
-      await mockTimeout(() => {}, timeout);
+      await mockTimeout(() => {
+        //
+      }, timeout);
     });
   }
 }
@@ -183,4 +188,125 @@ export function mockIntersectionObserver(mockData, mockFunc) {
     disconnect: disconnect || vi.fn(),
     takeRecords: () => records,
   }));
+}
+
+/**
+ * 批量模拟多个 DOM 元素的尺寸与位置信息
+ * @param {Array<{
+ *   selector: string
+ *   width?: number
+ *   height?: number
+ *   left?: number
+ *   top?: number
+ * }>} elementSizes
+ */
+export function mockElementSizes(elementSizes = []) {
+  const originalGetBoundingClientRect = Element.prototype.getBoundingClientRect;
+  const originalOffsetWidth = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'offsetWidth');
+  const originalOffsetHeight = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'offsetHeight');
+  const originalOffsetLeft = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'offsetLeft');
+  const originalOffsetTop = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'offsetTop');
+
+  const isElementHidden = (element) => {
+    if (element.hidden) return true;
+    if (element.closest('[hidden]')) return true;
+    const computedStyle = window.getComputedStyle(element);
+    if (computedStyle.display === 'none' || computedStyle.visibility === 'hidden') return true;
+    return false;
+  };
+
+  const findConfig = (element) =>
+    elementSizes.find((config) => {
+      if (config.selector) {
+        return element.matches?.(config.selector);
+      }
+      return false;
+    });
+
+  Element.prototype.getBoundingClientRect = vi.fn(function () {
+    // 如果元素被隐藏，返回全零的 DOMRect
+    if (isElementHidden(this)) {
+      return {
+        width: 0,
+        height: 0,
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        x: 0,
+        y: 0,
+      };
+    }
+
+    const config = findConfig(this);
+    if (!config) {
+      return originalGetBoundingClientRect.call(this);
+    }
+
+    const { width = 100, height = 40, left = 0, top = 0 } = config;
+    return {
+      width,
+      height,
+      top,
+      left,
+      bottom: top + height,
+      right: left + width,
+      x: left,
+      y: top,
+    };
+  });
+
+  Object.defineProperties(HTMLElement.prototype, {
+    offsetWidth: {
+      get() {
+        if (isElementHidden(this)) return 0;
+
+        const config = findConfig(this);
+        return config?.width || originalOffsetWidth?.get?.call(this) || 0;
+      },
+      configurable: true,
+    },
+    offsetHeight: {
+      get() {
+        if (isElementHidden(this)) return 0;
+
+        const config = findConfig(this);
+        return config?.height || originalOffsetHeight?.get?.call(this) || 0;
+      },
+      configurable: true,
+    },
+    offsetLeft: {
+      get() {
+        if (isElementHidden(this)) return 0;
+        const config = findConfig(this);
+        return config?.left || originalOffsetLeft?.get?.call(this) || 0;
+      },
+      configurable: true,
+    },
+    offsetTop: {
+      get() {
+        if (isElementHidden(this)) return 0;
+        const config = findConfig(this);
+        return config?.top || originalOffsetTop?.get?.call(this) || 0;
+      },
+      configurable: true,
+    },
+  });
+
+  // 清理函数
+  return () => {
+    Element.prototype.getBoundingClientRect = originalGetBoundingClientRect;
+    if (originalOffsetWidth) {
+      Object.defineProperty(HTMLElement.prototype, 'offsetWidth', originalOffsetWidth);
+    }
+    if (originalOffsetHeight) {
+      Object.defineProperty(HTMLElement.prototype, 'offsetHeight', originalOffsetHeight);
+    }
+    if (originalOffsetLeft) {
+      Object.defineProperty(HTMLElement.prototype, 'offsetLeft', originalOffsetLeft);
+    }
+    if (originalOffsetTop) {
+      Object.defineProperty(HTMLElement.prototype, 'offsetTop', originalOffsetTop);
+    }
+  };
 }

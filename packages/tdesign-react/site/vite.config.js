@@ -2,8 +2,9 @@ import react from '@vitejs/plugin-react';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { defineConfig } from 'vite';
-
 import { VitePWA } from 'vite-plugin-pwa';
+import pkg from '../package.json';
+
 import pwaConfig from './pwaConfig';
 
 import changelog2Json from './plugins/changelog-to-json';
@@ -31,6 +32,9 @@ const disableTreeShakingPlugin = (paths) => ({
 export default ({ mode }) =>
   defineConfig({
     base: publicPathMap[mode],
+    define: {
+      __VERSION__: JSON.stringify(pkg.version),
+    },
     resolve: {
       alias: {
         'tdesign-react/es': path.resolve(__dirname, '../../components'),

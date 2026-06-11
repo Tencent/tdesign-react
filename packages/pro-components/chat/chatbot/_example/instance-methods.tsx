@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
-import { ChatBot, SSEChunkData, AIMessageContent, ChatServiceConfig, type TdChatbotApi } from '@tdesign-react/chat';
-import { Button, Space, MessagePlugin } from 'tdesign-react';
+import { Button, MessagePlugin, Space } from 'tdesign-react';
+import { ChatBot } from '@tdesign-react/chat';
+
+import type { AIMessageContent, ChatServiceConfig, SSEChunkData, TdChatbotApi } from '@tdesign-react/chat';
 
 /**
  * 实例方法示例
@@ -124,7 +126,14 @@ export default function InstanceMethods() {
     <div>
       {/* 操作按钮区域 */}
       <div style={{ marginBottom: '16px' }}>
-        <div style={{ marginBottom: '16px', padding: '12px', background: '#f5f5f5', borderRadius: '4px' }}>
+        <div
+          style={{
+            marginBottom: '16px',
+            padding: '12px',
+            background: 'var(--td-bg-color-secondarycontainer)',
+            borderRadius: '4px',
+          }}
+        >
           <div style={{ marginBottom: '8px', fontSize: '14px', fontWeight: 500 }}>快捷指令：</div>
           <Space size="small" breakLine>
             <Button size="small" variant="outline" onClick={handleSendUserMessage} disabled={!ready}>

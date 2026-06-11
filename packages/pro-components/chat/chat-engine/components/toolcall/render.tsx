@@ -1,9 +1,13 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { isNonInteractiveConfig, type ToolcallComponentProps } from './types';
-import { agentToolcallRegistry, TOOLCALL_REGISTERED_EVENT, TOOLCALL_EVENT_DETAIL_KEY } from './registry';
-import { ComponentErrorBoundary, useRegistrationListener } from '../shared';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { AGUIEventType } from '@tdesign/ai-chat-engine';
+
 import { AgentStateContext, useAgentStateDataByKey } from '../../hooks/useAgentState';
-import { AGUIEventType, ToolCall } from '../../core';
+import { ComponentErrorBoundary, useRegistrationListener } from '../shared';
+import { agentToolcallRegistry, TOOLCALL_EVENT_DETAIL_KEY, TOOLCALL_REGISTERED_EVENT } from './registry';
+import { isNonInteractiveConfig } from './types';
+
+import type { ToolCall } from '@tdesign/ai-chat-engine';
+import type { ToolcallComponentProps } from './types';
 
 interface ToolCallRendererProps {
   toolCall: ToolCall;

@@ -1,18 +1,20 @@
-import React, { forwardRef, useImperativeHandle, useState, useEffect } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
+
+import noop from '../_util/noop';
 import { render } from '../_util/react-render';
+import PluginContainer from '../common/PluginContainer';
+import ConfigProvider from '../config-provider';
 import useConfig from '../hooks/useConfig';
-import {
+import NotificationComponent from './Notification';
+
+import type { Styles } from '../common';
+import type {
   NotificationInfoOptions,
   NotificationInstance,
   NotificationPlacementList,
   NotificationThemeList,
   TdNotificationProps,
 } from './type';
-import { Styles } from '../common';
-import noop from '../_util/noop';
-import NotificationComponent from './Notification';
-import ConfigProvider from '../config-provider';
-import PluginContainer from '../common/PluginContainer';
 
 interface NotificationListInstance extends TdNotificationProps {
   push: (theme: NotificationThemeList, options: NotificationInfoOptions) => Promise<NotificationInstance>;

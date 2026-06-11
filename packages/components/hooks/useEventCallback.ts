@@ -1,6 +1,7 @@
 // https://github.com/scottrippey/react-use-event-hook/blob/75ba34af9175dc311afb3fb302d6fea44e4a5203/src/useEvent.ts
 // [RFC](https://github.com/reactjs/rfcs/blob/useevent/text/0000-useevent.md)
 import React from 'react';
+
 import noop from '../_util/noop';
 
 type AnyFunction = (...args: unknown[]) => unknown;

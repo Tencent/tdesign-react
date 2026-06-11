@@ -1,26 +1,33 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { Button, Card, Progress, Tag, Space, Input, Select } from 'tdesign-react';
 import {
-  ChatList,
-  ChatSender,
-  ChatMessage,
-  ToolCallRenderer,
-  useAgentToolcall,
-  useAgentActivity,
-  useChat,
-  useAgentState,
-  isToolCallContent,
+  CheckCircleFilledIcon,
+  ErrorCircleFilledIcon,
+  LoadingIcon,
+  StarFilledIcon,
+  TimeFilledIcon,
+} from 'tdesign-icons-react';
+import { Button, Card, Input, Progress, Select, Space, Tag } from 'tdesign-react';
+import {
   ActivityRenderer,
+  ChatList,
+  ChatMessage,
+  ChatSender,
   isActivityContent,
+  isToolCallContent,
+  ToolCallRenderer,
+  useAgentActivity,
+  useAgentState,
+  useAgentToolcall,
+  useChat,
 } from '@tdesign-react/chat';
-import { CheckCircleFilledIcon, TimeFilledIcon, ErrorCircleFilledIcon, LoadingIcon, StarFilledIcon } from 'tdesign-icons-react';
+
 import type {
+  ActivityComponentProps,
+  AIMessageContent,
   ChatMessagesData,
   ChatRequestParams,
   ToolCall,
   ToolcallComponentProps,
-  ActivityComponentProps,
-  AIMessageContent,
 } from '@tdesign-react/chat';
 
 // ==================== 类型定义 ====================
@@ -212,9 +219,7 @@ interface HotelBookingActivityProps extends ActivityComponentProps<HotelBookingA
   onAction?: (action: { type: string; data: any }) => void;
 }
 
-const HotelBookingActivity: React.FC<HotelBookingActivityProps> = ({
-  content,
-}) => {
+const HotelBookingActivity: React.FC<HotelBookingActivityProps> = ({ content }) => {
   // 从 content 获取当前步骤和数据
   const { currentStep, hotels, confirmation } = content;
 
@@ -249,9 +254,7 @@ const HotelBookingActivity: React.FC<HotelBookingActivityProps> = ({
             ))}
             <span style={{ fontSize: 12, color: '#666', marginLeft: 4 }}>{hotel.rating}分</span>
           </div>
-          <div style={{ fontSize: 12, color: '#666', marginBottom: 4 }}>
-            {hotel.amenities.slice(0, 3).join(' • ')}
-          </div>
+          <div style={{ fontSize: 12, color: '#666', marginBottom: 4 }}>{hotel.amenities.slice(0, 3).join(' • ')}</div>
           <div style={{ fontSize: 16, fontWeight: 600, color: '#e34d59' }}>¥{hotel.price}/晚</div>
         </div>
       </div>
@@ -261,9 +264,7 @@ const HotelBookingActivity: React.FC<HotelBookingActivityProps> = ({
   if (currentStep === 'confirm' && confirmation) {
     return (
       <Card bordered style={{ marginTop: 8 }}>
-        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12, color: '#00a870' }}>
-          ✓ 预订成功！
-        </div>
+        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12, color: '#00a870' }}>✓ 预订成功！</div>
         <Space direction="vertical" size="small">
           <div style={{ fontSize: 12, color: '#666' }}>房型：{confirmation.roomType}</div>
           <div style={{ fontSize: 12, color: '#666' }}>总价：¥{confirmation.totalPrice}</div>
@@ -274,16 +275,12 @@ const HotelBookingActivity: React.FC<HotelBookingActivityProps> = ({
 
   return (
     <Card bordered style={{ marginTop: 8 }}>
-      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>
-        🏨 为您推荐酒店
-      </div>
+      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>🏨 为您推荐酒店</div>
 
       {currentStep === 'search' && (
         <div>
           {hotels.length > 0 ? (
-            <div>
-              {hotels.map((hotel: HotelOption) => renderHotelCard(hotel))}
-            </div>
+            <div>{hotels.map((hotel: HotelOption) => renderHotelCard(hotel))}</div>
           ) : (
             <div style={{ textAlign: 'center', padding: 20, color: '#666' }}>
               <LoadingIcon style={{ fontSize: 16, marginRight: 8 }} />
@@ -507,7 +504,7 @@ const TravelPlannerContent: React.FC = () => {
           </div>
         );
       }
-      
+
       // 处理 Activity
       if (isActivityContent(item)) {
         return (
@@ -516,7 +513,7 @@ const TravelPlannerContent: React.FC = () => {
           </div>
         );
       }
-      
+
       return null;
     },
     [handleToolCallRespond],
@@ -532,7 +529,7 @@ const TravelPlannerContent: React.FC = () => {
     setInputValue('');
   };
 
-  console.log("====message", messages)
+  console.log('====message', messages);
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', position: 'relative' }}>
       {/* 右侧进度面板：使用 useAgentState 订阅状态 */}

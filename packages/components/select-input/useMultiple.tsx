@@ -1,14 +1,14 @@
 import React, { useRef } from 'react';
-
 import classNames from 'classnames';
 import { isObject } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
-import TagInput, { type TagInputValue } from '../tag-input';
+import TagInput from '../tag-input';
 
 import type { StyledProps } from '../common';
 import type { InputRef } from '../input';
+import type { TagInputValue } from '../tag-input';
 import type { SelectInputCommonProperties } from './interface';
 import type { SelectInputChangeContext, SelectInputKeys, SelectInputValue, TdSelectInputProps } from './type';
 
@@ -118,6 +118,7 @@ export default function useMultiple(props: SelectInputProps) {
         tagProps={{ ...props.tagProps, ...props.tagInputProps?.tagProps }}
         inputProps={{
           ...props.inputProps,
+          autocomplete: 'off',
           readOnly: !props.allowInput || readOnly,
           readonly: !props.allowInput || readOnly,
           inputClass: classNames(props.tagInputProps?.className, {

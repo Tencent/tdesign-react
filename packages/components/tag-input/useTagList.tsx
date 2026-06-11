@@ -1,9 +1,12 @@
-import React, { Fragment, KeyboardEvent, MouseEvent, ReactNode, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { isFunction } from 'lodash-es';
+import log from '@tdesign/common-js/log/index';
+
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import Tag from '../tag';
 
+import type { KeyboardEvent, MouseEvent, ReactNode } from 'react';
 import type { DragSortInnerProps } from '../hooks/useDragSorter';
 import type { InputValue } from '../input';
 import type { TagInputChangeContext, TagInputValue, TdTagInputProps } from './type';
@@ -21,7 +24,20 @@ export default function useTagList(props: TagInputProps) {
   const readOnly = props.readOnly || props.readonly;
 
   // handle controlled property and uncontrolled property
-  const [tagValue, setTagValue] = useControlled(props, 'value', props.onChange);
+  const [innerTagValue, setTagValue] = useControlled(props, 'value', props.onChange);
+  let tagValue: TagInputValue;
+  if (Array.isArray(innerTagValue)) {
+    tagValue = innerTagValue;
+  } else {
+    if (innerTagValue !== undefined && innerTagValue !== null) {
+      log.warnOnce(
+        'TagInput',
+        `\`value\` is expected to be an array, but got ${typeof innerTagValue}. It will be treated as an empty array.`,
+      );
+    }
+    tagValue = [];
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [oldInputValue, setOldInputValue] = useState<InputValue>();
 

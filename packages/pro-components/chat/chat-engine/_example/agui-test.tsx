@@ -1,18 +1,18 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
+import { Card, Loading, Space, Tag } from 'tdesign-react';
 import {
-  ChatList,
-  ChatSender,
-  ChatMessage,
   ChatActionBar,
+  ChatList,
   ChatLoading,
-  isAIMessage,
-  ToolCallRenderer,
-  isToolCallContent,
+  ChatMessage,
+  ChatSender,
   isActivityContent,
-  useChat,
+  isAIMessage,
+  isToolCallContent,
+  ToolCallRenderer,
   useAgentToolcall,
+  useChat,
 } from '@tdesign-react/chat';
-import { Card, Space, Loading, Tag } from 'tdesign-react';
 
 const getStatusBackground = () => {
   if (status === 'complete') return '#52c41a';
@@ -109,7 +109,7 @@ const GetAccessServiceComponent = ({ args, status, result, error }) => {
           <strong>参数:</strong>
           <pre
             style={{
-              background: '#f5f5f5',
+              background: 'var(--td-bg-color-secondarycontainer)',
               padding: '8px',
               borderRadius: '4px',
             }}
@@ -132,7 +132,7 @@ const GetAccessServiceComponent = ({ args, status, result, error }) => {
             <strong>结果:</strong>
             <pre
               style={{
-                background: '#f5f5f5',
+                background: 'var(--td-bg-color-secondarycontainer)',
                 padding: '8px',
                 borderRadius: '4px',
                 maxHeight: '200px',
@@ -192,7 +192,7 @@ const GetAccessUpstreamComponent = ({ args, status, result, error }) => {
           <strong>参数:</strong>
           <pre
             style={{
-              background: '#f5f5f5',
+              background: 'var(--td-bg-color-secondarycontainer)',
               padding: '8px',
               borderRadius: '4px',
             }}
@@ -215,7 +215,7 @@ const GetAccessUpstreamComponent = ({ args, status, result, error }) => {
             <strong>结果:</strong>
             <pre
               style={{
-                background: '#f5f5f5',
+                background: 'var(--td-bg-color-secondarycontainer)',
                 padding: '8px',
                 borderRadius: '4px',
                 maxHeight: '200px',

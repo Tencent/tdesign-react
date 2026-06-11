@@ -1,13 +1,14 @@
 import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import classNames from 'classnames';
+
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import noop from '../_util/noop';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { formDefaultProps } from './defaultProps';
 import FormContext from './FormContext';
 import FormItem from './FormItem';
 import FormList from './FormList';
-import { formDefaultProps } from './defaultProps';
 import useForm, { HOOK_MARK } from './hooks/useForm';
 import useInstance from './hooks/useInstance';
 import useWatch from './hooks/useWatch';
@@ -65,7 +66,15 @@ const Form = forwardRefWithStatics(
       form?.getInternalHooks?.(HOOK_MARK)?.flashQueue?.();
     }, [form]);
 
+    // Dialog / Popup 等通过 Portal 渲染时，DOM 已脱离外层 Form，但 React 合成事件仍沿 Fiber 树冒泡
+    // 会导致内层 Form 的 reset / submit 误触发外层 Form 的处理逻辑
+    // 这里过滤掉来自嵌套 Form 的伪冒泡事件
+    function isEventFromSelf(e: React.FormEvent<HTMLFormElement>) {
+      return e?.target === formRef.current;
+    }
+
     function onResetHandler(e: React.FormEvent<HTMLFormElement>) {
+      if (!isEventFromSelf(e)) return;
       [...formMapRef.current.values()].forEach((formItemRef) => {
         formItemRef?.current.resetField();
       });
@@ -75,11 +84,14 @@ const Form = forwardRefWithStatics(
       onReset?.({ e });
     }
 
+    function onSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
+      if (!isEventFromSelf(e)) return;
+      formInstance.submit(e);
+    }
+
     function onFormItemValueChange(changedValue: Record<string, unknown>) {
-      requestAnimationFrame(() => {
-        const allFields = formInstance.getFieldsValue(true);
-        onValuesChange(changedValue, allFields);
-      });
+      const allFields = formInstance.getFieldsValue(true);
+      onValuesChange(changedValue, allFields);
     }
 
     return (
@@ -111,7 +123,7 @@ const Form = forwardRefWithStatics(
           id={id}
           style={style}
           className={formClass}
-          onSubmit={formInstance.submit}
+          onSubmit={onSubmitHandler}
           onReset={onResetHandler}
         >
           {children}

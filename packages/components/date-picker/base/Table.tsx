@@ -2,22 +2,21 @@ import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
-
-import type { Dayjs } from 'dayjs';
 import { parseToDayjs } from '@tdesign/common-js/date-picker/format';
-import { useLocaleReceiver } from '../../locale/LocalReceiver';
+
 import useConfig from '../../hooks/useConfig';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import DatePickerCell from './Cell';
 
-import { SinglePanelProps } from '../panel/SinglePanel';
-import { PanelContentProps } from '../panel/PanelContent';
-
+import type { Dayjs } from 'dayjs';
+import type { PanelContentProps } from '../panel/PanelContent';
+import type { SinglePanelProps } from '../panel/SinglePanel';
 import type { DateMultipleValue, DateRangeValue, DateValue, TdDatePickerProps } from '../type';
 
 dayjs.extend(isoWeek);
 
 export interface DatePickerTableProps
-  extends Pick<TdDatePickerProps, 'mode' | 'firstDayOfWeek' | 'format' | 'multiple'>,
+  extends Pick<TdDatePickerProps, 'mode' | 'firstDayOfWeek' | 'format' | 'multiple' | 'cell'>,
     Pick<SinglePanelProps, 'onCellClick' | 'onCellMouseEnter' | 'onCellMouseLeave'>,
     Pick<PanelContentProps, 'value'> {
   data?: Array<any>;
@@ -27,7 +26,8 @@ export interface DatePickerTableProps
 const DatePickerTable = (props: DatePickerTableProps) => {
   const { classPrefix } = useConfig();
 
-  const { value, format, mode, data, time, onCellClick, onCellMouseEnter, onCellMouseLeave, firstDayOfWeek } = props;
+  const { value, format, mode, data, time, cell, onCellClick, onCellMouseEnter, onCellMouseLeave, firstDayOfWeek } =
+    props;
 
   const [local, t] = useLocaleReceiver('datePicker');
   const weekdays = t(local.weekdays);
@@ -129,7 +129,14 @@ const DatePickerTable = (props: DatePickerTableProps) => {
               })}
             >
               {row.map((col: any, j: number) => (
-                <DatePickerCell {...col} key={j} time={time} onClick={onCellClick} onMouseEnter={onCellMouseEnter} />
+                <DatePickerCell
+                  {...col}
+                  key={j}
+                  time={time}
+                  cell={cell}
+                  onClick={onCellClick}
+                  onMouseEnter={onCellMouseEnter}
+                />
               ))}
             </tr>
           ))}

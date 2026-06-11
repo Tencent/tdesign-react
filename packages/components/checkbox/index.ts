@@ -1,6 +1,7 @@
+import './style/index.js';
+
 import _Checkbox from './Checkbox';
 import _CheckboxGroup from './CheckboxGroup';
-import './style/index.js';
 
 export type { CheckboxProps } from './Checkbox';
 export type { CheckboxGroupProps } from './CheckboxGroup';

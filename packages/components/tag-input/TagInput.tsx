@@ -1,28 +1,23 @@
-import React, {
-  CompositionEvent,
-  forwardRef,
-  KeyboardEvent,
-  MouseEvent,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-} from 'react';
-import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-react';
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import classnames from 'classnames';
 import { isFunction } from 'lodash-es';
+import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-react';
+
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useDragSorter from '../hooks/useDragSorter';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import TInput, { type InputRef, type InputValue } from '../input';
+import TInput from '../input';
 import { tagInputDefaultProps } from './defaultProps';
 import useHover from './useHover';
 import useTagList from './useTagList';
 import useTagScroll from './useTagScroll';
 
-import type { TdTagInputProps } from './type';
+import type { CompositionEvent, KeyboardEvent, MouseEvent } from 'react';
 import type { StyledProps } from '../common';
+import type { InputRef, InputValue } from '../input';
+import type { TdTagInputProps } from './type';
 
 export interface TagInputProps extends TdTagInputProps, StyledProps {
   options?: any[]; // 参数穿透options, 给SelectInput/SelectInput 自定义选中项呈现的内容和多选状态下设置折叠项内容
@@ -58,6 +53,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
     onBlur,
   } = props;
   const readOnly = props.readOnly || props.readonly;
+  const isBreakLine = excessTagsDisplayType === 'break-line';
 
   const [tInputValue, setTInputValue] = useControlled(props, 'inputValue', props.onInputChange);
 
@@ -70,6 +66,9 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       targetClassNameRegExp: new RegExp(`^${prefix}-tag`),
     },
   });
+
+  const suffixWidthRef = useRef<number>(0);
+  const suffixIconWidthRef = useRef<number>(0);
   const isCompositionRef = useRef(false);
 
   const { scrollToRight, onWheel, scrollToRightOnEnter, scrollToLeftOnLeave, tagInputRef } = useTagScroll(props);
@@ -92,6 +91,44 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
 
   useImperativeHandle(ref as InputRef, () => ({ ...(tagInputRef.current || {}) }));
 
+  const updateSuffixWidth = (selector: string, cssVar: string, widthRef: React.MutableRefObject<number>) => {
+    const wrapperEl = tagInputRef.current?.currentElement as HTMLElement;
+    if (!wrapperEl) return;
+
+    const inputEl = wrapperEl.querySelector(`.${prefix}-input`) as HTMLElement;
+    if (!inputEl) return;
+
+    const targetEl = wrapperEl.querySelector(selector);
+    const width = targetEl ? targetEl.getBoundingClientRect().width : 0;
+    if (width !== widthRef.current) {
+      // eslint-disable-next-line no-param-reassign
+      widthRef.current = width;
+      if (width) {
+        inputEl.style.setProperty(cssVar, `${Math.ceil(width + 8)}px`);
+      } else {
+        inputEl.style.removeProperty(cssVar);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (!isBreakLine) return;
+
+    if (suffix) {
+      // 避免 suffix 左侧 与 tag 重合
+      updateSuffixWidth(
+        `.${prefix}-input__suffix:not(.${prefix}-input__suffix-icon)`,
+        `--${prefix}-tag-input-suffix-width`,
+        suffixWidthRef,
+      );
+    }
+
+    // 确定 suffixIcon 右侧到 input 边框的距离
+    updateSuffixWidth(`.${prefix}-input__suffix-icon`, `--${prefix}-tag-input-suffix-icon-width`, suffixIconWidthRef);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [excessTagsDisplayType, suffix, suffixIcon, showClearIcon, prefix, tagInputRef, isBreakLine]);
+
   const onInputCompositionstart = (value: InputValue, context: { e: CompositionEvent<HTMLInputElement> }) => {
     isCompositionRef.current = true;
     inputProps?.onCompositionstart?.(value, context);
@@ -109,7 +146,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
   };
 
   const onInnerClick = (context: { e: MouseEvent<HTMLDivElement> }) => {
-    if (!props.disabled && !props.readonly) {
+    if (!props.disabled && !readOnly) {
       (tagInputRef.current as any)?.inputElement?.focus?.();
     }
     onClick?.(context);
@@ -155,11 +192,11 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
   const classes = [
     NAME_CLASS,
     {
-      [BREAK_LINE_CLASS]: excessTagsDisplayType === 'break-line',
+      [BREAK_LINE_CLASS]: isBreakLine,
       [WITH_SUFFIX_ICON_CLASS]: !!suffixIconNode,
       [`${prefix}-is-empty`]: isEmpty,
       [`${prefix}-tag-input--with-tag`]: !isEmpty,
-      [`${prefix}-tag-input--max-rows`]: excessTagsDisplayType === 'break-line' && maxRows,
+      [`${prefix}-tag-input--max-rows`]: isBreakLine && maxRows,
       [`${prefix}-tag-input--drag-sort`]: props.dragSort && !disabled && !readOnly,
     },
     props.className,
@@ -186,7 +223,6 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       readOnly={readOnly}
       disabled={disabled}
       label={renderLabel({ displayNode, label })}
-      className={classnames(classes)}
       style={{
         ...props.style,
         ...maxRowsStyle,
@@ -197,8 +233,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       suffix={suffix}
       prefixIcon={prefixIcon}
       suffixIcon={suffixIconNode}
-      // showInput={!inputProps?.readOnly || !inputProps?.readonly || !tagValue || !tagValue?.length}
-      showInput={!inputProps?.readonly || !tagValue || !tagValue?.length}
+      showInput={!inputProps?.readOnly || !inputProps?.readonly || !tagValue || !tagValue?.length}
       keepWrapperWidth={!autoWidth}
       onPaste={onPaste}
       onClick={onInnerClick}
@@ -220,11 +255,12 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
         }
         onBlur?.(tagValue, { e: context.e, inputValue });
       }}
+      {...inputProps}
       onCompositionstart={onInputCompositionstart}
       onCompositionend={onInputCompositionend}
-      {...inputProps}
       onKeydown={onKeydown}
       onKeyup={onKeyup}
+      className={classnames(classes, inputProps?.className)}
     />
   );
 });

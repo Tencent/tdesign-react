@@ -1,19 +1,19 @@
 /**
  * TDesign Catalog 定义（约束层）
  * 用于定义组件 props schema 和 actions 白名单
- * 
+ *
  * 概念区分：
  * - Catalog（本文件）：约束层，定义组件 props 的 Zod schemas 和 actions 白名单（给 AI/服务端用）
  * - ComponentRegistry（catalog/index.ts）：渲染层，映射组件名到 React 组件（给 Renderer 用）
  */
 
-import { createCatalog } from '@json-render/core';
 import { z } from 'zod';
+import { createCatalog } from '@json-render/core';
 
 /**
  * TDesign 内置组件 Catalog
  * 定义所有内置组件的 props schema 和可用 actions
- * 
+ *
  * 这个 Catalog 用于：
  * 1. 告诉 AI/LLM 可以生成哪些组件
  * 2. 约束每个组件的 props 类型
@@ -23,7 +23,7 @@ export const tdesignCatalog = createCatalog({
   name: 'tdesign',
   components: {
     // ==================== 基础组件 ====================
-    
+
     Button: {
       props: z.object({
         // 支持 label 或 children 两种方式传递按钮文本
@@ -36,13 +36,15 @@ export const tdesignCatalog = createCatalog({
         loading: z.boolean().nullable(),
         block: z.boolean().nullable(),
         // action 支持字符串（action 名称）或 Action 对象 { name, params }
-        action: z.union([
-          z.string(),
-          z.object({
-            name: z.string(),
-            params: z.record(z.any()).optional(),
-          }),
-        ]).nullable(),
+        action: z
+          .union([
+            z.string(),
+            z.object({
+              name: z.string(),
+              params: z.record(z.any()).optional(),
+            }),
+          ])
+          .nullable(),
       }),
       description: 'TDesign Button component with action support',
     },
@@ -121,11 +123,7 @@ export const tdesignCatalog = createCatalog({
       props: z.object({
         direction: z.enum(['horizontal', 'vertical']).nullable(),
         // size 支持字符串枚举或数字
-        size: z.union([
-          z.enum(['small', 'medium', 'large']),
-          z.number(),
-          z.string(),
-        ]).nullable(),
+        size: z.union([z.enum(['small', 'medium', 'large']), z.number(), z.string()]).nullable(),
         align: z.enum(['start', 'center', 'end', 'baseline']).nullable(),
       }),
       hasChildren: true,
@@ -149,33 +147,33 @@ export const tdesignCatalog = createCatalog({
       description: 'Divider line',
     },
   },
-  
+
   actions: {
-    submit: { 
-      description: 'Submit form data to server' 
+    submit: {
+      description: 'Submit form data to server',
     },
-    reset: { 
-      description: 'Reset form to initial state (handled by Button component automatically)' 
+    reset: {
+      description: 'Reset form to initial state (handled by Button component automatically)',
     },
-    cancel: { 
-      description: 'Cancel current operation' 
+    cancel: {
+      description: 'Cancel current operation',
     },
   },
-  
+
   validation: 'strict',
 });
 
 /**
  * 创建自定义 Catalog（扩展 TDesign 内置 Catalog）
- * 
+ *
  * @param customConfig - 自定义 Catalog 配置
  * @returns 合并后的 Catalog
- * 
+ *
  * @example
  * ```typescript
  * import { createCustomCatalog } from '@tdesign-react/chat';
  * import { z } from 'zod';
- * 
+ *
  * const customCatalog = createCustomCatalog({
  *   name: 'my-dashboard',
  *   components: {
@@ -201,7 +199,7 @@ export const tdesignCatalog = createCatalog({
  *     export: { description: 'Export to file' },
  *   },
  * });
- * 
+ *
  * // 使用自定义 Catalog
  * // 1. 在服务端：告诉 AI 可以生成哪些组件
  * // 2. 在前端：配合 createCustomRegistry 提供渲染能力
@@ -245,11 +243,14 @@ export const tdesignActionList = tdesignCatalog.actionNames as string[];
 /**
  * 内置组件的详细 Props 文档（用于生成详细 prompt）
  */
-const BUILTIN_COMPONENT_DOCS: Record<string, { 
-  description: string;
-  props: Record<string, string>;
-  hasChildren?: boolean;
-}> = {
+const BUILTIN_COMPONENT_DOCS: Record<
+  string,
+  {
+    description: string;
+    props: Record<string, string>;
+    hasChildren?: boolean;
+  }
+> = {
   Button: {
     description: 'Button component with action support',
     props: {
@@ -388,12 +389,12 @@ export interface NormalizedComponentDoc {
  */
 function zodSchemaToPropsDoc(schema: z.ZodObject<any>): Record<string, string> {
   const result: Record<string, string> = {};
-  const shape = schema.shape;
-  
+  const { shape } = schema;
+
   for (const [key, value] of Object.entries(shape)) {
     result[key] = zodTypeToString(value as z.ZodTypeAny);
   }
-  
+
   return result;
 }
 
@@ -405,31 +406,32 @@ function zodTypeToString(type: z.ZodTypeAny): string {
   if (type instanceof z.ZodNullable) {
     return `${zodTypeToString(type.unwrap())} (nullable)`;
   }
-  
+
   // 处理 optional
   if (type instanceof z.ZodOptional) {
     return `${zodTypeToString(type.unwrap())} (optional)`;
   }
-  
+
   // 处理 enum
   if (type instanceof z.ZodEnum) {
     const values = type.options as string[];
-    return values.map(v => `"${v}"`).join(' | ');
+    return values.map((v) => `"${v}"`).join(' | ');
   }
-  
+
   // 处理 union
   if (type instanceof z.ZodUnion) {
+    // eslint-disable-next-line no-underscore-dangle
     const options = (type as any)._def.options as z.ZodTypeAny[];
-    return options.map(o => zodTypeToString(o)).join(' | ');
+    return options.map((o) => zodTypeToString(o)).join(' | ');
   }
-  
+
   // 处理基础类型
   if (type instanceof z.ZodString) return 'string';
   if (type instanceof z.ZodNumber) return 'number';
   if (type instanceof z.ZodBoolean) return 'boolean';
   if (type instanceof z.ZodObject) return 'object';
   if (type instanceof z.ZodArray) return 'array';
-  
+
   return 'any';
 }
 
@@ -438,13 +440,13 @@ function zodTypeToString(type: z.ZodTypeAny): string {
  */
 function normalizeComponentDoc(doc: ComponentDoc): NormalizedComponentDoc {
   let props: Record<string, string>;
-  
+
   if (doc.props instanceof z.ZodObject) {
     props = zodSchemaToPropsDoc(doc.props);
   } else {
     props = doc.props;
   }
-  
+
   return {
     description: doc.description,
     props,
@@ -464,29 +466,31 @@ export type CustomTemplateGenerator = (context: {
 
 /**
  * 生成增强版 Catalog Prompt（包含完整 Props 文档和 Schema 示例）
- * 
+ *
  * @param options - 配置选项
  * @returns 详细的 AI Prompt 字符串
  */
-export function generateCatalogPrompt(options: {
-  name?: string;
-  components?: Record<string, ComponentDoc>;
-  actions?: Record<string, { description: string }>;
-  /** 是否包含 Schema 示例 */
-  includeExample?: boolean;
-  /** 
-   * Prompt 模板模式
-   * - 'default': 标准 JSON Schema UI 模板
-   * - 'a2ui': A2UI 协议模板（需服务端配合）
-   * - 'custom': 使用自定义模板生成器
-   */
-  templateMode?: PromptTemplateMode;
-  /**
-   * 自定义模板生成器（仅当 templateMode='custom' 时使用）
-   * 接收组件和 actions 上下文，返回完整的 prompt 字符串
-   */
-  customTemplate?: CustomTemplateGenerator;
-} = {}): string {
+export function generateCatalogPrompt(
+  options: {
+    name?: string;
+    components?: Record<string, ComponentDoc>;
+    actions?: Record<string, { description: string }>;
+    /** 是否包含 Schema 示例 */
+    includeExample?: boolean;
+    /**
+     * Prompt 模板模式
+     * - 'default': 标准 JSON Schema UI 模板
+     * - 'a2ui': A2UI 协议模板（需服务端配合）
+     * - 'custom': 使用自定义模板生成器
+     */
+    templateMode?: PromptTemplateMode;
+    /**
+     * 自定义模板生成器（仅当 templateMode='custom' 时使用）
+     * 接收组件和 actions 上下文，返回完整的 prompt 字符串
+     */
+    customTemplate?: CustomTemplateGenerator;
+  } = {},
+): string {
   const {
     name = 'tdesign',
     components = {},
@@ -502,7 +506,7 @@ export function generateCatalogPrompt(options: {
   for (const [key, doc] of Object.entries(mergedComponents)) {
     allComponents[key] = normalizeComponentDoc(doc);
   }
-  
+
   // 合并内置 actions 和自定义 actions
   const builtinActions = {
     submit: { description: 'Submit form data to server' },
@@ -698,228 +702,246 @@ export function generateCatalogPrompt(options: {
   if (includeExample) {
     lines.push('## Examples');
     lines.push('');
-    
+
     lines.push('### 1. Simple Form Structure');
     lines.push('A basic form with validation and data binding:');
     lines.push('```json');
-    lines.push(JSON.stringify({
-      root: 'main_card',
-      elements: {
-        main_card: {
-          key: 'main_card',
-          type: 'Card',
-          props: { title: 'User Registration', bordered: true },
-          children: ['form_layout'],
-        },
-        form_layout: {
-          key: 'form_layout',
-          type: 'Column',
-          props: { gap: 16 },
-          children: ['name_field', 'email_field', 'button_group'],
-        },
-        name_field: {
-          key: 'name_field',
-          type: 'TextField',
-          props: {
-            label: 'Full Name',
-            valuePath: 'user.name',
-            placeholder: 'Enter your full name',
-            required: true,
+    lines.push(
+      JSON.stringify(
+        {
+          root: 'main_card',
+          elements: {
+            main_card: {
+              key: 'main_card',
+              type: 'Card',
+              props: { title: 'User Registration', bordered: true },
+              children: ['form_layout'],
+            },
+            form_layout: {
+              key: 'form_layout',
+              type: 'Column',
+              props: { gap: 16 },
+              children: ['name_field', 'email_field', 'button_group'],
+            },
+            name_field: {
+              key: 'name_field',
+              type: 'TextField',
+              props: {
+                label: 'Full Name',
+                valuePath: 'user.name',
+                placeholder: 'Enter your full name',
+                required: true,
+              },
+            },
+            email_field: {
+              key: 'email_field',
+              type: 'TextField',
+              props: {
+                label: 'Email Address',
+                valuePath: 'user.email',
+                placeholder: 'Enter your email',
+                type: 'email',
+                required: true,
+              },
+            },
+            button_group: {
+              key: 'button_group',
+              type: 'Space',
+              props: { direction: 'horizontal', size: 'medium' },
+              children: ['submit_btn', 'reset_btn'],
+            },
+            submit_btn: {
+              key: 'submit_btn',
+              type: 'Button',
+              props: {
+                children: 'Register',
+                theme: 'primary',
+                action: { name: 'submit', params: { form: 'registration' } },
+              },
+            },
+            reset_btn: {
+              key: 'reset_btn',
+              type: 'Button',
+              props: {
+                children: 'Reset',
+                variant: 'outline',
+                action: 'reset',
+              },
+            },
+          },
+          data: {
+            user: { name: '', email: '' },
           },
         },
-        email_field: {
-          key: 'email_field',
-          type: 'TextField',
-          props: {
-            label: 'Email Address',
-            valuePath: 'user.email',
-            placeholder: 'Enter your email',
-            type: 'email',
-            required: true,
-          },
-        },
-        button_group: {
-          key: 'button_group',
-          type: 'Space',
-          props: { direction: 'horizontal', size: 'medium' },
-          children: ['submit_btn', 'reset_btn'],
-        },
-        submit_btn: {
-          key: 'submit_btn',
-          type: 'Button',
-          props: {
-            children: 'Register',
-            theme: 'primary',
-            action: { name: 'submit', params: { form: 'registration' } },
-          },
-        },
-        reset_btn: {
-          key: 'reset_btn',
-          type: 'Button',
-          props: {
-            children: 'Reset',
-            variant: 'outline',
-            action: 'reset',
-          },
-        },
-      },
-      data: {
-        user: { name: '', email: '' },
-      },
-    }, null, 2));
+        null,
+        2,
+      ),
+    );
     lines.push('```');
     lines.push('');
-    
+
     lines.push('### 2. Dashboard Layout');
     lines.push('A more complex layout with grid system and multiple components:');
     lines.push('```json');
-    lines.push(JSON.stringify({
-      root: 'dashboard',
-      elements: {
-        dashboard: {
-          key: 'dashboard',
-          type: 'Column',
-          props: { gap: 24 },
-          children: ['header', 'content_row'],
-        },
-        header: {
-          key: 'header',
-          type: 'Card',
-          props: { title: 'Dashboard Overview' },
-          children: ['status_text'],
-        },
-        status_text: {
-          key: 'status_text',
-          type: 'Text',
-          props: {
-            content: 'System is running normally',
-            color: 'success',
-            weight: 'medium',
+    lines.push(
+      JSON.stringify(
+        {
+          root: 'dashboard',
+          elements: {
+            dashboard: {
+              key: 'dashboard',
+              type: 'Column',
+              props: { gap: 24 },
+              children: ['header', 'content_row'],
+            },
+            header: {
+              key: 'header',
+              type: 'Card',
+              props: { title: 'Dashboard Overview' },
+              children: ['status_text'],
+            },
+            status_text: {
+              key: 'status_text',
+              type: 'Text',
+              props: {
+                content: 'System is running normally',
+                color: 'success',
+                weight: 'medium',
+              },
+            },
+            content_row: {
+              key: 'content_row',
+              type: 'Row',
+              props: { gutter: 16 },
+              children: ['left_col', 'right_col'],
+            },
+            left_col: {
+              key: 'left_col',
+              type: 'Col',
+              props: { span: 16 },
+              children: ['main_content'],
+            },
+            right_col: {
+              key: 'right_col',
+              type: 'Col',
+              props: { span: 8 },
+              children: ['sidebar_card'],
+            },
+            main_content: {
+              key: 'main_content',
+              type: 'Card',
+              props: { title: 'Main Content', shadow: true },
+              children: ['content_text'],
+            },
+            content_text: {
+              key: 'content_text',
+              type: 'Text',
+              props: { content: 'This is the main content area.' },
+            },
+            sidebar_card: {
+              key: 'sidebar_card',
+              type: 'Card',
+              props: { title: 'Quick Actions' },
+              children: ['action_buttons'],
+            },
+            action_buttons: {
+              key: 'action_buttons',
+              type: 'Column',
+              props: { gap: 8 },
+              children: ['refresh_btn', 'export_btn'],
+            },
+            refresh_btn: {
+              key: 'refresh_btn',
+              type: 'Button',
+              props: {
+                children: 'Refresh Data',
+                block: true,
+                action: 'refresh',
+              },
+            },
+            export_btn: {
+              key: 'export_btn',
+              type: 'Button',
+              props: {
+                children: 'Export Report',
+                variant: 'outline',
+                block: true,
+                action: 'export',
+              },
+            },
+          },
+          data: {
+            lastUpdated: new Date().toISOString(),
           },
         },
-        content_row: {
-          key: 'content_row',
-          type: 'Row',
-          props: { gutter: 16 },
-          children: ['left_col', 'right_col'],
-        },
-        left_col: {
-          key: 'left_col',
-          type: 'Col',
-          props: { span: 16 },
-          children: ['main_content'],
-        },
-        right_col: {
-          key: 'right_col',
-          type: 'Col',
-          props: { span: 8 },
-          children: ['sidebar_card'],
-        },
-        main_content: {
-          key: 'main_content',
-          type: 'Card',
-          props: { title: 'Main Content', shadow: true },
-          children: ['content_text'],
-        },
-        content_text: {
-          key: 'content_text',
-          type: 'Text',
-          props: { content: 'This is the main content area.' },
-        },
-        sidebar_card: {
-          key: 'sidebar_card',
-          type: 'Card',
-          props: { title: 'Quick Actions' },
-          children: ['action_buttons'],
-        },
-        action_buttons: {
-          key: 'action_buttons',
-          type: 'Column',
-          props: { gap: 8 },
-          children: ['refresh_btn', 'export_btn'],
-        },
-        refresh_btn: {
-          key: 'refresh_btn',
-          type: 'Button',
-          props: {
-            children: 'Refresh Data',
-            block: true,
-            action: 'refresh',
-          },
-        },
-        export_btn: {
-          key: 'export_btn',
-          type: 'Button',
-          props: {
-            children: 'Export Report',
-            variant: 'outline',
-            block: true,
-            action: 'export',
-          },
-        },
-      },
-      data: {
-        lastUpdated: new Date().toISOString(),
-      },
-    }, null, 2));
+        null,
+        2,
+      ),
+    );
     lines.push('```');
     lines.push('');
-    
+
     lines.push('### 3. Dynamic Content with Data Binding');
     lines.push('Form with conditional disabled states:');
     lines.push('```json');
-    lines.push(JSON.stringify({
-      root: 'settings_form',
-      elements: {
-        settings_form: {
-          key: 'settings_form',
-          type: 'Card',
-          props: { title: 'Settings' },
-          children: ['form_fields'],
-        },
-        form_fields: {
-          key: 'form_fields',
-          type: 'Column',
-          props: { gap: 16 },
-          children: ['enable_notifications', 'email_field', 'save_btn'],
-        },
-        enable_notifications: {
-          key: 'enable_notifications',
-          type: 'TextField',
-          props: {
-            label: 'Enable Notifications',
-            valuePath: 'settings.notifications',
-            type: 'text',
+    lines.push(
+      JSON.stringify(
+        {
+          root: 'settings_form',
+          elements: {
+            settings_form: {
+              key: 'settings_form',
+              type: 'Card',
+              props: { title: 'Settings' },
+              children: ['form_fields'],
+            },
+            form_fields: {
+              key: 'form_fields',
+              type: 'Column',
+              props: { gap: 16 },
+              children: ['enable_notifications', 'email_field', 'save_btn'],
+            },
+            enable_notifications: {
+              key: 'enable_notifications',
+              type: 'TextField',
+              props: {
+                label: 'Enable Notifications',
+                valuePath: 'settings.notifications',
+                type: 'text',
+              },
+            },
+            email_field: {
+              key: 'email_field',
+              type: 'TextField',
+              props: {
+                label: 'Notification Email',
+                valuePath: 'settings.email',
+                disabledPath: 'settings.emailDisabled',
+                placeholder: 'Enter email for notifications',
+              },
+            },
+            save_btn: {
+              key: 'save_btn',
+              type: 'Button',
+              props: {
+                children: 'Save Settings',
+                theme: 'primary',
+                action: 'submit',
+              },
+            },
+          },
+          data: {
+            settings: {
+              notifications: 'enabled',
+              email: '',
+              emailDisabled: false,
+            },
           },
         },
-        email_field: {
-          key: 'email_field',
-          type: 'TextField',
-          props: {
-            label: 'Notification Email',
-            valuePath: 'settings.email',
-            disabledPath: 'settings.emailDisabled',
-            placeholder: 'Enter email for notifications',
-          },
-        },
-        save_btn: {
-          key: 'save_btn',
-          type: 'Button',
-          props: {
-            children: 'Save Settings',
-            theme: 'primary',
-            action: 'submit',
-          },
-        },
-      },
-      data: {
-        settings: {
-          notifications: 'enabled',
-          email: '',
-          emailDisabled: false,
-        },
-      },
-    }, null, 2));
+        null,
+        2,
+      ),
+    );
     lines.push('```');
   }
 
@@ -929,7 +951,7 @@ export function generateCatalogPrompt(options: {
 /**
  * A2UI 协议专用 Prompt 生成器
  * 生成符合 A2UI 消息格式的系统提示词
- * 
+ *
  * @internal 内部函数，由 generateDetailedCatalogPrompt 调用
  */
 function generateA2UIPrompt(context: {
@@ -988,13 +1010,13 @@ function generateA2UIPrompt(context: {
     '```',
     '',
     '### Add Child to Parent',
-    'Append a child to the end of parent\'s children array:',
+    "Append a child to the end of parent's children array:",
     '```json',
     '{"op": "add", "path": "/elements/parent-id/children/-", "value": "new-child-id"}',
     '```',
     '',
     '### Remove Element',
-    'Delete an element (ensure it\'s removed from parent\'s children first):',
+    "Delete an element (ensure it's removed from parent's children first):",
     '```json',
     '{"op": "remove", "path": "/elements/element-id"}',
     '```',
@@ -1114,82 +1136,100 @@ function generateA2UIPrompt(context: {
   if (includeExample) {
     lines.push('## Examples');
     lines.push('');
-    
+
     lines.push('### 1. Create a form surface:');
     lines.push('```json');
-    lines.push(JSON.stringify({
-      type: 'createSurface',
-      surfaceId: 'user_form_1',
-      ui: {
-        root: 'form_card',
-        elements: {
-          form_card: {
-            key: 'form_card',
-            type: 'Card',
-            props: { title: 'User Form' },
-            children: ['name_field', 'submit_btn'],
+    lines.push(
+      JSON.stringify(
+        {
+          type: 'createSurface',
+          surfaceId: 'user_form_1',
+          ui: {
+            root: 'form_card',
+            elements: {
+              form_card: {
+                key: 'form_card',
+                type: 'Card',
+                props: { title: 'User Form' },
+                children: ['name_field', 'submit_btn'],
+              },
+              name_field: {
+                key: 'name_field',
+                type: 'TextField',
+                props: { label: 'Name', valuePath: 'user.name' },
+              },
+              submit_btn: {
+                key: 'submit_btn',
+                type: 'Button',
+                props: { children: 'Submit', theme: 'primary', action: 'submit' },
+              },
+            },
           },
-          name_field: {
-            key: 'name_field',
-            type: 'TextField',
-            props: { label: 'Name', valuePath: 'user.name' },
-          },
-          submit_btn: {
-            key: 'submit_btn',
-            type: 'Button',
-            props: { children: 'Submit', theme: 'primary', action: 'submit' },
-          },
+          data: { user: { name: '' } },
         },
-      },
-      data: { user: { name: '' } },
-    }, null, 2));
+        null,
+        2,
+      ),
+    );
     lines.push('```');
     lines.push('');
-    
+
     lines.push('### 2. Update existing surface with JSON Patch:');
     lines.push('Add a status card and update the form title:');
     lines.push('```json');
-    lines.push(JSON.stringify({
-      type: 'updateComponents',
-      surfaceId: 'user_form_1',
-      patch: [
+    lines.push(
+      JSON.stringify(
         {
-          op: 'replace',
-          path: '/elements/form_card/props/title',
-          value: 'Updated User Form'
+          type: 'updateComponents',
+          surfaceId: 'user_form_1',
+          patch: [
+            {
+              op: 'replace',
+              path: '/elements/form_card/props/title',
+              value: 'Updated User Form',
+            },
+            {
+              op: 'add',
+              path: '/elements/status_card',
+              value: {
+                key: 'status_card',
+                type: 'Card',
+                props: {
+                  title: 'Status',
+                  description: 'Form is ready for submission',
+                },
+              },
+            },
+            {
+              op: 'add',
+              path: '/elements/form_card/children/0',
+              value: 'status_card',
+            },
+          ],
         },
-        {
-          op: 'add',
-          path: '/elements/status_card',
-          value: {
-            key: 'status_card',
-            type: 'Card',
-            props: { 
-              title: 'Status',
-              description: 'Form is ready for submission'
-            }
-          }
-        },
-        {
-          op: 'add',
-          path: '/elements/form_card/children/0',
-          value: 'status_card'
-        }
-      ]
-    }, null, 2));
+        null,
+        2,
+      ),
+    );
     lines.push('```');
     lines.push('');
-    
+
     lines.push('### 3. Update data model:');
     lines.push('```json');
-    lines.push(JSON.stringify({
-      type: 'updateDataModel',
-      surfaceId: 'user_form_1',
-      data: { 
-        user: { name: 'John Doe' },
-        formStatus: 'ready'
-      }
-    }, null, 2));
+    lines.push(
+      JSON.stringify(
+        {
+          type: 'updateDataModel',
+          surfaceId: 'user_form_1',
+          data: {
+            user: { name: 'John Doe' },
+            formStatus: 'ready',
+          },
+        },
+        null,
+        2,
+      ),
+    );
     lines.push('```');
   }
 

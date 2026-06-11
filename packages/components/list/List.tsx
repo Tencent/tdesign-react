@@ -1,6 +1,7 @@
-import React, { useImperativeHandle, useMemo, useRef, WheelEvent } from 'react';
+import React, { useImperativeHandle, useMemo, useRef } from 'react';
 import classNames from 'classnames';
 import { compact, isString } from 'lodash-es';
+
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import noop from '../_util/noop';
 import parseTNode from '../_util/parseTNode';
@@ -8,11 +9,12 @@ import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import Loading from '../loading';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import ListItem from './ListItem';
-import ListItemMeta from './ListItemMeta';
 import { listDefaultProps } from './defaultProps';
 import { useListVirtualScroll } from './hooks/useListVirtualScroll';
+import ListItem from './ListItem';
+import ListItemMeta from './ListItemMeta';
 
+import type { WheelEvent } from 'react';
 import type { StyledProps } from '../common';
 import type { ListInstanceFunctions, TdListProps } from './type';
 

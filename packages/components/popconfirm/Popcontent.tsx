@@ -1,11 +1,14 @@
 import React from 'react';
-import { isString } from 'lodash-es';
 import classNames from 'classnames';
+import { isString } from 'lodash-es';
 import { InfoCircleFilledIcon as TdInfoCircleFilledIcon } from 'tdesign-icons-react';
-import Button, { ButtonProps } from '../button';
+
 import noop from '../_util/noop';
+import Button from '../button';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
+
+import type { ButtonProps } from '../button';
 import type { PopconfirmProps } from './Popconfirm';
 import type { PopconfirmVisibleChangeContext } from './type';
 
@@ -112,7 +115,7 @@ const Popcontent: React.FC<PopcontentProps & PopconfirmProps> = (props) => {
   }
 
   return (
-    <div className={`${classPrefix}-popconfirm__content ${props.className}`} style={props.style}>
+    <div className={classNames(`${classPrefix}-popconfirm__content`, props.className)} style={props.style}>
       <div className={`${classPrefix}-popconfirm__body`}>
         {renderIcon()}
         <div className={`${classPrefix}-popconfirm__inner`}>{content}</div>

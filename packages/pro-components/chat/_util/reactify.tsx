@@ -1,5 +1,7 @@
-import React, { Component, createRef, createElement, forwardRef } from 'react';
-import { createRoot, Root } from 'react-dom/client';
+import React, { Component, createElement, createRef, forwardRef } from 'react';
+import { createRoot } from 'react-dom/client';
+
+import type { Root } from 'react-dom/client';
 
 type AnyProps = {
   [key: string]: any;
@@ -38,7 +40,8 @@ const isReact19Plus = () => {
 
 const reactify = <T extends AnyProps = AnyProps>(
   WC: string,
-): React.ForwardRefExoticComponent<React.PropsWithoutRef<T> & React.RefAttributes<HTMLElement>> => {
+  displayName?: string,
+): React.ForwardRefExoticComponent<Omit<T, 'ref'> & React.RefAttributes<HTMLElement | undefined>> => {
   class Reactify extends Component<T> {
     eventHandlers: [string, EventListener][];
 
@@ -262,9 +265,18 @@ const reactify = <T extends AnyProps = AnyProps>(
     }
   }
 
-  return forwardRef<HTMLElement, T>((props, ref) =>
-    createElement(Reactify, { ...props, innerRef: ref } as T & { innerRef: React.ForwardedRef<HTMLElement> }),
-  );
+  const ReactifiedComponent = forwardRef<HTMLElement, AnyProps>((props, ref) =>
+    createElement(Reactify as unknown as React.ComponentType<AnyProps>, { ...props, innerRef: ref }),
+  ) as React.ForwardRefExoticComponent<Omit<T, 'ref'> & React.RefAttributes<HTMLElement | undefined>>;
+
+  // Use provided displayName, or fall back to converting kebab-case tag name to PascalCase
+  ReactifiedComponent.displayName =
+    displayName ??
+    WC.replace(/^t-/, '')
+      .replace(/-([a-z])/g, (_, c) => c.toUpperCase())
+      .replace(/^[a-z]/, (c) => c.toUpperCase());
+
+  return ReactifiedComponent;
 };
 
 export default reactify;

@@ -1,13 +1,13 @@
 import React, { useRef } from 'react';
-
 import classNames from 'classnames';
 import { isObject, pick } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
-import Input, { type InputRef, type TdInputProps } from '../input';
+import Input from '../input';
 import Loading from '../loading';
 
+import type { InputRef, TdInputProps } from '../input';
 import type { SelectInputCommonProperties } from './interface';
 import type { TdSelectInputProps } from './type';
 
@@ -108,6 +108,7 @@ export default function useSingle(props: TdSelectInputProps) {
       <Input
         ref={inputRef}
         {...commonInputProps}
+        autocomplete="off"
         autoWidth={props.autoWidth}
         allowInput={props.allowInput}
         placeholder={singleValueDisplay ? '' : props.placeholder}

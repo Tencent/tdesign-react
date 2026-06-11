@@ -1,15 +1,20 @@
-import React, { forwardRef, useRef, useState, useImperativeHandle } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import classNames from 'classnames';
-import useControlled from '../hooks/useControlled';
-import { ClassName, StyledProps } from '../common';
-import { AutoCompleteOption, TdAutoCompleteProps } from './type';
-import { autoCompleteDefaultProps } from './defaultProps';
+
 import useCommonClassName from '../hooks/useCommonClassName';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
-import Input, { InputProps, InputRef, TdInputProps } from '../input';
-import Popup, { PopupProps, PopupRef } from '../popup';
-import AutoCompleteOptionList, { OptionsListProps } from './OptionList';
+import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
+import Input from '../input';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+import Popup from '../popup';
+import { autoCompleteDefaultProps } from './defaultProps';
+import AutoCompleteOptionList from './OptionList';
+
+import type { ClassName, StyledProps } from '../common';
+import type { InputProps, InputRef, TdInputProps } from '../input';
+import type { PopupProps, PopupRef } from '../popup';
+import type { OptionsListProps } from './OptionList';
+import type { AutoCompleteOption, TdAutoCompleteProps } from './type';
 
 export interface AutoCompleteProps<T extends AutoCompleteOption = AutoCompleteOption>
   extends TdAutoCompleteProps<T>,
