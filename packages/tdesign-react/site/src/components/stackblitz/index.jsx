@@ -1,14 +1,14 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Tooltip } from '@tdesign/components';
 
 import {
   htmlContent,
   mainJsContent,
+  packageJSONContent,
+  stackblitzRc,
   styleContent,
   tsconfigContent,
   viteConfigContent,
-  packageJSONContent,
-  stackblitzRc,
 } from './content';
 
 const TypeScriptType = 0;

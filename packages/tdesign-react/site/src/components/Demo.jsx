@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-
 import { Button } from '@tdesign/components';
+
 import DraggableButton from './DraggableButton';
 
 export const demoFiles = import.meta.glob('../../../../components/**/_example/*.tsx');

@@ -225,7 +225,7 @@ const eslintConfig: Linter.Config[] = [
   },
   // Override for script files
   {
-    files: ['script/**/*'],
+    files: ['script/**/*', 'test/**/*'],
     rules: {
       '@typescript-eslint/no-require-imports': 'off',
     },

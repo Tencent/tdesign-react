@@ -1,8 +1,9 @@
-import React from 'react';
-import { HashRouter, Routes, Navigate, Route, useLocation, Link } from 'react-router-dom';
-import ReactDOM from 'react-dom';
-import { Button } from '@tdesign/components';
 import '@tdesign/components/style/index.js';
+
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { HashRouter, Link, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { Button } from '@tdesign/components';
 
 const demoFiles = import.meta.glob('../../../src/**/_example/*.jsx', { eager: true });
 const demoObject = {};
@@ -77,9 +78,8 @@ function App() {
   );
 }
 
-ReactDOM.render(
+createRoot(document.getElementById('app')).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-  document.getElementById('app'),
 );

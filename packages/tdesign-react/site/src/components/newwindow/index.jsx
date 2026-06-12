@@ -1,4 +1,3 @@
-import React from 'react';
 import { Tooltip } from '@tdesign/components';
 
 const SPECIAL_PATH_MAP = {

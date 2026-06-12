@@ -1,6 +1,6 @@
 import { registerSW } from 'virtual:pwa-register';
 
-const updateSW = registerSW({
+registerSW({
   onNeedRefresh() {
     console.log('onNeedRefresh');
   },

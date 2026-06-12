@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { Tooltip, Loading } from '@tdesign/components';
+import { useState } from 'react';
+import { Loading, Tooltip } from '@tdesign/components';
 
-import { mainJsContent, htmlContent, pkgContent, styleContent, tsconfigContent } from './content';
+import { htmlContent, mainJsContent, pkgContent, styleContent, tsconfigContent } from './content';
+
 import '../../styles/Codesandbox.less';
 
 const TypeScriptType = 0;

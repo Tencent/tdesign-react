@@ -1,5 +1,5 @@
-import orgPkg from '../../../package.json';
 import tdesignReactPkg from '../../../../package.json';
+import orgPkg from '../../../package.json';
 
 export const htmlContent = '<div id="app" style="padding: 24px;"></div>';
 

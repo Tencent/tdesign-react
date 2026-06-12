@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export function useConfigChange(configList) {
   const defaultProps = configList.reduce((prev, curr) => {
