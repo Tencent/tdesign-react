@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Input, InputAdornment, Space, TagInput } from 'tdesign-react';
 
 export default function BaseExample() {

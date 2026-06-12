@@ -5,24 +5,23 @@ import type { TdSelectInputProps } from '../select-input/type';
 import type { CascaderChangeSource, CascaderValue, TdCascaderProps } from './type';
 
 export * from './type';
-export interface CascaderContextType
-  extends Pick<
-    TdCascaderProps,
-    | 'size'
-    | 'disabled'
-    | 'checkStrictly'
-    | 'lazy'
-    | 'multiple'
-    | 'filterable'
-    | 'filter'
-    | 'clearable'
-    | 'checkProps'
-    | 'showAllLevels'
-    | 'max'
-    | 'value'
-    | 'minCollapsedNum'
-    | 'valueType'
-  > {
+export interface CascaderContextType extends Pick<
+  TdCascaderProps,
+  | 'size'
+  | 'disabled'
+  | 'checkStrictly'
+  | 'lazy'
+  | 'multiple'
+  | 'filterable'
+  | 'filter'
+  | 'clearable'
+  | 'checkProps'
+  | 'showAllLevels'
+  | 'max'
+  | 'value'
+  | 'minCollapsedNum'
+  | 'valueType'
+> {
   treeStore: TreeStore;
   setValue: (val: CascaderValue, source: CascaderChangeSource, node?: TreeNodeModel) => void;
   visible: boolean;

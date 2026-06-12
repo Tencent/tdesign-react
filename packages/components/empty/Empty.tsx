@@ -89,8 +89,8 @@ const Empty: React.FC<EmptyProps> = (props) => {
   const typeImageProps = defaultMaps[type] ?? null;
 
   const { image, description, title } = {
-    image: propsImage ? propsImage : typeImageProps?.image ?? null,
-    title: propsTitle ? propsTitle : typeImageProps?.title ?? null,
+    image: propsImage ? propsImage : (typeImageProps?.image ?? null),
+    title: propsTitle ? propsTitle : (typeImageProps?.title ?? null),
     description: propsDescription,
   };
 

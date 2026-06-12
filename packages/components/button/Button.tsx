@@ -12,8 +12,7 @@ import { buttonDefaultProps } from './defaultProps';
 import type { TdButtonProps } from './type';
 
 export interface ButtonProps
-  extends TdButtonProps,
-    Omit<React.AllHTMLAttributes<HTMLElement>, 'content' | 'shape' | 'size' | 'type'> {}
+  extends TdButtonProps, Omit<React.AllHTMLAttributes<HTMLElement>, 'content' | 'shape' | 'size' | 'type'> {}
 
 const Button = forwardRef((originProps: ButtonProps, ref: React.RefObject<HTMLElement>) => {
   const props = useDefaultProps(originProps, buttonDefaultProps);

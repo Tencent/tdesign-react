@@ -13,8 +13,7 @@ import type { CascaderContextType, TreeNode } from '../interface';
 import type { TdCascaderProps } from '../type';
 
 export interface CascaderPanelProps
-  extends StyledProps,
-    Pick<TdCascaderProps, 'trigger' | 'empty' | 'onChange' | 'loading' | 'loadingText' | 'option'> {
+  extends StyledProps, Pick<TdCascaderProps, 'trigger' | 'empty' | 'onChange' | 'loading' | 'loadingText' | 'option'> {
   cascaderContext: CascaderContextType;
 }
 

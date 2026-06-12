@@ -35,7 +35,7 @@ export default function useTreeVirtualScroll({
         rowHeight: scroll?.rowHeight || 34,
         bufferSize: scroll?.bufferSize || 20,
         threshold: scrollThreshold,
-      } as const),
+      }) as const,
     [scroll, scrollThreshold],
   );
 
