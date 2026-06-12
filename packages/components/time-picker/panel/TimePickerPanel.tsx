@@ -13,12 +13,13 @@ import type { TimePickerProps } from '../TimePicker';
 import type { TimeRangePickerProps } from '../TimeRangePicker';
 import type { SinglePanelProps } from './SinglePanel';
 
-export interface TimePickerPanelProps extends SinglePanelProps {
+export interface TimePickerPanelProps extends Omit<SinglePanelProps, 'onChange'> {
   isShowPanel?: boolean;
   isFooterDisplay?: boolean; // 是否展示footer
   handleConfirmClick?: (defaultValue: dayjs.Dayjs | string) => void;
   presets?: TimePickerProps['presets'] | TimeRangePickerProps['presets'];
   activeIndex?: number;
+  onChange?: (value: string, e?: MouseEvent | UIEvent) => void;
 }
 
 type PresetValue = TimePickerPanelProps['presets'][keyof TimePickerPanelProps['presets']];
@@ -34,7 +35,7 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
     isShowPanel = true,
     presets = null,
   } = props;
-  const [triggerScroll, toggleTriggerScroll] = useState(false); // 触发滚动
+  const [triggerScroll, setTriggerScroll] = useState(false); // 触发滚动
   const { classPrefix } = useConfig();
 
   const TEXT_CONFIG = useTimePickerTextConfig();
@@ -52,23 +53,23 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
   }, [value, format]);
 
   useEffect(() => {
-    if (isShowPanel) toggleTriggerScroll(true);
+    if (isShowPanel) setTriggerScroll(true);
   }, [isShowPanel]);
 
   const resetTriggerScroll = useCallback(() => {
-    toggleTriggerScroll(false);
-  }, [toggleTriggerScroll]);
+    setTriggerScroll(false);
+  }, [setTriggerScroll]);
 
-  const handlePresetClick = (presetValue: PresetValue) => {
+  const handlePresetClick = (presetValue: PresetValue, e: React.MouseEvent) => {
     const presetVal = typeof presetValue === 'function' ? presetValue() : presetValue;
     if (typeof props.activeIndex === 'number') {
       if (Array.isArray(presetVal)) {
-        props.onChange?.(presetVal[props.activeIndex]);
+        props.onChange?.(presetVal[props.activeIndex], e.nativeEvent);
       } else {
         log.error('TimePicker', `preset: ${presets} 预设值必须是数组!`);
       }
     } else {
-      props.onChange?.(presetVal);
+      props.onChange?.(presetVal as string, e.nativeEvent);
     }
   };
 
@@ -80,8 +81,8 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
           theme="primary"
           size="small"
           variant="text"
-          onClick={() => {
-            handlePresetClick(presets[preset]);
+          onClick={(e) => {
+            handlePresetClick(presets[preset], e);
           }}
         >
           {preset}
@@ -94,8 +95,8 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
         theme="primary"
         variant="text"
         size="small"
-        onClick={() => {
-          onChange?.(dayjs().format(format));
+        onClick={(e) => {
+          onChange?.(dayjs().format(format), e.nativeEvent);
         }}
       >
         {TEXT_CONFIG.nowTime}
@@ -108,7 +109,7 @@ const TimePickerPanel: FC<TimePickerPanelProps> = (props) => {
       <div className={`${panelClassName}-section-body`}>
         <SinglePanel
           {...props}
-          onChange={onChange}
+          onChange={onChange as unknown as SinglePanelProps['onChange']}
           format={format}
           steps={steps}
           value={dayjs(value, format).isValid() ? value : defaultValue}

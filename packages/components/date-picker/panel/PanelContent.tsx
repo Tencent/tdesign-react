@@ -132,7 +132,7 @@ export default function PanelContent(props: PanelContentProps) {
             position={partial}
             format={timeFormat}
             value={time || defaultTime}
-            onChange={onTimePickerChange}
+            onChange={(value) => onTimePickerChange?.(value)}
             isShowPanel={props.popupVisible}
             {...timePickerProps}
           />

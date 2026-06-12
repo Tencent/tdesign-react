@@ -19,6 +19,7 @@ import TimePickerPanel from './panel/TimePickerPanel';
 import type { FC } from 'react';
 import type { StyledProps } from '../common';
 import type { RangeInputPopupProps, RangeInputPosition } from '../range-input';
+import type { TimePickerPanelProps } from './panel/TimePickerPanel';
 import type { TdTimeRangePickerProps, TimeRangePickerPartial, TimeRangeValue } from './type';
 
 export interface TimeRangePickerProps extends TdTimeRangePickerProps, StyledProps {}
@@ -57,7 +58,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
   const { TimeIcon } = useGlobalIcon({
     TimeIcon: TdTimeIcon,
   });
-  const [isPanelShowed, setPanelShow] = useState(false);
+  const [isPanelShowed, setIsPanelShowed] = useState(false);
   const [currentPanelIdx, setCurrentPanelIdx] = useState(undefined);
   const [currentValue, setCurrentValue] = useState(['', '']);
 
@@ -69,10 +70,10 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
 
   const handleShowPopup: RangeInputPopupProps['onPopupVisibleChange'] = (visible, { trigger }) => {
     if (trigger === 'trigger-element-click') {
-      setPanelShow(true);
+      setIsPanelShowed(true);
       return;
     }
-    setPanelShow(visible);
+    setIsPanelShowed(visible);
   };
 
   function handlePickerValue(pickValue: string | string[], currentValue: string[]) {
@@ -105,10 +106,10 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
     setCurrentPanelIdx(position === 'first' ? 0 : 1);
   };
 
-  const handleTimeChange = (newValue: string | string[], context: { e: React.MouseEvent }) => {
+  const handleTimeChange = (newValue: string | string[], e?: MouseEvent | UIEvent) => {
     const nextCurrentValue = handlePickerValue(newValue, currentValue);
     setCurrentValue(nextCurrentValue);
-    handleOnPick(nextCurrentValue, context);
+    handleOnPick(nextCurrentValue, { e: e as unknown as React.MouseEvent });
   };
 
   const autoSwapTime = (valueBeforeConfirm: Array<string>) => {
@@ -145,7 +146,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
   const handleClickConfirm = () => {
     const isValidTime = !currentValue.find((v) => !validateInputValue(v, format));
     if (isValidTime) onChange(props.autoSwap ? autoSwapTime(currentValue) : currentValue);
-    setPanelShow(false);
+    setIsPanelShowed(false);
   };
 
   const handleFocus = (
@@ -206,7 +207,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
             hideDisabledTime={hideDisabledTime}
             isFooterDisplay={true}
             value={currentValue[currentPanelIdx || 0]}
-            onChange={handleTimeChange}
+            onChange={handleTimeChange as TimePickerPanelProps['onChange']}
             handleConfirmClick={handleClickConfirm}
             position={currentPanelIdx === 0 ? 'start' : 'end'}
             activeIndex={currentPanelIdx}

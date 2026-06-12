@@ -122,6 +122,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
   const { defaultInitialData } = useFormItemInitialData(name, fullPath, initialData, children);
 
+  // eslint-disable-next-line @eslint-react/use-state
   const [, forceUpdate] = useState({}); // custom render state
   const [freeShowErrorMessage, setFreeShowErrorMessage] = useState(undefined);
   const [errorList, setErrorList] = useState([]);
@@ -214,7 +215,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
       return null;
     };
 
-    if (React.isValidElement(statusIcon)) {
+    if (React.isValidElement<Record<string, any>>(statusIcon)) {
       // @ts-ignore
       return resultIcon(
         React.cloneElement(statusIcon, {
@@ -495,7 +496,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
             if (!child) return null;
 
             // Fragment can only have `key` and `children` props, skip props injection
-            if (!React.isValidElement(child) || child.type === React.Fragment) return child;
+            if (!React.isValidElement<Record<string, any>>(child) || child.type === React.Fragment) return child;
 
             const childType = child.type;
             const isCustomComp = typeof childType === 'object' || typeof childType === 'function';
@@ -512,7 +513,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
               });
             }
 
-            const childProps = child.props as any;
+            const childProps = child.props;
             const commonProps = {
               disabled: disabledFromContext,
               readOnly: readOnlyFromContext,

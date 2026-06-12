@@ -111,7 +111,7 @@ const TimePicker = forwardRefWithStatics(
 
     const handlePanelChange: TimePickerPanelProps['onChange'] = (v, ctx) => {
       setCurrentValue(v);
-      onPick?.(v, ctx);
+      onPick?.(v, { e: ctx as unknown as React.MouseEvent<HTMLDivElement> });
     };
 
     return (
