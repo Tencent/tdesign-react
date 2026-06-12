@@ -165,7 +165,7 @@ export function handleRemoveTagEffect(
   index: number,
   onRemove: TdCascaderProps['onRemove'],
 ) {
-  const { disabled, setValue, value, valueType, treeStore } = cascaderContext;
+  const { disabled, setValue, value, treeStore } = cascaderContext;
 
   if (disabled) return;
   const newValue = cloneDeep(value) as [];
@@ -173,12 +173,7 @@ export function handleRemoveTagEffect(
   const node = treeStore.getNodes(res[0])[0];
   const checked = node.setChecked(!node.isChecked());
 
-  if (valueType === 'single') {
-    setValue(newValue, 'uncheck', node.getModel());
-  } else {
-    // Preserve user selection order: use newValue which already has the item removed at the correct index
-    setValue(newValue, 'uncheck', node.getModel());
-  }
+  setValue(newValue, 'uncheck', node.getModel());
 
   if (isFunction(onRemove)) {
     onRemove({ value: checked, node: node as any });
