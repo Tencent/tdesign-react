@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Input, Space } from 'tdesign-react';
 
 export default function InputExample() {

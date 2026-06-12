@@ -22,8 +22,10 @@ const panelOffset = {
   bottom: 21,
 };
 
-export interface SinglePanelProps
-  extends Pick<TdTimePickerProps, 'steps' | 'format' | 'value' | 'hideDisabledTime' | 'onPick'> {
+export interface SinglePanelProps extends Pick<
+  TdTimePickerProps,
+  'steps' | 'format' | 'value' | 'hideDisabledTime' | 'onPick'
+> {
   disableTime?: (
     h: number,
     m: number,

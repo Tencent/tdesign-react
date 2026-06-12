@@ -14,9 +14,7 @@ import type { SelectKeysType, SelectOption, SelectValue, TdOptionProps, TdSelect
  * Option 组件属性
  */
 export interface SelectOptionProps
-  extends StyledProps,
-    TdOptionProps,
-    Pick<TdSelectProps, 'size' | 'multiple' | 'max'> {
+  extends StyledProps, TdOptionProps, Pick<TdSelectProps, 'size' | 'multiple' | 'max'> {
   selectedValue?: SelectValue;
   children?: React.ReactNode;
   onSelect?: (

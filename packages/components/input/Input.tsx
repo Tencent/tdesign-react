@@ -214,7 +214,7 @@ const Input = forwardRefWithStatics(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const innerValue = composingRef.current ? composingValue : value ?? '';
+    const innerValue = composingRef.current ? composingValue : (value ?? '');
     const formatDisplayValue = format && !isFocused ? format(innerValue) : innerValue;
 
     const renderInput = (
