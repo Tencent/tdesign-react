@@ -90,21 +90,30 @@ const Steps = forwardRefWithStatics(
 
     const stepItemList = useMemo<React.ReactNode[]>(() => {
       if (options) {
-        const optionsDisplayList = sequence === 'reverse' ? options.reverse() : options;
+        const optionsLength = options.length;
         return options.map<React.ReactNode>((item, index) => {
-          const stepIndex = sequence === 'reverse' ? optionsDisplayList.length - index - 1 : index;
-          return <StepItem key={index} {...item} index={stepIndex} status={handleStatus(item, index)} />;
+          const stepIndex = sequence === 'reverse' ? optionsLength - index - 1 : index;
+          return (
+            <StepItem
+              key={index}
+              {...item}
+              index={stepIndex}
+              value={item.value ?? index}
+              status={handleStatus(item, index)}
+            />
+          );
         });
       }
 
       const childrenList = React.Children.toArray(children);
-      const childrenDisplayList = sequence === 'reverse' ? childrenList.reverse() : childrenList;
+      const childrenLength = childrenList.length;
 
       return childrenList.map((child: React.ReactElement<StepItemProps>, index: number) => {
-        const stepIndex = sequence === 'reverse' ? childrenDisplayList.length - index - 1 : index;
+        const stepIndex = sequence === 'reverse' ? childrenLength - index - 1 : index;
         return React.cloneElement(child, {
           ...child.props,
           index: stepIndex,
+          value: child.props.value ?? index,
           status: handleStatus(child.props, index),
         });
       });

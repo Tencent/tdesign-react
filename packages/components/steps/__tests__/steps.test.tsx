@@ -71,6 +71,24 @@ describe('Steps 组件测试', () => {
     expect(stepsItems.length).toBe(1);
   });
 
+  test('sequence reverse 点击应返回逻辑下标', async () => {
+    const handleChange = vi.fn();
+
+    const { container } = render(
+      <Steps sequence="reverse" defaultCurrent={1} onChange={handleChange}>
+        <StepItem title="步骤1" content="这里是提示文字" />
+        <StepItem title="步骤2" content="这里是提示文字" />
+        <StepItem title="步骤3" content="这里是提示文字" />
+        <StepItem title="步骤4" content="这里是提示文字" />
+      </Steps>,
+    );
+
+    const stepItems = container.querySelectorAll('.t-steps-item');
+    // 点击逻辑下标为 3 的步骤（DOM 中第 4 项）
+    fireEvent.click(stepItems[3].querySelector('.t-steps-item__inner'));
+    expect(handleChange).toHaveBeenCalledWith(3, 1, expect.any(Object));
+  });
+
   test('layout readonly 测试', async () => {
     const testId = 'step readonly test';
 
