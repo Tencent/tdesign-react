@@ -78,6 +78,7 @@ function TdInputNumber<T extends InputNumberValue = InputNumberValue>(
       <Input
         ref={inputRef}
         autocomplete="off"
+        autofocus={props.autofocus}
         disabled={props.disabled}
         readOnly={props.readOnly || props.readonly}
         placeholder={props.placeholder}
