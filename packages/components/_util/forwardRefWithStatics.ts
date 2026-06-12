@@ -3,7 +3,7 @@ import hoistNonReactStatics from 'hoist-non-react-statics';
 
 import type { FC, ForwardRefRenderFunction, RefAttributes } from 'react';
 
-export default function forwardRefWithStatics<P, T = any, S = {}>(
+export default function forwardRefWithStatics<P, T = any, S = object>(
   component: ForwardRefRenderFunction<T, P>,
   statics?: S,
 ): FC<P & RefAttributes<T>> & S {

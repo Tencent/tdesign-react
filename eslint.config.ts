@@ -27,6 +27,8 @@ const eslintConfig: Linter.Config[] = [
       'packages/ai-core/**',
       '**/_usage/**',
       '**/_example-js/**',
+      // auto-generated file
+      '**/site/test-coverage.js',
     ],
   },
   {
@@ -219,6 +221,13 @@ const eslintConfig: Linter.Config[] = [
     files: ['**/_example/**/*', '**/__tests__/**/*'],
     rules: {
       'no-console': 'off',
+    },
+  },
+  // Override for script files
+  {
+    files: ['script/**/*'],
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off',
     },
   },
 ];
