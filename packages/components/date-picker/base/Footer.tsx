@@ -10,8 +10,11 @@ import type { DateMultipleValue, DateValue, TdDatePickerProps, TdDateRangePicker
 
 interface DatePickerFooterProps extends Pick<TdDatePickerProps, 'presetsPlacement' | 'needConfirm'> {
   presets?: TdDatePickerProps['presets'] | TdDateRangePickerProps['presets'];
-  onPresetClick?: Function;
-  onConfirmClick?: Function;
+  onPresetClick?: (
+    value: DateValue | DateMultipleValue,
+    context: { e: React.MouseEvent; preset: Record<string, any> },
+  ) => void;
+  onConfirmClick?: (context: { e: React.MouseEvent }) => void;
   selectedValue?: DateValue | DateMultipleValue;
   onTimePanelChange?: () => void;
   enableTimePicker?: TdDateRangePickerProps['enableTimePicker'] | TdDatePickerProps['enableTimePicker'];

@@ -41,7 +41,7 @@ export default function BasicList() {
         setPageNum(pageNum);
         setIsLoading(false);
       }, 300);
-    } catch (err) {
+    } catch (_) {
       setListData([]);
     }
   };
@@ -54,7 +54,7 @@ export default function BasicList() {
 
   useEffect(() => {
     fetchData({ pageNum, pageSize });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, []);
 
   return (

@@ -2,7 +2,6 @@ import React from 'react';
 import { Alert, Space, Tag } from 'tdesign-react';
 
 export default function AlertClose() {
-  // eslint-disable-next-line no-alert
   const beforeClose = () => window.confirm('确认关闭吗？');
 
   const handleClosed = () => {

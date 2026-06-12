@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useRef } from 'react';
 import { Card, DialogPlugin, Space } from 'tdesign-react';
 import { ChatBot } from '@tdesign-react/chat';
@@ -91,7 +90,7 @@ const PreviewCard = ({ header, desc, loading, code }) => {
   );
 };
 
-export default function chatSample() {
+export default function ChatSample() {
   const chatRef = useRef<HTMLElement & TdChatbotApi>(null);
   const [mockMessage, setMockMessage] = React.useState<ChatMessagesData[]>(mockData);
 
@@ -119,6 +118,7 @@ export default function chatSample() {
             breaks: true,
             typographer: true,
           },
+          // @ts-ignore
           pluginConfig: [
             // 按需加载，开启插件
             {

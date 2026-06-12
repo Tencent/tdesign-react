@@ -17,14 +17,15 @@ import type { PaginationProps } from '../pagination';
 import type { TdTransferProps, TransferListType, TransferValue } from './type';
 
 interface TransferListProps
-  extends Pick<TdTransferProps, 'data' | 'search' | 'checked' | 'transferItem' | 'tree'>,
-    StyledProps {
+  extends Pick<TdTransferProps, 'data' | 'search' | 'checked' | 'transferItem' | 'tree'>, StyledProps {
   disabled?: boolean;
   empty?: TNode | string;
   title?: TNode;
   footer?: TNode;
-  content?: TNode | TNode<{ data: Object }>;
-  pagination?: Pick<PaginationProps, 'pageSize'> & { onPageChange?: (current: number) => void };
+  content?: TNode | TNode<{ data: object }>;
+  pagination?: Pick<PaginationProps, 'pageSize'> & {
+    onPageChange?: (current: number) => void;
+  };
   onCheckbox?: (checked: Array<TransferValue>) => void;
   onSearch?: (value: string) => void;
   showCheckAll?: boolean;
@@ -66,7 +67,7 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
   const { SearchIcon } = useGlobalIcon({
     SearchIcon: TdSearchIcon,
   });
-  const CLASSPREFIX = `${classPrefix}-transfer__list`;
+  const listClass = `${classPrefix}-transfer__list`;
   const [local, t] = useLocaleReceiver('transfer');
 
   const handleCheckbox = (vals: Array<TransferValue>) => {
@@ -77,10 +78,10 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
     if (isFunction(onCheckbox)) onCheckbox(checked ? notDisabledData.map((item) => item.value) : []);
   };
 
-  const HeaderCmp = () => {
+  const renderHeader = () => {
     const total = treeNode ? getLeafNodes(data).length : data.length;
     return (
-      <div className={`${CLASSPREFIX}-header`}>
+      <div className={`${listClass}-header`}>
         <div>
           {showCheckAll ? (
             <Checkbox
@@ -97,7 +98,7 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
     );
   };
 
-  const SearchCmp = () =>
+  const renderSearch = () =>
     search ? (
       <div className={`${classPrefix}-transfer__search-wrapper`}>
         <Input placeholder={local.placeholder} suffixIcon={<SearchIcon></SearchIcon>} onChange={onSearch}></Input>
@@ -113,7 +114,7 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
     return data;
   }, [currentPage, data, pagination]);
 
-  const EmptyCmp = () =>
+  const renderEmpty = () =>
     isString(empty) ? (
       <div className={`${classPrefix}-transfer__empty`}>
         <span>{empty || '暂无数据'}</span>
@@ -124,7 +125,11 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
 
   const contentCmp = () => {
     if (typeof treeNode === 'function') {
-      return treeNode({ data: viewData, value: checked, onChange: handleCheckbox });
+      return treeNode({
+        data: viewData,
+        value: checked,
+        onChange: handleCheckbox,
+      });
     }
     if (typeof content === 'function') {
       return content({ data: viewData });
@@ -132,27 +137,33 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
     return (
       <Checkbox.Group value={checked} onChange={handleCheckbox} disabled={disabled}>
         {viewData.map((item, index) => (
-          <Checkbox key={item.value} value={item.value} disabled={item.disabled} className={`${CLASSPREFIX}-item`}>
+          <Checkbox key={item.value} value={item.value} disabled={item.disabled} className={`${listClass}-item`}>
             <span>
-              {transferItem ? parseContentTNode(transferItem, { data: item, index, type: listType }) : item.label}
+              {transferItem
+                ? parseContentTNode(transferItem, {
+                    data: item,
+                    index,
+                    type: listType,
+                  })
+                : item.label}
             </span>
           </Checkbox>
         ))}
       </Checkbox.Group>
     );
   };
-  const BodyCmp = () => (
+  const renderBody = () => (
     <div
-      className={classnames(`${CLASSPREFIX}-body`, {
-        [`${CLASSPREFIX}--with-search`]: search,
+      className={classnames(`${listClass}-body`, {
+        [`${listClass}--with-search`]: search,
       })}
     >
-      {SearchCmp()}
-      <div className={`${CLASSPREFIX}-content narrow-scrollbar`}>{viewData.length ? contentCmp() : EmptyCmp()}</div>
+      {renderSearch()}
+      <div className={`${listClass}-content narrow-scrollbar`}>{viewData.length ? contentCmp() : renderEmpty()}</div>
     </div>
   );
 
-  const PaginationCmp = () => {
+  const renderPagination = () => {
     const handleCurrentPagination = (current: number) => {
       setCurrentPage(current);
       if (isFunction(pagination.onPageChange)) {
@@ -161,7 +172,7 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
     };
 
     return pagination ? (
-      <div className={`${CLASSPREFIX}-pagination`}>
+      <div className={`${listClass}-pagination`}>
         <Pagination
           size="small"
           theme="simple"
@@ -178,10 +189,10 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
   const footerCmp = () => (!isEmpty(footer) ? <div className={`${classPrefix}-transfer__footer`}>{footer}</div> : null);
 
   return (
-    <div style={style} className={classnames(CLASSPREFIX, className)}>
-      {HeaderCmp()}
-      {BodyCmp()}
-      {PaginationCmp()}
+    <div style={style} className={classnames(listClass, className)}>
+      {renderHeader()}
+      {renderBody()}
+      {renderPagination()}
       {footerCmp()}
     </div>
   );

@@ -14,9 +14,7 @@ import type { SelectKeysType, SelectOption, SelectValue, TdOptionProps, TdSelect
  * Option 组件属性
  */
 export interface SelectOptionProps
-  extends StyledProps,
-    TdOptionProps,
-    Pick<TdSelectProps, 'size' | 'multiple' | 'max'> {
+  extends StyledProps, TdOptionProps, Pick<TdSelectProps, 'size' | 'multiple' | 'max'> {
   selectedValue?: SelectValue;
   children?: React.ReactNode;
   onSelect?: (
@@ -76,7 +74,7 @@ const Option: React.FC<SelectOptionProps> = (props) => {
     if (controlledTitle) return propTitle;
     if (typeof label === 'string') return label;
     return null;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [propTitle, label]);
 
   const { classPrefix } = useConfig();

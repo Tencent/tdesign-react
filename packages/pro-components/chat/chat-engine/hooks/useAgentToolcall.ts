@@ -92,7 +92,7 @@ export function useAgentToolcall<TArgs extends object = any, TResult = any, TRes
     return () => {
       configs.forEach((cfg) => {
         agentToolcallRegistry.unregister(cfg.name);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line @eslint-react/exhaustive-deps
         autoRegisteredNamesRef.current.delete(cfg.name);
       });
     };
@@ -118,5 +118,9 @@ export interface ToolConfigWithStateOptions<TArgs extends object = any, TResult 
   description: string;
   parameters: Array<{ name: string; type: string }>;
   subscribeKey?: (props: ToolcallComponentProps<TArgs, TResult>) => string | undefined;
-  component: React.ComponentType<ToolcallComponentProps<TArgs, TResult> & { agentState?: Record<string, any> }>;
+  component: React.ComponentType<
+    ToolcallComponentProps<TArgs, TResult> & {
+      agentState?: Record<string, any>;
+    }
+  >;
 }

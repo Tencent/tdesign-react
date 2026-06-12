@@ -5,8 +5,8 @@ import type { Color } from '@tdesign/common-js/color-picker/color';
 
 export interface TdColorSliderStyleParams {
   color: Color;
-  value: Number;
-  maxValue: Number;
+  value: number;
+  maxValue: number;
   type: 'hue' | 'alpha';
 }
 

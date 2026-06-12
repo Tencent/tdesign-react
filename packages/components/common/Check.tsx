@@ -15,7 +15,7 @@ export interface CheckProps extends TdCheckboxProps, StyledProps {
   allowUncheck?: boolean;
   title?: string;
   children?: React.ReactNode;
-  stopLabelTrigger?: Boolean;
+  stopLabelTrigger?: boolean;
 }
 
 /**

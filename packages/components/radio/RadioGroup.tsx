@@ -66,7 +66,10 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
           if (typeof checkProps.onChange === 'function') {
             checkProps.onChange(checked, { e });
           }
-          setInternalValue(checked ? checkValue : undefined, { e, name: props.name });
+          setInternalValue(checked ? checkValue : undefined, {
+            e,
+            name: props.name,
+          });
         },
       };
     },
@@ -98,7 +101,7 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
     return () => {
       observer?.disconnect();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, []);
 
   useDeepEffect(() => {

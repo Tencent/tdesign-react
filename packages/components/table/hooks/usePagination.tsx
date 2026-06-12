@@ -63,7 +63,7 @@ export default function usePagination(props: TdBaseTableProps, tableContentRef: 
     if (!pagination || isControlled) return;
     const [current, pageSize] = [pagination?.defaultCurrent || 1, pagination?.defaultPageSize ?? 10];
     updateDataSourceAndPaginate(current, pageSize);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [isControlled, updateDataSourceAndPaginate]);
 
   const renderPagination = () => {

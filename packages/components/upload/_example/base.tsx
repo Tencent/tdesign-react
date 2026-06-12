@@ -93,7 +93,6 @@ export default function UploadExample() {
   };
 
   // 仅自定义文件列表所需
-  // eslint-disable-next-line
   const outsideRemove = (index: number) => {
     const tmpFiles = [...files3];
     tmpFiles.splice(index, 1);
@@ -127,7 +126,11 @@ export default function UploadExample() {
   };
 
   // 用于格式化接口响应值，error 会被用于上传失败的提示文字；url 表示文件/图片地址
-  const formatResponse: UploadProps['formatResponse'] = (res) => ({ ...res, error: '上传失败，请重试', url: res?.url });
+  const formatResponse: UploadProps['formatResponse'] = (res) => ({
+    ...res,
+    error: '上传失败，请重试',
+    url: res?.url,
+  });
 
   /** 单个文件校验方法，示例代码有效，勿删 */
   // const beforeUpload = (file) => {

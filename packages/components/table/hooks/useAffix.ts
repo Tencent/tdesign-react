@@ -268,7 +268,7 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
     });
 
     return removeHorizontalScrollListeners;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [affixHeaderRef, affixFooterRef, horizontalScrollbarRef, tableContentRef, showElement]);
 
   useEffect(() => {
@@ -280,13 +280,13 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
       }
       scrollContainersRef.current = [];
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [isAffixed]);
 
   useEffect(() => {
     addHorizontalScrollListeners();
     onHorizontalScroll();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [
     props.data,
     props.columns,

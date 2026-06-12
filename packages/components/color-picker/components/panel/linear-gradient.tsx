@@ -136,7 +136,6 @@ const LinearGradient = (props) => {
     if (DELETE_KEYS.includes(e.key.toLocaleLowerCase()) && length > 2 && pos >= 0 && pos <= length - 1) {
       points.splice(pos, 1);
       if (!points[pos]) {
-        // eslint-disable-next-line no-nested-ternary
         pos = points[pos + 1] ? pos + 1 : points[pos - 1] ? pos - 1 : 0;
       }
       const current = points[pos];

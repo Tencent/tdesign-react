@@ -1,6 +1,7 @@
 import React from 'react';
 import { fireEvent, render, vi } from '@test/utils';
-import { Table, PrimaryTable, EnhancedTable } from '..';
+
+import { EnhancedTable, PrimaryTable, Table } from '..';
 
 const data = new Array(5).fill(null).map((item, index) => ({
   id: index + 100,
@@ -18,8 +19,6 @@ const SIMPLE_COLUMNS = [
   { title: 'Index', colKey: 'index' },
   { title: 'Instance', colKey: 'instance' },
 ];
-
-const EXPAND_CELL = 'td.t-table__expandable-icon-cell';
 
 /**
  * 可展开表格

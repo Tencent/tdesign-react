@@ -22,8 +22,7 @@ import type {
 } from './type';
 
 export interface CheckboxGroupProps<T extends CheckboxGroupValue = CheckboxGroupValue>
-  extends TdCheckboxGroupProps<T>,
-    StyledProps {
+  extends TdCheckboxGroupProps<T>, StyledProps {
   children?: React.ReactNode;
 }
 
@@ -218,11 +217,11 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
                   const vs = v as CheckboxOptionObj;
                   // CheckAll 的 checkBox 不存在 value,故用 checkAll_index 来保证尽量不和用户的 value 冲突.
                   return vs.checkAll ? (
-                    <Checkbox {...vs} key={`checkAll_${index}`} indeterminate={indeterminate} />
+                    <Checkbox key={`checkAll_${index}`} {...vs} indeterminate={indeterminate} />
                   ) : (
                     <Checkbox
-                      {...vs}
                       key={index}
+                      {...vs}
                       disabled={vs.disabled || disabled}
                       readOnly={vs.readOnly || vs.readonly || readOnly}
                     />

@@ -65,7 +65,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
     const rowValue = get(dataSource[0], rowDataKeys.rowKey);
     if (!store.treeDataMap.get(rowValue)) return;
     store.updateDisabledState(dataSource, checkedColumn, rowDataKeys);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [checkedColumn]);
 
   useEffect(() => {
@@ -89,7 +89,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
       updateExpandOnDataChange([...dataSource]);
       isManuallyModified.current = false;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [data, expandedTreeNodes]);
 
   useEffect(
@@ -97,7 +97,7 @@ export default function useTreeData(props: TdEnhancedTableProps) {
       const treeNodeColTmp = getTreeNodeColumnCol();
       setTreeNodeCol(treeNodeColTmp);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
     [columns, props.tree?.treeNodeColumnIndex],
   );
 
@@ -120,9 +120,8 @@ export default function useTreeData(props: TdEnhancedTableProps) {
    */
   function toggleExpandData(p: { row: TableRowData; rowIndex: number }, trigger?: 'expand-fold-icon' | 'row-click') {
     const currentData = { ...p };
-    // eslint-disable-next-line
+
     if (p.row.__VIRTUAL_SCROLL_INDEX !== undefined) {
-      // eslint-disable-next-line
       currentData.rowIndex = p.row.__VIRTUAL_SCROLL_INDEX;
     }
     const newData = store.toggleExpandData(currentData, dataSource, rowDataKeys);

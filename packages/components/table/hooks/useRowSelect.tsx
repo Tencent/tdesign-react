@@ -59,7 +59,7 @@ export default function useRowSelect(
       setCurrentPaginateData(newData);
     },
     // eslint-disable-next-line
-    [data, reserveSelectedRowOnPaginate],
+    [data, reserveSelectedRowOnPaginate]
   );
 
   useEffect(
@@ -76,7 +76,7 @@ export default function useRowSelect(
       const selectedRowClass = selected.size ? selectedRowClassFunc : undefined;
       setSelectedRowClassNames([disabledRowClass, selectedRowClass]);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
     [data, columns, tSelectedRowKeys, selectColumn, rowKey],
   );
 

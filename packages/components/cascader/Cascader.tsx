@@ -140,7 +140,6 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
         const maxScrollTop = menu.scrollHeight - menuHeight;
         targetScrollTop = Math.max(0, Math.min(targetScrollTop, maxScrollTop));
 
-        // eslint-disable-next-line no-param-reassign
         menu.scrollTop = targetScrollTop;
       });
     });
@@ -175,7 +174,10 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
         overlayInnerStyle: panels.length && !props.loading ? { width: 'auto' } : {},
         overlayClassName: [`${classPrefix}-cascader__popup`, props.popupProps?.overlayClassName],
       }}
-      inputProps={{ size: props.size, ...(props.inputProps as TdCascaderProps['inputProps']) }}
+      inputProps={{
+        size: props.size,
+        ...(props.inputProps as TdCascaderProps['inputProps']),
+      }}
       tagInputProps={{
         size: props.size,
         ...(props.tagInputProps as TdCascaderProps['tagInputProps']),

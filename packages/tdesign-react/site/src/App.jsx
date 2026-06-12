@@ -1,7 +1,6 @@
-import React, { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { BrowserRouter, Navigate, Outlet, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import semver from 'semver';
-
 import ConfigProvider from '@tdesign/components/config-provider';
 import Loading from '@tdesign/components/loading';
 import enConfig from '@tdesign/components/locale/en_US';
@@ -10,9 +9,8 @@ import { getLang } from '@tdesign/site-components';
 
 import packageJson from '../../package.json';
 import * as siteConfig from '../site.config';
-import { filterVersions, getRoute } from './utils';
-
 import Demo from './components/Demo';
+import { filterVersions, getRoute } from './utils';
 
 const isDev = import.meta.env.DEV;
 const LazyDemo = isDev ? Demo : lazy(() => import('./components/Demo'));
@@ -128,7 +126,7 @@ function Components() {
     if (isDev) return;
 
     initHistoryVersions();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, []);
 
   useEffect(() => {

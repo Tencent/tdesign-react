@@ -32,7 +32,7 @@ const Skeleton: React.FC<SkeletonProps> = (originalProps) => {
   const { classPrefix } = useConfig();
   const name = `${classPrefix}-skeleton`; // t-skeleton
 
-  const renderCols = (_cols: Number | SkeletonRowColObj | Array<SkeletonRowColObj>) => {
+  const renderCols = (_cols: number | SkeletonRowColObj | Array<SkeletonRowColObj>) => {
     const getColItemClass = (obj: SkeletonRowColObj) =>
       classNames(`${name}__col`, `${name}--type-${obj.type || 'text'}`, {
         [`${name}--animation-${animation}`]: animation,

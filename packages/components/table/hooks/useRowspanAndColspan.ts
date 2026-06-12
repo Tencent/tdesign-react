@@ -88,7 +88,6 @@ export default function useRowspanAndColspan(
     skipSpansMap.clear();
     const result = getSkipSpansMap(data, columns, rowspanAndColspan);
     setKipSnapsMap(result);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, columns, rowspanAndColspan]);
 
   return { skipSpansMap, getSkipSpansMap };

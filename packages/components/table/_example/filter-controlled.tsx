@@ -99,7 +99,6 @@ const columns: TableProps['columns'] = [
   },
 ];
 
-// eslint-disable-next-line
 // function IconText(props = {}) {
 //   // 根据不同的 Props，允许定义不同的筛选图标（col, colIndex 在 Table 组件内部已经注入）
 //   const { col, colIndex } = props;

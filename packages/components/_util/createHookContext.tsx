@@ -19,7 +19,6 @@ export function createHookContext<T, P>(hook: (value: P) => T) {
   }
 
   function use() {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     return useContext(Context);
   }
 

@@ -5,7 +5,8 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { fireEvent, vi, render, mockDelay, simulateInputChange } from '@test/utils';
+import { fireEvent, mockDelay, render, simulateInputChange, vi } from '@test/utils';
+
 import { Input, InputGroup } from '..';
 import { getInputGroupDefaultMount } from './mount';
 

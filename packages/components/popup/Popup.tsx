@@ -211,7 +211,6 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
         popperRef.current?.update?.();
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible, content, windowHeight, windowWidth]);
 
   // 下拉展开或内容变化时，调整箭头位置
@@ -221,7 +220,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
         updateArrowPosition();
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [visible, content, popupElement]);
 
   // 下拉展开时，触发滚动回调
@@ -231,7 +230,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
         updateScrollTop?.(contentRef.current);
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [visible, popupElement]);
 
   function handleExited() {
@@ -300,7 +299,11 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
                 setPopupElement(node);
               }
             }}
-            style={{ ...styles.popper, zIndex, ...getOverlayStyle(overlayStyle) }}
+            style={{
+              ...styles.popper,
+              zIndex,
+              ...getOverlayStyle(overlayStyle),
+            }}
             className={classNames(`${classPrefix}-popup`, overlayClassName)}
             {...attributes.popper}
             onClick={(e) => props.onOverlayClick?.({ e })}
@@ -369,7 +372,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
           onVisibleChange(false, { trigger: 'document' });
         }
       }
-    } catch (e) {
+    } catch (_) {
       // 直接尝试更新
       popper.update();
     }

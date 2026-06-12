@@ -18,8 +18,8 @@ export default function usePageNumber(props) {
   });
   const name = `${classPrefix}-pagination`;
 
-  const [hoverPreMore, toggleHoverPreMore] = useState(false); // 处理 left ellipsis 展示逻辑
-  const [hoverNextMore, toggleHoverNextMore] = useState(false); // 处理 right ellipsis 展示逻辑
+  const [hoverPreMore, setHoverPreMore] = useState(false); // 处理 left ellipsis 展示逻辑
+  const [hoverNextMore, setHoverNextMore] = useState(false); // 处理 right ellipsis 展示逻辑
 
   const {
     showPageNumber,
@@ -70,8 +70,8 @@ export default function usePageNumber(props) {
 
   // 当省略图标消失时，需要还原hover标记
   useEffect(() => {
-    if (!showPrevMore) toggleHoverPreMore(false);
-    if (!showNextMore) toggleHoverNextMore(false);
+    if (!showPrevMore) setHoverPreMore(false);
+    if (!showNextMore) setHoverNextMore(false);
   }, [showNextMore, showPrevMore]);
 
   const pageNumberControl = showPageNumber && (
@@ -93,8 +93,8 @@ export default function usePageNumber(props) {
               className={classNames(`${name}__number`, `${name}__number--more`, {
                 [`${classPrefix}-is-disabled`]: disabled,
               })}
-              onMouseEnter={() => toggleHoverPreMore(true)}
-              onMouseLeave={() => toggleHoverPreMore(false)}
+              onMouseEnter={() => setHoverPreMore(true)}
+              onMouseLeave={() => setHoverPreMore(false)}
               onClick={() => changeCurrent(current - foldedMaxPageBtn)}
             >
               {!hoverPreMore ? <EllipsisIcon /> : <ChevronLeftDoubleIcon />}
@@ -121,8 +121,8 @@ export default function usePageNumber(props) {
               className={classNames(`${name}__number`, `${name}__number--more`, {
                 [`${classPrefix}-is-disabled`]: disabled,
               })}
-              onMouseEnter={() => toggleHoverNextMore(true)}
-              onMouseLeave={() => toggleHoverNextMore(false)}
+              onMouseEnter={() => setHoverNextMore(true)}
+              onMouseLeave={() => setHoverNextMore(false)}
               onClick={() => changeCurrent(current + foldedMaxPageBtn)}
             >
               {!hoverNextMore ? <EllipsisIcon /> : <ChevronRightDoubleIcon />}

@@ -85,8 +85,13 @@ const EditableCell = (props: EditableCellProps) => {
   };
 
   const editOnListeners = useMemo(
-    () => col.edit?.on?.({ ...cellParams, editedRow: currentRow, updateEditedCellValue }) || {},
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    () =>
+      col.edit?.on?.({
+        ...cellParams,
+        editedRow: currentRow,
+        updateEditedCellValue,
+      }) || {},
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
     [cellParams, currentRow],
   );
 
@@ -107,7 +112,11 @@ const EditableCell = (props: EditableCellProps) => {
     const { edit } = col;
     if (!edit) return {};
     const editProps = isFunction(edit.props)
-      ? edit.props({ ...cellParams, editedRow: currentRow, updateEditedCellValue })
+      ? edit.props({
+          ...cellParams,
+          editedRow: currentRow,
+          updateEditedCellValue,
+        })
       : { ...edit.props };
     // to remove warn: runtime-core.esm-bundler.js:38 [Vue warn]: Invalid prop: type check failed for prop "onChange". Expected Function, got Array
     delete editProps.onChange;
@@ -210,7 +219,7 @@ const EditableCell = (props: EditableCellProps) => {
       };
     });
     return tListeners;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [col, currentRow, isEdit, props.rowIndex]);
 
   const onEditChange = (val: any, ...args: any) => {
@@ -278,7 +287,7 @@ const EditableCell = (props: EditableCellProps) => {
     return () => {
       document.removeEventListener('click', documentClickHandler);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [col.edit, isEdit, editValue]);
 
   useEffect(() => {
@@ -286,7 +295,7 @@ const EditableCell = (props: EditableCellProps) => {
     if (props.editable === false) {
       setEditValue(cellValue);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [cellValue, editable]);
 
   useEffect(() => {
@@ -297,7 +306,7 @@ const EditableCell = (props: EditableCellProps) => {
         editedRow: currentRow || row,
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [props.editable, cellValue, row, col, cellParams, currentRow]);
 
   useEffect(() => {

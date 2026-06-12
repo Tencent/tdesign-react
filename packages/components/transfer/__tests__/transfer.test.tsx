@@ -6,6 +6,9 @@ import Transfer from '../index';
 
 import type { DataOption, TransferValue } from '../index';
 
+const TreeNode = (props) => <Tree {...props} checkable expandAll={true} />;
+const TransferItem = ({ data }: { data?: DataOption }) => <div>{data.label}</div>;
+
 describe('Transfer 测试', () => {
   test('Transfer default加入测试', async () => {
     const InputPlaceholder = '请输入关键词搜索';
@@ -47,7 +50,9 @@ describe('Transfer 测试', () => {
     const transContainerR = await waitFor(() => document.querySelector('.t-transfer__list-target'));
     expect(transContainerR).toHaveTextContent('点击test2');
     // 测试搜索框
-    fireEvent.change(queryAllByPlaceholderText(InputPlaceholder)[0], { target: { value: InputValue } });
+    fireEvent.change(queryAllByPlaceholderText(InputPlaceholder)[0], {
+      target: { value: InputValue },
+    });
     const transContainerSL = await waitFor(() => document.querySelector('.t-transfer__list-source'));
     expect(transContainerSL).not.toHaveTextContent('点击test1');
   });
@@ -79,26 +84,25 @@ describe('Transfer 测试', () => {
   });
 
   test('Transfer tree进入测试', async () => {
-    const TestComponent2 = () => {
-      const list = [
-        {
-          value: '2',
-          label: '2',
-          children: [
-            {
-              value: 'test2.1',
-              label: 'test2.1',
-            },
-            {
-              value: '2.2',
-              label: '2.2',
-            },
-          ],
-        },
-      ];
-      const TreeNode = (props) => <Tree {...props} checkable expandAll={true} />;
-      return <Transfer data={list} operation={['加入', '移除']} checked={['2']} tree={TreeNode}></Transfer>;
-    };
+    const treeList = [
+      {
+        value: '2',
+        label: '2',
+        children: [
+          {
+            value: 'test2.1',
+            label: 'test2.1',
+          },
+          {
+            value: '2.2',
+            label: '2.2',
+          },
+        ],
+      },
+    ];
+    const TestComponent2 = () => (
+      <Transfer data={treeList} operation={['加入', '移除']} checked={['2']} tree={TreeNode}></Transfer>
+    );
     const { getByText } = render(<TestComponent2 />);
     // expect(document.querySelector('.t-transfer__list-source')).toHaveTextContent('test2.1');
 
@@ -134,8 +138,6 @@ describe('Transfer 测试', () => {
       },
     ];
 
-    const TransferItem = ({ data }: { data?: DataOption }) => <div>{data.label}</div>;
-
     function TestComponent() {
       const [value, setValue] = useState<TransferValue[]>(['1']);
       return <Transfer data={list} value={value} onChange={(v) => setValue(v)} transferItem={<TransferItem />} />;
@@ -157,8 +159,6 @@ describe('Transfer 测试', () => {
         label: `点击test1`,
       },
     ];
-
-    const TransferItem = ({ data }: { data?: DataOption }) => <div>{data.label}</div>;
 
     function TestComponent() {
       const [value, setValue] = useState<TransferValue[]>(['1']);

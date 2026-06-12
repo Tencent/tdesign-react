@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 /**
  * 通用虚拟滚动，可支持 Select/List/Table/TreeSelect/Cascader 等组件
  */
@@ -255,7 +254,7 @@ const useVirtualScroll = (container: React.MutableRefObject<HTMLElement>, params
       }, 1);
     },
     // eslint-disable-next-line
-    [container, data, tScroll, isVirtualScroll, startAndEndIndex, trHeightList],
+    [container, data, tScroll, isVirtualScroll, startAndEndIndex, trHeightList]
   );
 
   return {

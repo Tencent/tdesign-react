@@ -22,7 +22,7 @@ const useDebounce = <T extends (...args: unknown[]) => unknown>(
 ): DebouncedFuncLeading<T> => {
   const callback = usePersistFn(func);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line @eslint-react/exhaustive-deps
   const debounced = useCallback(debounce(callback, delay, options), [callback, delay, options]);
   useEffect(() => debounced.cancel, [debounced]);
 

@@ -4,7 +4,7 @@ import { Select, Space } from 'tdesign-react';
 export default function SelectCreatable() {
   const [value, setValue] = useState('');
   const [multipleValue, setMultipleValue] = useState([]);
-  const [options, changeOptions] = useState([
+  const [options, setOptions] = useState([
     { label: '选项一', value: '1' },
     { label: '选项二', value: '2' },
     { label: '选项三', value: '3' },
@@ -16,7 +16,7 @@ export default function SelectCreatable() {
     setMultipleValue(value);
   };
   const handleOnCreate = (value: string) => {
-    changeOptions(options.concat([{ value, label: value }]));
+    setOptions(options.concat([{ value, label: value }]));
   };
   return (
     <Space breakLine style={{ width: '100%' }}>

@@ -123,8 +123,8 @@ const Input = forwardRefWithStatics(
     // inputPreRef 用于预存输入框宽度，应用在 auto width 模式中
     const inputPreRef: React.RefObject<HTMLInputElement> = useRef(null);
     const wrapperRef: React.RefObject<HTMLDivElement> = useRef(null);
-    const [isHover, toggleIsHover] = useState(false);
-    const [isFocused, toggleIsFocused] = useState(false);
+    const [isHover, setIsHover] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
     const [renderType, setRenderType] = useState(type);
 
     const [composingValue, setComposingValue] = useState<string>('');
@@ -211,16 +211,16 @@ const Input = forwardRefWithStatics(
           onChange?.(limitedValue, { trigger: 'initial' });
         }
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+      // eslint-disable-next-line @eslint-react/exhaustive-deps
     }, []);
 
-    const innerValue = composingRef.current ? composingValue : value ?? '';
+    const innerValue = composingRef.current ? composingValue : (value ?? '');
     const formatDisplayValue = format && !isFocused ? format(innerValue) : innerValue;
 
     const renderInput = (
       <input
         ref={inputRef}
-        placeholder={placeholder}
+        placeholder={placeholder as string}
         type={renderType}
         className={classNames(`${classPrefix}-input__inner`, {
           [`${classPrefix}-input--soft-hidden`]: !showInput,
@@ -362,7 +362,7 @@ const Input = forwardRefWithStatics(
       } = e;
       onFocus?.(value, { e });
       if (isInnerInputReadonly) return;
-      toggleIsFocused(true);
+      setIsFocused(true);
     }
 
     function handleBlur(e: React.FocusEvent<HTMLInputElement>) {
@@ -371,7 +371,7 @@ const Input = forwardRefWithStatics(
       } = e;
       onBlur?.(value, { e });
       if (isInnerInputReadonly) return;
-      toggleIsFocused(false);
+      setIsFocused(false);
     }
 
     function handlePaste(e: React.ClipboardEvent<HTMLInputElement>) {
@@ -381,12 +381,12 @@ const Input = forwardRefWithStatics(
     }
 
     function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
-      !readOnly && toggleIsHover(true);
+      !readOnly && setIsHover(true);
       onMouseenter?.({ e });
     }
 
     function handleMouseLeave(e: React.MouseEvent<HTMLDivElement>) {
-      !readOnly && toggleIsHover(false);
+      !readOnly && setIsHover(false);
       onMouseleave?.({ e });
     }
 

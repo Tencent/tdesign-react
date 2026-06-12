@@ -135,16 +135,16 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     formMapRef.current.set(fullPath, formListRef);
     set(form?.store, fullPath, formListValue);
     return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+      // eslint-disable-next-line @eslint-react/exhaustive-deps
       formMapRef.current.delete(fullPath);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [snakeName]);
 
   useEffect(() => {
     // fields 变化通知 watch 事件
     form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.(name);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [form, snakeName, fields]);
 
   useImperativeHandle(

@@ -71,7 +71,10 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
   if (isValidElement(navigation)) {
     navigationNode = navigation;
   } else {
-    navigationConfig = { ...defaultNavigation, ...(navigation as SwiperNavigation) };
+    navigationConfig = {
+      ...defaultNavigation,
+      ...(navigation as SwiperNavigation),
+    };
   }
 
   const [currentIndex, setCurrentIndex] = useState(() => current ?? defaultCurrent);
@@ -117,7 +120,11 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
     const lastEle = swiperItemList[childrenLength - 1];
     swiperItemList.unshift(React.cloneElement(lastEle, { ...lastEle, props, key: -1, index: -1 }));
     swiperItemList.push(
-      React.cloneElement(firstEle, { ...firstEle.props, key: childrenLength, index: childrenLength }),
+      React.cloneElement(firstEle, {
+        ...firstEle.props,
+        key: childrenLength,
+        index: childrenLength,
+      }),
     );
   }
 
@@ -163,7 +170,7 @@ const Swiper: React.FC<SwiperProps> & Record<'SwiperItem', typeof SwiperItem> = 
       const nextCurrent = current % childrenLength;
       swiperTo(nextCurrent, { source: 'autoplay' });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [current, childrenLength]);
 
   // 监听每次轮播结束

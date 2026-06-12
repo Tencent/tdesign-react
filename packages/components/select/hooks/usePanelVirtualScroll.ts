@@ -62,7 +62,7 @@ const usePanelVirtualScroll = ({ popupContentRef, scroll, options, size }: Panel
       // 排除横向滚动触发的纵向虚拟滚动计算
       if (Math.abs(lastScrollY - top) > 5) {
         handleVirtualScroll();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line @eslint-react/exhaustive-deps
         lastScrollY = top;
       } else {
         lastScrollY = -1;
@@ -83,7 +83,7 @@ const usePanelVirtualScroll = ({ popupContentRef, scroll, options, size }: Panel
         popupContentDom?.removeEventListener?.('scroll', onInnerVirtualScroll);
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [isVirtual, onInnerVirtualScroll, popupContentRef.current]);
 
   const cursorStyle = {

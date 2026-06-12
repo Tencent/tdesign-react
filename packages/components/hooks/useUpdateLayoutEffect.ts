@@ -10,7 +10,6 @@ const useUpdateLayoutEffect = (callback: EffectCallback, dependency: DependencyL
     if (isFirstRender) return;
 
     return callback();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependency);
 };
 

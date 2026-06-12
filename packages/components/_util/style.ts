@@ -27,7 +27,6 @@ export const addClass = function (el: Element, cls: string) {
     }
   }
   if (!el.classList) {
-    // eslint-disable-next-line
     el.className = curClass;
   }
 };
@@ -48,7 +47,6 @@ export const removeClass = function (el: Element, cls: string) {
     }
   }
   if (!el.classList) {
-    // eslint-disable-next-line
     el.className = trim(curClass);
   }
 };

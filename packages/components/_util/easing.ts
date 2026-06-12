@@ -37,6 +37,5 @@ export const easeInOutCubic: EasingFunction = function (current, start, end, dur
     return change * time * time * time + start;
   }
   time -= 2;
-  // eslint-disable-next-line no-return-assign
   return change * (time * time * time + 2) + start;
 };

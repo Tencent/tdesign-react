@@ -34,7 +34,7 @@ const AnchorTarget: FunctionComponent<AnchorTargetProps> = (props) => {
     MessagePlugin.success('链接复制成功', 1000);
   };
 
-  const Content = () => (
+  const content = () => (
     <>
       {children}
       <Popup content="复制链接" placement="top" showArrow>
@@ -43,7 +43,7 @@ const AnchorTarget: FunctionComponent<AnchorTargetProps> = (props) => {
     </>
   );
 
-  return React.createElement(tag, { id, className: tagClassName, style }, React.createElement(Content));
+  return React.createElement(tag, { id, className: tagClassName, style }, React.createElement(content));
 };
 
 AnchorTarget.displayName = 'AnchorTarget';

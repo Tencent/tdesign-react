@@ -114,7 +114,11 @@ export default function useTrigger({
       if (trigger === 'mousedown') {
         callFuncWithDelay({
           delay: visible ? appearDelay : exitDelay,
-          callback: () => onVisibleChange(!visible, { e, trigger: 'trigger-element-mousedown' }),
+          callback: () =>
+            onVisibleChange(!visible, {
+              e,
+              trigger: 'trigger-element-mousedown',
+            }),
         });
       }
     };
@@ -193,7 +197,7 @@ export default function useTrigger({
       off(element, 'touchstart', handleTouchStart, { passive: true });
       off(element, 'keydown', handleKeyDown);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [classPrefix, shouldToggle, appearDelay, exitDelay, trigger, visible, onVisibleChange]);
 
   useEffect(() => {

@@ -8,11 +8,12 @@ import useDefaultProps from '../hooks/useDefaultProps';
 import { backTopDefaultProps } from './defaultProps';
 import useScroll from './useScroll';
 
+import type { AttachNodeReturnValue } from '../common';
 import type { TdBackTopProps } from './type';
 
 export type BackTopProps = TdBackTopProps;
 
-const getContainer = (container: string | Function) => {
+const getContainer = (container: string | ((triggerNode?: HTMLElement) => AttachNodeReturnValue)) => {
   if (typeof container === 'string') {
     if (typeof document !== 'undefined') {
       return document.querySelector(container);
@@ -42,7 +43,14 @@ const InternalBackTop: React.ForwardRefRenderFunction<HTMLButtonElement, BackTop
     onClick,
   } = useDefaultProps(props, backTopDefaultProps);
   const { classPrefix } = useConfig();
-  const scrollContainer = useMemo(() => getContainer(container), [container]);
+  const scrollContainer = useMemo(() => {
+    const node = getContainer(container);
+    // scrollTo only accepts HTMLElement | Window | Document, not Element
+    if (node instanceof Element && !(node instanceof HTMLElement)) {
+      return document.documentElement;
+    }
+    return node;
+  }, [container]);
   const { scrollTop } = useScroll({ target: scrollContainer });
   const defaultContent = (
     <>
@@ -87,8 +95,8 @@ const InternalBackTop: React.ForwardRefRenderFunction<HTMLButtonElement, BackTop
   const getBackTo = useCallback(() => {
     if (!target) return 0;
     const targetNode = getContainer(target);
-    if (!targetNode) return 0;
-    const rect = targetNode.getBoundingClientRect();
+    if (!targetNode || targetNode instanceof Document) return 0;
+    const rect = (targetNode as Element).getBoundingClientRect();
     const { y } = rect;
     return y;
   }, [target]);

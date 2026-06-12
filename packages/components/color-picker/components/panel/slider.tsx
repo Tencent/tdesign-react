@@ -9,10 +9,10 @@ import type { CSSProperties } from 'react';
 import type { MouseCoordinate } from '../../../hooks/useMouseEvent';
 import type { TdColorBaseProps } from '../../interface';
 
-export interface TdColorSliderProps extends TdColorBaseProps {
+export interface TdColorSliderProps extends TdColorBaseProps<number> {
   className?: string;
-  value?: Number;
-  maxValue?: Number;
+  value?: number;
+  maxValue?: number;
   railStyle?: CSSProperties;
   type: 'hue' | 'alpha';
 }

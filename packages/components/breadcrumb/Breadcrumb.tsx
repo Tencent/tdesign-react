@@ -43,8 +43,8 @@ const Breadcrumb = forwardRefWithStatics(
           }
           return (
             <BreadcrumbItem
-              {...targetProps}
               key={index}
+              {...targetProps}
               maxWidth={option.maxWidth}
               disabled={option.disabled}
               href={option.href}

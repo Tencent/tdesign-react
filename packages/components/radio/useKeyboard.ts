@@ -30,9 +30,9 @@ export default function useKeyboard(
   useEffect(() => {
     on(radioGroupRef.current, 'keydown', checkRadioInGroup);
     return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+      // eslint-disable-next-line @eslint-react/exhaustive-deps
       off(radioGroupRef.current, 'keydown', checkRadioInGroup);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, []);
 }

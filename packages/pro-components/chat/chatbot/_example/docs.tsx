@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useRef, useState } from 'react';
 import { ChatBot } from '@tdesign-react/chat';
 
@@ -28,7 +27,7 @@ const mockData: ChatMessagesData[] = [
   },
 ];
 
-export default function chatSample() {
+export default function ChatSample() {
   const chatRef = useRef<HTMLElement & TdChatbotApi>(null);
   const [files, setFiles] = useState<TdAttachmentItem[]>([]);
 

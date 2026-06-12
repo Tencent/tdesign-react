@@ -36,7 +36,9 @@ const Item = forwardRef(
       cascaderContext,
     } = props;
     const { classPrefix: prefix } = useConfig();
-    const { ChevronRightIcon } = useGlobalIcon({ ChevronRightIcon: TdChevronRightIcon });
+    const { ChevronRightIcon } = useGlobalIcon({
+      ChevronRightIcon: TdChevronRightIcon,
+    });
     const COMPONENT_NAME = `${prefix}-cascader__item`;
     // 暂时去掉动画效果 长列表在safari中有异常
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -59,7 +61,7 @@ const Item = forwardRef(
       [prefix, node, STATUS, cascaderContext],
     );
 
-    const RenderLabelInner = (node: TreeNode, cascaderContext: CascaderContextType) => {
+    const renderLabelInner = (node: TreeNode, cascaderContext: CascaderContextType) => {
       const { inputVal } = cascaderContext;
 
       if (!inputVal && optionChild) {
@@ -86,8 +88,8 @@ const Item = forwardRef(
       return labelText;
     };
 
-    const RenderLabelContent = (node: TreeNode, cascaderContext: CascaderContextType) => {
-      const label = RenderLabelInner(node, cascaderContext);
+    const renderLabelContent = (node: TreeNode, cascaderContext: CascaderContextType) => {
+      const label = renderLabelInner(node, cascaderContext);
 
       const labelCont = (
         <span
@@ -102,9 +104,9 @@ const Item = forwardRef(
       return labelCont;
     };
 
-    const RenderCheckBox = (node: TreeNode, cascaderContext: CascaderContextType) => {
+    const renderCheckBox = (node: TreeNode, cascaderContext: CascaderContextType) => {
       const { checkProps, value, max, inputVal, isParentFilterable } = cascaderContext;
-      const label = RenderLabelInner(node, cascaderContext);
+      const label = renderLabelInner(node, cascaderContext);
       return (
         <Checkbox
           checked={node.checked}
@@ -144,7 +146,7 @@ const Item = forwardRef(
           onMouseEnter(node);
         }}
       >
-        {multiple ? RenderCheckBox(node, cascaderContext) : RenderLabelContent(node, cascaderContext)}
+        {multiple ? renderCheckBox(node, cascaderContext) : renderLabelContent(node, cascaderContext)}
         {node.children &&
           !cascaderContext.isParentFilterable &&
           (node.loading ? (

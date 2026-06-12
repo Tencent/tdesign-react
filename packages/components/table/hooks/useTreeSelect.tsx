@@ -22,7 +22,11 @@ export function getChildrenData(
   r?: GetChildrenDataReturnValue,
 ): GetChildrenDataReturnValue {
   if (childrenMap.get(data)) return childrenMap.get(data);
-  const result = r || { allChildren: [], allChildrenKeys: [], leafNodeKeys: [] };
+  const result = r || {
+    allChildren: [],
+    allChildrenKeys: [],
+    leafNodeKeys: [],
+  };
   const children = get(data, keys.childrenKey);
   if (!children || !children.length) return result;
   const selectableChildren = children.filter(
@@ -104,7 +108,7 @@ export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: 
   const { tree, rowKey, data, indeterminateSelectedRowKeys } = props;
   // 半选状态的节点：子节点选中至少一个，且没有全部选中
   const [tIndeterminateSelectedRowKeys, setTIndeterminateSelectedRowKeys] = useState([]);
-  // eslint-disable-next-line
+
   const [tSelectedRowKeys, setTSelectedRowKeys] = useControlled(props, 'selectedRowKeys', props.onSelectChange, {
     defaultSelectedRowKeys: props.defaultSelectedRowKeys || [],
   });
@@ -120,7 +124,7 @@ export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: 
   useEffect(() => {
     if (!tree || !treeDataMap.size || tree.checkStrictly) return;
     updateIndeterminateState();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [tSelectedRowKeys, data, tree, treeDataMap]);
 
   function updateIndeterminateState() {
@@ -233,7 +237,10 @@ export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: 
       }
     }
     newRowKeys = updateParentCheckedState(newRowKeys, extraData.currentRowKey, extraData.type);
-    const newRowData = getRowDataByKeys({ treeDataMap, selectedRowKeys: newRowKeys });
+    const newRowData = getRowDataByKeys({
+      treeDataMap,
+      selectedRowKeys: newRowKeys,
+    });
     const newExtraData = {
       ...extraData,
       selectedRowData: newRowData,

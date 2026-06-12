@@ -1,4 +1,3 @@
-/* eslint-disable prefer-destructuring */
 /*
  * @Author: Bin
  * @Date: 2022-04-07

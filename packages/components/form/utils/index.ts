@@ -1,10 +1,10 @@
 import { get, has } from 'lodash-es';
 
+import type React from 'react';
 import type { FormItemInstance } from '../FormItem';
 import type { NamePath } from '../type';
 
 export function swap<T>(arr: T[], i: number, j: number) {
-  // eslint-disable-next-line no-param-reassign
   [arr[i], arr[j]] = [arr[j], arr[i]];
 }
 
@@ -84,7 +84,7 @@ export function calcFieldValue(name: NamePath, value: any, numericKeyAsIndex = t
 export function travelMapFromObject(
   obj: Record<any, any>,
   formMapRef: React.MutableRefObject<Map<any, any>>,
-  callback: Function,
+  callback: (formItemRef: React.RefObject<FormItemInstance>, value: any) => void,
 ) {
   for (const [mapName, formItemRef] of formMapRef.current.entries()) {
     if (has(obj, mapName)) {

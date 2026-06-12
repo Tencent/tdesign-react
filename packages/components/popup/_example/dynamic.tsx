@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Button, Popup } from 'tdesign-react';
 
 export default function Controlled() {
-  const [spanVisible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
   const [content, setContent] = useState('这是popup内容');
   const btnClicksRef = useRef(0);
 
@@ -15,7 +15,7 @@ export default function Controlled() {
 
   return (
     <Popup content={content} placement="top">
-      <Button onClick={toggleContent}>点击改变内容{spanVisible && <span>，再点一下</span>}</Button>
+      <Button onClick={toggleContent}>点击改变内容{visible && <span>，再点一下</span>}</Button>
     </Popup>
   );
 }

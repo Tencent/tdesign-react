@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useRef, useState } from 'react';
 import { InternetIcon } from 'tdesign-icons-react';
 import { Button, Space } from 'tdesign-react';
@@ -43,12 +42,15 @@ const mockData: ChatMessagesData[] = [
   },
 ];
 
-export default function chatSample() {
+export default function ChatSample() {
   const chatRef = useRef<HTMLElement & TdChatbotApi>(null);
   const [activeR1, setR1Active] = useState(false);
   const [activeSearch, setSearchActive] = useState(false);
   const [ready, setReady] = useState(false);
-  const reqParamsRef = useRef<{ think: boolean; search: boolean }>({ think: false, search: false });
+  const reqParamsRef = useRef<{ think: boolean; search: boolean }>({
+    think: false,
+    search: false,
+  });
 
   // 消息属性配置
   const messageProps = (msg: ChatMessagesData): TdChatMessageConfigItem => {

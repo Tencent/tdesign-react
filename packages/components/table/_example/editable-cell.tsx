@@ -128,8 +128,16 @@ export default function EditableCellTable() {
               { label: '宣传物料制作费用', value: '宣传物料制作费用' },
               { label: 'algolia 服务报销', value: 'algolia 服务报销' },
               // 如果状态选择了 已过期，则 Letters 隐藏 G 和 H
-              { label: '相关周边制作费', value: '相关周边制作费', show: () => editedRow.status !== 0 },
-              { label: '激励奖品快递费', value: '激励奖品快递费', show: () => editedRow.status !== 0 },
+              {
+                label: '相关周边制作费',
+                value: '相关周边制作费',
+                show: () => editedRow.status !== 0,
+              },
+              {
+                label: '激励奖品快递费',
+                value: '激励奖品快递费',
+                show: () => editedRow.status !== 0,
+              },
             ].filter((t) => (t.show === undefined ? true : t.show())),
           }),
           // abortEditOnEvent: ['onChange'],
@@ -169,7 +177,7 @@ export default function EditableCellTable() {
         },
       },
     ],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
     [data, relationSelect],
   );
 

@@ -115,7 +115,6 @@ export default function useRipple(el: HTMLElement, fixedRippleColor?: string): v
       // fix position
       const initPosition = el.style.position ? el.style.position : getComputedStyle(el).position;
       if (initPosition === '' || initPosition === 'static') {
-        // eslint-disable-next-line no-param-reassign
         el.style.position = 'relative';
       }
       rippleContainer.insertBefore(ripple, rippleContainer.firstChild);
@@ -132,10 +131,13 @@ export default function useRipple(el: HTMLElement, fixedRippleColor?: string): v
         el.removeEventListener('pointerup', handleClearRipple, false);
         el.removeEventListener('pointerleave', handleClearRipple, false);
 
-        setTimeout(() => {
-          ripple.remove();
-          if (rippleContainer.children.length === 0) rippleContainer.remove();
-        }, period * 2 + 100);
+        setTimeout(
+          () => {
+            ripple.remove();
+            if (rippleContainer.children.length === 0) rippleContainer.remove();
+          },
+          period * 2 + 100,
+        );
       };
 
       el.addEventListener('pointerup', handleClearRipple, false);

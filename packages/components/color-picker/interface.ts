@@ -14,10 +14,10 @@ export interface TdColorContext {
 }
 
 // 控件通用属性
-export interface TdColorBaseProps {
-  disabled: Boolean;
+export interface TdColorBaseProps<T = void> {
+  disabled: boolean;
   color: Color;
-  onChange?: Function;
+  onChange?: (value: T) => void;
   baseClassName: string;
 }
 

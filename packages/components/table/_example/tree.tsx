@@ -305,7 +305,7 @@ export default function TableTree() {
       return renderTreeExpandAndFoldIcon;
     }
     return lazyLoadingTreeIconRender;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [lazyLoadingData, customTreeExpandAndFoldIcon]);
 
   const onTreeExpandChange: EnhancedTableProps['onTreeExpandChange'] = (context) => {
@@ -359,7 +359,10 @@ export default function TableTree() {
         rowKey="key"
         data={data}
         columns={columns}
-        tree={{ childrenKey: 'list', treeNodeColumnIndex: 2 /** , defaultExpandAll: true */ }}
+        tree={{
+          childrenKey: 'list',
+          treeNodeColumnIndex: 2 /** , defaultExpandAll: true */,
+        }}
         expandedTreeNodes={expandedTreeNodes}
         onExpandedTreeNodesChange={setExpandedTreeNodes}
         dragSort="row-handler"

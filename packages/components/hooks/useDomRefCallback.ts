@@ -6,8 +6,6 @@ export default function useDomRefCallback(): [HTMLElement, React.Dispatch<React.
 
   useCallback((dom: HTMLElement) => {
     if (dom) setRefCurrent(dom);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return [refCurrent, setRefCurrent];

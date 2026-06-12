@@ -141,8 +141,6 @@ const Overlay: React.FC<OverlayProps> = (originalProps) => {
   // mounted
   useLayoutEffect(() => {
     setVisibleState(true);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const eventProps = hasTrigger.hover && {

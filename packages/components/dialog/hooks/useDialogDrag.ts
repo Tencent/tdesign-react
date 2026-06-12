@@ -99,7 +99,7 @@ const useDialogDrag = (props: DialogDragProps) => {
     if (!canDraggable) return;
     window.addEventListener('resize', clampPosition);
     return () => window.removeEventListener('resize', clampPosition);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [canDraggable]);
 
   return {

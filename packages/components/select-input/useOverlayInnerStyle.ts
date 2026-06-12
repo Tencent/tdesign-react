@@ -42,7 +42,6 @@ export default function useOverlayInnerStyle(
 
     const prevDisplay = popupElement.style.display;
     // 设置display来可以获取popupElement的宽度
-    // eslint-disable-next-line no-param-reassign
     popupElement.style.display = '';
     // popupElement的scrollBar宽度
     const overlayScrollWidth = popupElement.offsetWidth - popupElement.scrollWidth;
@@ -62,7 +61,6 @@ export default function useOverlayInnerStyle(
         : triggerElement.offsetWidth - overlayScrollWidth;
 
     if (prevDisplay === 'none') {
-      // eslint-disable-next-line no-param-reassign
       popupElement.style.display = 'none';
     }
     let otherOverlayInnerStyle: React.CSSProperties = {};
@@ -98,7 +96,7 @@ export default function useOverlayInnerStyle(
       result = matchWidthFunc;
     }
     return result;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [autoWidth, popupProps?.overlayInnerStyle]);
 
   return {

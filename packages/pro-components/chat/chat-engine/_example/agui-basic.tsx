@@ -64,7 +64,7 @@ export default function AguiBasicExample() {
     };
 
     loadHistoryMessages();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, []);
 
   const handleSend = async (e: CustomEvent<TdChatSenderParams>) => {

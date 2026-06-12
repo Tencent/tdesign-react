@@ -42,7 +42,10 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
 
   const props = useDefaultProps<DrawerProps>(originalProps, drawerDefaultProps);
   const { body, children, header, footer, ...restProps } = props;
-  const [state, setState] = useSetState<DrawerProps>({ isPlugin: false, ...restProps });
+  const [state, setState] = useSetState<DrawerProps>({
+    isPlugin: false,
+    ...restProps,
+  });
   const {
     className,
     style,
@@ -98,7 +101,11 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     return dragSizeValue || sizeMap[size] || size;
   }, [dragSizeValue, size]);
 
-  useLockStyle({ ...state, sizeValue, drawerWrapper: drawerWrapperRef.current });
+  useLockStyle({
+    ...state,
+    sizeValue,
+    drawerWrapper: drawerWrapperRef.current,
+  });
   useImperativeHandle(ref, () => ({
     show() {
       setState({ visible: true });
@@ -159,7 +166,7 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     } else if (isValidElement(btn)) {
       result = btn;
     } else if (isObject(btn)) {
-      result = <Button {...defaultProps} {...(btn as {})} />;
+      result = <Button {...defaultProps} {...(btn as object)} />;
     } else if (isFunction(btn)) {
       result = btn();
     }

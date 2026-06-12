@@ -8,17 +8,20 @@ import useGlobalIcon from '../../../hooks/useGlobalIcon';
 
 import type { TdColorBaseProps } from '../../interface';
 
-export interface TdColorSwathcesProps extends TdColorBaseProps {
+export interface TdColorSwathcesProps extends TdColorBaseProps<string[]> {
   colors?: string[];
-  title?: String;
-  editable?: Boolean;
-  onSetColor?: Function;
-  handleAddColor?: Function;
+  title?: string;
+  editable?: boolean;
+  onSetColor?: (color: string) => void;
+  handleAddColor?: () => void;
 }
 
 const Swatches = (props: TdColorSwathcesProps) => {
   const { baseClassName, colors = [], editable = false, title, onChange, disabled, onSetColor, handleAddColor } = props;
-  const { DeleteIcon, AddIcon } = useGlobalIcon({ DeleteIcon: TdDeleteIcon, AddIcon: TdAddIcon });
+  const { DeleteIcon, AddIcon } = useGlobalIcon({
+    DeleteIcon: TdDeleteIcon,
+    AddIcon: TdAddIcon,
+  });
   const swatchesClass = `${baseClassName}__swatches`;
   const { STATUS: statusClassNames } = useCommonClassName();
   const isEqualCurrentColor = (color: string) => Color.compare(color, props.color.css);

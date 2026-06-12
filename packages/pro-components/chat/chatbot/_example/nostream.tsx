@@ -1,15 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useRef, useState } from 'react';
 import { ChatBot } from '@tdesign-react/chat';
 
 import type { ChatRequestParams, ChatServiceConfig, TdChatbotApi } from '@tdesign-react/chat';
 
-export default function chatSample() {
+export default function ChatSample() {
   const chatRef = useRef<HTMLElement & TdChatbotApi>(null);
   const [activeR1, setR1Active] = useState(false);
   const [activeSearch, setSearchActive] = useState(false);
-  const reqParamsRef = useRef<{ think: boolean; search: boolean }>({ think: false, search: false });
+  const reqParamsRef = useRef<{ think: boolean; search: boolean }>({
+    think: false,
+    search: false,
+  });
 
   // 聊天服务配置
   const chatServiceConfig: ChatServiceConfig = {

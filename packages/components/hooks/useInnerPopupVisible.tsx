@@ -29,7 +29,7 @@ function useInnerPopupVisible(handler: (visible: boolean, ctx: PopupVisibleChang
       // 执行原函数
       handler(visible, ctx);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
     [handler],
   );
 }

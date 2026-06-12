@@ -22,7 +22,7 @@ const objOptions: RadioOption[] = [
     label: '深圳',
   },
 ];
-// eslint-disable-next-line prefer-const
+
 let itemOptions = ['北京', '上海', '广州', '深圳'];
 
 type ValueType = '北京' | '上海' | '广州' | '深圳';

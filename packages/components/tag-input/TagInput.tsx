@@ -89,7 +89,9 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
 
   const showClearIcon = Boolean(!readOnly && !disabled && clearable && isHover && tagValue?.length);
 
-  useImperativeHandle(ref as InputRef, () => ({ ...(tagInputRef.current || {}) }));
+  useImperativeHandle(ref as InputRef, () => ({
+    ...(tagInputRef.current || {}),
+  }));
 
   const updateSuffixWidth = (selector: string, cssVar: string, widthRef: React.MutableRefObject<number>) => {
     const wrapperEl = tagInputRef.current?.currentElement as HTMLElement;
@@ -101,7 +103,6 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
     const targetEl = wrapperEl.querySelector(selector);
     const width = targetEl ? targetEl.getBoundingClientRect().width : 0;
     if (width !== widthRef.current) {
-      // eslint-disable-next-line no-param-reassign
       widthRef.current = width;
       if (width) {
         inputEl.style.setProperty(cssVar, `${Math.ceil(width + 8)}px`);
@@ -126,7 +127,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
     // 确定 suffixIcon 右侧到 input 边框的距离
     updateSuffixWidth(`.${prefix}-input__suffix-icon`, `--${prefix}-tag-input-suffix-icon-width`, suffixIconWidthRef);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [excessTagsDisplayType, suffix, suffixIcon, showClearIcon, prefix, tagInputRef, isBreakLine]);
 
   const onInputCompositionstart = (value: InputValue, context: { e: CompositionEvent<HTMLInputElement> }) => {
@@ -183,7 +184,7 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
             onClose: (index) => onClose({ index }),
           })
         : valueDisplay,
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
     [valueDisplay],
   );
 

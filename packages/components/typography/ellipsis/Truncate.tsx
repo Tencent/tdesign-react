@@ -67,11 +67,9 @@ export default class Truncate extends React.Component<TruncateProps, TruncateSta
 
   constructor(props: TruncateProps) {
     super(props);
-
     this.elements = {};
     this.replacedLinks = [];
     this.calculatedEllipsisWidth = false;
-    this.canvasContext;
   }
 
   componentDidMount() {
@@ -130,7 +128,6 @@ export default class Truncate extends React.Component<TruncateProps, TruncateSta
       item.key = `[${'@'.repeat(item[2].length - 1)}=${i + 1}]`;
       this.replacedLinks.push(item);
 
-      // eslint-disable-next-line no-param-reassign
       content = content.replace(item[0], item.key);
     });
 
@@ -139,7 +136,6 @@ export default class Truncate extends React.Component<TruncateProps, TruncateSta
 
   restoreReplacedLinks = (content: string) => {
     this.replacedLinks.forEach((item) => {
-      // eslint-disable-next-line no-param-reassign
       content = content.replace(item.key, item[0]);
     });
 

@@ -22,7 +22,12 @@ const validateMessage: FormValidateMessage<Data> = {
 
 const rules: FormRules<Data> = {
   account: [{ required: true }, { min: 2 }, { max: 10, type: 'warning' }],
-  description: [{ validator: (val: string) => val.length < 10, message: '不能超过 20 个字，中文长度等于英文长度' }],
+  description: [
+    {
+      validator: (val: string) => val.length < 10,
+      message: '不能超过 20 个字，中文长度等于英文长度',
+    },
+  ],
   password: [{ required: true }, { len: 8, message: '请输入 8 位密码' }],
 };
 
@@ -55,7 +60,7 @@ export default function BaseForm() {
 
   useEffect(() => {
     form.setValidateMessage(validateMessage);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, []);
 
   return (

@@ -107,7 +107,7 @@ const SwiperItem: React.FC<SwiperItemProps> = (props) => {
     if (isFirstFirstRender) {
       setUpdate({});
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, []);
 
   return (

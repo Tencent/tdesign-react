@@ -4,7 +4,6 @@ import { useMemo } from 'react';
 // https://github.com/facebook/react/pull/16210
 export default function useDefaultProps<T>(originalProps: T, defaultProps: Record<PropertyKey, any>): T {
   return useMemo<T>(() => {
-    // eslint-disable-next-line
     const props = Object.assign({}, originalProps);
     Object.keys(defaultProps).forEach((key) => {
       // https://github.com/facebook/react/blob/main/packages/react/src/jsx/ReactJSXElement.js#L733-L740

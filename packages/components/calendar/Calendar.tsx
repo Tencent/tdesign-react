@@ -344,10 +344,7 @@ const Calendar = forwardRef<CalendarMethods, CalendarProps>((props, ref) => {
       {visible && (
         <div className={prefixCls([blockName, 'control'])}>
           <div className={prefixCls([blockName, 'title'])}>
-            {(() => {
-              if (head && typeof head === 'function') return head(controllerOptions);
-              if (head && typeof head !== 'function') return head;
-            })()}
+            {head && typeof head === 'function' ? head(controllerOptions) : (head as React.ReactNode)}
           </div>
           <div className={prefixCls([blockName, 'control-section'])}>
             {/* 年份选择框 */}

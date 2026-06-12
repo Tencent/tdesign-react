@@ -1,8 +1,9 @@
 import React from 'react';
 import { render } from '@test/utils';
-import Input from '../../input';
+
 import Button from '../../button';
 import { Row } from '../../grid';
+import Input from '../../input';
 
 function GuideContent() {
   return (
@@ -56,7 +57,7 @@ export function getGuideDefaultMount(Guide, props, events) {
     <div>
       <GuideContent />
       <Guide current={0} steps={STEPS.slice(0, 1)} {...props} {...events}></Guide>
-    </div>
+    </div>,
   );
 }
 
@@ -66,18 +67,18 @@ export function getGuideMultipleStepsMount(Guide, props, events) {
     <div>
       <GuideContent />
       <Guide steps={STEPS} {...props} {...events}></Guide>
-    </div>
+    </div>,
   );
 }
 
 // custom step props
 export function getCustomGuideStepMount(Guide, props) {
-  const steps = [{ ...STEPS[0], ...props}]
+  const steps = [{ ...STEPS[0], ...props }];
   return render(
     <div>
       <GuideContent />
       <Guide current={0} steps={steps}></Guide>
-    </div>
+    </div>,
   );
 }
 
@@ -90,8 +91,8 @@ export function getCustomMultipleGuideStepMount(Guide, props) {
     <div>
       <GuideContent />
       <Guide current={current} steps={steps}></Guide>
-    </div>
+    </div>,
   );
 }
 
-export default {}
+export default {};

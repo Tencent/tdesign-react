@@ -9,10 +9,12 @@ import useClassName from '../hooks/useClassNames';
 import type { TdColorPickerProps } from '..';
 import type { TdColorContext } from '../interface';
 
-export interface ColorTriggerProps
-  extends Pick<TdColorPickerProps, 'disabled' | 'inputProps' | 'borderless' | 'clearable' | 'onClear'> {
+export interface ColorTriggerProps extends Pick<
+  TdColorPickerProps,
+  'disabled' | 'inputProps' | 'borderless' | 'clearable' | 'onClear'
+> {
   value?: string;
-  onChange?: (v?: string, context?: TdColorContext) => {};
+  onChange?: (v?: string, context?: TdColorContext) => void;
 }
 
 const ColorPickerTrigger = (props: ColorTriggerProps) => {

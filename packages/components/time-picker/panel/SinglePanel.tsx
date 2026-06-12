@@ -22,8 +22,10 @@ const panelOffset = {
   bottom: 21,
 };
 
-export interface SinglePanelProps
-  extends Pick<TdTimePickerProps, 'steps' | 'format' | 'value' | 'hideDisabledTime' | 'onPick'> {
+export interface SinglePanelProps extends Pick<
+  TdTimePickerProps,
+  'steps' | 'format' | 'value' | 'hideDisabledTime' | 'onPick'
+> {
   disableTime?: (
     h: number,
     m: number,
@@ -35,7 +37,7 @@ export interface SinglePanelProps
   triggerScroll?: boolean;
   resetTriggerScroll?: () => void;
   isVisible?: boolean;
-  onChange: Function;
+  onChange: (value: string, e: MouseEvent | UIEvent) => void;
 }
 
 // https://github.com/iamkun/dayjs/issues/1552
@@ -153,9 +155,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
 
   const getScrollDistance = useCallback(
     (col: EPickerCols, time: number | string) => {
-      if (col === EPickerCols.hour && /[h]{1}/.test(format))
-        // eslint-disable-next-line no-param-reassign
-        time = (time as number) % 12; // 一定是数字，直接 cast
+      if (col === EPickerCols.hour && /[h]{1}/.test(format)) time = (time as number) % 12; // 一定是数字，直接 cast
 
       const itemIdx = getColList(col).indexOf(padStart(String(time), 2, '0'));
       const { offsetHeight, margin } = getItemHeight();
@@ -255,7 +255,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
         behavior,
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
     [getScrollDistance],
   );
 
@@ -283,7 +283,6 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
     if (!timeItemCanUsed(col, el)) return;
     if (timeArr.includes(col)) {
       if (col === EPickerCols.hour && dayjsValue.format('a') === PM && cols.includes(EPickerCols.meridiem)) {
-        // eslint-disable-next-line no-param-reassign
         el = Number(el) + 12;
       }
       scrollToTime(col, el, idx, 'smooth');
@@ -350,7 +349,7 @@ const SinglePanel: FC<SinglePanelProps> = (props) => {
             })}
             onClick={(e) => handleTimeItemClick(col, el, idx, e)}
           >
-            {/* eslint-disable-next-line no-nested-ternary */}
+            {}
             {timeArr.includes(col)
               ? TWELVE_HOUR_FORMAT.test(format) && col === EPickerCols.hour && el === '00'
                 ? '12'

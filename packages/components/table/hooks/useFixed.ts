@@ -115,7 +115,10 @@ export default function useFixed(
     right: false,
   });
   // 虚拟滚动无法使用 CSS sticky 固定表头
-  const [virtualScrollHeaderPos, setVirtualScrollHeaderPos] = useState<{ left: number; top: number }>({
+  const [virtualScrollHeaderPos, setVirtualScrollHeaderPos] = useState<{
+    left: number;
+    top: number;
+  }>({
     left: 0,
     top: 0,
   });
@@ -166,7 +169,6 @@ export default function useFixed(
       if (levelNodes[level]) {
         levelNodes[level].push(columnInfo);
       } else {
-        // eslint-disable-next-line no-param-reassign
         levelNodes[level] = [columnInfo];
       }
     }
@@ -239,7 +241,10 @@ export default function useFixed(
         }
         const obj = initialColumnMap.get(colKey || j);
         if (obj?.col?.fixed) {
-          initialColumnMap.set(colKey, { ...obj, width: th?.getBoundingClientRect?.().width });
+          initialColumnMap.set(colKey, {
+            ...obj,
+            width: th?.getBoundingClientRect?.().width,
+          });
         }
       }
     }
@@ -267,7 +272,10 @@ export default function useFixed(
         defaultBottom = thead?.getBoundingClientRect?.().height || 0;
       }
       thisRowInfo.top = (lastRowInfo.top || defaultBottom) + (lastRowInfo.height || 0);
-      initialColumnMap.set(rowId, { ...thisRowInfo, height: tr?.getBoundingClientRect?.().height });
+      initialColumnMap.set(rowId, {
+        ...thisRowInfo,
+        height: tr?.getBoundingClientRect?.().height,
+      });
     }
     for (let i = data.length - 1; i >= data.length - fixedBottomRows; i--) {
       /**
@@ -285,7 +293,10 @@ export default function useFixed(
         defaultBottom = tfoot?.getBoundingClientRect?.().height || 0;
       }
       thisRowInfo.bottom = (lastRowInfo.bottom || defaultBottom) + (lastRowInfo.height || 0);
-      initialColumnMap.set(rowId, { ...thisRowInfo, height: tr?.getBoundingClientRect?.().height });
+      initialColumnMap.set(rowId, {
+        ...thisRowInfo,
+        height: tr?.getBoundingClientRect?.().height,
+      });
     }
   };
 
@@ -340,7 +351,6 @@ export default function useFixed(
     }
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const updateFixedStatus = () => {
     const { newColumnsMap, levelNodes } = getColumnMap(columns);
     setIsLastOrFirstFixedCol(levelNodes);
@@ -464,7 +474,7 @@ export default function useFixed(
 
   useDeepEffect(
     updateFixedStatus,
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [
       data,
       columns,
@@ -481,39 +491,32 @@ export default function useFixed(
     ],
   );
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useDeepEffect(() => {
     if (isFixedColumn) {
       updateColumnFixedShadow(tableContentRef.current);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFixedColumn, columns, tableContentRef]);
 
   useDeepEffect(updateFixedHeader, [maxHeight, data, columns, bordered, tableContentRef]);
 
   useDeepEffect(() => {
     updateTableElmWidthOnColumnChange(finalColumns, preFinalColumns);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finalColumns]);
 
   // 影响表头宽度的元素
-  useDeepEffect(
-    () => {
-      updateThWidthListHandler();
-      updateAffixPosition();
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [
-      bordered,
-      columns,
-      tableLayout,
-      fixedRows,
-      headerAffixedTop,
-      tableContentWidth,
-      notNeedThWidthList,
-      tableContentRef,
-    ],
-  );
+  useDeepEffect(() => {
+    updateThWidthListHandler();
+    updateAffixPosition();
+  }, [
+    bordered,
+    columns,
+    tableLayout,
+    fixedRows,
+    headerAffixedTop,
+    tableContentWidth,
+    notNeedThWidthList,
+    tableContentRef,
+  ]);
 
   const refreshTable = () => {
     updateThWidthListHandler();
@@ -523,7 +526,9 @@ export default function useFixed(
 
     if (isFixedColumn || isFixedHeader) {
       updateFixedStatus();
-      updateColumnFixedShadow(tableContentRef.current, { skipScrollLimit: true });
+      updateColumnFixedShadow(tableContentRef.current, {
+        skipScrollLimit: true,
+      });
     }
   };
 
@@ -531,7 +536,7 @@ export default function useFixed(
     if (!tableContentRef.current) return;
     // IE 11 以上使用 ResizeObserver
     return resizeObserverElement(tableContentRef.current, refreshTable);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, []);
 
   useDeepEffect(() => {
@@ -570,7 +575,7 @@ export default function useFixed(
     return () => {
       off(document, 'animationend', onAnimationEnd, { capture: true });
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, []);
 
   const updateTableAfterColumnResize = () => {

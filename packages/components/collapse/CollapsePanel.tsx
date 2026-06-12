@@ -54,7 +54,7 @@ const CollapsePanel: React.FC<CollapsePanelProps> = (props) => {
     if (defaultExpandAll) {
       updateCollapseValue(innerValue);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, []);
 
   const isActive = Array.isArray(collapseValue) ? collapseValue.includes(innerValue) : collapseValue === innerValue;

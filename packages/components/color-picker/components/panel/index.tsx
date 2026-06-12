@@ -49,6 +49,7 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
   } = useDefaultProps(props, colorPickerDefaultProps);
   const [innerValue, setInnerValue] = useControlled(props, 'value', onChange);
 
+  // eslint-disable-next-line @eslint-react/use-state
   const [, setUpdateId] = useState(0); // 确保 UI 同步更新
 
   const getModeByColor = (input: string) => {
@@ -97,7 +98,8 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     setMode(newMode);
     colorInstanceRef.current.isGradient = newMode === 'linear-gradient';
     updateColor(innerValue);
-  }, [innerValue]); // eslint-disable-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
+  }, [innerValue]);
 
   const handleModeChange = (newMode: TdColorModes) => {
     setMode(newMode);
@@ -214,18 +216,16 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     emitColorChange('input');
   };
 
-  const SwatchesArea = React.memo(() => {
-    // 只支持渐变模式
+  const renderSwatchesArea = () => {
     const onlySupportGradient = colorModes.length === 1 && colorModes.includes('linear-gradient');
 
-    // 最近使用颜色
     let recentColors = recentlyUsedColors;
     if (onlySupportGradient && Array.isArray(recentColors)) {
       recentColors = recentColors.filter((color) => Color.isGradientColor(color));
     }
+
     const showUsedColors = Array.isArray(recentColors) || recentColors === true;
 
-    // 系统预设颜色
     let systemColors = swatchColors;
     if (systemColors === undefined) {
       systemColors = [...DEFAULT_SYSTEM_SWATCH_COLORS];
@@ -233,46 +233,46 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     if (onlySupportGradient) {
       systemColors = systemColors?.filter((color) => Color.isGradientColor(color));
     }
-    const showSystemColors = Array.isArray(systemColors);
 
-    // 色块点击
+    const showSystemColors = Array.isArray(systemColors);
+    if (!showSystemColors && !showUsedColors) return null;
+
     const handleSetColor = (value: string, trigger: ColorPickerChangeTrigger) => {
       const newMode = getModeByColor(value);
+
       setMode(newMode);
       // 确保在渐变模式下选择纯色块，能切换回单色模式
       colorInstanceRef.current.isGradient = newMode === 'linear-gradient';
+
       updateColor(value);
       emitColorChange(trigger);
     };
 
-    if (!showSystemColors && !showUsedColors) return null;
-
     return (
-      <>
-        <div className={`${baseClassName}__swatches-wrap`}>
-          {showUsedColors && (
-            <SwatchesPanel
-              {...baseProps}
-              title={t(local.recentColorTitle)}
-              editable
-              handleAddColor={addRecentlyUsedColor}
-              colors={recentColors as string[]}
-              onSetColor={(color: string) => handleSetColor(color, 'recent')}
-              onChange={handleRecentlyUsedColorsChange}
-            />
-          )}
-          {showSystemColors && (
-            <SwatchesPanel
-              {...baseProps}
-              title={t(local.swatchColorTitle)}
-              colors={systemColors}
-              onSetColor={(color: string) => handleSetColor(color, 'preset')}
-            />
-          )}
-        </div>
-      </>
+      <div className={`${baseClassName}__swatches-wrap`}>
+        {showUsedColors && (
+          <SwatchesPanel
+            {...baseProps}
+            title={t(local.recentColorTitle)}
+            editable
+            handleAddColor={addRecentlyUsedColor}
+            colors={recentColors as string[]}
+            onSetColor={(color) => handleSetColor(color, 'recent')}
+            onChange={handleRecentlyUsedColorsChange}
+          />
+        )}
+
+        {showSystemColors && (
+          <SwatchesPanel
+            {...baseProps}
+            title={t(local.swatchColorTitle)}
+            colors={systemColors}
+            onSetColor={(color) => handleSetColor(color, 'preset')}
+          />
+        )}
+      </div>
     );
-  });
+  };
 
   return (
     <div
@@ -309,7 +309,7 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
         </div>
 
         <FormatPanel {...props} {...baseProps} format={formatRef.current} onInputChange={handleInputChange} />
-        <SwatchesArea />
+        {renderSwatchesArea()}
       </div>
     </div>
   );

@@ -40,13 +40,13 @@ const QRCodeCanvas = React.forwardRef<HTMLCanvasElement, QRPropsCanvas>((props, 
       if (typeof ref === 'function') {
         ref(node);
       } else if (ref) {
-        // eslint-disable-next-line no-param-reassign
         ref.current = node;
       }
     },
     [ref],
   );
 
+  // eslint-disable-next-line @eslint-react/use-state
   const [, setIsImageLoaded] = React.useState(false);
 
   const { margin, cells, numCells, calculatedImageSettings } = useQRCode({

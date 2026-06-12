@@ -18,7 +18,6 @@ function useDomRefMount<T extends HTMLElement = HTMLElement>(ref: React.MutableR
 
       // 更新 ref
       if (ref) {
-        // eslint-disable-next-line no-param-reassign
         ref.current = node;
       }
 
@@ -38,7 +37,8 @@ function useDomRefMount<T extends HTMLElement = HTMLElement>(ref: React.MutableR
 
       return node;
     },
-    [], // eslint-disable-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
+    [],
   );
 
   const onUnmount = useCallback((callback: () => void) => {

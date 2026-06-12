@@ -216,7 +216,12 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
     if (React.isValidElement(statusIcon)) {
       // @ts-ignore
-      return resultIcon(React.cloneElement(statusIcon, { style: { color: 'unset' }, ...statusIcon.props }));
+      return resultIcon(
+        React.cloneElement(statusIcon, {
+          style: { color: 'unset' },
+          ...statusIcon.props,
+        }),
+      );
     }
     if (statusIcon === true) {
       return getDefaultIcon();
@@ -245,7 +250,6 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
       .map((item) => {
         Object.keys(item).forEach((key) => {
           if (!item.message && errorMessages[key]) {
-            // eslint-disable-next-line
             item.message = parseMessage(errorMessages[key], {
               validate: item[key],
               name: isString(label) ? label : String(name),
@@ -433,7 +437,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     return () => {
       mapRef.current.delete(fullPath);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [snakeName, formListName]);
 
   useEffect(() => {
@@ -451,7 +455,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     const filterRules = innerRules.filter((item) => (item.trigger || 'change') === 'change');
 
     filterRules.length && validate('change');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [formValue, snakeName]);
 
   // 暴露 ref 实例方法

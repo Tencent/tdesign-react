@@ -90,7 +90,7 @@ function useOptions(
     setTmpPropOptions(transformedOptions);
 
     setValueToOption(getValueToOption(children as ReactElement, options as TdOptionProps[], keys) || {});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [options, keys, children, reserveKeyword]);
 
   // 同步 value 对应的 options

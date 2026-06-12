@@ -69,8 +69,8 @@ const TabNav: React.FC<TabNavProps> = (props) => {
   const activeIndex = getIndex(activeValue);
 
   // 判断滚动条是否需要展示
-  const [canToLeft, setToLeftBtnVisible] = useState(false);
-  const [canToRight, setToRightBtnVisible] = useState(false);
+  const [showLeft, setShowLeft] = useState(false);
+  const [showRight, setShowRight] = useState(false);
 
   // 滚动条 ref 定义
   const scrollBarRef = useRef(null);
@@ -120,7 +120,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
     }, 100);
 
     return () => clearTimeout(timeout);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [activeTab, maxScrollLeft, scrollPosition]);
 
   // 左右滑动按钮的展示状态
@@ -130,8 +130,8 @@ const TabNav: React.FC<TabNavProps> = (props) => {
       const canToLeft = scrollLeft > 1;
       const canToRight = scrollLeft < maxScrollLeft - 1;
 
-      setToLeftBtnVisible(canToLeft);
-      setToRightBtnVisible(canToRight);
+      setShowLeft(canToLeft);
+      setShowRight(canToRight);
     }
   }, [placement, scrollLeft, maxScrollLeft]);
 
@@ -154,7 +154,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
     if (!scrollBar) return;
 
     const handleWheel = (e: WheelEvent<HTMLDivElement>) => {
-      if (!canToLeft && !canToRight) return;
+      if (!showLeft && !showRight) return;
       e.preventDefault();
 
       const { deltaX, deltaY } = e;
@@ -218,7 +218,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
         ref={leftOperationsRef}
         className={classNames(tdTabsClassGenerator('operations'), tdTabsClassGenerator('operations--left'))}
       >
-        {canToLeft ? (
+        {showLeft ? (
           <div
             onClick={() => {
               handleScroll('prev');
@@ -238,7 +238,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
         ref={rightOperationsRef}
         className={classNames(tdTabsClassGenerator('operations'), tdTabsClassGenerator('operations--right'))}
       >
-        {canToRight ? (
+        {showRight ? (
           <div
             onClick={() => {
               handleScroll('next');
@@ -288,7 +288,7 @@ const TabNav: React.FC<TabNavProps> = (props) => {
         <div
           className={classNames(
             tdTabsClassGenerator('nav-scroll'),
-            canToLeft || canToRight ? tdClassGenerator('is-scrollable') : '',
+            showLeft || showRight ? tdClassGenerator('is-scrollable') : '',
           )}
           ref={scrollBarRef}
         >
@@ -307,12 +307,12 @@ const TabNav: React.FC<TabNavProps> = (props) => {
             )}
             {itemList.map((v, index) => (
               <TabNavItem
+                key={v.value}
                 {...omit(props, ['className', 'style'])}
                 {...v}
                 dragProps={{ ...getDragProps?.(index, v) }}
                 // 显式给 onRemove 赋值，防止 props 的 onRemove 事件透传
                 onRemove={v.onRemove}
-                key={v.value}
                 label={v.label}
                 isActive={activeValue === v.value}
                 theme={theme}

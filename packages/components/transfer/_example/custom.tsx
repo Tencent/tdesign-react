@@ -21,20 +21,15 @@ export default function BaseExample() {
   return (
     <Transfer
       data={list}
-      title={[
-        '来源',
-        <>
-          <div>目标</div>
-        </>,
-      ]}
+      title={['来源', <div key="target">目标</div>]}
       operation={['加入', '移除']}
       footer={[
-        <>
-          <div style={customStyle}>选中并加入</div>
-        </>,
-        <>
-          <div style={customStyle}>选中并移除</div>
-        </>,
+        <div key="source-footer" style={customStyle}>
+          选中并加入
+        </div>,
+        <div key="target-footer" style={customStyle}>
+          选中并加入
+        </div>,
       ]}
     ></Transfer>
   );

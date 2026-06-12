@@ -87,7 +87,7 @@ export default function TableBasic() {
       setData(response.results);
       setTotal(120);
       setIsLoading(false);
-    } catch (err) {
+    } catch (_) {
       setData([]);
       setTotal(120);
       setIsLoading(false);
@@ -101,7 +101,7 @@ export default function TableBasic() {
 
   useEffect(() => {
     fetchData({ current, pageSize });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, []);
 
   return (

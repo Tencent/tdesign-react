@@ -45,7 +45,7 @@ export const useListVirtualScroll = (
         msTransform: `translate(0, ${virtualConfig.scrollHeight}px)`,
         MozTransform: `translate(0, ${virtualConfig.scrollHeight}px)`,
         WebkitTransform: `translate(0, ${virtualConfig.scrollHeight}px)`,
-      } as Styles),
+      }) as Styles,
     [virtualConfig.scrollHeight],
   );
 
@@ -56,13 +56,13 @@ export const useListVirtualScroll = (
         msTransform: `translate(0, ${virtualConfig.translateY}px)`,
         MozTransform: `translate(0, ${virtualConfig.translateY}px)`,
         WebkitTransform: `translate(0, ${virtualConfig.translateY}px)`,
-      } as Styles),
+      }) as Styles,
     [virtualConfig.translateY],
   );
 
   const handleScrollTo = (params: ComponentScrollToElementParams) => {
     const { index, key } = params;
-    const targetIndex = index === 0 ? index : index ?? Number(key);
+    const targetIndex = index === 0 ? index : (index ?? Number(key));
     if (!targetIndex && targetIndex !== 0) {
       log.error('List', 'scrollTo: `index` or `key` must exist.');
       return;

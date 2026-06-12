@@ -148,7 +148,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
       setIsHoverCell(false);
     }
     // eslint-disable-next-line
-  }, [popupVisible]);
+    }, [popupVisible]);
 
   // 日期 hover
   function onCellMouseEnter(date: Date) {
@@ -199,7 +199,13 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
   // 头部快速切换
   const onJumperClick = React.useCallback(
     ({ trigger }) => {
-      const monthCountMap = { date: 1, week: 1, month: 12, quarter: 12, year: 120 };
+      const monthCountMap = {
+        date: 1,
+        week: 1,
+        month: 12,
+        quarter: 12,
+        year: 120,
+      };
       const monthCount = monthCountMap[mode] || 0;
 
       const current = new Date(year, month);
@@ -233,7 +239,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
         });
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
     [year, month, mode, setYear, setMonth, value],
   );
 
@@ -276,7 +282,10 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     if (typeof preset === 'function') {
       presetValue = preset();
     }
-    const formattedPreset = formatDate(presetValue, { format, targetFormat: valueType });
+    const formattedPreset = formatDate(presetValue, {
+      format,
+      targetFormat: valueType,
+    });
     const formattedInput = formatDate(presetValue, { format });
 
     setInputValue(formattedInput);
@@ -305,7 +314,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
         trigger: 'year-select',
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
     [value],
   );
 
@@ -318,7 +327,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
         trigger: 'month-select',
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
     [value],
   );
 

@@ -77,7 +77,7 @@ const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> 
     const tmpUrl = isFunction(local.replaceImageSrc) ? local.replaceImageSrc(props) : src;
     if (tmpUrl === imageSrc && imageSrc) return;
     setImageSrc(tmpUrl);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [src, local, props]);
 
   const { previewUrl } = useImagePreviewUrl(imageSrc);
@@ -141,7 +141,7 @@ const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> 
         }, 0);
       });
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [previewUrl]);
 
   useEffect(() => {
@@ -153,7 +153,7 @@ const InternalImage: React.ForwardRefRenderFunction<HTMLDivElement, ImageProps> 
         handleLoad(imgRef.current);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, []);
 
   const hasMouseEvent = overlayTrigger === 'hover';

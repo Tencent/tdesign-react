@@ -53,7 +53,11 @@ const Anchor = forwardRefWithStatics(
     const { classPrefix } = useConfig();
 
     const [activeItem, setActiveItem] = useState<string>('');
-    const [cursorStyle, setCursorStyle] = useState<{ top: string; height?: string; opacity: number }>({
+    const [cursorStyle, setCursorStyle] = useState<{
+      top: string;
+      height?: string;
+      opacity: number;
+    }>({
       top: '0px',
       height: '0px',
       opacity: 0,
@@ -168,7 +172,7 @@ const Anchor = forwardRefWithStatics(
       className,
     );
 
-    const CursorCmp = () => {
+    const renderCursor = () => {
       if (isFunction(cursor)) return cursor();
       if (isEmpty(cursor)) return <div className={`${classPrefix}-anchor__line-cursor`}></div>;
       return cursor;
@@ -186,7 +190,7 @@ const Anchor = forwardRefWithStatics(
         <div {...rest} className={anchorClass} ref={anchorEl}>
           <div className={`${classPrefix}-anchor__line`}>
             <div className={`${classPrefix}-anchor__line-cursor-wrapper`} style={cursorStyle}>
-              {CursorCmp()}
+              {renderCursor()}
             </div>
           </div>
           {children}

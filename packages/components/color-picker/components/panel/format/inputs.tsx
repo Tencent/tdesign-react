@@ -73,7 +73,7 @@ const FormatInputs = (props: TdColorFormatProps) => {
     const throttleUpdate = throttle(updateModelValue, 100);
     throttleUpdate();
     return () => throttleUpdate.cancel();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [color.saturation, color.hue, color.value, color.alpha, format]);
 
   return (
@@ -100,9 +100,9 @@ const FormatInputs = (props: TdColorFormatProps) => {
           >
             {config.type === 'input' ? (
               <Input
+                key={`${inputKey.current}-${currentValue}`}
                 {...commonProps}
                 defaultValue={currentValue}
-                key={`${inputKey.current}-${currentValue}`}
                 maxlength={format === 'HEX' ? 9 : undefined}
               />
             ) : (

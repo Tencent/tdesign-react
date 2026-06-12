@@ -8,8 +8,9 @@ import usePrefixClass from './hooks/usePrefixClass';
 import type { MouseEvent } from 'react';
 import type { CalendarCell, TdCalendarProps } from './type';
 
-type extendType = Required<Pick<TdCalendarProps, 'fillWithZero' | 'mode' | 'theme' | 'cell' | 'cellAppend'>>;
-interface CalendarCellProps extends extendType {
+type ExtendType = Required<Pick<TdCalendarProps, 'fillWithZero' | 'mode' | 'theme' | 'cell' | 'cellAppend'>>;
+
+interface CalendarCellProps extends ExtendType {
   cellData: CalendarCell;
   isCurrent: boolean;
   isNow: boolean;
@@ -46,12 +47,41 @@ const CalendarCellComp: React.FC<CalendarCellProps> = (props) => {
   const getMonthCN = (month: number): string => monthLabelList[month];
 
   const { calendar: calendarConfig } = useConfig();
+
   const fix0 = (num: number) => {
     const fillZero = num < 10 && (fillWithZero ?? calendarConfig.fillWithZero ?? true);
     return fillZero ? `0${num}` : num;
   };
 
   const prefixCls = usePrefixClass();
+
+  const cellValue = mode === 'month' ? createCalendarCell(cellData) : cellData;
+
+  function renderCellContent() {
+    if (typeof cell === 'function') return cell(cellValue);
+    if (cell) return cell;
+
+    if (mode === 'year') {
+      const monthIndex = cellData.date.getMonth();
+      return (
+        <div className={prefixCls([blockName, 'table-body-cell-display'])}>
+          {theme === 'full'
+            ? getMonthCN(monthIndex)
+            : t(local.monthSelection, {
+                month: `${monthIndex + 1}`,
+              })}
+        </div>
+      );
+    }
+
+    return <div className={prefixCls([blockName, 'table-body-cell-display'])}>{fix0(cellData.date.getDate())}</div>;
+  }
+
+  function renderAppendContent() {
+    if (!cellAppend) return null;
+    const appendValue = typeof cellAppend === 'function' ? cellAppend(cellValue) : cellAppend;
+    return <div className={prefixCls([blockName, 'table-body-cell-content'])}>{appendValue}</div>;
+  }
 
   return (
     <td
@@ -65,30 +95,8 @@ const CalendarCellComp: React.FC<CalendarCellProps> = (props) => {
       onDoubleClick={onCellDoubleClick}
       onContextMenu={onCellRightClick}
     >
-      {(() => {
-        if (cell && typeof cell === 'function') return cell(mode === 'month' ? createCalendarCell(cellData) : cellData);
-        if (cell && typeof cell !== 'function') return cell;
-        let cellCtx: React.ReactNode;
-        if (mode === 'year') {
-          // year mode：输出月
-          const mIndex = cellData.date.getMonth();
-          cellCtx = theme === 'full' ? getMonthCN(mIndex) : t(local.monthSelection, { month: `${mIndex + 1}` });
-        } else {
-          // month mode：输出天
-          cellCtx = fix0(cellData.date.getDate());
-        }
-        return <div className={prefixCls([blockName, 'table-body-cell-display'])}>{cellCtx}</div>;
-      })()}
-      {(() => {
-        let cellCtx: React.ReactNode;
-        if (cellAppend && typeof cellAppend === 'function') {
-          cellCtx = cellAppend(mode === 'month' ? createCalendarCell(cellData) : cellData);
-        }
-        if (cellAppend && typeof cellAppend !== 'function') {
-          cellCtx = cellAppend;
-        }
-        return cellAppend && <div className={prefixCls([blockName, 'table-body-cell-content'])}>{cellCtx}</div>;
-      })()}
+      {renderCellContent()}
+      {renderAppendContent()}
     </td>
   );
 };

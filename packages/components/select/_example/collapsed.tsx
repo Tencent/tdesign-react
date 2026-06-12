@@ -13,7 +13,7 @@ const MultipleSelect = () => {
   const [value, setValue] = useState(['1', '3']);
   const [size, setSize] = useState<'small' | 'medium' | 'large'>('medium');
   const [disabled, setDisabled] = useState(false);
-  const [readonly, setReadOnly] = useState(false);
+  const [readOnly, setReadOnly] = useState(false);
   const [minCollapsedNum] = useState(1);
 
   const onChange = (value: string[]) => {
@@ -33,7 +33,7 @@ const MultipleSelect = () => {
               key={index}
               size={size}
               disabled={disabled}
-              closable={!readonly && !disabled}
+              closable={!readOnly && !disabled}
               onClose={(context) => onClose({ e: context.e, index: minCollapsedNum + index })}
             >
               {item.label}
@@ -75,7 +75,7 @@ const MultipleSelect = () => {
       </Space>
       <Space align="center">
         <span>readonly control:</span>
-        <Checkbox checked={readonly} onChange={(value) => setReadOnly(value)} />
+        <Checkbox checked={readOnly} onChange={(value) => setReadOnly(value)} />
       </Space>
       <Select
         value={value}
@@ -87,7 +87,7 @@ const MultipleSelect = () => {
         collapsedItems={renderCollapsedItems}
         size={size}
         disabled={disabled}
-        readOnly={readonly}
+        readOnly={readOnly}
       />
     </Space>
   );

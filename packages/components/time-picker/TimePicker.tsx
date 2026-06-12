@@ -56,7 +56,7 @@ const TimePicker = forwardRefWithStatics(
 
     const [value, onChange] = useControlled(props, 'value', props.onChange);
 
-    const [isPanelShowed, setPanelShow] = useState(false);
+    const [isPanelVisible, setIsPanelVisible] = useState(false);
     const [currentValue, setCurrentValue] = useState('');
 
     const { classPrefix } = useConfig();
@@ -65,12 +65,12 @@ const TimePicker = forwardRefWithStatics(
     });
     const name = `${classPrefix}-time-picker`;
     const inputClasses = classNames(`${name}__group`, {
-      [`${classPrefix}-is-focused`]: isPanelShowed,
+      [`${classPrefix}-is-focused`]: isPanelVisible,
     });
 
     const effectVisibleCurrentValue = (visible: boolean) => {
-      setPanelShow(visible);
-      setCurrentValue(visible ? value ?? '' : '');
+      setIsPanelVisible(visible);
+      setCurrentValue(visible ? (value ?? '') : '');
     };
 
     const handleShowPopup = (visible: boolean, context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> }) => {
@@ -125,15 +125,18 @@ const TimePicker = forwardRefWithStatics(
           className={inputClasses}
           borderless={borderless}
           suffixIcon={<TimeIcon />}
-          popupVisible={isPanelShowed}
+          popupVisible={isPanelVisible}
           onInputChange={handleInputChange}
           onBlur={handleInputBlur}
           onPopupVisibleChange={handleShowPopup}
           placeholder={!value ? placeholder : undefined}
-          value={isPanelShowed ? currentValue : value ?? undefined}
-          inputValue={isPanelShowed ? currentValue : value ?? undefined}
+          value={isPanelVisible ? currentValue : (value ?? undefined)}
+          inputValue={isPanelVisible ? currentValue : (value ?? undefined)}
           inputProps={{ ...props.inputProps, size: props.size }}
-          popupProps={{ overlayInnerStyle: { width: 'auto', padding: 0 }, ...props.popupProps }}
+          popupProps={{
+            overlayInnerStyle: { width: 'auto', padding: 0 },
+            ...props.popupProps,
+          }}
           tips={props.tips}
           status={props.status}
           label={props.label}
@@ -143,7 +146,7 @@ const TimePicker = forwardRefWithStatics(
               format={format}
               value={currentValue}
               isFooterDisplay={true}
-              isShowPanel={isPanelShowed}
+              isShowPanel={isPanelVisible}
               disableTime={disableTime}
               onChange={handlePanelChange}
               onPick={props.onPick}

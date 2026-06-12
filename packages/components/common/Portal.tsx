@@ -54,7 +54,7 @@ const Portal = forwardRef((props: PortalProps, ref) => {
       Object.assign(el.style, style);
     }
     return el;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [classPrefix]);
 
   useIsomorphicLayoutEffect(() => {
@@ -71,7 +71,7 @@ const Portal = forwardRef((props: PortalProps, ref) => {
     if (!mounted) {
       setMounted(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, []);
 
   useImperativeHandle(ref, () => container);

@@ -25,7 +25,7 @@ try {
   if (mainVersion >= 18 && mainVersion < 19) {
     legacyCreateRoot = fullClone.createRoot;
   }
-} catch (e) {
+} catch (_) {
   // Do nothing;
 }
 
@@ -62,7 +62,6 @@ function modernRender(node: React.ReactElement, container: ContainerType) {
 
   root.render(node);
 
-  // eslint-disable-next-line
   container[MARK] = root;
 }
 
@@ -87,7 +86,6 @@ async function modernUnmount(container: ContainerType) {
   return Promise.resolve().then(() => {
     container[MARK]?.unmount();
 
-    // eslint-disable-next-line
     delete container[MARK];
   });
 }

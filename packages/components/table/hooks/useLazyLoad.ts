@@ -45,7 +45,7 @@ export default function useLazyLoad(
     return () => {
       clearTimeout(timer);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [childRef, containerRef, params.bufferSize, params?.type, tRowHeight]);
 
   return {

@@ -132,7 +132,7 @@ const useMouseEvent = (elementRef: React.RefObject<HTMLElement>, options: MouseE
         el.removeEventListener('touchend', handleMouseUp);
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [options, enabled, enableTouch]);
 
   return {

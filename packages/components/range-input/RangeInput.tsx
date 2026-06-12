@@ -83,8 +83,8 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
     secondInputRef: useRef<InputRef>(null),
   };
 
-  const [isFocused, toggleIsFocused] = useState(false);
-  const [isHover, toggleIsHover] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [isHover, setIsHover] = useState(false);
   const [firstFormat, secondFormat] = calcArrayValue(format);
   const [firstPlaceholder = '请输入内容', secondPlaceholder = '请输入内容'] = calcArrayValue(placeholder);
   const [firstInputProps, secondInputProps] = calcArrayValue(inputProps);
@@ -115,23 +115,23 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
 
   function handleFocus(rangeValue: RangeInputValue, context) {
     onFocus?.(rangeValue, context);
-    toggleIsFocused(true);
+    setIsFocused(true);
   }
 
   function handleBlur(rangeValue: RangeInputValue, context) {
     onBlur?.(rangeValue, context);
-    toggleIsFocused(false);
+    setIsFocused(false);
   }
 
   function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
-    toggleIsHover(true);
+    setIsHover(true);
     onMouseenter?.({ e });
     // @ts-ignore
     props.onMouseEnter?.({ e });
   }
 
   function handleMouseLeave(e: React.MouseEvent<HTMLDivElement>) {
-    toggleIsHover(false);
+    setIsHover(false);
     onMouseleave?.({ e });
     // @ts-ignore
     props.onMouseLeave?.({ e });
@@ -192,7 +192,13 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
           onEnter={(val, { e }) => handleEnter([val, secondValue], { e, position: 'first' })}
           onFocus={(val, { e }) => handleFocus([val, secondValue], { e, position: 'first' })}
           onBlur={(val, { e }) => handleBlur([val, secondValue], { e, position: 'first' })}
-          onChange={(val, { e }) => onChange?.([val, secondValue], { e, position: 'first', trigger: 'input' })}
+          onChange={(val, { e }) =>
+            onChange?.([val, secondValue], {
+              e,
+              position: 'first',
+              trigger: 'input',
+            })
+          }
           {...firstInputProps}
         />
 
@@ -214,7 +220,13 @@ const RangeInput = React.forwardRef<RangeInputInstanceFunctions, RangeInputProps
           onEnter={(val, { e }) => handleEnter([firstValue, val], { e, position: 'second' })}
           onFocus={(val, { e }) => handleFocus([firstValue, val], { e, position: 'second' })}
           onBlur={(val, { e }) => handleBlur([firstValue, val], { e, position: 'second' })}
-          onChange={(val, { e }) => onChange?.([firstValue, val], { e, position: 'second', trigger: 'input' })}
+          onChange={(val, { e }) =>
+            onChange?.([firstValue, val], {
+              e,
+              position: 'second',
+              trigger: 'input',
+            })
+          }
           {...secondInputProps}
         />
         {suffixContent ? <div className={`${name}__suffix`}>{suffixContent}</div> : null}

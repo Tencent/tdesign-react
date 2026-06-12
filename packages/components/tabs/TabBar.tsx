@@ -42,11 +42,17 @@ const TabBar: React.FC<TabBarProps> = (props) => {
         });
         const computedItem = itemsRef[currentActiveIdRef.current];
         if (!computedItem) {
-          setBarStyle({ transform: `${transformPosition}(${0}px)`, [barBorderProp]: 0 });
+          setBarStyle({
+            transform: `${transformPosition}(${0}px)`,
+            [barBorderProp]: 0,
+          });
           return;
         }
         const itemPropValue = getComputedStyle(computedItem)[itemProp];
-        setBarStyle({ transform: `${transformPosition}(${offset}px)`, [barBorderProp]: itemPropValue || 0 });
+        setBarStyle({
+          transform: `${transformPosition}(${offset}px)`,
+          [barBorderProp]: itemPropValue || 0,
+        });
       }
     }
   }, [currentActiveIdRef, containerRef, tabPosition, tabsClassPrefix]);
@@ -55,7 +61,7 @@ const TabBar: React.FC<TabBarProps> = (props) => {
     if (containerRef.current) {
       setTimeout(() => computeStyle());
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [tabPosition, activeId, containerRef.current]);
 
   const handleMutationObserver = React.useCallback(

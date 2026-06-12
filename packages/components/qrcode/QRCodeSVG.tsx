@@ -57,7 +57,6 @@ const QRCodeSVG = React.forwardRef<SVGSVGElement, QRPropsSVG>((props, ref) => {
         opacity={calculatedImageSettings.opacity}
         // when crossOrigin is not set, the image will be tainted
         // and the canvas cannot be exported to an image
-        // eslint-disable-next-line react/no-unknown-property
         crossOrigin={calculatedImageSettings.crossOrigin}
       />
     );

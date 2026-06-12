@@ -35,7 +35,7 @@ export default function useTreeVirtualScroll({
         rowHeight: scroll?.rowHeight || 34,
         bufferSize: scroll?.bufferSize || 20,
         threshold: scrollThreshold,
-      } as const),
+      }) as const,
     [scroll, scrollThreshold],
   );
 
@@ -62,7 +62,6 @@ export default function useTreeVirtualScroll({
     const top = target.scrollTop;
     if (lastScrollY !== top) {
       handleVirtualScroll();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     } else {
       lastScrollY = -1;
     }

@@ -49,7 +49,6 @@ export const Notification = forwardRef<NotificationInstance, NotificationProps>(
 
   React.useImperativeHandle(ref, () => ({ close: () => remove(id) }));
 
-  /* eslint-disable react-hooks/exhaustive-deps */
   React.useEffect(() => {
     let timer: NodeJS.Timeout;
     if (duration > 0) {
@@ -63,6 +62,7 @@ export const Notification = forwardRef<NotificationInstance, NotificationProps>(
         clearTimeout(timer);
       }
     };
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, []);
 
   const renderIcon = () => {

@@ -19,8 +19,16 @@ export default function TUploadImageFlow() {
   const [showImageFileName, setShowImageFileName] = useState(true);
   const [showUploadButton, setShowUploadButton] = useState(true);
   const [files, setFiles] = useState([
-    { url: 'https://tdesign.gtimg.com/demo/demo-image-1.png', status: 'success', name: 'demo-image-1.png' },
-    { url: 'https://tdesign.gtimg.com/site/avatar.jpg', status: 'success', name: 'avatar.jpg' },
+    {
+      url: 'https://tdesign.gtimg.com/demo/demo-image-1.png',
+      status: 'success',
+      name: 'demo-image-1.png',
+    },
+    {
+      url: 'https://tdesign.gtimg.com/site/avatar.jpg',
+      status: 'success',
+      name: 'avatar.jpg',
+    },
   ]);
   // eslint-disable-next-line
   const [files2, setFiles2] = useState([]);
@@ -50,7 +58,6 @@ export default function TUploadImageFlow() {
   ];
 
   // 示例代码：自定义上传方法，一个请求上传一个文件
-  // eslint-disable-next-line
   const requestMethod1 = () => {
     return new Promise<RequestMethodReturn>((resolve) => {
       resolve(FILE_EXAMPLE);
@@ -61,8 +68,16 @@ export default function TUploadImageFlow() {
   // eslint-disable-next-line
   const requestMethod2 = () => {
     const files = [
-      { name: files2[0].name, status: 'success', url: 'https://tdesign.gtimg.com/site/avatar.jpg' },
-      { name: files2[1].name, status: 'success', url: 'https://avatars.githubusercontent.com/u/11605702?v=4' },
+      {
+        name: files2[0].name,
+        status: 'success',
+        url: 'https://tdesign.gtimg.com/site/avatar.jpg',
+      },
+      {
+        name: files2[1].name,
+        status: 'success',
+        url: 'https://avatars.githubusercontent.com/u/11605702?v=4',
+      },
     ];
     return new Promise((resolve) => {
       resolve({

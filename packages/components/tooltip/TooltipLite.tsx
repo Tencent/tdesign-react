@@ -40,7 +40,7 @@ const TooltipLite: React.FC<TooltipLiteProps> = (originalProps) => {
     if (triggerRef.current && contentRef.current) {
       setPosition(getPosition(triggerRef.current, contentRef.current, placement, clientX, clientY));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [triggerRef.current, contentRef.current, placement, hover, clientX, clientY]);
 
   const updatePosition = (position: Pick<MouseEvent, 'clientX' | 'clientY'>) => {
@@ -49,7 +49,7 @@ const TooltipLite: React.FC<TooltipLiteProps> = (originalProps) => {
     setHoverClientY(clientY);
   };
 
-  const onSwitchHover = (action: String, e: MouseEvent) => {
+  const onSwitchHover = (action: string, e: MouseEvent) => {
     const { clientX, clientY } = e;
     updatePosition({ clientX, clientY });
     hoverAction.set(action === 'on');
@@ -57,7 +57,7 @@ const TooltipLite: React.FC<TooltipLiteProps> = (originalProps) => {
 
   const showTipArrow = showArrow && placement !== 'mouse';
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line @eslint-react/exhaustive-deps
   const onSwitchMove = useCallback(
     throttle((e) => updatePosition(e), 16.7, { trailing: true }),
     [],

@@ -291,7 +291,10 @@ describe('zoomIn 放大', () => {
       currentTranslate: { translateX: 100, translateY: 50 },
     });
     expect(newScale).toBeCloseTo(1.2);
-    expect(zoomResult.newTranslate).toEqual({ translateX: 120, translateY: 60 });
+    expect(zoomResult.newTranslate).toEqual({
+      translateX: 120,
+      translateY: 60,
+    });
   });
 
   test('已达最大值时只返回 newScale', () => {
@@ -338,7 +341,7 @@ describe('isImageExceedsViewport 图片是否超出视口', () => {
       height: 600,
       x: 0,
       y: 0,
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
+
       toJSON: () => {},
       ...rect,
     });
@@ -346,68 +349,178 @@ describe('isImageExceedsViewport 图片是否超出视口', () => {
   };
 
   test('图片在视口内', () => {
-    const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
-    const modalBox = createMockElement({ left: 100, right: 700, top: 50, bottom: 550 });
+    const container = createMockElement({
+      left: 0,
+      right: 800,
+      top: 0,
+      bottom: 600,
+    });
+    const modalBox = createMockElement({
+      left: 100,
+      right: 700,
+      top: 50,
+      bottom: 550,
+    });
     expect(isImageExceedsViewport(container, modalBox)).toBe(false);
   });
 
   test('图片超出左侧', () => {
-    const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
-    const modalBox = createMockElement({ left: -50, right: 700, top: 50, bottom: 550 });
+    const container = createMockElement({
+      left: 0,
+      right: 800,
+      top: 0,
+      bottom: 600,
+    });
+    const modalBox = createMockElement({
+      left: -50,
+      right: 700,
+      top: 50,
+      bottom: 550,
+    });
     expect(isImageExceedsViewport(container, modalBox)).toBe(true);
   });
 
   test('图片超出右侧', () => {
-    const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
-    const modalBox = createMockElement({ left: 100, right: 900, top: 50, bottom: 550 });
+    const container = createMockElement({
+      left: 0,
+      right: 800,
+      top: 0,
+      bottom: 600,
+    });
+    const modalBox = createMockElement({
+      left: 100,
+      right: 900,
+      top: 50,
+      bottom: 550,
+    });
     expect(isImageExceedsViewport(container, modalBox)).toBe(true);
   });
 
   test('图片超出顶部', () => {
-    const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
-    const modalBox = createMockElement({ left: 100, right: 700, top: -10, bottom: 550 });
+    const container = createMockElement({
+      left: 0,
+      right: 800,
+      top: 0,
+      bottom: 600,
+    });
+    const modalBox = createMockElement({
+      left: 100,
+      right: 700,
+      top: -10,
+      bottom: 550,
+    });
     expect(isImageExceedsViewport(container, modalBox)).toBe(true);
   });
 
   test('图片超出底部', () => {
-    const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
-    const modalBox = createMockElement({ left: 100, right: 700, top: 50, bottom: 650 });
+    const container = createMockElement({
+      left: 0,
+      right: 800,
+      top: 0,
+      bottom: 600,
+    });
+    const modalBox = createMockElement({
+      left: 100,
+      right: 700,
+      top: 50,
+      bottom: 650,
+    });
     expect(isImageExceedsViewport(container, modalBox)).toBe(true);
   });
 
   test('图片四边均超出', () => {
-    const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
-    const modalBox = createMockElement({ left: -100, right: 900, top: -100, bottom: 700 });
+    const container = createMockElement({
+      left: 0,
+      right: 800,
+      top: 0,
+      bottom: 600,
+    });
+    const modalBox = createMockElement({
+      left: -100,
+      right: 900,
+      top: -100,
+      bottom: 700,
+    });
     expect(isImageExceedsViewport(container, modalBox)).toBe(true);
   });
 
   test('图片与视口完全重合', () => {
-    const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
-    const modalBox = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
+    const container = createMockElement({
+      left: 0,
+      right: 800,
+      top: 0,
+      bottom: 600,
+    });
+    const modalBox = createMockElement({
+      left: 0,
+      right: 800,
+      top: 0,
+      bottom: 600,
+    });
     expect(isImageExceedsViewport(container, modalBox)).toBe(false);
   });
 
   test('图片左边与容器左边对齐（边界不超出）', () => {
-    const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
-    const modalBox = createMockElement({ left: 0, right: 700, top: 50, bottom: 550 });
+    const container = createMockElement({
+      left: 0,
+      right: 800,
+      top: 0,
+      bottom: 600,
+    });
+    const modalBox = createMockElement({
+      left: 0,
+      right: 700,
+      top: 50,
+      bottom: 550,
+    });
     expect(isImageExceedsViewport(container, modalBox)).toBe(false);
   });
 
   test('图片右边与容器右边对齐（边界不超出）', () => {
-    const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
-    const modalBox = createMockElement({ left: 100, right: 800, top: 50, bottom: 550 });
+    const container = createMockElement({
+      left: 0,
+      right: 800,
+      top: 0,
+      bottom: 600,
+    });
+    const modalBox = createMockElement({
+      left: 100,
+      right: 800,
+      top: 50,
+      bottom: 550,
+    });
     expect(isImageExceedsViewport(container, modalBox)).toBe(false);
   });
 
   test('图片上边与容器上边对齐（边界不超出）', () => {
-    const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
-    const modalBox = createMockElement({ left: 100, right: 700, top: 0, bottom: 550 });
+    const container = createMockElement({
+      left: 0,
+      right: 800,
+      top: 0,
+      bottom: 600,
+    });
+    const modalBox = createMockElement({
+      left: 100,
+      right: 700,
+      top: 0,
+      bottom: 550,
+    });
     expect(isImageExceedsViewport(container, modalBox)).toBe(false);
   });
 
   test('图片下边与容器下边对齐（边界不超出）', () => {
-    const container = createMockElement({ left: 0, right: 800, top: 0, bottom: 600 });
-    const modalBox = createMockElement({ left: 100, right: 700, top: 50, bottom: 600 });
+    const container = createMockElement({
+      left: 0,
+      right: 800,
+      top: 0,
+      bottom: 600,
+    });
+    const modalBox = createMockElement({
+      left: 100,
+      right: 700,
+      top: 50,
+      bottom: 600,
+    });
     expect(isImageExceedsViewport(container, modalBox)).toBe(false);
   });
 });

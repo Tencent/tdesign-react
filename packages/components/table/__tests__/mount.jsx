@@ -36,31 +36,19 @@ export function getNormalTableMount(TTable, props) {
       footData={getTableData(2)}
       columns={SIMPLE_COLUMNS}
       {...props}
-    ></TTable>
+    ></TTable>,
   );
 }
 
 export function getEmptyDataTableMount(TTable, props) {
-  return render(
-    <TTable
-      rowKey="index"
-      data={[]}
-      columns={SIMPLE_COLUMNS}
-      {...props}
-    ></TTable>
-  );
+  return render(<TTable rowKey="index" data={[]} columns={SIMPLE_COLUMNS} {...props}></TTable>);
 }
 
 /** 获取用于本地数据分页的表格数据（受控和非受控测试） */
 export function getDataLengthLargerThanPageSizeTableMount(TTable, props, rerender) {
   const renderFun = rerender || render;
   return renderFun(
-    <TTable
-      rowKey="index"
-      data={getTableData(props.pagination.total)}
-      columns={SIMPLE_COLUMNS}
-      {...props}
-    ></TTable>
+    <TTable rowKey="index" data={getTableData(props.pagination.total)} columns={SIMPLE_COLUMNS} {...props}></TTable>,
   );
 }
 
@@ -70,11 +58,6 @@ export function getDataLengthLargerThanPageSizeTableMount(TTable, props, rerende
 export function getNormalCountDataTableMount(TTable, props, rerender) {
   const renderFun = rerender || render;
   return renderFun(
-    <TTable
-      rowKey="index"
-      data={getTableData(props.pagination.pageSize)}
-      columns={SIMPLE_COLUMNS}
-      {...props}
-    ></TTable>
+    <TTable rowKey="index" data={getTableData(props.pagination.pageSize)} columns={SIMPLE_COLUMNS} {...props}></TTable>,
   );
 }

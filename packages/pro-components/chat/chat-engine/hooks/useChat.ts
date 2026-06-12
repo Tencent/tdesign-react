@@ -43,7 +43,7 @@ export const useChat = ({ defaultMessages: initialMessages, chatServiceConfig }:
   useEffect(() => {
     initChat();
     return () => msgSubscribeRef.current?.();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, []);
 
   // 监听 defaultMessages 变化

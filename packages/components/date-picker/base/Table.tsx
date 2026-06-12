@@ -16,7 +16,8 @@ import type { DateMultipleValue, DateRangeValue, DateValue, TdDatePickerProps } 
 dayjs.extend(isoWeek);
 
 export interface DatePickerTableProps
-  extends Pick<TdDatePickerProps, 'mode' | 'firstDayOfWeek' | 'format' | 'multiple' | 'cell'>,
+  extends
+    Pick<TdDatePickerProps, 'mode' | 'firstDayOfWeek' | 'format' | 'multiple' | 'cell'>,
     Pick<SinglePanelProps, 'onCellClick' | 'onCellMouseEnter' | 'onCellMouseLeave'>,
     Pick<PanelContentProps, 'value'> {
   data?: Array<any>;
@@ -60,7 +61,7 @@ const DatePickerTable = (props: DatePickerTableProps) => {
 
     const valueObj = parseToDayjs(value, format).locale(local.dayjsLocale);
     return { year: valueObj.year(), week: valueObj.week() };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [mode, value, format]);
 
   // 高亮周区间
@@ -130,8 +131,8 @@ const DatePickerTable = (props: DatePickerTableProps) => {
             >
               {row.map((col: any, j: number) => (
                 <DatePickerCell
-                  {...col}
                   key={j}
+                  {...col}
                   time={time}
                   cell={cell}
                   onClick={onCellClick}

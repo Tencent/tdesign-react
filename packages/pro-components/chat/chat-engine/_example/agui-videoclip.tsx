@@ -43,10 +43,26 @@ const { StepItem } = Steps;
 
 // 状态映射
 const statusMap: Record<string, any> = {
-  pending: { theme: 'default', status: 'default', icon: <TimeFilledIcon className="status-icon pending" /> },
-  running: { theme: 'primary', status: 'process', icon: <LoadingIcon className="status-icon running" /> },
-  completed: { theme: 'success', status: 'finish', icon: <CheckCircleFilledIcon className="status-icon success" /> },
-  failed: { theme: 'danger', status: 'error', icon: <CloseCircleFilledIcon className="status-icon failed" /> },
+  pending: {
+    theme: 'default',
+    status: 'default',
+    icon: <TimeFilledIcon className="status-icon pending" />,
+  },
+  running: {
+    theme: 'primary',
+    status: 'process',
+    icon: <LoadingIcon className="status-icon running" />,
+  },
+  completed: {
+    theme: 'success',
+    status: 'finish',
+    icon: <CheckCircleFilledIcon className="status-icon success" />,
+  },
+  failed: {
+    theme: 'danger',
+    status: 'error',
+    icon: <CloseCircleFilledIcon className="status-icon failed" />,
+  },
 };
 
 // 自定义Hook：状态跟踪
@@ -254,7 +270,7 @@ export const VideoClipSteps: React.FC<VideoClipStepsProps> = ({ boundStateKey })
   const [isManualSelection, setIsManualSelection] = useState<boolean>(false);
 
   // 可点击的状态
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line @eslint-react/exhaustive-deps
   const canClickState = ['completed', 'running'];
 
   // 提取当前组件关心的状态数据
@@ -495,6 +511,7 @@ export default function VideoClipAgentChatWithSubscription() {
 
   const { chatEngine, messages, status } = useChat({
     defaultMessages: [],
+    // @ts-ignore
     chatServiceConfig: createChatServiceConfig(),
   });
 
@@ -540,6 +557,7 @@ export default function VideoClipAgentChatWithSubscription() {
   const handleToolCallRespond = async <T extends object = any>(toolcall: ToolCall, response: T) => {
     try {
       // 构造新的请求参数
+      // @ts-ignore
       const tools = chatEngine.getToolcallByName(toolcall.toolCallName) || {};
       const newRequestParams: ChatRequestParams = {
         prompt: inputValue,
@@ -570,6 +588,7 @@ export default function VideoClipAgentChatWithSubscription() {
       // 使用统一的 ToolCallRenderer 处理所有工具调用
       return (
         <div slot={`${type}-${index}`} key={`toolcall-${index}`} className="content-card">
+          {/* @ts-ignore */}
           <ToolCallRenderer toolCall={data} onRespond={handleToolCallRespond} />
         </div>
       );
@@ -595,7 +614,7 @@ export default function VideoClipAgentChatWithSubscription() {
         isLast &&
         message.status !== 'stop' && (
           <div slot="actionbar">
-            <ChatLoading animation="dot"></ChatLoading>
+            <ChatLoading animation="dots"></ChatLoading>
           </div>
         )
       )}
@@ -628,6 +647,7 @@ export default function VideoClipAgentChatWithSubscription() {
     <div className="videoclip-agent-container">
       <div className="chat-content">
         {/* 聊天区域 */}
+        {/* @ts-ignore */}
         <ChatList ref={listRef} style={{ width: '100%', height: '400px' }}>
           {messages.map((message, idx) => (
             <ChatMessage key={message.id} {...messageProps[message.role]} message={message as any}>

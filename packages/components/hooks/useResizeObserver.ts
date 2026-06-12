@@ -33,6 +33,5 @@ export default function useResizeObserver(
         observerRef.current = null;
       }
     };
-    // eslint-disable-next-line
   }, [container, enabled]);
 }

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useRef, useState } from 'react';
 import { BrowseIcon, Filter3Icon, ImageAddIcon, Transform1Icon } from 'tdesign-icons-react';
 import { Button, Dropdown, Image, ImageViewer, Skeleton, Space } from 'tdesign-react';
@@ -94,7 +93,7 @@ const BasicImageViewer = ({ images }) => {
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
-              onClick={open}
+              onClick={() => open()}
             >
               <span>
                 <BrowseIcon size="16px" name={'browse'} /> 预览
@@ -127,11 +126,14 @@ const BasicImageViewer = ({ images }) => {
   );
 };
 
-export default function chatSample() {
+export default function ChatSample() {
   const chatRef = useRef<HTMLElement & TdChatbotApi>(null);
   const [ratio, setRatio] = useState(0);
   const [style, setStyle] = useState('');
-  const reqParamsRef = useRef<{ ratio: number; style: string; file?: string }>({ ratio: 0, style: '' });
+  const reqParamsRef = useRef<{ ratio: number; style: string; file?: string }>({
+    ratio: 0,
+    style: '',
+  });
   const [files, setFiles] = useState<TdAttachmentItem[]>([]);
   const [mockMessage, setMockMessage] = React.useState<ChatMessagesData[]>(mockData);
 

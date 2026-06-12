@@ -40,7 +40,10 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const dialogPosition = useRef(null);
   const portalRef = useRef(null);
 
-  const [state, setState] = useSetState<DialogProps>({ isPlugin: false, ...restProps });
+  const [state, setState] = useSetState<DialogProps>({
+    isPlugin: false,
+    ...restProps,
+  });
   const [local] = useLocaleReceiver('dialog');
 
   const {
@@ -104,7 +107,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
       activateDialog();
       applyTransform();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [dialogAnimationVisible]);
 
   useImperativeHandle(ref, () => ({
@@ -248,7 +251,9 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
                   [`${componentCls}--center`]: !isFullScreen && props.placement === 'center' && !props.top,
                 },
               )}
-              style={{ paddingTop: isFullScreen ? undefined : pxCompat(props.top) }}
+              style={{
+                paddingTop: isFullScreen ? undefined : pxCompat(props.top),
+              }}
               onClick={onMaskClick}
             >
               <CSSTransition

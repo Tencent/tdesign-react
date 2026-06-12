@@ -11,7 +11,7 @@ const useUpdateEffect = (callback: EffectCallback, dependency: DependencyList) =
     if (isFirstRender) return;
 
     return callback();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, dependency);
 };
 

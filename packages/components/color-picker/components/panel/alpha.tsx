@@ -5,7 +5,7 @@ import ColorSlider from './slider';
 
 import type { TdColorBaseProps } from '../../interface';
 
-const Alpha = (props: TdColorBaseProps) => {
+const Alpha = (props: TdColorBaseProps<number>) => {
   const { color, baseClassName, onChange, ...rest } = props;
 
   const handleChange = (v: number) => {

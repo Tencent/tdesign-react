@@ -75,6 +75,7 @@ const usePopper = (
       fn: ({ state }) => {
         const elements = Object.keys(state.elements);
 
+        // eslint-disable-next-line @eslint-react/dom-no-flush-sync
         flushSync(() => {
           setState({
             styles: fromEntries(elements.map((element) => [element, state.styles[element] || {}])),

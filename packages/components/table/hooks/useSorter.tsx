@@ -36,7 +36,6 @@ export default function useSorter(props: TdPrimaryTableProps) {
     for (let i = 0, len = columns.length; i < len; i++) {
       const col = columns[i];
       if (isFunction(col.sorter)) {
-        // eslint-disable-next-line no-param-reassign
         map[col.colKey] = col.sorter;
       }
       // 多级表头中的排序功能
@@ -150,7 +149,7 @@ export default function useSorter(props: TdPrimaryTableProps) {
     const tmpSortInfo = Array.isArray(a) ? a : [a];
     const tmpInnerSortInfo = Array.isArray(b) ? b : [b];
     if (tmpSortInfo.length && !b) return false;
-    // eslint-disable-next-line
+
     for (let i = 0, len = tmpSortInfo.length; i < len; i++) {
       const item = tmpSortInfo[i];
       const result = tmpInnerSortInfo.find((t) => t.sortBy === item.sortBy);

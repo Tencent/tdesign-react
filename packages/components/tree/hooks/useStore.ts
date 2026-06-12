@@ -50,7 +50,7 @@ export function useStore(
   useEffect(() => {
     if (!allowFoldNodeOnFilter) return;
     toggleFilterChanged(JSON.stringify(preFilter) !== JSON.stringify(filter));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [filter, allowFoldNodeOnFilter]);
 
   // 在 update 之后检查，如果之前 filter 有变更，则检查路径节点是否需要展开

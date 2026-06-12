@@ -16,8 +16,8 @@ export interface DatePickerHeaderProps extends Pick<TdDatePickerProps, 'mode'> {
   range?: SinglePanelProps['range'];
   internalYear: Array<number>;
   partial: 'start' | 'end';
-  onMonthChange?: Function;
-  onYearChange?: Function;
+  onMonthChange?: (month: number) => void;
+  onYearChange?: (year: number) => void;
   onJumperClick?: TdPaginationMiniProps['onChange'];
 }
 
@@ -70,7 +70,11 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
           const end = i + 9;
           // 仅加入可选的年代
           if (decadeHasAnyAllowed(end)) {
-            options.push({ label: `${i} - ${end}`, value: i + 9, disabled: false });
+            options.push({
+              label: `${i} - ${end}`,
+              value: i + 9,
+              disabled: false,
+            });
           }
         }
       } else {
@@ -78,14 +82,24 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
         yearHasAnyAllowed(year) && options.push({ label: `${year}`, value: year, disabled: false });
 
         for (let i = 1; i <= 10; i++) {
-          yearHasAnyAllowed(year + i) && options.push({ label: `${year + i}`, value: year + i, disabled: false });
-          yearHasAnyAllowed(year - i) && options.unshift({ label: `${year - i}`, value: year - i, disabled: false });
+          yearHasAnyAllowed(year + i) &&
+            options.push({
+              label: `${year + i}`,
+              value: year + i,
+              disabled: false,
+            });
+          yearHasAnyAllowed(year - i) &&
+            options.unshift({
+              label: `${year - i}`,
+              value: year - i,
+              disabled: false,
+            });
         }
       }
 
       return options;
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
     [mode],
   );
 
@@ -134,7 +148,12 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
         }
       } else {
         for (let i = year - extraYear - 1; i > year - extraYear - 50; i -= 10) {
-          decadeHasAnyAllowed(i) && options.unshift({ label: `${i - 9} - ${i}`, value: i, disabled: false });
+          decadeHasAnyAllowed(i) &&
+            options.unshift({
+              label: `${i - 9} - ${i}`,
+              value: i,
+              disabled: false,
+            });
         }
       }
     } else if (type === 'add') {
@@ -203,10 +222,8 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
 
   function handleUpdateScrollTop(content: HTMLElement) {
     if (scrollAnchorRef.current === 'top') {
-      // eslint-disable-next-line no-param-reassign
       content.scrollTop = 30 * 10;
     } else if (scrollAnchorRef.current === 'bottom') {
-      // eslint-disable-next-line no-param-reassign
       content.scrollTop = content.scrollHeight - 30 * 10;
     } else {
       const firstSelectedNode: HTMLDivElement = content?.querySelector(`.${classPrefix}-is-selected`);
@@ -221,7 +238,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
           content.offsetTop -
           (content.clientHeight - firstSelectedNode.clientHeight) +
           elementBottomHeight;
-        // eslint-disable-next-line no-param-reassign
+
         content.scrollTop = updateValue;
       }
     }
@@ -240,7 +257,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
             className={`${headerClassName}-controller-month`}
             value={month}
             options={monthOptions}
-            onChange={(val) => onMonthChange(val)}
+            onChange={(val) => onMonthChange(val as number)}
             popupProps={{
               attach: (triggerElement: HTMLElement) => triggerElement.parentNode as HTMLElement,
               overlayClassName: `${headerClassName}-controller-month-popup`,
@@ -251,7 +268,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
           className={`${headerClassName}-controller-year`}
           value={mode === 'year' ? nearestYear : year}
           options={yearOptions}
-          onChange={(val) => onYearChange(val)}
+          onChange={(val) => onYearChange(val as number)}
           onPopupVisibleChange={(visible) => {
             if (!visible) scrollAnchorRef.current = 'default';
           }}

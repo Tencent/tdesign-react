@@ -5,7 +5,8 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { fireEvent, vi, render, mockDelay, simulateImageEvent } from '@test/utils';
+import { fireEvent, mockDelay, render, simulateImageEvent, vi } from '@test/utils';
+
 import { Avatar, AvatarGroup } from '..';
 import { getAvatarGroupDefaultMount } from './mount';
 

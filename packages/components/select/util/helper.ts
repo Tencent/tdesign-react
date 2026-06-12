@@ -27,7 +27,7 @@ export const setValueToOptionFormOptionDom = (
 ) => {
   const { valueKey, labelKey } = getKeyMapping(keys);
   const { value, label, children } = dom.props;
-  // eslint-disable-next-line no-param-reassign
+
   valueToOption[value] = {
     ...dom.props,
     [valueKey]: value,
@@ -206,7 +206,7 @@ export const getSelectValueArr = (
   objVal?: SelectValue,
 ) => {
   const { valueKey } = getKeyMapping(keys);
-  // eslint-disable-next-line no-param-reassign
+
   values = Array.isArray(values) ? values : [];
 
   if (Array.isArray(values)) {

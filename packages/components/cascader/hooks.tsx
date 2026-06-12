@@ -111,7 +111,7 @@ export const useCascaderContext = (originalProps: TdCascaderProps) => {
       // eslint-disable-next-line @typescript-eslint/no-use-before-define
       handleTreeStore();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [options]);
 
   const handleTreeStore = () => {
@@ -177,7 +177,7 @@ export const useCascaderContext = (originalProps: TdCascaderProps) => {
     if (multiple && !reserveKeyword) {
       setInputVal('');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [innerValue, multiple, reserveKeyword]);
 
   useEffect(() => {
@@ -223,7 +223,7 @@ export const useCascaderContext = (originalProps: TdCascaderProps) => {
   useEffect(() => {
     const { inputVal, treeStore, setTreeNodes } = cascaderContext;
     treeNodesEffect(inputVal, treeStore, setTreeNodes, props.filter, isParentFilterable);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [inputVal, scopeVal, isParentFilterable]);
 
   const getCascaderItems = (

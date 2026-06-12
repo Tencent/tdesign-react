@@ -58,7 +58,7 @@ export default function useKeyboardControl({
     } else {
       changeHoverIndex(-1);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [innerPopupVisible, displayOptions]);
 
   useEffect(() => {

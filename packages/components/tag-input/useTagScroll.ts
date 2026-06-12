@@ -87,7 +87,7 @@ export default function useTagScroll(props: TdTagInputProps) {
   useEffect(() => {
     initScroll(tagInputRef?.current?.currentElement);
     return clearScroll;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, []);
 
   return {

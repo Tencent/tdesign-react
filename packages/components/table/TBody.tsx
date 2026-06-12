@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import { camelCase, get, pick } from 'lodash-es';
@@ -140,7 +139,11 @@ export default function TBody(props: TableBodyProps) {
       <tr key={type} className={classNames(classes)} {...rowProps}>
         <td colSpan={columns.length}>
           <div
-            className={classNames({ [tableFullRowClasses.innerFullRow]: isFixedToLeft }) || undefined}
+            className={
+              classNames({
+                [tableFullRowClasses.innerFullRow]: isFixedToLeft,
+              }) || undefined
+            }
             style={isFixedToLeft ? { width: `${props.tableWidth}px` } : {}}
           >
             <div className={tableFullRowClasses.innerFullElement}>{fullRowNode}</div>

@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Navigate, Route, useLocation, useNavigate, Outlet } from 'react-router-dom';
+import { lazy, Suspense, useEffect, useRef } from 'react';
+import { BrowserRouter, Navigate, Outlet, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Loading from '@tdesign/components/loading';
 
 import * as siteConfig from '../site.config';
@@ -60,7 +60,7 @@ function Components() {
 
     if (isDev) return;
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, []);
 
   useEffect(() => {

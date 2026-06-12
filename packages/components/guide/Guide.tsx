@@ -195,13 +195,10 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
       setActive(false);
       destroyGuide();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [innerCurrent]);
 
   useIsomorphicLayoutEffect(() => {
     initGuide();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(
@@ -212,7 +209,7 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
         destroyGuide();
       };
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
     [],
   );
 
@@ -398,7 +395,9 @@ const Guide: React.FC<GuideProps> = (originalProps) => {
     const style = { zIndex };
     const wrapperClasses = [
       `${prefixCls}__wrapper`,
-      { [`${prefixCls}__wrapper--center`]: currentStepInfo.placement === 'center' },
+      {
+        [`${prefixCls}__wrapper--center`]: currentStepInfo.placement === 'center',
+      },
     ];
     const dialogClasses = [
       `${prefixCls}__reference`,

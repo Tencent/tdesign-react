@@ -13,7 +13,7 @@ const OPTIONS = [
 function Panel() {
   return (
     <ul className="t-select-input__panel">
-      {OPTIONS.map(item => (
+      {OPTIONS.map((item) => (
         <li key={item.value}>
           <img src="https://tdesign.gtimg.com/demo/demo-image-1.png" />
           {item.label}
@@ -33,15 +33,5 @@ const value = [
 
 // single select
 export function getSelectInputMultipleMount(SelectInput, props, events) {
-  return render(
-    <SelectInput
-      value={value}
-      multiple={true}
-      panel={(
-        <Panel />
-      )}
-      {...props}
-      {...events}
-    ></SelectInput>
-  );
+  return render(<SelectInput value={value} multiple={true} panel={<Panel />} {...props} {...events}></SelectInput>);
 }

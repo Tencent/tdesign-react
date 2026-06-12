@@ -25,8 +25,8 @@ export interface DatePickerCellProps {
   now: boolean;
   firstDayOfMonth: boolean;
   lastDayOfMonth: boolean;
-  onClick: Function;
-  onMouseEnter: Function;
+  onClick: (value: DateValue, context: { e: React.MouseEvent }) => void;
+  onMouseEnter: (value: DateValue) => void;
   cell?: TNode<{ value: DateValue }>;
 }
 

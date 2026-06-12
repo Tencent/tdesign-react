@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from '@test/utils';
+
 import { Avatar } from '..';
 
 // Avatar 数量变化会影响测试用例结果
@@ -11,7 +12,7 @@ export function getAvatarGroupDefaultMount(AvatarGroup, props, events) {
       <Avatar icon={() => <i class="custom-node"></i>} />
       <Avatar size="small">TD</Avatar>
       <Avatar size="large">ME</Avatar>
-    </AvatarGroup>
+    </AvatarGroup>,
   );
 }
 

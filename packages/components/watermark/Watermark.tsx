@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import injectStyle from '@tdesign/common-js/utils/injectStyle';

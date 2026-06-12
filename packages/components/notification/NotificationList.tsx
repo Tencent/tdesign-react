@@ -34,7 +34,7 @@ interface NotificationListProps {
   attach: HTMLElement;
   zIndex: number;
   placement: NotificationPlacementList;
-  renderCallback: Function;
+  renderCallback: (instance: NotificationListInstance) => void;
 }
 
 let seed = 0;
@@ -74,7 +74,7 @@ const NotificationList = forwardRef<NotificationListInstance, NotificationListPr
       marginBottom: 16,
       position: 'relative',
     };
-    const ref = React.createRef<NotificationInstance>();
+    const ref: React.RefObject<NotificationInstance> = { current: null };
 
     setList((oldList) => [
       ...oldList,
@@ -113,9 +113,9 @@ const NotificationList = forwardRef<NotificationListInstance, NotificationListPr
           const { onDurationEnd = noop, onCloseBtnClick = noop } = props;
           return (
             <NotificationComponent
+              key={props.key}
               ref={props.ref}
               {...props}
-              key={props.key}
               onDurationEnd={() => {
                 remove(props.key);
                 onDurationEnd();

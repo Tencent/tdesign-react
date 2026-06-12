@@ -207,13 +207,26 @@ export default function EditableRowTable() {
               { label: '宣传物料制作费用', value: '宣传物料制作费用' },
               { label: 'algolia 服务报销', value: 'algolia 服务报销' },
               // 如果状态选择了 已过期，则 Letters 隐藏 G 和 H
-              { label: '相关周边制作费', value: '相关周边制作费', show: () => editedRow.status !== 1 },
-              { label: '激励奖品快递费', value: '激励奖品快递费', show: () => editedRow.status !== 1 },
+              {
+                label: '相关周边制作费',
+                value: '相关周边制作费',
+                show: () => editedRow.status !== 1,
+              },
+              {
+                label: '激励奖品快递费',
+                value: '激励奖品快递费',
+                show: () => editedRow.status !== 1,
+              },
             ].filter((t) => (t.show === undefined ? true : t.show())),
           }),
           showEditIcon: false,
           // 校验规则，此处同 Form 表单
-          rules: [{ validator: (val) => val && val.length < 3, message: '数量不能超过 2 个' }],
+          rules: [
+            {
+              validator: (val) => val && val.length < 3,
+              message: '数量不能超过 2 个',
+            },
+          ],
         },
       },
       {
@@ -261,7 +274,7 @@ export default function EditableRowTable() {
         },
       },
     ],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
     [data, editableRowKeys],
   );
 

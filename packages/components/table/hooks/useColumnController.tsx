@@ -61,7 +61,7 @@ export default function useColumnController(
   useEffect(() => {
     columnCheckboxKeys.current = [...(displayColumns || props.defaultDisplayColumns || keys)];
     dialogInstance.current?.update({ body: getDialogContent() });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [displayColumns]);
 
   function getCheckboxOptions(columns: PrimaryTableCol[], arr: CheckboxOptionObj[] = []) {
@@ -105,7 +105,11 @@ export default function useColumnController(
         .filter((t) => t.disabled)
         .map((t) => t.value);
       columnCheckboxKeys.current = disabledColKeys;
-      props.onColumnChange?.({ type: 'uncheck', columns: disabledColKeys, e: ctx.e });
+      props.onColumnChange?.({
+        type: 'uncheck',
+        columns: disabledColKeys,
+        e: ctx.e,
+      });
     }
     dialogInstance.current.update({ body: getDialogContent() });
   };
@@ -171,7 +175,9 @@ export default function useColumnController(
         if (columnControllerVisible === undefined) {
           dialogInstance.current.hide();
         } else {
-          props.onColumnControllerVisibleChange?.(false, { trigger: 'confirm' });
+          props.onColumnControllerVisibleChange?.(false, {
+            trigger: 'confirm',
+          });
         }
       },
       ...(columnController?.dialogProps || {}),
@@ -188,7 +194,7 @@ export default function useColumnController(
         columnControllerVisible && handleToggleColumnController();
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
     [columnControllerVisible, dialogInstance],
   );
 

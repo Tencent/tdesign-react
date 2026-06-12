@@ -80,7 +80,6 @@ function useDragSort(props: TdEnhancedTableProps, options: DragSortOptions) {
 
   const lockScrollContainer = () => {
     // 虚拟滚动场景下锁定容器滚动，避免 DOM 索引计算异常
-    // eslint-disable-next-line no-underscore-dangle
     const isVirtual = tData.current?.some((d) => d.__VIRTUAL_SCROLL_INDEX !== undefined);
     if (!isVirtual) return;
     const el = primaryTableRef.current?.tableContentElement as HTMLElement | undefined;
@@ -119,7 +118,7 @@ function useDragSort(props: TdEnhancedTableProps, options: DragSortOptions) {
       const cssText = Array.from(computed)
         .map((name) => `${name}:${computed.getPropertyValue(name)};`)
         .join('');
-      // eslint-disable-next-line no-param-reassign
+
       dest.style.cssText = cssText;
     };
 
@@ -215,11 +214,10 @@ function useDragSort(props: TdEnhancedTableProps, options: DragSortOptions) {
         updateLastRowList();
 
         const dragRowId = evt.item.getAttribute(DATA_ID_ATTR);
-        // eslint-disable-next-line no-param-reassign
+
         evt.to.style.overflow = 'hidden';
         const childRows = getDescendantRows(dragRowId);
         childRows.forEach((row) => {
-          // eslint-disable-next-line no-param-reassign
           row.style.display = 'none';
         });
       },
@@ -256,7 +254,6 @@ function useDragSort(props: TdEnhancedTableProps, options: DragSortOptions) {
           // 恢复隐藏的展开行
           const childRows = getDescendantRows(dragId);
           childRows.forEach((row) => {
-            // eslint-disable-next-line no-param-reassign
             row.style.display = '';
           });
 
@@ -322,16 +319,16 @@ function useDragSort(props: TdEnhancedTableProps, options: DragSortOptions) {
     if (!dragContainer) return;
     try {
       if (isRowDraggable) {
-        dragRowInstance.current = new Sortable(dragContainer, { ...baseOptions });
+        dragRowInstance.current = new Sortable(dragContainer, {
+          ...baseOptions,
+        });
       } else if (isRowHandlerDraggable) {
         dragRowInstance.current = new Sortable(dragContainer, {
           ...baseOptions,
           handle: `.${tableDraggableClasses.handle}`,
         });
       }
-    } catch (error) {
-      //
-    }
+    } catch (_) {}
     updateLastRowList();
   };
 
@@ -424,7 +421,7 @@ function useDragSort(props: TdEnhancedTableProps, options: DragSortOptions) {
     primaryTableRef.current.onAffixHeaderMount((el: HTMLDivElement) => {
       registerColDragEvent(el);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [columns, dragSort, innerPagination]);
 
   return {

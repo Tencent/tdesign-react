@@ -7,9 +7,9 @@ import {
 import useMouseEvent from '../../../hooks/useMouseEvent';
 
 import type { MouseCoordinate } from '../../../hooks/useMouseEvent';
-import type { TdColorBaseProps } from '../../interface';
+import type { TdColorBaseProps, TdColorSaturationData } from '../../interface';
 
-const Saturation = (props: TdColorBaseProps) => {
+const Saturation = (props: TdColorBaseProps<TdColorSaturationData>) => {
   const { color, disabled, onChange, baseClassName } = props;
   const panelRef = useRef<HTMLDivElement>(null);
   const panelRectRef = useRef({

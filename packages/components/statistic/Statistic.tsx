@@ -45,7 +45,9 @@ const Statistic = forwardRef<StatisticRef, StatisticProps>((props, ref) => {
     value,
   } = useDefaultProps<StatisticProps>(props, statisticDefaultProps);
   const { classPrefix } = useConfig();
-  const { ArrowTriangleUpFilledIcon } = useGlobalIcon({ ArrowTriangleUpFilledIcon: TDArrowTriangleUpFilledIcon });
+  const { ArrowTriangleUpFilledIcon } = useGlobalIcon({
+    ArrowTriangleUpFilledIcon: TDArrowTriangleUpFilledIcon,
+  });
   const { ArrowTriangleDownFilledIcon } = useGlobalIcon({
     ArrowTriangleDownFilledIcon: TDArrowTriangleDownFilledIcon,
   });
@@ -96,7 +98,7 @@ const Statistic = forwardRef<StatisticRef, StatisticProps>((props, ref) => {
     () => ({
       color: COLOR_MAP[color as keyof typeof COLOR_MAP] || color,
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [color],
   );
 
@@ -114,13 +116,13 @@ const Statistic = forwardRef<StatisticRef, StatisticProps>((props, ref) => {
       }
     };
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [value]);
 
   useEffect(() => {
     animationStart && animation && !tween.current && start();
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, [animationStart]);
 
   useImperativeHandle(ref, () => ({

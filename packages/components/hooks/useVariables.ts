@@ -30,10 +30,10 @@ function useVariables<T extends Record<string, string>>(
   variables: T,
   targetElement?: HTMLElement,
 ): Record<keyof T, string> {
+  // eslint-disable-next-line @eslint-react/use-state
   const [, forceUpdate] = useState<Record<string, never>>({});
 
   if (canUseDocument && !targetElement) {
-    // eslint-disable-next-line no-param-reassign
     targetElement = document?.documentElement;
   }
 

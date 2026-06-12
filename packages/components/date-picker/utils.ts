@@ -9,7 +9,6 @@ export function dateCorrection(partialIndex: number, preYear: Array<number>, pre
     if (nextYear[1] <= nextYear[0]) {
       if (onlyYearSelect) nextYear[1] = nextYear[0] + 1;
       else {
-        // eslint-disable-next-line prefer-destructuring
         nextYear[1] = nextYear[0];
         if (nextMonth[1] <= nextMonth[0]) {
           nextMonth[1] = nextMonth[0] + 1;
@@ -29,7 +28,6 @@ export function dateCorrection(partialIndex: number, preYear: Array<number>, pre
       // 年/季度/月份场景下，头部只有年选择器，直接 - 1
       if (onlyYearSelect) nextYear[0] = nextYear[1] - 1;
       else {
-        // eslint-disable-next-line prefer-destructuring
         nextYear[0] = nextYear[1];
         if (nextMonth[0] >= nextMonth[1]) {
           nextMonth[0] = nextMonth[1] - 1;

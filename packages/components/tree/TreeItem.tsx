@@ -207,6 +207,7 @@ const TreeItem = forwardRef(
     useRipple(labelDom);
 
     // setData需要强制刷新组件来更新数据
+    // eslint-disable-next-line @eslint-react/use-state
     const [, updateRender] = useState({});
 
     const renderLabel = () => {
@@ -311,7 +312,7 @@ const TreeItem = forwardRef(
       try {
         // ie throw error firefox-need-it
         evt.dataTransfer?.setData('text/plain', '');
-      } catch (e) {
+      } catch (_) {
         // empty
       }
     };

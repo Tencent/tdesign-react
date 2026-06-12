@@ -1,5 +1,5 @@
 export interface IAnimationTransitionParams {
-  classPrefix: String;
+  classPrefix: string;
   expandAnimation?: boolean;
   fadeAnimation?: boolean;
 }

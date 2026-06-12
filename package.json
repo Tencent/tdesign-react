@@ -50,7 +50,7 @@
   "lint-staged": {
     "packages/**/*.{ts,tsx}": [
       "prettier --write",
-      "pnpm run lint:fix"
+      "eslint --ext .ts,.tsx --ignore-pattern ./packages/components/__tests__ --fix"
     ]
   },
   "keywords": [
@@ -73,6 +73,7 @@
     "@babel/preset-typescript": "^7.16.5",
     "@commitlint/cli": "^16.1.0",
     "@commitlint/config-conventional": "^17.1.0",
+    "@eslint-react/eslint-plugin": "^5.8.18",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^21.0.2",
@@ -88,8 +89,8 @@
     "@types/react-dom": "^18.2.0",
     "@types/rimraf": "^4.0.5",
     "@types/testing-library__jest-dom": "5.14.2",
-    "@typescript-eslint/eslint-plugin": "^5.13.0",
-    "@typescript-eslint/parser": "^5.13.0",
+    "@typescript-eslint/eslint-plugin": "^8.61.0",
+    "@typescript-eslint/parser": "^8.61.0",
     "@vitejs/plugin-react": "^5.1.1",
     "@vitest/coverage-istanbul": "^2.1.1",
     "@vitest/coverage-v8": "^2.1.1",
@@ -101,11 +102,8 @@
     "cz-conventional-changelog": "^3.3.0",
     "dom-parser": "^0.1.6",
     "esbuild": "^0.14.9",
-    "eslint": "^7.32.0",
+    "eslint": "^10.4.1",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-react": "~7.28.0",
-    "eslint-plugin-react-hooks": "^4.0.0",
     "eslint-plugin-simple-import-sort": "^13.0.0",
     "fs-extra": "^11.3.0",
     "glob": "^9.0.3",

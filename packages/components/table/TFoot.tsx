@@ -25,7 +25,7 @@ export interface TFootProps {
   thWidthList?: { [colKey: string]: number };
   footerSummary?: TdBaseTableProps['footerSummary'];
   rowspanAndColspanInFooter: TdBaseTableProps['rowspanAndColspanInFooter'];
-  virtualScroll?: Boolean;
+  virtualScroll?: boolean;
 }
 
 export default function TFoot(props: TFootProps) {
@@ -51,7 +51,11 @@ export default function TFoot(props: TFootProps) {
   if (!columns) return null;
 
   const footerDomList = footData?.map((row, rowIndex) => {
-    const trAttributes = formatRowAttributes(props.rowAttributes, { row, rowIndex, type: 'foot' });
+    const trAttributes = formatRowAttributes(props.rowAttributes, {
+      row,
+      rowIndex,
+      type: 'foot',
+    });
     // 自定义行类名
     const customClasses = formatRowClassNames(
       props.rowClassName,

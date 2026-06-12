@@ -10,7 +10,6 @@ import type { InternalFormInstance } from './interface';
 export default function useWatch(name: NamePath, form: InternalFormInstance) {
   const [value, setValue] = useState<any>();
 
-  // eslint-disable-next-line no-underscore-dangle
   const isValidForm = form && form._init;
 
   useEffect(() => {
@@ -31,7 +30,7 @@ export default function useWatch(name: NamePath, form: InternalFormInstance) {
     setValue(initialValue);
 
     return cancelRegister;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, []);
 
   return value;

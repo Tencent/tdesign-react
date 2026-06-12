@@ -53,7 +53,7 @@ const MessageComponent = forwardRef<HTMLDivElement, MessageComponentProps>((prop
     if (ref && 'current' in ref && ref.current && placement) {
       fadeIn(ref.current, placement);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line @eslint-react/exhaustive-deps
   }, []); // Only run on mount
 
   useEffect(() => {
