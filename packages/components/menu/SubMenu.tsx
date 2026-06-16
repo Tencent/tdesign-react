@@ -212,7 +212,7 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
 
   const pupContent = (
     <ul
-      className={classNames(`${classPrefix}-menu__popup-wrapper ${classPrefix}-menu__popup-overflow`, {
+      className={classNames(`${classPrefix}-menu__popup-wrapper`, `${classPrefix}-menu__popup-overflow`, {
         [`${classPrefix}-is-opened`]: isOpen,
       })}
     >
