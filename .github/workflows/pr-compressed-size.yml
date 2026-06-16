@@ -9,11 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.head_ref, 'release/')
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
         with:
           submodules: recursive
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
 
       - uses: actions/setup-node@v4
         with:
