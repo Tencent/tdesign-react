@@ -17,8 +17,7 @@ import type { OptionsListProps } from './OptionList';
 import type { AutoCompleteOption, TdAutoCompleteProps } from './type';
 
 export interface AutoCompleteProps<T extends AutoCompleteOption = AutoCompleteOption>
-  extends TdAutoCompleteProps<T>,
-    StyledProps {}
+  extends TdAutoCompleteProps<T>, StyledProps {}
 
 export interface AutoCompleteRef {
   inputRef: InputRef;

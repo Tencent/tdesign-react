@@ -31,10 +31,10 @@ export default function useEllipsis(ellipsis: boolean | TypographyEllipsis) {
               typeof ellipsis?.suffix === 'function'
                 ? ellipsis?.suffix({ expanded })
                 : expanded
-                ? collapseText
-                : ellipsis?.expandable
-                ? `${expandText}`
-                : '...',
+                  ? collapseText
+                  : ellipsis?.expandable
+                    ? `${expandText}`
+                    : '...',
             collapsible: ellipsis?.collapsible ?? false,
           };
   }

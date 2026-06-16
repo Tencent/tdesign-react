@@ -37,8 +37,7 @@ export type SimpleTableProps<T extends TableRowData = TableRowData> = BaseTableP
 export interface PrimaryTableProps<T extends TableRowData = TableRowData> extends TdPrimaryTableProps<T>, StyledProps {}
 
 export interface EnhancedTableProps<T extends TableRowData = TableRowData>
-  extends TdEnhancedTableProps<T>,
-    StyledProps {}
+  extends TdEnhancedTableProps<T>, StyledProps {}
 export type TableProps<T extends TableRowData = TableRowData> = PrimaryTableProps<T>;
 
 export interface BaseTableRef {
