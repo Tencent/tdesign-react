@@ -69,7 +69,8 @@ export default function useTrigger({
   };
 
   const handleMouseLeave = (e: MouseEvent | React.MouseEvent) => {
-    if (trigger !== 'hover' || hasPopupMouseDown.current) return;
+    if (trigger !== 'hover' || ('button' in e && e.button !== 0)) return;
+
     const relatedTarget = e.relatedTarget as HTMLElement;
     const closestPopup = relatedTarget?.closest?.(`.${classPrefix}-popup`);
 
@@ -81,14 +82,54 @@ export default function useTrigger({
     });
   };
 
-  const handlePopupMouseDown = () => {
-    hasPopupMouseDown.current = true;
+  const resetPopupMouseDown = (e?: MouseEvent | TouchEvent) => {
+    hasPopupMouseDown.current = false;
+    if (!e) return;
+    // 取真实鼠标坐标
+    // 不用 e.target，即便鼠标已经离开 Popup，target 也仍然是 Popup 内元素
+    let clientX: number | undefined;
+    let clientY: number | undefined;
+    if ('clientX' in e) {
+      ({ clientX, clientY } = e);
+    } else {
+      const touch = e.changedTouches && e.changedTouches[0];
+      if (touch) ({ clientX, clientY } = touch);
+    }
+
+    const triggerEl = getTriggerElement();
+    const isInside = (el: Element | null | undefined) => {
+      if (!el || clientX == null || clientY == null) return false;
+      const rect = el.getBoundingClientRect();
+      return clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom;
+    };
+    const insidePopup = isInside(popupElement);
+    const insideTrigger = isInside(triggerEl);
+
+    // 鼠标抬起时仍在 Popup 或 trigger 内，保持打开
+    if (insidePopup || insideTrigger) return;
+
+    // 鼠标抬起时已经在外部，补偿一次关闭
+    callFuncWithDelay({
+      delay: exitDelay,
+      callback: () =>
+        onVisibleChange(false, {
+          e,
+          trigger: trigger === 'hover' ? 'trigger-element-hover' : 'document',
+        }),
+    });
   };
 
-  const handlePopupMouseUp = () => {
-    requestAnimationFrame(() => {
-      hasPopupMouseDown.current = false;
-    });
+  const handlePopupMouseDown = () => {
+    hasPopupMouseDown.current = true;
+    // 监听全局事件，避免用户在 Popup 内按下鼠标后拖拽到外部释放
+    // 导致 Popup 收不到 mouseup，标记无法重置
+    const handleDocumentEnd = (e: MouseEvent | TouchEvent) => {
+      off(document, 'mouseup', handleDocumentEnd);
+      off(document, 'touchend', handleDocumentEnd);
+      resetPopupMouseDown(e);
+    };
+    on(document, 'mouseup', handleDocumentEnd);
+    on(document, 'touchend', handleDocumentEnd);
   };
 
   useEffect(() => clearTimeout(visibleTimer.current), []);
@@ -251,9 +292,7 @@ export default function useTrigger({
       onMouseEnter: handleMouseEnter,
       onMouseLeave: handleMouseLeave,
       onMouseDown: handlePopupMouseDown,
-      onMouseUp: handlePopupMouseUp,
       onTouchStart: handlePopupMouseDown,
-      onTouchEnd: handlePopupMouseUp,
     };
   }
 
