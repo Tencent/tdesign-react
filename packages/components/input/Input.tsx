@@ -166,7 +166,7 @@ const Input = forwardRefWithStatics(
       ) : null;
 
     const updateInputWidth = () => {
-      if (!autoWidth || !inputRef.current) return;
+      if (!autoWidth || !inputRef.current || !inputPreRef.current) return;
       const { offsetWidth } = inputPreRef.current;
       const { width } = inputPreRef.current.getBoundingClientRect();
       // 异步渲染场景下 getBoundingClientRect 宽度为 0，需要使用 offsetWidth
