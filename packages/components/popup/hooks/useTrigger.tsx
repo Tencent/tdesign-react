@@ -69,7 +69,11 @@ export default function useTrigger({
   };
 
   const handleMouseLeave = (e: MouseEvent | React.MouseEvent) => {
-    if (trigger !== 'hover' || ('button' in e && e.button !== 0)) return;
+    if (trigger !== 'hover') return;
+
+    // 鼠标按键仍按下时（例如在 Popup 内按住左键拖拽），暂不关闭，
+    const { buttons } = e as MouseEvent;
+    if (typeof buttons === 'number' && buttons !== 0) return;
 
     const relatedTarget = e.relatedTarget as HTMLElement;
     const closestPopup = relatedTarget?.closest?.(`.${classPrefix}-popup`);
@@ -105,8 +109,11 @@ export default function useTrigger({
     const insidePopup = isInside(popupElement);
     const insideTrigger = isInside(triggerEl);
 
-    // 鼠标抬起时仍在 Popup 或 trigger 内，保持打开
-    if (insidePopup || insideTrigger) return;
+    const target = e?.target as Element | null;
+    const insideAnyPopup = target?.closest?.(`.${classPrefix}-popup`);
+
+    // 鼠标抬起时仍在 Popup、trigger 或任意子 Popup 内，保持打开
+    if (insidePopup || insideTrigger || insideAnyPopup) return;
 
     // 鼠标抬起时已经在外部，补偿一次关闭
     callFuncWithDelay({
