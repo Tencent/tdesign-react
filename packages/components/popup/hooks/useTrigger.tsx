@@ -71,7 +71,7 @@ export default function useTrigger({
   const handleMouseLeave = (e: MouseEvent | React.MouseEvent) => {
     if (trigger !== 'hover') return;
 
-    // 鼠标按键仍按下时（例如在 Popup 内按住左键拖拽），暂不关闭，
+    // 鼠标处于按下状态时（例如在 Popup 内按住左键拖拽），暂不关闭
     const { buttons } = e as MouseEvent;
     if (typeof buttons === 'number' && buttons !== 0) return;
 
@@ -89,31 +89,12 @@ export default function useTrigger({
   const resetPopupMouseDown = (e?: MouseEvent | TouchEvent) => {
     hasPopupMouseDown.current = false;
     if (!e) return;
-    // 取真实鼠标坐标
-    // 不用 e.target，即便鼠标已经离开 Popup，target 也仍然是 Popup 内元素
-    let clientX: number | undefined;
-    let clientY: number | undefined;
-    if ('clientX' in e) {
-      ({ clientX, clientY } = e);
-    } else {
-      const touch = e.changedTouches && e.changedTouches[0];
-      if (touch) ({ clientX, clientY } = touch);
-    }
 
-    const triggerEl = getTriggerElement();
-    const isInside = (el: Element | null | undefined) => {
-      if (!el || clientX == null || clientY == null) return false;
-      const rect = el.getBoundingClientRect();
-      return clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom;
-    };
-    const insidePopup = isInside(popupElement);
-    const insideTrigger = isInside(triggerEl);
-
-    const target = e?.target as Element | null;
+    const target = e.target as Element | null;
     const insideAnyPopup = target?.closest?.(`.${classPrefix}-popup`);
 
     // 鼠标抬起时仍在 Popup、trigger 或任意子 Popup 内，保持打开
-    if (insidePopup || insideTrigger || insideAnyPopup) return;
+    if (insideAnyPopup) return;
 
     // 鼠标抬起时已经在外部，补偿一次关闭
     callFuncWithDelay({
