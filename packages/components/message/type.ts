@@ -4,8 +4,8 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TNode, AttachNode } from '../common';
-import { CSSProperties, MouseEvent } from 'react';
+import { TNode, AttachNode } from "../common";
+import { CSSProperties, MouseEvent } from "react";
 
 export interface TdMessageProps {
   /**
@@ -25,7 +25,7 @@ export interface TdMessageProps {
    * 用于自定义消息前面的图标，优先级大于 theme 设定的图标。值为 false 则不显示图标，值为 true 显示 theme 设定图标
    * @default true
    */
-  icon?: TNode;
+  icon?: boolean | TNode<{ theme: MessageThemeList }>;
   /**
    * 消息组件风格
    * @default info
@@ -34,11 +34,16 @@ export interface TdMessageProps {
   /**
    * 关闭消息时触发
    */
-  onClose?: (context: { trigger: 'close-click' | 'duration-end'; e?: MouseEvent<HTMLDivElement> }) => void;
+  onClose?: (context: {
+    trigger: "close-click" | "duration-end";
+    e?: MouseEvent<HTMLDivElement>;
+  }) => void;
   /**
    * 当关闭按钮存在时，用户点击关闭按钮触发
    */
-  onCloseBtnClick?: (context: { e: MouseEvent<SVGElement | HTMLElement> }) => void;
+  onCloseBtnClick?: (context: {
+    e: MouseEvent<SVGElement | HTMLElement>;
+  }) => void;
   /**
    * 计时结束后触发
    */
@@ -76,18 +81,24 @@ export interface MessageOptions extends TdMessageProps {
   zIndex?: number;
 }
 
-export type MessageThemeList = 'info' | 'success' | 'warning' | 'error' | 'question' | 'loading';
+export type MessageThemeList =
+  | "info"
+  | "success"
+  | "warning"
+  | "error"
+  | "question"
+  | "loading";
 
 export type MessagePlacementList =
-  | 'center'
-  | 'top'
-  | 'left'
-  | 'right'
-  | 'bottom'
-  | 'top-left'
-  | 'top-right'
-  | 'bottom-left'
-  | 'bottom-right';
+  | "center"
+  | "top"
+  | "left"
+  | "right"
+  | "bottom"
+  | "top-left"
+  | "top-right"
+  | "bottom-left"
+  | "bottom-right";
 
 export interface MessageInstance {
   close: () => void;
@@ -96,39 +107,39 @@ export interface MessageInstance {
 export type MessageMethod = (
   theme: MessageThemeList,
   message: string | TNode | MessageOptions,
-  duration?: number,
+  duration?: number
 ) => Promise<MessageInstance>;
 
-export type MessageInfoOptions = Omit<MessageOptions, 'theme'>;
+export type MessageInfoOptions = Omit<MessageOptions, "theme">;
 
 export type MessageInfoMethod = (
   message: string | TNode | MessageInfoOptions,
-  duration?: number,
+  duration?: number
 ) => Promise<MessageInstance>;
 
 export type MessageErrorMethod = (
   message: string | TNode | MessageInfoOptions,
-  duration?: number,
+  duration?: number
 ) => Promise<MessageInstance>;
 
 export type MessageWarningMethod = (
   message: string | TNode | MessageInfoOptions,
-  duration?: number,
+  duration?: number
 ) => Promise<MessageInstance>;
 
 export type MessageSuccessMethod = (
   message: string | TNode | MessageInfoOptions,
-  duration?: number,
+  duration?: number
 ) => Promise<MessageInstance>;
 
 export type MessageLoadingMethod = (
   message: string | TNode | MessageInfoOptions,
-  duration?: number,
+  duration?: number
 ) => Promise<MessageInstance>;
 
 export type MessageQuestionMethod = (
   message: string | TNode | MessageInfoOptions,
-  duration?: number,
+  duration?: number
 ) => Promise<MessageInstance>;
 
 export type MessageCloseAllMethod = () => void;
