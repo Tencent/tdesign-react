@@ -5,43 +5,39 @@
 
 // ==================== 核心组件 ====================
 // 主要渲染器组件
-export { type JsonRenderActivityRendererProps, JsonRenderActivityRenderer } from './renderer/JsonRenderActivityRenderer';
+export {
+  JsonRenderActivityRenderer,
+  type JsonRenderActivityRendererProps,
+} from './renderer/JsonRenderActivityRenderer';
 
 // A2UI 渲染器组件
-export { type A2UIJsonRenderActivityRendererProps, A2UIJsonRenderActivityRenderer } from './renderer/A2UIJsonRenderActivityRenderer';
+export {
+  A2UIJsonRenderActivityRenderer,
+  type A2UIJsonRenderActivityRendererProps,
+} from './renderer/A2UIJsonRenderActivityRenderer';
 
 // ==================== 上下文 (Contexts) ====================
 export * from './contexts';
 
 // ==================== 注册表 (Registry) ====================
+export type { A2UIBindingConfig, CreateCustomRegistryOptions, JsonRenderActivityConfigOptions } from './registry';
 export {
-  tdesignRegistry,
-  createCustomRegistry,
-  withStableProps,
-  a2uiRegistry,
-  createA2UIRegistry,
-  A2UITextField,
   A2UIButton,
+  a2uiRegistry,
+  A2UITextField,
+  createA2UIRegistry,
+  createCustomRegistry,
+  tdesignRegistry,
   withA2UIBinding,
-} from './registry';
-export type {
-  CreateCustomRegistryOptions,
-  JsonRenderActivityConfigOptions,
-  A2UIBindingConfig,
+  withStableProps,
 } from './registry';
 
 // ==================== 配置工厂 ====================
-export {
-  createJsonRenderActivityConfig,
-  createA2UIJsonRenderActivityConfig,
-} from './registry'; 
+export { createA2UIJsonRenderActivityConfig, createJsonRenderActivityConfig } from './registry';
 
 // ==================== 目录 (Catalog) ====================
 export * from './catalog/catalog-to-prompt';
 
-
 // ==================== 类型定义 ====================
+export type { JSONUIProviderProps } from './renderer/JsonUIRenderer';
 export type * from './types';
-export type {
-  JSONUIProviderProps,
-} from "./renderer/JsonUIRenderer";
