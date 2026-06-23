@@ -1,21 +1,22 @@
-import url from '@rollup/plugin-url';
-import json from '@rollup/plugin-json';
-import babel from '@rollup/plugin-babel';
-import styles from 'rollup-plugin-styles';
+import { join, resolve } from 'path';
+
+import { copy as fileCopy } from 'fs-extra';
+import analyzer from 'rollup-plugin-analyzer';
 import copy from 'rollup-plugin-copy';
 import esbuild from 'rollup-plugin-esbuild';
-import postcss from 'rollup-plugin-postcss';
-import replace from '@rollup/plugin-replace';
-import analyzer from 'rollup-plugin-analyzer';
-import { terser } from 'rollup-plugin-terser';
-import commonjs from '@rollup/plugin-commonjs';
-import { DEFAULT_EXTENSIONS } from '@babel/core';
-import multiInput from 'rollup-plugin-multi-input';
-import nodeResolve from '@rollup/plugin-node-resolve';
-import staticImport from 'rollup-plugin-static-import';
 import ignoreImport from 'rollup-plugin-ignore-import';
-import { resolve, join } from 'path';
-import { copy as fileCopy } from 'fs-extra';
+import multiInput from 'rollup-plugin-multi-input';
+import postcss from 'rollup-plugin-postcss';
+import staticImport from 'rollup-plugin-static-import';
+import styles from 'rollup-plugin-styles';
+import { terser } from 'rollup-plugin-terser';
+import { DEFAULT_EXTENSIONS } from '@babel/core';
+import babel from '@rollup/plugin-babel';
+import commonjs from '@rollup/plugin-commonjs';
+import json from '@rollup/plugin-json';
+import nodeResolve from '@rollup/plugin-node-resolve';
+import replace from '@rollup/plugin-replace';
+import url from '@rollup/plugin-url';
 
 import pkg from '../packages/tdesign-react/package.json';
 
@@ -292,7 +293,7 @@ function postWritePlugin() {
         try {
           // 并行复制到所有目标路径
           await Promise.all(destArray.map((dest) => fileCopy(src, dest)));
-          console.log('adapter has been coped.');
+          console.info('adapter has been coped.');
         } catch (err) {
           console.error('copy failed:', err);
         }

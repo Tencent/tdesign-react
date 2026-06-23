@@ -5,8 +5,9 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { fireEvent, vi, render } from '@test/utils';
-import { Tag, CheckTag } from '..';
+import { fireEvent, render, vi } from '@test/utils';
+
+import { CheckTag, Tag } from '..';
 
 describe('Tag Component', () => {
   it('props.children works fine', () => {

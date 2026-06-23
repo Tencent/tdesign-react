@@ -4,8 +4,9 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
+
 import { BaseTable } from '..';
-import { getNormalTableMount, getEmptyDataTableMount } from './mount';
+import { getEmptyDataTableMount, getNormalTableMount } from './mount';
 
 describe('BaseTable Component', () => {
   it('props.bordered works fine', () => {

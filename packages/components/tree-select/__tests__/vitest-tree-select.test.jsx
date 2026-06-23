@@ -7,13 +7,14 @@
 import React from 'react';
 import {
   fireEvent,
-  vi,
-  render,
   mockDelay,
-  simulateInputChange,
+  render,
   simulateDocumentMouseEvent,
+  simulateInputChange,
   simulateInputEnter,
+  vi,
 } from '@test/utils';
+
 import { TreeSelect } from '..';
 import { getTreeSelectDefaultMount, getTreeSelectMultipleMount } from './mount';
 

@@ -1,7 +1,8 @@
 import React from 'react';
-import { fireEvent, render, mockIntersectionObserver } from '@test/utils';
-import { Image } from '..';
+import { fireEvent, mockIntersectionObserver, render } from '@test/utils';
+
 import Space from '../../space';
+import { Image } from '..';
 
 describe('Image Component', () => {
   beforeAll(() => {
@@ -17,7 +18,7 @@ describe('Image Component', () => {
           callback([{ isIntersecting: true }]);
         }
       });
-    }
+    };
     mockIntersectionObserver({}, { observe });
   });
 
@@ -26,24 +27,21 @@ describe('Image Component', () => {
 
     const { container } = render(
       <Space style={{ height: 240, width: 240, overflow: 'hidden', overflowY: 'scroll', paddingTop: 500 }}>
-        {
-          Array.from({ length: 16 }).map((_, index) => (
-            <Image
-              key={index}
-              src="https://tdesign.gtimg.com/demo/demo-image-1.png"
-              style={{ width: 230, height: 120 }}
-              lazy
-            />
-          ))
-        }
-      </Space>
+        {Array.from({ length: 16 }).map((_, index) => (
+          <Image
+            key={index}
+            src="https://tdesign.gtimg.com/demo/demo-image-1.png"
+            style={{ width: 230, height: 120 }}
+            lazy
+          />
+        ))}
+      </Space>,
     );
 
     const spaceElement = container.querySelector('.t-space');
     fireEvent.scroll(spaceElement, { target: { scrollY: 400 } });
     // 滚动后，第一张图片会加载，但后面的图片不会加载
-    expect(spaceElement.firstChild.querySelector('img')).not.toBeNull()
-    expect(spaceElement.lastChild.querySelector('img')).toBeNull()
-
+    expect(spaceElement.firstChild.querySelector('img')).not.toBeNull();
+    expect(spaceElement.lastChild.querySelector('img')).toBeNull();
   });
 });

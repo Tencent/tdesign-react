@@ -1,7 +1,8 @@
 import '@testing-library/jest-dom';
+
+import { vi } from 'vitest';
 import { act, createEvent, fireEvent } from '@testing-library/react';
 import _userEvent from '@testing-library/user-event';
-import { vi } from 'vitest';
 
 import { EVENTS_MAP } from './events';
 

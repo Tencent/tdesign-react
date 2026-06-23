@@ -1,5 +1,4 @@
 import React from 'react';
-import { fireEvent, mockTimeout, render, vi, waitFor } from '@test/utils';
 import {
   CheckCircleFilledIcon,
   ErrorCircleFilledIcon,
@@ -8,6 +7,8 @@ import {
   InfoCircleFilledIcon,
   LoadingIcon,
 } from 'tdesign-icons-react';
+import { fireEvent, mockTimeout, render, vi, waitFor } from '@test/utils';
+
 import Message, { MessagePlugin } from '../index';
 
 const defaultMessage = '默认的message';

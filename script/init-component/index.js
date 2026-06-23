@@ -21,9 +21,9 @@ const cwdPath = process.cwd();
 function createFile(path, data = '', desc) {
   fs.writeFile(path, data, (err) => {
     if (err) {
-      console.log(err, 'error');
+      console.error(err);
     } else {
-      console.log(`> ${desc}\n${path} file has been created successfully！`, 'success');
+      console.info(`> ${desc}\n${path} file has been created successfully！`);
     }
   });
 }
@@ -49,10 +49,10 @@ function addComponent(toBeCreatedFiles, component) {
     const d = path.resolve(cwdPath, dir);
     fs.mkdir(d, { recursive: true }, (err) => {
       if (err) {
-        console.log(err, 'error');
+        console.error(err);
         return;
       }
-      console.log(`${d} directory has been created successfully！`);
+      console.info(`${d} directory has been created successfully！`);
       // Then, we create files for components.
       const contents = toBeCreatedFiles[dir];
       contents.files.forEach((item) => {
@@ -83,16 +83,16 @@ function insertComponentToIndex(component, indexPath) {
   const desc = '> insert component into index.ts';
   let data = fs.readFileSync(indexPath).toString();
   if (data.match(new RegExp(importPath))) {
-    console.log(`there is already ${component} in /src/index.ts`, 'notice');
+    console.info(`there is already ${component} in /src/index.ts`);
     return;
   }
   // insert component at last import and component lines.
   data = data.replace(importPattern, (a) => `${a}\n${importPath}`).replace(cmpPattern, (a) => `${a}  ${upper},\n`);
   fs.writeFile(indexPath, data, (err) => {
     if (err) {
-      console.log(err, 'error');
+      console.error(err);
     } else {
-      console.log(`${desc}\n${component} has been inserted into /src/index.ts`, 'success');
+      console.info(`${desc}\n${component} has been inserted into /src/index.ts`);
     }
   });
 }
