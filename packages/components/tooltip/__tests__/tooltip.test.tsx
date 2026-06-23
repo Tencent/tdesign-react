@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, mockTimeout, render, screen, waitFor } from '@test/utils';
+import { fireEvent, mockDelay, mockTimeout, render, screen, waitFor } from '@test/utils';
 
 import Tooltip from '../Tooltip';
 
@@ -36,7 +36,8 @@ describe('Tooltip 组件测试', () => {
     });
 
     // 模拟鼠标离开
-    await fireEvent.mouseLeave(getByText(triggerElement));
+    fireEvent.mouseLeave(getByText(triggerElement));
+    await mockDelay(150);
 
     // 鼠标离开，style 的 display 应该为 none
     const popupElement2 = queryByTestId(tooltipTestId);
