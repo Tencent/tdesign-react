@@ -23,6 +23,7 @@ import TFoot from './TFoot';
 import THead from './THead';
 import { ROW_LISTENERS } from './TR';
 import { getAffixProps } from './utils';
+import { reorderColumnsForLeftFixed } from './utils/reorderFixedColumns';
 
 import type { RefAttributes } from 'react';
 import type { AffixRef } from '../affix';
@@ -47,7 +48,8 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     tableLayout,
     height,
     data,
-    columns,
+    columns: originColumns,
+    fixedColumnReorder,
     style,
     headerAffixedTop,
     bordered,
@@ -55,6 +57,12 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     lazyLoad,
     pagination,
   } = props;
+
+  // 左固定列前置重排，opt-in 开启，默认保持原有列顺序
+  const columns = useMemo(
+    () => (fixedColumnReorder ? reorderColumnsForLeftFixed(originColumns) : originColumns),
+    [originColumns, fixedColumnReorder],
+  );
 
   const borderWidth = props.bordered ? 1 : 0;
 
@@ -68,7 +76,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     allTableClasses;
   // 表格基础样式类
   const { tableClasses, sizeClassNames, tableContentStyles, tableElementStyles } = useStyle(props);
-  const { isMultipleHeader, spansAndLeafNodes, thList } = useTableHeader({ columns: props.columns });
+  const { isMultipleHeader, spansAndLeafNodes, thList } = useTableHeader({
+    columns,
+  });
   const finalColumns = useMemo(
     () => spansAndLeafNodes?.leafColumns || columns,
     [spansAndLeafNodes?.leafColumns, columns],
@@ -183,7 +193,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.data, dataSource, isPaginateData]);
 
-  const [lastLeafColumns, setLastLeafColumns] = useState(props.columns || []);
+  const [lastLeafColumns, setLastLeafColumns] = useState(columns || []);
 
   useEffect(() => {
     if (lastLeafColumns.map((t) => t.colKey).join() !== spansAndLeafNodes.leafColumns.map((t) => t.colKey).join()) {
@@ -391,7 +401,10 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       >
         <table
           className={classNames(tableElmClasses)}
-          style={{ ...tableElementStyles, width: tableElmWidth ? `${tableElmWidth}px` : undefined }}
+          style={{
+            ...tableElementStyles,
+            width: tableElmWidth ? `${tableElmWidth}px` : undefined,
+          }}
         >
           {renderColGroup(true)}
           {showHeader && <THead {...headProps} />}
@@ -452,15 +465,23 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       >
         <div
           ref={affixFooterRef}
-          style={{ width: `${tableWidth}px`, opacity: Number(showAffixFooter) }}
+          style={{
+            width: `${tableWidth}px`,
+            opacity: Number(showAffixFooter),
+          }}
           className={classNames([
             'scrollbar',
-            { [tableBaseClass.affixedFooterElm]: props.footerAffixedBottom || virtualConfig.isVirtualScroll },
+            {
+              [tableBaseClass.affixedFooterElm]: props.footerAffixedBottom || virtualConfig.isVirtualScroll,
+            },
           ])}
         >
           <table
             className={tableElmClasses}
-            style={{ ...tableElementStyles, width: tableElmWidth ? `${tableElmWidth}px` : undefined }}
+            style={{
+              ...tableElementStyles,
+              width: tableElmWidth ? `${tableElmWidth}px` : undefined,
+            }}
           >
             {renderColGroup(true)}
             <TFoot
@@ -529,16 +550,23 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         {renderColGroup(false)}
         {useMemo(() => {
           if (!showHeader) return null;
-          return <THead {...{ ...headProps, thWidthList: resizable ? thWidthList.current : {} }} />;
+          return (
+            <THead
+              {...{
+                ...headProps,
+                thWidthList: resizable ? thWidthList.current : {},
+              }}
+            />
+          );
           // eslint-disable-next-line
-        }, headUseMemoDependencies)}
+          }, headUseMemoDependencies)}
 
         {useMemo(
           () => (
             <TBody {...tableBodyProps} />
           ),
           // eslint-disable-next-line
-          [
+            [
             allTableClasses,
             tableBodyProps.ellipsisOverlayClassName,
             tableBodyProps.rowAndColFixedPosition,
@@ -581,7 +609,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
             ></TFoot>
           ),
           // eslint-disable-next-line
-          [
+            [
             isFixedHeader,
             rowAndColFixedPosition,
             spansAndLeafNodes,
@@ -627,9 +655,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const affixedHeaderContent = useMemo(
     renderAffixedHeader,
     // eslint-disable-next-line
-    [
+      [
       // eslint-disable-next-line
-      ...headUseMemoDependencies,
+        ...headUseMemoDependencies,
       showAffixHeader,
       tableWidth,
       tableElmWidth,
