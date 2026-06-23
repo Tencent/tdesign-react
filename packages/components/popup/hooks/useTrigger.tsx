@@ -6,6 +6,7 @@ import { composeRefs, getNodeRef, getRefDom, supportNodeRef } from '../../_util/
 import useConfig from '../../hooks/useConfig';
 
 const ESC_KEY = 'Escape';
+const HOVER_CLOSE_DELAY = 120;
 
 const isEventFromDisabledElement = (e: Event | React.SyntheticEvent, container: Element) => {
   const target = e.target as Element;
@@ -28,8 +29,15 @@ export default function useTrigger({
   const triggerElementIsString = typeof triggerElement === 'string';
 
   const triggerRef = useRef<HTMLElement>(null);
+  const popupElementRef = useRef<HTMLElement>(null);
   const hasPopupMouseDown = useRef(false);
   const visibleTimer = useRef(null);
+  const hoverCloseTimer = useRef(null);
+  const hoverCloseRaf = useRef(null);
+  const hasDocumentMouseMove = useRef(false);
+  const lastMousePosition = useRef({ clientX: 0, clientY: 0 });
+
+  popupElementRef.current = popupElement;
 
   // 禁用和无内容时不展示
   const shouldToggle = useMemo(() => {
@@ -52,6 +60,36 @@ export default function useTrigger({
     }
   }
 
+  const updateLastMousePosition = useCallback((e: MouseEvent | React.MouseEvent) => {
+    lastMousePosition.current = {
+      clientX: e.clientX,
+      clientY: e.clientY,
+    };
+  }, []);
+
+  const handleDocumentMouseMove = useCallback(
+    (e: MouseEvent) => {
+      hasDocumentMouseMove.current = true;
+      updateLastMousePosition(e);
+    },
+    [updateLastMousePosition],
+  );
+
+  const clearHoverCloseTimer = useCallback(() => {
+    if (hoverCloseRaf.current !== null) {
+      cancelAnimationFrame(hoverCloseRaf.current);
+      hoverCloseRaf.current = null;
+    }
+    if (hoverCloseTimer.current !== null) {
+      clearTimeout(hoverCloseTimer.current);
+      hoverCloseTimer.current = null;
+    }
+    hasDocumentMouseMove.current = false;
+    if (canUseDocument) {
+      off(document, 'mousemove', handleDocumentMouseMove);
+    }
+  }, [handleDocumentMouseMove]);
+
   const getTriggerElement = useCallback(() => {
     if (!canUseDocument) return null;
     if (triggerElementIsString) return document.querySelector(triggerElement);
@@ -59,8 +97,36 @@ export default function useTrigger({
     return element instanceof Element ? element : null;
   }, [triggerElementIsString, triggerElement]);
 
+  const isElementInPopupOrTrigger = useCallback(
+    (element: EventTarget | null | undefined) => {
+      if (!(element instanceof Element)) return false;
+
+      const triggerElement = getTriggerElement();
+      if (triggerElement?.contains(element)) return true;
+
+      const popupElement = popupElementRef.current;
+      if (popupElement?.contains(element)) return true;
+
+      const closestPopup = element.closest?.(`.${classPrefix}-popup`);
+      return !!(closestPopup && (popupElement ? popupElement.isEqualNode(closestPopup) : true));
+    },
+    [classPrefix, getTriggerElement],
+  );
+
+  const isMovingToPopupOrTrigger = useCallback(
+    ({ relatedTarget, clientX, clientY }: { relatedTarget: EventTarget | null; clientX: number; clientY: number }) => {
+      if (isElementInPopupOrTrigger(relatedTarget)) return true;
+
+      const pointElement = document.elementFromPoint?.(clientX, clientY);
+      return isElementInPopupOrTrigger(pointElement);
+    },
+    [isElementInPopupOrTrigger],
+  );
+
   const handleMouseEnter = (e: MouseEvent | React.MouseEvent) => {
     if (trigger === 'hover') {
+      updateLastMousePosition(e);
+      clearHoverCloseTimer();
       callFuncWithDelay({
         delay: appearDelay,
         callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
@@ -70,15 +136,63 @@ export default function useTrigger({
 
   const handleMouseLeave = (e: MouseEvent | React.MouseEvent) => {
     if (trigger !== 'hover' || hasPopupMouseDown.current) return;
-    const relatedTarget = e.relatedTarget as HTMLElement;
-    const closestPopup = relatedTarget?.closest?.(`.${classPrefix}-popup`);
+    (e as React.MouseEvent).persist?.();
 
-    const isMovingToCurrentPopup = popupElement ? popupElement?.isEqualNode?.(closestPopup) : closestPopup;
-    if (isMovingToCurrentPopup) return;
-    callFuncWithDelay({
-      delay: exitDelay,
-      callback: () => onVisibleChange(false, { e, trigger: 'trigger-element-hover' }),
+    const mouseEvent = e as MouseEvent;
+    const { clientX, clientY, relatedTarget } = mouseEvent;
+
+    updateLastMousePosition(mouseEvent);
+    clearHoverCloseTimer();
+    if (isMovingToPopupOrTrigger({ relatedTarget, clientX, clientY })) return;
+
+    const shouldKeepVisible = () =>
+      isMovingToPopupOrTrigger({
+        relatedTarget: null,
+        ...lastMousePosition.current,
+      });
+
+    const closePopup = () => {
+      if (canUseDocument) {
+        off(document, 'mousemove', handleDocumentMouseMove);
+      }
+
+      callFuncWithDelay({
+        delay: exitDelay,
+        callback: () => onVisibleChange(false, { e, trigger: 'trigger-element-hover' }),
+      });
+    };
+
+    if (canUseDocument) {
+      on(document, 'mousemove', handleDocumentMouseMove);
+    }
+
+    hoverCloseRaf.current = requestAnimationFrame(() => {
+      hoverCloseRaf.current = null;
+
+      if (shouldKeepVisible()) {
+        clearHoverCloseTimer();
+        return;
+      }
+
+      if (!hasDocumentMouseMove.current) {
+        clearHoverCloseTimer();
+        closePopup();
+      }
     });
+
+    hoverCloseTimer.current = setTimeout(() => {
+      hoverCloseTimer.current = null;
+      if (hoverCloseRaf.current !== null) {
+        cancelAnimationFrame(hoverCloseRaf.current);
+        hoverCloseRaf.current = null;
+      }
+      if (canUseDocument) {
+        off(document, 'mousemove', handleDocumentMouseMove);
+      }
+
+      if (shouldKeepVisible()) return;
+      closePopup();
+    }, HOVER_CLOSE_DELAY);
   };
 
   const handlePopupMouseDown = () => {
@@ -91,7 +205,13 @@ export default function useTrigger({
     });
   };
 
-  useEffect(() => clearTimeout(visibleTimer.current), []);
+  useEffect(
+    () => () => {
+      clearTimeout(visibleTimer.current);
+      clearHoverCloseTimer();
+    },
+    [clearHoverCloseTimer],
+  );
 
   useEffect(() => {
     if (!shouldToggle) return;
@@ -114,7 +234,11 @@ export default function useTrigger({
       if (trigger === 'mousedown') {
         callFuncWithDelay({
           delay: visible ? appearDelay : exitDelay,
-          callback: () => onVisibleChange(!visible, { e, trigger: 'trigger-element-mousedown' }),
+          callback: () =>
+            onVisibleChange(!visible, {
+              e,
+              trigger: 'trigger-element-mousedown',
+            }),
         });
       }
     };

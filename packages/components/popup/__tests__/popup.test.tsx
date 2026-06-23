@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { act, fireEvent, mockTimeout, render, waitFor } from '@test/utils';
+import { act, fireEvent, mockTimeout, render, vi, waitFor } from '@test/utils';
 
 import Input from '../../input';
 import Popup from '../Popup';
@@ -8,6 +8,34 @@ describe('Popup 组件测试', () => {
   const popupText = '弹出层内容';
   const popupTestId = 'popup-test-id';
   const triggerElement = '触发元素';
+
+  const waitForHoverClose = async () => {
+    await act(async () => {
+      await new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), 150);
+      });
+    });
+  };
+
+  const mockElementFromPoint = (element: Element | ((clientX: number, clientY: number) => Element)) => {
+    const originalElementFromPoint = document.elementFromPoint;
+    const elementFromPointMock = typeof element === 'function' ? vi.fn(element) : vi.fn().mockReturnValue(element);
+
+    Object.defineProperty(document, 'elementFromPoint', {
+      configurable: true,
+      value: elementFromPointMock,
+    });
+
+    return {
+      elementFromPointMock,
+      restore: () => {
+        Object.defineProperty(document, 'elementFromPoint', {
+          configurable: true,
+          value: originalElementFromPoint,
+        });
+      },
+    };
+  };
 
   test('hover 触发测试', async () => {
     const { getByText, queryByTestId } = render(
@@ -36,11 +64,92 @@ describe('Popup 组件测试', () => {
     act(() => {
       fireEvent.mouseLeave(getByText(triggerElement));
     });
+    await waitForHoverClose();
 
     // 鼠标离开，style 的 display 应该为 none
     const popupElement3 = await waitFor(() => queryByTestId(popupTestId));
     expect(popupElement3).not.toBeNull();
     expect(popupElement3.parentNode.parentNode).toHaveClass('t-popup--animation-leave-active');
+  });
+
+  test('hover 快速从触发器移入浮层时不关闭', async () => {
+    const { getByText, queryByTestId } = render(
+      <Popup placement="top" content={<div data-testid={popupTestId}>{popupText}</div>}>
+        {triggerElement}
+      </Popup>,
+    );
+
+    act(() => {
+      fireEvent.mouseEnter(getByText(triggerElement));
+    });
+
+    const popupElement = await waitFor(() => queryByTestId(popupTestId));
+    expect(popupElement).not.toBeNull();
+
+    const outsideElement = document.createElement('div');
+    document.body.appendChild(outsideElement);
+    const { elementFromPointMock, restore } = mockElementFromPoint((clientX, clientY) =>
+      clientX === 30 && clientY === 40 ? popupElement : outsideElement,
+    );
+
+    try {
+      act(() => {
+        fireEvent.mouseLeave(getByText(triggerElement), {
+          relatedTarget: outsideElement,
+          clientX: 10,
+          clientY: 20,
+        });
+        fireEvent.mouseMove(document, {
+          clientX: 30,
+          clientY: 40,
+        });
+      });
+      await waitForHoverClose();
+
+      expect(elementFromPointMock).toHaveBeenCalledWith(10, 20);
+      expect(elementFromPointMock).toHaveBeenCalledWith(30, 40);
+      expect(popupElement.parentNode.parentNode).toHaveClass('t-popup--animation-enter-active');
+      expect(popupElement.parentNode.parentNode).not.toHaveClass('t-popup--animation-leave-active');
+    } finally {
+      restore();
+      outsideElement.remove();
+    }
+  });
+
+  test('hover 从触发器移到外部时正常关闭', async () => {
+    const { getByText, queryByTestId } = render(
+      <Popup placement="top" content={<div data-testid={popupTestId}>{popupText}</div>}>
+        {triggerElement}
+      </Popup>,
+    );
+
+    act(() => {
+      fireEvent.mouseEnter(getByText(triggerElement));
+    });
+
+    const popupElement = await waitFor(() => queryByTestId(popupTestId));
+    expect(popupElement).not.toBeNull();
+
+    const outsideElement = document.createElement('div');
+    document.body.appendChild(outsideElement);
+    const { elementFromPointMock, restore } = mockElementFromPoint(outsideElement);
+
+    try {
+      act(() => {
+        fireEvent.mouseLeave(getByText(triggerElement), {
+          relatedTarget: outsideElement,
+          clientX: 10,
+          clientY: 20,
+        });
+      });
+      await waitForHoverClose();
+
+      expect(elementFromPointMock).toHaveBeenCalledWith(10, 20);
+      expect(popupElement.parentNode.parentNode).toHaveClass('t-popup--animation-leave-active');
+    } finally {
+      restore();
+      outsideElement.remove();
+    }
   });
 
   test('click 触发测试', async () => {
