@@ -16,12 +16,6 @@ import type {
 
 export interface BaseTableProps<T extends TableRowData = TableRowData> extends TdBaseTableProps<T>, StyledProps {
   /**
-   * 左固定列前置重排。开启后，将 `fixed: 'left'` 的列移到功能列（展开/多选等）之后的最左侧渲染，
-   * 使非首列左固定时也能初始贴左，其前面的可滚动列位于 fixed 区域右侧。默认 `false`，不影响现有表格。
-   * @default false
-   */
-  fixedColumnReorder?: boolean;
-  /**
    * 渲染展开行。非公开属性，请勿在业务中使用
    */
   renderExpandedRow?: (params: TableExpandedRowParams<TableRowData>) => ReactNode;

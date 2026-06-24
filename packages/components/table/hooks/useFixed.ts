@@ -8,6 +8,8 @@ import { off, on } from '../../_util/listener';
 import useDeepEffect from '../../hooks/useDeepEffect';
 import usePrevious from '../../hooks/usePrevious';
 import { resizeObserverElement } from '../utils';
+import { buildLeftFixedLayoutState, markFixedColumnBoundaries } from '../utils/markFixedColumnBoundaries';
+import { hasLeftFixedColumnNeedReorder, shouldShowLeftFixedColumnShadow } from '../utils/reorderFixedColumns';
 
 import type { MutableRefObject } from 'react';
 import type { AffixRef } from '../../affix';
@@ -100,6 +102,7 @@ export default function useFixed(
   const tableContentRef = useRef<HTMLDivElement>(null);
   const tableElmRef = useRef<HTMLTableElement>(null);
   const thWidthList = useRef<{ [colKey: string]: number }>({});
+  const lastFixedBorderSignatureRef = useRef('');
 
   const [data, setData] = useState<TableRowData[]>([]);
   const [isFixedHeader, setIsFixedHeader] = useState(false);
@@ -115,7 +118,10 @@ export default function useFixed(
     right: false,
   });
   // 虚拟滚动无法使用 CSS sticky 固定表头
-  const [virtualScrollHeaderPos, setVirtualScrollHeaderPos] = useState<{ left: number; top: number }>({
+  const [virtualScrollHeaderPos, setVirtualScrollHeaderPos] = useState<{
+    left: number;
+    top: number;
+  }>({
     left: 0,
     top: 0,
   });
@@ -138,6 +144,43 @@ export default function useFixed(
   function setUseFixedTableElmRef(val: HTMLTableElement) {
     tableElmRef.current = val;
   }
+
+  /** 优先读 DOM scrollLeft，避免 React state 滞后导致 fixed 边界计算错误 */
+  const getCurrentHorizontalScrollLeft = () => tableContentRef.current?.scrollLeft ?? 0;
+
+  const calculateThWidthList = (trList: HTMLCollection) => {
+    const widthMap: { [colKey: string]: number } = {};
+    for (let i = 0, len = trList?.length; i < len; i++) {
+      const thList = trList[i].children;
+      for (let j = 0, thLen = thList.length; j < thLen; j++) {
+        const th = thList[j] as HTMLElement;
+        const colKey = th.dataset.colkey;
+        widthMap[colKey] = th.getBoundingClientRect().width;
+      }
+    }
+    return widthMap;
+  };
+
+  const updateThWidthList = (trList: HTMLCollection | { [colKey: string]: number }) => {
+    if (trList instanceof HTMLCollection) {
+      if (columnResizable) return;
+      thWidthList.current = calculateThWidthList(trList);
+    } else {
+      thWidthList.current = thWidthList.current || {};
+      Object.entries(trList).forEach(([colKey, width]) => {
+        thWidthList.current[colKey] = width;
+      });
+    }
+    return thWidthList.current;
+  };
+
+  const getThWidthList = (type?: 'default' | 'calculate') => {
+    if (type === 'calculate') {
+      const trList = tableContentRef.current?.querySelector('thead')?.children;
+      return calculateThWidthList(trList);
+    }
+    return thWidthList.current || {};
+  };
 
   function getColumnMap(
     columns: BaseTableCol[],
@@ -239,12 +282,15 @@ export default function useFixed(
         }
         const obj = initialColumnMap.get(colKey || j);
         if (obj?.col?.fixed) {
-          initialColumnMap.set(colKey, { ...obj, width: th?.getBoundingClientRect?.().width });
+          initialColumnMap.set(colKey, {
+            ...obj,
+            width: th?.getBoundingClientRect?.().width,
+          });
         }
       }
     }
-    setFixedLeftPos(columns, initialColumnMap);
-    setFixedRightPos(columns, initialColumnMap);
+    setFixedLeftPos(finalColumns, initialColumnMap);
+    setFixedRightPos(finalColumns, initialColumnMap);
   };
 
   // 设置固定行位置信息 top/bottom
@@ -267,7 +313,10 @@ export default function useFixed(
         defaultBottom = thead?.getBoundingClientRect?.().height || 0;
       }
       thisRowInfo.top = (lastRowInfo.top || defaultBottom) + (lastRowInfo.height || 0);
-      initialColumnMap.set(rowId, { ...thisRowInfo, height: tr?.getBoundingClientRect?.().height });
+      initialColumnMap.set(rowId, {
+        ...thisRowInfo,
+        height: tr?.getBoundingClientRect?.().height,
+      });
     }
     for (let i = data.length - 1; i >= data.length - fixedBottomRows; i--) {
       /**
@@ -285,7 +334,10 @@ export default function useFixed(
         defaultBottom = tfoot?.getBoundingClientRect?.().height || 0;
       }
       thisRowInfo.bottom = (lastRowInfo.bottom || defaultBottom) + (lastRowInfo.height || 0);
-      initialColumnMap.set(rowId, { ...thisRowInfo, height: tr?.getBoundingClientRect?.().height });
+      initialColumnMap.set(rowId, {
+        ...thisRowInfo,
+        height: tr?.getBoundingClientRect?.().height,
+      });
     }
   };
 
@@ -299,8 +351,8 @@ export default function useFixed(
     const tbody = tableContentElm.querySelector('tbody');
     const tfoot = tableContentElm.querySelector('tfoot');
     tbody && setFixedRowPosition(tbody.children, initialColumnMap, thead, tfoot);
-    // 更新最终 Map
-    setRowAndColFixedPosition(initialColumnMap);
+    // 克隆 Map 引用，确保 lastLeftFixedCol 变化能触发重渲染
+    setRowAndColFixedPosition(new Map(initialColumnMap));
   };
 
   let shadowLastScrollLeft: number;
@@ -311,7 +363,7 @@ export default function useFixed(
     if (shadowLastScrollLeft === scrollLeft && (!extra || !extra.skipScrollLimit)) return;
     shadowLastScrollLeft = scrollLeft;
     const isShowRight = target.clientWidth + scrollLeft < target.scrollWidth;
-    const isShowLeft = scrollLeft > 0;
+    const isShowLeft = shouldShowLeftFixedColumnShadow(columns, scrollLeft, getThWidthList());
     if (showColumnShadow.left === isShowLeft && showColumnShadow.right === isShowRight) return;
     setShowColumnShadow({
       left: isShowLeft && isFixedLeftColumn,
@@ -319,33 +371,36 @@ export default function useFixed(
     });
   };
 
-  // 多级表头场景较为复杂：为了滚动的阴影效果，需要知道哪些列是边界列，左侧固定列的最后一列，右侧固定列的第一列，每一层表头都需要兼顾
+  // 多级表头场景较为复杂：为了滚动的阴影效果，需要知道哪些列是边界列
   const setIsLastOrFirstFixedCol = (levelNodes: FixedColumnInfo[][]) => {
-    for (let t = 0; t < levelNodes.length; t++) {
-      const nodes = levelNodes[t];
-      for (let i = 0, len = nodes.length; i < len; i++) {
-        const colMapInfo = nodes[i];
-        const nextColMapInfo = nodes[i + 1];
-        const { parent } = colMapInfo;
-        const isParentLastLeftFixedCol = !parent || parent?.lastLeftFixedCol;
-        if (isParentLastLeftFixedCol && colMapInfo.col.fixed === 'left' && nextColMapInfo?.col.fixed !== 'left') {
-          colMapInfo.lastLeftFixedCol = true;
-        }
-        const lastColMapInfo = nodes[i - 1];
-        const isParentFirstRightFixedCol = !parent || parent?.firstRightFixedCol;
-        if (isParentFirstRightFixedCol && colMapInfo.col.fixed === 'right' && lastColMapInfo?.col.fixed !== 'right') {
-          colMapInfo.firstRightFixedCol = true;
-        }
-      }
-    }
+    const layout = buildLeftFixedLayoutState(columns, finalColumns, getCurrentHorizontalScrollLeft(), getThWidthList());
+    markFixedColumnBoundaries(levelNodes, layout);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const hasFixedColumns = (cols: BaseTableCol[] = []): boolean =>
+    cols.some((col) => {
+      if (col.fixed === 'left' || col.fixed === 'right') return true;
+      return col.children?.length ? hasFixedColumns(col.children) : false;
+    });
+
   const updateFixedStatus = () => {
-    const { newColumnsMap, levelNodes } = getColumnMap(columns);
+    setIsFixedColumn(false);
+    setIsFixedLeftColumn(false);
+    setIsFixedRightColumn(false);
+    const scrollLeft = getCurrentHorizontalScrollLeft();
+    lastFixedBorderSignatureRef.current = buildLeftFixedLayoutState(
+      columns,
+      finalColumns,
+      scrollLeft,
+      getThWidthList(),
+    ).layoutSignature;
+    const { newColumnsMap, levelNodes } = getColumnMap(finalColumns);
     setIsLastOrFirstFixedCol(levelNodes);
-    if (isFixedColumn || fixedRows?.length) {
+    if (hasFixedColumns(finalColumns) || fixedRows?.length) {
       updateRowAndColFixedPosition(tableContentRef.current, newColumnsMap);
+    } else {
+      rowAndColFixedPosition.clear();
+      setRowAndColFixedPosition(new Map());
     }
   };
 
@@ -389,33 +444,6 @@ export default function useFixed(
     affixRef.footerBottomAffixRef.current?.handleScroll?.();
   };
 
-  const calculateThWidthList = (trList: HTMLCollection) => {
-    const widthMap: { [colKey: string]: number } = {};
-    for (let i = 0, len = trList?.length; i < len; i++) {
-      const thList = trList[i].children;
-      // second for used for multiple row header
-      for (let j = 0, thLen = thList.length; j < thLen; j++) {
-        const th = thList[j] as HTMLElement;
-        const colKey = th.dataset.colkey;
-        widthMap[colKey] = th.getBoundingClientRect().width;
-      }
-    }
-    return widthMap;
-  };
-
-  const updateThWidthList = (trList: HTMLCollection | { [colKey: string]: number }) => {
-    if (trList instanceof HTMLCollection) {
-      if (columnResizable) return;
-      thWidthList.current = calculateThWidthList(trList);
-    } else {
-      thWidthList.current = thWidthList.current || {};
-      Object.entries(trList).forEach(([colKey, width]) => {
-        thWidthList.current[colKey] = width;
-      });
-    }
-    return thWidthList.current;
-  };
-
   const updateThWidthListHandler = () => {
     if (notNeedThWidthList) return;
     const thead = tableContentRef.current?.querySelector('thead');
@@ -427,14 +455,6 @@ export default function useFixed(
     props.onScrollX?.({ e });
     props.onScrollY?.({ e });
     props.onScroll?.({ e });
-  };
-
-  const getThWidthList = (type?: 'default' | 'calculate') => {
-    if (type === 'calculate') {
-      const trList = tableContentRef.current?.querySelector('thead')?.children;
-      return calculateThWidthList(trList);
-    }
-    return thWidthList.current || {};
   };
 
   const updateTableElmWidthOnColumnChange = (
@@ -467,7 +487,7 @@ export default function useFixed(
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       data,
-      columns,
+      finalColumns,
       bordered,
       tableLayout,
       tableContentWidth,
@@ -484,10 +504,12 @@ export default function useFixed(
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useDeepEffect(() => {
     if (isFixedColumn) {
-      updateColumnFixedShadow(tableContentRef.current);
+      updateColumnFixedShadow(tableContentRef.current, {
+        skipScrollLimit: true,
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFixedColumn, columns, tableContentRef]);
+  }, [isFixedColumn, finalColumns, tableContentRef]);
 
   useDeepEffect(updateFixedHeader, [maxHeight, data, columns, bordered, tableContentRef]);
 
@@ -523,7 +545,9 @@ export default function useFixed(
 
     if (isFixedColumn || isFixedHeader) {
       updateFixedStatus();
-      updateColumnFixedShadow(tableContentRef.current, { skipScrollLimit: true });
+      updateColumnFixedShadow(tableContentRef.current, {
+        skipScrollLimit: true,
+      });
     }
   };
 
@@ -578,6 +602,15 @@ export default function useFixed(
     updateFixedHeader();
   };
 
+  /** 横向滚动时同步 fixed-left-last 边界 */
+  const syncFixedColumnBorder = () => {
+    if (!isFixedColumn || !hasLeftFixedColumnNeedReorder(columns)) return;
+    const layout = buildLeftFixedLayoutState(columns, finalColumns, getCurrentHorizontalScrollLeft(), getThWidthList());
+    if (lastFixedBorderSignatureRef.current === layout.layoutSignature) return;
+    lastFixedBorderSignatureRef.current = layout.layoutSignature;
+    updateFixedStatus();
+  };
+
   return {
     tableWidth,
     tableElmWidth,
@@ -600,5 +633,6 @@ export default function useFixed(
     getThWidthList,
     updateThWidthList,
     updateTableAfterColumnResize,
+    syncFixedColumnBorder,
   };
 }

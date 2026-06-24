@@ -1,4 +1,13 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import classNames from 'classnames';
 import { pick } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
@@ -23,7 +32,8 @@ import TFoot from './TFoot';
 import THead from './THead';
 import { ROW_LISTENERS } from './TR';
 import { getAffixProps } from './utils';
-import { reorderColumnsForLeftFixed } from './utils/reorderFixedColumns';
+import { isSameDisplayColumns, resolveLeftFixedLayout } from './utils/reorderFixedColumns';
+import { scheduleAfterColumnDomUpdate } from './utils/scheduleAfterColumnDomUpdate';
 
 import type { RefAttributes } from 'react';
 import type { AffixRef } from '../affix';
@@ -49,7 +59,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     height,
     data,
     columns: originColumns,
-    fixedColumnReorder,
     style,
     headerAffixedTop,
     bordered,
@@ -58,18 +67,27 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     pagination,
   } = props;
 
-  // 左固定列前置重排，opt-in 开启，默认保持原有列顺序
-  const columns = useMemo(
-    () => (fixedColumnReorder ? reorderColumnsForLeftFixed(originColumns) : originColumns),
-    [originColumns, fixedColumnReorder],
-  );
-
   const borderWidth = props.bordered ? 1 : 0;
 
   const tableRef = useRef<HTMLDivElement>(null);
   const tableElmRef = useRef<HTMLTableElement>(null);
   const bottomContentRef = useRef<HTMLDivElement>(null);
   const [tableFootHeight, setTableFootHeight] = useState(0);
+  const [horizontalScrollLeft, setHorizontalScrollLeft] = useState(0);
+  const [columns, setColumns] = useState(originColumns);
+  const pendingFixedRefreshRef = useRef(false);
+  const leftFixedReorderSignatureRef = useRef('');
+  const fixedLayoutActionsRef = useRef<{
+    getThWidthList: () => Record<string, number>;
+    refreshTable: () => void;
+    updateColumnFixedShadow: (target: HTMLElement | null, extra?: { skipScrollLimit?: boolean }) => void;
+    tableContentRef: React.RefObject<HTMLDivElement>;
+  }>({
+    getThWidthList: () => ({}),
+    refreshTable: () => undefined,
+    updateColumnFixedShadow: () => undefined,
+    tableContentRef: { current: null },
+  });
 
   const allTableClasses = useClassName();
   const { classPrefix, virtualScrollClasses, tableLayoutClasses, tableBaseClass, tableColFixedClasses } =
@@ -125,12 +143,57 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     getThWidthList,
     updateThWidthList,
     updateTableAfterColumnResize,
+    syncFixedColumnBorder,
   } = useFixed(props, finalColumns, {
     paginationAffixRef,
     horizontalScrollAffixRef,
     headerTopAffixRef,
     footerBottomAffixRef,
   });
+
+  fixedLayoutActionsRef.current = {
+    getThWidthList,
+    refreshTable,
+    updateColumnFixedShadow,
+    tableContentRef,
+  };
+
+  const refreshFixedOnLayoutChange = useCallback(() => {
+    const {
+      refreshTable: refresh,
+      updateColumnFixedShadow: updateShadow,
+      tableContentRef: contentRef,
+    } = fixedLayoutActionsRef.current;
+    refresh();
+    updateShadow(contentRef.current, { skipScrollLimit: true });
+  }, []);
+
+  // 非首列 left fixed：scrollLeft 分阶段解析列序；重排阈值 crossing 时立即刷新 fixed
+  useLayoutEffect(() => {
+    const { getThWidthList: readColWidths, tableContentRef: contentRef } = fixedLayoutActionsRef.current;
+    const scrollLeft = contentRef.current?.scrollLeft ?? horizontalScrollLeft;
+    const layout = resolveLeftFixedLayout(originColumns, scrollLeft, readColWidths());
+    const reorderChanged = leftFixedReorderSignatureRef.current !== layout.reorderSignature;
+    leftFixedReorderSignatureRef.current = layout.reorderSignature;
+
+    setColumns((prev) => {
+      if (isSameDisplayColumns(prev, layout.displayColumns)) return prev;
+      pendingFixedRefreshRef.current = true;
+      return layout.displayColumns;
+    });
+
+    if (reorderChanged) {
+      pendingFixedRefreshRef.current = true;
+      refreshFixedOnLayoutChange();
+    }
+  }, [originColumns, horizontalScrollLeft, refreshFixedOnLayoutChange]);
+
+  // 列序 DOM 更新后再刷新 fixed 位置
+  useLayoutEffect(() => {
+    if (!pendingFixedRefreshRef.current) return;
+    pendingFixedRefreshRef.current = false;
+    return scheduleAfterColumnDomUpdate(refreshFixedOnLayoutChange);
+  }, [columns, refreshFixedOnLayoutChange]);
 
   const { onMount: onAffixHeaderMount } = useDomRefMount(affixHeaderRef);
 
@@ -259,12 +322,17 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const onInnerVirtualScroll = (e: React.WheelEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
     const top = target.scrollTop;
+    const left = target.scrollLeft;
+    if (horizontalScrollLeft !== left) {
+      setHorizontalScrollLeft(left);
+    }
     // 排除横向滚动触发的纵向虚拟滚动计算
     if (lastScrollY !== top) {
       virtualConfig.isVirtualScroll && virtualConfig.handleScroll();
     } else {
       lastScrollY = -1;
       updateColumnFixedShadow(target);
+      syncFixedColumnBorder();
     }
     lastScrollY = top;
     onHorizontalScroll(target);

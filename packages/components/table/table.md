@@ -16,7 +16,6 @@ data | Array | [] | 数据源，泛型 T 指表格数据类型。TS 类型：`Ar
 disableDataPage | Boolean | false | 是否禁用本地数据分页。当 `data` 数据长度超过分页大小时，会自动进行本地数据分页。如果 `disableDataPage` 设置为 true，则无论何时，都不会进行本地数据分页 | N
 empty | TNode | '' | 空表格呈现样式，支持全局配置 `GlobalConfigProvider`。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 firstFullRow | TNode | - | 首行内容，横跨所有列。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-fixedColumnReorder | Boolean | false | 左固定列前置重排。开启后，将 `fixed: 'left'` 的列移到功能列（展开/多选等）之后的最左侧渲染，使非首列左固定时也能初始贴左，其前面的可滚动列位于 fixed 区域右侧。暂不支持多级表头 | N
 fixedRows | Array | - | 固定行（冻结行），示例：[M, N]，表示冻结表头 M 行和表尾 N 行。M 和 N 值为 0 时，表示不冻结行。TS 类型：`Array<number>` | N
 footData | Array | [] | 表尾数据源，泛型 T 指表格数据类型。TS 类型：`Array<T>` | N
 footerAffixProps | Object | - | 已废弃。请更为使用 `footerAffixedBottom`。表尾吸底基于 Affix 组件开发，透传全部 Affix 组件属性。。TS 类型：`Partial<AffixProps>` | N

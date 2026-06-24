@@ -49,7 +49,7 @@ function useRowExpand(props: TdPrimaryTableProps) {
 
   const showExpandIconColumn = props.expandIcon !== false && showExpandedRow;
 
-  // 存在任意左固定列时，展开列也需要固定（配合 fixedColumnReorder 支持非首列左固定）
+  // 存在任意左固定列时，展开列也需要固定（非首列 left fixed 滚动后前置）
   const hasLeftFixedColumn = props.columns?.some((col) => col.fixed === 'left');
 
   const onToggleExpand = (e: MouseEvent<HTMLSpanElement>, row: TableRowData) => {
