@@ -174,9 +174,14 @@ export default function TableFixedColumnReorder() {
           scrollLeft=0 时渲染顺序：{renderOrderHint.defineOrder}
         </Tag>
         {fixedTarget === 'connected' && (
-          <Tag theme="success" variant="light">
-            相连 fixed：从左连续固定，不重排列序，id(left:0) + name(left:id 宽) 标准 sticky
-          </Tag>
+          <>
+            <Tag theme="success" variant="light">
+              相连 fixed（id + name）：从左连续左固定，不触发内置重排，列序始终与定义一致
+            </Tag>
+            <Tag theme="default" variant="outline">
+              标准 sticky：id 贴 left:0，name 贴 id 右侧；滚动仅显示左阴影，无分阶段前置
+            </Tag>
+          </>
         )}
         {renderOrderHint.stageHints.map((stage) => (
           <Tag key={stage.label} theme="warning" variant="light">

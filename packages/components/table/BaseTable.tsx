@@ -32,7 +32,11 @@ import TFoot from './TFoot';
 import THead from './THead';
 import { ROW_LISTENERS } from './TR';
 import { getAffixProps } from './utils';
-import { isSameDisplayColumns, resolveLeftFixedLayout } from './utils/reorderFixedColumns';
+import {
+  hasLeftFixedColumnNeedReorder,
+  isSameDisplayColumns,
+  resolveLeftFixedLayout,
+} from './utils/reorderFixedColumns';
 import { scheduleAfterColumnDomUpdate } from './utils/scheduleAfterColumnDomUpdate';
 
 import type { RefAttributes } from 'react';
@@ -189,7 +193,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     const layout = resolveLeftFixedLayout(originColumns, scrollLeft, getThWidthList());
 
     if (!layout.enabled) {
-      if (!leftFixedReorderSignatureRef.current && !leftFixedLayoutSignatureRef.current) return;
       resetLeftFixedLayoutSignatures();
       setColumns((prev) => (isSameDisplayColumns(prev, originColumns) ? prev : originColumns));
       return;
@@ -387,7 +390,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     // 横向滚动：rAF 合并 + 签名短路，避免每帧 setState 引发整表重渲染
     if (left !== lastScrollLeftRef.current) {
       lastScrollLeftRef.current = left;
-      scheduleScrollLeftFixedLayout();
+      if (hasLeftFixedColumnNeedReorder(originColumns)) {
+        scheduleScrollLeftFixedLayout();
+      }
       updateColumnFixedShadow(target);
     }
 
