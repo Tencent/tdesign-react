@@ -73,19 +73,23 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const tableElmRef = useRef<HTMLTableElement>(null);
   const bottomContentRef = useRef<HTMLDivElement>(null);
   const [tableFootHeight, setTableFootHeight] = useState(0);
-  const [horizontalScrollLeft, setHorizontalScrollLeft] = useState(0);
   const [columns, setColumns] = useState(originColumns);
   const pendingFixedRefreshRef = useRef(false);
   const leftFixedReorderSignatureRef = useRef('');
+  const leftFixedLayoutSignatureRef = useRef('');
+  const scrollLeftFixedRafRef = useRef<number>();
+  const lastScrollLeftRef = useRef(0);
   const fixedLayoutActionsRef = useRef<{
     getThWidthList: () => Record<string, number>;
     refreshTable: () => void;
     updateColumnFixedShadow: (target: HTMLElement | null, extra?: { skipScrollLimit?: boolean }) => void;
+    syncFixedColumnBorder: () => void;
     tableContentRef: React.RefObject<HTMLDivElement>;
   }>({
     getThWidthList: () => ({}),
     refreshTable: () => undefined,
     updateColumnFixedShadow: () => undefined,
+    syncFixedColumnBorder: () => undefined,
     tableContentRef: { current: null },
   });
 
@@ -155,6 +159,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     getThWidthList,
     refreshTable,
     updateColumnFixedShadow,
+    syncFixedColumnBorder,
     tableContentRef,
   };
 
@@ -168,13 +173,34 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     updateShadow(contentRef.current, { skipScrollLimit: true });
   }, []);
 
-  // 非首列 left fixed：scrollLeft 分阶段解析列序；重排阈值 crossing 时立即刷新 fixed
-  useLayoutEffect(() => {
-    const { getThWidthList: readColWidths, tableContentRef: contentRef } = fixedLayoutActionsRef.current;
-    const scrollLeft = contentRef.current?.scrollLeft ?? horizontalScrollLeft;
-    const layout = resolveLeftFixedLayout(originColumns, scrollLeft, readColWidths());
+  const resetLeftFixedLayoutSignatures = useCallback(() => {
+    leftFixedReorderSignatureRef.current = '';
+    leftFixedLayoutSignatureRef.current = '';
+  }, []);
+
+  /** 解析 left fixed 布局：签名未变则跳过；重排走全量刷新，仅 border 变化走轻量 sync */
+  const applyLeftFixedLayout = useCallback(() => {
+    const {
+      getThWidthList,
+      tableContentRef: contentRef,
+      syncFixedColumnBorder: syncBorder,
+    } = fixedLayoutActionsRef.current;
+    const scrollLeft = contentRef.current?.scrollLeft ?? 0;
+    const layout = resolveLeftFixedLayout(originColumns, scrollLeft, getThWidthList());
+
+    if (!layout.enabled) {
+      if (!leftFixedReorderSignatureRef.current && !leftFixedLayoutSignatureRef.current) return;
+      resetLeftFixedLayoutSignatures();
+      setColumns((prev) => (isSameDisplayColumns(prev, originColumns) ? prev : originColumns));
+      return;
+    }
+
     const reorderChanged = leftFixedReorderSignatureRef.current !== layout.reorderSignature;
+    const layoutChanged = leftFixedLayoutSignatureRef.current !== layout.layoutSignature;
+    if (!reorderChanged && !layoutChanged) return;
+
     leftFixedReorderSignatureRef.current = layout.reorderSignature;
+    leftFixedLayoutSignatureRef.current = layout.layoutSignature;
 
     setColumns((prev) => {
       if (isSameDisplayColumns(prev, layout.displayColumns)) return prev;
@@ -185,8 +211,32 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     if (reorderChanged) {
       pendingFixedRefreshRef.current = true;
       refreshFixedOnLayoutChange();
+    } else {
+      syncBorder();
     }
-  }, [originColumns, horizontalScrollLeft, refreshFixedOnLayoutChange]);
+  }, [originColumns, refreshFixedOnLayoutChange, resetLeftFixedLayoutSignatures]);
+
+  const scheduleScrollLeftFixedLayout = useCallback(() => {
+    if (scrollLeftFixedRafRef.current != null) return;
+    scrollLeftFixedRafRef.current = requestAnimationFrame(() => {
+      scrollLeftFixedRafRef.current = undefined;
+      applyLeftFixedLayout();
+    });
+  }, [applyLeftFixedLayout]);
+
+  useEffect(
+    () => () => {
+      if (scrollLeftFixedRafRef.current != null) {
+        cancelAnimationFrame(scrollLeftFixedRafRef.current);
+      }
+    },
+    [],
+  );
+
+  useLayoutEffect(() => {
+    resetLeftFixedLayoutSignatures();
+    applyLeftFixedLayout();
+  }, [originColumns, applyLeftFixedLayout, resetLeftFixedLayoutSignatures]);
 
   // 列序 DOM 更新后再刷新 fixed 位置
   useLayoutEffect(() => {
@@ -199,6 +249,12 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
   const { dataSource, innerPagination, isPaginateData, renderPagination } = usePagination(props, tableContentRef);
 
+  const onTableAfterColumnResize = useCallback(() => {
+    updateTableAfterColumnResize();
+    resetLeftFixedLayoutSignatures();
+    applyLeftFixedLayout();
+  }, [updateTableAfterColumnResize, resetLeftFixedLayoutSignatures, applyLeftFixedLayout]);
+
   // 列宽拖拽逻辑
   const columnResizeParams = useColumnResize({
     isWidthOverflow,
@@ -207,7 +263,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     getThWidthList,
     updateThWidthList,
     setTableElmWidth,
-    updateTableAfterColumnResize,
+    updateTableAfterColumnResize: onTableAfterColumnResize,
     onColumnResizeChange: props.onColumnResizeChange,
   });
   const { resizeLineRef, resizeLineStyle, setEffectColMap, updateTableWidthOnColumnChange } = columnResizeParams;
@@ -323,17 +379,18 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     const target = e.target as HTMLElement;
     const top = target.scrollTop;
     const left = target.scrollLeft;
-    if (horizontalScrollLeft !== left) {
-      setHorizontalScrollLeft(left);
-    }
-    // 排除横向滚动触发的纵向虚拟滚动计算
+
     if (lastScrollY !== top) {
       virtualConfig.isVirtualScroll && virtualConfig.handleScroll();
-    } else {
-      lastScrollY = -1;
-      updateColumnFixedShadow(target);
-      syncFixedColumnBorder();
     }
+
+    // 横向滚动：rAF 合并 + 签名短路，避免每帧 setState 引发整表重渲染
+    if (left !== lastScrollLeftRef.current) {
+      lastScrollLeftRef.current = left;
+      scheduleScrollLeftFixedLayout();
+      updateColumnFixedShadow(target);
+    }
+
     lastScrollY = top;
     onHorizontalScroll(target);
     emitScrollEvent(e);
