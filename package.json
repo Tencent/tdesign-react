@@ -48,7 +48,7 @@
     }
   },
   "lint-staged": {
-    "packages/**/*.{ts,tsx}": [
+    "packages/**/!(type).{ts,tsx}": [
       "prettier --write",
       "pnpm run lint:fix"
     ]
