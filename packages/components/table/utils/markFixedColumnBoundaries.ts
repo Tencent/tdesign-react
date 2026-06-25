@@ -17,7 +17,10 @@ function resetFixedBoundaryFlags(levelNodes: FixedColumnInfo[][]): void {
 
 /**
  * 标记 fixed-left-last / fixed-right-first 边界列。
- * 右 border：单列未达重排阈值贴边；多列按 widthAfter 交接。右 shadow 与 border 同步。
+ *
+ * 左右两侧独立判断，互不影响：
+ * - 单侧启用内置重排：仅按 borderBoundaryColKey 标记，不回落默认规则
+ * - 单侧未启用重排：与 develop 一致，按列序标记首个边界（与 showShadow / 是否溢出无关）
  */
 export function markFixedColumnBoundaries(
   levelNodes: FixedColumnInfo[][],
@@ -35,17 +38,11 @@ export function markFixedColumnBoundaries(
       const isParentLastLeftFixedCol = !parent || parent?.lastLeftFixedCol;
       const isParentFirstRightFixedCol = !parent || parent?.firstRightFixedCol;
 
-      // 内置重排：左右 border 均为 sticky 边界；启用时禁止回落默认规则
       if (layout.left.enabled) {
         if (layout.left.borderBoundaryColKey && colMapInfo.col.colKey === layout.left.borderBoundaryColKey) {
           colMapInfo.lastLeftFixedCol = true;
         }
-      } else if (
-        !layout.enabled &&
-        isParentLastLeftFixedCol &&
-        colMapInfo.col.fixed === 'left' &&
-        nextColMapInfo?.col.fixed !== 'left'
-      ) {
+      } else if (isParentLastLeftFixedCol && colMapInfo.col.fixed === 'left' && nextColMapInfo?.col.fixed !== 'left') {
         colMapInfo.lastLeftFixedCol = true;
       }
 
@@ -54,8 +51,6 @@ export function markFixedColumnBoundaries(
           colMapInfo.firstRightFixedCol = true;
         }
       } else if (
-        !layout.enabled &&
-        layout.right.showShadow &&
         isParentFirstRightFixedCol &&
         colMapInfo.col.fixed === 'right' &&
         lastColMapInfo?.col.fixed !== 'right'

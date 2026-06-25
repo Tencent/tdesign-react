@@ -82,7 +82,7 @@ describe('markFixedColumnBoundaries', () => {
     expect(levelNodes[0][4].firstRightFixedCol).toBe(false);
   });
 
-  it('左侧内置重排启用时，右侧不回落默认 border 规则', () => {
+  it('左侧内置重排启用时，右侧连续固定列仍按默认规则标记 border', () => {
     const levelNodes = createLevelNodes(['id', 'name', 'email', 'remark', 'operation'], {
       remark: 'right',
       operation: 'right',
@@ -111,7 +111,38 @@ describe('markFixedColumnBoundaries', () => {
 
     markFixedColumnBoundaries(levelNodes, layout);
 
-    expect(levelNodes[0][3].firstRightFixedCol).toBe(false);
+    expect(levelNodes[0][1].lastLeftFixedCol).toBe(true);
+    expect(levelNodes[0][3].firstRightFixedCol).toBe(true);
     expect(levelNodes[0][4].firstRightFixedCol).toBe(false);
+  });
+
+  it('标准右固定（无内置重排）在 showShadow=false 时仍标记 fixed-right-first', () => {
+    const levelNodes = createLevelNodes(['id', 'name', 'email', 'operation'], {
+      operation: 'right',
+    });
+    const layout: FixedColumnLayoutState = {
+      enabled: false,
+      displayColumns: [],
+      left: {
+        enabled: false,
+        reorderTriggeredKeys: [],
+        showShadow: false,
+        reorderSignature: '',
+        sideLayoutSignature: '',
+      },
+      right: {
+        enabled: false,
+        reorderTriggeredKeys: [],
+        borderBoundaryColKey: undefined,
+        showShadow: false,
+        reorderSignature: '',
+        sideLayoutSignature: '',
+      },
+      layoutSignature: '::',
+    };
+
+    markFixedColumnBoundaries(levelNodes, layout);
+
+    expect(levelNodes[0][3].firstRightFixedCol).toBe(true);
   });
 });

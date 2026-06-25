@@ -615,6 +615,7 @@ export function shouldShowRightFixedColumnShadow<T extends TableRowData>(
   colWidths: Record<string, number> = {},
   displayColumns: BaseTableCol<T>[] = [],
 ): boolean {
+  // 容器阴影：重排模式跟随 border 边界；标准右固定与 develop 一致，看是否还能右滚
   if (hasRightFixedColumnNeedReorder(columns)) {
     const display = displayColumns.length ? displayColumns : columns;
     return !!getRightFixedBorderBoundaryColKey(columns, display, scrollMetrics, colWidths);

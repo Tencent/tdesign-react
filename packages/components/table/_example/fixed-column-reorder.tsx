@@ -210,7 +210,14 @@ export default function TableFixedColumnReorder() {
 
   // 切换模式时回到 scrollLeft=0，避免沿用上一模式的滚动 / 重排列序
   useEffect(() => {
-    tableRef.current?.tableContentElement?.scrollTo({ left: 0 });
+    const content = tableRef.current?.tableContentElement;
+    if (content) {
+      if (typeof content.scrollTo === 'function') {
+        content.scrollTo({ left: 0 });
+      } else {
+        content.scrollLeft = 0;
+      }
+    }
     setScrollLeft(0);
   }, [mode]);
 
