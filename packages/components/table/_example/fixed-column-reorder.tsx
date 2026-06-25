@@ -135,8 +135,8 @@ function getHeaderSignature(columns: PrimaryTableCol[]): string {
 /** 从表头 DOM 读取 colKey 顺序（反映 Table 是否做了列重排） */
 function readDomHeaderColKeys(tableRoot: HTMLElement | null): ColumnKey[] {
   if (!tableRoot) return [];
-  const ths = tableRoot.querySelectorAll('thead tr:first-child th[data-colkey]');
-  return Array.from(ths)
+  const headerCells = tableRoot.querySelectorAll('thead tr:first-child th[data-colkey]');
+  return Array.from(headerCells)
     .map((th) => th.getAttribute('data-colkey'))
     .filter((key): key is ColumnKey => !!key && COLUMN_KEYS.includes(key as ColumnKey));
 }
@@ -144,8 +144,8 @@ function readDomHeaderColKeys(tableRoot: HTMLElement | null): ColumnKey[] {
 /** 按视口 left 排序，得到肉眼看到的从左到右表头顺序 */
 function readVisualHeaderColKeys(tableRoot: HTMLElement | null): ColumnKey[] {
   if (!tableRoot) return [];
-  const ths = tableRoot.querySelectorAll('thead tr:first-child th[data-colkey]');
-  return Array.from(ths)
+  const headerCells = tableRoot.querySelectorAll('thead tr:first-child th[data-colkey]');
+  return Array.from(headerCells)
     .map((th) => ({
       colKey: th.getAttribute('data-colkey') as ColumnKey,
       left: th.getBoundingClientRect().left,
