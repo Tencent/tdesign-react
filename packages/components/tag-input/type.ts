@@ -4,10 +4,17 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { InputProps } from '../input';
-import { TagProps } from '../tag';
-import { TNode, TElement, SizeEnum } from '../common';
-import { MouseEvent, KeyboardEvent, ClipboardEvent, FocusEvent, FormEvent, CompositionEvent } from 'react';
+import { InputProps } from "../input";
+import { TagProps } from "../tag";
+import type { TNode, TElement, SizeEnum } from "../common";
+import type {
+  MouseEvent,
+  KeyboardEvent,
+  ClipboardEvent,
+  FocusEvent,
+  FormEvent,
+  CompositionEvent,
+} from "react";
 
 export interface TdTagInputProps {
   /**
@@ -47,7 +54,7 @@ export interface TdTagInputProps {
    * 标签超出时的呈现方式，有两种：横向滚动显示 和 换行显示
    * @default break-line
    */
-  excessTagsDisplayType?: 'scroll' | 'break-line';
+  excessTagsDisplayType?: "scroll" | "break-line";
   /**
    * 标签最大换行数
    * @default 1
@@ -107,7 +114,7 @@ export interface TdTagInputProps {
   /**
    * 输入框状态
    */
-  status?: 'default' | 'success' | 'warning' | 'error';
+  status?: "default" | "success" | "warning" | "error";
   /**
    * 后置图标前的后置内容
    */
@@ -120,6 +127,14 @@ export interface TdTagInputProps {
    * 自定义标签的内部内容，每一个标签的当前值。注意和 `valueDisplay` 区分，`valueDisplay`  是用来定义全部标签内容，而非某一个标签
    */
   tag?: string | TNode<{ value: string | number }>;
+  /**
+   * 自定义单个标签的整体节点
+   */
+  tagDisplay?: TNode<{
+    value: string | number;
+    index: number;
+    onClose: (context?: { e?: MouseEvent }) => void;
+  }>;
   /**
    * 透传 Tag 组件全部属性
    */
@@ -141,11 +156,19 @@ export interface TdTagInputProps {
   /**
    * 自定义值呈现的全部内容，参数为所有标签的值
    */
-  valueDisplay?: string | TNode<{ value: TagInputValue; onClose: (index: number, item?: any) => void }>;
+  valueDisplay?:
+    | string
+    | TNode<{
+        value: TagInputValue;
+        onClose: (index: number, item?: any) => void;
+      }>;
   /**
    * 失去焦点时触发
    */
-  onBlur?: (value: TagInputValue, context: { inputValue: string; e: FocusEvent<HTMLInputElement> }) => void;
+  onBlur?: (
+    value: TagInputValue,
+    context: { inputValue: string; e: FocusEvent<HTMLInputElement> }
+  ) => void;
   /**
    * 值变化时触发，参数 `context.trigger` 表示数据变化的触发来源；`context.index` 指当前变化项的下标；`context.item` 指当前变化项；`context.e` 表示事件参数
    */
@@ -165,11 +188,17 @@ export interface TdTagInputProps {
   /**
    * 按键按下 Enter 时触发
    */
-  onEnter?: (value: TagInputValue, context: { e: KeyboardEvent<HTMLDivElement>; inputValue: string }) => void;
+  onEnter?: (
+    value: TagInputValue,
+    context: { e: KeyboardEvent<HTMLDivElement>; inputValue: string }
+  ) => void;
   /**
    * 聚焦时触发
    */
-  onFocus?: (value: TagInputValue, context: { inputValue: string; e: FocusEvent<HTMLInputElement> }) => void;
+  onFocus?: (
+    value: TagInputValue,
+    context: { inputValue: string; e: FocusEvent<HTMLInputElement> }
+  ) => void;
   /**
    * 输入框值发生变化时触发，`context.trigger` 表示触发输入框值变化的来源：文本输入触发、清除按钮触发、回车键触发等
    */
@@ -185,7 +214,10 @@ export interface TdTagInputProps {
   /**
    * 粘贴事件，`pasteValue` 表示粘贴板的内容
    */
-  onPaste?: (context: { e: ClipboardEvent<HTMLDivElement>; pasteValue: string }) => void;
+  onPaste?: (context: {
+    e: ClipboardEvent<HTMLDivElement>;
+    pasteValue: string;
+  }) => void;
   /**
    * 移除单个标签时触发
    */
@@ -201,7 +233,11 @@ export interface TagInputChangeContext {
   e?: MouseEvent<SVGSVGElement> | KeyboardEvent<HTMLInputElement>;
 }
 
-export type TagInputTriggerSource = 'enter' | 'tag-remove' | 'backspace' | 'clear';
+export type TagInputTriggerSource =
+  | "enter"
+  | "tag-remove"
+  | "backspace"
+  | "clear";
 
 export interface TagInputDragSortContext {
   newTags: TagInputValue;
@@ -217,7 +253,7 @@ export interface InputValueChangeContext {
     | MouseEvent<HTMLElement | SVGElement>
     | CompositionEvent<HTMLDivElement>
     | KeyboardEvent<HTMLInputElement>;
-  trigger: 'input' | 'clear' | 'enter' | 'blur';
+  trigger: "input" | "clear" | "enter" | "blur";
 }
 
 export interface TagInputRemoveContext {
@@ -228,4 +264,4 @@ export interface TagInputRemoveContext {
   trigger: TagInputRemoveTrigger;
 }
 
-export type TagInputRemoveTrigger = 'tag-remove' | 'backspace';
+export type TagInputRemoveTrigger = "tag-remove" | "backspace";

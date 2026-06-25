@@ -208,7 +208,11 @@ export default function useSingle(props: SelectInputProps) {
       >
         <span
           ref={customElementRef}
-          style={{ display: 'inline-block', verticalAlign: 'top', ...(autoWidth && { whiteSpace: 'nowrap' }) }}
+          style={{
+            display: 'inline-block',
+            verticalAlign: 'top',
+            ...(autoWidth && { whiteSpace: 'nowrap' }),
+          }}
         >
           {singleValueDisplay}
         </span>

@@ -25,7 +25,7 @@ export default function useLockStyle(props) {
         left: `margin: 0 0 0 ${sizeValue}`,
         right: `margin: 0 0 0 -${sizeValue}`,
         bottom: `margin: -${sizeValue} 0 0 0`,
-      }[placement]),
+      })[placement],
     [placement, sizeValue],
   );
 

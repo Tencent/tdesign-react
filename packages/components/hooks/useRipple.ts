@@ -132,10 +132,13 @@ export default function useRipple(el: HTMLElement, fixedRippleColor?: string): v
         el.removeEventListener('pointerup', handleClearRipple, false);
         el.removeEventListener('pointerleave', handleClearRipple, false);
 
-        setTimeout(() => {
-          ripple.remove();
-          if (rippleContainer.children.length === 0) rippleContainer.remove();
-        }, period * 2 + 100);
+        setTimeout(
+          () => {
+            ripple.remove();
+            if (rippleContainer.children.length === 0) rippleContainer.remove();
+          },
+          period * 2 + 100,
+        );
       };
 
       el.addEventListener('pointerup', handleClearRipple, false);

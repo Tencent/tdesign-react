@@ -15,7 +15,9 @@ describe('InputNumber 组件测试', () => {
     );
     expect(container.firstChild.classList.contains('t-input-number')).toBeTruthy();
     expect(queryByPlaceholderText(InputNumberPlaceholder)).toBeInTheDocument();
-    fireEvent.change(queryByPlaceholderText(InputNumberPlaceholder), { target: { value: InputNumberValue } });
+    fireEvent.change(queryByPlaceholderText(InputNumberPlaceholder), {
+      target: { value: InputNumberValue },
+    });
     expect(changeFn).toBeCalledTimes(1);
     expect(changeFn.mock.calls[0][0]).toBe(InputNumberValue);
   });
@@ -28,6 +30,12 @@ describe('InputNumber 组件测试', () => {
     fireEvent.mouseEnter(container.firstChild);
     fireEvent.click(container.querySelector('.t-input-number__increase'));
     expect(queryByPlaceholderText(InputNumberPlaceholder).value).toEqual('6');
+  });
+
+  test('autofocus', () => {
+    const { container } = render(<InputNumber autofocus={true} />);
+    const wrapper = container.querySelector('input');
+    expect(wrapper.getAttribute('autofocus')).toBeDefined();
   });
 
   test('blur', async () => {

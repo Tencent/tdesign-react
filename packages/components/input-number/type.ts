@@ -4,15 +4,21 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { InputProps } from '../input';
-import { TNode } from '../common';
-import { MouseEvent, KeyboardEvent, FocusEvent, FormEvent, CompositionEvent } from 'react';
+import { InputProps } from "../input";
+import type { TNode } from "../common";
+import type {
+  MouseEvent,
+  KeyboardEvent,
+  FocusEvent,
+  FormEvent,
+  CompositionEvent,
+} from "react";
 
 export interface TdInputNumberProps<T = InputNumberValue> {
   /**
    * 文本内容位置，居左/居中/居右
    */
-  align?: 'left' | 'center' | 'right';
+  align?: "left" | "center" | "right";
   /**
    * 是否允许输入超过 `max` `min` 范围外的数字。为保障用户体验，仅在失去焦点时进行数字范围矫正。默认允许超出，数字超出范围时，输入框变红提醒
    * @default true
@@ -24,6 +30,11 @@ export interface TdInputNumberProps<T = InputNumberValue> {
    */
   autoWidth?: boolean;
   /**
+   * 自动聚焦
+   * @default false
+   */
+  autofocus?: boolean;
+  /**
    * [小数位数](https://en.wiktionary.org/wiki/decimal_place)
    */
   decimalPlaces?: InputNumberDecimalPlaces;
@@ -34,7 +45,10 @@ export interface TdInputNumberProps<T = InputNumberValue> {
   /**
    * 格式化输入框展示值。第二个事件参数 `context.fixedNumber` 表示处理过小数位数 `decimalPlaces` 的数字
    */
-  format?: (value: InputNumberValue, context?: { fixedNumber?: InputNumberValue }) => InputNumberValue;
+  format?: (
+    value: InputNumberValue,
+    context?: { fixedNumber?: InputNumberValue }
+  ) => InputNumberValue;
   /**
    * 透传 Input 输入框组件全部属性
    */
@@ -75,12 +89,12 @@ export interface TdInputNumberProps<T = InputNumberValue> {
    * 组件尺寸
    * @default medium
    */
-  size?: 'small' | 'medium' | 'large';
+  size?: "small" | "medium" | "large";
   /**
    * 文本框状态
    * @default default
    */
-  status?: 'default' | 'success' | 'warning' | 'error';
+  status?: "default" | "success" | "warning" | "error";
   /**
    * 数值改变步数，可以是小数。如果是大数，请保证数据类型为字符串
    * @default 1
@@ -94,7 +108,7 @@ export interface TdInputNumberProps<T = InputNumberValue> {
    * 按钮布局
    * @default row
    */
-  theme?: 'column' | 'row' | 'normal';
+  theme?: "column" | "row" | "normal";
   /**
    * 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式
    */
@@ -110,7 +124,10 @@ export interface TdInputNumberProps<T = InputNumberValue> {
   /**
    * 失去焦点时触发
    */
-  onBlur?: (value: InputNumberValue, context: { e: FocusEvent<HTMLDivElement> }) => void;
+  onBlur?: (
+    value: InputNumberValue,
+    context: { e: FocusEvent<HTMLDivElement> }
+  ) => void;
   /**
    * 值变化时触发，`type` 表示触发本次变化的来源
    */
@@ -118,30 +135,49 @@ export interface TdInputNumberProps<T = InputNumberValue> {
   /**
    * 回车键按下时触发
    */
-  onEnter?: (value: InputNumberValue, context: { e: KeyboardEvent<HTMLDivElement> }) => void;
+  onEnter?: (
+    value: InputNumberValue,
+    context: { e: KeyboardEvent<HTMLDivElement> }
+  ) => void;
   /**
    * 获取焦点时触发
    */
-  onFocus?: (value: InputNumberValue, context: { e: FocusEvent<HTMLDivElement> }) => void;
+  onFocus?: (
+    value: InputNumberValue,
+    context: { e: FocusEvent<HTMLDivElement> }
+  ) => void;
   /**
    * 键盘按下时触发
    */
-  onKeydown?: (value: InputNumberValue, context: { e: KeyboardEvent<HTMLDivElement> }) => void;
+  onKeydown?: (
+    value: InputNumberValue,
+    context: { e: KeyboardEvent<HTMLDivElement> }
+  ) => void;
   /**
    * 按下字符键时触发（keydown -> keypress -> keyup）
    */
-  onKeypress?: (value: InputNumberValue, context: { e: KeyboardEvent<HTMLDivElement> }) => void;
+  onKeypress?: (
+    value: InputNumberValue,
+    context: { e: KeyboardEvent<HTMLDivElement> }
+  ) => void;
   /**
    * 释放键盘时触发
    */
-  onKeyup?: (value: InputNumberValue, context: { e: KeyboardEvent<HTMLDivElement> }) => void;
+  onKeyup?: (
+    value: InputNumberValue,
+    context: { e: KeyboardEvent<HTMLDivElement> }
+  ) => void;
   /**
    * 最大值或最小值校验结束后触发，`exceed-maximum` 表示超出最大值，`below-minimum` 表示小于最小值
    */
-  onValidate?: (context: { error?: 'exceed-maximum' | 'below-minimum' }) => void;
+  onValidate?: (context: {
+    error?: "exceed-maximum" | "below-minimum";
+  }) => void;
 }
 
-export type InputNumberDecimalPlaces = number | { enableRound: boolean; places: number };
+export type InputNumberDecimalPlaces =
+  | number
+  | { enableRound: boolean; places: number };
 
 export type InputNumberValue = number | string;
 
@@ -155,4 +191,11 @@ export interface ChangeContext {
     | CompositionEvent<HTMLDivElement>;
 }
 
-export type ChangeSource = 'add' | 'reduce' | 'input' | 'blur' | 'enter' | 'clear' | 'props';
+export type ChangeSource =
+  | "add"
+  | "reduce"
+  | "input"
+  | "blur"
+  | "enter"
+  | "clear"
+  | "props";
