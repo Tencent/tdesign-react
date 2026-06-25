@@ -27,10 +27,14 @@ export interface DialogProps extends TdDialogProps, StyledProps {
 }
 
 const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
-  const props = useDefaultProps<DialogProps>(originalProps, dialogDefaultProps);
+  const { classPrefix, dialog: globalDialogConfig } = useConfig();
+  const props = useDefaultProps<DialogProps>(originalProps, {
+    ...dialogDefaultProps,
+    placement: globalDialogConfig?.placement ?? dialogDefaultProps.placement,
+    zIndex: globalDialogConfig?.zIndex,
+  });
   const { children, ...restProps } = props;
 
-  const { classPrefix } = useConfig();
   const componentCls = `${classPrefix}-dialog`;
 
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -73,6 +77,8 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     onCloseBtnClick,
     forceRender,
     lazy,
+    top,
+    placement,
     ...restState
   } = state;
 
@@ -244,11 +250,11 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
               className={classNames(
                 isFullScreen ? `${componentCls}__position_fullscreen` : `${componentCls}__position`,
                 {
-                  [`${componentCls}--top`]: !isFullScreen && (!!props.top || props.placement === 'top'),
-                  [`${componentCls}--center`]: !isFullScreen && props.placement === 'center' && !props.top,
+                  [`${componentCls}--top`]: !isFullScreen && (!!top || placement === 'top'),
+                  [`${componentCls}--center`]: !isFullScreen && placement === 'center' && !top,
                 },
               )}
-              style={{ paddingTop: isFullScreen ? undefined : pxCompat(props.top) }}
+              style={{ paddingTop: isFullScreen ? undefined : pxCompat(top) }}
               onClick={onMaskClick}
             >
               <CSSTransition
