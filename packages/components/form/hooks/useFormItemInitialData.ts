@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { get, has, isEmpty, unset } from 'lodash-es';
 
 import { TD_DEFAULT_VALUE_MAP } from '../const';
@@ -17,6 +17,12 @@ export default function useFormItemInitialData(
 
   const { form, floatingFormDataRef, initialData: formContextInitialData } = useFormContext();
   const { name: formListName, initialData: formListInitialData } = useFormListContext();
+
+  const isFirstRenderRef = useRef(true);
+
+  useEffect(() => {
+    isFirstRenderRef.current = false;
+  }, []);
 
   // 组件渲染后删除对应游离值
   useEffect(() => {
@@ -42,15 +48,12 @@ export default function useFormItemInitialData(
 
     const isFormList = formListName && Array.isArray(fullPath);
 
-    if (typeof initialData !== 'undefined') {
-      if (isFormList) {
-        const storeValue = get(form.store, fullPath);
-        if (typeof storeValue !== 'undefined') {
-          return storeValue;
-        }
-      }
-      return initialData;
+    if (isFirstRenderRef.current && !hadReadFloatingFormData && name) {
+      const storeValue = get(form?.store, fullPath);
+      if (typeof storeValue !== 'undefined') return storeValue;
     }
+
+    if (typeof initialData !== 'undefined') return initialData;
 
     if (isFormList) {
       const pathPrefix = fullPath.slice(0, -1);
