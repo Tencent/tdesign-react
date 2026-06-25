@@ -17,7 +17,7 @@ function resetFixedBoundaryFlags(levelNodes: FixedColumnInfo[][]): void {
 
 /**
  * 标记 fixed-left-last / fixed-right-first 边界列。
- * 左 border：sticky 几何；右 border：重排阈值。阴影 gate 仅反映横滚（见 shouldShow*FixedColumnShadow）。
+ * 右 border：单列未达重排阈值贴边；多列按 widthAfter 交接。右 shadow 与 border 同步。
  */
 export function markFixedColumnBoundaries(
   levelNodes: FixedColumnInfo[][],
@@ -35,7 +35,7 @@ export function markFixedColumnBoundaries(
       const isParentLastLeftFixedCol = !parent || parent?.lastLeftFixedCol;
       const isParentFirstRightFixedCol = !parent || parent?.firstRightFixedCol;
 
-      // 内置重排：左 border 为 sticky 边界，右 border 为重排阈值；启用时禁止回落默认规则
+      // 内置重排：左右 border 均为 sticky 边界；启用时禁止回落默认规则
       if (layout.left.enabled) {
         if (layout.left.borderBoundaryColKey && colMapInfo.col.colKey === layout.left.borderBoundaryColKey) {
           colMapInfo.lastLeftFixedCol = true;

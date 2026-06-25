@@ -14,7 +14,7 @@ export interface FixedLayoutScrollMetrics {
 /** 单侧 fixed 重排触发项 */
 export interface FixedReorderTriggerEntry {
   colKey: string;
-  /** 左：scrollLeft >= threshold；右：scrollLeft >= maxScrollLeft - widthAfter */
+  /** 左：scrollLeft >= widthBefore；右：scrollFromRight <= widthAfter */
   threshold: number;
   widthAfter?: number;
 }
@@ -71,19 +71,10 @@ function isLeadingColumn<T extends TableRowData>(col: BaseTableCol<T>): boolean 
   return Boolean(col.colKey && TABLE_LEADING_COLUMN_KEYS.has(col.colKey));
 }
 
-/** 在 displayColumns 中取最靠左、且已触发重排的 right fixed 列 */
-function findLeftmostTriggeredRightFixedColKey<T extends TableRowData>(
-  displayColumns: BaseTableCol<T>[] = [],
-  triggeredColKeys: Set<string> = new Set(),
-): string | undefined {
-  for (let i = 0, len = displayColumns.length; i < len; i++) {
-    const col = displayColumns[i];
-    const colKey = String(col.colKey ?? i);
-    if (col.fixed === 'right' && triggeredColKeys.has(colKey)) {
-      return colKey;
-    }
-  }
-  return undefined;
+/** 距右缘剩余可滚距离（DOM 仅有 scrollLeft，右向判断统一用此量） */
+export function getScrollFromRight(scrollMetrics: FixedLayoutScrollMetrics): number {
+  const { scrollLeft, maxScrollLeft } = scrollMetrics;
+  return Math.max(0, maxScrollLeft - scrollLeft);
 }
 
 export function getColumnsTotalWidth<T extends TableRowData>(
@@ -215,24 +206,211 @@ export function getLeftFixedBorderBoundaryColKey<T extends TableRowData>(
 }
 
 /**
- * 右侧 fixed border 边界（fixed-right-first）。
- * 内置重排：跟重排阈值，取 display 中最靠左的已触发 right fixed 列。
+ * 与 setFixedRightPos 相同规则，基于 display 列序与列宽计算 right fixed 的 sticky right 偏移。
+ * border 边界取已触发列中 right 偏移最大者（贴边栈最左缘，与 fixed-right-first 一致）。
  */
+export function computeRightFixedOffsets<T extends TableRowData>(
+  displayColumns: BaseTableCol<T>[] = [],
+  colWidths: Record<string, number> = {},
+): Map<string, number> {
+  const offsets = new Map<string, number>();
+  const rightFixedMeta = new Map<string, { right: number; width: number }>();
+
+  for (let i = displayColumns.length - 1; i >= 0; i--) {
+    const col = displayColumns[i];
+    if (col.fixed === 'left') break;
+
+    const colKey = String(col.colKey ?? i);
+    const width = getColumnWidth(col, colWidths);
+
+    if (col.fixed === 'right') {
+      let lastColIndex = i + 1;
+      while (lastColIndex < displayColumns.length && displayColumns[lastColIndex].fixed !== 'right') {
+        lastColIndex += 1;
+      }
+      const lastCol = displayColumns[lastColIndex];
+      const lastKey = lastCol ? String(lastCol.colKey ?? lastColIndex) : '';
+      const lastMeta = lastKey ? rightFixedMeta.get(lastKey) : undefined;
+      const right = (lastMeta?.right ?? 0) + (lastMeta?.width ?? 0);
+      rightFixedMeta.set(colKey, { right, width });
+      offsets.set(colKey, right);
+    }
+  }
+
+  return offsets;
+}
+
+/** 在已触发列中，取 right 偏移最大者作为 fixed-right-first 边界列 */
+export function pickRightFixedBorderBoundaryColKey(
+  triggeredColKeys: Set<string> | string[] = [],
+  rightOffsets: Map<string, number> = new Map(),
+): string | undefined {
+  const keys = triggeredColKeys instanceof Set ? triggeredColKeys : new Set(triggeredColKeys);
+  let boundaryColKey: string | undefined;
+  let maxRight = -1;
+
+  keys.forEach((colKey) => {
+    const right = rightOffsets.get(colKey) ?? 0;
+    if (right >= maxRight) {
+      maxRight = right;
+      boundaryColKey = colKey;
+    }
+  });
+
+  return boundaryColKey;
+}
+
+/** 从 fixed 位置 Map 读取已算好的 sticky right 偏移 */
+export function readRightFixedOffsetsFromColumnMap(
+  columnMap: Map<string | number, { col?: { fixed?: string }; right?: number }> = new Map(),
+): Map<string, number> {
+  const offsets = new Map<string, number>();
+  columnMap.forEach((info, key) => {
+    if (info.col?.fixed === 'right' && info.right !== undefined) {
+      offsets.set(String(key), info.right);
+    }
+  });
+  return offsets;
+}
+
+/** 右固定 border / 阴影是否应显示（与标准右固定一致：可横向滚动且未滚到最右） */
+export function isRightFixedBorderScrollActive(scrollMetrics: FixedLayoutScrollMetrics): boolean {
+  const { scrollLeft, maxScrollLeft } = scrollMetrics;
+  return maxScrollLeft > 0 && scrollLeft < maxScrollLeft;
+}
+
+/** 参与内置重排的 right fixed 列 colKey 列表（定义顺序，从右往左） */
+export function getRightFixedReorderColKeys<T extends TableRowData>(
+  columns: BaseTableCol<T>[] = [],
+  colWidths: Record<string, number> = {},
+): string[] {
+  return getRightFixedReorderTriggerEntries(columns, colWidths).map((entry) => entry.colKey);
+}
+
+/** 是否仅有一列 right fixed（如「右：固定 address」），border 与标准右固定一致 */
+export function isSingleIsolatedRightFixedColumn<T extends TableRowData>(columns: BaseTableCol<T>[] = []): boolean {
+  if (getRightFixedReorderColKeys(columns).length !== 1) return false;
+  let rightFixedCount = 0;
+  for (let i = 0, len = columns.length; i < len; i++) {
+    if (columns[i].fixed === 'right') rightFixedCount += 1;
+  }
+  return rightFixedCount === 1;
+}
+
+/**
+ * 多列不相连：与单列 address 同语义——未达重排阈值前贴右缘才有 border。
+ * 在仍贴边的列中取 widthAfter 最大者（最内侧贴边列）作为 fixed-right-first。
+ */
+function getColumnWidthAfterInOrder<T extends TableRowData>(
+  columns: BaseTableCol<T>[] = [],
+  targetColKey: string,
+  colWidths: Record<string, number> = {},
+): number {
+  let widthAfter = 0;
+  for (let i = columns.length - 1; i >= 0; i--) {
+    const colKey = String(columns[i].colKey ?? i);
+    if (colKey === targetColKey) return widthAfter;
+    widthAfter += getColumnWidth(columns[i], colWidths);
+  }
+  return -1;
+}
+
+function getRightFixedMultiBorderBoundaryColKey<T extends TableRowData>(
+  originColumns: BaseTableCol<T>[] = [],
+  scrollMetrics: FixedLayoutScrollMetrics,
+  colWidths: Record<string, number> = {},
+): string | undefined {
+  const { maxScrollLeft } = scrollMetrics;
+  const scrollFromRight = getScrollFromRight(scrollMetrics);
+  const entries = getRightFixedReorderTriggerEntries(originColumns, colWidths);
+  const triggered = new Set(getTriggeredRightFixedColKeys(originColumns, scrollMetrics, colWidths));
+  const trailing = getRightFixedTrailingColKeysForReorder(originColumns);
+  const entryColKeys = new Set(entries.map((entry) => entry.colKey));
+
+  let boundaryColKey: string | undefined;
+  let maxStickingWidthAfter = -1;
+
+  const considerCandidate = (colKey: string, widthAfter: number) => {
+    if (triggered.has(colKey)) return;
+    if (widthAfter > maxScrollLeft) return;
+    if (scrollFromRight > widthAfter && widthAfter > maxStickingWidthAfter) {
+      maxStickingWidthAfter = widthAfter;
+      boundaryColKey = colKey;
+    }
+  };
+
+  // 已有列触发重排：border 立即交给仍未触发的贴边列（避免内侧列仍占 border）
+  if (triggered.size > 0) {
+    for (let i = 0, len = entries.length; i < len; i++) {
+      const entry = entries[i];
+      considerCandidate(entry.colKey, entry.widthAfter ?? 0);
+    }
+    return boundaryColKey;
+  }
+
+  for (let i = 0, len = entries.length; i < len; i++) {
+    const entry = entries[i];
+    considerCandidate(entry.colKey, entry.widthAfter ?? 0);
+  }
+
+  // 末段 trailing 列（如 operation）可能不在 reorder entries 中
+  trailing.forEach((colKey) => {
+    if (entryColKeys.has(colKey)) return;
+    const widthAfter = getColumnWidthAfterInOrder(originColumns, colKey, colWidths);
+    if (widthAfter < 0) return;
+    considerCandidate(colKey, widthAfter);
+  });
+
+  return boundaryColKey;
+}
+
+/**
+ * 右侧 border 边界列（fixed-right-first）。
+ * - 仅一列 right fixed（如 address）：scrollFromRight > widthAfter 时贴右缘有 border；达重排阈值后脱离右边界，border 清除。
+ * - 多列不相连：各列均在 scrollFromRight > widthAfter 时贴右缘；取 widthAfter 最大且仍贴边者为边界，达阈值后交接给下一列。
+ */
+export function getRightFixedStickyBoundaryColKey<T extends TableRowData>(
+  originColumns: BaseTableCol<T>[] = [],
+  scrollMetrics: FixedLayoutScrollMetrics = { scrollLeft: 0, maxScrollLeft: 0 },
+  colWidths: Record<string, number> = {},
+): string | undefined {
+  const { maxScrollLeft } = scrollMetrics;
+  if (!hasRightFixedColumnNeedReorder(originColumns)) return undefined;
+  if (!isRightFixedBorderScrollActive(scrollMetrics)) return undefined;
+
+  // 单列右固定：未达重排阈值前贴右缘；达阈值后列脱离右边界，不再加粗
+  if (isSingleIsolatedRightFixedColumn(originColumns)) {
+    const entry = getRightFixedReorderTriggerEntries(originColumns, colWidths)[0];
+    if (!entry) return undefined;
+    const widthAfter = entry.widthAfter ?? 0;
+    if (widthAfter > maxScrollLeft) return undefined;
+    if (getScrollFromRight(scrollMetrics) > widthAfter) {
+      return entry.colKey;
+    }
+    return undefined;
+  }
+
+  return getRightFixedMultiBorderBoundaryColKey(originColumns, scrollMetrics, colWidths);
+}
+
+/** 结合布局快照，解析右侧 border 边界 */
+export function resolveRightBorderBoundaryColKey<T extends TableRowData>(
+  originColumns: BaseTableCol<T>[],
+  displayColumns: BaseTableCol<T>[],
+  scrollMetrics: FixedLayoutScrollMetrics,
+  colWidths: Record<string, number>,
+): string | undefined {
+  return getRightFixedStickyBoundaryColKey(originColumns, scrollMetrics, colWidths);
+}
+
+/** @alias resolveRightBorderBoundaryColKey */
 export function getRightFixedBorderBoundaryColKey<T extends TableRowData>(
   originColumns: BaseTableCol<T>[] = [],
   displayColumns: BaseTableCol<T>[] = [],
   scrollMetrics: FixedLayoutScrollMetrics = { scrollLeft: 0, maxScrollLeft: 0 },
   colWidths: Record<string, number> = {},
 ): string | undefined {
-  const { scrollLeft } = scrollMetrics;
-  if (scrollLeft <= 0 || !hasRightFixedColumnNeedReorder(originColumns)) {
-    return undefined;
-  }
-
-  const triggeredKeys = new Set(getTriggeredRightFixedColKeys(originColumns, scrollMetrics, colWidths));
-  if (!triggeredKeys.size) return undefined;
-
-  return findLeftmostTriggeredRightFixedColKey(displayColumns, triggeredKeys);
+  return resolveRightBorderBoundaryColKey(originColumns, displayColumns, scrollMetrics, colWidths);
 }
 
 export function isLeftFixedReorderTriggered<T extends TableRowData>(
@@ -246,11 +424,12 @@ export function isLeftFixedReorderTriggered<T extends TableRowData>(
 export function shouldShowLeftFixedColumnShadow<T extends TableRowData>(
   columns: BaseTableCol<T>[] = [],
   scrollLeft = 0,
+  colWidths: Record<string, number> = {},
 ): boolean {
   if (scrollLeft <= 0) return false;
   if (hasLeftFixedColumnNeedReorder(columns)) {
-    // 内置重排：阴影仅表示「已发生横滚」，与 border 列（sticky）解耦；加粗需二者同时满足
-    return true;
+    // 与左 border（sticky）相反：左阴影跟重排阈值
+    return isLeftFixedReorderTriggered(columns, scrollLeft, colWidths);
   }
   return true;
 }
@@ -319,7 +498,7 @@ function buildLeftSideLayoutState<T extends TableRowData>(
       enabled: false,
       reorderTriggeredKeys: [],
       borderBoundaryColKey: undefined,
-      showShadow: shouldShowLeftFixedColumnShadow(originColumns, scrollLeft),
+      showShadow: shouldShowLeftFixedColumnShadow(originColumns, scrollLeft, colWidths),
       reorderSignature: '',
       sideLayoutSignature: '',
     };
@@ -333,7 +512,7 @@ function buildLeftSideLayoutState<T extends TableRowData>(
     enabled: true,
     reorderTriggeredKeys,
     borderBoundaryColKey,
-    showShadow: shouldShowLeftFixedColumnShadow(originColumns, scrollLeft),
+    showShadow: shouldShowLeftFixedColumnShadow(originColumns, scrollLeft, colWidths),
     reorderSignature,
     sideLayoutSignature: `${borderBoundaryColKey ?? ''}|${reorderSignature}`,
   };
@@ -409,13 +588,15 @@ export function getTriggeredRightFixedColKeys<T extends TableRowData>(
   colWidths: Record<string, number> = {},
 ): string[] {
   const { scrollLeft, maxScrollLeft } = scrollMetrics;
-  if (maxScrollLeft <= 0 || !hasRightFixedColumnNeedReorder(columns)) return [];
+  if (maxScrollLeft <= 0 || scrollLeft <= 0 || !hasRightFixedColumnNeedReorder(columns)) return [];
+
+  const scrollFromRight = getScrollFromRight(scrollMetrics);
 
   return getRightFixedReorderTriggerEntries(columns, colWidths)
     .filter((entry) => {
       const widthAfter = entry.widthAfter ?? 0;
-      const threshold = maxScrollLeft - widthAfter;
-      return threshold >= 0 && scrollLeft >= threshold;
+      if (widthAfter > maxScrollLeft) return false;
+      return scrollFromRight <= widthAfter;
     })
     .map((entry) => entry.colKey);
 }
@@ -431,14 +612,42 @@ export function isRightFixedReorderTriggered<T extends TableRowData>(
 export function shouldShowRightFixedColumnShadow<T extends TableRowData>(
   columns: BaseTableCol<T>[] = [],
   scrollMetrics: FixedLayoutScrollMetrics = { scrollLeft: 0, maxScrollLeft: 0 },
+  colWidths: Record<string, number> = {},
+  displayColumns: BaseTableCol<T>[] = [],
 ): boolean {
-  const { scrollLeft, maxScrollLeft } = scrollMetrics;
-  if (maxScrollLeft <= 0 || scrollLeft <= 0) return false;
   if (hasRightFixedColumnNeedReorder(columns)) {
-    // 内置重排：阴影仅表示「仍可向右滚动」，与 border 列（重排阈值）解耦；加粗需二者同时满足
-    return scrollLeft < maxScrollLeft;
+    const display = displayColumns.length ? displayColumns : columns;
+    return !!getRightFixedBorderBoundaryColKey(columns, display, scrollMetrics, colWidths);
   }
+  const { scrollLeft, maxScrollLeft } = scrollMetrics;
   return scrollLeft < maxScrollLeft;
+}
+
+function getRightFixedTrailingColKeysForReorder<T extends TableRowData>(columns: BaseTableCol<T>[] = []): Set<string> {
+  let lastRightFixedIndex = -1;
+  for (let i = columns.length - 1; i >= 0; i--) {
+    if (columns[i].fixed === 'right') {
+      lastRightFixedIndex = i;
+      break;
+    }
+  }
+  if (lastRightFixedIndex < 0) return new Set();
+  const headPart = columns.slice(0, lastRightFixedIndex + 1);
+  return new Set(getTrailingRightFixedColumns(headPart).map((col) => String(col.colKey ?? '')));
+}
+
+/**
+ * 多列右不相连：已触发重排的列取消 sticky，border 交给外侧下一列。
+ * 单列右固定（如 address）不延迟。
+ */
+export function getDeferredRightFixedStickyColKeys<T extends TableRowData>(
+  originColumns: BaseTableCol<T>[] = [],
+  scrollMetrics: FixedLayoutScrollMetrics = { scrollLeft: 0, maxScrollLeft: 0 },
+  colWidths: Record<string, number> = {},
+): Set<string> {
+  if (isSingleIsolatedRightFixedColumn(originColumns)) return new Set();
+  if (!hasRightFixedColumnNeedReorder(originColumns)) return new Set();
+  return new Set(getTriggeredRightFixedColKeys(originColumns, scrollMetrics, colWidths));
 }
 
 function getTrailingRightFixedColumns<T extends TableRowData>(columns: BaseTableCol<T>[] = []): BaseTableCol<T>[] {
@@ -543,7 +752,7 @@ function buildRightSideLayoutState<T extends TableRowData>(
       enabled: false,
       reorderTriggeredKeys: [],
       borderBoundaryColKey: undefined,
-      showShadow: shouldShowRightFixedColumnShadow(originColumns, scrollMetrics),
+      showShadow: shouldShowRightFixedColumnShadow(originColumns, scrollMetrics, colWidths, displayColumns),
       reorderSignature: '',
       sideLayoutSignature: '',
     };
@@ -562,7 +771,7 @@ function buildRightSideLayoutState<T extends TableRowData>(
     enabled: true,
     reorderTriggeredKeys,
     borderBoundaryColKey,
-    showShadow: shouldShowRightFixedColumnShadow(originColumns, scrollMetrics),
+    showShadow: shouldShowRightFixedColumnShadow(originColumns, scrollMetrics, colWidths, displayColumns),
     reorderSignature,
     sideLayoutSignature: `${borderBoundaryColKey ?? ''}|${reorderSignature}`,
   };

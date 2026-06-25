@@ -11,8 +11,11 @@ import { resizeObserverElement } from '../utils';
 import { buildFixedLayoutState, markFixedColumnBoundaries } from '../utils/markFixedColumnBoundaries';
 import {
   createFixedLayoutScrollMetrics,
+  getColumnsTotalWidth,
+  getDeferredRightFixedStickyColKeys,
   hasFixedColumnNeedReorder,
   resolveDisplayColumnsForFixed,
+  resolveRightBorderBoundaryColKey,
   shouldShowLeftFixedColumnShadow,
   shouldShowRightFixedColumnShadow,
 } from '../utils/reorderFixedColumns';
@@ -31,7 +34,7 @@ export function getColumnFixedStyles(
   tableColFixedClasses: TableColFixedClasses,
 ): { style?: Styles; classes?: ClassName } {
   const fixedPos = rowAndColFixedPosition?.get(col.colKey || index);
-  if (!fixedPos) return {};
+  if (!fixedPos || fixedPos.deferRightSticky) return {};
   const thClasses = {
     [tableColFixedClasses.left]: col.fixed === 'left',
     [tableColFixedClasses.right]: col.fixed === 'right',
@@ -153,7 +156,16 @@ export default function useFixed(
   const getFixedLayoutScrollMetrics = () => {
     const el = tableContentRef.current;
     if (!el) return createFixedLayoutScrollMetrics(0, 0, 0);
-    return createFixedLayoutScrollMetrics(el.scrollLeft, el.scrollWidth, el.clientWidth);
+    const metrics = createFixedLayoutScrollMetrics(el.scrollLeft, el.scrollWidth, el.clientWidth);
+    if (metrics.maxScrollLeft > 0 || !hasFixedColumnNeedReorder(originColumns)) {
+      return metrics;
+    }
+    // 列 fixed 切换后 DOM scrollWidth 可能尚未更新，用列宽总和兜底
+    const colWidths = thWidthList.current;
+    const totalWidth = getColumnsTotalWidth(originColumns, colWidths);
+    const fallbackMax = Math.max(0, totalWidth - el.clientWidth);
+    if (fallbackMax <= 0) return metrics;
+    return { scrollLeft: el.scrollLeft, maxScrollLeft: fallbackMax };
   };
 
   const calculateThWidthList = (trList: HTMLCollection) => {
@@ -263,7 +275,10 @@ export default function useFixed(
     for (let i = columns.length - 1; i >= 0; i--) {
       const col = columns[i];
       if (col.fixed === 'left') return;
-      const colInfo = initialColumnMap.get(col.colKey || i);
+      const colKey = col.colKey || i;
+      const colInfo = initialColumnMap.get(colKey);
+      if (!colInfo) continue;
+      if (col.fixed === 'right' && colInfo.deferRightSticky) continue;
       let lastColIndex = i + 1;
       while (lastColIndex < columns.length && columns[lastColIndex].fixed !== 'right') {
         lastColIndex += 1;
@@ -278,6 +293,20 @@ export default function useFixed(
         setFixedRightPos(col.children, initialColumnMap, colInfo);
       }
     }
+  };
+
+  const applyDeferredRightStickyFlags = (
+    initialColumnMap: RowAndColFixedPosition,
+    originCols: BaseTableCol<TableRowData>[] = originColumns,
+    scrollMetrics = getFixedLayoutScrollMetrics(),
+  ) => {
+    const deferredKeys = getDeferredRightFixedStickyColKeys(originCols, scrollMetrics, getThWidthList());
+    deferredKeys.forEach((colKey) => {
+      const colInfo = initialColumnMap.get(colKey);
+      if (colInfo?.col?.fixed === 'right') {
+        initialColumnMap.set(colKey, { ...colInfo, deferRightSticky: true });
+      }
+    });
   };
 
   // 获取固定列位置信息。先获取节点宽度，再计算
@@ -305,6 +334,7 @@ export default function useFixed(
       }
     }
     setFixedLeftPos(displayColumns, initialColumnMap);
+    applyDeferredRightStickyFlags(initialColumnMap, originColumns, getFixedLayoutScrollMetrics());
     setFixedRightPos(displayColumns, initialColumnMap);
   };
 
@@ -393,6 +423,7 @@ export default function useFixed(
             ...existing,
             lastLeftFixedCol: node.lastLeftFixedCol,
             firstRightFixedCol: node.firstRightFixedCol,
+            deferRightSticky: existing.deferRightSticky,
           });
         } else {
           next.set(key, { ...node });
@@ -409,15 +440,21 @@ export default function useFixed(
     });
 
   let shadowLastScrollLeft: number;
-  const updateColumnFixedShadow = (target: HTMLElement, extra?: { skipScrollLimit?: boolean }) => {
+  const updateColumnFixedShadow = (
+    target: HTMLElement,
+    extra?: { skipScrollLimit?: boolean },
+    displayColumnsOverride?: BaseTableCol<TableRowData>[],
+  ) => {
     if (!isFixedColumn || !target) return;
     const { scrollLeft } = target;
     // 只有左右滚动，需要更新固定列阴影
     if (shadowLastScrollLeft === scrollLeft && (!extra || !extra.skipScrollLimit)) return;
     shadowLastScrollLeft = scrollLeft;
-    const scrollMetrics = createFixedLayoutScrollMetrics(scrollLeft, target.scrollWidth, target.clientWidth);
-    const isShowRight = shouldShowRightFixedColumnShadow(originColumns, scrollMetrics);
-    const isShowLeft = shouldShowLeftFixedColumnShadow(originColumns, scrollLeft);
+    const scrollMetrics = getFixedLayoutScrollMetrics();
+    const colWidths = getThWidthList();
+    const displayColumns = resolveDisplayColumns(displayColumnsOverride);
+    const isShowRight = shouldShowRightFixedColumnShadow(originColumns, scrollMetrics, colWidths, displayColumns);
+    const isShowLeft = shouldShowLeftFixedColumnShadow(originColumns, scrollLeft, colWidths);
     if (showColumnShadow.left === isShowLeft && showColumnShadow.right === isShowRight) return;
     setShowColumnShadow({
       left: isShowLeft && hasFixedSideColumn(originColumns, 'left'),
@@ -426,13 +463,33 @@ export default function useFixed(
   };
 
   // 多级表头场景较为复杂：为了滚动的阴影效果，需要知道哪些列是边界列
-  const setIsLastOrFirstFixedCol = (
-    levelNodes: FixedColumnInfo[][],
+  const buildLayoutForBoundaryMark = (
     displayColumns: BaseTableCol<TableRowData>[] = finalColumns,
     scrollMetrics = getFixedLayoutScrollMetrics(),
   ) => {
-    const layout = buildFixedLayoutState(originColumns, displayColumns, scrollMetrics, getThWidthList());
-    markFixedColumnBoundaries(levelNodes, layout);
+    const colWidths = getThWidthList();
+    const layout = buildFixedLayoutState(originColumns, displayColumns, scrollMetrics, colWidths);
+    if (!layout.right.enabled) return layout;
+
+    const borderBoundaryColKey = resolveRightBorderBoundaryColKey(
+      originColumns,
+      displayColumns,
+      scrollMetrics,
+      colWidths,
+    );
+    const showShadow = shouldShowRightFixedColumnShadow(originColumns, scrollMetrics, colWidths, displayColumns);
+    const right = {
+      ...layout.right,
+      borderBoundaryColKey,
+      showShadow,
+      sideLayoutSignature: `${borderBoundaryColKey ?? ''}|${showShadow ? 1 : 0}|${layout.right.reorderSignature}`,
+    };
+
+    return {
+      ...layout,
+      right,
+      layoutSignature: `${layout.left.sideLayoutSignature}::${right.sideLayoutSignature}`,
+    };
   };
 
   const hasFixedColumns = (cols: BaseTableCol[] = []): boolean =>
@@ -445,21 +502,20 @@ export default function useFixed(
     setIsFixedColumn(false);
     const scrollMetrics = getFixedLayoutScrollMetrics();
     const displayColumns = resolveDisplayColumns(displayColumnsOverride);
-    lastFixedBorderSignatureRef.current = buildFixedLayoutState(
-      originColumns,
-      displayColumns,
-      scrollMetrics,
-      getThWidthList(),
-    ).layoutSignature;
     const { newColumnsMap, levelNodes } = getColumnMap(displayColumns);
-    setIsLastOrFirstFixedCol(levelNodes, displayColumns, scrollMetrics);
+
     if (hasFixedColumns(displayColumns) || fixedRows?.length) {
+      // 先算 sticky 偏移，再据 right 偏移标记 fixed-right-first（与 setFixedRightPos 同源）
       updateRowAndColFixedPosition(tableContentRef.current, newColumnsMap, displayColumns);
+      const layoutForMark = buildLayoutForBoundaryMark(displayColumns, scrollMetrics);
+      lastFixedBorderSignatureRef.current = layoutForMark.layoutSignature;
+      markFixedColumnBoundaries(levelNodes, layoutForMark);
       setRowAndColFixedPosition((prev) => applyFixedBoundaryFlagsToMap(prev.size ? prev : newColumnsMap, levelNodes));
     } else {
+      lastFixedBorderSignatureRef.current = '';
       setRowAndColFixedPosition(new Map());
     }
-    updateColumnFixedShadow(tableContentRef.current, { skipScrollLimit: true });
+    updateColumnFixedShadow(tableContentRef.current, { skipScrollLimit: true }, displayColumns);
   };
 
   // 使用 useCallback 来优化性能
@@ -562,9 +618,7 @@ export default function useFixed(
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useDeepEffect(() => {
     if (isFixedColumn) {
-      updateColumnFixedShadow(tableContentRef.current, {
-        skipScrollLimit: true,
-      });
+      updateColumnFixedShadow(tableContentRef.current, { skipScrollLimit: true }, resolveDisplayColumns());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFixedColumn, finalColumns, tableContentRef]);
@@ -660,20 +714,20 @@ export default function useFixed(
     updateFixedHeader();
   };
 
-  /** 横向滚动时同步 fixed 边界（左 last / 右 first），仅更新 border 标记与阴影，避免列序 DOM 未更新时重算 sticky */
+  /** 横向滚动时同步 fixed 边界（左 last / 右 first），优先用已算好的 sticky right 偏移 */
   const syncFixedColumnBorder = (displayColumnsOverride?: BaseTableCol<TableRowData>[]) => {
     if (!hasFixedColumnNeedReorder(originColumns)) return;
     const scrollMetrics = getFixedLayoutScrollMetrics();
     const displayColumns = resolveDisplayColumns(displayColumnsOverride);
-    const layout = buildFixedLayoutState(originColumns, displayColumns, scrollMetrics, getThWidthList());
-    if (lastFixedBorderSignatureRef.current === layout.layoutSignature) return;
-    lastFixedBorderSignatureRef.current = layout.layoutSignature;
-
     const { newColumnsMap, levelNodes } = getColumnMap(displayColumns);
-    setIsLastOrFirstFixedCol(levelNodes, displayColumns, scrollMetrics);
+    const layoutForMark = buildLayoutForBoundaryMark(displayColumns, scrollMetrics);
+    if (lastFixedBorderSignatureRef.current === layoutForMark.layoutSignature) return;
+    lastFixedBorderSignatureRef.current = layoutForMark.layoutSignature;
+
+    markFixedColumnBoundaries(levelNodes, layoutForMark);
     setRowAndColFixedPosition((prev) => applyFixedBoundaryFlagsToMap(prev.size ? prev : newColumnsMap, levelNodes));
 
-    updateColumnFixedShadow(tableContentRef.current, { skipScrollLimit: true });
+    updateColumnFixedShadow(tableContentRef.current, { skipScrollLimit: true }, displayColumns);
   };
 
   return {

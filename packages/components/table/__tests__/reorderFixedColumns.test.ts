@@ -1,11 +1,13 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  computeRightFixedOffsets,
   getLeftFixedBorderBoundaryColKey,
   getLeftFixedReorderTriggerEntries,
   getLeftFixedReorderTriggerScrollLeft,
   getRightFixedBorderBoundaryColKey,
   getRightFixedReorderTriggerEntries,
+  getScrollFromRight,
   getTriggeredLeftFixedColKeys,
   getTriggeredRightFixedColKeys,
   hasLeftFixedColumnNeedReorder,
@@ -178,9 +180,13 @@ describe('shouldShowLeftFixedColumnShadow', () => {
     { colKey: 'email', title: '邮箱', width: 200 },
   ];
 
-  it('非首列 left fixed 时，scrollLeft > 0 即显示左阴影', () => {
-    expect(shouldShowLeftFixedColumnShadow(columnsWithNameFixed, 50)).toBe(true);
-    expect(shouldShowLeftFixedColumnShadow(columnsWithNameFixed, 99)).toBe(true);
+  it('非首列 left fixed 时，未达重排阈值不显示左阴影', () => {
+    expect(shouldShowLeftFixedColumnShadow(columnsWithNameFixed, 50)).toBe(false);
+    expect(shouldShowLeftFixedColumnShadow(columnsWithNameFixed, 99)).toBe(false);
+  });
+
+  it('达重排阈值后显示左阴影', () => {
+    expect(shouldShowLeftFixedColumnShadow(columnsWithNameFixed, 100)).toBe(true);
   });
 
   it('scrollLeft 为 0 时不显示左阴影', () => {
@@ -333,39 +339,78 @@ describe('resolveColumnsForRightFixed', () => {
   });
 });
 
-describe('getRightFixedBorderBoundaryColKey', () => {
-  it('remark 重排后 border 在 remark', () => {
-    const display = resolveColumnsForRightFixed(rightDisconnectedColumns, rightScroll(200));
-    expect(getRightFixedBorderBoundaryColKey(rightDisconnectedColumns, display, rightScroll(200))).toBe('remark');
+describe('computeRightFixedOffsets', () => {
+  it('单列表 address：right 偏移为 0', () => {
+    const columns: BaseTableCol[] = [
+      { colKey: 'id', width: 100 },
+      { colKey: 'address', width: 220, fixed: 'right' },
+      { colKey: 'remark', width: 160 },
+    ];
+    expect(computeRightFixedOffsets(columns).get('address')).toBe(0);
   });
 
-  it('remark 达重排阈值即显示 border（镜像左 name@150）', () => {
-    const display = resolveColumnsForRightFixed(rightDisconnectedColumns, rightScroll(90));
-    expect(getTriggeredRightFixedColKeys(rightDisconnectedColumns, rightScroll(90))).toEqual(['remark']);
-    expect(getRightFixedBorderBoundaryColKey(rightDisconnectedColumns, display, rightScroll(90))).toBe('remark');
-  });
-
-  it('remark 重排后 border 仍在 remark', () => {
-    const display = resolveColumnsForRightFixed(rightDisconnectedColumns, rightScroll(150));
-    expect(getRightFixedBorderBoundaryColKey(rightDisconnectedColumns, display, rightScroll(150))).toBe('remark');
-  });
-
-  it('未进入重排阶段时返回 undefined，内置重排时不回落默认 border', () => {
-    expect(
-      getRightFixedBorderBoundaryColKey(rightDisconnectedColumns, rightDisconnectedColumns, rightScroll(50)),
-    ).toBeUndefined();
+  it('address + remark 贴边栈：address 偏移为 remark 宽度', () => {
+    const columns: BaseTableCol[] = [
+      { colKey: 'id', width: 100 },
+      { colKey: 'address', width: 220, fixed: 'right' },
+      { colKey: 'remark', width: 160, fixed: 'right' },
+    ];
+    expect(computeRightFixedOffsets(columns).get('remark')).toBe(0);
+    expect(computeRightFixedOffsets(columns).get('address')).toBe(160);
   });
 });
 
-describe('fixed border 左 sticky / 右重排', () => {
-  it('未重排 scroll=50：两侧均无 border', () => {
-    expect(getLeftFixedBorderBoundaryColKey(disconnectedColumns, disconnectedColumns, 50)).toBeUndefined();
-    expect(
-      getRightFixedBorderBoundaryColKey(rightDisconnectedColumns, rightDisconnectedColumns, rightScroll(50)),
-    ).toBeUndefined();
+describe('getScrollFromRight', () => {
+  it('scrollLeft=0 时等于 maxScrollLeft', () => {
+    expect(getScrollFromRight({ scrollLeft: 0, maxScrollLeft: 400 })).toBe(400);
   });
 
-  it('首列重排 scroll=150：左 name sticky；右 remark 重排', () => {
+  it('滚到最右时等于 0', () => {
+    expect(getScrollFromRight({ scrollLeft: 400, maxScrollLeft: 400 })).toBe(0);
+  });
+});
+
+describe('getRightFixedBorderBoundaryColKey', () => {
+  it('scroll=50 remark 贴边未达阈值：border 在 remark（remark+operation 两列 fixed）', () => {
+    expect(getRightFixedBorderBoundaryColKey(rightDisconnectedColumns, rightDisconnectedColumns, rightScroll(50))).toBe(
+      'remark',
+    );
+  });
+
+  it('scroll=200 remark 达重排阈值：border 清除', () => {
+    const display = resolveColumnsForRightFixed(rightDisconnectedColumns, rightScroll(200));
+    expect(getTriggeredRightFixedColKeys(rightDisconnectedColumns, rightScroll(200))).toEqual(['remark']);
+    expect(getRightFixedBorderBoundaryColKey(rightDisconnectedColumns, display, rightScroll(200))).toBeUndefined();
+  });
+
+  it('scroll=90 remark 达重排阈值：border 清除', () => {
+    const display = resolveColumnsForRightFixed(rightDisconnectedColumns, rightScroll(90));
+    expect(getTriggeredRightFixedColKeys(rightDisconnectedColumns, rightScroll(90))).toEqual(['remark']);
+    expect(getRightFixedBorderBoundaryColKey(rightDisconnectedColumns, display, rightScroll(90))).toBeUndefined();
+  });
+
+  it('scroll=79 remark 贴边未达阈值：border 在 remark', () => {
+    expect(getRightFixedBorderBoundaryColKey(rightDisconnectedColumns, rightDisconnectedColumns, rightScroll(79))).toBe(
+      'remark',
+    );
+  });
+
+  it('scroll=50 未达重排阈值：border 在 remark', () => {
+    expect(getRightFixedBorderBoundaryColKey(rightDisconnectedColumns, rightDisconnectedColumns, rightScroll(50))).toBe(
+      'remark',
+    );
+  });
+});
+
+describe('fixed border 左 sticky / 右 scrollFromRight', () => {
+  it('未重排 scroll=50：左无 border；右 remark 贴边', () => {
+    expect(getLeftFixedBorderBoundaryColKey(disconnectedColumns, disconnectedColumns, 50)).toBeUndefined();
+    expect(getRightFixedBorderBoundaryColKey(rightDisconnectedColumns, rightDisconnectedColumns, rightScroll(50))).toBe(
+      'remark',
+    );
+  });
+
+  it('首列重排 scroll=150：左 name sticky；右 remark 已重排无 border', () => {
     expect(
       getLeftFixedBorderBoundaryColKey(disconnectedColumns, resolveColumnsForLeftFixed(disconnectedColumns, 150), 150),
     ).toBe('name');
@@ -375,7 +420,7 @@ describe('fixed border 左 sticky / 右重排', () => {
         resolveColumnsForRightFixed(rightDisconnectedColumns, rightScroll(150)),
         rightScroll(150),
       ),
-    ).toBe('remark');
+    ).toBeUndefined();
   });
 });
 
@@ -388,19 +433,27 @@ describe('shouldShowRightFixedColumnShadow', () => {
     { colKey: 'operation', width: 100, fixed: 'right' },
   ];
 
-  it('未达重排阈值时 scrollLeft > 0 仍可显示右阴影', () => {
+  it('未达重排阈值时 remark 贴边有 border、有阴影', () => {
     expect(shouldShowRightFixedColumnShadow(columnsWithRemarkFixed, rightScroll(50))).toBe(true);
+    expect(getRightFixedBorderBoundaryColKey(columnsWithRemarkFixed, columnsWithRemarkFixed, rightScroll(50))).toBe(
+      'remark',
+    );
   });
 
-  it('scrollLeft 为 0 时不显示右阴影', () => {
-    expect(shouldShowRightFixedColumnShadow(columnsWithRemarkFixed, rightScroll(0))).toBe(false);
+  it('scrollLeft 为 0 时 remark 贴边：有 border、有 shadow', () => {
+    expect(shouldShowRightFixedColumnShadow(columnsWithRemarkFixed, rightScroll(0))).toBe(true);
+    expect(getRightFixedBorderBoundaryColKey(columnsWithRemarkFixed, columnsWithRemarkFixed, rightScroll(0))).toBe(
+      'remark',
+    );
   });
 
-  it('达重排阈值时 border 在 remark，阴影由横滚决定', () => {
-    const display = resolveColumnsForRightFixed(columnsWithRemarkFixed, rightScroll(90));
-    expect(getRightFixedBorderBoundaryColKey(columnsWithRemarkFixed, display, rightScroll(90))).toBe('remark');
-    expect(shouldShowRightFixedColumnShadow(columnsWithRemarkFixed, rightScroll(90))).toBe(true);
-    expect(shouldShowRightFixedColumnShadow(columnsWithRemarkFixed, rightScroll(70))).toBe(true);
+  it('达重排阈值后 border 与 shadow 清除（remark @80，scroll=90）', () => {
+    const displayAt90 = resolveColumnsForRightFixed(columnsWithRemarkFixed, rightScroll(90));
+    expect(getRightFixedBorderBoundaryColKey(columnsWithRemarkFixed, displayAt90, rightScroll(90))).toBeUndefined();
+    expect(shouldShowRightFixedColumnShadow(columnsWithRemarkFixed, rightScroll(90), {}, displayAt90)).toBe(false);
+
+    const displayAt220 = resolveColumnsForRightFixed(columnsWithRemarkFixed, rightScroll(220));
+    expect(shouldShowRightFixedColumnShadow(columnsWithRemarkFixed, rightScroll(220), {}, displayAt220)).toBe(false);
   });
 });
 

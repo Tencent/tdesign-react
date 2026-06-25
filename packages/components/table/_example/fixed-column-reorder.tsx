@@ -1,265 +1,340 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Button, Radio, Space, Table, Tag } from 'tdesign-react';
 
 import type { PrimaryTableRef } from '../interface';
 import type { PrimaryTableCol, TableRowData } from '../type';
 
-const TABLE_CLIENT_WIDTH = 720;
+const TABLE_WIDTH = 720;
 
-/** 固定列场景：左 / 右 对称的内置重排演示 */
-type FixedTarget =
+/**
+ * 全部模式（含 None）共用同一套列定义：仅 `fixed` 不同，列序 / title / width 永不改变。
+ * header 始终为：ID | Name | Email | Dept | Address | City | Remark | Operation
+ */
+const COLUMN_KEYS = ['id', 'name', 'email', 'dept', 'address', 'city', 'remark', 'operation'] as const;
+
+type ColumnKey = (typeof COLUMN_KEYS)[number];
+
+type DemoMode =
   | 'none'
-  | 'name'
-  | 'dept'
-  | 'connected'
-  | 'disconnected'
+  | 'leftName'
+  | 'leftDisconnected'
+  | 'leftConnected'
   | 'rightAddress'
   | 'rightDisconnected'
   | 'rightConnected';
 
-type StageHint = { label: string; order: string };
+type DemoModeConfig = {
+  label: string;
+  leftFixed?: ColumnKey[];
+  rightFixed?: ColumnKey[];
+  note?: string;
+};
 
-function getStageHints(fixedTarget: FixedTarget): StageHint[] {
-  switch (fixedTarget) {
-    case 'name':
-      return [
-        {
-          label: 'name 贴左（scrollLeft ≥ 100px）',
-          order: 'name → id → email → dept → ...',
-        },
-      ];
-    case 'disconnected':
-      return [
-        {
-          label: 'name 贴左（scrollLeft ≥ 100px）',
-          order: 'name → id → email → dept → city → ...',
-        },
-        {
-          label: 'dept 重排前置（scrollLeft ≥ 400px）',
-          order: 'name → dept → id → email → city → ...',
-        },
-      ];
-    case 'rightAddress':
-      return [
-        {
-          label: 'address 贴右（scrollLeft ≥ 140px）',
-          order: '... → address → remark → operation',
-        },
-      ];
-    case 'rightDisconnected':
-      return [
-        {
-          label: '定义结构（镜像左不相连）',
-          order: 'address(fixed) → city → remark(fixed) → email → operation',
-        },
-        {
-          label: 'remark 贴右后置（scrollLeft ≥ 120px）',
-          order: '... → remark → operation',
-        },
-      ];
-    default:
-      return [];
+const LEFT_MODES = ['leftName', 'leftDisconnected', 'leftConnected'] as const satisfies readonly DemoMode[];
+const RIGHT_MODES = ['rightAddress', 'rightDisconnected', 'rightConnected'] as const satisfies readonly DemoMode[];
+
+const DEMO_MODES: Record<DemoMode, DemoModeConfig> = {
+  none: { label: 'None' },
+  leftName: {
+    label: 'name',
+    leftFixed: ['name'],
+    note: 'Reorder when scrollLeft ≥ 100',
+  },
+  leftDisconnected: {
+    label: 'disconnected (name+dept)',
+    leftFixed: ['name', 'dept'],
+    note: 'name @ 100px, dept @ 400px',
+  },
+  leftConnected: {
+    label: 'connected (id+name)',
+    leftFixed: ['id', 'name'],
+    note: 'Trailing left fixed, no reorder',
+  },
+  rightAddress: {
+    label: 'address',
+    rightFixed: ['address'],
+    note: 'Border until scrollLeft ≥ 20',
+  },
+  rightDisconnected: {
+    label: 'disconnected (address+remark)',
+    rightFixed: ['address', 'remark'],
+    note: 'scroll=0 两列贴右；address 达 scroll≥20 重排并取消 sticky，border 立即交 remark',
+  },
+  rightConnected: {
+    label: 'connected (remark+operation)',
+    rightFixed: ['remark', 'operation'],
+    note: 'Trailing right fixed at end, no reorder',
+  },
+};
+
+const COLUMN_META: Record<ColumnKey, { title: string; width: number }> = {
+  id: { title: 'ID', width: 100 },
+  name: { title: 'Name', width: 120 },
+  email: { title: 'Email', width: 180 },
+  dept: { title: 'Dept', width: 120 },
+  address: { title: 'Address', width: 220 },
+  remark: { title: 'Remark', width: 160 },
+  city: { title: 'City', width: 120 },
+  operation: { title: 'Operation', width: 100 },
+};
+
+const TABLE_DATA: TableRowData[] = Array.from({ length: 10 }, (_, i) => ({
+  id: i + 1,
+  name: ['Alice', 'Bob', 'Carol'][i % 3],
+  email: ['a@example.com', 'b@example.com', 'c@example.com'][i % 3],
+  dept: ['R&D', 'Design', 'Product'][i % 3],
+  city: ['Shenzhen', 'Shanghai', 'Beijing'][i % 3],
+  address: ['Nanshan', 'Lujiazui', 'Wangjing'][i % 3],
+  remark: ['Note A', 'Note B', 'Note C'][i % 3],
+}));
+
+function buildColumn(colKey: ColumnKey): PrimaryTableCol {
+  const meta = COLUMN_META[colKey];
+  if (colKey === 'operation') {
+    return {
+      colKey,
+      title: meta.title,
+      width: meta.width,
+      cell: () => (
+        <Button theme="primary" variant="text">
+          View
+        </Button>
+      ),
+    };
   }
+  return { colKey, title: meta.title, width: meta.width };
 }
 
-function needsReorderHint(fixedTarget: FixedTarget): boolean {
-  return ['name', 'dept', 'disconnected', 'rightAddress', 'rightDisconnected'].includes(fixedTarget);
-}
+/** 与 None 模式完全相同的列定义（无 fixed） */
+const BASE_COLUMNS: PrimaryTableCol[] = COLUMN_KEYS.map((colKey) => buildColumn(colKey));
 
-function needsRightReorderHint(fixedTarget: FixedTarget): boolean {
-  return fixedTarget === 'rightAddress' || fixedTarget === 'rightDisconnected';
-}
+/** 仅附加 fixed，不改变列序与其它字段 */
+function applyFixedMode(mode: DemoMode): PrimaryTableCol[] {
+  const { leftFixed = [], rightFixed = [] } = DEMO_MODES[mode];
+  const leftSet = new Set(leftFixed);
+  const rightSet = new Set(rightFixed);
 
-const data: TableRowData[] = [];
-for (let i = 0; i < 10; i++) {
-  data.push({
-    id: i + 1,
-    name: ['张三', '李四', '王芳'][i % 3],
-    email: ['a@example.com', 'b@example.com', 'c@example.com'][i % 3],
-    dept: ['研发', '设计', '产品'][i % 3],
-    city: ['深圳', '上海', '北京'][i % 3],
-    address: ['南山区科技园', '浦东新区陆家嘴', '朝阳区望京'][i % 3],
-    remark: ['备注 A', '备注 B', '备注 C'][i % 3],
+  return BASE_COLUMNS.map((col) => {
+    const colKey = String(col.colKey) as ColumnKey;
+    const next: PrimaryTableCol = { ...col };
+    delete next.fixed;
+    if (leftSet.has(colKey)) next.fixed = 'left';
+    else if (rightSet.has(colKey)) next.fixed = 'right';
+    return next;
   });
 }
 
-/** 根据场景为列设置 fixed，并在右不相连时重排列序（镜像左：name—email—dept） */
-function applyFixedTarget(cols: PrimaryTableCol[], fixedTarget: FixedTarget): PrimaryTableCol[] {
-  const leftFixedKeys = new Set<string>();
-  const rightFixedKeys = new Set<string>();
+function sumColumnWidth(columns: PrimaryTableCol[]): number {
+  return columns.reduce((sum, col) => sum + Number(col.width ?? 0), 0);
+}
 
-  if (fixedTarget === 'name') leftFixedKeys.add('name');
-  if (fixedTarget === 'dept') leftFixedKeys.add('dept');
-  if (fixedTarget === 'connected') {
-    leftFixedKeys.add('id');
-    leftFixedKeys.add('name');
-  }
-  if (fixedTarget === 'disconnected') {
-    leftFixedKeys.add('name');
-    leftFixedKeys.add('dept');
-  }
-  if (fixedTarget === 'rightAddress') rightFixedKeys.add('address');
-  if (fixedTarget === 'rightDisconnected') {
-    rightFixedKeys.add('address');
-    rightFixedKeys.add('remark');
-  }
-  if (fixedTarget === 'rightConnected') {
-    rightFixedKeys.add('remark');
-    rightFixedKeys.add('operation');
-  }
+function getHeaderSignature(columns: PrimaryTableCol[]): string {
+  return columns.map((col) => col.title).join(' | ');
+}
 
-  const colMap = Object.fromEntries(cols.map((col) => [String(col.colKey), col]));
+/** 从表头 DOM 读取 colKey 顺序（反映 Table 是否做了列重排） */
+function readDomHeaderColKeys(tableRoot: HTMLElement | null): ColumnKey[] {
+  if (!tableRoot) return [];
+  const ths = tableRoot.querySelectorAll('thead tr:first-child th[data-colkey]');
+  return Array.from(ths)
+    .map((th) => th.getAttribute('data-colkey'))
+    .filter((key): key is ColumnKey => !!key && COLUMN_KEYS.includes(key as ColumnKey));
+}
 
-  const attachFixed = (col: PrimaryTableCol): PrimaryTableCol => {
-    const key = String(col.colKey);
-    if (leftFixedKeys.has(key)) return { ...col, fixed: 'left' as const };
-    if (rightFixedKeys.has(key)) return { ...col, fixed: 'right' as const };
-    if (col.fixed === 'left' || col.fixed === 'right') {
-      const nextCol = { ...col };
-      delete nextCol.fixed;
-      return nextCol;
-    }
-    return col;
-  };
+/** 按视口 left 排序，得到肉眼看到的从左到右表头顺序 */
+function readVisualHeaderColKeys(tableRoot: HTMLElement | null): ColumnKey[] {
+  if (!tableRoot) return [];
+  const ths = tableRoot.querySelectorAll('thead tr:first-child th[data-colkey]');
+  return Array.from(ths)
+    .map((th) => ({
+      colKey: th.getAttribute('data-colkey') as ColumnKey,
+      left: th.getBoundingClientRect().left,
+    }))
+    .filter((item): item is { colKey: ColumnKey; left: number } => !!item.colKey)
+    .sort((a, b) => a.left - b.left)
+    .map((item) => item.colKey);
+}
 
-  // 右不相连：address(R) — city — remark(R) — email — operation（镜像左：仅 name、dept 左固定）
-  if (fixedTarget === 'rightDisconnected') {
-    const orderedKeys = ['id', 'name', 'dept', 'address', 'city', 'remark', 'email', 'operation'];
-    return orderedKeys.map((key) => attachFixed(colMap[key])).filter(Boolean);
+function colKeysToTitles(keys: ColumnKey[]): string {
+  return keys.map((key) => COLUMN_META[key].title).join(' | ');
+}
+
+const NONE_COL_KEYS = [...COLUMN_KEYS];
+
+function isRightFixedMode(mode: DemoMode): boolean {
+  return (RIGHT_MODES as readonly DemoMode[]).includes(mode);
+}
+
+function getScrollCompareSuffix(
+  hasData: boolean,
+  atScrollStart: boolean,
+  matchesNone: boolean,
+  scrolledOkText: string,
+  mismatchText: string,
+  rightFixedAtStart = false,
+): string {
+  if (!hasData) return '';
+  if (!atScrollStart) return scrolledOkText;
+  if (rightFixedAtStart) {
+    return matchesNone ? ' ✗ 未出现右 fixed 贴边' : ' ✓ 右 fixed 已贴边（两列 fixed 正常）';
   }
-
-  // 右相连：remark + operation 贴右连续 fixed
-  if (fixedTarget === 'rightConnected') {
-    const orderedKeys = ['id', 'name', 'email', 'dept', 'city', 'address', 'remark', 'operation'];
-    return orderedKeys.map((key) => attachFixed(colMap[key])).filter(Boolean);
-  }
-
-  return cols.map((col) => attachFixed(col));
+  return matchesNone ? ' ✓ 与 None 一致' : mismatchText;
 }
 
 export default function TableFixedColumnReorder() {
   const tableRef = useRef<PrimaryTableRef>(null);
-  const [fixedTarget, setFixedTarget] = useState<FixedTarget>('none');
+  const [mode, setMode] = useState<DemoMode>('none');
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const [domColKeys, setDomColKeys] = useState<ColumnKey[]>([]);
+  const [visualColKeys, setVisualColKeys] = useState<ColumnKey[]>([]);
 
-  const baseColumns: PrimaryTableCol[] = useMemo(
-    () => [
-      { colKey: 'id', title: 'ID（定义第 1 列）', width: 100 },
-      { colKey: 'name', title: '姓名（定义第 2 列）', width: 120 },
-      { colKey: 'email', title: '邮箱（定义第 3 列）', width: 180 },
-      { colKey: 'dept', title: '部门（定义第 4 列）', width: 120 },
-      { colKey: 'city', title: '城市', width: 120 },
-      { colKey: 'address', title: '地址', width: 220 },
-      { colKey: 'remark', title: '备注', width: 160 },
-      {
-        colKey: 'operation',
-        title: '操作',
-        width: 100,
-        cell: () => (
-          <Button theme="primary" variant="text">
-            查看
-          </Button>
-        ),
-      },
-    ],
-    [],
+  const modeConfig = DEMO_MODES[mode];
+  const columns = useMemo(() => applyFixedMode(mode), [mode]);
+  const maxScrollLeft = useMemo(() => Math.max(0, sumColumnWidth(columns) - TABLE_WIDTH), [columns]);
+  const configColKeys = useMemo(() => columns.map((col) => String(col.colKey) as ColumnKey), [columns]);
+  const configHeader = getHeaderSignature(columns);
+  const isAtScrollStart = scrollLeft <= 0;
+  const expectsRightFixedVisualDiff = isRightFixedMode(mode) && isAtScrollStart;
+  const domMatchesNone =
+    domColKeys.length === NONE_COL_KEYS.length && domColKeys.every((key, i) => key === NONE_COL_KEYS[i]);
+  const visualMatchesNone =
+    visualColKeys.length === NONE_COL_KEYS.length && visualColKeys.every((key, i) => key === NONE_COL_KEYS[i]);
+
+  const readHeaderState = () => {
+    const tableRoot = tableRef.current?.tableHtmlElement;
+    const content = tableRef.current?.tableContentElement;
+    if (content) setScrollLeft(content.scrollLeft);
+    setDomColKeys(readDomHeaderColKeys(tableRoot ?? null));
+    setVisualColKeys(readVisualHeaderColKeys(tableRoot ?? null));
+  };
+
+  // 切换模式时回到 scrollLeft=0，避免沿用上一模式的滚动 / 重排列序
+  useEffect(() => {
+    tableRef.current?.tableContentElement?.scrollTo({ left: 0 });
+    setScrollLeft(0);
+  }, [mode]);
+
+  // 渲染后读取表头状态
+  useEffect(() => {
+    const raf = requestAnimationFrame(readHeaderState);
+    return () => cancelAnimationFrame(raf);
+  }, [mode, columns]);
+
+  const handleTableScroll = () => {
+    requestAnimationFrame(readHeaderState);
+  };
+
+  let domTagTheme: 'success' | 'danger' | 'primary' = 'primary';
+  if (isAtScrollStart) {
+    domTagTheme = domMatchesNone ? 'success' : 'danger';
+  }
+
+  const domTagSuffix = getScrollCompareSuffix(
+    domColKeys.length > 0,
+    isAtScrollStart,
+    domMatchesNone,
+    '（滚动/重排后变化属正常）',
+    ' ✗ 与 None 不一致',
   );
 
-  const columns = useMemo(
-    (): PrimaryTableCol[] => applyFixedTarget(baseColumns, fixedTarget),
-    [baseColumns, fixedTarget],
+  let visualTagTheme: 'success' | 'danger' | 'primary' = 'primary';
+  if (isAtScrollStart) {
+    if (expectsRightFixedVisualDiff) {
+      visualTagTheme = visualMatchesNone ? 'danger' : 'success';
+    } else {
+      visualTagTheme = visualMatchesNone ? 'success' : 'danger';
+    }
+  }
+
+  const visualTagSuffix = getScrollCompareSuffix(
+    visualColKeys.length > 0,
+    isAtScrollStart,
+    visualMatchesNone,
+    ' ✓ 右 fixed 滚动后视觉变化正常',
+    ' ✗ 与 None 不一致',
+    expectsRightFixedVisualDiff,
   );
-
-  const colWidths = useMemo(
-    () =>
-      Object.fromEntries(
-        baseColumns.filter((col) => col.colKey).map((col) => [String(col.colKey), col.width as number]),
-      ),
-    [baseColumns],
-  );
-
-  const maxScrollLeft = useMemo(() => {
-    const total = columns.reduce((sum, col) => sum + Number(col.width ?? colWidths[String(col.colKey)] ?? 0), 0);
-    return Math.max(0, total - TABLE_CLIENT_WIDTH);
-  }, [columns, colWidths]);
-
-  const renderOrderHint = useMemo(() => {
-    const defineOrder = columns.map((col) => col.colKey).join(' → ');
-    const stageHints = getStageHints(fixedTarget);
-    return { defineOrder, stageHints };
-  }, [columns, fixedTarget]);
 
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
-      <Radio.Group value={fixedTarget} variant="default-filled" onChange={(val: FixedTarget) => setFixedTarget(val)}>
-        <Radio.Button value="none">不固定</Radio.Button>
-        <Radio.Button value="name">左：固定 name</Radio.Button>
-        <Radio.Button value="disconnected">左：不相连（name+dept）</Radio.Button>
-        <Radio.Button value="connected">左：相连（id+name）</Radio.Button>
-        <Radio.Button value="rightAddress">右：固定 address</Radio.Button>
-        <Radio.Button value="rightDisconnected">右：不相连（address+remark）</Radio.Button>
-        <Radio.Button value="rightConnected">右：相连（remark+operation）</Radio.Button>
+      <Radio.Group value={mode} variant="default-filled" onChange={(val: DemoMode) => setMode(val)}>
+        <Space direction="vertical" size={12}>
+          <Radio.Button value="none">{DEMO_MODES.none.label}</Radio.Button>
+
+          <Space align="center" size={8}>
+            <Tag theme="default" variant="outline" style={{ minWidth: 48, textAlign: 'center' }}>
+              左侧
+            </Tag>
+            {LEFT_MODES.map((key) => (
+              <Radio.Button key={key} value={key}>
+                {DEMO_MODES[key].label}
+              </Radio.Button>
+            ))}
+          </Space>
+
+          <Space align="center" size={8}>
+            <Tag theme="default" variant="outline" style={{ minWidth: 48, textAlign: 'center' }}>
+              右侧
+            </Tag>
+            {RIGHT_MODES.map((key) => (
+              <Radio.Button key={key} value={key}>
+                {DEMO_MODES[key].label}
+              </Radio.Button>
+            ))}
+          </Space>
+        </Space>
       </Radio.Group>
 
       <Space>
         <Button variant="outline" onClick={() => tableRef.current?.scrollColumnIntoView('id')}>
-          滚动到 ID
+          Scroll to ID
         </Button>
         <Button variant="outline" onClick={() => tableRef.current?.scrollColumnIntoView('email')}>
-          滚动到邮箱
+          Scroll to Email
         </Button>
         <Button variant="outline" onClick={() => tableRef.current?.scrollColumnIntoView('address')}>
-          滚动到地址
+          Scroll to Address
         </Button>
       </Space>
 
       <Space direction="vertical" size={4}>
-        <Tag theme="default" variant="light">
-          定义顺序：{renderOrderHint.defineOrder}
+        <Tag theme="default" variant="outline">
+          columns 定义（colKey）: {configColKeys.join(' → ')}
         </Tag>
-        <Tag theme="primary" variant="light">
-          scrollLeft=0 渲染顺序与定义一致
+        <Tag theme="default" variant="outline">
+          columns title: {configHeader}
         </Tag>
-        {fixedTarget === 'connected' && (
-          <Tag theme="success" variant="light">
-            从左连续 left fixed，不触发重排
+        <Tag theme={domTagTheme} variant="light">
+          DOM 表头顺序（scrollLeft={scrollLeft}px）: {domColKeys.length ? colKeysToTitles(domColKeys) : '读取中…'}
+          {domTagSuffix}
+        </Tag>
+        <Tag theme={visualTagTheme} variant="light">
+          视觉从左到右（scrollLeft={scrollLeft}px）:
+          {visualColKeys.length ? colKeysToTitles(visualColKeys) : '读取中…'}
+          {visualTagSuffix}
+        </Tag>
+        {modeConfig.note && (
+          <Tag theme="warning" variant="light">
+            {modeConfig.note}
           </Tag>
         )}
-        {fixedTarget === 'rightConnected' && (
-          <Tag theme="success" variant="light">
-            从右连续 right fixed，不触发重排
-          </Tag>
-        )}
-        {fixedTarget === 'rightDisconnected' && (
+        {mode !== 'none' && mode !== 'leftConnected' && mode !== 'rightConnected' && (
           <Tag theme="default" variant="outline">
-            仅 address、remark 右固定（镜像左 name+dept）；city、email 可滚动，operation 贴末列不固定
+            maxScrollLeft ≈ {maxScrollLeft}px（table {TABLE_WIDTH}px）
           </Tag>
         )}
-        {needsReorderHint(fixedTarget) && (
-          <Tag theme="default" variant="outline">
-            预估 maxScrollLeft ≈ {maxScrollLeft}px（表格宽 {TABLE_CLIENT_WIDTH}
-            px）
-          </Tag>
-        )}
-        {needsRightReorderHint(fixedTarget) && (
-          <Tag theme="default" variant="outline">
-            右侧 border 在重排阈值后出现；加粗还需横滚（scrollLeft &gt; 0 且未滚到底）
-          </Tag>
-        )}
-        {renderOrderHint.stageHints.map((stage) => (
-          <Tag key={stage.label} theme="warning" variant="light">
-            {stage.label}：{stage.order}
-          </Tag>
-        ))}
       </Space>
 
       <Table
+        key={mode}
         ref={tableRef}
         bordered
         rowKey="id"
-        data={data}
-        maxHeight={320}
-        style={{ width: TABLE_CLIENT_WIDTH }}
+        data={TABLE_DATA}
         columns={columns}
+        maxHeight={320}
+        style={{ width: TABLE_WIDTH }}
+        onScroll={handleTableScroll}
       />
     </Space>
   );

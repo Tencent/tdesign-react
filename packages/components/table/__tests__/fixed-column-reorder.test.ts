@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  getDeferredRightFixedStickyColKeys,
   getRightFixedBorderBoundaryColKey,
   getRightFixedReorderTriggerEntries,
   getTriggeredRightFixedColKeys,
@@ -11,7 +12,39 @@ import {
 
 import type { BaseTableCol } from '../type';
 
-/** 与 fixed-column-reorder demo 右不相连场景一致（含 operation 右固定） */
+/** 与 demo 统一的 8 列定义顺序（address—city—remark 镜像左 name—email—dept） */
+const DEMO_COLUMN_ORDER = ['id', 'name', 'email', 'dept', 'address', 'city', 'remark', 'operation'] as const;
+
+function buildDemoColumns(
+  fixed: Partial<Record<(typeof DEMO_COLUMN_ORDER)[number], 'left' | 'right'>>,
+): BaseTableCol[] {
+  const widths: Record<string, number> = {
+    id: 100,
+    name: 120,
+    email: 180,
+    dept: 120,
+    address: 220,
+    city: 120,
+    remark: 160,
+    operation: 100,
+  };
+  return DEMO_COLUMN_ORDER.map((colKey) => ({
+    colKey,
+    width: widths[colKey],
+    ...(fixed[colKey] ? { fixed: fixed[colKey] } : {}),
+  }));
+}
+
+/** 右不相连：address + remark，city 夹在中间（镜像左 name+dept） */
+const siteRightDisconnectedColumns = buildDemoColumns({
+  address: 'right',
+  remark: 'right',
+});
+
+/** 右：固定 address */
+const rightAddressColumns = buildDemoColumns({ address: 'right' });
+
+/** 旧版三列 operation 右固定（保留重排用例） */
 const rightDisconnectedDemoColumns: BaseTableCol[] = [
   { colKey: 'id', width: 100 },
   { colKey: 'address', width: 220, fixed: 'right' },
@@ -21,33 +54,11 @@ const rightDisconnectedDemoColumns: BaseTableCol[] = [
   { colKey: 'operation', width: 100, fixed: 'right' },
 ];
 
-/** 与 demo 右不相连列序一致：id,name,dept,address,city,remark,email,operation */
-const siteRightDisconnectedColumns: BaseTableCol[] = [
-  { colKey: 'id', width: 100 },
-  { colKey: 'name', width: 120 },
-  { colKey: 'dept', width: 120 },
-  { colKey: 'address', width: 220, fixed: 'right' },
-  { colKey: 'city', width: 120 },
-  { colKey: 'remark', width: 160, fixed: 'right' },
-  { colKey: 'email', width: 180 },
-  { colKey: 'operation', width: 100 },
-];
-
-/** 与 demo「右：固定 address」一致 */
-const rightAddressColumns: BaseTableCol[] = [
-  { colKey: 'id', width: 100 },
-  { colKey: 'name', width: 120 },
-  { colKey: 'email', width: 180 },
-  { colKey: 'dept', width: 120 },
-  { colKey: 'city', width: 120 },
-  { colKey: 'address', width: 220, fixed: 'right' },
-  { colKey: 'remark', width: 160 },
-  { colKey: 'operation', width: 100 },
-];
-
 const DEMO_MAX_SCROLL_LEFT = 560;
 const SITE_MAX_SCROLL_LEFT = 400;
 const RIGHT_ADDRESS_MAX_SCROLL_LEFT = 400;
+const ADDRESS_WIDTH_AFTER = 380;
+const REMARK_WIDTH_AFTER = 100;
 
 const demoScroll = (scrollLeft: number) => ({
   scrollLeft,
@@ -78,84 +89,126 @@ describe('fixed-column-reorder demo：右不相连 partial 重排', () => {
   });
 });
 
-describe('fixed-column-reorder demo：右重排阈值', () => {
+describe('fixed-column-reorder demo：右不相连 deferred sticky', () => {
+  it('scroll=0 两列均 sticky', () => {
+    expect(getDeferredRightFixedStickyColKeys(siteRightDisconnectedColumns, siteScroll(0))).toEqual(new Set());
+  });
+
+  it('address 触发重排后取消 sticky', () => {
+    expect(getDeferredRightFixedStickyColKeys(siteRightDisconnectedColumns, siteScroll(20))).toEqual(
+      new Set(['address']),
+    );
+  });
+});
+
+describe('fixed-column-reorder demo：右重排阈值（统一列序）', () => {
   it('右不相连 address 与 remark 各有独立 widthAfter', () => {
-    expect(getRightFixedReorderTriggerEntries(rightDisconnectedDemoColumns)).toEqual([
-      { colKey: 'address', threshold: 0, widthAfter: 560 },
-      { colKey: 'remark', threshold: 0, widthAfter: 280 },
+    expect(getRightFixedReorderTriggerEntries(siteRightDisconnectedColumns)).toEqual([
+      { colKey: 'address', threshold: 0, widthAfter: ADDRESS_WIDTH_AFTER },
+      { colKey: 'remark', threshold: 0, widthAfter: REMARK_WIDTH_AFTER },
     ]);
   });
 });
 
-describe('fixed-column-reorder demo：右 border 跟重排', () => {
-  it('右不相连 remark 重排后 border 在 remark', () => {
+describe('fixed-column-reorder demo：右 border 跟贴边栈', () => {
+  it('右不相连 remark 重排后 border 清除（scroll=200）', () => {
     const display = reorderColumnsForRightFixedPartial(rightDisconnectedDemoColumns, new Set(['remark']));
     expect(
       getRightFixedBorderBoundaryColKey(rightDisconnectedDemoColumns, display, {
         scrollLeft: 200,
         maxScrollLeft: 400,
       }),
-    ).toBe('remark');
+    ).toBeUndefined();
   });
 
-  it('address 与 remark 均重排时 border 在 display 中最靠左的已触发列', () => {
+  it('address 与 remark 均重排时 border 清除', () => {
     const display = resolveColumnsForRightFixed(rightDisconnectedDemoColumns, demoScroll(420));
     expect(getTriggeredRightFixedColKeys(rightDisconnectedDemoColumns, demoScroll(420))).toEqual(['address', 'remark']);
-    expect(getRightFixedBorderBoundaryColKey(rightDisconnectedDemoColumns, display, demoScroll(420))).toBe('address');
+    expect(getRightFixedBorderBoundaryColKey(rightDisconnectedDemoColumns, display, demoScroll(420))).toBeUndefined();
   });
 
-  it('address 重排后 border 仍在 address', () => {
+  it('滚到最右端无 border', () => {
     const display = resolveColumnsForRightFixed(rightDisconnectedDemoColumns, demoScroll(560));
-    expect(getRightFixedBorderBoundaryColKey(rightDisconnectedDemoColumns, display, demoScroll(560))).toBe('address');
+    expect(getRightFixedBorderBoundaryColKey(rightDisconnectedDemoColumns, display, demoScroll(560))).toBeUndefined();
   });
 });
 
 describe('fixed-column-reorder demo：站点列宽右不相连', () => {
-  it('scroll=120 remark 达重排阈值：border 在 remark', () => {
-    const display = resolveColumnsForRightFixed(siteRightDisconnectedColumns, siteScroll(120));
-    expect(getTriggeredRightFixedColKeys(siteRightDisconnectedColumns, siteScroll(120))).toEqual(['remark']);
-    expect(getRightFixedBorderBoundaryColKey(siteRightDisconnectedColumns, display, siteScroll(120))).toBe('remark');
+  it('scroll=50 address 已重排、remark 贴右：border 在 remark', () => {
+    expect(
+      getRightFixedBorderBoundaryColKey(siteRightDisconnectedColumns, siteRightDisconnectedColumns, siteScroll(50)),
+    ).toBe('remark');
   });
 
-  it('scroll=280 remark 已重排：border 在 remark（address 阈值超出 maxScrollLeft）', () => {
-    const display = resolveColumnsForRightFixed(siteRightDisconnectedColumns, siteScroll(280));
-    expect(getTriggeredRightFixedColKeys(siteRightDisconnectedColumns, siteScroll(280))).toEqual(['remark']);
-    expect(getRightFixedBorderBoundaryColKey(siteRightDisconnectedColumns, display, siteScroll(280))).toBe('remark');
+  it('scroll=0 address 贴右有 border（address+remark 两列 fixed）', () => {
+    expect(
+      getRightFixedBorderBoundaryColKey(siteRightDisconnectedColumns, siteRightDisconnectedColumns, siteScroll(0)),
+    ).toBe('address');
   });
 
-  it('scroll=400 滚到底：border 仍在 remark', () => {
+  it('scroll=20 address 达阈值后 border 交接至 remark', () => {
+    expect(
+      getRightFixedBorderBoundaryColKey(siteRightDisconnectedColumns, siteRightDisconnectedColumns, siteScroll(20)),
+    ).toBe('remark');
+  });
+
+  it('scroll=250 remark 贴右未达阈值：border 在 remark', () => {
+    expect(
+      getRightFixedBorderBoundaryColKey(siteRightDisconnectedColumns, siteRightDisconnectedColumns, siteScroll(250)),
+    ).toBe('remark');
+  });
+
+  it('scroll=300 remark 达重排阈值：border 清除', () => {
+    const display = resolveColumnsForRightFixed(siteRightDisconnectedColumns, siteScroll(300));
+    expect(getTriggeredRightFixedColKeys(siteRightDisconnectedColumns, siteScroll(300))).toEqual(['address', 'remark']);
+    expect(getRightFixedBorderBoundaryColKey(siteRightDisconnectedColumns, display, siteScroll(300))).toBeUndefined();
+  });
+
+  it('scroll=300 后回到 10：border 回到 address', () => {
+    expect(
+      getRightFixedBorderBoundaryColKey(siteRightDisconnectedColumns, siteRightDisconnectedColumns, siteScroll(10)),
+    ).toBe('address');
+  });
+
+  it('滚到最右端无 border', () => {
     const display = resolveColumnsForRightFixed(siteRightDisconnectedColumns, siteScroll(400));
-    expect(getRightFixedBorderBoundaryColKey(siteRightDisconnectedColumns, display, siteScroll(400))).toBe('remark');
+    expect(getRightFixedBorderBoundaryColKey(siteRightDisconnectedColumns, display, siteScroll(400))).toBeUndefined();
   });
 });
 
 describe('fixed-column-reorder demo：右固定 address', () => {
-  it('scroll=140 达重排阈值：border 与阴影同时可激活', () => {
-    const display = resolveColumnsForRightFixed(rightAddressColumns, rightAddressScroll(140));
-    expect(getTriggeredRightFixedColKeys(rightAddressColumns, rightAddressScroll(140))).toEqual(['address']);
-    expect(getRightFixedBorderBoundaryColKey(rightAddressColumns, display, rightAddressScroll(140))).toBe('address');
-    expect(shouldShowRightFixedColumnShadow(rightAddressColumns, rightAddressScroll(140))).toBe(true);
+  it('scroll=20 达重排阈值：列重排触发，border 与 shadow 清除', () => {
+    const display = resolveColumnsForRightFixed(rightAddressColumns, rightAddressScroll(20));
+    expect(getTriggeredRightFixedColKeys(rightAddressColumns, rightAddressScroll(20))).toEqual(['address']);
+    expect(getRightFixedBorderBoundaryColKey(rightAddressColumns, display, rightAddressScroll(20))).toBeUndefined();
+    expect(shouldShowRightFixedColumnShadow(rightAddressColumns, rightAddressScroll(20), {}, display)).toBe(false);
   });
 
-  it('scroll=0 无 border、无阴影', () => {
+  it('scroll=19 未达重排阈值：仍有 border', () => {
+    expect(getRightFixedBorderBoundaryColKey(rightAddressColumns, rightAddressColumns, rightAddressScroll(19))).toBe(
+      'address',
+    );
+  });
+
+  it('scroll=0 有 border、有阴影', () => {
+    expect(getRightFixedBorderBoundaryColKey(rightAddressColumns, rightAddressColumns, rightAddressScroll(0))).toBe(
+      'address',
+    );
+    expect(shouldShowRightFixedColumnShadow(rightAddressColumns, rightAddressScroll(0))).toBe(true);
+  });
+
+  it('滚到最右端无 border、无阴影', () => {
     expect(
-      getRightFixedBorderBoundaryColKey(rightAddressColumns, rightAddressColumns, rightAddressScroll(0)),
+      getRightFixedBorderBoundaryColKey(rightAddressColumns, rightAddressColumns, rightAddressScroll(400)),
     ).toBeUndefined();
-    expect(shouldShowRightFixedColumnShadow(rightAddressColumns, rightAddressScroll(0))).toBe(false);
+    expect(shouldShowRightFixedColumnShadow(rightAddressColumns, rightAddressScroll(400))).toBe(false);
   });
 });
 
-describe('fixed-column-reorder demo：阴影与 border 解耦', () => {
-  it('scroll=50 未重排：无 border，可有阴影', () => {
-    expect(
-      getRightFixedBorderBoundaryColKey(siteRightDisconnectedColumns, siteRightDisconnectedColumns, siteScroll(50)),
-    ).toBeUndefined();
-    expect(shouldShowRightFixedColumnShadow(siteRightDisconnectedColumns, siteScroll(50))).toBe(true);
-  });
-
-  it('scroll=280 有 border 且有阴影', () => {
-    const display = resolveColumnsForRightFixed(siteRightDisconnectedColumns, siteScroll(280));
-    expect(getRightFixedBorderBoundaryColKey(siteRightDisconnectedColumns, display, siteScroll(280))).toBe('remark');
-    expect(shouldShowRightFixedColumnShadow(siteRightDisconnectedColumns, siteScroll(280))).toBe(true);
+describe('fixed-column-reorder demo：右 border 与 shadow 同步', () => {
+  it('scroll=250 贴边阶段：border 与 shadow 同时激活', () => {
+    const display = resolveColumnsForRightFixed(siteRightDisconnectedColumns, siteScroll(250));
+    expect(getRightFixedBorderBoundaryColKey(siteRightDisconnectedColumns, display, siteScroll(250))).toBe('remark');
+    expect(shouldShowRightFixedColumnShadow(siteRightDisconnectedColumns, siteScroll(250), {}, display)).toBe(true);
   });
 });

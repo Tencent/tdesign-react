@@ -104,6 +104,8 @@ export interface FixedColumnInfo<T extends TableRowData = TableRowData> {
   index?: number;
   lastLeftFixedCol?: boolean;
   firstRightFixedCol?: boolean;
+  /** 多列右不相连：未达重排阈值前暂不参与 sticky（与左 fixed 初始保持定义顺序对称） */
+  deferRightSticky?: boolean;
 }
 
 // 固定表头和固定列 具体的固定位置（left/top/right/bottom）

@@ -407,7 +407,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         const reorderChanged = fixedReorderSignatureRef.current !== reorderSignature;
         const layoutChanged = fixedLayoutSignatureRef.current !== layout.layoutSignature;
 
-        updateColumnFixedShadow(target);
+        updateColumnFixedShadow(target, undefined, layout.displayColumns);
 
         // 重排或 border 变化时同步标记，不等到 rAF，避免 shadow 已开但 border 列未更新的帧间闪烁
         if (layout.enabled && (reorderChanged || layoutChanged)) {
