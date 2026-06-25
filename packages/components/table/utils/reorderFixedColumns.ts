@@ -5,33 +5,50 @@ import type { BaseTableCol, TableRowData } from '../type';
 /** 始终保持在最左侧的功能列，不参与左固定重排 */
 export const TABLE_LEADING_COLUMN_KEYS = new Set(['__EXPAND_ROW_ICON_COLUMN__', 'row-select', 'drag', 'serial-number']);
 
-/** 单个非首列 left fixed 的贴左触发阈值（列重排用） */
-export interface LeftFixedReorderTriggerEntry {
-  colKey: string;
-  /** 该列与容器左边界接触所需的 scrollLeft（基于 columns 定义顺序） */
-  threshold: number;
+/** 横向滚动度量（右侧贴边阈值依赖 maxScrollLeft） */
+export interface FixedLayoutScrollMetrics {
+  scrollLeft: number;
+  maxScrollLeft: number;
 }
 
-/**
- * 非首列 left fixed 内置行为的完整布局状态。
- * - 列重排：按定义顺序独立阈值触发
- * - border：按当前渲染列序 + sticky 激活时机（可与重排阈值不同）
- * - 左阴影：与重排触发一致
- */
-export interface LeftFixedLayoutState<T extends TableRowData = TableRowData> {
-  /** 是否存在需要内置行为的非首列 left fixed */
+/** 单侧 fixed 重排触发项 */
+export interface FixedReorderTriggerEntry {
+  colKey: string;
+  /** 左：scrollLeft >= threshold；右：scrollLeft >= maxScrollLeft - widthAfter */
+  threshold: number;
+  widthAfter?: number;
+}
+
+/** 单侧 fixed 布局状态 */
+export interface FixedColumnSideLayoutState {
   enabled: boolean;
-  /** 当前 scrollLeft 下应渲染的 columns */
-  displayColumns: BaseTableCol<T>[];
-  /** 已达重排阈值的 colKey（定义顺序） */
   reorderTriggeredKeys: string[];
-  /** fixed-left-last border 应落在哪一列 */
   borderBoundaryColKey?: string;
-  /** 是否显示左固定列阴影 */
-  showLeftShadow: boolean;
-  /** 重排触发签名 */
+  showShadow: boolean;
   reorderSignature: string;
-  /** border + 重排联合签名（滚动增量刷新用） */
+  sideLayoutSignature: string;
+}
+
+/** 非首列 fixed 完整布局状态（左 + 右） */
+export interface FixedColumnLayoutState<T extends TableRowData = TableRowData> {
+  enabled: boolean;
+  displayColumns: BaseTableCol<T>[];
+  left: FixedColumnSideLayoutState;
+  right: FixedColumnSideLayoutState;
+  layoutSignature: string;
+}
+
+/** @deprecated 兼容旧引用 */
+export type LeftFixedReorderTriggerEntry = FixedReorderTriggerEntry;
+
+/** @deprecated 兼容旧引用 */
+export interface LeftFixedLayoutState<T extends TableRowData = TableRowData> {
+  enabled: boolean;
+  displayColumns: BaseTableCol<T>[];
+  reorderTriggeredKeys: string[];
+  borderBoundaryColKey?: string;
+  showLeftShadow: boolean;
+  reorderSignature: string;
   layoutSignature: string;
 }
 
@@ -54,9 +71,45 @@ function isLeadingColumn<T extends TableRowData>(col: BaseTableCol<T>): boolean 
   return Boolean(col.colKey && TABLE_LEADING_COLUMN_KEYS.has(col.colKey));
 }
 
-/**
- * 判断是否存在需要前置的左固定列（非功能列、非连续从左起始的 fixed: 'left'）
- */
+/** 在 displayColumns 中取最靠左、且已触发重排的 right fixed 列 */
+function findLeftmostTriggeredRightFixedColKey<T extends TableRowData>(
+  displayColumns: BaseTableCol<T>[] = [],
+  triggeredColKeys: Set<string> = new Set(),
+): string | undefined {
+  for (let i = 0, len = displayColumns.length; i < len; i++) {
+    const col = displayColumns[i];
+    const colKey = String(col.colKey ?? i);
+    if (col.fixed === 'right' && triggeredColKeys.has(colKey)) {
+      return colKey;
+    }
+  }
+  return undefined;
+}
+
+export function getColumnsTotalWidth<T extends TableRowData>(
+  columns: BaseTableCol<T>[] = [],
+  colWidths: Record<string, number> = {},
+): number {
+  let total = 0;
+  for (let i = 0, len = columns.length; i < len; i++) {
+    total += getColumnWidth(columns[i], colWidths);
+  }
+  return total;
+}
+
+export function createFixedLayoutScrollMetrics(
+  scrollLeft = 0,
+  scrollWidth = 0,
+  clientWidth = 0,
+): FixedLayoutScrollMetrics {
+  return {
+    scrollLeft,
+    maxScrollLeft: Math.max(0, scrollWidth - clientWidth),
+  };
+}
+
+// ---------- 左 fixed ----------
+
 export function hasLeftFixedColumnNeedReorder<T extends TableRowData>(columns: BaseTableCol<T>[] = []): boolean {
   let metScrollable = false;
   for (let i = 0, len = columns.length; i < len; i++) {
@@ -69,14 +122,11 @@ export function hasLeftFixedColumnNeedReorder<T extends TableRowData>(columns: B
   return false;
 }
 
-/**
- * 遍历 columns 定义顺序，收集每个非首列 left fixed 的独立重排阈值。
- */
 export function getLeftFixedReorderTriggerEntries<T extends TableRowData>(
   columns: BaseTableCol<T>[] = [],
   colWidths: Record<string, number> = {},
-): LeftFixedReorderTriggerEntry[] {
-  const entries: LeftFixedReorderTriggerEntry[] = [];
+): FixedReorderTriggerEntry[] {
+  const entries: FixedReorderTriggerEntry[] = [];
   let widthBefore = 0;
   let metScrollable = false;
 
@@ -99,7 +149,6 @@ export function getLeftFixedReorderTriggerEntries<T extends TableRowData>(
   return entries;
 }
 
-/** 计算首个需重排的非首列 left fixed 贴左前的 scrollLeft 阈值 */
 export function getLeftFixedReorderTriggerScrollLeft<T extends TableRowData>(
   columns: BaseTableCol<T>[] = [],
   colWidths: Record<string, number> = {},
@@ -108,7 +157,6 @@ export function getLeftFixedReorderTriggerScrollLeft<T extends TableRowData>(
   return entries.length ? entries[0].threshold : Infinity;
 }
 
-/** 当前 scrollLeft 下已达重排阈值、应前置的 left fixed 列 colKey（定义顺序） */
 export function getTriggeredLeftFixedColKeys<T extends TableRowData>(
   columns: BaseTableCol<T>[] = [],
   scrollLeft = 0,
@@ -128,10 +176,6 @@ export function getTriggeredLeftFixedSignature<T extends TableRowData>(
   return getTriggeredLeftFixedColKeys(columns, scrollLeft, colWidths).join('|');
 }
 
-/**
- * 基于当前渲染列序与 sticky 激活时机，计算 fixed-left-last border 应落在哪一列。
- * 与列重排阈值分离：dept 可在 sticky 贴住 name 时即显示 border，不必等到重排阈值。
- */
 export function getLeftFixedBorderBoundaryColKey<T extends TableRowData>(
   originColumns: BaseTableCol<T>[] = [],
   displayColumns: BaseTableCol<T>[] = [],
@@ -170,7 +214,27 @@ export function getLeftFixedBorderBoundaryColKey<T extends TableRowData>(
   return lastStickyActiveKey;
 }
 
-/** 左 fixed 重排是否已触发 */
+/**
+ * 右侧 fixed border 边界（fixed-right-first）。
+ * 内置重排：跟重排阈值，取 display 中最靠左的已触发 right fixed 列。
+ */
+export function getRightFixedBorderBoundaryColKey<T extends TableRowData>(
+  originColumns: BaseTableCol<T>[] = [],
+  displayColumns: BaseTableCol<T>[] = [],
+  scrollMetrics: FixedLayoutScrollMetrics = { scrollLeft: 0, maxScrollLeft: 0 },
+  colWidths: Record<string, number> = {},
+): string | undefined {
+  const { scrollLeft } = scrollMetrics;
+  if (scrollLeft <= 0 || !hasRightFixedColumnNeedReorder(originColumns)) {
+    return undefined;
+  }
+
+  const triggeredKeys = new Set(getTriggeredRightFixedColKeys(originColumns, scrollMetrics, colWidths));
+  if (!triggeredKeys.size) return undefined;
+
+  return findLeftmostTriggeredRightFixedColKey(displayColumns, triggeredKeys);
+}
+
 export function isLeftFixedReorderTriggered<T extends TableRowData>(
   columns: BaseTableCol<T>[] = [],
   scrollLeft = 0,
@@ -179,98 +243,18 @@ export function isLeftFixedReorderTriggered<T extends TableRowData>(
   return getTriggeredLeftFixedColKeys(columns, scrollLeft, colWidths).length > 0;
 }
 
-/** 左固定列阴影：非首列 left fixed 时与重排触发一致，否则 scrollLeft > 0 即显示 */
 export function shouldShowLeftFixedColumnShadow<T extends TableRowData>(
   columns: BaseTableCol<T>[] = [],
   scrollLeft = 0,
-  colWidths: Record<string, number> = {},
 ): boolean {
   if (scrollLeft <= 0) return false;
   if (hasLeftFixedColumnNeedReorder(columns)) {
-    return isLeftFixedReorderTriggered(columns, scrollLeft, colWidths);
+    // 内置重排：阴影仅表示「已发生横滚」，与 border 列（sticky）解耦；加粗需二者同时满足
+    return true;
   }
   return true;
 }
 
-/**
- * 统一解析非首列 left fixed 的布局状态（列序 / border / 阴影 / 签名）。
- * @param displayColumnsOverride 传入当前已渲染列时可跳过列序重算（如 useFixed 内已有 finalColumns）
- */
-export function resolveLeftFixedLayout<T extends TableRowData>(
-  originColumns: BaseTableCol<T>[] = [],
-  scrollLeft = 0,
-  colWidths: Record<string, number> = {},
-  displayColumnsOverride?: BaseTableCol<T>[],
-): LeftFixedLayoutState<T> {
-  const enabled = hasLeftFixedColumnNeedReorder(originColumns);
-
-  if (!enabled) {
-    return {
-      enabled: false,
-      displayColumns: originColumns,
-      reorderTriggeredKeys: [],
-      borderBoundaryColKey: undefined,
-      showLeftShadow: shouldShowLeftFixedColumnShadow(originColumns, scrollLeft, colWidths),
-      reorderSignature: '',
-      layoutSignature: '',
-    };
-  }
-
-  const reorderTriggeredKeys = getTriggeredLeftFixedColKeys(originColumns, scrollLeft, colWidths);
-  const displayColumns = displayColumnsOverride ?? resolveColumnsForLeftFixed(originColumns, scrollLeft, colWidths);
-  const borderBoundaryColKey = getLeftFixedBorderBoundaryColKey(originColumns, displayColumns, scrollLeft, colWidths);
-  const reorderSignature = reorderTriggeredKeys.join('|');
-  const layoutSignature = `${borderBoundaryColKey ?? ''}|${reorderSignature}`;
-
-  return {
-    enabled: true,
-    displayColumns,
-    reorderTriggeredKeys,
-    borderBoundaryColKey,
-    showLeftShadow: shouldShowLeftFixedColumnShadow(originColumns, scrollLeft, colWidths),
-    reorderSignature,
-    layoutSignature,
-  };
-}
-
-/** 比较两组 columns 的 colKey 顺序是否一致 */
-export function isSameColumnOrder<T extends TableRowData>(
-  prev: BaseTableCol<T>[] = [],
-  next: BaseTableCol<T>[] = [],
-): boolean {
-  if (prev.length !== next.length) return false;
-  for (let i = 0, len = prev.length; i < len; i++) {
-    if (prev[i].colKey !== next[i].colKey) return false;
-  }
-  return true;
-}
-
-/** 列 fixed 配置签名，用于检测 fixed 目标切换 */
-export function getColumnFixedSignature<T extends TableRowData>(columns: BaseTableCol<T>[] = []): string {
-  return columns.map((col) => `${col.colKey ?? ''}:${col.fixed ?? ''}`).join('|');
-}
-
-/** 渲染列配置是否一致（顺序 + fixed） */
-export function isSameDisplayColumns<T extends TableRowData>(
-  prev: BaseTableCol<T>[] = [],
-  next: BaseTableCol<T>[] = [],
-): boolean {
-  return isSameColumnOrder(prev, next) && getColumnFixedSignature(prev) === getColumnFixedSignature(next);
-}
-
-/** 根据 scrollLeft 与各列独立阈值解析最终渲染列顺序 */
-export function resolveColumnsForLeftFixed<T extends TableRowData>(
-  columns: BaseTableCol<T>[] = [],
-  scrollLeft = 0,
-  colWidths: Record<string, number> = {},
-): BaseTableCol<T>[] {
-  if (!hasLeftFixedColumnNeedReorder(columns)) return columns;
-  const triggeredKeys = getTriggeredLeftFixedColKeys(columns, scrollLeft, colWidths);
-  if (!triggeredKeys.length) return columns;
-  return reorderColumnsForLeftFixedPartial(columns, new Set(triggeredKeys));
-}
-
-/** 仅前置已触发的 left fixed 列；未触发的 left fixed 列保留在定义位置 */
 export function reorderColumnsForLeftFixedPartial<T extends TableRowData>(
   columns: BaseTableCol<T>[] = [],
   triggeredColKeys: Set<string> = new Set(),
@@ -285,8 +269,7 @@ export function reorderColumnsForLeftFixedPartial<T extends TableRowData>(
 
   const leading: BaseTableCol<T>[] = [];
   const triggeredLeftFixed: BaseTableCol<T>[] = [];
-  const scrollable: BaseTableCol<T>[] = [];
-  const rightFixed: BaseTableCol<T>[] = [];
+  const middle: BaseTableCol<T>[] = [];
 
   for (let i = 0, len = columns.length; i < len; i++) {
     const col = columns[i];
@@ -296,23 +279,347 @@ export function reorderColumnsForLeftFixedPartial<T extends TableRowData>(
       leading.push(col);
       continue;
     }
-    if (col.fixed === 'right') {
-      rightFixed.push(col);
-      continue;
-    }
     if (col.fixed === 'left' && triggeredColKeys.has(colKey)) {
       triggeredLeftFixed.push(col);
       continue;
     }
-    scrollable.push(col);
+    middle.push(col);
   }
 
-  return [...leading, ...triggeredLeftFixed, ...scrollable, ...rightFixed];
+  return [...leading, ...triggeredLeftFixed, ...middle];
 }
 
-/** 全量前置（测试用）：将所有需重排的 left fixed 列移到功能列之后 */
+export function resolveColumnsForLeftFixed<T extends TableRowData>(
+  columns: BaseTableCol<T>[] = [],
+  scrollLeft = 0,
+  colWidths: Record<string, number> = {},
+): BaseTableCol<T>[] {
+  if (!hasLeftFixedColumnNeedReorder(columns)) return columns;
+  const triggeredKeys = getTriggeredLeftFixedColKeys(columns, scrollLeft, colWidths);
+  if (!triggeredKeys.length) return columns;
+  return reorderColumnsForLeftFixedPartial(columns, new Set(triggeredKeys));
+}
+
 export function reorderColumnsForLeftFixed<T extends TableRowData>(columns: BaseTableCol<T>[] = []): BaseTableCol<T>[] {
   if (!columns.length || !hasLeftFixedColumnNeedReorder(columns)) return columns;
   const allKeys = getLeftFixedReorderTriggerEntries(columns).map((entry) => entry.colKey);
   return reorderColumnsForLeftFixedPartial(columns, new Set(allKeys));
+}
+
+function buildLeftSideLayoutState<T extends TableRowData>(
+  originColumns: BaseTableCol<T>[],
+  displayColumns: BaseTableCol<T>[],
+  scrollLeft: number,
+  colWidths: Record<string, number>,
+): FixedColumnSideLayoutState {
+  const enabled = hasLeftFixedColumnNeedReorder(originColumns);
+
+  if (!enabled) {
+    return {
+      enabled: false,
+      reorderTriggeredKeys: [],
+      borderBoundaryColKey: undefined,
+      showShadow: shouldShowLeftFixedColumnShadow(originColumns, scrollLeft),
+      reorderSignature: '',
+      sideLayoutSignature: '',
+    };
+  }
+
+  const reorderTriggeredKeys = getTriggeredLeftFixedColKeys(originColumns, scrollLeft, colWidths);
+  const borderBoundaryColKey = getLeftFixedBorderBoundaryColKey(originColumns, displayColumns, scrollLeft, colWidths);
+  const reorderSignature = reorderTriggeredKeys.join('|');
+
+  return {
+    enabled: true,
+    reorderTriggeredKeys,
+    borderBoundaryColKey,
+    showShadow: shouldShowLeftFixedColumnShadow(originColumns, scrollLeft),
+    reorderSignature,
+    sideLayoutSignature: `${borderBoundaryColKey ?? ''}|${reorderSignature}`,
+  };
+}
+
+export function resolveLeftFixedLayout<T extends TableRowData>(
+  originColumns: BaseTableCol<T>[] = [],
+  scrollLeft = 0,
+  colWidths: Record<string, number> = {},
+  displayColumnsOverride?: BaseTableCol<T>[],
+): LeftFixedLayoutState<T> {
+  const displayColumns = displayColumnsOverride ?? resolveColumnsForLeftFixed(originColumns, scrollLeft, colWidths);
+  const left = buildLeftSideLayoutState(originColumns, displayColumns, scrollLeft, colWidths);
+
+  return {
+    enabled: left.enabled,
+    displayColumns,
+    reorderTriggeredKeys: left.reorderTriggeredKeys,
+    borderBoundaryColKey: left.borderBoundaryColKey,
+    showLeftShadow: left.showShadow,
+    reorderSignature: left.reorderSignature,
+    layoutSignature: left.sideLayoutSignature,
+  };
+}
+
+// ---------- 右 fixed（与左侧对称） ----------
+
+export function hasRightFixedColumnNeedReorder<T extends TableRowData>(columns: BaseTableCol<T>[] = []): boolean {
+  let metScrollable = false;
+  for (let i = columns.length - 1; i >= 0; i--) {
+    const col = columns[i];
+    if (col.fixed === 'left') break;
+    if (col.fixed === 'right' && metScrollable) return true;
+    if (!col.fixed) metScrollable = true;
+  }
+  return false;
+}
+
+export function hasFixedColumnNeedReorder<T extends TableRowData>(columns: BaseTableCol<T>[] = []): boolean {
+  return hasLeftFixedColumnNeedReorder(columns) || hasRightFixedColumnNeedReorder(columns);
+}
+
+export function getRightFixedReorderTriggerEntries<T extends TableRowData>(
+  columns: BaseTableCol<T>[] = [],
+  colWidths: Record<string, number> = {},
+): FixedReorderTriggerEntry[] {
+  const entries: FixedReorderTriggerEntry[] = [];
+  let widthAfter = 0;
+  let metScrollable = false;
+
+  for (let i = columns.length - 1; i >= 0; i--) {
+    const col = columns[i];
+    if (col.fixed === 'left') break;
+
+    if (col.fixed === 'right' && metScrollable) {
+      entries.unshift({
+        colKey: String(col.colKey ?? i),
+        threshold: 0,
+        widthAfter,
+      });
+    }
+
+    widthAfter += getColumnWidth(col, colWidths);
+    if (!col.fixed) metScrollable = true;
+  }
+
+  return entries;
+}
+
+export function getTriggeredRightFixedColKeys<T extends TableRowData>(
+  columns: BaseTableCol<T>[] = [],
+  scrollMetrics: FixedLayoutScrollMetrics = { scrollLeft: 0, maxScrollLeft: 0 },
+  colWidths: Record<string, number> = {},
+): string[] {
+  const { scrollLeft, maxScrollLeft } = scrollMetrics;
+  if (maxScrollLeft <= 0 || !hasRightFixedColumnNeedReorder(columns)) return [];
+
+  return getRightFixedReorderTriggerEntries(columns, colWidths)
+    .filter((entry) => {
+      const widthAfter = entry.widthAfter ?? 0;
+      const threshold = maxScrollLeft - widthAfter;
+      return threshold >= 0 && scrollLeft >= threshold;
+    })
+    .map((entry) => entry.colKey);
+}
+
+export function isRightFixedReorderTriggered<T extends TableRowData>(
+  columns: BaseTableCol<T>[] = [],
+  scrollMetrics: FixedLayoutScrollMetrics = { scrollLeft: 0, maxScrollLeft: 0 },
+  colWidths: Record<string, number> = {},
+): boolean {
+  return getTriggeredRightFixedColKeys(columns, scrollMetrics, colWidths).length > 0;
+}
+
+export function shouldShowRightFixedColumnShadow<T extends TableRowData>(
+  columns: BaseTableCol<T>[] = [],
+  scrollMetrics: FixedLayoutScrollMetrics = { scrollLeft: 0, maxScrollLeft: 0 },
+): boolean {
+  const { scrollLeft, maxScrollLeft } = scrollMetrics;
+  if (maxScrollLeft <= 0 || scrollLeft <= 0) return false;
+  if (hasRightFixedColumnNeedReorder(columns)) {
+    // 内置重排：阴影仅表示「仍可向右滚动」，与 border 列（重排阈值）解耦；加粗需二者同时满足
+    return scrollLeft < maxScrollLeft;
+  }
+  return scrollLeft < maxScrollLeft;
+}
+
+function getTrailingRightFixedColumns<T extends TableRowData>(columns: BaseTableCol<T>[] = []): BaseTableCol<T>[] {
+  const trailing: BaseTableCol<T>[] = [];
+  for (let i = columns.length - 1; i >= 0; i--) {
+    const col = columns[i];
+    if (col.fixed === 'right') {
+      trailing.unshift(col);
+    } else {
+      break;
+    }
+  }
+  return trailing;
+}
+
+export function reorderColumnsForRightFixedPartial<T extends TableRowData>(
+  columns: BaseTableCol<T>[] = [],
+  triggeredColKeys: Set<string> = new Set(),
+): BaseTableCol<T>[] {
+  if (!columns.length || !triggeredColKeys.size) return columns;
+
+  const hasMultiHeader = columns.some((col) => col.children?.length);
+  if (hasMultiHeader) {
+    log.warn('TDesign Table', '非末列右固定暂不支持多级表头，已跳过重排。请使用平铺列或手动调整 columns 顺序。');
+    return columns;
+  }
+
+  let lastRightFixedIndex = -1;
+  for (let i = columns.length - 1; i >= 0; i--) {
+    if (columns[i].fixed === 'right') {
+      lastRightFixedIndex = i;
+      break;
+    }
+  }
+
+  // 最后一个 right fixed 之后的列（如 operation）始终保持在最末
+  const absoluteTail = lastRightFixedIndex >= 0 ? columns.slice(lastRightFixedIndex + 1) : [];
+  const headPart = lastRightFixedIndex >= 0 ? columns.slice(0, lastRightFixedIndex + 1) : columns;
+  const trailingRightFixed = getTrailingRightFixedColumns(headPart);
+  const trailingKeys = new Set(trailingRightFixed.map((col) => String(col.colKey ?? '')));
+
+  const leading: BaseTableCol<T>[] = [];
+  const leftFixed: BaseTableCol<T>[] = [];
+  const body: BaseTableCol<T>[] = [];
+  const triggeredRightFixed: BaseTableCol<T>[] = [];
+
+  for (let i = 0, len = headPart.length; i < len; i++) {
+    const col = headPart[i];
+    const colKey = String(col.colKey ?? i);
+
+    if (isLeadingColumn(col)) {
+      leading.push(col);
+      continue;
+    }
+    if (col.fixed === 'left') {
+      leftFixed.push(col);
+      continue;
+    }
+    if (col.fixed === 'right') {
+      if (trailingKeys.has(colKey)) continue;
+      if (triggeredColKeys.has(colKey)) triggeredRightFixed.push(col);
+      else body.push(col);
+      continue;
+    }
+    body.push(col);
+  }
+
+  return [...leading, ...leftFixed, ...body, ...triggeredRightFixed, ...trailingRightFixed, ...absoluteTail];
+}
+
+export function resolveColumnsForRightFixed<T extends TableRowData>(
+  columns: BaseTableCol<T>[] = [],
+  scrollMetrics: FixedLayoutScrollMetrics = { scrollLeft: 0, maxScrollLeft: 0 },
+  colWidths: Record<string, number> = {},
+  originColumns?: BaseTableCol<T>[],
+): BaseTableCol<T>[] {
+  const origin = originColumns ?? columns;
+  if (!hasRightFixedColumnNeedReorder(origin)) return columns;
+  const triggeredKeys = getTriggeredRightFixedColKeys(origin, scrollMetrics, colWidths);
+  if (!triggeredKeys.length) return columns;
+  return reorderColumnsForRightFixedPartial(columns, new Set(triggeredKeys));
+}
+
+export function reorderColumnsForRightFixed<T extends TableRowData>(
+  columns: BaseTableCol<T>[] = [],
+): BaseTableCol<T>[] {
+  if (!columns.length || !hasRightFixedColumnNeedReorder(columns)) return columns;
+  const allKeys = getRightFixedReorderTriggerEntries(columns).map((entry) => entry.colKey);
+  return reorderColumnsForRightFixedPartial(columns, new Set(allKeys));
+}
+
+function buildRightSideLayoutState<T extends TableRowData>(
+  originColumns: BaseTableCol<T>[],
+  displayColumns: BaseTableCol<T>[],
+  scrollMetrics: FixedLayoutScrollMetrics,
+  colWidths: Record<string, number>,
+): FixedColumnSideLayoutState {
+  const enabled = hasRightFixedColumnNeedReorder(originColumns);
+
+  if (!enabled) {
+    return {
+      enabled: false,
+      reorderTriggeredKeys: [],
+      borderBoundaryColKey: undefined,
+      showShadow: shouldShowRightFixedColumnShadow(originColumns, scrollMetrics),
+      reorderSignature: '',
+      sideLayoutSignature: '',
+    };
+  }
+
+  const reorderTriggeredKeys = getTriggeredRightFixedColKeys(originColumns, scrollMetrics, colWidths);
+  const borderBoundaryColKey = getRightFixedBorderBoundaryColKey(
+    originColumns,
+    displayColumns,
+    scrollMetrics,
+    colWidths,
+  );
+  const reorderSignature = reorderTriggeredKeys.join('|');
+
+  return {
+    enabled: true,
+    reorderTriggeredKeys,
+    borderBoundaryColKey,
+    showShadow: shouldShowRightFixedColumnShadow(originColumns, scrollMetrics),
+    reorderSignature,
+    sideLayoutSignature: `${borderBoundaryColKey ?? ''}|${reorderSignature}`,
+  };
+}
+
+// ---------- 统一入口 ----------
+
+export function resolveDisplayColumnsForFixed<T extends TableRowData>(
+  originColumns: BaseTableCol<T>[] = [],
+  scrollMetrics: FixedLayoutScrollMetrics = { scrollLeft: 0, maxScrollLeft: 0 },
+  colWidths: Record<string, number> = {},
+): BaseTableCol<T>[] {
+  const afterLeft = resolveColumnsForLeftFixed(originColumns, scrollMetrics.scrollLeft, colWidths);
+  return resolveColumnsForRightFixed(afterLeft, scrollMetrics, colWidths, originColumns);
+}
+
+export function resolveFixedColumnLayout<T extends TableRowData>(
+  originColumns: BaseTableCol<T>[] = [],
+  scrollMetrics: FixedLayoutScrollMetrics = { scrollLeft: 0, maxScrollLeft: 0 },
+  colWidths: Record<string, number> = {},
+  displayColumnsOverride?: BaseTableCol<T>[],
+): FixedColumnLayoutState<T> {
+  const displayColumns =
+    displayColumnsOverride ?? resolveDisplayColumnsForFixed(originColumns, scrollMetrics, colWidths);
+  const left = buildLeftSideLayoutState(originColumns, displayColumns, scrollMetrics.scrollLeft, colWidths);
+  const right = buildRightSideLayoutState(originColumns, displayColumns, scrollMetrics, colWidths);
+  const enabled = left.enabled || right.enabled;
+
+  return {
+    enabled,
+    displayColumns,
+    left,
+    right,
+    layoutSignature: `${left.sideLayoutSignature}::${right.sideLayoutSignature}`,
+  };
+}
+
+// ---------- 通用工具 ----------
+
+export function isSameColumnOrder<T extends TableRowData>(
+  prev: BaseTableCol<T>[] = [],
+  next: BaseTableCol<T>[] = [],
+): boolean {
+  if (prev.length !== next.length) return false;
+  for (let i = 0, len = prev.length; i < len; i++) {
+    if (prev[i].colKey !== next[i].colKey) return false;
+  }
+  return true;
+}
+
+export function getColumnFixedSignature<T extends TableRowData>(columns: BaseTableCol<T>[] = []): string {
+  return columns.map((col) => `${col.colKey ?? ''}:${col.fixed ?? ''}`).join('|');
+}
+
+export function isSameDisplayColumns<T extends TableRowData>(
+  prev: BaseTableCol<T>[] = [],
+  next: BaseTableCol<T>[] = [],
+): boolean {
+  return isSameColumnOrder(prev, next) && getColumnFixedSignature(prev) === getColumnFixedSignature(next);
 }

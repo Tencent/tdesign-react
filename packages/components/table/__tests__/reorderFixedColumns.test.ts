@@ -4,15 +4,24 @@ import {
   getLeftFixedBorderBoundaryColKey,
   getLeftFixedReorderTriggerEntries,
   getLeftFixedReorderTriggerScrollLeft,
+  getRightFixedBorderBoundaryColKey,
+  getRightFixedReorderTriggerEntries,
   getTriggeredLeftFixedColKeys,
+  getTriggeredRightFixedColKeys,
   hasLeftFixedColumnNeedReorder,
+  hasRightFixedColumnNeedReorder,
   isLeftFixedReorderTriggered,
   isSameDisplayColumns,
   reorderColumnsForLeftFixed,
   reorderColumnsForLeftFixedPartial,
+  reorderColumnsForRightFixed,
+  reorderColumnsForRightFixedPartial,
   resolveColumnsForLeftFixed,
+  resolveColumnsForRightFixed,
+  resolveFixedColumnLayout,
   resolveLeftFixedLayout,
   shouldShowLeftFixedColumnShadow,
+  shouldShowRightFixedColumnShadow,
 } from '../utils/reorderFixedColumns';
 
 import type { BaseTableCol } from '../type';
@@ -23,6 +32,21 @@ const disconnectedColumns: BaseTableCol[] = [
   { colKey: 'email', width: 180 },
   { colKey: 'dept', width: 120, fixed: 'left' },
 ];
+
+const rightDisconnectedColumns: BaseTableCol[] = [
+  { colKey: 'id', width: 100 },
+  { colKey: 'email', width: 180 },
+  { colKey: 'remark', width: 120, fixed: 'right' },
+  { colKey: 'city', width: 120 },
+  { colKey: 'operation', width: 100, fixed: 'right' },
+];
+
+const RIGHT_MAX_SCROLL_LEFT = 300;
+
+const rightScroll = (scrollLeft: number) => ({
+  scrollLeft,
+  maxScrollLeft: RIGHT_MAX_SCROLL_LEFT,
+});
 
 describe('reorderColumnsForLeftFixed', () => {
   it('非首列左固定时，将 fixed 列移到功能列之后的最左侧', () => {
@@ -154,13 +178,13 @@ describe('shouldShowLeftFixedColumnShadow', () => {
     { colKey: 'email', title: '邮箱', width: 200 },
   ];
 
-  it('非首列 left fixed 时，未达贴左阈值不显示左阴影', () => {
-    expect(shouldShowLeftFixedColumnShadow(columnsWithNameFixed, 50)).toBe(false);
-    expect(shouldShowLeftFixedColumnShadow(columnsWithNameFixed, 99)).toBe(false);
+  it('非首列 left fixed 时，scrollLeft > 0 即显示左阴影', () => {
+    expect(shouldShowLeftFixedColumnShadow(columnsWithNameFixed, 50)).toBe(true);
+    expect(shouldShowLeftFixedColumnShadow(columnsWithNameFixed, 99)).toBe(true);
   });
 
-  it('达到贴左阈值后显示左阴影', () => {
-    expect(shouldShowLeftFixedColumnShadow(columnsWithNameFixed, 100)).toBe(true);
+  it('scrollLeft 为 0 时不显示左阴影', () => {
+    expect(shouldShowLeftFixedColumnShadow(columnsWithNameFixed, 0)).toBe(false);
   });
 
   it('普通连续 left fixed 仍按 scrollLeft > 0 显示左阴影', () => {
@@ -222,5 +246,186 @@ describe('isSameDisplayColumns', () => {
       { colKey: 'name', width: 120 },
     ];
     expect(isSameDisplayColumns(prev, next)).toBe(false);
+  });
+});
+
+describe('reorderColumnsForRightFixed', () => {
+  it('非末列右固定时，将 fixed 列移到可滚动区之后的最右侧', () => {
+    const columns: BaseTableCol[] = [
+      { colKey: 'id', width: 80 },
+      { colKey: 'email', width: 200 },
+      { colKey: 'remark', width: 120, fixed: 'right' },
+    ];
+    expect(reorderColumnsForRightFixed(columns).map((col) => col.colKey)).toEqual(['id', 'email', 'remark']);
+  });
+
+  it('从右连续固定的列顺序不变', () => {
+    const columns: BaseTableCol[] = [{ colKey: 'a' }, { colKey: 'b', fixed: 'right' }, { colKey: 'c', fixed: 'right' }];
+    expect(reorderColumnsForRightFixed(columns)).toBe(columns);
+  });
+
+  it('hasRightFixedColumnNeedReorder 识别非末列右固定', () => {
+    expect(
+      hasRightFixedColumnNeedReorder([
+        { colKey: 'id' },
+        { colKey: 'remark', fixed: 'right' },
+        { colKey: 'email' },
+        { colKey: 'op', fixed: 'right' },
+      ]),
+    ).toBe(true);
+    expect(hasRightFixedColumnNeedReorder([{ colKey: 'id' }, { colKey: 'op', fixed: 'right' }])).toBe(false);
+    expect(
+      hasRightFixedColumnNeedReorder([
+        { colKey: 'b', fixed: 'right' },
+        { colKey: 'c', fixed: 'right' },
+      ]),
+    ).toBe(false);
+  });
+});
+
+describe('reorderColumnsForRightFixedPartial', () => {
+  it('仅 remark 触发时只后置 remark，operation 仍留在最末', () => {
+    expect(
+      reorderColumnsForRightFixedPartial(rightDisconnectedColumns, new Set(['remark'])).map((col) => col.colKey),
+    ).toEqual(['id', 'email', 'city', 'remark', 'operation']);
+  });
+
+  it('remark 与 operation 均触发时按定义顺序一并后置', () => {
+    expect(
+      reorderColumnsForRightFixedPartial(rightDisconnectedColumns, new Set(['remark', 'operation'])).map(
+        (col) => col.colKey,
+      ),
+    ).toEqual(['id', 'email', 'city', 'remark', 'operation']);
+  });
+});
+
+describe('getRightFixedReorderTriggerEntries', () => {
+  it('不相连多列为每列独立计算贴右阈值', () => {
+    expect(getRightFixedReorderTriggerEntries(rightDisconnectedColumns)).toEqual([
+      { colKey: 'remark', threshold: 0, widthAfter: 220 },
+    ]);
+  });
+});
+
+describe('resolveColumnsForRightFixed', () => {
+  it('scrollLeft 未达阈值时不重排', () => {
+    expect(resolveColumnsForRightFixed(rightDisconnectedColumns, rightScroll(50))).toBe(rightDisconnectedColumns);
+  });
+
+  it('scrollLeft 达到阈值时 remark 后置', () => {
+    expect(resolveColumnsForRightFixed(rightDisconnectedColumns, rightScroll(80)).map((col) => col.colKey)).toEqual([
+      'id',
+      'email',
+      'city',
+      'remark',
+      'operation',
+    ]);
+  });
+
+  it('滚回阈值以下时 remark 还原', () => {
+    expect(resolveColumnsForRightFixed(rightDisconnectedColumns, rightScroll(70)).map((col) => col.colKey)).toEqual([
+      'id',
+      'email',
+      'remark',
+      'city',
+      'operation',
+    ]);
+  });
+});
+
+describe('getRightFixedBorderBoundaryColKey', () => {
+  it('remark 重排后 border 在 remark', () => {
+    const display = resolveColumnsForRightFixed(rightDisconnectedColumns, rightScroll(200));
+    expect(getRightFixedBorderBoundaryColKey(rightDisconnectedColumns, display, rightScroll(200))).toBe('remark');
+  });
+
+  it('remark 达重排阈值即显示 border（镜像左 name@150）', () => {
+    const display = resolveColumnsForRightFixed(rightDisconnectedColumns, rightScroll(90));
+    expect(getTriggeredRightFixedColKeys(rightDisconnectedColumns, rightScroll(90))).toEqual(['remark']);
+    expect(getRightFixedBorderBoundaryColKey(rightDisconnectedColumns, display, rightScroll(90))).toBe('remark');
+  });
+
+  it('remark 重排后 border 仍在 remark', () => {
+    const display = resolveColumnsForRightFixed(rightDisconnectedColumns, rightScroll(150));
+    expect(getRightFixedBorderBoundaryColKey(rightDisconnectedColumns, display, rightScroll(150))).toBe('remark');
+  });
+
+  it('未进入重排阶段时返回 undefined，内置重排时不回落默认 border', () => {
+    expect(
+      getRightFixedBorderBoundaryColKey(rightDisconnectedColumns, rightDisconnectedColumns, rightScroll(50)),
+    ).toBeUndefined();
+  });
+});
+
+describe('fixed border 左 sticky / 右重排', () => {
+  it('未重排 scroll=50：两侧均无 border', () => {
+    expect(getLeftFixedBorderBoundaryColKey(disconnectedColumns, disconnectedColumns, 50)).toBeUndefined();
+    expect(
+      getRightFixedBorderBoundaryColKey(rightDisconnectedColumns, rightDisconnectedColumns, rightScroll(50)),
+    ).toBeUndefined();
+  });
+
+  it('首列重排 scroll=150：左 name sticky；右 remark 重排', () => {
+    expect(
+      getLeftFixedBorderBoundaryColKey(disconnectedColumns, resolveColumnsForLeftFixed(disconnectedColumns, 150), 150),
+    ).toBe('name');
+    expect(
+      getRightFixedBorderBoundaryColKey(
+        rightDisconnectedColumns,
+        resolveColumnsForRightFixed(rightDisconnectedColumns, rightScroll(150)),
+        rightScroll(150),
+      ),
+    ).toBe('remark');
+  });
+});
+
+describe('shouldShowRightFixedColumnShadow', () => {
+  const columnsWithRemarkFixed: BaseTableCol[] = [
+    { colKey: 'id', width: 100 },
+    { colKey: 'email', width: 180 },
+    { colKey: 'remark', width: 120, fixed: 'right' },
+    { colKey: 'city', width: 120 },
+    { colKey: 'operation', width: 100, fixed: 'right' },
+  ];
+
+  it('未达重排阈值时 scrollLeft > 0 仍可显示右阴影', () => {
+    expect(shouldShowRightFixedColumnShadow(columnsWithRemarkFixed, rightScroll(50))).toBe(true);
+  });
+
+  it('scrollLeft 为 0 时不显示右阴影', () => {
+    expect(shouldShowRightFixedColumnShadow(columnsWithRemarkFixed, rightScroll(0))).toBe(false);
+  });
+
+  it('达重排阈值时 border 在 remark，阴影由横滚决定', () => {
+    const display = resolveColumnsForRightFixed(columnsWithRemarkFixed, rightScroll(90));
+    expect(getRightFixedBorderBoundaryColKey(columnsWithRemarkFixed, display, rightScroll(90))).toBe('remark');
+    expect(shouldShowRightFixedColumnShadow(columnsWithRemarkFixed, rightScroll(90))).toBe(true);
+    expect(shouldShowRightFixedColumnShadow(columnsWithRemarkFixed, rightScroll(70))).toBe(true);
+  });
+});
+
+describe('resolveFixedColumnLayout', () => {
+  it('左右同时存在时统一解析列序与签名', () => {
+    const columns: BaseTableCol[] = [
+      { colKey: 'id', width: 100 },
+      { colKey: 'name', width: 120, fixed: 'left' },
+      { colKey: 'email', width: 180 },
+      { colKey: 'remark', width: 120, fixed: 'right' },
+      { colKey: 'city', width: 120 },
+      { colKey: 'operation', width: 100, fixed: 'right' },
+    ];
+    const layout = resolveFixedColumnLayout(columns, {
+      scrollLeft: 100,
+      maxScrollLeft: 400,
+    });
+    expect(layout.left.reorderTriggeredKeys).toEqual(['name']);
+    expect(layout.displayColumns.map((col) => col.colKey)).toEqual([
+      'name',
+      'id',
+      'email',
+      'remark',
+      'city',
+      'operation',
+    ]);
   });
 });

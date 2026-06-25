@@ -33,9 +33,10 @@ import THead from './THead';
 import { ROW_LISTENERS } from './TR';
 import { getAffixProps } from './utils';
 import {
-  hasLeftFixedColumnNeedReorder,
+  createFixedLayoutScrollMetrics,
+  hasFixedColumnNeedReorder,
   isSameDisplayColumns,
-  resolveLeftFixedLayout,
+  resolveFixedColumnLayout,
 } from './utils/reorderFixedColumns';
 import { scheduleAfterColumnDomUpdate } from './utils/scheduleAfterColumnDomUpdate';
 
@@ -45,7 +46,7 @@ import type { Styles } from '../common';
 import type { BaseTableProps, BaseTableRef } from './interface';
 import type { TableBodyProps } from './TBody';
 import type { TheadProps } from './THead';
-import type { TableRowData } from './type';
+import type { BaseTableCol, TableRowData } from './type';
 
 export const BASE_TABLE_EVENTS = ['page-change', 'cell-click', 'scroll', 'scrollX', 'scrollY'];
 export const BASE_TABLE_ALL_EVENTS = ROW_LISTENERS.map((t) => `row-${t}`).concat(BASE_TABLE_EVENTS);
@@ -79,15 +80,19 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const [tableFootHeight, setTableFootHeight] = useState(0);
   const [columns, setColumns] = useState(originColumns);
   const pendingFixedRefreshRef = useRef(false);
-  const leftFixedReorderSignatureRef = useRef('');
-  const leftFixedLayoutSignatureRef = useRef('');
-  const scrollLeftFixedRafRef = useRef<number>();
+  const fixedLayoutSignatureRef = useRef('');
+  const fixedReorderSignatureRef = useRef('');
+  const scrollFixedLayoutRafRef = useRef<number>();
   const lastScrollLeftRef = useRef(0);
   const fixedLayoutActionsRef = useRef<{
     getThWidthList: () => Record<string, number>;
     refreshTable: () => void;
-    updateColumnFixedShadow: (target: HTMLElement | null, extra?: { skipScrollLimit?: boolean }) => void;
-    syncFixedColumnBorder: () => void;
+    updateColumnFixedShadow: (
+      target: HTMLElement | null,
+      extra?: { skipScrollLimit?: boolean },
+      displayColumnsOverride?: BaseTableCol<TableRowData>[],
+    ) => void;
+    syncFixedColumnBorder: (displayColumnsOverride?: BaseTableCol<TableRowData>[]) => void;
     tableContentRef: React.RefObject<HTMLDivElement>;
   }>({
     getThWidthList: () => ({}),
@@ -152,7 +157,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     updateThWidthList,
     updateTableAfterColumnResize,
     syncFixedColumnBorder,
-  } = useFixed(props, finalColumns, {
+  } = useFixed(props, finalColumns, originColumns, {
     paginationAffixRef,
     horizontalScrollAffixRef,
     headerTopAffixRef,
@@ -177,33 +182,38 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     updateShadow(contentRef.current, { skipScrollLimit: true });
   }, []);
 
-  const resetLeftFixedLayoutSignatures = useCallback(() => {
-    leftFixedReorderSignatureRef.current = '';
-    leftFixedLayoutSignatureRef.current = '';
+  const resetFixedLayoutSignatures = useCallback(() => {
+    fixedReorderSignatureRef.current = '';
+    fixedLayoutSignatureRef.current = '';
   }, []);
 
-  /** 解析 left fixed 布局：签名未变则跳过；重排走全量刷新，仅 border 变化走轻量 sync */
-  const applyLeftFixedLayout = useCallback(() => {
-    const {
-      getThWidthList,
-      tableContentRef: contentRef,
-      syncFixedColumnBorder: syncBorder,
-    } = fixedLayoutActionsRef.current;
-    const scrollLeft = contentRef.current?.scrollLeft ?? 0;
-    const layout = resolveLeftFixedLayout(originColumns, scrollLeft, getThWidthList());
+  const readFixedLayoutScrollMetrics = useCallback(() => {
+    const el = fixedLayoutActionsRef.current.tableContentRef.current;
+    if (!el) return createFixedLayoutScrollMetrics(0, 0, 0);
+    return createFixedLayoutScrollMetrics(el.scrollLeft, el.scrollWidth, el.clientWidth);
+  }, []);
+
+  /** 解析左右 fixed 布局：签名未变则跳过；重排全量刷新，仅 border 变化走轻量 sync */
+  const applyFixedColumnLayout = useCallback(() => {
+    const { getThWidthList, syncFixedColumnBorder: syncBorder } = fixedLayoutActionsRef.current;
+    const scrollMetrics = readFixedLayoutScrollMetrics();
+    const layout = resolveFixedColumnLayout(originColumns, scrollMetrics, getThWidthList());
 
     if (!layout.enabled) {
-      resetLeftFixedLayoutSignatures();
+      resetFixedLayoutSignatures();
       setColumns((prev) => (isSameDisplayColumns(prev, originColumns) ? prev : originColumns));
+      const { updateColumnFixedShadow: updateShadow, tableContentRef: contentRef } = fixedLayoutActionsRef.current;
+      updateShadow(contentRef.current, { skipScrollLimit: true });
       return;
     }
 
-    const reorderChanged = leftFixedReorderSignatureRef.current !== layout.reorderSignature;
-    const layoutChanged = leftFixedLayoutSignatureRef.current !== layout.layoutSignature;
+    const reorderSignature = `${layout.left.reorderSignature}::${layout.right.reorderSignature}`;
+    const reorderChanged = fixedReorderSignatureRef.current !== reorderSignature;
+    const layoutChanged = fixedLayoutSignatureRef.current !== layout.layoutSignature;
     if (!reorderChanged && !layoutChanged) return;
 
-    leftFixedReorderSignatureRef.current = layout.reorderSignature;
-    leftFixedLayoutSignatureRef.current = layout.layoutSignature;
+    fixedReorderSignatureRef.current = reorderSignature;
+    fixedLayoutSignatureRef.current = layout.layoutSignature;
 
     setColumns((prev) => {
       if (isSameDisplayColumns(prev, layout.displayColumns)) return prev;
@@ -213,33 +223,33 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
     if (reorderChanged) {
       pendingFixedRefreshRef.current = true;
-      refreshFixedOnLayoutChange();
-    } else {
-      syncBorder();
     }
-  }, [originColumns, refreshFixedOnLayoutChange, resetLeftFixedLayoutSignatures]);
+    if (reorderChanged || layoutChanged) {
+      syncBorder(layout.displayColumns);
+    }
+  }, [originColumns, resetFixedLayoutSignatures, readFixedLayoutScrollMetrics]);
 
-  const scheduleScrollLeftFixedLayout = useCallback(() => {
-    if (scrollLeftFixedRafRef.current != null) return;
-    scrollLeftFixedRafRef.current = requestAnimationFrame(() => {
-      scrollLeftFixedRafRef.current = undefined;
-      applyLeftFixedLayout();
+  const scheduleScrollFixedColumnLayout = useCallback(() => {
+    if (scrollFixedLayoutRafRef.current != null) return;
+    scrollFixedLayoutRafRef.current = requestAnimationFrame(() => {
+      scrollFixedLayoutRafRef.current = undefined;
+      applyFixedColumnLayout();
     });
-  }, [applyLeftFixedLayout]);
+  }, [applyFixedColumnLayout]);
 
   useEffect(
     () => () => {
-      if (scrollLeftFixedRafRef.current != null) {
-        cancelAnimationFrame(scrollLeftFixedRafRef.current);
+      if (scrollFixedLayoutRafRef.current != null) {
+        cancelAnimationFrame(scrollFixedLayoutRafRef.current);
       }
     },
     [],
   );
 
   useLayoutEffect(() => {
-    resetLeftFixedLayoutSignatures();
-    applyLeftFixedLayout();
-  }, [originColumns, applyLeftFixedLayout, resetLeftFixedLayoutSignatures]);
+    resetFixedLayoutSignatures();
+    applyFixedColumnLayout();
+  }, [originColumns, applyFixedColumnLayout, resetFixedLayoutSignatures]);
 
   // 列序 DOM 更新后再刷新 fixed 位置
   useLayoutEffect(() => {
@@ -254,9 +264,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
   const onTableAfterColumnResize = useCallback(() => {
     updateTableAfterColumnResize();
-    resetLeftFixedLayoutSignatures();
-    applyLeftFixedLayout();
-  }, [updateTableAfterColumnResize, resetLeftFixedLayoutSignatures, applyLeftFixedLayout]);
+    resetFixedLayoutSignatures();
+    applyFixedColumnLayout();
+  }, [updateTableAfterColumnResize, resetFixedLayoutSignatures, applyFixedColumnLayout]);
 
   // 列宽拖拽逻辑
   const columnResizeParams = useColumnResize({
@@ -390,10 +400,24 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     // 横向滚动：rAF 合并 + 签名短路，避免每帧 setState 引发整表重渲染
     if (left !== lastScrollLeftRef.current) {
       lastScrollLeftRef.current = left;
-      if (hasLeftFixedColumnNeedReorder(originColumns)) {
-        scheduleScrollLeftFixedLayout();
+      if (hasFixedColumnNeedReorder(originColumns)) {
+        const scrollMetrics = createFixedLayoutScrollMetrics(left, target.scrollWidth, target.clientWidth);
+        const layout = resolveFixedColumnLayout(originColumns, scrollMetrics, getThWidthList());
+        const reorderSignature = `${layout.left.reorderSignature}::${layout.right.reorderSignature}`;
+        const reorderChanged = fixedReorderSignatureRef.current !== reorderSignature;
+        const layoutChanged = fixedLayoutSignatureRef.current !== layout.layoutSignature;
+
+        updateColumnFixedShadow(target);
+
+        // 重排或 border 变化时同步标记，不等到 rAF，避免 shadow 已开但 border 列未更新的帧间闪烁
+        if (layout.enabled && (reorderChanged || layoutChanged)) {
+          fixedLayoutActionsRef.current.syncFixedColumnBorder(layout.displayColumns);
+        }
+
+        scheduleScrollFixedColumnLayout();
+      } else {
+        updateColumnFixedShadow(target);
       }
-      updateColumnFixedShadow(target);
     }
 
     lastScrollY = top;
