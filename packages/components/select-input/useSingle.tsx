@@ -94,10 +94,14 @@ export default function useSingle(props: SelectInputProps) {
   }, [props.label, classPrefix]);
 
   useEffect(() => {
-    if (showCustomElement && customElementRef.current) {
-      const { width } = customElementRef.current.getBoundingClientRect();
-      setCustomElementWidth(width);
-    }
+    if (!showCustomElement || !customElementRef.current) return;
+    const el = customElementRef.current;
+    // 测量真实内容宽度时，临时强制 nowrap，避免被父级 absolute 容器（受 suffixSpace 影响）压缩换行导致测量值偏小
+    const prevWhiteSpace = el.style.whiteSpace;
+    el.style.whiteSpace = 'nowrap';
+    const { width } = el.getBoundingClientRect();
+    el.style.whiteSpace = prevWhiteSpace;
+    setCustomElementWidth((prev) => (Math.abs(prev - width) < 0.5 ? prev : width));
   }, [showCustomElement, singleValueDisplay]);
 
   useEffect(() => {
@@ -126,7 +130,7 @@ export default function useSingle(props: SelectInputProps) {
       const inputRect = inputEl.getBoundingClientRect();
       // wrapper 右内边距 + suffix 区域 + suffixIcon 区域
       const space = Math.max(wrapperRect.right - inputRect.right, 0);
-      setSuffixSpace(space);
+      setSuffixSpace((prev) => (Math.abs(prev - space) < 0.5 ? prev : space));
     };
 
     measure();
