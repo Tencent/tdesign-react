@@ -116,8 +116,14 @@ export function valueChangeEffect(node: TreeNode, cascaderContext: CascaderConte
     setVisible(false, {});
   }
 
-  const previousValue = (Array.isArray(value) ? value : []) as TreeNodeValue[];
-  const orderedChecked = preserveSelectionOrder(previousValue, checked);
+  const getPreviousKeys = (): TreeNodeValue[] => {
+    if (!Array.isArray(value)) return [];
+    if (valueType === 'full') {
+      return (value as TreeNodeValue[][]).filter((path) => Array.isArray(path) && path.length > 0).map(pathToKey);
+    }
+    return value as TreeNodeValue[];
+  };
+  const orderedChecked = preserveSelectionOrder(getPreviousKeys(), checked);
 
   // 处理不同数据类型
   const resValue =
