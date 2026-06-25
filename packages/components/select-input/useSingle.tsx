@@ -45,7 +45,7 @@ function getOptionLabel(value: TdSelectInputProps['value'], keys: TdSelectInputP
 }
 
 export default function useSingle(props: SelectInputProps) {
-  const { value, loading } = props;
+  const { value, loading, autoWidth } = props;
   const commonInputProps: SelectInputCommonProperties = {
     ...pick(props, COMMON_PROPERTIES),
     suffixIcon: loading ? <Loading loading size="small" /> : props.suffixIcon,
@@ -102,13 +102,13 @@ export default function useSingle(props: SelectInputProps) {
 
   useEffect(() => {
     const inputEl = inputRef.current?.inputElement;
-    if (!inputEl || !props.autoWidth) return;
+    if (!inputEl || !autoWidth) return;
     if (showCustomElement && customElementWidth > 0) {
       inputEl.style.minWidth = `${customElementWidth}px`;
     } else {
       inputEl.style.minWidth = '';
     }
-  }, [props.autoWidth, showCustomElement, customElementWidth]);
+  }, [autoWidth, showCustomElement, customElementWidth]);
 
   useEffect(() => {
     // 自定义 valueDisplay 时，labelNode 使用绝对定位
@@ -206,7 +206,10 @@ export default function useSingle(props: SelectInputProps) {
           opacity: popupVisible && props.allowInput ? 0.5 : undefined,
         }}
       >
-        <span ref={customElementRef} style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
+        <span
+          ref={customElementRef}
+          style={{ display: 'inline-block', verticalAlign: 'top', ...(autoWidth && { whiteSpace: 'nowrap' }) }}
+        >
           {singleValueDisplay}
         </span>
       </div>
@@ -235,7 +238,7 @@ export default function useSingle(props: SelectInputProps) {
             </>
           ))
         }
-        autoWidth={props.autoWidth}
+        autoWidth={autoWidth}
         style={{
           ...(props.inputProps?.style || {}),
           minWidth: inputWidth,
