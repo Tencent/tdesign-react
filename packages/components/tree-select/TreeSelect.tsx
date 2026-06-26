@@ -2,6 +2,7 @@ import React, { forwardRef, useCallback, useImperativeHandle, useMemo, useRef } 
 import classNames from 'classnames';
 import { isFunction, noop } from 'lodash-es';
 
+import { preserveSelectionOrder } from '../_util/helper';
 import parseTNode from '../_util/parseTNode';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
@@ -190,12 +191,17 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
 
   const handleMultiChange = usePersistFn<TreeProps['onChange']>((value, context) => {
     if (max === 0 || value.length <= max) {
+      const isCheck = value.length > normalizedValue.length;
+      const orderedValues = preserveSelectionOrder(
+        normalizedValue.map(({ value }) => value),
+        value,
+      );
       onChange(
-        value.map((value) => formatValue(value, getNodeItem(value)?.label)),
+        orderedValues.map((value) => formatValue(value, getNodeItem(value)?.label)),
         {
           ...context,
           data: context.node.data,
-          trigger: value.length > normalizedValue.length ? 'check' : 'uncheck',
+          trigger: isCheck ? 'check' : 'uncheck',
         },
       );
     }
