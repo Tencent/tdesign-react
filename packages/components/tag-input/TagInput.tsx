@@ -8,6 +8,7 @@ import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useDragSorter from '../hooks/useDragSorter';
 import useGlobalIcon from '../hooks/useGlobalIcon';
+import useUpdateLayoutEffect from '../hooks/useUpdateLayoutEffect';
 import TInput from '../input';
 import { tagInputDefaultProps } from './defaultProps';
 import useHover from './useHover';
@@ -80,6 +81,12 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       getDragProps,
     });
 
+  useUpdateLayoutEffect(() => {
+    if (excessTagsDisplayType === 'scroll') {
+      scrollToRight();
+    }
+  }, [tagValue]);
+
   const NAME_CLASS = `${prefix}-tag-input`;
   const WITH_SUFFIX_ICON_CLASS = `${prefix}-tag-input__with-suffix-icon`;
   const CLEAR_CLASS = `${prefix}-tag-input__suffix-clear`;
@@ -87,9 +94,11 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
 
   const tagInputPlaceholder = !tagValue?.length ? placeholder : '';
 
-  const showClearIcon = Boolean(!readOnly && !disabled && clearable && isHover && tagValue?.length);
+  const showClearIcon = Boolean(!readOnly && !disabled && clearable && isHover && (tagValue?.length || tInputValue));
 
-  useImperativeHandle(ref as InputRef, () => ({ ...(tagInputRef.current || {}) }));
+  useImperativeHandle(ref as InputRef, () => ({
+    ...(tagInputRef.current || {}),
+  }));
 
   const updateSuffixWidth = (selector: string, cssVar: string, widthRef: React.MutableRefObject<number>) => {
     const wrapperEl = tagInputRef.current?.currentElement as HTMLElement;
@@ -112,18 +121,16 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
   };
 
   useEffect(() => {
-    if (!isBreakLine) return;
+    if (!isBreakLine || !suffix) return;
 
-    if (suffix) {
-      // 避免 suffix 左侧 与 tag 重合
-      updateSuffixWidth(
-        `.${prefix}-input__suffix:not(.${prefix}-input__suffix-icon)`,
-        `--${prefix}-tag-input-suffix-width`,
-        suffixWidthRef,
-      );
-    }
+    // 避免 suffix 左侧 与 tag 重合
+    updateSuffixWidth(
+      `.${prefix}-input__suffix:not(.${prefix}-input__suffix-icon)`,
+      `--${prefix}-tag-input-suffix-width`,
+      suffixWidthRef,
+    );
 
-    // 确定 suffixIcon 右侧到 input 边框的距离
+    // 确定 suffix 右侧到 input 边框的距离
     updateSuffixWidth(`.${prefix}-input__suffix-icon`, `--${prefix}-tag-input-suffix-icon-width`, suffixIconWidthRef);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -140,9 +147,11 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
   };
 
   const onInputEnter = (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => {
+    context.e?.preventDefault?.();
     setTInputValue('', { e: context.e, trigger: 'enter' });
-    !isCompositionRef.current && onInnerEnter(value, context);
-    scrollToRight();
+    if (!isCompositionRef.current) {
+      onInnerEnter(value, context);
+    }
   };
 
   const onInnerClick = (context: { e: MouseEvent<HTMLDivElement> }) => {
