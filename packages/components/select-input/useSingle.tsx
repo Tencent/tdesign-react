@@ -45,11 +45,22 @@ function getOptionLabel(value: TdSelectInputProps['value'], keys: TdSelectInputP
 }
 
 export default function useSingle(props: SelectInputProps) {
-  const { value, loading, autoWidth } = props;
+  const { value, autoWidth, inputProps, label, allowInput, clearable, keys, valueDisplay, suffixIcon } = props;
   const commonInputProps: SelectInputCommonProperties = {
     ...pick(props, COMMON_PROPERTIES),
-    suffixIcon: loading ? <Loading loading size="small" /> : props.suffixIcon,
+    suffixIcon: props.loading ? <Loading loading size="small" /> : suffixIcon,
   };
+
+  const styleProps = props.style || {};
+  const inputStyleProps = inputProps?.style || {};
+  const hasWidthProps = Boolean(
+    styleProps.width ||
+    styleProps.minWidth ||
+    styleProps.maxWidth ||
+    inputStyleProps.width ||
+    inputStyleProps.minWidth ||
+    inputStyleProps.maxWidth,
+  );
 
   const { classPrefix } = useConfig();
   const [inputValue, setInputValue] = useControlled(props, 'inputValue', props.onInputChange);
@@ -57,16 +68,14 @@ export default function useSingle(props: SelectInputProps) {
   const inputRef = useRef<InputRef>(null);
   const blurTimeoutRef = useRef(null);
   const customElementRef = useRef<HTMLSpanElement>(null);
+  const minWidthSetRef = useRef(false); // 标记 minWidth 是否由当前 hook 设置，避免误清用户外部设置的数值
 
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const [labelWidth, setLabelWidth] = useState<number>(0);
   const [customElementWidth, setCustomElementWidth] = useState<number>(0);
   const [suffixSpace, setSuffixSpace] = useState<number>(0);
 
-  const singleValueDisplay = useMemo(
-    () => props.valueDisplay ?? getOptionLabel(value, props.keys),
-    [value, props.valueDisplay, props.keys],
-  );
+  const singleValueDisplay = useMemo(() => valueDisplay ?? getOptionLabel(value, keys), [value, valueDisplay, keys]);
 
   const showCustomElement = useMemo(
     () => !isTyping && !inputValue && React.isValidElement(singleValueDisplay),
@@ -80,7 +89,7 @@ export default function useSingle(props: SelectInputProps) {
   };
 
   const onInnerInputChange: TdInputProps['onChange'] = (value, context) => {
-    if (props.allowInput) {
+    if (allowInput) {
       setInputValue(value, { ...context, trigger: 'input' });
     }
   };
@@ -91,7 +100,7 @@ export default function useSingle(props: SelectInputProps) {
       const prefixWidth = labelEl.getBoundingClientRect().width;
       setLabelWidth(prefixWidth);
     }
-  }, [props.label, classPrefix]);
+  }, [label, classPrefix]);
 
   useEffect(() => {
     if (!showCustomElement || !customElementRef.current) return;
@@ -118,32 +127,30 @@ export default function useSingle(props: SelectInputProps) {
   }, [autoWidth, showCustomElement, customElementWidth]);
 
   useEffect(() => {
-    // 非 autoWidth 时避免覆盖用户在外层设置的宽度约束（width / maxWidth）
+    // 非 autoWidth 时避免覆盖用户在外层设置的宽度约束（width / minWidth / maxWidth）
     // 测量祖先实际可用宽度作为上限
-    const wrapperEl = inputRef.current?.currentElement;
+    const wrapperEl = inputRef.current?.currentElement as HTMLElement | undefined;
     if (!wrapperEl || autoWidth) return;
-    const hasUserDefinedWidth =
-      props.style?.width || props.inputProps?.style?.width || props.inputProps?.style?.minWidth;
-    if (hasUserDefinedWidth || !showCustomElement || customElementWidth <= 0) {
-      wrapperEl.style.minWidth = '';
+    const clearMinWidth = () => {
+      // 仅当 minWidth 是由当前 hook 设置时才清除，避免误清用户外部设置的冲突
+      if (minWidthSetRef.current) {
+        wrapperEl.style.minWidth = '';
+        minWidthSetRef.current = false;
+      }
+    };
+    if (hasWidthProps || !showCustomElement || customElementWidth <= 0) {
+      clearMinWidth();
       return;
     }
     const width = customElementWidth + labelWidth + 48;
-    // 先重置自身 minWidth，避免影响父级宽度测量
-    wrapperEl.style.minWidth = '';
+    // 先临时重置设置的 minWidth，避免影响宽度测量
+    clearMinWidth();
     const parentEl = wrapperEl.parentElement;
     const parentWidth = parentEl ? parentEl.getBoundingClientRect().width : 0;
     const finalWidth = parentWidth > 0 ? Math.min(width, parentWidth) : width;
     wrapperEl.style.minWidth = `${finalWidth}px`;
-  }, [
-    autoWidth,
-    showCustomElement,
-    customElementWidth,
-    labelWidth,
-    props.style?.width,
-    props.inputProps?.style?.width,
-    props.inputProps?.style?.minWidth,
-  ]);
+    minWidthSetRef.current = true;
+  }, [autoWidth, showCustomElement, customElementWidth, labelWidth, hasWidthProps]);
 
   useEffect(() => {
     // 避免内容延伸盖到右侧的 suffixIcon 区域，需要测量 input 右侧到 wrapper 右侧的距离作为 right 留白
@@ -171,7 +178,7 @@ export default function useSingle(props: SelectInputProps) {
       wrapperEl.removeEventListener('mouseenter', measure);
       wrapperEl.removeEventListener('mouseleave', measure);
     };
-  }, [showCustomElement, singleValueDisplay, props.clearable, props.suffixIcon, props.suffix]);
+  }, [showCustomElement, singleValueDisplay, clearable, suffixIcon, props.suffix]);
 
   const renderSelectSingle = (
     popupVisible: boolean,
@@ -208,7 +215,7 @@ export default function useSingle(props: SelectInputProps) {
       if (popupVisible && inputValue) {
         return inputValue;
       }
-      if (props.allowInput && popupVisible && !showCustomElement) {
+      if (allowInput && popupVisible && !showCustomElement) {
         return '';
       }
       if (!showCustomElement) {
@@ -237,7 +244,7 @@ export default function useSingle(props: SelectInputProps) {
           textAlign: 'initial',
           overflow: 'hidden',
           // 输入状态，降低透明度，仿造 placeholder 效果
-          opacity: popupVisible && props.allowInput ? 0.5 : undefined,
+          opacity: popupVisible && allowInput ? 0.5 : undefined,
         }}
       >
         <span
@@ -257,7 +264,7 @@ export default function useSingle(props: SelectInputProps) {
       <Input
         ref={inputRef}
         // 当 valueDisplay 为 自定义元素时，选中内容时 input 依旧为空，确保此时 clear icon 可见
-        showClearIconOnEmpty={props.clearable && showCustomElement}
+        showClearIconOnEmpty={clearable && showCustomElement}
         {...commonInputProps}
         autocomplete="off"
         suffix={
@@ -270,9 +277,9 @@ export default function useSingle(props: SelectInputProps) {
           ))
         }
         autoWidth={autoWidth}
-        style={props.inputProps?.style}
-        allowInput={props.allowInput}
-        label={props.label}
+        style={inputProps?.style}
+        allowInput={allowInput}
+        label={label}
         value={displayedValue()}
         placeholder={displayedPlaceholder()}
         onChange={onInnerInputChange}
@@ -284,16 +291,16 @@ export default function useSingle(props: SelectInputProps) {
         }}
         // onBlur need to triggered by input when popup panel is null or when popupVisible is forced to false
         onBlur={handleBlur}
-        {...props.inputProps}
+        {...inputProps}
         onCompositionstart={(v, ctx) => {
           setIsTyping(true);
-          props.inputProps?.onCompositionstart?.(v, ctx);
+          inputProps?.onCompositionstart?.(v, ctx);
         }}
         onCompositionend={(v, ctx) => {
           setIsTyping(false);
-          props.inputProps?.onCompositionend?.(v, ctx);
+          inputProps?.onCompositionend?.(v, ctx);
         }}
-        inputClass={classNames(props.inputProps?.inputClass, {
+        inputClass={classNames(inputProps?.inputClass, {
           [`${classPrefix}-input--focused`]: popupVisible,
           [`${classPrefix}-is-focused`]: popupVisible,
         })}
