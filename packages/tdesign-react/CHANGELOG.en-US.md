@@ -5,6 +5,32 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.18.0 `2026-06-26`
+
+### 🚀 Features
+
+- `Button`: Optimized the hover background color when `variant` is set to `outline` or `dashed`. @uyarn ([common#2569](https://github.com/Tencent/tdesign-common/pull/2569))
+- `ConfigProvider`: 
+  - A new `loading` property was added to globally configure the settings for the Loading component @uyarn ([#4295](https://github.com/Tencent/tdesign-react/pull/4295))
+  - The `dialog` property now includes `zIndex` and `placement` settings @uyarn ([#4295](https://github.com/Tencent/tdesign-react/pull/4295))
+- `HeadMenu`: A maximum height was set for the sub-menu overlay; scroll bars will appear if the content exceeds this height @HaixingOoO ([#4283](https://github.com/Tencent/tdesign-react/pull/4283))
+- `InputNumber`: A new `autofocus` property was added @betavs ([#4278](https://github.com/Tencent/tdesign-react/pull/4278))
+- `TagInput`: A new `tagDisplay` API was introduced, allowing for full customization of how individual tags are displayed @RylanBot ([#4275](https://github.com/Tencent/tdesign-react/pull/4275))
+
+### 🐞 Bug Fixes
+
+- `Cascader`: When multiple options are selected, the order of the selected items in the input field has been changed from “the order defined in `options`” to “the order in which the user selects them”. Businesses that rely on this functionality should be aware of this change ⚠️ @RylanBot ([#4281](https://github.com/Tencent/tdesign-react/pull/4281))
+- `TreeSelect`: When multiple options are selected, the order of the selected items in the input field has been changed from “the order defined in `options`” to “the order in which the user selects them”. Businesses that rely on this functionality should be aware of this change ⚠️ @RylanBot ([#4281](https://github.com/Tencent/tdesign-react/pull/4281))
+- `Steps`: An issue with abnormal navigation logic when `sequence='reverse'` was fixed @RylanBot ([#4267](https://github.com/Tencent/tdesign-react/pull/4267))
+- `Table`: Errors in the translation of filter-related text were corrected @liweijie0812 ([common#2553](https://github.com/Tencent/tdesign-common/pull/2553))
+- `TagInput`: 
+  - Issues such as the absence of horizontal scroll bars when `excessTagsDisplayType="scroll"` was fixed @RSS1102 ([#4210](https://github.com/Tencent/tdesign-react/pull/4210))
+  - A clear button is now displayed even when only text is entered, provided that `clearable` is enabled @RSS1102 ([#4210](https://github.com/Tencent/tdesign-react/pull/4210))
+  - Problems with vertical alignment of input content when there are existing tags along with a `label` were fixed @DaZuiZui ([#4292](https://github.com/Tencent/tdesign-react/pull/4292))
+- `Tree`: 
+  - Issues with the incorrect display of guidance lines when draggable nodes were moved above or below disabled nodes were fixed @RylanBot ([#4251](https://github.com/Tencent/tdesign-react/pull/4251))
+  - The issue of guidance lines still appearing when `allowDrop` returns `false` for draggable tree nodes was fixed @RylanBot ([#4251](https://github.com/Tencent/tdesign-react/pull/4251))
+
 ## 🌈 1.17.1 `2026-06-05`
 
 ### 🐞 Bug Fixes
