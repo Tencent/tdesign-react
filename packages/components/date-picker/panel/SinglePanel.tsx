@@ -16,8 +16,7 @@ import type { TdTimePickerProps } from '../../time-picker';
 import type { DateValue, TdDatePickerProps, TdDateRangePickerProps } from '../type';
 
 export interface SinglePanelProps
-  extends Omit<TdDatePickerProps, 'enableTimePicker' | 'onYearChange' | 'onMonthChange'>,
-    StyledProps {
+  extends Omit<TdDatePickerProps, 'enableTimePicker' | 'onYearChange' | 'onMonthChange'>, StyledProps {
   year?: number;
   month?: number;
   time?: string;
@@ -65,7 +64,11 @@ const SinglePanel = forwardRef<HTMLDivElement, SinglePanelProps>((originalProps,
     enableTimePicker: props.enableTimePicker,
   });
 
-  const disableDateOptions = useDisableDate({ disableDate: props.disableDate, mode: props.mode, format });
+  const disableDateOptions = useDisableDate({
+    disableDate: props.disableDate,
+    mode: props.mode,
+    format,
+  });
 
   const disableTimeOptions: TdTimePickerProps['disableTime'] = (h: number, m: number, s: number, ms: number) => {
     if (!isFunction(disableTime) || !value) {

@@ -52,8 +52,8 @@ const QRCode: React.FC<QrCodeProps> = (props) => {
     src: icon as string,
     x: undefined,
     y: undefined,
-    height: typeof iconSize === 'number' ? iconSize : iconSize?.height ?? 40,
-    width: typeof iconSize === 'number' ? iconSize : iconSize?.width ?? 40,
+    height: typeof iconSize === 'number' ? iconSize : (iconSize?.height ?? 40),
+    width: typeof iconSize === 'number' ? iconSize : (iconSize?.width ?? 40),
     excavate: true,
     crossOrigin: 'anonymous',
   };

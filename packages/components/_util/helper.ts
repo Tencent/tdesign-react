@@ -56,3 +56,19 @@ export function getOffsetTopToContainer(element: HTMLElement, container: HTMLEle
   }
   return offsetTop;
 }
+
+/**
+ * 保持用户的选择顺序：
+ * - 保留已有项的原始顺序，将新选择的项追加到末尾
+ * - 并移除当前值中已不存在的项
+ * @param previousValues - 上一次的值数组（按照用户选择顺序排列）
+ * @param currentValues - 当前完整的值数组（顺序可能是任意的）
+ * @returns 保持用户选择顺序后的数组
+ */
+export function preserveSelectionOrder<T>(previousValues: T[], currentValues: T[]): T[] {
+  const currentSet = new Set(currentValues);
+  const existingValues = previousValues.filter((v) => currentSet.has(v));
+  const existingSet = new Set(existingValues);
+  const newValues = currentValues.filter((v) => !existingSet.has(v));
+  return [...existingValues, ...newValues];
+}

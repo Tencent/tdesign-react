@@ -70,7 +70,7 @@ const TimePicker = forwardRefWithStatics(
 
     const effectVisibleCurrentValue = (visible: boolean) => {
       setPanelShow(visible);
-      setCurrentValue(visible ? value ?? '' : '');
+      setCurrentValue(visible ? (value ?? '') : '');
     };
 
     const handleShowPopup = (visible: boolean, context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> }) => {
@@ -130,10 +130,13 @@ const TimePicker = forwardRefWithStatics(
           onBlur={handleInputBlur}
           onPopupVisibleChange={handleShowPopup}
           placeholder={!value ? placeholder : undefined}
-          value={isPanelShowed ? currentValue : value ?? undefined}
-          inputValue={isPanelShowed ? currentValue : value ?? undefined}
+          value={isPanelShowed ? currentValue : (value ?? undefined)}
+          inputValue={isPanelShowed ? currentValue : (value ?? undefined)}
           inputProps={{ ...props.inputProps, size: props.size }}
-          popupProps={{ overlayInnerStyle: { width: 'auto', padding: 0 }, ...props.popupProps }}
+          popupProps={{
+            overlayInnerStyle: { width: 'auto', padding: 0 },
+            ...props.popupProps,
+          }}
           tips={props.tips}
           status={props.status}
           label={props.label}

@@ -157,7 +157,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
 
   useEffect(() => {
     // to fix the effect trigger before input blur
-    setCurrentValue(isPanelShowed ? value ?? TIME_PICKER_EMPTY : TIME_PICKER_EMPTY);
+    setCurrentValue(isPanelShowed ? (value ?? TIME_PICKER_EMPTY) : TIME_PICKER_EMPTY);
     if (!isPanelShowed) setCurrentPanelIdx(undefined);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPanelShowed]);
@@ -177,13 +177,13 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
           ...props.popupProps,
         }}
         onInputChange={handleInputChange}
-        inputValue={isPanelShowed ? currentValue : value ?? TIME_PICKER_EMPTY}
+        inputValue={isPanelShowed ? currentValue : (value ?? TIME_PICKER_EMPTY)}
         rangeInputProps={{
           size,
           borderless,
           clearable,
           className: inputClasses,
-          value: isPanelShowed ? currentValue : value ?? undefined,
+          value: isPanelShowed ? currentValue : (value ?? undefined),
           placeholder,
           suffixIcon: <TimeIcon />,
           onClear: handleClear,
