@@ -15,7 +15,7 @@ export default function useDraggable(props: {
   allowDrop?: TdTreeProps['allowDrop'];
 }) {
   const { nodeRef, node, allowDrop } = props;
-  const { onDragStart, onDragEnd, onDragLeave, onDragOver, onDrop } = useTreeDraggableContext();
+  const { onDragStart, onDragEnd, onDragLeave, onDragOver, onDrop, getDragNode } = useTreeDraggableContext();
 
   const [state, setState] = useState<{
     isDragOver: boolean;
@@ -34,23 +34,35 @@ export default function useDraggable(props: {
     }));
   });
 
+  const calcDropPosition = (e: DragEvent): DropPosition => {
+    if (!window || !nodeRef.current) return 0;
+    const rect = nodeRef.current.getBoundingClientRect();
+    const offsetY = window.scrollY + rect.top;
+    const { pageY } = e;
+    // 节点上 1/4 视为前置，下 1/4 视为后置，中间为子节点
+    const gapHeight = rect.height / 4;
+    const diff = pageY - offsetY;
+    if (diff < gapHeight) return -1;
+    if (diff < rect.height - gapHeight) return 0;
+    return 1;
+  };
+
   const updateDropPosition = useRef(
     throttle((e: DragEvent) => {
-      if (!nodeRef.current) return;
-
-      const rect = nodeRef.current.getBoundingClientRect();
-      const offsetY = window.pageYOffset + rect.top;
-      const { pageY } = e;
-      const gapHeight = rect.height / 4;
-      const diff = pageY - offsetY;
-
-      if (diff < gapHeight) {
-        setPartialState({ dropPosition: -1 });
-      } else if (diff < rect.height - gapHeight) {
-        setPartialState({ dropPosition: 0 });
-      } else {
-        setPartialState({ dropPosition: 1 });
-      }
+      const dropPosition = calcDropPosition(e);
+      // 通过 allowDrop 判断当前位置是否允许放置
+      // 从而决定提示线是否显示
+      const dragNode = getDragNode?.();
+      const isAllowed =
+        !allowDrop ||
+        !dragNode ||
+        allowDrop({
+          e,
+          dragNode: dragNode.getModel(),
+          dropNode: node.getModel(),
+          dropPosition,
+        }) !== false;
+      setPartialState({ dropPosition, isDragOver: isAllowed });
     }),
   ).current;
 
@@ -76,9 +88,6 @@ export default function useDraggable(props: {
         onDragEnd?.({ node, e });
         break;
       case 'dragOver':
-        setPartialState({
-          isDragOver: true,
-        });
         updateDropPosition(e);
         onDragOver?.({ node, dropPosition: state.dropPosition, e });
         break;
