@@ -13,7 +13,7 @@ jobs:
       next_action: ${{ steps.get-action.outputs.next_action }}
     if: ${{ github.event.issue.pull_request }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           repository: Tencent/tdesign
           sparse-checkout: |
@@ -70,7 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ needs.check.outputs.next_action == 'update-common' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: ${{ secrets.TDESIGN_BOT_TOKEN }}
@@ -145,7 +145,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ needs.check.outputs.next_action == 'update-snapshot' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: ${{ secrets.TDESIGN_BOT_TOKEN }}
@@ -227,7 +227,7 @@ jobs:
           git status
           git commit -am "chore: merge develop"
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
 
       - uses: actions/setup-node@v4
         with:
@@ -257,7 +257,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ needs.check.outputs.next_action == 'update-coverage' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: ${{ secrets.TDESIGN_BOT_TOKEN }}
@@ -287,7 +287,7 @@ jobs:
             })
             return comment.id
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
 
       - uses: actions/setup-node@v4
         with:

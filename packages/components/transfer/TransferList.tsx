@@ -17,14 +17,15 @@ import type { PaginationProps } from '../pagination';
 import type { TdTransferProps, TransferListType, TransferValue } from './type';
 
 interface TransferListProps
-  extends Pick<TdTransferProps, 'data' | 'search' | 'checked' | 'transferItem' | 'tree'>,
-    StyledProps {
+  extends Pick<TdTransferProps, 'data' | 'search' | 'checked' | 'transferItem' | 'tree'>, StyledProps {
   disabled?: boolean;
   empty?: TNode | string;
   title?: TNode;
   footer?: TNode;
   content?: TNode | TNode<{ data: Object }>;
-  pagination?: Pick<PaginationProps, 'pageSize'> & { onPageChange?: (current: number) => void };
+  pagination?: Pick<PaginationProps, 'pageSize'> & {
+    onPageChange?: (current: number) => void;
+  };
   onCheckbox?: (checked: Array<TransferValue>) => void;
   onSearch?: (value: string) => void;
   showCheckAll?: boolean;
@@ -124,7 +125,11 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
 
   const contentCmp = () => {
     if (typeof treeNode === 'function') {
-      return treeNode({ data: viewData, value: checked, onChange: handleCheckbox });
+      return treeNode({
+        data: viewData,
+        value: checked,
+        onChange: handleCheckbox,
+      });
     }
     if (typeof content === 'function') {
       return content({ data: viewData });
@@ -134,7 +139,13 @@ const TransferList: React.FunctionComponent<TransferListProps> = (props) => {
         {viewData.map((item, index) => (
           <Checkbox key={item.value} value={item.value} disabled={item.disabled} className={`${CLASSPREFIX}-item`}>
             <span>
-              {transferItem ? parseContentTNode(transferItem, { data: item, index, type: listType }) : item.label}
+              {transferItem
+                ? parseContentTNode(transferItem, {
+                    data: item,
+                    index,
+                    type: listType,
+                  })
+                : item.label}
             </span>
           </Checkbox>
         ))}
