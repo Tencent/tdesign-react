@@ -96,7 +96,7 @@ export default function useSingle(props: SelectInputProps) {
   useEffect(() => {
     if (!showCustomElement || !customElementRef.current) return;
     const el = customElementRef.current;
-    // 测量真实内容宽度时，临时强制 nowrap，避免被父级 absolute 容器（受 suffixSpace 影响）压缩换行导致测量值偏小
+    // 测量真实内容宽度时，临时强制 nowrap，避免被父级容器（受 suffixSpace 影响）压缩换行导致测量值偏小
     const prevWhiteSpace = el.style.whiteSpace;
     el.style.whiteSpace = 'nowrap';
     const { width } = el.getBoundingClientRect();
@@ -104,7 +104,10 @@ export default function useSingle(props: SelectInputProps) {
     setCustomElementWidth((prev) => (Math.abs(prev - width) < 0.5 ? prev : width));
   }, [showCustomElement, singleValueDisplay]);
 
+  // 当存在自定义 valueDisplay 时，labelNode 使用 absolute 定位
+  // 需要给 input 设置 minWidth 来撑开宽度
   useEffect(() => {
+    // autoWidth 时确保完全显示内容
     const inputEl = inputRef.current?.inputElement;
     if (!inputEl || !autoWidth) return;
     if (showCustomElement && customElementWidth > 0) {
@@ -113,6 +116,34 @@ export default function useSingle(props: SelectInputProps) {
       inputEl.style.minWidth = '';
     }
   }, [autoWidth, showCustomElement, customElementWidth]);
+
+  useEffect(() => {
+    // 非 autoWidth 时避免覆盖用户在外层设置的宽度约束（width / maxWidth）
+    // 测量祖先实际可用宽度作为上限
+    const wrapperEl = inputRef.current?.currentElement;
+    if (!wrapperEl || autoWidth) return;
+    const hasUserDefinedWidth =
+      props.style?.width || props.inputProps?.style?.width || props.inputProps?.style?.minWidth;
+    if (hasUserDefinedWidth || !showCustomElement || customElementWidth <= 0) {
+      wrapperEl.style.minWidth = '';
+      return;
+    }
+    const width = customElementWidth + labelWidth + 48;
+    // 先重置自身 minWidth，避免影响父级宽度测量
+    wrapperEl.style.minWidth = '';
+    const parentEl = wrapperEl.parentElement;
+    const parentWidth = parentEl ? parentEl.getBoundingClientRect().width : 0;
+    const finalWidth = parentWidth > 0 ? Math.min(width, parentWidth) : width;
+    wrapperEl.style.minWidth = `${finalWidth}px`;
+  }, [
+    autoWidth,
+    showCustomElement,
+    customElementWidth,
+    labelWidth,
+    props.style?.width,
+    props.inputProps?.style?.width,
+    props.inputProps?.style?.minWidth,
+  ]);
 
   useEffect(() => {
     // 自定义 valueDisplay 时，labelNode 使用绝对定位
@@ -223,13 +254,6 @@ export default function useSingle(props: SelectInputProps) {
       </div>
     ) : null;
 
-    const hasCustomWidth = props.style?.width || props.inputProps?.style?.width || props.inputProps?.style?.minWidth;
-    // customElement 定位为 absolute，无法撑开 input 宽度
-    const inputWidth =
-      !hasCustomWidth && showCustomElement && customElementWidth > 0
-        ? `${customElementWidth + labelWidth + 48}px`
-        : undefined;
-
     return (
       <Input
         ref={inputRef}
@@ -247,10 +271,7 @@ export default function useSingle(props: SelectInputProps) {
           ))
         }
         autoWidth={autoWidth}
-        style={{
-          ...(props.inputProps?.style || {}),
-          minWidth: inputWidth,
-        }}
+        style={props.inputProps?.style}
         allowInput={props.allowInput}
         label={props.label}
         value={displayedValue()}
