@@ -39,10 +39,10 @@ const DEFAULT_KEYS: TdSelectInputProps['keys'] = {
   value: 'value',
 };
 
-function getOptionLabel(value: TdSelectInputProps['value'], keys: TdSelectInputProps['keys']) {
+const getOptionLabel = (value: TdSelectInputProps['value'], keys: TdSelectInputProps['keys']) => {
   const iKeys = keys || DEFAULT_KEYS;
   return isObject(value) ? value[iKeys.label] : value;
-}
+};
 
 export default function useSingle(props: SelectInputProps) {
   const { value, autoWidth, inputProps, label, allowInput, clearable, keys, valueDisplay, suffixIcon } = props;
@@ -51,28 +51,15 @@ export default function useSingle(props: SelectInputProps) {
     suffixIcon: props.loading ? <Loading loading size="small" /> : suffixIcon,
   };
 
-  const styleProps = props.style || {};
-  const inputStyleProps = inputProps?.style || {};
-  const hasWidthProps = Boolean(
-    styleProps.width ||
-    styleProps.minWidth ||
-    styleProps.maxWidth ||
-    inputStyleProps.width ||
-    inputStyleProps.minWidth ||
-    inputStyleProps.maxWidth,
-  );
-
   const { classPrefix } = useConfig();
   const [inputValue, setInputValue] = useControlled(props, 'inputValue', props.onInputChange);
 
   const inputRef = useRef<InputRef>(null);
   const blurTimeoutRef = useRef(null);
   const customElementRef = useRef<HTMLSpanElement>(null);
-  const minWidthSetRef = useRef(false); // 标记 minWidth 是否由当前 hook 设置，避免误清用户外部设置的数值
 
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const [labelWidth, setLabelWidth] = useState<number>(0);
-  const [customElementWidth, setCustomElementWidth] = useState<number>(0);
   const [suffixSpace, setSuffixSpace] = useState<number>(0);
 
   const singleValueDisplay = useMemo(() => valueDisplay ?? getOptionLabel(value, keys), [value, valueDisplay, keys]);
@@ -103,54 +90,21 @@ export default function useSingle(props: SelectInputProps) {
   }, [label, classPrefix]);
 
   useEffect(() => {
-    if (!showCustomElement || !customElementRef.current) return;
+    const inputEl = inputRef.current?.inputElement;
+    if (!inputEl) return;
+    // autoWidth 且存在自定义元素时需要撑开宽度
+    if (!autoWidth || !showCustomElement || !customElementRef.current) {
+      inputEl.style.minWidth = '';
+      return;
+    }
     const el = customElementRef.current;
     // 测量真实内容宽度时，临时强制 nowrap，避免被父级容器（受 suffixSpace 影响）压缩换行导致测量值偏小
     const prevWhiteSpace = el.style.whiteSpace;
     el.style.whiteSpace = 'nowrap';
     const { width } = el.getBoundingClientRect();
     el.style.whiteSpace = prevWhiteSpace;
-    setCustomElementWidth((prev) => (Math.abs(prev - width) < 0.5 ? prev : width));
-  }, [showCustomElement, singleValueDisplay]);
-
-  // 当存在自定义 valueDisplay 时，labelNode 使用 absolute 定位
-  // 需要给 input 设置 minWidth 来撑开宽度
-  useEffect(() => {
-    // autoWidth 时确保完全显示内容
-    const inputEl = inputRef.current?.inputElement;
-    if (!inputEl || !autoWidth) return;
-    if (showCustomElement && customElementWidth > 0) {
-      inputEl.style.minWidth = `${customElementWidth}px`;
-    } else {
-      inputEl.style.minWidth = '';
-    }
-  }, [autoWidth, showCustomElement, customElementWidth]);
-
-  useEffect(() => {
-    // 非 autoWidth 时避免覆盖用户在外层设置的宽度约束（width / minWidth / maxWidth）
-    // 测量祖先实际可用宽度作为上限
-    const wrapperEl = inputRef.current?.currentElement as HTMLElement | undefined;
-    if (!wrapperEl || autoWidth) return;
-    const clearMinWidth = () => {
-      // 仅当 minWidth 是由当前 hook 设置时才清除，避免误清用户外部设置的冲突
-      if (minWidthSetRef.current) {
-        wrapperEl.style.minWidth = '';
-        minWidthSetRef.current = false;
-      }
-    };
-    if (hasWidthProps || !showCustomElement || customElementWidth <= 0) {
-      clearMinWidth();
-      return;
-    }
-    const width = customElementWidth + labelWidth + 48;
-    // 先临时重置设置的 minWidth，避免影响宽度测量
-    clearMinWidth();
-    const parentEl = wrapperEl.parentElement;
-    const parentWidth = parentEl ? parentEl.getBoundingClientRect().width : 0;
-    const finalWidth = parentWidth > 0 ? Math.min(width, parentWidth) : width;
-    wrapperEl.style.minWidth = `${finalWidth}px`;
-    minWidthSetRef.current = true;
-  }, [autoWidth, showCustomElement, customElementWidth, labelWidth, hasWidthProps]);
+    inputEl.style.minWidth = width > 0 ? `${width}px` : '';
+  }, [autoWidth, showCustomElement, singleValueDisplay]);
 
   useEffect(() => {
     // 避免内容延伸盖到右侧的 suffixIcon 区域，需要测量 input 右侧到 wrapper 右侧的距离作为 right 留白
