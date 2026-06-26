@@ -2,14 +2,14 @@
  * 当标签数量过多时，输入框显示不下，则需要滚动查看，以下为滚动逻辑
  */
 import { useEffect, useRef } from 'react';
+
+import useConfig from '../hooks/useConfig';
 import {
   getScrollContainer,
   handleWheelScroll,
   scrollToLeft as scrollToLeftBase,
   scrollToRight as scrollToRightBase,
-} from '@tdesign/common-js/utils/tagInputScroll';
-
-import useConfig from '../hooks/useConfig';
+} from './utils/tagInputScroll';
 
 import type { WheelEvent } from 'react';
 import type { InputRef } from '../input';
