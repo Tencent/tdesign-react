@@ -146,7 +146,6 @@ export default function useSingle(props: SelectInputProps) {
   ]);
 
   useEffect(() => {
-    // 自定义 valueDisplay 时，labelNode 使用绝对定位
     // 避免内容延伸盖到右侧的 suffixIcon 区域，需要测量 input 右侧到 wrapper 右侧的距离作为 right 留白
     if (!showCustomElement) {
       setSuffixSpace(0);
