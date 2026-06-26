@@ -5,6 +5,32 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.18.0 `2026-06-26`
+
+### 🚀 Features
+
+- `Button`: 优化 `variant` 为 `outline` 和 `dashed` 时的 hover 背景色 @uyarn ([common#2569](https://github.com/Tencent/tdesign-common/pull/2569))
+- `ConfigProvider`: 
+  - 新增 `loading` 属性，用于全局配置 Loading 组件的属性 @uyarn ([#4295](https://github.com/Tencent/tdesign-react/pull/4295))
+  - `dialog` 属性新增 `zIndex` 和 `placement` 配置 @uyarn ([#4295](https://github.com/Tencent/tdesign-react/pull/4295))
+- `HeadMenu`: 子菜单浮层新增最大高度，超出最大高度将会显示滚动条 @HaixingOoO ([#4283](https://github.com/Tencent/tdesign-react/pull/4283))
+- `InputNumber`: 新增 `autofocus` 属性 @betavs ([#4278](https://github.com/Tencent/tdesign-react/pull/4278))
+- `TagInput`: 新增 `tagDisplay` API，用于完全自定义单个标签的渲染效果 @RylanBot ([#4275](https://github.com/Tencent/tdesign-react/pull/4275))
+
+### 🐞 Bug Fixes
+
+- `Cascader`: 多选时输入框内的选中项顺序由 “`options` 顺序” 调整为 “用户选择顺序“，之前依赖相关交互的业务注意此变更 ⚠️ @RylanBot ([#4281](https://github.com/Tencent/tdesign-react/pull/4281))
+- `TreeSelect`: 多选时输入框内的选中项顺序由 “`options` 顺序” 调整为 “用户选择顺序“，之前依赖相关交互的业务注意此变更 ⚠️ @RylanBot ([#4281](https://github.com/Tencent/tdesign-react/pull/4281))
+- `Steps`: 修复 `sequence='reverse'` 时跳转逻辑异常的问题 @RylanBot ([#4267](https://github.com/Tencent/tdesign-react/pull/4267))
+- `Table`: 修复 filter 英文翻译文案错误 @liweijie0812 ([common#2553](https://github.com/Tencent/tdesign-common/pull/2553))
+- `TagInput`: 
+  - 修复 `excessTagsDisplayType="scroll` 时，没有显示横向滚动条等交互问题 @RSS1102 ([#4210](https://github.com/Tencent/tdesign-react/pull/4210))
+  - 修复开启 `clearable` 时，仅输入文字没有显示清除按钮的问题 @RSS1102 ([#4210](https://github.com/Tencent/tdesign-react/pull/4210))
+  - 修复带 `label` 且已有 tag 时，输入内容垂直对齐偏差的问题 @DaZuiZui ([#4292](https://github.com/Tencent/tdesign-react/pull/4292))
+- `Tree`: 
+  - 修复可拖拽节点拖至禁用节点上下方时提示线未正确显示的问题 @RylanBot ([#4251](https://github.com/Tencent/tdesign-react/pull/4251))
+  - 修复可拖拽树节点 `allowDrop` 返回 `false` 时仍显示放置提示线的问题 @RylanBot ([#4251](https://github.com/Tencent/tdesign-react/pull/4251))
+
 ## 🌈 1.17.1 `2026-06-05`
 
 ### 🐞 Bug Fixes
