@@ -99,6 +99,25 @@ export function createFixedLayoutScrollMetrics(
   };
 }
 
+/**
+ * 从滚动容器读取横向滚动度量；列 fixed 切换后 DOM scrollWidth 可能滞后，用列宽总和兜底 maxScrollLeft。
+ */
+export function readFixedLayoutScrollMetricsFromElement<T extends TableRowData>(
+  el: HTMLElement | null,
+  originColumns: BaseTableCol<T>[] = [],
+  colWidths: Record<string, number> = {},
+): FixedLayoutScrollMetrics {
+  if (!el) return createFixedLayoutScrollMetrics(0, 0, 0);
+  const metrics = createFixedLayoutScrollMetrics(el.scrollLeft, el.scrollWidth, el.clientWidth);
+  if (metrics.maxScrollLeft > 0 || !hasFixedColumnNeedReorder(originColumns)) {
+    return metrics;
+  }
+  const totalWidth = getColumnsTotalWidth(originColumns, colWidths);
+  const fallbackMax = Math.max(0, totalWidth - el.clientWidth);
+  if (fallbackMax <= 0) return metrics;
+  return { scrollLeft: el.scrollLeft, maxScrollLeft: fallbackMax };
+}
+
 // ---------- 左 fixed ----------
 
 export function hasLeftFixedColumnNeedReorder<T extends TableRowData>(columns: BaseTableCol<T>[] = []): boolean {

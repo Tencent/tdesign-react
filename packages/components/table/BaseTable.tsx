@@ -33,9 +33,9 @@ import THead from './THead';
 import { ROW_LISTENERS } from './TR';
 import { getAffixProps } from './utils';
 import {
-  createFixedLayoutScrollMetrics,
   hasFixedColumnNeedReorder,
   isSameDisplayColumns,
+  readFixedLayoutScrollMetricsFromElement,
   resolveFixedColumnLayout,
 } from './utils/reorderFixedColumns';
 import { scheduleAfterColumnDomUpdate } from './utils/scheduleAfterColumnDomUpdate';
@@ -47,6 +47,7 @@ import type { BaseTableProps, BaseTableRef } from './interface';
 import type { TableBodyProps } from './TBody';
 import type { TheadProps } from './THead';
 import type { BaseTableCol, TableRowData } from './type';
+import type { FixedColumnLayoutState } from './utils/reorderFixedColumns';
 
 export const BASE_TABLE_EVENTS = ['page-change', 'cell-click', 'scroll', 'scrollX', 'scrollY'];
 export const BASE_TABLE_ALL_EVENTS = ROW_LISTENERS.map((t) => `row-${t}`).concat(BASE_TABLE_EVENTS);
@@ -83,6 +84,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const fixedLayoutSignatureRef = useRef('');
   const fixedReorderSignatureRef = useRef('');
   const scrollFixedLayoutRafRef = useRef<number>();
+  const pendingScrollLayoutRef = useRef<FixedColumnLayoutState<TableRowData> | null>(null);
   const lastScrollLeftRef = useRef(0);
   const fixedLayoutActionsRef = useRef<{
     getThWidthList: () => Record<string, number>;
@@ -188,16 +190,17 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   }, []);
 
   const readFixedLayoutScrollMetrics = useCallback(() => {
-    const el = fixedLayoutActionsRef.current.tableContentRef.current;
-    if (!el) return createFixedLayoutScrollMetrics(0, 0, 0);
-    return createFixedLayoutScrollMetrics(el.scrollLeft, el.scrollWidth, el.clientWidth);
-  }, []);
+    const { getThWidthList, tableContentRef: contentRef } = fixedLayoutActionsRef.current;
+    return readFixedLayoutScrollMetricsFromElement(contentRef.current, originColumns, getThWidthList());
+  }, [originColumns]);
 
   /** 解析左右 fixed 布局：签名未变则跳过；重排全量刷新，仅 border 变化走轻量 sync */
   const applyFixedColumnLayout = useCallback(() => {
     const { getThWidthList, syncFixedColumnBorder: syncBorder } = fixedLayoutActionsRef.current;
-    const scrollMetrics = readFixedLayoutScrollMetrics();
-    const layout = resolveFixedColumnLayout(originColumns, scrollMetrics, getThWidthList());
+    const pendingLayout = pendingScrollLayoutRef.current;
+    pendingScrollLayoutRef.current = null;
+    const layout =
+      pendingLayout ?? resolveFixedColumnLayout(originColumns, readFixedLayoutScrollMetrics(), getThWidthList());
 
     if (!layout.enabled) {
       resetFixedLayoutSignatures();
@@ -401,7 +404,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     if (left !== lastScrollLeftRef.current) {
       lastScrollLeftRef.current = left;
       if (hasFixedColumnNeedReorder(originColumns)) {
-        const scrollMetrics = createFixedLayoutScrollMetrics(left, target.scrollWidth, target.clientWidth);
+        const scrollMetrics = readFixedLayoutScrollMetricsFromElement(target, originColumns, getThWidthList());
         const layout = resolveFixedColumnLayout(originColumns, scrollMetrics, getThWidthList());
         const reorderSignature = `${layout.left.reorderSignature}::${layout.right.reorderSignature}`;
         const reorderChanged = fixedReorderSignatureRef.current !== reorderSignature;
@@ -414,6 +417,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
           fixedLayoutActionsRef.current.syncFixedColumnBorder(layout.displayColumns);
         }
 
+        pendingScrollLayoutRef.current = layout;
         scheduleScrollFixedColumnLayout();
       } else {
         updateColumnFixedShadow(target);

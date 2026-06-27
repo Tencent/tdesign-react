@@ -14,6 +14,7 @@ import {
   hasRightFixedColumnNeedReorder,
   isLeftFixedReorderTriggered,
   isSameDisplayColumns,
+  readFixedLayoutScrollMetricsFromElement,
   reorderColumnsForLeftFixed,
   reorderColumnsForLeftFixedPartial,
   reorderColumnsForRightFixed,
@@ -48,6 +49,48 @@ const RIGHT_MAX_SCROLL_LEFT = 300;
 const rightScroll = (scrollLeft: number) => ({
   scrollLeft,
   maxScrollLeft: RIGHT_MAX_SCROLL_LEFT,
+});
+
+describe('readFixedLayoutScrollMetricsFromElement', () => {
+  it('scrollWidth 未更新时用列宽总和兜底 maxScrollLeft', () => {
+    const columns: BaseTableCol[] = [
+      { colKey: 'id', width: 100 },
+      { colKey: 'name', width: 120, fixed: 'left' },
+      { colKey: 'email', width: 180 },
+      { colKey: 'dept', width: 120 },
+      { colKey: 'address', width: 220 },
+      { colKey: 'city', width: 120 },
+      { colKey: 'remark', width: 160 },
+      { colKey: 'operation', width: 100 },
+    ];
+    const el = {
+      scrollLeft: 50,
+      scrollWidth: 720,
+      clientWidth: 720,
+    } as HTMLElement;
+
+    expect(readFixedLayoutScrollMetricsFromElement(el, columns, {})).toEqual({
+      scrollLeft: 50,
+      maxScrollLeft: 400,
+    });
+  });
+
+  it('DOM 已有有效 maxScrollLeft 时直接采用', () => {
+    const columns: BaseTableCol[] = [
+      { colKey: 'id', width: 100 },
+      { colKey: 'name', width: 120, fixed: 'left' },
+    ];
+    const el = {
+      scrollLeft: 10,
+      scrollWidth: 1120,
+      clientWidth: 720,
+    } as HTMLElement;
+
+    expect(readFixedLayoutScrollMetricsFromElement(el, columns)).toEqual({
+      scrollLeft: 10,
+      maxScrollLeft: 400,
+    });
+  });
 });
 
 describe('reorderColumnsForLeftFixed', () => {

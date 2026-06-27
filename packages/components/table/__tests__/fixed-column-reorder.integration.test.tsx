@@ -43,6 +43,19 @@ function applyRightDisconnectedFixed(cols: BaseTableCol[]): BaseTableCol[] {
   });
 }
 
+function applyLeftNameFixed(cols: BaseTableCol[]): BaseTableCol[] {
+  return cols.map((col) => (col.colKey === 'name' ? { ...col, fixed: 'left' as const } : col));
+}
+
+function applyLeftDisconnectedFixed(cols: BaseTableCol[]): BaseTableCol[] {
+  return cols.map((col) => {
+    if (col.colKey === 'name' || col.colKey === 'dept') {
+      return { ...col, fixed: 'left' as const };
+    }
+    return col;
+  });
+}
+
 function mockTableScroll(content: HTMLElement, scrollLeft: number) {
   Object.defineProperty(content, 'scrollLeft', {
     configurable: true,
@@ -73,20 +86,155 @@ function getTh(container: HTMLElement, colKey: string) {
   return container.querySelector(`th[data-colkey="${colKey}"]`);
 }
 
+function getThColKeys(container: HTMLElement) {
+  return Array.from(container.querySelectorAll('thead th[data-colkey]')).map((th) => th.getAttribute('data-colkey'));
+}
+
 async function flushFixedLayout() {
   await act(async () => {
     await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
   });
 }
 
-function DemoLikeTable({ fixedTarget }: { fixedTarget: 'none' | 'rightAddress' | 'rightDisconnected' }) {
+function DemoLikeTable({
+  fixedTarget,
+}: {
+  fixedTarget: 'none' | 'leftName' | 'leftDisconnected' | 'rightAddress' | 'rightDisconnected';
+}) {
   const columns = useMemo(() => {
+    if (fixedTarget === 'leftName') return applyLeftNameFixed(baseColumns);
+    if (fixedTarget === 'leftDisconnected') return applyLeftDisconnectedFixed(baseColumns);
     if (fixedTarget === 'rightAddress') return applyRightAddressFixed(baseColumns);
     if (fixedTarget === 'rightDisconnected') return applyRightDisconnectedFixed(baseColumns);
     return baseColumns;
   }, [fixedTarget]);
   return <BaseTable bordered rowKey="id" data={data} columns={columns} maxHeight={320} style={{ width: 720 }} />;
 }
+
+describe('左固定 name 集成：重排与 border', () => {
+  it('scrollLeft=0：列序保持定义顺序，name 无 fixed-left-last', async () => {
+    const { container } = render(<DemoLikeTable fixedTarget="leftName" />);
+
+    const content = getScrollContent(container);
+    const tableRoot = getTableRoot(container);
+    mockTableScroll(content, 0);
+    await flushFixedLayout();
+
+    await waitFor(() => {
+      expect(getThColKeys(container)).toEqual([
+        'id',
+        'name',
+        'email',
+        'dept',
+        'address',
+        'city',
+        'remark',
+        'operation',
+      ]);
+      expect(getTh(container, 'name')).not.toHaveClass('t-table__cell--fixed-left-last');
+      expect(tableRoot).not.toHaveClass('t-table__content--scrollable-to-left');
+    });
+  });
+
+  it('scrollLeft=100：name 前置且有 fixed-left-last，容器有 scrollable-to-left', async () => {
+    const { container } = render(<DemoLikeTable fixedTarget="leftName" />);
+
+    const content = getScrollContent(container);
+    const tableRoot = getTableRoot(container);
+    mockTableScroll(content, 0);
+    await flushFixedLayout();
+
+    mockTableScroll(content, 100);
+    await act(() => {
+      fireEvent.scroll(content, { target: content });
+    });
+    await flushFixedLayout();
+
+    await waitFor(() => {
+      expect(getThColKeys(container)[0]).toBe('name');
+      expect(getTh(container, 'name')).toHaveClass('t-table__cell--fixed-left-last');
+      expect(tableRoot).toHaveClass('t-table__content--scrollable-to-left');
+    });
+  });
+
+  it('scrollLeft=100 后回到 0：列序与 border 恢复', async () => {
+    const { container } = render(<DemoLikeTable fixedTarget="leftName" />);
+
+    const content = getScrollContent(container);
+    mockTableScroll(content, 100);
+    await act(() => {
+      fireEvent.scroll(content, { target: content });
+    });
+    await flushFixedLayout();
+
+    mockTableScroll(content, 0);
+    await act(() => {
+      fireEvent.scroll(content, { target: content });
+    });
+    await flushFixedLayout();
+
+    await waitFor(() => {
+      expect(getThColKeys(container)[0]).toBe('id');
+      expect(getTh(container, 'name')).not.toHaveClass('t-table__cell--fixed-left-last');
+    });
+  });
+});
+
+describe('左固定不相连 集成：border 交接', () => {
+  it('scrollLeft=100：border 在 name', async () => {
+    const { container } = render(<DemoLikeTable fixedTarget="leftDisconnected" />);
+
+    const content = getScrollContent(container);
+    mockTableScroll(content, 100);
+    await act(() => {
+      fireEvent.scroll(content, { target: content });
+    });
+    await flushFixedLayout();
+
+    await waitFor(() => {
+      expect(getTh(container, 'name')).toHaveClass('t-table__cell--fixed-left-last');
+      expect(getTh(container, 'dept')).not.toHaveClass('t-table__cell--fixed-left-last');
+    });
+  });
+
+  it('scrollLeft=300：border 交接至 dept', async () => {
+    const { container } = render(<DemoLikeTable fixedTarget="leftDisconnected" />);
+
+    const content = getScrollContent(container);
+    mockTableScroll(content, 300);
+    await act(() => {
+      fireEvent.scroll(content, { target: content });
+    });
+    await flushFixedLayout();
+
+    await waitFor(() => {
+      expect(getTh(container, 'dept')).toHaveClass('t-table__cell--fixed-left-last');
+      expect(getTh(container, 'name')).not.toHaveClass('t-table__cell--fixed-left-last');
+    });
+  });
+});
+
+describe('左固定模式切换（复现 demo Radio 切换）', () => {
+  it('从 none 切到 leftName 后 scroll=100 应触发重排', async () => {
+    const { container, rerender } = render(<DemoLikeTable fixedTarget="none" />);
+    await flushFixedLayout();
+
+    rerender(<DemoLikeTable fixedTarget="leftName" />);
+    await flushFixedLayout();
+
+    const content = getScrollContent(container);
+    mockTableScroll(content, 100);
+    await act(() => {
+      fireEvent.scroll(content, { target: content });
+    });
+    await flushFixedLayout();
+
+    await waitFor(() => {
+      expect(getThColKeys(container)[0]).toBe('name');
+      expect(getTh(container, 'name')).toHaveClass('t-table__cell--fixed-left-last');
+    });
+  });
+});
 
 describe('右固定 address 集成：border 与 shadow 同步', () => {
   it('scrollLeft=0：address 有 fixed-right-first 且容器有 scrollable-to-right', async () => {

@@ -10,10 +10,9 @@ import usePrevious from '../../hooks/usePrevious';
 import { resizeObserverElement } from '../utils';
 import { buildFixedLayoutState, markFixedColumnBoundaries } from '../utils/markFixedColumnBoundaries';
 import {
-  createFixedLayoutScrollMetrics,
-  getColumnsTotalWidth,
   getDeferredRightFixedStickyColKeys,
   hasFixedColumnNeedReorder,
+  readFixedLayoutScrollMetricsFromElement,
   resolveDisplayColumnsForFixed,
   resolveRightBorderBoundaryColKey,
   shouldShowLeftFixedColumnShadow,
@@ -153,20 +152,8 @@ export default function useFixed(
     tableElmRef.current = val;
   }
 
-  const getFixedLayoutScrollMetrics = () => {
-    const el = tableContentRef.current;
-    if (!el) return createFixedLayoutScrollMetrics(0, 0, 0);
-    const metrics = createFixedLayoutScrollMetrics(el.scrollLeft, el.scrollWidth, el.clientWidth);
-    if (metrics.maxScrollLeft > 0 || !hasFixedColumnNeedReorder(originColumns)) {
-      return metrics;
-    }
-    // 列 fixed 切换后 DOM scrollWidth 可能尚未更新，用列宽总和兜底
-    const colWidths = thWidthList.current;
-    const totalWidth = getColumnsTotalWidth(originColumns, colWidths);
-    const fallbackMax = Math.max(0, totalWidth - el.clientWidth);
-    if (fallbackMax <= 0) return metrics;
-    return { scrollLeft: el.scrollLeft, maxScrollLeft: fallbackMax };
-  };
+  const getFixedLayoutScrollMetrics = () =>
+    readFixedLayoutScrollMetricsFromElement(tableContentRef.current, originColumns, thWidthList.current);
 
   const calculateThWidthList = (trList: HTMLCollection) => {
     const widthMap: { [colKey: string]: number } = {};
