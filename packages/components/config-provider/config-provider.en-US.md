@@ -86,6 +86,7 @@ imageViewer | Object | - | imageViewer global configs。Typescript: `ImageViewer
 input | Object | - | Input global configs。Typescript: `InputConfig` | N
 isContextEffectPlugin | Boolean | false | Whether the global configuration affects the components used by the functional invocation method | N
 list | Object | - | List global configs。Typescript: `ListConfig` | N
+loading | Object | - | Loading global configs。Typescript: `LoadingConfig` | N
 message | Object | - | Message Component global configs。Typescript: `MessageConfig` | N
 pagination | Object | - | Pagination global configs。Typescript: `PaginationConfig` | N
 popconfirm | Object | - | Popconfirm global configs。Typescript: `PopconfirmConfig` | N
@@ -200,6 +201,8 @@ closeOnEscKeydown | Boolean | true | trigger dialog close on `ESC` keydown | N
 closeOnOverlayClick | Boolean | true | \- | N
 confirm | Object | - | Typescript: `string \| ButtonProps` | N
 confirmBtnTheme | Object | - | Typescript: `{ default: string; info: string; warning: string; danger: string; success: string; }` | N
+placement | String | top | options: top/center | N
+zIndex | Number | - | \- | N
 
 ### DrawerConfig
 
@@ -251,6 +254,7 @@ name | type | default | description | required
 errorText | String | - | \- | N
 mirrorTipText | String | - | mirror operation text | N
 originalSizeTipText | String | - | original size tips | N
+previewText | String | - | preview text | N
 rotateTipText | String | - | rotate operation text | N
 
 ### InputConfig
@@ -267,6 +271,12 @@ name | type | default | description | required
 -- | -- | -- | -- | --
 loadingMoreText | String | - | \- | N
 loadingText | String | - | \- | N
+
+### LoadingConfig
+
+name | type | default | description | required
+-- | -- | -- | -- | --
+`LoadingProps` | \- | - | extends `LoadingProps` | N
 
 ### MessageConfig
 
@@ -286,7 +296,7 @@ total | String | - | \- | N
 
 name | params | return | description
 -- | -- | -- | --
-jumper | `(jumperProps: JumperProps)` | `TNode<JumperProps>` | [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/config-provider/type.ts)。<br/>`interface JumperProps { current: number; pageCount: number; onChange: (current: number) => void; }`<br/>
+jumper | `(jumperProps: JumperProps)` | `TNode<JumperProps>` | [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/config-provider/type.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。<br/>`interface JumperProps { current: number; pageCount: number; onChange: (current: number) => void; }`<br/>
 
 ### PopconfirmConfig
 

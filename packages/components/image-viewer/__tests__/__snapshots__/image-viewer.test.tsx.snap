@@ -3341,7 +3341,6 @@ exports[`ImageViewer 快照测试 > modeless 模式 > image-viewer-modeless 1`] 
         >
           <div
             class="t-dialog t-dialog--default t-dialog-zoom-appear t-dialog-zoom-appear-active"
-            placement="center"
             style="display: block; transform-origin: 0px 0px;"
           >
             <div
@@ -3695,7 +3694,6 @@ exports[`ImageViewer 快照测试 > modeless 模式切换图片 > image-viewer-m
         >
           <div
             class="t-dialog t-dialog--default t-dialog-zoom-appear t-dialog-zoom-appear-active"
-            placement="center"
             style="display: block; transform-origin: 0px 0px;"
           >
             <div

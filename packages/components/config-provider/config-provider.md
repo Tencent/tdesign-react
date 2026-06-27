@@ -86,6 +86,7 @@ imageViewer | Object | - | 图片预览器全局配置。TS 类型：`ImageViewe
 input | Object | - | 输入框组件全局配置。TS 类型：`InputConfig` | N
 isContextEffectPlugin | Boolean | false | 全局配置是否影响函数式调用方法使用的组件  | N
 list | Object | - | 列表组件全局配置。TS 类型：`ListConfig` | N
+loading | Object | - | 加载中组件全局配置。TS 类型：`LoadingConfig` | N
 message | Object | - | 消息组件全局配置。TS 类型：`MessageConfig` | N
 pagination | Object | - | 分页组件全局配置。TS 类型：`PaginationConfig` | N
 popconfirm | Object | - | 气泡确认框全局配置。TS 类型：`PopconfirmConfig` | N
@@ -200,6 +201,8 @@ closeOnEscKeydown | Boolean | true | 按下 ESC 时是否触发对话框关闭�
 closeOnOverlayClick | Boolean | true | 点击蒙层时是否触发关闭事件 | N
 confirm | Object | - | 确认按钮风格。TS 类型：`string \| ButtonProps` | N
 confirmBtnTheme | Object | - | 确认按钮主题色，即 Dialog 的 `theme` 和 确认按钮的 `theme` 映射关系。示例：{ danger: 'danger' }。TS 类型：`{ default: string; info: string; warning: string; danger: string; success: string; }` | N
+placement | String | top | 全局配置的对话框位置，垂直水平居中显示 和 靠近顶部（top:20%）显示。可选项：top/center | N
+zIndex | Number | - | 对话框层级，默认为 2500 | N
 
 ### DrawerConfig
 
@@ -251,6 +254,7 @@ replaceImageSrc | Function | - | 统一替换图片 `src` 地址，参数为组�
 errorText | String | - | 全局语言配置，默认为 “图片加载失败，可尝试重新加载” | N
 mirrorTipText | String | - | 全局语言配置，默认为 “镜像” | N
 originalSizeTipText | String | - | 全局语言配置，默认为 “原始大小” | N
+previewText | String | - | 全局语言配置，默认为 “预览” | N
 rotateTipText | String | - | 全局语言配置，默认为 “旋转” | N
 
 ### InputConfig
@@ -267,6 +271,12 @@ placeholder | String | - | 语言配置，“请输入”占位符描述文本 |
 -- | -- | -- | -- | --
 loadingMoreText | String | - | 语言配置，'点击加载更多' 描述文本 | N
 loadingText | String | - | 语言配置，'正在加载中，请稍后' 描述文本 | N
+
+### LoadingConfig
+
+名称 | 类型 | 默认值 | 描述 | 必传
+-- | -- | -- | -- | --
+`LoadingProps` | \- | - | 继承 `LoadingProps` 中的全部属性 | N
 
 ### MessageConfig
 
@@ -286,7 +296,7 @@ total | String | - | 语言配置，数据总条数文本，示例：`'共 {tota
 
 名称 | 参数 | 返回值 | 描述
 -- | -- | -- | --
-jumper | `(jumperProps: JumperProps)` | `TNode<JumperProps>` | 自定义跳转组件。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/config-provider/type.ts)。<br/>`interface JumperProps { current: number; pageCount: number; onChange: (current: number) => void; }`<br/>
+jumper | `(jumperProps: JumperProps)` | `TNode<JumperProps>` | 自定义跳转组件。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/config-provider/type.ts)。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。<br/>`interface JumperProps { current: number; pageCount: number; onChange: (current: number) => void; }`<br/>
 
 ### PopconfirmConfig
 
