@@ -49,7 +49,8 @@ function useRowExpand(props: TdPrimaryTableProps) {
 
   const showExpandIconColumn = props.expandIcon !== false && showExpandedRow;
 
-  const isFirstColumnFixed = props.columns?.[0]?.fixed === 'left';
+  // 存在任意左固定列时，展开列也需要固定（非首列 left fixed 滚动后前置）
+  const hasLeftFixedColumn = props.columns?.some((col) => col.fixed === 'left');
 
   const onToggleExpand = (e: MouseEvent<HTMLSpanElement>, row: TableRowData) => {
     props.expandOnRowClick && e.stopPropagation();
@@ -93,7 +94,7 @@ function useRowExpand(props: TdPrimaryTableProps) {
       colKey: '__EXPAND_ROW_ICON_COLUMN__',
       width: 46,
       className: tableExpandClasses.iconCell,
-      fixed: isFirstColumnFixed ? 'left' : undefined,
+      fixed: hasLeftFixedColumn ? 'left' : undefined,
       cell: (p) => renderExpandIcon(p, expandIcon),
       stopPropagation: true,
     };
@@ -101,7 +102,10 @@ function useRowExpand(props: TdPrimaryTableProps) {
   };
 
   const renderExpandedRow = (
-    p: TableExpandedRowParams<TableRowData> & { tableWidth: number; isWidthOverflow: boolean },
+    p: TableExpandedRowParams<TableRowData> & {
+      tableWidth: number;
+      isWidthOverflow: boolean;
+    },
   ) => {
     const rowId = get(p.row, props.rowKey || 'id');
     if (!tExpandedRowKeys || !tExpandedRowKeys.includes(rowId)) return null;

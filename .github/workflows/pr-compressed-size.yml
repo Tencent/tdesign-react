@@ -21,7 +21,7 @@ jobs:
       - uses: preactjs/compressed-size-action@v2
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          install-script: "pnpm install"
+          install-script: "bash -c 'rm -f pnpm-lock.yaml && pnpm install --no-frozen-lockfile'"
           build-script: "build"
           pattern: "packages/tdesign-react/dist/**/*.{js,css}"
           comment-key: tdesign-react
@@ -42,7 +42,7 @@ jobs:
       - uses: preactjs/compressed-size-action@v2
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          install-script: "pnpm install"
+          install-script: "bash -c 'rm -f pnpm-lock.yaml && pnpm install --no-frozen-lockfile'"
           build-script: "build:aigc"
           pattern: "packages/tdesign-react-aigc/es/**/*.{js,css}"
           comment-key: tdesign-react-chat
