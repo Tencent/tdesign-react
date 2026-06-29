@@ -144,7 +144,7 @@ Button component with action support
 - `disabled`: boolean - Whether button is disabled
 - `loading`: boolean - Whether to show loading state
 - `block`: boolean - Whether button should be full width
-- `action`: string | { name: string, params?: object } - Action to trigger on click
+- `action`: string | { action: string, params?: object } - ActionBinding to trigger on click
 
 ### Input
 Input component for text entry
@@ -254,7 +254,7 @@ Custom progress bar component for showing completion status
 
 Actions can be triggered by Button components. Use the `action` prop:
 - Simple: `"action": "actionName"`
-- With params: `"action": { "name": "actionName", "params": { ... } }`
+- With params: `"action": { "action": "actionName", "params": { ... } }`
 
 - `submit`: Submit form data to server
 - `reset`: Reset form to initial state
@@ -339,7 +339,7 @@ A basic form with validation and data binding:
         "children": "Register",
         "theme": "primary",
         "action": {
-          "name": "submit",
+          "action": "submit",
           "params": {
             "form": "registration"
           }

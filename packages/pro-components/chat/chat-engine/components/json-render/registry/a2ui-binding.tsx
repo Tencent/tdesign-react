@@ -186,8 +186,29 @@ function A2UIBoundInner<P extends Record<string, any>>({
   const handleAction = useCallback(() => {
     if (!action || !onAction) return;
 
-    // 标准化 action 格式
-    const actionObj: ActionBinding = typeof action === 'string' ? { action, params: {} } : action;
+    // 协议适配：归一化 action 字段
+    // - 字符串简写："submit"
+    // - 标准 ActionBinding：{ action, params? }
+    // - 兼容旧协议（A2UI / 旧版 mock 数据）：{ name, context? }
+    let actionObj: ActionBinding;
+    if (typeof action === 'string') {
+      actionObj = { action, params: {} };
+    } else {
+      const raw = action as ActionBinding & { name?: string; context?: Record<string, unknown> };
+      actionObj = {
+        ...raw,
+        action: raw.action ?? raw.name ?? '',
+        params: raw.params ?? raw.context ?? {},
+      };
+    }
+
+    if (!actionObj.action) {
+      console.error(
+        '[withA2UIBinding] action 字段缺失或不符合 ActionBinding 协议（应为字符串或 { action, params? }），实际收到：',
+        action,
+      );
+      return;
+    }
 
     // 使用最新的 data 解析参数
     const currentData = storeRef.current.getData();
