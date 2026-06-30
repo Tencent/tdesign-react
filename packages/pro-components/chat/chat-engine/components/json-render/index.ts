@@ -16,6 +16,15 @@ export {
   type A2UIJsonRenderActivityRendererProps,
 } from './renderer/A2UIJsonRenderActivityRenderer';
 
+// A2UI Surface React 集成（自定义协议场景使用）
+export {
+  type A2UISurfaceController,
+  A2UISurfaceRenderer,
+  type A2UISurfaceRendererProps,
+  useA2UISurface,
+  type UseA2UISurfaceOptions,
+} from './renderer/A2UISurface';
+
 // ==================== 上下文 (Contexts) ====================
 export * from './contexts';
 

@@ -36,7 +36,7 @@
  */
 
 import React, { memo, useCallback, useMemo, useRef } from 'react';
-import { getByPath } from '@json-render/core';
+import { normalizeActionBinding, resolveActionParams } from '@tdesign/ai-chat-engine';
 
 import { useDataBinding, useDataStore, useDataValue } from '..';
 
@@ -57,63 +57,6 @@ export interface A2UIBindingConfig {
    * 可设置为 'onEnter'、'onChange' 等
    */
   actionTrigger?: string;
-}
-
-/**
- * 解析 action params 中的动态数据绑定
- * 将 { path: '/xxx' } 格式的引用替换为实际数据
- *
- * 性能优化：使用迭代替代递归，减少调用栈深度
- */
-function resolveActionParams(
-  params: Record<string, unknown>,
-  data: Record<string, unknown>,
-  maxDepth = 10,
-): Record<string, unknown> {
-  const resolved: Record<string, unknown> = {};
-
-  // 使用栈迭代处理，避免深递归
-  const stack: Array<{
-    source: Record<string, unknown>;
-    target: Record<string, unknown>;
-    depth: number;
-  }> = [{ source: params, target: resolved, depth: 0 }];
-
-  while (stack.length > 0) {
-    const current = stack.pop();
-    if (!current) {
-      break;
-    }
-    const { source, target, depth } = current;
-
-    if (depth >= maxDepth) {
-      // 防止无限递归
-      Object.assign(target, source);
-      continue;
-    }
-
-    for (const [key, value] of Object.entries(source)) {
-      if (value && typeof value === 'object' && 'path' in value) {
-        // 动态绑定：{ path: '/userInfo' } → 实际数据
-        const pathValue = (value as { path: string }).path;
-        target[key] = getByPath(data, pathValue);
-      } else if (value && typeof value === 'object' && !Array.isArray(value)) {
-        // 嵌套对象，加入栈处理
-        const nestedTarget: Record<string, unknown> = {};
-        target[key] = nestedTarget;
-        stack.push({
-          source: value as Record<string, unknown>,
-          target: nestedTarget,
-          depth: depth + 1,
-        });
-      } else {
-        // 静态值直接保留
-        target[key] = value;
-      }
-    }
-  }
-
-  return resolved;
 }
 
 /**
@@ -190,19 +133,9 @@ function A2UIBoundInner<P extends Record<string, any>>({
     // - 字符串简写："submit"
     // - 标准 ActionBinding：{ action, params? }
     // - 兼容旧协议（A2UI / 旧版 mock 数据）：{ name, context? }
-    let actionObj: ActionBinding;
-    if (typeof action === 'string') {
-      actionObj = { action, params: {} };
-    } else {
-      const raw = action as ActionBinding & { name?: string; context?: Record<string, unknown> };
-      actionObj = {
-        ...raw,
-        action: raw.action ?? raw.name ?? '',
-        params: raw.params ?? raw.context ?? {},
-      };
-    }
+    const actionObj = normalizeActionBinding(action as any);
 
-    if (!actionObj.action) {
+    if (!actionObj) {
       console.error(
         '[withA2UIBinding] action 字段缺失或不符合 ActionBinding 协议（应为字符串或 { action, params? }），实际收到：',
         action,

@@ -3,31 +3,35 @@
  *
  * 演示内容：
  * 1. 不依赖 AG-UI 协议，使用自定义 SSE 协议
- * 2. 直接使用 A2uiMessageProcessor 处理 A2UI 消息
+ * 2. 通过 useA2UISurface hook 处理 A2UI 消息（基于 json-render adapter）
  * 3. 配合 useChat 的 onMessage 回调实现自定义解析
  * 4. 完整的 ChatEngine 实例用法展示
  *
  * 核心概念：
  * - 自定义协议格式：{ type: 'text' | 'a2ui', ... }
- * - 直接使用 A2uiMessageProcessor 管理 Surface 状态
- * - 使用 A2UISurfaceRenderer 进行渲染
+ * - 把自定义协议消息转换为 A2UI v0.9.1 标准消息后，交给 useA2UISurface 处理
+ * - 渲染端使用 A2UISurfaceRenderer + tdesignRegistry / a2uiRegistry
  */
-import React, { useState, useRef, useMemo, useSyncExternalStore, useCallback } from 'react';
-import {
-  ChatList,
-  ChatSender,
-  ChatMessage,
-  type TdChatSenderParams,
-  type ChatRequestParams,
-  type ChatMessagesData,
-  type AIMessageContent,
-  type SSEChunkData,
-} from '@tdesign-react/chat';
-import { useChat } from '@tdesign-react/chat';
+import React, { useCallback, useRef, useState } from 'react';
 import { MessagePlugin } from 'tdesign-react';
+import {
+  a2uiRegistry,
+  A2UISurfaceRenderer,
+  ChatList,
+  ChatMessage,
+  ChatSender,
+  useA2UISurface,
+  useChat,
+} from '@tdesign-react/chat';
 
-import { A2uiMessageProcessor, createA2uiProcessor, type A2UIServerMessage } from '../core/a2ui';
-import { A2UISurfaceRenderer, defaultComponentRegistry } from '../components/a2ui';
+import type { A2UIMessage } from '@tdesign/ai-chat-engine';
+import type {
+  AIMessageContent,
+  ChatMessagesData,
+  ChatRequestParams,
+  SSEChunkData,
+  TdChatSenderParams,
+} from '@tdesign-react/chat';
 
 // Mock Server 地址
 const MOCK_SERVER = 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com';
@@ -57,14 +61,13 @@ interface CustomA2UIOperation {
 }
 
 /**
- * 将自定义协议转换为 A2UI v0.9 标准格式
+ * 将自定义协议转换为 A2UI v0.9.1 标准格式
  */
-function convertToA2UIMessages(msg: CustomMessage, initialData?: Record<string, unknown>): A2UIServerMessage[] {
+function convertToA2UIMessages(msg: CustomMessage, initialData?: Record<string, unknown>): A2UIMessage[] {
   if (msg.type !== 'a2ui' || !msg.surfaceId) return [];
 
-  const messages: A2UIServerMessage[] = [];
+  const messages: A2UIMessage[] = [];
 
-  // 处理 operations 数组
   if (msg.operations) {
     for (const op of msg.operations) {
       switch (op.type) {
@@ -167,32 +170,27 @@ function flattenComponents(root: any): any[] {
 
 export default function CustomA2UIExample() {
   const [inputValue, setInputValue] = useState('帮我创建一个用户信息表单');
-  const listRef = useRef<any>(null);
+  const listRef = useRef<HTMLElement>(null);
 
   // 跟踪 A2UI Surface 关联的消息 ID
   const [surfaceMessageMap, setSurfaceMessageMap] = useState<Map<string, string>>(new Map());
   const currentMessageIdRef = useRef<string>('');
 
-  // 创建 A2UI Processor（用于处理自定义协议的 A2UI 消息）
-  const processorRef = useRef<A2uiMessageProcessor | null>(null);
-  if (!processorRef.current) {
-    processorRef.current = createA2uiProcessor({
-      onAction: (action, context) => {
-        const actionType = action.type || action.name;
-        if (actionType === 'submit') {
-          const path = (action.payload as any)?.path || action.context?.path;
-          const formData = context?.getData?.(path as string);
-          MessagePlugin.success(`表单提交成功: ${JSON.stringify(formData)}`);
-        } else if (actionType === 'cancel') {
-          MessagePlugin.info('用户取消了操作');
-        }
-      },
-    });
-  }
-  const processor = processorRef.current;
+  // A2UI Surface 控制器：负责消息分发与状态管理
+  const a2uiSurface = useA2UISurface({ debug: false });
 
-  // 订阅 processor 状态变化（用于触发重渲染）
-  const surfaceSnapshot = useSyncExternalStore(processor.subscribe, processor.getSnapshot, processor.getServerSnapshot);
+  // Action 处理映射：表单的 submit / cancel
+  const actionHandlers = {
+    submit: async (params: Record<string, unknown>) => {
+      MessagePlugin.success(`表单提交成功: ${JSON.stringify(params)}`);
+    },
+    cancel: async () => {
+      MessagePlugin.info('用户取消了操作');
+    },
+    reset: async () => {
+      MessagePlugin.info('已重置表单');
+    },
+  };
 
   // 自定义消息处理函数
   const handleCustomMessage = useCallback(
@@ -206,15 +204,17 @@ export default function CustomA2UIExample() {
             type: 'text',
             data: data.msg,
           } as AIMessageContent;
-        } else if (data.type === 'a2ui' && data.surfaceId) {
-          // A2UI 消息：转换并处理
+        }
+        if (data.type === 'a2ui' && data.surfaceId) {
+          const { surfaceId } = data;
+          // A2UI 消息：转换并交给 useA2UISurface 处理
           const a2uiMessages = convertToA2UIMessages(data, data.data);
           if (a2uiMessages.length > 0) {
-            processor.processMessages(a2uiMessages);
+            a2uiSurface.processMessages(a2uiMessages);
             // 记录 Surface 与消息的关联
             setSurfaceMessageMap((prev) => {
               const next = new Map(prev);
-              next.set(data.surfaceId!, currentMessageIdRef.current);
+              next.set(surfaceId, currentMessageIdRef.current);
               return next;
             });
           }
@@ -226,7 +226,7 @@ export default function CustomA2UIExample() {
       }
       return null;
     },
-    [processor],
+    [a2uiSurface],
   );
 
   // 使用 useChat 创建 ChatEngine 实例（自定义协议）
@@ -251,7 +251,7 @@ export default function CustomA2UIExample() {
       }),
       onStart: () => {
         // 清理旧的 Surface
-        processor.clearAllSurfaces();
+        a2uiSurface.clearAllSurfaces();
         setSurfaceMessageMap(new Map());
       },
       onComplete: () => {
@@ -279,31 +279,13 @@ export default function CustomA2UIExample() {
     MessagePlugin.info('已停止生成');
   };
 
-  // 获取当前活跃的 Surface IDs
-  const surfaceIds = Array.from(surfaceSnapshot.keys());
-
-  // 自定义消息渲染
-  const renderMessage = (message: ChatMessagesData) => {
-    // 检查是否有关联的 A2UI Surface
+  // 渲染 ChatMessage 内部的扩展内容：关联的 A2UI Surface
+  const renderMsgContents = (message: ChatMessagesData) => {
     const relatedSurfaceId = Array.from(surfaceMessageMap.entries()).find(([, msgId]) => msgId === message.id)?.[0];
-
+    if (!relatedSurfaceId || !a2uiSurface.hasSurface(relatedSurfaceId)) return null;
     return (
-      <div key={message.id}>
-        <ChatMessage
-          message={message}
-          placement={message.role === 'user' ? 'right' : 'left'}
-          variant={message.role === 'user' ? 'base' : 'text'}
-        />
-        {/* 在消息后面渲染关联的 A2UI Surface */}
-        {relatedSurfaceId && surfaceSnapshot.has(relatedSurfaceId) && (
-          <div style={{ marginTop: '8px', marginBottom: '16px' }}>
-            <A2UISurfaceRenderer
-              processor={processor}
-              surfaceId={relatedSurfaceId}
-              registry={defaultComponentRegistry}
-            />
-          </div>
-        )}
+      <div slot="a2ui-surface" style={{ marginTop: '8px' }}>
+        <A2UISurfaceRenderer surfaceId={relatedSurfaceId} registry={a2uiRegistry} actionHandlers={actionHandlers} />
       </div>
     );
   };
@@ -320,23 +302,34 @@ export default function CustomA2UIExample() {
       >
         <h3 style={{ margin: 0, fontSize: '16px' }}>自定义协议 + A2UI 示例</h3>
         <p style={{ margin: '4px 0 0', fontSize: '12px', color: 'var(--td-text-color-secondary)' }}>
-          不依赖 AG-UI，使用自定义 SSE 协议配合 A2uiMessageProcessor 实现动态表单
+          不依赖 AG-UI，使用自定义 SSE 协议配合 useA2UISurface（基于 json-render adapter）实现动态表单
         </p>
       </div>
 
-      {/* 消息列表 */}
-      {/* @ts-ignore ChatList is a Web Component wrapper that accepts children */}
-      <ChatList ref={listRef} style={{ flex: 1, overflow: 'auto' }}>
-        {messages.map(renderMessage)}
-        {/* 渲染未关联到消息的 Surface（独立 Surface） */}
-        {surfaceIds
-          .filter((id) => !surfaceMessageMap.has(id))
-          .map((surfaceId) => (
-            <div key={surfaceId} style={{ marginTop: '16px' }}>
-              <A2UISurfaceRenderer processor={processor} surfaceId={surfaceId} registry={defaultComponentRegistry} />
-            </div>
+      {/* 消息列表：外层 div 接管布局样式，避开 ChatList 类型签名不含 style 的问题 */}
+      <div style={{ flex: 1, overflow: 'auto' }}>
+        <ChatList ref={listRef}>
+          {messages.map((message) => (
+            <ChatMessage
+              key={message.id}
+              message={message}
+              placement={message.role === 'user' ? 'right' : 'left'}
+              variant={message.role === 'user' ? 'base' : 'text'}
+            >
+              {renderMsgContents(message)}
+            </ChatMessage>
           ))}
-      </ChatList>
+        </ChatList>
+      </div>
+
+      {/* 渲染未关联到消息的 Surface（独立 Surface） */}
+      {a2uiSurface.surfaceIds
+        .filter((id) => !surfaceMessageMap.has(id))
+        .map((surfaceId) => (
+          <div key={surfaceId} style={{ marginTop: '16px' }}>
+            <A2UISurfaceRenderer surfaceId={surfaceId} registry={a2uiRegistry} actionHandlers={actionHandlers} />
+          </div>
+        ))}
 
       {/* 输入区域 */}
       <ChatSender

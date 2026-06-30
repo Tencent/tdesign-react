@@ -14,7 +14,14 @@
  */
 
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { convertA2UIMessagesToJsonRender, surfaceStateManager } from '@tdesign/ai-chat-engine';
+import {
+  convertA2UIMessagesToJsonRender,
+  extractSurfaceId,
+  hasCreationMessages,
+  hasDeletionMessages,
+  isUIMessages,
+  surfaceStateManager,
+} from '@tdesign/ai-chat-engine';
 
 import { JsonRenderActivityRenderer } from './JsonRenderActivityRenderer';
 
@@ -33,42 +40,6 @@ export interface A2UIJsonRenderActivityRendererProps extends Omit<JsonRenderActi
   actionHandlers?: Record<string, (params: Record<string, unknown>) => void | Promise<void>>;
   /** 显示调试信息 */
   debug?: boolean;
-}
-
-/**
- * 从消息中提取 surfaceId
- */
-function extractSurfaceId(messages: A2UIMessage[]): string | null {
-  for (const msg of messages) {
-    if (msg.createSurface) return msg.createSurface.surfaceId;
-    if (msg.updateComponents) return msg.updateComponents.surfaceId;
-    if (msg.updateDataModel) return msg.updateDataModel.surfaceId;
-    if (msg.deleteSurface) return msg.deleteSurface.surfaceId;
-  }
-  return null;
-}
-
-/**
- * 判断消息是否为"UI型"（需要渲染/更新 UI）
- * 包括 createSurface / updateComponents / deleteSurface
- * 只有纯 updateDataModel 消息不需要渲染
- */
-function isUIMessages(messages: A2UIMessage[]): boolean {
-  return messages.some((msg) => msg.createSurface || msg.updateComponents || msg.deleteSurface);
-}
-
-/**
- * 判断消息是否包含删除操作
- */
-function hasDeletionMessages(messages: A2UIMessage[]): boolean {
-  return messages.some((msg) => msg.deleteSurface);
-}
-
-/**
- * 判断消息是否包含创建/更新操作（需要渲染 UI 的）
- */
-function hasCreationMessages(messages: A2UIMessage[]): boolean {
-  return messages.some((msg) => msg.createSurface || msg.updateComponents);
 }
 
 /**
@@ -240,6 +211,11 @@ export const A2UIJsonRenderActivityRenderer: React.FC<A2UIJsonRenderActivityRend
       // eslint-disable-next-line no-console
       console.log('[A2UI Adapter] 删除型消息，跳过渲染');
     }
+    return null;
+  }
+
+  // schema 尚未就绪：等待下一次更新
+  if (!currentSchema) {
     return null;
   }
 
