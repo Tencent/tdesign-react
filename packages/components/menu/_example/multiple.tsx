@@ -38,7 +38,23 @@ function Multiple() {
           </MenuItem>
           <MenuItem value="6">黄瓜</MenuItem>
         </SubMenu>
-        <MenuItem value="9">其他</MenuItem>
+        <SubMenu value="9" title="其他">
+          <MenuItem value="9-1">子菜单-9-1</MenuItem>
+          <MenuItem value="9-2">子菜单-9-2</MenuItem>
+          <MenuItem value="9-3">子菜单-9-3</MenuItem>
+          <MenuItem value="9-4">子菜单-9-4</MenuItem>
+          <MenuItem value="9-5">子菜单-9-5</MenuItem>
+          <MenuItem value="9-6">子菜单-9-6</MenuItem>
+          <MenuItem value="9-7">子菜单-9-7</MenuItem>
+          <MenuItem value="9-8">子菜单-9-8</MenuItem>
+          <MenuItem value="9-0">子菜单-9-9</MenuItem>
+          <MenuItem value="9-10">子菜单-9-10</MenuItem>
+          <MenuItem value="9-11">子菜单-9-11</MenuItem>
+          <MenuItem value="9-12">子菜单-9-12</MenuItem>
+          <MenuItem value="9-13">子菜单-9-13</MenuItem>
+          <MenuItem value="9-14">子菜单-9-14</MenuItem>
+          <MenuItem value="9-15">子菜单-9-15</MenuItem>
+        </SubMenu>
       </HeadMenu>
       {/* 暗黑模式 */}
       <HeadMenu
@@ -76,7 +92,23 @@ function Multiple() {
           </MenuItem>
           <MenuItem value="6">黄瓜</MenuItem>
         </SubMenu>
-        <MenuItem value="9">其他</MenuItem>
+        <SubMenu value="9" title="其他">
+          <MenuItem value="9-1">子菜单-9-1</MenuItem>
+          <MenuItem value="9-2">子菜单-9-2</MenuItem>
+          <MenuItem value="9-3">子菜单-9-3</MenuItem>
+          <MenuItem value="9-4">子菜单-9-4</MenuItem>
+          <MenuItem value="9-5">子菜单-9-5</MenuItem>
+          <MenuItem value="9-6">子菜单-9-6</MenuItem>
+          <MenuItem value="9-7">子菜单-9-7</MenuItem>
+          <MenuItem value="9-8">子菜单-9-8</MenuItem>
+          <MenuItem value="9-0">子菜单-9-9</MenuItem>
+          <MenuItem value="9-10">子菜单-9-10</MenuItem>
+          <MenuItem value="9-11">子菜单-9-11</MenuItem>
+          <MenuItem value="9-12">子菜单-9-12</MenuItem>
+          <MenuItem value="9-13">子菜单-9-13</MenuItem>
+          <MenuItem value="9-14">子菜单-9-14</MenuItem>
+          <MenuItem value="9-15">子菜单-9-15</MenuItem>
+        </SubMenu>
       </HeadMenu>
     </Fragment>
   );

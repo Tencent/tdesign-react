@@ -1,12 +1,12 @@
 module.exports = {
   extends: [
     'airbnb-base',
-    'prettier', // eslint-config-prettier 处理冲突
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
   ],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'react-hooks', 'simple-import-sort'],
+  plugins: ['@typescript-eslint', 'react-hooks', 'simple-import-sort', 'prettier'],
   env: {
     browser: true,
     node: true,
@@ -69,7 +69,25 @@ module.exports = {
     ],
     'max-len': 'off',
     'no-shadow': 'off',
-
+    'prettier/prettier': [
+      'error',
+      {
+        printWidth: 120,
+        tabWidth: 2,
+        useTabs: false,
+        semi: true,
+        singleQuote: true,
+        quoteProps: 'as-needed',
+        jsxSingleQuote: false,
+        trailingComma: 'all',
+        bracketSpacing: true,
+        jsxBracketSameLine: false,
+        arrowParens: 'always',
+        proseWrap: 'preserve',
+        htmlWhitespaceSensitivity: 'css',
+        endOfLine: 'lf',
+      },
+    ],
     // import config
     'import/order': 'off',
     'import/extensions': 'off',
@@ -103,7 +121,6 @@ module.exports = {
       },
     ],
     'simple-import-sort/exports': 'error',
-
     // typescript config
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/ban-types': 'off',
@@ -125,7 +142,6 @@ module.exports = {
         disallowTypeAnnotations: false,
       },
     ],
-
     // react config
     'react/display-name': 'off',
     'react-hooks/exhaustive-deps': 'warn',

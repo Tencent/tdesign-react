@@ -30,6 +30,12 @@ describe('InputNumber 组件测试', () => {
     expect(queryByPlaceholderText(InputNumberPlaceholder).value).toEqual('6');
   });
 
+  test('autofocus', () => {
+    const { container } = render(<InputNumber autofocus={true} />);
+    const wrapper = container.querySelector('input');
+    expect(wrapper.getAttribute('autofocus')).toBeDefined();
+  });
+
   test('blur', async () => {
     const blurFn = vi.fn();
     const { queryByPlaceholderText } = render(<InputNumber placeholder={InputNumberPlaceholder} onBlur={blurFn} />);

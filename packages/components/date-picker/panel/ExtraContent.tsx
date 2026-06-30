@@ -5,11 +5,10 @@ import DateFooter from '../base/Footer';
 import type { DateMultipleValue, DateValue, TdDatePickerProps, TdDateRangePickerProps } from '../type';
 import type { SinglePanelProps } from './SinglePanel';
 
-export interface ExtraContentProps
-  extends Pick<
-    SinglePanelProps,
-    'enableTimePicker' | 'presetsPlacement' | 'onPresetClick' | 'onConfirmClick' | 'needConfirm'
-  > {
+export interface ExtraContentProps extends Pick<
+  SinglePanelProps,
+  'enableTimePicker' | 'presetsPlacement' | 'onPresetClick' | 'onConfirmClick' | 'needConfirm'
+> {
   selectedValue?: DateValue | DateMultipleValue;
   presets?: TdDatePickerProps['presets'] | TdDateRangePickerProps['presets'];
   onTimeModeChange?: () => void;

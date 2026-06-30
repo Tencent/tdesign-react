@@ -2,6 +2,7 @@ import React, { forwardRef, useCallback, useImperativeHandle, useMemo, useRef } 
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
 
+import { preserveSelectionOrder } from '../_util/helper';
 import noop from '../_util/noop';
 import parseTNode from '../_util/parseTNode';
 import useConfig from '../hooks/useConfig';
@@ -26,8 +27,7 @@ import type { TreeInstanceFunctions, TreeProps } from '../tree';
 import type { TdTreeSelectProps, TreeSelectValue } from './type';
 
 export interface TreeSelectProps<DataOption extends TreeOptionData = TreeOptionData>
-  extends TdTreeSelectProps<DataOption>,
-    StyledProps {}
+  extends TdTreeSelectProps<DataOption>, StyledProps {}
 
 export interface NodeOptions {
   label: string;
@@ -210,17 +210,25 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
       });
     }
     // 单选选择后收起弹框
-    setPopupVisible(false, { ...context, trigger: 'trigger-element-click' });
+    setPopupVisible(false, {
+      ...context,
+      trigger: 'trigger-element-click',
+    });
   });
 
   const handleMultiChange = usePersistFn<TreeProps['onChange']>((value, context) => {
     if (max === 0 || value.length <= max) {
+      const isCheck = value.length > normalizedValue.length;
+      const orderedValues = preserveSelectionOrder(
+        normalizedValue.map(({ value }) => value),
+        value,
+      );
       onChange(
-        value.map((value) => formatValue(value, getNodeItem(value)?.label)),
+        orderedValues.map((value) => formatValue(value, getNodeItem(value)?.label)),
         {
           ...context,
           data: context.node.data,
-          trigger: value.length > normalizedValue.length ? 'check' : 'uncheck',
+          trigger: isCheck ? 'check' : 'uncheck',
         },
       );
     }
@@ -284,7 +292,11 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
 
   const handleEnter = usePersistFn<SelectInputProps['onEnter']>((_, ctx) => {
     onSearch?.(ctx.inputValue, { e: ctx.e });
-    onEnter?.({ inputValue: ctx.inputValue, e: ctx.e, value: getTreeSelectEventValue() });
+    onEnter?.({
+      inputValue: ctx.inputValue,
+      e: ctx.e,
+      value: getTreeSelectEventValue(),
+    });
   });
 
   const handleFilterChange = usePersistFn<SelectInputProps['onInputChange']>((value, ctx) => {
@@ -343,7 +355,12 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
       panel={renderTree()}
       allowInput={filterable}
       inputProps={{ ...inputProps, size }}
-      tagInputProps={{ size, excessTagsDisplayType: 'break-line', inputProps, tagProps: props.tagProps }}
+      tagInputProps={{
+        size,
+        excessTagsDisplayType: 'break-line',
+        inputProps,
+        tagProps: props.tagProps,
+      }}
       placeholder={inputPlaceholder}
       popupVisible={popupVisible && !disabled}
       onInputChange={handleFilterChange}

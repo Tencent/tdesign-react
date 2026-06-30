@@ -1,11 +1,14 @@
-﻿import React from 'react';
+import React from 'react';
 import { Input, InputAdornment, Select, Space } from 'tdesign-react';
 
 export default function BaseExample() {
   const protocolSelect = (
     <Select
       autoWidth
-      options={['http://', 'https://'].map((value) => ({ label: value, value }))}
+      options={['http://', 'https://'].map((value) => ({
+        label: value,
+        value,
+      }))}
       defaultValue="http://"
     />
   );
@@ -13,7 +16,10 @@ export default function BaseExample() {
   const tldSelect = (
     <Select
       autoWidth
-      options={['.com', '.cn', '.net', '.org'].map((value) => ({ label: value, value }))}
+      options={['.com', '.cn', '.net', '.org'].map((value) => ({
+        label: value,
+        value,
+      }))}
       defaultValue=".cn"
     />
   );
@@ -30,7 +36,10 @@ export default function BaseExample() {
 
       <InputAdornment prepend={protocolSelect} append={tldSelect}>
         <Select
-          options={['tencent', 'qq', 'cloud.tencent'].map((value) => ({ label: value, value }))}
+          options={['tencent', 'qq', 'cloud.tencent'].map((value) => ({
+            label: value,
+            value,
+          }))}
           defaultValue="tencent"
         />
       </InputAdornment>
