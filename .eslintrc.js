@@ -69,8 +69,25 @@ module.exports = {
     ],
     'max-len': 'off',
     'no-shadow': 'off',
-    // 与根目录 .prettierrc.js 保持一致
-    'prettier/prettier': 'error',
+    'prettier/prettier': [
+      'error',
+      {
+        printWidth: 120,
+        tabWidth: 2,
+        useTabs: false,
+        semi: true,
+        singleQuote: true,
+        quoteProps: 'as-needed',
+        jsxSingleQuote: false,
+        trailingComma: 'all',
+        bracketSpacing: true,
+        jsxBracketSameLine: false,
+        arrowParens: 'always',
+        proseWrap: 'preserve',
+        htmlWhitespaceSensitivity: 'css',
+        endOfLine: 'lf',
+      },
+    ],
     // import config
     'import/order': 'off',
     'import/extensions': 'off',
