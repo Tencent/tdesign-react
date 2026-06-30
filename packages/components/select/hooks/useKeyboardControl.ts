@@ -115,6 +115,10 @@ export default function useKeyboardControl({
         handleKeyboardScroll(newIndex);
         break;
       case 'Enter': {
+        // The Enter that confirms an IME composition should not select the hovered
+        // option, the same way TagInput skips adding a tag while composing.
+        if (e.nativeEvent.isComposing) break;
+
         if (!innerPopupVisible) {
           handlePopupVisibleChange(true, { e });
           break;

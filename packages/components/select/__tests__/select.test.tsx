@@ -332,6 +332,36 @@ describe('Select 组件测试', () => {
     expect(document.querySelector(popupSelector)).toHaveTextContent('无数据');
   });
 
+  test('Enter 确认输入法候选词时不应选中高亮选项', () => {
+    const onChange = vi.fn();
+    const imeOptions = [
+      { label: 'Apple', value: 'apple' },
+      { label: 'Banana', value: 'banana' },
+    ];
+    const ImeSelect = () => (
+      <Select filterable onChange={onChange} placeholder="ime-select">
+        {imeOptions.map((item, index) => (
+          <Option key={index} label={item.label} value={item.value} />
+        ))}
+      </Select>
+    );
+    const { getByPlaceholderText } = render(<ImeSelect />);
+    const input = getByPlaceholderText('ime-select');
+
+    // 打开下拉并高亮第一项
+    fireEvent.click(input);
+    fireEvent.keyDown(input, { code: 'Enter', key: 'Enter' });
+    fireEvent.keyDown(input, { code: 'ArrowDown', key: 'ArrowDown' });
+
+    // 用于确认输入法候选词的 Enter 不应选中选项
+    fireEvent.keyDown(input, { code: 'Enter', key: 'Enter', isComposing: true });
+    expect(onChange).not.toHaveBeenCalled();
+
+    // 普通 Enter 仍然选中高亮项
+    fireEvent.keyDown(input, { code: 'Enter', key: 'Enter' });
+    expect(onChange).toHaveBeenCalledWith('apple', expect.anything());
+  });
+
   test('远程搜索测试', async () => {
     const user = userEvent.setup();
     render(<RemoteSearchSelect />);
