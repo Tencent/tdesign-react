@@ -16,6 +16,35 @@ describe('Textarea 组件测试', () => {
     expect(container.querySelectorAll('.t-is-disabled')).not.toBeNull();
   });
 
+  test('clearable', async () => {
+    const clearFn = vi.fn();
+    const { container } = render(<Textarea defaultValue="hello" clearable onClear={clearFn} />);
+    fireEvent.mouseEnter(container.querySelector('.t-textarea'));
+    const clearIcon = container.querySelector('.t-textarea__clear');
+    expect(clearIcon).toBeInTheDocument();
+    fireEvent.click(clearIcon);
+    expect(document.querySelector('textarea').value).toBe('');
+    expect(clearFn).toBeCalledTimes(1);
+  });
+
+  test('clearable can not work when mouseLeave', async () => {
+    const { container } = render(<Textarea defaultValue="hello" clearable />);
+    fireEvent.mouseEnter(container.querySelector('.t-textarea'));
+    expect(container.querySelector('.t-textarea__clear')).toBeInTheDocument();
+    fireEvent.mouseLeave(container.querySelector('.t-textarea'));
+    expect(container.querySelector('.t-textarea__clear')).not.toBeInTheDocument();
+  });
+
+  test('clearable hidden when disabled or readonly', async () => {
+    const { container: disabledContainer } = render(<Textarea value="hello" clearable disabled />);
+    fireEvent.mouseEnter(disabledContainer.querySelector('.t-textarea'));
+    expect(disabledContainer.querySelector('.t-textarea__clear')).not.toBeInTheDocument();
+
+    const { container: readonlyContainer } = render(<Textarea value="hello" clearable readOnly />);
+    fireEvent.mouseEnter(readonlyContainer.querySelector('.t-textarea'));
+    expect(readonlyContainer.querySelector('.t-textarea__clear')).not.toBeInTheDocument();
+  });
+
   // 测试输入
   test('input', async () => {
     render(<Textarea maxcharacter={5} />);
@@ -26,17 +55,23 @@ describe('Textarea 组件测试', () => {
     fireEvent.change(document.querySelector('textarea'), { target: { value } });
     expect(document.querySelector('textarea').textContent).toBe(value);
 
-    fireEvent.change(document.querySelector('textarea'), { target: { value: 'hi,tzmax' } });
+    fireEvent.change(document.querySelector('textarea'), {
+      target: { value: 'hi,tzmax' },
+    });
     expect(document.querySelector('textarea').textContent.length).toBe(5);
 
     const onChange = vi.fn();
     const { container } = render(<Textarea maxLength={1} onChange={onChange} />);
     fireEvent.compositionStart(container.querySelector('textarea'));
-    fireEvent.change(container.querySelector('textarea'), { target: { value: 'tian' } });
+    fireEvent.change(container.querySelector('textarea'), {
+      target: { value: 'tian' },
+    });
     fireEvent.compositionEnd(container.querySelector('textarea'), {
       currentTarget: { value: '天' },
     });
-    fireEvent.change(container.querySelector('textarea'), { target: { value: '天' } });
+    fireEvent.change(container.querySelector('textarea'), {
+      target: { value: '天' },
+    });
     expect(onChange).toHaveBeenLastCalledWith('天', expect.objectContaining({}));
   });
 
@@ -82,7 +117,9 @@ describe('Textarea 组件测试', () => {
 
     event = null;
     changeValue = '';
-    fireEvent.change(document.querySelector('textarea'), { target: { value: 'hi,tzmax' } });
+    fireEvent.change(document.querySelector('textarea'), {
+      target: { value: 'hi,tzmax' },
+    });
     expect(changeValue).not.toBeNull();
     expect(event).not.toBeNull();
   });
