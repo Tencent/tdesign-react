@@ -11,6 +11,7 @@ style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 allowInputOverMax | Boolean | false | 超出 `maxlength` 或 `maxcharacter` 之后是否还允许输入 | N
 autofocus | Boolean | false | 自动聚焦，拉起键盘 | N
 autosize | Boolean / Object | false | 高度自动撑开。 autosize = true 表示组件高度自动撑开，同时，依旧允许手动拖高度。如果设置了 autosize.maxRows 或者 autosize.minRows 则不允许手动调整高度。TS 类型：`boolean \| { minRows?: number; maxRows?: number }` | N
+clearable | Boolean | false | 是否可清空 | N
 count | Boolean / Function | - | 文字计数元素。设置 `maxlength` 或 `maxchanacter` 时，默认为 true。TS 类型：`boolean \| ((ctx: { value: string; count: number; maxLength?: number; maxCharacter?: number }) => TNode)`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 disabled | Boolean | false | 是否禁用文本框 | N
 maxcharacter | Number | - | 用户最多可以输入的字符个数，一个中文汉字表示两个字符长度 | N
@@ -23,7 +24,8 @@ tips | TNode | - | 输入框下方提示文本，会根据不同的 `status` 呈
 value | String | - | 文本框值。TS 类型：`TextareaValue` `type TextareaValue = string`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/textarea/type.ts) | N
 defaultValue | String | - | 文本框值。非受控属性。TS 类型：`TextareaValue` `type TextareaValue = string`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/textarea/type.ts) | N
 onBlur | Function |  | TS 类型：`(value: TextareaValue, context: { e: FocusEvent }) => void`<br/>失去焦点时触发 | N
-onChange | Function |  | TS 类型：`(value: TextareaValue, context?: { e?: InputEvent }) => void`<br/>输入内容变化时触发 | N
+onClear | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>清空按钮点击时触发 | N
+onChange | Function |  | TS 类型：`(value: TextareaValue, context?: { e?: InputEvent \| MouseEvent; trigger?: 'input' \| 'initial' \| 'clear' }) => void`<br/>输入内容变化时触发 | N
 onFocus | Function |  | TS 类型：`(value: TextareaValue, context : { e: FocusEvent }) => void`<br/>获得焦点时触发 | N
 onKeydown | Function |  | TS 类型：`(value: TextareaValue, context: { e: KeyboardEvent }) => void`<br/>键盘按下时触发 | N
 onKeypress | Function |  | TS 类型：`(value: TextareaValue, context: { e: KeyboardEvent }) => void`<br/>按下字符键时触发（keydown -> keypress -> keyup） | N
