@@ -60,7 +60,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   } = props;
   const hasMaxcharacter = typeof maxcharacter !== 'undefined';
 
-  const [value = '', setValue] = useControlled(props, 'value', props.onChange);
+  const [value = '', setValue] = useControlled(props, 'value', props.onChange || noop);
 
   const [isFocused, setIsFocused] = useState(false);
   const [isHover, setIsHover] = useState(false);
