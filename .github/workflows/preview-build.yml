@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ github.event.number }} > pr-id.txt
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: pr-id
           path: pr-id.txt
@@ -30,7 +30,7 @@ jobs:
 
       - run: pnpm -C packages/tdesign-react/site run preview
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: tdesign-react-site
           path: packages/tdesign-react/site/dist
@@ -53,7 +53,7 @@ jobs:
 
       - run: pnpm -C packages/tdesign-react-aigc/site run preview
       
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: tdesign-react-chat-site
           path: packages/tdesign-react-aigc/site/dist
