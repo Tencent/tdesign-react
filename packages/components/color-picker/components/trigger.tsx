@@ -11,7 +11,7 @@ import type { TdColorContext } from '../interface';
 
 export interface ColorTriggerProps extends Pick<
   TdColorPickerProps,
-  'disabled' | 'inputProps' | 'borderless' | 'clearable' | 'onClear'
+  'disabled' | 'inputProps' | 'isInput' | 'borderless' | 'clearable' | 'onClear'
 > {
   value?: string;
   onChange?: (v?: string, context?: TdColorContext) => {};
@@ -19,7 +19,14 @@ export interface ColorTriggerProps extends Pick<
 
 const ColorPickerTrigger = (props: ColorTriggerProps) => {
   const baseClassName = useClassName();
-  const { disabled = false, borderless = false, inputProps = { autoWidth: true }, clearable, onClear } = props;
+  const {
+    disabled = false,
+    borderless = false,
+    inputProps = { autoWidth: true },
+    isInput = true,
+    clearable,
+    onClear,
+  } = props;
 
   const handleChange = (input: string) => {
     if (input !== props.value) {
@@ -31,7 +38,11 @@ const ColorPickerTrigger = (props: ColorTriggerProps) => {
   };
 
   return (
-    <div className={`${baseClassName}__trigger--default`}>
+    <div
+      className={classNames(`${baseClassName}__trigger--default`, {
+        [`${baseClassName}__trigger--default--no-input`]: !isInput,
+      })}
+    >
       <Input
         borderless={borderless}
         clearable={clearable}

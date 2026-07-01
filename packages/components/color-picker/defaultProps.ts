@@ -12,6 +12,7 @@ export const colorPickerDefaultProps: TdColorPickerProps = {
   enableAlpha: false,
   enableMultipleGradient: true,
   format: 'RGB',
+  isInput: true,
   defaultRecentColors: [],
   showPrimaryColorPreview: true,
   swatchColors: undefined,

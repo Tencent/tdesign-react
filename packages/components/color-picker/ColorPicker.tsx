@@ -13,7 +13,7 @@ import type { ColorPickerProps, TdColorContext } from './interface';
 
 const ColorPicker: React.FC<ColorPickerProps> = (props) => {
   const baseClassName = useClassName();
-  const { popupProps, clearable, disabled, borderless, inputProps, onChange, onClear, colorModes, ...rest } =
+  const { popupProps, clearable, disabled, borderless, inputProps, isInput, onChange, onClear, colorModes, ...rest } =
     useDefaultProps<ColorPickerProps>(props, colorPickerDefaultProps);
   const { overlayClassName, overlayInnerStyle = {}, ...restPopupProps } = popupProps || {};
 
@@ -55,6 +55,7 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
           disabled={disabled}
           borderless={borderless}
           inputProps={inputProps}
+          isInput={isInput}
           value={innerValue}
           onChange={setInnerValue}
           onClear={onClear}

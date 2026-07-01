@@ -4,10 +4,10 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { InputProps } from '../input';
-import { PopupProps } from '../popup';
-import { SelectInputProps } from '../select-input';
-import { MouseEvent } from 'react';
+import { InputProps } from "../input";
+import { PopupProps } from "../popup";
+import { SelectInputProps } from "../select-input";
+import { MouseEvent } from "react";
 
 export interface TdColorPickerProps {
   /**
@@ -24,7 +24,7 @@ export interface TdColorPickerProps {
    * 颜色模式选择。同时支持单色和渐变两种模式，可仅使用单色或者渐变其中一种模式，也可以同时使用。`monochrome` 表示单色，`linear-gradient` 表示渐变色
    * @default ["monochrome", "linear-gradient"]
    */
-  colorModes?: Array<'monochrome' | 'linear-gradient'>;
+  colorModes?: Array<"monochrome" | "linear-gradient">;
   /**
    * 是否禁用组件
    */
@@ -43,11 +43,26 @@ export interface TdColorPickerProps {
    * 格式化色值。`enableAlpha` 为真时，`HEX8/RGBA/HSLA/HSVA` 有效
    * @default RGB
    */
-  format?: 'HEX' | 'HEX8' | 'RGB' | 'RGBA' | 'HSL' | 'HSLA' | 'HSV' | 'HSVA' | 'CMYK' | 'CSS';
+  format?:
+    | "HEX"
+    | "HEX8"
+    | "RGB"
+    | "RGBA"
+    | "HSL"
+    | "HSLA"
+    | "HSV"
+    | "HSVA"
+    | "CMYK"
+    | "CSS";
   /**
    * 透传 Input 输入框组件全部属性
    */
   inputProps?: InputProps;
+  /**
+   * 是否显示颜色值输入框
+   * @default true
+   */
+  isInput?: boolean;
   /**
    * 透传 Popup 组件全部属性，如 `placement` `overlayStyle` `overlayClassName` `trigger`等
    */
@@ -88,7 +103,10 @@ export interface TdColorPickerProps {
   /**
    * 选中的色值发生变化时触发，第一个参数 `value` 表示新色值，`context.color` 表示当前调色板控制器的色值，`context.trigger` 表示触发颜色变化的来源
    */
-  onChange?: (value: string, context: { color: ColorObject; trigger: ColorPickerChangeTrigger }) => void;
+  onChange?: (
+    value: string,
+    context: { color: ColorObject; trigger: ColorPickerChangeTrigger }
+  ) => void;
   /**
    * 清空按钮点击时触发
    */
@@ -104,14 +122,14 @@ export interface TdColorPickerProps {
 }
 
 export type ColorPickerChangeTrigger =
-  | 'palette-saturation-brightness'
-  | 'palette-saturation'
-  | 'palette-brightness'
-  | 'palette-hue-bar'
-  | 'palette-alpha-bar'
-  | 'input'
-  | 'preset'
-  | 'recent';
+  | "palette-saturation-brightness"
+  | "palette-saturation"
+  | "palette-brightness"
+  | "palette-hue-bar"
+  | "palette-alpha-bar"
+  | "input"
+  | "preset"
+  | "recent";
 
 export interface ColorObject {
   alpha: number;
