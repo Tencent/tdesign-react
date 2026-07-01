@@ -18,7 +18,12 @@ export default function CustomTagExample() {
           <span>
             <img
               src="https://tdesign.gtimg.com/site/avatar.jpg"
-              style={{ maxWidth: '18px', maxHeight: '18px', borderRadius: '50%', verticalAlign: 'text-top' }}
+              style={{
+                maxWidth: '18px',
+                maxHeight: '18px',
+                borderRadius: '50%',
+                verticalAlign: 'text-top',
+              }}
             />
             {value}
           </span>
@@ -38,7 +43,12 @@ export default function CustomTagExample() {
               <div>
                 <img
                   src="https://tdesign.gtimg.com/site/avatar.jpg"
-                  style={{ maxWidth: '18px', maxHeight: '18px', borderRadius: '50%', verticalAlign: 'text-top' }}
+                  style={{
+                    maxWidth: '18px',
+                    maxHeight: '18px',
+                    borderRadius: '50%',
+                    verticalAlign: 'text-top',
+                  }}
                 />
                 {item}
               </div>

@@ -98982,13 +98982,13 @@ exports[`csr snapshot test > csr test packages/components/steps/_example/vertica
       class="t-steps t-steps--dot-anchor t-steps--vertical t-steps--reverse t-steps--line-separator"
     >
       <div
-        class="t-steps-item t-steps-item--wait"
+        class="t-steps-item t-steps-item--finish"
       >
         <div
           class="t-steps-item__inner t-steps-item--clickable"
         >
           <div
-            class="t-steps-item__icon t-steps-item-default"
+            class="t-steps-item__icon t-steps-item-finish"
           />
           <div
             class="t-steps-item__content"
@@ -98997,6 +98997,31 @@ exports[`csr snapshot test > csr test packages/components/steps/_example/vertica
               class="t-steps-item__title"
             >
               未进行的步骤
+            </div>
+            <div
+              class="t-steps-item__description"
+            >
+              这里是提示文字
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-steps-item t-steps-item--finish"
+      >
+        <div
+          class="t-steps-item__inner t-steps-item--clickable"
+        >
+          <div
+            class="t-steps-item__icon t-steps-item-finish"
+          />
+          <div
+            class="t-steps-item__content"
+          >
+            <div
+              class="t-steps-item__title"
+            >
+              进行中的步骤
             </div>
             <div
               class="t-steps-item__description"
@@ -99021,31 +99046,6 @@ exports[`csr snapshot test > csr test packages/components/steps/_example/vertica
             <div
               class="t-steps-item__title"
             >
-              进行中的步骤
-            </div>
-            <div
-              class="t-steps-item__description"
-            >
-              这里是提示文字
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="t-steps-item t-steps-item--finish"
-      >
-        <div
-          class="t-steps-item__inner t-steps-item--clickable"
-        >
-          <div
-            class="t-steps-item__icon t-steps-item-finish"
-          />
-          <div
-            class="t-steps-item__content"
-          >
-            <div
-              class="t-steps-item__title"
-            >
               已完成的步骤
             </div>
             <div
@@ -99057,13 +99057,13 @@ exports[`csr snapshot test > csr test packages/components/steps/_example/vertica
         </div>
       </div>
       <div
-        class="t-steps-item t-steps-item--finish"
+        class="t-steps-item t-steps-item--wait"
       >
         <div
           class="t-steps-item__inner t-steps-item--clickable"
         >
           <div
-            class="t-steps-item__icon t-steps-item-finish"
+            class="t-steps-item__icon t-steps-item-default"
           />
           <div
             class="t-steps-item__content"
@@ -99242,18 +99242,37 @@ exports[`csr snapshot test > csr test packages/components/steps/_example/vertica
       class="t-steps t-steps--default-anchor t-steps--vertical t-steps--reverse t-steps--line-separator"
     >
       <div
-        class="t-steps-item t-steps-item--wait"
+        class="t-steps-item t-steps-item--finish"
       >
         <div
           class="t-steps-item__inner t-steps-item--clickable"
         >
           <div
-            class="t-steps-item__icon t-steps-item-default"
+            class="t-steps-item__icon t-steps-item-finish"
           >
             <span
               class="t-steps-item__icon--number"
             >
-              4
+              <svg
+                class="t-icon t-icon-check"
+                fill="none"
+                height="1em"
+                style="fill: none;"
+                viewBox="0 0 24 24"
+                width="1em"
+              >
+                <g
+                  id="check"
+                >
+                  <path
+                    d="M19.5708 7.37842L10.3785 16.5708L5.42871 11.6211"
+                    id="stroke1"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                </g>
+              </svg>
             </span>
           </div>
           <div
@@ -99263,6 +99282,56 @@ exports[`csr snapshot test > csr test packages/components/steps/_example/vertica
               class="t-steps-item__title"
             >
               未进行的步骤
+            </div>
+            <div
+              class="t-steps-item__description"
+            >
+              这里是提示文字
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-steps-item t-steps-item--finish"
+      >
+        <div
+          class="t-steps-item__inner t-steps-item--clickable"
+        >
+          <div
+            class="t-steps-item__icon t-steps-item-finish"
+          >
+            <span
+              class="t-steps-item__icon--number"
+            >
+              <svg
+                class="t-icon t-icon-check"
+                fill="none"
+                height="1em"
+                style="fill: none;"
+                viewBox="0 0 24 24"
+                width="1em"
+              >
+                <g
+                  id="check"
+                >
+                  <path
+                    d="M19.5708 7.37842L10.3785 16.5708L5.42871 11.6211"
+                    id="stroke1"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                </g>
+              </svg>
+            </span>
+          </div>
+          <div
+            class="t-steps-item__content"
+          >
+            <div
+              class="t-steps-item__title"
+            >
+              进行中的步骤
             </div>
             <div
               class="t-steps-item__description"
@@ -99284,57 +99353,7 @@ exports[`csr snapshot test > csr test packages/components/steps/_example/vertica
             <span
               class="t-steps-item__icon--number"
             >
-              3
-            </span>
-          </div>
-          <div
-            class="t-steps-item__content"
-          >
-            <div
-              class="t-steps-item__title"
-            >
-              进行中的步骤
-            </div>
-            <div
-              class="t-steps-item__description"
-            >
-              这里是提示文字
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="t-steps-item t-steps-item--finish"
-      >
-        <div
-          class="t-steps-item__inner t-steps-item--clickable"
-        >
-          <div
-            class="t-steps-item__icon t-steps-item-finish"
-          >
-            <span
-              class="t-steps-item__icon--number"
-            >
-              <svg
-                class="t-icon t-icon-check"
-                fill="none"
-                height="1em"
-                style="fill: none;"
-                viewBox="0 0 24 24"
-                width="1em"
-              >
-                <g
-                  id="check"
-                >
-                  <path
-                    d="M19.5708 7.37842L10.3785 16.5708L5.42871 11.6211"
-                    id="stroke1"
-                    stroke="currentColor"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                  />
-                </g>
-              </svg>
+              2
             </span>
           </div>
           <div
@@ -99354,37 +99373,18 @@ exports[`csr snapshot test > csr test packages/components/steps/_example/vertica
         </div>
       </div>
       <div
-        class="t-steps-item t-steps-item--finish"
+        class="t-steps-item t-steps-item--wait"
       >
         <div
           class="t-steps-item__inner t-steps-item--clickable"
         >
           <div
-            class="t-steps-item__icon t-steps-item-finish"
+            class="t-steps-item__icon t-steps-item-default"
           >
             <span
               class="t-steps-item__icon--number"
             >
-              <svg
-                class="t-icon t-icon-check"
-                fill="none"
-                height="1em"
-                style="fill: none;"
-                viewBox="0 0 24 24"
-                width="1em"
-              >
-                <g
-                  id="check"
-                >
-                  <path
-                    d="M19.5708 7.37842L10.3785 16.5708L5.42871 11.6211"
-                    id="stroke1"
-                    stroke="currentColor"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                  />
-                </g>
-              </svg>
+              1
             </span>
           </div>
           <div
@@ -135788,6 +135788,122 @@ exports[`csr snapshot test > csr test packages/components/tag-input/_example/exc
                 </g>
               </svg>
             </div>
+            <div
+              class="t-tag t-tag--default t-tag--dark"
+            >
+              <span
+                title="Angular"
+              >
+                Angular
+              </span>
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                style="fill: none;"
+                viewBox="0 0 24 24"
+                width="1em"
+              >
+                <g
+                  id="close"
+                >
+                  <path
+                    d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
+                    id="stroke1"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                </g>
+              </svg>
+            </div>
+            <div
+              class="t-tag t-tag--default t-tag--dark"
+            >
+              <span
+                title="Miniprogram"
+              >
+                Miniprogram
+              </span>
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                style="fill: none;"
+                viewBox="0 0 24 24"
+                width="1em"
+              >
+                <g
+                  id="close"
+                >
+                  <path
+                    d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
+                    id="stroke1"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                </g>
+              </svg>
+            </div>
+            <div
+              class="t-tag t-tag--default t-tag--dark"
+            >
+              <span
+                title="Uniapp"
+              >
+                Uniapp
+              </span>
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                style="fill: none;"
+                viewBox="0 0 24 24"
+                width="1em"
+              >
+                <g
+                  id="close"
+                >
+                  <path
+                    d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
+                    id="stroke1"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                </g>
+              </svg>
+            </div>
+            <div
+              class="t-tag t-tag--default t-tag--dark"
+            >
+              <span
+                title="Flutter"
+              >
+                Flutter
+              </span>
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                style="fill: none;"
+                viewBox="0 0 24 24"
+                width="1em"
+              >
+                <g
+                  id="close"
+                >
+                  <path
+                    d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
+                    id="stroke1"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                </g>
+              </svg>
+            </div>
           </div>
           <input
             class="t-input__inner"
@@ -135856,6 +135972,122 @@ exports[`csr snapshot test > csr test packages/components/tag-input/_example/exc
                 title="React"
               >
                 React
+              </span>
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                style="fill: none;"
+                viewBox="0 0 24 24"
+                width="1em"
+              >
+                <g
+                  id="close"
+                >
+                  <path
+                    d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
+                    id="stroke1"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                </g>
+              </svg>
+            </div>
+            <div
+              class="t-tag t-tag--default t-tag--dark"
+            >
+              <span
+                title="Angular"
+              >
+                Angular
+              </span>
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                style="fill: none;"
+                viewBox="0 0 24 24"
+                width="1em"
+              >
+                <g
+                  id="close"
+                >
+                  <path
+                    d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
+                    id="stroke1"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                </g>
+              </svg>
+            </div>
+            <div
+              class="t-tag t-tag--default t-tag--dark"
+            >
+              <span
+                title="Miniprogram"
+              >
+                Miniprogram
+              </span>
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                style="fill: none;"
+                viewBox="0 0 24 24"
+                width="1em"
+              >
+                <g
+                  id="close"
+                >
+                  <path
+                    d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
+                    id="stroke1"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                </g>
+              </svg>
+            </div>
+            <div
+              class="t-tag t-tag--default t-tag--dark"
+            >
+              <span
+                title="Uniapp"
+              >
+                Uniapp
+              </span>
+              <svg
+                class="t-icon t-icon-close t-tag__icon-close"
+                fill="none"
+                height="1em"
+                style="fill: none;"
+                viewBox="0 0 24 24"
+                width="1em"
+              >
+                <g
+                  id="close"
+                >
+                  <path
+                    d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029"
+                    id="stroke1"
+                    stroke="currentColor"
+                    stroke-linecap="square"
+                    stroke-width="2"
+                  />
+                </g>
+              </svg>
+            </div>
+            <div
+              class="t-tag t-tag--default t-tag--dark"
+            >
+              <span
+                title="Flutter"
+              >
+                Flutter
               </span>
               <svg
                 class="t-icon t-icon-close t-tag__icon-close"
@@ -154395,9 +154627,9 @@ exports[`ssr snapshot test > ssr test packages/components/steps/_example/sequenc
 
 exports[`ssr snapshot test > ssr test packages/components/steps/_example/status.tsx 1`] = `"<div style="width:100%;gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div class="t-steps t-steps--default-anchor t-steps--horizontal t-steps--positive t-steps--line-separator"><div class="t-steps-item t-steps-item--finish"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-finish"><span class="t-steps-item__icon--number"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-check" style="fill:none"><g id="check"><path id="stroke1" stroke="currentColor" d="M19.5708 7.37842L10.3785 16.5708L5.42871 11.6211" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div><div class="t-steps-item__content"><div class="t-steps-item__title">已完成的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--process"><div class="t-steps-item__inner"><div class="t-steps-item__icon t-steps-item-process"><span class="t-steps-item__icon--number">2</span></div><div class="t-steps-item__content"><div class="t-steps-item__title">进行中的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--wait"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-default"><span class="t-steps-item__icon--number">3</span></div><div class="t-steps-item__content"><div class="t-steps-item__title">未进行的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--wait"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-default"><span class="t-steps-item__icon--number">4</span></div><div class="t-steps-item__content"><div class="t-steps-item__title">未进行的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div></div></div><div class="t-space-item"><div class="t-steps t-steps--default-anchor t-steps--horizontal t-steps--positive t-steps--line-separator"><div class="t-steps-item t-steps-item--finish"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-finish"><span class="t-steps-item__icon--number"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-check" style="fill:none"><g id="check"><path id="stroke1" stroke="currentColor" d="M19.5708 7.37842L10.3785 16.5708L5.42871 11.6211" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div><div class="t-steps-item__content"><div class="t-steps-item__title">已完成的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--process"><div class="t-steps-item__inner"><div class="t-steps-item__icon t-steps-item-process"><span class="t-steps-item__icon--number">2</span></div><div class="t-steps-item__content"><div class="t-steps-item__title">进行中的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--error"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-error"><span class="t-steps-item__icon--number"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div><div class="t-steps-item__content"><div class="t-steps-item__title">错误的步骤</div><div class="t-steps-item__description">优先展示\`t-step\`中设置的 status</div></div></div></div><div class="t-steps-item t-steps-item--wait"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-default"><span class="t-steps-item__icon--number">4</span></div><div class="t-steps-item__content"><div class="t-steps-item__title">未进行的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div></div></div></div>"`;
 
-exports[`ssr snapshot test > ssr test packages/components/steps/_example/vertical-no-sequence.tsx 1`] = `"<div style="display:flex;justify-content:space-between"><div class="t-steps t-steps--dot-anchor t-steps--vertical t-steps--positive t-steps--line-separator"><div class="t-steps-item t-steps-item--finish"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-finish"></div><div class="t-steps-item__content"><div class="t-steps-item__title">已完成的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--process"><div class="t-steps-item__inner"><div class="t-steps-item__icon t-steps-item-process"></div><div class="t-steps-item__content"><div class="t-steps-item__title">进行中的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--wait"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-default"></div><div class="t-steps-item__content"><div class="t-steps-item__title">未进行的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--wait"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-default"></div><div class="t-steps-item__content"><div class="t-steps-item__title">未进行的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div></div><div class="t-steps t-steps--dot-anchor t-steps--vertical t-steps--reverse t-steps--line-separator"><div class="t-steps-item t-steps-item--wait"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-default"></div><div class="t-steps-item__content"><div class="t-steps-item__title">未进行的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--process"><div class="t-steps-item__inner"><div class="t-steps-item__icon t-steps-item-process"></div><div class="t-steps-item__content"><div class="t-steps-item__title">进行中的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--finish"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-finish"></div><div class="t-steps-item__content"><div class="t-steps-item__title">已完成的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--finish"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-finish"></div><div class="t-steps-item__content"><div class="t-steps-item__title">已完成的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div></div></div>"`;
+exports[`ssr snapshot test > ssr test packages/components/steps/_example/vertical-no-sequence.tsx 1`] = `"<div style="display:flex;justify-content:space-between"><div class="t-steps t-steps--dot-anchor t-steps--vertical t-steps--positive t-steps--line-separator"><div class="t-steps-item t-steps-item--finish"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-finish"></div><div class="t-steps-item__content"><div class="t-steps-item__title">已完成的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--process"><div class="t-steps-item__inner"><div class="t-steps-item__icon t-steps-item-process"></div><div class="t-steps-item__content"><div class="t-steps-item__title">进行中的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--wait"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-default"></div><div class="t-steps-item__content"><div class="t-steps-item__title">未进行的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--wait"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-default"></div><div class="t-steps-item__content"><div class="t-steps-item__title">未进行的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div></div><div class="t-steps t-steps--dot-anchor t-steps--vertical t-steps--reverse t-steps--line-separator"><div class="t-steps-item t-steps-item--finish"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-finish"></div><div class="t-steps-item__content"><div class="t-steps-item__title">未进行的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--finish"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-finish"></div><div class="t-steps-item__content"><div class="t-steps-item__title">进行中的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--process"><div class="t-steps-item__inner"><div class="t-steps-item__icon t-steps-item-process"></div><div class="t-steps-item__content"><div class="t-steps-item__title">已完成的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--wait"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-default"></div><div class="t-steps-item__content"><div class="t-steps-item__title">已完成的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div></div></div>"`;
 
-exports[`ssr snapshot test > ssr test packages/components/steps/_example/vertical-sequence.tsx 1`] = `"<div style="display:flex;justify-content:space-between"><div class="t-steps t-steps--default-anchor t-steps--vertical t-steps--positive t-steps--line-separator"><div class="t-steps-item t-steps-item--finish"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-finish"><span class="t-steps-item__icon--number"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-check" style="fill:none"><g id="check"><path id="stroke1" stroke="currentColor" d="M19.5708 7.37842L10.3785 16.5708L5.42871 11.6211" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div><div class="t-steps-item__content"><div class="t-steps-item__title">已完成的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--process"><div class="t-steps-item__inner"><div class="t-steps-item__icon t-steps-item-process"><span class="t-steps-item__icon--number">2</span></div><div class="t-steps-item__content"><div class="t-steps-item__title">进行中的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--wait"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-default"><span class="t-steps-item__icon--number">3</span></div><div class="t-steps-item__content"><div class="t-steps-item__title">未进行的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--wait"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-default"><span class="t-steps-item__icon--number">4</span></div><div class="t-steps-item__content"><div class="t-steps-item__title">未进行的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div></div><div class="t-steps t-steps--default-anchor t-steps--vertical t-steps--reverse t-steps--line-separator"><div class="t-steps-item t-steps-item--wait"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-default"><span class="t-steps-item__icon--number">4</span></div><div class="t-steps-item__content"><div class="t-steps-item__title">未进行的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--process"><div class="t-steps-item__inner"><div class="t-steps-item__icon t-steps-item-process"><span class="t-steps-item__icon--number">3</span></div><div class="t-steps-item__content"><div class="t-steps-item__title">进行中的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--finish"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-finish"><span class="t-steps-item__icon--number"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-check" style="fill:none"><g id="check"><path id="stroke1" stroke="currentColor" d="M19.5708 7.37842L10.3785 16.5708L5.42871 11.6211" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div><div class="t-steps-item__content"><div class="t-steps-item__title">已完成的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--finish"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-finish"><span class="t-steps-item__icon--number"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-check" style="fill:none"><g id="check"><path id="stroke1" stroke="currentColor" d="M19.5708 7.37842L10.3785 16.5708L5.42871 11.6211" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div><div class="t-steps-item__content"><div class="t-steps-item__title">已完成的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div></div></div>"`;
+exports[`ssr snapshot test > ssr test packages/components/steps/_example/vertical-sequence.tsx 1`] = `"<div style="display:flex;justify-content:space-between"><div class="t-steps t-steps--default-anchor t-steps--vertical t-steps--positive t-steps--line-separator"><div class="t-steps-item t-steps-item--finish"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-finish"><span class="t-steps-item__icon--number"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-check" style="fill:none"><g id="check"><path id="stroke1" stroke="currentColor" d="M19.5708 7.37842L10.3785 16.5708L5.42871 11.6211" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div><div class="t-steps-item__content"><div class="t-steps-item__title">已完成的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--process"><div class="t-steps-item__inner"><div class="t-steps-item__icon t-steps-item-process"><span class="t-steps-item__icon--number">2</span></div><div class="t-steps-item__content"><div class="t-steps-item__title">进行中的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--wait"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-default"><span class="t-steps-item__icon--number">3</span></div><div class="t-steps-item__content"><div class="t-steps-item__title">未进行的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--wait"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-default"><span class="t-steps-item__icon--number">4</span></div><div class="t-steps-item__content"><div class="t-steps-item__title">未进行的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div></div><div class="t-steps t-steps--default-anchor t-steps--vertical t-steps--reverse t-steps--line-separator"><div class="t-steps-item t-steps-item--finish"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-finish"><span class="t-steps-item__icon--number"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-check" style="fill:none"><g id="check"><path id="stroke1" stroke="currentColor" d="M19.5708 7.37842L10.3785 16.5708L5.42871 11.6211" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div><div class="t-steps-item__content"><div class="t-steps-item__title">未进行的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--finish"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-finish"><span class="t-steps-item__icon--number"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-check" style="fill:none"><g id="check"><path id="stroke1" stroke="currentColor" d="M19.5708 7.37842L10.3785 16.5708L5.42871 11.6211" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div><div class="t-steps-item__content"><div class="t-steps-item__title">进行中的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--process"><div class="t-steps-item__inner"><div class="t-steps-item__icon t-steps-item-process"><span class="t-steps-item__icon--number">2</span></div><div class="t-steps-item__content"><div class="t-steps-item__title">已完成的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div><div class="t-steps-item t-steps-item--wait"><div class="t-steps-item__inner t-steps-item--clickable"><div class="t-steps-item__icon t-steps-item-default"><span class="t-steps-item__icon--number">1</span></div><div class="t-steps-item__content"><div class="t-steps-item__title">已完成的步骤</div><div class="t-steps-item__description">这里是提示文字</div></div></div></div></div></div>"`;
 
 exports[`ssr snapshot test > ssr test packages/components/sticky-tool/_example/base.tsx 1`] = `"<div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><div style="position:relative;overflow:hidden;right:-420px;bottom:0px" class="t-sticky-tool t-sticky-tool--square"><div class="t-sticky-item t-sticky-item--square t-sticky-item--normal"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-chat" style="fill:none"><g id="chat"><path id="fill1" fill="transparent" d="M2.5 3H21.5V17H6.5L2.5 20.5V3Z"></path><path id="stroke1" stroke="currentColor" d="M2.5 3H21.5V17H6.5L2.5 20.5V3Z" stroke-linecap="square" stroke-width="2"></path></g></svg><div class="t-sticky-item__label">chat</div></div><div class="t-sticky-item t-sticky-item--square t-sticky-item--normal"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-add" style="fill:none"><g id="add"><path id="stroke1" stroke="currentColor" d="M12 5L12 19M19 12L5 12" stroke-linecap="square" stroke-width="2"></path></g></svg><div class="t-sticky-item__label">add</div></div><div class="t-sticky-item t-sticky-item--square t-sticky-item--normal"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-qrcode" style="fill:none"><g id="qrcode"><g id="fill1"><path fill="transparent" d="M3 14H10V21H3V14Z"></path><path fill="transparent" d="M3 3H10V10H3V3Z"></path><path fill="transparent" d="M14 3H21V10H14V3Z"></path></g><g id="stroke1"><path stroke="currentColor" d="M3 14H10V21H3V14Z" stroke-width="2"></path><path stroke="currentColor" d="M3 3H10V10H3V3Z" stroke-width="2"></path><path stroke="currentColor" d="M14 3H21V10H14V3Z" stroke-width="2"></path><path stroke="currentColor" d="M6.5 6.5H6.50391V6.50391H6.5V6.5Z" stroke-width="2"></path><path stroke="currentColor" d="M6.5 17.5H6.50391V17.5039H6.5V17.5Z" stroke-width="2"></path><path stroke="currentColor" d="M17.5 6.5H17.5039V6.50391H17.5V6.5Z" stroke-width="2"></path></g><g id="stroke2"><path stroke="currentColor" d="M13.9961 13.9961H14V14H13.9961V13.9961Z" stroke-width="2"></path><path stroke="currentColor" d="M16.9961 16.9961H17V17H16.9961V16.9961Z" stroke-width="2"></path><path stroke="currentColor" d="M18.9961 18.9961H19V19H18.9961V18.9961Z" stroke-width="2"></path><path stroke="currentColor" d="M20.9961 13.9961H21V14H20.9961V13.9961Z" stroke-width="2"></path><path stroke="currentColor" d="M20.9961 20.9961H21V21H20.9961V20.9961Z" stroke-width="2"></path><path stroke="currentColor" d="M13.9961 20.9961H14V21H13.9961V20.9961Z" stroke-width="2"></path></g></g></svg><div class="t-sticky-item__label">qrcode</div></div></div></div></div>"`;
 
@@ -154549,7 +154781,7 @@ exports[`ssr snapshot test > ssr test packages/components/tag-input/_example/cus
 
 exports[`ssr snapshot test > ssr test packages/components/tag-input/_example/draggable.tsx 1`] = `"<div style="width:80%;gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input--with-tag t-tag-input--drag-sort" value="" spellcheck="false"><div class="t-input t-align-left t-input--prefix"><div class="t-input__prefix"><div class="t-tag t-tag--default t-tag--dark" draggable="true"><span title="Vue">Vue</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--default t-tag--dark" draggable="true"><span title="React">React</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--default t-tag--dark" draggable="true"><span title="Angular">Angular</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div></div><input placeholder="" type="text" class="t-input__inner" value=""/><span class="t-input__input-pre"></span></div></div></div><div class="t-space-item"><div class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input--with-tag t-tag-input--drag-sort" value="" spellcheck="false"><div class="t-input t-align-left t-input--prefix"><div class="t-input__prefix"><div class="t-tag-input__prefix">Controlled: </div><div class="t-tag t-tag--default t-tag--dark" draggable="true"><span title="Vue">Vue</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--default t-tag--dark" draggable="true"><span title="React">React</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--default t-tag--dark" draggable="true"><span title="Angular">Angular</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--default t-tag--dark" draggable="true"><span title="Miniprogram">Miniprogram</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div></div><input placeholder="" type="text" class="t-input__inner" value=""/><span class="t-input__input-pre"></span></div></div></div></div>"`;
 
-exports[`ssr snapshot test > ssr test packages/components/tag-input/_example/excess.tsx 1`] = `"<div style="width:80%;gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div class="t-input__wrap t-tag-input t-tag-input--with-tag" value="" spellcheck="false"><div class="t-input t-align-left t-input--prefix"><div class="t-input__prefix"><div class="t-tag-input__prefix">Scroll: </div><div class="t-tag t-tag--default t-tag--dark"><span title="Vue">Vue</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--default t-tag--dark"><span title="React">React</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div></div><input placeholder="" type="text" class="t-input__inner" value=""/><span class="t-input__input-pre"></span></div></div></div><div class="t-space-item"><div class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input--with-tag" value="" spellcheck="false"><div class="t-input t-align-left t-input--prefix"><div class="t-input__prefix"><div class="t-tag-input__prefix">BreakLine: </div><div class="t-tag t-tag--default t-tag--dark"><span title="Vue">Vue</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--default t-tag--dark"><span title="React">React</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div></div><input placeholder="" type="text" class="t-input__inner" value=""/><span class="t-input__input-pre"></span></div></div></div></div>"`;
+exports[`ssr snapshot test > ssr test packages/components/tag-input/_example/excess.tsx 1`] = `"<div style="width:80%;gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div class="t-input__wrap t-tag-input t-tag-input--with-tag" value="" spellcheck="false"><div class="t-input t-align-left t-input--prefix"><div class="t-input__prefix"><div class="t-tag-input__prefix">Scroll: </div><div class="t-tag t-tag--default t-tag--dark"><span title="Vue">Vue</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--default t-tag--dark"><span title="React">React</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--default t-tag--dark"><span title="Angular">Angular</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--default t-tag--dark"><span title="Miniprogram">Miniprogram</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--default t-tag--dark"><span title="Uniapp">Uniapp</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--default t-tag--dark"><span title="Flutter">Flutter</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div></div><input placeholder="" type="text" class="t-input__inner" value=""/><span class="t-input__input-pre"></span></div></div></div><div class="t-space-item"><div class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input--with-tag" value="" spellcheck="false"><div class="t-input t-align-left t-input--prefix"><div class="t-input__prefix"><div class="t-tag-input__prefix">BreakLine: </div><div class="t-tag t-tag--default t-tag--dark"><span title="Vue">Vue</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--default t-tag--dark"><span title="React">React</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--default t-tag--dark"><span title="Angular">Angular</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--default t-tag--dark"><span title="Miniprogram">Miniprogram</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--default t-tag--dark"><span title="Uniapp">Uniapp</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--default t-tag--dark"><span title="Flutter">Flutter</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div></div><input placeholder="" type="text" class="t-input__inner" value=""/><span class="t-input__input-pre"></span></div></div></div></div>"`;
 
 exports[`ssr snapshot test > ssr test packages/components/tag-input/_example/max.tsx 1`] = `"<div style="width:100%"><div class="t-input__wrap t-tag-input t-tag-input--break-line t-is-empty" value="" spellcheck="false"><div class="t-input t-align-left t-input--prefix"><div class="t-input__prefix"></div><input placeholder="最多只能输入 3 个标签" type="text" class="t-input__inner" value=""/><span class="t-input__input-pre">最多只能输入 3 个标签</span></div></div></div>"`;
 
