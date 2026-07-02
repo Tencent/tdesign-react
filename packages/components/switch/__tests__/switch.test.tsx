@@ -26,6 +26,25 @@ describe('Switch 组件测试', () => {
     const { container } = render(<Switch size="small" />);
     expect(container.firstChild.classList.contains('t-size-s')).toBeTruthy();
   });
+  test('shape', async () => {
+    const { container, rerender, queryByText } = render(<Switch label={['开', '关']} />);
+    expect(container.firstChild.classList.contains('t-switch--shape-circle')).toBeTruthy();
+    expect(queryByText('关')).toBeInTheDocument();
+
+    rerender(<Switch shape="round" />);
+    expect(container.firstChild.classList.contains('t-switch--shape-round')).toBeTruthy();
+
+    rerender(<Switch shape="line" label={['开', '关']} size="small" loading />);
+    expect(container.firstChild.classList.contains('t-switch--shape-line')).toBeTruthy();
+    expect(container.firstChild.classList.contains('t-size-s')).toBeTruthy();
+    expect(container.firstChild.classList.contains('t-is-loading')).toBeTruthy();
+    expect(queryByText('关')).not.toBeInTheDocument();
+    expect(container.querySelector('.t-switch__content')).toBeFalsy();
+
+    const label = vi.fn(() => '关');
+    rerender(<Switch shape="line" label={label} />);
+    expect(label).not.toBeCalled();
+  });
 
   test('disabled', async () => {
     const clickFn = vi.fn();

@@ -26,6 +26,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((originalProps, 
     defaultValue,
     disabled,
     loading,
+    shape,
     size,
     label,
     customValue,
@@ -40,13 +41,14 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((originalProps, 
   const [innerChecked, setInnerChecked] = useState(initChecked);
 
   const contentNode = React.useMemo<React.ReactNode>(() => {
+    if (shape === 'line') return null;
     if (Array.isArray(label)) {
       const [activeContent = '', inactiveContent = ''] = label;
       const content = innerChecked ? activeContent : inactiveContent;
       return parseTNode(content, { value });
     }
     return parseTNode(label, { value });
-  }, [label, innerChecked, value]);
+  }, [label, innerChecked, shape, value]);
 
   const handleChange = (e: React.MouseEvent) => {
     !isControlled && setInnerChecked(!innerChecked);
@@ -84,6 +86,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((originalProps, 
   const { SIZE, STATUS } = useCommonClassName();
   const switchClassName = classNames(
     `${classPrefix}-switch`,
+    `${classPrefix}-switch--shape-${shape}`,
     className,
     {
       [STATUS.checked]: innerChecked,
@@ -104,7 +107,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((originalProps, 
       onClick={onInternalClick}
     >
       <span className={`${classPrefix}-switch__handle`}>{loading && <Loading loading size="small" />}</span>
-      <div className={`${classPrefix}-switch__content`}>{contentNode}</div>
+      {shape !== 'line' && <div className={`${classPrefix}-switch__content`}>{contentNode}</div>}
     </button>
   );
 });
