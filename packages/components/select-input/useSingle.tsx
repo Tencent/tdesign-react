@@ -58,15 +58,17 @@ export default function useSingle(props: SelectInputProps) {
   const blurTimeoutRef = useRef(null);
   const customElementRef = useRef<HTMLSpanElement>(null);
 
+  // 以下三个状态仅在 allowInput=true 时有意义
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const [labelWidth, setLabelWidth] = useState<number>(0);
   const [suffixSpace, setSuffixSpace] = useState<number>(0);
 
   const singleValueDisplay = useMemo(() => valueDisplay ?? getOptionLabel(value, keys), [value, valueDisplay, keys]);
 
+  // allowInput=true 时 DOM 结构采用 absolute 覆盖层实现
   const showCustomElement = useMemo(
-    () => !isTyping && !inputValue && React.isValidElement(singleValueDisplay),
-    [isTyping, inputValue, singleValueDisplay],
+    () => allowInput && !isTyping && !inputValue && React.isValidElement(singleValueDisplay),
+    [allowInput, isTyping, inputValue, singleValueDisplay],
   );
 
   const onInnerClear = (context: { e: React.MouseEvent<SVGSVGElement> }) => {
@@ -82,14 +84,16 @@ export default function useSingle(props: SelectInputProps) {
   };
 
   useEffect(() => {
+    if (!allowInput) return;
     const labelEl = inputRef.current?.currentElement.querySelector(`.${classPrefix}-input__prefix`);
     if (labelEl) {
       const prefixWidth = labelEl.getBoundingClientRect().width;
       setLabelWidth(prefixWidth);
     }
-  }, [label, classPrefix]);
+  }, [allowInput, label, classPrefix]);
 
   useEffect(() => {
+    if (!allowInput) return;
     const inputEl = inputRef.current?.inputElement;
     if (!inputEl) return;
     // autoWidth 且存在自定义元素时需要撑开宽度
@@ -98,32 +102,16 @@ export default function useSingle(props: SelectInputProps) {
       return;
     }
     const el = customElementRef.current;
-
-    const measure = () => {
-      // 测量真实内容宽度时，临时强制 nowrap，避免被父级容器（受 suffixSpace 影响）压缩换行导致测量值偏小
-      const prevWhiteSpace = el.style.whiteSpace;
-      el.style.whiteSpace = 'nowrap';
-      const { width } = el.getBoundingClientRect();
-      el.style.whiteSpace = prevWhiteSpace;
-      inputEl.style.minWidth = width > 0 ? `${width}px` : '';
-    };
-
-    measure();
-
-    let ro: ResizeObserver | null = null;
-    if (typeof ResizeObserver !== 'undefined') {
-      ro = new ResizeObserver(() => {
-        measure();
-      });
-      ro.observe(el);
-    }
-
-    return () => {
-      ro?.disconnect();
-    };
-  }, [autoWidth, showCustomElement, singleValueDisplay]);
+    // 测量真实内容宽度时，临时强制 nowrap，避免被父级容器（受 suffixSpace 影响）压缩换行导致测量值偏小
+    const prevWhiteSpace = el.style.whiteSpace;
+    el.style.whiteSpace = 'nowrap';
+    const { width } = el.getBoundingClientRect();
+    el.style.whiteSpace = prevWhiteSpace;
+    inputEl.style.minWidth = width > 0 ? `${width}px` : '';
+  }, [allowInput, autoWidth, showCustomElement, singleValueDisplay]);
 
   useEffect(() => {
+    if (!allowInput) return;
     // 避免内容延伸盖到右侧的 suffixIcon 区域，需要测量 input 右侧到 wrapper 右侧的距离作为 right 留白
     if (!showCustomElement) {
       setSuffixSpace(0);
@@ -149,7 +137,7 @@ export default function useSingle(props: SelectInputProps) {
       wrapperEl.removeEventListener('mouseenter', measure);
       wrapperEl.removeEventListener('mouseleave', measure);
     };
-  }, [showCustomElement, singleValueDisplay, clearable, suffixIcon, props.suffix]);
+  }, [allowInput, showCustomElement, singleValueDisplay, clearable, suffixIcon, props.suffix]);
 
   const renderSelectSingle = (
     popupVisible: boolean,
@@ -182,7 +170,54 @@ export default function useSingle(props: SelectInputProps) {
       // !popupVisible && setInputValue(getInputValue(value, keys), { ...context, trigger: 'input' });
     };
 
+    const sharedInputProps = {
+      ref: inputRef,
+      ...commonInputProps,
+      autocomplete: 'off' as const,
+      autoWidth,
+      style: inputProps?.style,
+      onChange: onInnerInputChange,
+      onClear: onInnerClear,
+      onFocus: handleFocus,
+      onEnter: (val, context) => {
+        props.onEnter?.(value, { ...context, inputValue: val });
+      },
+      onBlur: handleBlur,
+      ...inputProps,
+      inputClass: classNames(inputProps?.inputClass, {
+        [`${classPrefix}-input--focused`]: popupVisible,
+        [`${classPrefix}-is-focused`]: popupVisible,
+      }),
+    };
+
+    // allowInput=false 且 singleValueDisplay 是 React 元素，直接放进 label，不需要 absolute
+    // (历史实现，避免 DOM 结构变更，保留原有逻辑，大版本可考虑彻底统一)
+    const isStaticCustomElement = !allowInput && React.isValidElement(singleValueDisplay);
+
+    if (isStaticCustomElement) {
+      return (
+        <Input
+          {...sharedInputProps}
+          showClearIconOnEmpty={clearable}
+          allowInput={false}
+          label={
+            (label || singleValueDisplay) && (
+              <>
+                {label}
+                {singleValueDisplay as React.ReactNode}
+              </>
+            )
+          }
+          value=" "
+          placeholder=""
+        />
+      );
+    }
+
     const displayedValue = (): string => {
+      if (inputProps?.value !== undefined) {
+        return inputProps.value;
+      }
       if (popupVisible && inputValue) {
         return inputValue;
       }
@@ -200,7 +235,7 @@ export default function useSingle(props: SelectInputProps) {
         return singleValueDisplay;
       }
       if (showCustomElement) return '';
-      return props.placeholder;
+      return inputProps?.placeholder ?? props.placeholder;
     };
 
     const labelNode = showCustomElement ? (
@@ -233,11 +268,9 @@ export default function useSingle(props: SelectInputProps) {
 
     return (
       <Input
-        ref={inputRef}
+        {...sharedInputProps}
         // 当 valueDisplay 为 自定义元素时，选中内容时 input 依旧为空，确保此时 clear icon 可见
         showClearIconOnEmpty={clearable && showCustomElement}
-        {...commonInputProps}
-        autocomplete="off"
         suffix={
           labelNode ||
           (commonInputProps.suffix && (
@@ -247,22 +280,10 @@ export default function useSingle(props: SelectInputProps) {
             </>
           ))
         }
-        autoWidth={autoWidth}
-        style={inputProps?.style}
         allowInput={allowInput}
         label={label}
         value={displayedValue()}
         placeholder={displayedPlaceholder()}
-        onChange={onInnerInputChange}
-        onClear={onInnerClear}
-        // [Important Info]: SelectInput.blur is not equal to Input, example: click popup panel
-        onFocus={handleFocus}
-        onEnter={(val, context) => {
-          props.onEnter?.(value, { ...context, inputValue: val });
-        }}
-        // onBlur need to triggered by input when popup panel is null or when popupVisible is forced to false
-        onBlur={handleBlur}
-        {...inputProps}
         onCompositionstart={(v, ctx) => {
           setIsTyping(true);
           inputProps?.onCompositionstart?.(v, ctx);
@@ -271,10 +292,6 @@ export default function useSingle(props: SelectInputProps) {
           setIsTyping(false);
           inputProps?.onCompositionend?.(v, ctx);
         }}
-        inputClass={classNames(inputProps?.inputClass, {
-          [`${classPrefix}-input--focused`]: popupVisible,
-          [`${classPrefix}-is-focused`]: popupVisible,
-        })}
       />
     );
   };
