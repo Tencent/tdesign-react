@@ -56,7 +56,9 @@ describe('Switch 组件测试', () => {
   test('onChange', async () => {
     const clickFn = vi.fn();
     const { container } = render(<Switch onChange={clickFn} />);
+    expect(container.firstChild).toHaveAttribute('aria-checked', 'false');
     fireEvent.click(container.firstChild);
+    expect(container.firstChild).toHaveAttribute('aria-checked', 'true');
     expect(clickFn).toBeCalledTimes(1);
   });
 
