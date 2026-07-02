@@ -253,8 +253,6 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
       ref={wrapperRef}
       className={classNames(`${classPrefix}-textarea`, className, {
         [`${classPrefix}-textarea--clearable`]: clearable,
-        [`${classPrefix}-is-disabled`]: disabled,
-        [`${classPrefix}-is-readonly`]: isReadonly,
       })}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
