@@ -98,12 +98,29 @@ export default function useSingle(props: SelectInputProps) {
       return;
     }
     const el = customElementRef.current;
-    // 测量真实内容宽度时，临时强制 nowrap，避免被父级容器（受 suffixSpace 影响）压缩换行导致测量值偏小
-    const prevWhiteSpace = el.style.whiteSpace;
-    el.style.whiteSpace = 'nowrap';
-    const { width } = el.getBoundingClientRect();
-    el.style.whiteSpace = prevWhiteSpace;
-    inputEl.style.minWidth = width > 0 ? `${width}px` : '';
+
+    const measure = () => {
+      // 测量真实内容宽度时，临时强制 nowrap，避免被父级容器（受 suffixSpace 影响）压缩换行导致测量值偏小
+      const prevWhiteSpace = el.style.whiteSpace;
+      el.style.whiteSpace = 'nowrap';
+      const { width } = el.getBoundingClientRect();
+      el.style.whiteSpace = prevWhiteSpace;
+      inputEl.style.minWidth = width > 0 ? `${width}px` : '';
+    };
+
+    measure();
+
+    let ro: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== 'undefined') {
+      ro = new ResizeObserver(() => {
+        measure();
+      });
+      ro.observe(el);
+    }
+
+    return () => {
+      ro?.disconnect();
+    };
   }, [autoWidth, showCustomElement, singleValueDisplay]);
 
   useEffect(() => {

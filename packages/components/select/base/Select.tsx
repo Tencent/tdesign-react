@@ -202,7 +202,11 @@ const Select = forwardRefWithStatics(
       const handleRemove = (removeIndex, trigger, e, label) => {
         const values = getSelectValueArr(value, value[removeIndex], true, valueType, keys);
         const { currentSelectedOptions } = getSelectedOptions(values, multiple, valueType, keys, valueToOption);
-        onChange(values, { e, trigger, selectedOptions: currentSelectedOptions });
+        onChange(values, {
+          e,
+          trigger,
+          selectedOptions: currentSelectedOptions,
+        });
         onRemove?.({
           value: value[removeIndex],
           data: {
@@ -356,7 +360,9 @@ const Select = forwardRefWithStatics(
         return;
       }
       if (isFunction(onSearch)) {
-        onSearch(value, { e: context.e as React.KeyboardEvent<HTMLDivElement> });
+        onSearch(value, {
+          e: context.e as React.KeyboardEvent<HTMLDivElement>,
+        });
         return;
       }
     };
@@ -482,7 +488,10 @@ const Select = forwardRefWithStatics(
       if (multiple) {
         return ({ onClose }) => parseContentTNode(valueDisplay, { value: selectedOptions, onClose });
       }
-      return parseContentTNode(valueDisplay, { value: selectedLabel, onClose: noop });
+      return parseContentTNode(valueDisplay, {
+        value: selectedLabel,
+        onClose: noop,
+      });
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
       valueDisplay,
@@ -556,7 +565,7 @@ const Select = forwardRefWithStatics(
           autoWidth={!style?.width && autoWidth}
           ref={composeRefs(ref, selectInputRef)}
           className={name}
-          readonly={readOnly}
+          readOnly={readOnly}
           autofocus={props.autofocus}
           allowInput={(filterable ?? local.filterable) || isFunction(filter)}
           multiple={multiple}
@@ -602,7 +611,10 @@ const Select = forwardRefWithStatics(
           onFocus={onFocus}
           onEnter={handleEnter}
           onBlur={(_, context) => {
-            onBlur?.({ value, e: context.e as React.FocusEvent<HTMLDivElement> });
+            onBlur?.({
+              value,
+              e: context.e as React.FocusEvent<HTMLDivElement>,
+            });
           }}
           onClear={handleClear}
           {...selectInputProps}
