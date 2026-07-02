@@ -23,7 +23,8 @@ const COMMON_PROPERTIES = [
   'disabled',
   'label',
   'placeholder',
-  'readonly',
+  'readonly', // to be deprecated
+  'readOnly',
   'suffix',
   'suffixIcon',
   'onPaste',
