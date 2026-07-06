@@ -1,8 +1,8 @@
-import _Breadcrumb from './Breadcrumb';
-
 import './style/index.js';
 
-export type { BreadcrumbProps, BreadcrumbItemProps } from './BreadcrumbProps';
+import _Breadcrumb from './Breadcrumb';
+
+export type { BreadcrumbItemProps, BreadcrumbProps } from './BreadcrumbProps';
 export * from './type';
 
 export const Breadcrumb = _Breadcrumb;

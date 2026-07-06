@@ -1,4 +1,6 @@
-import { useRef, useEffect, MutableRefObject } from 'react';
+import { useEffect, useRef } from 'react';
+
+import type { MutableRefObject } from 'react';
 
 type StyleVariables = Record<string, string>;
 

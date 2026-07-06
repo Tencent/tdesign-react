@@ -1,6 +1,8 @@
 import React from 'react';
 import { Divider, Space } from 'tdesign-react';
-import { AIMessage, ChatMessage } from '@tdesign-react/chat';
+import { ChatMessage } from '@tdesign-react/chat';
+
+import type { AIMessage } from '@tdesign-react/chat';
 
 const messages: Record<string, AIMessage> = {
   loading: {

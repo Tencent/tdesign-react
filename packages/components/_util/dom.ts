@@ -1,5 +1,7 @@
 import { isString } from 'lodash-es';
+
 import { getCssVarsValue } from './style';
+
 import type { AttachNode } from '../common';
 
 // 用于判断是否可使用 dom

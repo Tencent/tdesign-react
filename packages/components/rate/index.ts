@@ -1,6 +1,6 @@
-import _Rate from './Rate';
-
 import './style/index.js';
+
+import _Rate from './Rate';
 
 export type { RateProps } from './Rate';
 export * from './type';

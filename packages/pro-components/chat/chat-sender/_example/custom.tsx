@@ -1,9 +1,12 @@
-import { TdAttachmentItem } from 'tdesign-web-components';
 import React, { useRef, useState } from 'react';
-import { EnterIcon, InternetIcon, AttachIcon, CloseIcon, ArrowUpIcon, StopIcon } from 'tdesign-icons-react';
+import { ArrowUpIcon, AttachIcon, CloseIcon, EnterIcon, InternetIcon, StopIcon } from 'tdesign-icons-react';
+import { Button, Dropdown, Space, Tag, Tooltip } from 'tdesign-react';
 import { ChatSender } from '@tdesign-react/chat';
-import { Space, Button, Tag, Dropdown, Tooltip, UploadFile } from 'tdesign-react';
+
 import { useDynamicStyle } from '../../_util/useDynamicStyle';
+
+import type { UploadFile } from 'tdesign-react';
+import type { TdAttachmentItem } from 'tdesign-web-components';
 
 const options = [
   {

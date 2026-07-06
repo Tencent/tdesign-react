@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { isArray, isFunction } from 'lodash-es';
 import {
@@ -7,26 +7,44 @@ import {
   MirrorIcon as TdMirrorIcon,
   RotationIcon as TdRotationIcon,
 } from 'tdesign-icons-react';
-
+import { isImageExceedsViewport } from '@tdesign/common-js/image-viewer/transform';
 import { downloadImage } from '@tdesign/common-js/image-viewer/utils';
 import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number';
+
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useImagePreviewUrl from '../hooks/useImagePreviewUrl';
 import Image from '../image';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TooltipLite } from '../tooltip';
-import { ImageModalMini } from './ImageViewerMini';
 import useIconMap from './hooks/useIconMap';
 import useIndex from './hooks/useIndex';
 import useMirror from './hooks/useMirror';
 import usePosition from './hooks/usePosition';
 import useRotate from './hooks/useRotate';
 import useScale from './hooks/useScale';
+import { ImageModalMini } from './ImageViewerMini';
 
 import type { TNode } from '../common';
+import type { PositionType } from './hooks/usePosition';
 import type { ImageViewerProps } from './ImageViewer';
 import type { ImageInfo, ImageScale, ImageViewerScale, TdImageViewerProps } from './type';
+
+/** ImageModalItem 暴露给父组件的接口 */
+export interface ImageModalItemRef {
+  /** modal-box 容器 DOM 引用 */
+  modalBoxRef: React.RefObject<HTMLDivElement>;
+  /** 当前位移（ref，始终最新） */
+  positionRef: React.RefObject<PositionType>;
+  /** 设置位移 */
+  setPosition: React.Dispatch<React.SetStateAction<PositionType>>;
+  /** 重置位移 */
+  resetPosition: () => void;
+  /** 是否正在拖拽（ref，始终最新） */
+  isDraggingRef: React.RefObject<boolean>;
+  /** 启用向中心缩放动画（CSS 类名驱动） */
+  enableTransition: () => void;
+}
 
 const ImageError = ({ errorText }: { errorText: string }) => {
   const { classPrefix } = useConfig();
@@ -55,143 +73,193 @@ interface ImageModalItemProps {
 }
 
 // 单个弹窗实例
-export const ImageModalItem: React.FC<ImageModalItemProps> = ({
-  rotateZ,
-  scale,
-  src,
-  preSrc,
-  mirror,
-  errorText,
-  imageReferrerpolicy,
-  isSvg,
-  innerClassName,
-}) => {
-  const { classPrefix } = useConfig();
+export const ImageModalItem = React.forwardRef<ImageModalItemRef, ImageModalItemProps>(
+  ({ rotateZ, scale, src, preSrc, mirror, errorText, imageReferrerpolicy, isSvg, innerClassName }, ref) => {
+    const { classPrefix } = useConfig();
 
-  const imgRef = useRef<HTMLImageElement>(null);
-  const svgRef = useRef<HTMLDivElement>(null);
+    const imgRef = useRef<HTMLImageElement>(null);
+    const svgRef = useRef<HTMLDivElement>(null);
+    const modalBoxRef = useRef<HTMLDivElement>(null);
 
-  const [loaded, setLoaded] = useState(false);
-  const [error, setError] = useState(false);
+    const [loaded, setLoaded] = useState(false);
+    const [error, setError] = useState(false);
 
-  const imgStyle = {
-    transform: `rotateZ(${rotateZ}deg) scale(${scale})`,
-    display: !preSrc || loaded ? 'block' : 'none',
-  };
+    const imgStyle: React.CSSProperties = {
+      transform: `rotateZ(${rotateZ}deg) scale(${scale})`,
+      display: !preSrc || loaded ? 'block' : 'none',
+    };
 
-  const { previewUrl: preSrcImagePreviewUrl } = useImagePreviewUrl(preSrc);
-  const { previewUrl: mainImagePreviewUrl } = useImagePreviewUrl(src);
+    const { previewUrl: preSrcImagePreviewUrl } = useImagePreviewUrl(preSrc);
+    const { previewUrl: mainImagePreviewUrl } = useImagePreviewUrl(src);
 
-  const displayRef = useMemo(() => {
-    if (isSvg) return svgRef;
-    return imgRef;
-  }, [isSvg]);
-  const { position } = usePosition(displayRef);
-  const preImgStyle = { transform: `rotateZ(${rotateZ}deg) scale(${scale})`, display: !loaded ? 'block' : 'none' };
-  const boxStyle = { transform: `translate(${position[0]}px, ${position[1]}px) scale(${mirror}, 1)` };
+    const displayRef = useMemo(() => {
+      if (isSvg) return svgRef;
+      return imgRef;
+    }, [isSvg]);
+    // positionRef / isDraggingRef 由 usePosition 内部维护并直接返回
+    const { position, positionRef, setPosition, resetPosition, isDraggingRef } = usePosition(displayRef);
 
-  const createSvgShadow = async (url: string) => {
-    const response = await fetch(url);
-    if (!response.ok) {
-      setError(true);
-      throw new Error(`Failed to fetch SVG: ${response.statusText}`);
-    }
+    const preImgStyle: React.CSSProperties = {
+      transform: `rotateZ(${rotateZ}deg) scale(${scale})`,
+      display: !loaded ? 'block' : 'none',
+    };
+    const boxStyle: React.CSSProperties = {
+      transform: `translate(${position[0]}px, ${position[1]}px) scale(${mirror}, 1)`,
+    };
 
-    const svgText = await response.text();
+    const transitioningClass = `${classPrefix}-image-viewer__modal-box--transitioning`;
+    const transitionEndHandlerRef = useRef<((e: TransitionEvent) => void) | null>(null);
+    const fallbackTimerRef = useRef<ReturnType<typeof setTimeout>>();
 
-    const element = svgRef.current;
-    element.innerHTML = '';
-    element.classList?.add(`${classPrefix}-image-viewer__modal-image-svg`);
-    const shadowRoot = element.attachShadow({ mode: 'closed' });
-
-    const container = document.createElement('div');
-    container.style.background = 'transparent';
-    container.innerHTML = svgText;
-    shadowRoot.appendChild(container);
-
-    const svgElement = container.querySelector('svg');
-    if (svgElement) {
-      const svgViewBox = svgElement.getAttribute('viewBox');
-      if (svgViewBox) {
-        const viewBoxValues = svgViewBox
-          .split(/[\s,]/)
-          .filter((v) => v)
-          .map(parseFloat);
-
-        // svg viewbox x(0) and y(1) offset, width(2) and height(3),eg
-        const svgViewBoxWidth = viewBoxValues[2];
-        const svgViewBoxHeight = viewBoxValues[3];
-        container.style.width = `${svgViewBoxWidth}px`;
-        container.style.height = `${svgViewBoxHeight}px`;
-      } else {
-        const bbox = svgElement.getBBox();
-        const calculatedViewBox = `${bbox.x} ${bbox.y} ${bbox.width} ${bbox.height}`;
-        svgElement.setAttribute('viewBox', calculatedViewBox);
-
-        container.style.width = `${bbox.width}px`;
-        container.style.height = `${bbox.height}px`;
+    const cleanupTransition = useCallback(() => {
+      const modalBox = modalBoxRef.current;
+      if (transitionEndHandlerRef.current && modalBox) {
+        modalBox.removeEventListener('transitionend', transitionEndHandlerRef.current);
       }
-    }
-    setLoaded(true);
-  };
+      transitionEndHandlerRef.current = null;
+      clearTimeout(fallbackTimerRef.current);
+      modalBox?.classList.remove(transitioningClass);
+    }, [transitioningClass]);
 
-  useEffect(() => {
-    setError(false);
-  }, [preSrcImagePreviewUrl, mainImagePreviewUrl]);
+    const enableTransition = useCallback(() => {
+      const modalBox = modalBoxRef.current;
+      if (!modalBox) return;
 
-  useEffect(() => {
-    if (isSvg && mainImagePreviewUrl) {
-      createSvgShadow(mainImagePreviewUrl);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mainImagePreviewUrl]);
+      modalBox.classList.add(transitioningClass);
 
-  return (
-    <div className={classNames(`${classPrefix}-image-viewer__modal-pic`, innerClassName)}>
-      <div className={`${classPrefix}-image-viewer__modal-box`} style={boxStyle}>
-        {error && <ImageError errorText={errorText} />}
-        {/* 预览图 */}
-        {!error && !!preSrc && preSrcImagePreviewUrl && (
-          <img
-            className={`${classPrefix}-image-viewer__modal-image`}
-            src={preSrcImagePreviewUrl}
-            style={preImgStyle}
-            referrerPolicy={imageReferrerpolicy}
-            alt="image"
-            draggable="false"
-          />
-        )}
-        {/* 普通主图 */}
-        {!error && mainImagePreviewUrl && !isSvg && (
-          <img
-            ref={imgRef}
-            className={`${classPrefix}-image-viewer__modal-image`}
-            src={mainImagePreviewUrl}
-            style={imgStyle}
-            onLoad={() => setLoaded(true)}
-            onError={() => setError(true)}
-            referrerPolicy={imageReferrerpolicy}
-            alt="image"
-            draggable="false"
-          />
-        )}
-        {/* SVG 主图 */}
-        {!error && !!mainImagePreviewUrl && isSvg && (
-          <div
-            ref={svgRef}
-            className={`${classPrefix}-image-viewer__modal-image`}
-            style={imgStyle}
-            data-alt="svg"
-            draggable="false"
-          />
-        )}
+      clearTimeout(fallbackTimerRef.current);
+      fallbackTimerRef.current = setTimeout(cleanupTransition, 350);
+
+      const handleTransitionEnd = (e: TransitionEvent) => {
+        if (e.propertyName !== 'transform') return;
+        cleanupTransition();
+      };
+      if (transitionEndHandlerRef.current) {
+        modalBox.removeEventListener('transitionend', transitionEndHandlerRef.current);
+      }
+      transitionEndHandlerRef.current = handleTransitionEnd;
+      modalBox.addEventListener('transitionend', handleTransitionEnd);
+    }, [transitioningClass, cleanupTransition]);
+
+    useEffect(() => cleanupTransition, [cleanupTransition]);
+
+    useImperativeHandle(
+      ref,
+      () => ({
+        modalBoxRef,
+        positionRef,
+        setPosition,
+        resetPosition,
+        isDraggingRef,
+        enableTransition,
+      }),
+      [positionRef, setPosition, isDraggingRef, resetPosition, enableTransition],
+    );
+
+    const createSvgShadow = useCallback(
+      async (url: string) => {
+        const response = await fetch(url);
+        if (!response.ok) {
+          setError(true);
+          throw new Error(`Failed to fetch SVG: ${response.statusText}`);
+        }
+
+        const svgText = await response.text();
+
+        const element = svgRef.current;
+        if (!element) return;
+
+        element.innerHTML = '';
+        element.classList?.add(`${classPrefix}-image-viewer__modal-image-svg`);
+        const shadowRoot = element.attachShadow({ mode: 'closed' });
+
+        const container = document.createElement('div');
+        container.style.background = 'transparent';
+        container.innerHTML = svgText;
+        shadowRoot.appendChild(container);
+
+        const svgElement = container.querySelector('svg');
+        if (svgElement) {
+          const svgViewBox = svgElement.getAttribute('viewBox');
+          if (svgViewBox) {
+            const viewBoxValues = svgViewBox
+              .split(/[\s,]/)
+              .filter((v) => v)
+              .map(parseFloat);
+
+            // svg viewbox x(0) and y(1) offset, width(2) and height(3)
+            container.style.width = `${viewBoxValues[2]}px`;
+            container.style.height = `${viewBoxValues[3]}px`;
+          } else {
+            const bbox = svgElement.getBBox();
+            const calculatedViewBox = `${bbox.x} ${bbox.y} ${bbox.width} ${bbox.height}`;
+            svgElement.setAttribute('viewBox', calculatedViewBox);
+
+            container.style.width = `${bbox.width}px`;
+            container.style.height = `${bbox.height}px`;
+          }
+        }
+        setLoaded(true);
+      },
+      [classPrefix],
+    );
+
+    useEffect(() => {
+      setError(false);
+    }, [preSrcImagePreviewUrl, mainImagePreviewUrl]);
+
+    useEffect(() => {
+      if (isSvg && mainImagePreviewUrl) {
+        createSvgShadow(mainImagePreviewUrl);
+      }
+    }, [isSvg, mainImagePreviewUrl, createSvgShadow]);
+
+    return (
+      <div className={classNames(`${classPrefix}-image-viewer__modal-pic`, innerClassName)}>
+        <div ref={modalBoxRef} className={`${classPrefix}-image-viewer__modal-box`} style={boxStyle}>
+          {error && <ImageError errorText={errorText} />}
+          {/* 预览图 */}
+          {!error && !!preSrc && preSrcImagePreviewUrl && (
+            <img
+              className={`${classPrefix}-image-viewer__modal-image`}
+              src={preSrcImagePreviewUrl}
+              style={preImgStyle}
+              referrerPolicy={imageReferrerpolicy}
+              alt="image"
+              draggable="false"
+            />
+          )}
+          {/* 普通主图 */}
+          {!error && mainImagePreviewUrl && !isSvg && (
+            <img
+              ref={imgRef}
+              className={`${classPrefix}-image-viewer__modal-image`}
+              src={mainImagePreviewUrl}
+              style={imgStyle}
+              onLoad={() => setLoaded(true)}
+              onError={() => setError(true)}
+              referrerPolicy={imageReferrerpolicy}
+              alt="image"
+              draggable="false"
+            />
+          )}
+          {/* SVG 主图 */}
+          {!error && !!mainImagePreviewUrl && isSvg && (
+            <div
+              ref={svgRef}
+              className={`${classPrefix}-image-viewer__modal-image`}
+              style={imgStyle}
+              data-alt="svg"
+              draggable="false"
+            />
+          )}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  },
+);
 
-// 旋转角度单位
-const ROTATE_COUNT = 90;
+ImageModalItem.displayName = 'ImageModalItem';
 
 interface ImageModalIconProps {
   name?: string;
@@ -232,8 +300,8 @@ interface ImageViewerUtilsProps {
   };
   zIndex: number;
   onMirror: () => void;
-  onRotate: (ROTATE_COUNT: number) => void;
-  onZoom: () => void;
+  onRotate: () => void;
+  onZoomIn: () => void;
   onZoomOut: () => void;
   onReset: () => void;
   onDownload?: TdImageViewerProps['onDownload'];
@@ -246,7 +314,7 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
   zIndex,
   onMirror,
   onRotate,
-  onZoom,
+  onZoomIn,
   onZoomOut,
   onReset,
   onDownload,
@@ -277,7 +345,7 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
           showShadow={false}
           zIndex={zIndex}
         >
-          <div className={`${classPrefix}-image-viewer__modal-icon`} onClick={() => onRotate(-ROTATE_COUNT)}>
+          <div className={`${classPrefix}-image-viewer__modal-icon`} onClick={onRotate}>
             <RotationIcon size="medium" />
           </div>
         </TooltipLite>
@@ -287,7 +355,7 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
           size="medium"
           label={`${largeNumberToFixed(String(scale * 100))}%`}
         />
-        <ImageModalIcon size="medium" name="zoom-in" onClick={onZoom} />
+        <ImageModalIcon size="medium" name="zoom-in" onClick={onZoomIn} />
         <TooltipLite
           className={`${classPrefix}-image-viewer__utils--tip`}
           content={tipText.originalSize}
@@ -304,7 +372,6 @@ export const ImageViewerUtils: React.FC<ImageViewerUtilsProps> = ({
             name="download"
             onClick={() => {
               if (isFunction(onDownload)) {
-                // 自定义图片预览下载
                 onDownload(currentImage.mainImage);
                 return;
               }
@@ -442,37 +509,87 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
 
   const { next, prev } = useIndex(props, images);
   const { rotateZ, onResetRotate, onRotate } = useRotate();
-  const { scale, onZoom, onZoomOut, onResetScale } = useScale(imageScale, visible);
   const { mirror, onResetMirror, onMirror } = useMirror();
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const imageItemRef = useRef<ImageModalItemRef>(null);
+
+  // handleWheel 用 ref 存储最新版本，传给 useScale 注册 passive:false 的 wheel 监听
+  const handleWheelRef = useRef<(e: WheelEvent) => void>(null);
+  const stableHandleWheel = useCallback((e: WheelEvent) => handleWheelRef.current?.(e), []);
+
+  const { scale, onZoomIn, onZoomOut, onResetScale } = useScale(imageScale, visible, stableHandleWheel);
+
+  // ⚠️ 不能用 React 的 onWheel —— React 17+ 将 wheel 注册为 passive: true，
+  //    导致 e.preventDefault() 无效，无法阻止页面滚动。
+  // 直接赋值给 ref（无需额外 useCallback，ref 赋值本身不触发重渲染）
+  handleWheelRef.current = (e: WheelEvent) => {
+    e.preventDefault();
+
+    const isZoomOut = e.deltaY > 0;
+    const container = containerRef.current;
+    const modalBox = imageItemRef.current?.modalBoxRef?.current;
+
+    if (isZoomOut && container && modalBox && isImageExceedsViewport(container, modalBox)) {
+      const currentPosition = imageItemRef.current?.positionRef?.current ?? [0, 0];
+      const result = onZoomOut({
+        mouseOffsetX: 0,
+        mouseOffsetY: 0,
+        currentTranslate: {
+          translateX: currentPosition[0],
+          translateY: currentPosition[1],
+        },
+      });
+      if (result?.newTranslate) {
+        imageItemRef.current?.enableTransition?.();
+        imageItemRef.current?.setPosition?.([result.newTranslate.translateX, result.newTranslate.translateY]);
+      }
+    } else {
+      isZoomOut ? onZoomOut() : onZoomIn();
+    }
+  };
+
+  // imageScale 动态变化时重置缩放
+  const isFirstRender = useRef(true);
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    onResetScale();
+  }, [imageScale, onResetScale]);
 
   const onReset = useCallback(() => {
     onResetScale();
     onResetRotate();
     onResetMirror();
+    imageItemRef.current?.resetPosition?.();
   }, [onResetMirror, onResetScale, onResetRotate]);
 
-  const onKeyDown = useCallback(
-    (event) => {
-      switch (event.key) {
-        case 'ArrowRight':
-          return next();
-        case 'ArrowLeft':
-          return prev();
-        case 'ArrowUp':
-          return onZoom();
-        case 'ArrowDown':
-          return onZoomOut();
-        case 'Escape':
-          return closeOnEscKeydown && onClose?.({ trigger: 'esc', e: event });
-      }
-    },
-    [next, onClose, prev, onZoom, onZoomOut, closeOnEscKeydown],
-  );
+  // 用 ref 保存最新的 handlers，避免 keydown listener 因闭包 stale 而丢失事件
+  const keyHandlersRef = useRef({ next, prev, onZoomIn, onZoomOut, onClose, closeOnEscKeydown });
+  keyHandlersRef.current = { next, prev, onZoomIn, onZoomOut, onClose, closeOnEscKeydown };
 
+  const onKeyDown = useCallback((event: KeyboardEvent) => {
+    const handlers = keyHandlersRef.current;
+    const keyActionMap: Partial<Record<string, () => void>> = {
+      ArrowRight: () => handlers.next(),
+      ArrowLeft: () => handlers.prev(),
+      ArrowUp: () => handlers.onZoomIn(),
+      ArrowDown: () => handlers.onZoomOut(),
+      Escape: () =>
+        handlers.closeOnEscKeydown &&
+        handlers.onClose?.({ trigger: 'esc', e: event as unknown as React.KeyboardEvent }),
+    };
+    keyActionMap[event.key]?.();
+  }, []);
+
+  // 弹窗可见时绑定键盘事件，关闭后解绑
   useEffect(() => {
+    if (!visible) return;
     document.addEventListener('keydown', onKeyDown);
     return () => document.removeEventListener('keydown', onKeyDown);
-  }, [onKeyDown]);
+  }, [visible, onKeyDown]);
 
   useEffect(() => {
     onReset();
@@ -514,7 +631,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         next={next}
         onMirror={onMirror}
         onRotate={onRotate}
-        onZoom={onZoom}
+        onZoomIn={onZoomIn}
         onZoomOut={onZoomOut}
         onReset={onReset}
         onClose={onClose}
@@ -522,8 +639,8 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
     );
   }
 
-  // boolean控制显示，tnode直接展示
-  let closeNode: TNode = closeBtn;
+  // boolean 控制显示，tnode 直接展示
+  let closeNode: TNode = null;
   if (closeBtn === true) {
     closeNode = (
       <ImageModalIcon
@@ -533,10 +650,13 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         onClick={(e: React.MouseEvent<HTMLElement>) => onClose && onClose({ trigger: 'close-btn', e })}
       />
     );
-  } else if (isFunction(closeBtn)) closeNode = closeBtn({ onClose, onOpen });
+  } else if (closeBtn !== false) {
+    closeNode = isFunction(closeBtn) ? closeBtn({ onClose, onOpen }) : closeBtn;
+  }
 
   return (
     <div
+      ref={containerRef}
       className={classNames(
         `${classPrefix}-image-viewer-preview-image`,
         {
@@ -585,7 +705,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         tipText={tipText}
         currentImage={currentImage}
         zIndex={zIndex + 1}
-        onZoom={onZoom}
+        onZoomIn={onZoomIn}
         onZoomOut={onZoomOut}
         onDownload={onDownload}
         onRotate={onRotate}
@@ -594,6 +714,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
       />
       {closeNode}
       <ImageModalItem
+        ref={imageItemRef}
         innerClassName={innerClassName}
         scale={scale}
         rotateZ={rotateZ}

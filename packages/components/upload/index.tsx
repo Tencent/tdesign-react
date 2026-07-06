@@ -1,6 +1,8 @@
-import _Upload from './upload';
-import type { TdUploadProps as UploadProps } from './type';
 import './style/index.js';
+
+import _Upload from './upload';
+
+import type { TdUploadProps as UploadProps } from './type';
 
 export const Upload = _Upload;
 

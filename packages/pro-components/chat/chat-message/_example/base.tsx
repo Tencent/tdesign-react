@@ -1,6 +1,8 @@
 import React from 'react';
 import { Space } from 'tdesign-react';
-import { UserMessage, ChatMessage } from '@tdesign-react/chat';
+import { ChatMessage } from '@tdesign-react/chat';
+
+import type { UserMessage } from '@tdesign-react/chat';
 
 const message: UserMessage = {
   id: '1',

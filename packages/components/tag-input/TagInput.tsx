@@ -1,28 +1,23 @@
-import React, {
-  CompositionEvent,
-  forwardRef,
-  KeyboardEvent,
-  MouseEvent,
-  useEffect,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-} from 'react';
-import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-react';
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import classnames from 'classnames';
 import { isFunction } from 'lodash-es';
+import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-react';
+
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useDragSorter from '../hooks/useDragSorter';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import TInput, { type InputRef, type InputValue } from '../input';
+import useUpdateLayoutEffect from '../hooks/useUpdateLayoutEffect';
+import TInput from '../input';
 import { tagInputDefaultProps } from './defaultProps';
 import useHover from './useHover';
 import useTagList from './useTagList';
 import useTagScroll from './useTagScroll';
 
+import type { CompositionEvent, KeyboardEvent, MouseEvent } from 'react';
 import type { StyledProps } from '../common';
+import type { InputRef, InputValue } from '../input';
 import type { TdTagInputProps } from './type';
 
 export interface TagInputProps extends TdTagInputProps, StyledProps {
@@ -86,6 +81,12 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
       getDragProps,
     });
 
+  useUpdateLayoutEffect(() => {
+    if (excessTagsDisplayType === 'scroll') {
+      scrollToRight();
+    }
+  }, [tagValue]);
+
   const NAME_CLASS = `${prefix}-tag-input`;
   const WITH_SUFFIX_ICON_CLASS = `${prefix}-tag-input__with-suffix-icon`;
   const CLEAR_CLASS = `${prefix}-tag-input__suffix-clear`;
@@ -93,9 +94,11 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
 
   const tagInputPlaceholder = !tagValue?.length ? placeholder : '';
 
-  const showClearIcon = Boolean(!readOnly && !disabled && clearable && isHover && tagValue?.length);
+  const showClearIcon = Boolean(!readOnly && !disabled && clearable && isHover && (tagValue?.length || tInputValue));
 
-  useImperativeHandle(ref as InputRef, () => ({ ...(tagInputRef.current || {}) }));
+  useImperativeHandle(ref as InputRef, () => ({
+    ...(tagInputRef.current || {}),
+  }));
 
   const updateSuffixWidth = (selector: string, cssVar: string, widthRef: React.MutableRefObject<number>) => {
     const wrapperEl = tagInputRef.current?.currentElement as HTMLElement;
@@ -118,16 +121,18 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
   };
 
   useEffect(() => {
-    if (!isBreakLine || !suffix) return;
+    if (!isBreakLine) return;
 
-    // 避免 suffix 左侧 与 tag 重合
-    updateSuffixWidth(
-      `.${prefix}-input__suffix:not(.${prefix}-input__suffix-icon)`,
-      `--${prefix}-tag-input-suffix-width`,
-      suffixWidthRef,
-    );
+    if (suffix) {
+      // 避免 suffix 左侧 与 tag 重合
+      updateSuffixWidth(
+        `.${prefix}-input__suffix:not(.${prefix}-input__suffix-icon)`,
+        `--${prefix}-tag-input-suffix-width`,
+        suffixWidthRef,
+      );
+    }
 
-    // 确定 suffix 右侧到 input 边框的距离
+    // 确定 suffixIcon 右侧到 input 边框的距离
     updateSuffixWidth(`.${prefix}-input__suffix-icon`, `--${prefix}-tag-input-suffix-icon-width`, suffixIconWidthRef);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -144,9 +149,11 @@ const TagInput = forwardRef<InputRef, TagInputProps>((originalProps, ref) => {
   };
 
   const onInputEnter = (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => {
+    context.e?.preventDefault?.();
     setTInputValue('', { e: context.e, trigger: 'enter' });
-    !isCompositionRef.current && onInnerEnter(value, context);
-    scrollToRight();
+    if (!isCompositionRef.current) {
+      onInnerEnter(value, context);
+    }
   };
 
   const onInnerClick = (context: { e: MouseEvent<HTMLDivElement> }) => {

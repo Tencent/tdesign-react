@@ -2,20 +2,21 @@ import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
 import { getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
+
 import useConfig from '../../hooks/useConfig';
-import { StyledProps } from '../../common';
-import PanelContent from './PanelContent';
-import ExtraContent from './ExtraContent';
-import type { DateValue, TdDatePickerProps, TdDateRangePickerProps } from '../type';
-import type { TdTimePickerProps } from '../../time-picker';
-import useTableData from '../hooks/useTableData';
-import useDisableDate from '../hooks/useDisableDate';
 import useDefaultProps from '../../hooks/useDefaultProps';
+import useDisableDate from '../hooks/useDisableDate';
+import useTableData from '../hooks/useTableData';
 import { parseToDateTime } from '../utils';
+import ExtraContent from './ExtraContent';
+import PanelContent from './PanelContent';
+
+import type { StyledProps } from '../../common';
+import type { TdTimePickerProps } from '../../time-picker';
+import type { DateValue, TdDatePickerProps, TdDateRangePickerProps } from '../type';
 
 export interface SinglePanelProps
-  extends Omit<TdDatePickerProps, 'enableTimePicker' | 'onYearChange' | 'onMonthChange'>,
-    StyledProps {
+  extends Omit<TdDatePickerProps, 'enableTimePicker' | 'onYearChange' | 'onMonthChange'>, StyledProps {
   year?: number;
   month?: number;
   time?: string;
@@ -63,7 +64,11 @@ const SinglePanel = forwardRef<HTMLDivElement, SinglePanelProps>((originalProps,
     enableTimePicker: props.enableTimePicker,
   });
 
-  const disableDateOptions = useDisableDate({ disableDate: props.disableDate, mode: props.mode, format });
+  const disableDateOptions = useDisableDate({
+    disableDate: props.disableDate,
+    mode: props.mode,
+    format,
+  });
 
   const disableTimeOptions: TdTimePickerProps['disableTime'] = (h: number, m: number, s: number, ms: number) => {
     if (!isFunction(disableTime) || !value) {

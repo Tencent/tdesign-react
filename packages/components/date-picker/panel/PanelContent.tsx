@@ -1,12 +1,14 @@
 import React, { useCallback } from 'react';
 import { getDefaultFormat } from '@tdesign/common-js/date-picker/format';
-import DateHeader from '../base/Header';
-import DateTable from '../base/Table';
-import { TimePickerPanel } from '../../time-picker';
-import type { SinglePanelProps } from './SinglePanel';
-import type { RangePanelProps } from './RangePanel';
+
 import useConfig from '../../hooks/useConfig';
 import useEventCallback from '../../hooks/useEventCallback';
+import { TimePickerPanel } from '../../time-picker';
+import DateHeader from '../base/Header';
+import DateTable from '../base/Table';
+
+import type { RangePanelProps } from './RangePanel';
+import type { SinglePanelProps } from './SinglePanel';
 
 export interface PanelContentProps {
   partial?: 'start' | 'end';

@@ -1,10 +1,10 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import { BrowseIcon, LockOnIcon } from 'tdesign-icons-react';
-
-import { render, fireEvent, waitFor, vi } from '@test/utils';
+import { fireEvent, render, vi, waitFor } from '@test/utils';
 
 import DatePicker from '..';
+
 import type { DateValue } from '../type';
 
 const disableTime = (time: Date) => {

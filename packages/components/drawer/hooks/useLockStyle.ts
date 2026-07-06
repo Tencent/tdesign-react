@@ -1,7 +1,8 @@
-import { useRef, useCallback, useMemo, useEffect } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { getScrollbarWidth } from '@tdesign/common-js/utils/getScrollbarWidth';
-import useLayoutEffect from '../../hooks/useLayoutEffect';
+
 import { hasBodyScrollbar } from '../../_util/scroll';
+import useLayoutEffect from '../../hooks/useLayoutEffect';
 
 let key = 1;
 
@@ -24,7 +25,7 @@ export default function useLockStyle(props) {
         left: `margin: 0 0 0 ${sizeValue}`,
         right: `margin: 0 0 0 -${sizeValue}`,
         bottom: `margin: -${sizeValue} 0 0 0`,
-      }[placement]),
+      })[placement],
     [placement, sizeValue],
   );
 

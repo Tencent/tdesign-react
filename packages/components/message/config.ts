@@ -1,4 +1,7 @@
+import { DEFAULT_DURATION, DEFAULT_Z_INDEX } from '@tdesign/common-js/message/index';
+
 import { messageDefaultProps } from './defaultProps';
+
 import type { MessageOptions } from './type';
 
 /**
@@ -9,12 +12,12 @@ export const globalConfig = {
   top: 32,
 };
 
-// 全局默认配置，zIndex 为 5000，默认关闭时间 3000ms
+// 全局默认配置，zIndex 为 6000，默认关闭时间 3000ms
 let messageDefaultConfig: MessageOptions = {
   ...messageDefaultProps,
-  duration: 3000,
+  duration: DEFAULT_DURATION,
   placement: 'top',
-  zIndex: 5000
+  zIndex: DEFAULT_Z_INDEX,
 };
 
 /**

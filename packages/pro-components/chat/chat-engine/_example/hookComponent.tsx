@@ -1,24 +1,29 @@
-import React, { ReactNode, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { Avatar } from 'tdesign-react';
 import {
-  type SSEChunkData,
-  type TdChatMessageConfig,
-  type AIMessageContent,
-  type ChatRequestParams,
-  type ChatMessagesData,
-  ChatList,
-  ChatSender,
-  ChatMessage,
-  TdChatListApi,
-  TdChatSenderApi,
   ChatActionBar,
-  isAIMessage,
-  getMessageContentForCopy,
-  TdChatSenderParams,
+  ChatList,
   ChatLoading,
-  TdChatActionsName,
+  ChatMessage,
+  ChatSender,
+  getMessageContentForCopy,
+  isAIMessage,
 } from '@tdesign-react/chat';
+
 import { useChat } from '../index';
+
+import type { ReactNode } from 'react';
+import type {
+  AIMessageContent,
+  ChatMessagesData,
+  ChatRequestParams,
+  SSEChunkData,
+  TdChatActionsName,
+  TdChatListApi,
+  TdChatMessageConfig,
+  TdChatSenderApi,
+  TdChatSenderParams,
+} from '@tdesign-react/chat';
 
 export default function ComponentsBuild() {
   const listRef = useRef<TdChatListApi>(null);

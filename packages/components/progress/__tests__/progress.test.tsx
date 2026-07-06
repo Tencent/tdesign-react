@@ -5,10 +5,12 @@
  * @FilePath: /tdesign-react/src/progress/__tests__/progress.test.tsx
  */
 import React from 'react';
-import { render, waitFor } from '@test/utils';
 import { vi } from 'vitest';
+import { render, waitFor } from '@test/utils';
+
 import Progress from '../Progress';
-import { ThemeEnum } from '../type';
+
+import type { ThemeEnum } from '../type';
 
 // Mock ResizeObserver
 const mockResizeObserver = vi.fn().mockImplementation(() => ({

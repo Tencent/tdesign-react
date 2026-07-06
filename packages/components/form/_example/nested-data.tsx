@@ -1,8 +1,8 @@
 import React from 'react';
-import { Form, Input, Radio, Checkbox, Button, MessagePlugin, DatePicker } from 'tdesign-react';
-import type { FormProps } from 'tdesign-react';
-
 import { MinusCircleIcon } from 'tdesign-icons-react';
+import { Button, Checkbox, DatePicker, Form, Input, MessagePlugin, Radio } from 'tdesign-react';
+
+import type { FormProps } from 'tdesign-react';
 
 const { FormItem, FormList } = Form;
 
@@ -80,11 +80,7 @@ export default function BaseForm() {
           <>
             {fields.map(({ key, name }) => (
               <FormItem key={key}>
-                <FormItem
-                  name={[name, 'province']}
-                  label="省份"
-                  rules={[{ required: true, type: 'error' }]}
-                >
+                <FormItem name={[name, 'province']} label="省份" rules={[{ required: true, type: 'error' }]}>
                   <Input />
                 </FormItem>
                 <FormItem name={[name, 'area']} label="地区" rules={[{ required: true, type: 'error' }]}>

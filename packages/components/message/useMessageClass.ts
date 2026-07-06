@@ -1,5 +1,6 @@
 import useConfig from '../hooks/useConfig';
-import { MessagePlacementList } from './type';
+
+import type { MessagePlacementList } from './type';
 
 /**
  * @author kenzyyang

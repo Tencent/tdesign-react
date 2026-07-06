@@ -15,7 +15,8 @@ import { resolve } from 'path';
 import pkg from '../packages/tdesign-react-aigc/package.json';
 
 const name = 'tdesign';
-const externalDeps = Object.keys(pkg.dependencies || {});
+const internalWorkspaceDeps = ['@tdesign/ai-chat-engine', '@tdesign/ai-shared'];
+const externalDeps = Object.keys(pkg.dependencies || {}).filter((dep) => !internalWorkspaceDeps.includes(dep));
 const externalPeerDeps = Object.keys(pkg.peerDependencies || {});
 
 // 分析模式配置

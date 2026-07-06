@@ -1,6 +1,6 @@
-import _Card from './Card';
-
 import './style/index.js';
+
+import _Card from './Card';
 
 export type { CardProps } from './Card';
 

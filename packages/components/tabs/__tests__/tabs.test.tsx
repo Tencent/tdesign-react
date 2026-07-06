@@ -1,9 +1,11 @@
 import React from 'react';
-import { render, waitFor, fireEvent, act, vi } from '@test/utils';
+import { act, fireEvent, render, vi, waitFor } from '@test/utils';
+
+import TabNav from '../TabNav';
 import TabPanel from '../TabPanel';
 import Tabs from '../Tabs';
-import TabNav from '../TabNav';
-import { TdTabsProps } from '../type';
+
+import type { TdTabsProps } from '../type';
 
 describe('Tabs 组件测试', () => {
   test('render Tab bar', async () => {

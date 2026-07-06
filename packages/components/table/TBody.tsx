@@ -1,15 +1,18 @@
 /* eslint-disable no-underscore-dangle */
-import React, { type CSSProperties, type MutableRefObject, type ReactNode, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import { camelCase, get, pick } from 'lodash-es';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { TableClassName } from './hooks/useClassName';
-import useRowspanAndColspan from './hooks/useRowspanAndColspan';
-import TR, { ROW_LISTENERS, TABLE_PROPS, type TrProps } from './TR';
 
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+import useClassName from './hooks/useClassName';
+import useRowspanAndColspan from './hooks/useRowspanAndColspan';
+import TR, { ROW_LISTENERS, TABLE_PROPS } from './TR';
+
+import type { CSSProperties, MutableRefObject, ReactNode } from 'react';
 import type { RowMountedParams, VirtualScrollConfig } from '../hooks/useVirtualScroll';
 import type { PaginationProps } from '../pagination';
 import type { BaseTableProps, RowAndColFixedPosition } from './interface';
+import type { TrProps } from './TR';
 import type { TableRowData, TdBaseTableProps } from './type';
 
 export interface TableBodyProps extends BaseTableProps {
@@ -25,7 +28,6 @@ export interface TableBodyProps extends BaseTableProps {
   isWidthOverflow?: boolean;
   virtualConfig: VirtualScrollConfig;
   pagination?: PaginationProps;
-  allTableClasses?: TableClassName;
   handleRowMounted?: (params: RowMountedParams) => void;
 }
 
@@ -74,7 +76,7 @@ const trProperties = [
 
 export default function TBody(props: TableBodyProps) {
   // 如果不是变量复用，没必要对每一个参数进行解构（解构过程需要单独的内存空间存储临时变量）
-  const { data, columns, rowKey, firstFullRow, lastFullRow, virtualConfig, allTableClasses } = props;
+  const { data, columns, rowKey, firstFullRow, lastFullRow, virtualConfig } = props;
 
   const { isVirtualScroll } = virtualConfig;
   const renderData = isVirtualScroll ? virtualConfig.visibleData : data;
@@ -84,7 +86,7 @@ export default function TBody(props: TableBodyProps) {
   const { skipSpansMap } = useRowspanAndColspan(renderData, columns, rowKey, props.rowspanAndColspan);
   const isSkipSnapsMapNotFinish = Boolean(props.rowspanAndColspan && !skipSpansMap.size);
 
-  const { tableFullRowClasses, tableBaseClass } = allTableClasses;
+  const { tableFullRowClasses, tableBaseClass } = useClassName();
   const tbodyClasses = useMemo(() => [tableBaseClass.body], [tableBaseClass.body]);
   const hasFullRowConfig = useMemo(() => firstFullRow || lastFullRow, [firstFullRow, lastFullRow]);
 

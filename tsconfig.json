@@ -33,7 +33,7 @@
       ],
       "@common/*": [
         "packages/common/*"
-      ]
+      ],
     },
     "allowJs": true,
     "checkJs": true,

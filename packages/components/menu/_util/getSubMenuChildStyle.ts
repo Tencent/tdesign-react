@@ -1,5 +1,6 @@
 import React from 'react';
-import { checkIsSubMenu, checkIsMenuGroup } from './checkMenuType';
+
+import { checkIsMenuGroup, checkIsSubMenu } from './checkMenuType';
 
 export const getSubMenuChildCount = (children: React.ReactNode) => {
   let count = 0;

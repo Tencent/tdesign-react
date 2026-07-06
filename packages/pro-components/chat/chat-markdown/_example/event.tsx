@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ChatMarkdown, findTargetElement } from '@tdesign-react/chat';
 
 const doc = `
@@ -66,7 +66,6 @@ export default function ThinkContentDemo() {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, [isTyping]);
-
 
   return <ChatMarkdown content={displayText} />;
 }

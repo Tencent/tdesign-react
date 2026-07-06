@@ -1,7 +1,7 @@
 import React, { forwardRef, useEffect, useState } from 'react';
 import classNames from 'classnames';
-
 import { fadeIn } from '@tdesign/common-js/message/index';
+
 import noop from '../_util/noop';
 import { usePersistFn } from '../hooks/usePersistFn';
 import MessageClose from './MessageClose';

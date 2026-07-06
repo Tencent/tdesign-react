@@ -1,6 +1,6 @@
-import _Switch from './Switch';
-
 import './style/index.js';
+
+import _Switch from './Switch';
 
 export type { SwitchProps } from './Switch';
 export * from './type';

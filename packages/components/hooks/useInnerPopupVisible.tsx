@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+
 import useConfig from './useConfig';
 
 import type { PopupVisibleChangeContext } from '../popup';

@@ -5,12 +5,14 @@ import {
   genGradientPoint,
   GRADIENT_SLIDER_DEFAULT_WIDTH,
   gradientColors2string,
-  type GradientColorPoint,
 } from '@tdesign/common-js/color-picker/index';
+
 import useCommonClassName from '../../../hooks/useCommonClassName';
 import useMouseEvent from '../../../hooks/useMouseEvent';
 import InputNumber from '../../../input-number';
 import useClassName from '../../hooks/useClassNames';
+
+import type { GradientColorPoint } from '@tdesign/common-js/color-picker/index';
 
 const DELETE_KEYS: string[] = ['delete', 'backspace'];
 

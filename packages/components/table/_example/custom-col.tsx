@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Table, Button, Space, Tag } from 'tdesign-react';
-import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
+import { Button, Space, Table, Tag } from 'tdesign-react';
 
 import type { CheckboxGroupValue, TableProps } from 'tdesign-react';
 

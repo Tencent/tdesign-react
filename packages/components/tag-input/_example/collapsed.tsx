@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { TagInput, Popup, Tag, Space } from 'tdesign-react';
+import { Popup, Space, Tag, TagInput } from 'tdesign-react';
+
 import type { TagInputValue } from 'tdesign-react';
 
 export default function TagInputCollapsedExample() {

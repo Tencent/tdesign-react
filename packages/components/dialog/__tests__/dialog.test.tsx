@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import { render, fireEvent, mockTimeout, vi } from '@test/utils';
+import { fireEvent, mockTimeout, render, vi } from '@test/utils';
 import userEvent from '@testing-library/user-event';
+
+import { ConfigContext } from '../../config-provider';
+import { defaultGlobalConfig } from '../../config-provider/ConfigContext';
 import Dialog from '../index';
 import { DialogPlugin } from '../plugin';
 
@@ -193,5 +196,43 @@ describe('Dialog组件测试', () => {
     );
 
     expect(container.querySelector('.t-dialog__header')).toBeNull();
+  });
+
+  test('global dialog placement and zIndex works', async () => {
+    render(
+      <ConfigContext.Provider
+        value={{
+          globalConfig: {
+            ...defaultGlobalConfig,
+            dialog: { ...(defaultGlobalConfig.dialog || {}), placement: 'center', zIndex: 4321 },
+          },
+        }}
+      >
+        <Dialog header="Global Config" body="This is a dialog" visible />
+      </ConfigContext.Provider>,
+    );
+
+    expect(document.querySelector('.t-dialog--center')).toBeInTheDocument();
+    expect(document.querySelector('.t-dialog--top')).not.toBeInTheDocument();
+    expect(document.querySelector('.t-dialog__ctx')).toHaveStyle({ zIndex: '4321' });
+  });
+
+  test('dialog props should override global dialog config', async () => {
+    render(
+      <ConfigContext.Provider
+        value={{
+          globalConfig: {
+            ...defaultGlobalConfig,
+            dialog: { ...(defaultGlobalConfig.dialog || {}), placement: 'center', zIndex: 4321 },
+          },
+        }}
+      >
+        <Dialog header="Global Config" body="This is a dialog" visible placement="top" zIndex={1234} />
+      </ConfigContext.Provider>,
+    );
+
+    expect(document.querySelector('.t-dialog--top')).toBeInTheDocument();
+    expect(document.querySelector('.t-dialog--center')).not.toBeInTheDocument();
+    expect(document.querySelector('.t-dialog__ctx')).toHaveStyle({ zIndex: '1234' });
   });
 });

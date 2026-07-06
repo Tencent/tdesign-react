@@ -1,6 +1,7 @@
 import React from 'react';
-import { render, fireEvent, vi } from '@test/utils';
+import { fireEvent, render, vi } from '@test/utils';
 import userEvent from '@testing-library/user-event';
+
 import InputNumber from '../index';
 
 describe('InputNumber 组件测试', () => {
@@ -27,6 +28,12 @@ describe('InputNumber 组件测试', () => {
     fireEvent.mouseEnter(container.firstChild);
     fireEvent.click(container.querySelector('.t-input-number__increase'));
     expect(queryByPlaceholderText(InputNumberPlaceholder).value).toEqual('6');
+  });
+
+  test('autofocus', () => {
+    const { container } = render(<InputNumber autofocus={true} />);
+    const wrapper = container.querySelector('input');
+    expect(wrapper.getAttribute('autofocus')).toBeDefined();
   });
 
   test('blur', async () => {

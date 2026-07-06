@@ -5,6 +5,114 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.18.0 `2026-06-26`
+
+### 🚀 Features
+
+- `Button`: Optimized the hover background color when `variant` is set to `outline` or `dashed`. @uyarn ([common#2569](https://github.com/Tencent/tdesign-common/pull/2569))
+- `ConfigProvider`: 
+  - A new `loading` property was added to globally configure the settings for the Loading component @uyarn ([#4295](https://github.com/Tencent/tdesign-react/pull/4295))
+  - The `dialog` property now includes `zIndex` and `placement` settings @uyarn ([#4295](https://github.com/Tencent/tdesign-react/pull/4295))
+- `HeadMenu`: A maximum height was set for the sub-menu overlay; scroll bars will appear if the content exceeds this height @HaixingOoO ([#4283](https://github.com/Tencent/tdesign-react/pull/4283))
+- `InputNumber`: A new `autofocus` property was added @betavs ([#4278](https://github.com/Tencent/tdesign-react/pull/4278))
+- `TagInput`: A new `tagDisplay` API was introduced, allowing for full customization of how individual tags are displayed @RylanBot ([#4275](https://github.com/Tencent/tdesign-react/pull/4275))
+
+### 🐞 Bug Fixes
+
+- `Cascader`: When multiple options are selected, the order of the selected items in the input field has been changed from “the order defined in `options`” to “the order in which the user selects them”. Businesses that rely on this functionality should be aware of this change ⚠️ @RylanBot ([#4281](https://github.com/Tencent/tdesign-react/pull/4281))
+- `TreeSelect`: When multiple options are selected, the order of the selected items in the input field has been changed from “the order defined in `options`” to “the order in which the user selects them”. Businesses that rely on this functionality should be aware of this change ⚠️ @RylanBot ([#4281](https://github.com/Tencent/tdesign-react/pull/4281))
+- `Steps`: An issue with abnormal navigation logic when `sequence='reverse'` was fixed @RylanBot ([#4267](https://github.com/Tencent/tdesign-react/pull/4267))
+- `Table`: Errors in the translation of filter-related text were corrected @liweijie0812 ([common#2553](https://github.com/Tencent/tdesign-common/pull/2553))
+- `TagInput`: 
+  - Issues such as the absence of horizontal scroll bars when `excessTagsDisplayType="scroll"` was fixed @RSS1102 ([#4210](https://github.com/Tencent/tdesign-react/pull/4210))
+  - A clear button is now displayed even when only text is entered, provided that `clearable` is enabled @RSS1102 ([#4210](https://github.com/Tencent/tdesign-react/pull/4210))
+  - Problems with vertical alignment of input content when there are existing tags along with a `label` were fixed @DaZuiZui ([#4292](https://github.com/Tencent/tdesign-react/pull/4292))
+- `Tree`: 
+  - Issues with the incorrect display of guidance lines when draggable nodes were moved above or below disabled nodes were fixed @RylanBot ([#4251](https://github.com/Tencent/tdesign-react/pull/4251))
+  - The issue of guidance lines still appearing when `allowDrop` returns `false` for draggable tree nodes was fixed @RylanBot ([#4251](https://github.com/Tencent/tdesign-react/pull/4251))
+
+## 🌈 1.17.1 `2026-06-05`
+
+### 🐞 Bug Fixes
+
+- `Menu`: Fixed the issue with the spacing between sub-menu icons and text @liweijie0812 ([common#2512](https://github.com/Tencent/tdesign-common/pull/2512))
+- `Select`: Fixed the problem where the system’s auto-complete options appeared when searching for filter options @liweijie0812 ([#4261](https://github.com/Tencent/tdesign-react/pull/4261))
+- `Tabs`: Fixed an issue where animations were still triggered when clicking on a disabled tab component @RylanBot ([#4264](https://github.com/Tencent/tdesign-react/pull/4264))
+- `TagInput`: Fixed an error that occurred when `value` was undefined @RylanBot ([#4249](https://github.com/Tencent/tdesign-react/pull/4249))
+
+### 🚧 Others
+
+- `Tabs`: Improved the component’s support for generics, making it easier to integrate `value` and `onChange` functionality @RylanBot ([#4260](https://github.com/Tencent/tdesign-react/pull/4260))
+
+## 🌈 1.17.0 `2026-05-21`
+
+### 🚨 Breaking Changes
+
+- `Message`: The `z-index` of the component has been adjusted to 6000. Please note this change for any services that rely on this property ⚠️ @RylanBot ([#4235](https://github.com/Tencent/tdesign-react/pull/4235))
+
+### 🚀 Features
+
+- `EnhancedTable`: Improved the preview effect during dragging. Now, when a sub-row is expanded, it moves together with the parent row. Additionally, cross-level dragging of sub-rows is now prohibited. @RylanBot ([#4229](https://github.com/Tencent/tdesign-react/pull/4229))
+- `ImageViewer`: Improved the behavior of the ImageViewer so that images outside the viewport are zoomed in to the center. @RSS1102 ([#4184](https://github.com/Tencent/tdesign-react/pull/4184))
+- `Slider`:
+  - A default value of `0` has been added. Please note this change for any services that rely on this property ⚠️ @RylanBot ([#4163](https://github.com/Tencent/tdesign-react/pull/4163))
+  - New APIs `onChangeEnd` and `showStep` have been added. @RylanBot ([#4163](https://github.com/Tencent/tdesign-react/pull/4163))
+
+### 🐞 Bug Fixes
+
+- `Avatar`: Fixed an issue where the loading icon wasn’t displayed when images failed to load. @liweijie0812 ([#4227](https://github.com/Tencent/tdesign-react/pull/4227))
+- `Dialog`: Fixed an issue where the popup didn’t open from the clicked position. @RylanBot ([#4165](https://github.com/Tencent/tdesign-react/pull/4165))
+- `Form`: 
+  - Fixed an issue where `reset` and `submit` events from internal components caused external components to trigger events accidentally in Portal scenarios. @RylanBot ([#4243](https://github.com/Tencent/tdesign-react/pull/4243))
+  - Fixed an issue where `onValueChange` wasn’t functioning properly. @RylanBot ([#4217](https://github.com/Tencent/tdesign-react/pull/4217))
+- `Image`: Fixed an issue with incorrect font size in error messages. @liweijie0812 ([#4227](https://github.com/Tencent/tdesign-react/pull/4227))
+- `Slider`:
+  - Fixed an issue where `onChange` was triggered repeatedly even though the value didn’t change during dragging. @RylanBot ([#4163](https://github.com/Tencent/tdesign-react/pull/4163))
+  - Fixed an issue where, when `layout="vertical"`, the `label` was displayed above instead of to the right. @RylanBot ([#4163](https://github.com/Tencent/tdesign-react/pull/4163))
+- `Table`:
+  - Fixed issues with row dragging when virtual scrolling or `expandedRow` was enabled. @RylanBot ([#4229](https://github.com/Tencent/tdesign-react/pull/4229))
+  - Fixed an issue where column dragging didn’t work when virtual scrolling or `headerAffixedTop` was enabled. @RylanBot ([#4229](https://github.com/Tencent/tdesign-react/pull/4229))
+- `TagInput`:
+  - Fixed an issue where the `suffixIcon` overlapped with the input text. @RylanBot ([#4209](https://github.com/Tencent/tdesign-react/pull/4209))
+  - Fixed an issue where, when there was no `suffixIcon`, the input text was too close to the right border. @RylanBot ([#4209](https://github.com/Tencent/tdesign-react/pull/4209))
+- `Tree`:
+  - Fixed a lagging issue that occurred after disabling the `transition` API, due to the remaining duration setting. @uyarn ([#4231](https://github.com/Tencent/tdesign-react/pull/4231))
+  - When custom rendering nodes were used, the default title wasn’t displayed. @uyarn ([#4234](https://github.com/Tencent/tdesign-react/pull/4234))
+- `Upload`:
+  - Fixed an issue where resetting the file after an upload failure didn’t trigger any UI changes. @uyarn ([#4232](https://github.com/Tencent/tdesign-react/pull/4232))
+  - Fixed an issue where multiple clicks were required to delete an item when the component was inside a Form. @RylanBot ([#4232](https://github.com/Tencent/tdesign-react/pull/4232))
+
+### 📈 Performance
+
+- `Dropdown`: Improved the logic for retrieving child elements in the dropdown menu. @HaixingOoO ([#4206](https://github.com/Tencent/tdesign-react/pull/4206))
+
+## 🌈 1.16.9 `2026-04-23`
+
+### 🚀 Features
+
+- `Cascader`: Supports using `valueType="full"` in scenarios where values across nested nodes are the same. @RylanBot ([#4145](https://github.com/Tencent/tdesign-react/pull/4145))
+- `RadioGroup`: Added `direction` API to enable vertical arrangement. @liweijie0812 ([#4214](https://github.com/Tencent/tdesign-react/pull/4214))
+
+### 🐞 Bug Fixes
+
+- `Affix`: Fixed an issue where `top` became negative when the container scrolled out of view in `offsetBottom` mode. @RylanBot ([#4172](https://github.com/Tencent/tdesign-react/pull/4172))
+- `Cascader`:
+  - Fixed an issue where, in single-selection mode, the selected state was cleared when `showAllLevels={false}` was used with `valueType="full"`. @RylanBot ([#4145](https://github.com/Tencent/tdesign-react/pull/4145))
+  - Fixed an issue where re-clicking a selected item caused abnormal behavior regarding the selected state. @RylanBot ([#4145](https://github.com/Tencent/tdesign-react/pull/4145))
+- `Form`:
+  - Fixed an error that occurred during initialization when using `FormItem` alone, due to logic introduced in version 1.16.4. @RylanBot ([#4207](https://github.com/Tencent/tdesign-react/pull/4207))
+  - Fixed a warning that appeared when using `Fragment` to wrap `FormItem` elements in React 19. @RylanBot ([#4212](https://github.com/Tencent/tdesign-react/pull/4212))
+- `RadioGroup`: Fixed an issue where initial highlighting didn’t work correctly in certain scenarios when `variant="primary-filled"` was used. @RylanBot ([#4081](https://github.com/Tencent/tdesign-react/pull/4081))
+- `Table`: Fixed an issue where the table header and footer weren’t aligned properly when there were `fixed` columns. @RylanBot ([#4172](https://github.com/Tencent/tdesign-react/pull/4172))
+
+### 📝 Documentation
+
+- `Configprovider`: Added documentation for using the global configuration `Plugin` function. @HaixingOoO ([#4218](https://github.com/Tencent/tdesign-react/pull/4218))
+
+### 🚧 Others
+
+- `RadioGroup`: Improved generic support for the component, making it easier to synchronize `value` and `onChange` events. @RylanBot ([#4081](https://github.com/Tencent/tdesign-react/pull/4081))
+
 ## 🌈 1.16.8 `2026-04-02` 
 
 ### 🚀 Features

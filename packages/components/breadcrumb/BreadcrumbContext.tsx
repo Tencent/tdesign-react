@@ -1,5 +1,6 @@
 import { createContext } from 'react';
-import { TdBreadcrumbProps } from './type';
+
+import type { TdBreadcrumbProps } from './type';
 
 export interface BreadcrumbContextType {
   maxItemWidthInContext: string;

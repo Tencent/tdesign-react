@@ -1,21 +1,21 @@
-import React, { forwardRef, useState, useEffect, useMemo } from 'react';
+import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { isArray, isFunction } from 'lodash-es';
 import { getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
 import log from '@tdesign/common-js/log/index';
+
 import useConfig from '../../hooks/useConfig';
-import { StyledProps } from '../../common';
-import PanelContent from './PanelContent';
-import ExtraContent from './ExtraContent';
-import useTableData from '../hooks/useTableData';
-import useDisableDate from '../hooks/useDisableDate';
 import useDefaultProps from '../../hooks/useDefaultProps';
-
-import { parseToDateTime } from '../utils';
 import { TimePickerPanel } from '../../time-picker';
+import useDisableDate from '../hooks/useDisableDate';
+import useTableData from '../hooks/useTableData';
+import { parseToDateTime } from '../utils';
+import ExtraContent from './ExtraContent';
+import PanelContent from './PanelContent';
 
-import type { PickerDateRange, TdDateRangePickerProps } from '../type';
+import type { StyledProps } from '../../common';
 import type { TdTimePickerProps } from '../../time-picker';
+import type { PickerDateRange, TdDateRangePickerProps } from '../type';
 
 export interface RangePanelProps extends Omit<TdDateRangePickerProps, 'onYearChange' | 'onMonthChange'>, StyledProps {
   hoverValue?: string[];

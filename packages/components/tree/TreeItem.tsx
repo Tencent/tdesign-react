@@ -1,33 +1,24 @@
-import React, {
-  CSSProperties,
-  DragEventHandler,
-  forwardRef,
-  MouseEvent,
-  ReactNode,
-  useRef,
-  DragEvent,
-  isValidElement,
-  useEffect,
-  useState,
-} from 'react';
+import React, { forwardRef, isValidElement, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
 import { CaretRightSmallIcon as TdCaretRightSmallIcon } from 'tdesign-icons-react';
-import TreeNode from '@tdesign/common-js/tree-v1/tree-node';
-import type { TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
-import Loading from '../loading';
-import useRipple from '../hooks/useRipple';
+
+import { composeRefs } from '../_util/ref';
+import Checkbox from '../checkbox';
+import useConfig from '../hooks/useConfig';
 import useDomRefCallback from '../hooks/useDomRefCallback';
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import Checkbox from '../checkbox';
-import { useTreeConfig } from './hooks/useTreeConfig';
+import useRipple from '../hooks/useRipple';
+import Loading from '../loading';
 import useDraggable from './hooks/useDraggable';
-import { composeRefs } from '../_util/ref';
-import useConfig from '../hooks/useConfig';
+import { useTreeConfig } from './hooks/useTreeConfig';
 
-import type { CheckboxProps } from '../checkbox'
-import type { TdTreeProps } from './type';
+import type { CSSProperties, DragEvent, DragEventHandler, MouseEvent, ReactNode } from 'react';
+import type TreeNode from '@tdesign/common-js/tree-v1/tree-node';
+import type { TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
+import type { CheckboxProps } from '../checkbox';
 import type { TreeItemProps } from './interface';
+import type { TdTreeProps } from './type';
 
 /**
  * 树节点组件
@@ -263,14 +254,16 @@ const TreeItem = forwardRef(
           </Checkbox>
         );
       }
+
+      // 自定义节点（label 为函数或 ReactNode）不展示 title
+      const isCustomLabel = label instanceof Function || isValidElement(node.label);
+
       return (
         <span
           ref={setRefCurrent}
           data-target="label"
           className={labelClasses}
-          // label 可以传入 ReactNode， 如果直接取里面的 children 值，当多层级的时候会有问题
-          // 所以这里判断如果 label是 ReactNode， 并且 text没有值 就不展示 title
-          title={isValidElement(node.label) && !node.data?.text ? '' : String(node.data?.text || node.label)}
+          title={isCustomLabel ? undefined : String(node.data?.text || node.label || '')}
         >
           <span style={{ position: 'relative' }}>{labelText}</span>
         </span>

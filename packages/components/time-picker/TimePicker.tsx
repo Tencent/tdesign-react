@@ -1,29 +1,28 @@
-import React, { useState, Ref } from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { TimeIcon as TdTimeIcon } from 'tdesign-icons-react';
-
+import { DEFAULT_FORMAT, DEFAULT_STEPS } from '@tdesign/common-js/time-picker/const';
 import { formatInputValue, validateInputValue } from '@tdesign/common-js/time-picker/utils';
-import { DEFAULT_STEPS, DEFAULT_FORMAT } from '@tdesign/common-js/time-picker/const';
+
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import useControlled from '../hooks/useControlled';
-import useConfig from '../hooks/useConfig';
-import useGlobalIcon from '../hooks/useGlobalIcon';
 import noop from '../_util/noop';
-
-import SelectInput from '../select-input';
-import type { SelectInputProps, SelectInputValueChangeContext } from '../select-input';
-import TimeRangePicker from './TimeRangePicker';
-import TimePickerPanel from './panel/TimePickerPanel';
-import type { TimePickerPanelProps } from './panel/TimePickerPanel';
-
-import { useTimePickerTextConfig } from './hooks/useTimePickerTextConfig';
-import { timePickerDefaultProps } from './defaultProps';
-
-import type { StyledProps } from '../common';
-import type { TdTimePickerProps } from './type';
+import useConfig from '../hooks/useConfig';
+import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import SelectInput from '../select-input';
+import { timePickerDefaultProps } from './defaultProps';
+import { useTimePickerTextConfig } from './hooks/useTimePickerTextConfig';
+import TimePickerPanel from './panel/TimePickerPanel';
+import TimeRangePicker from './TimeRangePicker';
+
+import type { Ref } from 'react';
+import type { StyledProps } from '../common';
+import type { SelectInputProps, SelectInputValueChangeContext } from '../select-input';
+import type { TimePickerPanelProps } from './panel/TimePickerPanel';
+import type { TdTimePickerProps } from './type';
 
 // https://github.com/iamkun/dayjs/issues/1552
 dayjs.extend(customParseFormat);
@@ -71,7 +70,7 @@ const TimePicker = forwardRefWithStatics(
 
     const effectVisibleCurrentValue = (visible: boolean) => {
       setPanelShow(visible);
-      setCurrentValue(visible ? value ?? '' : '');
+      setCurrentValue(visible ? (value ?? '') : '');
     };
 
     const handleShowPopup = (visible: boolean, context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> }) => {
@@ -131,10 +130,13 @@ const TimePicker = forwardRefWithStatics(
           onBlur={handleInputBlur}
           onPopupVisibleChange={handleShowPopup}
           placeholder={!value ? placeholder : undefined}
-          value={isPanelShowed ? currentValue : value ?? undefined}
-          inputValue={isPanelShowed ? currentValue : value ?? undefined}
+          value={isPanelShowed ? currentValue : (value ?? undefined)}
+          inputValue={isPanelShowed ? currentValue : (value ?? undefined)}
           inputProps={{ ...props.inputProps, size: props.size }}
-          popupProps={{ overlayInnerStyle: { width: 'auto', padding: 0 }, ...props.popupProps }}
+          popupProps={{
+            overlayInnerStyle: { width: 'auto', padding: 0 },
+            ...props.popupProps,
+          }}
           tips={props.tips}
           status={props.status}
           label={props.label}

@@ -1,8 +1,11 @@
 import { isString } from 'lodash-es';
 import raf from 'raf';
-import { ScrollContainer, ScrollContainerElement } from '../common';
+
 import { isWindow } from './dom';
-import { easeInOutCubic, EasingFunction } from './easing';
+import { easeInOutCubic } from './easing';
+
+import type { ScrollContainer, ScrollContainerElement } from '../common';
+import type { EasingFunction } from './easing';
 
 export function hasBodyScrollbar() {
   return document.body.scrollHeight > document.documentElement.clientHeight;

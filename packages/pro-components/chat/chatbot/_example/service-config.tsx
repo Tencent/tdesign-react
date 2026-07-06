@@ -1,18 +1,20 @@
 import React from 'react';
-import { ChatBot, SSEChunkData, AIMessageContent, ChatServiceConfig, ChatRequestParams } from '@tdesign-react/chat';
 import { MessagePlugin } from 'tdesign-react';
+import { ChatBot } from '@tdesign-react/chat';
+
+import type { AIMessageContent, ChatRequestParams, ChatServiceConfig, SSEChunkData } from '@tdesign-react/chat';
 
 /**
  * 自定义协议配置示例
- * 
+ *
  * 本示例展示如何配置自定义协议的聊天服务。
  * 当后端服务使用自定义数据格式时，需要通过 onMessage 进行数据转换。
- * 
+ *
  * 配置内容包括：
  * - 请求配置（endpoint、onRequest返回请求头、请求参数）
  * - 数据转换（onMessage：将后端数据转换为组件所需格式）
  * - 生命周期回调（onStart、onComplete、onError、onAbort）
- * 
+ *
  * 学习目标：
  * - 掌握 chatServiceConfig 的核心配置项
  * - 理解 onMessage 的数据转换逻辑（自定义协议必需）
@@ -34,7 +36,7 @@ export default function ServiceConfig() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer your-token',
+          Authorization: 'Bearer your-token',
           'X-Custom-Header': 'custom-value',
         },
         // 添加自定义参数

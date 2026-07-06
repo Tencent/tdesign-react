@@ -1,8 +1,9 @@
+// 公式能力引入，可参考cherryMarkdown示例
+import 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js';
+
 import React, { useState } from 'react';
 import { Space, Switch } from 'tdesign-react';
 import { ChatMarkdown } from '@tdesign-react/chat';
-// 公式能力引入，可参考cherryMarkdown示例
-import 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js';
 
 const mdContent = `
 ---

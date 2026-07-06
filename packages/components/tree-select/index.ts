@@ -1,6 +1,6 @@
-import _TreeSelect from './TreeSelect';
-
 import './style/index.js';
+
+import _TreeSelect from './TreeSelect';
 
 export type { TreeSelectProps } from './TreeSelect';
 export * from './type';

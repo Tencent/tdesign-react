@@ -1,7 +1,9 @@
 import React, { useMemo } from 'react';
-import { DropdownOption } from '../type';
-import DropdownMenu from '../DropdownMenu';
+
 import DropdownItem from '../DropdownItem';
+import DropdownMenu from '../DropdownMenu';
+
+import type { DropdownOption } from '../type';
 
 export const getOptionsFromChildren = (children: React.ReactElement<any>): DropdownOption[] => {
   if (!children) return [];

@@ -1,11 +1,14 @@
-import React, { forwardRef, useContext, MouseEvent, ChangeEvent } from 'react';
+import React, { forwardRef, useContext } from 'react';
 import classNames from 'classnames';
 import { isBoolean } from 'lodash-es';
+
 import { omit } from '../_util/helper';
-import { StyledProps } from '../common';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
-import { TdCheckboxProps } from '../checkbox/type';
+
+import type { ChangeEvent, MouseEvent } from 'react';
+import type { TdCheckboxProps } from '../checkbox/type';
+import type { StyledProps } from '../common';
 
 export interface CheckProps extends TdCheckboxProps, StyledProps {
   type: 'radio' | 'radio-button' | 'checkbox';

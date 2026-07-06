@@ -1,5 +1,8 @@
-import { TdChatMarkdownContentProps, TdMarkdownEngine } from 'tdesign-web-components';
+import { TdMarkdownEngine } from 'tdesign-web-components';
+
 import reactify from '../_util/reactify';
+
+import type { TdChatMarkdownContentProps } from 'tdesign-web-components';
 
 export const MarkdownEngine: typeof TdMarkdownEngine = TdMarkdownEngine;
 export const ChatMarkdown: React.ForwardRefExoticComponent<

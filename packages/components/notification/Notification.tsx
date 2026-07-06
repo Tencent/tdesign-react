@@ -1,19 +1,21 @@
 import React, { forwardRef, useContext } from 'react';
 import classNames from 'classnames';
 import {
+  CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CloseIcon as TdCloseIcon,
   InfoCircleFilledIcon as TdInfoCircleFilledIcon,
-  CheckCircleFilledIcon as TdCheckCircleFilledIcon,
 } from 'tdesign-icons-react';
-import { NotificationRemoveContext } from './NotificationList';
+
 import noop from '../_util/noop';
 import parseTNode from '../_util/parseTNode';
 import useConfig from '../hooks/useConfig';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import { NotificationInstance, TdNotificationProps } from './type';
-import { StyledProps } from '../common';
-import { notificationDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import { notificationDefaultProps } from './defaultProps';
+import { NotificationRemoveContext } from './NotificationList';
+
+import type { StyledProps } from '../common';
+import type { NotificationInstance, TdNotificationProps } from './type';
 
 export interface NotificationProps extends TdNotificationProps, StyledProps {
   id?: string;

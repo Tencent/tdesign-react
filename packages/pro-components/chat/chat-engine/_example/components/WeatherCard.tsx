@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card } from 'tdesign-react';
 import { CloudIcon } from 'tdesign-icons-react';
+import { Card } from 'tdesign-react';
 
 interface WeatherCardProps {
   weather: any[];

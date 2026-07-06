@@ -1,10 +1,9 @@
-import _QRCode from './QRCode';
-
 import './style/index.js';
 
-export * from './type';
+import _QRCode from './QRCode';
 
 export type { QrCodeProps } from './QRCode';
+export * from './type';
 
 export const QRCode = _QRCode;
 export default QRCode;

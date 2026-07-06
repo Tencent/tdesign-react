@@ -1,6 +1,6 @@
-import _Collapse from './Collapse';
-
 import './style';
+
+import _Collapse from './Collapse';
 
 export type { CollapseProps } from './Collapse';
 export * from './type';

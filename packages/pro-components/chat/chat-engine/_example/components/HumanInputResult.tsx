@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card } from 'tdesign-react';
 import { UserIcon } from 'tdesign-icons-react';
+import { Card } from 'tdesign-react';
 
 interface HumanInputResultProps {
   userInput: any;

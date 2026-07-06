@@ -1,5 +1,4 @@
 import React, { Children, cloneElement, isValidElement, useMemo, useRef } from 'react';
-
 import classNames from 'classnames';
 import { isEqual } from 'lodash-es';
 
@@ -7,7 +6,7 @@ import useConfig from '../../hooks/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import usePanelVirtualScroll from '../hooks/usePanelVirtualScroll';
 import { getKeyMapping, getSelectValueArr } from '../util/helper';
-import Option, { type SelectOptionProps } from './Option';
+import Option from './Option';
 import OptionGroup from './OptionGroup';
 
 import type {
@@ -18,24 +17,24 @@ import type {
   TdOptionProps,
   TdSelectProps,
 } from '../type';
+import type { SelectOptionProps } from './Option';
 
-interface SelectPopupProps
-  extends Pick<
-    TdSelectProps,
-    | 'value'
-    | 'size'
-    | 'multiple'
-    | 'empty'
-    | 'options'
-    | 'max'
-    | 'loadingText'
-    | 'loading'
-    | 'valueType'
-    | 'keys'
-    | 'panelTopContent'
-    | 'panelBottomContent'
-    | 'scroll'
-  > {
+interface SelectPopupProps extends Pick<
+  TdSelectProps,
+  | 'value'
+  | 'size'
+  | 'multiple'
+  | 'empty'
+  | 'options'
+  | 'max'
+  | 'loadingText'
+  | 'loading'
+  | 'valueType'
+  | 'keys'
+  | 'panelTopContent'
+  | 'panelBottomContent'
+  | 'scroll'
+> {
   onChange?: (
     value: SelectValue,
     context?: {
@@ -126,11 +125,21 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
 
     if (multiple) {
       const values = getSelectValueArr(value, selectedValue, selected, valueType, keys, objVal);
-      onChange(values, { label, value: selectedValue, e: event, trigger: selected ? 'uncheck' : 'check' });
+      onChange(values, {
+        label,
+        value: selectedValue,
+        e: event,
+        trigger: selected ? 'uncheck' : 'check',
+      });
     } else {
       const selectVal = valueType === 'object' ? objVal : selectedValue;
       if (!isEqual(value, selectVal)) {
-        onChange(selectVal, { label, value: selectVal, e: event, trigger: 'check' });
+        onChange(selectVal, {
+          label,
+          value: selectVal,
+          e: event,
+          trigger: 'check',
+        });
       }
       setShowPopup(!showPopup);
     }
@@ -138,7 +147,13 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
 
   const childrenWithProps = Children.map(children, (child) => {
     if (isValidElement(child)) {
-      const addedProps = { size, max, multiple, selectedValue: value, onSelect };
+      const addedProps = {
+        size,
+        max,
+        multiple,
+        selectedValue: value,
+        onSelect,
+      };
       return cloneElement(child, { ...addedProps });
     }
     return child;

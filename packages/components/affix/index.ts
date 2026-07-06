@@ -1,6 +1,6 @@
-import _Affix from './Affix';
-
 import './style/index.js';
+
+import _Affix from './Affix';
 
 export type { AffixProps, AffixRef } from './Affix';
 export * from './type';

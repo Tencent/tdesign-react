@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, vi } from '@test/utils';
+
 import PaginationMini from '../PaginationMini';
 
 describe('PaginationMini test', () => {

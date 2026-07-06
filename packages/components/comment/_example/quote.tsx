@@ -1,6 +1,6 @@
 import React from 'react';
+import { ChatIcon, ThumbUpIcon } from 'tdesign-icons-react';
 import { Comment } from 'tdesign-react';
-import { ThumbUpIcon, ChatIcon } from 'tdesign-icons-react';
 
 export default function quoteComment() {
   const actions = [

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { fireEvent, render, vi } from '@test/utils';
-import Drawer, { DrawerProps } from '../index';
+
+import Drawer from '../index';
+
+import type { DrawerProps } from '../index';
 
 function DrawerDemo(props) {
   const [visible, setVisible] = useState(false);

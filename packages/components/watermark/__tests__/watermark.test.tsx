@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, vi, mockDelay } from '@test/utils';
+import { mockDelay, render, vi } from '@test/utils';
+
 import Watermark from '../Watermark';
 
 describe('Watermark 组件测试', () => {

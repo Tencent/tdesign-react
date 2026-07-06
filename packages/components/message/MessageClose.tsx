@@ -2,12 +2,13 @@
  * @desc message 关闭按钮组件
  */
 import React from 'react';
-
 import classNames from 'classnames';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
+
 import useGlobalIcon from '../hooks/useGlobalIcon';
-import { TdMessageProps } from './type';
 import { useMessageClass } from './useMessageClass';
+
+import type { TdMessageProps } from './type';
 
 export default function MessageClose({ closeBtn, onCloseBtnClick }: TdMessageProps) {
   const { tdMessageClassGenerator } = useMessageClass();

@@ -1,8 +1,8 @@
 import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { createPopper, type Instance, type Options, type Placement } from '@popperjs/core';
 import classNames from 'classnames';
 import { isString } from 'lodash-es';
+import { createPopper } from '@popperjs/core';
 
 import { getAttach } from '../_util/dom';
 import { off, on } from '../_util/listener';
@@ -13,6 +13,7 @@ import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { popupDefaultProps } from './defaultProps';
 
+import type { Instance, Options, Placement } from '@popperjs/core';
 import type { AttachNode, TNode } from '../common';
 import type { TdPopupProps } from './type';
 

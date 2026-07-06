@@ -1,8 +1,9 @@
 import React from 'react';
-import TvisionTcharts from 'tvision-charts-react';
 import { Avatar, Space } from 'tdesign-react';
+import TvisionTcharts from 'tvision-charts-react';
+import { ChatMessage } from '@tdesign-react/chat';
 
-import { ChatBaseContent, ChatMessage } from '@tdesign-react/chat';
+import type { ChatBaseContent } from '@tdesign-react/chat';
 
 // 扩展自定义消息体类型
 declare module 'tdesign-react' {

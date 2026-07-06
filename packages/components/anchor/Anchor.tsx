@@ -1,18 +1,22 @@
-import React, { useState, useRef, useEffect, useCallback, useImperativeHandle } from 'react';
+import React, { useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { isEmpty, isFunction } from 'lodash-es';
-import { StyledProps } from '../common';
-import { TdAnchorProps } from './type';
-import useConfig from '../hooks/useConfig';
-import forwardRefWithStatics from '../_util/forwardRefWithStatics';
+
 import { canUseDocument } from '../_util/dom';
+import forwardRefWithStatics from '../_util/forwardRefWithStatics';
+import { getOffsetTop, getScroll, getScrollContainer, scrollTo } from '../_util/scroll';
 import Affix from '../affix';
-import { AnchorContext, Item } from './AnchorContext';
-import { getOffsetTop, getScroll, scrollTo, AnchorContainer, getScrollContainer } from '../_util/scroll';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { AnchorContext } from './AnchorContext';
 import AnchorItem from './AnchorItem';
 import AnchorTarget from './AnchorTarget';
 import { anchorDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
+
+import type { AnchorContainer } from '../_util/scroll';
+import type { StyledProps } from '../common';
+import type { Item } from './AnchorContext';
+import type { TdAnchorProps } from './type';
 
 export interface AnchorProps extends TdAnchorProps, StyledProps {
   children?: React.ReactNode;

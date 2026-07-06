@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, fireEvent, vi } from '@test/utils';
+import { fireEvent, render, vi } from '@test/utils';
+
 import Checkbox from '../Checkbox';
 
 describe('Checkbox', () => {

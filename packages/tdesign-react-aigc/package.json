@@ -62,6 +62,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@tdesign/common-docs": "workspace:^",
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "tdesign-icons-react": "0.6.4",

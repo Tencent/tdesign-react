@@ -1,9 +1,10 @@
-import React, { useMemo, useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { isFunction, isObject } from 'lodash-es';
 
 import useControlled from '../hooks/useControlled';
 import useInnerPopupVisible from '../hooks/useInnerPopupVisible';
 
+import type * as React from 'react';
 import type { PopupVisibleChangeContext, TdPopupProps } from '../popup';
 import type { TdSelectInputProps } from './type';
 

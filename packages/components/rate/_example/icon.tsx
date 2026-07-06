@@ -1,6 +1,6 @@
 import React from 'react';
+import { HeartFilledIcon, LogoGithubIcon, StarIcon } from 'tdesign-icons-react';
 import { Rate, Space } from 'tdesign-react';
-import { StarIcon, LogoGithubIcon, HeartFilledIcon } from 'tdesign-icons-react';
 
 export default function BasicRate() {
   return (

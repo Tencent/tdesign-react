@@ -1,12 +1,15 @@
-import { ElementRef, MutableRefObject, useMemo } from 'react';
+import { useMemo } from 'react';
 import TreeStore from '@tdesign/common-js/tree-v1/tree-store';
-import type { TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
-import type { TreeSelectValue } from '../type';
-import Tree, { TreeNodeValue } from '../../tree';
+
 import { usePersistFn } from '../../hooks/usePersistFn';
 import { treeSelectDefaultProps } from '../defaultProps';
 
+import type { ElementRef, MutableRefObject } from 'react';
+import type { TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
+import type Tree from '../../tree';
+import type { TreeNodeValue } from '../../tree';
 import type { NodeOptions, TreeSelectProps } from '../TreeSelect';
+import type { TreeSelectValue } from '../type';
 
 export const useTreeSelectUtils = (
   { data, treeProps, valueType }: TreeSelectProps,

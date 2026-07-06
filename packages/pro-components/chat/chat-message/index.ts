@@ -1,6 +1,8 @@
-import { type TdChatMessageProps } from 'tdesign-web-components';
 import 'tdesign-web-components/lib/chat-message';
+
 import reactify from '../_util/reactify';
+
+import type { TdChatMessageProps } from 'tdesign-web-components';
 
 export const ChatMessage: React.ForwardRefExoticComponent<
   Omit<TdChatMessageProps & React.PropsWithChildren, 'ref'> & React.RefAttributes<HTMLElement | undefined>

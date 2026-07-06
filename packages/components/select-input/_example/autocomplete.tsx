@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { SelectInput } from 'tdesign-react';
+import React, { useEffect, useState } from 'react';
 import { SearchIcon } from 'tdesign-icons-react';
+import { SelectInput } from 'tdesign-react';
 
 const classStyles = `
 <style>

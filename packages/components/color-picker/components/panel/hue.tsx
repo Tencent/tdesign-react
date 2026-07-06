@@ -1,6 +1,8 @@
 import React from 'react';
-import type { TdColorBaseProps } from '../../interface';
+
 import ColorSlider from './slider';
+
+import type { TdColorBaseProps } from '../../interface';
 
 const HueSlider = (props: TdColorBaseProps) => {
   const { color, baseClassName, disabled, onChange } = props;

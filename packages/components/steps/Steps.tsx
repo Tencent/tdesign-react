@@ -1,12 +1,13 @@
 import React, { useCallback, useMemo } from 'react';
 import classnames from 'classnames';
+
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { stepsDefaultProps } from './defaultProps';
 import StepItem from './StepItem';
 import StepsContext from './StepsContext';
-import { stepsDefaultProps } from './defaultProps';
 
 import type { StyledProps } from '../common';
 import type { StepItemProps } from './StepItem';
@@ -89,22 +90,24 @@ const Steps = forwardRefWithStatics(
 
     const stepItemList = useMemo<React.ReactNode[]>(() => {
       if (options) {
-        const optionsDisplayList = sequence === 'reverse' ? options.reverse() : options;
-        return options.map<React.ReactNode>((item, index) => {
-          const stepIndex = sequence === 'reverse' ? optionsDisplayList.length - index - 1 : index;
-          return <StepItem key={index} {...item} index={stepIndex} status={handleStatus(item, index)} />;
+        const displayList = sequence === 'reverse' ? [...options].reverse() : options;
+        return displayList.map<React.ReactNode>((item, index) => {
+          const originalIndex = sequence === 'reverse' ? displayList.length - index - 1 : index;
+          return (
+            <StepItem key={originalIndex} {...item} index={originalIndex} status={handleStatus(item, originalIndex)} />
+          );
         });
       }
 
       const childrenList = React.Children.toArray(children);
-      const childrenDisplayList = sequence === 'reverse' ? childrenList.reverse() : childrenList;
+      const displayList = sequence === 'reverse' ? [...childrenList].reverse() : childrenList;
 
-      return childrenList.map((child: React.ReactElement<StepItemProps>, index: number) => {
-        const stepIndex = sequence === 'reverse' ? childrenDisplayList.length - index - 1 : index;
+      return displayList.map((child: React.ReactElement<StepItemProps>, index: number) => {
+        const originalIndex = sequence === 'reverse' ? displayList.length - index - 1 : index;
         return React.cloneElement(child, {
           ...child.props,
-          index: stepIndex,
-          status: handleStatus(child.props, index),
+          index: originalIndex,
+          status: handleStatus(child.props, originalIndex),
         });
       });
     }, [options, children, sequence, handleStatus]);

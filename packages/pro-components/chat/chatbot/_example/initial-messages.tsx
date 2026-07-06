@@ -1,13 +1,14 @@
 import React, { useRef, useState } from 'react';
-import {
-  ChatBot,
-  SSEChunkData,
-  AIMessageContent,
-  ChatServiceConfig,
-  ChatMessagesData,
-  type TdChatbotApi,
-} from '@tdesign-react/chat';
 import { Button, Space } from 'tdesign-react';
+import { ChatBot } from '@tdesign-react/chat';
+
+import type {
+  AIMessageContent,
+  ChatMessagesData,
+  ChatServiceConfig,
+  SSEChunkData,
+  TdChatbotApi,
+} from '@tdesign-react/chat';
 
 /**
  * 初始化消息示例

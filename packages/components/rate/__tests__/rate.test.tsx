@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, fireEvent, vi } from '@test/utils';
+import { fireEvent, render, vi } from '@test/utils';
+
 import Rate from '../Rate';
 
 describe('Rate 组件测试', () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space, Card } from 'tdesign-react';
+import { Card, Space } from 'tdesign-react';
 
 const BaseSpace = () => (
   <Space direction="vertical">

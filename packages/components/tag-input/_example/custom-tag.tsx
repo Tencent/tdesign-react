@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { TagInput, Tag, Space } from 'tdesign-react';
+import { Space, Tag, TagInput } from 'tdesign-react';
+
 import type { TagInputValue } from 'tdesign-react';
 
 export default function CustomTagExample() {
@@ -17,7 +18,12 @@ export default function CustomTagExample() {
           <span>
             <img
               src="https://tdesign.gtimg.com/site/avatar.jpg"
-              style={{ maxWidth: '18px', maxHeight: '18px', borderRadius: '50%', verticalAlign: 'text-top' }}
+              style={{
+                maxWidth: '18px',
+                maxHeight: '18px',
+                borderRadius: '50%',
+                verticalAlign: 'text-top',
+              }}
             />
             {value}
           </span>
@@ -37,7 +43,12 @@ export default function CustomTagExample() {
               <div>
                 <img
                   src="https://tdesign.gtimg.com/site/avatar.jpg"
-                  style={{ maxWidth: '18px', maxHeight: '18px', borderRadius: '50%', verticalAlign: 'text-top' }}
+                  style={{
+                    maxWidth: '18px',
+                    maxHeight: '18px',
+                    borderRadius: '50%',
+                    verticalAlign: 'text-top',
+                  }}
                 />
                 {item}
               </div>

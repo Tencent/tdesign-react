@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowseIcon } from 'tdesign-icons-react';
-import { Image } from '../image';
+
 import useConfig from '../hooks/useConfig';
+import { Image } from '../image';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 
 interface DefaultTriggerProps {

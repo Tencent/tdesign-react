@@ -1,6 +1,6 @@
 import React from 'react';
-import { Table } from 'tdesign-react';
 import { LoadingIcon } from 'tdesign-icons-react';
+import { Table } from 'tdesign-react';
 
 export default function EmptyTable() {
   const columns = [

@@ -1,7 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
-import type { TdColorBaseProps } from '../../interface';
+
 import ColorSlider from './slider';
+
+import type { TdColorBaseProps } from '../../interface';
 
 const Alpha = (props: TdColorBaseProps) => {
   const { color, baseClassName, onChange, ...rest } = props;

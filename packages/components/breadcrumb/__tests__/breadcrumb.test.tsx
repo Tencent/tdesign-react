@@ -1,7 +1,9 @@
 import React from 'react';
-import { vi, render } from '@test/utils';
+import { render, vi } from '@test/utils';
+
 import Breadcrumb from '../Breadcrumb';
-import { TdBreadcrumbItemProps } from '../type';
+
+import type { TdBreadcrumbItemProps } from '../type';
 
 const { BreadcrumbItem } = Breadcrumb;
 
@@ -102,7 +104,13 @@ describe('Breadcrumb', () => {
     ];
 
     const el = (
-      <Breadcrumb maxItems={5} itemsBeforeCollapse={2} itemsAfterCollapse={1} data-testid={rootTestID} options={options} />
+      <Breadcrumb
+        maxItems={5}
+        itemsBeforeCollapse={2}
+        itemsAfterCollapse={1}
+        data-testid={rootTestID}
+        options={options}
+      />
     );
 
     const wrapper = render(el);
@@ -128,7 +136,14 @@ describe('Breadcrumb', () => {
     ];
 
     const el = (
-      <Breadcrumb maxItems={5} itemsBeforeCollapse={2} itemsAfterCollapse={1} data-testid={rootTestID} options={options} ellipsis="..." />
+      <Breadcrumb
+        maxItems={5}
+        itemsBeforeCollapse={2}
+        itemsAfterCollapse={1}
+        data-testid={rootTestID}
+        options={options}
+        ellipsis="..."
+      />
     );
 
     const wrapper = render(el);
@@ -163,7 +178,7 @@ describe('Breadcrumb', () => {
         data-testid={rootTestID}
         separator={separator}
         options={options}
-        ellipsis={({items}) => getEllipsis(items)}
+        ellipsis={({ items }) => getEllipsis(items)}
       />
     );
 

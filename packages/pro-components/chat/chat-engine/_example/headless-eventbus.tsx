@@ -1,10 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Button, Card, Space, Tag, Divider, List, MessagePlugin } from 'tdesign-react';
-import ChatEngine, {
-  ChatEngineEventType,
-  type SSEChunkData,
-  type AIMessageContent,
-} from 'tdesign-web-components/lib/chat-engine';
+import React, { useEffect, useRef, useState } from 'react';
+import { Button, Card, Divider, List, MessagePlugin, Space, Tag } from 'tdesign-react';
+import { ChatEngine, ChatEngineEventType } from '@tdesign-react/chat';
+
+import type { AIMessageContent, SSEChunkData } from '@tdesign-react/chat';
 
 /**
  * Headless 事件总线示例

@@ -1,8 +1,8 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
-
 import calcTextareaHeight from '@tdesign/common-js/utils/calcTextareaHeight';
 import { getCharacterLength, getUnicodeLength, limitUnicodeMaxLength } from '@tdesign/common-js/utils/helper';
+
 import noop from '../_util/noop';
 import parseTNode from '../_util/parseTNode';
 import useConfig from '../hooks/useConfig';
@@ -19,7 +19,8 @@ const DEFAULT_TEXTAREA_STYLE = { height: 'auto', minHeight: 'auto' };
 const OMIT_PROPS = ['defaultValue', 'readonly'];
 
 export interface TextareaProps
-  extends Omit<
+  extends
+    Omit<
       React.TextareaHTMLAttributes<HTMLTextAreaElement>,
       'value' | 'defaultValue' | 'onBlur' | 'onChange' | 'onFocus' | 'onKeyDown' | 'onKeyPress' | 'onKeyUp'
     >,

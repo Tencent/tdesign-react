@@ -1,8 +1,7 @@
 import React from 'react';
-import { BrowseIcon, LockOnIcon } from 'tdesign-icons-react';
 import dayjs from 'dayjs';
-
-import { render, fireEvent, act, vi } from '@test/utils';
+import { BrowseIcon, LockOnIcon } from 'tdesign-icons-react';
+import { act, fireEvent, render, vi } from '@test/utils';
 
 import { DateRangePicker } from '..';
 

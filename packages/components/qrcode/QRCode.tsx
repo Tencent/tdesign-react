@@ -1,16 +1,18 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
-import type { ImageSettings } from '@tdesign/common-js/qrcode/types';
-import { QRCodeCanvas } from './QRCodeCanvas';
-import { QRCodeSVG } from './QRCodeSVG';
-import { TdQRCodeProps } from './type';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { qRCodeDefaultProps } from './defaultProps';
+
 import useConfig from '../hooks/useConfig';
-import { StyledProps } from '../common';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
-import QRcodeStatus from './QRCodeStatus';
+import useDefaultProps from '../hooks/useDefaultProps';
 import useVariables from '../hooks/useVariables';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { qRCodeDefaultProps } from './defaultProps';
+import { QRCodeCanvas } from './QRCodeCanvas';
+import QRcodeStatus from './QRCodeStatus';
+import { QRCodeSVG } from './QRCodeSVG';
+
+import type { ImageSettings } from '@tdesign/common-js/qrcode/types';
+import type { StyledProps } from '../common';
+import type { TdQRCodeProps } from './type';
 
 export interface QrCodeProps extends TdQRCodeProps, StyledProps {}
 
@@ -50,8 +52,8 @@ const QRCode: React.FC<QrCodeProps> = (props) => {
     src: icon as string,
     x: undefined,
     y: undefined,
-    height: typeof iconSize === 'number' ? iconSize : iconSize?.height ?? 40,
-    width: typeof iconSize === 'number' ? iconSize : iconSize?.width ?? 40,
+    height: typeof iconSize === 'number' ? iconSize : (iconSize?.height ?? 40),
+    width: typeof iconSize === 'number' ? iconSize : (iconSize?.width ?? 40),
     excavate: true,
     crossOrigin: 'anonymous',
   };

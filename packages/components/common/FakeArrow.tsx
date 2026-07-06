@@ -1,9 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import { isSafari } from '@tdesign/common-js/utils/helper';
-import { ClassName } from '../common';
 
 import useConfig from '../hooks/useConfig';
+
+import type { ClassName } from '../common';
 
 // 翻转箭头统一组件
 function FakeArrow(props: {

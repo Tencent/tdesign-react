@@ -1,32 +1,33 @@
 import React, { useState } from 'react';
 import { CopyIcon, EditIcon, SoundIcon } from 'tdesign-icons-react';
+import { Button, MessagePlugin, Space } from 'tdesign-react';
+import TvisionTcharts from 'tvision-charts-react';
+import { ChatBot } from '@tdesign-react/chat';
+
 import type {
-  SSEChunkData,
-  ChatServiceConfig,
+  AIMessageContent,
   ChatBaseContent,
   ChatMessagesData,
-  AIMessageContent,
+  ChatServiceConfig,
+  SSEChunkData,
 } from '@tdesign-react/chat';
-import { ChatBot } from '@tdesign-react/chat';
-import { Button, Space, MessagePlugin } from 'tdesign-react';
-import TvisionTcharts from 'tvision-charts-react';
 
 /**
  * 自定义插槽示例
- * 
+ *
  * 本示例展示如何使用插槽机制实现自定义渲染，包括：
  * 1. 自定义内容渲染：扩展自定义内容类型（如图表）
  * 2. 自定义操作栏：为消息添加自定义操作按钮
- * 
+ *
  * 插槽类型：
  * - 内容插槽：`${msg.id}-${content.type}-${index}` - 用于渲染自定义内容
  * - 操作栏插槽：`${msg.id}-actionbar` - 用于渲染自定义操作栏
- * 
+ *
  * 实现步骤：
  * 1. 扩展类型：通过 TypeScript 模块扩展声明自定义内容类型
  * 2. 解析数据：在 onMessage 中返回自定义类型的数据结构
  * 3. 植入插槽：使用 slot 属性渲染自定义组件
- * 
+ *
  * 学习目标：
  * - 掌握插槽机制的使用方法
  * - 理解插槽命名规则和渲染时机
@@ -159,31 +160,20 @@ export default function CustomContent() {
           // 只为 AI 消息且已完成的消息添加操作栏
           if (msg.role === 'assistant' && msg.status === 'complete') {
             // 提取消息文本内容用于复制
-            const textContent = msg.content
-              ?.filter((item) => item.type === 'text' || item.type === 'markdown')
-              .map((item) => item.data)
-              .join('\n') || '';
+            const textContent =
+              msg.content
+                ?.filter((item) => item.type === 'text' || item.type === 'markdown')
+                .map((item) => item.data)
+                .join('\n') || '';
 
             return (
               // 操作栏插槽命名规则：`${msg.id}-actionbar`
               <div slot={`${msg.id}-actionbar`} key={`${msg.id}-actions`}>
                 <Space size="small" style={{ marginTop: 6 }}>
-                  <Button
-                    shape="square"
-                    variant="text"
-                    size="small"
-                    onClick={handlePlayAudio}
-                    title="播放语音"
-                  >
+                  <Button shape="square" variant="text" size="small" onClick={handlePlayAudio} title="播放语音">
                     <SoundIcon />
                   </Button>
-                  <Button
-                    shape="square"
-                    variant="text"
-                    size="small"
-                    onClick={handleEdit}
-                    title="编辑"
-                  >
+                  <Button shape="square" variant="text" size="small" onClick={handleEdit} title="编辑">
                     <EditIcon />
                   </Button>
                   <Button

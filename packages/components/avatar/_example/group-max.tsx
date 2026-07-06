@@ -1,6 +1,6 @@
 import React from 'react';
+import { EllipsisIcon, UserIcon } from 'tdesign-icons-react';
 import { Avatar, Space } from 'tdesign-react';
-import { UserIcon, EllipsisIcon } from 'tdesign-icons-react';
 
 const { Group: AvatarGroup } = Avatar;
 

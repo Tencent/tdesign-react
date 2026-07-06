@@ -1,7 +1,8 @@
-import React, { useState, useMemo } from 'react';
-import { Card, Space, Button, Divider } from 'tdesign-react';
-import { AGUIAdapter } from 'tdesign-web-components/lib/chat-engine';
-import type { AGUIHistoryMessage, AGUIActivityMessage } from 'tdesign-web-components/lib/chat-engine';
+import React, { useMemo, useState } from 'react';
+import { Button, Card, Divider, Space } from 'tdesign-react';
+import { AGUIAdapter } from '@tdesign-react/chat';
+
+import type { AGUIActivityMessage, AGUIHistoryMessage } from '@tdesign-react/chat';
 
 /**
  * AG-UI 历史消息转换测试
