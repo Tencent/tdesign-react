@@ -83,7 +83,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const headerTopAffixRef = useRef<AffixRef>(null);
   const footerBottomAffixRef = useRef<AffixRef>(null);
 
-  const [supportMinWidth, setSupportMinWidth] = useState(() => !isFirefox() && !isSafari());
+  const [supportMinWidth, setSupportMinWidth] = useState(true);
 
   // 1. 表头吸顶；2. 表尾吸底；3. 底部滚动条吸底；4. 分页器吸底
   const {
