@@ -4,8 +4,8 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TNode } from '../common';
-import { KeyboardEvent, FocusEvent, FormEvent } from 'react';
+import { TNode } from "../common";
+import { KeyboardEvent, FocusEvent, FormEvent, MouseEvent } from "react";
 
 export interface TdTextareaProps {
   /**
@@ -26,7 +26,19 @@ export interface TdTextareaProps {
   /**
    * 文字计数元素。设置 `maxlength` 或 `maxchanacter` 时，默认为 true
    */
-  count?: boolean | ((ctx: { value: string; count: number; maxLength?: number; maxCharacter?: number }) => TNode);
+  count?:
+    | boolean
+    | ((ctx: {
+        value: string;
+        count: number;
+        maxLength?: number;
+        maxCharacter?: number;
+      }) => TNode);
+  /**
+   * 是否可清空
+   * @default false
+   */
+  clearable?: boolean;
   /**
    * 是否禁用文本框
    * @default false
@@ -64,7 +76,7 @@ export interface TdTextareaProps {
    * 文本框状态
    * @default default
    */
-  status?: 'default' | 'success' | 'warning' | 'error';
+  status?: "default" | "success" | "warning" | "error";
   /**
    * 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式
    */
@@ -80,27 +92,52 @@ export interface TdTextareaProps {
   /**
    * 失去焦点时触发
    */
-  onBlur?: (value: TextareaValue, context: { e: FocusEvent<HTMLTextAreaElement> }) => void;
+  onBlur?: (
+    value: TextareaValue,
+    context: { e: FocusEvent<HTMLTextAreaElement> },
+  ) => void;
   /**
    * 输入内容变化时触发
    */
-  onChange?: (value: TextareaValue, context?: { e?: FormEvent<HTMLTextAreaElement> }) => void;
+  onChange?: (
+    value: TextareaValue,
+    context?: {
+      e?: FormEvent<HTMLTextAreaElement> | MouseEvent<SVGElement>;
+      trigger?: "input" | "clear";
+    },
+  ) => void;
+  /**
+   * 清空按钮点击时触发
+   */
+  onClear?: (context: { e: MouseEvent<SVGElement> }) => void;
   /**
    * 获得焦点时触发
    */
-  onFocus?: (value: TextareaValue, context: { e: FocusEvent<HTMLTextAreaElement> }) => void;
+  onFocus?: (
+    value: TextareaValue,
+    context: { e: FocusEvent<HTMLTextAreaElement> },
+  ) => void;
   /**
    * 键盘按下时触发
    */
-  onKeydown?: (value: TextareaValue, context: { e: KeyboardEvent<HTMLTextAreaElement> }) => void;
+  onKeydown?: (
+    value: TextareaValue,
+    context: { e: KeyboardEvent<HTMLTextAreaElement> },
+  ) => void;
   /**
    * 按下字符键时触发（keydown -> keypress -> keyup）
    */
-  onKeypress?: (value: TextareaValue, context: { e: KeyboardEvent<HTMLTextAreaElement> }) => void;
+  onKeypress?: (
+    value: TextareaValue,
+    context: { e: KeyboardEvent<HTMLTextAreaElement> },
+  ) => void;
   /**
    * 释放键盘时触发
    */
-  onKeyup?: (value: TextareaValue, context: { e: KeyboardEvent<HTMLTextAreaElement> }) => void;
+  onKeyup?: (
+    value: TextareaValue,
+    context: { e: KeyboardEvent<HTMLTextAreaElement> },
+  ) => void;
 }
 
 export type TextareaValue = string;

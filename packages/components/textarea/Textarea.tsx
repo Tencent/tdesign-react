@@ -1,5 +1,6 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
+import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-react';
 import calcTextareaHeight from '@tdesign/common-js/utils/calcTextareaHeight';
 import { getCharacterLength, getUnicodeLength, limitUnicodeMaxLength } from '@tdesign/common-js/utils/helper';
 
@@ -9,6 +10,7 @@ import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useEventCallback from '../hooks/useEventCallback';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
 import { textareaDefaultProps } from './defaultProps';
 
@@ -49,9 +51,12 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     tips,
     allowInputOverMax,
     rows,
+    clearable,
+    onClear,
     ...otherProps
   } = props;
   const hasMaxcharacter = typeof maxcharacter !== 'undefined';
+  const readOnlyProp = props.readOnly || props.readonly;
 
   const [value = '', setValue] = useControlled(props, 'value', props.onChange);
 
@@ -72,6 +77,10 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   }, [value, allowInputOverMax, maxcharacter]);
 
   const { classPrefix } = useConfig();
+  const { CloseCircleFilledIcon } = useGlobalIcon({
+    CloseCircleFilledIcon: TdCloseCircleFilledIcon,
+  });
+  const isShowClearIcon = clearable && value && !disabled && !readOnlyProp;
 
   const textareaPropsNames = Object.keys(otherProps).filter(
     (key) => !/^on[A-Z]/.test(key) && !OMIT_PROPS.includes(key),
@@ -138,6 +147,13 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
       setComposingValue(val);
       setValue(val, { e });
     }
+  }
+
+  function handleClear(e: React.MouseEvent<SVGSVGElement>) {
+    composingRef.current = false;
+    setComposingValue('');
+    setValue('', { e, trigger: 'clear' });
+    onClear?.({ e });
   }
 
   function handleCompositionStart() {
@@ -216,7 +232,13 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   );
 
   return (
-    <div style={style} ref={wrapperRef} className={classNames(`${classPrefix}-textarea`, className)}>
+    <div
+      style={style}
+      ref={wrapperRef}
+      className={classNames(`${classPrefix}-textarea`, className, {
+        [`${classPrefix}-textarea--clearable`]: clearable,
+      })}
+    >
       <textarea
         {...textareaProps}
         {...eventProps}
@@ -224,7 +246,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
         value={composingRef.current ? composingValue : value}
         style={textareaStyle}
         className={textareaClassNames}
-        readOnly={props.readOnly || props.readonly}
+        readOnly={readOnlyProp}
         autoFocus={autofocus}
         disabled={disabled}
         onChange={inputValueChangeHandle}
@@ -235,6 +257,9 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
         onCompositionEnd={handleCompositionEnd}
         ref={textareaRef}
       />
+      {isShowClearIcon ? (
+        <CloseCircleFilledIcon className={`${classPrefix}-textarea__clear`} onClick={handleClear} />
+      ) : null}
       {textTips || limitText ? (
         <div
           className={classNames(`${classPrefix}-textarea__info_wrapper`, {
