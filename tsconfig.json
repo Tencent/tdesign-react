@@ -39,7 +39,13 @@
     "checkJs": true,
     "downlevelIteration": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": [
+      "node",
+      "vitest/globals",
+      "@testing-library/jest-dom",
+      "@testing-library/react"
+    ]
   },
   "include": [
     "./packages/components",
@@ -57,14 +63,6 @@
     "esm",
     "cjs",
     "es"
-  ],
-  "types": [
-    "node",
-    "jest",
-    "vitest/globals",
-    "@testing-library/jest-dom",
-    "@testing-library/react-hooks",
-    "@testing-library/react"
   ],
   "compileOnSave": false
 }
