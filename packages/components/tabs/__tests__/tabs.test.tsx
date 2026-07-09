@@ -86,14 +86,14 @@ describe('Tabs 组件测试', () => {
             label: string;
             value: string;
           }[]
-        >((re) =>
+        >((re) => {
           setTimeout(() => {
             re([
               { label: 'A', value: 'a' },
               { label: 'B', value: 'b' },
             ]);
-          }, 1000),
-        ),
+          }, 1000);
+        }),
     );
 
     const useFetch = <F extends () => Promise<any>>(func: F) => {
@@ -127,7 +127,9 @@ describe('Tabs 组件测试', () => {
     const getNavItems = () => tabInstance.querySelectorAll('.t-tabs__nav-item');
 
     expect(getNavItems().length).toBe(0);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => {
+      setTimeout(resolve, 1000);
+    });
     expect(getNavItems().length).toBe(2);
     expect(() => tabInstance.querySelector('.t-tabs__bar')).not.toBe(null);
     const tabBar = tabInstance.querySelector('.t-tabs__bar');
@@ -193,11 +195,18 @@ describe('Tabs 组件测试', () => {
     expect(onTabRemoveFn).toHaveBeenCalledTimes(1);
     expect(onTabPanelRemoveFn).toHaveBeenCalledTimes(1);
 
-    expect(onTabRemoveFn).toHaveBeenCalledWith({ value: 'a', e: expect.any(Object), index: 0 });
+    expect(onTabRemoveFn).toHaveBeenCalledWith({
+      value: 'a',
+      e: expect.any(Object),
+      index: 0,
+    });
     const tabRemoveFnArg = onTabRemoveFn.mock.calls[0][0];
     expect(tabRemoveFnArg.e.nativeEvent).toBeInstanceOf(MouseEvent);
 
-    expect(onTabPanelRemoveFn).toHaveBeenCalledWith({ value: 'a', e: expect.any(Object) });
+    expect(onTabPanelRemoveFn).toHaveBeenCalledWith({
+      value: 'a',
+      e: expect.any(Object),
+    });
     const tabPanelRemoveFnArg = onTabPanelRemoveFn.mock.calls[0][0];
     expect(tabPanelRemoveFnArg.e.nativeEvent).toBeInstanceOf(MouseEvent);
   });

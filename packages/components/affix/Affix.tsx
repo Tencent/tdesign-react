@@ -68,7 +68,8 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
           }
         } else {
           const containerHeight =
-            scrollContainer.current?.[isWindow(scrollContainer.current) ? 'innerHeight' : 'clientHeight'] - wrapHeight;
+            (scrollContainer.current?.[isWindow(scrollContainer.current) ? 'innerHeight' : 'clientHeight'] ?? 0) -
+            wrapHeight;
           const calcBottom = containerToTop + containerHeight - (offsetBottom ?? 0); // 计算 bottom 相对应的 top 值
           if (calcTop <= offsetTop) {
             // top 的触发
