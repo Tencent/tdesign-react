@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { COLOR_MODES } from '@tdesign/common-js/color-picker/constants';
-import { isEyeDropperSupported, openEyeDropper } from '@tdesign/common-js/color-picker/eyedropper';
+import { isEyeDropperSupported, openEyeDropper } from '../../utils/eyedropper';
 import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import Radio from '../../../radio';
 import type { RadioValue } from '../../../radio';
@@ -57,7 +57,7 @@ const Header = (props: ColorPanelHeaderProps) => {
       {eyeDropper && (
         <button
           className={[`${baseClassName}__eyedropper`, !supported && 't-is-disabled'].filter(Boolean).join(' ')}
-          title={t(local.eyeDropper) || '吸色'}
+          title="吸色"
           disabled={!supported || picking}
           onClick={handleEyeDropperClick}
           type="button"
