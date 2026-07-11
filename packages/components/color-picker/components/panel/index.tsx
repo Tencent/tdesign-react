@@ -290,7 +290,14 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
       style={{ ...style }}
       ref={ref}
     >
-      <PanelHeader baseClassName={baseClassName} mode={mode} colorModes={colorModes} onModeChange={handleModeChange} eyeDropper={eyeDropper} onEyeDropperPick={handleEyeDropperPick} />
+      <PanelHeader
+        baseClassName={baseClassName}
+        mode={mode}
+        colorModes={colorModes}
+        onModeChange={handleModeChange}
+        eyeDropper={eyeDropper}
+        onEyeDropperPick={handleEyeDropperPick}
+      />
       <div className={`${baseClassName}__body`}>
         {isGradient && (
           <LinearGradient
