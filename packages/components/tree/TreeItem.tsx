@@ -311,7 +311,7 @@ const TreeItem = forwardRef(
       try {
         // ie throw error firefox-need-it
         evt.dataTransfer?.setData('text/plain', '');
-      } catch (e) {
+      } catch {
         // empty
       }
     };

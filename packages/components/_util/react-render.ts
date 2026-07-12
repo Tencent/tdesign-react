@@ -25,7 +25,7 @@ try {
   if (mainVersion >= 18 && mainVersion < 19) {
     legacyCreateRoot = fullClone.createRoot;
   }
-} catch (e) {
+} catch {
   // Do nothing;
 }
 

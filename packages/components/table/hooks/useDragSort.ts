@@ -329,7 +329,7 @@ function useDragSort(props: TdEnhancedTableProps, options: DragSortOptions) {
           handle: `.${tableDraggableClasses.handle}`,
         });
       }
-    } catch (error) {
+    } catch {
       //
     }
     updateLastRowList();

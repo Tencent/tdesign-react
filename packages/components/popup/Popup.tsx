@@ -369,7 +369,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
           onVisibleChange(false, { trigger: 'document' });
         }
       }
-    } catch (e) {
+    } catch {
       // 直接尝试更新
       popper.update();
     }
