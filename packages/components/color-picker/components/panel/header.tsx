@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { COLOR_MODES } from '@tdesign/common-js/color-picker/constants';
+import { COLOR_MODES } from '@tdesign/common-js/color-picker/index';
 
 import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import Radio from '../../../radio';
