@@ -69,5 +69,11 @@
     "type": "Boolean",
     "defaultValue": false,
     "options": []
+  },
+  {
+    "name": "showInput",
+    "type": "Boolean",
+    "defaultValue": true,
+    "options": []
   }
 ]

@@ -20,6 +20,17 @@ describe('ColorPicker 组件测试', () => {
     expect(container.querySelector('.t-input__inner')).toHaveValue('rgb(236, 242, 254)');
   });
 
+  test('ColorPicker 无文字输入框触发器测试', () => {
+    const { container } = render(<ColorPicker defaultValue="#0052d9" showInput={false} />);
+
+    expect(container.querySelector('.t-color-picker__trigger--no-input')).toBeInTheDocument();
+    expect(container.querySelector('.t-input__inner')).toHaveClass('t-input--soft-hidden');
+    expect(container.querySelector('.t-input__inner')).toHaveValue('#0052d9');
+
+    fireEvent.click(container.querySelector('.t-input'));
+    expect(document.querySelector('.t-color-picker__panel')).toBeInTheDocument();
+  });
+
   test('ColorPicker 预设颜色切换 测试', () => {
     const { container } = render(
       <ColorPicker defaultValue="linear-gradient(45deg, #4facfe 0%, #00f2fe 100%)" format="CSS" />,
