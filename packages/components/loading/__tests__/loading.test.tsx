@@ -60,7 +60,10 @@ describe('Loading 组件测试', () => {
     );
 
     expect(container.querySelector('.t-loading__text')).toHaveTextContent('全局加载中');
-    expect(container.querySelector('.t-loading')).toHaveStyle({ fontSize: '36px', zIndex: '1234' });
+    expect(container.querySelector('.t-loading')).toHaveStyle({
+      fontSize: '36px',
+      zIndex: '1234',
+    });
   });
 
   test('loading props should override global loading config', async () => {
@@ -86,7 +89,11 @@ describe('Loading 组件测试', () => {
       <div>
         <div
           className="trigger"
-          onClick={() => loading({ attach: () => document.querySelector('#loading-attach') }) as any}
+          onClick={() =>
+            loading({
+              attach: () => document.querySelector('#loading-attach'),
+            }) as any
+          }
         >
           container to trigger loading
         </div>
