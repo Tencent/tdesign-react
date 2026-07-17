@@ -24,6 +24,7 @@ spline: explain
   - 修复单选且 `valueDisplay` 为自定义元素时，开启 `filterable` 无法显示输入内容的问题。 @RylanBot ([#3891](https://github.com/Tencent/tdesign-react/pull/3891))
   - 修复 `inputProps.inputClass` 无法生效的问题。先前 `inputProps.className` 被错误地应用到了 `t-class` 同级位置，导致正确的 `inputProps.inputClass` 配置无效，之前使用相关属性的业务注意此变更 ⚠️ @RylanBot ([#3891](https://github.com/Tencent/tdesign-react/pull/3891))
 - `Table`: 在非 Chromium 内核浏览器时，由于 `min-width` 兼容性问题，降级到 `width` @RylanBot ([#4219](https://github.com/Tencent/tdesign-react/pull/4219))
+- `TagInput`: 修复带 label 且已有 tag 时输入内容垂直对齐偏差的问题 @DaZuiZui  ([common#2564](https://github.com/Tencent/tdesign-common/pull/2564))
 
 ## 🌈 1.18.0 `2026-06-26`
 
