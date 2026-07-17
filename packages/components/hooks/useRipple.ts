@@ -7,6 +7,8 @@ import useConfig from './useConfig';
 
 const period = 200;
 const elementTransitionPeriod = 200;
+const rippleExtraWidth = 20;
+const rippleSkew = 'skewX(-8deg)';
 const noneRippleBg = 'rgba(0, 0, 0, 0)';
 const defaultRippleColor = 'rgba(0, 0, 0, 0.35)';
 
@@ -67,7 +69,6 @@ export default function useRipple(el: HTMLElement, fixedRippleColor?: string): v
 
       const elBorder = parseInt(elStyle.borderWidth, 10);
       const border = elBorder > 0 ? elBorder : 0;
-      const width = el.offsetWidth;
 
       if (rippleContainer.parentNode === null) {
         setStyle(rippleContainer, {
@@ -90,11 +91,12 @@ export default function useRipple(el: HTMLElement, fixedRippleColor?: string): v
       setStyle(ripple, {
         marginTop: '0',
         marginLeft: '0',
-        right: `${width}px`,
-        width: `${width + 20}px`,
+        right: '100%',
+        // 使用百分比尺寸与位移，让 ripple 在 loading icon 插入导致按钮变宽时仍覆盖完整按钮
+        width: `calc(100% + ${rippleExtraWidth}px)`,
         height: '100%',
         transition: `transform ${period}ms cubic-bezier(.38, 0, .24, 1), background ${period * 2}ms linear`,
-        transform: 'skewX(-8deg)',
+        transform: rippleSkew,
         pointerEvents: 'none',
         position: 'absolute',
         zIndex: 0,
@@ -121,7 +123,7 @@ export default function useRipple(el: HTMLElement, fixedRippleColor?: string): v
       rippleContainer.insertBefore(ripple, rippleContainer.firstChild);
 
       setTimeout(() => {
-        ripple.style.transform = `translateX(${width}px)`;
+        ripple.style.transform = `translateX(calc(100% - ${rippleExtraWidth}px)) ${rippleSkew}`;
       }, 0);
       // 清除动画节点 clear ripple container
       let cleared = false;
