@@ -14,9 +14,7 @@ spline: explain
 ### 🐞 Bug Fixes
 
 - `Button`: 优化斜八度的动画效果 @uyarn ([#4331](https://github.com/Tencent/tdesign-react/pull/4331))
-- `ColorPicker`: 
-  - 修复渐变角度的 `title` 格式异常的问题 @RylanBot ([#4324](https://github.com/Tencent/tdesign-react/pull/4324))
-  - 修复渐变角度输入框在 `1.17.0` 版本后溢出面板的问题 @RylanBot ([#4324](https://github.com/Tencent/tdesign-react/pull/4324))
+- `ColorPicker`: 修复渐变角度的 `title` 格式异常的问题 @RylanBot ([#4324](https://github.com/Tencent/tdesign-react/pull/4324))
 - `Menu`: 修复弹出窗口位置在左侧宽度不够向右侧翻转时的间距错误问题 @RSS1102 ([common#2631](https://github.com/Tencent/tdesign-common/pull/2631))
 - `Select`: 
   - 修复 `label` 为非 `string` 类型时，开启 `filterable` 搜索后报错的问题。 @RylanBot ([#3891](https://github.com/Tencent/tdesign-react/pull/3891))
