@@ -17,6 +17,7 @@ spline: explain
 - `ColorPicker`: 
   - Fixed an issue with the format of the `title` field related to gradient angles. @RylanBot ([#4324](https://github.com/Tencent/tdesign-react/pull/4324))
   - Resolved the problem where the input field for gradient angles overflowed its container after version `1.17.0`. @RylanBot ([#4324](https://github.com/Tencent/tdesign-react/pull/4324))
+- `Menu`: Fix the incorrect spacing when a popup positioned on the left side flips to the right due to insufficient width. @RSS1102 ([common#2631](https://github.com/Tencent/tdesign-common/pull/2631))
 - `Select`: 
   - Fixed an error that occurred when `label` was not of type `string` and `filterable` search was enabled. @RylanBot ([#3891](https://github.com/Tencent/tdesign-react/pull/3891))
   - Fixed the issue where the height of the dropdown options was not properly adjusted when using `label`/`content`/`children` to customize the elements. ([common#2537](https://github.com/Tencent/tdesign-common/pull/2537)) @RylanBot
