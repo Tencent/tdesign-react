@@ -144,10 +144,13 @@ export default function useRipple(el: HTMLElement, fixedRippleColor?: string): v
           el.removeEventListener('pointerleave', handleClearRipple, false);
         }
 
-        setTimeout(() => {
-          ripple.remove();
-          if (rippleContainer.children.length === 0) rippleContainer.remove();
-        }, period * 2 + 100);
+        setTimeout(
+          () => {
+            ripple.remove();
+            if (rippleContainer.children.length === 0) rippleContainer.remove();
+          },
+          period * 2 + 100,
+        );
       };
 
       if (typeof MutationObserver !== 'undefined') {

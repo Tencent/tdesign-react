@@ -15,6 +15,7 @@ import type { TdLoadingProps } from './type';
 export interface LoadingProps extends TdLoadingProps, StyledProps {}
 
 const Loading: React.FC<LoadingProps> = (props) => {
+  const { classPrefix, loading: globalLoadingConfig } = useConfig();
   const {
     attach,
     indicator,
@@ -31,11 +32,12 @@ const Loading: React.FC<LoadingProps> = (props) => {
     zIndex,
     className,
     style,
-  } = useDefaultProps<LoadingProps>(props, loadingDefaultProps);
+  } = useDefaultProps<LoadingProps>(props, {
+    ...loadingDefaultProps,
+    ...globalLoadingConfig,
+  });
 
   const [showLoading, setShowLoading] = useState(() => (delay ? false : loading));
-
-  const { classPrefix } = useConfig();
 
   const name = `${classPrefix}-loading`;
   const centerClass = `${classPrefix}-loading--center`;
@@ -144,7 +146,9 @@ const Loading: React.FC<LoadingProps> = (props) => {
       <Portal attach={attach}>
         {showLoading ? (
           <div
-            className={classnames(name, baseClasses, fullClass, { [overlayClass]: showOverlay })}
+            className={classnames(name, baseClasses, fullClass, {
+              [overlayClass]: showOverlay,
+            })}
             style={{ ...calcStyles, ...style }}
           >
             {commonContent()}

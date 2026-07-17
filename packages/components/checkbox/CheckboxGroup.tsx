@@ -22,8 +22,7 @@ import type {
 } from './type';
 
 export interface CheckboxGroupProps<T extends CheckboxGroupValue = CheckboxGroupValue>
-  extends TdCheckboxGroupProps<T>,
-    StyledProps {
+  extends TdCheckboxGroupProps<T>, StyledProps {
   children?: React.ReactNode;
 }
 

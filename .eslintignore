@@ -14,3 +14,5 @@ temp*
 static/
 packages/common
 packages/ai-core
+site/engineering/static
+packages/components/**/type.ts 

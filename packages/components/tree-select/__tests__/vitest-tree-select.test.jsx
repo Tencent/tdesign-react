@@ -7,13 +7,14 @@
 import React from 'react';
 import {
   fireEvent,
-  vi,
-  render,
   mockDelay,
-  simulateInputChange,
+  render,
   simulateDocumentMouseEvent,
+  simulateInputChange,
   simulateInputEnter,
+  vi,
 } from '@test/utils';
+
 import { TreeSelect } from '..';
 import { getTreeSelectDefaultMount, getTreeSelectMultipleMount } from './mount';
 
@@ -474,7 +475,7 @@ describe('TreeSelect Component', () => {
     await mockDelay(200);
     fireEvent.click(document.querySelector('.t-tree__item:last-child .t-checkbox__label'));
     expect(onChangeFn1).toHaveBeenCalled();
-    expect(onChangeFn1.mock.calls[0][0]).toEqual([1, '2.1', '2.2', 3, '4', '5', '6']);
+    expect(onChangeFn1.mock.calls[0][0]).toEqual([1, 3, '4', '5', '2.1', '2.2', '6']);
     expect(onChangeFn1.mock.calls[0][1].trigger).toBe('check');
     expect(onChangeFn1.mock.calls[0][1].e.type).toBe('change');
     expect(onChangeFn1.mock.calls[0][1].node.label).toBe('tdesign-mobile-vue');
@@ -492,7 +493,7 @@ describe('TreeSelect Component', () => {
     await mockDelay(200);
     fireEvent.click(document.querySelector('.t-tree__item:first-child .t-checkbox__label'));
     expect(onChangeFn1).toHaveBeenCalled();
-    expect(onChangeFn1.mock.calls[0][0]).toEqual(['2.1', '2.2', 3, '4', '5']);
+    expect(onChangeFn1.mock.calls[0][0]).toEqual([3, '4', '5', '2.1', '2.2']);
     expect(onChangeFn1.mock.calls[0][1].trigger).toBe('uncheck');
     expect(onChangeFn1.mock.calls[0][1].e.type).toBe('change');
     expect(onChangeFn1.mock.calls[0][1].node.label).toBe('tdesign-vue');

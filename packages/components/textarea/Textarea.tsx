@@ -19,7 +19,8 @@ const DEFAULT_TEXTAREA_STYLE = { height: 'auto', minHeight: 'auto' };
 const OMIT_PROPS = ['defaultValue', 'readonly'];
 
 export interface TextareaProps
-  extends Omit<
+  extends
+    Omit<
       React.TextareaHTMLAttributes<HTMLTextAreaElement>,
       'value' | 'defaultValue' | 'onBlur' | 'onChange' | 'onFocus' | 'onKeyDown' | 'onKeyPress' | 'onKeyUp'
     >,
