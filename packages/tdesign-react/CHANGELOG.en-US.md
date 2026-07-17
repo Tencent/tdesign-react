@@ -24,6 +24,7 @@ spline: explain
   - Fixed the problem where, in the case of a radio button with a custom `valueDisplay` element, the input content could not be displayed when `filterable` was enabled. @RylanBot ([#3891](https://github.com/Tencent/tdesign-react/pull/3891))
   - Fixed the issue where `inputProps.inputClass` did not have the desired effect; previously, `inputProps.className` was incorrectly applied at the same level as `t-class`, which rendered `inputProps.inputClass` ineffective. Businesses that use this property should be aware of this change. ⚠️ @RylanBot ([#3891](https://github.com/Tencent/tdesign-react/pull/3891))
 - `Table`: In browsers that don’t use the Chromium engine, compatibility issues with `min-width` cause the property to be fallbacked to `width`. @RylanBot ([#4219](https://github.com/Tencent/tdesign-react/pull/4219))
+- `TagInput`: Fixed alignment issues when entering text alongside existing tags @DaZuiZui ([common#2564](https://github.com/Tencent/tdesign-common/pull/2564))
 
 ## 🌈 1.18.0 `2026-06-26`
 
