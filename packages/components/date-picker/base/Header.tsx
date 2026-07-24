@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import useConfig from '../../hooks/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
@@ -44,6 +44,9 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
   const { now, months, preMonth, preYear, nextMonth, nextYear, preDecade, nextDecade } = useDatePickerLocalConfig();
 
   const scrollAnchorRef = useRef('default');
+  const scrollTopRef = useRef<number | null>(null); // 底部追加前记录 scrollTop，用于 DOM 更新后恢复滚动位置
+  const yearPopupContentRef = useRef<HTMLElement | null>(null);
+
   const {
     paginationDisabled,
     monthHasAnyAllowed,
@@ -70,7 +73,11 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
           const end = i + 9;
           // 仅加入可选的年代
           if (decadeHasAnyAllowed(end)) {
-            options.push({ label: `${i} - ${end}`, value: i + 9, disabled: false });
+            options.push({
+              label: `${i} - ${end}`,
+              value: i + 9,
+              disabled: false,
+            });
           }
         }
       } else {
@@ -78,8 +85,18 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
         yearHasAnyAllowed(year) && options.push({ label: `${year}`, value: year, disabled: false });
 
         for (let i = 1; i <= 10; i++) {
-          yearHasAnyAllowed(year + i) && options.push({ label: `${year + i}`, value: year + i, disabled: false });
-          yearHasAnyAllowed(year - i) && options.unshift({ label: `${year - i}`, value: year - i, disabled: false });
+          yearHasAnyAllowed(year + i) &&
+            options.push({
+              label: `${year + i}`,
+              value: year + i,
+              disabled: false,
+            });
+          yearHasAnyAllowed(year - i) &&
+            options.unshift({
+              label: `${year - i}`,
+              value: year - i,
+              disabled: false,
+            });
         }
       }
 
@@ -134,7 +151,12 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
         }
       } else {
         for (let i = year - extraYear - 1; i > year - extraYear - 50; i -= 10) {
-          decadeHasAnyAllowed(i) && options.unshift({ label: `${i - 9} - ${i}`, value: i, disabled: false });
+          decadeHasAnyAllowed(i) &&
+            options.unshift({
+              label: `${i - 9} - ${i}`,
+              value: i,
+              disabled: false,
+            });
         }
       }
     } else if (type === 'add') {
@@ -178,35 +200,40 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
 
     const firstYear = yearOptions[0].value;
     const options = loadMoreYear(firstYear, 'reduce');
+    if (!options.length) return;
     setYearOptions([...options, ...yearOptions]);
   }
 
   function handlePanelBottomClick(e?: React.MouseEvent) {
     e?.stopPropagation?.();
     e?.nativeEvent?.stopImmediatePropagation();
-
     const lastYear = yearOptions.slice(-1)[0].value;
     const options = loadMoreYear(lastYear, 'add');
+    if (!options.length) return;
+    const contentEl = yearPopupContentRef.current;
+    if (contentEl) {
+      scrollTopRef.current = contentEl.scrollTop;
+    }
     setYearOptions([...yearOptions, ...options]);
   }
 
   // 滚动顶部底部自动加载
   function handleScroll({ e }) {
-    if (e.target.scrollTop === 0) {
-      showPanelTop && handlePanelTopClick();
+    const target = e.target as HTMLElement;
+    yearPopupContentRef.current = target;
+    if (target.scrollTop <= 0) {
+      if (showPanelTop) handlePanelTopClick();
       scrollAnchorRef.current = 'top';
-    } else if (e.target.scrollTop === e.target.scrollHeight - e.target.clientHeight) {
-      showPanelBottom && handlePanelBottomClick();
+    } else if (Math.abs(target.scrollHeight - target.clientHeight - target.scrollTop) <= 1) {
+      if (showPanelBottom) handlePanelBottomClick();
       scrollAnchorRef.current = 'bottom';
     }
   }
 
   function handleUpdateScrollTop(content: HTMLElement) {
     if (scrollAnchorRef.current === 'top') {
-      // eslint-disable-next-line no-param-reassign
       content.scrollTop = 30 * 10;
     } else if (scrollAnchorRef.current === 'bottom') {
-      // eslint-disable-next-line no-param-reassign
       content.scrollTop = content.scrollHeight - 30 * 10;
     } else {
       const firstSelectedNode: HTMLDivElement = content?.querySelector(`.${classPrefix}-is-selected`);
@@ -221,7 +248,6 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
           content.offsetTop -
           (content.clientHeight - firstSelectedNode.clientHeight) +
           elementBottomHeight;
-        // eslint-disable-next-line no-param-reassign
         content.scrollTop = updateValue;
       }
     }
@@ -231,6 +257,14 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
     const yearRange = initOptions(year);
     setYearOptions(yearRange);
   }, [initOptions, year]);
+
+  useLayoutEffect(() => {
+    const savedScrollTop = scrollTopRef.current;
+    const contentEl = yearPopupContentRef.current;
+    if (savedScrollTop == null || !contentEl) return;
+    scrollTopRef.current = null;
+    contentEl.scrollTop = savedScrollTop;
+  }, [yearOptions]);
 
   return (
     <div className={headerClassName}>
