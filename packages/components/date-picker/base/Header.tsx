@@ -43,7 +43,7 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
 
   const { now, months, preMonth, preYear, nextMonth, nextYear, preDecade, nextDecade } = useDatePickerLocalConfig();
 
-  const scrollAnchorRef = useRef('default');
+  const scrollAnchorRef = useRef<'default' | 'top' | 'bottom'>('default');
   const scrollTopRef = useRef<number | null>(null); // 底部追加前记录 scrollTop，用于 DOM 更新后恢复滚动位置
   const yearPopupContentRef = useRef<HTMLElement | null>(null);
 
