@@ -11,7 +11,7 @@ import type { TdCheckboxProps } from '../checkbox/type';
 import type { StyledProps } from '../common';
 
 export interface CheckProps extends TdCheckboxProps, StyledProps {
-  type: 'radio' | 'radio-button' | 'checkbox';
+  type: 'radio' | 'radio-button' | 'checkbox' | 'checkbox-button';
   allowUncheck?: boolean;
   title?: string;
   children?: React.ReactNode;
@@ -55,7 +55,9 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
 
   const TOnChange: (
     checked: boolean,
-    context: { e: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLInputElement> },
+    context: {
+      e: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLInputElement>;
+    },
   ) => void = onChange;
 
   const [internalChecked, setInternalChecked] = useControlled(props, 'checked', TOnChange);
@@ -69,10 +71,17 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
   const readOnly = props.readOnly || props.readonly;
   const isDisabled = disabled || readOnly;
 
+  // 处理 button 类型转换为标准类型
+  const inputType = (() => {
+    if (type === 'radio-button') return 'radio';
+    if (type === 'checkbox-button') return 'checkbox';
+    return type;
+  })();
+
   const input = (
     <input
       readOnly={readOnly}
-      type={type === 'radio-button' ? 'radio' : type}
+      type={inputType}
       className={`${classPrefix}-${type}__former`}
       checked={internalChecked}
       disabled={disabled}
