@@ -1,15 +1,16 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { isNumber } from 'lodash-es';
 
 import { CheckContext } from '../common/Check';
+import useCommonClassName from '../hooks/useCommonClassName';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import Checkbox from './Checkbox';
 import { checkboxGroupDefaultProps } from './defaultProps';
 
-import type { ReactElement } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 import type { StyledProps } from '../common';
 import type { CheckContextValue, CheckProps } from '../common/Check';
 import type { CheckboxProps } from './Checkbox';
@@ -23,7 +24,7 @@ import type {
 
 export interface CheckboxGroupProps<T extends CheckboxGroupValue = CheckboxGroupValue>
   extends TdCheckboxGroupProps<T>, StyledProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const getCheckboxValue = (v: CheckboxOption) => {
@@ -47,6 +48,7 @@ const getCheckboxValue = (v: CheckboxOption) => {
 const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props: CheckboxGroupProps<T>) => {
   type ItemType = T[number];
   const { classPrefix } = useConfig();
+  const { SIZE: sizeMap } = useCommonClassName();
   const {
     onChange,
     disabled,
@@ -55,6 +57,10 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
     children,
     max,
     options = [],
+    size,
+    variant,
+    theme,
+    direction,
     ...resetProps
   } = useDefaultProps<CheckboxGroupProps<T>>(props, checkboxGroupDefaultProps);
 
@@ -71,15 +77,15 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
         ) || [];
 
   const optionsWithoutCheckAll = intervalOptions.filter((t) => typeof t !== 'object' || !t.checkAll);
-  const optionsWithoutCheckAllValues = [];
+  const optionsWithoutCheckAllValues: (string | number | boolean | undefined)[] = [];
   optionsWithoutCheckAll.forEach((v: string | number) => {
     const vs = getCheckboxValue(v);
     optionsWithoutCheckAllValues.push(vs);
   });
 
   const { enabledValues, disabledValues } = useMemo(() => {
-    const enabledValues = [];
-    const disabledValues = [];
+    const enabledValues: (string | number | boolean | undefined)[] = [];
+    const disabledValues: (string | number | boolean | undefined)[] = [];
     optionsWithoutCheckAll.forEach((option) => {
       const isOptionDisabled = typeof option === 'object' && (option.disabled || option.readOnly || option.readonly);
       const value = getCheckboxValue(option);
@@ -95,6 +101,8 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
 
   const [internalValue, setInternalValue] = useControlled(props, 'value', onChange);
   const [localMax, setLocalMax] = useState(max);
+
+  const checkboxGroupRef = useRef<HTMLDivElement>(null);
 
   const getCheckedSet = useCallback(() => {
     if (!Array.isArray(internalValue)) {
@@ -194,45 +202,59 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
   // options 和 children 的抉择,在未明确说明时，暂时以 options 优先
   const useOptions = Array.isArray(options) && options.length !== 0;
 
+  // 根据 theme 选择渲染组件
+  const Comp = theme === 'button' ? Checkbox.Button : Checkbox;
+
+  const renderOptions = (): ReactNode => {
+    return options.map((v: CheckboxOption, index: number) => {
+      switch (typeof v) {
+        case 'string':
+          return (
+            <Comp key={index} value={v}>
+              {v}
+            </Comp>
+          );
+        case 'number':
+          return (
+            <Comp key={index} value={v}>
+              {String(v)}
+            </Comp>
+          );
+        case 'object': {
+          const vs = v as CheckboxOptionObj;
+          // CheckAll 的 checkBox 不存在 value,故用 checkAll_index 来保证尽量不和用户的 value 冲突.
+          return vs.checkAll ? (
+            <Checkbox {...vs} key={`checkAll_${index}`} indeterminate={indeterminate} />
+          ) : (
+            <Comp
+              {...vs}
+              key={index}
+              disabled={vs.disabled || disabled}
+              readOnly={vs.readOnly || vs.readonly || readOnly}
+            />
+          );
+        }
+        default:
+          return null;
+      }
+    });
+  };
+
+  // 构建 className
+  const groupClassName = classNames(`${classPrefix}-checkbox-group`, sizeMap[size], className, {
+    // 边框型
+    [`${classPrefix}-checkbox-group__outline`]: theme === 'button' && variant === 'outline',
+    // 填充型
+    [`${classPrefix}-checkbox-group--filled`]: theme === 'button' && variant?.includes('filled'),
+    [`${classPrefix}-checkbox-group--default-filled`]: theme === 'button' && variant === 'default-filled',
+    [`${classPrefix}-checkbox-group--primary-filled`]: theme === 'button' && variant === 'primary-filled',
+    // 纵向排列
+    [`${classPrefix}-checkbox-group--vertical`]: direction === 'vertical',
+  });
+
   return (
-    <div className={classNames(`${classPrefix}-checkbox-group`, className)} style={style}>
-      <CheckContext.Provider value={context}>
-        {useOptions
-          ? options.map((v: any, index) => {
-              switch (typeof v) {
-                case 'string':
-                  return (
-                    <Checkbox key={index} label={v} value={v}>
-                      {v}
-                    </Checkbox>
-                  );
-                case 'number': {
-                  return (
-                    <Checkbox key={index} label={v} value={v}>
-                      {String(v)}
-                    </Checkbox>
-                  );
-                }
-                case 'object': {
-                  const vs = v as CheckboxOptionObj;
-                  // CheckAll 的 checkBox 不存在 value,故用 checkAll_index 来保证尽量不和用户的 value 冲突.
-                  return vs.checkAll ? (
-                    <Checkbox {...vs} key={`checkAll_${index}`} indeterminate={indeterminate} />
-                  ) : (
-                    <Checkbox
-                      {...vs}
-                      key={index}
-                      disabled={vs.disabled || disabled}
-                      readOnly={vs.readOnly || vs.readonly || readOnly}
-                    />
-                  );
-                }
-                default:
-                  return null;
-              }
-            })
-          : children}
-      </CheckContext.Provider>
+    <div ref={checkboxGroupRef} style={style} className={groupClassName}>
+      <CheckContext.Provider value={context}>{useOptions ? renderOptions() : children}</CheckContext.Provider>
     </div>
   );
 };
