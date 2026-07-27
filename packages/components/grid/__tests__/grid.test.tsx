@@ -39,10 +39,12 @@ describe('Grid 组件测试', () => {
     // Array<GutterObject>
     const { container: container3 } = render(
       <Row
-        gutter={[
-          { xs: 4, sm: 8, md: 12 },
-          { xs: 4, sm: 8, md: 12 },
-        ]}
+        gutter={
+          [
+            { xs: 4, sm: 8, md: 12 },
+            { xs: 4, sm: 8, md: 12 },
+          ] as any
+        }
       >
         <Col span={3}></Col>
       </Row>,
@@ -50,7 +52,7 @@ describe('Grid 组件测试', () => {
 
     // Object
     const { container: container4 } = render(
-      <Row gutter={{ xs: 4, sm: 8, md: 12 }}>
+      <Row gutter={{ xs: 4, sm: 8, md: 12 } as any}>
         <Col span={4}></Col>
       </Row>,
     );

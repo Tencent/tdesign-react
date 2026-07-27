@@ -14,7 +14,7 @@ const renderStatusTag = (status: 'pending' | 'streaming' | 'complete') => {
   const config = statusConfig[status] || statusConfig.complete;
 
   return (
-    <Tag theme={config.color} size="small">
+    <Tag theme={config.color as any} size="small">
       {config.text}
     </Tag>
   );
@@ -47,7 +47,14 @@ export default function CustomToolCallRenderer({
               {searchResult.references && searchResult.references.length > 0 && (
                 <div>
                   {searchResult.references.map((ref: any, idx: number) => (
-                    <div key={idx} style={{ fontSize: '12px', marginBottom: '2px', paddingLeft: '8px' }}>
+                    <div
+                      key={idx}
+                      style={{
+                        fontSize: '12px',
+                        marginBottom: '2px',
+                        paddingLeft: '8px',
+                      }}
+                    >
                       <a
                         href={ref.url}
                         target="_blank"

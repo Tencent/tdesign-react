@@ -34568,36 +34568,48 @@ exports[`csr snapshot test > csr test packages/components/config-provider/_examp
                               class="t-icon-sort--default t-table__sort-icon t-table-sort-asc t-negative-rotate-180"
                             >
                               <svg
-                                class="t-icon t-icon-caret-down-small"
+                                class="t-icon t-icon-chevron-down"
                                 fill="none"
                                 height="1em"
-                                style="fill: none; font-size: 18px;"
+                                style="fill: none;"
                                 viewBox="0 0 24 24"
                                 width="1em"
                               >
-                                <path
-                                  d="M12.0001 15L17.5 9.5H6.5L12.0001 15Z"
-                                  fill="currentColor"
-                                  id="caret-down-small"
-                                />
+                                <g
+                                  id="chevron-down"
+                                >
+                                  <path
+                                    d="M17.5 9.5L12 15L6.5 9.5"
+                                    id="stroke1"
+                                    stroke="currentColor"
+                                    stroke-linecap="square"
+                                    stroke-width="2"
+                                  />
+                                </g>
                               </svg>
                             </span>
                             <span
                               class="t-icon-sort--default t-table__sort-icon t-table-sort-desc"
                             >
                               <svg
-                                class="t-icon t-icon-caret-down-small"
+                                class="t-icon t-icon-chevron-down"
                                 fill="none"
                                 height="1em"
-                                style="fill: none; font-size: 18px;"
+                                style="fill: none;"
                                 viewBox="0 0 24 24"
                                 width="1em"
                               >
-                                <path
-                                  d="M12.0001 15L17.5 9.5H6.5L12.0001 15Z"
-                                  fill="currentColor"
-                                  id="caret-down-small"
-                                />
+                                <g
+                                  id="chevron-down"
+                                >
+                                  <path
+                                    d="M17.5 9.5L12 15L6.5 9.5"
+                                    id="stroke1"
+                                    stroke="currentColor"
+                                    stroke-linecap="square"
+                                    stroke-width="2"
+                                  />
+                                </g>
                               </svg>
                             </span>
                           </div>
@@ -34691,36 +34703,48 @@ exports[`csr snapshot test > csr test packages/components/config-provider/_examp
                               class="t-icon-sort--default t-table__sort-icon t-table-sort-asc t-negative-rotate-180"
                             >
                               <svg
-                                class="t-icon t-icon-caret-down-small"
+                                class="t-icon t-icon-chevron-down"
                                 fill="none"
                                 height="1em"
-                                style="fill: none; font-size: 18px;"
+                                style="fill: none;"
                                 viewBox="0 0 24 24"
                                 width="1em"
                               >
-                                <path
-                                  d="M12.0001 15L17.5 9.5H6.5L12.0001 15Z"
-                                  fill="currentColor"
-                                  id="caret-down-small"
-                                />
+                                <g
+                                  id="chevron-down"
+                                >
+                                  <path
+                                    d="M17.5 9.5L12 15L6.5 9.5"
+                                    id="stroke1"
+                                    stroke="currentColor"
+                                    stroke-linecap="square"
+                                    stroke-width="2"
+                                  />
+                                </g>
                               </svg>
                             </span>
                             <span
                               class="t-icon-sort--default t-table__sort-icon t-table-sort-desc"
                             >
                               <svg
-                                class="t-icon t-icon-caret-down-small"
+                                class="t-icon t-icon-chevron-down"
                                 fill="none"
                                 height="1em"
-                                style="fill: none; font-size: 18px;"
+                                style="fill: none;"
                                 viewBox="0 0 24 24"
                                 width="1em"
                               >
-                                <path
-                                  d="M12.0001 15L17.5 9.5H6.5L12.0001 15Z"
-                                  fill="currentColor"
-                                  id="caret-down-small"
-                                />
+                                <g
+                                  id="chevron-down"
+                                >
+                                  <path
+                                    d="M17.5 9.5L12 15L6.5 9.5"
+                                    id="stroke1"
+                                    stroke="currentColor"
+                                    stroke-linecap="square"
+                                    stroke-width="2"
+                                  />
+                                </g>
                               </svg>
                             </span>
                           </div>
@@ -34841,36 +34865,48 @@ exports[`csr snapshot test > csr test packages/components/config-provider/_examp
                               class="t-icon-sort--default t-table__sort-icon t-table-sort-asc t-negative-rotate-180"
                             >
                               <svg
-                                class="t-icon t-icon-caret-down-small"
+                                class="t-icon t-icon-chevron-down"
                                 fill="none"
                                 height="1em"
-                                style="fill: none; font-size: 18px;"
+                                style="fill: none;"
                                 viewBox="0 0 24 24"
                                 width="1em"
                               >
-                                <path
-                                  d="M12.0001 15L17.5 9.5H6.5L12.0001 15Z"
-                                  fill="currentColor"
-                                  id="caret-down-small"
-                                />
+                                <g
+                                  id="chevron-down"
+                                >
+                                  <path
+                                    d="M17.5 9.5L12 15L6.5 9.5"
+                                    id="stroke1"
+                                    stroke="currentColor"
+                                    stroke-linecap="square"
+                                    stroke-width="2"
+                                  />
+                                </g>
                               </svg>
                             </span>
                             <span
                               class="t-icon-sort--default t-table__sort-icon t-table-sort-desc"
                             >
                               <svg
-                                class="t-icon t-icon-caret-down-small"
+                                class="t-icon t-icon-chevron-down"
                                 fill="none"
                                 height="1em"
-                                style="fill: none; font-size: 18px;"
+                                style="fill: none;"
                                 viewBox="0 0 24 24"
                                 width="1em"
                               >
-                                <path
-                                  d="M12.0001 15L17.5 9.5H6.5L12.0001 15Z"
-                                  fill="currentColor"
-                                  id="caret-down-small"
-                                />
+                                <g
+                                  id="chevron-down"
+                                >
+                                  <path
+                                    d="M17.5 9.5L12 15L6.5 9.5"
+                                    id="stroke1"
+                                    stroke="currentColor"
+                                    stroke-linecap="square"
+                                    stroke-width="2"
+                                  />
+                                </g>
                               </svg>
                             </span>
                           </div>
@@ -34964,36 +35000,48 @@ exports[`csr snapshot test > csr test packages/components/config-provider/_examp
                               class="t-icon-sort--default t-table__sort-icon t-table-sort-asc t-negative-rotate-180"
                             >
                               <svg
-                                class="t-icon t-icon-caret-down-small"
+                                class="t-icon t-icon-chevron-down"
                                 fill="none"
                                 height="1em"
-                                style="fill: none; font-size: 18px;"
+                                style="fill: none;"
                                 viewBox="0 0 24 24"
                                 width="1em"
                               >
-                                <path
-                                  d="M12.0001 15L17.5 9.5H6.5L12.0001 15Z"
-                                  fill="currentColor"
-                                  id="caret-down-small"
-                                />
+                                <g
+                                  id="chevron-down"
+                                >
+                                  <path
+                                    d="M17.5 9.5L12 15L6.5 9.5"
+                                    id="stroke1"
+                                    stroke="currentColor"
+                                    stroke-linecap="square"
+                                    stroke-width="2"
+                                  />
+                                </g>
                               </svg>
                             </span>
                             <span
                               class="t-icon-sort--default t-table__sort-icon t-table-sort-desc"
                             >
                               <svg
-                                class="t-icon t-icon-caret-down-small"
+                                class="t-icon t-icon-chevron-down"
                                 fill="none"
                                 height="1em"
-                                style="fill: none; font-size: 18px;"
+                                style="fill: none;"
                                 viewBox="0 0 24 24"
                                 width="1em"
                               >
-                                <path
-                                  d="M12.0001 15L17.5 9.5H6.5L12.0001 15Z"
-                                  fill="currentColor"
-                                  id="caret-down-small"
-                                />
+                                <g
+                                  id="chevron-down"
+                                >
+                                  <path
+                                    d="M17.5 9.5L12 15L6.5 9.5"
+                                    id="stroke1"
+                                    stroke="currentColor"
+                                    stroke-linecap="square"
+                                    stroke-width="2"
+                                  />
+                                </g>
                               </svg>
                             </span>
                           </div>
@@ -154036,7 +154084,7 @@ exports[`ssr snapshot test > ssr test packages/components/config-provider/_examp
 
 exports[`ssr snapshot test > ssr test packages/components/config-provider/_example/popconfirm.tsx 1`] = `"<div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><button type="button" class="t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">Default</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-warning t-button--variant-base"><span class="t-button__text">Warning</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-danger t-button--variant-base"><span class="t-button__text">Danger</span></button></div></div>"`;
 
-exports[`ssr snapshot test > ssr test packages/components/config-provider/_example/table.tsx 1`] = `"<div style="gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div class="t-table t-table--bordered" style="position:relative"><div class="t-table__content"><table class="t-table--layout-fixed"><colgroup><col style="min-width:80px"/><col style="min-width:80px"/><col style="min-width:80px"/></colgroup><thead class="t-table__header"><tr><th data-colkey="type" class="t-table__th-type"><div class="t-table__th-cell-inner"><div class="t-table__cell--sortable"><div class="t-table__cell--title"><div>Type</div><div class="t-table__filter-icon-wrap"><div class="t-table__cell--sort-trigger t-table__double-icons"><span class="t-icon-sort--default t-table__sort-icon t-table-sort-asc t-negative-rotate-180"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-caret-down-small" style="fill:none;font-size:18px"><path id="caret-down-small" fill="currentColor" d="M12.0001 15L17.5 9.5H6.5L12.0001 15Z"></path></svg></span><span class="t-icon-sort--default t-table__sort-icon t-table-sort-desc"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-caret-down-small" style="fill:none;font-size:18px"><path id="caret-down-small" fill="currentColor" d="M12.0001 15L17.5 9.5H6.5L12.0001 15Z"></path></svg></span></div></div></div></div></div></th><th data-colkey="platform" class="t-table__th-platform"><div class="t-table__th-cell-inner"><div class="t-table__cell--filterable"><div class="t-table__cell--title"><div>Platform</div><div class="t-table__filter-icon-wrap"><div class="t-table__filter-icon"><div><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-filter" style="fill:none"><g id="filter"><path id="fill1" fill="transparent" d="M19.5 4H4.5L10.5 12.5V20H13.5V12.5L19.5 4Z" fill-rule="evenodd" clip-rule="evenodd"></path><path id="stroke1" stroke="currentColor" d="M19.5 4H4.5L10.5 12.5V20H13.5V12.5L19.5 4Z" fill-rule="evenodd" stroke-linecap="square" stroke-width="2" clip-rule="evenodd"></path></g></svg></div></div></div></div></div></div></th><th data-colkey="property" class="t-table__th-property"><div class="t-table__th-cell-inner"><div class="t-table__cell--sortable t-table__cell--filterable"><div class="t-table__cell--title"><div>Property</div><div class="t-table__filter-icon-wrap"><div class="t-table__cell--sort-trigger t-table__double-icons"><span class="t-icon-sort--default t-table__sort-icon t-table-sort-asc t-negative-rotate-180"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-caret-down-small" style="fill:none;font-size:18px"><path id="caret-down-small" fill="currentColor" d="M12.0001 15L17.5 9.5H6.5L12.0001 15Z"></path></svg></span><span class="t-icon-sort--default t-table__sort-icon t-table-sort-desc"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-caret-down-small" style="fill:none;font-size:18px"><path id="caret-down-small" fill="currentColor" d="M12.0001 15L17.5 9.5H6.5L12.0001 15Z"></path></svg></span></div><div class="t-table__filter-icon"><div><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-filter" style="fill:none"><g id="filter"><path id="fill1" fill="transparent" d="M19.5 4H4.5L10.5 12.5V20H13.5V12.5L19.5 4Z" fill-rule="evenodd" clip-rule="evenodd"></path><path id="stroke1" stroke="currentColor" d="M19.5 4H4.5L10.5 12.5V20H13.5V12.5L19.5 4Z" fill-rule="evenodd" stroke-linecap="square" stroke-width="2" clip-rule="evenodd"></path></g></svg></div></div></div></div></div></div></th></tr></thead><tbody class="t-table__body"><tr class="t-table__empty-row"><td colSpan="3"><div class="t-table__empty">Empty Data</div></td></tr></tbody></table></div></div></div><div class="t-space-item"><div class="t-table" style="position:relative"><div class="t-table__content"><table class="t-table--layout-fixed"><colgroup><col style="min-width:80px"/><col style="min-width:80px"/><col style="min-width:80px"/></colgroup><thead class="t-table__header"><tr><th data-colkey="type" class="t-table__th-type"><div class="t-table__th-cell-inner"><div class="t-table__cell--sortable"><div class="t-table__cell--title"><div>Type</div><div class="t-table__filter-icon-wrap"><div class="t-table__cell--sort-trigger t-table__double-icons"><span class="t-icon-sort--default t-table__sort-icon t-table-sort-asc t-negative-rotate-180"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-caret-down-small" style="fill:none;font-size:18px"><path id="caret-down-small" fill="currentColor" d="M12.0001 15L17.5 9.5H6.5L12.0001 15Z"></path></svg></span><span class="t-icon-sort--default t-table__sort-icon t-table-sort-desc"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-caret-down-small" style="fill:none;font-size:18px"><path id="caret-down-small" fill="currentColor" d="M12.0001 15L17.5 9.5H6.5L12.0001 15Z"></path></svg></span></div></div></div></div></div></th><th data-colkey="platform" class="t-table__th-platform"><div class="t-table__th-cell-inner"><div class="t-table__cell--filterable"><div class="t-table__cell--title"><div>Platform</div><div class="t-table__filter-icon-wrap"><div class="t-table__filter-icon"><div><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-filter" style="fill:none"><g id="filter"><path id="fill1" fill="transparent" d="M19.5 4H4.5L10.5 12.5V20H13.5V12.5L19.5 4Z" fill-rule="evenodd" clip-rule="evenodd"></path><path id="stroke1" stroke="currentColor" d="M19.5 4H4.5L10.5 12.5V20H13.5V12.5L19.5 4Z" fill-rule="evenodd" stroke-linecap="square" stroke-width="2" clip-rule="evenodd"></path></g></svg></div></div></div></div></div></div></th><th data-colkey="property" class="t-table__th-property"><div class="t-table__th-cell-inner"><div class="t-table__cell--sortable t-table__cell--filterable"><div class="t-table__cell--title"><div>Property</div><div class="t-table__filter-icon-wrap"><div class="t-table__cell--sort-trigger t-table__double-icons"><span class="t-icon-sort--default t-table__sort-icon t-table-sort-asc t-negative-rotate-180"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-caret-down-small" style="fill:none;font-size:18px"><path id="caret-down-small" fill="currentColor" d="M12.0001 15L17.5 9.5H6.5L12.0001 15Z"></path></svg></span><span class="t-icon-sort--default t-table__sort-icon t-table-sort-desc"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-caret-down-small" style="fill:none;font-size:18px"><path id="caret-down-small" fill="currentColor" d="M12.0001 15L17.5 9.5H6.5L12.0001 15Z"></path></svg></span></div><div class="t-table__filter-icon"><div><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-filter" style="fill:none"><g id="filter"><path id="fill1" fill="transparent" d="M19.5 4H4.5L10.5 12.5V20H13.5V12.5L19.5 4Z" fill-rule="evenodd" clip-rule="evenodd"></path><path id="stroke1" stroke="currentColor" d="M19.5 4H4.5L10.5 12.5V20H13.5V12.5L19.5 4Z" fill-rule="evenodd" stroke-linecap="square" stroke-width="2" clip-rule="evenodd"></path></g></svg></div></div></div></div></div></div></th></tr></thead><tbody class="t-table__body"><tr><td>Array</td><td>Vue(PC)</td><td>A</td></tr><tr><td>String</td><td>React(PC)</td><td>B</td></tr><tr><td>Object</td><td>Miniprogram</td><td>C</td></tr></tbody></table></div></div></div></div>"`;
+exports[`ssr snapshot test > ssr test packages/components/config-provider/_example/table.tsx 1`] = `"<div style="gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div class="t-table t-table--bordered" style="position:relative"><div class="t-table__content"><table class="t-table--layout-fixed"><colgroup><col style="min-width:80px"/><col style="min-width:80px"/><col style="min-width:80px"/></colgroup><thead class="t-table__header"><tr><th data-colkey="type" class="t-table__th-type"><div class="t-table__th-cell-inner"><div class="t-table__cell--sortable"><div class="t-table__cell--title"><div>Type</div><div class="t-table__filter-icon-wrap"><div class="t-table__cell--sort-trigger t-table__double-icons"><span class="t-icon-sort--default t-table__sort-icon t-table-sort-asc t-negative-rotate-180"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-chevron-down" style="fill:none"><g id="chevron-down"><path id="stroke1" stroke="currentColor" d="M17.5 9.5L12 15L6.5 9.5" stroke-linecap="square" stroke-width="2"></path></g></svg></span><span class="t-icon-sort--default t-table__sort-icon t-table-sort-desc"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-chevron-down" style="fill:none"><g id="chevron-down"><path id="stroke1" stroke="currentColor" d="M17.5 9.5L12 15L6.5 9.5" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div></div></div></div></div></th><th data-colkey="platform" class="t-table__th-platform"><div class="t-table__th-cell-inner"><div class="t-table__cell--filterable"><div class="t-table__cell--title"><div>Platform</div><div class="t-table__filter-icon-wrap"><div class="t-table__filter-icon"><div><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-filter" style="fill:none"><g id="filter"><path id="fill1" fill="transparent" d="M19.5 4H4.5L10.5 12.5V20H13.5V12.5L19.5 4Z" fill-rule="evenodd" clip-rule="evenodd"></path><path id="stroke1" stroke="currentColor" d="M19.5 4H4.5L10.5 12.5V20H13.5V12.5L19.5 4Z" fill-rule="evenodd" stroke-linecap="square" stroke-width="2" clip-rule="evenodd"></path></g></svg></div></div></div></div></div></div></th><th data-colkey="property" class="t-table__th-property"><div class="t-table__th-cell-inner"><div class="t-table__cell--sortable t-table__cell--filterable"><div class="t-table__cell--title"><div>Property</div><div class="t-table__filter-icon-wrap"><div class="t-table__cell--sort-trigger t-table__double-icons"><span class="t-icon-sort--default t-table__sort-icon t-table-sort-asc t-negative-rotate-180"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-chevron-down" style="fill:none"><g id="chevron-down"><path id="stroke1" stroke="currentColor" d="M17.5 9.5L12 15L6.5 9.5" stroke-linecap="square" stroke-width="2"></path></g></svg></span><span class="t-icon-sort--default t-table__sort-icon t-table-sort-desc"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-chevron-down" style="fill:none"><g id="chevron-down"><path id="stroke1" stroke="currentColor" d="M17.5 9.5L12 15L6.5 9.5" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div><div class="t-table__filter-icon"><div><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-filter" style="fill:none"><g id="filter"><path id="fill1" fill="transparent" d="M19.5 4H4.5L10.5 12.5V20H13.5V12.5L19.5 4Z" fill-rule="evenodd" clip-rule="evenodd"></path><path id="stroke1" stroke="currentColor" d="M19.5 4H4.5L10.5 12.5V20H13.5V12.5L19.5 4Z" fill-rule="evenodd" stroke-linecap="square" stroke-width="2" clip-rule="evenodd"></path></g></svg></div></div></div></div></div></div></th></tr></thead><tbody class="t-table__body"><tr class="t-table__empty-row"><td colSpan="3"><div class="t-table__empty">Empty Data</div></td></tr></tbody></table></div></div></div><div class="t-space-item"><div class="t-table" style="position:relative"><div class="t-table__content"><table class="t-table--layout-fixed"><colgroup><col style="min-width:80px"/><col style="min-width:80px"/><col style="min-width:80px"/></colgroup><thead class="t-table__header"><tr><th data-colkey="type" class="t-table__th-type"><div class="t-table__th-cell-inner"><div class="t-table__cell--sortable"><div class="t-table__cell--title"><div>Type</div><div class="t-table__filter-icon-wrap"><div class="t-table__cell--sort-trigger t-table__double-icons"><span class="t-icon-sort--default t-table__sort-icon t-table-sort-asc t-negative-rotate-180"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-chevron-down" style="fill:none"><g id="chevron-down"><path id="stroke1" stroke="currentColor" d="M17.5 9.5L12 15L6.5 9.5" stroke-linecap="square" stroke-width="2"></path></g></svg></span><span class="t-icon-sort--default t-table__sort-icon t-table-sort-desc"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-chevron-down" style="fill:none"><g id="chevron-down"><path id="stroke1" stroke="currentColor" d="M17.5 9.5L12 15L6.5 9.5" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div></div></div></div></div></th><th data-colkey="platform" class="t-table__th-platform"><div class="t-table__th-cell-inner"><div class="t-table__cell--filterable"><div class="t-table__cell--title"><div>Platform</div><div class="t-table__filter-icon-wrap"><div class="t-table__filter-icon"><div><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-filter" style="fill:none"><g id="filter"><path id="fill1" fill="transparent" d="M19.5 4H4.5L10.5 12.5V20H13.5V12.5L19.5 4Z" fill-rule="evenodd" clip-rule="evenodd"></path><path id="stroke1" stroke="currentColor" d="M19.5 4H4.5L10.5 12.5V20H13.5V12.5L19.5 4Z" fill-rule="evenodd" stroke-linecap="square" stroke-width="2" clip-rule="evenodd"></path></g></svg></div></div></div></div></div></div></th><th data-colkey="property" class="t-table__th-property"><div class="t-table__th-cell-inner"><div class="t-table__cell--sortable t-table__cell--filterable"><div class="t-table__cell--title"><div>Property</div><div class="t-table__filter-icon-wrap"><div class="t-table__cell--sort-trigger t-table__double-icons"><span class="t-icon-sort--default t-table__sort-icon t-table-sort-asc t-negative-rotate-180"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-chevron-down" style="fill:none"><g id="chevron-down"><path id="stroke1" stroke="currentColor" d="M17.5 9.5L12 15L6.5 9.5" stroke-linecap="square" stroke-width="2"></path></g></svg></span><span class="t-icon-sort--default t-table__sort-icon t-table-sort-desc"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-chevron-down" style="fill:none"><g id="chevron-down"><path id="stroke1" stroke="currentColor" d="M17.5 9.5L12 15L6.5 9.5" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div><div class="t-table__filter-icon"><div><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-filter" style="fill:none"><g id="filter"><path id="fill1" fill="transparent" d="M19.5 4H4.5L10.5 12.5V20H13.5V12.5L19.5 4Z" fill-rule="evenodd" clip-rule="evenodd"></path><path id="stroke1" stroke="currentColor" d="M19.5 4H4.5L10.5 12.5V20H13.5V12.5L19.5 4Z" fill-rule="evenodd" stroke-linecap="square" stroke-width="2" clip-rule="evenodd"></path></g></svg></div></div></div></div></div></div></th></tr></thead><tbody class="t-table__body"><tr><td>Array</td><td>Vue(PC)</td><td>A</td></tr><tr><td>String</td><td>React(PC)</td><td>B</td></tr><tr><td>Object</td><td>Miniprogram</td><td>C</td></tr></tbody></table></div></div></div></div>"`;
 
 exports[`ssr snapshot test > ssr test packages/components/date-picker/_example/base.tsx 1`] = `"<div style="gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div class="t-date-picker"><div class="t-select-input t-select-input--empty"><div class="t-input__wrap" value="" spellcheck="false"><div class="t-input t-align-left t-input--suffix"><input placeholder="请选择日期" type="text" class="t-input__inner" readonly="" autoComplete="off" value=""/><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div><div class="t-space-item"><div class="t-date-picker"><div class="t-select-input t-select-input--empty"><div class="t-input__wrap" value="" spellcheck="false"><div class="t-input t-align-left t-input--suffix"><input placeholder="可清除、可输入的日期选择器" type="text" class="t-input__inner" autoComplete="off" value=""/><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div></div>"`;
 

@@ -130,8 +130,8 @@ describe('test Drawer', () => {
     const onCancelFn = vi.fn();
     const { getByText } = render(<DrawerDemo onCancel={onCancelFn} />);
     fireEvent.click(getByText('Open'));
-    expect(onCancelFn).not.toBeCalled();
+    expect(onCancelFn).not.toHaveBeenCalled();
     fireEvent.click(getByText('取消'));
-    expect(onCancelFn).toBeCalled();
+    expect(onCancelFn).toHaveBeenCalled();
   });
 });

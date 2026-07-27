@@ -1,6 +1,6 @@
 import React from 'react';
 import { CloseIcon, InfoCircleIcon } from 'tdesign-icons-react';
-import { Alert, Button, Card, Checkbox, Divider, Input, Loading, Select, Space, Tag, Typography } from 'tdesign-react';
+import { Alert, Button, Card, Checkbox, Divider, Loading, Select, Space, Tag, Typography } from 'tdesign-react';
 
 import type { AgentToolcallConfig, ToolcallComponentProps } from '@tdesign-react/chat';
 
@@ -101,11 +101,7 @@ const WeatherDisplay: React.FC<ToolcallComponentProps<WeatherArgs, WeatherResult
   error,
 }) => {
   if (status === 'error') {
-    return (
-      <Alert theme="error" icon={<CloseIcon />} title="获取天气信息失败">
-        {error?.message}
-      </Alert>
-    );
+    return <Alert theme="error" icon={<CloseIcon />} title="获取天气信息失败" message={error?.message}></Alert>;
   }
 
   if (status === 'complete' && result) {
@@ -123,23 +119,47 @@ const WeatherDisplay: React.FC<ToolcallComponentProps<WeatherArgs, WeatherResult
         style={{ maxWidth: 400 }}
       >
         <Space direction="vertical" size="small" style={{ width: '100%' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <label>温度</label>
             <Tag theme="primary" variant="light">
               {weather.temperature}
             </Tag>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <label>天气状况</label>
             <Tag theme="success" variant="light">
               {weather.condition}
             </Tag>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <label>湿度</label>
             <label>{weather.humidity}</label>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <label>风速</label>
             <label>{weather.windSpeed}</label>
           </div>
@@ -148,7 +168,7 @@ const WeatherDisplay: React.FC<ToolcallComponentProps<WeatherArgs, WeatherResult
     );
   }
 
-  if (status === 'inProgress') {
+  if ((status as any) === 'inProgress') {
     return (
       <Card bordered style={{ maxWidth: 400 }}>
         <Space align="center">
@@ -201,11 +221,7 @@ const PlanItinerary: React.FC<ToolcallComponentProps<PlanItineraryArgs, PlanItin
   }, [result]);
 
   if (status === 'error') {
-    return (
-      <Alert theme="error" icon={<CloseIcon />} title="行程规划失败">
-        {error?.message}
-      </Alert>
-    );
+    return <Alert theme="error" icon={<CloseIcon />} title="行程规划失败" message={error?.message}></Alert>;
   }
 
   if (status === 'complete' && resolvedResult) {
@@ -222,7 +238,13 @@ const PlanItinerary: React.FC<ToolcallComponentProps<PlanItineraryArgs, PlanItin
         style={{ maxWidth: 600 }}
       >
         <Space direction="vertical" size="small" style={{ width: '100%' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <label>预算总计</label>
             <Tag theme="warning" variant="light">
               ¥{resolvedResult.totalBudget}
@@ -235,7 +257,13 @@ const PlanItinerary: React.FC<ToolcallComponentProps<PlanItineraryArgs, PlanItin
           {resolvedResult.dailyPlans.map((day, index) => (
             <Card key={index} bordered size="small" style={{ marginBottom: 12 }}>
               <Space direction="vertical" size="small" style={{ width: '100%' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                >
                   <Typography.Title level={'h5'} style={{ margin: 0 }}>
                     第 {day.day} 天
                   </Typography.Title>
@@ -246,7 +274,12 @@ const PlanItinerary: React.FC<ToolcallComponentProps<PlanItineraryArgs, PlanItin
                 {day.activities.map((activity, actIndex) => (
                   <div
                     key={actIndex}
-                    style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0' }}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      padding: '8px 0',
+                    }}
                   >
                     <Space>
                       <Tag theme="default" variant="light" size="small">
@@ -289,7 +322,7 @@ const PlanItinerary: React.FC<ToolcallComponentProps<PlanItineraryArgs, PlanItin
     );
   }
 
-  if (status === 'inProgress' || isLoading) {
+  if ((status as any) === 'inProgress' || isLoading) {
     return (
       <Card bordered style={{ maxWidth: 600 }}>
         <Space direction="vertical" size="small" style={{ width: '100%' }}>
@@ -319,11 +352,7 @@ const PlanItinerary: React.FC<ToolcallComponentProps<PlanItineraryArgs, PlanItin
 // 酒店推荐组件
 const HotelRecommend: React.FC<ToolcallComponentProps<HotelArgs, HotelResult>> = ({ status, args, result, error }) => {
   if (status === 'error') {
-    return (
-      <Alert theme="error" icon={<CloseIcon />} title="获取酒店信息失败">
-        {error?.message}
-      </Alert>
-    );
+    return <Alert theme="error" icon={<CloseIcon />} title="获取酒店信息失败" message={error?.message}></Alert>;
   }
   if (status === 'complete' && result) {
     const hotels = typeof result === 'string' ? JSON.parse(result) : result;
@@ -343,7 +372,13 @@ const HotelRecommend: React.FC<ToolcallComponentProps<HotelArgs, HotelResult>> =
           {hotels.map((hotel: any, index: number) => (
             <Card key={index} bordered size="small" style={{ marginBottom: 12 }}>
               <Space direction="vertical" size="small" style={{ width: '100%' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                >
                   <Typography.Title level={'h5'} style={{ margin: 0 }}>
                     {hotel.name}
                   </Typography.Title>
@@ -351,7 +386,13 @@ const HotelRecommend: React.FC<ToolcallComponentProps<HotelArgs, HotelResult>> =
                     ¥{hotel.price}/晚
                   </Tag>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                >
                   <label>评分</label>
                   <Tag theme="success" variant="light">
                     {hotel.rating}分
@@ -368,7 +409,7 @@ const HotelRecommend: React.FC<ToolcallComponentProps<HotelArgs, HotelResult>> =
     );
   }
 
-  if (status === 'inProgress') {
+  if ((status as any) === 'inProgress') {
     return (
       <Card bordered style={{ maxWidth: 500 }}>
         <Space align="center">
@@ -403,11 +444,7 @@ const TravelPreferences: React.FC<
   const transportationOptions = ['飞机', '高铁', '汽车', '自驾'];
 
   if (status === 'error') {
-    return (
-      <Alert theme="error" icon={<CloseIcon />} title="设置偏好失败">
-        {error?.message}
-      </Alert>
-    );
+    return <Alert theme="error" icon={<CloseIcon />} title="设置偏好失败" message={error?.message}></Alert>;
   }
 
   if (status === 'complete' && result) {
@@ -424,23 +461,47 @@ const TravelPreferences: React.FC<
         style={{ maxWidth: 500 }}
       >
         <Space direction="vertical" size="small" style={{ width: '100%' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <label>目的地</label>
             <Tag theme="primary" variant="light">
               {args.destination}
             </Tag>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <label>旅行目的</label>
             <label>{args.purpose}</label>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <label>预算</label>
             <Tag theme="warning" variant="light">
               ¥{result.budget}
             </Tag>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <label>兴趣</label>
             <Space>
               {result.interests.map((interest, index) => (
@@ -450,13 +511,25 @@ const TravelPreferences: React.FC<
               ))}
             </Space>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <label>住宿</label>
             <Tag theme="default" variant="light">
               {result.accommodation}
             </Tag>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <label>交通</label>
             <Tag theme="default" variant="light">
               {result.transportation}
@@ -467,7 +540,7 @@ const TravelPreferences: React.FC<
     );
   }
 
-  if (status === 'inProgress') {
+  if ((status as any) === 'inProgress') {
     return (
       <Card bordered style={{ maxWidth: 500 }}>
         <Space align="center">
@@ -494,7 +567,7 @@ const TravelPreferences: React.FC<
         <Space direction="vertical" size="small" style={{ width: '100%' }}>
           <div>
             <label>预算 (元): ¥{budget}</label>
-            <Input
+            <input
               type="range"
               min={1000}
               max={20000}
@@ -508,7 +581,7 @@ const TravelPreferences: React.FC<
           <div>
             <label>兴趣偏好:</label>
             <div style={{ marginTop: 8 }}>
-              <Checkbox.Group value={interests} onChange={setInterests}>
+              <Checkbox.Group value={interests} onChange={(value) => setInterests(value)}>
                 <Space direction="vertical" size="small">
                   {interestOptions.map((option) => (
                     <Checkbox key={option} value={option} label={option} />
@@ -682,7 +755,7 @@ export const travelPreferencesAction: AgentToolcallConfig = {
 // };
 
 // 导出所有 action 配置
-export const travelActions = [
+export const travelActions: any = [
   weatherForecastAction,
   itineraryPlanAction,
   hotelRecommendAction,

@@ -94,7 +94,9 @@ const BasicImageViewer = ({ images }) => {
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
-              onClick={open}
+              onClick={() => {
+                open();
+              }}
             >
               <span>
                 <BrowseIcon size="16px" name={'browse'} /> 预览
@@ -131,7 +133,10 @@ export default function chatSample() {
   const chatRef = useRef<HTMLElement & TdChatbotApi>(null);
   const [ratio, setRatio] = useState(0);
   const [style, setStyle] = useState('');
-  const reqParamsRef = useRef<{ ratio: number; style: string; file?: string }>({ ratio: 0, style: '' });
+  const reqParamsRef = useRef<{ ratio: number; style: string; file?: string }>({
+    ratio: 0,
+    style: '',
+  });
   const [files, setFiles] = useState<TdAttachmentItem[]>([]);
   const [mockMessage, setMockMessage] = React.useState<ChatMessagesData[]>(mockData);
 
@@ -220,7 +225,7 @@ export default function chatSample() {
     const newFile = {
       ...e.detail[0],
       name: e.detail[0].name,
-      status: 'progress' as ['status'],
+      status: 'progress' as const,
       description: '上传中',
     };
 
@@ -251,7 +256,7 @@ export default function chatSample() {
     const { value, attachments } = e.detail;
     setFiles([]); // 清除掉附件区域
     return {
-      attachments,
+      attachments: attachments as any,
       prompt: `${value}，要求比例：${
         ratio === 0 ? '默认比例' : RatioOptions.filter(({ value }) => value === ratio)[0].content
       }, 风格：${style ? StyleOptions.filter(({ value }) => value === style)[0].content : '默认风格'}`,
@@ -293,9 +298,9 @@ export default function chatSample() {
           onFileSelect,
           onFileRemove,
         }}
-        chatServiceConfig={chatServiceConfig}
+        chatServiceConfig={chatServiceConfig as any}
         onMessageChange={(e) => {
-          setMockMessage(e.detail);
+          setMockMessage(e.detail as any);
         }}
       >
         {mockMessage
