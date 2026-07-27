@@ -1,13 +1,4 @@
-import React, {
-  Children,
-  cloneElement,
-  isValidElement,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { Children, cloneElement, isValidElement, useCallback, useEffect, useMemo, useRef } from 'react';
 import classNames from 'classnames';
 import { debounce, get, isFunction } from 'lodash-es';
 
@@ -42,6 +33,12 @@ export interface SelectProps<T = SelectOption> extends TdSelectProps<T>, StyledP
   children?: React.ReactNode;
   onMouseEnter?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   onMouseLeave?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  /** @internal Whether keyboard navigation wraps around at the boundaries. Defaults to true. */
+  keyboardCircular?: boolean;
+  /** @internal Called when keyboard navigation reaches the first option. */
+  onKeyboardReachTop?: () => void;
+  /** @internal Called when keyboard navigation reaches the last option. */
+  onKeyboardReachBottom?: () => void;
 }
 
 type OptionsType = TdOptionProps[];
@@ -97,6 +94,9 @@ const Select = forwardRefWithStatics(
       onSearch,
       onEnter,
       onPopupVisibleChange,
+      keyboardCircular = true,
+      onKeyboardReachTop,
+      onKeyboardReachBottom,
     } = props;
     const readOnly = props.readOnly || props.readonly;
     const tagProps = { ...props.tagProps, ...props.tagInputProps?.tagProps };
@@ -108,7 +108,11 @@ const Select = forwardRefWithStatics(
     const selectInputRef = useRef(null);
     const { classPrefix } = useConfig();
     const { overlayClassName, onScroll, onScrollToBottom, ...restPopupProps } = popupProps || {};
-    const [isScrolling, toggleIsScrolling] = useState(false);
+
+    const isScrollingRef = useRef(false);
+    const toggleIsScrollingRef = (val: boolean) => {
+      isScrollingRef.current = val;
+    };
 
     const name = `${classPrefix}-select`; // t-select
     const [inputValue, onInputChange] = useControlled(props, 'inputValue', props.onInputChange);
@@ -117,7 +121,11 @@ const Select = forwardRefWithStatics(
 
     const handlePopupVisibleChange = (visible: boolean, ctx: PopupVisibleChangeContext) => {
       if (disabled) return;
-      visible ? toggleIsScrolling(false) : onInputChange('', { trigger: 'blur' });
+      if (visible) {
+        isScrollingRef.current = false;
+      } else {
+        onInputChange('', { trigger: 'blur' });
+      }
       setInnerPopupVisible(visible, ctx);
     };
 
@@ -303,7 +311,10 @@ const Select = forwardRefWithStatics(
       handlePopupVisibleChange,
       handleChange,
       onCheckAllChange,
-      toggleIsScrolling,
+      toggleIsScrolling: toggleIsScrollingRef,
+      circular: keyboardCircular,
+      onReachTop: onKeyboardReachTop,
+      onReachBottom: onKeyboardReachBottom,
     });
 
     // 处理filter逻辑
@@ -513,7 +524,7 @@ const Select = forwardRefWithStatics(
 
     // 将第一个选中的 option 置于列表可见范围的最后一位
     const updateScrollTop = (content: HTMLDivElement) => {
-      if (!content || isScrolling) {
+      if (!content || isScrollingRef.current) {
         return;
       }
       const firstSelectedNode: HTMLDivElement = content.querySelector(`.${classPrefix}-is-selected`);
@@ -543,7 +554,7 @@ const Select = forwardRefWithStatics(
     };
 
     const handleScroll = ({ e }: { e: React.WheelEvent<HTMLDivElement> }) => {
-      toggleIsScrolling(true);
+      isScrollingRef.current = true;
 
       onScroll?.({ e });
       if (onScrollToBottom) {
