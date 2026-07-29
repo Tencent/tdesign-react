@@ -89,9 +89,23 @@ export const TagFunction: ForwardRefRenderFunction<HTMLDivElement, TagProps> = (
   }, [CloseIcon, disabled, tagClassPrefix, tagConfig.closeIcon, onClose]);
 
   const title = useMemo(() => {
-    if (Reflect.has(props, 'title')) return titleAttr;
-    if (children && typeof children === 'string') return children;
-    if (content && typeof content === 'string') return content;
+    if (Reflect.has(props, 'title')) {
+      if (typeof titleAttr === 'boolean') {
+        if (!titleAttr) return undefined;
+        if (typeof children === 'string') return children;
+        if (typeof content === 'string') return content;
+        return undefined;
+      }
+
+      return titleAttr || undefined;
+    }
+    if (children && typeof children === 'string') {
+      return children;
+    }
+    if (content && typeof content === 'string') {
+      return content;
+    }
+    return undefined;
   }, [children, content, props, titleAttr]);
   const titleAttribute = title ? { title } : undefined;
 

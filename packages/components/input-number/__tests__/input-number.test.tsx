@@ -15,7 +15,9 @@ describe('InputNumber 组件测试', () => {
     );
     expect(container.firstChild.classList.contains('t-input-number')).toBeTruthy();
     expect(queryByPlaceholderText(InputNumberPlaceholder)).toBeInTheDocument();
-    fireEvent.change(queryByPlaceholderText(InputNumberPlaceholder), { target: { value: InputNumberValue } });
+    fireEvent.change(queryByPlaceholderText(InputNumberPlaceholder), {
+      target: { value: InputNumberValue },
+    });
     expect(changeFn).toBeCalledTimes(1);
     expect(changeFn.mock.calls[0][0]).toBe(InputNumberValue);
   });

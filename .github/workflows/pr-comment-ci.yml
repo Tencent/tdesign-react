@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       next_action: ${{ steps.get-action.outputs.next_action }}
+      common_pr_number: ${{ steps.get-action.outputs.common_pr_number }}
     if: ${{ github.event.issue.pull_request }}
     steps:
       - uses: actions/checkout@v6
@@ -43,6 +44,14 @@ jobs:
               core.info(`body: ${body}`)
               if (body.startsWith('/update-common')) {
                 next_action='update-common'
+                const prMatch = body.match(/^\/update-common\s+(\d+)/)
+                if (prMatch) {
+                  core.setOutput('common_pr_number', prMatch[1])
+                  core.info(`common_pr_number: ${prMatch[1]}`)
+                }
+              }
+              if (body.startsWith('/update-ai-core')) {
+                next_action='update-ai-core'
               }
               if (body.startsWith('/update-snapshot')) {
                 next_action='update-snapshot'
@@ -85,17 +94,34 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-      - name: submodule init and sync remote
+      - name: submodule init and sync
+        env:
+          COMMON_PR_NUMBER: ${{ needs.check.outputs.common_pr_number }}
         run: |
-          git submodule update --init --remote
+          git submodule update --init packages/common
+          if [ -n "$COMMON_PR_NUMBER" ]; then
+            echo "Checking out tdesign-common PR #$COMMON_PR_NUMBER"
+            cd packages/common
+            git fetch origin "pull/${COMMON_PR_NUMBER}/head:refs/heads/pr-${COMMON_PR_NUMBER}"
+            git checkout "pr-${COMMON_PR_NUMBER}"
+          else
+            git submodule update --remote packages/common
+            echo "Updated common to latest remote"
+          fi
 
       - name: Commit common
+        env:
+          COMMON_PR_NUMBER: ${{ needs.check.outputs.common_pr_number }}
         run: |
           git status
-          working_tree_clean=$(git status | grep -c 'nothing to commit, working tree clean') || true
-          if [ "$working_tree_clean" -eq "0" ]; then
-            git add .
-            git commit -m "chore: update common"
+          common_changed=$(git status --short packages/common | wc -l | tr -d ' ')
+          if [ "$common_changed" -gt "0" ]; then
+            git add packages/common
+            if [ -n "$COMMON_PR_NUMBER" ]; then
+              git commit -m "chore: update common to PR ${COMMON_PR_NUMBER}"
+            else
+              git commit -m "chore: update common"
+            fi
           fi
           git status
 
@@ -109,10 +135,12 @@ jobs:
           conflict_count=$(git status | grep -c 'both modified:') || true
           working_tree_clean=$(git status | grep -c 'nothing to commit, working tree clean') || true
           common_conflict=$(git status | grep 'both modified:' | grep -c 'packages/common') || true
-          conflicts_sum=$((common_conflict))
+          ai_core_conflict=$(git status | grep 'both modified:' | grep -c 'packages/ai-core') || true
+          conflicts_sum=$((common_conflict + ai_core_conflict))
           echo "conflict_count: $conflict_count"
           echo "working_tree_clean: $working_tree_clean"
           echo "common_conflict: $common_conflict"
+          echo "ai_core_conflict: $ai_core_conflict"
           echo "conflicts_sum: $conflicts_sum"
 
           if [ "$working_tree_clean" -eq "1" ]; then
@@ -130,6 +158,95 @@ jobs:
               git checkout --ours packages/common
               git add packages/common
               echo "resolve conflict packages/common"
+          fi
+
+          if [ "$ai_core_conflict" -eq "1" ];then
+              git checkout --theirs packages/ai-core
+              git add packages/ai-core
+              echo "resolve conflict packages/ai-core"
+          fi
+
+          git status
+          git commit -am "chore: merge develop"
+
+      - name: git push
+        run: |
+          git status
+          git push || true
+
+  update-ai-core:
+    needs: check
+    runs-on: ubuntu-latest
+    if: ${{ needs.check.outputs.next_action == 'update-ai-core' }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.TDESIGN_BOT_TOKEN }}
+
+      - name: gh checkout pr
+        env:
+          GH_TOKEN: ${{ secrets.TDESIGN_BOT_TOKEN }}
+        run: gh pr checkout ${{ github.event.issue.number }}
+
+      - name: git config
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: submodule init and sync remote
+        run: |
+          git submodule update --init --remote packages/ai-core
+
+      - name: Commit ai-core
+        run: |
+          git status
+          ai_core_changed=$(git status --short packages/ai-core | wc -l | tr -d ' ')
+          if [ "$ai_core_changed" -gt "0" ]; then
+            git add packages/ai-core
+            git commit -m "chore: update ai-core"
+          fi
+          git status
+
+      - name: merge develop
+        run: |
+          git merge develop --no-commit || true
+
+      - name: check conflicts
+        run: |
+          git status
+          conflict_count=$(git status | grep -c 'both modified:') || true
+          working_tree_clean=$(git status | grep -c 'nothing to commit, working tree clean') || true
+          common_conflict=$(git status | grep 'both modified:' | grep -c 'packages/common') || true
+          ai_core_conflict=$(git status | grep 'both modified:' | grep -c 'packages/ai-core') || true
+          conflicts_sum=$((common_conflict + ai_core_conflict))
+          echo "conflict_count: $conflict_count"
+          echo "working_tree_clean: $working_tree_clean"
+          echo "common_conflict: $common_conflict"
+          echo "ai_core_conflict: $ai_core_conflict"
+          echo "conflicts_sum: $conflicts_sum"
+
+          if [ "$working_tree_clean" -eq "1" ]; then
+              echo "nothing to commit, working tree clean"
+              exit 0
+          fi
+
+          if [ "$conflict_count" -gt "0" ]&&[ "$conflicts_sum" -eq "0" ]; then
+              echo "Unknown conflict "
+              git status
+              exit 1
+          fi
+
+          if [ "$common_conflict" -eq "1" ];then
+              git checkout --theirs packages/common
+              git add packages/common
+              echo "resolve conflict packages/common"
+          fi
+
+          if [ "$ai_core_conflict" -eq "1" ];then
+              git checkout --ours packages/ai-core
+              git add packages/ai-core
+              echo "resolve conflict packages/ai-core"
           fi
 
           git status
@@ -187,12 +304,14 @@ jobs:
           csr_snap_conflict=$(git status | grep 'both modified:' | grep -c 'csr.test.jsx.snap') || true
           ssr_snap_conflict=$(git status | grep 'both modified:' | grep -c 'ssr.test.jsx.snap') || true
           common_conflict=$(git status | grep 'both modified:' | grep -c 'packages/common') || true
-          conflicts_sum=$((csr_snap_conflict + ssr_snap_conflict + common_conflict))
+          ai_core_conflict=$(git status | grep 'both modified:' | grep -c 'packages/ai-core') || true
+          conflicts_sum=$((csr_snap_conflict + ssr_snap_conflict + common_conflict + ai_core_conflict))
           echo "conflict_count: $conflict_count"
           echo "working_tree_clean: $working_tree_clean"
           echo "csr_snap_conflict: $csr_snap_conflict"
           echo "ssr_snap_conflict: $ssr_snap_conflict"
           echo "common_conflict: $common_conflict"
+          echo "ai_core_conflict: $ai_core_conflict"
           echo "conflicts_sum: $conflicts_sum"
 
           if [ "$working_tree_clean" -eq "1" ]; then
@@ -222,6 +341,12 @@ jobs:
               git checkout --theirs packages/common
               git add packages/common
               echo "resolve conflict packages/common"
+          fi
+
+          if [ "$ai_core_conflict" -eq "1" ];then
+              git checkout --theirs packages/ai-core
+              git add packages/ai-core
+              echo "resolve conflict packages/ai-core"
           fi
 
           git status
