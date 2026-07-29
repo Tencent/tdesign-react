@@ -18,7 +18,7 @@ maxWidth | String / Number | - | \- | N
 shape | String | square | options: square/round/mark | N
 size | String | medium | options: small/medium/large。Typescript: `SizeEnum`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 theme | String | default | options: default/primary/warning/danger/success | N
-title | String | - | title of tag | N
+title | String / Boolean | - | title of tag | N
 variant | String | dark | options: dark/light/outline/light-outline | N
 onClick | Function |  | Typescript: `(context: { e: MouseEvent }) => void`<br/> | N
 onClose | Function |  | Typescript: `(context: { e: MouseEvent }) => void`<br/> | N

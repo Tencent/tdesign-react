@@ -226,7 +226,7 @@ const LinearGradient = (props) => {
           </ul>
         </div>
       </div>
-      <div className={`${baseClassName}__gradient-degree`} title={`${degree}deg`}>
+      <div className={`${baseClassName}__gradient-degree`} title={`${degree.current}deg`}>
         <InputNumber
           theme="normal"
           min={0}

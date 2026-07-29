@@ -35,7 +35,7 @@ jobs:
 
       - uses: pnpm/action-setup@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
 
@@ -43,7 +43,7 @@ jobs:
 
       - run: pnpm -C packages/tdesign-react/site run preview
 
-      - uses: actions/github-script@v7
+      - uses: actions/github-script@v9
         id: domain
         with:
           script: |
@@ -68,7 +68,7 @@ jobs:
 
       - uses: pnpm/action-setup@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
 
@@ -76,7 +76,7 @@ jobs:
 
       - run: pnpm -C packages/tdesign-react-aigc/site run preview
 
-      - uses: actions/github-script@v7
+      - uses: actions/github-script@v9
         id: domain
         with:
           script: |
