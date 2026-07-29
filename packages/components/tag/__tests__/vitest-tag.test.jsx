@@ -156,6 +156,22 @@ describe('Tag Component', () => {
     expect(domWrapper.style.maxWidth).toBe('150px');
     expect(domWrapper.getAttribute('title')).toBeNull();
   });
+  it(`props.title is equal to true`, () => {
+    const { container } = render(
+      <Tag title={true} content={'This is a long long long long long tag'} maxWidth={'150px'}></Tag>,
+    );
+    const domWrapper = container.querySelector('.t-tag--text');
+    expect(domWrapper.style.maxWidth).toBe('150px');
+    expect(domWrapper.getAttribute('title')).toBe('This is a long long long long long tag');
+  });
+  it(`props.title is equal to false`, () => {
+    const { container } = render(
+      <Tag title={false} content={'This is a long long long long long tag'} maxWidth={'150px'}></Tag>,
+    );
+    const domWrapper = container.querySelector('.t-tag--text');
+    expect(domWrapper.style.maxWidth).toBe('150px');
+    expect(domWrapper.getAttribute('title')).toBeNull();
+  });
 
   ['dark', 'light', 'outline', 'light-outline'].forEach((item) => {
     it(`props.variant is equal to ${item}`, () => {
