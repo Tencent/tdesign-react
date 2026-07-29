@@ -148,7 +148,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
       setIsHoverCell(false);
     }
     // eslint-disable-next-line
-  }, [popupVisible]);
+    }, [popupVisible]);
 
   // 日期 hover
   function onCellMouseEnter(date: Date) {
@@ -199,7 +199,13 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
   // 头部快速切换
   const onJumperClick = React.useCallback(
     ({ trigger }) => {
-      const monthCountMap = { date: 1, week: 1, month: 12, quarter: 12, year: 120 };
+      const monthCountMap = {
+        date: 1,
+        week: 1,
+        month: 12,
+        quarter: 12,
+        year: 120,
+      };
       const monthCount = monthCountMap[mode] || 0;
 
       const current = new Date(year, month);
@@ -276,7 +282,10 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     if (typeof preset === 'function') {
       presetValue = preset();
     }
-    const formattedPreset = formatDate(presetValue, { format, targetFormat: valueType });
+    const formattedPreset = formatDate(presetValue, {
+      format,
+      targetFormat: valueType,
+    });
     const formattedInput = formatDate(presetValue, { format });
 
     setInputValue(formattedInput);
@@ -403,6 +412,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
   return (
     <div className={classNames(`${classPrefix}-date-picker`, className)} style={style} ref={ref}>
       <SelectInput
+        allowInput={props.allowInput}
         disabled={disabled}
         value={inputValue}
         status={props.status}
