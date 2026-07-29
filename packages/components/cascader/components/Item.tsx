@@ -89,9 +89,14 @@ const Item = forwardRef(
     const RenderLabelContent = (node: TreeNode, cascaderContext: CascaderContextType) => {
       const label = RenderLabelInner(node, cascaderContext);
 
+      const getTitle = () => {
+        const title = cascaderContext.inputVal ? getFullPathLabel(node) : node.label;
+        return typeof title !== 'object' ? title : undefined;
+      };
+
       const labelCont = (
         <span
-          title={cascaderContext.inputVal ? getFullPathLabel(node) : node.label}
+          title={getTitle()}
           className={classNames(`${COMPONENT_NAME}-label`, `${COMPONENT_NAME}-label--ellipsis`)}
           role="label"
         >

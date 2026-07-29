@@ -228,12 +228,18 @@ describe('Cascader 组件测试', () => {
     expect(spy).toHaveBeenCalled();
     fireEvent.click(getByPlaceholderText(placeholderId));
     expect(spy).toHaveBeenCalledTimes(2);
-    await mockTimeout(() => expect(document.querySelector(popupSelector)).toHaveStyle({ display: 'none' }));
+    await mockTimeout(() =>
+      expect(document.querySelector(popupSelector)).toHaveStyle({
+        display: 'none',
+      }),
+    );
 
     // disabled 不会展开 popup，且不执行 onPopupVisibleChange
     fireEvent.click(getByText(btnText));
     fireEvent.click(getByPlaceholderText(placeholderId));
-    expect(document.querySelector(popupSelector)).toHaveStyle({ display: 'none' });
+    expect(document.querySelector(popupSelector)).toHaveStyle({
+      display: 'none',
+    });
     expect(spy).toHaveBeenCalledTimes(2);
   });
 
