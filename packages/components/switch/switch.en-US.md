@@ -12,6 +12,7 @@ customValue | Array | - | Typescript: `Array<SwitchValue>` | N
 disabled | Boolean | - | \- | N
 label | TNode | [] | Typescript: `Array<string \| TNode> \| TNode<{ value: SwitchValue }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 loading | Boolean | false | \- | N
+shape | String | circle | shape of switch。`line` shape does not render switch content `label`。options: circle/round/line | N
 size | String | medium | options：small/medium/large | N
 value | String / Number / Boolean | - | Typescript: `T` `type SwitchValue = string \| number \| boolean`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/switch/type.ts) | N
 defaultValue | String / Number / Boolean | - | uncontrolled property。Typescript: `T` `type SwitchValue = string \| number \| boolean`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/switch/type.ts) | N

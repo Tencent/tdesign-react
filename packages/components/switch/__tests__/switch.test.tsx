@@ -27,6 +27,31 @@ describe('Switch 组件测试', () => {
     expect(container.firstChild.classList.contains('t-size-s')).toBeTruthy();
   });
 
+  test('shape default is circle', async () => {
+    const { container } = render(<Switch />);
+    expect(container.firstChild.classList.contains('t-switch--shape-circle')).toBeTruthy();
+  });
+
+  test('shape round', async () => {
+    const { container } = render(<Switch shape="round" />);
+    expect(container.firstChild.classList.contains('t-switch--shape-round')).toBeTruthy();
+  });
+
+  test('shape line does not render content', async () => {
+    const { container, queryByText } = render(<Switch shape="line" label={['开', '关']} />);
+    expect(container.firstChild.classList.contains('t-switch--shape-line')).toBeTruthy();
+    expect(container.firstChild.querySelector('.t-switch__content')).toBeNull();
+    expect(queryByText('关')).not.toBeInTheDocument();
+  });
+
+  test('shape line onChange still works', async () => {
+    const clickFn = vi.fn();
+    const { container } = render(<Switch shape="line" onChange={clickFn} />);
+    fireEvent.click(container.firstChild);
+    expect(clickFn).toBeCalledTimes(1);
+    expect(container.firstChild.classList.contains('t-is-checked')).toBeTruthy();
+  });
+
   test('disabled', async () => {
     const clickFn = vi.fn();
     const { container } = render(<Switch disabled />);
