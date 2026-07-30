@@ -97,8 +97,6 @@ export const HumanInputForm: React.FC<HumanInputFormProps> = ({ formConfig, onSu
               type="number"
               value={value || ''}
               placeholder={field.placeholder}
-              // min={field.min}
-              // max={field.max}
               onChange={(val) => handleInputChange(field.name, val)}
               status={error ? 'error' : undefined}
               tips={error}

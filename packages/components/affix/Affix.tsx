@@ -35,9 +35,7 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
   const handleScroll = useCallback(() => {
     if (!ticking.current) {
       requestAnimationFrame(() => {
-        if (!scrollContainer.current) return;
-        if (!placeholderEL.current) return;
-        if (!affixWrapRef.current) return;
+        if (!scrollContainer.current || !placeholderEL.current || !affixWrapRef.current) return;
         // top = 节点到页面顶部的距离，包含 scroll 中的高度
         const {
           top: wrapToTop = 0,
