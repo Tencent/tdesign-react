@@ -93,10 +93,10 @@ describe('Timepicker 组件测试', () => {
     const { container } = render(<TimePicker onBlur={handleBlur} onFocus={handleFocus} allowInput />);
     const InputDom = container.querySelector('.t-input__inner');
     fireEvent.click(InputDom);
-    expect(handleFocus).toBeCalledTimes(1);
+    expect(handleFocus).toHaveBeenCalledTimes(1);
     // input blur is not equal to TimePicker.blur
     fireEvent.mouseDown(document);
-    expect(handleBlur).toBeCalledTimes(1);
+    expect(handleBlur).toHaveBeenCalledTimes(1);
   });
 
   test('props.onInput&onBlur&onForus works fine', async () => {
@@ -108,11 +108,11 @@ describe('Timepicker 组件测试', () => {
     );
     const inputs = container.querySelectorAll('input');
     fireEvent.focus(inputs[0]);
-    expect(handleFocus).toBeCalledTimes(1);
+    expect(handleFocus).toHaveBeenCalledTimes(1);
     fireEvent.change(inputs[0], { target: { value: '00:10:20' } });
-    expect(handleInput).toBeCalledTimes(1);
+    expect(handleInput).toHaveBeenCalledTimes(1);
     fireEvent.blur(inputs[0]);
-    expect(handleBlur).toBeCalledTimes(1);
+    expect(handleBlur).toHaveBeenCalledTimes(1);
   });
 
   test('click to pick', async () => {
@@ -123,7 +123,7 @@ describe('Timepicker 组件测试', () => {
       <TimePicker defaultValue="00:00:00" onChange={handleChange} onOpen={handleOpen} onPick={handlePick}></TimePicker>,
     );
     fireEvent.click(document.querySelector('input'));
-    expect(handleOpen).toBeCalledTimes(1);
+    expect(handleOpen).toHaveBeenCalledTimes(1);
     await waitFor(async () => {
       const confirmBtn = document.querySelectorAll('.t-time-picker__panel button').item(0);
       expect(confirmBtn).toBeInTheDocument();

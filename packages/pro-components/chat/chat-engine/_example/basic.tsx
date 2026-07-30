@@ -46,7 +46,9 @@ export default function BasicExample() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       {/* 消息列表 */}
-      <ChatList style={{ flex: 1 }}>
+      <ChatList
+      // style={{ flex: 1 }}
+      >
         {messages.map((message) => (
           <ChatMessage
             key={message.id}

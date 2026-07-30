@@ -25,7 +25,7 @@ describe('Link', () => {
     expect(screen.getByTestId('disabled')).not.toHaveClass('t-link--hover-underline');
 
     fireEvent.click(container.firstChild);
-    expect(fn).toBeCalledTimes(0);
+    expect(fn).toHaveBeenCalledTimes(0);
   });
 
   test('underline', () => {

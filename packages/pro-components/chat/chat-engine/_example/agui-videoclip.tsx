@@ -43,10 +43,26 @@ const { StepItem } = Steps;
 
 // 状态映射
 const statusMap: Record<string, any> = {
-  pending: { theme: 'default', status: 'default', icon: <TimeFilledIcon className="status-icon pending" /> },
-  running: { theme: 'primary', status: 'process', icon: <LoadingIcon className="status-icon running" /> },
-  completed: { theme: 'success', status: 'finish', icon: <CheckCircleFilledIcon className="status-icon success" /> },
-  failed: { theme: 'danger', status: 'error', icon: <CloseCircleFilledIcon className="status-icon failed" /> },
+  pending: {
+    theme: 'default',
+    status: 'default',
+    icon: <TimeFilledIcon className="status-icon pending" />,
+  },
+  running: {
+    theme: 'primary',
+    status: 'process',
+    icon: <LoadingIcon className="status-icon running" />,
+  },
+  completed: {
+    theme: 'success',
+    status: 'finish',
+    icon: <CheckCircleFilledIcon className="status-icon success" />,
+  },
+  failed: {
+    theme: 'danger',
+    status: 'error',
+    icon: <CloseCircleFilledIcon className="status-icon failed" />,
+  },
 };
 
 // 自定义Hook：状态跟踪
@@ -495,7 +511,7 @@ export default function VideoClipAgentChatWithSubscription() {
 
   const { chatEngine, messages, status } = useChat({
     defaultMessages: [],
-    chatServiceConfig: createChatServiceConfig(),
+    chatServiceConfig: createChatServiceConfig() as any,
   });
 
   const senderLoading = React.useMemo(() => status === 'pending' || status === 'streaming', [status]);
@@ -540,7 +556,7 @@ export default function VideoClipAgentChatWithSubscription() {
   const handleToolCallRespond = async <T extends object = any>(toolcall: ToolCall, response: T) => {
     try {
       // 构造新的请求参数
-      const tools = chatEngine.getToolcallByName(toolcall.toolCallName) || {};
+      const tools = (chatEngine as any).getToolcallByName(toolcall.toolCallName) || {};
       const newRequestParams: ChatRequestParams = {
         prompt: inputValue,
         toolCallMessage: {
@@ -570,7 +586,7 @@ export default function VideoClipAgentChatWithSubscription() {
       // 使用统一的 ToolCallRenderer 处理所有工具调用
       return (
         <div slot={`${type}-${index}`} key={`toolcall-${index}`} className="content-card">
-          <ToolCallRenderer toolCall={data} onRespond={handleToolCallRespond} />
+          <ToolCallRenderer toolCall={data as any} onRespond={handleToolCallRespond} />
         </div>
       );
     }
@@ -595,7 +611,7 @@ export default function VideoClipAgentChatWithSubscription() {
         isLast &&
         message.status !== 'stop' && (
           <div slot="actionbar">
-            <ChatLoading animation="dot"></ChatLoading>
+            <ChatLoading animation="dots"></ChatLoading>
           </div>
         )
       )}
@@ -628,7 +644,10 @@ export default function VideoClipAgentChatWithSubscription() {
     <div className="videoclip-agent-container">
       <div className="chat-content">
         {/* 聊天区域 */}
-        <ChatList ref={listRef} style={{ width: '100%', height: '400px' }}>
+        <ChatList
+          ref={listRef}
+          // style={{ width: '100%', height: '400px' }}
+        >
           {messages.map((message, idx) => (
             <ChatMessage key={message.id} {...messageProps[message.role]} message={message as any}>
               {isUserMessage(message) && (

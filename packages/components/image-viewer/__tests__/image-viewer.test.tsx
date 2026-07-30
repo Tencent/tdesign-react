@@ -707,7 +707,11 @@ describe('ImageViewerModal 滚轮向中心缩放', () => {
     });
     await mockDelay();
 
-    const wheelEvent = new WheelEvent('wheel', { deltaY: -120, bubbles: true, cancelable: true });
+    const wheelEvent = new WheelEvent('wheel', {
+      deltaY: -120,
+      bubbles: true,
+      cancelable: true,
+    });
     const preventDefaultSpy = vi.spyOn(wheelEvent, 'preventDefault');
 
     act(() => {
@@ -1014,7 +1018,10 @@ describe('onClose trigger 来源', () => {
     act(() => {
       fireEvent.click(closeBtn);
     });
-    expect(onClose).toHaveBeenCalledWith({ trigger: 'close-btn', e: expect.any(Object) });
+    expect(onClose).toHaveBeenCalledWith({
+      trigger: 'close-btn',
+      e: expect.any(Object),
+    });
   });
 
   test('点击遮罩时 trigger 为 overlay', async () => {
@@ -1035,7 +1042,10 @@ describe('onClose trigger 来源', () => {
     act(() => {
       fireEvent.click(mask);
     });
-    expect(onClose).toHaveBeenCalledWith({ trigger: 'overlay', e: expect.any(Object) });
+    expect(onClose).toHaveBeenCalledWith({
+      trigger: 'overlay',
+      e: expect.any(Object),
+    });
   });
 
   test('ESC 关闭时 trigger 为 esc', async () => {
@@ -1053,7 +1063,10 @@ describe('onClose trigger 来源', () => {
     await mockDelay();
 
     await user.type(document.body, '{Escape}');
-    expect(onClose).toHaveBeenCalledWith({ trigger: 'esc', e: expect.any(Object) });
+    expect(onClose).toHaveBeenCalledWith({
+      trigger: 'esc',
+      e: expect.any(Object),
+    });
   });
 });
 
@@ -1271,17 +1284,12 @@ describe('closeBtn 为函数', () => {
   test('closeBtn 为函数时渲染自定义关闭按钮', async () => {
     const BasicImageViewer = () => {
       const trigger = ({ open }) => <span onClick={() => open()}>函数关闭按钮</span>;
-      return (
-        <ImageViewer
-          trigger={trigger}
-          images={[imgUrl]}
-          closeBtn={({ onClose }) => (
-            <button data-testid="custom-close" onClick={() => onClose?.({ trigger: 'close-btn', e: {} as any })}>
-              X
-            </button>
-          )}
-        />
+      const CloseBtnNode = ({ onClose }: any) => (
+        <button data-testid="custom-close" onClick={() => onClose?.({ trigger: 'close-btn', e: {} as any })}>
+          X
+        </button>
       );
+      return <ImageViewer trigger={trigger} images={[imgUrl]} closeBtn={<CloseBtnNode />} />;
     };
     render(<BasicImageViewer />);
 

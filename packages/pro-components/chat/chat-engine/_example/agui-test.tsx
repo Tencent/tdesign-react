@@ -29,7 +29,13 @@ const StockChart = ({ content }) => {
   return (
     <Card title={title} bordered style={{ marginTop: '8px', width: '100%' }}>
       <Space direction="vertical" style={{ width: '100%' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
           <span style={{ fontSize: '24px', fontWeight: 'bold', color: '#d93025' }}>
             {currentPrice ? currentPrice.toFixed(2) : '--'}{' '}
             <small style={{ fontSize: '14px', color: '#666' }}>{currency}</small>
@@ -341,7 +347,7 @@ export default function AguiBasicExample() {
 
   // 处理工具调用响应（如果需要交互式工具）
   const handleToolCallRespond = async (toolcall, response) => {
-    const tools = chatEngine.getToolcallByName(toolcall.toolCallName) || {};
+    const tools = (chatEngine as any).getToolcallByName(toolcall.toolCallName) || {};
     await chatEngine.sendAIMessage({
       params: {
         prompt: inputValue,
@@ -394,12 +400,12 @@ export default function AguiBasicExample() {
     <>
       {message.content?.map((item, index) => renderMessageContent(item, index, isLast))}
       {isAIMessage(message) && message.status === 'complete' ? (
-        <ChatActionBar slot="actionbar" actionBar={getActionBar(isLast)} handleAction={handleAction} />
+        <ChatActionBar slot="actionbar" actionBar={getActionBar(isLast) as any} handleAction={handleAction} />
       ) : (
         isLast &&
         message.status !== 'stop' && (
           <div slot="actionbar">
-            <ChatLoading animation="dot" />
+            <ChatLoading animation="dots" />
           </div>
         )
       )}
