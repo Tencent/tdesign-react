@@ -168,9 +168,9 @@ describe('DateRangePicker', () => {
     const { container } = render(<DateRangePicker allowInput onBlur={blurFn} onFocus={focusFn} />);
     const InputDom = container.querySelector('.t-input__inner');
     fireEvent.focus(InputDom);
-    expect(focusFn).toBeCalledTimes(1);
+    expect(focusFn).toHaveBeenCalledTimes(1);
     fireEvent.blur(InputDom);
-    expect(blurFn).toBeCalledTimes(1);
+    expect(blurFn).toHaveBeenCalledTimes(1);
   });
 
   it('onChange onPick onInput', async () => {
@@ -185,8 +185,8 @@ describe('DateRangePicker', () => {
     fireEvent.click(firstTBody.firstChild.firstChild.firstChild);
     fireEvent.click(firstTBody.firstChild.firstChild.firstChild);
 
-    expect(changeFn).toBeCalledTimes(2);
-    expect(pickFn).toBeCalledTimes(2);
+    expect(changeFn).toHaveBeenCalledTimes(2);
+    expect(pickFn).toHaveBeenCalledTimes(2);
   });
 
   it('panel select month and year', async () => {
@@ -264,7 +264,11 @@ describe('DateRangePicker', () => {
 
   test('onPresetClick', async () => {
     const { container } = render(
-      <DateRangePicker presets={{ 圣诞节: [dayjs('2023-12-25').toDate(), dayjs('2023-12-25').toDate()] }} />,
+      <DateRangePicker
+        presets={{
+          圣诞节: [dayjs('2023-12-25').toDate(), dayjs('2023-12-25').toDate()],
+        }}
+      />,
     );
     const inputEle = container.querySelector('.t-input__inner');
     fireEvent.mouseDown(inputEle);

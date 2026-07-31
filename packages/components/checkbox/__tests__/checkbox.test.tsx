@@ -20,7 +20,7 @@ describe('Checkbox', () => {
     const { container } = render(<Checkbox disabled={true} onChange={fn}></Checkbox>);
     expect(container.firstChild).toHaveClass('t-is-disabled');
     fireEvent.click(container.firstChild);
-    expect(fn).toBeCalledTimes(0);
+    expect(fn).toHaveBeenCalledTimes(0);
   });
 
   test('indeterminate', () => {
@@ -37,7 +37,7 @@ describe('Checkbox', () => {
     const fn = vi.fn();
     const { container } = render(<Checkbox disabled={true} onChange={fn}></Checkbox>);
     fireEvent.click(container.firstChild);
-    expect(fn).toBeCalledTimes(0);
+    expect(fn).toHaveBeenCalledTimes(0);
   });
 });
 
@@ -65,7 +65,7 @@ describe('CheckboxGroup', () => {
       </Checkbox.Group>,
     );
     fireEvent.click(container.firstChild.firstChild);
-    expect(fn).toBeCalledTimes(1);
+    expect(fn).toHaveBeenCalledTimes(1);
   });
 
   test('option', () => {
