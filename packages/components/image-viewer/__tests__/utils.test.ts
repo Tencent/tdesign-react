@@ -9,6 +9,8 @@ import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { downloadImage, formatImages } from '@tdesign/common-js/image-viewer/utils';
 import { act } from '@test/utils';
 
+import type { ImageInfo } from '../type';
+
 // ─── formatImages ────────────────────────────────────────────────────────
 describe('formatImages 图片格式化', () => {
   test('非数组输入返回空数组', () => {
@@ -36,8 +38,16 @@ describe('formatImages 图片格式化', () => {
     const images = [{ mainImage: 'main1.jpg' }, { mainImage: 'main2.jpg', thumbnail: 'thumb2.jpg' }];
     const result = formatImages(images);
 
-    expect(result[0]).toEqual({ mainImage: 'main1.jpg', thumbnail: 'main1.jpg', download: true });
-    expect(result[1]).toEqual({ mainImage: 'main2.jpg', thumbnail: 'thumb2.jpg', download: true });
+    expect(result[0]).toEqual({
+      mainImage: 'main1.jpg',
+      thumbnail: 'main1.jpg',
+      download: true,
+    });
+    expect(result[1]).toEqual({
+      mainImage: 'main2.jpg',
+      thumbnail: 'thumb2.jpg',
+      download: true,
+    });
   });
 
   test('自定义 download 设置被保留', () => {
@@ -51,8 +61,16 @@ describe('formatImages 图片格式化', () => {
     const result = formatImages(images);
 
     expect(result).toEqual([
-      { mainImage: 'string-image.jpg', thumbnail: 'string-image.jpg', download: true },
-      { mainImage: 'object-main.jpg', thumbnail: 'object-thumb.jpg', download: true },
+      {
+        mainImage: 'string-image.jpg',
+        thumbnail: 'string-image.jpg',
+        download: true,
+      },
+      {
+        mainImage: 'object-main.jpg',
+        thumbnail: 'object-thumb.jpg',
+        download: true,
+      },
     ]);
   });
 
@@ -66,9 +84,21 @@ describe('formatImages 图片格式化', () => {
   });
 
   test('ImageInfo 包含全部属性', () => {
-    const images = [{ mainImage: 'main.jpg', thumbnail: 'thumb.jpg', download: true, isSvg: true }];
+    const images = [
+      {
+        mainImage: 'main.jpg',
+        thumbnail: 'thumb.jpg',
+        download: true,
+        isSvg: true,
+      },
+    ];
     const result = formatImages(images);
-    expect(result[0]).toEqual({ mainImage: 'main.jpg', thumbnail: 'thumb.jpg', download: true, isSvg: true });
+    expect(result[0]).toEqual({
+      mainImage: 'main.jpg',
+      thumbnail: 'thumb.jpg',
+      download: true,
+      isSvg: true,
+    });
   });
 
   test('thumbnail 默认等于 mainImage', () => {
@@ -111,7 +141,12 @@ describe('downloadImage 图片下载', () => {
   test('File 输入使用 URL.createObjectURL', () => {
     const mockClick = vi.fn();
     const mockRemove = vi.fn();
-    const mockAnchor = { href: '', download: '', click: mockClick, remove: mockRemove };
+    const mockAnchor = {
+      href: '',
+      download: '',
+      click: mockClick,
+      remove: mockRemove,
+    };
 
     vi.spyOn(document, 'createElement').mockImplementation((tag) => {
       if (tag === 'a') return mockAnchor as unknown as HTMLAnchorElement;
@@ -129,7 +164,12 @@ describe('downloadImage 图片下载', () => {
   test('同源 URL 直接下载', () => {
     const mockClick = vi.fn();
     const mockRemove = vi.fn();
-    const mockAnchor = { href: '', download: '', click: mockClick, remove: mockRemove };
+    const mockAnchor = {
+      href: '',
+      download: '',
+      click: mockClick,
+      remove: mockRemove,
+    };
 
     vi.spyOn(document, 'createElement').mockImplementation((tag) => {
       if (tag === 'a') return mockAnchor as unknown as HTMLAnchorElement;
@@ -147,7 +187,12 @@ describe('downloadImage 图片下载', () => {
   test('从带查询参数的 URL 提取文件名', () => {
     const mockClick = vi.fn();
     const mockRemove = vi.fn();
-    const mockAnchor = { href: '', download: '', click: mockClick, remove: mockRemove };
+    const mockAnchor = {
+      href: '',
+      download: '',
+      click: mockClick,
+      remove: mockRemove,
+    };
 
     vi.spyOn(document, 'createElement').mockImplementation((tag) => {
       if (tag === 'a') return mockAnchor as unknown as HTMLAnchorElement;
@@ -162,7 +207,12 @@ describe('downloadImage 图片下载', () => {
   test('从带 hash 的 URL 提取文件名', () => {
     const mockClick = vi.fn();
     const mockRemove = vi.fn();
-    const mockAnchor = { href: '', download: '', click: mockClick, remove: mockRemove };
+    const mockAnchor = {
+      href: '',
+      download: '',
+      click: mockClick,
+      remove: mockRemove,
+    };
 
     vi.spyOn(document, 'createElement').mockImplementation((tag) => {
       if (tag === 'a') return mockAnchor as unknown as HTMLAnchorElement;
@@ -184,7 +234,12 @@ describe('downloadImage 图片下载', () => {
 
     const mockClick = vi.fn();
     const mockRemove = vi.fn();
-    const mockAnchor = { href: '', download: '', click: mockClick, remove: mockRemove };
+    const mockAnchor = {
+      href: '',
+      download: '',
+      click: mockClick,
+      remove: mockRemove,
+    };
     vi.spyOn(document, 'createElement').mockImplementation((tag) => {
       if (tag === 'a') return mockAnchor as unknown as HTMLAnchorElement;
       return mockCreateElement(tag);
@@ -208,7 +263,10 @@ describe('downloadImage 图片下载', () => {
     };
 
     let onloadFn: (() => void) | null = null;
-    const mockImage: Partial<HTMLImageElement> & { width: number; height: number } = {
+    const mockImage: Partial<HTMLImageElement> & {
+      width: number;
+      height: number;
+    } = {
       setAttribute: vi.fn(),
       width: 100,
       height: 80,
@@ -228,7 +286,12 @@ describe('downloadImage 图片下载', () => {
     });
 
     const mockBlobClick = vi.fn();
-    const mockBlobAnchor = { href: '', download: '', click: mockBlobClick, remove: vi.fn() };
+    const mockBlobAnchor = {
+      href: '',
+      download: '',
+      click: mockBlobClick,
+      remove: vi.fn(),
+    };
     vi.spyOn(document, 'createElement').mockImplementation((tag) => {
       if (tag === 'canvas') return mockCanvas as unknown as HTMLCanvasElement;
       if (tag === 'a') return mockBlobAnchor as unknown as HTMLAnchorElement;
@@ -249,7 +312,12 @@ describe('downloadImage 图片下载', () => {
   test('URL 无文件名时使用随机名称', () => {
     const mockClick = vi.fn();
     const mockRemove = vi.fn();
-    const mockAnchor = { href: '', download: '', click: mockClick, remove: mockRemove };
+    const mockAnchor = {
+      href: '',
+      download: '',
+      click: mockClick,
+      remove: mockRemove,
+    };
 
     vi.spyOn(document, 'createElement').mockImplementation((tag) => {
       if (tag === 'a') return mockAnchor as unknown as HTMLAnchorElement;
@@ -265,7 +333,12 @@ describe('downloadImage 图片下载', () => {
   test('URL 含多个 / 和复杂路径时正确提取文件名', () => {
     const mockClick = vi.fn();
     const mockRemove = vi.fn();
-    const mockAnchor = { href: '', download: '', click: mockClick, remove: mockRemove };
+    const mockAnchor = {
+      href: '',
+      download: '',
+      click: mockClick,
+      remove: mockRemove,
+    };
 
     vi.spyOn(document, 'createElement').mockImplementation((tag) => {
       if (tag === 'a') return mockAnchor as unknown as HTMLAnchorElement;
@@ -280,7 +353,12 @@ describe('downloadImage 图片下载', () => {
   test('File 对象下载后调用 revokeObjectURL', () => {
     const mockClick = vi.fn();
     const mockRemove = vi.fn();
-    const mockAnchor = { href: '', download: '', click: mockClick, remove: mockRemove };
+    const mockAnchor = {
+      href: '',
+      download: '',
+      click: mockClick,
+      remove: mockRemove,
+    };
 
     vi.spyOn(document, 'createElement').mockImplementation((tag) => {
       if (tag === 'a') return mockAnchor as unknown as HTMLAnchorElement;
@@ -300,7 +378,10 @@ describe('downloadImage 图片下载', () => {
     const crossOriginUrl = 'https://other.com/photo.jpg';
 
     let onloadFn: (() => void) | null = null;
-    const mockImage: Partial<HTMLImageElement> & { width: number; height: number } = {
+    const mockImage: Partial<HTMLImageElement> & {
+      width: number;
+      height: number;
+    } = {
       setAttribute: vi.fn(),
       width: 100,
       height: 100,
@@ -321,7 +402,12 @@ describe('downloadImage 图片下载', () => {
     };
 
     const mockBlobClick = vi.fn();
-    const mockBlobAnchor = { href: '', download: '', click: mockBlobClick, remove: vi.fn() };
+    const mockBlobAnchor = {
+      href: '',
+      download: '',
+      click: mockBlobClick,
+      remove: vi.fn(),
+    };
     vi.spyOn(document, 'createElement').mockImplementation((tag) => {
       if (tag === 'canvas') return mockCanvas as unknown as HTMLCanvasElement;
       if (tag === 'a') return mockBlobAnchor as unknown as HTMLAnchorElement;

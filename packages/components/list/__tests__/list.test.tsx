@@ -31,7 +31,7 @@ describe('List 组件测试', () => {
       expect(container.querySelector('.t-list__load--load-more')).toBeInTheDocument();
       expect(queryByText('点击加载更多')).toBeInTheDocument();
       fireEvent.click(queryByText('点击加载更多'));
-      expect(clickFn).toBeCalledTimes(1);
+      expect(clickFn).toHaveBeenCalledTimes(1);
     });
 
     test('onScroll', () => {

@@ -61,13 +61,16 @@ export default function chatSample() {
   const chatRef = useRef<HTMLElement & TdChatbotApi>(null);
   const [activeSearch, setSearchActive] = useState(false);
   const [ready, setReady] = useState(false);
-  const reqParamsRef = useRef<{ think: boolean; search: boolean }>({ think: false, search: false });
+  const reqParamsRef = useRef<{ think: boolean; search: boolean }>({
+    think: false,
+    search: false,
+  });
 
   // 消息属性配置
   const messageProps = (msg: ChatMessagesData): TdChatMessageConfigItem => {
     const { role, content } = msg;
     // 假设只有单条thinking
-    const thinking = content.find((item) => item.type === 'thinking');
+    const thinking = content.find((item) => (item.type as any) === 'thinking');
     if (role === 'user') {
       return {
         variant: 'base',
@@ -166,9 +169,7 @@ export default function chatSample() {
   };
 
   useEffect(() => {
-    reqParamsRef.current = {
-      search: activeSearch,
-    };
+    reqParamsRef.current.search = activeSearch;
   }, [activeSearch]);
 
   useEffect(() => {
@@ -187,7 +188,7 @@ export default function chatSample() {
         senderProps={{
           placeholder: '有问题，尽管问～ Enter 发送，Shift+Enter 换行',
         }}
-        chatServiceConfig={chatServiceConfig}
+        chatServiceConfig={chatServiceConfig as any}
         onChatReady={() => {
           setReady(true);
         }}

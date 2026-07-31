@@ -108,7 +108,7 @@ describe('DatePickerPanel', () => {
     const { container } = render(<DatePickerPanel onChange={fn} />);
 
     fireEvent.click(container.querySelector('.t-date-picker__cell'));
-    expect(fn).toBeCalledTimes(1);
+    expect(fn).toHaveBeenCalledTimes(1);
   });
 
   test('onJumperClick', async () => {
@@ -117,11 +117,11 @@ describe('DatePickerPanel', () => {
 
     const jumperPrev = container.querySelector('.t-pagination-mini__prev');
     fireEvent.click(jumperPrev);
-    expect(fn).toBeCalledTimes(1);
+    expect(fn).toHaveBeenCalledTimes(1);
 
     const jumperNext = container.querySelector('.t-pagination-mini__next');
     fireEvent.click(jumperNext);
-    expect(fn).toBeCalledTimes(2);
+    expect(fn).toHaveBeenCalledTimes(2);
 
     const jumperCurrent = container.querySelector('.t-pagination-mini__current');
     fireEvent.click(jumperCurrent);
@@ -140,7 +140,7 @@ describe('DatePickerPanel', () => {
 
     const christmasBtn = getByText('圣诞节');
     fireEvent.click(christmasBtn);
-    expect(fn).toBeCalledTimes(1);
+    expect(fn).toHaveBeenCalledTimes(1);
   });
 
   test('onYearChange & onMonthChange', async () => {
