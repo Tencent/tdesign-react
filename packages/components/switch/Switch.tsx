@@ -26,6 +26,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((originalProps, 
     defaultValue,
     disabled,
     loading,
+    shape,
     size,
     label,
     customValue,
@@ -40,13 +41,26 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((originalProps, 
   const [innerChecked, setInnerChecked] = useState(initChecked);
 
   const contentNode = React.useMemo<React.ReactNode>(() => {
+    if (shape === 'line') return null;
     if (Array.isArray(label)) {
       const [activeContent = '', inactiveContent = ''] = label;
       const content = innerChecked ? activeContent : inactiveContent;
       return parseTNode(content, { value });
     }
     return parseTNode(label, { value });
-  }, [label, innerChecked, value]);
+  }, [label, innerChecked, shape, value]);
+
+  const derivedAriaLabel = React.useMemo(() => {
+    if (shape !== 'line') return undefined;
+    if (Array.isArray(label)) {
+      const [activeLabel = '已开启', inactiveLabel = '已关闭'] = label;
+      const active = typeof activeLabel === 'string' ? activeLabel : '已开启';
+      const inactive = typeof inactiveLabel === 'string' ? inactiveLabel : '已关闭';
+      return innerChecked ? active : inactive;
+    }
+    if (typeof label === 'string') return label;
+    return undefined;
+  }, [shape, label, innerChecked]);
 
   const handleChange = (e: React.MouseEvent) => {
     !isControlled && setInnerChecked(!innerChecked);
@@ -84,6 +98,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((originalProps, 
   const { SIZE, STATUS } = useCommonClassName();
   const switchClassName = classNames(
     `${classPrefix}-switch`,
+    `${classPrefix}-switch--shape-${shape}`,
     className,
     {
       [STATUS.checked]: innerChecked,
@@ -98,13 +113,16 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((originalProps, 
       {...restProps}
       type="button"
       role="switch"
+      aria-checked={innerChecked}
+      aria-disabled={disabled || loading}
+      aria-label={restProps['aria-label'] ?? derivedAriaLabel}
       disabled={disabled || loading}
       className={switchClassName}
       ref={ref}
       onClick={onInternalClick}
     >
       <span className={`${classPrefix}-switch__handle`}>{loading && <Loading loading size="small" />}</span>
-      <div className={`${classPrefix}-switch__content`}>{contentNode}</div>
+      {shape !== 'line' && <div className={`${classPrefix}-switch__content`}>{contentNode}</div>}
     </button>
   );
 });
