@@ -14,7 +14,7 @@ jobs:
       common_pr_number: ${{ steps.get-action.outputs.common_pr_number }}
     if: ${{ github.event.issue.pull_request }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           repository: Tencent/tdesign
           sparse-checkout: |
@@ -79,7 +79,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ needs.check.outputs.next_action == 'update-common' }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
           token: ${{ secrets.TDESIGN_BOT_TOKEN }}
@@ -179,7 +179,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ needs.check.outputs.next_action == 'update-ai-core' }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
           token: ${{ secrets.TDESIGN_BOT_TOKEN }}
@@ -262,7 +262,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ needs.check.outputs.next_action == 'update-snapshot' }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
           token: ${{ secrets.TDESIGN_BOT_TOKEN }}
@@ -382,7 +382,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ needs.check.outputs.next_action == 'update-coverage' }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
           token: ${{ secrets.TDESIGN_BOT_TOKEN }}
