@@ -79,6 +79,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     statusIcon: statusIconFromContext,
     errorMessage,
     formMapRef,
+    mountedFieldsRef,
     onFormItemValueChange,
   } = useFormContext();
 
@@ -435,15 +436,25 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     shouldValidate.current = false;
     shouldEmitChangeRef.current = false;
 
-    // remount 场景
-    // 若 store 中已存在有效值，复用它并同步到本地 state
-    // 避免被 initialData / children 默认值抹回
-    const existingStoreValue = has(form?.store, fullPath) ? get(form?.store, fullPath) : undefined;
-    if (typeof existingStoreValue !== 'undefined') {
-      setFormValue(existingStoreValue);
+    // 区分「首次挂载」与「remount 到已有 form」：
+    //   - 首次挂载：mountedFieldsRef 中不含该 fullPath → 用 initialData 初始化 store
+    //   - remount：mountedFieldsRef 中已含该 fullPath → 保留 store 现值（可能是用户输入 / setFieldsValue 写入），
+    //     避免 Dialog / Popup 等场景下条件渲染引发 FormItem 卸载 → 重挂载时把已修改的字段恢复成 initialData
+    // FormItem 卸载不从 mountedFieldsRef 中移除，只有 Form 整体 reset 时才清空
+    const fieldKey = JSON.stringify(fullPath);
+    const isRemount = mountedFieldsRef?.current?.has(fieldKey) ?? false;
+    if (isRemount) {
+      const existingStoreValue = has(form?.store, fullPath) ? get(form?.store, fullPath) : undefined;
+      if (typeof existingStoreValue !== 'undefined') {
+        setFormValue(existingStoreValue);
+      } else {
+        set(form?.store, fullPath, defaultInitialData);
+        setFormValue(defaultInitialData);
+      }
     } else {
       set(form?.store, fullPath, defaultInitialData);
       setFormValue(defaultInitialData);
+      mountedFieldsRef?.current?.add(fieldKey);
     }
 
     return () => {
