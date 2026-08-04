@@ -216,7 +216,12 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
     if (React.isValidElement(statusIcon)) {
       // @ts-ignore
-      return resultIcon(React.cloneElement(statusIcon, { style: { color: 'unset' }, ...statusIcon.props }));
+      return resultIcon(
+        React.cloneElement(statusIcon, {
+          style: { color: 'unset' },
+          ...statusIcon.props,
+        }),
+      );
     }
     if (statusIcon === true) {
       return getDefaultIcon();
@@ -246,7 +251,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
         Object.keys(item).forEach((key) => {
           if (!item.message && errorMessages[key]) {
             // eslint-disable-next-line
-            item.message = parseMessage(errorMessages[key], {
+              item.message = parseMessage(errorMessages[key], {
               validate: item[key],
               name: isString(label) ? label : String(name),
             });
@@ -426,7 +431,10 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     // 注册实例
     mapRef.current.set(fullPath, formItemRef);
 
-    // 初始化
+    // 初始化，避免跨 remount 场景下会残留上一次的 true
+    shouldValidate.current = false;
+    shouldEmitChangeRef.current = false;
+
     set(form?.store, fullPath, defaultInitialData);
     setFormValue(defaultInitialData);
 
@@ -451,6 +459,9 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     const filterRules = innerRules.filter((item) => (item.trigger || 'change') === 'change');
 
     filterRules.length && validate('change');
+    // 消费完开关后立刻清零，避免下一次因 mount / rules 变化等副作用触发时被误当成用户输入而重复校验
+    shouldValidate.current = false;
+    shouldEmitChangeRef.current = false;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValue, snakeName]);
 
