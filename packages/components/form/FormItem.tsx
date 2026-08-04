@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { cloneDeep, get, isEqual, isFunction, isObject, isString, set } from 'lodash-es';
+import { cloneDeep, get, has, isEqual, isFunction, isObject, isString, set } from 'lodash-es';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
@@ -435,8 +435,16 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     shouldValidate.current = false;
     shouldEmitChangeRef.current = false;
 
-    set(form?.store, fullPath, defaultInitialData);
-    setFormValue(defaultInitialData);
+    // remount 场景
+    // 若 store 中已存在有效值，复用它并同步到本地 state
+    // 避免被 initialData / children 默认值抹回
+    const existingStoreValue = has(form?.store, fullPath) ? get(form?.store, fullPath) : undefined;
+    if (typeof existingStoreValue !== 'undefined') {
+      setFormValue(existingStoreValue);
+    } else {
+      set(form?.store, fullPath, defaultInitialData);
+      setFormValue(defaultInitialData);
+    }
 
     return () => {
       mapRef.current.delete(fullPath);

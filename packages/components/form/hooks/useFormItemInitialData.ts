@@ -31,17 +31,6 @@ export default function useFormItemInitialData(
 
   const defaultInitialData = getDefaultInitialData(children, initialData);
 
-  // 从 form.store 中读取当前 fullPath 对应的字段值
-  function readStoreValue() {
-    // 路径不存在
-    if (!name || !form?.store || !has(form.store, fullPath)) return { hasValue: false };
-    const value = get(form.store, fullPath);
-    // 值为 undefined
-    if (typeof value === 'undefined') return { hasValue: false };
-    // 保证 store 优先于 initialData，同时避免用 undefined 覆盖后续默认值
-    return { hasValue: true, value };
-  }
-
   // 优先级：floatFormData > store > FormItem.initialData > FormList.initialData > Form.initialData
   function getDefaultInitialData(children: FormItemProps['children'], initialData: FormItemProps['initialData']) {
     if (name && floatingFormDataRef?.current && !isEmpty(floatingFormDataRef.current)) {
@@ -57,8 +46,12 @@ export default function useFormItemInitialData(
     const isFormList = formListName && Array.isArray(fullPath);
 
     if (typeof initialData !== 'undefined') {
-      const { hasValue, value } = readStoreValue();
-      if (hasValue) return value;
+      if (isFormList) {
+        const storeValue = get(form.store, fullPath);
+        if (typeof storeValue !== 'undefined') {
+          return storeValue;
+        }
+      }
       return initialData;
     }
 
@@ -73,9 +66,11 @@ export default function useFormItemInitialData(
       }
     }
 
-    if (!isFormList) {
-      const { hasValue, value } = readStoreValue();
-      if (hasValue) return value;
+    if (!isFormList && name && form?.store && has(form.store, fullPath)) {
+      const storeValue = get(form.store, fullPath);
+      if (typeof storeValue !== 'undefined') {
+        return storeValue;
+      }
     }
 
     if (Array.isArray(name) && formListInitialData?.length) {
