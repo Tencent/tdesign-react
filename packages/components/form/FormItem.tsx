@@ -215,11 +215,11 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     };
 
     if (React.isValidElement(statusIcon)) {
-      // @ts-ignore
+      const statusIconElement = statusIcon as React.ReactElement;
       return resultIcon(
-        React.cloneElement(statusIcon, {
+        React.cloneElement(statusIconElement, {
           style: { color: 'unset' },
-          ...statusIcon.props,
+          ...statusIconElement.props,
         }),
       );
     }
@@ -459,7 +459,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     const filterRules = innerRules.filter((item) => (item.trigger || 'change') === 'change');
 
     filterRules.length && validate('change');
-    // 消费完开关后立刻清零，避免下一次因 mount / rules 变化等副作用触发时被误当成用户输入而重复校验
+
     shouldValidate.current = false;
     shouldEmitChangeRef.current = false;
     // eslint-disable-next-line react-hooks/exhaustive-deps
