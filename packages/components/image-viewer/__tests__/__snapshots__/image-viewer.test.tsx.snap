@@ -79,7 +79,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                       <defs>
                         <mask
                           height="24"
-                          id="t-icon-image-:ra4:-0"
+                          id="t-icon-image-instance-ra4-overlap-fill1"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -118,7 +118,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                         </mask>
                         <mask
                           height="24"
-                          id="t-icon-image-:ra4:-1"
+                          id="t-icon-image-instance-ra4-overlap-fill2"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -156,14 +156,14 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                           d="M3 21H20L9 10L3 16V21Z"
                           fill="transparent"
                           id="fill1"
-                          mask="url(#t-icon-image-:ra4:-0)"
+                          mask="url(#t-icon-image-instance-ra4-overlap-fill1)"
                         />
                         <circle
                           cx="15.75"
                           cy="8.25"
                           fill="transparent"
                           id="fill2"
-                          mask="url(#t-icon-image-:ra4:-1)"
+                          mask="url(#t-icon-image-instance-ra4-overlap-fill2)"
                           r="2"
                         />
                         <path
@@ -224,7 +224,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                       <defs>
                         <mask
                           height="24"
-                          id="t-icon-image-:ra5:-0"
+                          id="t-icon-image-instance-ra5-overlap-fill1"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -263,7 +263,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                         </mask>
                         <mask
                           height="24"
-                          id="t-icon-image-:ra5:-1"
+                          id="t-icon-image-instance-ra5-overlap-fill2"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -301,14 +301,14 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                           d="M3 21H20L9 10L3 16V21Z"
                           fill="transparent"
                           id="fill1"
-                          mask="url(#t-icon-image-:ra5:-0)"
+                          mask="url(#t-icon-image-instance-ra5-overlap-fill1)"
                         />
                         <circle
                           cx="15.75"
                           cy="8.25"
                           fill="transparent"
                           id="fill2"
-                          mask="url(#t-icon-image-:ra5:-1)"
+                          mask="url(#t-icon-image-instance-ra5-overlap-fill2)"
                           r="2"
                         />
                         <path
@@ -369,7 +369,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                       <defs>
                         <mask
                           height="24"
-                          id="t-icon-image-:ra6:-0"
+                          id="t-icon-image-instance-ra6-overlap-fill1"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -408,7 +408,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                         </mask>
                         <mask
                           height="24"
-                          id="t-icon-image-:ra6:-1"
+                          id="t-icon-image-instance-ra6-overlap-fill2"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -446,14 +446,14 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                           d="M3 21H20L9 10L3 16V21Z"
                           fill="transparent"
                           id="fill1"
-                          mask="url(#t-icon-image-:ra6:-0)"
+                          mask="url(#t-icon-image-instance-ra6-overlap-fill1)"
                         />
                         <circle
                           cx="15.75"
                           cy="8.25"
                           fill="transparent"
                           id="fill2"
-                          mask="url(#t-icon-image-:ra6:-1)"
+                          mask="url(#t-icon-image-instance-ra6-overlap-fill2)"
                           r="2"
                         />
                         <path
@@ -560,30 +560,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-mirror-:ra9:-0"
-                  mask-type="luminance"
-                  maskContentUnits="userSpaceOnUse"
-                  maskUnits="userSpaceOnUse"
-                  width="24"
-                  x="0"
-                  y="0"
-                >
-                  <rect
-                    fill="#fff"
-                    height="24"
-                    width="24"
-                    x="0"
-                    y="0"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="#000"
-                    stroke="none"
-                  />
-                </mask>
-                <mask
-                  height="24"
-                  id="t-icon-mirror-:ra9:-1"
+                  id="t-icon-mirror-instance-ra9-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -621,12 +598,11 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
               >
                 <g
                   id="fill1"
-                  mask="url(#t-icon-mirror-:ra9:-1)"
+                  mask="url(#t-icon-mirror-instance-ra9-overlap-fill1)"
                 >
                   <path
                     d="M8 8.5V17.5H3L8 8.5Z"
                     fill="transparent"
-                    mask="url(#t-icon-mirror-:ra9:-0)"
                   />
                   <path
                     d="M16 8.5V17.5H21L16 8.5Z"
@@ -694,7 +670,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-out-:rab:-0"
+                id="t-icon-zoom-out-instance-rab-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -732,7 +708,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-out-:rab:-0)"
+                mask="url(#t-icon-zoom-out-instance-rab-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -774,7 +750,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-in-:rac:-0"
+                id="t-icon-zoom-in-instance-rac-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -812,7 +788,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-in-:rac:-0)"
+                mask="url(#t-icon-zoom-in-instance-rac-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -847,7 +823,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-image-:rad:-0"
+                  id="t-icon-image-instance-rad-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -886,7 +862,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                 </mask>
                 <mask
                   height="24"
-                  id="t-icon-image-:rad:-1"
+                  id="t-icon-image-instance-rad-overlap-fill2"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -924,14 +900,14 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                   d="M3 21H20L9 10L3 16V21Z"
                   fill="transparent"
                   id="fill1"
-                  mask="url(#t-icon-image-:rad:-0)"
+                  mask="url(#t-icon-image-instance-rad-overlap-fill1)"
                 />
                 <circle
                   cx="15.75"
                   cy="8.25"
                   fill="transparent"
                   id="fill2"
-                  mask="url(#t-icon-image-:rad:-1)"
+                  mask="url(#t-icon-image-instance-rad-overlap-fill2)"
                   r="2"
                 />
                 <path
@@ -1115,7 +1091,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                       <defs>
                         <mask
                           height="24"
-                          id="t-icon-image-:ra4:-0"
+                          id="t-icon-image-instance-ra4-overlap-fill1"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -1154,7 +1130,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                         </mask>
                         <mask
                           height="24"
-                          id="t-icon-image-:ra4:-1"
+                          id="t-icon-image-instance-ra4-overlap-fill2"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -1192,14 +1168,14 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                           d="M3 21H20L9 10L3 16V21Z"
                           fill="transparent"
                           id="fill1"
-                          mask="url(#t-icon-image-:ra4:-0)"
+                          mask="url(#t-icon-image-instance-ra4-overlap-fill1)"
                         />
                         <circle
                           cx="15.75"
                           cy="8.25"
                           fill="transparent"
                           id="fill2"
-                          mask="url(#t-icon-image-:ra4:-1)"
+                          mask="url(#t-icon-image-instance-ra4-overlap-fill2)"
                           r="2"
                         />
                         <path
@@ -1260,7 +1236,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                       <defs>
                         <mask
                           height="24"
-                          id="t-icon-image-:ra5:-0"
+                          id="t-icon-image-instance-ra5-overlap-fill1"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -1299,7 +1275,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                         </mask>
                         <mask
                           height="24"
-                          id="t-icon-image-:ra5:-1"
+                          id="t-icon-image-instance-ra5-overlap-fill2"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -1337,14 +1313,14 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                           d="M3 21H20L9 10L3 16V21Z"
                           fill="transparent"
                           id="fill1"
-                          mask="url(#t-icon-image-:ra5:-0)"
+                          mask="url(#t-icon-image-instance-ra5-overlap-fill1)"
                         />
                         <circle
                           cx="15.75"
                           cy="8.25"
                           fill="transparent"
                           id="fill2"
-                          mask="url(#t-icon-image-:ra5:-1)"
+                          mask="url(#t-icon-image-instance-ra5-overlap-fill2)"
                           r="2"
                         />
                         <path
@@ -1405,7 +1381,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                       <defs>
                         <mask
                           height="24"
-                          id="t-icon-image-:ra6:-0"
+                          id="t-icon-image-instance-ra6-overlap-fill1"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -1444,7 +1420,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                         </mask>
                         <mask
                           height="24"
-                          id="t-icon-image-:ra6:-1"
+                          id="t-icon-image-instance-ra6-overlap-fill2"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -1482,14 +1458,14 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                           d="M3 21H20L9 10L3 16V21Z"
                           fill="transparent"
                           id="fill1"
-                          mask="url(#t-icon-image-:ra6:-0)"
+                          mask="url(#t-icon-image-instance-ra6-overlap-fill1)"
                         />
                         <circle
                           cx="15.75"
                           cy="8.25"
                           fill="transparent"
                           id="fill2"
-                          mask="url(#t-icon-image-:ra6:-1)"
+                          mask="url(#t-icon-image-instance-ra6-overlap-fill2)"
                           r="2"
                         />
                         <path
@@ -1596,30 +1572,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-mirror-:ra9:-0"
-                  mask-type="luminance"
-                  maskContentUnits="userSpaceOnUse"
-                  maskUnits="userSpaceOnUse"
-                  width="24"
-                  x="0"
-                  y="0"
-                >
-                  <rect
-                    fill="#fff"
-                    height="24"
-                    width="24"
-                    x="0"
-                    y="0"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="#000"
-                    stroke="none"
-                  />
-                </mask>
-                <mask
-                  height="24"
-                  id="t-icon-mirror-:ra9:-1"
+                  id="t-icon-mirror-instance-ra9-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -1657,12 +1610,11 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
               >
                 <g
                   id="fill1"
-                  mask="url(#t-icon-mirror-:ra9:-1)"
+                  mask="url(#t-icon-mirror-instance-ra9-overlap-fill1)"
                 >
                   <path
                     d="M8 8.5V17.5H3L8 8.5Z"
                     fill="transparent"
-                    mask="url(#t-icon-mirror-:ra9:-0)"
                   />
                   <path
                     d="M16 8.5V17.5H21L16 8.5Z"
@@ -1730,7 +1682,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-out-:rab:-0"
+                id="t-icon-zoom-out-instance-rab-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -1768,7 +1720,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-out-:rab:-0)"
+                mask="url(#t-icon-zoom-out-instance-rab-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -1810,7 +1762,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-in-:rac:-0"
+                id="t-icon-zoom-in-instance-rac-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -1848,7 +1800,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-in-:rac:-0)"
+                mask="url(#t-icon-zoom-in-instance-rac-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -1883,7 +1835,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-image-:rad:-0"
+                  id="t-icon-image-instance-rad-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -1922,7 +1874,7 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                 </mask>
                 <mask
                   height="24"
-                  id="t-icon-image-:rad:-1"
+                  id="t-icon-image-instance-rad-overlap-fill2"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -1960,14 +1912,14 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                   d="M3 21H20L9 10L3 16V21Z"
                   fill="transparent"
                   id="fill1"
-                  mask="url(#t-icon-image-:rad:-0)"
+                  mask="url(#t-icon-image-instance-rad-overlap-fill1)"
                 />
                 <circle
                   cx="15.75"
                   cy="8.25"
                   fill="transparent"
                   id="fill2"
-                  mask="url(#t-icon-image-:rad:-1)"
+                  mask="url(#t-icon-image-instance-rad-overlap-fill2)"
                   r="2"
                 />
                 <path
@@ -2106,30 +2058,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击原始大小按钮后快照 >
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-mirror-:r9s:-0"
-                  mask-type="luminance"
-                  maskContentUnits="userSpaceOnUse"
-                  maskUnits="userSpaceOnUse"
-                  width="24"
-                  x="0"
-                  y="0"
-                >
-                  <rect
-                    fill="#fff"
-                    height="24"
-                    width="24"
-                    x="0"
-                    y="0"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="#000"
-                    stroke="none"
-                  />
-                </mask>
-                <mask
-                  height="24"
-                  id="t-icon-mirror-:r9s:-1"
+                  id="t-icon-mirror-instance-r9s-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -2167,12 +2096,11 @@ exports[`ImageViewer 工具栏操作快照 > 点击原始大小按钮后快照 >
               >
                 <g
                   id="fill1"
-                  mask="url(#t-icon-mirror-:r9s:-1)"
+                  mask="url(#t-icon-mirror-instance-r9s-overlap-fill1)"
                 >
                   <path
                     d="M8 8.5V17.5H3L8 8.5Z"
                     fill="transparent"
-                    mask="url(#t-icon-mirror-:r9s:-0)"
                   />
                   <path
                     d="M16 8.5V17.5H21L16 8.5Z"
@@ -2240,7 +2168,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击原始大小按钮后快照 >
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-out-:r9u:-0"
+                id="t-icon-zoom-out-instance-r9u-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -2278,7 +2206,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击原始大小按钮后快照 >
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-out-:r9u:-0)"
+                mask="url(#t-icon-zoom-out-instance-r9u-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -2320,7 +2248,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击原始大小按钮后快照 >
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-in-:r9v:-0"
+                id="t-icon-zoom-in-instance-r9v-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -2358,7 +2286,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击原始大小按钮后快照 >
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-in-:r9v:-0)"
+                mask="url(#t-icon-zoom-in-instance-r9v-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -2393,7 +2321,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击原始大小按钮后快照 >
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-image-:ra0:-0"
+                  id="t-icon-image-instance-ra0-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -2432,7 +2360,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击原始大小按钮后快照 >
                 </mask>
                 <mask
                   height="24"
-                  id="t-icon-image-:ra0:-1"
+                  id="t-icon-image-instance-ra0-overlap-fill2"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -2470,14 +2398,14 @@ exports[`ImageViewer 工具栏操作快照 > 点击原始大小按钮后快照 >
                   d="M3 21H20L9 10L3 16V21Z"
                   fill="transparent"
                   id="fill1"
-                  mask="url(#t-icon-image-:ra0:-0)"
+                  mask="url(#t-icon-image-instance-ra0-overlap-fill1)"
                 />
                 <circle
                   cx="15.75"
                   cy="8.25"
                   fill="transparent"
                   id="fill2"
-                  mask="url(#t-icon-image-:ra0:-1)"
+                  mask="url(#t-icon-image-instance-ra0-overlap-fill2)"
                   r="2"
                 />
                 <path
@@ -2616,30 +2544,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击放大按钮后快照 > toolb
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-mirror-:r97:-0"
-                  mask-type="luminance"
-                  maskContentUnits="userSpaceOnUse"
-                  maskUnits="userSpaceOnUse"
-                  width="24"
-                  x="0"
-                  y="0"
-                >
-                  <rect
-                    fill="#fff"
-                    height="24"
-                    width="24"
-                    x="0"
-                    y="0"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="#000"
-                    stroke="none"
-                  />
-                </mask>
-                <mask
-                  height="24"
-                  id="t-icon-mirror-:r97:-1"
+                  id="t-icon-mirror-instance-r97-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -2677,12 +2582,11 @@ exports[`ImageViewer 工具栏操作快照 > 点击放大按钮后快照 > toolb
               >
                 <g
                   id="fill1"
-                  mask="url(#t-icon-mirror-:r97:-1)"
+                  mask="url(#t-icon-mirror-instance-r97-overlap-fill1)"
                 >
                   <path
                     d="M8 8.5V17.5H3L8 8.5Z"
                     fill="transparent"
-                    mask="url(#t-icon-mirror-:r97:-0)"
                   />
                   <path
                     d="M16 8.5V17.5H21L16 8.5Z"
@@ -2750,7 +2654,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击放大按钮后快照 > toolb
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-out-:r99:-0"
+                id="t-icon-zoom-out-instance-r99-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -2788,7 +2692,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击放大按钮后快照 > toolb
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-out-:r99:-0)"
+                mask="url(#t-icon-zoom-out-instance-r99-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -2830,7 +2734,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击放大按钮后快照 > toolb
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-in-:r9a:-0"
+                id="t-icon-zoom-in-instance-r9a-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -2868,7 +2772,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击放大按钮后快照 > toolb
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-in-:r9a:-0)"
+                mask="url(#t-icon-zoom-in-instance-r9a-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -2903,7 +2807,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击放大按钮后快照 > toolb
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-image-:r9b:-0"
+                  id="t-icon-image-instance-r9b-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -2942,7 +2846,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击放大按钮后快照 > toolb
                 </mask>
                 <mask
                   height="24"
-                  id="t-icon-image-:r9b:-1"
+                  id="t-icon-image-instance-r9b-overlap-fill2"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -2980,14 +2884,14 @@ exports[`ImageViewer 工具栏操作快照 > 点击放大按钮后快照 > toolb
                   d="M3 21H20L9 10L3 16V21Z"
                   fill="transparent"
                   id="fill1"
-                  mask="url(#t-icon-image-:r9b:-0)"
+                  mask="url(#t-icon-image-instance-r9b-overlap-fill1)"
                 />
                 <circle
                   cx="15.75"
                   cy="8.25"
                   fill="transparent"
                   id="fill2"
-                  mask="url(#t-icon-image-:r9b:-1)"
+                  mask="url(#t-icon-image-instance-r9b-overlap-fill2)"
                   r="2"
                 />
                 <path
@@ -3126,30 +3030,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击旋转按钮后快照 > toolb
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-mirror-:r90:-0"
-                  mask-type="luminance"
-                  maskContentUnits="userSpaceOnUse"
-                  maskUnits="userSpaceOnUse"
-                  width="24"
-                  x="0"
-                  y="0"
-                >
-                  <rect
-                    fill="#fff"
-                    height="24"
-                    width="24"
-                    x="0"
-                    y="0"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="#000"
-                    stroke="none"
-                  />
-                </mask>
-                <mask
-                  height="24"
-                  id="t-icon-mirror-:r90:-1"
+                  id="t-icon-mirror-instance-r90-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -3187,12 +3068,11 @@ exports[`ImageViewer 工具栏操作快照 > 点击旋转按钮后快照 > toolb
               >
                 <g
                   id="fill1"
-                  mask="url(#t-icon-mirror-:r90:-1)"
+                  mask="url(#t-icon-mirror-instance-r90-overlap-fill1)"
                 >
                   <path
                     d="M8 8.5V17.5H3L8 8.5Z"
                     fill="transparent"
-                    mask="url(#t-icon-mirror-:r90:-0)"
                   />
                   <path
                     d="M16 8.5V17.5H21L16 8.5Z"
@@ -3260,7 +3140,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击旋转按钮后快照 > toolb
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-out-:r92:-0"
+                id="t-icon-zoom-out-instance-r92-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -3298,7 +3178,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击旋转按钮后快照 > toolb
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-out-:r92:-0)"
+                mask="url(#t-icon-zoom-out-instance-r92-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -3340,7 +3220,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击旋转按钮后快照 > toolb
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-in-:r93:-0"
+                id="t-icon-zoom-in-instance-r93-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -3378,7 +3258,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击旋转按钮后快照 > toolb
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-in-:r93:-0)"
+                mask="url(#t-icon-zoom-in-instance-r93-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -3413,7 +3293,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击旋转按钮后快照 > toolb
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-image-:r94:-0"
+                  id="t-icon-image-instance-r94-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -3452,7 +3332,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击旋转按钮后快照 > toolb
                 </mask>
                 <mask
                   height="24"
-                  id="t-icon-image-:r94:-1"
+                  id="t-icon-image-instance-r94-overlap-fill2"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -3490,14 +3370,14 @@ exports[`ImageViewer 工具栏操作快照 > 点击旋转按钮后快照 > toolb
                   d="M3 21H20L9 10L3 16V21Z"
                   fill="transparent"
                   id="fill1"
-                  mask="url(#t-icon-image-:r94:-0)"
+                  mask="url(#t-icon-image-instance-r94-overlap-fill1)"
                 />
                 <circle
                   cx="15.75"
                   cy="8.25"
                   fill="transparent"
                   id="fill2"
-                  mask="url(#t-icon-image-:r94:-1)"
+                  mask="url(#t-icon-image-instance-r94-overlap-fill2)"
                   r="2"
                 />
                 <path
@@ -3636,30 +3516,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击缩小按钮后快照 > toolb
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-mirror-:r9e:-0"
-                  mask-type="luminance"
-                  maskContentUnits="userSpaceOnUse"
-                  maskUnits="userSpaceOnUse"
-                  width="24"
-                  x="0"
-                  y="0"
-                >
-                  <rect
-                    fill="#fff"
-                    height="24"
-                    width="24"
-                    x="0"
-                    y="0"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="#000"
-                    stroke="none"
-                  />
-                </mask>
-                <mask
-                  height="24"
-                  id="t-icon-mirror-:r9e:-1"
+                  id="t-icon-mirror-instance-r9e-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -3697,12 +3554,11 @@ exports[`ImageViewer 工具栏操作快照 > 点击缩小按钮后快照 > toolb
               >
                 <g
                   id="fill1"
-                  mask="url(#t-icon-mirror-:r9e:-1)"
+                  mask="url(#t-icon-mirror-instance-r9e-overlap-fill1)"
                 >
                   <path
                     d="M8 8.5V17.5H3L8 8.5Z"
                     fill="transparent"
-                    mask="url(#t-icon-mirror-:r9e:-0)"
                   />
                   <path
                     d="M16 8.5V17.5H21L16 8.5Z"
@@ -3770,7 +3626,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击缩小按钮后快照 > toolb
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-out-:r9g:-0"
+                id="t-icon-zoom-out-instance-r9g-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -3808,7 +3664,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击缩小按钮后快照 > toolb
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-out-:r9g:-0)"
+                mask="url(#t-icon-zoom-out-instance-r9g-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -3850,7 +3706,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击缩小按钮后快照 > toolb
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-in-:r9h:-0"
+                id="t-icon-zoom-in-instance-r9h-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -3888,7 +3744,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击缩小按钮后快照 > toolb
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-in-:r9h:-0)"
+                mask="url(#t-icon-zoom-in-instance-r9h-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -3923,7 +3779,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击缩小按钮后快照 > toolb
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-image-:r9i:-0"
+                  id="t-icon-image-instance-r9i-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -3962,7 +3818,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击缩小按钮后快照 > toolb
                 </mask>
                 <mask
                   height="24"
-                  id="t-icon-image-:r9i:-1"
+                  id="t-icon-image-instance-r9i-overlap-fill2"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -4000,14 +3856,14 @@ exports[`ImageViewer 工具栏操作快照 > 点击缩小按钮后快照 > toolb
                   d="M3 21H20L9 10L3 16V21Z"
                   fill="transparent"
                   id="fill1"
-                  mask="url(#t-icon-image-:r9i:-0)"
+                  mask="url(#t-icon-image-instance-r9i-overlap-fill1)"
                 />
                 <circle
                   cx="15.75"
                   cy="8.25"
                   fill="transparent"
                   id="fill2"
-                  mask="url(#t-icon-image-:r9i:-1)"
+                  mask="url(#t-icon-image-instance-r9i-overlap-fill2)"
                   r="2"
                 />
                 <path
@@ -4146,30 +4002,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击镜像按钮后快照 > toolb
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-mirror-:r9l:-0"
-                  mask-type="luminance"
-                  maskContentUnits="userSpaceOnUse"
-                  maskUnits="userSpaceOnUse"
-                  width="24"
-                  x="0"
-                  y="0"
-                >
-                  <rect
-                    fill="#fff"
-                    height="24"
-                    width="24"
-                    x="0"
-                    y="0"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="#000"
-                    stroke="none"
-                  />
-                </mask>
-                <mask
-                  height="24"
-                  id="t-icon-mirror-:r9l:-1"
+                  id="t-icon-mirror-instance-r9l-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -4207,12 +4040,11 @@ exports[`ImageViewer 工具栏操作快照 > 点击镜像按钮后快照 > toolb
               >
                 <g
                   id="fill1"
-                  mask="url(#t-icon-mirror-:r9l:-1)"
+                  mask="url(#t-icon-mirror-instance-r9l-overlap-fill1)"
                 >
                   <path
                     d="M8 8.5V17.5H3L8 8.5Z"
                     fill="transparent"
-                    mask="url(#t-icon-mirror-:r9l:-0)"
                   />
                   <path
                     d="M16 8.5V17.5H21L16 8.5Z"
@@ -4280,7 +4112,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击镜像按钮后快照 > toolb
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-out-:r9n:-0"
+                id="t-icon-zoom-out-instance-r9n-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -4318,7 +4150,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击镜像按钮后快照 > toolb
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-out-:r9n:-0)"
+                mask="url(#t-icon-zoom-out-instance-r9n-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -4360,7 +4192,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击镜像按钮后快照 > toolb
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-in-:r9o:-0"
+                id="t-icon-zoom-in-instance-r9o-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -4398,7 +4230,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击镜像按钮后快照 > toolb
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-in-:r9o:-0)"
+                mask="url(#t-icon-zoom-in-instance-r9o-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -4433,7 +4265,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击镜像按钮后快照 > toolb
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-image-:r9p:-0"
+                  id="t-icon-image-instance-r9p-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -4472,7 +4304,7 @@ exports[`ImageViewer 工具栏操作快照 > 点击镜像按钮后快照 > toolb
                 </mask>
                 <mask
                   height="24"
-                  id="t-icon-image-:r9p:-1"
+                  id="t-icon-image-instance-r9p-overlap-fill2"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -4510,14 +4342,14 @@ exports[`ImageViewer 工具栏操作快照 > 点击镜像按钮后快照 > toolb
                   d="M3 21H20L9 10L3 16V21Z"
                   fill="transparent"
                   id="fill1"
-                  mask="url(#t-icon-image-:r9p:-0)"
+                  mask="url(#t-icon-image-instance-r9p-overlap-fill1)"
                 />
                 <circle
                   cx="15.75"
                   cy="8.25"
                   fill="transparent"
                   id="fill2"
-                  mask="url(#t-icon-image-:r9p:-1)"
+                  mask="url(#t-icon-image-instance-r9p-overlap-fill2)"
                   r="2"
                 />
                 <path
@@ -4656,7 +4488,7 @@ exports[`ImageViewer 快照测试 > DefaultTrigger 多张图片默认触发器 >
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-image-:r76:-0"
+                  id="t-icon-image-instance-r76-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -4695,7 +4527,7 @@ exports[`ImageViewer 快照测试 > DefaultTrigger 多张图片默认触发器 >
                 </mask>
                 <mask
                   height="24"
-                  id="t-icon-image-:r76:-1"
+                  id="t-icon-image-instance-r76-overlap-fill2"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -4733,14 +4565,14 @@ exports[`ImageViewer 快照测试 > DefaultTrigger 多张图片默认触发器 >
                   d="M3 21H20L9 10L3 16V21Z"
                   fill="transparent"
                   id="fill1"
-                  mask="url(#t-icon-image-:r76:-0)"
+                  mask="url(#t-icon-image-instance-r76-overlap-fill1)"
                 />
                 <circle
                   cx="15.75"
                   cy="8.25"
                   fill="transparent"
                   id="fill2"
-                  mask="url(#t-icon-image-:r76:-1)"
+                  mask="url(#t-icon-image-instance-r76-overlap-fill2)"
                   r="2"
                 />
                 <path
@@ -4783,7 +4615,7 @@ exports[`ImageViewer 快照测试 > DefaultTrigger 多张图片默认触发器 >
           <defs>
             <mask
               height="24"
-              id="t-icon-browse-:r77:-0"
+              id="t-icon-browse-instance-r77-overlap-fill1"
               mask-type="luminance"
               maskContentUnits="userSpaceOnUse"
               maskUnits="userSpaceOnUse"
@@ -4820,7 +4652,7 @@ exports[`ImageViewer 快照测试 > DefaultTrigger 多张图片默认触发器 >
             </mask>
             <mask
               height="24"
-              id="t-icon-browse-:r77:-1"
+              id="t-icon-browse-instance-r77-overlap-fill2"
               mask-type="luminance"
               maskContentUnits="userSpaceOnUse"
               maskUnits="userSpaceOnUse"
@@ -4859,13 +4691,13 @@ exports[`ImageViewer 快照测试 > DefaultTrigger 多张图片默认触发器 >
               d="M11.9997 4C6.86881 4 2.52275 7.36017 1.04199 12C2.52275 16.6398 6.86881 20 11.9997 20C17.1306 20 21.4766 16.6398 22.9574 12C21.4766 7.36017 17.1306 4 11.9997 4Z"
               fill="transparent"
               id="fill1"
-              mask="url(#t-icon-browse-:r77:-0)"
+              mask="url(#t-icon-browse-instance-r77-overlap-fill1)"
             />
             <path
               d="M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z"
               fill="transparent"
               id="fill2"
-              mask="url(#t-icon-browse-:r77:-1)"
+              mask="url(#t-icon-browse-instance-r77-overlap-fill2)"
             />
             <path
               d="M11.9997 4C6.86881 4 2.52275 7.36017 1.04199 12C2.52275 16.6398 6.86881 20 11.9997 20C17.1306 20 21.4766 16.6398 22.9574 12C21.4766 7.36017 17.1306 4 11.9997 4Z"
@@ -4924,7 +4756,7 @@ exports[`ImageViewer 快照测试 > DefaultTrigger 默认触发器 > image-viewe
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-image-:r74:-0"
+                  id="t-icon-image-instance-r74-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -4963,7 +4795,7 @@ exports[`ImageViewer 快照测试 > DefaultTrigger 默认触发器 > image-viewe
                 </mask>
                 <mask
                   height="24"
-                  id="t-icon-image-:r74:-1"
+                  id="t-icon-image-instance-r74-overlap-fill2"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -5001,14 +4833,14 @@ exports[`ImageViewer 快照测试 > DefaultTrigger 默认触发器 > image-viewe
                   d="M3 21H20L9 10L3 16V21Z"
                   fill="transparent"
                   id="fill1"
-                  mask="url(#t-icon-image-:r74:-0)"
+                  mask="url(#t-icon-image-instance-r74-overlap-fill1)"
                 />
                 <circle
                   cx="15.75"
                   cy="8.25"
                   fill="transparent"
                   id="fill2"
-                  mask="url(#t-icon-image-:r74:-1)"
+                  mask="url(#t-icon-image-instance-r74-overlap-fill2)"
                   r="2"
                 />
                 <path
@@ -5051,7 +4883,7 @@ exports[`ImageViewer 快照测试 > DefaultTrigger 默认触发器 > image-viewe
           <defs>
             <mask
               height="24"
-              id="t-icon-browse-:r75:-0"
+              id="t-icon-browse-instance-r75-overlap-fill1"
               mask-type="luminance"
               maskContentUnits="userSpaceOnUse"
               maskUnits="userSpaceOnUse"
@@ -5088,7 +4920,7 @@ exports[`ImageViewer 快照测试 > DefaultTrigger 默认触发器 > image-viewe
             </mask>
             <mask
               height="24"
-              id="t-icon-browse-:r75:-1"
+              id="t-icon-browse-instance-r75-overlap-fill2"
               mask-type="luminance"
               maskContentUnits="userSpaceOnUse"
               maskUnits="userSpaceOnUse"
@@ -5127,13 +4959,13 @@ exports[`ImageViewer 快照测试 > DefaultTrigger 默认触发器 > image-viewe
               d="M11.9997 4C6.86881 4 2.52275 7.36017 1.04199 12C2.52275 16.6398 6.86881 20 11.9997 20C17.1306 20 21.4766 16.6398 22.9574 12C21.4766 7.36017 17.1306 4 11.9997 4Z"
               fill="transparent"
               id="fill1"
-              mask="url(#t-icon-browse-:r75:-0)"
+              mask="url(#t-icon-browse-instance-r75-overlap-fill1)"
             />
             <path
               d="M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z"
               fill="transparent"
               id="fill2"
-              mask="url(#t-icon-browse-:r75:-1)"
+              mask="url(#t-icon-browse-instance-r75-overlap-fill2)"
             />
             <path
               d="M11.9997 4C6.86881 4 2.52275 7.36017 1.04199 12C2.52275 16.6398 6.86881 20 11.9997 20C17.1306 20 21.4766 16.6398 22.9574 12C21.4766 7.36017 17.1306 4 11.9997 4Z"
@@ -5189,30 +5021,7 @@ exports[`ImageViewer 快照测试 > attach 到指定容器 > image-viewer-attach
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-mirror-:r6t:-0"
-                  mask-type="luminance"
-                  maskContentUnits="userSpaceOnUse"
-                  maskUnits="userSpaceOnUse"
-                  width="24"
-                  x="0"
-                  y="0"
-                >
-                  <rect
-                    fill="#fff"
-                    height="24"
-                    width="24"
-                    x="0"
-                    y="0"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="#000"
-                    stroke="none"
-                  />
-                </mask>
-                <mask
-                  height="24"
-                  id="t-icon-mirror-:r6t:-1"
+                  id="t-icon-mirror-instance-r6t-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -5250,12 +5059,11 @@ exports[`ImageViewer 快照测试 > attach 到指定容器 > image-viewer-attach
               >
                 <g
                   id="fill1"
-                  mask="url(#t-icon-mirror-:r6t:-1)"
+                  mask="url(#t-icon-mirror-instance-r6t-overlap-fill1)"
                 >
                   <path
                     d="M8 8.5V17.5H3L8 8.5Z"
                     fill="transparent"
-                    mask="url(#t-icon-mirror-:r6t:-0)"
                   />
                   <path
                     d="M16 8.5V17.5H21L16 8.5Z"
@@ -5323,7 +5131,7 @@ exports[`ImageViewer 快照测试 > attach 到指定容器 > image-viewer-attach
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-out-:r6v:-0"
+                id="t-icon-zoom-out-instance-r6v-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -5361,7 +5169,7 @@ exports[`ImageViewer 快照测试 > attach 到指定容器 > image-viewer-attach
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-out-:r6v:-0)"
+                mask="url(#t-icon-zoom-out-instance-r6v-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -5403,7 +5211,7 @@ exports[`ImageViewer 快照测试 > attach 到指定容器 > image-viewer-attach
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-in-:r70:-0"
+                id="t-icon-zoom-in-instance-r70-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -5441,7 +5249,7 @@ exports[`ImageViewer 快照测试 > attach 到指定容器 > image-viewer-attach
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-in-:r70:-0)"
+                mask="url(#t-icon-zoom-in-instance-r70-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -5476,7 +5284,7 @@ exports[`ImageViewer 快照测试 > attach 到指定容器 > image-viewer-attach
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-image-:r71:-0"
+                  id="t-icon-image-instance-r71-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -5515,7 +5323,7 @@ exports[`ImageViewer 快照测试 > attach 到指定容器 > image-viewer-attach
                 </mask>
                 <mask
                   height="24"
-                  id="t-icon-image-:r71:-1"
+                  id="t-icon-image-instance-r71-overlap-fill2"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -5553,14 +5361,14 @@ exports[`ImageViewer 快照测试 > attach 到指定容器 > image-viewer-attach
                   d="M3 21H20L9 10L3 16V21Z"
                   fill="transparent"
                   id="fill1"
-                  mask="url(#t-icon-image-:r71:-0)"
+                  mask="url(#t-icon-image-instance-r71-overlap-fill1)"
                 />
                 <circle
                   cx="15.75"
                   cy="8.25"
                   fill="transparent"
                   id="fill2"
-                  mask="url(#t-icon-image-:r71:-1)"
+                  mask="url(#t-icon-image-instance-r71-overlap-fill2)"
                   r="2"
                 />
                 <path
@@ -5783,30 +5591,7 @@ exports[`ImageViewer 快照测试 > modeless 模式 > image-viewer-modeless 1`] 
                           <defs>
                             <mask
                               height="24"
-                              id="t-icon-mirror-:r64:-0"
-                              mask-type="luminance"
-                              maskContentUnits="userSpaceOnUse"
-                              maskUnits="userSpaceOnUse"
-                              width="24"
-                              x="0"
-                              y="0"
-                            >
-                              <rect
-                                fill="#fff"
-                                height="24"
-                                width="24"
-                                x="0"
-                                y="0"
-                              />
-                              <path
-                                d="M16 8.5V17.5H21L16 8.5Z"
-                                fill="#000"
-                                stroke="none"
-                              />
-                            </mask>
-                            <mask
-                              height="24"
-                              id="t-icon-mirror-:r64:-1"
+                              id="t-icon-mirror-instance-r64-overlap-fill1"
                               mask-type="luminance"
                               maskContentUnits="userSpaceOnUse"
                               maskUnits="userSpaceOnUse"
@@ -5844,12 +5629,11 @@ exports[`ImageViewer 快照测试 > modeless 模式 > image-viewer-modeless 1`] 
                           >
                             <g
                               id="fill1"
-                              mask="url(#t-icon-mirror-:r64:-1)"
+                              mask="url(#t-icon-mirror-instance-r64-overlap-fill1)"
                             >
                               <path
                                 d="M8 8.5V17.5H3L8 8.5Z"
                                 fill="transparent"
-                                mask="url(#t-icon-mirror-:r64:-0)"
                               />
                               <path
                                 d="M16 8.5V17.5H21L16 8.5Z"
@@ -5917,7 +5701,7 @@ exports[`ImageViewer 快照测试 > modeless 模式 > image-viewer-modeless 1`] 
                         <defs>
                           <mask
                             height="24"
-                            id="t-icon-zoom-out-:r66:-0"
+                            id="t-icon-zoom-out-instance-r66-overlap-fill1"
                             mask-type="luminance"
                             maskContentUnits="userSpaceOnUse"
                             maskUnits="userSpaceOnUse"
@@ -5955,7 +5739,7 @@ exports[`ImageViewer 快照测试 > modeless 模式 > image-viewer-modeless 1`] 
                             d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                             fill="transparent"
                             id="fill1"
-                            mask="url(#t-icon-zoom-out-:r66:-0)"
+                            mask="url(#t-icon-zoom-out-instance-r66-overlap-fill1)"
                           />
                           <path
                             d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -5997,7 +5781,7 @@ exports[`ImageViewer 快照测试 > modeless 模式 > image-viewer-modeless 1`] 
                         <defs>
                           <mask
                             height="24"
-                            id="t-icon-zoom-in-:r67:-0"
+                            id="t-icon-zoom-in-instance-r67-overlap-fill1"
                             mask-type="luminance"
                             maskContentUnits="userSpaceOnUse"
                             maskUnits="userSpaceOnUse"
@@ -6035,7 +5819,7 @@ exports[`ImageViewer 快照测试 > modeless 模式 > image-viewer-modeless 1`] 
                             d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                             fill="transparent"
                             id="fill1"
-                            mask="url(#t-icon-zoom-in-:r67:-0)"
+                            mask="url(#t-icon-zoom-in-instance-r67-overlap-fill1)"
                           />
                           <path
                             d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -6070,7 +5854,7 @@ exports[`ImageViewer 快照测试 > modeless 模式 > image-viewer-modeless 1`] 
                           <defs>
                             <mask
                               height="24"
-                              id="t-icon-image-:r68:-0"
+                              id="t-icon-image-instance-r68-overlap-fill1"
                               mask-type="luminance"
                               maskContentUnits="userSpaceOnUse"
                               maskUnits="userSpaceOnUse"
@@ -6109,7 +5893,7 @@ exports[`ImageViewer 快照测试 > modeless 模式 > image-viewer-modeless 1`] 
                             </mask>
                             <mask
                               height="24"
-                              id="t-icon-image-:r68:-1"
+                              id="t-icon-image-instance-r68-overlap-fill2"
                               mask-type="luminance"
                               maskContentUnits="userSpaceOnUse"
                               maskUnits="userSpaceOnUse"
@@ -6147,14 +5931,14 @@ exports[`ImageViewer 快照测试 > modeless 模式 > image-viewer-modeless 1`] 
                               d="M3 21H20L9 10L3 16V21Z"
                               fill="transparent"
                               id="fill1"
-                              mask="url(#t-icon-image-:r68:-0)"
+                              mask="url(#t-icon-image-instance-r68-overlap-fill1)"
                             />
                             <circle
                               cx="15.75"
                               cy="8.25"
                               fill="transparent"
                               id="fill2"
-                              mask="url(#t-icon-image-:r68:-1)"
+                              mask="url(#t-icon-image-instance-r68-overlap-fill2)"
                               r="2"
                             />
                             <path
@@ -6336,30 +6120,7 @@ exports[`ImageViewer 快照测试 > modeless 模式切换图片 > image-viewer-m
                           <defs>
                             <mask
                               height="24"
-                              id="t-icon-mirror-:r6b:-0"
-                              mask-type="luminance"
-                              maskContentUnits="userSpaceOnUse"
-                              maskUnits="userSpaceOnUse"
-                              width="24"
-                              x="0"
-                              y="0"
-                            >
-                              <rect
-                                fill="#fff"
-                                height="24"
-                                width="24"
-                                x="0"
-                                y="0"
-                              />
-                              <path
-                                d="M16 8.5V17.5H21L16 8.5Z"
-                                fill="#000"
-                                stroke="none"
-                              />
-                            </mask>
-                            <mask
-                              height="24"
-                              id="t-icon-mirror-:r6b:-1"
+                              id="t-icon-mirror-instance-r6b-overlap-fill1"
                               mask-type="luminance"
                               maskContentUnits="userSpaceOnUse"
                               maskUnits="userSpaceOnUse"
@@ -6397,12 +6158,11 @@ exports[`ImageViewer 快照测试 > modeless 模式切换图片 > image-viewer-m
                           >
                             <g
                               id="fill1"
-                              mask="url(#t-icon-mirror-:r6b:-1)"
+                              mask="url(#t-icon-mirror-instance-r6b-overlap-fill1)"
                             >
                               <path
                                 d="M8 8.5V17.5H3L8 8.5Z"
                                 fill="transparent"
-                                mask="url(#t-icon-mirror-:r6b:-0)"
                               />
                               <path
                                 d="M16 8.5V17.5H21L16 8.5Z"
@@ -6470,7 +6230,7 @@ exports[`ImageViewer 快照测试 > modeless 模式切换图片 > image-viewer-m
                         <defs>
                           <mask
                             height="24"
-                            id="t-icon-zoom-out-:r6d:-0"
+                            id="t-icon-zoom-out-instance-r6d-overlap-fill1"
                             mask-type="luminance"
                             maskContentUnits="userSpaceOnUse"
                             maskUnits="userSpaceOnUse"
@@ -6508,7 +6268,7 @@ exports[`ImageViewer 快照测试 > modeless 模式切换图片 > image-viewer-m
                             d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                             fill="transparent"
                             id="fill1"
-                            mask="url(#t-icon-zoom-out-:r6d:-0)"
+                            mask="url(#t-icon-zoom-out-instance-r6d-overlap-fill1)"
                           />
                           <path
                             d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -6550,7 +6310,7 @@ exports[`ImageViewer 快照测试 > modeless 模式切换图片 > image-viewer-m
                         <defs>
                           <mask
                             height="24"
-                            id="t-icon-zoom-in-:r6e:-0"
+                            id="t-icon-zoom-in-instance-r6e-overlap-fill1"
                             mask-type="luminance"
                             maskContentUnits="userSpaceOnUse"
                             maskUnits="userSpaceOnUse"
@@ -6588,7 +6348,7 @@ exports[`ImageViewer 快照测试 > modeless 模式切换图片 > image-viewer-m
                             d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                             fill="transparent"
                             id="fill1"
-                            mask="url(#t-icon-zoom-in-:r6e:-0)"
+                            mask="url(#t-icon-zoom-in-instance-r6e-overlap-fill1)"
                           />
                           <path
                             d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -6623,7 +6383,7 @@ exports[`ImageViewer 快照测试 > modeless 模式切换图片 > image-viewer-m
                           <defs>
                             <mask
                               height="24"
-                              id="t-icon-image-:r6f:-0"
+                              id="t-icon-image-instance-r6f-overlap-fill1"
                               mask-type="luminance"
                               maskContentUnits="userSpaceOnUse"
                               maskUnits="userSpaceOnUse"
@@ -6662,7 +6422,7 @@ exports[`ImageViewer 快照测试 > modeless 模式切换图片 > image-viewer-m
                             </mask>
                             <mask
                               height="24"
-                              id="t-icon-image-:r6f:-1"
+                              id="t-icon-image-instance-r6f-overlap-fill2"
                               mask-type="luminance"
                               maskContentUnits="userSpaceOnUse"
                               maskUnits="userSpaceOnUse"
@@ -6700,14 +6460,14 @@ exports[`ImageViewer 快照测试 > modeless 模式切换图片 > image-viewer-m
                               d="M3 21H20L9 10L3 16V21Z"
                               fill="transparent"
                               id="fill1"
-                              mask="url(#t-icon-image-:r6f:-0)"
+                              mask="url(#t-icon-image-instance-r6f-overlap-fill1)"
                             />
                             <circle
                               cx="15.75"
                               cy="8.25"
                               fill="transparent"
                               id="fill2"
-                              mask="url(#t-icon-image-:r6f:-1)"
+                              mask="url(#t-icon-image-instance-r6f-overlap-fill2)"
                               r="2"
                             />
                             <path
@@ -6805,30 +6565,7 @@ exports[`ImageViewer 快照测试 > 不可拖拽 > image-viewer-not-draggable 1`
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-mirror-:r5g:-0"
-                  mask-type="luminance"
-                  maskContentUnits="userSpaceOnUse"
-                  maskUnits="userSpaceOnUse"
-                  width="24"
-                  x="0"
-                  y="0"
-                >
-                  <rect
-                    fill="#fff"
-                    height="24"
-                    width="24"
-                    x="0"
-                    y="0"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="#000"
-                    stroke="none"
-                  />
-                </mask>
-                <mask
-                  height="24"
-                  id="t-icon-mirror-:r5g:-1"
+                  id="t-icon-mirror-instance-r5g-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -6866,12 +6603,11 @@ exports[`ImageViewer 快照测试 > 不可拖拽 > image-viewer-not-draggable 1`
               >
                 <g
                   id="fill1"
-                  mask="url(#t-icon-mirror-:r5g:-1)"
+                  mask="url(#t-icon-mirror-instance-r5g-overlap-fill1)"
                 >
                   <path
                     d="M8 8.5V17.5H3L8 8.5Z"
                     fill="transparent"
-                    mask="url(#t-icon-mirror-:r5g:-0)"
                   />
                   <path
                     d="M16 8.5V17.5H21L16 8.5Z"
@@ -6939,7 +6675,7 @@ exports[`ImageViewer 快照测试 > 不可拖拽 > image-viewer-not-draggable 1`
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-out-:r5i:-0"
+                id="t-icon-zoom-out-instance-r5i-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -6977,7 +6713,7 @@ exports[`ImageViewer 快照测试 > 不可拖拽 > image-viewer-not-draggable 1`
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-out-:r5i:-0)"
+                mask="url(#t-icon-zoom-out-instance-r5i-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -7019,7 +6755,7 @@ exports[`ImageViewer 快照测试 > 不可拖拽 > image-viewer-not-draggable 1`
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-in-:r5j:-0"
+                id="t-icon-zoom-in-instance-r5j-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -7057,7 +6793,7 @@ exports[`ImageViewer 快照测试 > 不可拖拽 > image-viewer-not-draggable 1`
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-in-:r5j:-0)"
+                mask="url(#t-icon-zoom-in-instance-r5j-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -7092,7 +6828,7 @@ exports[`ImageViewer 快照测试 > 不可拖拽 > image-viewer-not-draggable 1`
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-image-:r5k:-0"
+                  id="t-icon-image-instance-r5k-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -7131,7 +6867,7 @@ exports[`ImageViewer 快照测试 > 不可拖拽 > image-viewer-not-draggable 1`
                 </mask>
                 <mask
                   height="24"
-                  id="t-icon-image-:r5k:-1"
+                  id="t-icon-image-instance-r5k-overlap-fill2"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -7169,14 +6905,14 @@ exports[`ImageViewer 快照测试 > 不可拖拽 > image-viewer-not-draggable 1`
                   d="M3 21H20L9 10L3 16V21Z"
                   fill="transparent"
                   id="fill1"
-                  mask="url(#t-icon-image-:r5k:-0)"
+                  mask="url(#t-icon-image-instance-r5k-overlap-fill1)"
                 />
                 <circle
                   cx="15.75"
                   cy="8.25"
                   fill="transparent"
                   id="fill2"
-                  mask="url(#t-icon-image-:r5k:-1)"
+                  mask="url(#t-icon-image-instance-r5k-overlap-fill2)"
                   r="2"
                 />
                 <path
@@ -7315,30 +7051,7 @@ exports[`ImageViewer 快照测试 > 关闭按钮为 false > image-viewer-close-b
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-mirror-:r53:-0"
-                  mask-type="luminance"
-                  maskContentUnits="userSpaceOnUse"
-                  maskUnits="userSpaceOnUse"
-                  width="24"
-                  x="0"
-                  y="0"
-                >
-                  <rect
-                    fill="#fff"
-                    height="24"
-                    width="24"
-                    x="0"
-                    y="0"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="#000"
-                    stroke="none"
-                  />
-                </mask>
-                <mask
-                  height="24"
-                  id="t-icon-mirror-:r53:-1"
+                  id="t-icon-mirror-instance-r53-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -7376,12 +7089,11 @@ exports[`ImageViewer 快照测试 > 关闭按钮为 false > image-viewer-close-b
               >
                 <g
                   id="fill1"
-                  mask="url(#t-icon-mirror-:r53:-1)"
+                  mask="url(#t-icon-mirror-instance-r53-overlap-fill1)"
                 >
                   <path
                     d="M8 8.5V17.5H3L8 8.5Z"
                     fill="transparent"
-                    mask="url(#t-icon-mirror-:r53:-0)"
                   />
                   <path
                     d="M16 8.5V17.5H21L16 8.5Z"
@@ -7449,7 +7161,7 @@ exports[`ImageViewer 快照测试 > 关闭按钮为 false > image-viewer-close-b
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-out-:r55:-0"
+                id="t-icon-zoom-out-instance-r55-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -7487,7 +7199,7 @@ exports[`ImageViewer 快照测试 > 关闭按钮为 false > image-viewer-close-b
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-out-:r55:-0)"
+                mask="url(#t-icon-zoom-out-instance-r55-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -7529,7 +7241,7 @@ exports[`ImageViewer 快照测试 > 关闭按钮为 false > image-viewer-close-b
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-in-:r56:-0"
+                id="t-icon-zoom-in-instance-r56-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -7567,7 +7279,7 @@ exports[`ImageViewer 快照测试 > 关闭按钮为 false > image-viewer-close-b
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-in-:r56:-0)"
+                mask="url(#t-icon-zoom-in-instance-r56-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -7602,7 +7314,7 @@ exports[`ImageViewer 快照测试 > 关闭按钮为 false > image-viewer-close-b
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-image-:r57:-0"
+                  id="t-icon-image-instance-r57-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -7641,7 +7353,7 @@ exports[`ImageViewer 快照测试 > 关闭按钮为 false > image-viewer-close-b
                 </mask>
                 <mask
                   height="24"
-                  id="t-icon-image-:r57:-1"
+                  id="t-icon-image-instance-r57-overlap-fill2"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -7679,14 +7391,14 @@ exports[`ImageViewer 快照测试 > 关闭按钮为 false > image-viewer-close-b
                   d="M3 21H20L9 10L3 16V21Z"
                   fill="transparent"
                   id="fill1"
-                  mask="url(#t-icon-image-:r57:-0)"
+                  mask="url(#t-icon-image-instance-r57-overlap-fill1)"
                 />
                 <circle
                   cx="15.75"
                   cy="8.25"
                   fill="transparent"
                   id="fill2"
-                  mask="url(#t-icon-image-:r57:-1)"
+                  mask="url(#t-icon-image-instance-r57-overlap-fill2)"
                   r="2"
                 />
                 <path
@@ -7801,30 +7513,7 @@ exports[`ImageViewer 快照测试 > 单张图片默认状态 > image-viewer-sing
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-mirror-:r49:-0"
-                  mask-type="luminance"
-                  maskContentUnits="userSpaceOnUse"
-                  maskUnits="userSpaceOnUse"
-                  width="24"
-                  x="0"
-                  y="0"
-                >
-                  <rect
-                    fill="#fff"
-                    height="24"
-                    width="24"
-                    x="0"
-                    y="0"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="#000"
-                    stroke="none"
-                  />
-                </mask>
-                <mask
-                  height="24"
-                  id="t-icon-mirror-:r49:-1"
+                  id="t-icon-mirror-instance-r49-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -7862,12 +7551,11 @@ exports[`ImageViewer 快照测试 > 单张图片默认状态 > image-viewer-sing
               >
                 <g
                   id="fill1"
-                  mask="url(#t-icon-mirror-:r49:-1)"
+                  mask="url(#t-icon-mirror-instance-r49-overlap-fill1)"
                 >
                   <path
                     d="M8 8.5V17.5H3L8 8.5Z"
                     fill="transparent"
-                    mask="url(#t-icon-mirror-:r49:-0)"
                   />
                   <path
                     d="M16 8.5V17.5H21L16 8.5Z"
@@ -7935,7 +7623,7 @@ exports[`ImageViewer 快照测试 > 单张图片默认状态 > image-viewer-sing
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-out-:r4b:-0"
+                id="t-icon-zoom-out-instance-r4b-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -7973,7 +7661,7 @@ exports[`ImageViewer 快照测试 > 单张图片默认状态 > image-viewer-sing
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-out-:r4b:-0)"
+                mask="url(#t-icon-zoom-out-instance-r4b-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -8015,7 +7703,7 @@ exports[`ImageViewer 快照测试 > 单张图片默认状态 > image-viewer-sing
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-in-:r4c:-0"
+                id="t-icon-zoom-in-instance-r4c-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -8053,7 +7741,7 @@ exports[`ImageViewer 快照测试 > 单张图片默认状态 > image-viewer-sing
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-in-:r4c:-0)"
+                mask="url(#t-icon-zoom-in-instance-r4c-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -8088,7 +7776,7 @@ exports[`ImageViewer 快照测试 > 单张图片默认状态 > image-viewer-sing
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-image-:r4d:-0"
+                  id="t-icon-image-instance-r4d-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -8127,7 +7815,7 @@ exports[`ImageViewer 快照测试 > 单张图片默认状态 > image-viewer-sing
                 </mask>
                 <mask
                   height="24"
-                  id="t-icon-image-:r4d:-1"
+                  id="t-icon-image-instance-r4d-overlap-fill2"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -8165,14 +7853,14 @@ exports[`ImageViewer 快照测试 > 单张图片默认状态 > image-viewer-sing
                   d="M3 21H20L9 10L3 16V21Z"
                   fill="transparent"
                   id="fill1"
-                  mask="url(#t-icon-image-:r4d:-0)"
+                  mask="url(#t-icon-image-instance-r4d-overlap-fill1)"
                 />
                 <circle
                   cx="15.75"
                   cy="8.25"
                   fill="transparent"
                   id="fill2"
-                  mask="url(#t-icon-image-:r4d:-1)"
+                  mask="url(#t-icon-image-instance-r4d-overlap-fill2)"
                   r="2"
                 />
                 <path
@@ -8356,7 +8044,7 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                       <defs>
                         <mask
                           height="24"
-                          id="t-icon-image-:r4h:-0"
+                          id="t-icon-image-instance-r4h-overlap-fill1"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -8395,7 +8083,7 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                         </mask>
                         <mask
                           height="24"
-                          id="t-icon-image-:r4h:-1"
+                          id="t-icon-image-instance-r4h-overlap-fill2"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -8433,14 +8121,14 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                           d="M3 21H20L9 10L3 16V21Z"
                           fill="transparent"
                           id="fill1"
-                          mask="url(#t-icon-image-:r4h:-0)"
+                          mask="url(#t-icon-image-instance-r4h-overlap-fill1)"
                         />
                         <circle
                           cx="15.75"
                           cy="8.25"
                           fill="transparent"
                           id="fill2"
-                          mask="url(#t-icon-image-:r4h:-1)"
+                          mask="url(#t-icon-image-instance-r4h-overlap-fill2)"
                           r="2"
                         />
                         <path
@@ -8501,7 +8189,7 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                       <defs>
                         <mask
                           height="24"
-                          id="t-icon-image-:r4i:-0"
+                          id="t-icon-image-instance-r4i-overlap-fill1"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -8540,7 +8228,7 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                         </mask>
                         <mask
                           height="24"
-                          id="t-icon-image-:r4i:-1"
+                          id="t-icon-image-instance-r4i-overlap-fill2"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -8578,14 +8266,14 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                           d="M3 21H20L9 10L3 16V21Z"
                           fill="transparent"
                           id="fill1"
-                          mask="url(#t-icon-image-:r4i:-0)"
+                          mask="url(#t-icon-image-instance-r4i-overlap-fill1)"
                         />
                         <circle
                           cx="15.75"
                           cy="8.25"
                           fill="transparent"
                           id="fill2"
-                          mask="url(#t-icon-image-:r4i:-1)"
+                          mask="url(#t-icon-image-instance-r4i-overlap-fill2)"
                           r="2"
                         />
                         <path
@@ -8646,7 +8334,7 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                       <defs>
                         <mask
                           height="24"
-                          id="t-icon-image-:r4j:-0"
+                          id="t-icon-image-instance-r4j-overlap-fill1"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -8685,7 +8373,7 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                         </mask>
                         <mask
                           height="24"
-                          id="t-icon-image-:r4j:-1"
+                          id="t-icon-image-instance-r4j-overlap-fill2"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -8723,14 +8411,14 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                           d="M3 21H20L9 10L3 16V21Z"
                           fill="transparent"
                           id="fill1"
-                          mask="url(#t-icon-image-:r4j:-0)"
+                          mask="url(#t-icon-image-instance-r4j-overlap-fill1)"
                         />
                         <circle
                           cx="15.75"
                           cy="8.25"
                           fill="transparent"
                           id="fill2"
-                          mask="url(#t-icon-image-:r4j:-1)"
+                          mask="url(#t-icon-image-instance-r4j-overlap-fill2)"
                           r="2"
                         />
                         <path
@@ -8837,30 +8525,7 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-mirror-:r4m:-0"
-                  mask-type="luminance"
-                  maskContentUnits="userSpaceOnUse"
-                  maskUnits="userSpaceOnUse"
-                  width="24"
-                  x="0"
-                  y="0"
-                >
-                  <rect
-                    fill="#fff"
-                    height="24"
-                    width="24"
-                    x="0"
-                    y="0"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="#000"
-                    stroke="none"
-                  />
-                </mask>
-                <mask
-                  height="24"
-                  id="t-icon-mirror-:r4m:-1"
+                  id="t-icon-mirror-instance-r4m-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -8898,12 +8563,11 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
               >
                 <g
                   id="fill1"
-                  mask="url(#t-icon-mirror-:r4m:-1)"
+                  mask="url(#t-icon-mirror-instance-r4m-overlap-fill1)"
                 >
                   <path
                     d="M8 8.5V17.5H3L8 8.5Z"
                     fill="transparent"
-                    mask="url(#t-icon-mirror-:r4m:-0)"
                   />
                   <path
                     d="M16 8.5V17.5H21L16 8.5Z"
@@ -8971,7 +8635,7 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-out-:r4o:-0"
+                id="t-icon-zoom-out-instance-r4o-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -9009,7 +8673,7 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-out-:r4o:-0)"
+                mask="url(#t-icon-zoom-out-instance-r4o-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -9051,7 +8715,7 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-in-:r4p:-0"
+                id="t-icon-zoom-in-instance-r4p-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -9089,7 +8753,7 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-in-:r4p:-0)"
+                mask="url(#t-icon-zoom-in-instance-r4p-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -9124,7 +8788,7 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-image-:r4q:-0"
+                  id="t-icon-image-instance-r4q-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -9163,7 +8827,7 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                 </mask>
                 <mask
                   height="24"
-                  id="t-icon-image-:r4q:-1"
+                  id="t-icon-image-instance-r4q-overlap-fill2"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -9201,14 +8865,14 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                   d="M3 21H20L9 10L3 16V21Z"
                   fill="transparent"
                   id="fill1"
-                  mask="url(#t-icon-image-:r4q:-0)"
+                  mask="url(#t-icon-image-instance-r4q-overlap-fill1)"
                 />
                 <circle
                   cx="15.75"
                   cy="8.25"
                   fill="transparent"
                   id="fill2"
-                  mask="url(#t-icon-image-:r4q:-1)"
+                  mask="url(#t-icon-image-instance-r4q-overlap-fill2)"
                   r="2"
                 />
                 <path
@@ -9344,30 +9008,7 @@ exports[`ImageViewer 快照测试 > 无遮罩层 > image-viewer-no-overlay 1`] =
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-mirror-:r59:-0"
-                  mask-type="luminance"
-                  maskContentUnits="userSpaceOnUse"
-                  maskUnits="userSpaceOnUse"
-                  width="24"
-                  x="0"
-                  y="0"
-                >
-                  <rect
-                    fill="#fff"
-                    height="24"
-                    width="24"
-                    x="0"
-                    y="0"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="#000"
-                    stroke="none"
-                  />
-                </mask>
-                <mask
-                  height="24"
-                  id="t-icon-mirror-:r59:-1"
+                  id="t-icon-mirror-instance-r59-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -9405,12 +9046,11 @@ exports[`ImageViewer 快照测试 > 无遮罩层 > image-viewer-no-overlay 1`] =
               >
                 <g
                   id="fill1"
-                  mask="url(#t-icon-mirror-:r59:-1)"
+                  mask="url(#t-icon-mirror-instance-r59-overlap-fill1)"
                 >
                   <path
                     d="M8 8.5V17.5H3L8 8.5Z"
                     fill="transparent"
-                    mask="url(#t-icon-mirror-:r59:-0)"
                   />
                   <path
                     d="M16 8.5V17.5H21L16 8.5Z"
@@ -9478,7 +9118,7 @@ exports[`ImageViewer 快照测试 > 无遮罩层 > image-viewer-no-overlay 1`] =
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-out-:r5b:-0"
+                id="t-icon-zoom-out-instance-r5b-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -9516,7 +9156,7 @@ exports[`ImageViewer 快照测试 > 无遮罩层 > image-viewer-no-overlay 1`] =
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-out-:r5b:-0)"
+                mask="url(#t-icon-zoom-out-instance-r5b-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -9558,7 +9198,7 @@ exports[`ImageViewer 快照测试 > 无遮罩层 > image-viewer-no-overlay 1`] =
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-in-:r5c:-0"
+                id="t-icon-zoom-in-instance-r5c-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -9596,7 +9236,7 @@ exports[`ImageViewer 快照测试 > 无遮罩层 > image-viewer-no-overlay 1`] =
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-in-:r5c:-0)"
+                mask="url(#t-icon-zoom-in-instance-r5c-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -9631,7 +9271,7 @@ exports[`ImageViewer 快照测试 > 无遮罩层 > image-viewer-no-overlay 1`] =
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-image-:r5d:-0"
+                  id="t-icon-image-instance-r5d-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -9670,7 +9310,7 @@ exports[`ImageViewer 快照测试 > 无遮罩层 > image-viewer-no-overlay 1`] =
                 </mask>
                 <mask
                   height="24"
-                  id="t-icon-image-:r5d:-1"
+                  id="t-icon-image-instance-r5d-overlap-fill2"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -9708,14 +9348,14 @@ exports[`ImageViewer 快照测试 > 无遮罩层 > image-viewer-no-overlay 1`] =
                   d="M3 21H20L9 10L3 16V21Z"
                   fill="transparent"
                   id="fill1"
-                  mask="url(#t-icon-image-:r5d:-0)"
+                  mask="url(#t-icon-image-instance-r5d-overlap-fill1)"
                 />
                 <circle
                   cx="15.75"
                   cy="8.25"
                   fill="transparent"
                   id="fill2"
-                  mask="url(#t-icon-image-:r5d:-1)"
+                  mask="url(#t-icon-image-instance-r5d-overlap-fill2)"
                   r="2"
                 />
                 <path
@@ -9899,7 +9539,7 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
                       <defs>
                         <mask
                           height="24"
-                          id="t-icon-image-:r5o:-0"
+                          id="t-icon-image-instance-r5o-overlap-fill1"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -9938,7 +9578,7 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
                         </mask>
                         <mask
                           height="24"
-                          id="t-icon-image-:r5o:-1"
+                          id="t-icon-image-instance-r5o-overlap-fill2"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -9976,14 +9616,14 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
                           d="M3 21H20L9 10L3 16V21Z"
                           fill="transparent"
                           id="fill1"
-                          mask="url(#t-icon-image-:r5o:-0)"
+                          mask="url(#t-icon-image-instance-r5o-overlap-fill1)"
                         />
                         <circle
                           cx="15.75"
                           cy="8.25"
                           fill="transparent"
                           id="fill2"
-                          mask="url(#t-icon-image-:r5o:-1)"
+                          mask="url(#t-icon-image-instance-r5o-overlap-fill2)"
                           r="2"
                         />
                         <path
@@ -10044,7 +9684,7 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
                       <defs>
                         <mask
                           height="24"
-                          id="t-icon-image-:r5p:-0"
+                          id="t-icon-image-instance-r5p-overlap-fill1"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -10083,7 +9723,7 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
                         </mask>
                         <mask
                           height="24"
-                          id="t-icon-image-:r5p:-1"
+                          id="t-icon-image-instance-r5p-overlap-fill2"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -10121,14 +9761,14 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
                           d="M3 21H20L9 10L3 16V21Z"
                           fill="transparent"
                           id="fill1"
-                          mask="url(#t-icon-image-:r5p:-0)"
+                          mask="url(#t-icon-image-instance-r5p-overlap-fill1)"
                         />
                         <circle
                           cx="15.75"
                           cy="8.25"
                           fill="transparent"
                           id="fill2"
-                          mask="url(#t-icon-image-:r5p:-1)"
+                          mask="url(#t-icon-image-instance-r5p-overlap-fill2)"
                           r="2"
                         />
                         <path
@@ -10235,30 +9875,7 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-mirror-:r5s:-0"
-                  mask-type="luminance"
-                  maskContentUnits="userSpaceOnUse"
-                  maskUnits="userSpaceOnUse"
-                  width="24"
-                  x="0"
-                  y="0"
-                >
-                  <rect
-                    fill="#fff"
-                    height="24"
-                    width="24"
-                    x="0"
-                    y="0"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="#000"
-                    stroke="none"
-                  />
-                </mask>
-                <mask
-                  height="24"
-                  id="t-icon-mirror-:r5s:-1"
+                  id="t-icon-mirror-instance-r5s-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -10296,12 +9913,11 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
               >
                 <g
                   id="fill1"
-                  mask="url(#t-icon-mirror-:r5s:-1)"
+                  mask="url(#t-icon-mirror-instance-r5s-overlap-fill1)"
                 >
                   <path
                     d="M8 8.5V17.5H3L8 8.5Z"
                     fill="transparent"
-                    mask="url(#t-icon-mirror-:r5s:-0)"
                   />
                   <path
                     d="M16 8.5V17.5H21L16 8.5Z"
@@ -10369,7 +9985,7 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-out-:r5u:-0"
+                id="t-icon-zoom-out-instance-r5u-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -10407,7 +10023,7 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-out-:r5u:-0)"
+                mask="url(#t-icon-zoom-out-instance-r5u-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -10449,7 +10065,7 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-in-:r5v:-0"
+                id="t-icon-zoom-in-instance-r5v-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -10487,7 +10103,7 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-in-:r5v:-0)"
+                mask="url(#t-icon-zoom-in-instance-r5v-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -10522,7 +10138,7 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-image-:r60:-0"
+                  id="t-icon-image-instance-r60-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -10561,7 +10177,7 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
                 </mask>
                 <mask
                   height="24"
-                  id="t-icon-image-:r60:-1"
+                  id="t-icon-image-instance-r60-overlap-fill2"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -10599,14 +10215,14 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
                   d="M3 21H20L9 10L3 16V21Z"
                   fill="transparent"
                   id="fill1"
-                  mask="url(#t-icon-image-:r60:-0)"
+                  mask="url(#t-icon-image-instance-r60-overlap-fill1)"
                 />
                 <circle
                   cx="15.75"
                   cy="8.25"
                   fill="transparent"
                   id="fill2"
-                  mask="url(#t-icon-image-:r60:-1)"
+                  mask="url(#t-icon-image-instance-r60-overlap-fill2)"
                   r="2"
                 />
                 <path
@@ -10790,7 +10406,7 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
                       <defs>
                         <mask
                           height="24"
-                          id="t-icon-image-:r6i:-0"
+                          id="t-icon-image-instance-r6i-overlap-fill1"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -10829,7 +10445,7 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
                         </mask>
                         <mask
                           height="24"
-                          id="t-icon-image-:r6i:-1"
+                          id="t-icon-image-instance-r6i-overlap-fill2"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -10867,14 +10483,14 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
                           d="M3 21H20L9 10L3 16V21Z"
                           fill="transparent"
                           id="fill1"
-                          mask="url(#t-icon-image-:r6i:-0)"
+                          mask="url(#t-icon-image-instance-r6i-overlap-fill1)"
                         />
                         <circle
                           cx="15.75"
                           cy="8.25"
                           fill="transparent"
                           id="fill2"
-                          mask="url(#t-icon-image-:r6i:-1)"
+                          mask="url(#t-icon-image-instance-r6i-overlap-fill2)"
                           r="2"
                         />
                         <path
@@ -10935,7 +10551,7 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
                       <defs>
                         <mask
                           height="24"
-                          id="t-icon-image-:r6j:-0"
+                          id="t-icon-image-instance-r6j-overlap-fill1"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -10974,7 +10590,7 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
                         </mask>
                         <mask
                           height="24"
-                          id="t-icon-image-:r6j:-1"
+                          id="t-icon-image-instance-r6j-overlap-fill2"
                           mask-type="luminance"
                           maskContentUnits="userSpaceOnUse"
                           maskUnits="userSpaceOnUse"
@@ -11012,14 +10628,14 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
                           d="M3 21H20L9 10L3 16V21Z"
                           fill="transparent"
                           id="fill1"
-                          mask="url(#t-icon-image-:r6j:-0)"
+                          mask="url(#t-icon-image-instance-r6j-overlap-fill1)"
                         />
                         <circle
                           cx="15.75"
                           cy="8.25"
                           fill="transparent"
                           id="fill2"
-                          mask="url(#t-icon-image-:r6j:-1)"
+                          mask="url(#t-icon-image-instance-r6j-overlap-fill2)"
                           r="2"
                         />
                         <path
@@ -11128,30 +10744,7 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-mirror-:r6m:-0"
-                  mask-type="luminance"
-                  maskContentUnits="userSpaceOnUse"
-                  maskUnits="userSpaceOnUse"
-                  width="24"
-                  x="0"
-                  y="0"
-                >
-                  <rect
-                    fill="#fff"
-                    height="24"
-                    width="24"
-                    x="0"
-                    y="0"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="#000"
-                    stroke="none"
-                  />
-                </mask>
-                <mask
-                  height="24"
-                  id="t-icon-mirror-:r6m:-1"
+                  id="t-icon-mirror-instance-r6m-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -11189,12 +10782,11 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
               >
                 <g
                   id="fill1"
-                  mask="url(#t-icon-mirror-:r6m:-1)"
+                  mask="url(#t-icon-mirror-instance-r6m-overlap-fill1)"
                 >
                   <path
                     d="M8 8.5V17.5H3L8 8.5Z"
                     fill="transparent"
-                    mask="url(#t-icon-mirror-:r6m:-0)"
                   />
                   <path
                     d="M16 8.5V17.5H21L16 8.5Z"
@@ -11262,7 +10854,7 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-out-:r6o:-0"
+                id="t-icon-zoom-out-instance-r6o-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -11300,7 +10892,7 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-out-:r6o:-0)"
+                mask="url(#t-icon-zoom-out-instance-r6o-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -11342,7 +10934,7 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-in-:r6p:-0"
+                id="t-icon-zoom-in-instance-r6p-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -11380,7 +10972,7 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-in-:r6p:-0)"
+                mask="url(#t-icon-zoom-in-instance-r6p-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -11415,7 +11007,7 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-image-:r6q:-0"
+                  id="t-icon-image-instance-r6q-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -11454,7 +11046,7 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
                 </mask>
                 <mask
                   height="24"
-                  id="t-icon-image-:r6q:-1"
+                  id="t-icon-image-instance-r6q-overlap-fill2"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -11492,14 +11084,14 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
                   d="M3 21H20L9 10L3 16V21Z"
                   fill="transparent"
                   id="fill1"
-                  mask="url(#t-icon-image-:r6q:-0)"
+                  mask="url(#t-icon-image-instance-r6q-overlap-fill1)"
                 />
                 <circle
                   cx="15.75"
                   cy="8.25"
                   fill="transparent"
                   id="fill2"
-                  mask="url(#t-icon-image-:r6q:-1)"
+                  mask="url(#t-icon-image-instance-r6q-overlap-fill2)"
                   r="2"
                 />
                 <path
@@ -11638,30 +11230,7 @@ exports[`ImageViewer 快照测试 > 自定义关闭按钮 > image-viewer-custom-
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-mirror-:r4t:-0"
-                  mask-type="luminance"
-                  maskContentUnits="userSpaceOnUse"
-                  maskUnits="userSpaceOnUse"
-                  width="24"
-                  x="0"
-                  y="0"
-                >
-                  <rect
-                    fill="#fff"
-                    height="24"
-                    width="24"
-                    x="0"
-                    y="0"
-                  />
-                  <path
-                    d="M16 8.5V17.5H21L16 8.5Z"
-                    fill="#000"
-                    stroke="none"
-                  />
-                </mask>
-                <mask
-                  height="24"
-                  id="t-icon-mirror-:r4t:-1"
+                  id="t-icon-mirror-instance-r4t-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -11699,12 +11268,11 @@ exports[`ImageViewer 快照测试 > 自定义关闭按钮 > image-viewer-custom-
               >
                 <g
                   id="fill1"
-                  mask="url(#t-icon-mirror-:r4t:-1)"
+                  mask="url(#t-icon-mirror-instance-r4t-overlap-fill1)"
                 >
                   <path
                     d="M8 8.5V17.5H3L8 8.5Z"
                     fill="transparent"
-                    mask="url(#t-icon-mirror-:r4t:-0)"
                   />
                   <path
                     d="M16 8.5V17.5H21L16 8.5Z"
@@ -11772,7 +11340,7 @@ exports[`ImageViewer 快照测试 > 自定义关闭按钮 > image-viewer-custom-
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-out-:r4v:-0"
+                id="t-icon-zoom-out-instance-r4v-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -11810,7 +11378,7 @@ exports[`ImageViewer 快照测试 > 自定义关闭按钮 > image-viewer-custom-
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-out-:r4v:-0)"
+                mask="url(#t-icon-zoom-out-instance-r4v-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -11852,7 +11420,7 @@ exports[`ImageViewer 快照测试 > 自定义关闭按钮 > image-viewer-custom-
             <defs>
               <mask
                 height="24"
-                id="t-icon-zoom-in-:r50:-0"
+                id="t-icon-zoom-in-instance-r50-overlap-fill1"
                 mask-type="luminance"
                 maskContentUnits="userSpaceOnUse"
                 maskUnits="userSpaceOnUse"
@@ -11890,7 +11458,7 @@ exports[`ImageViewer 快照测试 > 自定义关闭按钮 > image-viewer-custom-
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z"
                 fill="transparent"
                 id="fill1"
-                mask="url(#t-icon-zoom-in-:r50:-0)"
+                mask="url(#t-icon-zoom-in-instance-r50-overlap-fill1)"
               />
               <path
                 d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033ZM15.8033 15.8033L21.1066 21.1066"
@@ -11925,7 +11493,7 @@ exports[`ImageViewer 快照测试 > 自定义关闭按钮 > image-viewer-custom-
               <defs>
                 <mask
                   height="24"
-                  id="t-icon-image-:r51:-0"
+                  id="t-icon-image-instance-r51-overlap-fill1"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -11964,7 +11532,7 @@ exports[`ImageViewer 快照测试 > 自定义关闭按钮 > image-viewer-custom-
                 </mask>
                 <mask
                   height="24"
-                  id="t-icon-image-:r51:-1"
+                  id="t-icon-image-instance-r51-overlap-fill2"
                   mask-type="luminance"
                   maskContentUnits="userSpaceOnUse"
                   maskUnits="userSpaceOnUse"
@@ -12002,14 +11570,14 @@ exports[`ImageViewer 快照测试 > 自定义关闭按钮 > image-viewer-custom-
                   d="M3 21H20L9 10L3 16V21Z"
                   fill="transparent"
                   id="fill1"
-                  mask="url(#t-icon-image-:r51:-0)"
+                  mask="url(#t-icon-image-instance-r51-overlap-fill1)"
                 />
                 <circle
                   cx="15.75"
                   cy="8.25"
                   fill="transparent"
                   id="fill2"
-                  mask="url(#t-icon-image-:r51:-1)"
+                  mask="url(#t-icon-image-instance-r51-overlap-fill2)"
                   r="2"
                 />
                 <path

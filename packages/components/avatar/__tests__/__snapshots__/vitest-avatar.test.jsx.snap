@@ -112,7 +112,7 @@ exports[`AvatarGroup Component > props.collapseAvatar works fine 1`] = `
                 <defs>
                   <mask
                     height="24"
-                    id="t-icon-image-:r5:-0"
+                    id="t-icon-image-instance-r5-overlap-fill1"
                     mask-type="luminance"
                     maskContentUnits="userSpaceOnUse"
                     maskUnits="userSpaceOnUse"
@@ -151,7 +151,7 @@ exports[`AvatarGroup Component > props.collapseAvatar works fine 1`] = `
                   </mask>
                   <mask
                     height="24"
-                    id="t-icon-image-:r5:-1"
+                    id="t-icon-image-instance-r5-overlap-fill2"
                     mask-type="luminance"
                     maskContentUnits="userSpaceOnUse"
                     maskUnits="userSpaceOnUse"
@@ -189,14 +189,14 @@ exports[`AvatarGroup Component > props.collapseAvatar works fine 1`] = `
                     d="M3 21H20L9 10L3 16V21Z"
                     fill="transparent"
                     id="fill1"
-                    mask="url(#t-icon-image-:r5:-0)"
+                    mask="url(#t-icon-image-instance-r5-overlap-fill1)"
                   />
                   <circle
                     cx="15.75"
                     cy="8.25"
                     fill="transparent"
                     id="fill2"
-                    mask="url(#t-icon-image-:r5:-1)"
+                    mask="url(#t-icon-image-instance-r5-overlap-fill2)"
                     r="2"
                   />
                   <path

@@ -92,7 +92,7 @@
     "react-is": "^18.2.0",
     "react-transition-group": "~4.4.1",
     "sortablejs": "^1.15.7",
-    "tdesign-icons-react": "^0.6.8",
+    "tdesign-icons-react": "https://pkg.pr.new/Tencent/tdesign-icons/tdesign-icons-react@ad06b1b",
     "tslib": "~2.3.1",
     "validator": "~13.15.0"
   }
