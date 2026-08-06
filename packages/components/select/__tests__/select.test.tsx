@@ -145,6 +145,22 @@ describe('Select 组件测试', () => {
     expect(container.querySelector('.t-input__inner')).toHaveValue(' ');
   });
 
+  test('非过滤单选的自定义元素 label 使用 prefix 展示', () => {
+    const { container } = render(
+      <Select
+        value="ai"
+        options={[
+          {
+            label: <span className="custom-label">人工智能</span>,
+            value: 'ai',
+          },
+        ]}
+      />,
+    );
+    expect(container.querySelector('.t-input__prefix .custom-label')).toHaveTextContent('人工智能');
+    expect(container.querySelector('.t-input__inner')).toHaveValue(' ');
+  });
+
   test('多选测试', async () => {
     const MultipleSelect = () => {
       const [value, setValue] = useState([{ label: 'Apple', value: 'apple' }]);

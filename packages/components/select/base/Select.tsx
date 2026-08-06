@@ -438,7 +438,7 @@ const Select = forwardRefWithStatics(
 
     const renderValueDisplay = useMemo(() => {
       if (!valueDisplay) {
-        if (!multiple) return undefined;
+        if (!multiple) return isValidElement(selectedLabel) ? selectedLabel : undefined;
         return ({ value: val }) =>
           val.slice(0, minCollapsedNum ? minCollapsedNum : val.length).map((_, index: number) => {
             const targetVal = get(selectedOptions[index], valueKey);
