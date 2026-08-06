@@ -89450,18 +89450,23 @@ exports[`csr snapshot test > csr test packages/components/select/_example/custom
           <div
             class="t-input__wrap"
             spellcheck="false"
-            value="选中选项一"
+            value=" "
           >
             <div
-              class="t-input t-align-left t-input--suffix"
+              class="t-input t-align-left t-input--prefix t-input--suffix"
             >
+              <div
+                class="t-input__prefix"
+              >
+                选中选项一
+              </div>
               <input
                 autocomplete="off"
                 class="t-input__inner"
-                placeholder="请选择"
+                placeholder=""
                 readonly=""
                 type="text"
-                value="选中选项一"
+                value=" "
               />
               <span
                 class="t-input__suffix t-input__suffix-icon"
@@ -150043,18 +150048,23 @@ exports[`csr snapshot test > csr test packages/components/tree-select/_example/v
         <div
           class="t-input__wrap"
           spellcheck="false"
-          value="广州市(guangzhou)"
+          value=" "
         >
           <div
-            class="t-input t-align-left t-input--suffix"
+            class="t-input t-align-left t-input--prefix t-input--suffix"
           >
+            <div
+              class="t-input__prefix"
+            >
+              广州市(guangzhou)
+            </div>
             <input
               autocomplete="off"
               class="t-input__inner"
-              placeholder="请选择"
+              placeholder=""
               readonly=""
               type="text"
-              value="广州市(guangzhou)"
+              value=" "
             />
             <span
               class="t-input__suffix t-input__suffix-icon"
@@ -155002,7 +155012,7 @@ exports[`ssr snapshot test > ssr test packages/components/tree-select/_example/p
 
 exports[`ssr snapshot test > ssr test packages/components/tree-select/_example/props.tsx 1`] = `"<div class="t-tree-select t-select-input" style="width:300px"><div class="t-input__wrap" value="深圳市" spellcheck="false"><div class="t-input t-align-left t-input--suffix"><input placeholder="请选择" type="text" class="t-input__inner" readonly="" autoComplete="off" value="深圳市"/><span class="t-input__suffix t-input__suffix-icon"><svg class="t-fake-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921" stroke="black" stroke-opacity="0.9" stroke-width="1.3"></path></svg></span></div></div></div>"`;
 
-exports[`ssr snapshot test > ssr test packages/components/tree-select/_example/valuedisplay.tsx 1`] = `"<div style="width:300px;gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div class="t-tree-select t-select-input"><div class="t-input__wrap" value="广州市(guangzhou)" spellcheck="false"><div class="t-input t-align-left t-input--suffix"><input placeholder="请选择" type="text" class="t-input__inner" readonly="" autoComplete="off" value="广州市(guangzhou)"/><span class="t-input__suffix t-input__suffix-icon"><svg class="t-fake-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921" stroke="black" stroke-opacity="0.9" stroke-width="1.3"></path></svg></span></div></div></div></div><div class="t-space-item"><div class="t-tree-select t-select-input t-select-input--multiple"><div class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon t-tag-input--with-tag" value="" spellcheck="false"><div class="t-input t-is-readonly t-align-left t-input--prefix t-input--suffix"><div class="t-input__prefix"><div class="t-tag t-tag--default t-tag--dark"><span>广州市<!-- -->(<!-- -->guangzhou<!-- -->)</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--default t-tag--dark"><span>深圳市<!-- -->(<!-- -->shenzhen<!-- -->)</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div></div><input placeholder="" type="text" class="t-input__inner t-input--soft-hidden" readonly="" autoComplete="off" value=""/><span class="t-input__input-pre"></span><span class="t-input__suffix t-input__suffix-icon"><svg class="t-fake-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921" stroke="black" stroke-opacity="0.9" stroke-width="1.3"></path></svg></span></div></div></div></div></div>"`;
+exports[`ssr snapshot test > ssr test packages/components/tree-select/_example/valuedisplay.tsx 1`] = `"<div style="width:300px;gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div class="t-tree-select t-select-input"><div class="t-input__wrap" value=" " spellcheck="false"><div class="t-input t-align-left t-input--prefix t-input--suffix"><div class="t-input__prefix">广州市(guangzhou)</div><input placeholder="" type="text" class="t-input__inner" readonly="" autoComplete="off" value=" "/><span class="t-input__suffix t-input__suffix-icon"><svg class="t-fake-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921" stroke="black" stroke-opacity="0.9" stroke-width="1.3"></path></svg></span></div></div></div></div><div class="t-space-item"><div class="t-tree-select t-select-input t-select-input--multiple"><div class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon t-tag-input--with-tag" value="" spellcheck="false"><div class="t-input t-is-readonly t-align-left t-input--prefix t-input--suffix"><div class="t-input__prefix"><div class="t-tag t-tag--default t-tag--dark"><span>广州市<!-- -->(<!-- -->guangzhou<!-- -->)</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--default t-tag--dark"><span>深圳市<!-- -->(<!-- -->shenzhen<!-- -->)</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div></div><input placeholder="" type="text" class="t-input__inner t-input--soft-hidden" readonly="" autoComplete="off" value=""/><span class="t-input__input-pre"></span><span class="t-input__suffix t-input__suffix-icon"><svg class="t-fake-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921" stroke="black" stroke-opacity="0.9" stroke-width="1.3"></path></svg></span></div></div></div></div></div>"`;
 
 exports[`ssr snapshot test > ssr test packages/components/tree-select/_example/valuetype.tsx 1`] = `"<div style="width:300px;gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div class="t-tree-select t-select-input"><div class="t-input__wrap" value="深圳市" spellcheck="false"><div class="t-input t-align-left t-input--suffix"><input placeholder="请选择" type="text" class="t-input__inner" readonly="" autoComplete="off" value="深圳市"/><span class="t-input__suffix t-input__suffix-icon"><svg class="t-fake-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921" stroke="black" stroke-opacity="0.9" stroke-width="1.3"></path></svg></span></div></div></div></div><div class="t-space-item"><div class="t-tree-select t-select-input t-select-input--multiple"><div class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input__with-suffix-icon t-tag-input--with-tag" value="" spellcheck="false"><div class="t-input t-is-readonly t-align-left t-input--prefix t-input--suffix"><div class="t-input__prefix"><div class="t-tag t-tag--default t-tag--dark"><span title="广州市">广州市</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--default t-tag--dark"><span title="深圳市">深圳市</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div></div><input placeholder="" type="text" class="t-input__inner t-input--soft-hidden" readonly="" autoComplete="off" value=""/><span class="t-input__input-pre"></span><span class="t-input__suffix t-input__suffix-icon"><svg class="t-fake-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921" stroke="black" stroke-opacity="0.9" stroke-width="1.3"></path></svg></span></div></div></div></div></div>"`;
 

@@ -1,47 +1,47 @@
 /* eslint-disable */
-import React, { useState } from 'react';
-import { act, fireEvent, mockTimeout, render } from '@test/utils';
-import userEvent from '@testing-library/user-event';
+import React, { useState } from "react";
+import { act, fireEvent, mockTimeout, render } from "@test/utils";
+import userEvent from "@testing-library/user-event";
 
-import Popup from '../../popup';
-import Space from '../../space';
-import Tag from '../../tag';
-import { Select, SelectProps } from '../index';
+import Popup from "../../popup";
+import Space from "../../space";
+import Tag from "../../tag";
+import { Select, SelectProps } from "../index";
 
 const { Option, OptionGroup } = Select;
 
-describe('Select 组件测试', () => {
-  const selectSelector = '.t-select';
-  const popupSelector = '.t-popup';
+describe("Select 组件测试", () => {
+  const selectSelector = ".t-select";
+  const popupSelector = ".t-popup";
   const options = [
     {
-      label: 'Apple',
-      value: 'apple',
+      label: "Apple",
+      value: "apple",
       disabled: true,
     },
     {
-      label: 'Banana',
-      value: 'banana',
+      label: "Banana",
+      value: "banana",
     },
     {
-      label: 'Orange',
-      value: 'orange',
+      label: "Orange",
+      value: "orange",
     },
   ];
 
   const RemoteSearchSelect = ({ multiple }: { multiple?: boolean }) => {
     const defaultOptions = [
       {
-        label: 'Apple',
-        value: 'apple',
+        label: "Apple",
+        value: "apple",
       },
       {
-        label: 'Banana',
-        value: 'banana',
+        label: "Banana",
+        value: "banana",
       },
       {
-        label: 'Orange',
-        value: 'orange',
+        label: "Orange",
+        value: "orange",
       },
     ];
     const [value, setValue] = useState();
@@ -95,14 +95,14 @@ describe('Select 组件测试', () => {
     );
   };
 
-  test('单选测试', async () => {
+  test("单选测试", async () => {
     const SingleSelect = () => {
-      const [value, setValue] = useState('apple');
+      const [value, setValue] = useState("apple");
       const onChange = (value) => {
         setValue(value);
       };
       return (
-        <Select value={value} onChange={onChange} style={{ width: '40%' }}>
+        <Select value={value} onChange={onChange} style={{ width: "40%" }}>
           <Option key="apple" label="Apple" value="apple" />
           <Option key="orange" label="Orange" value="orange" />
           <Option key="banana" label="Banana" value="banana" />
@@ -115,30 +115,46 @@ describe('Select 组件测试', () => {
     expect(document.querySelector(popupSelector)).toBeNull();
 
     // 鼠标点击 input，popup 出现，且展示 options
-    fireEvent.click(document.querySelector('input'));
+    fireEvent.click(document.querySelector("input"));
     expect(document.querySelector(popupSelector)).not.toBeNull();
     expect(document.querySelector(popupSelector)).toHaveStyle({
-      display: 'block',
+      display: "block",
     });
-    expect(document.querySelector(popupSelector)).toHaveTextContent('Apple');
-    expect(document.querySelector(popupSelector)).toHaveTextContent('Orange');
-    expect(document.querySelector(popupSelector)).toHaveTextContent('Banana');
+    expect(document.querySelector(popupSelector)).toHaveTextContent("Apple");
+    expect(document.querySelector(popupSelector)).toHaveTextContent("Orange");
+    expect(document.querySelector(popupSelector)).toHaveTextContent("Banana");
 
     // 点击 Banana 选项，input 展示该选项，且 popup 消失
-    fireEvent.click(getByText('Banana'));
-    expect(document.querySelector('.t-input__inner')).toHaveValue('Banana');
+    fireEvent.click(getByText("Banana"));
+    expect(document.querySelector(".t-input__inner")).toHaveValue("Banana");
 
-    await mockTimeout(() => expect(document.querySelector(popupSelector)).not.toBeNull());
+    await mockTimeout(() =>
+      expect(document.querySelector(popupSelector)).not.toBeNull(),
+    );
     await mockTimeout(() =>
       expect(document.querySelector(popupSelector)).toHaveStyle({
-        display: 'none',
+        display: "none",
       }),
     );
   });
 
-  test('多选测试', async () => {
+  test("非过滤单选的字符串 valueDisplay 使用 prefix 展示", () => {
+    const { container } = render(
+      <Select
+        value="china"
+        valueDisplay="+86"
+        options={[{ label: "中国", value: "china" }]}
+      />,
+    );
+    expect(container.querySelector(".t-input__prefix")).toHaveTextContent(
+      "+86",
+    );
+    expect(container.querySelector(".t-input__inner")).toHaveValue(" ");
+  });
+
+  test("多选测试", async () => {
     const MultipleSelect = () => {
-      const [value, setValue] = useState([{ label: 'Apple', value: 'apple' }]);
+      const [value, setValue] = useState([{ label: "Apple", value: "apple" }]);
       const onChange = (value) => {
         setValue(value);
       };
@@ -156,34 +172,34 @@ describe('Select 组件测试', () => {
     expect(document.querySelector(popupSelector)).toBeNull();
 
     // 鼠标点击 input，popup 出现，且展示 options
-    fireEvent.click(document.querySelector('.t-input'));
+    fireEvent.click(document.querySelector(".t-input"));
 
     expect(document.querySelector(popupSelector)).not.toBeNull();
     expect(document.querySelector(popupSelector)).toHaveStyle({
-      display: 'block',
+      display: "block",
     });
-    expect(document.querySelector(popupSelector)).toHaveTextContent('Apple');
-    expect(document.querySelector(popupSelector)).toHaveTextContent('Orange');
-    expect(document.querySelector(popupSelector)).toHaveTextContent('Banana');
+    expect(document.querySelector(popupSelector)).toHaveTextContent("Apple");
+    expect(document.querySelector(popupSelector)).toHaveTextContent("Orange");
+    expect(document.querySelector(popupSelector)).toHaveTextContent("Banana");
 
     // 点击 Banana 和 Orange 选项，input 展示 Apple、Banana、Orange 选项，popup 依然展示
-    fireEvent.click(getByText('Banana'));
+    fireEvent.click(getByText("Banana"));
     // @fix: This could be because the text is broken up by multiple elements.
-    fireEvent.click(getByText('Orange'));
+    fireEvent.click(getByText("Orange"));
 
-    expect(document.querySelector(selectSelector)).toHaveTextContent('Apple');
-    expect(document.querySelector(selectSelector)).toHaveTextContent('Banana');
-    expect(document.querySelector(selectSelector)).toHaveTextContent('Orange');
+    expect(document.querySelector(selectSelector)).toHaveTextContent("Apple");
+    expect(document.querySelector(selectSelector)).toHaveTextContent("Banana");
+    expect(document.querySelector(selectSelector)).toHaveTextContent("Orange");
 
     expect(document.querySelector(selectSelector)).not.toBeNull();
     expect(document.querySelector(selectSelector)).toHaveStyle({
-      display: 'block',
+      display: "block",
     });
   });
 
-  test('多选全选测试', async () => {
+  test("多选全选测试", async () => {
     const MultipleSelect = () => {
-      const [value, setValue] = useState(['apple']);
+      const [value, setValue] = useState(["apple"]);
       const onChange = (value) => {
         setValue(value);
       };
@@ -199,27 +215,33 @@ describe('Select 组件测试', () => {
 
     const { getByText } = render(<MultipleSelect />);
 
-    fireEvent.click(document.querySelector('.t-input'));
+    fireEvent.click(document.querySelector(".t-input"));
 
-    const disabledApple = document.querySelector('.t-select-option.t-is-disabled');
-    expect(disabledApple).toHaveTextContent('Apple');
+    const disabledApple = document.querySelector(
+      ".t-select-option.t-is-disabled",
+    );
+    expect(disabledApple).toHaveTextContent("Apple");
 
     // 点击全选，input 展示 Apple、Banana、Orange 选项
-    fireEvent.click(getByText('All'));
-    expect(document.querySelector(selectSelector)).toHaveTextContent('Apple');
-    expect(document.querySelector(selectSelector)).toHaveTextContent('Banana');
-    expect(document.querySelector(selectSelector)).toHaveTextContent('Orange');
+    fireEvent.click(getByText("All"));
+    expect(document.querySelector(selectSelector)).toHaveTextContent("Apple");
+    expect(document.querySelector(selectSelector)).toHaveTextContent("Banana");
+    expect(document.querySelector(selectSelector)).toHaveTextContent("Orange");
 
     // 再次点击全选，input 清空选项（保留原本禁用项）
-    fireEvent.click(getByText('All'));
-    expect(document.querySelector(selectSelector)).toHaveTextContent('Apple');
-    expect(document.querySelector(selectSelector)).not.toHaveTextContent('Banana');
-    expect(document.querySelector(selectSelector)).not.toHaveTextContent('Orange');
+    fireEvent.click(getByText("All"));
+    expect(document.querySelector(selectSelector)).toHaveTextContent("Apple");
+    expect(document.querySelector(selectSelector)).not.toHaveTextContent(
+      "Banana",
+    );
+    expect(document.querySelector(selectSelector)).not.toHaveTextContent(
+      "Orange",
+    );
   });
 
-  test('分组选择器测试', async () => {
+  test("分组选择器测试", async () => {
     const OptionGroupSelect = () => {
-      const [value, setValue] = useState('apple');
+      const [value, setValue] = useState("apple");
       const onChange = (value) => {
         setValue(value);
       };
@@ -240,29 +262,29 @@ describe('Select 组件测试', () => {
     expect(document.querySelector(popupSelector)).toBeNull();
 
     // 鼠标点击 input，popup 出现，且展示 options
-    fireEvent.click(document.querySelector('.t-input'));
+    fireEvent.click(document.querySelector(".t-input"));
     expect(document.querySelector(popupSelector)).not.toBeNull();
     expect(document.querySelector(popupSelector)).toHaveStyle({
-      display: 'block',
+      display: "block",
     });
-    expect(document.querySelector(popupSelector)).toHaveTextContent('Fruit');
-    expect(document.querySelector(popupSelector)).toHaveTextContent('Apple');
-    expect(document.querySelector(popupSelector)).toHaveTextContent('Orange');
-    expect(document.querySelector(popupSelector)).toHaveTextContent('Banana');
+    expect(document.querySelector(popupSelector)).toHaveTextContent("Fruit");
+    expect(document.querySelector(popupSelector)).toHaveTextContent("Apple");
+    expect(document.querySelector(popupSelector)).toHaveTextContent("Orange");
+    expect(document.querySelector(popupSelector)).toHaveTextContent("Banana");
 
     // 点击 Banana 选项，input 展示该选项，且 popup 消失
-    fireEvent.click(getByText('Banana'));
-    expect(document.querySelector('.t-input__inner')).toHaveValue('Banana');
+    fireEvent.click(getByText("Banana"));
+    expect(document.querySelector(".t-input__inner")).toHaveValue("Banana");
     await mockTimeout(() =>
       expect(document.querySelector(popupSelector)).toHaveStyle({
-        display: 'none',
+        display: "none",
       }),
     );
   });
 
-  test('分组选择器全选测试', async () => {
+  test("分组选择器全选测试", async () => {
     const OptionGroupCheckAllSelect = () => {
-      const [value, setValue] = useState(['apple']);
+      const [value, setValue] = useState(["apple"]);
       const onChange = (value) => {
         setValue(value);
       };
@@ -272,7 +294,12 @@ describe('Select 组件测试', () => {
           <Option key="all" label="All" value="all" checkAll />
           <OptionGroup label="Fruit">
             {options.map((item, index) => (
-              <Option label={item.label} value={item.value} disabled={item.disabled} key={index} />
+              <Option
+                label={item.label}
+                value={item.value}
+                disabled={item.disabled}
+                key={index}
+              />
             ))}
           </OptionGroup>
         </Select>
@@ -280,23 +307,27 @@ describe('Select 组件测试', () => {
     };
 
     const { getByText } = render(<OptionGroupCheckAllSelect />);
-    fireEvent.click(document.querySelector('.t-input'));
+    fireEvent.click(document.querySelector(".t-input"));
 
     // 点击全选，input 展示 Apple、Banana、Orange 选项
-    fireEvent.click(getByText('All'));
-    expect(document.querySelector(selectSelector)).toHaveTextContent('Apple');
-    expect(document.querySelector(selectSelector)).toHaveTextContent('Banana');
-    expect(document.querySelector(selectSelector)).toHaveTextContent('Orange');
+    fireEvent.click(getByText("All"));
+    expect(document.querySelector(selectSelector)).toHaveTextContent("Apple");
+    expect(document.querySelector(selectSelector)).toHaveTextContent("Banana");
+    expect(document.querySelector(selectSelector)).toHaveTextContent("Orange");
 
     // 再次点击全选，input 清空选项（保留原本禁用项）
-    fireEvent.click(getByText('All'));
-    expect(document.querySelector(selectSelector)).toHaveTextContent('Apple');
-    expect(document.querySelector(selectSelector)).not.toHaveTextContent('Banana');
-    expect(document.querySelector(selectSelector)).not.toHaveTextContent('Orange');
+    fireEvent.click(getByText("All"));
+    expect(document.querySelector(selectSelector)).toHaveTextContent("Apple");
+    expect(document.querySelector(selectSelector)).not.toHaveTextContent(
+      "Banana",
+    );
+    expect(document.querySelector(selectSelector)).not.toHaveTextContent(
+      "Orange",
+    );
   });
 
-  test('可过滤选择器测试', async () => {
-    const testId = 'test-id';
+  test("可过滤选择器测试", async () => {
+    const testId = "test-id";
     const FilterableSelect = () => {
       const [value, setValue] = useState();
       const onChange = (value) => {
@@ -304,7 +335,12 @@ describe('Select 组件测试', () => {
       };
 
       return (
-        <Select filterable value={value} onChange={onChange} placeholder={testId}>
+        <Select
+          filterable
+          value={value}
+          onChange={onChange}
+          placeholder={testId}
+        >
           {options.map((item, index) => (
             <Option key={index} label={item.label} value={item.value} />
           ))}
@@ -318,80 +354,142 @@ describe('Select 组件测试', () => {
 
     // 输入“an”, input 展示“an”，popup 展示 Banana 和 Orange 选项
     fireEvent.click(getByPlaceholderText(testId));
-    fireEvent.change(getByPlaceholderText(testId), { target: { value: 'an' } });
-    expect(getByPlaceholderText(testId)).toHaveValue('an');
+    fireEvent.change(getByPlaceholderText(testId), { target: { value: "an" } });
+    expect(getByPlaceholderText(testId)).toHaveValue("an");
     expect(document.querySelector(popupSelector)).toHaveStyle({
-      display: 'block',
+      display: "block",
     });
     // expect(document.querySelector(popupSelector)).toHaveTextContent('Orange');
     // expect(document.querySelector(popupSelector)).toHaveTextContent('Banana');
 
     // 输入“an1”, input展示“an1”，popup展示“无数据”
-    fireEvent.change(getByPlaceholderText(testId), { target: { value: 'test' } });
-    expect(getByPlaceholderText(testId)).toHaveValue('test');
-    expect(document.querySelector(popupSelector)).toHaveTextContent('无数据');
+    fireEvent.change(getByPlaceholderText(testId), {
+      target: { value: "test" },
+    });
+    expect(getByPlaceholderText(testId)).toHaveValue("test");
+    expect(document.querySelector(popupSelector)).toHaveTextContent("无数据");
   });
 
-  test('远程搜索测试', async () => {
+  test("远程搜索测试", async () => {
     const user = userEvent.setup();
     render(<RemoteSearchSelect />);
 
     // 未点击 input 前，popup 不出现
     expect(document.querySelector(popupSelector)).toBeNull();
-    fireEvent.click(document.querySelector('input'));
+    fireEvent.click(document.querySelector("input"));
 
     // 输入“123”, input 展示“123”，popup 展示123_test1、123_test2、123_test3
-    fireEvent.change(document.querySelector('input'), { target: { value: '123' } });
-    expect(document.querySelector('input')).toHaveValue('123');
-    expect(document.querySelector(popupSelector)).toHaveStyle({
-      display: 'block',
+    fireEvent.change(document.querySelector("input"), {
+      target: { value: "123" },
     });
-    await user.keyboard('{Enter}');
-    await mockTimeout(() => expect(document.querySelector(popupSelector)).toHaveTextContent('123_test1'), 100);
-    await mockTimeout(() => expect(document.querySelector(popupSelector)).toHaveTextContent('123_test2'), 100);
-    await mockTimeout(() => expect(document.querySelector(popupSelector)).toHaveTextContent('123_test3'), 100);
+    expect(document.querySelector("input")).toHaveValue("123");
+    expect(document.querySelector(popupSelector)).toHaveStyle({
+      display: "block",
+    });
+    await user.keyboard("{Enter}");
+    await mockTimeout(
+      () =>
+        expect(document.querySelector(popupSelector)).toHaveTextContent(
+          "123_test1",
+        ),
+      100,
+    );
+    await mockTimeout(
+      () =>
+        expect(document.querySelector(popupSelector)).toHaveTextContent(
+          "123_test2",
+        ),
+      100,
+    );
+    await mockTimeout(
+      () =>
+        expect(document.querySelector(popupSelector)).toHaveTextContent(
+          "123_test3",
+        ),
+      100,
+    );
 
     // 清空 input，popup 展示 Apple、Orange、Banana
-    fireEvent.change(document.querySelector('input'), { target: { value: '' } });
-    expect(document.querySelector('input')).toHaveValue('');
-    expect(document.querySelector(popupSelector)).toHaveStyle({
-      display: 'block',
+    fireEvent.change(document.querySelector("input"), {
+      target: { value: "" },
     });
-    await user.keyboard('{Enter}');
-    await mockTimeout(() => expect(document.querySelector(popupSelector)).toHaveTextContent('Apple'), 100);
-    await mockTimeout(() => expect(document.querySelector(popupSelector)).toHaveTextContent('Orange'), 100);
-    await mockTimeout(() => expect(document.querySelector(popupSelector)).toHaveTextContent('Banana'), 100);
+    expect(document.querySelector("input")).toHaveValue("");
+    expect(document.querySelector(popupSelector)).toHaveStyle({
+      display: "block",
+    });
+    await user.keyboard("{Enter}");
+    await mockTimeout(
+      () =>
+        expect(document.querySelector(popupSelector)).toHaveTextContent(
+          "Apple",
+        ),
+      100,
+    );
+    await mockTimeout(
+      () =>
+        expect(document.querySelector(popupSelector)).toHaveTextContent(
+          "Orange",
+        ),
+      100,
+    );
+    await mockTimeout(
+      () =>
+        expect(document.querySelector(popupSelector)).toHaveTextContent(
+          "Banana",
+        ),
+      100,
+    );
   });
 
-  test('远程搜索多选测试', async () => {
+  test("远程搜索多选测试", async () => {
     const { getByText, container } = render(<RemoteSearchSelect multiple />);
 
     // 未点击 input 前，popup 不出现
     expect(document.querySelector(popupSelector)).toBeNull();
 
-    fireEvent.click(container.querySelector('input'));
+    fireEvent.click(container.querySelector("input"));
     expect(document.querySelector(popupSelector)).not.toBeNull();
 
     // 输入“123”, input 展示“123”，popup 展示123_test1、123_test2、123_test3
-    fireEvent.change(container.querySelector('input'), { target: { value: '123' } });
-    expect(container.querySelector('input').value).toBe('123');
+    fireEvent.change(container.querySelector("input"), {
+      target: { value: "123" },
+    });
+    expect(container.querySelector("input").value).toBe("123");
 
-    expect(document.querySelector(popupSelector)).toHaveTextContent('加载中');
-    await mockTimeout(() => expect(document.querySelector(popupSelector)).toHaveTextContent('123_test1'));
+    expect(document.querySelector(popupSelector)).toHaveTextContent("加载中");
+    await mockTimeout(() =>
+      expect(document.querySelector(popupSelector)).toHaveTextContent(
+        "123_test1",
+      ),
+    );
 
     // 选择123_test1，展示对应 tag
-    fireEvent.click(getByText('123_test1'));
-    await mockTimeout(() => expect(document.querySelector(selectSelector)).toHaveTextContent('123_test1'));
+    fireEvent.click(getByText("123_test1"));
+    await mockTimeout(() =>
+      expect(document.querySelector(selectSelector)).toHaveTextContent(
+        "123_test1",
+      ),
+    );
 
-    fireEvent.change(document.querySelector('input'), { target: { value: '' } });
-    fireEvent.click(getByText('123_test2'));
+    fireEvent.change(document.querySelector("input"), {
+      target: { value: "" },
+    });
+    fireEvent.click(getByText("123_test2"));
     // 已选的 123_test1 仍然保留
-    await mockTimeout(() => expect(document.querySelector(selectSelector)).toHaveTextContent('123_test1'));
-    await mockTimeout(() => expect(document.querySelector(selectSelector)).toHaveTextContent('123_test2'));
+    await mockTimeout(() =>
+      expect(document.querySelector(selectSelector)).toHaveTextContent(
+        "123_test1",
+      ),
+    );
+    await mockTimeout(() =>
+      expect(document.querySelector(selectSelector)).toHaveTextContent(
+        "123_test2",
+      ),
+    );
   });
 
-  test('label display', async () => {
-    const text = 'test-label';
+  test("label display", async () => {
+    const text = "test-label";
     const { getByText } = await render(<Select options={[]} label={text} />);
 
     act(() => {
@@ -399,22 +497,27 @@ describe('Select 组件测试', () => {
     });
   });
 
-  test('prefixIcon display', async () => {
-    const text = 'test-prefixIcon';
-    const { getByText } = await render(<Select options={[]} prefixIcon={<span>{text}</span>} />);
+  test("prefixIcon display", async () => {
+    const text = "test-prefixIcon";
+    const { getByText } = await render(
+      <Select options={[]} prefixIcon={<span>{text}</span>} />,
+    );
 
     act(() => {
       expect(getByText(text)).toBeTruthy();
     });
   });
 
-  test('collapsedItems all select', async () => {
+  test("collapsedItems all select", async () => {
     const minCollapsedNum = 1;
-    const renderCollapsedItems: SelectProps['collapsedItems'] = ({ collapsedSelectedItems, onClose }) => (
+    const renderCollapsedItems: SelectProps["collapsedItems"] = ({
+      collapsedSelectedItems,
+      onClose,
+    }) => (
       <Popup
-        key={'tags'}
+        key={"tags"}
         overlayInnerStyle={{
-          padding: '5px',
+          padding: "5px",
         }}
         content={
           <Space size={5} align="center">
@@ -422,7 +525,9 @@ describe('Select 组件测试', () => {
               <Tag
                 color="red"
                 key={index}
-                onClose={(context) => onClose({ e: context.e, index: minCollapsedNum + index })}
+                onClose={(context) =>
+                  onClose({ e: context.e, index: minCollapsedNum + index })
+                }
               >
                 {item.label}
               </Tag>
@@ -435,7 +540,7 @@ describe('Select 组件测试', () => {
     );
 
     const MultipleSelect = () => {
-      const selectAllValue = ['apple', 'banana', 'orange'];
+      const selectAllValue = ["apple", "banana", "orange"];
 
       return (
         <Select
@@ -449,9 +554,9 @@ describe('Select 组件测试', () => {
     };
     const { container } = render(<MultipleSelect />);
 
-    const tags = container.querySelectorAll('.t-tag');
-    expect(tags[0]).toHaveTextContent('Apple');
-    expect(tags[1]).toHaveTextContent('More(2)');
+    const tags = container.querySelectorAll(".t-tag");
+    expect(tags[0]).toHaveTextContent("Apple");
+    expect(tags[1]).toHaveTextContent("More(2)");
 
     // collapsedItems popup 未展示
     const selectPopups = document.querySelectorAll(popupSelector);
@@ -462,19 +567,22 @@ describe('Select 组件测试', () => {
     const collapsedPopups = document.querySelectorAll(popupSelector);
     expect(collapsedPopups.length).toBe(1);
     // 判断展示的tag
-    const collapsedTags = collapsedPopups[0].querySelectorAll('.t-tag');
+    const collapsedTags = collapsedPopups[0].querySelectorAll(".t-tag");
     expect(collapsedTags.length).toBe(2);
-    expect(collapsedTags[0]).toHaveTextContent('Banana');
-    expect(collapsedTags[1]).toHaveTextContent('Orange');
+    expect(collapsedTags[0]).toHaveTextContent("Banana");
+    expect(collapsedTags[1]).toHaveTextContent("Orange");
   });
 
-  test('collapsedItems click select', async () => {
+  test("collapsedItems click select", async () => {
     const minCollapsedNum = 1;
-    const renderCollapsedItems: SelectProps['collapsedItems'] = ({ collapsedSelectedItems, onClose }) => (
+    const renderCollapsedItems: SelectProps["collapsedItems"] = ({
+      collapsedSelectedItems,
+      onClose,
+    }) => (
       <Popup
-        key={'tags'}
+        key={"tags"}
         overlayInnerStyle={{
-          padding: '5px',
+          padding: "5px",
         }}
         content={
           <Space size={5} align="center" className="collapsed-items-popup">
@@ -482,7 +590,9 @@ describe('Select 组件测试', () => {
               <Tag
                 color="red"
                 key={index}
-                onClose={(context) => onClose({ e: context.e, index: minCollapsedNum + index })}
+                onClose={(context) =>
+                  onClose({ e: context.e, index: minCollapsedNum + index })
+                }
               >
                 {item.label}
               </Tag>
@@ -513,78 +623,82 @@ describe('Select 组件测试', () => {
     const { getByText, container } = render(<MultipleSelect />);
 
     // 初始化无 tag 展示
-    const tags = container.querySelectorAll('.t-tag');
+    const tags = container.querySelectorAll(".t-tag");
     expect(tags.length).toBe(0);
 
     // 选择 Apple
     expect(document.querySelectorAll(popupSelector).length).toBe(0);
-    fireEvent.click(document.querySelector('.t-input'));
-    fireEvent.click(getByText('Apple'));
-    const tags0 = container.querySelectorAll('.t-tag');
+    fireEvent.click(document.querySelector(".t-input"));
+    fireEvent.click(getByText("Apple"));
+    const tags0 = container.querySelectorAll(".t-tag");
     expect(tags0.length).toBe(0); // 禁用项不可选中
 
     // 选择 Banana
-    fireEvent.click(getByText('Banana'));
-    const tags1 = container.querySelectorAll('.t-tag');
+    fireEvent.click(getByText("Banana"));
+    const tags1 = container.querySelectorAll(".t-tag");
     expect(tags1.length).toBe(1);
-    expect(tags1[0]).toHaveTextContent('Banana');
-    fireEvent.click(document.querySelector('.t-input'));
+    expect(tags1[0]).toHaveTextContent("Banana");
+    fireEvent.click(document.querySelector(".t-input"));
     expect(document.querySelectorAll(popupSelector).length).toBe(1);
     await mockTimeout(() => {
       expect(document.querySelector(popupSelector)).toHaveStyle({
-        display: 'none',
+        display: "none",
       });
     });
 
     // 选择 Orange
-    fireEvent.click(document.querySelector('.t-input'));
+    fireEvent.click(document.querySelector(".t-input"));
     await mockTimeout(() => {
       expect(document.querySelector(popupSelector)).toHaveStyle({
-        display: 'block',
+        display: "block",
       });
     });
-    fireEvent.click(getByText('Orange'));
-    const tags2 = container.querySelectorAll('.t-tag');
+    fireEvent.click(getByText("Orange"));
+    const tags2 = container.querySelectorAll(".t-tag");
     expect(tags2.length).toBe(2);
-    expect(tags2[0]).toHaveTextContent('Banana');
-    expect(tags2[1]).toHaveTextContent('More(1)');
+    expect(tags2[0]).toHaveTextContent("Banana");
+    expect(tags2[1]).toHaveTextContent("More(1)");
 
     // input popup 消失
-    fireEvent.click(document.querySelector('.t-input'));
+    fireEvent.click(document.querySelector(".t-input"));
     await mockTimeout(() => {
       expect(document.querySelectorAll(popupSelector).length).toBe(1);
       expect(document.querySelector(popupSelector)).toHaveStyle({
-        display: 'none',
+        display: "none",
       });
     });
 
     // 悬停 More，展示 collapsedItems popup
     fireEvent.mouseEnter(tags2[1]);
     expect(document.querySelectorAll(popupSelector).length).toBe(2);
-    const collapsedTags2 = document.querySelectorAll('.collapsed-items-popup .t-tag');
+    const collapsedTags2 = document.querySelectorAll(
+      ".collapsed-items-popup .t-tag",
+    );
     expect(collapsedTags2.length).toBe(1);
-    expect(collapsedTags2[0]).toHaveTextContent('Orange');
+    expect(collapsedTags2[0]).toHaveTextContent("Orange");
 
     // 取消选中 Orange
-    fireEvent.click(document.querySelector('.t-input'));
+    fireEvent.click(document.querySelector(".t-input"));
     await mockTimeout(() => {
       expect(document.querySelector(popupSelector)).toHaveStyle({
-        display: 'block',
+        display: "block",
       });
     });
-    const selectOptions = document.querySelectorAll('.t-select-option');
-    const orangeOption = Array.from(selectOptions).find((option) => option.textContent.includes('Orange'));
+    const selectOptions = document.querySelectorAll(".t-select-option");
+    const orangeOption = Array.from(selectOptions).find((option) =>
+      option.textContent.includes("Orange"),
+    );
     fireEvent.click(orangeOption);
-    const tags3 = container.querySelectorAll('.t-tag');
+    const tags3 = container.querySelectorAll(".t-tag");
     expect(tags3.length).toBe(1);
-    expect(tags3[0]).toHaveTextContent('Banana');
+    expect(tags3[0]).toHaveTextContent("Banana");
 
     // input popup 消失
-    fireEvent.click(document.querySelector('.t-input'));
+    fireEvent.click(document.querySelector(".t-input"));
     await mockTimeout(() => {
       expect(document.querySelectorAll(popupSelector).length).toBe(1);
       expect(document.querySelector(popupSelector)).toHaveStyle({
-        display: 'none',
+        display: "none",
       });
     });
   });
