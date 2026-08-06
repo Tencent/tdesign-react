@@ -37,7 +37,7 @@ class ResizeObserver {
 function runTest() {
   const files = glob.sync('packages/components/**/_example/*.tsx', {
     ignore: IGNORE_ASYNC_EXAMPLE_LIST,
-  });
+  }).sort();
 
   describe('csr snapshot test', () => {
     HTMLCanvasElement.prototype.getContext = vi.fn();
