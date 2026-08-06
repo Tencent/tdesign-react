@@ -102,24 +102,9 @@ exports[`Image Component > props.overlayContent works fine 1`] = `
                   x="0"
                   y="0"
                 />
-                <circle
-                  cx="15.75"
-                  cy="8.25"
-                  fill="#000"
-                  r="2"
-                  stroke="none"
-                />
                 <path
                   d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                   fill="none"
-                  stroke="#000"
-                  stroke-width="2"
-                />
-                <circle
-                  cx="15.75"
-                  cy="8.25"
-                  fill="none"
-                  r="2"
                   stroke="#000"
                   stroke-width="2"
                 />
@@ -140,12 +125,6 @@ exports[`Image Component > props.overlayContent works fine 1`] = `
                   width="24"
                   x="0"
                   y="0"
-                />
-                <path
-                  d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                  fill="none"
-                  stroke="#000"
-                  stroke-width="2"
                 />
                 <circle
                   cx="15.75"
@@ -265,24 +244,9 @@ exports[`Image Component > props.placeholder works fine 1`] = `
                   x="0"
                   y="0"
                 />
-                <circle
-                  cx="15.75"
-                  cy="8.25"
-                  fill="#000"
-                  r="2"
-                  stroke="none"
-                />
                 <path
                   d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                   fill="none"
-                  stroke="#000"
-                  stroke-width="2"
-                />
-                <circle
-                  cx="15.75"
-                  cy="8.25"
-                  fill="none"
-                  r="2"
                   stroke="#000"
                   stroke-width="2"
                 />
@@ -303,12 +267,6 @@ exports[`Image Component > props.placeholder works fine 1`] = `
                   width="24"
                   x="0"
                   y="0"
-                />
-                <path
-                  d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                  fill="none"
-                  stroke="#000"
-                  stroke-width="2"
                 />
                 <circle
                   cx="15.75"

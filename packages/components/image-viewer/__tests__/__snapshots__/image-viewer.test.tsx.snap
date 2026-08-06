@@ -94,24 +94,9 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                             x="0"
                             y="0"
                           />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="#000"
-                            r="2"
-                            stroke="none"
-                          />
                           <path
                             d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                             fill="none"
-                            stroke="#000"
-                            stroke-width="2"
-                          />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="none"
-                            r="2"
                             stroke="#000"
                             stroke-width="2"
                           />
@@ -132,12 +117,6 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                             width="24"
                             x="0"
                             y="0"
-                          />
-                          <path
-                            d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                            fill="none"
-                            stroke="#000"
-                            stroke-width="2"
                           />
                           <circle
                             cx="15.75"
@@ -239,24 +218,9 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                             x="0"
                             y="0"
                           />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="#000"
-                            r="2"
-                            stroke="none"
-                          />
                           <path
                             d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                             fill="none"
-                            stroke="#000"
-                            stroke-width="2"
-                          />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="none"
-                            r="2"
                             stroke="#000"
                             stroke-width="2"
                           />
@@ -277,12 +241,6 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                             width="24"
                             x="0"
                             y="0"
-                          />
-                          <path
-                            d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                            fill="none"
-                            stroke="#000"
-                            stroke-width="2"
                           />
                           <circle
                             cx="15.75"
@@ -384,24 +342,9 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                             x="0"
                             y="0"
                           />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="#000"
-                            r="2"
-                            stroke="none"
-                          />
                           <path
                             d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                             fill="none"
-                            stroke="#000"
-                            stroke-width="2"
-                          />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="none"
-                            r="2"
                             stroke="#000"
                             stroke-width="2"
                           />
@@ -422,12 +365,6 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                             width="24"
                             x="0"
                             y="0"
-                          />
-                          <path
-                            d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                            fill="none"
-                            stroke="#000"
-                            stroke-width="2"
                           />
                           <circle
                             cx="15.75"
@@ -574,13 +511,6 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M12 3L12 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-linecap="square"
-                    stroke-width="2"
                   />
                   <g>
                     <path
@@ -838,24 +768,9 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                     x="0"
                     y="0"
                   />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="#000"
-                    r="2"
-                    stroke="none"
-                  />
                   <path
                     d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                     fill="none"
-                    stroke="#000"
-                    stroke-width="2"
-                  />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="none"
-                    r="2"
                     stroke="#000"
                     stroke-width="2"
                   />
@@ -876,12 +791,6 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-width="2"
                   />
                   <circle
                     cx="15.75"
@@ -1106,24 +1015,9 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                             x="0"
                             y="0"
                           />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="#000"
-                            r="2"
-                            stroke="none"
-                          />
                           <path
                             d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                             fill="none"
-                            stroke="#000"
-                            stroke-width="2"
-                          />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="none"
-                            r="2"
                             stroke="#000"
                             stroke-width="2"
                           />
@@ -1144,12 +1038,6 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                             width="24"
                             x="0"
                             y="0"
-                          />
-                          <path
-                            d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                            fill="none"
-                            stroke="#000"
-                            stroke-width="2"
                           />
                           <circle
                             cx="15.75"
@@ -1251,24 +1139,9 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                             x="0"
                             y="0"
                           />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="#000"
-                            r="2"
-                            stroke="none"
-                          />
                           <path
                             d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                             fill="none"
-                            stroke="#000"
-                            stroke-width="2"
-                          />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="none"
-                            r="2"
                             stroke="#000"
                             stroke-width="2"
                           />
@@ -1289,12 +1162,6 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                             width="24"
                             x="0"
                             y="0"
-                          />
-                          <path
-                            d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                            fill="none"
-                            stroke="#000"
-                            stroke-width="2"
                           />
                           <circle
                             cx="15.75"
@@ -1396,24 +1263,9 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                             x="0"
                             y="0"
                           />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="#000"
-                            r="2"
-                            stroke="none"
-                          />
                           <path
                             d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                             fill="none"
-                            stroke="#000"
-                            stroke-width="2"
-                          />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="none"
-                            r="2"
                             stroke="#000"
                             stroke-width="2"
                           />
@@ -1434,12 +1286,6 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                             width="24"
                             x="0"
                             y="0"
-                          />
-                          <path
-                            d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                            fill="none"
-                            stroke="#000"
-                            stroke-width="2"
                           />
                           <circle
                             cx="15.75"
@@ -1586,13 +1432,6 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M12 3L12 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-linecap="square"
-                    stroke-width="2"
                   />
                   <g>
                     <path
@@ -1850,24 +1689,9 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                     x="0"
                     y="0"
                   />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="#000"
-                    r="2"
-                    stroke="none"
-                  />
                   <path
                     d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                     fill="none"
-                    stroke="#000"
-                    stroke-width="2"
-                  />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="none"
-                    r="2"
                     stroke="#000"
                     stroke-width="2"
                   />
@@ -1888,12 +1712,6 @@ exports[`ImageViewer 工具栏操作快照 > 多图导航：上一张/下一张�
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-width="2"
                   />
                   <circle
                     cx="15.75"
@@ -2072,13 +1890,6 @@ exports[`ImageViewer 工具栏操作快照 > 点击原始大小按钮后快照 >
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M12 3L12 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-linecap="square"
-                    stroke-width="2"
                   />
                   <g>
                     <path
@@ -2336,24 +2147,9 @@ exports[`ImageViewer 工具栏操作快照 > 点击原始大小按钮后快照 >
                     x="0"
                     y="0"
                   />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="#000"
-                    r="2"
-                    stroke="none"
-                  />
                   <path
                     d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                     fill="none"
-                    stroke="#000"
-                    stroke-width="2"
-                  />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="none"
-                    r="2"
                     stroke="#000"
                     stroke-width="2"
                   />
@@ -2374,12 +2170,6 @@ exports[`ImageViewer 工具栏操作快照 > 点击原始大小按钮后快照 >
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-width="2"
                   />
                   <circle
                     cx="15.75"
@@ -2558,13 +2348,6 @@ exports[`ImageViewer 工具栏操作快照 > 点击放大按钮后快照 > toolb
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M12 3L12 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-linecap="square"
-                    stroke-width="2"
                   />
                   <g>
                     <path
@@ -2822,24 +2605,9 @@ exports[`ImageViewer 工具栏操作快照 > 点击放大按钮后快照 > toolb
                     x="0"
                     y="0"
                   />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="#000"
-                    r="2"
-                    stroke="none"
-                  />
                   <path
                     d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                     fill="none"
-                    stroke="#000"
-                    stroke-width="2"
-                  />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="none"
-                    r="2"
                     stroke="#000"
                     stroke-width="2"
                   />
@@ -2860,12 +2628,6 @@ exports[`ImageViewer 工具栏操作快照 > 点击放大按钮后快照 > toolb
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-width="2"
                   />
                   <circle
                     cx="15.75"
@@ -3044,13 +2806,6 @@ exports[`ImageViewer 工具栏操作快照 > 点击旋转按钮后快照 > toolb
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M12 3L12 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-linecap="square"
-                    stroke-width="2"
                   />
                   <g>
                     <path
@@ -3308,24 +3063,9 @@ exports[`ImageViewer 工具栏操作快照 > 点击旋转按钮后快照 > toolb
                     x="0"
                     y="0"
                   />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="#000"
-                    r="2"
-                    stroke="none"
-                  />
                   <path
                     d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                     fill="none"
-                    stroke="#000"
-                    stroke-width="2"
-                  />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="none"
-                    r="2"
                     stroke="#000"
                     stroke-width="2"
                   />
@@ -3346,12 +3086,6 @@ exports[`ImageViewer 工具栏操作快照 > 点击旋转按钮后快照 > toolb
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-width="2"
                   />
                   <circle
                     cx="15.75"
@@ -3530,13 +3264,6 @@ exports[`ImageViewer 工具栏操作快照 > 点击缩小按钮后快照 > toolb
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M12 3L12 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-linecap="square"
-                    stroke-width="2"
                   />
                   <g>
                     <path
@@ -3794,24 +3521,9 @@ exports[`ImageViewer 工具栏操作快照 > 点击缩小按钮后快照 > toolb
                     x="0"
                     y="0"
                   />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="#000"
-                    r="2"
-                    stroke="none"
-                  />
                   <path
                     d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                     fill="none"
-                    stroke="#000"
-                    stroke-width="2"
-                  />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="none"
-                    r="2"
                     stroke="#000"
                     stroke-width="2"
                   />
@@ -3832,12 +3544,6 @@ exports[`ImageViewer 工具栏操作快照 > 点击缩小按钮后快照 > toolb
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-width="2"
                   />
                   <circle
                     cx="15.75"
@@ -4016,13 +3722,6 @@ exports[`ImageViewer 工具栏操作快照 > 点击镜像按钮后快照 > toolb
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M12 3L12 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-linecap="square"
-                    stroke-width="2"
                   />
                   <g>
                     <path
@@ -4280,24 +3979,9 @@ exports[`ImageViewer 工具栏操作快照 > 点击镜像按钮后快照 > toolb
                     x="0"
                     y="0"
                   />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="#000"
-                    r="2"
-                    stroke="none"
-                  />
                   <path
                     d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                     fill="none"
-                    stroke="#000"
-                    stroke-width="2"
-                  />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="none"
-                    r="2"
                     stroke="#000"
                     stroke-width="2"
                   />
@@ -4318,12 +4002,6 @@ exports[`ImageViewer 工具栏操作快照 > 点击镜像按钮后快照 > toolb
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-width="2"
                   />
                   <circle
                     cx="15.75"
@@ -4503,24 +4181,9 @@ exports[`ImageViewer 快照测试 > DefaultTrigger 多张图片默认触发器 >
                     x="0"
                     y="0"
                   />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="#000"
-                    r="2"
-                    stroke="none"
-                  />
                   <path
                     d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                     fill="none"
-                    stroke="#000"
-                    stroke-width="2"
-                  />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="none"
-                    r="2"
                     stroke="#000"
                     stroke-width="2"
                   />
@@ -4541,12 +4204,6 @@ exports[`ImageViewer 快照测试 > DefaultTrigger 多张图片默认触发器 >
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-width="2"
                   />
                   <circle
                     cx="15.75"
@@ -4668,13 +4325,6 @@ exports[`ImageViewer 快照测试 > DefaultTrigger 多张图片默认触发器 >
                 y="0"
               />
               <path
-                d="M11.9997 4C6.86881 4 2.52275 7.36017 1.04199 12C2.52275 16.6398 6.86881 20 11.9997 20C17.1306 20 21.4766 16.6398 22.9574 12C21.4766 7.36017 17.1306 4 11.9997 4Z"
-                fill="none"
-                stroke="#000"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
                 d="M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z"
                 fill="none"
                 stroke="#000"
@@ -4771,24 +4421,9 @@ exports[`ImageViewer 快照测试 > DefaultTrigger 默认触发器 > image-viewe
                     x="0"
                     y="0"
                   />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="#000"
-                    r="2"
-                    stroke="none"
-                  />
                   <path
                     d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                     fill="none"
-                    stroke="#000"
-                    stroke-width="2"
-                  />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="none"
-                    r="2"
                     stroke="#000"
                     stroke-width="2"
                   />
@@ -4809,12 +4444,6 @@ exports[`ImageViewer 快照测试 > DefaultTrigger 默认触发器 > image-viewe
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-width="2"
                   />
                   <circle
                     cx="15.75"
@@ -4936,13 +4565,6 @@ exports[`ImageViewer 快照测试 > DefaultTrigger 默认触发器 > image-viewe
                 y="0"
               />
               <path
-                d="M11.9997 4C6.86881 4 2.52275 7.36017 1.04199 12C2.52275 16.6398 6.86881 20 11.9997 20C17.1306 20 21.4766 16.6398 22.9574 12C21.4766 7.36017 17.1306 4 11.9997 4Z"
-                fill="none"
-                stroke="#000"
-                stroke-linecap="square"
-                stroke-width="2"
-              />
-              <path
                 d="M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z"
                 fill="none"
                 stroke="#000"
@@ -5035,13 +4657,6 @@ exports[`ImageViewer 快照测试 > attach 到指定容器 > image-viewer-attach
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M12 3L12 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-linecap="square"
-                    stroke-width="2"
                   />
                   <g>
                     <path
@@ -5299,24 +4914,9 @@ exports[`ImageViewer 快照测试 > attach 到指定容器 > image-viewer-attach
                     x="0"
                     y="0"
                   />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="#000"
-                    r="2"
-                    stroke="none"
-                  />
                   <path
                     d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                     fill="none"
-                    stroke="#000"
-                    stroke-width="2"
-                  />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="none"
-                    r="2"
                     stroke="#000"
                     stroke-width="2"
                   />
@@ -5337,12 +4937,6 @@ exports[`ImageViewer 快照测试 > attach 到指定容器 > image-viewer-attach
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-width="2"
                   />
                   <circle
                     cx="15.75"
@@ -5606,13 +5200,6 @@ exports[`ImageViewer 快照测试 > modeless 模式 > image-viewer-modeless 1`] 
                                 x="0"
                                 y="0"
                               />
-                              <path
-                                d="M12 3L12 21"
-                                fill="none"
-                                stroke="#000"
-                                stroke-linecap="square"
-                                stroke-width="2"
-                              />
                               <g>
                                 <path
                                   d="M8 8.5V17.5H3L8 8.5Z M16 8.5V17.5H21L16 8.5Z"
@@ -5869,24 +5456,9 @@ exports[`ImageViewer 快照测试 > modeless 模式 > image-viewer-modeless 1`] 
                                 x="0"
                                 y="0"
                               />
-                              <circle
-                                cx="15.75"
-                                cy="8.25"
-                                fill="#000"
-                                r="2"
-                                stroke="none"
-                              />
                               <path
                                 d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                                 fill="none"
-                                stroke="#000"
-                                stroke-width="2"
-                              />
-                              <circle
-                                cx="15.75"
-                                cy="8.25"
-                                fill="none"
-                                r="2"
                                 stroke="#000"
                                 stroke-width="2"
                               />
@@ -5907,12 +5479,6 @@ exports[`ImageViewer 快照测试 > modeless 模式 > image-viewer-modeless 1`] 
                                 width="24"
                                 x="0"
                                 y="0"
-                              />
-                              <path
-                                d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                                fill="none"
-                                stroke="#000"
-                                stroke-width="2"
                               />
                               <circle
                                 cx="15.75"
@@ -6134,13 +5700,6 @@ exports[`ImageViewer 快照测试 > modeless 模式切换图片 > image-viewer-m
                                 width="24"
                                 x="0"
                                 y="0"
-                              />
-                              <path
-                                d="M12 3L12 21"
-                                fill="none"
-                                stroke="#000"
-                                stroke-linecap="square"
-                                stroke-width="2"
                               />
                               <g>
                                 <path
@@ -6398,24 +5957,9 @@ exports[`ImageViewer 快照测试 > modeless 模式切换图片 > image-viewer-m
                                 x="0"
                                 y="0"
                               />
-                              <circle
-                                cx="15.75"
-                                cy="8.25"
-                                fill="#000"
-                                r="2"
-                                stroke="none"
-                              />
                               <path
                                 d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                                 fill="none"
-                                stroke="#000"
-                                stroke-width="2"
-                              />
-                              <circle
-                                cx="15.75"
-                                cy="8.25"
-                                fill="none"
-                                r="2"
                                 stroke="#000"
                                 stroke-width="2"
                               />
@@ -6436,12 +5980,6 @@ exports[`ImageViewer 快照测试 > modeless 模式切换图片 > image-viewer-m
                                 width="24"
                                 x="0"
                                 y="0"
-                              />
-                              <path
-                                d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                                fill="none"
-                                stroke="#000"
-                                stroke-width="2"
                               />
                               <circle
                                 cx="15.75"
@@ -6579,13 +6117,6 @@ exports[`ImageViewer 快照测试 > 不可拖拽 > image-viewer-not-draggable 1`
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M12 3L12 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-linecap="square"
-                    stroke-width="2"
                   />
                   <g>
                     <path
@@ -6843,24 +6374,9 @@ exports[`ImageViewer 快照测试 > 不可拖拽 > image-viewer-not-draggable 1`
                     x="0"
                     y="0"
                   />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="#000"
-                    r="2"
-                    stroke="none"
-                  />
                   <path
                     d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                     fill="none"
-                    stroke="#000"
-                    stroke-width="2"
-                  />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="none"
-                    r="2"
                     stroke="#000"
                     stroke-width="2"
                   />
@@ -6881,12 +6397,6 @@ exports[`ImageViewer 快照测试 > 不可拖拽 > image-viewer-not-draggable 1`
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-width="2"
                   />
                   <circle
                     cx="15.75"
@@ -7065,13 +6575,6 @@ exports[`ImageViewer 快照测试 > 关闭按钮为 false > image-viewer-close-b
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M12 3L12 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-linecap="square"
-                    stroke-width="2"
                   />
                   <g>
                     <path
@@ -7329,24 +6832,9 @@ exports[`ImageViewer 快照测试 > 关闭按钮为 false > image-viewer-close-b
                     x="0"
                     y="0"
                   />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="#000"
-                    r="2"
-                    stroke="none"
-                  />
                   <path
                     d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                     fill="none"
-                    stroke="#000"
-                    stroke-width="2"
-                  />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="none"
-                    r="2"
                     stroke="#000"
                     stroke-width="2"
                   />
@@ -7367,12 +6855,6 @@ exports[`ImageViewer 快照测试 > 关闭按钮为 false > image-viewer-close-b
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-width="2"
                   />
                   <circle
                     cx="15.75"
@@ -7527,13 +7009,6 @@ exports[`ImageViewer 快照测试 > 单张图片默认状态 > image-viewer-sing
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M12 3L12 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-linecap="square"
-                    stroke-width="2"
                   />
                   <g>
                     <path
@@ -7791,24 +7266,9 @@ exports[`ImageViewer 快照测试 > 单张图片默认状态 > image-viewer-sing
                     x="0"
                     y="0"
                   />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="#000"
-                    r="2"
-                    stroke="none"
-                  />
                   <path
                     d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                     fill="none"
-                    stroke="#000"
-                    stroke-width="2"
-                  />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="none"
-                    r="2"
                     stroke="#000"
                     stroke-width="2"
                   />
@@ -7829,12 +7289,6 @@ exports[`ImageViewer 快照测试 > 单张图片默认状态 > image-viewer-sing
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-width="2"
                   />
                   <circle
                     cx="15.75"
@@ -8059,24 +7513,9 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                             x="0"
                             y="0"
                           />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="#000"
-                            r="2"
-                            stroke="none"
-                          />
                           <path
                             d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                             fill="none"
-                            stroke="#000"
-                            stroke-width="2"
-                          />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="none"
-                            r="2"
                             stroke="#000"
                             stroke-width="2"
                           />
@@ -8097,12 +7536,6 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                             width="24"
                             x="0"
                             y="0"
-                          />
-                          <path
-                            d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                            fill="none"
-                            stroke="#000"
-                            stroke-width="2"
                           />
                           <circle
                             cx="15.75"
@@ -8204,24 +7637,9 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                             x="0"
                             y="0"
                           />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="#000"
-                            r="2"
-                            stroke="none"
-                          />
                           <path
                             d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                             fill="none"
-                            stroke="#000"
-                            stroke-width="2"
-                          />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="none"
-                            r="2"
                             stroke="#000"
                             stroke-width="2"
                           />
@@ -8242,12 +7660,6 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                             width="24"
                             x="0"
                             y="0"
-                          />
-                          <path
-                            d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                            fill="none"
-                            stroke="#000"
-                            stroke-width="2"
                           />
                           <circle
                             cx="15.75"
@@ -8349,24 +7761,9 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                             x="0"
                             y="0"
                           />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="#000"
-                            r="2"
-                            stroke="none"
-                          />
                           <path
                             d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                             fill="none"
-                            stroke="#000"
-                            stroke-width="2"
-                          />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="none"
-                            r="2"
                             stroke="#000"
                             stroke-width="2"
                           />
@@ -8387,12 +7784,6 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                             width="24"
                             x="0"
                             y="0"
-                          />
-                          <path
-                            d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                            fill="none"
-                            stroke="#000"
-                            stroke-width="2"
                           />
                           <circle
                             cx="15.75"
@@ -8539,13 +7930,6 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M12 3L12 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-linecap="square"
-                    stroke-width="2"
                   />
                   <g>
                     <path
@@ -8803,24 +8187,9 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                     x="0"
                     y="0"
                   />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="#000"
-                    r="2"
-                    stroke="none"
-                  />
                   <path
                     d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                     fill="none"
-                    stroke="#000"
-                    stroke-width="2"
-                  />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="none"
-                    r="2"
                     stroke="#000"
                     stroke-width="2"
                   />
@@ -8841,12 +8210,6 @@ exports[`ImageViewer 快照测试 > 多张图片默认状态 > image-viewer-mult
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-width="2"
                   />
                   <circle
                     cx="15.75"
@@ -9022,13 +8385,6 @@ exports[`ImageViewer 快照测试 > 无遮罩层 > image-viewer-no-overlay 1`] =
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M12 3L12 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-linecap="square"
-                    stroke-width="2"
                   />
                   <g>
                     <path
@@ -9286,24 +8642,9 @@ exports[`ImageViewer 快照测试 > 无遮罩层 > image-viewer-no-overlay 1`] =
                     x="0"
                     y="0"
                   />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="#000"
-                    r="2"
-                    stroke="none"
-                  />
                   <path
                     d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                     fill="none"
-                    stroke="#000"
-                    stroke-width="2"
-                  />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="none"
-                    r="2"
                     stroke="#000"
                     stroke-width="2"
                   />
@@ -9324,12 +8665,6 @@ exports[`ImageViewer 快照测试 > 无遮罩层 > image-viewer-no-overlay 1`] =
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-width="2"
                   />
                   <circle
                     cx="15.75"
@@ -9554,24 +8889,9 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
                             x="0"
                             y="0"
                           />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="#000"
-                            r="2"
-                            stroke="none"
-                          />
                           <path
                             d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                             fill="none"
-                            stroke="#000"
-                            stroke-width="2"
-                          />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="none"
-                            r="2"
                             stroke="#000"
                             stroke-width="2"
                           />
@@ -9592,12 +8912,6 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
                             width="24"
                             x="0"
                             y="0"
-                          />
-                          <path
-                            d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                            fill="none"
-                            stroke="#000"
-                            stroke-width="2"
                           />
                           <circle
                             cx="15.75"
@@ -9699,24 +9013,9 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
                             x="0"
                             y="0"
                           />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="#000"
-                            r="2"
-                            stroke="none"
-                          />
                           <path
                             d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                             fill="none"
-                            stroke="#000"
-                            stroke-width="2"
-                          />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="none"
-                            r="2"
                             stroke="#000"
                             stroke-width="2"
                           />
@@ -9737,12 +9036,6 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
                             width="24"
                             x="0"
                             y="0"
-                          />
-                          <path
-                            d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                            fill="none"
-                            stroke="#000"
-                            stroke-width="2"
                           />
                           <circle
                             cx="15.75"
@@ -9889,13 +9182,6 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M12 3L12 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-linecap="square"
-                    stroke-width="2"
                   />
                   <g>
                     <path
@@ -10153,24 +9439,9 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
                     x="0"
                     y="0"
                   />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="#000"
-                    r="2"
-                    stroke="none"
-                  />
                   <path
                     d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                     fill="none"
-                    stroke="#000"
-                    stroke-width="2"
-                  />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="none"
-                    r="2"
                     stroke="#000"
                     stroke-width="2"
                   />
@@ -10191,12 +9462,6 @@ exports[`ImageViewer 快照测试 > 自定义 imageScale 配置 > image-viewer-c
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-width="2"
                   />
                   <circle
                     cx="15.75"
@@ -10421,24 +9686,9 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
                             x="0"
                             y="0"
                           />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="#000"
-                            r="2"
-                            stroke="none"
-                          />
                           <path
                             d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                             fill="none"
-                            stroke="#000"
-                            stroke-width="2"
-                          />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="none"
-                            r="2"
                             stroke="#000"
                             stroke-width="2"
                           />
@@ -10459,12 +9709,6 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
                             width="24"
                             x="0"
                             y="0"
-                          />
-                          <path
-                            d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                            fill="none"
-                            stroke="#000"
-                            stroke-width="2"
                           />
                           <circle
                             cx="15.75"
@@ -10566,24 +9810,9 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
                             x="0"
                             y="0"
                           />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="#000"
-                            r="2"
-                            stroke="none"
-                          />
                           <path
                             d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                             fill="none"
-                            stroke="#000"
-                            stroke-width="2"
-                          />
-                          <circle
-                            cx="15.75"
-                            cy="8.25"
-                            fill="none"
-                            r="2"
                             stroke="#000"
                             stroke-width="2"
                           />
@@ -10604,12 +9833,6 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
                             width="24"
                             x="0"
                             y="0"
-                          />
-                          <path
-                            d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                            fill="none"
-                            stroke="#000"
-                            stroke-width="2"
                           />
                           <circle
                             cx="15.75"
@@ -10758,13 +9981,6 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M12 3L12 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-linecap="square"
-                    stroke-width="2"
                   />
                   <g>
                     <path
@@ -11022,24 +10238,9 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
                     x="0"
                     y="0"
                   />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="#000"
-                    r="2"
-                    stroke="none"
-                  />
                   <path
                     d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                     fill="none"
-                    stroke="#000"
-                    stroke-width="2"
-                  />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="none"
-                    r="2"
                     stroke="#000"
                     stroke-width="2"
                   />
@@ -11060,12 +10261,6 @@ exports[`ImageViewer 快照测试 > 自定义 title > image-viewer-custom-title 
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-width="2"
                   />
                   <circle
                     cx="15.75"
@@ -11244,13 +10439,6 @@ exports[`ImageViewer 快照测试 > 自定义关闭按钮 > image-viewer-custom-
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M12 3L12 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-linecap="square"
-                    stroke-width="2"
                   />
                   <g>
                     <path
@@ -11508,24 +10696,9 @@ exports[`ImageViewer 快照测试 > 自定义关闭按钮 > image-viewer-custom-
                     x="0"
                     y="0"
                   />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="#000"
-                    r="2"
-                    stroke="none"
-                  />
                   <path
                     d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
                     fill="none"
-                    stroke="#000"
-                    stroke-width="2"
-                  />
-                  <circle
-                    cx="15.75"
-                    cy="8.25"
-                    fill="none"
-                    r="2"
                     stroke="#000"
                     stroke-width="2"
                   />
@@ -11546,12 +10719,6 @@ exports[`ImageViewer 快照测试 > 自定义关闭按钮 > image-viewer-custom-
                     width="24"
                     x="0"
                     y="0"
-                  />
-                  <path
-                    d="M3 16V3H21V21H20M3 16V21H20M3 16L9 10L20 21"
-                    fill="none"
-                    stroke="#000"
-                    stroke-width="2"
                   />
                   <circle
                     cx="15.75"
