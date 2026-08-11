@@ -1,8 +1,10 @@
 import path from 'path';
+
 import { defineConfig } from 'vitest/config';
-import { InlineConfig } from 'vitest/node';
 
 import pkg from './packages/tdesign-react/package.json';
+
+import type { InlineConfig } from 'vitest/node';
 
 // 单元测试相关配置
 const testConfig: InlineConfig = {
@@ -20,6 +22,9 @@ const testConfig: InlineConfig = {
     provider: 'istanbul',
     reporter: ['text', 'json', 'html'],
     reportsDirectory: 'test/coverage',
+  },
+  typecheck: {
+    tsconfig: './tsconfig.vitest.json',
   },
 };
 

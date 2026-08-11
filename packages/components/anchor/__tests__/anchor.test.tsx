@@ -56,7 +56,7 @@ describe('Anchor 组件测试', () => {
     );
     const anchorItem = wrapper.getByTestId(childTestID);
     fireEvent.click(anchorItem.firstChild);
-    expect(fn).toBeCalledTimes(1);
+    expect(fn).toHaveBeenCalledTimes(1);
   });
 
   test('render AnchorTarget', async () => {

@@ -146,7 +146,7 @@ export default function SenderConfig() {
 
       {/* 聊天组件 */}
       <div style={{ height: '400px' }}>
-        <ChatBot ref={chatRef} senderProps={senderProps} chatServiceConfig={chatServiceConfig} />
+        <ChatBot ref={chatRef} senderProps={senderProps as any} chatServiceConfig={chatServiceConfig as any} />
       </div>
     </div>
   );

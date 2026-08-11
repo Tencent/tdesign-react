@@ -135,6 +135,6 @@ describe('ColorPickerPanel 组件测试', () => {
     fireEvent.click(container.querySelector('.t-icon-delete'));
     expect(container.querySelector('.t-icon-delete')).toBeNull();
     expect(container.querySelector('.t-is-active')).toBeNull();
-    expect(onRecentColorsChange).toBeCalled();
+    expect(onRecentColorsChange).toHaveBeenCalled();
   });
 });

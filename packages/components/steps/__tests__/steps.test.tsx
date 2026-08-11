@@ -54,7 +54,7 @@ describe('Steps 组件测试', () => {
     expect(stepsItems.length).toBe(3);
 
     fireEvent.click(stepsInstance.querySelector('.t-steps-item__inner'));
-    expect(handleChange).toBeCalledTimes(1);
+    expect(handleChange).toHaveBeenCalledTimes(1);
   });
 
   test('layout vertical 测试', async () => {

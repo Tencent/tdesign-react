@@ -57,9 +57,22 @@ const ProgressDemo = ({ data }) => {
     <div style={{ padding: '16px 0' }}>
       {/* 根据完成状态显示不同的文案 */}
       <>
-        <div style={{ marginBottom: '8px', color: 'var(--td-text-color-secondary)' }}>{data.label}</div>
+        <div
+          style={{
+            marginBottom: '8px',
+            color: 'var(--td-text-color-secondary)',
+          }}
+        >
+          {data.label}
+        </div>
         <Progress percentage={percentage} />
-        <div style={{ marginTop: '4px', fontSize: '12px', color: 'var(--td-text-color-placeholder)' }}>
+        <div
+          style={{
+            marginTop: '4px',
+            fontSize: '12px',
+            color: 'var(--td-text-color-placeholder)',
+          }}
+        >
           {data.current} / {data.total} ({percentage}%)
         </div>
       </>
@@ -72,12 +85,13 @@ export default function CustomMerge() {
   const [messages, setMessages] = useState<ChatMessagesData[]>([]);
 
   useEffect(() => {
-    if (!chatRef.current?.isChatEngineReady) {
+    if (!(chatRef.current as any)?.isChatEngineReady) {
       return;
     }
 
     // 注册自定义合并策略
     // 当内置的 strategy 无法满足需求时，可以注册自定义合并策略
+    // @ts-ignore
     chatRef.current.registerMergeStrategy<any>('progress', (newChunk, existingChunk) => {
       if (!existingChunk) {
         // 首次接收，直接返回新数据
@@ -147,12 +161,12 @@ export default function CustomMerge() {
     <div style={{ height: '400px' }}>
       <ChatBot
         ref={chatRef}
-        chatServiceConfig={chatServiceConfig}
+        chatServiceConfig={chatServiceConfig as any}
         senderProps={{
           defaultValue: '请分析这份数据报告',
         }}
         onMessageChange={(e) => {
-          setMessages(e.detail);
+          setMessages(e.detail as any);
         }}
       >
         {/* 渲染自定义进度条 */}
