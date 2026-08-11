@@ -29,7 +29,7 @@ import type {
   TdMessageProps,
 } from './type';
 
-export interface MessagePlugin {
+export interface MessagePluginType {
   (theme: MessageThemeList, message: TNode | MessageOptions, duration?: number): Promise<MessageInstance>;
   info: MessageInfoMethod;
   success: MessageSuccessMethod;
@@ -248,7 +248,7 @@ const messageMethod: MessageMethod = (theme: MessageThemeList, content, duration
   return Promise.resolve(renderElement(theme, getMessageConfig(config)));
 };
 
-export const MessagePlugin: MessagePlugin = (theme, message, duration) => messageMethod(theme, message, duration);
+export const MessagePlugin: MessagePluginType = (theme, message, duration) => messageMethod(theme, message, duration);
 MessagePlugin.info = (content, duration) => messageMethod('info', content, duration);
 MessagePlugin.error = (content, duration) => messageMethod('error', content, duration);
 MessagePlugin.warning = (content, duration) => messageMethod('warning', content, duration);

@@ -1,0 +1,16 @@
+snapshot*
+dist/
+es/
+esm/
+lib/
+cjs/
+node_modules/
+static/
+cypress/
+script/test/cypress/
+_site/
+temp*
+packages/common/**
+packages/ai-core/**
+site/engineering/static/**
+packages/**/_example-js/

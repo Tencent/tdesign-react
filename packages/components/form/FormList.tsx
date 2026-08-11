@@ -168,7 +168,7 @@ const FormList: React.FC<TdFormListProps> = (props) => {
             merge(resultList, errorValue);
           });
           const errorItems = validateResult.filter((item) => {
-            if (typeof item !== 'object') return;
+            if (typeof item !== 'object') return false;
             return Object.values(item)[0] !== true;
           });
           if (errorItems.length) {
