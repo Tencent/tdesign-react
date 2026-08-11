@@ -81061,7 +81061,7 @@ exports[`csr snapshot test > csr test packages/components/list/_example/image-te
             >
               <img
                 alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
+                src="https://tdesign.gtimg.com/site/images/list-icon.png"
               />
             </div>
             <div
@@ -81097,7 +81097,7 @@ exports[`csr snapshot test > csr test packages/components/list/_example/image-te
             >
               <img
                 alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
+                src="https://tdesign.gtimg.com/site/images/list-icon.png"
               />
             </div>
             <div
@@ -81133,7 +81133,7 @@ exports[`csr snapshot test > csr test packages/components/list/_example/image-te
             >
               <img
                 alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
+                src="https://tdesign.gtimg.com/site/images/list-icon.png"
               />
             </div>
             <div
@@ -81169,7 +81169,7 @@ exports[`csr snapshot test > csr test packages/components/list/_example/image-te
             >
               <img
                 alt=""
-                src="https://tdesign.gtimg.com/list-icon.png"
+                src="https://tdesign.gtimg.com/site/images/list-icon.png"
               />
             </div>
             <div
@@ -171571,7 +171571,7 @@ exports[`ssr snapshot test > ssr test packages/components/list/_example/base.tsx
 
 exports[`ssr snapshot test > ssr test packages/components/list/_example/header-footer.tsx 1`] = `"<div class="t-list"><div class="t-list__header">这里是 Header</div><ul class="t-list__inner"><li class="t-list-item"><div class="t-list-item-main">列表内容列表内容列表内容</div></li><li class="t-list-item"><div class="t-list-item-main">列表内容列表内容列表内容</div></li><li class="t-list-item"><div class="t-list-item-main">列表内容列表内容列表内容</div></li><li class="t-list-item"><div class="t-list-item-main">列表内容列表内容列表内容</div></li></ul><div class="t-list__footer">这里是 Footer</div></div><div style="margin-bottom:16px"></div><div class="t-list"><div class="t-list__header"><p>通过 TNode 插入的 Header</p></div><ul class="t-list__inner"><li class="t-list-item"><div class="t-list-item-main">列表内容列表内容列表内容</div></li><li class="t-list-item"><div class="t-list-item-main">列表内容列表内容列表内容</div></li><li class="t-list-item"><div class="t-list-item-main">列表内容列表内容列表内容</div></li><li class="t-list-item"><div class="t-list-item-main">列表内容列表内容列表内容</div></li></ul><div class="t-list__footer"><p>通过 TNode 插入的 Footer</p></div></div>"`;
 
-exports[`ssr snapshot test > ssr test packages/components/list/_example/image-text.tsx 1`] = `"<div class="t-list t-size-s"><ul class="t-list__inner"><li class="t-list-item"><div class="t-list-item-main"><div class="t-list-item__meta"><div class="t-list-item__meta-avatar"><img src="https://tdesign.gtimg.com/list-icon.png" alt=""/></div><div class="t-list-item__meta-content"><h3 class="t-list-item__meta-title">列表主内容</h3><div class="t-list-item__meta-description"><p>列表内容列表内容列表内容</p></div></div></div></div></li><li class="t-list-item"><div class="t-list-item-main"><div class="t-list-item__meta"><div class="t-list-item__meta-avatar"><img src="https://tdesign.gtimg.com/list-icon.png" alt=""/></div><div class="t-list-item__meta-content"><h3 class="t-list-item__meta-title">列表主内容</h3><div class="t-list-item__meta-description"><p>列表内容列表内容列表内容</p></div></div></div></div></li><li class="t-list-item"><div class="t-list-item-main"><div class="t-list-item__meta"><div class="t-list-item__meta-avatar"><img src="https://tdesign.gtimg.com/list-icon.png" alt=""/></div><div class="t-list-item__meta-content"><h3 class="t-list-item__meta-title">列表主内容</h3><div class="t-list-item__meta-description"><p>列表内容列表内容列表内容</p></div></div></div></div></li><li class="t-list-item"><div class="t-list-item-main"><div class="t-list-item__meta"><div class="t-list-item__meta-avatar"><img src="https://tdesign.gtimg.com/list-icon.png" alt=""/></div><div class="t-list-item__meta-content"><h3 class="t-list-item__meta-title">列表主内容</h3><div class="t-list-item__meta-description"><p>列表内容列表内容列表内容</p></div></div></div></div></li></ul></div>"`;
+exports[`ssr snapshot test > ssr test packages/components/list/_example/image-text.tsx 1`] = `"<div class="t-list t-size-s"><ul class="t-list__inner"><li class="t-list-item"><div class="t-list-item-main"><div class="t-list-item__meta"><div class="t-list-item__meta-avatar"><img src="https://tdesign.gtimg.com/site/images/list-icon.png" alt=""/></div><div class="t-list-item__meta-content"><h3 class="t-list-item__meta-title">列表主内容</h3><div class="t-list-item__meta-description"><p>列表内容列表内容列表内容</p></div></div></div></div></li><li class="t-list-item"><div class="t-list-item-main"><div class="t-list-item__meta"><div class="t-list-item__meta-avatar"><img src="https://tdesign.gtimg.com/site/images/list-icon.png" alt=""/></div><div class="t-list-item__meta-content"><h3 class="t-list-item__meta-title">列表主内容</h3><div class="t-list-item__meta-description"><p>列表内容列表内容列表内容</p></div></div></div></div></li><li class="t-list-item"><div class="t-list-item-main"><div class="t-list-item__meta"><div class="t-list-item__meta-avatar"><img src="https://tdesign.gtimg.com/site/images/list-icon.png" alt=""/></div><div class="t-list-item__meta-content"><h3 class="t-list-item__meta-title">列表主内容</h3><div class="t-list-item__meta-description"><p>列表内容列表内容列表内容</p></div></div></div></div></li><li class="t-list-item"><div class="t-list-item-main"><div class="t-list-item__meta"><div class="t-list-item__meta-avatar"><img src="https://tdesign.gtimg.com/site/images/list-icon.png" alt=""/></div><div class="t-list-item__meta-content"><h3 class="t-list-item__meta-title">列表主内容</h3><div class="t-list-item__meta-description"><p>列表内容列表内容列表内容</p></div></div></div></div></li></ul></div>"`;
 
 exports[`ssr snapshot test > ssr test packages/components/list/_example/multiline.tsx 1`] = `"<div class="t-list"><ul class="t-list__inner"><li class="t-list-item"><div class="t-list-item-main"><div class="t-list-item__meta"><div class="t-list-item__meta-content"><h3 class="t-list-item__meta-title">列表主内容</h3><div class="t-list-item__meta-description"><p>列表内容列表内容列表内容</p></div></div></div></div></li><li class="t-list-item"><div class="t-list-item-main"><div class="t-list-item__meta"><div class="t-list-item__meta-content"><h3 class="t-list-item__meta-title">列表主内容</h3><div class="t-list-item__meta-description"><p>列表内容列表内容列表内容</p></div></div></div></div></li><li class="t-list-item"><div class="t-list-item-main"><div class="t-list-item__meta"><div class="t-list-item__meta-content"><h3 class="t-list-item__meta-title">列表主内容</h3><div class="t-list-item__meta-description"><p>列表内容列表内容列表内容</p></div></div></div></div></li><li class="t-list-item"><div class="t-list-item-main"><div class="t-list-item__meta"><div class="t-list-item__meta-content"><h3 class="t-list-item__meta-title">列表主内容</h3><div class="t-list-item__meta-description"><p>列表内容列表内容列表内容</p></div></div></div></div></li></ul></div>"`;
 
