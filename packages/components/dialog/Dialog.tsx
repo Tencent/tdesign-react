@@ -44,7 +44,10 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const dialogPosition = useRef(null);
   const portalRef = useRef(null);
 
-  const [state, setState] = useSetState<DialogProps>({ isPlugin: false, ...restProps });
+  const [state, setState] = useSetState<DialogProps>({
+    isPlugin: false,
+    ...restProps,
+  });
   const [local] = useLocaleReceiver('dialog');
 
   const {

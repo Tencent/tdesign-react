@@ -5,6 +5,26 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.18.1 `2026-07-17`
+
+### 🚀 Features
+
+- `SelectInput`: Allows the content to be set to the corresponding value of `valueDisplay` when the element is in `focus` state. @RylanBot ([#3891](https://github.com/Tencent/tdesign-react/pull/3891))
+
+### 🐞 Bug Fixes
+
+- `Button`: Improved the animation effect for diagonal tilts. @uyarn ([#4331](https://github.com/Tencent/tdesign-react/pull/4331))
+- `ColorPicker`: Fixed an issue with the format of the `title` field related to gradient angles. @RylanBot ([#4324](https://github.com/Tencent/tdesign-react/pull/4324))
+- `Menu`: Fix the incorrect spacing when a popup positioned on the left side flips to the right due to insufficient width. @RSS1102 ([common#2631](https://github.com/Tencent/tdesign-common/pull/2631))
+- `Select`: 
+  - Fixed an error that occurred when `label` was not of type `string` and `filterable` search was enabled. @RylanBot ([#3891](https://github.com/Tencent/tdesign-react/pull/3891))
+  - Fixed the issue where the height of the dropdown options was not properly adjusted when using `label`/`content`/`children` to customize the elements. ([common#2537](https://github.com/Tencent/tdesign-common/pull/2537)) @RylanBot
+- `SelectInput`: 
+  - Fixed the problem where, in the case of a radio button with a custom `valueDisplay` element, the input content could not be displayed when `filterable` was enabled. @RylanBot ([#3891](https://github.com/Tencent/tdesign-react/pull/3891))
+  - Fixed the issue where `inputProps.inputClass` did not have the desired effect; previously, `inputProps.className` was incorrectly applied at the same level as `t-class`, which rendered `inputProps.inputClass` ineffective. Businesses that use this property should be aware of this change. ⚠️ @RylanBot ([#3891](https://github.com/Tencent/tdesign-react/pull/3891))
+- `Table`: In browsers that don’t use the Chromium engine, compatibility issues with `min-width` cause the property to be fallbacked to `width`. @RylanBot ([#4219](https://github.com/Tencent/tdesign-react/pull/4219))
+- `TagInput`: Fixed alignment issues when entering text alongside existing tags @DaZuiZui ([common#2564](https://github.com/Tencent/tdesign-common/pull/2564))
+
 ## 🌈 1.18.0 `2026-06-26`
 
 ### 🚀 Features

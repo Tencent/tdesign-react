@@ -1,1 +1,1 @@
-export { default } from '@rss1102/prettier-config-tdesign';
+export { default } from '@tdesign/prettier-config';

@@ -39,3 +39,17 @@ export function parseContentTNode<T>(tnode: TNode<T>, props: T) {
     return null;
   }
 }
+
+export function extractTextFromTNode(node: TNode): string {
+  if (typeof node === 'string' || typeof node === 'number' || typeof node === 'boolean') return String(node);
+  if (React.isValidElement(node)) {
+    const { children } = node.props || {};
+    if (children) return extractTextFromTNode(children);
+  }
+  if (Array.isArray(node)) {
+    return node.map(extractTextFromTNode).join('');
+  }
+
+  // todo：兼容 ((props: T) => ReactNode) 函数类型
+  return '';
+}
