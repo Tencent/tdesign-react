@@ -33,9 +33,6 @@
       "@test/utils": [
         "./test/utils"
       ],
-      "@common/*": [
-        "./packages/common/*"
-      ],
     },
      "types": [
       "node",
