@@ -219,12 +219,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
     if (React.isValidElement(statusIcon)) {
       // @ts-ignore
-      return resultIcon(
-        React.cloneElement(statusIcon, {
-          style: { color: 'unset' },
-          ...statusIcon.props,
-        }),
-      );
+      return resultIcon(React.cloneElement(statusIcon, { style: { color: 'unset' }, ...statusIcon.props }));
     }
     if (statusIcon === true) {
       return getDefaultIcon();
