@@ -9,6 +9,7 @@ import {
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
+import useLayoutEffect from '../hooks/useLayoutEffect';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { NATIVE_INPUT_COMP, TD_CTRL_PROP_MAP, ValidateStatus } from './const';
 import { formItemDefaultProps } from './defaultProps';
@@ -79,6 +80,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     statusIcon: statusIconFromContext,
     errorMessage,
     formMapRef,
+    registerFormItem,
     onFormItemValueChange,
   } = useFormContext();
 
@@ -132,6 +134,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const [formValue, setFormValue] = useState(defaultInitialData);
 
   const formItemRef = useRef<FormItemInstance>(null); // 当前 formItem 实例
+  const formItemElementRef = useRef<HTMLDivElement>(null);
   const innerFormItemsRef = useRef([]);
   const shouldEmitChangeRef = useRef(false); // onChange 冒泡开关
   const shouldValidate = useRef(false); // 校验开关
@@ -216,7 +219,12 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
 
     if (React.isValidElement(statusIcon)) {
       // @ts-ignore
-      return resultIcon(React.cloneElement(statusIcon, { style: { color: 'unset' }, ...statusIcon.props }));
+      return resultIcon(
+        React.cloneElement(statusIcon, {
+          style: { color: 'unset' },
+          ...statusIcon.props,
+        }),
+      );
     }
     if (statusIcon === true) {
       return getDefaultIcon();
@@ -246,7 +254,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
         Object.keys(item).forEach((key) => {
           if (!item.message && errorMessages[key]) {
             // eslint-disable-next-line
-            item.message = parseMessage(errorMessages[key], {
+              item.message = parseMessage(errorMessages[key], {
               validate: item[key],
               name: isString(label) ? label : String(name),
             });
@@ -454,6 +462,11 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValue, snakeName]);
 
+  useLayoutEffect(() => {
+    if (!formItemElementRef.current) return;
+    return registerFormItem?.(formItemElementRef.current);
+  }, [registerFormItem]);
+
   // 暴露 ref 实例方法
   const instance: FormItemInstance = {
     name,
@@ -478,7 +491,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   if (isFunction(children)) return children(form);
 
   return (
-    <div className={formItemClass} style={style}>
+    <div ref={formItemElementRef} className={formItemClass} style={style}>
       {label && (
         <div className={formItemLabelClass} style={labelStyle}>
           <label htmlFor={props?.for}>{label}</label>

@@ -1,10 +1,11 @@
-import React, { useEffect, useImperativeHandle, useRef } from 'react';
+import React, { useCallback, useEffect, useImperativeHandle, useRef } from 'react';
 import classNames from 'classnames';
 
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import noop from '../_util/noop';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useLayoutEffect from '../hooks/useLayoutEffect';
 import { formDefaultProps } from './defaultProps';
 import FormContext from './FormContext';
 import FormItem from './FormItem';
@@ -54,8 +55,63 @@ const Form = forwardRefWithStatics(
     const [form] = useForm(props.form); // 内部与外部共享 form 实例，外部不传则内部创建
     const formRef = useRef<HTMLFormElement>(null);
     const formMapRef = useRef(new Map()); // 收集所有包含 name 属性 formItem 实例
+    const formItemElementsRef = useRef(new Set<HTMLElement>());
+    const lastFormItemRef = useRef<HTMLElement>();
     const floatingFormDataRef = useRef({}); // 储存游离值的 formData
     const formInstance = useInstance(props, formRef, formMapRef, floatingFormDataRef, form);
+
+    const refreshLastFormItem = useCallback(() => {
+      const formElement = formRef.current;
+      const lastClassName = `${classPrefix}-form__item--last`;
+      const formItemSelector = `.${classPrefix}-form__item`;
+
+      const formItems =
+        layout === 'inline' || !formElement
+          ? []
+          : [...formItemElementsRef.current]
+              .filter((item) => {
+                if (!formElement.contains(item)) return false;
+                const parentFormItem = item.parentElement?.closest<HTMLElement>(formItemSelector);
+                return !parentFormItem || !formElement.contains(parentFormItem);
+              })
+              .sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+      const lastFormItem = formItems[formItems.length - 1];
+
+      if (lastFormItemRef.current === lastFormItem) return;
+      lastFormItemRef.current?.classList.remove(lastClassName);
+      lastFormItem?.classList.add(lastClassName);
+      lastFormItemRef.current = lastFormItem;
+    }, [classPrefix, layout]);
+
+    const registerFormItem = useCallback(
+      (node: HTMLElement) => {
+        formItemElementsRef.current.add(node);
+        refreshLastFormItem();
+
+        return () => {
+          formItemElementsRef.current.delete(node);
+          node.classList.remove(`${classPrefix}-form__item--last`);
+          refreshLastFormItem();
+        };
+      },
+      [classPrefix, refreshLastFormItem],
+    );
+
+    useLayoutEffect(() => {
+      const formElement = formRef.current;
+      if (!formElement) return;
+
+      refreshLastFormItem();
+
+      const observer = new MutationObserver(refreshLastFormItem);
+      observer.observe(formElement, { childList: true, subtree: true });
+
+      return () => {
+        observer.disconnect();
+        lastFormItemRef.current?.classList.remove(`${classPrefix}-form__item--last`);
+        lastFormItemRef.current = undefined;
+      };
+    }, [classPrefix, refreshLastFormItem]);
 
     useImperativeHandle(ref, () => formInstance);
     Object.assign(form, { ...formInstance });
@@ -115,6 +171,7 @@ const Form = forwardRefWithStatics(
           readOnly: props.readOnly || props.readonly,
           formMapRef,
           floatingFormDataRef,
+          registerFormItem,
           onFormItemValueChange,
         }}
       >
