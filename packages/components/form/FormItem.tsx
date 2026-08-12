@@ -463,9 +463,10 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   }, [formValue, snakeName]);
 
   useLayoutEffect(() => {
-    if (!formItemElementRef.current) return;
+    // 仅收集真实表单项（含 name），排除提交/重置按钮等无字段 FormItem
+    if (typeof name === 'undefined' || !formItemElementRef.current) return;
     return registerFormItem?.(formItemElementRef.current);
-  }, [registerFormItem]);
+  }, [name, registerFormItem]);
 
   // 暴露 ref 实例方法
   const instance: FormItemInstance = {

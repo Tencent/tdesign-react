@@ -55,8 +55,8 @@ const Form = forwardRefWithStatics(
     const [form] = useForm(props.form); // 内部与外部共享 form 实例，外部不传则内部创建
     const formRef = useRef<HTMLFormElement>(null);
     const formMapRef = useRef(new Map()); // 收集所有包含 name 属性 formItem 实例
-    const formItemElementsRef = useRef(new Set<HTMLElement>());
-    const lastFormItemRef = useRef<HTMLElement>();
+    const formItemElementsRef = useRef(new Set<HTMLElement>()); // 仅收集含 name 的真实表单项
+    const lastFormItemsRef = useRef(new Set<HTMLElement>());
     const floatingFormDataRef = useRef({}); // 储存游离值的 formData
     const formInstance = useInstance(props, formRef, formMapRef, floatingFormDataRef, form);
 
@@ -65,22 +65,38 @@ const Form = forwardRefWithStatics(
       const lastClassName = `${classPrefix}-form__item--last`;
       const formItemSelector = `.${classPrefix}-form__item`;
 
-      const formItems =
-        layout === 'inline' || !formElement
-          ? []
-          : [...formItemElementsRef.current]
-              .filter((item) => {
-                if (!formElement.contains(item)) return false;
-                const parentFormItem = item.parentElement?.closest<HTMLElement>(formItemSelector);
-                return !parentFormItem || !formElement.contains(parentFormItem);
-              })
-              .sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
-      const lastFormItem = formItems[formItems.length - 1];
+      // 按父容器分组，标记每一组中最后一个真实表单项（排除提交/重置按钮等无 name 的 FormItem）
+      const nextLastItems = new Set<HTMLElement>();
+      if (layout !== 'inline' && formElement) {
+        const formItems = [...formItemElementsRef.current].filter((item) => {
+          if (!formElement.contains(item)) return false;
+          const parentFormItem = item.parentElement?.closest<HTMLElement>(formItemSelector);
+          return !parentFormItem || !formElement.contains(parentFormItem);
+        });
 
-      if (lastFormItemRef.current === lastFormItem) return;
-      lastFormItemRef.current?.classList.remove(lastClassName);
-      lastFormItem?.classList.add(lastClassName);
-      lastFormItemRef.current = lastFormItem;
+        const groupedByParent = new Map<HTMLElement, HTMLElement[]>();
+        formItems.forEach((item) => {
+          const parent = item.parentElement;
+          if (!parent) return;
+          const siblings = groupedByParent.get(parent);
+          if (siblings) siblings.push(item);
+          else groupedByParent.set(parent, [item]);
+        });
+
+        groupedByParent.forEach((siblings) => {
+          siblings.sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+          const lastFormItem = siblings[siblings.length - 1];
+          if (lastFormItem) nextLastItems.add(lastFormItem);
+        });
+      }
+
+      lastFormItemsRef.current.forEach((item) => {
+        if (!nextLastItems.has(item)) item.classList.remove(lastClassName);
+      });
+      nextLastItems.forEach((item) => {
+        if (!lastFormItemsRef.current.has(item)) item.classList.add(lastClassName);
+      });
+      lastFormItemsRef.current = nextLastItems;
     }, [classPrefix, layout]);
 
     const registerFormItem = useCallback(
@@ -91,6 +107,7 @@ const Form = forwardRefWithStatics(
         return () => {
           formItemElementsRef.current.delete(node);
           node.classList.remove(`${classPrefix}-form__item--last`);
+          lastFormItemsRef.current.delete(node);
           refreshLastFormItem();
         };
       },
@@ -108,8 +125,8 @@ const Form = forwardRefWithStatics(
 
       return () => {
         observer.disconnect();
-        lastFormItemRef.current?.classList.remove(`${classPrefix}-form__item--last`);
-        lastFormItemRef.current = undefined;
+        lastFormItemsRef.current.forEach((item) => item.classList.remove(`${classPrefix}-form__item--last`));
+        lastFormItemsRef.current.clear();
       };
     }, [classPrefix, refreshLastFormItem]);
 
