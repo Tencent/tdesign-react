@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "@babel/runtime": "~7.26.7",
+    "@tdesign/ai-chat-engine": "^0.0.2",
     "classnames": "~2.5.1",
     "lodash-es": "^4.17.21",
     "react-fast-compare": "^3.2.2",

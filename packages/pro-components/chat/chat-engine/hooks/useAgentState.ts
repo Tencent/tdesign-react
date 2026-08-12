@@ -2,6 +2,8 @@
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { stateManager } from '@tdesign/ai-chat-engine';
 
+import type { ChatJSONObject } from '@tdesign/ai-chat-engine';
+
 /**
  * 状态订阅相关类型定义
  */
@@ -41,7 +43,7 @@ export interface UseStateActionReturn {
   getStateByKey: (key: string) => any;
 }
 
-export const useAgentState = <T = any>(options: StateActionOptions = {}): UseStateActionReturn => {
+export const useAgentState = (options: StateActionOptions = {}): UseStateActionReturn => {
   const { initialState, subscribeKey } = options;
   const [stateMap, setStateMap] = useState<Record<string, any>>(initialState || {});
   const [currentStateKey, setCurrentStateKey] = useState<string | null>(null);
@@ -52,7 +54,7 @@ export const useAgentState = <T = any>(options: StateActionOptions = {}): UseSta
 
   useEffect(
     () =>
-      stateManager.subscribeToLatest((newState: T, newStateKey: string) => {
+      stateManager.subscribeToLatest((newState: ChatJSONObject, newStateKey: string) => {
         // 如果指定了 subscribeKey，只有匹配时才更新状态
         if (subscribeKey && newStateKey !== subscribeKey) {
           // 仍然更新内部状态，但不触发重新渲染
