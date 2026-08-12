@@ -10,10 +10,12 @@ describe('Input 组件测试', () => {
   test('create', async () => {
     const changeFn = vi.fn();
     const { container, queryByPlaceholderText } = render(<Input placeholder={InputPlaceholder} onChange={changeFn} />);
-    expect(container.firstChild.firstChild.classList.contains('t-input')).toBeTruthy();
+    expect(container.children[0].children[0].classList.contains('t-input')).toBeTruthy();
     expect(queryByPlaceholderText(InputPlaceholder)).toBeInTheDocument();
-    fireEvent.change(queryByPlaceholderText(InputPlaceholder), { target: { value: InputValue } });
-    expect(changeFn).toBeCalledTimes(1);
+    fireEvent.change(queryByPlaceholderText(InputPlaceholder), {
+      target: { value: InputValue },
+    });
+    expect(changeFn).toHaveBeenCalledTimes(1);
     expect(changeFn.mock.calls[0][0]).toBe(InputValue);
   });
   test('clearable', async () => {
@@ -21,15 +23,19 @@ describe('Input 组件测试', () => {
     const { queryByPlaceholderText, container } = render(
       <Input placeholder={InputPlaceholder} clearable onClear={clearFn} />,
     );
-    fireEvent.change(queryByPlaceholderText(InputPlaceholder), { target: { value: InputValue } });
-    expect(queryByPlaceholderText(InputPlaceholder).value).toEqual(InputValue);
+    fireEvent.change(queryByPlaceholderText(InputPlaceholder), {
+      target: { value: InputValue },
+    });
+    expect((queryByPlaceholderText(InputPlaceholder) as HTMLInputElement).value).toEqual(InputValue);
     fireEvent.mouseEnter(container.firstChild.firstChild);
     fireEvent.click(container.querySelector('.t-input__suffix-clear'));
-    expect(queryByPlaceholderText(InputPlaceholder).value).toEqual('');
+    expect((queryByPlaceholderText(InputPlaceholder) as HTMLInputElement).value).toEqual('');
   });
   test('clearable can not work when mouseLeave', async () => {
     const { queryByPlaceholderText, container } = render(<Input placeholder={InputPlaceholder} clearable />);
-    fireEvent.change(queryByPlaceholderText(InputPlaceholder), { target: { value: InputValue } });
+    fireEvent.change(queryByPlaceholderText(InputPlaceholder), {
+      target: { value: InputValue },
+    });
     fireEvent.mouseEnter(container.firstChild.firstChild);
     expect(container.querySelector('.t-input__suffix-clear')).toBeInTheDocument();
     fireEvent.mouseLeave(container.firstChild.firstChild);
@@ -47,9 +53,9 @@ describe('Input 组件测试', () => {
     fireEvent.mouseDown(clearIcon);
     fireEvent.mouseUp(clearIcon);
     fireEvent.click(clearIcon);
-    expect(blurFn).toBeCalledTimes(0);
+    expect(blurFn).toHaveBeenCalledTimes(0);
     fireEvent.blur(InputDom);
-    expect(blurFn).toBeCalledTimes(1);
+    expect(blurFn).toHaveBeenCalledTimes(1);
   });
   test('onComposition can be call', async () => {
     const user = userEvent.setup();
@@ -62,15 +68,15 @@ describe('Input 组件测试', () => {
         onCompositionend={onCompositionEndFn}
       />,
     );
-    const InputDom = queryByPlaceholderText(InputPlaceholder);
+    const InputDom = queryByPlaceholderText(InputPlaceholder) as HTMLInputElement;
     await user.type(InputDom, InputValue);
     fireEvent.compositionStart(InputDom);
     await user.type(InputDom, InputValue);
     fireEvent.compositionEnd(InputDom);
     fireEvent.compositionEnd(InputDom);
     await user.type(InputDom, InputValue);
-    expect(onCompositionStartFn).toBeCalled();
-    expect(onCompositionEndFn).toBeCalled();
+    expect(onCompositionStartFn).toHaveBeenCalled();
+    expect(onCompositionEndFn).toHaveBeenCalled();
     expect(InputDom.value).toBe([InputValue, InputValue, InputValue].join(''));
   });
   test('keyDown', async () => {
@@ -82,17 +88,17 @@ describe('Input 组件测试', () => {
     );
     const InputDom = queryByPlaceholderText(InputPlaceholder);
     await user.type(InputDom, 'abc{enter}');
-    expect(onEnterFn).toBeCalled();
-    expect(onKeydownFn).toBeCalled();
+    expect(onEnterFn).toHaveBeenCalled();
+    expect(onKeydownFn).toHaveBeenCalled();
   });
   test('disabled', async () => {
     const changeFn = vi.fn();
     const { queryByPlaceholderText } = render(<Input placeholder={InputPlaceholder} disabled onChange={changeFn} />);
-    expect(queryByPlaceholderText(InputPlaceholder).disabled).toBeTruthy();
+    expect((queryByPlaceholderText(InputPlaceholder) as HTMLInputElement).disabled).toBeTruthy();
   });
   test('password', async () => {
     const { queryByPlaceholderText, container } = render(<Input placeholder={InputPlaceholder} type="password" />);
-    expect(queryByPlaceholderText(InputPlaceholder).type).toEqual('password');
+    expect((queryByPlaceholderText(InputPlaceholder) as HTMLInputElement).type).toEqual('password');
 
     expect(container.querySelector('.t-icon-browse-off')).toBeTruthy();
     fireEvent.click(container.querySelector('.t-input__suffix-clear'));
@@ -107,11 +113,11 @@ describe('Input 组件测试', () => {
   });
   test('status', async () => {
     const { container } = render(<Input placeholder={InputPlaceholder} status="error" />);
-    expect(container.firstChild.firstChild.classList.contains('t-is-error')).toBeTruthy();
+    expect(container.children[0].children[0].classList.contains('t-is-error')).toBeTruthy();
   });
   test('size', async () => {
     const { container } = render(<Input placeholder={InputPlaceholder} size="large" />);
-    expect(container.firstChild.firstChild.classList.contains('t-size-l')).toBeTruthy();
+    expect(container.children[0].children[0].classList.contains('t-size-l')).toBeTruthy();
   });
   test('label display', async () => {
     const text = 'test-label';

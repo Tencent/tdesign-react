@@ -13,10 +13,12 @@ describe('InputNumber 组件测试', () => {
     const { container, queryByPlaceholderText } = render(
       <InputNumber placeholder={InputNumberPlaceholder} onChange={changeFn} />,
     );
-    expect(container.firstChild.classList.contains('t-input-number')).toBeTruthy();
+    expect(container.children[0].classList.contains('t-input-number')).toBeTruthy();
     expect(queryByPlaceholderText(InputNumberPlaceholder)).toBeInTheDocument();
-    fireEvent.change(queryByPlaceholderText(InputNumberPlaceholder), { target: { value: InputNumberValue } });
-    expect(changeFn).toBeCalledTimes(1);
+    fireEvent.change(queryByPlaceholderText(InputNumberPlaceholder), {
+      target: { value: InputNumberValue },
+    });
+    expect(changeFn).toHaveBeenCalledTimes(1);
     expect(changeFn.mock.calls[0][0]).toBe(InputNumberValue);
   });
 
@@ -27,7 +29,13 @@ describe('InputNumber 组件测试', () => {
 
     fireEvent.mouseEnter(container.firstChild);
     fireEvent.click(container.querySelector('.t-input-number__increase'));
-    expect(queryByPlaceholderText(InputNumberPlaceholder).value).toEqual('6');
+    expect((queryByPlaceholderText(InputNumberPlaceholder) as HTMLInputElement).value).toEqual('6');
+  });
+
+  test('autofocus', () => {
+    const { container } = render(<InputNumber autofocus={true} />);
+    const wrapper = container.querySelector('input');
+    expect(wrapper.getAttribute('autofocus')).toBeDefined();
   });
 
   test('blur', async () => {
@@ -36,7 +44,7 @@ describe('InputNumber 组件测试', () => {
     const InputDom = queryByPlaceholderText(InputNumberPlaceholder);
     fireEvent.change(InputDom, { target: { value: 1 } });
     fireEvent.blur(InputDom);
-    expect(blurFn).toBeCalledTimes(1);
+    expect(blurFn).toHaveBeenCalledTimes(1);
   });
 
   test('keyDown', async () => {
@@ -49,8 +57,8 @@ describe('InputNumber 组件测试', () => {
     const InputNumberDom = queryByPlaceholderText(InputNumberPlaceholder);
     await user.type(InputNumberDom, '123{enter}');
 
-    expect(onEnterFn).toBeCalled();
-    expect(onKeydownFn).toBeCalled();
+    expect(onEnterFn).toHaveBeenCalled();
+    expect(onKeydownFn).toHaveBeenCalled();
   });
 
   test('disabled', async () => {
@@ -58,11 +66,11 @@ describe('InputNumber 组件测试', () => {
     const { queryByPlaceholderText } = render(
       <InputNumber placeholder={InputNumberPlaceholder} disabled onChange={changeFn} />,
     );
-    expect(queryByPlaceholderText(InputNumberPlaceholder).disabled).toBeTruthy();
+    expect((queryByPlaceholderText(InputNumberPlaceholder) as HTMLInputElement).disabled).toBeTruthy();
   });
 
   test('size', async () => {
     const { container } = render(<InputNumber placeholder={InputNumberPlaceholder} size="large" />);
-    expect(container.firstChild.classList.contains('t-size-l')).toBeTruthy();
+    expect(container.children[0].classList.contains('t-size-l')).toBeTruthy();
   });
 });

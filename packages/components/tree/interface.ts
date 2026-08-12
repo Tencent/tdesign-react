@@ -9,21 +9,20 @@ export interface TypeEventState extends TypeTreeEventState {
   path?: TreeNode[];
 }
 
-export interface TreeItemProps
-  extends Pick<
-    TreeProps,
-    | 'empty'
-    | 'activable'
-    | 'icon'
-    | 'label'
-    | 'line'
-    | 'transition'
-    | 'expandOnClickNode'
-    | 'activable'
-    | 'operations'
-    | 'checkProps'
-    | 'disableCheck'
-  > {
+export interface TreeItemProps extends Pick<
+  TreeProps,
+  | 'empty'
+  | 'activable'
+  | 'icon'
+  | 'label'
+  | 'line'
+  | 'transition'
+  | 'expandOnClickNode'
+  | 'activable'
+  | 'operations'
+  | 'checkProps'
+  | 'disableCheck'
+> {
   /**
    * 树节点数据对象
    */
@@ -34,7 +33,12 @@ export interface TreeItemProps
    */
   onClick?: (
     node: TreeNode,
-    options: { e: MouseEvent<HTMLDivElement>; expand: boolean; active: boolean; trigger: 'node-click' | 'icon-click' },
+    options: {
+      e: MouseEvent<HTMLDivElement>;
+      expand: boolean;
+      active: boolean;
+      trigger: 'node-click' | 'icon-click';
+    },
   ) => void;
 
   /**

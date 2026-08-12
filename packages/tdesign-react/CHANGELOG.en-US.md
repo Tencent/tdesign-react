@@ -5,6 +5,65 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.18.1 `2026-07-17`
+
+### 🚀 Features
+
+- `SelectInput`: Allows the content to be set to the corresponding value of `valueDisplay` when the element is in `focus` state. @RylanBot ([#3891](https://github.com/Tencent/tdesign-react/pull/3891))
+
+### 🐞 Bug Fixes
+
+- `Button`: Improved the animation effect for diagonal tilts. @uyarn ([#4331](https://github.com/Tencent/tdesign-react/pull/4331))
+- `ColorPicker`: Fixed an issue with the format of the `title` field related to gradient angles. @RylanBot ([#4324](https://github.com/Tencent/tdesign-react/pull/4324))
+- `Menu`: Fix the incorrect spacing when a popup positioned on the left side flips to the right due to insufficient width. @RSS1102 ([common#2631](https://github.com/Tencent/tdesign-common/pull/2631))
+- `Select`: 
+  - Fixed an error that occurred when `label` was not of type `string` and `filterable` search was enabled. @RylanBot ([#3891](https://github.com/Tencent/tdesign-react/pull/3891))
+  - Fixed the issue where the height of the dropdown options was not properly adjusted when using `label`/`content`/`children` to customize the elements. ([common#2537](https://github.com/Tencent/tdesign-common/pull/2537)) @RylanBot
+- `SelectInput`: 
+  - Fixed the problem where, in the case of a radio button with a custom `valueDisplay` element, the input content could not be displayed when `filterable` was enabled. @RylanBot ([#3891](https://github.com/Tencent/tdesign-react/pull/3891))
+  - Fixed the issue where `inputProps.inputClass` did not have the desired effect; previously, `inputProps.className` was incorrectly applied at the same level as `t-class`, which rendered `inputProps.inputClass` ineffective. Businesses that use this property should be aware of this change. ⚠️ @RylanBot ([#3891](https://github.com/Tencent/tdesign-react/pull/3891))
+- `Table`: In browsers that don’t use the Chromium engine, compatibility issues with `min-width` cause the property to be fallbacked to `width`. @RylanBot ([#4219](https://github.com/Tencent/tdesign-react/pull/4219))
+- `TagInput`: Fixed alignment issues when entering text alongside existing tags @DaZuiZui ([common#2564](https://github.com/Tencent/tdesign-common/pull/2564))
+
+## 🌈 1.18.0 `2026-06-26`
+
+### 🚀 Features
+
+- `Button`: Optimized the hover background color when `variant` is set to `outline` or `dashed`. @uyarn ([common#2569](https://github.com/Tencent/tdesign-common/pull/2569))
+- `ConfigProvider`: 
+  - A new `loading` property was added to globally configure the settings for the Loading component @uyarn ([#4295](https://github.com/Tencent/tdesign-react/pull/4295))
+  - The `dialog` property now includes `zIndex` and `placement` settings @uyarn ([#4295](https://github.com/Tencent/tdesign-react/pull/4295))
+- `HeadMenu`: A maximum height was set for the sub-menu overlay; scroll bars will appear if the content exceeds this height @HaixingOoO ([#4283](https://github.com/Tencent/tdesign-react/pull/4283))
+- `InputNumber`: A new `autofocus` property was added @betavs ([#4278](https://github.com/Tencent/tdesign-react/pull/4278))
+- `TagInput`: A new `tagDisplay` API was introduced, allowing for full customization of how individual tags are displayed @RylanBot ([#4275](https://github.com/Tencent/tdesign-react/pull/4275))
+
+### 🐞 Bug Fixes
+
+- `Cascader`: When multiple options are selected, the order of the selected items in the input field has been changed from “the order defined in `options`” to “the order in which the user selects them”. Businesses that rely on this functionality should be aware of this change ⚠️ @RylanBot ([#4281](https://github.com/Tencent/tdesign-react/pull/4281))
+- `TreeSelect`: When multiple options are selected, the order of the selected items in the input field has been changed from “the order defined in `options`” to “the order in which the user selects them”. Businesses that rely on this functionality should be aware of this change ⚠️ @RylanBot ([#4281](https://github.com/Tencent/tdesign-react/pull/4281))
+- `Steps`: An issue with abnormal navigation logic when `sequence='reverse'` was fixed @RylanBot ([#4267](https://github.com/Tencent/tdesign-react/pull/4267))
+- `Table`: Errors in the translation of filter-related text were corrected @liweijie0812 ([common#2553](https://github.com/Tencent/tdesign-common/pull/2553))
+- `TagInput`: 
+  - Issues such as the absence of horizontal scroll bars when `excessTagsDisplayType="scroll"` was fixed @RSS1102 ([#4210](https://github.com/Tencent/tdesign-react/pull/4210))
+  - A clear button is now displayed even when only text is entered, provided that `clearable` is enabled @RSS1102 ([#4210](https://github.com/Tencent/tdesign-react/pull/4210))
+  - Problems with vertical alignment of input content when there are existing tags along with a `label` were fixed @DaZuiZui ([#4292](https://github.com/Tencent/tdesign-react/pull/4292))
+- `Tree`: 
+  - Issues with the incorrect display of guidance lines when draggable nodes were moved above or below disabled nodes were fixed @RylanBot ([#4251](https://github.com/Tencent/tdesign-react/pull/4251))
+  - The issue of guidance lines still appearing when `allowDrop` returns `false` for draggable tree nodes was fixed @RylanBot ([#4251](https://github.com/Tencent/tdesign-react/pull/4251))
+
+## 🌈 1.17.1 `2026-06-05`
+
+### 🐞 Bug Fixes
+
+- `Menu`: Fixed the issue with the spacing between sub-menu icons and text @liweijie0812 ([common#2512](https://github.com/Tencent/tdesign-common/pull/2512))
+- `Select`: Fixed the problem where the system’s auto-complete options appeared when searching for filter options @liweijie0812 ([#4261](https://github.com/Tencent/tdesign-react/pull/4261))
+- `Tabs`: Fixed an issue where animations were still triggered when clicking on a disabled tab component @RylanBot ([#4264](https://github.com/Tencent/tdesign-react/pull/4264))
+- `TagInput`: Fixed an error that occurred when `value` was undefined @RylanBot ([#4249](https://github.com/Tencent/tdesign-react/pull/4249))
+
+### 🚧 Others
+
+- `Tabs`: Improved the component’s support for generics, making it easier to integrate `value` and `onChange` functionality @RylanBot ([#4260](https://github.com/Tencent/tdesign-react/pull/4260))
+
 ## 🌈 1.17.0 `2026-05-21`
 
 ### 🚨 Breaking Changes

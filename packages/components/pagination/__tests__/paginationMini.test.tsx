@@ -50,7 +50,7 @@ describe('PaginationMini test', () => {
     expect(onChange.mock.calls[1][0].trigger).toBe('current');
     next?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
     expect(onChange.mock.calls[2][0].trigger).toBe('next');
-    expect(onChange).toBeCalledTimes(3);
+    expect(onChange).toHaveBeenCalledTimes(3);
   });
 
   test('PaginationMini: test title', () => {

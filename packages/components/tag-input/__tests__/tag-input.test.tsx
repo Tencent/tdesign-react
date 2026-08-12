@@ -6,7 +6,7 @@ import { getTagInputValueMount } from './mount';
 
 describe('TagInput Component', () => {
   const mockFn = vi.spyOn(HTMLSpanElement.prototype, 'getBoundingClientRect');
-  mockFn.mockImplementation(() => ({ width: 20, x: 5, clientX: 5 }));
+  mockFn.mockImplementation(() => ({ width: 20, x: 5, clientX: 5 }) as any);
 
   it('events.drag: dragSort', () => {
     const defaultValue = ['Vue', 'React', 'Angular'];
@@ -48,6 +48,19 @@ describe('TagInput Component', () => {
     act(() => {
       expect(getByText(text)).toBeTruthy();
     });
+  });
+
+  test('label renders with tags in break-line mode', () => {
+    const { container } = render(<TagInput value={['Vue', 'React']} label="Controlled: " />);
+    const wrapper = container.querySelector('.t-tag-input');
+    const inputPrefix = container.querySelector('.t-input__prefix');
+    const label = container.querySelector('.t-tag-input__prefix');
+
+    expect(wrapper).toHaveClass('t-tag-input--break-line');
+    expect(wrapper).toHaveClass('t-tag-input--with-tag');
+    expect(inputPrefix).toContainElement(label as HTMLElement);
+    expect(inputPrefix.querySelectorAll('.t-tag')).toHaveLength(2);
+    expect(container.querySelector('.t-input__inner')).toBeTruthy();
   });
 
   test('prefixIcon display', async () => {

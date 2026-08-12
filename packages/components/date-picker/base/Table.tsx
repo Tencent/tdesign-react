@@ -16,7 +16,8 @@ import type { DateMultipleValue, DateRangeValue, DateValue, TdDatePickerProps } 
 dayjs.extend(isoWeek);
 
 export interface DatePickerTableProps
-  extends Pick<TdDatePickerProps, 'mode' | 'firstDayOfWeek' | 'format' | 'multiple' | 'cell'>,
+  extends
+    Pick<TdDatePickerProps, 'mode' | 'firstDayOfWeek' | 'format' | 'multiple' | 'cell'>,
     Pick<SinglePanelProps, 'onCellClick' | 'onCellMouseEnter' | 'onCellMouseLeave'>,
     Pick<PanelContentProps, 'value'> {
   data?: Array<any>;

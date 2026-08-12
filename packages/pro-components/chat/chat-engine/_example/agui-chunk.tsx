@@ -67,7 +67,13 @@ const SearchToolComponent: React.FC<ToolcallComponentProps<SearchArgs>> = ({ arg
   return (
     <Card bordered style={{ marginTop: 12 }}>
       <Space direction="vertical" style={{ width: '100%' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
           <span style={{ fontSize: 14, fontWeight: 600 }}>🔍 搜索工具</span>
           <Tag theme={status === 'complete' ? 'success' : 'primary'} variant="light">
             {getStatusIcon()}
@@ -86,7 +92,14 @@ const SearchToolComponent: React.FC<ToolcallComponentProps<SearchArgs>> = ({ arg
           }}
         >
           <div style={{ fontSize: 12, color: '#666', marginBottom: 8 }}>参数 (流式接收中):</div>
-          <pre style={{ margin: 0, fontSize: 12, whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
+          <pre
+            style={{
+              margin: 0,
+              fontSize: 12,
+              whiteSpace: 'pre-wrap',
+              wordBreak: 'break-all',
+            }}
+          >
             {args ? JSON.stringify(args, null, 2) : '等待参数...'}
           </pre>
         </div>
@@ -133,7 +146,13 @@ const CalculateToolComponent: React.FC<ToolcallComponentProps<CalculateArgs>> = 
   return (
     <Card bordered style={{ marginTop: 12 }}>
       <Space direction="vertical" style={{ width: '100%' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
           <span style={{ fontSize: 14, fontWeight: 600 }}>🧮 计算器工具</span>
           <Tag theme={status === 'complete' ? 'success' : 'warning'} variant="light">
             {getStatusText()}
@@ -141,11 +160,23 @@ const CalculateToolComponent: React.FC<ToolcallComponentProps<CalculateArgs>> = 
         </div>
 
         <div
-          style={{ marginTop: 8, padding: 12, background: 'var(--td-bg-color-secondarycontainer)', borderRadius: 4 }}
+          style={{
+            marginTop: 8,
+            padding: 12,
+            background: 'var(--td-bg-color-secondarycontainer)',
+            borderRadius: 4,
+          }}
         >
           <div style={{ fontSize: 13 }}>
             <strong>表达式：</strong>
-            <code style={{ marginLeft: 8, padding: '2px 6px', background: '#e8e8e8', borderRadius: 4 }}>
+            <code
+              style={{
+                marginLeft: 8,
+                padding: '2px 6px',
+                background: '#e8e8e8',
+                borderRadius: 4,
+              }}
+            >
               {args?.expression || '等待输入...'}
             </code>
           </div>
@@ -155,7 +186,14 @@ const CalculateToolComponent: React.FC<ToolcallComponentProps<CalculateArgs>> = 
             </div>
           )}
           {result !== null && (
-            <div style={{ fontSize: 15, marginTop: 8, color: '#52c41a', fontWeight: 600 }}>
+            <div
+              style={{
+                fontSize: 15,
+                marginTop: 8,
+                color: '#52c41a',
+                fontWeight: 600,
+              }}
+            >
               <strong>结果：</strong> {result}
             </div>
           )}
@@ -183,7 +221,13 @@ const WeatherToolComponent: React.FC<ToolcallComponentProps<WeatherArgs>> = ({ a
   return (
     <Card bordered style={{ marginTop: 12 }}>
       <Space direction="vertical" style={{ width: '100%' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
           <span style={{ fontSize: 14, fontWeight: 600 }}>🌤️ 天气查询</span>
           <Tag theme={status === 'complete' ? 'success' : 'primary'} variant="light">
             {status === 'executing' && <LoadingIcon style={{ marginRight: 4 }} />}
@@ -191,7 +235,14 @@ const WeatherToolComponent: React.FC<ToolcallComponentProps<WeatherArgs>> = ({ a
           </Tag>
         </div>
 
-        <div style={{ marginTop: 8, padding: 12, background: '#e6f7ff', borderRadius: 4 }}>
+        <div
+          style={{
+            marginTop: 8,
+            padding: 12,
+            background: '#e6f7ff',
+            borderRadius: 4,
+          }}
+        >
           <div style={{ fontSize: 13 }}>
             <strong>城市：</strong> {args?.city || <span style={{ color: '#999' }}>接收中...</span>}
           </div>
@@ -332,7 +383,7 @@ const AguiChunkExample: React.FC = () => {
       return (
         <ChatMessage
           key={`system-${index}`}
-          slot={`system-text-${index}`}
+          // slot={`system-text-${index}`}
           role="system"
           content={[{ type: 'text', data: item.data as string }]}
         />
@@ -360,7 +411,7 @@ const AguiChunkExample: React.FC = () => {
         isLast &&
         message.status !== 'stop' && (
           <div slot="actionbar">
-            <ChatLoading animation="dot" />
+            <ChatLoading animation="dots" />
           </div>
         )
       )}
@@ -391,7 +442,12 @@ const AguiChunkExample: React.FC = () => {
 
           {/* 模式说明 */}
           <div
-            style={{ marginTop: 12, padding: 12, background: 'var(--td-bg-color-secondarycontainer)', borderRadius: 4 }}
+            style={{
+              marginTop: 12,
+              padding: 12,
+              background: 'var(--td-bg-color-secondarycontainer)',
+              borderRadius: 4,
+            }}
           >
             {mode === 'text' && (
               <div style={{ fontSize: 12, color: '#666' }}>

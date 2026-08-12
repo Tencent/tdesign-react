@@ -118,6 +118,7 @@ export default function useMultiple(props: SelectInputProps) {
         tagProps={{ ...props.tagProps, ...props.tagInputProps?.tagProps }}
         inputProps={{
           ...props.inputProps,
+          autocomplete: 'off',
           readOnly: !props.allowInput || readOnly,
           readonly: !props.allowInput || readOnly,
           inputClass: classNames(props.tagInputProps?.className, {

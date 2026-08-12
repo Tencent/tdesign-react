@@ -5,6 +5,65 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.18.1 `2026-07-17`
+
+### 🚀 Features
+
+- `SelectInput`: 支持 `focus` 时的内容为 `valueDisplay` 的对应值。 @RylanBot ([#3891](https://github.com/Tencent/tdesign-react/pull/3891))
+
+### 🐞 Bug Fixes
+
+- `Button`: 优化斜八度的动画效果 @uyarn ([#4331](https://github.com/Tencent/tdesign-react/pull/4331))
+- `ColorPicker`: 修复渐变角度的 `title` 格式异常的问题 @RylanBot ([#4324](https://github.com/Tencent/tdesign-react/pull/4324))
+- `Menu`: 修复弹出窗口位置在左侧宽度不够向右侧翻转时的间距错误问题 @RSS1102 ([common#2631](https://github.com/Tencent/tdesign-common/pull/2631))
+- `Select`: 
+  - 修复 `label` 为非 `string` 类型时，开启 `filterable` 搜索后报错的问题。 @RylanBot ([#3891](https://github.com/Tencent/tdesign-react/pull/3891))
+  - 修复使用 `label` / `content` / `children` 自定义元素时，下拉框选项的高度没有撑开的问题。  ([common#2537](https://github.com/Tencent/tdesign-common/pull/2537)) @RylanBot
+- `SelectInput`: 
+  - 修复单选且 `valueDisplay` 为自定义元素时，开启 `filterable` 无法显示输入内容的问题。 @RylanBot ([#3891](https://github.com/Tencent/tdesign-react/pull/3891))
+  - 修复 `inputProps.inputClass` 无法生效的问题。先前 `inputProps.className` 被错误地应用到了 `t-class` 同级位置，导致正确的 `inputProps.inputClass` 配置无效，之前使用相关属性的业务注意此变更 ⚠️ @RylanBot ([#3891](https://github.com/Tencent/tdesign-react/pull/3891))
+- `Table`: 在非 Chromium 内核浏览器时，由于 `min-width` 兼容性问题，降级到 `width` @RylanBot ([#4219](https://github.com/Tencent/tdesign-react/pull/4219))
+- `TagInput`: 修复带 label 且已有 tag 时输入内容垂直对齐偏差的问题 @DaZuiZui  ([common#2564](https://github.com/Tencent/tdesign-common/pull/2564))
+
+## 🌈 1.18.0 `2026-06-26`
+
+### 🚀 Features
+
+- `Button`: 优化 `variant` 为 `outline` 和 `dashed` 时的 hover 背景色 @uyarn ([common#2569](https://github.com/Tencent/tdesign-common/pull/2569))
+- `ConfigProvider`: 
+  - 新增 `loading` 属性，用于全局配置 Loading 组件的属性 @uyarn ([#4295](https://github.com/Tencent/tdesign-react/pull/4295))
+  - `dialog` 属性新增 `zIndex` 和 `placement` 配置 @uyarn ([#4295](https://github.com/Tencent/tdesign-react/pull/4295))
+- `HeadMenu`: 子菜单浮层新增最大高度，超出最大高度将会显示滚动条 @HaixingOoO ([#4283](https://github.com/Tencent/tdesign-react/pull/4283))
+- `InputNumber`: 新增 `autofocus` 属性 @betavs ([#4278](https://github.com/Tencent/tdesign-react/pull/4278))
+- `TagInput`: 新增 `tagDisplay` API，用于完全自定义单个标签的渲染效果 @RylanBot ([#4275](https://github.com/Tencent/tdesign-react/pull/4275))
+
+### 🐞 Bug Fixes
+
+- `Cascader`: 多选时输入框内的选中项顺序由 “`options` 顺序” 调整为 “用户选择顺序“，之前依赖相关交互的业务注意此变更 ⚠️ @RylanBot ([#4281](https://github.com/Tencent/tdesign-react/pull/4281))
+- `TreeSelect`: 多选时输入框内的选中项顺序由 “`options` 顺序” 调整为 “用户选择顺序“，之前依赖相关交互的业务注意此变更 ⚠️ @RylanBot ([#4281](https://github.com/Tencent/tdesign-react/pull/4281))
+- `Steps`: 修复 `sequence='reverse'` 时跳转逻辑异常的问题 @RylanBot ([#4267](https://github.com/Tencent/tdesign-react/pull/4267))
+- `Table`: 修复 filter 英文翻译文案错误 @liweijie0812 ([common#2553](https://github.com/Tencent/tdesign-common/pull/2553))
+- `TagInput`: 
+  - 修复 `excessTagsDisplayType="scroll` 时，没有显示横向滚动条等交互问题 @RSS1102 ([#4210](https://github.com/Tencent/tdesign-react/pull/4210))
+  - 修复开启 `clearable` 时，仅输入文字没有显示清除按钮的问题 @RSS1102 ([#4210](https://github.com/Tencent/tdesign-react/pull/4210))
+  - 修复带 `label` 且已有 tag 时，输入内容垂直对齐偏差的问题 @DaZuiZui ([#4292](https://github.com/Tencent/tdesign-react/pull/4292))
+- `Tree`: 
+  - 修复可拖拽节点拖至禁用节点上下方时提示线未正确显示的问题 @RylanBot ([#4251](https://github.com/Tencent/tdesign-react/pull/4251))
+  - 修复可拖拽树节点 `allowDrop` 返回 `false` 时仍显示放置提示线的问题 @RylanBot ([#4251](https://github.com/Tencent/tdesign-react/pull/4251))
+
+## 🌈 1.17.1 `2026-06-05`
+
+### 🐞 Bug Fixes
+
+- `Menu`: 修复子菜单图标与文字间隔的问题 @liweijie0812 ([common#2512](https://github.com/Tencent/tdesign-common/pull/2512))
+- `Select`: 修复在输入搜索过滤选项时，出现系统的自动输入选项的问题 @liweijie0812 ([#4261](https://github.com/Tencent/tdesign-react/pull/4261))
+- `Tabs`: 修复 `disabled` 时，点击组件还会触发动画效果的问题 @RylanBot ([#4264](https://github.com/Tencent/tdesign-react/pull/4264))
+- `TagInput`: 修复 `value` 为 undefined 时报错的问题 @RylanBot ([#4249](https://github.com/Tencent/tdesign-react/pull/4249))
+
+### 🚧 Others
+
+- `Tabs`: 加强组件的泛型支持，便于 `value` 与 `onChange` 联动 @RylanBot ([#4260](https://github.com/Tencent/tdesign-react/pull/4260))
+
 ## 🌈 1.17.0 `2026-05-21`
 
 ### 🚨 Breaking Changes

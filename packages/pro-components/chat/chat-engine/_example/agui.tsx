@@ -52,7 +52,9 @@ export default function ComponentsBuild() {
         console.error('Chatservice Error:', err);
       },
       // 流式对话过程中用户主动结束对话业务自定义行为
-      onAbort: async () => '',
+      onAbort: async () => {
+        undefined;
+      },
       // 自定义请求参数
       onRequest: (innerParams: ChatRequestParams) => {
         const { prompt } = innerParams;
@@ -151,7 +153,7 @@ export default function ComponentsBuild() {
                 key={`toolcall-${index}-${subIndex}`}
                 className="toolcall-wrapper"
               >
-                <CustomToolCallRenderer toolCall={subItem.data} status={subItem.status} />
+                <CustomToolCallRenderer toolCall={subItem.data} status={subItem.status as any} />
               </div>
             );
           }
@@ -204,7 +206,13 @@ export default function ComponentsBuild() {
   return (
     <div style={{ height: '600px', display: 'flex', flexDirection: 'column' }}>
       {/* 历史消息加载控制栏 */}
-      <div style={{ padding: '12px', borderBottom: '1px solid #e7e7e7', backgroundColor: '#fafafa' }}>
+      <div
+        style={{
+          padding: '12px',
+          borderBottom: '1px solid #e7e7e7',
+          backgroundColor: '#fafafa',
+        }}
+      >
         <Space>
           <Button size="small" onClick={loadHistoryMessages} loading={loadingHistory}>
             加载历史消息
@@ -222,7 +230,10 @@ export default function ComponentsBuild() {
         </Space>
       </div>
 
-      <ChatList ref={listRef} style={{ width: '100%', flex: 1 }}>
+      <ChatList
+        ref={listRef as any}
+        // style={{ width: '100%', flex: 1 }}
+      >
         {messages.map((message, idx) => (
           <ChatMessage key={message.id} {...messageProps[message.role]} message={message}>
             {renderMsgContents(message, idx === messages.length - 1)}
@@ -230,7 +241,7 @@ export default function ComponentsBuild() {
         ))}
       </ChatList>
       <ChatSender
-        ref={inputRef}
+        ref={inputRef as any}
         value={inputValue}
         placeholder="请输入内容"
         loading={senderLoading}

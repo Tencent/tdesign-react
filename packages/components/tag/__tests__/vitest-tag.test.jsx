@@ -5,8 +5,9 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { fireEvent, vi, render } from '@test/utils';
-import { Tag, CheckTag } from '..';
+import { fireEvent, render, vi } from '@test/utils';
+
+import { CheckTag, Tag } from '..';
 
 describe('Tag Component', () => {
   it('props.children works fine', () => {
@@ -151,6 +152,22 @@ describe('Tag Component', () => {
   it(`props.title is equal to undefined`, () => {
     const { container } = render(
       <Tag title={undefined} content={'This is a long long long long long tag'} maxWidth={'150px'}></Tag>,
+    );
+    const domWrapper = container.querySelector('.t-tag--text');
+    expect(domWrapper.style.maxWidth).toBe('150px');
+    expect(domWrapper.getAttribute('title')).toBeNull();
+  });
+  it(`props.title is equal to true`, () => {
+    const { container } = render(
+      <Tag title={true} content={'This is a long long long long long tag'} maxWidth={'150px'}></Tag>,
+    );
+    const domWrapper = container.querySelector('.t-tag--text');
+    expect(domWrapper.style.maxWidth).toBe('150px');
+    expect(domWrapper.getAttribute('title')).toBe('This is a long long long long long tag');
+  });
+  it(`props.title is equal to false`, () => {
+    const { container } = render(
+      <Tag title={false} content={'This is a long long long long long tag'} maxWidth={'150px'}></Tag>,
     );
     const domWrapper = container.querySelector('.t-tag--text');
     expect(domWrapper.style.maxWidth).toBe('150px');
