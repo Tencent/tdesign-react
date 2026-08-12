@@ -1,13 +1,16 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import Popup, { PopupRef } from '../popup';
+
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { TdPopconfirmProps, PopconfirmVisibleChangeContext } from './type';
-import Popcontent from './Popcontent';
-import { popconfirmDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+import Popup from '../popup';
+import { popconfirmDefaultProps } from './defaultProps';
+import Popcontent from './Popcontent';
+
+import type { PopupRef } from '../popup';
+import type { PopconfirmVisibleChangeContext, TdPopconfirmProps } from './type';
 
 export type PopconfirmProps = TdPopconfirmProps;
 

@@ -1,9 +1,10 @@
 /**
  * 原作者 @louiszhai 思路
  */
-import { useState, useMemo, useEffect } from 'react';
-import type React from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import observe from '@tdesign/common-js/utils/observe';
+
+import type * as React from 'react';
 
 export type UseLazyLoadParams = {
   type: 'lazy' | 'virtual';

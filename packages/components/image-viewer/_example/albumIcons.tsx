@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowseIcon, EllipsisIcon } from 'tdesign-icons-react';
 import { Image, ImageViewer, Popup, Space } from 'tdesign-react';
+
 import type { ImageViewerProps } from 'tdesign-react';
 
 const imgH = 'https://tdesign.gtimg.com/demo/demo-image-3.png';
@@ -41,7 +42,7 @@ export default function BasicImageViewer() {
 
   const trigger: ImageViewerProps['trigger'] = ({ open }) => {
     const listCommon = (
-      <ImageViewerIconList onClick={open} list={images.map((i, index) => ({ label: `图片${index}` }))} />
+      <ImageViewerIconList onClick={() => open()} list={images.map((i, index) => ({ label: `图片${index}` }))} />
     );
 
     const mask = (
@@ -54,7 +55,7 @@ export default function BasicImageViewer() {
           alignItems: 'center',
           justifyContent: 'center',
         }}
-        onClick={open}
+        onClick={() => open()}
       >
         <span>
           <BrowseIcon size="16px" name={'browse'} /> 预览
@@ -101,7 +102,7 @@ export default function BasicImageViewer() {
         >
           <span style={{ flex: 1 }}>相册封面标题</span>
           <span style={{ cursor: 'pointer' }}>
-            <BrowseIcon size={16} onClick={open} />
+            <BrowseIcon size={16} onClick={() => open()} />
             <Popup
               trigger="click"
               content={listCommon}

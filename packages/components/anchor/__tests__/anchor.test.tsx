@@ -1,7 +1,8 @@
 import React from 'react';
-import { render, fireEvent, vi } from '@test/utils';
-import Anchor from '../Anchor';
+import { fireEvent, render, vi } from '@test/utils';
+
 import { getScroll } from '../../_util/scroll';
+import Anchor from '../Anchor';
 
 const { AnchorItem, AnchorTarget } = Anchor;
 
@@ -55,7 +56,7 @@ describe('Anchor 组件测试', () => {
     );
     const anchorItem = wrapper.getByTestId(childTestID);
     fireEvent.click(anchorItem.firstChild);
-    expect(fn).toBeCalledTimes(1);
+    expect(fn).toHaveBeenCalledTimes(1);
   });
 
   test('render AnchorTarget', async () => {

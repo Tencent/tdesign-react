@@ -1,13 +1,15 @@
 import React, { useContext } from 'react';
 import classNames from 'classnames';
-import { CloseIcon as TdCloseIcon, CheckIcon as TdCheckIcon } from 'tdesign-icons-react';
+import { CheckIcon as TdCheckIcon, CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
+
 import useConfig from '../hooks/useConfig';
-import useGlobalIcon from '../hooks/useGlobalIcon';
-import { TdStepItemProps } from './type';
-import { StyledProps } from '../common';
-import StepsContext from './StepsContext';
-import { stepItemDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import { stepItemDefaultProps } from './defaultProps';
+import StepsContext from './StepsContext';
+
+import type { StyledProps } from '../common';
+import type { TdStepItemProps } from './type';
 
 export interface StepItemProps extends TdStepItemProps, StyledProps {
   index?: number;
@@ -18,11 +20,11 @@ const StepItem: React.FC<StepItemProps> = (originalProps) => {
   const props = useDefaultProps<StepItemProps>(originalProps, stepItemDefaultProps);
   const { index, icon, title, content, value, children, style, status } = props;
 
-  const { current, theme, onChange, readonly } = useContext(StepsContext);
+  const { current, theme, onChange, readOnly } = useContext(StepsContext);
   const { classPrefix, steps: globalStepsConfig } = useConfig();
   const { CloseIcon, CheckIcon } = useGlobalIcon({ CloseIcon: TdCloseIcon, CheckIcon: TdCheckIcon });
 
-  const canClick = status !== 'process' && !readonly;
+  const canClick = status !== 'process' && !readOnly;
 
   // 步骤条每一步展示的图标
   const iconNode = React.useMemo<React.ReactNode>(() => {

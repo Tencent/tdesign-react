@@ -1,11 +1,17 @@
 // 行选中相关功能：单选 + 多选
 
-import React, { useEffect, useState, MouseEvent, useMemo } from 'react';
-import { intersection, get, isFunction } from 'lodash-es';
-import { isRowSelectedDisabled } from '@tdesign/common-js/table/utils';
+import React, { useEffect, useMemo, useState } from 'react';
+import { get, intersection, isFunction } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
+import { isRowSelectedDisabled } from '@tdesign/common-js/table/utils';
+
+import Checkbox from '../../checkbox';
 import useControlled from '../../hooks/useControlled';
-import {
+import Radio from '../../radio';
+
+import type { MouseEvent } from 'react';
+import type { ClassName } from '../../common';
+import type {
   PrimaryTableCellParams,
   PrimaryTableCol,
   RowClassNameParams,
@@ -13,10 +19,7 @@ import {
   TdBaseTableProps,
   TdPrimaryTableProps,
 } from '../type';
-import { TableClassName } from './useClassName';
-import Checkbox from '../../checkbox';
-import Radio from '../../radio';
-import { ClassName } from '../../common';
+import type { TableClassName } from './useClassName';
 
 const selectedRowDataMap = new Map<string | number, TableRowData>();
 
@@ -83,11 +86,16 @@ export default function useRowSelect(
 
   function getSelectedHeader() {
     return () => {
-      const isIndeterminate = intersectionKeys.length > 0 && intersectionKeys.length < canSelectedRows.length;
+      const isIndeterminate =
+        // 一些可见的行已被选中，但不是全部
+        (intersectionKeys.length > 0 && intersectionKeys.length < canSelectedRows.length) ||
+        // 某些被选中的行不可见（例如折叠的树子节点）
+        intersectionKeys.length < tSelectedRowKeys.length;
       const isChecked =
-        intersectionKeys.length !== 0 &&
         canSelectedRows.length !== 0 &&
-        intersectionKeys.length === canSelectedRows.length;
+        intersectionKeys.length === canSelectedRows.length &&
+        // 确保所有已选中的行都是可见的（没有被折叠而隐藏的选中项）
+        intersectionKeys.length === tSelectedRowKeys.length;
       return (
         <Checkbox
           checked={isChecked}

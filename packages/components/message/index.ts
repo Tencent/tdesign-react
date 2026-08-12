@@ -1,6 +1,6 @@
-import _Message, { MessagePlugin as _MessagePlugin } from './Message';
-
 import './style/index.js';
+
+import _Message, { MessagePlugin as _MessagePlugin } from './Message';
 
 export * from './type';
 

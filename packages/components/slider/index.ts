@@ -1,6 +1,6 @@
-import _Slider from './Slider';
-
 import './style/index.js';
+
+import _Slider from './Slider';
 
 export type { SliderProps } from './Slider';
 export * from './type';

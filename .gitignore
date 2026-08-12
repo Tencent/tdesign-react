@@ -2,6 +2,7 @@
 .DS_Store
 .idea
 temp*
+.tmp-aigc-dts
 robotMsg.json
 .history
 
@@ -29,7 +30,7 @@ results/
 ## site files
 site/dist
 _static_site
-packages/components/**/_example-js/
+packages/**/_example-js/
 
 
 ## lock files
@@ -37,6 +38,14 @@ package-lock.json
 yarn.lock
 pnpm-lock.yaml
 
-
-
-
+## analysis files
+bundle-analysis
+packages/**/chat-engine/core
+packages/**/chat-engine/docs
+packages/**/chatbot/docs
+*.zip
+.codebuddy/memory
+.codebuddy/plans
+mock-server
+openspec
+.fue

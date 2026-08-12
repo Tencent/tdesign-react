@@ -3,7 +3,7 @@
 ## API
 ### Calendar Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
@@ -31,7 +31,7 @@ onMonthChange | Function |  | TS 类型：`(options: { month: string; year: stri
 
 ### CalendarController
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 current | Object | - | “今天(本月)”按钮控制器。TS 类型：`{ visible?: boolean; currentDayButtonProps?: ButtonProps; currentMonthButtonProps?: ButtonProps }` | N
 disabled | Boolean | false | 是否禁用右上角控制器 | N
@@ -42,7 +42,7 @@ year | Object | - | 日历年份控制器。TS 类型：`{ visible?: boolean; se
 
 ### CalendarCell
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 belongTo | Number | - | 用于表示日期单元格属于哪一个月份。值为 0 表示是当前日历显示的月份中的日期，值为 -1 表示是上个月的，值为 1 表示是下个月的（日历展示维度是“月”时有值） | N
 date | Object | - | 日历单元格日期。TS 类型：`Date` | N

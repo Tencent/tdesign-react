@@ -1,21 +1,26 @@
-import React, { CSSProperties, ReactNode, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import observe from '@tdesign/common-js/utils/observe';
-import useConfig from '../hooks/useConfig';
-import { TdRadioGroupProps } from './type';
-import useControlled from '../hooks/useControlled';
+
+import { CheckContext } from '../common/Check';
 import useCommonClassName from '../hooks/useCommonClassName';
-import { StyledProps } from '../common';
-import { CheckContext, CheckContextValue } from '../common/Check';
-import Radio from './Radio';
-import { radioGroupDefaultProps } from './defaultProps';
+import useConfig from '../hooks/useConfig';
+import useControlled from '../hooks/useControlled';
+import useDeepEffect from '../hooks/useDeepEffect';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { radioGroupDefaultProps } from './defaultProps';
+import Radio from './Radio';
 import useKeyboard from './useKeyboard';
+
+import type { CSSProperties, ReactNode } from 'react';
+import type { StyledProps } from '../common';
+import type { CheckContextValue } from '../common/Check';
+import type { RadioValue, TdRadioGroupProps } from './type';
 
 /**
  * RadioGroup 组件所接收的属性
  */
-export interface RadioGroupProps extends TdRadioGroupProps, StyledProps {
+export interface RadioGroupProps<T extends RadioValue = RadioValue> extends TdRadioGroupProps<T>, StyledProps {
   children?: ReactNode;
 }
 
@@ -26,11 +31,12 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
   const { classPrefix } = useConfig();
 
   const props = useDefaultProps<RadioGroupProps>(originalProps, radioGroupDefaultProps);
-
-  const { disabled, readonly, children, onChange, size, variant, options = [], className, style, theme } = props;
+  const { disabled, children, onChange, size, variant, options = [], className, style, theme, direction } = props;
+  const readOnly = props.readOnly || props.readonly;
 
   const [internalValue, setInternalValue] = useControlled(props, 'value', onChange);
   const [barStyle, setBarStyle] = useState<Partial<CSSProperties> | null>(null);
+
   const radioGroupRef = useRef<HTMLDivElement>(null);
   const observerRef = useRef<IntersectionObserver>(null);
 
@@ -55,7 +61,7 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
         allowUncheck: checkProps.allowUncheck || props.allowUncheck,
         checked: internalValue === checkProps.value,
         disabled: checkProps.disabled || disabled,
-        readonly: checkProps.readonly || readonly,
+        readonly: checkProps.readOnly || checkProps.readonly || readOnly,
         onChange(checked, { e }) {
           if (typeof checkProps.onChange === 'function') {
             checkProps.onChange(checked, { e });
@@ -70,7 +76,10 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
     if (!variant.includes('filled')) return;
 
     const checkedRadio = radioGroupRef.current.querySelector?.(checkedRadioCls) as HTMLElement;
-    if (!checkedRadio) return;
+    if (!checkedRadio) {
+      setBarStyle(null);
+      return;
+    }
 
     const { offsetWidth, offsetHeight, offsetLeft, offsetTop } = checkedRadio;
     setBarStyle({
@@ -82,21 +91,22 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
   };
 
   useEffect(() => {
-    calcBarStyle();
-
     if (!radioGroupRef.current) return;
-
+    // 针对父元素初始化时隐藏导致无法正确计算尺寸的问题
     const observer = observe(radioGroupRef.current, null, calcBarStyle, 0);
     observerRef.current = observer;
-
     return () => {
-      observerRef.current?.disconnect();
-      observerRef.current = null;
+      observer?.disconnect();
     };
-  }, [radioGroupRef.current, internalValue]); // eslint-disable-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useDeepEffect(() => {
+    calcBarStyle();
+  }, [internalValue, options]);
 
   const renderBlock = () => {
-    if (!variant.includes('filled')) {
+    if (!variant.includes('filled') || !barStyle) {
       return null;
     }
     return <div style={barStyle} className={`${classPrefix}-radio-group__bg-block`}></div>;
@@ -133,6 +143,7 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
           [`${classPrefix}-radio-group__outline`]: variant === 'outline',
           [`${classPrefix}-radio-group--filled`]: variant.includes('filled'),
           [`${classPrefix}-radio-group--primary-filled`]: variant === 'primary-filled',
+          [`${classPrefix}-radio-group--vertical`]: direction === 'vertical',
         })}
       >
         {children || renderOptions()}
@@ -144,4 +155,4 @@ const RadioGroup: React.FC<RadioGroupProps> = (originalProps) => {
 
 RadioGroup.displayName = 'RadioGroup';
 
-export default RadioGroup;
+export default RadioGroup as <T extends RadioValue = RadioValue>(props: RadioGroupProps<T>) => React.ReactElement;

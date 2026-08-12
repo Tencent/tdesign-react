@@ -1,6 +1,7 @@
 import React from 'react';
-import { render, fireEvent, vi } from '@test/utils';
-import { Table, BaseTable, PrimaryTable, EnhancedTable } from '..';
+import { fireEvent, render, vi } from '@test/utils';
+
+import { BaseTable, EnhancedTable, PrimaryTable, Table } from '..';
 
 const data = new Array(5).fill(null).map((item, index) => ({
   id: index + 100,
@@ -72,7 +73,7 @@ TABLES.forEach((TTable) => {
         const rowAttrs = () => [{ 'data-level': 'level-1' }, { 'data-name': 'tdesign' }];
 
         const { container } = render(
-          <TTable rowKey="index" rowAttributes={rowAttrs} data={data} columns={SIMPLE_COLUMNS}></TTable>,
+          <TTable rowKey="index" rowAttributes={rowAttrs as any} data={data} columns={SIMPLE_COLUMNS}></TTable>,
         );
         const trWrapper = container.querySelector('tbody').querySelector('tr');
         expect(trWrapper.getAttribute('data-level')).toBe('level-1');
@@ -83,7 +84,7 @@ TABLES.forEach((TTable) => {
         const rowAttrs = [() => [{ 'data-level': 'level-1' }, { 'data-name': 'tdesign' }]];
 
         const { container } = render(
-          <TTable rowKey="index" rowAttributes={rowAttrs} data={data} columns={SIMPLE_COLUMNS}></TTable>,
+          <TTable rowKey="index" rowAttributes={rowAttrs as any} data={data} columns={SIMPLE_COLUMNS}></TTable>,
         );
         const trWrapper = container.querySelector('tbody').querySelector('tr');
         expect(trWrapper.getAttribute('data-level')).toBe('level-1');
@@ -355,8 +356,14 @@ TABLES.forEach((TTable) => {
 
     // JSDOM 环境下 scrollHeight/clientHeight 默认都为 0，需 mock
     function mockScrollHeight(element: HTMLElement, scrollHeight: number, clientHeight: number) {
-      Object.defineProperty(element, 'scrollHeight', { value: scrollHeight, configurable: true });
-      Object.defineProperty(element, 'clientHeight', { value: clientHeight, configurable: true });
+      Object.defineProperty(element, 'scrollHeight', {
+        value: scrollHeight,
+        configurable: true,
+      });
+      Object.defineProperty(element, 'clientHeight', {
+        value: clientHeight,
+        configurable: true,
+      });
     }
 
     it('props.pagination: scroll position should reset when switching pages', async () => {

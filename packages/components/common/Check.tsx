@@ -1,11 +1,14 @@
-import React, { forwardRef, useContext, MouseEvent, ChangeEvent } from 'react';
+import React, { forwardRef, useContext } from 'react';
 import classNames from 'classnames';
 import { isBoolean } from 'lodash-es';
+
 import { omit } from '../_util/helper';
-import { StyledProps } from '../common';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
-import { TdCheckboxProps } from '../checkbox/type';
+
+import type { ChangeEvent, MouseEvent } from 'react';
+import type { TdCheckboxProps } from '../checkbox/type';
+import type { StyledProps } from '../common';
 
 export interface CheckProps extends TdCheckboxProps, StyledProps {
   type: 'radio' | 'radio-button' | 'checkbox';
@@ -44,7 +47,6 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
     label,
     className,
     style,
-    readonly,
     onClick,
     ...htmlProps
   } = props;
@@ -64,11 +66,12 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
     [`${classPrefix}-is-indeterminate`]: indeterminate,
   });
 
-  const isDisabled = disabled || readonly;
+  const readOnly = props.readOnly || props.readonly;
+  const isDisabled = disabled || readOnly;
 
   const input = (
     <input
-      readOnly={readonly}
+      readOnly={readOnly}
       type={type === 'radio-button' ? 'radio' : type}
       className={`${classPrefix}-${type}__former`}
       checked={internalChecked}
@@ -112,7 +115,7 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
       className={labelClassName}
       title={props.title}
       style={style}
-      {...omit(htmlProps, ['checkAll', 'stopLabelTrigger'])}
+      {...omit(htmlProps, ['checkAll', 'stopLabelTrigger', 'readonly'])}
       onClick={onInnerClick}
     >
       {input}

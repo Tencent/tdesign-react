@@ -1,6 +1,6 @@
 import React from 'react';
+import { fireEvent, mockTimeout, render } from '@test/utils';
 
-import { render, fireEvent, mockTimeout } from '@test/utils';
 import SliderHandleButton from '../SliderHandleButton';
 
 describe('SliderHandleButton 组件测试', () => {
@@ -8,6 +8,7 @@ describe('SliderHandleButton 组件测试', () => {
   test('dragging', async () => {
     const SliderButton = () => (
       <SliderHandleButton
+        layout="horizontal"
         classPrefix={'t'}
         style={{}}
         toolTipProps={{}}

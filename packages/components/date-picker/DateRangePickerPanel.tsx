@@ -1,20 +1,23 @@
-import React, { forwardRef, useState, useMemo } from 'react';
+import React, { forwardRef, useMemo, useState } from 'react';
 import dayjs from 'dayjs';
-import { formatDate, getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
-import { subtractMonth, addMonth, extractTimeObj } from '@tdesign/common-js/date-picker/utils';
+import { formatDate, formatTime, getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
+import { addMonth, extractTimeObj, subtractMonth } from '@tdesign/common-js/date-picker/utils';
 import log from '@tdesign/common-js/log/index';
-import { StyledProps } from '../common';
-import {
-  TdDateRangePickerPanelProps,
-  DatePickerYearChangeTrigger,
+
+import useDefaultProps from '../hooks/useDefaultProps';
+import useRangeValue from './hooks/useRangeValue';
+import RangePanel from './panel/RangePanel';
+import { dateCorrection } from './utils';
+
+import type { StyledProps } from '../common';
+import type {
   DatePickerMonthChangeTrigger,
   DatePickerTimeChangeTrigger,
+  DatePickerYearChangeTrigger,
+  DateRangeValue,
   PresetDate,
+  TdDateRangePickerPanelProps,
 } from './type';
-import RangePanel from './panel/RangePanel';
-import useRangeValue from './hooks/useRangeValue';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { dateCorrection } from './utils';
 
 export interface DateRangePickerPanelProps extends TdDateRangePickerPanelProps, StyledProps {}
 
@@ -48,9 +51,10 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     setIsFirstValueSelected,
     cacheValue,
     setCacheValue,
+    isSwitchTimeMode,
   } = useRangeValue(props);
 
-  const { format } = getDefaultFormat({
+  const { format, timeFormat } = getDefaultFormat({
     mode,
     enableTimePicker,
     format: props.format,
@@ -61,6 +65,18 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
   const [isHoverCell, setIsHoverCell] = useState(false);
   const [hoverValue, setHoverValue] = useState([]);
   const activeIndex = useMemo(() => (isFirstValueSelected ? 1 : 0), [isFirstValueSelected]);
+
+  const handleSyncPanelValue = (value: DateRangeValue) => {
+    // 同年同月时，确保右侧面板月份比左侧大，避免两侧面板月份一致
+    const nextMonth = value.map((v: string) => parseToDayjs(v, format).month());
+    const nextYear = value.map((v: string) => parseToDayjs(v, format).year());
+    if (nextYear[0] === nextYear[1] && nextMonth[0] === nextMonth[1]) {
+      nextMonth[0] === 11 ? (nextMonth[0] -= 1) : (nextMonth[1] += 1);
+    }
+    setMonth(nextMonth);
+    setYear(nextYear);
+    setTime(formatTime(value, format, timeFormat, props.defaultTime));
+  };
 
   // 日期 hover
   function onCellMouseEnter(date: Date) {
@@ -98,8 +114,8 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
       }
     }
 
-    // 有时间选择器走 confirm 逻辑
-    if (enableTimePicker) return;
+    // 有时间选择器且非 switch mode，走 confirm 逻辑
+    if (enableTimePicker && !isSwitchTimeMode) return;
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
     if (nextValue.length === 2 && isFirstValueSelected) {
@@ -165,13 +181,14 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
   }
 
   // time-picker 点击
-  function onTimePickerChange(val: string) {
+  function onTimePickerChange(val: string, context?: { activeIndex: 0 | 1 }) {
     const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(val);
+    const currentIndex = context.activeIndex ?? activeIndex;
 
     const nextInputValue = [...cacheValue];
-    const changedInputValue = cacheValue[activeIndex];
+    const changedInputValue = cacheValue[currentIndex];
     const currentDate = !dayjs(changedInputValue, format).isValid()
-      ? dayjs().year(year[activeIndex]).month(month[activeIndex])
+      ? dayjs().year(year[currentIndex]).month(month[currentIndex])
       : dayjs(changedInputValue, format);
     // am pm 12小时制转化 24小时制
     let nextHours = hours;
@@ -179,10 +196,10 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
 
     const nextDate = currentDate.hour(nextHours).minute(minutes).second(seconds).millisecond(milliseconds).toDate();
-    nextInputValue[activeIndex] = nextDate;
+    nextInputValue[currentIndex] = nextDate;
 
     const nextTime = [...time];
-    nextTime[activeIndex] = val;
+    nextTime[currentIndex] = val;
     setTime(nextTime);
 
     setIsSelected(true);
@@ -190,7 +207,7 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
 
     props.onTimeChange?.({
       time: val,
-      partial: activeIndex ? 'end' : 'start',
+      partial: currentIndex ? 'end' : 'start',
       date: value.map((v) => dayjs(v).toDate()),
       trigger: 'time-hour' as DatePickerTimeChangeTrigger,
     });
@@ -223,7 +240,12 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     if (!Array.isArray(presetVal)) {
       log.error('DateRangePickerPanel', `preset: ${presetValue} must be Array!`);
     } else {
-      onChange(formatDate(presetVal, { format, autoSwap: true }), {
+      const formattedPreset = formatDate(presetVal, { format });
+      setCacheValue(formattedPreset);
+      setIsFirstValueSelected(true);
+      setIsSelected(true);
+      handleSyncPanelValue(formattedPreset);
+      onChange(formattedPreset, {
         dayjsValue: presetVal.map((p) => parseToDayjs(p, format)),
         trigger: 'preset',
       });
@@ -327,8 +349,8 @@ const DateRangePickerPanel = forwardRef<HTMLDivElement, DateRangePickerPanelProp
     onMonthChange,
     onTimePickerChange,
     onPanelClick,
+    isSwitchTimeMode,
   };
-
   return <RangePanel ref={ref} className={className} style={style} {...panelProps} />;
 });
 

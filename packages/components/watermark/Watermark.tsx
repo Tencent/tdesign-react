@@ -1,17 +1,19 @@
 /* eslint-disable no-nested-ternary */
-import React, { useCallback, useState, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
+import injectStyle from '@tdesign/common-js/utils/injectStyle';
 import generateBase64Url from '@tdesign/common-js/watermark/generateBase64Url';
 import randomMovingStyle from '@tdesign/common-js/watermark/randomMovingStyle';
-import injectStyle from '@tdesign/common-js/utils/injectStyle';
-import { StyledProps } from '../common';
+
 import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
 import useMutationObserver from '../hooks/useMutationObserver';
-import { TdWatermarkProps } from './type';
+import useVariables from '../hooks/useVariables';
 import { watermarkDefaultProps } from './defaultProps';
 import { getStyleStr } from './utils';
-import useDefaultProps from '../hooks/useDefaultProps';
-import useVariables from '../hooks/useVariables';
+
+import type { StyledProps } from '../common';
+import type { TdWatermarkProps } from './type';
 
 export interface WatermarkProps extends TdWatermarkProps, StyledProps {}
 
@@ -34,6 +36,7 @@ const Watermark: React.FC<WatermarkProps> = (originalProps) => {
     content,
     children,
     watermarkContent,
+    layout,
     className,
     style = {},
   } = props;
@@ -56,6 +59,7 @@ const Watermark: React.FC<WatermarkProps> = (originalProps) => {
   const stopObservation = useRef(false);
   const offsetLeft = offset[0] || gapX / 2;
   const offsetTop = offset[1] || gapY / 2;
+  const backgroundSize = useRef(`${gapX + width}px`);
 
   const { fontColor } = useVariables({
     fontColor: '--td-text-color-watermark',
@@ -76,12 +80,29 @@ const Watermark: React.FC<WatermarkProps> = (originalProps) => {
         offsetLeft,
         offsetTop,
         fontColor,
+        layout,
       },
-      (url) => {
+      (url, param) => {
+        const { width } = param || {};
+        backgroundSize.current = width ? `${width}px` : null;
         setBase64Url(url);
       },
     );
-  }, [width, height, rotate, zIndex, lineSpace, alpha, offsetLeft, offsetTop, gapX, gapY, watermarkContent, fontColor]);
+  }, [
+    width,
+    height,
+    rotate,
+    zIndex,
+    lineSpace,
+    alpha,
+    offsetLeft,
+    offsetTop,
+    gapX,
+    gapY,
+    watermarkContent,
+    fontColor,
+    layout,
+  ]);
 
   // 水印节点 - styleStr
   useEffect(() => {
@@ -94,14 +115,14 @@ const Watermark: React.FC<WatermarkProps> = (originalProps) => {
       bottom: 0,
       width: movable ? `${width}px` : '100%',
       height: movable ? `${height}px` : '100%',
-      backgroundSize: `${gapX + width}px`,
+      backgroundSize: backgroundSize.current || `${gapX + width}px`,
       pointerEvents: 'none',
       backgroundRepeat: movable ? 'no-repeat' : isRepeat ? 'repeat' : 'no-repeat',
       backgroundImage: `url('${base64Url}')`,
       animation: movable ? `watermark infinite ${(moveInterval * 4) / 60}s` : 'none',
       ...style,
     });
-  }, [zIndex, gapX, width, movable, isRepeat, base64Url, moveInterval, style, height]);
+  }, [zIndex, gapX, width, movable, isRepeat, base64Url, moveInterval, style, height, backgroundSize]);
 
   // 水印节点 - 渲染
   const renderWatermark = useCallback(() => {

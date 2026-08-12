@@ -1,7 +1,7 @@
+import './style/index.js';
+
 import _Loading from './Loading';
 import { LoadingPlugin as _LoadingPlugin } from './plugin';
-
-import './style/index.js';
 
 export type { LoadingProps } from './Loading';
 export * from './type';

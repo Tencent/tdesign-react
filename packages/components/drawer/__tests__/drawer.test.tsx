@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { fireEvent, render, vi } from '@test/utils';
-import Drawer, { DrawerProps } from '../index';
+
+import Drawer from '../index';
+
+import type { DrawerProps } from '../index';
 
 function DrawerDemo(props) {
   const [visible, setVisible] = useState(false);
@@ -127,8 +130,8 @@ describe('test Drawer', () => {
     const onCancelFn = vi.fn();
     const { getByText } = render(<DrawerDemo onCancel={onCancelFn} />);
     fireEvent.click(getByText('Open'));
-    expect(onCancelFn).not.toBeCalled();
+    expect(onCancelFn).not.toHaveBeenCalled();
     fireEvent.click(getByText('取消'));
-    expect(onCancelFn).toBeCalled();
+    expect(onCancelFn).toHaveBeenCalled();
   });
 });

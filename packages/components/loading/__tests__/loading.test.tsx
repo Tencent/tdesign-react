@@ -1,5 +1,8 @@
-import { render, fireEvent } from '@test/utils';
 import React from 'react';
+import { fireEvent, render } from '@test/utils';
+
+import { ConfigContext } from '../../config-provider';
+import { defaultGlobalConfig } from '../../config-provider/ConfigContext';
 import Loading from '../Loading';
 import { LoadingPlugin as loading } from '../plugin';
 
@@ -42,12 +45,55 @@ describe('Loading 组件测试', () => {
     expect(container.querySelector('.t-size-m')).toBeNull();
   });
 
+  test('global loading config works', async () => {
+    const { container } = render(
+      <ConfigContext.Provider
+        value={{
+          globalConfig: {
+            ...defaultGlobalConfig,
+            loading: { text: '全局加载中', size: '36px', zIndex: 1234 },
+          },
+        }}
+      >
+        <Loading />
+      </ConfigContext.Provider>,
+    );
+
+    expect(container.querySelector('.t-loading__text')).toHaveTextContent('全局加载中');
+    expect(container.querySelector('.t-loading')).toHaveStyle({
+      fontSize: '36px',
+      zIndex: '1234',
+    });
+  });
+
+  test('loading props should override global loading config', async () => {
+    const { container } = render(
+      <ConfigContext.Provider
+        value={{
+          globalConfig: {
+            ...defaultGlobalConfig,
+            loading: { text: '全局加载中', size: '36px' },
+          },
+        }}
+      >
+        <Loading text="局部加载中" size="small" />
+      </ConfigContext.Provider>,
+    );
+
+    expect(container.querySelector('.t-loading__text')).toHaveTextContent('局部加载中');
+    expect(container.querySelector('.t-size-s')).toBeTruthy();
+  });
+
   test('loading plugin works', async () => {
     const { container } = render(
       <div>
         <div
           className="trigger"
-          onClick={() => loading({ attach: () => document.querySelector('#loading-attach') }) as any}
+          onClick={() =>
+            loading({
+              attach: () => document.querySelector('#loading-attach'),
+            }) as any
+          }
         >
           container to trigger loading
         </div>

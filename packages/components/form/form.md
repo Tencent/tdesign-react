@@ -30,7 +30,6 @@
 
 创建 Form 实例，用于管理所有数据状态。
 
-
 ### Form.useWatch
 
 用于直接获取 form 中字段对应的值。
@@ -42,9 +41,9 @@ const Demo = () => {
 
   return (
     <Form form={form}>
-      <Form.Item name="username">
+      <FormItem name="username">
         <Input />
-      </Form.Item>
+      </FormItem>
     </Form>
   );
 };
@@ -52,34 +51,65 @@ const Demo = () => {
 
 ## FAQ
 
-### 为什么被 FormItem 包裹的组件 value、defaultValue 没有效果？
+### 为什么被 FormItem 包裹的组件 `value`、`defaultValue` 没有效果？
 
-Form 组件设计的初衷是为了解放开发者配置大量的 `value`、`onChange` 受控属性，所以 Form.FormItem 被设计成需要拦截嵌套组件的受控属性，如需定义初始值请使用 `initialData` 属性。
+Form 的设计初衷是自动托管表单字段的 `value` 和 `onChange`，FormItem 会向包裹的第一个组件注入状态，即内部组件自身的 `defaultValue`、`value` 将被拦截，不会生效。如果需要设置初始值，应该使用 FormItem 的 `initialData`。
 
-由于 Form.FormItem 只会拦截第一层子节点的受控属性，所以如不希望 Form.FormItem 拦截受控属性希望自行管理 state 的话，可以在 Form.FormItem 下包裹一层 `div` 节点脱离 Form.FormItem 的代理，但同时也会失去 Form 组件的校验能力。
+```js
+<FormItem name="ui" label="组件库" initialData="TDesign">
+  <Input />
+</FormItem>
+```
+
+如果第一层组件不支持 `value` 属性，会导致 Form 无法接管组件的行为：
+
+```js
+// ❌ div 的 value 无意义，Form 部分 API 失效
+<FormItem name="ui" label="组件库" >
+  <div style={{ border: '1px dotted blue', padding: 5 }}>
+    <Input />
+  </div>
+</FormItem>
+```
+
+如果想要自定义排版样式，可以考虑下面的写法（类似 [#自定义表单控件](#自定义表单控件) 示例的逻辑）：
+
+```js
+// ✅ value 自动会传递给 input，Form 相关 API 正常
+const CustomInput = (props) => (
+  <div style={{ border: '1px dotted blue', padding: 5 }}>
+    <Input {...props} />
+  </div>
+);
+
+<FormItem name="ui" label="组件库" initialData="TDesign">
+  <CustomInput />
+</FormItem>
+```
 
 ### 我只想要 Form 组件的布局效果，校验能力我自己业务来实现可以吗？
 
-可以的，Form 的校验能力只跟 `name` 属性关联，不指定 Form.FormItem 的 `name` 属性是可以当成布局组件来使用的，甚至可以实现各种嵌套自定义内容的布局效果。
+可以，表单的校验和存储能力只跟 `name` 属性关联（但无论有无 `name`，第一层子节点的 `value` 和 `onChange` 目前依旧会被拦截）。
 
 ```js
-// 可以单独使用 FormItem 组件
-<Form.FormItem label="姓名">
+<FormItem label="姓名">
   <div>可以任意定制内容</div>
   <Input />
   <div>可以任意定制内容</div>
-</Form.FormItem>
+</FormItem>
 ```
 
-### getFieldsValue 返回的数据如何支持嵌套数据结构？
+- 如果仅需要展示信息或纯样式布局，更推荐使用 `Description` 组件。
+
+### `getFieldsValue` 返回的数据如何支持嵌套数据结构？
 
 将 `name` 设置成数组形式可以支持嵌套数据结构。
 
 ```js
 // ['user', 'name'] => { user: { name: '' } }
-<Form.FormItem label="姓名" name={['user', 'name']}>
+<FormItem label="姓名" name={['user', 'name']}>
   <Input />
-</Form.FormItem>
+</FormItem>
 ```
 
 ## API
@@ -101,6 +131,7 @@ labelAlign | String | right | 表单字段标签对齐方式：左对齐、右�
 labelWidth | String / Number | '100px' | 可以整体设置label标签宽度，默认为100px | N
 layout | String | vertical | 表单布局，有两种方式：纵向布局 和 行内布局。可选项：vertical/inline | N
 preventSubmitDefault | Boolean | true | 是否阻止表单提交默认事件（表单提交默认事件会刷新页面），设置为 `true` 可以避免刷新 | N
+readOnly | Boolean | undefined | 是否整个表单只读 | N
 requiredMark | Boolean | true | 是否显示必填符号（*），默认显示 | N
 requiredMarkPosition | String | left | 表单必填符号（*）显示位置。可选项：left/right | N
 resetType | String | empty | 重置表单的方式，值为 empty 表示重置表单为空，值为 initial 表示重置表单数据为初始值。可选项：empty/initial | N
@@ -110,8 +141,8 @@ showErrorMessage | Boolean | true | 校验不通过时，是否显示错误提�
 statusIcon | TNode | undefined | 校验状态图标，值为 `true` 显示默认图标，默认图标有 成功、失败、警告 等，不同的状态图标不同。`statusIcon` 值为 `false`，不显示图标。`statusIcon` 值类型为渲染函数，则可以自定义右侧状态图标。TS 类型：`boolean \| TNode<TdFormItemProps>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 submitWithWarningMessage | Boolean | false | 【讨论中】当校验结果只有告警信息时，是否触发 `submit` 提交事件 | N
 supportNumberKey | Boolean | true | 是否支持使用数字作为表单键值，在1.9.3版本后表单组件支持数字作为键值，若仍需要保留数字作为数组下标，请关闭此API或使用 FormList | N
-onReset | Function |  | TS 类型：`(context: { e?: FormResetEvent }) => void`<br/>表单重置时触发 | N
-onSubmit | Function |  | TS 类型：`(context: SubmitContext<FormData>) => void`<br/>表单提交时触发。其中 `context.validateResult` 表示校验结果，`context.firstError` 表示校验不通过的第一个规则提醒。`context.validateResult` 值为 `true` 表示校验通过；如果校验不通过，`context.validateResult` 值为校验结果列表。<br />【注意】⚠️ 默认情况，输入框按下 Enter 键会自动触发提交事件，如果希望禁用这个默认行为，可以给输入框添加  enter 事件，并在事件中设置 `e.preventDefault()`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/form/type.ts)。<br/>`interface SubmitContext<T extends Data = Data> { e?: FormSubmitEvent; validateResult: FormValidateResult<T>; firstError?: string; fields?: any }`<br/><br/>`type FormValidateResult<T> = boolean \| ValidateResultObj<T>`<br/><br/>`type ValidateResultObj<T> = { [key in keyof T]: boolean \| ValidateResultList }`<br/><br/>`type ValidateResultList = Array<AllValidateResult>`<br/><br/>`type AllValidateResult = CustomValidateObj \| ValidateResultType`<br/><br/>`interface ValidateResultType extends FormRule { result: boolean }`<br/><br/>`type ValidateResult<T> = { [key in keyof T]: boolean \| ErrorList }`<br/><br/>`type ErrorList = Array<FormRule>`<br/> | N
+onReset | Function |  | TS 类型：`(context: { e?: FormResetEvent }) => void`<br/>表单重置时触发。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+onSubmit | Function | | TS 类型：`(context: SubmitContext<FormData>) => void`<br/>表单提交时触发。其中 `context.validateResult` 表示校验结果，`context.firstError` 表示校验不通过的第一个规则提醒。`context.validateResult` 值为 `true` 表示校验通过；如果校验不通过，`context.validateResult` 值为校验结果列表。<br />【注意】⚠️ 默认情况，输入框按下 Enter 键会自动触发提交事件，如果希望禁用这个默认行为，可以给输入框添加 enter 事件，并在事件中设置 `e.preventDefault()`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/form/type.ts)。<br/>`interface SubmitContext<T extends Data = Data> { e?: FormSubmitEvent; validateResult: FormValidateResult<T>; firstError?: string; fields?: any }`<br/><br/>`type FormValidateResult<T> = boolean \| ValidateResultObj<T>`<br/><br/>`type ValidateResultObj<T> = { [key in keyof T]: boolean \| ValidateResultList }`<br/><br/>`type ValidateResultList = Array<AllValidateResult>`<br/><br/>`type AllValidateResult = CustomValidateObj \| ValidateResultType`<br/><br/>`interface ValidateResultType extends FormRule { result: boolean }`<br/><br/>`type ValidateResult<T> = { [key in keyof T]: boolean \| ErrorList }`<br/><br/>`type ErrorList = Array<FormRule>`<br/> | N
 onValuesChange | Function |  | TS 类型：`(changedValues: Record<string, unknown>, allValues: Record<string, unknown>) => void`<br/>字段值更新时触发的回调事件 | N
 
 ### FormInstanceFunctions 组件实例方法
@@ -121,9 +152,10 @@ onValuesChange | Function |  | TS 类型：`(changedValues: Record<string, unkno
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 clearValidate | `(fields?: Array<keyof FormData>)` | \- | 必需。清空校验结果。可使用 fields 指定清除部分字段的校验结果，fields 值为空则表示清除所有字段校验结果。清除邮箱校验结果示例：`clearValidate(['email'])`
-currentElement | \- | `HTMLFormElement` | 必需。获取 form dom 元素
+currentElement | \- | `HTMLFormElement` | 获取 form dom 元素
+getCurrentElement | \- | `HTMLFormElement` | 获取 form dom 元素
 getFieldValue | `(field: NamePath) ` | `unknown` | 必需。获取单个字段值
-getFieldsValue | \- | `getFieldsValue<FormData>` | 必需。获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/form/type.ts)。<br/>`interface getFieldsValue<T>{ (nameList: true): T; (nameList: any[]): Record<keyof T, unknown>;}`<br/>
+getFieldsValue | `(nameList: string[] \| boolean)` | `getFieldsValue<FormData>` | 必需。获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/form/type.ts)。<br/>`interface getFieldsValue<T>{ (nameList: true): T; (nameList: any[]): Record<keyof T, unknown>;}`<br/>
 reset | `(params?: FormResetParams<FormData>)` | \- | 必需。重置表单，表单里面没有重置按钮`<button type=\"reset\" />`时可以使用该方法，默认重置全部字段为空，该方法会触发 `reset` 事件。<br />如果表单属性 `resetType='empty'` 或者 `reset.type='empty'` 会重置为空；<br />如果表单属性 `resetType='initial'` 或者 `reset.type='initial'` 会重置为表单初始值。<br />`reset.fields` 用于设置具体重置哪些字段，示例：`reset({ type: 'initial', fields: ['name', 'age'] })`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/form/type.ts)。<br/>`interface FormResetParams<FormData> { type?: 'initial' \| 'empty'; fields?: Array<keyof FormData> }`<br/>
 setFields | `(fields: FieldData[])` | \- | 必需。设置多组字段状态。TS 类型：`(fields: FieldData[]) => void` `interface FieldData { name: NamePath; value?: unknown, status?: string, validateMessage?: { type?: string, message?: string } }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/form/type.ts)
 setFieldsValue | `(field: Data)` | \- | 必需。设置表单字段值
@@ -146,7 +178,7 @@ initialData | String / Number / Object / Array | - | 表单初始数据，重置
 label | TNode | '' | 字段标签名称。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 labelAlign | String | - | 表单字段标签对齐方式：左对齐、右对齐、顶部对齐。默认使用 Form 的对齐方式，优先级高于 Form.labelAlign。可选项：left/right/top | N
 labelWidth | String / Number | - | 可以整体设置标签宽度，优先级高于 Form.labelWidth | N
-name | String | - | 表单字段名称 | N
+name | String / Number / Array | - | 表单字段名称。TS 类型：`NamePath` `type NamePath = string \| number \| Array<string \| number>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/form/type.ts) | N
 requiredMark | Boolean | undefined | 是否显示必填符号（*），优先级高于 Form.requiredMark | N
 rules | Array | - | 表单字段校验规则。TS 类型：`Array<FormRule>` | N
 shouldUpdate | Boolean / Function | false | TS 类型：`boolean \| ((prevValue, curValue) => boolean)` | N
@@ -164,7 +196,7 @@ valueFormat | Function | - | 当用户交互产生数据变化时触发，用于
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-children | Function | - | 渲染函数。TS 类型：`(fields: FormListField[], operation: FormListFieldOperation) => React.ReactNode` `type FormListField = { key: number; name: number; isListField: boolean }` `type FormListFieldOperation = { add: (defaultValue?: any, insertIndex?: number) => void, remove: (index: number \| number[]) => void, move: (from: number, to: number) => void  }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/form/type.ts) | N
+children | Function | - | 渲染函数。TS 类型：`(fields: FormListField[], operation: FormListFieldOperation) => React.ReactNode` `type FormListField = { key: number; name: number; isListField: boolean }` `type FormListFieldOperation = { add: (initialData?: any, insertIndex?: number) => void, remove: (index: number \| number[]) => void, move: (from: number, to: number) => void  }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/form/type.ts) | N
 initialData | Array | - | 设置子元素默认值，如果与 FormItem 的 initialData 冲突则以 FormItem 为准。TS 类型：`Array<any>` | N
 name | String / Number / Array | - | 表单字段名称。TS 类型：`NamePath` | N
 rules | Object / Array | - | 表单字段校验规则。TS 类型：`{ [field in keyof FormData]: Array<FormRule> } \| Array<FormRule>` | N
@@ -183,7 +215,7 @@ max | Number / Boolean | - | 内置校验方法，校验值最大长度，如：
 message | String | - | 校验未通过时呈现的错误信息，值为空则不显示 | N
 min | Number / Boolean | - | 内置校验方法，校验值最小长度，如：min: 10 表示值最多不能少于 10 个字符，中文表示 2 个字符，英文为 1 个字符。示例：`{ min: 10, message: '内容长度不够' }`。<br />如果希望字母和中文都是同样的长度，示例：`{ validator: (val) => val.length >= 10, message: '内容文本长度至少为 10 个字' }`。<br />如果数据类型数字（Number），则自动变为数字大小的比对 | N
 number | Boolean | - | 内置校验方法，校验值是否为数字（1.2 、 1e5  都算数字），示例：`{ number: true, message: '请输入数字' }` | N
-pattern | Object | - | 内置校验方法，校验值是否符合正则表达式匹配结果，示例：`{ pattern: /@qq.com/, message: '请输入 QQ 邮箱' }`。TS 类型：`RegExp` | N
+pattern | String / Object | - | 内置校验方法，校验值是否符合正则表达式匹配结果，示例：`{ pattern: /@qq.com/, message: '请输入 QQ 邮箱' }`。TS 类型：`RegExp \| string` | N
 required | Boolean | - | 内置校验方法，校验值是否已经填写。该值为 true，默认显示必填标记，可通过设置 `requiredMark: false` 隐藏必填标记 | N
 telnumber | Boolean | - | 内置校验方法，校验值是否为手机号码，校验正则为 `/^1[3-9]\d{9}$/`，示例：`{ telnumber: true, message: '请输入正确的手机号码' }` | N
 trigger | String | change | 校验触发方式。TS 类型：`ValidateTriggerType` | N

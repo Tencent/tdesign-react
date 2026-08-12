@@ -3,7 +3,7 @@
 ## API
 ### Menu Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
@@ -23,7 +23,7 @@ onExpand | Function |  | TS 类型：`(value: Array<MenuValue>) => void`<br/>展
 
 ### HeadMenu Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
@@ -40,7 +40,7 @@ onExpand | Function |  | TS 类型：`(value: Array<MenuValue>) => void`<br/>展
 
 ### Submenu Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
@@ -54,7 +54,7 @@ value | String / Number | - | 菜单项唯一标识。TS 类型：`MenuValue` | 
 
 ### MenuItem Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
@@ -70,7 +70,7 @@ onClick | Function |  | TS 类型：`(context: { e: MouseEvent, value: MenuValue
 
 ### MenuGroup Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N

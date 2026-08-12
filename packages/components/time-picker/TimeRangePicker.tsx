@@ -1,25 +1,25 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-
-import { TimeIcon as TdTimeIcon } from 'tdesign-icons-react';
 import { isArray } from 'lodash-es';
-import { formatInputValue, validateInputValue } from '@tdesign/common-js/time-picker/utils';
+import { TimeIcon as TdTimeIcon } from 'tdesign-icons-react';
 import { TIME_PICKER_EMPTY } from '@tdesign/common-js/time-picker/const';
+import { formatInputValue, validateInputValue } from '@tdesign/common-js/time-picker/utils';
+
 import noop from '../_util/noop';
-import useControlled from '../hooks/useControlled';
 import useConfig from '../hooks/useConfig';
+import useControlled from '../hooks/useControlled';
+import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { RangeInputPopup } from '../range-input';
-import type { RangeInputPopupProps, RangeInputPosition } from '../range-input';
+import { timeRangePickerDefaultProps } from './defaultProps';
+import { useTimePickerTextConfig } from './hooks/useTimePickerTextConfig';
 import TimePickerPanel from './panel/TimePickerPanel';
 
-import { useTimePickerTextConfig } from './hooks/useTimePickerTextConfig';
-
-import { TdTimeRangePickerProps, TimeRangeValue, TimeRangePickerPartial } from './type';
-import { StyledProps } from '../common';
-import { timeRangePickerDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
+import type { FC } from 'react';
+import type { StyledProps } from '../common';
+import type { RangeInputPopupProps, RangeInputPosition } from '../range-input';
+import type { TdTimeRangePickerProps, TimeRangePickerPartial, TimeRangeValue } from './type';
 
 export interface TimeRangePickerProps extends TdTimeRangePickerProps, StyledProps {}
 
@@ -157,7 +157,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
 
   useEffect(() => {
     // to fix the effect trigger before input blur
-    setCurrentValue(isPanelShowed ? value ?? TIME_PICKER_EMPTY : TIME_PICKER_EMPTY);
+    setCurrentValue(isPanelShowed ? (value ?? TIME_PICKER_EMPTY) : TIME_PICKER_EMPTY);
     if (!isPanelShowed) setCurrentPanelIdx(undefined);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPanelShowed]);
@@ -177,20 +177,20 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
           ...props.popupProps,
         }}
         onInputChange={handleInputChange}
-        inputValue={isPanelShowed ? currentValue : value ?? TIME_PICKER_EMPTY}
+        inputValue={isPanelShowed ? currentValue : (value ?? TIME_PICKER_EMPTY)}
         rangeInputProps={{
           size,
           borderless,
           clearable,
           className: inputClasses,
-          value: isPanelShowed ? currentValue : value ?? undefined,
+          value: isPanelShowed ? currentValue : (value ?? undefined),
           placeholder,
           suffixIcon: <TimeIcon />,
           onClear: handleClear,
           onClick: handleClick,
           onFocus: handleFocus,
           onBlur: handleInputBlur,
-          readonly: !allowInput,
+          readOnly: !allowInput,
           activeIndex: currentPanelIdx,
           label,
           ...props.rangeInputProps,

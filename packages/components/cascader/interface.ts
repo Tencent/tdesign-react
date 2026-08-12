@@ -1,28 +1,27 @@
-import TreeStore from '@tdesign/common-js/tree-v1/tree-store';
-import TreeNode from '@tdesign/common-js/tree-v1/tree-node';
-import { TreeNodeModel, TreeNodeValue } from '@tdesign/common-js/tree-v1/types';
-import { TdSelectInputProps } from '../select-input/type';
-import { TdCascaderProps, CascaderValue, CascaderChangeSource } from './type';
+import type TreeNode from '@tdesign/common-js/tree-v1/tree-node';
+import type TreeStore from '@tdesign/common-js/tree-v1/tree-store';
+import type { TreeNodeModel, TreeNodeValue } from '@tdesign/common-js/tree-v1/types';
+import type { TdSelectInputProps } from '../select-input/type';
+import type { CascaderChangeSource, CascaderValue, TdCascaderProps } from './type';
 
 export * from './type';
-export interface CascaderContextType
-  extends Pick<
-    TdCascaderProps,
-    | 'size'
-    | 'disabled'
-    | 'checkStrictly'
-    | 'lazy'
-    | 'multiple'
-    | 'filterable'
-    | 'filter'
-    | 'clearable'
-    | 'checkProps'
-    | 'showAllLevels'
-    | 'max'
-    | 'value'
-    | 'minCollapsedNum'
-    | 'valueType'
-  > {
+export interface CascaderContextType extends Pick<
+  TdCascaderProps,
+  | 'size'
+  | 'disabled'
+  | 'checkStrictly'
+  | 'lazy'
+  | 'multiple'
+  | 'filterable'
+  | 'filter'
+  | 'clearable'
+  | 'checkProps'
+  | 'showAllLevels'
+  | 'max'
+  | 'value'
+  | 'minCollapsedNum'
+  | 'valueType'
+> {
   treeStore: TreeStore;
   setValue: (val: CascaderValue, source: CascaderChangeSource, node?: TreeNodeModel) => void;
   visible: boolean;
@@ -32,12 +31,14 @@ export interface CascaderContextType
   inputVal: TdSelectInputProps['inputValue'];
   setInputVal: (val: TdSelectInputProps['inputValue']) => void;
   setExpend: (val: TreeNodeValue[]) => void;
+  // 支持 filterable 与 checkStrictly 及valueMode = parentFirst 或 all 配合使用，展示非叶子节点的效果
+  isParentFilterable: boolean;
 }
 
+export type { TdSelectInputProps } from '../select-input/type';
+export type { TreeNodeModel } from '../tree';
+export type { TreeOptionData } from '@tdesign/common-js/common';
 export { TreeNode } from '@tdesign/common-js/tree-v1/tree-node';
 export type { TreeNodeValue } from '@tdesign/common-js/tree-v1/types';
-export type { TreeOptionData } from '@tdesign/common-js/common';
-export type { TreeNodeModel } from '../tree';
-export type { TdSelectInputProps } from '../select-input/type';
 
 export const EVENT_NAME_WITH_KEBAB = ['remove', 'blur', 'focus'];

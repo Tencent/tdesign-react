@@ -7,7 +7,7 @@
 name | type | default | description | required
 -- | -- | -- | -- | --
 className | String | - | className of component | N
-style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
+style | Object | - | CSS(Cascading Style Sheets)，Typescript: `React.CSSProperties` | N
 direction | String | - | options: vertical/horizontal | N
 
 
@@ -16,7 +16,7 @@ direction | String | - | options: vertical/horizontal | N
 name | type | default | description | required
 -- | -- | -- | -- | --
 className | String | - | className of component | N
-style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
+style | Object | - | CSS(Cascading Style Sheets)，Typescript: `React.CSSProperties` | N
 height | String | - | \- | N
 
 
@@ -25,7 +25,7 @@ height | String | - | \- | N
 name | type | default | description | required
 -- | -- | -- | -- | --
 className | String | - | className of component | N
-style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
+style | Object | - | CSS(Cascading Style Sheets)，Typescript: `React.CSSProperties` | N
 width | String | - | \- | N
 
 
@@ -34,9 +34,9 @@ width | String | - | \- | N
 name | type | default | description | required
 -- | -- | -- | -- | --
 className | String | - | className of component | N
-style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
-children | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-content | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+style | Object | - | CSS(Cascading Style Sheets)，Typescript: `React.CSSProperties` | N
+children | TNode | - | Typescript: `string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+content | TNode | - | Typescript: `string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 
 
 ### Footer Props
@@ -44,5 +44,5 @@ content | TNode | - | Typescript：`string \| TNode`。[see more ts definition](
 name | type | default | description | required
 -- | -- | -- | -- | --
 className | String | - | className of component | N
-style | Object | - | CSS(Cascading Style Sheets)，Typescript：`React.CSSProperties` | N
+style | Object | - | CSS(Cascading Style Sheets)，Typescript: `React.CSSProperties` | N
 height | String | - | \- | N

@@ -1,10 +1,12 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import { StyledProps } from '../common';
+
 import useConfig from '../hooks/useConfig';
-import { TdBadgeProps } from './type';
-import { badgeDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { badgeDefaultProps } from './defaultProps';
+
+import type { StyledProps } from '../common';
+import type { TdBadgeProps } from './type';
 
 export interface BadgeProps extends TdBadgeProps, StyledProps {}
 

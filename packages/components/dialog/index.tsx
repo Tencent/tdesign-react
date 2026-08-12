@@ -1,8 +1,8 @@
+import './style/index.js';
+
 import _Dialog from './Dialog';
 import _DialogCard from './DialogCard';
 import { DialogPlugin as _DialogPlugin } from './plugin';
-
-import './style/index.js';
 
 export type { DialogProps } from './Dialog';
 export * from './type';

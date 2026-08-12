@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { render, fireEvent, userEvent, mockTimeout, vi } from '@test/utils';
-import ColorPickerPanel from '../ColorPickerPanel';
+import { fireEvent, mockTimeout, render, userEvent, vi } from '@test/utils';
+
 import ColorPicker from '../ColorPicker';
+import ColorPickerPanel from '../ColorPickerPanel';
 
 describe('ColorPicker 组件测试', () => {
   const user = userEvent.setup();
@@ -134,6 +135,6 @@ describe('ColorPickerPanel 组件测试', () => {
     fireEvent.click(container.querySelector('.t-icon-delete'));
     expect(container.querySelector('.t-icon-delete')).toBeNull();
     expect(container.querySelector('.t-is-active')).toBeNull();
-    expect(onRecentColorsChange).toBeCalled();
+    expect(onRecentColorsChange).toHaveBeenCalled();
   });
 });

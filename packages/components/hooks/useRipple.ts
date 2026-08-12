@@ -1,10 +1,14 @@
-import { useEffect, useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import setStyle from '@tdesign/common-js/utils/setStyle';
-import useConfig from './useConfig';
-import useAnimation from './useAnimation';
+
 import { canUseDocument } from '../_util/dom';
+import useAnimation from './useAnimation';
+import useConfig from './useConfig';
 
 const period = 200;
+const elementTransitionPeriod = 200;
+const rippleExtraWidth = 20;
+const rippleSkew = 'skewX(-8deg)';
 const noneRippleBg = 'rgba(0, 0, 0, 0)';
 const defaultRippleColor = 'rgba(0, 0, 0, 0.35)';
 
@@ -65,16 +69,14 @@ export default function useRipple(el: HTMLElement, fixedRippleColor?: string): v
 
       const elBorder = parseInt(elStyle.borderWidth, 10);
       const border = elBorder > 0 ? elBorder : 0;
-      const width = el.offsetWidth;
-      const height = el.offsetHeight;
 
       if (rippleContainer.parentNode === null) {
         setStyle(rippleContainer, {
           position: 'absolute',
           left: `${0 - border}px`,
           top: `${0 - border}px`,
-          width: `${width}px`,
-          height: `${height}px`,
+          width: `calc(100% + ${border * 2}px)`,
+          height: `calc(100% + ${border * 2}px)`,
           borderRadius: elStyle.borderRadius,
           pointerEvents: 'none',
           overflow: 'hidden',
@@ -89,11 +91,12 @@ export default function useRipple(el: HTMLElement, fixedRippleColor?: string): v
       setStyle(ripple, {
         marginTop: '0',
         marginLeft: '0',
-        right: `${width}px`,
-        width: `${width + 20}px`,
+        right: '100%',
+        // 使用百分比尺寸与位移，让 ripple 在 loading icon 插入导致按钮变宽时仍覆盖完整按钮
+        width: `calc(100% + ${rippleExtraWidth}px)`,
         height: '100%',
         transition: `transform ${period}ms cubic-bezier(.38, 0, .24, 1), background ${period * 2}ms linear`,
-        transform: 'skewX(-8deg)',
+        transform: rippleSkew,
         pointerEvents: 'none',
         position: 'absolute',
         zIndex: 0,
@@ -120,22 +123,52 @@ export default function useRipple(el: HTMLElement, fixedRippleColor?: string): v
       rippleContainer.insertBefore(ripple, rippleContainer.firstChild);
 
       setTimeout(() => {
-        ripple.style.transform = `translateX(${width}px)`;
+        ripple.style.transform = `translateX(calc(100% - ${rippleExtraWidth}px)) ${rippleSkew}`;
       }, 0);
       // 清除动画节点 clear ripple container
+      let cleared = false;
+      let classChangeObserver: MutationObserver | null = null;
       const handleClearRipple = () => {
+        if (cleared) return;
+        cleared = true;
+
         ripple.style.backgroundColor = noneRippleBg;
 
-        if (!el) return;
+        if (classChangeObserver) {
+          classChangeObserver.disconnect();
+          classChangeObserver = null;
+        }
 
-        el.removeEventListener('pointerup', handleClearRipple, false);
-        el.removeEventListener('pointerleave', handleClearRipple, false);
+        if (el) {
+          el.removeEventListener('pointerup', handleClearRipple, false);
+          el.removeEventListener('pointerleave', handleClearRipple, false);
+        }
 
-        setTimeout(() => {
-          ripple.remove();
-          if (rippleContainer.children.length === 0) rippleContainer.remove();
-        }, period * 2 + 100);
+        setTimeout(
+          () => {
+            ripple.remove();
+            if (rippleContainer.children.length === 0) rippleContainer.remove();
+          },
+          period * 2 + 100,
+        );
       };
+
+      if (typeof MutationObserver !== 'undefined') {
+        classChangeObserver = new MutationObserver(() => {
+          if (!el || !(el instanceof Element)) return;
+          const cls = el.classList;
+          if (
+            cls.contains(`${classPrefix}-is-loading`) ||
+            cls.contains(`${classPrefix}-is-disabled`) ||
+            cls.contains(`${classPrefix}-is-active`) ||
+            cls.contains(`${classPrefix}-is-checked`)
+          ) {
+            ripple.style.transition = `transform ${period}ms cubic-bezier(.38, 0, .24, 1), background ${elementTransitionPeriod}ms linear`;
+            handleClearRipple();
+          }
+        });
+        classChangeObserver.observe(el, { attributes: true, attributeFilter: ['class'] });
+      }
 
       el.addEventListener('pointerup', handleClearRipple, false);
       el.addEventListener('pointerleave', handleClearRipple, false);

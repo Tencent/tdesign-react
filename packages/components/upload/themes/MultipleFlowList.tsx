@@ -1,39 +1,44 @@
-import React, { MouseEvent, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { isFunction, isObject } from 'lodash-es';
 import {
   BrowseIcon as TdBrowseIcon,
-  DeleteIcon as TdDeleteIcon,
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
+  DeleteIcon as TdDeleteIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
-  TimeFilledIcon as TdTimeFilledIcon,
   FileExcelIcon as TdFileExcelIcon,
-  FilePdfIcon as TdFilePdfIcon,
-  FileWordIcon as TdFileWordIcon,
-  FilePowerpointIcon as TdFilePowerpointIcon,
   FileIcon as TdFileIcon,
+  FilePdfIcon as TdFilePdfIcon,
+  FilePowerpointIcon as TdFilePowerpointIcon,
+  FileWordIcon as TdFileWordIcon,
+  TimeFilledIcon as TdTimeFilledIcon,
   VideoIcon as TdVideoIcon,
 } from 'tdesign-icons-react';
 import {
   abridgeName,
-  returnFileSize,
-  IMAGE_REGEXP,
-  FILE_PDF_REGEXP,
   FILE_EXCEL_REGEXP,
-  FILE_WORD_REGEXP,
+  FILE_PDF_REGEXP,
   FILE_PPT_REGEXP,
+  FILE_WORD_REGEXP,
+  IMAGE_REGEXP,
+  returnFileSize,
   VIDEO_REGEXP,
 } from '@tdesign/common-js/upload/utils';
-import useGlobalIcon from '../../hooks/useGlobalIcon';
-import ImageViewer from '../../image-viewer';
-import { CommonDisplayFileProps } from '../interface';
-import TButton, { ButtonProps } from '../../button';
-import { UploadFile, TdUploadProps } from '../type';
-import useDrag, { UploadDragEvents } from '../hooks/useDrag';
-import TLoading from '../../loading';
-import Link from '../../link';
+
 import parseTNode from '../../_util/parseTNode';
+import TButton from '../../button';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
 import Image from '../../image';
+import ImageViewer from '../../image-viewer';
+import Link from '../../link';
+import TLoading from '../../loading';
+import useDrag from '../hooks/useDrag';
+
+import type { MouseEvent } from 'react';
+import type { ButtonProps } from '../../button';
+import type { UploadDragEvents } from '../hooks/useDrag';
+import type { CommonDisplayFileProps } from '../interface';
+import type { TdUploadProps, UploadFile } from '../type';
 
 export interface ImageFlowListProps extends CommonDisplayFileProps {
   uploadFiles?: (toFiles?: UploadFile[]) => void;

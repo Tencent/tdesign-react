@@ -1,8 +1,8 @@
-import _Calendar from './Calendar';
-
 import './style/index.js';
 
-export type { CalendarProps, CalendarMethods } from './Calendar';
+import _Calendar from './Calendar';
+
+export type { CalendarMethods, CalendarProps } from './Calendar';
 export * from './type';
 
 export const Calendar = _Calendar;

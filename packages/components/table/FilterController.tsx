@@ -1,16 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { FilterIcon as TdFilterIcon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import { isEmpty } from 'lodash-es';
+import { FilterIcon as TdFilterIcon } from 'tdesign-icons-react';
 import log from '@tdesign/common-js/log/index';
+
 import { parseContentTNode } from '../_util/parseTNode';
 import TButton from '../button';
 import Checkbox from '../checkbox';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import Input from '../input';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import Popup, { type PopupProps, type PopupVisibleChangeContext } from '../popup';
+import Popup from '../popup';
 import Radio from '../radio';
+
+import type { PopupProps, PopupVisibleChangeContext } from '../popup';
 import type { FilterValue, PrimaryTableCol, TableRowData, TdPrimaryTableProps } from './type';
 
 const CheckboxGroup = Checkbox.Group;

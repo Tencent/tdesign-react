@@ -1,20 +1,24 @@
-import React, { FC, MouseEvent, useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import classNames from 'classnames';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
 import { abridgeName, getFileSizeText } from '@tdesign/common-js/upload/utils';
-import { TdUploadProps, UploadFile } from '../type';
-import Link from '../../link';
-import { CommonDisplayFileProps } from '../interface';
-import useCommonClassName from '../../hooks/useCommonClassName';
-import TLoading from '../../loading';
-import useDrag, { UploadDragEvents } from '../hooks/useDrag';
-import useGlobalIcon from '../../hooks/useGlobalIcon';
-import ImageViewer from '../../image-viewer';
+
 import { parseContentTNode } from '../../_util/parseTNode';
+import useCommonClassName from '../../hooks/useCommonClassName';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
 import Image from '../../image';
+import ImageViewer from '../../image-viewer';
+import Link from '../../link';
+import TLoading from '../../loading';
+import useDrag from '../hooks/useDrag';
+
+import type { FC, MouseEvent } from 'react';
+import type { UploadDragEvents } from '../hooks/useDrag';
+import type { CommonDisplayFileProps } from '../interface';
+import type { TdUploadProps, UploadFile } from '../type';
 
 export interface DraggerProps extends CommonDisplayFileProps {
   trigger?: TdUploadProps['trigger'];
@@ -40,13 +44,16 @@ const DraggerFile: FC<DraggerProps> = (props) => {
     ErrorCircleFilledIcon: TdErrorCircleFilledIcon,
   });
 
+  const firstFile = displayFiles[0];
+  const firstFileStatus = firstFile?.status;
+
   const classes = useMemo(
     () => [
       `${uploadPrefix}__dragger`,
-      { [`${uploadPrefix}__dragger-center`]: !displayFiles[0] },
-      { [`${uploadPrefix}__dragger-error`]: displayFiles[0]?.status === 'fail' },
+      { [`${uploadPrefix}__dragger-center`]: !firstFile },
+      { [`${uploadPrefix}__dragger-error`]: firstFileStatus === 'fail' },
     ],
-    [displayFiles, uploadPrefix],
+    [firstFile, firstFileStatus, uploadPrefix],
   );
 
   const renderImage = () => {
@@ -56,7 +63,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
       <div className={`${uploadPrefix}__dragger-img-wrap`}>
         <ImageViewer
           images={[url]}
-          trigger={({ open }) => <Image src={url || file.raw} onClick={open} />}
+          trigger={({ open }) => <Image src={url || file.raw} onClick={() => open()} />}
           {...props.imageViewerProps}
         ></ImageViewer>
       </div>
@@ -134,7 +141,7 @@ const DraggerFile: FC<DraggerProps> = (props) => {
                 theme="primary"
                 hover="color"
                 disabled={disabled}
-                className={`${uploadPrefix}__dragger-progress-reupload`}
+                className={`${uploadPrefix}__dragger-progress-cancel`}
                 onClick={props.triggerUpload}
               >
                 {locale.triggerUploadText.reupload}

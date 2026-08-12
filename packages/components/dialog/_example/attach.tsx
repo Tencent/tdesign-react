@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { Dialog, Button } from 'tdesign-react';
+import React, { useRef, useState } from 'react';
+import { Button, Dialog } from 'tdesign-react';
 
 const buttonStyle = { marginRight: 16 };
 

@@ -1,17 +1,18 @@
-import React, { ReactElement, useRef, forwardRef, useState } from 'react';
+import React, { forwardRef, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { CheckIcon, CopyIcon } from 'tdesign-icons-react';
 
-import Ellipsis from './ellipsis/Ellipsis';
-import useConfig from '../hooks/useConfig';
-import useEllipsis from './ellipsis/useEllipsis';
-import Button from '../button/Button';
-import Tooltip from '../tooltip';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { textDefaultProps } from './defaultProps';
 import copyText from '../_util/copyText';
+import Button from '../button/Button';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+import Tooltip from '../tooltip';
+import { textDefaultProps } from './defaultProps';
+import Ellipsis from './ellipsis/Ellipsis';
+import useEllipsis from './ellipsis/useEllipsis';
 
+import type { ReactElement } from 'react';
 import type { StyledProps } from '../common';
 import type { TdTextProps } from './type';
 
@@ -72,7 +73,7 @@ const Text = forwardRef<HTMLSpanElement, TypographyTextProps>((originalProps, re
   const copyProps =
     typeof copyable === 'boolean'
       ? {
-          text: children.toString(),
+          text: children?.toString(),
           onCopy: Function.prototype,
           tooltipProps: isCopied
             ? {
@@ -81,8 +82,8 @@ const Text = forwardRef<HTMLSpanElement, TypographyTextProps>((originalProps, re
             : null,
         }
       : {
-          text: copyable?.text || children.toString(),
-          onCopy: copyable?.onCopy?.(),
+          text: copyable?.text || children?.toString(),
+          onCopy: copyable?.onCopy,
           tooltipProps: {
             ...copyable?.tooltipProps,
             content: isCopied ? copiedText : copyable?.tooltipProps?.content,
@@ -102,7 +103,13 @@ const Text = forwardRef<HTMLSpanElement, TypographyTextProps>((originalProps, re
   const renderContent = (withChildren: boolean) => {
     const { tooltipProps } = copyProps;
     const wrapWithTooltip = (wrapContent: React.ReactNode) =>
-      tooltipProps ? <Tooltip {...tooltipProps}>{wrapContent}</Tooltip> : wrapContent;
+      tooltipProps ? (
+        <Tooltip hideEmptyPopup {...tooltipProps}>
+          {wrapContent}
+        </Tooltip>
+      ) : (
+        wrapContent
+      );
 
     const getSuffix = (): ReactElement => {
       if (typeof copyProps?.suffix === 'function') {

@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
-import { ScrollToElementParams, StyledProps } from '../common';
-import { TableTreeDataMap } from './hooks/tree-store';
-import { UseTreeDataReturnType } from './hooks/useTreeData';
-import {
+import type { ReactNode } from 'react';
+import type { TableTreeDataMap } from '@tdesign/common-js/table/tree-store';
+import type { ScrollToElementParams, StyledProps } from '../common';
+import type { UseTreeDataReturnType } from './hooks/useTreeData';
+import type {
   BaseTableCol,
   PrimaryTableRowValidateContext,
   PrimaryTableValidateContext,
@@ -35,9 +35,9 @@ export interface BaseTableProps<T extends TableRowData = TableRowData> extends T
 export type SimpleTableProps<T extends TableRowData = TableRowData> = BaseTableProps<T>;
 
 export interface PrimaryTableProps<T extends TableRowData = TableRowData> extends TdPrimaryTableProps<T>, StyledProps {}
+
 export interface EnhancedTableProps<T extends TableRowData = TableRowData>
-  extends TdEnhancedTableProps<T>,
-    StyledProps {}
+  extends TdEnhancedTableProps<T>, StyledProps {}
 export type TableProps<T extends TableRowData = TableRowData> = PrimaryTableProps<T>;
 
 export interface BaseTableRef {
@@ -45,6 +45,7 @@ export interface BaseTableRef {
   tableHtmlElement: HTMLTableElement;
   tableContentElement: HTMLDivElement;
   affixHeaderElement: HTMLDivElement;
+  onAffixHeaderMount: (nodeOrCallback: HTMLDivElement | ((node: HTMLDivElement) => void)) => HTMLDivElement | void;
   refreshTable: () => void;
   scrollToElement: (params: ScrollToElementParams) => void;
   scrollColumnIntoView: (columnIndex: string) => void;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from '@test/utils';
+
 import Divider from '../../divider';
 import Space from '../index';
 import { SizeMap } from '../Space';

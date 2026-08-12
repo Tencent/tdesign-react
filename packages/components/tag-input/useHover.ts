@@ -1,5 +1,7 @@
-import { useState, MouseEvent } from 'react';
-import { TdTagInputProps } from './type';
+import { useState } from 'react';
+
+import type { MouseEvent } from 'react';
+import type { TdTagInputProps } from './type';
 
 export interface UseHoverParams {
   readonly: boolean;
@@ -9,17 +11,18 @@ export interface UseHoverParams {
 }
 
 export default function useHover(props: TdTagInputProps) {
-  const { readonly, disabled, onMouseenter, onMouseleave } = props;
+  const { disabled, onMouseenter, onMouseleave } = props;
+  const readOnly = props.readOnly || props.readonly;
   const [isHover, setIsHover] = useState<boolean>(false);
 
   const addHover = (context: Parameters<UseHoverParams['onMouseenter']>[0]) => {
-    if (readonly || disabled) return;
+    if (readOnly || disabled) return;
     setIsHover(true);
     onMouseenter?.(context);
   };
 
   const cancelHover = (context: Parameters<UseHoverParams['onMouseleave']>[0]) => {
-    if (readonly || disabled) return;
+    if (readOnly || disabled) return;
     setIsHover(false);
     onMouseleave?.(context);
   };

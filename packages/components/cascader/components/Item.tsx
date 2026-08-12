@@ -1,19 +1,18 @@
 import React, { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
+import { isFunction } from 'lodash-es';
 import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
 
-import { isFunction } from 'lodash-es';
-import TLoading from '../../loading';
 import Checkbox from '../../checkbox';
-
-import useConfig from '../../hooks/useConfig';
-import useGlobalIcon from '../../hooks/useGlobalIcon';
-import useDomRefCallback from '../../hooks/useDomRefCallback';
 import useCommonClassName from '../../hooks/useCommonClassName';
-
-import { getFullPathLabel } from '../core/helper';
+import useConfig from '../../hooks/useConfig';
+import useDomRefCallback from '../../hooks/useDomRefCallback';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
+import TLoading from '../../loading';
 import { getCascaderItemClass, getCascaderItemIconClass } from '../core/className';
-import { CascaderContextType, TreeNodeValue, TreeNode } from '../interface';
+import { getFullPathLabel } from '../core/helper';
+
+import type { CascaderContextType, TreeNode, TreeNodeValue } from '../interface';
 
 const Item = forwardRef(
   (
@@ -90,9 +89,14 @@ const Item = forwardRef(
     const RenderLabelContent = (node: TreeNode, cascaderContext: CascaderContextType) => {
       const label = RenderLabelInner(node, cascaderContext);
 
+      const getTitle = () => {
+        const title = cascaderContext.inputVal ? getFullPathLabel(node) : node.label;
+        return typeof title !== 'object' ? title : undefined;
+      };
+
       const labelCont = (
         <span
-          title={cascaderContext.inputVal ? getFullPathLabel(node) : node.label}
+          title={getTitle()}
           className={classNames(`${COMPONENT_NAME}-label`, `${COMPONENT_NAME}-label--ellipsis`)}
           role="label"
         >
@@ -104,7 +108,7 @@ const Item = forwardRef(
     };
 
     const RenderCheckBox = (node: TreeNode, cascaderContext: CascaderContextType) => {
-      const { checkProps, value, max, inputVal } = cascaderContext;
+      const { checkProps, value, max, inputVal, isParentFilterable } = cascaderContext;
       const label = RenderLabelInner(node, cascaderContext);
       return (
         <Checkbox
@@ -112,7 +116,7 @@ const Item = forwardRef(
           indeterminate={node.indeterminate}
           disabled={node.isDisabled() || (value && (value as TreeNodeValue[]).length >= max && max !== 0)}
           name={String(node.value)}
-          stopLabelTrigger={!!node.children}
+          stopLabelTrigger={!!node.children && !isParentFilterable}
           title={inputVal ? getFullPathLabel(node) : node.label}
           onChange={() => {
             onChange(node);
@@ -146,8 +150,8 @@ const Item = forwardRef(
         }}
       >
         {multiple ? RenderCheckBox(node, cascaderContext) : RenderLabelContent(node, cascaderContext)}
-        {!cascaderContext.inputVal &&
-          node.children &&
+        {node.children &&
+          !cascaderContext.isParentFilterable &&
           (node.loading ? (
             <TLoading className={iconClass} loading={true} size="small" />
           ) : (

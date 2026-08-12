@@ -1,25 +1,37 @@
 import React, { forwardRef, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
+import { isArray, isFunction } from 'lodash-es';
 import {
-  parseToDayjs,
-  formatTime,
   formatDate,
-  isValidDate,
+  formatTime,
   getDefaultFormat,
   initYearMonthTime,
+  isValidDate,
+  parseToDayjs,
 } from '@tdesign/common-js/date-picker/format';
-import { subtractMonth, addMonth, extractTimeObj } from '@tdesign/common-js/date-picker/utils';
+import { addMonth, extractTimeObj, getRangeBounds, subtractMonth } from '@tdesign/common-js/date-picker/utils';
 import log from '@tdesign/common-js/log/index';
+
 import useConfig from '../hooks/useConfig';
-import { StyledProps } from '../common';
-import { TdDateRangePickerProps, PresetDate } from './type';
-import { RangeInputPopup } from '../range-input';
-import RangePanel from './panel/RangePanel';
-import useRange from './hooks/useRange';
-import { dateRangePickerDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
-import { dateCorrection } from './utils';
+import useLatest from '../hooks/useLatest';
+import useUpdateEffect from '../hooks/useUpdateEffect';
+import { RangeInputPopup } from '../range-input';
+import { dateRangePickerDefaultProps } from './defaultProps';
+import useRange from './hooks/useRange';
+import RangePanel from './panel/RangePanel';
+import { dateCorrection, triggerMap } from './utils';
+
+import type { StyledProps } from '../common';
+import type {
+  DatePickerMonthChangeTrigger,
+  DatePickerYearChangeTrigger,
+  DateRangeValue,
+  PickerDateRange,
+  PresetDate,
+  TdDateRangePickerProps,
+} from './type';
 
 export interface DateRangePickerProps extends TdDateRangePickerProps, StyledProps {}
 
@@ -41,8 +53,12 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     presetsPlacement,
     panelPreselection,
     cancelRangeSelectLimit,
+    range,
+    panelActiveDate,
+    cell,
     onPick,
     disableTime,
+    needConfirm,
   } = props;
 
   const {
@@ -68,6 +84,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     setIsFirstValueSelected,
     cacheValue,
     setCacheValue,
+    isSwitchTimeMode,
   } = useRange(props);
 
   const { format, timeFormat, valueType } = getDefaultFormat({
@@ -80,12 +97,52 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
   // 记录面板是否选中过
   const [isSelected, setIsSelected] = useState(false);
 
+  const handleSyncPanelValue = (value: DateRangeValue) => {
+    // 同年同月时，确保右侧面板月份比左侧大 避免两侧面板月份一致
+    const nextMonth = value.map((v: string) => parseToDayjs(v, format).month());
+    let nextYear = value.map((v: string) => parseToDayjs(v, format).year());
+    if (nextYear[0] === nextYear[1] && nextMonth[0] === nextMonth[1]) {
+      nextMonth[0] === 11 ? (nextMonth[0] -= 1) : (nextMonth[1] += 1);
+    }
+    // 月份、季度选择时需要确保右侧面板年份始终比左侧大
+    if (['month', 'quarter'].includes(props.mode) && nextYear[0] === nextYear[1]) {
+      nextYear = [nextYear[0], nextYear[0] + 1];
+    }
+    setMonth(nextMonth);
+    setYear(nextYear);
+  };
+
   const handlePopupInvisible = () => {
     setPopupVisible(false);
     props.popupProps?.onVisibleChange?.(false, {});
   };
 
+  const onTriggerNeedConfirm = useLatest(() => {
+    if (needConfirm || !enableTimePicker || popupVisible) return;
+
+    const nextValue = [...inputValue];
+    const notValidIndex = nextValue.findIndex((v) => !v || !isValidDate(v, format));
+
+    // Only proceed when both ends have valid values
+    if (notValidIndex === -1 && nextValue.length === 2) {
+      const currentValue = formatDate(value || [], { format });
+
+      // Only trigger onChange when value actually changes
+      if (currentValue[0] !== nextValue[0] || currentValue[1] !== nextValue[1]) {
+        const formattedValue = formatDate(nextValue, { format, targetFormat: valueType, autoSwap: true });
+        onChange(formattedValue, {
+          dayjsValue: nextValue.map((v) => parseToDayjs(v, format)),
+          trigger: 'confirm',
+        });
+      }
+    } else {
+      // If there's invalid input, restore to original value
+      setInputValue(formatDate(value || [], { format }));
+    }
+  });
+
   useEffect(() => {
+    if (value === cacheValue) return;
     // 面板展开重置数据
     if (popupVisible) {
       setIsSelected(false);
@@ -101,20 +158,80 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
 
       // 空数据重置为当前年月
       if (!value.length) {
-        const { year: defaultYear, month: defaultMonth } = initYearMonthTime({ value, mode, format, enableTimePicker });
-        setYear(defaultYear);
-        setMonth(defaultMonth);
-      } else if (value.length === 2 && !enableTimePicker) {
-        // 确保右侧面板月份比左侧大 避免两侧面板月份一致
-        const nextMonth = value.map((v: string) => parseToDayjs(v, format).month());
-        if (year[0] === year[1] && nextMonth[0] === nextMonth[1]) {
-          nextMonth[0] === 11 ? (nextMonth[0] -= 1) : (nextMonth[1] += 1);
+        if ((range && isArray(range)) || panelActiveDate) {
+          let startRange = range as PickerDateRange;
+          let endRange = range as PickerDateRange;
+          if (isArray(range)) {
+            const [first, second] = range;
+            if (isArray(first) || isFunction(first) || isArray(second) || isFunction(second)) {
+              startRange = first as PickerDateRange;
+              endRange = second as PickerDateRange;
+            }
+          }
+
+          const startRangeBounds = getRangeBounds(startRange);
+          const endRangeBounds = getRangeBounds(endRange);
+
+          const startYearFromRange = startRangeBounds.min?.getFullYear() ?? startRangeBounds.max?.getFullYear();
+          const startMonthFromRange = startRangeBounds.min?.getMonth() ?? startRangeBounds.max?.getMonth();
+
+          const endYearFromRange = endRangeBounds.min?.getFullYear() ?? endRangeBounds.max?.getFullYear();
+          const endMonthFromRange = endRangeBounds.min?.getMonth() ?? endRangeBounds.max?.getMonth();
+
+          let startPanelActiveDate = panelActiveDate as any;
+          let endPanelActiveDate = panelActiveDate as any;
+          if (isArray(panelActiveDate)) {
+            [startPanelActiveDate, endPanelActiveDate] = panelActiveDate;
+          }
+
+          const leftYear = (startPanelActiveDate?.year ?? startYearFromRange) as number;
+          const leftMonth = startPanelActiveDate?.month ? Number(startPanelActiveDate?.month) - 1 : startMonthFromRange;
+          const rightYear = (endPanelActiveDate?.year ?? endYearFromRange) as number;
+          const rightMonth = endPanelActiveDate?.month ? Number(endPanelActiveDate?.month) - 1 : endMonthFromRange;
+
+          // 获取默认值作为兜底
+          const { year: defaultYear, month: defaultMonth } = initYearMonthTime({
+            value,
+            mode,
+            format,
+            enableTimePicker,
+          });
+
+          const nextYear = [leftYear ?? defaultYear[0], rightYear ?? defaultYear[1]];
+          const nextMonth = [leftMonth ?? defaultMonth[0], rightMonth ?? defaultMonth[1]];
+
+          // 修正：如果左右面板年月完全一致且未显式指定不同范围，则偏移面板
+          if (nextYear[0] === nextYear[1] && nextMonth[0] === nextMonth[1] && !enableTimePicker) {
+            if (startRange === endRange) {
+              if (mode === 'year') nextYear[1] += 10;
+              else if (mode === 'month' || mode === 'quarter') nextYear[1] += 1;
+              else nextMonth[1] += 1;
+            }
+          }
+          setYear(nextYear);
+          setMonth(nextMonth);
+        } else {
+          const { year: defaultYear, month: defaultMonth } = initYearMonthTime({
+            value,
+            mode,
+            format,
+            enableTimePicker,
+          });
+
+          setYear(defaultYear);
+          setMonth(defaultMonth);
         }
-        setYear(value.map((v: string) => parseToDayjs(v, format).year()));
-        setMonth(nextMonth);
+      } else if (value.length === 2 && (!enableTimePicker || isSwitchTimeMode)) {
+        handleSyncPanelValue(value);
       } else {
-        setYear(value.map((v: string) => parseToDayjs(v, format).year()));
-        setMonth(value.map((v: string) => parseToDayjs(v, format).month()));
+        let nextYear = value.map((v: string) => parseToDayjs(v, format).year());
+        if (nextYear.length === 1) nextYear = [nextYear[0], nextYear[0]];
+
+        let nextMonth = value.map((v: string) => parseToDayjs(v, format).month());
+        if (nextMonth.length === 1) nextMonth = [nextMonth[0], Math.min(nextMonth[0] + 1, 11)];
+
+        setYear(nextYear);
+        setMonth(nextMonth);
       }
     } else {
       setActiveIndex(0);
@@ -123,6 +240,11 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
       setInputValue(formatDate(value || [], { format }));
     }
     // eslint-disable-next-line
+  }, [popupVisible]);
+
+  // Listen to popupVisible changes, handle auto-confirm for needConfirm=false
+  useUpdateEffect(() => {
+    onTriggerNeedConfirm.current();
   }, [popupVisible]);
 
   // 日期 hover
@@ -151,8 +273,8 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     setCacheValue(nextValue);
     setInputValue(nextValue);
 
-    // 有时间选择器走 confirm 逻辑
-    if (enableTimePicker) return;
+    // 有时间选择器且非 switch mode，走 confirm 逻辑
+    if (enableTimePicker && !isSwitchTimeMode) return;
 
     // 确保两端都是有效值
     const notValidIndex = nextValue.findIndex((v) => !v || !isValidDate(v, format));
@@ -173,8 +295,9 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     }
 
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
-    if (!isFirstValueSelected || !activeIndex) {
+    if (!isFirstValueSelected || !activeIndex || isSwitchTimeMode) {
       let nextIndex = notValidIndex;
+      if (isSwitchTimeMode && activeIndex === 1 && isFirstValueSelected) return;
       if (nextIndex === -1) nextIndex = activeIndex ? 0 : 1;
       setActiveIndex(nextIndex);
       setIsFirstValueSelected(!!nextValue[0]);
@@ -212,16 +335,38 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
 
     setYear(nextYear);
     setMonth(nextMonth);
+
+    const yearChanged = year[partialIndex] !== nextYear[partialIndex];
+    const monthChanged = month[partialIndex] !== nextMonth[partialIndex];
+    // 触发年份变化事件
+    if (yearChanged) {
+      props.onYearChange?.({
+        partial,
+        year: nextYear[partialIndex],
+        date: value.map((v) => dayjs(v).toDate()),
+        trigger: trigger === 'current' ? 'today' : (`year-${triggerMap[trigger]}` as DatePickerYearChangeTrigger),
+      });
+    }
+
+    // 触发月份变化事件
+    if (monthChanged) {
+      props.onMonthChange?.({
+        partial,
+        month: nextMonth[partialIndex],
+        date: value.map((v) => dayjs(v).toDate()),
+        trigger: trigger === 'current' ? 'today' : (`month-${triggerMap[trigger]}` as DatePickerMonthChangeTrigger),
+      });
+    }
   }
 
   // time-picker 点击
-  function onTimePickerChange(val: string) {
+  function onTimePickerChange(val: string, context?: { activeIndex: 0 | 1 }) {
     const { hours, minutes, seconds, milliseconds, meridiem } = extractTimeObj(val);
-
+    const currentIndex = context.activeIndex ?? activeIndex;
     const nextInputValue = [...inputValue];
-    const changedInputValue = inputValue[activeIndex];
+    const changedInputValue = inputValue[currentIndex];
     const currentDate = !dayjs(changedInputValue, format).isValid()
-      ? dayjs().year(year[activeIndex]).month(month[activeIndex])
+      ? dayjs().year(year[currentIndex]).month(month[currentIndex])
       : dayjs(changedInputValue, format);
     // am pm 12小时制转化 24小时制
     let nextHours = hours;
@@ -229,10 +374,10 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     if (/pm/i.test(meridiem) && nextHours < 12) nextHours += 12;
 
     const nextDate = currentDate.hour(nextHours).minute(minutes).second(seconds).millisecond(milliseconds).toDate();
-    nextInputValue[activeIndex] = nextDate;
+    nextInputValue[currentIndex] = nextDate;
 
     const nextTime = [...time];
-    nextTime[activeIndex] = val;
+    nextTime[currentIndex] = val;
     setTime(nextTime);
 
     setIsSelected(true);
@@ -262,6 +407,8 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
       }
     }
 
+    if (isSwitchTimeMode && nextValue.every(Boolean)) handlePopupInvisible();
+
     // 首次点击不关闭、确保两端都有有效值并且无时间选择器时点击后自动关闭
     if (!isFirstValueSelected || !activeIndex) {
       let nextIndex = notValidIndex;
@@ -274,7 +421,10 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
   }
 
   // 预设
-  function onPresetClick(preset, context: { preset: PresetDate; e: React.MouseEvent<HTMLDivElement> }) {
+  function onPresetClick(
+    preset: DateRangeValue | (() => DateRangeValue),
+    context: { preset: PresetDate; e: React.MouseEvent<HTMLDivElement> },
+  ) {
     let presetValue = preset;
     if (typeof preset === 'function') {
       presetValue = preset();
@@ -282,12 +432,18 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     if (!Array.isArray(presetValue)) {
       log.error('DateRangePicker', `preset: ${preset} must be Array!`);
     } else {
-      onChange(formatDate(presetValue, { format, targetFormat: valueType, autoSwap: true }), {
-        dayjsValue: presetValue.map((p) => parseToDayjs(p, format)),
-        trigger: 'preset',
-      });
-      props.onPresetClick?.(context);
+      const formattedPreset = formatDate(presetValue, { format, targetFormat: valueType });
+      setInputValue(formattedPreset);
+      setCacheValue(formattedPreset);
+      setTime(formatTime(formattedPreset, format, timeFormat, props.defaultTime));
+
+      setIsSelected(true);
+      setIsFirstValueSelected(true);
+
+      handleSyncPanelValue(formattedPreset);
       handlePopupInvisible();
+      onChange(formattedPreset, { dayjsValue: formattedPreset.map((p) => parseToDayjs(p, format)), trigger: 'preset' });
+      props.onPresetClick?.(context);
     }
   }
 
@@ -307,13 +463,20 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
 
     setYear(nextYear);
     !onlyYearSelect && setMonth(nextMonth);
+    props.onYearChange?.({
+      partial,
+      year: nextYear[partialIndex],
+      date: value.map((v) => dayjs(v).toDate()),
+      trigger: 'year-select',
+    });
   }
 
   function onMonthChange(nextVal: number, { partial }) {
     let partialIndex = partial === 'start' ? 0 : 1;
+    const nextMonth = [...month];
     if (enableTimePicker) partialIndex = activeIndex;
-    setMonth((currentMonth) => {
-      const nextMonth = [...currentMonth];
+
+    setMonth(() => {
       nextMonth[partialIndex] = nextVal;
       // 保证左侧时间不大于右侧
       if (year[0] === year[1]) {
@@ -341,7 +504,15 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
           }
         }
       }
+
       return nextMonth;
+    });
+
+    props.onMonthChange?.({
+      partial,
+      month: nextMonth[partialIndex],
+      date: value.map((v) => dayjs(v).toDate()),
+      trigger: 'month-select',
     });
   }
 
@@ -352,6 +523,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     panelPreselection,
     year,
     month,
+    range,
     mode,
     format,
     presets,
@@ -364,6 +536,8 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     activeIndex,
     popupVisible,
     cancelRangeSelectLimit,
+    needConfirm,
+    cell,
     onCellClick,
     onCellMouseEnter,
     onCellMouseLeave,
@@ -374,6 +548,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
     onMonthChange,
     onTimePickerChange,
     disableTime,
+    isSwitchTimeMode,
   };
 
   return (

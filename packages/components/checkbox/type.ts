@@ -47,9 +47,15 @@ export interface TdCheckboxProps {
   name?: string;
   /**
    * 只读状态
+   * @deprecated It will be removed in the future. Please use `readOnly` instead.
    * @default false
    */
   readonly?: boolean;
+  /**
+   * 只读状态
+   * @default false
+   */
+  readOnly?: boolean;
   /**
    * HTML 原生属性
    * @default ''
@@ -88,6 +94,15 @@ export interface TdCheckboxGroupProps<T = CheckboxGroupValue> {
    */
   options?: Array<CheckboxOption>;
   /**
+   * 只读状态
+   * @deprecated It will be removed in the future. Please use `readOnly` instead.
+   */
+  readonly?: boolean;
+  /**
+   * 只读状态
+   */
+  readOnly?: boolean;
+  /**
    * 选中值
    * @default []
    */
@@ -107,10 +122,15 @@ export type CheckboxOption = string | number | CheckboxOptionObj;
 
 export interface CheckboxOptionObj {
   label?: string | TNode;
-  value?: string | number;
+  value?: string | number | boolean;
   disabled?: boolean;
+  /**
+   * @deprecated It will be removed in the future. Please use `readOnly` instead.
+   */
+  readonly?: boolean;
+  readOnly?: boolean;
   name?: string;
-  checkAll?: true;
+  checkAll?: boolean;
 }
 
 export type CheckboxGroupValue = Array<string | number | boolean>;

@@ -1,11 +1,15 @@
-import React, { useState, MouseEvent, KeyboardEvent, ReactNode, Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { isFunction } from 'lodash-es';
-import { TagInputChangeContext, TagInputValue, TdTagInputProps } from './type';
-import { InputValue } from '../input';
-import Tag from '../tag';
+import log from '@tdesign/common-js/log/index';
+
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
-import { DragSortInnerProps } from '../hooks/useDragSorter';
+import Tag from '../tag';
+
+import type { KeyboardEvent, MouseEvent, ReactNode } from 'react';
+import type { DragSortInnerProps } from '../hooks/useDragSorter';
+import type { InputValue } from '../input';
+import type { TagInputChangeContext, TagInputValue, TdTagInputProps } from './type';
 
 export type ChangeParams = [TagInputChangeContext];
 
@@ -16,10 +20,25 @@ interface TagInputProps extends TdTagInputProps, DragSortInnerProps {
 // handle tag add and remove
 export default function useTagList(props: TagInputProps) {
   const { classPrefix: prefix } = useConfig();
-  const { onRemove, max, minCollapsedNum, size, disabled, readonly, tagProps, tag, collapsedItems, getDragProps } =
+  const { onRemove, max, minCollapsedNum, size, disabled, tagProps, tag, tagDisplay, collapsedItems, getDragProps } =
     props;
+  const readOnly = props.readOnly || props.readonly;
+
   // handle controlled property and uncontrolled property
-  const [tagValue, setTagValue] = useControlled(props, 'value', props.onChange);
+  const [innerTagValue, setTagValue] = useControlled(props, 'value', props.onChange);
+  let tagValue: TagInputValue;
+  if (Array.isArray(innerTagValue)) {
+    tagValue = innerTagValue;
+  } else {
+    if (innerTagValue !== undefined && innerTagValue !== null) {
+      log.warnOnce(
+        'TagInput',
+        `\`value\` is expected to be an array, but got ${typeof innerTagValue}. It will be treated as an empty array.`,
+      );
+    }
+    tagValue = [];
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [oldInputValue, setOldInputValue] = useState<InputValue>();
 
@@ -59,7 +78,7 @@ export default function useTagList(props: TagInputProps) {
   // 按下回退键，删除标签
   const onInputBackspaceKeyDown = (value: InputValue, context: { e: KeyboardEvent<HTMLInputElement> }) => {
     const { e } = context;
-    if (!tagValue || !tagValue.length || readonly) return;
+    if (!tagValue || !tagValue.length || readOnly) return;
     // 回车键删除，输入框值为空时，才允许 Backspace 删除标签
     if (!value && ['Backspace', 'NumpadDelete'].includes(e.key)) {
       const index = tagValue.length - 1;
@@ -77,16 +96,30 @@ export default function useTagList(props: TagInputProps) {
     const list = displayNode
       ? [<Fragment key="display-node">{displayNode}</Fragment>]
       : newList?.map((item, index) => {
+          const handleClose = (context) => {
+            tagProps?.onClose?.(context);
+            onClose({ e: context?.e, index });
+          };
+          // tagDisplay 优先级高于 tag
+          // 完全接管单个标签的渲染，组件不再包裹 <Tag> 外壳
+          if (isFunction(tagDisplay)) {
+            const node = tagDisplay({
+              value: item,
+              index,
+              onClose: (context) => handleClose(context ?? {}),
+            });
+            return <Fragment key={index}>{node}</Fragment>;
+          }
           const tagContent = isFunction(tag) ? tag({ value: item }) : tag;
           return (
             <Tag
               key={index}
               size={size}
               disabled={disabled}
-              onClose={(context) => onClose({ e: context.e, index })}
-              closable={!readonly && !disabled}
+              closable={!readOnly && !disabled}
               {...getDragProps?.(index, item)}
               {...tagProps}
+              onClose={handleClose}
             >
               {tagContent ?? item}
             </Tag>

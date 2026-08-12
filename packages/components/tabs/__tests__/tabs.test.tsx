@@ -1,9 +1,11 @@
 import React from 'react';
-import { render, waitFor, fireEvent, act, vi } from '@test/utils';
+import { act, fireEvent, render, vi, waitFor } from '@test/utils';
+
+import TabNav from '../TabNav';
 import TabPanel from '../TabPanel';
 import Tabs from '../Tabs';
-import TabNav from '../TabNav';
-import { TdTabsProps } from '../type';
+
+import type { TdTabsProps } from '../type';
 
 describe('Tabs 组件测试', () => {
   test('render Tab bar', async () => {
@@ -191,11 +193,18 @@ describe('Tabs 组件测试', () => {
     expect(onTabRemoveFn).toHaveBeenCalledTimes(1);
     expect(onTabPanelRemoveFn).toHaveBeenCalledTimes(1);
 
-    expect(onTabRemoveFn).toHaveBeenCalledWith({ value: 'a', e: expect.any(Object), index: 0 });
+    expect(onTabRemoveFn).toHaveBeenCalledWith({
+      value: 'a',
+      e: expect.any(Object),
+      index: 0,
+    });
     const tabRemoveFnArg = onTabRemoveFn.mock.calls[0][0];
     expect(tabRemoveFnArg.e.nativeEvent).toBeInstanceOf(MouseEvent);
 
-    expect(onTabPanelRemoveFn).toHaveBeenCalledWith({ value: 'a', e: expect.any(Object) });
+    expect(onTabPanelRemoveFn).toHaveBeenCalledWith({
+      value: 'a',
+      e: expect.any(Object),
+    });
     const tabPanelRemoveFnArg = onTabPanelRemoveFn.mock.calls[0][0];
     expect(tabPanelRemoveFnArg.e.nativeEvent).toBeInstanceOf(MouseEvent);
   });
@@ -296,7 +305,6 @@ describe('Tabs 组件测试', () => {
               value: 0,
             },
           ]}
-          tabClick={() => ''}
         ></TabNav>
       </div>,
     );
@@ -306,7 +314,7 @@ describe('Tabs 组件测试', () => {
   });
 
   const mockFn = vi.spyOn(HTMLDivElement.prototype, 'getBoundingClientRect');
-  mockFn.mockImplementation(() => ({ width: 20, x: 5, clientX: 5 }));
+  mockFn.mockImplementation(() => ({ width: 20, x: 5, clientX: 5 }) as any);
 
   test('test drag', async () => {
     const onDragSort = vi.fn(() => {
@@ -346,8 +354,8 @@ describe('Tabs 组件测试', () => {
         targetIndex: 0,
       },
     });
-    expect(onDragSort).toHaveBeenCalled(1);
-    expect(onDragSort.mock.calls[0][0].target.value).toEqual('vue');
+    expect(onDragSort).toHaveBeenCalled();
+    expect((onDragSort as any).mock.calls[0][0].target.value).toEqual('vue');
     expect(container.querySelectorAll('.t-tabs__nav-item-text-wrapper').item(0).firstChild.nodeValue).toEqual('react');
   });
 

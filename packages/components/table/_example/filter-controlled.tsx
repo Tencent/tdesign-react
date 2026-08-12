@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { isNumber } from 'lodash-es';
-import { Table, Button, DateRangePickerPanel, Space, Tag } from 'tdesign-react';
-import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
+import { Button, DateRangePickerPanel, Space, Table, Tag } from 'tdesign-react';
 
-import type { TableProps, FilterType, FilterValue } from 'tdesign-react';
+import type { FilterType, FilterValue, TableProps } from 'tdesign-react';
 
 const statusNameListMap = {
   0: { label: '审批通过', theme: 'success', icon: <CheckCircleFilledIcon /> },
@@ -102,8 +102,8 @@ const columns: TableProps['columns'] = [
 // eslint-disable-next-line
 // function IconText(props = {}) {
 //   // 根据不同的 Props，允许定义不同的筛选图标（col, colIndex 在 Table 组件内部已经注入）
-//   const { col, colIndx } = props;
-//   console.log(col, colIndx);
+//   const { col, colIndex } = props;
+//   console.log(col, colIndex);
 //   if (col.colKey === 'email') return <div>EmailIcon</div>;
 //   return <i>Icon</i>;
 // }

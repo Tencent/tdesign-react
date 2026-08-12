@@ -1,6 +1,9 @@
-import React, { FunctionComponent, ComponentClass } from 'react';
-import { render, screen, fireEvent, vi } from '@test/utils';
+import React from 'react';
+import { fireEvent, render, screen, vi } from '@test/utils';
+
 import Link from '../Link';
+
+import type { ComponentClass, FunctionComponent } from 'react';
 
 export interface TestExampleOverrides {
   [exampleFileName: string]: (Component: FunctionComponent<unknown> | ComponentClass<unknown>) => void | Promise<void>;
@@ -22,7 +25,7 @@ describe('Link', () => {
     expect(screen.getByTestId('disabled')).not.toHaveClass('t-link--hover-underline');
 
     fireEvent.click(container.firstChild);
-    expect(fn).toBeCalledTimes(0);
+    expect(fn).toHaveBeenCalledTimes(0);
   });
 
   test('underline', () => {

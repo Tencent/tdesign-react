@@ -1,8 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
-import { ClassName } from '../common';
+import { isSafari } from '@tdesign/common-js/utils/helper';
 
 import useConfig from '../hooks/useConfig';
+
+import type { ClassName } from '../common';
 
 // 翻转箭头统一组件
 function FakeArrow(props: {
@@ -18,6 +20,7 @@ function FakeArrow(props: {
       className={classNames(
         `${classPrefix}-fake-arrow`,
         {
+          [`${classPrefix}-fake-arrow--transform`]: isSafari(),
           [`${classPrefix}-fake-arrow--active`]: props?.isActive && !props?.disabled,
         },
         props?.className,

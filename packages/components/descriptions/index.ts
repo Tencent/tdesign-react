@@ -1,6 +1,6 @@
-import _Descriptions from './Descriptions';
-
 import './style/index.js';
+
+import _Descriptions from './Descriptions';
 
 export type { DescriptionsProps } from './Descriptions';
 

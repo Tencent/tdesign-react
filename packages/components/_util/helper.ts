@@ -35,41 +35,9 @@ export function firstUpperCase(str: string): string {
   return str.toLowerCase().replace(/( |^)[a-z]/g, (char: string) => char.toUpperCase());
 }
 
-export type Gradients = { [percent: string]: string };
-export type FromTo = { from: string; to: string };
-export type LinearGradient = { direction?: string } & (Gradients | FromTo);
-export function getBackgroundColor(color: string | string[] | LinearGradient): string {
-  if (typeof color === 'string') {
-    return color;
-  }
-  if (Array.isArray(color)) {
-    if (color[0] && color[0][0] === '#') {
-      color.unshift('90deg');
-    }
-    return `linear-gradient( ${color.join(',')} )`;
-  }
-  const { from, to, direction = 'to right', ...rest } = color;
-  let keys = Object.keys(rest);
-  if (keys.length) {
-    keys = keys.sort((a, b) => parseFloat(a.substr(0, a.length - 1)) - parseFloat(b.substr(0, b.length - 1)));
-    const tempArr = keys.map((key: any) => `${rest[key]} ${key}`);
-    return `linear-gradient(${direction}, ${tempArr.join(',')})`;
-  }
-  return `linear-gradient(${direction}, ${from}, ${to})`;
-}
-
 // keyboard-event => onKeyboardEvent
 export function getPropsApiByEvent(eventName: string) {
   return camelCase(`on-${eventName}`);
-}
-
-/**
- * 兼容样式中支持 number/string 类型的传值 得出最后的结果。
- * @param param number 或 string 类型的可用于样式上的值
- * @returns 可使用的样式值。
- */
-export function pxCompat(param: string | number) {
-  return typeof param === 'number' ? `${param}px` : param;
 }
 
 /**
@@ -87,4 +55,20 @@ export function getOffsetTopToContainer(element: HTMLElement, container: HTMLEle
     current = current.offsetParent as HTMLElement;
   }
   return offsetTop;
+}
+
+/**
+ * 保持用户的选择顺序：
+ * - 保留已有项的原始顺序，将新选择的项追加到末尾
+ * - 并移除当前值中已不存在的项
+ * @param previousValues - 上一次的值数组（按照用户选择顺序排列）
+ * @param currentValues - 当前完整的值数组（顺序可能是任意的）
+ * @returns 保持用户选择顺序后的数组
+ */
+export function preserveSelectionOrder<T>(previousValues: T[], currentValues: T[]): T[] {
+  const currentSet = new Set(currentValues);
+  const existingValues = previousValues.filter((v) => currentSet.has(v));
+  const existingSet = new Set(existingValues);
+  const newValues = currentValues.filter((v) => !existingSet.has(v));
+  return [...existingValues, ...newValues];
 }

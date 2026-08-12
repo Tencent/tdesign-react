@@ -1,5 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Button, PopupRef, Tooltip } from 'tdesign-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Button, Tooltip } from 'tdesign-react';
+
+import type { PopupRef } from 'tdesign-react';
 
 export default function Placements() {
   const ref = useRef<Partial<PopupRef>>(null);

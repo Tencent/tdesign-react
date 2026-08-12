@@ -1,38 +1,40 @@
-import React, { Children, isValidElement, cloneElement, useRef, CSSProperties, useMemo } from 'react';
+import React, { Children, cloneElement, isValidElement, useMemo, useRef } from 'react';
 import classNames from 'classnames';
 import { isEqual } from 'lodash-es';
-import { useLocaleReceiver } from '../../locale/LocalReceiver';
-import { getSelectValueArr } from '../util/helper';
-import {
-  TdSelectProps,
-  SelectValue,
-  TdOptionProps,
-  SelectValueChangeTrigger,
-  SelectOption,
-  SelectOptionGroup,
-} from '../type';
+
 import useConfig from '../../hooks/useConfig';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import usePanelVirtualScroll from '../hooks/usePanelVirtualScroll';
-import Option, { SelectOptionProps } from './Option';
+import { getKeyMapping, getSelectValueArr } from '../util/helper';
+import Option from './Option';
 import OptionGroup from './OptionGroup';
 
-interface SelectPopupProps
-  extends Pick<
-    TdSelectProps,
-    | 'value'
-    | 'size'
-    | 'multiple'
-    | 'empty'
-    | 'options'
-    | 'max'
-    | 'loadingText'
-    | 'loading'
-    | 'valueType'
-    | 'keys'
-    | 'panelTopContent'
-    | 'panelBottomContent'
-    | 'scroll'
-  > {
+import type {
+  SelectOption,
+  SelectOptionGroup,
+  SelectValue,
+  SelectValueChangeTrigger,
+  TdOptionProps,
+  TdSelectProps,
+} from '../type';
+import type { SelectOptionProps } from './Option';
+
+interface SelectPopupProps extends Pick<
+  TdSelectProps,
+  | 'value'
+  | 'size'
+  | 'multiple'
+  | 'empty'
+  | 'options'
+  | 'max'
+  | 'loadingText'
+  | 'loading'
+  | 'valueType'
+  | 'keys'
+  | 'panelTopContent'
+  | 'panelBottomContent'
+  | 'scroll'
+> {
   onChange?: (
     value: SelectValue,
     context?: {
@@ -43,6 +45,8 @@ interface SelectPopupProps
       trigger: SelectValueChangeTrigger;
     },
   ) => void;
+  hoverIndex: number;
+  children?: React.ReactNode;
   /**
    * 是否展示popup
    */
@@ -51,7 +55,6 @@ interface SelectPopupProps
    * 控制popup展示的函数
    */
   setShowPopup: (show: boolean) => void;
-  children?: React.ReactNode;
   onCheckAllChange?: (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => void;
   getPopupInstance?: () => HTMLDivElement;
 }
@@ -77,13 +80,14 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     getPopupInstance,
     options: propsOptions,
     scroll: propsScroll,
+    hoverIndex,
   } = props;
+  const { classPrefix } = useConfig();
 
-  // 国际化文本初始化
   const [local, t] = useLocaleReceiver('select');
   const emptyText = t(local.empty);
-  const popupContentRef = useRef<HTMLDivElement>(null);
 
+  const popupContentRef = useRef<HTMLDivElement>(null);
   popupContentRef.current = getPopupInstance();
 
   const { visibleData, handleRowMounted, isVirtual, panelStyle, cursorStyle } = usePanelVirtualScroll({
@@ -93,55 +97,49 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     size,
   });
 
-  // 全部可选选项
-  const selectableOptions = useMemo(() => {
+  const isObjectType = useMemo(() => valueType === 'object', [valueType]);
+  const { valueKey, labelKey } = useMemo(() => getKeyMapping(keys), [keys]);
+
+  const optionsExcludedCheckAll = useMemo(() => {
     const uniqueOptions = {};
     propsOptions?.forEach((option: SelectOption) => {
       if ((option as SelectOptionGroup).group) {
         (option as SelectOptionGroup).children.forEach((item) => {
-          if (!item.disabled && !item.checkAll) {
+          if (!item.checkAll) {
             uniqueOptions[item.value] = item;
           }
         });
-      } else if (!(option as TdOptionProps).disabled && !(option as TdOptionProps).checkAll) {
+      } else if (!(option as TdOptionProps).checkAll) {
         uniqueOptions[(option as TdOptionProps).value] = option;
       }
     });
     return Object.values(uniqueOptions);
   }, [propsOptions]);
 
-  const { classPrefix } = useConfig();
-  if (!children && !propsOptions) {
-    return null;
-  }
-
   const onSelect: SelectOptionProps['onSelect'] = (selectedValue, { label, selected, event, restData }) => {
-    const isValObj = valueType === 'object';
-    let objVal = {};
-    if (isValObj) {
-      objVal = { ...restData };
-      if (!keys?.label) {
-        Object.assign(objVal, { label });
-      }
-      if (!keys?.value) {
-        Object.assign(objVal, { value: selectedValue });
-      }
-    }
-
-    if (!Object.keys(objVal).length) {
-      Object.assign(objVal, { [keys?.label || 'label']: label, [keys?.value || 'value']: selectedValue });
-    }
+    const objVal = {
+      ...(isObjectType ? { ...restData } : {}),
+      [labelKey]: label,
+      [valueKey]: selectedValue,
+    };
 
     if (multiple) {
-      // calc multiple select values
       const values = getSelectValueArr(value, selectedValue, selected, valueType, keys, objVal);
-      onChange(values, { label, value: selectedValue, e: event, trigger: selected ? 'uncheck' : 'check' });
+      onChange(values, {
+        label,
+        value: selectedValue,
+        e: event,
+        trigger: selected ? 'uncheck' : 'check',
+      });
     } else {
-      // calc single select value
       const selectVal = valueType === 'object' ? objVal : selectedValue;
-
       if (!isEqual(value, selectVal)) {
-        onChange(selectVal, { label, value: selectVal, e: event, trigger: 'check' });
+        onChange(selectVal, {
+          label,
+          value: selectVal,
+          e: event,
+          trigger: 'check',
+        });
       }
       setShowPopup(!showPopup);
     }
@@ -149,30 +147,50 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
 
   const childrenWithProps = Children.map(children, (child) => {
     if (isValidElement(child)) {
-      const addedProps = { size, max, multiple, selectedValue: value, onSelect };
+      const addedProps = {
+        size,
+        max,
+        multiple,
+        selectedValue: value,
+        onSelect,
+      };
       return cloneElement(child, { ...addedProps });
     }
     return child;
   });
 
+  const isEmpty =
+    (Array.isArray(childrenWithProps) && !childrenWithProps.length) || (propsOptions && propsOptions.length === 0);
+
   // 渲染 options
-  const renderOptions = (options: SelectOption[]) => {
+  const renderOptions = (options: SelectOption[], startIndex = 0) => {
     if (options) {
+      let currentIndex = startIndex;
       // 通过 options API配置的
       return (
         <ul className={`${classPrefix}-select__list`}>
           {options.map((item, index) => {
             const { group, divider, ...rest } = item as SelectOptionGroup;
             if (group) {
-              return (
-                <OptionGroup label={group} divider={divider} key={index}>
-                  {renderOptions(rest.children)}
+              const groupElement = (
+                <OptionGroup label={group} divider={divider} key={index} {...rest}>
+                  {renderOptions(rest.children, currentIndex)}
                 </OptionGroup>
               );
+              // group 的 children 数量需要累加
+              currentIndex += rest.children.length;
+              return groupElement;
             }
 
-            const { value: optionValue, label, disabled, content, children, ...restData } = item as TdOptionProps;
-            return (
+            const { value: optionValue, label, disabled, children, ...restData } = item as TdOptionProps;
+            // 当 keys 属性配置 content 作为 value 或 label 时，确保 restData 中也包含它, 不参与渲染计算
+            const { content } = item as TdOptionProps;
+            const shouldOmitContent = Object.values(keys || {}).includes('content');
+
+            const isKeyboardHovered = hoverIndex === currentIndex;
+            currentIndex += 1;
+
+            const optionElement = (
               <Option
                 key={index}
                 max={max}
@@ -180,13 +198,13 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
                 value={optionValue}
                 onSelect={onSelect}
                 selectedValue={value}
-                optionLength={selectableOptions.length}
+                optionLength={optionsExcludedCheckAll.length}
                 multiple={multiple}
                 size={size}
                 disabled={disabled}
                 restData={restData}
                 keys={keys}
-                content={content}
+                isKeyboardHovered={isKeyboardHovered}
                 onCheckAllChange={onCheckAllChange}
                 onRowMounted={handleRowMounted}
                 {...(isVirtual
@@ -197,10 +215,12 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
                     }
                   : {})}
                 {...restData}
+                content={shouldOmitContent ? null : content}
               >
                 {children}
               </Option>
             );
+            return optionElement;
           })}
         </ul>
       );
@@ -208,10 +228,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
     return <ul className={`${classPrefix}-select__list`}>{childrenWithProps}</ul>;
   };
 
-  const isEmpty =
-    (Array.isArray(childrenWithProps) && !childrenWithProps.length) || (propsOptions && propsOptions.length === 0);
-
-  const renderPanel = (renderedOptions: SelectOption[], extraStyle?: CSSProperties) => (
+  const renderPanel = (renderedOptions: SelectOption[], extraStyle?: React.CSSProperties) => (
     <div
       ref={ref}
       className={classNames(`${classPrefix}-select__dropdown-inner`, {
@@ -228,6 +245,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
       {!loading && !isEmpty && renderOptions(renderedOptions)}
     </div>
   );
+
   if (isVirtual) {
     return (
       <>
@@ -240,6 +258,8 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
       </>
     );
   }
+
+  if (!children && !propsOptions) return null;
 
   return (
     <>

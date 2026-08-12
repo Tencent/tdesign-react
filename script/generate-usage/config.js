@@ -686,7 +686,7 @@ module.exports = {
       const panelList = [{ label: 'list:', value: 'list:' }];
     `,
     usageStr: `
-      const avatarUrl = 'https://tdesign.gtimg.com/list-icon.png';
+      const avatarUrl = 'https://tdesign.gtimg.com/site/images/list-icon.png';
       const listData = [
         { id: 1, content: '列表内容列表内容列表内容' },
         { id: 2, content: '列表内容列表内容列表内容' },
@@ -1166,6 +1166,23 @@ module.exports = {
       const defaultProps = { value: 'https://tdesign.gtimg.com/site/tdesign-logo.png' };\n
       useEffect(() => {
         setRenderComp(<QRCode {...defaultProps} {...changedProps} />);
+      }, [changedProps]);
+    `,
+  },
+  watermark: {
+    importStr: `
+      import configProps from './props.json';\n
+      import { Watermark } from 'tdesign-react';\n`,
+    configStr: `
+      const [configList, setConfigList] = useState(configProps);
+    `,
+    panelStr: `
+      const panelList = [{ label: 'Watermark', value: 'Watermark' }];
+    `,
+    usageStr: `
+      const defaultProps =  { watermarkContent: { text: '文字水印' }, y: 120, x: 80 };\n
+      useEffect(() => {
+        setRenderComp(<Watermark {...defaultProps} {...changedProps}><div style={{ height: 300, width: 400 }}></div></Watermark>);
       }, [changedProps]);
     `,
   },

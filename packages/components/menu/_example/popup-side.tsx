@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
+import { AppIcon, CodeIcon, FileIcon, MailIcon, RollbackIcon, UserIcon, ViewListIcon } from 'tdesign-icons-react';
 import { Menu } from 'tdesign-react';
-import { AppIcon, CodeIcon, FileIcon, UserIcon, ViewListIcon, MailIcon, RollbackIcon } from 'tdesign-icons-react';
 
 import type { MenuValue } from 'tdesign-react';
 

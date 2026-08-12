@@ -1,9 +1,18 @@
 import React from 'react';
 import { Tooltip } from '@tdesign/components';
 
+const SPECIAL_PATH_MAP = {
+  'global-configuration': 'config-provider',
+};
+
 export default function NewWindow(props) {
   function onNewWindow() {
-    const url = `${window.location.origin + window.location.pathname.replace('components', 'demos')}/${props.demoName}`;
+    const pathSegments = window.location.pathname.split('/').filter(Boolean);
+    const basePath = pathSegments[0];
+    const specialKey = Object.keys(SPECIAL_PATH_MAP).find((key) => window.location.pathname.includes(key));
+    const component = specialKey ? SPECIAL_PATH_MAP[specialKey] : pathSegments[pathSegments.indexOf('components') + 1];
+    const targetPath = `${basePath}/demos/${component}`;
+    const url = `${window.location.origin}/${targetPath}/${props.demoName}`;
     window.open(url, '_blank');
   }
   return (

@@ -3,7 +3,7 @@
 ## API
 ### Search Props
 
-名称 | 类型 | 默认值 | 说明 | 必传
+名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
@@ -20,7 +20,7 @@ multiline | Boolean | false | 批量搜索模式，也叫多行搜索，输入�
 placeholder | String | '' | 占位符 | N
 popupProps | Object | - | 透传 Popup 组件全部属性。TS 类型：`PopupProps`，[Popup API Documents](./popup?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/search/type.ts) | N
 prefixIcon | TElement | - | 前置图标。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-readonly | Boolean | false | 只读状态 | N
+readOnly | Boolean | false | 只读状态 | N
 selectInputProps | Object | - | 基于 SelectInput 组件开发，透传组件全部属性。TS 类型：`SelectInputProps`，[SelectInput API Documents](./select-input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/search/type.ts) | N
 suffix | TNode | '' | 搜索框内部右侧内容，位于 `suffixIcon` 右侧。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 suffixIcon | TElement | - | 后置图标，默认为搜索图标。值为 `null` 时则不显示。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N

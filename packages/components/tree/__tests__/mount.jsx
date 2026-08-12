@@ -3,21 +3,21 @@ import { render } from '@test/utils';
 
 const items = [
   {
-    label: '第1一段',
+    label: '第 1 段',
     value: 1,
     children: [
       {
-        label: '第二段',
+        label: '第 1-1 段',
         value: '1-1',
       },
       {
-        label: '第二段',
+        label: '第 1-2 段',
         value: '1-2',
       },
     ],
   },
   {
-    label: '第1二段',
+    label: '第 2 段',
     value: 2,
   },
 ];

@@ -1,14 +1,16 @@
-import React, { useCallback, useMemo, MouseEvent } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import classnames from 'classnames';
-import useConfig from '../hooks/useConfig';
-import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import type { TdStickyToolProps, TdStickyItemProps } from './type';
-import type { StyledProps, Styles } from '../common';
-import StickyItem from './StickyItem';
-import { stickyToolDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
 
+import forwardRefWithStatics from '../_util/forwardRefWithStatics';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { stickyToolDefaultProps } from './defaultProps';
+import StickyItem from './StickyItem';
+
+import type { MouseEvent } from 'react';
+import type { StyledProps, Styles } from '../common';
 import type { StickyItemProps } from './StickyItem';
+import type { TdStickyItemProps, TdStickyToolProps } from './type';
 
 export interface StickyToolProps extends TdStickyToolProps, StyledProps {
   children?: React.ReactNode;

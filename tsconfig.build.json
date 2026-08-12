@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig",
-  "include": ["packages/components"],
+  "include": ["packages/components", "./globals.d.ts"],
   "exclude": [
     "**/**/__tests__/*",
     "**/**/_example-js/*",

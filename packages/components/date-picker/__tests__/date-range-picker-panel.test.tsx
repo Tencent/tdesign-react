@@ -1,7 +1,6 @@
 import React from 'react';
 import dayjs from 'dayjs';
-
-import { render, vi, fireEvent, waitFor } from '@test/utils';
+import { fireEvent, render, vi, waitFor } from '@test/utils';
 
 import { DateRangePickerPanel } from '..';
 
@@ -117,7 +116,7 @@ describe('DateRangePickerPanel', () => {
 
     fireEvent.click(container.querySelector('.t-date-picker__cell'));
     fireEvent.click(container.querySelector('.t-date-picker__cell'));
-    expect(fn).toBeCalledTimes(1);
+    expect(fn).toHaveBeenCalledTimes(1);
   });
 
   test('onJumperClick', async () => {
@@ -126,7 +125,7 @@ describe('DateRangePickerPanel', () => {
 
     const jumperPrev = container.querySelector('.t-pagination-mini__prev');
     fireEvent.click(jumperPrev);
-    expect(fn).toBeCalledTimes(1);
+    expect(fn).toHaveBeenCalledTimes(1);
   });
 
   test('onTimePickerChange & onConfirmClick', async () => {
@@ -141,13 +140,15 @@ describe('DateRangePickerPanel', () => {
     const { getByText } = render(
       <DateRangePickerPanel
         onChange={fn}
-        presets={{ 圣诞节: [dayjs('2023-12-25').toDate(), dayjs('2023-12-25').toDate()] }}
+        presets={{
+          圣诞节: [dayjs('2023-12-25').toDate(), dayjs('2023-12-25').toDate()],
+        }}
       />,
     );
 
     const christmasBtn = getByText('圣诞节');
     fireEvent.click(christmasBtn);
-    expect(fn).toBeCalledTimes(1);
+    expect(fn).toHaveBeenCalledTimes(1);
   });
 
   test('onYearChange & onMonthChange', async () => {
@@ -202,7 +203,11 @@ describe('DateRangePickerPanel', () => {
 
   test('onPresetClick', async () => {
     const { container, getByText } = render(
-      <DateRangePickerPanel presets={{ 圣诞节: [dayjs('2023-12-25').toDate(), dayjs('2023-12-25').toDate()] }} />,
+      <DateRangePickerPanel
+        presets={{
+          圣诞节: [dayjs('2023-12-25').toDate(), dayjs('2023-12-25').toDate()],
+        }}
+      />,
     );
     const inputEle = container.querySelector('.t-input__inner');
     fireEvent.mouseDown(inputEle);

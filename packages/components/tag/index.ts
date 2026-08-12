@@ -1,11 +1,12 @@
-import { TagFunction } from './Tag';
-import _CheckTag from './CheckTag';
-import _CheckTagGroup from './CheckTagGroup';
-import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import './style/index.js';
 
-export type { TagProps } from './Tag';
+import forwardRefWithStatics from '../_util/forwardRefWithStatics';
+import _CheckTag from './CheckTag';
+import _CheckTagGroup from './CheckTagGroup';
+import { TagFunction } from './Tag';
+
 export type { CheckTagProps } from './CheckTag';
+export type { TagProps } from './Tag';
 export * from './type';
 
 /**

@@ -1,24 +1,26 @@
-import React, { forwardRef, useState, useEffect, useImperativeHandle, useRef, useMemo, isValidElement } from 'react';
-import classnames from 'classnames';
-import { isString, isObject, isFunction, isUndefined } from 'lodash-es';
-
+import React, { forwardRef, isValidElement, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import classnames from 'classnames';
+import { isFunction, isObject, isString, isUndefined } from 'lodash-es';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
 
-import { useLocaleReceiver } from '../locale/LocalReceiver';
-import type { TdDrawerProps, DrawerEventSource, DrawerInstance } from './type';
-import { StyledProps } from '../common';
-import Button, { ButtonProps } from '../button';
+import parseTNode from '../_util/parseTNode';
+import Button from '../button';
+import Portal from '../common/Portal';
+import useAttach from '../hooks/useAttach';
 import useConfig from '../hooks/useConfig';
+import useDeepEffect from '../hooks/useDeepEffect';
+import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
+import useSetState from '../hooks/useSetState';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { drawerDefaultProps } from './defaultProps';
 import useDrag from './hooks/useDrag';
-import Portal from '../common/Portal';
 import useLockStyle from './hooks/useLockStyle';
-import useDefaultProps from '../hooks/useDefaultProps';
-import parseTNode from '../_util/parseTNode';
-import useAttach from '../hooks/useAttach';
-import useSetState from '../hooks/useSetState';
+
+import type { ButtonProps } from '../button';
+import type { StyledProps } from '../common';
+import type { DrawerEventSource, DrawerInstance, TdDrawerProps } from './type';
 
 export const CloseTriggerType: { [key: string]: DrawerEventSource } = {
   CLICK_OVERLAY: 'overlay',
@@ -49,15 +51,6 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     showOverlay,
     size: propsSize,
     placement,
-    onBeforeOpen,
-    onBeforeClose,
-    onCancel,
-    onConfirm,
-    onClose,
-    onCloseBtnClick,
-    onOverlayClick,
-    onEscKeydown,
-    onSizeDragEnd,
     showInAttachedElement,
     closeOnOverlayClick,
     closeOnEscKeydown,
@@ -72,6 +65,18 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     lazy,
   } = state;
 
+  const {
+    onBeforeOpen,
+    onBeforeClose,
+    onCancel,
+    onConfirm,
+    onClose,
+    onCloseBtnClick,
+    onOverlayClick,
+    onEscKeydown,
+    onSizeDragEnd,
+  } = props;
+
   const size = propsSize ?? local.size;
   const { classPrefix } = useConfig();
   const drawerAttach = useAttach('drawer', attach);
@@ -81,7 +86,11 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
   const prefixCls = `${classPrefix}-drawer`;
 
   const closeIcon = isValidElement(closeBtn) ? closeBtn : <CloseIcon />;
-  const { dragSizeValue, enableDrag, draggableLineStyles } = useDrag(placement, sizeDraggable, onSizeDragEnd);
+  const { dragSizeValue, enableDrag, draggableLineStyles, draggingStyles } = useDrag(
+    placement,
+    sizeDraggable,
+    onSizeDragEnd,
+  );
   const [animationStart, setAnimationStart] = useState(visible);
 
   const sizeValue = useMemo(() => {
@@ -105,19 +114,11 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     },
   }));
 
-  useEffect(() => {
-    if (visible) {
-      // 聚焦到 Drawer 最外层元素即 containerRef.current，KeyDown 事件才有效。
-      containerRef.current?.focus?.();
-    }
-  }, [visible]);
-
-  useEffect(() => {
+  useDeepEffect(() => {
     // 非插件式调用 更新props
-    if (!isPlugin) {
-      setState((prevState) => ({ ...prevState, ...props }));
-    }
-  }, [isPlugin, props, setState]);
+    if (isPlugin) return;
+    setState((prevState) => ({ ...prevState, ...props }));
+  }, [props, setState]);
 
   function onMaskClick(e: React.MouseEvent<HTMLDivElement>) {
     onOverlayClick?.({ e });
@@ -223,7 +224,10 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
       unmountOnExit={destroyOnClose}
       timeout={{ appear: 10, enter: 10, exit: 300 }}
       onEnter={() => onBeforeOpen?.()}
-      onEntered={() => setAnimationStart(true)}
+      onEntered={() => {
+        setAnimationStart(true);
+        containerRef.current?.focus?.();
+      }}
       onExit={() => onBeforeClose?.()}
       onExited={() => setAnimationStart(false)}
     >
@@ -242,7 +246,7 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
           {renderOverlay}
           <div
             className={classnames(`${prefixCls}__content-wrapper`, `${prefixCls}__content-wrapper--${placement}`)}
-            style={contentWrapperStyle}
+            style={{ ...contentWrapperStyle, ...draggingStyles }}
           >
             {renderCloseBtn}
             {renderHeader}

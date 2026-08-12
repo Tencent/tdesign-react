@@ -1,19 +1,23 @@
-import React, { forwardRef, useRef, useState, useImperativeHandle } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import classNames from 'classnames';
-import useControlled from '../hooks/useControlled';
-import { ClassName, StyledProps } from '../common';
-import { AutoCompleteOption, TdAutoCompleteProps } from './type';
-import { autoCompleteDefaultProps } from './defaultProps';
+
 import useCommonClassName from '../hooks/useCommonClassName';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
-import Input, { InputProps, InputRef, TdInputProps } from '../input';
-import Popup, { PopupProps, PopupRef } from '../popup';
-import AutoCompleteOptionList, { OptionsListProps } from './OptionList';
+import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
+import Input from '../input';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+import Popup from '../popup';
+import { autoCompleteDefaultProps } from './defaultProps';
+import AutoCompleteOptionList from './OptionList';
+
+import type { ClassName, StyledProps } from '../common';
+import type { InputProps, InputRef, TdInputProps } from '../input';
+import type { PopupProps, PopupRef } from '../popup';
+import type { OptionsListProps } from './OptionList';
+import type { AutoCompleteOption, TdAutoCompleteProps } from './type';
 
 export interface AutoCompleteProps<T extends AutoCompleteOption = AutoCompleteOption>
-  extends TdAutoCompleteProps<T>,
-    StyledProps {}
+  extends TdAutoCompleteProps<T>, StyledProps {}
 
 export interface AutoCompleteRef {
   inputRef: InputRef;
@@ -22,6 +26,8 @@ export interface AutoCompleteRef {
 
 const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((originalProps, ref) => {
   const props = useDefaultProps(originalProps, autoCompleteDefaultProps);
+  const readOnly = props.readOnly || props.readonly;
+
   const inputRef = useRef(null);
   const popupRef = useRef(null);
   const [tValue, setTValue] = useControlled(props, 'value', props.onChange);
@@ -104,7 +110,7 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((originalPro
   };
 
   const onInnerSelect: OptionsListProps['onSelect'] = (value, context) => {
-    if (props.readonly || props.disabled) return;
+    if (readOnly || props.disabled) return;
     setPopupVisible(false);
     setTValue(value, context);
     props.onSelect?.(value, context);
@@ -123,7 +129,7 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((originalPro
       placeholder={props.placeholder ?? global.placeholder}
       tips={props.tips}
       status={props.status}
-      readonly={props.readonly}
+      readOnly={readOnly}
       disabled={props.disabled}
       clearable={props.clearable}
       autofocus={props.autofocus}

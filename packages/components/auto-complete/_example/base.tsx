@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Space, AutoComplete, Button } from 'tdesign-react';
-import type { AutoCompleteProps } from 'tdesign-react';
-
 import { SearchIcon } from 'tdesign-icons-react';
+import { AutoComplete, Button, Space } from 'tdesign-react';
+
+import type { AutoCompleteProps } from 'tdesign-react';
 
 const classStyles = `
 <style>

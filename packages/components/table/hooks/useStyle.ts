@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
-import { BaseTableProps, PrimaryTableProps } from '../interface';
-import { ClassName, Styles } from '../../common';
-import useClassName from './useClassName';
+
 import useCommonClassName from '../../hooks/useCommonClassName';
+import useClassName from './useClassName';
+
+import type { ClassName, Styles } from '../../common';
+import type { BaseTableProps, PrimaryTableProps } from '../interface';
 
 export function formatCSSUnit(unit: string | number) {
   if (!unit) return unit;

@@ -1,6 +1,10 @@
-import { isNumber, isFunction, cloneDeep } from 'lodash-es';
-import { TreeNode, CascaderContextType, TdCascaderProps, TreeNodeValue, TreeNodeModel } from '../interface';
+import { cloneDeep, isFunction, isNumber } from 'lodash-es';
+import { pathToKey } from '@tdesign/common-js/tree-v1/tree-node-model';
+
+import { preserveSelectionOrder } from '../../_util/helper';
 import { getFullPathLabel, getTreeValue } from './helper';
+
+import type { CascaderContextType, TdCascaderProps, TreeNode, TreeNodeModel, TreeNodeValue } from '../interface';
 
 /**
  * 点击item的副作用
@@ -15,8 +19,19 @@ export function expendClickEffect(
   node: TreeNode,
   cascaderContext: CascaderContextType,
 ) {
-  const { checkStrictly, multiple, treeStore, setVisible, setValue, setTreeNodes, setExpend, value, max, valueType } =
-    cascaderContext;
+  const {
+    checkStrictly,
+    multiple,
+    treeStore,
+    setVisible,
+    setValue,
+    setTreeNodes,
+    setExpend,
+    value,
+    max,
+    valueType,
+    isParentFilterable,
+  } = cascaderContext;
 
   const isDisabled = node.disabled || (multiple && (value as TreeNodeValue[]).length >= max && max !== 0);
 
@@ -30,21 +45,31 @@ export function expendClickEffect(
     setTreeNodes(nodes);
 
     // 多选条件下手动维护expend
-    if (multiple) {
+    if (multiple && !isParentFilterable) {
       setExpend(expanded);
     }
   }
 
   if (!multiple && (node.isLeaf() || checkStrictly) && trigger === 'click') {
+    // 当 trigger 为 hover 时，点击节点一定是关闭 panel 的操作
+    const shouldClosePanel = !checkStrictly || propsTrigger === 'hover';
+
+    // 再次点击已选中节点，无需重复更新值，但仍需关闭弹窗
+    if (node.checked) {
+      if (shouldClosePanel) {
+        setVisible(false, {});
+      }
+      return;
+    }
+
     treeStore.resetChecked();
-    const checked = node.setChecked(!node.checked);
+    const checked = node.setChecked(true);
     const [value] = checked;
 
     // 非受控状态下更新状态
     setValue(valueType === 'single' ? value : node.getPath().map((item) => item.value), 'check', node.getModel());
 
-    // 当 trigger 为 hover 时 ，点击节点一定是关闭 panel 的操作
-    if (!checkStrictly || propsTrigger === 'hover') {
+    if (shouldClosePanel) {
       setVisible(false, {});
     }
   }
@@ -57,7 +82,8 @@ export function expendClickEffect(
  * @returns
  */
 export function valueChangeEffect(node: TreeNode, cascaderContext: CascaderContextType) {
-  const { disabled, max, inputVal, multiple, setVisible, setValue, treeNodes, treeStore, valueType } = cascaderContext;
+  const { disabled, max, inputVal, multiple, setVisible, setValue, treeNodes, treeStore, value, valueType } =
+    cascaderContext;
 
   if (!node || disabled || node.disabled) {
     return;
@@ -90,11 +116,20 @@ export function valueChangeEffect(node: TreeNode, cascaderContext: CascaderConte
     setVisible(false, {});
   }
 
+  const getPreviousKeys = (): TreeNodeValue[] => {
+    if (!Array.isArray(value)) return [];
+    if (valueType === 'full') {
+      return (value as TreeNodeValue[][]).filter((path) => Array.isArray(path) && path.length > 0).map(pathToKey);
+    }
+    return value as TreeNodeValue[];
+  };
+  const orderedChecked = preserveSelectionOrder(getPreviousKeys(), checked);
+
   // 处理不同数据类型
   const resValue =
     valueType === 'single'
-      ? checked
-      : checked.map((val) =>
+      ? orderedChecked
+      : orderedChecked.map((val) =>
           treeStore
             .getNode(val)
             .getPath()
@@ -136,7 +171,7 @@ export function handleRemoveTagEffect(
   index: number,
   onRemove: TdCascaderProps['onRemove'],
 ) {
-  const { disabled, setValue, value, valueType, treeStore } = cascaderContext;
+  const { disabled, setValue, value, treeStore } = cascaderContext;
 
   if (disabled) return;
   const newValue = cloneDeep(value) as [];
@@ -144,18 +179,7 @@ export function handleRemoveTagEffect(
   const node = treeStore.getNodes(res[0])[0];
   const checked = node.setChecked(!node.isChecked());
 
-  if (valueType === 'single') {
-    setValue(newValue, 'uncheck', node.getModel());
-  } else {
-    // 处理不同数据类型
-    const resValue = checked.map((val) =>
-      treeStore
-        .getNode(val)
-        .getPath()
-        .map((item) => item.value),
-    );
-    setValue(resValue, 'uncheck', node.getModel());
-  }
+  setValue(newValue, 'uncheck', node.getModel());
 
   if (isFunction(onRemove)) {
     onRemove({ value: checked, node: node as any });
@@ -174,13 +198,13 @@ export const treeNodesEffect = (
   treeStore: CascaderContextType['treeStore'],
   setTreeNodes: CascaderContextType['setTreeNodes'],
   filter: CascaderContextType['filter'],
-  checkStrictly: CascaderContextType['checkStrictly'],
+  isParentFilterable: boolean,
 ) => {
   if (!treeStore) return;
   let nodes = [];
   if (inputVal) {
     const filterMethods = (node: TreeNode) => {
-      if (!checkStrictly && !node.isLeaf()) return;
+      if (!node.isLeaf() && !isParentFilterable) return;
       if (isFunction(filter)) {
         return filter(`${inputVal}`, node as TreeNodeModel & TreeNode);
       }
@@ -200,31 +224,46 @@ export const treeNodesEffect = (
  * @param treeStore
  * @param treeValue
  * @param expend
+ * @param valueType
  */
 export const treeStoreExpendEffect = (
   treeStore: CascaderContextType['treeStore'],
   value: CascaderContextType['value'],
   expend: TreeNodeValue[],
+  valueType?: TdCascaderProps['valueType'],
 ) => {
   const treeValue = getTreeValue(value);
 
   if (!treeStore) return;
+
+  const allowDuplicateValue = treeStore.config?.allowDuplicateValue;
+
   // init expanded, 无expend状态时设置
   if (Array.isArray(treeValue) && expend.length === 0) {
     const expandedMap = new Map();
-    const [val] = treeValue;
-    if (val) {
-      expandedMap.set(val, true);
-      const node = treeStore.getNode(val);
-      if (!node) {
-        treeStore.refreshNodes();
-        return;
+
+    // 对于 valueType='full'，value 本身就是完整路径，用它来查找节点
+    let node = null;
+    if (valueType === 'full' && Array.isArray(value) && value.length > 0) {
+      node = treeStore.getNode(value as TreeNodeValue[]);
+    } else {
+      const [val] = treeValue;
+      if (val) {
+        expandedMap.set(val, true);
+        node = treeStore.getNode(val);
       }
+    }
+
+    if (node) {
       node.getParents().forEach((tn: TreeNode) => {
-        expandedMap.set(tn.value, true);
+        const expandedKey = allowDuplicateValue ? pathToKey(tn.getPath().map((n) => n.value)) : tn.value;
+        expandedMap.set(expandedKey, true);
       });
       const expandedArr = Array.from(expandedMap.keys());
       treeStore.replaceExpanded(expandedArr);
+    } else if (treeValue.length > 0) {
+      treeStore.refreshNodes();
+      return;
     } else {
       treeStore.resetExpanded();
     }

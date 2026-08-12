@@ -1,6 +1,7 @@
-import { render, fireEvent, vi, waitFor } from '@test/utils';
 import React from 'react';
 import { UserIcon } from 'tdesign-icons-react';
+import { fireEvent, render, vi, waitFor } from '@test/utils';
+
 import Menu from '../index';
 
 describe('Menu 组件测试', () => {

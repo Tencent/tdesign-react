@@ -1,19 +1,21 @@
 import React from 'react';
-import {
-  CloseIcon as TdCloseIcon,
-  TimeFilledIcon as TdTimeFilledIcon,
-  CheckCircleFilledIcon as TdCheckCircleFilledIcon,
-  ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
-  CloseCircleFilledIcon as TdCloseCircleFilledIcon,
-} from 'tdesign-icons-react';
 import classNames from 'classnames';
+import {
+  CheckCircleFilledIcon as TdCheckCircleFilledIcon,
+  CloseCircleFilledIcon as TdCloseCircleFilledIcon,
+  CloseIcon as TdCloseIcon,
+  ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
+  TimeFilledIcon as TdTimeFilledIcon,
+} from 'tdesign-icons-react';
 import { abridgeName } from '@tdesign/common-js/upload/utils';
+
 import parseTNode from '../../_util/parseTNode';
-import TLoading from '../../loading';
-import Link from '../../link';
-import { UploadFile } from '../type';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
-import { CommonDisplayFileProps } from '../interface';
+import Link from '../../link';
+import TLoading from '../../loading';
+
+import type { CommonDisplayFileProps } from '../interface';
+import type { UploadFile } from '../type';
 
 export interface NormalFileProps extends CommonDisplayFileProps {
   multiple: boolean;

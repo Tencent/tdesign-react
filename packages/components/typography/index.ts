@@ -1,6 +1,6 @@
-import _Typography from './Typography';
-
 import './style/index.js';
+
+import _Typography from './Typography';
 
 export * from './type';
 

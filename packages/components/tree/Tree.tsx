@@ -1,46 +1,35 @@
-import React, {
-  forwardRef,
-  useState,
-  useImperativeHandle,
-  useMemo,
-  RefObject,
-  MouseEvent,
-  useRef,
-  useCallback,
-} from 'react';
+import React, { forwardRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import { get } from 'lodash-es';
-
-import TreeNode from '@tdesign/common-js/tree-v1/tree-node';
 import log from '@tdesign/common-js/log/index';
+
+import parseTNode from '../_util/parseTNode';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { usePersistFn } from '../hooks/usePersistFn';
+import { treeDefaultProps } from './defaultProps';
+import { TreeDraggableContext } from './hooks/TreeDraggableContext';
+import useControllable from './hooks/useControllable';
+import { useStore } from './hooks/useStore';
+import { useTreeConfig } from './hooks/useTreeConfig';
+import useTreeVirtualScroll from './hooks/useTreeVirtualScroll';
+import TreeItem from './TreeItem';
+
+import type { MouseEvent, RefObject } from 'react';
+import type TreeNode from '@tdesign/common-js/tree-v1/tree-node';
 import type {
   TreeNodeState,
   TreeNodeValue,
   TypeTreeNodeData,
   TypeTreeNodeModel,
 } from '@tdesign/common-js/tree-v1/types';
-import { TreeOptionData, StyledProps, ComponentScrollToElementParams } from '../common';
-import { TreeItemProps } from './interface';
-import TreeItem from './TreeItem';
-
-import useControllable from './hooks/useControllable';
-import { useStore } from './hooks/useStore';
-import { useTreeConfig } from './hooks/useTreeConfig';
-import { TreeDraggableContext } from './hooks/TreeDraggableContext';
-import parseTNode from '../_util/parseTNode';
-import { usePersistFn } from '../hooks/usePersistFn';
-import useTreeVirtualScroll from './hooks/useTreeVirtualScroll';
-
-import type { TreeInstanceFunctions, TdTreeProps } from './type';
-import { treeDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
+import type { ComponentScrollToElementParams, StyledProps, TreeOptionData } from '../common';
+import type { TreeItemProps } from './interface';
+import type { TdTreeProps, TreeInstanceFunctions } from './type';
 
 export type TreeProps = TdTreeProps & StyledProps;
 
 const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((originalProps, ref) => {
-  const { treeClassNames, transitionNames, transitionClassNames, transitionDuration, locale } = useTreeConfig();
-
   const { value, onChange, expanded, onExpand, onActive, actived, setTreeIndeterminate, indeterminate } =
     useControllable(originalProps);
   const props = useDefaultProps<TreeProps>(originalProps, treeDefaultProps);
@@ -65,6 +54,9 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     allowDrop,
     onScroll,
   } = props;
+
+  const { treeClassNames, transitionNames, transitionClassNames, transitionDuration, locale } =
+    useTreeConfig(transition);
 
   // 可见节点集合
   const [visibleNodes, setVisibleNodes] = useState([]);
@@ -179,11 +171,12 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
   };
 
   const handleChange: TreeItemProps['onChange'] = (node, ctx) => {
-    if (!node || disabled || node.disabled) {
-      return;
-    }
-    setChecked(node, !node.isChecked(), { ...ctx, trigger: 'node-click' });
+    if (!node || disabled || node.disabled) return;
+    const checked = node.toggleChecked();
+    const treeNodeModel = node?.getModel();
+    onChange?.(checked, { node: treeNodeModel, ...ctx, trigger: 'node-click' });
   };
+
   const handleScrollToElement = useCallback(
     (params: ComponentScrollToElementParams) => {
       let { index } = params;

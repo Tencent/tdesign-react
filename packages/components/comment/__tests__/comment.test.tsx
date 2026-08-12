@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from '@test/utils';
+
 import Comment from '../Comment';
 
 describe('Comment', () => {
@@ -30,16 +31,18 @@ describe('Comment', () => {
 
   describe('avatar', () => {
     test('avatar is url string', () => {
-      const { container } = render(<Comment avatar="https://tdesign.gtimg.com/list-icon.png"></Comment>);
+      const { container } = render(<Comment avatar="https://tdesign.gtimg.com/site/images/list-icon.png"></Comment>);
       expect(container.querySelector('.t-comment__avatar-image')).toHaveAttribute(
         'src',
-        'https://tdesign.gtimg.com/list-icon.png',
+        'https://tdesign.gtimg.com/site/images/list-icon.png',
       );
     });
 
     test('avatar is custom element', () => {
       const { container } = render(
-        <Comment avatar={<img className="custom-image" src="https://tdesign.gtimg.com/list-icon.png" />}></Comment>,
+        <Comment
+          avatar={<img className="custom-image" src="https://tdesign.gtimg.com/site/images/list-icon.png" />}
+        ></Comment>,
       );
       expect(container.querySelector('.t-comment__avatar-image')).toBeNull();
       expect(container.querySelector('.t-comment__avatar > img')).toHaveClass('custom-image');

@@ -1,11 +1,13 @@
-import { useEffect, useMemo, MutableRefObject, useCallback, CSSProperties } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
+
 import useVirtualScroll from '../../hooks/useVirtualScroll';
-import { TdSelectProps } from '../type';
-import { TScroll, SizeEnum } from '../../common';
+
+import type { SizeEnum, TScroll } from '../../common';
+import type { TdSelectProps } from '../type';
 
 interface PanelVirtualScroll {
   scroll?: TdSelectProps['scroll'];
-  popupContentRef: MutableRefObject<HTMLDivElement>;
+  popupContentRef: React.MutableRefObject<HTMLDivElement>;
   options: TdSelectProps['options'];
   size: SizeEnum;
 }
@@ -14,9 +16,10 @@ const usePanelVirtualScroll = ({ popupContentRef, scroll, options, size }: Panel
   const scrollThreshold = scroll?.threshold || 100;
   const scrollType = scroll?.type;
 
+  const enableVirtual = useMemo<boolean>(() => scrollType === 'virtual', [scrollType]);
   const isVirtual = useMemo<boolean>(
-    () => scrollType === 'virtual' && options?.length > scrollThreshold,
-    [scrollType, scrollThreshold, options],
+    () => enableVirtual && options?.length > scrollThreshold,
+    [enableVirtual, options?.length, scrollThreshold],
   );
 
   const scrollParams = useMemo<TScroll>(() => {
@@ -42,27 +45,31 @@ const usePanelVirtualScroll = ({ popupContentRef, scroll, options, size }: Panel
     translateY = null,
     handleRowMounted = null,
   } = useVirtualScroll(popupContentRef, {
+    enable: enableVirtual,
     data: options || [],
     scroll: scrollParams,
   });
 
   let lastScrollY = -1;
 
-  const onInnerVirtualScroll = useCallback((e: WheelEvent) => {
-    if (!isVirtual) {
-      return;
-    }
-    const target = e.target as HTMLElement;
-    const top = target.scrollTop;
-    // 排除横向滚动触发的纵向虚拟滚动计算
-    if (Math.abs(lastScrollY - top) > 5) {
-      handleVirtualScroll();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      lastScrollY = top;
-    } else {
-      lastScrollY = -1;
-    }
-  }, []);
+  const onInnerVirtualScroll = useCallback(
+    (e: WheelEvent) => {
+      if (!isVirtual) {
+        return;
+      }
+      const target = e.target as HTMLElement;
+      const top = target.scrollTop;
+      // 排除横向滚动触发的纵向虚拟滚动计算
+      if (Math.abs(lastScrollY - top) > 5) {
+        handleVirtualScroll();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        lastScrollY = top;
+      } else {
+        lastScrollY = -1;
+      }
+    },
+    [isVirtual, handleVirtualScroll],
+  );
 
   // 监听popup滚动 处理虚拟滚动时的virtualData变化
   useEffect(() => {
@@ -88,14 +95,14 @@ const usePanelVirtualScroll = ({ popupContentRef, scroll, options, size }: Panel
     MsTransform: `translate(0, ${scrollHeight}px)`,
     MozTransform: `translate(0, ${scrollHeight}px)`,
     WebkitTransform: `translate(0, ${scrollHeight}px)`,
-  } as CSSProperties;
+  } as React.CSSProperties;
 
   const panelStyle = {
     transform: `translate(0, ${translateY}px)`,
     MsTransform: `translate(0, ${translateY}px)`,
     MozTransform: `translate(0, ${translateY}px)`,
     WebkitTransform: `translate(0, ${translateY}px)`,
-  } as CSSProperties;
+  } as React.CSSProperties;
 
   return {
     scrollHeight,

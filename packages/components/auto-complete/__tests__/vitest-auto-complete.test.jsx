@@ -173,17 +173,17 @@ describe('AutoComplete Component', () => {
     expect(customClassNameDom).toBeTruthy();
   });
 
-  it('props.readonly works fine', () => {
+  it('props.readOnly works fine', () => {
     // readonly default value is
     const wrapper1 = getNormalAutoCompleteMount(AutoComplete);
     const container1 = wrapper1.container.querySelector('.t-input');
     expect(container1.querySelector(`.${'t-is-readonly'}`)).toBeFalsy();
     // readonly = true
-    const wrapper2 = getNormalAutoCompleteMount(AutoComplete, { readonly: true });
+    const wrapper2 = getNormalAutoCompleteMount(AutoComplete, { readOnly: true });
     const container2 = wrapper2.container.querySelector('.t-input');
     expect(container2).toHaveClass('t-is-readonly');
     // readonly = false
-    const wrapper3 = getNormalAutoCompleteMount(AutoComplete, { readonly: false });
+    const wrapper3 = getNormalAutoCompleteMount(AutoComplete, { readOnly: false });
     const container3 = wrapper3.container.querySelector('.t-input');
     expect(container3.querySelector(`.${'t-is-readonly'}`)).toBeFalsy();
   });

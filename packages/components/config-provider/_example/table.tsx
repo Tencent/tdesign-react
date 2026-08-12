@@ -1,8 +1,9 @@
 import React from 'react';
-import { ConfigProvider, Table, Space } from 'tdesign-react';
-import type { GlobalConfigProvider } from 'tdesign-react';
-import { ChevronRightIcon, CaretDownSmallIcon } from 'tdesign-icons-react';
+import { CaretDownSmallIcon, ChevronRightIcon } from 'tdesign-icons-react';
+import { ConfigProvider, Space, Table } from 'tdesign-react';
 import enConfig from 'tdesign-react/es/locale/en_US';
+
+import type { GlobalConfigProvider } from 'tdesign-react';
 
 const columns = [
   {
@@ -40,8 +41,8 @@ export default function configDemo() {
     table: {
       // 支持 String 和 Function 两种数据类型
       empty: 'Empty Data',
-      expandIcon: () => <ChevronRightIcon />,
-      sortIcon: () => <CaretDownSmallIcon size="18px" />,
+      expandIcon: <ChevronRightIcon />,
+      sortIcon: <CaretDownSmallIcon size="18px" />,
 
       // More config
       // filterIcon: () => <span>Filter</span>,

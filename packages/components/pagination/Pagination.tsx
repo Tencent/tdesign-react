@@ -1,25 +1,24 @@
-import React, { useState, useMemo, forwardRef, useEffect } from 'react';
+import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
-import { omit, isNaN } from 'lodash-es';
+import { isNaN, omit } from 'lodash-es';
 
 import noop from '../_util/noop';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
-import Select from '../select';
-import InputNumber from '../input-number';
-import InputAdornment from '../input-adornment';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
-
-import useBoundaryJumper from './hooks/useBoundaryJumper';
-import usePrevNextJumper from './hooks/usePrevNextJumper';
-import usePageNumber from './hooks/usePageNumber';
-import useTotal from './hooks/useTotal';
-
-import { TdPaginationProps } from './type';
-import { StyledProps } from '../common';
-import { pageSizeValidator } from './validators';
-import { paginationDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import InputAdornment from '../input-adornment';
+import InputNumber from '../input-number';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+import Select from '../select';
+import { paginationDefaultProps } from './defaultProps';
+import useBoundaryJumper from './hooks/useBoundaryJumper';
+import usePageNumber from './hooks/usePageNumber';
+import usePrevNextJumper from './hooks/usePrevNextJumper';
+import useTotal from './hooks/useTotal';
+import { pageSizeValidator } from './validators';
+
+import type { StyledProps } from '../common';
+import type { TdPaginationProps } from './type';
 
 export type { PageInfo } from './type';
 
@@ -192,9 +191,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>((originalProps, r
   );
 
   const globalJumper = paginationConfig.jumper;
-  const Jumper = globalJumper
-  ? globalJumper({ current, pageCount, onChange: changeCurrent })
-  : DefaultJumper;
+  const Jumper = globalJumper ? globalJumper({ current, pageCount, onChange: changeCurrent }) : DefaultJumper;
 
   return (
     <div

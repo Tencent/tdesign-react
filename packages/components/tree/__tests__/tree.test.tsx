@@ -1,29 +1,31 @@
 import React from 'react';
-import { render, fireEvent, vi, mockTimeout, mockDelay } from '@test/utils';
-import Tree from '../Tree';
+import { fireEvent, mockDelay, mockTimeout, render, vi } from '@test/utils';
+
 import Button from '../../button';
-import { TdTreeProps } from '../type';
+import Tree from '../Tree';
+
+import type { TdTreeProps } from '../type';
 
 // TODO
 describe('Tree test', () => {
   // label 类型定义有问题
   const items = [
     {
-      label: '第1一段',
+      label: '第 1 段',
       value: 1,
       children: [
         {
-          label: '第二段',
+          label: '第 1-1 段',
           value: '1-1',
         },
         {
-          label: '第二段',
+          label: '第 1-2 段',
           value: '1-2',
         },
       ],
     },
     {
-      label: '第二段',
+      label: '第 2 段',
       value: 2,
     },
   ];
@@ -154,7 +156,9 @@ describe('Tree test', () => {
         </Button>
       </>
     );
-    const { container } = await renderTreeWithProps({ operations: renderOperations });
+    const { container } = await renderTreeWithProps({
+      operations: renderOperations,
+    });
     await mockDelay(300);
     expect(container.querySelector('.t-tree__operations')).not.toBeNull();
   });
@@ -168,7 +172,9 @@ describe('Tree test', () => {
         </Button>
       </>
     );
-    const { container } = await renderTreeWithProps({ operations: renderOperations });
+    const { container } = await renderTreeWithProps({
+      operations: renderOperations,
+    });
     await mockDelay(300);
     expect(container.querySelector('.t-tree__operations')).not.toBeNull();
   });
@@ -214,15 +220,15 @@ describe('Tree test', () => {
   describe('Test props.line', async () => {
     const data = [
       {
-        label: '第1一段',
+        label: '第 1 段',
         value: 1,
         children: [
           {
-            label: '第二段',
+            label: '第 1-1 段',
             value: '1-1',
             children: [
               {
-                label: '第三段',
+                label: '第 1-1-1 段',
                 value: '1-1-1',
               },
             ],
@@ -230,15 +236,15 @@ describe('Tree test', () => {
         ],
       },
       {
-        label: '第二段',
+        label: '第 2 段',
         value: 2,
         children: [
           {
-            label: '2.1',
+            label: '第 2-1 段',
             value: '2-1',
             children: [
               {
-                label: '2.1.1',
+                label: '第 2-1-1 段',
                 value: '2-1-1',
               },
             ],
@@ -246,7 +252,7 @@ describe('Tree test', () => {
         ],
       },
     ];
-    it('wehen props.line is customized, it works fine', async () => {
+    it('when props.line is customized, it works fine', async () => {
       const { container } = await renderTreeWithProps({
         data,
         expandAll: true,
@@ -256,7 +262,7 @@ describe('Tree test', () => {
       expect(container.querySelectorAll('.custom-line').length).toBe(6);
     });
 
-    it('wehen props.line is a customized function, it works fine', async () => {
+    it('when props.line is a customized function, it works fine', async () => {
       const line: any = () => <span className="custom-line"></span>;
       const { container } = await renderTreeWithProps({
         data,
@@ -300,19 +306,19 @@ describe('Tree test', () => {
   test('TreeNodeState.loading works fine', async () => {
     const data = [
       {
-        label: '第1一段',
+        label: '第 1 段',
         value: 1,
         loading: true,
         expanded: true,
         children: [
           {
-            label: '第二段',
+            label: '第 1-1 段',
             value: '1-1',
           },
         ],
       },
       {
-        label: '第二段',
+        label: '第 2 段',
         value: 2,
       },
     ];
@@ -324,17 +330,17 @@ describe('Tree test', () => {
   test('custom label', async () => {
     const data = [
       {
-        label: '第1一段',
+        label: '第 1 段',
         value: 1,
         children: [
           {
-            label: '第二段',
+            label: '第 1-1 段',
             value: '1-1',
           },
         ],
       },
       {
-        label: '第二段',
+        label: '第 2 段',
         value: 2,
       },
     ];
@@ -352,7 +358,11 @@ describe('Tree test', () => {
             onKeyDown={(e) => {
               console.log('keydown', e.key);
               if (e.key === 'Enter') {
-                setData({ ...data, label: e.currentTarget.value, isEditing: false });
+                setData({
+                  ...data,
+                  label: e.currentTarget.value,
+                  isEditing: false,
+                });
                 console.log('Enter setData({ ...data, name: e.target.value, isEditing: false })');
               }
               if (e.key === 'Escape') {
@@ -378,10 +388,12 @@ describe('Tree test', () => {
     fireEvent.dblClick(container.querySelector('.tree-item-span'));
     await mockDelay(300);
     expect(container.querySelector('.tree-item-input')).not.toBeNull();
-    fireEvent.change(container.querySelector('.tree-item-input'), { target: { value: '123' } });
-    expect(container.querySelector('.tree-item-input').value).toBe('123');
-    container.querySelector('.tree-item-input').focus();
-    container.querySelector('.tree-item-input').blur();
+    fireEvent.change(container.querySelector('.tree-item-input'), {
+      target: { value: '123' },
+    });
+    expect((container.querySelector('.tree-item-input') as HTMLInputElement).value).toBe('123');
+    (container.querySelector('.tree-item-input') as HTMLInputElement).focus();
+    (container.querySelector('.tree-item-input') as HTMLInputElement).blur();
     await mockDelay(300);
     expect(container.querySelector('.tree-item-input')).toBeNull();
     expect(container.querySelector('.tree-item-span')).not.toBeNull();

@@ -1,4 +1,6 @@
-import { ReactNode, isValidElement } from 'react';
+import { isValidElement } from 'react';
+
+import type { ReactNode } from 'react';
 import type { MenuValue } from '../type';
 
 interface MenuNode {

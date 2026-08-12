@@ -5,7 +5,7 @@ const { Option, OptionGroup } = Select;
 
 const OptionGroupSelect = () => {
   const [value, setValue] = useState('');
-  const [value2, setValue2] = useState([1]);
+  const [value2, setValue2] = useState([1, 4]);
 
   const onChange = (value: string) => {
     setValue(value);
@@ -15,7 +15,7 @@ const OptionGroupSelect = () => {
     setValue2(value);
   };
   const options1 = [
-    { label: '选项一', value: 1 },
+    { label: '选项一', value: 1, disabled: true },
     { label: '选项二', value: 2 },
   ];
 
@@ -48,13 +48,13 @@ const OptionGroupSelect = () => {
   ];
 
   return (
-    <Space breakLine style={{ width: '100%' }}>
+    <Space breakLine style={{ width: '800px' }}>
       <Select value={value} onChange={onChange} style={{ width: '40%' }} options={groupOptions} filterable />
       <Select value={value2} onChange={onChange2} style={{ width: '40%' }} multiple filterable>
         <Option value="all" label="全选" checkAll></Option>
         <OptionGroup label="分组一" divider={true}>
           {options1.map((item, index) => (
-            <Option label={item.label} value={item.value} key={index} />
+            <Option label={item.label} value={item.value} disabled={item.disabled} key={index} />
           ))}
         </OptionGroup>
         <OptionGroup label="分组二" divider={true}>

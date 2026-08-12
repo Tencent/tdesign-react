@@ -1,18 +1,20 @@
 import React, { forwardRef } from 'react';
 import dayjs from 'dayjs';
 import { formatDate, getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
-import { subtractMonth, addMonth, extractTimeObj } from '@tdesign/common-js/date-picker/utils';
-import { StyledProps } from '../common';
-import {
-  TdDatePickerPanelProps,
-  DateValue,
-  DatePickerYearChangeTrigger,
-  DatePickerMonthChangeTrigger,
-  PresetDate,
-} from './type';
-import SinglePanel from './panel/SinglePanel';
-import useSingleValue from './hooks/useSingleValue';
+import { addMonth, extractTimeObj, subtractMonth } from '@tdesign/common-js/date-picker/utils';
+
 import useDefaultProps from '../hooks/useDefaultProps';
+import useSingleValue from './hooks/useSingleValue';
+import SinglePanel from './panel/SinglePanel';
+
+import type { StyledProps } from '../common';
+import type {
+  DatePickerMonthChangeTrigger,
+  DatePickerYearChangeTrigger,
+  DateValue,
+  PresetDate,
+  TdDatePickerPanelProps,
+} from './type';
 
 export interface DatePickerPanelProps extends TdDatePickerPanelProps, StyledProps {}
 

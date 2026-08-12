@@ -1,5 +1,6 @@
 import React from 'react';
-import { TdTimelineProps } from './type';
+
+import type { TdTimelineProps } from './type';
 
 const StepsContext = React.createContext<{
   theme: TdTimelineProps['theme'];

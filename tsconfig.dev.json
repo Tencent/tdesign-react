@@ -2,6 +2,7 @@
   "extends": "./tsconfig",
   "include": [
     "./packages/components",
+    "./globals.d.ts"
   ],
   "exclude": [
     "**/**/__tests__/*",
@@ -18,9 +19,12 @@
   "compilerOptions": {
     "declaration": false,
     "paths": {
-      "tdesign-react": ["packages/components"],
-      "@test/utils": ["test/utils"],
-      "@common/*": ["packages/common/*"]
+      "tdesign-react": ["./packages/components"],
+      "@test/utils": ["./test/utils"],
+      "@common/*": ["./packages/common/*"],
+      "@tdesign-react/chat": ["./packages/pro-components/chat"],
     },
+    "rootDir": "packages/components",
+    "noEmit": true
   }
 }

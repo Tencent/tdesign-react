@@ -1,8 +1,12 @@
-import React, { KeyboardEvent, MouseEvent } from 'react';
-import { TNode } from '../common';
+import React from 'react';
+import classNames from 'classnames';
+
 import Dialog from '../dialog';
 import useConfig from '../hooks/useConfig';
 import { ImageModalItem, ImageViewerUtils } from './ImageViewerModal';
+
+import type { KeyboardEvent, MouseEvent } from 'react';
+import type { TNode } from '../common';
 import type { ImageInfo, ImageScale, ImageViewerScale, TdImageViewerProps } from './type';
 
 export interface ImageModalMiniProps {
@@ -25,20 +29,25 @@ export interface ImageModalMiniProps {
     originalSize: string;
   };
   imageReferrerpolicy?: TdImageViewerProps['imageReferrerpolicy'];
+  className?: string;
+  style?: React.CSSProperties;
   prev: () => void;
   next: () => void;
   onMirror: () => void;
-  onZoom: () => void;
+  onZoomIn: () => void;
   onZoomOut: () => void;
   onReset: () => void;
-  onRotate: (red: number) => void;
+  onRotate: () => void;
   onClose: (context: { trigger: 'close-btn' | 'overlay' | 'esc'; e: MouseEvent<HTMLElement> | KeyboardEvent }) => void;
+  innerClassName: TdImageViewerProps['innerClassName'];
 }
 
 export const ImageModalMiniContent: React.FC<ImageModalMiniProps> = (props) => {
   const { classPrefix } = useConfig();
 
   return (
+    // TODO: viewerScale（minWidth/minHeight）应作为 style 应用到此容器，参考 tdesign-next-vue 实现
+    // 需将 viewerScale 从 TdImageViewerProps → ImageViewer → ImageModal → ImageModalMini → ImageModalMiniContent 完整透传
     <div className={`${classPrefix}-image-viewer-mini__content`}>
       <ImageModalItem
         rotateZ={props.rotateZ}
@@ -49,6 +58,7 @@ export const ImageModalMiniContent: React.FC<ImageModalMiniProps> = (props) => {
         errorText={props.errorText}
         imageReferrerpolicy={props.imageReferrerpolicy}
         isSvg={props.currentImage.isSvg}
+        innerClassName={props.innerClassName}
       />
     </div>
   );
@@ -62,12 +72,15 @@ export const ImageModalMini: React.FC<ImageModalMiniProps> = (props) => {
     currentImage,
     draggable,
     tipText,
+    className,
+    style,
     onZoomOut,
-    onZoom,
+    onZoomIn,
     onClose,
     onRotate,
     onMirror,
     onReset,
+    innerClassName,
   } = props;
 
   const { classPrefix } = useConfig();
@@ -79,7 +92,7 @@ export const ImageModalMini: React.FC<ImageModalMiniProps> = (props) => {
         tipText={tipText}
         currentImage={currentImage}
         zIndex={props.zIndex + 1}
-        onZoom={onZoom}
+        onZoomIn={onZoomIn}
         onZoomOut={onZoomOut}
         onRotate={onRotate}
         onMirror={onMirror}
@@ -90,7 +103,9 @@ export const ImageModalMini: React.FC<ImageModalMiniProps> = (props) => {
 
   return (
     <Dialog
-      className={`${classPrefix}-image-viewer__dialog`}
+      className={classNames(`${classPrefix}-image-viewer__dialog`, className)}
+      dialogClassName={innerClassName}
+      style={style}
       draggable={draggable}
       visible={visible}
       width="min(90vw, 1000px)"

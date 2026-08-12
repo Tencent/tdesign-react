@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, act } from '@test/utils';
+import { act, render } from '@test/utils';
+
 import SelectInput from '../index';
 
 describe('SelectInput Test', () => {

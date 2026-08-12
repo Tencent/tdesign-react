@@ -1,18 +1,20 @@
-import React, { useRef, useImperativeHandle } from 'react';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import classNames from 'classnames';
-import useConfig from '../hooks/useConfig';
-import noop from '../_util/noop';
+
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import type { TdFormProps } from './type';
-import useInstance from './hooks/useInstance';
-import useForm, { HOOK_MARK } from './hooks/useForm';
-import useWatch from './hooks/useWatch';
-import { StyledProps } from '../common';
+import noop from '../_util/noop';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { formDefaultProps } from './defaultProps';
 import FormContext from './FormContext';
 import FormItem from './FormItem';
 import FormList from './FormList';
-import { formDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
+import useForm, { HOOK_MARK } from './hooks/useForm';
+import useInstance from './hooks/useInstance';
+import useWatch from './hooks/useWatch';
+
+import type { StyledProps } from '../common';
+import type { TdFormProps } from './type';
 
 export interface FormProps extends TdFormProps, StyledProps {
   children?: React.ReactNode;
@@ -38,7 +40,6 @@ const Form = forwardRefWithStatics(
       resetType,
       rules,
       errorMessage = globalFormConfig.errorMessage,
-      preventSubmitDefault,
       disabled,
       children,
       id,
@@ -54,38 +55,43 @@ const Form = forwardRefWithStatics(
     const formRef = useRef<HTMLFormElement>(null);
     const formMapRef = useRef(new Map()); // 收集所有包含 name 属性 formItem 实例
     const floatingFormDataRef = useRef({}); // 储存游离值的 formData
-    const formInstance = useInstance(props, formRef, formMapRef, floatingFormDataRef);
+    const formInstance = useInstance(props, formRef, formMapRef, floatingFormDataRef, form);
 
     useImperativeHandle(ref, () => formInstance);
     Object.assign(form, { ...formInstance });
     form?.getInternalHooks?.(HOOK_MARK)?.setForm?.(formInstance);
 
     // form 初始化后清空队列
-    React.useEffect(() => {
+    useEffect(() => {
       form?.getInternalHooks?.(HOOK_MARK)?.flashQueue?.();
     }, [form]);
 
+    // Dialog / Popup 等通过 Portal 渲染时，DOM 已脱离外层 Form，但 React 合成事件仍沿 Fiber 树冒泡
+    // 会导致内层 Form 的 reset / submit 误触发外层 Form 的处理逻辑
+    // 这里过滤掉来自嵌套 Form 的伪冒泡事件
+    function isEventFromSelf(e: React.FormEvent<HTMLFormElement>) {
+      return e?.target === formRef.current;
+    }
+
     function onResetHandler(e: React.FormEvent<HTMLFormElement>) {
+      if (!isEventFromSelf(e)) return;
       [...formMapRef.current.values()].forEach((formItemRef) => {
         formItemRef?.current.resetField();
       });
       form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.([]);
       form.store = {};
+      floatingFormDataRef.current = {};
       onReset?.({ e });
+    }
+
+    function onSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
+      if (!isEventFromSelf(e)) return;
+      formInstance.submit(e);
     }
 
     function onFormItemValueChange(changedValue: Record<string, unknown>) {
       const allFields = formInstance.getFieldsValue(true);
       onValuesChange(changedValue, allFields);
-    }
-
-    function onKeyDownHandler(e: React.KeyboardEvent<HTMLFormElement>) {
-      // 禁用 input 输入框回车自动提交 form
-      if ((e.target as Element).tagName.toLowerCase() !== 'input') return;
-      if (preventSubmitDefault && e.key === 'Enter') {
-        e.preventDefault?.();
-        e.stopPropagation?.();
-      }
     }
 
     return (
@@ -106,6 +112,7 @@ const Form = forwardRefWithStatics(
           resetType,
           rules,
           disabled,
+          readOnly: props.readOnly || props.readonly,
           formMapRef,
           floatingFormDataRef,
           onFormItemValueChange,
@@ -116,9 +123,8 @@ const Form = forwardRefWithStatics(
           id={id}
           style={style}
           className={formClass}
-          onSubmit={formInstance.submit}
+          onSubmit={onSubmitHandler}
           onReset={onResetHandler}
-          onKeyDown={onKeyDownHandler}
         >
           {children}
         </form>

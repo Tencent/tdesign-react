@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
-import {
-  Upload,
-  Space,
-  MessagePlugin,
-  Switch,
-  Checkbox,
-  Divider,
-  SwitchProps,
-  type UploadProps,
-} from 'tdesign-react';
+import { Checkbox, Divider, MessagePlugin, Space, Switch, Upload } from 'tdesign-react';
+
+import type { SwitchProps, UploadProps } from 'tdesign-react';
 
 const ABRIDGE_NAME = [4, 6];
 

@@ -1,19 +1,21 @@
-import React, { useMemo, useState, useCallback, useEffect, forwardRef } from 'react';
+import React, { forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
 import dayjs from 'dayjs';
-import Button from '../button';
-import Select from '../select';
-import Radio from '../radio';
-import CheckTag from '../tag/CheckTag';
+
 import noop from '../_util/noop';
-import usePrefixClass from './hooks/usePrefixClass';
+import Button from '../button';
+import useDefaultProps from '../hooks/useDefaultProps';
 import useLayoutEffect from '../hooks/useLayoutEffect';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { TdCalendarProps, ControllerOptions, CalendarCell, CalendarValue, CalendarController } from './type';
-import { StyledProps } from '../common';
-import { blockName, minYear, createDateList, createMonthList } from './_util';
+import Radio from '../radio';
+import Select from '../select';
+import CheckTag from '../tag/CheckTag';
+import { blockName, createDateList, createMonthList, minYear } from './_util';
 import CalendarCellComp from './CalendarCellComp';
 import { calendarDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
+import usePrefixClass from './hooks/usePrefixClass';
+
+import type { StyledProps } from '../common';
+import type { CalendarCell, CalendarController, CalendarValue, ControllerOptions, TdCalendarProps } from './type';
 
 export interface CalendarProps extends TdCalendarProps, StyledProps {}
 
@@ -192,14 +194,21 @@ const Calendar = forwardRef<CalendarMethods, CalendarProps>((props, ref) => {
     const isRangeValid = rangeFromTo && rangeFromTo.from && rangeFromTo.to;
     const checkMonthSelectorDisabled = (yearIn: number, monthIn: number): boolean => {
       if (isRangeValid) {
+        // 读取起止年份
         const beginYear = dayjs(rangeFromTo.from).year();
         const endYear = dayjs(rangeFromTo.to).year();
+        // 读取起止月份
+        const beginMon = parseInt(dayjs(rangeFromTo.from).format('M'), 10);
+        const endMon = parseInt(dayjs(rangeFromTo.to).format('M'), 10);
+
+        if (beginYear === endYear) {
+          // 同一年内，禁用开始月份至结束月份之外的月份选项
+          return monthIn < beginMon || monthIn > endMon;
+        }
         if (yearIn === beginYear) {
-          const beginMon = parseInt(dayjs(rangeFromTo.from).format('M'), 10);
           return monthIn < beginMon;
         }
         if (yearIn === endYear) {
-          const endMon = parseInt(dayjs(rangeFromTo.to).format('M'), 10);
           return monthIn > endMon;
         }
       }
@@ -214,7 +223,7 @@ const Calendar = forwardRef<CalendarMethods, CalendarProps>((props, ref) => {
     for (let i = yearBegin; i <= yearEnd; i++) {
       yearList.push({
         value: i,
-        disabled: checkMonthSelectorDisabled(i, month),
+        disabled: false,
       });
     }
     // 月列表
@@ -225,7 +234,7 @@ const Calendar = forwardRef<CalendarMethods, CalendarProps>((props, ref) => {
       });
     }
     return [yearList, monthList];
-  }, [rangeFromTo, year, month]);
+  }, [rangeFromTo, year]);
 
   // mode为 'month' 时，构造日历列表
   const dateList = useMemo<CalendarCell[][]>(
@@ -330,7 +339,7 @@ const Calendar = forwardRef<CalendarMethods, CalendarProps>((props, ref) => {
   const controlSectionSize = theme === 'card' ? 'small' : 'medium';
 
   return (
-    <div className={prefixCls(blockName, [blockName, '', theme]).concat(' ', className)} style={style}>
+    <div className={prefixCls(blockName, [blockName, '', theme, className])} style={style}>
       {/* 操作部分 */}
       {visible && (
         <div className={prefixCls([blockName, 'control'])}>

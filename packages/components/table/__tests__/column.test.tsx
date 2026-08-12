@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from '@test/utils';
-import { Table, BaseTable, PrimaryTable, EnhancedTable } from '..';
+
+import { BaseTable, EnhancedTable, PrimaryTable, Table } from '..';
 
 const data = new Array(5).fill(null).map((item, index) => ({
   id: index + 100,
@@ -23,7 +24,7 @@ TABLES.forEach((TTable) => {
         { title: 'description', colKey: 'description' },
         { title: 'Owner', colKey: 'owner', align: 'right' },
       ];
-      const { container } = render(<TTable rowKey="index" data={data} columns={columns}></TTable>);
+      const { container } = render(<TTable rowKey="index" data={data} columns={columns as any}></TTable>);
       const firstTrWrapper = container.querySelector('tbody > tr');
       const tdList = firstTrWrapper.querySelectorAll('td');
       expect(tdList[0].classList.contains('t-align-center')).toBeTruthy();
@@ -35,7 +36,11 @@ TABLES.forEach((TTable) => {
     it('Props.columns.attrs', () => {
       const columns = [
         { title: 'Index', colKey: 'index' },
-        { title: 'Instance', colKey: 'instance', attrs: { 'col-key': 'instance' } },
+        {
+          title: 'Instance',
+          colKey: 'instance',
+          attrs: { 'col-key': 'instance' },
+        },
         { title: 'description', colKey: 'description' },
         { title: 'Owner', colKey: 'owner' },
       ];
@@ -49,8 +54,16 @@ TABLES.forEach((TTable) => {
       const columns = [
         { title: 'Index', colKey: 'index', className: () => ['tdesign-class'] },
         { title: 'Instance', colKey: 'instance', className: 'tdesign-class' },
-        { title: 'description', colKey: 'description', className: [{ 'tdesign-class': true }] },
-        { title: 'Owner', colKey: 'owner', className: { 'tdesign-class': true, 'tdesign-class1': false } },
+        {
+          title: 'description',
+          colKey: 'description',
+          className: [{ 'tdesign-class': true }],
+        },
+        {
+          title: 'Owner',
+          colKey: 'owner',
+          className: { 'tdesign-class': true, 'tdesign-class1': false },
+        },
       ];
       const { container } = render(<TTable rowKey="index" data={data} columns={columns}></TTable>);
       const firstTrWrapper = container.querySelector('tbody > tr');

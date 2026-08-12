@@ -2,11 +2,12 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TdInputNumberProps } from './type';
+import type { TdInputNumberProps } from './type';
 
 export const inputNumberDefaultProps: TdInputNumberProps = {
   allowInputOverLimit: true,
   autoWidth: false,
+  autofocus: false,
   decimalPlaces: undefined,
   disabled: undefined,
   largeNumber: false,
@@ -14,6 +15,7 @@ export const inputNumberDefaultProps: TdInputNumberProps = {
   min: -Infinity,
   placeholder: undefined,
   readonly: undefined,
+  readOnly: undefined,
   size: 'medium',
   status: 'default',
   step: 1,

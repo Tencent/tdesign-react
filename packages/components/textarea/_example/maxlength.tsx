@@ -1,5 +1,5 @@
 import React from 'react';
-import { Textarea, Space } from 'tdesign-react';
+import { Space, Textarea } from 'tdesign-react';
 
 export default function InputExample() {
   return (
@@ -11,6 +11,19 @@ export default function InputExample() {
         placeholder="请输入内容，一个中文汉字表示两个字符长度，超出限制可以输入"
         maxcharacter={20}
         allowInputOverMax
+      />
+      <Textarea
+        placeholder="自定义计数元素"
+        maxlength={20}
+        count={(ctx) => {
+          const isMaxReached = ctx.count >= ctx.maxLength;
+          return (
+            <div style={{ fontSize: '12px' }}>
+              <span style={{ color: isMaxReached ? 'red' : 'gray' }}>{ctx.count}</span>/
+              <span style={{ color: 'mediumblue' }}>{ctx.maxLength}</span>
+            </div>
+          );
+        }}
       />
     </Space>
   );

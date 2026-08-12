@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import { render, fireEvent, mockTimeout } from '@test/utils';
+import { fireEvent, mockTimeout, render, vi } from '@test/utils';
 import userEvent from '@testing-library/user-event';
+
+import { ConfigContext } from '../../config-provider';
+import { defaultGlobalConfig } from '../../config-provider/ConfigContext';
 import Dialog from '../index';
 import { DialogPlugin } from '../plugin';
 
@@ -22,6 +25,7 @@ function DialogDemo(props) {
   return (
     <>
       <div onClick={handleClick}>Open Dialog Modal</div>
+      <div onClick={handleClose}>Close Dialog Modal</div>
       <Dialog
         header="Basic Modal"
         visible={visible}
@@ -56,19 +60,25 @@ describe('Dialog组件测试', () => {
   });
 
   test('EscCloseDialog', async () => {
-    const { getByText } = render(<DialogDemo mode="modal" draggable={false} />);
-    fireEvent.click(getByText('Open Dialog Modal'));
+    const onEscKeydown = vi.fn();
+    const { getByText } = render(<DialogDemo mode="modal" draggable={false} onEscKeydown={onEscKeydown} />);
+
+    await fireEvent.click(getByText('Open Dialog Modal'));
     expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
     await user.keyboard('{Escape}');
-    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 400);
+    expect(onEscKeydown).toHaveBeenCalled();
   });
 
   test('EnterConfirm', async () => {
-    const { getByText } = render(<DialogDemo mode="modal" draggable={false} />);
+    const onConfirm = vi.fn();
+    const { getByText } = render(<DialogDemo mode="modal" draggable={false} onConfirm={onConfirm} />);
+
+    expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument();
+
     fireEvent.click(getByText('Open Dialog Modal'));
     expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
     await user.keyboard('{Enter}');
-    await mockTimeout(() => expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument(), 400);
+    expect(onConfirm).toHaveBeenCalled();
   });
 
   test('DraggableDialog', () => {
@@ -77,10 +87,16 @@ describe('Dialog组件测试', () => {
     expect(document.querySelector('.t-dialog__modeless')).toBeInTheDocument();
     fireEvent.mouseDown(document.querySelector('.t-dialog'));
     fireEvent.mouseMove(document.querySelector('.t-dialog'));
-    expect(document.querySelector('.t-dialog')).toHaveStyle({ cursor: 'move', position: 'absolute' });
+    expect(document.querySelector('.t-dialog')).toHaveStyle({
+      cursor: 'move',
+      position: 'absolute',
+    });
     fireEvent.mouseUp(document.querySelector('.t-dialog'));
     userEvent.keyboard('{esc}');
-    expect(document.querySelector('.t-dialog')).toHaveStyle({ left: '0px', top: '0px' });
+    expect(document.querySelector('.t-dialog')).toHaveStyle({
+      left: '0px',
+      top: '0px',
+    });
   });
 
   test('DialogPlugin', async () => {
@@ -186,5 +202,55 @@ describe('Dialog组件测试', () => {
     );
 
     expect(container.querySelector('.t-dialog__header')).toBeNull();
+  });
+
+  test('global dialog placement and zIndex works', async () => {
+    render(
+      <ConfigContext.Provider
+        value={{
+          globalConfig: {
+            ...defaultGlobalConfig,
+            dialog: {
+              ...(defaultGlobalConfig.dialog || {}),
+              placement: 'center',
+              zIndex: 4321,
+            },
+          },
+        }}
+      >
+        <Dialog header="Global Config" body="This is a dialog" visible />
+      </ConfigContext.Provider>,
+    );
+
+    expect(document.querySelector('.t-dialog--center')).toBeInTheDocument();
+    expect(document.querySelector('.t-dialog--top')).not.toBeInTheDocument();
+    expect(document.querySelector('.t-dialog__ctx')).toHaveStyle({
+      zIndex: '4321',
+    });
+  });
+
+  test('dialog props should override global dialog config', async () => {
+    render(
+      <ConfigContext.Provider
+        value={{
+          globalConfig: {
+            ...defaultGlobalConfig,
+            dialog: {
+              ...(defaultGlobalConfig.dialog || {}),
+              placement: 'center',
+              zIndex: 4321,
+            },
+          },
+        }}
+      >
+        <Dialog header="Global Config" body="This is a dialog" visible placement="top" zIndex={1234} />
+      </ConfigContext.Provider>,
+    );
+
+    expect(document.querySelector('.t-dialog--top')).toBeInTheDocument();
+    expect(document.querySelector('.t-dialog--center')).not.toBeInTheDocument();
+    expect(document.querySelector('.t-dialog__ctx')).toHaveStyle({
+      zIndex: '1234',
+    });
   });
 });

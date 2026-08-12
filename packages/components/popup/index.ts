@@ -1,7 +1,7 @@
+import './style/index.js';
+
 import _Popup from './Popup';
 import _PopupPlugin from './PopupPlugin';
-
-import './style/index.js';
 
 export type { PopupProps, PopupRef } from './Popup';
 export * from './type';

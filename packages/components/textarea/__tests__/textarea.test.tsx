@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, fireEvent, vi, mockDelay } from '@test/utils';
+import { fireEvent, mockDelay, render, vi } from '@test/utils';
+
 import { Textarea } from '..';
 
 describe('Textarea 组件测试', () => {
@@ -93,5 +94,25 @@ describe('Textarea 组件测试', () => {
     await mockDelay(100);
 
     expect(container.getElementsByTagName('textarea')[0].selectionStart).toBe(value.length);
+  });
+
+  test('count follows maxcharacter and maxlength correctly', async () => {
+    const LIMIT_SELECTOR = '.t-textarea__limit';
+
+    const { container: container1 } = render(<Textarea maxcharacter={15} value="hello世界" />);
+    const limitText1 = container1.querySelector(LIMIT_SELECTOR);
+    expect(limitText1?.textContent).toBe('9/15'); // hello(5) + 世(2) + 界(2) = 9
+
+    const { container: container2 } = render(<Textarea maxlength={15} value="hello世界" />);
+    const limitText2 = container2.querySelector(LIMIT_SELECTOR);
+    expect(limitText2?.textContent).toBe('7/15');
+
+    const { container: container3 } = render(<Textarea maxcharacter={15} value="hi👋🌍" />);
+    const limitText3 = container3.querySelector(LIMIT_SELECTOR);
+    expect(limitText3?.textContent).toBe('10/15'); // h(1) + i(1) + 👋(4) + 🌍(4) = 10
+
+    const { container: container4 } = render(<Textarea maxlength={15} value="hi👋🌍" />);
+    const limitText4 = container4.querySelector(LIMIT_SELECTOR);
+    expect(limitText4?.textContent).toBe('4/15');
   });
 });

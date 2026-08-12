@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, QRCode, Radio, Space } from 'tdesign-react';
+
 import type { QrCodeProps } from 'tdesign-react';
 
 function doDownload(url: string, fileName: string) {

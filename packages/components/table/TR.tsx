@@ -1,17 +1,21 @@
-import React, { useMemo, useRef, MouseEvent, useEffect, MutableRefObject } from 'react';
-import { get } from 'lodash-es';
+import React, { useEffect, useMemo, useRef } from 'react';
 import classnames from 'classnames';
-import { formatRowAttributes, formatRowClassNames } from './utils';
-import { getRowFixedStyles } from './hooks/useFixed';
-import { RowAndColFixedPosition } from './interface';
-import useClassName from './hooks/useClassName';
-import { TableRowData, RowspanColspan, TdBaseTableProps } from './type';
-import useLazyLoad from './hooks/useLazyLoad';
-import { getCellKey, SkipSpansValue } from './hooks/useRowspanAndColspan';
+import { get } from 'lodash-es';
+
 import Cell from './Cell';
-import { PaginationProps } from '../pagination';
-import { VirtualScrollConfig } from '../hooks/useVirtualScroll';
-import { InfinityScroll } from '../common';
+import useClassName from './hooks/useClassName';
+import { getRowFixedStyles } from './hooks/useFixed';
+import useLazyLoad from './hooks/useLazyLoad';
+import { getCellKey } from './hooks/useRowspanAndColspan';
+import { formatRowAttributes, formatRowClassNames } from './utils';
+
+import type { MouseEvent, MutableRefObject } from 'react';
+import type { TScroll } from '../common';
+import type { RowMountedParams, VirtualScrollConfig } from '../hooks/useVirtualScroll';
+import type { PaginationProps } from '../pagination';
+import type { SkipSpansValue } from './hooks/useRowspanAndColspan';
+import type { RowAndColFixedPosition } from './interface';
+import type { RowspanColspan, TableRowData, TdBaseTableProps } from './type';
 
 export type TrCommonProps = Pick<TdBaseTableProps, TrPropsKeys>;
 
@@ -51,12 +55,12 @@ export interface TrProps extends TrCommonProps {
   rowHeight?: number;
   trs?: Map<number, object>;
   bufferSize?: number;
-  scroll?: InfinityScroll;
+  scroll?: TScroll;
   tableRef?: MutableRefObject<HTMLDivElement>;
   tableContentRef?: MutableRefObject<HTMLDivElement>;
   pagination?: PaginationProps;
   virtualConfig?: VirtualScrollConfig;
-  onRowMounted?: (data: any) => void;
+  onRowMounted?: (params: RowMountedParams) => void;
 }
 
 export const ROW_LISTENERS = ['click', 'dblclick', 'mouseover', 'mousedown', 'mouseenter', 'mouseleave', 'mouseup'];

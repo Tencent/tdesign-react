@@ -1,16 +1,19 @@
-import { useEffect, useState, useMemo, useRef, WheelEvent, useCallback, MutableRefObject } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { get, pick, xorWith } from 'lodash-es';
-import { getIEVersion } from '@tdesign/common-js/utils/helper';
 import log from '@tdesign/common-js/log/index';
 import { getScrollbarWidthWithCSS } from '@tdesign/common-js/utils/getScrollbarWidth';
-import { ClassName, Styles } from '../../common';
-import { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
-import { FixedColumnInfo, TableRowFixedClasses, RowAndColFixedPosition, TableColFixedClasses } from '../interface';
-import useDebounce from '../../hooks/useDebounce';
-import usePrevious from '../../hooks/usePrevious';
-import { resizeObserverElement, isLessThanIE11OrNotHaveResizeObserver } from '../utils';
+import { getIEVersion } from '@tdesign/common-js/utils/helper';
+
 import { off, on } from '../../_util/listener';
-import { AffixRef } from '../../affix';
+import useDeepEffect from '../../hooks/useDeepEffect';
+import usePrevious from '../../hooks/usePrevious';
+import { resizeObserverElement } from '../utils';
+
+import type { MutableRefObject } from 'react';
+import type { AffixRef } from '../../affix';
+import type { ClassName, Styles } from '../../common';
+import type { FixedColumnInfo, RowAndColFixedPosition, TableColFixedClasses, TableRowFixedClasses } from '../interface';
+import type { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
 
 // 固定列相关类名处理
 export function getColumnFixedStyles(
@@ -89,13 +92,20 @@ export default function useFixed(
     maxHeight,
     headerAffixedTop,
     bordered,
+    resizable: columnResizable,
   } = props;
+
   const preFinalColumns = usePrevious(finalColumns);
-  const [data, setData] = useState<TableRowData[]>([]);
+
   const tableContentRef = useRef<HTMLDivElement>(null);
+  const tableElmRef = useRef<HTMLTableElement>(null);
+  const thWidthList = useRef<{ [colKey: string]: number }>({});
+
+  const [data, setData] = useState<TableRowData[]>([]);
   const [isFixedHeader, setIsFixedHeader] = useState(false);
   const [isWidthOverflow, setIsWidthOverflow] = useState(false);
-  const tableElmRef = useRef<HTMLTableElement>(null);
+  const [tableWidth, setTableWidth] = useState(0);
+  const [tableElmWidth, setTableElmWidthState] = useState(0);
   // CSS 样式设置了固定 6px
   const [scrollbarWidth, setScrollbarWidth] = useState(6);
   // 固定列、固定表头、固定表尾等内容的位置信息
@@ -109,15 +119,9 @@ export default function useFixed(
     left: 0,
     top: 0,
   });
-  const tableWidth = useRef(0);
-  const tableElmWidth = useRef(0);
-  const thWidthList = useRef<{ [colKey: string]: number }>({});
-
   const [isFixedColumn, setIsFixedColumn] = useState(false);
   const [isFixedRightColumn, setIsFixedRightColumn] = useState(false);
   const [isFixedLeftColumn, setIsFixedLeftColumn] = useState(false);
-
-  const columnResizable = props.resizable;
 
   // 没有表头吸顶，没有虚拟滚动，则不需要表头宽度计算
   const notNeedThWidthList = useMemo(
@@ -266,7 +270,12 @@ export default function useFixed(
       initialColumnMap.set(rowId, { ...thisRowInfo, height: tr?.getBoundingClientRect?.().height });
     }
     for (let i = data.length - 1; i >= data.length - fixedBottomRows; i--) {
-      const tr = trList[i] as HTMLElement;
+      /**
+       * 下面是一个 Hack
+       * 开启虚拟滚动的时候，当尾部冻结行不在可视区域，无法获取到高度
+       * 目前取第一个数据行的高度进行计算，但在动态行高的场景下会有误差
+       */
+      const tr = trList[i] || trList[0];
       const rowId = get(data[i], rowKey);
       const thisRowInfo = initialColumnMap.get(rowId) || {};
       const lastRowId = get(data[i + 1], rowKey);
@@ -335,15 +344,9 @@ export default function useFixed(
   const updateFixedStatus = () => {
     const { newColumnsMap, levelNodes } = getColumnMap(columns);
     setIsLastOrFirstFixedCol(levelNodes);
-    const timer = setTimeout(() => {
-      if (isFixedColumn || fixedRows?.length) {
-        updateRowAndColFixedPosition(tableContentRef.current, newColumnsMap);
-      }
-      clearTimeout(timer);
-    }, 0);
-    return () => {
-      clearTimeout(timer);
-    };
+    if (isFixedColumn || fixedRows?.length) {
+      updateRowAndColFixedPosition(tableContentRef.current, newColumnsMap);
+    }
   };
 
   // 使用 useCallback 来优化性能
@@ -359,22 +362,19 @@ export default function useFixed(
       top: pos?.top,
       left: pos?.left,
     });
-
-    // updateTableWidth(isHeightOverflow);
-    // updateThWidthListHandler();
   }, []);
 
   const setTableElmWidth = (width: number) => {
-    if (tableElmWidth.current === width) return;
-    tableElmWidth.current = width;
+    if (tableElmWidth === width) return;
+    setTableElmWidthState(width);
   };
 
   const updateTableWidth = () => {
-    const rect = tableContentRef.current?.getBoundingClientRect?.();
-    if (!rect) return;
-    // 存在纵向滚动条，且固定表头时，需去除滚动条宽度
-    const reduceWidth = isFixedHeader ? scrollbarWidth : 0;
-    tableWidth.current = rect.width - reduceWidth - (props.bordered ? 1 : 0);
+    const tRef = tableContentRef.current;
+    if (!tRef) return;
+    // clientWidth excludes border and scrollbar
+    setTableWidth(tRef.clientWidth);
+
     const elmRect = tableElmRef?.current?.getBoundingClientRect();
     if (elmRect?.width) {
       setTableElmWidth(elmRect?.width);
@@ -417,17 +417,13 @@ export default function useFixed(
   };
 
   const updateThWidthListHandler = () => {
-    const timer = setTimeout(() => {
-      updateTableWidth();
-      if (notNeedThWidthList) return;
-      const thead = tableContentRef.current?.querySelector('thead');
-      if (!thead) return;
-      updateThWidthList(thead.children);
-      clearTimeout(timer);
-    }, 0);
+    if (notNeedThWidthList) return;
+    const thead = tableContentRef.current?.querySelector('thead');
+    if (!thead) return;
+    updateThWidthList(thead.children);
   };
 
-  const emitScrollEvent = (e: WheelEvent<HTMLDivElement>) => {
+  const emitScrollEvent = (e: React.WheelEvent<HTMLDivElement>) => {
     props.onScrollX?.({ e });
     props.onScrollY?.({ e });
     props.onScroll?.({ e });
@@ -466,7 +462,7 @@ export default function useFixed(
     }
   };
 
-  useEffect(
+  useDeepEffect(
     updateFixedStatus,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
@@ -486,51 +482,28 @@ export default function useFixed(
   );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (isFixedColumn) {
-        updateColumnFixedShadow(tableContentRef.current);
-      }
-      clearTimeout(timer);
-    }, 0);
+  useDeepEffect(() => {
+    if (isFixedColumn) {
+      updateColumnFixedShadow(tableContentRef.current);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFixedColumn, columns, tableContentRef]);
 
-  // 使用防抖函数，避免频繁触发
-  const updateFixedHeaderByUseDebounce = useDebounce(() => {
-    updateFixedHeader();
-  }, 30);
+  useDeepEffect(updateFixedHeader, [maxHeight, data, columns, bordered, tableContentRef]);
 
-  /**
-   * 通过监测表格大小变化，来调用 updateFixedHeader 修改状态
-   */
-  useEffect(() => {
-    if (tableContentRef.current) {
-      return resizeObserverElement(tableContentRef.current, updateFixedHeaderByUseDebounce);
-    }
-  }, [updateFixedHeaderByUseDebounce]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(updateFixedHeaderByUseDebounce, [maxHeight, data, columns, bordered, tableContentRef]);
-
-  useEffect(() => {
+  useDeepEffect(() => {
     updateTableElmWidthOnColumnChange(finalColumns, preFinalColumns);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finalColumns]);
 
   // 影响表头宽度的元素
-  useEffect(
+  useDeepEffect(
     () => {
-      const timer = setTimeout(() => {
-        // updateTableWidth(isFixedHeader);
-        updateThWidthListHandler();
-        updateAffixPosition();
-        clearTimeout(timer);
-      }, 10);
+      updateThWidthListHandler();
+      updateAffixPosition();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
-      // data,
       bordered,
       columns,
       tableLayout,
@@ -545,6 +518,7 @@ export default function useFixed(
   const refreshTable = () => {
     updateThWidthListHandler();
     updateFixedHeader();
+    updateTableWidth();
     updateAffixPosition();
 
     if (isFixedColumn || isFixedHeader) {
@@ -553,28 +527,14 @@ export default function useFixed(
     }
   };
 
-  const onResize = useDebounce(() => {
-    refreshTable();
-  }, 30);
-
-  function addTableResizeObserver(tableElement: HTMLDivElement) {
-    /**
-     * IE 11 以下使用 window resize；IE 11 以上使用 ResizeObserver
-     * 抽离相关判断为单独的方法
-     */
-    if (isLessThanIE11OrNotHaveResizeObserver()) return;
-    off(window, 'resize', onResize);
-    if (!tableElmWidth.current) return;
-    // 抽离 resize 为单独的方法，通过回调来执行操作
-    return resizeObserverElement(tableElement, () => {
-      const timer = setTimeout(() => {
-        refreshTable();
-        clearTimeout(timer);
-      }, 60);
-    });
-  }
-
   useEffect(() => {
+    if (!tableContentRef.current) return;
+    // IE 11 以上使用 ResizeObserver
+    return resizeObserverElement(tableContentRef.current, refreshTable);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useDeepEffect(() => {
     const scrollWidth = getScrollbarWidthWithCSS();
     setScrollbarWidth(scrollWidth);
 
@@ -583,20 +543,35 @@ export default function useFixed(
     const hasResizeObserver = hasWindow && typeof window.ResizeObserver !== 'undefined';
     updateTableWidth();
     updateThWidthListHandler();
-    // IE 11 以下使用 window resize；IE 11 以上使用 ResizeObserver
+    // IE 11 以下使用 window resize
     if ((isWatchResize && getIEVersion() < 11) || !hasResizeObserver) {
-      on(window, 'resize', onResize);
+      on(window, 'resize', refreshTable);
     }
 
     return () => {
       if ((isWatchResize && getIEVersion() < 11) || !hasResizeObserver) {
         if (typeof window !== 'undefined') {
-          off(window, 'resize', onResize);
+          off(window, 'resize', refreshTable);
         }
       }
     };
+  }, [isFixedColumn, isFixedHeader, isWidthOverflow, scrollbarWidth, notNeedThWidthList, data]);
+
+  useEffect(() => {
+    // 针对表格放在 Dialog 等有动画效果元素里的场景
+    const tableContent = tableContentRef.current;
+    if (!tableContent) return;
+    const onAnimationEnd = (e: AnimationEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target?.contains(tableContent)) return;
+      refreshTable();
+    };
+    on(document, 'animationend', onAnimationEnd, { capture: true });
+    return () => {
+      off(document, 'animationend', onAnimationEnd, { capture: true });
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFixedColumn]);
+  }, []);
 
   const updateTableAfterColumnResize = () => {
     updateFixedStatus();
@@ -624,7 +599,6 @@ export default function useFixed(
     setUseFixedTableElmRef,
     getThWidthList,
     updateThWidthList,
-    addTableResizeObserver,
     updateTableAfterColumnResize,
   };
 }

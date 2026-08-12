@@ -1,13 +1,16 @@
+import React, { useMemo } from 'react';
 import classNames from 'classnames';
-import React, { FC, ReactElement, useMemo } from 'react';
 import { isObject } from 'lodash-es';
-import Tabs from '../tabs';
-import { StyledProps } from '../common';
-import { TdHeadMenuProps } from './type';
+
 import useConfig from '../hooks/useConfig';
+import Tabs from '../tabs';
+import checkSubMenuActive from './_util/checkSubMenuActive';
 import useMenuContext from './hooks/useMenuContext';
 import { MenuContext } from './MenuContext';
-import checkSubMenuActive from './_util/checkSubMenuActive';
+
+import type { FC, ReactElement } from 'react';
+import type { StyledProps } from '../common';
+import type { TdHeadMenuProps } from './type';
 
 const { TabPanel } = Tabs;
 
