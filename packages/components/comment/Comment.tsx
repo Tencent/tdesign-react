@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 
+import parseTNode from '../_util/parseTNode';
 import Button from '../button';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -43,7 +44,7 @@ const Comment = forwardRef<HTMLDivElement, CommentProps>((props, ref) => {
       <div className={`${classPrefix}-comment__actions`}>
         {actions.map((action, index) => (
           <Button key={`action-${index}`} size="small" variant="text">
-            {action}
+            {parseTNode(action)}
           </Button>
         ))}
       </div>

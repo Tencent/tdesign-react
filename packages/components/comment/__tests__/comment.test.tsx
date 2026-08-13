@@ -49,7 +49,7 @@ describe('Comment', () => {
     });
   });
 
-  test('actions', () => {
+  test('actions with ReactNode items', () => {
     const actions = [
       <span key="thumbUp">
         <span>6</span>
@@ -62,5 +62,14 @@ describe('Comment', () => {
     const { container } = render(<Comment actions={actions}></Comment>);
     expect(container.querySelector('.t-comment__actions')).toBeInTheDocument();
     expect(container.querySelectorAll('.t-comment__actions .t-button')).toHaveLength(2);
+  });
+
+  test('actions with function items', () => {
+    const actions = [() => <span className="like-action">6</span>, () => <span className="reply-action">回复</span>];
+
+    const { container } = render(<Comment actions={actions}></Comment>);
+    expect(container.querySelectorAll('.t-comment__actions .t-button')).toHaveLength(2);
+    expect(container.querySelector('.like-action')).toHaveTextContent('6');
+    expect(container.querySelector('.reply-action')).toHaveTextContent('回复');
   });
 });
