@@ -38,7 +38,10 @@ const Comment = forwardRef<HTMLDivElement, CommentProps>((props, ref) => {
 
   const quoteElement = quote ? <div className={`${classPrefix}-comment__quote`}>{quote}</div> : null;
 
-  const actionList = React.Children.toArray(actions);
+  const actionList =
+    React.isValidElement(actions) && actions.type === React.Fragment
+      ? React.Children.toArray(actions.props.children)
+      : React.Children.toArray(actions);
 
   const actionsElement = actionList.length ? (
     <div className={`${classPrefix}-comment__actions`}>
