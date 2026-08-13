@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { isNumber } from 'lodash-es';
 
 import { CheckContext } from '../common/Check';
+import useCommonClassName from '../hooks/useCommonClassName';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -47,6 +48,7 @@ const getCheckboxValue = (v: CheckboxOption) => {
 const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props: CheckboxGroupProps<T>) => {
   type ItemType = T[number];
   const { classPrefix } = useConfig();
+  const { SIZE: sizeMap } = useCommonClassName();
   const {
     onChange,
     disabled,
@@ -55,6 +57,10 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
     children,
     max,
     options = [],
+    size,
+    theme,
+    variant,
+    direction,
     ...resetProps
   } = useDefaultProps<CheckboxGroupProps<T>>(props, checkboxGroupDefaultProps);
 
@@ -67,7 +73,8 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
       : React.Children.map(
           children,
           (child: ReactElement<CheckboxProps>) =>
-            (child?.type as any)?.displayName === Checkbox.displayName && child.props,
+            [Checkbox.displayName, Checkbox.Button.displayName].includes((child?.type as any)?.displayName) &&
+            child.props,
         ) || [];
 
   const optionsWithoutCheckAll = intervalOptions.filter((t) => typeof t !== 'object' || !t.checkAll);
@@ -194,23 +201,36 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
   // options 和 children 的抉择,在未明确说明时，暂时以 options 优先
   const useOptions = Array.isArray(options) && options.length !== 0;
 
+  // theme 为 button 时，使用按钮风格多选框渲染
+  const Comp = theme === 'button' ? Checkbox.Button : Checkbox;
+
   return (
-    <div className={classNames(`${classPrefix}-checkbox-group`, className)} style={style}>
+    <div
+      className={classNames(`${classPrefix}-checkbox-group`, className, {
+        // 以下类名仅在 theme 为 button 时生效
+        [sizeMap[size]]: theme === 'button',
+        [`${classPrefix}-checkbox-group__outline`]: theme === 'button' && variant === 'outline',
+        [`${classPrefix}-checkbox-group--filled`]: theme === 'button' && variant?.includes('filled'),
+        [`${classPrefix}-checkbox-group--primary-filled`]: theme === 'button' && variant === 'primary-filled',
+        [`${classPrefix}-checkbox-group--vertical`]: theme === 'button' && direction === 'vertical',
+      })}
+      style={style}
+    >
       <CheckContext.Provider value={context}>
         {useOptions
           ? options.map((v: any, index) => {
               switch (typeof v) {
                 case 'string':
                   return (
-                    <Checkbox key={index} label={v} value={v}>
+                    <Comp key={index} label={v} value={v}>
                       {v}
-                    </Checkbox>
+                    </Comp>
                   );
                 case 'number': {
                   return (
-                    <Checkbox key={index} label={v} value={v}>
+                    <Comp key={index} label={v} value={v}>
                       {String(v)}
-                    </Checkbox>
+                    </Comp>
                   );
                 }
                 case 'object': {
@@ -219,7 +239,7 @@ const CheckboxGroup = <T extends CheckboxGroupValue = CheckboxGroupValue>(props:
                   return vs.checkAll ? (
                     <Checkbox {...vs} key={`checkAll_${index}`} indeterminate={indeterminate} />
                   ) : (
-                    <Checkbox
+                    <Comp
                       {...vs}
                       key={index}
                       disabled={vs.disabled || disabled}

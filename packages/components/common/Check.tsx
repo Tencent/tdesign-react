@@ -11,7 +11,7 @@ import type { TdCheckboxProps } from '../checkbox/type';
 import type { StyledProps } from '../common';
 
 export interface CheckProps extends TdCheckboxProps, StyledProps {
-  type: 'radio' | 'radio-button' | 'checkbox';
+  type: 'radio' | 'radio-button' | 'checkbox' | 'checkbox-button';
   allowUncheck?: boolean;
   title?: string;
   children?: React.ReactNode;
@@ -55,7 +55,9 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
 
   const TOnChange: (
     checked: boolean,
-    context: { e: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLInputElement> },
+    context: {
+      e: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLInputElement>;
+    },
   ) => void = onChange;
 
   const [internalChecked, setInternalChecked] = useControlled(props, 'checked', TOnChange);
@@ -69,11 +71,14 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
   const readOnly = props.readOnly || props.readonly;
   const isDisabled = disabled || readOnly;
 
+  // checkbox-button 复用 checkbox 的内部元素类名（t-checkbox__former/input/label），仅根节点使用 t-checkbox-button
+  const innerType = type === 'checkbox-button' ? 'checkbox' : type;
+
   const input = (
     <input
       readOnly={readOnly}
-      type={type === 'radio-button' ? 'radio' : type}
-      className={`${classPrefix}-${type}__former`}
+      type={type === 'radio-button' ? 'radio' : innerType}
+      className={`${classPrefix}-${innerType}__former`}
       checked={internalChecked}
       disabled={disabled}
       name={name}
@@ -119,9 +124,9 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
       onClick={onInnerClick}
     >
       {input}
-      <span className={`${classPrefix}-${type}__input`} />
+      <span className={`${classPrefix}-${innerType}__input`} />
       {showLabel && (
-        <span key="label" className={`${classPrefix}-${type}__label`} onClick={handleLabelClick}>
+        <span key="label" className={`${classPrefix}-${innerType}__label`} onClick={handleLabelClick}>
           {children || label}
         </span>
       )}
