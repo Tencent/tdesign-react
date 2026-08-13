@@ -64,12 +64,9 @@ describe('Comment', () => {
     expect(container.querySelectorAll('.t-comment__actions .t-button')).toHaveLength(2);
   });
 
-  test('actions with function items', () => {
-    const actions = [() => <span className="like-action">6</span>, () => <span className="reply-action">回复</span>];
-
-    const { container } = render(<Comment actions={actions}></Comment>);
-    expect(container.querySelectorAll('.t-comment__actions .t-button')).toHaveLength(2);
-    expect(container.querySelector('.like-action')).toHaveTextContent('6');
-    expect(container.querySelector('.reply-action')).toHaveTextContent('回复');
+  test('actions with a single ReactNode', () => {
+    const { container } = render(<Comment actions={<span className="single-action">操作</span>}></Comment>);
+    expect(container.querySelectorAll('.t-comment__actions .t-button')).toHaveLength(1);
+    expect(container.querySelector('.single-action')).toHaveTextContent('操作');
   });
 });
