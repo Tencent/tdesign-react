@@ -1,5 +1,6 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
+import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-react';
 import calcTextareaHeight from '@tdesign/common-js/utils/calcTextareaHeight';
 import { getCharacterLength, getUnicodeLength, limitUnicodeMaxLength } from '@tdesign/common-js/utils/helper';
 
@@ -9,6 +10,7 @@ import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useEventCallback from '../hooks/useEventCallback';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
 import { textareaDefaultProps } from './defaultProps';
 
@@ -49,6 +51,8 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     tips,
     allowInputOverMax,
     rows,
+    clearable,
+    onClear,
     ...otherProps
   } = props;
   const hasMaxcharacter = typeof maxcharacter !== 'undefined';
@@ -56,6 +60,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   const [value = '', setValue] = useControlled(props, 'value', props.onChange);
 
   const [isFocused, setIsFocused] = useState(false);
+  const [isHover, setIsHover] = useState(false);
   const [isOvermax, setIsOvermax] = useState(false);
   const [textareaStyle, setTextareaStyle] = useState<Partial<typeof DEFAULT_TEXTAREA_STYLE>>(DEFAULT_TEXTAREA_STYLE);
   const [composingValue, setComposingValue] = useState<string>('');
@@ -72,6 +77,10 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   }, [value, allowInputOverMax, maxcharacter]);
 
   const { classPrefix } = useConfig();
+  const { CloseCircleFilledIcon } = useGlobalIcon({
+    CloseCircleFilledIcon: TdCloseCircleFilledIcon,
+  });
+  const isReadonly = props.readOnly || props.readonly;
 
   const textareaPropsNames = Object.keys(otherProps).filter(
     (key) => !/^on[A-Z]/.test(key) && !OMIT_PROPS.includes(key),
@@ -136,8 +145,30 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
         }
       }
       setComposingValue(val);
-      setValue(val, { e });
+      setValue(val, { e, trigger: 'input' });
     }
+  }
+
+  function handleClear(e: React.MouseEvent<SVGSVGElement>) {
+    setValue('', { e, trigger: 'clear' });
+    onClear?.({ e });
+    textareaRef.current?.focus();
+    adjustTextareaHeight();
+  }
+
+  function handleClearMouseDown(e: React.MouseEvent<SVGSVGElement>) {
+    e.preventDefault();
+  }
+
+  function handleFocus(e: React.FocusEvent<HTMLTextAreaElement>) {
+    if (disabled) return;
+    setIsFocused(true);
+    props.onFocus?.(e.currentTarget.value, { e });
+  }
+
+  function handleBlur(e: React.FocusEvent<HTMLTextAreaElement>) {
+    setIsFocused(false);
+    props.onBlur?.(e.currentTarget.value, { e });
   }
 
   function handleCompositionStart() {
@@ -214,9 +245,18 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     hasMaxcharacter ? characterLength : currentLength,
     hasMaxcharacter ? maxcharacter : maxlength,
   );
+  const showClear = Boolean(clearable && value && !disabled && !isReadonly && isHover);
 
   return (
-    <div style={style} ref={wrapperRef} className={classNames(`${classPrefix}-textarea`, className)}>
+    <div
+      style={style}
+      ref={wrapperRef}
+      className={classNames(`${classPrefix}-textarea`, className, {
+        [`${classPrefix}-textarea--clearable`]: clearable,
+      })}
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
+    >
       <textarea
         {...textareaProps}
         {...eventProps}
@@ -224,9 +264,11 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
         value={composingRef.current ? composingValue : value}
         style={textareaStyle}
         className={textareaClassNames}
-        readOnly={props.readOnly || props.readonly}
+        readOnly={isReadonly}
         autoFocus={autofocus}
         disabled={disabled}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         onChange={inputValueChangeHandle}
         onKeyDown={(e) => onKeydown(e.currentTarget.value, { e })}
         onKeyPress={(e) => onKeypress(e.currentTarget.value, { e })}
@@ -235,6 +277,15 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
         onCompositionEnd={handleCompositionEnd}
         ref={textareaRef}
       />
+      {clearable && !disabled && !isReadonly ? (
+        <CloseCircleFilledIcon
+          className={classNames(`${classPrefix}-textarea__clear`, {
+            [`${classPrefix}-textarea__clear--visible`]: showClear,
+          })}
+          onMouseDown={handleClearMouseDown}
+          onClick={handleClear}
+        />
+      ) : null}
       {textTips || limitText ? (
         <div
           className={classNames(`${classPrefix}-textarea__info_wrapper`, {
