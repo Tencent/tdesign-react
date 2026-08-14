@@ -26,7 +26,9 @@ spline: explain
 - `Steps`: 
   - Fixed issues with alignment of connection lines and inconsistent distances from the surrounding icons when `layout='vertical'` was used @RylanBot ([common#2670](https://github.com/Tencent/tdesign-common/pull/2670))
   - Fixed the connection line thickness inconsistency between the default and selected states @RylanBot ([common#2670](https://github.com/Tencent/tdesign-common/pull/2670))
-- `Table`: Fixed the issue where selecting all items altered the selection status of disabled items @RylanBot ([#4104](https://github.com/Tencent/tdesign-react/pull/4104))
+- `Table`: 
+  - Fixed the issue where the filter dropdown was forcibly closed when the amount of filtered data crossed the virtual scrolling threshold @RylanBot ([#3803](https://github.com/Tencent/tdesign-react/pull/3803))
+  - Fixed the issue where selecting all items altered the selection status of disabled items @RylanBot ([#4104](https://github.com/Tencent/tdesign-react/pull/4104))
 
 ## 🌈 1.18.1 `2026-07-17`
 
