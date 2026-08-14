@@ -49,7 +49,7 @@ describe('Comment', () => {
     });
   });
 
-  test('actions', () => {
+  test('actions with ReactNode items', () => {
     const actions = [
       <span key="thumbUp">
         <span>6</span>
@@ -62,5 +62,34 @@ describe('Comment', () => {
     const { container } = render(<Comment actions={actions}></Comment>);
     expect(container.querySelector('.t-comment__actions')).toBeInTheDocument();
     expect(container.querySelectorAll('.t-comment__actions .t-button')).toHaveLength(2);
+  });
+
+  test('actions with a single ReactNode', () => {
+    const { container } = render(<Comment actions={<span className="single-action">操作</span>}></Comment>);
+    expect(container.querySelectorAll('.t-comment__actions .t-button')).toHaveLength(1);
+    expect(container.querySelector('.single-action')).toHaveTextContent('操作');
+  });
+
+  test('actions with a Fragment TNode', () => {
+    const actions = (
+      <>
+        <React.Fragment key="thumbUp">
+          <span className="thumb-up-icon" />
+          <span>6</span>
+        </React.Fragment>
+        <React.Fragment key="chat">
+          <span className="chat-icon" />
+          <span>回复</span>
+        </React.Fragment>
+      </>
+    );
+
+    const { container } = render(<Comment actions={actions}></Comment>);
+    const buttons = container.querySelectorAll('.t-comment__actions .t-button');
+    expect(buttons).toHaveLength(2);
+    expect(buttons[0]).toContainElement(container.querySelector('.thumb-up-icon'));
+    expect(buttons[0]).toHaveTextContent('6');
+    expect(buttons[1]).toContainElement(container.querySelector('.chat-icon'));
+    expect(buttons[1]).toHaveTextContent('回复');
   });
 });
