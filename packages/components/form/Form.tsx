@@ -55,6 +55,8 @@ const Form = forwardRefWithStatics(
     const formRef = useRef<HTMLFormElement>(null);
     const formMapRef = useRef(new Map()); // 收集所有包含 name 属性 formItem 实例
     const floatingFormDataRef = useRef({}); // 储存游离值的 formData
+    const mountedFieldsRef = useRef<Set<string>>(new Set()); // Form 生命周期内所有曾经被 FormItem 挂载过的字段（fullPath 序列化后的字符串）
+
     const formInstance = useInstance(props, formRef, formMapRef, floatingFormDataRef, form);
 
     useImperativeHandle(ref, () => formInstance);
@@ -81,6 +83,7 @@ const Form = forwardRefWithStatics(
       form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.([]);
       form.store = {};
       floatingFormDataRef.current = {};
+      mountedFieldsRef.current.clear();
       onReset?.({ e });
     }
 
@@ -115,6 +118,7 @@ const Form = forwardRefWithStatics(
           readOnly: props.readOnly || props.readonly,
           formMapRef,
           floatingFormDataRef,
+          mountedFieldsRef,
           onFormItemValueChange,
         }}
       >
