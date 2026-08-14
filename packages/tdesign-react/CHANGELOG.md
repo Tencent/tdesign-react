@@ -5,6 +5,29 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.18.2 `2026-08-14`
+
+### 🚀 Features
+
+- `Comment`: `actions` 支持单个 `TNode` @RSS1102 ([#4354](https://github.com/Tencent/tdesign-react/pull/4354))
+- `Form`: 末尾表单项增加 `--last` 标识，保证 `margin` 样式正常生效 @uyarn ([#4356](https://github.com/Tencent/tdesign-react/pull/4356))
+- `Tag`: `title` 支持 `Boolean` 类型，传入 `false` 则不会显示 `title`，不传或传入 `true` 则显示默认的内容。 @Wesley-0808 ([#4336](https://github.com/Tencent/tdesign-react/pull/4336))
+
+### 🐞 Bug Fixes
+
+- `Comment`: 修复操作项图标与文字未垂直居中的问题 @RSS1102 ([#4354](https://github.com/Tencent/tdesign-react/pull/4354))
+- `ConfigProvider`: 修复 `table.sortIcon` 不生效的问题 @RylanBot ([#4338](https://github.com/Tencent/tdesign-react/pull/4338))
+- `EnhancedTable`: 
+  - 修复半选状态异常的问题 @RylanBot ([#4104](https://github.com/Tencent/tdesign-react/pull/4104))
+  - 修复非受控且 `tree.checkStrictly` 为 `false` 时，选中父节点后子节点没有同步更新的问题 @RylanBot ([#4104](https://github.com/Tencent/tdesign-react/pull/4104))
+- `Form`: 修复嵌套表单在触发 `validate` 后重渲染导致数值丢失的问题 @RylanBot ([#4350](https://github.com/Tencent/tdesign-react/pull/4350))
+- `Popup`: 修复鼠标在浮层上左键长按或右键点击后，移出浮层无法自动关闭的问题 @RylanBot ([#4287](https://github.com/Tencent/tdesign-react/pull/4287))
+- `SelectInput`: 修复 `1.18.1` 的调整，导致单选且未开启 `filterable` 时，`valueDisplay` 为自定义字符串导致的 DOM 结构变更问题 @RylanBot ([#4351](https://github.com/Tencent/tdesign-react/pull/4351))
+- `Steps`: 
+  - 修复 `layout='vertical'` 时，连接线不对齐和上下图标距离不一致的问题 @RylanBot ([common#2670](https://github.com/Tencent/tdesign-common/pull/2670))
+  - 修复默认和选中态的连接线粗细不一致的问题 @RylanBot ([common#2670](https://github.com/Tencent/tdesign-common/pull/2670))
+- `Table`: 修复全选会篡改禁用项选中状态的问题 @RylanBot ([#4104](https://github.com/Tencent/tdesign-react/pull/4104))
+
 ## 🌈 1.18.1 `2026-07-17`
 
 ### 🚀 Features
