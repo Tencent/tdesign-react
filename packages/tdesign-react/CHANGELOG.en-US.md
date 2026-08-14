@@ -5,6 +5,34 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.18.2 `2026-08-14`
+
+### 🚀 Features
+
+- `Comment`: The `actions` property now supports a single `TNode` @RSS1102 ([#4354](https://github.com/Tencent/tdesign-react/pull/4354))
+- `Form`: A `--last` identifier is added to the last form field to ensure that the `margin` style is applied correctly @uyarn ([#4356](https://github.com/Tencent/tdesign-react/pull/4356))
+- `Tag`: The `title` property accepts `Boolean` values; if `false` is specified, the title will not be displayed, while if no value is specified or `true` is used, the default text will be shown. @Wesley-0808 ([#4336](https://github.com/Tencent/tdesign-react/pull/4336))
+
+### 🐞 Bug Fixes
+
+- `Button`:
+  - The default `margin:0` and `z-index:0` values of this component have been removed @RylanBot ([common#2636](https://github.com/Tencent/tdesign-common/pull/2636))
+  - The issue of insufficient spacing between custom SVG icons and text has been resolved @xy200303 ([common#2639](https://github.com/Tencent/tdesign-common/pull/2639))
+- `Comment`: Fixed the issue where the icons and text associated with action items were not vertically centered @RSS1102 ([#4354](https://github.com/Tencent/tdesign-react/pull/4354))
+- `ConfigProvider`: Fixed the problem where `table.sortIcon` did not function as intended @RylanBot ([#4338](https://github.com/Tencent/tdesign-react/pull/4338))
+- `EnhancedTable`: 
+  - Fixed issues related to the semi-selected state @RylanBot ([#4104](https://github.com/Tencent/tdesign-react/pull/4104))
+  - Fixed the problem where, when `tree.checkStrictly` is set to `false`, the child nodes were not updated after the parent node was selected @RylanBot ([#4104](https://github.com/Tencent/tdesign-react/pull/4104))
+- `Form`: Fixed the issue where nested forms lost their numerical values after the `validate` function was triggered, resulting in re-rendering @RylanBot ([#4350](https://github.com/Tencent/tdesign-react/pull/4350))
+- `Popup`: Fixed the problem where the popup would not close automatically when the mouse button was held down or clicked right on it after leaving the popup area @RylanBot ([#4287](https://github.com/Tencent/tdesign-react/pull/4287))
+- `SelectInput`: Fixed issues caused by adjustments in version `1.18.1`, which led to changes in the DOM structure when using a single-selection option without `filterable` enabled and a custom `valueDisplay` string being used @RylanBot ([#4351](https://github.com/Tencent/tdesign-react/pull/4351))
+- `Steps`: 
+  - Fixed issues with alignment of connection lines and inconsistent distances from the surrounding icons when `layout='vertical'` was used @RylanBot ([common#2670](https://github.com/Tencent/tdesign-common/pull/2670))
+  - Fixed the connection line thickness inconsistency between the default and selected states @RylanBot ([common#2670](https://github.com/Tencent/tdesign-common/pull/2670))
+- `Table`: 
+   - Fixed the issue where selecting all items altered the selection status of disabled items @RylanBot ([#4104](https://github.com/Tencent/tdesign-react/pull/4104))
+   - Fix the issue where the filter dropdown closes unexpectedly when the filtered data count crosses the virtual scrolling threshold  @RylanBot ([#3803](https://github.com/Tencent/tdesign-react/pull/3803))
+
 ## 🌈 1.18.1 `2026-07-17`
 
 ### 🚀 Features
