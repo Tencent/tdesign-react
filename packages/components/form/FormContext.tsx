@@ -23,6 +23,7 @@ const FormContext = React.createContext<{
   errorMessage: TdFormProps['errorMessage'];
   formMapRef: React.RefObject<Map<any, React.RefObject<FormItemInstance>>>;
   floatingFormDataRef: React.RefObject<Record<any, any>>;
+  registerFormItem?: (node: HTMLElement) => () => void;
   mountedFieldsRef?: React.RefObject<Set<string>>;
   onFormItemValueChange: (changedValue: Record<string, unknown>) => void;
 }>({
@@ -45,6 +46,7 @@ const FormContext = React.createContext<{
   onFormItemValueChange: undefined,
   formMapRef: undefined,
   floatingFormDataRef: undefined,
+  registerFormItem: undefined,
   mountedFieldsRef: undefined,
 });
 
