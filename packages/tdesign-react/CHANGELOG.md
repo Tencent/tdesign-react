@@ -15,6 +15,9 @@ spline: explain
 
 ### 🐞 Bug Fixes
 
+- `Button`: 
+    - 移除组件不合理的默认 `margin:0` 和  `z-index:0` @RylanBot ([common#2636](https://github.com/Tencent/tdesign-common/pull/2636))
+   - 修复自定义 SVG 图标与文字之间缺少间距的问题 @xy200303 ([common#2639](https://github.com/Tencent/tdesign-common/pull/2639)) 
 - `Comment`: 修复操作项图标与文字未垂直居中的问题 @RSS1102 ([#4354](https://github.com/Tencent/tdesign-react/pull/4354))
 - `ConfigProvider`: 修复 `table.sortIcon` 不生效的问题 @RylanBot ([#4338](https://github.com/Tencent/tdesign-react/pull/4338))
 - `EnhancedTable`: 
