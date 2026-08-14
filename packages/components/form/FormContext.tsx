@@ -24,6 +24,7 @@ const FormContext = React.createContext<{
   formMapRef: React.RefObject<Map<any, React.RefObject<FormItemInstance>>>;
   floatingFormDataRef: React.RefObject<Record<any, any>>;
   registerFormItem?: (node: HTMLElement) => () => void;
+  mountedFieldsRef?: React.RefObject<Set<string>>;
   onFormItemValueChange: (changedValue: Record<string, unknown>) => void;
 }>({
   form: undefined,
@@ -46,6 +47,7 @@ const FormContext = React.createContext<{
   formMapRef: undefined,
   floatingFormDataRef: undefined,
   registerFormItem: undefined,
+  mountedFieldsRef: undefined,
 });
 
 export const useFormContext = () => React.useContext(FormContext);

@@ -58,6 +58,8 @@ const Form = forwardRefWithStatics(
     const formItemElementsRef = useRef(new Set<HTMLElement>()); // 仅收集含 name 的真实表单项
     const lastFormItemsRef = useRef(new Set<HTMLElement>());
     const floatingFormDataRef = useRef({}); // 储存游离值的 formData
+    const mountedFieldsRef = useRef<Set<string>>(new Set()); // Form 生命周期内所有曾经被 FormItem 挂载过的字段（fullPath 序列化后的字符串）
+
     const formInstance = useInstance(props, formRef, formMapRef, floatingFormDataRef, form);
 
     const refreshLastFormItem = useCallback(() => {
@@ -154,6 +156,7 @@ const Form = forwardRefWithStatics(
       form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.([]);
       form.store = {};
       floatingFormDataRef.current = {};
+      mountedFieldsRef.current.clear();
       onReset?.({ e });
     }
 
@@ -189,6 +192,7 @@ const Form = forwardRefWithStatics(
           formMapRef,
           floatingFormDataRef,
           registerFormItem,
+          mountedFieldsRef,
           onFormItemValueChange,
         }}
       >
