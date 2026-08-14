@@ -27,8 +27,8 @@ spline: explain
   - 修复 `layout='vertical'` 时，连接线不对齐和上下图标距离不一致的问题 @RylanBot ([common#2670](https://github.com/Tencent/tdesign-common/pull/2670))
   - 修复默认和选中态的连接线粗细不一致的问题 @RylanBot ([common#2670](https://github.com/Tencent/tdesign-common/pull/2670))
 - `Table`: 
-  - 修复过滤后的数据量在跨越虚拟滚动的 `threshold` 时，筛选器下拉框被强行关闭的问题 @RylanBot ([#3803](https://github.com/Tencent/tdesign-react/pull/3803))
-  - 修复全选会篡改禁用项选中状态的问题 @RylanBot ([#4104](https://github.com/Tencent/tdesign-react/pull/4104))
+    - 修复全选会篡改禁用项选中状态的问题 @RylanBot ([#4104](https://github.com/Tencent/tdesign-react/pull/4104))
+    - 修复过滤后的数据量在跨越虚拟滚动的 threshold 时，筛选器下拉框被强行关闭的问题 @RylanBot ([#3803](https://github.com/Tencent/tdesign-react/pull/3803))
 
 ## 🌈 1.18.1 `2026-07-17`
 
