@@ -2,7 +2,6 @@
 // React popper was archived by the owner on Dec 6, 2024.
 // to maintain this hook in the repo since upgrading to support React 19.0
 import { useMemo, useRef, useState } from 'react';
-import { flushSync } from 'react-dom';
 import isEqual from 'react-fast-compare';
 import { createPopper as defaultCreatePopper } from '@popperjs/core';
 
@@ -74,13 +73,13 @@ const usePopper = (
       phase: 'write',
       fn: ({ state }) => {
         const elements = Object.keys(state.elements);
-
-        flushSync(() => {
-          setState({
-            styles: fromEntries(elements.map((element) => [element, state.styles[element] || {}])),
-            attributes: fromEntries(elements.map((element) => [element, state.attributes[element]])),
-          });
-        });
+        const next = {
+          styles: fromEntries(elements.map((element) => [element, state.styles[element] || {}])),
+          attributes: fromEntries(elements.map((element) => [element, state.attributes[element]])),
+        };
+        // 不能在 layout/write 阶段 flushSync：React 19 会把它计为 nested update，
+        // 与 Popup overlay ref setState 叠加后会打到 Maximum update depth (#185)
+        setState((prev) => (isEqual(prev, next) ? prev : next));
       },
       requires: ['computeStyles'],
     }),

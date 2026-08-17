@@ -1,9 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { get, isNumber, isString } from 'lodash-es';
 
 import useConfig from '../../hooks/useConfig';
-import useDomRefCallback from '../../hooks/useDomRefCallback';
 import useRipple from '../../hooks/useRipple';
 import { getKeyMapping } from '../util/helper';
 
@@ -81,19 +80,19 @@ const Option: React.FC<SelectOptionProps> = (props) => {
 
   const { classPrefix } = useConfig();
 
-  // 使用斜八角动画
-  const [optionRef, setRefCurrent] = useDomRefCallback();
+  // 斜八角动画：用 object ref，避免在 ref callback 里 setState（React 19 #185）
+  const optionRef = useRef<HTMLLIElement>(null);
   useRipple(optionRef);
 
   useEffect(() => {
-    if (isVirtual && optionRef) {
+    if (isVirtual && optionRef.current) {
       props.onRowMounted?.({
-        ref: optionRef,
+        ref: optionRef.current,
         data: props,
       });
     }
     // eslint-disable-next-line
-  }, [isVirtual, optionRef]);
+  }, [isVirtual]);
 
   const { valueKey } = getKeyMapping(keys);
   // 处理单选场景
@@ -169,7 +168,7 @@ const Option: React.FC<SelectOptionProps> = (props) => {
       })}
       key={value}
       onClick={handleSelect}
-      ref={setRefCurrent}
+      ref={optionRef}
       style={style}
     >
       {renderItem()}

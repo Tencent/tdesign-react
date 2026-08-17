@@ -49,11 +49,41 @@ const SelectInput = React.forwardRef<Partial<PopupRef & InputRef>, SelectInputPr
     },
   ]);
 
-  useImperativeHandle(ref, () => ({
-    ...(selectInputRef.current || {}),
-    ...(inputRef.current || {}),
-    ...(tagInputRef.current || {}),
-  }));
+  // React 19 下 useImperativeHandle 每次重建 handle 都会让父级 ref 重新 detach/attach，
+  // 所以这里固定 deps 为 []，用 Proxy 在读取时才合并三个子 ref。
+  useImperativeHandle(
+    ref,
+    () => {
+      const mergeRefs = () => ({
+        ...(selectInputRef.current || {}),
+        ...(inputRef.current || {}),
+        ...(tagInputRef.current || {}),
+      });
+
+      return new Proxy({} as Partial<PopupRef & InputRef>, {
+        get(_, prop) {
+          const merged = mergeRefs();
+          const value = merged[prop as keyof typeof merged];
+          return typeof value === 'function' ? value.bind(merged) : value;
+        },
+        // getRefDom 等调用方会用 `in` 探测 currentElement，缺少这些陷阱会永远返回 false
+        has: (_, prop) => prop in mergeRefs(),
+        ownKeys: () => Reflect.ownKeys(mergeRefs()),
+        getOwnPropertyDescriptor: (_, prop) => {
+          const merged = mergeRefs();
+          if (!(prop in merged)) return undefined;
+          return {
+            configurable: true,
+            enumerable: true,
+            value: merged[prop as keyof typeof merged],
+          };
+        },
+      });
+    },
+    // 三个 ref 本身引用稳定，Proxy 读取时才取值，无需进依赖
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 
   // 浮层显示的受控与非受控
   const visibleProps = { visible: popupVisible ?? innerPopupVisible };

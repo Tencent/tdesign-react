@@ -395,13 +395,21 @@ const Input = forwardRefWithStatics(
       onMouseleave?.({ e });
     }
 
-    useImperativeHandle(ref as InputRef, () => ({
-      currentElement: wrapperRef.current,
-      inputElement: inputRef.current,
-      focus: () => inputRef.current?.focus(),
-      blur: () => inputRef.current?.blur(),
-      select: () => inputRef.current?.select(),
-    }));
+    useImperativeHandle(
+      ref as InputRef,
+      () => ({
+        get currentElement() {
+          return wrapperRef.current;
+        },
+        get inputElement() {
+          return inputRef.current;
+        },
+        focus: () => inputRef.current?.focus(),
+        blur: () => inputRef.current?.blur(),
+        select: () => inputRef.current?.select(),
+      }),
+      [],
+    );
 
     return (
       <div

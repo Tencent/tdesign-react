@@ -130,7 +130,10 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
   });
 
   // TODO: 理论上类型是 Element（包括 SVGElement 等情况，但涉及修改的地方较多，暂时断言）
-  const triggerEl = getTriggerElement() as HTMLElement;
+  const latestTriggerEl = getTriggerElement() as HTMLElement;
+  const triggerElRef = useRef<HTMLElement>(null);
+  if (latestTriggerEl) triggerElRef.current = latestTriggerEl;
+  const triggerEl = latestTriggerEl || triggerElRef.current;
 
   const arrowModifierEnabled = useMemo(() => {
     const arrowModifier = (popperOptions as Options)?.modifiers?.find((m) => m.name === 'arrow');
@@ -273,6 +276,16 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
     return { ...overlayStyle };
   }
 
+  const transitionParams = useMemo(
+    () =>
+      getTransitionParams({
+        classPrefix,
+        fadeAnimation: keepFade,
+        expandAnimation: expandAnimation && keepExpand,
+      }),
+    [classPrefix, keepFade, expandAnimation, keepExpand],
+  );
+
   const overlay = showOverlay && (
     <CSSTransition
       appear
@@ -289,17 +302,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
         attach={popupAttach}
         style={{ position: 'absolute', top: 0, left: 0, width: '100%' }}
       >
-        <CSSTransition
-          appear
-          timeout={0}
-          in={visible}
-          nodeRef={popupRef}
-          {...getTransitionParams({
-            classPrefix,
-            fadeAnimation: keepFade,
-            expandAnimation: expandAnimation && keepExpand,
-          })}
-        >
+        <CSSTransition appear timeout={0} in={visible} nodeRef={popupRef} {...transitionParams}>
           <div
             ref={setOverlayRef}
             style={{

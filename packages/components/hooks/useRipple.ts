@@ -5,6 +5,8 @@ import { canUseDocument } from '../_util/dom';
 import useAnimation from './useAnimation';
 import useConfig from './useConfig';
 
+import type { RefObject } from 'react';
+
 const period = 200;
 const elementTransitionPeriod = 200;
 const rippleExtraWidth = 20;
@@ -31,15 +33,24 @@ const getRippleColor = (el: HTMLElement, fixedRippleColor?: string) => {
   return defaultRippleColor;
 };
 
+const unwrapRippleEl = (el: HTMLElement | RefObject<HTMLElement | null> | null | undefined): HTMLElement | null => {
+  if (!el) return null;
+  if (el instanceof HTMLElement) return el;
+  return el.current ?? null;
+};
+
 /**
  * 斜八角动画 hooks 支持三种方式使用
  * 1. fixedRippleColor 固定色值 useRipple(ref,fixedRippleColor);
  * 2. dynamicColor 动态色值 data.ripple="rippleColor" useRipple(ref)
  * 3. CSS variables（recommended） 配合节点对应 CSS 设置 --ripple-color useRipple(ref)
- * @param dom 需要使用斜八角动画的 DOM
+ * @param dom 需要使用斜八角动画的 DOM，或指向该 DOM 的 ref（避免在 ref callback 里 setState）
  * @param fixedRippleColor 斜八角的动画颜色
  */
-export default function useRipple(el: HTMLElement, fixedRippleColor?: string): void {
+export default function useRipple(
+  el: HTMLElement | RefObject<HTMLElement | null> | null,
+  fixedRippleColor?: string,
+): void {
   const { classPrefix } = useConfig();
   // 全局配置
   const { keepRipple } = useAnimation();
@@ -54,18 +65,19 @@ export default function useRipple(el: HTMLElement, fixedRippleColor?: string): v
   // 为节点添加斜八角动画 add ripple to the DOM and set up the animation
   const handleAddRipple = useCallback(
     (e) => {
-      const rippleColor = getRippleColor(el, fixedRippleColor);
-      if (e.button !== 0 || !el || !keepRipple) return;
+      const target = unwrapRippleEl(el);
+      if (e.button !== 0 || !target || !keepRipple) return;
+      const rippleColor = getRippleColor(target, fixedRippleColor);
 
       if (
-        el.classList.contains(`${classPrefix}-is-active`) ||
-        el.classList.contains(`${classPrefix}-is-disabled`) ||
-        el.classList.contains(`${classPrefix}-is-checked`) ||
-        el.classList.contains(`${classPrefix}-is-loading`)
+        target.classList.contains(`${classPrefix}-is-active`) ||
+        target.classList.contains(`${classPrefix}-is-disabled`) ||
+        target.classList.contains(`${classPrefix}-is-checked`) ||
+        target.classList.contains(`${classPrefix}-is-loading`)
       )
         return;
 
-      const elStyle = getComputedStyle(el);
+      const elStyle = getComputedStyle(target);
 
       const elBorder = parseInt(elStyle.borderWidth, 10);
       const border = elBorder > 0 ? elBorder : 0;
@@ -81,7 +93,7 @@ export default function useRipple(el: HTMLElement, fixedRippleColor?: string): v
           pointerEvents: 'none',
           overflow: 'hidden',
         });
-        el.appendChild(rippleContainer);
+        target.appendChild(rippleContainer);
       }
       // 新增一个 ripple
       const ripple = document.createElement('div');
@@ -106,8 +118,8 @@ export default function useRipple(el: HTMLElement, fixedRippleColor?: string): v
 
       // fix zIndex：避免遮盖内部元素
       const elMap = new WeakMap();
-      for (let n = el.children.length, i = 0; i < n; ++i) {
-        const child = el.children[i];
+      for (let n = target.children.length, i = 0; i < n; ++i) {
+        const child = target.children[i];
         if ((child as HTMLElement).style.zIndex === '' && child !== rippleContainer) {
           (child as HTMLElement).style.zIndex = '1';
           elMap.set(child, true);
@@ -115,10 +127,10 @@ export default function useRipple(el: HTMLElement, fixedRippleColor?: string): v
       }
 
       // fix position
-      const initPosition = el.style.position ? el.style.position : getComputedStyle(el).position;
+      const initPosition = target.style.position ? target.style.position : getComputedStyle(target).position;
       if (initPosition === '' || initPosition === 'static') {
         // eslint-disable-next-line no-param-reassign
-        el.style.position = 'relative';
+        target.style.position = 'relative';
       }
       rippleContainer.insertBefore(ripple, rippleContainer.firstChild);
 
@@ -139,10 +151,8 @@ export default function useRipple(el: HTMLElement, fixedRippleColor?: string): v
           classChangeObserver = null;
         }
 
-        if (el) {
-          el.removeEventListener('pointerup', handleClearRipple, false);
-          el.removeEventListener('pointerleave', handleClearRipple, false);
-        }
+        target.removeEventListener('pointerup', handleClearRipple, false);
+        target.removeEventListener('pointerleave', handleClearRipple, false);
 
         setTimeout(
           () => {
@@ -155,8 +165,7 @@ export default function useRipple(el: HTMLElement, fixedRippleColor?: string): v
 
       if (typeof MutationObserver !== 'undefined') {
         classChangeObserver = new MutationObserver(() => {
-          if (!el || !(el instanceof Element)) return;
-          const cls = el.classList;
+          const cls = target.classList;
           if (
             cls.contains(`${classPrefix}-is-loading`) ||
             cls.contains(`${classPrefix}-is-disabled`) ||
@@ -167,21 +176,25 @@ export default function useRipple(el: HTMLElement, fixedRippleColor?: string): v
             handleClearRipple();
           }
         });
-        classChangeObserver.observe(el, { attributes: true, attributeFilter: ['class'] });
+        classChangeObserver.observe(target, {
+          attributes: true,
+          attributeFilter: ['class'],
+        });
       }
 
-      el.addEventListener('pointerup', handleClearRipple, false);
-      el.addEventListener('pointerleave', handleClearRipple, false);
+      target.addEventListener('pointerup', handleClearRipple, false);
+      target.addEventListener('pointerleave', handleClearRipple, false);
     },
     [classPrefix, el, fixedRippleColor, rippleContainer, keepRipple],
   );
 
   useEffect(() => {
-    if (!el) return;
-    el.addEventListener('pointerdown', handleAddRipple, false);
+    const target = unwrapRippleEl(el);
+    if (!target) return;
+    target.addEventListener('pointerdown', handleAddRipple, false);
 
     return () => {
-      el.removeEventListener('pointerdown', handleAddRipple, false);
+      target.removeEventListener('pointerdown', handleAddRipple, false);
     };
   }, [handleAddRipple, fixedRippleColor, el]);
 }

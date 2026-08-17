@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useImperativeHandle, useMemo, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { canUseDocument } from '../_util/dom';
@@ -46,6 +46,9 @@ const Portal = forwardRef((props: PortalProps, ref) => {
   const { classPrefix } = useConfig();
   const [mounted, setMounted] = useState(false);
 
+  const triggerNodeRef = useRef(triggerNode);
+  triggerNodeRef.current = triggerNode;
+
   const container = useMemo(() => {
     if (!canUseDocument) return null;
     const el = document.createElement('div');
@@ -60,12 +63,13 @@ const Portal = forwardRef((props: PortalProps, ref) => {
   useIsomorphicLayoutEffect(() => {
     if (!mounted) return;
 
-    const parentElement = getAttach(attach, triggerNode);
+    const parentElement = getAttach(attach, triggerNodeRef.current);
     parentElement?.appendChild?.(container);
     return () => {
       parentElement?.removeChild?.(container);
     };
-  }, [container, attach, triggerNode, mounted]);
+    // triggerNode 在 Select 打开时可能每轮 render 都换引用，不能放进依赖，否则 portal 会反复卸载
+  }, [container, attach, mounted]);
 
   useEffect(() => {
     if (!mounted) {
