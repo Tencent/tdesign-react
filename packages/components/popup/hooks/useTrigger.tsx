@@ -28,8 +28,13 @@ export default function useTrigger({
   const triggerElementIsString = typeof triggerElement === 'string';
 
   const triggerRef = useRef<HTMLElement>(null);
+  const childRefHolder = useRef<React.Ref<HTMLElement>>(null);
   const hasPopupMouseDown = useRef(false);
   const visibleTimer = useRef(null);
+
+  const composedTriggerRef = useCallback((instance: HTMLElement) => {
+    composeRefs(triggerRef, childRefHolder.current)(instance);
+  }, []);
 
   // 禁用和无内容时不展示
   const shouldToggle = useMemo(() => {
@@ -143,7 +148,11 @@ export default function useTrigger({
       if (trigger === 'mousedown') {
         callFuncWithDelay({
           delay: visible ? appearDelay : exitDelay,
-          callback: () => onVisibleChange(!visible, { e, trigger: 'trigger-element-mousedown' }),
+          callback: () =>
+            onVisibleChange(!visible, {
+              e,
+              trigger: 'trigger-element-mousedown',
+            }),
         });
       }
     };
@@ -263,9 +272,8 @@ export default function useTrigger({
     if (triggerElementIsString) return;
 
     if (supportNodeRef(children)) {
-      const childRef = getNodeRef(children);
-      const ref = composeRefs(triggerRef, childRef);
-      return React.cloneElement(children, { ref });
+      childRefHolder.current = getNodeRef(children);
+      return React.cloneElement(children, { ref: composedTriggerRef });
     }
 
     return (

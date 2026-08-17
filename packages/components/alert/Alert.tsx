@@ -11,7 +11,7 @@ import log from '@tdesign/common-js/log/index';
 
 import noop from '../_util/noop';
 import parseTNode from '../_util/parseTNode';
-import { composeRefs } from '../_util/ref';
+import { useComposedRefs } from '../_util/ref';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
@@ -53,6 +53,7 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
   const [closed, setClosed] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(true);
   const nodeRef = useRef<HTMLDivElement>(null);
+  const combinedRef = useComposedRefs(ref, nodeRef);
 
   const iconMap = {
     success: CheckCircleFilledIcon,
@@ -127,7 +128,7 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
       onExited={onClosed}
     >
       <div
-        ref={composeRefs(ref, nodeRef)}
+        ref={combinedRef}
         className={classNames(`${classPrefix}-alert`, `${classPrefix}-alert--${theme}`, className)}
         {...alertProps}
       >

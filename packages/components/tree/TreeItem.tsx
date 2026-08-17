@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
 import { CaretRightSmallIcon as TdCaretRightSmallIcon } from 'tdesign-icons-react';
 
-import { composeRefs } from '../_util/ref';
+import { useComposedRefs } from '../_util/ref';
 import Checkbox from '../checkbox';
 import useConfig from '../hooks/useConfig';
 import useDomRefCallback from '../hooks/useDomRefCallback';
@@ -54,6 +54,7 @@ const TreeItem = forwardRef(
     });
     const { level } = node;
     const nodeRef = useRef<HTMLDivElement>(null);
+    const combinedRef = useComposedRefs(ref, nodeRef);
 
     const { treeClassNames, locale } = useTreeConfig();
     const { classPrefix } = useConfig();
@@ -345,7 +346,7 @@ const TreeItem = forwardRef(
 
     return (
       <div
-        ref={composeRefs(ref, nodeRef)}
+        ref={combinedRef}
         data-value={node.value}
         data-level={level}
         className={classNames(treeClassNames.treeNode, {

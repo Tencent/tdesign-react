@@ -15,7 +15,7 @@ import forwardRefWithStatics from '../../_util/forwardRefWithStatics';
 import { getOffsetTopToContainer } from '../../_util/helper';
 import noop from '../../_util/noop';
 import { extractTextFromTNode, parseContentTNode } from '../../_util/parseTNode';
-import { composeRefs } from '../../_util/ref';
+import { useComposedRefs } from '../../_util/ref';
 import FakeArrow from '../../common/FakeArrow';
 import useConfig from '../../hooks/useConfig';
 import useControlled from '../../hooks/useControlled';
@@ -106,6 +106,7 @@ const Select = forwardRefWithStatics(
     const { valueKey, labelKey, disabledKey } = useMemo(() => getKeyMapping(keys), [keys]);
 
     const selectInputRef = useRef(null);
+    const combinedSelectInputRef = useComposedRefs(ref, selectInputRef);
     const { classPrefix } = useConfig();
     const { overlayClassName, onScroll, onScrollToBottom, ...restPopupProps } = popupProps || {};
     const [isScrolling, toggleIsScrolling] = useState(false);
@@ -563,7 +564,7 @@ const Select = forwardRefWithStatics(
       >
         <SelectInput
           autoWidth={!style?.width && autoWidth}
-          ref={composeRefs(ref, selectInputRef)}
+          ref={combinedSelectInputRef}
           className={name}
           readOnly={readOnly}
           autofocus={props.autofocus}

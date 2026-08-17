@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import { composeRefs } from '../_util/ref';
+import { useComposedRefs } from '../_util/ref';
 import useCommonClassName from '../hooks/useCommonClassName';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -48,6 +48,8 @@ const Avatar = forwardRefWithStatics(
     const [isImgExist, setIsImgExist] = useState(true);
     const avatarRef = useRef<HTMLElement>(null);
     const avatarChildrenRef = useRef<HTMLElement>(null);
+    const avatarRootRef = useComposedRefs(ref, avatarRef);
+    const avatarContentRef = useComposedRefs(ref, avatarChildrenRef);
     const size = avatarSize === undefined ? groupSize : avatarSize;
     const gap = 4;
     const handleScale = () => {
@@ -123,14 +125,14 @@ const Avatar = forwardRefWithStatics(
         transform: `scale(${scale})`,
       };
       renderChildren = (
-        <span ref={composeRefs(ref, avatarChildrenRef)} style={childrenStyle}>
+        <span ref={avatarContentRef} style={childrenStyle}>
           {children || content}
         </span>
       );
     }
     return (
       <div
-        ref={composeRefs(ref, avatarRef) as any}
+        ref={avatarRootRef as any}
         className={avatarClass}
         style={{ ...numSizeStyle, ...style }}
         onClick={(e) => onClick?.({ e })}

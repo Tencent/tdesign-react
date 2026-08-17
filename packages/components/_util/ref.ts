@@ -1,7 +1,7 @@
 // Source from:
 // https://github.com/react-component/util/blob/master/src/ref.ts
 
-import { isValidElement } from 'react';
+import { isValidElement, useCallback, useRef } from 'react';
 import { ForwardRef, isMemo } from 'react-is';
 
 import isFragment from './isFragment';
@@ -84,4 +84,19 @@ export function composeRefs<T>(...refs: React.Ref<T>[]) {
       }
     }
   };
+}
+
+/**
+ * React 19 会在 callback ref 引用变化时卸载再挂载。
+ * composeRefs 每次 render 都返回新函数，
+ * 若其中包含 setState，会触发 Maximum update depth exceeded。
+ * 这里用 ref 保存最新 refs，返回稳定 callback。
+ */
+export function useComposedRefs<T>(...refs: React.Ref<T>[]) {
+  const refsRef = useRef(refs);
+  refsRef.current = refs;
+
+  return useCallback((instance: T) => {
+    composeRefs(...refsRef.current)(instance);
+  }, []);
 }

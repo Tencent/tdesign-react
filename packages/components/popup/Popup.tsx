@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import { debounce, isFunction } from 'lodash-es';
@@ -91,6 +91,13 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
   const portalRef = useRef(null); // portal dom 元素
   const contentRef = useRef<HTMLDivElement>(null); // 内容部分
   const popperRef = useRef<InnerPopperInstance>(null); // 保存 popper 实例
+
+  // React 19：callback ref 必须保持引用稳定，否则会在 commit 阶段反复 setState
+  const setOverlayRef = useCallback((node: HTMLDivElement) => {
+    if (!node) return;
+    popupRef.current = node;
+    setPopupElement((prev) => (prev === node ? prev : node));
+  }, []);
 
   // 处理切换 panel 为 null 和正常内容动态切换的情况
   useEffect(() => {
@@ -294,13 +301,12 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
           })}
         >
           <div
-            ref={(node) => {
-              if (node) {
-                popupRef.current = node;
-                setPopupElement(node);
-              }
+            ref={setOverlayRef}
+            style={{
+              ...styles.popper,
+              zIndex,
+              ...getOverlayStyle(overlayStyle),
             }}
-            style={{ ...styles.popper, zIndex, ...getOverlayStyle(overlayStyle) }}
             className={classNames(`${classPrefix}-popup`, overlayClassName)}
             {...attributes.popper}
             onClick={(e) => props.onOverlayClick?.({ e })}
