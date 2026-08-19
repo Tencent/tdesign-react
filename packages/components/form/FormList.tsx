@@ -21,22 +21,25 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     initialData: initialDataFromForm,
     resetType: resetTypeFromContext,
   } = useFormContext();
-  const { fullPath: parentFullPath, initialData: parentInitialData } = useFormListContext();
+  const { fullPath: parentFullPath, initialData: parentInitialData, form: formOfParentFormList } = useFormListContext();
 
-  const fullPath = concatName(parentFullPath, name);
+  const isSameForm = useMemo(() => isEqual(form, formOfParentFormList), [form, formOfParentFormList]);
+  const validParentFullPath = isSameForm ? parentFullPath : undefined;
+
+  const fullPath = concatName(validParentFullPath, name);
 
   const initialData = useMemo(() => {
     let propsInitialData;
     if (props.initialData) {
       propsInitialData = props.initialData;
-    } else if (parentFullPath && parentInitialData) {
-      const relativePath = fullPath.slice(convertNameToArray(parentFullPath).length);
+    } else if (validParentFullPath && parentInitialData) {
+      const relativePath = fullPath.slice(convertNameToArray(validParentFullPath).length);
       propsInitialData = get(parentInitialData, relativePath);
     } else {
       propsInitialData = get(initialDataFromForm, fullPath);
     }
     return cloneDeep(propsInitialData || []);
-  }, [props.initialData, fullPath, parentFullPath, parentInitialData, initialDataFromForm]);
+  }, [props.initialData, fullPath, validParentFullPath, parentInitialData, initialDataFromForm]);
 
   const [formListValue, setFormListValue] = useState(() => get(form?.store, fullPath) || initialData);
 
