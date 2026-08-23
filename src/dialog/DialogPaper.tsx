@@ -1,0 +1,280 @@
+import React, { forwardRef, useEffect, useRef, useImperativeHandle } from 'react';
+import { CSSTransition } from 'react-transition-group';
+import classNames from 'classnames';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { TdDialogProps, DialogInstance } from './type';
+import { StyledProps } from '../common';
+import Portal from '../common/Portal';
+import useSetState from '../hooks/useSetState';
+import useConfig from '../hooks/useConfig';
+import { dialogDefaultProps } from './defaultProps';
+import DialogCard from './DialogCard';
+import useDialogEsc from './hooks/useDialogEsc';
+import useLockStyle from './hooks/useLockStyle';
+import useDialogPosition from './hooks/useDialogPosition';
+import useDialogDrag from './hooks/useDialogDrag';
+import { parseValueToPx } from './utils';
+import log from '../_common/js/log';
+import useDefaultProps from '../hooks/useDefaultProps';
+import useAttach from '../hooks/useAttach';
+
+export interface DialogProps extends TdDialogProps, StyledProps {
+  isPlugin?: boolean; // 是否以插件形式调用
+}
+
+const DialogPaper = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
+  const props = useDefaultProps<DialogProps>(originalProps, dialogDefaultProps);
+  const { children, ...restProps } = props;
+  const { classPrefix } = useConfig();
+
+  const componentCls = `${classPrefix}-dialog`;
+  const wrapRef = useRef<HTMLDivElement>();
+  const maskRef = useRef<HTMLDivElement>();
+  const contentClickRef = useRef(false);
+  const dialogCardRef = useRef<HTMLDivElement>();
+  const dialogPosition = useRef();
+  const portalRef = useRef();
+  const [state, setState] = useSetState<DialogProps>({ isPlugin: false, ...restProps });
+  const [local] = useLocaleReceiver('dialog');
+
+  const {
+    className,
+    dialogClassName,
+    style,
+    width,
+    mode,
+    zIndex,
+    visible,
+    attach,
+    onBeforeOpen,
+    onBeforeClose,
+    onOpened,
+    onCancel,
+    onConfirm,
+    onClose,
+    onClosed,
+    isPlugin,
+    draggable,
+    onOverlayClick,
+    onEscKeydown,
+    closeOnEscKeydown,
+    confirmOnEnter,
+    showOverlay,
+    showInAttachedElement,
+    closeOnOverlayClick,
+    destroyOnClose,
+    preventScrollThrough,
+    onCloseBtnClick,
+    forceRender = false,
+    ...restState
+  } = state;
+
+  const dialogAttach = useAttach('dialog', attach);
+  useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
+  useDialogEsc(visible, wrapRef);
+  useDialogPosition(visible, dialogCardRef);
+  const { onDialogMoveStart } = useDialogDrag({
+    dialogCardRef,
+    contentClickRef,
+    canDraggable: draggable && mode === 'modeless',
+  });
+
+  useEffect(() => {
+    if (isPlugin) {
+      return;
+    }
+    // 插件式调用不会更新props, 只有组件式调用才会更新props
+    setState((prevState) => ({ ...prevState, ...props }));
+  }, [props, setState, isPlugin]);
+
+  useImperativeHandle(ref, () => ({
+    show() {
+      setState({ visible: true });
+    },
+    hide() {
+      setState({ visible: false });
+    },
+    setConfirmLoading: (loading: boolean) => {
+      setState({ confirmLoading: loading });
+    },
+    destroy() {
+      setState({ visible: false, destroyOnClose: true });
+    },
+    update(newOptions) {
+      setState((prevState) => ({ ...prevState, ...newOptions }));
+    },
+  }));
+
+  // @ts-ignore 兼容旧版本 2.0 移除
+  if (props.mode === 'normal') {
+    log.error('Dialog', 'mode="normal" is not supported, please use DialogCard.');
+    return <DialogCard {...props} />;
+  }
+
+  const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (showOverlay && (closeOnOverlayClick ?? local.closeOnOverlayClick)) {
+      // 判断点击事件初次点击是否为内容区域
+      if (contentClickRef.current) {
+        contentClickRef.current = false;
+      } else if (e.target === dialogPosition.current) {
+        onOverlayClick?.({ e });
+        onClose?.({ e, trigger: 'overlay' });
+      }
+    }
+  };
+
+  const handleCancel = ({ e }) => {
+    onCancel?.({ e });
+    onClose?.({ e, trigger: 'cancel' });
+  };
+
+  const handleClose = ({ e }) => {
+    onCloseBtnClick?.({ e });
+    onClose?.({ e, trigger: 'close-btn' });
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
+    if (e.key === 'Escape') {
+      e.stopPropagation();
+      onEscKeydown?.({ e });
+      if (closeOnEscKeydown ?? local.closeOnEscKeydown) {
+        onClose?.({ e, trigger: 'esc' });
+      }
+    } else if (e.key === 'Enter' || e.key === 'NumpadEnter') {
+      // 回车键触发点击确认事件
+      e.stopPropagation();
+      confirmOnEnter && onConfirm?.({ e });
+    }
+  };
+
+  const onAnimateLeave = () => {
+    onClosed?.();
+
+    if (!wrapRef.current) return;
+    wrapRef.current.style.display = 'none';
+  };
+
+  const onAnimateStart = () => {
+    if (!wrapRef.current) return;
+    onBeforeOpen?.();
+    wrapRef.current.style.display = 'block';
+  };
+
+  // const onInnerAnimateStart = () => {
+  //   if (!dialogCardRef.current) return;
+  //   dialogCardRef.current.style.display = 'flex';
+  // };
+
+  // const onInnerAnimateLeave = () => {
+  //   if (!dialogCardRef.current) return;
+  //   dialogCardRef.current.style.display = 'none';
+  // };
+
+  const renderMask = () => {
+    if (mode !== 'modal') return null;
+
+    return showOverlay ? (
+      <CSSTransition
+        in={visible}
+        appear
+        timeout={300}
+        classNames={`${componentCls}-fade`}
+        mountOnEnter
+        unmountOnExit
+        nodeRef={maskRef}
+      >
+        <div ref={maskRef} className={`${componentCls}__mask`} />
+      </CSSTransition>
+    ) : null;
+  };
+  return (
+    <CSSTransition
+      in={visible}
+      appear
+      timeout={300}
+      mountOnEnter={!forceRender}
+      unmountOnExit={destroyOnClose}
+      nodeRef={portalRef}
+      onEnter={onAnimateStart}
+      onEntered={onOpened}
+      onExit={() => onBeforeClose?.()}
+      onExited={onAnimateLeave}
+    >
+      <Portal attach={dialogAttach} ref={portalRef}>
+        <div
+          ref={wrapRef}
+          className={classNames(className, `${componentCls}__ctx`, `${componentCls}__${mode}`, {
+            [`${componentCls}__ctx--fixed`]: !showInAttachedElement,
+            [`${componentCls}__ctx--absolute`]: showInAttachedElement,
+          })}
+          style={{ zIndex, display: 'none' }}
+          onKeyDown={handleKeyDown}
+          tabIndex={0}
+        >
+          {renderMask()}
+          <div
+            className={`${componentCls}__wrap_paper`}
+            style={{ height: '100%', outline: 0, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+          >
+            <div
+              ref={dialogPosition}
+              className={classNames(`${componentCls}__position`, {
+                [`${componentCls}--top`]: !!props.top || props.placement === 'top',
+                [`${componentCls}--center`]: props.placement === 'center' && !props.top,
+              })}
+              style={{
+                // paddingTop: parseValueToPx(props.top),
+                height: '100%',
+              }}
+              onClick={onMaskClick}
+            >
+              <CSSTransition
+                in={visible}
+                appear
+                timeout={300}
+                classNames={`${componentCls}-zoom`}
+                nodeRef={dialogCardRef}
+                // onEnter={onInnerAnimateStart}
+                // onExited={onInnerAnimateLeave}
+              >
+                <DialogCard
+                  ref={dialogCardRef}
+                  {...restState}
+                  className={dialogClassName}
+                  style={{
+                    ...style,
+                    width: parseValueToPx(width || style?.width),
+                    backgroundColor: 'rgb(255, 255, 255)',
+                    color: 'rgba(0, 0, 0, 0.87)',
+                    boxShadow: 'var(--Paper-shadow)',
+                    backgroundImage: 'var(--Paper-overlay)',
+                    position: 'relative',
+                    overflowY: 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    maxHeight: 'calc(100% - 64px)',
+                    maxWidth: '600px',
+                    transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                    borderRadius: '4px',
+                    margin: '32px',
+                  }}
+                  onConfirm={onConfirm}
+                  onCancel={handleCancel}
+                  onCloseBtnClick={handleClose}
+                  onMouseDown={onDialogMoveStart}
+                >
+                  {children}
+                </DialogCard>
+              </CSSTransition>
+            </div>
+          </div>
+        </div>
+      </Portal>
+    </CSSTransition>
+  );
+});
+
+DialogPaper.displayName = 'DialogPaper';
+
+export default DialogPaper;
