@@ -4,6 +4,7 @@ import { canUseDocument } from '../../_util/dom';
 import { off, on } from '../../_util/listener';
 import { composeRefs, getNodeRef, getRefDom, supportNodeRef } from '../../_util/ref';
 import useConfig from '../../hooks/useConfig';
+import useLatest from '../../hooks/useLatest';
 
 const ESC_KEY = 'Escape';
 
@@ -27,6 +28,7 @@ export default function useTrigger({
 
   const triggerElementIsString = typeof triggerElement === 'string';
 
+  const popupElementRef = useLatest(popupElement);
   const triggerRef = useRef<HTMLElement>(null);
   const hasPopupMouseDown = useRef(false);
   const visibleTimer = useRef(null);
@@ -77,9 +79,10 @@ export default function useTrigger({
 
     const relatedTarget = e.relatedTarget as HTMLElement;
     const closestPopup = relatedTarget?.closest?.(`.${classPrefix}-popup`);
-
-    const isMovingToCurrentPopup = popupElement ? popupElement?.isEqualNode?.(closestPopup) : closestPopup;
+    const popup = popupElementRef.current;
+    const isMovingToCurrentPopup = popup ? popup?.isSameNode?.(closestPopup) : closestPopup;
     if (isMovingToCurrentPopup) return;
+
     callFuncWithDelay({
       delay: exitDelay,
       callback: () => onVisibleChange(false, { e, trigger: 'trigger-element-hover' }),
@@ -143,7 +146,11 @@ export default function useTrigger({
       if (trigger === 'mousedown') {
         callFuncWithDelay({
           delay: visible ? appearDelay : exitDelay,
-          callback: () => onVisibleChange(!visible, { e, trigger: 'trigger-element-mousedown' }),
+          callback: () =>
+            onVisibleChange(!visible, {
+              e,
+              trigger: 'trigger-element-mousedown',
+            }),
         });
       }
     };
@@ -265,7 +272,7 @@ export default function useTrigger({
     if (supportNodeRef(children)) {
       const childRef = getNodeRef(children);
       const ref = composeRefs(triggerRef, childRef);
-      return React.cloneElement(children, { ref });
+      return React.cloneElement(children as React.ReactElement<any>, { ref });
     }
 
     return (
