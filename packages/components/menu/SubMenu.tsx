@@ -9,7 +9,6 @@ import useControlled from '../hooks/useControlled';
 import useDomRefCallback from '../hooks/useDomRefCallback';
 import useRipple from '../hooks/useRipple';
 import { Popup } from '../popup';
-import { calculatePaddingLeft } from './_util/calculatePaddingLeft';
 import { checkIsMenuGroup, checkIsSubMenu } from './_util/checkMenuType';
 import checkSubMenuChildrenActive from './_util/checkSubMenuChildrenActive';
 import { getSubMenuMaxHeight } from './_util/getSubMenuChildStyle';
@@ -73,9 +72,6 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
     return isExpand;
   }, [disabled, isPopUp, open, isExpand]);
 
-  // 计算左边距，兼容多层级子菜单
-  const menuPaddingLeft = calculatePaddingLeft(level - 1);
-
   const fakeArrowStyle = isPopUp && level > 1 ? { transform: 'rotate(-90deg)' } : {};
 
   const contentRef = useRef<HTMLUListElement>(null);
@@ -133,7 +129,6 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
             style={
               {
                 ...childStyle,
-                '--padding-left': `${menuPaddingLeft}px`,
                 overflow: 'hidden',
               } as React.CSSProperties
             }
