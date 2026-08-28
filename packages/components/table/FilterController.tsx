@@ -54,7 +54,7 @@ function TableFilterController(props: TableFilterControllerProps) {
   const [locale, t] = useLocaleReceiver('table');
 
   const triggerElementRef = useRef<HTMLDivElement>(null);
-  const [filterPopupVisible, setFilterPopupVisible] = useState(visible);
+  const [filterPopupVisible, setFilterPopupVisible] = useState(!!visible);
 
   const onFilterVisibleChange = (visible: boolean, ctx: PopupVisibleChangeContext) => {
     const isDocClick = ctx?.trigger === 'document' && ctx?.e?.target;
@@ -64,7 +64,7 @@ function TableFilterController(props: TableFilterControllerProps) {
        * 过滤后的数据量在跨越虚拟滚动的 threshold 时
        * 表头重建导致原始点击的元素被误判为不属于 Popup 内部从而触发关闭
        */
-      const isInsideFilter = el.closest(`.${tableFilterClasses.popupContent}`) !== null;
+      const isInsideFilter = !el?.isConnected || el.closest(`.${tableFilterClasses.popupContent}`) !== null;
       if (isInsideFilter) {
         setFilterPopupVisible(true);
         props.onVisibleChange?.(true, column.colKey);
@@ -159,6 +159,7 @@ function TableFilterController(props: TableFilterControllerProps) {
   const isObjectTrue = typeof filterValue === 'object' && !isEmpty(filterValue);
   // false is a valid filter value
   const isValueExist = ![null, undefined, ''].includes(filterValue) && typeof filterValue !== 'object';
+
   return (
     <div className={classNames([tableFilterClasses.icon, { [isFocusClass]: isObjectTrue || isValueExist }])}>
       <Popup
@@ -179,7 +180,10 @@ function TableFilterController(props: TableFilterControllerProps) {
         {...props.popupProps}
       >
         <div ref={triggerElementRef}>
-          {parseContentTNode(props.filterIcon, { col: column, colIndex: props.colIndex }) || defaultFilterIcon}
+          {parseContentTNode(props.filterIcon, {
+            col: column,
+            colIndex: props.colIndex,
+          }) || defaultFilterIcon}
         </div>
       </Popup>
     </div>

@@ -68,7 +68,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     allTableClasses;
   // 表格基础样式类
   const { tableClasses, sizeClassNames, tableContentStyles, tableElementStyles } = useStyle(props);
-  const { isMultipleHeader, spansAndLeafNodes, thList } = useTableHeader({ columns: props.columns });
+  const { isMultipleHeader, spansAndLeafNodes, thList } = useTableHeader({
+    columns: props.columns,
+  });
   const finalColumns = useMemo(
     () => spansAndLeafNodes?.leafColumns || columns,
     [spansAndLeafNodes?.leafColumns, columns],
@@ -365,6 +367,10 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const headUseMemoDependencies = [
     resizable,
     thWidthList,
+    tableWidth,
+    virtualConfig.isVirtualScroll,
+    props.headerAffixedTop,
+    props.scroll?.type,
     isFixedHeader,
     rowAndColFixedPosition,
     isMultipleHeader,
@@ -394,20 +400,26 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       height: `${affixHeaderWrapHeight}px`,
       opacity: headerOpacity,
     };
-    const affixedHeader = Boolean((headerAffixedTop || virtualConfig.isVirtualScroll) && tableWidth) && (
+    // 配置了虚拟滚动时，无论数据是否超过 threshold，吸顶表头都需常驻
+    // 避免过滤导致行数跨越阈值时表头与筛选浮层被整体卸载
+    const isVirtual = virtualConfig.isVirtualScroll || Boolean(props.scroll && props.scroll.type === 'virtual');
+    const affixedHeader = Boolean((headerAffixedTop || isVirtual) && tableWidth) && (
       <div
         ref={onAffixHeaderMount}
         style={{ width: `${tableWidth}px`, opacity: headerOpacity }}
         className={classNames([
           'scrollbar',
           {
-            [tableBaseClass.affixedHeaderElm]: props.headerAffixedTop || virtualConfig.isVirtualScroll,
+            [tableBaseClass.affixedHeaderElm]: props.headerAffixedTop || isVirtual,
           },
         ])}
       >
         <table
           className={classNames(tableElmClasses)}
-          style={{ ...tableElementStyles, width: tableElmWidth ? `${tableElmWidth}px` : undefined }}
+          style={{
+            ...tableElementStyles,
+            width: tableElmWidth ? `${tableElmWidth}px` : undefined,
+          }}
         >
           {renderColGroup(true)}
           {showHeader && <THead {...headProps} />}
@@ -427,8 +439,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
 
   const renderAffixedHeader = () => {
     if (!showHeader) return null;
+    const isVirtual = virtualConfig.isVirtualScroll || Boolean(props.scroll && props.scroll.type === 'virtual');
     return (
-      !!(virtualConfig.isVirtualScroll || props.headerAffixedTop) &&
+      !!(isVirtual || props.headerAffixedTop) &&
       (props.headerAffixedTop ? (
         <Affix
           offsetTop={0}
@@ -468,15 +481,23 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
       >
         <div
           ref={affixFooterRef}
-          style={{ width: `${tableWidth}px`, opacity: Number(showAffixFooter) }}
+          style={{
+            width: `${tableWidth}px`,
+            opacity: Number(showAffixFooter),
+          }}
           className={classNames([
             'scrollbar',
-            { [tableBaseClass.affixedFooterElm]: props.footerAffixedBottom || virtualConfig.isVirtualScroll },
+            {
+              [tableBaseClass.affixedFooterElm]: props.footerAffixedBottom || virtualConfig.isVirtualScroll,
+            },
           ])}
         >
           <table
             className={tableElmClasses}
-            style={{ ...tableElementStyles, width: tableElmWidth ? `${tableElmWidth}px` : undefined }}
+            style={{
+              ...tableElementStyles,
+              width: tableElmWidth ? `${tableElmWidth}px` : undefined,
+            }}
           >
             {renderColGroup(true)}
             <TFoot
@@ -545,16 +566,27 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
         {renderColGroup(false)}
         {useMemo(() => {
           if (!showHeader) return null;
-          return <THead {...{ ...headProps, thWidthList: resizable ? thWidthList.current : {} }} />;
+          const isVirtual = virtualConfig.isVirtualScroll || Boolean(props.scroll && props.scroll.type === 'virtual');
+          // 存在吸顶表头时，内层表头仅用于撑开列宽，不渲染筛选等交互组件，避免双实例竞争
+          const hasAffixedHeader = Boolean((props.headerAffixedTop || isVirtual) && tableWidth);
+          return (
+            <THead
+              {...{
+                ...headProps,
+                thWidthList: resizable ? thWidthList.current : {},
+              }}
+              isInnerHeader={hasAffixedHeader}
+            />
+          );
           // eslint-disable-next-line
-        }, headUseMemoDependencies)}
+          }, headUseMemoDependencies)}
 
         {useMemo(
           () => (
             <TBody {...tableBodyProps} />
           ),
           // eslint-disable-next-line
-          [
+            [
             allTableClasses,
             tableBodyProps.ellipsisOverlayClassName,
             tableBodyProps.rowAndColFixedPosition,
@@ -597,7 +629,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
             ></TFoot>
           ),
           // eslint-disable-next-line
-          [
+            [
             isFixedHeader,
             rowAndColFixedPosition,
             spansAndLeafNodes,
@@ -643,9 +675,9 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
   const affixedHeaderContent = useMemo(
     renderAffixedHeader,
     // eslint-disable-next-line
-    [
+      [
       // eslint-disable-next-line
-      ...headUseMemoDependencies,
+        ...headUseMemoDependencies,
       showAffixHeader,
       tableWidth,
       tableElmWidth,

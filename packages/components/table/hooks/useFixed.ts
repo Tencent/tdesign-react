@@ -115,7 +115,10 @@ export default function useFixed(
     right: false,
   });
   // 虚拟滚动无法使用 CSS sticky 固定表头
-  const [virtualScrollHeaderPos, setVirtualScrollHeaderPos] = useState<{ left: number; top: number }>({
+  const [virtualScrollHeaderPos, setVirtualScrollHeaderPos] = useState<{
+    left: number;
+    top: number;
+  }>({
     left: 0,
     top: 0,
   });
@@ -239,7 +242,10 @@ export default function useFixed(
         }
         const obj = initialColumnMap.get(colKey || j);
         if (obj?.col?.fixed) {
-          initialColumnMap.set(colKey, { ...obj, width: th?.getBoundingClientRect?.().width });
+          initialColumnMap.set(colKey, {
+            ...obj,
+            width: th?.getBoundingClientRect?.().width,
+          });
         }
       }
     }
@@ -267,7 +273,10 @@ export default function useFixed(
         defaultBottom = thead?.getBoundingClientRect?.().height || 0;
       }
       thisRowInfo.top = (lastRowInfo.top || defaultBottom) + (lastRowInfo.height || 0);
-      initialColumnMap.set(rowId, { ...thisRowInfo, height: tr?.getBoundingClientRect?.().height });
+      initialColumnMap.set(rowId, {
+        ...thisRowInfo,
+        height: tr?.getBoundingClientRect?.().height,
+      });
     }
     for (let i = data.length - 1; i >= data.length - fixedBottomRows; i--) {
       /**
@@ -285,7 +294,10 @@ export default function useFixed(
         defaultBottom = tfoot?.getBoundingClientRect?.().height || 0;
       }
       thisRowInfo.bottom = (lastRowInfo.bottom || defaultBottom) + (lastRowInfo.height || 0);
-      initialColumnMap.set(rowId, { ...thisRowInfo, height: tr?.getBoundingClientRect?.().height });
+      initialColumnMap.set(rowId, {
+        ...thisRowInfo,
+        height: tr?.getBoundingClientRect?.().height,
+      });
     }
   };
 
@@ -354,7 +366,10 @@ export default function useFixed(
     const tRef = tableContentRef?.current;
     if (!tRef) return;
 
-    const isHeightOverflow = tRef.scrollHeight > tRef.clientHeight;
+    // 虚拟滚动表头需要常驻，不受数据行数是否超过容器高度的影响
+    // 否则过滤后行数跨越 threshold 时，吸顶表头连同筛选浮层会被整体卸载
+    const isVirtual = props.scroll?.type === 'virtual';
+    const isHeightOverflow = isVirtual || tRef.scrollHeight > tRef.clientHeight;
     setIsFixedHeader(isHeightOverflow);
     setIsWidthOverflow(tRef.scrollWidth > tRef.clientWidth);
     const pos = tRef?.getBoundingClientRect?.();
@@ -362,7 +377,7 @@ export default function useFixed(
       top: pos?.top,
       left: pos?.left,
     });
-  }, []);
+  }, [props.scroll?.type]);
 
   const setTableElmWidth = (width: number) => {
     if (tableElmWidth === width) return;
@@ -523,7 +538,9 @@ export default function useFixed(
 
     if (isFixedColumn || isFixedHeader) {
       updateFixedStatus();
-      updateColumnFixedShadow(tableContentRef.current, { skipScrollLimit: true });
+      updateColumnFixedShadow(tableContentRef.current, {
+        skipScrollLimit: true,
+      });
     }
   };
 

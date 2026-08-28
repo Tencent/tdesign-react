@@ -24,6 +24,7 @@ import type { CheckboxGroupValue } from '../checkbox';
 import type { StyledProps } from '../common';
 import type { PageInfo, PaginationProps } from '../pagination';
 import type { EditableCellProps } from './EditableCell';
+import type { RenderTitleParams } from './hooks/useTableHeader';
 import type { BaseTableProps, PrimaryTableProps, PrimaryTableRef } from './interface';
 import type { PrimaryTableCellParams, PrimaryTableCol, TableRowData, TdPrimaryTableProps } from './type';
 
@@ -104,7 +105,9 @@ const PrimaryTable = forwardRef<PrimaryTableRef, InternalPrimaryTableProps>((ori
   const tRowAttributes = (() => {
     const tAttributes = [props.rowAttributes];
     if (isRowHandlerDraggable || isRowDraggable) {
-      tAttributes.push(({ row }) => ({ 'data-id': get(row, props.rowKey || 'id') }));
+      tAttributes.push(({ row }) => ({
+        'data-id': get(row, props.rowKey || 'id'),
+      }));
     }
     return tAttributes.filter((v) => v);
   })();
@@ -146,9 +149,11 @@ const PrimaryTable = forwardRef<PrimaryTableRef, InternalPrimaryTableProps>((ori
       if (item.sorter || item.filter) {
         const titleContent = renderTitle(item, i);
         const { ellipsisTitle } = item;
-        item.title = (p) => {
+        item.title = (p: RenderTitleParams) => {
+          const isInnerHeader = Boolean(p && p.isInnerHeader);
           const sortIcon = item.sorter ? renderSortIcon(p) : null;
-          const filterIcon = item.filter ? renderFilterIcon(p) : null;
+          // 内层占位表头仅用于撑开列宽，不重复创建筛选浮层实例
+          const filterIcon = item.filter && !isInnerHeader ? renderFilterIcon(p) : null;
           const attach = primaryTableRef.current?.tableContentRef;
           return renderTitleWidthIcon([titleContent, sortIcon, filterIcon], p.col, p.colIndex, ellipsisTitle, attach, {
             classPrefix,

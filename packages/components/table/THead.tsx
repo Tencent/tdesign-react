@@ -35,6 +35,8 @@ export interface TheadProps {
   thList: BaseTableCol<TableRowData>[][];
   resizable?: boolean;
   attach?: AttachNode;
+  // 是否为撑开列宽的内层占位表头（存在吸顶表头时），内层不渲染交互型组件
+  isInnerHeader?: boolean;
   showColumnShadow?: { left: boolean; right: boolean };
   columnResizeParams?: {
     resizeLineRef: MutableRefObject<HTMLDivElement>;
@@ -117,7 +119,10 @@ export default function THead(props: TheadProps) {
         const isLeftFixedActive = showColumnShadow.left && col.fixed === 'left';
         const isRightFixedActive = showColumnShadow.right && col.fixed === 'right';
         const canDragSort = props.thDraggable && !(isLeftFixedActive || isRightFixedActive);
-        const customClasses = formatClassNames(col.className, { ...colParams, type: 'th' });
+        const customClasses = formatClassNames(col.className, {
+          ...colParams,
+          type: 'th',
+        });
         const thCustomClasses = formatClassNames(col.thClassName, colParams);
         const thClasses = [
           thStyles.classes,
@@ -135,7 +140,7 @@ export default function THead(props: TheadProps) {
         const withoutChildren = !col.children?.length;
         const width = withoutChildren && thWidthList?.[col.colKey] ? `${thWidthList?.[col.colKey]}px` : undefined;
         const styles = { ...(thStyles.style || {}), width };
-        const innerTh = renderTitle(col, index);
+        const innerTh = renderTitle(col, index, props.isInnerHeader);
         if (!col.colKey) return null;
         const resizeColumnListener =
           props.resizable || !canDragSort
@@ -169,7 +174,10 @@ export default function THead(props: TheadProps) {
             data-colkey={col.colKey}
             className={classNames(thClasses)}
             style={styles}
-            {...{ rowSpan: rowspanAndColspan.rowspan, colSpan: rowspanAndColspan.colspan }}
+            {...{
+              rowSpan: rowspanAndColspan.rowspan,
+              colSpan: rowspanAndColspan.colspan,
+            }}
             {...attrs}
             {...resizeColumnListener}
           >
