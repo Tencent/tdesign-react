@@ -12,7 +12,7 @@ describe('Calendar测试', () => {
   describe(':props', () => {
     test(':theme', () => {
       const { container } = render(<Calendar theme={'card'}></Calendar>);
-      expect(container.firstChild.classList.contains('t-calendar--card')).toBeTruthy();
+      expect(container.children[0].classList.contains('t-calendar--card')).toBeTruthy();
     });
 
     test('fillWithZero', () => {

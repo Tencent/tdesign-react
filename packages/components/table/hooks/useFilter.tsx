@@ -50,6 +50,7 @@ export default function useFilter(
 
   // 过滤内部值
   const [innerFilterValue, setInnerFilterValue] = useState<FilterValue>(tFilterValue);
+  const [popupVisibilities, setPopupVisibilities] = useState<Record<string, boolean>>({});
 
   const hasEmptyCondition = (() => {
     const filterEmpty = filterEmptyData(tFilterValue || {});
@@ -125,7 +126,7 @@ export default function useFilter(
     column?: PrimaryTableCol,
   ) {
     setTFilterValue(filterValue, { col: column, trigger });
-    props.onChange?.({ filter: filterValue }, { trigger: 'filter', currentData: props.data });
+    props.onChange?.({ filter: filterValue }, { trigger: 'filter' });
     // 重置表格滚动位置
     requestAnimationFrame(() => {
       primaryTableRef.current?.scrollToElement({
@@ -158,6 +159,16 @@ export default function useFilter(
     emitFilterChange(innerFilterValue, 'confirm', column);
   }
 
+  function onPopupVisibleChange(visible: boolean, colKey: string) {
+    setPopupVisibilities((prev) => ({
+      ...prev,
+      [colKey]: visible,
+    }));
+    if (visible && !isTableOverflowHidden) {
+      setIsTableOverflowHidden(visible);
+    }
+  }
+
   // 图标：内置图标，组件自定义图标，全局配置图标
   function renderFilterIcon({ col, colIndex }: { col: PrimaryTableCol<TableRowData>; colIndex: number }) {
     return (
@@ -175,15 +186,10 @@ export default function useFilter(
         onConfirm={onConfirm}
         onInnerFilterChange={onInnerFilterChange}
         primaryTableElement={primaryTableRef?.current?.tableElement}
+        visible={popupVisibilities[col.colKey]}
         onVisibleChange={onPopupVisibleChange}
       ></TableFilterController>
     );
-  }
-
-  function onPopupVisibleChange(visible: boolean) {
-    if (visible && !isTableOverflowHidden) {
-      setIsTableOverflowHidden(!visible);
-    }
   }
 
   return {

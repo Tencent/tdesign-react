@@ -32,7 +32,10 @@ const Loading: React.FC<LoadingProps> = (props) => {
     zIndex,
     className,
     style,
-  } = useDefaultProps<LoadingProps>(props, { ...loadingDefaultProps, ...globalLoadingConfig });
+  } = useDefaultProps<LoadingProps>(props, {
+    ...loadingDefaultProps,
+    ...globalLoadingConfig,
+  });
 
   const [showLoading, setShowLoading] = useState(() => (delay ? false : loading));
 
@@ -100,10 +103,10 @@ const Loading: React.FC<LoadingProps> = (props) => {
   }, [loading, preventScrollThrough, fullscreen, lockClass]);
 
   const commonContent = () => {
-    let renderIndicator = <Gradient />;
+    let renderIndicator: React.ReactNode = <Gradient />;
 
     if (indicator && typeof indicator !== 'boolean') {
-      renderIndicator = indicator as React.ReactElement;
+      renderIndicator = indicator;
     }
     return (
       <>
@@ -143,7 +146,9 @@ const Loading: React.FC<LoadingProps> = (props) => {
       <Portal attach={attach}>
         {showLoading ? (
           <div
-            className={classnames(name, baseClasses, fullClass, { [overlayClass]: showOverlay })}
+            className={classnames(name, baseClasses, fullClass, {
+              [overlayClass]: showOverlay,
+            })}
             style={{ ...calcStyles, ...style }}
           >
             {commonContent()}

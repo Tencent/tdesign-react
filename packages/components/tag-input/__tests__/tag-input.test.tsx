@@ -6,7 +6,7 @@ import { getTagInputValueMount } from './mount';
 
 describe('TagInput Component', () => {
   const mockFn = vi.spyOn(HTMLSpanElement.prototype, 'getBoundingClientRect');
-  mockFn.mockImplementation(() => ({ width: 20, x: 5, clientX: 5 }));
+  mockFn.mockImplementation(() => ({ width: 20, x: 5, clientX: 5 }) as any);
 
   it('events.drag: dragSort', () => {
     const defaultValue = ['Vue', 'React', 'Angular'];
@@ -58,7 +58,7 @@ describe('TagInput Component', () => {
 
     expect(wrapper).toHaveClass('t-tag-input--break-line');
     expect(wrapper).toHaveClass('t-tag-input--with-tag');
-    expect(inputPrefix).toContainElement(label);
+    expect(inputPrefix).toContainElement(label as HTMLElement);
     expect(inputPrefix.querySelectorAll('.t-tag')).toHaveLength(2);
     expect(container.querySelector('.t-input__inner')).toBeTruthy();
   });

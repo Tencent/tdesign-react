@@ -9,7 +9,10 @@ export default function chatSample() {
   const chatRef = useRef<HTMLElement & TdChatbotApi>(null);
   const [activeR1, setR1Active] = useState(false);
   const [activeSearch, setSearchActive] = useState(false);
-  const reqParamsRef = useRef<{ think: boolean; search: boolean }>({ think: false, search: false });
+  const reqParamsRef = useRef<{ think: boolean; search: boolean }>({
+    think: false,
+    search: false,
+  });
 
   // 聊天服务配置
   const chatServiceConfig: ChatServiceConfig = {
@@ -64,7 +67,7 @@ export default function chatSample() {
         senderProps={{
           placeholder: '有问题，尽管问～ Enter 发送，Shift+Enter 换行',
         }}
-        chatServiceConfig={chatServiceConfig}
+        chatServiceConfig={chatServiceConfig as any}
       ></ChatBot>
     </div>
   );

@@ -8,6 +8,7 @@ describe('SliderHandleButton 组件测试', () => {
   test('dragging', async () => {
     const SliderButton = () => (
       <SliderHandleButton
+        layout="horizontal"
         classPrefix={'t'}
         style={{}}
         toolTipProps={{}}

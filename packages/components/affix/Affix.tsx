@@ -26,8 +26,8 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
 
   const affixRef = useRef<HTMLDivElement>(null);
   const affixWrapRef = useRef<HTMLDivElement>(null);
-  const placeholderEL = useRef<HTMLElement>(null);
-  const scrollContainer = useRef<ScrollContainerElement>(null);
+  const placeholderEL = useRef<HTMLElement | null>(null);
+  const scrollContainer = useRef<ScrollContainerElement | null>(null);
 
   const ticking = useRef(false);
 
@@ -35,6 +35,7 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
   const handleScroll = useCallback(() => {
     if (!ticking.current) {
       requestAnimationFrame(() => {
+        if (!scrollContainer.current || !placeholderEL.current || !affixWrapRef.current) return;
         // top = 节点到页面顶部的距离，包含 scroll 中的高度
         const {
           top: wrapToTop = 0,
@@ -67,9 +68,13 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
             fixedTop = false;
           }
         } else {
-          const containerHeight =
-            (scrollContainer.current?.[isWindow(scrollContainer.current) ? 'innerHeight' : 'clientHeight'] ?? 0) -
-            wrapHeight;
+          let containerHeight = 0;
+          if (isWindow(scrollContainer.current)) {
+            containerHeight = scrollContainer.current.innerHeight - wrapHeight;
+          } else {
+            containerHeight = scrollContainer.current?.clientHeight - wrapHeight;
+          }
+
           const calcBottom = containerToTop + containerHeight - (offsetBottom ?? 0); // 计算 bottom 相对应的 top 值
           if (calcTop <= offsetTop) {
             // top 的触发

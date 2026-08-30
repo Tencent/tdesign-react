@@ -31,7 +31,7 @@ describe('List 组件测试', () => {
       expect(container.querySelector('.t-list__load--load-more')).toBeInTheDocument();
       expect(queryByText('点击加载更多')).toBeInTheDocument();
       fireEvent.click(queryByText('点击加载更多'));
-      expect(clickFn).toBeCalledTimes(1);
+      expect(clickFn).toHaveBeenCalledTimes(1);
     });
 
     test('onScroll', () => {
@@ -98,7 +98,7 @@ describe('List 组件测试', () => {
   });
 
   describe('ListItemMeta Component Test', () => {
-    const imgSrc = 'https://tdesign.gtimg.com/list-icon.png';
+    const imgSrc = 'https://tdesign.gtimg.com/site/images/list-icon.png';
     const description = 'Test Description';
     test('image string', () => {
       const { container } = render(<ListItemMeta image={imgSrc} />);

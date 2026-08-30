@@ -36,7 +36,9 @@ const Item = forwardRef(
       cascaderContext,
     } = props;
     const { classPrefix: prefix } = useConfig();
-    const { ChevronRightIcon } = useGlobalIcon({ ChevronRightIcon: TdChevronRightIcon });
+    const { ChevronRightIcon } = useGlobalIcon({
+      ChevronRightIcon: TdChevronRightIcon,
+    });
     const COMPONENT_NAME = `${prefix}-cascader__item`;
     // 暂时去掉动画效果 长列表在safari中有异常
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -89,9 +91,14 @@ const Item = forwardRef(
     const RenderLabelContent = (node: TreeNode, cascaderContext: CascaderContextType) => {
       const label = RenderLabelInner(node, cascaderContext);
 
+      const getTitle = () => {
+        const title = cascaderContext.inputVal ? getFullPathLabel(node) : node.label;
+        return typeof title !== 'object' ? title : undefined;
+      };
+
       const labelCont = (
         <span
-          title={cascaderContext.inputVal ? getFullPathLabel(node) : node.label}
+          title={getTitle()}
           className={classNames(`${COMPONENT_NAME}-label`, `${COMPONENT_NAME}-label--ellipsis`)}
           role="label"
         >

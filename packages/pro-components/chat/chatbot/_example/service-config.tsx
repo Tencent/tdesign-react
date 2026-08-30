@@ -132,7 +132,7 @@ export default function ServiceConfig() {
 
   return (
     <div>
-      <ChatBot chatServiceConfig={chatServiceConfig} />
+      <ChatBot chatServiceConfig={chatServiceConfig as any} />
     </div>
   );
 }

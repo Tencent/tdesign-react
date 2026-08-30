@@ -169,7 +169,7 @@ export default function InitialMessages() {
           ref={chatRef}
           defaultMessages={defaultMessages}
           messageProps={messageProps}
-          chatServiceConfig={chatServiceConfig}
+          chatServiceConfig={chatServiceConfig as any}
         />
       </div>
     </div>
