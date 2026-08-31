@@ -14,6 +14,7 @@ const testConfig: InlineConfig = {
       : ['packages/components/**/__tests__/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
   globals: true,
   environment: 'jsdom',
+  setupFiles: ['./test/scripts/setup-vitest.ts'],
   testTimeout: 16000,
   testTransformMode: {
     web: ['\\.[jt]sx$'],
