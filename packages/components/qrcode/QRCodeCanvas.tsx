@@ -27,6 +27,7 @@ const QRCodeCanvas = React.forwardRef<HTMLCanvasElement, QRPropsCanvas>((props, 
     marginSize,
     style,
     imageSettings,
+    pixelStyle,
     ...otherProps
   } = props;
 
@@ -94,7 +95,7 @@ const QRCodeCanvas = React.forwardRef<HTMLCanvasElement, QRPropsCanvas>((props, 
 
       ctx.fillStyle = fgColor;
       if (isSupportPath2d) {
-        ctx.fill(new Path2D(generatePath(cellsToDraw, margin)));
+        ctx.fill(new Path2D(generatePath(cellsToDraw, margin, pixelStyle)));
       } else {
         cells.forEach((row, rdx) => {
           row.forEach((cell, cdx) => {
