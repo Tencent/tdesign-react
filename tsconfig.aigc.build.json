@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig",
-  "include": ["packages/pro-components/chat"],
+  "include": ["packages/pro-components/chat", "./globals.d.ts"],
   "exclude": [
     "**/**/__tests__/*",
     "**/**/_example/*",

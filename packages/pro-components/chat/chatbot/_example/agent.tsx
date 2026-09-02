@@ -148,18 +148,21 @@ export default function ChatBotReact() {
     }
     // 此处增加自定义消息内容合并策略逻辑
     // 该示例agent类型结构比较复杂，根据任务步骤的state有不同的策略，组件内onMessage这里提供了的strategy无法满足，可以通过注册合并策略自行实现
+    // @ts-ignore
     chatRef.current.registerMergeStrategy<AgentContent>('agent', (newChunk: SSEChunkData, existing: AgentContent) => {
       console.log('newChunk, existing', newChunk, existing);
       // 创建新对象避免直接修改原状态
       const updated = {
         ...existing,
         content: {
-          ...existing.content,
-          steps: [...existing.content.steps],
+          ...(existing as any).content,
+          steps: [...(existing as any).content.steps],
         },
       };
 
-      const stepIndex = updated.content.steps.findIndex((step: any) => step.agent_id === newChunk.content.agent_id);
+      const stepIndex = updated.content.steps.findIndex(
+        (step: any) => step.agent_id === (newChunk as any).content.agent_id,
+      );
 
       if (stepIndex === -1) return updated;
 
@@ -167,29 +170,29 @@ export default function ChatBotReact() {
       const step = {
         ...updated.content.steps[stepIndex],
         tasks: [...(updated.content.steps[stepIndex].tasks || [])],
-        status: newChunk.state === 'finish' ? 'finish' : 'pending',
+        status: (newChunk as any).state === 'finish' ? 'finish' : 'pending',
       };
 
       // 处理不同类型的新数据
-      if (newChunk.state === 'command') {
+      if ((newChunk as any).state === 'command') {
         // 新增每个步骤执行的命令
         step.tasks.push({
           type: 'command',
-          text: newChunk.content.text,
+          text: (newChunk as any).content.text,
         });
-      } else if (newChunk.state === 'result') {
+      } else if ((newChunk as any).state === 'result') {
         // 新增每个步骤执行的结论是流式输出，需要分情况处理
         const resultTaskIndex = step.tasks.findIndex((task: any) => task.type === 'result');
         if (resultTaskIndex >= 0) {
           // 合并到已有结果
           step.tasks = step.tasks.map((task: any, index: number) =>
-            index === resultTaskIndex ? { ...task, text: task.text + newChunk.content.text } : task,
+            index === resultTaskIndex ? { ...task, text: task.text + (newChunk as any).content.text } : task,
           );
         } else {
           // 添加新结果
           step.tasks.push({
             type: 'result',
-            text: newChunk.content.text,
+            text: (newChunk as any).content.text,
           });
         }
       }
@@ -209,9 +212,9 @@ export default function ChatBotReact() {
         senderProps={{
           defaultValue: '请帮我做一个5岁儿童生日聚会的规划',
         }}
-        chatServiceConfig={chatServiceConfig}
+        chatServiceConfig={chatServiceConfig as any}
         onMessageChange={(e) => {
-          setMockMessage(e.detail);
+          setMockMessage(e.detail as any);
         }}
       >
         {mockMessage

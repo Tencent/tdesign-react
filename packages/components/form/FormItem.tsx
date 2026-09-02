@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { cloneDeep, get, isEqual, isFunction, isObject, isString, set } from 'lodash-es';
+import { cloneDeep, get, has, isEqual, isFunction, isObject, isString, set } from 'lodash-es';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
@@ -9,6 +9,7 @@ import {
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
+import useLayoutEffect from '../hooks/useLayoutEffect';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { NATIVE_INPUT_COMP, TD_CTRL_PROP_MAP, ValidateStatus } from './const';
 import { formItemDefaultProps } from './defaultProps';
@@ -79,6 +80,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     statusIcon: statusIconFromContext,
     errorMessage,
     formMapRef,
+    registerFormItem,
+    mountedFieldsRef,
     onFormItemValueChange,
   } = useFormContext();
 
@@ -132,6 +135,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const [formValue, setFormValue] = useState(defaultInitialData);
 
   const formItemRef = useRef<FormItemInstance>(null); // 当前 formItem 实例
+  const formItemElementRef = useRef<HTMLDivElement>(null);
   const innerFormItemsRef = useRef([]);
   const shouldEmitChangeRef = useRef(false); // onChange 冒泡开关
   const shouldValidate = useRef(false); // 校验开关
@@ -215,8 +219,13 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     };
 
     if (React.isValidElement(statusIcon)) {
-      // @ts-ignore
-      return resultIcon(React.cloneElement(statusIcon, { style: { color: 'unset' }, ...statusIcon.props }));
+      const statusIconElement = statusIcon as React.ReactElement;
+      return resultIcon(
+        React.cloneElement(statusIconElement, {
+          style: { color: 'unset' },
+          ...statusIconElement.props,
+        }),
+      );
     }
     if (statusIcon === true) {
       return getDefaultIcon();
@@ -246,7 +255,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
         Object.keys(item).forEach((key) => {
           if (!item.message && errorMessages[key]) {
             // eslint-disable-next-line
-            item.message = parseMessage(errorMessages[key], {
+              item.message = parseMessage(errorMessages[key], {
               validate: item[key],
               name: isString(label) ? label : String(name),
             });
@@ -426,9 +435,30 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     // 注册实例
     mapRef.current.set(fullPath, formItemRef);
 
-    // 初始化
-    set(form?.store, fullPath, defaultInitialData);
-    setFormValue(defaultInitialData);
+    // 初始化，避免跨 remount 场景下会残留上一次的 true
+    shouldValidate.current = false;
+    shouldEmitChangeRef.current = false;
+
+    // 区分「首次挂载」与「remount 到已有 form」：
+    //   - 首次挂载：mountedFieldsRef 中不含该 fullPath → 用 initialData 初始化 store
+    //   - remount：mountedFieldsRef 中已含该 fullPath → 保留 store 现值（可能是用户输入 / setFieldsValue 写入），
+    //     避免 Dialog / Popup 等场景下条件渲染引发 FormItem 卸载 → 重挂载时把已修改的字段恢复成 initialData
+    // FormItem 卸载不从 mountedFieldsRef 中移除，只有 Form 整体 reset 时才清空
+    const fieldKey = JSON.stringify(fullPath);
+    const isRemount = mountedFieldsRef?.current?.has(fieldKey) ?? false;
+    if (isRemount) {
+      const existingStoreValue = has(form?.store, fullPath) ? get(form?.store, fullPath) : undefined;
+      if (typeof existingStoreValue !== 'undefined') {
+        setFormValue(existingStoreValue);
+      } else {
+        set(form?.store, fullPath, defaultInitialData);
+        setFormValue(defaultInitialData);
+      }
+    } else {
+      set(form?.store, fullPath, defaultInitialData);
+      setFormValue(defaultInitialData);
+      mountedFieldsRef?.current?.add(fieldKey);
+    }
 
     return () => {
       mapRef.current.delete(fullPath);
@@ -451,8 +481,17 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
     const filterRules = innerRules.filter((item) => (item.trigger || 'change') === 'change');
 
     filterRules.length && validate('change');
+
+    shouldValidate.current = false;
+    shouldEmitChangeRef.current = false;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValue, snakeName]);
+
+  useLayoutEffect(() => {
+    // 仅收集真实表单项（含 name），排除提交/重置按钮等无字段 FormItem
+    if (typeof name === 'undefined' || !formItemElementRef.current) return;
+    return registerFormItem?.(formItemElementRef.current);
+  }, [name, registerFormItem]);
 
   // 暴露 ref 实例方法
   const instance: FormItemInstance = {
@@ -478,7 +517,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   if (isFunction(children)) return children(form);
 
   return (
-    <div className={formItemClass} style={style}>
+    <div ref={formItemElementRef} className={formItemClass} style={style}>
       {label && (
         <div className={formItemLabelClass} style={labelStyle}>
           <label htmlFor={props?.for}>{label}</label>
