@@ -359,6 +359,57 @@ describe('Select 组件测试', () => {
     expect(document.querySelector(popupSelector)).toHaveTextContent('无数据');
   });
 
+  test('可过滤选择器中文输入法测试', async () => {
+    const testId = 'test-id-ime';
+    // 模拟中文输入法的一次合成输入
+    const imeInput = (input: HTMLInputElement, value: string) => {
+      fireEvent.compositionStart(input, { target: { value: input.value } });
+      fireEvent.change(input, { target: { value } });
+      fireEvent.compositionEnd(input, { target: { value } });
+    };
+    const cnOptions = [
+      { label: '苹果', value: 'apple' },
+      { label: '香蕉', value: 'banana' },
+      { label: '橙子', value: 'orange' },
+    ];
+
+    const FilterableSelect = () => {
+      const [value, setValue] = useState();
+      const onChange = (value) => {
+        setValue(value);
+      };
+
+      return (
+        <Select filterable value={value} onChange={onChange} placeholder={testId}>
+          {cnOptions.map((item, index) => (
+            <Option key={index} label={item.label} value={item.value} />
+          ))}
+        </Select>
+      );
+    };
+    const { getByPlaceholderText, getByText } = render(<FilterableSelect />);
+    const input = getByPlaceholderText(testId) as HTMLInputElement;
+
+    // 中文输入法输入“苹”，筛选出“苹果”
+    fireEvent.click(input);
+    imeInput(input, '苹');
+    expect(input).toHaveValue('苹');
+    expect(document.querySelector(popupSelector)).toHaveTextContent('苹果');
+
+    // 选中“苹果”后，输入框展示选中项
+    fireEvent.click(getByText('苹果'));
+    expect(input).toHaveValue('苹果');
+
+    // 再次聚焦并输入，不应保留上一次的筛选内容
+    fireEvent.click(input);
+    expect(input).toHaveValue('');
+    fireEvent.compositionStart(input, { target: { value: input.value } });
+    expect(input).toHaveValue('');
+    fireEvent.change(input, { target: { value: 'xiang' } });
+    fireEvent.compositionEnd(input, { target: { value: '香' } });
+    expect(input).toHaveValue('香');
+  });
+
   test('远程搜索测试', async () => {
     const user = userEvent.setup();
     render(<RemoteSearchSelect />);
