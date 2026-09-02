@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import ChatEngine from '@tdesign/ai-chat-engine';
+import { ChatEngine } from '@tdesign/web-components-chat';
 
-import type { ChatMessagesData, ChatServiceConfig, ChatStatus } from '@tdesign/ai-chat-engine';
+import type { ChatMessagesData, ChatServiceConfig, ChatStatus } from '@tdesign/web-components-chat';
 
 export type IUseChat = {
   defaultMessages?: ChatMessagesData[];
