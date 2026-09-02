@@ -10391,6 +10391,1644 @@ exports[`csr snapshot test > csr test packages/components/button/_example/icon.t
 </div>
 `;
 
+exports[`csr snapshot test > csr test packages/components/button/_example/loading.tsx 1`] = `
+<div>
+  <div
+    class="t-space t-space-vertical"
+    style="gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-vertical"
+        style="padding: 20px; gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-space t-space-horizontal"
+            style="gap: 16px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-default t-button--variant-base t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-default t-button--variant-outline t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-default t-button--variant-dashed t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-default t-button--variant-text t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-space t-space-horizontal"
+            style="gap: 16px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-primary t-button--variant-base t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-primary t-button--variant-outline t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-primary t-button--variant-dashed t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-primary t-button--variant-text t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-space t-space-horizontal"
+            style="gap: 16px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-danger t-button--variant-base t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-danger t-button--variant-outline t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-danger t-button--variant-dashed t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-danger t-button--variant-text t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-space t-space-horizontal"
+            style="gap: 16px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-warning t-button--variant-base t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-warning t-button--variant-outline t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-warning t-button--variant-dashed t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-warning t-button--variant-text t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-space t-space-horizontal"
+            style="gap: 16px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-success t-button--variant-base t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-success t-button--variant-outline t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-success t-button--variant-dashed t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-success t-button--variant-text t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-space t-space-vertical"
+        style="background-color: black; padding: 20px; gap: 16px;"
+      >
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-space t-space-horizontal"
+            style="gap: 16px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-default t-button--variant-base t-button--ghost t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-default t-button--variant-outline t-button--ghost t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-default t-button--variant-dashed t-button--ghost t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-default t-button--variant-text t-button--ghost t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-space t-space-horizontal"
+            style="gap: 16px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-primary t-button--variant-base t-button--ghost t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-primary t-button--variant-outline t-button--ghost t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-primary t-button--variant-dashed t-button--ghost t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-primary t-button--variant-text t-button--ghost t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-space t-space-horizontal"
+            style="gap: 16px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-danger t-button--variant-base t-button--ghost t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-danger t-button--variant-outline t-button--ghost t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-danger t-button--variant-dashed t-button--ghost t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-danger t-button--variant-text t-button--ghost t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-space t-space-horizontal"
+            style="gap: 16px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-warning t-button--variant-base t-button--ghost t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-warning t-button--variant-outline t-button--ghost t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-warning t-button--variant-dashed t-button--ghost t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-warning t-button--variant-text t-button--ghost t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="t-space-item"
+        >
+          <div
+            class="t-space t-space-horizontal"
+            style="gap: 16px;"
+          >
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-success t-button--variant-base t-button--ghost t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-success t-button--variant-outline t-button--ghost t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-success t-button--variant-dashed t-button--ghost t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+            <div
+              class="t-space-item"
+            >
+              <button
+                class="t-button t-button--theme-success t-button--variant-text t-button--ghost t-is-loading"
+                disabled=""
+                type="button"
+              >
+                <div
+                  class="t-loading t-loading--center t-size-m t-loading--inherit-color"
+                >
+                  <svg
+                    class="t-loading__gradient t-icon-loading"
+                    height="1em"
+                    version="1.1"
+                    viewBox="0 0 12 12"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <foreignobject
+                      height="12"
+                      width="12"
+                      x="0"
+                      y="0"
+                    >
+                      <div
+                        class="t-loading__gradient-conic"
+                      />
+                    </foreignobject>
+                  </svg>
+                </div>
+                <span
+                  class="t-button__text"
+                >
+                  加载
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`csr snapshot test > csr test packages/components/button/_example/shape.tsx 1`] = `
 <div>
   <div
@@ -170515,6 +172153,8 @@ exports[`ssr snapshot test > ssr test packages/components/button/_example/custom
 exports[`ssr snapshot test > ssr test packages/components/button/_example/ghost.tsx 1`] = `"<div style="gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><button type="button" class="t-button t-button--theme-default t-button--variant-outline t-button--ghost"><span class="t-button__text">幽灵按钮</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-default t-button--variant-dashed t-button--ghost"><span class="t-button__text">幽灵按钮</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-default t-button--variant-text t-button--ghost"><span class="t-button__text">幽灵按钮</span></button></div></div></div><div class="t-space-item"><div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><button type="button" class="t-button t-button--theme-primary t-button--variant-outline t-button--ghost"><span class="t-button__text">幽灵按钮</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-primary t-button--variant-dashed t-button--ghost"><span class="t-button__text">幽灵按钮</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-primary t-button--variant-text t-button--ghost"><span class="t-button__text">幽灵按钮</span></button></div></div></div><div class="t-space-item"><div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><button type="button" class="t-button t-button--theme-success t-button--variant-outline t-button--ghost"><span class="t-button__text">幽灵按钮</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-success t-button--variant-dashed t-button--ghost"><span class="t-button__text">幽灵按钮</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-success t-button--variant-text t-button--ghost"><span class="t-button__text">幽灵按钮</span></button></div></div></div><div class="t-space-item"><div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><button type="button" class="t-button t-button--theme-warning t-button--variant-outline t-button--ghost"><span class="t-button__text">幽灵按钮</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-warning t-button--variant-dashed t-button--ghost"><span class="t-button__text">幽灵按钮</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-warning t-button--variant-text t-button--ghost"><span class="t-button__text">幽灵按钮</span></button></div></div></div><div class="t-space-item"><div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><button type="button" class="t-button t-button--theme-danger t-button--variant-outline t-button--ghost"><span class="t-button__text">幽灵按钮</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-danger t-button--variant-dashed t-button--ghost"><span class="t-button__text">幽灵按钮</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-danger t-button--variant-text t-button--ghost"><span class="t-button__text">幽灵按钮</span></button></div></div></div></div>"`;
 
 exports[`ssr snapshot test > ssr test packages/components/button/_example/icon.tsx 1`] = `"<div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><button type="button" class="t-button t-button--theme-primary t-button--variant-base"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-add" style="fill:none"><g id="add"><path id="stroke1" stroke="currentColor" d="M12 5L12 19M19 12L5 12" stroke-linecap="square" stroke-width="2"></path></g></svg><span class="t-button__text">新建</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-default t-button--variant-outline"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-cloud-upload" style="fill:none"><g id="cloud-upload"><path id="stroke1" stroke="currentColor" d="M4 17.4003C2.21916 16.4899 1 14.6373 1 12.5C1 9.79943 2.94636 7.55346 5.51282 7.08835C5.72518 3.69029 8.54842 1 12 1C15.4516 1 18.2748 3.69029 18.4872 7.08835C21.0536 7.55346 23 9.79943 23 12.5C23 14.6373 21.7808 16.4899 20 17.4003" stroke-linecap="square" stroke-width="2"></path><path id="stroke2" stroke="currentColor" d="M8 15L12 11L16 15M12 22V12.25" stroke-linecap="square" stroke-width="2"></path></g></svg><span class="t-button__text">上传文件</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-primary t-button--variant-base t-button--shape-circle"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-discount" style="fill:none"><defs><mask id="t-icon-discount-instance-R1b-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path fill="#000" d="M13.9998 7.17075C14.7809 6.3897 16.0472 6.3897 16.8283 7.17075C17.6093 7.9518 17.6093 9.21813 16.8283 9.99917C16.0472 10.7802 14.7809 10.7802 13.9998 9.99917C13.2188 9.21813 13.2188 7.9518 13.9998 7.17075Z" stroke="none"></path><path stroke="#000" d="M11.878 22.0207L1.97852 12.1212L11.878 2.22168L21.0704 2.92879L21.7775 12.1212L11.878 22.0207Z" stroke-width="2" fill="none"></path><path stroke="#000" d="M13.9998 7.17075C14.7809 6.3897 16.0472 6.3897 16.8283 7.17075C17.6093 7.9518 17.6093 9.21813 16.8283 9.99917C16.0472 10.7802 14.7809 10.7802 13.9998 9.99917C13.2188 9.21813 13.2188 7.9518 13.9998 7.17075Z" stroke-width="2" fill="none"></path></mask><mask id="t-icon-discount-instance-R1b-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M13.9998 7.17075C14.7809 6.3897 16.0472 6.3897 16.8283 7.17075C17.6093 7.9518 17.6093 9.21813 16.8283 9.99917C16.0472 10.7802 14.7809 10.7802 13.9998 9.99917C13.2188 9.21813 13.2188 7.9518 13.9998 7.17075Z" stroke-width="2" fill="none"></path></mask></defs><g id="discount"><path id="fill1" fill="transparent" d="M11.878 22.0207L1.97852 12.1212L11.878 2.22168L21.0704 2.92879L21.7775 12.1212L11.878 22.0207Z" mask="url(#t-icon-discount-instance-R1b-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M13.9998 7.17075C14.7809 6.3897 16.0472 6.3897 16.8283 7.17075C17.6093 7.9518 17.6093 9.21813 16.8283 9.99917C16.0472 10.7802 14.7809 10.7802 13.9998 9.99917C13.2188 9.21813 13.2188 7.9518 13.9998 7.17075Z" mask="url(#t-icon-discount-instance-R1b-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M11.878 22.0207L1.97852 12.1212L11.878 2.22168L21.0704 2.92879L21.7775 12.1212L11.878 22.0207Z" stroke-width="2"></path><path id="stroke2" stroke="currentColor" d="M13.9998 7.17075C14.7809 6.3897 16.0472 6.3897 16.8283 7.17075C17.6093 7.9518 17.6093 9.21813 16.8283 9.99917C16.0472 10.7802 14.7809 10.7802 13.9998 9.99917C13.2188 9.21813 13.2188 7.9518 13.9998 7.17075Z" stroke-width="2"></path></g></svg></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-primary t-button--variant-base t-button--shape-circle"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-cloud-download" style="fill:none"><g id="cloud-download"><path id="stroke1" stroke="currentColor" d="M4 17.4003C2.21916 16.4899 1 14.6373 1 12.5C1 9.79943 2.94636 7.55346 5.51282 7.08835C5.72518 3.69029 8.54842 1 12 1C15.4516 1 18.2748 3.69029 18.4872 7.08835C21.0536 7.55346 23 9.79943 23 12.5C23 14.6373 21.7808 16.4899 20 17.4003" stroke-linecap="square" stroke-width="2"></path><path id="stroke2" stroke="currentColor" d="M8 18L12 22L16 18M12 20.75V11" stroke-linecap="square" stroke-width="2"></path></g></svg></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-default t-button--variant-outline"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-search" style="fill:none"><defs><mask id="t-icon-search-instance-R1d-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M15.8027 15.8037L21.106 21.107" stroke-linecap="square" stroke-width="2" fill="none"></path><path stroke="#000" d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z" stroke-linecap="square" stroke-width="2" fill="none"></path></mask><mask id="t-icon-search-instance-R1d-overlap-stroke2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z" stroke-linecap="square" stroke-width="2" fill="none"></path></mask></defs><g id="search"><path id="fill1" fill="transparent" d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z" mask="url(#t-icon-search-instance-R1d-overlap-fill1)"></path><path id="stroke2" stroke="currentColor" d="M15.8027 15.8037L21.106 21.107" stroke-linecap="square" stroke-width="2" mask="url(#t-icon-search-instance-R1d-overlap-stroke2)"></path><path id="stroke1" stroke="currentColor" d="M15.8033 15.8033C12.8744 18.7322 8.12563 18.7322 5.1967 15.8033C2.26777 12.8744 2.26777 8.12563 5.1967 5.1967C8.12563 2.26777 12.8744 2.26777 15.8033 5.1967C18.7322 8.12563 18.7322 12.8744 15.8033 15.8033Z" stroke-linecap="square" stroke-width="2"></path></g></svg><span class="t-button__text">Function Icon</span></button></div></div>"`;
+
+exports[`ssr snapshot test > ssr test packages/components/button/_example/loading.tsx 1`] = `"<div style="gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div style="padding:20px;gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-default t-button--variant-base t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-default t-button--variant-outline t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-default t-button--variant-dashed t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-default t-button--variant-text t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div></div></div><div class="t-space-item"><div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-primary t-button--variant-base t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-primary t-button--variant-outline t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-primary t-button--variant-dashed t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-primary t-button--variant-text t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div></div></div><div class="t-space-item"><div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-danger t-button--variant-base t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-danger t-button--variant-outline t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-danger t-button--variant-dashed t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-danger t-button--variant-text t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div></div></div><div class="t-space-item"><div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-warning t-button--variant-base t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-warning t-button--variant-outline t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-warning t-button--variant-dashed t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-warning t-button--variant-text t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div></div></div><div class="t-space-item"><div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-success t-button--variant-base t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-success t-button--variant-outline t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-success t-button--variant-dashed t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-success t-button--variant-text t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div></div></div></div></div><div class="t-space-item"><div style="background-color:black;padding:20px;gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-default t-button--variant-base t-button--ghost t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-default t-button--variant-outline t-button--ghost t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-default t-button--variant-dashed t-button--ghost t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-default t-button--variant-text t-button--ghost t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div></div></div><div class="t-space-item"><div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-primary t-button--variant-base t-button--ghost t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-primary t-button--variant-outline t-button--ghost t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-primary t-button--variant-dashed t-button--ghost t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-primary t-button--variant-text t-button--ghost t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div></div></div><div class="t-space-item"><div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-danger t-button--variant-base t-button--ghost t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-danger t-button--variant-outline t-button--ghost t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-danger t-button--variant-dashed t-button--ghost t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-danger t-button--variant-text t-button--ghost t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div></div></div><div class="t-space-item"><div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-warning t-button--variant-base t-button--ghost t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-warning t-button--variant-outline t-button--ghost t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-warning t-button--variant-dashed t-button--ghost t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-warning t-button--variant-text t-button--ghost t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div></div></div><div class="t-space-item"><div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-success t-button--variant-base t-button--ghost t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-success t-button--variant-outline t-button--ghost t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-success t-button--variant-dashed t-button--ghost t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div><div class="t-space-item"><button type="button" disabled="" class="t-button t-button--theme-success t-button--variant-text t-button--ghost t-is-loading"><div class="t-loading t-loading--center t-size-m t-loading--inherit-color"><svg class="t-loading__gradient t-icon-loading" viewBox="0 0 12 12" version="1.1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><foreignObject x="0" y="0" width="12" height="12"><div class="t-loading__gradient-conic"></div></foreignObject></svg></div><span class="t-button__text">加载</span></button></div></div></div></div></div></div>"`;
 
 exports[`ssr snapshot test > ssr test packages/components/button/_example/shape.tsx 1`] = `"<div style="gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><button type="button" class="t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">填充按钮</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-primary t-button--variant-base t-button--shape-square"><span class="t-button__text"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R2a9-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R2a9-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R2a9-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R2a9-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-primary t-button--variant-base t-button--shape-round"><span class="t-button__text">填充按钮</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-primary t-button--variant-base t-button--shape-circle"><span class="t-button__text"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R2c9-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R2c9-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R2c9-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R2c9-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></button></div></div></div><div class="t-space-item"><div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><button type="button" class="t-button t-button--theme-default t-button--variant-outline"><span class="t-button__text">描边按钮</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-default t-button--variant-outline t-button--shape-square"><span class="t-button__text"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R2aa-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R2aa-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R2aa-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R2aa-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-default t-button--variant-outline t-button--shape-round"><span class="t-button__text">描边按钮</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-default t-button--variant-outline t-button--shape-circle"><span class="t-button__text"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R2ca-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R2ca-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R2ca-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R2ca-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></button></div></div></div><div class="t-space-item"><div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><button type="button" class="t-button t-button--theme-default t-button--variant-dashed"><span class="t-button__text">虚框按钮</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-default t-button--variant-dashed t-button--shape-square"><span class="t-button__text"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R2ab-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R2ab-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R2ab-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R2ab-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-default t-button--variant-dashed t-button--shape-round"><span class="t-button__text">虚框按钮</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-default t-button--variant-dashed t-button--shape-circle"><span class="t-button__text"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R2cb-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R2cb-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R2cb-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R2cb-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></button></div></div></div><div class="t-space-item"><div style="gap:16px" class="t-space t-space-horizontal"><div class="t-space-item"><button type="button" class="t-button t-button--theme-default t-button--variant-text"><span class="t-button__text">文字按钮</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-default t-button--variant-text t-button--shape-square"><span class="t-button__text"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R2ac-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R2ac-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R2ac-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R2ac-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-default t-button--variant-text t-button--shape-round"><span class="t-button__text">文字按钮</span></button></div><div class="t-space-item"><button type="button" class="t-button t-button--theme-default t-button--variant-text t-button--shape-circle"><span class="t-button__text"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R2cc-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R2cc-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R2cc-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R2cc-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></button></div></div></div></div>"`;
 
