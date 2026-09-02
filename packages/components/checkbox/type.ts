@@ -4,9 +4,9 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { ChangeEvent, MouseEvent } from 'react';
-import { TNode } from '../common';
 import { TooltipProps } from '../tooltip';
+import type { TNode } from '../common';
+import type { MouseEvent, ChangeEvent } from 'react';
 
 export interface TdCheckboxProps {
   /**
@@ -29,7 +29,7 @@ export interface TdCheckboxProps {
    */
   children?: TNode;
   /**
-   * 是否禁用组件。如果父组件存在 CheckboxGroup，默认值由 CheckboxGroup.disabled 控制。Checkbox.disabled 优先级高于 CheckboxGroup.disabled
+   * 是否禁用组件。如果父组件存在 CheckboxGroup，默认值由 CheckboxGroup.disabled 控制。优先级：Checkbox.disabled > CheckboxGroup.disabled > Form.disabled
    */
   disabled?: boolean;
   /**
@@ -49,12 +49,10 @@ export interface TdCheckboxProps {
   /**
    * 只读状态
    * @deprecated It will be removed in the future. Please use `readOnly` instead.
-   * @default false
    */
   readonly?: boolean;
   /**
    * 只读状态
-   * @default false
    */
   readOnly?: boolean;
   /**
@@ -63,7 +61,7 @@ export interface TdCheckboxProps {
    */
   title?: string;
   /**
-   * 透传 Tooltip 组件的全部特性。用于自定义悬浮气泡内容和样式，作用于 Checkbox 的勾选框本体。
+   * 透传 Tooltip 组件的全部特性。用于自定义悬浮气泡内容和样式，作用于 Checkbox 的勾选框本体
    */
   tooltipProps?: TooltipProps;
   /**
@@ -82,7 +80,7 @@ export interface TdCheckboxProps {
 
 export interface TdCheckboxGroupProps<T = CheckboxGroupValue> {
   /**
-   * 是否禁用组件，默认为 false。CheckboxGroup.disabled 优先级低于 Checkbox.disabled
+   * 是否禁用组件。优先级：Form.disabled < CheckboxGroup.disabled < Checkbox.disabled
    */
   disabled?: boolean;
   /**
@@ -118,25 +116,14 @@ export interface TdCheckboxGroupProps<T = CheckboxGroupValue> {
    */
   defaultValue?: T;
   /**
-   * 值变化时触发，`context.current` 表示当前变化的数据值，如果是全选则为空；`context.type` 表示引起选中数据变化的是选中或是取消选中；`context.option` 表示当前变化的数据项
+   * 值变化时触发，`context.current` 表示当前变化的数据值，如果是全选则为空；`context.type` 表示引起选中数据变化的是选中或是取消选中；`context.option` 表示当前变化的数据项；`context.current` 即将废弃，请勿使用
    */
   onChange?: (value: T, context: CheckboxGroupChangeContext) => void;
 }
 
 export type CheckboxOption = string | number | CheckboxOptionObj;
 
-export interface CheckboxOptionObj {
-  label?: string | TNode;
-  value?: string | number | boolean;
-  disabled?: boolean;
-  /**
-   * @deprecated It will be removed in the future. Please use `readOnly` instead.
-   */
-  readonly?: boolean;
-  readOnly?: boolean;
-  name?: string;
-  checkAll?: boolean;
-}
+export interface CheckboxOptionObj extends TdCheckboxProps {}
 
 export type CheckboxGroupValue = Array<string | number | boolean>;
 
