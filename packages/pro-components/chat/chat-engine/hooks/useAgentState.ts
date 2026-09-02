@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { stateManager } from '@tdesign/ai-chat-engine';
+import { stateManager } from '@tdesign/web-components-chat';
 
-import type { ChatJSONObject } from '@tdesign/ai-chat-engine';
+import type { ChatJSONObject } from '@tdesign/web-components-chat';
 
 /**
  * 状态订阅相关类型定义
