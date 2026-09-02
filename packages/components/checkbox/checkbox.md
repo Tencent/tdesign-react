@@ -22,6 +22,7 @@ label | TNode | - | 主文案。TS 类型：`string \| TNode`。[通用类型定
 name | String | - | HTML 元素原生属性 | N
 readOnly | Boolean | false | 只读状态 | N
 title | String | - | HTML 原生属性 | N
+tooltipProps | Object | - | 透传 Tooltip 组件的全部特性。用于自定义悬浮气泡内容和样式，作用于 Checkbox 的勾选框本体。TS 类型：`TooltipProps`，[Tooltip API Documents](./tooltip?tab=api) | N
 value | String / Number / Boolean | - | 多选框的值。TS 类型：`string \| number \| boolean` | N
 onChange | Function |  | TS 类型：`(checked: boolean, context: { e: ChangeEvent }) => void`<br/>值变化时触发 | N
 onClick | Function |  | TS 类型：`(context: { e: MouseEvent }) => void`<br/>点击时触发，一般用于外层阻止冒泡场景 | N

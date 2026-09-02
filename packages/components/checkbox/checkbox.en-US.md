@@ -17,6 +17,7 @@ label | TNode | - | Typescript: `string \| TNode`。[see more ts definition](htt
 name | String | - | \- | N
 readOnly | Boolean | false | \- | N
 title | String | - | html attribute | N
+tooltipProps | Object | - | Transparent all feature props of the Tooltip. Used to customize the hover popup content and style, applied to the checkbox input box only. Typescript: `TooltipProps`，[Tooltip API Documents](./tooltip?tab=api) | N
 value | String / Number / Boolean | - | value of checkbox。Typescript: `string \| number \| boolean` | N
 onChange | Function |  | Typescript: `(checked: boolean, context: { e: ChangeEvent }) => void`<br/> | N
 onClick | Function |  | Typescript: `(context: { e: MouseEvent }) => void`<br/>trigger on click | N
