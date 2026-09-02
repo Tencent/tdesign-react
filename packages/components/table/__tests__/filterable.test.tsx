@@ -81,6 +81,7 @@ const getPopups = () => document.querySelectorAll('.t-table__filter-pop-content'
 
 describe('Filterable Table with virtual scroll', () => {
   const descriptors: Array<[string, PropertyDescriptor]> = [];
+  const { scrollTo } = HTMLElement.prototype;
 
   function mockSize(prop: string, value: number) {
     const origin = Object.getOwnPropertyDescriptor(HTMLElement.prototype, prop);
@@ -96,6 +97,10 @@ describe('Filterable Table with virtual scroll', () => {
     mockSize('clientHeight', 200);
     mockSize('scrollHeight', 4000);
     mockSize('scrollWidth', 800);
+    // jsdom 未实现 Element.scrollTo
+    HTMLElement.prototype.scrollTo = function scrollTo() {
+      // do nothing
+    };
     HTMLElement.prototype.getBoundingClientRect = function getBoundingClientRect() {
       return {
         width: 800,
@@ -112,6 +117,7 @@ describe('Filterable Table with virtual scroll', () => {
 
   afterAll(() => {
     descriptors.forEach(([prop, descriptor]) => Object.defineProperty(HTMLElement.prototype, prop, descriptor));
+    HTMLElement.prototype.scrollTo = scrollTo;
   });
 
   it('renders only one filter popup even though the affixed header duplicates THead', async () => {
