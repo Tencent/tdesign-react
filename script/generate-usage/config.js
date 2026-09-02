@@ -112,6 +112,32 @@ module.exports = {
       }, [changedProps]);
     `,
   },
+  'color-picker': {
+    importStr: `
+      import ColorPickerConfigProps from './props.json';\n
+      import ColorPickerPanelConfigProps from './panel-props.json';\n
+      import { ColorPicker, ColorPickerPanel } from 'tdesign-react';\n`,
+    configStr: `
+      const [configList, setConfigList] = useState(ColorPickerConfigProps);
+    `,
+    panelStr: `
+      const panelList = [
+        { label: 'colorPicker', value: 'colorPicker', config: ColorPickerConfigProps },
+        { label: 'colorPickerPanel', value: 'colorPickerPanel', config: ColorPickerPanelConfigProps }
+      ];
+    `,
+    usageStr: `
+      useEffect(() => {
+        setConfigList(panel === 'colorPicker' ? ColorPickerConfigProps : ColorPickerPanelConfigProps);
+        const componentProps = { defaultValue: 'rgb(0, 82, 217)', ...changedProps };
+        setRenderComp(
+          panel === 'colorPicker'
+            ? <ColorPicker {...componentProps} />
+            : <ColorPickerPanel {...componentProps} />
+        );
+      }, [changedProps, panel]);
+    `,
+  },
   'date-picker': {
     importStr: `
       import DatePickerConfigProps from './date-picker-props.json';\n
