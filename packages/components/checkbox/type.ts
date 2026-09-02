@@ -4,8 +4,8 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TNode } from '../common';
-import { MouseEvent, ChangeEvent } from 'react';
+import type { TNode, SizeEnum } from "../common";
+import type { MouseEvent, ChangeEvent } from "react";
 
 export interface TdCheckboxProps {
   /**
@@ -68,7 +68,10 @@ export interface TdCheckboxProps {
   /**
    * 值变化时触发
    */
-  onChange?: (checked: boolean, context: { e: ChangeEvent<HTMLInputElement> }) => void;
+  onChange?: (
+    checked: boolean,
+    context: { e: ChangeEvent<HTMLInputElement> },
+  ) => void;
   /**
    * 点击时触发，一般用于外层阻止冒泡场景
    */
@@ -80,6 +83,11 @@ export interface TdCheckboxGroupProps<T = CheckboxGroupValue> {
    * 是否禁用组件，默认为 false。CheckboxGroup.disabled 优先级低于 Checkbox.disabled
    */
   disabled?: boolean;
+  /**
+   * 多选框按钮排列方式
+   * @default horizontal
+   */
+  direction?: "horizontal" | "vertical";
   /**
    * 支持最多选中的数量
    */
@@ -103,6 +111,16 @@ export interface TdCheckboxGroupProps<T = CheckboxGroupValue> {
    */
   readOnly?: boolean;
   /**
+   * 组件尺寸
+   * @default medium
+   */
+  size?: SizeEnum;
+  /**
+   * 用于在使用 options 方式渲染时决定组件的风格
+   * @default checkbox
+   */
+  theme?: "checkbox" | "button";
+  /**
    * 选中值
    * @default []
    */
@@ -112,6 +130,11 @@ export interface TdCheckboxGroupProps<T = CheckboxGroupValue> {
    * @default []
    */
   defaultValue?: T;
+  /**
+   * 多选组件按钮形式
+   * @default outline
+   */
+  variant?: "outline" | "primary-filled" | "default-filled";
   /**
    * 值变化时触发，`context.current` 表示当前变化的数据值，如果是全选则为空；`context.type` 表示引起选中数据变化的是选中或是取消选中；`context.option` 表示当前变化的数据项
    */
@@ -139,5 +162,5 @@ export interface CheckboxGroupChangeContext {
   e: ChangeEvent<HTMLDivElement>;
   current: CheckboxOption | TdCheckboxProps;
   option: CheckboxOption | TdCheckboxProps;
-  type: 'check' | 'uncheck';
+  type: "check" | "uncheck";
 }

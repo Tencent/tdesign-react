@@ -124,3 +124,112 @@ describe('CheckboxGroup', () => {
     expect(container.firstChild.lastChild).toHaveClass('t-is-disabled');
   });
 });
+
+describe('Checkbox.Button', () => {
+  test('button style', () => {
+    const { container, queryByText } = render(<Checkbox.Button checked={true}>选中按钮</Checkbox.Button>);
+    expect(container.firstChild).toHaveClass('t-checkbox-button', 't-is-checked');
+    expect(queryByText('选中按钮')).toBeInTheDocument();
+  });
+
+  test('button disabled', () => {
+    const fn = vi.fn();
+    const { container } = render(<Checkbox.Button disabled={true} onChange={fn}></Checkbox.Button>);
+    expect(container.firstChild).toHaveClass('t-is-disabled');
+    fireEvent.click(container.firstChild);
+    expect(fn).toBeCalledTimes(0);
+  });
+});
+
+describe('CheckboxGroup button style', () => {
+  test('theme=button with children', () => {
+    const { container } = render(
+      <Checkbox.Group theme="button" value={['bj']}>
+        <Checkbox.Button value="bj">北京</Checkbox.Button>
+        <Checkbox.Button value="sh">上海</Checkbox.Button>
+        <Checkbox.Button value="gz">广州</Checkbox.Button>
+      </Checkbox.Group>,
+    );
+    expect(container.firstChild).toHaveClass('t-checkbox-group');
+    expect(container.firstChild.firstChild).toHaveClass('t-checkbox-button', 't-is-checked');
+  });
+
+  test('variant outline', () => {
+    const { container } = render(
+      <Checkbox.Group theme="button" variant="outline" value={['bj']}>
+        <Checkbox.Button value="bj">北京</Checkbox.Button>
+        <Checkbox.Button value="sh">上海</Checkbox.Button>
+      </Checkbox.Group>,
+    );
+    expect(container.firstChild).toHaveClass('t-checkbox-group__outline');
+  });
+
+  test('variant default-filled', () => {
+    const { container } = render(
+      <Checkbox.Group theme="button" variant="default-filled" value={['bj']}>
+        <Checkbox.Button value="bj">北京</Checkbox.Button>
+        <Checkbox.Button value="sh">上海</Checkbox.Button>
+      </Checkbox.Group>,
+    );
+    expect(container.firstChild).toHaveClass('t-checkbox-group--filled', 't-checkbox-group--default-filled');
+  });
+
+  test('variant primary-filled', () => {
+    const { container } = render(
+      <Checkbox.Group theme="button" variant="primary-filled" value={['bj']}>
+        <Checkbox.Button value="bj">北京</Checkbox.Button>
+        <Checkbox.Button value="sh">上海</Checkbox.Button>
+      </Checkbox.Group>,
+    );
+    expect(container.firstChild).toHaveClass('t-checkbox-group--primary-filled');
+  });
+
+  test('direction vertical', () => {
+    const { container } = render(
+      <Checkbox.Group theme="button" direction="vertical">
+        <Checkbox.Button value="bj">北京</Checkbox.Button>
+        <Checkbox.Button value="sh">上海</Checkbox.Button>
+      </Checkbox.Group>,
+    );
+    expect(container.firstChild).toHaveClass('t-checkbox-group--vertical');
+  });
+
+  test('size small', () => {
+    const { container } = render(
+      <Checkbox.Group theme="button" size="small">
+        <Checkbox.Button value="bj">北京</Checkbox.Button>
+      </Checkbox.Group>,
+    );
+    expect(container.firstChild).toHaveClass('t-size-s');
+  });
+
+  test('size large', () => {
+    const { container } = render(
+      <Checkbox.Group theme="button" size="large">
+        <Checkbox.Button value="bj">北京</Checkbox.Button>
+      </Checkbox.Group>,
+    );
+    expect(container.firstChild).toHaveClass('t-size-l');
+  });
+
+  test('theme=button with options', () => {
+    const { container } = render(
+      <Checkbox.Group theme="button" variant="primary-filled" value={['北京']} options={['北京', '上海', '广州']} />,
+    );
+    expect(container.firstChild).toHaveClass('t-checkbox-group', 't-checkbox-group--primary-filled');
+    expect(container.firstChild.firstChild).toHaveClass('t-checkbox-button', 't-is-checked');
+  });
+
+  test('button onChange', () => {
+    const fn = vi.fn();
+    const { container } = render(
+      <Checkbox.Group theme="button" value={['bj']} onChange={fn}>
+        <Checkbox.Button value="bj">北京</Checkbox.Button>
+        <Checkbox.Button value="sh">上海</Checkbox.Button>
+      </Checkbox.Group>,
+    );
+    fireEvent.click(container.firstChild.childNodes[1]);
+    expect(fn).toBeCalledTimes(1);
+    expect(fn).toBeCalledWith(['bj', 'sh'], expect.any(Object));
+  });
+});
