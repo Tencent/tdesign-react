@@ -26,6 +26,7 @@ const QRCodeSVG = React.forwardRef<SVGSVGElement, QRPropsSVG>((props, ref) => {
     title,
     marginSize,
     imageSettings,
+    pixelStyle,
     ...otherProps
   } = props;
 
@@ -63,7 +64,7 @@ const QRCodeSVG = React.forwardRef<SVGSVGElement, QRPropsSVG>((props, ref) => {
     );
   }
 
-  const fgPath = generatePath(cellsToDraw, margin);
+  const fgPath = generatePath(cellsToDraw, margin, pixelStyle);
 
   return (
     <svg height={size} width={size} viewBox={`0 0 ${numCells} ${numCells}`} ref={ref} role="img" {...otherProps}>

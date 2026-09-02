@@ -3,6 +3,7 @@ import { QrCode, QrSegment } from '@tdesign/common-js/qrcode/qrcodegen';
 import { ERROR_LEVEL_MAP, getImageSettings, getMarginSize } from '@tdesign/common-js/qrcode/utils';
 
 import type { ErrorCorrectionLevel, ImageSettings } from '@tdesign/common-js/qrcode/types';
+import type { QRCodePixelStyle } from '../type';
 
 export type QRProps = {
   /**
@@ -55,6 +56,12 @@ export type QRProps = {
    * The settings for the embedded image.
    */
   imageSettings?: ImageSettings;
+  /**
+   * The pixel style applied to data modules. Function modules (finder /
+   * alignment / timing / format / version) stay as the traditional solid
+   * square and ignore this.
+   */
+  pixelStyle?: QRCodePixelStyle;
   /**
    * The title to assign to the QR Code. Used for accessibility reasons.
    */
