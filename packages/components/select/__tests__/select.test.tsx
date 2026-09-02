@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState } from 'react';
 import { act, fireEvent, mockTimeout, render } from '@test/utils';
 import userEvent from '@testing-library/user-event';
@@ -6,7 +5,9 @@ import userEvent from '@testing-library/user-event';
 import Popup from '../../popup';
 import Space from '../../space';
 import Tag from '../../tag';
-import { Select, SelectProps } from '../index';
+import { Select } from '../index';
+
+import type { SelectProps } from '../index';
 
 const { Option, OptionGroup } = Select;
 
@@ -134,6 +135,30 @@ describe('Select 组件测试', () => {
         display: 'none',
       }),
     );
+  });
+
+  test('非过滤单选的字符串 valueDisplay 使用 prefix 展示', () => {
+    const { container } = render(
+      <Select value="china" valueDisplay="+86" options={[{ label: '中国', value: 'china' }]} />,
+    );
+    expect(container.querySelector('.t-input__prefix')).toHaveTextContent('+86');
+    expect(container.querySelector('.t-input__inner')).toHaveValue(' ');
+  });
+
+  test('非过滤单选的自定义元素 label 使用 prefix 展示', () => {
+    const { container } = render(
+      <Select
+        value="ai"
+        options={[
+          {
+            label: <span className="custom-label">人工智能</span>,
+            value: 'ai',
+          },
+        ]}
+      />,
+    );
+    expect(container.querySelector('.t-input__prefix .custom-label')).toHaveTextContent('人工智能');
+    expect(container.querySelector('.t-input__inner')).toHaveValue(' ');
   });
 
   test('多选测试', async () => {
@@ -327,7 +352,9 @@ describe('Select 组件测试', () => {
     // expect(document.querySelector(popupSelector)).toHaveTextContent('Banana');
 
     // 输入“an1”, input展示“an1”，popup展示“无数据”
-    fireEvent.change(getByPlaceholderText(testId), { target: { value: 'test' } });
+    fireEvent.change(getByPlaceholderText(testId), {
+      target: { value: 'test' },
+    });
     expect(getByPlaceholderText(testId)).toHaveValue('test');
     expect(document.querySelector(popupSelector)).toHaveTextContent('无数据');
   });
@@ -341,7 +368,9 @@ describe('Select 组件测试', () => {
     fireEvent.click(document.querySelector('input'));
 
     // 输入“123”, input 展示“123”，popup 展示123_test1、123_test2、123_test3
-    fireEvent.change(document.querySelector('input'), { target: { value: '123' } });
+    fireEvent.change(document.querySelector('input'), {
+      target: { value: '123' },
+    });
     expect(document.querySelector('input')).toHaveValue('123');
     expect(document.querySelector(popupSelector)).toHaveStyle({
       display: 'block',
@@ -352,7 +381,9 @@ describe('Select 组件测试', () => {
     await mockTimeout(() => expect(document.querySelector(popupSelector)).toHaveTextContent('123_test3'), 100);
 
     // 清空 input，popup 展示 Apple、Orange、Banana
-    fireEvent.change(document.querySelector('input'), { target: { value: '' } });
+    fireEvent.change(document.querySelector('input'), {
+      target: { value: '' },
+    });
     expect(document.querySelector('input')).toHaveValue('');
     expect(document.querySelector(popupSelector)).toHaveStyle({
       display: 'block',
@@ -373,7 +404,9 @@ describe('Select 组件测试', () => {
     expect(document.querySelector(popupSelector)).not.toBeNull();
 
     // 输入“123”, input 展示“123”，popup 展示123_test1、123_test2、123_test3
-    fireEvent.change(container.querySelector('input'), { target: { value: '123' } });
+    fireEvent.change(container.querySelector('input'), {
+      target: { value: '123' },
+    });
     expect(container.querySelector('input').value).toBe('123');
 
     expect(document.querySelector(popupSelector)).toHaveTextContent('加载中');
@@ -383,7 +416,9 @@ describe('Select 组件测试', () => {
     fireEvent.click(getByText('123_test1'));
     await mockTimeout(() => expect(document.querySelector(selectSelector)).toHaveTextContent('123_test1'));
 
-    fireEvent.change(document.querySelector('input'), { target: { value: '' } });
+    fireEvent.change(document.querySelector('input'), {
+      target: { value: '' },
+    });
     fireEvent.click(getByText('123_test2'));
     // 已选的 123_test1 仍然保留
     await mockTimeout(() => expect(document.querySelector(selectSelector)).toHaveTextContent('123_test1'));

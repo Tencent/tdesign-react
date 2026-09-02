@@ -38,16 +38,20 @@ const Comment = forwardRef<HTMLDivElement, CommentProps>((props, ref) => {
 
   const quoteElement = quote ? <div className={`${classPrefix}-comment__quote`}>{quote}</div> : null;
 
-  const actionsElement =
-    actions && actions.length ? (
-      <div className={`${classPrefix}-comment__actions`}>
-        {actions.map((action, index) => (
-          <Button key={`action-${index}`} size="small" variant="text">
-            {action}
-          </Button>
-        ))}
-      </div>
-    ) : null;
+  const actionList =
+    React.isValidElement(actions) && actions.type === React.Fragment
+      ? React.Children.toArray(actions.props.children)
+      : React.Children.toArray(actions);
+
+  const actionsElement = actionList.length ? (
+    <div className={`${classPrefix}-comment__actions`}>
+      {actionList.map((action, index) => (
+        <Button key={`action-${index}`} size="small" variant="text">
+          {action}
+        </Button>
+      ))}
+    </div>
+  ) : null;
 
   const contentElement = (
     <div className={`${classPrefix}-comment__content`}>
