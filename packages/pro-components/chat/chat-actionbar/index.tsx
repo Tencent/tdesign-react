@@ -1,8 +1,8 @@
-import 'tdesign-web-components/lib/chat-action';
+import '@tdesign/web-components-chat/chat-action';
 
 import reactify from '../_util/reactify';
 
-import type { TdChatActionProps } from 'tdesign-web-components';
+import type { TdChatActionProps } from '@tdesign/web-components-chat';
 
 export const ChatActionBar: React.ForwardRefExoticComponent<
   Omit<TdChatActionProps, 'ref'> &
@@ -12,7 +12,7 @@ export const ChatActionBar: React.ForwardRefExoticComponent<
 > = reactify<TdChatActionProps>('t-chat-action');
 
 export default ChatActionBar;
-export type { TdChatActionProps, TdChatActionsName } from 'tdesign-web-components';
+export type { TdChatActionProps, TdChatActionsName } from '@tdesign/web-components-chat';
 
 // 方案1
 // import { reactifyLazy } from './_util/reactifyLazy';
@@ -21,10 +21,10 @@ export type { TdChatActionProps, TdChatActionsName } from 'tdesign-web-component
 //   variant: 'primary' | 'secondary' | 'outline'
 // }>(
 //   't-chat-action',
-//   'tdesign-web-components/esm/chat-action'
+//   '@tdesign/web-components-chat/esm/chat-action'
 // );
 
-// import ChatAction from 'tdesign-web-components/esm/chat-action';
+// import ChatAction from '@tdesign/web-components-chat/esm/chat-action';
 // import React, { forwardRef, useEffect } from 'react';
 
 // // 注册Web Components组件
