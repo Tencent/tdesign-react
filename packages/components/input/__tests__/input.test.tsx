@@ -89,9 +89,16 @@ describe('Input 组件测试', () => {
 
     const ControlledInput = () => {
       const [value, setValue] = React.useState('');
+      const [, setCompositionCount] = React.useState(0);
       return (
         <>
-          <Input placeholder={InputPlaceholder} value={value} onChange={(v) => setValue(v as string)} />
+          <Input
+            placeholder={InputPlaceholder}
+            value={value}
+            onChange={(v) => setValue(v as string)}
+            // 开始合成时触发重渲染，复现 SelectInput 的 setIsTyping 更新。
+            onCompositionstart={() => setCompositionCount((count) => count + 1)}
+          />
           <button type="button" onClick={() => setValue('')}>
             reset
           </button>
