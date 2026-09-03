@@ -114,6 +114,7 @@ const getPlugins = ({ env, isProd = false } = {}) => {
 
 const cssConfig = {
   input: ['packages/pro-components/chat/style/index.js'],
+  external: (id) => externalDeps.some((dep) => id === dep || id.startsWith(`${dep}/`)),
   plugins: [multiInput({ relative: 'packages/pro-components/chat' }), styles({ mode: 'extract' })],
   output: {
     banner,
