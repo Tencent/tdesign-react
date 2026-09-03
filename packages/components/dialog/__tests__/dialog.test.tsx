@@ -87,10 +87,16 @@ describe('Dialog组件测试', () => {
     expect(document.querySelector('.t-dialog__modeless')).toBeInTheDocument();
     fireEvent.mouseDown(document.querySelector('.t-dialog'));
     fireEvent.mouseMove(document.querySelector('.t-dialog'));
-    expect(document.querySelector('.t-dialog')).toHaveStyle({ cursor: 'move', position: 'absolute' });
+    expect(document.querySelector('.t-dialog')).toHaveStyle({
+      cursor: 'move',
+      position: 'absolute',
+    });
     fireEvent.mouseUp(document.querySelector('.t-dialog'));
     userEvent.keyboard('{esc}');
-    expect(document.querySelector('.t-dialog')).toHaveStyle({ left: '0px', top: '0px' });
+    expect(document.querySelector('.t-dialog')).toHaveStyle({
+      left: '0px',
+      top: '0px',
+    });
   });
 
   test('DialogPlugin', async () => {
@@ -204,7 +210,11 @@ describe('Dialog组件测试', () => {
         value={{
           globalConfig: {
             ...defaultGlobalConfig,
-            dialog: { ...(defaultGlobalConfig.dialog || {}), placement: 'center', zIndex: 4321 },
+            dialog: {
+              ...(defaultGlobalConfig.dialog || {}),
+              placement: 'center',
+              zIndex: 4321,
+            },
           },
         }}
       >
@@ -214,7 +224,9 @@ describe('Dialog组件测试', () => {
 
     expect(document.querySelector('.t-dialog--center')).toBeInTheDocument();
     expect(document.querySelector('.t-dialog--top')).not.toBeInTheDocument();
-    expect(document.querySelector('.t-dialog__ctx')).toHaveStyle({ zIndex: '4321' });
+    expect(document.querySelector('.t-dialog__ctx')).toHaveStyle({
+      zIndex: '4321',
+    });
   });
 
   test('dialog props should override global dialog config', async () => {
@@ -223,7 +235,11 @@ describe('Dialog组件测试', () => {
         value={{
           globalConfig: {
             ...defaultGlobalConfig,
-            dialog: { ...(defaultGlobalConfig.dialog || {}), placement: 'center', zIndex: 4321 },
+            dialog: {
+              ...(defaultGlobalConfig.dialog || {}),
+              placement: 'center',
+              zIndex: 4321,
+            },
           },
         }}
       >
@@ -233,6 +249,8 @@ describe('Dialog组件测试', () => {
 
     expect(document.querySelector('.t-dialog--top')).toBeInTheDocument();
     expect(document.querySelector('.t-dialog--center')).not.toBeInTheDocument();
-    expect(document.querySelector('.t-dialog__ctx')).toHaveStyle({ zIndex: '1234' });
+    expect(document.querySelector('.t-dialog__ctx')).toHaveStyle({
+      zIndex: '1234',
+    });
   });
 });

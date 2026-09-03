@@ -30,6 +30,7 @@
     "test:coverage": "vitest run --coverage",
     "prebuild": "rimraf packages/tdesign-react/es/* packages/tdesign-react/lib/* packages/tdesign-react/dist/* packages/tdesign-react/esm/* packages/tdesign-react/cjs/*",
     "build": "cross-env NODE_ENV=production rollup -c script/rollup.config.js && node script/utils/bundle-override.js && pnpm run build:tsc",
+    "prebuild:aigc": "rimraf packages/tdesign-react-aigc/es",
     "build:aigc": "cross-env NODE_ENV=production rollup -c script/rollup.aigc.config.js && tsc -p ./tsconfig.aigc.build.json --outDir packages/tdesign-react-aigc/es/",
     "build:tsc": "run-p build:tsc-*",
     "build:tsc-es": "tsc -p ./tsconfig.build.json --outDir packages/tdesign-react/es/",
@@ -48,7 +49,7 @@
     }
   },
   "lint-staged": {
-    "packages/**/*.{ts,tsx}": [
+    "packages/**/!(type).{ts,tsx}": [
       "prettier --write",
       "pnpm run lint:fix"
     ]
@@ -103,7 +104,7 @@
     "esbuild": "^0.14.9",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "~7.28.0",
     "eslint-plugin-react-hooks": "^4.0.0",
     "eslint-plugin-simple-import-sort": "^13.0.0",
@@ -119,7 +120,7 @@
     "msw": "^1.0.0",
     "npm-run-all2": "^8.0.4",
     "postcss": "^8.3.11",
-    "prettier": "^2.3.2",
+    "prettier": "^3.8.4",
     "prismjs": "^1.28.0",
     "prop-types": "^15.7.2",
     "react": "^18.2.0",
@@ -139,7 +140,7 @@
     "rollup-plugin-styles": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.31.2",
-    "typescript": "5.6.2",
+    "typescript": "^6.0.3",
     "vitest": "^2.1.1"
   },
   "dependencies": {

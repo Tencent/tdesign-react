@@ -21,22 +21,25 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     initialData: initialDataFromForm,
     resetType: resetTypeFromContext,
   } = useFormContext();
-  const { fullPath: parentFullPath, initialData: parentInitialData } = useFormListContext();
+  const { fullPath: parentFullPath, initialData: parentInitialData, form: formOfParentFormList } = useFormListContext();
 
-  const fullPath = concatName(parentFullPath, name);
+  const isSameForm = useMemo(() => isEqual(form, formOfParentFormList), [form, formOfParentFormList]);
+  const validParentFullPath = isSameForm ? parentFullPath : undefined;
+
+  const fullPath = concatName(validParentFullPath, name);
 
   const initialData = useMemo(() => {
     let propsInitialData;
     if (props.initialData) {
       propsInitialData = props.initialData;
-    } else if (parentFullPath && parentInitialData) {
-      const relativePath = fullPath.slice(convertNameToArray(parentFullPath).length);
+    } else if (validParentFullPath && parentInitialData) {
+      const relativePath = fullPath.slice(convertNameToArray(validParentFullPath).length);
       propsInitialData = get(parentInitialData, relativePath);
     } else {
       propsInitialData = get(initialDataFromForm, fullPath);
     }
     return cloneDeep(propsInitialData || []);
-  }, [props.initialData, fullPath, parentFullPath, parentInitialData, initialDataFromForm]);
+  }, [props.initialData, fullPath, validParentFullPath, parentInitialData, initialDataFromForm]);
 
   const [formListValue, setFormListValue] = useState(() => get(form?.store, fullPath) || initialData);
 
@@ -147,92 +150,89 @@ const FormList: React.FC<TdFormListProps> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form, snakeName, fields]);
 
-  useImperativeHandle(
-    formListRef,
-    (): FormItemInstance => ({
-      name,
-      fullPath,
-      value: formListValue,
-      initialData,
-      isFormList: true,
-      formListMapRef,
-      getValue: () => cloneDeep(get(form?.store, fullPath)),
-      validate: (trigger = 'all') => {
-        const resultList = [];
-        const validates = [...formListMapRef.current.values()].map((formItemRef) =>
-          formItemRef?.current?.validate?.(trigger),
-        );
-        return new Promise((resolve) => {
-          Promise.all(validates).then((validateResult) => {
-            validateResult.forEach((result) => {
-              if (typeof result !== 'object') return;
-              const errorValue = Object.values(result)[0];
-              merge(resultList, errorValue);
-            });
-            const errorItems = validateResult.filter((item) => {
-              if (typeof item !== 'object') return;
-              return Object.values(item)[0] !== true;
-            });
-            if (errorItems.length) {
-              resolve({ [snakeName]: resultList });
-            } else {
-              resolve({ [snakeName]: true });
-            }
+  useImperativeHandle(formListRef, (): FormItemInstance => ({
+    name,
+    fullPath,
+    value: formListValue,
+    initialData,
+    isFormList: true,
+    formListMapRef,
+    getValue: () => cloneDeep(get(form?.store, fullPath)),
+    validate: (trigger = 'all') => {
+      const resultList = [];
+      const validates = [...formListMapRef.current.values()].map((formItemRef) =>
+        formItemRef?.current?.validate?.(trigger),
+      );
+      return new Promise((resolve) => {
+        Promise.all(validates).then((validateResult) => {
+          validateResult.forEach((result) => {
+            if (typeof result !== 'object') return;
+            const errorValue = Object.values(result)[0];
+            merge(resultList, errorValue);
           });
+          const errorItems = validateResult.filter((item) => {
+            if (typeof item !== 'object') return;
+            return Object.values(item)[0] !== true;
+          });
+          if (errorItems.length) {
+            resolve({ [snakeName]: resultList });
+          } else {
+            resolve({ [snakeName]: true });
+          }
         });
-      },
-      // TODO 支持局部更新数据
-      setValue: (fieldData) => {
-        setListFields(fieldData, (formItemRef, data) => {
-          formItemRef?.current?.setValue?.(data);
-        });
-      },
-      setField: (fieldData) => {
-        const { value, status } = fieldData;
-        const currentValue = get(form?.store, fullPath) || [];
-        if (isEqual(currentValue, value)) return;
-        setListFields(value, (formItemRef, data) => {
-          formItemRef?.current?.setField?.({ value: data, status });
-        });
-      },
-      resetField: (type) => {
-        const resetType = type || resetTypeFromContext;
-        if (resetType === 'initial') {
-          const currentData = get(form?.store, fullPath);
-          if (isEqual(currentData, initialData)) return;
-          set(form?.store, fullPath, initialData);
-          setFormListValue(initialData);
-          const newFields = initialData?.map((data, index) => ({
-            data: { ...data },
-            key: (globalKey += 1),
-            name: index,
-            isListField: true,
-          }));
-          setFields(newFields);
-        } else {
-          // 重置为空
-          unset(form?.store, fullPath);
-          setFormListValue([]);
-          setFields([]);
-        }
-      },
-      setValidateMessage: (fieldData) => {
-        [...formListMapRef.current.values()].forEach((formItemRef) => {
-          if (!formItemRef.current) return;
+      });
+    },
+    // TODO 支持局部更新数据
+    setValue: (fieldData) => {
+      setListFields(fieldData, (formItemRef, data) => {
+        formItemRef?.current?.setValue?.(data);
+      });
+    },
+    setField: (fieldData) => {
+      const { value, status } = fieldData;
+      const currentValue = get(form?.store, fullPath) || [];
+      if (isEqual(currentValue, value)) return;
+      setListFields(value, (formItemRef, data) => {
+        formItemRef?.current?.setField?.({ value: data, status });
+      });
+    },
+    resetField: (type) => {
+      const resetType = type || resetTypeFromContext;
+      if (resetType === 'initial') {
+        const currentData = get(form?.store, fullPath);
+        if (isEqual(currentData, initialData)) return;
+        set(form?.store, fullPath, initialData);
+        setFormListValue(initialData);
+        const newFields = initialData?.map((data, index) => ({
+          data: { ...data },
+          key: (globalKey += 1),
+          name: index,
+          isListField: true,
+        }));
+        setFields(newFields);
+      } else {
+        // 重置为空
+        unset(form?.store, fullPath);
+        setFormListValue([]);
+        setFields([]);
+      }
+    },
+    setValidateMessage: (fieldData) => {
+      [...formListMapRef.current.values()].forEach((formItemRef) => {
+        if (!formItemRef.current) return;
 
-          const { name } = formItemRef.current;
-          const data = get(fieldData, name);
+        const { name } = formItemRef.current;
+        const data = get(fieldData, name);
 
-          formItemRef?.current?.setValidateMessage?.(data);
-        });
-      },
-      resetValidate: () => {
-        [...formListMapRef.current.values()].forEach((formItemRef) => {
-          formItemRef?.current?.resetValidate?.();
-        });
-      },
-    }),
-  );
+        formItemRef?.current?.setValidateMessage?.(data);
+      });
+    },
+    resetValidate: () => {
+      [...formListMapRef.current.values()].forEach((formItemRef) => {
+        formItemRef?.current?.resetValidate?.();
+      });
+    },
+  }));
 
   if (typeof children !== 'function') {
     log.error('Form', `FormList's children must be a function!`);

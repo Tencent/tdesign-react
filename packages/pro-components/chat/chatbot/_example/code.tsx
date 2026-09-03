@@ -12,7 +12,6 @@ import type {
   ChatServiceConfig,
   SSEChunkData,
   TdChatbotApi,
-  TdChatMessageConfig,
 } from '@tdesign-react/chat';
 
 // 默认初始化消息
@@ -96,7 +95,7 @@ export default function chatSample() {
   const [mockMessage, setMockMessage] = React.useState<ChatMessagesData[]>(mockData);
 
   // 消息属性配置
-  const messageProps: TdChatMessageConfig = {
+  const messageProps: any = {
     user: {
       variant: 'base',
       placement: 'right',
@@ -159,8 +158,8 @@ export default function chatSample() {
         // 自定义：代码运行结果预览
         case 'preview':
           return {
-            type: 'preview',
-            status: () => (/完成/.test(rest?.content?.cnName) ? 'complete' : 'streaming'),
+            type: 'preview' as any,
+            status: /完成/.test(rest?.content?.cnName) ? 'complete' : 'streaming',
             data: rest?.content,
           };
       }
@@ -189,13 +188,13 @@ export default function chatSample() {
         defaultMessages={mockData}
         messageProps={messageProps}
         onMessageChange={(e) => {
-          setMockMessage(e.detail);
+          setMockMessage(e.detail as any);
         }}
         senderProps={{
           defaultValue: '使用 TDesign 组件库实现一个登录表单的例子',
           placeholder: '有问题，尽管问～ Enter 发送，Shift+Enter 换行',
         }}
-        chatServiceConfig={chatServiceConfig}
+        chatServiceConfig={chatServiceConfig as any}
       >
         {/* 自定义消息体渲染-植入插槽 */}
         {mockMessage

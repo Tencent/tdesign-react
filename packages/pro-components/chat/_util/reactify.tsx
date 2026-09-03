@@ -253,7 +253,10 @@ const reactify = <T extends AnyProps = AnyProps>(
 
     render() {
       const { children, className, ...rest } = this.props;
-      // 仅将基本类型作为attribute传递，其余复杂类型在update中处理
+      // 仅将基本类型作为 attribute 传递，其余复杂类型（object/function/ReactNode）
+      // 在 update() 中按需处理为 property / slot / event，避免 React 19 把非基本类型
+      // 通过 JSX 写成异常 attribute，进而干扰 omi 组件的 defaultProps 合并流程
+      // （典型症状：t-chat-list 的 autoScroll / defaultScrollTo 默认值失效导致自动滚动失效）
       const filteredProps: Record<string, any> = {};
       Object.keys(rest).forEach((key) => {
         const val = (rest as Record<string, any>)[key];
@@ -266,7 +269,10 @@ const reactify = <T extends AnyProps = AnyProps>(
   }
 
   const ReactifiedComponent = forwardRef<HTMLElement, AnyProps>((props, ref) =>
-    createElement(Reactify as unknown as React.ComponentType<AnyProps>, { ...props, innerRef: ref }),
+    createElement(Reactify as unknown as React.ComponentType<AnyProps>, {
+      ...props,
+      innerRef: ref,
+    }),
   ) as React.ForwardRefExoticComponent<Omit<T, 'ref'> & React.RefAttributes<HTMLElement | undefined>>;
 
   // Use provided displayName, or fall back to converting kebab-case tag name to PascalCase

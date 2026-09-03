@@ -83,7 +83,7 @@ describe('Pagination test', () => {
 
     fireEvent.change(document.querySelector('.t-pagination__jump .t-input__inner'), { target: { value: '5' } });
     fireEvent.keyDown(document.querySelector('.t-pagination__jump .t-input__inner'), { keyCode: 13 });
-    expect(document.querySelector('.t-pagination__jump .t-input__inner').value).toEqual('5');
+    expect((document.querySelector('.t-pagination__jump .t-input__inner') as HTMLInputElement).value).toEqual('5');
   });
   test('totalContent works fine', () => {
     const changeFn = vi.fn();
@@ -93,9 +93,9 @@ describe('Pagination test', () => {
 
     expect(getByText('总条数')).toBeInTheDocument();
 
-    const totalContentFn = vi.fn();
+    const totalContentFn = vi.fn() as unknown as React.ReactNode;
     rerender(<Pagination total={100} defaultPageSize={5} totalContent={totalContentFn} onChange={changeFn} />);
-    expect(totalContentFn).toBeCalled();
+    expect(totalContentFn).toHaveBeenCalled();
   });
   test('jumper works fine', () => {
     render(<Pagination total={300} pageSize={15} showJumper />);
@@ -119,6 +119,6 @@ describe('Pagination test', () => {
 
     fireEvent.change(document.querySelector('.t-pagination__jump .t-input__inner'), { target: { value: '5.555' } });
     fireEvent.keyDown(document.querySelector('.t-pagination__jump .t-input__inner'), { keyCode: 13 });
-    expect(document.querySelector('.t-pagination__jump .t-input__inner').value).toEqual('5');
+    expect((document.querySelector('.t-pagination__jump .t-input__inner') as HTMLInputElement).value).toEqual('5');
   });
 });

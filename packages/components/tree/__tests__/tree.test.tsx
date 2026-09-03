@@ -156,7 +156,9 @@ describe('Tree test', () => {
         </Button>
       </>
     );
-    const { container } = await renderTreeWithProps({ operations: renderOperations });
+    const { container } = await renderTreeWithProps({
+      operations: renderOperations,
+    });
     await mockDelay(300);
     expect(container.querySelector('.t-tree__operations')).not.toBeNull();
   });
@@ -170,7 +172,9 @@ describe('Tree test', () => {
         </Button>
       </>
     );
-    const { container } = await renderTreeWithProps({ operations: renderOperations });
+    const { container } = await renderTreeWithProps({
+      operations: renderOperations,
+    });
     await mockDelay(300);
     expect(container.querySelector('.t-tree__operations')).not.toBeNull();
   });
@@ -354,7 +358,11 @@ describe('Tree test', () => {
             onKeyDown={(e) => {
               console.log('keydown', e.key);
               if (e.key === 'Enter') {
-                setData({ ...data, label: e.currentTarget.value, isEditing: false });
+                setData({
+                  ...data,
+                  label: e.currentTarget.value,
+                  isEditing: false,
+                });
                 console.log('Enter setData({ ...data, name: e.target.value, isEditing: false })');
               }
               if (e.key === 'Escape') {
@@ -380,10 +388,12 @@ describe('Tree test', () => {
     fireEvent.dblClick(container.querySelector('.tree-item-span'));
     await mockDelay(300);
     expect(container.querySelector('.tree-item-input')).not.toBeNull();
-    fireEvent.change(container.querySelector('.tree-item-input'), { target: { value: '123' } });
-    expect(container.querySelector('.tree-item-input').value).toBe('123');
-    container.querySelector('.tree-item-input').focus();
-    container.querySelector('.tree-item-input').blur();
+    fireEvent.change(container.querySelector('.tree-item-input'), {
+      target: { value: '123' },
+    });
+    expect((container.querySelector('.tree-item-input') as HTMLInputElement).value).toBe('123');
+    (container.querySelector('.tree-item-input') as HTMLInputElement).focus();
+    (container.querySelector('.tree-item-input') as HTMLInputElement).blur();
     await mockDelay(300);
     expect(container.querySelector('.tree-item-input')).toBeNull();
     expect(container.querySelector('.tree-item-span')).not.toBeNull();

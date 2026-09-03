@@ -1,7 +1,9 @@
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+
 import pkg from '../package.json';
 import tdocPlugin from './plugin-tdoc';
 import changelog2Json from './plugins/changelog-to-json';
@@ -49,9 +51,6 @@ export default ({ mode }) =>
           playground: 'playground.html',
         },
       },
-    },
-    define: {
-      __VERSION__: JSON.stringify(pkg.version),
     },
     jsx: 'react',
     server: {

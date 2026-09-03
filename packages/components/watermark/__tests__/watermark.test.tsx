@@ -18,11 +18,11 @@ describe('Watermark 组件测试', () => {
       fillRect: vi.fn(),
       globalAlpha: 0.5,
       font: '',
-      textAlign: '',
-      textBaseline: '',
+      textAlign: 'center',
+      textBaseline: 'middle',
       fillStyle: '',
       fillText: vi.fn(),
-    });
+    } as any);
     mockGetCanvasToDataURL.mockReturnValue('test');
   });
 
@@ -47,7 +47,9 @@ describe('Watermark 组件测试', () => {
         <div style={{ height: 300 }}></div>
       </Watermark>,
     );
-    expect(watermark.lastChild).toHaveStyle({ animation: 'watermark infinite 1s' });
+    expect(watermark.lastChild).toHaveStyle({
+      animation: 'watermark infinite 1s',
+    });
   });
 
   test('mutationObserver', async () => {

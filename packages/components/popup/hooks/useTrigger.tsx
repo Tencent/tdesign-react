@@ -69,7 +69,12 @@ export default function useTrigger({
   };
 
   const handleMouseLeave = (e: MouseEvent | React.MouseEvent) => {
-    if (trigger !== 'hover' || hasPopupMouseDown.current) return;
+    if (trigger !== 'hover') return;
+
+    // 鼠标处于按下状态时（例如在 Popup 内按住左键拖拽），暂不关闭
+    const { buttons } = e as MouseEvent;
+    if (typeof buttons === 'number' && buttons !== 0) return;
+
     const relatedTarget = e.relatedTarget as HTMLElement;
     const closestPopup = relatedTarget?.closest?.(`.${classPrefix}-popup`);
 
@@ -81,14 +86,38 @@ export default function useTrigger({
     });
   };
 
-  const handlePopupMouseDown = () => {
-    hasPopupMouseDown.current = true;
+  const resetPopupMouseDown = (e?: MouseEvent | TouchEvent) => {
+    hasPopupMouseDown.current = false;
+    if (!e) return;
+
+    const target = e.target as Element | null;
+    const insideAnyPopup = target?.closest?.(`.${classPrefix}-popup`);
+
+    // 鼠标抬起时仍在 Popup、trigger 或任意子 Popup 内，保持打开
+    if (insideAnyPopup) return;
+
+    // 鼠标抬起时已经在外部，补偿一次关闭
+    callFuncWithDelay({
+      delay: exitDelay,
+      callback: () =>
+        onVisibleChange(false, {
+          e,
+          trigger: trigger === 'hover' ? 'trigger-element-hover' : 'document',
+        }),
+    });
   };
 
-  const handlePopupMouseUp = () => {
-    requestAnimationFrame(() => {
-      hasPopupMouseDown.current = false;
-    });
+  const handlePopupMouseDown = () => {
+    hasPopupMouseDown.current = true;
+    // 监听全局事件，避免用户在 Popup 内按下鼠标后拖拽到外部释放
+    // 导致 Popup 收不到 mouseup，标记无法重置
+    const handleDocumentEnd = (e: MouseEvent | TouchEvent) => {
+      off(document, 'mouseup', handleDocumentEnd);
+      off(document, 'touchend', handleDocumentEnd);
+      resetPopupMouseDown(e);
+    };
+    on(document, 'mouseup', handleDocumentEnd);
+    on(document, 'touchend', handleDocumentEnd);
   };
 
   useEffect(() => clearTimeout(visibleTimer.current), []);
@@ -114,7 +143,11 @@ export default function useTrigger({
       if (trigger === 'mousedown') {
         callFuncWithDelay({
           delay: visible ? appearDelay : exitDelay,
-          callback: () => onVisibleChange(!visible, { e, trigger: 'trigger-element-mousedown' }),
+          callback: () =>
+            onVisibleChange(!visible, {
+              e,
+              trigger: 'trigger-element-mousedown',
+            }),
         });
       }
     };
@@ -251,9 +284,7 @@ export default function useTrigger({
       onMouseEnter: handleMouseEnter,
       onMouseLeave: handleMouseLeave,
       onMouseDown: handlePopupMouseDown,
-      onMouseUp: handlePopupMouseUp,
       onTouchStart: handlePopupMouseDown,
-      onTouchEnd: handlePopupMouseUp,
     };
   }
 

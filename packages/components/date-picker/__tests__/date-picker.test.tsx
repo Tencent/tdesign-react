@@ -199,9 +199,9 @@ describe('DatePicker', () => {
     const { container } = render(<DatePicker allowInput onBlur={blurFn} onFocus={focusFn} />);
     const InputDom = container.querySelector('.t-input__inner');
     fireEvent.focus(InputDom);
-    expect(focusFn).toBeCalledTimes(1);
+    expect(focusFn).toHaveBeenCalledTimes(1);
     fireEvent.blur(InputDom);
-    expect(blurFn).toBeCalledTimes(1);
+    expect(blurFn).toHaveBeenCalledTimes(1);
   });
 
   test('onChange onPick', async () => {
@@ -212,8 +212,8 @@ describe('DatePicker', () => {
 
     const firstDay = document.querySelector('.t-date-picker__cell--first-day-of-month');
     fireEvent.click(firstDay);
-    expect(changeFn).toBeCalledTimes(1);
-    expect(pickFn).toBeCalledTimes(1);
+    expect(changeFn).toHaveBeenCalledTimes(1);
+    expect(pickFn).toHaveBeenCalledTimes(1);
   });
 
   test('onChange onPick', async () => {
@@ -224,8 +224,8 @@ describe('DatePicker', () => {
 
     const firstDay = await waitFor(() => document.querySelector('.t-date-picker__cell--first-day-of-month'));
     fireEvent.click(firstDay);
-    expect(changeFn).toBeCalledTimes(1);
-    expect(pickFn).toBeCalledTimes(1);
+    expect(changeFn).toHaveBeenCalledTimes(1);
+    expect(pickFn).toHaveBeenCalledTimes(1);
   });
 
   test('onYearChange', async () => {
@@ -241,7 +241,7 @@ describe('DatePicker', () => {
     const yearOptionNode = await waitFor(() => document.querySelector('.t-popup .t-select-option span[title="2021"]'));
 
     fireEvent.click(yearOptionNode);
-    expect(yearChangeFn).toBeCalledTimes(1);
+    expect(yearChangeFn).toHaveBeenCalledTimes(1);
   });
 
   test('onMonthChange', async () => {
@@ -265,7 +265,7 @@ describe('DatePicker', () => {
     const monthOptionNode = await waitFor(() => document.querySelector('.t-popup .t-select-option span[title="1 月"]'));
 
     fireEvent.click(monthOptionNode);
-    expect(monthChangeFn).toBeCalledTimes(1);
+    expect(monthChangeFn).toHaveBeenCalledTimes(1);
   });
 
   test('panel select month and year', async () => {
@@ -320,7 +320,7 @@ describe('DatePicker', () => {
 
   test('cell handleMouseEnter', async () => {
     const { container, getByText } = render(<DatePicker />);
-    const inputEle = container.querySelector('.t-input__inner');
+    const inputEle = container.querySelector('.t-input__inner') as HTMLInputElement;
     fireEvent.mouseDown(inputEle);
 
     const cellBtn = getByText('25');
@@ -332,7 +332,7 @@ describe('DatePicker', () => {
 
   test('cell handleClick', async () => {
     const { container, getByText } = render(<DatePicker />);
-    const inputEle = container.querySelector('.t-input__inner');
+    const inputEle = container.querySelector('.t-input__inner') as HTMLInputElement;
     fireEvent.mouseDown(inputEle);
 
     const cellBtn = getByText('25');
@@ -342,7 +342,7 @@ describe('DatePicker', () => {
 
   test('onJumperClick', async () => {
     const { container, getByText } = render(<DatePicker />);
-    const inputEle = container.querySelector('.t-input__inner');
+    const inputEle = container.querySelector('.t-input__inner') as HTMLInputElement;
     fireEvent.mouseDown(inputEle);
 
     const jumperPrev = await waitFor(() => document.querySelector('.t-pagination-mini__prev'));

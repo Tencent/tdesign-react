@@ -272,9 +272,9 @@ export default function AguiBasicExample() {
           defaultValue: 'AG-UI协议的作用是什么',
           placeholder: '请输入内容，体验 AG-UI 协议',
         }}
-        chatServiceConfig={chatServiceConfig}
+        chatServiceConfig={chatServiceConfig as any}
         onMessageChange={(e) => {
-          setMockMessage(e.detail);
+          setMockMessage(e.detail as any);
         }}
       >
         {/* 渲染自定义 ToolCall 组件 */}
