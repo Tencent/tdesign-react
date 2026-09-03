@@ -5,7 +5,7 @@ import { isBoolean } from 'lodash-es';
 import { omit } from '../_util/helper';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
-import TooltipLite from '../tooltip';
+import { Tooltip } from '../tooltip';
 
 import type { ChangeEvent, MouseEvent } from 'react';
 import type { TdCheckboxProps } from '../checkbox/type';
@@ -113,9 +113,9 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
   };
 
   const checkboxInput = tooltipProps ? (
-    <TooltipLite {...tooltipProps}>
+    <Tooltip {...tooltipProps}>
       <span className={`${classPrefix}-${type}__input`} />
-    </TooltipLite>
+    </Tooltip>
   ) : (
     <span className={`${classPrefix}-${type}__input`} />
   );
