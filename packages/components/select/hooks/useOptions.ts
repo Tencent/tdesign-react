@@ -7,13 +7,13 @@ import { getKeyMapping, getValueToOption } from '../util/helper';
 
 import type { ReactElement, ReactNode } from 'react';
 import type { SelectKeysType, SelectOption, SelectOptionGroup, SelectValue, TdOptionProps } from '../type';
-import type { ValueToOption } from '../util/helper';
 
 // 针对分组的相关判断和扁平处理
 export function isSelectOptionGroup(option: SelectOption): option is SelectOptionGroup {
   return !!option && 'group' in option && 'children' in option;
 }
 
+// 按展示顺序展开分组选项，供键盘导航使用。
 export const flattenOptions = (options: SelectOption[] = []) => {
   const flattened = [];
   options.forEach((option) => {
@@ -30,34 +30,31 @@ export const flattenOptions = (options: SelectOption[] = []) => {
 
 type OptionValueType = SelectValue<SelectOption>;
 
-// 处理 options 的逻辑
+/**
+ * 整理完整候选项并维护已选项回显，关键词过滤由 Select 负责。
+ * 已选项查询不依赖过滤结果，避免筛选后丢失标签。
+ */
 function useOptions(
   keys: SelectKeysType,
   options: SelectOption[],
   children: ReactNode,
   valueType: 'object' | 'value',
   value: OptionValueType,
-  reserveKeyword: boolean,
 ) {
-  const [valueToOption, setValueToOption] = useState<ValueToOption>({});
-  const [currentOptions, setCurrentOptions] = useState<SelectOption[]>([]);
-  const [flattenedOptions, setFlattenedOptions] = useState<SelectOption[]>([]);
-  const [tmpPropOptions, setTmpPropOptions] = useState<SelectOption[]>([]);
   const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>([]);
 
   const { valueKey, labelKey } = useMemo(() => getKeyMapping(keys), [keys]);
 
-  useEffect(() => {
-    setFlattenedOptions(flattenOptions(currentOptions));
-  }, [currentOptions]);
-  // 处理设置 option 的逻辑
-  useEffect(() => {
+  /**
+   * 同步整理 options / 选项子节点，让过滤直接使用最新数据。
+   * 无选项时保留 undefined，以支持自定义 children 渲染。
+   */
+  const normalizedOptions = useMemo(() => {
     let transformedOptions = options;
 
     const arrayChildren = React.Children.toArray(children);
     const optionChildren = arrayChildren.filter((v: ReactElement) => v.type === Option || v.type === OptionGroup);
     const isChildrenFilterable = arrayChildren.length > 0 && optionChildren.length === arrayChildren.length;
-    if (reserveKeyword && currentOptions.length && isChildrenFilterable) return;
 
     if (isChildrenFilterable) {
       const handlerOptionElement = (v) => {
@@ -86,14 +83,19 @@ function useOptions(
         label: get(option, labelKey),
       }));
     }
-    setCurrentOptions(transformedOptions);
-    setTmpPropOptions(transformedOptions);
+    return transformedOptions;
+  }, [options, keys, children, valueKey, labelKey]);
 
-    setValueToOption(getValueToOption(children as ReactElement, options as TdOptionProps[], keys) || {});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options, keys, children, reserveKeyword]);
+  // 使用完整数据解析已选标签及事件中的选项信息。
+  const valueToOption = useMemo(
+    () => getValueToOption(children as ReactElement, options as TdOptionProps[], keys) || {},
+    [children, options, keys],
+  );
 
-  // 同步 value 对应的 options
+  /**
+   * 远程结果可能不包含已选值，因此保留历史选项作为标签回显的兜底。
+   * 已选项仍以当前 value 为准，不保留已取消选中的条目。
+   */
   useEffect(() => {
     setSelectedOptions((oldSelectedOptions: SelectOption[]) => {
       const createOptionFromValue = (item: OptionValueType) => {
@@ -128,15 +130,9 @@ function useOptions(
   }, [value, keys, valueType, valueToOption, valueKey, labelKey, setSelectedOptions]);
 
   return {
-    currentOptions,
-    setCurrentOptions,
-    tmpPropOptions,
-    setTmpPropOptions,
+    normalizedOptions,
     valueToOption,
-    setValueToOption,
     selectedOptions,
-    setSelectedOptions,
-    flattenedOptions,
   };
 }
 

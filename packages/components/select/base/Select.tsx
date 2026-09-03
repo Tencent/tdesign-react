@@ -1,13 +1,4 @@
-import React, {
-  Children,
-  cloneElement,
-  isValidElement,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { Children, cloneElement, isValidElement, useCallback, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { debounce, get, isFunction } from 'lodash-es';
 
@@ -27,7 +18,7 @@ import SelectInput from '../../select-input';
 import Tag from '../../tag';
 import { selectDefaultProps } from '../defaultProps';
 import useKeyboardControl from '../hooks/useKeyboardControl';
-import useOptions, { isSelectOptionGroup } from '../hooks/useOptions';
+import useOptions, { flattenOptions, isSelectOptionGroup } from '../hooks/useOptions';
 import { getKeyMapping, getSelectedOptions, getSelectValueArr } from '../util/helper';
 import Option from './Option';
 import OptionGroup from './OptionGroup';
@@ -122,10 +113,60 @@ const Select = forwardRefWithStatics(
       setInnerPopupVisible(visible, ctx);
     };
 
-    const { currentOptions, setCurrentOptions, tmpPropOptions, valueToOption, selectedOptions, flattenedOptions } =
-      useOptions(keys, options, children, valueType, value, reserveKeyword);
+    const { normalizedOptions, valueToOption, selectedOptions } = useOptions(keys, options, children, valueType, value);
 
-    // 清空筛选词时浮层仍在执行退出动画，保留关闭前的列表，避免提前展示全部选项。
+    /**
+     * 同步计算过滤结果，避免先展示完整列表、再由 effect 过滤造成闪动。
+     * 自定义 filter 在渲染阶段执行，应保持无副作用。
+     */
+    const currentOptions = useMemo(() => {
+      const value = inputValue === undefined ? '' : String(inputValue);
+      let filteredOptions: SelectOption[] = [];
+      if ((filterable && isFunction(onSearch)) || !value) {
+        return normalizedOptions;
+      }
+
+      const filterLabels = [];
+      const filterMethods = (option: SelectOption) => {
+        if (filter && isFunction(filter)) {
+          return filter(value, option);
+        }
+        const upperValue = value.toUpperCase();
+        const searchableText = extractTextFromTNode(option.label);
+        return searchableText.toUpperCase().includes(upperValue);
+      };
+
+      normalizedOptions?.forEach((option) => {
+        if (isSelectOptionGroup(option)) {
+          filteredOptions.push({
+            ...option,
+            children: option.children?.filter((child) => {
+              if (filterMethods(child)) {
+                filterLabels.push(child.label);
+                return true;
+              }
+              return false;
+            }),
+          });
+        } else if (filterMethods(option)) {
+          filterLabels.push(option.label);
+          filteredOptions.push(option);
+        }
+      });
+      const isSameLabelOptionExist = filterLabels.includes(value);
+      if (creatable && !isSameLabelOptionExist) {
+        filteredOptions = filteredOptions.concat([{ label: value, value }]);
+      }
+      return filteredOptions;
+    }, [normalizedOptions, inputValue, filterable, onSearch, filter, creatable]);
+
+    // 键盘导航与展示列表使用同一轮过滤结果。
+    const flattenedOptions = useMemo(() => flattenOptions(currentOptions), [currentOptions]);
+
+    /**
+     * 关闭时关键词已清空，但退出动画尚未结束，继续展示关闭前的列表以避免闪动。
+     * 快照仅在面板打开时更新；再次打开使用最新列表，不影响已选值。
+     */
     const lastVisibleOptionsRef = useRef(currentOptions);
     useLayoutEffect(() => {
       if (innerPopupVisible) lastVisibleOptionsRef.current = currentOptions;
@@ -313,51 +354,6 @@ const Select = forwardRefWithStatics(
       toggleIsScrolling,
     });
 
-    // 处理filter逻辑
-    const handleFilter = (value: string) => {
-      let filteredOptions: SelectOption[] = [];
-      if (filterable && isFunction(onSearch)) {
-        return;
-      }
-      if (!value) {
-        setCurrentOptions(tmpPropOptions);
-        return;
-      }
-
-      const filterLabels = [];
-      const filterMethods = (option: SelectOption) => {
-        if (filter && isFunction(filter)) {
-          return filter(value, option);
-        }
-        const upperValue = value.toUpperCase();
-        const searchableText = extractTextFromTNode(option.label);
-        return searchableText.toUpperCase().includes(upperValue);
-      };
-
-      tmpPropOptions?.forEach((option) => {
-        if (isSelectOptionGroup(option)) {
-          filteredOptions.push({
-            ...option,
-            children: option.children?.filter((child) => {
-              if (filterMethods(child)) {
-                filterLabels.push(child.label);
-                return true;
-              }
-              return false;
-            }),
-          });
-        } else if (filterMethods(option)) {
-          filterLabels.push(option.label);
-          filteredOptions.push(option);
-        }
-      });
-      const isSameLabelOptionExist = filterLabels.includes(value);
-      if (creatable && !isSameLabelOptionExist) {
-        filteredOptions = filteredOptions.concat([{ label: value, value }]);
-      }
-      setCurrentOptions(filteredOptions);
-    };
-
     // 处理输入框逻辑
     const handleInputChange = (value: string, context: SelectInputValueChangeContext) => {
       if (context.trigger !== 'clear') {
@@ -383,13 +379,6 @@ const Select = forwardRefWithStatics(
       }
       onClear(context);
     };
-
-    useEffect(() => {
-      if (typeof inputValue !== 'undefined') {
-        handleFilter(String(inputValue));
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [inputValue, tmpPropOptions]);
 
     // 渲染后置图标
     const renderSuffixIcon = () => {

@@ -26,6 +26,7 @@ spline: explain
 - `Form`: 修复嵌套表单在触发 `validate` 后重渲染导致数值丢失的问题 @RylanBot ([#4350](https://github.com/Tencent/tdesign-react/pull/4350))
 - `Popup`: 修复鼠标在浮层上左键长按或右键点击后，移出浮层无法自动关闭的问题 @RylanBot ([#4287](https://github.com/Tencent/tdesign-react/pull/4287))
 - `SelectInput`: 修复 `1.18.1` 的调整，导致单选且未开启 `filterable` 时，`valueDisplay` 为自定义字符串导致的 DOM 结构变更问题 @RylanBot ([#4351](https://github.com/Tencent/tdesign-react/pull/4351))
+- `Select`: 修复 `filterable` 选择选项后关闭面板时短暂显示完整列表的问题 @RSS1102 ([#4388](https://github.com/Tencent/tdesign-react/pull/4388))
 - `Steps`: 
   - 修复 `layout='vertical'` 时，连接线不对齐和上下图标距离不一致的问题 @RylanBot ([common#2670](https://github.com/Tencent/tdesign-common/pull/2670))
   - 修复默认和选中态的连接线粗细不一致的问题 @RylanBot ([common#2670](https://github.com/Tencent/tdesign-common/pull/2670))
