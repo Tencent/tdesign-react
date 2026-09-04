@@ -13,8 +13,18 @@ import type { ColorPickerProps, TdColorContext } from './interface';
 
 const ColorPicker: React.FC<ColorPickerProps> = (props) => {
   const baseClassName = useClassName();
-  const { popupProps, clearable, disabled, borderless, inputProps, onChange, onClear, colorModes, ...rest } =
-    useDefaultProps<ColorPickerProps>(props, colorPickerDefaultProps);
+  const {
+    popupProps,
+    clearable,
+    disabled,
+    borderless,
+    inputProps,
+    onChange,
+    onClear,
+    colorModes,
+    enableAlpha,
+    ...rest
+  } = useDefaultProps<ColorPickerProps>(props, colorPickerDefaultProps);
   const { overlayClassName, overlayInnerStyle = {}, ...restPopupProps } = popupProps || {};
 
   const [innerValue, setInnerValue] = useControlled(props, 'value', onChange);
@@ -43,6 +53,7 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
             disabled={disabled}
             value={innerValue}
             colorModes={colorModes}
+            enableAlpha={enableAlpha}
             onChange={(value: string, context: TdColorContext) => setInnerValue(value, context)}
             ref={colorPanelRef}
           />
@@ -55,6 +66,7 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
           disabled={disabled}
           borderless={borderless}
           inputProps={inputProps}
+          enableAlpha={enableAlpha}
           value={innerValue}
           onChange={setInnerValue}
           onClear={onClear}
