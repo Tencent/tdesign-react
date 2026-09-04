@@ -1,50 +1,17 @@
-import React, { Component, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { AGUIEventType } from '@tdesign/web-components-chat/chat-engine';
 
 import { AgentStateContext, useAgentStateDataByKey } from '../../hooks/useAgentState';
-import { agentToolcallRegistry } from './registry';
+import { ComponentErrorBoundary, useRegistrationListener } from '../shared';
+import { agentToolcallRegistry, TOOLCALL_EVENT_DETAIL_KEY, TOOLCALL_REGISTERED_EVENT } from './registry';
 import { isNonInteractiveConfig } from './types';
 
-import type { ErrorInfo } from 'react';
 import type { ToolCall } from '@tdesign/web-components-chat/chat-engine';
 import type { ToolcallComponentProps } from './types';
 
 interface ToolCallRendererProps {
   toolCall: ToolCall;
   onRespond?: (toolCall: ToolCall, response: any) => void;
-}
-
-interface ErrorBoundaryState {
-  hasError: boolean;
-  error: Error | null;
-}
-
-/**
- * ToolCall 错误边界组件
- * 捕获子组件渲染错误，防止整个对话列表崩溃
- */
-class ToolCallErrorBoundary extends Component<{ children: React.ReactNode; toolCallName: string }, ErrorBoundaryState> {
-  constructor(props: { children: React.ReactNode; toolCallName: string }) {
-    super(props);
-    this.state = { hasError: false, error: null };
-  }
-
-  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
-    return { hasError: true, error };
-  }
-
-  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    console.error(`[ToolCallRenderer] Error in tool "${this.props.toolCallName}":`, error, errorInfo);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      // 空白兜底，仅在控制台输出错误
-      return null;
-    }
-
-    return this.props.children;
-  }
 }
 
 export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
@@ -63,10 +30,13 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
       return cfg;
     }, [toolCall.toolCallName]);
 
-    // 添加注册状态监听
-    const [isRegistered, setIsRegistered] = useState(
-      () => !!agentToolcallRegistry.getRenderFunction(toolCall.toolCallName),
-    );
+    // 使用公共 Hook 监听动态注册
+    const { MemoizedComponent } = useRegistrationListener<ToolcallComponentProps>({
+      componentKey: toolCall.toolCallName,
+      eventName: TOOLCALL_REGISTERED_EVENT,
+      eventDetailKey: TOOLCALL_EVENT_DETAIL_KEY,
+      getRenderFunction: agentToolcallRegistry.getRenderFunction,
+    });
 
     // 缓存参数解析
     const args = useMemo(() => {
@@ -175,24 +145,6 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [subscribeKeyExtractor, args, actionState]);
 
-    // 监听组件注册事件, 无论何时注册，都能正确触发重新渲染
-    useEffect(() => {
-      if (!isRegistered) {
-        const handleRegistered = (event: CustomEvent) => {
-          if (event.detail?.name === toolCall.toolCallName) {
-            setIsRegistered(true);
-          }
-        };
-
-        // 添加事件监听
-        window.addEventListener('toolcall-registered', handleRegistered as EventListener);
-
-        return () => {
-          window.removeEventListener('toolcall-registered', handleRegistered as EventListener);
-        };
-      }
-    }, [toolCall.toolCallName, isRegistered]);
-
     // 使用精确订阅
     const agentState = useAgentStateDataByKey(targetStateKey);
 
@@ -209,21 +161,14 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
       [actionState.status, args, actionState.result, actionState.error, handleRespond, agentState],
     );
 
-    // 使用registry的缓存渲染函数
-    const MemoizedComponent = useMemo(
-      () => agentToolcallRegistry.getRenderFunction(toolCall.toolCallName),
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [toolCall.toolCallName, isRegistered],
-    );
-
     if (!MemoizedComponent) {
       return null;
     }
 
     return (
-      <ToolCallErrorBoundary toolCallName={toolCall.toolCallName}>
+      <ComponentErrorBoundary componentName={toolCall.toolCallName} logPrefix="ToolCallRenderer">
         <MemoizedComponent {...componentProps} />
-      </ToolCallErrorBoundary>
+      </ComponentErrorBoundary>
     );
   },
   (prevProps, nextProps) =>
@@ -234,32 +179,6 @@ export const ToolCallRenderer = React.memo<ToolCallRendererProps>(
     prevProps.toolCall.eventType === nextProps.toolCall.eventType &&
     prevProps.onRespond === nextProps.onRespond,
 );
-// 用于调试，可以在控制台查看每次渲染的参数
-// (prevProps, nextProps) => {
-//   const toolCallIdSame = prevProps.toolCall.toolCallId === nextProps.toolCall.toolCallId;
-//   const toolCallNameSame = prevProps.toolCall.toolCallName === nextProps.toolCall.toolCallName;
-//   const argsSame = prevProps.toolCall.args === nextProps.toolCall.args;
-//   const resultSame = prevProps.toolCall.result === nextProps.toolCall.result;
-//   const onRespondSame = prevProps.onRespond === nextProps.onRespond;
-
-//   console.log(`ToolCallRenderer memo 详细检查 [${prevProps.toolCall.toolCallName}]:`, {
-//     toolCallIdSame,
-//     toolCallNameSame,
-//     argsSame,
-//     resultSame,
-//     onRespondSame,
-//     prevToolCallId: prevProps.toolCall.toolCallId,
-//     nextToolCallId: nextProps.toolCall.toolCallId,
-//     prevOnRespond: prevProps.onRespond,
-//     nextOnRespond: nextProps.onRespond,
-//   });
-
-//   const shouldSkip = toolCallIdSame && toolCallNameSame && argsSame && resultSame && onRespondSame;
-
-//   console.log(`ToolCallRenderer memo 检查 [${prevProps.toolCall.toolCallName}]:`, shouldSkip ? '跳过渲染' : '需要重新渲染');
-//   return shouldSkip
-//   },
-// );
 
 // 定义增强后的 Props 类型
 type WithAgentStateProps<P> = P & { agentState?: Record<string, any> };

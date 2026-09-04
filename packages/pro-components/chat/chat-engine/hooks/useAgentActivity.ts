@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useEffect, useRef } from 'react';
 
 import { activityRegistry } from '../components/activity/registry';
@@ -75,7 +74,6 @@ export function useAgentActivity<TContent = any>(
     }
 
     const configs = Array.isArray(config) ? config : [config];
-
     configs.forEach((cfg) => {
       if (activityRegistry.has(cfg.activityType)) {
         console.warn(`[useAgentActivity] Activity 类型 "${cfg.activityType}" 已存在于注册表中，将被覆盖`);
@@ -89,6 +87,7 @@ export function useAgentActivity<TContent = any>(
     return () => {
       configs.forEach((cfg) => {
         activityRegistry.unregister(cfg.activityType);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         autoRegisteredTypesRef.current.delete(cfg.activityType);
       });
     };
