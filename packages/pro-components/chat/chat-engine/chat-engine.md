@@ -205,7 +205,7 @@ AG-UI 协议支持通过 `ACTIVITY_*` 事件展示动态内容组件（如实时
 - **外部状态订阅**：演示如何在对话组件外部订阅和展示工具执行状态
 
 {{ agui-comprehensive }}
-
+<!--
 ### 断点恢复（Resume）
 
 当用户离开页面后重新进入时，如果后端 Agent 仍在运行，可以通过断点恢复机制续接进行中的任务。
@@ -217,10 +217,9 @@ AG-UI 协议支持通过 `ACTIVITY_*` 事件展示动态内容组件（如实时
 4. 后端推 `MESSAGES_SNAPSHOT` 事件一次性恢复已产生的中间内容（思考、工具调用、部分文本）
 5. 后端继续推增量事件直到 `RUN_FINISHED`
 
-{{ agui-resume }}
+{{ agui-resume }} -->
 
-
-## OpenClaw 协议
+<!-- ## OpenClaw 协议
 
 [OpenClaw](https://openclaw.io) 是一个基于 WebSocket 的 AI Agent 网关协议，采用 RPC 风格的消息通信，支持实时双向交互、流式消息推送、连接保活等特性。ChatEngine 内置了对 OpenClaw 协议的支持，可以方便地接入 OpenClaw Gateway。
 
@@ -239,7 +238,7 @@ AG-UI 协议支持通过 `ACTIVITY_*` 事件展示动态内容组件（如实时
 
 > ⚠️ 本示例需要启动本地 Mock Server：`cd mock-server/online2 && node app.js`
 
-{{ openclaw-basic }}
+{{ openclaw-basic }} -->
 <!--
 ### Toolcall 综合
 
@@ -305,10 +304,9 @@ AI 生成符合 Catalog 约束的 JSON → json-render 引擎解析 → Registry
 
 使用 `createA2UIJsonRenderActivityConfig` 可以将 A2UI 协议消息自动转换为 json-render Schema 进行渲染，复用现有的 Registry 组件实现。
 
-{{ agui-a2ui-json-render }}
+{{ agui-a2ui-form }}
 
 ## API
-
 ### useChat
 
 用于管理对话状态与生命周期的核心 Hook，初始化对话引擎、同步消息数据、订阅状态变更，并自动处理组件卸载时的资源清理。

@@ -10,7 +10,7 @@ import { JsonRenderActivityRenderer } from '../renderer/JsonRenderActivityRender
 import { a2uiRegistry, tdesignRegistry } from '.';
 
 import type { ActivityConfig } from '../../activity/types';
-import type { ComponentRegistry,JsonRenderActivityProps } from '../types';
+import type { ComponentRegistry, JsonRenderActivityProps } from '../types';
 
 /**
  * json-render Activity 配置选项

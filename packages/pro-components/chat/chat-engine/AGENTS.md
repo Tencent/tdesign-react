@@ -197,13 +197,13 @@ interface ActivityComponentProps<TContent> {
 Subscribes to shared agent state (AG-UI `STATE_SNAPSHOT/DELTA` events).
 
 ```typescript
-const { 
+const {
   stateMap,           // Record<string, any> - all state entries
   currentStateKey,    // Latest active state key
   setStateMap,        // Manual state setter
   getCurrentState,    // Get current active state data
   getStateByKey,      // Get state by specific key
-} = useAgentState({ 
+} = useAgentState({
   initialState: {},         // Optional initial state
   subscribeKey: 'task_1',   // Optional: subscribe to specific key
 });
@@ -521,7 +521,7 @@ chatEngine.eventBus.on(ChatEngineEventType.AGUI_ACTIVITY, (event) => {
 #### 8.4.3 A2UI Protocol Support
 - **Goal**: Render Google's A2UI protocol (flat-list schema) using the json-render engine.
 - **Key Pattern**: `createA2UIJsonRenderActivityConfig`.
-- **Example**: `agui-a2ui-json-render.tsx`, `custom-a2ui.tsx`
+- **Example**: `agui-a2ui-form.tsx`, `custom-a2ui.tsx`
 
 ### 8.5 Advanced / Headless Scenarios
 

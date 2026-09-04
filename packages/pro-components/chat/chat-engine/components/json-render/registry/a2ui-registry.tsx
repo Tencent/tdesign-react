@@ -24,7 +24,7 @@
  */
 
 import React from 'react';
-import { Button, Input, Space } from 'tdesign-react';
+import { Button, Input, Slider, Space, Switch } from 'tdesign-react';
 
 // 导入纯净组件和布局组件（这些不需要 A2UI 绑定）
 import { JsonRenderCard } from '../catalog/atomic/card';
@@ -38,7 +38,7 @@ import {
 import { JsonRenderText } from '../catalog/atomic/text';
 import { withA2UIBinding } from './a2ui-binding';
 
-import type { ButtonProps, InputProps } from 'tdesign-react';
+import type { ButtonProps, InputProps, SliderProps, SwitchProps } from 'tdesign-react';
 import type { ComponentRegistry } from '../types';
 
 // ==================== 基础组件包装器 ====================
@@ -72,6 +72,44 @@ const BaseButton: React.FC<ButtonProps & { label?: string }> = ({ label, childre
 
 BaseButton.displayName = 'BaseButton';
 
+/**
+ * 基础 Slider 组件（用于 HOC 包装）
+ * 接收标准 SliderProps，由 HOC 注入 value/onChange/disabled
+ * label 是自定义扩展属性，用于展示字段说明
+ */
+const BaseSlider: React.FC<SliderProps & { label?: string }> = ({ label, ...props }) => {
+  if (label) {
+    return (
+      <Space direction="vertical" size={4} style={{ width: '100%' }}>
+        <label style={{ fontSize: '14px', fontWeight: 500 }}>{label}</label>
+        <Slider {...props} />
+      </Space>
+    );
+  }
+  return <Slider {...props} />;
+};
+
+BaseSlider.displayName = 'BaseSlider';
+
+/**
+ * 基础 Switch 组件（用于 HOC 包装）
+ * 接收标准 SwitchProps，由 HOC 注入 value/onChange/disabled
+ * label 是自定义扩展属性，用于展示字段说明
+ */
+const BaseSwitch: React.FC<SwitchProps & { label?: string }> = ({ label, ...props }) => {
+  if (label) {
+    return (
+      <Space size={12} style={{ alignItems: 'center' }}>
+        <label style={{ fontSize: '14px', fontWeight: 500 }}>{label}</label>
+        <Switch {...props} />
+      </Space>
+    );
+  }
+  return <Switch {...props} />;
+};
+
+BaseSwitch.displayName = 'BaseSwitch';
+
 // ==================== A2UI 组件（通过 HOC 生成）====================
 
 /**
@@ -90,6 +128,26 @@ export const A2UITextField = withA2UIBinding<InputProps & { label?: string }>(Ba
  */
 export const A2UIButton = withA2UIBinding<ButtonProps & { label?: string }>(BaseButton, {
   supportsAction: true,
+});
+
+/**
+ * A2UI Slider 组件
+ * 自动支持 valuePath/disabledPath 数据绑定（数值双向同步到 dataModel）
+ */
+export const A2UISlider = withA2UIBinding<SliderProps & { label?: string }>(BaseSlider, {
+  valueField: 'value',
+  onChangeField: 'onChange',
+  supportsAction: false,
+});
+
+/**
+ * A2UI Switch 组件
+ * 自动支持 valuePath/disabledPath 数据绑定（布尔值双向同步到 dataModel）
+ */
+export const A2UISwitch = withA2UIBinding<SwitchProps & { label?: string }>(BaseSwitch, {
+  valueField: 'value',
+  onChangeField: 'onChange',
+  supportsAction: false,
 });
 
 // ==================== A2UI Registry ====================
@@ -116,6 +174,8 @@ export const a2uiRegistry: ComponentRegistry = {
   // A2UI 绑定组件（通过 HOC 包装）
   TextField: A2UITextField,
   Button: A2UIButton,
+  Slider: A2UISlider,
+  Switch: A2UISwitch,
 
   // 纯净组件（布局类不需要 A2UI 绑定）
   Card: JsonRenderCard,
