@@ -14,7 +14,7 @@ function resolveCwd(...args) {
 
 fs.readFile(resolveCwd('test/coverage/index.html'), 'utf8', (err, html) => {
   if (err) {
-    console.log('please execute npm run test:unit-coverage first!', err);
+    console.error('please execute npm run test:unit-coverage first!', err);
     return;
   }
   if (!err) {
@@ -52,6 +52,6 @@ fs.readFile(resolveCwd('test/coverage/index.html'), 'utf8', (err, html) => {
 
     const finalRes = `module.exports = ${JSON.stringify(resultCoverage, null, 2)};\n`;
     fs.writeFileSync(resolveCwd('packages/tdesign-react/site/test-coverage.js'), finalRes);
-    console.log('successful re-generate coverage');
+    console.info('successful re-generate coverage');
   }
 });

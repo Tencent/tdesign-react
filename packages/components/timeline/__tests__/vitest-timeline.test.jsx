@@ -5,7 +5,8 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { fireEvent, vi, render } from '@test/utils';
+import { fireEvent, render, vi } from '@test/utils';
+
 import { Timeline, TimelineItem } from '..';
 import { getTimelineDefaultMount, getTimelineItemMount } from './mount';
 

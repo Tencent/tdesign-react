@@ -5,9 +5,10 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { fireEvent, vi, render, mockDelay, simulateInputChange, simulateInputEnter } from '@test/utils';
+import { fireEvent, mockDelay, render, simulateInputChange, simulateInputEnter, vi } from '@test/utils';
+
 import { TagInput } from '..';
-import { getTagInputValueMount, getTagInputDefaultMount } from './mount';
+import { getTagInputDefaultMount, getTagInputValueMount } from './mount';
 
 describe('TagInput Component', () => {
   it('props.clearable: empty TagInput does not need clearIcon', async () => {

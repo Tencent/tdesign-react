@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from '@test/utils';
+
 import { Button } from '../../button';
 
 export function getSpaceDefaultMount(Space, props, events) {
@@ -8,7 +9,7 @@ export function getSpaceDefaultMount(Space, props, events) {
       <Button>Text</Button>
       <Button>Text</Button>
       <Button>Text</Button>
-    </Space>
+    </Space>,
   );
 }
 

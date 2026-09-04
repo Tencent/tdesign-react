@@ -1,6 +1,7 @@
 import React from 'react';
 import { fireEvent, render, vi } from '@test/utils';
-import { Table, PrimaryTable, EnhancedTable } from '..';
+
+import { EnhancedTable, PrimaryTable, Table } from '..';
 
 const data = new Array(5).fill(null).map((item, index) => ({
   id: index + 100,
@@ -36,7 +37,7 @@ TABLES.forEach((TTable) => {
           expandedRow={() => <div>expanded row</div>}
         ></TTable>,
       );
-      expect(container.querySelector('.t-table__expandable-icon-cell')).toBeTruthy();
+      expect(container.querySelector(EXPAND_CELL)).toBeTruthy();
       expect(container.querySelector('.t-table__expanded-row')).toBeFalsy();
     });
 

@@ -5,7 +5,8 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { fireEvent, vi, mockDelay } from '@test/utils';
+import { fireEvent, mockDelay, vi } from '@test/utils';
+
 import { Tree } from '..';
 import { getTreeDefaultMount } from './mount';
 
