@@ -43,7 +43,8 @@ export interface UseStateActionReturn {
   getStateByKey: (key: string) => any;
 }
 
-export const useAgentState = (options: StateActionOptions = {}): UseStateActionReturn => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- 保留已有 useAgentState<T>() 调用兼容性
+export const useAgentState = <T = any>(options: StateActionOptions = {}): UseStateActionReturn => {
   const { initialState, subscribeKey } = options;
   const [stateMap, setStateMap] = useState<Record<string, any>>(initialState || {});
   const [currentStateKey, setCurrentStateKey] = useState<string | null>(null);

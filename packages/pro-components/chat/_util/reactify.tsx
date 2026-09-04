@@ -440,18 +440,7 @@ const reactify = <T extends AnyProps = AnyProps>(
 
     render() {
       const { children, className, ...rest } = this.props;
-      // 仅将基本类型作为 attribute 传递，其余复杂类型（object/function/ReactNode）
-      // 在 update() 中按需处理为 property / slot / event，避免 React 19 把非基本类型
-      // 通过 JSX 写成异常 attribute，进而干扰 omi 组件的 defaultProps 合并流程
-      // （典型症状：t-chat-list 的 autoScroll / defaultScrollTo 默认值失效导致自动滚动失效）
-      const filteredProps: Record<string, any> = {};
-      Object.keys(rest).forEach((key) => {
-        const val = (rest as Record<string, any>)[key];
-        if (typeof val === 'string' || typeof val === 'number' || typeof val === 'boolean') {
-          filteredProps[key] = val;
-        }
-      });
-      return createElement(WC, { class: className, ...filteredProps, ref: this.ref }, children);
+      return createElement(WC, { class: className, ...rest, ref: this.ref }, children);
     }
   }
 
