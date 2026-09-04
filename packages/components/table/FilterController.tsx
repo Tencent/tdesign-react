@@ -179,7 +179,10 @@ function TableFilterController(props: TableFilterControllerProps) {
         {...props.popupProps}
       >
         <div ref={triggerElementRef}>
-          {parseContentTNode(props.filterIcon, { col: column, colIndex: props.colIndex }) || defaultFilterIcon}
+          {parseContentTNode(props.filterIcon, {
+            col: column,
+            colIndex: props.colIndex,
+          }) || defaultFilterIcon}
         </div>
       </Popup>
     </div>

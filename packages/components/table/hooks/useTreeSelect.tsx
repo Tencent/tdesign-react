@@ -18,7 +18,11 @@ export function getChildrenData(
   keys: { childrenKey: string; rowKey: string },
   r?: GetChildrenDataReturnValue,
 ): GetChildrenDataReturnValue {
-  const result = r || { allChildren: [], allChildrenKeys: [], leafNodeKeys: [] };
+  const result = r || {
+    allChildren: [],
+    allChildrenKeys: [],
+    leafNodeKeys: [],
+  };
   const children = get(data, keys.childrenKey);
 
   if (!children || !children.length) return result;
@@ -422,7 +426,10 @@ export default function useTreeSelect(props: TdEnhancedTableProps, options: UseT
     // 更新父节点的选中状态
     newRowKeys = updateParentCheckedState(newRowKeys, extraData.currentRowKey, newType);
 
-    const newRowData = getRowDataByKeys({ treeDataMap, selectedRowKeys: newRowKeys });
+    const newRowData = getRowDataByKeys({
+      treeDataMap,
+      selectedRowKeys: newRowKeys,
+    });
     const newExtraData = {
       ...extraData,
       selectedRowData: newRowData,

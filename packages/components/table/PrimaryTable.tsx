@@ -104,7 +104,9 @@ const PrimaryTable = forwardRef<PrimaryTableRef, InternalPrimaryTableProps>((ori
   const tRowAttributes = (() => {
     const tAttributes = [props.rowAttributes];
     if (isRowHandlerDraggable || isRowDraggable) {
-      tAttributes.push(({ row }) => ({ 'data-id': get(row, props.rowKey || 'id') }));
+      tAttributes.push(({ row }) => ({
+        'data-id': get(row, props.rowKey || 'id'),
+      }));
     }
     return tAttributes.filter((v) => v);
   })();
