@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { act, fireEvent, mockTimeout, render, waitFor } from '@test/utils';
+import { act, fireEvent, mockTimeout, render, vi, waitFor } from '@test/utils';
 
 import Input from '../../input';
 import Popup from '../Popup';
@@ -41,6 +41,44 @@ describe('Popup 组件测试', () => {
     const popupElement3 = await waitFor(() => queryByTestId(popupTestId));
     expect(popupElement3).not.toBeNull();
     expect(popupElement3.parentNode.parentNode).toHaveClass('t-popup--animation-leave-active');
+  });
+
+  test('hover 从弹层移回 trigger 时不关闭', async () => {
+    const onVisibleChange = vi.fn();
+    const { getByText, queryByTestId } = render(
+      <Popup
+        placement="top"
+        onVisibleChange={onVisibleChange}
+        content={<div data-testid={popupTestId}>{popupText}</div>}
+      >
+        {triggerElement}
+      </Popup>,
+    );
+
+    act(() => {
+      fireEvent.mouseEnter(getByText(triggerElement));
+    });
+
+    const popupContent = await waitFor(() => queryByTestId(popupTestId));
+    expect(popupContent).not.toBeNull();
+    const popupRoot = popupContent.parentNode.parentNode as HTMLElement;
+
+    onVisibleChange.mockClear();
+
+    act(() => {
+      fireEvent.mouseLeave(popupRoot, {
+        relatedTarget: getByText(triggerElement),
+      });
+    });
+
+    const visibilityChanges = onVisibleChange.mock.calls.map(([visible, ctx]) => ({
+      visible,
+      trigger: ctx?.trigger,
+    }));
+    expect(visibilityChanges).not.toContainEqual({
+      visible: false,
+      trigger: 'trigger-element-hover',
+    });
   });
 
   test('click 触发测试', async () => {
