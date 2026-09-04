@@ -193,6 +193,44 @@ export function mockIntersectionObserver(mockData, mockFunc) {
 }
 
 /**
+ * mock window 上的 ResizeObserver 方法
+ * @param mockData 可选，默认 contentRect
+ * @param mockFunc 可选，mock observe/unobserve/disconnect
+ * @returns 恢复原始 ResizeObserver 的函数
+ */
+export function mockResizeObserver(mockData = {}, mockFunc = {}) {
+  const { contentRect = {} } = mockData;
+  const { observe, unobserve, disconnect } = mockFunc;
+  const OriginResizeObserver = window.ResizeObserver;
+
+  const defaultContentRect = {
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    toJSON: () => '',
+  };
+
+  window.ResizeObserver = vi.fn((callback) => ({
+    observe: observe
+      ? (element) => {
+          observe(element, callback, { ...defaultContentRect, ...contentRect });
+        }
+      : vi.fn(),
+    unobserve: unobserve || vi.fn(),
+    disconnect: disconnect || vi.fn(),
+  }));
+
+  return () => {
+    window.ResizeObserver = OriginResizeObserver;
+  };
+}
+
+/**
  * 批量模拟多个 DOM 元素的尺寸与位置信息
  * @param {Array<{
  *   selector: string
