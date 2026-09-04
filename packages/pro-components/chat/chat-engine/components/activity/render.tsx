@@ -5,7 +5,7 @@ import isEqual from 'react-fast-compare';
 import { ComponentErrorBoundary, useRegistrationListener } from '../shared';
 import { ACTIVITY_EVENT_DETAIL_KEY, ACTIVITY_REGISTERED_EVENT, activityRegistry } from './registry';
 
-import type { ActivityData } from '@tdesign/web-components-chat';
+import type { ActivityData } from '@tdesign/web-components-chat/chat-engine';
 import type { ActivityComponentProps } from './types';
 
 interface ActivityRendererProps {

@@ -9,8 +9,13 @@ export * from './components';
 // Re-export core API from @tdesign/web-components-chat
 // （@tdesign/web-components-chat 已透传 @tdesign/ai-chat-engine 的全部导出，
 //   pro-components 不再直接依赖 @tdesign/ai-chat-engine）
-export { ChatEngine, ChatEngineEventType, ChatEventBus, createEventBus } from '@tdesign/web-components-chat';
-export { activityManager, AGUIAdapter, stateManager } from '@tdesign/web-components-chat';
+export {
+  ChatEngine,
+  ChatEngineEventType,
+  ChatEventBus,
+  createEventBus,
+} from '@tdesign/web-components-chat/chat-engine';
+export { activityManager, AGUIAdapter, stateManager } from '@tdesign/web-components-chat/chat-engine';
 export {
   applyJsonPatch,
   findTargetElement,
@@ -27,8 +32,8 @@ export {
   isToolCallContent,
   isUserMessage,
   safeParseJSON,
-} from '@tdesign/web-components-chat';
-export { AGUIEventType } from '@tdesign/web-components-chat';
+} from '@tdesign/web-components-chat/chat-engine';
+export { AGUIEventType } from '@tdesign/web-components-chat/chat-engine';
 
 // Re-export commonly used types
 export type {
@@ -65,4 +70,4 @@ export type {
   ToolCallContent,
   UserMessage,
   UserMessageContent,
-} from '@tdesign/web-components-chat';
+} from '@tdesign/web-components-chat/chat-engine';

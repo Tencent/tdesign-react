@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { stateManager } from '@tdesign/web-components-chat';
+import { stateManager } from '@tdesign/web-components-chat/chat-engine';
 
-import type { ChatJSONObject } from '@tdesign/web-components-chat';
+import type { ChatJSONObject } from '@tdesign/web-components-chat/chat-engine';
 
 /**
  * 状态订阅相关类型定义
@@ -43,7 +43,8 @@ export interface UseStateActionReturn {
   getStateByKey: (key: string) => any;
 }
 
-export const useAgentState = (options: StateActionOptions = {}): UseStateActionReturn => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- 保留已有 useAgentState<T>() 调用兼容性
+export const useAgentState = <T = any>(options: StateActionOptions = {}): UseStateActionReturn => {
   const { initialState, subscribeKey } = options;
   const [stateMap, setStateMap] = useState<Record<string, any>>(initialState || {});
   const [currentStateKey, setCurrentStateKey] = useState<string | null>(null);

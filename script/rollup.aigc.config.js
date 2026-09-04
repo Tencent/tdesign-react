@@ -16,8 +16,7 @@ import url from '@rollup/plugin-url';
 import pkg from '../packages/tdesign-react-aigc/package.json';
 
 const name = 'tdesign';
-const internalWorkspaceDeps = ['@tdesign/ai-chat-engine', '@tdesign/ai-shared'];
-const externalDeps = Object.keys(pkg.dependencies || {}).filter((dep) => !internalWorkspaceDeps.includes(dep));
+const externalDeps = Object.keys(pkg.dependencies || {});
 const externalPeerDeps = Object.keys(pkg.peerDependencies || {});
 
 // 分析模式配置
@@ -114,6 +113,7 @@ const getPlugins = ({ env, isProd = false } = {}) => {
 
 const cssConfig = {
   input: ['packages/pro-components/chat/style/index.js'],
+  external: (id) => externalDeps.some((dep) => id === dep || id.startsWith(`${dep}/`)),
   plugins: [multiInput({ relative: 'packages/pro-components/chat' }), styles({ mode: 'extract' })],
   output: {
     banner,

@@ -1,10 +1,8 @@
-import '@tdesign/web-components-chat/chat-message';
-
-import { TdMarkdownEngine } from '@tdesign/web-components-chat';
+import { TdMarkdownEngine } from '@tdesign/web-components-chat/chat-message';
 
 import reactify from '../_util/reactify';
 
-import type { TdChatMarkdownContentProps } from '@tdesign/web-components-chat';
+import type { TdChatMarkdownContentProps } from '@tdesign/web-components-chat/chat-message';
 
 export const MarkdownEngine: typeof TdMarkdownEngine = TdMarkdownEngine;
 export const ChatMarkdown: React.ForwardRefExoticComponent<
@@ -12,4 +10,4 @@ export const ChatMarkdown: React.ForwardRefExoticComponent<
 > = reactify<TdChatMarkdownContentProps>('t-chat-md-content');
 
 export default ChatMarkdown;
-export type { TdChatMarkdownContentProps } from '@tdesign/web-components-chat';
+export type { TdChatMarkdownContentProps } from '@tdesign/web-components-chat/chat-message';

@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { AGUIEventType } from '@tdesign/web-components-chat';
+import { AGUIEventType } from '@tdesign/web-components-chat/chat-engine';
 
 import { AgentStateContext, useAgentStateDataByKey } from '../../hooks/useAgentState';
 import { ComponentErrorBoundary, useRegistrationListener } from '../shared';
 import { agentToolcallRegistry, TOOLCALL_EVENT_DETAIL_KEY, TOOLCALL_REGISTERED_EVENT } from './registry';
 import { isNonInteractiveConfig } from './types';
 
-import type { ToolCall } from '@tdesign/web-components-chat';
+import type { ToolCall } from '@tdesign/web-components-chat/chat-engine';
 import type { ToolcallComponentProps } from './types';
 
 interface ToolCallRendererProps {
