@@ -440,7 +440,6 @@ const reactify = <T extends AnyProps = AnyProps>(
 
     render() {
       const { children, className, ...rest } = this.props;
-
       return createElement(WC, { class: className, ...rest, ref: this.ref }, children);
     }
   }
