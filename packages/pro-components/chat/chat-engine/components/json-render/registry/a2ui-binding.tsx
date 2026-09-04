@@ -36,7 +36,7 @@
  */
 
 import React, { memo, useCallback, useMemo, useRef } from 'react';
-import { normalizeActionBinding, resolveActionParams } from '@tdesign/ai-chat-engine';
+import { normalizeActionBinding, resolveActionParams } from '@tdesign/web-components-chat/chat-engine';
 
 import { useDataBinding, useDataStore, useDataValue } from '..';
 

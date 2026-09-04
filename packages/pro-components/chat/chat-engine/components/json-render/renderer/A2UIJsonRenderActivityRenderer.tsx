@@ -38,11 +38,11 @@ import {
   convertA2UIMessagesToJsonRender,
   extractSurfaceId,
   surfaceStateManager,
-} from '@tdesign/ai-chat-engine';
+} from '@tdesign/web-components-chat/chat-engine';
 
 import { JsonRenderActivityRenderer } from './JsonRenderActivityRenderer';
 
-import type { A2UIMessage, JsonRenderSchema } from '@tdesign/ai-chat-engine';
+import type { A2UIMessage, JsonRenderSchema } from '@tdesign/web-components-chat/chat-engine';
 import type { ComponentRegistry, JsonRenderActivityProps } from '../types';
 
 export interface A2UIJsonRenderActivityRendererProps extends Omit<JsonRenderActivityProps, 'content'> {

@@ -4,7 +4,7 @@
 
 import type { ComponentType, ReactNode } from 'react';
 import type { ActionBinding, Spec, UIElement } from '@json-render/core';
-import type { JsonRenderSchema } from '@tdesign/ai-chat-engine';
+import type { JsonRenderSchema } from '@tdesign/web-components-chat/chat-engine';
 
 /**
  * Props passed to component renderers

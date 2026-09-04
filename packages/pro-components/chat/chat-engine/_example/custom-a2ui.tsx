@@ -24,7 +24,7 @@ import {
   useChat,
 } from '@tdesign-react/chat';
 
-import type { A2UIMessage } from '@tdesign/ai-chat-engine';
+import type { A2UIMessage } from '@tdesign/web-components-chat/chat-engine';
 import type {
   AIMessageContent,
   ChatMessagesData,
@@ -121,7 +121,13 @@ function convertToA2UIMessages(msg: CustomMessage, initialData?: Record<string, 
             messages.push({
               updateComponents: {
                 surfaceId: op.surfaceId,
-                components: [{ id: op.componentId, component: op.payload.component || 'Unknown', ...op.payload }],
+                components: [
+                  {
+                    id: op.componentId,
+                    component: op.payload.component || 'Unknown',
+                    ...op.payload,
+                  },
+                ],
               },
             });
           }
@@ -301,7 +307,13 @@ export default function CustomA2UIExample() {
         }}
       >
         <h3 style={{ margin: 0, fontSize: '16px' }}>自定义协议 + A2UI 示例</h3>
-        <p style={{ margin: '4px 0 0', fontSize: '12px', color: 'var(--td-text-color-secondary)' }}>
+        <p
+          style={{
+            margin: '4px 0 0',
+            fontSize: '12px',
+            color: 'var(--td-text-color-secondary)',
+          }}
+        >
           不依赖 AG-UI，使用自定义 SSE 协议配合 useA2UISurface（基于 json-render adapter）实现动态表单
         </p>
       </div>

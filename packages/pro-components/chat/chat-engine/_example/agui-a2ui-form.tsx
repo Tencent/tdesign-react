@@ -34,7 +34,7 @@ import type {
   TdChatSenderParams,
 } from '@tdesign-react/chat';
 
-const MOCK_SERVER = 'http://localhost:9000';
+const MOCK_SERVER = 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com';
 const ENDPOINT = `${MOCK_SERVER}/sse/a2ui-form`;
 const ACTIVITY_TYPE = 'a2ui-form';
 

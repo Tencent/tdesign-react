@@ -18,11 +18,11 @@ import {
   convertA2UIMessagesToJsonRender,
   groupMessagesBySurface,
   surfaceStateManager,
-} from '@tdesign/ai-chat-engine';
+} from '@tdesign/web-components-chat/chat-engine';
 
 import { JsonRenderActivityRenderer } from './JsonRenderActivityRenderer';
 
-import type { A2UIMessage, JsonRenderSchema } from '@tdesign/ai-chat-engine';
+import type { A2UIMessage, JsonRenderSchema } from '@tdesign/web-components-chat/chat-engine';
 import type { ComponentRegistry } from '../types';
 
 /* ------------------------------------------------------------------ */
@@ -80,7 +80,10 @@ export function useA2UISurface(options: UseA2UISurfaceOptions = {}): A2UISurface
   });
   const getSnapshot = useCallback(() => {
     if (snapshotRef.current.version !== versionRef.current) {
-      snapshotRef.current = { ids: surfaceIdsRef.current.slice(), version: versionRef.current };
+      snapshotRef.current = {
+        ids: surfaceIdsRef.current.slice(),
+        version: versionRef.current,
+      };
     }
     return snapshotRef.current;
   }, []);
