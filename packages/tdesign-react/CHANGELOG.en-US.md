@@ -5,6 +5,26 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.18.3 `2026-09-04`
+
+### 🚀 Features
+
+- `Checkbox`: Supports the `tooltipProps` API @RylanBot ([#4385](https://github.com/Tencent/tdesign-react/pull/4385))
+- `Menu`: The inline style has been changed to use style classes; the overly generic `--padding-left` variable has been removed to facilitate customizations @HaixingOoO ([#4367](https://github.com/Tencent/tdesign-react/pull/4367))
+
+### 🐞 Bug Fixes
+
+- `ColorPicker`: Improved the display of the input field when the alpha channel is enabled @uyarn ([#4384](https://github.com/Tencent/tdesign-react/pull/4384))
+- `Form`: Fixed an issue where `resetType="initial"` failed to reset fields without `initialData` to empty values during re-rendering @RylanBot ([#4365](https://github.com/Tencent/tdesign-react/pull/4365))
+- `FormList`: Resolved an abnormality in `setFieldsValue` for nested Form components @RylanBot ([#4361](https://github.com/Tencent/tdesign-react/pull/4361))
+- `Icon`: Fixed incorrect layer IDs for the usb icon, which caused rendering issues in dark mode @uyarn ([icons#298](https://github.com/Tencent/tdesign-icons/pull/298)) ([#4369](https://github.com/Tencent/tdesign-react/pull/4369))
+- `Popup`: Fixed a flickering issue that occurred when moving quickly between the trigger element and the popup with `trigger="hover"` @RylanBot ([#4366](https://github.com/Tencent/tdesign-react/pull/4366))
+- `Select`: 
+  - Fixed an issue where, when using `filterable` and the Chinese input method, the previous filter results remained after new input @RSS1102 ([#4388](https://github.com/Tencent/tdesign-react/pull/4388))
+  - Fixed an issue where the full list was briefly displayed when closing the panel after selecting an option in `filterable` mode @RSS1102 ([#4388](https://github.com/Tencent/tdesign-react/pull/4388))
+- `TagInput`: Fixed the problem of inability to scroll when `excessTagsDisplayType="scroll"` is used along with `readOnly`/`disabled` settings @RylanBot ([#4364](https://github.com/Tencent/tdesign-react/pull/4364))
+- `Textarea`: Fixed an instability issue with the height calculation for `autosize` @RylanBot ([#4386](https://github.com/Tencent/tdesign-react/pull/4386))
+
 ## 🌈 1.18.2 `2026-08-14`
 
 ### 🚀 Features
