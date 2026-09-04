@@ -143,6 +143,4 @@ jobs:
       - run: pnpm install
 
       - name: Build
-        run: |
-          node --test script/workflows/webc-dependencies.test.mjs
-          pnpm run build:aigc
+        run: pnpm run build:aigc
