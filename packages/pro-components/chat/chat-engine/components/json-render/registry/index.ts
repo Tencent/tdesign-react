@@ -1,0 +1,235 @@
+/**
+ * TDesign ComponentRegistry（React 组件注册表）
+ * 用于 json-render 渲染层的组件映射
+ *
+ * 重要概念区分：
+ * - ComponentRegistry（本文件）：渲染层，映射组件名到 React 组件（传给 Renderer）
+ * - Catalog（catalog.ts）：约束层，定义组件 props schema 和 actions 白名单（给 AI/服务端）
+ *
+ * Registry 分类：
+ * - tdesignRegistry: 纯净的 TDesign 组件，用于直接的 json-render schema
+ * - a2uiRegistry: 支持 A2UI 协议的组件，自动处理 valuePath/disabledPath/action.context
+ *
+ * 详见：ARCHITECTURE.md
+ */
+
+import React from 'react';
+import isEqual from 'react-fast-compare';
+
+import { JsonRenderButton } from '../catalog/atomic/button';
+import { JsonRenderCard } from '../catalog/atomic/card';
+import { JsonRenderInput, JsonRenderTextField } from '../catalog/atomic/input';
+import {
+  JsonRenderCol,
+  JsonRenderColumn,
+  JsonRenderDivider,
+  JsonRenderRow,
+  JsonRenderSpace,
+} from '../catalog/atomic/layout';
+import { JsonRenderText } from '../catalog/atomic/text';
+
+import type { ComponentRegistry, ComponentRenderProps } from '../types';
+
+/**
+ * 高性能组件包装器（可选）
+ * 使用 React.memo + react-fast-compare 实现深比较
+ *
+ * 注意：由于 ElementRenderer 已经实现了 React.memo + 深比较优化，
+ * 大多数情况下叶子组件不需要再使用 withStableProps 包装。
+ *
+ * 使用场景：
+ * - 组件内部有复杂的计算逻辑，希望进一步减少重渲染
+ * - 组件使用了 Context，需要避免 Context 变化导致的不必要渲染
+ *
+ * 原理：
+ * - json-render 每次渲染都会创建新的 element 对象引用
+ * - 默认的 React.memo 浅比较会认为 props 变化了
+ * - 使用 react-fast-compare 进行高效深比较，只在内容真正变化时才重渲染
+ *
+ * 性能说明：
+ * - react-fast-compare 比 JSON.stringify 更快（短路比较）
+ * - 发现第一个不同属性时立即停止，不会遍历整个对象
+ * - 处理了循环引用等边缘情况
+ */
+export function withStableProps<P extends ComponentRenderProps>(
+  Component: React.ComponentType<P>,
+): React.MemoExoticComponent<React.ComponentType<P>> {
+  return React.memo(Component, (prevProps, nextProps) => {
+    const prevElement = prevProps.element as any;
+    const nextElement = nextProps.element as any;
+
+    // 1. children 变化必须重渲染
+    // 深层更新时，父组件的 element 可能不变，但 children（子组件树）会变化
+    if (prevProps.children !== nextProps.children) {
+      return false;
+    }
+
+    // 2. element 引用相同，跳过渲染
+    if (prevElement === nextElement) return true;
+
+    // 3. 快速路径：id 或 type 不同，需要重渲染
+    if (prevElement.id !== nextElement.id || prevElement.type !== nextElement.type) {
+      return false;
+    }
+
+    // 4. 使用 react-fast-compare 进行高效深比较
+    return isEqual(prevElement.props, nextElement.props);
+  });
+}
+
+/**
+ * TDesign 内置组件注册表（渲染层）
+ *
+ * 这是框架内置的原子组件集合，提供基础 UI 渲染能力
+ * 业务层可以通过 createCustomRegistry 扩展自定义组件
+ *
+ * 使用方式：
+ * ```tsx
+ * import { tdesignRegistry } from '@tdesign-react/chat';
+ *
+ * const config = createJsonRenderActivityConfig({
+ *   registry: tdesignRegistry,
+ *   actionHandlers: { ... },
+ * });
+ * ```
+ *
+ * Schema 示例：
+ * ```json
+ * {
+ *   "root": "btn1",
+ *   "elements": {
+ *     "btn1": {
+ *       "key": "btn1",
+ *       "type": "Button",
+ *       "props": {
+ *         "variant": "base",
+ *         "theme": "primary",
+ *         "children": "点击我",
+ *         "action": "submit"
+ *       }
+ *     }
+ *   }
+ * }
+ * ```
+ */
+export const tdesignRegistry: ComponentRegistry = {
+  // 基础组件
+  Button: JsonRenderButton,
+  Input: JsonRenderInput,
+  TextField: JsonRenderTextField,
+  Card: JsonRenderCard,
+  Text: JsonRenderText,
+
+  // 布局组件
+  Row: JsonRenderRow,
+  Col: JsonRenderCol,
+  Space: JsonRenderSpace,
+  Column: JsonRenderColumn,
+  Divider: JsonRenderDivider,
+
+  // 别名（兼容不同命名风格）
+  button: JsonRenderButton,
+  input: JsonRenderInput,
+  textfield: JsonRenderTextField,
+  card: JsonRenderCard,
+  text: JsonRenderText,
+  row: JsonRenderRow,
+  col: JsonRenderCol,
+  space: JsonRenderSpace,
+  column: JsonRenderColumn,
+  divider: JsonRenderDivider,
+};
+
+/**
+ * createCustomRegistry 配置选项
+ */
+export interface CreateCustomRegistryOptions {
+  /**
+   * 是否自动包装组件以优化性能
+   * 使用 React.memo + react-fast-compare 深比较 element.props
+   *
+   * 注意：由于 ElementRenderer 已经实现了 memo 优化，
+   * 默认关闭此选项。仅在组件有复杂内部逻辑时考虑开启。
+   *
+   * @default false
+   */
+  enableStableProps?: boolean;
+}
+
+/**
+ * 创建自定义组件注册表（扩展内置组件）
+ *
+ * 用于渲染层：扩展自定义业务组件的 React 实现
+ *
+ * 性能说明：
+ * - ElementRenderer 已经使用 React.memo + 深比较优化，会自动跳过无变化节点
+ * - 默认情况下，自定义组件无需额外的 memo 包装
+ * - 如果组件有复杂内部逻辑，可以设置 enableStableProps: true 进行双重优化
+ *
+ * @example
+ * ```tsx
+ * import { createCustomRegistry } from '@tdesign-react/chat';
+ * import type { ComponentRenderProps } from '@json-render/react';
+ *
+ * // 定义自定义组件（无需手动 React.memo）
+ * const StatusCard: React.FC<ComponentRenderProps> = ({ element }) => (
+ *   <div className="status-card">{element.props.status}</div>
+ * );
+ *
+ * const ProgressBar: React.FC<ComponentRenderProps> = ({ element }) => (
+ *   <div className="progress-bar" style={{ width: `${element.props.percentage}%` }} />
+ * );
+ *
+ * // 扩展 registry（ElementRenderer 已有优化，无需额外包装）
+ * const customRegistry = createCustomRegistry({
+ *   StatusCard,
+ *   ProgressBar,
+ * });
+ *
+ * // 如果组件有复杂内部逻辑，可以开启双重优化
+ * const customRegistry = createCustomRegistry(
+ *   { StatusCard, ProgressBar },
+ *   { enableStableProps: true }
+ * );
+ * ```
+ *
+ * 注意：
+ * - 这里只定义渲染层的组件映射
+ * - 约束层（Catalog）需要使用 createCustomCatalog 定义（见 catalog.ts）
+ * - 两者需要保持组件名称一致
+ */
+export function createCustomRegistry(
+  customComponents: ComponentRegistry,
+  options: CreateCustomRegistryOptions = {},
+): ComponentRegistry {
+  const { enableStableProps = false } = options;
+
+  // 如果启用性能优化，自动包装组件
+  const processedComponents: ComponentRegistry = {};
+
+  if (enableStableProps) {
+    for (const [name, Component] of Object.entries(customComponents)) {
+      processedComponents[name] = withStableProps(Component as React.ComponentType<ComponentRenderProps>);
+    }
+  } else {
+    Object.assign(processedComponents, customComponents);
+  }
+
+  return {
+    ...tdesignRegistry,
+    ...processedComponents,
+  };
+}
+
+// ==================== 重新导出 A2UI Registry ====================
+// A2UI 专用组件，支持 valuePath/disabledPath/action.context 自动绑定
+export { A2UIButton, a2uiRegistry, A2UITextField, createA2UIRegistry } from './a2ui-registry';
+
+// 配置工厂
+export type { JsonRenderActivityConfigOptions } from './config';
+// 默认导出配置函数
+export { createA2UIJsonRenderActivityConfig, createJsonRenderActivityConfig } from './config';
+
+// ==================== 重新导出 A2UI Binding HOC ====================
+export type { A2UIBindingConfig } from './a2ui-binding';
+export { withA2UIBinding } from './a2ui-binding';

@@ -143,7 +143,11 @@ export default function useTrigger({
       if (trigger === 'mousedown') {
         callFuncWithDelay({
           delay: visible ? appearDelay : exitDelay,
-          callback: () => onVisibleChange(!visible, { e, trigger: 'trigger-element-mousedown' }),
+          callback: () =>
+            onVisibleChange(!visible, {
+              e,
+              trigger: 'trigger-element-mousedown',
+            }),
         });
       }
     };

@@ -1,0 +1,265 @@
+/**
+ * A2UI 数据绑定 HOC
+ *
+ * 统一处理 A2UI 协议的标准字段：
+ * - valuePath: 值的数据绑定路径（如 /userInfo/name）
+ * - disabledPath: disabled 状态的数据绑定路径（如 /formDisabled）
+ * - action.context: action 参数中的动态数据绑定
+ *
+ * 性能优化：
+ * - 使用 React.memo + 精确值比较避免不必要渲染
+ * - Action 参数延迟解析（触发时才计算）
+ * - 使用 useRef 缓存回调函数避免重建
+ *
+ * 使用方式：
+ * ```tsx
+ * // 创建支持 A2UI 绑定的 Input
+ * const A2UIInput = withA2UIBinding(Input, {
+ *   valueField: 'value',
+ *   onChangeField: 'onChange',
+ * });
+ *
+ * // 创建支持 action 的 Button
+ * const A2UIButton = withA2UIBinding(Button, {
+ *   supportsAction: true,
+ *   actionTrigger: 'onClick',  // 默认
+ * });
+ *
+ * // Input 支持 onEnter 触发 action
+ * const A2UISearchInput = withA2UIBinding(Input, {
+ *   valueField: 'value',
+ *   onChangeField: 'onChange',
+ *   supportsAction: true,
+ *   actionTrigger: 'onEnter',
+ * });
+ * ```
+ */
+
+import React, { memo, useCallback, useMemo, useRef } from 'react';
+import { normalizeActionBinding, resolveActionParams } from '@tdesign/web-components-chat/chat-engine';
+
+import { useDataBinding, useDataStore, useDataValue } from '..';
+
+import type { ActionBinding } from '@json-render/core';
+import type { ComponentRenderProps } from '../types';
+/**
+ * A2UI 绑定配置
+ */
+export interface A2UIBindingConfig {
+  /** 组件的值字段名，默认 'value' */
+  valueField?: string;
+  /** 组件的 onChange 字段名，默认 'onChange' */
+  onChangeField?: string;
+  /** 是否支持 action 绑定，默认 false */
+  supportsAction?: boolean;
+  /**
+   * Action 触发事件名，默认 'onClick'
+   * 可设置为 'onEnter'、'onChange' 等
+   */
+  actionTrigger?: string;
+}
+
+/**
+ * A2UI 数据绑定 HOC 内部组件
+ * 处理实际的数据绑定逻辑
+ */
+interface A2UIBoundInnerProps<P> extends ComponentRenderProps {
+  WrappedComponent: React.ComponentType<P>;
+  valueField: string;
+  onChangeField: string;
+  supportsAction: boolean;
+  actionTrigger: string;
+}
+
+function A2UIBoundInner<P extends Record<string, any>>({
+  element,
+  children,
+  onAction,
+  WrappedComponent,
+  valueField,
+  onChangeField,
+  supportsAction,
+  actionTrigger,
+}: A2UIBoundInnerProps<P>) {
+  // 提取 A2UI 特有字段
+  const {
+    valuePath,
+    disabledPath,
+    action,
+    disabled: staticDisabled,
+    ...componentProps
+  } = element.props as P & {
+    valuePath?: string;
+    disabledPath?: string;
+    action?: string | ActionBinding;
+    disabled?: boolean;
+  };
+
+  // 细粒度订阅：只订阅需要的路径
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const [boundValue, setBoundValue] = useDataBinding(valuePath!);
+  const disabledValue = useDataValue(disabledPath);
+
+  // 获取 store（用于 action 触发时读取最新 data）
+  const store = useDataStore();
+
+  // 使用 ref 缓存 store，action 触发时获取最新值
+  const storeRef = useRef(store);
+  storeRef.current = store;
+
+  // 计算 disabled 状态
+  const boundDisabled = useMemo(() => {
+    if (disabledPath) {
+      return Boolean(disabledValue);
+    }
+    return staticDisabled ?? false;
+  }, [disabledPath, disabledValue, staticDisabled]);
+
+  // 创建稳定的 onChange 处理器（useDataBinding 已返回稳定函数）
+  const handleChange = useCallback(
+    (newValue: unknown) => {
+      if (valuePath && setBoundValue) {
+        setBoundValue(newValue as any);
+      }
+    },
+    [valuePath, setBoundValue],
+  );
+
+  // 创建稳定的 action 处理器（延迟解析，触发时才获取最新 data）
+  const handleAction = useCallback(() => {
+    if (!action || !onAction) return;
+
+    // 协议适配：归一化 action 字段
+    // - 字符串简写："submit"
+    // - 标准 ActionBinding：{ action, params? }
+    // - 兼容旧协议（A2UI / 旧版 mock 数据）：{ name, context? }
+    const actionObj = normalizeActionBinding(action as any);
+
+    if (!actionObj) {
+      console.error(
+        '[withA2UIBinding] action 字段缺失或不符合 ActionBinding 协议（应为字符串或 { action, params? }），实际收到：',
+        action,
+      );
+      return;
+    }
+
+    // 使用最新的 data 解析参数
+    const currentData = storeRef.current.getData();
+    const resolvedParams = actionObj.params
+      ? resolveActionParams(actionObj.params as Record<string, unknown>, currentData)
+      : {};
+
+    const resolvedAction: ActionBinding = {
+      ...actionObj,
+      params: resolvedParams,
+    };
+
+    onAction(resolvedAction);
+  }, [action, onAction]);
+
+  // 构建最终 props
+  const finalProps = useMemo(() => {
+    const props: any = {
+      ...componentProps,
+      disabled: boundDisabled,
+    };
+
+    // 如果有 valuePath，注入值和 onChange
+    if (valuePath !== undefined) {
+      props[valueField] = boundValue;
+      props[onChangeField] = handleChange;
+    }
+
+    // 如果支持 action，注入到指定的触发事件
+    if (supportsAction && action) {
+      const originalHandler = componentProps[actionTrigger];
+      props[actionTrigger] = (...args: any[]) => {
+        // 先调用原始处理器
+        if (typeof originalHandler === 'function') {
+          originalHandler(...args);
+        }
+        // 再触发 action
+        handleAction();
+      };
+    }
+
+    return props;
+  }, [
+    componentProps,
+    boundDisabled,
+    valuePath,
+    valueField,
+    boundValue,
+    onChangeField,
+    handleChange,
+    supportsAction,
+    action,
+    actionTrigger,
+    handleAction,
+  ]);
+
+  return <WrappedComponent {...(finalProps as P)}>{children}</WrappedComponent>;
+}
+
+/**
+ * A2UI 数据绑定 HOC
+ *
+ * 自动处理 A2UI 协议的标准字段，让原子组件保持纯净
+ *
+ * @param WrappedComponent 原始组件
+ * @param config 绑定配置
+ */
+export function withA2UIBinding<P extends Record<string, any>>(
+  WrappedComponent: React.ComponentType<P>,
+  config: A2UIBindingConfig = {},
+): React.FC<ComponentRenderProps> {
+  const {
+    valueField = 'value',
+    onChangeField = 'onChange',
+    supportsAction = false,
+    actionTrigger = 'onClick',
+  } = config;
+
+  const A2UIBoundComponent: React.FC<ComponentRenderProps> = (props) => (
+    <A2UIBoundInner
+      {...props}
+      WrappedComponent={WrappedComponent}
+      valueField={valueField}
+      onChangeField={onChangeField}
+      supportsAction={supportsAction}
+      actionTrigger={actionTrigger}
+    />
+  );
+
+  A2UIBoundComponent.displayName = `withA2UIBinding(${
+    WrappedComponent.displayName || WrappedComponent.name || 'Component'
+  })`;
+
+  // 使用 memo 包装，通过精确比较避免不必要渲染
+  return memo(A2UIBoundComponent, (prevProps, nextProps) => {
+    // element 引用相同，跳过渲染
+    if (prevProps.element === nextProps.element) return true;
+
+    // 比较关键字段
+    const prevEl = prevProps.element;
+    const nextEl = nextProps.element;
+
+    if (prevEl.type !== nextEl.type) return false;
+
+    // 比较 props（浅比较）
+    const prevElProps = prevEl.props || {};
+    const nextElProps = nextEl.props || {};
+    const prevKeys = Object.keys(prevElProps);
+    const nextKeys = Object.keys(nextElProps);
+
+    if (prevKeys.length !== nextKeys.length) return false;
+
+    for (const key of prevKeys) {
+      if (prevElProps[key] !== nextElProps[key]) return false;
+    }
+
+    return true;
+  });
+}
+
+export default withA2UIBinding;
