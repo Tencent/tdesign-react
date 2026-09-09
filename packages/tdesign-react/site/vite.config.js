@@ -1,14 +1,15 @@
-import react from '@vitejs/plugin-react';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+
 import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
+import react from '@vitejs/plugin-react';
+
 import pkg from '../package.json';
-
-import pwaConfig from './pwaConfig';
-
 import changelog2Json from './plugins/changelog-to-json';
+import generateLlms from './plugins/generate-llms';
 import tdocPlugin from './plugins/plugin-tdoc';
+import pwaConfig from './pwaConfig';
 
 // eslint-disable-next-line no-underscore-dangle
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -62,5 +63,12 @@ export default ({ mode }) =>
     test: {
       environment: 'jsdom',
     },
-    plugins: [react(), tdocPlugin(), changelog2Json(), VitePWA(pwaConfig), disableTreeShakingPlugin(['style/'])],
+    plugins: [
+      react(),
+      tdocPlugin(),
+      changelog2Json(),
+      generateLlms(),
+      VitePWA(pwaConfig),
+      disableTreeShakingPlugin(['style/']),
+    ],
   });

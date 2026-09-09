@@ -7,6 +7,7 @@ import react from '@vitejs/plugin-react';
 import pkg from '../package.json';
 import tdocPlugin from './plugin-tdoc';
 import changelog2Json from './plugins/changelog-to-json';
+import generateLlms from './plugins/generate-llms';
 
 // eslint-disable-next-line no-underscore-dangle
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -63,5 +64,5 @@ export default ({ mode }) =>
     test: {
       environment: 'jsdom',
     },
-    plugins: [react(), tdocPlugin(), changelog2Json(), disableTreeShakingPlugin(['style/'])],
+    plugins: [react(), tdocPlugin(), changelog2Json(), generateLlms(), disableTreeShakingPlugin(['style/'])],
   });
