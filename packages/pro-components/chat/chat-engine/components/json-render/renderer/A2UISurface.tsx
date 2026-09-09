@@ -118,11 +118,20 @@ export function useA2UISurface(options: UseA2UISurfaceOptions = {}): A2UISurface
   /**
    * 处理一批 A2UI v0.9.1 消息
    *
-   * 路由策略：
-   * - createSurface + updateComponents（同批）：调用 convertA2UIMessagesToJsonRender 一次性产出 schema 并 registerSurface
-   * - 已存在 surface 上的 updateComponents：调用 applyA2UIUpdates 增量更新现有 schema
-   * - updateDataModel：通过 surfaceStateManager.updateData 走标准订阅通知路径
-   * - deleteSurface：调用 surfaceStateManager.deleteSurface 并从本地列表移除
+   * ⚠️ 关键语义：A2UI 协议本身是"消息独立且按序处理"，但被外层 AG-UI 协议 batch 后
+   *   一条 event 内可能出现"生命周期粘连"的合法组合，例如：
+   *     1) update → delete （删除前的更新虽会被清理，但顺序必须保留以触发订阅者副作用）
+   *     2) delete → create（同 id 重建）  ← 最关键：绝不能因为发现 delete 就丢弃后续 create
+   *     3) 跨 surfaceId 混发
+   *   因此这里按 surfaceId 分组后，仍需**逐条按序处理**每条消息，让 delete/create 都是
+   *   独立的原子动作，而不是"发现 delete 就整批 return"。
+   *
+   * 路由策略（逐条按序处理）：
+   * - createSurface   → 建 root（若同批内跟着 updateComponents 一起到，走 convert 整批注册；
+   *                     否则记录 catalogId 等后续 update 到齐再注册）
+   * - updateComponents → 已注册：applyA2UIUpdates 增量合并；未注册：累积等 root 到位
+   * - updateDataModel → 走 surfaceStateManager.updateData 标准订阅通知路径
+   * - deleteSurface   → deleteSurface 并从本地列表移除；之后仍继续处理该 surfaceId 的后续消息
    */
   const processMessages = useCallback(
     (messages: A2UIMessage[]) => {
@@ -131,58 +140,104 @@ export function useA2UISurface(options: UseA2UISurfaceOptions = {}): A2UISurface
       const grouped = groupMessagesBySurface(messages);
 
       grouped.forEach((surfaceMessages, surfaceId) => {
-        // 先处理删除：删除后该批后续消息无意义
-        const hasDelete = surfaceMessages.some((msg) => msg.deleteSurface);
-        if (hasDelete) {
-          surfaceStateManager.deleteSurface(surfaceId);
-          removeSurfaceId(surfaceId);
-          if (debug) {
-            // eslint-disable-next-line no-console
-            console.log('[useA2UISurface] 删除 Surface:', surfaceId);
+        // 待建 Schema 用的消息缓冲（当 surface 尚未注册时累积 createSurface + updateComponents）
+        let pendingForBuild: A2UIMessage[] = [];
+        // 已注册期的合并快照
+        let mergedSchema: JsonRenderSchema | null = surfaceStateManager.hasSurface(surfaceId)
+          ? surfaceStateManager.getSchema(surfaceId)
+          : null;
+        let schemaDirty = false;
+        let pendingCatalogId: string | undefined;
+
+        const flushSchemaDirty = () => {
+          if (schemaDirty && mergedSchema) {
+            surfaceStateManager.updateSchema(surfaceId, mergedSchema);
+            addSurfaceId(surfaceId);
+            schemaDirty = false;
           }
-          return;
-        }
+        };
 
-        const hasCreate = surfaceMessages.some((msg) => msg.createSurface);
-        const existed = surfaceStateManager.hasSurface(surfaceId);
-
-        // 创建型 / 首次出现 → 整批转换并注册
-        if (hasCreate || !existed) {
-          const schema = convertA2UIMessagesToJsonRender(surfaceMessages);
+        const tryBuildAndRegister = () => {
+          if (surfaceStateManager.hasSurface(surfaceId)) return;
+          if (pendingForBuild.length === 0) return;
+          const schema = convertA2UIMessagesToJsonRender(pendingForBuild);
           if (schema) {
-            const catalogId = surfaceMessages.find((m) => m.createSurface)?.createSurface?.catalogId;
+            const catalogId =
+              pendingCatalogId || pendingForBuild.find((m) => m.createSurface)?.createSurface?.catalogId;
             surfaceStateManager.registerSurface(surfaceId, schema, catalogId);
             addSurfaceId(surfaceId);
+            mergedSchema = schema;
+            pendingForBuild = [];
+            pendingCatalogId = undefined;
             if (debug) {
               // eslint-disable-next-line no-console
               console.log('[useA2UISurface] 注册 Surface:', surfaceId);
             }
-            // 同批内已经包含 updateDataModel 的初始数据，convertA2UIMessagesToJsonRender 已处理
-            // 不需要再次走 updateData 路径
-            return;
           }
-        }
-
-        // 已存在的 Surface：分别派发各类消息
-        let mergedSchema: JsonRenderSchema | null = surfaceStateManager.getSchema(surfaceId);
-        let schemaDirty = false;
+        };
 
         for (const msg of surfaceMessages) {
-          if (msg.updateComponents && mergedSchema) {
-            mergedSchema = applyA2UIUpdates(mergedSchema, msg.updateComponents.components as any[]);
-            schemaDirty = true;
-          } else if (msg.updateDataModel) {
-            // updateDataModel 走 surfaceStateManager 标准订阅路径
-            const { path, op, value } = msg.updateDataModel;
-            surfaceStateManager.updateData(surfaceId, path, op || 'replace', value);
+          if (msg.deleteSurface) {
+            // 先把已注册期累积但未 flush 的更新落盘（可能触发外部订阅副作用），
+            // 然后按 A2UI 协议独立删除；不影响后续消息（例如同 id 重建）。
+            flushSchemaDirty();
+            surfaceStateManager.deleteSurface(surfaceId);
+            removeSurfaceId(surfaceId);
+            // 复位本 surface 的所有累积上下文，让后续 createSurface 能全新起步
+            pendingForBuild = [];
+            pendingCatalogId = undefined;
+            mergedSchema = null;
+            schemaDirty = false;
+            if (debug) {
+              // eslint-disable-next-line no-console
+              console.log('[useA2UISurface] 删除 Surface:', surfaceId);
+            }
+            continue;
+          }
+
+          if (msg.createSurface) {
+            pendingCatalogId = msg.createSurface.catalogId;
+            // Surface 已在 manager 中存在（例如同批先 delete 后再 create 到这里，
+            // 但 delete 分支已经清空过；再或者跨批场景），把 create 消息也纳入 pendingForBuild
+            // 以驱动首次注册。
+            pendingForBuild.push(msg);
+            tryBuildAndRegister();
+            continue;
+          }
+
+          if (msg.updateComponents) {
+            if (surfaceStateManager.hasSurface(surfaceId)) {
+              // 已注册 → 增量合并
+              if (!mergedSchema) mergedSchema = surfaceStateManager.getSchema(surfaceId);
+              if (mergedSchema) {
+                mergedSchema = applyA2UIUpdates(mergedSchema, msg.updateComponents.components as any[]);
+                schemaDirty = true;
+              }
+            } else {
+              // 未注册 → 累积等 root 到位后一次性 convert 建 schema
+              pendingForBuild.push(msg);
+              tryBuildAndRegister();
+            }
+            continue;
+          }
+
+          if (msg.updateDataModel) {
+            if (surfaceStateManager.hasSurface(surfaceId)) {
+              // 已注册 → 走标准订阅路径
+              // 先把待落盘的组件更新 flush 出去，避免顺序错乱
+              flushSchemaDirty();
+              const { path, op, value } = msg.updateDataModel;
+              surfaceStateManager.updateData(surfaceId, path, op || 'replace', value);
+            } else {
+              // 未注册 → 累积等待，convertA2UIMessagesToJsonRender 内部会处理初始数据
+              pendingForBuild.push(msg);
+            }
+            continue;
           }
         }
 
-        // 组件树变化：通过 updateSchema 通知订阅者
-        if (schemaDirty && mergedSchema) {
-          surfaceStateManager.updateSchema(surfaceId, mergedSchema);
-          addSurfaceId(surfaceId);
-        }
+        // 循环结束后统一 flush 组件树变化
+        flushSchemaDirty();
       });
     },
     [addSurfaceId, removeSurfaceId, debug],

@@ -12,7 +12,9 @@
  * 停顿 → updateDataModel），每一步都能正确增量渲染。
  *
  * 消息路由策略（与 useA2UISurface hook 保持一致 + 遵循 A2UI 官方规范）：
- * 1. deleteSurface  → surfaceStateManager.deleteSurface（并通知所有订阅者）
+ * 1. deleteSurface  → surfaceStateManager.deleteSurface（并通知所有订阅者）；
+ *                     仅当目标是本 renderer 关注的 surfaceId 时才卸载 UI，
+ *                     且**不中断整批处理**——同批后续 createSurface（同 id 重开）会被独立处理
  * 2. createSurface  → 记录 surfaceId + catalogId；若切片内已有 root 组件则立即 registerSurface；
  *                     否则进入"等待 root"状态，后续切片凑齐 root 时才注册
  * 3. Attach 已存在 Surface → 后续会话只发 update 消息时，surfaceStateManager 里已有该 Surface，
@@ -20,6 +22,10 @@
  * 4. updateComponents（Surface 已注册） → applyA2UIUpdates 增量合并 schema，触发 updateSchema
  * 5. updateDataModel（Surface 已注册） → surfaceStateManager.updateData（原有路径）
  * 6. updateComponents / updateDataModel（Surface 尚不存在） → 累积等待 root 到位后建 Schema
+ *
+ * ⚠️ 顺序保序原则：A2UI 协议本身"消息独立按序"，被 AG-UI batch 后仍需按 slice 顺序逐条处理，
+ *    禁止使用 `some(has deleteSurface)` 之类的探测式短路——否则会误伤 delete 之后的重建消息
+ *    以及跨 surface 的其他消息。
  *
  * Ownership 机制（"先到先得"语义，符合 A2UI 官方"surfaceId 全局唯一"）：
  * - 每个 renderer 实例 mount 生成唯一 ownerToken
@@ -293,6 +299,23 @@ export const A2UIJsonRenderActivityRenderer: React.FC<A2UIJsonRenderActivityRend
  * @param bumpRender   触发外层重新读取 schema 的回调（用于首次 register 后立刻显示 UI）
  * @param debug        调试开关
  */
+/**
+ * 处理一批新增消息切片
+ *
+ * ⚠️ 关键语义：A2UI 协议本身是"消息独立且按序处理"，但被外层 AG-UI 协议 batch 后，
+ *   一个 slice 内可能出现"生命周期粘连"的合法组合，例如：
+ *     1) update → delete → create（同 id 重开）
+ *     2) delete 目标是另一个 surface（不是本 renderer 关注的）
+ *   因此这里**必须按 slice 出现顺序，逐条消息处理**，让 create/update/delete 都是独立的
+ *   原子动作，而不是"发现 delete 就整批 return"（那会误伤 delete 之后的 create/update
+ *   以及跨 surface 的其他消息）。
+ *
+ * @param slice        本次新增的消息（未曾处理过）
+ * @param state        分帧状态（会被 mutate）
+ * @param fullMessages 完整消息数组（用于"从头补 root"场景）
+ * @param bumpRender   触发外层重新读取 schema 的回调（用于首次 register 后立刻显示 UI）
+ * @param debug        调试开关
+ */
 function processIncrementalSlice(
   slice: A2UIMessage[],
   state: FrameState,
@@ -300,120 +323,151 @@ function processIncrementalSlice(
   bumpRender: () => void,
   debug: boolean,
 ): void {
-  // 1) 先检查 deleteSurface —— 后续消息在 delete 之后无意义
-  for (const msg of slice) {
-    if (msg.deleteSurface) {
-      const { surfaceId } = msg.deleteSurface;
-      surfaceStateManager.deleteSurface(surfaceId);
-      if (state.surfaceId === surfaceId) {
-        state.registered = false;
-      }
-      if (debug) {
-        // eslint-disable-next-line no-console
-        console.log('[A2UI Adapter] 删除 Surface:', surfaceId);
-      }
-      // 关键：state.registered 只是 ref 内部字段，React 不知道它变了。
-      // 必须显式触发一次重渲染，才能让 currentSchema useMemo 重新计算并返回 null，
-      // 从而让 <JsonRenderActivityRenderer /> 真正卸载，UI 从画面上消失。
-      bumpRender();
-      // 简化处理：delete 消息内的其他消息类型忽略（协议中不会同批混发）
-      return;
-    }
-  }
+  // 已注册期用于合并 updateComponents 的快照 & 脏标记
+  let mergedSchema = state.registered && state.surfaceId ? surfaceStateManager.getSchema(state.surfaceId) : null;
+  let schemaDirty = false;
 
-  // 2) 提取本切片中的 createSurface（如有）
-  for (const msg of slice) {
-    if (msg.createSurface && !state.surfaceId) {
-      state.surfaceId = msg.createSurface.surfaceId;
-      state.catalogId = msg.createSurface.catalogId;
-      if (debug) {
-        // eslint-disable-next-line no-console
-        console.log('[A2UI Adapter] 识别 Surface:', state.surfaceId);
-      }
-    }
-  }
-
-  // 也允许通过其他消息类型反推 surfaceId（兼容极端场景：没有 createSurface 直接 updateComponents）
-  if (!state.surfaceId) {
-    state.surfaceId = extractSurfaceId(slice);
-  }
-  if (!state.surfaceId) {
-    if (debug) {
-      // eslint-disable-next-line no-console
-      console.log('[A2UI Adapter] 切片无 surfaceId，跳过');
-    }
-    return;
-  }
-
-  // 3) Attach 到已存在的 Surface（A2UI 官方规范：surfaceId 全局唯一，不允许重复 create）
-  //
-  // 场景：服务端本次会话只发 updateComponents/updateDataModel，不发 createSurface
-  //      （因为该 Surface 已经在前一次会话中创建过）。
-  // 处理：直接把本 renderer 实例挂到已有 Surface 上，标记 registered=true，触发订阅。
-  //      本次切片里的 updateComponents/updateDataModel 会在下一个分支处理。
-  if (!state.registered && surfaceStateManager.hasSurface(state.surfaceId)) {
-    state.registered = true;
-    // 触发外层 useMemo 重取 schema + useEffect 建立订阅
-    bumpRender();
-    if (debug) {
-      // eslint-disable-next-line no-console
-      console.log('[A2UI Adapter] Attach 到已存在的 Surface:', state.surfaceId);
-    }
-  }
-
-  // 4) 已注册 Surface 的常规分派
-  if (state.registered) {
-    let mergedSchema = surfaceStateManager.getSchema(state.surfaceId);
-    let schemaDirty = false;
-
-    for (const msg of slice) {
-      if (msg.updateComponents && mergedSchema) {
-        mergedSchema = applyA2UIUpdates(mergedSchema, msg.updateComponents.components as any[]);
-        schemaDirty = true;
-        if (debug) {
-          // eslint-disable-next-line no-console
-          console.log('[A2UI Adapter] 增量合并组件:', {
-            surfaceId: state.surfaceId,
-            componentsCount: msg.updateComponents.components?.length,
-            incomingIds: msg.updateComponents.components?.map((c) => c.id),
-            allElementIds: Object.keys(mergedSchema.elements),
-          });
-        }
-      } else if (msg.updateDataModel) {
-        const { path, op, value } = msg.updateDataModel;
-        surfaceStateManager.updateData(state.surfaceId, path, op || 'replace', value);
-      }
-    }
-
-    if (schemaDirty && mergedSchema) {
+  const flushSchemaDirty = () => {
+    if (schemaDirty && mergedSchema && state.surfaceId) {
       surfaceStateManager.updateSchema(state.surfaceId, mergedSchema);
+      schemaDirty = false;
     }
-    return;
-  }
+  };
 
-  // 5) Surface 尚未注册且 surfaceStateManager 里也不存在：从头建 Schema
-  //    fullMessages 是完整已到达的消息数组，convertA2UIMessagesToJsonRender 会做累积合并
-  const schema = convertA2UIMessagesToJsonRender(fullMessages);
-  if (schema) {
-    surfaceStateManager.registerSurface(state.surfaceId, schema, state.catalogId);
-    state.registered = true;
-    // 主动触发一次外层重取 schema，让首屏立即显示
-    bumpRender();
-    if (debug) {
+  // 尝试从当前累积的 fullMessages 建 schema（用于"未注册期 update 到齐 root"或"delete 后同 id 重建"）
+  const tryBuildAndRegisterFromFull = () => {
+    if (!state.surfaceId) return;
+    if (surfaceStateManager.hasSurface(state.surfaceId)) return;
+    const schema = convertA2UIMessagesToJsonRender(fullMessages);
+    if (schema) {
+      surfaceStateManager.registerSurface(state.surfaceId, schema, state.catalogId);
+      state.registered = true;
+      mergedSchema = schema;
+      bumpRender();
+      if (debug) {
+        // eslint-disable-next-line no-console
+        console.log('[A2UI Adapter] Surface 注册成功:', {
+          surfaceId: state.surfaceId,
+          elementsCount: Object.keys(schema.elements).length,
+          allElementIds: Object.keys(schema.elements),
+          dataKeys: Object.keys(schema.data || {}),
+        });
+      }
+    } else if (debug) {
       // eslint-disable-next-line no-console
-      console.log('[A2UI Adapter] Surface 注册成功:', {
-        surfaceId: state.surfaceId,
-        elementsCount: Object.keys(schema.elements).length,
-        allElementIds: Object.keys(schema.elements),
-        dataKeys: Object.keys(schema.data || {}),
+      console.log('[A2UI Adapter] Surface 尚未凑齐 root 组件，等待后续切片:', state.surfaceId, {
+        fullMessagesCount: fullMessages.length,
       });
     }
-  } else if (debug) {
-    // eslint-disable-next-line no-console
-    console.log('[A2UI Adapter] Surface 尚未凑齐 root 组件，等待后续切片:', state.surfaceId, {
-      fullMessagesCount: fullMessages.length,
-    });
+  };
+
+  for (const msg of slice) {
+    // ---------- deleteSurface ----------
+    if (msg.deleteSurface) {
+      const { surfaceId: delId } = msg.deleteSurface;
+      // 先把已注册期未落盘的组件更新 flush 出去（触发订阅副作用后再删除）
+      if (state.registered && state.surfaceId === delId) {
+        flushSchemaDirty();
+      }
+      surfaceStateManager.deleteSurface(delId);
+      if (state.surfaceId === delId) {
+        // 本 renderer 关注的 surface 被删：复位状态，允许同 slice 内后续 createSurface 重开
+        state.registered = false;
+        mergedSchema = null;
+        schemaDirty = false;
+        // 触发一次外层重渲染，让 UI 卸载（渲染层依赖 registered + hasSurface）
+        bumpRender();
+      }
+      if (debug) {
+        // eslint-disable-next-line no-console
+        console.log('[A2UI Adapter] 删除 Surface:', delId);
+      }
+      continue;
+    }
+
+    // ---------- createSurface ----------
+    if (msg.createSurface) {
+      const { surfaceId: newId, catalogId } = msg.createSurface;
+      // 仅在本 renderer 尚未绑定 surface 或前一个已被 delete 时接受新 surface
+      // （state.surfaceId 已在 deleteSurface 分支保留下来，但 registered=false，此时允许覆盖）
+      if (!state.surfaceId || !state.registered) {
+        state.surfaceId = newId;
+        state.catalogId = catalogId;
+        if (debug) {
+          // eslint-disable-next-line no-console
+          console.log('[A2UI Adapter] 识别 Surface:', state.surfaceId);
+        }
+        // 尝试立刻从 fullMessages 建 schema（若 root 已在累积消息中）
+        tryBuildAndRegisterFromFull();
+      }
+      continue;
+    }
+
+    // ---------- updateComponents / updateDataModel 前置：确定 surfaceId ----------
+    if (!state.surfaceId) {
+      // 兼容极端场景：切片内没有 createSurface 直接 updateComponents
+      state.surfaceId = extractSurfaceId([msg]) || extractSurfaceId(slice);
+      if (!state.surfaceId) {
+        if (debug) {
+          // eslint-disable-next-line no-console
+          console.log('[A2UI Adapter] 消息无 surfaceId，跳过:', msg);
+        }
+        continue;
+      }
+    }
+
+    // Attach 到已存在的 Surface（A2UI 规范：surfaceId 全局唯一，跨会话 attach）
+    if (!state.registered && surfaceStateManager.hasSurface(state.surfaceId)) {
+      state.registered = true;
+      mergedSchema = surfaceStateManager.getSchema(state.surfaceId);
+      bumpRender();
+      if (debug) {
+        // eslint-disable-next-line no-console
+        console.log('[A2UI Adapter] Attach 到已存在的 Surface:', state.surfaceId);
+      }
+    }
+
+    // ---------- updateComponents ----------
+    if (msg.updateComponents) {
+      if (state.registered) {
+        if (!mergedSchema) mergedSchema = surfaceStateManager.getSchema(state.surfaceId);
+        if (mergedSchema) {
+          mergedSchema = applyA2UIUpdates(mergedSchema, msg.updateComponents.components as any[]);
+          schemaDirty = true;
+          if (debug) {
+            // eslint-disable-next-line no-console
+            console.log('[A2UI Adapter] 增量合并组件:', {
+              surfaceId: state.surfaceId,
+              componentsCount: msg.updateComponents.components?.length,
+              incomingIds: msg.updateComponents.components?.map((c) => c.id),
+              allElementIds: Object.keys(mergedSchema.elements),
+            });
+          }
+        }
+      } else {
+        // 未注册 → 尝试从 fullMessages 建 schema（root 可能刚好到位）
+        tryBuildAndRegisterFromFull();
+      }
+      continue;
+    }
+
+    // ---------- updateDataModel ----------
+    if (msg.updateDataModel) {
+      if (state.registered) {
+        // 保序：先把组件更新落盘再更新数据
+        flushSchemaDirty();
+        const { path, op, value } = msg.updateDataModel;
+        surfaceStateManager.updateData(state.surfaceId, path, op || 'replace', value);
+      } else {
+        // 未注册 → 数据先随 fullMessages 累积，convertA2UIMessagesToJsonRender 内部会处理
+        tryBuildAndRegisterFromFull();
+      }
+      continue;
+    }
   }
+
+  // 循环结束后统一 flush 组件树变化
+  flushSchemaDirty();
 }
 
 export default A2UIJsonRenderActivityRenderer;
