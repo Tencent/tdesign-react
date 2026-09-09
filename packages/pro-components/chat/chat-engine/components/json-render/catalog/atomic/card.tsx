@@ -4,8 +4,11 @@
 
 import React from 'react';
 import { Card } from 'tdesign-react';
+
+import { sanitizeProps } from '../../utils/sanitize-props';
+
 import type { CardProps } from 'tdesign-react';
-import { ComponentRenderProps } from '../../types';
+import type { ComponentRenderProps } from '../../types';
 
 /**
  * json-render Card 组件
@@ -29,6 +32,9 @@ export const JsonRenderCard: React.FC<ComponentRenderProps> = ({ element, childr
     ...restProps
   } = element.props as CardProps;
 
+  // 安全过滤：剔除 dangerouslySetInnerHTML 等危险字段，避免 XSS 注入
+  const safeRestProps = sanitizeProps(restProps);
+
   return (
     <Card
       title={title}
@@ -44,7 +50,7 @@ export const JsonRenderCard: React.FC<ComponentRenderProps> = ({ element, childr
       hoverable={hoverable}
       header={header}
       footer={footer}
-      {...restProps}
+      {...safeRestProps}
     >
       {children}
     </Card>

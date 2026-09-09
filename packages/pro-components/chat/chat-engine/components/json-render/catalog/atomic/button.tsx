@@ -8,6 +8,8 @@
 import React, { useCallback } from 'react';
 import { Button } from 'tdesign-react';
 
+import { sanitizeProps } from '../../utils/sanitize-props';
+
 import type { ActionBinding } from '@json-render/core';
 import type { ButtonProps } from 'tdesign-react';
 import type { ComponentRenderProps } from '../../types';
@@ -85,6 +87,9 @@ export const JsonRenderButton: React.FC<ComponentRenderProps> = ({
   const isLoading = loading || parentLoading;
   const content = label || children;
 
+  // 安全过滤：剔除 dangerouslySetInnerHTML 等危险字段，避免 XSS 注入
+  const safeRestProps = sanitizeProps(restProps);
+
   return (
     <Button
       variant={variant}
@@ -96,7 +101,7 @@ export const JsonRenderButton: React.FC<ComponentRenderProps> = ({
       shape={shape}
       ghost={ghost}
       onClick={handleClick}
-      {...restProps}
+      {...safeRestProps}
     >
       {content}
     </Button>

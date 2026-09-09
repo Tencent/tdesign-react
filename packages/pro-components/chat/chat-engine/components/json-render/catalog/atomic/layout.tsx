@@ -1,26 +1,28 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * TDesign 布局组件适配 json-render
  * 包含 Row、Col、Space、Column、Divider 等布局组件
  */
 
 import React from 'react';
-import { Row, Col, Space, Divider } from 'tdesign-react';
-import type { RowProps, ColProps, SpaceProps, DividerProps } from 'tdesign-react';
-import { type ComponentRenderProps } from '../../types';
+import { Col, Divider, Row, Space } from 'tdesign-react';
+
+import { sanitizeProps } from '../../utils/sanitize-props';
+
+import type { ColProps, DividerProps, RowProps, SpaceProps } from 'tdesign-react';
+import type { ComponentRenderProps } from '../../types';
 
 /**
  * json-render Row 组件
  */
 export const JsonRenderRow: React.FC<ComponentRenderProps> = ({ element, children }) => {
-  const {
-    align = 'top',
-    gutter = 0,
-    justify = 'start',
-    ...restProps
-  } = element.props as RowProps;
+  const { align = 'top', gutter = 0, justify = 'start', ...restProps } = element.props as RowProps;
+
+  // 安全过滤：剔除 dangerouslySetInnerHTML 等危险字段，避免 XSS 注入
+  const safeRestProps = sanitizeProps(restProps as Record<string, unknown>);
 
   return (
-    <Row align={align} gutter={gutter} justify={justify} {...restProps}>
+    <Row align={align} gutter={gutter} justify={justify} {...safeRestProps}>
       {children}
     </Row>
   );
@@ -34,8 +36,11 @@ JsonRenderRow.displayName = 'JsonRenderRow';
 export const JsonRenderCol: React.FC<ComponentRenderProps> = ({ element, children }) => {
   const { span, offset, order, push, pull, flex, ...restProps } = element.props as ColProps;
 
+  // 安全过滤：剔除 dangerouslySetInnerHTML 等危险字段，避免 XSS 注入
+  const safeRestProps = sanitizeProps(restProps as Record<string, unknown>);
+
   return (
-    <Col span={span} offset={offset} order={order} push={push} pull={pull} flex={flex} {...restProps}>
+    <Col span={span} offset={offset} order={order} push={push} pull={pull} flex={flex} {...safeRestProps}>
       {children}
     </Col>
   );
@@ -56,6 +61,9 @@ export const JsonRenderSpace: React.FC<ComponentRenderProps> = ({ element, child
     ...restProps
   } = element.props as SpaceProps;
 
+  // 安全过滤：剔除 dangerouslySetInnerHTML 等危险字段，避免 XSS 注入
+  const safeRestProps = sanitizeProps(restProps as Record<string, unknown>);
+
   return (
     <Space
       align={align}
@@ -63,7 +71,7 @@ export const JsonRenderSpace: React.FC<ComponentRenderProps> = ({ element, child
       size={size}
       separator={separator}
       breakLine={breakLine}
-      {...restProps}
+      {...safeRestProps}
     >
       {children}
     </Space>
@@ -82,15 +90,13 @@ export interface JsonRenderColumnProps extends Omit<SpaceProps, 'direction'> {
 }
 
 export const JsonRenderColumn: React.FC<ComponentRenderProps> = ({ element, children }) => {
-  const {
-    gap,
-    size = gap || 'small',
-    align = 'stretch',
-    ...restProps
-  } = element.props as JsonRenderColumnProps;
+  const { gap, size = gap || 'small', align = 'stretch', ...restProps } = element.props as JsonRenderColumnProps;
+
+  // 安全过滤：剔除 dangerouslySetInnerHTML 等危险字段，避免 XSS 注入
+  const safeRestProps = sanitizeProps(restProps as Record<string, unknown>);
 
   return (
-    <Space direction="vertical" align={align} size={size} style={{ width: '100%' }} {...restProps}>
+    <Space direction="vertical" align={align} size={size} style={{ width: '100%' }} {...safeRestProps}>
       {children}
     </Space>
   );
@@ -114,13 +120,11 @@ export const JsonRenderDivider: React.FC<DividerProps & { children?: React.React
     ...restProps
   } = props as any;
 
+  // 安全过滤：剔除 dangerouslySetInnerHTML 等危险字段，避免 XSS 注入
+  const safeRestProps = sanitizeProps(restProps as Record<string, unknown>);
+
   return (
-    <Divider
-      align={align}
-      dashed={dashed}
-      layout={layout}
-      {...restProps}
-    >
+    <Divider align={align} dashed={dashed} layout={layout} {...safeRestProps}>
       {children}
     </Divider>
   );

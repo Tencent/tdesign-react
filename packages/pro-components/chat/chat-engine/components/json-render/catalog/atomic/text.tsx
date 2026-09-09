@@ -5,6 +5,7 @@
 import React from 'react';
 
 import { useDataValue } from '../../contexts';
+import { sanitizeProps } from '../../utils/sanitize-props';
 
 import type { ComponentRenderProps } from '../../types';
 
@@ -38,8 +39,11 @@ export const JsonRenderText: React.FC<ComponentRenderProps> = ({ element, childr
     text = children;
   }
 
+  // 安全过滤：剔除 dangerouslySetInnerHTML 等危险字段，避免 XSS 注入
+  const safeRestProps = sanitizeProps(restProps);
+
   return (
-    <span style={style} className={className} {...restProps}>
+    <span style={style} className={className} {...safeRestProps}>
       {text}
     </span>
   );

@@ -39,6 +39,7 @@ import React, { memo, useCallback, useMemo, useRef } from 'react';
 import { normalizeActionBinding, resolveActionParams } from '@tdesign/web-components-chat/chat-engine';
 
 import { useDataBinding, useDataStore, useDataValue } from '..';
+import { sanitizeProps } from '../utils/sanitize-props';
 
 import type { ActionBinding } from '@json-render/core';
 import type { ComponentRenderProps } from '../types';
@@ -159,8 +160,11 @@ function A2UIBoundInner<P extends Record<string, any>>({
 
   // 构建最终 props
   const finalProps = useMemo(() => {
+    // 安全过滤：剔除服务端下发的 dangerouslySetInnerHTML / 危险协议 URL / 字符串型 onXxx
+    const safeComponentProps = sanitizeProps(componentProps as Record<string, unknown>);
+
     const props: any = {
-      ...componentProps,
+      ...safeComponentProps,
       disabled: boundDisabled,
     };
 
@@ -172,7 +176,7 @@ function A2UIBoundInner<P extends Record<string, any>>({
 
     // 如果支持 action，注入到指定的触发事件
     if (supportsAction && action) {
-      const originalHandler = componentProps[actionTrigger];
+      const originalHandler = safeComponentProps[actionTrigger];
       props[actionTrigger] = (...args: any[]) => {
         // 先调用原始处理器
         if (typeof originalHandler === 'function') {
