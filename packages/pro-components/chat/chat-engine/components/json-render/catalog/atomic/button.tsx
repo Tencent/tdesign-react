@@ -46,7 +46,8 @@ export const JsonRenderButton: React.FC<ComponentRenderProps> = ({
   // 处理点击事件
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
-      if (onClick) {
+      // onClick 可能来自服务端下发，需二次校验类型
+      if (typeof onClick === 'function') {
         onClick(e);
       }
 

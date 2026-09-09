@@ -8,7 +8,7 @@
 import React from 'react';
 import { Input, Space } from 'tdesign-react';
 
-import { useDataBinding } from '../..';
+import { useDataBinding } from '../../contexts/data';
 import { sanitizeProps } from '../../utils/sanitize-props';
 
 import type { InputProps } from 'tdesign-react';

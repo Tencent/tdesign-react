@@ -4,12 +4,13 @@
  * 使用场景：
  * 服务端下发的 element.props 经过 `{...restProps}` 展开到 DOM 元素时，可能
  * 携带如下危险字段：
- *   1. `dangerouslySetInnerHTML`：直接注入 HTML，可执行任意脚本（XSS）
+ *   1. `dangerouslySetInnerHTML` / `innerHTML` 等：直接注入 HTML，可执行任意脚本（XSS）
  *   2. `ref` / `key`：React 保留字段，非预期透传可能引发运行时异常
  *   3. `href` / `src` 等 URL 属性中的 `javascript:` / `data:` / `vbscript:` 协议
  *   4. 字符串型的 `onXxx` 事件处理器（React 只接受函数，字符串无意义）
+ *   5. `__proto__` / `prototype` / `constructor` 等原型相关字段（原型污染）
  *
- * 本工具通过黑名单方式过滤上述危险字段，保证展开到 DOM 的 props 安全。
+ * 所有 key 判定均大小写不敏感（按 toLowerCase 归一化后匹配）。
  *
  * 为什么不用 DOMPurify：
  * - DOMPurify 用于清洗「HTML 字符串」，我们的场景是过滤「React props 对象」
@@ -19,29 +20,32 @@
 
 /** 禁止透传到 DOM 的 React 保留字段 / XSS 通道字段 */
 const BLOCKED_KEYS = new Set<string>([
-  // 可直接执行 HTML 的字段
-  'dangerouslySetInnerHTML',
-  // 用小写别名兜底（防止服务端下发大小写变体）
-  'innerHTML',
-  // React 保留字段，展开传入无意义且可能引发异常
+  'dangerouslysetinnerhtml',
+  'innerhtml',
+  'outerhtml',
+  'textcontent',
+  'srcdoc',
   'ref',
   'key',
 ]);
+
+/** 原型相关字段，禁止参与结果对象构造，防止原型污染 */
+const BLOCKED_OBJECT_KEYS = new Set<string>(['__proto__', 'prototype', 'constructor']);
 
 /** 危险的 URL 协议 */
 const DANGEROUS_URL_PROTOCOL = /^\s*(javascript|data|vbscript):/i;
 
 /** 需要做协议白名单校验的 URL 类属性 */
-const URL_PROPS = new Set<string>(['href', 'src', 'action', 'formAction', 'poster', 'xlinkHref']);
+const URL_PROPS = new Set<string>(['href', 'src', 'action', 'formaction', 'poster', 'xlinkhref']);
 
-/** 事件处理器字段命名规则（React 规范：onXxx） */
-const EVENT_HANDLER_RE = /^on[A-Z]/;
+/** 事件处理器字段命名规则：onXxx */
+const EVENT_HANDLER_RE = /^on[a-z]/i;
 
 /**
  * 过滤服务端下发的 props，避免 XSS 通道
  *
  * 处理规则：
- * 1. 命中 BLOCKED_KEYS 的字段直接丢弃
+ * 1. 命中 BLOCKED_KEYS / BLOCKED_OBJECT_KEYS 的字段直接丢弃
  * 2. URL 类属性中若使用危险协议（javascript: / data: / vbscript:），丢弃该字段
  * 3. `onXxx` 事件处理器若不是函数类型（例如字符串），丢弃该字段
  *
@@ -59,20 +63,19 @@ export function sanitizeProps<T extends Record<string, unknown>>(props: T): Part
     return {} as Partial<T>;
   }
 
-  const result: Record<string, unknown> = {};
+  // 使用 null 原型对象承接结果，避免原型链污染影响遍历
+  const result: Record<string, unknown> = Object.create(null);
 
   for (const key of Object.keys(props)) {
     const value = props[key];
+    const normalizedKey = key.toLowerCase();
 
-    // 1. 黑名单 key
-    if (BLOCKED_KEYS.has(key)) continue;
+    if (BLOCKED_KEYS.has(normalizedKey) || BLOCKED_OBJECT_KEYS.has(normalizedKey)) continue;
 
-    // 2. URL 协议校验
-    if (URL_PROPS.has(key) && typeof value === 'string' && DANGEROUS_URL_PROTOCOL.test(value)) {
+    if (URL_PROPS.has(normalizedKey) && typeof value === 'string' && DANGEROUS_URL_PROTOCOL.test(value)) {
       continue;
     }
 
-    // 3. 事件处理器必须是函数
     if (EVENT_HANDLER_RE.test(key) && typeof value !== 'function') {
       continue;
     }
@@ -80,7 +83,8 @@ export function sanitizeProps<T extends Record<string, unknown>>(props: T): Part
     result[key] = value;
   }
 
-  return result as Partial<T>;
+  // 转回普通对象原型，方便下游 `{...safeProps}` 展开使用
+  return { ...result } as Partial<T>;
 }
 
 export default sanitizeProps;
