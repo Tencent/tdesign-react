@@ -83,6 +83,7 @@ export default function generateChatLlms() {
         splineLabels: { aigc: 'AI' },
         siteTitle: 'TDesign React AIGC',
         siteDescription: 'TDesign React AIGC 聊天组件库的 LLM 友好文档索引。',
+        siteBaseUrl: config.base,
       });
     },
   };

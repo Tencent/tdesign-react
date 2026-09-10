@@ -88,6 +88,7 @@ export default function generateLlms() {
         parseComponentDoc,
         siteTitle: 'TDesign React',
         siteDescription: 'TDesign React 组件库的 LLM 友好文档索引。',
+        siteBaseUrl: config.base,
       });
     },
   };
