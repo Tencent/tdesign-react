@@ -1,8 +1,8 @@
-import 'tdesign-web-components/lib/attachments';
+import '@tdesign/web-components-chat/attachments';
 
 import reactify from '../_util/reactify';
 
-import type { TdAttachmentsProps } from 'tdesign-web-components';
+import type { TdAttachmentsProps } from '@tdesign/web-components-chat';
 
 export const Attachments: React.ForwardRefExoticComponent<
   Omit<TdAttachmentsProps, 'ref'> & React.RefAttributes<HTMLElement | undefined>
@@ -10,4 +10,4 @@ export const Attachments: React.ForwardRefExoticComponent<
 
 export default Attachments;
 
-export type { TdAttachmentItem, TdAttachmentsProps } from 'tdesign-web-components';
+export type { TdAttachmentItem, TdAttachmentsProps } from '@tdesign/web-components-chat';

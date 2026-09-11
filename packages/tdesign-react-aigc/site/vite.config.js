@@ -36,11 +36,12 @@ export default ({ mode }) =>
     resolve: {
       alias: {
         '@tdesign-react/chat': path.resolve(__dirname, '../../pro-components/chat'),
-        '@tdesign/ai-chat-engine': path.resolve(__dirname, '../../ai-core/packages/chat-engine/index.ts'),
         '@tdesign/react-aigc-site': path.resolve(__dirname, './'),
         'tdesign-react/es': path.resolve(__dirname, '../../components'),
         'tdesign-react': path.resolve(__dirname, '../../components'),
       },
+      // 添加 dedupe，强制使用子包中的依赖
+      dedupe: ['tdesign-web-components'],
     },
     build: {
       rollupOptions: {
