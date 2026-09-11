@@ -72,7 +72,7 @@ const Affix = forwardRef<AffixRef, AffixProps>((props, ref) => {
           if (isWindow(scrollContainer.current)) {
             containerHeight = scrollContainer.current.innerHeight - wrapHeight;
           } else {
-            containerHeight = scrollContainer.current?.clientHeight - wrapHeight;
+            containerHeight = (scrollContainer.current?.clientHeight ?? 0) - wrapHeight;
           }
 
           const calcBottom = containerToTop + containerHeight - (offsetBottom ?? 0); // 计算 bottom 相对应的 top 值

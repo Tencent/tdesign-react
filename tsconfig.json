@@ -37,7 +37,7 @@
         "./packages/common/*"
       ],
     },
-     "types": [
+    "types": [
       "node",
       "jest",
       "vitest/globals",

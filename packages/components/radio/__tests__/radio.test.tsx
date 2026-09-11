@@ -140,9 +140,27 @@ describe('RadioGroup [basic api]', () => {
 describe('RadioGroup [primary-filled bg-block]', () => {
   const MOCK_SIZES = [
     { selector: '.t-radio-group', width: 300, height: 40, left: 0, top: 0 },
-    { selector: '.t-radio-button:nth-child(1)', width: 60, height: 32, left: 4, top: 4 },
-    { selector: '.t-radio-button:nth-child(2)', width: 60, height: 32, left: 68, top: 4 },
-    { selector: '.t-radio-button:nth-child(3)', width: 60, height: 32, left: 132, top: 4 },
+    {
+      selector: '.t-radio-button:nth-child(1)',
+      width: 60,
+      height: 32,
+      left: 4,
+      top: 4,
+    },
+    {
+      selector: '.t-radio-button:nth-child(2)',
+      width: 60,
+      height: 32,
+      left: 68,
+      top: 4,
+    },
+    {
+      selector: '.t-radio-button:nth-child(3)',
+      width: 60,
+      height: 32,
+      left: 132,
+      top: 4,
+    },
   ];
 
   // 根据选项索引获取对应按钮的尺寸数据
@@ -218,7 +236,9 @@ describe('RadioGroup [primary-filled bg-block]', () => {
     expect(container.querySelector('.t-radio-group__bg-block')).not.toBeInTheDocument();
 
     await act(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 150));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 150);
+      });
     });
 
     const bgBlock = container.querySelector('.t-radio-group__bg-block') as HTMLElement;
@@ -302,7 +322,9 @@ describe('RadioGroup [primary-filled bg-block]', () => {
     }
 
     await act(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 100);
+      });
     });
 
     const bgBlock = container.querySelector('.t-radio-group__bg-block') as HTMLElement;
