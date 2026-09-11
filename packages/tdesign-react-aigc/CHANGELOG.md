@@ -5,6 +5,21 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.1.0 `2026-09-11`
+
+### 🚀 Features
+
+- 底层 Web Components 从 `tdesign-web-components` 迁移到 `@tdesign/web-components-chat` @LzhengH ([#4381](https://github.com/Tencent/tdesign-react/pull/4381))
+- `ChatEngine`: 
+  - 新增生成式 UI，内置 json-render Catalog/Registry、自定义组件、Action 与数据绑定；支持通过 AG-UI Activity 流式渲染，并内置 A2UI v0.9 适配 @LzhengH ([#4381](https://github.com/Tencent/tdesign-react/pull/4381))
+  - 兼容最新版本的 AG-UI 协议 reasoning 相关字段 @LzhengH ([#4381](https://github.com/Tencent/tdesign-react/pull/4381))
+  - 支持 reasoning 与 markdown 内容的多重增量更新 @LzhengH ([#4381](https://github.com/Tencent/tdesign-react/pull/4381))
+
+### 🐞 Bug Fixes
+
+- `ChatMarkdown`: 修复引用块内列表缩进丢失导致样式重叠 @LzhengH ([#4381](https://github.com/Tencent/tdesign-react/pull/4381))
+- `ChatSender`: 修复中文输入法拼音组合阶段按 Enter 误发送 @LzhengH ([#4381](https://github.com/Tencent/tdesign-react/pull/4381))
+
 ## 🌈 1.0.2 `2026-02-05`
 
 ### 🚀 Features
