@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { fireEvent, mockDelay, mockTimeout, render, userEvent, vi } from '@test/utils';
 
 import Tag from '../../tag';
-import Cascader, { CascaderPanel } from '../index';
+import Cascader from '../index';
 
 const options = [
   {
@@ -80,503 +80,428 @@ const optionsData = [
 const popupSelector = '.t-popup';
 
 // TODO
-describe('Cascader 组件测试', () => {
-  test('设置 checkStrictly 时每项应该可各自选中或取消', async () => {
-    const btnText = 'change';
-    const TestComponent = () => {
-      const [strict, setStrict] = useState(false);
-      return (
-        <>
-          <button onClick={() => setStrict(!strict)}>{btnText}</button>
-          <Cascader options={options} checkStrictly={strict} />
-        </>
-      );
-    };
-    const { getByText } = render(<TestComponent />);
-    // 默认值为 false
-    fireEvent.click(document.querySelector('input'));
-    fireEvent.click(getByText('选项一'));
-    expect(getByText('子选项一')).toHaveTextContent('子选项一');
-    fireEvent.click(getByText('子选项一'));
-    expect(document.querySelector('.t-input__inner')).toHaveValue('选项一 / 子选项一');
-    // 设置值为 true，可直接选择选项一
-    await mockTimeout(() => fireEvent.click(getByText(btnText)));
-    fireEvent.click(document.querySelector('input'));
-    fireEvent.click(getByText('选项一'));
-    expect(document.querySelector('.t-input__inner')).toHaveValue('选项一');
-  });
-
-  test('onBlur 测试，应该正确触发', async () => {
-    const onBlur = vi.fn();
-    const { container } = render(<Cascader options={options} onBlur={onBlur} filterable />);
-    // 模拟 blur 时触发 onBlur
-    fireEvent.click(container.querySelector('.t-input'));
-    await mockDelay(100);
-    fireEvent.mouseDown(document);
-    expect(onBlur).toHaveBeenCalled();
-  });
-
-  test('selectInputProps.onInputChange 测试，应该正确触发', async () => {
-    const selectInputProps = {
-      onInputChange: () => 1,
-    };
-    const enterText = 'test';
-    const spy = vi.spyOn(selectInputProps, 'onInputChange');
-    render(<Cascader options={options} selectInputProps={selectInputProps} filterable />);
-    // 模拟用户键盘输入 "test" ，一共会触发四次 onInputChange
-    await userEvent.type(document.querySelector('input'), enterText);
-    await mockTimeout(() => expect(spy).toHaveBeenCalledTimes(enterText.length));
-  });
-
-  test('selectInputProps.onTagChange 测试，应该正确触发且页面展示正常', async () => {
-    const selectInputProps = {
-      onTagChange: () => 1,
-      allowInput: true,
-    };
-    const TextComponent = (props) => {
-      const [value, setValue] = useState(['1.1', '1.2']);
-      const onChange = (val) => {
-        setValue(val);
+describe('Cascader', () => {
+  describe('props', () => {
+    test('设置 checkStrictly 时每项应该可各自选中或取消', async () => {
+      const btnText = 'change';
+      const TestComponent = () => {
+        const [strict, setStrict] = useState(false);
+        return (
+          <>
+            <button onClick={() => setStrict(!strict)}>{btnText}</button>
+            <Cascader options={options} checkStrictly={strict} />
+          </>
+        );
       };
+      const { getByText } = render(<TestComponent />);
+      // 默认值为 false
+      fireEvent.click(document.querySelector('input'));
+      fireEvent.click(getByText('选项一'));
+      expect(getByText('子选项一')).toHaveTextContent('子选项一');
+      fireEvent.click(getByText('子选项一'));
+      expect(document.querySelector('.t-input__inner')).toHaveValue('选项一 / 子选项一');
+      // 设置值为 true，可直接选择选项一
+      await mockTimeout(() => fireEvent.click(getByText(btnText)));
+      fireEvent.click(document.querySelector('input'));
+      fireEvent.click(getByText('选项一'));
+      expect(document.querySelector('.t-input__inner')).toHaveValue('选项一');
+    });
 
-      return (
-        <Cascader
-          options={options}
-          value={value}
-          onChange={onChange}
-          selectInputProps={props.selectInputProps}
-          multiple
-        />
+    test('filterable 测试', async () => {
+      const placeholder = 'filter';
+      const filterContent = '子选项一';
+      const { getByPlaceholderText, getByText } = render(
+        <Cascader placeholder={placeholder} options={options} filterable />,
       );
-    };
-
-    const spy = vi.spyOn(selectInputProps, 'onTagChange');
-    const { container } = render(<TextComponent selectInputProps={selectInputProps} />);
-    const wrapper = container.querySelector('.t-input__prefix');
-    // 初始时有两个 tag
-    expect(wrapper.querySelectorAll('.t-tag').length).toBe(2);
-    fireEvent.click(container.querySelector('.t-icon-close'));
-    expect(spy).toHaveBeenCalledTimes(1);
-    fireEvent.click(container.querySelector('.t-icon-close'));
-    // 删除两次后清空全部 tag，触发两次 onTagChange
-    expect(wrapper.querySelectorAll('.t-tag').length).toBe(0);
-    expect(spy).toHaveBeenCalledTimes(2);
-    // trigger 为 'enter' 时不执行，调用次数依然为 2
-    const input = container.querySelector('input');
-    await userEvent.type(input, 'abc{enter}');
-    expect(input).toHaveValue('abc');
-    expect(spy).toHaveBeenCalledTimes(2);
+      // 搜索 子选项一 ，共有两个结果，成功匹配的内容应该高亮
+      fireEvent.focus(getByPlaceholderText(placeholder));
+      await userEvent.type(getByPlaceholderText(placeholder), filterContent);
+      await mockTimeout(() =>
+        expect(document.querySelector(popupSelector).querySelectorAll('.t-cascader__item-label--filter').length).toBe(
+          2,
+        ),
+      );
+      // 清空搜索项，无匹配任何高亮内容
+      await userEvent.type(getByPlaceholderText(placeholder), '{backspace}{backspace}{backspace}{backspace}');
+      await mockTimeout(() =>
+        expect(document.querySelector(popupSelector).querySelectorAll('.t-cascader__item-label--filter').length).toBe(
+          0,
+        ),
+      );
+      // 匹配不到任何内容
+      await userEvent.type(getByPlaceholderText(placeholder), 'null');
+      await mockTimeout(() => expect(getByText('暂无数据')).toBeInTheDocument());
+    });
   });
 
-  test('selectInputProps.onClear 测试，应该正确触发且页面展示正常', () => {
-    const selectInputProps = {
-      onClear: () => 1,
-    };
-    const TextComponent = (props) => {
-      const [value, setValue] = useState(['1.1', '1.2']);
-      const onChange = (val) => {
-        setValue(val);
-      };
+  describe('events', () => {
+    test('onBlur 测试，应该正确触发', async () => {
+      const onBlur = vi.fn();
+      const { container } = render(<Cascader options={options} onBlur={onBlur} filterable />);
+      // 模拟 blur 时触发 onBlur
+      fireEvent.click(container.querySelector('.t-input'));
+      await mockDelay(100);
+      fireEvent.mouseDown(document);
+      expect(onBlur).toHaveBeenCalled();
+    });
 
-      return (
-        <Cascader
-          options={options}
-          value={value}
-          onChange={onChange}
-          selectInputProps={props.selectInputProps}
-          multiple
-          clearable
-        />
-      );
-    };
-    const spy = vi.spyOn(selectInputProps, 'onClear');
-    const { container } = render(<TextComponent selectInputProps={selectInputProps} />);
-    const wrapper = container.querySelector('.t-input__prefix');
-    fireEvent.mouseOver(wrapper);
-    fireEvent.click(container.querySelector('.t-input__suffix').querySelector('.t-icon'));
-    expect(wrapper.querySelectorAll('.t-tag').length).toBe(0);
-    expect(spy).toHaveBeenCalled();
-  });
-
-  test('selectInputProps.onPopupVisibleChange 测试，应该正确触发', async () => {
-    const selectInputProps = {
-      onPopupVisibleChange: () => 1,
-    };
-    const placeholderId = 'placeholder-id';
-    const btnText = 'change';
-    const TextComponent = (props) => {
-      const [disabled, setDisabled] = useState(false);
-      const onClick = () => {
-        setDisabled(!disabled);
+    test('selectInputProps.onInputChange 测试，应该正确触发', async () => {
+      const selectInputProps = {
+        onInputChange: () => 1,
       };
-      return (
-        <>
-          <button onClick={onClick}>{btnText}</button>
+      const enterText = 'test';
+      const spy = vi.spyOn(selectInputProps, 'onInputChange');
+      render(<Cascader options={options} selectInputProps={selectInputProps} filterable />);
+      // 模拟用户键盘输入 "test" ，一共会触发四次 onInputChange
+      await userEvent.type(document.querySelector('input'), enterText);
+      await mockTimeout(() => expect(spy).toHaveBeenCalledTimes(enterText.length));
+    });
+
+    test('selectInputProps.onTagChange 测试，应该正确触发且页面展示正常', async () => {
+      const selectInputProps = {
+        onTagChange: () => 1,
+        allowInput: true,
+      };
+      const TextComponent = (props) => {
+        const [value, setValue] = useState(['1.1', '1.2']);
+        const onChange = (val) => {
+          setValue(val);
+        };
+
+        return (
           <Cascader
             options={options}
+            value={value}
+            onChange={onChange}
             selectInputProps={props.selectInputProps}
-            disabled={disabled}
-            placeholder={placeholderId}
+            multiple
           />
-        </>
+        );
+      };
+
+      const spy = vi.spyOn(selectInputProps, 'onTagChange');
+      const { container } = render(<TextComponent selectInputProps={selectInputProps} />);
+      const wrapper = container.querySelector('.t-input__prefix');
+      // 初始时有两个 tag
+      expect(wrapper.querySelectorAll('.t-tag').length).toBe(2);
+      fireEvent.click(container.querySelector('.t-icon-close'));
+      expect(spy).toHaveBeenCalledTimes(1);
+      fireEvent.click(container.querySelector('.t-icon-close'));
+      // 删除两次后清空全部 tag，触发两次 onTagChange
+      expect(wrapper.querySelectorAll('.t-tag').length).toBe(0);
+      expect(spy).toHaveBeenCalledTimes(2);
+      // trigger 为 'enter' 时不执行，调用次数依然为 2
+      const input = container.querySelector('input');
+      await userEvent.type(input, 'abc{enter}');
+      expect(input).toHaveValue('abc');
+      expect(spy).toHaveBeenCalledTimes(2);
+    });
+
+    test('selectInputProps.onClear 测试，应该正确触发且页面展示正常', () => {
+      const selectInputProps = {
+        onClear: () => 1,
+      };
+      const TextComponent = (props) => {
+        const [value, setValue] = useState(['1.1', '1.2']);
+        const onChange = (val) => {
+          setValue(val);
+        };
+
+        return (
+          <Cascader
+            options={options}
+            value={value}
+            onChange={onChange}
+            selectInputProps={props.selectInputProps}
+            multiple
+            clearable
+          />
+        );
+      };
+      const spy = vi.spyOn(selectInputProps, 'onClear');
+      const { container } = render(<TextComponent selectInputProps={selectInputProps} />);
+      const wrapper = container.querySelector('.t-input__prefix');
+      fireEvent.mouseOver(wrapper);
+      fireEvent.click(container.querySelector('.t-input__suffix').querySelector('.t-icon'));
+      expect(wrapper.querySelectorAll('.t-tag').length).toBe(0);
+      expect(spy).toHaveBeenCalled();
+    });
+
+    test('selectInputProps.onPopupVisibleChange 测试，应该正确触发', async () => {
+      const selectInputProps = {
+        onPopupVisibleChange: () => 1,
+      };
+      const placeholderId = 'placeholder-id';
+      const btnText = 'change';
+      const TextComponent = (props) => {
+        const [disabled, setDisabled] = useState(false);
+        const onClick = () => {
+          setDisabled(!disabled);
+        };
+        return (
+          <>
+            <button onClick={onClick}>{btnText}</button>
+            <Cascader
+              options={options}
+              selectInputProps={props.selectInputProps}
+              disabled={disabled}
+              placeholder={placeholderId}
+            />
+          </>
+        );
+      };
+      const spy = vi.spyOn(selectInputProps, 'onPopupVisibleChange');
+      const { getByPlaceholderText, getByText } = render(<TextComponent selectInputProps={selectInputProps} />);
+      // 展开收起一共触发 onPopupVisibleChange 2次
+      fireEvent.click(getByPlaceholderText(placeholderId));
+      expect(spy).toHaveBeenCalled();
+      fireEvent.click(getByPlaceholderText(placeholderId));
+      expect(spy).toHaveBeenCalledTimes(2);
+      await mockTimeout(() =>
+        expect(document.querySelector(popupSelector)).toHaveStyle({
+          display: 'none',
+        }),
       );
-    };
-    const spy = vi.spyOn(selectInputProps, 'onPopupVisibleChange');
-    const { getByPlaceholderText, getByText } = render(<TextComponent selectInputProps={selectInputProps} />);
-    // 展开收起一共触发 onPopupVisibleChange 2次
-    fireEvent.click(getByPlaceholderText(placeholderId));
-    expect(spy).toHaveBeenCalled();
-    fireEvent.click(getByPlaceholderText(placeholderId));
-    expect(spy).toHaveBeenCalledTimes(2);
-    await mockTimeout(() =>
+
+      // disabled 不会展开 popup，且不执行 onPopupVisibleChange
+      fireEvent.click(getByText(btnText));
+      fireEvent.click(getByPlaceholderText(placeholderId));
       expect(document.querySelector(popupSelector)).toHaveStyle({
         display: 'none',
-      }),
-    );
-
-    // disabled 不会展开 popup，且不执行 onPopupVisibleChange
-    fireEvent.click(getByText(btnText));
-    fireEvent.click(getByPlaceholderText(placeholderId));
-    expect(document.querySelector(popupSelector)).toHaveStyle({
-      display: 'none',
+      });
+      expect(spy).toHaveBeenCalledTimes(2);
     });
-    expect(spy).toHaveBeenCalledTimes(2);
   });
 
-  test('filterable 测试', async () => {
-    const placeholder = 'filter';
-    const filterContent = '子选项一';
-    const { getByPlaceholderText, getByText } = render(
-      <Cascader placeholder={placeholder} options={options} filterable />,
-    );
-    // 搜索 子选项一 ，共有两个结果，成功匹配的内容应该高亮
-    fireEvent.focus(getByPlaceholderText(placeholder));
-    await userEvent.type(getByPlaceholderText(placeholder), filterContent);
-    await mockTimeout(() =>
-      expect(document.querySelector(popupSelector).querySelectorAll('.t-cascader__item-label--filter').length).toBe(2),
-    );
-    // 清空搜索项，无匹配任何高亮内容
-    await userEvent.type(getByPlaceholderText(placeholder), '{backspace}{backspace}{backspace}{backspace}');
-    await mockTimeout(() =>
-      expect(document.querySelector(popupSelector).querySelectorAll('.t-cascader__item-label--filter').length).toBe(0),
-    );
-    // 匹配不到任何内容
-    await userEvent.type(getByPlaceholderText(placeholder), 'null');
-    await mockTimeout(() => expect(getByText('暂无数据')).toBeInTheDocument());
+  describe('slots', () => {
+    test('render label', async () => {
+      const label = '单选:';
+      const { getByText } = render(<Cascader label={label} value={'1.1'} options={optionsData} clearable />);
+      expect(getByText(label)).toBeInTheDocument();
+    });
+
+    test('render single valueDisplay', async () => {
+      const SingleValueDisplay = ({ value, selectedOptions }: any) =>
+        value && (
+          <div className="valueDisplay">
+            <img
+              src={selectedOptions?.[0]?.avatar}
+              style={{
+                width: '16px',
+                height: '16px',
+                marginTop: '2px',
+                verticalAlign: '-4px',
+                marginRight: '4px',
+              }}
+            />
+            <span>{selectedOptions?.[0]?.label}</span>
+            <span>({value})</span>
+          </div>
+        );
+      const { container } = render(
+        <Cascader
+          value={'2.2'}
+          label="单选："
+          options={optionsData}
+          valueDisplay={<SingleValueDisplay />}
+          clearable
+        ></Cascader>,
+      );
+      expect(container.querySelector('.valueDisplay')).toBeInTheDocument();
+    });
+
+    test('render multiple valueDisplay', async () => {
+      const MultipleValueDisplay = ({ value, selectedOptions, onClose }: any) =>
+        value && value.length
+          ? selectedOptions.map((option, index) => (
+              <Tag key={option.value} closable onClose={() => onClose(index)}>
+                <img
+                  src={option.avatar}
+                  style={{
+                    width: '16px',
+                    height: '16px',
+                    marginTop: '2px',
+                    verticalAlign: '-4px',
+                    marginRight: '4px',
+                  }}
+                />
+                <span>{option.label}</span>
+                <span className="options-value">({option.value})</span>
+              </Tag>
+            ))
+          : null;
+      const { container } = render(
+        <Cascader
+          value={['1.3', '2.1', '2.2']}
+          label="多选："
+          options={optionsData}
+          valueDisplay={<MultipleValueDisplay />}
+          multiple
+          clearable
+        ></Cascader>,
+      );
+      const optionsValue = container.querySelectorAll('.options-value');
+      expect(optionsValue[0]).toHaveTextContent('(1.3)');
+      expect(optionsValue[1]).toHaveTextContent('(2.1)');
+      expect(optionsValue[2]).toHaveTextContent('(2.2)');
+      fireEvent.click(container.querySelector('.t-input'));
+      await mockDelay();
+      expect(document.querySelectorAll('.t-is-checked')).toHaveLength(2);
+      expect(document.querySelectorAll('.t-is-checked')[1].children[0]).toHaveAttribute('checked');
+    });
+
+    test('render panelTopContent', async () => {
+      const panelTopContent = 'panelTopContent';
+      const { getByText } = render(
+        <Cascader value={'1.1'} options={optionsData} panelTopContent={panelTopContent} clearable />,
+      );
+
+      await fireEvent.click(document.querySelector('input'));
+      expect(getByText(panelTopContent)).toBeInTheDocument();
+    });
+
+    test('render panelBottomContent', async () => {
+      const panelBottomContent = 'panelBottomContent';
+      const { getByText } = render(
+        <Cascader value={'1.1'} options={optionsData} panelBottomContent={panelBottomContent} clearable />,
+      );
+
+      await fireEvent.click(document.querySelector('input'));
+      expect(getByText(panelBottomContent)).toBeInTheDocument();
+    });
   });
 
-  test('value is zero should be selected', async () => {
-    const popupSelector = '.t-popup';
-    const labelText = 'my value is 0 that typeof number';
-    const TestComponent = () => {
-      const [value, setValue] = useState('');
-      const options = [
-        {
-          value: 0,
-          label: labelText,
-        },
-      ];
-      const onChange = (value) => {
-        setValue(value);
+  describe('scenarios', () => {
+    test('value is zero should be selected', async () => {
+      const popupSelector = '.t-popup';
+      const labelText = 'my value is 0 that typeof number';
+      const TestComponent = () => {
+        const [value, setValue] = useState('');
+        const options = [
+          {
+            value: 0,
+            label: labelText,
+          },
+        ];
+        const onChange = (value) => {
+          setValue(value);
+        };
+
+        return <Cascader options={options} value={value} onChange={onChange} checkStrictly />;
       };
+      const { getByText } = render(<TestComponent />);
+      fireEvent.click(document.querySelector('input'));
+      expect(document.querySelector(popupSelector)).toHaveTextContent(labelText);
+      await mockTimeout(() => fireEvent.click(getByText(labelText)));
+      expect(document.querySelector('.t-input__inner')).toHaveValue(labelText);
+    });
 
-      return <Cascader options={options} value={value} onChange={onChange} checkStrictly />;
-    };
-    const { getByText } = render(<TestComponent />);
-    fireEvent.click(document.querySelector('input'));
-    expect(document.querySelector(popupSelector)).toHaveTextContent(labelText);
-    await mockTimeout(() => fireEvent.click(getByText(labelText)));
-    expect(document.querySelector('.t-input__inner')).toHaveValue(labelText);
-  });
+    test('multiple Clicking the clear all button only triggers onChange once', async () => {
+      const onChange = vi.fn();
+      const onRemove = vi.fn();
+      const { container } = render(
+        <Cascader value={['1.1']} options={optionsData} multiple onChange={onChange} onRemove={onRemove} clearable />,
+      );
+      fireEvent.mouseEnter(container.querySelector('.t-input'));
+      await mockDelay();
+      // 点击清除按钮只触发一次onChange,不触发onRemove
+      expect(container.querySelector('.t-tag-input__suffix-clear')).toBeTruthy();
+      fireEvent.click(container.querySelector('.t-tag-input__suffix-clear'));
+      expect(onChange).toHaveBeenCalledTimes(1);
+      expect(onRemove).toHaveBeenCalledTimes(0);
+      // 点击tag onRemove,触发一次onRemove,触发两次onChange
+      fireEvent.click(container.querySelectorAll('.t-tag__icon-close')[0]);
+      expect(onRemove).toHaveBeenCalledTimes(1);
+      expect(onChange).toHaveBeenCalledTimes(2);
+    });
 
-  test('multiple Clicking the clear all button only triggers onChange once', async () => {
-    const onChange = vi.fn();
-    const onRemove = vi.fn();
-    const { container } = render(
-      <Cascader value={['1.1']} options={optionsData} multiple onChange={onChange} onRemove={onRemove} clearable />,
-    );
-    fireEvent.mouseEnter(container.querySelector('.t-input'));
-    await mockDelay();
-    // 点击清除按钮只触发一次onChange,不触发onRemove
-    expect(container.querySelector('.t-tag-input__suffix-clear')).toBeTruthy();
-    fireEvent.click(container.querySelector('.t-tag-input__suffix-clear'));
-    expect(onChange).toHaveBeenCalledTimes(1);
-    expect(onRemove).toHaveBeenCalledTimes(0);
-    // 点击tag onRemove,触发一次onRemove,触发两次onChange
-    fireEvent.click(container.querySelectorAll('.t-tag__icon-close')[0]);
-    expect(onRemove).toHaveBeenCalledTimes(1);
-    expect(onChange).toHaveBeenCalledTimes(2);
-  });
-
-  test('render label', async () => {
-    const label = '单选:';
-    const { getByText } = render(<Cascader label={label} value={'1.1'} options={optionsData} clearable />);
-    expect(getByText(label)).toBeInTheDocument();
-  });
-
-  test('render single valueDisplay', async () => {
-    const SingleValueDisplay = ({ value, selectedOptions }: any) =>
-      value && (
-        <div className="valueDisplay">
-          <img
-            src={selectedOptions?.[0]?.avatar}
-            style={{
-              width: '16px',
-              height: '16px',
-              marginTop: '2px',
-              verticalAlign: '-4px',
-              marginRight: '4px',
+    test('multiple 应按用户勾选顺序保留 value', async () => {
+      const onChange = vi.fn();
+      const TestComponent = () => {
+        const [value, setValue] = useState<any[]>([]);
+        return (
+          <Cascader
+            options={options}
+            value={value}
+            multiple
+            checkStrictly
+            onChange={(val, ctx) => {
+              onChange(val, ctx);
+              setValue(val as any[]);
             }}
           />
-          <span>{selectedOptions?.[0]?.label}</span>
-          <span>({value})</span>
-        </div>
-      );
-    const { container } = render(
-      <Cascader
-        value={'2.2'}
-        label="单选："
-        options={optionsData}
-        valueDisplay={<SingleValueDisplay />}
-        clearable
-      ></Cascader>,
-    );
-    expect(container.querySelector('.valueDisplay')).toBeInTheDocument();
-  });
-
-  test('render multiple valueDisplay', async () => {
-    const MultipleValueDisplay = ({ value, selectedOptions, onClose }: any) =>
-      value && value.length
-        ? selectedOptions.map((option, index) => (
-            <Tag key={option.value} closable onClose={() => onClose(index)}>
-              <img
-                src={option.avatar}
-                style={{
-                  width: '16px',
-                  height: '16px',
-                  marginTop: '2px',
-                  verticalAlign: '-4px',
-                  marginRight: '4px',
-                }}
-              />
-              <span>{option.label}</span>
-              <span className="options-value">({option.value})</span>
-            </Tag>
-          ))
-        : null;
-    const { container } = render(
-      <Cascader
-        value={['1.3', '2.1', '2.2']}
-        label="多选："
-        options={optionsData}
-        valueDisplay={<MultipleValueDisplay />}
-        multiple
-        clearable
-      ></Cascader>,
-    );
-    const optionsValue = container.querySelectorAll('.options-value');
-    expect(optionsValue[0]).toHaveTextContent('(1.3)');
-    expect(optionsValue[1]).toHaveTextContent('(2.1)');
-    expect(optionsValue[2]).toHaveTextContent('(2.2)');
-    fireEvent.click(container.querySelector('.t-input'));
-    await mockDelay();
-    expect(document.querySelectorAll('.t-is-checked')).toHaveLength(2);
-    expect(document.querySelectorAll('.t-is-checked')[1].children[0]).toHaveAttribute('checked');
-  });
-
-  test('render panelTopContent', async () => {
-    const panelTopContent = 'panelTopContent';
-    const { getByText } = render(
-      <Cascader value={'1.1'} options={optionsData} panelTopContent={panelTopContent} clearable />,
-    );
-
-    await fireEvent.click(document.querySelector('input'));
-    expect(getByText(panelTopContent)).toBeInTheDocument();
-  });
-
-  test('render panelBottomContent', async () => {
-    const panelBottomContent = 'panelBottomContent';
-    const { getByText } = render(
-      <Cascader value={'1.1'} options={optionsData} panelBottomContent={panelBottomContent} clearable />,
-    );
-
-    await fireEvent.click(document.querySelector('input'));
-    expect(getByText(panelBottomContent)).toBeInTheDocument();
-  });
-});
-
-describe('Cascader Panel 组件测试', () => {
-  test('CascaderPanel 基础测试', () => {
-    const btnText = 'change';
-    const TestComponent = () => {
-      const [value, setValue] = useState();
-      const [multiple, setMultiple] = useState(false);
-      const onChange = (value) => {
-        setValue(value);
+        );
       };
-      const onClick = () => {
-        setMultiple(!multiple);
+      const { getByText } = render(<TestComponent />);
+      fireEvent.click(document.querySelector('input'));
+      await mockDelay();
+
+      // 切到「选项二」面板，勾选 2.1
+      fireEvent.click(getByText('选项二'));
+      fireEvent.click(document.querySelector('.t-checkbox input[name="2.1"]'));
+      expect(onChange).toHaveBeenLastCalledWith(['2.1'], expect.any(Object));
+
+      // 切到「选项一」面板，勾选 1.1（最新点击的项应排在末尾）
+      fireEvent.click(getByText('选项一'));
+      fireEvent.click(document.querySelector('.t-checkbox input[name="1.1"]'));
+      expect(onChange).toHaveBeenLastCalledWith(['2.1', '1.1'], expect.any(Object));
+
+      // 继续切到「选项二」勾选 2.2
+      fireEvent.click(getByText('选项二'));
+      fireEvent.click(document.querySelector('.t-checkbox input[name="2.2"]'));
+      expect(onChange).toHaveBeenLastCalledWith(['2.1', '1.1', '2.2'], expect.any(Object));
+
+      // 取消勾选 2.1，已有项的相对顺序应保留
+      fireEvent.click(document.querySelector('.t-checkbox input[name="2.1"]'));
+      expect(onChange).toHaveBeenLastCalledWith(['1.1', '2.2'], expect.any(Object));
+    });
+
+    test('multiple + valueType=full 应按用户勾选顺序保留 value', async () => {
+      const onChange = vi.fn();
+      const TestComponent = () => {
+        const [value, setValue] = useState<any[]>([]);
+        return (
+          <Cascader
+            options={options}
+            value={value}
+            multiple
+            checkStrictly
+            valueType="full"
+            onChange={(val, ctx) => {
+              onChange(val, ctx);
+              setValue(val as any[]);
+            }}
+          />
+        );
       };
-      return (
-        <>
-          <button onClick={onClick}>{btnText}</button>
-          <CascaderPanel options={options} value={value} onChange={onChange} multiple={multiple} />
-        </>
+      const { getByText } = render(<TestComponent />);
+      fireEvent.click(document.querySelector('input'));
+      await mockDelay();
+
+      fireEvent.click(getByText('选项二'));
+      fireEvent.click(document.querySelector('.t-checkbox input[name="2.1"]'));
+      expect(onChange).toHaveBeenLastCalledWith([['2', '2.1']], expect.any(Object));
+
+      fireEvent.click(getByText('选项一'));
+      fireEvent.click(document.querySelector('.t-checkbox input[name="1.1"]'));
+      expect(onChange).toHaveBeenLastCalledWith(
+        [
+          ['2', '2.1'],
+          ['1', '1.1'],
+        ],
+        expect.any(Object),
       );
-    };
 
-    const { container, getByText } = render(<TestComponent />);
-    expect(getByText('选项一')).toBeInTheDocument();
-    expect(container.querySelectorAll('.t-cascader__menu').length).toBe(1);
-    // 首次展开子选项会插入新的 ul
-    fireEvent.click(getByText('选项一'));
-    expect(getByText('子选项一')).toBeInTheDocument();
-    expect(container.querySelectorAll('.t-cascader__menu').length).toBe(2);
-    // multiple 测试，存在 checkbox
-    expect(container.querySelector('input')).toBeNull();
-    fireEvent.click(getByText(btnText));
-    expect(container.querySelector('input')).toBeInTheDocument();
-  });
-
-  test('Panel组件 trigger 为 hover 时，应该正确展开下一层级', () => {
-    const { container, getByText } = render(<CascaderPanel options={options} trigger="hover" />);
-    expect(container.querySelectorAll('.t-cascader__menu').length).toBe(1);
-    fireEvent.mouseEnter(getByText('选项一'));
-    expect(getByText('子选项一')).toBeInTheDocument();
-    expect(container.querySelectorAll('.t-cascader__menu').length).toBe(2);
-  });
-
-  test('Panel组件 multiple 测试', () => {
-    const { getByText, getByTitle } = render(<CascaderPanel options={options} multiple />);
-    fireEvent.click(getByText('选项一'));
-    expect(getByTitle('子选项一')).not.toHaveClass('t-is-checked');
-    // 选中一个子选项，父级应为 indeterminate 状态
-    fireEvent.click(getByText('子选项一'));
-    expect(getByTitle('选项一')).toHaveClass('t-is-indeterminate');
-    expect(getByTitle('子选项一')).toHaveClass('t-is-checked');
-    // 选中全部子选项，父级应该为 checked 状态
-    fireEvent.click(getByText('子选项二'));
-    expect(getByTitle('选项一')).toHaveClass('t-is-checked');
-    expect(getByTitle('子选项二')).toHaveClass('t-is-checked');
-  });
-
-  test('Panel组件 multiple 时设置 max 测试', async () => {
-    const btnText = 'set max 1';
-    const TestComponent = () => {
-      const [max, setMax] = useState(3);
-      return (
-        <>
-          <button onClick={() => setMax(1)}>{btnText}</button>
-          <CascaderPanel options={options} multiple max={max} />
-        </>
+      fireEvent.click(getByText('选项二'));
+      fireEvent.click(document.querySelector('.t-checkbox input[name="2.2"]'));
+      expect(onChange).toHaveBeenLastCalledWith(
+        [
+          ['2', '2.1'],
+          ['1', '1.1'],
+          ['2', '2.2'],
+        ],
+        expect.any(Object),
       );
-    };
-    const { getByText, getByTitle } = render(<TestComponent />);
-    // 所选内容不超过 max ，都可选中
-    fireEvent.click(getByTitle('选项一').querySelector('input'));
-    expect(getByTitle('选项一')).toHaveClass('t-is-checked');
-    expect(getByTitle('子选项一')).toHaveClass('t-is-checked');
-    expect(getByTitle('子选项二')).toHaveClass('t-is-checked');
-    // 清空所有选中
-    fireEvent.click(getByTitle('选项一').querySelector('input'));
-    // 设置 max 为 1，点击父级无法选中任何节点
-    fireEvent.click(getByText(btnText));
-    fireEvent.click(getByTitle('选项一'));
-    fireEvent.click(getByTitle('选项一').querySelector('input'));
-    expect(getByTitle('选项一')).not.toHaveClass('t-is-checked');
-    expect(getByTitle('子选项一')).not.toHaveClass('t-is-checked');
-    // 选中一个子节点后所有节点为 disabled
-    fireEvent.click(getByTitle('子选项一'));
-    expect(getByTitle('子选项一')).toHaveClass('t-is-checked');
-    expect(getByTitle('选项二')).toHaveClass('t-is-disabled');
-  });
-
-  test('multiple 应按用户勾选顺序保留 value', async () => {
-    const onChange = vi.fn();
-    const TestComponent = () => {
-      const [value, setValue] = useState<any[]>([]);
-      return (
-        <Cascader
-          options={options}
-          value={value}
-          multiple
-          checkStrictly
-          onChange={(val, ctx) => {
-            onChange(val, ctx);
-            setValue(val as any[]);
-          }}
-        />
-      );
-    };
-    const { getByText } = render(<TestComponent />);
-    fireEvent.click(document.querySelector('input'));
-    await mockDelay();
-
-    // 切到「选项二」面板，勾选 2.1
-    fireEvent.click(getByText('选项二'));
-    fireEvent.click(document.querySelector('.t-checkbox input[name="2.1"]'));
-    expect(onChange).toHaveBeenLastCalledWith(['2.1'], expect.any(Object));
-
-    // 切到「选项一」面板，勾选 1.1（最新点击的项应排在末尾）
-    fireEvent.click(getByText('选项一'));
-    fireEvent.click(document.querySelector('.t-checkbox input[name="1.1"]'));
-    expect(onChange).toHaveBeenLastCalledWith(['2.1', '1.1'], expect.any(Object));
-
-    // 继续切到「选项二」勾选 2.2
-    fireEvent.click(getByText('选项二'));
-    fireEvent.click(document.querySelector('.t-checkbox input[name="2.2"]'));
-    expect(onChange).toHaveBeenLastCalledWith(['2.1', '1.1', '2.2'], expect.any(Object));
-
-    // 取消勾选 2.1，已有项的相对顺序应保留
-    fireEvent.click(document.querySelector('.t-checkbox input[name="2.1"]'));
-    expect(onChange).toHaveBeenLastCalledWith(['1.1', '2.2'], expect.any(Object));
-  });
-
-  test('multiple + valueType=full 应按用户勾选顺序保留 value', async () => {
-    const onChange = vi.fn();
-    const TestComponent = () => {
-      const [value, setValue] = useState<any[]>([]);
-      return (
-        <Cascader
-          options={options}
-          value={value}
-          multiple
-          checkStrictly
-          valueType="full"
-          onChange={(val, ctx) => {
-            onChange(val, ctx);
-            setValue(val as any[]);
-          }}
-        />
-      );
-    };
-    const { getByText } = render(<TestComponent />);
-    fireEvent.click(document.querySelector('input'));
-    await mockDelay();
-
-    fireEvent.click(getByText('选项二'));
-    fireEvent.click(document.querySelector('.t-checkbox input[name="2.1"]'));
-    expect(onChange).toHaveBeenLastCalledWith([['2', '2.1']], expect.any(Object));
-
-    fireEvent.click(getByText('选项一'));
-    fireEvent.click(document.querySelector('.t-checkbox input[name="1.1"]'));
-    expect(onChange).toHaveBeenLastCalledWith(
-      [
-        ['2', '2.1'],
-        ['1', '1.1'],
-      ],
-      expect.any(Object),
-    );
-
-    fireEvent.click(getByText('选项二'));
-    fireEvent.click(document.querySelector('.t-checkbox input[name="2.2"]'));
-    expect(onChange).toHaveBeenLastCalledWith(
-      [
-        ['2', '2.1'],
-        ['1', '1.1'],
-        ['2', '2.2'],
-      ],
-      expect.any(Object),
-    );
+    });
   });
 });

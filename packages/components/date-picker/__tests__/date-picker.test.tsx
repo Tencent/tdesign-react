@@ -26,360 +26,378 @@ describe('DatePicker', () => {
     vi.useRealTimers();
   });
 
-  test('clearable', async () => {
-    const { container } = render(<DatePicker defaultValue={'2022-09-14'} clearable={true} />);
-    // 模拟鼠标进入
-    fireEvent.mouseEnter(container.querySelector('input'));
-    const clearElement = await waitFor(() => document.querySelector('.t-input__suffix-clear'));
-    expect(clearElement).not.toBeNull();
-    fireEvent.click(clearElement);
+  describe('props', () => {
+    test('clearable', async () => {
+      const { container } = render(<DatePicker defaultValue={'2022-09-14'} clearable={true} />);
+      // 模拟鼠标进入
+      fireEvent.mouseEnter(container.querySelector('input'));
+      const clearElement = await waitFor(() => document.querySelector('.t-input__suffix-clear'));
+      expect(clearElement).not.toBeNull();
+      fireEvent.click(clearElement);
+    });
+
+    test('disableDate', async () => {
+      const disabledDate = (date: DateValue) => dayjs().isBefore(date);
+      const { container: container1 } = render(<DatePicker disableDate={disabledDate} />);
+      fireEvent.mouseDown(container1.querySelector('input'));
+      const { container: container2 } = render(<DatePicker disableDate={(date) => dayjs(date).day() === 6} />);
+      fireEvent.mouseDown(container2.querySelector('input'));
+
+      const { container: container3 } = render(
+        <DatePicker
+          disableDate={{
+            before: dayjs().subtract(1, 'day').format(),
+            after: dayjs().subtract(3, 'day').format(),
+          }}
+        />,
+      );
+      fireEvent.mouseDown(container3.querySelector('input'));
+      const { container: container4 } = render(<DatePicker disableDate={['2022-09-14', '2022-09-16']} />);
+      fireEvent.mouseDown(container4.querySelector('input'));
+
+      const { container: container5 } = render(
+        <DatePicker
+          disableDate={{
+            from: dayjs().subtract(1, 'day').format(),
+            to: dayjs().subtract(3, 'day').format(),
+          }}
+        />,
+      );
+      fireEvent.mouseDown(container5.querySelector('input'));
+
+      const disabledEle = await waitFor(() => document.querySelector('.t-date-picker__cell--disabled'));
+      expect(disabledEle).not.toBeNull();
+    });
+
+    test('disabled', () => {
+      const { container } = render(<DatePicker disabled />);
+      const inputElement = container.querySelector('.t-input__inner');
+      expect((inputElement as HTMLInputElement).disabled).toBe(true);
+    });
+
+    test('enableTimePicker', async () => {
+      const { container } = render(<DatePicker enableTimePicker={true} />);
+      fireEvent.mouseDown(container.querySelector('input'));
+      const panelElement = await waitFor(() => document.querySelector('.t-date-picker__panel-time'));
+      expect(panelElement).toBeInTheDocument();
+    });
+
+    test('firstDayOfWeek', async () => {
+      const { container } = render(<DatePicker firstDayOfWeek={3} />);
+      fireEvent.mouseDown(container.querySelector('input'));
+      const weekElement = await waitFor(() => document.querySelector('.t-date-picker__table table thead tr th'));
+      expect(weekElement).toHaveTextContent('三');
+    });
+
+    test('inputProps', async () => {
+      const { container } = render(<DatePicker inputProps={{ value: 'test-inputProps' }} />);
+      const inputWrapElement = container.querySelector('.t-input__inner');
+      expect((inputWrapElement as HTMLInputElement).value).toEqual('test-inputProps');
+    });
+
+    test('mode week', async () => {
+      const { container: container1 } = render(<DatePicker mode={'week'} value={'2022-37th'} />);
+      fireEvent.mouseDown(container1.querySelector('input'));
+      const weekEle = await waitFor(() => document.querySelector('.t-date-picker__panel-week'));
+      expect(weekEle).not.toBeNull();
+    });
+
+    test('mode month', async () => {
+      const { container } = render(<DatePicker mode={'month'} />);
+      fireEvent.mouseDown(container.querySelector('input'));
+      const pickerTable = await waitFor(() => document.querySelector('tbody'));
+      expect(pickerTable.firstChild.firstChild.firstChild).toHaveTextContent('1 月');
+    });
+
+    test('mode quarter', async () => {
+      const { container } = render(<DatePicker mode={'quarter'} />);
+      fireEvent.mouseDown(container.querySelector('input'));
+      const pickerTable = await waitFor(() => document.querySelector('.t-date-picker__table'));
+      expect(pickerTable).toHaveTextContent('一季度');
+    });
+
+    test('mode year', async () => {
+      const { container } = render(<DatePicker mode={'year'} />);
+      fireEvent.mouseDown(container.querySelector('input'));
+      const weekEle = await waitFor(() => document.querySelector('.t-date-picker__panel-year'));
+      expect(weekEle).not.toBeNull();
+    });
+
+    test('placeholder', () => {
+      const wrapper = render(<DatePicker placeholder={undefined} />);
+      expect(wrapper.container.querySelector('input')?.placeholder).toEqual('请选择日期');
+    });
+
+    test('popupProps', async () => {
+      const { container } = render(<DatePicker popupProps={{ showArrow: true }} />);
+      fireEvent.mouseDown(container.querySelector('input'));
+      const popupArrow = await waitFor(() => document.querySelector('.t-popup__arrow'));
+      expect(popupArrow).toBeInTheDocument();
+    });
+
+    test('presets bottom top', async () => {
+      const presets = {
+        昨天: dayjs().subtract(1, 'day').format('YYYY-MM-DD'),
+      };
+      const { container } = render(<DatePicker presets={presets} />);
+      fireEvent.mouseDown(container.querySelector('input'));
+      const table = await waitFor(() => document.querySelector('table'));
+      fireEvent.mouseEnter(table);
+      const pickerPresets = await waitFor(() => document.querySelector('.t-date-picker__presets'));
+      expect(pickerPresets).toHaveTextContent('昨天');
+    });
+
+    test('status', async () => {
+      const { container } = render(<DatePicker status={'warning'} />);
+      const tInput = container.querySelector('.t-input');
+      expect(tInput.classList.contains('t-is-warning')).toBeTruthy();
+    });
+
+    test('timePickerProps', async () => {
+      const { container } = render(<DatePicker enableTimePicker={true} timePickerProps={{ value: '13:01:01' }} />);
+      fireEvent.mouseDown(container.querySelector('input'));
+      const panelElement = await waitFor(() => document.querySelector('.t-date-picker__panel-time .t-is-current'));
+      expect(panelElement).toHaveTextContent('13');
+    });
+
+    test('tips', async () => {
+      const tips = 'test-tips';
+      const { queryByText } = render(<DatePicker tips={tips} />);
+      expect(queryByText(tips)).toBeInTheDocument();
+    });
+
+    test('disableTime', async () => {
+      const { container } = render(
+        <DatePicker value="2024-11-26 07:00:00" enableTimePicker disableTime={disableTime} />,
+      );
+
+      fireEvent.mouseDown(container.querySelector('input'));
+
+      await waitFor(() => {
+        expect(document.querySelector('.t-date-picker__cell--active')?.firstChild?.firstChild).toHaveTextContent('26');
+        expect(document.querySelectorAll('.t-time-picker__panel-body-scroll')[0].children).toHaveLength(17);
+      });
+    });
   });
 
-  test('disableDate', async () => {
-    const disabledDate = (date: DateValue) => dayjs().isBefore(date);
-    const { container: container1 } = render(<DatePicker disableDate={disabledDate} />);
-    fireEvent.mouseDown(container1.querySelector('input'));
-    const { container: container2 } = render(<DatePicker disableDate={(date) => dayjs(date).day() === 6} />);
-    fireEvent.mouseDown(container2.querySelector('input'));
+  describe('events', () => {
+    test('onBlur onFocus', async () => {
+      const blurFn = vi.fn();
+      const focusFn = vi.fn();
 
-    const { container: container3 } = render(
-      <DatePicker
-        disableDate={{
-          before: dayjs().subtract(1, 'day').format(),
-          after: dayjs().subtract(3, 'day').format(),
-        }}
-      />,
-    );
-    fireEvent.mouseDown(container3.querySelector('input'));
-    const { container: container4 } = render(<DatePicker disableDate={['2022-09-14', '2022-09-16']} />);
-    fireEvent.mouseDown(container4.querySelector('input'));
+      const { container } = render(<DatePicker allowInput onBlur={blurFn} onFocus={focusFn} />);
+      const InputDom = container.querySelector('.t-input__inner');
+      fireEvent.focus(InputDom);
+      expect(focusFn).toHaveBeenCalledTimes(1);
+      fireEvent.blur(InputDom);
+      expect(blurFn).toHaveBeenCalledTimes(1);
+    });
 
-    const { container: container5 } = render(
-      <DatePicker
-        disableDate={{
-          from: dayjs().subtract(1, 'day').format(),
-          to: dayjs().subtract(3, 'day').format(),
-        }}
-      />,
-    );
-    fireEvent.mouseDown(container5.querySelector('input'));
+    test('onChange onPick', async () => {
+      const changeFn = vi.fn();
+      const pickFn = vi.fn();
+      const { container } = render(<DatePicker format={'YYYY-MM-DD'} onChange={changeFn} onPick={pickFn} />);
+      fireEvent.mouseDown(container.querySelector('input'));
 
-    const disabledEle = await waitFor(() => document.querySelector('.t-date-picker__cell--disabled'));
-    expect(disabledEle).not.toBeNull();
+      const firstDay = document.querySelector('.t-date-picker__cell--first-day-of-month');
+      fireEvent.click(firstDay);
+      expect(changeFn).toHaveBeenCalledTimes(1);
+      expect(pickFn).toHaveBeenCalledTimes(1);
+    });
+
+    test('onChange onPick', async () => {
+      const changeFn = vi.fn();
+      const pickFn = vi.fn();
+      const { container } = render(<DatePicker format={'YYYY-MM-DD'} onChange={changeFn} onPick={pickFn} />);
+      fireEvent.mouseDown(container.querySelector('input'));
+
+      const firstDay = await waitFor(() => document.querySelector('.t-date-picker__cell--first-day-of-month'));
+      fireEvent.click(firstDay);
+      expect(changeFn).toHaveBeenCalledTimes(1);
+      expect(pickFn).toHaveBeenCalledTimes(1);
+    });
+
+    test('onYearChange', async () => {
+      const yearChangeFn = vi.fn();
+      const { container } = render(<DatePicker format={'YYYY-MM-DD'} onYearChange={yearChangeFn} />);
+      fireEvent.mouseDown(container.querySelector('input'));
+
+      const yearInput = await waitFor(() =>
+        document.querySelector('.t-popup .t-date-picker__header-controller-year .t-input'),
+      );
+      fireEvent.click(yearInput);
+
+      const yearOptionNode = await waitFor(() =>
+        document.querySelector('.t-popup .t-select-option span[title="2021"]'),
+      );
+
+      fireEvent.click(yearOptionNode);
+      expect(yearChangeFn).toHaveBeenCalledTimes(1);
+    });
+
+    test('onMonthChange', async () => {
+      const monthChangeFn = vi.fn();
+      const { container } = render(<DatePicker format={'YYYY-MM-DD'} onMonthChange={monthChangeFn} />);
+      fireEvent.mouseDown(container.querySelector('input'));
+
+      // 先模拟点击某个过去的年份，保证不会在以后因为处于当前的年份和月份，导致 onMonthChange 事件不触发
+      const yearInput = await waitFor(() =>
+        document.querySelector('.t-popup .t-date-picker__header-controller-year .t-input'),
+      );
+      fireEvent.click(yearInput);
+      const yearOptionNode = await waitFor(() =>
+        document.querySelector('.t-popup .t-select-option span[title="2021"]'),
+      );
+      fireEvent.click(yearOptionNode);
+
+      const monthInput = await waitFor(() =>
+        document.querySelector('.t-popup .t-date-picker__header-controller-month .t-input'),
+      );
+      fireEvent.click(monthInput);
+
+      const monthOptionNode = await waitFor(() =>
+        document.querySelector('.t-popup .t-select-option span[title="1 月"]'),
+      );
+
+      fireEvent.click(monthOptionNode);
+      expect(monthChangeFn).toHaveBeenCalledTimes(1);
+    });
   });
 
-  test('disabled', () => {
-    const { container } = render(<DatePicker disabled />);
-    const inputElement = container.querySelector('.t-input__inner');
-    expect((inputElement as HTMLInputElement).disabled).toBe(true);
+  describe('slots', () => {
+    test('prefixIcon suffixIcon', async () => {
+      const { container } = render(<DatePicker prefixIcon={<BrowseIcon />} suffixIcon={<LockOnIcon />} />);
+      const iconBrowse = container.querySelector('.t-icon-browse');
+      const lockOn = container.querySelector('.t-icon-lock-on');
+
+      expect(iconBrowse).toBeInTheDocument();
+      expect(lockOn).toBeInTheDocument();
+    });
+
+    test('label', async () => {
+      const label = 'test-label';
+      const { container } = render(<DatePicker label={label} />);
+      const prefix = container.querySelector('.t-input__prefix');
+      expect(prefix).toBeTruthy();
+      expect(prefix).toHaveTextContent(label);
+    });
   });
 
-  test('enableTimePicker', async () => {
-    const { container } = render(<DatePicker enableTimePicker={true} />);
-    fireEvent.mouseDown(container.querySelector('input'));
-    const panelElement = await waitFor(() => document.querySelector('.t-date-picker__panel-time'));
-    expect(panelElement).toBeInTheDocument();
-  });
+  describe('scenarios', () => {
+    test('defaultValue value format', async () => {
+      const { container: container1 } = render(<DatePicker defaultValue={'2022-09-14'} format={'YYYY-MM-DD'} />);
+      const inputElement1 = container1.querySelector('.t-input__inner');
+      expect((inputElement1 as HTMLInputElement).value).toEqual('2022-09-14');
 
-  test('firstDayOfWeek', async () => {
-    const { container } = render(<DatePicker firstDayOfWeek={3} />);
-    fireEvent.mouseDown(container.querySelector('input'));
-    const weekElement = await waitFor(() => document.querySelector('.t-date-picker__table table thead tr th'));
-    expect(weekElement).toHaveTextContent('三');
-  });
+      const { container: container2 } = render(<DatePicker value={'2022-09-14'} />);
+      const inputElement2 = container2.querySelector('.t-input__inner');
+      expect((inputElement2 as HTMLInputElement).value).toEqual('2022-09-14');
+    });
 
-  test('defaultValue value format', async () => {
-    const { container: container1 } = render(<DatePicker defaultValue={'2022-09-14'} format={'YYYY-MM-DD'} />);
-    const inputElement1 = container1.querySelector('.t-input__inner');
-    expect((inputElement1 as HTMLInputElement).value).toEqual('2022-09-14');
+    test('panel select month and year', async () => {
+      const { container } = render(<DatePicker defaultValue={'2022-09-14'} />);
+      fireEvent.mouseDown(container.querySelector('input'));
 
-    const { container: container2 } = render(<DatePicker value={'2022-09-14'} />);
-    const inputElement2 = container2.querySelector('.t-input__inner');
-    expect((inputElement2 as HTMLInputElement).value).toEqual('2022-09-14');
-  });
+      const panelEle = await waitFor(() => document.querySelector('.t-date-picker__panel-date'));
 
-  test('inputProps', async () => {
-    const { container } = render(<DatePicker inputProps={{ value: 'test-inputProps' }} />);
-    const inputWrapElement = container.querySelector('.t-input__inner');
-    expect((inputWrapElement as HTMLInputElement).value).toEqual('test-inputProps');
-  });
+      const monthPanel = panelEle.querySelector('.t-date-picker__header-controller-month .t-input');
+      fireEvent.click(monthPanel);
+      const monthPopup = await waitFor(() => document.querySelector('.t-select__list'));
+      fireEvent.click(monthPopup.firstChild);
 
-  test('mode week', async () => {
-    const { container: container1 } = render(<DatePicker mode={'week'} value={'2022-37th'} />);
-    fireEvent.mouseDown(container1.querySelector('input'));
-    const weekEle = await waitFor(() => document.querySelector('.t-date-picker__panel-week'));
-    expect(weekEle).not.toBeNull();
-  });
+      const monthInput = await waitFor(() =>
+        document.querySelector('.t-date-picker__header-controller-month .t-input__inner'),
+      );
+      expect((monthInput as HTMLInputElement).value).toEqual('1 月');
 
-  test('mode month', async () => {
-    const { container } = render(<DatePicker mode={'month'} />);
-    fireEvent.mouseDown(container.querySelector('input'));
-    const pickerTable = await waitFor(() => document.querySelector('tbody'));
-    expect(pickerTable.firstChild.firstChild.firstChild).toHaveTextContent('1 月');
-  });
+      const yearPanel = panelEle.querySelector('.t-date-picker__header-controller-year .t-input');
+      fireEvent.click(yearPanel);
 
-  test('mode quarter', async () => {
-    const { container } = render(<DatePicker mode={'quarter'} />);
-    fireEvent.mouseDown(container.querySelector('input'));
-    const pickerTable = await waitFor(() => document.querySelector('.t-date-picker__table'));
-    expect(pickerTable).toHaveTextContent('一季度');
-  });
+      const yearPopup = await waitFor(() =>
+        document.querySelector('.t-date-picker__header-controller-year .t-select__list .t-is-selected'),
+      );
+      fireEvent.click(yearPopup.nextElementSibling);
+      const yearInput = await waitFor(() =>
+        document.querySelector('.t-date-picker__header-controller-year .t-input__inner'),
+      );
+      expect((yearInput as HTMLInputElement).value).toEqual('2023');
+    });
 
-  test('mode year', async () => {
-    const { container } = render(<DatePicker mode={'year'} />);
-    fireEvent.mouseDown(container.querySelector('input'));
-    const weekEle = await waitFor(() => document.querySelector('.t-date-picker__panel-year'));
-    expect(weekEle).not.toBeNull();
-  });
+    test('panel select year, popup scroll', async () => {
+      const { container } = render(<DatePicker defaultValue={'2022-09-14'} />);
+      fireEvent.mouseDown(container.querySelector('input'));
 
-  test('placeholder', () => {
-    const wrapper = render(<DatePicker placeholder={undefined} />);
-    expect(wrapper.container.querySelector('input')?.placeholder).toEqual('请选择日期');
-  });
+      const panelEle = await waitFor(() => document.querySelector('.t-date-picker__panel-date'));
+      const yearPanel = panelEle.querySelector('.t-date-picker__header-controller-year .t-input');
+      fireEvent.click(yearPanel);
+      const popupContent = panelEle.querySelector('.t-date-picker__header-controller-year-popup .t-popup__content');
+      fireEvent.scroll(popupContent, {
+        target: { scrollY: 100, scrollTop: 0 },
+      });
+    });
 
-  test('popupProps', async () => {
-    const { container } = render(<DatePicker popupProps={{ showArrow: true }} />);
-    fireEvent.mouseDown(container.querySelector('input'));
-    const popupArrow = await waitFor(() => document.querySelector('.t-popup__arrow'));
-    expect(popupArrow).toBeInTheDocument();
-  });
+    test('pure trigger onChange onPick', async () => {
+      const defaultValue = '2022-09-14 20:08:08';
+      const { container } = render(
+        <DatePicker format={'YYYY-MM-DD HH:mm:ss'} defaultValue={defaultValue} clearable={true} enableTimePicker />,
+      );
+      const inputEle = container.querySelector('.t-input__inner');
+      fireEvent.change(inputEle, { target: { value: '2022-09-16 20:08:08' } });
+      expect((inputEle as HTMLInputElement).value).toEqual('2022-09-16 20:08:08');
+    });
 
-  test('prefixIcon suffixIcon', async () => {
-    const { container } = render(<DatePicker prefixIcon={<BrowseIcon />} suffixIcon={<LockOnIcon />} />);
-    const iconBrowse = container.querySelector('.t-icon-browse');
-    const lockOn = container.querySelector('.t-icon-lock-on');
+    test('cell handleMouseEnter', async () => {
+      const { container, getByText } = render(<DatePicker />);
+      const inputEle = container.querySelector('.t-input__inner') as HTMLInputElement;
+      fireEvent.mouseDown(inputEle);
 
-    expect(iconBrowse).toBeInTheDocument();
-    expect(lockOn).toBeInTheDocument();
-  });
+      const cellBtn = getByText('25');
+      fireEvent.mouseEnter(cellBtn);
+      expect(inputEle.value).toEqual('2022-08-25');
+      fireEvent.mouseLeave(cellBtn);
+      expect(inputEle.value).not.toEqual('2022-08-25');
+    });
 
-  test('presets bottom top', async () => {
-    const presets = {
-      昨天: dayjs().subtract(1, 'day').format('YYYY-MM-DD'),
-    };
-    const { container } = render(<DatePicker presets={presets} />);
-    fireEvent.mouseDown(container.querySelector('input'));
-    const table = await waitFor(() => document.querySelector('table'));
-    fireEvent.mouseEnter(table);
-    const pickerPresets = await waitFor(() => document.querySelector('.t-date-picker__presets'));
-    expect(pickerPresets).toHaveTextContent('昨天');
-  });
+    test('cell handleClick', async () => {
+      const { container, getByText } = render(<DatePicker />);
+      const inputEle = container.querySelector('.t-input__inner') as HTMLInputElement;
+      fireEvent.mouseDown(inputEle);
 
-  test('status', async () => {
-    const { container } = render(<DatePicker status={'warning'} />);
-    const tInput = container.querySelector('.t-input');
-    expect(tInput.classList.contains('t-is-warning')).toBeTruthy();
-  });
+      const cellBtn = getByText('25');
+      fireEvent.click(cellBtn);
+      expect(inputEle.value).toEqual('2022-08-25');
+    });
 
-  test('timePickerProps', async () => {
-    const { container } = render(<DatePicker enableTimePicker={true} timePickerProps={{ value: '13:01:01' }} />);
-    fireEvent.mouseDown(container.querySelector('input'));
-    const panelElement = await waitFor(() => document.querySelector('.t-date-picker__panel-time .t-is-current'));
-    expect(panelElement).toHaveTextContent('13');
-  });
+    test('onJumperClick', async () => {
+      const { container, getByText } = render(<DatePicker />);
+      const inputEle = container.querySelector('.t-input__inner') as HTMLInputElement;
+      fireEvent.mouseDown(inputEle);
 
-  test('tips', async () => {
-    const tips = 'test-tips';
-    const { queryByText } = render(<DatePicker tips={tips} />);
-    expect(queryByText(tips)).toBeInTheDocument();
-  });
+      const jumperPrev = await waitFor(() => document.querySelector('.t-pagination-mini__prev'));
+      fireEvent.click(jumperPrev);
+      const cellBtn = getByText('25');
+      fireEvent.click(cellBtn);
+      expect(inputEle.value).toEqual('2022-07-25');
+    });
 
-  test('label', async () => {
-    const label = 'test-label';
-    const { container } = render(<DatePicker label={label} />);
-    const prefix = container.querySelector('.t-input__prefix');
-    expect(prefix).toBeTruthy();
-    expect(prefix).toHaveTextContent(label);
-  });
+    test('onTimePickerChange & onConfirmClick', async () => {
+      const { container, getByText } = render(<DatePicker enableTimePicker />);
+      fireEvent.mouseDown(container.querySelector('input'));
 
-  test('onBlur onFocus', async () => {
-    const blurFn = vi.fn();
-    const focusFn = vi.fn();
+      const timePickerItem = await waitFor(() => document.querySelector('.t-time-picker__panel-body-scroll-item'));
+      fireEvent.click(timePickerItem);
+      const confirmBtn = getByText('确定');
+      fireEvent.click(confirmBtn);
+    });
 
-    const { container } = render(<DatePicker allowInput onBlur={blurFn} onFocus={focusFn} />);
-    const InputDom = container.querySelector('.t-input__inner');
-    fireEvent.focus(InputDom);
-    expect(focusFn).toHaveBeenCalledTimes(1);
-    fireEvent.blur(InputDom);
-    expect(blurFn).toHaveBeenCalledTimes(1);
-  });
+    test('onPresetClick', async () => {
+      const { container, getByText } = render(<DatePicker presets={{ 圣诞节: dayjs('2023-12-25').toDate() }} />);
+      const inputEle = container.querySelector('.t-date-picker .t-input__inner');
+      fireEvent.mouseDown(inputEle);
 
-  test('onChange onPick', async () => {
-    const changeFn = vi.fn();
-    const pickFn = vi.fn();
-    const { container } = render(<DatePicker format={'YYYY-MM-DD'} onChange={changeFn} onPick={pickFn} />);
-    fireEvent.mouseDown(container.querySelector('input'));
-
-    const firstDay = document.querySelector('.t-date-picker__cell--first-day-of-month');
-    fireEvent.click(firstDay);
-    expect(changeFn).toHaveBeenCalledTimes(1);
-    expect(pickFn).toHaveBeenCalledTimes(1);
-  });
-
-  test('onChange onPick', async () => {
-    const changeFn = vi.fn();
-    const pickFn = vi.fn();
-    const { container } = render(<DatePicker format={'YYYY-MM-DD'} onChange={changeFn} onPick={pickFn} />);
-    fireEvent.mouseDown(container.querySelector('input'));
-
-    const firstDay = await waitFor(() => document.querySelector('.t-date-picker__cell--first-day-of-month'));
-    fireEvent.click(firstDay);
-    expect(changeFn).toHaveBeenCalledTimes(1);
-    expect(pickFn).toHaveBeenCalledTimes(1);
-  });
-
-  test('onYearChange', async () => {
-    const yearChangeFn = vi.fn();
-    const { container } = render(<DatePicker format={'YYYY-MM-DD'} onYearChange={yearChangeFn} />);
-    fireEvent.mouseDown(container.querySelector('input'));
-
-    const yearInput = await waitFor(() =>
-      document.querySelector('.t-popup .t-date-picker__header-controller-year .t-input'),
-    );
-    fireEvent.click(yearInput);
-
-    const yearOptionNode = await waitFor(() => document.querySelector('.t-popup .t-select-option span[title="2021"]'));
-
-    fireEvent.click(yearOptionNode);
-    expect(yearChangeFn).toHaveBeenCalledTimes(1);
-  });
-
-  test('onMonthChange', async () => {
-    const monthChangeFn = vi.fn();
-    const { container } = render(<DatePicker format={'YYYY-MM-DD'} onMonthChange={monthChangeFn} />);
-    fireEvent.mouseDown(container.querySelector('input'));
-
-    // 先模拟点击某个过去的年份，保证不会在以后因为处于当前的年份和月份，导致 onMonthChange 事件不触发
-    const yearInput = await waitFor(() =>
-      document.querySelector('.t-popup .t-date-picker__header-controller-year .t-input'),
-    );
-    fireEvent.click(yearInput);
-    const yearOptionNode = await waitFor(() => document.querySelector('.t-popup .t-select-option span[title="2021"]'));
-    fireEvent.click(yearOptionNode);
-
-    const monthInput = await waitFor(() =>
-      document.querySelector('.t-popup .t-date-picker__header-controller-month .t-input'),
-    );
-    fireEvent.click(monthInput);
-
-    const monthOptionNode = await waitFor(() => document.querySelector('.t-popup .t-select-option span[title="1 月"]'));
-
-    fireEvent.click(monthOptionNode);
-    expect(monthChangeFn).toHaveBeenCalledTimes(1);
-  });
-
-  test('panel select month and year', async () => {
-    const { container } = render(<DatePicker defaultValue={'2022-09-14'} />);
-    fireEvent.mouseDown(container.querySelector('input'));
-
-    const panelEle = await waitFor(() => document.querySelector('.t-date-picker__panel-date'));
-
-    const monthPanel = panelEle.querySelector('.t-date-picker__header-controller-month .t-input');
-    fireEvent.click(monthPanel);
-    const monthPopup = await waitFor(() => document.querySelector('.t-select__list'));
-    fireEvent.click(monthPopup.firstChild);
-
-    const monthInput = await waitFor(() =>
-      document.querySelector('.t-date-picker__header-controller-month .t-input__inner'),
-    );
-    expect((monthInput as HTMLInputElement).value).toEqual('1 月');
-
-    const yearPanel = panelEle.querySelector('.t-date-picker__header-controller-year .t-input');
-    fireEvent.click(yearPanel);
-
-    const yearPopup = await waitFor(() =>
-      document.querySelector('.t-date-picker__header-controller-year .t-select__list .t-is-selected'),
-    );
-    fireEvent.click(yearPopup.nextElementSibling);
-    const yearInput = await waitFor(() =>
-      document.querySelector('.t-date-picker__header-controller-year .t-input__inner'),
-    );
-    expect((yearInput as HTMLInputElement).value).toEqual('2023');
-  });
-
-  test('panel select year, popup scroll', async () => {
-    const { container } = render(<DatePicker defaultValue={'2022-09-14'} />);
-    fireEvent.mouseDown(container.querySelector('input'));
-
-    const panelEle = await waitFor(() => document.querySelector('.t-date-picker__panel-date'));
-    const yearPanel = panelEle.querySelector('.t-date-picker__header-controller-year .t-input');
-    fireEvent.click(yearPanel);
-    const popupContent = panelEle.querySelector('.t-date-picker__header-controller-year-popup .t-popup__content');
-    fireEvent.scroll(popupContent, { target: { scrollY: 100, scrollTop: 0 } });
-  });
-
-  test('pure trigger onChange onPick', async () => {
-    const defaultValue = '2022-09-14 20:08:08';
-    const { container } = render(
-      <DatePicker format={'YYYY-MM-DD HH:mm:ss'} defaultValue={defaultValue} clearable={true} enableTimePicker />,
-    );
-    const inputEle = container.querySelector('.t-input__inner');
-    fireEvent.change(inputEle, { target: { value: '2022-09-16 20:08:08' } });
-    expect((inputEle as HTMLInputElement).value).toEqual('2022-09-16 20:08:08');
-  });
-
-  test('cell handleMouseEnter', async () => {
-    const { container, getByText } = render(<DatePicker />);
-    const inputEle = container.querySelector('.t-input__inner') as HTMLInputElement;
-    fireEvent.mouseDown(inputEle);
-
-    const cellBtn = getByText('25');
-    fireEvent.mouseEnter(cellBtn);
-    expect(inputEle.value).toEqual('2022-08-25');
-    fireEvent.mouseLeave(cellBtn);
-    expect(inputEle.value).not.toEqual('2022-08-25');
-  });
-
-  test('cell handleClick', async () => {
-    const { container, getByText } = render(<DatePicker />);
-    const inputEle = container.querySelector('.t-input__inner') as HTMLInputElement;
-    fireEvent.mouseDown(inputEle);
-
-    const cellBtn = getByText('25');
-    fireEvent.click(cellBtn);
-    expect(inputEle.value).toEqual('2022-08-25');
-  });
-
-  test('onJumperClick', async () => {
-    const { container, getByText } = render(<DatePicker />);
-    const inputEle = container.querySelector('.t-input__inner') as HTMLInputElement;
-    fireEvent.mouseDown(inputEle);
-
-    const jumperPrev = await waitFor(() => document.querySelector('.t-pagination-mini__prev'));
-    fireEvent.click(jumperPrev);
-    const cellBtn = getByText('25');
-    fireEvent.click(cellBtn);
-    expect(inputEle.value).toEqual('2022-07-25');
-  });
-
-  test('onTimePickerChange & onConfirmClick', async () => {
-    const { container, getByText } = render(<DatePicker enableTimePicker />);
-    fireEvent.mouseDown(container.querySelector('input'));
-
-    const timePickerItem = await waitFor(() => document.querySelector('.t-time-picker__panel-body-scroll-item'));
-    fireEvent.click(timePickerItem);
-    const confirmBtn = getByText('确定');
-    fireEvent.click(confirmBtn);
-  });
-
-  test('onPresetClick', async () => {
-    const { container, getByText } = render(<DatePicker presets={{ 圣诞节: dayjs('2023-12-25').toDate() }} />);
-    const inputEle = container.querySelector('.t-date-picker .t-input__inner');
-    fireEvent.mouseDown(inputEle);
-
-    const christmasBtn = await waitFor(() => getByText('圣诞节'));
-    fireEvent.click(christmasBtn);
-    expect((inputEle as HTMLInputElement).value).toEqual('2023-12-25');
-  });
-
-  test('disableTime', async () => {
-    const { container } = render(<DatePicker value="2024-11-26 07:00:00" enableTimePicker disableTime={disableTime} />);
-
-    fireEvent.mouseDown(container.querySelector('input'));
-
-    await waitFor(() => {
-      expect(document.querySelector('.t-date-picker__cell--active')?.firstChild?.firstChild).toHaveTextContent('26');
-      expect(document.querySelectorAll('.t-time-picker__panel-body-scroll')[0].children).toHaveLength(17);
+      const christmasBtn = await waitFor(() => getByText('圣诞节'));
+      fireEvent.click(christmasBtn);
+      expect((inputEle as HTMLInputElement).value).toEqual('2023-12-25');
     });
   });
 });

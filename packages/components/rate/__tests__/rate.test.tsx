@@ -3,53 +3,58 @@ import { fireEvent, render, vi } from '@test/utils';
 
 import Rate from '../Rate';
 
-describe('Rate 组件测试', () => {
-  // 测试渲染
-  test('create', async () => {
-    const { container } = render(<Rate />);
-    expect(container.children[0].classList.contains('t-rate')).toBeTruthy();
-    expect(document.querySelectorAll('.t-rate__item')).toHaveLength(5);
-  });
-
-  // 点击测试
-  test('onChange', async () => {
-    const clickFn = vi.fn();
-    render(<Rate onChange={clickFn} />);
-    fireEvent.click(document.querySelector('.t-rate__item'));
-    expect(clickFn).toHaveBeenCalledTimes(1);
-    expect(clickFn).toHaveBeenCalledTimes(1);
-  });
-
-  // mouse 事件测试
-  test('mouse', async () => {
-    render(<Rate defaultValue={3} showText />);
-    expect(document.querySelectorAll('.t-rate__item--full')).toHaveLength(3);
-
-    fireEvent.mouseMove(document.querySelector('.t-rate__item'));
-    expect(document.querySelectorAll('.t-rate__item--full')).toHaveLength(1);
-
-    fireEvent.mouseLeave(document.querySelector('.t-rate__item'));
-    expect(document.querySelectorAll('.t-rate__item--full')).toHaveLength(3);
-  });
-
-  // 数量测试
-  test('count', async () => {
-    render(<Rate count={10} />);
-    expect(document.querySelectorAll('.t-rate__item')).toHaveLength(10);
-  });
-
+describe('Rate', () => {
   describe('props', () => {
+    test('count', async () => {
+      render(<Rate count={10} />);
+      expect(document.querySelectorAll('.t-rate__item')).toHaveLength(10);
+    });
+  });
+
+  describe('events', () => {
+    // 点击测试
+    test('onChange', async () => {
+      const clickFn = vi.fn();
+      render(<Rate onChange={clickFn} />);
+      fireEvent.click(document.querySelector('.t-rate__item'));
+      expect(clickFn).toHaveBeenCalledTimes(1);
+      expect(clickFn).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('slots', () => {
+    test('icon', () => {
+      const { container } = render(<Rate icon={<span className="custom-node">TNode</span>} />);
+      expect(container.children[0].classList.contains('t-rate')).toBeTruthy();
+      expect(document.querySelectorAll('.custom-node')).toHaveLength(10);
+    });
+  });
+
+  describe('scenarios', () => {
+    // 测试渲染
+    test('create', async () => {
+      const { container } = render(<Rate />);
+      expect(container.children[0].classList.contains('t-rate')).toBeTruthy();
+      expect(document.querySelectorAll('.t-rate__item')).toHaveLength(5);
+    });
+
+    // mouse 事件测试
+    test('mouse', async () => {
+      render(<Rate defaultValue={3} showText />);
+      expect(document.querySelectorAll('.t-rate__item--full')).toHaveLength(3);
+
+      fireEvent.mouseMove(document.querySelector('.t-rate__item'));
+      expect(document.querySelectorAll('.t-rate__item--full')).toHaveLength(1);
+
+      fireEvent.mouseLeave(document.querySelector('.t-rate__item'));
+      expect(document.querySelectorAll('.t-rate__item--full')).toHaveLength(3);
+    });
+
     test('disable', async () => {
       const clickFn = vi.fn();
       render(<Rate disabled onChange={clickFn} />);
       fireEvent.click(document.querySelector('.t-rate__item'));
       expect(clickFn).toHaveBeenCalledTimes(0);
-    });
-
-    test('icon', () => {
-      const { container } = render(<Rate icon={<span className="custom-node">TNode</span>} />);
-      expect(container.children[0].classList.contains('t-rate')).toBeTruthy();
-      expect(document.querySelectorAll('.custom-node')).toHaveLength(10);
     });
 
     test('allowHalf', () => {
