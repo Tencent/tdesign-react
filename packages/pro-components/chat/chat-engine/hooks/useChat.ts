@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import ChatEngine from '@tdesign/ai-chat-engine';
+import { ChatEngine } from '@tdesign/web-components-chat/chat-engine';
 
-import type { ChatMessagesData, ChatServiceConfig, ChatStatus } from '@tdesign/ai-chat-engine';
+import type { ChatMessagesData, ChatServiceConfig, ChatStatus } from '@tdesign/web-components-chat/chat-engine';
 
 export type IUseChat = {
   defaultMessages?: ChatMessagesData[];
@@ -17,9 +17,10 @@ export const useChat = ({ defaultMessages: initialMessages, chatServiceConfig }:
 
   const chatEngine = chatEngineRef.current;
 
-  const syncState = (state: ChatMessagesData[]) => {
-    setMessage(state);
-    setStatus(state.at(-1)?.status || 'idle');
+  const syncState = (state?: ChatMessagesData[]) => {
+    const msgs = state || [];
+    setMessage(msgs);
+    setStatus(msgs.at(-1)?.status || 'idle');
   };
 
   const subscribeToChat = () => {
@@ -31,18 +32,28 @@ export const useChat = ({ defaultMessages: initialMessages, chatServiceConfig }:
     });
   };
 
-  const initChat = () => {
-    // @ts-ignore
-    chatEngine.init(chatServiceConfig, initialMessages);
-    // @ts-ignore
-    syncState(initialMessages);
-    subscribeToChat();
-  };
-
   // 初始化聊天引擎
   useEffect(() => {
+    let isMounted = true;
+
+    const initChat = async () => {
+      // @ts-ignore
+      await chatEngine.init(chatServiceConfig, initialMessages);
+
+      // 如果在 init 完成之前组件已被 unmount（StrictMode cleanup），跳过后续操作
+      if (!isMounted) return;
+
+      // @ts-ignore
+      syncState(initialMessages);
+      subscribeToChat();
+    };
+
     initChat();
-    return () => msgSubscribeRef.current?.();
+
+    return () => {
+      isMounted = false;
+      msgSubscribeRef.current?.();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
