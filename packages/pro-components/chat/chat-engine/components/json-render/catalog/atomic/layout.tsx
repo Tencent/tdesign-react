@@ -16,7 +16,7 @@ import type { ComponentRenderProps } from '../../types';
  * json-render Row 组件
  */
 export const JsonRenderRow: React.FC<ComponentRenderProps> = ({ element, children }) => {
-  const { align = 'top', gutter = 0, justify = 'start', ...restProps } = element.props as RowProps;
+  const { align = 'top', gutter = 0, justify = 'start', ...restProps } = element.props as unknown as RowProps;
 
   // 安全过滤：剔除 dangerouslySetInnerHTML 等危险字段，避免 XSS 注入
   const safeRestProps = sanitizeProps(restProps as Record<string, unknown>);
@@ -84,19 +84,33 @@ JsonRenderSpace.displayName = 'JsonRenderSpace';
  * json-render Column 组件
  * 垂直布局的便捷组件（基于 Space direction="vertical"）
  */
-export interface JsonRenderColumnProps extends Omit<SpaceProps, 'direction'> {
+export interface JsonRenderColumnProps extends Omit<SpaceProps, 'align' | 'direction'> {
   /** 间距大小 */
   gap?: number | string;
+  /** Horizontal alignment */
+  align?: SpaceProps['align'] | 'stretch';
 }
 
 export const JsonRenderColumn: React.FC<ComponentRenderProps> = ({ element, children }) => {
-  const { gap, size = gap || 'small', align = 'stretch', ...restProps } = element.props as JsonRenderColumnProps;
+  const {
+    gap,
+    size = gap || 'small',
+    align = 'stretch',
+    style,
+    ...restProps
+  } = element.props as unknown as JsonRenderColumnProps;
 
   // 安全过滤：剔除 dangerouslySetInnerHTML 等危险字段，避免 XSS 注入
   const safeRestProps = sanitizeProps(restProps as Record<string, unknown>);
 
   return (
-    <Space direction="vertical" align={align} size={size} style={{ width: '100%' }} {...safeRestProps}>
+    <Space
+      direction="vertical"
+      align={align === 'stretch' ? undefined : align}
+      size={size}
+      style={{ width: '100%', alignItems: align, ...style }}
+      {...safeRestProps}
+    >
       {children}
     </Space>
   );

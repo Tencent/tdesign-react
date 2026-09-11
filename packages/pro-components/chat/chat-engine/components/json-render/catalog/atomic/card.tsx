@@ -26,7 +26,7 @@ export const JsonRenderCard: React.FC<ComponentRenderProps> = ({ element, childr
     size = 'medium',
     loading = false,
     shadow = false,
-    hoverable = false,
+    hoverShadow = false,
     header,
     footer,
     ...restProps
@@ -47,7 +47,7 @@ export const JsonRenderCard: React.FC<ComponentRenderProps> = ({ element, childr
       size={size}
       loading={loading}
       shadow={shadow}
-      hoverable={hoverable}
+      hoverShadow={hoverShadow}
       header={header}
       footer={footer}
       {...safeRestProps}

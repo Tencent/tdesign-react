@@ -7,7 +7,10 @@ import { getByPath, setByPath as setByPathMutable } from '@json-render/core';
 import { createStoreContext, Store, useStableCallback } from './store';
 
 import type { ReactNode } from 'react';
-import type { AuthState, DataModel } from '@json-render/core';
+import type { StateModel } from '@json-render/core';
+
+export type DataModel = StateModel;
+export type AuthState = Record<string, unknown>;
 
 /**
  * DataStore 状态类型

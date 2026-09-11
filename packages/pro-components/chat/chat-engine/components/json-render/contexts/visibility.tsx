@@ -54,8 +54,7 @@ export function VisibilityProvider({ children }: VisibilityProviderProps) {
   const isVisible = useStableCallback((condition: VisibilityCondition | undefined) => {
     const store = storeRef.current;
     const ctx: CoreVisibilityContext = {
-      dataModel: store.getData(),
-      authState: store.getAuthState(),
+      stateModel: store.getData(),
     };
     return evaluateVisibility(condition, ctx);
   });
@@ -64,8 +63,7 @@ export function VisibilityProvider({ children }: VisibilityProviderProps) {
   const getCtx = useStableCallback((): CoreVisibilityContext => {
     const store = storeRef.current;
     return {
-      dataModel: store.getData(),
-      authState: store.getAuthState(),
+      stateModel: store.getData(),
     };
   });
 

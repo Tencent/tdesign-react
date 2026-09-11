@@ -6,7 +6,7 @@ import { runValidation } from '@json-render/core';
 import { useDataState } from './data';
 
 import type { ReactNode } from 'react';
-import type { DataModel, ValidationConfig, ValidationFunction, ValidationResult } from '@json-render/core';
+import type { StateModel, ValidationConfig, ValidationFunction, ValidationResult } from '@json-render/core';
 
 /**
  * Field validation state
@@ -41,7 +41,7 @@ export interface ValidationContextValue {
   /**
    * Data model
    */
-  dataModel: DataModel;
+  dataModel: StateModel;
 }
 
 const ValidationContext = createContext<ValidationContextValue | null>(null);
@@ -59,7 +59,7 @@ export interface ValidationProviderProps {
  * Provider for validation
  */
 export function ValidationProvider({ customFunctions = {}, children }: ValidationProviderProps) {
-  const { data, authState } = useDataState();
+  const { data } = useDataState();
   const [fieldStates, setFieldStates] = useState<Record<string, FieldValidationState>>({});
   const [fieldConfigs, setFieldConfigs] = useState<Record<string, ValidationConfig>>({});
 
@@ -72,9 +72,8 @@ export function ValidationProvider({ customFunctions = {}, children }: Validatio
       const value = data[path.split('/').filter(Boolean).join('.')];
       const result = runValidation(config, {
         value,
-        dataModel: data,
+        stateModel: data,
         customFunctions,
-        authState,
       });
 
       setFieldStates((prev) => ({
@@ -88,7 +87,7 @@ export function ValidationProvider({ customFunctions = {}, children }: Validatio
 
       return result;
     },
-    [data, customFunctions, authState],
+    [data, customFunctions],
   );
 
   const touch = useCallback((path: string) => {
@@ -133,8 +132,9 @@ export function ValidationProvider({ customFunctions = {}, children }: Validatio
       clear,
       validateAll,
       registerField,
+      dataModel: data,
     }),
-    [customFunctions, fieldStates, validate, touch, clear, validateAll, registerField],
+    [customFunctions, fieldStates, validate, touch, clear, validateAll, registerField, data],
   );
 
   return <ValidationContext.Provider value={value}>{children}</ValidationContext.Provider>;
