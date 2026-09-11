@@ -1,6 +1,14 @@
 import React, { useRef } from 'react';
-import { ChatList, ChatMessage, isActivityContent, useChat, useAgentActivity, ActivityRenderer } from '@tdesign-react/chat';
-import { Button, Card, Space, Tag, Progress } from 'tdesign-react';
+import { Button, Card, Progress, Space, Tag } from 'tdesign-react';
+import {
+  ActivityRenderer,
+  ChatList,
+  ChatMessage,
+  isActivityContent,
+  useAgentActivity,
+  useChat,
+} from '@tdesign-react/chat';
+
 import type { ActivityComponentProps } from '@tdesign-react/chat';
 
 /**
@@ -171,7 +179,11 @@ const PerformanceTest: React.FC = () => {
   ]);
 
   // 场景 1：并发 + 隔离性验证
-  const { chatEngine: concurrentEngine, messages: concurrentMessages, status: concurrentStatus } = useChat({
+  const {
+    chatEngine: concurrentEngine,
+    messages: concurrentMessages,
+    status: concurrentStatus,
+  } = useChat({
     defaultMessages: [],
     chatServiceConfig: {
       endpoint: `${MOCK_SERVER_BASE}/sse/concurrent-isolation-test`,
@@ -186,7 +198,11 @@ const PerformanceTest: React.FC = () => {
   });
 
   // 场景 2：微任务批量合并验证
-  const { chatEngine: batchEngine, messages: batchMessages, status: batchStatus } = useChat({
+  const {
+    chatEngine: batchEngine,
+    messages: batchMessages,
+    status: batchStatus,
+  } = useChat({
     defaultMessages: [],
     chatServiceConfig: {
       endpoint: `${MOCK_SERVER_BASE}/sse/batch-merge-test`,

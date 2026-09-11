@@ -1,18 +1,14 @@
-"use client";
+'use client';
 
-import React, {
-  createContext,
-  useContext,
-  useRef,
-  type ReactNode,
-} from "react";
-import {
-  evaluateVisibility,
-  type VisibilityCondition,
-  type VisibilityContext as CoreVisibilityContext,
-} from "@json-render/core";
-import { useDataStore, type DataStore } from "./data";
-import { useStableCallback } from "./store";
+import React, { createContext, useContext, useRef } from 'react';
+import { evaluateVisibility } from '@json-render/core';
+
+import { useDataStore } from './data';
+import { useStableCallback } from './store';
+
+import type { ReactNode } from 'react';
+import type { VisibilityCondition, VisibilityContext as CoreVisibilityContext } from '@json-render/core';
+import type { DataStore } from './data';
 
 /**
  * Visibility context value
@@ -35,12 +31,12 @@ export interface VisibilityProviderProps {
 
 /**
  * Provider for visibility evaluation
- * 
+ *
  * 性能优化：
  * - 不订阅 data 变化，避免 data 变化导致所有组件重渲染
  * - isVisible 函数在调用时才读取最新 data（延迟读取）
  * - Context value 保持稳定引用
- * 
+ *
  * 设计说明：
  * - Visibility 判断通常在渲染时执行，不需要触发重渲染
  * - 当 data 变化时，ElementRenderer 会因其他原因重渲染，然后调用 isVisible
@@ -49,22 +45,20 @@ export interface VisibilityProviderProps {
 export function VisibilityProvider({ children }: VisibilityProviderProps) {
   // 获取 DataStore 实例，不订阅状态变化
   const dataStore = useDataStore();
-  
+
   // 使用 ref 存储 store，保持函数引用稳定
   const storeRef = useRef<DataStore>(dataStore);
   storeRef.current = dataStore;
 
   // 延迟读取：isVisible 在调用时才读取最新 data
-  const isVisible = useStableCallback(
-    (condition: VisibilityCondition | undefined) => {
-      const store = storeRef.current;
-      const ctx: CoreVisibilityContext = {
-        dataModel: store.getData(),
-        authState: store.getAuthState(),
-      };
-      return evaluateVisibility(condition, ctx);
-    },
-  );
+  const isVisible = useStableCallback((condition: VisibilityCondition | undefined) => {
+    const store = storeRef.current;
+    const ctx: CoreVisibilityContext = {
+      dataModel: store.getData(),
+      authState: store.getAuthState(),
+    };
+    return evaluateVisibility(condition, ctx);
+  });
 
   // 获取当前 context（用于高级场景）
   const getCtx = useStableCallback((): CoreVisibilityContext => {
@@ -78,11 +72,7 @@ export function VisibilityProvider({ children }: VisibilityProviderProps) {
   // Context value 使用 ref 保持稳定引用
   const valueRef = useRef<VisibilityContextValue>({ isVisible, getCtx });
 
-  return (
-    <VisibilityContext.Provider value={valueRef.current}>
-      {children}
-    </VisibilityContext.Provider>
-  );
+  return <VisibilityContext.Provider value={valueRef.current}>{children}</VisibilityContext.Provider>;
 }
 
 /**
@@ -91,7 +81,7 @@ export function VisibilityProvider({ children }: VisibilityProviderProps) {
 export function useVisibility(): VisibilityContextValue {
   const ctx = useContext(VisibilityContext);
   if (!ctx) {
-    throw new Error("useVisibility must be used within a VisibilityProvider");
+    throw new Error('useVisibility must be used within a VisibilityProvider');
   }
   return ctx;
 }
@@ -99,9 +89,7 @@ export function useVisibility(): VisibilityContextValue {
 /**
  * Hook to check if a condition is visible
  */
-export function useIsVisible(
-  condition: VisibilityCondition | undefined,
-): boolean {
+export function useIsVisible(condition: VisibilityCondition | undefined): boolean {
   const { isVisible } = useVisibility();
   return isVisible(condition);
 }

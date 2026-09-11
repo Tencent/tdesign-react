@@ -12,19 +12,21 @@
  * - json-render 负责动态 UI 的高性能渲染
  * - 两者通过 Activity 机制无缝集成
  */
-import React, { useState, useRef, useMemo } from 'react';
-import {
-  ChatList,
-  ChatSender,
-  ChatMessage,
-  type ChatRequestParams,
-  isActivityContent,
-  ActivityRenderer,
-} from '@tdesign-react/chat';
-import { useChat, useAgentActivity } from '@tdesign-react/chat';
+import React, { useMemo, useRef, useState } from 'react';
 import { MessagePlugin } from 'tdesign-react';
+import {
+  ActivityRenderer,
+  ChatList,
+  ChatMessage,
+  ChatSender,
+  isActivityContent,
+  useAgentActivity,
+  useChat,
+} from '@tdesign-react/chat';
 
 import { createJsonRenderActivityConfig } from '../components/json-render';
+
+import type { ChatRequestParams } from '@tdesign-react/chat';
 
 // Mock Server 地址
 const MOCK_SERVER = 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com';

@@ -1,12 +1,7 @@
-import React, { useState, useRef } from 'react';
-import {
-  ChatList,
-  ChatSender,
-  ChatMessage,
-  type TdChatSenderParams,
-  type ChatRequestParams,
-} from '@tdesign-react/chat';
-import { useChat } from '@tdesign-react/chat';
+import React, { useRef, useState } from 'react';
+import { ChatList, ChatMessage, ChatSender, useChat } from '@tdesign-react/chat';
+
+import type { ChatRequestParams, TdChatSenderParams } from '@tdesign-react/chat';
 
 /**
  * OpenClaw 协议基础示例

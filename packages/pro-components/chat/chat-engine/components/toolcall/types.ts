@@ -48,7 +48,8 @@ interface InteractiveToolcallConfig<TArgs extends object, TResult, TResponse> {
 
 // 最终的配置类型
 export type AgentToolcallConfig<TArgs extends object = any, TResult = any, TResponse = any> =
-  NonInteractiveToolcallConfig<TArgs, TResult> | InteractiveToolcallConfig<TArgs, TResult, TResponse>;
+  | NonInteractiveToolcallConfig<TArgs, TResult>
+  | InteractiveToolcallConfig<TArgs, TResult, TResponse>;
 
 // 类型守卫：判断是否为非交互式配置
 export function isNonInteractive<TArgs extends object, TResult>(

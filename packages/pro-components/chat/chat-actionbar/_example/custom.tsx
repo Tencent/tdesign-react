@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { HeartFilledIcon, HeartIcon } from 'tdesign-icons-react';
 import { MessagePlugin, Space } from 'tdesign-react';
 import { ChatActionBar } from '@tdesign-react/chat';
+
 import type { ChatActionBarAction } from '@tdesign-react/chat';
-import { HeartFilledIcon, HeartIcon } from 'tdesign-icons-react';
 
 const ChatActionBarExample = () => {
   const [isCustomActionActive, setIsCustomActionActive] = useState(false);

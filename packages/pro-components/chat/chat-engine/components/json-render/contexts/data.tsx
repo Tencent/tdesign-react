@@ -1,20 +1,13 @@
-"use client";
+'use client';
 
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useSyncExternalStore,
-  type ReactNode,
-} from "react";
-import { produce } from "immer";
-import {
-  getByPath,
-  setByPath as setByPathMutable,
-  type DataModel,
-  type AuthState,
-} from "@json-render/core";
-import { Store, createStoreContext, useStableCallback } from "./store";
+import React, { useCallback, useEffect, useRef, useSyncExternalStore } from 'react';
+import { produce } from 'immer';
+import { getByPath, setByPath as setByPathMutable } from '@json-render/core';
+
+import { createStoreContext, Store, useStableCallback } from './store';
+
+import type { ReactNode } from 'react';
+import type { AuthState, DataModel } from '@json-render/core';
 
 /**
  * DataStore 状态类型
@@ -28,7 +21,7 @@ export interface DataStoreState {
 
 /**
  * DataStore - 管理表单/组件的数据状态
- * 
+ *
  * 性能优化：
  * - 使用外部 Store 模式，避免 Context 传递整个 data 导致级联重渲染
  * - 支持细粒度订阅：组件只订阅自己需要的路径
@@ -71,10 +64,10 @@ export class DataStore extends Store<DataStoreState> {
    * 通过路径设置值（使用 immer 实现 Structural Sharing）
    */
   setByPath(path: string, value: unknown): void {
-    this.updateState((prev) => 
+    this.updateState((prev) =>
       produce(prev, (draft) => {
         setByPathMutable(draft.data, path, value);
-      })
+      }),
     );
     this.onDataChange?.(path, value);
   }
@@ -89,7 +82,7 @@ export class DataStore extends Store<DataStoreState> {
           setByPathMutable(draft.data, path, value);
           this.onDataChange?.(path, value);
         }
-      })
+      }),
     );
   }
 
@@ -101,10 +94,10 @@ export class DataStore extends Store<DataStoreState> {
       produce(prev, (draft) => {
         for (const [key, value] of Object.entries(newData)) {
           if (
-            typeof value === "object" &&
+            typeof value === 'object' &&
             value !== null &&
             !Array.isArray(value) &&
-            typeof draft.data[key] === "object" &&
+            typeof draft.data[key] === 'object' &&
             draft.data[key] !== null
           ) {
             Object.assign(draft.data[key] as object, value);
@@ -112,7 +105,7 @@ export class DataStore extends Store<DataStoreState> {
             draft.data[key] = value;
           }
         }
-      })
+      }),
     );
   }
 
@@ -137,9 +130,9 @@ const {
   useStore: useDataStore,
   useSelector: useDataSelector,
   useStoreState: useDataStoreState,
-} = createStoreContext<DataStoreState, DataStore>("DataStore");
+} = createStoreContext<DataStoreState, DataStore>('DataStore');
 
-export { useDataStore, useDataSelector, useDataStoreState };
+export { useDataSelector, useDataStore, useDataStoreState };
 
 /**
  * Data context value（兼容旧 API）
@@ -172,18 +165,13 @@ export interface DataProviderProps {
 
 /**
  * Provider for data model context
- * 
+ *
  * 性能优化：
  * - 内部使用 DataStore，支持细粒度订阅
  * - 提供兼容旧 API 的 useData() hook
  * - 推荐使用 useDataValue() 进行细粒度订阅
  */
-export function DataProvider({
-  initialData = {},
-  authState,
-  onDataChange,
-  children,
-}: DataProviderProps) {
+export function DataProvider({ initialData = {}, authState, onDataChange, children }: DataProviderProps) {
   // 创建稳定的 store 实例
   const storeRef = useRef<DataStore | null>(null);
   if (!storeRef.current) {
@@ -211,19 +199,16 @@ export function DataProvider({
 
 /**
  * 获取指定路径的值（细粒度订阅）
- * 
+ *
  * 性能优化：只有指定路径的值变化时才重渲染
- * 
+ *
  * @example
  * const name = useDataValue<string>('/userInfo/name');
  */
 export function useDataValue<T>(path?: string): T | undefined {
   const store = useDataStore();
 
-  const subscribe = useCallback(
-    (onStoreChange: () => void) => store.subscribe(onStoreChange),
-    [store],
-  );
+  const subscribe = useCallback((onStoreChange: () => void) => store.subscribe(onStoreChange), [store]);
 
   const getSnapshot = useCallback(() => {
     if (!path) return undefined;
@@ -235,18 +220,16 @@ export function useDataValue<T>(path?: string): T | undefined {
 
 /**
  * 数据绑定 hook（类似 useState 的 API）
- * 
+ *
  * 返回 [value, setValue] 元组，value 支持细粒度订阅，setValue 引用稳定
- * 
+ *
  * @example
  * const [name, setName] = useDataBinding<string>('/userInfo/name');
  */
-export function useDataBinding<T>(
-  path?: string,
-): [T | undefined, (value: T) => void] {
+export function useDataBinding<T>(path?: string): [T | undefined, (value: T) => void] {
   const store = useDataStore();
   const value = useDataValue<T>(path);
-  
+
   const setValue = useStableCallback((newValue: T) => {
     if (path) {
       store.setByPath(path, newValue);
@@ -258,14 +241,14 @@ export function useDataBinding<T>(
 
 /**
  * 批量更新多个路径
- * 
+ *
  * @example
  * const updatePaths = useDataUpdate();
  * updatePaths({ '/name': 'Alice', '/age': 30 });
  */
 export function useDataUpdate(): (updates: Record<string, unknown>) => void {
   const store = useDataStore();
-  
+
   return useStableCallback((updates: Record<string, unknown>) => {
     store.updatePaths(updates);
   });
@@ -273,13 +256,13 @@ export function useDataUpdate(): (updates: Record<string, unknown>) => void {
 
 /**
  * 获取整个 data 和 authState（订阅所有变化）
- * 
+ *
  * ⚠️ 警告：此 hook 会订阅整个 data 对象，任何数据变化都会触发重渲染
  * 仅在以下场景使用：
  * - 需要遍历整个 data 对象
  * - 需要同时访问 data 和 authState
  * - ValidationProvider 等基础设施层
- * 
+ *
  * 普通组件请使用：
  * - useDataValue() - 细粒度订阅
  * - useDataBinding() - 双向绑定

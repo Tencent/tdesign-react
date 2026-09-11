@@ -1,23 +1,28 @@
-import React, { ReactNode, useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+import { Button, MessagePlugin, Space, Tag } from 'tdesign-react';
 import {
-  type TdChatMessageConfig,
-  type ChatRequestParams,
-  type ChatMessagesData,
-  type TdChatActionsName,
-  type TdChatSenderParams,
-  ChatList,
-  ChatSender,
-  ChatMessage,
-  TdChatListApi,
-  ChatActionBar,
-  isAIMessage,
-  getMessageContentForCopy,
   AGUIAdapter,
+  ChatActionBar,
+  ChatList,
+  ChatMessage,
+  ChatSender,
+  getMessageContentForCopy,
+  isAIMessage,
   isToolCallContent,
 } from '@tdesign-react/chat';
-import { Button, Space, MessagePlugin, Tag } from 'tdesign-react';
+
 import { useChat } from '../index';
 import CustomToolCallRenderer from './components/Toolcall';
+
+import type { ReactNode } from 'react';
+import type {
+  ChatMessagesData,
+  ChatRequestParams,
+  TdChatActionsName,
+  TdChatListApi,
+  TdChatMessageConfig,
+  TdChatSenderParams,
+} from '@tdesign-react/chat';
 
 // Mock 服务地址（本地开发使用 localhost:9001，线上使用云函数）
 const MOCK_BASE_URL = 'http://127.0.0.1:9001';
@@ -80,10 +85,7 @@ export default function AguiResumeExample() {
     },
   });
 
-  const senderLoading = useMemo(
-    () => status === 'pending' || status === 'streaming',
-    [status],
-  );
+  const senderLoading = useMemo(() => status === 'pending' || status === 'streaming', [status]);
 
   /**
    * 模拟断点恢复的完整流程
@@ -111,7 +113,7 @@ export default function AguiResumeExample() {
       // Step 2: 使用 convertHistoryMessages 转换已完成的历史消息
       const convertedMessages = AGUIAdapter.convertHistoryMessages(historyMessages);
       chatEngine.setMessages(convertedMessages);
-      
+
       console.log(`[Resume] 历史消息已加载: ${convertedMessages.length} 条`);
 
       // Step 3: 检查是否有未完成的 run
@@ -200,7 +202,11 @@ export default function AguiResumeExample() {
       error: { theme: 'danger', text: '恢复失败' },
     };
     const c = config[resumeState];
-    return <Tag theme={c.theme as any} size="small">{c.text}</Tag>;
+    return (
+      <Tag theme={c.theme as any} size="small">
+        {c.text}
+      </Tag>
+    );
   };
 
   return (
@@ -231,9 +237,7 @@ export default function AguiResumeExample() {
           </Button>
           {getResumeStatusTag()}
           {pendingRunInfo && (
-            <span style={{ fontSize: '12px', color: '#999' }}>
-              threadId: {pendingRunInfo.threadId}
-            </span>
+            <span style={{ fontSize: '12px', color: '#999' }}>threadId: {pendingRunInfo.threadId}</span>
           )}
         </Space>
       </div>

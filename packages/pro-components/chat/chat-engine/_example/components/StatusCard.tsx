@@ -1,12 +1,13 @@
 /**
  * 自定义业务组件：StatusCard
  * 展示状态信息卡片
- * 
+ *
  * 注意：无需手动添加 React.memo 比较函数
  * createCustomRegistry 会自动使用 withStableProps 包装，
  * 基于 react-fast-compare 进行高效深比较
  */
 import React from 'react';
+
 import type { ComponentRenderProps } from '@json-render/react';
 
 export const StatusCard: React.FC<ComponentRenderProps> = ({ element }) => {

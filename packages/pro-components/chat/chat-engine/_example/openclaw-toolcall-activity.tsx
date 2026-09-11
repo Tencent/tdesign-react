@@ -1,21 +1,22 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { Button, Card, Space, Input, Select, Tag } from 'tdesign-react';
+import { CheckCircleFilledIcon, CloudIcon, LoadingIcon } from 'tdesign-icons-react';
+import { Button, Card, Input, Select, Space, Tag } from 'tdesign-react';
 import {
   ChatList,
-  ChatSender,
   ChatMessage,
+  ChatSender,
+  isToolCallContent,
   ToolCallRenderer,
   useAgentToolcall,
   useChat,
-  isToolCallContent,
 } from '@tdesign-react/chat';
-import { CheckCircleFilledIcon, LoadingIcon, CloudIcon } from 'tdesign-icons-react';
+
 import type {
+  AIMessageContent,
   ChatMessagesData,
   ChatRequestParams,
   ToolCall,
   ToolcallComponentProps,
-  AIMessageContent,
 } from '@tdesign-react/chat';
 
 // ==================== 类型定义 ====================
@@ -49,12 +50,7 @@ interface UserPreferencesResponse {
  *
  * 展示 OpenClaw stream=tool 两阶段（start → result）
  */
-const WeatherCard: React.FC<ToolcallComponentProps<WeatherArgs, WeatherResult>> = ({
-  status,
-  args,
-  result,
-  error,
-}) => {
+const WeatherCard: React.FC<ToolcallComponentProps<WeatherArgs, WeatherResult>> = ({ status, args, result, error }) => {
   if (error) {
     return (
       <Card bordered style={{ marginTop: 8 }}>
@@ -67,9 +63,7 @@ const WeatherCard: React.FC<ToolcallComponentProps<WeatherArgs, WeatherResult>> 
     <Card bordered style={{ marginTop: 8, maxWidth: 360 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
         <CloudIcon style={{ fontSize: 18, color: '#0052d9' }} />
-        <span style={{ fontSize: 14, fontWeight: 600 }}>
-          {args?.city || '...'} 天气
-        </span>
+        <span style={{ fontSize: 14, fontWeight: 600 }}>{args?.city || '...'} 天气</span>
         {status === 'executing' && (
           <Tag theme="primary" variant="light" size="small">
             <LoadingIcon style={{ fontSize: 12, marginRight: 4 }} />
@@ -84,9 +78,7 @@ const WeatherCard: React.FC<ToolcallComponentProps<WeatherArgs, WeatherResult>> 
         )}
       </div>
 
-      {status === 'executing' && (
-        <div style={{ color: '#888', fontSize: 12 }}>正在获取天气信息...</div>
-      )}
+      {status === 'executing' && <div style={{ color: '#888', fontSize: 12 }}>正在获取天气信息...</div>}
 
       {status === 'complete' && result && (
         <Space direction="vertical" size="small">
@@ -106,9 +98,12 @@ const WeatherCard: React.FC<ToolcallComponentProps<WeatherArgs, WeatherResult>> 
  * - 后端通过 tool stream 推送表单
  * - 用户填写后通过 respond（桥接 node.invoke RPC）回传
  */
-const UserPreferencesForm: React.FC<
-  ToolcallComponentProps<UserPreferencesArgs, any, UserPreferencesResponse>
-> = ({ status, args, respond, result }) => {
+const UserPreferencesForm: React.FC<ToolcallComponentProps<UserPreferencesArgs, any, UserPreferencesResponse>> = ({
+  status,
+  args,
+  respond,
+  result,
+}) => {
   const [budget, setBudget] = useState(5000);
   const [interests, setInterests] = useState<string[]>(['美食', '文化']);
   const [accommodation, setAccommodation] = useState('经济型');
@@ -125,9 +120,7 @@ const UserPreferencesForm: React.FC<
   if (status === 'complete' && result) {
     return (
       <Card bordered style={{ marginTop: 8, maxWidth: 400 }}>
-        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 8, color: '#00a870' }}>
-          ✓ 已收到您的偏好设置
-        </div>
+        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 8, color: '#00a870' }}>✓ 已收到您的偏好设置</div>
         <Space direction="vertical" size="small">
           <div style={{ fontSize: 12, color: '#666' }}>预算：¥{result.budget}</div>
           <div style={{ fontSize: 12, color: '#666' }}>兴趣：{result.interests?.join('、')}</div>
@@ -139,9 +132,7 @@ const UserPreferencesForm: React.FC<
 
   return (
     <Card bordered style={{ marginTop: 8, maxWidth: 400 }}>
-      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>
-        请设置 {args?.destination || ''} 旅游偏好
-      </div>
+      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>请设置 {args?.destination || ''} 旅游偏好</div>
       <Space direction="vertical" size="large" style={{ width: '100%' }}>
         <div>
           <div style={{ marginBottom: 4, fontSize: 12 }}>预算（元）</div>
@@ -260,10 +251,7 @@ export default function OpenClawToolcallActivity() {
     },
   });
 
-  const senderLoading = useMemo(
-    () => status === 'pending' || status === 'streaming',
-    [status],
-  );
+  const senderLoading = useMemo(() => status === 'pending' || status === 'streaming', [status]);
 
   // 消息配置
   const messageProps: Record<string, any> = {
@@ -336,9 +324,7 @@ export default function OpenClawToolcallActivity() {
       >
         💡 输入提示：<strong>交互/互动/偏好</strong> → 🌟 交互式 Toolcall 演示（Human-in-the-Loop）|{' '}
         <strong>天气/tool</strong> → Toolcall
-        <span style={{ marginLeft: 12, color: '#888' }}>
-          📜 历史消息由 Gateway connect 响应自动推送
-        </span>
+        <span style={{ marginLeft: 12, color: '#888' }}>📜 历史消息由 Gateway connect 响应自动推送</span>
       </div>
 
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>

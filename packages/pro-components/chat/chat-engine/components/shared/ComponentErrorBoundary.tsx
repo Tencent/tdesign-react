@@ -1,4 +1,7 @@
-import React, { Component, ErrorInfo } from 'react';
+import { Component } from 'react';
+
+import type React from 'react';
+import type { ErrorInfo } from 'react';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;

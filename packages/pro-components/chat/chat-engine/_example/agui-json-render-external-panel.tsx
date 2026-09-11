@@ -7,19 +7,21 @@
  * 使用场景：
  * - 需要将生成的 UI 渲染到页面的其他区域，如弹窗、侧边栏等，进行额外的控制和管理
  */
-import React, { useState, useMemo, useEffect, useCallback } from 'react';
-import { type ChatRequestParams, ActivityRenderer, ChatEngineEventType } from '@tdesign-react/chat';
-import { useChat, useAgentActivity } from '@tdesign-react/chat';
-import { MessagePlugin, Button, Card, Space, Input } from 'tdesign-react';
-
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Button, Card, Input, MessagePlugin, Space } from 'tdesign-react';
 import {
-  createJsonRenderActivityConfig,
+  ActivityRenderer,
+  ChatEngineEventType,
   createCustomRegistry,
-  type JsonRenderActivityProps,
+  createJsonRenderActivityConfig,
+  useAgentActivity,
+  useChat,
 } from '@tdesign-react/chat';
 
 // 导入自定义组件
-import { StatusCard, ProgressBar } from './components';
+import { ProgressBar, StatusCard } from './components';
+
+import type { ChatRequestParams, JsonRenderActivityProps } from '@tdesign-react/chat';
 
 // Mock Server 地址
 const MOCK_SERVER = 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com';
