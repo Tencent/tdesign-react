@@ -80,9 +80,9 @@ export default function generateChatLlms() {
         outputDir,
         platform: 'chat',
         parseComponentDoc,
-        splineLabels: { aigc: 'AI' },
-        siteTitle: 'TDesign React AIGC',
-        siteDescription: 'TDesign React AIGC 聊天组件库的 LLM 友好文档索引。',
+        siteTitle: 'TDesign React Chat',
+        siteDescription:
+          'TDesign Chat 智能对话组件库，为 AI 应用提供专业级聊天界面解决方案,适合在 React 技术栈项目中使用。',
         siteBaseUrl: config.base,
       });
     },
