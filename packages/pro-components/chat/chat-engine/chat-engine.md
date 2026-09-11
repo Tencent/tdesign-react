@@ -22,7 +22,7 @@ ChatEngine 是一个底层对话引擎（Headless Core），提供灵活的 Hook
 
 最简单的示例，使用 `useChat` Hook 创建对话引擎，组合 `ChatList`、`ChatMessage`、`ChatSender` 组件构建对话界面。
 
-{{ basic }}
+{{ agui-test }}
 
 ## 基础用法
 
@@ -65,7 +65,7 @@ ChatEngine 是一个底层对话引擎（Headless Core），提供灵活的 Hook
 
 - **自定义操作栏**：如果组件库内置的 [`ChatActionbar`](/react-chat/components/chat-actionbar) 不能满足需求，可以通过 `slot='actionbar'` 属性来渲染自定义组件。
 
-- **自定义输入区域**：如果需要自定义ChatSender输入区，可用插槽详见[ChatSender插槽](/react-chat/components/chat-sender?tab=api#插槽) 
+- **自定义输入区域**：如果需要自定义ChatSender输入区，可用插槽详见[ChatSender插槽](/react-chat/components/chat-sender?tab=api#插槽)
 
 
 {{ custom-content }}
@@ -139,9 +139,9 @@ ChatEngine 围绕工具调用提供了几个核心 Hook，它们各司其职，�
 const GlobalProgressBar: React.FC = () => {
   // 使用 useAgentState 订阅状态
   const { stateMap, currentStateKey } = useAgentState();
-  
+
   /* 后端通过 STATE_SNAPSHOT 和 STATE_DELTA 事件推送状态数据，模拟数据如下：
-  // 
+  //
   // STATE_SNAPSHOT（初始快照）：
   // data: {"type":"STATE_SNAPSHOT","snapshot":{"task_xxx":{"progress":0,"message":"准备开始规划...","items":[]}}}
   //
@@ -151,18 +151,18 @@ const GlobalProgressBar: React.FC = () => {
   //   {"op":"replace","path":"/task_xxx/message","value":"分析目的地信息"},
   //   {"op":"replace","path":"/task_xxx/items","value":[{"label":"分析目的地信息","status":"running"}]}
   // ]}
-  */ 
- 
+  */
+
   // useAgentState 内部会自动处理这些事件，将 snapshot 和 delta 合并到 stateMap 中
-  
+
   // 获取当前任务状态
   const currentState = currentStateKey ? stateMap[currentStateKey] : null;
-  
+
   // items 数组包含任务的各个步骤信息
   // 每个 item 包含：label（步骤名称）、status（状态：running/completed/failed）
   const items = currentState?.items || [];
   const completedCount = items.filter((item: any) => item.status === 'completed').length;
-  
+
   return (
     <div>
       <div>进度：{completedCount}/{items.length}</div>
@@ -205,11 +205,108 @@ AG-UI 协议支持通过 `ACTIVITY_*` 事件展示动态内容组件（如实时
 - **外部状态订阅**：演示如何在对话组件外部订阅和展示工具执行状态
 
 {{ agui-comprehensive }}
+<!--
+### 断点恢复（Resume）
 
+当用户离开页面后重新进入时，如果后端 Agent 仍在运行，可以通过断点恢复机制续接进行中的任务。
 
+**核心流程**：
+1. 请求历史消息接口，获取已完成的消息 + `pendingRun` 标识
+2. 使用 `AGUIAdapter.convertHistoryMessages` 转换并渲染已完成的消息
+3. 如果有 `pendingRun`，调用 `chatEngine.resumeRun({ threadId, runId })` 发起续传
+4. 后端推 `MESSAGES_SNAPSHOT` 事件一次性恢复已产生的中间内容（思考、工具调用、部分文本）
+5. 后端继续推增量事件直到 `RUN_FINISHED`
+
+{{ agui-resume }} -->
+
+<!-- ## OpenClaw 协议
+
+[OpenClaw](https://openclaw.io) 是一个基于 WebSocket 的 AI Agent 网关协议，采用 RPC 风格的消息通信，支持实时双向交互、流式消息推送、连接保活等特性。ChatEngine 内置了对 OpenClaw 协议的支持，可以方便地接入 OpenClaw Gateway。
+
+### 设计原则
+
+- **配置精简**：OpenClaw 专属配置只保留协议层必需项（`heartbeatInterval`、`client`、`protocolVersion`），业务参数通过 `onRequest` 回调传入
+- **复用外层配置**：`endpoint`、`maxRetries`、`retryInterval`、`timeout` 等通用网络配置复用 `ChatNetworkConfig`
+- **安全考虑**：token 等敏感信息不在静态配置中暴露，通过 `onRequest` 动态获取
+
+### 基础用法
+
+设置 `protocol: 'openclaw'`，即可启用 OpenClaw WebSocket 连接。ChatEngine 会自动处理：
+- WebSocket 连接建立和 `connect.challenge` 握手
+- 心跳保活和自动重连
+- 将 OpenClaw 事件（`chat`、`agent`）自动转换为 `AIMessageContent` 格式
+
+> ⚠️ 本示例需要启动本地 Mock Server：`cd mock-server/online2 && node app.js`
+
+{{ openclaw-basic }} -->
+<!--
+### Toolcall 综合
+
+在 OpenClaw 协议中，通过 `stream` 字段区分不同的事件流类型：
+
+- **`stream=assistant`**（默认）：文本流式传输
+- **`stream=tool`**：工具调用两阶段（start → result），对应前端的 `ToolCallRenderer` 组件
+
+本示例重点展示 **Human-in-the-Loop 交互式 Toolcall** 的完整流程：
+
+1. 输入"交互"关键字 → 服务端推送天气查询 Toolcall + 用户偏好收集 Toolcall（交互式，只推 start，不推 result）
+2. 前端展示偏好表单 → 用户填写预算、兴趣等 → 点击"确认提交"
+3. 前端通过 `sendAIMessage({ toolCallMessage })` 将表单数据回传后端
+4. 后端收到后推送 Toolcall result（完成生命周期）+ 总结文本
+
+> ⚠️ 本示例需要启动本地 Mock Server：`cd mock-server/online2 && node app.js`
+
+{{ openclaw-toolcall-activity }}
+ -->
+
+## 生成式UI
+
+生成式 UI（Generative UI）是指由 AI/LLM 动态生成的用户界面。ChatEngine 基于 Vercel Lib [json-render](https://json-render.dev/docs) 理念构建了完整的生成式 UI 解决方案，让 AI 能够在**受约束的Catalog**内安全地生成 UI，输出始终可预测、可渲染。
+
+### 核心设计理念
+
+生成式 UI 采用**双层架构**实现安全可控的 AI UI 生成：
+
+- **Catalog（约束层）**：定义 AI 可以使用的组件词汇表，通过 Zod Schema 约束每个组件的 props，确保 AI 生成的 JSON 符合预期结构。使用 `generateCatalogPrompt` 将 Catalog 转换为 AI 系统提示词
+- **Registry（渲染层）**：定义组件的 React 实现，将 AI 生成的 JSON Schema 渲染为真实的 UI 组件。通过 `createCustomRegistry` 注册自定义组件
+
+这种设计确保了：
+- **安全可控**：AI 只能生成 Catalog 中定义的组件，无法生成任意代码
+- **输出可预测**：JSON 输出始终符合 Schema 约束，每次都能正确渲染
+- **流式渲染**：支持边生成边渲染，通过 AG-UI 协议的 `ACTIVITY_SNAPSHOT`（全量）和 `ACTIVITY_DELTA`（JSON Patch 增量）实现高性能流式更新
+
+### 基础示例
+
+演示生成式 UI 的完整使用流程：
+
+1. **定义 Catalog**：使用 `generateCatalogPrompt` 生成 AI 系统提示词，告诉 AI 可以生成哪些组件（如 Card、Button、Input 等）以及每个组件接受的 props
+2. **注册 Registry**：使用 `createCustomRegistry` 注册自定义组件的 React 实现，定义这些组件如何渲染
+3. **配置 Activity**：使用 `createJsonRenderActivityConfig` 创建 Activity 配置，定义 Action 处理器（如表单提交、按钮点击等交互）
+
+AI 生成符合 Catalog 约束的 JSON → json-render 引擎解析 → Registry 查找组件实现 → 渲染真实 UI。
+
+{{ agui-json-render-full-custom }}
+
+### 旁路UI渲染
+
+在某些场景下，需要将 AI 生成的 UI 渲染到对话框之外的区域（如侧边栏、弹窗、独立面板等）。本示例演示如何通过 `eventBus.on(ChatEngineEventType.AGUI_ACTIVITY)` 监听 Activity 事件，获取生成的 UI Schema，然后在任意位置使用 `ActivityRenderer` 进行独立渲染。适用于需要对生成式 UI 进行额外控制和管理的场景。
+
+{{ agui-json-render-external-panel }}
+
+### A2UI 协议渲染
+
+除了原生 json-render Schema，ChatEngine 还支持 [A2UI（Agent to UI）协议 v0.9.1](https://a2ui.org/specification/v0.9.1-a2ui/)。A2UI 是 Google 专为 AI 动态渲染设计的流式 UI 协议，其核心特点是 **UI 结构与数据分离**：
+
+- **四种消息类型**：`createSurface`（创建画布）、`updateComponents`（更新组件结构）、`updateDataModel`（更新数据模型）、`deleteSurface`（删除画布）
+- **扁平化组件列表**：组件以邻接表形式定义，通过 ID 引用建立父子关系，支持任意顺序发送
+- **数据绑定**：组件 props 可通过 `{ "path": "/user/name" }` 语法绑定到数据模型，支持双向绑定（表单输入自动更新本地数据）
+- **渐进式渲染**：客户端增量解析消息流，边接收边渲染
+
+使用 `createA2UIJsonRenderActivityConfig` 可以将 A2UI 协议消息自动转换为 json-render Schema 进行渲染，复用现有的 Registry 组件实现。
+
+{{ agui-a2ui-form }}
 
 ## API
-
 ### useChat
 
 用于管理对话状态与生命周期的核心 Hook，初始化对话引擎、同步消息数据、订阅状态变更，并自动处理组件卸载时的资源清理。
@@ -412,6 +509,124 @@ Activity 的统一渲染组件，负责根据 Activity 类型自动查找配置�
 | activityType | string | Activity 类型名称                    |
 | content      | any    | Activity 内容数据                    |
 | messageId    | string | 消息 ID                             |
+
+
+### 生成式 UI API
+
+以下是生成式 UI 相关的核心 API，用于创建和配置 AI 动态生成的界面组件。
+
+#### generateCatalogPrompt
+
+生成 AI 系统提示词的工具函数，用于告诉 AI/LLM 可以生成哪些组件及其 props 约束。生成的 prompt 包含组件文档、props 说明、actions 白名单和 JSON Schema 示例。
+
+##### 参数
+
+| 属性名         | 类型                                                        | 说明                                                                                           | 必传 |
+| -------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---- |
+| name           | string                                                      | Catalog 名称，用于标识组件集合                                                                 | N    |
+| components     | Record<string, ComponentDoc>                                | 自定义组件定义，key 为组件名，value 包含 props（Zod Schema 或字符串描述）和 description        | N    |
+| actions        | Record<string, { description: string }>                     | 自定义 actions 白名单，除内置的 submit/reset/cancel 外的额外操作                               | N    |
+| includeExample | boolean                                                     | 是否在 prompt 中包含 JSON Schema 示例，默认 true                                               | N    |
+| templateMode   | 'default' \\| 'a2ui' \\| 'custom'                            | Prompt 模板模式：default（标准 json-render）、a2ui（A2UI 协议）、custom（自定义模板）          | N    |
+| customTemplate | (context: { name, components, actions }) => string          | 自定义模板生成器函数，仅当 templateMode='custom' 时使用                                        | N    |
+
+##### 返回值
+
+| 类型   | 说明                                                     |
+| ------ | -------------------------------------------------------- |
+| string | 完整的 AI 系统提示词，包含组件文档、props 说明和使用示例 |
+
+##### ComponentDoc 类型
+
+| 属性名      | 类型                                  | 说明                                                  |
+| ----------- | ------------------------------------- | ----------------------------------------------------- |
+| description | string                                | 组件描述                                              |
+| props       | Record<string, string> \\| ZodObject   | Props 定义，支持字符串描述或 Zod Schema               |
+| hasChildren | boolean                               | 是否支持子组件                                        |
+
+---
+
+#### createJsonRenderActivityConfig
+
+创建 json-render Activity 配置的工厂函数，用于配置生成式 UI 的渲染行为和交互处理。
+
+##### 参数 (JsonRenderActivityConfigOptions)
+
+| 属性名         | 类型                                                               | 说明                                                                           | 必传 |
+| -------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ---- |
+| activityType   | string                                                             | Activity 类型标识，需要与后端返回的 activityType 一致，默认 'json-render'      | N    |
+| registry       | ComponentRegistry                                                  | 组件注册表，默认使用内置的 tdesignRegistry                                     | N    |
+| actionHandlers | Record<string, (params: Record<string, unknown>) => void \\| Promise<void>> | Action 处理器映射表，定义按钮点击等交互的处理函数                              | N    |
+| debug          | boolean                                                            | 是否显示调试信息，默认 false                                                   | N    |
+| description    | string                                                             | Activity 描述信息                                                              | N    |
+
+##### 返回值
+
+| 类型                                     | 说明                                          |
+| ---------------------------------------- | --------------------------------------------- |
+| ActivityConfig<JsonRenderActivityProps['content']> | Activity 配置对象，可传入 useAgentActivity 注册 |
+
+---
+
+#### createA2UIJsonRenderActivityConfig
+
+创建 A2UI + json-render Activity 配置的工厂函数，用于将 A2UI 协议自动转换为 json-render Schema 进行渲染。
+
+##### 参数 (JsonRenderActivityConfigOptions)
+
+| 属性名         | 类型                                                               | 说明                                                                           | 必传 |
+| -------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ---- |
+| activityType   | string                                                             | Activity 类型标识，默认 'a2ui-json-render'                                     | N    |
+| registry       | ComponentRegistry                                                  | 组件注册表，默认使用 a2uiRegistry（支持 valuePath/disabledPath 自动绑定）      | N    |
+| actionHandlers | Record<string, (params: Record<string, unknown>) => void \\| Promise<void>> | Action 处理器映射表                                                            | N    |
+| debug          | boolean                                                            | 是否显示调试信息，默认 false                                                   | N    |
+| description    | string                                                             | Activity 描述信息                                                              | N    |
+
+##### 返回值
+
+| 类型              | 说明                                          |
+| ----------------- | --------------------------------------------- |
+| ActivityConfig<any> | Activity 配置对象，可传入 useAgentActivity 注册 |
+
+---
+
+#### createCustomRegistry
+
+创建自定义组件注册表的工厂函数，用于扩展内置组件，注册业务自定义组件的 React 实现。
+
+##### 参数
+
+| 参数名           | 类型                        | 说明                                                                     | 必传 |
+| ---------------- | --------------------------- | ------------------------------------------------------------------------ | ---- |
+| customComponents | ComponentRegistry           | 自定义组件映射表，key 为组件名（需与 Catalog 中一致），value 为 React 组件 | Y    |
+| options          | CreateCustomRegistryOptions | 配置选项                                                                 | N    |
+
+##### CreateCustomRegistryOptions
+
+| 属性名            | 类型    | 说明                                                                                       | 必传 |
+| ----------------- | ------- | ------------------------------------------------------------------------------------------ | ---- |
+| enableStableProps | boolean | 是否自动使用 React.memo + 深比较优化组件性能，默认 false（ElementRenderer 已有内置优化）    | N    |
+
+##### 返回值
+
+| 类型              | 说明                                               |
+| ----------------- | -------------------------------------------------- |
+| ComponentRegistry | 合并后的组件注册表，包含内置组件和自定义组件       |
+
+##### ComponentRegistry 类型
+
+组件注册表是一个组件名到 React 组件的映射对象：
+
+```typescript
+type ComponentRegistry = Record<string, React.ComponentType<ComponentRenderProps>>;
+```
+
+##### ComponentRenderProps
+
+| 属性名   | 类型                | 说明                                     |
+| -------- | ------------------- | ---------------------------------------- |
+| element  | JsonRenderElement   | 元素对象，包含 type、props、children 等  |
+| children | React.ReactNode     | 子元素渲染结果                           |
 
 
 ## 常见问题

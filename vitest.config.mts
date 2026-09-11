@@ -11,7 +11,10 @@ const testConfig: InlineConfig = {
   include:
     process.env.NODE_ENV === 'test-snap'
       ? ['test/snap/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}']
-      : ['packages/components/**/__tests__/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+      : [
+          'packages/components/**/__tests__/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
+          'packages/pro-components/**/__tests__/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
+        ],
   globals: true,
   environment: 'jsdom',
   testTimeout: 16000,

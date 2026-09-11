@@ -6,11 +6,16 @@ export * from './hooks/useChat';
 // React components
 export * from './components';
 
-// Re-export core API from @tdesign/ai-chat-engine
-// For full core API, use: import { ... } from '@tdesign/ai-chat-engine'
-export { default as ChatEngine } from '@tdesign/ai-chat-engine';
-export { ChatEngineEventType, ChatEventBus, createEventBus } from '@tdesign/ai-chat-engine';
-export { activityManager, AGUIAdapter, stateManager } from '@tdesign/ai-chat-engine';
+// Re-export core API from @tdesign/web-components-chat
+// （@tdesign/web-components-chat 已透传 @tdesign/ai-chat-engine 的全部导出，
+//   pro-components 不再直接依赖 @tdesign/ai-chat-engine）
+export {
+  ChatEngine,
+  ChatEngineEventType,
+  ChatEventBus,
+  createEventBus,
+} from '@tdesign/web-components-chat/chat-engine';
+export { activityManager, AGUIAdapter, stateManager } from '@tdesign/web-components-chat/chat-engine';
 export {
   applyJsonPatch,
   findTargetElement,
@@ -27,8 +32,8 @@ export {
   isToolCallContent,
   isUserMessage,
   safeParseJSON,
-} from '@tdesign/ai-chat-engine';
-export { AGUIEventType } from '@tdesign/ai-chat-engine';
+} from '@tdesign/web-components-chat/chat-engine';
+export { AGUIEventType } from '@tdesign/web-components-chat/chat-engine';
 
 // Re-export commonly used types
 export type {
@@ -65,4 +70,4 @@ export type {
   ToolCallContent,
   UserMessage,
   UserMessageContent,
-} from '@tdesign/ai-chat-engine';
+} from '@tdesign/web-components-chat/chat-engine';

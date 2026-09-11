@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.16.5",
+    "@tdesign/common-docs": "workspace:^",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^22.7.0",
     "@types/react": "^18.2.0",

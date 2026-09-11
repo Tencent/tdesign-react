@@ -4,7 +4,7 @@ import { Button, Space } from 'tdesign-react';
 import TvisionTcharts from 'tvision-charts-react';
 import { ChatBot } from '@tdesign-react/chat';
 
-import type { AIContentChunkUpdate } from '@tdesign/ai-chat-engine';
+import type { AIContentChunkUpdate } from '@tdesign/web-components-chat';
 import type {
   ChatBaseContent,
   ChatMessagesData,
