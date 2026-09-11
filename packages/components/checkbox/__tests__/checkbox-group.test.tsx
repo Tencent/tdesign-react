@@ -1,0 +1,94 @@
+import React from 'react';
+import { fireEvent, render, vi } from '@test/utils';
+
+import Checkbox from '../Checkbox';
+
+describe('CheckboxGroup', () => {
+  describe('props', () => {
+    test('value', () => {
+      const { container } = render(
+        <Checkbox.Group value={['gz']}>
+          <Checkbox value="gz">广州</Checkbox>
+          <Checkbox value="sz" disabled>
+            深圳
+          </Checkbox>
+        </Checkbox.Group>,
+      );
+      expect(container.firstChild.firstChild).toHaveClass('t-is-checked');
+    });
+
+    test('value is string', () => {
+      const { container } = render(<Checkbox.Group options={['北京', '广州']} value={['北京']}></Checkbox.Group>);
+      expect(container.firstChild.firstChild).toHaveClass('t-is-checked');
+    });
+
+    test('value is number', () => {
+      const { container } = render(<Checkbox.Group options={[1, 2]} value={[1]}></Checkbox.Group>);
+      expect(container.firstChild.firstChild).toHaveClass('t-is-checked');
+    });
+
+    test('defaultValue', () => {
+      const { container } = render(
+        <Checkbox.Group defaultValue={['gz']}>
+          <Checkbox value="gz">广州</Checkbox>
+          <Checkbox value="sz" disabled>
+            深圳
+          </Checkbox>
+        </Checkbox.Group>,
+      );
+      expect(container.firstChild.firstChild).toHaveClass('t-is-checked');
+    });
+  });
+
+  describe('events', () => {
+    test('onChange', () => {
+      const fn = vi.fn();
+      const { container } = render(
+        <Checkbox.Group value={['gz']} onChange={fn}>
+          <Checkbox value="gz">广州</Checkbox>
+          <Checkbox value="sz" disabled>
+            深圳
+          </Checkbox>
+        </Checkbox.Group>,
+      );
+      fireEvent.click(container.firstChild.firstChild);
+      expect(fn).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('scenarios', () => {
+    test('option', () => {
+      const { container } = render(
+        <Checkbox.Group
+          defaultValue={['北京']}
+          options={[
+            { value: '上海', label: '上海' },
+            { value: '广州', label: '广州', disabled: true },
+            { value: '北京', label: '北京', name: '北京' },
+            1,
+            0,
+            '重庆',
+            { label: '全选', checkAll: true },
+          ]}
+        ></Checkbox.Group>,
+      );
+      fireEvent.click(container.firstChild.lastChild);
+      expect(container.firstChild.firstChild).toHaveClass('t-is-checked');
+      const options = container.firstChild.childNodes;
+      // 0 is rendered as string '0'
+      expect(options.item(4).textContent).toBe('0');
+    });
+
+    test('max', () => {
+      const { container } = render(
+        <Checkbox.Group max={2} defaultValue={['sz']}>
+          <Checkbox value="gz">广州</Checkbox>
+          <Checkbox value="sz">深圳</Checkbox>
+          <Checkbox value="bj">北京</Checkbox>
+        </Checkbox.Group>,
+      );
+      fireEvent.click(container.firstChild.firstChild);
+      expect(container.firstChild.lastChild).toHaveClass('t-is-disabled');
+    });
+  });
+});

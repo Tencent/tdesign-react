@@ -5,7 +5,7 @@ import List from '../List';
 
 const { ListItem, ListItemMeta } = List;
 
-describe('List 组件测试', () => {
+describe('List', () => {
   const data = [
     { id: 1, content: '列表内容列表内容列表内容' },
     { id: 2, content: '列表内容列表内容列表内容' },
@@ -13,7 +13,37 @@ describe('List 组件测试', () => {
     { id: 4, content: '列表内容列表内容列表内容' },
   ];
 
-  describe('List Props', () => {
+  describe('props', () => {
+    test('asyncLoading props', () => {
+      const { container } = render(<List asyncLoading="loading" />);
+
+      expect(container.querySelector('.t-loading')).not.toBeNull();
+      expect(container.querySelector('.t-loading')).toBeInTheDocument();
+    });
+  });
+
+  describe('events', () => {
+    test('onScroll', () => {
+      const fn = vi.fn();
+      const { container } = render(
+        <List
+          style={{
+            height: '10px',
+            overflow: 'auto',
+          }}
+          onScroll={fn}
+        >
+          {data.map((val) => (
+            <ListItem key={val.id}>{val.content}</ListItem>
+          ))}
+        </List>,
+      );
+      fireEvent.scroll(container.firstChild);
+      expect(fn).toHaveBeenCalled();
+    });
+  });
+
+  describe('scenarios', () => {
     test('asyncLoading is string & onLoadMore', () => {
       const clickFn = vi.fn();
       const { container, queryByText } = render(
@@ -34,25 +64,6 @@ describe('List 组件测试', () => {
       expect(clickFn).toHaveBeenCalledTimes(1);
     });
 
-    test('onScroll', () => {
-      const fn = vi.fn();
-      const { container } = render(
-        <List
-          style={{
-            height: '10px',
-            overflow: 'auto',
-          }}
-          onScroll={fn}
-        >
-          {data.map((val) => (
-            <ListItem key={val.id}>{val.content}</ListItem>
-          ))}
-        </List>,
-      );
-      fireEvent.scroll(container.firstChild);
-      expect(fn).toHaveBeenCalled();
-    });
-
     test('header and footer props', () => {
       const header = 'header content';
       const footer = 'footer content';
@@ -63,16 +74,11 @@ describe('List 组件测试', () => {
       expect(queryByText(footer)).not.toBeNull();
       expect(queryByText(footer)).toBeInTheDocument();
     });
-
-    test('asyncLoading props', () => {
-      const { container } = render(<List asyncLoading="loading" />);
-
-      expect(container.querySelector('.t-loading')).not.toBeNull();
-      expect(container.querySelector('.t-loading')).toBeInTheDocument();
-    });
   });
+});
 
-  describe('ListItem Component Test', () => {
+describe('ListItem', () => {
+  describe('slots', () => {
     test('content and children render', () => {
       const contextText = 'content render';
       const { container } = render(<ListItem content={<div id="content_id">{contextText}</div>} />);
@@ -96,8 +102,10 @@ describe('List 组件测试', () => {
       expect(queryByText('操作1')).toBeInTheDocument();
     });
   });
+});
 
-  describe('ListItemMeta Component Test', () => {
+describe('ListItemMeta', () => {
+  describe('props', () => {
     const imgSrc = 'https://tdesign.gtimg.com/site/images/list-icon.png';
     const description = 'Test Description';
     test('image string', () => {
@@ -106,18 +114,23 @@ describe('List 组件测试', () => {
       expect(container.querySelector('img')).not.toBeNull();
       expect(container.querySelector('img')).toBeInTheDocument();
     });
+    test('description string', () => {
+      const { queryByText } = render(<ListItemMeta description={description} />);
+
+      expect(queryByText(description)).not.toBeNull();
+      expect(queryByText(description)).toBeInTheDocument();
+    });
+  });
+
+  describe('slots', () => {
+    const imgSrc = 'https://tdesign.gtimg.com/site/images/list-icon.png';
+    const description = 'Test Description';
     test('image TNode', () => {
       const Img = () => <img id="img_test" src={imgSrc} alt="test img" />;
       const { container } = render(<ListItemMeta image={<Img />} />);
 
       expect(container.querySelector('#img_test')).not.toBeNull();
       expect(container.querySelector('#img_test')).toBeInTheDocument();
-    });
-    test('description string', () => {
-      const { queryByText } = render(<ListItemMeta description={description} />);
-
-      expect(queryByText(description)).not.toBeNull();
-      expect(queryByText(description)).toBeInTheDocument();
     });
     test('description TNode', () => {
       const Description = () => <div id="description_test">{description}</div>;
