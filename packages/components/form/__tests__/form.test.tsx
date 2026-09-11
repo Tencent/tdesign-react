@@ -1,13 +1,15 @@
-/* eslint-disable */
-import { fireEvent, mockDelay, mockTimeout, render, vi } from '@test/utils';
 import React, { useEffect, useState } from 'react';
 import { HelpCircleIcon } from 'tdesign-icons-react';
+import { fireEvent, mockDelay, mockTimeout, render, vi } from '@test/utils';
+
 import Button from '../../button';
 import Checkbox from '../../checkbox';
 import Input from '../../input';
 import InputNumber from '../../input-number';
 import Radio from '../../radio';
-import Form, { type TdFormProps } from '../index';
+import Form from '../index';
+
+import type { TdFormProps } from '../index';
 
 const { FormItem, FormList } = Form;
 
@@ -58,7 +60,9 @@ describe('Form 组件测试', () => {
       }
 
       function setValidateMessage() {
-        form.setValidateMessage({ input1: [{ type: 'error', message: 'message: setValidateMessage' }] });
+        form.setValidateMessage({
+          input1: [{ type: 'error', message: 'message: setValidateMessage' }],
+        });
       }
 
       function validate() {
@@ -220,7 +224,9 @@ describe('Form 组件测试', () => {
     expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual(initialVal);
 
     const inputThenReset = () => {
-      fireEvent.change(getByPlaceholderText('input1'), { target: { value: 'value1' } });
+      fireEvent.change(getByPlaceholderText('input1'), {
+        target: { value: 'value1' },
+      });
       expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual('value1');
       fireEvent.click(getByText('reset'));
     };
@@ -242,7 +248,7 @@ describe('Form 组件测试', () => {
       useEffect(() => {
         form.setValidateMessage({
           notArray: {
-            //@ts-ignore
+            // @ts-ignore
             type: 'error',
             message: 'not array message',
           },
@@ -260,6 +266,7 @@ describe('Form 组件测试', () => {
             },
           ],
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
 
       return (
@@ -331,7 +338,13 @@ describe('Form 组件测试', () => {
               className="phone"
               label="phone"
               name="phone"
-              rules={[{ required: true, message: 'phone is required', type: 'warning' }]}
+              rules={[
+                {
+                  required: true,
+                  message: 'phone is required',
+                  type: 'warning',
+                },
+              ]}
             >
               <Input placeholder="phone" />
             </FormItem>
@@ -516,7 +529,16 @@ describe('Form 组件测试', () => {
     const TestForm = () => {
       return (
         <Form>
-          <FormItem name="username" rules={[{ required: true, trigger: 'blur', message: 'please input username' }]}>
+          <FormItem
+            name="username"
+            rules={[
+              {
+                required: true,
+                trigger: 'blur',
+                message: 'please input username',
+              },
+            ]}
+          >
             <Input placeholder="username" />
           </FormItem>
         </Form>
@@ -549,7 +571,7 @@ describe('Form 组件测试', () => {
         </Form>
       );
     };
-    const { container, getByText, getByPlaceholderText } = render(<TestForm />);
+    const { container, getByText } = render(<TestForm />);
     fireEvent.click(getByText('提交'));
     await mockDelay();
     expect(container.querySelectorAll('.t-form--has-error').length).toBe(2);
@@ -604,8 +626,8 @@ describe('Form 组件测试', () => {
     fireEvent.change(getByPlaceholderText('year6'), { target: { value: 4 } });
     fireEvent.click(getByText('提交'));
     await mockDelay();
-    const input__extraList = container.querySelectorAll('.t-input__extra');
-    input__extraList.forEach((item: { innerHTML: string }, index: number) => {
+    const inputExtra = container.querySelectorAll('.t-input__extra');
+    inputExtra.forEach((item: { innerHTML: string }, index: number) => {
       expect(item.innerHTML).toBe(`year${index + 1}  error`);
     });
   });
@@ -664,6 +686,52 @@ describe('Form 组件测试', () => {
     fireEvent.click(getByText('设置信息'));
 
     expect(container.querySelector('.radio-value-3')).toHaveClass('t-is-checked');
+  });
+
+  test('FormItem without initialData resets to empty on remount with resetType=initial', async () => {
+    const TestForm = () => {
+      const [form] = Form.useForm();
+      const [visible, setVisible] = useState(false);
+
+      return (
+        <div>
+          <Button onClick={() => setVisible(true)}>Open</Button>
+          {visible && (
+            <div>
+              <Form form={form} resetType="initial">
+                <FormItem name="tag">
+                  <Input placeholder="tag" />
+                </FormItem>
+                <Button type="reset">Reset</Button>
+              </Form>
+              <Button onClick={() => setVisible(false)}>close</Button>
+            </div>
+          )}
+        </div>
+      );
+    };
+
+    const { getByText, getByPlaceholderText, queryByPlaceholderText } = render(<TestForm />);
+
+    // First open: type a value then close
+    fireEvent.click(getByText('Open'));
+    fireEvent.change(getByPlaceholderText('tag'), {
+      target: { value: 'dirty' },
+    });
+    expect((getByPlaceholderText('tag') as HTMLInputElement).value).toBe('dirty');
+    fireEvent.click(getByText('close'));
+    expect(queryByPlaceholderText('tag')).toBeNull();
+
+    // Second open: field should start empty
+    fireEvent.click(getByText('Open'));
+    expect((getByPlaceholderText('tag') as HTMLInputElement).value).toBe('');
+
+    // reset should also produce empty
+    fireEvent.change(getByPlaceholderText('tag'), {
+      target: { value: 'dirty-again' },
+    });
+    fireEvent.click(getByText('Reset'));
+    expect((getByPlaceholderText('tag') as HTMLInputElement).value).toBe('');
   });
 
   test('FormItem setFields not trigger onValueChange', async () => {

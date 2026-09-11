@@ -5,6 +5,7 @@ import { isBoolean } from 'lodash-es';
 import { omit } from '../_util/helper';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
+import { Tooltip } from '../tooltip';
 
 import type { ChangeEvent, MouseEvent } from 'react';
 import type { TdCheckboxProps } from '../checkbox/type';
@@ -48,6 +49,7 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
     className,
     style,
     onClick,
+    tooltipProps,
     ...htmlProps
   } = props;
 
@@ -55,7 +57,9 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
 
   const TOnChange: (
     checked: boolean,
-    context: { e: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLInputElement> },
+    context: {
+      e: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLInputElement>;
+    },
   ) => void = onChange;
 
   const [internalChecked, setInternalChecked] = useControlled(props, 'checked', TOnChange);
@@ -108,6 +112,14 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
     onClick?.({ e });
   };
 
+  const checkboxInput = tooltipProps ? (
+    <Tooltip {...tooltipProps}>
+      <span className={`${classPrefix}-${type}__input`} />
+    </Tooltip>
+  ) : (
+    <span className={`${classPrefix}-${type}__input`} />
+  );
+
   return (
     <label
       ref={ref}
@@ -119,7 +131,7 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
       onClick={onInnerClick}
     >
       {input}
-      <span className={`${classPrefix}-${type}__input`} />
+      {checkboxInput}
       {showLabel && (
         <span key="label" className={`${classPrefix}-${type}__label`} onClick={handleLabelClick}>
           {children || label}

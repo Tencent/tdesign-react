@@ -5,6 +5,26 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.18.3 `2026-09-04`
+
+### 🚀 Features
+
+- `Checkbox`: 支持 `tooltipProps` API @RylanBot ([#4385](https://github.com/Tencent/tdesign-react/pull/4385))
+- `Menu`: 修改内联的样式为样式类实现，移除过于宽泛的 `--padding-left` 变量，方便覆盖修改 @HaixingOoO ([#4367](https://github.com/Tencent/tdesign-react/pull/4367))
+
+### 🐞 Bug Fixes
+
+- `ColorPicker`: 优化开启 alpha 通道后的输入框效果展示 @uyarn ([#4384](https://github.com/Tencent/tdesign-react/pull/4384))
+- `Form`: 修复重渲染时，`resetType="initial"` 无法将未设置 `initialData` 的字段重置为空的问题 @RylanBot ([#4365](https://github.com/Tencent/tdesign-react/pull/4365))
+- `FormList`: 修复嵌套 Form 场景下内层组件 `setFieldsValue` 异常的问题 @RylanBot ([#4361](https://github.com/Tencent/tdesign-react/pull/4361))
+- `Icon`: 修复 usb 原始图标的图层 ID 错误,在深色模式下渲染错误 @uyarn ([icons#298](https://github.com/Tencent/tdesign-icons/pull/298)) ([#4369](https://github.com/Tencent/tdesign-react/pull/4369))
+- `Popup`: 修复 `trigger="hover"` 时在触发元素与弹层间快速移动导致闪烁的问题 @RylanBot ([#4366](https://github.com/Tencent/tdesign-react/pull/4366))
+- `Select`: 
+  - 修复 `filterable` 下中文输入法筛选选中后再次输入会残留上次筛选内容的问题 @RSS1102 ([#4388](https://github.com/Tencent/tdesign-react/pull/4388))
+  - 修复 `filterable` 选择选项后关闭面板时短暂显示完整列表的问题 @RSS1102 ([#4388](https://github.com/Tencent/tdesign-react/pull/4388))
+- `TagInput`: 修复 `excessTagsDisplayType="scroll"` 且 `readOnly` / `disabled` 时，无法滚动的问题 @RylanBot ([#4364](https://github.com/Tencent/tdesign-react/pull/4364))
+- `Textarea`: 修复 `autosize` 计算高度不稳定的问题 @RylanBot ([#4386](https://github.com/Tencent/tdesign-react/pull/4386))
+
 ## 🌈 1.18.2 `2026-08-14`
 
 ### 🚀 Features
