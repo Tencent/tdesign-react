@@ -7,13 +7,14 @@
 import React from 'react';
 import {
   fireEvent,
-  vi,
-  render,
-  mockDelay,
-  simulateFileChange,
   getFakeFileList,
+  mockDelay,
+  render,
   simulateDragFileChange,
+  simulateFileChange,
+  vi,
 } from '@test/utils';
+
 import { Upload } from '..';
 import { getUploadServer } from './request';
 
@@ -363,6 +364,7 @@ describe('Upload Component', () => {
     const fn = vi.fn();
     render(
       <Upload
+        // eslint-disable-next-line react/no-children-prop -- 测试 Upload children 函数型 prop
         children={fn}
         theme="custom"
         draggable={true}

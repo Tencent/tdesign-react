@@ -45,10 +45,8 @@ export default function Usage() {
 // 自动化生成 live demo 脚本
 function genUsage() {
   for (const name of Object.keys(config)) {
-    try {
-      const fileFolderPath = path.resolve(__dirname, `../../packages/components/${name}/_usage`);
-      fs.mkdirSync(fileFolderPath);
-    } catch {}
+    const fileFolderPath = path.resolve(__dirname, `../../packages/components/${name}/_usage`);
+    fs.mkdirSync(fileFolderPath, { recursive: true });
 
     try {
       const data = renderUsageStr(config[name]);
@@ -57,7 +55,7 @@ function genUsage() {
     } catch (err) {
       console.error(`${name} usage 组件生成失败...`, err);
     }
-    console.log(`${name} usage 组件生成成功...`);
+    console.info(`${name} usage 组件生成成功...`);
   }
 }
 

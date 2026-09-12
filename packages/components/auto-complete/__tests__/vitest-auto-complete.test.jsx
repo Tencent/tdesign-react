@@ -5,7 +5,8 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { fireEvent, vi, render, mockDelay, simulateKeydownEvent } from '@test/utils';
+import { fireEvent, mockDelay, render, simulateKeydownEvent, vi } from '@test/utils';
+
 import { AutoComplete } from '..';
 import { getNormalAutoCompleteMount, getOptionSlotAutoCompleteMount } from './mount';
 

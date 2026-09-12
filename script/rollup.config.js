@@ -293,7 +293,7 @@ function postWritePlugin() {
         try {
           // 并行复制到所有目标路径
           await Promise.all(destArray.map((dest) => fileCopy(src, dest)));
-          console.log('adapter has been coped.');
+          console.info('adapter has been coped.');
         } catch (err) {
           console.error('copy failed:', err);
         }

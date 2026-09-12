@@ -5,6 +5,7 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
+
 import { Space } from '..';
 import { getSpaceDefaultMount } from './mount';
 

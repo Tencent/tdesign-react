@@ -18,25 +18,11 @@ const OPTIONS = [
 ];
 
 export function getTreeSelectDefaultMount(TreeSelect, props, events) {
-  return render(
-    <TreeSelect
-      data={OPTIONS}
-      {...props}
-      {...events}
-    ></TreeSelect>
-  );
+  return render(<TreeSelect data={OPTIONS} {...props} {...events}></TreeSelect>);
 }
 
 // single select
 export function getTreeSelectMultipleMount(TreeSelect, props, events) {
   const value = [1, 2, 3, '4', '5'];
-  return render(
-    <TreeSelect
-      value={value}
-      data={OPTIONS}
-      multiple={true}
-      {...props}
-      {...events}
-    ></TreeSelect>
-  );
+  return render(<TreeSelect value={value} data={OPTIONS} multiple={true} {...props} {...events}></TreeSelect>);
 }

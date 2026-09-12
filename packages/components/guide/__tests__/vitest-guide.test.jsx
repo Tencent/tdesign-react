@@ -5,13 +5,14 @@
  * If you need to modify this file, contact PMC first please.
  */
 import React from 'react';
-import { fireEvent, vi, render, mockDelay } from '@test/utils';
+import { fireEvent, mockDelay, render, vi } from '@test/utils';
+
 import { Guide } from '..';
 import {
-  getGuideDefaultMount,
-  getGuideMultipleStepsMount,
   getCustomGuideStepMount,
   getCustomMultipleGuideStepMount,
+  getGuideDefaultMount,
+  getGuideMultipleStepsMount,
 } from './mount';
 
 describe('Guide Component', () => {
