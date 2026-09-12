@@ -24,6 +24,12 @@ export type useKeyboardControlType = {
   onCheckAllChange: (checkAll: boolean, e?: React.KeyboardEvent<HTMLInputElement>) => void;
   selectInputRef: any;
   toggleIsScrolling: (isScrolling: boolean) => void;
+  /** Whether keyboard navigation wraps around at the boundaries. Defaults to false. */
+  circular?: boolean;
+  /** Called when keyboard navigation reaches the first option. */
+  onReachTop?: () => void;
+  /** Called when keyboard navigation reaches the last option. */
+  onReachBottom?: () => void;
 };
 
 export default function useKeyboardControl({
@@ -39,6 +45,9 @@ export default function useKeyboardControl({
   onCheckAllChange,
   selectInputRef,
   toggleIsScrolling,
+  circular = false,
+  onReachTop,
+  onReachBottom,
 }: useKeyboardControlType) {
   const { classPrefix } = useConfig();
 
@@ -48,9 +57,34 @@ export default function useKeyboardControl({
   const isObjectType = useMemo(() => valueType === 'object', [valueType]);
   const { valueKey, disabledKey } = useMemo(() => getKeyMapping(keys), [keys]);
 
+  // Track whether the user is actively navigating with keyboard
+  const isKeyboardNavigating = useRef(false);
+  const prevFirstOptionValueRef = useRef<unknown>(undefined);
+  // Ref to handleKeyboardScroll so it can be called inside useEffect
+  const handleKeyboardScrollRef = useRef<(targetIndex: number) => void>(null);
+
   useEffect(() => {
     if (!innerPopupVisible) {
+      isKeyboardNavigating.current = false;
+      prevFirstOptionValueRef.current = undefined;
       changeHoverIndex(-1);
+      return;
+    }
+
+    const firstValue = displayOptions[0]?.value;
+
+    if (isKeyboardNavigating.current) {
+      // Options prepended at top:
+      // first item changed → shift hoverIndex by the prepended count
+      if (prevFirstOptionValueRef.current !== undefined && prevFirstOptionValueRef.current !== firstValue) {
+        const prependedCount = displayOptions.findIndex((o) => o.value === prevFirstOptionValueRef.current);
+        if (prependedCount > 0) {
+          changeHoverIndex((prev) => prev + prependedCount);
+          // Delay scroll until after React re-renders the hover class onto the DOM,
+          // otherwise querySelector('.t-select-option__hover') returns null and scroll is skipped
+          setTimeout(() => handleKeyboardScrollRef.current?.(hoverIndex + prependedCount), 0);
+        }
+      }
     } else if (!multiple) {
       // 单选时，hoverIndex 初始值为选中值的索引
       const index = displayOptions.findIndex((option) => option.value === value);
@@ -58,6 +92,8 @@ export default function useKeyboardControl({
     } else {
       changeHoverIndex(-1);
     }
+
+    prevFirstOptionValueRef.current = firstValue;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [innerPopupVisible, displayOptions]);
 
@@ -67,25 +103,31 @@ export default function useKeyboardControl({
       value.length === displayOptions.filter((v) => !((v.disabled || v.checkAll) && !value.includes(v.value))).length;
   }, [value, displayOptions]);
 
-  const handleKeyboardScroll = (hoverIndex: number) => {
+  const handleKeyboardScroll = (targetIndex: number) => {
     const popupContent = selectInputRef.current.getPopupContentElement();
+    if (!popupContent) return;
 
     const optionSelector = `.${classPrefix}-select-option`;
-    const selector = `.${classPrefix}-select-option__hover`;
-    const firstSelectedNode: HTMLDivElement = popupContent.querySelector(selector);
-    if (firstSelectedNode) {
-      // 避免与 updateScrollTop 冲突
-      toggleIsScrolling(true);
+    const allOptions: NodeListOf<HTMLDivElement> = popupContent.querySelectorAll(optionSelector);
+    const targetNode = allOptions[targetIndex];
+    if (!targetNode) return;
 
-      // 小于0时不需要特殊处理，会被设为0
-      const scrollHeight = popupContent.querySelector(optionSelector).clientHeight * hoverIndex;
+    // 避免与 updateScrollTop 冲突
+    toggleIsScrolling(true);
 
-      popupContent.scrollTo({
-        top: scrollHeight,
-        behavior: 'smooth',
-      });
+    const { top: containerTop, bottom: containerBottom } = popupContent.getBoundingClientRect();
+    const { top: optionTop, bottom: optionBottom } = targetNode.getBoundingClientRect();
+
+    if (optionTop < containerTop) {
+      // option 在可视区域上方，滚动使其出现在顶部
+      popupContent.scrollTop -= containerTop - optionTop;
+    } else if (optionBottom > containerBottom) {
+      // option 在可视区域下方，滚动使其出现在底部
+      popupContent.scrollTop += optionBottom - containerBottom;
     }
+    // option 已在可视区域内，不滚动
   };
+  handleKeyboardScrollRef.current = handleKeyboardScroll;
 
   const handleKeyDown = (_value: string, { e }: { e: React.KeyboardEvent<HTMLInputElement> }) => {
     const optionsListLength = displayOptions.length;
@@ -95,21 +137,32 @@ export default function useKeyboardControl({
     switch (e.code) {
       case 'ArrowUp':
         e.preventDefault();
+        isKeyboardNavigating.current = true;
         if (hoverIndex === -1) newIndex = 0;
-        else if (hoverIndex === 0 || hoverIndex > optionsListLength - 1) newIndex = optionsListLength - 1;
+        else if (hoverIndex === 0 || hoverIndex > optionsListLength - 1)
+          newIndex = circular ? optionsListLength - 1 : 0;
         else newIndex -= 1;
 
         if (displayOptions[newIndex]?.[disabledKey]) newIndex -= 1;
 
         changeHoverIndex(newIndex);
         handleKeyboardScroll(newIndex);
+
+        if (newIndex === 0) {
+          onReachTop?.();
+        }
         break;
       case 'ArrowDown':
         e.preventDefault();
-        if (hoverIndex === -1 || hoverIndex >= optionsListLength - 1) newIndex = 0;
+        isKeyboardNavigating.current = true;
+        if (hoverIndex === -1 || hoverIndex >= optionsListLength - 1) newIndex = circular ? 0 : optionsListLength - 1;
         else newIndex += 1;
 
         if (displayOptions[newIndex]?.disabled) newIndex += 1;
+
+        if (newIndex === optionsListLength - 1 && hoverIndex === optionsListLength - 1) {
+          onReachBottom?.();
+        }
 
         changeHoverIndex(newIndex);
         handleKeyboardScroll(newIndex);
