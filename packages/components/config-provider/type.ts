@@ -311,6 +311,11 @@ export interface ColorPickerConfig {
    * @default ''
    */
   swatchColorTitle?: string;
+  /**
+   * 语言配置，"吸色" 按钮 title 文案
+   * @default ''
+   */
+  eyeDropper?: string;
 }
 
 export interface DatePickerConfig {

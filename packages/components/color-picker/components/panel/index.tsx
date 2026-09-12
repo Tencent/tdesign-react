@@ -39,6 +39,7 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     disabled,
     enableAlpha,
     enableMultipleGradient,
+    eyeDropper,
     format,
     style,
     swatchColors,
@@ -113,6 +114,14 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
     }
     emitColorChange();
   };
+
+  const handleEyeDropperPick = useCallback(
+    (hex: string) => {
+      updateColor(hex);
+      emitColorChange('eyedropper');
+    },
+    [emitColorChange], // eslint-disable-line react-hooks/exhaustive-deps
+  );
 
   /**
    * 最近使用颜色变化
@@ -281,7 +290,14 @@ const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
       style={{ ...style }}
       ref={ref}
     >
-      <PanelHeader baseClassName={baseClassName} mode={mode} colorModes={colorModes} onModeChange={handleModeChange} />
+      <PanelHeader
+        baseClassName={baseClassName}
+        mode={mode}
+        colorModes={colorModes}
+        onModeChange={handleModeChange}
+        eyeDropper={eyeDropper}
+        onEyeDropperPick={handleEyeDropperPick}
+      />
       <div className={`${baseClassName}__body`}>
         {isGradient && (
           <LinearGradient
