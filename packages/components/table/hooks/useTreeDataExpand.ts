@@ -122,8 +122,19 @@ export function useTreeDataExpand(
     if (!store.treeDataMap.size) return;
     if (changedExpandTreeNode.type === 'user-reaction-change') {
       const { row, rowIndex } = changedExpandTreeNode || {};
-      const newData = store.toggleExpandData({ row, rowIndex }, dataSource, rowDataKeys);
-      setDataSource([...newData]);
+      const rowValue = getUniqueRowValue(row, rowDataKeys.rowKey);
+      // 对比 store 当前状态与受控目标状态，仅在不一致时才执行切换
+      const isTargetExpanded = tExpandedTreeNode.includes(rowValue);
+      const currentStoreState = store.treeDataMap.get(rowValue);
+      if (currentStoreState && currentStoreState.expanded !== isTargetExpanded) {
+        const newData = store.toggleExpandData(
+          { row, rowIndex },
+          dataSource,
+          rowDataKeys,
+          isTargetExpanded ? 'expand' : 'fold',
+        );
+        setDataSource([...newData]);
+      }
     } else if (changedExpandTreeNode.type === 'props-change') {
       updateExpandState([...dataSource], tExpandedTreeNode, oldExpandedTreeNode);
     }
