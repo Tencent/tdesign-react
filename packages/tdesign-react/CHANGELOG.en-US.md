@@ -46,6 +46,7 @@ spline: explain
 - `Form`: Fixed the issue where nested forms lost their numerical values after the `validate` function was triggered, resulting in re-rendering @RylanBot ([#4350](https://github.com/Tencent/tdesign-react/pull/4350))
 - `Popup`: Fixed the problem where the popup would not close automatically when the mouse button was held down or clicked right on it after leaving the popup area @RylanBot ([#4287](https://github.com/Tencent/tdesign-react/pull/4287))
 - `SelectInput`: Fixed issues caused by adjustments in version `1.18.1`, which led to changes in the DOM structure when using a single-selection option without `filterable` enabled and a custom `valueDisplay` string being used @RylanBot ([#4351](https://github.com/Tencent/tdesign-react/pull/4351))
+- `Select`: Fixed the issue where the complete option list was briefly displayed when closing the panel after selecting an option with `filterable` enabled @RSS1102 ([#4388](https://github.com/Tencent/tdesign-react/pull/4388))
 - `Steps`: 
   - Fixed issues with alignment of connection lines and inconsistent distances from the surrounding icons when `layout='vertical'` was used @RylanBot ([common#2670](https://github.com/Tencent/tdesign-common/pull/2670))
   - Fixed the connection line thickness inconsistency between the default and selected states @RylanBot ([common#2670](https://github.com/Tencent/tdesign-common/pull/2670))
