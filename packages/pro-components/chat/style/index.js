@@ -1,1 +1,1 @@
-import 'tdesign-web-components/lib/style/index.css';
+import '@tdesign/web-components-chat/style/index.css';

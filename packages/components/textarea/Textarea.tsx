@@ -10,6 +10,7 @@ import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useEventCallback from '../hooks/useEventCallback';
 import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
+import useResizeObserver from '../hooks/useResizeObserver';
 import { textareaDefaultProps } from './defaultProps';
 
 import type { StyledProps } from '../common';
@@ -51,7 +52,9 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     rows,
     ...otherProps
   } = props;
+
   const hasMaxcharacter = typeof maxcharacter !== 'undefined';
+  const autosizeEnabled = autosize !== false;
 
   const [value = '', setValue] = useControlled(props, 'value', props.onChange);
 
@@ -62,6 +65,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
 
   const composingRef = useRef(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textareaWidthRef = useRef(0);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const currentLength = useMemo(() => getUnicodeLength(value), [value]);
@@ -101,11 +105,23 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     [`${classPrefix}-hide-scrollbar`]: autosize === true,
   });
 
+  const applyTextareaStyle = (nextStyle: Partial<typeof DEFAULT_TEXTAREA_STYLE>) => {
+    setTextareaStyle((prevStyle) => {
+      if (prevStyle.height === nextStyle.height && prevStyle.minHeight === nextStyle.minHeight) {
+        return prevStyle;
+      }
+      return nextStyle;
+    });
+  };
+
   const adjustTextareaHeight = useEventCallback(() => {
+    const textarea = textareaRef.current;
+    if (!textarea?.isConnected) return;
+
     if (autosize === true) {
-      setTextareaStyle(calcTextareaHeight(textareaRef.current));
+      applyTextareaStyle(calcTextareaHeight(textarea));
     } else if (typeof autosize === 'object') {
-      setTextareaStyle(calcTextareaHeight(textareaRef.current, autosize?.minRows, autosize?.maxRows));
+      applyTextareaStyle(calcTextareaHeight(textarea, autosize?.minRows, autosize?.maxRows));
     }
   });
 
@@ -178,12 +194,23 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   };
 
   useIsomorphicLayoutEffect(() => {
-    if (autosize === false) {
-      setTextareaStyle(DEFAULT_TEXTAREA_STYLE);
-    } else {
-      adjustTextareaHeight();
+    if (!autosizeEnabled) {
+      applyTextareaStyle(DEFAULT_TEXTAREA_STYLE);
+      return;
     }
-  }, [value, autosize, adjustTextareaHeight]);
+    adjustTextareaHeight();
+  }, [value, autosize, autosizeEnabled, adjustTextareaHeight]);
+
+  useResizeObserver(
+    textareaRef,
+    (entries) => {
+      const width = entries[0]?.contentRect?.width ?? 0;
+      if (width === textareaWidthRef.current) return;
+      textareaWidthRef.current = width;
+      adjustTextareaHeight();
+    },
+    autosizeEnabled,
+  );
 
   useEffect(() => {
     handleAutoFocus();

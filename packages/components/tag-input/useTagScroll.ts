@@ -16,19 +16,19 @@ import type { InputRef } from '../input';
 import type { TdTagInputProps } from './type';
 
 export default function useTagScroll(props: TdTagInputProps) {
-  const { excessTagsDisplayType, disabled } = props;
-  const readOnly = props.readOnly || props.readonly;
+  const { excessTagsDisplayType } = props;
+
   const { classPrefix: prefix } = useConfig();
 
   /** 标签输入框组件 ref */
   const tagInputRef = useRef<InputRef>(null);
   /** 滚动容器元素缓存（.input__prefix） */
-  const scrollElementRef = useRef<HTMLElement>();
+  const scrollElementRef = useRef<HTMLElement>(null);
   /** 进入防抖定时器 */
   const mouseEnterTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  /** 是否为可交互的 scroll 模式 */
-  const isScrollMode = excessTagsDisplayType === 'scroll' && !readOnly && !disabled;
+  /** 是否为 scroll 模式 */
+  const isScrollMode = excessTagsDisplayType === 'scroll';
 
   /** 获取滚动容器（带缓存） */
   const getScrollElement = () => {

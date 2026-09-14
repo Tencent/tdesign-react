@@ -159,7 +159,10 @@ export default () => {
         onChange={handleChange}
         onClick={handleClick}
         checkProps={(node) => ({
-          title: node.data.disabled ? 'Disabled' : 'Enabled',
+          tooltipProps: {
+            content: node.disabled ? 'Disabled' : 'Enabled',
+            theme: 'light',
+          },
         })}
       />
     </Space>

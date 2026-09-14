@@ -79,6 +79,49 @@ describe('Input 组件测试', () => {
     expect(onCompositionEndFn).toHaveBeenCalled();
     expect(InputDom.value).toBe([InputValue, InputValue, InputValue].join(''));
   });
+  test('composing value should not be kept when value is reset by outside', async () => {
+    // 模拟中文输入法的一次合成输入
+    const imeInput = (input: HTMLInputElement, value: string) => {
+      fireEvent.compositionStart(input, { target: { value: input.value } });
+      fireEvent.change(input, { target: { value } });
+      fireEvent.compositionEnd(input, { target: { value } });
+    };
+
+    const ControlledInput = () => {
+      const [value, setValue] = React.useState('');
+      const [, setCompositionCount] = React.useState(0);
+      return (
+        <>
+          <Input
+            placeholder={InputPlaceholder}
+            value={value}
+            onChange={(v) => setValue(v as string)}
+            // 开始合成时触发重渲染，复现 SelectInput 的 setIsTyping 更新。
+            onCompositionstart={() => setCompositionCount((count) => count + 1)}
+          />
+          <button type="button" onClick={() => setValue('')}>
+            reset
+          </button>
+        </>
+      );
+    };
+    const { queryByPlaceholderText, getByText } = render(<ControlledInput />);
+    const InputDom = queryByPlaceholderText(InputPlaceholder) as HTMLInputElement;
+
+    imeInput(InputDom, '苹');
+    expect(InputDom.value).toBe('苹');
+
+    // 外部清空输入框内容后，再次进入合成态不应残留上一次的输入
+    fireEvent.click(getByText('reset'));
+    expect(InputDom.value).toBe('');
+
+    fireEvent.compositionStart(InputDom, { target: { value: InputDom.value } });
+    expect(InputDom.value).toBe('');
+
+    fireEvent.change(InputDom, { target: { value: 'xiang' } });
+    fireEvent.compositionEnd(InputDom, { target: { value: '香' } });
+    expect(InputDom.value).toBe('香');
+  });
   test('keyDown', async () => {
     const user = userEvent.setup();
     const onEnterFn = vi.fn();
