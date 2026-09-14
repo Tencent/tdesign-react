@@ -61,14 +61,7 @@ const WeatherCard: React.FC<ToolcallComponentProps<WeatherArgs, WeatherResult>> 
 
   return (
     <Card bordered style={{ marginTop: 8, maxWidth: 360 }}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 8,
-          marginBottom: 8,
-        }}
-      >
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
         <CloudIcon style={{ fontSize: 18, color: '#0052d9' }} />
         <span style={{ fontSize: 14, fontWeight: 600 }}>{args?.city || '...'} 天气</span>
         {status === 'executing' && (
@@ -127,16 +120,7 @@ const UserPreferencesForm: React.FC<ToolcallComponentProps<UserPreferencesArgs, 
   if (status === 'complete' && result) {
     return (
       <Card bordered style={{ marginTop: 8, maxWidth: 400 }}>
-        <div
-          style={{
-            fontSize: 14,
-            fontWeight: 600,
-            marginBottom: 8,
-            color: '#00a870',
-          }}
-        >
-          ✓ 已收到您的偏好设置
-        </div>
+        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 8, color: '#00a870' }}>✓ 已收到您的偏好设置</div>
         <Space direction="vertical" size="small">
           <div style={{ fontSize: 12, color: '#666' }}>预算：¥{result.budget}</div>
           <div style={{ fontSize: 12, color: '#666' }}>兴趣：{result.interests?.join('、')}</div>
@@ -343,14 +327,7 @@ export default function OpenClawToolcallActivity() {
         <span style={{ marginLeft: 12, color: '#888' }}>📜 历史消息由 Gateway connect 响应自动推送</span>
       </div>
 
-      <div
-        style={{
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          overflow: 'hidden',
-        }}
-      >
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
         <ChatList ref={listRef}>
           {messages.map((message) => (
             <ChatMessage key={message.id} {...messageProps[message.role]} message={message}>
