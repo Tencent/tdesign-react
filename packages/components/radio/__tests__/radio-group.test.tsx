@@ -323,6 +323,7 @@ describe('RadioGroup', () => {
         expect(container.querySelector('.t-radio-group__bg-block')).not.toBeInTheDocument();
 
         await act(async () => {
+          // eslint-disable-next-line no-promise-executor-return
           await new Promise((resolve) => setTimeout(resolve, 150));
         });
 
@@ -407,6 +408,7 @@ describe('RadioGroup', () => {
         }
 
         await act(async () => {
+          // eslint-disable-next-line no-promise-executor-return
           await new Promise((resolve) => setTimeout(resolve, 100));
         });
 

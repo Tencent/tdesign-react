@@ -64,6 +64,7 @@ describe('Switch', () => {
         });
       const { container } = render(<Switch onChange={clickFn} beforeChange={beforeChangeResolve} />);
       fireEvent.click(container.firstChild);
+      // eslint-disable-next-line no-promise-executor-return
       await new Promise((resolve) => setTimeout(resolve, 100));
       expect(container.children[0].classList.contains('t-is-checked')).toBeTruthy();
     });
@@ -77,6 +78,7 @@ describe('Switch', () => {
         });
       const { container } = render(<Switch onChange={clickFn} beforeChange={beforeChangeResolve} />);
       fireEvent.click(container.firstChild);
+      // eslint-disable-next-line no-promise-executor-return
       await new Promise((resolve) => setTimeout(resolve, 100));
       expect(container.children[0].classList.contains('t-is-checked')).toBeFalsy();
     });

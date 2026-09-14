@@ -233,6 +233,7 @@ describe('Tabs', () => {
               value: string;
             }[]
           >((re) =>
+            // eslint-disable-next-line no-promise-executor-return
             setTimeout(() => {
               re([
                 { label: 'A', value: 'a' },
@@ -273,6 +274,7 @@ describe('Tabs', () => {
       const getNavItems = () => tabInstance.querySelectorAll('.t-tabs__nav-item');
 
       expect(getNavItems().length).toBe(0);
+      // eslint-disable-next-line no-promise-executor-return
       await new Promise((resolve) => setTimeout(resolve, 1000));
       expect(getNavItems().length).toBe(2);
       expect(() => tabInstance.querySelector('.t-tabs__bar')).not.toBe(null);
