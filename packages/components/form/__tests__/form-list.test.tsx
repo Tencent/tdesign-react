@@ -74,7 +74,9 @@ describe('FormList 组件测试', () => {
       }
 
       function setValidateMessage() {
-        form.setValidateMessage({ address: [{ type: 'error', message: 'message: setValidateMessage' }] });
+        form.setValidateMessage({
+          address: [{ type: 'error', message: 'message: setValidateMessage' }],
+        });
       }
 
       function validate() {
@@ -363,7 +365,7 @@ describe('FormList 组件测试', () => {
     expect(fn).toHaveBeenCalledTimes(1);
   });
 
-  test('FormList with nested structures', async () => {
+  test('FormList with nested objects', async () => {
     const TestView = () => {
       const [form] = Form.useForm();
 
@@ -379,7 +381,10 @@ describe('FormList 组件测试', () => {
                     projectName: 'Website Redesign',
                     tasks: [
                       { taskName: 'Design mockups', status: 'completed' },
-                      { taskName: 'Frontend development', status: 'in-progress' },
+                      {
+                        taskName: 'Frontend development',
+                        status: 'in-progress',
+                      },
                     ],
                   },
                 ],
@@ -512,14 +517,24 @@ describe('FormList 组件测试', () => {
                                         <FormItem
                                           name={[taskName, 'taskName']}
                                           label="任务名称"
-                                          rules={[{ required: true, type: 'error' }]}
+                                          rules={[
+                                            {
+                                              required: true,
+                                              type: 'error',
+                                            },
+                                          ]}
                                         >
                                           <Input placeholder={`task-name-${userIndex}-${projectIndex}-${taskIndex}`} />
                                         </FormItem>
                                         <FormItem
                                           name={[taskName, 'status']}
                                           label="状态"
-                                          rules={[{ required: true, type: 'error' }]}
+                                          rules={[
+                                            {
+                                              required: true,
+                                              type: 'error',
+                                            },
+                                          ]}
                                         >
                                           <Input
                                             placeholder={`task-status-${userIndex}-${projectIndex}-${taskIndex}`}
@@ -536,7 +551,12 @@ describe('FormList 组件测试', () => {
                                     <FormItem>
                                       <Button
                                         id={`test-add-task-${userIndex}-${projectIndex}`}
-                                        onClick={() => addTask({ taskName: 'New Task', status: 'pending' })}
+                                        onClick={() =>
+                                          addTask({
+                                            taskName: 'New Task',
+                                            status: 'pending',
+                                          })
+                                        }
                                       >
                                         Add Task
                                       </Button>
@@ -556,7 +576,12 @@ describe('FormList 组件测试', () => {
                           <FormItem>
                             <Button
                               id={`test-add-project-${userIndex}`}
-                              onClick={() => addProject({ projectName: 'New Project', tasks: [] })}
+                              onClick={() =>
+                                addProject({
+                                  projectName: 'New Project',
+                                  tasks: [],
+                                })
+                              }
                             >
                               Add Project
                             </Button>
@@ -733,6 +758,181 @@ describe('FormList 组件测试', () => {
     fireEvent.click(queryByText('clearValidate'));
     await mockTimeout();
     expect(queryByText('用户名必填')).not.toBeTruthy();
+  });
+
+  test('FormList with nested arrays', async () => {
+    const INIT_DATA = {
+      vector: ['v1', 'v2', 'v3'],
+      matrix: [['m11', 'm12'], ['m21', 'm22', 'm23'], ['m31']],
+    };
+
+    const TestView = () => {
+      const [form] = Form.useForm();
+
+      return (
+        <Form form={form} initialData={INIT_DATA} resetType="initial">
+          <div data-testid="vector">
+            <FormList name="vector">
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map(({ key, name }) => (
+                    <div key={key}>
+                      <FormItem name={name}>
+                        <Input placeholder={`vector-${name}`} />
+                      </FormItem>
+                      <Button className={`test-remove-vector-${name}`} onClick={() => remove(name)}>
+                        Remove Vector
+                      </Button>
+                    </div>
+                  ))}
+                  <Button id="test-add-vector" onClick={() => add('v-new')}>
+                    Add Vector
+                  </Button>
+                </>
+              )}
+            </FormList>
+          </div>
+
+          <div data-testid="matrix">
+            <FormList name="matrix">
+              {(rowFields, { add: addRow, remove: removeRow }) => (
+                <>
+                  {rowFields.map(({ key, name: rowName }) => (
+                    <div key={key} data-matrix-row={rowName}>
+                      <FormList name={rowName}>
+                        {(colFields, { add: addCol, remove: removeCol }) => (
+                          <>
+                            {colFields.map(({ key: colKey, name: colName }) => (
+                              <div key={colKey}>
+                                <FormItem name={colName}>
+                                  <Input placeholder={`matrix-${rowName}-${colName}`} />
+                                </FormItem>
+                                <Button
+                                  className={`test-remove-col-${rowName}-${colName}`}
+                                  onClick={() => removeCol(colName)}
+                                >
+                                  Remove Col
+                                </Button>
+                              </div>
+                            ))}
+                            <Button className={`test-add-col-${rowName}`} onClick={() => addCol('m-new')}>
+                              Add Col
+                            </Button>
+                          </>
+                        )}
+                      </FormList>
+                      <Button className={`test-remove-row-${rowName}`} onClick={() => removeRow(rowName)}>
+                        Remove Row
+                      </Button>
+                    </div>
+                  ))}
+                  <Button id="test-add-row" onClick={() => addRow(['m-row'])}>
+                    Add Row
+                  </Button>
+                </>
+              )}
+            </FormList>
+          </div>
+
+          <FormItem>
+            <Button
+              onClick={() => {
+                const values = form.getFieldsValue(true);
+                document.getElementById('nested-array-values')?.setAttribute('data-result', JSON.stringify(values));
+              }}
+            >
+              getFormValues
+            </Button>
+            <Button type="reset">reset</Button>
+            <div id="nested-array-values" data-result="" />
+          </FormItem>
+        </Form>
+      );
+    };
+
+    const { getByPlaceholderText, queryByText, container } = render(<TestView />);
+    const getInput = (placeholder: string) => getByPlaceholderText(placeholder) as HTMLInputElement;
+    const getFormValues = () => {
+      fireEvent.click(queryByText('getFormValues'));
+      return JSON.parse(container.querySelector('#nested-array-values')?.getAttribute('data-result') || '{}');
+    };
+
+    expect(getInput('vector-0').value).toBe('v1');
+    expect(getInput('vector-1').value).toBe('v2');
+    expect(getInput('vector-2').value).toBe('v3');
+
+    expect(getInput('matrix-0-0').value).toBe('m11');
+    expect(getInput('matrix-0-1').value).toBe('m12');
+    expect(getInput('matrix-1-0').value).toBe('m21');
+    expect(getInput('matrix-1-1').value).toBe('m22');
+    expect(getInput('matrix-1-2').value).toBe('m23');
+    expect(getInput('matrix-2-0').value).toBe('m31');
+    expect(container.querySelector('[placeholder="matrix-0-2"]')).toBeFalsy();
+    expect(container.querySelector('[placeholder="matrix-2-1"]')).toBeFalsy();
+
+    expect(getFormValues()).toEqual(INIT_DATA);
+
+    fireEvent.change(getInput('vector-0'), { target: { value: 'v1-edit' } });
+    fireEvent.change(getInput('matrix-1-2'), { target: { value: 'm23-edit' } });
+    await mockTimeout();
+    expect(getInput('vector-0').value).toBe('v1-edit');
+    expect(getInput('matrix-1-2').value).toBe('m23-edit');
+    expect(getFormValues()).toEqual({
+      vector: ['v1-edit', 'v2', 'v3'],
+      matrix: [['m11', 'm12'], ['m21', 'm22', 'm23-edit'], ['m31']],
+    });
+
+    fireEvent.click(container.querySelector('#test-add-vector'));
+    await mockTimeout();
+    expect(getInput('vector-3').value).toBe('v-new');
+    expect(getFormValues().vector).toEqual(['v1-edit', 'v2', 'v3', 'v-new']);
+
+    fireEvent.click(container.querySelector('.test-remove-vector-1'));
+    await mockTimeout();
+    expect(getInput('vector-0').value).toBe('v1-edit');
+    expect(getInput('vector-1').value).toBe('v3');
+    expect(getInput('vector-2').value).toBe('v-new');
+    expect(container.querySelector('[placeholder="vector-3"]')).toBeFalsy();
+    expect(getFormValues().vector).toEqual(['v1-edit', 'v3', 'v-new']);
+
+    fireEvent.click(container.querySelector('.test-add-col-0'));
+    await mockTimeout();
+    expect(getInput('matrix-0-2').value).toBe('m-new');
+    expect(getFormValues().matrix[0]).toEqual(['m11', 'm12', 'm-new']);
+
+    fireEvent.click(container.querySelector('.test-remove-col-0-0'));
+    await mockTimeout();
+    expect(getInput('matrix-0-0').value).toBe('m12');
+    expect(getInput('matrix-0-1').value).toBe('m-new');
+    expect(container.querySelector('[placeholder="matrix-0-2"]')).toBeFalsy();
+    expect(getFormValues().matrix[0]).toEqual(['m12', 'm-new']);
+
+    fireEvent.click(container.querySelector('#test-add-row'));
+    await mockTimeout();
+    expect(getInput('matrix-3-0').value).toBe('m-row');
+    expect(getFormValues().matrix).toEqual([['m12', 'm-new'], ['m21', 'm22', 'm23-edit'], ['m31'], ['m-row']]);
+
+    fireEvent.click(container.querySelector('.test-remove-row-2'));
+    await mockTimeout();
+    expect(container.querySelector('[data-matrix-row="3"]')).toBeFalsy();
+    expect(getInput('matrix-2-0').value).toBe('m-row');
+    expect(getFormValues().matrix).toEqual([['m12', 'm-new'], ['m21', 'm22', 'm23-edit'], ['m-row']]);
+
+    fireEvent.click(queryByText('reset'));
+    await mockTimeout();
+    expect(getInput('vector-0').value).toBe('v1');
+    expect(getInput('vector-1').value).toBe('v2');
+    expect(getInput('vector-2').value).toBe('v3');
+    expect(container.querySelector('[placeholder="vector-3"]')).toBeFalsy();
+    expect(getInput('matrix-0-0').value).toBe('m11');
+    expect(getInput('matrix-0-1').value).toBe('m12');
+    expect(getInput('matrix-1-0').value).toBe('m21');
+    expect(getInput('matrix-1-1').value).toBe('m22');
+    expect(getInput('matrix-1-2').value).toBe('m23');
+    expect(getInput('matrix-2-0').value).toBe('m31');
+    expect(container.querySelector('[placeholder="matrix-0-2"]')).toBeFalsy();
+    expect(container.querySelector('[placeholder="matrix-3-0"]')).toBeFalsy();
+    expect(getFormValues()).toEqual(INIT_DATA);
   });
 
   test('FormList with shouldUpdate', async () => {
