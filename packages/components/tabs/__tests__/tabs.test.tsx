@@ -232,14 +232,14 @@ describe('Tabs', () => {
               label: string;
               value: string;
             }[]
-          >((re) => {
+          >((re) =>
             setTimeout(() => {
               re([
                 { label: 'A', value: 'a' },
                 { label: 'B', value: 'b' },
               ]);
-            }, 1000);
-          }),
+            }, 1000),
+          ),
       );
 
       const useFetch = <F extends () => Promise<any>>(func: F) => {
@@ -273,9 +273,7 @@ describe('Tabs', () => {
       const getNavItems = () => tabInstance.querySelectorAll('.t-tabs__nav-item');
 
       expect(getNavItems().length).toBe(0);
-      await new Promise((resolve) => {
-        setTimeout(resolve, 100);
-      });
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       expect(getNavItems().length).toBe(2);
       expect(() => tabInstance.querySelector('.t-tabs__bar')).not.toBe(null);
       const tabBar = tabInstance.querySelector('.t-tabs__bar');
