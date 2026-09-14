@@ -64,7 +64,9 @@ describe('Switch', () => {
         });
       const { container } = render(<Switch onChange={clickFn} beforeChange={beforeChangeResolve} />);
       fireEvent.click(container.firstChild);
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 100);
+      });
       expect(container.children[0].classList.contains('t-is-checked')).toBeTruthy();
     });
     test('beforeChange reject', async () => {
@@ -77,7 +79,9 @@ describe('Switch', () => {
         });
       const { container } = render(<Switch onChange={clickFn} beforeChange={beforeChangeResolve} />);
       fireEvent.click(container.firstChild);
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 100);
+      });
       expect(container.children[0].classList.contains('t-is-checked')).toBeFalsy();
     });
   });

@@ -323,7 +323,9 @@ describe('RadioGroup', () => {
         expect(container.querySelector('.t-radio-group__bg-block')).not.toBeInTheDocument();
 
         await act(async () => {
-          await new Promise((resolve) => setTimeout(resolve, 150));
+          await new Promise((resolve) => {
+            setTimeout(resolve, 150);
+          });
         });
 
         const bgBlock = container.querySelector('.t-radio-group__bg-block') as HTMLElement;
@@ -407,7 +409,9 @@ describe('RadioGroup', () => {
         }
 
         await act(async () => {
-          await new Promise((resolve) => setTimeout(resolve, 100));
+          await new Promise((resolve) => {
+            setTimeout(resolve, 100);
+          });
         });
 
         const bgBlock = container.querySelector('.t-radio-group__bg-block') as HTMLElement;
