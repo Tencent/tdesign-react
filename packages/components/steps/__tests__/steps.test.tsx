@@ -23,65 +23,69 @@ const stepOptions = [
   },
 ];
 
-describe('Steps 组件测试', () => {
-  test('mount, unmount 测试', () => {
-    const wrapper = render(
-      <Steps current={1}>
-        <StepItem status="finish" title="1" content="这里是提示文字"></StepItem>
-        <StepItem status="process" title="2" content="这里是提示文字"></StepItem>
-        <StepItem status="error" title="3" content="这里是提示文字"></StepItem>
-        <StepItem title="4" content="这里是提示文字"></StepItem>
-      </Steps>,
-    );
+describe('Steps', () => {
+  describe('props', () => {
+    test('layout vertical 测试', async () => {
+      const testId = 'step layout test';
 
-    expect(() => {
-      wrapper.unmount();
-    }).not.toThrow();
+      const { getByTestId } = render(
+        <div data-testid={testId}>
+          <Steps layout="vertical" options={stepOptions} />
+        </div>,
+      );
+
+      const stepsInstance = await waitFor(() => getByTestId(testId));
+      const stepsItems = stepsInstance.querySelectorAll('.t-steps--vertical');
+      expect(stepsItems.length).toBe(1);
+    });
+
+    test('layout readonly 测试', async () => {
+      const testId = 'step readonly test';
+
+      const { getByTestId } = render(
+        <div data-testid={testId}>
+          <Steps options={stepOptions} readonly />
+        </div>,
+      );
+
+      const stepsInstance = await waitFor(() => getByTestId(testId));
+      const stepsItems = stepsInstance.querySelectorAll('.t-steps-item--clickable');
+      expect(stepsItems.length).toBe(0);
+    });
   });
 
-  test('options 测试', async () => {
-    const testId = 'step options test';
-    const handleChange = vi.fn();
+  describe('scenarios', () => {
+    test('mount, unmount 测试', () => {
+      const wrapper = render(
+        <Steps current={1}>
+          <StepItem status="finish" title="1" content="这里是提示文字"></StepItem>
+          <StepItem status="process" title="2" content="这里是提示文字"></StepItem>
+          <StepItem status="error" title="3" content="这里是提示文字"></StepItem>
+          <StepItem title="4" content="这里是提示文字"></StepItem>
+        </Steps>,
+      );
 
-    const { getByTestId } = render(
-      <div data-testid={testId}>
-        <Steps current={2} options={stepOptions} onChange={handleChange} />
-      </div>,
-    );
+      expect(() => {
+        wrapper.unmount();
+      }).not.toThrow();
+    });
 
-    const stepsInstance = await waitFor(() => getByTestId(testId));
-    const stepsItems = stepsInstance.querySelectorAll('.t-steps-item');
-    expect(stepsItems.length).toBe(3);
+    test('options 测试', async () => {
+      const testId = 'step options test';
+      const handleChange = vi.fn();
 
-    fireEvent.click(stepsInstance.querySelector('.t-steps-item__inner'));
-    expect(handleChange).toHaveBeenCalledTimes(1);
-  });
+      const { getByTestId } = render(
+        <div data-testid={testId}>
+          <Steps current={2} options={stepOptions} onChange={handleChange} />
+        </div>,
+      );
 
-  test('layout vertical 测试', async () => {
-    const testId = 'step layout test';
+      const stepsInstance = await waitFor(() => getByTestId(testId));
+      const stepsItems = stepsInstance.querySelectorAll('.t-steps-item');
+      expect(stepsItems.length).toBe(3);
 
-    const { getByTestId } = render(
-      <div data-testid={testId}>
-        <Steps layout="vertical" options={stepOptions} />
-      </div>,
-    );
-
-    const stepsInstance = await waitFor(() => getByTestId(testId));
-    const stepsItems = stepsInstance.querySelectorAll('.t-steps--vertical');
-    expect(stepsItems.length).toBe(1);
-  });
-
-  test('layout readonly 测试', async () => {
-    const testId = 'step readonly test';
-
-    const { getByTestId } = render(
-      <div data-testid={testId}>
-        <Steps options={stepOptions} readonly />
-      </div>,
-    );
-
-    const stepsInstance = await waitFor(() => getByTestId(testId));
-    const stepsItems = stepsInstance.querySelectorAll('.t-steps-item--clickable');
-    expect(stepsItems.length).toBe(0);
+      fireEvent.click(stepsInstance.querySelector('.t-steps-item__inner'));
+      expect(handleChange).toHaveBeenCalledTimes(1);
+    });
   });
 });
