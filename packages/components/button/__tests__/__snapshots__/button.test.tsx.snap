@@ -30,6 +30,44 @@ exports[`Button > props > block 2`] = `
 </div>
 `;
 
+exports[`Button > props > children 1`] = `
+<div>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    type="button"
+  >
+    <span
+      class="t-button__text"
+    >
+      <span
+        class="custom-node"
+      >
+        TNode
+      </span>
+    </span>
+  </button>
+</div>
+`;
+
+exports[`Button > props > content 1`] = `
+<div>
+  <button
+    class="t-button t-button--theme-primary t-button--variant-base"
+    type="button"
+  >
+    <span
+      class="t-button__text"
+    >
+      <span
+        class="custom-node"
+      >
+        TNode
+      </span>
+    </span>
+  </button>
+</div>
+`;
+
 exports[`Button > props > disabled 1`] = `
 <div>
   <div
@@ -480,44 +518,6 @@ exports[`Button > props > variant is equal to text 1`] = `
       class="t-button__text"
     >
       Text
-    </span>
-  </button>
-</div>
-`;
-
-exports[`Button > slots > children 1`] = `
-<div>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-    type="button"
-  >
-    <span
-      class="t-button__text"
-    >
-      <span
-        class="custom-node"
-      >
-        TNode
-      </span>
-    </span>
-  </button>
-</div>
-`;
-
-exports[`Button > slots > content 1`] = `
-<div>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base"
-    type="button"
-  >
-    <span
-      class="t-button__text"
-    >
-      <span
-        class="custom-node"
-      >
-        TNode
-      </span>
     </span>
   </button>
 </div>

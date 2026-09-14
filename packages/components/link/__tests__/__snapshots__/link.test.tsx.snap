@@ -1,5 +1,33 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`Link > props > children 1`] = `
+<div>
+  <a
+    class="t-link t-link--theme-default t-link--hover-underline"
+  >
+    <span
+      class="custom-node"
+    >
+      TNode
+    </span>
+  </a>
+</div>
+`;
+
+exports[`Link > props > content 1`] = `
+<div>
+  <a
+    class="t-link t-link--theme-default t-link--hover-underline"
+  >
+    <span
+      class="custom-node"
+    >
+      TNode
+    </span>
+  </a>
+</div>
+`;
+
 exports[`Link > props > disabled 1`] = `
 <div>
   <a
@@ -138,34 +166,6 @@ exports[`Link > props > theme is equal to warning 1`] = `
     class="t-link t-link--theme-warning t-link--hover-underline"
   >
     Text
-  </a>
-</div>
-`;
-
-exports[`Link > slots > children 1`] = `
-<div>
-  <a
-    class="t-link t-link--theme-default t-link--hover-underline"
-  >
-    <span
-      class="custom-node"
-    >
-      TNode
-    </span>
-  </a>
-</div>
-`;
-
-exports[`Link > slots > content 1`] = `
-<div>
-  <a
-    class="t-link t-link--theme-default t-link--hover-underline"
-  >
-    <span
-      class="custom-node"
-    >
-      TNode
-    </span>
   </a>
 </div>
 `;

@@ -71,6 +71,56 @@ describe('ImageViewer', () => {
         expect(onClose).not.toHaveBeenCalled();
       });
     });
+    // ─── closeBtn 为函数 ──────────────────────────────────────────────────
+    describe('closeBtn 为函数', () => {
+      test('closeBtn 为函数时渲染自定义关闭按钮', async () => {
+        const BasicImageViewer = () => {
+          const trigger = ({ open }) => <span onClick={() => open()}>函数关闭按钮</span>;
+          const CloseBtnNode = ({ onClose }: any) => (
+            <button data-testid="custom-close" onClick={() => onClose?.({ trigger: 'close-btn', e: {} as any })}>
+              X
+            </button>
+          );
+          return <ImageViewer trigger={trigger} images={[imgUrl]} closeBtn={<CloseBtnNode />} />;
+        };
+        render(<BasicImageViewer />);
+
+        act(() => {
+          fireEvent.click(document.querySelector('span'));
+        });
+        await mockDelay();
+
+        const customBtn = document.querySelector('[data-testid="custom-close"]');
+        expect(customBtn).toBeTruthy();
+        expect(customBtn?.textContent).toBe('X');
+      });
+    });
+
+    // ─── title 为函数 ─────────────────────────────────────────────────────
+    describe('title 为 TNode', () => {
+      test('title 为 ReactNode 时渲染自定义标题', async () => {
+        const BasicImageViewer = () => {
+          const trigger = ({ open }) => <span onClick={() => open()}>标题测试</span>;
+          return (
+            <ImageViewer
+              trigger={trigger}
+              images={[imgUrl, imgUrl2]}
+              title={<span className="custom-title-node">自定义标题</span>}
+            />
+          );
+        };
+        render(<BasicImageViewer />);
+
+        act(() => {
+          fireEvent.click(document.querySelector('span'));
+        });
+        await mockDelay();
+
+        const titleEl = document.querySelector('.custom-title-node');
+        expect(titleEl).toBeTruthy();
+        expect(titleEl?.textContent).toBe('自定义标题');
+      });
+    });
   });
 
   describe('events', () => {
@@ -191,59 +241,6 @@ describe('ImageViewer', () => {
 
         const downloadIcon = document.querySelector('.t-icon-download');
         expect(downloadIcon).toBeNull();
-      });
-    });
-  });
-
-  describe('slots', () => {
-    // ─── closeBtn 为函数 ──────────────────────────────────────────────────
-    describe('closeBtn 为函数', () => {
-      test('closeBtn 为函数时渲染自定义关闭按钮', async () => {
-        const BasicImageViewer = () => {
-          const trigger = ({ open }) => <span onClick={() => open()}>函数关闭按钮</span>;
-          const CloseBtnNode = ({ onClose }: any) => (
-            <button data-testid="custom-close" onClick={() => onClose?.({ trigger: 'close-btn', e: {} as any })}>
-              X
-            </button>
-          );
-          return <ImageViewer trigger={trigger} images={[imgUrl]} closeBtn={<CloseBtnNode />} />;
-        };
-        render(<BasicImageViewer />);
-
-        act(() => {
-          fireEvent.click(document.querySelector('span'));
-        });
-        await mockDelay();
-
-        const customBtn = document.querySelector('[data-testid="custom-close"]');
-        expect(customBtn).toBeTruthy();
-        expect(customBtn?.textContent).toBe('X');
-      });
-    });
-
-    // ─── title 为函数 ─────────────────────────────────────────────────────
-    describe('title 为 TNode', () => {
-      test('title 为 ReactNode 时渲染自定义标题', async () => {
-        const BasicImageViewer = () => {
-          const trigger = ({ open }) => <span onClick={() => open()}>标题测试</span>;
-          return (
-            <ImageViewer
-              trigger={trigger}
-              images={[imgUrl, imgUrl2]}
-              title={<span className="custom-title-node">自定义标题</span>}
-            />
-          );
-        };
-        render(<BasicImageViewer />);
-
-        act(() => {
-          fireEvent.click(document.querySelector('span'));
-        });
-        await mockDelay();
-
-        const titleEl = document.querySelector('.custom-title-node');
-        expect(titleEl).toBeTruthy();
-        expect(titleEl?.textContent).toBe('自定义标题');
       });
     });
   });

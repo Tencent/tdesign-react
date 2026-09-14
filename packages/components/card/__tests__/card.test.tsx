@@ -58,9 +58,6 @@ describe('Card', () => {
       expect(container.querySelector('.t-loading')).toBeInTheDocument();
       expect(container.querySelector('.t-loading__text').textContent).toBe('TDesign努力加载中...');
     });
-  });
-
-  describe('slots', () => {
     test('avatar', () => {
       const { container } = render(<Card avatar={<Avatar image={avatar} />}></Card>);
       expect(container.querySelector('.t-avatar')).toBeInTheDocument();

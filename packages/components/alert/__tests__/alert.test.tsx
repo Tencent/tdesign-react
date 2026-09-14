@@ -46,9 +46,6 @@ describe('Alert', () => {
       const element = container.querySelector('.t-alert') as HTMLElement;
       expect(element?.style.color).toBe('red');
     });
-  });
-
-  describe('slots', () => {
     test('custom close icon render', () => {
       const { queryByTestId } = render(
         <Alert theme="error" title="title content" closeBtn={<div data-testid={testId}>{text}</div>} />,

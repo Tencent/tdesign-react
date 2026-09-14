@@ -220,58 +220,6 @@ describe('Tree', () => {
       await mockDelay(300);
       expect(container.querySelectorAll('.t-is-checked').length).toBe(0);
     });
-  });
-
-  describe('events', () => {
-    it('props.draggable works fine', async () => {
-      const onDragOverFn1 = vi.fn();
-      const onDragEndFn2 = vi.fn();
-      const onDragStartFn3 = vi.fn();
-      const onDragLeaveFn4 = vi.fn();
-      const { container } = getTreeDefaultMount(
-        Tree,
-        { checkable: true, disableCheck: true, draggable: true },
-        {
-          onDragOver: onDragOverFn1,
-          onDragEnd: onDragEndFn2,
-          onDragStart: onDragStartFn3,
-          onDragLeave: onDragLeaveFn4,
-        },
-      );
-      await mockDelay(300);
-      fireEvent.dragOver(container.querySelector('.t-tree__item'));
-      await mockDelay();
-      expect(onDragOverFn1).toHaveBeenCalled();
-      fireEvent.dragEnd(container.querySelector('.t-tree__item'));
-      await mockDelay();
-      expect(onDragEndFn2).toHaveBeenCalled();
-      fireEvent.dragStart(container.querySelector('.t-tree__item'));
-      await mockDelay();
-      expect(onDragStartFn3).toHaveBeenCalled();
-      fireEvent.dragLeave(container.querySelector('.t-tree__item'));
-      await mockDelay();
-      expect(onDragLeaveFn4).toHaveBeenCalled();
-    });
-
-    it('props.draggable works fine', async () => {
-      const onDragEndFn1 = vi.fn();
-      const onDropFn2 = vi.fn();
-      const { container } = getTreeDefaultMount(
-        Tree,
-        { draggable: true },
-        { onDragEnd: onDragEndFn1, onDrop: onDropFn2 },
-      );
-      await mockDelay(300);
-      fireEvent.dragEnd(container.querySelector('.t-tree__item:nth-child(2)'));
-      await mockDelay();
-      expect(onDragEndFn1).toHaveBeenCalled();
-      fireEvent.drop(container.querySelector('.t-tree__item'));
-      await mockDelay();
-      expect(onDropFn2).toHaveBeenCalled();
-    });
-  });
-
-  describe('slots', () => {
     test('customize empty prop', async () => {
       const { container } = render(<Tree data={[]} empty="空数据（string）" />);
       await mockTimeout(() => {
@@ -388,6 +336,55 @@ describe('Tree', () => {
       const { container } = await renderTreeWithProps({ icon });
       await mockDelay(300);
       expect(container.querySelectorAll('.t-tree__icon').length).toBe(2);
+    });
+  });
+
+  describe('events', () => {
+    it('props.draggable works fine', async () => {
+      const onDragOverFn1 = vi.fn();
+      const onDragEndFn2 = vi.fn();
+      const onDragStartFn3 = vi.fn();
+      const onDragLeaveFn4 = vi.fn();
+      const { container } = getTreeDefaultMount(
+        Tree,
+        { checkable: true, disableCheck: true, draggable: true },
+        {
+          onDragOver: onDragOverFn1,
+          onDragEnd: onDragEndFn2,
+          onDragStart: onDragStartFn3,
+          onDragLeave: onDragLeaveFn4,
+        },
+      );
+      await mockDelay(300);
+      fireEvent.dragOver(container.querySelector('.t-tree__item'));
+      await mockDelay();
+      expect(onDragOverFn1).toHaveBeenCalled();
+      fireEvent.dragEnd(container.querySelector('.t-tree__item'));
+      await mockDelay();
+      expect(onDragEndFn2).toHaveBeenCalled();
+      fireEvent.dragStart(container.querySelector('.t-tree__item'));
+      await mockDelay();
+      expect(onDragStartFn3).toHaveBeenCalled();
+      fireEvent.dragLeave(container.querySelector('.t-tree__item'));
+      await mockDelay();
+      expect(onDragLeaveFn4).toHaveBeenCalled();
+    });
+
+    it('props.draggable works fine', async () => {
+      const onDragEndFn1 = vi.fn();
+      const onDropFn2 = vi.fn();
+      const { container } = getTreeDefaultMount(
+        Tree,
+        { draggable: true },
+        { onDragEnd: onDragEndFn1, onDrop: onDropFn2 },
+      );
+      await mockDelay(300);
+      fireEvent.dragEnd(container.querySelector('.t-tree__item:nth-child(2)'));
+      await mockDelay();
+      expect(onDragEndFn1).toHaveBeenCalled();
+      fireEvent.drop(container.querySelector('.t-tree__item'));
+      await mockDelay();
+      expect(onDropFn2).toHaveBeenCalled();
     });
   });
 

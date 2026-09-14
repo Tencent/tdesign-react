@@ -467,9 +467,6 @@ describe('Form', () => {
       await mockDelay();
       expect(container.querySelector('.t-form__status')).toBeNull();
     });
-  });
-
-  describe('slots', () => {
     test('FormItem preset icon works fine', async () => {
       const TestForm = () => {
         return (

@@ -39,9 +39,7 @@ describe("Empty", () => {
           .getAttribute("d"),
       ).toBe(successIconPath);
     });
-  });
 
-  describe("slots", () => {
     test("action", async () => {
       const { container } = render(<Empty action={<div>action</div>} />);
 

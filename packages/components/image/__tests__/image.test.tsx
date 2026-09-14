@@ -84,9 +84,6 @@ describe('Image', () => {
       const domWrapper1 = container.querySelector('picture > source:nth-child(2)');
       expect(domWrapper1.getAttribute('srcset')).toBe('https://tdesign.gtimg.com/img/tdesign-image.webp');
     });
-  });
-
-  describe('slots', () => {
     test('error', () => {
       const { container } = render(
         <Image error={<span className="custom-node">TNode</span>} src="https://this.is.an.error.img.com" />,

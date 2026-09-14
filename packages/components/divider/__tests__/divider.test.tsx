@@ -71,9 +71,6 @@ describe('Divider', () => {
         margin: '20px 0',
       });
     });
-  });
-
-  describe('slots', () => {
     test('content', () => {
       const { container } = render(<Divider content={<span className="custom-node">TNode</span>}></Divider>);
       expect(container.querySelector('.custom-node')).toBeTruthy();

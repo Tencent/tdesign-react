@@ -269,6 +269,81 @@ describe('TagInput', () => {
       simulateInputEnter(inputDom2);
       expect(container.querySelectorAll('.t-tag').length).toBe(1);
     });
+    test('collapsedItems', () => {
+      const { container } = getTagInputValueMount({
+        collapsedItems: <span className="custom-node">TNode</span>,
+        minCollapsedNum: 3,
+      });
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+    });
+
+    test('label', () => {
+      const { container } = render(<TagInput label={<span className="custom-node">TNode</span>}></TagInput>);
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+    });
+
+    test('suffix', () => {
+      const { container } = render(<TagInput suffix={<span className="custom-node">TNode</span>}></TagInput>);
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+    });
+
+    test('suffixIcon', () => {
+      const { container } = render(<TagInput suffixIcon={<span className="custom-node">TNode</span>}></TagInput>);
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+    });
+
+    test('tag', () => {
+      const { container } = getTagInputValueMount({
+        tag: <span className="custom-node">TNode</span>,
+        value: ['tdesign-vue'],
+      });
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+    });
+
+    test('tag is a function with params', () => {
+      const fn = vi.fn();
+      getTagInputValueMount({ tag: fn, value: ['tdesign-vue'] });
+      expect(fn).toHaveBeenCalled();
+      expect(fn.mock.calls[0][0].value).toBe('tdesign-vue');
+    });
+
+    test('valueDisplay', () => {
+      const { container } = getTagInputValueMount({
+        valueDisplay: <span className="custom-node">TNode</span>,
+      });
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+    });
+
+    test('valueDisplay is a function with params', () => {
+      const fn = vi.fn();
+      getTagInputValueMount({ valueDisplay: fn });
+      expect(fn).toHaveBeenCalled();
+      expect(fn.mock.calls[0][0].value).toEqual([
+        'tdesign-vue',
+        'tdesign-react',
+        'tdesign-miniprogram',
+        'tdesign-mobile-vue',
+        'tdesign-mobile-react',
+      ]);
+    });
+
+    test('label display', async () => {
+      const text = 'test-label';
+      const { getByText } = await render(<TagInput label={text} />);
+
+      act(() => {
+        expect(getByText(text)).toBeTruthy();
+      });
+    });
+
+    test('prefixIcon display', async () => {
+      const text = 'test-prefixIcon';
+      const { getByText } = await render(<TagInput prefixIcon={<span>{text}</span>} />);
+
+      act(() => {
+        expect(getByText(text)).toBeTruthy();
+      });
+    });
   });
 
   describe('events', () => {
@@ -419,84 +494,6 @@ describe('TagInput', () => {
       expect(onRemoveFn.mock.calls[0][0].trigger).toBe('tag-remove');
       expect(onRemoveFn.mock.calls[0][0].item).toBe('tdesign-vue');
       expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
-    });
-  });
-
-  describe('slots', () => {
-    test('collapsedItems', () => {
-      const { container } = getTagInputValueMount({
-        collapsedItems: <span className="custom-node">TNode</span>,
-        minCollapsedNum: 3,
-      });
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
-
-    test('label', () => {
-      const { container } = render(<TagInput label={<span className="custom-node">TNode</span>}></TagInput>);
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
-
-    test('suffix', () => {
-      const { container } = render(<TagInput suffix={<span className="custom-node">TNode</span>}></TagInput>);
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
-
-    test('suffixIcon', () => {
-      const { container } = render(<TagInput suffixIcon={<span className="custom-node">TNode</span>}></TagInput>);
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
-
-    test('tag', () => {
-      const { container } = getTagInputValueMount({
-        tag: <span className="custom-node">TNode</span>,
-        value: ['tdesign-vue'],
-      });
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
-
-    test('tag is a function with params', () => {
-      const fn = vi.fn();
-      getTagInputValueMount({ tag: fn, value: ['tdesign-vue'] });
-      expect(fn).toHaveBeenCalled();
-      expect(fn.mock.calls[0][0].value).toBe('tdesign-vue');
-    });
-
-    test('valueDisplay', () => {
-      const { container } = getTagInputValueMount({
-        valueDisplay: <span className="custom-node">TNode</span>,
-      });
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
-
-    test('valueDisplay is a function with params', () => {
-      const fn = vi.fn();
-      getTagInputValueMount({ valueDisplay: fn });
-      expect(fn).toHaveBeenCalled();
-      expect(fn.mock.calls[0][0].value).toEqual([
-        'tdesign-vue',
-        'tdesign-react',
-        'tdesign-miniprogram',
-        'tdesign-mobile-vue',
-        'tdesign-mobile-react',
-      ]);
-    });
-
-    test('label display', async () => {
-      const text = 'test-label';
-      const { getByText } = await render(<TagInput label={text} />);
-
-      act(() => {
-        expect(getByText(text)).toBeTruthy();
-      });
-    });
-
-    test('prefixIcon display', async () => {
-      const text = 'test-prefixIcon';
-      const { getByText } = await render(<TagInput prefixIcon={<span>{text}</span>} />);
-
-      act(() => {
-        expect(getByText(text)).toBeTruthy();
-      });
     });
   });
 

@@ -132,6 +132,101 @@ describe('Cascader', () => {
       await userEvent.type(getByPlaceholderText(placeholder), 'null');
       await mockTimeout(() => expect(getByText('暂无数据')).toBeInTheDocument());
     });
+    test('render label', async () => {
+      const label = '单选:';
+      const { getByText } = render(<Cascader label={label} value={'1.1'} options={optionsData} clearable />);
+      expect(getByText(label)).toBeInTheDocument();
+    });
+
+    test('render single valueDisplay', async () => {
+      const SingleValueDisplay = ({ value, selectedOptions }: any) =>
+        value && (
+          <div className="valueDisplay">
+            <img
+              src={selectedOptions?.[0]?.avatar}
+              style={{
+                width: '16px',
+                height: '16px',
+                marginTop: '2px',
+                verticalAlign: '-4px',
+                marginRight: '4px',
+              }}
+            />
+            <span>{selectedOptions?.[0]?.label}</span>
+            <span>({value})</span>
+          </div>
+        );
+      const { container } = render(
+        <Cascader
+          value={'2.2'}
+          label="单选："
+          options={optionsData}
+          valueDisplay={<SingleValueDisplay />}
+          clearable
+        ></Cascader>,
+      );
+      expect(container.querySelector('.valueDisplay')).toBeInTheDocument();
+    });
+
+    test('render multiple valueDisplay', async () => {
+      const MultipleValueDisplay = ({ value, selectedOptions, onClose }: any) =>
+        value && value.length
+          ? selectedOptions.map((option, index) => (
+              <Tag key={option.value} closable onClose={() => onClose(index)}>
+                <img
+                  src={option.avatar}
+                  style={{
+                    width: '16px',
+                    height: '16px',
+                    marginTop: '2px',
+                    verticalAlign: '-4px',
+                    marginRight: '4px',
+                  }}
+                />
+                <span>{option.label}</span>
+                <span className="options-value">({option.value})</span>
+              </Tag>
+            ))
+          : null;
+      const { container } = render(
+        <Cascader
+          value={['1.3', '2.1', '2.2']}
+          label="多选："
+          options={optionsData}
+          valueDisplay={<MultipleValueDisplay />}
+          multiple
+          clearable
+        ></Cascader>,
+      );
+      const optionsValue = container.querySelectorAll('.options-value');
+      expect(optionsValue[0]).toHaveTextContent('(1.3)');
+      expect(optionsValue[1]).toHaveTextContent('(2.1)');
+      expect(optionsValue[2]).toHaveTextContent('(2.2)');
+      fireEvent.click(container.querySelector('.t-input'));
+      await mockDelay();
+      expect(document.querySelectorAll('.t-is-checked')).toHaveLength(2);
+      expect(document.querySelectorAll('.t-is-checked')[1].children[0]).toHaveAttribute('checked');
+    });
+
+    test('render panelTopContent', async () => {
+      const panelTopContent = 'panelTopContent';
+      const { getByText } = render(
+        <Cascader value={'1.1'} options={optionsData} panelTopContent={panelTopContent} clearable />,
+      );
+
+      await fireEvent.click(document.querySelector('input'));
+      expect(getByText(panelTopContent)).toBeInTheDocument();
+    });
+
+    test('render panelBottomContent', async () => {
+      const panelBottomContent = 'panelBottomContent';
+      const { getByText } = render(
+        <Cascader value={'1.1'} options={optionsData} panelBottomContent={panelBottomContent} clearable />,
+      );
+
+      await fireEvent.click(document.querySelector('input'));
+      expect(getByText(panelBottomContent)).toBeInTheDocument();
+    });
   });
 
   describe('events', () => {
@@ -270,104 +365,6 @@ describe('Cascader', () => {
         display: 'none',
       });
       expect(spy).toHaveBeenCalledTimes(2);
-    });
-  });
-
-  describe('slots', () => {
-    test('render label', async () => {
-      const label = '单选:';
-      const { getByText } = render(<Cascader label={label} value={'1.1'} options={optionsData} clearable />);
-      expect(getByText(label)).toBeInTheDocument();
-    });
-
-    test('render single valueDisplay', async () => {
-      const SingleValueDisplay = ({ value, selectedOptions }: any) =>
-        value && (
-          <div className="valueDisplay">
-            <img
-              src={selectedOptions?.[0]?.avatar}
-              style={{
-                width: '16px',
-                height: '16px',
-                marginTop: '2px',
-                verticalAlign: '-4px',
-                marginRight: '4px',
-              }}
-            />
-            <span>{selectedOptions?.[0]?.label}</span>
-            <span>({value})</span>
-          </div>
-        );
-      const { container } = render(
-        <Cascader
-          value={'2.2'}
-          label="单选："
-          options={optionsData}
-          valueDisplay={<SingleValueDisplay />}
-          clearable
-        ></Cascader>,
-      );
-      expect(container.querySelector('.valueDisplay')).toBeInTheDocument();
-    });
-
-    test('render multiple valueDisplay', async () => {
-      const MultipleValueDisplay = ({ value, selectedOptions, onClose }: any) =>
-        value && value.length
-          ? selectedOptions.map((option, index) => (
-              <Tag key={option.value} closable onClose={() => onClose(index)}>
-                <img
-                  src={option.avatar}
-                  style={{
-                    width: '16px',
-                    height: '16px',
-                    marginTop: '2px',
-                    verticalAlign: '-4px',
-                    marginRight: '4px',
-                  }}
-                />
-                <span>{option.label}</span>
-                <span className="options-value">({option.value})</span>
-              </Tag>
-            ))
-          : null;
-      const { container } = render(
-        <Cascader
-          value={['1.3', '2.1', '2.2']}
-          label="多选："
-          options={optionsData}
-          valueDisplay={<MultipleValueDisplay />}
-          multiple
-          clearable
-        ></Cascader>,
-      );
-      const optionsValue = container.querySelectorAll('.options-value');
-      expect(optionsValue[0]).toHaveTextContent('(1.3)');
-      expect(optionsValue[1]).toHaveTextContent('(2.1)');
-      expect(optionsValue[2]).toHaveTextContent('(2.2)');
-      fireEvent.click(container.querySelector('.t-input'));
-      await mockDelay();
-      expect(document.querySelectorAll('.t-is-checked')).toHaveLength(2);
-      expect(document.querySelectorAll('.t-is-checked')[1].children[0]).toHaveAttribute('checked');
-    });
-
-    test('render panelTopContent', async () => {
-      const panelTopContent = 'panelTopContent';
-      const { getByText } = render(
-        <Cascader value={'1.1'} options={optionsData} panelTopContent={panelTopContent} clearable />,
-      );
-
-      await fireEvent.click(document.querySelector('input'));
-      expect(getByText(panelTopContent)).toBeInTheDocument();
-    });
-
-    test('render panelBottomContent', async () => {
-      const panelBottomContent = 'panelBottomContent';
-      const { getByText } = render(
-        <Cascader value={'1.1'} options={optionsData} panelBottomContent={panelBottomContent} clearable />,
-      );
-
-      await fireEvent.click(document.querySelector('input'));
-      expect(getByText(panelBottomContent)).toBeInTheDocument();
     });
   });
 

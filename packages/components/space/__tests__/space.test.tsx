@@ -93,9 +93,6 @@ describe('Space', () => {
       );
       expect((container.firstChild as HTMLDivElement).classList.contains('t-space--break-line')).toBeTruthy();
     });
-  });
-
-  describe('slots', () => {
     test('separator', () => {
       const { container } = getSpaceDefaultMount({
         separator: <span className="custom-node">TNode</span>,

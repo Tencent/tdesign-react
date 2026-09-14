@@ -35,9 +35,6 @@ describe('QRCode', () => {
       expect(conElement.querySelector('.t-expired__button')).not.toBeNull();
       expect(conElement.querySelector('.t-scanned')).not.toBeNull();
     });
-  });
-
-  describe('slots', () => {
     test('二维码自定义渲染', async () => {
       const customStatusRender = (info) => {
         switch (info.status) {

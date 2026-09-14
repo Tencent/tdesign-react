@@ -368,9 +368,6 @@ describe('TreeSelect', () => {
       });
       expect(container.querySelectorAll('.t-tag').length).toBe(1);
     });
-  });
-
-  describe('slots', () => {
     test('collapsedItems', () => {
       const { container } = getTreeSelectMultipleMount({
         collapsedItems: <span className="custom-node">TNode</span>,

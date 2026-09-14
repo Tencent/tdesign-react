@@ -7,7 +7,7 @@ import Transfer from '../index';
 import type { DataOption, TransferValue } from '../index';
 
 describe('Transfer', () => {
-  describe('slots', () => {
+  describe('props', () => {
     test('Transfer transferItem ReactElement', async () => {
       const list = [
         {

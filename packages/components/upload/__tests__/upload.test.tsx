@@ -1140,6 +1140,283 @@ describe('Upload', () => {
       expect(container).toBeInTheDocument();
       expect(container.querySelector('.tdesign')).toBeInTheDocument();
     });
+    test('children: children works fine if theme = file', () => {
+      const { container } = render(
+        <Upload theme="file" action="https://tdesign.test.com/upload/file_success">
+          <span className="custom-node">TNode</span>
+        </Upload>,
+      );
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+    });
+
+    test('children: children works fine if theme = custom', () => {
+      const { container } = render(
+        <Upload theme="custom" action="https://tdesign.test.com/upload/file_success">
+          <span className="custom-node">TNode</span>
+        </Upload>,
+      );
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+    });
+
+    test('children: children works fine if theme = custom & draggable=true', () => {
+      const { container } = render(
+        <Upload theme="custom" draggable={true} action="https://tdesign.test.com/upload/file_success">
+          <span className="custom-node">TNode</span>
+        </Upload>,
+      );
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+    });
+
+    test('children: a function with params, props.children: children works fine if theme = custom & draggable=true', () => {
+      const fn = vi.fn();
+      render(
+        <Upload theme="custom" draggable={true} action="https://tdesign.test.com/upload/file_success">
+          {fn}
+        </Upload>,
+      );
+      expect(fn).toHaveBeenCalled();
+      expect(fn.mock.calls[0][0].dragActive).toBe(false);
+      expect(fn.mock.calls[0][0].files).toEqual([]);
+    });
+
+    test('dragContent', () => {
+      const { container } = render(
+        <Upload
+          dragContent={<span className="custom-node">TNode</span>}
+          theme="custom"
+          draggable={true}
+          action="https://tdesign.test.com/upload/file_success"
+        ></Upload>,
+      );
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+    });
+
+    test('fileListDisplay: theme=file, fileListDisplay', () => {
+      const fileList = getFakeFileList('file', 3);
+      const { container } = render(
+        <Upload
+          fileListDisplay={<span className="custom-node">TNode</span>}
+          files={fileList}
+          theme="file"
+          action="https://tdesign.test.com/upload/file_success"
+        ></Upload>,
+      );
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+    });
+
+    test('fileListDisplay: a function with params, props.fileListDisplay: theme=file, fileListDisplay', () => {
+      const fileList = getFakeFileList('file', 3);
+      const fn = vi.fn();
+      render(
+        <Upload
+          fileListDisplay={fn}
+          files={fileList}
+          theme="file"
+          action="https://tdesign.test.com/upload/file_success"
+        ></Upload>,
+      );
+      expect(fn).toHaveBeenCalled();
+      expect(fn.mock.calls[0][0].files).toEqual(fileList);
+    });
+
+    test('fileListDisplay: theme=image-flow && multiple=true && draggable=true, fileListDisplay', () => {
+      const fileList = [{ url: 'https://tdesign.gtimg.com/demo/demo-image-1.png' }];
+      const { container } = render(
+        <Upload
+          fileListDisplay={<span className="custom-node">TNode</span>}
+          files={fileList}
+          theme="image-flow"
+          multiple={true}
+          draggable={true}
+          action="https://tdesign.test.com/upload/file_success"
+        ></Upload>,
+      );
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+    });
+
+    test('fileListDisplay: a function with params, props.fileListDisplay: theme=image-flow && multiple=true && draggable=true, fileListDisplay', () => {
+      const fileList = [{ url: 'https://tdesign.gtimg.com/demo/demo-image-1.png' }];
+      const fn = vi.fn();
+      render(
+        <Upload
+          fileListDisplay={fn}
+          files={fileList}
+          theme="image-flow"
+          multiple={true}
+          draggable={true}
+          action="https://tdesign.test.com/upload/file_success"
+        ></Upload>,
+      );
+      expect(fn).toHaveBeenCalled();
+      expect(fn.mock.calls[0][0].files).toEqual(fileList);
+    });
+
+    test('fileListDisplay: theme=file-flow && multiple=true && draggable=true, fileListDisplay', () => {
+      const fileList = [{ url: 'https://tdesign.gtimg.com/demo/demo-image-1.png' }];
+      const { container } = render(
+        <Upload
+          fileListDisplay={<span className="custom-node">TNode</span>}
+          files={fileList}
+          theme="file-flow"
+          multiple={true}
+          draggable={true}
+          action="https://tdesign.test.com/upload/file_success"
+        ></Upload>,
+      );
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+    });
+
+    test('fileListDisplay: a function with params, props.fileListDisplay: theme=file-flow && multiple=true && draggable=true, fileListDisplay', () => {
+      const fileList = [{ url: 'https://tdesign.gtimg.com/demo/demo-image-1.png' }];
+      const fn = vi.fn();
+      render(
+        <Upload
+          fileListDisplay={fn}
+          files={fileList}
+          theme="file-flow"
+          multiple={true}
+          draggable={true}
+          action="https://tdesign.test.com/upload/file_success"
+        ></Upload>,
+      );
+      expect(fn).toHaveBeenCalled();
+      expect(fn.mock.calls[0][0].files).toEqual(fileList);
+    });
+
+    test('fileListDisplay: theme=file && draggable=true, fileListDisplay', () => {
+      const { container } = render(
+        <Upload
+          fileListDisplay={<span className="custom-node">TNode</span>}
+          theme="file"
+          draggable={true}
+          files={[{ name: 'file1.txt', status: 'waiting', uploadTime: 1674897038406 }]}
+        ></Upload>,
+      );
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+    });
+
+    test('fileListDisplay: a function with params, props.fileListDisplay: theme=file && draggable=true, fileListDisplay', () => {
+      const fn = vi.fn();
+      render(
+        <Upload
+          fileListDisplay={fn}
+          theme="file"
+          draggable={true}
+          files={[{ name: 'file1.txt', status: 'waiting', uploadTime: 1674897038406 }]}
+        ></Upload>,
+      );
+      expect(fn).toHaveBeenCalled();
+      expect(fn.mock.calls[0][0].files).toEqual([{ name: 'file1.txt', status: 'waiting', uploadTime: 1674897038406 }]);
+    });
+
+    test('fileListDisplay: theme=image && draggable=true, fileListDisplay', () => {
+      const { container } = render(
+        <Upload
+          fileListDisplay={<span className="custom-node">TNode</span>}
+          theme="image"
+          draggable={true}
+          files={[
+            {
+              url: 'https://img1.txt',
+              status: 'waiting',
+              uploadTime: 1674897038406,
+            },
+          ]}
+        ></Upload>,
+      );
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+    });
+
+    test('fileListDisplay: a function with params, props.fileListDisplay: theme=image && draggable=true, fileListDisplay', () => {
+      const fn = vi.fn();
+      render(
+        <Upload
+          fileListDisplay={fn}
+          theme="image"
+          draggable={true}
+          files={[
+            {
+              url: 'https://img1.txt',
+              status: 'waiting',
+              uploadTime: 1674897038406,
+            },
+          ]}
+        ></Upload>,
+      );
+      expect(fn).toHaveBeenCalled();
+      expect(fn.mock.calls[0][0].files).toEqual([
+        {
+          url: 'https://img1.txt',
+          status: 'waiting',
+          uploadTime: 1674897038406,
+        },
+      ]);
+    });
+
+    test('tips', () => {
+      const { container } = render(
+        <Upload
+          tips={<span className="custom-node">TNode</span>}
+          action="https://tdesign.test.com/upload/file_success"
+        ></Upload>,
+      );
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+      expect(container.querySelector('.t-upload__tips')).toBeTruthy();
+    });
+
+    test('trigger: theme = file, trigger', () => {
+      const { container } = render(<Upload trigger={<span className="custom-node">TNode</span>} theme="file"></Upload>);
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+    });
+
+    test('trigger: theme = custom & draggable = true, trigger', () => {
+      const { container } = render(
+        <Upload trigger={<span className="custom-node">TNode</span>} theme="custom" draggable={true}></Upload>,
+      );
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+    });
+
+    test('trigger: a function with params, props.trigger: theme = custom & draggable = true, trigger', () => {
+      const fn = vi.fn();
+      render(<Upload trigger={fn} theme="custom" draggable={true}></Upload>);
+      expect(fn).toHaveBeenCalled();
+      expect(fn.mock.calls[0][0].dragActive).toBe(false);
+      expect(fn.mock.calls[0][0].files).toEqual([]);
+    });
+
+    test('trigger: theme = custom, trigger', () => {
+      const { container } = render(
+        <Upload trigger={<span className="custom-node">TNode</span>} theme="custom"></Upload>,
+      );
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+    });
+
+    test('trigger: theme = custom, trigger is right with files', () => {
+      const { container } = render(
+        <Upload
+          trigger={<span className="custom-node">TNode</span>}
+          theme="custom"
+          draggable={true}
+          files={[{ name: 'file-name.txt', status: 'progress' }]}
+        ></Upload>,
+      );
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+    });
+
+    test('trigger: a function with params, props.trigger: theme = custom, trigger is right with files', () => {
+      const fn = vi.fn();
+      render(
+        <Upload
+          trigger={fn}
+          theme="custom"
+          draggable={true}
+          files={[{ name: 'file-name.txt', status: 'progress' }]}
+        ></Upload>,
+      );
+      expect(fn).toHaveBeenCalled();
+      expect(fn.mock.calls[0][0].dragActive).toBe(false);
+      expect(fn.mock.calls[0][0].files).toEqual([{ name: 'file-name.txt', status: 'progress' }]);
+    });
   });
 
   describe('events', () => {
@@ -1703,286 +1980,6 @@ describe('Upload', () => {
       expect(onRemoveFn1.mock.calls[0][0].file.name).toBe('file-name.txt');
       expect(onRemoveFn1.mock.calls[0][0].file.status).toBe('fail');
       expect(onRemoveFn1.mock.calls[0][0].e.type).toBe('click');
-    });
-  });
-
-  describe('slots', () => {
-    test('children: children works fine if theme = file', () => {
-      const { container } = render(
-        <Upload theme="file" action="https://tdesign.test.com/upload/file_success">
-          <span className="custom-node">TNode</span>
-        </Upload>,
-      );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
-
-    test('children: children works fine if theme = custom', () => {
-      const { container } = render(
-        <Upload theme="custom" action="https://tdesign.test.com/upload/file_success">
-          <span className="custom-node">TNode</span>
-        </Upload>,
-      );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
-
-    test('children: children works fine if theme = custom & draggable=true', () => {
-      const { container } = render(
-        <Upload theme="custom" draggable={true} action="https://tdesign.test.com/upload/file_success">
-          <span className="custom-node">TNode</span>
-        </Upload>,
-      );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
-
-    test('children: a function with params, props.children: children works fine if theme = custom & draggable=true', () => {
-      const fn = vi.fn();
-      render(
-        <Upload theme="custom" draggable={true} action="https://tdesign.test.com/upload/file_success">
-          {fn}
-        </Upload>,
-      );
-      expect(fn).toHaveBeenCalled();
-      expect(fn.mock.calls[0][0].dragActive).toBe(false);
-      expect(fn.mock.calls[0][0].files).toEqual([]);
-    });
-
-    test('dragContent', () => {
-      const { container } = render(
-        <Upload
-          dragContent={<span className="custom-node">TNode</span>}
-          theme="custom"
-          draggable={true}
-          action="https://tdesign.test.com/upload/file_success"
-        ></Upload>,
-      );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
-
-    test('fileListDisplay: theme=file, fileListDisplay', () => {
-      const fileList = getFakeFileList('file', 3);
-      const { container } = render(
-        <Upload
-          fileListDisplay={<span className="custom-node">TNode</span>}
-          files={fileList}
-          theme="file"
-          action="https://tdesign.test.com/upload/file_success"
-        ></Upload>,
-      );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
-
-    test('fileListDisplay: a function with params, props.fileListDisplay: theme=file, fileListDisplay', () => {
-      const fileList = getFakeFileList('file', 3);
-      const fn = vi.fn();
-      render(
-        <Upload
-          fileListDisplay={fn}
-          files={fileList}
-          theme="file"
-          action="https://tdesign.test.com/upload/file_success"
-        ></Upload>,
-      );
-      expect(fn).toHaveBeenCalled();
-      expect(fn.mock.calls[0][0].files).toEqual(fileList);
-    });
-
-    test('fileListDisplay: theme=image-flow && multiple=true && draggable=true, fileListDisplay', () => {
-      const fileList = [{ url: 'https://tdesign.gtimg.com/demo/demo-image-1.png' }];
-      const { container } = render(
-        <Upload
-          fileListDisplay={<span className="custom-node">TNode</span>}
-          files={fileList}
-          theme="image-flow"
-          multiple={true}
-          draggable={true}
-          action="https://tdesign.test.com/upload/file_success"
-        ></Upload>,
-      );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
-
-    test('fileListDisplay: a function with params, props.fileListDisplay: theme=image-flow && multiple=true && draggable=true, fileListDisplay', () => {
-      const fileList = [{ url: 'https://tdesign.gtimg.com/demo/demo-image-1.png' }];
-      const fn = vi.fn();
-      render(
-        <Upload
-          fileListDisplay={fn}
-          files={fileList}
-          theme="image-flow"
-          multiple={true}
-          draggable={true}
-          action="https://tdesign.test.com/upload/file_success"
-        ></Upload>,
-      );
-      expect(fn).toHaveBeenCalled();
-      expect(fn.mock.calls[0][0].files).toEqual(fileList);
-    });
-
-    test('fileListDisplay: theme=file-flow && multiple=true && draggable=true, fileListDisplay', () => {
-      const fileList = [{ url: 'https://tdesign.gtimg.com/demo/demo-image-1.png' }];
-      const { container } = render(
-        <Upload
-          fileListDisplay={<span className="custom-node">TNode</span>}
-          files={fileList}
-          theme="file-flow"
-          multiple={true}
-          draggable={true}
-          action="https://tdesign.test.com/upload/file_success"
-        ></Upload>,
-      );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
-
-    test('fileListDisplay: a function with params, props.fileListDisplay: theme=file-flow && multiple=true && draggable=true, fileListDisplay', () => {
-      const fileList = [{ url: 'https://tdesign.gtimg.com/demo/demo-image-1.png' }];
-      const fn = vi.fn();
-      render(
-        <Upload
-          fileListDisplay={fn}
-          files={fileList}
-          theme="file-flow"
-          multiple={true}
-          draggable={true}
-          action="https://tdesign.test.com/upload/file_success"
-        ></Upload>,
-      );
-      expect(fn).toHaveBeenCalled();
-      expect(fn.mock.calls[0][0].files).toEqual(fileList);
-    });
-
-    test('fileListDisplay: theme=file && draggable=true, fileListDisplay', () => {
-      const { container } = render(
-        <Upload
-          fileListDisplay={<span className="custom-node">TNode</span>}
-          theme="file"
-          draggable={true}
-          files={[{ name: 'file1.txt', status: 'waiting', uploadTime: 1674897038406 }]}
-        ></Upload>,
-      );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
-
-    test('fileListDisplay: a function with params, props.fileListDisplay: theme=file && draggable=true, fileListDisplay', () => {
-      const fn = vi.fn();
-      render(
-        <Upload
-          fileListDisplay={fn}
-          theme="file"
-          draggable={true}
-          files={[{ name: 'file1.txt', status: 'waiting', uploadTime: 1674897038406 }]}
-        ></Upload>,
-      );
-      expect(fn).toHaveBeenCalled();
-      expect(fn.mock.calls[0][0].files).toEqual([{ name: 'file1.txt', status: 'waiting', uploadTime: 1674897038406 }]);
-    });
-
-    test('fileListDisplay: theme=image && draggable=true, fileListDisplay', () => {
-      const { container } = render(
-        <Upload
-          fileListDisplay={<span className="custom-node">TNode</span>}
-          theme="image"
-          draggable={true}
-          files={[
-            {
-              url: 'https://img1.txt',
-              status: 'waiting',
-              uploadTime: 1674897038406,
-            },
-          ]}
-        ></Upload>,
-      );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
-
-    test('fileListDisplay: a function with params, props.fileListDisplay: theme=image && draggable=true, fileListDisplay', () => {
-      const fn = vi.fn();
-      render(
-        <Upload
-          fileListDisplay={fn}
-          theme="image"
-          draggable={true}
-          files={[
-            {
-              url: 'https://img1.txt',
-              status: 'waiting',
-              uploadTime: 1674897038406,
-            },
-          ]}
-        ></Upload>,
-      );
-      expect(fn).toHaveBeenCalled();
-      expect(fn.mock.calls[0][0].files).toEqual([
-        {
-          url: 'https://img1.txt',
-          status: 'waiting',
-          uploadTime: 1674897038406,
-        },
-      ]);
-    });
-
-    test('tips', () => {
-      const { container } = render(
-        <Upload
-          tips={<span className="custom-node">TNode</span>}
-          action="https://tdesign.test.com/upload/file_success"
-        ></Upload>,
-      );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-      expect(container.querySelector('.t-upload__tips')).toBeTruthy();
-    });
-
-    test('trigger: theme = file, trigger', () => {
-      const { container } = render(<Upload trigger={<span className="custom-node">TNode</span>} theme="file"></Upload>);
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
-
-    test('trigger: theme = custom & draggable = true, trigger', () => {
-      const { container } = render(
-        <Upload trigger={<span className="custom-node">TNode</span>} theme="custom" draggable={true}></Upload>,
-      );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
-
-    test('trigger: a function with params, props.trigger: theme = custom & draggable = true, trigger', () => {
-      const fn = vi.fn();
-      render(<Upload trigger={fn} theme="custom" draggable={true}></Upload>);
-      expect(fn).toHaveBeenCalled();
-      expect(fn.mock.calls[0][0].dragActive).toBe(false);
-      expect(fn.mock.calls[0][0].files).toEqual([]);
-    });
-
-    test('trigger: theme = custom, trigger', () => {
-      const { container } = render(
-        <Upload trigger={<span className="custom-node">TNode</span>} theme="custom"></Upload>,
-      );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
-
-    test('trigger: theme = custom, trigger is right with files', () => {
-      const { container } = render(
-        <Upload
-          trigger={<span className="custom-node">TNode</span>}
-          theme="custom"
-          draggable={true}
-          files={[{ name: 'file-name.txt', status: 'progress' }]}
-        ></Upload>,
-      );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
-
-    test('trigger: a function with params, props.trigger: theme = custom, trigger is right with files', () => {
-      const fn = vi.fn();
-      render(
-        <Upload
-          trigger={fn}
-          theme="custom"
-          draggable={true}
-          files={[{ name: 'file-name.txt', status: 'progress' }]}
-        ></Upload>,
-      );
-      expect(fn).toHaveBeenCalled();
-      expect(fn.mock.calls[0][0].dragActive).toBe(false);
-      expect(fn.mock.calls[0][0].files).toEqual([{ name: 'file-name.txt', status: 'progress' }]);
     });
   });
 });

@@ -37,9 +37,6 @@ describe('Comment', () => {
         'https://tdesign.gtimg.com/site/images/list-icon.png',
       );
     });
-  });
-
-  describe('slots', () => {
     test('avatar is custom element', () => {
       const { container } = render(
         <Comment

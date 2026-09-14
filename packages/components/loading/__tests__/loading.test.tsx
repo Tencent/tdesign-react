@@ -39,9 +39,6 @@ describe('Loading', () => {
       expect(container.querySelector('.t-loading').getAttribute('style')).toBe('font-size: 36px;');
       expect(container.querySelector('.t-size-m')).toBeNull();
     });
-  });
-
-  describe('slots', () => {
     test('loading indicator works', async () => {
       const { container } = render(<Loading loading={true} indicator={<div>indicator</div>}></Loading>);
       expect(container.querySelector('.t-loading').querySelector('div')).toBeTruthy();

@@ -132,6 +132,22 @@ describe('DateRangePicker', () => {
       const { queryByText } = render(<DateRangePicker tips={tips} />);
       expect(queryByText(tips)).toBeInTheDocument();
     });
+    it('prefixIcon suffixIcon', async () => {
+      const { container } = render(<DateRangePicker prefixIcon={<BrowseIcon />} suffixIcon={<LockOnIcon />} />);
+      const iconBrowse = container.querySelector('.t-icon-browse');
+      const lockOn = container.querySelector('.t-icon-lock-on');
+
+      expect(iconBrowse).toBeInTheDocument();
+      expect(lockOn).toBeInTheDocument();
+    });
+
+    it('label', async () => {
+      const label = 'test-label';
+      const { container } = render(<DateRangePicker label={label} />);
+      const prefix = container.querySelector('.t-input__prefix');
+      expect(prefix).toBeTruthy();
+      expect(prefix).toHaveTextContent(label);
+    });
   });
 
   describe('events', () => {
@@ -161,25 +177,6 @@ describe('DateRangePicker', () => {
 
       expect(changeFn).toHaveBeenCalledTimes(2);
       expect(pickFn).toHaveBeenCalledTimes(2);
-    });
-  });
-
-  describe('slots', () => {
-    it('prefixIcon suffixIcon', async () => {
-      const { container } = render(<DateRangePicker prefixIcon={<BrowseIcon />} suffixIcon={<LockOnIcon />} />);
-      const iconBrowse = container.querySelector('.t-icon-browse');
-      const lockOn = container.querySelector('.t-icon-lock-on');
-
-      expect(iconBrowse).toBeInTheDocument();
-      expect(lockOn).toBeInTheDocument();
-    });
-
-    it('label', async () => {
-      const label = 'test-label';
-      const { container } = render(<DateRangePicker label={label} />);
-      const prefix = container.querySelector('.t-input__prefix');
-      expect(prefix).toBeTruthy();
-      expect(prefix).toHaveTextContent(label);
     });
   });
 

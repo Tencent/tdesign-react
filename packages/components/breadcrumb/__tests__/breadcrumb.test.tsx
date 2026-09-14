@@ -30,6 +30,19 @@ describe('Breadcrumb', () => {
         expect(node).toHaveTextContent(options[index]?.content);
       });
     });
+    test('use custom separator', () => {
+      const el = (
+        <Breadcrumb data-testid={rootTestID}>
+          <BreadcrumbItem separator={<span role="separator"> xxx </span>} data-testid={childTestID} />
+        </Breadcrumb>
+      );
+      const wrapper = render(el);
+
+      const root = wrapper.getByTestId(rootTestID);
+      const separator = wrapper.getByRole('separator');
+
+      expect(root).toContainElement(separator);
+    });
   });
 
   describe('events', () => {
@@ -48,22 +61,6 @@ describe('Breadcrumb', () => {
       child.click();
 
       expect(mockFn).toHaveBeenCalled();
-    });
-  });
-
-  describe('slots', () => {
-    test('use custom separator', () => {
-      const el = (
-        <Breadcrumb data-testid={rootTestID}>
-          <BreadcrumbItem separator={<span role="separator"> xxx </span>} data-testid={childTestID} />
-        </Breadcrumb>
-      );
-      const wrapper = render(el);
-
-      const root = wrapper.getByTestId(rootTestID);
-      const separator = wrapper.getByRole('separator');
-
-      expect(root).toContainElement(separator);
     });
   });
 

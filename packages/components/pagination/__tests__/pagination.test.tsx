@@ -4,7 +4,7 @@ import { fireEvent, render, vi } from '@test/utils';
 import Pagination from '../index';
 
 describe('Pagination', () => {
-  describe('slots', () => {
+  describe('props', () => {
     test('totalContent works fine', () => {
       const changeFn = vi.fn();
       const { getByText, rerender } = render(

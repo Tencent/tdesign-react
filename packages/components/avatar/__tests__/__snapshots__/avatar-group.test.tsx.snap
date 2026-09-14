@@ -16,7 +16,7 @@ exports[`AvatarGroup > props > cascading is equal to right-up 1`] = `
 </div>
 `;
 
-exports[`AvatarGroup > slots > collapseAvatar 1`] = `
+exports[`AvatarGroup > props > collapseAvatar 1`] = `
 <div>
   <div
     class="t-avatar-group t-avatar--offset-right"

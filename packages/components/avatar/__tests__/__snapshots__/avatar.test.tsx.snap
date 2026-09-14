@@ -1,5 +1,41 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`Avatar > props > children 1`] = `
+<div>
+  <div
+    class="t-avatar t-avatar--circle"
+  >
+    <span
+      style="transform: scale(1);"
+    >
+      <span
+        class="custom-node"
+      >
+        TNode
+      </span>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Avatar > props > content 1`] = `
+<div>
+  <div
+    class="t-avatar t-avatar--circle"
+  >
+    <span
+      style="transform: scale(1);"
+    >
+      <span
+        class="custom-node"
+      >
+        TNode
+      </span>
+    </span>
+  </div>
+</div>
+`;
+
 exports[`Avatar > props > shape is equal to circle 1`] = `
 <div>
   <div
@@ -20,42 +56,6 @@ exports[`Avatar > props > shape is equal to round 1`] = `
     <span
       style="transform: scale(1);"
     />
-  </div>
-</div>
-`;
-
-exports[`Avatar > slots > children 1`] = `
-<div>
-  <div
-    class="t-avatar t-avatar--circle"
-  >
-    <span
-      style="transform: scale(1);"
-    >
-      <span
-        class="custom-node"
-      >
-        TNode
-      </span>
-    </span>
-  </div>
-</div>
-`;
-
-exports[`Avatar > slots > content 1`] = `
-<div>
-  <div
-    class="t-avatar t-avatar--circle"
-  >
-    <span
-      style="transform: scale(1);"
-    >
-      <span
-        class="custom-node"
-      >
-        TNode
-      </span>
-    </span>
   </div>
 </div>
 `;

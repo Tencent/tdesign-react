@@ -46,9 +46,6 @@ describe('Affix', () => {
       expect(affixElement).not.toBeNull();
       expect((affixElement as HTMLElement)?.style.background).toBe('red');
     });
-  });
-
-  describe('slots', () => {
     test('content', async () => {
       const Children = () => <div>固钉</div>;
       const { queryByText } = render(<Affix content={<Children />} />);

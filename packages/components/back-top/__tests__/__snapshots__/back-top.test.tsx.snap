@@ -1,5 +1,53 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`BackTop > props > children 1`] = `
+<div>
+  <button
+    class="t-back-top t-back-top--theme-light t-back-top--square t-size-m"
+    style="inset-inline-end: 24px; inset-block-end: 80px;"
+    type="button"
+  >
+    <span
+      class="custom-node"
+    >
+      TNode
+    </span>
+  </button>
+</div>
+`;
+
+exports[`BackTop > props > content 1`] = `
+<div>
+  <button
+    class="t-back-top t-back-top--theme-light t-back-top--square t-size-m"
+    style="inset-inline-end: 24px; inset-block-end: 80px;"
+    type="button"
+  >
+    <span
+      class="custom-node"
+    >
+      TNode
+    </span>
+  </button>
+</div>
+`;
+
+exports[`BackTop > props > default 1`] = `
+<div>
+  <button
+    class="t-back-top t-back-top--theme-light t-back-top--square t-size-m"
+    style="inset-inline-end: 24px; inset-block-end: 80px;"
+    type="button"
+  >
+    <span
+      class="custom-node"
+    >
+      TNode
+    </span>
+  </button>
+</div>
+`;
+
 exports[`BackTop > props > shape is equal to circle 1`] = `
 <div>
   <button
@@ -128,54 +176,6 @@ exports[`BackTop > props > theme is equal to primary 1`] = `
     type="button"
   >
     Text
-  </button>
-</div>
-`;
-
-exports[`BackTop > slots > children 1`] = `
-<div>
-  <button
-    class="t-back-top t-back-top--theme-light t-back-top--square t-size-m"
-    style="inset-inline-end: 24px; inset-block-end: 80px;"
-    type="button"
-  >
-    <span
-      class="custom-node"
-    >
-      TNode
-    </span>
-  </button>
-</div>
-`;
-
-exports[`BackTop > slots > content 1`] = `
-<div>
-  <button
-    class="t-back-top t-back-top--theme-light t-back-top--square t-size-m"
-    style="inset-inline-end: 24px; inset-block-end: 80px;"
-    type="button"
-  >
-    <span
-      class="custom-node"
-    >
-      TNode
-    </span>
-  </button>
-</div>
-`;
-
-exports[`BackTop > slots > default 1`] = `
-<div>
-  <button
-    class="t-back-top t-back-top--theme-light t-back-top--square t-size-m"
-    style="inset-inline-end: 24px; inset-block-end: 80px;"
-    type="button"
-  >
-    <span
-      class="custom-node"
-    >
-      TNode
-    </span>
   </button>
 </div>
 `;

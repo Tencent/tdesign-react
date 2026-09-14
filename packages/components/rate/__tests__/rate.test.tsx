@@ -9,6 +9,11 @@ describe('Rate', () => {
       render(<Rate count={10} />);
       expect(document.querySelectorAll('.t-rate__item')).toHaveLength(10);
     });
+    test('icon', () => {
+      const { container } = render(<Rate icon={<span className="custom-node">TNode</span>} />);
+      expect(container.children[0].classList.contains('t-rate')).toBeTruthy();
+      expect(document.querySelectorAll('.custom-node')).toHaveLength(10);
+    });
   });
 
   describe('events', () => {
@@ -19,14 +24,6 @@ describe('Rate', () => {
       fireEvent.click(document.querySelector('.t-rate__item'));
       expect(clickFn).toHaveBeenCalledTimes(1);
       expect(clickFn).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('slots', () => {
-    test('icon', () => {
-      const { container } = render(<Rate icon={<span className="custom-node">TNode</span>} />);
-      expect(container.children[0].classList.contains('t-rate')).toBeTruthy();
-      expect(document.querySelectorAll('.custom-node')).toHaveLength(10);
     });
   });
 

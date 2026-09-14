@@ -15,6 +15,14 @@ describe('Switch', () => {
       const { container } = render(<Switch size="small" />);
       expect(container.children[0].classList.contains('t-size-s')).toBeTruthy();
     });
+    test('label', async () => {
+      const { queryByText } = render(<Switch label={['开', '关']} />);
+      expect(queryByText('关')).toBeInTheDocument();
+    });
+    test('label function', async () => {
+      const { queryByText } = render(<Switch value={false} label={({ value }) => (value ? '开' : '关')} />);
+      expect(queryByText('关')).toBeInTheDocument();
+    });
   });
 
   describe('events', () => {
@@ -23,17 +31,6 @@ describe('Switch', () => {
       const { container } = render(<Switch onChange={clickFn} />);
       fireEvent.click(container.firstChild);
       expect(clickFn).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('slots', () => {
-    test('label', async () => {
-      const { queryByText } = render(<Switch label={['开', '关']} />);
-      expect(queryByText('关')).toBeInTheDocument();
-    });
-    test('label function', async () => {
-      const { queryByText } = render(<Switch value={false} label={({ value }) => (value ? '开' : '关')} />);
-      expect(queryByText('关')).toBeInTheDocument();
     });
   });
 

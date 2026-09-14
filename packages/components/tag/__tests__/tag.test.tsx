@@ -167,9 +167,6 @@ describe('Tag', () => {
         expect(container.firstChild).toHaveClass(`t-tag--${item}`);
       });
     });
-  });
-
-  describe('slots', () => {
     test('children', () => {
       const { container } = render(
         <Tag>

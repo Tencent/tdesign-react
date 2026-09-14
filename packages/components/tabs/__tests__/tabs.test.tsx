@@ -68,6 +68,27 @@ describe('Tabs', () => {
         }
       });
     });
+    test('Tabs action', () => {
+      const { container } = render(
+        <Tabs
+          action="Action"
+          size={'medium'}
+          list={[
+            {
+              label: 'a',
+              value: 'a',
+            },
+            {
+              label: 'b',
+              value: 'b',
+            },
+          ]}
+        />,
+      );
+
+      expect(container.querySelector('.t-tabs__nav-action')).not.toBeNull();
+      expect(container.querySelector('.t-tabs__nav-action')).toBeInTheDocument();
+    });
   });
 
   describe('events', () => {
@@ -156,30 +177,6 @@ describe('Tabs', () => {
       const tabInstance = await waitFor(() => getByTestId(testId));
       fireEvent.click(tabInstance.querySelector('.t-tabs__add-btn'));
       expect(addFn).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('slots', () => {
-    test('Tabs action', () => {
-      const { container } = render(
-        <Tabs
-          action="Action"
-          size={'medium'}
-          list={[
-            {
-              label: 'a',
-              value: 'a',
-            },
-            {
-              label: 'b',
-              value: 'b',
-            },
-          ]}
-        />,
-      );
-
-      expect(container.querySelector('.t-tabs__nav-action')).not.toBeNull();
-      expect(container.querySelector('.t-tabs__nav-action')).toBeInTheDocument();
     });
   });
 

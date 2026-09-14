@@ -70,9 +70,6 @@ describe('Descriptions', () => {
         expect(body).toHaveClass(`t-size-${size.slice(0, 1)}`);
       });
     });
-  });
-
-  describe('slots', () => {
     // jsx
     test('jsx and DescriptionsItem span', () => {
       const { container } = render(

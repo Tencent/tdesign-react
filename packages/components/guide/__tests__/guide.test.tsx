@@ -275,9 +275,6 @@ describe('Guide', () => {
       const domWrapper1 = document.querySelector('.t-guide__highlight--mask');
       expect(domWrapper1.style.zIndex).toBe('4999');
     });
-  });
-
-  describe('slots', () => {
     test('counter', async () => {
       getGuideDefaultMount({
         counter: <span className="custom-node">TNode</span>,
@@ -466,9 +463,6 @@ describe('GuideStep', () => {
       expect(domWrapper).toHaveClass('t-test-guide-step-overlay');
       expect(document.body).toMatchSnapshot();
     });
-  });
-
-  describe('slots', () => {
     test('body', async () => {
       getCustomGuideStepMount({
         body: <span className="custom-node">TNode</span>,

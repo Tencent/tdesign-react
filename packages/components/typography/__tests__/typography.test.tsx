@@ -48,9 +48,6 @@ describe('Typography', () => {
       const { container } = render(<Paragraph ellipsis>{longTextString}</Paragraph>);
       expect(container.querySelector('.t-typography-ellipsis-symbol-wrapper')).toHaveTextContent('...');
     });
-  });
-
-  describe('slots', () => {
     test('copyable suffix 测试', async () => {
       const { container } = render(
         <Text

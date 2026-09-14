@@ -138,9 +138,6 @@ describe('SelectInput', () => {
       const { container } = render(<SelectInput tips="this is a tip"></SelectInput>);
       expect(container.querySelectorAll('.t-input__tips').length).toBe(1);
     });
-  });
-
-  describe('slots', () => {
     test('collapsedItems', () => {
       const { container } = getSelectInputMultipleMount({
         collapsedItems: <span className="custom-node">TNode</span>,

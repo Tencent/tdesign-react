@@ -39,6 +39,35 @@ exports[`Input > props > align is equal to right 1`] = `
 </div>
 `;
 
+exports[`Input > props > label 1`] = `
+<div>
+  <div
+    class="t-input__wrap"
+    spellcheck="false"
+  >
+    <div
+      class="t-input t-align-left t-input--prefix"
+    >
+      <div
+        class="t-input__prefix"
+      >
+        <span
+          class="custom-node"
+        >
+          TNode
+        </span>
+      </div>
+      <input
+        class="t-input__inner"
+        placeholder="请输入"
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Input > props > status is equal to default 1`] = `
 <div
   class="t-input t-align-left"
@@ -91,36 +120,7 @@ exports[`Input > props > status is equal to warning 1`] = `
 </div>
 `;
 
-exports[`Input > slots > label 1`] = `
-<div>
-  <div
-    class="t-input__wrap"
-    spellcheck="false"
-  >
-    <div
-      class="t-input t-align-left t-input--prefix"
-    >
-      <div
-        class="t-input__prefix"
-      >
-        <span
-          class="custom-node"
-        >
-          TNode
-        </span>
-      </div>
-      <input
-        class="t-input__inner"
-        placeholder="请输入"
-        type="text"
-        value=""
-      />
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Input > slots > suffix 1`] = `
+exports[`Input > props > suffix 1`] = `
 <div>
   <div
     class="t-input__wrap"
@@ -149,7 +149,7 @@ exports[`Input > slots > suffix 1`] = `
 </div>
 `;
 
-exports[`Input > slots > suffixIcon 1`] = `
+exports[`Input > props > suffixIcon 1`] = `
 <div>
   <div
     class="t-input__wrap"

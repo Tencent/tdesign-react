@@ -229,9 +229,6 @@ describe('AutoComplete', () => {
       const domWrapper = container.querySelector('input');
       expect(domWrapper.value).toBe('DefaultKeyword');
     });
-  });
-
-  describe('slots', () => {
     test('children', () => {
       const { container } = render(
         <AutoComplete>

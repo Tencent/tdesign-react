@@ -91,9 +91,6 @@ describe('Message', () => {
         expect(container.firstChild).toHaveTextContent(defaultMessage);
       });
     });
-  });
-
-  describe('slots', () => {
     test(':closeBtn is a string, equal "关闭".', () => {
       const closeBtnTxt = '关闭';
       const { container, getByText } = render(<Message closeBtn={closeBtnTxt}>{defaultMessage}</Message>);

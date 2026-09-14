@@ -49,9 +49,6 @@ describe('TimePicker', () => {
         expect(scrollPanels.item(2).querySelectorAll('.t-is-current').item(0)).toHaveTextContent('20');
       });
     });
-  });
-
-  describe('slots', () => {
     test('props.label for TimePicker  works fine', async () => {
       const label = 'abc';
       const { container } = render(<TimePicker label={label}></TimePicker>);

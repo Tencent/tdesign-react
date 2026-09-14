@@ -78,7 +78,7 @@ describe('List', () => {
 });
 
 describe('ListItem', () => {
-  describe('slots', () => {
+  describe('props', () => {
     test('content and children render', () => {
       const contextText = 'content render';
       const { container } = render(<ListItem content={<div id="content_id">{contextText}</div>} />);
@@ -120,11 +120,6 @@ describe('ListItemMeta', () => {
       expect(queryByText(description)).not.toBeNull();
       expect(queryByText(description)).toBeInTheDocument();
     });
-  });
-
-  describe('slots', () => {
-    const imgSrc = 'https://tdesign.gtimg.com/site/images/list-icon.png';
-    const description = 'Test Description';
     test('image TNode', () => {
       const Img = () => <img id="img_test" src={imgSrc} alt="test img" />;
       const { container } = render(<ListItemMeta image={<Img />} />);

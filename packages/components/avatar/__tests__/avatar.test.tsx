@@ -71,9 +71,6 @@ describe('Avatar', () => {
       const { container } = render(<Avatar shape="round" size="28px"></Avatar>);
       expect(container.firstChild).toHaveClass('t-avatar--round');
     });
-  });
-
-  describe('slots', () => {
     test('children', () => {
       const { container } = render(
         <Avatar>

@@ -59,6 +59,34 @@ exports[`Radio > props > checked is equal to true 1`] = `
 </div>
 `;
 
+exports[`Radio > props > children 1`] = `
+<div>
+  <label
+    class="t-radio"
+    tabindex="0"
+  >
+    <input
+      class="t-radio__former"
+      tabindex="-1"
+      type="radio"
+      value=""
+    />
+    <span
+      class="t-radio__input"
+    />
+    <span
+      class="t-radio__label"
+    >
+      <span
+        class="custom-node"
+      >
+        TNode
+      </span>
+    </span>
+  </label>
+</div>
+`;
+
 exports[`Radio > props > disabled 1`] = `
 <div>
   <label
@@ -107,35 +135,7 @@ exports[`Radio > props > disabled 2`] = `
 </div>
 `;
 
-exports[`Radio > slots > children 1`] = `
-<div>
-  <label
-    class="t-radio"
-    tabindex="0"
-  >
-    <input
-      class="t-radio__former"
-      tabindex="-1"
-      type="radio"
-      value=""
-    />
-    <span
-      class="t-radio__input"
-    />
-    <span
-      class="t-radio__label"
-    >
-      <span
-        class="custom-node"
-      >
-        TNode
-      </span>
-    </span>
-  </label>
-</div>
-`;
-
-exports[`Radio > slots > label 1`] = `
+exports[`Radio > props > label 1`] = `
 <div>
   <label
     class="t-radio"

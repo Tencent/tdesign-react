@@ -23,6 +23,13 @@ describe('TimeRangePicker', () => {
         expect(scrollPanels.item(2).querySelectorAll('.t-is-current').item(0)).toHaveTextContent('20');
       });
     });
+    test('props.label for TimeRangePicker  works fine', async () => {
+      const label = 'abc';
+      const { container } = render(<TimeRangePicker label={label}></TimeRangePicker>);
+      const prefix = container.querySelector('.t-input__prefix');
+      expect(prefix).toBeTruthy();
+      expect(prefix).toHaveTextContent(label);
+    });
   });
 
   describe('events', () => {
@@ -40,16 +47,6 @@ describe('TimeRangePicker', () => {
       expect(handleInput).toHaveBeenCalledTimes(1);
       fireEvent.blur(inputs[0]);
       expect(handleBlur).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('slots', () => {
-    test('props.label for TimeRangePicker  works fine', async () => {
-      const label = 'abc';
-      const { container } = render(<TimeRangePicker label={label}></TimeRangePicker>);
-      const prefix = container.querySelector('.t-input__prefix');
-      expect(prefix).toBeTruthy();
-      expect(prefix).toHaveTextContent(label);
     });
   });
 

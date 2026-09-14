@@ -130,9 +130,6 @@ describe('TimelineItem', () => {
       const { container: container2 } = render(<TimelineItem loading={true}></TimelineItem>);
       expect(container2.querySelector('.t-timeline-item__dot .t-loading')).toBeTruthy();
     });
-  });
-
-  describe('slots', () => {
     test('children', () => {
       const { container } = render(
         <TimelineItem>

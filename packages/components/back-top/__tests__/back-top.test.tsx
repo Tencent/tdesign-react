@@ -31,9 +31,6 @@ describe('BackTop', () => {
         expect(container).toMatchSnapshot();
       });
     });
-  });
-
-  describe('slots', () => {
     test('children', () => {
       const { container } = render(
         <BackTop>

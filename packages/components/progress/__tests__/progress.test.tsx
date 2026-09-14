@@ -84,9 +84,6 @@ describe('Progress', () => {
       await createProgressSizeTest(sizes[2]);
       await createProgressSizeTest(sizes[3]);
     });
-  });
-
-  describe('slots', () => {
     test('custom label should render correctly', async () => {
       const testId = 'progress plump custom label';
       const customLabel = <span data-testid="custom-label">Custom</span>;

@@ -82,26 +82,6 @@ describe('Radio', () => {
       fireEvent.click(container.firstChild);
       expect(container.firstChild).toHaveClass('t-radio', 't-is-checked');
     });
-  });
-
-  describe('events', () => {
-    test('click', () => {
-      const onClickFn = vi.fn();
-      const { container } = render(<Radio onClick={onClickFn}></Radio>);
-      fireEvent.click(container.firstChild);
-      expect(onClickFn).toHaveBeenCalled();
-      expect(onClickFn.mock.calls[0][0].e.stopPropagation).toBeTruthy();
-    });
-
-    test('onChange', () => {
-      const fn = vi.fn();
-      const { container } = render(<Radio disabled={true} onChange={fn} />);
-      fireEvent.click(container.firstElementChild);
-      expect(fn).toHaveBeenCalledTimes(0);
-    });
-  });
-
-  describe('slots', () => {
     test('children', () => {
       const { container } = render(
         <Radio>
@@ -122,6 +102,23 @@ describe('Radio', () => {
     test('label text', () => {
       const { queryByText } = render(<Radio label="选中项" />);
       expect(queryByText('选中项')).toBeInTheDocument();
+    });
+  });
+
+  describe('events', () => {
+    test('click', () => {
+      const onClickFn = vi.fn();
+      const { container } = render(<Radio onClick={onClickFn}></Radio>);
+      fireEvent.click(container.firstChild);
+      expect(onClickFn).toHaveBeenCalled();
+      expect(onClickFn.mock.calls[0][0].e.stopPropagation).toBeTruthy();
+    });
+
+    test('onChange', () => {
+      const fn = vi.fn();
+      const { container } = render(<Radio disabled={true} onChange={fn} />);
+      fireEvent.click(container.firstElementChild);
+      expect(fn).toHaveBeenCalledTimes(0);
     });
   });
 

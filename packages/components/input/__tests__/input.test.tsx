@@ -262,6 +262,50 @@ describe('Input', () => {
       const { container } = render(<Input placeholder={InputPlaceholder} size="large" />);
       expect(container.children[0].children[0].classList.contains('t-size-l')).toBeTruthy();
     });
+    test('label', () => {
+      const { container } = render(<Input label={<span className="custom-node">TNode</span>}></Input>);
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+      expect(container.querySelector('.t-input__prefix')).toBeTruthy();
+      expect(container).toMatchSnapshot();
+    });
+
+    test('prefixIcon', () => {
+      const { container } = render(<Input prefixIcon={<span className="custom-node">TNode</span>}></Input>);
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+      expect(container.querySelector('.t-input__prefix-icon')).toBeTruthy();
+    });
+
+    test('suffix', () => {
+      const { container } = render(<Input suffix={<span className="custom-node">TNode</span>}></Input>);
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+      expect(container.querySelector('.t-input__suffix')).toBeTruthy();
+      expect(container).toMatchSnapshot();
+    });
+
+    test('suffixIcon', () => {
+      const { container } = render(<Input suffixIcon={<span className="custom-node">TNode</span>}></Input>);
+      expect(container.querySelector('.custom-node')).toBeTruthy();
+      expect(container.querySelector('.t-input__suffix-icon')).toBeTruthy();
+      expect(container).toMatchSnapshot();
+    });
+
+    test('label display', async () => {
+      const text = 'test-label';
+      const { getByText } = await render(<Input label={text} />);
+
+      act(() => {
+        expect(getByText(text)).toBeTruthy();
+      });
+    });
+
+    test('prefixIcon display', async () => {
+      const text = 'test-prefixIcon';
+      const { getByText } = await render(<Input prefixIcon={<span>{text}</span>} />);
+
+      act(() => {
+        expect(getByText(text)).toBeTruthy();
+      });
+    });
   });
 
   describe('events', () => {
@@ -465,53 +509,6 @@ describe('Input', () => {
       await user.type(InputDom, 'abc{enter}');
       expect(onEnterFn).toHaveBeenCalled();
       expect(onKeydownFn).toHaveBeenCalled();
-    });
-  });
-
-  describe('slots', () => {
-    test('label', () => {
-      const { container } = render(<Input label={<span className="custom-node">TNode</span>}></Input>);
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-      expect(container.querySelector('.t-input__prefix')).toBeTruthy();
-      expect(container).toMatchSnapshot();
-    });
-
-    test('prefixIcon', () => {
-      const { container } = render(<Input prefixIcon={<span className="custom-node">TNode</span>}></Input>);
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-      expect(container.querySelector('.t-input__prefix-icon')).toBeTruthy();
-    });
-
-    test('suffix', () => {
-      const { container } = render(<Input suffix={<span className="custom-node">TNode</span>}></Input>);
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-      expect(container.querySelector('.t-input__suffix')).toBeTruthy();
-      expect(container).toMatchSnapshot();
-    });
-
-    test('suffixIcon', () => {
-      const { container } = render(<Input suffixIcon={<span className="custom-node">TNode</span>}></Input>);
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-      expect(container.querySelector('.t-input__suffix-icon')).toBeTruthy();
-      expect(container).toMatchSnapshot();
-    });
-
-    test('label display', async () => {
-      const text = 'test-label';
-      const { getByText } = await render(<Input label={text} />);
-
-      act(() => {
-        expect(getByText(text)).toBeTruthy();
-      });
-    });
-
-    test('prefixIcon display', async () => {
-      const text = 'test-prefixIcon';
-      const { getByText } = await render(<Input prefixIcon={<span>{text}</span>} />);
-
-      act(() => {
-        expect(getByText(text)).toBeTruthy();
-      });
     });
   });
 

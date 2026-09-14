@@ -153,9 +153,6 @@ describe('Select', () => {
       expect(container.querySelector('.t-input__prefix .custom-label')).toHaveTextContent('人工智能');
       expect(container.querySelector('.t-input__inner')).toHaveValue(' ');
     });
-  });
-
-  describe('slots', () => {
     test('label', async () => {
       const text = 'test-label';
       const { getByText } = await render(<Select options={[]} label={text} />);

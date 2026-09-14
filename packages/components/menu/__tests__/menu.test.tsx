@@ -52,6 +52,20 @@ describe('Menu', () => {
       expect(queryByText('菜单二').parentElement.parentElement.parentElement.style.maxHeight).not.toBe('0');
       expect(queryByText('二级菜单-1').parentElement.parentElement.parentElement.style.maxHeight).toBe('0');
     });
+    test('menu head-menu render icon', async () => {
+      const { container, getByText } = render(
+        <HeadMenu>
+          <SubMenu value="sub-2" title="水果蔬菜" icon={<UserIcon />}>
+            <MenuItem value="5">
+              <span>苹果</span>
+            </MenuItem>
+          </SubMenu>
+        </HeadMenu>,
+      );
+
+      expect(getByText('水果蔬菜')).toBeInTheDocument();
+      expect(container.querySelector('.t-icon-user')).toBeInTheDocument();
+    });
   });
 
   describe('events', () => {
@@ -71,23 +85,6 @@ describe('Menu', () => {
       );
       fireEvent.click(getByText('仪表盘'));
       expect(clickFn).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('slots', () => {
-    test('menu head-menu render icon', async () => {
-      const { container, getByText } = render(
-        <HeadMenu>
-          <SubMenu value="sub-2" title="水果蔬菜" icon={<UserIcon />}>
-            <MenuItem value="5">
-              <span>苹果</span>
-            </MenuItem>
-          </SubMenu>
-        </HeadMenu>,
-      );
-
-      expect(getByText('水果蔬菜')).toBeInTheDocument();
-      expect(container.querySelector('.t-icon-user')).toBeInTheDocument();
     });
   });
 

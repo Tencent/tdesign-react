@@ -98,9 +98,6 @@ describe('Link', () => {
       expect(render(<Link theme="warning" />).container.firstChild).toHaveClass('t-link--theme-warning', '');
       expect(render(<Link />).container.firstChild).toHaveClass('t-link--theme-default', '');
     });
-  });
-
-  describe('slots', () => {
     test('children', () => {
       const { container } = render(
         <Link>

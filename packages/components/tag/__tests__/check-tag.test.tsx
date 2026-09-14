@@ -4,7 +4,7 @@ import { render } from '@test/utils';
 import { CheckTag } from '..';
 
 describe('CheckTag', () => {
-  describe('slots', () => {
+  describe('props', () => {
     test('children', () => {
       const { container } = render(
         <CheckTag>

@@ -90,20 +90,6 @@ describe('Drawer', () => {
         });
       }, 1000);
     });
-  });
-
-  describe('events', () => {
-    test('Drawer onCancel', () => {
-      const onCancelFn = vi.fn();
-      const { getByText } = render(<DrawerDemo onCancel={onCancelFn} />);
-      fireEvent.click(getByText('Open'));
-      expect(onCancelFn).not.toHaveBeenCalled();
-      fireEvent.click(getByText('取消'));
-      expect(onCancelFn).toHaveBeenCalled();
-    });
-  });
-
-  describe('slots', () => {
     test('Drawer header and footer custom', () => {
       const { getByText } = render(<DrawerDemo header={<div>自定义头部</div>} footer={<div>自定义底部</div>} />);
       fireEvent.click(getByText('Open'));
@@ -119,6 +105,17 @@ describe('Drawer', () => {
 
       expect(cancelBtn.parentElement.parentElement).toHaveClass('t-drawer__footer');
       expect(confirmBtn.parentElement.parentElement).toHaveClass('t-drawer__footer');
+    });
+  });
+
+  describe('events', () => {
+    test('Drawer onCancel', () => {
+      const onCancelFn = vi.fn();
+      const { getByText } = render(<DrawerDemo onCancel={onCancelFn} />);
+      fireEvent.click(getByText('Open'));
+      expect(onCancelFn).not.toHaveBeenCalled();
+      fireEvent.click(getByText('取消'));
+      expect(onCancelFn).toHaveBeenCalled();
     });
   });
 

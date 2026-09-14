@@ -35,7 +35,7 @@ exports[`Image > props > fit is equal to scale-down 1`] = `
 />
 `;
 
-exports[`Image > slots > loading 1`] = `
+exports[`Image > props > loading 1`] = `
 <div>
   <div
     class="t-image__wrapper t-image__wrapper--shape-square"
@@ -57,7 +57,7 @@ exports[`Image > slots > loading 1`] = `
 </div>
 `;
 
-exports[`Image > slots > overlayContent 1`] = `
+exports[`Image > props > overlayContent 1`] = `
 <div>
   <div
     class="t-image__wrapper t-image__wrapper--shape-square"
@@ -190,7 +190,7 @@ exports[`Image > slots > overlayContent 1`] = `
 </div>
 `;
 
-exports[`Image > slots > placeholder 1`] = `
+exports[`Image > props > placeholder 1`] = `
 <div>
   <div
     class="t-image__wrapper t-image__wrapper--shape-square"

@@ -58,9 +58,6 @@ describe('AvatarGroup', () => {
       expect(domWrapper.style.height).toBe('120px');
       expect(domWrapper.style.fontSize).toBe('60px');
     });
-  });
-
-  describe('slots', () => {
     test('collapseAvatar', () => {
       const { container } = getAvatarGroupDefaultMount({
         collapseAvatar: <span className="custom-node">TNode</span>,

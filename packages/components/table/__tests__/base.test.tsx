@@ -669,9 +669,6 @@ describe('Table', () => {
         }
       });
     });
-  });
-
-  describe('slots', () => {
     it('props.bottomContent works fine', () => {
       const { container } = getNormalTableMount(BaseTable, {
         bottomContent: <span className="custom-node">TNode</span>,
