@@ -30,6 +30,7 @@ const useVirtualScroll = (container: React.MutableRefObject<HTMLElement>, params
   const { enable = true, data, scroll } = params;
 
   const dataRef = useRef(data);
+  const lastVisibleDataRef = useRef(data);
   const containerHeight = useRef(0);
 
   /** 注意测试：数据长度为空；数据长度小于表格高度等情况。即期望只有数据量达到一定程度才允许开启虚拟滚动 */
@@ -121,14 +122,21 @@ const useVirtualScroll = (container: React.MutableRefObject<HTMLElement>, params
       fixedEndData = fixedEndData.slice(bottomStartIndex);
     }
 
-    if (startAndEndIndex.join() !== [startIndex, endIndex].join() && startIndex >= 0) {
+    // 除了视口起止下标发生变化外，还需要考虑底层 data 引用的变化，
+    // 此时即便计算出的起止下标恰好与上一次相同，也不能跳过更新。
+    const indexChanged = startAndEndIndex.join() !== [startIndex, endIndex].join();
+    const dataSourceChanged = lastVisibleDataRef.current !== data;
+    if ((indexChanged || dataSourceChanged) && startIndex >= 0) {
       const tmpVisibleData = fixedStartData.concat(data.slice(startIndex, endIndex)).concat(fixedEndData);
       setVisibleData(tmpVisibleData);
       const lastScrollTop = trScrollTopHeightList[startIndex - 1];
       const top = lastScrollTop > 0 ? lastScrollTop : 0;
       const stickyHeight = trScrollTopHeightList[Math.min(startIndex, fixedStart) - 1] || 0;
       setTranslateY(top - stickyHeight);
-      setStartAndEndIndex([startIndex, endIndex]);
+      lastVisibleDataRef.current = data;
+      if (indexChanged) {
+        setStartAndEndIndex([startIndex, endIndex]);
+      }
     }
   };
 
@@ -137,7 +145,7 @@ const useVirtualScroll = (container: React.MutableRefObject<HTMLElement>, params
     if (!isVirtualScroll || !rowData || tScroll.isFixedRowHeight || !container?.current) return;
     const trHeight = rowData.ref.offsetHeight;
     const rowIndex = rowData.data.__VIRTUAL_SCROLL_INDEX;
-    const newTrHeightList = trHeightList;
+    const newTrHeightList = [...trHeightList];
     if (newTrHeightList[rowIndex] !== trHeight) {
       newTrHeightList[rowIndex] = trHeight;
       setTrHeightList(newTrHeightList);
@@ -242,6 +250,10 @@ const useVirtualScroll = (container: React.MutableRefObject<HTMLElement>, params
 
         setVisibleData(tmpData);
         setTranslateY(translateY);
+        lastVisibleDataRef.current = data;
+        if (startAndEndIndex.join() !== [startIndex, endIndex].join()) {
+          setStartAndEndIndex([startIndex, endIndex]);
+        }
       }
 
       const timer = setTimeout(() => {
