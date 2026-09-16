@@ -122,8 +122,7 @@ const useVirtualScroll = (container: React.MutableRefObject<HTMLElement>, params
       fixedEndData = fixedEndData.slice(bottomStartIndex);
     }
 
-    // 除了视口起止下标发生变化外，还需要考虑底层 data 引用的变化，
-    // 此时即便计算出的起止下标恰好与上一次相同，也不能跳过更新。
+    // 除了视口起止下标发生变化外，还需要考虑底层 data 引用的变化
     const indexChanged = startAndEndIndex.join() !== [startIndex, endIndex].join();
     const dataSourceChanged = lastVisibleDataRef.current !== data;
     if ((indexChanged || dataSourceChanged) && startIndex >= 0) {
