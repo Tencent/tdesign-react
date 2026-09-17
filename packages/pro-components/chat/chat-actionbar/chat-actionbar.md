@@ -1,28 +1,4 @@
----
-title: ChatActionBar 对话操作栏
-description: ChatActionbar 包含重新生成，点赞，点踩，复制按钮。 内置 Clipboard 可以复制聊天内容，提供按钮的交互样式，监听 actions 相关事件由业务层实现具体逻辑
-isComponent: true
-usage: { title: '', description: '' }
-spline: aigc
----
-
-## 基础用法
-
-{{ base }}
-
-## 样式调整
-支持通过css变量修改样式，
-支持通过`tooltipProps`属性设置提示浮层的样式
-
-{{ style }}
-
-## 自定义
-
-支持完全自定义action
-
-{{ custom }}
-
-
+:: BASE_DOC ::
 
 ## API
 ### ChatActionBar Props

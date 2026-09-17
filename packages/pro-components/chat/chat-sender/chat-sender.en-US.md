@@ -1,30 +1,4 @@
----
-title: ChatSender 对话输入
-description: 用于构建智能对话场景下的输入框组件
-isComponent: true
-usage: { title: '', description: '' }
-spline: navigation
----
-
-## 基础用法
-
-受控进行输入/发送等状态管理
-{{ base }}
-
-
-## 附件输入
-支持选择附件及展示附件列表，受控进行文件数据管理，示例中模拟了文件上传流程
-{{ attachment }}
-
-
-## 自定义
-通过植入具名插槽来实现输入框的自定义，内置支持的扩展位置包括：
-
-输入框上方区域`header`，输入框内头部区域`inner-header`，可输入区域前置部分`prefix`，输入框底部左侧区域`footer-prefix`，输入框底部操作区域`actions`
-
-同时示例中演示了通过`CSS变量覆盖`实现样式定制
-
-{{ custom }}
+:: BASE_DOC ::
 
 ## API
 ### ChatSender Props
