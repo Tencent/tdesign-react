@@ -33,14 +33,14 @@ export const docs = [
         component: () => import('./docs/sse.md'),
       },
       {
-        title: '与AG-UI协议集成',
+        title: '与 AG-UI 协议集成',
         titleEn: 'AG-UI',
         name: 'agui',
         path: '/react-chat/agui',
         component: () => import('./docs/agui.md'),
       },
       {
-        title: '生成式UI支持',
+        title: '生成式 UI 支持',
         titleEn: 'genui',
         name: 'genui',
         path: '/react-chat/genui',
