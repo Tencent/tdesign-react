@@ -1198,6 +1198,25 @@ exports[`csr snapshot test > csr test packages/components/anchor/_example/base.t
     <div
       style="flex: 1;"
     />
+    <style>
+      
+          .t-anchor__horizontal{
+            display:flex;
+            width: fit-content;
+          }
+          .t-anchor__horizontal .t-anchor__line{
+            top:100%;
+            width:100%;
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper{
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper .t-anchor__line-cursor{
+           width:100%;
+          }
+        
+    </style>
     <div>
       <div>
         <div
@@ -1289,6 +1308,25 @@ exports[`csr snapshot test > csr test packages/components/anchor/_example/contai
     id="attach"
     style="display: flex;"
   >
+    <style>
+      
+          .t-anchor__horizontal{
+            display:flex;
+            width: fit-content;
+          }
+          .t-anchor__horizontal .t-anchor__line{
+            top:100%;
+            width:100%;
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper{
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper .t-anchor__line-cursor{
+           width:100%;
+          }
+        
+    </style>
     <div
       class="t-anchor t-size-m"
     >
@@ -1392,23 +1430,43 @@ exports[`csr snapshot test > csr test packages/components/anchor/_example/contai
 </div>
 `;
 
-exports[`csr snapshot test > csr test packages/components/anchor/_example/cursor.tsx 1`] = `
+exports[`csr snapshot test > csr test packages/components/anchor/_example/container-horizontal.tsx 1`] = `
 <div>
   <div
-    style="display: flex;"
+    class="anchor-demo-attach"
+    id="attach"
   >
+    <style>
+      
+          .t-anchor__horizontal{
+            display:flex;
+            width: fit-content;
+          }
+          .t-anchor__horizontal .t-anchor__line{
+            top:100%;
+            width:100%;
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper{
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper .t-anchor__line-cursor{
+           width:100%;
+          }
+        
+    </style>
     <div
-      class="t-anchor t-size-m"
+      class="t-anchor t-size-m t-anchor__horizontal"
     >
       <div
         class="t-anchor__line"
       >
         <div
           class="t-anchor__line-cursor-wrapper"
-          style=""
+          style="left: 0px; width: 200px; opacity: 1;"
         >
           <div
-            style="width: 10px; height: 10px; background-color: rgb(0, 82, 217); position: absolute; border-radius: 50%; left: 50%; margin-left: -5px; top: 50%; margin-top: -5px;"
+            class="t-anchor__line-cursor"
           />
         </div>
       </div>
@@ -1417,7 +1475,217 @@ exports[`csr snapshot test > csr test packages/components/anchor/_example/cursor
       >
         <a
           class="t-anchor__item-link"
-          href="#基础锚点"
+          href="#content-1"
+          target="_self"
+          title="content-1"
+        >
+          content-1
+        </a>
+      </div>
+      <div
+        class="t-anchor__item"
+      >
+        <a
+          class="t-anchor__item-link"
+          href="#content-2"
+          target="_self"
+          title="content-2"
+        >
+          content-2
+        </a>
+      </div>
+      <div
+        class="t-anchor__item"
+      >
+        <a
+          class="t-anchor__item-link"
+          href="#content-3"
+          target="_self"
+          title="content-3"
+        >
+          content-3
+        </a>
+      </div>
+      <div
+        class="t-anchor__item t-is-active"
+      >
+        <a
+          class="t-anchor__item-link"
+          href="#content-4"
+          target="_self"
+          title="content-4"
+        >
+          content-4
+        </a>
+      </div>
+    </div>
+    <div
+      id="anchor-container"
+      style="width: 100%; height: 200px; overflow: auto; text-align: center; font-size: 22px;"
+    >
+      <div
+        id="content-1"
+        style="background: rgb(223, 239, 255); line-height: 100px;"
+      >
+        content-1
+      </div>
+      <div
+        id="content-2"
+        style="background: rgb(191, 219, 247); line-height: 100px;"
+      >
+        content-2
+      </div>
+      <div
+        id="content-3"
+        style="background: rgb(155, 197, 242); line-height: 100px;"
+      >
+        content-3
+      </div>
+      <div
+        id="content-4"
+        style="background: rgb(123, 175, 237); line-height: 100px;"
+      >
+        content-4
+      </div>
+      <div
+        id="content-5"
+        style="background: rgb(92, 153, 235); line-height: 100px;"
+      >
+        content-5
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`csr snapshot test > csr test packages/components/anchor/_example/cursor.tsx 1`] = `
+<div>
+  <style>
+    
+          .t-anchor__horizontal{
+            display:flex;
+            width: fit-content;
+          }
+          .t-anchor__horizontal .t-anchor__line{
+            top:100%;
+            width:100%;
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper{
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper .t-anchor__line-cursor{
+           width:100%;
+          }
+        
+  </style>
+  <div
+    class="t-anchor t-size-m t-anchor__horizontal"
+  >
+    <div
+      class="t-anchor__line"
+    >
+      <div
+        class="t-anchor__line-cursor-wrapper"
+        style="left: 0px; width: 200px; opacity: 1;"
+      >
+        <div
+          style="width: 10px; height: 10px; background-color: rgb(0, 82, 217); position: absolute; border-radius: 50%; left: 50%; margin-left: -5px; top: 50%; margin-top: -5px; z-index: 2;"
+        />
+      </div>
+    </div>
+    <div
+      class="t-anchor__item"
+    >
+      <a
+        class="t-anchor__item-link"
+        href="#content-1"
+        target="_self"
+        title="基础锚点"
+      >
+        基础锚点
+      </a>
+    </div>
+    <div
+      class="t-anchor__item"
+    >
+      <a
+        class="t-anchor__item-link"
+        href="#content-2"
+        target="_self"
+        title="多级锚点"
+      >
+        多级锚点
+      </a>
+    </div>
+    <div
+      class="t-anchor__item"
+    >
+      <a
+        class="t-anchor__item-link"
+        href="#content-3"
+        target="_self"
+        title="指定容器锚点"
+      >
+        指定容器锚点
+      </a>
+    </div>
+    <div
+      class="t-anchor__item t-is-active"
+    >
+      <a
+        class="t-anchor__item-link"
+        href="#content-4"
+        target="_self"
+        title="特定交互锚点"
+      >
+        特定交互锚点
+      </a>
+    </div>
+  </div>
+  <div
+    style="display: flex; margin-top: 10px;"
+  >
+    <style>
+      
+          .t-anchor__horizontal{
+            display:flex;
+            width: fit-content;
+          }
+          .t-anchor__horizontal .t-anchor__line{
+            top:100%;
+            width:100%;
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper{
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper .t-anchor__line-cursor{
+           width:100%;
+          }
+        
+    </style>
+    <div
+      class="t-anchor t-size-m"
+    >
+      <div
+        class="t-anchor__line"
+      >
+        <div
+          class="t-anchor__line-cursor-wrapper"
+          style="top: 0px; height: 100px; opacity: 1;"
+        >
+          <div
+            style="width: 10px; height: 10px; background-color: rgb(0, 82, 217); position: absolute; border-radius: 50%; left: 50%; margin-left: -5px; top: 50%; margin-top: -5px; z-index: 2;"
+          />
+        </div>
+      </div>
+      <div
+        class="t-anchor__item"
+      >
+        <a
+          class="t-anchor__item-link"
+          href="#content-1"
           target="_self"
           title="基础锚点"
         >
@@ -1429,7 +1697,7 @@ exports[`csr snapshot test > csr test packages/components/anchor/_example/cursor
       >
         <a
           class="t-anchor__item-link"
-          href="#多级锚点"
+          href="#content-2"
           target="_self"
           title="多级锚点"
         >
@@ -1441,7 +1709,7 @@ exports[`csr snapshot test > csr test packages/components/anchor/_example/cursor
       >
         <a
           class="t-anchor__item-link"
-          href="#指定容器锚点"
+          href="#content-3"
           target="_self"
           title="指定容器锚点"
         >
@@ -1449,28 +1717,51 @@ exports[`csr snapshot test > csr test packages/components/anchor/_example/cursor
         </a>
       </div>
       <div
-        class="t-anchor__item"
+        class="t-anchor__item t-is-active"
       >
         <a
           class="t-anchor__item-link"
-          href="#特定交互锚点"
+          href="#content-4"
           target="_self"
           title="特定交互锚点"
         >
           特定交互锚点
         </a>
       </div>
+    </div>
+    <div
+      id="anchor-container"
+      style="width: 100%; height: 200px; overflow: auto; text-align: center; font-size: 22px;"
+    >
       <div
-        class="t-anchor__item"
+        id="content-1"
+        style="background: rgb(223, 239, 255); line-height: 100px;"
       >
-        <a
-          class="t-anchor__item-link"
-          href="#尺寸"
-          target="_self"
-          title="尺寸"
-        >
-          尺寸
-        </a>
+        content-1
+      </div>
+      <div
+        id="content-2"
+        style="background: rgb(191, 219, 247); line-height: 100px;"
+      >
+        content-2
+      </div>
+      <div
+        id="content-3"
+        style="background: rgb(155, 197, 242); line-height: 100px;"
+      >
+        content-3
+      </div>
+      <div
+        id="content-4"
+        style="background: rgb(123, 175, 237); line-height: 100px;"
+      >
+        content-4
+      </div>
+      <div
+        id="content-5"
+        style="background: rgb(92, 153, 235); line-height: 100px;"
+      >
+        content-5
       </div>
     </div>
   </div>
@@ -1485,6 +1776,25 @@ exports[`csr snapshot test > csr test packages/components/anchor/_example/custom
     <div
       style="flex: 1;"
     />
+    <style>
+      
+          .t-anchor__horizontal{
+            display:flex;
+            width: fit-content;
+          }
+          .t-anchor__horizontal .t-anchor__line{
+            top:100%;
+            width:100%;
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper{
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper .t-anchor__line-cursor{
+           width:100%;
+          }
+        
+    </style>
     <div
       class="t-anchor t-size-m"
     >
@@ -1594,6 +1904,25 @@ exports[`csr snapshot test > csr test packages/components/anchor/_example/large.
   <div
     id="size-large"
   >
+    <style>
+      
+          .t-anchor__horizontal{
+            display:flex;
+            width: fit-content;
+          }
+          .t-anchor__horizontal .t-anchor__line{
+            top:100%;
+            width:100%;
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper{
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper .t-anchor__line-cursor{
+           width:100%;
+          }
+        
+    </style>
     <div
       class="t-anchor t-size-l"
     >
@@ -1688,6 +2017,25 @@ exports[`csr snapshot test > csr test packages/components/anchor/_example/large.
 
 exports[`csr snapshot test > csr test packages/components/anchor/_example/multiple.tsx 1`] = `
 <div>
+  <style>
+    
+          .t-anchor__horizontal{
+            display:flex;
+            width: fit-content;
+          }
+          .t-anchor__horizontal .t-anchor__line{
+            top:100%;
+            width:100%;
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper{
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper .t-anchor__line-cursor{
+           width:100%;
+          }
+        
+  </style>
   <div
     class="t-anchor t-size-m"
   >
@@ -1796,6 +2144,25 @@ exports[`csr snapshot test > csr test packages/components/anchor/_example/small.
   <div
     id="size-small"
   >
+    <style>
+      
+          .t-anchor__horizontal{
+            display:flex;
+            width: fit-content;
+          }
+          .t-anchor__horizontal .t-anchor__line{
+            top:100%;
+            width:100%;
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper{
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper .t-anchor__line-cursor{
+           width:100%;
+          }
+        
+    </style>
     <div
       class="t-anchor t-size-s"
     >
@@ -170420,19 +170787,181 @@ exports[`ssr snapshot test > ssr test packages/components/alert/_example/swiper.
 
 exports[`ssr snapshot test > ssr test packages/components/alert/_example/title.tsx 1`] = `"<div class="t-alert t-alert--info"><div class="t-alert__icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-info-circle-filled" style="fill:none"><path fill="currentColor" d="M12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23ZM10.996 8.50002V6.49611H12.9999V8.50002H10.996ZM12.9999 10L12.9999 17.5H10.9999V10L12.9999 10Z"></path></svg></div><div class="t-alert__content"><div class="t-alert__title">这是一条普通的消息提示</div><div class="t-alert__message"><div class="t-alert__description">这是一条普通的消息提示描述，这是一条普通的消息提示描述</div><div class="t-alert__operation"><span>相关操作</span></div></div></div><div class="t-alert__close"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div></div>"`;
 
-exports[`ssr snapshot test > ssr test packages/components/anchor/_example/base.tsx 1`] = `"<div style="display:flex"><div style="flex:1"></div><div><div><div class="t-anchor t-size-m"><div class="t-anchor__line"><div class="t-anchor__line-cursor-wrapper" style="top:0px;height:0px;opacity:0"><div class="t-anchor__line-cursor"></div></div></div><div class="t-anchor__item"><a href="#基础锚点" class="t-anchor__item-link" title="基础锚点" target="_self">基础锚点</a></div><div class="t-anchor__item"><a href="#多级锚点" class="t-anchor__item-link" title="多级锚点" target="_self">多级锚点</a></div><div class="t-anchor__item"><a href="#指定容器锚点" class="t-anchor__item-link" title="指定容器锚点" target="_self">指定容器锚点</a></div><div class="t-anchor__item"><a href="#特定交互锚点" class="t-anchor__item-link" title="特定交互锚点" target="_self">特定交互锚点</a></div><div class="t-anchor__item"><a href="#尺寸" class="t-anchor__item-link" title="尺寸" target="_self">尺寸</a></div></div></div></div></div>"`;
+exports[`ssr snapshot test > ssr test packages/components/anchor/_example/base.tsx 1`] = `
+"<div style="display:flex"><div style="flex:1"></div><style>
+          .t-anchor__horizontal{
+            display:flex;
+            width: fit-content;
+          }
+          .t-anchor__horizontal .t-anchor__line{
+            top:100%;
+            width:100%;
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper{
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper .t-anchor__line-cursor{
+           width:100%;
+          }
+        </style><div><div><div class="t-anchor t-size-m"><div class="t-anchor__line"><div class="t-anchor__line-cursor-wrapper" style="top:0px;height:0px;opacity:0"><div class="t-anchor__line-cursor"></div></div></div><div class="t-anchor__item"><a href="#基础锚点" class="t-anchor__item-link" title="基础锚点" target="_self">基础锚点</a></div><div class="t-anchor__item"><a href="#多级锚点" class="t-anchor__item-link" title="多级锚点" target="_self">多级锚点</a></div><div class="t-anchor__item"><a href="#指定容器锚点" class="t-anchor__item-link" title="指定容器锚点" target="_self">指定容器锚点</a></div><div class="t-anchor__item"><a href="#特定交互锚点" class="t-anchor__item-link" title="特定交互锚点" target="_self">特定交互锚点</a></div><div class="t-anchor__item"><a href="#尺寸" class="t-anchor__item-link" title="尺寸" target="_self">尺寸</a></div></div></div></div></div>"
+`;
 
-exports[`ssr snapshot test > ssr test packages/components/anchor/_example/container.tsx 1`] = `"<div style="display:flex" id="attach" class="anchor-demo-attach"><div class="t-anchor t-size-m"><div class="t-anchor__line"><div class="t-anchor__line-cursor-wrapper" style="top:0px;height:0px;opacity:0"><div class="t-anchor__line-cursor"></div></div></div><div class="t-anchor__item"><a href="#content-1" class="t-anchor__item-link" title="content-1" target="_self">content-1</a></div><div class="t-anchor__item"><a href="#content-2" class="t-anchor__item-link" title="content-2" target="_self">content-2</a></div><div class="t-anchor__item"><a href="#content-3" class="t-anchor__item-link" title="content-3" target="_self">content-3</a></div><div class="t-anchor__item"><a href="#content-4" class="t-anchor__item-link" title="content-4" target="_self">content-4</a></div></div><div id="anchor-container" style="width:100%;height:200px;overflow:auto;text-align:center;font-size:22px"><div id="content-1" style="background:#DFEFFF;line-height:100px">content-1</div><div id="content-2" style="background:#BFDBF7;line-height:100px">content-2</div><div id="content-3" style="background:#9BC5F2;line-height:100px">content-3</div><div id="content-4" style="background:#7BAFED;line-height:100px">content-4</div><div id="content-5" style="background:#5C99EB;line-height:100px">content-5</div></div></div>"`;
+exports[`ssr snapshot test > ssr test packages/components/anchor/_example/container.tsx 1`] = `
+"<div style="display:flex" id="attach" class="anchor-demo-attach"><style>
+          .t-anchor__horizontal{
+            display:flex;
+            width: fit-content;
+          }
+          .t-anchor__horizontal .t-anchor__line{
+            top:100%;
+            width:100%;
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper{
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper .t-anchor__line-cursor{
+           width:100%;
+          }
+        </style><div class="t-anchor t-size-m"><div class="t-anchor__line"><div class="t-anchor__line-cursor-wrapper" style="top:0px;height:0px;opacity:0"><div class="t-anchor__line-cursor"></div></div></div><div class="t-anchor__item"><a href="#content-1" class="t-anchor__item-link" title="content-1" target="_self">content-1</a></div><div class="t-anchor__item"><a href="#content-2" class="t-anchor__item-link" title="content-2" target="_self">content-2</a></div><div class="t-anchor__item"><a href="#content-3" class="t-anchor__item-link" title="content-3" target="_self">content-3</a></div><div class="t-anchor__item"><a href="#content-4" class="t-anchor__item-link" title="content-4" target="_self">content-4</a></div></div><div id="anchor-container" style="width:100%;height:200px;overflow:auto;text-align:center;font-size:22px"><div id="content-1" style="background:#DFEFFF;line-height:100px">content-1</div><div id="content-2" style="background:#BFDBF7;line-height:100px">content-2</div><div id="content-3" style="background:#9BC5F2;line-height:100px">content-3</div><div id="content-4" style="background:#7BAFED;line-height:100px">content-4</div><div id="content-5" style="background:#5C99EB;line-height:100px">content-5</div></div></div>"
+`;
 
-exports[`ssr snapshot test > ssr test packages/components/anchor/_example/cursor.tsx 1`] = `"<div style="display:flex"><div class="t-anchor t-size-m"><div class="t-anchor__line"><div class="t-anchor__line-cursor-wrapper" style="top:0px;height:0px;opacity:0"><div style="width:10px;height:10px;background-color:#0052D9;position:absolute;border-radius:50%;left:50%;margin-left:-5px;top:50%;margin-top:-5px"></div></div></div><div class="t-anchor__item"><a href="#基础锚点" class="t-anchor__item-link" title="基础锚点" target="_self">基础锚点</a></div><div class="t-anchor__item"><a href="#多级锚点" class="t-anchor__item-link" title="多级锚点" target="_self">多级锚点</a></div><div class="t-anchor__item"><a href="#指定容器锚点" class="t-anchor__item-link" title="指定容器锚点" target="_self">指定容器锚点</a></div><div class="t-anchor__item"><a href="#特定交互锚点" class="t-anchor__item-link" title="特定交互锚点" target="_self">特定交互锚点</a></div><div class="t-anchor__item"><a href="#尺寸" class="t-anchor__item-link" title="尺寸" target="_self">尺寸</a></div></div></div>"`;
+exports[`ssr snapshot test > ssr test packages/components/anchor/_example/container-horizontal.tsx 1`] = `
+"<div id="attach" class="anchor-demo-attach"><style>
+          .t-anchor__horizontal{
+            display:flex;
+            width: fit-content;
+          }
+          .t-anchor__horizontal .t-anchor__line{
+            top:100%;
+            width:100%;
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper{
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper .t-anchor__line-cursor{
+           width:100%;
+          }
+        </style><div class="t-anchor t-size-m t-anchor__horizontal"><div class="t-anchor__line"><div class="t-anchor__line-cursor-wrapper" style="top:0px;height:0px;opacity:0"><div class="t-anchor__line-cursor"></div></div></div><div class="t-anchor__item"><a href="#content-1" class="t-anchor__item-link" title="content-1" target="_self">content-1</a></div><div class="t-anchor__item"><a href="#content-2" class="t-anchor__item-link" title="content-2" target="_self">content-2</a></div><div class="t-anchor__item"><a href="#content-3" class="t-anchor__item-link" title="content-3" target="_self">content-3</a></div><div class="t-anchor__item"><a href="#content-4" class="t-anchor__item-link" title="content-4" target="_self">content-4</a></div></div><div id="anchor-container" style="width:100%;height:200px;overflow:auto;text-align:center;font-size:22px"><div id="content-1" style="background:#DFEFFF;line-height:100px">content-1</div><div id="content-2" style="background:#BFDBF7;line-height:100px">content-2</div><div id="content-3" style="background:#9BC5F2;line-height:100px">content-3</div><div id="content-4" style="background:#7BAFED;line-height:100px">content-4</div><div id="content-5" style="background:#5C99EB;line-height:100px">content-5</div></div></div>"
+`;
 
-exports[`ssr snapshot test > ssr test packages/components/anchor/_example/customize-highlight.tsx 1`] = `"<div style="display:flex"><div style="flex:1"></div><div class="t-anchor t-size-m"><div class="t-anchor__line"><div class="t-anchor__line-cursor-wrapper" style="top:0px;height:0px;opacity:0"><div class="t-anchor__line-cursor"></div></div></div><div class="t-anchor__item t-is-active"><a href="#基础锚点" class="t-anchor__item-link" title="基础锚点" target="_self">基础锚点</a></div><div class="t-anchor__item"><a href="#多级锚点" class="t-anchor__item-link" title="多级锚点" target="_self">多级锚点</a></div><div class="t-anchor__item"><a href="#自定义游标锚点" class="t-anchor__item-link" title="自定义游标锚点" target="_self">自定义游标锚点</a></div><div class="t-anchor__item"><a href="#指定容器锚点" class="t-anchor__item-link" title="指定容器锚点" target="_self">指定容器锚点</a></div><div class="t-anchor__item"><a href="#特定交互锚点" class="t-anchor__item-link" title="特定交互锚点" target="_self">特定交互锚点</a></div><div class="t-anchor__item"><a href="#不同尺寸的锚点" class="t-anchor__item-link" title="不同尺寸的锚点" target="_self">不同尺寸的锚点</a></div><div class="t-anchor__item"><a href="#自定义锚点高亮" class="t-anchor__item-link" title="自定义锚点高亮" target="_self">自定义锚点高亮</a></div></div></div>"`;
+exports[`ssr snapshot test > ssr test packages/components/anchor/_example/cursor.tsx 1`] = `
+"<style>
+          .t-anchor__horizontal{
+            display:flex;
+            width: fit-content;
+          }
+          .t-anchor__horizontal .t-anchor__line{
+            top:100%;
+            width:100%;
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper{
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper .t-anchor__line-cursor{
+           width:100%;
+          }
+        </style><div class="t-anchor t-size-m t-anchor__horizontal"><div class="t-anchor__line"><div class="t-anchor__line-cursor-wrapper" style="top:0px;height:0px;opacity:0"><div style="width:10px;height:10px;background-color:#0052D9;position:absolute;border-radius:50%;left:50%;margin-left:-5px;top:50%;margin-top:-5px;z-index:2"></div></div></div><div class="t-anchor__item"><a href="#content-1" class="t-anchor__item-link" title="基础锚点" target="_self">基础锚点</a></div><div class="t-anchor__item"><a href="#content-2" class="t-anchor__item-link" title="多级锚点" target="_self">多级锚点</a></div><div class="t-anchor__item"><a href="#content-3" class="t-anchor__item-link" title="指定容器锚点" target="_self">指定容器锚点</a></div><div class="t-anchor__item"><a href="#content-4" class="t-anchor__item-link" title="特定交互锚点" target="_self">特定交互锚点</a></div></div><div style="display:flex;margin-top:10px"><style>
+          .t-anchor__horizontal{
+            display:flex;
+            width: fit-content;
+          }
+          .t-anchor__horizontal .t-anchor__line{
+            top:100%;
+            width:100%;
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper{
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper .t-anchor__line-cursor{
+           width:100%;
+          }
+        </style><div class="t-anchor t-size-m"><div class="t-anchor__line"><div class="t-anchor__line-cursor-wrapper" style="top:0px;height:0px;opacity:0"><div style="width:10px;height:10px;background-color:#0052D9;position:absolute;border-radius:50%;left:50%;margin-left:-5px;top:50%;margin-top:-5px;z-index:2"></div></div></div><div class="t-anchor__item"><a href="#content-1" class="t-anchor__item-link" title="基础锚点" target="_self">基础锚点</a></div><div class="t-anchor__item"><a href="#content-2" class="t-anchor__item-link" title="多级锚点" target="_self">多级锚点</a></div><div class="t-anchor__item"><a href="#content-3" class="t-anchor__item-link" title="指定容器锚点" target="_self">指定容器锚点</a></div><div class="t-anchor__item"><a href="#content-4" class="t-anchor__item-link" title="特定交互锚点" target="_self">特定交互锚点</a></div></div><div id="anchor-container" style="width:100%;height:200px;overflow:auto;text-align:center;font-size:22px"><div id="content-1" style="background:#DFEFFF;line-height:100px">content-1</div><div id="content-2" style="background:#BFDBF7;line-height:100px">content-2</div><div id="content-3" style="background:#9BC5F2;line-height:100px">content-3</div><div id="content-4" style="background:#7BAFED;line-height:100px">content-4</div><div id="content-5" style="background:#5C99EB;line-height:100px">content-5</div></div></div>"
+`;
 
-exports[`ssr snapshot test > ssr test packages/components/anchor/_example/large.tsx 1`] = `"<div id="size-large"><div class="t-anchor t-size-l"><div class="t-anchor__line"><div class="t-anchor__line-cursor-wrapper" style="top:0px;height:0px;opacity:0"><div class="t-anchor__line-cursor"></div></div></div><div class="t-anchor__item"><a href="#default" class="t-anchor__item-link" title="基础锚点" target="_self">基础锚点</a></div><div class="t-anchor__item"><a href="#multiple" class="t-anchor__item-link" title="多级锚点" target="_self">多级锚点</a></div><div class="t-anchor__item"><a href="#size" class="t-anchor__item-link" title="尺寸大小" target="_self">尺寸大小</a><div class="t-anchor__item"><a href="#size" class="t-anchor__item-link" title="size-medium" target="_self">size-medium</a></div><div class="t-anchor__item"><a href="#size-large" class="t-anchor__item-link" title="size-large" target="_self">size-large</a></div></div><div class="t-anchor__item"><a href="#attach" class="t-anchor__item-link" title="指定容器" target="_self">指定容器</a></div></div></div>"`;
+exports[`ssr snapshot test > ssr test packages/components/anchor/_example/customize-highlight.tsx 1`] = `
+"<div style="display:flex"><div style="flex:1"></div><style>
+          .t-anchor__horizontal{
+            display:flex;
+            width: fit-content;
+          }
+          .t-anchor__horizontal .t-anchor__line{
+            top:100%;
+            width:100%;
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper{
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper .t-anchor__line-cursor{
+           width:100%;
+          }
+        </style><div class="t-anchor t-size-m"><div class="t-anchor__line"><div class="t-anchor__line-cursor-wrapper" style="top:0px;height:0px;opacity:0"><div class="t-anchor__line-cursor"></div></div></div><div class="t-anchor__item t-is-active"><a href="#基础锚点" class="t-anchor__item-link" title="基础锚点" target="_self">基础锚点</a></div><div class="t-anchor__item"><a href="#多级锚点" class="t-anchor__item-link" title="多级锚点" target="_self">多级锚点</a></div><div class="t-anchor__item"><a href="#自定义游标锚点" class="t-anchor__item-link" title="自定义游标锚点" target="_self">自定义游标锚点</a></div><div class="t-anchor__item"><a href="#指定容器锚点" class="t-anchor__item-link" title="指定容器锚点" target="_self">指定容器锚点</a></div><div class="t-anchor__item"><a href="#特定交互锚点" class="t-anchor__item-link" title="特定交互锚点" target="_self">特定交互锚点</a></div><div class="t-anchor__item"><a href="#不同尺寸的锚点" class="t-anchor__item-link" title="不同尺寸的锚点" target="_self">不同尺寸的锚点</a></div><div class="t-anchor__item"><a href="#自定义锚点高亮" class="t-anchor__item-link" title="自定义锚点高亮" target="_self">自定义锚点高亮</a></div></div></div>"
+`;
 
-exports[`ssr snapshot test > ssr test packages/components/anchor/_example/multiple.tsx 1`] = `"<div class="t-anchor t-size-m"><div class="t-anchor__line"><div class="t-anchor__line-cursor-wrapper" style="top:0px;height:0px;opacity:0"><div class="t-anchor__line-cursor"></div></div></div><div class="t-anchor__item"><a href="#基础锚点" class="t-anchor__item-link" title="基础锚点" target="_self">基础锚点</a></div><div class="t-anchor__item"><a href="#多级锚点" class="t-anchor__item-link" title="多级锚点" target="_self">多级锚点</a></div><div class="t-anchor__item"><a href="#指定容器锚点" class="t-anchor__item-link" title="指定容器锚点" target="_self">指定容器锚点</a></div><div class="t-anchor__item"><a href="#特定交互锚点" class="t-anchor__item-link" title="特定交互锚点" target="_self">特定交互锚点</a></div><div class="t-anchor__item"><a href="#尺寸" class="t-anchor__item-link" title="尺寸" target="_self">尺寸</a><div class="t-anchor__item"><a href="#size" class="t-anchor__item-link" title="size-medium" target="_self">size-medium</a></div><div class="t-anchor__item"><a href="#size-large" class="t-anchor__item-link" title="size-large" target="_self">size-large</a></div></div></div>"`;
+exports[`ssr snapshot test > ssr test packages/components/anchor/_example/large.tsx 1`] = `
+"<div id="size-large"><style>
+          .t-anchor__horizontal{
+            display:flex;
+            width: fit-content;
+          }
+          .t-anchor__horizontal .t-anchor__line{
+            top:100%;
+            width:100%;
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper{
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper .t-anchor__line-cursor{
+           width:100%;
+          }
+        </style><div class="t-anchor t-size-l"><div class="t-anchor__line"><div class="t-anchor__line-cursor-wrapper" style="top:0px;height:0px;opacity:0"><div class="t-anchor__line-cursor"></div></div></div><div class="t-anchor__item"><a href="#default" class="t-anchor__item-link" title="基础锚点" target="_self">基础锚点</a></div><div class="t-anchor__item"><a href="#multiple" class="t-anchor__item-link" title="多级锚点" target="_self">多级锚点</a></div><div class="t-anchor__item"><a href="#size" class="t-anchor__item-link" title="尺寸大小" target="_self">尺寸大小</a><div class="t-anchor__item"><a href="#size" class="t-anchor__item-link" title="size-medium" target="_self">size-medium</a></div><div class="t-anchor__item"><a href="#size-large" class="t-anchor__item-link" title="size-large" target="_self">size-large</a></div></div><div class="t-anchor__item"><a href="#attach" class="t-anchor__item-link" title="指定容器" target="_self">指定容器</a></div></div></div>"
+`;
 
-exports[`ssr snapshot test > ssr test packages/components/anchor/_example/small.tsx 1`] = `"<div id="size-small"><div class="t-anchor t-size-s"><div class="t-anchor__line"><div class="t-anchor__line-cursor-wrapper" style="top:0px;height:0px;opacity:0"><div class="t-anchor__line-cursor"></div></div></div><div class="t-anchor__item"><a href="#default" class="t-anchor__item-link" title="基础锚点" target="_self">基础锚点</a></div><div class="t-anchor__item"><a href="#multiple" class="t-anchor__item-link" title="多级锚点" target="_self">多级锚点</a></div><div class="t-anchor__item"><a href="#size" class="t-anchor__item-link" title="尺寸大小" target="_self">尺寸大小</a><div class="t-anchor__item"><a href="#size" class="t-anchor__item-link" title="size-medium" target="_self">size-medium</a></div><div class="t-anchor__item"><a href="#size-large" class="t-anchor__item-link" title="size-large" target="_self">size-large</a></div></div><div class="t-anchor__item"><a href="#attach" class="t-anchor__item-link" title="指定容器" target="_self">指定容器</a></div></div></div>"`;
+exports[`ssr snapshot test > ssr test packages/components/anchor/_example/multiple.tsx 1`] = `
+"<style>
+          .t-anchor__horizontal{
+            display:flex;
+            width: fit-content;
+          }
+          .t-anchor__horizontal .t-anchor__line{
+            top:100%;
+            width:100%;
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper{
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper .t-anchor__line-cursor{
+           width:100%;
+          }
+        </style><div class="t-anchor t-size-m"><div class="t-anchor__line"><div class="t-anchor__line-cursor-wrapper" style="top:0px;height:0px;opacity:0"><div class="t-anchor__line-cursor"></div></div></div><div class="t-anchor__item"><a href="#基础锚点" class="t-anchor__item-link" title="基础锚点" target="_self">基础锚点</a></div><div class="t-anchor__item"><a href="#多级锚点" class="t-anchor__item-link" title="多级锚点" target="_self">多级锚点</a></div><div class="t-anchor__item"><a href="#指定容器锚点" class="t-anchor__item-link" title="指定容器锚点" target="_self">指定容器锚点</a></div><div class="t-anchor__item"><a href="#特定交互锚点" class="t-anchor__item-link" title="特定交互锚点" target="_self">特定交互锚点</a></div><div class="t-anchor__item"><a href="#尺寸" class="t-anchor__item-link" title="尺寸" target="_self">尺寸</a><div class="t-anchor__item"><a href="#size" class="t-anchor__item-link" title="size-medium" target="_self">size-medium</a></div><div class="t-anchor__item"><a href="#size-large" class="t-anchor__item-link" title="size-large" target="_self">size-large</a></div></div></div>"
+`;
+
+exports[`ssr snapshot test > ssr test packages/components/anchor/_example/small.tsx 1`] = `
+"<div id="size-small"><style>
+          .t-anchor__horizontal{
+            display:flex;
+            width: fit-content;
+          }
+          .t-anchor__horizontal .t-anchor__line{
+            top:100%;
+            width:100%;
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper{
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper .t-anchor__line-cursor{
+           width:100%;
+          }
+        </style><div class="t-anchor t-size-s"><div class="t-anchor__line"><div class="t-anchor__line-cursor-wrapper" style="top:0px;height:0px;opacity:0"><div class="t-anchor__line-cursor"></div></div></div><div class="t-anchor__item"><a href="#default" class="t-anchor__item-link" title="基础锚点" target="_self">基础锚点</a></div><div class="t-anchor__item"><a href="#multiple" class="t-anchor__item-link" title="多级锚点" target="_self">多级锚点</a></div><div class="t-anchor__item"><a href="#size" class="t-anchor__item-link" title="尺寸大小" target="_self">尺寸大小</a><div class="t-anchor__item"><a href="#size" class="t-anchor__item-link" title="size-medium" target="_self">size-medium</a></div><div class="t-anchor__item"><a href="#size-large" class="t-anchor__item-link" title="size-large" target="_self">size-large</a></div></div><div class="t-anchor__item"><a href="#attach" class="t-anchor__item-link" title="指定容器" target="_self">指定容器</a></div></div></div>"
+`;
 
 exports[`ssr snapshot test > ssr test packages/components/anchor/_example/target.tsx 1`] = `"<div id="/components/anchor/#anchor-target" class="anchor-demo"><h1 id="/components/anchor/#default" class="t-anchor__target">基础锚点<svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-file-copy t-anchor__copy" style="fill:none"><defs><mask id="t-icon-file-copy-instance-R1h-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M14 2V8H20M14 2H15L20 7V8M14 2H7V18H20V8" stroke-width="2" fill="none"></path></mask></defs><g id="file-copy"><path id="fill1" fill="transparent" d="M7 18V2H14V8H20V18H7Z" mask="url(#t-icon-file-copy-instance-R1h-overlap-fill1)"></path><path id="stroke1" stroke="currentColor" d="M14 2V8H20M14 2H15L20 7V8M14 2H7V18H20V8" stroke-width="2"></path><path id="stroke2" stroke="currentColor" d="M3 6L3 22H14" stroke-linecap="square" stroke-width="2"></path></g></svg></h1><h1 id="/components/anchor/#multiple" class="t-anchor__target">多级锚点<svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-file-copy t-anchor__copy" style="fill:none"><defs><mask id="t-icon-file-copy-instance-R1i-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M14 2V8H20M14 2H15L20 7V8M14 2H7V18H20V8" stroke-width="2" fill="none"></path></mask></defs><g id="file-copy"><path id="fill1" fill="transparent" d="M7 18V2H14V8H20V18H7Z" mask="url(#t-icon-file-copy-instance-R1i-overlap-fill1)"></path><path id="stroke1" stroke="currentColor" d="M14 2V8H20M14 2H15L20 7V8M14 2H7V18H20V8" stroke-width="2"></path><path id="stroke2" stroke="currentColor" d="M3 6L3 22H14" stroke-linecap="square" stroke-width="2"></path></g></svg></h1><h1 id="/components/anchor/#size" class="t-anchor__target">尺寸大小<svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-file-copy t-anchor__copy" style="fill:none"><defs><mask id="t-icon-file-copy-instance-R1j-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M14 2V8H20M14 2H15L20 7V8M14 2H7V18H20V8" stroke-width="2" fill="none"></path></mask></defs><g id="file-copy"><path id="fill1" fill="transparent" d="M7 18V2H14V8H20V18H7Z" mask="url(#t-icon-file-copy-instance-R1j-overlap-fill1)"></path><path id="stroke1" stroke="currentColor" d="M14 2V8H20M14 2H15L20 7V8M14 2H7V18H20V8" stroke-width="2"></path><path id="stroke2" stroke="currentColor" d="M3 6L3 22H14" stroke-linecap="square" stroke-width="2"></path></g></svg></h1><h1 id="/components/anchor/#attach" class="t-anchor__target">指定容器<svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-file-copy t-anchor__copy" style="fill:none"><defs><mask id="t-icon-file-copy-instance-R1k-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M14 2V8H20M14 2H15L20 7V8M14 2H7V18H20V8" stroke-width="2" fill="none"></path></mask></defs><g id="file-copy"><path id="fill1" fill="transparent" d="M7 18V2H14V8H20V18H7Z" mask="url(#t-icon-file-copy-instance-R1k-overlap-fill1)"></path><path id="stroke1" stroke="currentColor" d="M14 2V8H20M14 2H15L20 7V8M14 2H7V18H20V8" stroke-width="2"></path><path id="stroke2" stroke="currentColor" d="M3 6L3 22H14" stroke-linecap="square" stroke-width="2"></path></g></svg></h1></div>"`;
 
