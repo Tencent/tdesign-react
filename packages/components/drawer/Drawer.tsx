@@ -1,7 +1,7 @@
 import React, { forwardRef, isValidElement, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
-import { isFunction, isObject, isString, isUndefined, pick } from 'lodash-es';
+import { isFunction, isObject, isString, isUndefined } from 'lodash-es';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
 
 import parseTNode from '../_util/parseTNode';
@@ -9,7 +9,6 @@ import Button from '../button';
 import Portal from '../common/Portal';
 import useAttach from '../hooks/useAttach';
 import useConfig from '../hooks/useConfig';
-import useDeepEffect from '../hooks/useDeepEffect';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useSetState from '../hooks/useSetState';
@@ -33,18 +32,6 @@ export interface DrawerProps extends TdDrawerProps, StyledProps {
   isPlugin?: boolean; // 是否以插件形式调用
 }
 
-const DRAWER_CALLBACK_PROP_KEYS = [
-  'onBeforeOpen',
-  'onBeforeClose',
-  'onCancel',
-  'onConfirm',
-  'onClose',
-  'onCloseBtnClick',
-  'onOverlayClick',
-  'onEscKeydown',
-  'onSizeDragEnd',
-] as const satisfies readonly (keyof DrawerProps)[];
-
 const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
   // 国际化文本初始化
   const [local, t] = useLocaleReceiver('drawer');
@@ -53,13 +40,10 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
   const cancelText = t(local.cancel);
 
   const props = useDefaultProps<DrawerProps>(originalProps, drawerDefaultProps);
-  const { body, children, header, footer, ...restProps } = props;
-  const [state, setState] = useSetState<DrawerProps>({
-    isPlugin: false,
-    ...restProps,
-  });
+  const isPlugin = originalProps.isPlugin ?? false;
+  const [pluginState, setPluginState] = useSetState<Partial<DrawerProps>>({});
 
-  const mergedState = state.isPlugin ? state : { ...state, ...pick(props, DRAWER_CALLBACK_PROP_KEYS) };
+  const mergedState = isPlugin ? { ...props, ...pluginState } : props;
 
   const {
     className,
@@ -79,8 +63,11 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     destroyOnClose,
     sizeDraggable,
     forceRender,
-    isPlugin,
     lazy,
+    body,
+    children,
+    header,
+    footer,
     onBeforeOpen,
     onBeforeClose,
     onCancel,
@@ -114,30 +101,24 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
   }, [dragSizeValue, size]);
 
   useLockStyle({
-    ...state,
+    ...mergedState,
     sizeValue,
     drawerWrapper: drawerWrapperRef.current,
   });
   useImperativeHandle(ref, () => ({
     show() {
-      setState({ visible: true });
+      setPluginState({ visible: true });
     },
     hide() {
-      setState({ visible: false });
+      setPluginState({ visible: false });
     },
     destroy() {
-      setState({ visible: false, destroyOnClose: true });
+      setPluginState({ visible: false, destroyOnClose: true });
     },
     update(options) {
-      setState((prevState) => ({ ...prevState, ...options }));
+      setPluginState((prevState) => ({ ...prevState, ...options }));
     },
   }));
-
-  useDeepEffect(() => {
-    // 非插件式调用 更新props
-    if (isPlugin) return;
-    setState((prevState) => ({ ...prevState, ...props }));
-  }, [props, setState]);
 
   function onMaskClick(e: React.MouseEvent<HTMLDivElement>) {
     onOverlayClick?.({ e });

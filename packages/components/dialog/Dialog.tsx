@@ -1,14 +1,13 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
-import { isUndefined, pick } from 'lodash-es';
+import { isUndefined, omit } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
 import { pxCompat } from '@tdesign/common-js/utils/helper';
 
 import Portal from '../common/Portal';
 import useAttach from '../hooks/useAttach';
 import useConfig from '../hooks/useConfig';
-import useDeepEffect from '../hooks/useDeepEffect';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useSetState from '../hooks/useSetState';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
@@ -26,19 +25,6 @@ export interface DialogProps extends TdDialogProps, StyledProps {
   isPlugin?: boolean; // 是否以插件形式调用
 }
 
-const DIALOG_CALLBACK_PROP_KEYS = [
-  'onBeforeOpen',
-  'onBeforeClose',
-  'onOpened',
-  'onCancel',
-  'onConfirm',
-  'onClose',
-  'onClosed',
-  'onOverlayClick',
-  'onEscKeydown',
-  'onCloseBtnClick',
-] as const satisfies readonly (keyof DialogProps)[];
-
 const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const { classPrefix, dialog: globalDialogConfig } = useConfig();
   const props = useDefaultProps<DialogProps>(originalProps, {
@@ -46,7 +32,8 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     placement: globalDialogConfig?.placement ?? dialogDefaultProps.placement,
     zIndex: globalDialogConfig?.zIndex,
   });
-  const { children, ...restProps } = props;
+  const { children } = props;
+  const isPlugin = originalProps.isPlugin ?? false;
 
   const componentCls = `${classPrefix}-dialog`;
 
@@ -57,13 +44,10 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const dialogPosition = useRef(null);
   const portalRef = useRef(null);
 
-  const [state, setState] = useSetState<DialogProps>({
-    isPlugin: false,
-    ...restProps,
-  });
+  const [pluginState, setPluginState] = useSetState<Partial<DialogProps>>({});
   const [local] = useLocaleReceiver('dialog');
 
-  const mergedState = state.isPlugin ? state : { ...state, ...pick(props, DIALOG_CALLBACK_PROP_KEYS) };
+  const mergedState = isPlugin ? { ...props, ...pluginState } : props;
 
   const {
     className,
@@ -81,7 +65,6 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     onConfirm,
     onClose,
     onClosed,
-    isPlugin,
     draggable,
     onOverlayClick,
     onEscKeydown,
@@ -114,12 +97,6 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     canDraggable: !isFullScreen && draggable,
   });
 
-  useDeepEffect(() => {
-    if (isPlugin) return;
-    // 插件式调用不会更新props, 只有组件式调用才会更新props
-    setState((prevState) => ({ ...prevState, ...props }));
-  }, [props, setState]);
-
   useEffect(() => {
     if (!dialogCardRef.current) return;
     dialogCardRef.current.style.display = dialogAnimationVisible ? 'block' : 'none';
@@ -133,19 +110,19 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
 
   useImperativeHandle(ref, () => ({
     show() {
-      setState({ visible: true });
+      setPluginState({ visible: true });
     },
     hide() {
-      setState({ visible: false });
+      setPluginState({ visible: false });
     },
     setConfirmLoading: (loading: boolean) => {
-      setState({ confirmLoading: loading });
+      setPluginState({ confirmLoading: loading });
     },
     destroy() {
-      setState({ visible: false, destroyOnClose: true });
+      setPluginState({ visible: false, destroyOnClose: true });
     },
     update(newOptions) {
-      setState((prevState) => ({ ...prevState, ...newOptions }));
+      setPluginState((prevState) => ({ ...prevState, ...newOptions }));
     },
   }));
 
@@ -286,7 +263,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
               >
                 <DialogCard
                   ref={dialogCardRef}
-                  {...restState}
+                  {...omit(restState, ['isPlugin'])}
                   mode={mode}
                   className={classNames(dialogClassName)}
                   style={{ ...style, width: pxCompat(width || style?.width) }}
