@@ -1,7 +1,7 @@
 import React, { forwardRef, isValidElement, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
-import { isFunction, isObject, isString, isUndefined } from 'lodash-es';
+import { isFunction, isObject, isString, isUndefined, pick } from 'lodash-es';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
 
 import parseTNode from '../_util/parseTNode';
@@ -33,6 +33,18 @@ export interface DrawerProps extends TdDrawerProps, StyledProps {
   isPlugin?: boolean; // 是否以插件形式调用
 }
 
+const DRAWER_CALLBACK_PROP_KEYS = [
+  'onBeforeOpen',
+  'onBeforeClose',
+  'onCancel',
+  'onConfirm',
+  'onClose',
+  'onCloseBtnClick',
+  'onOverlayClick',
+  'onEscKeydown',
+  'onSizeDragEnd',
+] as const satisfies readonly (keyof DrawerProps)[];
+
 const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
   // 国际化文本初始化
   const [local, t] = useLocaleReceiver('drawer');
@@ -42,7 +54,13 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
 
   const props = useDefaultProps<DrawerProps>(originalProps, drawerDefaultProps);
   const { body, children, header, footer, ...restProps } = props;
-  const [state, setState] = useSetState<DrawerProps>({ isPlugin: false, ...restProps });
+  const [state, setState] = useSetState<DrawerProps>({
+    isPlugin: false,
+    ...restProps,
+  });
+
+  const mergedState = state.isPlugin ? state : { ...state, ...pick(props, DRAWER_CALLBACK_PROP_KEYS) };
+
   const {
     className,
     style,
@@ -63,9 +81,6 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     forceRender,
     isPlugin,
     lazy,
-  } = state;
-
-  const {
     onBeforeOpen,
     onBeforeClose,
     onCancel,
@@ -75,7 +90,7 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     onOverlayClick,
     onEscKeydown,
     onSizeDragEnd,
-  } = props;
+  } = mergedState;
 
   const size = propsSize ?? local.size;
   const { classPrefix } = useConfig();
@@ -98,7 +113,11 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     return dragSizeValue || sizeMap[size] || size;
   }, [dragSizeValue, size]);
 
-  useLockStyle({ ...state, sizeValue, drawerWrapper: drawerWrapperRef.current });
+  useLockStyle({
+    ...state,
+    sizeValue,
+    drawerWrapper: drawerWrapperRef.current,
+  });
   useImperativeHandle(ref, () => ({
     show() {
       setState({ visible: true });
