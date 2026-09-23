@@ -27,7 +27,7 @@
     "options": []
   },
   {
-    "name": "readonly",
+    "name": "readOnly",
     "type": "Boolean",
     "defaultValue": false,
     "options": []

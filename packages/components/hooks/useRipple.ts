@@ -167,7 +167,10 @@ export default function useRipple(el: HTMLElement, fixedRippleColor?: string): v
             handleClearRipple();
           }
         });
-        classChangeObserver.observe(el, { attributes: true, attributeFilter: ['class'] });
+        classChangeObserver.observe(el, {
+          attributes: true,
+          attributeFilter: ['class'],
+        });
       }
 
       el.addEventListener('pointerup', handleClearRipple, false);

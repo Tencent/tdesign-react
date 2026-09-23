@@ -5,7 +5,7 @@ import Tooltip from '../Tooltip';
 
 import type { TdTooltipProps } from '../type';
 
-describe('Tooltip 组件测试', () => {
+describe('Tooltip', () => {
   const tooltipText = '弹出层内容';
   const tooltipTestId = 'tooltip-test-id';
   const triggerElement = '触发元素';
@@ -14,66 +14,36 @@ describe('Tooltip 组件测试', () => {
     return screen.queryByTestId(tooltipTestId)?.parentNode?.parentNode as HTMLDivElement;
   }
 
-  test('hover 触发测试', async () => {
-    const { getByText, queryByTestId } = render(
-      <Tooltip placement="top" destroyOnClose={false} content={<div data-testid={tooltipTestId}>{tooltipText}</div>}>
-        {triggerElement}
+  async function renderWithProps(props: TdTooltipProps) {
+    const ref = {
+      current: null,
+    };
+    const result = render(
+      <Tooltip content={<div data-testid={tooltipTestId}>{tooltipText}</div>} {...props} ref={ref}>
+        {props.children || triggerElement}
       </Tooltip>,
     );
 
-    // 鼠标进入前，没有元素存在
-    expect(queryByTestId(tooltipTestId)).toBeNull();
+    await fireEvent.mouseEnter(result.getByText(triggerElement));
+    await waitFor(() => result.queryByTestId(tooltipTestId));
 
-    // 模拟鼠标进入
-    await fireEvent.mouseEnter(getByText(triggerElement));
-
-    // 鼠标进入后，有元素，而且内容为 tooltipText
-    const popupElement = queryByTestId(tooltipTestId);
-    expect(popupElement).not.toBeNull();
-    expect(popupElement).toHaveTextContent(tooltipText);
-    expect(popupElement.parentElement).toHaveStyle({
-      display: 'block',
-    });
-
-    // 模拟鼠标离开
-    await fireEvent.mouseLeave(getByText(triggerElement));
-
-    // 鼠标离开，style 的 display 应该为 none
-    const popupElement2 = queryByTestId(tooltipTestId);
-    expect(popupElement2).not.toBeNull();
-    expect(getTooltip()).toHaveClass('t-popup--animation-leave-active');
-  });
+    return {
+      ...result,
+      rerender: (props: TdTooltipProps) => {
+        result.rerender(
+          <Tooltip content={<div data-testid={tooltipTestId}>{tooltipText}</div>} {...props}>
+            {props.children || triggerElement}
+          </Tooltip>,
+        );
+      },
+      mouseLeave: () => {
+        fireEvent.mouseLeave(result.getByText(triggerElement));
+      },
+      ref,
+    };
+  }
 
   describe('props', () => {
-    async function renderWithProps(props: TdTooltipProps) {
-      const ref = {
-        current: null,
-      };
-      const result = render(
-        <Tooltip content={<div data-testid={tooltipTestId}>{tooltipText}</div>} {...props} ref={ref}>
-          {props.children || triggerElement}
-        </Tooltip>,
-      );
-
-      await fireEvent.mouseEnter(result.getByText(triggerElement));
-      await waitFor(() => result.queryByTestId(tooltipTestId));
-
-      return {
-        ...result,
-        rerender: (props: TdTooltipProps) => {
-          result.rerender(
-            <Tooltip content={<div data-testid={tooltipTestId}>{tooltipText}</div>} {...props}>
-              {props.children || triggerElement}
-            </Tooltip>,
-          );
-        },
-        mouseLeave: () => {
-          fireEvent.mouseLeave(result.getByText(triggerElement));
-        },
-        ref,
-      };
-    }
-
     test('theme', async () => {
       const { rerender } = await renderWithProps({
         theme: 'primary',
@@ -140,6 +110,38 @@ describe('Tooltip 组件测试', () => {
         mouseLeave();
         expect(getTooltip()).toBeTruthy();
       });
+    });
+  });
+
+  describe('scenarios', () => {
+    test('hover 触发', async () => {
+      const { getByText, queryByTestId } = render(
+        <Tooltip placement="top" destroyOnClose={false} content={<div data-testid={tooltipTestId}>{tooltipText}</div>}>
+          {triggerElement}
+        </Tooltip>,
+      );
+
+      // 鼠标进入前，没有元素存在
+      expect(queryByTestId(tooltipTestId)).toBeNull();
+
+      // 模拟鼠标进入
+      await fireEvent.mouseEnter(getByText(triggerElement));
+
+      // 鼠标进入后，有元素，而且内容为 tooltipText
+      const popupElement = queryByTestId(tooltipTestId);
+      expect(popupElement).not.toBeNull();
+      expect(popupElement).toHaveTextContent(tooltipText);
+      expect(popupElement.parentElement).toHaveStyle({
+        display: 'block',
+      });
+
+      // 模拟鼠标离开
+      await fireEvent.mouseLeave(getByText(triggerElement));
+
+      // 鼠标离开，style 的 display 应该为 none
+      const popupElement2 = queryByTestId(tooltipTestId);
+      expect(popupElement2).not.toBeNull();
+      expect(getTooltip()).toHaveClass('t-popup--animation-leave-active');
     });
   });
 });

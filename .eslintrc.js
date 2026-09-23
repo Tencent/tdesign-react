@@ -41,6 +41,8 @@ module.exports = {
     'no-unused-expressions': 'off',
     'no-bitwise': 'off',
     'no-useless-return': 'off',
+    'default-param-last': 'off',
+    'class-methods-use-this': 'off',
     'no-plusplus': [
       'error',
       {
