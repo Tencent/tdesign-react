@@ -49,6 +49,24 @@ export interface TdCascaderProps<CascaderOption extends TreeOptionData = TreeOpt
     onClose: (context: { index: number; e?: MouseEvent }) => void;
   }>;
   /**
+   * 每一列的底部自定义内容。`panelIndex` 表示当前列索引，`options` 表示当前列原始选项，`filteredOptions` 表示当前列过滤后的选项，`onFilter` 用于过滤当前列选项。传入字符串时使用大小写不敏感匹配，也可传入自定义过滤函数。内置搜索有输入时 `onFilter` 为空操作
+   */
+  columnFooter?: TNode<{
+    panelIndex: number;
+    options: CascaderOption[];
+    filteredOptions: CascaderOption[];
+    onFilter: (filter: string | ((node: CascaderOption, panelIndex: number) => boolean)) => void;
+  }>;
+  /**
+   * 每一列的顶部自定义内容。`panelIndex` 表示当前列索引，`options` 表示当前列原始选项，`filteredOptions` 表示当前列过滤后的选项，`onFilter` 用于过滤当前列选项。传入字符串时使用大小写不敏感匹配，也可传入自定义过滤函数。内置搜索有输入时 `onFilter` 为空操作
+   */
+  columnHeader?: TNode<{
+    panelIndex: number;
+    options: CascaderOption[];
+    filteredOptions: CascaderOption[];
+    onFilter: (filter: string | ((node: CascaderOption, panelIndex: number) => boolean)) => void;
+  }>;
+  /**
    * 是否禁用组件
    */
   disabled?: boolean;
@@ -113,7 +131,11 @@ export interface TdCascaderProps<CascaderOption extends TreeOptionData = TreeOpt
   /**
    * 自定义单个级联选项
    */
-  option?: TNode<{ item: CascaderOption; index: number; context: { node: TreeNodeModel<CascaderOption> } }>;
+  option?: TNode<{
+    item: CascaderOption;
+    index: number;
+    context: { node: TreeNodeModel<CascaderOption> };
+  }>;
   /**
    * 可选项数据源
    * @default []
