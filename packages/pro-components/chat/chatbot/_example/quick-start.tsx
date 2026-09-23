@@ -30,7 +30,7 @@ export default function QuickStart() {
 
   return (
     <div>
-      <ChatBot chatServiceConfig={chatServiceConfig} />
+      <ChatBot chatServiceConfig={chatServiceConfig as any} />
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import '@testing-library/jest-dom';
+
+import { vi } from 'vitest';
 import { act, createEvent, fireEvent } from '@testing-library/react';
 import _userEvent from '@testing-library/user-event';
-import { vi } from 'vitest';
 
 import { EVENTS_MAP } from './events';
 
@@ -175,10 +176,11 @@ export function mockIntersectionObserver(mockData, mockFunc) {
     },
   ];
 
-  window.IntersectionObserver = vi.fn((callback, { root, rootMargin }) => ({
+  window.IntersectionObserver = vi.fn((callback, { root, rootMargin, scrollMargin }) => ({
     root,
     rootMargin,
     thresholds,
+    scrollMargin,
     observe: observe
       ? (element) => {
           observe(element, callback);
@@ -188,6 +190,44 @@ export function mockIntersectionObserver(mockData, mockFunc) {
     disconnect: disconnect || vi.fn(),
     takeRecords: () => records,
   }));
+}
+
+/**
+ * mock window 上的 ResizeObserver 方法
+ * @param mockData 可选，默认 contentRect
+ * @param mockFunc 可选，mock observe/unobserve/disconnect
+ * @returns 恢复原始 ResizeObserver 的函数
+ */
+export function mockResizeObserver(mockData = {}, mockFunc = {}) {
+  const { contentRect = {} } = mockData;
+  const { observe, unobserve, disconnect } = mockFunc;
+  const OriginResizeObserver = window.ResizeObserver;
+
+  const defaultContentRect = {
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    toJSON: () => '',
+  };
+
+  window.ResizeObserver = vi.fn((callback) => ({
+    observe: observe
+      ? (element) => {
+          observe(element, callback, { ...defaultContentRect, ...contentRect });
+        }
+      : vi.fn(),
+    unobserve: unobserve || vi.fn(),
+    disconnect: disconnect || vi.fn(),
+  }));
+
+  return () => {
+    window.ResizeObserver = OriginResizeObserver;
+  };
 }
 
 /**

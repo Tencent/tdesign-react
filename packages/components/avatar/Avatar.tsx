@@ -40,7 +40,7 @@ const Avatar = forwardRefWithStatics(
       imageProps,
       className,
       ...avatarProps
-    } = useDefaultProps<AvatarProps>(props, avatarDefaultProps);
+    } = useDefaultProps(props, avatarDefaultProps);
     const groupSize = useContext(AvatarContext);
 
     const { classPrefix } = useConfig();

@@ -21,9 +21,8 @@ import type {
   SSEChunkData,
   TdAttachmentItem,
   TdChatSenderParams,
-  UploadFile,
 } from '@tdesign-react/chat';
-import type { ImageViewerProps } from 'tdesign-react';
+import type { ImageViewerProps, UploadFile } from 'tdesign-react';
 
 /**
  * 自定义内容渲染示例 - AI 生图助手
@@ -114,7 +113,7 @@ const BasicImageViewer = ({ images }) => {
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
-              onClick={open}
+              onClick={() => open()}
             >
               <span>
                 <BrowseIcon size="16px" name={'browse'} /> 预览
@@ -211,7 +210,10 @@ export default function CustomContent() {
   const senderRef = useRef<any>(null);
   const [ratio, setRatio] = useState(0);
   const [style, setStyle] = useState('');
-  const reqParamsRef = useRef<{ ratio: number; style: string; file?: string }>({ ratio: 0, style: '' });
+  const reqParamsRef = useRef<{ ratio: number; style: string; file?: string }>({
+    ratio: 0,
+    style: '',
+  });
   const [files, setFiles] = useState<TdAttachmentItem[]>([]);
   const [inputValue, setInputValue] = useState('请为 TDesign 设计三张品牌宣传图');
 
@@ -318,7 +320,7 @@ export default function CustomContent() {
     }, 风格：${style ? StyleOptions.filter((item) => item.value === style)[0].content : '默认风格'}`;
 
     await chatEngine.sendUserMessage({
-      attachments,
+      attachments: attachments as any,
       prompt: enhancedPrompt,
     });
     setInputValue('');
@@ -389,7 +391,9 @@ export default function CustomContent() {
   return (
     <div style={{ height: '400px', display: 'flex', flexDirection: 'column' }}>
       <div style={{ flex: 1, overflow: 'auto' }}>
-        <ChatList messages={messages}>
+        <ChatList
+        //  messages={messages}
+        >
           {messages.map((message) => (
             <ChatMessage
               key={message.id}

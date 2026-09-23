@@ -1,10 +1,11 @@
-import React, { useEffect, useImperativeHandle, useRef } from 'react';
+import React, { useCallback, useEffect, useImperativeHandle, useRef } from 'react';
 import classNames from 'classnames';
 
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import noop from '../_util/noop';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useLayoutEffect from '../hooks/useLayoutEffect';
 import { formDefaultProps } from './defaultProps';
 import FormContext from './FormContext';
 import FormItem from './FormItem';
@@ -54,8 +55,82 @@ const Form = forwardRefWithStatics(
     const [form] = useForm(props.form); // 内部与外部共享 form 实例，外部不传则内部创建
     const formRef = useRef<HTMLFormElement>(null);
     const formMapRef = useRef(new Map()); // 收集所有包含 name 属性 formItem 实例
+    const formItemElementsRef = useRef(new Set<HTMLElement>()); // 仅收集含 name 的真实表单项
+    const lastFormItemsRef = useRef(new Set<HTMLElement>());
     const floatingFormDataRef = useRef({}); // 储存游离值的 formData
+    const mountedFieldsRef = useRef<Set<string>>(new Set()); // Form 生命周期内所有曾经被 FormItem 挂载过的字段（fullPath 序列化后的字符串）
+
     const formInstance = useInstance(props, formRef, formMapRef, floatingFormDataRef, form);
+
+    const refreshLastFormItem = useCallback(() => {
+      const formElement = formRef.current;
+      const lastClassName = `${classPrefix}-form__item--last`;
+      const formItemSelector = `.${classPrefix}-form__item`;
+
+      // 按父容器分组，标记每一组中最后一个真实表单项（排除提交/重置按钮等无 name 的 FormItem）
+      const nextLastItems = new Set<HTMLElement>();
+      if (layout !== 'inline' && formElement) {
+        const formItems = [...formItemElementsRef.current].filter((item) => {
+          if (!formElement.contains(item)) return false;
+          const parentFormItem = item.parentElement?.closest<HTMLElement>(formItemSelector);
+          return !parentFormItem || !formElement.contains(parentFormItem);
+        });
+
+        const groupedByParent = new Map<HTMLElement, HTMLElement[]>();
+        formItems.forEach((item) => {
+          const parent = item.parentElement;
+          if (!parent) return;
+          const siblings = groupedByParent.get(parent);
+          if (siblings) siblings.push(item);
+          else groupedByParent.set(parent, [item]);
+        });
+
+        groupedByParent.forEach((siblings) => {
+          siblings.sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+          const lastFormItem = siblings[siblings.length - 1];
+          if (lastFormItem) nextLastItems.add(lastFormItem);
+        });
+      }
+
+      lastFormItemsRef.current.forEach((item) => {
+        if (!nextLastItems.has(item)) item.classList.remove(lastClassName);
+      });
+      nextLastItems.forEach((item) => {
+        if (!lastFormItemsRef.current.has(item)) item.classList.add(lastClassName);
+      });
+      lastFormItemsRef.current = nextLastItems;
+    }, [classPrefix, layout]);
+
+    const registerFormItem = useCallback(
+      (node: HTMLElement) => {
+        formItemElementsRef.current.add(node);
+        refreshLastFormItem();
+
+        return () => {
+          formItemElementsRef.current.delete(node);
+          node.classList.remove(`${classPrefix}-form__item--last`);
+          lastFormItemsRef.current.delete(node);
+          refreshLastFormItem();
+        };
+      },
+      [classPrefix, refreshLastFormItem],
+    );
+
+    useLayoutEffect(() => {
+      const formElement = formRef.current;
+      if (!formElement) return;
+
+      refreshLastFormItem();
+
+      const observer = new MutationObserver(refreshLastFormItem);
+      observer.observe(formElement, { childList: true, subtree: true });
+
+      return () => {
+        observer.disconnect();
+        lastFormItemsRef.current.forEach((item) => item.classList.remove(`${classPrefix}-form__item--last`));
+        lastFormItemsRef.current.clear();
+      };
+    }, [classPrefix, refreshLastFormItem]);
 
     useImperativeHandle(ref, () => formInstance);
     Object.assign(form, { ...formInstance });
@@ -81,6 +156,7 @@ const Form = forwardRefWithStatics(
       form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.([]);
       form.store = {};
       floatingFormDataRef.current = {};
+      mountedFieldsRef.current.clear();
       onReset?.({ e });
     }
 
@@ -115,6 +191,8 @@ const Form = forwardRefWithStatics(
           readOnly: props.readOnly || props.readonly,
           formMapRef,
           floatingFormDataRef,
+          registerFormItem,
+          mountedFieldsRef,
           onFormItemValueChange,
         }}
       >

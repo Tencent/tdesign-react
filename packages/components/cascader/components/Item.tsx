@@ -36,7 +36,9 @@ const Item = forwardRef(
       cascaderContext,
     } = props;
     const { classPrefix: prefix } = useConfig();
-    const { ChevronRightIcon } = useGlobalIcon({ ChevronRightIcon: TdChevronRightIcon });
+    const { ChevronRightIcon } = useGlobalIcon({
+      ChevronRightIcon: TdChevronRightIcon,
+    });
     const COMPONENT_NAME = `${prefix}-cascader__item`;
     // 暂时去掉动画效果 长列表在safari中有异常
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

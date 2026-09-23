@@ -1,0 +1,24 @@
+{
+  "extends": "./tsconfig",
+  "include": [
+    "./packages/components",
+    "./globals.d.ts"
+  ],
+  "exclude": [
+    "**/**/__tests__/*",
+    "**/**/_example-js/*",
+    "**/config-provider/_example/*",
+    "**/**/_usage/*",
+    "node_modules",
+    "dist",
+    "lib",
+    "esm",
+    "cjs",
+    "es"
+  ],
+  "compilerOptions": {
+    "declaration": false,
+    "moduleResolution": "nodenext",
+    "module": "nodenext"
+  }
+}

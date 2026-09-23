@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { ChevronDownIcon as TdChevronDownIcon } from 'tdesign-icons-react';
 
+import parseTNode from '../_util/parseTNode';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import Tooltip from '../tooltip';
@@ -29,7 +30,7 @@ export default function SorterButton(props: SorterButtonProps) {
     ChevronDownIcon: TdChevronDownIcon,
   });
   const { tableSortClasses, negativeRotate180 } = useClassName();
-  const [locale, t] = useLocaleReceiver('table');
+  const [locale] = useLocaleReceiver('table');
 
   const allowSortTypes: SortTypeEnums = sortType === 'all' ? ['asc', 'desc'] : [sortType];
 
@@ -38,7 +39,7 @@ export default function SorterButton(props: SorterButtonProps) {
   };
 
   function getSortIcon(direction: string, activeClass: string) {
-    const defaultIcon = t(locale.sortIcon) || <ChevronDownIcon />;
+    const defaultIcon = parseTNode(locale.sortIcon, undefined, <ChevronDownIcon />);
     const icon = props.sortIcon || defaultIcon;
     const sortClassName = [
       activeClass,

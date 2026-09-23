@@ -121,7 +121,10 @@ export default function BaseForm() {
         theme="card"
         addable
         onAdd={onAddStudent}
-        style={{ marginLeft: 30, border: '1px solid var(--td-component-stroke)' }}
+        style={{
+          marginLeft: 30,
+          border: '1px solid var(--td-component-stroke)',
+        }}
       >
         {formData.students.map((student, index) => (
           <Tabs.TabPanel key={student.id} value={student.id} label={student.label} destroyOnHide={false}>
@@ -130,14 +133,19 @@ export default function BaseForm() {
                 <Input placeholder="请输入内容" />
               </FormItem>
 
-              <FormItem label="选科" name={`students[${index}].name`} label-width={80} initialData={student.courseType}>
+              <FormItem
+                label="选科"
+                name={`students[${index}].courseType`}
+                label-width={80}
+                initialData={student.courseType}
+              >
                 <Radio.Group>
                   <Radio value="wenke">文科</Radio>
                   <Radio value="like">理科</Radio>
                 </Radio.Group>
               </FormItem>
 
-              <FormItem label="课程" name={`students[${index}].name`} label-width={80} initialData={student.course}>
+              <FormItem label="课程" name={`students[${index}].course`} label-width={80} initialData={student.course}>
                 <Checkbox.Group>
                   {courseOptions.map(({ value, label }, index) => (
                     <Checkbox key={index} value={value} label={label} />

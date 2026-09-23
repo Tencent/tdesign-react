@@ -19,7 +19,10 @@ const columns: TableProps['columns'] = [
 
     // 禁用行选中方式二：使用 checkProps 禁用行（示例代码有效，勿删）
     // 这种方式禁用行选中，行文本不会变灰
-    checkProps: ({ rowIndex }) => ({ disabled: rowIndex % 2 !== 0, title: rowIndex % 2 !== 0 ? '不可选' : null }),
+    checkProps: ({ rowIndex }) => ({
+      disabled: rowIndex % 2 !== 0,
+      title: rowIndex % 2 !== 0 ? '不可选' : null,
+    }),
     width: 50,
   },
   { colKey: 'applicant', title: '申请人', width: '100' },
@@ -48,7 +51,7 @@ const columns: TableProps['columns'] = [
 const initData: TableProps['data'] = [];
 for (let i = 0; i < 5; i++) {
   initData.push({
-    index: i + 100,
+    index: i + 1,
     applicant: ['贾明', '张三', '王芳'][i % 3],
     status: i % 3,
     channel: ['电子签署', '纸质签署', '纸质签署'][i % 3],
@@ -63,11 +66,11 @@ for (let i = 0; i < 5; i++) {
 
 export default function TableSingleSort() {
   const [data] = useState([...initData]);
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([4]);
 
   const onSelectChange: TableProps['onSelectChange'] = (value, { selectedRowData }) => {
     console.log(value, selectedRowData);
-    setSelectedRowKeys(value);
+    setSelectedRowKeys(value as number[]);
   };
 
   return (

@@ -191,11 +191,11 @@ export default function useSingle(props: SelectInputProps) {
       }),
     };
 
-    // allowInput=false 且 singleValueDisplay 是 React 元素，直接放进 label，不需要 absolute
+    // allowInput=false 时直接将选中内容放进 label，不需要 absolute
     // (历史实现，避免 DOM 结构变更，保留原有逻辑，大版本可考虑彻底统一)
-    const isStaticCustomElement = !allowInput && React.isValidElement(singleValueDisplay);
+    const isStaticValueDisplay = !allowInput && Boolean(valueDisplay);
 
-    if (isStaticCustomElement) {
+    if (isStaticValueDisplay) {
       return (
         <Input
           {...sharedInputProps}

@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`BaseTable Pagination > locale data pagination controlled > both pagination.pageSize and pagination.current changed 1`] = `
+exports[`Table > scenarios > locale data pagination controlled > both pagination.pageSize and pagination.current changed 1`] = `
 NodeList [
   <tr>
     <td
@@ -68,7 +68,7 @@ NodeList [
 ]
 `;
 
-exports[`BaseTable Pagination > locale data pagination controlled > pagination.current changed 1`] = `
+exports[`Table > scenarios > locale data pagination controlled > pagination.current changed 1`] = `
 NodeList [
   <tr>
     <td
@@ -136,7 +136,7 @@ NodeList [
 ]
 `;
 
-exports[`BaseTable Pagination > locale data pagination controlled > pagination.current changed 2`] = `
+exports[`Table > scenarios > locale data pagination controlled > pagination.current changed 2`] = `
 <div
   class="t-table pagination-current-changed"
   style="position: relative;"
@@ -382,19 +382,7 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
                   id="stroke1"
                 >
                   <path
-                    d="M4 11.5H5V12.5H4V11.5Z"
-                    stroke="currentColor"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                  />
-                  <path
-                    d="M11.5 11.5H12.5V12.5H11.5V11.5Z"
-                    stroke="currentColor"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                  />
-                  <path
-                    d="M19 11.5H20V12.5H19V11.5Z"
+                    d="M4 11.5H5V12.5H4V11.5Z M11.5 11.5H12.5V12.5H11.5V11.5Z M19 11.5H20V12.5H19V11.5Z"
                     stroke="currentColor"
                     stroke-linecap="square"
                     stroke-width="2"
@@ -446,19 +434,7 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
                   id="stroke1"
                 >
                   <path
-                    d="M4 11.5H5V12.5H4V11.5Z"
-                    stroke="currentColor"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                  />
-                  <path
-                    d="M11.5 11.5H12.5V12.5H11.5V11.5Z"
-                    stroke="currentColor"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                  />
-                  <path
-                    d="M19 11.5H20V12.5H19V11.5Z"
+                    d="M4 11.5H5V12.5H4V11.5Z M11.5 11.5H12.5V12.5H11.5V11.5Z M19 11.5H20V12.5H19V11.5Z"
                     stroke="currentColor"
                     stroke-linecap="square"
                     stroke-width="2"
@@ -503,7 +479,7 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
 </div>
 `;
 
-exports[`BaseTable Pagination > locale data pagination controlled > pagination.pageSize changed 1`] = `
+exports[`Table > scenarios > locale data pagination controlled > pagination.pageSize changed 1`] = `
 NodeList [
   <tr>
     <td

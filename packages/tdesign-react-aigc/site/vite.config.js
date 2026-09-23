@@ -1,7 +1,9 @@
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+
 import pkg from '../package.json';
 import tdocPlugin from './plugin-tdoc';
 import changelog2Json from './plugins/changelog-to-json';
@@ -34,11 +36,12 @@ export default ({ mode }) =>
     resolve: {
       alias: {
         '@tdesign-react/chat': path.resolve(__dirname, '../../pro-components/chat'),
-        '@tdesign/ai-chat-engine': path.resolve(__dirname, '../../ai-core/packages/chat-engine/index.ts'),
         '@tdesign/react-aigc-site': path.resolve(__dirname, './'),
         'tdesign-react/es': path.resolve(__dirname, '../../components'),
         'tdesign-react': path.resolve(__dirname, '../../components'),
       },
+      // 添加 dedupe，强制使用子包中的依赖
+      dedupe: ['tdesign-web-components'],
     },
     build: {
       rollupOptions: {
@@ -47,9 +50,6 @@ export default ({ mode }) =>
           playground: 'playground.html',
         },
       },
-    },
-    define: {
-      __VERSION__: JSON.stringify(pkg.version),
     },
     jsx: 'react',
     server: {

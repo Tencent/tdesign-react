@@ -214,7 +214,7 @@ export default function useInstance(
     } else {
       const { type = 'initial', fields = [] } = params;
       fields.forEach((name) => {
-        const formItemRef = findFormItem(name, formMapRef);
+        const formItemRef = findFormItem(name as NamePath, formMapRef);
         formItemRef?.current?.resetField(type);
       });
     }
@@ -235,7 +235,7 @@ export default function useInstance(
     } else {
       if (!Array.isArray(fields)) throw new TypeError('The parameter of "clearValidate" must be an array');
       fields.forEach((name) => {
-        const formItemRef = findFormItem(name, formMapRef);
+        const formItemRef = findFormItem(name as NamePath, formMapRef);
         formItemRef?.current?.resetValidate();
       });
     }
@@ -259,7 +259,7 @@ export default function useInstance(
         ? [...formMapRef.current.values()]
         : fields
             .map((name) => {
-              const formItemRef = findFormItem(name, formMapRef);
+              const formItemRef = findFormItem(name as NamePath, formMapRef);
               return formItemRef;
             })
             .filter(Boolean);

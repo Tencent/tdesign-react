@@ -348,6 +348,9 @@ const Input = forwardRefWithStatics(
       const {
         currentTarget: { value },
       } = e;
+      // 合成期间输入框展示的是 composingValue，而外部 value 可能已被程序清空（如 Select 选中选项后清空筛选词），
+      // 此时需要以输入框当前内容为起点重新累计，否则上一次的合成内容会被残留并累加
+      setComposingValue(value);
       onCompositionstart?.(value, { e });
     }
     function handleCompositionEnd(e: React.CompositionEvent<HTMLInputElement>) {

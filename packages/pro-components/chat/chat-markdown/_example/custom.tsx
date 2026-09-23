@@ -48,7 +48,7 @@ const MarkdownExample = () => {
 
   return (
     <ChatMarkdown
-      className="markdown"
+      // className="markdown"
       content="我是普通内容 !!我是自定义markdown结构!!"
       options={{
         engine: {

@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig",
-  "include": ["packages/pro-components/chat"],
+  "include": ["packages/pro-components/chat", "./globals.d.ts"],
   "exclude": [
     "**/**/__tests__/*",
     "**/**/_example/*",
@@ -13,6 +13,10 @@
     "jsx": "react-jsx",
     "emitDeclarationOnly": true,
     "rootDir": "packages/pro-components/chat",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "tdesign-react": ["./packages/tdesign-react-aigc/node_modules/tdesign-react"],
+      "tdesign-react/*": ["./packages/tdesign-react-aigc/node_modules/tdesign-react/*"]
+    }
   }
 }

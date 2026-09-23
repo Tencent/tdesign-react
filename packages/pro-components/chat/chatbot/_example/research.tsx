@@ -11,8 +11,8 @@ import type {
   TdAttachmentItem,
   TdChatbotApi,
   TdChatMessageConfig,
-  UploadFile,
 } from '@tdesign-react/chat';
+import type { UploadFile } from 'tdesign-react';
 
 // 默认初始化消息
 const mockData: ChatMessagesData[] = [
@@ -166,7 +166,7 @@ export default function chatSample() {
           onFileSelect,
           onFileRemove,
         }}
-        chatServiceConfig={chatServiceConfig}
+        chatServiceConfig={chatServiceConfig as any}
       ></ChatBot>
     </div>
   );

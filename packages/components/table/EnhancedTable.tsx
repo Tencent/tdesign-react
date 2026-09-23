@@ -11,7 +11,8 @@ import { enableRowDrag } from './utils';
 
 import type { RefAttributes } from 'react';
 import type { HTMLElementAttributes, StyledProps } from '../common';
-import type { EnhancedTableProps, EnhancedTableRef, PrimaryTableProps } from './interface';
+import type { EnhancedTableProps, EnhancedTableRef } from './interface';
+import type { InternalPrimaryTableProps } from './PrimaryTable';
 import type { DragSortContext, PrimaryTableCol, TableRowData, TdPrimaryTableProps } from './type';
 
 export interface TEnhancedTableProps extends EnhancedTableProps, StyledProps {}
@@ -27,7 +28,9 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
     useTreeData(props);
   const treeDataMap = store?.treeDataMap;
 
-  const { tIndeterminateSelectedRowKeys, onInnerSelectChange } = useTreeSelect(props, treeDataMap);
+  const { innerIndeterminateSelectedRowKeys, innerSelectedRowKeys, onInnerSelectChange } = useTreeSelect(props, {
+    treeDataMap,
+  });
 
   const primaryTableRef = useRef<EnhancedTableRef>(null);
 
@@ -85,14 +88,17 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
     props.onDragSort?.(params);
   };
 
-  const primaryTableProps: PrimaryTableProps = {
+  const isTreeData = Boolean(tree && Object.keys(tree).length);
+  const primaryTableProps: InternalPrimaryTableProps = {
     ...props,
     data: dataSource,
     columns: tColumns,
-    // 半选状态节点
-    indeterminateSelectedRowKeys: tIndeterminateSelectedRowKeys,
+    selectedRowKeys: isTreeData ? innerSelectedRowKeys : props.selectedRowKeys || [],
+    indeterminateSelectedRowKeys: innerIndeterminateSelectedRowKeys,
     // 树形结构不允许本地数据分页
-    disableDataPage: Boolean(tree && Object.keys(tree).length) || props.disableDataPage,
+    disableDataPage: isTreeData || props.disableDataPage,
+    reserveSelectedRowOnPaginate: isTreeData ? true : props.reserveSelectedRowOnPaginate,
+    treeDataMap: isTreeData ? treeDataMap : undefined,
     onSelectChange: onInnerSelectChange,
     onDragSort: onDragSortChange,
     rowClassName: ({ row }) => {

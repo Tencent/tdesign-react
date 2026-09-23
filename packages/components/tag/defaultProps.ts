@@ -14,6 +14,12 @@ export const tagDefaultProps: TdTagProps = {
   variant: 'dark',
 };
 
-export const checkTagDefaultProps: TdCheckTagProps = { disabled: false, size: 'medium' };
+export const checkTagDefaultProps: TdCheckTagProps = {
+  disabled: false,
+  size: 'medium',
+};
 
-export const checkTagGroupDefaultProps: TdCheckTagGroupProps = { multiple: false, defaultValue: [] };
+export const checkTagGroupDefaultProps: TdCheckTagGroupProps = {
+  multiple: false,
+  defaultValue: [],
+};

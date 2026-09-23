@@ -18,7 +18,7 @@ export default function BasicExample() {
   const { chatEngine, messages, status } = useChat({
     defaultMessages: [],
     chatServiceConfig: {
-      endpoint: 'https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/normal',
+      endpoint: 'http://localhost:9001/sse/normal',
       stream: true,
       // 数据转换
       onMessage: (chunk: SSEChunkData): AIMessageContent => {
@@ -46,7 +46,9 @@ export default function BasicExample() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       {/* 消息列表 */}
-      <ChatList style={{ flex: 1 }}>
+      <ChatList
+      // style={{ flex: 1 }}
+      >
         {messages.map((message) => (
           <ChatMessage
             key={message.id}

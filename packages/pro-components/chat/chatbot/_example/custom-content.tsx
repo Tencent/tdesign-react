@@ -129,12 +129,12 @@ export default function CustomContent() {
   return (
     <div style={{ height: '600px' }}>
       <ChatBot
-        chatServiceConfig={chatServiceConfig}
+        chatServiceConfig={chatServiceConfig as any}
         senderProps={{
           defaultValue: '北京今天早晚高峰交通情况如何，需要分别给出曲线图表示每个时段',
         }}
         onMessageChange={(e) => {
-          setMessages(e.detail);
+          setMessages(e.detail as any);
         }}
       >
         {/* 4. 植入自定义内容渲染插槽 */}

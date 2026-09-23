@@ -111,7 +111,10 @@ console.log(greeting);
         {
           type: 'suggestion',
           data: [
-            { title: '继续了解 TDesign', prompt: '告诉我更多关于 TDesign 的信息' },
+            {
+              title: '继续了解 TDesign',
+              prompt: '告诉我更多关于 TDesign 的信息',
+            },
             { title: '查看组件列表', prompt: 'TDesign 有哪些组件？' },
             { title: '如何使用', prompt: '如何在项目中使用 TDesign？' },
           ],
@@ -214,7 +217,11 @@ console.log(greeting);
 
   return (
     <div style={{ height: '600px' }}>
-      <ChatBot defaultMessages={defaultMessages} messageProps={messageProps} chatServiceConfig={chatServiceConfig} />
+      <ChatBot
+        defaultMessages={defaultMessages}
+        messageProps={messageProps}
+        chatServiceConfig={chatServiceConfig as any}
+      />
     </div>
   );
 }

@@ -5,6 +5,54 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.18.3 `2026-09-04`
+
+### 🚀 Features
+
+- `Checkbox`: 支持 `tooltipProps` API @RylanBot ([#4385](https://github.com/Tencent/tdesign-react/pull/4385))
+- `Menu`: 修改内联的样式为样式类实现，移除过于宽泛的 `--padding-left` 变量，方便覆盖修改 @HaixingOoO ([#4367](https://github.com/Tencent/tdesign-react/pull/4367))
+
+### 🐞 Bug Fixes
+
+- `ColorPicker`: 优化开启 alpha 通道后的输入框效果展示 @uyarn ([#4384](https://github.com/Tencent/tdesign-react/pull/4384))
+- `Form`: 修复重渲染时，`resetType="initial"` 无法将未设置 `initialData` 的字段重置为空的问题 @RylanBot ([#4365](https://github.com/Tencent/tdesign-react/pull/4365))
+- `FormList`: 修复嵌套 Form 场景下内层组件 `setFieldsValue` 异常的问题 @RylanBot ([#4361](https://github.com/Tencent/tdesign-react/pull/4361))
+- `Icon`: 修复 usb 原始图标的图层 ID 错误,在深色模式下渲染错误 @uyarn ([icons#298](https://github.com/Tencent/tdesign-icons/pull/298)) ([#4369](https://github.com/Tencent/tdesign-react/pull/4369))
+- `Popup`: 修复 `trigger="hover"` 时在触发元素与弹层间快速移动导致闪烁的问题 @RylanBot ([#4366](https://github.com/Tencent/tdesign-react/pull/4366))
+- `Select`: 
+  - 修复 `filterable` 下中文输入法筛选选中后再次输入会残留上次筛选内容的问题 @RSS1102 ([#4388](https://github.com/Tencent/tdesign-react/pull/4388))
+  - 修复 `filterable` 选择选项后关闭面板时短暂显示完整列表的问题 @RSS1102 ([#4388](https://github.com/Tencent/tdesign-react/pull/4388))
+- `TagInput`: 修复 `excessTagsDisplayType="scroll"` 且 `readOnly` / `disabled` 时，无法滚动的问题 @RylanBot ([#4364](https://github.com/Tencent/tdesign-react/pull/4364))
+- `Textarea`: 修复 `autosize` 计算高度不稳定的问题 @RylanBot ([#4386](https://github.com/Tencent/tdesign-react/pull/4386))
+
+## 🌈 1.18.2 `2026-08-14`
+
+### 🚀 Features
+
+- `Comment`: `actions` 支持单个 `TNode` @RSS1102 ([#4354](https://github.com/Tencent/tdesign-react/pull/4354))
+- `Form`: 末尾表单项增加 `--last` 标识，保证 `margin` 样式正常生效 @uyarn ([#4356](https://github.com/Tencent/tdesign-react/pull/4356))
+- `Tag`: `title` 支持 `Boolean` 类型，传入 `false` 则不会显示 `title`，不传或传入 `true` 则显示默认的内容。 @Wesley-0808 ([#4336](https://github.com/Tencent/tdesign-react/pull/4336))
+
+### 🐞 Bug Fixes
+
+- `Button`: 
+    - 移除组件不合理的默认 `margin:0` 和  `z-index:0` @RylanBot ([common#2636](https://github.com/Tencent/tdesign-common/pull/2636))
+   - 修复自定义 SVG 图标与文字之间缺少间距的问题 @xy200303 ([common#2639](https://github.com/Tencent/tdesign-common/pull/2639)) 
+- `Comment`: 修复操作项图标与文字未垂直居中的问题 @RSS1102 ([#4354](https://github.com/Tencent/tdesign-react/pull/4354))
+- `ConfigProvider`: 修复 `table.sortIcon` 不生效的问题 @RylanBot ([#4338](https://github.com/Tencent/tdesign-react/pull/4338))
+- `EnhancedTable`: 
+  - 修复半选状态异常的问题 @RylanBot ([#4104](https://github.com/Tencent/tdesign-react/pull/4104))
+  - 修复非受控且 `tree.checkStrictly` 为 `false` 时，选中父节点后子节点没有同步更新的问题 @RylanBot ([#4104](https://github.com/Tencent/tdesign-react/pull/4104))
+- `Form`: 修复嵌套表单在触发 `validate` 后重渲染导致数值丢失的问题 @RylanBot ([#4350](https://github.com/Tencent/tdesign-react/pull/4350))
+- `Popup`: 修复鼠标在浮层上左键长按或右键点击后，移出浮层无法自动关闭的问题 @RylanBot ([#4287](https://github.com/Tencent/tdesign-react/pull/4287))
+- `SelectInput`: 修复 `1.18.1` 的调整，导致单选且未开启 `filterable` 时，`valueDisplay` 为自定义字符串导致的 DOM 结构变更问题 @RylanBot ([#4351](https://github.com/Tencent/tdesign-react/pull/4351))
+- `Steps`: 
+  - 修复 `layout='vertical'` 时，连接线不对齐和上下图标距离不一致的问题 @RylanBot ([common#2670](https://github.com/Tencent/tdesign-common/pull/2670))
+  - 修复默认和选中态的连接线粗细不一致的问题 @RylanBot ([common#2670](https://github.com/Tencent/tdesign-common/pull/2670))
+- `Table`: 
+    - 修复全选会篡改禁用项选中状态的问题 @RylanBot ([#4104](https://github.com/Tencent/tdesign-react/pull/4104))
+    - 修复过滤后的数据量在跨越虚拟滚动的 threshold 时，筛选器下拉框被强行关闭的问题 @RylanBot ([#3803](https://github.com/Tencent/tdesign-react/pull/3803))
+
 ## 🌈 1.18.1 `2026-07-17`
 
 ### 🚀 Features
@@ -14,9 +62,7 @@ spline: explain
 ### 🐞 Bug Fixes
 
 - `Button`: 优化斜八度的动画效果 @uyarn ([#4331](https://github.com/Tencent/tdesign-react/pull/4331))
-- `ColorPicker`: 
-  - 修复渐变角度的 `title` 格式异常的问题 @RylanBot ([#4324](https://github.com/Tencent/tdesign-react/pull/4324))
-  - 修复渐变角度输入框在 `1.17.0` 版本后溢出面板的问题 @RylanBot ([#4324](https://github.com/Tencent/tdesign-react/pull/4324))
+- `ColorPicker`: 修复渐变角度的 `title` 格式异常的问题 @RylanBot ([#4324](https://github.com/Tencent/tdesign-react/pull/4324))
 - `Menu`: 修复弹出窗口位置在左侧宽度不够向右侧翻转时的间距错误问题 @RSS1102 ([common#2631](https://github.com/Tencent/tdesign-common/pull/2631))
 - `Select`: 
   - 修复 `label` 为非 `string` 类型时，开启 `filterable` 搜索后报错的问题。 @RylanBot ([#3891](https://github.com/Tencent/tdesign-react/pull/3891))

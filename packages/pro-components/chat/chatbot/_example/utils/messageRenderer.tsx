@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { HotelCard, HumanInputResult, ItineraryCard, WeatherCard } from '../components';
+import { HotelCard, HumanInputResult, WeatherCard } from '../../../chat-engine/_example/components';
+import { ItineraryCard } from '../components';
 
 import type { AIMessageContent, ChatMessagesData } from '@tdesign-react/chat';
 
@@ -63,7 +64,7 @@ export const renderMessageContent = ({ item, index, message }: MessageRendererPr
   }
 
   // 规划状态面板 - 不在消息中显示，只用于更新右侧面板
-  if (item.type === 'planningState') {
+  if ((item.type as any) === 'planningState') {
     return null;
   }
 

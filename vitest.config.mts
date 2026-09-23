@@ -1,15 +1,20 @@
 import path from 'path';
+
 import { defineConfig } from 'vitest/config';
-import { InlineConfig } from 'vitest/node';
 
 import pkg from './packages/tdesign-react/package.json';
+
+import type { InlineConfig } from 'vitest/node';
 
 // 单元测试相关配置
 const testConfig: InlineConfig = {
   include:
     process.env.NODE_ENV === 'test-snap'
       ? ['test/snap/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}']
-      : ['packages/components/**/__tests__/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+      : [
+          'packages/components/**/__tests__/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
+          'packages/pro-components/**/__tests__/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
+        ],
   globals: true,
   environment: 'jsdom',
   testTimeout: 16000,
@@ -20,6 +25,9 @@ const testConfig: InlineConfig = {
     provider: 'istanbul',
     reporter: ['text', 'json', 'html'],
     reportsDirectory: 'test/coverage',
+  },
+  typecheck: {
+    tsconfig: './tsconfig.vitest.json',
   },
 };
 

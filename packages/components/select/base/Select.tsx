@@ -11,6 +11,7 @@ import FakeArrow from '../../common/FakeArrow';
 import useConfig from '../../hooks/useConfig';
 import useControlled from '../../hooks/useControlled';
 import useDefaultProps from '../../hooks/useDefaultProps';
+import useLayoutEffect from '../../hooks/useLayoutEffect';
 import Loading from '../../loading';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import SelectInput from '../../select-input';
@@ -131,6 +132,12 @@ const Select = forwardRefWithStatics(
 
     const { currentOptions, setCurrentOptions, tmpPropOptions, valueToOption, selectedOptions, flattenedOptions } =
       useOptions(keys, options, children, valueType, value, reserveKeyword);
+
+    // 清空筛选词时浮层仍在执行退出动画，保留关闭前的列表，避免提前展示全部选项。
+    const lastVisibleOptionsRef = useRef(currentOptions);
+    useLayoutEffect(() => {
+      if (innerPopupVisible) lastVisibleOptionsRef.current = currentOptions;
+    }, [innerPopupVisible, currentOptions]);
 
     const onCheckAllChange = useCallback(
       (checkAll: boolean, e: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLInputElement>) => {
@@ -430,7 +437,7 @@ const Select = forwardRefWithStatics(
         showPopup: innerPopupVisible,
         // popup弹出层内容只会在点击事件之后触发 并且无任何透传参数
         setShowPopup: (show: boolean) => handlePopupVisibleChange(show, {}),
-        options: currentOptions,
+        options: innerPopupVisible ? currentOptions : lastVisibleOptionsRef.current,
         empty,
         max,
         loadingText,
@@ -449,7 +456,7 @@ const Select = forwardRefWithStatics(
 
     const renderValueDisplay = useMemo(() => {
       if (!valueDisplay) {
-        if (!multiple) return selectedLabel;
+        if (!multiple) return isValidElement(selectedLabel) ? selectedLabel : undefined;
         return ({ value: val }) =>
           val.slice(0, minCollapsedNum ? minCollapsedNum : val.length).map((_, index: number) => {
             const targetVal = get(selectedOptions[index], valueKey);

@@ -4,13 +4,39 @@ import { canUseDocument } from '../../_util/dom';
 import { off, on } from '../../_util/listener';
 import { composeRefs, getNodeRef, getRefDom, supportNodeRef } from '../../_util/ref';
 import useConfig from '../../hooks/useConfig';
+import useLatest from '../../hooks/useLatest';
 
 const ESC_KEY = 'Escape';
+
+/** 穿越 trigger 与弹层间距时的最短关闭缓冲，避免先关后开闪烁 */
+const HOVER_GAP_EXIT_DELAY = 150;
 
 const isEventFromDisabledElement = (e: Event | React.SyntheticEvent, container: Element) => {
   const target = e.target as Element;
   const disabledEl = target?.closest?.('[disabled]');
   return !!(disabledEl && container.contains(disabledEl));
+};
+
+const isNodeInside = (container: Element | null | undefined, node: EventTarget | null) => {
+  return !!(container && node instanceof Node && (container === node || container.contains(node)));
+};
+
+const hasLayoutRect = (rect: DOMRect) => rect.width > 0 || rect.height > 0;
+
+/**
+ * 鼠标是否正从 fromEl 朝 toEl 方向离开（用于判断是否在穿越间距）
+ */
+const isLeavingToward = (e: MouseEvent | React.MouseEvent, fromEl: Element | null, toEl: Element | null) => {
+  if (!fromEl || !toEl) return false;
+  const from = fromEl.getBoundingClientRect();
+  const to = toEl.getBoundingClientRect();
+  if (!hasLayoutRect(from) || !hasLayoutRect(to)) return false;
+
+  const dx = to.left + to.width / 2 - (from.left + from.width / 2);
+  const dy = to.top + to.height / 2 - (from.top + from.height / 2);
+  const leaveX = e.clientX - (from.left + from.width / 2);
+  const leaveY = e.clientY - (from.top + from.height / 2);
+  return leaveX * dx + leaveY * dy > 0;
 };
 
 export default function useTrigger({
@@ -30,6 +56,8 @@ export default function useTrigger({
   const triggerRef = useRef<HTMLElement>(null);
   const hasPopupMouseDown = useRef(false);
   const visibleTimer = useRef(null);
+  const popupElementRef = useLatest(popupElement);
+  const visibleRef = useLatest(visible);
 
   // 禁用和无内容时不展示
   const shouldToggle = useMemo(() => {
@@ -60,35 +88,87 @@ export default function useTrigger({
   }, [triggerElementIsString, triggerElement]);
 
   const handleMouseEnter = (e: MouseEvent | React.MouseEvent) => {
-    if (trigger === 'hover') {
-      callFuncWithDelay({
-        delay: appearDelay,
-        callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
-      });
-    }
+    if (trigger !== 'hover') return;
+    callFuncWithDelay({
+      delay: appearDelay,
+      callback: () => {
+        if (visibleRef.current) return;
+        onVisibleChange(true, { e, trigger: 'trigger-element-hover' });
+      },
+    });
+  };
+
+  const handlePopupMouseEnter = () => {
+    if (trigger !== 'hover') return;
+    clearTimeout(visibleTimer.current);
   };
 
   const handleMouseLeave = (e: MouseEvent | React.MouseEvent) => {
-    if (trigger !== 'hover' || hasPopupMouseDown.current) return;
+    if (trigger !== 'hover') return;
+
+    // 鼠标处于按下状态时（例如在 Popup 内按住左键拖拽），暂不关闭
+    const { buttons } = e as MouseEvent;
+    if (typeof buttons === 'number' && buttons !== 0) return;
+
     const relatedTarget = e.relatedTarget as HTMLElement;
+    const triggerEl = getTriggerElement();
+    const currentPopup = popupElementRef.current;
     const closestPopup = relatedTarget?.closest?.(`.${classPrefix}-popup`);
 
-    const isMovingToCurrentPopup = popupElement ? popupElement?.isEqualNode?.(closestPopup) : closestPopup;
-    if (isMovingToCurrentPopup) return;
+    const isMovingToCurrentPopup = currentPopup
+      ? currentPopup === closestPopup || isNodeInside(currentPopup, relatedTarget)
+      : !!closestPopup;
+    const isMovingToTrigger = isNodeInside(triggerEl, relatedTarget);
+    // trigger 与弹层视为同一块 hover 区域，在两者间移动不关闭
+    if (isMovingToCurrentPopup || isMovingToTrigger) return;
+
+    const fromEl = (e.currentTarget as Element) || triggerEl;
+    const leavingPopup = isNodeInside(currentPopup, fromEl);
+    const otherEl = leavingPopup ? triggerEl : currentPopup;
+    // 朝另一侧穿越间距时给一段缓冲，进入对侧时取消关闭
+    const hideDelay = isLeavingToward(e, fromEl, otherEl) ? Math.max(exitDelay, HOVER_GAP_EXIT_DELAY) : exitDelay;
+
+    callFuncWithDelay({
+      delay: hideDelay,
+      callback: () => {
+        if (!visibleRef.current) return;
+        onVisibleChange(false, { e, trigger: 'trigger-element-hover' });
+      },
+    });
+  };
+
+  const resetPopupMouseDown = (e?: MouseEvent | TouchEvent) => {
+    hasPopupMouseDown.current = false;
+    if (!e) return;
+
+    const target = e.target as Element | null;
+    const insideAnyPopup = target?.closest?.(`.${classPrefix}-popup`);
+
+    // 鼠标抬起时仍在 Popup、trigger 或任意子 Popup 内，保持打开
+    if (insideAnyPopup) return;
+
+    // 鼠标抬起时已经在外部，补偿一次关闭
     callFuncWithDelay({
       delay: exitDelay,
-      callback: () => onVisibleChange(false, { e, trigger: 'trigger-element-hover' }),
+      callback: () =>
+        onVisibleChange(false, {
+          e,
+          trigger: trigger === 'hover' ? 'trigger-element-hover' : 'document',
+        }),
     });
   };
 
   const handlePopupMouseDown = () => {
     hasPopupMouseDown.current = true;
-  };
-
-  const handlePopupMouseUp = () => {
-    requestAnimationFrame(() => {
-      hasPopupMouseDown.current = false;
-    });
+    // 监听全局事件，避免用户在 Popup 内按下鼠标后拖拽到外部释放
+    // 导致 Popup 收不到 mouseup，标记无法重置
+    const handleDocumentEnd = (e: MouseEvent | TouchEvent) => {
+      off(document, 'mouseup', handleDocumentEnd);
+      off(document, 'touchend', handleDocumentEnd);
+      resetPopupMouseDown(e);
+    };
+    on(document, 'mouseup', handleDocumentEnd);
+    on(document, 'touchend', handleDocumentEnd);
   };
 
   useEffect(() => clearTimeout(visibleTimer.current), []);
@@ -114,7 +194,11 @@ export default function useTrigger({
       if (trigger === 'mousedown') {
         callFuncWithDelay({
           delay: visible ? appearDelay : exitDelay,
-          callback: () => onVisibleChange(!visible, { e, trigger: 'trigger-element-mousedown' }),
+          callback: () =>
+            onVisibleChange(!visible, {
+              e,
+              trigger: 'trigger-element-mousedown',
+            }),
         });
       }
     };
@@ -194,7 +278,7 @@ export default function useTrigger({
       off(element, 'keydown', handleKeyDown);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [classPrefix, shouldToggle, appearDelay, exitDelay, trigger, visible, onVisibleChange]);
+  }, [classPrefix, shouldToggle, appearDelay, exitDelay, trigger, visible, onVisibleChange, popupElement]);
 
   useEffect(() => {
     if (!shouldToggle) return;
@@ -248,12 +332,10 @@ export default function useTrigger({
 
   function getPopupProps() {
     return {
-      onMouseEnter: handleMouseEnter,
+      onMouseEnter: handlePopupMouseEnter,
       onMouseLeave: handleMouseLeave,
       onMouseDown: handlePopupMouseDown,
-      onMouseUp: handlePopupMouseUp,
       onTouchStart: handlePopupMouseDown,
-      onTouchEnd: handlePopupMouseUp,
     };
   }
 

@@ -103,10 +103,10 @@ const Loading: React.FC<LoadingProps> = (props) => {
   }, [loading, preventScrollThrough, fullscreen, lockClass]);
 
   const commonContent = () => {
-    let renderIndicator = <Gradient />;
+    let renderIndicator: React.ReactNode = <Gradient />;
 
     if (indicator && typeof indicator !== 'boolean') {
-      renderIndicator = indicator as React.ReactElement;
+      renderIndicator = indicator;
     }
     return (
       <>

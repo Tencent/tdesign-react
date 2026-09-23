@@ -89,6 +89,8 @@ endpoint | String | -  | 聊天服务请求地址url | N
 stream | Boolean | true | 是否使用流式传输 | N
 onRequest | Function | - | 请求前的回调，可修改请求参数。TS类型：`(params: ChatRequestParams) => RequestInit` | N
 onMessage | Function | - | 处理流式消息的回调。TS类型：`(chunk: SSEChunkData) => AIMessageContent / null` | N
+onStreaming | Function | - | 流式输出状态变化回调，用于感知数据流活跃状态。TS类型：`(isStreaming: boolean, messageId?: string) => void` | N
+streamingTimeout | Number | 3000 | 流式输出超时时间（毫秒），超过此时间未收到新数据则触发 `onStreaming(false)` | N
 onComplete | Function | - | 请求结束时的回调。TS类型：`(isAborted: boolean, params: RequestInit, result?: any) => void` | N
 onAbort | Function | - | 中止请求时的回调。TS类型：`() => Promise<void>` | N
 onError | Function | - | 错误处理回调。TS类型：`(err: Error \| Response) => void` | N

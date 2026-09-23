@@ -150,7 +150,7 @@ export default function ThinkContentDemo() {
   return (
     <Space direction="vertical">
       <div style={{ marginBottom: 16 }}>
-        <Switch value={streamEnabled} onChange={setStreamEnabled} label="流式输出" />
+        <Switch value={streamEnabled} onChange={(value) => setStreamEnabled(value)} label="流式输出" />
       </div>
       <ChatMarkdown content={displayText} />
     </Space>

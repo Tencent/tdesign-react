@@ -22,7 +22,7 @@ export default function Usage() {
 
   const [renderComp, setRenderComp] = useState();
 
-  const avatarUrl = 'https://tdesign.gtimg.com/list-icon.png';
+  const avatarUrl = 'https://tdesign.gtimg.com/site/images/list-icon.png';
   const listData = [
     { id: 1, content: '列表内容列表内容列表内容' },
     { id: 2, content: '列表内容列表内容列表内容' },
