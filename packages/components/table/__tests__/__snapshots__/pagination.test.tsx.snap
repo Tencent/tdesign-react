@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`BaseTable Pagination > locale data pagination controlled > both pagination.pageSize and pagination.current changed 1`] = `
+exports[`Table > scenarios > locale data pagination controlled > both pagination.pageSize and pagination.current changed 1`] = `
 NodeList [
   <tr>
     <td
@@ -68,7 +68,7 @@ NodeList [
 ]
 `;
 
-exports[`BaseTable Pagination > locale data pagination controlled > pagination.current changed 1`] = `
+exports[`Table > scenarios > locale data pagination controlled > pagination.current changed 1`] = `
 NodeList [
   <tr>
     <td
@@ -136,7 +136,7 @@ NodeList [
 ]
 `;
 
-exports[`BaseTable Pagination > locale data pagination controlled > pagination.current changed 2`] = `
+exports[`Table > scenarios > locale data pagination controlled > pagination.current changed 2`] = `
 <div
   class="t-table pagination-current-changed"
   style="position: relative;"
@@ -479,7 +479,7 @@ exports[`BaseTable Pagination > locale data pagination controlled > pagination.c
 </div>
 `;
 
-exports[`BaseTable Pagination > locale data pagination controlled > pagination.pageSize changed 1`] = `
+exports[`Table > scenarios > locale data pagination controlled > pagination.pageSize changed 1`] = `
 NodeList [
   <tr>
     <td
