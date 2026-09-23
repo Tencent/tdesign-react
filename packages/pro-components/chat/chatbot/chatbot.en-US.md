@@ -43,16 +43,16 @@ onError | Function | - | 错误处理回调。TS类型：`(err: Error \| Respons
 
 名称 | 类型 | 描述 
 -- | -- | -- 
-sendUserMessage | (params: ChatRequestParams) => Promise<void> | 发送用户消息，处理请求参数并触发消息流
-sendSystemMessage | (msg: string) => void | 发送系统级通知消息，用于展示系统提示/警告
-abortChat | () => Promise<void> | 中止当前进行中的聊天请求，清理网络连接
-addPrompt | (prompt: string) => void | 将预设提示语添加到输入框，辅助用户快速输入
-selectFile | () => void | 触发文件选择对话框，用于附件上传功能
-regenerate | (keepVersion?: boolean) => Promise<void> | 重新生成最后一条消息，可选保留历史版本
-registerMergeStrategy | (type: T['type'], handler: (chunk: T, existing?: T) => T) => void | 注册自定义消息合并策略，用于处理流式数据更新
-scrollToBottom | () => void | 将消息列表滚动到底部，适用于有新消息时自动定位
-chatMessageValue | ChatMessagesData[] | 获取当前消息列表的只读副本
-chatStatus | ChatStatus | 获取当前聊天状态（空闲/进行中/错误等）
+sendUserMessage | `(params: ChatRequestParams) => Promise<void>` | 发送用户消息，处理请求参数并触发消息流
+sendSystemMessage | `(msg: string) => void` | 发送系统级通知消息，用于展示系统提示/警告
+abortChat | `() => Promise<void>` | 中止当前进行中的聊天请求，清理网络连接
+addPrompt | `(prompt: string) => void` | 将预设提示语添加到输入框，辅助用户快速输入
+selectFile | `() => void` | 触发文件选择对话框，用于附件上传功能
+regenerate | `(keepVersion?: boolean) => Promise<void>` | 重新生成最后一条消息，可选保留历史版本
+registerMergeStrategy | `(type: T['type'], handler: (chunk: T, existing?: T) => T) => void` | 注册自定义消息合并策略，用于处理流式数据更新
+scrollToBottom | `() => void` | 将消息列表滚动到底部，适用于有新消息时自动定位
+chatMessageValue | `ChatMessagesData[]` | 获取当前消息列表的只读副本
+chatStatus | `ChatStatus` | 获取当前聊天状态（空闲/进行中/错误等）
 
 ### useChat Hook
 

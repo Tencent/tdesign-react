@@ -92,10 +92,10 @@ A Hook for registering tool call configurations, supporting both automatic and m
 | ------------ | ------------------------------------------- | -------------------------------------------------------- | -------- |
 | name         | string                                      | Tool call name, must match the backend-defined tool name | Y        |
 | description  | string                                      | Tool call description                                    | N        |
-| parameters   | Array<{ name: string; type: string; required?: boolean }> | Parameter definition array                               | N        |
-| component    | React.ComponentType<ToolcallComponentProps> | Custom rendering component                               | Y        |
-| handler      | (args: TArgs, backendResult?: any) => Promise<TResult> | Handler function for non-interactive tools (optional)    | N        |
-| subscribeKey | (props: ToolcallComponentProps<TArgs, TResult>) => string \| undefined | State subscription key extraction function (optional), return value used to subscribe to corresponding state data, if not configured or not returned then subscribe to all state changes | N        |
+| parameters   | `Array<{ name: string; type: string; required?: boolean }>` | Parameter definition array                               | N        |
+| component    | `React.ComponentType<ToolcallComponentProps>` | Custom rendering component                               | Y        |
+| handler      | `(args: TArgs, backendResult?: any) => Promise<TResult>` | Handler function for non-interactive tools (optional)    | N        |
+| subscribeKey | `(props: ToolcallComponentProps<TArgs, TResult>) => string \| undefined` | State subscription key extraction function (optional), return value used to subscribe to corresponding state data, if not configured or not returned then subscribe to all state changes | N        |
 
 #### ToolcallComponentProps Component Properties
 
@@ -106,7 +106,7 @@ A Hook for registering tool call configurations, supporting both automatic and m
 | result     | TResult                                              | Tool call result                           |
 | error      | Error                                                | Error information (when status is 'error') |
 | respond    | (response: TResponse) => void                        | Response callback function (for interactive tools) |
-| agentState | Record<string, any>                                  | Subscribed state data, returned based on subscribeKey configuration |
+| agentState | `Record<string, any>` | Subscribed state data, returned based on subscribeKey configuration |
 
 ### ToolCallRenderer
 
@@ -136,16 +136,16 @@ A Hook for subscribing to AG-UI protocol state events, providing a flexible stat
 | Property     | Type                | Description                                                                          | Required |
 | ------------ | ------------------- | ------------------------------------------------------------------------------------ | -------- |
 | subscribeKey | string              | Specify the stateKey to subscribe to, subscribes to the latest state when not passed | N        |
-| initialState | Record<string, any> | Initial state value                                                                  | N        |
+| initialState | `Record<string, any>` | Initial state value                                                                  | N        |
 
 #### Return Value
 
 | Return Value    | Type                                                | Description                                    |
 | --------------- | --------------------------------------------------- | ---------------------------------------------- |
-| stateMap        | Record<string, any>                                 | State map, format is { [stateKey]: stateData } |
+| stateMap        | `Record<string, any>` | State map, format is `{ [stateKey]: stateData }` |
 | currentStateKey | string \| null                                      | Currently active stateKey                      |
-| setStateMap     | (stateMap: Record<string, any> \| Function) => void | Method to manually set the state map           |
-| getCurrentState | () => Record<string, any>                           | Method to get the current complete state       |
+| setStateMap     | `(stateMap: Record<string, any> \| Function) => void` | Method to manually set the state map           |
+| getCurrentState | `() => Record<string, any>` | Method to get the current complete state       |
 | getStateByKey   | (key: string) => any                                | Method to get state for a specific key         |
 
 ### useAgentActivity
@@ -173,7 +173,7 @@ A Hook for registering Activity configurations, supporting both automatic and ma
 | ------------ | ------------------------------------------- | -------------------------------------------------------- | -------- |
 | activityType | string                                      | Activity type name, must match the backend-defined type  | Y        |
 | description  | string                                      | Activity description                                     | N        |
-| component    | React.ComponentType<ActivityComponentProps> | Custom rendering component                               | Y        |
+| component    | `React.ComponentType<ActivityComponentProps>` | Custom rendering component                               | Y        |
 
 #### ActivityComponentProps Component Properties
 

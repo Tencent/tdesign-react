@@ -93,10 +93,10 @@ ChatEngine 实例方法与 Chatbot 组件实例方法完全一致，详见 [Chat
 | ------------ | ------------------------------------------- | ------------------------------------------ | ---- |
 | name         | string                                      | 工具调用名称，需要与后端定义的工具名称一致 | Y    |
 | description  | string                                      | 工具调用描述                               | N   |
-| parameters   | Array<{ name: string; type: string; required?: boolean }> | 参数定义数组                               | N    |
-| component    | React.ComponentType<ToolcallComponentProps> | 自定义渲染组件                             | Y    |
-| handler      | (args: TArgs, backendResult?: any) => Promise<TResult>           | 非交互式工具的处理函数（可选）             | N    |
-| subscribeKey |  (props: ToolcallComponentProps<TArgs, TResult>) => string | undefined             | 状态订阅 key 提取函数（可选）, 返回值用于订阅对应的状态数据，不配置或不返回则订阅所有的状态变化              | N    |
+| parameters   | `Array<{ name: string; type: string; required?: boolean }>` | 参数定义数组                               | N    |
+| component    | `React.ComponentType<ToolcallComponentProps>` | 自定义渲染组件                             | Y    |
+| handler      | `(args: TArgs, backendResult?: any) => Promise<TResult>` | 非交互式工具的处理函数（可选）             | N    |
+| subscribeKey | `(props: ToolcallComponentProps<TArgs, TResult>) => string \| undefined`             | 状态订阅 key 提取函数（可选）, 返回值用于订阅对应的状态数据，不配置或不返回则订阅所有的状态变化              | N    |
 
 #### ToolcallComponentProps 组件属性
 
@@ -107,7 +107,7 @@ ChatEngine 实例方法与 Chatbot 组件实例方法完全一致，详见 [Chat
 | result     | TResult                                              | 工具调用结果                        |
 | error      | Error                                                | 错误信息（当 status 为 'error' 时） |
 | respond    | (response: TResponse) => void                        | 响应回调函数（用于交互式工具）      |
-| agentState | Record<string, any>                                  | 订阅的状态数据，返回依赖subscribeKey这里的配置 |
+| agentState | `Record<string, any>` | 订阅的状态数据，返回依赖subscribeKey这里的配置 |
 
 
 ### ToolCallRenderer
@@ -139,16 +139,16 @@ ChatEngine 实例方法与 Chatbot 组件实例方法完全一致，详见 [Chat
 | 属性名       | 类型                | 说明                                                                 | 必传 |
 | ------------ | ------------------- | -------------------------------------------------------------------- | ---- |
 | subscribeKey | string              | 指定要订阅的 stateKey，不传入时订阅最新状态                          | N    |
-| initialState | Record<string, any> | 初始状态值                                                           | N    |
+| initialState | `Record<string, any>` | 初始状态值                                                           | N    |
 
 #### 返回值
 
 | 返回值          | 类型                                                | 说明                                     |
 | --------------- | --------------------------------------------------- | ---------------------------------------- |
-| stateMap        | Record<string, any>                                 | 状态映射表，格式为 { [stateKey]: stateData } |
+| stateMap        | `Record<string, any>` | 状态映射表，格式为 `{ [stateKey]: stateData }` |
 | currentStateKey | string \\| null                                      | 当前活跃的 stateKey                      |
-| setStateMap     | (stateMap: Record<string, any> \\| Function) => void | 手动设置状态映射表的方法                 |
-| getCurrentState | () => Record<string, any>                           | 获取当前完整状态的方法                   |
+| setStateMap     | `(stateMap: Record<string, any> \| Function) => void` | 手动设置状态映射表的方法                 |
+| getCurrentState | `() => Record<string, any>` | 获取当前完整状态的方法                   |
 | getStateByKey   | (key: string) => any                                | 获取特定 key 状态的方法                  |
 
 ### useAgentActivity
@@ -176,7 +176,7 @@ ChatEngine 实例方法与 Chatbot 组件实例方法完全一致，详见 [Chat
 | ------------ | ------------------------------------------- | ------------------------------------------ | ---- |
 | activityType | string                                      | Activity 类型名称，需要与后端定义的类型一致 | Y    |
 | description  | string                                      | Activity 描述                               | N   |
-| component    | React.ComponentType<ActivityComponentProps> | 自定义渲染组件                             | Y    |
+| component    | `React.ComponentType<ActivityComponentProps>` | 自定义渲染组件                             | Y    |
 
 #### ActivityComponentProps 组件属性
 
@@ -218,11 +218,11 @@ Activity 的统一渲染组件，负责根据 Activity 类型自动查找配置�
 | 属性名         | 类型                                                        | 说明                                                                                           | 必传 |
 | -------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---- |
 | name           | string                                                      | Catalog 名称，用于标识组件集合                                                                 | N    |
-| components     | Record<string, ComponentDoc>                                | 自定义组件定义，key 为组件名，value 包含 props（Zod Schema 或字符串描述）和 description        | N    |
-| actions        | Record<string, { description: string }>                     | 自定义 actions 白名单，除内置的 submit/reset/cancel 外的额外操作                               | N    |
+| components     | `Record<string, ComponentDoc>` | 自定义组件定义，key 为组件名，value 包含 props（Zod Schema 或字符串描述）和 description        | N    |
+| actions        | `Record<string, { description: string }>`                   | 自定义 actions 白名单，除内置的 submit/reset/cancel 外的额外操作                               | N    |
 | includeExample | boolean                                                     | 是否在 prompt 中包含 JSON Schema 示例，默认 true                                               | N    |
 | templateMode   | 'default' \\| 'a2ui' \\| 'custom'                            | Prompt 模板模式：default（标准 json-render）、a2ui（A2UI 协议）、custom（自定义模板）          | N    |
-| customTemplate | (context: { name, components, actions }) => string          | 自定义模板生成器函数，仅当 templateMode='custom' 时使用                                        | N    |
+| customTemplate | `(context: { name, components, actions }) => string` | 自定义模板生成器函数，仅当 templateMode='custom' 时使用                                        | N    |
 
 ##### 返回值
 
@@ -235,7 +235,7 @@ Activity 的统一渲染组件，负责根据 Activity 类型自动查找配置�
 | 属性名      | 类型                                  | 说明                                                  |
 | ----------- | ------------------------------------- | ----------------------------------------------------- |
 | description | string                                | 组件描述                                              |
-| props       | Record<string, string> \\| ZodObject   | Props 定义，支持字符串描述或 Zod Schema               |
+| props       | `Record<string, string> \| ZodObject`   | Props 定义，支持字符串描述或 Zod Schema               |
 | hasChildren | boolean                               | 是否支持子组件                                        |
 
 ---
@@ -250,7 +250,7 @@ Activity 的统一渲染组件，负责根据 Activity 类型自动查找配置�
 | -------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ---- |
 | activityType   | string                                                             | Activity 类型标识，需要与后端返回的 activityType 一致，默认 'json-render'      | N    |
 | registry       | ComponentRegistry                                                  | 组件注册表，默认使用内置的 tdesignRegistry                                     | N    |
-| actionHandlers | Record<string, (params: Record<string, unknown>) => void \\| Promise<void>> | Action 处理器映射表，定义按钮点击等交互的处理函数                              | N    |
+| actionHandlers | `Record<string, (params: Record<string, unknown>) => void \| Promise<void>>` | Action 处理器映射表，定义按钮点击等交互的处理函数                              | N    |
 | debug          | boolean                                                            | 是否显示调试信息，默认 false                                                   | N    |
 | description    | string                                                             | Activity 描述信息                                                              | N    |
 
@@ -258,7 +258,7 @@ Activity 的统一渲染组件，负责根据 Activity 类型自动查找配置�
 
 | 类型                                     | 说明                                          |
 | ---------------------------------------- | --------------------------------------------- |
-| ActivityConfig<JsonRenderActivityProps['content']> | Activity 配置对象，可传入 useAgentActivity 注册 |
+| `ActivityConfig<JsonRenderActivityProps['content']>` | Activity 配置对象，可传入 useAgentActivity 注册 |
 
 ---
 
@@ -272,7 +272,7 @@ Activity 的统一渲染组件，负责根据 Activity 类型自动查找配置�
 | -------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ---- |
 | activityType   | string                                                             | Activity 类型标识，默认 'a2ui-json-render'                                     | N    |
 | registry       | ComponentRegistry                                                  | 组件注册表，默认使用 a2uiRegistry（支持 valuePath/disabledPath 自动绑定）      | N    |
-| actionHandlers | Record<string, (params: Record<string, unknown>) => void \\| Promise<void>> | Action 处理器映射表                                                            | N    |
+| actionHandlers | `Record<string, (params: Record<string, unknown>) => void \| Promise<void>>` | Action 处理器映射表                                                            | N    |
 | debug          | boolean                                                            | 是否显示调试信息，默认 false                                                   | N    |
 | description    | string                                                             | Activity 描述信息                                                              | N    |
 
@@ -280,7 +280,7 @@ Activity 的统一渲染组件，负责根据 Activity 类型自动查找配置�
 
 | 类型              | 说明                                          |
 | ----------------- | --------------------------------------------- |
-| ActivityConfig<any> | Activity 配置对象，可传入 useAgentActivity 注册 |
+| `ActivityConfig<any>` | Activity 配置对象，可传入 useAgentActivity 注册 |
 
 ---
 
