@@ -32,6 +32,48 @@ describe('DateRangePicker', () => {
       expect((inputElement as HTMLInputElement).disabled).toBe(true);
     });
 
+    it('disabled array controls each side independently', () => {
+      const { container: startDisabled } = render(<DateRangePicker disabled={[true, false]} />);
+      const startInputs = startDisabled.querySelectorAll('input');
+      expect(startInputs[0]).toBeDisabled();
+      expect(startInputs[1]).not.toBeDisabled();
+      expect(startDisabled.querySelector('.t-range-input')).not.toHaveClass('t-is-disabled');
+
+      const { container: endDisabled } = render(<DateRangePicker disabled={[false, true]} />);
+      const endInputs = endDisabled.querySelectorAll('input');
+      expect(endInputs[0]).not.toBeDisabled();
+      expect(endInputs[1]).toBeDisabled();
+
+      const { container: bothDisabled } = render(<DateRangePicker disabled={[true, true]} />);
+      const bothInputs = bothDisabled.querySelectorAll('input');
+      expect(bothInputs[0]).toBeDisabled();
+      expect(bothInputs[1]).toBeDisabled();
+      expect(bothDisabled.querySelector('.t-range-input')).toHaveClass('t-is-disabled');
+    });
+
+    it('disabled array keeps the locked side and updates the editable side', () => {
+      const onChange = vi.fn();
+      const { container } = render(
+        <DateRangePicker disabled={[true, false]} defaultValue={['2022-08-01', '2022-08-10']} onChange={onChange} />,
+      );
+
+      act(() => {
+        fireEvent.mouseDown(container.querySelectorAll('input')[1]);
+        vi.runAllTimers();
+      });
+
+      const endCell = [...document.querySelectorAll('.t-date-picker__cell')].find(
+        (cell) => cell.textContent === '20' && !cell.className.includes('--additional'),
+      );
+      expect(endCell).toBeTruthy();
+      expect(endCell.classList.contains('t-date-picker__cell--disabled')).toBe(false);
+
+      fireEvent.click(endCell.querySelector('.t-date-picker__cell-inner'));
+      expect(onChange).toHaveBeenCalled();
+      expect(onChange.mock.calls[0][0][0]).toBe('2022-08-01');
+      expect(onChange.mock.calls[0][0][1]).toBe('2022-08-20');
+    });
+
     it('enableTimePicker', async () => {
       const { container } = render(<DateRangePicker enableTimePicker={true} />);
       act(() => {

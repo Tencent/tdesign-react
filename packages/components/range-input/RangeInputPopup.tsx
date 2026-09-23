@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { isArray } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
 import Popup from '../popup';
@@ -47,7 +48,7 @@ const RangeInputPopup = React.forwardRef<HTMLDivElement, RangeInputPopupProps>((
         placement="bottom-left"
         visible={popupVisible ?? innerPopupVisible}
         onVisibleChange={onInnerPopupVisibleChange}
-        disabled={disabled}
+        disabled={isArray(disabled) ? disabled.every(Boolean) : disabled}
         {...popupProps}
         overlayInnerStyle={tOverlayInnerStyle}
       >
