@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { fireEvent, render, vi } from '@test/utils';
+import { fireEvent, mockTimeout, render, vi } from '@test/utils';
 
 import Drawer from '../index';
+import { DrawerPlugin } from '../plugin';
 
 import type { DrawerProps } from '../index';
 
@@ -140,6 +141,33 @@ describe('Drawer', () => {
       expect(document.querySelector('.t-drawer--open')).toBeInTheDocument();
       fireEvent.click(document.querySelector('.t-drawer--open')?.children[0]);
       expect(document.querySelector('.t-drawer--open')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('instanceFunctions', () => {
+    test('onConfirm', async () => {
+      const calls: string[] = [];
+      const drawerNode = DrawerPlugin({
+        header: 'test',
+        onConfirm: () => {
+          calls.push('old');
+        },
+      });
+      await mockTimeout(() => true, 50);
+
+      drawerNode.update({
+        onConfirm: () => {
+          calls.push('new');
+        },
+      });
+      await mockTimeout(() => true, 50);
+
+      fireEvent.click(document.querySelector('.t-drawer__confirm'));
+
+      expect(calls).toEqual(['new']);
+
+      drawerNode.destroy();
+      await mockTimeout(() => expect(document.querySelector('.t-drawer--open')).not.toBeInTheDocument(), 500);
     });
   });
 });

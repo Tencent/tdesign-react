@@ -94,6 +94,42 @@ describe('Dialog', () => {
       expect(onConfirm).toHaveBeenCalled();
     });
 
+    test('onConfirm should always use the latest closure', async () => {
+      function ClosureDemo() {
+        const [visible, setVisible] = useState(true);
+        const [count, setCount] = useState(0);
+        const [captured, setCaptured] = useState<number | null>(null);
+
+        // 每次渲染都是一个新的函数引用，但源码字符串完全一致
+        const onConfirm = () => {
+          setCaptured(count);
+          setVisible(false);
+        };
+
+        return (
+          <>
+            <div onClick={() => setCount((c) => c + 1)}>Increment</div>
+            <div data-testid="captured">{captured}</div>
+            <Dialog header="Basic Modal" visible={visible} onClose={() => setVisible(false)} onConfirm={onConfirm}>
+              <p>This is a dialog</p>
+            </Dialog>
+          </>
+        );
+      }
+
+      const { getByText, getByTestId } = render(<ClosureDemo />);
+      expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
+
+      // 弹窗保持打开，多次改变闭包捕获的数据
+      fireEvent.click(getByText('Increment'));
+      fireEvent.click(getByText('Increment'));
+      fireEvent.click(getByText('Increment'));
+
+      fireEvent.click(document.querySelector('.t-dialog__confirm'));
+
+      expect(getByTestId('captured').textContent).toBe('3');
+    });
+
     test('DraggableDialog', () => {
       const { getByText } = render(<DialogDemo mode="modeless" draggable={true} />);
       fireEvent.click(getByText('Open Dialog Modal'));
