@@ -41022,6 +41022,298 @@ exports[`csr snapshot test > csr test packages/components/date-picker/_example/d
         </div>
       </div>
     </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-date-range-picker"
+      >
+        <div
+          class="t-range-input-popup t-range-input-popup"
+        >
+          <div
+            class="t-range-input t-is-default t-range-input--suffix"
+            value="2026-01-01,2026-01-10"
+          >
+            <div
+              class="t-range-input__inner"
+            >
+              <div
+                class="t-input__wrap t-range-input__inner-left"
+                spellcheck="false"
+                value="2026-01-01"
+              >
+                <div
+                  class="t-is-disabled t-input t-is-readonly t-is-disabled t-align-left"
+                >
+                  <input
+                    class="t-input__inner"
+                    disabled=""
+                    placeholder="禁用开始日期"
+                    readonly=""
+                    type="text"
+                    value="2026-01-01"
+                  />
+                </div>
+              </div>
+              <div
+                class="t-range-input__inner-separator"
+              >
+                 - 
+              </div>
+              <div
+                class="t-input__wrap t-range-input__inner-right"
+                spellcheck="false"
+                value="2026-01-10"
+              >
+                <div
+                  class="t-input t-is-readonly t-align-left"
+                >
+                  <input
+                    class="t-input__inner"
+                    placeholder="禁用开始日期"
+                    readonly=""
+                    type="text"
+                    value="2026-01-10"
+                  />
+                </div>
+              </div>
+              <span
+                class="t-range-input__suffix t-range-input__suffix-icon"
+              >
+                <svg
+                  class="t-icon t-icon-calendar"
+                  fill="none"
+                  height="1em"
+                  style="fill: none;"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                >
+                  <defs>
+                    <mask
+                      height="24"
+                      id="t-icon-calendar-instance-snapshot6-overlap-fill1"
+                      mask-type="luminance"
+                      maskContentUnits="userSpaceOnUse"
+                      maskUnits="userSpaceOnUse"
+                      width="24"
+                      x="0"
+                      y="0"
+                    >
+                      <rect
+                        fill="#fff"
+                        height="24"
+                        width="24"
+                        x="0"
+                        y="0"
+                      />
+                      <path
+                        d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5"
+                        fill="none"
+                        stroke="#000"
+                        stroke-width="2"
+                      />
+                    </mask>
+                    <mask
+                      height="24"
+                      id="t-icon-calendar-instance-snapshot6-overlap-fill2"
+                      mask-type="luminance"
+                      maskContentUnits="userSpaceOnUse"
+                      maskUnits="userSpaceOnUse"
+                      width="24"
+                      x="0"
+                      y="0"
+                    >
+                      <rect
+                        fill="#fff"
+                        height="24"
+                        width="24"
+                        x="0"
+                        y="0"
+                      />
+                      <path
+                        d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5"
+                        fill="none"
+                        stroke="#000"
+                        stroke-width="2"
+                      />
+                    </mask>
+                  </defs>
+                  <g
+                    id="calendar"
+                  >
+                    <path
+                      d="M21 10H3V21H21V10Z"
+                      fill="transparent"
+                      id="fill1"
+                      mask="url(#t-icon-calendar-instance-snapshot6-overlap-fill1)"
+                    />
+                    <path
+                      d="M21 10H3V5H21V10Z"
+                      fill="transparent"
+                      id="fill2"
+                      mask="url(#t-icon-calendar-instance-snapshot6-overlap-fill2)"
+                    />
+                    <path
+                      d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5"
+                      id="stroke1"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                  </g>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-date-range-picker"
+      >
+        <div
+          class="t-range-input-popup t-range-input-popup"
+        >
+          <div
+            class="t-range-input t-is-default t-range-input--suffix"
+            value="2026-01-01 00:00:00,2026-01-10 23:59:59"
+          >
+            <div
+              class="t-range-input__inner"
+            >
+              <div
+                class="t-input__wrap t-range-input__inner-left"
+                spellcheck="false"
+                value="2026-01-01 00:00:00"
+              >
+                <div
+                  class="t-input t-is-readonly t-align-left"
+                >
+                  <input
+                    class="t-input__inner"
+                    placeholder="禁用结束日期"
+                    readonly=""
+                    type="text"
+                    value="2026-01-01 00:00:00"
+                  />
+                </div>
+              </div>
+              <div
+                class="t-range-input__inner-separator"
+              >
+                 - 
+              </div>
+              <div
+                class="t-input__wrap t-range-input__inner-right"
+                spellcheck="false"
+                value="2026-01-10 23:59:59"
+              >
+                <div
+                  class="t-is-disabled t-input t-is-readonly t-is-disabled t-align-left"
+                >
+                  <input
+                    class="t-input__inner"
+                    disabled=""
+                    placeholder="禁用结束日期"
+                    readonly=""
+                    type="text"
+                    value="2026-01-10 23:59:59"
+                  />
+                </div>
+              </div>
+              <span
+                class="t-range-input__suffix t-range-input__suffix-icon"
+              >
+                <svg
+                  class="t-icon t-icon-calendar"
+                  fill="none"
+                  height="1em"
+                  style="fill: none;"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                >
+                  <defs>
+                    <mask
+                      height="24"
+                      id="t-icon-calendar-instance-snapshot7-overlap-fill1"
+                      mask-type="luminance"
+                      maskContentUnits="userSpaceOnUse"
+                      maskUnits="userSpaceOnUse"
+                      width="24"
+                      x="0"
+                      y="0"
+                    >
+                      <rect
+                        fill="#fff"
+                        height="24"
+                        width="24"
+                        x="0"
+                        y="0"
+                      />
+                      <path
+                        d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5"
+                        fill="none"
+                        stroke="#000"
+                        stroke-width="2"
+                      />
+                    </mask>
+                    <mask
+                      height="24"
+                      id="t-icon-calendar-instance-snapshot7-overlap-fill2"
+                      mask-type="luminance"
+                      maskContentUnits="userSpaceOnUse"
+                      maskUnits="userSpaceOnUse"
+                      width="24"
+                      x="0"
+                      y="0"
+                    >
+                      <rect
+                        fill="#fff"
+                        height="24"
+                        width="24"
+                        x="0"
+                        y="0"
+                      />
+                      <path
+                        d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5"
+                        fill="none"
+                        stroke="#000"
+                        stroke-width="2"
+                      />
+                    </mask>
+                  </defs>
+                  <g
+                    id="calendar"
+                  >
+                    <path
+                      d="M21 10H3V21H21V10Z"
+                      fill="transparent"
+                      id="fill1"
+                      mask="url(#t-icon-calendar-instance-snapshot7-overlap-fill1)"
+                    />
+                    <path
+                      d="M21 10H3V5H21V10Z"
+                      fill="transparent"
+                      id="fill2"
+                      mask="url(#t-icon-calendar-instance-snapshot7-overlap-fill2)"
+                    />
+                    <path
+                      d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5"
+                      id="stroke1"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                  </g>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;
@@ -170698,7 +170990,7 @@ exports[`ssr snapshot test > ssr test packages/components/date-picker/_example/d
 
 exports[`ssr snapshot test > ssr test packages/components/date-picker/_example/date-time.tsx 1`] = `"<div style="gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div class="t-date-picker"><div class="t-select-input"><div class="t-input__wrap" value="2022-02-02 12:11:11" spellcheck="false"><div class="t-input t-align-left t-input--suffix"><input placeholder="请选择日期" type="text" class="t-input__inner" autoComplete="off" value="2022-02-02 12:11:11"/><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R1il-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R1il-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R1il-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R1il-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div><div class="t-space-item"><div class="t-date-picker"><div class="t-select-input"><div class="t-input__wrap" value="2022-02-02 凌晨 12:11:11" spellcheck="false"><div class="t-input t-align-left t-input--suffix"><input placeholder="请选择日期" type="text" class="t-input__inner" autoComplete="off" value="2022-02-02 凌晨 12:11:11"/><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R1im-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R1im-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R1im-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R1im-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div></div>"`;
 
-exports[`ssr snapshot test > ssr test packages/components/date-picker/_example/disable-date.tsx 1`] = `"<div style="gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div class="t-date-picker"><div class="t-select-input t-select-input--empty"><div class="t-input__wrap" value="" spellcheck="false"><div class="t-input t-align-left t-input--suffix"><input placeholder="禁用昨天、前天" type="text" class="t-input__inner" readonly="" autoComplete="off" value=""/><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R359-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R359-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R359-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R359-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div><div class="t-space-item"><div class="t-date-picker"><div class="t-select-input t-select-input--empty"><div class="t-input__wrap" value="" spellcheck="false"><div class="t-input t-align-left t-input--suffix"><input placeholder="明后三天禁用" type="text" class="t-input__inner" readonly="" autoComplete="off" value=""/><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R35a-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R35a-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R35a-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R35a-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div><div class="t-space-item"><div class="t-date-picker"><div class="t-select-input t-select-input--empty"><div class="t-input__wrap" value="" spellcheck="false"><div class="t-input t-align-left t-input--suffix"><input placeholder="禁用所有周六" type="text" class="t-input__inner" readonly="" autoComplete="off" value=""/><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R35b-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R35b-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R35b-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R35b-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div><div class="t-space-item"><div class="t-date-picker"><div class="t-select-input t-select-input--empty"><div class="t-input__wrap" value="" spellcheck="false"><div class="t-input t-align-left t-input--suffix"><input placeholder="禁用最近 3 天外的日期" type="text" class="t-input__inner" readonly="" autoComplete="off" value=""/><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R35c-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R35c-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R35c-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R35c-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div><div class="t-space-item"><div class="t-date-picker"><div class="t-select-input t-select-input--empty"><div class="t-input__wrap" value="" spellcheck="false"><div class="t-input t-align-left t-input--suffix"><input placeholder="禁用日期精确到时间" type="text" class="t-input__inner" readonly="" autoComplete="off" value=""/><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R35d-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R35d-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R35d-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R35d-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div><div class="t-space-item"><div class="t-date-range-picker"><div class="t-range-input-popup t-range-input-popup"><div class="t-range-input t-is-default t-range-input--suffix" value=""><div class="t-range-input__inner"><div class="t-input__wrap t-range-input__inner-left" spellcheck="false"><div class="t-input t-is-readonly t-align-left"><input placeholder="禁用最近 5 天外的日期" type="text" class="t-input__inner" readonly="" value=""/></div></div><div class="t-range-input__inner-separator"> - </div><div class="t-input__wrap t-range-input__inner-right" spellcheck="false"><div class="t-input t-is-readonly t-align-left"><input placeholder="禁用最近 5 天外的日期" type="text" class="t-input__inner" readonly="" value=""/></div></div><span class="t-range-input__suffix t-range-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R3le-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R3le-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R3le-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R3le-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div></div>"`;
+exports[`ssr snapshot test > ssr test packages/components/date-picker/_example/disable-date.tsx 1`] = `"<div style="gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div class="t-date-picker"><div class="t-select-input t-select-input--empty"><div class="t-input__wrap" value="" spellcheck="false"><div class="t-input t-align-left t-input--suffix"><input placeholder="禁用昨天、前天" type="text" class="t-input__inner" readonly="" autoComplete="off" value=""/><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R6ah-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R6ah-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R6ah-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R6ah-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div><div class="t-space-item"><div class="t-date-picker"><div class="t-select-input t-select-input--empty"><div class="t-input__wrap" value="" spellcheck="false"><div class="t-input t-align-left t-input--suffix"><input placeholder="明后三天禁用" type="text" class="t-input__inner" readonly="" autoComplete="off" value=""/><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R6ai-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R6ai-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R6ai-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R6ai-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div><div class="t-space-item"><div class="t-date-picker"><div class="t-select-input t-select-input--empty"><div class="t-input__wrap" value="" spellcheck="false"><div class="t-input t-align-left t-input--suffix"><input placeholder="禁用所有周六" type="text" class="t-input__inner" readonly="" autoComplete="off" value=""/><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R6aj-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R6aj-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R6aj-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R6aj-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div><div class="t-space-item"><div class="t-date-picker"><div class="t-select-input t-select-input--empty"><div class="t-input__wrap" value="" spellcheck="false"><div class="t-input t-align-left t-input--suffix"><input placeholder="禁用最近 3 天外的日期" type="text" class="t-input__inner" readonly="" autoComplete="off" value=""/><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R6ak-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R6ak-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R6ak-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R6ak-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div><div class="t-space-item"><div class="t-date-picker"><div class="t-select-input t-select-input--empty"><div class="t-input__wrap" value="" spellcheck="false"><div class="t-input t-align-left t-input--suffix"><input placeholder="禁用日期精确到时间" type="text" class="t-input__inner" readonly="" autoComplete="off" value=""/><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R6al-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R6al-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R6al-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R6al-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div><div class="t-space-item"><div class="t-date-range-picker"><div class="t-range-input-popup t-range-input-popup"><div class="t-range-input t-is-default t-range-input--suffix" value=""><div class="t-range-input__inner"><div class="t-input__wrap t-range-input__inner-left" spellcheck="false"><div class="t-input t-is-readonly t-align-left"><input placeholder="禁用最近 5 天外的日期" type="text" class="t-input__inner" readonly="" value=""/></div></div><div class="t-range-input__inner-separator"> - </div><div class="t-input__wrap t-range-input__inner-right" spellcheck="false"><div class="t-input t-is-readonly t-align-left"><input placeholder="禁用最近 5 天外的日期" type="text" class="t-input__inner" readonly="" value=""/></div></div><span class="t-range-input__suffix t-range-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R7am-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R7am-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R7am-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R7am-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div><div class="t-space-item"><div class="t-date-range-picker"><div class="t-range-input-popup t-range-input-popup"><div class="t-range-input t-is-default t-range-input--suffix" value="2026-01-01,2026-01-10"><div class="t-range-input__inner"><div class="t-input__wrap t-range-input__inner-left" value="2026-01-01" spellcheck="false"><div class="t-is-disabled t-input t-is-readonly t-is-disabled t-align-left"><input placeholder="禁用开始日期" type="text" class="t-input__inner" readonly="" disabled="" value="2026-01-01"/></div></div><div class="t-range-input__inner-separator"> - </div><div class="t-input__wrap t-range-input__inner-right" value="2026-01-10" spellcheck="false"><div class="t-input t-is-readonly t-align-left"><input placeholder="禁用开始日期" type="text" class="t-input__inner" readonly="" value="2026-01-10"/></div></div><span class="t-range-input__suffix t-range-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R7an-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R7an-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R7an-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R7an-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div><div class="t-space-item"><div class="t-date-range-picker"><div class="t-range-input-popup t-range-input-popup"><div class="t-range-input t-is-default t-range-input--suffix" value="2026-01-01 00:00:00,2026-01-10 23:59:59"><div class="t-range-input__inner"><div class="t-input__wrap t-range-input__inner-left" value="2026-01-01 00:00:00" spellcheck="false"><div class="t-input t-is-readonly t-align-left"><input placeholder="禁用结束日期" type="text" class="t-input__inner" readonly="" value="2026-01-01 00:00:00"/></div></div><div class="t-range-input__inner-separator"> - </div><div class="t-input__wrap t-range-input__inner-right" value="2026-01-10 23:59:59" spellcheck="false"><div class="t-is-disabled t-input t-is-readonly t-is-disabled t-align-left"><input placeholder="禁用结束日期" type="text" class="t-input__inner" readonly="" disabled="" value="2026-01-10 23:59:59"/></div></div><span class="t-range-input__suffix t-range-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R7ao-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R7ao-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R7ao-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R7ao-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div></div>"`;
 
 exports[`ssr snapshot test > ssr test packages/components/date-picker/_example/first-day-of-week.tsx 1`] = `"<div style="gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div class="t-radio-group t-size-m t-radio-group--filled"><label tabindex="0" class="t-radio-button t-is-checked" checked=""><input type="radio" class="t-radio-button__former" tabindex="-1" data-value="1" checked="" value="1"/><span class="t-radio-button__input"></span><span class="t-radio-button__label">1</span></label><label tabindex="0" class="t-radio-button"><input type="radio" class="t-radio-button__former" tabindex="-1" data-value="2" value="2"/><span class="t-radio-button__input"></span><span class="t-radio-button__label">2</span></label><label tabindex="0" class="t-radio-button"><input type="radio" class="t-radio-button__former" tabindex="-1" data-value="3" value="3"/><span class="t-radio-button__input"></span><span class="t-radio-button__label">3</span></label><label tabindex="0" class="t-radio-button"><input type="radio" class="t-radio-button__former" tabindex="-1" data-value="4" value="4"/><span class="t-radio-button__input"></span><span class="t-radio-button__label">4</span></label><label tabindex="0" class="t-radio-button"><input type="radio" class="t-radio-button__former" tabindex="-1" data-value="5" value="5"/><span class="t-radio-button__input"></span><span class="t-radio-button__label">5</span></label><label tabindex="0" class="t-radio-button"><input type="radio" class="t-radio-button__former" tabindex="-1" data-value="6" value="6"/><span class="t-radio-button__input"></span><span class="t-radio-button__label">6</span></label><label tabindex="0" class="t-radio-button"><input type="radio" class="t-radio-button__former" tabindex="-1" data-value="7" value="7"/><span class="t-radio-button__input"></span><span class="t-radio-button__label">7</span></label></div></div><div class="t-space-item"><div class="t-date-picker"><div class="t-select-input t-select-input--empty"><div class="t-input__wrap" value="" spellcheck="false"><div class="t-input t-align-left t-input--suffix"><input placeholder="请选择日期" type="text" class="t-input__inner" readonly="" autoComplete="off" value=""/><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R1im-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R1im-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R1im-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R1im-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div></div>"`;
 
