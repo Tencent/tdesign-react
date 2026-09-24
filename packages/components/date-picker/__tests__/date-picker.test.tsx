@@ -1,7 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import { BrowseIcon, LockOnIcon } from 'tdesign-icons-react';
-import { fireEvent, render, vi, waitFor } from '@test/utils';
+import { fireEvent, mockResizeObserver, render, vi, waitFor } from '@test/utils';
 
 import DatePicker from '..';
 
@@ -20,6 +20,7 @@ describe('DatePicker', () => {
   beforeEach(() => {
     const mockDate = new Date(2022, 7, 27);
     vi.setSystemTime(mockDate);
+    mockResizeObserver();
   });
 
   afterEach(() => {

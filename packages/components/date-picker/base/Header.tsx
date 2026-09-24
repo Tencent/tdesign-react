@@ -1,12 +1,14 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 
 import useConfig from '../../hooks/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { PaginationMini } from '../../pagination';
 import Select from '../../select';
 import { useSelectRange } from '../hooks/useSelectRange';
+import useYearScroll from '../hooks/useYearScroll';
 
 import type { TdPaginationMiniProps } from '../../pagination';
+import type { YearLoadDirection } from '../hooks/useYearScroll';
 import type { SinglePanelProps } from '../panel/SinglePanel';
 import type { TdDatePickerProps } from '../type';
 
@@ -43,7 +45,6 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
 
   const { now, months, preMonth, preYear, nextMonth, nextYear, preDecade, nextDecade } = useDatePickerLocalConfig();
 
-  const scrollAnchorRef = useRef('default');
   const {
     paginationDisabled,
     monthHasAnyAllowed,
@@ -58,6 +59,13 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
     month,
   });
 
+  const scrollState = useYearScroll();
+
+  const resetAnchor = useCallback(() => {
+    scrollState.anchor = null;
+    scrollState.delta = 0;
+  }, [scrollState]);
+
   const initOptions = useCallback(
     (year: number) => {
       const options = [];
@@ -70,7 +78,11 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
           const end = i + 9;
           // 仅加入可选的年代
           if (decadeHasAnyAllowed(end)) {
-            options.push({ label: `${i} - ${end}`, value: i + 9, disabled: false });
+            options.push({
+              label: `${i} - ${end}`,
+              value: i + 9,
+              disabled: false,
+            });
           }
         }
       } else {
@@ -78,8 +90,18 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
         yearHasAnyAllowed(year) && options.push({ label: `${year}`, value: year, disabled: false });
 
         for (let i = 1; i <= 10; i++) {
-          yearHasAnyAllowed(year + i) && options.push({ label: `${year + i}`, value: year + i, disabled: false });
-          yearHasAnyAllowed(year - i) && options.unshift({ label: `${year - i}`, value: year - i, disabled: false });
+          yearHasAnyAllowed(year + i) &&
+            options.push({
+              label: `${year + i}`,
+              value: year + i,
+              disabled: false,
+            });
+          yearHasAnyAllowed(year - i) &&
+            options.unshift({
+              label: `${year - i}`,
+              value: year - i,
+              disabled: false,
+            });
         }
       }
 
@@ -107,15 +129,14 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
     disabled: !monthHasAnyAllowed(year, index),
   }));
 
-  // 顶部/底部是否展示“加载更多”内容（...）
-  const showPanelTop = useMemo(() => {
+  const canLoadTop = useMemo(() => {
     const options = yearOptions;
     if (!options.length) return false;
     const first = options[0].value;
     return canLoadMoreTop(first);
   }, [canLoadMoreTop, yearOptions]);
 
-  const showPanelBottom = useMemo(() => {
+  const canLoadBottom = useMemo(() => {
     const options = yearOptions;
     if (!options.length) return false;
     const last = options[options.length - 1].value;
@@ -134,7 +155,12 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
         }
       } else {
         for (let i = year - extraYear - 1; i > year - extraYear - 50; i -= 10) {
-          decadeHasAnyAllowed(i) && options.unshift({ label: `${i - 9} - ${i}`, value: i, disabled: false });
+          decadeHasAnyAllowed(i) &&
+            options.unshift({
+              label: `${i - 9} - ${i}`,
+              value: i,
+              disabled: false,
+            });
         }
       }
     } else if (type === 'add') {
@@ -172,65 +198,88 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
   const headerClassName = `${classPrefix}-date-picker__header`;
   const showMonthPicker = mode === 'date' || mode === 'week';
 
-  function handlePanelTopClick(e?: React.MouseEvent) {
-    e?.stopPropagation?.();
-    e?.nativeEvent?.stopImmediatePropagation?.();
+  function loadMore(direction: YearLoadDirection) {
+    // anchor 非空表示本次加载尚未完成，避免连续滚动重复触发
+    if (scrollState.anchor) return;
+    if (direction === 'top' ? !canLoadTop : !canLoadBottom) return;
 
-    const firstYear = yearOptions[0].value;
-    const options = loadMoreYear(firstYear, 'reduce');
-    setYearOptions([...options, ...yearOptions]);
+    const edgeYear = direction === 'top' ? yearOptions[0]?.value : yearOptions[yearOptions.length - 1]?.value;
+    const options = loadMoreYear(edgeYear, direction === 'top' ? 'reduce' : 'add');
+    if (!options.length) return;
+
+    // 用容器高度差补偿 scrollTop
+    scrollState.anchor = {
+      direction,
+      scrollHeight: scrollState.el?.scrollHeight ?? 0,
+      scrollTop: scrollState.el?.scrollTop ?? 0,
+    };
+    setYearOptions((prev) => (direction === 'top' ? [...options, ...prev] : [...prev, ...options]));
+  }
+  scrollState.loadMore = loadMore;
+
+  function bindWheel(target?: HTMLElement | null) {
+    // 同一滚动节点只绑一次
+    if (!target || scrollState.el === target) return;
+    scrollState.el?.removeEventListener('wheel', scrollState.onWheel);
+    scrollState.el = target;
+    target.addEventListener('wheel', scrollState.onWheel, { passive: true });
   }
 
-  function handlePanelBottomClick(e?: React.MouseEvent) {
-    e?.stopPropagation?.();
-    e?.nativeEvent?.stopImmediatePropagation();
-
-    const lastYear = yearOptions.slice(-1)[0].value;
-    const options = loadMoreYear(lastYear, 'add');
-    setYearOptions([...yearOptions, ...options]);
-  }
-
-  // 滚动顶部底部自动加载
-  function handleScroll({ e }) {
-    if (e.target.scrollTop === 0) {
-      showPanelTop && handlePanelTopClick();
-      scrollAnchorRef.current = 'top';
-    } else if (e.target.scrollTop === e.target.scrollHeight - e.target.clientHeight) {
-      showPanelBottom && handlePanelBottomClick();
-      scrollAnchorRef.current = 'bottom';
+  function handleScroll({ e }: { e: { target: EventTarget } }) {
+    const target = e.target as HTMLElement;
+    bindWheel(target);
+    if (Math.abs(target.scrollHeight - target.clientHeight - target.scrollTop) <= 1) {
+      loadMore('bottom');
     }
   }
 
   function handleUpdateScrollTop(content: HTMLElement) {
-    if (scrollAnchorRef.current === 'top') {
-      // eslint-disable-next-line no-param-reassign
-      content.scrollTop = 30 * 10;
-    } else if (scrollAnchorRef.current === 'bottom') {
-      // eslint-disable-next-line no-param-reassign
-      content.scrollTop = content.scrollHeight - 30 * 10;
-    } else {
-      const firstSelectedNode: HTMLDivElement = content?.querySelector(`.${classPrefix}-is-selected`);
-
-      if (firstSelectedNode) {
-        const { paddingBottom } = getComputedStyle(firstSelectedNode);
-        const { marginBottom } = getComputedStyle(content);
-        const elementBottomHeight = parseInt(paddingBottom, 10) + parseInt(marginBottom, 10);
-        // 小于0时不需要特殊处理，会被设为0
-        const updateValue =
-          firstSelectedNode.offsetTop -
-          content.offsetTop -
-          (content.clientHeight - firstSelectedNode.clientHeight) +
-          elementBottomHeight;
-        // eslint-disable-next-line no-param-reassign
-        content.scrollTop = updateValue;
-      }
-    }
+    // 首次打开弹层时，将选中项滚动到可视区域
+    const firstSelectedNode: HTMLDivElement = content?.querySelector(`.${classPrefix}-is-selected`);
+    if (!firstSelectedNode) return;
+    const { paddingBottom } = getComputedStyle(firstSelectedNode);
+    const { marginBottom } = getComputedStyle(content);
+    const elementBottomHeight = parseInt(paddingBottom, 10) + parseInt(marginBottom, 10);
+    const updateValue =
+      firstSelectedNode.offsetTop -
+      content.offsetTop -
+      (content.clientHeight - firstSelectedNode.clientHeight) +
+      elementBottomHeight;
+    content.scrollTop = updateValue;
   }
 
   useEffect(() => {
-    const yearRange = initOptions(year);
-    setYearOptions(yearRange);
-  }, [initOptions, year]);
+    resetAnchor();
+    setYearOptions(initOptions(year));
+  }, [initOptions, resetAnchor, year]);
+
+  useEffect(
+    () => () => {
+      scrollState.el?.removeEventListener('wheel', scrollState.onWheel);
+    },
+    [scrollState],
+  );
+
+  useLayoutEffect(() => {
+    const { el, anchor } = scrollState;
+    if (!anchor) return;
+    if (!el) {
+      resetAnchor();
+      return;
+    }
+
+    /* Select 通过 Portal 渲染，useLayoutEffect 触发时列表 DOM 尚未更新，scrollHeight 仍是旧值。
+       等待内容尺寸变化后再按高度差补偿。 */
+    const { direction, scrollHeight, scrollTop } = anchor;
+    const ro = new ResizeObserver(() => {
+      if (el.scrollHeight <= scrollHeight) return;
+      el.scrollTop = direction === 'top' ? scrollTop + el.scrollHeight - scrollHeight : scrollTop;
+      resetAnchor();
+      ro.disconnect();
+    });
+    ro.observe(el.firstElementChild || el);
+    return () => ro.disconnect();
+  }, [resetAnchor, scrollState, yearOptions]);
 
   return (
     <div className={headerClassName}>
@@ -251,34 +300,24 @@ const DatePickerHeader = (props: DatePickerHeaderProps) => {
           className={`${headerClassName}-controller-year`}
           value={mode === 'year' ? nearestYear : year}
           options={yearOptions}
+          keyboardCircular={false}
+          onKeyboardReachTop={() => loadMore('top')}
+          onKeyboardReachBottom={() => loadMore('bottom')}
           onChange={(val) => onYearChange(val)}
           onPopupVisibleChange={(visible) => {
-            if (!visible) scrollAnchorRef.current = 'default';
+            if (!visible) resetAnchor();
           }}
           popupProps={{
             onScroll: handleScroll,
             updateScrollTop: (el) => {
-              setTimeout(() => {
-                handleUpdateScrollTop(el);
-              }, 0);
+              // 真正滚动的是外层 .popup__content，scrollTop 写在内层不会生效
+              const scrollEl = (el?.closest(`.${classPrefix}-popup__content`) as HTMLElement) || el;
+              bindWheel(scrollEl);
+              setTimeout(() => handleUpdateScrollTop(scrollEl), 0);
             },
             attach: (triggerElement: HTMLElement) => triggerElement.parentNode as HTMLElement,
             overlayClassName: `${headerClassName}-controller-year-popup`,
           }}
-          panelTopContent={
-            showPanelTop && (
-              <div className={`${classPrefix}-select-option`} onClick={handlePanelTopClick}>
-                ...
-              </div>
-            )
-          }
-          panelBottomContent={
-            showPanelBottom && (
-              <div className={`${classPrefix}-select-option`} onClick={handlePanelBottomClick}>
-                ...
-              </div>
-            )
-          }
         />
       </div>
 
