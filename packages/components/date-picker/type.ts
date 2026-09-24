@@ -247,9 +247,9 @@ export interface TdDateRangePickerProps {
     context: { partial: DateRangePickerPartial },
   ) => Partial<{ hour: Array<number>; minute: Array<number>; second: Array<number> }>;
   /**
-   * 是否禁用组件
+   * 是否禁用组件，值为数组时分别控制开始日期和结束日期。示例：`[true, false]` 表示开始日期禁用、结束日期可选
    */
-  disabled?: boolean;
+  disabled?: boolean | Array<boolean>;
   /**
    * 是否显示时间选择, 默认不展示，设置为 true 时，默认模式为 parallel ，与日期面板并列展示，可以通过配置 mode 为 switch 调整展示方式
    * @default false
