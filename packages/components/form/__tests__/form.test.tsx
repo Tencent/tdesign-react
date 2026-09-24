@@ -17,6 +17,268 @@ describe('Form', () => {
   const submitFn = vi.fn();
   const resetFn = vi.fn();
 
+  describe('props', () => {
+    test('resetType', async () => {
+      const initialVal = 'test input';
+
+      const TestForm = () => {
+        const [resetType, setResetType] = useState<TdFormProps['resetType']>('initial');
+        return (
+          <div>
+            <div>
+              <Button onClick={() => setResetType('empty')}>reset-empty</Button>
+              <Button onClick={() => setResetType('initial')}>reset-initial</Button>
+            </div>
+            <Form resetType={resetType}>
+              <FormItem initialData={initialVal} name="input1">
+                <Input placeholder="input1" />
+              </FormItem>
+              <FormItem>
+                <Button type="reset">reset</Button>
+              </FormItem>
+            </Form>
+          </div>
+        );
+      };
+
+      const { getByPlaceholderText, getByText } = render(<TestForm />);
+      expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual(initialVal);
+
+      const inputThenReset = () => {
+        fireEvent.change(getByPlaceholderText('input1'), {
+          target: { value: 'value1' },
+        });
+        expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual('value1');
+        fireEvent.click(getByText('reset'));
+      };
+
+      // test initial value
+      inputThenReset();
+      expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual(initialVal);
+
+      // test empty value
+      fireEvent.click(getByText('reset-empty'));
+      inputThenReset();
+      expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual('');
+    });
+
+    test('name: can be array', () => {
+      const mockName = 'name';
+      const mockBirtyday = '1996-01-24';
+      const TestForm = () => {
+        return (
+          <Form
+            initialData={{
+              user: {
+                name: mockName,
+              },
+              birthday: mockBirtyday,
+            }}
+          >
+            <FormItem label="姓名" name={['user', 'name']}>
+              <Input placeholder="name" />
+            </FormItem>
+            <FormItem label="生日" name="birthday">
+              <Input placeholder="birthday" />
+            </FormItem>
+          </Form>
+        );
+      };
+
+      const { getByPlaceholderText } = render(<TestForm />);
+      expect((getByPlaceholderText('name') as HTMLInputElement).value).toBe(mockName);
+      expect((getByPlaceholderText('birthday') as HTMLInputElement).value).toBe(mockBirtyday);
+    });
+
+    test('rules: nested name', async () => {
+      const TestForm = () => {
+        return (
+          <Form
+            rules={{
+              'user.name': [{ required: true, message: 'username is required' }],
+              account: [{ required: true, message: 'account is required' }],
+            }}
+          >
+            <FormItem name={['user', 'name']}>
+              <Input placeholder="username" />
+            </FormItem>
+            <FormItem name="account">
+              <Input placeholder="account" />
+            </FormItem>
+
+            <FormItem>
+              <Button type="submit">提交</Button>
+            </FormItem>
+          </Form>
+        );
+      };
+      const { container, getByText } = render(<TestForm />);
+      fireEvent.click(getByText('提交'));
+      await mockDelay();
+      expect(container.querySelectorAll('.t-form--has-error').length).toBe(2);
+    });
+
+    describe('statusIcon', () => {
+      test('FormItem without icon works fine', async () => {
+        const TestForm = () => {
+          return (
+            <Form statusIcon={false}>
+              <FormItem name="username" rules={[{ required: true, message: '请输入用户名' }]}>
+                <Input placeholder="username" />
+              </FormItem>
+              <FormItem>
+                <Button type="submit">submit</Button>
+              </FormItem>
+            </Form>
+          );
+        };
+
+        const { container, getByText } = render(<TestForm />);
+        fireEvent.click(getByText('submit'));
+        await mockDelay();
+        expect(container.querySelector('.t-form__status')).toBeNull();
+      });
+      test('FormItem preset icon works fine', async () => {
+        const TestForm = () => {
+          return (
+            <Form statusIcon>
+              <FormItem
+                initialData="mock username"
+                className="username"
+                name="username"
+                rules={[{ required: true, message: '请输入用户名' }]}
+              >
+                <Input placeholder="username" />
+              </FormItem>
+              <FormItem
+                className="email"
+                name="email"
+                rules={[
+                  {
+                    required: true,
+                    message: '格式必须为邮箱',
+                    type: 'warning',
+                  },
+                ]}
+              >
+                <Input placeholder="email" />
+              </FormItem>
+              <FormItem
+                className="phone"
+                name="phone"
+                rules={[{ required: true, message: '请输入手机号码', type: 'error' }]}
+              >
+                <Input placeholder="phone" />
+              </FormItem>
+              <FormItem
+                className="help"
+                name="help"
+                statusIcon={<HelpCircleIcon name="help-circle" size="25px" />}
+                rules={[{ required: true, message: '请输入帮助' }]}
+              >
+                <Input />
+              </FormItem>
+              <FormItem>
+                <Button type="submit">submit</Button>
+              </FormItem>
+            </Form>
+          );
+        };
+
+        const { container, getByText } = render(<TestForm />);
+        expect(container.querySelector('.help .t-icon-help-circle')).toBeTruthy();
+        fireEvent.click(getByText('submit'));
+        await mockDelay();
+        expect(container.querySelector('.username .t-icon-check-circle-filled')).toBeTruthy();
+        expect(container.querySelector('.email .t-icon-error-circle-filled')).toBeTruthy();
+        expect(container.querySelector('.phone .t-icon-close-circle-filled')).toBeTruthy();
+        expect(container.querySelector('.help .t-icon-help-circle')).toBeTruthy();
+      });
+    });
+
+    describe('supportNumberKey', () => {
+      test('true: numeric name key treated as object key by default', () => {
+        const TestForm = () => {
+          const [form] = Form.useForm();
+          return (
+            <Form form={form} initialData={{ task: { 0: 'review' } }}>
+              <FormItem name={['task', 0]}>
+                <Input placeholder="task-0" />
+              </FormItem>
+              <FormItem>
+                <Button
+                  onClick={() => {
+                    const values = form.getFieldsValue(true);
+                    document
+                      .getElementById('support-number-key-values')
+                      ?.setAttribute('data-result', JSON.stringify(values));
+                  }}
+                >
+                  getFormValues
+                </Button>
+              </FormItem>
+              <div id="support-number-key-values" data-result="" />
+            </Form>
+          );
+        };
+
+        const { getByText, container, getByPlaceholderText } = render(<TestForm />);
+        const getFormValues = () => {
+          fireEvent.click(getByText('getFormValues'));
+          return JSON.parse(container.querySelector('#support-number-key-values')?.getAttribute('data-result') || '{}');
+        };
+
+        expect((getByPlaceholderText('task-0') as HTMLInputElement).value).toBe('review');
+
+        const values = getFormValues();
+        expect(Array.isArray(values.task)).toBe(false);
+        expect(values.task['0']).toBe('review');
+        expect(values).toEqual({ task: { 0: 'review' } });
+      });
+
+      test('false: numeric name key treated as array index', () => {
+        const TestForm = () => {
+          const [form] = Form.useForm();
+          return (
+            <Form form={form} supportNumberKey={false} initialData={{ task: ['review'] }}>
+              <FormItem name={['task', 0]}>
+                <Input placeholder="task-0" />
+              </FormItem>
+              <FormItem>
+                <Button
+                  onClick={() => {
+                    const values = form.getFieldsValue(true);
+                    document
+                      .getElementById('support-number-key-false-values')
+                      ?.setAttribute('data-result', JSON.stringify(values));
+                  }}
+                >
+                  getFormValues
+                </Button>
+              </FormItem>
+              <div id="support-number-key-false-values" data-result="" />
+            </Form>
+          );
+        };
+
+        const { getByText, container, getByPlaceholderText } = render(<TestForm />);
+        const getFormValues = () => {
+          fireEvent.click(getByText('getFormValues'));
+          return JSON.parse(
+            container.querySelector('#support-number-key-false-values')?.getAttribute('data-result') || '{}',
+          );
+        };
+
+        expect((getByPlaceholderText('task-0') as HTMLInputElement).value).toBe('review');
+
+        const values = getFormValues();
+        expect(Array.isArray(values.task)).toBe(true);
+        expect(values.task[0]).toBe('review');
+        expect(values).toEqual({ task: ['review'] });
+      });
+    });
+  });
+
   describe('events', () => {
     test('reset & submit', async () => {
       const { container } = render(
@@ -204,55 +466,7 @@ describe('Form', () => {
       expect((getByPlaceholderText('birthday') as HTMLInputElement).value).toBe(mockBirthday1);
       expect((getByPlaceholderText('area') as HTMLInputElement).value).toBe(mockArea1);
     });
-  });
 
-  describe('props', () => {
-    test('Form.reset works fine', async () => {
-      const initialVal = 'test input';
-
-      const TestForm = () => {
-        const [resetType, setResetType] = useState<TdFormProps['resetType']>('initial');
-        return (
-          <div>
-            <div>
-              <Button onClick={() => setResetType('empty')}>reset-empty</Button>
-              <Button onClick={() => setResetType('initial')}>reset-initial</Button>
-            </div>
-            <Form resetType={resetType}>
-              <FormItem initialData={initialVal} name="input1">
-                <Input placeholder="input1" />
-              </FormItem>
-              <FormItem>
-                <Button type="reset">reset</Button>
-              </FormItem>
-            </Form>
-          </div>
-        );
-      };
-
-      const { getByPlaceholderText, getByText } = render(<TestForm />);
-      expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual(initialVal);
-
-      const inputThenReset = () => {
-        fireEvent.change(getByPlaceholderText('input1'), {
-          target: { value: 'value1' },
-        });
-        expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual('value1');
-        fireEvent.click(getByText('reset'));
-      };
-
-      // test initial value
-      inputThenReset();
-      expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual(initialVal);
-
-      // test empty value
-      fireEvent.click(getByText('reset-empty'));
-      inputThenReset();
-      expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual('');
-    });
-  });
-
-  describe('instanceFunctions', () => {
     test('Form.setValidateMessage works fine', () => {
       const TestForm = () => {
         const [form] = Form.useForm();
@@ -445,111 +659,7 @@ describe('Form', () => {
       await mockDelay();
       expect(container.querySelector('.t-input__extra')).toBeNull();
     });
-  });
 
-  describe('props', () => {
-    test('FormItem without icon works fine', async () => {
-      const TestForm = () => {
-        return (
-          <Form statusIcon={false}>
-            <FormItem name="username" rules={[{ required: true, message: '请输入用户名' }]}>
-              <Input placeholder="username" />
-            </FormItem>
-            <FormItem>
-              <Button type="submit">submit</Button>
-            </FormItem>
-          </Form>
-        );
-      };
-
-      const { container, getByText } = render(<TestForm />);
-      fireEvent.click(getByText('submit'));
-      await mockDelay();
-      expect(container.querySelector('.t-form__status')).toBeNull();
-    });
-    test('FormItem preset icon works fine', async () => {
-      const TestForm = () => {
-        return (
-          <Form statusIcon>
-            <FormItem
-              initialData="mock username"
-              className="username"
-              name="username"
-              rules={[{ required: true, message: '请输入用户名' }]}
-            >
-              <Input placeholder="username" />
-            </FormItem>
-            <FormItem
-              className="email"
-              name="email"
-              rules={[{ required: true, message: '格式必须为邮箱', type: 'warning' }]}
-            >
-              <Input placeholder="email" />
-            </FormItem>
-            <FormItem
-              className="phone"
-              name="phone"
-              rules={[{ required: true, message: '请输入手机号码', type: 'error' }]}
-            >
-              <Input placeholder="phone" />
-            </FormItem>
-            <FormItem
-              className="help"
-              name="help"
-              statusIcon={<HelpCircleIcon name="help-circle" size="25px" />}
-              rules={[{ required: true, message: '请输入帮助' }]}
-            >
-              <Input />
-            </FormItem>
-            <FormItem>
-              <Button type="submit">submit</Button>
-            </FormItem>
-          </Form>
-        );
-      };
-
-      const { container, getByText } = render(<TestForm />);
-      expect(container.querySelector('.help .t-icon-help-circle')).toBeTruthy();
-      fireEvent.click(getByText('submit'));
-      await mockDelay();
-      expect(container.querySelector('.username .t-icon-check-circle-filled')).toBeTruthy();
-      expect(container.querySelector('.email .t-icon-error-circle-filled')).toBeTruthy();
-      expect(container.querySelector('.phone .t-icon-close-circle-filled')).toBeTruthy();
-      expect(container.querySelector('.help .t-icon-help-circle')).toBeTruthy();
-    });
-  });
-
-  describe('props', () => {
-    test('FormItem.props.name can be array', () => {
-      const mockName = 'name';
-      const mockBirtyday = '1996-01-24';
-      const TestForm = () => {
-        return (
-          <Form
-            initialData={{
-              user: {
-                name: mockName,
-              },
-              birthday: mockBirtyday,
-            }}
-          >
-            <FormItem label="姓名" name={['user', 'name']}>
-              <Input placeholder="name" />
-            </FormItem>
-            <FormItem label="生日" name="birthday">
-              <Input placeholder="birthday" />
-            </FormItem>
-          </Form>
-        );
-      };
-
-      const { getByPlaceholderText } = render(<TestForm />);
-      expect((getByPlaceholderText('name') as HTMLInputElement).value).toBe(mockName);
-      expect((getByPlaceholderText('birthday') as HTMLInputElement).value).toBe(mockBirtyday);
-    });
-  });
-
-  describe('scenarios', () => {
     test('FormItem blur validate works fine', async () => {
       const TestForm = () => {
         return (
@@ -574,39 +684,7 @@ describe('Form', () => {
       await mockDelay();
       expect(container.querySelector('.t-input__extra').innerHTML).toBe('please input username');
     });
-  });
 
-  describe('props', () => {
-    test('FormItem rules nested name', async () => {
-      const TestForm = () => {
-        return (
-          <Form
-            rules={{
-              'user.name': [{ required: true, message: 'username is required' }],
-              account: [{ required: true, message: 'account is required' }],
-            }}
-          >
-            <FormItem name={['user', 'name']}>
-              <Input placeholder="username" />
-            </FormItem>
-            <FormItem name="account">
-              <Input placeholder="account" />
-            </FormItem>
-
-            <FormItem>
-              <Button type="submit">提交</Button>
-            </FormItem>
-          </Form>
-        );
-      };
-      const { container, getByText } = render(<TestForm />);
-      fireEvent.click(getByText('提交'));
-      await mockDelay();
-      expect(container.querySelectorAll('.t-form--has-error').length).toBe(2);
-    });
-  });
-
-  describe('scenarios', () => {
     test('FormItem rules min max', async () => {
       const TestForm = () => {
         const initialValues = {
@@ -669,7 +747,7 @@ describe('Form', () => {
       });
     });
 
-    test('动态渲染并初始赋值', () => {
+    test('setFieldsValue initializes dynamically rendered FormItem', () => {
       const TestForm = () => {
         const [form] = Form.useForm();
         const setMessage = () => {
