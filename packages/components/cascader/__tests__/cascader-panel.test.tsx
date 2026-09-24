@@ -44,7 +44,7 @@ describe('CascaderPanel', () => {
       expect(container.querySelectorAll('.t-cascader__menu').length).toBe(2);
     });
 
-    test('Panel组件 multiple 测试', () => {
+    test('multiple', () => {
       const { getByText, getByTitle } = render(<CascaderPanel options={options} multiple />);
       fireEvent.click(getByText('选项一'));
       expect(getByTitle('子选项一')).not.toHaveClass('t-is-checked');
@@ -89,7 +89,7 @@ describe('CascaderPanel', () => {
       expect(getByTestId('footer-1')).toHaveTextContent('1/2');
     });
 
-    test('columnHeader 支持自定义过滤函数', () => {
+    test('columnHeader：支持自定义过滤函数', () => {
       const { getByText, queryByText } = render(
         <CascaderPanel
           options={options}
@@ -102,6 +102,32 @@ describe('CascaderPanel', () => {
       fireEvent.click(getByText('filter'));
       expect(getByText('选项一')).toBeInTheDocument();
       expect(queryByText('选项二')).not.toBeInTheDocument();
+    });
+
+    test('columnHeader：父列滤掉已展开节点后，不再展示该节点的子列', () => {
+      const { container, getByLabelText, getByText, queryByText } = render(
+        <CascaderPanel
+          options={options}
+          trigger="click"
+          columnHeader={({ panelIndex, onFilter }) =>
+            panelIndex === 0 ? (
+              <input aria-label="filter-0" onChange={(event) => onFilter((event.target as HTMLInputElement).value)} />
+            ) : null
+          }
+        />,
+      );
+
+      fireEvent.change(getByLabelText('filter-0'), { target: { value: '一' } });
+      fireEvent.click(getByText('选项一'));
+      expect(getByText('子选项一')).toBeInTheDocument();
+      expect(container.querySelectorAll('.t-cascader__menu')).toHaveLength(2);
+
+      fireEvent.change(getByLabelText('filter-0'), { target: { value: '二' } });
+      expect(queryByText('选项一')).not.toBeInTheDocument();
+      expect(getByText('选项二')).toBeInTheDocument();
+      expect(queryByText('子选项一')).not.toBeInTheDocument();
+      expect(queryByText('子选项二')).not.toBeInTheDocument();
+      expect(container.querySelectorAll('.t-cascader__menu')).toHaveLength(1);
     });
   });
 
