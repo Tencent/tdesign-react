@@ -34,6 +34,37 @@ const options = [
   },
 ];
 
+const options2 = [
+  {
+    children: [
+      {
+        label: '子选项一一',
+        value: '1.1',
+      },
+      {
+        label: '子选项一二',
+        value: '1.2',
+      },
+    ],
+    label: '选项一',
+    value: '1',
+  },
+  {
+    children: [
+      {
+        label: '子选项一',
+        value: '2.1',
+      },
+      {
+        label: '子选项二',
+        value: '2.2',
+      },
+    ],
+    label: '选项二',
+    value: '2',
+  },
+];
+
 describe('CascaderPanel', () => {
   describe('props', () => {
     test('Panel组件 trigger 为 hover 时，应该正确展开下一层级', () => {
@@ -107,7 +138,7 @@ describe('CascaderPanel', () => {
     test('columnHeader：父列滤掉已展开节点后，不再展示该节点的子列', () => {
       const { container, getByLabelText, getByText, queryByText } = render(
         <CascaderPanel
-          options={options}
+          options={options2}
           trigger="click"
           columnHeader={({ panelIndex, onFilter }) =>
             panelIndex === 0 ? (
@@ -119,15 +150,17 @@ describe('CascaderPanel', () => {
 
       fireEvent.change(getByLabelText('filter-0'), { target: { value: '一' } });
       fireEvent.click(getByText('选项一'));
-      expect(getByText('子选项一')).toBeInTheDocument();
+      expect(getByText('子选项一一')).toBeInTheDocument();
       expect(container.querySelectorAll('.t-cascader__menu')).toHaveLength(2);
 
       fireEvent.change(getByLabelText('filter-0'), { target: { value: '二' } });
+      fireEvent.click(getByText('选项二'));
+
       expect(queryByText('选项一')).not.toBeInTheDocument();
       expect(getByText('选项二')).toBeInTheDocument();
-      expect(queryByText('子选项一')).not.toBeInTheDocument();
-      expect(queryByText('子选项二')).not.toBeInTheDocument();
-      expect(container.querySelectorAll('.t-cascader__menu')).toHaveLength(1);
+      expect(queryByText('子选项一一')).not.toBeInTheDocument();
+      expect(queryByText('子选项一二')).not.toBeInTheDocument();
+      expect(container.querySelectorAll('.t-cascader__menu')).toHaveLength(2);
     });
   });
 
