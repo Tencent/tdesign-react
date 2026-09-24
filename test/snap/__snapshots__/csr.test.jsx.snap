@@ -142864,7 +142864,7 @@ exports[`csr snapshot test > csr test packages/components/table/_example/tree-se
         >
           <div
             class="t-table__virtual-scroll-cursor"
-            style="transform: translate(0, 25090px);"
+            style="transform: translate(0, 23606px);"
           />
           <table
             class="t-table--layout-fixed t-table--full-height"
@@ -144344,7 +144344,7 @@ exports[`csr snapshot test > csr test packages/components/table/_example/virtual
         >
           <div
             class="t-table__virtual-scroll-cursor"
-            style="transform: translate(0, 49560px);"
+            style="transform: translate(0, 48052px);"
           />
           <table
             class="t-table--layout-fixed t-table--full-height"
