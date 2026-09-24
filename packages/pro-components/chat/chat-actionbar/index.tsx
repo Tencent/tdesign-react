@@ -6,7 +6,7 @@ import reactify from '../_util/reactify';
 
 import type { TdChatActionProps, TdChatActionsName } from '@tdesign/web-components-chat';
 
-type ChatActionBarAction =
+export type ChatActionBarAction =
   | TdChatActionsName
   | React.ReactElement
   | {
