@@ -4,6 +4,7 @@ import { PATH_SEPARATOR } from '@tdesign/common-js/tree-v1/tree-node-model';
 import type {
   CascaderContextType,
   CascaderValue,
+  FilterValue,
   TdCascaderProps,
   TreeNode,
   TreeNodeValue,
@@ -179,4 +180,28 @@ export function isValueInvalid(value: CascaderValue, cascaderContext: CascaderCo
   }
 
   return false;
+}
+
+export const FILTER_INACTIVE_LEVEL = -1;
+
+export function isFilterLevelActive(level: number): boolean {
+  return level !== FILTER_INACTIVE_LEVEL;
+}
+
+export function isFilterActive(filter: FilterValue | undefined): boolean {
+  if (filter === undefined) return false;
+  return typeof filter === 'string' ? Boolean(filter.trim()) : true;
+}
+
+export function filterOptions(nodes: TreeNode[], filter: FilterValue, panelIndex: number): TreeNode[] {
+  if (typeof filter === 'string') {
+    const keyword = filter.trim().toLowerCase();
+    if (!keyword) return nodes;
+    return nodes.filter((node) =>
+      String(node.label ?? '')
+        .toLowerCase()
+        .includes(keyword),
+    );
+  }
+  return nodes.filter((node) => filter(node.data, panelIndex));
 }
