@@ -71,6 +71,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
     year,
     month,
     range,
+    disabled,
     cell,
     time = [],
     panelPreselection,
@@ -90,18 +91,26 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
     enableTimePicker: props.enableTimePicker,
   });
 
+  const startDateValue = value[0]
+    ? new Date(parseToDayjs(value[0], format, 'start').toDate().setHours(0, 0, 0))
+    : undefined;
+  const endDateValue = value[1]
+    ? new Date(parseToDayjs(value[1], format, 'end').toDate().setHours(23, 59, 59))
+    : undefined;
+  let rangeStart = isFirstValueSelected && activeIndex === 1 ? startDateValue : undefined;
+  let rangeEnd = isFirstValueSelected && activeIndex === 0 ? endDateValue : undefined;
+
+  if (disabled && isArray(disabled)) {
+    if (disabled[0]) rangeStart = startDateValue;
+    else if (disabled[1]) rangeEnd = endDateValue;
+  }
+
   const disableDateOptions = useDisableDate({
     disableDate: disableDateFromProps,
     mode,
     format,
-    start:
-      isFirstValueSelected && activeIndex === 1
-        ? new Date(parseToDayjs(value[0], format, 'start').toDate().setHours(0, 0, 0))
-        : undefined,
-    end:
-      isFirstValueSelected && activeIndex === 0
-        ? new Date(parseToDayjs(value[1], format).toDate().setHours(23, 59, 59))
-        : undefined,
+    start: rangeStart,
+    end: rangeEnd,
   });
 
   // 处理 range 参数
@@ -197,6 +206,9 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
     onTimePickerChange: props.onTimePickerChange,
   };
 
+  const selectedValue =
+    disabled && isArray(disabled) && disabled[0] !== disabled[1] ? value[disabled[0] ? 1 : 0] : value[activeIndex];
+
   const onTimeModeChange = () => {
     toggleDateRangeContent((prev) => !prev);
   };
@@ -288,7 +300,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
       {['top', 'left'].includes(presetsPlacement) ? (
         <ExtraContent
           presets={presets}
-          selectedValue={value[activeIndex]}
+          selectedValue={selectedValue}
           enableTimePicker={enableTimePicker}
           onPresetClick={onPresetClick}
           onConfirmClick={onConfirmClick}
@@ -303,7 +315,7 @@ const RangePanel = forwardRef<HTMLDivElement, RangePanelProps>((originalProps, r
       {['bottom', 'right'].includes(presetsPlacement) ? (
         <ExtraContent
           presets={presets}
-          selectedValue={value[activeIndex]}
+          selectedValue={selectedValue}
           enableTimePicker={enableTimePicker}
           onPresetClick={onPresetClick}
           onConfirmClick={onConfirmClick}
