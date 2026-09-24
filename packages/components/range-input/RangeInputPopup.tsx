@@ -30,7 +30,12 @@ const RangeInputPopup = React.forwardRef<HTMLDivElement, RangeInputPopupProps>((
     tips,
   } = props;
 
-  const { tOverlayInnerStyle, innerPopupVisible, onInnerPopupVisibleChange } = useOverlayInnerStyle(props);
+  const popupDisabled = isArray(disabled) ? disabled.every(Boolean) : disabled;
+
+  const { tOverlayInnerStyle, innerPopupVisible, onInnerPopupVisibleChange } = useOverlayInnerStyle({
+    ...props,
+    disabled: popupDisabled,
+  });
 
   const popupClasses = classNames([
     name,
@@ -48,7 +53,7 @@ const RangeInputPopup = React.forwardRef<HTMLDivElement, RangeInputPopupProps>((
         placement="bottom-left"
         visible={popupVisible ?? innerPopupVisible}
         onVisibleChange={onInnerPopupVisibleChange}
-        disabled={isArray(disabled) ? disabled.every(Boolean) : disabled}
+        disabled={popupDisabled}
         {...popupProps}
         overlayInnerStyle={tOverlayInnerStyle}
       >
