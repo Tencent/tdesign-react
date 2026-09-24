@@ -5,6 +5,25 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.18.4 `2026-09-24`
+
+### 🚀 Features
+
+- `Cascader`: 新增 `columnHeader` 和 `columnFooter` API，用于自定义各级面板的头部和底部内容 @uyarn ([#4405](https://github.com/Tencent/tdesign-react/pull/4405))
+- `DatePicker`: 支持年份选择器滚动到顶部时，自动加载更多过往年份 @RylanBot ([#4335](https://github.com/Tencent/tdesign-react/pull/4335))
+- `DateRangePicker`: 新增支持 `disabled` 数组类型，用于单独禁用部分区间 @uyarn ([#4404](https://github.com/Tencent/tdesign-react/pull/4404))
+- `RangeInput`: 新增支持 `disabled` 数组类型，用于单独禁用部分区间 @uyarn ([#4404](https://github.com/Tencent/tdesign-react/pull/4404))
+
+### 🐞 Bug Fixes
+
+- `DatePicker`: 修复年份选择器滚动到底部时，意外重置到顶部的问题 @RylanBot ([#4335](https://github.com/Tencent/tdesign-react/pull/4335))
+- `Dialog`: 修复 `onConfirm` 等回调执行旧闭包的问题 @RylanBot ([#4403](https://github.com/Tencent/tdesign-react/pull/4403))
+- `DrawerPlugin`: 修复调用 `update()` 后仍执行创建时旧回调的问题 @RylanBot ([#4403](https://github.com/Tencent/tdesign-react/pull/4403))
+- `EnhancedTable`: 修复开启虚拟滚动且 `expandedTreeNodes` 受控时，展开的子节点无法正确渲染的问题 @RylanBot ([#4399](https://github.com/Tencent/tdesign-react/pull/4399))
+- `FormList`: 修复 `name` 为纯数字时，字段解析和初始化错误等问题 @RylanBot ([#4397](https://github.com/Tencent/tdesign-react/pull/4397))
+- `Table`: 修复同时开启虚拟滚动和 `filterable` 时，渲染重复筛选框的问题 @RylanBot ([#4379](https://github.com/Tencent/tdesign-react/pull/4379))
+- `Upload`: 修复 `useMockProgress=false` 时真实上传进度不回调的问题 @anlyyao ([common#2690](https://github.com/Tencent/tdesign-common/pull/2690))
+
 ## 🌈 1.18.3 `2026-09-04`
 
 ### 🚀 Features
