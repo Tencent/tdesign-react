@@ -44,8 +44,12 @@ const Panel = (props: CascaderPanelProps) => {
 
       let maxLevel = previousState?.maxLevel ?? FILTER_INACTIVE_LEVEL;
       if (isFilterActive(filter)) {
-        const filteredNodes = filterOptions(panels[panelIndex] || [], filter, panelIndex);
-        maxLevel = filteredNodes.length ? Math.max(panelIndex, maxLevel) : panelIndex;
+        const columnNodes = panels[panelIndex] || [];
+        const filteredNodes = filterOptions(columnNodes, filter, panelIndex);
+        const expandedNodeHidden =
+          panelIndex < maxLevel && columnNodes.some((node) => node.expanded && !filteredNodes.includes(node));
+        // 直接覆盖关键字时，当前展开节点已被滤掉，则收起它的子列
+        maxLevel = !filteredNodes.length || expandedNodeHidden ? panelIndex : Math.max(panelIndex, maxLevel);
       } else if (!Object.values(filters).some(isFilterActive)) {
         maxLevel = FILTER_INACTIVE_LEVEL;
       }

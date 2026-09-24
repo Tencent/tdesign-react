@@ -154,13 +154,12 @@ describe('CascaderPanel', () => {
       expect(container.querySelectorAll('.t-cascader__menu')).toHaveLength(2);
 
       fireEvent.change(getByLabelText('filter-0'), { target: { value: '二' } });
-      fireEvent.click(getByText('选项二'));
 
       expect(queryByText('选项一')).not.toBeInTheDocument();
       expect(getByText('选项二')).toBeInTheDocument();
       expect(queryByText('子选项一一')).not.toBeInTheDocument();
       expect(queryByText('子选项一二')).not.toBeInTheDocument();
-      expect(container.querySelectorAll('.t-cascader__menu')).toHaveLength(2);
+      expect(container.querySelectorAll('.t-cascader__menu')).toHaveLength(1);
     });
   });
 
