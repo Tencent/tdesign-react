@@ -1,22 +1,4 @@
----
-title: Attachments 文件附件
-description: 文件附件
-isComponent: true
-usage: { title: '', description: '' }
-spline: aigc
----
-
-### 基础用法
-
-{{ base }}
-
-### 滚动 ScrollX
-
-{{ scroll-x }}
-
-### 滚动 ScrollY
-
-{{ scroll-y }}
+:: BASE_DOC ::
 
 ## API
 ### Attachments Props

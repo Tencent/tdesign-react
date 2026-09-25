@@ -1,18 +1,4 @@
----
-title: ChatLoading 对话加载
-description: 适用于 Chat 对话场景下的加载组件
-isComponent: true
-usage: { title: '', description: '' }
-spline: navigation
----
-
-### 加载组件
-
-{{ base }}
-
-### 带文案描述的加载组件
-
-{{ text }}
+:: BASE_DOC ::
 
 ## API
 ### ChatLoading Props
