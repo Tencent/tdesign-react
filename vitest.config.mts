@@ -17,6 +17,7 @@ const testConfig: InlineConfig = {
         ],
   globals: true,
   environment: 'jsdom',
+  setupFiles: ['./test/scripts/setup-vitest.ts'],
   testTimeout: 16000,
   testTransformMode: {
     web: ['\\.[jt]sx$'],
