@@ -179,9 +179,22 @@ export default function AguiJsonRenderExample() {
   return (
     <div style={{ height: '800px', display: 'flex', flexDirection: 'column' }}>
       {/* 标题区域 */}
-      <div style={{ marginBottom: '16px', padding: '12px', background: '#f5f5f5', borderRadius: '4px' }}>
+      <div
+        style={{
+          marginBottom: '16px',
+          padding: '12px',
+          background: '#f5f5f5',
+          borderRadius: '4px',
+        }}
+      >
         <h3 style={{ margin: 0, fontSize: '16px' }}>AG-UI + json-render 集成演示</h3>
-        <p style={{ margin: '4px 0 0', fontSize: '12px', color: 'var(--td-text-color-secondary)' }}>
+        <p
+          style={{
+            margin: '4px 0 0',
+            fontSize: '12px',
+            color: 'var(--td-text-color-secondary)',
+          }}
+        >
           使用 json-render 渲染动态 UI，支持流式更新和增量渲染
         </p>
         {currentStage && (

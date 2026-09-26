@@ -45,7 +45,7 @@ const DropdownMenu: React.FC<DropdownProps> = (props) => {
           setPanelTopContentHeight(panelTopHeight || 0);
         }
       });
-      const menuHeight = menuChildren?.length * 30;
+      const menuHeight = menuChildren.length * 30;
       if (menuHeight >= maxHeight) setIsOverMaxHeight(true);
     }
   }, [maxHeight, panelTopContent]);
@@ -142,7 +142,9 @@ const DropdownMenu: React.FC<DropdownProps> = (props) => {
                   ? () => null
                   : (
                       value: string | number | { [key: string]: any },
-                      context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> },
+                      context: {
+                        e: React.MouseEvent<HTMLDivElement, MouseEvent>;
+                      },
                     ) => handleItemClick({ data: optionItem, context })
               }
             >

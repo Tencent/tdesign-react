@@ -8,6 +8,7 @@ import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import TableFilterController from '../FilterController';
 import useClassName from './useClassName';
 
+import type { FilterPopupOwner } from '../FilterController';
 import type { PrimaryTableRef } from '../interface';
 import type {
   FilterValue,
@@ -51,6 +52,15 @@ export default function useFilter(
   // 过滤内部值
   const [innerFilterValue, setInnerFilterValue] = useState<FilterValue>(tFilterValue);
   const [popupVisibilities, setPopupVisibilities] = useState<Record<string, boolean>>({});
+  // 表头吸顶和虚拟滚动会额外渲染一份表头，同一列存在两个筛选控制器。
+  // 记录浮层由哪一份表头持有，保证同一时刻同一列只存在一个浮层实例
+  const [popupOwners, setPopupOwners] = useState<Record<string, FilterPopupOwner>>({});
+
+  // 表头吸顶时，吸顶表头常驻且是用户实际点击的那一份，浮层交由它持有，滚动吸顶后浮层定位才正确。
+  // 仅虚拟滚动时，吸顶表头会在过滤后数据量跨越 scroll.threshold 时被销毁，
+  // 浮层改由常规表头持有（其为 sticky 定位，位置与吸顶表头重合），
+  // 避免筛选过程中浮层连同自定义筛选组件的内部状态一起被销毁
+  const defaultPopupOwner: FilterPopupOwner = props.headerAffixedTop ? 'affixed' : 'default';
 
   const hasEmptyCondition = (() => {
     const filterEmpty = filterEmptyData(tFilterValue || {});
@@ -159,11 +169,15 @@ export default function useFilter(
     emitFilterChange(innerFilterValue, 'confirm', column);
   }
 
-  function onPopupVisibleChange(visible: boolean, colKey: string) {
+  function onPopupVisibleChange(visible: boolean, colKey: string, from: FilterPopupOwner = 'default') {
     setPopupVisibilities((prev) => ({
       ...prev,
       [colKey]: visible,
     }));
+    if (visible) {
+      const owner = from === 'affixed' && !props.headerAffixedTop ? 'default' : from;
+      setPopupOwners((prev) => (prev[colKey] === owner ? prev : { ...prev, [colKey]: owner }));
+    }
     if (visible && !isTableOverflowHidden) {
       setIsTableOverflowHidden(visible);
     }
@@ -187,6 +201,7 @@ export default function useFilter(
         onInnerFilterChange={onInnerFilterChange}
         primaryTableElement={primaryTableRef?.current?.tableElement}
         visible={popupVisibilities[col.colKey]}
+        popupOwner={popupOwners[col.colKey] || defaultPopupOwner}
         onVisibleChange={onPopupVisibleChange}
       ></TableFilterController>
     );

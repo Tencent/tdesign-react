@@ -114,7 +114,9 @@ export default function ServiceConfig() {
     onAbort: async () => {
       console.log('用户中止对话');
       // 可以执行清理操作
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 100);
+      });
     },
 
     // 7. 错误处理

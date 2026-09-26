@@ -133,9 +133,6 @@ const Progress = forwardRef<HTMLDivElement, ProgressProps>((props, ref) => {
         return diameter;
       }
       switch (size) {
-        default:
-          diameter = Number(size);
-          break;
         case 'small':
           diameter = 72;
           break;
@@ -144,6 +141,9 @@ const Progress = forwardRef<HTMLDivElement, ProgressProps>((props, ref) => {
           break;
         case 'large':
           diameter = 160;
+          break;
+        default:
+          diameter = Number(size);
           break;
       }
       return diameter;

@@ -54,7 +54,18 @@ export const ProgressBar: React.FC<ComponentRenderProps> = ({ element }) => {
             }}
           />
         </div>
-        {showInfo && <span style={{ fontSize: '14px', fontWeight: 600, color, minWidth: '45px' }}>{percentage}%</span>}
+        {showInfo && (
+          <span
+            style={{
+              fontSize: '14px',
+              fontWeight: 600,
+              color,
+              minWidth: '45px',
+            }}
+          >
+            {percentage}%
+          </span>
+        )}
       </div>
     </div>
   );
