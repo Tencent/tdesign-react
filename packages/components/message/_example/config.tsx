@@ -11,7 +11,7 @@ export default function () {
             placement: 'bottom',
             offset: [200, 200],
             closeBtn: <div>关闭吧！！</div>,
-            icon: <div>icon吧！！</div>,
+            icon: ({ theme }) => <div>{theme} icon 吧！！</div>,
             content: 'content 吧！！',
             style: {
               backgroundColor: 'red',
