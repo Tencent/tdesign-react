@@ -5,7 +5,7 @@ toc: false
 spline: explain
 ---
 
-## 🌈 1.18.4 `2026-09-24`
+## 🌈 1.18.4 `2026-09-26`
 
 ### 🚀 Features
 
