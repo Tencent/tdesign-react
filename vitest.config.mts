@@ -18,8 +18,16 @@ const testConfig: InlineConfig = {
   globals: true,
   environment: 'jsdom',
   testTimeout: 16000,
+  // 补齐 jsdom 缺失的浏览器能力（Constructable Stylesheets 等），供 chat 的 webc 实现渲染使用
+  setupFiles: [path.resolve(__dirname, './packages/pro-components/chat/__tests__/setup.ts')],
   testTransformMode: {
     web: ['\\.[jt]sx$'],
+  },
+  server: {
+    deps: {
+      // webc 依赖链含无扩展名导入，交给 vite 解析而非 node 解析
+      inline: [/@tdesign\/web-components/, /tdesign-icons-web-components/, /omi/],
+    },
   },
   coverage: {
     provider: 'istanbul',
