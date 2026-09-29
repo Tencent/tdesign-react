@@ -212,7 +212,13 @@ export default function AguiResumeExample() {
   return (
     <div style={{ height: '600px', display: 'flex', flexDirection: 'column' }}>
       {/* 操作栏 */}
-      <div style={{ padding: '12px', borderBottom: '1px solid #e7e7e7', backgroundColor: '#fafafa' }}>
+      <div
+        style={{
+          padding: '12px',
+          borderBottom: '1px solid #e7e7e7',
+          backgroundColor: '#fafafa',
+        }}
+      >
         <Space align="center">
           <Button
             size="small"

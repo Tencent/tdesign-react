@@ -3,8 +3,10 @@
 // import Skeleton from '../index';
 
 // TODO
-describe('Skeleton 组件测试', () => {
-  test('dom', () => {
-    expect(true).toBe(true);
+describe('Skeleton', () => {
+  describe('scenarios', () => {
+    test('dom', () => {
+      expect(true).toBe(true);
+    });
   });
 });

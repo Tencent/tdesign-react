@@ -1,5 +1,11 @@
 :: BASE_DOC ::
 
+### Custom Column Content
+
+Use `columnHeader` and `columnFooter` to customize each column and `onFilter` to filter the current column independently.
+
+{{ column-slot }}
+
 ## API
 
 ### Cascader Props
@@ -14,6 +20,8 @@ checkProps | Object | - | Typescript: `CheckboxProps`，[Checkbox API Documents]
 checkStrictly | Boolean | false | \- | N
 clearable | Boolean | false | \- | N
 collapsedItems | TElement | - | Typescript: `TNode<{ value: CascaderOption[]; collapsedSelectedItems: CascaderOption[]; count: number; onClose: (context: { index: number, e?: MouseEvent }) => void }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+columnFooter | TNode | - | Custom content at the bottom of each column. `panelIndex` is the current column index, `options` contains the original options, `filteredOptions` contains the filtered options, and `onFilter` filters the current column (strings use built-in case-insensitive matching; a custom filter function is also supported). When built-in search has input, `onFilter` is a noop. Typescript: `TNode<{ panelIndex: number; options: CascaderOption[]; filteredOptions: CascaderOption[]; onFilter: (filter: string \| ((node: CascaderOption, panelIndex: number) => boolean)) => void }>` | N
+columnHeader | TNode | - | Custom content at the top of each column. `panelIndex` is the current column index, `options` contains the original options, `filteredOptions` contains the filtered options, and `onFilter` filters the current column (strings use built-in case-insensitive matching; a custom filter function is also supported). When built-in search has input, `onFilter` is a noop. Typescript: `TNode<{ panelIndex: number; options: CascaderOption[]; filteredOptions: CascaderOption[]; onFilter: (filter: string \| ((node: CascaderOption, panelIndex: number) => boolean)) => void }>` | N
 disabled | Boolean | undefined | \- | N
 empty | TNode | - | Typescript: `string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 filter | Function | - | Typescript: `(filterWords: string, node: TreeNodeModel) => boolean \| Promise<boolean>` | N

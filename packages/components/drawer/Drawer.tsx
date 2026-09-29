@@ -9,7 +9,6 @@ import Button from '../button';
 import Portal from '../common/Portal';
 import useAttach from '../hooks/useAttach';
 import useConfig from '../hooks/useConfig';
-import useDeepEffect from '../hooks/useDeepEffect';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useSetState from '../hooks/useSetState';
@@ -41,8 +40,11 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
   const cancelText = t(local.cancel);
 
   const props = useDefaultProps<DrawerProps>(originalProps, drawerDefaultProps);
-  const { body, children, header, footer, ...restProps } = props;
-  const [state, setState] = useSetState<DrawerProps>({ isPlugin: false, ...restProps });
+  const isPlugin = originalProps.isPlugin ?? false;
+  const [pluginState, setPluginState] = useSetState<Partial<DrawerProps>>({});
+
+  const mergedState = isPlugin ? { ...props, ...pluginState } : props;
+
   const {
     className,
     style,
@@ -61,11 +63,11 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     destroyOnClose,
     sizeDraggable,
     forceRender,
-    isPlugin,
     lazy,
-  } = state;
-
-  const {
+    body,
+    children,
+    header,
+    footer,
     onBeforeOpen,
     onBeforeClose,
     onCancel,
@@ -75,7 +77,7 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     onOverlayClick,
     onEscKeydown,
     onSizeDragEnd,
-  } = props;
+  } = mergedState;
 
   const size = propsSize ?? local.size;
   const { classPrefix } = useConfig();
@@ -98,27 +100,25 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     return dragSizeValue || sizeMap[size] || size;
   }, [dragSizeValue, size]);
 
-  useLockStyle({ ...state, sizeValue, drawerWrapper: drawerWrapperRef.current });
+  useLockStyle({
+    ...mergedState,
+    sizeValue,
+    drawerWrapper: drawerWrapperRef.current,
+  });
   useImperativeHandle(ref, () => ({
     show() {
-      setState({ visible: true });
+      setPluginState({ visible: true });
     },
     hide() {
-      setState({ visible: false });
+      setPluginState({ visible: false });
     },
     destroy() {
-      setState({ visible: false, destroyOnClose: true });
+      setPluginState({ visible: false, destroyOnClose: true });
     },
     update(options) {
-      setState((prevState) => ({ ...prevState, ...options }));
+      setPluginState((prevState) => ({ ...prevState, ...options }));
     },
   }));
-
-  useDeepEffect(() => {
-    // 非插件式调用 更新props
-    if (isPlugin) return;
-    setState((prevState) => ({ ...prevState, ...props }));
-  }, [props, setState]);
 
   function onMaskClick(e: React.MouseEvent<HTMLDivElement>) {
     onOverlayClick?.({ e });

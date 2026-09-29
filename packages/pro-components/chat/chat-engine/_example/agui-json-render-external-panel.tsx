@@ -180,10 +180,30 @@ export default function AguiJsonRenderExternalPanelExample() {
             overflow: 'hidden',
           }}
           header={
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
               <div>
-                <div style={{ fontSize: '16px', fontWeight: 600, color: 'var(--td-brand-color)' }}>⚡ 外部渲染面板</div>
-                <div style={{ fontSize: '12px', color: 'var(--td-text-color-secondary)', marginTop: '2px' }}>
+                <div
+                  style={{
+                    fontSize: '16px',
+                    fontWeight: 600,
+                    color: 'var(--td-brand-color)',
+                  }}
+                >
+                  ⚡ 外部渲染面板
+                </div>
+                <div
+                  style={{
+                    fontSize: '12px',
+                    color: 'var(--td-text-color-secondary)',
+                    marginTop: '2px',
+                  }}
+                >
                   独立于对话框的 UI 渲染区域
                 </div>
               </div>
@@ -195,7 +215,14 @@ export default function AguiJsonRenderExternalPanelExample() {
               <>
                 {/* 调试：展示原始 JSON */}
                 <details style={{ marginBottom: '12px', fontSize: '11px' }}>
-                  <summary style={{ cursor: 'pointer', padding: '4px', background: '#f0f0f0', borderRadius: '4px' }}>
+                  <summary
+                    style={{
+                      cursor: 'pointer',
+                      padding: '4px',
+                      background: '#f0f0f0',
+                      borderRadius: '4px',
+                    }}
+                  >
                     🔍 查看原始 Schema
                   </summary>
                   <pre

@@ -16,7 +16,7 @@ export default function useWatch(name: NamePath, form: InternalFormInstance) {
   useEffect(() => {
     if (!isValidForm) return;
 
-    const { registerWatch = noop } = form.getInternalHooks?.(HOOK_MARK);
+    const { registerWatch = noop } = form.getInternalHooks?.(HOOK_MARK) || {};
 
     const cancelRegister = registerWatch(() => {
       const allFieldsValue = form.getFieldsValue?.(true);

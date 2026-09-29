@@ -415,7 +415,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
           }}
         >
           {renderColGroup(true)}
-          {showHeader && <THead {...headProps} />}
+          {showHeader && <THead {...headProps} isAffixedHeader />}
         </table>
       </div>
     );

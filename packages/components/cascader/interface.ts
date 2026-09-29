@@ -1,3 +1,4 @@
+import type { TreeOptionData } from '@tdesign/common-js/common';
 import type TreeNode from '@tdesign/common-js/tree-v1/tree-node';
 import type TreeStore from '@tdesign/common-js/tree-v1/tree-store';
 import type { TreeNodeModel, TreeNodeValue } from '@tdesign/common-js/tree-v1/types';
@@ -42,3 +43,10 @@ export { TreeNode } from '@tdesign/common-js/tree-v1/tree-node';
 export type { TreeNodeValue } from '@tdesign/common-js/tree-v1/types';
 
 export const EVENT_NAME_WITH_KEBAB = ['remove', 'blur', 'focus'];
+
+export type FilterValue = string | ((node: TreeOptionData, panelIndex: number) => boolean);
+
+export interface FilterState {
+  filters: Record<number, FilterValue>;
+  maxLevel: number;
+}

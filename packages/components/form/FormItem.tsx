@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { cloneDeep, get, has, isEqual, isFunction, isObject, isString, set } from 'lodash-es';
+import { cloneDeep, get, has, isEqual, isFunction, isNil, isObject, isString, set } from 'lodash-es';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,
@@ -119,7 +119,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const isSameForm = useMemo(() => isEqual(form, formOfFormList), [form, formOfFormList]);
 
   const fullPath = useMemo(() => {
-    const validParentFullPath = formListName && isSameForm ? parentFullPath : undefined;
+    const validParentFullPath = !isNil(formListName) && isSameForm ? parentFullPath : undefined;
     return concatName(validParentFullPath, name);
   }, [formListName, parentFullPath, name, isSameForm]);
 
