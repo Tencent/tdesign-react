@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { fireEvent, mockTimeout, render, vi } from '@test/utils';
+import { fireEvent, mockTimeout, render, vi, waitFor } from '@test/utils';
 
 import Drawer from '../index';
 import { DrawerPlugin } from '../plugin';
@@ -81,15 +81,15 @@ describe('Drawer', () => {
       expect(cancelBtn.parentElement).toHaveClass(`t-button--theme-danger`);
     });
 
-    test('Drawer mode push', () => {
+    test('Drawer mode push', async () => {
       const { getByText } = render(<DrawerDemo attach="body" mode="push" />);
       fireEvent.click(getByText('Open'));
 
-      setTimeout(() => {
+      await waitFor(() => {
         expect(document.body).toHaveStyle({
           margin: '0 0 0 -300px',
         });
-      }, 1000);
+      });
     });
     test('Drawer header and footer custom', () => {
       const { getByText } = render(<DrawerDemo header={<div>自定义头部</div>} footer={<div>自定义底部</div>} />);
