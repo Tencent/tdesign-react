@@ -155,7 +155,7 @@ export const ChatSender = forwardRef<HTMLElement | undefined, TdChatSenderProps 
           hidden
           disabled={disabled}
           {...config('uploadImage')}
-          accept="image/*"
+          accept={config('uploadImage')?.accept || 'image/*'}
           onChange={select}
         />
         {slot(props.children, 'header')}

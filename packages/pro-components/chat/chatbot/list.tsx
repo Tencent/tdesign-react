@@ -26,6 +26,8 @@ export const ChatList = forwardRef<HTMLElement | undefined, TdChatListProps & St
     useInjectedCSS(root, props.css);
     useEffect(() => {
       scrollList({ to: defaultScrollTo });
+    }, [defaultScrollTo, scrollList]);
+    useEffect(() => {
       // Observe the actual content, including asynchronous Markdown and streamed text.
       const resize = () => {
         if (autoScroll && follow.current) scrollList();
@@ -35,7 +37,7 @@ export const ChatList = forwardRef<HTMLElement | undefined, TdChatListProps & St
       const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(resize) : undefined;
       if (inner.current) observer?.observe(inner.current);
       return () => observer?.disconnect();
-    }, [autoScroll, defaultScrollTo, scrollList]);
+    }, [autoScroll, scrollList]);
     useEffect(() => {
       if (autoScroll && follow.current) scrollList();
     }, [children, autoScroll, scrollList]);

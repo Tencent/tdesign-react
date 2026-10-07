@@ -19,9 +19,8 @@ export const useInjectedCSS = (root: MutableRefObject<HTMLElement | null>, css?:
       Array.from(list)
         .map((rule) => {
           if (rule instanceof CSSStyleRule) {
-            const selectors = rule.selectorText.includes(':scope')
-              ? rule.selectorText.replace(/:scope/g, scope)
-              : `${scope} :is(${rule.selectorText})`;
+            // Constrain every matched target, including mixed selector lists with :scope.
+            const selectors = `:is(${scope}, ${scope} *):is(${rule.selectorText.replace(/:scope/g, scope)})`;
             return `${selectors}{${rule.style.cssText}}`;
           }
           if (rule instanceof CSSMediaRule) return `@media ${rule.conditionText}{${rules(rule.cssRules)}}`;

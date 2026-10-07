@@ -68,7 +68,11 @@ describe('chat-sender public contracts', () => {
     const ref = createRef<HTMLElement & TdChatSenderApi>();
     const selected = vi.fn();
     const { container } = render(
-      <ChatSender ref={ref} actions={['uploadAttachment', 'send']} onFileSelect={selected} />,
+      <ChatSender
+        ref={ref}
+        actions={['uploadAttachment', { name: 'uploadImage', uploadProps: { accept: '.png', multiple: true } }, 'send']}
+        onFileSelect={selected}
+      />,
     );
     expect(ref.current).toBeInstanceOf(HTMLElement);
     act(() => mountedRef(ref).focus());
@@ -77,6 +81,8 @@ describe('chat-sender public contracts', () => {
     expect(screen.getByRole('textbox')).not.toHaveFocus();
     const input = container.querySelector<HTMLInputElement>('input[type="file"]');
     if (!input) throw new Error('Expected the public file selector');
+    const imageInput = container.querySelector<HTMLInputElement>('input[accept=".png"]');
+    expect(imageInput).toHaveAttribute('multiple');
     const click = vi.spyOn(input, 'click');
     act(() => mountedRef(ref).selectFile());
     expect(click).toHaveBeenCalledOnce();

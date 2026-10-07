@@ -13,7 +13,7 @@ describe('chat-list public contracts', () => {
   it('supports list scrolling and delivers the public scroll detail', () => {
     const ref = createRef<HTMLElement & TdChatListApi>();
     const onScroll = vi.fn();
-    render(
+    const view = render(
       <ChatList ref={ref} onScroll={onScroll}>
         内容
       </ChatList>,
@@ -32,5 +32,13 @@ describe('chat-list public contracts', () => {
     expect(onScroll.mock.calls[0][0].detail).toEqual({ scrollTop: 500 });
     act(() => mountedRef(ref).scrollList({ to: 'top' }));
     expect(mountedRef(ref).scrollTop).toBe(0);
+    mountedRef(ref).scrollTop = 100;
+    fireEvent.scroll(mountedRef(ref));
+    view.rerender(
+      <ChatList ref={ref} autoScroll={false} onScroll={onScroll}>
+        内容
+      </ChatList>,
+    );
+    expect(mountedRef(ref).scrollTop).toBe(100);
   });
 });
