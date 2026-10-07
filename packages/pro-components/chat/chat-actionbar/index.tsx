@@ -76,39 +76,39 @@ export const ChatActionBar = forwardRef<HTMLElement | undefined, ChatActionBarPr
     bad: currentComment === 'bad' ? <ThumbDownFilledIcon /> : <ThumbDownIcon />,
   };
   const actions = Array.isArray(actionBar) ? actionBar : defaultActions;
+  if (actionBar === false || actions.length === 0) return null;
   return (
     <div ref={root} {...rootProps(props, base)} data-td-chat="actions">
-      {actionBar !== false &&
-        actions.map((action, index) => {
-          if (isValidElement(action)) return <React.Fragment key={action.key || index}>{action}</React.Fragment>;
-          if (typeof action !== 'string' && 'name' in action) {
-            const node = renderNode(action.render) || slot(props.children, action.name);
-            return action.ignoreWrapper ? (
-              <React.Fragment key={action.name}>{node}</React.Fragment>
-            ) : (
-              <span key={action.name} className={`${base}__item__wrapper`}>
-                {node}
-              </span>
-            );
-          }
-          if (typeof action !== 'string') return null;
-          return (
-            <Tooltip key={action} content={labels[action]} placement="top" showArrow {...tooltipProps}>
-              <button
-                data-td-chat-button=""
-                type="button"
-                className={`${base}__item__wrapper`}
-                aria-label={labels[action]}
-                aria-pressed={action === 'good' || action === 'bad' ? currentComment === action : undefined}
-                onClick={(event) => {
-                  click(action, event);
-                }}
-              >
-                {icons[action]}
-              </button>
-            </Tooltip>
+      {actions.map((action, index) => {
+        if (isValidElement(action)) return <React.Fragment key={action.key || index}>{action}</React.Fragment>;
+        if (typeof action !== 'string' && 'name' in action) {
+          const node = renderNode(action.render) || slot(props.children, action.name);
+          return action.ignoreWrapper ? (
+            <React.Fragment key={action.name}>{node}</React.Fragment>
+          ) : (
+            <span key={action.name} className={`${base}__item__wrapper`}>
+              {node}
+            </span>
           );
-        })}
+        }
+        if (typeof action !== 'string') return null;
+        return (
+          <Tooltip key={action} content={labels[action]} placement="top" showArrow {...tooltipProps}>
+            <button
+              data-td-chat-button=""
+              type="button"
+              className={`${base}__item__wrapper`}
+              aria-label={labels[action]}
+              aria-pressed={action === 'good' || action === 'bad' ? currentComment === action : undefined}
+              onClick={(event) => {
+                click(action, event);
+              }}
+            >
+              {icons[action]}
+            </button>
+          </Tooltip>
+        );
+      })}
     </div>
   );
 });

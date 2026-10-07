@@ -3,8 +3,9 @@ import './setup';
 import React, { StrictMode } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import ChatEngine from '@tdesign/ai-chat-engine';
-import { act, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 
+import { useAgentState } from '../chat-engine/hooks/useAgentState';
 import { useChat } from '../chat-engine/hooks/useChat';
 import { history, message } from './helpers';
 
@@ -51,5 +52,14 @@ describe('chat-engine-hooks public contracts', () => {
       engine?.setMessages([message]);
     });
     expect(screen.getByText('a')).toBeVisible();
+  });
+  it('keeps agent initial state readable and updates it through the public setter', () => {
+    const Counter = () => {
+      const { stateMap, setStateMap, getStateByKey } = useAgentState({ initialState: { count: 1 } });
+      return <button onClick={() => setStateMap({ count: getStateByKey('count') + 1 })}>计数 {stateMap.count}</button>;
+    };
+    render(<Counter />);
+    fireEvent.click(screen.getByRole('button', { name: '计数 1' }));
+    expect(screen.getByRole('button', { name: '计数 2' })).toBeVisible();
   });
 });
