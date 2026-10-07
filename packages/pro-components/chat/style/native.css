@@ -432,6 +432,19 @@
     var(--td-brand-color-3)
   );
 }
+[data-td-chat='markdown'] .cherry-previewer {
+  --md-heading-color: var(--td-text-color-primary);
+  --md-paragraph-color: var(--td-text-color-primary);
+  --md-link-color: var(--td-brand-color);
+  --md-link-hover-color: var(--td-brand-color-hover);
+  --md-inline-code-bg: var(--td-bg-color-secondarycontainer);
+  --md-inline-code-color: var(--td-error-color);
+  --md-blockquote-bg: var(--td-bg-color-secondarycontainer);
+  --md-blockquote-border: var(--td-component-border);
+  --md-blockquote-color: var(--td-text-color-secondary);
+  --md-table-border: var(--td-component-border);
+  --md-hr-border: var(--td-component-border);
+}
 [data-td-chat='markdown'] .cherry,
 [data-td-chat='markdown'] .cherry-previewer {
   border: 0;

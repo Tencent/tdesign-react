@@ -31,6 +31,8 @@ describe('chat-content-parts public contracts', () => {
         <ChatSuggestionContent content={[{ title: '继续提问' }]} handlePromptClick={suggestion} />
       </>,
     );
+    expect(screen.queryByRole('link', { name: /来源/ })).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: '搜索结果' }));
     fireEvent.click(screen.getByRole('link', { name: /来源/ }));
     expect(search.mock.calls[0][0].content).toBe(item);
     fireEvent.click(screen.getByRole('button', { name: '继续提问' }));

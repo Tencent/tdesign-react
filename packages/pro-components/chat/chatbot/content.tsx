@@ -7,7 +7,7 @@ import type { StyledProps, TdChatSearchContentProps, TdChatSuggestionContentProp
 
 export const ChatSearchContent = forwardRef<HTMLElement | undefined, TdChatSearchContentProps & StyledProps>(
   (props, ref) => {
-    const [local, setLocal] = useState(false);
+    const [local, setLocal] = useState(true);
     const collapsed = props.collapsed ?? local;
     const { content, status, useCollapse = true } = props;
     const root = useElementRef(ref);

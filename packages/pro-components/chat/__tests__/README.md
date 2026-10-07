@@ -6,7 +6,8 @@ This suite continues PR #4408's API, composition and visible-behavior guards aft
 - `chat-message`: composition, empty fragments, metadata/segment overrides, pending/error/complete updates and multiple segments within one message in document order.
 - `chatbot`: public ref methods and state, message updates, prompt/action callbacks, sender/message prop composition, explicit empty history and a successful SSE response with afterSend detail.
 - `chat-actionbar`: interactive feedback, custom React actions and false disabling all actions.
-- `chat-content-parts`: thinking collapse, search/suggestion callbacks, file status and disabled actions, attachment item identity and removal.
+- `chat-content-parts`: thinking collapse, search default collapse and search/suggestion callbacks, file status and disabled actions, attachment item identity and removal.
+- `chat-markdown`: the renderer callback contract preserves default code copying, custom transformations and cancellation; actual clipboard behavior is verified in the browser sandbox.
 - `chat-loading`: the five documented animations announce loading; animation appearance belongs to browser acceptance.
 - `chat-list`: public scrolling methods and scroll callback detail.
 - `chat-engine-hooks`: StrictMode engine lifetime, inline empty defaults preserving live state, and agent state initialization/read/write behavior.

@@ -62,7 +62,7 @@ export const ChatMarkdown = forwardRef<
         onCopyCode: (event, code) => {
           const result = latest.current.options?.callback?.onCopyCode?.(event, code);
           if (result !== false) latest.current.onCodeCopy?.({ code: typeof result === 'string' ? result : code });
-          return result;
+          return result ?? code;
         },
       },
       themeSettings: {
