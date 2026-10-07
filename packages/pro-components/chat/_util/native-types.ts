@@ -175,9 +175,9 @@ export interface TdChatSenderApi {
   selectFile: () => void;
 }
 
-type CherryOptions = ConstructorParameters<
-  typeof import('cherry-markdown/dist/cherry-markdown.stream.esm.js').default
->[0];
+type CherryOptions = NonNullable<
+  ConstructorParameters<typeof import('cherry-markdown/dist/cherry-markdown.stream.esm.js').default>[0]
+>;
 
 export type TdChatContentMDPresetPlugin = 'katex';
 export interface TdChatContentMDPresetConfig {

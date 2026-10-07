@@ -13,7 +13,7 @@ This suite continues PR #4408's API, composition and visible-behavior guards aft
 - `chat-engine-hooks`: StrictMode engine lifetime, inline empty defaults preserving live state, and agent state initialization/read/write behavior.
 - Existing json-render sanitization tests remain unchanged.
 
-The original PR's weak source-export tests now belong to `pnpm check:chat-package`, which imports the actual release entry without a DOM, checks public component exports, renders components on the server, checks shipped styles and rejects leftover webc/secondary-root dependencies. Actual browser consumers exercise all component exports and real Cherry rendering.
+The original PR's weak source-export tests now belong to `pnpm check:chat-package`, which imports the actual release entry without a DOM, checks public component exports, renders components on the server, checks shipped styles and rejects leftover webc/secondary-root dependencies. It also compiles one strict TypeScript consumer against emitted declarations, including Markdown options. Published peer declarations are isolated from common-js workspace sources. Actual browser consumers exercise all component exports and real Cherry rendering.
 
 The unit composition tests mock only Markdown rendering; they cannot establish Markdown browser behavior or pixel parity. The independent baseline/candidate package acceptance sandbox supplies that evidence. Source tests contain no fixed sleeps, webc-specific queries or skipped migration cases. Readiness waits use visible output or public state. The setup is local to Chat tests and its scrollTo implementation updates scroll offsets; it is not injected into the basic component suite.
 
