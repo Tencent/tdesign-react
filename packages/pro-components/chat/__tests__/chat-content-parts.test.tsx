@@ -1,40 +1,69 @@
-/**
- * 内容型子组件迁移回归守卫（ChatThinking / ChatMarkdown / Filecard）
- *
- * 这几个组件是消息内容的承载单元，迁移时最容易「换了实现但内容渲染不出来」。
- * 每条只守卫一个核心 prop，保证覆盖面而不铺开到全部 props。
- *
- * 注意：Attachments 未纳入本文件。原因是当前 webc 实现下 items 以 attribute
- * 形式传递，在 jsdom 中会在 connectedCallback 阶段抛错（items.map 崩溃），
- * 属当前实现缺陷；迁移到纯 React 后应正常，建议迁移完成后补充其用例。
- */
+import './setup';
+
 import React from 'react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+import { fireEvent, render, screen } from '@testing-library/react';
 
+import { Attachments } from '../attachments';
 import { Filecard } from '../chat-filecard';
-import { ChatMarkdown } from '../chat-markdown';
 import { ChatThinking } from '../chat-thinking';
-import { deepText, renderChat } from './helpers';
+import { ChatSearchContent, ChatSuggestionContent } from '../chatbot/content';
 
-describe('ChatThinking', () => {
-  it('props.content.text 渲染思考内容', async () => {
-    const { container } = await renderChat(
-      <ChatThinking content={{ text: 'thinking-body', title: 'thinking-title' }} status="complete" />,
+describe('chat-content-parts public contracts', () => {
+  it('updates thinking, collapse and controlled collapsed state', () => {
+    const change = vi.fn();
+    const view = render(
+      <ChatThinking content={{ title: '思考', text: '步骤' }} status="complete" onCollapsedChange={change} />,
     );
-    expect(deepText(container)).toContain('thinking-body');
+    fireEvent.click(screen.getByRole('button', { name: /思考/ }));
+    expect(screen.getByText('步骤')).not.toBeVisible();
+    expect(change.mock.calls[0][0].detail).toBe(true);
+    view.rerender(<ChatThinking content={{ title: '思考', text: '更新' }} collapsed={false} />);
+    expect(screen.getByText('更新')).toBeVisible();
   });
-});
-
-describe('ChatMarkdown', () => {
-  it('props.content 渲染 Markdown 文本', async () => {
-    const { container } = await renderChat(<ChatMarkdown content="markdown-body-text" />);
-    expect(deepText(container)).toContain('markdown-body-text');
+  it('reports search and suggestion interactions with their exact content', () => {
+    const item = { title: '来源', url: 'https://tdesign.tencent.com' };
+    const search = vi.fn();
+    const suggestion = vi.fn();
+    render(
+      <>
+        <ChatSearchContent content={{ title: '搜索结果', references: [item] }} handleSearchItemClick={search} />
+        <ChatSuggestionContent content={[{ title: '继续提问' }]} handlePromptClick={suggestion} />
+      </>,
+    );
+    fireEvent.click(screen.getByRole('link', { name: /来源/ }));
+    expect(search.mock.calls[0][0].content).toBe(item);
+    fireEvent.click(screen.getByRole('button', { name: '继续提问' }));
+    expect(suggestion.mock.calls[0][0].content.title).toBe('继续提问');
   });
-});
-
-describe('Filecard', () => {
-  it('props.item.name 渲染文件名', async () => {
-    const { container } = await renderChat(<Filecard item={{ name: 'report.pdf', url: 'u' } as any} />);
-    expect(deepText(container)).toContain('report.pdf');
+  it('updates file status and keeps disabled remove/click inactive', () => {
+    const click = vi.fn();
+    const remove = vi.fn();
+    const view = render(
+      <Filecard item={{ name: 'a.pdf', status: 'progress', percent: 30 }} onFileClick={click} onRemove={remove} />,
+    );
+    expect(screen.getByText('上传中...30%')).toBeVisible();
+    view.rerender(
+      <Filecard
+        item={{ name: 'a.pdf', status: 'fail', response: '上传出错' }}
+        disabled
+        onFileClick={click}
+        onRemove={remove}
+      />,
+    );
+    expect(screen.getByText('上传出错')).toBeVisible();
+    fireEvent.click(screen.getByRole('button', { name: 'a.pdf' }));
+    fireEvent.click(screen.getByRole('button', { name: '移除 a.pdf' }));
+    expect(click).not.toHaveBeenCalled();
+    expect(remove).not.toHaveBeenCalled();
+  });
+  it('renders all attachment overflow modes and forwards the original item', () => {
+    const item = { name: 'a.txt' };
+    const click = vi.fn();
+    const view = render(<Attachments items={[item]} onFileClick={click} overflow="scrollX" />);
+    fireEvent.click(screen.getByRole('button', { name: 'a.txt' }));
+    expect(click.mock.calls[0][0].detail).toBe(item);
+    view.rerender(<Attachments items={[item]} overflow="scrollY" removable={false} />);
+    expect(screen.queryByRole('button', { name: /移除/ })).toBeNull();
   });
 });

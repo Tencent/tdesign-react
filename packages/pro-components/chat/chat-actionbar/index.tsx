@@ -1,94 +1,117 @@
-import '@tdesign/web-components-chat/chat-action';
+import React, { forwardRef, isValidElement, useEffect, useState } from 'react';
+import {
+  CopyIcon,
+  RefreshIcon,
+  Share1Icon,
+  ThumbDownFilledIcon,
+  ThumbDownIcon,
+  ThumbUpFilledIcon,
+  ThumbUpIcon,
+} from 'tdesign-icons-react';
+import { MessagePlugin, Tooltip } from 'tdesign-react';
 
-import React from 'react';
+import { renderNode, rootProps, slot, useChatClass, useElementRef } from '../_util/native';
 
-import reactify from '../_util/reactify';
+import type { TdChatActionProps, TdChatActionsName } from '../_util/native-types';
 
-import type { TdChatActionProps, TdChatActionsName } from '@tdesign/web-components-chat';
-
-type ChatActionBarAction =
+export type ChatActionBarAction =
   | TdChatActionsName
   | React.ReactElement
   | {
       name: string;
-      render?: React.ReactNode;
+      render?: React.ReactNode | ((props: any) => React.ReactNode);
       ignoreWrapper?: boolean;
     };
-
-type ChatActionBarProps = Omit<TdChatActionProps, 'actionBar' | 'ref'> & {
+export type ChatActionBarProps = Omit<TdChatActionProps, 'actionBar'> & {
   actionBar?: boolean | ChatActionBarAction[];
-  ref?: React.Ref<HTMLElement | undefined>;
 };
-
-const BaseChatActionBar = reactify<TdChatActionProps>('t-chat-action');
-
-const normalizeSlotName = (raw: string) => raw.replace(/[^a-zA-Z0-9_-]/g, '-');
-
-export const ChatActionBar = (props: ChatActionBarProps) => {
-  const { actionBar, ref, ...rest } = props;
-  const slotProps: Record<string, React.ReactNode> = {};
-  let mappedActionBar = actionBar;
-
-  if (Array.isArray(actionBar)) {
-    mappedActionBar = actionBar.map((action, index) => {
-      if (React.isValidElement(action)) {
-        const key = action.key != null ? String(action.key) : `item-${index}`;
-        const slotName = normalizeSlotName(`action-${key}`);
-        slotProps[`${slotName}Slot`] = action;
-        return { name: slotName };
-      }
-      return action;
+export const defaultActions: TdChatActionsName[] = ['replay', 'copy', 'good', 'bad', 'share'];
+const labels = {
+  replay: '重新生成',
+  copy: '复制',
+  good: '点赞',
+  bad: '点踩',
+  share: '分享',
+};
+export const ChatActionBar = forwardRef<HTMLElement | undefined, ChatActionBarProps>((props, ref) => {
+  const { actionBar = true, copyText = '', handleAction, comment, tooltipProps } = props;
+  const [currentComment, setComment] = useState(comment);
+  useEffect(() => setComment(comment), [comment]);
+  const root = useElementRef(ref);
+  const base = useChatClass('chat-actions');
+  const click = async (name: TdChatActionsName, event: React.MouseEvent) => {
+    const active = name === 'good' || name === 'bad' ? currentComment !== name : undefined;
+    if (active !== undefined) setComment(active ? (name as 'good' | 'bad') : undefined);
+    handleAction?.(name, {
+      event: event.nativeEvent,
+      ...(active === undefined ? {} : { active }),
     });
-  }
-
+    if (name === 'copy' && copyText) {
+      try {
+        if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(copyText);
+        else {
+          const area = document.createElement('textarea');
+          area.value = copyText;
+          area.style.position = 'fixed';
+          area.style.opacity = '0';
+          document.body.appendChild(area);
+          try {
+            area.select();
+            if (!document.execCommand('copy')) throw new Error('Clipboard unavailable');
+          } finally {
+            area.remove();
+          }
+        }
+        MessagePlugin.success('复制成功');
+      } catch {
+        MessagePlugin.error('复制失败，请手动复制');
+      }
+    }
+  };
+  const icons = {
+    replay: <RefreshIcon />,
+    copy: <CopyIcon />,
+    share: <Share1Icon />,
+    good: currentComment === 'good' ? <ThumbUpFilledIcon /> : <ThumbUpIcon />,
+    bad: currentComment === 'bad' ? <ThumbDownFilledIcon /> : <ThumbDownIcon />,
+  };
+  const actions = Array.isArray(actionBar) ? actionBar : defaultActions;
   return (
-    <BaseChatActionBar
-      {...(rest as TdChatActionProps)}
-      actionBar={mappedActionBar as TdChatActionProps['actionBar']}
-      ref={ref}
-      {...slotProps}
-    />
+    <div ref={root} {...rootProps(props, base)} data-td-chat="actions">
+      {actionBar !== false &&
+        actions.map((action, index) => {
+          if (isValidElement(action)) return <React.Fragment key={action.key || index}>{action}</React.Fragment>;
+          if (typeof action !== 'string' && 'name' in action) {
+            const node = renderNode(action.render) || slot(props.children, action.name);
+            return action.ignoreWrapper ? (
+              <React.Fragment key={action.name}>{node}</React.Fragment>
+            ) : (
+              <span key={action.name} className={`${base}__item__wrapper`}>
+                {node}
+              </span>
+            );
+          }
+          if (typeof action !== 'string') return null;
+          return (
+            <Tooltip key={action} content={labels[action]} placement="top" showArrow {...tooltipProps}>
+              <button
+                data-td-chat-button=""
+                type="button"
+                className={`${base}__item__wrapper`}
+                aria-label={labels[action]}
+                aria-pressed={action === 'good' || action === 'bad' ? currentComment === action : undefined}
+                onClick={(event) => {
+                  click(action, event);
+                }}
+              >
+                {icons[action]}
+              </button>
+            </Tooltip>
+          );
+        })}
+    </div>
   );
-};
-
+});
+ChatActionBar.displayName = 'ChatActionBar';
 export default ChatActionBar;
-export type { TdChatActionProps, TdChatActionsName } from '@tdesign/web-components-chat';
-
-// 方案1
-// import { reactifyLazy } from './_util/reactifyLazy';
-// const ChatActionBar = reactifyLazy<{
-//   size: 'small' | 'medium' | 'large',
-//   variant: 'primary' | 'secondary' | 'outline'
-// }>(
-//   't-chat-action',
-//   '@tdesign/web-components-chat/esm/chat-action'
-// );
-
-// import ChatAction from '@tdesign/web-components-chat/esm/chat-action';
-// import React, { forwardRef, useEffect } from 'react';
-
-// // 注册Web Components组件
-// const registerChatAction = () => {
-//   if (!customElements.get('t-chat-action')) {
-//     customElements.define('t-chat-action', ChatAction);
-//   }
-// };
-
-// // 在组件挂载时注册
-// const useRegisterWebComponent = () => {
-//   useEffect(() => {
-//     registerChatAction();
-//   }, []);
-// };
-
-// // 使用reactify创建React组件
-// const BaseChatActionBar = reactify<TdChatActionProps>('t-chat-action');
-
-// // 包装组件，确保Web Components已注册
-// export const ChatActionBar2 = forwardRef<
-//   HTMLElement | undefined,
-//   Omit<TdChatActionProps, 'ref'> & { [key: string]: any }
-// >((props, ref) => {
-//   useRegisterWebComponent();
-//   return <BaseChatActionBar {...props} ref={ref} />;
-// });
+export type { TdChatActionProps, TdChatActionsName } from '../_util/native-types';

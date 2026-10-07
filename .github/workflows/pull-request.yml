@@ -147,4 +147,7 @@ jobs:
       - name: Build
         run: pnpm run build:aigc
 
+      - name: Chat public contracts and release guard
+        run: pnpm run test:chat && pnpm run check:chat-package
+
       - run: pnpm -F @tdesign-react/chat publish --no-git-checks --dry-run

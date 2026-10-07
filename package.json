@@ -41,7 +41,9 @@
     "build:aigc-jsx-demo": "pnpm run generate:aigc-jsx-demo && pnpm run format:aigc-jsx-demo",
     "init:component": "node script/init-component",
     "robot": "publish-cli robot-msg",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test:chat": "vitest run -c vitest.chat.config.mts",
+    "check:chat-package": "node script/checks/chat-package.mjs"
   },
   "config": {
     "commitizen": {
@@ -76,7 +78,7 @@
     "@commitlint/config-conventional": "^17.1.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@rollup/plugin-babel": "^5.3.0",
-    "@rollup/plugin-commonjs": "^21.0.2",
+    "@rollup/plugin-commonjs": "^28.0.9",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-replace": "^3.0.0",

@@ -18,16 +18,8 @@ const testConfig: InlineConfig = {
   globals: true,
   environment: 'jsdom',
   testTimeout: 16000,
-  // 补齐 jsdom 缺失的浏览器能力（Constructable Stylesheets 等），供 chat 的 webc 实现渲染使用
-  setupFiles: [path.resolve(__dirname, './packages/pro-components/chat/__tests__/setup.ts')],
   testTransformMode: {
     web: ['\\.[jt]sx$'],
-  },
-  server: {
-    deps: {
-      // webc 依赖链含无扩展名导入，交给 vite 解析而非 node 解析
-      inline: [/@tdesign\/web-components/, /tdesign-icons-web-components/, /omi/],
-    },
   },
   coverage: {
     provider: 'istanbul',
@@ -40,11 +32,16 @@ const testConfig: InlineConfig = {
 };
 
 export default defineConfig({
+  esbuild: { jsx: 'automatic' },
   define: {
     __VERSION__: JSON.stringify(pkg.version),
   },
   resolve: {
     alias: {
+      '@tdesign/ai-chat-engine': path.resolve(
+        __dirname,
+        './packages/tdesign-react-aigc/node_modules/@tdesign/ai-chat-engine',
+      ),
       'tdesign-react/es': path.resolve(__dirname, './packages/components'),
       'tdesign-react': path.resolve(__dirname, './packages/components'),
       '@test/utils': path.resolve(__dirname, './test/utils'),

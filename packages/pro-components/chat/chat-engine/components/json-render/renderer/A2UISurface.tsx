@@ -10,19 +10,19 @@
  * - React 相关逻辑（hook / 订阅 / 渲染）：实现在 react 仓库
  * - 不再依赖已废弃的 adapters/a2ui 模块
  */
-
-import React, { useCallback, useMemo, useRef, useSyncExternalStore } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
+import { useSyncExternalStore } from 'use-sync-external-store/shim';
 import {
   applyA2UIDataUpdate,
   applyA2UIUpdates,
   convertA2UIMessagesToJsonRender,
   groupMessagesBySurface,
   surfaceStateManager,
-} from '@tdesign/web-components-chat/chat-engine';
+} from '@tdesign/ai-chat-engine';
 
 import { JsonRenderActivityRenderer } from './JsonRenderActivityRenderer';
 
-import type { A2UIMessage, JsonRenderSchema } from '@tdesign/web-components-chat/chat-engine';
+import type { A2UIMessage, JsonRenderSchema } from '@tdesign/ai-chat-engine';
 import type { ComponentRegistry } from '../types';
 
 /* ------------------------------------------------------------------ */

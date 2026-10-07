@@ -1,82 +1,60 @@
 import { useEffect, useRef, useState } from 'react';
-import { ChatEngine } from '@tdesign/web-components-chat/chat-engine';
+import isEqual from 'react-fast-compare';
+import ChatEngine from '@tdesign/ai-chat-engine';
 
-import type { ChatMessagesData, ChatServiceConfig, ChatStatus } from '@tdesign/web-components-chat/chat-engine';
+import type { ChatMessagesData, ChatServiceConfigSetter, ChatStatus } from '@tdesign/ai-chat-engine';
 
 export type IUseChat = {
   defaultMessages?: ChatMessagesData[];
-  chatServiceConfig: ChatServiceConfig | (() => ChatServiceConfig);
+  chatServiceConfig: ChatServiceConfigSetter;
 };
 
-export const useChat = ({ defaultMessages: initialMessages, chatServiceConfig }: IUseChat) => {
-  const [messages, setMessage] = useState<ChatMessagesData[]>([]);
-  const [status, setStatus] = useState<ChatStatus>('idle');
-  const chatEngineRef = useRef<ChatEngine>(new ChatEngine());
-  const msgSubscribeRef = useRef<null | (() => void)>(null);
-  const prevInitialMessagesRef = useRef<ChatMessagesData[]>([]);
+const emptyMessages: ChatMessagesData[] = [];
+export const useChat = ({ defaultMessages = emptyMessages, chatServiceConfig }: IUseChat) => {
+  const [chatEngine] = useState(() => new ChatEngine());
+  const [messages, setMessages] = useState<ChatMessagesData[]>(defaultMessages);
+  const [ready, setReady] = useState(false);
+  const [error, setError] = useState<unknown>();
+  const initial = useRef({ defaultMessages, chatServiceConfig });
+  const lifetime = useRef({ generation: 0 });
+  const previousMessages = useRef(defaultMessages);
 
-  const chatEngine = chatEngineRef.current;
-
-  const syncState = (state?: ChatMessagesData[]) => {
-    const msgs = state || [];
-    setMessage(msgs);
-    setStatus(msgs.at(-1)?.status || 'idle');
-  };
-
-  const subscribeToChat = () => {
-    // 清理之前的订阅
-    msgSubscribeRef.current?.();
-
-    msgSubscribeRef.current = chatEngine.messageStore.subscribe((state) => {
-      syncState(state.messages);
-    });
-  };
-
-  // 初始化聊天引擎
   useEffect(() => {
-    let isMounted = true;
-
-    const initChat = async () => {
-      // @ts-ignore
-      await chatEngine.init(chatServiceConfig, initialMessages);
-
-      // 如果在 init 完成之前组件已被 unmount（StrictMode cleanup），跳过后续操作
-      if (!isMounted) return;
-
-      // @ts-ignore
-      syncState(initialMessages);
-      subscribeToChat();
-    };
-
-    initChat();
-
+    const owner = lifetime.current;
+    owner.generation += 1;
+    const { generation } = owner;
+    let active = true;
+    let unsubscribe: (() => void) | undefined;
+    chatEngine
+      .init(initial.current.chatServiceConfig, initial.current.defaultMessages)
+      .then(() => {
+        if (!active) return;
+        const sync = () => setMessages(chatEngine.messages);
+        unsubscribe = chatEngine.messageStore.subscribe(sync);
+        sync();
+        setReady(true);
+      })
+      .catch((reason) => {
+        if (active) setError(reason);
+      });
     return () => {
-      isMounted = false;
-      msgSubscribeRef.current?.();
+      active = false;
+      unsubscribe?.();
+      // StrictMode immediately repeats setup. A real unmount releases the engine
+      // after that synchronous replay, while subscription cleanup is immediate.
+      Promise.resolve().then(() => {
+        if (owner.generation === generation) chatEngine.destroy();
+      });
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [chatEngine]);
 
-  // 监听 defaultMessages 变化
   useEffect(() => {
-    // 检查 initialMessages 是否真的发生了变化
-    const hasChanged = JSON.stringify(prevInitialMessagesRef.current) !== JSON.stringify(initialMessages);
-
-    if (hasChanged && initialMessages && initialMessages.length > 0) {
-      // 更新引用
-      prevInitialMessagesRef.current = initialMessages;
-
-      // 重新初始化聊天引擎或更新消息
-      chatEngine.setMessages(initialMessages, 'replace');
-
-      // 同步状态
-      syncState(initialMessages);
+    if (ready && !isEqual(previousMessages.current, defaultMessages)) {
+      previousMessages.current = defaultMessages;
+      chatEngine.setMessages(defaultMessages, 'replace');
     }
-  }, [initialMessages, chatEngine]);
+  }, [defaultMessages, ready, chatEngine]);
 
-  return {
-    chatEngine,
-    messages,
-    status,
-  };
+  const status: ChatStatus = messages[messages.length - 1]?.status || 'idle';
+  return { chatEngine, messages, status, ready, error };
 };

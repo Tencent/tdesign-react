@@ -6,6 +6,8 @@ usage: { title: '', description: '' }
 spline: aigc
 ---
 
+组件可在服务端导入和渲染；Markdown 预览在浏览器挂载后生成。`MarkdownEngine` 的构造与语法扩展 API 需要浏览器 DOM。
+
 ## 基础用法
 
 {{ base }}

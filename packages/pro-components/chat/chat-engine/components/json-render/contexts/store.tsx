@@ -1,4 +1,5 @@
-import React, { createContext, useCallback, useContext, useRef, useSyncExternalStore } from 'react';
+import React, { createContext, useCallback, useContext, useRef } from 'react';
+import { useSyncExternalStore } from 'use-sync-external-store/shim';
 
 import type { ReactNode } from 'react';
 

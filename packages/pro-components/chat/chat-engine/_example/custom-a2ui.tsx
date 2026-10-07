@@ -24,8 +24,8 @@ import {
   useChat,
 } from '@tdesign-react/chat';
 
-import type { A2UIMessage } from '@tdesign/web-components-chat/chat-engine';
 import type {
+  A2UIMessage,
   AIMessageContent,
   ChatMessagesData,
   ChatRequestParams,

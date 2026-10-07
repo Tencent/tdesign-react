@@ -6,7 +6,7 @@
   --td-chat-input-background: blue;
 }
 
-.my-chat-sender::part(t-chat__input__content) {
+.my-chat-sender [data-td-chat-part="sender-content"] {
   border-radius: 2px;
 }
 
@@ -14,7 +14,7 @@
   --td-chat-input-font-size: 24px; /* 确保字体大小足够大 */
 }
 
-.accessible-chat .my-chat-sender::part(t-chat__input__content):hover {
+.accessible-chat .my-chat-sender [data-td-chat-part="sender-content"]:hover {
   outline: 2px solid yellow;
   outline-offset: 2px;
 }

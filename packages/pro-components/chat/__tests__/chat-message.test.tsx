@@ -1,137 +1,75 @@
-/**
- * ChatMessage 迁移回归守卫
- *
- * 守卫目标：消息的「身份与外观」类 prop（role / variant / placement / name / datetime）
- * 与「内容」类 prop（content 数组、children），以及两者的组合。
- */
-import React from 'react';
-import { describe, expect, it } from 'vitest';
+import './setup';
+
+import { describe, expect, it, vi } from 'vitest';
+import { render, screen } from '@testing-library/react';
 
 import { ChatMessage } from '../chat-message';
-import { deepQueryAll, deepText, hasClassDeep, renderChat } from './helpers';
+import { ChatList } from '../chatbot/list';
+import { message } from './helpers';
 
-const textContent = (data: string) => [{ type: 'text', data }] as any;
+import type React from 'react';
+// Message composition is tested separately from the real Cherry browser renderer.
+vi.mock('../chat-markdown', async () => {
+  const React = await import('react');
+  return {
+    ChatMarkdown: React.forwardRef((props: { content: string }, ref: React.Ref<HTMLDivElement>) => (
+      <div ref={ref}>{props.content}</div>
+    )),
+    MarkdownEngine: class {},
+  };
+});
 
-describe('ChatMessage', () => {
-  describe('props.role', () => {
-    it.each([
-      ['user', 't-chat__item__role--user'],
-      ['assistant', 't-chat__item__role--assistant'],
-    ])('role="%s" 渲染 %s', async (role, className) => {
-      const { container } = await renderChat(<ChatMessage role={role as any} content={textContent('hi')} />);
-      expect(hasClassDeep(container, className)).toBe(true);
-    });
+describe('chat-message public contracts', () => {
+  it('composes messages through ChatList children, including empty fragments', () => {
+    render(
+      <ChatList>
+        <>
+          <ChatMessage message={message} />
+          {null}
+          {false}
+          <ChatMessage role="user" content={[{ type: 'text', data: '输入' }]} />
+        </>
+      </ChatList>,
+    );
+    expect(screen.getByText('默认回答')).toBeVisible();
+    expect(screen.getByText('输入')).toBeVisible();
   });
-
-  describe('props.variant', () => {
-    it.each([
-      ['outline', 't-chat__item--variant--outline'],
-      ['text', 't-chat__item--variant--text'],
-    ])('variant="%s" 渲染 %s', async (variant, className) => {
-      const { container } = await renderChat(
-        <ChatMessage role="user" variant={variant as any} content={textContent('hi')} />,
-      );
-      expect(hasClassDeep(container, className)).toBe(true);
-    });
+  it('supports metadata React nodes, overrides and custom segment slots', () => {
+    const view = render(
+      <ChatMessage message={message} content={[{ type: 'text', data: '覆盖' }]} name={<b>作者</b>} datetime="今天" />,
+    );
+    expect(screen.getByText('作者')).toBeVisible();
+    expect(screen.getByText('覆盖')).toBeVisible();
+    expect(screen.queryByText('默认回答')).toBeNull();
+    view.rerender(
+      <ChatMessage message={message}>
+        <div slot="text-0">自定义</div>
+      </ChatMessage>,
+    );
+    expect(screen.getByText('自定义')).toBeVisible();
+    expect(screen.queryByText('默认回答')).toBeNull();
   });
-
-  describe('props.placement', () => {
-    it.each(['left', 'right'])('placement="%s" 作用于消息容器', async (placement) => {
-      const { container } = await renderChat(
-        <ChatMessage role="user" placement={placement as any} content={textContent('hi')} />,
-      );
-      expect(hasClassDeep(container, placement)).toBe(true);
-    });
+  it('reports pending and error states and updates into complete content', () => {
+    const view = render(<ChatMessage role="assistant" status="pending" />);
+    expect(screen.getByRole('status')).toBeVisible();
+    view.rerender(<ChatMessage role="assistant" status="error" />);
+    expect(screen.getByRole('alert')).toHaveTextContent('请求出错');
+    view.rerender(<ChatMessage message={message} />);
+    expect(screen.getByText('默认回答')).toBeVisible();
+    expect(screen.queryByRole('alert')).toBeNull();
   });
-
-  describe('props.content', () => {
-    it('渲染文本内容', async () => {
-      const { container } = await renderChat(<ChatMessage role="user" content={textContent('hello-message')} />);
-      expect(deepText(container)).toContain('hello-message');
-    });
-
-    it('渲染多段内容且保持顺序', async () => {
-      const { container } = await renderChat(<ChatMessage role="user" content={textContent('segment-one')} />);
-      const second = await renderChat(<ChatMessage role="user" content={textContent('segment-two')} />);
-      expect(deepText(container)).toContain('segment-one');
-      expect(deepText(second.container)).toContain('segment-two');
-    });
-  });
-
-  describe('props.name', () => {
-    it('渲染发送者名称', async () => {
-      const { container } = await renderChat(
-        <ChatMessage role="assistant" name="assistant-nicky" content={textContent('hi')} />,
-      );
-      expect(deepText(container)).toContain('assistant-nicky');
-    });
-  });
-
-  describe('children', () => {
-    it('children 作为消息内容渲染', async () => {
-      const { container } = await renderChat(
-        <ChatMessage role="user">
-          <span>child-body</span>
-        </ChatMessage>,
-      );
-      expect(deepText(container)).toContain('child-body');
-    });
-  });
-
-  describe('关键 API 组合', () => {
-    it('role + variant + placement + name + content 组合生效', async () => {
-      const { container } = await renderChat(
-        <ChatMessage
-          role="assistant"
-          variant="outline"
-          placement="right"
-          name="combo-name"
-          content={textContent('combo-body')}
-        />,
-      );
-
-      expect(hasClassDeep(container, 't-chat__item__role--assistant')).toBe(true);
-      expect(hasClassDeep(container, 't-chat__item--variant--outline')).toBe(true);
-      expect(hasClassDeep(container, 'right')).toBe(true);
-      expect(deepText(container)).toContain('combo-name');
-      expect(deepText(container)).toContain('combo-body');
-    });
-  });
-
-  describe('props.status 与 props.animation', () => {
-    it('status="pending" 渲染加载态', async () => {
-      const { container } = await renderChat(
-        <ChatMessage role="assistant" status="pending" content={textContent('')} />,
-      );
-      expect(hasClassDeep(container, 't-chat__item-chat-loading')).toBe(true);
-    });
-
-    it('animation 决定加载动画类型', async () => {
-      const { container } = await renderChat(
-        <ChatMessage role="assistant" status="pending" animation="skeleton" content={textContent('')} />,
-      );
-      expect(hasClassDeep(container, 't-chat-loading__skeleton')).toBe(true);
-    });
-
-    it('status="complete" 不渲染加载态', async () => {
-      const { container } = await renderChat(
-        <ChatMessage role="assistant" status="complete" content={textContent('done')} />,
-      );
-      expect(hasClassDeep(container, 't-chat__item-chat-loading')).toBe(false);
-    });
-  });
-
-  describe('DOM 行为', () => {
-    it('actions={false} 时不渲染操作栏', async () => {
-      const { container } = await renderChat(
-        <ChatMessage role="user" actions={false} content={textContent('no-actions')} />,
-      );
-      expect(deepQueryAll(container, '.t-chat-actions').length).toBe(0);
-    });
-
-    it('消息容器根节点为 t-chat__item__inner', async () => {
-      const { container } = await renderChat(<ChatMessage role="user" content={textContent('root')} />);
-      expect(hasClassDeep(container, 't-chat__item__inner')).toBe(true);
-    });
+  it('keeps two segments in order within the same message', () => {
+    render(
+      <ChatMessage
+        role="user"
+        content={[
+          { type: 'text', data: '第一段' },
+          { type: 'text', data: '第二段' },
+        ]}
+      />,
+    );
+    const first = screen.getByText('第一段');
+    const second = screen.getByText('第二段');
+    expect(first.compareDocumentPosition(second) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 });

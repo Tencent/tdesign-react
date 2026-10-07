@@ -16,10 +16,10 @@ export default function ThinkContentDemo() {
   useEffect(() => {
     // 处理链接点击
     const handleResourceClick = (event: MouseEvent) => {
-      event.preventDefault();
       // 查找符合条件的目标元素
-      const targetResource = findTargetElement(event, ['a[part=md_a]']);
+      const targetResource = findTargetElement(event, ['[data-td-chat=markdown] a']);
       if (targetResource) {
+        event.preventDefault();
         // 获取链接地址并触发回调
         const href = targetResource.getAttribute('href');
         if (href) {

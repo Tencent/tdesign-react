@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useCallback, useEffect, useRef, useSyncExternalStore } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { produce } from 'immer';
+import { useSyncExternalStore } from 'use-sync-external-store/shim';
 import { getByPath, setByPath as setByPathMutable } from '@json-render/core';
 
 import { createStoreContext, Store, useStableCallback } from './store';

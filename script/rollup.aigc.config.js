@@ -61,7 +61,7 @@ const getPlugins = ({ env, isProd = false } = {}) => {
     nodeResolve({
       extensions: ['.mjs', '.js', '.json', '.node', '.ts', '.tsx'],
     }),
-    commonjs(),
+    commonjs({ strictRequires: true }),
     esbuild({
       include: /\.[jt]sx?$/,
       target: 'esnext',
@@ -116,7 +116,7 @@ const cssConfig = {
   external: (id) => externalDeps.some((dep) => id === dep || id.startsWith(`${dep}/`)),
   plugins: [multiInput({ relative: 'packages/pro-components/chat' }), styles({ mode: 'extract' })],
   output: {
-    banner,
+    banner: `${banner}\nimport './index.css';`,
     dir: 'packages/tdesign-react-aigc/es/',
     sourcemap: true,
     assetFileNames: '[name].css',
@@ -129,9 +129,10 @@ const esConfig = {
   // 为了保留 style/css.js
   treeshake: false,
   external: (id) =>
+    id !== 'cherry-markdown/dist/cherry-markdown.stream.js' &&
     // 处理子路径模式的外部依赖
-    externalDeps.some((dep) => id === dep || id.startsWith(`${dep}/`)) ||
-    externalPeerDeps.some((dep) => id === dep || id.startsWith(`${dep}/`)),
+    (externalDeps.some((dep) => id === dep || id.startsWith(`${dep}/`)) ||
+      externalPeerDeps.some((dep) => id === dep || id.startsWith(`${dep}/`))),
   plugins: [multiInput({ relative: 'packages/pro-components/chat' })]
     .concat(getPlugins({ extractMultiCss: true }))
     .concat(getAnalyzePlugins('es')),

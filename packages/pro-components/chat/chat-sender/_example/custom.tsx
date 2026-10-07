@@ -5,7 +5,7 @@ import { ChatSender } from '@tdesign-react/chat';
 
 import { useDynamicStyle } from '../../_util/useDynamicStyle';
 
-import type { TdAttachmentItem } from '@tdesign/web-components-chat';
+import type { TdAttachmentItem } from '@tdesign-react/chat';
 import type { UploadFile } from 'tdesign-react';
 
 const options = [

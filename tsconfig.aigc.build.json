@@ -15,6 +15,7 @@
     "rootDir": "packages/pro-components/chat",
     "skipLibCheck": true,
     "paths": {
+      "@tdesign/ai-chat-engine": ["./packages/tdesign-react-aigc/node_modules/@tdesign/ai-chat-engine"],
       "tdesign-react": ["./packages/tdesign-react-aigc/node_modules/tdesign-react"],
       "tdesign-react/*": ["./packages/tdesign-react-aigc/node_modules/tdesign-react/*"]
     }

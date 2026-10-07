@@ -38,6 +38,7 @@ export default ({ mode }) =>
       alias: {
         '@tdesign-react/chat': path.resolve(__dirname, '../../pro-components/chat'),
         '@tdesign/react-aigc-site': path.resolve(__dirname, './'),
+        'tdesign-react/es/style/index.css': path.resolve(__dirname, '../../components/style/index.js'),
         'tdesign-react/es': path.resolve(__dirname, '../../components'),
         'tdesign-react': path.resolve(__dirname, '../../components'),
       },
@@ -45,6 +46,7 @@ export default ({ mode }) =>
       dedupe: ['tdesign-web-components'],
     },
     build: {
+      commonjsOptions: { include: [/node_modules/, /markdown-engine\.cjs$/] },
       rollupOptions: {
         input: {
           index: 'index.html',

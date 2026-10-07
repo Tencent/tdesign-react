@@ -1,61 +1,55 @@
-/**
- * chat-engine hooks 迁移回归守卫
- *
- * chat-engine 是本包中已有的纯 React 逻辑层（hooks + 生成式 UI），
- * 不受 reactify 包装影响，但会随迁移一起重构，因此同样需要基线守卫。
- * 这里只守「返回值形状」这一宏观契约，不断言内部状态机细节。
- */
-import { describe, expect, it } from 'vitest';
-import { act, renderHook } from '@test/utils';
+import './setup';
 
-import { useAgentState } from '../chat-engine/hooks/useAgentState';
+import React, { StrictMode } from 'react';
+import { describe, expect, it, vi } from 'vitest';
+import ChatEngine from '@tdesign/ai-chat-engine';
+import { act, render, screen } from '@testing-library/react';
+
 import { useChat } from '../chat-engine/hooks/useChat';
-import { flushRender } from './helpers';
+import { history, message } from './helpers';
 
-describe('useChat', () => {
-  it('返回 chatEngine / messages / status 三件套', async () => {
-    const { result } = renderHook(() =>
-      useChat({
-        chatServiceConfig: { endpoint: 'https://example.invalid/api' } as any,
-      }),
+describe('chat-engine-hooks public contracts', () => {
+  it('owns exactly one live initialized engine during StrictMode and destroys it on unmount', async () => {
+    const init = vi.spyOn(ChatEngine.prototype, 'init');
+    const destroy = vi.spyOn(ChatEngine.prototype, 'destroy');
+    let engine: ChatEngine;
+    const Consumer = () => {
+      const result = useChat({
+        chatServiceConfig: {},
+        defaultMessages: history,
+      });
+      engine = result.chatEngine;
+      return <span>{result.ready ? result.messages.length : '初始化'}</span>;
+    };
+    const view = render(
+      <StrictMode>
+        <Consumer />
+      </StrictMode>,
     );
-
+    await screen.findByText('2');
+    expect(new Set(init.mock.instances).size).toBe(1);
+    expect(destroy).not.toHaveBeenCalled();
+    view.unmount();
     await act(async () => {
-      await flushRender(100);
+      await Promise.resolve();
     });
-
-    expect(result.current).toHaveProperty('chatEngine');
-    expect(Array.isArray(result.current.messages)).toBe(true);
-    expect(typeof result.current.status).toBe('string');
+    expect(destroy).toHaveBeenCalledOnce();
+    expect(destroy.mock.instances[0]).toBe(engine);
   });
-
-  it('初始 status 为 idle', async () => {
-    const { result } = renderHook(() =>
-      useChat({
-        chatServiceConfig: { endpoint: 'https://example.invalid/api' } as any,
-      }),
-    );
-
+  it('does not reset a live conversation when defaultMessages is an inline empty array', async () => {
+    let engine: ChatEngine;
+    const Consumer = () => {
+      const result = useChat({ defaultMessages: [], chatServiceConfig: {} });
+      engine = result.chatEngine;
+      return <span>{result.messages.map((m) => m.id).join(',') || '空'}</span>;
+    };
+    render(<Consumer />);
     await act(async () => {
-      await flushRender(100);
+      await Promise.resolve();
     });
-
-    expect(result.current.status).toBe('idle');
-  });
-});
-
-describe('useAgentState', () => {
-  it('initialState 进入 stateMap 且可读回', () => {
-    const { result } = renderHook(() => useAgentState({ initialState: { count: 1 } }));
-
-    expect(result.current.stateMap).toMatchObject({ count: 1 });
-    expect(result.current.getCurrentState()).toMatchObject({ count: 1 });
-  });
-
-  it('暴露状态读写接口', () => {
-    const { result } = renderHook(() => useAgentState({ initialState: { count: 1 } }));
-
-    expect(typeof result.current.setStateMap).toBe('function');
-    expect(typeof result.current.getStateByKey).toBe('function');
+    await act(async () => {
+      engine?.setMessages([message]);
+    });
+    expect(screen.getByText('a')).toBeVisible();
   });
 });
