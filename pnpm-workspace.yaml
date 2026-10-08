@@ -3,10 +3,6 @@ packages:
   - "internal/**"
   - "test"
   - "!packages/common"
-  # 本地环境修复：common 子模块的子包需显式包含，否则根依赖 @tdesign/common-* 无法解析
-  - "packages/common/docs"
-  - "packages/common/js"
-  - "packages/common/style"
 
 # 提升依赖项到根目录，以避免重复安装相同的包
 shamefullyHoist: true

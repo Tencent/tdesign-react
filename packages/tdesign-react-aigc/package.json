@@ -9,8 +9,7 @@
     "es",
     "LICENSE",
     "README.md",
-    "CHANGELOG.md",
-    "THIRD-PARTY-NOTICES.txt"
+    "CHANGELOG.md"
   ],
   "sideEffects": [
     "site/*",
