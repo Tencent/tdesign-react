@@ -1,15 +1,4 @@
----
-title: FileCard 文件缩略卡片
-description: 文件缩略卡片
-isComponent: true
-usage: { title: '', description: '' }
-spline: aigc
----
-
-## 基础用法
-
-{{ base }}
-
+:: BASE_DOC ::
 
 ## API
 ### Filecard Props
