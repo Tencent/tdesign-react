@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import classNames from 'classnames';
 import { get, isNumber, isString } from 'lodash-es';
 
@@ -29,7 +29,8 @@ export interface SelectOptionProps
   onCheckAllChange?: (checkAll: boolean, e: React.MouseEvent<HTMLLIElement>) => void;
   restData?: Record<string, any>;
   keys?: SelectKeysType;
-  optionLength?: number;
+  checkAllChecked?: boolean;
+  checkAllIndeterminate?: boolean;
   isVirtual?: boolean;
   onRowMounted?: (rowData: { ref: HTMLElement; data: SelectOption }) => void;
   isKeyboardHovered?: boolean;
@@ -61,12 +62,9 @@ const Option: React.FC<SelectOptionProps> = (props) => {
 
   const label = propLabel || value;
   const disabled = propDisabled || (multiple && Array.isArray(selectedValue) && max && selectedValue.length >= max);
-  const initCheckedStatus = !(Array.isArray(selectedValue) && selectedValue.length === props.optionLength);
 
-  let selected: boolean;
-  let indeterminate: boolean;
-  // 处理存在禁用项时，全选状态无法来回切换的问题
-  const [allSelectableChecked, setAllSelectableChecked] = useState(initCheckedStatus);
+  let selected = false;
+  let indeterminate = false;
 
   const displayedContent = children || content || label;
 
@@ -114,8 +112,8 @@ const Option: React.FC<SelectOptionProps> = (props) => {
       return get(item, valueKey) === value;
     });
     if (props.checkAll) {
-      selected = selectedValue.length === props.optionLength;
-      indeterminate = selectedValue.length > 0 && !selected;
+      selected = !!props.checkAllChecked;
+      indeterminate = !!props.checkAllIndeterminate;
     }
   }
 
@@ -124,8 +122,8 @@ const Option: React.FC<SelectOptionProps> = (props) => {
       onSelect(value, { label: String(label), selected, event, restData });
     }
     if (checkAll) {
-      props.onCheckAllChange?.(allSelectableChecked, event);
-      setAllSelectableChecked(!allSelectableChecked);
+      // 未全选（含半选）时执行全选，已全选时取消当前列表中的可选项
+      props.onCheckAllChange?.(!props.checkAllChecked, event);
     }
   };
 

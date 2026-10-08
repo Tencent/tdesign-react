@@ -5,7 +5,7 @@ import { isEqual } from 'lodash-es';
 import useConfig from '../../hooks/useConfig';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import usePanelVirtualScroll from '../hooks/usePanelVirtualScroll';
-import { getKeyMapping, getSelectValueArr } from '../util/helper';
+import { getCheckAllState, getKeyMapping, getSelectValueArr } from '../util/helper';
 import Option from './Option';
 import OptionGroup from './OptionGroup';
 
@@ -113,8 +113,13 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
         uniqueOptions[(option as TdOptionProps).value] = option;
       }
     });
-    return Object.values(uniqueOptions);
+    return Object.values(uniqueOptions) as TdOptionProps[];
   }, [propsOptions]);
+
+  const checkAllState = useMemo(
+    () => getCheckAllState(value, optionsExcludedCheckAll, valueKey),
+    [optionsExcludedCheckAll, value, valueKey],
+  );
 
   const onSelect: SelectOptionProps['onSelect'] = (selectedValue, { label, selected, event, restData }) => {
     const objVal = {
@@ -192,13 +197,14 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
 
             const optionElement = (
               <Option
-                key={index}
+                key={optionValue ?? `${index}`}
                 max={max}
                 label={label}
                 value={optionValue}
                 onSelect={onSelect}
                 selectedValue={value}
-                optionLength={optionsExcludedCheckAll.length}
+                checkAllChecked={checkAllState.checked}
+                checkAllIndeterminate={checkAllState.indeterminate}
                 multiple={multiple}
                 size={size}
                 disabled={disabled}

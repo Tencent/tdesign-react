@@ -20,6 +20,36 @@ export const getKeyMapping = (keys: SelectKeysType) => {
   return { valueKey, labelKey, disabledKey };
 };
 
+/**
+ * 判断已选值是否对应当前选项
+ */
+export const isSameOptionValue = (selectedItem: SelectValue, optionValue: unknown, valueKey: string) => {
+  if (selectedItem !== null && typeof selectedItem === 'object') {
+    // 对象值按 valueKey 比较
+    return get(selectedItem, valueKey) === optionValue;
+  }
+  // 原始值直接比较。
+  return selectedItem === optionValue;
+};
+
+/**
+ * 计算全选复选框的选中态和半选态
+ */
+export const getCheckAllState = (selectedValue: SelectValue, options: TdOptionProps[] = [], valueKey: string) => {
+  const selectableOptions = options.filter((opt) => !opt.checkAll && !opt.disabled);
+  if (!Array.isArray(selectedValue) || selectableOptions.length === 0) {
+    return { checked: false, indeterminate: false };
+  }
+  const selectedCount = selectableOptions.filter((opt) =>
+    selectedValue.some((item) => isSameOptionValue(item, get(opt, valueKey), valueKey)),
+  ).length;
+  const checked = selectedCount === selectableOptions.length;
+  return {
+    checked,
+    indeterminate: selectedCount > 0 && !checked,
+  };
+};
+
 export const setValueToOptionFormOptionDom = (
   dom: ReactElement,
   valueToOption: ValueToOption,
@@ -35,7 +65,9 @@ export const setValueToOptionFormOptionDom = (
   };
 };
 
-// 获取 value => option，用于快速基于 value 找到对应的 option
+/**
+ * 获取 value => option，用于快速基于 value 找到对应的 option
+ */
 export const getValueToOption = (
   children: ReactElement,
   options: SelectOption[],
@@ -114,7 +146,9 @@ export const getValueToOption = (
   return valueToOption;
 };
 
-// 获取单选的 label
+/**
+ * 获取单选的 label
+ */
 export const getLabel = (
   children: ReactElement,
   value: SelectValue<TdOptionProps>,
