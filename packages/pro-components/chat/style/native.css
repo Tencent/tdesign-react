@@ -392,6 +392,9 @@
   padding: var(--td-chat-item-think-padding-tb) var(--td-chat-item-think-padding-lr);
   text-align: left;
 }
+[data-td-chat='thinking'] > button {
+  border: var(--td-chat-item-think-header-border);
+}
 [data-td-chat='thinking'][data-layout='border'] [data-td-chat-part='collapse-icon'] {
   margin-left: 0;
 }
@@ -425,8 +428,16 @@
   transform: rotate(180deg);
 }
 [data-td-chat-part='thinking-body'] {
-  margin-top: var(--td-chat-item-think-content-margin-top);
+  display: flow-root;
+  border: var(--td-chat-item-think-body-border);
+  background: var(--td-chat-item-think-body-bg);
   color: var(--td-chat-item-think-content-color);
+}
+[data-td-chat-part='thinking-body'][hidden] {
+  display: none;
+}
+[data-td-chat-part='thinking-scroll'] {
+  margin-top: var(--td-chat-item-think-content-margin-top);
 }
 [data-td-chat-part='thinking-content'] {
   padding: var(--td-chat-item-think-inner-padding);

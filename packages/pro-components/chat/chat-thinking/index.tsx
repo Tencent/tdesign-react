@@ -50,25 +50,26 @@ export const ChatThinking = forwardRef<HTMLElement | undefined, TdChatThinkConte
         <span>{status === 'stop' ? '思考已终止' : content?.title}</span>
         <ChevronDownIcon size="18px" data-td-chat-part="collapse-icon" />
       </button>
-      <div
-        ref={body}
-        data-td-chat-part="thinking-body"
-        hidden={collapsed}
-        style={{ maxHeight, overflowY: maxHeight ? 'auto' : undefined }}
-        onScroll={(e) => {
-          const el = e.currentTarget;
-          follows.current = el.scrollHeight - el.clientHeight - el.scrollTop <= 50;
-        }}
-      >
-        <div ref={inner} data-td-chat-part="thinking-content">
-          {slot(
-            props.children,
-            'content',
-            content?.text
-              ?.split('\n')
-              .filter(Boolean)
-              .map((text, index) => <p key={index}>{text}</p>),
-          )}
+      <div data-td-chat-part="thinking-body" hidden={collapsed}>
+        <div
+          ref={body}
+          data-td-chat-part="thinking-scroll"
+          style={{ maxHeight, overflowY: maxHeight ? 'auto' : undefined }}
+          onScroll={(e) => {
+            const el = e.currentTarget;
+            follows.current = el.scrollHeight - el.clientHeight - el.scrollTop <= 50;
+          }}
+        >
+          <div ref={inner} data-td-chat-part="thinking-content">
+            {slot(
+              props.children,
+              'content',
+              content?.text
+                ?.split('\n')
+                .filter(Boolean)
+                .map((text, index) => <p key={index}>{text}</p>),
+            )}
+          </div>
         </div>
       </div>
     </div>

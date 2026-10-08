@@ -165,7 +165,6 @@ export const ChatSender = forwardRef<HTMLElement | undefined, TdChatSenderProps 
             <Attachments
               {...props.attachmentsProps}
               items={files}
-              overflow={props.attachmentsProps?.overflow || 'scrollX'}
               onRemove={(e) => {
                 props.attachmentsProps?.onRemove?.(e);
                 props.onFileRemove?.(
