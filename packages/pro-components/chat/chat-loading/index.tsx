@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import { Skeleton } from 'tdesign-react';
 
 import { rootProps, useChatClass, useElementRef } from '../_util/native';
 
@@ -15,18 +16,24 @@ export const ChatLoading = forwardRef<HTMLElement | undefined, TdChatLoadingProp
       role="status"
       aria-label={text || '加载中'}
     >
-      <span className="td-chat-loading-indicator" aria-hidden="true">
-        {animation === 'circle' || animation === 'gradient' ? (
-          <i />
-        ) : (
-          <>
+      {animation === 'skeleton' ? (
+        <Skeleton theme="paragraph" animation="gradient" />
+      ) : (
+        <span data-td-chat-part="loading-indicator" aria-hidden="true">
+          {animation === 'circle' || animation === 'gradient' ? (
             <i />
-            <i />
-            <i />
-          </>
-        )}
-      </span>
-      {text && <span>{text}</span>}
+          ) : (
+            <>
+              <i />
+              <i />
+              <i />
+            </>
+          )}
+        </span>
+      )}
+      {text && (
+        <span data-td-chat-part={animation === 'skeleton' ? 'loading-description' : 'loading-text'}>{text}</span>
+      )}
     </div>
   );
 });

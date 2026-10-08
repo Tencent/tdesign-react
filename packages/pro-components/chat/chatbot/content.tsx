@@ -16,7 +16,7 @@ export const ChatSearchContent = forwardRef<HTMLElement | undefined, TdChatSearc
     if (!content || (status === 'complete' && !content.references?.length)) return null;
     const title = status === 'stop' ? '搜索已终止' : content.title;
     return (
-      <div ref={root} {...rootProps(props, base)} data-td-chat="search">
+      <div ref={root} {...rootProps(props, base)} data-td-chat="search" data-collapsible={useCollapse}>
         <button
           data-td-chat-button=""
           type="button"
@@ -26,10 +26,13 @@ export const ChatSearchContent = forwardRef<HTMLElement | undefined, TdChatSearc
             else props.handleSearchResultClick?.({ event: e.nativeEvent, content });
           }}
         >
-          {!useCollapse &&
-            content.references?.map((item) => item.icon && <img key={item.url} src={item.icon} alt={item.title} />)}
+          {!useCollapse && (
+            <span data-td-chat-part="search-icons">
+              {content.references?.map((item) => item.icon && <img key={item.url} src={item.icon} alt={item.title} />)}
+            </span>
+          )}
           <span>{title}</span>
-          {useCollapse && <ChevronDownIcon />}
+          {useCollapse && <ChevronDownIcon size="18px" />}
         </button>
         {useCollapse && (
           <div hidden={local}>

@@ -92,7 +92,7 @@ export const ChatActionBar = forwardRef<HTMLElement | undefined, ChatActionBarPr
           );
         }
         if (typeof action !== 'string') return null;
-        return (
+        const button = (
           <Tooltip key={action} content={labels[action]} placement="top" showArrow {...tooltipProps}>
             <button
               data-td-chat-button=""
@@ -107,6 +107,14 @@ export const ChatActionBar = forwardRef<HTMLElement | undefined, ChatActionBarPr
               {icons[action]}
             </button>
           </Tooltip>
+        );
+        return action === 'replay' && index < actions.length - 1 ? (
+          <span key={action} data-td-chat-part="action-replay">
+            {button}
+            <span data-td-chat-part="action-divider" aria-hidden="true" />
+          </span>
+        ) : (
+          button
         );
       })}
     </div>

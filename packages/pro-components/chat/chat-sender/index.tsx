@@ -1,5 +1,5 @@
 import React, { forwardRef, useRef, useState } from 'react';
-import { AttachIcon, ImageAddIcon, SendFilledIcon, StopIcon } from 'tdesign-icons-react';
+import { FileAttachmentIcon, ImageIcon, SendFilledIcon, StopIcon } from 'tdesign-icons-react';
 import { Textarea } from 'tdesign-react';
 
 import { eventOf, renderNode, rootProps, slot, useChatClass, useElementRef } from '../_util/native';
@@ -65,7 +65,7 @@ export const ChatSender = forwardRef<HTMLElement | undefined, TdChatSenderProps 
             aria-label="上传图片"
             onClick={() => image.current?.click()}
           >
-            <ImageAddIcon />
+            <ImageIcon />
           </button>
         ),
       },
@@ -79,7 +79,7 @@ export const ChatSender = forwardRef<HTMLElement | undefined, TdChatSenderProps 
             aria-label="上传附件"
             onClick={() => upload.current?.click()}
           >
-            <AttachIcon />
+            <FileAttachmentIcon />
           </button>
         ),
       },
@@ -93,7 +93,7 @@ export const ChatSender = forwardRef<HTMLElement | undefined, TdChatSenderProps 
             aria-label="上传附件"
             onClick={() => upload.current?.click()}
           >
-            <AttachIcon />
+            <FileAttachmentIcon />
           </button>
         ),
       },

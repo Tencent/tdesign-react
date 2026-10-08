@@ -29,6 +29,7 @@ export const ChatThinking = forwardRef<HTMLElement | undefined, TdChatThinkConte
       {...rootProps(props, useChatClass('chat-thinking'))}
       data-td-chat="thinking"
       data-layout={layout}
+      data-status={status}
     >
       <button
         data-td-chat-button=""
@@ -39,14 +40,19 @@ export const ChatThinking = forwardRef<HTMLElement | undefined, TdChatThinkConte
           props.onCollapsedChange?.(eventOf('collapsedChange', !collapsed));
         }}
       >
-        {status !== 'stop' && status === 'error' && <CloseCircleIcon />}
-        {status === 'complete' && <CheckCircleIcon />}
+        {status === 'error' && (
+          <CloseCircleIcon size="var(--td-chat-item-think-status-wh)" data-td-chat-part="thinking-status" />
+        )}
+        {status === 'complete' && (
+          <CheckCircleIcon size="var(--td-chat-item-think-status-wh)" data-td-chat-part="thinking-status" />
+        )}
         {status !== 'stop' && status !== 'error' && status !== 'complete' && <ChatLoading animation={animation} />}
         <span>{status === 'stop' ? '思考已终止' : content?.title}</span>
-        <ChevronDownIcon />
+        <ChevronDownIcon size="18px" data-td-chat-part="collapse-icon" />
       </button>
       <div
         ref={body}
+        data-td-chat-part="thinking-body"
         hidden={collapsed}
         style={{ maxHeight, overflowY: maxHeight ? 'auto' : undefined }}
         onScroll={(e) => {
@@ -54,7 +60,7 @@ export const ChatThinking = forwardRef<HTMLElement | undefined, TdChatThinkConte
           follows.current = el.scrollHeight - el.clientHeight - el.scrollTop <= 50;
         }}
       >
-        <div ref={inner}>
+        <div ref={inner} data-td-chat-part="thinking-content">
           {slot(
             props.children,
             'content',

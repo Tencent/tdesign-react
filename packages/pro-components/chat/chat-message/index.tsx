@@ -46,11 +46,13 @@ export const ChatMessage = forwardRef<HTMLElement | undefined, TdChatMessageProp
       if (segment.type === 'text' || segment.type === 'markdown')
         node =
           message.role === 'assistant' ? (
-            <ChatMarkdown
-              {...chatContentProps.markdown}
-              onCodeCopy={(data) => action('codeCopy', data)}
-              content={typeof data === 'string' ? data : ''}
-            />
+            <div data-td-chat-part="message-detail">
+              <ChatMarkdown
+                {...chatContentProps.markdown}
+                onCodeCopy={(data) => action('codeCopy', data)}
+                content={typeof data === 'string' ? data : ''}
+              />
+            </div>
           ) : (
             <div data-td-chat-part="message-text">{typeof data === 'string' ? data : ''}</div>
           );
@@ -107,7 +109,11 @@ export const ChatMessage = forwardRef<HTMLElement | undefined, TdChatMessageProp
           <ChatSuggestionContent content={segment.data} handlePromptClick={(value) => action('suggestion', value)} />
         );
       else if (segment.type === 'image')
-        node = <img src={segment.data.url} alt={segment.data.name} width={200} height={200} />;
+        node = (
+          <div data-td-chat-part="message-image">
+            <img src={segment.data.url} alt={segment.data.name} width={200} height={200} />
+          </div>
+        );
       return (
         <React.Fragment key={key}>
           {slot(children, 'slotName' in segment && segment.slotName ? segment.slotName : key, node)}
@@ -129,6 +135,7 @@ export const ChatMessage = forwardRef<HTMLElement | undefined, TdChatMessageProp
         data-role={message.role}
         data-variant={variant}
         data-placement={placement}
+        data-has-header={!loading && !error && Boolean(name || datetime)}
       >
         {avatar && <div data-td-chat-part="message-avatar">{avatar}</div>}
         {loading && <ChatLoading animation={props.animation || 'skeleton'} />}

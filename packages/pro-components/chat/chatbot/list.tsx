@@ -54,19 +54,21 @@ export const ChatList = forwardRef<HTMLElement | undefined, TdChatListProps & St
           props.onScroll?.(eventOf('scroll', { scrollTop: el.scrollTop }));
         }}
       >
+        {back && (
+          <div data-td-chat-part="list-navigation">
+            <button
+              data-td-chat-button=""
+              type="button"
+              aria-label="回到底部"
+              onClick={() => scrollList({ behavior: 'smooth' })}
+            >
+              <ArrowDownIcon />
+            </button>
+          </div>
+        )}
         <div ref={inner} data-td-chat-part="list-content">
           {renderNode(children)}
         </div>
-        {back && (
-          <button
-            data-td-chat-button=""
-            type="button"
-            aria-label="回到底部"
-            onClick={() => scrollList({ behavior: 'smooth' })}
-          >
-            <ArrowDownIcon />
-          </button>
-        )}
       </div>
     );
   },

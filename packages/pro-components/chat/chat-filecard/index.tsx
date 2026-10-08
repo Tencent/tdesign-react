@@ -1,6 +1,7 @@
 import React, { forwardRef, useEffect, useState } from 'react';
 import {
   CloseCircleFilledIcon,
+  FileCode1FilledIcon,
   FileExcelFilledIcon,
   FileIcon,
   FileImageFilledIcon,
@@ -42,22 +43,45 @@ export const Filecard = forwardRef<HTMLElement | undefined, TdFileCardProps>((pr
   const base = useChatClass('filecard');
   const extension = (item.extension || item.name?.split('.').pop() || '').replace(/^\./, '').toLowerCase();
   const presets = [
-    { matches: /^(pdf)$/, icon: FilePdfFilledIcon },
-    { matches: /^docx?$/, icon: FileWordFilledIcon },
-    { matches: /^xlsx?$/, icon: FileExcelFilledIcon },
-    { matches: /^pptx?$/, icon: FilePowerpointFilledIcon },
-    { matches: /^(zip|rar|7z|tar|gz)$/, icon: FileZipFilledIcon },
-    { matches: /^(mp4|avi|mov|wmv|flv|mkv)$/, icon: VideoFilledIcon },
-    { matches: /^(mp3|wav|flac|ape|aac|ogg)$/, icon: FileMusicFilledIcon },
+    { matches: /^(pdf)$/, icon: FilePdfFilledIcon, color: '#D54941' },
+    { matches: /^docx?$/, icon: FileWordFilledIcon, color: '#0052D9' },
+    { matches: /^xlsx?$/, icon: FileExcelFilledIcon, color: '#2BA471' },
+    { matches: /^pptx?$/, icon: FilePowerpointFilledIcon, color: '#E37318' },
+    {
+      matches: /^(zip|rar|7z|tar|gz)$/,
+      icon: FileZipFilledIcon,
+      color: '#E37318',
+    },
+    {
+      matches: /^(mp4|avi|mov|wmv|flv|mkv)$/,
+      icon: VideoFilledIcon,
+      color: '#D54941',
+    },
+    {
+      matches: /^(mp3|wav|flac|ape|aac|ogg)$/,
+      icon: FileMusicFilledIcon,
+      color: '#D54941',
+    },
+    { matches: /^mdx?$/, icon: FileCode1FilledIcon },
   ];
-  let Icon = presets.find((preset) => preset.matches.test(extension))?.icon || FileIcon;
+  const preset = presets.find((preset) => preset.matches.test(extension));
+  let Icon = preset?.icon || FileIcon;
   if (isImage(item)) Icon = FileImageFilledIcon;
   if (item.status === 'progress') Icon = LoadingIcon;
   let description = item.description || (item.size ? sizeLabel(item.size) : '\u00a0');
   if (!item.description && item.status === 'progress') description = `上传中...${item.percent || 0}%`;
   if (!item.description && item.status === 'fail')
     description = typeof item.response === 'string' ? item.response : '上传失败';
-  let overview = <Icon size="24px" />;
+  let overview = (
+    <span
+      data-td-chat-part="file-icon"
+      style={{
+        color: item.status === 'progress' ? 'var(--td-brand-color)' : preset?.color,
+      }}
+    >
+      <Icon size="24px" />
+    </span>
+  );
   if (cardType === 'image') {
     overview = item.url ? (
       <Image
@@ -106,7 +130,7 @@ export const Filecard = forwardRef<HTMLElement | undefined, TdFileCardProps>((pr
           type="button"
           disabled={disabled}
           aria-label={`移除 ${item.name || '附件'}`}
-          className="td-chat-file-remove"
+          data-td-chat-part="file-remove"
           onClick={() => props.onRemove?.(eventOf('remove', item))}
         >
           <CloseCircleFilledIcon />
