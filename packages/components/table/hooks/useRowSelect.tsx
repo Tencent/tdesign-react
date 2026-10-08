@@ -6,6 +6,7 @@ import { isRowSelectedDisabled } from '@tdesign/common-js/table/utils';
 import Checkbox from '../../checkbox';
 import useControlled from '../../hooks/useControlled';
 import Radio from '../../radio';
+import { getLocalPaginatedData, isControlledPagination, resolvePaginationPageInfo } from '../utils';
 
 import type { MouseEvent } from 'react';
 import type { ClassName } from '../../common';
@@ -82,19 +83,20 @@ export default function useRowSelect(
     return (tSelectedRowKeys ?? []).filter((key) => selectableRowKeys.has(key));
   }, [tSelectedRowKeys, enabledRows, safeRowKey]);
 
-  const controlledPagination = pagination?.current !== undefined ? pagination : undefined;
-  useEffect(
-    () => {
-      // 与 usePagination 保持一致，仅对本地分页数据进行切片
-      const tPageSize = (controlledPagination ? controlledPagination.pageSize : pagination?.defaultPageSize) ?? 10;
-      const tCurrent = (controlledPagination ? controlledPagination.current : pagination?.defaultCurrent) || 1;
-      const shouldPaginate = pagination && !disableDataPage && data.length > tPageSize;
-      const newData = shouldPaginate ? data.slice(tPageSize * (tCurrent - 1), tPageSize * tCurrent) : data;
-      setCurrentPaginateData(newData);
-    },
-    // eslint-disable-next-line
-    [data, disableDataPage, controlledPagination?.current, controlledPagination?.pageSize],
-  );
+  const isControlled = isControlledPagination(pagination);
+  const paginationCurrent = isControlled ? pagination?.current : undefined;
+  const paginationPageSize = isControlled ? pagination?.pageSize : undefined;
+
+  useEffect(() => {
+    const { current, pageSize } = resolvePaginationPageInfo(pagination);
+    const { newData } = getLocalPaginatedData(data, current, pageSize, {
+      disableDataPage,
+      requirePagination: true,
+      pagination,
+    });
+    setCurrentPaginateData(newData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, disableDataPage, paginationCurrent, paginationPageSize]);
 
   // 取消分页时，缓存也应恢复为完整数据
   useEffect(() => {
@@ -299,7 +301,7 @@ export default function useRowSelect(
     currentPaginateData,
     setCurrentPaginateData: (newData: TableRowData[]) => {
       // 受控分页以 props 为准，避免未被接受的翻页请求覆盖当前页数据
-      if (!controlledPagination) setCurrentPaginateData(newData);
+      if (!isControlled) setCurrentPaginateData(newData);
     },
     setTSelectedRowKeys,
     formatToRowSelectColumn,
