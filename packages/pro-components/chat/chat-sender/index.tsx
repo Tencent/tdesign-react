@@ -1,5 +1,5 @@
 import React, { forwardRef, useRef, useState } from 'react';
-import { AttachIcon, ImageAddIcon, SendIcon, StopCircleIcon } from 'tdesign-icons-react';
+import { AttachIcon, ImageAddIcon, SendFilledIcon, StopIcon } from 'tdesign-icons-react';
 import { Textarea } from 'tdesign-react';
 
 import { eventOf, renderNode, rootProps, slot, useChatClass, useElementRef } from '../_util/native';
@@ -101,7 +101,7 @@ export const ChatSender = forwardRef<HTMLElement | undefined, TdChatSenderProps 
         name: 'send',
         render: (
           <button
-            data-td-chat-button=""
+            data-td-chat-button="send"
             type="button"
             disabled={disabled || (!loading && sendDisabled)}
             aria-label={loading ? '停止' : '发送'}
@@ -110,7 +110,7 @@ export const ChatSender = forwardRef<HTMLElement | undefined, TdChatSenderProps 
               else send();
             }}
           >
-            {loading ? <StopCircleIcon /> : <SendIcon />}
+            {loading ? <StopIcon size="28px" /> : <SendFilledIcon />}
           </button>
         ),
       },

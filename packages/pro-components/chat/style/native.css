@@ -182,7 +182,9 @@
   min-width: 0;
 }
 [data-td-chat='sender'] [data-td-chat-part='sender-textarea'] textarea {
-  padding: 0;
+  padding: 0 0 var(--td-comp-paddingTB-s);
+  /* Textarea autosize writes an inline minimum; retain the sender's visual floor. */
+  min-height: 60px !important;
   border: 0;
   background: transparent;
   box-shadow: none;
@@ -194,6 +196,7 @@
   align-items: center;
   justify-content: space-between;
   margin-top: var(--td-comp-margin-s);
+  min-height: 32px;
 }
 [data-td-chat-part='sender-footer'] > div {
   display: flex;
@@ -212,12 +215,20 @@
   font-size: 20px;
 }
 [data-td-chat-part='sender-footer']
-  button[data-td-chat-button][aria-label='发送'] {
+  button[data-td-chat-button='send'] {
+  width: var(--td-comp-size-s);
+  height: var(--td-comp-size-s);
+  padding: 0;
+  font-size: 16px;
   background: var(--td-brand-color);
   color: var(--td-text-color-anti);
 }
 [data-td-chat-part='sender-footer']
-  button[data-td-chat-button][aria-label='发送']:disabled {
+  button[data-td-chat-button='send'] > svg {
+  transform: rotate(-90deg);
+}
+[data-td-chat-part='sender-footer']
+  button[data-td-chat-button='send']:disabled {
   background: var(--td-bg-color-component-disabled);
   color: var(--td-text-color-disabled);
 }
