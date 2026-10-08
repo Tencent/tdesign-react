@@ -1,7 +1,7 @@
 import './setup';
 
 import { describe, expect, it, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { ChatMessage } from '../chat-message';
 import { ChatList } from '../chatbot/list';
@@ -57,6 +57,49 @@ describe('chat-message public contracts', () => {
     view.rerender(<ChatMessage message={message} />);
     expect(screen.getByText('默认回答')).toBeVisible();
     expect(screen.queryByRole('alert')).toBeNull();
+  });
+  it('renders metadata slots without props and lets them override props', () => {
+    const children = (
+      <>
+        <span slot="name">插槽作者</span>
+        <span slot="datetime">插槽时间</span>
+      </>
+    );
+    const view = render(<ChatMessage message={message}>{children}</ChatMessage>);
+    expect(screen.getByText('插槽作者')).toBeVisible();
+    expect(screen.getByText('插槽时间')).toBeVisible();
+    view.rerender(
+      <ChatMessage message={message} name="属性作者" datetime="属性时间">
+        {children}
+      </ChatMessage>,
+    );
+    expect(screen.getByText('插槽作者')).toBeVisible();
+    expect(screen.queryByText('属性作者')).toBeNull();
+    expect(screen.queryByText('属性时间')).toBeNull();
+  });
+  it('defaults message search to a collapsed panel and accepts a card override', () => {
+    const content = {
+      title: '搜索资料',
+      references: [{ title: '参考资料', url: '#reference' }],
+    };
+    const props = {
+      content: [{ type: 'search' as const, data: content, status: 'complete' as const }],
+    };
+    const result = vi.fn();
+    const view = render(<ChatMessage {...props} />);
+    expect(screen.queryByRole('link', { name: /参考资料/ })).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: '搜索资料' }));
+    expect(screen.getByRole('link', { name: /参考资料/ })).toBeVisible();
+    view.rerender(
+      <ChatMessage
+        {...props}
+        chatContentProps={{ search: { useCollapse: false } }}
+        handleActions={{ searchResult: result }}
+      />,
+    );
+    fireEvent.click(screen.getByRole('button', { name: '搜索资料' }));
+    expect(result.mock.calls[0][0].content).toBe(content);
+    expect(screen.queryByRole('link', { name: /参考资料/ })).toBeNull();
   });
   it('keeps two segments in order within the same message', () => {
     render(

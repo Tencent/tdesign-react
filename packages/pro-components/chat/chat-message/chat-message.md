@@ -109,8 +109,8 @@ options.themeSettings.codeBlockTheme | String | - | 代码块主题。可选项�
 
 名称 | 类型 | 默认值 | 说明
 -- | -- | -- | --
-useCollapse | Boolean | - | 是否使用折叠面板展示搜索结果
-collapsed | Boolean | - | 是否默认折叠
+useCollapse | Boolean | true | 是否使用折叠面板展示搜索结果；独立使用 ChatSearchContent 时默认 false
+collapsed | Boolean | true | 是否默认折叠，值变化时同步面板状态，标题仍可点击切换；独立使用 ChatSearchContent 时默认 false
 
 #### thinking 配置
 

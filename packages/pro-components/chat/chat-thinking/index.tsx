@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import React, { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import { CheckCircleIcon, ChevronDownIcon, CloseCircleIcon } from 'tdesign-icons-react';
 
 import { eventOf, rootProps, slot, useChatClass, useElementRef } from '../_util/native';
@@ -11,10 +11,18 @@ export const ChatThinking = forwardRef<HTMLElement | undefined, TdChatThinkConte
   const [local, setLocal] = useState(props.defaultCollapsed || false);
   const collapsed = props.collapsed ?? local;
   const body = useRef<HTMLDivElement>(null);
+  const inner = useRef<HTMLDivElement>(null);
   const follows = useRef(true);
-  useEffect(() => {
+  const scrollToBottom = useCallback(() => {
     if (!collapsed && follows.current && body.current) body.current.scrollTop = body.current.scrollHeight;
-  }, [content?.text, collapsed]);
+  }, [collapsed]);
+  useEffect(scrollToBottom, [scrollToBottom, content?.text, props.children, maxHeight]);
+  useEffect(() => {
+    // Custom reasoning and asynchronous children can grow without changing content.text.
+    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(scrollToBottom) : undefined;
+    if (inner.current) observer?.observe(inner.current);
+    return () => observer?.disconnect();
+  }, [scrollToBottom]);
   return (
     <div
       ref={useElementRef(ref)}
@@ -46,14 +54,16 @@ export const ChatThinking = forwardRef<HTMLElement | undefined, TdChatThinkConte
           follows.current = el.scrollHeight - el.clientHeight - el.scrollTop <= 50;
         }}
       >
-        {slot(
-          props.children,
-          'content',
-          content?.text
-            ?.split('\n')
-            .filter(Boolean)
-            .map((text, index) => <p key={index}>{text}</p>),
-        )}
+        <div ref={inner}>
+          {slot(
+            props.children,
+            'content',
+            content?.text
+              ?.split('\n')
+              .filter(Boolean)
+              .map((text, index) => <p key={index}>{text}</p>),
+          )}
+        </div>
       </div>
     </div>
   );

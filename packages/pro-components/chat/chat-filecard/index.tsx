@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import {
   CloseCircleFilledIcon,
   FileExcelFilledIcon,
@@ -9,10 +9,11 @@ import {
   FilePowerpointFilledIcon,
   FileWordFilledIcon,
   FileZipFilledIcon,
+  ImageErrorIcon,
   LoadingIcon,
   VideoFilledIcon,
 } from 'tdesign-icons-react';
-import { ImageViewer } from 'tdesign-react';
+import { Image, ImageViewer } from 'tdesign-react';
 
 import { eventOf, rootProps, useChatClass, useElementRef } from '../_util/native';
 
@@ -35,6 +36,8 @@ const sizeLabel = (size: number) => {
 export const Filecard = forwardRef<HTMLElement | undefined, TdFileCardProps>((props, ref) => {
   const { item, removable = true, imageViewer = true, cardType = 'file', disabled = false } = props;
   const [visible, setVisible] = useState(false);
+  const previewUrl = imageViewer && isImage(item) ? item.url : undefined;
+  useEffect(() => setVisible(false), [item.url, disabled]);
   const root = useElementRef(ref);
   const base = useChatClass('filecard');
   const extension = (item.extension || item.name?.split('.').pop() || '').replace(/^\./, '').toLowerCase();
@@ -54,6 +57,23 @@ export const Filecard = forwardRef<HTMLElement | undefined, TdFileCardProps>((pr
   if (!item.description && item.status === 'progress') description = `上传中...${item.percent || 0}%`;
   if (!item.description && item.status === 'fail')
     description = typeof item.response === 'string' ? item.response : '上传失败';
+  let overview = <Icon size="24px" />;
+  if (cardType === 'image') {
+    overview = item.url ? (
+      <Image
+        key={item.url}
+        data-td-chat-part="file-image"
+        src={item.url}
+        alt={item.name}
+        fit="cover"
+        shape="round"
+        loading={<LoadingIcon role="status" aria-label="图片加载中" />}
+        error={<ImageErrorIcon role="img" aria-label="图片加载失败" />}
+      />
+    ) : (
+      <LoadingIcon role="status" aria-label="图片加载中" />
+    );
+  }
   return (
     <div
       ref={root}
@@ -69,10 +89,10 @@ export const Filecard = forwardRef<HTMLElement | undefined, TdFileCardProps>((pr
         aria-label={item.name || '附件'}
         onClick={() => {
           props.onFileClick?.(eventOf('fileClick', item));
-          if (imageViewer && isImage(item) && item.url) setVisible(true);
+          if (previewUrl) setVisible(true);
         }}
       >
-        {cardType === 'image' && item.url ? <img src={item.url} alt={item.name} /> : <Icon size="24px" />}
+        {overview}
         {cardType !== 'image' && (
           <span>
             <strong title={item.name}>{item.name}</strong>
@@ -92,8 +112,8 @@ export const Filecard = forwardRef<HTMLElement | undefined, TdFileCardProps>((pr
           <CloseCircleFilledIcon />
         </button>
       )}
-      {imageViewer && item.url && (
-        <ImageViewer images={[item.url]} visible={visible} onClose={() => setVisible(false)} />
+      {previewUrl && !disabled && (
+        <ImageViewer images={[previewUrl]} trigger={() => null} visible={visible} onClose={() => setVisible(false)} />
       )}
     </div>
   );

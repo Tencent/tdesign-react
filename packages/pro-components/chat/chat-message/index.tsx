@@ -92,6 +92,8 @@ export const ChatMessage = forwardRef<HTMLElement | undefined, TdChatMessageProp
       } else if (segment.type === 'search')
         node = (
           <ChatSearchContent
+            useCollapse
+            collapsed
             content={segment.data}
             status={segment.status}
             {...chatContentProps.search}
@@ -117,6 +119,8 @@ export const ChatMessage = forwardRef<HTMLElement | undefined, TdChatMessageProp
       'avatar',
       typeof props.avatar === 'string' ? <img src={props.avatar} alt="avatar" /> : renderNode(props.avatar),
     );
+    const name = slot(children, 'name', renderNode(props.name));
+    const datetime = slot(children, 'datetime', renderNode(props.datetime));
     return (
       <div
         ref={root}
@@ -138,10 +142,10 @@ export const ChatMessage = forwardRef<HTMLElement | undefined, TdChatMessageProp
             {slot(
               children,
               'header',
-              (props.name || props.datetime) && (
+              (name || datetime) && (
                 <div data-td-chat-part="message-header">
-                  <span>{slot(children, 'name', renderNode(props.name))}</span>
-                  <span>{slot(children, 'datetime', renderNode(props.datetime))}</span>
+                  <span>{name}</span>
+                  <span>{datetime}</span>
                 </div>
               ),
             )}

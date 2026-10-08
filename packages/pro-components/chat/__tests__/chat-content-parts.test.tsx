@@ -27,7 +27,12 @@ describe('chat-content-parts public contracts', () => {
     const suggestion = vi.fn();
     render(
       <>
-        <ChatSearchContent content={{ title: '搜索结果', references: [item] }} handleSearchItemClick={search} />
+        <ChatSearchContent
+          content={{ title: '搜索结果', references: [item] }}
+          useCollapse
+          collapsed
+          handleSearchItemClick={search}
+        />
         <ChatSuggestionContent content={[{ title: '继续提问' }]} handlePromptClick={suggestion} />
       </>,
     );
@@ -38,6 +43,38 @@ describe('chat-content-parts public contracts', () => {
     fireEvent.click(screen.getByRole('button', { name: '继续提问' }));
     expect(suggestion.mock.calls[0][0].content.title).toBe('继续提问');
   });
+  it('uses a result card by default and keeps configured search panels interactive', () => {
+    const content = {
+      title: '搜索结果',
+      references: [{ title: '来源', url: '#reference' }],
+    };
+    const result = vi.fn();
+    const view = render(<ChatSearchContent content={content} handleSearchResultClick={result} />);
+    fireEvent.click(screen.getByRole('button', { name: '搜索结果' }));
+    expect(result.mock.calls[0][0].content).toBe(content);
+    expect(screen.queryByRole('link', { name: /来源/ })).toBeNull();
+    view.rerender(<ChatSearchContent content={content} useCollapse collapsed={false} />);
+    expect(screen.getByRole('link', { name: /来源/ })).toBeVisible();
+    view.rerender(<ChatSearchContent content={content} useCollapse collapsed />);
+    expect(screen.queryByRole('link', { name: /来源/ })).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: '搜索结果' }));
+    expect(screen.getByRole('link', { name: /来源/ })).toBeVisible();
+  });
+  it('renders one thumbnail, recovers image failures and excludes previews for ordinary files', () => {
+    const view = render(<Filecard cardType="image" item={{ name: 'a.png', url: '/a.png' }} />);
+    expect(screen.getAllByRole('img')).toHaveLength(1);
+    expect(screen.getByRole('status', { name: '图片加载中' })).toBeVisible();
+    fireEvent.error(screen.getByAltText('a.png'));
+    expect(screen.getByRole('img', { name: '图片加载失败' })).toBeVisible();
+    expect(screen.queryByAltText('a.png')).toBeNull();
+    view.rerender(<Filecard cardType="image" item={{ name: 'b.png', url: '/b.png' }} />);
+    fireEvent.load(screen.getByAltText('b.png'));
+    expect(screen.getByAltText('b.png')).toBeVisible();
+    expect(screen.queryByRole('status', { name: '图片加载中' })).toBeNull();
+    expect(screen.queryByRole('img', { name: '图片加载失败' })).toBeNull();
+    view.rerender(<Filecard item={{ name: 'a.pdf', url: '/a.pdf' }} />);
+    expect(screen.queryByRole('img')).toBeNull();
+  });
   it('updates file status and keeps disabled remove/click inactive', () => {
     const click = vi.fn();
     const remove = vi.fn();
@@ -45,15 +82,8 @@ describe('chat-content-parts public contracts', () => {
       <Filecard item={{ name: 'a.pdf', status: 'progress', percent: 30 }} onFileClick={click} onRemove={remove} />,
     );
     expect(screen.getByText('上传中...30%')).toBeVisible();
-    view.rerender(
-      <Filecard
-        item={{ name: 'a.pdf', status: 'fail', response: '上传出错' }}
-        disabled
-        onFileClick={click}
-        onRemove={remove}
-      />,
-    );
-    expect(screen.getByText('上传出错')).toBeVisible();
+    view.rerender(<Filecard item={{ name: 'a.pdf', status: 'fail' }} disabled onFileClick={click} onRemove={remove} />);
+    expect(screen.getByText('上传失败')).toBeVisible();
     fireEvent.click(screen.getByRole('button', { name: 'a.pdf' }));
     fireEvent.click(screen.getByRole('button', { name: '移除 a.pdf' }));
     expect(click).not.toHaveBeenCalled();

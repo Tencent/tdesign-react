@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import { ChevronDownIcon, JumpIcon, SwapRightIcon } from 'tdesign-icons-react';
 
 import { rootProps, useChatClass, useElementRef } from '../_util/native';
@@ -7,9 +7,10 @@ import type { StyledProps, TdChatSearchContentProps, TdChatSuggestionContentProp
 
 export const ChatSearchContent = forwardRef<HTMLElement | undefined, TdChatSearchContentProps & StyledProps>(
   (props, ref) => {
-    const [local, setLocal] = useState(true);
-    const collapsed = props.collapsed ?? local;
-    const { content, status, useCollapse = true } = props;
+    const { content, status, useCollapse = false, collapsed = false } = props;
+    const [local, setLocal] = useState(collapsed);
+    // collapsed configures the initial disclosure and synchronizes later prop changes.
+    useEffect(() => setLocal(collapsed), [collapsed]);
     const root = useElementRef(ref);
     const base = useChatClass('chat-search');
     if (!content || (status === 'complete' && !content.references?.length)) return null;
@@ -19,9 +20,9 @@ export const ChatSearchContent = forwardRef<HTMLElement | undefined, TdChatSearc
         <button
           data-td-chat-button=""
           type="button"
-          aria-expanded={useCollapse ? !collapsed : undefined}
+          aria-expanded={useCollapse ? !local : undefined}
           onClick={(e) => {
-            if (useCollapse) setLocal(!collapsed);
+            if (useCollapse) setLocal(!local);
             else props.handleSearchResultClick?.({ event: e.nativeEvent, content });
           }}
         >
@@ -31,7 +32,7 @@ export const ChatSearchContent = forwardRef<HTMLElement | undefined, TdChatSearc
           {useCollapse && <ChevronDownIcon />}
         </button>
         {useCollapse && (
-          <div hidden={collapsed}>
+          <div hidden={local}>
             {content.references?.map((item, index) => (
               <a
                 key={`${item.url}-${index}`}
