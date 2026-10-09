@@ -12,17 +12,17 @@ describe('ChatSearchContent', () => {
   const content = { title: '搜索结果', references: [reference] };
 
   describe('props', () => {
-    test('useCollapse=false: renders a result card', async () => {
-      const { container } = render(<ChatSearchContent content={content} useCollapse={false} />);
-      await waitFor(() => expect(text(container)).toContain('搜索结果'));
-      expect(queryAll(container, 'a')).toHaveLength(0);
-    });
-
-    test('useCollapse and collapsed=false: renders the reference link', async () => {
-      const { container } = render(<ChatSearchContent content={content} useCollapse collapsed={false} />);
-      await waitFor(() => expect(text(container)).toContain('参考文档'));
-      const link = get(container, 'a');
+    test('useCollapse: switches between result card and expanded references', async () => {
+      const view = render(<ChatSearchContent content={content} useCollapse={false} />);
+      await waitFor(() => expect(text(view.container)).toContain('搜索结果'));
+      expect(queryAll(view.container, 'a')).toHaveLength(0);
+      view.rerender(<ChatSearchContent content={content} useCollapse collapsed={false} />);
+      await waitFor(() => expect(text(view.container)).toContain('参考文档'));
+      const link = get(view.container, 'a');
       expect(link).toHaveAttribute('href', '#reference');
+      view.rerender(<ChatSearchContent content={content} useCollapse={false} />);
+      await waitFor(() => expect(queryAll(view.container, 'a')).toHaveLength(0));
+      expect(text(view.container)).toContain('搜索结果');
     });
   });
 });

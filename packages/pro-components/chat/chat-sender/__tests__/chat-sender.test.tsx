@@ -7,6 +7,7 @@ import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import { get, mountedRef, queryAll, text } from '../../__tests__/helpers';
 import { ChatSender } from '../../chat-sender';
 
+import type { TdAttachmentItem } from '../../attachments';
 import type { TdChatSenderApi } from '../../chat-sender';
 
 describe('ChatSender', () => {
@@ -41,8 +42,12 @@ describe('ChatSender', () => {
     });
 
     test('sendBtnDisabled: disables sending with a value', async () => {
-      const { container } = render(<ChatSender value="内容" sendBtnDisabled />);
+      const send = vi.fn();
+      const { container } = render(<ChatSender value="内容" sendBtnDisabled onSend={send} />);
       await waitFor(() => expect(get(container, 'button')).toBeDisabled());
+      fireEvent.click(get(container, 'button'));
+      fireEvent.keyDown(get(container, 'textarea'), { key: 'Enter' });
+      expect(send).not.toHaveBeenCalled();
     });
 
     test('textareaProps: forwards options without replacing value', async () => {
@@ -143,14 +148,21 @@ describe('ChatSender', () => {
       const second = { name: '备注.txt', url: '/note.txt' };
       const send = vi.fn();
       const remove = vi.fn();
-      const { container } = render(
-        <ChatSender
-          value="带附件的问题"
-          attachmentsProps={{ items: [first, second], removable: true }}
-          onSend={send}
-          onFileRemove={remove}
-        />,
-      );
+      const Consumer = () => {
+        const [items, setItems] = useState<TdAttachmentItem[]>([first, second]);
+        return (
+          <ChatSender
+            value="带附件的问题"
+            attachmentsProps={{ items, removable: true }}
+            onSend={send}
+            onFileRemove={(event) => {
+              remove(event);
+              setItems(event.detail);
+            }}
+          />
+        );
+      };
+      const { container } = render(<Consumer />);
       await waitFor(() => expect(text(container)).toContain('说明.pdf'));
       fireEvent.click(get(container, 'button'));
       await waitFor(() => expect(send).toHaveBeenCalledOnce());
@@ -160,6 +172,11 @@ describe('ChatSender', () => {
       fireEvent.click(removeButtons[0]);
       await waitFor(() => expect(remove).toHaveBeenCalledOnce());
       expect(remove.mock.calls[0][0].detail).toEqual([second]);
+      await waitFor(() => expect(text(container)).not.toContain('说明.pdf'));
+      expect(text(container)).toContain('备注.txt');
+      fireEvent.click(get(container, 'button'));
+      await waitFor(() => expect(send).toHaveBeenCalledTimes(2));
+      expect(send.mock.calls[1][0].detail).toEqual({ value: '带附件的问题', attachments: [second] });
     });
 
     test('actions and onFileSelect: forward upload selection', async () => {

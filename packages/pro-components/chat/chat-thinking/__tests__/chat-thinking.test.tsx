@@ -11,16 +11,22 @@ describe('ChatThinking', () => {
   describe('events', () => {
     test('collapsedChange: requests a change without overriding controlled collapsed=false', async () => {
       const change = vi.fn();
-      const { container } = render(
+      const view = render(
         <ChatThinking content={{ title: '思考', text: '推理内容' }} collapsed={false} onCollapsedChange={change} />,
       );
-      await waitFor(() => expect(text(container)).toContain('推理内容'));
-      fireEvent.click(get(container, '.t-collapse-panel__header'));
+      await waitFor(() => expect(text(view.container)).toContain('推理内容'));
+      fireEvent.click(get(view.container, '.t-collapse-panel__header'));
       await waitFor(() => expect(change).toHaveBeenCalledOnce());
       expect(change.mock.calls[0][0].detail).toBe(true);
-      fireEvent.click(get(container, '.t-collapse-panel__header'));
+      fireEvent.click(get(view.container, '.t-collapse-panel__header'));
       await waitFor(() => expect(change).toHaveBeenCalledTimes(2));
       expect(change.mock.calls[1][0].detail).toBe(true);
+      view.rerender(
+        <ChatThinking content={{ title: '思考', text: '推理内容' }} collapsed onCollapsedChange={change} />,
+      );
+      fireEvent.click(get(view.container, '.t-collapse-panel__header'));
+      await waitFor(() => expect(change).toHaveBeenCalledTimes(3));
+      expect(change.mock.calls[2][0].detail).toBe(false);
     });
   });
 

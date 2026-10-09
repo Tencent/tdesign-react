@@ -88,6 +88,10 @@ describe('ChatMessage', () => {
       await waitFor(() => expect(text(view.container)).toContain('更新内容'));
       expect(text(view.container)).toContain('更新后的助手');
       expect(text(view.container)).not.toContain('消息内容');
+      expect(queryAll(view.container, '.t-chat__item--variant--outline')).toHaveLength(0);
+      expect(get(view.container, '.t-chat__item--variant--text')).toBeInTheDocument();
+      expect(queryAll(view.container, '.t-chat__item__inner.right')).toHaveLength(0);
+      expect(get(view.container, '.t-chat__item__inner.left')).toBeInTheDocument();
     });
 
     test('status and animation: replace pending feedback with completed content', async () => {

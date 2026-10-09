@@ -25,20 +25,44 @@ describe('ChatActionBar', () => {
   });
 
   describe('scenarios', () => {
-    test('actionBar: custom React actions remain interactive', async () => {
-      const click = vi.fn();
-      const { container } = render(
+    test('comment action: toggles the visible feedback state', async () => {
+      const { container } = render(<ChatActionBar actionBar={['good']} />);
+      await waitFor(() => expect(queryAll(container, '.t-chat-actions__item__wrapper')).toHaveLength(1));
+      expect(queryAll(container, 't-icon-thumb-up-filled')).toHaveLength(0);
+      fireEvent.click(get(container, '.t-chat-actions__item__wrapper'));
+      await waitFor(() => expect(queryAll(container, 't-icon-thumb-up-filled')).toHaveLength(1));
+      fireEvent.click(get(container, '.t-chat-actions__item__wrapper'));
+      await waitFor(() => expect(queryAll(container, 't-icon-thumb-up-filled')).toHaveLength(0));
+    });
+
+    test('actionBar: custom React actions use the latest click handler', async () => {
+      const firstClick = vi.fn();
+      const nextClick = vi.fn();
+      const view = render(
         <ChatActionBar
           actionBar={[
-            <button key="custom" onClick={click}>
+            <button key="custom" onClick={firstClick}>
               自定义操作
             </button>,
           ]}
         />,
       );
-      await waitFor(() => expect(text(container)).toContain('自定义操作'));
-      fireEvent.click(get(container, 'button'));
-      expect(click).toHaveBeenCalledOnce();
+      await waitFor(() => expect(text(view.container)).toContain('自定义操作'));
+      fireEvent.click(get(view.container, 'button'));
+      expect(firstClick).toHaveBeenCalledOnce();
+      view.rerender(
+        <ChatActionBar
+          actionBar={[
+            <button key="custom" onClick={nextClick}>
+              更新操作
+            </button>,
+          ]}
+        />,
+      );
+      await waitFor(() => expect(text(view.container)).toContain('更新操作'));
+      fireEvent.click(get(view.container, 'button'));
+      expect(nextClick).toHaveBeenCalledOnce();
+      expect(firstClick).toHaveBeenCalledOnce();
     });
   });
 });

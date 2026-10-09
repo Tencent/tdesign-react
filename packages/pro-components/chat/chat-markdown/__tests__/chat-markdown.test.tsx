@@ -19,6 +19,10 @@ describe('ChatMarkdown', () => {
     });
 
     test('options: configures link parsing', async () => {
+      const baseline = render(<ChatMarkdown content="[文档](https://tdesign.tencent.com)" />);
+      await waitFor(() => expect(get(baseline.container, 'a')).toHaveTextContent('文档'));
+      expect(get(baseline.container, 'a')).toHaveAttribute('target', '_blank');
+      baseline.unmount();
       const { container } = render(
         <ChatMarkdown
           content="[文档](https://tdesign.tencent.com)"
