@@ -21,6 +21,12 @@ const testConfig: InlineConfig = {
   testTransformMode: {
     web: ['\\.[jt]sx$'],
   },
+  server: {
+    deps: {
+      // Resolve the extensionless imports in Chat's browser dependency chain with Vite.
+      inline: [/@tdesign\/web-components/, /tdesign-icons-web-components/, /omi/],
+    },
+  },
   coverage: {
     provider: 'istanbul',
     reporter: ['text', 'json', 'html'],
