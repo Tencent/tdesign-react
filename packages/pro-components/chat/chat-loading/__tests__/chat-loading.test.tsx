@@ -1,11 +1,11 @@
-import './setup';
+import '../../__tests__/setup';
 
 import React from 'react';
 import { describe, expect, test } from 'vitest';
 import { render, waitFor } from '@testing-library/react';
 
-import { ChatLoading } from '../chat-loading';
-import { get, queryAll, text } from './helpers';
+import { get, queryAll, text } from '../../__tests__/helpers';
+import { ChatLoading } from '../../chat-loading';
 
 describe('ChatLoading', () => {
   describe('props', () => {

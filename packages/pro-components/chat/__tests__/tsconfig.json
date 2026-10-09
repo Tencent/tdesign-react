@@ -6,6 +6,6 @@
     "sourceMap": false,
     "rootDir": "../../../.."
   },
-  "include": ["./*.test.tsx", "../../../../globals.d.ts"],
+  "include": ["../**/__tests__/*.test.tsx", "../../../../globals.d.ts"],
   "exclude": []
 }

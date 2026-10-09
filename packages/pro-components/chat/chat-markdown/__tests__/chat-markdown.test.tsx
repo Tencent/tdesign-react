@@ -1,11 +1,11 @@
-import './setup';
+import '../../__tests__/setup';
 
 import React from 'react';
 import { describe, expect, test } from 'vitest';
 import { render, waitFor } from '@testing-library/react';
 
-import { ChatMarkdown } from '../chat-markdown';
-import { get, queryAll, text } from './helpers';
+import { get, queryAll, text } from '../../__tests__/helpers';
+import { ChatMarkdown } from '../../chat-markdown';
 
 describe('ChatMarkdown', () => {
   describe('props', () => {

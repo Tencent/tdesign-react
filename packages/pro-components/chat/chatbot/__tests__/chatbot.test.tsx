@@ -1,13 +1,13 @@
-import './setup';
+import '../../__tests__/setup';
 
 import React, { createRef } from 'react';
 import { describe, expect, test, vi } from 'vitest';
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
 
-import { ChatBot } from '..';
-import { get, history, mountedRef, queryAll, text } from './helpers';
+import { ChatBot } from '../..';
+import { get, history, mountedRef, queryAll, text } from '../../__tests__/helpers';
 
-import type { TdChatbotApi } from '../chatbot';
+import type { TdChatbotApi } from '../../chatbot';
 
 describe('ChatBot', () => {
   describe('props', () => {

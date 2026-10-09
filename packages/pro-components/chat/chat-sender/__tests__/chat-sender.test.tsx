@@ -1,13 +1,13 @@
-import './setup';
+import '../../__tests__/setup';
 
 import React, { createRef, useState } from 'react';
 import { describe, expect, test, vi } from 'vitest';
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
 
-import { ChatSender } from '../chat-sender';
-import { get, mountedRef, queryAll, text } from './helpers';
+import { get, mountedRef, queryAll, text } from '../../__tests__/helpers';
+import { ChatSender } from '../../chat-sender';
 
-import type { TdChatSenderApi } from '../chat-sender';
+import type { TdChatSenderApi } from '../../chat-sender';
 
 describe('ChatSender', () => {
   describe('props', () => {

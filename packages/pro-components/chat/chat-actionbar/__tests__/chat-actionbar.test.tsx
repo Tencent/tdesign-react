@@ -1,11 +1,11 @@
-import './setup';
+import '../../__tests__/setup';
 
 import React from 'react';
 import { describe, expect, test, vi } from 'vitest';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 
-import { ChatActionBar } from '../chat-actionbar';
-import { get, queryAll, text } from './helpers';
+import { get, queryAll, text } from '../../__tests__/helpers';
+import { ChatActionBar } from '../../chat-actionbar';
 
 describe('ChatActionBar', () => {
   describe('props', () => {

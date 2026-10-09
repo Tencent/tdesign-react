@@ -1,13 +1,13 @@
-import './setup';
+import '../../__tests__/setup';
 
 import React from 'react';
 import { describe, expect, test, vi } from 'vitest';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 
-import { ChatMessage } from '../chat-message';
-import { get, queryAll, text } from './helpers';
+import { get, queryAll, text } from '../../__tests__/helpers';
+import { ChatMessage } from '../../chat-message';
 
-import type { TdChatMessageProps } from '../chat-message';
+import type { TdChatMessageProps } from '../../chat-message';
 
 const content: TdChatMessageProps['content'] = [{ type: 'text', data: '消息内容' }];
 
