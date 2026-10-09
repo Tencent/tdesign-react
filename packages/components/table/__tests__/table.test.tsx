@@ -1221,7 +1221,7 @@ describe('Table', () => {
             expect(getPopups().length).toBe(1);
           });
 
-          // 吸顶表头的图标并非浮层 trigger，document mousedown 不应先关闭浮层导致再次打开
+          // document mousedown 点在同一列筛选图标上不应先关闭浮层，导致随后 click 再次打开
           fireEvent.mouseDown(affixedIcon);
           fireEvent.click(affixedIcon);
           await waitFor(() => {
@@ -1272,6 +1272,24 @@ describe('Table', () => {
             expect(getPopups().length).toBe(1);
           });
           // 浮层挂在吸顶表头的图标上，保证滚动吸顶后浮层定位正确
+          const icons = container.querySelectorAll('.t-table__filter-icon');
+          expect((icons[0].firstChild as Element).classList.contains('t-popup-open')).toBe(true);
+          expect((icons[1].firstChild as Element).classList.contains('t-popup-open')).toBe(false);
+        });
+
+        it('lets the affixed header own the popup under virtual scroll even without headerAffixedTop', async () => {
+          const { container } = render(<VirtualFilterTable />);
+
+          await waitFor(() => {
+            expect(container.querySelectorAll('thead').length).toBe(2);
+          });
+
+          const affixedIcon = container.querySelectorAll('.t-table__filter-icon')[0].firstChild as Element;
+          fireEvent.click(affixedIcon);
+
+          await waitFor(() => {
+            expect(getPopups().length).toBe(1);
+          });
           const icons = container.querySelectorAll('.t-table__filter-icon');
           expect((icons[0].firstChild as Element).classList.contains('t-popup-open')).toBe(true);
           expect((icons[1].firstChild as Element).classList.contains('t-popup-open')).toBe(false);
