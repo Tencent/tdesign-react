@@ -41,7 +41,13 @@ if (!window.matchMedia) {
   }));
 }
 if (!HTMLElement.prototype.scrollTo) {
-  HTMLElement.prototype.scrollTo = function scrollTo(options: ScrollToOptions) {
+  HTMLElement.prototype.scrollTo = function scrollTo(options?: ScrollToOptions | number, y?: number) {
+    if (typeof options === 'number') {
+      this.scrollLeft = options;
+      this.scrollTop = y ?? this.scrollTop;
+      return;
+    }
+    if (!options) return;
     this.scrollTop = options.top ?? this.scrollTop;
     this.scrollLeft = options.left ?? this.scrollLeft;
   };
