@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
-import { fireEvent, render, vi, waitFor } from '@test/utils';
+import { vi } from 'vitest';
+import { createPopper } from '@popperjs/core';
+import { fireEvent, render, waitFor } from '@test/utils';
 
 import { Table } from '..';
 
 import type { BaseTableProps } from '../interface';
 import type { FilterType, FilterValue, PrimaryTableCol, TableRowData } from '../type';
+
+vi.mock('@popperjs/core', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@popperjs/core')>();
+  return { ...actual, createPopper: vi.fn(actual.createPopper) };
+});
 
 type TestTableRow = TableRowData & {
   index: number;
@@ -1186,6 +1193,7 @@ describe('Table', () => {
           await waitFor(() => {
             expect(document.querySelectorAll('.t-table__filter-pop-content').length).toBe(1);
           });
+          const popup = getPopups()[0];
 
           const checkbox = document.querySelector('.custom-filter input[data-value="配件"]') as HTMLInputElement;
           fireEvent.click(checkbox);
@@ -1196,6 +1204,8 @@ describe('Table', () => {
           });
 
           expect(getPopups().length).toBe(1);
+          // 浮层未被重新挂载，否则会重新播放进场动画导致闪烁
+          expect(getPopups()[0]).toBe(popup);
           const checkedBoxes = document.querySelectorAll('.custom-filter input:checked');
           expect(checkedBoxes.length).toBe(1);
           expect((checkedBoxes[0] as HTMLInputElement).dataset.value).toBe('配件');
@@ -1206,6 +1216,7 @@ describe('Table', () => {
             expect(container.querySelectorAll('thead').length).toBe(2);
           });
           expect(getPopups().length).toBe(1);
+          expect(getPopups()[0]).toBe(popup);
         });
 
         it('closes the popup when clicking the affixed header filter icon again', async () => {
@@ -1221,7 +1232,7 @@ describe('Table', () => {
             expect(getPopups().length).toBe(1);
           });
 
-          // 吸顶表头的图标并非浮层 trigger，document mousedown 不应先关闭浮层导致再次打开
+          // document mousedown 点在同一列筛选图标上不应先关闭浮层，导致随后 click 再次打开
           fireEvent.mouseDown(affixedIcon);
           fireEvent.click(affixedIcon);
           await waitFor(() => {
@@ -1275,6 +1286,27 @@ describe('Table', () => {
           const icons = container.querySelectorAll('.t-table__filter-icon');
           expect((icons[0].firstChild as Element).classList.contains('t-popup-open')).toBe(true);
           expect((icons[1].firstChild as Element).classList.contains('t-popup-open')).toBe(false);
+        });
+
+        it('anchors the popup to the affixed header icon under virtual scroll without headerAffixedTop', async () => {
+          const { container } = render(<VirtualFilterTable />);
+
+          await waitFor(() => {
+            expect(container.querySelectorAll('thead').length).toBe(2);
+          });
+
+          const affixedIcon = container.querySelectorAll('.t-table__filter-icon')[0].firstChild as Element;
+          vi.mocked(createPopper).mockClear();
+          fireEvent.click(affixedIcon);
+
+          await waitFor(() => {
+            expect(getPopups().length).toBe(1);
+          });
+          // 常规表头会随虚拟滚动内容滚出可视区域，浮层需以常驻的吸顶表头图标作为定位参照
+          await waitFor(() => {
+            const { calls } = vi.mocked(createPopper).mock;
+            expect(calls[calls.length - 1][0]).toBe(affixedIcon);
+          });
         });
       });
     });
