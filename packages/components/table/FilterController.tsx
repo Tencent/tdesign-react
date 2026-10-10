@@ -88,8 +88,8 @@ function TableFilterController(props: TableFilterControllerProps) {
     const tableSelector = `.${classPrefix}-table`;
     const selfTable = triggerElementRef.current?.closest(tableSelector);
     if (!selfTable) return null;
-    const ths = selfTable.querySelectorAll(`.${classPrefix}-table__affixed-header-elm th`);
-    const th = Array.from(ths).find(
+    const thEls = selfTable.querySelectorAll(`.${classPrefix}-table__affixed-header-elm th`);
+    const th = Array.from(thEls).find(
       (item) => item.getAttribute('data-colkey') === column.colKey && item.closest(tableSelector) === selfTable,
     );
     return th?.querySelector<HTMLElement>(`.${tableFilterClasses.icon} > div`) || null;
