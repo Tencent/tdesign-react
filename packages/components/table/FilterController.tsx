@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import classNames from 'classnames';
 import { isEmpty } from 'lodash-es';
 import { FilterIcon as TdFilterIcon } from 'tdesign-icons-react';
@@ -9,6 +9,7 @@ import TButton from '../button';
 import Checkbox from '../checkbox';
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
+import useLayoutEffect from '../hooks/useLayoutEffect';
 import Input from '../input';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import Popup from '../popup';
@@ -75,9 +76,31 @@ function TableFilterController(props: TableFilterControllerProps) {
   const isPopupOwner = popupOwner === currentHeader;
   const filterPopupVisible = isPopupOwner && visible;
 
+  /* 常规表头持有浮层时，虚拟滚动的常规表头会随内容滚出可视区域，
+     若存在吸顶表头，以其中同一列的图标作为定位参照，浮层实例本身不随吸顶表头的创建和销毁而重新挂载 */
+  const [referenceEl, setReferenceEl] = useState<HTMLElement | null>(null);
+
   const handleFilterPopupVisible = (visible: boolean) => {
     props.onVisibleChange?.(visible, column.colKey, currentHeader);
   };
+
+  const getAffixedHeaderIcon = (): HTMLElement | null => {
+    const tableSelector = `.${classPrefix}-table`;
+    const selfTable = triggerElementRef.current?.closest(tableSelector);
+    if (!selfTable) return null;
+    const ths = selfTable.querySelectorAll(`.${classPrefix}-table__affixed-header-elm th`);
+    const th = Array.from(ths).find(
+      (item) => item.getAttribute('data-colkey') === column.colKey && item.closest(tableSelector) === selfTable,
+    );
+    return th?.querySelector<HTMLElement>(`.${tableFilterClasses.icon} > div`) || null;
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useLayoutEffect(() => {
+    // 吸顶表头是否存在取决于 DOM 而非 props；仅在参照元素变化时更新，不会循环
+    const next = filterPopupVisible && currentHeader === 'default' ? getAffixedHeaderIcon() : null;
+    if (next !== referenceEl) setReferenceEl(next);
+  });
 
   // 另一份表头中同一列的筛选图标：它并非当前 Popup 的 trigger，
   // 需要交由图标自身的 click 决定开合，否则会先被 document 事件关闭再被 click 打开
@@ -199,6 +222,7 @@ function TableFilterController(props: TableFilterControllerProps) {
           placement="bottom-right"
           showArrow
           overlayClassName={tableFilterClasses.popup}
+          referenceElement={referenceEl}
           onVisibleChange={onFilterVisibleChange}
           content={
             <div className={tableFilterClasses.popupContent}>

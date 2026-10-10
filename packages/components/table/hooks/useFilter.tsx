@@ -52,17 +52,17 @@ export default function useFilter(
   // 过滤内部值
   const [innerFilterValue, setInnerFilterValue] = useState<FilterValue>(tFilterValue);
   const [popupVisibilities, setPopupVisibilities] = useState<Record<string, boolean>>({});
-  // 表头吸顶和虚拟滚动会额外渲染一份表头，同一列存在两个筛选控制器
-  // 记录浮层由哪一份表头持有，保证同一时刻同一列只存在一个浮层实例
+  /* 表头吸顶和虚拟滚动会额外渲染一份表头，同一列存在两个筛选控制器
+     记录浮层由哪一份表头持有，保证同一时刻同一列只存在一个浮层实例 */
   const [popupOwners, setPopupOwners] = useState<Record<string, FilterPopupOwner>>({});
 
-  const isVirtualScroll =
-    props.scroll?.type === 'virtual' && (props.scroll.threshold || 100) < (props.data?.length || 0);
-  const hasAffixedHeader = Boolean(props.headerAffixedTop) || isVirtualScroll;
-  const defaultPopupOwner: FilterPopupOwner = hasAffixedHeader ? 'affixed' : 'default';
+  /* 表头吸顶时，吸顶表头常驻，浮层交由它持有。
+     仅虚拟滚动时，吸顶表头会在数据量跨越 scroll.threshold 时创建和销毁，浮层若跟随它切换宿主会被重新挂载，
+     导致浮层闪烁、自定义筛选组件内部状态丢失。因此交由常驻的常规表头持有，再由 FilterController 将定位参照切到吸顶表头 */
+  const defaultPopupOwner: FilterPopupOwner = props.headerAffixedTop ? 'affixed' : 'default';
 
   const resolvePopupOwner = (from: FilterPopupOwner): FilterPopupOwner => {
-    return from === 'affixed' && !hasAffixedHeader ? 'default' : from;
+    return from === 'affixed' && !props.headerAffixedTop ? 'default' : from;
   };
 
   const hasEmptyCondition = (() => {

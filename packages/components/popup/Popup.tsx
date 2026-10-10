@@ -30,6 +30,8 @@ export interface PopupProps extends TdPopupProps {
   expandAnimation?: boolean;
   // 更新内容区域滚动条
   updateScrollTop?: (content: HTMLDivElement) => void;
+  // 浮层定位参照元素，仅影响定位，触发事件仍绑定在 trigger 元素上；不传则使用 trigger 元素
+  referenceElement?: HTMLElement | null;
 }
 
 export interface PopupRef extends PopupInstanceFunctions {
@@ -74,6 +76,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
     delay,
     hideEmptyPopup,
     updateScrollTop,
+    referenceElement,
   } = props;
   const { classPrefix } = useConfig();
   const popupAttach = useAttach('popup', attach);
@@ -124,13 +127,14 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
 
   // TODO: 理论上类型是 Element（包括 SVGElement 等情况，但涉及修改的地方较多，暂时断言）
   const triggerEl = getTriggerElement() as HTMLElement;
+  const referenceEl = referenceElement || triggerEl;
 
   const arrowModifierEnabled = useMemo(() => {
     const arrowModifier = (popperOptions as Options)?.modifiers?.find((m) => m.name === 'arrow');
     return arrowModifier && arrowModifier.enabled !== false;
   }, [popperOptions]);
 
-  popperRef.current = usePopper(triggerEl, popupElement, {
+  popperRef.current = usePopper(referenceEl, popupElement, {
     placement: popperPlacement,
     ...popperOptions,
   });
@@ -140,8 +144,8 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
 
   const updateTimeRef = useRef(null);
   // 监听 trigger 节点或内容变化动态更新 popup 定位
-  useMutationObserver(triggerEl, () => {
-    const isDisplayNone = getCssVarsValue('display', triggerEl) === 'none';
+  useMutationObserver(referenceEl, () => {
+    const isDisplayNone = getCssVarsValue('display', referenceEl) === 'none';
     if (visible && !isDisplayNone) {
       clearTimeout(updateTimeRef.current);
       updateTimeRef.current = setTimeout(() => popperRef.current?.update?.(), 0);
@@ -150,9 +154,9 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
   useEffect(() => () => clearTimeout(updateTimeRef.current), []);
 
   const calculateArrowStyle = () => {
-    if (!triggerEl || !popupElement || !showArrow) return {};
+    if (!referenceEl || !popupElement || !showArrow) return {};
 
-    const triggerRect = triggerEl.getBoundingClientRect();
+    const triggerRect = referenceEl.getBoundingClientRect();
     const popupRect = popupElement.getBoundingClientRect();
 
     const inRange = (value: number, min: number, max: number) => value >= min && value <= max;
@@ -300,7 +304,11 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
                 setPopupElement(node);
               }
             }}
-            style={{ ...styles.popper, zIndex, ...getOverlayStyle(overlayStyle) }}
+            style={{
+              ...styles.popper,
+              zIndex,
+              ...getOverlayStyle(overlayStyle),
+            }}
             className={classNames(`${classPrefix}-popup`, overlayClassName)}
             {...attributes.popper}
             onClick={(e) => props.onOverlayClick?.({ e })}
@@ -341,20 +349,20 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
 
     try {
       // web component 的元素可能在 shadow root 内，需要特殊处理
-      const root = triggerEl?.getRootNode();
+      const root = referenceEl?.getRootNode();
       if (root && root instanceof ShadowRoot) {
         // popper 的实例内部结构可能是 state.elements.reference
         // 尝试兼容不同实现，先赋值再更新
-        if (popper.state) popper.state.elements.reference = triggerEl;
+        if (popper.state) popper.state.elements.reference = referenceEl;
         popper.update();
       } else {
         // 检查元素是否在 DOM 树中或通过 CSS 样式被隐藏
-        let parent = triggerEl as HTMLElement | null;
+        let parent = referenceEl as HTMLElement | null;
         while (parent && parent !== document.body) {
           parent = parent.parentElement;
         }
 
-        const computedStyle = window.getComputedStyle(triggerEl);
+        const computedStyle = window.getComputedStyle(referenceEl);
         const isHidden =
           parent !== document.body ||
           computedStyle.display === 'none' ||
@@ -362,7 +370,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
           computedStyle.opacity === '0';
 
         if (!isHidden) {
-          if (popper.state) popper.state.elements.reference = triggerEl;
+          if (popper.state) popper.state.elements.reference = referenceEl;
           popper.update();
         } else {
           // trigger 不在文档流内或被隐藏，则隐藏浮层
