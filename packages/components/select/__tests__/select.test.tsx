@@ -55,7 +55,7 @@ const RemoteSearchSelect = ({ multiple }: { multiple?: boolean }) => {
   const [loading, setLoading] = useState(false);
   const [remoteOptions, setRemoteOptions] = useState(defaultOptions);
 
-  const onChange = (nextValue) => {
+  const onChange = (nextValue: any) => {
     setValue(nextValue);
   };
 
@@ -209,7 +209,7 @@ describe('Select', () => {
     test('单选', async () => {
       const SingleSelect = () => {
         const [value, setValue] = useState('apple');
-        const onChange = (nextValue) => {
+        const onChange = (nextValue: any) => {
           setValue(nextValue);
         };
         return (
@@ -247,7 +247,7 @@ describe('Select', () => {
     test('多选', async () => {
       const MultipleSelect = () => {
         const [value, setValue] = useState([{ label: 'Apple', value: 'apple' }]);
-        const onChange = (nextValue) => {
+        const onChange = (nextValue: any) => {
           setValue(nextValue);
         };
         return (
@@ -288,7 +288,7 @@ describe('Select', () => {
     test('多选全选', async () => {
       const MultipleSelect = () => {
         const [value, setValue] = useState(['apple']);
-        const onChange = (nextValue) => {
+        const onChange = (nextValue: any) => {
           setValue(nextValue);
         };
         return (
@@ -319,10 +319,82 @@ describe('Select', () => {
       expect(document.querySelector(selectSelector)).not.toHaveTextContent('Orange');
     });
 
+    test('搜索切换后全选按当前列表计算，并保留筛选外已选项', () => {
+      const allOptions = [
+        { label: '苹果 iPhone (A系列)', value: 'A1' },
+        { label: '苹果 iPad (A系列)', value: 'A2' },
+        { label: '联想 ThinkPad (B系列)', value: 'B1' },
+        { label: '联想 Yoga (B系列)', value: 'B2' },
+      ];
+      const onChange = vi.fn();
+
+      const SearchCheckAllSelect = () => {
+        const [keyword, setKeyword] = useState('');
+        const [value, setValue] = useState([]);
+        const filtered = keyword ? allOptions.filter((opt) => opt.label.includes(keyword)) : allOptions;
+        const displayOptions =
+          keyword && filtered.length > 1
+            ? [{ label: '全选', checkAll: true, value: '__CHECK_ALL__' }, ...filtered]
+            : filtered;
+
+        return (
+          <Select
+            multiple
+            filterable
+            reserveKeyword
+            valueType="object"
+            options={displayOptions}
+            value={value}
+            onSearch={setKeyword}
+            onChange={(nextValue, context) => {
+              onChange(nextValue, context);
+              setValue(nextValue as any[]);
+            }}
+          />
+        );
+      };
+
+      const { getByText } = render(<SearchCheckAllSelect />);
+      const input = document.querySelector('input');
+
+      fireEvent.click(input);
+      fireEvent.change(input, { target: { value: 'A' } });
+      fireEvent.click(getByText('全选'));
+
+      expect(onChange).toHaveBeenLastCalledWith(
+        expect.arrayContaining([expect.objectContaining({ value: 'A1' }), expect.objectContaining({ value: 'A2' })]),
+        expect.objectContaining({ trigger: 'check' }),
+      );
+      expect(onChange.mock.lastCall[0]).toHaveLength(2);
+
+      fireEvent.change(input, { target: { value: 'B' } });
+      const checkAllOption = getByText('全选').closest('.t-select-option');
+      expect(checkAllOption.querySelector('.t-checkbox')).not.toHaveClass('t-is-checked');
+
+      fireEvent.click(getByText('全选'));
+      expect(onChange).toHaveBeenLastCalledWith(
+        expect.arrayContaining([
+          expect.objectContaining({ value: 'A1' }),
+          expect.objectContaining({ value: 'A2' }),
+          expect.objectContaining({ value: 'B1' }),
+          expect.objectContaining({ value: 'B2' }),
+        ]),
+        expect.objectContaining({ trigger: 'check' }),
+      );
+      expect(onChange.mock.lastCall[0]).toHaveLength(4);
+
+      fireEvent.click(getByText('全选'));
+      expect(onChange).toHaveBeenLastCalledWith(
+        expect.arrayContaining([expect.objectContaining({ value: 'A1' }), expect.objectContaining({ value: 'A2' })]),
+        expect.objectContaining({ trigger: 'uncheck' }),
+      );
+      expect(onChange.mock.lastCall[0]).toHaveLength(2);
+    });
+
     test('分组选择器', async () => {
       const OptionGroupSelect = () => {
         const [value, setValue] = useState('apple');
-        const onChange = (nextValue) => {
+        const onChange = (nextValue: any) => {
           setValue(nextValue);
         };
 
@@ -362,7 +434,7 @@ describe('Select', () => {
     test('分组选择器全选', async () => {
       const OptionGroupCheckAllSelect = () => {
         const [value, setValue] = useState(['apple']);
-        const onChange = (nextValue) => {
+        const onChange = (nextValue: any) => {
           setValue(nextValue);
         };
 
@@ -396,7 +468,7 @@ describe('Select', () => {
       const testId = 'test-id';
       const FilterableSelect = () => {
         const [value, setValue] = useState();
-        const onChange = (nextValue) => {
+        const onChange = (nextValue: any) => {
           setValue(nextValue);
         };
 
@@ -444,7 +516,7 @@ describe('Select', () => {
 
       const FilterableSelect = () => {
         const [value, setValue] = useState();
-        const onChange = (nextValue) => {
+        const onChange = (nextValue: any) => {
           onSelectedChange(nextValue);
           setValue(nextValue);
         };
@@ -556,7 +628,7 @@ describe('Select', () => {
       const minCollapsedNum = 1;
       const MultipleSelect = () => {
         const [value, setValue] = useState([]);
-        const onChange = (nextValue) => {
+        const onChange = (nextValue: any) => {
           setValue(nextValue);
         };
         return (

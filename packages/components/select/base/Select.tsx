@@ -19,7 +19,7 @@ import Tag from '../../tag';
 import { selectDefaultProps } from '../defaultProps';
 import useKeyboardControl from '../hooks/useKeyboardControl';
 import useOptions, { isSelectOptionGroup } from '../hooks/useOptions';
-import { getKeyMapping, getSelectedOptions, getSelectValueArr } from '../util/helper';
+import { getKeyMapping, getSelectedOptions, getSelectValueArr, isSameOptionValue } from '../util/helper';
 import Option from './Option';
 import OptionGroup from './OptionGroup';
 import PopupContent from './PopupContent';
@@ -161,37 +161,19 @@ const Select = forwardRefWithStatics(
         });
 
         const currentValues = Array.isArray(value) ? value : [];
-        const disabledSelectedOptions: SelectOption[] = [];
-
-        const isDisabledAndSelected = (opt: TdOptionProps) => {
-          if (opt.checkAll || !opt.disabled) return false;
-          if (isObjectType) return currentValues.some((v) => get(v, valueKey) === opt[valueKey]);
-          return currentValues.includes(opt[valueKey]);
-        };
-
-        currentOptions.forEach((opt) => {
-          if (isSelectOptionGroup(opt)) {
-            // 处理分组内的禁用选项
-            opt.children?.forEach((item) => {
-              if (isDisabledAndSelected(item)) {
-                disabledSelectedOptions.push(item);
-              }
-            });
-          } else if (isDisabledAndSelected(opt)) {
-            disabledSelectedOptions.push(opt);
-          }
-        });
+        const enabledOptionValues = enabledOptions.map((opt) => get(opt, valueKey));
+        // 只增删当前列表中的可选项，筛选范围外的已选项和已选中的禁用项保持不变
+        const preservedValues = currentValues.filter(
+          (item) => !enabledOptionValues.some((optionValue) => isSameOptionValue(item, optionValue, valueKey)),
+        );
 
         let checkAllValue: SelectValue[];
 
         if (checkAll) {
-          // 全选：选中所有未禁用的选项 + 保留已选中的禁用选项
-          const enabledValues = enabledOptions.map((opt) => (isObjectType ? opt : opt[valueKey]));
-          const disabledValues = disabledSelectedOptions.map((opt) => (isObjectType ? opt : opt[valueKey]));
-          checkAllValue = [...disabledValues, ...enabledValues];
+          const enabledValues = enabledOptions.map((opt) => (isObjectType ? opt : get(opt, valueKey)));
+          checkAllValue = [...preservedValues, ...enabledValues];
         } else {
-          // 取消全选：只保留已选中的禁用选项
-          checkAllValue = disabledSelectedOptions.map((opt) => (isObjectType ? opt : opt[valueKey]));
+          checkAllValue = preservedValues;
         }
 
         const { currentSelectedOptions } = getSelectedOptions(checkAllValue, multiple, valueType, keys, valueToOption);
