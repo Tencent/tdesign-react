@@ -90,6 +90,27 @@ describe('Form', () => {
       expect((getByPlaceholderText('birthday') as HTMLInputElement).value).toBe(mockBirtyday);
     });
 
+    // Issue: https://github.com/Tencent/tdesign-vue-next/issues/7000
+    test('FormItem without name participates in last item detection', () => {
+      const { container } = render(
+        <Form>
+          <FormItem name="first">
+            <Input />
+          </FormItem>
+          <FormItem name="second">
+            <Input />
+          </FormItem>
+          <FormItem>
+            <Button type="submit">submit</Button>
+          </FormItem>
+        </Form>,
+      );
+      const formItems = container.querySelectorAll('.t-form__item');
+
+      expect(formItems[1]).not.toHaveClass('t-form__item--last');
+      expect(formItems[2]).toHaveClass('t-form__item--last');
+    });
+
     test('rules: nested name', async () => {
       const TestForm = () => {
         return (

@@ -55,7 +55,7 @@ const Form = forwardRefWithStatics(
     const [form] = useForm(props.form); // 内部与外部共享 form 实例，外部不传则内部创建
     const formRef = useRef<HTMLFormElement>(null);
     const formMapRef = useRef(new Map()); // 收集所有包含 name 属性 formItem 实例
-    const formItemElementsRef = useRef(new Set<HTMLElement>()); // 仅收集含 name 的真实表单项
+    const formItemElementsRef = useRef(new Set<HTMLElement>()); // 收集所有参与布局的 FormItem
     const lastFormItemsRef = useRef(new Set<HTMLElement>());
     const floatingFormDataRef = useRef({}); // 储存游离值的 formData
     const mountedFieldsRef = useRef<Set<string>>(new Set()); // Form 生命周期内所有曾经被 FormItem 挂载过的字段（fullPath 序列化后的字符串）
@@ -67,7 +67,7 @@ const Form = forwardRefWithStatics(
       const lastClassName = `${classPrefix}-form__item--last`;
       const formItemSelector = `.${classPrefix}-form__item`;
 
-      // 按父容器分组，标记每一组中最后一个真实表单项（排除提交/重置按钮等无 name 的 FormItem）
+      // 按父容器分组，标记每一组中的最后一个表单项
       const nextLastItems = new Set<HTMLElement>();
       if (layout !== 'inline' && formElement) {
         const formItems = [...formItemElementsRef.current].filter((item) => {
