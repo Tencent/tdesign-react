@@ -51,7 +51,7 @@ export default function useLockStyle(props) {
       if (visible) {
         drawerWrapper.parentNode.style.cssText += ` 
             transition: margin 300ms cubic-bezier(0.7, 0.3, 0.1, 1) 0s;
-            ${marginString};}
+            ${marginString};
           `;
       } else {
         drawerWrapper.parentNode.style.cssText = drawerWrapper.parentNode.style.cssText.replace(/margin:.+;/, '');
