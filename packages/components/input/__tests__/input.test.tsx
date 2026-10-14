@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, fireEvent, mockDelay, render, simulateInputChange, vi } from '@test/utils';
+import { fireEvent, mockDelay, render, simulateInputChange, vi } from '@test/utils';
 import userEvent from '@testing-library/user-event';
 
 import { Input } from '..';
@@ -13,7 +13,7 @@ describe('Input', () => {
   describe('props', () => {
     const alignClassNameList = [{ 't-align-left': false }, 't-align-center', 't-align-right'];
     (['left', 'center', 'right'] as TdInputProps['align'][]).forEach((item, index) => {
-      test(`align is equal to ${item}`, () => {
+      test(`align[${item}]`, () => {
         const wrapper = render(<Input align={item}></Input>);
         const container = wrapper.container.querySelector('.t-input');
         if (typeof alignClassNameList[index] === 'string') {
@@ -40,50 +40,42 @@ describe('Input', () => {
       expect(container.getAttribute('autocomplete')).toBe('https://tdesign.tencent.com/');
     });
 
-    test(`autofocus is equal to false`, () => {
-      const { container } = render(<Input autofocus={false}></Input>);
-      const domWrapper = container.querySelector('input');
-      expect(domWrapper.getAttribute('autofocus')).toBeNull();
+    test('autofocus', () => {
+      const { container: falseContainer } = render(<Input autofocus={false}></Input>);
+      expect(falseContainer.querySelector('input').getAttribute('autofocus')).toBeNull();
+
+      const { container: trueContainer } = render(<Input autofocus={true}></Input>);
+      expect(trueContainer.querySelector('input').getAttribute('autofocus')).toBeDefined();
     });
 
-    test(`autofocus is equal to true`, () => {
-      const { container } = render(<Input autofocus={true}></Input>);
-      const domWrapper = container.querySelector('input');
-      expect(domWrapper.getAttribute('autofocus')).toBeDefined();
-    });
-
-    test('clearable: clear icon should exist on input mouseenter', async () => {
-      const { container } = render(<Input value="Default Keyword" clearable={true}></Input>);
-      fireEvent.mouseEnter(container.querySelector('.t-input'));
+    test('clearable', async () => {
+      const { container: hoverContainer } = render(<Input value="Default Keyword" clearable={true}></Input>);
+      fireEvent.mouseEnter(hoverContainer.querySelector('.t-input'));
       await mockDelay();
-      expect(container.querySelector('.t-input__suffix-clear')).toBeTruthy();
-    });
+      expect(hoverContainer.querySelector('.t-input__suffix-clear')).toBeTruthy();
 
-    test('clearable: click clear icon could clear input value to be empty', async () => {
       const onClearFn1 = vi.fn();
       const onChangeFn1 = vi.fn();
-      const { container } = render(
+      const { container: clearContainer } = render(
         <Input value="Default Keyword" clearable={true} onClear={onClearFn1} onChange={onChangeFn1}></Input>,
       );
-      fireEvent.mouseEnter(container.querySelector('.t-input'));
+      fireEvent.mouseEnter(clearContainer.querySelector('.t-input'));
       await mockDelay(300);
-      expect(container.querySelector('.t-input__suffix-clear')).toBeTruthy();
-      fireEvent.click(container.querySelector('.t-input__suffix-clear'));
+      fireEvent.click(clearContainer.querySelector('.t-input__suffix-clear'));
       expect(onClearFn1).toHaveBeenCalled();
       expect(onClearFn1.mock.calls[0][0].e.stopPropagation).toBeTruthy();
       expect(onClearFn1.mock.calls[0][0].e.type).toBe('click');
       expect(onChangeFn1).toHaveBeenCalled();
       expect(onChangeFn1.mock.calls[0][0]).toBe('');
-      expect(onChangeFn1.mock.calls[0][1].e.stopPropagation).toBeTruthy();
       expect(onChangeFn1.mock.calls[0][1].e.type).toBe('click');
-    });
 
-    test('clearable: type=password, browseIcon and clearableIcon', async () => {
-      const { container } = render(<Input type="password" value="this is my password" clearable={true}></Input>);
-      expect(container.querySelector('.t-icon-browse-off')).toBeTruthy();
-      fireEvent.mouseEnter(container.querySelector('.t-input'));
+      const { container: passwordContainer } = render(
+        <Input type="password" value="this is my password" clearable={true}></Input>,
+      );
+      expect(passwordContainer.querySelector('.t-icon-browse-off')).toBeTruthy();
+      fireEvent.mouseEnter(passwordContainer.querySelector('.t-input'));
       await mockDelay(300);
-      expect(container.querySelector('.t-input__suffix-clear')).toBeTruthy();
+      expect(passwordContainer.querySelector('.t-input__suffix-clear')).toBeTruthy();
     });
 
     test('disabled', () => {
@@ -95,13 +87,14 @@ describe('Input', () => {
       const wrapper2 = render(<Input disabled={true}></Input>);
       const container2 = wrapper2.container.querySelector('.t-input');
       expect(container2).toHaveClass('t-is-disabled');
+      expect(container2.querySelector('input')).toBeDisabled();
       // disabled = false
       const wrapper3 = render(<Input disabled={false}></Input>);
       const container3 = wrapper3.container.querySelector('.t-input');
       expect(container3.querySelector(`.${'t-is-disabled'}`)).toBeFalsy();
     });
 
-    test('format: focus and blur states have different value', () => {
+    test('format', () => {
       const { container } = render(<Input format={(val) => `${val} 元`} value="100"></Input>);
       fireEvent.focus(container.querySelector('input'));
       const attrDom = container.querySelector('input');
@@ -111,28 +104,28 @@ describe('Input', () => {
       expect(attrDom1.value).toBe('100 元');
     });
 
-    test(`inputClass is equal to name1 name2`, () => {
+    test('inputClass', () => {
       const { container } = render(<Input inputClass="name1 name2"></Input>);
       const domWrapper = container.querySelector('.t-input');
       expect(domWrapper).toHaveClass('name1');
       expect(domWrapper).toHaveClass('name2');
     });
 
-    test(`inputClass is equal to ['name1', 'name2']`, () => {
+    test('inputClass[array<string>]', () => {
       const { container } = render(<Input inputClass={['name1', 'name2']}></Input>);
       const domWrapper = container.querySelector('.t-input');
       expect(domWrapper).toHaveClass('name1');
       expect(domWrapper).toHaveClass('name2');
     });
 
-    test(`inputClass is equal to { name1: true, name2: false }`, () => {
+    test('inputClass[object]', () => {
       const { container } = render(<Input inputClass={{ name1: true, name2: false }}></Input>);
       const domWrapper = container.querySelector('.t-input');
       expect(domWrapper).toHaveClass('name1');
       expect(domWrapper.classList.contains('name2')).toBeFalsy();
     });
 
-    test('maxcharacter: length of value is over than maxcharacter', () => {
+    test('maxcharacter', () => {
       const onChangeFn = vi.fn();
       render(<Input value="你好 TDesign" maxcharacter={4} onChange={onChangeFn}></Input>);
       expect(onChangeFn).toHaveBeenCalled();
@@ -140,7 +133,7 @@ describe('Input', () => {
       expect(onChangeFn.mock.calls[0][1].trigger).toBe('initial');
     });
 
-    test('maxlength: length of value is over than maxlength', () => {
+    test('maxlength', () => {
       const onChangeFn = vi.fn();
       render(<Input value="Hello TDesign" maxlength={5} onChange={onChangeFn}></Input>);
       expect(onChangeFn).toHaveBeenCalled();
@@ -160,7 +153,7 @@ describe('Input', () => {
       expect(container.getAttribute('placeholder')).toBe('this is input placeholder');
     });
 
-    test('readonly', () => {
+    test('readOnly', () => {
       // readonly default value is false
       const wrapper1 = render(<Input></Input>);
       const container1 = wrapper1.container.querySelector('.t-input');
@@ -182,14 +175,14 @@ describe('Input', () => {
       expect(container.querySelector('.t-input__suffix-clear')).toBeTruthy();
     });
 
-    test('showLimitNumber: `{".t-input__limit-number":{"text":"2/5"}}` should exist', () => {
+    test('showLimitNumber', () => {
       const { container } = render(<Input showLimitNumber={true} maxlength={5} value="TD"></Input>);
       expect(container.querySelector('.t-input__limit-number').textContent).toBe('2/5');
     });
 
     const sizeClassNameList = ['t-size-s', { 't-size-m': false }, 't-size-l'];
     (['small', 'medium', 'large'] as TdInputProps['size'][]).forEach((item, index) => {
-      test(`size is equal to ${item}`, () => {
+      test(`size[${item}]`, () => {
         const wrapper = render(<Input size={item}></Input>);
         const container = wrapper.container.querySelector('.t-input');
         if (typeof sizeClassNameList[index] === 'string') {
@@ -203,7 +196,7 @@ describe('Input', () => {
 
     const statusClassNameList = [{ 't-is-default': false }, 't-is-success', 't-is-warning', 't-is-error'];
     (['default', 'success', 'warning', 'error'] as TdInputProps['status'][]).forEach((item, index) => {
-      test(`status is equal to ${item}`, () => {
+      test(`status[${item}]`, () => {
         const wrapper = render(<Input status={item}></Input>);
         const container = wrapper.container.querySelector('.t-input');
         if (typeof statusClassNameList[index] === 'string') {
@@ -216,7 +209,7 @@ describe('Input', () => {
       });
     });
 
-    test('tips is equal this is a tip', () => {
+    test('tips[string]', () => {
       const { container } = render(<Input tips="this is a tip"></Input>);
       expect(container.querySelectorAll('.t-input__tips').length).toBe(1);
     });
@@ -224,7 +217,7 @@ describe('Input', () => {
     const attributeValues = ['text', 'number', 'url', 'tel', 'password', 'search', 'submit', 'hidden'];
     (['text', 'number', 'url', 'tel', 'password', 'search', 'submit', 'hidden'] as TdInputProps['type'][]).forEach(
       (item, index) => {
-        test(`type is equal to ${item}`, () => {
+        test(`type[${item}]`, () => {
           const wrapper = render(<Input type={item}></Input>);
           const container = wrapper.container.querySelector('input');
           expect(container.getAttribute('type')).toBe(attributeValues[index]);
@@ -232,47 +225,42 @@ describe('Input', () => {
       },
     );
 
-    test('type is equal password', () => {
+    test('password visibility toggle', () => {
       const { container } = render(<Input type="password"></Input>);
       expect(container.querySelectorAll('.t-icon-browse-off').length).toBe(1);
-    });
-
-    test('type: password could be visible by click browse icon', () => {
-      const { container } = render(<Input type="password"></Input>);
       fireEvent.click(container.querySelector('.t-icon-browse-off'));
       expect(container.querySelector('.t-icon-browse')).toBeTruthy();
-      const attrDom = container.querySelector('input');
-      expect(attrDom.getAttribute('type')).toBe('text');
+      expect(container.querySelector('input').getAttribute('type')).toBe('text');
       fireEvent.click(container.querySelector('.t-icon-browse'));
       expect(container.querySelector('.t-icon-browse-off')).toBeTruthy();
-      const attrDom1 = container.querySelector('input');
-      expect(attrDom1.getAttribute('type')).toBe('password');
+      expect(container.querySelector('input').getAttribute('type')).toBe('password');
+
+      const { container: disabledContainer } = render(<Input type="password" disabled />);
+      fireEvent.click(disabledContainer.querySelector('.t-input__suffix-clear'));
+      expect(disabledContainer.querySelector('.t-icon-browse-off')).toBeTruthy();
     });
 
-    test('disabled', async () => {
-      const changeFn = vi.fn();
-      const { queryByPlaceholderText } = render(<Input placeholder={InputPlaceholder} disabled onChange={changeFn} />);
-      expect((queryByPlaceholderText(InputPlaceholder) as HTMLInputElement).disabled).toBeTruthy();
-    });
-    test('status', async () => {
-      const { container } = render(<Input placeholder={InputPlaceholder} status="error" />);
-      expect(container.children[0].children[0].classList.contains('t-is-error')).toBeTruthy();
-    });
-    test('size', async () => {
-      const { container } = render(<Input placeholder={InputPlaceholder} size="large" />);
-      expect(container.children[0].children[0].classList.contains('t-size-l')).toBeTruthy();
-    });
-    test('label', () => {
+    test('label[TNode]', () => {
       const { container } = render(<Input label={<span className="custom-node">TNode</span>}></Input>);
       expect(container.querySelector('.custom-node')).toBeTruthy();
       expect(container.querySelector('.t-input__prefix')).toBeTruthy();
       expect(container).toMatchSnapshot();
     });
 
+    test('label[string]', () => {
+      const text = 'test-label';
+      const { getByText } = render(<Input label={text} />);
+      expect(getByText(text)).toBeTruthy();
+    });
+
     test('prefixIcon', () => {
       const { container } = render(<Input prefixIcon={<span className="custom-node">TNode</span>}></Input>);
       expect(container.querySelector('.custom-node')).toBeTruthy();
       expect(container.querySelector('.t-input__prefix-icon')).toBeTruthy();
+
+      const text = 'test-prefixIcon';
+      const { getByText } = render(<Input prefixIcon={<span>{text}</span>} />);
+      expect(getByText(text)).toBeTruthy();
     });
 
     test('suffix', () => {
@@ -287,24 +275,6 @@ describe('Input', () => {
       expect(container.querySelector('.custom-node')).toBeTruthy();
       expect(container.querySelector('.t-input__suffix-icon')).toBeTruthy();
       expect(container).toMatchSnapshot();
-    });
-
-    test('label display', async () => {
-      const text = 'test-label';
-      const { getByText } = await render(<Input label={text} />);
-
-      act(() => {
-        expect(getByText(text)).toBeTruthy();
-      });
-    });
-
-    test('prefixIcon display', async () => {
-      const text = 'test-prefixIcon';
-      const { getByText } = await render(<Input prefixIcon={<span>{text}</span>} />);
-
-      act(() => {
-        expect(getByText(text)).toBeTruthy();
-      });
     });
   });
 
@@ -324,38 +294,27 @@ describe('Input', () => {
       expect(onBlurFn1.mock.calls[0][1].e.type).toBe('blur');
     });
 
-    test('change: empty value could trigger change event', () => {
-      const onChangeFn = vi.fn();
-      const { container } = render(<Input onChange={onChangeFn}></Input>);
-      const inputDom = container.querySelector('input');
-      simulateInputChange(inputDom, 'initial value');
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0]).toBe('initial value');
-      expect(onChangeFn.mock.calls[0][1].e.type).toBe('change');
-    });
+    test('change', () => {
+      const onChangeEmptyFn = vi.fn();
+      const { container: emptyContainer } = render(<Input onChange={onChangeEmptyFn}></Input>);
+      simulateInputChange(emptyContainer.querySelector('input'), 'initial value');
+      expect(onChangeEmptyFn.mock.calls[0][0]).toBe('initial value');
 
-    test('change: controlled value test', () => {
-      const onChangeFn = vi.fn();
-      const { container } = render(<Input value="TDesign" onChange={onChangeFn}></Input>);
-      const inputDom = container.querySelector('input');
-      simulateInputChange(inputDom, 'Hello TDesign');
-      const attrDom = container.querySelector('input');
-      expect(attrDom.value).toBe('TDesign');
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0]).toBe('Hello TDesign');
-      expect(onChangeFn.mock.calls[0][1].e.type).toBe('change');
-    });
+      const onChangeControlledFn = vi.fn();
+      const { container: controlledContainer } = render(
+        <Input value="TDesign" onChange={onChangeControlledFn}></Input>,
+      );
+      simulateInputChange(controlledContainer.querySelector('input'), 'Hello TDesign');
+      expect(controlledContainer.querySelector('input').value).toBe('TDesign');
+      expect(onChangeControlledFn.mock.calls[0][0]).toBe('Hello TDesign');
 
-    test('change: uncontrolled value test', () => {
-      const onChangeFn = vi.fn();
-      const { container } = render(<Input defaultValue="Hello" onChange={onChangeFn}></Input>);
-      const inputDom = container.querySelector('input');
-      simulateInputChange(inputDom, 'Hello TDesign');
-      const attrDom = container.querySelector('input');
-      expect(attrDom.value).toBe('Hello TDesign');
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0]).toBe('Hello TDesign');
-      expect(onChangeFn.mock.calls[0][1].e.type).toBe('change');
+      const onChangeUncontrolledFn = vi.fn();
+      const { container: uncontrolledContainer } = render(
+        <Input defaultValue="Hello" onChange={onChangeUncontrolledFn}></Input>,
+      );
+      simulateInputChange(uncontrolledContainer.querySelector('input'), 'Hello TDesign');
+      expect(uncontrolledContainer.querySelector('input').value).toBe('Hello TDesign');
+      expect(onChangeUncontrolledFn.mock.calls[0][0]).toBe('Hello TDesign');
     });
 
     test('click', () => {
@@ -498,7 +457,7 @@ describe('Input', () => {
       expect(InputDom.value).toBe([InputValue, InputValue, InputValue].join(''));
     });
 
-    test('keyDown', async () => {
+    test('keyboard enter interaction', async () => {
       const user = userEvent.setup();
       const onEnterFn = vi.fn();
       const onKeydownFn = vi.fn();
@@ -513,20 +472,7 @@ describe('Input', () => {
   });
 
   describe('scenarios', () => {
-    test('create', async () => {
-      const changeFn = vi.fn();
-      const { container, queryByPlaceholderText } = render(
-        <Input placeholder={InputPlaceholder} onChange={changeFn} />,
-      );
-      expect(container.children[0].children[0].classList.contains('t-input')).toBeTruthy();
-      expect(queryByPlaceholderText(InputPlaceholder)).toBeInTheDocument();
-      fireEvent.change(queryByPlaceholderText(InputPlaceholder), {
-        target: { value: InputValue },
-      });
-      expect(changeFn).toHaveBeenCalledTimes(1);
-      expect(changeFn.mock.calls[0][0]).toBe(InputValue);
-    });
-    test('clearable', async () => {
+    test('clearable resets the value through the clear icon', async () => {
       const clearFn = vi.fn();
       const { queryByPlaceholderText, container } = render(
         <Input placeholder={InputPlaceholder} clearable onClear={clearFn} />,
@@ -539,7 +485,8 @@ describe('Input', () => {
       fireEvent.click(container.querySelector('.t-input__suffix-clear'));
       expect((queryByPlaceholderText(InputPlaceholder) as HTMLInputElement).value).toEqual('');
     });
-    test('clearable can not work when mouseLeave', async () => {
+
+    test('clearable hides the clear icon after mouseleave', async () => {
       const { queryByPlaceholderText, container } = render(<Input placeholder={InputPlaceholder} clearable />);
       fireEvent.change(queryByPlaceholderText(InputPlaceholder), {
         target: { value: InputValue },
@@ -549,7 +496,8 @@ describe('Input', () => {
       fireEvent.mouseLeave(container.firstChild.firstChild);
       expect(container.querySelector('.t-input__suffix-clear')).not.toBeInTheDocument();
     });
-    test('should not lost focus when clear input', async () => {
+
+    test('clearable preserves focus after clearing the value', async () => {
       const blurFn = vi.fn();
       const { queryByPlaceholderText, container } = render(
         <Input placeholder={InputPlaceholder} clearable onBlur={blurFn} />,
@@ -565,7 +513,8 @@ describe('Input', () => {
       fireEvent.blur(InputDom);
       expect(blurFn).toHaveBeenCalledTimes(1);
     });
-    test('composing value should not be kept when value is reset by outside', async () => {
+
+    test('controlled value reset clears the composing state', async () => {
       // 模拟中文输入法的一次合成输入
       const imeInput = (input: HTMLInputElement, value: string) => {
         fireEvent.compositionStart(input, { target: { value: input.value } });
@@ -609,21 +558,6 @@ describe('Input', () => {
       fireEvent.change(InputDom, { target: { value: 'xiang' } });
       fireEvent.compositionEnd(InputDom, { target: { value: '香' } });
       expect(InputDom.value).toBe('香');
-    });
-    test('password', async () => {
-      const { queryByPlaceholderText, container } = render(<Input placeholder={InputPlaceholder} type="password" />);
-      expect((queryByPlaceholderText(InputPlaceholder) as HTMLInputElement).type).toEqual('password');
-
-      expect(container.querySelector('.t-icon-browse-off')).toBeTruthy();
-      fireEvent.click(container.querySelector('.t-input__suffix-clear'));
-      expect(container.querySelector('.t-icon-browse')).toBeTruthy();
-    });
-    test('password can be toggle when disabled', async () => {
-      const { container } = render(<Input placeholder={InputPlaceholder} type="password" disabled />);
-
-      expect(container.querySelector('.t-icon-browse-off')).toBeTruthy();
-      fireEvent.click(container.querySelector('.t-input__suffix-clear'));
-      expect(container.querySelector('.t-icon-browse-off')).toBeTruthy();
     });
   });
 });

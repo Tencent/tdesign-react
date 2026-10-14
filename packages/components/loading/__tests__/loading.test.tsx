@@ -8,38 +8,36 @@ import { LoadingPlugin as loading } from '../plugin';
 
 describe('Loading', () => {
   describe('props', () => {
-    // loading为true显示加载组件
-    test('render loading when loading props is true', async () => {
-      const { container } = render(<Loading loading={true}></Loading>);
-      expect(container.querySelector('.t-loading')).toBeTruthy();
+    test('loading[boolean]', () => {
+      const { container: loadingContainer } = render(<Loading loading={true}></Loading>);
+      expect(loadingContainer.querySelector('.t-loading')).toBeTruthy();
+
+      const { container: idleContainer } = render(<Loading loading={false}></Loading>);
+      expect(idleContainer.querySelector('.t-loading')).toBeNull();
     });
-    // loading为false不显示加载组件
-    test('render null when loading is false', async () => {
-      const { container } = render(<Loading loading={false}></Loading>);
-      expect(container.querySelector('.t-loading')).toBeNull();
-    });
-    test('loading className works', async () => {
+
+    test('className', () => {
       const { container } = render(<Loading loading={true} className="t-custom-loading"></Loading>);
       expect(container.querySelector('.t-custom-loading')).toBeTruthy();
     });
 
-    test('loading style works', async () => {
+    test('style', () => {
       const { container } = render(<Loading loading={true} style={{ color: 'red' }}></Loading>);
       expect(container.querySelector('.t-loading').getAttribute('style')).toBe('color: red;');
     });
 
-    test('loading text works', async () => {
+    test('text[string]', () => {
       const { container } = render(<Loading loading={true} text="加载中"></Loading>);
       expect(container.querySelector('.t-loading').querySelector('.t-loading__text').innerHTML).toBe('加载中');
     });
 
-    test('loading size works', async () => {
+    test('size[string]', () => {
       const { container } = render(<Loading loading={true} size="36px"></Loading>);
-      // 设置size 非枚举 则渲染font size 的style 且不渲染size的class
       expect(container.querySelector('.t-loading').getAttribute('style')).toBe('font-size: 36px;');
       expect(container.querySelector('.t-size-m')).toBeNull();
     });
-    test('loading indicator works', async () => {
+
+    test('indicator[TNode]', () => {
       const { container } = render(<Loading loading={true} indicator={<div>indicator</div>}></Loading>);
       expect(container.querySelector('.t-loading').querySelector('div')).toBeTruthy();
       expect(container.querySelector('.t-loading').querySelector('.t-loading__gradient-conic')).toBeNull();
@@ -47,7 +45,7 @@ describe('Loading', () => {
   });
 
   describe('scenarios', () => {
-    test('global loading config works', async () => {
+    test('ConfigContext loading config supplies component defaults', async () => {
       const { container } = render(
         <ConfigContext.Provider
           value={{
@@ -68,7 +66,7 @@ describe('Loading', () => {
       });
     });
 
-    test('loading props should override global loading config', async () => {
+    test('text and size override ConfigContext loading defaults', async () => {
       const { container } = render(
         <ConfigContext.Provider
           value={{
@@ -88,7 +86,7 @@ describe('Loading', () => {
   });
 
   describe('instanceFunctions', () => {
-    test('loading plugin works', async () => {
+    test('LoadingPlugin attaches an instance to the configured container', async () => {
       const { container } = render(
         <div>
           <div

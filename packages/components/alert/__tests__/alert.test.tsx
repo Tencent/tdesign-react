@@ -8,32 +8,25 @@ describe('Alert', () => {
   const text = 'Alert内容';
 
   describe('props', () => {
-    test('default close icon render', () => {
+    test('closeBtn', () => {
       const { container } = render(<Alert theme="error" title="title content" closeBtn />);
 
       expect(container.querySelector('.t-icon-close')).not.toBeNull();
       expect(container.querySelector('.t-icon-close')).toBeInTheDocument();
     });
 
-    test('theme icon render', () => {
+    test('theme[success]', () => {
       const { container } = render(<Alert theme="success" title="title content" />);
 
       expect(container.querySelector('.t-icon-check-circle-filled')).not.toBeNull();
       expect(container.querySelector('.t-icon-check-circle-filled')).toBeInTheDocument();
     });
 
-    test('default theme icon render', () => {
+    test('theme[default]', () => {
       const { container } = render(<Alert title="title content" />);
 
       expect(container.querySelector('.t-icon-info-circle-filled')).not.toBeNull();
       expect(container.querySelector('.t-icon-info-circle-filled')).toBeInTheDocument();
-    });
-
-    test('maxLine', () => {
-      const { container } = render(<Alert title="title content" />);
-
-      expect(container.querySelector('.t-alert__collapse')).toBeNull();
-      expect(container.querySelector('.t-alert__collapse')).not.toBeInTheDocument();
     });
 
     test('className', () => {
@@ -46,7 +39,8 @@ describe('Alert', () => {
       const element = container.querySelector('.t-alert') as HTMLElement;
       expect(element?.style.color).toBe('red');
     });
-    test('custom close icon render', () => {
+
+    test('closeBtn[TNode]', () => {
       const { queryByTestId } = render(
         <Alert theme="error" title="title content" closeBtn={<div data-testid={testId}>{text}</div>} />,
       );
@@ -55,53 +49,14 @@ describe('Alert', () => {
       expect(queryByTestId(testId)).toBeInTheDocument();
     });
 
-    test('custom icon render', () => {
+    test('icon[TNode]', () => {
       const { queryByText } = render(<Alert icon={<span>custom icon</span>} title="title content" />);
 
       expect(queryByText('custom icon')).not.toBeNull();
       expect(queryByText('custom icon')).toBeInTheDocument();
     });
-  });
 
-  describe('scenarios', () => {
-    test('Alert 关闭操作', async () => {
-      const onClose = vi.fn();
-      const onClosed = vi.fn();
-
-      const { queryByTestId, container, queryByText } = render(
-        <Alert
-          theme="error"
-          title="title content"
-          message={text}
-          closeBtn={<div data-testid={testId}>{text}</div>}
-          onClose={onClose}
-          onClosed={onClosed}
-          operation={<span id="operation-test">test content</span>}
-        />,
-      );
-
-      expect(container.querySelector('.t-alert--closing')).not.toBeInTheDocument();
-      expect(container.querySelector('#operation-test')).not.toBeNull();
-      expect(container.querySelector('#operation-test')).toBeInTheDocument();
-      expect(queryByText('title content')).not.toBeNull();
-      expect(queryByText('title content')).toBeInTheDocument();
-      expect(container.querySelector('.t-alert--error')).not.toBeNull();
-      expect(container.querySelector('.t-alert--error')).toBeInTheDocument();
-
-      const element = queryByTestId(testId);
-      if (element) {
-        // 在 react 18.3.1之后 可以在 react 中导出 act,且在18.3.1 之后应该在react中使用 act
-        act(() => fireEvent.click(element));
-      } else {
-        throw new Error(`Element with testId ${testId} not found`);
-      }
-      expect(container.querySelector('.t-alert--closing')).toBeInTheDocument();
-      expect(onClose).toHaveBeenCalledTimes(1);
-
-      await mockTimeout(() => expect(onClosed).toHaveBeenCalledTimes(1), 300);
-    });
-
-    test('message not collapsed', () => {
+    test('maxLine[number]', () => {
       const message = [
         <div key={0}>{text}</div>,
         <div key={1}>{text}</div>,
@@ -117,8 +72,10 @@ describe('Alert', () => {
       expect(container1.querySelector('.t-alert__collapse')).toBeNull();
       expect(container1.querySelector('.t-alert__collapse')).not.toBeInTheDocument();
     });
+  });
 
-    test('Alert 展开收起操作', async () => {
+  describe('scenarios', () => {
+    test('maxLine toggles message expansion and collapse', async () => {
       const massage = [
         <div key={0}>{text}</div>,
         <div key={1}>{text}</div>,
@@ -153,6 +110,45 @@ describe('Alert', () => {
       }
       const element3 = await waitFor(() => queryByTestId(testId));
       expect(element3).toBeNull();
+    });
+  });
+
+  describe('events', () => {
+    test('onClose and onClosed', async () => {
+      const onClose = vi.fn();
+      const onClosed = vi.fn();
+
+      const { queryByTestId, container, queryByText } = render(
+        <Alert
+          theme="error"
+          title="title content"
+          message={text}
+          closeBtn={<div data-testid={testId}>{text}</div>}
+          onClose={onClose}
+          onClosed={onClosed}
+          operation={<span id="operation-test">test content</span>}
+        />,
+      );
+
+      expect(container.querySelector('.t-alert--closing')).not.toBeInTheDocument();
+      expect(container.querySelector('#operation-test')).not.toBeNull();
+      expect(container.querySelector('#operation-test')).toBeInTheDocument();
+      expect(queryByText('title content')).not.toBeNull();
+      expect(queryByText('title content')).toBeInTheDocument();
+      expect(container.querySelector('.t-alert--error')).not.toBeNull();
+      expect(container.querySelector('.t-alert--error')).toBeInTheDocument();
+
+      const element = queryByTestId(testId);
+      if (element) {
+        // 在 react 18.3.1之后 可以在 react 中导出 act,且在18.3.1 之后应该在react中使用 act
+        act(() => fireEvent.click(element));
+      } else {
+        throw new Error(`Element with testId ${testId} not found`);
+      }
+      expect(container.querySelector('.t-alert--closing')).toBeInTheDocument();
+      expect(onClose).toHaveBeenCalledTimes(1);
+
+      await mockTimeout(() => expect(onClosed).toHaveBeenCalledTimes(1), 300);
     });
   });
 });

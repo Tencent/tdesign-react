@@ -25,6 +25,14 @@ const testConfig: InlineConfig = {
     provider: 'istanbul',
     reporter: ['text', 'json', 'html'],
     reportsDirectory: 'test/coverage',
+    exclude: [
+      '**/__tests__/**',
+      '**/*.{test,spec}.{ts,tsx}',
+      '**/_example/**',
+      '**/_example-js/**',
+      '**/node_modules/**',
+      'packages/pro-components/**',
+    ],
   },
   typecheck: {
     tsconfig: './tsconfig.vitest.json',
@@ -40,6 +48,7 @@ export default defineConfig({
       'tdesign-react/es': path.resolve(__dirname, './packages/components'),
       'tdesign-react': path.resolve(__dirname, './packages/components'),
       '@test/utils': path.resolve(__dirname, './test/utils'),
+      '@tdesign-react/chat': path.resolve(__dirname, './packages/pro-components/chat'),
     },
   },
   test: testConfig,
