@@ -8,25 +8,11 @@ describe('Alert', () => {
   const text = 'Alert内容';
 
   describe('props', () => {
-    test('closeBtn', () => {
-      const { container } = render(<Alert theme="error" title="title content" closeBtn />);
-
-      expect(container.querySelector('.t-icon-close')).not.toBeNull();
-      expect(container.querySelector('.t-icon-close')).toBeInTheDocument();
-    });
-
-    test('theme[success]', () => {
-      const { container } = render(<Alert theme="success" title="title content" />);
-
-      expect(container.querySelector('.t-icon-check-circle-filled')).not.toBeNull();
-      expect(container.querySelector('.t-icon-check-circle-filled')).toBeInTheDocument();
-    });
-
-    test('theme[default]', () => {
-      const { container } = render(<Alert title="title content" />);
-
-      expect(container.querySelector('.t-icon-info-circle-filled')).not.toBeNull();
-      expect(container.querySelector('.t-icon-info-circle-filled')).toBeInTheDocument();
+    test('theme', () => {
+      const { container: container1 } = render(<Alert title="title content" />);
+      expect(container1.querySelector('.t-icon-info-circle-filled')).toBeInTheDocument();
+      const { container: container2 } = render(<Alert theme="success" title="title content" />);
+      expect(container2.querySelector('.t-icon-check-circle-filled')).toBeInTheDocument();
     });
 
     test('className', () => {
@@ -40,11 +26,16 @@ describe('Alert', () => {
       expect(element?.style.color).toBe('red');
     });
 
+    test('closeBtn[true]', () => {
+      const { container } = render(<Alert theme="error" title="title content" closeBtn />);
+      expect(container.querySelector('.t-icon-close')).not.toBeNull();
+      expect(container.querySelector('.t-icon-close')).toBeInTheDocument();
+    });
+
     test('closeBtn[TNode]', () => {
       const { queryByTestId } = render(
         <Alert theme="error" title="title content" closeBtn={<div data-testid={testId}>{text}</div>} />,
       );
-
       expect(queryByTestId(testId)).not.toBeNull();
       expect(queryByTestId(testId)).toBeInTheDocument();
     });
@@ -71,45 +62,6 @@ describe('Alert', () => {
       expect(container.querySelector('.t-alert__collapse')).not.toBeInTheDocument();
       expect(container1.querySelector('.t-alert__collapse')).toBeNull();
       expect(container1.querySelector('.t-alert__collapse')).not.toBeInTheDocument();
-    });
-  });
-
-  describe('scenarios', () => {
-    test('maxLine toggles message expansion and collapse', async () => {
-      const massage = [
-        <div key={0}>{text}</div>,
-        <div key={1}>{text}</div>,
-        <div key={2} data-testid={testId}>
-          {text}
-        </div>,
-      ];
-      const { queryByText, queryByTestId } = render(<Alert theme="error" message={massage} maxLine={2} />);
-
-      expect(queryByText('展开更多')).not.toBeNull();
-      expect(queryByText('展开更多')).toBeInTheDocument();
-      const element = await waitFor(() => queryByTestId(testId));
-      expect(element).toBeNull();
-
-      const btn = await waitFor(() => queryByText('展开更多'));
-      if (btn) {
-        act(() => fireEvent.click(btn));
-      } else {
-        throw new Error(`Button with text '展开更多' not found`);
-      }
-
-      expect(queryByText('收起')).not.toBeNull();
-      expect(queryByText('收起')).toBeInTheDocument();
-      const element1 = await waitFor(() => queryByTestId(testId));
-      expect(element1).not.toBeNull();
-
-      const btn1 = await waitFor(() => queryByText('收起'));
-      if (btn1) {
-        act(() => fireEvent.click(btn1));
-      } else {
-        throw new Error(`Button with text '收起' not found`);
-      }
-      const element3 = await waitFor(() => queryByTestId(testId));
-      expect(element3).toBeNull();
     });
   });
 
@@ -149,6 +101,45 @@ describe('Alert', () => {
       expect(onClose).toHaveBeenCalledTimes(1);
 
       await mockTimeout(() => expect(onClosed).toHaveBeenCalledTimes(1), 300);
+    });
+  });
+
+  describe('scenarios', () => {
+    test('maxLine toggles message expansion and collapse', async () => {
+      const massage = [
+        <div key={0}>{text}</div>,
+        <div key={1}>{text}</div>,
+        <div key={2} data-testid={testId}>
+          {text}
+        </div>,
+      ];
+      const { queryByText, queryByTestId } = render(<Alert theme="error" message={massage} maxLine={2} />);
+
+      expect(queryByText('展开更多')).not.toBeNull();
+      expect(queryByText('展开更多')).toBeInTheDocument();
+      const element = await waitFor(() => queryByTestId(testId));
+      expect(element).toBeNull();
+
+      const btn = await waitFor(() => queryByText('展开更多'));
+      if (btn) {
+        act(() => fireEvent.click(btn));
+      } else {
+        throw new Error(`Button with text '展开更多' not found`);
+      }
+
+      expect(queryByText('收起')).not.toBeNull();
+      expect(queryByText('收起')).toBeInTheDocument();
+      const element1 = await waitFor(() => queryByTestId(testId));
+      expect(element1).not.toBeNull();
+
+      const btn1 = await waitFor(() => queryByText('收起'));
+      if (btn1) {
+        act(() => fireEvent.click(btn1));
+      } else {
+        throw new Error(`Button with text '收起' not found`);
+      }
+      const element3 = await waitFor(() => queryByTestId(testId));
+      expect(element3).toBeNull();
     });
   });
 });
