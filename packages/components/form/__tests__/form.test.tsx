@@ -139,7 +139,7 @@ describe('Form', () => {
         expect(container.querySelector('.t-form__status')).toBeNull();
       });
 
-      test('statusIcon', async () => {
+      test('statusIcon[true]', async () => {
         const TestForm = () => {
           return (
             <Form statusIcon>
@@ -198,7 +198,7 @@ describe('Form', () => {
     });
 
     describe('supportNumberKey', () => {
-      test('supportNumberKey', () => {
+      test('supportNumberKey[true]', () => {
         const TestForm = () => {
           const [form] = Form.useForm();
           return (
@@ -281,7 +281,7 @@ describe('Form', () => {
   });
 
   describe('events', () => {
-    test('reset & submit', async () => {
+    test('onSubmit and onReset', async () => {
       const { container } = render(
         <Form onSubmit={submitFn} onReset={resetFn} layout="vertical">
           <FormItem label="input1" name="input1" initialData={'test'}>
@@ -884,6 +884,26 @@ describe('Form', () => {
       expect(fn).toHaveBeenCalledTimes(1);
       fireEvent.click(getByText('setFields'));
       expect(fn).toHaveBeenCalledTimes(1);
+    });
+
+    // Issue: https://github.com/Tencent/tdesign-vue-next/issues/7000
+    test('FormItem without name participates in last item detection', () => {
+      const { container } = render(
+        <Form>
+          <FormItem name="first">
+            <Input />
+          </FormItem>
+          <FormItem name="second">
+            <Input />
+          </FormItem>
+          <FormItem>
+            <Button type="submit">submit</Button>
+          </FormItem>
+        </Form>,
+      );
+      const formItems = container.querySelectorAll('.t-form__item');
+      expect(formItems[1]).not.toHaveClass('t-form__item--last');
+      expect(formItems[2]).toHaveClass('t-form__item--last');
     });
   });
 });

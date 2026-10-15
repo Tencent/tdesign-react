@@ -54567,7 +54567,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/base.tsx
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__status t-form__item--last"
+      class="t-form__item t-form-item__status"
     >
       <div
         class="t-form__label t-form__label--right"
@@ -54668,7 +54668,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/base.tsx
       </div>
     </div>
     <div
-      class="t-form__item"
+      class="t-form__item t-form__item--last"
       style="margin-left: 100px;"
     >
       <div
@@ -55222,7 +55222,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/clear-va
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__content.url t-form__item--last"
+      class="t-form__item t-form-item__content.url"
     >
       <div
         class="t-form__label t-form__label--required t-form__label--right"
@@ -55258,7 +55258,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/clear-va
       </div>
     </div>
     <div
-      class="t-form__item"
+      class="t-form__item t-form__item--last"
       style="margin-left: 100px;"
     >
       <div
@@ -55398,7 +55398,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/custom-v
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__rePassword t-form__item--last"
+      class="t-form__item t-form-item__rePassword"
     >
       <div
         class="t-form__label t-form__label--required t-form__label--right"
@@ -55435,7 +55435,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/custom-v
       </div>
     </div>
     <div
-      class="t-form__item"
+      class="t-form__item t-form__item--last"
       style="margin-left: 100px;"
     >
       <div
@@ -55488,7 +55488,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/customiz
     class="t-form"
   >
     <div
-      class="t-form__item t-form-item__course t-form__item--last"
+      class="t-form__item t-form-item__course"
     >
       <div
         class="t-form__label t-form__label--right"
@@ -55582,7 +55582,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/customiz
       </div>
     </div>
     <div
-      class="t-form__item"
+      class="t-form__item t-form__item--last"
       style="margin-left: 100px;"
     >
       <div
@@ -56322,7 +56322,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/disabled
           </div>
         </div>
         <div
-          class="t-form__item t-form-item__avatar t-form__item--last"
+          class="t-form__item t-form-item__avatar"
         >
           <div
             class="t-form__label t-form__label--right"
@@ -56611,7 +56611,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/disabled
           </div>
         </div>
         <div
-          class="t-form__item"
+          class="t-form__item t-form__item--last"
           style="margin-left: 100px;"
         >
           <div
@@ -57217,7 +57217,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/error-me
           </div>
         </div>
         <div
-          class="t-form__item t-form-item__content.url t-form__item--last"
+          class="t-form__item t-form-item__content.url"
         >
           <div
             class="t-form__label t-form__label--required t-form__label--right"
@@ -57254,7 +57254,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/error-me
           </div>
         </div>
         <div
-          class="t-form__item"
+          class="t-form__item t-form__item--last"
           style="margin-left: 100px;"
         >
           <div
@@ -57310,7 +57310,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/form-fie
     class="t-form"
   >
     <div
-      class="t-form__item t-form-item__type t-form__item--last"
+      class="t-form__item t-form-item__type"
     >
       <div
         class="t-form__label t-form__label--right"
@@ -57377,7 +57377,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/form-fie
       </div>
     </div>
     <div
-      class="t-form__item"
+      class="t-form__item t-form__item--last"
       style="margin-left: 100px;"
     >
       <div
@@ -57921,7 +57921,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/form-lis
       </div>
     </div>
     <div
-      class="t-form__item"
+      class="t-form__item t-form__item--last"
       style="margin-left: 100px;"
     >
       <div
@@ -58194,7 +58194,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/login.ts
         </div>
       </div>
       <div
-        class="t-form__item t-form-item__password t-form__item--last"
+        class="t-form__item t-form-item__password"
       >
         <div
           class="t-form__controls"
@@ -58356,7 +58356,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/login.ts
         </div>
       </div>
       <div
-        class="t-form__item"
+        class="t-form__item t-form__item--last"
       >
         <div
           class="t-form__controls"
@@ -58616,7 +58616,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/nested-d
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__birthday t-form__item--last"
+      class="t-form__item t-form-item__birthday"
     >
       <div
         class="t-form__label t-form__label--right"
@@ -58772,7 +58772,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/nested-d
       </div>
     </div>
     <div
-      class="t-form__item"
+      class="t-form__item t-form__item--last"
       style="margin-left: 100px;"
     >
       <div
@@ -58968,7 +58968,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/reset.ts
           </div>
         </div>
         <div
-          class="t-form__item t-form-item__course t-form__item--last"
+          class="t-form__item t-form-item__course"
         >
           <div
             class="t-form__label t-form__label--right"
@@ -59055,7 +59055,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/reset.ts
           </div>
         </div>
         <div
-          class="t-form__item"
+          class="t-form__item t-form__item--last"
           style="margin-left: 100px;"
         >
           <div
@@ -59397,7 +59397,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/validate
               </div>
             </div>
             <div
-              class="t-form__item t-form-item__students[0].course t-form__item--last"
+              class="t-form__item t-form-item__students[0].course"
             >
               <div
                 class="t-form__label t-form__label--right"
@@ -59562,7 +59562,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/validate
               </div>
             </div>
             <div
-              class="t-form__item"
+              class="t-form__item t-form__item--last"
               style="margin-left: 100px;"
             >
               <div
@@ -59708,7 +59708,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/validate
               </div>
             </div>
             <div
-              class="t-form__item t-form-item__students[1].course t-form__item--last"
+              class="t-form__item t-form-item__students[1].course"
             >
               <div
                 class="t-form__label t-form__label--right"
@@ -59872,7 +59872,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/validate
               </div>
             </div>
             <div
-              class="t-form__item"
+              class="t-form__item t-form__item--last"
               style="margin-left: 100px;"
             >
               <div
@@ -60015,7 +60015,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/validate
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__password t-form__item--last"
+      class="t-form__item t-form-item__password"
     >
       <div
         class="t-form__label t-form__label--required t-form__label--right"
@@ -60111,7 +60111,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/validate
       </div>
     </div>
     <div
-      class="t-form__item"
+      class="t-form__item t-form__item--last"
       style="margin-left: 100px;"
     >
       <div
@@ -60501,7 +60501,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/validato
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__content.url t-form__item--last"
+      class="t-form__item t-form-item__content.url"
     >
       <div
         class="t-form__label t-form__label--required t-form__label--right"
@@ -60537,7 +60537,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/validato
       </div>
     </div>
     <div
-      class="t-form__item"
+      class="t-form__item t-form__item--last"
       style="margin-left: 100px;"
     >
       <div
@@ -60942,7 +60942,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/validato
       </div>
     </div>
     <div
-      class="t-form__item t-form-item__help t-form__item-with-help t-form__item--last"
+      class="t-form__item t-form-item__help t-form__item-with-help"
     >
       <div
         class="t-form__label t-form__label--right"
@@ -61055,7 +61055,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/validato
       </div>
     </div>
     <div
-      class="t-form__item"
+      class="t-form__item t-form__item--last"
       style="margin-left: 100px;"
     >
       <div
@@ -163460,7 +163460,7 @@ exports[`csr snapshot test > csr test packages/components/tree/_example/activabl
           </div>
         </div>
         <div
-          class="t-form__item"
+          class="t-form__item t-form__item--last"
         >
           <div
             class="t-form__label t-form__label--right"
@@ -163827,7 +163827,7 @@ exports[`csr snapshot test > csr test packages/components/tree/_example/disabled
         class="t-form"
       >
         <div
-          class="t-form__item"
+          class="t-form__item t-form__item--last"
         >
           <div
             class="t-form__label t-form__label--right"
@@ -164011,7 +164011,7 @@ exports[`csr snapshot test > csr test packages/components/tree/_example/expand-a
           </div>
         </div>
         <div
-          class="t-form__item"
+          class="t-form__item t-form__item--last"
         >
           <div
             class="t-form__label t-form__label--right"
@@ -164114,7 +164114,7 @@ exports[`csr snapshot test > csr test packages/components/tree/_example/expand-m
           </div>
         </div>
         <div
-          class="t-form__item"
+          class="t-form__item t-form__item--last"
         >
           <div
             class="t-form__label t-form__label--right"
@@ -164432,7 +164432,7 @@ exports[`csr snapshot test > csr test packages/components/tree/_example/line.tsx
           </div>
         </div>
         <div
-          class="t-form__item"
+          class="t-form__item t-form__item--last"
         >
           <div
             class="t-form__label t-form__label--right"
@@ -165122,7 +165122,7 @@ exports[`csr snapshot test > csr test packages/components/tree/_example/vscroll.
           </div>
         </div>
         <div
-          class="t-form__item"
+          class="t-form__item t-form__item--last"
         >
           <div
             class="t-form__label t-form__label--right"

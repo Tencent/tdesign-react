@@ -202,7 +202,7 @@ describe('TreeSelect', () => {
       );
     });
 
-    test('popupProps[object]', () => {
+    test('popupProps.overlayClassName[string]', () => {
       const { container } = render(
         <TreeSelect popupProps={{ overlayClassName: 'custom-popup-class-name' }}></TreeSelect>,
       );

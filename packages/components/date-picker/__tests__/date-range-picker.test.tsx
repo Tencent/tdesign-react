@@ -94,7 +94,7 @@ describe('DateRangePicker', () => {
       expect(wrapper.container.querySelector('input')?.placeholder).toEqual('请选择日期');
     });
 
-    it('popupProps[object]', async () => {
+    it('popupProps.showArrow', async () => {
       const { container } = render(<DateRangePicker popupProps={{ showArrow: true }} />);
       act(() => {
         fireEvent.mouseDown(container.querySelector('input'));
@@ -104,7 +104,7 @@ describe('DateRangePicker', () => {
       expect(popupArrow).toBeInTheDocument();
     });
 
-    it('presets[object]', async () => {
+    it('presets[PresetRange]', async () => {
       const { container } = render(<DateRangePicker presets={{ 特定日期范围: ['2021-01-01', '2022-01-01'] }} />);
       act(() => {
         fireEvent.mouseDown(container.querySelector('input'));
@@ -114,7 +114,7 @@ describe('DateRangePicker', () => {
       expect(pickerPresets).toHaveTextContent('特定日期范围');
     });
 
-    it('rangeInputProps[object]', async () => {
+    it('rangeInputProps.value[array<string>]', async () => {
       const { container } = render(
         <DateRangePicker rangeInputProps={{ value: ['test-inputProps', 'test-inputProps'] }} />,
       );
