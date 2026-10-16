@@ -9,6 +9,7 @@ import {
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
+import useLatest from '../hooks/useLatest';
 import useLayoutEffect from '../hooks/useLayoutEffect';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { NATIVE_INPUT_COMP, TD_CTRL_PROP_MAP, ValidateStatus } from './const';
@@ -139,8 +140,9 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
   const innerFormItemsRef = useRef([]);
   const shouldEmitChangeRef = useRef(false); // onChange 冒泡开关
   const shouldValidate = useRef(false); // 校验开关
-  const valueRef = useRef(formValue); // 当前最新值
+  const valueRef = useLatest(formValue); // 当前最新值
   const errorListMapRef = useRef(new Map());
+  const validateSeqRef = useRef(0); // 校验序号，用于丢弃过期的异步校验结果
 
   const snakeName = []
     .concat(isSameForm ? formListName : undefined, name)
@@ -248,7 +250,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
       return result;
     }
     result.allowSetValue = true;
-    result.resultList = await validateModal(formValue, result.rules);
+    result.resultList = await validateModal(valueRef.current, result.rules);
     result.errorList = result.resultList
       .filter((item) => item.result !== true)
       .map((item) => {
@@ -276,6 +278,9 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
       return innerFormItemsRef.current.map((innerFormItem) => innerFormItem?.validate(trigger, showErrorMessage));
     }
 
+    validateSeqRef.current += 1;
+    const currentSeq = validateSeqRef.current;
+
     setResetValidating(true);
     // undefined | boolean
     setFreeShowErrorMessage(showErrorMessage);
@@ -286,6 +291,13 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
       resultList,
       allowSetValue,
     } = await analysisValidateResult(trigger);
+
+    // 已有更新的校验发起，丢弃本次过期结果，避免旧值的错误信息覆盖最新结果
+    if (currentSeq !== validateSeqRef.current) {
+      return {
+        [snakeName]: innerErrorList.length === 0 ? true : resultList,
+      };
+    }
 
     // 缓存不同 trigger 下的错误信息 all 包含了所有场景需过滤
     if (innerErrorList.length && trigger !== 'all') {

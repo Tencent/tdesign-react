@@ -905,5 +905,45 @@ describe('Form', () => {
       fireEvent.click(getByText('setFields'));
       expect(fn).toHaveBeenCalledTimes(1);
     });
+
+    test('change validate should not keep stale error after onValuesChange rewrites the field', async () => {
+      const TestForm = () => {
+        const [form] = Form.useForm();
+
+        const onValuesChange: TdFormProps['onValuesChange'] = (changed) => {
+          if (typeof changed.name === 'string' && changed.name !== changed.name.trim()) {
+            form.setFieldsValue({ name: changed.name.trim() });
+          }
+        };
+
+        return (
+          <Form form={form} onValuesChange={onValuesChange}>
+            <FormItem
+              name="name"
+              rules={[
+                {
+                  pattern: /^\S+$/,
+                  message: 'Name cannot contain spaces',
+                },
+              ]}
+            >
+              <Input placeholder="name" />
+            </FormItem>
+          </Form>
+        );
+      };
+
+      const { container, getByPlaceholderText } = render(<TestForm />);
+
+      fireEvent.change(getByPlaceholderText('name'), {
+        target: { value: 'John ' },
+      });
+
+      await mockDelay();
+      await mockDelay(50);
+
+      expect((getByPlaceholderText('name') as HTMLInputElement).value).toBe('John');
+      expect(container.querySelector('.t-input__extra')).toBeNull();
+    });
   });
 });
