@@ -208,13 +208,22 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
       <div ref={maskRef} className={`${prefixCls}__mask`} onClick={onMaskClick} />
     </CSSTransition>
   );
+  const bodyMarginRight = placement === 'left' && sizeDraggable ? draggableLineStyles.width : undefined;
   const renderCloseBtn = closeBtn && (
-    <div onClick={onClickCloseBtn} className={`${prefixCls}__close-btn`}>
+    <div
+      onClick={onClickCloseBtn}
+      className={`${prefixCls}__close-btn`}
+      style={{ marginRight: header ? undefined : bodyMarginRight }}
+    >
       {closeIcon}
     </div>
   );
   const renderHeader = header && <div className={`${prefixCls}__header`}>{header}</div>;
-  const renderBody = <div className={`${prefixCls}__body`}>{body || children}</div>;
+  const renderBody = (
+    <div className={`${prefixCls}__body`} style={{ marginRight: bodyMarginRight }}>
+      {body || children}
+    </div>
+  );
 
   return (
     <CSSTransition
