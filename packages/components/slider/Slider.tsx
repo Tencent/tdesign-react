@@ -43,8 +43,19 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
   } = props;
 
   const sliderRef = useRef<HTMLDivElement>(null);
-  const [value, internalOnChange] = useControlled(props, 'value', onChange);
+  const initialDefaultValue = useRef(originalProps.defaultValue);
+  const [rawValue, internalOnChange] = useControlled(props, 'value', onChange);
   const isVertical = layout === 'vertical';
+
+  let value = rawValue;
+  if (range) {
+    if (value === undefined || (Array.isArray(value) && value.length === 0)) {
+      value = [min, min];
+    } else if (isNumber(value) && originalProps.value === undefined && initialDefaultValue.current === undefined) {
+      // 补齐内部默认值，保留显式数值输入的回调类型。
+      value = [min, Math.max(min, Math.min(max, value))];
+    }
+  }
 
   const renderValue = Array.isArray(value) ? value : [min, value];
   const start = (renderValue[LEFT_NODE] - min) / (max - min);
@@ -149,10 +160,15 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
     );
   };
 
-  const nearbyValueChange = (value: number, isEnd?: boolean) => {
-    const buttonBias =
-      Math.abs(value - renderValue[LEFT_NODE]) > Math.abs(value - renderValue[RIGHT_NODE]) ? RIGHT_NODE : LEFT_NODE;
-    handleInputChange(value, buttonBias, isEnd);
+  const nearbyValueChange = (newValue: number, isEnd?: boolean) => {
+    let buttonBias: SliderHandleNode =
+      Math.abs(newValue - renderValue[LEFT_NODE]) > Math.abs(newValue - renderValue[RIGHT_NODE])
+        ? RIGHT_NODE
+        : LEFT_NODE;
+    if (range && Array.isArray(value) && renderValue[LEFT_NODE] === renderValue[RIGHT_NODE]) {
+      buttonBias = newValue > renderValue[RIGHT_NODE] ? RIGHT_NODE : LEFT_NODE;
+    }
+    handleInputChange(newValue, buttonBias, isEnd);
   };
 
   const setPosition = (position: number, nodeIndex?: SliderHandleNode, isEnd?: boolean) => {
