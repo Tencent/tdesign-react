@@ -199,6 +199,6 @@ AutoComplete.displayName = 'AutoComplete';
 
 export default AutoComplete as <T extends AutoCompleteOption = AutoCompleteOption>(
   props: AutoCompleteProps<T> & {
-    ref?: React.Ref<AutoCompleteProps>;
+    ref?: React.Ref<AutoCompleteRef>;
   },
 ) => React.ReactElement;

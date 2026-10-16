@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Link > props > children 1`] = `
+exports[`Link > props > content and children 1`] = `
 <div>
   <a
     class="t-link t-link--theme-default t-link--hover-underline"
@@ -14,7 +14,7 @@ exports[`Link > props > children 1`] = `
 </div>
 `;
 
-exports[`Link > props > content 1`] = `
+exports[`Link > props > content and children 2`] = `
 <div>
   <a
     class="t-link t-link--theme-default t-link--hover-underline"
@@ -48,7 +48,7 @@ exports[`Link > props > disabled 2`] = `
 </div>
 `;
 
-exports[`Link > props > hover is equal to color 1`] = `
+exports[`Link > props > hover[color] 1`] = `
 <div>
   <a
     class="t-link t-link--theme-default t-link--hover-color"
@@ -58,7 +58,7 @@ exports[`Link > props > hover is equal to color 1`] = `
 </div>
 `;
 
-exports[`Link > props > hover is equal to underline 1`] = `
+exports[`Link > props > hover[underline] 1`] = `
 <div>
   <a
     class="t-link t-link--theme-default t-link--hover-underline"
@@ -79,7 +79,7 @@ exports[`Link > props > href 1`] = `
 </div>
 `;
 
-exports[`Link > props > size is equal to large 1`] = `
+exports[`Link > props > size[large] 1`] = `
 <div>
   <a
     class="t-link t-link--theme-default t-size-l t-link--hover-underline"
@@ -89,7 +89,7 @@ exports[`Link > props > size is equal to large 1`] = `
 </div>
 `;
 
-exports[`Link > props > size is equal to medium 1`] = `
+exports[`Link > props > size[medium] 1`] = `
 <div>
   <a
     class="t-link t-link--theme-default t-link--hover-underline"
@@ -99,7 +99,7 @@ exports[`Link > props > size is equal to medium 1`] = `
 </div>
 `;
 
-exports[`Link > props > size is equal to small 1`] = `
+exports[`Link > props > size[small] 1`] = `
 <div>
   <a
     class="t-link t-link--theme-default t-size-s t-link--hover-underline"
@@ -120,7 +120,7 @@ exports[`Link > props > target 1`] = `
 </div>
 `;
 
-exports[`Link > props > theme is equal to danger 1`] = `
+exports[`Link > props > theme[danger] 1`] = `
 <div>
   <a
     class="t-link t-link--theme-danger t-link--hover-underline"
@@ -130,7 +130,7 @@ exports[`Link > props > theme is equal to danger 1`] = `
 </div>
 `;
 
-exports[`Link > props > theme is equal to default 1`] = `
+exports[`Link > props > theme[default] 1`] = `
 <div>
   <a
     class="t-link t-link--theme-default t-link--hover-underline"
@@ -140,7 +140,7 @@ exports[`Link > props > theme is equal to default 1`] = `
 </div>
 `;
 
-exports[`Link > props > theme is equal to primary 1`] = `
+exports[`Link > props > theme[primary] 1`] = `
 <div>
   <a
     class="t-link t-link--theme-primary t-link--hover-underline"
@@ -150,7 +150,7 @@ exports[`Link > props > theme is equal to primary 1`] = `
 </div>
 `;
 
-exports[`Link > props > theme is equal to success 1`] = `
+exports[`Link > props > theme[success] 1`] = `
 <div>
   <a
     class="t-link t-link--theme-success t-link--hover-underline"
@@ -160,7 +160,7 @@ exports[`Link > props > theme is equal to success 1`] = `
 </div>
 `;
 
-exports[`Link > props > theme is equal to warning 1`] = `
+exports[`Link > props > theme[warning] 1`] = `
 <div>
   <a
     class="t-link t-link--theme-warning t-link--hover-underline"

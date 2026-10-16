@@ -8,7 +8,7 @@ import type { TdDividerProps } from '../type';
 describe('Divider', () => {
   describe('props', () => {
     (['left', 'right', 'center'] as TdDividerProps['align'][]).forEach((item) => {
-      test(`align is equal to ${item}`, () => {
+      test(`align[${item}]`, () => {
         const { container } = render(<Divider align={item}>Text</Divider>);
         expect(container.firstChild).toHaveClass(`t-divider--with-text-${item}`);
         expect(container).toMatchSnapshot();
@@ -28,81 +28,47 @@ describe('Divider', () => {
     });
 
     (['horizontal', 'vertical'] as TdDividerProps['layout'][]).forEach((item) => {
-      test(`layout is equal to ${item}`, () => {
+      test(`layout[${item}]`, () => {
         const { container } = render(<Divider layout={item}></Divider>);
         expect(container.firstChild).toHaveClass(`t-divider--${item}`);
         expect(container).toMatchSnapshot();
       });
     });
 
-    test('Divider 虚线', () => {
-      const { container } = render(<Divider dashed />);
-
-      // 校验默认 className
-      const defaultClass = ['t-divider', 't-divider--horizontal', 't-divider--dashed'];
-      expect(container.firstChild).toHaveClass(...defaultClass);
-    });
-
-    test('Divider content带文字 ', () => {
+    test('content and children', () => {
       const text = '腾讯中content';
-      const { container, getByText } = render(<Divider content={text}></Divider>);
-
-      // 校验默认 className
-      const defaultClass = ['t-divider', 't-divider--horizontal', 't-divider--with-text'];
-      expect(container.firstChild).toHaveClass(...defaultClass);
-
+      const { container: stringContentContainer, getByText } = render(<Divider content={text}></Divider>);
+      expect(stringContentContainer.firstChild).toHaveClass(
+        't-divider',
+        't-divider--horizontal',
+        't-divider--with-text',
+      );
       expect(getByText(text).textContent).toBe(text);
+
+      const childText = '腾讯中';
+      const { container: childrenContainer, getByText: getChildText } = render(<Divider>{childText}</Divider>);
+      expect(childrenContainer.firstChild).toHaveClass('t-divider', 't-divider--horizontal', 't-divider--with-text');
+      expect(getChildText(childText).textContent).toBe(childText);
+
+      const { container: nodeContainer } = render(
+        <Divider content={<span className="custom-node">TNode</span>}></Divider>,
+      );
+      expect(nodeContainer.querySelector('.custom-node')).toBeTruthy();
+      expect(nodeContainer).toMatchSnapshot();
     });
 
-    test('Divider size horizontal number', () => {
+    test('size', () => {
       const text = '腾讯中content';
-      const { container } = render(<Divider content={text} size={20}></Divider>);
+      const { container: numberHorizontalContainer } = render(<Divider content={text} size={20}></Divider>);
+      expect(numberHorizontalContainer.querySelector('.t-divider')).toHaveStyle({ margin: '20px 0' });
 
-      expect(container.querySelector('.t-divider')).toHaveStyle({
-        margin: '20px 0',
-      });
-    });
+      const { container: stringHorizontalContainer } = render(<Divider content={text} size="20px"></Divider>);
+      expect(stringHorizontalContainer.querySelector('.t-divider')).toHaveStyle({ margin: '20px 0' });
 
-    test('Divider size horizontal string', () => {
-      const text = '腾讯中content';
-      const { container } = render(<Divider content={text} size="20px"></Divider>);
-
-      expect(container.querySelector('.t-divider')).toHaveStyle({
-        margin: '20px 0',
-      });
-    });
-    test('content', () => {
-      const { container } = render(<Divider content={<span className="custom-node">TNode</span>}></Divider>);
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-      expect(container).toMatchSnapshot();
-    });
-
-    test('Divider 带文字', () => {
-      const text = '腾讯中';
-      const { container, getByText } = render(<Divider>{text}</Divider>);
-
-      // 校验默认 className
-      const defaultClass = ['t-divider', 't-divider--horizontal', 't-divider--with-text'];
-      expect(container.firstChild).toHaveClass(...defaultClass);
-
-      expect(getByText(text).textContent).toBe(text);
-    });
-  });
-
-  describe('scenarios', () => {
-    test('Divider 水平分割线', async () => {
-      const { container } = render(<Divider />);
-
-      // 校验默认 className
-      const defaultClass = ['t-divider', 't-divider--horizontal'];
-      expect(container.firstChild).toHaveClass(...defaultClass);
-    });
-
-    test('Divider size vertical', () => {
-      const text = '腾讯中content';
-      const { container } = render(<Divider content={text} size={20} layout="vertical"></Divider>);
-
-      expect(container.querySelector('.t-divider')).toHaveStyle({
+      const { container: numberVerticalContainer } = render(
+        <Divider content={text} size={20} layout="vertical"></Divider>,
+      );
+      expect(numberVerticalContainer.querySelector('.t-divider')).toHaveStyle({
         margin: '0 20px',
       });
     });

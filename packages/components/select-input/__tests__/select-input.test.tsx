@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, fireEvent, mockDelay, render, vi } from '@test/utils';
+import { fireEvent, mockDelay, render, vi } from '@test/utils';
 
 import { SelectInput } from '..';
 
@@ -43,7 +43,7 @@ function getSelectInputMultipleMount(props?: Partial<TdSelectInputProps>, events
 
 describe('SelectInput', () => {
   describe('props', () => {
-    test(`allowInput is equal to true`, () => {
+    test('allowInput', () => {
       const { container } = render(<SelectInput allowInput={true}></SelectInput>);
       const domWrapper = container.querySelector('.t-input');
       expect(domWrapper.classList.contains('t-is-readonly')).toBeFalsy();
@@ -61,25 +61,25 @@ describe('SelectInput', () => {
       expect(container3.querySelector(`.${'t-select-input--borderless'}`)).toBeFalsy();
     });
 
-    test('clearable: empty value can not show clear icon', async () => {
-      const { container } = render(<SelectInput clearable={true}></SelectInput>);
-      fireEvent.mouseEnter(container.querySelector('.t-input'));
+    test('clearable', async () => {
+      const { container: emptyContainer } = render(<SelectInput clearable={true}></SelectInput>);
+      fireEvent.mouseEnter(emptyContainer.querySelector('.t-input'));
       await mockDelay();
-      expect(container.querySelector('.t-input__suffix-clear')).toBeFalsy();
-    });
+      expect(emptyContainer.querySelector('.t-input__suffix-clear')).toBeFalsy();
 
-    test('clearable: show clear icon on mouse enter in single select input', async () => {
-      const { container } = render(<SelectInput value={'tdesign'} clearable={true} allowInput></SelectInput>);
-      fireEvent.mouseEnter(container.querySelector('.t-input'));
+      const { container: singleContainer } = render(
+        <SelectInput value={'tdesign'} clearable={true} allowInput></SelectInput>,
+      );
+      fireEvent.mouseEnter(singleContainer.querySelector('.t-input'));
       await mockDelay();
-      expect(container.querySelector('.t-input__suffix-clear')).toBeTruthy();
-    });
+      expect(singleContainer.querySelector('.t-input__suffix-clear')).toBeTruthy();
 
-    test('clearable: show clear icon on mouse enter in multiple select input', async () => {
-      const { container } = render(<SelectInput value={['tdesign']} multiple={true} clearable={true}></SelectInput>);
-      fireEvent.mouseEnter(container.querySelector('.t-input'));
+      const { container: multipleContainer } = render(
+        <SelectInput value={['tdesign']} multiple={true} clearable={true}></SelectInput>,
+      );
+      fireEvent.mouseEnter(multipleContainer.querySelector('.t-input'));
       await mockDelay();
-      expect(container.querySelector('.t-tag-input__suffix-clear')).toBeTruthy();
+      expect(multipleContainer.querySelector('.t-tag-input__suffix-clear')).toBeTruthy();
     });
 
     test('disabled', () => {
@@ -122,7 +122,7 @@ describe('SelectInput', () => {
 
     const statusClassNameList = [{ 't-is-default': false }, 't-is-success', 't-is-warning', 't-is-error'];
     (['default', 'success', 'warning', 'error'] as TdSelectInputProps['status'][]).forEach((item, index) => {
-      test(`status is equal to ${item}`, () => {
+      test(`status[${item}]`, () => {
         const wrapper = render(<SelectInput status={item}></SelectInput>);
         const container = wrapper.container.querySelector('.t-input');
         if (typeof statusClassNameList[index] === 'string') {
@@ -134,11 +134,12 @@ describe('SelectInput', () => {
       });
     });
 
-    test('tips is equal this is a tip', () => {
+    test('tips[string]', () => {
       const { container } = render(<SelectInput tips="this is a tip"></SelectInput>);
       expect(container.querySelectorAll('.t-input__tips').length).toBe(1);
     });
-    test('collapsedItems', () => {
+
+    test('collapsedItems[TNode]', () => {
       const { container } = getSelectInputMultipleMount({
         collapsedItems: <span className="custom-node">TNode</span>,
         minCollapsedNum: 3,
@@ -146,16 +147,22 @@ describe('SelectInput', () => {
       expect(container.querySelector('.custom-node')).toBeTruthy();
     });
 
-    test('collapsedItems is a function with params', () => {
+    test('collapsedItems[function]', () => {
       const fn = vi.fn();
       getSelectInputMultipleMount({ collapsedItems: fn, minCollapsedNum: 3 });
       expect(fn).toHaveBeenCalled();
       expect(fn.mock.calls[0][0].count).toBe(2);
     });
 
-    test('label', () => {
+    test('label[TNode]', () => {
       const { container } = render(<SelectInput label={<span className="custom-node">TNode</span>}></SelectInput>);
       expect(container.querySelector('.custom-node')).toBeTruthy();
+    });
+
+    test('label[string]', () => {
+      const text = 'test-label';
+      const { getByText } = render(<SelectInput label={text} />);
+      expect(getByText(text)).toBeTruthy();
     });
 
     test('panel', () => {
@@ -175,7 +182,7 @@ describe('SelectInput', () => {
       expect(container.querySelector('.custom-node')).toBeTruthy();
     });
 
-    test('tag', () => {
+    test('tag[TNode]', () => {
       const { container } = render(
         <SelectInput
           tag={<span className="custom-node">TNode</span>}
@@ -186,36 +193,21 @@ describe('SelectInput', () => {
       expect(container.querySelector('.custom-node')).toBeTruthy();
     });
 
-    test('tag is a function with params', () => {
+    test('tag[function]', () => {
       const fn = vi.fn();
       render(<SelectInput tag={fn} multiple={true} value={['tdesign-vue']}></SelectInput>);
       expect(fn).toHaveBeenCalled();
       expect(fn.mock.calls[0][0].value).toBe('tdesign-vue');
     });
 
-    test('label display', async () => {
-      const text = 'test-label';
-      const { getByText } = await render(<SelectInput label={text} />);
-
-      act(() => {
-        expect(getByText(text)).toBeTruthy();
-      });
-    });
-
-    test('prefixIcon display', async () => {
+    test('prefixIcon', async () => {
       const text = 'test-prefixIcon';
       const { getByText } = await render(<SelectInput prefixIcon={<span>{text}</span>} />);
-
-      act(() => {
-        expect(getByText(text)).toBeTruthy();
-      });
+      expect(getByText(text)).toBeTruthy();
     });
-  });
 
-  describe('scenarios', () => {
-    test('default select-input readonly', async () => {
-      const { container } = await render(<SelectInput />);
-
+    test('readonly by default', () => {
+      const { container } = render(<SelectInput />);
       expect(container.querySelector('input')).toHaveAttribute('readonly');
     });
   });

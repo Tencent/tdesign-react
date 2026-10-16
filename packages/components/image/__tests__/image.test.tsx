@@ -25,7 +25,7 @@ describe('Image', () => {
     });
 
     ['contain', 'cover', 'fill', 'none', 'scale-down'].forEach((item) => {
-      test(`fit is equal to ${item}`, () => {
+      test(`fit[${item}]`, () => {
         const wrapper = render(<Image fit={item as TdImageProps['fit']} />);
         const container = wrapper.container.querySelector('.t-image');
         expect(container).toHaveClass(`t-image--fit-${item}`);
@@ -55,7 +55,7 @@ describe('Image', () => {
       center: 't-image--position-center',
     };
     Object.entries(positionClassNameMap).forEach(([enumValue, expectedClassName]) => {
-      test(`position is equal to ${enumValue}`, () => {
+      test(`position[${enumValue}]`, () => {
         const wrapper = render(<Image position={enumValue as TdImageProps['position']} />);
         const container = wrapper.container.querySelector('.t-image');
         expect(container).toHaveClass(expectedClassName);
@@ -63,7 +63,7 @@ describe('Image', () => {
     });
 
     ['circle', 'round', 'square'].forEach((item) => {
-      test(`shape is equal to ${item}`, () => {
+      test(`shape[${item}]`, () => {
         const wrapper = render(<Image shape={item as TdImageProps['shape']} />);
         const container = wrapper.container.querySelector('.t-image__wrapper');
         expect(container).toHaveClass(`t-image__wrapper--shape-${item}`);
@@ -84,7 +84,8 @@ describe('Image', () => {
       const domWrapper1 = container.querySelector('picture > source:nth-child(2)');
       expect(domWrapper1.getAttribute('srcset')).toBe('https://tdesign.gtimg.com/img/tdesign-image.webp');
     });
-    test('error', () => {
+
+    test('error content', () => {
       const { container } = render(
         <Image error={<span className="custom-node">TNode</span>} src="https://this.is.an.error.img.com" />,
       );
@@ -111,33 +112,8 @@ describe('Image', () => {
       expect(container.querySelector('.custom-node')).toBeTruthy();
       expect(container).toMatchSnapshot();
     });
-  });
 
-  describe('events', () => {
-    test('error', () => {
-      const onErrorFn = vi.fn();
-      const { container } = render(<Image src="https://load-failed-img.png" onError={onErrorFn} />);
-      const imgDom = container.querySelector('img');
-      simulateImageEvent(imgDom, 'error');
-      expect(container.querySelector('.t-image__error')).toBeTruthy();
-      expect(container.querySelector('.t-icon-image-error')).toBeTruthy();
-      expect(onErrorFn).toHaveBeenCalled();
-      expect(onErrorFn.mock.calls[0][0].e.type).toBe('error');
-    });
-
-    test('load', () => {
-      const onLoadFn1 = vi.fn();
-      const { container } = render(<Image src="https://tdesign.gtimg.com/demo/demo-image-1.png" onLoad={onLoadFn1} />);
-
-      const imgDom1 = container.querySelector('img');
-      simulateImageEvent(imgDom1, 'load');
-      expect(onLoadFn1).toHaveBeenCalled();
-      expect(onLoadFn1.mock.calls[0][0].e.type).toBe('load');
-    });
-  });
-
-  describe('scenarios', () => {
-    test('overlayTrigger hover', async () => {
+    test('overlayTrigger[hover]', async () => {
       const { container } = getOverlayImageMount({
         overlayTrigger: 'hover',
         src: 'https://tdesign.gtimg.com/demo/demo-image-1.png',
@@ -190,8 +166,31 @@ describe('Image', () => {
 
       const spaceElement = container.querySelector('.t-space');
       fireEvent.scroll(spaceElement, { target: { scrollY: 400 } });
-      expect(spaceElement.firstChild.querySelector('img')).not.toBeNull();
-      expect(spaceElement.lastChild.querySelector('img')).toBeNull();
+      expect(spaceElement.firstElementChild?.querySelector('img')).not.toBeNull();
+      expect(spaceElement.lastElementChild?.querySelector('img')).toBeNull();
+    });
+  });
+
+  describe('events', () => {
+    test('error event', () => {
+      const onErrorFn = vi.fn();
+      const { container } = render(<Image src="https://load-failed-img.png" onError={onErrorFn} />);
+      const imgDom = container.querySelector('img');
+      simulateImageEvent(imgDom, 'error');
+      expect(container.querySelector('.t-image__error')).toBeTruthy();
+      expect(container.querySelector('.t-icon-image-error')).toBeTruthy();
+      expect(onErrorFn).toHaveBeenCalled();
+      expect(onErrorFn.mock.calls[0][0].e.type).toBe('error');
+    });
+
+    test('load', () => {
+      const onLoadFn1 = vi.fn();
+      const { container } = render(<Image src="https://tdesign.gtimg.com/demo/demo-image-1.png" onLoad={onLoadFn1} />);
+
+      const imgDom1 = container.querySelector('img');
+      simulateImageEvent(imgDom1, 'load');
+      expect(onLoadFn1).toHaveBeenCalled();
+      expect(onLoadFn1.mock.calls[0][0].e.type).toBe('load');
     });
   });
 });

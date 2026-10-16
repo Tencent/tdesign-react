@@ -23,32 +23,33 @@ describe('Typography', () => {
   });
 
   describe('props', () => {
-    test('title 测试', async () => {
+    test('Title.children', async () => {
       const { container } = render(<Title>{shortText}</Title>);
       expect((container.firstChild as HTMLElement).innerHTML).toBe(shortText);
     });
 
-    test('paragraph 测试', async () => {
+    test('Paragraph.children', async () => {
       const { container } = render(<Paragraph>{shortText}</Paragraph>);
       expect((container.firstChild as HTMLElement).innerHTML).toBe(shortText);
     });
 
-    test('text 测试', async () => {
+    test('Text.children', async () => {
       const { container } = render(<Text>{shortText}</Text>);
       expect((container.firstChild as HTMLElement).innerHTML).toBe(shortText);
     });
 
-    test('text code 测试', async () => {
+    test('Text.code', async () => {
       const { container } = render(<Text code>{shortText}</Text>);
       expect(container.querySelector('code').innerHTML).toBe(shortText);
     });
 
     window.innerWidth = 1280;
-    test('ellipsis 测试', async () => {
+    test('ellipsis', async () => {
       const { container } = render(<Paragraph ellipsis>{longTextString}</Paragraph>);
       expect(container.querySelector('.t-typography-ellipsis-symbol-wrapper')).toHaveTextContent('...');
     });
-    test('copyable suffix 测试', async () => {
+
+    test('copyable.suffix', async () => {
       const { container } = render(
         <Text
           copyable={{
@@ -63,47 +64,14 @@ describe('Typography', () => {
       fireEvent.click(container.querySelector('.t-button'));
       expect(container.querySelector('.t-icon-smile')).toBeTruthy();
     });
-  });
 
-  describe('scenarios', () => {
-    test('text strong ellipsis 测试', async () => {
-      const { container } = render(
-        <Text strong ellipsis>
-          {longTextString}
-        </Text>,
-      );
-      expect(container.querySelector('.t-typography-ellipsis-symbol-wrapper')).toHaveTextContent('...');
-      expect(container.querySelectorAll('strong')).toHaveLength(1);
-    });
-
-    test('title ellipsis 测试', async () => {
+    test('Title.ellipsis', async () => {
       const { container } = render(<Title ellipsis>{longTextString}</Title>);
       expect(container.querySelector('.t-typography-ellipsis-symbol-wrapper')).toHaveTextContent('...');
       expect(container.querySelectorAll('h1')).toHaveLength(1);
     });
 
-    test('ellipsis expand 测试', async () => {
-      const handleExpand = vi.fn();
-      const { container } = render(
-        <Paragraph
-          ellipsis={{
-            collapsible: true,
-            onExpand: handleExpand,
-            expandable: true,
-          }}
-        >
-          {longTextString}
-        </Paragraph>,
-      );
-      expect(container.querySelector('.t-typography-ellipsis-symbol')).toBeInTheDocument();
-      expect(container.querySelector('.t-typography-ellipsis-symbol').innerHTML).toBe('展开');
-
-      fireEvent.click(container.querySelector('.t-typography-ellipsis-symbol'));
-      expect(handleExpand).toHaveBeenCalled();
-      expect(container.querySelector('.t-typography-ellipsis-symbol').innerHTML).toBe('收起');
-    });
-
-    test('ellipsis expand hover 测试', async () => {
+    test('ellipsis.tooltipProps', async () => {
       const handleExpand = vi.fn();
       const { container } = render(
         <Paragraph
@@ -124,15 +92,50 @@ describe('Typography', () => {
       expect(container.querySelector('.t-popup-open')).toBeTruthy();
     });
 
-    test('copyable 测试', async () => {
+    test('Text.strong with ellipsis', async () => {
+      const { container } = render(
+        <Text strong ellipsis>
+          {longTextString}
+        </Text>,
+      );
+      expect(container.querySelector('.t-typography-ellipsis-symbol-wrapper')).toHaveTextContent('...');
+      expect(container.querySelectorAll('strong')).toHaveLength(1);
+    });
+  });
+
+  describe('events', () => {
+    test('ellipsis.onExpand', async () => {
+      const handleExpand = vi.fn();
+      const { container } = render(
+        <Paragraph
+          ellipsis={{
+            collapsible: true,
+            onExpand: handleExpand,
+            expandable: true,
+          }}
+        >
+          {longTextString}
+        </Paragraph>,
+      );
+      expect(container.querySelector('.t-typography-ellipsis-symbol')).toBeInTheDocument();
+      expect(container.querySelector('.t-typography-ellipsis-symbol').innerHTML).toBe('展开');
+
+      fireEvent.click(container.querySelector('.t-typography-ellipsis-symbol'));
+      expect(handleExpand).toHaveBeenCalled();
+      expect(container.querySelector('.t-typography-ellipsis-symbol').innerHTML).toBe('收起');
+    });
+
+    test('copyable.onCopy', async () => {
       const handleCopy = vi.fn();
       const { container } = render(<Text copyable={{ onCopy: handleCopy }}>{shortText}</Text>);
 
       fireEvent.click(container.querySelector('.t-button'));
       expect(handleCopy).toHaveBeenCalled();
     });
+  });
 
-    test('ellipsis 模式下 HTML 标签不被解析为真实元素', async () => {
+  describe('scenarios', () => {
+    test('ellipsis escapes HTML content', async () => {
       const htmlStrings = [
         { text: '<b>bold text</b>', tag: 'b' },
         { text: '<a href="https://example.com">link</a>', tag: 'a' },

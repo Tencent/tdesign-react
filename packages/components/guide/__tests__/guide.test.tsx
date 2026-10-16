@@ -6,6 +6,8 @@ import { Row } from '../../grid';
 import Input from '../../input';
 import { Guide } from '..';
 
+import type { GuideStep } from '../type';
+
 function GuideContent() {
   return (
     <div className="guide-container">
@@ -31,7 +33,7 @@ function GuideContent() {
   );
 }
 
-const STEPS = [
+const STEPS: GuideStep[] = [
   {
     element: '.main-title-base',
     title: '新手引导标题',
@@ -94,71 +96,46 @@ function getCustomMultipleGuideStepMount(props: Record<string, any> = {}) {
 
 describe('Guide', () => {
   describe('props', () => {
-    test('current 0', async () => {
-      getGuideMultipleStepsMount({ current: 0 });
+    test('current[number]', async () => {
+      const first = getGuideMultipleStepsMount({ current: 0 });
       await mockDelay(60);
-      const tGuideCounterDom = document.querySelector('.t-guide__counter');
-      expect(tGuideCounterDom.textContent).toBe('1/3');
-      const tGuideTitleDom = document.querySelectorAll('.t-guide__title');
-      expect(tGuideTitleDom.length).toBe(1);
-      const tGuideDescDom = document.querySelectorAll('.t-guide__desc');
-      expect(tGuideDescDom.length).toBe(1);
-      const tGuideActionTGuideSkipDom = document.querySelectorAll('.t-guide__action .t-guide__skip');
-      expect(tGuideActionTGuideSkipDom.length).toBe(1);
-      const tGuideActionTGuidePrevDom = document.querySelector('.t-guide__action .t-guide__prev');
-      expect(tGuideActionTGuidePrevDom).toBeFalsy();
-      const tGuideActionTGuideNextDom = document.querySelectorAll('.t-guide__action .t-guide__next');
-      expect(tGuideActionTGuideNextDom.length).toBe(1);
-      const tGuideActionTGuideFinishDom = document.querySelector('.t-guide__action .t-guide__finish');
-      expect(tGuideActionTGuideFinishDom).toBeFalsy();
-    });
+      expect(document.querySelector('.t-guide__counter').textContent).toBe('1/3');
+      expect(document.querySelectorAll('.t-guide__title')).toHaveLength(1);
+      expect(document.querySelectorAll('.t-guide__desc')).toHaveLength(1);
+      expect(document.querySelectorAll('.t-guide__action .t-guide__skip')).toHaveLength(1);
+      expect(document.querySelector('.t-guide__action .t-guide__prev')).toBeFalsy();
+      expect(document.querySelectorAll('.t-guide__action .t-guide__next')).toHaveLength(1);
+      expect(document.querySelector('.t-guide__action .t-guide__finish')).toBeFalsy();
+      first.unmount();
 
-    test('current 1', async () => {
-      getGuideMultipleStepsMount({ current: 1 });
+      const middle = getGuideMultipleStepsMount({ current: 1 });
       await mockDelay(60);
-      const tGuideCounterDom = document.querySelector('.t-guide__counter');
-      expect(tGuideCounterDom.textContent).toBe('2/3');
-      const tGuideTitleDom = document.querySelectorAll('.t-guide__title');
-      expect(tGuideTitleDom.length).toBe(1);
-      const tGuideDescDom = document.querySelectorAll('.t-guide__desc');
-      expect(tGuideDescDom.length).toBe(1);
-      const tGuideActionTGuideSkipDom = document.querySelectorAll('.t-guide__action .t-guide__skip');
-      expect(tGuideActionTGuideSkipDom.length).toBe(1);
-      const tGuideActionTGuidePrevDom = document.querySelectorAll('.t-guide__action .t-guide__prev');
-      expect(tGuideActionTGuidePrevDom.length).toBe(1);
-      const tGuideActionTGuideNextDom = document.querySelectorAll('.t-guide__action .t-guide__next');
-      expect(tGuideActionTGuideNextDom.length).toBe(1);
-      const tGuideActionTGuideFinishDom = document.querySelector('.t-guide__action .t-guide__finish');
-      expect(tGuideActionTGuideFinishDom).toBeFalsy();
-    });
+      expect(document.querySelector('.t-guide__counter').textContent).toBe('2/3');
+      expect(document.querySelectorAll('.t-guide__title')).toHaveLength(1);
+      expect(document.querySelectorAll('.t-guide__desc')).toHaveLength(1);
+      expect(document.querySelectorAll('.t-guide__action .t-guide__skip')).toHaveLength(1);
+      expect(document.querySelectorAll('.t-guide__action .t-guide__prev')).toHaveLength(1);
+      expect(document.querySelectorAll('.t-guide__action .t-guide__next')).toHaveLength(1);
+      expect(document.querySelector('.t-guide__action .t-guide__finish')).toBeFalsy();
+      middle.unmount();
 
-    test('current 2', async () => {
-      getGuideMultipleStepsMount({ current: 2 });
+      const last = getGuideMultipleStepsMount({ current: 2 });
       await mockDelay(60);
-      const tGuideCounterDom = document.querySelector('.t-guide__counter');
-      expect(tGuideCounterDom.textContent).toBe('3/3');
-      const tGuideTitleDom = document.querySelectorAll('.t-guide__title');
-      expect(tGuideTitleDom.length).toBe(1);
-      const tGuideDescDom = document.querySelectorAll('.t-guide__desc');
-      expect(tGuideDescDom.length).toBe(1);
-      const tGuideActionTGuideSkipDom = document.querySelector('.t-guide__action .t-guide__skip');
-      expect(tGuideActionTGuideSkipDom).toBeFalsy();
-      const tGuideActionTGuidePrevDom = document.querySelectorAll('.t-guide__action .t-guide__prev');
-      expect(tGuideActionTGuidePrevDom.length).toBe(1);
-      const tGuideActionTGuideNextDom = document.querySelector('.t-guide__action .t-guide__next');
-      expect(tGuideActionTGuideNextDom).toBeFalsy();
-      const tGuideActionTGuideFinishDom = document.querySelectorAll('.t-guide__action .t-guide__finish');
-      expect(tGuideActionTGuideFinishDom.length).toBe(1);
-    });
+      expect(document.querySelector('.t-guide__counter').textContent).toBe('3/3');
+      expect(document.querySelectorAll('.t-guide__title')).toHaveLength(1);
+      expect(document.querySelectorAll('.t-guide__desc')).toHaveLength(1);
+      expect(document.querySelector('.t-guide__action .t-guide__skip')).toBeFalsy();
+      expect(document.querySelectorAll('.t-guide__action .t-guide__prev')).toHaveLength(1);
+      expect(document.querySelector('.t-guide__action .t-guide__next')).toBeFalsy();
+      expect(document.querySelectorAll('.t-guide__action .t-guide__finish')).toHaveLength(1);
+      last.unmount();
 
-    test('current works fine. `{"document.t-guide__counter":false}` should exist', async () => {
       getGuideMultipleStepsMount({ current: -1 });
       await mockDelay(60);
-      const tGuideCounterDom = document.querySelector('.t-guide__counter');
-      expect(tGuideCounterDom).toBeFalsy();
+      expect(document.querySelector('.t-guide__counter')).toBeFalsy();
     });
 
-    test(`finishButtonProps is equal to {theme: 'warning'}`, async () => {
+    test('finishButtonProps[object]', async () => {
       getGuideMultipleStepsMount({
         current: 2,
         finishButtonProps: { theme: 'warning' },
@@ -168,43 +145,43 @@ describe('Guide', () => {
       expect(domWrapper).toHaveClass('t-button--theme-warning');
     });
 
-    test('hideCounter works fine. `{"document.t-guide__counter":false}` should exist', async () => {
+    test('hideCounter', async () => {
       getGuideDefaultMount({ hideCounter: true });
       await mockDelay(60);
       const tGuideCounterDom = document.querySelector('.t-guide__counter');
       expect(tGuideCounterDom).toBeFalsy();
     });
 
-    test('hidePrev works fine. `{"document.t-guide__action .t-guide__prev":false}` should exist', async () => {
+    test('hidePrev', async () => {
       getGuideMultipleStepsMount({ current: 1, hidePrev: true });
       await mockDelay(60);
       const tGuideActionTGuidePrevDom = document.querySelector('.t-guide__action .t-guide__prev');
       expect(tGuideActionTGuidePrevDom).toBeFalsy();
     });
 
-    test('hideSkip works fine. `{"document.t-guide__action .t-guide__skip":false}` should exist', async () => {
+    test('hideSkip', async () => {
       getGuideMultipleStepsMount({ current: 1, hideSkip: true });
       await mockDelay(60);
       const tGuideActionTGuideSkipDom = document.querySelector('.t-guide__action .t-guide__skip');
       expect(tGuideActionTGuideSkipDom).toBeFalsy();
     });
 
-    test(`highlightPadding is equal to 32`, async () => {
+    test('highlightPadding[number]', async () => {
       getGuideDefaultMount({ highlightPadding: 32 });
       await mockDelay(60);
-      const domWrapper = document.querySelector('.t-guide__highlight--mask');
+      const domWrapper = document.querySelector('.t-guide__highlight--mask') as HTMLElement;
       expect(domWrapper.style.width).toBe('64px');
       expect(domWrapper.style.height).toBe('64px');
       expect(domWrapper.style.top).toBe('-32px');
       expect(domWrapper.style.left).toBe('-32px');
-      const domWrapper1 = document.querySelector('.t-guide__reference');
+      const domWrapper1 = document.querySelector('.t-guide__reference') as HTMLElement;
       expect(domWrapper1.style.width).toBe('64px');
       expect(domWrapper1.style.height).toBe('64px');
       expect(domWrapper1.style.top).toBe('-32px');
       expect(domWrapper1.style.left).toBe('-32px');
     });
 
-    test(`nextButtonProps is equal to {theme: 'warning'}`, async () => {
+    test('nextButtonProps[object]', async () => {
       getGuideMultipleStepsMount({
         current: 1,
         nextButtonProps: { theme: 'warning' },
@@ -214,7 +191,7 @@ describe('Guide', () => {
       expect(domWrapper).toHaveClass('t-button--theme-warning');
     });
 
-    test(`prevButtonProps is equal to {theme: 'warning'}`, async () => {
+    test('prevButtonProps[object]', async () => {
       getGuideMultipleStepsMount({
         current: 2,
         prevButtonProps: { theme: 'warning' },
@@ -224,21 +201,21 @@ describe('Guide', () => {
       expect(domWrapper).toHaveClass('t-button--theme-warning');
     });
 
-    test('showOverlay works fine. `{"document.t-guide__highlight--mask":1}` should exist', async () => {
+    test('showOverlay', async () => {
       getGuideDefaultMount({ showOverlay: true });
       await mockDelay(60);
       const tGuideHighlightMaskDom = document.querySelectorAll('.t-guide__highlight--mask');
       expect(tGuideHighlightMaskDom.length).toBe(1);
     });
 
-    test('showOverlay works fine. `{"document.t-guide__highlight--mask":false}` should exist', async () => {
+    test('showOverlay[false]', async () => {
       getGuideDefaultMount({ showOverlay: false });
       await mockDelay(60);
       const tGuideHighlightMaskDom = document.querySelector('.t-guide__highlight--mask');
       expect(tGuideHighlightMaskDom).toBeFalsy();
     });
 
-    test(`skipButtonProps is equal to {theme: 'warning'}`, async () => {
+    test('skipButtonProps[object]', async () => {
       getGuideMultipleStepsMount({
         current: 0,
         skipButtonProps: { theme: 'warning' },
@@ -248,7 +225,7 @@ describe('Guide', () => {
       expect(domWrapper).toHaveClass('t-button--theme-warning');
     });
 
-    test('steps', async () => {
+    test('steps[array<GuideStep>]', async () => {
       getGuideDefaultMount();
       await mockDelay(60);
       const tGuideCounterDom = document.querySelector('.t-guide__counter');
@@ -267,15 +244,16 @@ describe('Guide', () => {
       expect(tGuideActionTGuideFinishDom.length).toBe(1);
     });
 
-    test(`zIndex is equal to 5000`, async () => {
+    test('zIndex[string]', async () => {
       getGuideDefaultMount({ zIndex: '5000' });
       await mockDelay(60);
-      const domWrapper = document.querySelector('.t-guide__overlay');
+      const domWrapper = document.querySelector('.t-guide__overlay') as HTMLElement;
       expect(domWrapper.style.zIndex).toBe('4998');
-      const domWrapper1 = document.querySelector('.t-guide__highlight--mask');
+      const domWrapper1 = document.querySelector('.t-guide__highlight--mask') as HTMLElement;
       expect(domWrapper1.style.zIndex).toBe('4999');
     });
-    test('counter', async () => {
+
+    test('counter[TNode]', async () => {
       getGuideDefaultMount({
         counter: <span className="custom-node">TNode</span>,
       });
@@ -286,7 +264,7 @@ describe('Guide', () => {
       expect(tGuideCounterDom).toBeTruthy();
     });
 
-    test('counter is a function with params', async () => {
+    test('counter[function]', async () => {
       const fn = vi.fn();
       getGuideDefaultMount({ counter: fn });
       await mockDelay(60);
@@ -294,32 +272,175 @@ describe('Guide', () => {
       expect(fn.mock.calls[0][0].total).toBe(1);
       expect(fn.mock.calls[0][0].current).toBe(0);
     });
+
+    describe('GuideStep', () => {
+      test('highlightPadding[number]', async () => {
+        getCustomGuideStepMount({ highlightPadding: 32 });
+        await mockDelay(60);
+        const domWrapper = document.querySelector('.t-guide__highlight--mask') as HTMLElement;
+        expect(domWrapper.style.width).toBe('64px');
+        expect(domWrapper.style.height).toBe('64px');
+        expect(domWrapper.style.top).toBe('-32px');
+        expect(domWrapper.style.left).toBe('-32px');
+        const domWrapper1 = document.querySelector('.t-guide__reference') as HTMLElement;
+        expect(domWrapper1.style.width).toBe('64px');
+        expect(domWrapper1.style.height).toBe('64px');
+        expect(domWrapper1.style.top).toBe('-32px');
+        expect(domWrapper1.style.left).toBe('-32px');
+      });
+
+      const modeExpectedDom = ['.t-popup', '.t-guide__dialog'];
+      (['popup', 'dialog'] as const).forEach((item, index) => {
+        test(`mode[${item}]`, async () => {
+          const { container } = getCustomGuideStepMount({ mode: item });
+          await mockDelay(60);
+          const modeExpectedDomIndexDom = document.querySelector(modeExpectedDom[index]);
+          expect(modeExpectedDomIndexDom).toBeTruthy();
+          expect(container).toMatchSnapshot();
+        });
+      });
+
+      test('nextButtonProps[object]', async () => {
+        getCustomMultipleGuideStepMount({
+          current: 1,
+          nextButtonProps: { theme: 'warning' },
+        });
+        await mockDelay(60);
+        const domWrapper = document.querySelector('.t-guide__next');
+        expect(domWrapper).toHaveClass('t-button--theme-warning');
+      });
+
+      test('placement[bottom-left]', async () => {
+        getCustomGuideStepMount({ placement: 'bottom-left' });
+        await mockDelay(60);
+        const domWrapper = document.querySelector('.t-popup');
+        expect(domWrapper.getAttribute('data-popper-placement')).toBe('bottom-start');
+        expect(document.body).toMatchSnapshot();
+      });
+
+      test('popupProps.placement[top-left]', async () => {
+        getCustomGuideStepMount({ popupProps: { placement: 'top-left' } });
+        await mockDelay(60);
+        const domWrapper = document.querySelector('.t-popup');
+        expect(domWrapper.getAttribute('data-popper-placement')).toBe('top-start');
+      });
+
+      test('prevButtonProps[object]', async () => {
+        getCustomMultipleGuideStepMount({
+          current: 2,
+          prevButtonProps: { theme: 'warning' },
+        });
+        await mockDelay(60);
+        const domWrapper = document.querySelector('.t-guide__prev');
+        expect(domWrapper).toHaveClass('t-button--theme-warning');
+      });
+
+      test('showOverlay', async () => {
+        getCustomMultipleGuideStepMount({ showOverlay: true });
+        await mockDelay(60);
+        const tGuideHighlightMaskDom = document.querySelectorAll('.t-guide__highlight--mask');
+        expect(tGuideHighlightMaskDom.length).toBe(1);
+      });
+
+      test('showOverlay[false]', async () => {
+        getCustomMultipleGuideStepMount({ showOverlay: false });
+        await mockDelay(60);
+        const tGuideHighlightMaskDom = document.querySelector('.t-guide__highlight--mask');
+        expect(tGuideHighlightMaskDom).toBeFalsy();
+      });
+
+      test('skipButtonProps[object]', async () => {
+        getCustomMultipleGuideStepMount({
+          current: 1,
+          skipButtonProps: { theme: 'warning' },
+        });
+        await mockDelay(60);
+        const domWrapper = document.querySelector('.t-guide__skip');
+        expect(domWrapper).toHaveClass('t-button--theme-warning');
+      });
+
+      test('stepOverlayClass', async () => {
+        getCustomGuideStepMount({
+          stepOverlayClass: 't-test-guide-step-overlay',
+        });
+        await mockDelay(60);
+        const domWrapper = document.querySelector('.t-popup');
+        expect(domWrapper).toHaveClass('t-test-guide-step-overlay');
+        expect(document.body).toMatchSnapshot();
+      });
+
+      test('body[TNode]', async () => {
+        getCustomGuideStepMount({
+          body: <span className="custom-node">TNode</span>,
+        });
+        await mockDelay(60);
+        const customNodeDom = document.querySelector('.custom-node');
+        expect(customNodeDom).toBeTruthy();
+        expect(document.body).toMatchSnapshot();
+      });
+
+      test('content and children', async () => {
+        const childrenWrapper = getCustomGuideStepMount({
+          children: <span className="custom-children-node">TNode</span>,
+        });
+        await mockDelay(60);
+        expect(document.querySelector('.custom-children-node')).toBeTruthy();
+        expect(document.body).toMatchSnapshot();
+
+        childrenWrapper.unmount();
+        getCustomGuideStepMount({
+          content: <span className="custom-content-node">TNode</span>,
+        });
+        await mockDelay(60);
+        expect(document.querySelector('.custom-content-node')).toBeTruthy();
+        expect(document.body).toMatchSnapshot();
+      });
+
+      test('highlightContent[TNode]', async () => {
+        getCustomGuideStepMount({
+          highlightContent: <span className="custom-node">TNode</span>,
+        });
+        await mockDelay(60);
+        const customNodeDom = document.querySelector('.custom-node');
+        expect(customNodeDom).toBeTruthy();
+        expect(document.body).toMatchSnapshot();
+      });
+
+      test('title[TNode]', async () => {
+        getCustomGuideStepMount({
+          title: <span className="custom-node">TNode</span>,
+        });
+        await mockDelay(60);
+        const customNodeDom = document.querySelector('.custom-node');
+        expect(customNodeDom).toBeTruthy();
+        expect(document.body).toMatchSnapshot();
+      });
+    });
   });
 
   describe('events', () => {
-    test('change next', async () => {
-      const onChangeFn = vi.fn();
-      getGuideMultipleStepsMount({ current: 0 }, { onChange: onChangeFn });
+    test('onChange', async () => {
+      const onNextChangeFn = vi.fn();
+      getGuideMultipleStepsMount({ current: 0 }, { onChange: onNextChangeFn });
       await mockDelay(60);
       fireEvent.click(document.querySelector('.t-guide__next'));
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0]).toBe(1);
-      expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
-      expect(onChangeFn.mock.calls[0][1].total).toBe(3);
-    });
+      expect(onNextChangeFn).toHaveBeenCalled();
+      expect(onNextChangeFn.mock.calls[0][0]).toBe(1);
+      expect(onNextChangeFn.mock.calls[0][1].e.type).toBe('click');
+      expect(onNextChangeFn.mock.calls[0][1].total).toBe(3);
 
-    test('change prev', async () => {
-      const onChangeFn = vi.fn();
-      getGuideMultipleStepsMount({ current: 1 }, { onChange: onChangeFn });
+      const onPrevChangeFn = vi.fn();
+      getGuideMultipleStepsMount({ current: 1 }, { onChange: onPrevChangeFn });
       await mockDelay(60);
-      fireEvent.click(document.querySelector('.t-guide__prev'));
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0]).toBe(0);
-      expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
-      expect(onChangeFn.mock.calls[0][1].total).toBe(3);
+      const prevButtons = document.querySelectorAll('.t-guide__prev');
+      fireEvent.click(prevButtons[prevButtons.length - 1]);
+      expect(onPrevChangeFn).toHaveBeenCalled();
+      expect(onPrevChangeFn.mock.calls[0][0]).toBe(0);
+      expect(onPrevChangeFn.mock.calls[0][1].e.type).toBe('click');
+      expect(onPrevChangeFn.mock.calls[0][1].total).toBe(3);
     });
 
-    test('finish', async () => {
+    test('onFinish', async () => {
       const onFinishFn = vi.fn();
       getGuideMultipleStepsMount({ current: 2 }, { onFinish: onFinishFn });
       await mockDelay(60);
@@ -330,7 +451,7 @@ describe('Guide', () => {
       expect(onFinishFn.mock.calls[0][0].total).toBe(3);
     });
 
-    test('nextStepClick', async () => {
+    test('onNextStepClick', async () => {
       const onNextStepClickFn = vi.fn();
       getGuideMultipleStepsMount({ current: 1 }, { onNextStepClick: onNextStepClickFn });
       await mockDelay(60);
@@ -342,7 +463,7 @@ describe('Guide', () => {
       expect(onNextStepClickFn.mock.calls[0][0].total).toBe(3);
     });
 
-    test('prevStepClick', async () => {
+    test('onPrevStepClick', async () => {
       const onPrevStepClickFn = vi.fn();
       getGuideMultipleStepsMount({ current: 1 }, { onPrevStepClick: onPrevStepClickFn });
       await mockDelay(60);
@@ -354,7 +475,7 @@ describe('Guide', () => {
       expect(onPrevStepClickFn.mock.calls[0][0].total).toBe(3);
     });
 
-    test('skip', async () => {
+    test('onSkip', async () => {
       const onSkipFn = vi.fn();
       getGuideMultipleStepsMount({ current: 0 }, { onSkip: onSkipFn });
       await mockDelay(60);
@@ -363,154 +484,6 @@ describe('Guide', () => {
       expect(onSkipFn.mock.calls[0][0].current).toBe(0);
       expect(onSkipFn.mock.calls[0][0].e.type).toBe('click');
       expect(onSkipFn.mock.calls[0][0].total).toBe(3);
-    });
-  });
-});
-
-describe('GuideStep', () => {
-  describe('props', () => {
-    test(`highlightPadding is equal to 32`, async () => {
-      getCustomGuideStepMount({ highlightPadding: 32 });
-      await mockDelay(60);
-      const domWrapper = document.querySelector('.t-guide__highlight--mask');
-      expect(domWrapper.style.width).toBe('64px');
-      expect(domWrapper.style.height).toBe('64px');
-      expect(domWrapper.style.top).toBe('-32px');
-      expect(domWrapper.style.left).toBe('-32px');
-      const domWrapper1 = document.querySelector('.t-guide__reference');
-      expect(domWrapper1.style.width).toBe('64px');
-      expect(domWrapper1.style.height).toBe('64px');
-      expect(domWrapper1.style.top).toBe('-32px');
-      expect(domWrapper1.style.left).toBe('-32px');
-    });
-
-    const modeExpectedDom = ['.t-popup', '.t-guide__dialog'];
-    (['popup', 'dialog'] as const).forEach((item, index) => {
-      test(`mode is equal to ${item}`, async () => {
-        const { container } = getCustomGuideStepMount({ mode: item });
-        await mockDelay(60);
-        const modeExpectedDomIndexDom = document.querySelector(modeExpectedDom[index]);
-        expect(modeExpectedDomIndexDom).toBeTruthy();
-        expect(container).toMatchSnapshot();
-      });
-    });
-
-    test(`nextButtonProps is equal to {theme: 'warning'}`, async () => {
-      getCustomMultipleGuideStepMount({
-        current: 1,
-        nextButtonProps: { theme: 'warning' },
-      });
-      await mockDelay(60);
-      const domWrapper = document.querySelector('.t-guide__next');
-      expect(domWrapper).toHaveClass('t-button--theme-warning');
-    });
-
-    test(`placement is equal to bottom-left`, async () => {
-      getCustomGuideStepMount({ placement: 'bottom-left' });
-      await mockDelay(60);
-      const domWrapper = document.querySelector('.t-popup');
-      expect(domWrapper.getAttribute('data-popper-placement')).toBe('bottom-start');
-      expect(document.body).toMatchSnapshot();
-    });
-
-    test(`popupProps is equal to {placement: 'top-left'}`, async () => {
-      getCustomGuideStepMount({ popupProps: { placement: 'top-left' } });
-      await mockDelay(60);
-      const domWrapper = document.querySelector('.t-popup');
-      expect(domWrapper.getAttribute('data-popper-placement')).toBe('top-start');
-    });
-
-    test(`prevButtonProps is equal to {theme: 'warning'}`, async () => {
-      getCustomMultipleGuideStepMount({
-        current: 2,
-        prevButtonProps: { theme: 'warning' },
-      });
-      await mockDelay(60);
-      const domWrapper = document.querySelector('.t-guide__prev');
-      expect(domWrapper).toHaveClass('t-button--theme-warning');
-    });
-
-    test('showOverlay: .t-guide__highlight--mask should exit if showOverlay=true', async () => {
-      getCustomMultipleGuideStepMount({ showOverlay: true });
-      await mockDelay(60);
-      const tGuideHighlightMaskDom = document.querySelectorAll('.t-guide__highlight--mask');
-      expect(tGuideHighlightMaskDom.length).toBe(1);
-    });
-
-    test('showOverlay: .t-guide__highlight--mask should not exit if showOverlay=false', async () => {
-      getCustomMultipleGuideStepMount({ showOverlay: false });
-      await mockDelay(60);
-      const tGuideHighlightMaskDom = document.querySelector('.t-guide__highlight--mask');
-      expect(tGuideHighlightMaskDom).toBeFalsy();
-    });
-
-    test(`skipButtonProps is equal to {theme: 'warning'}`, async () => {
-      getCustomMultipleGuideStepMount({
-        current: 1,
-        skipButtonProps: { theme: 'warning' },
-      });
-      await mockDelay(60);
-      const domWrapper = document.querySelector('.t-guide__skip');
-      expect(domWrapper).toHaveClass('t-button--theme-warning');
-    });
-
-    test(`stepOverlayClass is equal to t-test-guide-step-overlay`, async () => {
-      getCustomGuideStepMount({
-        stepOverlayClass: 't-test-guide-step-overlay',
-      });
-      await mockDelay(60);
-      const domWrapper = document.querySelector('.t-popup');
-      expect(domWrapper).toHaveClass('t-test-guide-step-overlay');
-      expect(document.body).toMatchSnapshot();
-    });
-    test('body', async () => {
-      getCustomGuideStepMount({
-        body: <span className="custom-node">TNode</span>,
-      });
-      await mockDelay(60);
-      const customNodeDom = document.querySelector('.custom-node');
-      expect(customNodeDom).toBeTruthy();
-      expect(document.body).toMatchSnapshot();
-    });
-
-    test('children', async () => {
-      getCustomGuideStepMount({
-        children: <span className="custom-node">TNode</span>,
-      });
-      await mockDelay(60);
-      const customNodeDom = document.querySelector('.custom-node');
-      expect(customNodeDom).toBeTruthy();
-      expect(document.body).toMatchSnapshot();
-    });
-
-    test('content', async () => {
-      getCustomGuideStepMount({
-        content: <span className="custom-node">TNode</span>,
-      });
-      await mockDelay(60);
-      const customNodeDom = document.querySelector('.custom-node');
-      expect(customNodeDom).toBeTruthy();
-      expect(document.body).toMatchSnapshot();
-    });
-
-    test('highlightContent', async () => {
-      getCustomGuideStepMount({
-        highlightContent: <span className="custom-node">TNode</span>,
-      });
-      await mockDelay(60);
-      const customNodeDom = document.querySelector('.custom-node');
-      expect(customNodeDom).toBeTruthy();
-      expect(document.body).toMatchSnapshot();
-    });
-
-    test('title', async () => {
-      getCustomGuideStepMount({
-        title: <span className="custom-node">TNode</span>,
-      });
-      await mockDelay(60);
-      const customNodeDom = document.querySelector('.custom-node');
-      expect(customNodeDom).toBeTruthy();
-      expect(document.body).toMatchSnapshot();
     });
   });
 });
