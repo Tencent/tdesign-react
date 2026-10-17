@@ -72,6 +72,7 @@ export default function generateChatLlms() {
         readComponentDoc,
         readDemoCode: readReactDemo,
         isDemoSlot,
+        demoSectionHeading: '## 示例代码',
         transformers: [],
       });
 
