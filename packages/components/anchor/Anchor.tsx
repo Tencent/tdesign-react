@@ -20,7 +20,16 @@ import type { TdAnchorProps } from './type';
 
 export interface AnchorProps extends TdAnchorProps, StyledProps {
   children?: React.ReactNode;
+  direction?: Direction;
 }
+
+type Direction = 'vertical' | 'horizontal';
+
+type CursorStyle<T = Direction> = T extends 'vertical'
+  ? { top: string; height?: string; opacity: number }
+  : T extends 'horizontal'
+  ? { left: string; width?: string; opacity: number }
+  : never;
 
 interface IntervalRef {
   // 收集 anchor-item
@@ -47,13 +56,14 @@ const Anchor = forwardRefWithStatics(
       onChange,
       className,
       getCurrentAnchor,
+      direction,
       ...rest
     } = useDefaultProps(props, anchorDefaultProps);
 
     const { classPrefix } = useConfig();
 
     const [activeItem, setActiveItem] = useState<string>('');
-    const [cursorStyle, setCursorStyle] = useState<{ top: string; height?: string; opacity: number }>({
+    const [cursorStyle, setCursorStyle] = useState<CursorStyle>({
       top: '0px',
       height: '0px',
       opacity: 0,
@@ -65,6 +75,8 @@ const Anchor = forwardRefWithStatics(
       scrollContainer: canUseDocument ? window : null,
       handleScrollLock: false,
     });
+
+    const isHorizontal = direction === 'horizontal';
 
     useImperativeHandle(ref, () => anchorEl.current);
 
@@ -112,10 +124,13 @@ const Anchor = forwardRefWithStatics(
       if (!pointEl) {
         setCursorStyle(null);
       } else {
-        const { offsetTop: top, offsetHeight: height } = pointEl;
-        setCursorStyle({ top: `${top}px`, height: `${height}px`, opacity: 1 });
+        const { offsetTop: top, offsetHeight: height, offsetLeft: left, offsetWidth: width } = pointEl;
+        const style = isHorizontal
+          ? { left: `${left}px`, width: `${width}px`, opacity: 1 }
+          : { top: `${top}px`, height: `${height}px`, opacity: 1 };
+        setCursorStyle(style);
       }
-    }, [activeItem, classPrefix]);
+    }, [activeItem, classPrefix, isHorizontal]);
 
     const handleScroll = useCallback(() => {
       const { scrollContainer, handleScrollLock } = intervalRef.current;
@@ -164,6 +179,7 @@ const Anchor = forwardRefWithStatics(
         [`${classPrefix}-size-s`]: size === 'small',
         [`${classPrefix}-size-m`]: size === 'medium',
         [`${classPrefix}-size-l`]: size === 'large',
+        [`${classPrefix}-anchor__horizontal`]: isHorizontal,
       },
       className,
     );
@@ -194,7 +210,30 @@ const Anchor = forwardRefWithStatics(
       </AnchorContext.Provider>
     );
 
-    return isEmpty(affixProps) ? Cmp : <Affix {...affixProps}>{Cmp}</Affix>;
+    return (
+      <>
+        <style>
+          {`
+          .t-anchor__horizontal{
+            display:flex;
+            width: fit-content;
+          }
+          .t-anchor__horizontal .t-anchor__line{
+            top:100%;
+            width:100%;
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper{
+            height:1px;
+          }
+          .t-anchor__horizontal .t-anchor__line-cursor-wrapper .t-anchor__line-cursor{
+           width:100%;
+          }
+        `}
+        </style>
+        {isEmpty(affixProps) ? Cmp : <Affix {...affixProps}>{Cmp}</Affix>}
+      </>
+    );
   },
   {
     AnchorItem,
