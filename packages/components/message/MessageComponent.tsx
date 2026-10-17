@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { fadeIn } from '@tdesign/common-js/message/index';
 
 import noop from '../_util/noop';
+import parseTNode from '../_util/parseTNode';
 import { usePersistFn } from '../hooks/usePersistFn';
 import MessageClose from './MessageClose';
 import MessageIcon from './MessageIcon';
@@ -84,7 +85,7 @@ const MessageComponent = forwardRef<HTMLDivElement, MessageComponentProps>((prop
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      {icon === true ? <MessageIcon theme={theme} /> : icon}
+      {parseTNode(icon, { theme }, <MessageIcon theme={theme} />)}
       {content ? content : children}
       <MessageClose closeBtn={closeBtn} onCloseBtnClick={handleCloseBtnClick} />
     </div>
