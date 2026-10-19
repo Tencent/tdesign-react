@@ -86,13 +86,12 @@ describe("ComponentName", () => {
 ## 测试命令
 
 ```bash
-pnpm test                              # 运行所有测试
-pnpm test <component>                  # 运行指定组件测试
-pnpm test -- --coverage                # 生成覆盖率报告
-pnpm test -- --ui                      # 启动测试 UI
-NODE_ENV=test-snap pnpm test           # 运行 CSR 快照测试
-pnpm test -- --update                  # 更新所有快照
-pnpm test <component> -- --update      # 更新指定组件快照
+pnpm test                                                    # 运行所有测试
+pnpm test:coverage                                           # 生成覆盖率
+pnpm test:ui                                                 # 启动测试 UI
+pnpm test:snap                                               # 校验全部快照
+pnpm test:update                                             # 更新全部快照
+pnpm exec vitest run <component>                             # 运行指定组件的测试
 ```
 
 > `<component>` 替换为实际组件名，例如 `button`。
@@ -112,4 +111,4 @@ A: 使用 `mockDelay`、`mockTimeout`、`waitFor` 或 `act`，在断言前等待
 
 ### Q: 快照测试失败怎么办？
 
-A: 首先检查变更是否预期内。如果是预期变更，使用 `--update` 参数更新快照。
+A: 首先检查变更是否预期内。如果是预期变更，用上面的 `pnpm test:update` 或带 `-u` 的组件命令更新快照。
