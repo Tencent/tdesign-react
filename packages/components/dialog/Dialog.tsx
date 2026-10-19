@@ -21,6 +21,18 @@ import useLockStyle from './hooks/useLockStyle';
 import type { StyledProps } from '../common';
 import type { DialogInstance, TdDialogProps } from './type';
 
+function shouldSkipConfirmOnEnter(event: React.KeyboardEvent, confirmLoading?: boolean) {
+  if (confirmLoading) return true;
+  const { nativeEvent } = event;
+  if (nativeEvent.isComposing || nativeEvent.keyCode === 229) return true;
+  const { target } = event;
+  if (!(target instanceof HTMLElement)) return false;
+  if (target.tagName === 'TEXTAREA') return true;
+  if (target.isContentEditable) return true;
+  const editable = target.closest('[contenteditable]');
+  return editable !== null && editable.getAttribute('contenteditable') !== 'false';
+}
+
 export interface DialogProps extends TdDialogProps, StyledProps {
   isPlugin?: boolean; // 是否以插件形式调用
 }
@@ -169,7 +181,8 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     } else if (e.key === 'Enter' || e.key === 'NumpadEnter') {
       // 回车键触发点击确认事件
       e.stopPropagation();
-      confirmOnEnter && onConfirm?.({ e });
+      if (!confirmOnEnter || shouldSkipConfirmOnEnter(e, mergedState.confirmLoading)) return;
+      onConfirm?.({ e });
     }
   };
 
