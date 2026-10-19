@@ -5,7 +5,7 @@ import Checkbox from '../Checkbox';
 
 describe('CheckboxGroup', () => {
   describe('props', () => {
-    test('value', () => {
+    test('value[array<string>]', () => {
       const { container } = render(
         <Checkbox.Group value={['gz']}>
           <Checkbox value="gz">广州</Checkbox>
@@ -15,19 +15,19 @@ describe('CheckboxGroup', () => {
         </Checkbox.Group>,
       );
       expect(container.firstChild.firstChild).toHaveClass('t-is-checked');
+
+      const { container: optionsContainer } = render(
+        <Checkbox.Group options={['北京', '广州']} value={['北京']}></Checkbox.Group>,
+      );
+      expect(optionsContainer.firstChild.firstChild).toHaveClass('t-is-checked');
     });
 
-    test('value is string', () => {
-      const { container } = render(<Checkbox.Group options={['北京', '广州']} value={['北京']}></Checkbox.Group>);
-      expect(container.firstChild.firstChild).toHaveClass('t-is-checked');
-    });
-
-    test('value is number', () => {
+    test('value[array<number>]', () => {
       const { container } = render(<Checkbox.Group options={[1, 2]} value={[1]}></Checkbox.Group>);
       expect(container.firstChild.firstChild).toHaveClass('t-is-checked');
     });
 
-    test('defaultValue', () => {
+    test('defaultValue[array<string>]', () => {
       const { container } = render(
         <Checkbox.Group defaultValue={['gz']}>
           <Checkbox value="gz">广州</Checkbox>
@@ -38,26 +38,8 @@ describe('CheckboxGroup', () => {
       );
       expect(container.firstChild.firstChild).toHaveClass('t-is-checked');
     });
-  });
 
-  describe('events', () => {
-    test('onChange', () => {
-      const fn = vi.fn();
-      const { container } = render(
-        <Checkbox.Group value={['gz']} onChange={fn}>
-          <Checkbox value="gz">广州</Checkbox>
-          <Checkbox value="sz" disabled>
-            深圳
-          </Checkbox>
-        </Checkbox.Group>,
-      );
-      fireEvent.click(container.firstChild.firstChild);
-      expect(fn).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('scenarios', () => {
-    test('option', () => {
+    test('options', () => {
       const { container } = render(
         <Checkbox.Group
           defaultValue={['北京']}
@@ -75,11 +57,10 @@ describe('CheckboxGroup', () => {
       fireEvent.click(container.firstChild.lastChild);
       expect(container.firstChild.firstChild).toHaveClass('t-is-checked');
       const options = container.firstChild.childNodes;
-      // 0 is rendered as string '0'
       expect(options.item(4).textContent).toBe('0');
     });
 
-    test('max', () => {
+    test('max[number]', () => {
       const { container } = render(
         <Checkbox.Group max={2} defaultValue={['sz']}>
           <Checkbox value="gz">广州</Checkbox>
@@ -89,6 +70,22 @@ describe('CheckboxGroup', () => {
       );
       fireEvent.click(container.firstChild.firstChild);
       expect(container.firstChild.lastChild).toHaveClass('t-is-disabled');
+    });
+  });
+
+  describe('events', () => {
+    test('onChange', () => {
+      const fn = vi.fn();
+      const { container } = render(
+        <Checkbox.Group value={['gz']} onChange={fn}>
+          <Checkbox value="gz">广州</Checkbox>
+          <Checkbox value="sz" disabled>
+            深圳
+          </Checkbox>
+        </Checkbox.Group>,
+      );
+      fireEvent.click(container.firstChild.firstChild);
+      expect(fn).toHaveBeenCalledTimes(1);
     });
   });
 });

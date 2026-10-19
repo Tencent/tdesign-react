@@ -62,7 +62,7 @@ describe('Form', () => {
       expect((getByPlaceholderText('input1') as HTMLInputElement).value).toEqual('');
     });
 
-    test('name: can be array', () => {
+    test('name[array<string>]', () => {
       const mockName = 'name';
       const mockBirtyday = '1996-01-24';
       const TestForm = () => {
@@ -90,7 +90,7 @@ describe('Form', () => {
       expect((getByPlaceholderText('birthday') as HTMLInputElement).value).toBe(mockBirtyday);
     });
 
-    test('rules: nested name', async () => {
+    test('rules', async () => {
       const TestForm = () => {
         return (
           <Form
@@ -119,7 +119,7 @@ describe('Form', () => {
     });
 
     describe('statusIcon', () => {
-      test('FormItem without icon works fine', async () => {
+      test('statusIcon[false]', async () => {
         const TestForm = () => {
           return (
             <Form statusIcon={false}>
@@ -138,7 +138,8 @@ describe('Form', () => {
         await mockDelay();
         expect(container.querySelector('.t-form__status')).toBeNull();
       });
-      test('FormItem preset icon works fine', async () => {
+
+      test('statusIcon[true]', async () => {
         const TestForm = () => {
           return (
             <Form statusIcon>
@@ -197,7 +198,7 @@ describe('Form', () => {
     });
 
     describe('supportNumberKey', () => {
-      test('true: numeric name key treated as object key by default', () => {
+      test('supportNumberKey[true]', () => {
         const TestForm = () => {
           const [form] = Form.useForm();
           return (
@@ -236,7 +237,7 @@ describe('Form', () => {
         expect(values).toEqual({ task: { 0: 'review' } });
       });
 
-      test('false: numeric name key treated as array index', () => {
+      test('supportNumberKey[false]', () => {
         const TestForm = () => {
           const [form] = Form.useForm();
           return (
@@ -280,7 +281,7 @@ describe('Form', () => {
   });
 
   describe('events', () => {
-    test('reset & submit', async () => {
+    test('onSubmit and onReset', async () => {
       const { container } = render(
         <Form onSubmit={submitFn} onReset={resetFn} layout="vertical">
           <FormItem label="input1" name="input1" initialData={'test'}>
@@ -393,7 +394,7 @@ describe('Form', () => {
       expect(queryByText('input1 未填写')).not.toBeTruthy();
     });
 
-    test('form setFieldsValue', () => {
+    test('setFieldsValue', () => {
       const mockName = 'name';
       const mockName1 = 'name1';
       const mockBirthday = '1996-01-24';
@@ -467,7 +468,7 @@ describe('Form', () => {
       expect((getByPlaceholderText('area') as HTMLInputElement).value).toBe(mockArea1);
     });
 
-    test('Form.setValidateMessage works fine', () => {
+    test('setValidateMessage', () => {
       const TestForm = () => {
         const [form] = Form.useForm();
 
@@ -520,7 +521,7 @@ describe('Form', () => {
       expect(container.querySelector('.password .t-input__extra').innerHTML).toBe('custom warning message');
     });
 
-    test('Form.getValidateMessage works fine', async () => {
+    test('getValidateMessage', async () => {
       const TestForm = () => {
         const [form] = Form.useForm();
         const [message, setMessage] = useState<any>(null);
@@ -636,7 +637,7 @@ describe('Form', () => {
   });
 
   describe('scenarios', () => {
-    test('Form disabled `input` keydown enter submit form', async () => {
+    test('Form ignores Enter keydown without a submit handler', async () => {
       const TestForm = () => {
         return (
           <Form>
@@ -660,7 +661,7 @@ describe('Form', () => {
       expect(container.querySelector('.t-input__extra')).toBeNull();
     });
 
-    test('FormItem blur validate works fine', async () => {
+    test('FormItem rules trigger[blur] validate after input blur', async () => {
       const TestForm = () => {
         return (
           <Form>
@@ -685,7 +686,7 @@ describe('Form', () => {
       expect(container.querySelector('.t-input__extra').innerHTML).toBe('please input username');
     });
 
-    test('FormItem rules min max', async () => {
+    test('FormItem rules min and max validate numeric bounds', async () => {
       const TestForm = () => {
         const initialValues = {
           year1: -2,
@@ -803,7 +804,7 @@ describe('Form', () => {
       expect(container.querySelector('.radio-value-3')).toHaveClass('t-is-checked');
     });
 
-    test('FormItem without initialData resets to empty on remount with resetType=initial', async () => {
+    test('resetType[initial] clears remounted and reset fields', async () => {
       const TestForm = () => {
         const [form] = Form.useForm();
         const [visible, setVisible] = useState(false);
@@ -849,7 +850,7 @@ describe('Form', () => {
       expect((getByPlaceholderText('tag') as HTMLInputElement).value).toBe('');
     });
 
-    test('FormItem setFields not trigger onValueChange', async () => {
+    test('setFields updates value without triggering onValuesChange', async () => {
       const fn = vi.fn();
 
       const TestForm = () => {
@@ -883,6 +884,26 @@ describe('Form', () => {
       expect(fn).toHaveBeenCalledTimes(1);
       fireEvent.click(getByText('setFields'));
       expect(fn).toHaveBeenCalledTimes(1);
+    });
+
+    // Issue: https://github.com/Tencent/tdesign-vue-next/issues/7000
+    test('FormItem without name participates in last item detection', () => {
+      const { container } = render(
+        <Form>
+          <FormItem name="first">
+            <Input />
+          </FormItem>
+          <FormItem name="second">
+            <Input />
+          </FormItem>
+          <FormItem>
+            <Button type="submit">submit</Button>
+          </FormItem>
+        </Form>,
+      );
+      const formItems = container.querySelectorAll('.t-form__item');
+      expect(formItems[1]).not.toHaveClass('t-form__item--last');
+      expect(formItems[2]).toHaveClass('t-form__item--last');
     });
   });
 });

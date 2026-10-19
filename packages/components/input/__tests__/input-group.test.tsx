@@ -16,7 +16,7 @@ function getInputGroupDefaultMount(props?: TdInputGroupProps) {
 
 describe('InputGroup', () => {
   describe('props', () => {
-    test('separate', () => {
+    test('separate[boolean]', () => {
       // separate default value is
       const { container: container1 } = getInputGroupDefaultMount();
       expect(container1.querySelector(`.${'t-input-group--separate'}`)).toBeFalsy();

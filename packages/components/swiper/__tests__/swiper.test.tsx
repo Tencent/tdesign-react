@@ -6,15 +6,15 @@ import Swiper from '../index';
 const { SwiperItem } = Swiper;
 
 describe('Swiper', () => {
-  describe('scenarios', () => {
-    // 测试渲染
-    test('create', async () => {
+  describe('props', () => {
+    test('default', async () => {
       const { container } = render(<Swiper></Swiper>);
       expect(container.querySelectorAll('.t-swiper')).toHaveLength(1);
     });
+  });
 
-    // 测试事件
-    test('arrows event', async () => {
+  describe('scenarios', () => {
+    test('navigation, loop and autoplay coordinate slide indicator interactions', async () => {
       const TestView = () => (
         <>
           <Swiper
@@ -38,8 +38,6 @@ describe('Swiper', () => {
       );
 
       render(<TestView />);
-      // 获取 element
-
       expect(document.querySelector('.t-swiper__container')).not.toBeNull();
       expect(document.querySelectorAll('.t-swiper__navigation-item').length).toBe(3);
 
@@ -49,8 +47,7 @@ describe('Swiper', () => {
       expect(document.querySelectorAll('.t-swiper__navigation-item')[1].classList.contains('t-is-active')).toBeTruthy();
     });
 
-    // 测试事件
-    test('event', async () => {
+    test('loop and arrow controls coordinate slide translation', async () => {
       const TestView = () => (
         <>
           <Swiper loop>
@@ -68,7 +65,6 @@ describe('Swiper', () => {
       );
 
       render(<TestView />);
-      // 获取 element
       expect(document.querySelector('.t-swiper__arrow-left')).not.toBeNull();
       expect(document.querySelector('.t-swiper__arrow-right')).not.toBeNull();
       expect(document.querySelector('.t-swiper__container')).not.toBeNull();

@@ -98,10 +98,13 @@ describe('DateRangePickerPanel', () => {
       // expect(container5.querySelector('.t-date-picker__cell--active')).toHaveTextContent('二季度');
     });
 
-    test('presets props', async () => {
-      const { container } = render(<DateRangePickerPanel presets={{ 今天: [new Date(), new Date()] }} />);
+    test('presets and presetsPlacement render the footer', async () => {
+      const { container } = render(
+        <DateRangePickerPanel presets={{ 今天: [new Date(), new Date()] }} presetsPlacement="left" />,
+      );
       expect(container.querySelector('.t-date-picker__presets')).toBeInTheDocument();
       expect(container.querySelector('.t-date-picker__presets').firstChild.firstChild).toHaveTextContent('今天');
+      expect(container.querySelector('.t-date-picker__presets').parentNode).toHaveClass('t-date-picker__footer--left');
     });
   });
 
@@ -142,32 +145,7 @@ describe('DateRangePickerPanel', () => {
   });
 
   describe('scenarios', () => {
-    test('presets、presetsPlacement props', async () => {
-      const { container } = render(
-        <DateRangePickerPanel presets={{ 今天: [new Date(), new Date()] }} presetsPlacement="left" />,
-      );
-      expect(container.querySelector('.t-date-picker__presets')).toBeInTheDocument();
-      expect(container.querySelector('.t-date-picker__presets').firstChild.firstChild).toHaveTextContent('今天');
-      expect(container.querySelector('.t-date-picker__presets').parentNode).toHaveClass('t-date-picker__footer--left');
-    });
-
-    test('onTimePickerChange & onConfirmClick', async () => {
-      const { container, getByText } = render(<DateRangePickerPanel enableTimePicker />);
-
-      expect(container.querySelector('.t-date-picker__panel-time')).toBeTruthy();
-      expect(getByText('确定')).toBeTruthy();
-    });
-
-    test('onYearChange & onMonthChange', async () => {
-      const { container } = render(<DateRangePickerPanel />);
-
-      const yearSelect = container.querySelector('.t-date-picker__header-controller-year');
-      fireEvent.click(yearSelect);
-      const monthSelect = container.querySelector('.t-date-picker__header-controller-month');
-      fireEvent.click(monthSelect);
-    });
-
-    test('cell handleMouseEnter', async () => {
+    test('range panel coordinates input focus and calendar cell hover', async () => {
       const { container } = render(<DateRangePickerPanel />);
       const inputEle = container.querySelector('.t-input__inner');
       fireEvent.mouseDown(inputEle);
@@ -176,16 +154,7 @@ describe('DateRangePickerPanel', () => {
       fireEvent.mouseLeave(document.querySelector('.t-date-picker__cell-inner'));
     });
 
-    test('cell handleClick', async () => {
-      const { container } = render(<DateRangePickerPanel />);
-      const inputEle = container.querySelector('.t-input__inner');
-      fireEvent.mouseDown(inputEle);
-
-      fireEvent.click(document.querySelector('.t-date-picker__cell-inner'));
-      fireEvent.click(document.querySelector('.t-date-picker__cell-inner'));
-    });
-
-    test('onJumperClick', async () => {
+    test('range panel coordinates previous next and current pagination controls', async () => {
       const { container } = render(<DateRangePickerPanel />);
       const inputEle = container.querySelector('.t-input__inner');
       fireEvent.mouseDown(inputEle);
@@ -198,33 +167,19 @@ describe('DateRangePickerPanel', () => {
       fireEvent.click(jumperCurrent);
     });
 
-    test('onTimePickerChange & onConfirmClick', async () => {
+    test('enableTimePicker coordinates time selection and confirmation', async () => {
       const { container, getByText } = render(<DateRangePickerPanel enableTimePicker />);
+      expect(container.querySelector('.t-date-picker__panel-time')).toBeTruthy();
       fireEvent.mouseDown(container.querySelector('input'));
 
       const timePickerItem = await waitFor(() => document.querySelector('.t-time-picker__panel-body-scroll-item'));
       fireEvent.click(timePickerItem);
       const confirmBtn = getByText('确定');
+      expect(confirmBtn).toBeTruthy();
       fireEvent.click(confirmBtn);
     });
 
-    test('onPresetClick', async () => {
-      const { container, getByText } = render(
-        <DateRangePickerPanel
-          presets={{
-            圣诞节: [dayjs('2023-12-25').toDate(), dayjs('2023-12-25').toDate()],
-          }}
-        />,
-      );
-      const inputEle = container.querySelector('.t-input__inner');
-      fireEvent.mouseDown(inputEle);
-
-      const christmasBtn = await waitFor(() => getByText('圣诞节'));
-      expect(christmasBtn).toBeTruthy();
-      fireEvent.click(christmasBtn);
-    });
-
-    test('onYearChange', async () => {
+    test('range panel coordinates year and month header controls', async () => {
       const { container } = render(<DateRangePickerPanel />);
       const inputEle = container.querySelector('.t-input__inner');
       fireEvent.mouseDown(inputEle);

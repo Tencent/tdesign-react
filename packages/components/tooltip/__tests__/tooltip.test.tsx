@@ -29,13 +29,6 @@ describe('Tooltip', () => {
 
     return {
       ...result,
-      rerender: (props: TdTooltipProps) => {
-        result.rerender(
-          <Tooltip content={<div data-testid={tooltipTestId}>{tooltipText}</div>} {...props}>
-            {props.children || triggerElement}
-          </Tooltip>,
-        );
-      },
       mouseLeave: () => {
         fireEvent.mouseLeave(result.getByText(triggerElement));
       },
@@ -44,27 +37,26 @@ describe('Tooltip', () => {
   }
 
   describe('props', () => {
-    test('theme', async () => {
-      const { rerender } = await renderWithProps({
-        theme: 'primary',
+    (['primary', 'light'] as TdTooltipProps['theme'][]).forEach((theme) => {
+      test(`theme[${theme}]`, async () => {
+        await renderWithProps({ theme });
+        expect(getTooltip()).toHaveClass(`t-tooltip--${theme}`);
       });
-      expect(getTooltip()).toHaveClass('t-tooltip--primary');
-
-      rerender({ theme: 'light' });
-      expect(getTooltip()).toHaveClass('t-tooltip--light');
     });
 
-    test('showArrow', async () => {
-      const { rerender } = await renderWithProps({
-        showArrow: true,
+    [true, false].forEach((showArrow) => {
+      test(`showArrow[${showArrow}]`, async () => {
+        await renderWithProps({ showArrow });
+        const arrow = getTooltip().querySelector('.t-popup__content--arrow');
+        if (showArrow) {
+          expect(arrow).not.toBeNull();
+        } else {
+          expect(arrow).toBeNull();
+        }
       });
-
-      expect(getTooltip().querySelector('.t-popup__content--arrow')).not.toBeNull();
-      rerender({ showArrow: false });
-      expect(getTooltip().querySelector('.t-popup__content--arrow')).toBeNull();
     });
 
-    test('duration', async () => {
+    test('duration[number]', async () => {
       const { ref } = await renderWithProps({
         duration: 1000,
       });
@@ -76,58 +68,39 @@ describe('Tooltip', () => {
       await mockTimeout(() => expect(getTooltip()).toBeFalsy(), 1500);
     });
 
-    describe('placement', () => {
-      test('placement: bottom', async () => {
-        await renderWithProps({
-          placement: 'bottom',
-        });
-        expect(getTooltip().dataset.popperPlacement).toEqual('bottom');
-      });
-
-      test('placement: left', async () => {
-        await renderWithProps({
-          placement: 'left',
-        });
-        expect(getTooltip().dataset.popperPlacement).toEqual('left');
+    (['bottom', 'left'] as TdTooltipProps['placement'][]).forEach((placement) => {
+      test(`placement[${placement}]`, async () => {
+        await renderWithProps({ placement });
+        expect(getTooltip().dataset.popperPlacement).toEqual(placement);
       });
     });
 
-    describe('destroyOnClose', () => {
-      test('destroyOnClose: true', async () => {
-        const { mouseLeave } = await renderWithProps({
-          destroyOnClose: true,
-        });
+    [true, false].forEach((destroyOnClose) => {
+      test(`destroyOnClose[${destroyOnClose}]`, async () => {
+        const { mouseLeave } = await renderWithProps({ destroyOnClose });
         expect(getTooltip()).toBeTruthy();
         mouseLeave();
+        if (!destroyOnClose) {
+          expect(getTooltip()).toBeTruthy();
+          return;
+        }
         await mockTimeout(() => expect(getTooltip()).toBeFalsy());
-      });
-
-      test('destroyOnClose: false', async () => {
-        const { mouseLeave } = await renderWithProps({
-          destroyOnClose: false,
-        });
-        expect(getTooltip()).toBeTruthy();
-        mouseLeave();
-        expect(getTooltip()).toBeTruthy();
       });
     });
   });
 
-  describe('scenarios', () => {
-    test('hover 触发', async () => {
+  describe('events', () => {
+    test('trigger[hover]', async () => {
       const { getByText, queryByTestId } = render(
         <Tooltip placement="top" destroyOnClose={false} content={<div data-testid={tooltipTestId}>{tooltipText}</div>}>
           {triggerElement}
         </Tooltip>,
       );
 
-      // 鼠标进入前，没有元素存在
       expect(queryByTestId(tooltipTestId)).toBeNull();
 
-      // 模拟鼠标进入
       await fireEvent.mouseEnter(getByText(triggerElement));
 
-      // 鼠标进入后，有元素，而且内容为 tooltipText
       const popupElement = queryByTestId(tooltipTestId);
       expect(popupElement).not.toBeNull();
       expect(popupElement).toHaveTextContent(tooltipText);
@@ -135,10 +108,8 @@ describe('Tooltip', () => {
         display: 'block',
       });
 
-      // 模拟鼠标离开
       await fireEvent.mouseLeave(getByText(triggerElement));
 
-      // 鼠标离开，style 的 display 应该为 none
       const popupElement2 = queryByTestId(tooltipTestId);
       expect(popupElement2).not.toBeNull();
       expect(getTooltip()).toHaveClass('t-popup--animation-leave-active');

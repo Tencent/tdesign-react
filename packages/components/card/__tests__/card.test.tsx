@@ -27,7 +27,7 @@ describe('Card', () => {
       expect(container.querySelector('.t-card__description').innerHTML).toBe('这是一段描述');
     });
 
-    test('cover', () => {
+    test('cover[string]', () => {
       const { container } = render(<Card cover={cover}></Card>);
       expect(container.querySelector('.t-card__cover')).toBeInTheDocument();
       expect(container.querySelector('img').getAttribute('src')).toBe(cover);
@@ -42,7 +42,8 @@ describe('Card', () => {
       const { container } = render(<Card loading></Card>);
       expect(container.querySelector('.t-loading')).toBeInTheDocument();
     });
-    test('custom loading props', () => {
+
+    test('loadingProps[object]', () => {
       const customProps = {
         text: 'TDesign努力加载中...',
       };
@@ -58,26 +59,25 @@ describe('Card', () => {
       expect(container.querySelector('.t-loading')).toBeInTheDocument();
       expect(container.querySelector('.t-loading__text').textContent).toBe('TDesign努力加载中...');
     });
-    test('avatar', () => {
+
+    test('avatar[TNode]', () => {
       const { container } = render(<Card avatar={<Avatar image={avatar} />}></Card>);
       expect(container.querySelector('.t-avatar')).toBeInTheDocument();
       expect(container.querySelector('.t-card__avatar')).toBeInTheDocument();
     });
 
-    test('footer', () => {
+    test('footer[TNode]', () => {
       const { container } = render(<Card footer={<div>底部</div>}></Card>);
       expect(container.querySelector('.t-card__footer')).toBeInTheDocument();
       expect(container.querySelector('.t-card__footer').textContent).toBe('底部');
     });
 
-    test('actions', () => {
+    test('actions[TNode]', () => {
       const { container } = render(<Card actions={<div>操作</div>}></Card>);
       expect(container.querySelector('.t-card__actions')).toBeInTheDocument();
       expect(container.querySelector('.t-card__actions').textContent).toBe('操作');
     });
-  });
 
-  describe('scenarios', () => {
     test('headerClassName and headerStyle', () => {
       const { container } = render(
         <Card header headerClassName="test-header-class-name" headerStyle={{ height: '100px' }}></Card>,

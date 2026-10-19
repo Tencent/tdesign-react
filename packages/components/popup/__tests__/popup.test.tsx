@@ -10,7 +10,7 @@ describe('Popup', () => {
   const triggerElement = '触发元素';
 
   describe('props', () => {
-    test('测试隐藏后销毁', async () => {
+    test('destroyOnClose', async () => {
       const { getByText, queryByTestId } = render(
         <Popup destroyOnClose placement="top" content={<div data-testid={popupTestId}>{popupText}</div>}>
           <span>{triggerElement}</span>
@@ -34,7 +34,7 @@ describe('Popup', () => {
       await mockTimeout(() => expect(queryByTestId(popupTestId)).toBeNull(), 400);
     });
 
-    test('渲染到指定位置', async () => {
+    test('attach[function]', async () => {
       // 提前创建一个容器
       const specialId = 'SPECIAL_ID';
       const $container = document.createElement('div');
@@ -66,10 +66,29 @@ describe('Popup', () => {
         popupElement.parentElement.parentElement.parentElement.parentElement,
       ).toHaveAttribute('id', specialId);
     });
+
+    test('content[undefined]', async () => {
+      const testClassName = 'test-class-name';
+      const testStyle = { color: '#ff0000' };
+      const { getByText } = render(
+        <Popup destroyOnClose placement="top" overlayInnerStyle={testStyle} overlayClassName={testClassName}>
+          {triggerElement}
+        </Popup>,
+      );
+
+      // 模拟鼠标进入
+      act(() => {
+        fireEvent.mouseEnter(getByText(triggerElement));
+      });
+
+      // 鼠标进入后，没有元素，而且内容为空
+      const popupContainer = await waitFor(() => document.querySelector(`.${testClassName}`));
+      expect(popupContainer).toBeNull();
+    });
   });
 
   describe('events', () => {
-    test('hover 从弹层移回 trigger 时不关闭', async () => {
+    test('onVisibleChange', async () => {
       const onVisibleChange = vi.fn();
       const { getByText, queryByTestId } = render(
         <Popup
@@ -109,7 +128,7 @@ describe('Popup', () => {
   });
 
   describe('scenarios', () => {
-    test('hover 触发测试', async () => {
+    test('trigger[hover] opens and closes the popup', async () => {
       const { getByText, queryByTestId } = render(
         <Popup placement="top" content={<div data-testid={popupTestId}>{popupText}</div>}>
           {triggerElement}
@@ -143,7 +162,7 @@ describe('Popup', () => {
       expect(popupElement3.parentNode.parentNode).toHaveClass('t-popup--animation-leave-active');
     });
 
-    test('click 触发测试', async () => {
+    test('trigger[click] keeps the popup open until outside interaction', async () => {
       const { getByText, queryByTestId } = render(
         <Popup trigger="click" placement="top" content={<div data-testid={popupTestId}>{popupText}</div>}>
           {triggerElement}
@@ -183,7 +202,7 @@ describe('Popup', () => {
       expect(queryByTestId(popupTestId)).not.toBeNull();
     });
 
-    test('focus 触发测试', async () => {
+    test('trigger[focus] follows the input focus state', async () => {
       const inputPlaceholder = 'focus-trigger-input';
       const { getByPlaceholderText, queryByTestId } = render(
         <Popup trigger="focus" content={<div data-testid={popupTestId}>{popupText}</div>}>
@@ -216,7 +235,7 @@ describe('Popup', () => {
       expect(popupElement3.parentNode.parentNode).toHaveClass('t-popup--animation-leave-active');
     });
 
-    test('contextMenu 触发测试', async () => {
+    test('trigger[context-menu] closes the popup on outside click', async () => {
       const { getByText, queryByTestId } = render(
         <Popup trigger="context-menu" placement="top" content={<div data-testid={popupTestId}>{popupText}</div>}>
           {triggerElement}
@@ -249,7 +268,7 @@ describe('Popup', () => {
       expect(popupElement3.parentNode.parentNode).toHaveClass('t-popup--animation-leave-active');
     });
 
-    test('受控展示&隐藏', async () => {
+    test('visible and destroyOnClose follow externally controlled state', async () => {
       const testShowButton = 'test-show-button';
       const testHideButton = 'test-hide-button';
 
@@ -290,44 +309,7 @@ describe('Popup', () => {
       await mockTimeout(() => expect(queryByTestId(testHideButton)).toBeNull());
     });
 
-    test('测试浮层附加属性及 content 为空', async () => {
-      const testClassName = 'test-class-name';
-      const testStyle = { color: '#ff0000' };
-      const { getByText } = render(
-        <Popup destroyOnClose placement="top" overlayInnerStyle={testStyle} overlayClassName={testClassName}>
-          {triggerElement}
-        </Popup>,
-      );
-
-      // 模拟鼠标进入
-      act(() => {
-        fireEvent.mouseEnter(getByText(triggerElement));
-      });
-
-      // 鼠标进入后，没有元素，而且内容为空
-      const popupContainer = await waitFor(() => document.querySelector(`.${testClassName}`));
-      expect(popupContainer).toBeNull();
-    });
-
-    test('异常情况：浮层隐藏时点击其他地方，浮层不可以展示出来', async () => {
-      const testClassName = 'test-class-name';
-      render(
-        <Popup placement="top" overlayClassName={testClassName}>
-          {triggerElement}
-        </Popup>,
-      );
-
-      // 浮层隐藏时，随便点击
-      act(() => {
-        fireEvent.click(document.body);
-      });
-
-      // 鼠标进入后，有元素，而且内容为空
-      const popupContainer = await waitFor(() => document.querySelector(`.${testClassName}`));
-      expect(popupContainer).toBeNull();
-    });
-
-    test('异常情况：getPopupContainer 传了非 HTMLElement 的元素', async () => {
+    test('attach falls back to body for an invalid target', async () => {
       const testClassName = 'test-class-name';
       const { getByText } = render(
         <Popup visible placement="top" overlayClassName={testClassName} attach={() => 'xxx' as any}>
@@ -345,7 +327,25 @@ describe('Popup', () => {
       expect(popupContainer.parentElement.parentElement).toBe(document.body);
     });
 
-    test('disabled 子组件触发测试：hover 可触发，click 不可触发', async () => {
+    test('hidden popup ignores outside interaction', async () => {
+      const testClassName = 'test-class-name';
+      render(
+        <Popup placement="top" overlayClassName={testClassName}>
+          {triggerElement}
+        </Popup>,
+      );
+
+      // 浮层隐藏时，随便点击
+      act(() => {
+        fireEvent.click(document.body);
+      });
+
+      // 鼠标进入后，有元素，而且内容为空
+      const popupContainer = await waitFor(() => document.querySelector(`.${testClassName}`));
+      expect(popupContainer).toBeNull();
+    });
+
+    test('disabled child supports hover but blocks click', async () => {
       const hoverPopupTestId = 'hover-popup-test-id';
       const clickPopupTestId = 'click-popup-test-id';
       const disabledButtonText = 'Disabled Button';
@@ -384,7 +384,7 @@ describe('Popup', () => {
       });
     });
 
-    describe('嵌套组件测试', () => {
+    describe('nested popup', () => {
       const popupTestId = 'popup-test-id';
       const wrappedPopupTestId = 'wrapped-popup-test-id';
       const triggerElement = '外层触发元素';
@@ -412,7 +412,7 @@ describe('Popup', () => {
           </Popup>,
         );
 
-      test('trigger="click"', async () => {
+      test('nested trigger[click] keeps both popups visible', async () => {
         const { getByText, queryByTestId } = renderNestedPopup('click');
 
         // 初始状态，浮层不存在
@@ -444,7 +444,7 @@ describe('Popup', () => {
         });
       });
 
-      test('trigger="hover"', async () => {
+      test('nested trigger[hover] closes popups by level', async () => {
         const { getByText, getByTestId, queryByTestId } = renderNestedPopup('hover');
 
         // 初始状态，浮层不存在

@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Divider > props > align is equal to center 1`] = `
+exports[`Divider > props > align[center] 1`] = `
 <div>
   <div
     class="t-divider t-divider--horizontal t-divider--with-text t-divider--with-text-center"
@@ -14,7 +14,7 @@ exports[`Divider > props > align is equal to center 1`] = `
 </div>
 `;
 
-exports[`Divider > props > align is equal to left 1`] = `
+exports[`Divider > props > align[left] 1`] = `
 <div>
   <div
     class="t-divider t-divider--horizontal t-divider--with-text t-divider--with-text-left"
@@ -28,7 +28,7 @@ exports[`Divider > props > align is equal to left 1`] = `
 </div>
 `;
 
-exports[`Divider > props > align is equal to right 1`] = `
+exports[`Divider > props > align[right] 1`] = `
 <div>
   <div
     class="t-divider t-divider--horizontal t-divider--with-text t-divider--with-text-right"
@@ -42,7 +42,7 @@ exports[`Divider > props > align is equal to right 1`] = `
 </div>
 `;
 
-exports[`Divider > props > content 1`] = `
+exports[`Divider > props > content and children 1`] = `
 <div>
   <div
     class="t-divider t-divider--horizontal t-divider--with-text t-divider--with-text-center"
@@ -60,7 +60,7 @@ exports[`Divider > props > content 1`] = `
 </div>
 `;
 
-exports[`Divider > props > layout is equal to horizontal 1`] = `
+exports[`Divider > props > layout[horizontal] 1`] = `
 <div>
   <div
     class="t-divider t-divider--horizontal"
@@ -68,7 +68,7 @@ exports[`Divider > props > layout is equal to horizontal 1`] = `
 </div>
 `;
 
-exports[`Divider > props > layout is equal to vertical 1`] = `
+exports[`Divider > props > layout[vertical] 1`] = `
 <div>
   <div
     class="t-divider t-divider--vertical"
