@@ -7,7 +7,6 @@ packages:
   - "packages/common/docs"
   - "packages/common/js"
   - "packages/common/style"
-  
 
 # 提升依赖项到根目录，以避免重复安装相同的包
 shamefullyHoist: true
