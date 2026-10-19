@@ -1,12 +1,11 @@
 import React from 'react';
-import { fireEvent, mockDelay, mockTimeout, render, vi } from '@test/utils';
+import { fireEvent, mockDelay, mockTimeout, render, vi, waitFor } from '@test/utils';
 
 import Button from '../../button';
 import Tree from '../Tree';
 
 import type { TdTreeProps, TreeInstanceFunctions } from '../type';
 
-// TODO
 describe('Tree', () => {
   // label 类型定义有问题
   const items = [
@@ -47,6 +46,66 @@ describe('Tree', () => {
   ) {
     return render(<TreeComponent data={items} {...props} {...events} />);
   }
+
+  const lineData = [
+    {
+      label: '第 1 段',
+      value: 1,
+      children: [
+        {
+          label: '第 1-1 段',
+          value: '1-1',
+          children: [{ label: '第 1-1-1 段', value: '1-1-1' }],
+        },
+      ],
+    },
+    {
+      label: '第 2 段',
+      value: 2,
+      children: [
+        {
+          label: '第 2-1 段',
+          value: '2-1',
+          children: [{ label: '第 2-1-1 段', value: '2-1-1' }],
+        },
+      ],
+    },
+  ];
+
+  const instanceData = [
+    {
+      label: 't-1',
+      value: 1,
+      children: [
+        {
+          label: 't-1-1',
+          value: '1-1',
+        },
+        {
+          label: 't-1-2',
+          value: '1-2',
+          children: [
+            {
+              label: 't-1-2-1',
+              value: '1-2-1',
+            },
+            {
+              label: 't-1-2-2',
+              value: '1-2-2',
+            },
+            {
+              label: 't-1-2-3',
+              value: '1-2-3',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      label: 't-2',
+      value: 2,
+    },
+  ];
 
   describe('props', () => {
     test('expanded[array<TreeNodeValue>]', async () => {
@@ -115,7 +174,7 @@ describe('Tree', () => {
       expect(onActiveFn1.mock.calls[0][0]).toEqual([2]);
     });
 
-    test('disableCheck and disableCheck[function]', async () => {
+    test('disableCheck', async () => {
       const onChangeFn1 = vi.fn();
       const { container } = getTreeDefaultMount(
         Tree,
@@ -185,14 +244,19 @@ describe('Tree', () => {
     });
 
     test('empty[string]', async () => {
-      const { container } = render(<Tree data={[]} empty="空数据（string）" />);
+      const { container } = render(<Tree data={[]} />);
       await mockTimeout(() => {
-        console.log('customize empty prop', container.querySelector('.t-tree'));
-        expect(container.querySelector('.t-tree')).toHaveTextContent('空数据（string）');
+        expect(container.querySelector('.t-tree')).toHaveTextContent('暂无数据');
+      });
+
+      const { container: stringContainer } = render(<Tree data={[]} empty="空数据（string）" />);
+      await mockTimeout(() => {
+        console.log('customize empty prop', stringContainer.querySelector('.t-tree'));
+        expect(stringContainer.querySelector('.t-tree')).toHaveTextContent('空数据（string）');
       });
     });
 
-    test('operations[function]', async () => {
+    test('operations[TNode/function]', async () => {
       const fn1 = vi.fn();
       const renderOperations = (node) => (
         <>
@@ -206,50 +270,22 @@ describe('Tree', () => {
       });
       await mockDelay(300);
       expect(container.querySelector('.t-tree__operations')).not.toBeNull();
-    });
 
-    test('operations[TNode]', async () => {
-      // operations 类型定义有些问题
-      const renderOperations: any = (
+      const renderOperationsNode: any = (
         <>
           <Button style={{ marginLeft: '10px' }} size="small" variant="base">
             添加子节点
           </Button>
         </>
       );
-      const { container } = await renderTreeWithProps({
-        operations: renderOperations,
+      const { container: nodeContainer } = await renderTreeWithProps({
+        operations: renderOperationsNode,
       });
       await mockDelay(300);
-      expect(container.querySelector('.t-tree__operations')).not.toBeNull();
+      expect(nodeContainer.querySelector('.t-tree__operations')).not.toBeNull();
     });
 
-    test('line, line[TNode] and line[function]', async () => {
-      const lineData = [
-        {
-          label: '第 1 段',
-          value: 1,
-          children: [
-            {
-              label: '第 1-1 段',
-              value: '1-1',
-              children: [{ label: '第 1-1-1 段', value: '1-1-1' }],
-            },
-          ],
-        },
-        {
-          label: '第 2 段',
-          value: 2,
-          children: [
-            {
-              label: '第 2-1 段',
-              value: '2-1',
-              children: [{ label: '第 2-1-1 段', value: '2-1-1' }],
-            },
-          ],
-        },
-      ];
-
+    test('line[TNode/function]', async () => {
       const { container: booleanLineContainer } = getTreeDefaultMount(Tree, {
         expandAll: true,
         line: true,
@@ -275,7 +311,7 @@ describe('Tree', () => {
       expect(fnLineContainer.querySelectorAll('.custom-line').length).toBe(6);
     });
 
-    test('icon[false], icon[TNode] and icon[function]', async () => {
+    test('icon[false/TNode/function]', async () => {
       const { container: falseIconContainer } = getTreeDefaultMount(Tree, {
         icon: false,
       });
@@ -295,135 +331,6 @@ describe('Tree', () => {
       });
       await mockDelay(300);
       expect(fnIconContainer.querySelectorAll('.t-tree__icon').length).toBe(2);
-    });
-  });
-
-  describe('events', () => {
-    test('onDragOver, onDragEnd, onDragStart, onDragLeave and onDrop', async () => {
-      const onDragOverFn1 = vi.fn();
-      const onDragEndFn2 = vi.fn();
-      const onDragStartFn3 = vi.fn();
-      const onDragLeaveFn4 = vi.fn();
-      const { container } = getTreeDefaultMount(
-        Tree,
-        { checkable: true, disableCheck: true, draggable: true },
-        {
-          onDragOver: onDragOverFn1,
-          onDragEnd: onDragEndFn2,
-          onDragStart: onDragStartFn3,
-          onDragLeave: onDragLeaveFn4,
-        },
-      );
-      await mockDelay(300);
-      fireEvent.dragOver(container.querySelector('.t-tree__item'));
-      await mockDelay();
-      expect(onDragOverFn1).toHaveBeenCalled();
-      fireEvent.dragEnd(container.querySelector('.t-tree__item'));
-      await mockDelay();
-      expect(onDragEndFn2).toHaveBeenCalled();
-      fireEvent.dragStart(container.querySelector('.t-tree__item'));
-      await mockDelay();
-      expect(onDragStartFn3).toHaveBeenCalled();
-      fireEvent.dragLeave(container.querySelector('.t-tree__item'));
-      await mockDelay();
-      expect(onDragLeaveFn4).toHaveBeenCalled();
-
-      const onDragEndFn1 = vi.fn();
-      const onDropFn2 = vi.fn();
-      const { container: dropContainer } = getTreeDefaultMount(
-        Tree,
-        { draggable: true },
-        { onDragEnd: onDragEndFn1, onDrop: onDropFn2 },
-      );
-      await mockDelay(300);
-      fireEvent.dragEnd(dropContainer.querySelector('.t-tree__item:nth-child(2)'));
-      await mockDelay();
-      expect(onDragEndFn1).toHaveBeenCalled();
-      fireEvent.drop(dropContainer.querySelector('.t-tree__item'));
-      await mockDelay();
-      expect(onDropFn2).toHaveBeenCalled();
-    });
-  });
-
-  describe('instanceFunctions', () => {
-    test('query and mutation methods', async () => {
-      const data = [
-        {
-          label: 't-1',
-          value: 1,
-          children: [
-            {
-              label: 't-1-1',
-              value: '1-1',
-            },
-            {
-              label: 't-1-2',
-              value: '1-2',
-              children: [
-                {
-                  label: 't-1-2-1',
-                  value: '1-2-1',
-                },
-                {
-                  label: 't-1-2-2',
-                  value: '1-2-2',
-                },
-                {
-                  label: 't-1-2-3',
-                  value: '1-2-3',
-                },
-              ],
-            },
-          ],
-        },
-        {
-          label: 't-2',
-          value: 2,
-        },
-      ];
-      const { ref } = await renderTreeWithProps({ data, checkable: true });
-
-      expect(ref.current.getIndex(1)).toBe(0);
-      const node = ref.current.getItem(1);
-      expect(node.value).toBe(1);
-      expect(node.label).toBe('t-1');
-      expect(ref.current.getItems(1).length).toEqual(6);
-      expect(ref.current.getParent('1-2-1').value).toBe('1-2');
-      expect(ref.current.getParents('1-2-1').length).toBe(2);
-      expect(ref.current.getPath('1-2-1').length).toBe(3);
-      ref.current.getPath('1-2-1');
-
-      ref.current.insertBefore(1, { value: 'insert-before' });
-      expect(ref.current.getItem('insert-before').value).toBe('insert-before');
-
-      ref.current.insertAfter(2, { value: 'insert-after' });
-      expect(ref.current.getItem('insert-after').value).toBe('insert-after');
-
-      ref.current.appendTo(1, { value: '1-appendTo' });
-      expect(ref.current.getItem('1-appendTo').value).toBe('1-appendTo');
-      ref.current.remove('1-appendTo');
-      expect(ref.current.getItem('1-appendTo')).toBeUndefined();
-
-      ref.current.setItem(1, {
-        label: 't-1-new',
-        checked: true,
-        actived: true,
-        expanded: true,
-        checkable: true,
-      });
-      await mockDelay(300);
-      expect(ref.current.getItem(1).label).toBe('t-1-new');
-      expect(ref.current.getItem(1).checked).toBe(true);
-      expect(ref.current.getItem(1).expanded).toBe(true);
-    });
-  });
-
-  describe('props', () => {
-    test('data[array<TreeOptionData>]', async () => {
-      const { container } = render(<Tree data={[]} />);
-      await mockTimeout(() => {
-        expect(container.querySelector('.t-tree')).toHaveTextContent('暂无数据');
-      });
     });
 
     test('checkable', async () => {
@@ -449,25 +356,6 @@ describe('Tree', () => {
         expect(container.querySelector('.t-tree__list').children.length).not.toBe(0);
       }, 100);
     });
-
-    test('operations[Error]', async () => {
-      const renderOperations: any = new Error('error operations');
-      try {
-        await renderTreeWithProps({ operations: renderOperations });
-      } catch (err) {
-        expect(err).toEqual(new Error('invalid type of operations'));
-      }
-    });
-
-    // TODO: icon error can't be caught by vitest
-    // it('test render Tree icon error', async () => {
-    //   const icon: any = new Error('error icon');
-    //   try {
-    //     renderTreeWithProps({ icon });
-    //   } catch (err) {
-    //     expect(err).toEqual(new Error('invalid type of icon'));
-    //   }
-    // });
 
     test('label[function]', async () => {
       const data = [
@@ -540,6 +428,317 @@ describe('Tree', () => {
       expect(container.querySelector('.tree-item-input')).toBeNull();
       expect(container.querySelector('.tree-item-span')).not.toBeNull();
       expect(container.querySelector('.tree-item-span').textContent).toBe('123');
+    });
+  });
+
+  describe('events', () => {
+    test('onDragOver, onDragEnd, onDragStart, onDragLeave and onDrop', async () => {
+      const onDragOverFn1 = vi.fn();
+      const onDragEndFn2 = vi.fn();
+      const onDragStartFn3 = vi.fn();
+      const onDragLeaveFn4 = vi.fn();
+      const { container } = getTreeDefaultMount(
+        Tree,
+        { checkable: true, disableCheck: true, draggable: true },
+        {
+          onDragOver: onDragOverFn1,
+          onDragEnd: onDragEndFn2,
+          onDragStart: onDragStartFn3,
+          onDragLeave: onDragLeaveFn4,
+        },
+      );
+      await mockDelay(300);
+      fireEvent.dragOver(container.querySelector('.t-tree__item'));
+      await mockDelay();
+      expect(onDragOverFn1).toHaveBeenCalled();
+      fireEvent.dragEnd(container.querySelector('.t-tree__item'));
+      await mockDelay();
+      expect(onDragEndFn2).toHaveBeenCalled();
+      fireEvent.dragStart(container.querySelector('.t-tree__item'));
+      await mockDelay();
+      expect(onDragStartFn3).toHaveBeenCalled();
+      fireEvent.dragLeave(container.querySelector('.t-tree__item'));
+      await mockDelay();
+      expect(onDragLeaveFn4).toHaveBeenCalled();
+
+      const onDragEndFn1 = vi.fn();
+      const onDropFn2 = vi.fn();
+      const { container: dropContainer } = getTreeDefaultMount(
+        Tree,
+        { draggable: true },
+        { onDragEnd: onDragEndFn1, onDrop: onDropFn2 },
+      );
+      await mockDelay(300);
+      fireEvent.dragEnd(dropContainer.querySelector('.t-tree__item:nth-child(2)'));
+      await mockDelay();
+      expect(onDragEndFn1).toHaveBeenCalled();
+      fireEvent.drop(dropContainer.querySelector('.t-tree__item'));
+      await mockDelay();
+      expect(onDropFn2).toHaveBeenCalled();
+    });
+  });
+
+  describe('instanceFunctions', () => {
+    test('query and mutation methods', async () => {
+      const { ref } = await renderTreeWithProps({
+        data: instanceData,
+        checkable: true,
+      });
+
+      expect(ref.current.getIndex(1)).toBe(0);
+      const node = ref.current.getItem(1);
+      expect(node.value).toBe(1);
+      expect(node.label).toBe('t-1');
+      expect(ref.current.getItems(1).length).toEqual(6);
+      expect(ref.current.getParent('1-2-1').value).toBe('1-2');
+      expect(ref.current.getParents('1-2-1').length).toBe(2);
+      expect(ref.current.getPath('1-2-1').length).toBe(3);
+      ref.current.getPath('1-2-1');
+
+      ref.current.insertBefore(1, { value: 'insert-before' });
+      expect(ref.current.getItem('insert-before').value).toBe('insert-before');
+
+      ref.current.insertAfter(2, { value: 'insert-after' });
+      expect(ref.current.getItem('insert-after').value).toBe('insert-after');
+
+      ref.current.appendTo(1, { value: '1-appendTo' });
+      expect(ref.current.getItem('1-appendTo').value).toBe('1-appendTo');
+      ref.current.remove('1-appendTo');
+      expect(ref.current.getItem('1-appendTo')).toBeUndefined();
+
+      ref.current.setItem(1, {
+        label: 't-1-new',
+        checked: true,
+        actived: true,
+        expanded: true,
+        checkable: true,
+      });
+      await mockDelay(300);
+      expect(ref.current.getItem(1).label).toBe('t-1-new');
+      expect(ref.current.getItem(1).checked).toBe(true);
+      expect(ref.current.getItem(1).expanded).toBe(true);
+    });
+  });
+
+  describe('scenarios', () => {
+    const data = [
+      {
+        value: 'parent',
+        label: 'Parent',
+        children: [
+          { value: 'a', label: 'A' },
+          { value: 'b', label: 'B' },
+          { value: 'disabled', label: 'Disabled', disabled: true },
+        ],
+      },
+    ];
+
+    const valueModes = [
+      ['onlyLeaf', ['a', 'b']],
+      ['all', ['parent', 'a', 'b']],
+      ['parentFirst', ['parent']],
+    ] as const;
+
+    async function setup(props: Partial<TdTreeProps> = {}) {
+      const onChange = vi.fn();
+      const result = render(<Tree data={data} checkable expandAll transition={false} onChange={onChange} {...props} />);
+      await waitFor(() => expect(result.getAllByRole('checkbox')).toHaveLength(4));
+      return {
+        ...result,
+        onChange,
+        inputs: result.getAllByRole('checkbox') as HTMLInputElement[],
+      };
+    }
+
+    describe('disabled children', () => {
+      valueModes.forEach(([valueMode, expected]) => {
+        test(`valueMode[${valueMode}] round-trips controlled values without checking disabled children`, async () => {
+          const onChange = vi.fn();
+          function ControlledTree() {
+            const [value, setValue] = React.useState([]);
+            return (
+              <Tree
+                data={data}
+                checkable
+                expandAll
+                transition={false}
+                valueMode={valueMode}
+                value={value}
+                onChange={(nextValue, context) => {
+                  onChange(nextValue, context);
+                  setValue(nextValue);
+                }}
+              />
+            );
+          }
+          const { getAllByRole } = render(<ControlledTree />);
+          await waitFor(() => expect(getAllByRole('checkbox')).toHaveLength(4));
+          const inputs = getAllByRole('checkbox');
+          fireEvent.click(inputs[0]);
+          expect(onChange.mock.lastCall[0]).toEqual(expected);
+          await waitFor(() => expect(inputs[0]).toBeChecked());
+          expect(inputs[3]).not.toBeChecked();
+          fireEvent.click(inputs[0]);
+          expect(onChange.mock.lastCall[0]).toEqual([]);
+          await waitFor(() => expect(inputs[0]).not.toBeChecked());
+        });
+
+        test(`valueMode[${valueMode}] checks and unchecks the parent without selecting disabled children`, async () => {
+          const { inputs, onChange } = await setup({ valueMode });
+          fireEvent.click(inputs[0]);
+          expect(onChange.mock.lastCall[0]).toEqual(expected);
+          expect(onChange.mock.lastCall[1].node.value).toBe('parent');
+          await waitFor(() => expect(inputs[0]).toBeChecked());
+          expect(inputs[0].closest('label')).not.toHaveClass('t-is-indeterminate');
+          expect(inputs[1]).toBeChecked();
+          expect(inputs[2]).toBeChecked();
+          expect(inputs[3]).not.toBeChecked();
+          expect(inputs[3]).toBeDisabled();
+
+          fireEvent.click(inputs[0]);
+          expect(onChange.mock.lastCall[0]).toEqual([]);
+          await waitFor(() => expect(inputs[0]).not.toBeChecked());
+          expect(inputs[0].closest('label')).not.toHaveClass('t-is-indeterminate');
+          expect(inputs[1]).not.toBeChecked();
+          expect(inputs[2]).not.toBeChecked();
+        });
+
+        test(`valueMode[${valueMode}] derives full and partial selection from enabled children`, async () => {
+          const { inputs, onChange } = await setup({ valueMode });
+          fireEvent.click(inputs[1]);
+          expect(onChange.mock.lastCall[0]).toEqual(['a']);
+          await waitFor(() => expect(inputs[0].closest('label')).toHaveClass('t-is-indeterminate'));
+
+          fireEvent.click(inputs[2]);
+          expect(onChange.mock.lastCall[0]).toEqual(expected);
+          await waitFor(() => expect(inputs[0]).toBeChecked());
+          expect(inputs[0].closest('label')).not.toHaveClass('t-is-indeterminate');
+
+          fireEvent.click(inputs[1]);
+          expect(onChange.mock.lastCall[0]).toEqual(['b']);
+          await waitFor(() => expect(inputs[0].closest('label')).toHaveClass('t-is-indeterminate'));
+          expect(inputs[0]).not.toBeChecked();
+        });
+
+        test(`valueMode[${valueMode}] does not check a parent with only disabled children`, async () => {
+          const { inputs, onChange } = await setup({
+            valueMode,
+            data: [
+              {
+                ...data[0],
+                children: data[0].children.map((child) => ({
+                  ...child,
+                  disabled: true,
+                })),
+              },
+            ],
+          });
+          expect(inputs[0]).not.toBeChecked();
+          expect(inputs[0].closest('label')).not.toHaveClass('t-is-indeterminate');
+          fireEvent.click(inputs[0]);
+          expect(onChange.mock.lastCall[0]).toEqual([]);
+          expect(inputs[0]).not.toBeChecked();
+        });
+      });
+
+      (['all', 'parentFirst'] as const).forEach((valueMode) => {
+        test(`valueMode[${valueMode}] preserves a selected disabled child`, async () => {
+          const { inputs, onChange } = await setup({
+            valueMode,
+            defaultValue: ['disabled'],
+          });
+          expect(inputs[0]).not.toBeChecked();
+          expect(inputs[0].closest('label')).not.toHaveClass('t-is-indeterminate');
+          expect(inputs[3]).toBeChecked();
+          fireEvent.click(inputs[0]);
+          expect(onChange.mock.lastCall[0]).toEqual(
+            valueMode === 'all' ? ['parent', 'a', 'b', 'disabled'] : ['parent', 'disabled'],
+          );
+          await waitFor(() => expect(inputs[0]).toBeChecked());
+          fireEvent.click(inputs[0]);
+          expect(onChange.mock.lastCall[0]).toEqual(['disabled']);
+          await waitFor(() => expect(inputs[0]).not.toBeChecked());
+          expect(inputs[0].closest('label')).not.toHaveClass('t-is-indeterminate');
+          expect(inputs[3]).toBeChecked();
+        });
+      });
+
+      test('valueMode[all] excludes disabled branches and their descendants from parent selection', async () => {
+        const onChange = vi.fn();
+        const { getAllByRole } = render(
+          <Tree
+            checkable
+            expandAll
+            transition={false}
+            valueMode="all"
+            data={[
+              {
+                value: 'root',
+                children: [
+                  { value: 'enabled' },
+                  {
+                    value: 'branch',
+                    disabled: true,
+                    children: [{ value: 'leaf' }],
+                  },
+                ],
+              },
+            ]}
+            onChange={onChange}
+          />,
+        );
+        await waitFor(() => expect(getAllByRole('checkbox')).toHaveLength(4));
+        const inputs = getAllByRole('checkbox');
+        fireEvent.click(inputs[0]);
+        expect(onChange.mock.lastCall[0]).toEqual(['root', 'enabled']);
+        await waitFor(() => expect(inputs[0]).toBeChecked());
+        expect(inputs[2]).not.toBeChecked();
+        expect(inputs[3]).not.toBeChecked();
+        expect(inputs[2]).toBeDisabled();
+        expect(inputs[3]).toBeDisabled();
+      });
+
+      test('valueMode[all] propagates full selection through nested enabled branches', async () => {
+        const onChange = vi.fn();
+        const { getAllByRole } = render(
+          <Tree
+            checkable
+            expandAll
+            transition={false}
+            valueMode="all"
+            data={[{ value: 'root', label: 'Root', children: data }]}
+            onChange={onChange}
+          />,
+        );
+        await waitFor(() => expect(getAllByRole('checkbox')).toHaveLength(5));
+        const inputs = getAllByRole('checkbox') as HTMLInputElement[];
+        fireEvent.click(inputs[0]);
+        expect(onChange.mock.lastCall[0]).toEqual(['root', 'parent', 'a', 'b']);
+        await waitFor(() => expect(inputs[0]).toBeChecked());
+        expect(inputs[1]).toBeChecked();
+        expect(inputs[0].closest('label')).not.toHaveClass('t-is-indeterminate');
+        expect(inputs[1].closest('label')).not.toHaveClass('t-is-indeterminate');
+        expect(inputs[4]).not.toBeChecked();
+      });
+
+      test('checkStrictly keeps parent checking independent of child selection', async () => {
+        const { inputs, onChange } = await setup({ checkStrictly: true });
+        fireEvent.click(inputs[0]);
+        expect(onChange.mock.lastCall[0]).toEqual(['parent']);
+        await waitFor(() => expect(inputs[0]).toBeChecked());
+        expect(inputs[1]).not.toBeChecked();
+        expect(inputs[2]).not.toBeChecked();
+        expect(inputs[3]).not.toBeChecked();
+      });
+    });
+
+    test('operations throws when given an invalid type', async () => {
+      const renderOperations: any = new Error('error operations');
+      try {
+        await renderTreeWithProps({ operations: renderOperations });
+      } catch (err) {
+        expect(err).toEqual(new Error('invalid type of operations'));
+      }
     });
   });
 });
