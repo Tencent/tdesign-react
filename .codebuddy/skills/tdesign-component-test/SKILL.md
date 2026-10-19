@@ -1,6 +1,6 @@
 ---
 name: tdesign-component-test
-description: A skill for writing and maintaining unit tests for TDesign React components using Vitest, including testing patterns, best practices, and snapshot testing.
+description: This skill should be used when writing and maintaining unit tests for TDesign React components. It provides Vitest testing patterns, best practices, and snapshot testing guidance.
 ---
 
 # TDesign 组件测试指南
