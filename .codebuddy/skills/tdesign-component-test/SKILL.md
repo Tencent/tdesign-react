@@ -1,5 +1,5 @@
 ---
-name: tdesign-test-component
+name: tdesign-component-test
 description: A skill for writing and maintaining unit tests for TDesign React components using Vitest, including testing patterns, best practices, and snapshot testing.
 ---
 
