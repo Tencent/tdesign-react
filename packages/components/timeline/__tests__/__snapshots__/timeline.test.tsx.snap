@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`TimelineItem > props > children 1`] = `
+exports[`TimelineItem > props > content and children 1`] = `
 <div>
   <li
     class="t-timeline-item t-timeline-item-left"
@@ -28,7 +28,7 @@ exports[`TimelineItem > props > children 1`] = `
 </div>
 `;
 
-exports[`TimelineItem > props > content 1`] = `
+exports[`TimelineItem > props > content and children 2`] = `
 <div>
   <li
     class="t-timeline-item t-timeline-item-left"

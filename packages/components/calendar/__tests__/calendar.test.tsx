@@ -8,7 +8,7 @@ MockDate.set('2021-08-27');
 
 describe('Calendar', () => {
   describe('props', () => {
-    test(':theme', () => {
+    test('theme[card]', () => {
       const { container } = render(<Calendar theme={'card'}></Calendar>);
       expect(container.children[0].classList.contains('t-calendar--card')).toBeTruthy();
     });
@@ -21,13 +21,14 @@ describe('Calendar', () => {
   });
 
   describe('events', () => {
-    test('click 单击单元格', async () => {
+    test('onCellClick', async () => {
       const mockFn = vi.fn();
       const { container } = render(<Calendar onCellClick={mockFn}></Calendar>);
       fireEvent.click(container.querySelector('.t-calendar__table-body-cell'));
       expect(mockFn).toHaveBeenCalled();
     });
-    test('click 双击单元格', async () => {
+
+    test('onCellDoubleClick', async () => {
       const mockFn = vi.fn();
       const { container } = render(<Calendar onCellDoubleClick={mockFn}></Calendar>);
       fireEvent.doubleClick(container.querySelector('.t-calendar__table-body-cell'));

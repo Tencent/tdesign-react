@@ -67,15 +67,17 @@ const options2 = [
 
 describe('CascaderPanel', () => {
   describe('props', () => {
-    test('Panel组件 trigger 为 hover 时，应该正确展开下一层级', () => {
+    test('trigger[hover]', () => {
       const { container, getByText } = render(<CascaderPanel options={options} trigger="hover" />);
       expect(container.querySelectorAll('.t-cascader__menu').length).toBe(1);
       fireEvent.mouseEnter(getByText('选项一'));
       expect(getByText('子选项一')).toBeInTheDocument();
       expect(container.querySelectorAll('.t-cascader__menu').length).toBe(2);
     });
+  });
 
-    test('multiple', () => {
+  describe('scenarios', () => {
+    test('multiple coordinates parent and child selection states', () => {
       const { getByText, getByTitle } = render(<CascaderPanel options={options} multiple />);
       fireEvent.click(getByText('选项一'));
       expect(getByTitle('子选项一')).not.toHaveClass('t-is-checked');
@@ -89,7 +91,7 @@ describe('CascaderPanel', () => {
       expect(getByTitle('子选项二')).toHaveClass('t-is-checked');
     });
 
-    test('columnHeader 和 columnFooter 支持独立过滤每一级面板', () => {
+    test('columnHeader and columnFooter coordinate filtering across columns', () => {
       const columnHeader = ({ panelIndex, filteredOptions, onFilter }) => (
         <div data-testid={`header-${panelIndex}`}>
           <input
@@ -120,7 +122,7 @@ describe('CascaderPanel', () => {
       expect(getByTestId('footer-1')).toHaveTextContent('1/2');
     });
 
-    test('columnHeader：支持自定义过滤函数', () => {
+    test('columnHeader onFilter predicate filters options', () => {
       const { getByText, queryByText } = render(
         <CascaderPanel
           options={options}
@@ -135,7 +137,7 @@ describe('CascaderPanel', () => {
       expect(queryByText('选项二')).not.toBeInTheDocument();
     });
 
-    test('columnHeader：父列滤掉已展开节点后，不再展示该节点的子列', () => {
+    test('columnHeader onFilter query resets child columns', () => {
       const { container, getByLabelText, getByText, queryByText } = render(
         <CascaderPanel
           options={options2}
@@ -161,10 +163,39 @@ describe('CascaderPanel', () => {
       expect(queryByText('子选项一二')).not.toBeInTheDocument();
       expect(container.querySelectorAll('.t-cascader__menu')).toHaveLength(1);
     });
-  });
 
-  describe('scenarios', () => {
-    test('CascaderPanel 基础测试', () => {
+    test('max with multiple updates disabled selection state', async () => {
+      const btnText = 'set max 1';
+      const TestComponent = () => {
+        const [max, setMax] = useState(3);
+        return (
+          <>
+            <button onClick={() => setMax(1)}>{btnText}</button>
+            <CascaderPanel options={options} multiple max={max} />
+          </>
+        );
+      };
+      const { getByText, getByTitle } = render(<TestComponent />);
+      // 所选内容不超过 max ，都可选中
+      fireEvent.click(getByTitle('选项一').querySelector('input'));
+      expect(getByTitle('选项一')).toHaveClass('t-is-checked');
+      expect(getByTitle('子选项一')).toHaveClass('t-is-checked');
+      expect(getByTitle('子选项二')).toHaveClass('t-is-checked');
+      // 清空所有选中
+      fireEvent.click(getByTitle('选项一').querySelector('input'));
+      // 设置 max 为 1，点击父级无法选中任何节点
+      fireEvent.click(getByText(btnText));
+      fireEvent.click(getByTitle('选项一'));
+      fireEvent.click(getByTitle('选项一').querySelector('input'));
+      expect(getByTitle('选项一')).not.toHaveClass('t-is-checked');
+      expect(getByTitle('子选项一')).not.toHaveClass('t-is-checked');
+      // 选中一个子节点后所有节点为 disabled
+      fireEvent.click(getByTitle('子选项一'));
+      expect(getByTitle('子选项一')).toHaveClass('t-is-checked');
+      expect(getByTitle('选项二')).toHaveClass('t-is-disabled');
+    });
+
+    test('value and multiple update the controlled panel', () => {
       const btnText = 'change';
       const TestComponent = () => {
         const [value, setValue] = useState();
@@ -194,37 +225,6 @@ describe('CascaderPanel', () => {
       expect(container.querySelector('input')).toBeNull();
       fireEvent.click(getByText(btnText));
       expect(container.querySelector('input')).toBeInTheDocument();
-    });
-
-    test('Panel组件 multiple 时设置 max 测试', async () => {
-      const btnText = 'set max 1';
-      const TestComponent = () => {
-        const [max, setMax] = useState(3);
-        return (
-          <>
-            <button onClick={() => setMax(1)}>{btnText}</button>
-            <CascaderPanel options={options} multiple max={max} />
-          </>
-        );
-      };
-      const { getByText, getByTitle } = render(<TestComponent />);
-      // 所选内容不超过 max ，都可选中
-      fireEvent.click(getByTitle('选项一').querySelector('input'));
-      expect(getByTitle('选项一')).toHaveClass('t-is-checked');
-      expect(getByTitle('子选项一')).toHaveClass('t-is-checked');
-      expect(getByTitle('子选项二')).toHaveClass('t-is-checked');
-      // 清空所有选中
-      fireEvent.click(getByTitle('选项一').querySelector('input'));
-      // 设置 max 为 1，点击父级无法选中任何节点
-      fireEvent.click(getByText(btnText));
-      fireEvent.click(getByTitle('选项一'));
-      fireEvent.click(getByTitle('选项一').querySelector('input'));
-      expect(getByTitle('选项一')).not.toHaveClass('t-is-checked');
-      expect(getByTitle('子选项一')).not.toHaveClass('t-is-checked');
-      // 选中一个子节点后所有节点为 disabled
-      fireEvent.click(getByTitle('子选项一'));
-      expect(getByTitle('子选项一')).toHaveClass('t-is-checked');
-      expect(getByTitle('选项二')).toHaveClass('t-is-disabled');
     });
   });
 });

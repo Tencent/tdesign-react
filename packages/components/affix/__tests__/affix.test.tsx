@@ -46,24 +46,17 @@ describe('Affix', () => {
       expect(affixElement).not.toBeNull();
       expect((affixElement as HTMLElement)?.style.background).toBe('red');
     });
-    test('content', async () => {
-      const Children = () => <div>固钉</div>;
-      const { queryByText } = render(<Affix content={<Children />} />);
-      expect(queryByText('固钉')).toBeInTheDocument();
+
+    test('content and children', () => {
+      const contentWrapper = render(<Affix content={<div>content</div>} />);
+      const childrenWrapper = render(<Affix>children</Affix>);
+
+      expect(contentWrapper.queryByText('content')).toBeInTheDocument();
+      expect(childrenWrapper.queryByText('children')).toBeInTheDocument();
     });
   });
 
   describe('scenarios', () => {
-    test('render perfectly', async () => {
-      const { queryByText } = render(
-        <Affix>
-          <div>固钉</div>
-        </Affix>,
-      );
-
-      expect(queryByText('固钉')).toBeInTheDocument();
-    });
-
     test('offsetTop trigger onFixedChange and zIndex', async () => {
       const onFixedChangeMock = vi.fn();
 
@@ -87,7 +80,7 @@ describe('Affix', () => {
       expect(getByText('固钉').parentElement?.style.zIndex).toBe('2');
     });
 
-    test('offsetBottom  trigger onFixedChange and zIndex', async () => {
+    test('offsetBottom trigger onFixedChange and zIndex', async () => {
       const onFixedChangeMock = vi.fn();
 
       const { getByText } = render(

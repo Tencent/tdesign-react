@@ -7,7 +7,7 @@ describe('QRCode', () => {
   const qrcodeTestId = 'qrcode-test-id';
 
   describe('props', () => {
-    test('svg 二维码测试', async () => {
+    test('type[svg]', async () => {
       const { queryByTestId } = render(
         <div data-testid={qrcodeTestId}>
           <QRCode level="Q" type="svg" value={'https://tdesign.tencent.com/'} />
@@ -18,7 +18,7 @@ describe('QRCode', () => {
       expect(svgElement).not.toBeNull();
     });
 
-    test('二维码状态测试', async () => {
+    test('status', async () => {
       const { queryByTestId } = render(
         <div data-testid={qrcodeTestId}>
           <QRCode status="loading" value={'https://tdesign.tencent.com/'} />
@@ -35,7 +35,8 @@ describe('QRCode', () => {
       expect(conElement.querySelector('.t-expired__button')).not.toBeNull();
       expect(conElement.querySelector('.t-scanned')).not.toBeNull();
     });
-    test('二维码自定义渲染', async () => {
+
+    test('statusRender', async () => {
       const customStatusRender = (info) => {
         switch (info.status) {
           case 'expired':
@@ -69,10 +70,8 @@ describe('QRCode', () => {
       expect(conElement.querySelector('.expired')).not.toBeNull();
       expect(conElement.querySelector('.scanned')).not.toBeNull();
     });
-  });
 
-  describe('scenarios', () => {
-    test('canvas 二维码测试', async () => {
+    test('type[canvas]', async () => {
       const { queryByTestId } = render(
         <div data-testid={qrcodeTestId}>
           <QRCode level="Q" value={'https://tdesign.tencent.com/'} />
@@ -83,7 +82,7 @@ describe('QRCode', () => {
       expect(canvasElement).not.toBeNull();
     });
 
-    test('二维码尺寸测试', async () => {
+    test('size and style', async () => {
       const width = 200;
       const { queryByTestId } = render(
         <div data-testid={qrcodeTestId}>

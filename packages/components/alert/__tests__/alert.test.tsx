@@ -8,32 +8,11 @@ describe('Alert', () => {
   const text = 'Alert内容';
 
   describe('props', () => {
-    test('default close icon render', () => {
-      const { container } = render(<Alert theme="error" title="title content" closeBtn />);
-
-      expect(container.querySelector('.t-icon-close')).not.toBeNull();
-      expect(container.querySelector('.t-icon-close')).toBeInTheDocument();
-    });
-
-    test('theme icon render', () => {
-      const { container } = render(<Alert theme="success" title="title content" />);
-
-      expect(container.querySelector('.t-icon-check-circle-filled')).not.toBeNull();
-      expect(container.querySelector('.t-icon-check-circle-filled')).toBeInTheDocument();
-    });
-
-    test('default theme icon render', () => {
-      const { container } = render(<Alert title="title content" />);
-
-      expect(container.querySelector('.t-icon-info-circle-filled')).not.toBeNull();
-      expect(container.querySelector('.t-icon-info-circle-filled')).toBeInTheDocument();
-    });
-
-    test('maxLine', () => {
-      const { container } = render(<Alert title="title content" />);
-
-      expect(container.querySelector('.t-alert__collapse')).toBeNull();
-      expect(container.querySelector('.t-alert__collapse')).not.toBeInTheDocument();
+    test('theme', () => {
+      const { container: container1 } = render(<Alert title="title content" />);
+      expect(container1.querySelector('.t-icon-info-circle-filled')).toBeInTheDocument();
+      const { container: container2 } = render(<Alert theme="success" title="title content" />);
+      expect(container2.querySelector('.t-icon-check-circle-filled')).toBeInTheDocument();
     });
 
     test('className', () => {
@@ -46,25 +25,48 @@ describe('Alert', () => {
       const element = container.querySelector('.t-alert') as HTMLElement;
       expect(element?.style.color).toBe('red');
     });
-    test('custom close icon render', () => {
+
+    test('closeBtn[true]', () => {
+      const { container } = render(<Alert theme="error" title="title content" closeBtn />);
+      expect(container.querySelector('.t-icon-close')).not.toBeNull();
+      expect(container.querySelector('.t-icon-close')).toBeInTheDocument();
+    });
+
+    test('closeBtn[TNode]', () => {
       const { queryByTestId } = render(
         <Alert theme="error" title="title content" closeBtn={<div data-testid={testId}>{text}</div>} />,
       );
-
       expect(queryByTestId(testId)).not.toBeNull();
       expect(queryByTestId(testId)).toBeInTheDocument();
     });
 
-    test('custom icon render', () => {
+    test('icon[TNode]', () => {
       const { queryByText } = render(<Alert icon={<span>custom icon</span>} title="title content" />);
 
       expect(queryByText('custom icon')).not.toBeNull();
       expect(queryByText('custom icon')).toBeInTheDocument();
     });
+
+    test('maxLine[number]', () => {
+      const message = [
+        <div key={0}>{text}</div>,
+        <div key={1}>{text}</div>,
+        <div key={2} data-testid={testId}>
+          {text}
+        </div>,
+      ];
+      const { container } = render(<Alert title="title content" message={message} />);
+      const { container: container1 } = render(<Alert title="title content" message={message} maxLine={4} />);
+
+      expect(container.querySelector('.t-alert__collapse')).toBeNull();
+      expect(container.querySelector('.t-alert__collapse')).not.toBeInTheDocument();
+      expect(container1.querySelector('.t-alert__collapse')).toBeNull();
+      expect(container1.querySelector('.t-alert__collapse')).not.toBeInTheDocument();
+    });
   });
 
-  describe('scenarios', () => {
-    test('Alert 关闭操作', async () => {
+  describe('events', () => {
+    test('onClose and onClosed', async () => {
       const onClose = vi.fn();
       const onClosed = vi.fn();
 
@@ -100,25 +102,10 @@ describe('Alert', () => {
 
       await mockTimeout(() => expect(onClosed).toHaveBeenCalledTimes(1), 300);
     });
+  });
 
-    test('message not collapsed', () => {
-      const message = [
-        <div key={0}>{text}</div>,
-        <div key={1}>{text}</div>,
-        <div key={2} data-testid={testId}>
-          {text}
-        </div>,
-      ];
-      const { container } = render(<Alert title="title content" message={message} />);
-      const { container: container1 } = render(<Alert title="title content" message={message} maxLine={4} />);
-
-      expect(container.querySelector('.t-alert__collapse')).toBeNull();
-      expect(container.querySelector('.t-alert__collapse')).not.toBeInTheDocument();
-      expect(container1.querySelector('.t-alert__collapse')).toBeNull();
-      expect(container1.querySelector('.t-alert__collapse')).not.toBeInTheDocument();
-    });
-
-    test('Alert 展开收起操作', async () => {
+  describe('scenarios', () => {
+    test('maxLine toggles message expansion and collapse', async () => {
       const massage = [
         <div key={0}>{text}</div>,
         <div key={1}>{text}</div>,

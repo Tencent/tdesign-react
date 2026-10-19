@@ -9,7 +9,7 @@ import type { TdTabsProps } from '../type';
 
 describe('Tabs', () => {
   describe('props', () => {
-    test('render by list prop', async () => {
+    test('list[array<TdTabPanelProps>]', async () => {
       const testId = 'tab bar test id';
       const { getByTestId } = render(
         <div data-testid={testId}>
@@ -36,7 +36,7 @@ describe('Tabs', () => {
       expect(tabInstance.querySelector('.t-tabs__nav-wrap').children.length).toBe(4);
     });
 
-    test('different position', async () => {
+    test('placement[top], placement[bottom], placement[left] and placement[right]', async () => {
       const testId = 'tab position test id';
       const positions: TdTabsProps['placement'][] = ['top', 'bottom', 'left', 'right'];
 
@@ -68,7 +68,8 @@ describe('Tabs', () => {
         }
       });
     });
-    test('Tabs action', () => {
+
+    test('action[string]', () => {
       const { container } = render(
         <Tabs
           action="Action"
@@ -92,7 +93,7 @@ describe('Tabs', () => {
   });
 
   describe('events', () => {
-    test('remove tab', async () => {
+    test('onRemove', async () => {
       const testId = 'remove tab test id';
 
       const onTabRemoveFn = vi.fn();
@@ -133,7 +134,7 @@ describe('Tabs', () => {
       expect(tabPanelRemoveFnArg.e.nativeEvent).toBeInstanceOf(MouseEvent);
     });
 
-    test('click tab item', async () => {
+    test('onChange', async () => {
       const testId = 'tab item test id';
 
       const clickFn = vi.fn();
@@ -156,7 +157,7 @@ describe('Tabs', () => {
       expect(clickFn).toHaveBeenCalledTimes(1);
     });
 
-    test('add tab item', async () => {
+    test('onAdd', async () => {
       const testId = 'add tab item test id';
 
       const addFn = vi.fn();
@@ -180,8 +181,8 @@ describe('Tabs', () => {
     });
   });
 
-  describe('scenarios', () => {
-    test('render Tab bar', async () => {
+  describe('props', () => {
+    test('children', async () => {
       const testId = 'tab bar test id';
       const { getByTestId } = render(
         <div data-testid={testId}>
@@ -201,7 +202,7 @@ describe('Tabs', () => {
       expect(() => tabInstance.querySelector('.t-tabs__nav')).not.toBe(null);
     });
 
-    test('render card theme', async () => {
+    test('theme[normal]', async () => {
       const testId = 'tab card theme test id';
       const { getByTestId } = render(
         <div data-testid={testId}>
@@ -220,9 +221,11 @@ describe('Tabs', () => {
 
       expect(() => tabInstance.querySelector('.t-tabs__nav--card')).not.toBe(null);
     });
+  });
 
+  describe('scenarios', () => {
     vi.useRealTimers();
-    test('async render card', async () => {
+    test('children with async data updates active tab bar', async () => {
       const testId = 'tab bar test id';
 
       const getLists = vi.fn(
@@ -282,8 +285,10 @@ describe('Tabs', () => {
       // 没有值是正常的，这个地方只是校验修改了 tabs 能触发 tab bar 更新 style 的信息
       expect(tabBar.getAttribute('style')).toBe('transform: translateX(0px); width: 0px;');
     });
+  });
 
-    test('remove disabled tab', async () => {
+  describe('props', () => {
+    test('disabled', async () => {
       const testId = 'remove disabled tab test id';
 
       const removeFn = vi.fn();
@@ -305,7 +310,7 @@ describe('Tabs', () => {
       expect(tabInstance.querySelector('.remove-btn')).toBeNull();
     });
 
-    test('no tab item', async () => {
+    test('children', async () => {
       const testId = 'no tab item test id';
 
       const { getByTestId } = render(
@@ -320,7 +325,7 @@ describe('Tabs', () => {
       expect(tabInstance.querySelector('.t-tabs__nav-item')).toBe(null);
     });
 
-    test('test TabNav event', async () => {
+    test('itemList[array<TabNavItem>]', async () => {
       const testId = 'no tab item test id';
 
       const { getByTestId } = render(
@@ -340,11 +345,13 @@ describe('Tabs', () => {
       const tabInstance = await waitFor(() => getByTestId(testId));
       expect(tabInstance.querySelector('.t-tabs__nav-item-wrapper')).not.toBe(null);
     });
+  });
 
+  describe('scenarios', () => {
     const mockFn = vi.spyOn(HTMLDivElement.prototype, 'getBoundingClientRect');
     mockFn.mockImplementation(() => ({ width: 20, x: 5, clientX: 5 }) as any);
 
-    test('test drag', async () => {
+    test('dragSort with onDragSort reorders tab items', async () => {
       const onDragSort = vi.fn(() => {
         console.log('888---999');
         // 模拟顺序交换
@@ -389,7 +396,7 @@ describe('Tabs', () => {
       );
     });
 
-    test('Tabs lazy render', async () => {
+    test('list with lazy preserves mounted panels after navigation', async () => {
       const testId = 'tab bar test id';
       const { getByTestId } = render(
         <div data-testid={testId}>
@@ -424,7 +431,7 @@ describe('Tabs', () => {
       expect(tabInstance.querySelector('.t-tabs__content').children.length).toBe(2);
     });
 
-    test('Tabs destroyOnHide render', async () => {
+    test('list with destroyOnHide replaces hidden panel after navigation', async () => {
       const testId = 'tab bar test id';
       const { getByTestId } = render(
         <div data-testid={testId}>

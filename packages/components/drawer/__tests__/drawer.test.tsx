@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { fireEvent, mockTimeout, render, vi } from '@test/utils';
+import { fireEvent, mockTimeout, render, vi, waitFor } from '@test/utils';
 
 import Drawer from '../index';
 import { DrawerPlugin } from '../plugin';
@@ -33,25 +33,27 @@ function DrawerDemo(props) {
 
 describe('Drawer', () => {
   describe('props', () => {
-    test('Drawer placement', async () => {
+    test('placement[top]', async () => {
       const { getByText } = render(<DrawerDemo placement="top" />);
       fireEvent.click(getByText('Open'));
       expect(document.querySelector('.t-drawer__content-wrapper--right')).not.toBeInTheDocument();
       expect(document.querySelector('.t-drawer__content-wrapper--top')).toBeInTheDocument();
     });
-    test('Drawer size', async () => {
+
+    test('size[string]', async () => {
       const { getByText } = render(<DrawerDemo size="50%" />);
       fireEvent.click(getByText('Open'));
       expect(document.querySelector('.t-drawer__content-wrapper--right')).toHaveStyle({ width: '50%' });
     });
-    test('Drawer showOverlay', () => {
+
+    test('showOverlay[false]', () => {
       const { getByText } = render(<DrawerDemo notShowOverlay />);
       fireEvent.click(getByText('Open'));
       expect(document.querySelector('.t-drawer__mask')).not.toBeInTheDocument();
     });
 
-    test('Drawer cancelBtn and confirmBtn props', () => {
-      const { getByText } = render(
+    test('cancelBtn[object], cancelBtn[TNode], confirmBtn[object] and confirmBtn[TNode]', () => {
+      const { getByText, unmount } = render(
         <DrawerDemo
           confirmBtn={{
             content: '确认按钮',
@@ -68,7 +70,6 @@ describe('Drawer', () => {
       const confirmBtn = getByText('确认按钮');
       const cancelBtn = getByText('取消按钮');
 
-      // 是否有这两个元素
       expect(cancelBtn).toBeInTheDocument();
       expect(confirmBtn).toBeInTheDocument();
 
@@ -79,38 +80,45 @@ describe('Drawer', () => {
 
       expect(confirmBtn.parentElement).toHaveClass(`t-button--theme-success`);
       expect(cancelBtn.parentElement).toHaveClass(`t-button--theme-danger`);
+
+      unmount();
+      const { getByText: getCustomText } = render(
+        <DrawerDemo cancelBtn={<div>cancelBtn</div>} confirmBtn={<div>confirmBtn</div>} />,
+      );
+      fireEvent.click(getCustomText('Open'));
+      expect(getCustomText('cancelBtn').parentElement.parentElement).toHaveClass('t-drawer__footer');
+      expect(getCustomText('confirmBtn').parentElement.parentElement).toHaveClass('t-drawer__footer');
     });
 
-    test('Drawer mode push', () => {
+    test('mode[push]', async () => {
       const { getByText } = render(<DrawerDemo attach="body" mode="push" />);
       fireEvent.click(getByText('Open'));
 
-      setTimeout(() => {
+      await waitFor(() => {
         expect(document.body).toHaveStyle({
           margin: '0 0 0 -300px',
         });
-      }, 1000);
+      });
     });
-    test('Drawer header and footer custom', () => {
+
+    test('header[TNode] and footer[TNode]', () => {
       const { getByText } = render(<DrawerDemo header={<div>自定义头部</div>} footer={<div>自定义底部</div>} />);
       fireEvent.click(getByText('Open'));
       expect(getByText('自定义头部').parentElement).toHaveClass('t-drawer__header');
       expect(getByText('自定义底部').parentElement).toHaveClass('t-drawer__footer');
     });
-    test('Drawer cancelBtn and confirmBtn custom', () => {
-      const { getByText } = render(<DrawerDemo cancelBtn={<div>cancelBtn</div>} confirmBtn={<div>confirmBtn</div>} />);
+
+    test('visible', () => {
+      const { getByText } = render(<DrawerDemo />);
       fireEvent.click(getByText('Open'));
-
-      const cancelBtn = getByText('cancelBtn');
-      const confirmBtn = getByText('confirmBtn');
-
-      expect(cancelBtn.parentElement.parentElement).toHaveClass('t-drawer__footer');
-      expect(confirmBtn.parentElement.parentElement).toHaveClass('t-drawer__footer');
+      expect(document.querySelector('.t-drawer--open')).toBeInTheDocument();
+      expect(document.querySelector('.t-drawer__mask')).toBeInTheDocument();
+      expect(document.querySelector('.t-drawer__content-wrapper--right')).toBeInTheDocument();
     });
   });
 
   describe('events', () => {
-    test('Drawer onCancel', () => {
+    test('onCancel', () => {
       const onCancelFn = vi.fn();
       const { getByText } = render(<DrawerDemo onCancel={onCancelFn} />);
       fireEvent.click(getByText('Open'));
@@ -121,21 +129,15 @@ describe('Drawer', () => {
   });
 
   describe('scenarios', () => {
-    test('Drawer render', async () => {
-      const { getByText } = render(<DrawerDemo />);
-      fireEvent.click(getByText('Open'));
-      expect(document.querySelector('.t-drawer--open')).toBeInTheDocument();
-      expect(document.querySelector('.t-drawer__mask')).toBeInTheDocument();
-      expect(document.querySelector('.t-drawer__content-wrapper--right')).toBeInTheDocument();
-    });
-    test('Drawer close', async () => {
+    test('closeBtn with visible and onClose hides drawer', async () => {
       const { getByText } = render(<DrawerDemo closeBtn={true} />);
       fireEvent.click(getByText('Open'));
       fireEvent.click(document.querySelector('.t-drawer__close-btn'));
       expect(document.querySelector('.t-drawer--open')).not.toBeInTheDocument();
       expect(document.querySelector('.t-drawer')).toBeInTheDocument();
     });
-    test('Drawer mask close', async () => {
+
+    test('showOverlay with visible and onClose hides drawer on mask click', async () => {
       const { getByText } = render(<DrawerDemo />);
       fireEvent.click(getByText('Open'));
       expect(document.querySelector('.t-drawer--open')).toBeInTheDocument();

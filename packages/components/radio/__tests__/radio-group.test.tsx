@@ -32,102 +32,76 @@ describe('RadioGroup', () => {
   describe('props', () => {
     test('allowUncheck', () => {
       const onChangeFn = vi.fn();
-      const { container } = getRadioGroupDefaultMount({ value: 1, allowUncheck: true }, { onChange: onChangeFn });
-      fireEvent.click(container.querySelector('.t-radio'));
+      const { container: optionsContainer } = getRadioGroupDefaultMount(
+        { value: 1, allowUncheck: true },
+        { onChange: onChangeFn },
+      );
+      fireEvent.click(optionsContainer.querySelector('.t-radio'));
+      expect(onChangeFn).toHaveBeenCalled();
+      expect(onChangeFn.mock.calls[0][0]).toBe(undefined);
+      expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
+
+      onChangeFn.mockClear();
+      const { container: kidsContainer } = getRadioGroupKidsMount(
+        { value: 1, allowUncheck: true },
+        { onChange: onChangeFn },
+      );
+      fireEvent.click(kidsContainer.querySelector('.t-radio'));
       expect(onChangeFn).toHaveBeenCalled();
       expect(onChangeFn.mock.calls[0][0]).toBe(undefined);
       expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
     });
 
-    test('allowUncheck with kids', () => {
-      const onChangeFn = vi.fn();
-      const { container } = getRadioGroupKidsMount({ value: 1, allowUncheck: true }, { onChange: onChangeFn });
-      fireEvent.click(container.querySelector('.t-radio'));
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0]).toBe(undefined);
-      expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
-    });
-
-    test('disabled is equal true', () => {
+    test('disabled', () => {
       const { container } = getRadioGroupDefaultMount({ disabled: true });
       expect(container.querySelectorAll('.t-radio.t-is-disabled').length).toBe(4);
-      expect(container).toMatchSnapshot();
     });
 
-    test('disabled is equal true with kids', () => {
+    test('disabled with children', () => {
       const { container } = getRadioGroupKidsMount({ disabled: true });
       expect(container.querySelectorAll('.t-radio.t-is-disabled').length).toBe(4);
-      expect(container).toMatchSnapshot();
     });
 
-    test('disabled radio can not trigger change', () => {
-      const onChangeFn = vi.fn();
-      const { container } = getRadioGroupDefaultMount({ disabled: true }, { onChange: onChangeFn });
-      fireEvent.click(container.querySelector('.t-radio'));
-      expect(onChangeFn).not.toHaveBeenCalled();
-    });
-
-    test('disabled radio can not trigger change with kids', () => {
-      const onChangeFn = vi.fn();
-      const { container } = getRadioGroupKidsMount({ disabled: true }, { onChange: onChangeFn });
-      fireEvent.click(container.querySelector('.t-radio'));
-      expect(onChangeFn).not.toHaveBeenCalled();
-    });
-
-    test(`name is equal to 'custom-radio-name'`, () => {
-      const { container } = getRadioGroupDefaultMount({
+    test('name', () => {
+      const { container: optionsContainer } = getRadioGroupDefaultMount({
         name: 'custom-radio-name',
       });
-      const domWrapper = container.querySelector('input');
-      expect(domWrapper.getAttribute('name')).toBe('custom-radio-name');
-      expect(container).toMatchSnapshot();
-    });
+      expect(optionsContainer.querySelectorAll('input[name="custom-radio-name"]')).toHaveLength(4);
 
-    test(`name is equal to 'custom-radio-name' with kids`, () => {
-      const { container } = getRadioGroupKidsMount({
+      const { container: kidsContainer } = getRadioGroupKidsMount({
         name: 'custom-radio-name',
       });
-      const domWrapper = container.querySelector('input');
-      expect(domWrapper.getAttribute('name')).toBe('custom-radio-name');
-      expect(container).toMatchSnapshot();
+      expect(kidsContainer.querySelectorAll('input[name="custom-radio-name"]')).toHaveLength(4);
     });
 
-    test('options works fine. `{".t-radio":4}` should exist', () => {
+    test('options', () => {
       const { container } = getRadioGroupDefaultMount();
       expect(container.querySelectorAll('.t-radio').length).toBe(4);
-    });
-
-    test('options works fine. `".custom-node"` should exist', () => {
-      const { container } = getRadioGroupDefaultMount();
       expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
-
-    test('options works fine. `{".t-radio.t-is-disabled":1}` should exist', () => {
-      const { container } = getRadioGroupDefaultMount();
       expect(container.querySelectorAll('.t-radio.t-is-disabled').length).toBe(1);
     });
 
-    test(`value is equal to '2'`, () => {
+    test('value[string]', () => {
       const { container } = getRadioGroupDefaultMount({ value: '2' });
-      const domWrapper = container.querySelector('.t-radio.t-is-checked input');
+      const domWrapper = container.querySelector('.t-radio.t-is-checked input') as HTMLInputElement;
       expect(domWrapper.value).toBe('2');
     });
 
-    test(`value is equal to '2' with kids`, () => {
+    test('value[string] with children', () => {
       const { container } = getRadioGroupKidsMount({ value: '2' });
-      const domWrapper = container.querySelector('.t-radio.t-is-checked input');
+      const domWrapper = container.querySelector('.t-radio.t-is-checked input') as HTMLInputElement;
       expect(domWrapper.value).toBe('2');
     });
 
     const variantClassNameList = ['t-radio-group__outline', 't-radio-group--primary-filled', 't-radio-group--filled'];
     (['outline', 'primary-filled', 'default-filled'] as const).forEach((item, index) => {
-      test(`variant is equal to ${item}`, () => {
+      test(`variant[${item}]`, () => {
         const { container } = render(<RadioGroup variant={item}></RadioGroup>);
         expect(container.firstChild).toHaveClass(variantClassNameList[index]);
       });
     });
 
-    test('value', () => {
+    test('value[string] with children', () => {
       const { container } = render(
         <Radio.Group value="gz">
           <Radio value="gz">广州</Radio>
@@ -139,7 +113,7 @@ describe('RadioGroup', () => {
       expect(container.firstChild.firstChild).toHaveClass('t-is-checked');
     });
 
-    test('variant', () => {
+    test('variant[primary-filled] with options[array<RadioOption>]', () => {
       const { container } = render(
         <Radio.Group
           variant="primary-filled"
@@ -150,17 +124,17 @@ describe('RadioGroup', () => {
       expect(container.firstChild.firstChild).toHaveClass('t-radio');
     });
 
-    test('value is string', () => {
+    test('value[string]', () => {
       const { container } = render(<Radio.Group options={['北京', '广州']} value="北京"></Radio.Group>);
       expect(container.firstChild.firstChild).toHaveClass('t-is-checked');
     });
 
-    test('value is number', () => {
+    test('value[number]', () => {
       const { container } = render(<Radio.Group options={[1, 2]} value={1}></Radio.Group>);
       expect(container.firstChild.firstChild).toHaveClass('t-is-checked');
     });
 
-    test('defaultValue', () => {
+    test('defaultValue[string] with children', () => {
       const { container } = render(
         <Radio.Group defaultValue="gz">
           <Radio value="gz">广州</Radio>
@@ -172,7 +146,7 @@ describe('RadioGroup', () => {
       expect(container.firstChild.firstChild).toHaveClass('t-is-checked');
     });
 
-    test('theme radio', () => {
+    test('variant[primary-filled] with theme[default]', () => {
       const { container } = render(
         <Radio.Group
           variant="primary-filled"
@@ -183,7 +157,7 @@ describe('RadioGroup', () => {
       expect(container.firstChild.firstChild).toHaveClass('t-radio');
     });
 
-    test('theme button', () => {
+    test('theme[button]', () => {
       const { container } = render(
         <Radio.Group
           variant="primary-filled"
@@ -193,6 +167,17 @@ describe('RadioGroup', () => {
         />,
       );
       expect(container.firstChild.firstChild).toHaveClass('t-radio-button');
+    });
+
+    test('options[array<RadioOption>]', () => {
+      const { container } = render(
+        <Radio.Group
+          defaultValue="北京"
+          options={[{ value: '上海', label: '上海' }, { value: '广州', label: '广州', disabled: true }, '北京', 1]}
+        ></Radio.Group>,
+      );
+      fireEvent.click(container.firstChild.lastChild);
+      expect(container.firstChild.lastChild).toHaveClass('t-is-checked');
     });
   });
 
@@ -209,22 +194,24 @@ describe('RadioGroup', () => {
       );
       fireEvent.click(container.firstChild.firstChild);
       expect(fn).toHaveBeenCalledTimes(1);
+
+      const disabledOptionsFn = vi.fn();
+      const { container: optionsContainer } = getRadioGroupDefaultMount(
+        { disabled: true },
+        { onChange: disabledOptionsFn },
+      );
+      fireEvent.click(optionsContainer.querySelector('.t-radio'));
+      expect(disabledOptionsFn).not.toHaveBeenCalled();
+
+      const disabledKidsFn = vi.fn();
+      const { container: kidsContainer } = getRadioGroupKidsMount({ disabled: true }, { onChange: disabledKidsFn });
+      fireEvent.click(kidsContainer.querySelector('.t-radio'));
+      expect(disabledKidsFn).not.toHaveBeenCalled();
     });
   });
 
   describe('scenarios', () => {
-    test('options', () => {
-      const { container } = render(
-        <Radio.Group
-          defaultValue="北京"
-          options={[{ value: '上海', label: '上海' }, { value: '广州', label: '广州', disabled: true }, '北京', 1]}
-        ></Radio.Group>,
-      );
-      fireEvent.click(container.firstChild.lastChild);
-      expect(container.firstChild.lastChild).toHaveClass('t-is-checked');
-    });
-
-    describe('primary-filled bg-block', () => {
+    describe('variant[primary-filled] and theme[button] background block', () => {
       const MOCK_SIZES = [
         { selector: '.t-radio-group', width: 300, height: 40, left: 0, top: 0 },
         {
@@ -258,7 +245,7 @@ describe('RadioGroup', () => {
 
       const mockRadioGroupSizes = () => mockElementSizes(MOCK_SIZES);
 
-      test('bg-block not rendered when value changes to empty', async () => {
+      test('value and options remove the background block after clearing selection', async () => {
         const cleanup = mockRadioGroupSizes();
 
         const TestComponent = () => {
@@ -293,7 +280,7 @@ describe('RadioGroup', () => {
         cleanup();
       });
 
-      test('bg-block updates when options change dynamically', async () => {
+      test('value and dynamic options position the background block after loading', async () => {
         const cleanup = mockRadioGroupSizes();
 
         const TestComponent = () => {
@@ -339,7 +326,7 @@ describe('RadioGroup', () => {
         cleanup();
       });
 
-      test('bg-block updates when component becomes visible from hidden', async () => {
+      test('value and options position the background block after hidden content becomes visible', async () => {
         const cleanup = mockRadioGroupSizes();
 
         let observerCallback: Function | null = null;

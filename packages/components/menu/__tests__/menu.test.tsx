@@ -35,7 +35,7 @@ describe('Menu', () => {
     );
 
   describe('props', () => {
-    test('menu defaultExpanded works fine', () => {
+    test('defaultExpanded', () => {
       const { container, queryByText } = renderSubmenu({
         defaultExpanded: ['1'],
       });
@@ -45,14 +45,15 @@ describe('Menu', () => {
       expect(queryByText('二级菜单-1').parentElement.parentElement.parentElement.style.maxHeight).toBe('0');
     });
 
-    test('menu expanded works fine', () => {
+    test('expanded', () => {
       const { container, queryByText } = renderSubmenu({ expanded: ['1'] });
       expect(container.firstChild).not.toHaveClass('t-is-collapsed');
       expect(container.querySelectorAll('.t-submenu.t-is-opened').length).toBe(1);
       expect(queryByText('菜单二').parentElement.parentElement.parentElement.style.maxHeight).not.toBe('0');
       expect(queryByText('二级菜单-1').parentElement.parentElement.parentElement.style.maxHeight).toBe('0');
     });
-    test('menu head-menu render icon', async () => {
+
+    test('SubMenu.icon[TNode]', async () => {
       const { container, getByText } = render(
         <HeadMenu>
           <SubMenu value="sub-2" title="水果蔬菜" icon={<UserIcon />}>
@@ -66,10 +67,24 @@ describe('Menu', () => {
       expect(getByText('水果蔬菜')).toBeInTheDocument();
       expect(container.querySelector('.t-icon-user')).toBeInTheDocument();
     });
+
+    test('collapsed', async () => {
+      const { container } = renderSubmenu({ collapsed: true });
+      expect(container.firstChild).toHaveClass('t-is-collapsed');
+      expect(container.querySelectorAll('.t-submenu.t-is-opened').length).toBe(0);
+      const submenu = container.querySelectorAll('.t-submenu').item(1);
+      fireEvent.mouseEnter(submenu);
+      expect(document.querySelector('.t-menu__popup')).not.toBeNull();
+      expect(document.querySelector('.t-menu__popup')?.className.includes('t-is-opened')).toBeTruthy();
+
+      fireEvent.mouseLeave(submenu);
+      const popup = await waitFor(() => document.querySelector('.t-menu__popup'));
+      expect(popup?.className.includes('t-is-opened')).not.toBeTruthy();
+    });
   });
 
   describe('events', () => {
-    test('menu 測試 menuItem onClick事件', () => {
+    test('menuItem.onClick', () => {
       const clickFn = vi.fn();
       const { getByText } = render(
         <Menu>
@@ -89,21 +104,7 @@ describe('Menu', () => {
   });
 
   describe('scenarios', () => {
-    test('menu collapsed works fine', async () => {
-      const { container } = renderSubmenu({ collapsed: true });
-      expect(container.firstChild).toHaveClass('t-is-collapsed');
-      expect(container.querySelectorAll('.t-submenu.t-is-opened').length).toBe(0);
-      const submenu = container.querySelectorAll('.t-submenu').item(1);
-      fireEvent.mouseEnter(submenu);
-      expect(document.querySelector('.t-menu__popup')).not.toBeNull();
-      expect(document.querySelector('.t-menu__popup')?.className.includes('t-is-opened')).toBeTruthy();
-
-      fireEvent.mouseLeave(submenu);
-      const popup = await waitFor(() => document.querySelector('.t-menu__popup'));
-      expect(popup?.className.includes('t-is-opened')).not.toBeTruthy();
-    });
-
-    test('menu 测试单层导航', () => {
+    test('head navigation handles item selection', () => {
       const onItemClickFn = vi.fn();
       const { container, queryByText } = render(
         <HeadMenu>
@@ -118,7 +119,7 @@ describe('Menu', () => {
       expect(onItemClickFn).toHaveBeenCalledTimes(1);
     });
 
-    test('menu 测试双层导航', async () => {
+    test('nested head navigation handles submenu selection', async () => {
       const onChangeFn = vi.fn();
       const onExpandFn = vi.fn();
       const { container, queryByText, getByText } = render(
@@ -154,7 +155,7 @@ describe('Menu', () => {
       expect(onChangeFn).toHaveBeenCalledTimes(2);
     });
 
-    test('menu 测试单层侧边导航', () => {
+    test('side navigation handles item selection', () => {
       const clickFn = vi.fn();
       const { container, queryByText, getByText } = render(
         <Menu onChange={clickFn}>
@@ -172,7 +173,7 @@ describe('Menu', () => {
       expect(clickFn).toHaveBeenCalledTimes(1);
     });
 
-    test('menu 平铺式侧边导航', () => {
+    test('expanded side navigation handles submenu expansion', () => {
       const onExpandFn = vi.fn();
       const onChangeFn = vi.fn();
       const { queryByText, getByText } = render(
@@ -191,7 +192,7 @@ describe('Menu', () => {
       expect(onExpandFn).toHaveBeenCalledTimes(1);
     });
 
-    test('menu 测试分组导航', () => {
+    test('grouped navigation handles item selection and expansion', () => {
       const clickFn = vi.fn();
       const { container, queryByText, getByText } = render(
         <Menu onChange={clickFn}>

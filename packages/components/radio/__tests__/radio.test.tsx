@@ -6,12 +6,9 @@ import { Radio } from '..';
 describe('Radio', () => {
   describe('props', () => {
     test('allowUncheck', () => {
-      const onChangeFn = vi.fn();
-      const { container } = render(<Radio checked={true} allowUncheck={true} onChange={onChangeFn}></Radio>);
+      const { container } = render(<Radio allowUncheck={true} checked={true} />);
       fireEvent.click(container.firstChild);
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0]).toBe(false);
-      expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
+      expect(container.firstChild).toHaveClass('t-radio', 't-is-checked');
     });
 
     test('checked', () => {
@@ -21,18 +18,15 @@ describe('Radio', () => {
       // checked = true
       const { container: container2 } = render(<Radio checked={true}></Radio>);
       expect(container2.firstChild).toHaveClass('t-is-checked');
+      expect(container2.querySelector('input').checked).toBeTruthy();
       expect(container2).toMatchSnapshot();
       // checked = false
       const { container: container3 } = render(<Radio checked={false}></Radio>);
       expect(container3.querySelector(`.${'t-is-checked'}`)).toBeFalsy();
       expect(container3).toMatchSnapshot();
-    });
-
-    test('checked is equal to true', () => {
-      const { container } = render(<Radio checked={true}></Radio>);
-      const domWrapper = container.querySelector('input');
-      expect(domWrapper.checked).toBeTruthy();
-      expect(container).toMatchSnapshot();
+      const { container: container4, queryByText } = render(<Radio checked={true}>单选框</Radio>);
+      expect(container4.firstChild).toHaveClass('t-radio', 't-is-checked');
+      expect(queryByText('单选框')).toBeInTheDocument();
     });
 
     test('disabled', () => {
@@ -49,24 +43,13 @@ describe('Radio', () => {
       expect(container3).toMatchSnapshot();
     });
 
-    test('disabled can not trigger change', () => {
-      const onChangeFn = vi.fn();
-      const { container } = render(
-        <Radio disabled={true} onChange={onChangeFn}>
-          Text
-        </Radio>,
-      );
-      fireEvent.click(container.firstChild);
-      expect(onChangeFn).not.toHaveBeenCalled();
-    });
-
     test('name', () => {
       const wrapper = render(<Radio name="radio-gender-name"></Radio>);
       const container = wrapper.container.querySelector('input');
       expect(container.getAttribute('name')).toBe('radio-gender-name');
     });
 
-    test(`value is equal to 'radio-value'`, () => {
+    test('value', () => {
       const { container } = render(<Radio value="radio-value"></Radio>);
       const domWrapper = container.querySelector('input');
       expect(domWrapper.value).toBe('radio-value');
@@ -77,11 +60,6 @@ describe('Radio', () => {
       expect(container.firstChild).toHaveClass('t-radio', 't-is-checked');
     });
 
-    test('allowUncheck stays checked', () => {
-      const { container } = render(<Radio allowUncheck={true} checked={true} />);
-      fireEvent.click(container.firstChild);
-      expect(container.firstChild).toHaveClass('t-radio', 't-is-checked');
-    });
     test('children', () => {
       const { container } = render(
         <Radio>
@@ -92,14 +70,14 @@ describe('Radio', () => {
       expect(container).toMatchSnapshot();
     });
 
-    test('label', () => {
+    test('label[TNode]', () => {
       const { container } = render(<Radio label={<span className="custom-node">TNode</span>}></Radio>);
       expect(container.querySelector('.custom-node')).toBeTruthy();
       expect(container.querySelector('.t-radio__label')).toBeTruthy();
       expect(container).toMatchSnapshot();
     });
 
-    test('label text', () => {
+    test('label[string]', () => {
       const { queryByText } = render(<Radio label="选中项" />);
       expect(queryByText('选中项')).toBeInTheDocument();
     });
@@ -115,26 +93,17 @@ describe('Radio', () => {
     });
 
     test('onChange', () => {
-      const fn = vi.fn();
-      const { container } = render(<Radio disabled={true} onChange={fn} />);
-      fireEvent.click(container.firstElementChild);
-      expect(fn).toHaveBeenCalledTimes(0);
-    });
-  });
-
-  describe('scenarios', () => {
-    test('checked & children', () => {
-      const { container, queryByText } = render(<Radio checked={true}>单选框</Radio>);
-      expect(container.firstChild).toHaveClass('t-radio', 't-is-checked');
-      expect(queryByText('单选框')).toBeInTheDocument();
-    });
-
-    test('disable', () => {
-      const fn = vi.fn();
-      const { container } = render(<Radio disabled={true} onChange={fn}></Radio>);
-      expect(container.firstChild).toHaveClass('t-is-disabled', 't-radio');
+      const onChangeFn = vi.fn();
+      const { container } = render(<Radio checked={true} allowUncheck={true} onChange={onChangeFn} />);
       fireEvent.click(container.firstChild);
-      expect(fn).toHaveBeenCalledTimes(0);
+      expect(onChangeFn).toHaveBeenCalled();
+      expect(onChangeFn.mock.calls[0][0]).toBe(false);
+      expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
+
+      const disabledOnChangeFn = vi.fn();
+      const { container: disabledContainer } = render(<Radio disabled={true} onChange={disabledOnChangeFn} />);
+      fireEvent.click(disabledContainer.firstElementChild);
+      expect(disabledOnChangeFn).not.toHaveBeenCalled();
     });
   });
 });

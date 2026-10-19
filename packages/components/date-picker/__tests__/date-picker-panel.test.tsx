@@ -105,6 +105,20 @@ describe('DatePickerPanel', () => {
       expect(container.querySelector('.t-date-picker__cell--active').firstChild.firstChild).toHaveTextContent('26');
       expect(container.querySelectorAll('.t-time-picker__panel-body-scroll')[0].children).toHaveLength(17);
     });
+
+    test('presets and presetsPlacement render the footer', async () => {
+      const { container } = render(<DatePickerPanel presets={{ 今天: new Date() }} presetsPlacement="left" />);
+      expect(container.querySelector('.t-date-picker__presets')).toBeInTheDocument();
+      expect(container.querySelector('.t-date-picker__presets').firstChild.firstChild).toHaveTextContent('今天');
+      expect(container.querySelector('.t-date-picker__presets').parentNode).toHaveClass('t-date-picker__footer--left');
+    });
+
+    test('enableTimePicker renders confirmation action', async () => {
+      const { container, getByText } = render(<DatePickerPanel enableTimePicker />);
+
+      expect(container.querySelector('.t-date-picker__panel-time')).toBeTruthy();
+      expect(getByText('确定')).toBeTruthy();
+    });
   });
 
   describe('events', () => {
@@ -145,21 +159,7 @@ describe('DatePickerPanel', () => {
   });
 
   describe('scenarios', () => {
-    test('presets、presetsPlacement props', async () => {
-      const { container } = render(<DatePickerPanel presets={{ 今天: new Date() }} presetsPlacement="left" />);
-      expect(container.querySelector('.t-date-picker__presets')).toBeInTheDocument();
-      expect(container.querySelector('.t-date-picker__presets').firstChild.firstChild).toHaveTextContent('今天');
-      expect(container.querySelector('.t-date-picker__presets').parentNode).toHaveClass('t-date-picker__footer--left');
-    });
-
-    test('onTimePickerChange & onConfirmClick', async () => {
-      const { container, getByText } = render(<DatePickerPanel enableTimePicker />);
-
-      expect(container.querySelector('.t-date-picker__panel-time')).toBeTruthy();
-      expect(getByText('确定')).toBeTruthy();
-    });
-
-    test('onYearChange & onMonthChange', async () => {
+    test('panel coordinates year and month header controls', async () => {
       const { container } = render(<DatePickerPanel />);
 
       const yearSelect = container.querySelector('.t-date-picker__header-controller-year');
