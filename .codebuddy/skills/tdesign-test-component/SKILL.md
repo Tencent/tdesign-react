@@ -51,7 +51,7 @@ packages/components/[component-name]/
 
 ### 文件内容和结构
 
-- 固定顶层结构：每个组件的测试文件仅允许以下四种顶层 describe：props、events、instanceFunctions、scenarios。无相关测试内容时可省略对应分组。
+- 固定顶层结构：每个组件的测试文件仅允许以下四种顶层 describe：`props`、`events`、`instanceFunctions`、`scenarios`。相对简单的单 prop 或多 prop 组合渲染测试归入 `props`，仅验证回调是否触发及其参数的测试则归入 `events`，若标题必须补充复杂目的或场景描述时才能表达，应将用例移入 scenarios。无相关测试内容时可省略对应分组。
 
 - 用例较少时：在对应的顶层 describe 中编写 `test(...)`，不额外嵌套。
 
@@ -62,12 +62,11 @@ packages/components/[component-name]/
 ```tsx
 describe("ComponentName", () => {
   describe("props", () => {
-    // 1. 按需使用 `propName[type]`（如 TNode、function、number）或 `propName[enumValue]`
-    // 2. 方括号仅允许具体类型或合法枚举值，禁止写具体数值。数组类型统一写成 `array<T>`，禁止使用 `string[]` 等；
-    //    布尔属性按常规方式开启（传入 `true` 或使用简写）时直接写属性名；仅显式验证关闭时写 `[false]`；同一用例覆盖两种取值时才写 `[boolean]`
-    // 3. 同一属性的多个枚举值若测试结构与断言一致，应提取取值列表并使用 `forEach` 生成独立的 `test('propName[enumValue]')`，避免重复编写同构用例
-    // 4. 同一行为涉及多个边界值或组合条件，且无需通过标题分别表达时，合并进单个 `test('propName')`，具体阈值与数据留在用例内
-    // 5. 若标题必须补充复杂目的或场景描述时才能表达，应将用例移入 scenarios
+    // 1. 优先合并同构用例。同一属性、同一行为下的多种类型、边界值及组合条件，应优先合并为一个 `test('propName[type]')`，并在用例内部处理具体取值。对于测试结构和断言一致的多个枚举值，应提取取值列表，通过 `forEach` 生成独立的 `test('propName[enumValue]')`，避免重复编写同构用例。
+
+    // 2.按需拆分用例。当用例无法合理合并时，再根据测试对象拆分，并使用 `propName[type]`（如 `TNode`、`function`、`number`）标识对应的类型。
+
+    // 3. 规范用例标题。方括号内仅允许填写具体类型或合法枚举值，不得填写具体数值。数组类型统一使用 `array<T>` 格式，不得使用 `string[]` 等形式。布尔属性常规开启时（传入 `true` 或使用简写），标题直接使用属性名；仅显式验证关闭行为时，使用 `propName[false]`；只有同一用例同时覆盖开启和关闭两种取值时，才使用 `propName[boolean]`。
   });
   describe("events", () => {
     // 回调 prop（onChange 等）是否触发
@@ -77,8 +76,11 @@ describe("ComponentName", () => {
   });
   describe("scenarios", () => {
     // 1. 覆盖多 API 联动的完整业务流；复杂时可嵌套子 `describe`
+
     // 2. 标题应明确涉及的 API 与测试目的，优先使用自然语言，仅在枚举值是关键条件时保留 `[enumValue]`
+
     // 3. 单 prop、多 prop 组合的简单渲染测试归入 `props`，不应放在此模块
+
     // 4. 仅验证回调是否触发及参数的测试归入 `events`
 });
 ```
