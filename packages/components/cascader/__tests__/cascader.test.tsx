@@ -501,5 +501,69 @@ describe('Cascader', () => {
         expect.any(Object),
       );
     });
+
+    test('valueType[full] distinguishes nodes with the same value in different levels', async () => {
+      // 不同分支下存在相同 value 的节点，valueType 为 full 时通过路径区分
+      const duplicateOptions = [
+        {
+          label: '选项一',
+          value: '1',
+          children: [
+            {
+              label: '子选项 1.1',
+              value: '1.1',
+              children: [{ label: '同值节点 A', value: 'same' }],
+            },
+            {
+              label: '子选项 1.2',
+              value: '1.2',
+              children: [{ label: '同值节点 B', value: 'same' }],
+            },
+          ],
+        },
+      ];
+      const onChange = vi.fn();
+      const TestComponent = () => {
+        const [value, setValue] = useState<any[]>([]);
+        return (
+          <Cascader
+            options={duplicateOptions}
+            value={value}
+            multiple
+            checkStrictly
+            valueType="full"
+            onChange={(val, ctx) => {
+              onChange(val, ctx);
+              setValue(val as any[]);
+            }}
+          />
+        );
+      };
+      const { getByText } = render(<TestComponent />);
+      fireEvent.click(document.querySelector('input'));
+      await mockDelay();
+
+      // 展开选项一 -> 子选项 1.1，勾选第三层同值节点 A
+      fireEvent.click(getByText('选项一'));
+      await mockDelay();
+      fireEvent.click(getByText('子选项 1.1'));
+      await mockDelay();
+      const sameInputs = document.querySelectorAll('.t-checkbox input[name="same"]');
+      fireEvent.click(sameInputs[sameInputs.length - 1]);
+      expect(onChange).toHaveBeenLastCalledWith([['1', '1.1', 'same']], expect.any(Object));
+
+      // 切换到子选项 1.2，勾选同值节点 B，两个同值节点互不干扰
+      fireEvent.click(getByText('子选项 1.2'));
+      await mockDelay();
+      const nextSameInputs = document.querySelectorAll('.t-checkbox input[name="same"]');
+      fireEvent.click(nextSameInputs[nextSameInputs.length - 1]);
+      expect(onChange).toHaveBeenLastCalledWith(
+        [
+          ['1', '1.1', 'same'],
+          ['1', '1.2', 'same'],
+        ],
+        expect.any(Object),
+      );
+    });
   });
 });

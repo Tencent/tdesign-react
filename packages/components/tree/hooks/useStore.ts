@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { cloneDeep } from 'lodash-es';
-import TreeStore from '@tdesign/common-js/tree-v1/tree-store';
+import TreeStore from '@tdesign/common-js/tree/tree-store';
 
 import { usePersistFn } from '../../hooks/usePersistFn';
 import usePrevious from '../../hooks/usePrevious';
 import useUpdateLayoutEffect from '../../hooks/useUpdateLayoutEffect';
 
-import type TreeNode from '@tdesign/common-js/tree-v1/tree-node';
-import type { TreeNodeValue, TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
+import type TreeNode from '@tdesign/common-js/tree/tree-node';
+import type { TreeNodeValue, TypeTreeNodeData } from '@tdesign/common-js/tree/types';
 import type { TypeEventState } from '../interface';
 import type { TdTreeProps } from '../type';
 
@@ -256,7 +256,15 @@ export function useStore(
 
   useUpdateLayoutEffect(() => {
     if (Array.isArray(indeterminate)) {
-      store.replaceIndeterminate(indeterminate);
+      // 新版 common-js/tree 不再提供 replaceIndeterminate 方法，在组件层直接同步半选状态
+      // update 方法不会重算 indeterminate（仅 updateChecked 会），手动半选状态可保留
+      indeterminate.forEach((val) => {
+        const node = store.getNode(val);
+        if (node) {
+          node.indeterminate = true;
+          node.update();
+        }
+      });
     }
   }, [indeterminate, store, data]);
 
