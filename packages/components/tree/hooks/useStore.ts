@@ -258,9 +258,10 @@ export function useStore(
     if (Array.isArray(indeterminate)) {
       // 新版 common-js/tree 不再提供 replaceIndeterminate 方法，在组件层直接同步半选状态
       // update 方法不会重算 indeterminate（仅 updateChecked 会），手动半选状态可保留
+      // 与旧版保持一致：非可选节点、禁用节点不可设置半选状态
       indeterminate.forEach((val) => {
         const node = store.getNode(val);
-        if (node) {
+        if (node && node.isCheckable() && !node.isDisabled()) {
           node.indeterminate = true;
           node.update();
         }

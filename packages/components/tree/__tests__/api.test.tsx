@@ -138,6 +138,19 @@ describe('Tree:api', () => {
       await mockDelay();
       expect(container.querySelector('[data-value="insert1"]')).not.toBeNull();
     });
+
+    test('追加的数据值已存在时，视为移动该节点而非新增重复节点', async () => {
+      const { container, ref } = await renderTree();
+
+      // t2 已存在于树上，appendTo 到 t1 下应当移动 t2，而不是新增重复节点
+      ref.current.appendTo('t1', { value: 't2' });
+      await mockDelay();
+
+      // 移动后 t2 成为 t1 的子节点
+      expect(ref.current.getParent('t2').value).toBe('t1');
+      // 不产生重复节点
+      expect(container.querySelectorAll('[data-value="t2"]').length).toBe(1);
+    });
   });
 
   describe('insertBefore', () => {

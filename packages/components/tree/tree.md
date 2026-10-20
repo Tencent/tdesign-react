@@ -59,15 +59,15 @@ onScroll | Function |  | TS 类型：`(params: { e: WheelEvent }) => void`<br/>�
 -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-appendTo | `(value: TreeNodeValue, newData: T \| Array<T>)` | \- | 必需。为指定节点添加子节点，默认添加到根节点，泛型 `T` 表示树节点 TS 类型
+appendTo | `(value: TreeNodeValue, newData: T \| Array<T>)` | \- | 必需。为指定节点添加子节点，默认添加到根节点；若 `newData` 的 `value` 已存在于当前树中，则视为移动该节点，泛型 `T` 表示树节点 TS 类型
 getIndex | `(value: TreeNodeValue)` | `number` | 必需。获取指定节点下标
 getItem | `(value: TreeNodeValue)` | `TreeNodeModel<T>` | 必需。获取指定节点所有信息，泛型 `T` 表示树节点 TS 类型
 getItems | `(value?: TreeNodeValue)` | `Array<TreeNodeModel<T>>` | 必需。获取某节点的全部子孙节点；参数为空，则表示获取整棵树的全部节点，泛型 `T` 表示树节点 TS 类型
 getParent | `(value: TreeNodeValue)` | `TreeNodeModel<T>` | 必需。获取指定节点的直属父节点，泛型 `T` 表示树节点 TS 类型
 getParents | `(value: TreeNodeValue)` | `TreeNodeModel<T>[]` | 必需。获取指定节点的全部父节点，泛型 `T` 表示树节点 TS 类型
 getPath | `(value: TreeNodeValue)` | `TreeNodeModel<T>[]` | 必需。自下而上获取全路径数据，泛型 `T` 表示树节点 TS 类型
-insertAfter | `(value: TreeNodeValue, newData: T)` | \- | 必需。插入新节点到指定节点后面，泛型 `T` 表示树节点 TS 类型
-insertBefore | `(value: TreeNodeValue, newData: T)` | \- | 必需。插入新节点到指定节点前面，泛型 `T` 表示树节点 TS 类型
+insertAfter | `(value: TreeNodeValue, newData: T)` | \- | 必需。插入新节点到指定节点后面；若 `newData` 的 `value` 已存在于当前树中，则视为移动该节点，泛型 `T` 表示树节点 TS 类型
+insertBefore | `(value: TreeNodeValue, newData: T)` | \- | 必需。插入新节点到指定节点前面；若 `newData` 的 `value` 已存在于当前树中，则视为移动该节点，泛型 `T` 表示树节点 TS 类型
 remove | `(value: TreeNodeValue)` | \- | 必需。移除指定节点
 scrollTo | `(scrollToParams: ComponentScrollToElementParams)` | \- | 虚拟滚动场景下 支持指定滚动到具体的节点
 setItem | `(value: TreeNodeValue, options: TreeNodeState)` | \- | 必需。设置节点状态

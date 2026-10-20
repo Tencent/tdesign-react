@@ -17,7 +17,7 @@ import TreeItem from './TreeItem';
 
 import type { MouseEvent, RefObject } from 'react';
 import type TreeNode from '@tdesign/common-js/tree/tree-node';
-import type { TreeNodeState, TreeNodeValue, TypeTreeNodeData, TypeTreeNodeModel } from '@tdesign/common-js/tree/types';
+import type { TreeNodeState, TreeNodeValue, TypeTreeItem, TypeTreeNodeModel } from '@tdesign/common-js/tree/types';
 import type { ComponentScrollToElementParams, StyledProps, TreeOptionData } from '../common';
 import type { TreeItemProps } from './interface';
 import type { TdTreeProps, TreeInstanceFunctions } from './type';
@@ -99,6 +99,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
 
   // 因为是被 useImperativeHandle 依赖的方法，使用 usePersistFn 变成持久化的。或者也可以使用 useCallback
   // 新版 common-js/tree 不再提供 setIndeterminate 方法，半选状态在组件层直接写入节点
+  // 保留旧版 setIndeterminate 的守卫语义：非可选节点、禁用节点不可设置半选状态
   const setIndeterminate = usePersistFn(
     (
       node: TreeNode,
@@ -110,6 +111,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     ) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { e, trigger } = ctx;
+      if (!node.isCheckable() || node.isDisabled()) return;
       node.indeterminate = isIndeterminate;
       return node.indeterminate;
     },
@@ -253,11 +255,11 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
       },
       insertAfter(value: TreeNodeValue, newData: TreeOptionData): void {
         const node = store.getNode(newData?.value);
-        return store.insertAfter(value, (node || newData) as TypeTreeNodeData);
+        return store.insertAfter(value, (node || newData) as TypeTreeItem);
       },
       insertBefore(value: TreeNodeValue, newData: TreeOptionData): void {
         const node = store.getNode(newData?.value);
-        return store.insertBefore(value, (node || newData) as TypeTreeNodeData);
+        return store.insertBefore(value, (node || newData) as TypeTreeItem);
       },
       remove(value: TreeNodeValue): void {
         return store.remove(value);

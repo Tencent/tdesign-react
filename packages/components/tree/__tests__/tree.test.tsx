@@ -452,11 +452,33 @@ describe('Tree', () => {
 
     test('operations[Error]', async () => {
       const renderOperations: any = new Error('error operations');
-      try {
-        await renderTreeWithProps({ operations: renderOperations });
-      } catch (err) {
-        expect(err).toEqual(new Error('invalid type of operations'));
+      // 渲染期抛错会被 React 延迟异步抛出（新版 tree store 以微任务批量更新），
+      // 同步 try/catch 无法捕获，这里通过错误边界捕获后断言错误内容
+      const onError = vi.fn();
+      class OperationsErrorBoundary extends React.Component<{
+        children?: React.ReactNode;
+      }> {
+        state = { hasError: false };
+
+        static getDerivedStateFromError() {
+          return { hasError: true };
+        }
+
+        componentDidCatch(error: Error) {
+          onError(error);
+        }
+
+        render() {
+          return this.state.hasError ? null : this.props.children;
+        }
       }
+      render(
+        <OperationsErrorBoundary>
+          <Tree data={items} label={() => '自定义节点标签'} operations={renderOperations} transition={false} />
+        </OperationsErrorBoundary>,
+      );
+      await mockDelay();
+      expect(onError).toHaveBeenCalledWith(new Error('invalid type of operations'));
     });
 
     // TODO: icon error can't be caught by vitest
