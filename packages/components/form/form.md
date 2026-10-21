@@ -130,6 +130,7 @@ initialData | Object | - | 表单初始数据，重置时所需初始数据，�
 labelAlign | String | right | 表单字段标签对齐方式：左对齐、右对齐、顶部对齐。可选项：left/right/top | N
 labelWidth | String / Number | '100px' | 可以整体设置label标签宽度，默认为100px | N
 layout | String | vertical | 表单布局，有两种方式：纵向布局 和 行内布局。可选项：vertical/inline | N
+preserve | Boolean | false | FormItem 不再渲染时，是否继续在表单中保留字段值。开启后，可通过 `getFieldValue` 或 `getFieldsValue(true)` 获取该值，并在 FormItem 再次渲染时恢复 | N
 preventSubmitDefault | Boolean | true | 是否阻止表单提交默认事件（表单提交默认事件会刷新页面），设置为 `true` 可以避免刷新 | N
 readOnly | Boolean | undefined | 是否整个表单只读 | N
 requiredMark | Boolean | true | 是否显示必填符号（*），默认显示 | N
@@ -179,9 +180,10 @@ label | TNode | '' | 字段标签名称。TS 类型：`string \| TNode`。[通�
 labelAlign | String | - | 表单字段标签对齐方式：左对齐、右对齐、顶部对齐。默认使用 Form 的对齐方式，优先级高于 Form.labelAlign。可选项：left/right/top | N
 labelWidth | String / Number | - | 可以整体设置标签宽度，优先级高于 Form.labelWidth | N
 name | String / Number / Array | - | 表单字段名称。TS 类型：`NamePath` `type NamePath = string \| number \| Array<string \| number>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/form/type.ts) | N
+preserve | Boolean | undefined | FormItem 不再渲染时，是否继续在表单中保留当前字段值，默认继承 `Form.preserve` | N
 requiredMark | Boolean | undefined | 是否显示必填符号（*），优先级高于 Form.requiredMark | N
 rules | Array | - | 表单字段校验规则。TS 类型：`Array<FormRule>` | N
-shouldUpdate | Boolean / Function | false | TS 类型：`boolean \| ((prevValue, curValue) => boolean)` | N
+shouldUpdate | Boolean / Function | false | 表单数据变化时是否重新渲染当前 FormItem。TS 类型：`boolean \| ((prevValue, curValue) => boolean)` | N
 showErrorMessage | Boolean | undefined | 校验不通过时，是否显示错误提示信息，优先级高于 `Form.showErrorMessage` | N
 status | String | - | 校验状态，可在需要完全自主控制校验状态时使用。TS 类型：`'error' \| 'warning' \| 'success' \| 'validating'` | N
 statusIcon | TNode | undefined | 校验状态图标，值为 `true` 显示默认图标，默认图标有 成功、失败、警告 等，不同的状态图标不同。`statusIcon` 值为 `false`，不显示图标。`statusIcon` 值类型为渲染函数，则可以自定义右侧状态图标。优先级高级 Form 的 statusIcon。TS 类型：`boolean \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N

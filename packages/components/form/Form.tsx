@@ -34,6 +34,7 @@ const Form = forwardRefWithStatics(
       layout,
       colon,
       initialData,
+      preserve,
       requiredMark = globalFormConfig.requiredMark,
       requiredMarkPosition = globalFormConfig.requiredMarkPosition,
       scrollToFirstError,
@@ -58,7 +59,6 @@ const Form = forwardRefWithStatics(
     const formItemElementsRef = useRef(new Set<HTMLElement>()); // 收集所有参与布局的 FormItem
     const lastFormItemsRef = useRef(new Set<HTMLElement>());
     const floatingFormDataRef = useRef({}); // 储存游离值的 formData
-    const mountedFieldsRef = useRef<Set<string>>(new Set()); // Form 生命周期内所有曾经被 FormItem 挂载过的字段（fullPath 序列化后的字符串）
 
     const formInstance = useInstance(props, formRef, formMapRef, floatingFormDataRef, form);
 
@@ -156,7 +156,6 @@ const Form = forwardRefWithStatics(
       form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.([]);
       form.store = {};
       floatingFormDataRef.current = {};
-      mountedFieldsRef.current.clear();
       onReset?.({ e });
     }
 
@@ -180,6 +179,7 @@ const Form = forwardRefWithStatics(
           layout,
           colon,
           initialData,
+          preserve,
           requiredMark,
           requiredMarkPosition,
           errorMessage,
@@ -192,7 +192,6 @@ const Form = forwardRefWithStatics(
           formMapRef,
           floatingFormDataRef,
           registerFormItem,
-          mountedFieldsRef,
           onFormItemValueChange,
         }}
       >

@@ -12,6 +12,7 @@ const FormContext = React.createContext<{
   layout: TdFormProps['layout'];
   colon: TdFormProps['colon'];
   initialData: TdFormProps['initialData'];
+  preserve: TdFormProps['preserve'];
   requiredMark: TdFormProps['requiredMark'];
   requiredMarkPosition: TdFormProps['requiredMarkPosition'];
   scrollToFirstError: TdFormProps['scrollToFirstError'];
@@ -24,7 +25,6 @@ const FormContext = React.createContext<{
   formMapRef: React.RefObject<Map<any, React.RefObject<FormItemInstance>>>;
   floatingFormDataRef: React.RefObject<Record<any, any>>;
   registerFormItem?: (node: HTMLElement) => () => void;
-  mountedFieldsRef?: React.RefObject<Set<string>>;
   onFormItemValueChange: (changedValue: Record<string, unknown>) => void;
 }>({
   form: undefined,
@@ -33,6 +33,7 @@ const FormContext = React.createContext<{
   layout: 'vertical',
   colon: false,
   initialData: {},
+  preserve: false,
   requiredMark: undefined,
   requiredMarkPosition: undefined,
   scrollToFirstError: undefined,
@@ -47,7 +48,6 @@ const FormContext = React.createContext<{
   formMapRef: undefined,
   floatingFormDataRef: undefined,
   registerFormItem: undefined,
-  mountedFieldsRef: undefined,
 });
 
 export const useFormContext = () => React.useContext(FormContext);

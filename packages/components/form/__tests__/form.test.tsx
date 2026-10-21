@@ -804,6 +804,143 @@ describe('Form', () => {
       expect(container.querySelector('.radio-value-3')).toHaveClass('t-is-checked');
     });
 
+    test.each([
+      {
+        name: 'preserve defaults to false',
+        formPreserve: undefined,
+        itemPreserve: undefined,
+        shouldPreserve: false,
+      },
+      {
+        name: 'Form.preserve is inherited',
+        formPreserve: true,
+        itemPreserve: undefined,
+        shouldPreserve: true,
+      },
+      {
+        name: 'FormItem.preserve=false overrides Form.preserve',
+        formPreserve: true,
+        itemPreserve: false,
+        shouldPreserve: false,
+      },
+      {
+        name: 'FormItem.preserve=true overrides Form.preserve',
+        formPreserve: false,
+        itemPreserve: true,
+        shouldPreserve: true,
+      },
+    ])('$name', ({ formPreserve, itemPreserve, shouldPreserve }) => {
+      const readValues = vi.fn();
+      const Fields = () => (
+        <>
+          <FormItem name="date" preserve={itemPreserve}>
+            <Input placeholder="date" />
+          </FormItem>
+          <FormItem name={['schedule', 'execute_at']} preserve={itemPreserve}>
+            <Input placeholder="execute-at" />
+          </FormItem>
+        </>
+      );
+
+      const TestForm = () => {
+        const [form] = Form.useForm();
+        const [mode, setMode] = useState(1);
+
+        return (
+          <>
+            <Form form={form} preserve={formPreserve}>
+              {mode === 1 && <Fields />}
+              {mode === 2 && (
+                <div>
+                  <Fields />
+                </div>
+              )}
+            </Form>
+            <Button
+              onClick={() =>
+                form.setFieldsValue({
+                  date: '2026-10-21',
+                  schedule: { execute_at: '11:31:06' },
+                })
+              }
+            >
+              Fill
+            </Button>
+            <Button onClick={() => setMode(0)}>Hide</Button>
+            <Button onClick={() => setMode(2)}>Remount</Button>
+            <Button onClick={() => readValues(form.getFieldsValue(true))}>Read</Button>
+          </>
+        );
+      };
+
+      const { getByText, getByPlaceholderText } = render(<TestForm />);
+      fireEvent.click(getByText('Fill'));
+      fireEvent.click(getByText('Hide'));
+
+      fireEvent.click(getByText('Read'));
+      let [values] = readValues.mock.lastCall;
+      expect(values.date).toBe(shouldPreserve ? '2026-10-21' : undefined);
+      expect(values.schedule?.execute_at).toBe(shouldPreserve ? '11:31:06' : undefined);
+
+      fireEvent.click(getByText('Remount'));
+      expect((getByPlaceholderText('date') as HTMLInputElement).value).toBe(shouldPreserve ? '2026-10-21' : '');
+      expect((getByPlaceholderText('execute-at') as HTMLInputElement).value).toBe(shouldPreserve ? '11:31:06' : '');
+      fireEvent.click(getByText('Read'));
+      [values] = readValues.mock.lastCall;
+      expect(values.date).toBe(shouldPreserve ? '2026-10-21' : undefined);
+      expect(values.schedule?.execute_at).toBe(shouldPreserve ? '11:31:06' : undefined);
+    });
+
+    test('preserve keeps edited nested field values across validate-triggered remounts', async () => {
+      const readValues = vi.fn();
+
+      const TestForm = () => {
+        const [form] = Form.useForm();
+        const [, setRenderCount] = useState(0);
+
+        const ConditionalFields = () => (
+          <FormItem
+            preserve
+            name={['student', 'name']}
+            initialData="StudentA"
+            rules={[{ required: true, message: 'name is required' }]}
+          >
+            <Input placeholder="student-name" />
+          </FormItem>
+        );
+
+        const handleValidate = async () => {
+          setRenderCount((count) => count + 1);
+          await form.validate();
+          setRenderCount((count) => count + 1);
+        };
+
+        return (
+          <>
+            <Form form={form}>
+              <FormItem name="required-field" rules={[{ required: true, message: 'required' }]}>
+                <Input />
+              </FormItem>
+              <ConditionalFields />
+            </Form>
+            <Button onClick={handleValidate}>Validate</Button>
+            <Button onClick={() => readValues(form.getFieldsValue(true))}>Read</Button>
+          </>
+        );
+      };
+
+      const { getByText, getByPlaceholderText } = render(<TestForm />);
+      fireEvent.change(getByPlaceholderText('student-name'), { target: { value: 'StudentB' } });
+      fireEvent.click(getByText('Validate'));
+      await mockDelay();
+
+      expect((getByPlaceholderText('student-name') as HTMLInputElement).value).toBe('StudentB');
+      fireEvent.click(getByText('Read'));
+      expect(readValues).toHaveBeenCalledWith({
+        student: { name: 'StudentB' },
+      });
+    });
+
     test('resetType[initial] clears remounted and reset fields', async () => {
       const TestForm = () => {
         const [form] = Form.useForm();

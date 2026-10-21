@@ -11,6 +11,7 @@ export const formDefaultProps: TdFormProps = {
   labelAlign: 'right',
   labelWidth: '100px',
   layout: 'vertical',
+  preserve: false,
   preventSubmitDefault: true,
   requiredMark: undefined,
   resetType: 'empty',

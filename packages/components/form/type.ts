@@ -54,6 +54,11 @@ export interface TdFormProps<FormData extends Data = Data> {
    */
   layout?: 'vertical' | 'inline';
   /**
+   * FormItem 不再渲染时，是否继续在表单中保留字段值。开启后，可通过 `getFieldValue` 或 `getFieldsValue(true)` 获取该值，并在 FormItem 再次渲染时恢复
+   * @default false
+   */
+  preserve?: boolean;
+  /**
    * 是否阻止表单提交默认事件（表单提交默认事件会刷新页面），设置为 `true` 可以避免刷新
    * @default true
    */
@@ -209,6 +214,10 @@ export interface TdFormItemProps {
    */
   name?: NamePath;
   /**
+   * FormItem 不再渲染时，是否继续在表单中保留当前字段值，默认继承 `Form.preserve`
+   */
+  preserve?: boolean;
+  /**
    * 是否显示必填符号（*），优先级高于 Form.requiredMark
    */
   requiredMark?: boolean;
@@ -217,7 +226,7 @@ export interface TdFormItemProps {
    */
   rules?: Array<FormRule>;
   /**
-   * null
+   * 表单数据变化时是否重新渲染当前 FormItem
    * @default false
    */
   shouldUpdate?: boolean | ((prevValue, curValue) => boolean);
