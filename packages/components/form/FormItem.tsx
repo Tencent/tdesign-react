@@ -450,8 +450,10 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((originalProps, ref
       }
       mapRef.current.delete(fullPath);
     };
+    /* 只依赖 snakeName，isSameForm 判断时已包含 formListName。
+       FormList 的 name={[index, 'xxx']}，每次渲染都是新数组，容易误把内层字段重初始化。 */
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [snakeName, formListName]);
+  }, [snakeName]);
 
   useEffect(() => {
     // value 变化通知 watch 事件
