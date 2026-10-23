@@ -10,7 +10,7 @@ spline: explain
 ### 🐞 Bug Fixes
 
 - `Drawer`: 修复 `mode='push'` 时，`margin` 样式异常的问题 @RSS1102 ([#4418](https://github.com/Tencent/tdesign-react/pull/4418))
-- `Form`: 修复 `1.18.3` 版本后，最后一个表单项无 `name` 时上方字段底部间距丢失的问题 @uyarn ([#4427](https://github.com/Tencent/tdesign-react/pull/4427))
+- `Form`: 修复 `1.18.3` 版本后，最后一个表单项无 `name` 时上方字段 `margin-bottom` 丢失的问题@uyarn ([#4427](https://github.com/Tencent/tdesign-react/pull/4427))
 
 ## 🌈 1.18.4 `2026-09-26`
 
