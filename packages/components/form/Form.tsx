@@ -13,6 +13,7 @@ import FormList from './FormList';
 import useForm, { HOOK_MARK } from './hooks/useForm';
 import useInstance from './hooks/useInstance';
 import useWatch from './hooks/useWatch';
+import { resolveLastFormItems } from './utils/lastFormItem';
 
 import type { StyledProps } from '../common';
 import type { TdFormProps } from './type';
@@ -65,30 +66,11 @@ const Form = forwardRefWithStatics(
     const refreshLastFormItem = useCallback(() => {
       const formElement = formRef.current;
       const lastClassName = `${classPrefix}-form__item--last`;
-      const formItemSelector = `.${classPrefix}-form__item`;
-
-      // 按父容器分组，标记每一组中的最后一个表单项
       const nextLastItems = new Set<HTMLElement>();
+
       if (layout !== 'inline' && formElement) {
-        const formItems = [...formItemElementsRef.current].filter((item) => {
-          if (!formElement.contains(item)) return false;
-          const parentFormItem = item.parentElement?.closest<HTMLElement>(formItemSelector);
-          return !parentFormItem || !formElement.contains(parentFormItem);
-        });
-
-        const groupedByParent = new Map<HTMLElement, HTMLElement[]>();
-        formItems.forEach((item) => {
-          const parent = item.parentElement;
-          if (!parent) return;
-          const siblings = groupedByParent.get(parent);
-          if (siblings) siblings.push(item);
-          else groupedByParent.set(parent, [item]);
-        });
-
-        groupedByParent.forEach((siblings) => {
-          siblings.sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
-          const lastFormItem = siblings[siblings.length - 1];
-          if (lastFormItem) nextLastItems.add(lastFormItem);
+        resolveLastFormItems(formElement, formItemElementsRef.current, `${classPrefix}-form__item`).forEach((item) => {
+          nextLastItems.add(item);
         });
       }
 
@@ -125,8 +107,12 @@ const Form = forwardRefWithStatics(
       const observer = new MutationObserver(refreshLastFormItem);
       observer.observe(formElement, { childList: true, subtree: true });
 
+      const resizeObserver = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(refreshLastFormItem);
+      resizeObserver?.observe(formElement);
+
       return () => {
         observer.disconnect();
+        resizeObserver?.disconnect();
         lastFormItemsRef.current.forEach((item) => item.classList.remove(`${classPrefix}-form__item--last`));
         lastFormItemsRef.current.clear();
       };

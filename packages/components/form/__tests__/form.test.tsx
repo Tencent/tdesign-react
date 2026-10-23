@@ -885,25 +885,156 @@ describe('Form', () => {
       fireEvent.click(getByText('setFields'));
       expect(fn).toHaveBeenCalledTimes(1);
     });
+  });
+
+  describe('last item detection', () => {
+    const getFormItems = (container: HTMLElement) => container.querySelectorAll('.t-form__item');
+    const fields = (
+      <>
+        <FormItem name="first">
+          <Input />
+        </FormItem>
+        <FormItem name="second">
+          <Input />
+        </FormItem>
+      </>
+    );
+    const actionItem = (
+      <FormItem>
+        <Button type="submit">submit</Button>
+      </FormItem>
+    );
+
+    const expectOnlyLastMarked = (container: HTMLElement) => {
+      const formItems = getFormItems(container);
+      formItems.forEach((item, index) => {
+        if (index === formItems.length - 1) expect(item).toHaveClass('t-form__item--last');
+        else expect(item).not.toHaveClass('t-form__item--last');
+      });
+    };
+
+    const expectNoneMarked = (container: HTMLElement) => {
+      getFormItems(container).forEach((item) => {
+        expect(item).not.toHaveClass('t-form__item--last');
+      });
+    };
 
     // Issue: https://github.com/Tencent/tdesign-vue-next/issues/7000
-    test('FormItem without name participates in last item detection', () => {
+    test.each([
+      [
+        'plain siblings',
+        <>
+          {fields}
+          {actionItem}
+        </>,
+      ],
+      [
+        'extra wrappers',
+        <>
+          <div>
+            <FormItem name="first">
+              <Input />
+            </FormItem>
+          </div>
+          <div>
+            <FormItem name="second">
+              <Input />
+            </FormItem>
+          </div>
+          <div>{actionItem}</div>
+        </>,
+      ],
+      [
+        'nested FormItem',
+        <>
+          <FormItem label="custom">
+            <FormItem name="custom">
+              <Input />
+            </FormItem>
+          </FormItem>
+          {actionItem}
+        </>,
+      ],
+    ])('%s', (_name, children) => {
+      const { container } = render(<Form>{children}</Form>);
+      expectOnlyLastMarked(container);
+    });
+
+    test.each([
+      [
+        'non-form sibling',
+        <>
+          {fields}
+          <Button type="submit">submit</Button>
+        </>,
+      ],
+      [
+        'shouldUpdate without root',
+        <>
+          {fields}
+          <FormItem shouldUpdate>
+            {() => (
+              <div>
+                <Button type="submit">submit</Button>
+              </div>
+            )}
+          </FormItem>
+        </>,
+      ],
+    ])('%s', (_name, children) => {
+      const { container } = render(<Form>{children}</Form>);
+      expectNoneMarked(container);
+    });
+
+    test('shared non-form parent marks both the group tail and the form tail', () => {
       const { container } = render(
         <Form>
-          <FormItem name="first">
-            <Input />
-          </FormItem>
-          <FormItem name="second">
-            <Input />
-          </FormItem>
-          <FormItem>
+          <div>
+            <FormItem name="first">
+              <Input />
+            </FormItem>
+            <FormItem name="second">
+              <Input />
+            </FormItem>
+          </div>
+          {actionItem}
+        </Form>,
+      );
+      const formItems = getFormItems(container);
+      expect(formItems[0]).not.toHaveClass('t-form__item--last');
+      expect(formItems[1]).toHaveClass('t-form__item--last');
+      expect(formItems[2]).toHaveClass('t-form__item--last');
+    });
+
+    test('hidden last FormItem does not occupy last-item slot', () => {
+      const { container } = render(
+        <Form>
+          {fields}
+          <FormItem style={{ display: 'none' }}>
             <Button type="submit">submit</Button>
           </FormItem>
         </Form>,
       );
-      const formItems = container.querySelectorAll('.t-form__item');
-      expect(formItems[1]).not.toHaveClass('t-form__item--last');
-      expect(formItems[2]).toHaveClass('t-form__item--last');
+      const formItems = getFormItems(container);
+      expect(formItems[1]).toHaveClass('t-form__item--last');
+      expect(formItems[2]).not.toHaveClass('t-form__item--last');
+    });
+
+    test('unmounting the last FormItem reassigns --last to the new tail', () => {
+      const Demo = ({ showAction }: { showAction: boolean }) => (
+        <Form>
+          {fields}
+          {showAction ? actionItem : null}
+        </Form>
+      );
+
+      const { container, rerender } = render(<Demo showAction />);
+      expectOnlyLastMarked(container);
+
+      rerender(<Demo showAction={false} />);
+      const formItems = getFormItems(container);
+      expect(formItems).toHaveLength(2);
+      expect(formItems[1]).toHaveClass('t-form__item--last');
     });
   });
 });
