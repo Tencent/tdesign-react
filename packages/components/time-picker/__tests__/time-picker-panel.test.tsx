@@ -9,7 +9,7 @@ MockDate.set('2022-08-27');
 
 describe('TimePickerPanel', () => {
   describe('props', () => {
-    test('props.value for TimePickerPanel works fine', () => {
+    test('value[string]', () => {
       const onChange = vi.fn();
       const { container } = render(<TimePickerPanel value={'00:10:20'} onChange={onChange} />);
       const scrollPanels = container.querySelectorAll('.t-time-picker__panel-body-scroll');

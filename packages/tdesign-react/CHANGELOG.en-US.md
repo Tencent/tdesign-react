@@ -5,7 +5,12 @@ toc: false
 spline: explain
 ---
 
-## 🌈 1.18.4 `2026-09-24`
+## 🌈 1.18.5 `2026-10-23`
+
+- `Drawer`: Fixed an issue where the `margin` style was incorrect when `mode='push'` @RSS1102 ([#4418](https://github.com/Tencent/tdesign-react/pull/4418))
+- `Form`: Fixed an issue where the preceding field's `margin-bottom` was missing when the last form item had no `name` after version `1.18.3` @uyarn ([#4427](https://github.com/Tencent/tdesign-react/pull/4427))
+
+## 🌈 1.18.4 `2026-09-26`
 
 ### 🚀 Features
 

@@ -100,7 +100,7 @@ export function simulateFileChange(dom, type = 'file', count = 1) {
 
 /**
  * 模拟拖拽上传文件
- * @param {String} dom 触发节点
+ * @param {Document | Node | Element | Window} dom 触发节点
  * @param {String} trigger 可选值：dragEnter/dragLeave/dragOver/drop
  * @param {String} type 可选值：file/image
  * @param {Number} count 数量

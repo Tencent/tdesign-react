@@ -80,7 +80,7 @@ describe('EnhancedTable', () => {
         );
       };
 
-      it('select-all with disabled rows', async () => {
+      it('select-all and disabled descendants produce an indeterminate selection', async () => {
         const onSelectChange = vi.fn();
 
         const { container } = render(<TEnhancedTable onSelectChange={onSelectChange} />);
@@ -98,7 +98,7 @@ describe('EnhancedTable', () => {
         expect(selectedKeys).not.toContain('1-1-0');
       });
 
-      it('select-all keeps preselected disabled row', async () => {
+      it('defaultSelectedRowKeys preserves disabled descendants across select-all changes', async () => {
         const onSelectChange = vi.fn();
 
         const { container } = render(
@@ -126,7 +126,7 @@ describe('EnhancedTable', () => {
         expect(selectAllCheckbox).toHaveClass('t-is-indeterminate');
       });
 
-      it('select parent[checkStrictly]', async () => {
+      it('tree.checkStrictly controls parent and descendant selection propagation', async () => {
         const onLooseSelectChange = vi.fn();
         const { container: looseContainer } = render(
           <TEnhancedTable defaultSelectedRowKeys={['1-1-0']} onSelectChange={onLooseSelectChange} />,
@@ -174,7 +174,7 @@ describe('EnhancedTable', () => {
       });
     });
 
-    it('shows children immediately after expanding a node', async () => {
+    it('expandedTreeNodes and virtual scroll reveal children without changing scroll position', async () => {
       const VIRTUAL_ROW_HEIGHT = 40;
       const TABLE_HEIGHT = 400;
       const ROOT_COUNT = 150;

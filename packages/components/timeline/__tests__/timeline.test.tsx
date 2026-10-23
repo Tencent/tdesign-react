@@ -37,7 +37,7 @@ describe('Timeline', () => {
       right: 't-timeline-right',
     };
     Object.entries(labelAlignClassNameMap).forEach(([enumValue, expectedClassName]) => {
-      test(`labelAlign is equal to ${enumValue}`, () => {
+      test(`labelAlign[${enumValue}]`, () => {
         let propValue: any = { true: true, false: false }[enumValue];
         propValue = propValue === undefined ? enumValue : propValue;
         const { container } = getTimelineDefaultMount({
@@ -47,43 +47,36 @@ describe('Timeline', () => {
       });
     });
 
-    test('labelAlign: layout=horizontal labelAlign=top works fine', () => {
-      const { container } = getTimelineDefaultMount({
-        layout: 'horizontal',
-        labelAlign: 'top',
+    (['top', 'bottom'] as const).forEach((item) => {
+      test(`labelAlign[${item}]`, () => {
+        const { container } = getTimelineDefaultMount({
+          layout: 'horizontal',
+          labelAlign: item,
+        });
+        expect(container.querySelector('.t-timeline')).toHaveClass(`t-timeline-${item}`);
       });
-      const domWrapper = container.querySelector('.t-timeline');
-      expect(domWrapper).toHaveClass('t-timeline-top');
-    });
-    test('labelAlign: layout=horizontal labelAlign=bottom works fine', () => {
-      const { container } = getTimelineDefaultMount({
-        layout: 'horizontal',
-        labelAlign: 'bottom',
-      });
-      const domWrapper = container.querySelector('.t-timeline');
-      expect(domWrapper).toHaveClass('t-timeline-bottom');
     });
 
     (['horizontal', 'vertical'] as const).forEach((item) => {
-      test(`layout is equal to ${item}`, () => {
+      test(`layout[${item}]`, () => {
         const { container } = getTimelineDefaultMount({ layout: item });
         expect(container.firstChild).toHaveClass(`t-timeline-${item}`);
       });
     });
 
     (['alternate', 'same'] as const).forEach((item) => {
-      test(`mode is equal to ${item}`, () => {
+      test(`mode[${item}]`, () => {
         const { container } = render(<Timeline mode={item}></Timeline>);
         expect(container.firstChild).toHaveClass(`t-timeline-label--${item}`);
       });
     });
 
-    test('reverse is equal true', () => {
+    test('reverse', () => {
       const { container } = getTimelineDefaultMount({ reverse: true });
       expect(container.querySelector('.t-timeline-item__content').textContent).toBe('Event4');
     });
 
-    test('theme is equal dot', () => {
+    test('theme[dot]', () => {
       const { container } = getTimelineDefaultMount({ theme: 'dot' });
       expect(container.querySelectorAll('.t-timeline-item__tail--theme-dot').length).toBe(4);
     });
@@ -99,7 +92,7 @@ describe('TimelineItem', () => {
       default: 't-timeline-item__dot--default',
     };
     Object.entries(dotColorClassNameMap).forEach(([enumValue, expectedClassName]) => {
-      test(`dotColor is equal to ${enumValue}`, () => {
+      test(`dotColor[${enumValue}]`, () => {
         let propValue: any = { true: true, false: false }[enumValue];
         propValue = propValue === undefined ? enumValue : propValue;
         const wrapper = render(<TimelineItem dotColor={propValue}></TimelineItem>);
@@ -108,18 +101,18 @@ describe('TimelineItem', () => {
       });
     });
 
-    test(`dotColor is equal to yellowgreen`, () => {
+    test('dotColor[yellowgreen]', () => {
       const { container } = render(<TimelineItem dotColor="yellowgreen"></TimelineItem>);
-      const domWrapper = container.querySelector('.t-timeline-item__dot');
+      const domWrapper = container.querySelector('.t-timeline-item__dot') as HTMLElement;
       expect(domWrapper.style.borderColor).toBe('yellowgreen');
     });
 
-    test.skip('labelAlign is equal left', () => {
+    test.skip('labelAlign[left]', () => {
       const { container } = getTimelineItemMount({ labelAlign: 'left' });
       expect(container.querySelectorAll('.t-timeline-item:first-child .t-timeline-item-left').length).toBe(1);
     });
 
-    test('loading: TimelineItem contains element `.t-timeline-item__dot .t-loading`', () => {
+    test('loading', () => {
       // loading default value is
       const { container } = render(<TimelineItem></TimelineItem>);
       expect(container.querySelector('.t-timeline-item__dot .t-loading')).toBeFalsy();
@@ -130,20 +123,16 @@ describe('TimelineItem', () => {
       const { container: container2 } = render(<TimelineItem loading={true}></TimelineItem>);
       expect(container2.querySelector('.t-timeline-item__dot .t-loading')).toBeTruthy();
     });
-    test('children', () => {
-      const { container } = render(
-        <TimelineItem>
-          <span className="custom-node">TNode</span>
-        </TimelineItem>,
-      );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-      expect(container).toMatchSnapshot();
-    });
 
-    test('content', () => {
-      const { container } = render(<TimelineItem content={<span className="custom-node">TNode</span>}></TimelineItem>);
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-      expect(container).toMatchSnapshot();
+    test('content and children', () => {
+      const node = <span className="custom-node">TNode</span>;
+      const contentWrapper = render(<TimelineItem content={node} />);
+      const childrenWrapper = render(<TimelineItem>{node}</TimelineItem>);
+
+      [contentWrapper, childrenWrapper].forEach(({ container }) => {
+        expect(container.querySelector('.custom-node')).toBeTruthy();
+        expect(container).toMatchSnapshot();
+      });
     });
 
     test('dot', () => {

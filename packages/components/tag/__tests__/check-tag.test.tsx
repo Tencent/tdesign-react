@@ -5,18 +5,13 @@ import { CheckTag } from '..';
 
 describe('CheckTag', () => {
   describe('props', () => {
-    test('children', () => {
-      const { container } = render(
-        <CheckTag>
-          <span className="custom-node">TNode</span>
-        </CheckTag>,
-      );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
+    test('content and children', () => {
+      const node = <span className="custom-node">TNode</span>;
+      const contentWrapper = render(<CheckTag content={node} />);
+      const childrenWrapper = render(<CheckTag>{node}</CheckTag>);
 
-    test('content', () => {
-      const { container } = render(<CheckTag content={<span className="custom-node">TNode</span>}></CheckTag>);
-      expect(container.querySelector('.custom-node')).toBeTruthy();
+      expect(contentWrapper.container.querySelector('.custom-node')).toBeTruthy();
+      expect(childrenWrapper.container.querySelector('.custom-node')).toBeTruthy();
     });
   });
 });

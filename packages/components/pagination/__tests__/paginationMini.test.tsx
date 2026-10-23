@@ -5,7 +5,7 @@ import PaginationMini from '../PaginationMini';
 
 describe('PaginationMini', () => {
   describe('props', () => {
-    test('PaginationMini: test Disabled', () => {
+    test('disabled[object]', () => {
       const disabledPrev = {
         prev: true,
         current: false,
@@ -33,7 +33,7 @@ describe('PaginationMini', () => {
       expect(next).toHaveClass('t-is-disabled');
     });
 
-    test('PaginationMini: test title', () => {
+    test('tips', () => {
       const { container } = render(<PaginationMini tips />);
       const prev = container.querySelector('.t-pagination-mini__prev');
       const current = container.querySelector('.t-pagination-mini__current');
@@ -44,7 +44,7 @@ describe('PaginationMini', () => {
       expect(next.getAttribute('title')).toBe('下一页');
     });
 
-    test('PaginationMini: size variant', () => {
+    test('size[small]', () => {
       const { container } = render(<PaginationMini size="small" />);
       container.querySelectorAll('.t-button').forEach((item) => {
         expect(item).toHaveClass('t-size-s');
@@ -52,10 +52,15 @@ describe('PaginationMini', () => {
 
       expect(container.querySelectorAll('.t-button').length).toBe(3);
     });
+
+    test('size[medium]', () => {
+      const wrapper = render(<PaginationMini />);
+      expect(() => wrapper.unmount()).not.toThrow();
+    });
   });
 
   describe('events', () => {
-    test('PaginationMini: test onChange', () => {
+    test('onChange', () => {
       const onChange = vi.fn();
       const { container } = render(<PaginationMini onChange={onChange} />);
       const prev = container.querySelector('.t-pagination-mini__prev');
@@ -68,14 +73,6 @@ describe('PaginationMini', () => {
       next?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
       expect(onChange.mock.calls[2][0].trigger).toBe('next');
       expect(onChange).toHaveBeenCalledTimes(3);
-    });
-  });
-
-  describe('scenarios', () => {
-    test('mount and unmount', () => {
-      const wrapper = render(<PaginationMini />);
-
-      expect(() => wrapper.unmount()).not.toThrow();
     });
   });
 });

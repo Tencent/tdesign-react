@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`AvatarGroup > props > cascading is equal to left-up 1`] = `
+exports[`AvatarGroup > props > cascading[left-up] 1`] = `
 <div>
   <div
     class="t-avatar-group t-avatar--offset-left"
@@ -8,7 +8,7 @@ exports[`AvatarGroup > props > cascading is equal to left-up 1`] = `
 </div>
 `;
 
-exports[`AvatarGroup > props > cascading is equal to right-up 1`] = `
+exports[`AvatarGroup > props > cascading[right-up] 1`] = `
 <div>
   <div
     class="t-avatar-group t-avatar--offset-right"
@@ -16,7 +16,7 @@ exports[`AvatarGroup > props > cascading is equal to right-up 1`] = `
 </div>
 `;
 
-exports[`AvatarGroup > props > collapseAvatar 1`] = `
+exports[`AvatarGroup > props > collapseAvatar[TNode] 1`] = `
 <div>
   <div
     class="t-avatar-group t-avatar--offset-right"
@@ -150,7 +150,11 @@ exports[`AvatarGroup > props > collapseAvatar 1`] = `
     </div>
     <div
       class="t-avatar t-avatar--circle t-avatar__icon"
-    />
+    >
+      <i
+        class="custom-node"
+      />
+    </div>
     <div
       class="t-avatar t-avatar__collapse t-avatar--circle"
     >
