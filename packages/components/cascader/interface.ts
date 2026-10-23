@@ -1,7 +1,7 @@
 import type { TreeOptionData } from '@tdesign/common-js/common';
-import type TreeNode from '@tdesign/common-js/tree-v1/tree-node';
-import type TreeStore from '@tdesign/common-js/tree-v1/tree-store';
-import type { TreeNodeModel, TreeNodeValue } from '@tdesign/common-js/tree-v1/types';
+import type TreeNode from '@tdesign/common-js/tree/tree-node';
+import type TreeStore from '@tdesign/common-js/tree/tree-store';
+import type { TreeNodeModel, TreeNodeValue } from '@tdesign/common-js/tree/types';
 import type { TdSelectInputProps } from '../select-input/type';
 import type { CascaderChangeSource, CascaderValue, TdCascaderProps } from './type';
 
@@ -39,8 +39,8 @@ export interface CascaderContextType extends Pick<
 export type { TdSelectInputProps } from '../select-input/type';
 export type { TreeNodeModel } from '../tree';
 export type { TreeOptionData } from '@tdesign/common-js/common';
-export { TreeNode } from '@tdesign/common-js/tree-v1/tree-node';
-export type { TreeNodeValue } from '@tdesign/common-js/tree-v1/types';
+export { TreeNode } from '@tdesign/common-js/tree/tree-node';
+export type { TreeNodeValue } from '@tdesign/common-js/tree/types';
 
 export const EVENT_NAME_WITH_KEBAB = ['remove', 'blur', 'focus'];
 

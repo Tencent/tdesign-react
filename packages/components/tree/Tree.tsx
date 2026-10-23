@@ -16,13 +16,8 @@ import useTreeVirtualScroll from './hooks/useTreeVirtualScroll';
 import TreeItem from './TreeItem';
 
 import type { MouseEvent, RefObject } from 'react';
-import type TreeNode from '@tdesign/common-js/tree-v1/tree-node';
-import type {
-  TreeNodeState,
-  TreeNodeValue,
-  TypeTreeNodeData,
-  TypeTreeNodeModel,
-} from '@tdesign/common-js/tree-v1/types';
+import type TreeNode from '@tdesign/common-js/tree/tree-node';
+import type { TreeNodeState, TreeNodeValue, TypeTreeItem, TypeTreeNodeModel } from '@tdesign/common-js/tree/types';
 import type { ComponentScrollToElementParams, StyledProps, TreeOptionData } from '../common';
 import type { TreeItemProps } from './interface';
 import type { TdTreeProps, TreeInstanceFunctions } from './type';
@@ -89,7 +84,10 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     (
       node: TreeNode,
       isExpanded: boolean,
-      ctx: { e?: MouseEvent<HTMLDivElement>; trigger: 'node-click' | 'icon-click' | 'setItem' },
+      ctx: {
+        e?: MouseEvent<HTMLDivElement>;
+        trigger: 'node-click' | 'icon-click' | 'setItem';
+      },
     ) => {
       const { e, trigger } = ctx;
       const expanded = node.setExpanded(isExpanded);
@@ -100,16 +98,22 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
   );
 
   // 因为是被 useImperativeHandle 依赖的方法，使用 usePersistFn 变成持久化的。或者也可以使用 useCallback
+  // 新版 common-js/tree 不再提供 setIndeterminate 方法，半选状态在组件层直接写入节点
+  // 保留旧版 setIndeterminate 的守卫语义：非可选节点、禁用节点不可设置半选状态
   const setIndeterminate = usePersistFn(
     (
       node: TreeNode,
       isIndeterminate: boolean,
-      ctx: { e?: MouseEvent<HTMLDivElement>; trigger: 'node-click' | 'icon-click' | 'setItem' },
+      ctx: {
+        e?: MouseEvent<HTMLDivElement>;
+        trigger: 'node-click' | 'icon-click' | 'setItem';
+      },
     ) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { e, trigger } = ctx;
-      const indeterminate = node.setIndeterminate(isIndeterminate);
-      return indeterminate;
+      if (!node.isCheckable() || node.isDisabled()) return;
+      node.indeterminate = isIndeterminate;
+      return node.indeterminate;
     },
   );
 
@@ -133,7 +137,10 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     (
       node: TreeNode,
       isActived: boolean,
-      ctx: { e?: MouseEvent<HTMLDivElement>; trigger: 'node-click' | 'setItem' },
+      ctx: {
+        e?: MouseEvent<HTMLDivElement>;
+        trigger: 'node-click' | 'setItem';
+      },
     ) => {
       const actived = node.setActived(isActived);
       const treeNodeModel = node?.getModel();
@@ -174,7 +181,11 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     if (!node || disabled || node.disabled) return;
     const checked = node.toggleChecked();
     const treeNodeModel = node?.getModel();
-    onChange?.(checked, { node: treeNodeModel, ...ctx, trigger: 'node-click' });
+    onChange?.(checked, {
+      node: treeNodeModel,
+      ...ctx,
+      trigger: 'node-click',
+    });
   };
 
   const handleScrollToElement = useCallback(
@@ -210,7 +221,9 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
           list = [newData];
         }
         list.forEach((item) => {
-          store.appendNodes(value, item);
+          // 数据值为树上已存节点时，视为移动该节点，否则视为新增节点数据
+          const node = store.getNode(item?.value);
+          store.appendNodes(value, node || item);
         });
       },
       getIndex(value: TreeNodeValue): number {
@@ -241,10 +254,12 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
         return pathNodes;
       },
       insertAfter(value: TreeNodeValue, newData: TreeOptionData): void {
-        return store.insertAfter(value, newData as TypeTreeNodeData);
+        const node = store.getNode(newData?.value);
+        return store.insertAfter(value, (node || newData) as TypeTreeItem);
       },
       insertBefore(value: TreeNodeValue, newData: TreeOptionData): void {
-        return store.insertBefore(value, newData as TypeTreeNodeData);
+        const node = store.getNode(newData?.value);
+        return store.insertBefore(value, (node || newData) as TypeTreeItem);
       },
       remove(value: TreeNodeValue): void {
         return store.remove(value);
@@ -268,7 +283,9 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
           if ('indeterminate' in options) {
             // @ts-ignore
             setTreeIndeterminate((prevIndeterminate: TreeNodeValue[]) => [...prevIndeterminate, value]);
-            setIndeterminate(node, spec.indeterminate, { trigger: 'setItem' });
+            setIndeterminate(node, spec.indeterminate, {
+              trigger: 'setItem',
+            });
             delete spec.indeterminate;
           }
           node.set(spec);

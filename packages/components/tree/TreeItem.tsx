@@ -14,8 +14,8 @@ import useDraggable from './hooks/useDraggable';
 import { useTreeConfig } from './hooks/useTreeConfig';
 
 import type { CSSProperties, DragEvent, DragEventHandler, MouseEvent, ReactNode } from 'react';
-import type TreeNode from '@tdesign/common-js/tree-v1/tree-node';
-import type { TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
+import type TreeNode from '@tdesign/common-js/tree/tree-node';
+import type { TypeTreeNodeData, TypeTreeNodeModel } from '@tdesign/common-js/tree/types';
 import type { CheckboxProps } from '../checkbox';
 import type { TreeItemProps } from './interface';
 import type { TdTreeProps } from './type';
@@ -213,16 +213,15 @@ const TreeItem = forwardRef(
       const emptyView = locale('empty');
       let labelText: string | ReactNode = '';
       if (label instanceof Function) {
-        const { setData: nodeSetData, ...rest } = node.getModel();
-        labelText =
-          label({
-            ...rest,
-            // 拦截setData render tree-item
-            setData: (value: TypeTreeNodeData) => {
-              nodeSetData(value);
-              updateRender({});
-            },
-          }) || emptyView;
+        // 新版 TreeNodeModel 是 class 实例，属性通过 getter 挂在原型上，解构和展开均无法读取
+        // 通过原型链继承构造渲染用模型，保证其余属性可正常访问，同时拦截 setData 以触发组件刷新
+        const treeNodeModel = node.getModel();
+        const labelRenderModel = Object.create(treeNodeModel) as TypeTreeNodeModel;
+        labelRenderModel.setData = (value: TypeTreeNodeData) => {
+          treeNodeModel.setData(value);
+          updateRender({});
+        };
+        labelText = label(labelRenderModel) || emptyView;
       } else {
         labelText = node.label || emptyView;
       }
