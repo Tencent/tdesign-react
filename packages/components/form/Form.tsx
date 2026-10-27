@@ -1,19 +1,18 @@
-import React, { useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import classNames from 'classnames';
 
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import noop from '../_util/noop';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
-import useLayoutEffect from '../hooks/useLayoutEffect';
 import { formDefaultProps } from './defaultProps';
 import FormContext from './FormContext';
 import FormItem from './FormItem';
 import FormList from './FormList';
 import useForm, { HOOK_MARK } from './hooks/useForm';
 import useInstance from './hooks/useInstance';
+import useLastFormItem from './hooks/useLastFormItem';
 import useWatch from './hooks/useWatch';
-import { resolveLastFormItems } from './utils/lastFormItem';
 
 import type { StyledProps } from '../common';
 import type { TdFormProps } from './type';
@@ -56,67 +55,11 @@ const Form = forwardRefWithStatics(
     const [form] = useForm(props.form); // 内部与外部共享 form 实例，外部不传则内部创建
     const formRef = useRef<HTMLFormElement>(null);
     const formMapRef = useRef(new Map()); // 收集所有包含 name 属性 formItem 实例
-    const formItemElementsRef = useRef(new Set<HTMLElement>()); // 收集所有参与布局的 FormItem
-    const lastFormItemsRef = useRef(new Set<HTMLElement>());
     const floatingFormDataRef = useRef({}); // 储存游离值的 formData
     const mountedFieldsRef = useRef<Set<string>>(new Set()); // Form 生命周期内所有曾经被 FormItem 挂载过的字段（fullPath 序列化后的字符串）
 
     const formInstance = useInstance(props, formRef, formMapRef, floatingFormDataRef, form);
-
-    const refreshLastFormItem = useCallback(() => {
-      const formElement = formRef.current;
-      const lastClassName = `${classPrefix}-form__item--last`;
-      const nextLastItems = new Set<HTMLElement>();
-
-      if (layout !== 'inline' && formElement) {
-        resolveLastFormItems(formElement, formItemElementsRef.current, `${classPrefix}-form__item`).forEach((item) => {
-          nextLastItems.add(item);
-        });
-      }
-
-      lastFormItemsRef.current.forEach((item) => {
-        if (!nextLastItems.has(item)) item.classList.remove(lastClassName);
-      });
-      nextLastItems.forEach((item) => {
-        if (!lastFormItemsRef.current.has(item)) item.classList.add(lastClassName);
-      });
-      lastFormItemsRef.current = nextLastItems;
-    }, [classPrefix, layout]);
-
-    const registerFormItem = useCallback(
-      (node: HTMLElement) => {
-        formItemElementsRef.current.add(node);
-        refreshLastFormItem();
-
-        return () => {
-          formItemElementsRef.current.delete(node);
-          node.classList.remove(`${classPrefix}-form__item--last`);
-          lastFormItemsRef.current.delete(node);
-          refreshLastFormItem();
-        };
-      },
-      [classPrefix, refreshLastFormItem],
-    );
-
-    useLayoutEffect(() => {
-      const formElement = formRef.current;
-      if (!formElement) return;
-
-      refreshLastFormItem();
-
-      const observer = new MutationObserver(refreshLastFormItem);
-      observer.observe(formElement, { childList: true, subtree: true });
-
-      const resizeObserver = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(refreshLastFormItem);
-      resizeObserver?.observe(formElement);
-
-      return () => {
-        observer.disconnect();
-        resizeObserver?.disconnect();
-        lastFormItemsRef.current.forEach((item) => item.classList.remove(`${classPrefix}-form__item--last`));
-        lastFormItemsRef.current.clear();
-      };
-    }, [classPrefix, refreshLastFormItem]);
+    const registerFormItem = useLastFormItem(formRef, layout, classPrefix);
 
     useImperativeHandle(ref, () => formInstance);
     Object.assign(form, { ...formInstance });

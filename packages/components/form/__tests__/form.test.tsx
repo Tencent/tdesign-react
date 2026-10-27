@@ -4,6 +4,7 @@ import { fireEvent, mockDelay, mockTimeout, render, vi } from '@test/utils';
 
 import Button from '../../button';
 import Checkbox from '../../checkbox';
+import { Col, Row } from '../../grid';
 import Input from '../../input';
 import InputNumber from '../../input-number';
 import Radio from '../../radio';
@@ -904,6 +905,7 @@ describe('Form', () => {
         <Button type="submit">submit</Button>
       </FormItem>
     );
+    const contentBoxStyle = { paddingBottom: 16 };
 
     const expectOnlyLastMarked = (container: HTMLElement) => {
       const formItems = getFormItems(container);
@@ -986,23 +988,83 @@ describe('Form', () => {
       expectNoneMarked(container);
     });
 
-    test('shared non-form parent marks both the group tail and the form tail', () => {
+    test('layout wrappers do not mark a group tail', () => {
       const { container } = render(
         <Form>
-          <div>
-            <FormItem name="first">
-              <Input />
-            </FormItem>
-            <FormItem name="second">
-              <Input />
-            </FormItem>
-          </div>
+          <div>{fields}</div>
+          {actionItem}
+        </Form>,
+      );
+      expectOnlyLastMarked(container);
+    });
+
+    test('content box marks its last row when nothing follows inside', () => {
+      const { container } = render(
+        <Form>
+          <div style={contentBoxStyle}>{fields}</div>
           {actionItem}
         </Form>,
       );
       const formItems = getFormItems(container);
       expect(formItems[0]).not.toHaveClass('t-form__item--last');
       expect(formItems[1]).toHaveClass('t-form__item--last');
+      expect(formItems[2]).toHaveClass('t-form__item--last');
+    });
+
+    test('content box keeps spacing when actions stay inside', () => {
+      const { container } = render(
+        <Form>
+          <div style={contentBoxStyle}>
+            {fields}
+            <Button type="submit">submit</Button>
+          </div>
+        </Form>,
+      );
+      expectNoneMarked(container);
+    });
+
+    test('Col wrapping does not mark a group tail', () => {
+      const { container } = render(
+        <Form>
+          <Row>
+            <Col span={6}>{fields}</Col>
+            <Col span={6}>
+              <FormItem name="third">
+                <Input />
+              </FormItem>
+            </Col>
+          </Row>
+          <Button type="submit">submit</Button>
+        </Form>,
+      );
+      expectNoneMarked(container);
+    });
+
+    test('validate re-render keeps --last on the content box tail', async () => {
+      const Demo = () => {
+        const [form] = Form.useForm();
+        useEffect(() => {
+          form.validate();
+        }, [form]);
+        return (
+          <Form
+            form={form}
+            rules={{
+              first: [{ required: true, message: 'required', type: 'error' }],
+              second: [{ required: true, message: 'required', type: 'error' }],
+            }}
+          >
+            <div style={contentBoxStyle}>{fields}</div>
+            {actionItem}
+          </Form>
+        );
+      };
+
+      const { container } = render(<Demo />);
+      await mockDelay();
+      const formItems = getFormItems(container);
+      expect(formItems[1]).toHaveClass('t-form__item--last');
+      expect(formItems[1]).toHaveClass('t-form__item-with-extra');
       expect(formItems[2]).toHaveClass('t-form__item--last');
     });
 
