@@ -11,7 +11,7 @@
   "author": "tdesign",
   "license": "MIT",
   "dependencies": {
-    "@tdesign/site-components": "^0.20.2",
+    "@tdesign/site-components": "^0.20.3",
     "@tdesign/theme-generator": "^1.2.1",
     "lodash-es": "^4.17.21",
     "react": "^18.2.0",
