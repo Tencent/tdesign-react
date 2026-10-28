@@ -15,6 +15,7 @@ import { dialogDefaultProps } from './defaultProps';
 import DialogCard from './DialogCard';
 import useDialogDrag from './hooks/useDialogDrag';
 import useDialogEsc from './hooks/useDialogEsc';
+import useDialogFocus from './hooks/useDialogFocus';
 import useDialogPosition from './hooks/useDialogPosition';
 import useLockStyle from './hooks/useLockStyle';
 
@@ -80,6 +81,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     lazy,
     top,
     placement,
+    focusable,
     ...restState
   } = mergedState;
 
@@ -91,6 +93,13 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
 
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
   const { activateDialog } = useDialogEsc(visible, wrapRef);
+  const { focusDialog, restoreTriggerFocus } = useDialogFocus({
+    visible,
+    componentCls,
+    dialogRef: wrapRef,
+    dialogCardRef,
+    focusable,
+  });
   const { applyTransform } = useDialogPosition(dialogCardRef);
   const { isInputInteracting } = useDialogDrag({
     dialogCardRef,
@@ -102,8 +111,9 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     dialogCardRef.current.style.display = dialogAnimationVisible ? 'block' : 'none';
 
     if (dialogAnimationVisible) {
-      activateDialog();
+      activateDialog(false);
       applyTransform();
+      focusDialog();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dialogAnimationVisible]);
@@ -181,6 +191,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   };
 
   const onAnimateLeave = () => {
+    restoreTriggerFocus();
     onClosed?.();
     if (!wrapRef.current) return;
     wrapRef.current.style.display = 'none';

@@ -54,6 +54,97 @@ describe('Dialog', () => {
 
       expect(container.querySelector('.t-dialog__header')).toBeNull();
     });
+
+    describe('focusable', () => {
+      (['confirm-button', 'cancel-button'] as const).forEach((defaultFocus) => {
+        test(`defaultFocus[${defaultFocus}]`, () => {
+          render(<Dialog visible focusable={{ defaultFocus, focusTriggerAfterClose: false }} />);
+
+          const className = defaultFocus === 'confirm-button' ? 't-dialog__confirm' : 't-dialog__cancel';
+          expect(document.activeElement).toHaveClass(className);
+        });
+      });
+
+      test('defaultFocus[function]', () => {
+        render(
+          <Dialog
+            visible
+            focusable={{
+              defaultFocus: () => document.querySelector('#custom-dialog-focus'),
+              focusTriggerAfterClose: false,
+            }}
+          >
+            <input id="custom-dialog-focus" />
+          </Dialog>,
+        );
+
+        expect(document.activeElement).toHaveAttribute('id', 'custom-dialog-focus');
+      });
+
+      test('defaultFocus[null]', () => {
+        const opener = document.createElement('button');
+        document.body.appendChild(opener);
+        opener.focus();
+
+        render(<Dialog visible focusable={{ defaultFocus: null, focusTriggerAfterClose: false }} />);
+
+        expect(document.activeElement).toBe(opener);
+        opener.remove();
+      });
+
+      test('focusTrap', async () => {
+        render(
+          <>
+            <button data-testid="outside-focus">Outside</button>
+            <Dialog
+              visible
+              focusable={{
+                defaultFocus: 'confirm-button',
+                focusTrap: true,
+                focusTriggerAfterClose: false,
+              }}
+            >
+              <button data-testid="body-focus">Body action</button>
+            </Dialog>
+          </>,
+        );
+
+        expect(document.activeElement).toHaveClass('t-dialog__confirm');
+        await user.tab();
+        expect(document.activeElement).toHaveAttribute('data-testid', 'body-focus');
+
+        document.querySelector<HTMLElement>('[data-testid="outside-focus"]').focus();
+        expect(document.activeElement).not.toHaveAttribute('data-testid', 'outside-focus');
+        expect(document.querySelector('.t-dialog')).toContainElement(document.activeElement as HTMLElement);
+      });
+
+      test('focusTriggerAfterClose', async () => {
+        function FocusRestoreDemo() {
+          const [visible, setVisible] = useState(false);
+          return (
+            <>
+              <button onClick={() => setVisible(true)}>Open focus dialog</button>
+              <Dialog
+                visible={visible}
+                focusable={{
+                  defaultFocus: 'confirm-button',
+                  focusTriggerAfterClose: true,
+                }}
+                onClose={() => setVisible(false)}
+              />
+            </>
+          );
+        }
+
+        const { getByText } = render(<FocusRestoreDemo />);
+        const opener = getByText('Open focus dialog');
+        await user.click(opener);
+        expect(document.activeElement).toHaveClass('t-dialog__confirm');
+
+        fireEvent.click(document.querySelector('.t-dialog__close'));
+        await mockTimeout(() => expect(document.activeElement).toBe(opener), 400);
+      });
+    });
   });
 
   describe('events', () => {
@@ -134,6 +225,38 @@ describe('Dialog', () => {
       expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
     });
 
+    test('keyboard open uses the trigger center as the dialog transform origin', async () => {
+      function KeyboardOpenDemo() {
+        const [visible, setVisible] = useState(false);
+        return (
+          <>
+            <button onClick={() => setVisible(true)}>Open by keyboard</button>
+            <Dialog visible={visible} onClose={() => setVisible(false)} />
+          </>
+        );
+      }
+
+      const { getByText } = render(<KeyboardOpenDemo />);
+      const trigger = getByText('Open by keyboard');
+      vi.spyOn(trigger, 'getBoundingClientRect').mockReturnValue({
+        x: 100,
+        y: 200,
+        left: 100,
+        top: 200,
+        right: 180,
+        bottom: 240,
+        width: 80,
+        height: 40,
+        toJSON: () => ({}),
+      });
+      trigger.focus();
+      await user.keyboard('{Enter}');
+
+      expect(document.querySelector('.t-dialog')).toHaveStyle({
+        transformOrigin: '140px 220px',
+      });
+    });
+
     test('close button hides the visible modal', async () => {
       const { getByText } = render(<DialogDemo mode="modal" draggable={false} />);
       fireEvent.click(getByText('Open Dialog Modal'));
@@ -198,6 +321,26 @@ describe('Dialog', () => {
   });
 
   describe('instanceFunctions', () => {
+    test('DialogPlugin.focusable', async () => {
+      const trigger = document.createElement('button');
+      document.body.appendChild(trigger);
+      trigger.focus();
+
+      const pluginDialog = DialogPlugin.confirm({
+        header: 'Focusable Plugin Dialog',
+        focusable: {
+          defaultFocus: 'confirm-button',
+          focusTrap: true,
+          focusTriggerAfterClose: true,
+        },
+      });
+
+      await mockTimeout(() => expect(document.activeElement).toHaveClass('t-dialog__confirm'), 100);
+      pluginDialog.hide();
+      await mockTimeout(() => expect(document.activeElement).toBe(trigger), 500);
+      trigger.remove();
+    });
+
     test('DialogPlugin', async () => {
       const showDialog = () => {
         const myDialog = DialogPlugin({

@@ -4,6 +4,8 @@ import type { MutableRefObject } from 'react';
 
 const dialogStack: MutableRefObject<HTMLDivElement>[] = [];
 
+export const isTopDialog = (dialog: MutableRefObject<HTMLDivElement>) => dialogStack[dialogStack.length - 1] === dialog;
+
 const useDialogEsc = (visible: boolean, dialog: MutableRefObject<HTMLDivElement>) => {
   const addedToStackRef = useRef<boolean>(false);
 
@@ -14,13 +16,16 @@ const useDialogEsc = (visible: boolean, dialog: MutableRefObject<HTMLDivElement>
     }
   }, []);
 
-  const activateDialog = useCallback(() => {
-    if (dialog?.current && !addedToStackRef.current) {
-      dialogStack.push(dialog);
-      addedToStackRef.current = true;
-      focusTopDialog();
-    }
-  }, [dialog, focusTopDialog]);
+  const activateDialog = useCallback(
+    (autoFocus = true) => {
+      if (dialog?.current && !addedToStackRef.current) {
+        dialogStack.push(dialog);
+        addedToStackRef.current = true;
+        autoFocus && focusTopDialog();
+      }
+    },
+    [dialog, focusTopDialog],
+  );
 
   useEffect(() => {
     if (!visible && addedToStackRef.current) {

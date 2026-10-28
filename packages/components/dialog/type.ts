@@ -65,6 +65,10 @@ export interface TdDialogProps {
    */
   draggable?: boolean;
   /**
+   * 对话框焦点控制。`focusable.defaultFocus` 指定打开后默认聚焦的目标。`focusable.focusTrap` 是否将焦点限制在对话框内。`focusable.focusTriggerAfterClose` 关闭后是否把焦点交还给触发元素。
+   */
+  focusable?: DialogFocusable;
+  /**
    * 底部操作栏，默认会有“确认”和“取消”两个按钮。值为 true 显示默认操作按钮，值为 false 不显示任何内容，值类型为 Function 表示自定义底部内容
    * @default true
    */
@@ -227,6 +231,12 @@ export interface DialogInstance {
    * 更新弹框内容
    */
   update: (props: DialogOptions) => void;
+}
+
+export interface DialogFocusable {
+  defaultFocus?: null | 'confirm-button' | 'cancel-button' | (() => HTMLElement | null);
+  focusTrap?: boolean;
+  focusTriggerAfterClose: boolean;
 }
 
 export type DialogEventSource = 'esc' | 'close-btn' | 'cancel' | 'overlay';

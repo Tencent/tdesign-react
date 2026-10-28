@@ -1,5 +1,7 @@
 :: BASE_DOC ::
 
+Plugin options use the `DialogOptions` type. `attach`, `className`, and `style` are listed separately, while the remaining props, including `focusable`, are inherited through `Omit<DialogProps, 'attach'>`.
+
 ## API
 
 ### DialogCard Props
@@ -30,6 +32,7 @@ confirmOnEnter | Boolean | - | confirm on enter | N
 destroyOnClose | Boolean | false | \- | N
 dialogClassName | String / Object / Array | - | The class name for the popover content section, supporting multiple formats: string (e.g., `'name1 name2 name3'`), array (e.g., `['name1', 'name2']`), or array of objects (e.g., `[{ 'name1': true }]`)。Typescript: `ClassName`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 draggable | Boolean | false | not effective in `full-screen` mode | N
+focusable | Object | - | Controls Dialog focus behavior. `defaultFocus` targets the confirm button, cancel button, or a custom element returned by a function; use `null` to avoid moving focus automatically. When `focusTrap` is `true`, focus stays inside the active Dialog. `focusTriggerAfterClose` determines whether focus returns to the trigger after closing. Typescript: `DialogFocusable` `interface DialogFocusable { defaultFocus?: null \| 'confirm-button' \| 'cancel-button' \| (() => HTMLElement \| null); focusTrap?: boolean; focusTriggerAfterClose: boolean }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/dialog/type.ts) | N
 footer | TNode | true | Typescript: `boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 header | TNode | true | Typescript: `string \| boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 lazy | Boolean | true | Enable Dialog lazy loading, the contents of the dialog box are not rendered when enable | N
