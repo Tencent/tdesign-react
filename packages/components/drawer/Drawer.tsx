@@ -11,6 +11,7 @@ import useAttach from '../hooks/useAttach';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
+import useOverlayManager from '../hooks/useOverlayManager';
 import useSetState from '../hooks/useSetState';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { drawerDefaultProps } from './defaultProps';
@@ -87,6 +88,11 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
   const drawerWrapperRef = useRef<HTMLElement>(null); // 即最终的 attach dom，默认为 document.body
   const prefixCls = `${classPrefix}-drawer`;
 
+  const { isTopOverlay } = useOverlayManager('drawer', {
+    visible,
+    getElement: () => containerRef.current,
+  });
+
   const closeIcon = isValidElement(closeBtn) ? closeBtn : <CloseIcon />;
   const { dragSizeValue, enableDrag, draggableLineStyles, draggingStyles } = useDrag(
     placement,
@@ -129,7 +135,7 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     onClose?.({ e, trigger: CloseTriggerType.CLICK_CLOSE_BTN });
   }
   function onKeyDownEsc(e: React.KeyboardEvent<HTMLDivElement>) {
-    if (e.key !== 'Escape') return;
+    if (e.key !== 'Escape' || !isTopOverlay()) return;
 
     onEscKeydown?.({ e });
     (closeOnEscKeydown ?? local.closeOnEscKeydown) && onClose?.({ e, trigger: CloseTriggerType.KEYDOWN_ESC });

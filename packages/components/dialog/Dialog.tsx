@@ -9,12 +9,12 @@ import Portal from '../common/Portal';
 import useAttach from '../hooks/useAttach';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useOverlayManager from '../hooks/useOverlayManager';
 import useSetState from '../hooks/useSetState';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { dialogDefaultProps } from './defaultProps';
 import DialogCard from './DialogCard';
 import useDialogDrag from './hooks/useDialogDrag';
-import useDialogEsc from './hooks/useDialogEsc';
 import useDialogFocus from './hooks/useDialogFocus';
 import useDialogPosition from './hooks/useDialogPosition';
 import useLockStyle from './hooks/useLockStyle';
@@ -24,6 +24,8 @@ import type { DialogInstance, TdDialogProps } from './type';
 
 export interface DialogProps extends TdDialogProps, StyledProps {
   isPlugin?: boolean; // 是否以插件形式调用
+  /** @internal */
+  onUnhandledKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
 }
 
 const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
@@ -82,6 +84,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     top,
     placement,
     focusable,
+    onUnhandledKeyDown,
     ...restState
   } = mergedState;
 
@@ -92,13 +95,17 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const [dialogAnimationVisible, setDialogAnimationVisible] = useState(false);
 
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
-  const { activateDialog } = useDialogEsc(visible, wrapRef);
+  const { isTopOverlay } = useOverlayManager('dialog', {
+    visible,
+    getElement: () => wrapRef.current,
+  });
   const { focusDialog, restoreTriggerFocus } = useDialogFocus({
     visible,
-    componentCls,
+    classPrefix,
     dialogRef: wrapRef,
     dialogCardRef,
     focusable,
+    isTop: isTopOverlay,
   });
   const { applyTransform } = useDialogPosition(dialogCardRef);
   const { isInputInteracting } = useDialogDrag({
@@ -111,7 +118,6 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     dialogCardRef.current.style.display = dialogAnimationVisible ? 'block' : 'none';
 
     if (dialogAnimationVisible) {
-      activateDialog(false);
       applyTransform();
       focusDialog();
     }
@@ -169,6 +175,8 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!isTopOverlay()) return;
+
     // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
     if (e.key === 'Escape') {
       e.stopPropagation();
@@ -180,6 +188,8 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
       // 回车键触发点击确认事件
       e.stopPropagation();
       confirmOnEnter && onConfirm?.({ e });
+    } else {
+      onUnhandledKeyDown?.(e);
     }
   };
 
