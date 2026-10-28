@@ -5,7 +5,7 @@ import { usePersistFn } from '../../hooks/usePersistFn';
 import { useTreeDraggableContext } from './TreeDraggableContext';
 
 import type { DragEvent, RefObject } from 'react';
-import type { TreeNode } from '@tdesign/common-js/tree-v1/tree-node';
+import type { TreeNode } from '@tdesign/common-js/tree/tree-node';
 import type { DropPosition } from '../interface';
 import type { TdTreeProps } from '../type';
 
