@@ -14,6 +14,7 @@ import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useImagePreviewUrl from '../hooks/useImagePreviewUrl';
+import useLatest from '../hooks/useLatest';
 import useOverlayManager from '../hooks/useOverlayManager';
 import Image from '../image';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
@@ -577,7 +578,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   }, [onResetMirror, onResetScale, onResetRotate]);
 
   // 用 ref 保存最新的 handlers，避免 keydown listener 因闭包 stale 而丢失事件
-  const keyHandlersRef = useRef({
+  const keyHandlersRef = useLatest({
     next,
     prev,
     onZoomIn,
@@ -585,25 +586,20 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
     onClose,
     closeOnEscKeydown,
   });
-  keyHandlersRef.current = {
-    next,
-    prev,
-    onZoomIn,
-    onZoomOut,
-    onClose,
-    closeOnEscKeydown,
-  };
 
-  const handleNavigationKey = useCallback((key: string) => {
-    const handlers = keyHandlersRef.current;
-    const keyActionMap: Partial<Record<string, () => void>> = {
-      ArrowRight: () => handlers.next(),
-      ArrowLeft: () => handlers.prev(),
-      ArrowUp: () => handlers.onZoomIn(),
-      ArrowDown: () => handlers.onZoomOut(),
-    };
-    keyActionMap[key]?.();
-  }, []);
+  const handleNavigationKey = useCallback(
+    (key: string) => {
+      const handlers = keyHandlersRef.current;
+      const keyActionMap: Partial<Record<string, () => void>> = {
+        ArrowRight: () => handlers.next(),
+        ArrowLeft: () => handlers.prev(),
+        ArrowUp: () => handlers.onZoomIn(),
+        ArrowDown: () => handlers.onZoomOut(),
+      };
+      keyActionMap[key]?.();
+    },
+    [keyHandlersRef],
+  );
 
   const onKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -620,7 +616,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
       }
       handleNavigationKey(event.key);
     },
-    [handleNavigationKey, isTopOverlay],
+    [handleNavigationKey, isTopOverlay, keyHandlersRef],
   );
 
   // 弹窗可见时绑定键盘事件，关闭后解绑
