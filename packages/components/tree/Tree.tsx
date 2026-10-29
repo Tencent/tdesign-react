@@ -3,7 +3,6 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import { get } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
-import { privateKey } from '@tdesign/common-js/tree-v1/tree-node';
 
 import parseTNode from '../_util/parseTNode';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -301,7 +300,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
           {renderNode.map((node, index) => (
             <TreeItem
               ref={nodeList[index]}
-              key={node[privateKey]}
+              key={`${typeof node.value}:${node.value}`}
               node={node}
               keys={props.keys}
               empty={empty}
@@ -330,7 +329,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
           // https://github.com/reactjs/react-transition-group/issues/668
           <CSSTransition
             nodeRef={nodeList[index]}
-            key={node[privateKey]}
+            key={`${typeof node.value}:${node.value}`}
             timeout={transitionDuration}
             classNames={transitionClassNames}
           >
