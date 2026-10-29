@@ -5,7 +5,7 @@ import Pagination from '../index';
 
 describe('Pagination', () => {
   describe('props', () => {
-    test('totalContent[string] and totalContent[function]', () => {
+    test('totalContent[string/function]', () => {
       const { getByText, rerender } = render(<Pagination total={100} defaultPageSize={5} totalContent="总条数" />);
       expect(getByText('总条数')).toBeInTheDocument();
 
