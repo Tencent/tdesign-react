@@ -211,100 +211,158 @@ describe('Dialog', () => {
   });
 
   describe('scenarios', () => {
-    test('ConfigContext applies global dialog placement and zIndex', () => {
-      render(
-        <ConfigContext.Provider
-          value={{
-            globalConfig: {
-              ...defaultGlobalConfig,
-              dialog: {
-                ...(defaultGlobalConfig.dialog || {}),
-                placement: 'center',
-                zIndex: 4321,
-              },
-            },
-          }}
-        >
-          <Dialog header="Global Config" body="This is a dialog" visible />
-        </ConfigContext.Provider>,
-      );
+    describe('ConfigContext', () => {
+      test('placement and zIndex', () => {
+        const globalConfig = {
+          ...defaultGlobalConfig,
+          dialog: {
+            ...(defaultGlobalConfig.dialog || {}),
+            placement: 'center' as const,
+            zIndex: 4321,
+          },
+        };
+        const { rerender } = render(
+          <ConfigContext.Provider value={{ globalConfig }}>
+            <Dialog header="Global Config" body="This is a dialog" visible />
+          </ConfigContext.Provider>,
+        );
 
-      expect(document.querySelector('.t-dialog--center')).toBeInTheDocument();
-      expect(document.querySelector('.t-dialog--top')).not.toBeInTheDocument();
-      expect(document.querySelector('.t-dialog__ctx')).toHaveStyle({
-        zIndex: '4321',
+        expect(document.querySelector('.t-dialog--center')).toBeInTheDocument();
+        expect(document.querySelector('.t-dialog--top')).not.toBeInTheDocument();
+        expect(document.querySelector('.t-dialog__ctx')).toHaveStyle({
+          zIndex: '4321',
+        });
+
+        rerender(
+          <ConfigContext.Provider value={{ globalConfig }}>
+            <Dialog header="Global Config" body="This is a dialog" visible placement="top" zIndex={1234} />
+          </ConfigContext.Provider>,
+        );
+
+        expect(document.querySelector('.t-dialog--top')).toBeInTheDocument();
+        expect(document.querySelector('.t-dialog--center')).not.toBeInTheDocument();
+        expect(document.querySelector('.t-dialog__ctx')).toHaveStyle({
+          zIndex: '1234',
+        });
       });
-    });
 
-    test('confirmBtnTheme maps dialog theme to the confirm button', () => {
-      const { unmount } = render(<Dialog header="Danger" theme="danger" visible />);
-      expect(document.querySelector('.t-dialog__confirm')).toHaveClass('t-button--theme-primary');
-      unmount();
+      test('confirmBtnTheme', () => {
+        const { unmount } = render(<Dialog header="Danger" theme="danger" visible />);
+        expect(document.querySelector('.t-dialog__confirm')).toHaveClass('t-button--theme-primary');
+        unmount();
 
-      const { unmount: unmountMapped } = render(
-        <ConfigContext.Provider
-          value={{
-            globalConfig: {
-              ...defaultGlobalConfig,
-              dialog: {
-                ...defaultGlobalConfig.dialog,
-                confirmBtnTheme: {
-                  ...defaultGlobalConfig.dialog?.confirmBtnTheme,
-                  danger: 'danger',
+        const { unmount: unmountMapped } = render(
+          <ConfigContext.Provider
+            value={{
+              globalConfig: {
+                ...defaultGlobalConfig,
+                dialog: {
+                  ...defaultGlobalConfig.dialog,
+                  confirmBtnTheme: {
+                    ...defaultGlobalConfig.dialog?.confirmBtnTheme,
+                    danger: 'danger',
+                  },
                 },
               },
-            },
-          }}
-        >
-          <Dialog header="Danger" theme="danger" visible />
-        </ConfigContext.Provider>,
-      );
-      expect(document.querySelector('.t-dialog__confirm')).toHaveClass('t-button--theme-danger');
-      unmountMapped();
+            }}
+          >
+            <Dialog header="Danger" theme="danger" visible />
+          </ConfigContext.Provider>,
+        );
+        expect(document.querySelector('.t-dialog__confirm')).toHaveClass('t-button--theme-danger');
+        unmountMapped();
 
-      render(
-        <ConfigContext.Provider
-          value={{
-            globalConfig: {
-              ...defaultGlobalConfig,
-              dialog: {
-                ...defaultGlobalConfig.dialog,
-                confirmBtnTheme: {
-                  ...defaultGlobalConfig.dialog?.confirmBtnTheme,
-                  danger: 'danger',
+        render(
+          <ConfigContext.Provider
+            value={{
+              globalConfig: {
+                ...defaultGlobalConfig,
+                dialog: {
+                  ...defaultGlobalConfig.dialog,
+                  confirmBtnTheme: {
+                    ...defaultGlobalConfig.dialog?.confirmBtnTheme,
+                    danger: 'danger',
+                  },
                 },
               },
-            },
-          }}
-        >
-          <Dialog header="Danger" theme="danger" visible confirmBtn={{ theme: 'warning', content: '继续' }} />
-        </ConfigContext.Provider>,
-      );
-      expect(document.querySelector('.t-dialog__confirm')).toHaveClass('t-button--theme-warning');
-    });
+            }}
+          >
+            <Dialog header="Danger" theme="danger" visible confirmBtn={{ theme: 'warning', content: '继续' }} />
+          </ConfigContext.Provider>,
+        );
+        expect(document.querySelector('.t-dialog__confirm')).toHaveClass('t-button--theme-warning');
+      });
 
-    test('placement and zIndex override ConfigContext defaults', () => {
-      render(
-        <ConfigContext.Provider
-          value={{
-            globalConfig: {
-              ...defaultGlobalConfig,
-              dialog: {
-                ...(defaultGlobalConfig.dialog || {}),
-                placement: 'center',
-                zIndex: 4321,
-              },
-            },
-          }}
-        >
-          <Dialog header="Global Config" body="This is a dialog" visible placement="top" zIndex={1234} />
-        </ConfigContext.Provider>,
-      );
+      test('confirmOnEnter', () => {
+        const onConfirm = vi.fn();
+        const globalConfig = {
+          ...defaultGlobalConfig,
+          dialog: {
+            ...defaultGlobalConfig.dialog,
+            confirmOnEnter: true,
+          },
+        };
+        const { rerender } = render(
+          <ConfigContext.Provider value={{ globalConfig }}>
+            <Dialog header="Global Config" visible onConfirm={onConfirm} />
+          </ConfigContext.Provider>,
+        );
 
-      expect(document.querySelector('.t-dialog--top')).toBeInTheDocument();
-      expect(document.querySelector('.t-dialog--center')).not.toBeInTheDocument();
-      expect(document.querySelector('.t-dialog__ctx')).toHaveStyle({
-        zIndex: '1234',
+        fireEvent.keyDown(document.querySelector('.t-dialog__ctx'), {
+          key: 'Enter',
+        });
+        expect(onConfirm).toHaveBeenCalledTimes(1);
+
+        rerender(
+          <ConfigContext.Provider value={{ globalConfig }}>
+            <Dialog header="Global Config" visible confirmOnEnter={false} onConfirm={onConfirm} />
+          </ConfigContext.Provider>,
+        );
+        fireEvent.keyDown(document.querySelector('.t-dialog__ctx'), {
+          key: 'Enter',
+        });
+        expect(onConfirm).toHaveBeenCalledTimes(1);
+      });
+
+      test('focusable', () => {
+        const globalConfig = {
+          ...defaultGlobalConfig,
+          dialog: {
+            ...defaultGlobalConfig.dialog,
+            focusable: {
+              defaultFocus: 'confirm-button' as const,
+              focusTrap: true,
+            },
+          },
+        };
+        const { unmount } = render(
+          <ConfigContext.Provider value={{ globalConfig }}>
+            <Dialog header="Global Config" visible />
+          </ConfigContext.Provider>,
+        );
+        expect(document.activeElement).toHaveClass('t-dialog__confirm');
+        unmount();
+
+        render(
+          <ConfigContext.Provider value={{ globalConfig }}>
+            <Dialog
+              header="Global Config"
+              visible
+              focusable={{
+                defaultFocus: 'cancel-button',
+                focusTriggerAfterClose: false,
+              }}
+            />
+          </ConfigContext.Provider>,
+        );
+        expect(document.activeElement).toHaveClass('t-dialog__cancel');
+
+        const outside = document.createElement('button');
+        document.body.appendChild(outside);
+        outside.focus();
+        expect(document.activeElement).not.toBe(outside);
+        expect(document.querySelector('.t-dialog')).toContainElement(document.activeElement as HTMLElement);
+        outside.remove();
       });
     });
 

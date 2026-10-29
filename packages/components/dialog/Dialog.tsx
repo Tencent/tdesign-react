@@ -42,11 +42,25 @@ export interface DialogProps extends TdDialogProps, StyledProps {
 
 const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const { classPrefix, dialog: globalDialogConfig } = useConfig();
-  const props = useDefaultProps<DialogProps>(originalProps, {
-    ...dialogDefaultProps,
-    placement: globalDialogConfig?.placement ?? dialogDefaultProps.placement,
-    zIndex: globalDialogConfig?.zIndex,
-  });
+  const globalFocusable = globalDialogConfig?.focusable;
+  const props = useDefaultProps<DialogProps>(
+    {
+      ...originalProps,
+      confirmOnEnter: originalProps.confirmOnEnter ?? globalDialogConfig?.confirmOnEnter,
+      focusable:
+        globalFocusable || originalProps.focusable
+          ? ({
+              ...globalFocusable,
+              ...originalProps.focusable,
+            } as DialogProps['focusable'])
+          : undefined,
+    },
+    {
+      ...dialogDefaultProps,
+      placement: globalDialogConfig?.placement ?? dialogDefaultProps.placement,
+      zIndex: globalDialogConfig?.zIndex,
+    },
+  );
   const { children } = props;
   const isPlugin = originalProps.isPlugin ?? false;
 

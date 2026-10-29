@@ -12,6 +12,7 @@ import { ImageProps } from '../image';
 import { LoadingProps } from '../loading';
 import { MessageOptions } from '../message';
 import type { TNode, TElement, SizeEnum, AttachNode } from '../common';
+import type { DialogFocusable } from '../dialog/type';
 
 export interface TdConfigProviderProps {
   /**
@@ -462,6 +463,14 @@ export interface DialogConfig {
    * 确认按钮主题色，即 Dialog 的 `theme` 和 确认按钮的 `theme` 映射关系。示例：{ danger: 'danger' }
    */
   confirmBtnTheme?: { default: string; info: string; warning: string; danger: string; success: string };
+  /**
+   * 是否在按下回车键时触发确认事件
+   */
+  confirmOnEnter?: boolean;
+  /**
+   * 对话框焦点控制
+   */
+  focusable?: Partial<DialogFocusable>;
   /**
    * 全局配置的对话框位置，垂直水平居中显示 和 靠近顶部（top:20%）显示
    * @default top
