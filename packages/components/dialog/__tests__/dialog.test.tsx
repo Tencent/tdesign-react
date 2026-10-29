@@ -157,13 +157,56 @@ describe('Dialog', () => {
       expect(onEscKeydown).toHaveBeenCalled();
     });
 
-    test('onConfirm', async () => {
-      const onConfirm = vi.fn();
-      const { getByText } = render(<DialogDemo mode="modal" draggable={false} onConfirm={onConfirm} />);
+    describe('onConfirm', () => {
+      test('triggers on Enter', async () => {
+        const onConfirm = vi.fn();
+        const { getByText } = render(<DialogDemo mode="modal" draggable={false} onConfirm={onConfirm} />);
 
-      fireEvent.click(getByText('Open Dialog Modal'));
-      await user.keyboard('{Enter}');
-      expect(onConfirm).toHaveBeenCalled();
+        fireEvent.click(getByText('Open Dialog Modal'));
+        await user.keyboard('{Enter}');
+        expect(onConfirm).toHaveBeenCalled();
+      });
+
+      test('confirmOnEnter should ignore textarea, contentEditable, IME and confirmLoading', () => {
+        const onConfirm = vi.fn();
+        const { getByPlaceholderText, rerender } = render(
+          <Dialog header="Confirm" visible confirmOnEnter onConfirm={onConfirm}>
+            <textarea placeholder="multiline" />
+            <div contentEditable="true" />
+            <input placeholder="single" />
+          </Dialog>,
+        );
+
+        fireEvent.keyDown(getByPlaceholderText('multiline'), { key: 'Enter' });
+        fireEvent.keyDown(document.querySelector('[contenteditable="true"]'), {
+          key: 'Enter',
+        });
+        fireEvent.keyDown(getByPlaceholderText('single'), {
+          key: 'Enter',
+          isComposing: true,
+        });
+        fireEvent.keyDown(getByPlaceholderText('single'), {
+          key: 'Enter',
+          keyCode: 229,
+        });
+        expect(onConfirm).not.toHaveBeenCalled();
+
+        rerender(
+          <Dialog header="Confirm" visible confirmOnEnter confirmLoading onConfirm={onConfirm}>
+            <input placeholder="single" />
+          </Dialog>,
+        );
+        fireEvent.keyDown(getByPlaceholderText('single'), { key: 'Enter' });
+        expect(onConfirm).not.toHaveBeenCalled();
+
+        rerender(
+          <Dialog header="Confirm" visible confirmOnEnter onConfirm={onConfirm}>
+            <input placeholder="single" />
+          </Dialog>,
+        );
+        fireEvent.keyDown(getByPlaceholderText('single'), { key: 'Enter' });
+        expect(onConfirm).toHaveBeenCalledTimes(1);
+      });
     });
   });
 
