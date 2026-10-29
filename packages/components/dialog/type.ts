@@ -65,7 +65,7 @@ export interface TdDialogProps {
    */
   draggable?: boolean;
   /**
-   * 对话框焦点控制。`focusable.defaultFocus` 指定打开后默认聚焦的目标。`focusable.focusTrap` 是否将焦点限制在对话框内。`focusable.focusTriggerAfterClose` 关闭后是否把焦点交还给触发元素。
+   * 对话框焦点控制。`defaultFocus` 决定打开后的默认焦点；`focusTrap` 决定是否焦点将被限制在当前对话框内；`focusTriggerAfterClose` 决定关闭后是否将焦点交还给触发元素。
    */
   focusable?: DialogFocusable;
   /**
@@ -234,8 +234,18 @@ export interface DialogInstance {
 }
 
 export interface DialogFocusable {
+  /**
+   * 打开后的默认焦点。
+   * 未设置时默认聚焦对话框容器；`null` 不移动焦点。`confirm-button` 和 `cancel-button` 聚焦对应按钮；函数返回自定义元素。
+   */
   defaultFocus?: null | 'confirm-button' | 'cancel-button' | (() => HTMLElement | null);
+  /**
+   * 是否将焦点限制在当前对话框内
+   */
   focusTrap?: boolean;
+  /**
+   * 是否将焦点交还给打开对话框前的触发元素
+   */
   focusTriggerAfterClose: boolean;
 }
 
