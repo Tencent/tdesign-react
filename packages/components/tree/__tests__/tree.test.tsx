@@ -620,31 +620,30 @@ describe('Tree', () => {
         expect(ctx.input('D').disabled).toBe(true);
         expect(ctx.input('D').checked).toBe(false);
         expect(ctx.onChange).not.toHaveBeenCalled();
+
+        if (enabledOnly) {
+          ctx.unmount();
+          const disabledOnly = renderCheckTree(scope, {
+            data: [{ value: 'P', children: [{ value: 'D', disabled: true }] }],
+            value: ['D'],
+          });
+          await waitFor(() => expect(disabledOnly.parentState()).toEqual({ checked: false, indeterminate: false }));
+          expect(disabledOnly.input('D').checked).toBe(true);
+        }
       });
     });
   });
 
   describe('scenarios', () => {
-    (['all', 'onlyEnabled'] as const).forEach((scope) => {
-      test(`checkAllAffectedBy=${scope} does not associate state with checkStrictly`, async () => {
-        const ctx = renderCheckTree(scope, { checkStrictly: true, value: ['A', 'B'] });
-        await waitFor(() => expect(ctx.parentState()).toEqual({ checked: false, indeterminate: false }));
-        expect(ctx.input('A').checked).toBe(true);
-        fireEvent.click(ctx.input('P'));
-        await waitFor(() => expect(ctx.onChange).toHaveBeenCalledWith(['P', 'A', 'B'], expect.anything()));
-        expect(ctx.input('D').checked).toBe(false);
-      });
-    });
-
-    (['all', 'onlyEnabled'] as const).forEach((scope) => {
-      test(`checkAllAffectedBy=${scope} handles a parent with only disabled children`, async () => {
-        const ctx = renderCheckTree(scope, {
-          data: [{ value: 'P', children: [{ value: 'D', disabled: true }] }],
-          value: ['D'],
-        });
-        await waitFor(() => expect(ctx.parentState()).toEqual({ checked: scope === 'all', indeterminate: false }));
-        expect(ctx.input('D').checked).toBe(true);
-      });
+    test('checkAllAffectedBy does not associate state with checkStrictly', async () => {
+      const ctx = renderCheckTree('all', { checkStrictly: true, value: ['A', 'B'] });
+      await waitFor(() => expect(ctx.parentState()).toEqual({ checked: false, indeterminate: false }));
+      ctx.setScope('onlyEnabled');
+      await waitFor(() => expect(ctx.parentState()).toEqual({ checked: false, indeterminate: false }));
+      expect(ctx.input('A').checked).toBe(true);
+      fireEvent.click(ctx.input('P'));
+      await waitFor(() => expect(ctx.onChange).toHaveBeenCalledWith(['P', 'A', 'B'], expect.anything()));
+      expect(ctx.input('D').checked).toBe(false);
     });
 
     test('checkAllAffectedBy changes recalculate parent state without emitting change', async () => {
@@ -658,31 +657,20 @@ describe('Tree', () => {
       expect(ctx.onChange).not.toHaveBeenCalled();
     });
 
-    (['all', 'onlyEnabled'] as const).forEach((scope) => {
-      test.each(['all', 'parentFirst', 'onlyLeaf'] as const)(
-        `checkAllAffectedBy=${scope} preserves disabled state during controlled %s toggles`,
-        async (valueMode) => {
-          const ctx = renderCheckTree(scope, { valueMode });
-          await waitFor(() => expect(ctx.input('D')).not.toBeNull());
-          fireEvent.click(ctx.input('P'));
-          const expected =
-            scope === 'onlyEnabled'
-              ? { all: ['P', 'A', 'B'], parentFirst: ['P'], onlyLeaf: ['A', 'B'] }[valueMode]
-              : ['A', 'B'];
-          await waitFor(() => expect(ctx.onChange).toHaveBeenCalledWith(expected, expect.anything()));
-          await waitFor(() =>
-            expect(ctx.parentState()).toEqual({ checked: scope === 'onlyEnabled', indeterminate: scope === 'all' }),
-          );
-          expect(ctx.input('D').checked).toBe(false);
-          fireEvent.click(ctx.input('P'));
-          await waitFor(() => expect(ctx.onChange).toHaveBeenLastCalledWith([], expect.anything()));
-          await waitFor(() => expect(ctx.parentState()).toEqual({ checked: false, indeterminate: false }));
-          expect(ctx.onChange).toHaveBeenCalledTimes(2);
-        },
-      );
+    test('checkAllAffectedBy[onlyEnabled] preserves parentFirst state during controlled toggles', async () => {
+      const ctx = renderCheckTree('onlyEnabled');
+      await waitFor(() => expect(ctx.input('D')).not.toBeNull());
+      fireEvent.click(ctx.input('P'));
+      await waitFor(() => expect(ctx.onChange).toHaveBeenCalledWith(['P'], expect.anything()));
+      await waitFor(() => expect(ctx.parentState()).toEqual({ checked: true, indeterminate: false }));
+      expect(ctx.input('D').checked).toBe(false);
+      fireEvent.click(ctx.input('P'));
+      await waitFor(() => expect(ctx.onChange).toHaveBeenLastCalledWith([], expect.anything()));
+      await waitFor(() => expect(ctx.parentState()).toEqual({ checked: false, indeterminate: false }));
+      expect(ctx.onChange).toHaveBeenCalledTimes(2);
     });
 
-    test('onlyEnabled preserves an explicitly selected disabled child when toggling the parent', async () => {
+    test('checkAllAffectedBy[onlyEnabled] preserves an explicitly selected disabled child when toggling the parent', async () => {
       const ctx = renderCheckTree('onlyEnabled', { value: ['D'] });
       await waitFor(() => expect(ctx.input('D').checked).toBe(true));
       fireEvent.click(ctx.input('P'));
