@@ -8,8 +8,6 @@
 
 函数调用方式三：`DialogPlugin.alert(options)`
 
-函数式调用的 `options` 类型为 `DialogOptions`，继承 Dialog 的全部属性。
-
 <br />
 
 组件实例：`DialogInstance = DialogPlugin(options)`

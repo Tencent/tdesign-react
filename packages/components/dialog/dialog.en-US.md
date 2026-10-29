@@ -1,7 +1,5 @@
 :: BASE_DOC ::
 
-Plugin options use the `DialogOptions` type. `attach`, `className`, and `style` are listed separately, while the remaining props, including `focusable`, are inherited through `Omit<DialogProps, 'attach'>`.
-
 ## API
 
 ### DialogCard Props
