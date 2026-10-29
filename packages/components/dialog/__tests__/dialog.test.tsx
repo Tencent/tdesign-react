@@ -236,6 +236,53 @@ describe('Dialog', () => {
       });
     });
 
+    test('confirmBtnTheme maps dialog theme to the confirm button', () => {
+      const { unmount } = render(<Dialog header="Danger" theme="danger" visible />);
+      expect(document.querySelector('.t-dialog__confirm')).toHaveClass('t-button--theme-primary');
+      unmount();
+
+      const { unmount: unmountMapped } = render(
+        <ConfigContext.Provider
+          value={{
+            globalConfig: {
+              ...defaultGlobalConfig,
+              dialog: {
+                ...defaultGlobalConfig.dialog,
+                confirmBtnTheme: {
+                  ...defaultGlobalConfig.dialog?.confirmBtnTheme,
+                  danger: 'danger',
+                },
+              },
+            },
+          }}
+        >
+          <Dialog header="Danger" theme="danger" visible />
+        </ConfigContext.Provider>,
+      );
+      expect(document.querySelector('.t-dialog__confirm')).toHaveClass('t-button--theme-danger');
+      unmountMapped();
+
+      render(
+        <ConfigContext.Provider
+          value={{
+            globalConfig: {
+              ...defaultGlobalConfig,
+              dialog: {
+                ...defaultGlobalConfig.dialog,
+                confirmBtnTheme: {
+                  ...defaultGlobalConfig.dialog?.confirmBtnTheme,
+                  danger: 'danger',
+                },
+              },
+            },
+          }}
+        >
+          <Dialog header="Danger" theme="danger" visible confirmBtn={{ theme: 'warning', content: '继续' }} />
+        </ConfigContext.Provider>,
+      );
+      expect(document.querySelector('.t-dialog__confirm')).toHaveClass('t-button--theme-warning');
+    });
+
     test('placement and zIndex override ConfigContext defaults', () => {
       render(
         <ConfigContext.Provider
