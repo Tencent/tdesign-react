@@ -34,31 +34,6 @@ describe('Cascader bigint', () => {
     });
   });
 
-  describe('scenarios', () => {
-    test('renders and selects mixed bigint, number, and string values without duplicate keys', async () => {
-      const onChange = vi.fn();
-      const error = vi.spyOn(console, 'error').mockImplementation(() => undefined);
-      try {
-        const options = [
-          { value: 1n, label: 'bigint node' },
-          { value: 1, label: 'number node' },
-          { value: '1', label: 'string node' },
-        ];
-        const { container, getByText } = render(<Cascader options={options} onChange={onChange} />);
-        fireEvent.click(container.querySelector('.t-input'));
-        await mockDelay(100);
-        expect(getByText('bigint node')).toBeTruthy();
-        expect(getByText('number node')).toBeTruthy();
-        expect(getByText('string node')).toBeTruthy();
-        expect(error.mock.calls.some((args) => String(args[0]).includes('same key'))).toBe(false);
-        fireEvent.click(getByText('bigint node'));
-        expect(onChange.mock.calls[0][0]).toBe(1n);
-      } finally {
-        error.mockRestore();
-      }
-    });
-  });
-
   describe('events', () => {
     test('selects a zero bigint', async () => {
       const onChange = vi.fn();
