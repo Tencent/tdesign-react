@@ -248,7 +248,8 @@ export interface TdTreeSelectProps<
   ) => void;
 }
 
-export type TreeSelectValue = string | number | TreeOptionData | Array<string | number | TreeOptionData>;
+export type TreeSelectValue =
+  string | number | bigint | TreeOptionData | Array<string | number | bigint | TreeOptionData>;
 
 export interface TreeSelectChangeContext<DataOption> {
   node: TreeNodeModel<DataOption>;

@@ -36,7 +36,7 @@ const MultipleValueDisplay: CascaderProps['valueDisplay'] = ({ selectedOptions, 
             }}
           />
           <span>{option.label}</span>
-          <span>({option.value})</span>
+          <span>({option.value as string})</span>
         </Tag>
       ))
     : null;
