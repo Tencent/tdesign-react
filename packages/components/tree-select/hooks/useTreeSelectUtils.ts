@@ -24,7 +24,7 @@ export const useTreeSelectUtils = (
     return store;
   }, [data, treeProps]);
 
-  const getNodeItem = usePersistFn((value: string | number) => {
+  const getNodeItem = usePersistFn((value: TreeNodeValue) => {
     if (treeRef.current) {
       return treeRef.current.getItem(value);
     }
@@ -34,7 +34,9 @@ export const useTreeSelectUtils = (
   const formatValue = usePersistFn((value: TreeNodeValue | null, label = String(value)) => {
     const valueKey = treeProps?.keys?.value ?? 'value';
     const labelKey = treeProps?.keys?.label ?? 'label';
-    return value && valueType === 'object' ? { [valueKey]: value, [labelKey]: label } : value;
+    return (value || value === 0 || typeof value === 'bigint') && valueType === 'object'
+      ? { [valueKey]: value, [labelKey]: label }
+      : value;
   });
 
   const normalizeValue = usePersistFn((value: TreeSelectValue) => {
