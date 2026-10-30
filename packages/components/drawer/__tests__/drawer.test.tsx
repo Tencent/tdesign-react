@@ -52,7 +52,7 @@ describe('Drawer', () => {
       expect(document.querySelector('.t-drawer__mask')).not.toBeInTheDocument();
     });
 
-    test('cancelBtn[object], cancelBtn[TNode], confirmBtn[object] and confirmBtn[TNode]', () => {
+    test('cancelBtn[object/TNode] and confirmBtn[object/TNode]', () => {
       const { getByText, unmount } = render(
         <DrawerDemo
           confirmBtn={{
