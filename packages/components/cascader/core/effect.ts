@@ -248,7 +248,7 @@ export const treeStoreExpendEffect = (
       node = treeStore.getNode(value as TreeNodeValue[]);
     } else {
       const [val] = treeValue;
-      if (val) {
+      if (val || val === 0 || typeof val === 'bigint') {
         expandedMap.set(val, true);
         node = treeStore.getNode(val);
       }

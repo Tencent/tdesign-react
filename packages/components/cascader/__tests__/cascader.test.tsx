@@ -82,6 +82,44 @@ const popupSelector = '.t-popup';
 // TODO
 describe('Cascader', () => {
   describe('props', () => {
+    test('value', async () => {
+      const views = [0, 0n, 42n].map((value) =>
+        render(<Cascader value={value} options={[{ value, label: 'target' }]} />),
+      );
+      await mockDelay(100);
+      views.forEach(({ container, unmount }) => {
+        expect(container.querySelector('input')).toHaveValue('target');
+        unmount();
+      });
+    });
+
+    test('valueType[full]', async () => {
+      const nestedOptions = [{ value: 1n, label: 'parent', children: [{ value: 0n, label: 'child' }] }];
+      const nested = render(<Cascader valueType="full" value={[1n, 0n]} options={nestedOptions} />);
+      const options = [
+        { value: 1n, label: 'bigint' },
+        { value: 1, label: 'number' },
+        { value: '1', label: 'string' },
+      ];
+      const views = (
+        [
+          [1n, 'bigint'],
+          [1, 'number'],
+          ['1', 'string'],
+        ] as const
+      ).map(([value, label]) => ({
+        label,
+        ...render(<Cascader valueType="full" value={[value]} options={options} />),
+      }));
+      await mockDelay(100);
+      expect(nested.container.querySelector('input')).toHaveValue('parent / child');
+      nested.unmount();
+      views.forEach(({ container, unmount, label }) => {
+        expect(container.querySelector('input')).toHaveValue(label);
+        unmount();
+      });
+    });
+
     test('filterable', async () => {
       const placeholder = 'filter';
       const filterContent = '子选项一';
@@ -166,6 +204,17 @@ describe('Cascader', () => {
   });
 
   describe('events', () => {
+    test('onChange returns a zero bigint', async () => {
+      const onChange = vi.fn();
+      const { container, getByText } = render(
+        <Cascader options={[{ value: 0n, label: 'target' }]} onChange={onChange} />,
+      );
+      fireEvent.click(container.querySelector('.t-input'));
+      await mockDelay(100);
+      fireEvent.click(getByText('target'));
+      expect(onChange.mock.calls[0][0]).toBe(0n);
+    });
+
     test('onBlur', async () => {
       const onBlur = vi.fn();
       const { container } = render(<Cascader options={options} onBlur={onBlur} filterable />);
