@@ -36275,7 +36275,7 @@ exports[`csr snapshot test > csr test packages/components/config-provider/_examp
             </span>
           </button>
           <button
-            class="t-dialog__confirm t-button t-button--theme-primary t-button--variant-base"
+            class="t-dialog__confirm t-button t-button--theme-warning t-button--variant-base"
             type="button"
           >
             <span
@@ -36359,7 +36359,7 @@ exports[`csr snapshot test > csr test packages/components/config-provider/_examp
             </span>
           </button>
           <button
-            class="t-dialog__confirm t-button t-button--theme-primary t-button--variant-base"
+            class="t-dialog__confirm t-button t-button--theme-danger t-button--variant-base"
             type="button"
           >
             <span
@@ -36443,7 +36443,7 @@ exports[`csr snapshot test > csr test packages/components/config-provider/_examp
             </span>
           </button>
           <button
-            class="t-dialog__confirm t-button t-button--theme-primary t-button--variant-base"
+            class="t-dialog__confirm t-button t-button--theme-success t-button--variant-base"
             type="button"
           >
             <span
@@ -51696,6 +51696,246 @@ exports[`csr snapshot test > csr test packages/components/dialog/_example/custom
       自定义内容
     </span>
   </button>
+</div>
+`;
+
+exports[`csr snapshot test > csr test packages/components/dialog/_example/focusable.tsx 1`] = `
+<div>
+  <form
+    class="t-form"
+  >
+    <div
+      class="t-space t-space-vertical"
+      style="gap: 24px;"
+    >
+      <div
+        class="t-space-item"
+      >
+        <div
+          class="t-form__item t-form-item__defaultFocus t-form__item--last"
+        >
+          <div
+            class="t-form__label t-form__label--left"
+            style="width: 160px;"
+          >
+            <label>
+              打开后的焦点
+            </label>
+            ：
+          </div>
+          <div
+            class="t-form__controls"
+            style="margin-left: 160px;"
+          >
+            <div
+              class="t-form__controls-content"
+            >
+              <div
+                class="t-radio-group t-size-s t-radio-group--filled"
+              >
+                <label
+                  class="t-radio-button t-is-checked"
+                  tabindex="0"
+                >
+                  <input
+                    checked=""
+                    class="t-radio-button__former"
+                    data-value="'dialog'"
+                    tabindex="-1"
+                    type="radio"
+                    value="dialog"
+                  />
+                  <span
+                    class="t-radio-button__input"
+                  />
+                  <span
+                    class="t-radio-button__label"
+                  >
+                    对话框容器
+                  </span>
+                </label>
+                <label
+                  class="t-radio-button"
+                  tabindex="0"
+                >
+                  <input
+                    class="t-radio-button__former"
+                    data-value="'confirm-button'"
+                    tabindex="-1"
+                    type="radio"
+                    value="confirm-button"
+                  />
+                  <span
+                    class="t-radio-button__input"
+                  />
+                  <span
+                    class="t-radio-button__label"
+                  >
+                    确认按钮
+                  </span>
+                </label>
+                <label
+                  class="t-radio-button"
+                  tabindex="0"
+                >
+                  <input
+                    class="t-radio-button__former"
+                    data-value="'cancel-button'"
+                    tabindex="-1"
+                    type="radio"
+                    value="cancel-button"
+                  />
+                  <span
+                    class="t-radio-button__input"
+                  />
+                  <span
+                    class="t-radio-button__label"
+                  >
+                    取消按钮
+                  </span>
+                </label>
+                <label
+                  class="t-radio-button"
+                  tabindex="0"
+                >
+                  <input
+                    class="t-radio-button__former"
+                    data-value="'input'"
+                    tabindex="-1"
+                    type="radio"
+                    value="input"
+                  />
+                  <span
+                    class="t-radio-button__input"
+                  />
+                  <span
+                    class="t-radio-button__label"
+                  >
+                    输入框
+                  </span>
+                </label>
+                <label
+                  class="t-radio-button"
+                  tabindex="0"
+                >
+                  <input
+                    class="t-radio-button__former"
+                    data-value="'none'"
+                    tabindex="-1"
+                    type="radio"
+                    value="none"
+                  />
+                  <span
+                    class="t-radio-button__input"
+                  />
+                  <span
+                    class="t-radio-button__label"
+                  >
+                    不主动聚焦
+                  </span>
+                </label>
+                <div
+                  class="t-radio-group__bg-block"
+                  style="width: 200px; height: 100px; left: 0px; top: 0px;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-space-item"
+      >
+        <div
+          class="t-form__item t-form-item__focusTrap t-form__item--last"
+        >
+          <div
+            class="t-form__label t-form__label--left"
+            style="width: 160px;"
+          >
+            <label>
+              限制焦点在对话框内
+            </label>
+            ：
+          </div>
+          <div
+            class="t-form__controls"
+            style="margin-left: 160px;"
+          >
+            <div
+              class="t-form__controls-content"
+            >
+              <button
+                class="t-switch t-size-m"
+                role="switch"
+                type="button"
+              >
+                <span
+                  class="t-switch__handle"
+                />
+                <div
+                  class="t-switch__content"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-space-item"
+      >
+        <div
+          class="t-form__item t-form-item__focusTriggerAfterClose t-form__item--last"
+        >
+          <div
+            class="t-form__label t-form__label--left"
+            style="width: 160px;"
+          >
+            <label>
+              关闭后聚焦触发元素
+            </label>
+            ：
+          </div>
+          <div
+            class="t-form__controls"
+            style="margin-left: 160px;"
+          >
+            <div
+              class="t-form__controls-content"
+            >
+              <button
+                class="t-switch t-size-m"
+                role="switch"
+                type="button"
+              >
+                <span
+                  class="t-switch__handle"
+                />
+                <div
+                  class="t-switch__content"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="t-space-item"
+      >
+        <button
+          class="t-button t-button--theme-primary t-button--variant-base"
+          style="outline: 2px solid transparent; outline-offset: 2px;"
+          type="button"
+        >
+          <span
+            class="t-button__text"
+          >
+            打开对话框
+          </span>
+        </button>
+      </div>
+    </div>
+  </form>
 </div>
 `;
 
@@ -171010,7 +171250,7 @@ exports[`ssr snapshot test > ssr test packages/components/config-provider/_examp
 
 exports[`ssr snapshot test > ssr test packages/components/config-provider/_example/date-picker.tsx 1`] = `"<div style="gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div class="t-date-picker"><div class="t-select-input t-select-input--empty"><div class="t-input__wrap" value="" spellcheck="false"><div class="t-input t-align-left t-input--suffix"><input placeholder="select date" type="text" class="t-input__inner" readonly="" autoComplete="off" value=""/><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R359-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R359-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R359-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R359-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div><div class="t-space-item"><div class="t-date-range-picker"><div class="t-range-input-popup t-range-input-popup"><div class="t-range-input t-is-default t-range-input--suffix" value=""><div class="t-range-input__inner"><div class="t-input__wrap t-range-input__inner-left" spellcheck="false"><div class="t-input t-is-readonly t-align-left"><input placeholder="select date" type="text" class="t-input__inner" readonly="" value=""/></div></div><div class="t-range-input__inner-separator"> ~ </div><div class="t-input__wrap t-range-input__inner-right" spellcheck="false"><div class="t-input t-is-readonly t-align-left"><input placeholder="select date" type="text" class="t-input__inner" readonly="" value=""/></div></div><span class="t-range-input__suffix t-range-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R3la-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R3la-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R3la-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R3la-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div><div class="t-space-item"><div class="t-date-picker"><div class="t-select-input t-select-input--empty"><div class="t-input__wrap" value="" spellcheck="false"><div class="t-input t-align-left t-input--suffix"><input placeholder="select month" type="text" class="t-input__inner" readonly="" autoComplete="off" value=""/><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R35b-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R35b-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R35b-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R35b-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div><div class="t-space-item"><div class="t-date-range-picker"><div class="t-range-input-popup t-range-input-popup"><div class="t-range-input t-is-default t-range-input--suffix" value=""><div class="t-range-input__inner"><div class="t-input__wrap t-range-input__inner-left" spellcheck="false"><div class="t-input t-is-readonly t-align-left"><input placeholder="select month" type="text" class="t-input__inner" readonly="" value=""/></div></div><div class="t-range-input__inner-separator"> ~ </div><div class="t-input__wrap t-range-input__inner-right" spellcheck="false"><div class="t-input t-is-readonly t-align-left"><input placeholder="select month" type="text" class="t-input__inner" readonly="" value=""/></div></div><span class="t-range-input__suffix t-range-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R3lc-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R3lc-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R3lc-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R3lc-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div><div class="t-space-item"><div class="t-date-picker"><div class="t-select-input t-select-input--empty"><div class="t-input__wrap" value="" spellcheck="false"><div class="t-input t-align-left t-input--suffix"><input placeholder="select year" type="text" class="t-input__inner" readonly="" autoComplete="off" value=""/><span class="t-input__suffix t-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R35d-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R35d-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R35d-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R35d-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div><div class="t-space-item"><div class="t-date-range-picker"><div class="t-range-input-popup t-range-input-popup"><div class="t-range-input t-is-default t-range-input--suffix" value=""><div class="t-range-input__inner"><div class="t-input__wrap t-range-input__inner-left" spellcheck="false"><div class="t-input t-is-readonly t-align-left"><input placeholder="select year" type="text" class="t-input__inner" readonly="" value=""/></div></div><div class="t-range-input__inner-separator"> ~ </div><div class="t-input__wrap t-range-input__inner-right" spellcheck="false"><div class="t-input t-is-readonly t-align-left"><input placeholder="select year" type="text" class="t-input__inner" readonly="" value=""/></div></div><span class="t-range-input__suffix t-range-input__suffix-icon"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-calendar" style="fill:none"><defs><mask id="t-icon-calendar-instance-R3le-overlap-fill1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask><mask id="t-icon-calendar-instance-R3le-overlap-fill2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="luminance" x="0" y="0" width="24" height="24"><rect x="0" y="0" width="24" height="24" fill="#fff"></rect><path stroke="#000" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2" fill="none"></path></mask></defs><g id="calendar"><path id="fill1" fill="transparent" d="M21 10H3V21H21V10Z" mask="url(#t-icon-calendar-instance-R3le-overlap-fill1)"></path><path id="fill2" fill="transparent" d="M21 10H3V5H21V10Z" mask="url(#t-icon-calendar-instance-R3le-overlap-fill2)"></path><path id="stroke1" stroke="currentColor" d="M3 10H21M3 10V5H21V10M3 10V21H21V10M7 5V1.5M17 5V1.5" stroke-width="2"></path></g></svg></span></div></div></div></div></div></div>"`;
 
-exports[`ssr snapshot test > ssr test packages/components/config-provider/_example/dialog.tsx 1`] = `"<div style="gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><button type="button" class="t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">Plugin 函数式调用</span></button></div><div class="t-space-item"><div class="t-dialog t-dialog--default"><div class="t-dialog__header"><div class="t-dialog__header-content">Title</div><span class="t-dialog__close" style="margin-left:auto"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div><div class="t-dialog__body">Would you like to be my friends？</div><div class="t-dialog__footer"><button type="button" class="t-dialog__cancel t-button t-button--theme-default t-button--variant-outline"><span class="t-button__text">cancel</span></button><button type="button" class="t-dialog__confirm t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">confirm</span></button></div></div></div><div class="t-space-item"><div class="t-dialog t-dialog--default"><div class="t-dialog__header"><div class="t-dialog__header-content"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-info-circle-filled t-is-info" style="fill:none"><path fill="currentColor" d="M12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23ZM10.996 8.50002V6.49611H12.9999V8.50002H10.996ZM12.9999 10L12.9999 17.5H10.9999V10L12.9999 10Z"></path></svg>confirm</div><span class="t-dialog__close" style="margin-left:auto"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div><div class="t-dialog__body">Would you like to be my friends？</div><div class="t-dialog__footer"><button type="button" class="t-dialog__cancel t-button t-button--theme-default t-button--variant-outline"><span class="t-button__text">cancel</span></button><button type="button" class="t-dialog__confirm t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">confirm</span></button></div></div></div><div class="t-space-item"><div class="t-dialog t-dialog--default"><div class="t-dialog__header"><div class="t-dialog__header-content"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-info-circle-filled t-is-warning" style="fill:none"><path fill="currentColor" d="M12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23ZM10.996 8.50002V6.49611H12.9999V8.50002H10.996ZM12.9999 10L12.9999 17.5H10.9999V10L12.9999 10Z"></path></svg>confirm</div><span class="t-dialog__close" style="margin-left:auto"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div><div class="t-dialog__body">Would you like to be my friends？</div><div class="t-dialog__footer"><button type="button" class="t-dialog__cancel t-button t-button--theme-default t-button--variant-outline"><span class="t-button__text">cancel</span></button><button type="button" class="t-dialog__confirm t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">confirm</span></button></div></div></div><div class="t-space-item"><div class="t-dialog t-dialog--default"><div class="t-dialog__header"><div class="t-dialog__header-content"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-info-circle-filled t-is-error" style="fill:none"><path fill="currentColor" d="M12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23ZM10.996 8.50002V6.49611H12.9999V8.50002H10.996ZM12.9999 10L12.9999 17.5H10.9999V10L12.9999 10Z"></path></svg>confirm</div><span class="t-dialog__close" style="margin-left:auto"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div><div class="t-dialog__body">Would you like to be my friends？</div><div class="t-dialog__footer"><button type="button" class="t-dialog__cancel t-button t-button--theme-default t-button--variant-outline"><span class="t-button__text">cancel</span></button><button type="button" class="t-dialog__confirm t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">confirm</span></button></div></div></div><div class="t-space-item"><div class="t-dialog t-dialog--default"><div class="t-dialog__header"><div class="t-dialog__header-content"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-check-circle-filled t-is-success" style="fill:none"><path fill="currentColor" d="M12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23ZM7.49985 10.5858L10.4999 13.5858L16.4999 7.58578L17.9141 8.99999L10.4999 16.4142L6.08564 12L7.49985 10.5858Z"></path></svg>confirm</div><span class="t-dialog__close" style="margin-left:auto"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div><div class="t-dialog__body">Would you like to be my friends？</div><div class="t-dialog__footer"><button type="button" class="t-dialog__cancel t-button t-button--theme-default t-button--variant-outline"><span class="t-button__text">cancel</span></button><button type="button" class="t-dialog__confirm t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">confirm</span></button></div></div></div></div>"`;
+exports[`ssr snapshot test > ssr test packages/components/config-provider/_example/dialog.tsx 1`] = `"<div style="gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><button type="button" class="t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">Plugin 函数式调用</span></button></div><div class="t-space-item"><div class="t-dialog t-dialog--default"><div class="t-dialog__header"><div class="t-dialog__header-content">Title</div><span class="t-dialog__close" style="margin-left:auto"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div><div class="t-dialog__body">Would you like to be my friends？</div><div class="t-dialog__footer"><button type="button" class="t-dialog__cancel t-button t-button--theme-default t-button--variant-outline"><span class="t-button__text">cancel</span></button><button type="button" class="t-dialog__confirm t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">confirm</span></button></div></div></div><div class="t-space-item"><div class="t-dialog t-dialog--default"><div class="t-dialog__header"><div class="t-dialog__header-content"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-info-circle-filled t-is-info" style="fill:none"><path fill="currentColor" d="M12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23ZM10.996 8.50002V6.49611H12.9999V8.50002H10.996ZM12.9999 10L12.9999 17.5H10.9999V10L12.9999 10Z"></path></svg>confirm</div><span class="t-dialog__close" style="margin-left:auto"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div><div class="t-dialog__body">Would you like to be my friends？</div><div class="t-dialog__footer"><button type="button" class="t-dialog__cancel t-button t-button--theme-default t-button--variant-outline"><span class="t-button__text">cancel</span></button><button type="button" class="t-dialog__confirm t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">confirm</span></button></div></div></div><div class="t-space-item"><div class="t-dialog t-dialog--default"><div class="t-dialog__header"><div class="t-dialog__header-content"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-info-circle-filled t-is-warning" style="fill:none"><path fill="currentColor" d="M12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23ZM10.996 8.50002V6.49611H12.9999V8.50002H10.996ZM12.9999 10L12.9999 17.5H10.9999V10L12.9999 10Z"></path></svg>confirm</div><span class="t-dialog__close" style="margin-left:auto"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div><div class="t-dialog__body">Would you like to be my friends？</div><div class="t-dialog__footer"><button type="button" class="t-dialog__cancel t-button t-button--theme-default t-button--variant-outline"><span class="t-button__text">cancel</span></button><button type="button" class="t-dialog__confirm t-button t-button--theme-warning t-button--variant-base"><span class="t-button__text">confirm</span></button></div></div></div><div class="t-space-item"><div class="t-dialog t-dialog--default"><div class="t-dialog__header"><div class="t-dialog__header-content"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-info-circle-filled t-is-error" style="fill:none"><path fill="currentColor" d="M12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23ZM10.996 8.50002V6.49611H12.9999V8.50002H10.996ZM12.9999 10L12.9999 17.5H10.9999V10L12.9999 10Z"></path></svg>confirm</div><span class="t-dialog__close" style="margin-left:auto"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div><div class="t-dialog__body">Would you like to be my friends？</div><div class="t-dialog__footer"><button type="button" class="t-dialog__cancel t-button t-button--theme-default t-button--variant-outline"><span class="t-button__text">cancel</span></button><button type="button" class="t-dialog__confirm t-button t-button--theme-danger t-button--variant-base"><span class="t-button__text">confirm</span></button></div></div></div><div class="t-space-item"><div class="t-dialog t-dialog--default"><div class="t-dialog__header"><div class="t-dialog__header-content"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-check-circle-filled t-is-success" style="fill:none"><path fill="currentColor" d="M12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23ZM7.49985 10.5858L10.4999 13.5858L16.4999 7.58578L17.9141 8.99999L10.4999 16.4142L6.08564 12L7.49985 10.5858Z"></path></svg>confirm</div><span class="t-dialog__close" style="margin-left:auto"><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></span></div><div class="t-dialog__body">Would you like to be my friends？</div><div class="t-dialog__footer"><button type="button" class="t-dialog__cancel t-button t-button--theme-default t-button--variant-outline"><span class="t-button__text">cancel</span></button><button type="button" class="t-dialog__confirm t-button t-button--theme-success t-button--variant-base"><span class="t-button__text">confirm</span></button></div></div></div></div>"`;
 
 exports[`ssr snapshot test > ssr test packages/components/config-provider/_example/global.tsx 1`] = `"<div style="gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><p>使用<code>ConfigProvider</code>包裹业务功能的最外层组件，点击下方图标查看示例代码</p></div><div class="t-space-item"><p>英文语言包引入路径：<code>import enConfig from &#x27;tdesign-react/es/locale/en_US&#x27;;</code></p></div><div class="t-space-item"><p>中文语言包引入路径：<code>import zhConfig from &#x27;tdesign-react/es/locale/zh_CN&#x27;;</code></p></div><div class="t-space-item"><p>日文语言包引入路径：<code>import jpConfig from &#x27;tdesign-react/es/locale/ja_JP&#x27;;</code></p></div><div class="t-space-item"><p>韩文语言包引入路径：<code>import koConfig from &#x27;tdesign-react/es/locale/ko_KR&#x27;;</code></p></div></div>"`;
 
@@ -171083,6 +171323,8 @@ exports[`ssr snapshot test > ssr test packages/components/dialog/_example/attach
 exports[`ssr snapshot test > ssr test packages/components/dialog/_example/base.tsx 1`] = `"<button type="button" class="t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">Open Modal</span></button>"`;
 
 exports[`ssr snapshot test > ssr test packages/components/dialog/_example/custom.tsx 1`] = `"<button style="margin-right:16px" type="button" class="t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">只显示确认按钮</span></button><button style="margin-right:16px" type="button" class="t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">自定义按钮内容</span></button><button style="margin-right:16px" type="button" class="t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">自定义内容</span></button>"`;
+
+exports[`ssr snapshot test > ssr test packages/components/dialog/_example/focusable.tsx 1`] = `"<form class="t-form"><div style="gap:24px" class="t-space t-space-vertical"><div class="t-space-item"><div class="t-form__item t-form-item__defaultFocus"><div class="t-form__label t-form__label--left" style="width:160px"><label>打开后的焦点</label>：</div><div class="t-form__controls" style="margin-left:160px"><div class="t-form__controls-content"><div class="t-radio-group t-size-s t-radio-group--filled"><label tabindex="0" class="t-radio-button t-is-checked" checked=""><input type="radio" class="t-radio-button__former" tabindex="-1" data-value="&#x27;dialog&#x27;" checked="" value="dialog"/><span class="t-radio-button__input"></span><span class="t-radio-button__label">对话框容器</span></label><label tabindex="0" class="t-radio-button"><input type="radio" class="t-radio-button__former" tabindex="-1" data-value="&#x27;confirm-button&#x27;" value="confirm-button"/><span class="t-radio-button__input"></span><span class="t-radio-button__label">确认按钮</span></label><label tabindex="0" class="t-radio-button"><input type="radio" class="t-radio-button__former" tabindex="-1" data-value="&#x27;cancel-button&#x27;" value="cancel-button"/><span class="t-radio-button__input"></span><span class="t-radio-button__label">取消按钮</span></label><label tabindex="0" class="t-radio-button"><input type="radio" class="t-radio-button__former" tabindex="-1" data-value="&#x27;input&#x27;" value="input"/><span class="t-radio-button__input"></span><span class="t-radio-button__label">输入框</span></label><label tabindex="0" class="t-radio-button"><input type="radio" class="t-radio-button__former" tabindex="-1" data-value="&#x27;none&#x27;" value="none"/><span class="t-radio-button__input"></span><span class="t-radio-button__label">不主动聚焦</span></label></div></div></div></div></div><div class="t-space-item"><div class="t-form__item t-form-item__focusTrap"><div class="t-form__label t-form__label--left" style="width:160px"><label>限制焦点在对话框内</label>：</div><div class="t-form__controls" style="margin-left:160px"><div class="t-form__controls-content"><button type="button" role="switch" class="t-switch t-size-m"><span class="t-switch__handle"></span><div class="t-switch__content"></div></button></div></div></div></div><div class="t-space-item"><div class="t-form__item t-form-item__focusTriggerAfterClose"><div class="t-form__label t-form__label--left" style="width:160px"><label>关闭后聚焦触发元素</label>：</div><div class="t-form__controls" style="margin-left:160px"><div class="t-form__controls-content"><button type="button" role="switch" class="t-switch t-size-m"><span class="t-switch__handle"></span><div class="t-switch__content"></div></button></div></div></div></div><div class="t-space-item"><button style="outline:2px solid transparent;outline-offset:2px" type="button" class="t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">打开对话框</span></button></div></div></form>"`;
 
 exports[`ssr snapshot test > ssr test packages/components/dialog/_example/icon.tsx 1`] = `"<button type="button" class="t-button t-button--theme-primary t-button--variant-base"><span class="t-button__text">Open Modal</span></button>"`;
 

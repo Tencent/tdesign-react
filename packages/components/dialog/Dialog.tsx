@@ -9,29 +9,58 @@ import Portal from '../common/Portal';
 import useAttach from '../hooks/useAttach';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useOverlayManager from '../hooks/useOverlayManager';
 import useSetState from '../hooks/useSetState';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { dialogDefaultProps } from './defaultProps';
 import DialogCard from './DialogCard';
 import useDialogDrag from './hooks/useDialogDrag';
-import useDialogEsc from './hooks/useDialogEsc';
+import useDialogFocus from './hooks/useDialogFocus';
 import useDialogPosition from './hooks/useDialogPosition';
 import useLockStyle from './hooks/useLockStyle';
 
 import type { StyledProps } from '../common';
 import type { DialogInstance, TdDialogProps } from './type';
 
+function shouldSkipConfirmOnEnter(event: React.KeyboardEvent, confirmLoading?: boolean) {
+  if (confirmLoading) return true;
+  const { nativeEvent } = event;
+  if (nativeEvent.isComposing || nativeEvent.keyCode === 229) return true;
+  const { target } = event;
+  if (!(target instanceof HTMLElement)) return false;
+  if (target.tagName === 'TEXTAREA') return true;
+  if (target.isContentEditable) return true;
+  const editable = target.closest('[contenteditable]');
+  return editable !== null && editable.getAttribute('contenteditable') !== 'false';
+}
+
 export interface DialogProps extends TdDialogProps, StyledProps {
   isPlugin?: boolean; // 是否以插件形式调用
+  /** @internal */
+  onUnhandledKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
 }
 
 const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const { classPrefix, dialog: globalDialogConfig } = useConfig();
-  const props = useDefaultProps<DialogProps>(originalProps, {
-    ...dialogDefaultProps,
-    placement: globalDialogConfig?.placement ?? dialogDefaultProps.placement,
-    zIndex: globalDialogConfig?.zIndex,
-  });
+  const globalFocusable = globalDialogConfig?.focusable;
+  const props = useDefaultProps<DialogProps>(
+    {
+      ...originalProps,
+      confirmOnEnter: originalProps.confirmOnEnter ?? globalDialogConfig?.confirmOnEnter,
+      focusable:
+        globalFocusable || originalProps.focusable
+          ? ({
+              ...globalFocusable,
+              ...originalProps.focusable,
+            } as DialogProps['focusable'])
+          : undefined,
+    },
+    {
+      ...dialogDefaultProps,
+      placement: globalDialogConfig?.placement ?? dialogDefaultProps.placement,
+      zIndex: globalDialogConfig?.zIndex,
+    },
+  );
   const { children } = props;
   const isPlugin = originalProps.isPlugin ?? false;
 
@@ -52,6 +81,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const {
     className,
     dialogClassName,
+    dialogStyle,
     style,
     width,
     mode,
@@ -80,6 +110,8 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     lazy,
     top,
     placement,
+    focusable,
+    onUnhandledKeyDown,
     ...restState
   } = mergedState;
 
@@ -90,7 +122,18 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const [dialogAnimationVisible, setDialogAnimationVisible] = useState(false);
 
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
-  const { activateDialog } = useDialogEsc(visible, wrapRef);
+  const { isTopOverlay } = useOverlayManager('dialog', {
+    visible,
+    getElement: () => wrapRef.current,
+  });
+  const { focusDialog, restoreTriggerFocus } = useDialogFocus({
+    visible,
+    classPrefix,
+    dialogRef: wrapRef,
+    dialogCardRef,
+    focusable,
+    isTop: isTopOverlay,
+  });
   const { applyTransform } = useDialogPosition(dialogCardRef);
   const { isInputInteracting } = useDialogDrag({
     dialogCardRef,
@@ -102,8 +145,8 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     dialogCardRef.current.style.display = dialogAnimationVisible ? 'block' : 'none';
 
     if (dialogAnimationVisible) {
-      activateDialog();
       applyTransform();
+      focusDialog();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dialogAnimationVisible]);
@@ -159,6 +202,8 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!isTopOverlay()) return;
+
     // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
     if (e.key === 'Escape') {
       e.stopPropagation();
@@ -169,7 +214,10 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     } else if (e.key === 'Enter' || e.key === 'NumpadEnter') {
       // 回车键触发点击确认事件
       e.stopPropagation();
-      confirmOnEnter && onConfirm?.({ e });
+      if (!confirmOnEnter || shouldSkipConfirmOnEnter(e, mergedState.confirmLoading)) return;
+      onConfirm?.({ e });
+    } else {
+      onUnhandledKeyDown?.(e);
     }
   };
 
@@ -181,6 +229,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   };
 
   const onAnimateLeave = () => {
+    restoreTriggerFocus();
     onClosed?.();
     if (!wrapRef.current) return;
     wrapRef.current.style.display = 'none';
@@ -266,7 +315,11 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
                   {...omit(restState, ['isPlugin'])}
                   mode={mode}
                   className={classNames(dialogClassName)}
-                  style={{ ...style, width: pxCompat(width || style?.width) }}
+                  style={{
+                    ...style,
+                    ...(isFullScreen ? undefined : { width: pxCompat(width || style?.width) }),
+                    ...dialogStyle,
+                  }}
                   onConfirm={onConfirm}
                   onCancel={handleCancel}
                   onCloseBtnClick={handleClose}

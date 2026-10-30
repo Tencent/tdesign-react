@@ -755,7 +755,7 @@ describe('ImageViewer', () => {
       });
 
       const user = userEvent.setup();
-      await user.type(document.body, '{ArrowRight}');
+      await user.type(document.querySelector('.t-dialog__ctx') as HTMLElement, '{ArrowRight}');
       await mockDelay();
 
       expect(document.body).toMatchSnapshot('image-viewer-modeless-second-image');
@@ -1478,6 +1478,22 @@ describe('ImageViewer', () => {
 
       const scaleTextAfter = document.querySelector('.t-image-viewer__utils-scale')?.textContent;
       expect(scaleTextAfter).toBe('100%');
+    });
+
+    test('only the top modal viewer handles keyboard events', () => {
+      const firstOnClose = vi.fn();
+      const secondOnClose = vi.fn();
+      render(
+        <>
+          <ImageViewer visible images={[imgUrl]} onClose={firstOnClose} />
+          <ImageViewer visible images={[imgUrl2]} onClose={secondOnClose} />
+        </>,
+      );
+
+      fireEvent.keyDown(document, { key: 'Escape' });
+
+      expect(firstOnClose).not.toHaveBeenCalled();
+      expect(secondOnClose).toHaveBeenCalledTimes(1);
     });
   });
 });

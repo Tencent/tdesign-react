@@ -54,6 +54,97 @@ describe('Dialog', () => {
 
       expect(container.querySelector('.t-dialog__header')).toBeNull();
     });
+
+    describe('focusable', () => {
+      (['confirm-button', 'cancel-button'] as const).forEach((defaultFocus) => {
+        test(`defaultFocus[${defaultFocus}]`, () => {
+          render(<Dialog visible focusable={{ defaultFocus, focusTriggerAfterClose: false }} />);
+
+          const className = defaultFocus === 'confirm-button' ? 't-dialog__confirm' : 't-dialog__cancel';
+          expect(document.activeElement).toHaveClass(className);
+        });
+      });
+
+      test('defaultFocus[function]', () => {
+        render(
+          <Dialog
+            visible
+            focusable={{
+              defaultFocus: () => document.querySelector('#custom-dialog-focus'),
+              focusTriggerAfterClose: false,
+            }}
+          >
+            <input id="custom-dialog-focus" />
+          </Dialog>,
+        );
+
+        expect(document.activeElement).toHaveAttribute('id', 'custom-dialog-focus');
+      });
+
+      test('defaultFocus[null]', () => {
+        const opener = document.createElement('button');
+        document.body.appendChild(opener);
+        opener.focus();
+
+        render(<Dialog visible focusable={{ defaultFocus: null, focusTriggerAfterClose: false }} />);
+
+        expect(document.activeElement).toBe(opener);
+        opener.remove();
+      });
+
+      test('focusTrap', async () => {
+        render(
+          <>
+            <button data-testid="outside-focus">Outside</button>
+            <Dialog
+              visible
+              focusable={{
+                defaultFocus: 'confirm-button',
+                focusTrap: true,
+                focusTriggerAfterClose: false,
+              }}
+            >
+              <button data-testid="body-focus">Body action</button>
+            </Dialog>
+          </>,
+        );
+
+        expect(document.activeElement).toHaveClass('t-dialog__confirm');
+        await user.tab();
+        expect(document.activeElement).toHaveAttribute('data-testid', 'body-focus');
+
+        document.querySelector<HTMLElement>('[data-testid="outside-focus"]').focus();
+        expect(document.activeElement).not.toHaveAttribute('data-testid', 'outside-focus');
+        expect(document.querySelector('.t-dialog')).toContainElement(document.activeElement as HTMLElement);
+      });
+
+      test('focusTriggerAfterClose', async () => {
+        function FocusRestoreDemo() {
+          const [visible, setVisible] = useState(false);
+          return (
+            <>
+              <button onClick={() => setVisible(true)}>Open focus dialog</button>
+              <Dialog
+                visible={visible}
+                focusable={{
+                  defaultFocus: 'confirm-button',
+                  focusTriggerAfterClose: true,
+                }}
+                onClose={() => setVisible(false)}
+              />
+            </>
+          );
+        }
+
+        const { getByText } = render(<FocusRestoreDemo />);
+        const opener = getByText('Open focus dialog');
+        await user.click(opener);
+        expect(document.activeElement).toHaveClass('t-dialog__confirm');
+
+        fireEvent.click(document.querySelector('.t-dialog__close'));
+        await mockTimeout(() => expect(document.activeElement).toBe(opener), 400);
+      });
+    });
   });
 
   describe('events', () => {
@@ -66,64 +157,212 @@ describe('Dialog', () => {
       expect(onEscKeydown).toHaveBeenCalled();
     });
 
-    test('onConfirm', async () => {
-      const onConfirm = vi.fn();
-      const { getByText } = render(<DialogDemo mode="modal" draggable={false} onConfirm={onConfirm} />);
+    describe('onConfirm', () => {
+      test('triggers on Enter', async () => {
+        const onConfirm = vi.fn();
+        const { getByText } = render(<DialogDemo mode="modal" draggable={false} onConfirm={onConfirm} />);
 
-      fireEvent.click(getByText('Open Dialog Modal'));
-      await user.keyboard('{Enter}');
-      expect(onConfirm).toHaveBeenCalled();
+        fireEvent.click(getByText('Open Dialog Modal'));
+        await user.keyboard('{Enter}');
+        expect(onConfirm).toHaveBeenCalled();
+      });
+
+      test('confirmOnEnter should ignore textarea, contentEditable, IME and confirmLoading', () => {
+        const onConfirm = vi.fn();
+        const { getByPlaceholderText, rerender } = render(
+          <Dialog header="Confirm" visible confirmOnEnter onConfirm={onConfirm}>
+            <textarea placeholder="multiline" />
+            <div contentEditable="true" />
+            <input placeholder="single" />
+          </Dialog>,
+        );
+
+        fireEvent.keyDown(getByPlaceholderText('multiline'), { key: 'Enter' });
+        fireEvent.keyDown(document.querySelector('[contenteditable="true"]'), {
+          key: 'Enter',
+        });
+        fireEvent.keyDown(getByPlaceholderText('single'), {
+          key: 'Enter',
+          isComposing: true,
+        });
+        fireEvent.keyDown(getByPlaceholderText('single'), {
+          key: 'Enter',
+          keyCode: 229,
+        });
+        expect(onConfirm).not.toHaveBeenCalled();
+
+        rerender(
+          <Dialog header="Confirm" visible confirmOnEnter confirmLoading onConfirm={onConfirm}>
+            <input placeholder="single" />
+          </Dialog>,
+        );
+        fireEvent.keyDown(getByPlaceholderText('single'), { key: 'Enter' });
+        expect(onConfirm).not.toHaveBeenCalled();
+
+        rerender(
+          <Dialog header="Confirm" visible confirmOnEnter onConfirm={onConfirm}>
+            <input placeholder="single" />
+          </Dialog>,
+        );
+        fireEvent.keyDown(getByPlaceholderText('single'), { key: 'Enter' });
+        expect(onConfirm).toHaveBeenCalledTimes(1);
+      });
     });
   });
 
   describe('scenarios', () => {
-    test('ConfigContext applies global dialog placement and zIndex', () => {
-      render(
-        <ConfigContext.Provider
-          value={{
-            globalConfig: {
-              ...defaultGlobalConfig,
-              dialog: {
-                ...(defaultGlobalConfig.dialog || {}),
-                placement: 'center',
-                zIndex: 4321,
-              },
-            },
-          }}
-        >
-          <Dialog header="Global Config" body="This is a dialog" visible />
-        </ConfigContext.Provider>,
-      );
+    describe('ConfigContext', () => {
+      test('placement and zIndex', () => {
+        const globalConfig = {
+          ...defaultGlobalConfig,
+          dialog: {
+            ...(defaultGlobalConfig.dialog || {}),
+            placement: 'center' as const,
+            zIndex: 4321,
+          },
+        };
+        const { rerender } = render(
+          <ConfigContext.Provider value={{ globalConfig }}>
+            <Dialog header="Global Config" body="This is a dialog" visible />
+          </ConfigContext.Provider>,
+        );
 
-      expect(document.querySelector('.t-dialog--center')).toBeInTheDocument();
-      expect(document.querySelector('.t-dialog--top')).not.toBeInTheDocument();
-      expect(document.querySelector('.t-dialog__ctx')).toHaveStyle({
-        zIndex: '4321',
+        expect(document.querySelector('.t-dialog--center')).toBeInTheDocument();
+        expect(document.querySelector('.t-dialog--top')).not.toBeInTheDocument();
+        expect(document.querySelector('.t-dialog__ctx')).toHaveStyle({
+          zIndex: '4321',
+        });
+
+        rerender(
+          <ConfigContext.Provider value={{ globalConfig }}>
+            <Dialog header="Global Config" body="This is a dialog" visible placement="top" zIndex={1234} />
+          </ConfigContext.Provider>,
+        );
+
+        expect(document.querySelector('.t-dialog--top')).toBeInTheDocument();
+        expect(document.querySelector('.t-dialog--center')).not.toBeInTheDocument();
+        expect(document.querySelector('.t-dialog__ctx')).toHaveStyle({
+          zIndex: '1234',
+        });
       });
-    });
 
-    test('placement and zIndex override ConfigContext defaults', () => {
-      render(
-        <ConfigContext.Provider
-          value={{
-            globalConfig: {
-              ...defaultGlobalConfig,
-              dialog: {
-                ...(defaultGlobalConfig.dialog || {}),
-                placement: 'center',
-                zIndex: 4321,
+      test('confirmBtnTheme', () => {
+        const { unmount } = render(<Dialog header="Danger" theme="danger" visible />);
+        expect(document.querySelector('.t-dialog__confirm')).toHaveClass('t-button--theme-primary');
+        unmount();
+
+        const { unmount: unmountMapped } = render(
+          <ConfigContext.Provider
+            value={{
+              globalConfig: {
+                ...defaultGlobalConfig,
+                dialog: {
+                  ...defaultGlobalConfig.dialog,
+                  confirmBtnTheme: {
+                    ...defaultGlobalConfig.dialog?.confirmBtnTheme,
+                    danger: 'danger',
+                  },
+                },
               },
-            },
-          }}
-        >
-          <Dialog header="Global Config" body="This is a dialog" visible placement="top" zIndex={1234} />
-        </ConfigContext.Provider>,
-      );
+            }}
+          >
+            <Dialog header="Danger" theme="danger" visible />
+          </ConfigContext.Provider>,
+        );
+        expect(document.querySelector('.t-dialog__confirm')).toHaveClass('t-button--theme-danger');
+        unmountMapped();
 
-      expect(document.querySelector('.t-dialog--top')).toBeInTheDocument();
-      expect(document.querySelector('.t-dialog--center')).not.toBeInTheDocument();
-      expect(document.querySelector('.t-dialog__ctx')).toHaveStyle({
-        zIndex: '1234',
+        render(
+          <ConfigContext.Provider
+            value={{
+              globalConfig: {
+                ...defaultGlobalConfig,
+                dialog: {
+                  ...defaultGlobalConfig.dialog,
+                  confirmBtnTheme: {
+                    ...defaultGlobalConfig.dialog?.confirmBtnTheme,
+                    danger: 'danger',
+                  },
+                },
+              },
+            }}
+          >
+            <Dialog header="Danger" theme="danger" visible confirmBtn={{ theme: 'warning', content: '继续' }} />
+          </ConfigContext.Provider>,
+        );
+        expect(document.querySelector('.t-dialog__confirm')).toHaveClass('t-button--theme-warning');
+      });
+
+      test('confirmOnEnter', () => {
+        const onConfirm = vi.fn();
+        const globalConfig = {
+          ...defaultGlobalConfig,
+          dialog: {
+            ...defaultGlobalConfig.dialog,
+            confirmOnEnter: true,
+          },
+        };
+        const { rerender } = render(
+          <ConfigContext.Provider value={{ globalConfig }}>
+            <Dialog header="Global Config" visible onConfirm={onConfirm} />
+          </ConfigContext.Provider>,
+        );
+
+        fireEvent.keyDown(document.querySelector('.t-dialog__ctx'), {
+          key: 'Enter',
+        });
+        expect(onConfirm).toHaveBeenCalledTimes(1);
+
+        rerender(
+          <ConfigContext.Provider value={{ globalConfig }}>
+            <Dialog header="Global Config" visible confirmOnEnter={false} onConfirm={onConfirm} />
+          </ConfigContext.Provider>,
+        );
+        fireEvent.keyDown(document.querySelector('.t-dialog__ctx'), {
+          key: 'Enter',
+        });
+        expect(onConfirm).toHaveBeenCalledTimes(1);
+      });
+
+      test('focusable', () => {
+        const globalConfig = {
+          ...defaultGlobalConfig,
+          dialog: {
+            ...defaultGlobalConfig.dialog,
+            focusable: {
+              defaultFocus: 'confirm-button' as const,
+              focusTrap: true,
+            },
+          },
+        };
+        const { unmount } = render(
+          <ConfigContext.Provider value={{ globalConfig }}>
+            <Dialog header="Global Config" visible />
+          </ConfigContext.Provider>,
+        );
+        expect(document.activeElement).toHaveClass('t-dialog__confirm');
+        unmount();
+
+        render(
+          <ConfigContext.Provider value={{ globalConfig }}>
+            <Dialog
+              header="Global Config"
+              visible
+              focusable={{
+                defaultFocus: 'cancel-button',
+                focusTriggerAfterClose: false,
+              }}
+            />
+          </ConfigContext.Provider>,
+        );
+        expect(document.activeElement).toHaveClass('t-dialog__cancel');
+
+        const outside = document.createElement('button');
+        document.body.appendChild(outside);
+        outside.focus();
+        expect(document.activeElement).not.toBe(outside);
+        expect(document.querySelector('.t-dialog')).toContainElement(document.activeElement as HTMLElement);
+        outside.remove();
       });
     });
 
@@ -132,6 +371,38 @@ describe('Dialog', () => {
       expect(document.querySelector('.t-dialog__modal')).not.toBeInTheDocument();
       fireEvent.click(getByText('Open Dialog Modal'));
       expect(document.querySelector('.t-dialog__modal')).toBeInTheDocument();
+    });
+
+    test('keyboard open uses the trigger center as the dialog transform origin', async () => {
+      function KeyboardOpenDemo() {
+        const [visible, setVisible] = useState(false);
+        return (
+          <>
+            <button onClick={() => setVisible(true)}>Open by keyboard</button>
+            <Dialog visible={visible} onClose={() => setVisible(false)} />
+          </>
+        );
+      }
+
+      const { getByText } = render(<KeyboardOpenDemo />);
+      const trigger = getByText('Open by keyboard');
+      vi.spyOn(trigger, 'getBoundingClientRect').mockReturnValue({
+        x: 100,
+        y: 200,
+        left: 100,
+        top: 200,
+        right: 180,
+        bottom: 240,
+        width: 80,
+        height: 40,
+        toJSON: () => ({}),
+      });
+      trigger.focus();
+      await user.keyboard('{Enter}');
+
+      expect(document.querySelector('.t-dialog')).toHaveStyle({
+        transformOrigin: '140px 220px',
+      });
     });
 
     test('close button hides the visible modal', async () => {
@@ -198,6 +469,26 @@ describe('Dialog', () => {
   });
 
   describe('instanceFunctions', () => {
+    test('DialogPlugin.focusable', async () => {
+      const trigger = document.createElement('button');
+      document.body.appendChild(trigger);
+      trigger.focus();
+
+      const pluginDialog = DialogPlugin.confirm({
+        header: 'Focusable Plugin Dialog',
+        focusable: {
+          defaultFocus: 'confirm-button',
+          focusTrap: true,
+          focusTriggerAfterClose: true,
+        },
+      });
+
+      await mockTimeout(() => expect(document.activeElement).toHaveClass('t-dialog__confirm'), 100);
+      pluginDialog.hide();
+      await mockTimeout(() => expect(document.activeElement).toBe(trigger), 500);
+      trigger.remove();
+    });
+
     test('DialogPlugin', async () => {
       const showDialog = () => {
         const myDialog = DialogPlugin({

@@ -6,20 +6,27 @@ import type { TdDialogCardProps, TdDialogProps } from './type';
 
 export const dialogCardDefaultProps: TdDialogCardProps = {
   closeBtn: true,
+  confirmLoading: undefined,
   footer: true,
   header: true,
   theme: 'default',
 };
 
 export const dialogDefaultProps: TdDialogProps = {
+  closeBtn: true,
   closeOnEscKeydown: undefined,
   closeOnOverlayClick: undefined,
+  confirmLoading: undefined,
   destroyOnClose: false,
   draggable: false,
+  footer: true,
+  header: true,
+  lazy: false,
   mode: 'modal',
   placement: 'top',
   preventScrollThrough: true,
   showInAttachedElement: false,
   showOverlay: true,
-  lazy: true,
+  sizeDraggable: false,
+  theme: 'default',
 };
