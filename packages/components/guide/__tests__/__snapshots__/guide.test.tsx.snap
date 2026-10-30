@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`GuideStep > props > body 1`] = `
+exports[`Guide > props > GuideStep > body[TNode] 1`] = `
 <body
   class="t-guide--lock"
 >
@@ -178,7 +178,7 @@ exports[`GuideStep > props > body 1`] = `
 </body>
 `;
 
-exports[`GuideStep > props > children 1`] = `
+exports[`Guide > props > GuideStep > content and children 1`] = `
 <body
   class="t-guide--lock"
 >
@@ -304,7 +304,7 @@ exports[`GuideStep > props > children 1`] = `
         class="t-popup__content t-guide__popup--content"
       >
         <span
-          class="custom-node"
+          class="custom-children-node"
           current="0"
           total="1"
         >
@@ -316,10 +316,11 @@ exports[`GuideStep > props > children 1`] = `
 </body>
 `;
 
-exports[`GuideStep > props > content 1`] = `
+exports[`Guide > props > GuideStep > content and children 2`] = `
 <body
   class="t-guide--lock"
 >
+  <div />
   <div>
     <div>
       <div
@@ -442,7 +443,7 @@ exports[`GuideStep > props > content 1`] = `
         class="t-popup__content t-guide__popup--content"
       >
         <span
-          class="custom-node"
+          class="custom-content-node"
           current="0"
           total="1"
         >
@@ -454,7 +455,7 @@ exports[`GuideStep > props > content 1`] = `
 </body>
 `;
 
-exports[`GuideStep > props > highlightContent 1`] = `
+exports[`Guide > props > GuideStep > highlightContent[TNode] 1`] = `
 <body
   class="t-guide--lock"
 >
@@ -635,7 +636,7 @@ exports[`GuideStep > props > highlightContent 1`] = `
 </body>
 `;
 
-exports[`GuideStep > props > mode is equal to dialog 1`] = `
+exports[`Guide > props > GuideStep > mode[dialog] 1`] = `
 <div>
   <div>
     <div
@@ -733,7 +734,7 @@ exports[`GuideStep > props > mode is equal to dialog 1`] = `
 </div>
 `;
 
-exports[`GuideStep > props > mode is equal to popup 1`] = `
+exports[`Guide > props > GuideStep > mode[popup] 1`] = `
 <div>
   <div>
     <div
@@ -831,7 +832,7 @@ exports[`GuideStep > props > mode is equal to popup 1`] = `
 </div>
 `;
 
-exports[`GuideStep > props > placement is equal to bottom-left 1`] = `
+exports[`Guide > props > GuideStep > placement[bottom-left] 1`] = `
 <body
   class="t-guide--lock"
 >
@@ -1005,7 +1006,7 @@ exports[`GuideStep > props > placement is equal to bottom-left 1`] = `
 </body>
 `;
 
-exports[`GuideStep > props > stepOverlayClass is equal to t-test-guide-step-overlay 1`] = `
+exports[`Guide > props > GuideStep > stepOverlayClass 1`] = `
 <body
   class="t-guide--lock"
 >
@@ -1179,7 +1180,7 @@ exports[`GuideStep > props > stepOverlayClass is equal to t-test-guide-step-over
 </body>
 `;
 
-exports[`GuideStep > props > title 1`] = `
+exports[`Guide > props > GuideStep > title[TNode] 1`] = `
 <body
   class="t-guide--lock"
 >

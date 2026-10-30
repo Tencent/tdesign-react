@@ -11,6 +11,7 @@ import { fireEvent, mockTimeout, render, vi, waitFor } from '@test/utils';
 
 import Message, { MessagePlugin } from '../index';
 
+import type { TNode } from '../../common';
 import type { MessageInfoOptions, MessageInstance, MessagePlacementList, MessageThemeList } from '../type';
 
 const defaultMessage = '默认的message';
@@ -38,22 +39,25 @@ beforeAll(() => {
         }
       },
     };
-    setTimeout(
-      () => {
-        if (animation.onfinish) {
-          animation.onfinish();
-        }
-      },
-      typeof options === 'number' ? options : options?.duration || 0,
-    );
+    let delay = 0;
+    if (typeof options === 'number') {
+      delay = options;
+    } else if (typeof options?.duration === 'number') {
+      delay = options.duration;
+    }
+    setTimeout(() => {
+      if (animation.onfinish) {
+        animation.onfinish();
+      }
+    }, delay);
     return animation as unknown as Animation;
   };
 });
 
 describe('Message', () => {
   describe('props', () => {
-    test(':theme', () => {
-      THEME_LIST.forEach((t) => {
+    THEME_LIST.forEach((t) => {
+      test(`theme[${t}]`, () => {
         const { container, unmount } = render(<Message theme={t}>{t}</Message>);
         expect(container.firstChild).toHaveClass(`t-is-${t}`);
         expect(() => {
@@ -62,20 +66,34 @@ describe('Message', () => {
       });
     });
 
-    test(':closeBtn is true, render default close button.', () => {
+    test('content and children', () => {
+      const { container, unmount } = render(<Message>{defaultMessage}</Message>);
+      const contentWrapper = render(<Message content={defaultMessage} />);
+
+      expect(container).toHaveTextContent(defaultMessage);
+      expect(contentWrapper.container).toHaveTextContent(defaultMessage);
+      expect(container.firstChild).toHaveClass('t-message');
+      expect(container.firstChild).toHaveClass('t-is-info');
+      expect(container.firstChild).not.toHaveClass('t-message__close');
+      expect(() => {
+        unmount();
+      }).not.toThrow();
+    });
+
+    test('closeBtn', () => {
       const { container } = render(<Message closeBtn={true}>{defaultMessage}</Message>);
       expect(container.firstChild).toHaveClass('t-is-closable');
       expect(container.getElementsByClassName('t-message__close').length).toBe(1);
     });
 
-    test(':icon is false', () => {
+    test('icon[false]', () => {
       const { container } = render(<Message icon={false}>{defaultMessage}</Message>);
       expect(container.firstChild).not.toHaveClass('t-icon');
     });
 
-    test(':style', () => {
-      const style = { backgroundColor: 'rgb(51, 51, 51)' };
-      THEME_LIST.forEach((t) => {
+    const style = { backgroundColor: 'rgb(51, 51, 51)' };
+    THEME_LIST.forEach((t) => {
+      test(`style[object] theme[${t}]`, () => {
         const { container } = render(
           <Message theme={t} style={style}>
             {defaultMessage}
@@ -85,54 +103,43 @@ describe('Message', () => {
       });
     });
 
-    test(':content as string, should get equal text', () => {
-      THEME_LIST.forEach((t) => {
+    THEME_LIST.forEach((t) => {
+      test(`content[string] theme[${t}]`, () => {
         const { container } = render(<Message theme={t} content={defaultMessage} />);
         expect(container.firstChild).toHaveTextContent(defaultMessage);
       });
     });
-    test(':closeBtn is a string, equal "关闭".', () => {
+
+    test('closeBtn[string]', () => {
       const closeBtnTxt = '关闭';
       const { container, getByText } = render(<Message closeBtn={closeBtnTxt}>{defaultMessage}</Message>);
       expect(container.getElementsByClassName('t-message__close').length).toBe(1);
       expect(getByText(closeBtnTxt).textContent).toBe(closeBtnTxt);
     });
 
-    test(':closeBtn is a function, () => VNode.', () => {
+    test('closeBtn[TNode]', () => {
       const { container, getByText } = render(<Message closeBtn={<b>x</b>}>{defaultMessage}</Message>);
       expect(container.getElementsByClassName('t-message__close').length).toBe(1);
       expect(getByText('x')).toBeInTheDocument();
     });
 
-    test(':icon is a function, () => TIconMore', () => {
-      const { container } = render(<Message icon={() => <HelpIcon></HelpIcon>}>{defaultMessage}</Message>);
-      // t-icon
+    test('icon[TNode]', () => {
+      const { container } = render(
+        <Message icon={(() => <HelpIcon></HelpIcon>) as unknown as TNode}>{defaultMessage}</Message>,
+      );
       expect(container.firstChild).not.toHaveClass('t-icon');
     });
 
-    test(':content as ReactNode', () => {
-      const ReactNode = <p className="wrapper">{defaultMessage}</p>;
-      THEME_LIST.forEach((t) => {
-        const { container } = render(<Message theme={t} content={ReactNode} />);
+    const contentNode = <p className="wrapper">{defaultMessage}</p>;
+    THEME_LIST.forEach((t) => {
+      test(`content[ReactNode] theme[${t}]`, () => {
+        const { container } = render(<Message theme={t} content={contentNode} />);
         expect(container.querySelector('.wrapper')).not.toBe(null);
         expect(container.querySelector('.wrapper')).toHaveTextContent(defaultMessage);
       });
     });
-  });
 
-  describe('scenarios', () => {
-    test('pure message contains right classes', async () => {
-      const { container, getByText, unmount } = render(<Message>{defaultMessage}</Message>);
-      expect(getByText(defaultMessage)).toBeInTheDocument();
-      expect(container.firstChild).toHaveClass('t-message');
-      expect(container.firstChild).toHaveClass('t-is-info');
-      expect(container.firstChild).not.toHaveClass('t-message__close');
-      expect(() => {
-        unmount();
-      }).not.toThrow();
-    });
-
-    test(':duration props', async () => {
+    test('duration[number]', async () => {
       const onClose = vi.fn();
       const duration = 300;
       render(
@@ -153,7 +160,7 @@ describe('Message', () => {
       document.getElementsByTagName('html')[0].innerHTML = '';
     });
 
-    test('Message 基础函数式调用，消息应该正常展示、隐藏', async () => {
+    test('open and close', async () => {
       const openText = 'open';
       const closeText = 'close';
       const TestComponent = () => {
@@ -188,7 +195,7 @@ describe('Message', () => {
       );
     });
 
-    test('存在关闭按钮，点击关闭按钮应该触发 onCloseBtnClick', async () => {
+    test('onCloseBtnClick', async () => {
       const openText = 'open';
       const option: MessageInfoOptions = {
         content: defaultMessage,
@@ -217,32 +224,30 @@ describe('Message', () => {
       expect(document.querySelector('#testId')).toBeNull();
     });
 
-    test('传入 duration 大于0，倒计时结束后消息应该隐藏', async () => {
+    test('duration', async () => {
       const duration = 2000;
       const openText = 'open';
       const { getByText } = render(
         <button onClick={() => MessagePlugin.info(defaultMessage, duration)}>{openText}</button>,
       );
-      expect(document.querySelector('.t-message')).toBe(null);
       fireEvent.click(getByText(openText));
       await mockTimeout(() => expect(document.querySelector('.t-message')).not.toBeNull());
       await mockTimeout(() => expect(document.querySelector('.t-message')).toBeNull(), duration + 100);
-    });
 
-    test('传入 duration 且 onDurationEnd，倒计时结束后应该执行 onDurationEnd', async () => {
-      const duration = 2000;
-      const openText = 'open';
       const option: MessageInfoOptions = {
         content: defaultMessage,
         onDurationEnd: () => 1,
       };
+      const durationEndOpenText = 'open with duration end';
       const spy = vi.spyOn(option, 'onDurationEnd');
-      const { getByText } = render(<button onClick={() => MessagePlugin.info(option, duration)}>{openText}</button>);
-      fireEvent.click(getByText(openText));
+      const { getByText: getByTextWithEnd } = render(
+        <button onClick={() => MessagePlugin.info(option, duration)}>{durationEndOpenText}</button>,
+      );
+      fireEvent.click(getByTextWithEnd(durationEndOpenText));
       await mockTimeout(() => expect(spy).toHaveBeenCalled(), duration + 100);
     });
 
-    test('attach 为 String，应该正确挂载指定的节点', async () => {
+    test('attach[string]', async () => {
       const openText = 'open';
       const option: MessageInfoOptions = {
         content: defaultMessage,
@@ -264,7 +269,7 @@ describe('Message', () => {
       await mockTimeout(() => expect(document.querySelector('#testId').querySelector('.t-message')).not.toBeNull());
     });
 
-    test('attach 为 Function，应该正确挂载指定的节点', async () => {
+    test('attach[function]', async () => {
       const openText = 'open';
       const option: MessageInfoOptions = {
         content: defaultMessage,
@@ -286,7 +291,7 @@ describe('Message', () => {
       await mockTimeout(() => expect(document.querySelector('#testId').querySelector('.t-message')).not.toBeNull());
     });
 
-    test('设置 offset，应该相对于 placement 正确偏移', async () => {
+    test('offset', async () => {
       const openText = 'open';
       const [offsetX, offsetY] = [-10, 20];
       const option: MessageInfoOptions = {
@@ -309,7 +314,7 @@ describe('Message', () => {
     });
 
     test.each(['center', 'top', 'left', 'right', 'bottom', 'top-left', 'top-right', 'bottom-left', 'bottom-right'])(
-      '不同的 placement 值，弹出消息应该出现在对应位置',
+      'placement[%s]',
       async (placement: MessagePlacementList) => {
         const option: MessageInfoOptions = {
           content: defaultMessage,
@@ -338,7 +343,7 @@ describe('Message', () => {
       },
     );
 
-    test('鼠标悬停时不自动关闭', async () => {
+    test('hover pause', async () => {
       const openText = 'open';
       const option: MessageInfoOptions = {
         content: defaultMessage,

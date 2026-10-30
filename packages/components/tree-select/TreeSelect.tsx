@@ -175,7 +175,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
 
   const handleSingleChange = usePersistFn<TreeProps['onActive']>((value, context) => {
     const $value = Array.isArray(value) && value.length ? value[0] : undefined;
-    if ($value) {
+    if ($value || $value === 0 || typeof $value === 'bigint') {
       onChange(formatValue($value, context.node.label), {
         ...context,
         data: context.node.data,

@@ -130,7 +130,7 @@ const createCollapsedItems =
 
 describe('Select', () => {
   describe('props', () => {
-    test('valueDisplay', () => {
+    test('valueDisplay[string]', () => {
       const { container } = render(
         <Select value="china" valueDisplay="+86" options={[{ label: '中国', value: 'china' }]} />,
       );
@@ -138,7 +138,7 @@ describe('Select', () => {
       expect(container.querySelector('.t-input__inner')).toHaveValue(' ');
     });
 
-    test('options.label', () => {
+    test('options.label[TNode]', () => {
       const { container } = render(
         <Select
           value="ai"
@@ -153,7 +153,8 @@ describe('Select', () => {
       expect(container.querySelector('.t-input__prefix .custom-label')).toHaveTextContent('人工智能');
       expect(container.querySelector('.t-input__inner')).toHaveValue(' ');
     });
-    test('label', async () => {
+
+    test('label[string]', async () => {
       const text = 'test-label';
       const { getByText } = await render(<Select options={[]} label={text} />);
 
@@ -162,7 +163,7 @@ describe('Select', () => {
       });
     });
 
-    test('prefixIcon', async () => {
+    test('prefixIcon[TNode]', async () => {
       const text = 'test-prefixIcon';
       const { getByText } = await render(<Select options={[]} prefixIcon={<span>{text}</span>} />);
 
@@ -170,8 +171,10 @@ describe('Select', () => {
         expect(getByText(text)).toBeTruthy();
       });
     });
+  });
 
-    test('collapsedItems', async () => {
+  describe('scenarios', () => {
+    test('collapsedItems with multiple and minCollapsedNum reveals hidden selections on hover', async () => {
       const minCollapsedNum = 1;
       const MultipleSelect = () => {
         const selectAllValue = ['apple', 'banana', 'orange'];
@@ -203,10 +206,8 @@ describe('Select', () => {
       expect(collapsedTags[0]).toHaveTextContent('Banana');
       expect(collapsedTags[1]).toHaveTextContent('Orange');
     });
-  });
 
-  describe('scenarios', () => {
-    test('单选', async () => {
+    test('single selection updates value and closes popup', async () => {
       const SingleSelect = () => {
         const [value, setValue] = useState('apple');
         const onChange = (nextValue) => {
@@ -244,7 +245,7 @@ describe('Select', () => {
       );
     });
 
-    test('多选', async () => {
+    test('multiple selection keeps popup open', async () => {
       const MultipleSelect = () => {
         const [value, setValue] = useState([{ label: 'Apple', value: 'apple' }]);
         const onChange = (nextValue) => {
@@ -285,7 +286,7 @@ describe('Select', () => {
       });
     });
 
-    test('多选全选', async () => {
+    test('checkAll toggles enabled options', async () => {
       const MultipleSelect = () => {
         const [value, setValue] = useState(['apple']);
         const onChange = (nextValue) => {
@@ -319,7 +320,7 @@ describe('Select', () => {
       expect(document.querySelector(selectSelector)).not.toHaveTextContent('Orange');
     });
 
-    test('分组选择器', async () => {
+    test('OptionGroup selection updates value', async () => {
       const OptionGroupSelect = () => {
         const [value, setValue] = useState('apple');
         const onChange = (nextValue) => {
@@ -359,7 +360,7 @@ describe('Select', () => {
       );
     });
 
-    test('分组选择器全选', async () => {
+    test('OptionGroup with checkAll toggles enabled options', async () => {
       const OptionGroupCheckAllSelect = () => {
         const [value, setValue] = useState(['apple']);
         const onChange = (nextValue) => {
@@ -392,7 +393,7 @@ describe('Select', () => {
       expect(document.querySelector(selectSelector)).not.toHaveTextContent('Orange');
     });
 
-    test('可过滤', async () => {
+    test('filterable selection narrows options', async () => {
       const testId = 'test-id';
       const FilterableSelect = () => {
         const [value, setValue] = useState();
@@ -428,7 +429,7 @@ describe('Select', () => {
       expect(document.querySelector(popupSelector)).toHaveTextContent('无数据');
     });
 
-    test('可过滤中文输入法', async () => {
+    test('filterable selection handles IME composition', async () => {
       const testId = 'test-id-ime';
       const onSelectedChange = vi.fn();
       const imeInput = (input: HTMLInputElement, value: string) => {
@@ -493,7 +494,7 @@ describe('Select', () => {
       expect(onSelectedChange).toHaveBeenCalledTimes(1);
     });
 
-    test('远程搜索', async () => {
+    test('remote search refreshes options', async () => {
       const user = userEvent.setup();
       render(<RemoteSearchSelect />);
 
@@ -525,7 +526,7 @@ describe('Select', () => {
       await mockTimeout(() => expect(document.querySelector(popupSelector)).toHaveTextContent('Banana'), 100);
     });
 
-    test('远程搜索多选', async () => {
+    test('remote search supports multiple selection', async () => {
       const { getByText, container } = render(<RemoteSearchSelect multiple />);
 
       expect(document.querySelector(popupSelector)).toBeNull();
@@ -552,7 +553,7 @@ describe('Select', () => {
       await mockTimeout(() => expect(document.querySelector(selectSelector)).toHaveTextContent('123_test2'));
     });
 
-    test('collapsedItems 点击选择', async () => {
+    test('collapsedItems tracks multiple selection', async () => {
       const minCollapsedNum = 1;
       const MultipleSelect = () => {
         const [value, setValue] = useState([]);
@@ -646,7 +647,7 @@ describe('Select', () => {
       { source: 'children', destroyOnClose: false },
       { source: 'options', destroyOnClose: true },
       { source: 'children', destroyOnClose: true },
-    ])('筛选后关闭动画期间保持过滤列表: $source, destroyOnClose=$destroyOnClose', ({ source, destroyOnClose }) => {
+    ])('filtered list persists during close animation', ({ source, destroyOnClose }) => {
       vi.useFakeTimers();
       const onChange = vi.fn();
       const onInputChange = vi.fn();
@@ -707,7 +708,7 @@ describe('Select', () => {
       }
     });
 
-    test('关闭动画期间重新打开时使用最新 options 并取消待关闭', () => {
+    test('reopen during close animation refreshes options', () => {
       vi.useFakeTimers();
       const onChange = vi.fn();
       const { getByRole, getByText, rerender, unmount } = render(
@@ -739,7 +740,7 @@ describe('Select', () => {
       }
     });
 
-    test.each([false, true])('多选筛选后列表保持更新: reserveKeyword=%s', (reserveKeyword) => {
+    test.each([false, true])('multiple filtering refreshes list after selection', (reserveKeyword) => {
       const { getByRole, getByText } = render(
         <Select multiple filterable options={filterableOptions} reserveKeyword={reserveKeyword} />,
       );
@@ -758,7 +759,7 @@ describe('Select', () => {
       }
     });
 
-    test('受控 popupVisible 保持打开时列表继续更新', () => {
+    test('controlled popupVisible refreshes filtered list', () => {
       const onPopupVisibleChange = vi.fn();
       const { getByRole, getByText } = render(
         <Select filterable options={filterableOptions} popupVisible onPopupVisibleChange={onPopupVisibleChange} />,

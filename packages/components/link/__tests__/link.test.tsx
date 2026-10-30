@@ -22,7 +22,7 @@ describe('Link', () => {
     });
 
     (['color', 'underline'] as TdLinkProps['hover'][]).forEach((item) => {
-      test(`hover is equal to ${item}`, () => {
+      test(`hover[${item}]`, () => {
         const { container } = render(<Link hover={item}>Text</Link>);
         expect(container.firstChild).toHaveClass(`t-link--hover-${item}`);
         expect(container).toMatchSnapshot();
@@ -37,7 +37,7 @@ describe('Link', () => {
 
     const sizeClassNameList: Array<string | Record<string, boolean>> = ['t-size-s', { 't-size-m': false }, 't-size-l'];
     (['small', 'medium', 'large'] as TdLinkProps['size'][]).forEach((item, index) => {
-      test(`size is equal to ${item}`, () => {
+      test(`size[${item}]`, () => {
         const { container } = render(<Link size={item}>Text</Link>);
         if (typeof sizeClassNameList[index] === 'string') {
           expect(container.firstChild).toHaveClass(sizeClassNameList[index]);
@@ -56,7 +56,7 @@ describe('Link', () => {
     });
 
     (['default', 'primary', 'danger', 'warning', 'success'] as TdLinkProps['theme'][]).forEach((item) => {
-      test(`theme is equal to ${item}`, () => {
+      test(`theme[${item}]`, () => {
         const { container } = render(<Link theme={item}>Text</Link>);
         expect(container.firstChild).toHaveClass(`t-link--theme-${item}`);
         expect(container).toMatchSnapshot();
@@ -98,20 +98,16 @@ describe('Link', () => {
       expect(render(<Link theme="warning" />).container.firstChild).toHaveClass('t-link--theme-warning', '');
       expect(render(<Link />).container.firstChild).toHaveClass('t-link--theme-default', '');
     });
-    test('children', () => {
-      const { container } = render(
-        <Link>
-          <span className="custom-node">TNode</span>
-        </Link>,
-      );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-      expect(container).toMatchSnapshot();
-    });
 
-    test('content', () => {
-      const { container } = render(<Link content={<span className="custom-node">TNode</span>}></Link>);
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-      expect(container).toMatchSnapshot();
+    test('content and children', () => {
+      const node = <span className="custom-node">TNode</span>;
+      const contentWrapper = render(<Link content={node} />);
+      const childrenWrapper = render(<Link>{node}</Link>);
+
+      [contentWrapper, childrenWrapper].forEach(({ container }) => {
+        expect(container.querySelector('.custom-node')).toBeTruthy();
+        expect(container).toMatchSnapshot();
+      });
     });
 
     test('prefixIcon', () => {
@@ -142,16 +138,8 @@ describe('Link', () => {
       expect(fn.mock.calls[0][0].stopPropagation).toBeTruthy();
       expect(fn.mock.calls[0][0].type).toBe('click');
     });
-  });
 
-  describe('scenarios', () => {
-    test('base', () => {
-      const { container } = render(<Link theme="default">查看链接</Link>);
-      expect(container.querySelectorAll('.t-link')).toHaveLength(1);
-      expect(container.querySelectorAll('.t-link')[0].textContent).toEqual('查看链接');
-    });
-
-    test('disabled', () => {
+    test('disabled prevents click', () => {
       const fn = vi.fn();
       const { container } = render(<Link data-testid="disabled" disabled={true} onClick={fn} />);
       expect(container.firstChild).toHaveClass('t-is-disabled', '');

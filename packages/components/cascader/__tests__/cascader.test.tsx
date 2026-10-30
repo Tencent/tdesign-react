@@ -82,32 +82,45 @@ const popupSelector = '.t-popup';
 // TODO
 describe('Cascader', () => {
   describe('props', () => {
-    test('设置 checkStrictly 时每项应该可各自选中或取消', async () => {
-      const btnText = 'change';
-      const TestComponent = () => {
-        const [strict, setStrict] = useState(false);
-        return (
-          <>
-            <button onClick={() => setStrict(!strict)}>{btnText}</button>
-            <Cascader options={options} checkStrictly={strict} />
-          </>
-        );
-      };
-      const { getByText } = render(<TestComponent />);
-      // 默认值为 false
-      fireEvent.click(document.querySelector('input'));
-      fireEvent.click(getByText('选项一'));
-      expect(getByText('子选项一')).toHaveTextContent('子选项一');
-      fireEvent.click(getByText('子选项一'));
-      expect(document.querySelector('.t-input__inner')).toHaveValue('选项一 / 子选项一');
-      // 设置值为 true，可直接选择选项一
-      await mockTimeout(() => fireEvent.click(getByText(btnText)));
-      fireEvent.click(document.querySelector('input'));
-      fireEvent.click(getByText('选项一'));
-      expect(document.querySelector('.t-input__inner')).toHaveValue('选项一');
+    test('value', async () => {
+      const views = [0, 0n, 42n].map((value) =>
+        render(<Cascader value={value} options={[{ value, label: 'target' }]} />),
+      );
+      await mockDelay(100);
+      views.forEach(({ container, unmount }) => {
+        expect(container.querySelector('input')).toHaveValue('target');
+        unmount();
+      });
     });
 
-    test('filterable 测试', async () => {
+    test('valueType[full]', async () => {
+      const nestedOptions = [{ value: 1n, label: 'parent', children: [{ value: 0n, label: 'child' }] }];
+      const nested = render(<Cascader valueType="full" value={[1n, 0n]} options={nestedOptions} />);
+      const options = [
+        { value: 1n, label: 'bigint' },
+        { value: 1, label: 'number' },
+        { value: '1', label: 'string' },
+      ];
+      const views = (
+        [
+          [1n, 'bigint'],
+          [1, 'number'],
+          ['1', 'string'],
+        ] as const
+      ).map(([value, label]) => ({
+        label,
+        ...render(<Cascader valueType="full" value={[value]} options={options} />),
+      }));
+      await mockDelay(100);
+      expect(nested.container.querySelector('input')).toHaveValue('parent / child');
+      nested.unmount();
+      views.forEach(({ container, unmount, label }) => {
+        expect(container.querySelector('input')).toHaveValue(label);
+        unmount();
+      });
+    });
+
+    test('filterable', async () => {
       const placeholder = 'filter';
       const filterContent = '子选项一';
       const { getByPlaceholderText, getByText } = render(
@@ -132,13 +145,14 @@ describe('Cascader', () => {
       await userEvent.type(getByPlaceholderText(placeholder), 'null');
       await mockTimeout(() => expect(getByText('暂无数据')).toBeInTheDocument());
     });
-    test('render label', async () => {
+
+    test('label[string]', async () => {
       const label = '单选:';
       const { getByText } = render(<Cascader label={label} value={'1.1'} options={optionsData} clearable />);
       expect(getByText(label)).toBeInTheDocument();
     });
 
-    test('render single valueDisplay', async () => {
+    test('valueDisplay[TNode]', async () => {
       const SingleValueDisplay = ({ value, selectedOptions }: any) =>
         value && (
           <div className="valueDisplay">
@@ -168,47 +182,7 @@ describe('Cascader', () => {
       expect(container.querySelector('.valueDisplay')).toBeInTheDocument();
     });
 
-    test('render multiple valueDisplay', async () => {
-      const MultipleValueDisplay = ({ value, selectedOptions, onClose }: any) =>
-        value && value.length
-          ? selectedOptions.map((option, index) => (
-              <Tag key={option.value} closable onClose={() => onClose(index)}>
-                <img
-                  src={option.avatar}
-                  style={{
-                    width: '16px',
-                    height: '16px',
-                    marginTop: '2px',
-                    verticalAlign: '-4px',
-                    marginRight: '4px',
-                  }}
-                />
-                <span>{option.label}</span>
-                <span className="options-value">({option.value})</span>
-              </Tag>
-            ))
-          : null;
-      const { container } = render(
-        <Cascader
-          value={['1.3', '2.1', '2.2']}
-          label="多选："
-          options={optionsData}
-          valueDisplay={<MultipleValueDisplay />}
-          multiple
-          clearable
-        ></Cascader>,
-      );
-      const optionsValue = container.querySelectorAll('.options-value');
-      expect(optionsValue[0]).toHaveTextContent('(1.3)');
-      expect(optionsValue[1]).toHaveTextContent('(2.1)');
-      expect(optionsValue[2]).toHaveTextContent('(2.2)');
-      fireEvent.click(container.querySelector('.t-input'));
-      await mockDelay();
-      expect(document.querySelectorAll('.t-is-checked')).toHaveLength(2);
-      expect(document.querySelectorAll('.t-is-checked')[1].children[0]).toHaveAttribute('checked');
-    });
-
-    test('render panelTopContent', async () => {
+    test('panelTopContent[string]', async () => {
       const panelTopContent = 'panelTopContent';
       const { getByText } = render(
         <Cascader value={'1.1'} options={optionsData} panelTopContent={panelTopContent} clearable />,
@@ -218,7 +192,7 @@ describe('Cascader', () => {
       expect(getByText(panelTopContent)).toBeInTheDocument();
     });
 
-    test('render panelBottomContent', async () => {
+    test('panelBottomContent[string]', async () => {
       const panelBottomContent = 'panelBottomContent';
       const { getByText } = render(
         <Cascader value={'1.1'} options={optionsData} panelBottomContent={panelBottomContent} clearable />,
@@ -230,7 +204,18 @@ describe('Cascader', () => {
   });
 
   describe('events', () => {
-    test('onBlur 测试，应该正确触发', async () => {
+    test('onChange returns a zero bigint', async () => {
+      const onChange = vi.fn();
+      const { container, getByText } = render(
+        <Cascader options={[{ value: 0n, label: 'target' }]} onChange={onChange} />,
+      );
+      fireEvent.click(container.querySelector('.t-input'));
+      await mockDelay(100);
+      fireEvent.click(getByText('target'));
+      expect(onChange.mock.calls[0][0]).toBe(0n);
+    });
+
+    test('onBlur', async () => {
       const onBlur = vi.fn();
       const { container } = render(<Cascader options={options} onBlur={onBlur} filterable />);
       // 模拟 blur 时触发 onBlur
@@ -240,7 +225,7 @@ describe('Cascader', () => {
       expect(onBlur).toHaveBeenCalled();
     });
 
-    test('selectInputProps.onInputChange 测试，应该正确触发', async () => {
+    test('selectInputProps.onInputChange', async () => {
       const selectInputProps = {
         onInputChange: () => 1,
       };
@@ -252,7 +237,7 @@ describe('Cascader', () => {
       await mockTimeout(() => expect(spy).toHaveBeenCalledTimes(enterText.length));
     });
 
-    test('selectInputProps.onTagChange 测试，应该正确触发且页面展示正常', async () => {
+    test('selectInputProps.onTagChange', async () => {
       const selectInputProps = {
         onTagChange: () => 1,
         allowInput: true,
@@ -292,7 +277,7 @@ describe('Cascader', () => {
       expect(spy).toHaveBeenCalledTimes(2);
     });
 
-    test('selectInputProps.onClear 测试，应该正确触发且页面展示正常', () => {
+    test('selectInputProps.onClear', () => {
       const selectInputProps = {
         onClear: () => 1,
       };
@@ -322,7 +307,7 @@ describe('Cascader', () => {
       expect(spy).toHaveBeenCalled();
     });
 
-    test('selectInputProps.onPopupVisibleChange 测试，应该正确触发', async () => {
+    test('selectInputProps.onPopupVisibleChange', async () => {
       const selectInputProps = {
         onPopupVisibleChange: () => 1,
       };
@@ -366,10 +351,54 @@ describe('Cascader', () => {
       });
       expect(spy).toHaveBeenCalledTimes(2);
     });
+
+    test('onChange and onRemove', async () => {
+      const onChange = vi.fn();
+      const onRemove = vi.fn();
+      const { container } = render(
+        <Cascader value={['1.1']} options={optionsData} multiple onChange={onChange} onRemove={onRemove} clearable />,
+      );
+      fireEvent.mouseEnter(container.querySelector('.t-input'));
+      await mockDelay();
+      // 点击清除按钮只触发一次onChange,不触发onRemove
+      expect(container.querySelector('.t-tag-input__suffix-clear')).toBeTruthy();
+      fireEvent.click(container.querySelector('.t-tag-input__suffix-clear'));
+      expect(onChange).toHaveBeenCalledTimes(1);
+      expect(onRemove).toHaveBeenCalledTimes(0);
+      // 点击tag onRemove,触发一次onRemove,触发两次onChange
+      fireEvent.click(container.querySelectorAll('.t-tag__icon-close')[0]);
+      expect(onRemove).toHaveBeenCalledTimes(1);
+      expect(onChange).toHaveBeenCalledTimes(2);
+    });
   });
 
   describe('scenarios', () => {
-    test('value is zero should be selected', async () => {
+    test('checkStrictly switches selection behavior dynamically', async () => {
+      const btnText = 'change';
+      const TestComponent = () => {
+        const [strict, setStrict] = useState(false);
+        return (
+          <>
+            <button onClick={() => setStrict(!strict)}>{btnText}</button>
+            <Cascader options={options} checkStrictly={strict} />
+          </>
+        );
+      };
+      const { getByText } = render(<TestComponent />);
+      // 默认值为 false
+      fireEvent.click(document.querySelector('input'));
+      fireEvent.click(getByText('选项一'));
+      expect(getByText('子选项一')).toHaveTextContent('子选项一');
+      fireEvent.click(getByText('子选项一'));
+      expect(document.querySelector('.t-input__inner')).toHaveValue('选项一 / 子选项一');
+      // 设置值为 true，可直接选择选项一
+      await mockTimeout(() => fireEvent.click(getByText(btnText)));
+      fireEvent.click(document.querySelector('input'));
+      fireEvent.click(getByText('选项一'));
+      expect(document.querySelector('.t-input__inner')).toHaveValue('选项一');
+    });
+
+    test('options and value support controlled numeric selection', async () => {
       const popupSelector = '.t-popup';
       const labelText = 'my value is 0 that typeof number';
       const TestComponent = () => {
@@ -393,26 +422,47 @@ describe('Cascader', () => {
       expect(document.querySelector('.t-input__inner')).toHaveValue(labelText);
     });
 
-    test('multiple Clicking the clear all button only triggers onChange once', async () => {
-      const onChange = vi.fn();
-      const onRemove = vi.fn();
+    test('valueDisplay and multiple preserve linked selection state', async () => {
+      const MultipleValueDisplay = ({ value, selectedOptions, onClose }: any) =>
+        value && value.length
+          ? selectedOptions.map((option, index) => (
+              <Tag key={option.value} closable onClose={() => onClose(index)}>
+                <img
+                  src={option.avatar}
+                  style={{
+                    width: '16px',
+                    height: '16px',
+                    marginTop: '2px',
+                    verticalAlign: '-4px',
+                    marginRight: '4px',
+                  }}
+                />
+                <span>{option.label}</span>
+                <span className="options-value">({option.value})</span>
+              </Tag>
+            ))
+          : null;
       const { container } = render(
-        <Cascader value={['1.1']} options={optionsData} multiple onChange={onChange} onRemove={onRemove} clearable />,
+        <Cascader
+          value={['1.3', '2.1', '2.2']}
+          label="多选："
+          options={optionsData}
+          valueDisplay={<MultipleValueDisplay />}
+          multiple
+          clearable
+        ></Cascader>,
       );
-      fireEvent.mouseEnter(container.querySelector('.t-input'));
+      const optionsValue = container.querySelectorAll('.options-value');
+      expect(optionsValue[0]).toHaveTextContent('(1.3)');
+      expect(optionsValue[1]).toHaveTextContent('(2.1)');
+      expect(optionsValue[2]).toHaveTextContent('(2.2)');
+      fireEvent.click(container.querySelector('.t-input'));
       await mockDelay();
-      // 点击清除按钮只触发一次onChange,不触发onRemove
-      expect(container.querySelector('.t-tag-input__suffix-clear')).toBeTruthy();
-      fireEvent.click(container.querySelector('.t-tag-input__suffix-clear'));
-      expect(onChange).toHaveBeenCalledTimes(1);
-      expect(onRemove).toHaveBeenCalledTimes(0);
-      // 点击tag onRemove,触发一次onRemove,触发两次onChange
-      fireEvent.click(container.querySelectorAll('.t-tag__icon-close')[0]);
-      expect(onRemove).toHaveBeenCalledTimes(1);
-      expect(onChange).toHaveBeenCalledTimes(2);
+      expect(document.querySelectorAll('.t-is-checked')).toHaveLength(2);
+      expect(document.querySelectorAll('.t-is-checked')[1].children[0]).toHaveAttribute('checked');
     });
 
-    test('multiple 应按用户勾选顺序保留 value', async () => {
+    test('multiple preserves user selection order', async () => {
       const onChange = vi.fn();
       const TestComponent = () => {
         const [value, setValue] = useState<any[]>([]);
@@ -453,7 +503,7 @@ describe('Cascader', () => {
       expect(onChange).toHaveBeenLastCalledWith(['1.1', '2.2'], expect.any(Object));
     });
 
-    test('multiple + valueType=full 应按用户勾选顺序保留 value', async () => {
+    test('multiple with valueType[full] preserves user selection order', async () => {
       const onChange = vi.fn();
       const TestComponent = () => {
         const [value, setValue] = useState<any[]>([]);
