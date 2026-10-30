@@ -804,6 +804,68 @@ describe('Form', () => {
       expect(container.querySelector('.radio-value-3')).toHaveClass('t-is-checked');
     });
 
+    test('remounted fields reinitialize and stay consistent with getFieldsValue', () => {
+      const readValues = vi.fn();
+      const Fields = () => (
+        <>
+          <FormItem name="date">
+            <Input placeholder="date" />
+          </FormItem>
+          <FormItem name={['schedule', 'execute_at']}>
+            <Input placeholder="execute-at" />
+          </FormItem>
+        </>
+      );
+
+      const TestForm = () => {
+        const [form] = Form.useForm();
+        const [mode, setMode] = useState(1);
+
+        return (
+          <>
+            <Form form={form}>
+              {mode === 1 && <Fields />}
+              {mode === 2 && (
+                <div>
+                  <Fields />
+                </div>
+              )}
+            </Form>
+            <Button
+              onClick={() =>
+                form.setFieldsValue({
+                  date: '2026-10-21',
+                  schedule: { execute_at: '11:31:06' },
+                })
+              }
+            >
+              Fill
+            </Button>
+            <Button onClick={() => setMode(0)}>Hide</Button>
+            <Button onClick={() => setMode(2)}>Remount</Button>
+            <Button onClick={() => readValues(form.getFieldsValue(true))}>Read</Button>
+          </>
+        );
+      };
+
+      const { getByText, getByPlaceholderText } = render(<TestForm />);
+      fireEvent.click(getByText('Fill'));
+      fireEvent.click(getByText('Hide'));
+
+      fireEvent.click(getByText('Read'));
+      let [values] = readValues.mock.lastCall;
+      expect(values.date).toBeUndefined();
+      expect(values.schedule?.execute_at).toBeUndefined();
+
+      fireEvent.click(getByText('Remount'));
+      expect((getByPlaceholderText('date') as HTMLInputElement).value).toBe('');
+      expect((getByPlaceholderText('execute-at') as HTMLInputElement).value).toBe('');
+      fireEvent.click(getByText('Read'));
+      [values] = readValues.mock.lastCall;
+      expect(values.date).toBeUndefined();
+      expect(values.schedule?.execute_at).toBeUndefined();
+    });
+
     test('resetType[initial] clears remounted and reset fields', async () => {
       const TestForm = () => {
         const [form] = Form.useForm();

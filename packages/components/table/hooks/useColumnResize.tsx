@@ -30,7 +30,9 @@ export default function useColumnResize(params: {
     left: boolean;
     right: boolean;
   };
-  getThWidthList: (type?: 'default' | 'calculate') => { [colKeys: string]: number };
+  getThWidthList: (type?: 'default' | 'calculate') => {
+    [colKeys: string]: number;
+  };
   updateThWidthList: (data: { [colKeys: string]: number }) => void;
   setTableElmWidth: (width: number) => void;
   updateTableAfterColumnResize: () => void;
@@ -255,6 +257,10 @@ export default function useColumnResize(params: {
     }
 
     const onDragOver: EventListener = (e: MouseEvent) => {
+      if ((e.buttons & 1) === 0) {
+        onDragEnd();
+        return;
+      }
       if (resizeLineParams.isDragging) {
         const left = resizeLinePos + e.x - resizeLineParams.draggingStart;
         const styles = {
@@ -267,7 +273,7 @@ export default function useColumnResize(params: {
     };
 
     // 拖拽时鼠标可能会超出 table 范围，需要给 document 绑定拖拽相关事件
-    const onDragEnd = () => {
+    function onDragEnd() {
       if (!resizeLineParams.isDragging) return;
       const moveDistance = resizeLinePos - (parseFloat(String(resizeLineParams.resizeLineStyle?.left || '')) || 0);
       /**
@@ -334,7 +340,7 @@ export default function useColumnResize(params: {
       document.onselectstart = originalSelectStart;
       document.ondragstart = originalDragStart;
       onColumnResizeChange?.({ columnsWidth: newThWidthList });
-    };
+    }
 
     on(document, 'mouseup', onDragEnd);
     on(document, 'mousemove', onDragOver);

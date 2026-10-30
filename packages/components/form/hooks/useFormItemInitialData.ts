@@ -16,7 +16,7 @@ export default function useFormItemInitialData(
 ) {
   let hadReadFloatingFormData = false;
 
-  const { form, floatingFormDataRef, initialData: formContextInitialData, mountedFieldsRef } = useFormContext();
+  const { form, floatingFormDataRef, initialData: formContextInitialData } = useFormContext();
   const { name: rawFormListName, initialData: formListInitialData, form: formOfFormList } = useFormListContext();
 
   const isSameForm = isEqual(form, formOfFormList);
@@ -65,15 +65,6 @@ export default function useFormItemInitialData(
         // 兼容 add() 或者 add({}) 导致的空对象场景
         // https://github.com/Tencent/tdesign-react/issues/2329
         return get(form.store, fullPath);
-      }
-    }
-
-    const fieldKey = JSON.stringify(fullPath);
-    const isFirstMount = !(mountedFieldsRef?.current?.has(fieldKey) ?? false);
-    if (!isFormList && isFirstMount && hasName && form?.store && has(form.store, fullPath)) {
-      const storeValue = get(form.store, fullPath);
-      if (typeof storeValue !== 'undefined') {
-        return storeValue;
       }
     }
 

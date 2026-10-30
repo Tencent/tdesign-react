@@ -68,7 +68,7 @@ labelWidth | String / Number | - | \- | N
 name | String | - | \- | N
 requiredMark | Boolean | undefined | \- | N
 rules | Array | - | Typescript: `Array<FormRule>` | N
-shouldUpdate | Boolean / Function | false | Typescript: `boolean \| ((prevValue, curValue) => boolean)` | N
+shouldUpdate | Boolean / Function | false | Whether to rerender the current FormItem when form data changes. Typescript: `boolean \| ((prevValue, curValue) => boolean)` | N
 showErrorMessage | Boolean | undefined | \- | N
 status | String | - | Typescript: `'error' \| 'warning' \| 'success' \| 'validating'` | N
 statusIcon | TNode | undefined | Typescript: `boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
