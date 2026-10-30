@@ -4,9 +4,9 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { KeyboardEvent, MouseEvent } from 'react';
-import { ButtonProps } from '../button';
-import { AttachNode, ClassName, Styles, TNode } from '../common';
+import type { MouseEvent, KeyboardEvent } from 'react';
+import type { ButtonProps } from '../button';
+import type { TNode, ClassName, Styles, AttachNode } from '../common';
 
 export interface TdDialogProps {
   /**
@@ -56,9 +56,13 @@ export interface TdDialogProps {
    */
   destroyOnClose?: boolean;
   /**
-   * 内容部分的类名，支持多种格式：字符串（例如 `'name1 name2 name3'`）、数组（例如 `['name1', 'name2']`）或对象数组（例如 `[{ 'name1': true }]`）
+   * 弹框元素类名，示例：'t-class-dialog-first t-class-dialog-second' 或 `['name1', 'name2']` 或 `[{ 'name1': true }]`
    */
   dialogClassName?: ClassName;
+  /**
+   * 作用于对话框本身的样式
+   */
+  dialogStyle?: Styles;
   /**
    * 是否可以拖拽（对全屏对话框无效）
    * @default false
@@ -86,14 +90,14 @@ export interface TdDialogProps {
   header?: TNode;
   /**
    * 是否启用对话框懒加载，启用时对话框内的内容不渲染
-   * @default true
+   * @default false
    */
   lazy?: boolean;
   /**
-   * 对话框类型，有 3 种：模态对话框、非模态对话框、全屏对话框。弹出「模态对话框」时，只能操作对话框里面的内容，不能操作其他内容。弹出「非模态对话框」时，则可以操作页面内所有内容。「普通对话框」是指没有脱离文档流的对话框，可以在这个基础上开发更多的插件
+   * 对话框类型，有 4 种：模态对话框、非模态对话框、普通对话框、全屏对话框。弹出「模态对话框」时，只能操作对话框里面的内容，不能操作其他内容。弹出「非模态对话框」时，则可以操作页面内所有内容。「普通对话框」是指没有脱离文档流的对话框，可以在这个基础上开发更多的插件
    * @default modal
    */
-  mode?: 'modal' | 'modeless' | 'full-screen';
+  mode?: 'modal' | 'modeless' | 'normal' | 'full-screen';
   /**
    * 对话框位置，内置两种：垂直水平居中显示 和 靠近顶部（top:20%）显示。默认情况，为避免贴顶或贴底，顶部和底部距离最小为 `48px`，可通过调整 `top` 覆盖默认大小
    * @default top
@@ -115,6 +119,11 @@ export interface TdDialogProps {
    */
   showOverlay?: boolean;
   /**
+   * 弹窗大小可拖拽调整。`sizeDraggable.maxWidth`、`sizeDraggable.minWidth`、`sizeDraggable.maxHeight`、`sizeDraggable.minHeight` 用于控制拖拽尺寸大小限制。
+   * @default false
+   */
+  sizeDraggable?: boolean | DialogSizeDragLimit;
+  /**
    * 对话框风格
    * @default default
    */
@@ -132,7 +141,7 @@ export interface TdDialogProps {
    */
   width?: string | number;
   /**
-   * 对话框层级，Web 侧样式默认为 2500，移动端和小程序样式默认为 1500
+   * 对话框层级，Web 侧样式默认为 2500，移动端样式默认 1500，小程序样式默认为 11500
    */
   zIndex?: number;
   /**
@@ -177,21 +186,20 @@ export interface TdDialogProps {
   onOverlayClick?: (context: { e: MouseEvent<HTMLDivElement> }) => void;
 }
 
-export interface TdDialogCardProps
-  extends Pick<
-    TdDialogProps,
-    | 'body'
-    | 'cancelBtn'
-    | 'closeBtn'
-    | 'confirmBtn'
-    | 'footer'
-    | 'header'
-    | 'theme'
-    | 'onCancel'
-    | 'onCloseBtnClick'
-    | 'onConfirm'
-    | 'confirmLoading'
-  > {}
+export interface TdDialogCardProps extends Pick<
+  TdDialogProps,
+  | 'body'
+  | 'cancelBtn'
+  | 'closeBtn'
+  | 'confirmBtn'
+  | 'footer'
+  | 'header'
+  | 'theme'
+  | 'onCancel'
+  | 'onCloseBtnClick'
+  | 'onConfirm'
+  | 'confirmLoading'
+> {}
 
 export interface DialogOptions extends Omit<TdDialogProps, 'attach'> {
   /**
@@ -234,19 +242,16 @@ export interface DialogInstance {
 }
 
 export interface DialogFocusable {
-  /**
-   * 打开后的默认焦点。
-   * 未设置时默认聚焦对话框容器；`null` 不移动焦点。`confirm-button` 和 `cancel-button` 聚焦对应按钮；函数返回自定义元素。
-   */
   defaultFocus?: null | 'confirm-button' | 'cancel-button' | (() => HTMLElement | null);
-  /**
-   * 是否将焦点限制在当前对话框内
-   */
   focusTrap?: boolean;
-  /**
-   * 是否将焦点交还给打开对话框前的触发元素
-   */
   focusTriggerAfterClose: boolean;
+}
+
+export interface DialogSizeDragLimit {
+  maxWidth: number | undefined;
+  minWidth: number | undefined;
+  maxHeight: number | undefined;
+  minHeight: number | undefined;
 }
 
 export type DialogEventSource = 'esc' | 'close-btn' | 'cancel' | 'overlay';

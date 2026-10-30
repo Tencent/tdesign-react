@@ -81,6 +81,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   const {
     className,
     dialogClassName,
+    dialogStyle,
     style,
     width,
     mode,
@@ -314,7 +315,11 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
                   {...omit(restState, ['isPlugin'])}
                   mode={mode}
                   className={classNames(dialogClassName)}
-                  style={{ ...style, width: pxCompat(width || style?.width) }}
+                  style={{
+                    ...style,
+                    ...(isFullScreen ? undefined : { width: pxCompat(width || style?.width) }),
+                    ...dialogStyle,
+                  }}
                   onConfirm={onConfirm}
                   onCancel={handleCancel}
                   onCloseBtnClick={handleClose}

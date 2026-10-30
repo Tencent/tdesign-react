@@ -17,24 +17,24 @@ name | type | default | description | required
 -- | -- | -- | -- | --
 className | String | - | className of component | N
 style | Object | - | CSS(Cascading Style Sheets)，Typescript: `React.CSSProperties` | N
-attach | String / Function | - | Typescript: `AttachNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-body | TNode | - | Typescript: `string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-cancelBtn | TNode | - | Typescript: `string \| ButtonProps \| TNode \| null`，[Button API Documents](./button?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/dialog/type.ts) | N
-children | TNode | - | Typescript: `string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-closeBtn | TNode | true | Typescript: `string \| boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+attach | String / Function | - | Typescript: `AttachNode`. [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+body | TNode | - | Typescript: `string \| TNode`. [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+cancelBtn | TNode | - | Typescript: `string \| ButtonProps \| TNode \| null`，[Button API Documents](./button?tab=api). [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts). [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/dialog/type.ts) | N
+children | TNode | - | Typescript: `string \| TNode`. [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+closeBtn | TNode | true | Typescript: `string \| boolean \| TNode`. [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 closeOnEscKeydown | Boolean | true | trigger dialog close event on `ESC` keydown | N
 closeOnOverlayClick | Boolean | true | \- | N
-confirmBtn | TNode | - | Typescript: `string \| ButtonProps \| TNode \| null`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+confirmBtn | TNode | - | Typescript: `string \| ButtonProps \| TNode \| null`. [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 confirmLoading | Boolean | undefined | confirm button loading status | N
 confirmOnEnter | Boolean | - | confirm on enter | N
 destroyOnClose | Boolean | false | \- | N
-dialogClassName | String / Object / Array | - | The class name for the popover content section, supporting multiple formats: string (e.g., `'name1 name2 name3'`), array (e.g., `['name1', 'name2']`), or array of objects (e.g., `[{ 'name1': true }]`)。Typescript: `ClassName`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+dialogClassName | String / Object / Array | - | Class name of the dialog element. Supports string (e.g. 't-class-dialog-first t-class-dialog-second'), array (e.g. ['name1', 'name2']), or object array (e.g. [{ 'name1': true }]). Typescript: `ClassName`. [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 draggable | Boolean | false | not effective in `full-screen` mode | N
-focusable | Object | - | Dialog focus control. `defaultFocus` determines the default focus after opening; `focusTrap` determines whether focus is confined to the current dialog; `focusTriggerAfterClose` determines whether focus is returned to the trigger element after closing. Typescript: `DialogFocusable` `interface DialogFocusable { defaultFocus?: null \| 'confirm-button' \| 'cancel-button' \| (() => HTMLElement \| null); focusTrap?: boolean; focusTriggerAfterClose: boolean }`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/dialog/type.ts) | N
-footer | TNode | true | Typescript: `boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-header | TNode | true | Typescript: `string \| boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-lazy | Boolean | true | Enable Dialog lazy loading, the contents of the dialog box are not rendered when enable | N
-mode | String | modal | options: modal/modeless/full-screen | N
+focusable | Object | - | Dialog focus control. `defaultFocus` determines the default focus after opening; `focusTrap` determines whether focus is trapped within the current dialog; `focusTriggerAfterClose` determines whether focus is returned to the trigger element after closing. Typescript: `DialogFocusable` `interface DialogFocusable { defaultFocus?: null \| 'confirm-button' \| 'cancel-button' \| (() => HTMLElement \| null); focusTrap?: boolean; focusTriggerAfterClose: boolean }`. [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/dialog/type.ts) | N
+footer | TNode | true | Typescript: `boolean \| TNode`. [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+header | TNode | true | Typescript: `string \| boolean \| TNode`. [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+lazy | Boolean | false | Enable Dialog lazy loading, the contents of the dialog box are not rendered when enable | N
+mode | String | modal | options: modal/modeless/normal/full-screen | N
 placement | String | top | options: top/center | N
 preventScrollThrough | Boolean | true | \- | N
 showInAttachedElement | Boolean | false | \- | N
@@ -47,7 +47,7 @@ zIndex | Number | - | \- | N
 onBeforeClose | Function |  | Typescript: `() => void`<br/> | N
 onBeforeOpen | Function |  | Typescript: `() => void`<br/> | N
 onCancel | Function |  | Typescript: `(context: { e: MouseEvent }) => void`<br/> | N
-onClose | Function |  | Typescript: `(context: DialogCloseContext) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/dialog/type.ts)。<br/>`type DialogEventSource = 'esc' \| 'close-btn' \| 'cancel' \| 'overlay'`<br/><br/>`interface DialogCloseContext { trigger: DialogEventSource; e: MouseEvent \| KeyboardEvent }`<br/> | N
+onClose | Function |  | Typescript: `(context: DialogCloseContext) => void`<br/>[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/dialog/type.ts). <br/>`type DialogEventSource = 'esc' \| 'close-btn' \| 'cancel' \| 'overlay'`<br/><br/>`interface DialogCloseContext { trigger: DialogEventSource; e: MouseEvent \| KeyboardEvent }`<br/> | N
 onCloseBtnClick | Function |  | Typescript: `(context: { e: MouseEvent }) => void`<br/> | N
 onClosed | Function |  | Typescript: `() => void`<br/> | N
 onConfirm | Function |  | Typescript: `(context: { e: MouseEvent \| KeyboardEvent }) => void`<br/> | N
@@ -59,9 +59,9 @@ onOverlayClick | Function |  | Typescript: `(context: { e: MouseEvent }) => void
 
 name | type | default | description | required
 -- | -- | -- | -- | --
-attach | String / Function | 'body' | Typescript: `AttachNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+attach | String / Function | 'body' | Typescript: `AttachNode`. [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 className | String | - | \- | N
-style | Object | - | Typescript: `Styles`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+style | Object | - | Typescript: `Styles`. [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 `Omit<DialogProps, 'attach'>` | \- | - | extends `Omit<DialogProps, 'attach'>` | N
 
 ### DialogInstance
@@ -70,7 +70,7 @@ name | params | return | description
 -- | -- | -- | --
 destroy | \- | \- | required
 hide | \- | \- | required
-setConfirmLoading | `(loading: boolean)` | \- | required。set confirm button loading status
+setConfirmLoading | `(loading: boolean)` | \- | required. set confirm button loading status
 show | \- | \- | required
 update | `(props: DialogOptions)` | \- | required
 
