@@ -14,7 +14,7 @@ import useResizeObserver from '../hooks/useResizeObserver';
 import { textareaDefaultProps } from './defaultProps';
 
 import type { StyledProps } from '../common';
-import type { TdTextareaProps } from './type';
+import type { TdTextareaProps, TextareaValue } from './type';
 
 const DEFAULT_TEXTAREA_STYLE = { height: 'auto', minHeight: 'auto' };
 const OMIT_PROPS = ['defaultValue', 'readonly'];
@@ -23,10 +23,28 @@ export interface TextareaProps
   extends
     Omit<
       React.TextareaHTMLAttributes<HTMLTextAreaElement>,
-      'value' | 'defaultValue' | 'onBlur' | 'onChange' | 'onFocus' | 'onKeyDown' | 'onKeyPress' | 'onKeyUp'
+      | 'value'
+      | 'defaultValue'
+      | 'onBlur'
+      | 'onChange'
+      | 'onFocus'
+      | 'onKeyDown'
+      | 'onKeyPress'
+      | 'onKeyUp'
+      | 'onPaste'
+      | 'onPasteCapture'
     >,
     TdTextareaProps,
-    StyledProps {}
+    StyledProps {
+  /**
+   * 粘贴事件。运行时第二个参数为 `{ e }`（ClipboardEvent），可从 `e.clipboardData` 读取剪贴板内容
+   */
+  onPaste?: (value: TextareaValue, context: { e: React.ClipboardEvent<HTMLTextAreaElement> }) => void;
+  /**
+   * 粘贴事件（捕获阶段）。签名同 `onPaste`
+   */
+  onPasteCapture?: (value: TextareaValue, context: { e: React.ClipboardEvent<HTMLTextAreaElement> }) => void;
+}
 export interface TextareaRefInterface {
   currentElement: HTMLDivElement;
   textareaElement: HTMLTextAreaElement;
