@@ -120,6 +120,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
 
   const dialogAttach = useAttach('dialog', attach);
   const [dialogAnimationVisible, setDialogAnimationVisible] = useState(false);
+  const [dialogContainerVisible, setDialogContainerVisible] = useState(visible);
 
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
   const { isTopOverlay } = useOverlayManager('dialog', {
@@ -224,15 +225,13 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   // Portal Animation
   const onAnimateStart = () => {
     onBeforeOpen?.();
-    if (!wrapRef.current) return;
-    wrapRef.current.style.display = 'block';
+    setDialogContainerVisible(true);
   };
 
   const onAnimateLeave = () => {
     restoreTriggerFocus();
     onClosed?.();
-    if (!wrapRef.current) return;
-    wrapRef.current.style.display = 'none';
+    setDialogContainerVisible(false);
   };
 
   // Dialog Animation
@@ -283,7 +282,10 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
             [`${componentCls}__ctx--absolute`]: showInAttachedElement,
             [`${componentCls}__ctx--modeless`]: isModeless,
           })}
-          style={{ zIndex }}
+          style={{
+            zIndex,
+            display: visible || dialogContainerVisible ? undefined : 'none',
+          }}
           onKeyDown={handleKeyDown}
           tabIndex={0}
         >

@@ -55,6 +55,28 @@ describe('Dialog', () => {
       expect(container.querySelector('.t-dialog__header')).toBeNull();
     });
 
+    test('lazy[boolean]', () => {
+      const { unmount } = render(
+        <Dialog visible={false}>
+          <p>This is a dialog</p>
+        </Dialog>,
+      );
+
+      expect(document.querySelector('.t-dialog')).not.toBeInTheDocument();
+      unmount();
+
+      render(
+        <Dialog visible={false} lazy={false}>
+          <p>This is a dialog</p>
+        </Dialog>,
+      );
+
+      expect(document.querySelector('.t-dialog')).toBeInTheDocument();
+      expect(document.querySelector('.t-dialog__ctx')).toHaveStyle({
+        display: 'none',
+      });
+    });
+
     describe('focusable', () => {
       (['confirm-button', 'cancel-button'] as const).forEach((defaultFocus) => {
         test(`defaultFocus[${defaultFocus}]`, () => {

@@ -90,7 +90,7 @@ export interface TdDialogProps {
   header?: TNode;
   /**
    * 是否启用对话框懒加载，启用时对话框内的内容不渲染
-   * @default false
+   * @default true
    */
   lazy?: boolean;
   /**
