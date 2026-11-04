@@ -77,6 +77,20 @@ describe('Dialog', () => {
       });
     });
 
+    test('mode[normal]', () => {
+      const { container, rerender } = render(<Dialog mode="normal" visible={false} body="This is a dialog" />);
+      expect(container.querySelector('.t-dialog__normal')).not.toBeInTheDocument();
+
+      rerender(<Dialog mode="normal" visible body="This is a dialog" />);
+
+      const dialog = container.querySelector<HTMLElement>('.t-dialog__normal');
+      expect(dialog).toBeInTheDocument();
+      expect(dialog).not.toHaveClass('t-dialog__ctx--fixed');
+      expect(dialog?.querySelector('.t-dialog__mask')).not.toBeInTheDocument();
+      expect(dialog?.querySelector('.t-dialog__position')).not.toBeInTheDocument();
+      expect(document.querySelector('.t-portal-wrapper .t-dialog__normal')).not.toBeInTheDocument();
+    });
+
     describe('focusable', () => {
       (['confirm-button', 'cancel-button'] as const).forEach((defaultFocus) => {
         test(`defaultFocus[${defaultFocus}]`, () => {

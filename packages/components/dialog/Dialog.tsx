@@ -2,7 +2,6 @@ import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } f
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import { isUndefined, omit } from 'lodash-es';
-import log from '@tdesign/common-js/log/index';
 import { pxCompat } from '@tdesign/common-js/utils/helper';
 
 import Portal from '../common/Portal';
@@ -116,6 +115,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   } = mergedState;
 
   const isModeless = mode === 'modeless';
+  const isNormal = mode === 'normal';
   const isFullScreen = mode === 'full-screen';
 
   const dialogAttach = useAttach('dialog', attach);
@@ -146,7 +146,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     dialogCardRef.current.style.display = dialogAnimationVisible ? 'block' : 'none';
 
     if (dialogAnimationVisible) {
-      applyTransform();
+      if (!isNormal) applyTransform();
       focusDialog();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -169,12 +169,6 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
       setPluginState((prevState) => ({ ...prevState, ...newOptions }));
     },
   }));
-
-  // @ts-ignore 兼容旧版本 2.0 移除
-  if (props.mode === 'normal') {
-    log.error('Dialog', 'mode="normal" is not supported, please use DialogCard.');
-    return <DialogCard {...props} />;
-  }
 
   const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!showOverlay || isModeless || isInputInteracting.current) return;
@@ -261,6 +255,73 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     ) : null;
   };
 
+  const renderDialogCard = () => (
+    <CSSTransition
+      in={visible}
+      appear
+      timeout={300}
+      classNames={`${componentCls}-zoom`}
+      nodeRef={dialogCardRef}
+      onEnter={onInnerAnimateStart}
+      onExited={onInnerAnimateLeave}
+    >
+      <DialogCard
+        ref={dialogCardRef}
+        {...omit(restState, ['isPlugin'])}
+        mode={mode}
+        className={classNames(dialogClassName)}
+        style={{
+          ...style,
+          ...(isFullScreen ? undefined : { width: pxCompat(width || style?.width) }),
+          ...dialogStyle,
+        }}
+        onConfirm={onConfirm}
+        onCancel={handleCancel}
+        onCloseBtnClick={handleClose}
+      >
+        {children}
+      </DialogCard>
+    </CSSTransition>
+  );
+
+  const renderDialog = () => (
+    <div
+      ref={wrapRef}
+      className={classNames(className, `${componentCls}__ctx`, `${componentCls}__${mode}`, {
+        [`${componentCls}__ctx--fixed`]: !isNormal && !showInAttachedElement,
+        [`${componentCls}__ctx--absolute`]: !isNormal && showInAttachedElement,
+        [`${componentCls}__ctx--modeless`]: isModeless,
+      })}
+      style={{
+        zIndex,
+        display: visible || dialogContainerVisible ? undefined : 'none',
+      }}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+    >
+      {renderMask()}
+      {isNormal ? (
+        renderDialogCard()
+      ) : (
+        <div className={`${componentCls}__wrap`}>
+          <div
+            ref={dialogPosition}
+            className={classNames(isFullScreen ? `${componentCls}__position_fullscreen` : `${componentCls}__position`, {
+              [`${componentCls}--top`]: !isFullScreen && (!!top || placement === 'top'),
+              [`${componentCls}--center`]: !isFullScreen && placement === 'center' && !top,
+            })}
+            style={{ paddingTop: isFullScreen ? undefined : pxCompat(top) }}
+            onClick={onMaskClick}
+          >
+            {renderDialogCard()}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  const transitionNodeRef = isNormal ? wrapRef : portalRef;
+
   return (
     <CSSTransition
       in={visible}
@@ -268,71 +329,19 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
       timeout={300}
       mountOnEnter={isUndefined(forceRender) ? lazy : !forceRender}
       unmountOnExit={destroyOnClose}
-      nodeRef={portalRef}
+      nodeRef={transitionNodeRef}
       onEnter={onAnimateStart}
       onEntered={onOpened}
       onExit={onBeforeClose}
       onExited={onAnimateLeave}
     >
-      <Portal attach={dialogAttach} ref={portalRef}>
-        <div
-          ref={wrapRef}
-          className={classNames(className, `${componentCls}__ctx`, `${componentCls}__${mode}`, {
-            [`${componentCls}__ctx--fixed`]: !showInAttachedElement,
-            [`${componentCls}__ctx--absolute`]: showInAttachedElement,
-            [`${componentCls}__ctx--modeless`]: isModeless,
-          })}
-          style={{
-            zIndex,
-            display: visible || dialogContainerVisible ? undefined : 'none',
-          }}
-          onKeyDown={handleKeyDown}
-          tabIndex={0}
-        >
-          {renderMask()}
-          <div className={`${componentCls}__wrap`}>
-            <div
-              ref={dialogPosition}
-              className={classNames(
-                isFullScreen ? `${componentCls}__position_fullscreen` : `${componentCls}__position`,
-                {
-                  [`${componentCls}--top`]: !isFullScreen && (!!top || placement === 'top'),
-                  [`${componentCls}--center`]: !isFullScreen && placement === 'center' && !top,
-                },
-              )}
-              style={{ paddingTop: isFullScreen ? undefined : pxCompat(top) }}
-              onClick={onMaskClick}
-            >
-              <CSSTransition
-                in={visible}
-                appear
-                timeout={300}
-                classNames={`${componentCls}-zoom`}
-                nodeRef={dialogCardRef}
-                onEnter={onInnerAnimateStart}
-                onExited={onInnerAnimateLeave}
-              >
-                <DialogCard
-                  ref={dialogCardRef}
-                  {...omit(restState, ['isPlugin'])}
-                  mode={mode}
-                  className={classNames(dialogClassName)}
-                  style={{
-                    ...style,
-                    ...(isFullScreen ? undefined : { width: pxCompat(width || style?.width) }),
-                    ...dialogStyle,
-                  }}
-                  onConfirm={onConfirm}
-                  onCancel={handleCancel}
-                  onCloseBtnClick={handleClose}
-                >
-                  {children}
-                </DialogCard>
-              </CSSTransition>
-            </div>
-          </div>
-        </div>
-      </Portal>
+      {isNormal ? (
+        renderDialog()
+      ) : (
+        <Portal attach={dialogAttach} ref={portalRef}>
+          {renderDialog()}
+        </Portal>
+      )}
     </CSSTransition>
   );
 });
