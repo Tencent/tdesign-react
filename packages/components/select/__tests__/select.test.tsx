@@ -740,6 +740,42 @@ describe('Select', () => {
       }
     });
 
+    test('multiple filterable clearable clears the filter keyword', () => {
+      const onChange = vi.fn();
+      const onInputChange = vi.fn();
+      const { getByRole } = render(
+        <Select
+          multiple
+          filterable
+          clearable
+          defaultValue={['1']}
+          options={filterableOptions}
+          onChange={onChange}
+          onInputChange={onInputChange}
+        />,
+      );
+      const input = getByRole('textbox');
+      fireEvent.click(input);
+      fireEvent.change(input, { target: { value: '二' } });
+      expect(input).toHaveValue('二');
+
+      const popup = document.querySelector(popupSelector);
+      expect(popup).toHaveTextContent('选项二');
+      expect(popup).not.toHaveTextContent('选项一');
+      expect(document.querySelector('.t-tag')).toHaveTextContent('选项一');
+
+      fireEvent.mouseEnter(document.querySelector('.t-input'));
+      fireEvent.click(document.querySelector('.t-tag-input__suffix-clear'));
+
+      expect(input).toHaveValue('');
+      expect(document.querySelector('.t-tag')).toBeNull();
+      expect(popup).toHaveTextContent('选项一');
+      expect(popup).toHaveTextContent('选项二');
+      expect(popup).toHaveTextContent('选项三');
+      expect(onChange).toHaveBeenCalledWith([], expect.objectContaining({ trigger: 'clear' }));
+      expect(onInputChange).toHaveBeenCalledWith('', expect.objectContaining({ trigger: 'input' }));
+    });
+
     test.each([false, true])('multiple filtering refreshes list after selection', (reserveKeyword) => {
       const { getByRole, getByText } = render(
         <Select multiple filterable options={filterableOptions} reserveKeyword={reserveKeyword} />,
