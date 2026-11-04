@@ -28,7 +28,7 @@ describe("Empty", () => {
     test("type[success]", async () => {
       const { container } = render(<Empty type="success" />);
       expect(
-        container.querySelector(".t-empty__image .t-icon-check-circle-filled"),
+        container.querySelector(".t-empty__image .t-icon-check-circle"),
       ).not.toBeNull();
     });
 
