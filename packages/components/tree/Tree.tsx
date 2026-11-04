@@ -89,7 +89,10 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     (
       node: TreeNode,
       isExpanded: boolean,
-      ctx: { e?: MouseEvent<HTMLDivElement>; trigger: 'node-click' | 'icon-click' | 'setItem' },
+      ctx: {
+        e?: MouseEvent<HTMLDivElement>;
+        trigger: 'node-click' | 'icon-click' | 'setItem';
+      },
     ) => {
       const { e, trigger } = ctx;
       const expanded = node.setExpanded(isExpanded);
@@ -104,7 +107,10 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     (
       node: TreeNode,
       isIndeterminate: boolean,
-      ctx: { e?: MouseEvent<HTMLDivElement>; trigger: 'node-click' | 'icon-click' | 'setItem' },
+      ctx: {
+        e?: MouseEvent<HTMLDivElement>;
+        trigger: 'node-click' | 'icon-click' | 'setItem';
+      },
     ) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { e, trigger } = ctx;
@@ -133,7 +139,10 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     (
       node: TreeNode,
       isActived: boolean,
-      ctx: { e?: MouseEvent<HTMLDivElement>; trigger: 'node-click' | 'setItem' },
+      ctx: {
+        e?: MouseEvent<HTMLDivElement>;
+        trigger: 'node-click' | 'setItem';
+      },
     ) => {
       const actived = node.setActived(isActived);
       const treeNodeModel = node?.getModel();
@@ -174,7 +183,11 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     if (!node || disabled || node.disabled) return;
     const checked = node.toggleChecked();
     const treeNodeModel = node?.getModel();
-    onChange?.(checked, { node: treeNodeModel, ...ctx, trigger: 'node-click' });
+    onChange?.(checked, {
+      node: treeNodeModel,
+      ...ctx,
+      trigger: 'node-click',
+    });
   };
 
   const handleScrollToElement = useCallback(
@@ -268,7 +281,9 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
           if ('indeterminate' in options) {
             // @ts-ignore
             setTreeIndeterminate((prevIndeterminate: TreeNodeValue[]) => [...prevIndeterminate, value]);
-            setIndeterminate(node, spec.indeterminate, { trigger: 'setItem' });
+            setIndeterminate(node, spec.indeterminate, {
+              trigger: 'setItem',
+            });
             delete spec.indeterminate;
           }
           node.set(spec);

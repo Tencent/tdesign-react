@@ -38,7 +38,9 @@ export interface ImageModalMiniProps {
   onZoomOut: () => void;
   onReset: () => void;
   onRotate: () => void;
+  onKeyDown: (event: KeyboardEvent<HTMLDivElement>) => void;
   onClose: (context: { trigger: 'close-btn' | 'overlay' | 'esc'; e: MouseEvent<HTMLElement> | KeyboardEvent }) => void;
+  closeOnEscKeydown?: boolean;
   innerClassName: TdImageViewerProps['innerClassName'];
 }
 
@@ -80,7 +82,9 @@ export const ImageModalMini: React.FC<ImageModalMiniProps> = (props) => {
     onRotate,
     onMirror,
     onReset,
+    onKeyDown,
     innerClassName,
+    closeOnEscKeydown,
   } = props;
 
   const { classPrefix } = useConfig();
@@ -112,11 +116,13 @@ export const ImageModalMini: React.FC<ImageModalMiniProps> = (props) => {
       placement="center"
       mode="modeless"
       closeOnOverlayClick={false}
+      closeOnEscKeydown={closeOnEscKeydown}
       cancelBtn={null}
       confirmBtn={null}
       header={<span className={`${classPrefix}-image-viewer__dialog-title`}>{title}</span>}
       footer={footer}
       onClose={onClose}
+      onUnhandledKeyDown={onKeyDown}
     >
       <ImageModalMiniContent {...props} />
     </Dialog>

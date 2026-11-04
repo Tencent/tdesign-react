@@ -3,6 +3,7 @@
 import fs from 'fs';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+
 import mdToReact from './md-to-react';
 
 // eslint-disable-next-line no-underscore-dangle
@@ -50,7 +51,7 @@ export default {
 
       if (!fs.existsSync(tsxDemoPath)) {
         console.log('\x1B[36m%s\x1B[0m', `${componentName} 组件需要实现 _example/${demoFileName}.tsx 示例!`);
-        return '\n<h3>DEMO (🚧建设中）...</h3>';
+        return '';
       }
 
       return `\n::: demo _example/${demoFileName} ${componentName}\n:::\n`;

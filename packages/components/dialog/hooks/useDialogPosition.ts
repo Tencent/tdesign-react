@@ -8,10 +8,18 @@ import type { MutableRefObject } from 'react';
 let mousePosition: { x: number; y: number } | null = null;
 
 const getClickPosition = (e: MouseEvent) => {
-  mousePosition = {
-    x: e.clientX,
-    y: e.clientY,
-  };
+  if (e.detail === 0 && e.target instanceof Element) {
+    const rect = e.target.getBoundingClientRect();
+    mousePosition = {
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+    };
+  } else {
+    mousePosition = {
+      x: e.clientX,
+      y: e.clientY,
+    };
+  }
   // 100ms 内发生过点击事件，则从点击位置动画展示
   // 否则直接 zoom 展示
   // 这样可以兼容非点击方式展开
@@ -27,11 +35,18 @@ if (canUseDocument) {
 export default function useDialogPosition(dialogCardRef: MutableRefObject<HTMLElement>) {
   const applyTransform = useCallback(() => {
     const el = dialogCardRef.current;
-    if (!el || !mousePosition) return;
+    if (!el) return;
+    if (!mousePosition) {
+      el.style.transformOrigin = '';
+      return;
+    }
 
     const { x, y } = mousePosition;
 
-    const parentRect = el.offsetParent?.getBoundingClientRect() || { left: 0, top: 0 };
+    const parentRect = el.offsetParent?.getBoundingClientRect() || {
+      left: 0,
+      top: 0,
+    };
 
     const top = parentRect.top + el.offsetTop;
     const left = parentRect.left + el.offsetLeft;

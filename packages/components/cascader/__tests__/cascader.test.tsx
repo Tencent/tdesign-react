@@ -94,7 +94,13 @@ describe('Cascader', () => {
     });
 
     test('valueType[full]', async () => {
-      const nestedOptions = [{ value: 1n, label: 'parent', children: [{ value: 0n, label: 'child' }] }];
+      const nestedOptions = [
+        {
+          value: 1n,
+          label: 'parent',
+          children: [{ value: 0n, label: 'child' }],
+        },
+      ];
       const nested = render(<Cascader valueType="full" value={[1n, 0n]} options={nestedOptions} />);
       const options = [
         { value: 1n, label: 'bigint' },
