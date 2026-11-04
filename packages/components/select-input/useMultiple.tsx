@@ -72,7 +72,11 @@ export default function useMultiple(props: SelectInputProps) {
           if (!p.popupVisible) {
             p.onInnerBlur(context);
           } else if (!props.panel) {
-            props.onBlur?.(value, { e: context.e, inputValue: tInputValue, tagInputValue: tags });
+            props.onBlur?.(value, {
+              e: context.e,
+              inputValue: tInputValue,
+              tagInputValue: tags,
+            });
           }
         }
         blurTimeoutRef.current = null;
@@ -106,9 +110,13 @@ export default function useMultiple(props: SelectInputProps) {
         inputValue={p.popupVisible && p.allowInput ? tInputValue : ''}
         onChange={onTagInputChange}
         onInputChange={(val, context) => {
-          // 筛选器统一特性：筛选器按下回车时不清空输入框
+          // 筛选器统一特性：筛选器按下回车或失焦时不清空输入框
           if (context?.trigger === 'enter' || context?.trigger === 'blur') return;
-          setTInputValue(val, { trigger: context.trigger, e: context.e });
+          // 与单选一致：清空按钮根据 input 同步筛选词
+          setTInputValue(val, {
+            trigger: context.trigger === 'clear' ? 'input' : context.trigger,
+            e: context.e,
+          });
         }}
         onClear={p.onInnerClear}
         // [Important Info]: SelectInput.blur is not equal to TagInput, example: click popup panel
