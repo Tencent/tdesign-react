@@ -1,44 +1,4 @@
----
-title: ChatMessage 对话消息体
-description: 对话消息体组件，用于展示单条对话消息，支持用户消息和 AI 消息的多种内容类型渲染，包括文本、Markdown、思考过程、搜索结果、建议问题、图片、附件等，提供丰富的样式配置和交互能力。
-isComponent: true
-usage: { title: '', description: '' }
-spline: aigc
----
-
-## 基础样式
-
-### 气泡样式
-对话消息气泡样式，分为基础、线框、文字，默认为文字
-
-{{ base }}
-
-### 可配置角色，头像，昵称，位置
-
-{{ configure }}
-
-### 消息状态
-{{ status }}
-
-## 消息内容渲染
-### 内置支持的几种消息内容
-通过配置 `message type`属性，可以渲染内置的几种消息内容：**文本格式内容**，**Markdown格式内容**、**思考过程**、**搜索结果**、**建议问题**、**附件列表**、**图片**, 通过`chatContentProps`属性来配置对应类型的属性
-{{ content }}
-
-### 消息内容操作回调
-
-通过 `handleActions` 属性配置消息内容的操作回调，支持建议问题点击、搜索结果点击等交互。
-
-{{ handle-actions }}
-
-### 消息内容自定义
-如果需要自定义消息内容，可以通过`植入自定义渲染插槽`的方式实现，以下示例实现了如何自定义用户消息，同时也通过引入了`tvision`自定义渲染`图表`组件演示如何自定义渲染AI消息内容：
-{{ custom }}
-
-
-### 消息底部操作栏
-消息底部操作栏，通过`植入插槽actionbar`的方式实现，可以直接使用[`ChatActionBar`组件](/react-chat/components/chat-actionbar)，也可以完全自定义实现
-{{ action }}
+:: BASE_DOC ::
 
 ## API
 ### ChatMessage Props
