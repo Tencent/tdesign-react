@@ -1,10 +1,12 @@
 import React, { forwardRef, useContext } from 'react';
 import classNames from 'classnames';
 import { isBoolean } from 'lodash-es';
+import { Check1Icon as TdCheck1Icon, Remove1Icon as TdRemove1Icon } from 'tdesign-icons-react';
 
 import { omit } from '../_util/helper';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import { Tooltip } from '../tooltip';
 
 import type { ChangeEvent, MouseEvent } from 'react';
@@ -54,6 +56,10 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
   } = props;
 
   const { classPrefix } = useConfig();
+  const { Check1Icon, Remove1Icon } = useGlobalIcon({
+    Check1Icon: TdCheck1Icon,
+    Remove1Icon: TdRemove1Icon,
+  });
 
   const TOnChange: (
     checked: boolean,
@@ -99,6 +105,10 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
   );
   // Checkbox/ Radio 内容为空则不再渲染 span，不存在 0:Number 的情况
   const showLabel = !!(children || label);
+  let checkboxIcon = null;
+  if (type === 'checkbox') {
+    checkboxIcon = indeterminate ? <Remove1Icon /> : <Check1Icon />;
+  }
 
   const handleLabelClick = (event: MouseEvent<HTMLSpanElement>) => {
     // 在tree等组件中使用  阻止label触发checked 与expand冲突
@@ -114,10 +124,10 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
 
   const checkboxInput = tooltipProps ? (
     <Tooltip {...tooltipProps}>
-      <span className={`${classPrefix}-${type}__input`} />
+      <span className={`${classPrefix}-${type}__input`}>{checkboxIcon}</span>
     </Tooltip>
   ) : (
-    <span className={`${classPrefix}-${type}__input`} />
+    <span className={`${classPrefix}-${type}__input`}>{checkboxIcon}</span>
   );
 
   return (
