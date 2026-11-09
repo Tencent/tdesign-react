@@ -3,7 +3,7 @@ import { fireEvent, render, vi, waitFor } from '@test/utils';
 
 import { Table } from '..';
 
-import type { BaseTableProps } from '../interface';
+import type { BaseTableProps, PrimaryTableProps } from '../interface';
 import type { FilterType, FilterValue, PrimaryTableCol, TableRowData } from '../type';
 
 type TestTableRow = TableRowData & {
@@ -1034,6 +1034,131 @@ describe('Table', () => {
         await fireEvent.click(selectAllCheckbox);
         expect(selectAllCheckbox).toHaveClass('t-is-indeterminate');
         expect(onSelectChange).toHaveBeenCalledWith(['2'], expect.any(Object));
+      });
+
+      describe('current page', () => {
+        const rows = Array.from({ length: 6 }, (_, index) => ({
+          id: index + 1,
+        }));
+        const columns = [
+          { colKey: 'row-select', type: 'multiple' as const },
+          { colKey: 'id', title: 'ID' },
+        ];
+
+        function PageTable(props: Partial<PrimaryTableProps>) {
+          return (
+            <Table
+              rowKey="id"
+              data={rows}
+              columns={columns}
+              pagination={{
+                defaultCurrent: 1,
+                defaultPageSize: 2,
+                total: rows.length,
+              }}
+              reserveSelectedRowOnPaginate={false}
+              {...props}
+            />
+          );
+        }
+
+        function selectAllBox(container: HTMLElement) {
+          return container.querySelector('th[data-colkey="row-select"] .t-checkbox');
+        }
+
+        function expectSelection(onSelectChange: ReturnType<typeof vi.fn>, keys: readonly number[], type = 'check') {
+          expect(onSelectChange).toHaveBeenLastCalledWith(keys, {
+            selectedRowData: keys.map((id) => ({ id })),
+            type,
+            currentRowKey: 'CHECK_ALL_BOX',
+          });
+        }
+
+        it('selects only the uncontrolled page', async () => {
+          const onSelectChange = vi.fn();
+          const { container } = render(
+            <PageTable
+              pagination={{
+                defaultCurrent: 2,
+                defaultPageSize: 2,
+                total: rows.length,
+              }}
+              onSelectChange={onSelectChange}
+            />,
+          );
+
+          await fireEvent.click(selectAllBox(container));
+          expectSelection(onSelectChange, [3, 4]);
+          await fireEvent.click(selectAllBox(container));
+          expectSelection(onSelectChange, [], 'uncheck');
+        });
+
+        it('selects only the controlled page', async () => {
+          const onSelectChange = vi.fn();
+          const { container } = render(
+            <PageTable pagination={{ current: 2, pageSize: 2, total: rows.length }} onSelectChange={onSelectChange} />,
+          );
+
+          await fireEvent.click(selectAllBox(container));
+          expectSelection(onSelectChange, [3, 4]);
+        });
+
+        it('selects the page shown after navigation', async () => {
+          const onSelectChange = vi.fn();
+          const { container } = render(<PageTable onSelectChange={onSelectChange} />);
+
+          await fireEvent.click(container.querySelector('.t-pagination__btn-next'));
+          await fireEvent.click(selectAllBox(container));
+          expectSelection(onSelectChange, [3, 4]);
+        });
+
+        it('keeps the accepted page while controlled pagination is pending', async () => {
+          const onSelectChange = vi.fn();
+          const pagination = {
+            current: 1,
+            pageSize: 2,
+            total: rows.length,
+            onChange: vi.fn(),
+          };
+          const { container, rerender } = render(
+            <PageTable selectedRowKeys={[]} pagination={pagination} onSelectChange={onSelectChange} />,
+          );
+
+          await fireEvent.click(container.querySelector('.t-pagination__btn-next'));
+          await fireEvent.click(selectAllBox(container));
+          expectSelection(onSelectChange, [1, 2]);
+
+          rerender(
+            <PageTable
+              selectedRowKeys={[]}
+              pagination={{ ...pagination, current: 2 }}
+              onSelectChange={onSelectChange}
+            />,
+          );
+          await fireEvent.click(selectAllBox(container));
+          expectSelection(onSelectChange, [3, 4]);
+        });
+
+        it('disables select-all when the current page has no selectable rows', async () => {
+          const onSelectChange = vi.fn();
+          const { container } = render(
+            <PageTable
+              columns={[
+                {
+                  colKey: 'row-select',
+                  type: 'multiple',
+                  checkProps: ({ row }) => ({ disabled: row.id <= 2 }),
+                },
+                columns[1],
+              ]}
+              onSelectChange={onSelectChange}
+            />,
+          );
+
+          expect(selectAllBox(container)).toHaveClass('t-is-disabled');
+          await fireEvent.click(selectAllBox(container));
+          expect(onSelectChange).not.toHaveBeenCalled();
+        });
       });
     });
 
