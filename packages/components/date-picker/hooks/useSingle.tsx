@@ -14,6 +14,7 @@ import {
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import useInnerPopupVisible from '../../hooks/useInnerPopupVisible';
+import useLayoutEffect from '../../hooks/useLayoutEffect';
 import useSingleValue from './useSingleValue';
 
 import type { TdPopupProps } from '../../popup/type';
@@ -46,8 +47,16 @@ export default function useSingleInput(props: TdDatePickerProps) {
     props.popupProps?.onVisibleChange?.(false, {});
   };
 
+  useLayoutEffect(() => {
+    if (!props.disabled || !popupVisible) return;
+    handlePopupInvisible();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.disabled]);
+
   // input 设置
-  let inputProps: TdDatePickerProps['inputProps'] & { ref?: React.MutableRefObject<HTMLInputElement> } = {
+  let inputProps: TdDatePickerProps['inputProps'] & {
+    ref?: React.MutableRefObject<HTMLInputElement>;
+  } = {
     ...props.inputProps,
     ref: inputRef,
     size: props.size,
@@ -109,7 +118,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
   };
 
   const handleInnerVisibleChange = useInnerPopupVisible((visible, context) => {
-    if (props.disabled) return;
+    if (props.disabled && visible) return;
     // 这里劫持了进一步向 popup 传递的 onVisibleChange 事件，为了保证可以在 Datepicker 中使用 popupProps.onVisibleChange，故此处理
     props.popupProps?.onVisibleChange?.(visible, context);
     if (context.trigger === 'trigger-element-mousedown') {

@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import useCommonClassName from '../hooks/useCommonClassName';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useLayoutEffect from '../hooks/useLayoutEffect';
 import Input from '../input';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import Popup from '../popup';
@@ -69,7 +70,7 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((originalPro
   })();
 
   const onInputChange: TdInputProps['onChange'] = (value, context) => {
-    if (!popupVisible) {
+    if (!props.disabled && !readOnly && !popupVisible) {
       setPopupVisible(true);
     }
     setTValue(value, context);
@@ -85,7 +86,7 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((originalPro
   })();
 
   const onInnerFocus: InputProps['onFocus'] = (value, context) => {
-    setPopupVisible(true);
+    if (!props.disabled && !readOnly) setPopupVisible(true);
     props.onFocus?.({ ...context, value });
     const timer = setTimeout(() => {
       optionListRef.current?.addKeyboardListener();
@@ -117,10 +118,16 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((originalPro
   };
 
   const onPopupVisibleChange: PopupProps['onVisibleChange'] = (visible, { trigger }) => {
+    if ((props.disabled || readOnly) && visible) return;
     if (trigger !== 'trigger-element-click') {
       setPopupVisible(visible);
     }
   };
+
+  useLayoutEffect(() => {
+    if (!props.disabled || !popupVisible) return;
+    setPopupVisible(false);
+  }, [props.disabled, popupVisible]);
 
   // 触发元素
   const triggerNode = props.triggerElement || props.children || (
@@ -181,6 +188,7 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((originalPro
     <div className={classNames(classes)} style={props.style}>
       <Popup
         ref={popupRef}
+        disabled={props.disabled || readOnly}
         visible={popupVisible}
         onVisibleChange={onPopupVisibleChange}
         trigger="focus"
