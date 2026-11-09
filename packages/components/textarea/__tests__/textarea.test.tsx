@@ -2,6 +2,7 @@ import React from 'react';
 import { vi } from 'vitest';
 import { act, fireEvent, mockDelay, mockResizeObserver, render } from '@test/utils';
 
+import { ConfigProvider } from '../../config-provider';
 import { Textarea } from '..';
 
 import type { TdTextareaProps } from '../type';
@@ -46,6 +47,77 @@ describe('Textarea', () => {
     test('default', async () => {
       const { container } = render(<Textarea />);
       expect(container.querySelectorAll('.t-textarea')).not.toBeNull();
+    });
+
+    describe('clearable', () => {
+      test('true equals top icon and clears the value', async () => {
+        const onChange = vi.fn();
+        const { container } = render(<Textarea defaultValue="hello" clearable onChange={onChange} />);
+        fireEvent.mouseEnter(container.querySelector('.t-textarea'));
+        const clearIcon = container.querySelector('.t-textarea__clear--top .t-textarea__clear-icon');
+
+        if (!(clearIcon instanceof SVGElement)) {
+          throw new Error('clear icon not found');
+        }
+        expect(container.querySelector('.t-textarea__clear--icon')).toBeTruthy();
+        expect(container.querySelector('.t-textarea--clear-icon')).toBeTruthy();
+        expect(container.querySelector('.t-button')).toBeNull();
+
+        fireEvent.click(clearIcon);
+        expect(onChange).toHaveBeenCalledWith('');
+        expect(getTextarea(container).value).toBe('');
+        expect(container.querySelector('.t-textarea__clear')).toBeNull();
+      });
+
+      test('supports position and text type', async () => {
+        const { container } = render(<Textarea value="content" clearable={{ position: 'bottom', type: 'text' }} />);
+        fireEvent.mouseEnter(container.querySelector('.t-textarea'));
+
+        const clearText = container.querySelector('.t-textarea__clear--bottom .t-textarea__clear-text');
+        expect(clearText?.textContent).toBe('清空');
+        expect(container.querySelector('.t-textarea--clear-text')).toBeTruthy();
+        expect(container.querySelector('.t-button')).toBeNull();
+      });
+
+      test('object defaults to top icon', async () => {
+        const { container } = render(<Textarea value="content" clearable={{ position: 'center' }} />);
+        fireEvent.mouseEnter(container.querySelector('.t-textarea'));
+
+        expect(container.querySelector('.t-textarea__clear--center .t-textarea__clear-icon')).toBeTruthy();
+      });
+
+      test('clearTrigger focus shows the button on hover and always keeps it visible', async () => {
+        const { container: focusContainer } = render(<Textarea value="content" clearable />);
+        expect(focusContainer.querySelector('.t-textarea__clear')).toBeNull();
+        fireEvent.mouseEnter(focusContainer.querySelector('.t-textarea'));
+        expect(focusContainer.querySelector('.t-textarea__clear')).toBeTruthy();
+        fireEvent.mouseLeave(focusContainer.querySelector('.t-textarea'));
+        expect(focusContainer.querySelector('.t-textarea__clear')).toBeNull();
+
+        const { container: alwaysContainer } = render(
+          <ConfigProvider
+            globalConfig={{
+              textarea: { clearTrigger: 'always', clearText: '清除' },
+            }}
+          >
+            <Textarea value="content" clearable={{ type: 'text' }} />
+          </ConfigProvider>,
+        );
+        const clearText = alwaysContainer.querySelector('.t-textarea__clear-text');
+        expect(clearText?.textContent).toBe('清除');
+      });
+
+      test('stays hidden when empty, disabled, or readonly', async () => {
+        const { container: emptyContainer } = render(<Textarea value="" clearable />);
+        expect(emptyContainer.querySelector('.t-textarea__clear')).toBeNull();
+        expect(emptyContainer.querySelector('.t-textarea--clear')).toBeTruthy();
+
+        const { container: disabledContainer } = render(<Textarea value="content" clearable disabled />);
+        expect(disabledContainer.querySelector('.t-textarea__clear')).toBeNull();
+
+        const { container: readOnlyContainer } = render(<Textarea value="content" clearable readOnly />);
+        expect(readOnlyContainer.querySelector('.t-textarea__clear')).toBeNull();
+      });
     });
   });
 

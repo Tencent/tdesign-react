@@ -4,13 +4,13 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { GlobalIconConfig } from 'tdesign-icons-react';
-import { CalendarController } from '../calendar';
-import { ButtonProps } from '../button';
-import { FormErrorMessage } from '../form';
-import { ImageProps } from '../image';
-import { LoadingProps } from '../loading';
-import { MessageOptions } from '../message';
+import type { GlobalIconConfig } from 'tdesign-icons-react';
+import type { CalendarController } from '../calendar';
+import type { ButtonProps } from '../button';
+import type { FormErrorMessage } from '../form';
+import type { ImageProps } from '../image';
+import type { LoadingProps } from '../loading';
+import type { MessageOptions } from '../message';
 import type { TNode, TElement, SizeEnum, AttachNode } from '../common';
 
 export interface TdConfigProviderProps {
@@ -34,7 +34,7 @@ export interface GlobalConfigProvider {
    */
   animation?: Partial<Record<'include' | 'exclude', Array<AnimationType>>>;
   /**
-   * null
+   * 浮层挂载节点，可统一设置或按 imageViewer、popup、dialog、drawer 分别设置。组件的 attach 属性优先于全局配置；未配置时保持各组件原有的默认挂载行为
    */
   attach?: AttachNode | { imageViewer?: AttachNode; popup?: AttachNode; dialog?: AttachNode; drawer?: AttachNode };
   /**
@@ -151,6 +151,10 @@ export interface GlobalConfigProvider {
    * 标签全局配置
    */
   tag?: TagConfig;
+  /**
+   * 多行文本框组件全局配置
+   */
+  textarea?: TextareaConfig;
   /**
    * 时间选择器全局配置
    */
@@ -388,14 +392,14 @@ export interface DatePickerConfig {
    */
   preMonth?: string;
   /**
+   * 【暂不支持，讨论确认中】预设快捷日期选择，示例：`{ '元旦': '2021-01-01', '昨天':  dayjs().subtract(1, 'day').format('YYYY-MM-DD'), '特定日期': () => ['2021-02-01'] }`
+   */
+  presets?: ConfigPresetDate;
+  /**
    * 语言配置，“上一年” 描述文本
    * @default ''
    */
   preYear?: string;
-  /**
-   * 【暂不支持，讨论确认中】预设快捷日期选择，示例：`{ '元旦': '2021-01-01', '昨天':  dayjs().subtract(1, 'day').format('YYYY-MM-DD'), '特定日期': () => ['2021-02-01'] }`
-   */
-  presets?: ConfigPresetDate;
   /**
    * 季度文本描述，默认值：['1 季度', '2 季度', '3 季度', '4 季度']
    */
@@ -846,6 +850,19 @@ export interface TagConfig {
    * 关闭图标，【注意】使用渲染函数输出图标组件
    */
   closeIcon?: TNode;
+}
+
+export interface TextareaConfig {
+  /**
+   * 语言配置，“清空”清空按钮文案
+   * @default ''
+   */
+  clearText?: string;
+  /**
+   * 清空按钮触发方式，仅在文本框有值时有效
+   * @default focus
+   */
+  clearTrigger?: 'always' | 'focus';
 }
 
 export interface TimePickerConfig {

@@ -1,5 +1,6 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
+import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-react';
 import calcTextareaHeight from '@tdesign/common-js/utils/calcTextareaHeight';
 import { getCharacterLength, getUnicodeLength, limitUnicodeMaxLength } from '@tdesign/common-js/utils/helper';
 
@@ -9,15 +10,26 @@ import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useEventCallback from '../hooks/useEventCallback';
+import useGlobalIcon from '../hooks/useGlobalIcon';
 import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
 import useResizeObserver from '../hooks/useResizeObserver';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { textareaDefaultProps } from './defaultProps';
 
 import type { StyledProps } from '../common';
-import type { TdTextareaProps } from './type';
+import type { TdTextareaProps, TextareaClearable } from './type';
 
 const DEFAULT_TEXTAREA_STYLE = { height: 'auto', minHeight: 'auto' };
-const OMIT_PROPS = ['defaultValue', 'readonly'];
+const OMIT_PROPS = ['defaultValue', 'readonly', 'clearable'];
+
+function resolveClearable(clearable?: boolean | TextareaClearable) {
+  if (!clearable) return null;
+  if (clearable === true) return { position: 'top' as const, type: 'icon' as const };
+  return {
+    position: clearable.position ?? 'top',
+    type: clearable.type ?? 'icon',
+  };
+}
 
 export interface TextareaProps
   extends
@@ -33,6 +45,12 @@ export interface TextareaRefInterface {
 }
 
 const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps, ref) => {
+  const { classPrefix } = useConfig();
+  const [locale, t] = useLocaleReceiver('textarea');
+  const { CloseCircleFilledIcon } = useGlobalIcon({
+    CloseCircleFilledIcon: TdCloseCircleFilledIcon,
+  });
+
   const props = useDefaultProps<TextareaProps>(originalProps, textareaDefaultProps);
   const {
     count,
@@ -50,6 +68,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     tips,
     allowInputOverMax,
     rows,
+    clearable,
     ...otherProps
   } = props;
 
@@ -58,6 +77,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
 
   const [value = '', setValue] = useControlled(props, 'value', props.onChange);
 
+  const [isHover, setIsHover] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [isOvermax, setIsOvermax] = useState(false);
   const [textareaStyle, setTextareaStyle] = useState<Partial<typeof DEFAULT_TEXTAREA_STYLE>>(DEFAULT_TEXTAREA_STYLE);
@@ -75,7 +95,10 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     return characterInfo;
   }, [value, allowInputOverMax, maxcharacter]);
 
-  const { classPrefix } = useConfig();
+  const clearConfig = resolveClearable(clearable);
+  const readOnly = Boolean(props.readOnly || props.readonly);
+  const canClear = Boolean(clearConfig) && String(value ?? '') !== '' && !disabled && !readOnly;
+  const showClear = canClear && (locale.clearTrigger === 'always' || isHover);
 
   const textareaPropsNames = Object.keys(otherProps).filter(
     (key) => !/^on[A-Z]/.test(key) && !OMIT_PROPS.includes(key),
@@ -167,6 +190,16 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     }
   }
 
+  const handleClear = useEventCallback((event: React.MouseEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (disabled || readOnly) return;
+    composingRef.current = false;
+    setComposingValue('');
+    setValue('');
+    textareaRef.current?.focus();
+  });
+
   const renderLimitText = (current: number, max: number) => {
     if (count === false) return null;
 
@@ -242,8 +275,36 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     hasMaxcharacter ? maxcharacter : maxlength,
   );
 
+  const clearNode =
+    showClear && clearConfig ? (
+      <span
+        className={classNames(
+          `${classPrefix}-textarea__clear`,
+          `${classPrefix}-textarea__clear--${clearConfig.type}`,
+          `${classPrefix}-textarea__clear--${clearConfig.position}`,
+        )}
+        onMouseDown={(event) => event.preventDefault()}
+      >
+        {clearConfig.type === 'text' ? (
+          <span className={`${classPrefix}-textarea__clear-text`} onClick={handleClear}>
+            {t(locale.clearText)}
+          </span>
+        ) : (
+          <CloseCircleFilledIcon className={`${classPrefix}-textarea__clear-icon`} onClick={handleClear} />
+        )}
+      </span>
+    ) : null;
+
   return (
-    <div style={style} ref={wrapperRef} className={classNames(`${classPrefix}-textarea`, className)}>
+    <div
+      style={style}
+      ref={wrapperRef}
+      className={classNames(`${classPrefix}-textarea`, className)}
+      onMouseEnter={() => {
+        if (!disabled && !readOnly) setIsHover(true);
+      }}
+      onMouseLeave={() => setIsHover(false)}
+    >
       <textarea
         {...textareaProps}
         {...eventProps}
@@ -251,7 +312,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
         value={composingRef.current ? composingValue : value}
         style={textareaStyle}
         className={textareaClassNames}
-        readOnly={props.readOnly || props.readonly}
+        readOnly={readOnly}
         autoFocus={autofocus}
         disabled={disabled}
         onChange={inputValueChangeHandle}
@@ -262,6 +323,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
         onCompositionEnd={handleCompositionEnd}
         ref={textareaRef}
       />
+      {clearNode}
       {textTips || limitText ? (
         <div
           className={classNames(`${classPrefix}-textarea__info_wrapper`, {

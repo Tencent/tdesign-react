@@ -11,6 +11,7 @@ style | Object | - | CSS(Cascading Style Sheets)，Typescript: `React.CSSPropert
 allowInputOverMax | Boolean | false | Allow input after exceeding `maxlength` or `maxcharacter` | N
 autofocus | Boolean | false | \- | N
 autosize | Boolean / Object | false | Typescript: `boolean \| { minRows?: number; maxRows?: number }` | N
+clearable | Boolean / Object | false | Whether to show the clear button. `true` is equivalent to `{ position: 'top', type: 'icon' }`. `position` sets the clear button position: top, center, or bottom. `type` sets the clear button type: icon or text. Typescript: `boolean \| TextareaClearable` `interface TextareaClearable { position?: 'top' \| 'center' \| 'bottom'; type?: 'icon' \| 'text' }`. [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/textarea/type.ts) | N
 count | Boolean / Function | - | Character counter. It is enabled by default when `maxLength` or `maxCharacter` is set.。Typescript: `boolean \| ((ctx: { value: string; count: number; maxLength?: number; maxCharacter?: number }) => TNode)`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 disabled | Boolean | false | \- | N
 maxcharacter | Number | - | \- | N
