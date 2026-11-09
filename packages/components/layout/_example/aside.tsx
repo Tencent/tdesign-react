@@ -6,7 +6,7 @@ import type { MenuProps } from 'tdesign-react';
 const { Content, Footer, Aside } = Layout;
 const { MenuItem } = Menu;
 
-const Logo = () => <img width="136" src="https://www.tencent.com/img/index/menu_logo_hover.png" alt="logo" />;
+const Logo = () => <img height="28" src="https://tdesign.gtimg.com/site/baseLogo-light.png" alt="logo" />;
 
 function BasicUsage(props: MenuProps) {
   return (
