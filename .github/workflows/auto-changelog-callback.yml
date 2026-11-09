@@ -24,8 +24,9 @@ jobs:
         run: echo "id=$(cat pr-id.txt)" >> $GITHUB_OUTPUT
 
       - name: auto-changelog
-        uses: TDesignOteam/flow-pilot-action@develop
+        uses: TDesignOteam/tdesign-changelog-action@next
         with:
           token: ${{ secrets.TDESIGN_BOT_TOKEN }}
+          mode: monorepo
           packages: 'tdesign-react,@tdesign-react/chat'
           pr_number: ${{ steps.pr.outputs.id }}
