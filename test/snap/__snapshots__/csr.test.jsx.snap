@@ -79701,8 +79701,8 @@ exports[`csr snapshot test > csr test packages/components/layout/_example/aside.
           >
             <img
               alt="logo"
-              src="https://tdesign.gtimg.com/site/baseLogo-light.png"
               height="28"
+              src="https://tdesign.gtimg.com/site/baseLogo-light.png"
             />
           </div>
           <ul
@@ -79959,8 +79959,8 @@ exports[`csr snapshot test > csr test packages/components/layout/_example/combin
             >
               <img
                 alt="logo"
-                src="https://tdesign.gtimg.com/site/baseLogo-light.png"
                 height="28"
+                src="https://tdesign.gtimg.com/site/baseLogo-light.png"
               />
             </div>
             <ul
@@ -81051,8 +81051,8 @@ exports[`csr snapshot test > csr test packages/components/layout/_example/top.ts
           >
             <img
               alt="logo"
-              src="https://tdesign.gtimg.com/site/baseLogo-light.png"
               height="28"
+              src="https://tdesign.gtimg.com/site/baseLogo-light.png"
             />
           </div>
           <ul
