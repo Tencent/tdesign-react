@@ -121,7 +121,7 @@ const Select = forwardRefWithStatics(
     const [innerPopupVisible, setInnerPopupVisible] = useControlled(props, 'popupVisible', onPopupVisibleChange);
 
     const handlePopupVisibleChange = (visible: boolean, ctx: PopupVisibleChangeContext) => {
-      if (disabled) return;
+      if (disabled && visible) return;
       if (visible) {
         isScrollingRef.current = false;
       } else {
