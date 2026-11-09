@@ -21,6 +21,19 @@ const LEFT_NODE = 0;
 const RIGHT_NODE = 1;
 type SliderHandleNode = typeof LEFT_NODE | typeof RIGHT_NODE;
 
+function resolveSliderValue(
+  value: SliderValue,
+  range: boolean,
+  min: number,
+  max: number,
+  preserveNumber: boolean,
+): SliderValue {
+  if (!range || (preserveNumber && isNumber(value))) return value;
+  if (value === undefined || (Array.isArray(value) && value.length === 0)) return [min, min];
+  if (isNumber(value)) return [min, Math.min(max, Math.max(min, value))];
+  return value;
+}
+
 const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref) => {
   const { classPrefix } = useConfig();
   const props = useDefaultProps(originalProps, sliderDefaultProps);
@@ -41,11 +54,20 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
     onChange,
     onChangeEnd,
   } = props;
-
-  const sliderRef = useRef<HTMLDivElement>(null);
-  const [value, internalOnChange] = useControlled(props, 'value', onChange);
   const isVertical = layout === 'vertical';
 
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const initialDefaultValue = useRef(originalProps.defaultValue);
+  const [rawValue, internalOnChange] = useControlled(props, 'value', onChange);
+
+  const value = resolveSliderValue(
+    rawValue,
+    range,
+    min,
+    max,
+    // 保留显式数值输入的回调类型
+    originalProps.value !== undefined || initialDefaultValue.current !== undefined,
+  );
   const renderValue = Array.isArray(value) ? value : [min, value];
   const start = (renderValue[LEFT_NODE] - min) / (max - min);
   const width = (renderValue[RIGHT_NODE] - renderValue[LEFT_NODE]) / (max - min);
@@ -63,7 +85,11 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
         console.warn('The props "marks" only support number!');
         return [];
       }
-      return marks.map((mark) => ({ value: mark, position: (mark - min) / (max - min), label: mark }));
+      return marks.map((mark) => ({
+        value: mark,
+        position: (mark - min) / (max - min),
+        label: mark,
+      }));
     }
     // 当 marks 为对象
     if (marks && typeof marks === 'object') {
@@ -107,9 +133,13 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
     let resultValue = Math.max(Math.min(max, safeValue), min);
     if (precision) resultValue = Number(largeNumberToFixed(String(resultValue), precision));
     // 判断是否出现左值大于右值
-    if (nodeIndex === LEFT_NODE && value && safeValue > value[RIGHT_NODE]) resultValue = value[RIGHT_NODE];
+    if (nodeIndex === LEFT_NODE && value && safeValue > value[RIGHT_NODE]) {
+      resultValue = value[RIGHT_NODE];
+    }
     // 判断是否出现右值大于左值
-    if (nodeIndex === RIGHT_NODE && value && safeValue < value[LEFT_NODE]) resultValue = value[LEFT_NODE];
+    if (nodeIndex === RIGHT_NODE && value && safeValue < value[LEFT_NODE]) {
+      resultValue = value[LEFT_NODE];
+    }
     let finalValue: SliderValue;
     if (Array.isArray(value)) {
       const arrValue = value.slice();
@@ -139,7 +169,9 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
             handleInputChange(Number(v), nodeIndex);
           }
         }}
-        className={classNames(`${classPrefix}-slider-input`, { 'is-vertical': isVertical })}
+        className={classNames(`${classPrefix}-slider-input`, {
+          'is-vertical': isVertical,
+        })}
         disabled={disabled}
         theme="column"
         min={min}
@@ -149,10 +181,15 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
     );
   };
 
-  const nearbyValueChange = (value: number, isEnd?: boolean) => {
-    const buttonBias =
-      Math.abs(value - renderValue[LEFT_NODE]) > Math.abs(value - renderValue[RIGHT_NODE]) ? RIGHT_NODE : LEFT_NODE;
-    handleInputChange(value, buttonBias, isEnd);
+  const nearbyValueChange = (newValue: number, isEnd?: boolean) => {
+    const [left, right] = renderValue;
+    let buttonBias: SliderHandleNode = LEFT_NODE;
+    if (range && Array.isArray(value) && left === right) {
+      buttonBias = newValue > right ? RIGHT_NODE : LEFT_NODE;
+    } else if (Math.abs(newValue - left) > Math.abs(newValue - right)) {
+      buttonBias = RIGHT_NODE;
+    }
+    handleInputChange(newValue, buttonBias, isEnd);
   };
 
   const setPosition = (position: number, nodeIndex?: SliderHandleNode, isEnd?: boolean) => {
@@ -194,7 +231,10 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
     let tipLabel: React.ReactNode = currentValue;
 
     if (isFunction(label)) {
-      tipLabel = label({ value: currentValue, position: nodeIndex === LEFT_NODE ? 'start' : 'end' });
+      tipLabel = label({
+        value: currentValue,
+        position: nodeIndex === LEFT_NODE ? 'start' : 'end',
+      });
     }
     if (isString(label)) {
       tipLabel = label.replace(/\$\{value\}/g, currentValue.toString());
@@ -217,7 +257,9 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
   return (
     <div
       style={{ ...style }}
-      className={classNames(`${classPrefix}-slider__container`, { 'is-vertical': isVertical })}
+      className={classNames(`${classPrefix}-slider__container`, {
+        'is-vertical': isVertical,
+      })}
       ref={ref}
     >
       <div
@@ -231,11 +273,20 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
       >
         <div className={classNames(`${classPrefix}-slider__rail`)}>
           <div
-            style={{ [startDirection]: numberToPercent(start), [sizeKey]: numberToPercent(width) }}
+            style={{
+              [startDirection]: numberToPercent(start),
+              [sizeKey]: numberToPercent(width),
+            }}
             className={classNames(`${classPrefix}-slider__track`)}
           ></div>
-          {range ? createHandleButton(LEFT_NODE, { [startDirection]: numberToPercent(start) }) : null}
-          {createHandleButton(RIGHT_NODE, { [startDirection]: numberToPercent(end) })}
+          {range
+            ? createHandleButton(LEFT_NODE, {
+                [startDirection]: numberToPercent(start),
+              })
+            : null}
+          {createHandleButton(RIGHT_NODE, {
+            [startDirection]: numberToPercent(end),
+          })}
           <div className={`${classPrefix}-slider__stops`}>
             {(showStep ? allDots : renderDots)
               .filter(({ position }) => position !== 0 && position !== 1)
@@ -262,7 +313,11 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>((originalProps, ref
         </div>
       </div>
       {inputNumberProps ? (
-        <div className={classNames(`${classPrefix}-slider__input-container`, { 'is-vertical': isVertical })}>
+        <div
+          className={classNames(`${classPrefix}-slider__input-container`, {
+            'is-vertical': isVertical,
+          })}
+        >
           {range && createInput(LEFT_NODE)}
           {range && <div className={`${classPrefix}-slider__center-line`}></div>}
           {createInput(RIGHT_NODE)}

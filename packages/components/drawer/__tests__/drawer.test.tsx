@@ -52,7 +52,7 @@ describe('Drawer', () => {
       expect(document.querySelector('.t-drawer__mask')).not.toBeInTheDocument();
     });
 
-    test('cancelBtn[object], cancelBtn[TNode], confirmBtn[object] and confirmBtn[TNode]', () => {
+    test('cancelBtn[object/TNode] and confirmBtn[object/TNode]', () => {
       const { getByText, unmount } = render(
         <DrawerDemo
           confirmBtn={{
@@ -170,6 +170,44 @@ describe('Drawer', () => {
 
       drawerNode.destroy();
       await mockTimeout(() => expect(document.querySelector('.t-drawer--open')).not.toBeInTheDocument(), 500);
+    });
+  });
+
+  describe('sizeDraggable', () => {
+    const mockViewport = () => {
+      vi.spyOn(document.documentElement, 'clientWidth', 'get').mockReturnValue(1000);
+      vi.spyOn(document.documentElement, 'clientHeight', 'get').mockReturnValue(800);
+    };
+
+    const getHandle = () => document.querySelector<HTMLElement>('[style*="col-resize"]');
+    const getDrawer = () => document.querySelector<HTMLElement>('.t-drawer__content-wrapper');
+    const moveTo = (x: number, buttons: number) => {
+      const event = new MouseEvent('mousemove', {
+        clientX: x,
+        clientY: 20,
+        buttons,
+        bubbles: true,
+      });
+      Object.defineProperty(event, 'x', { value: x });
+      Object.defineProperty(event, 'y', { value: 20 });
+      fireEvent(document, event);
+    };
+
+    test('lost mouseup stops resizing on the next move', () => {
+      mockViewport();
+      const onSizeDragEnd = vi.fn();
+      const { getByText } = render(<DrawerDemo sizeDraggable placement="right" onSizeDragEnd={onSizeDragEnd} />);
+      fireEvent.click(getByText('Open'));
+
+      fireEvent.mouseDown(getHandle(), { button: 0, buttons: 1 });
+      moveTo(400, 1);
+      expect(getDrawer()).toHaveStyle({ width: '600px' });
+
+      moveTo(200, 0);
+      moveTo(100, 1);
+
+      expect(getDrawer()).toHaveStyle({ width: '600px' });
+      expect(onSizeDragEnd).toHaveBeenCalledTimes(1);
     });
   });
 });

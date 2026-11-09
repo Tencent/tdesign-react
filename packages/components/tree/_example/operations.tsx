@@ -297,7 +297,7 @@ export default () => {
         },
         ...item,
       };
-      nodeMap[item.value] = node;
+      nodeMap[item.value as string] = node;
       return node;
     });
     const [rootNode] = nodeList;

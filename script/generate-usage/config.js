@@ -196,7 +196,7 @@ module.exports = {
     panelStr: `
       const panelList = [{ label: 'menu', value: 'menu' }, { label: 'headMenu', value: 'headMenu' }];
       const defaultProps = {
-        logo: <img src="https://www.tencent.com/img/index/menu_logo_hover.png" width="136" />,
+        logo: <img src="https://tdesign.gtimg.com/site/baseLogo-light.png" height="28" />,
       };
       const panelMap = {
         menu: (

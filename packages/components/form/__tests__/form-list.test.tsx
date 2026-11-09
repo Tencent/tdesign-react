@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MinusCircleIcon } from 'tdesign-icons-react';
 import { fireEvent, mockTimeout, render, vi } from '@test/utils';
 
@@ -1197,6 +1197,57 @@ describe('FormList', () => {
       const specifiedWeightInputAgain = getByPlaceholderText('route-weight-0-3') as HTMLInputElement;
       expect(specifiedWeightInputAgain.value).toBe('50');
       expect(container.querySelector('[placeholder="route-abtest-0-3"]')).toBeFalsy();
+    });
+
+    test('nested Form inside FormList keeps values when outer list rerenders', () => {
+      const readInner = vi.fn();
+      const InnerFields = () => {
+        const [innerForm] = Form.useForm();
+        return (
+          <Form form={innerForm}>
+            <FormItem name="appId" initialData="">
+              <Input placeholder="appId" />
+            </FormItem>
+            <Button onClick={() => readInner(innerForm.getFieldValue('appId'))}>ReadInner</Button>
+          </Form>
+        );
+      };
+
+      const TestForm = () => {
+        const [form] = Form.useForm();
+        const [, setTick] = useState(0);
+
+        return (
+          <Form form={form} initialData={{ groups: [{ operations: [{}] }] }}>
+            <FormList name="groups">
+              {(fields) =>
+                fields.map(({ key, name }) => (
+                  <FormList key={key} name={[name, 'operations']}>
+                    {(operations) =>
+                      operations.map((operation) => (
+                        <div key={operation.key}>
+                          <InnerFields />
+                        </div>
+                      ))
+                    }
+                  </FormList>
+                ))
+              }
+            </FormList>
+            <Button onClick={() => setTick((count) => count + 1)}>Rerender</Button>
+          </Form>
+        );
+      };
+
+      const { getByText, getByPlaceholderText } = render(<TestForm />);
+      fireEvent.change(getByPlaceholderText('appId'), {
+        target: { value: 'App_A' },
+      });
+      fireEvent.click(getByText('Rerender'));
+
+      expect((getByPlaceholderText('appId') as HTMLInputElement).value).toBe('App_A');
+      fireEvent.click(getByText('ReadInner'));
+      expect(readInner).toHaveBeenCalledWith('App_A');
     });
   });
 });

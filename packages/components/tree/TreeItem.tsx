@@ -346,7 +346,7 @@ const TreeItem = forwardRef(
     return (
       <div
         ref={composeRefs(ref, nodeRef)}
-        data-value={node.value}
+        data-value={String(node.value)}
         data-level={level}
         className={classNames(treeClassNames.treeNode, {
           [treeClassNames.treeNodeOpen]: node.expanded,

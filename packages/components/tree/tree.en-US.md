@@ -13,6 +13,7 @@ activeMultiple | Boolean | false | \- | N
 actived | Array | - | Typescript: `Array<TreeNodeValue>` | N
 allowDrop | Function | - | Determine whether the node can execute the drop operation。Typescript: `(context: { e: DragEvent; dragNode: TreeNodeModel<T>; dropNode: TreeNodeModel<T>; dropPosition: number; }) => boolean` | N
 allowFoldNodeOnFilter | Boolean | false | \- | N
+checkAllAffectedBy | String | all | Child nodes that affect the checked and indeterminate states of parent nodes. all includes every child, including disabled children; onlyEnabled includes only enabled children. With onlyEnabled, no checked or indeterminate state is derived from children when all children are disabled. This option only controls parent state calculation and does not change the checked states of disabled children. It has no effect when checkStrictly is true。options: all/onlyEnabled | N
 checkProps | Object / Function | - | Typescript: `CheckboxProps \| ((node: TreeNodeModel<T>) => CheckboxProps)`，[Checkbox API Documents](./checkbox?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree/type.ts) | N
 checkStrictly | Boolean | false | \- | N
 checkable | Boolean | false | \- | N
@@ -38,8 +39,8 @@ load | Function | - | Typescript: `(node: TreeNodeModel<T>) => Promise<Array<T>>
 operations | TElement | - | Typescript: `TNode<TreeNodeModel<T>>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 scroll | Object | - | lazy load and virtual scroll。Typescript: `TScroll`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 transition | Boolean | true | \- | N
-value | Array | [] | Typescript: `Array<TreeNodeValue>` `type TreeNodeValue = string \| number`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree/type.ts) | N
-defaultValue | Array | [] | uncontrolled property。Typescript: `Array<TreeNodeValue>` `type TreeNodeValue = string \| number`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree/type.ts) | N
+value | Array | [] | Typescript: `Array<TreeNodeValue>` `type TreeNodeValue = string \| number \| bigint`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree/type.ts) | N
+defaultValue | Array | [] | uncontrolled property。Typescript: `Array<TreeNodeValue>` `type TreeNodeValue = string \| number \| bigint`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree/type.ts) | N
 valueMode | String | onlyLeaf | options: onlyLeaf/parentFirst/all | N
 onActive | Function |  | Typescript: `(value: Array<TreeNodeValue>, context: { node: TreeNodeModel<T>; e?: MouseEvent; trigger: 'node-click' \| 'setItem' }) => void`<br/> | N
 onChange | Function |  | Typescript: `(value: Array<TreeNodeValue>, context: { node: TreeNodeModel<T>; e?: any; trigger: 'node-click' \| 'setItem' }) => void`<br/> | N
@@ -69,7 +70,7 @@ getPath | `(value: TreeNodeValue)` | `TreeNodeModel<T>[]` | required
 insertAfter | `(value: TreeNodeValue, newData: T)` | \- | required
 insertBefore | `(value: TreeNodeValue, newData: T)` | \- | required
 remove | `(value: TreeNodeValue)` | \- | required
-scrollTo | `(scrollToParams: ComponentScrollToElementParams)` | \- | support scrolling to a specific node when virtual scrolling 
+scrollTo | `(scrollToParams: TreeScrollToElementParams)` | \- | support scrolling to a specific node when virtual scrolling 。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree/type.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。<br/>`interface TreeScrollToElementParams extends Omit<ComponentScrollToElementParams, 'key'> { key?: TreeNodeValue; }`<br/>
 setItem | `(value: TreeNodeValue, options: TreeNodeState)` | \- | required
 
 ### TreeNodeState
@@ -87,7 +88,7 @@ expanded | Boolean | false | \- | N
 indeterminate | Boolean | false | \- | N
 label | String | - | \- | N
 loading | Boolean | false | \- | N
-value | String / Number | - | \- | N
+value | String / Number / BigInt | - | Typescript: `TreeNodeValue` | N
 visible | Boolean | false | \- | N
 
 ### TreeNodeModel

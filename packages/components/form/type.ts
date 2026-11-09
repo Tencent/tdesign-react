@@ -217,7 +217,7 @@ export interface TdFormItemProps {
    */
   rules?: Array<FormRule>;
   /**
-   * null
+   * 表单数据变化时是否重新渲染当前 FormItem
    * @default false
    */
   shouldUpdate?: boolean | ((prevValue, curValue) => boolean);

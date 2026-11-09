@@ -51,23 +51,18 @@ packages/components/[component-name]/
 
 ### 文件内容和结构
 
-- 固定顶层结构：每个组件的测试文件仅允许以下四种顶层 describe：props、events、instanceFunctions、scenarios。无相关测试内容时可省略对应分组。
+- 固定顶层结构：每个组件的测试文件仅允许以下四种顶层 describe：`props`、`events`、`instanceFunctions`、`scenarios`。禁止在组件根 describe 下直接编写 `test(...)`；禁止新增以下四类平级的顶层 describe。
 
-- 用例较少时：在对应的顶层 describe 中编写 `test(...)`，不额外嵌套。
-
-- 用例较多时：在对应的顶层 describe 内，可按具体功能维度嵌套子 describe，再编写 `test(...)`。
-
-- 层级约束：禁止在组件根 describe 下直接编写 `test(...)`，也禁止新增其他顶层 describe。
+- 同一 prop、API 或场景存在 ≥ 3 条 `test`，或存在组内共用的 render、fixture、mock 数据时，在已选定的顶层 describe 内新增子 describe；否则直接编写 `test`，不新增子 describe。
 
 ```tsx
 describe("ComponentName", () => {
   describe("props", () => {
-    // 1. 按需使用 `propName[type]`（如 TNode、function、number）或 `propName[enumValue]`
-    // 2. 方括号仅允许具体类型或合法枚举值，禁止写具体数值。数组类型统一写成 `array<T>`，禁止使用 `string[]` 等；
-    //    布尔属性按常规方式开启（传入 `true` 或使用简写）时直接写属性名；仅显式验证关闭时写 `[false]`；同一用例覆盖两种取值时才写 `[boolean]`
-    // 3. 同一属性的多个枚举值若测试结构与断言一致，应提取取值列表并使用 `forEach` 生成独立的 `test('propName[enumValue]')`，避免重复编写同构用例
-    // 4. 同一行为涉及多个边界值或组合条件，且无需通过标题分别表达时，合并进单个 `test('propName')`，具体阈值与数据留在用例内
-    // 5. 若标题必须补充复杂目的或场景描述时才能表达，应将用例移入 scenarios
+    // 1. 优先合并同构用例。同一属性、同一行为下的多种类型、边界值及组合条件，合并为一个用例，具体取值留在用例内部。
+
+    // 2. 按需拆分用例。断言无法共用时再拆分，每条用例只覆盖一种类型或一个枚举值。
+
+    // 3. 规范用例标题。方括号内只写具体类型或合法枚举值；同一条用例覆盖多种类型或枚举值时，用斜杠写在同一个方括号内，如 `propName[boolean/TNode]`、`propName[TNode/function]`、`propName[top/bottom/left]`。禁止把同一属性写成 `propName[boolean] and propName[TNode]`。不同属性各自编写；一条用例必须同时覆盖多个属性时用 `and` 连接，各属性自己的多种类型仍用斜杠，如 `cancelBtn[object/TNode] and confirmBtn[object/TNode]`。不得在方括号内写具体数值。数组类型写成 `array<T>`，禁止 `string[]`。布尔属性常规开启时直接写属性名；只验证关闭时写 `propName[false]`；同一用例同时覆盖开启和关闭时写 `propName[boolean]`；与其他类型一起出现时放进斜杠，如 `propName[false/TNode/function]`。
   });
   describe("events", () => {
     // 回调 prop（onChange 等）是否触发
@@ -76,9 +71,12 @@ describe("ComponentName", () => {
     // ref 命令式 API、Plugin 静态方法等（无则省略）
   });
   describe("scenarios", () => {
-    // 1. 覆盖多 API 联动的完整业务流；复杂时可嵌套子 `describe`
+    // 1. 覆盖多 API 联动的完整业务流
+
     // 2. 标题应明确涉及的 API 与测试目的，优先使用自然语言，仅在枚举值是关键条件时保留 `[enumValue]`
+
     // 3. 单 prop、多 prop 组合的简单渲染测试归入 `props`，不应放在此模块
+
     // 4. 仅验证回调是否触发及参数的测试归入 `events`
 });
 ```

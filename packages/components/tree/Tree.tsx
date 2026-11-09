@@ -23,9 +23,9 @@ import type {
   TypeTreeNodeData,
   TypeTreeNodeModel,
 } from '@tdesign/common-js/tree-v1/types';
-import type { ComponentScrollToElementParams, StyledProps, TreeOptionData } from '../common';
+import type { StyledProps, TreeOptionData } from '../common';
 import type { TreeItemProps } from './interface';
-import type { TdTreeProps, TreeInstanceFunctions } from './type';
+import type { TdTreeProps, TreeInstanceFunctions, TreeScrollToElementParams } from './type';
 
 export type TreeProps = TdTreeProps & StyledProps;
 
@@ -178,11 +178,11 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
   };
 
   const handleScrollToElement = useCallback(
-    (params: ComponentScrollToElementParams) => {
+    (params: TreeScrollToElementParams) => {
       let { index } = params;
 
       if (!index && index !== 0) {
-        if (!params.key) {
+        if (!params.key && params.key !== 0 && typeof params.key !== 'bigint') {
           log.error('Tree', 'scrollToElement: one of `index` or `key` must exist.');
           return;
         }
@@ -201,7 +201,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
     ref,
     () => ({
       store,
-      scrollTo: (p: ComponentScrollToElementParams) => handleScrollToElement(p),
+      scrollTo: (p: TreeScrollToElementParams) => handleScrollToElement(p),
       appendTo(value, newData) {
         let list = [];
         if (Array.isArray(newData)) {
@@ -300,7 +300,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
           {renderNode.map((node, index) => (
             <TreeItem
               ref={nodeList[index]}
-              key={node.value}
+              key={`${typeof node.value}:${node.value}`}
               node={node}
               keys={props.keys}
               empty={empty}
@@ -329,7 +329,7 @@ const Tree = forwardRef<TreeInstanceFunctions<TreeOptionData>, TreeProps>((origi
           // https://github.com/reactjs/react-transition-group/issues/668
           <CSSTransition
             nodeRef={nodeList[index]}
-            key={node.value}
+            key={`${typeof node.value}:${node.value}`}
             timeout={transitionDuration}
             classNames={transitionClassNames}
           >

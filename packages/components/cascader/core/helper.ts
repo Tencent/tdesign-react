@@ -20,7 +20,7 @@ import type {
 export function getSingleContent(cascaderContext: CascaderContextType): string {
   const { value, multiple, treeStore, showAllLevels, valueType } = cascaderContext;
 
-  const isEmpty = (!value && value !== 0) || (Array.isArray(value) && value.length === 0);
+  const isEmpty = (!value && value !== 0 && typeof value !== 'bigint') || (Array.isArray(value) && value.length === 0);
   const isInvalidFullPathValue = valueType === 'full' && !Array.isArray(value);
   if (multiple || isEmpty || isInvalidFullPathValue) return '';
 
@@ -118,7 +118,7 @@ export const getTreeValue = (value: CascaderContextType['value']) => {
     } else if (value.length) {
       treeValue = value as TreeNodeValue[];
     }
-  } else if (value) {
+  } else if (value || value === 0 || typeof value === 'bigint') {
     if (typeof value === 'object') {
       treeValue = [(value as TreeOptionData).value];
     } else {
@@ -148,6 +148,7 @@ export const getExpandValue = (value: CascaderContextType['value'], valueType?: 
  * @returns
  */
 export function isEmptyValues(value: unknown): boolean {
+  if (typeof value === 'bigint') return false;
   if (typeof value === 'number' && !isNaN(value)) return false;
   return isEmpty(value);
 }

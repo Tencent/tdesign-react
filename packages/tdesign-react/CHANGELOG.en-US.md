@@ -5,6 +5,23 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.18.6 `2026-10-30`
+
+### 🚀 Features
+
+- `Tree`
+  - Added `checkAllAffectedBy` to configure the scope for determining the checked and indeterminate states of parent nodes. @RSS1102 ([#4452](https://github.com/Tencent/tdesign-react/pull/4452))
+  - Added support for bigint selected values. @RSS1102 ([#4450](https://github.com/Tencent/tdesign-react/pull/4450))
+- `TreeSelect`: Added support for bigint selected values. @RSS1102 ([#4450](https://github.com/Tencent/tdesign-react/pull/4450))
+- `Cascader`: Added support for bigint selected values. @RSS1102 ([#4450](https://github.com/Tencent/tdesign-react/pull/4450))
+
+### 🐞 Bug Fixes
+
+- `Form`: Fixed an issue where FormItem retained its old value after being unmounted and re-rendered in versions after `1.18.2`, causing the UI display to be inconsistent with `getFieldsValue`. @RylanBot ([#4440](https://github.com/Tencent/tdesign-react/pull/4440))
+- `Slider`: Fixed an issue where the slider could not be interacted with correctly when `range` was enabled and an empty range value was provided. @dvd233 ([#4425](https://github.com/Tencent/tdesign-react/pull/4425))
+- `Drawer`: Fixed an issue where the size continued to change with the mouse after pressing and releasing the right mouse button during dragging with `sizeDraggable` enabled. @RylanBot ([#4435](https://github.com/Tencent/tdesign-react/pull/4435))
+- `Table`: Fixed an issue where the column size continued to change with the mouse after pressing and releasing the right mouse button during dragging with `resizable` enabled. @RylanBot ([#4435](https://github.com/Tencent/tdesign-react/pull/4435))
+
 ## 🌈 1.18.5 `2026-10-23`
 
 - `Drawer`: Fixed an issue where the `margin` style was incorrect when `mode='push'` @RSS1102 ([#4418](https://github.com/Tencent/tdesign-react/pull/4418))
