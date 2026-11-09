@@ -106,6 +106,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
   };
 
   const handleTimeChange = (newValue: string | string[], context: { e: React.MouseEvent }) => {
+    if (disabled) return;
     const nextCurrentValue = handlePickerValue(newValue, currentValue);
     setCurrentValue(nextCurrentValue);
     handleOnPick(nextCurrentValue, context);
@@ -143,6 +144,7 @@ const TimeRangePicker: FC<TimeRangePickerProps> = (originalProps) => {
   };
 
   const handleClickConfirm = () => {
+    if (disabled) return;
     const isValidTime = !currentValue.find((v) => !validateInputValue(v, format));
     if (isValidTime) onChange(props.autoSwap ? autoSwapTime(currentValue) : currentValue);
     setPanelShow(false);
