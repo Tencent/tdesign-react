@@ -26,7 +26,7 @@ function runTest() {
     HTMLCanvasElement.prototype.getContext = vi.fn();
 
     files.forEach((file) => {
-      it(`ssr test ${file}`, async () => {
+      it(`ssr test ${file.replace(/\\/g, '/')}`, async () => {
         const demo = await import(`../../${file}`);
         const RealDemoComp = demo.default ? demo.default : demo;
         const html = renderToString(<RealDemoComp />);

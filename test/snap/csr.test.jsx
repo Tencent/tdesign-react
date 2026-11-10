@@ -71,7 +71,7 @@ function runTest() {
     global.ResizeObserver = ResizeObserver;
 
     files.forEach((file) => {
-      it(`csr test ${file}`, async () => {
+      it(`csr test ${file.replace(/\\/g, '/')}`, async () => {
         const demo = await import(`../../${file}`);
         const RealDemoComp = demo.default ? demo.default : demo;
         const { container } = render(<RealDemoComp />);
