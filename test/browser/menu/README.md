@@ -31,7 +31,8 @@ dynamic 300px content, interrupted exits, rapid controlled toggles, a 120-item m
 delayed controlled popup content, CSS-only popup resizing, and horizontal popup
 layout, plus switching the sidebar between inline and popup modes. Geometry comparisons
 allow one pixel for rounding. Outputs (screenshot and measured frames) are written to
-`test/browser/.output/menu/`. `preview.png` is a representative screenshot for review;
-the generated output and bundle are not committed.
+`test/browser/.output/menu/`. `preview.gif` records the original and fixed SubMenu
+side by side with the same three 90px items, including expansion, collapse, and
+an interrupted collapse. The generated output and bundle are not committed.
 
 This is a Chromium regression check; it does not establish Safari/Firefox coverage.
