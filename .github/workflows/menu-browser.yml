@@ -1,0 +1,49 @@
+name: Menu Browser Regression
+
+on:
+  pull_request:
+    branches: [develop, main]
+    paths:
+      - "packages/components/**"
+      - "packages/common"
+      - "test/browser/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - "tsconfig*.json"
+      - ".npmrc"
+      - ".node-version"
+      - ".github/workflows/menu-browser.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  menu-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+      - run: pnpm install
+      - name: Check runner Chrome
+        run: google-chrome --version
+      - name: Test Menu geometry and transitions
+        run: pnpm run test:browser:menu
+        env:
+          BROWSER_CHANNEL: chrome
+      - name: Upload browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: menu-browser
+          path: test/browser/.output/menu/
+          include-hidden-files: true
+          if-no-files-found: ignore
+          retention-days: 7

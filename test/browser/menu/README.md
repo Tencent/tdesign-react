@@ -1,19 +1,30 @@
 # SubMenu browser regression
 
-JSDOM unit tests cover transition state and visibility. This standalone check builds
+JSDOM unit tests cover transition state and visibility. This check builds
 the current Menu source and the pinned common submodule's real Less, then verifies
 geometry and animation frames in system Chrome. It does not use mocked layout or a
 checked-in bundle.
 
-From the repository root, after `pnpm install` and `git submodule update --init`:
+From the repository root:
 
 ```sh
-npm --prefix test/browser install
-npm --prefix test/browser run test:menu
+git submodule update --init
+pnpm install
+pnpm run test:browser:menu
 ```
 
 Chrome must be installed. To use system Edge, set `BROWSER_CHANNEL=msedge`.
 The server uses an available localhost port and is closed even when an assertion fails.
+
+The browser runner, esbuild, and Less are managed by the root `package.json` and
+installed together with the workspace dependencies. No separate npm install is needed.
+The repository currently ignores lockfiles; the browser runner version is pinned
+in the root manifest.
+
+`.github/workflows/menu-browser.yml` runs the same command in Chrome on Ubuntu for
+pull requests to `develop` or `main` that change component source, the common
+submodule, browser tests, or their dependency/CI configuration. The workflow can
+also be run manually and uploads generated evidence even when the test fails.
 
 Checks cover three nested levels with 90px items, enter and exit animation frames,
 dynamic 300px content, interrupted exits, rapid controlled toggles, a 120-item menu,
