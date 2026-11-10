@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useRef } from 'react';
+import React, { useContext, useMemo, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 
@@ -7,11 +7,11 @@ import FakeArrow from '../common/FakeArrow';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDomRefCallback from '../hooks/useDomRefCallback';
+import useLayoutEffect from '../hooks/useLayoutEffect';
 import useRipple from '../hooks/useRipple';
 import { Popup } from '../popup';
 import { checkIsMenuGroup, checkIsSubMenu } from './_util/checkMenuType';
 import checkSubMenuChildrenActive from './_util/checkSubMenuChildrenActive';
-import { getSubMenuMaxHeight } from './_util/getSubMenuChildStyle';
 import { MenuContext } from './MenuContext';
 
 import type { FC, ReactElement } from 'react';
@@ -60,11 +60,6 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
     }),
   );
 
-  // 计算有多少子节点并设置最大高度，为做出动画效果
-  const childStyle = {
-    maxHeight: isExpand || (open && isPopUp) ? getSubMenuMaxHeight(children) : 0,
-  };
-
   // 是否展开（popup 与 expand 两种状态）
   const isOpen = useMemo(() => {
     if (disabled) return false;
@@ -75,19 +70,63 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
   const fakeArrowStyle = isPopUp && level > 1 ? { transform: 'rotate(-90deg)' } : {};
 
   const contentRef = useRef<HTMLUListElement>(null);
+  const [isExited, setIsExited] = useState(!isExpand);
+  const isExitingRef = useRef(false);
+
+  useLayoutEffect(() => {
+    // Popup content has its own transition and unmounts the inline transition.
+    if (isPopUp) {
+      setIsExited(true);
+      isExitingRef.current = false;
+    }
+  }, [isPopUp]);
+
+  // Keep content unclamped until the exit animation finishes. Expanded content
+  // can then resize naturally, including nested submenus and delayed popup content.
+  const childStyle = {
+    maxHeight: (isPopUp ? isOpen : isOpen || !isExited) ? 'none' : 0,
+  };
+
+  const setStartingHeight = (element: HTMLUListElement, height: number) => {
+    // Removing the collapsed max-height can reveal a natural/percentage height.
+    // Freeze the intended starting point without animating to it first.
+    element.style.transition = 'none';
+    element.style.height = `${height}px`;
+    element.offsetHeight;
+    element.style.transition = '';
+  };
 
   const transitionCallbacks = {
     onEnter: () => {
-      contentRef.current.style.height = `${contentRef?.current.scrollHeight}px`;
+      const element = contentRef.current;
+      if (!element) return;
+      // Reversing an exit starts at the current visual height instead of jumping to zero.
+      const height = isExitingRef.current ? element.getBoundingClientRect().height : 0;
+      isExitingRef.current = false;
+      setIsExited(false);
+      setStartingHeight(element, height);
+    },
+    onEntering: () => {
+      const element = contentRef.current;
+      // CSSTransition flushes the starting height before adding enter-active.
+      if (element) element.style.height = `${element.scrollHeight}px`;
     },
     onEntered: () => {
-      contentRef.current.style.height = 'auto';
+      if (contentRef.current) contentRef.current.style.height = 'auto';
     },
     onExit: () => {
-      contentRef.current.style.height = `${contentRef?.current.scrollHeight}px`;
+      const element = contentRef.current;
+      if (!element) return;
+      isExitingRef.current = true;
+      // Freeze the rendered height, including an interrupted enter animation.
+      setStartingHeight(element, element.getBoundingClientRect().height);
     },
     onExiting: () => {
-      contentRef.current.style.height = '0px';
+      if (contentRef.current) contentRef.current.style.height = '0px';
+    },
+    onExited: () => {
+      isExitingRef.current = false;
+      setIsExited(true);
     },
   };
 

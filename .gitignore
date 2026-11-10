@@ -15,6 +15,7 @@ lib/
 dist/
 
 # test files
+test/browser/.output/
 coverage
 cypress-coverage
 cy-report
