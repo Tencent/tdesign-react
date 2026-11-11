@@ -29,6 +29,7 @@ export default function useRowSelect(
     rowKey = 'id',
     indeterminateSelectedRowKeys,
     pagination,
+    disableDataPage,
     reserveSelectedRowOnPaginate,
     treeDataMap,
   } = props;
@@ -58,8 +59,16 @@ export default function useRowSelect(
     return treeRows;
   }, [data, treeDataMap]);
 
-  // 当前可见行：树形数据优先，否则使用分页后的数据
-  const currentRows = useMemo(() => allTreeRows || currentPaginateData, [allTreeRows, currentPaginateData]);
+  // 是否由表格自身对 data 做本地分页，与 usePagination 中的判断保持一致
+  const controlledPagination = pagination?.current !== undefined ? pagination : undefined;
+  const tPageSize = (controlledPagination ? controlledPagination.pageSize : pagination?.defaultPageSize) ?? 10;
+  const isLocalPaginated = Boolean(pagination) && !disableDataPage && data.length > tPageSize;
+
+  // 当前可见行：树形数据、跨页保留选中、或未做本地分页时使用全部数据，否则使用当前页数据
+  const currentRows = useMemo(
+    () => (treeDataMap?.size || reserveSelectedRowOnPaginate || !isLocalPaginated ? allTreeRows : currentPaginateData),
+    [allTreeRows, currentPaginateData, treeDataMap, reserveSelectedRowOnPaginate, isLocalPaginated],
+  );
 
   // 未禁用的行（过滤掉 disabled 行，全选和半选逻辑只针对可选行）
   const enabledRows = useMemo(
@@ -76,15 +85,16 @@ export default function useRowSelect(
   useEffect(
     () => {
       if (reserveSelectedRowOnPaginate) return;
-      const { pageSize, current, defaultPageSize, defaultCurrent } = pagination ?? {};
-      const tPageSize = pageSize || defaultPageSize;
-      const tCurrent = current || defaultCurrent;
-      if (!tPageSize || !tCurrent) return;
-      const newData = data.slice(tPageSize * (tCurrent - 1), tPageSize * tCurrent);
-      setCurrentPaginateData(newData);
+      if (!isLocalPaginated) {
+        // 远程分页（data 已经是当前页数据）、只有一页数据或 disableDataPage 时不再二次切片
+        setCurrentPaginateData(data);
+        return;
+      }
+      const tCurrent = (controlledPagination ? controlledPagination.current : pagination?.defaultCurrent) || 1;
+      setCurrentPaginateData(data.slice(tPageSize * (tCurrent - 1), tPageSize * tCurrent));
     },
     // eslint-disable-next-line
-    [data, reserveSelectedRowOnPaginate],
+    [data, reserveSelectedRowOnPaginate, isLocalPaginated, tPageSize, controlledPagination?.current],
   );
 
   useEffect(() => {
@@ -106,7 +116,11 @@ export default function useRowSelect(
     const enabledRowKeysSet = new Set(enabledRowKeys);
 
     // 保留已选中的禁用行 key（禁用行不受全选和取消全选影响）
-    const selectedDisabledRowKeys = (tSelectedRowKeys ?? []).filter((id) => !enabledRowKeysSet.has(id));
+    // 未开启跨页保留选中时，非当前页的 key 不在本页的选择范围内，不参与本次全选/取消全选
+    const currentRowKeysSet = new Set(currentRows.map((row) => get(row, safeRowKey)));
+    const selectedDisabledRowKeys = (tSelectedRowKeys ?? []).filter(
+      (id) => !enabledRowKeysSet.has(id) && (reserveSelectedRowOnPaginate || currentRowKeysSet.has(id)),
+    );
     // 保留半选状态中已被选中的 key（半选行在全选时也需要包含）
     const indeterminateKeysInSelected = indeterminateSelectedRowKeys?.filter((id) => selectedRowKeysSet.has(id)) || [];
 
