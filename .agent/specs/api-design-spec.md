@@ -21,22 +21,22 @@
 
 ### 1.2 常见属性命名
 
-| 属性 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | 尺寸，固定三档 |
-| `disabled` | `boolean` | `false` | 禁用状态 |
-| `loading` | `boolean` | `false` | 加载状态 |
-| `visible` | `boolean` | - | 显示/隐藏（受控） |
-| `defaultVisible` | `boolean` | - | 显示/隐藏（非受控默认值） |
-| `value` | `T` | - | 值（受控） |
-| `defaultValue` | `T` | - | 值（非受控默认值） |
+| 属性             | 类型                             | 默认值     | 说明                      |
+| ---------------- | -------------------------------- | ---------- | ------------------------- |
+| `size`           | `'small' \| 'medium' \| 'large'` | `'medium'` | 尺寸，固定三档            |
+| `disabled`       | `boolean`                        | `false`    | 禁用状态                  |
+| `loading`        | `boolean`                        | `false`    | 加载状态                  |
+| `visible`        | `boolean`                        | -          | 显示/隐藏（受控）         |
+| `defaultVisible` | `boolean`                        | -          | 显示/隐藏（非受控默认值） |
+| `value`          | `T`                              | -          | 值（受控）                |
+| `defaultValue`   | `T`                              | -          | 值（非受控默认值）        |
 
 ### 1.3 size 属性标准
 
 **强制规范**：`size` 属性默认值固定为以下三档：
 
 ```typescript
-type Size = 'small' | 'medium' | 'large';
+type Size = "small" | "medium" | "large";
 ```
 
 ---
@@ -52,32 +52,37 @@ type Size = 'small' | 'medium' | 'large';
 declare type TElement = ReactElement;
 
 // TNode：接受 ReactNode（含字符串、数字、null 等）
-declare type TNode<T = undefined> = T extends {} 
-  ? ((props: T) => ReactNode) 
+declare type TNode<T = undefined> = T extends {}
+  ? (props: T) => ReactNode
   : ReactNode;
 ```
 
 ### 2.2 使用场景
 
-| 类型 | 使用场景 | 示例 |
-|------|---------|------|
-| `TNode` | 简单的自定义内容 | `icon?: TNode` |
+| 类型       | 使用场景           | 示例                                             |
+| ---------- | ------------------ | ------------------------------------------------ |
+| `TNode`    | 简单的自定义内容   | `icon?: TNode`                                   |
 | `TNode<T>` | 需要传递参数的内容 | `renderItem?: TNode<{ item: T; index: number }>` |
-| `TElement` | 仅接受组件 | `header?: TElement` |
+| `TElement` | 仅接受组件         | `header?: TElement`                              |
 
 ### 2.3 使用示例
 
 ```typescript
 // 简单 TNode
 interface ButtonProps {
-  icon?: TNode;           // 可以是 ReactNode
-  content?: TNode;        // 按钮内容
+  icon?: TNode; // 可以是 ReactNode
+  content?: TNode; // 按钮内容
 }
 
 // 带参数的 TNode
 interface TableProps<T> {
   // 会输出 row 和 index 参数给渲染函数
-  renderCell?: TNode<{ row: T; rowIndex: number; col: Column; colIndex: number }>;
+  renderCell?: TNode<{
+    row: T;
+    rowIndex: number;
+    col: Column;
+    colIndex: number;
+  }>;
 }
 ```
 
@@ -106,7 +111,7 @@ React 组件实现时，事件名转换为**带 `on` 前缀的小驼峰**：
 interface SelectProps {
   onVisibleChange?: (visible: boolean) => void;
   onValueChange?: (value: T, context: { e: Event }) => void;
-  onChange?: (value: T, context: { e: Event }) => void;  // 简写形式
+  onChange?: (value: T, context: { e: Event }) => void; // 简写形式
 }
 ```
 
@@ -119,7 +124,7 @@ interface SelectProps {
 (value: T, context: { index: number; item: Item; event: Event; ...otherFields }) => void
 
 // 示例
-onChange?: (value: string[], context: { 
+onChange?: (value: string[], context: {
   trigger: 'check' | 'uncheck' | 'clear';
   e: MouseEvent;
   node: TreeNode;
@@ -132,27 +137,27 @@ onChange?: (value: string[], context: {
 
 ### 4.1 命名约定
 
-| 受控属性 | 非受控默认值 | 变化事件 |
-|---------|-------------|---------|
-| `value` | `defaultValue` | `onChange` |
-| `visible` | `defaultVisible` | `onVisibleChange` |
-| `expanded` | `defaultExpanded` | `onExpandChange` |
-| `checked` | `defaultChecked` | `onCheckedChange` |
+| 受控属性   | 非受控默认值      | 变化事件          |
+| ---------- | ----------------- | ----------------- |
+| `value`    | `defaultValue`    | `onChange`        |
+| `visible`  | `defaultVisible`  | `onVisibleChange` |
+| `expanded` | `defaultExpanded` | `onExpandChange`  |
+| `checked`  | `defaultChecked`  | `onCheckedChange` |
 
 ### 4.2 实现模式
 
 ```typescript
 // 使用 useControlled hook 实现受控/非受控
-const [value, setValue] = useControlled(props, 'value', onChange);
+const [value, setValue] = useControlled(props, "value", onChange);
 ```
 
 ### 4.3 v-model 对应（Vue 参考）
 
 在 Vue 中对应的 v-model 语法糖：
 
-| React Props | Vue v-model |
-|-------------|-------------|
-| `value` + `onChange` | `v-model:value` |
+| React Props                   | Vue v-model       |
+| ----------------------------- | ----------------- |
+| `value` + `onChange`          | `v-model:value`   |
 | `visible` + `onVisibleChange` | `v-model:visible` |
 
 ---
@@ -166,7 +171,7 @@ const [value, setValue] = useControlled(props, 'value', onChange);
 ```typescript
 // packages/components/button/type.ts
 
-import { TNode, StyledProps } from '../common';
+import { TNode, StyledProps } from "../common";
 
 export interface ButtonProps extends StyledProps {
   /**
@@ -177,12 +182,12 @@ export interface ButtonProps extends StyledProps {
    * 按钮风格
    * @default 'default'
    */
-  theme?: 'default' | 'primary' | 'danger' | 'warning' | 'success';
+  theme?: "default" | "primary" | "danger" | "warning" | "success";
   /**
    * 按钮尺寸
    * @default 'medium'
    */
-  size?: 'small' | 'medium' | 'large';
+  size?: "small" | "medium" | "large";
   /**
    * 是否禁用
    * @default false
@@ -232,14 +237,14 @@ export interface StyledProps {
 
 ```typescript
 // 推荐格式：$ComponentName.method
-$Message.info('提示信息');
-$Message.success('成功');
-$Message.warning('警告');
-$Message.error('错误');
+$Message.info("提示信息");
+$Message.success("成功");
+$Message.warning("警告");
+$Message.error("错误");
 
-$Notification.info({ title: '标题', content: '内容' });
+$Notification.info({ title: "标题", content: "内容" });
 
-$Dialog.confirm({ header: '确认', body: '确定要删除吗？' });
+$Dialog.confirm({ header: "确认", body: "确定要删除吗？" });
 ```
 
 ---

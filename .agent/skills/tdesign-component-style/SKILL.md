@@ -5,7 +5,7 @@ description: This skill should be used when developing or modifying styles for T
 
 # TDesign 组件样式开发 SOP
 
-本技能提供 TDesign React 组件样式开发的操作流程。静态规则参见 `.codebuddy/specs/css-naming-spec.md`。
+本技能提供 TDesign React 组件样式开发的操作流程。静态规则参见 `.agent/specs/css-naming-spec.md`。
 
 ## 触发条件
 
@@ -17,7 +17,7 @@ description: This skill should be used when developing or modifying styles for T
 ## 前置知识
 
 执行本 SOP 前，需要了解以下 spec 中的静态规则：
-- **CSS 命名规范**: `.codebuddy/specs/css-naming-spec.md`（BEM 命名、状态类、尺寸类、Design Token）
+- **CSS 命名规范**: `.agent/specs/css-naming-spec.md`（BEM 命名、状态类、尺寸类、Design Token）
 
 ## SOP 流程
 

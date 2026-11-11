@@ -24,6 +24,7 @@
 **用途**：浏览器 `<script>` 标签直接引用，CDN 分发
 
 **产物结构**：
+
 ```bash
 dist/
 ├─ tdesign.js           # 未压缩版本
@@ -36,6 +37,7 @@ dist/
 ```
 
 **技术要求**：
+
 - 打包所有组件代码和样式为单文件
 - 采用 UMD 模块标准
 - 兼容现代浏览器，支持 SSR
@@ -49,6 +51,7 @@ dist/
 **用途**：现代构建工具（webpack/rollup）按需引入，支持 tree-shaking
 
 **产物结构**：
+
 ```bash
 es/
 ├─ button/
@@ -65,6 +68,7 @@ es/
 ```
 
 **技术要求**：
+
 - 每个组件独立编译，生成对应 JS 和 `.d.ts` 文件
 - 组件文件夹下生成 `style/` 目录，包含编译后的 CSS
 - Babel runtime helpers 内联到每个组件
@@ -77,6 +81,7 @@ es/
 **用途**：需要自定义主题的场景，引用 Less 源文件
 
 **产物结构**：
+
 ```bash
 esm/
 ├─ button/
@@ -91,6 +96,7 @@ esm/
 ```
 
 **技术要求**：
+
 - `style/index.js` 链接到未编译的 Less 源文件
 - 适用于需要覆盖 Design Token 的项目
 - 其他要求同 `es/`
@@ -102,6 +108,7 @@ esm/
 **用途**：搭配 `dist/tdesign.min.css` 全量样式使用
 
 **产物结构**：
+
 ```bash
 lib/
 ├─ button/
@@ -114,6 +121,7 @@ lib/
 ```
 
 **技术要求**：
+
 - 不包含任何样式代码
 - 用户需单独引入 `dist/tdesign.min.css`
 - 其他要求同 `es/`
@@ -125,6 +133,7 @@ lib/
 **用途**：Node.js 环境或旧版构建工具
 
 **产物结构**：
+
 ```bash
 cjs/
 ├─ button/
@@ -137,6 +146,7 @@ cjs/
 ```
 
 **技术要求**：
+
 - 采用 CommonJS 模块标准（`module.exports`）
 - 不包含样式代码
 - 支持 SSR
@@ -176,14 +186,14 @@ cjs/
 
 ### 字段说明
 
-| 字段 | 值 | 说明 |
-|------|-----|------|
-| `main` | `lib/index.js` | Node.js / CommonJS 入口 |
-| `module` | `es/index.js` | ES Modules 入口（webpack/rollup 优先使用） |
-| `unpkg` | `dist/tdesign.min.js` | unpkg CDN 入口 |
-| `jsdelivr` | `dist/tdesign.min.js` | jsdelivr CDN 入口 |
-| `typings` | `es/index.d.ts` | TypeScript 类型声明入口 |
-| `sideEffects` | 数组 | 标记有副作用的文件，保护样式文件和 react-19-adapter 不被 tree-shaking |
+| 字段          | 值                    | 说明                                                                  |
+| ------------- | --------------------- | --------------------------------------------------------------------- |
+| `main`        | `lib/index.js`        | Node.js / CommonJS 入口                                               |
+| `module`      | `es/index.js`         | ES Modules 入口（webpack/rollup 优先使用）                            |
+| `unpkg`       | `dist/tdesign.min.js` | unpkg CDN 入口                                                        |
+| `jsdelivr`    | `dist/tdesign.min.js` | jsdelivr CDN 入口                                                     |
+| `typings`     | `es/index.d.ts`       | TypeScript 类型声明入口                                               |
+| `sideEffects` | 数组                  | 标记有副作用的文件，保护样式文件和 react-19-adapter 不被 tree-shaking |
 
 ---
 

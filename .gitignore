@@ -47,9 +47,7 @@ packages/pro-components/chat/**/docs/
 
 # IDE
 .idea
-.codebuddy
-!.codebuddy/skills/
-!.codebuddy/specs/
+.codebuddy/*
 
 *.zip
 .zip

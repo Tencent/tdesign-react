@@ -8,20 +8,23 @@
 ## Error 1: lodash 导入错误
 
 **错误现象**：
+
 ```
 Error: Cannot find module 'lodash'
 ```
 
 **❌ 错误代码**：
+
 ```typescript
-import { debounce } from 'lodash';
-import _ from 'lodash';
+import { debounce } from "lodash";
+import _ from "lodash";
 ```
 
 **✅ 正确代码**：
+
 ```typescript
-import debounce from 'lodash/debounce';
-import { debounce } from 'lodash-es';
+import debounce from "lodash/debounce";
+import { debounce } from "lodash-es";
 ```
 
 **说明**：TDesign 使用 `lodash-es` 或按需导入 `lodash/xxx`，以支持 tree-shaking。
@@ -31,6 +34,7 @@ import { debounce } from 'lodash-es';
 ## Error 2: 手动修改自动生成文件
 
 **错误现象**：
+
 - PR 中包含对 `type.ts` 或 `defaultProps.ts` 的修改
 - API 变更后本地代码与 API 平台不一致
 
@@ -38,11 +42,13 @@ import { debounce } from 'lodash-es';
 直接编辑 `type.ts` 或 `defaultProps.ts` 文件
 
 **✅ 正确操作**：
+
 1. 在 [tdesign-api](https://github.com/tdesignoteam/tdesign-api) 提交 PR
 2. 等待 API 平台审核通过
 3. 使用同步工具更新本地文件
 
 **识别标志**：文件头部包含以下注释
+
 ```typescript
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
@@ -54,10 +60,12 @@ import { debounce } from 'lodash-es';
 ## Error 3: 硬编码 CSS 前缀
 
 **错误现象**：
+
 - 主题切换后样式不生效
 - 与其他 TDesign 项目样式冲突
 
 **❌ 错误代码**：
+
 ```typescript
 const Button = () => {
   return <button className="t-button">Click</button>;
@@ -65,6 +73,7 @@ const Button = () => {
 ```
 
 **✅ 正确代码**：
+
 ```typescript
 import useConfig from '../hooks/useConfig';
 
@@ -81,20 +90,23 @@ const Button = () => {
 ## Error 4: 未使用 useDefaultProps
 
 **错误现象**：
+
 - Props 默认值不生效
 - undefined 值覆盖默认值
 
 **❌ 错误代码**：
+
 ```typescript
-const Button = ({ size = 'medium', disabled = false }) => {
+const Button = ({ size = "medium", disabled = false }) => {
   // size 可能是 undefined，覆盖默认值
 };
 ```
 
 **✅ 正确代码**：
+
 ```typescript
-import useDefaultProps from '../hooks/useDefaultProps';
-import { buttonDefaultProps } from './defaultProps';
+import useDefaultProps from "../hooks/useDefaultProps";
+import { buttonDefaultProps } from "./defaultProps";
 
 const Button = forwardRef((originProps, ref) => {
   const props = useDefaultProps(originProps, buttonDefaultProps);
@@ -108,10 +120,12 @@ const Button = forwardRef((originProps, ref) => {
 ## Error 5: forwardRef 使用不当
 
 **错误现象**：
+
 - ref 无法正确传递
 - 使用 `useRef` 无法获取 DOM 引用
 
 **❌ 错误代码**：
+
 ```typescript
 const Button = (props) => {
   return <button>{props.children}</button>;
@@ -119,6 +133,7 @@ const Button = (props) => {
 ```
 
 **✅ 正确代码**：
+
 ```typescript
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   return <button ref={ref}>{props.children}</button>;
@@ -134,22 +149,28 @@ Button.displayName = 'Button';
 ## Error 6: 状态类名使用错误
 
 **错误现象**：
+
 - 状态样式不生效
 - 样式选择器权重过高
 
 **❌ 错误代码**：
+
 ```css
 /* 错误：使用后代选择器 */
-.t-button .t-is-disabled { }
+.t-button .t-is-disabled {
+}
 
 /* 错误：状态作为修饰符 */
-.t-button--disabled { }
+.t-button--disabled {
+}
 ```
 
 **✅ 正确代码**：
+
 ```css
 /* 正确：联合选择器 */
-.t-button.t-is-disabled { }
+.t-button.t-is-disabled {
+}
 ```
 
 ```typescript
@@ -164,16 +185,19 @@ className={classNames(`${classPrefix}-button`, {
 ## Error 7: TNode 渲染错误
 
 **错误现象**：
+
 - 函数类型的 TNode 不执行
 - 渲染结果不符合预期
 
 **❌ 错误代码**：
+
 ```typescript
 // 直接渲染，函数不会被调用
 return <div>{props.content}</div>;
 ```
 
 **✅ 正确代码**：
+
 ```typescript
 import parseTNode from '../_util/parseTNode';
 
@@ -186,20 +210,23 @@ return <div>{parseTNode(props.content)}</div>;
 ## Error 8: 事件命名不规范
 
 **错误现象**：
+
 - 事件回调不触发
 - TypeScript 类型错误
 
 **❌ 错误代码**：
+
 ```typescript
 interface Props {
   // 错误：缺少 on 前缀
   change?: (value: string) => void;
   // 错误：使用中划线
-  'on-change'?: (value: string) => void;
+  "on-change"?: (value: string) => void;
 }
 ```
 
 **✅ 正确代码**：
+
 ```typescript
 interface Props {
   // 正确：on 前缀 + 小驼峰
@@ -213,10 +240,12 @@ interface Props {
 ## Error 9: 受控组件实现错误
 
 **错误现象**：
+
 - 值变化后组件不更新
 - 非受控模式不工作
 
 **❌ 错误代码**：
+
 ```typescript
 const [value, setValue] = useState(props.value || props.defaultValue);
 
@@ -224,10 +253,11 @@ const [value, setValue] = useState(props.value || props.defaultValue);
 ```
 
 **✅ 正确代码**：
-```typescript
-import useControlled from '../hooks/useControlled';
 
-const [value, onChange] = useControlled(props, 'value', props.onChange);
+```typescript
+import useControlled from "../hooks/useControlled";
+
+const [value, onChange] = useControlled(props, "value", props.onChange);
 ```
 
 ---
@@ -235,21 +265,24 @@ const [value, onChange] = useControlled(props, 'value', props.onChange);
 ## Error 10: 样式入口配置错误
 
 **错误现象**：
+
 - 组件无样式
 - 构建产物缺少样式文件
 
 **❌ 错误代码**：
+
 ```typescript
 // index.ts 中遗漏样式导入
-import _Button from './Button';
+import _Button from "./Button";
 export const Button = _Button;
 ```
 
 **✅ 正确代码**：
+
 ```typescript
 // index.ts 必须包含样式导入
-import _Button from './Button';
-import './style/index.js';  // ← 必须添加
+import _Button from "./Button";
+import "./style/index.js"; // ← 必须添加
 
 export const Button = _Button;
 ```
@@ -259,6 +292,7 @@ export const Button = _Button;
 ## Error 11: React 19 兼容性问题
 
 **错误现象**：
+
 - React 19 下组件报错
 - `forwardRef` 行为异常
 
@@ -270,10 +304,12 @@ export const Button = _Button;
 ## Error 12: 子仓库未更新
 
 **错误现象**：
+
 - 样式与预期不符
 - common 中的修改未生效
 
 **解决方案**：
+
 ```bash
 # 更新子仓库
 git submodule update --init --remote
@@ -297,7 +333,7 @@ pnpm run init
 
 ## 参考资源
 
-- API 设计规范: `.codebuddy/specs/api-design-spec.md`
-- CSS 命名规范: `.codebuddy/specs/css-naming-spec.md`
-- 构建产物规范: `.codebuddy/specs/build-output-spec.md`
-- 项目架构总览: `.codebuddy/specs/project-architecture-spec.md`
+- API 设计规范: `.agent/specs/api-design-spec.md`
+- CSS 命名规范: `.agent/specs/css-naming-spec.md`
+- 构建产物规范: `.agent/specs/build-output-spec.md`
+- 项目架构总览: `.agent/specs/project-architecture-spec.md`

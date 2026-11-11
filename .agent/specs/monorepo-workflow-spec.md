@@ -8,9 +8,9 @@
 
 ```yaml
 packages:
-  - 'packages/**'
-  - 'internal/**'
-  - 'test'
+  - "packages/**"
+  - "internal/**"
+  - "test"
 ```
 
 所有 `packages/` 子目录自动作为 workspace 包。内部包之间使用 `workspace:^` 协议引用。
@@ -44,6 +44,7 @@ pnpm run init    # = git submodule init && git submodule update
 ### ⚠️ 关键注意事项
 
 1. **修改 common 中的文件**需要在子仓库内单独提交：
+
    ```bash
    cd packages/common
    git add .
@@ -55,6 +56,7 @@ pnpm run init    # = git submodule init && git submodule update
    ```
 
 2. **更新 common 到最新**：
+
    ```bash
    git submodule update --init --remote
    # 或
@@ -122,7 +124,7 @@ pnpm build:aigc
 # 使用脚本初始化组件结构
 pnpm run init:component
 
-# 或手动创建，参考 .codebuddy/skills/tdesign-create-component/
+# 或手动创建，参考 .agent/skills/tdesign-create-component/
 ```
 
 ## 4. 构建流程
@@ -190,23 +192,23 @@ pnpm test:coverage
 
 ### 5.2 测试文件位置
 
-| 类型 | 位置 | 命名 |
-|------|------|------|
+| 类型     | 位置                                         | 命名                |
+| -------- | -------------------------------------------- | ------------------- |
 | 单元测试 | `packages/components/<component>/__tests__/` | `vitest-*.test.tsx` |
-| CSR 快照 | `test/snap/csr.test.jsx` | — |
-| SSR 快照 | `test/snap/ssr.test.jsx` | — |
-| 测试工具 | `test/utils/` | — |
+| CSR 快照 | `test/snap/csr.test.jsx`                     | —                   |
+| SSR 快照 | `test/snap/ssr.test.jsx`                     | —                   |
+| 测试工具 | `test/utils/`                                | —                   |
 
 ### 5.3 路径别名
 
 Vitest 配置了以下别名：
 
-| 别名 | 实际路径 |
-|------|---------|
-| `tdesign-react` | `./packages/components` |
+| 别名              | 实际路径                  |
+| ----------------- | ------------------------- |
+| `tdesign-react`   | `./packages/components`   |
 | `tdesign-react/*` | `./packages/components/*` |
-| `@test/utils` | `./test/utils` |
-| `@common/js/*` | `./packages/common/js/*` |
+| `@test/utils`     | `./test/utils`            |
+| `@common/js/*`    | `./packages/common/js/*`  |
 
 ## 6. 代码规范
 

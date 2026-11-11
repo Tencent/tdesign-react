@@ -9,12 +9,12 @@
 [prefix]-[block]__[element]--[modifier]
 ```
 
-| 部分 | 说明 | 示例 |
-|------|------|------|
-| **prefix** | 全局前缀，固定为 `t-` | `t-` |
-| **block** | 组件最外层，可重用功能 | `button`, `tabs` |
-| **element** | 组件内元素，用 `__` 连接 | `tabs__item` |
-| **modifier** | 变体修饰，用 `--` 连接 | `button--primary` |
+| 部分         | 说明                     | 示例              |
+| ------------ | ------------------------ | ----------------- |
+| **prefix**   | 全局前缀，固定为 `t-`    | `t-`              |
+| **block**    | 组件最外层，可重用功能   | `button`, `tabs`  |
+| **element**  | 组件内元素，用 `__` 连接 | `tabs__item`      |
+| **modifier** | 变体修饰，用 `--` 连接   | `button--primary` |
 
 ---
 
@@ -26,14 +26,20 @@
 
 ```css
 /* ✅ 正确 */
-.t-button { }
-.t-input { }
-.t-table__row { }
+.t-button {
+}
+.t-input {
+}
+.t-table__row {
+}
 
 /* ❌ 错误 */
-.button { }
-.td-button { }
-.tdesign-button { }
+.button {
+}
+.td-button {
+}
+.tdesign-button {
+}
 ```
 
 ### 1.2 单词连接
@@ -44,14 +50,20 @@
 
 ```css
 /* ✅ 正确 */
-.t-date-picker { }
-.t-tree-select { }
-.t-input-number { }
+.t-date-picker {
+}
+.t-tree-select {
+}
+.t-input-number {
+}
 
 /* ❌ 错误 */
-.t-datePicker { }
-.t-DatePicker { }
-.t-date_picker { }
+.t-datePicker {
+}
+.t-DatePicker {
+}
+.t-date_picker {
+}
 ```
 
 ### 1.3 元素命名
@@ -61,14 +73,20 @@
 
 ```css
 /* ✅ 正确：扁平化命名 */
-.t-tabs { }
-.t-tabs__item { }
-.t-tabs__content { }
-.t-tabs__panel { }
+.t-tabs {
+}
+.t-tabs__item {
+}
+.t-tabs__content {
+}
+.t-tabs__panel {
+}
 
 /* ❌ 错误：体现 DOM 层级 */
-.t-tabs__header__item { }
-.t-tabs__body__panel__content { }
+.t-tabs__header__item {
+}
+.t-tabs__body__panel__content {
+}
 ```
 
 ---
@@ -94,9 +112,12 @@
 元素也可以有修饰类：
 
 ```css
-.t-tabs__item { }
-.t-tabs__item--active { }
-.t-tabs__item--disabled { }
+.t-tabs__item {
+}
+.t-tabs__item--active {
+}
+.t-tabs__item--disabled {
+}
 ```
 
 ---
@@ -109,10 +130,14 @@
 
 ```css
 /* 状态类定义 */
-.t-is-loading { }
-.t-is-disabled { }
-.t-is-active { }
-.t-is-checked { }
+.t-is-loading {
+}
+.t-is-disabled {
+}
+.t-is-active {
+}
+.t-is-checked {
+}
 ```
 
 ### 3.2 状态类使用规范
@@ -129,10 +154,12 @@
 }
 
 /* ❌ 错误：后代选择器 */
-.t-tabs__item .t-is-active { }
+.t-tabs__item .t-is-active {
+}
 
 /* ❌ 错误：单独使用 */
-.t-is-active { }
+.t-is-active {
+}
 ```
 
 ### 3.3 HTML 使用示例
@@ -149,21 +176,21 @@
 
 ### 3.4 常用状态类清单
 
-| 状态 | 类名 | 说明 |
-|------|------|------|
-| 加载中 | `t-is-loading` | |
-| 禁用 | `t-is-disabled` | |
-| 成功 | `t-is-success` | |
-| 错误 | `t-is-error` | |
-| 警告 | `t-is-warning` | |
-| 聚焦 | `t-is-focused` | |
-| 选中 | `t-is-selected` | |
-| 勾选 | `t-is-checked` | |
-| 可关闭 | `t-is-closable` | |
-| 激活 | `t-is-active` | 如当前 tab 选中项 |
-| 当前项 | `t-is-current` | 如 step 当前步骤 |
-| 隐藏/显示 | `t-is-hidden` / `t-is-visible` | |
-| 展开/折叠 | `t-is-expanded` / `t-is-collapsed` | |
+| 状态      | 类名                               | 说明              |
+| --------- | ---------------------------------- | ----------------- |
+| 加载中    | `t-is-loading`                     |                   |
+| 禁用      | `t-is-disabled`                    |                   |
+| 成功      | `t-is-success`                     |                   |
+| 错误      | `t-is-error`                       |                   |
+| 警告      | `t-is-warning`                     |                   |
+| 聚焦      | `t-is-focused`                     |                   |
+| 选中      | `t-is-selected`                    |                   |
+| 勾选      | `t-is-checked`                     |                   |
+| 可关闭    | `t-is-closable`                    |                   |
+| 激活      | `t-is-active`                      | 如当前 tab 选中项 |
+| 当前项    | `t-is-current`                     | 如 step 当前步骤  |
+| 隐藏/显示 | `t-is-hidden` / `t-is-visible`     |                   |
+| 展开/折叠 | `t-is-expanded` / `t-is-collapsed` |                   |
 
 ---
 
@@ -171,21 +198,21 @@
 
 ### 4.1 标准尺寸
 
-| 尺寸 | 类名 | 说明 |
-|------|------|------|
-| 较小 | `t-size-xs` | extra small |
-| 小 | `t-size-s` | small |
-| 中（默认） | `t-size-m` | medium |
-| 大 | `t-size-l` | large |
-| 较大 | `t-size-xl` | extra large |
+| 尺寸       | 类名        | 说明        |
+| ---------- | ----------- | ----------- |
+| 较小       | `t-size-xs` | extra small |
+| 小         | `t-size-s`  | small       |
+| 中（默认） | `t-size-m`  | medium      |
+| 大         | `t-size-l`  | large       |
+| 较大       | `t-size-xl` | extra large |
 
 ### 4.2 特殊尺寸
 
-| 尺寸 | 类名 |
-|------|------|
-| 高度 100% | `t-size-full-height` |
-| 宽度 100% | `t-size-full-width` |
-| 宽度自适应 | `t-size-auto-width` |
+| 尺寸       | 类名                 |
+| ---------- | -------------------- |
+| 高度 100%  | `t-size-full-height` |
+| 宽度 100%  | `t-size-full-width`  |
+| 宽度自适应 | `t-size-auto-width`  |
 
 ---
 
@@ -195,16 +222,22 @@
 
 ```css
 /* 基础图标 */
-.t-icon-info { }
-.t-icon-success { }
-.t-icon-warning { }
-.t-icon-error { }
+.t-icon-info {
+}
+.t-icon-success {
+}
+.t-icon-warning {
+}
+.t-icon-error {
+}
 
 /* 图标变体：使用修饰类 */
-.t-icon-info.t-icon-info--danger { }
+.t-icon-info.t-icon-info--danger {
+}
 
 /* 图标尺寸：使用尺寸类 */
-.t-icon-info.t-size-l { }
+.t-icon-info.t-size-l {
+}
 ```
 
 ---
@@ -213,19 +246,21 @@
 
 ### 6.1 结构类
 
-| 用途 | 推荐类名 |
-|------|---------|
-| 头部 | `header` |
-| 主体 | `body` |
-| 尾部 | `footer` |
+| 用途      | 推荐类名                         |
+| --------- | -------------------------------- |
+| 头部      | `header`                         |
+| 主体      | `body`                           |
+| 尾部      | `footer`                         |
 | 容器/内容 | `container` / `wrap` / `content` |
-| 侧边 | `side` / `sidebar` / `sidemenu` |
+| 侧边      | `side` / `sidebar` / `sidemenu`  |
 
 ### 6.2 边框修饰
 
 ```css
-.t-table--bordered { }    /* 有边框 */
-.t-table--borderless { }  /* 无边框 */
+.t-table--bordered {
+} /* 有边框 */
+.t-table--borderless {
+} /* 无边框 */
 ```
 
 ---
@@ -276,10 +311,10 @@ TDesign 样式分为两层：
 
 ```less
 // 组件样式入口
-@import '~tdesign-react/esm/button/style/index.less';
+@import "~tdesign-react/esm/button/style/index.less";
 
 // 或引用公共样式
-@import '~tdesign-common/style/web/components/button/index.less';
+@import "~tdesign-common/style/web/components/button/index.less";
 ```
 
 ---
@@ -290,8 +325,7 @@ TDesign 样式分为两层：
 
 ```less
 // 品牌色
-@brand-color
-@brand-color-hover
+@brand-color @brand-color-hover
 @brand-color-active
 
 // 文字色
@@ -310,14 +344,14 @@ TDesign 样式分为两层：
 // 功能色
 @success-color
 @warning-color
-@error-color
+@error-color;
 ```
 
 ### 8.2 间距 Token
 
 ```less
 // 组件内间距
-@comp-paddingTB-xxs     // 2px
+@comp-paddingtb-xxs // 2px
 @comp-paddingTB-xs      // 4px
 @comp-paddingTB-s       // 8px
 @comp-paddingTB-m       // 12px
@@ -332,32 +366,32 @@ TDesign 样式分为两层：
 @comp-margin-xxs        // 4px
 @comp-margin-xs         // 8px
 @comp-margin-s          // 12px
-@comp-margin-m          // 16px
+@comp-margin-m          // 16px;
 ```
 
 ### 8.3 圆角 Token
 
 ```less
-@radius-small           // 3px
+@radius-small // 3px
 @radius-default         // 6px
 @radius-medium          // 9px
 @radius-large           // 12px
 @radius-extraLarge      // 16px
 @radius-round           // 999px
-@radius-circle          // 50%
+@radius-circle          // 50%;
 ```
 
 ### 8.4 字体 Token
 
 ```less
-@font-size-s            // 12px
+@font-size-s // 12px
 @font-size-base         // 14px
 @font-size-m            // 16px
 @font-size-l            // 18px
 @font-size-xl           // 20px
 
 @font-family
-@font-family-mono
+@font-family-mono;
 ```
 
 ### 8.5 CSS Variables
