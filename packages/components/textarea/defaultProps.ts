@@ -9,7 +9,7 @@ export const textareaDefaultProps: TdTextareaProps = {
   autofocus: false,
   autosize: false,
   clearable: false,
-  disabled: false,
+  disabled: undefined,
   placeholder: undefined,
   readonly: false,
   readOnly: false,

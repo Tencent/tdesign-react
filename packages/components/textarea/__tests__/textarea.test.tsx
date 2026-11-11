@@ -5,7 +5,7 @@ import { act, fireEvent, mockDelay, mockResizeObserver, render } from '@test/uti
 import { ConfigProvider } from '../../config-provider';
 import { Textarea } from '..';
 
-import type { TdTextareaProps } from '../type';
+import type { TdTextareaProps, TextareaValue } from '../type';
 
 type TextareaOnChangeHandler = NonNullable<TdTextareaProps['onChange']>;
 type TextareaOnChangeContext = Parameters<TextareaOnChangeHandler>[1];
@@ -123,7 +123,7 @@ describe('Textarea', () => {
 
   describe('events', () => {
     test('onChange, onKeydown, onKeypress and onKeyup', async () => {
-      let changeValue = '';
+      let changeValue: TextareaValue = '';
       let event: TextareaOnChangeContext | null = null;
       render(
         <Textarea
@@ -165,6 +165,23 @@ describe('Textarea', () => {
       fireEvent.change(getTextarea(), { target: { value: 'hi,tdesign' } });
       expect(changeValue).not.toBeNull();
       expect(event).not.toBeNull();
+    });
+
+    test('onValidate', () => {
+      const onValidate = vi.fn();
+      const { container } = render(
+        <Textarea allowInputOverMax maxcharacter={4} defaultValue="" onValidate={onValidate} />,
+      );
+
+      fireEvent.change(getTextarea(container), { target: { value: '你好a' } });
+      expect(onValidate).toHaveBeenLastCalledWith({ error: 'exceed-maximum' });
+
+      fireEvent.change(getTextarea(container), { target: { value: '好' } });
+      expect(onValidate).toHaveBeenLastCalledWith({ error: undefined });
+
+      const initialValidate = vi.fn();
+      render(<Textarea allowInputOverMax defaultValue="too long" maxlength={3} onValidate={initialValidate} />);
+      expect(initialValidate).toHaveBeenCalledWith({ error: 'exceed-maximum' });
     });
   });
 

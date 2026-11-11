@@ -1,8 +1,8 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-react';
 import calcTextareaHeight from '@tdesign/common-js/utils/calcTextareaHeight';
-import { getCharacterLength, getUnicodeLength, limitUnicodeMaxLength } from '@tdesign/common-js/utils/helper';
+import { getUnicodeLength } from '@tdesign/common-js/utils/helper';
 
 import noop from '../_util/noop';
 import parseTNode from '../_util/parseTNode';
@@ -12,6 +12,7 @@ import useDefaultProps from '../hooks/useDefaultProps';
 import useEventCallback from '../hooks/useEventCallback';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
+import useLengthLimit from '../hooks/useLengthLimit';
 import useResizeObserver from '../hooks/useResizeObserver';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { textareaDefaultProps } from './defaultProps';
@@ -69,6 +70,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     allowInputOverMax,
     rows,
     clearable,
+    onValidate,
     ...otherProps
   } = props;
 
@@ -79,7 +81,6 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
 
   const [isHover, setIsHover] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-  const [isOvermax, setIsOvermax] = useState(false);
   const [textareaStyle, setTextareaStyle] = useState<Partial<typeof DEFAULT_TEXTAREA_STYLE>>(DEFAULT_TEXTAREA_STYLE);
   const [composingValue, setComposingValue] = useState<string>('');
 
@@ -88,12 +89,14 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   const textareaWidthRef = useRef(0);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const currentLength = useMemo(() => getUnicodeLength(value), [value]);
-  const characterLength = useMemo(() => {
-    const characterInfo = getCharacterLength(String(value), allowInputOverMax ? Infinity : maxcharacter);
-    if (typeof characterInfo === 'object') return characterInfo.length;
-    return characterInfo;
-  }, [value, allowInputOverMax, maxcharacter]);
+  const { limitNumber, getValueByLimitNumber } = useLengthLimit({
+    value: String(value ?? ''),
+    status,
+    maxlength: maxlength ?? 0,
+    maxcharacter: maxcharacter ?? 0,
+    allowInputOverMax,
+    onValidate,
+  });
 
   const clearConfig = resolveClearable(clearable);
   const readOnly = Boolean(props.readOnly || props.readonly);
@@ -167,13 +170,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     if (composingRef.current) {
       setComposingValue(val);
     } else {
-      if (!allowInputOverMax) {
-        val = limitUnicodeMaxLength(val, maxlength);
-        if (maxcharacter && maxcharacter >= 0) {
-          const stringInfo = getCharacterLength(val, maxcharacter);
-          val = typeof stringInfo === 'object' && stringInfo.characters;
-        }
-      }
+      val = getValueByLimitNumber(val) ?? val;
       setComposingValue(val);
       setValue(val, { e });
     }
@@ -200,9 +197,11 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     textareaRef.current?.focus();
   });
 
-  const renderLimitText = (current: number, max: number) => {
+  const renderLimitText = () => {
     if (count === false) return null;
 
+    const [currentText, maxText] = limitNumber.split('/');
+    const current = limitNumber ? Number(currentText) : getUnicodeLength(String(value ?? ''));
     // 不设置 maxLength 或 maxCharacter，也支持渲染自定义节点
     if (typeof count === 'function') {
       return parseTNode(count, {
@@ -213,15 +212,12 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
       });
     }
 
-    if (!max) return;
+    if (!limitNumber) return null;
+    const isOvermax = allowInputOverMax && Number(currentText) > Number(maxText);
     return (
       <span className={`${classPrefix}-textarea__limit`}>
-        {isOvermax && allowInputOverMax ? (
-          <span className={`${classPrefix}-textarea__tips--warning`}> {current}</span>
-        ) : (
-          `${current}`
-        )}
-        {`/${max}`}
+        {isOvermax ? <span className={`${classPrefix}-textarea__tips--warning`}> {currentText}</span> : currentText}
+        {`/${maxText}`}
       </span>
     );
   };
@@ -249,12 +245,6 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     handleAutoFocus();
   }, [handleAutoFocus]);
 
-  useEffect(() => {
-    if (allowInputOverMax) {
-      setIsOvermax(!!(maxlength && currentLength > maxlength) || !!(maxcharacter && characterLength > maxcharacter));
-    }
-  }, [allowInputOverMax, characterLength, currentLength, maxcharacter, maxlength]);
-
   useImperativeHandle(ref, () => ({
     currentElement: wrapperRef.current,
     textareaElement: textareaRef.current,
@@ -270,10 +260,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     </div>
   );
 
-  const limitText = renderLimitText(
-    hasMaxcharacter ? characterLength : currentLength,
-    hasMaxcharacter ? maxcharacter : maxlength,
-  );
+  const limitText = renderLimitText();
 
   const clearNode =
     showClear && clearConfig ? (

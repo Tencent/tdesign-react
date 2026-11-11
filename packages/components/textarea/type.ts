@@ -4,8 +4,8 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TNode } from '../common';
-import { KeyboardEvent, FocusEvent, FormEvent } from 'react';
+import type { KeyboardEvent, FocusEvent, FormEvent } from 'react';
+import type { TNode } from '../common';
 
 export interface TdTextareaProps {
   /**
@@ -34,7 +34,6 @@ export interface TdTextareaProps {
   count?: boolean | ((ctx: { value: string; count: number; maxLength?: number; maxCharacter?: number }) => TNode);
   /**
    * 是否禁用文本框
-   * @default false
    */
   disabled?: boolean;
   /**
@@ -106,6 +105,10 @@ export interface TdTextareaProps {
    * 释放键盘时触发
    */
   onKeyup?: (value: TextareaValue, context: { e: KeyboardEvent<HTMLTextAreaElement> }) => void;
+  /**
+   * 字数超出限制时触发
+   */
+  onValidate?: (context: { error?: 'exceed-maximum' | 'below-minimum' }) => void;
 }
 
 export interface TextareaClearable {

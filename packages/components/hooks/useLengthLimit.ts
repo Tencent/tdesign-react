@@ -2,15 +2,13 @@ import { useEffect, useMemo } from 'react';
 import log from '@tdesign/common-js/log/index';
 import { getCharacterLength, getUnicodeLength, limitUnicodeMaxLength } from '@tdesign/common-js/utils/helper';
 
-import type { TdInputProps } from './type';
-
 export interface UseLengthLimitParams {
   value: string;
   maxlength: number;
   maxcharacter: number;
   allowInputOverMax: boolean;
-  status: TdInputProps['status'];
-  onValidate: TdInputProps['onValidate'];
+  status?: 'default' | 'success' | 'warning' | 'error';
+  onValidate?: (context: { error?: 'exceed-maximum' | 'below-minimum' }) => void;
 }
 
 export default function useLengthLimit(params: UseLengthLimitParams) {
