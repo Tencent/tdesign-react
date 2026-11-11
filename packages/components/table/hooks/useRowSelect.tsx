@@ -46,9 +46,12 @@ export default function useRowSelect(
   });
   const selectedRowKeysSet = useMemo(() => new Set(tSelectedRowKeys ?? []), [tSelectedRowKeys]);
 
-  // 树形数据时，展开所有树节点行；否则使用原始 data
+  // 树形数据时，展开所有树节点行；否则返回 null，
+  // 让 currentRows 落到分页后的 currentPaginateData 上。
+  // 这里原先返回全量 data，而 currentRows 用的是 `allTreeRows || currentPaginateData`，
+  // data 恒为真值，分页数据永远用不上，于是全选会选到所有页的数据（issue #4416）。
   const allTreeRows = useMemo(() => {
-    if (!treeDataMap || treeDataMap.size === 0) return data;
+    if (!treeDataMap || treeDataMap.size === 0) return null;
     const treeRows: TableRowData[] = [];
     treeDataMap.forEach((rowState) => {
       if (rowState.row) {
@@ -56,6 +59,8 @@ export default function useRowSelect(
       }
     });
     return treeRows;
+    // data 变化时树行也要重算
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, treeDataMap]);
 
   // 当前可见行：树形数据优先，否则使用分页后的数据
