@@ -74,33 +74,31 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
   const isExitingRef = useRef(false);
 
   useLayoutEffect(() => {
-    // Popup content has its own transition and unmounts the inline transition.
+    // 切换为浮层会卸载内联动画节点，需重置动画状态。
     if (isPopUp) {
       setIsExited(true);
       isExitingRef.current = false;
     }
   }, [isPopUp]);
 
-  // Keep content unclamped until the exit animation finishes. Expanded content
-  // can then resize naturally, including nested submenus and delayed popup content.
-  const childStyle = {
+  // 收起动画结束后再限制高度，避免提前裁剪。
+  const contentStyle = {
     maxHeight: (isPopUp ? isOpen : isOpen || !isExited) ? 'none' : 0,
   };
 
   const setStartingHeight = (element: HTMLUListElement, height: number) => {
-    // Removing the collapsed max-height can reveal a natural/percentage height.
-    // Freeze the intended starting point without animating to it first.
     element.style.transition = 'none';
     element.style.height = `${height}px`;
+    // 强制布局，确保恢复过渡前起始高度已生效。
     element.offsetHeight;
     element.style.transition = '';
   };
 
+  // 中途反向切换时，从当前可见高度继续动画。
   const transitionCallbacks = {
     onEnter: () => {
       const element = contentRef.current;
       if (!element) return;
-      // Reversing an exit starts at the current visual height instead of jumping to zero.
       const height = isExitingRef.current ? element.getBoundingClientRect().height : 0;
       isExitingRef.current = false;
       setIsExited(false);
@@ -108,7 +106,6 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
     },
     onEntering: () => {
       const element = contentRef.current;
-      // CSSTransition flushes the starting height before adding enter-active.
       if (element) element.style.height = `${element.scrollHeight}px`;
     },
     onEntered: () => {
@@ -118,7 +115,6 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
       const element = contentRef.current;
       if (!element) return;
       isExitingRef.current = true;
-      // Freeze the rendered height, including an interrupted enter animation.
       setStartingHeight(element, element.getBoundingClientRect().height);
     },
     onExiting: () => {
@@ -136,7 +132,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
         [`${classPrefix}-is-opened`]: isOpen,
       })}
       key="popup"
-      style={childStyle}
+      style={contentStyle}
     >
       {popupChildren}
     </ul>
@@ -167,7 +163,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
             key="normal"
             style={
               {
-                ...childStyle,
+                ...contentStyle,
                 overflow: 'hidden',
               } as React.CSSProperties
             }
