@@ -177,7 +177,6 @@ now | String | - | 语言配置，“此刻” 描述文本 | N
 placeholder | Object | - | 占位符文本提示，默认值：`{ date: '请选择日期',  month: '请选择月份',  year: '请选择年份' }`。TS 类型：`{ date?: string; month?: string; year?: string }` | N
 preDecade | String | - | 语言配置，“上个十年” 描述文本 | N
 preMonth | String | - | 语言配置，“上个月” 描述文本 | N
-presets | Object | - | 【暂不支持，讨论确认中】预设快捷日期选择，示例：`{ '元旦': '2021-01-01', '昨天':  dayjs().subtract(1, 'day').format('YYYY-MM-DD'), '特定日期': () => ['2021-02-01'] }`。TS 类型：`ConfigPresetDate` `interface ConfigPresetDate { [name: string]: DateConfigValue \| (() => DateConfigValue) }` `type DateConfigValue = string \| Date \| Array<DateConfigValue>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/config-provider/type.ts) | N
 preYear | String | - | 语言配置，“上一年” 描述文本 | N
 quarters | Array | - | 季度文本描述，默认值：['1 季度', '2 季度', '3 季度', '4 季度']。TS 类型：`string[]` | N
 rangeSeparator | String | - | 语言配置，“ 至 ” 范围分隔符描述文本，示例：' ~ ' | N

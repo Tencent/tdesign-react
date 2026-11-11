@@ -177,7 +177,6 @@ now | String | - | now text | N
 placeholder | Object | - | Typescript: `{ date?: string; month?: string; year?: string }` | N
 preDecade | String | - | pre decade text | N
 preMonth | String | - | pre month text | N
-presets | Object | - | Typescript: `ConfigPresetDate` `interface ConfigPresetDate { [name: string]: DateConfigValue \| (() => DateConfigValue) }` `type DateConfigValue = string \| Date \| Array<DateConfigValue>`. [see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/config-provider/type.ts) | N
 preYear | String | - | pre year text | N
 quarters | Array | - | Typescript: `string[]` | N
 rangeSeparator | String | - | range separator text | N

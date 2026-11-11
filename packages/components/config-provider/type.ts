@@ -392,10 +392,6 @@ export interface DatePickerConfig {
    */
   preMonth?: string;
   /**
-   * 【暂不支持，讨论确认中】预设快捷日期选择，示例：`{ '元旦': '2021-01-01', '昨天':  dayjs().subtract(1, 'day').format('YYYY-MM-DD'), '特定日期': () => ['2021-02-01'] }`
-   */
-  presets?: ConfigPresetDate;
-  /**
    * 语言配置，“上一年” 描述文本
    * @default ''
    */
