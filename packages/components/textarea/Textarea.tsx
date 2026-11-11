@@ -92,8 +92,8 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   const { limitNumber, getValueByLimitNumber } = useLengthLimit({
     value: String(value ?? ''),
     status,
-    maxlength: maxlength ?? 0,
-    maxcharacter: maxcharacter ?? 0,
+    maxlength,
+    maxcharacter,
     allowInputOverMax,
     onValidate,
   });
