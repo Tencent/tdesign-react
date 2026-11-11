@@ -28,3 +28,5 @@ onFocus | Function |  | TS 类型：`(value: TextareaValue, context : { e: Focus
 onKeydown | Function |  | TS 类型：`(value: TextareaValue, context: { e: KeyboardEvent }) => void`<br/>键盘按下时触发 | N
 onKeypress | Function |  | TS 类型：`(value: TextareaValue, context: { e: KeyboardEvent }) => void`<br/>按下字符键时触发（keydown -> keypress -> keyup） | N
 onKeyup | Function |  | TS 类型：`(value: TextareaValue, context: { e: KeyboardEvent }) => void`<br/>释放键盘时触发 | N
+onPaste | Function |  | TS 类型：`(value: TextareaValue, context: { e: ClipboardEvent }) => void`<br/>粘贴事件，可通过 `context.e.clipboardData` 获取剪贴板数据 | N
+onPasteCapture | Function |  | TS 类型：`(value: TextareaValue, context: { e: ClipboardEvent }) => void`<br/>粘贴事件（捕获阶段），签名同 `onPaste` | N

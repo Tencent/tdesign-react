@@ -21,6 +21,9 @@ export default function InputExample() {
   const onBlur: TextareaProps['onBlur'] = (value, { e }) => {
     console.log('onBlur: ', value, e);
   };
+  const onPaste: TextareaProps['onPaste'] = (value, { e }) => {
+    console.log('onPaste: ', value, e.clipboardData);
+  };
 
   return (
     <Textarea
@@ -31,6 +34,7 @@ export default function InputExample() {
       value={value}
       onFocus={onFocus}
       onBlur={onBlur}
+      onPaste={onPaste}
       onChange={(value) => {
         console.log(value);
         onChange(value);
