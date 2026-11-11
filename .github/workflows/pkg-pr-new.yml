@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    if: ${{ github.repository == 'Tencent/tdesign-react' && !startsWith(github.head_ref, 'release/')}}
+    if: ${{ github.repository == 'Tencent/tdesign-react' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -25,6 +25,18 @@ jobs:
 
       - run: pnpm exec run-p build build:aigc
 
-      - run: node ./script/workflows/pkg-pr-new-generate-template.mjs
+      - run: |
+          mkdir templates && cd templates
+          pnpm dlx https://pkg.pr.new/TDesignOteam/create-tdesign@main react-vite --template react-vite
 
-      - run: pnpm dlx pkg-pr-new publish './packages/tdesign-react' './packages/tdesign-react-aigc' --template ./tdesign-react-demo
+          pnpm dlx https://pkg.pr.new/TDesignOteam/create-tdesign@main react-rspack --template react-rspack
+
+          pnpm dlx https://pkg.pr.new/TDesignOteam/create-tdesign@main react-vike --template react-vike
+
+          pnpm dlx https://pkg.pr.new/TDesignOteam/create-tdesign@main react-chat-vite --template react-chat-vite
+
+          pnpm dlx https://pkg.pr.new/TDesignOteam/create-tdesign@main react-chat-rspack --template react-chat-rspack
+
+          pnpm dlx https://pkg.pr.new/TDesignOteam/create-tdesign@main react-chat-vike --template react-chat-vike
+
+      - run: pnpm dlx pkg-pr-new publish './packages/*' --template './templates/*'
