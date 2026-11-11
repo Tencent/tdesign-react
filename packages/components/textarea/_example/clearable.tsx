@@ -9,7 +9,7 @@ export default function TextareaClearableExample() {
   const [textValue, setTextValue] = useState('文字清空');
 
   return (
-    <Space direction="vertical">
+    <Space direction="vertical" style={{ width: '100%' }}>
       <Radio.Group
         variant="default-filled"
         value={position}
@@ -22,14 +22,35 @@ export default function TextareaClearableExample() {
       <Descriptions
         size="small"
         column={1}
+        tableLayout="fixed"
+        colon={false}
+        style={{ width: '100%' }}
+        labelStyle={{ width: 36, paddingRight: 8, verticalAlign: 'middle' }}
+        contentStyle={{ width: '100%', paddingLeft: 0 }}
         items={[
           {
             label: 'icon',
-            content: <Textarea value={iconValue} clearable={{ position, type: 'icon' }} onChange={setIconValue} />,
+            content: (
+              <Textarea
+                style={{ width: '100%' }}
+                placeholder="图标清空"
+                clearable={{ position, type: 'icon' }}
+                value={iconValue}
+                onChange={setIconValue}
+              />
+            ),
           },
           {
             label: 'text',
-            content: <Textarea value={textValue} clearable={{ position, type: 'text' }} onChange={setTextValue} />,
+            content: (
+              <Textarea
+                style={{ width: '100%' }}
+                placeholder="文字清空"
+                clearable={{ position, type: 'text' }}
+                value={textValue}
+                onChange={setTextValue}
+              />
+            ),
           },
         ]}
       />

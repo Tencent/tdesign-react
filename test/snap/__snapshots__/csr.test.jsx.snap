@@ -156484,6 +156484,158 @@ exports[`csr snapshot test > csr test packages/components/textarea/_example/base
 </div>
 `;
 
+exports[`csr snapshot test > csr test packages/components/textarea/_example/clearable.tsx 1`] = `
+<div>
+  <div
+    class="t-space t-space-vertical"
+    style="width: 100%; gap: 16px;"
+  >
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-radio-group t-size-m t-radio-group--filled"
+      >
+        <label
+          class="t-radio-button t-is-checked"
+          tabindex="0"
+        >
+          <input
+            checked=""
+            class="t-radio-button__former"
+            data-value="'top'"
+            tabindex="-1"
+            type="radio"
+            value="top"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            top
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+          tabindex="0"
+        >
+          <input
+            class="t-radio-button__former"
+            data-value="'center'"
+            tabindex="-1"
+            type="radio"
+            value="center"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            center
+          </span>
+        </label>
+        <label
+          class="t-radio-button"
+          tabindex="0"
+        >
+          <input
+            class="t-radio-button__former"
+            data-value="'bottom'"
+            tabindex="-1"
+            type="radio"
+            value="bottom"
+          />
+          <span
+            class="t-radio-button__input"
+          />
+          <span
+            class="t-radio-button__label"
+          >
+            bottom
+          </span>
+        </label>
+        <div
+          class="t-radio-group__bg-block"
+          style="width: 200px; height: 100px; left: 0px; top: 0px;"
+        />
+      </div>
+    </div>
+    <div
+      class="t-space-item"
+    >
+      <div
+        class="t-descriptions"
+        style="width: 100%;"
+      >
+        <table
+          class="t-descriptions__body t-size-s t-descriptions__body--fixed"
+        >
+          <tbody>
+            <tr>
+              <td
+                class="t-descriptions__label"
+                colspan="1"
+                style="width: 36px; padding-right: 8px; vertical-align: middle;"
+              >
+                icon
+              </td>
+              <td
+                class="t-descriptions__content"
+                colspan="1"
+                style="width: 100%; padding-left: 0px;"
+              >
+                <div
+                  class="t-textarea"
+                  style="width: 100%;"
+                >
+                  <textarea
+                    class="t-textarea__inner t-is-default"
+                    placeholder="图标清空"
+                    style="height: auto; min-height: auto;"
+                  >
+                    图标清空
+                  </textarea>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="t-descriptions__label"
+                colspan="1"
+                style="width: 36px; padding-right: 8px; vertical-align: middle;"
+              >
+                text
+              </td>
+              <td
+                class="t-descriptions__content"
+                colspan="1"
+                style="width: 100%; padding-left: 0px;"
+              >
+                <div
+                  class="t-textarea"
+                  style="width: 100%;"
+                >
+                  <textarea
+                    class="t-textarea__inner t-is-default"
+                    placeholder="文字清空"
+                    style="height: auto; min-height: auto;"
+                  >
+                    文字清空
+                  </textarea>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`csr snapshot test > csr test packages/components/textarea/_example/events.tsx 1`] = `
 <div>
   <div
@@ -175818,6 +175970,8 @@ exports[`ssr snapshot test > ssr test packages/components/tag-input/_example/sta
 exports[`ssr snapshot test > ssr test packages/components/tag-input/_example/theme.tsx 1`] = `"<div style="width:80%;gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input--with-tag" value="" spellcheck="false"><div class="t-input t-align-left t-input--prefix"><div class="t-input__prefix"><div class="t-tag t-tag--primary t-tag--dark"><span title="Vue">Vue</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--primary t-tag--dark"><span title="React">React</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--primary t-tag--dark"><span title="Miniprogram">Miniprogram</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div></div><input placeholder="" type="text" class="t-input__inner" value=""/><span class="t-input__input-pre"></span></div></div></div><div class="t-space-item"><div class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input--with-tag" value="" spellcheck="false"><div class="t-input t-align-left t-input--prefix"><div class="t-input__prefix"><div class="t-tag t-tag--success t-tag--dark"><span title="Vue">Vue</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--success t-tag--dark"><span title="React">React</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--success t-tag--dark"><span title="Miniprogram">Miniprogram</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div></div><input placeholder="" type="text" class="t-input__inner" value=""/><span class="t-input__input-pre"></span></div></div></div><div class="t-space-item"><div class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input--with-tag" value="" spellcheck="false"><div class="t-input t-align-left t-input--prefix"><div class="t-input__prefix"><div class="t-tag t-tag--warning t-tag--dark"><span title="Vue">Vue</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--warning t-tag--dark"><span title="React">React</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--warning t-tag--dark"><span title="Miniprogram">Miniprogram</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div></div><input placeholder="" type="text" class="t-input__inner" value=""/><span class="t-input__input-pre"></span></div></div></div><div class="t-space-item"><div class="t-input__wrap t-tag-input t-tag-input--break-line t-tag-input--with-tag" value="" spellcheck="false"><div class="t-input t-align-left t-input--prefix"><div class="t-input__prefix"><div class="t-tag t-tag--danger t-tag--dark"><span title="Vue">Vue</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--danger t-tag--dark"><span title="React">React</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div><div class="t-tag t-tag--danger t-tag--dark"><span title="Miniprogram">Miniprogram</span><svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-close t-tag__icon-close" style="fill:none"><g id="close"><path id="stroke1" stroke="currentColor" d="M16.9503 7.05029L12.0005 12M12.0005 12L7.05078 16.9498M12.0005 12L16.9503 16.9498M12.0005 12L7.05078 7.05029" stroke-linecap="square" stroke-width="2"></path></g></svg></div></div><input placeholder="" type="text" class="t-input__inner" value=""/><span class="t-input__input-pre"></span></div></div></div></div>"`;
 
 exports[`ssr snapshot test > ssr test packages/components/textarea/_example/base.tsx 1`] = `"<div style="width:100%;gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div class="t-textarea"><textarea placeholder="请输入内容" rows="2" style="height:auto;min-height:auto" class="t-textarea__inner t-is-default"></textarea></div></div><div class="t-space-item"><div class="t-textarea"><textarea placeholder="请输入内容，高度可自适应，autosize=true" style="height:auto;min-height:auto" class="t-textarea__inner t-is-default t-hide-scrollbar"></textarea></div></div><div class="t-space-item"><div class="t-textarea"><textarea placeholder="请输入内容，高度可自适应，最少3行，最多10行，超过会出滚动条" style="height:auto;min-height:auto" class="t-textarea__inner t-is-default t-resize-none"></textarea></div></div></div>"`;
+
+exports[`ssr snapshot test > ssr test packages/components/textarea/_example/clearable.tsx 1`] = `"<div style="width:100%;gap:16px" class="t-space t-space-vertical"><div class="t-space-item"><div class="t-radio-group t-size-m t-radio-group--filled"><label tabindex="0" class="t-radio-button t-is-checked" checked=""><input type="radio" class="t-radio-button__former" tabindex="-1" data-value="&#x27;top&#x27;" checked="" value="top"/><span class="t-radio-button__input"></span><span class="t-radio-button__label">top</span></label><label tabindex="0" class="t-radio-button"><input type="radio" class="t-radio-button__former" tabindex="-1" data-value="&#x27;center&#x27;" value="center"/><span class="t-radio-button__input"></span><span class="t-radio-button__label">center</span></label><label tabindex="0" class="t-radio-button"><input type="radio" class="t-radio-button__former" tabindex="-1" data-value="&#x27;bottom&#x27;" value="bottom"/><span class="t-radio-button__input"></span><span class="t-radio-button__label">bottom</span></label></div></div><div class="t-space-item"><div class="t-descriptions" style="width:100%"><table class="t-descriptions__body t-size-s t-descriptions__body--fixed"><tbody><tr><td colSpan="1" class="t-descriptions__label" style="width:36px;padding-right:8px;vertical-align:middle">icon</td><td colSpan="1" class="t-descriptions__content" style="width:100%;padding-left:0"><div style="width:100%" class="t-textarea"><textarea placeholder="图标清空" style="height:auto;min-height:auto" class="t-textarea__inner t-is-default">图标清空</textarea></div></td></tr><tr><td colSpan="1" class="t-descriptions__label" style="width:36px;padding-right:8px;vertical-align:middle">text</td><td colSpan="1" class="t-descriptions__content" style="width:100%;padding-left:0"><div style="width:100%" class="t-textarea"><textarea placeholder="文字清空" style="height:auto;min-height:auto" class="t-textarea__inner t-is-default">文字清空</textarea></div></td></tr></tbody></table></div></div></div>"`;
 
 exports[`ssr snapshot test > ssr test packages/components/textarea/_example/events.tsx 1`] = `"<div class="t-textarea"><textarea placeholder="请输入内容" style="height:auto;min-height:auto" class="t-textarea__inner t-is-default"></textarea></div>"`;
 
