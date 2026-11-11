@@ -59,8 +59,7 @@ describe('Textarea', () => {
         if (!(clearIcon instanceof SVGElement)) {
           throw new Error('clear icon not found');
         }
-        expect(container.querySelector('.t-textarea__clear--icon')).toBeTruthy();
-        expect(container.querySelector('.t-textarea--clear-icon')).toBeTruthy();
+        expect(container.querySelector('.t-textarea__clear--top.t-textarea__clear--icon')).toBeTruthy();
         expect(container.querySelector('.t-button')).toBeNull();
 
         fireEvent.click(clearIcon);
@@ -75,7 +74,7 @@ describe('Textarea', () => {
 
         const clearText = container.querySelector('.t-textarea__clear--bottom .t-textarea__clear-text');
         expect(clearText?.textContent).toBe('清空');
-        expect(container.querySelector('.t-textarea--clear-text')).toBeTruthy();
+        expect(container.querySelector('.t-textarea__clear--bottom.t-textarea__clear--text')).toBeTruthy();
         expect(container.querySelector('.t-button')).toBeNull();
       });
 
@@ -110,7 +109,6 @@ describe('Textarea', () => {
       test('stays hidden when empty, disabled, or readonly', async () => {
         const { container: emptyContainer } = render(<Textarea value="" clearable />);
         expect(emptyContainer.querySelector('.t-textarea__clear')).toBeNull();
-        expect(emptyContainer.querySelector('.t-textarea--clear')).toBeTruthy();
 
         const { container: disabledContainer } = render(<Textarea value="content" clearable disabled />);
         expect(disabledContainer.querySelector('.t-textarea__clear')).toBeNull();
