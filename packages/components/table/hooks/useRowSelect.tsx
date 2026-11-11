@@ -6,6 +6,7 @@ import { isRowSelectedDisabled } from '@tdesign/common-js/table/utils';
 import Checkbox from '../../checkbox';
 import useControlled from '../../hooks/useControlled';
 import Radio from '../../radio';
+import { getLocalPaginatedData, isControlledPagination, resolvePaginationPageInfo } from '../utils';
 
 import type { MouseEvent } from 'react';
 import type { ClassName } from '../../common';
@@ -29,6 +30,7 @@ export default function useRowSelect(
     rowKey = 'id',
     indeterminateSelectedRowKeys,
     pagination,
+    disableDataPage,
     reserveSelectedRowOnPaginate,
     treeDataMap,
   } = props;
@@ -58,8 +60,16 @@ export default function useRowSelect(
     return treeRows;
   }, [data, treeDataMap]);
 
-  // 当前可见行：树形数据优先，否则使用分页后的数据
-  const currentRows = useMemo(() => allTreeRows || currentPaginateData, [allTreeRows, currentPaginateData]);
+  const hasPagination = Boolean(pagination);
+
+  // 树形数据或跨页选择时使用所有行，否则使用当前页数据
+  const currentRows = useMemo(
+    () =>
+      treeDataMap?.size || reserveSelectedRowOnPaginate || !hasPagination || disableDataPage
+        ? allTreeRows
+        : currentPaginateData,
+    [allTreeRows, currentPaginateData, reserveSelectedRowOnPaginate, treeDataMap, hasPagination, disableDataPage],
+  );
 
   // 未禁用的行（过滤掉 disabled 行，全选和半选逻辑只针对可选行）
   const enabledRows = useMemo(
@@ -73,19 +83,25 @@ export default function useRowSelect(
     return (tSelectedRowKeys ?? []).filter((key) => selectableRowKeys.has(key));
   }, [tSelectedRowKeys, enabledRows, safeRowKey]);
 
-  useEffect(
-    () => {
-      if (reserveSelectedRowOnPaginate) return;
-      const { pageSize, current, defaultPageSize, defaultCurrent } = pagination ?? {};
-      const tPageSize = pageSize || defaultPageSize;
-      const tCurrent = current || defaultCurrent;
-      if (!tPageSize || !tCurrent) return;
-      const newData = data.slice(tPageSize * (tCurrent - 1), tPageSize * tCurrent);
-      setCurrentPaginateData(newData);
-    },
-    // eslint-disable-next-line
-    [data, reserveSelectedRowOnPaginate],
-  );
+  const isControlled = isControlledPagination(pagination);
+  const paginationCurrent = isControlled ? pagination?.current : undefined;
+  const paginationPageSize = isControlled ? pagination?.pageSize : undefined;
+
+  useEffect(() => {
+    const { current, pageSize } = resolvePaginationPageInfo(pagination);
+    const { newData } = getLocalPaginatedData(data, current, pageSize, {
+      disableDataPage,
+      requirePagination: true,
+      pagination,
+    });
+    setCurrentPaginateData(newData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, disableDataPage, paginationCurrent, paginationPageSize]);
+
+  // 取消分页时，缓存也应恢复为完整数据
+  useEffect(() => {
+    if (!hasPagination) setCurrentPaginateData(data);
+  }, [data, hasPagination]);
 
   useEffect(() => {
     if (!selectColumn && !tSelectedRowKeys?.length) return;
@@ -283,7 +299,10 @@ export default function useRowSelect(
   return {
     selectedRowClassNames,
     currentPaginateData,
-    setCurrentPaginateData,
+    setCurrentPaginateData: (newData: TableRowData[]) => {
+      // 受控分页以 props 为准，避免未被接受的翻页请求覆盖当前页数据
+      if (!isControlled) setCurrentPaginateData(newData);
+    },
     setTSelectedRowKeys,
     formatToRowSelectColumn,
     onInnerSelectRowClick,
