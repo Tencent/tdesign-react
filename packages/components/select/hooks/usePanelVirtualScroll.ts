@@ -1,5 +1,7 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
+import useConfig from '../../hooks/useConfig';
+import useLayoutEffect from '../../hooks/useLayoutEffect';
 import useVirtualScroll from '../../hooks/useVirtualScroll';
 
 import type { SizeEnum, TScroll } from '../../common';
@@ -13,6 +15,8 @@ interface PanelVirtualScroll {
 }
 
 const usePanelVirtualScroll = ({ popupContentRef, scroll, options, size }: PanelVirtualScroll) => {
+  const config = useConfig();
+  const [rowGap, setRowGap] = useState(0);
   const scrollThreshold = scroll?.threshold || 100;
   const scrollType = scroll?.type;
 
@@ -48,7 +52,23 @@ const usePanelVirtualScroll = ({ popupContentRef, scroll, options, size }: Panel
     enable: enableVirtual,
     data: options || [],
     scroll: scrollParams,
+    rowGap,
   });
+
+  useLayoutEffect(() => {
+    if (!isVirtual) return;
+    const { classPrefix } = config;
+    // 分组不是等间距的选项行，保持原有分组计算。
+    const hasGroups = options?.some((option) => 'group' in option && option.group);
+    const option = !hasGroups
+      ? popupContentRef.current?.querySelector(
+          `.${classPrefix}-select__dropdown-inner > .${classPrefix}-select__list > .${classPrefix}-select-option + .${classPrefix}-select-option`,
+        )
+      : null;
+    // 第一项没有相邻项 margin，测量第二项以保留主题定义的实际间距。
+    const gap = option ? parseFloat(getComputedStyle(option).marginTop) || 0 : 0;
+    if (gap !== rowGap) setRowGap(gap);
+  }, [config, isVirtual, options, popupContentRef, rowGap, size, visibleData]);
 
   let lastScrollY = -1;
 
