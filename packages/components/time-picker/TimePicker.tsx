@@ -104,12 +104,14 @@ const TimePicker = forwardRefWithStatics(
     };
 
     const handleClickConfirm = () => {
+      if (disabled) return;
       const isValidTime = validateInputValue(currentValue, format);
       if (isValidTime) onChange(currentValue);
       effectVisibleCurrentValue(false);
     };
 
     const handlePanelChange: TimePickerPanelProps['onChange'] = (v, ctx) => {
+      if (disabled) return;
       setCurrentValue(v);
       onPick?.(v, ctx);
     };
