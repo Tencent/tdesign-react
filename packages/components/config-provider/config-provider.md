@@ -374,7 +374,7 @@ closeIcon | Function | - | 关闭图标，【注意】使用渲染函数输出�
 
 名称 | 类型 | 默认值 | 描述 | 必传
 -- | -- | -- | -- | --
-clearText | String | - | 语言配置，“清空”清空按钮文案 | N
+clearText | String | - | 语言配置，清空按钮文案 | N
 clearTrigger | String | focus | 清空按钮触发方式，仅在文本框有值时有效。可选项：always/focus | N
 
 ### TimePickerConfig

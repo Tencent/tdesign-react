@@ -854,7 +854,7 @@ export interface TagConfig {
 
 export interface TextareaConfig {
   /**
-   * 语言配置，“清空”清空按钮文案
+   * 语言配置，清空按钮文案
    * @default ''
    */
   clearText?: string;
