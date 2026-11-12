@@ -10,6 +10,27 @@ describe('Popup', () => {
   const triggerElement = '触发元素';
 
   describe('props', () => {
+    test('removes popup content when an open popup becomes disabled', () => {
+      const onSelect = vi.fn();
+      const popup = (disabled: boolean) => (
+        <Popup visible disabled={disabled} content={<button onClick={onSelect}>Choose date</button>}>
+          <button>{triggerElement}</button>
+        </Popup>
+      );
+      const { getByText, queryByText, rerender } = render(popup(false));
+      const option = getByText('Choose date');
+
+      rerender(popup(true));
+      fireEvent.click(option);
+
+      expect(onSelect).not.toHaveBeenCalled();
+      expect(queryByText('Choose date')).not.toBeInTheDocument();
+
+      rerender(popup(false));
+      fireEvent.click(getByText('Choose date'));
+      expect(onSelect).toHaveBeenCalledTimes(1);
+    });
+
     test('destroyOnClose', async () => {
       const { getByText, queryByTestId } = render(
         <Popup destroyOnClose placement="top" content={<div data-testid={popupTestId}>{popupText}</div>}>

@@ -81,7 +81,8 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
   // 全局配置
   const { keepExpand, keepFade } = useAnimation();
   const { height: windowHeight, width: windowWidth } = useWindowSize();
-  const [visible, onVisibleChange] = useControlled(props, 'visible', props.onVisibleChange);
+  const [requestedVisible, onVisibleChange] = useControlled(props, 'visible', props.onVisibleChange);
+  const visible = !disabled && requestedVisible;
 
   const [isOverlayHover, setIsOverlayHover] = useState(false);
   const [popupElement, setPopupElement] = useState<HTMLDivElement>(null);
@@ -318,7 +319,7 @@ const Popup = forwardRef<PopupInstanceFunctions, PopupProps>((originalProps, ref
               style={getOverlayStyle(overlayInnerStyle)}
               onScroll={handleScroll}
             >
-              {content}
+              {disabled ? null : content}
               {showArrow && (
                 <div
                   style={{ ...styles.arrow, ...arrowStyle }}
