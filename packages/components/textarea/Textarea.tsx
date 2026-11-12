@@ -124,6 +124,7 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
   }, {});
 
   const textareaClassNames = classNames(`${classPrefix}-textarea__inner`, className, {
+    [`${classPrefix}-textarea__inner--clear`]: canClear,
     [`${classPrefix}-is-${status}`]: status,
     [`${classPrefix}-is-disabled`]: disabled,
     [`${classPrefix}-is-focused`]: isFocused,

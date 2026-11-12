@@ -53,6 +53,8 @@ describe('Textarea', () => {
       test('true equals top icon and clears the value', async () => {
         const onChange = vi.fn();
         const { container } = render(<Textarea defaultValue="hello" clearable onChange={onChange} />);
+        expect(container.querySelector('.t-textarea--clear')).toBeNull();
+        expect(getTextarea(container).classList.contains('t-textarea__inner--clear')).toBe(true);
         fireEvent.mouseEnter(container.querySelector('.t-textarea'));
         const clearIcon = container.querySelector('.t-textarea__clear--top .t-textarea__clear-icon');
 
@@ -66,6 +68,7 @@ describe('Textarea', () => {
         expect(onChange).toHaveBeenCalledWith('');
         expect(getTextarea(container).value).toBe('');
         expect(container.querySelector('.t-textarea__clear')).toBeNull();
+        expect(getTextarea(container).classList.contains('t-textarea__inner--clear')).toBe(false);
       });
 
       test('supports position and text type', async () => {
@@ -88,6 +91,7 @@ describe('Textarea', () => {
       test('clearTrigger focus shows the button on hover and always keeps it visible', async () => {
         const { container: focusContainer } = render(<Textarea value="content" clearable />);
         expect(focusContainer.querySelector('.t-textarea__clear')).toBeNull();
+        expect(getTextarea(focusContainer).classList.contains('t-textarea__inner--clear')).toBe(true);
         fireEvent.mouseEnter(focusContainer.querySelector('.t-textarea'));
         expect(focusContainer.querySelector('.t-textarea__clear')).toBeTruthy();
         fireEvent.mouseLeave(focusContainer.querySelector('.t-textarea'));
@@ -109,12 +113,15 @@ describe('Textarea', () => {
       test('stays hidden when empty, disabled, or readonly', async () => {
         const { container: emptyContainer } = render(<Textarea value="" clearable />);
         expect(emptyContainer.querySelector('.t-textarea__clear')).toBeNull();
+        expect(getTextarea(emptyContainer).classList.contains('t-textarea__inner--clear')).toBe(false);
 
         const { container: disabledContainer } = render(<Textarea value="content" clearable disabled />);
         expect(disabledContainer.querySelector('.t-textarea__clear')).toBeNull();
+        expect(getTextarea(disabledContainer).classList.contains('t-textarea__inner--clear')).toBe(false);
 
         const { container: readOnlyContainer } = render(<Textarea value="content" clearable readOnly />);
         expect(readOnlyContainer.querySelector('.t-textarea__clear')).toBeNull();
+        expect(getTextarea(readOnlyContainer).classList.contains('t-textarea__inner--clear')).toBe(false);
       });
     });
   });
