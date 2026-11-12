@@ -4,8 +4,8 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TNode } from '../common';
-import { KeyboardEvent, FocusEvent, FormEvent } from 'react';
+import type { KeyboardEvent, FocusEvent, FormEvent } from 'react';
+import type { TNode } from '../common';
 
 export interface TdTextareaProps {
   /**
@@ -24,12 +24,16 @@ export interface TdTextareaProps {
    */
   autosize?: boolean | { minRows?: number; maxRows?: number };
   /**
+   * 是否显示清空按钮。值为 `true` 时等价于 `{ position: 'top', type: 'icon' }`。`position` 表示清空按钮位置，可选值：top / center / bottom。`type` 表示清空按钮类型，可选值：icon / text
+   * @default false
+   */
+  clearable?: boolean | TextareaClearable;
+  /**
    * 文字计数元素。设置 `maxlength` 或 `maxchanacter` 时，默认为 true
    */
   count?: boolean | ((ctx: { value: string; count: number; maxLength?: number; maxCharacter?: number }) => TNode);
   /**
    * 是否禁用文本框
-   * @default false
    */
   disabled?: boolean;
   /**
@@ -101,6 +105,15 @@ export interface TdTextareaProps {
    * 释放键盘时触发
    */
   onKeyup?: (value: TextareaValue, context: { e: KeyboardEvent<HTMLTextAreaElement> }) => void;
+  /**
+   * 字数超出限制时触发
+   */
+  onValidate?: (context: { error?: 'exceed-maximum' | 'below-minimum' }) => void;
+}
+
+export interface TextareaClearable {
+  position?: 'top' | 'center' | 'bottom';
+  type?: 'icon' | 'text';
 }
 
 export type TextareaValue = string;

@@ -11,8 +11,9 @@ style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 allowInputOverMax | Boolean | false | 超出 `maxlength` 或 `maxcharacter` 之后是否还允许输入 | N
 autofocus | Boolean | false | 自动聚焦，拉起键盘 | N
 autosize | Boolean / Object | false | 高度自动撑开。 autosize = true 表示组件高度自动撑开，同时，依旧允许手动拖高度。如果设置了 autosize.maxRows 或者 autosize.minRows 则不允许手动调整高度。TS 类型：`boolean \| { minRows?: number; maxRows?: number }` | N
+clearable | Boolean / Object | false | 是否显示清空按钮。值为 `true` 时等价于 `{ position: 'top', type: 'icon' }`。`position` 表示清空按钮位置，可选值：top / center / bottom。`type` 表示清空按钮类型，可选值：icon / text。TS 类型：`boolean \| TextareaClearable` `interface TextareaClearable { position?: 'top' \| 'center' \| 'bottom'; type?: 'icon' \| 'text' }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/textarea/type.ts) | N
 count | Boolean / Function | - | 文字计数元素。设置 `maxlength` 或 `maxchanacter` 时，默认为 true。TS 类型：`boolean \| ((ctx: { value: string; count: number; maxLength?: number; maxCharacter?: number }) => TNode)`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-disabled | Boolean | false | 是否禁用文本框 | N
+disabled | Boolean | undefined | 是否禁用文本框 | N
 maxcharacter | Number | - | 用户最多可以输入的字符个数，一个中文汉字表示两个字符长度 | N
 maxlength | Number | - | 用户最多可以输入的字符个数 | N
 name | String | - | 名称，HTML 元素原生属性 | N
@@ -28,3 +29,4 @@ onFocus | Function |  | TS 类型：`(value: TextareaValue, context : { e: Focus
 onKeydown | Function |  | TS 类型：`(value: TextareaValue, context: { e: KeyboardEvent }) => void`<br/>键盘按下时触发 | N
 onKeypress | Function |  | TS 类型：`(value: TextareaValue, context: { e: KeyboardEvent }) => void`<br/>按下字符键时触发（keydown -> keypress -> keyup） | N
 onKeyup | Function |  | TS 类型：`(value: TextareaValue, context: { e: KeyboardEvent }) => void`<br/>释放键盘时触发 | N
+onValidate | Function |  | TS 类型：`(context: { error?: 'exceed-maximum' \| 'below-minimum' }) => void`<br/>字数超出限制时触发 | N

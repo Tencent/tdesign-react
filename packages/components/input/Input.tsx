@@ -14,10 +14,10 @@ import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useLayoutEffect from '../hooks/useLayoutEffect';
+import useLengthLimit from '../hooks/useLengthLimit';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { inputDefaultProps } from './defaultProps';
 import InputGroup from './InputGroup';
-import useLengthLimit from './useLengthLimit';
 
 import type { StyledProps, TElement, TNode } from '../common';
 import type { TdInputProps } from './type';
@@ -123,10 +123,10 @@ const Input = forwardRefWithStatics(
     // inputPreRef 用于预存输入框宽度，应用在 auto width 模式中
     const inputPreRef: React.RefObject<HTMLInputElement> = useRef(null);
     const wrapperRef: React.RefObject<HTMLDivElement> = useRef(null);
+
     const [isHover, toggleIsHover] = useState(false);
     const [isFocused, toggleIsFocused] = useState(false);
     const [renderType, setRenderType] = useState(type);
-
     const [composingValue, setComposingValue] = useState<string>('');
 
     // 组件内部 input 原生控件是否处于 readonly 状态，当整个组件 readonly 时，或者处于不可输入时
