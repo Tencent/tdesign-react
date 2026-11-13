@@ -184,7 +184,15 @@ const Select = forwardRefWithStatics(
 
         let checkAllValue: SelectValue[];
 
-        if (checkAll) {
+        // 以当前 value 为准计算全选方向，避免 Option 内部状态与外部 value 不同步时反向操作
+        const isOptionSelected = (opt: SelectOption) =>
+          isObjectType
+            ? currentValues.some((v) => get(v, valueKey) === opt[valueKey])
+            : currentValues.includes(opt[valueKey]);
+        const allEnabledSelected = enabledOptions.length > 0 && enabledOptions.every(isOptionSelected);
+        const shouldCheckAll = enabledOptions.length > 0 ? !allEnabledSelected : checkAll;
+
+        if (shouldCheckAll) {
           // 全选：选中所有未禁用的选项 + 保留已选中的禁用选项
           const enabledValues = enabledOptions.map((opt) => (isObjectType ? opt : opt[valueKey]));
           const disabledValues = disabledSelectedOptions.map((opt) => (isObjectType ? opt : opt[valueKey]));
@@ -198,7 +206,7 @@ const Select = forwardRefWithStatics(
 
         onChange?.(checkAllValue, {
           e,
-          trigger: checkAll ? 'check' : 'uncheck',
+          trigger: shouldCheckAll ? 'check' : 'uncheck',
           selectedOptions: currentSelectedOptions,
         });
       },
