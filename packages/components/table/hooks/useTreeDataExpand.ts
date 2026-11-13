@@ -26,7 +26,7 @@ export function useTreeDataExpand(
     'expandedTreeNodes',
     props.onExpandedTreeNodesChange,
     {
-      defaultExpandedTreeNodes: props.defaultSelectedRowKeys || [],
+      defaultExpandedTreeNodes: props.defaultExpandedTreeNodes || [],
     },
   );
 
