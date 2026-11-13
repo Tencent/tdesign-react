@@ -5,94 +5,72 @@ description: This skill should be used when reviewing GitHub Pull Requests, anal
 
 # TDesign 组件代码审查指南
 
-## 前置依赖
+## 0. 前置检查
 
-先执行同目录 `PREFLIGHT_CHECK.md` 中的检查流程，确保：
+先执行 [PREFLIGHT_CHECK.md](reference/PREFLIGHT_CHECK.md)，确保 `gh` 已安装且已登录。
 
-- 已安装 GitHub CLI（`gh`），且确认登录状态
-- 本地工作区状态已确认，避免覆盖用户未提交的修改。
-
-本 Skill 默认只进行代码审查，不主动提交代码。
+默认只审查，不提交代码。
 
 ---
 
-## 执行流程
+## 1. 获取 PR 信息
 
-### 1. 获取 PR 信息
+仓库固定为 `Tencent/tdesign-react`，`gh` 命令中的 `--repo` 均使用该值。
 
-本 skill 只审查 **TDesign React**。`--repo` 固定为 `Tencent/tdesign-react`。
+### 1.1 解析 PR 编号
 
-#### 1.1 解析用户输入
+从用户输入提取 `N`：
 
-从用户输入中提取 PR 编号 `N`：
+| 输入                                            | 处理                            |
+| ----------------------------------------------- | ------------------------------- |
+| 纯数字                                          | 直接作为 `N`                    |
+| `github.com/Tencent/tdesign-react/.../pull/<N>` | 提取 `N`                        |
+| 其他仓库 URL                                    | 停止，说明本 skill 仅支持该仓库 |
+| 无法解析                                        | 向用户询问 PR 编号或 URL        |
 
-- 纯数字：直接作为 PR 编号，例如 `3856`。
-- PR URL：提取 `/pull/` 后面的连续数字。
-- URL 必须属于 `github.com/Tencent/tdesign-react`。
-- 其他仓库的 URL：停止执行，告知用户当前 Skill 只处理 `Tencent/tdesign-react`。
-- 无法解析 PR 编号：向用户询问 PR 编号或 URL。
-
-#### 1.2 获取 PR 信息
-
-```bash
-gh pr view "$N" --repo Tencent/tdesign-react --json title,body
-```
-
-#### 1.3 复现场景
-
-如果是 API 改动 PR，跳过这一步。
-
-如果是 Bug 修复 PR，分析 PR 描述是否有可复现步骤：
-
-- 相关 issue：查询issue中是否有可复现代码、CodeSandbox 或 StackBlitz链接、截图，或者明确的复现步骤。
-- 可复现代码
-- CodeSandbox 链接
-- StackBlitz 链接
-- 截图
-- TDesign 在线官网对应 Demo 地址
-
-在本地执行复现步骤，确认问题是否存在。
-可以在develop分支临时新建文件，并开启进行调试，确认问题是否存在。
-
-### 2. 本地代码与测试
-
-### 2.1 程序可执行性
+### 1.2 获取 PR 内容
 
 ```bash
-
-# 获取远程 PR 代码，并在本地创建分支
-git fetch origin pull/<N>/head:pr-<N>
-
-# 切换到 PR 分支
-git checkout pr-<N>
+gh pr view "$N" --repo Tencent/tdesign-react --json title,body,baseRefName
 ```
 
-再次运行复现 Demo，验证是否能正常运行，Bug 是否不再出现。
+**如果 PR 为 Bug Fix 类型，则需要额外执行[BUG_FIX.md](reference/BUG_FIX.md)流程；否则直接进入 §2。**
 
-### 2.2 代码可维护性
+---
+
+## 2. 分析 PR 代码变更
 
 ```bash
-# 对比 PR 分支与 develop 分支的差异
-git --no-pager diff origin/develop...pr-<N>
+gh pr diff "$N" --repo Tencent/tdesign-react
 ```
 
-分析代码逻辑：
+**范围**
 
-**Bug & Regression**：逻辑、兼容、边界、异步/状态；事件类改动追踪调用链
+- [ ] 无大块无关重构
 
-**Component API**：Props、默认值、事件、Ref/命令式 API、兼容性。
+**逻辑**
 
-**Implementation**：React/Hooks、性能、TDesign 组件模式。
+- [ ] 事件调用链、模块级状态清理等
 
-**Test Coverage**：关键路径与回归用例是否真有断言价值（参考 `tdesign-component-test` 规范）
+**契约**
 
-### 3. 生成总结报告
+- [ ] 公开 API / 默认值无非必要变更
 
-【PR 描述简洁概括】
+**样式**
 
-- Component API 改动点
-- Bug / Regression 风险点
-- Implementation 改进
-- Test Coverage 建议
+- [ ] `classPrefix`、无硬编码 `t-`；`packages/common` 改动合理
 
-【总结：是否建议合并】
+**测试**
+
+- [ ] 新增用例格式是否遵循 [tdesign-component-test](../../tdesign-component-test/SKILL.md) 规范
+
+---
+
+## 3. 输出报告
+
+## PR #<N> 审查结论
+
+**类型**：Bug Fix | Feature（混合则两者都标注）
+**标题**：简洁概括 PR
+**建议**：代码是否有优化空间
+**总结**：合并 | 修改后合并 | 暂不合并
