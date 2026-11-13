@@ -91,4 +91,4 @@ gh auth status
 - `command -v gh` 成功且 `gh --version` 正常。
 - `gh auth status` 显示已登录。
 
-通过后继续完成 `SKILL.md` 相关流程。
+通过后继续执行 `SKILL.md`。

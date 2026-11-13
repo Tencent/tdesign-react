@@ -7,7 +7,7 @@ description: This skill should be used when reviewing GitHub Pull Requests, anal
 
 ## 0. 前置检查
 
-先执行 [PREFLIGHT_CHECK.md](reference/PREFLIGHT_CHECK.md)，确保 `gh` 已安装且已登录。
+先执行 [PREFLIGHT_CHECK.md](reference/PREFLIGHT_CHECK.md)（`gh` 安装与登录）。
 
 默认只审查，不提交代码。
 
@@ -34,7 +34,19 @@ description: This skill should be used when reviewing GitHub Pull Requests, anal
 gh pr view "$N" --repo Tencent/tdesign-react --json title,body,baseRefName
 ```
 
-**如果 PR 为 Bug Fix 类型，则需要额外执行[BUG_FIX.md](reference/BUG_FIX.md)流程；否则直接进入 §2。**
+`baseRefName` 不是 `develop` 时停止审查。
+
+**Bug Fix PR 继续执行 §1.3，否则跳至 §2。**
+
+---
+
+### 1.3 摘录 PR 要点
+
+| 字段     | 来源                                            |
+| -------- | ----------------------------------------------- |
+| Issue    | `Fixes #` / `Closes #` / 正文链接               |
+| 组件     | `packages/components/<name>/` 或 PR 标题        |
+| 复现材料 | 正文中的代码片段、CodeSandbox、StackBlitz、截图 |
 
 ---
 
@@ -66,11 +78,92 @@ gh pr diff "$N" --repo Tencent/tdesign-react
 
 ---
 
+### 2.1 缺陷验证（仅 Bug Fix）
+
+**首先根据 [WORKTREE.md](reference/WORKTREE.md) 准备 `$WT_DEVELOP`、`$WT_PR`。**
+
+#### 选择验证方式
+
+在 `$WT_DEVELOP` 将复现用例写入临时测试文件 `__tests__/review-pr-<N>.test.tsx`
+
+| 场景                    | 做法                   |
+| ----------------------- | ---------------------- |
+| **PR 描述里有复现代码** | 改写为 Vitest 用例     |
+| **PR diff 含测试变更**  | 复制变更               |
+| **以上皆无**            | 根据 §1.3 构造最小用例 |
+
+#### 在 develop 上证明可复现
+
+在 `$WT_DEVELOP`：
+
+```bash
+pnpm test -- packages/components/<component>/__tests__/...
+```
+
+| 结果     | 含义                                       |
+| -------- | ------------------------------------------ |
+| **失败** | 缺陷成立，继续下一步                       |
+| **通过** | 未复现：查 common 版本、用例强度、触发条件 |
+
+#### 在 PR 上证明已修复
+
+在 `$WT_PR`：
+
+```bash
+pnpm test -- <与上一步相同路径>
+```
+
+| 结果        | 含义                   |
+| ----------- | ---------------------- |
+| **通过**    | 修复有效               |
+| **仍失败**  | 合并建议不得为「合并」 |
+| PR 自带用例 | 以 PR 内正式文件为准   |
+
+---
+
 ## 3. 输出报告
 
-## PR #<N> 审查结论
+---
 
-**类型**：Bug Fix | Feature（混合则两者都标注）
-**标题**：简洁概括 PR
-**建议**：代码是否有优化空间
-**总结**：合并 | 修改后合并 | 暂不合并
+## 模板（复制填写）
+
+```markdown
+# PR #<N> 代码审查
+
+## 结论
+
+- 类型：Bug Fix / Feature / 混合
+- 标题：PR 原标题中文版 / 或总结PR 内容
+- 合并建议：合并 / 修改后合并 / 暂不合并
+
+## 摘要
+
+- <改了什么、解决什么或新增什么>
+- <风险或范围；无则写「无」>
+
+## 证据
+
+- gh pr view：已完成 / 失败
+- gh pr diff：已完成 / 失败
+- worktree：已完成 / 未执行 / 失败（<原因>）
+
+## 验证
+
+- develop：fail / pass / 未执行 / 不适用（Bug Fix 期望 fail；附 `pnpm test` 命令或原因）
+- pr：pass / fail / 未执行 / 不适用（期望 pass；附命令或原因）
+- 与 PR 描述一致：是 / 否 / 未验证
+
+## 代码建议
+
+无则只写一行：`无`
+
+`packages/components/xxx/Foo.tsx:42`
+
+<建议正文>
+
+`packages/components/yyy/bar.test.tsx:18`
+
+<建议正文>
+```
+
+---
