@@ -411,6 +411,23 @@ describe('TreeSelect', () => {
   });
 
   describe('events', () => {
+    test('onChange returns object values', async () => {
+      const checkValue = async (value: number | bigint) => {
+        const onChange = vi.fn();
+        const { container, unmount } = render(
+          <TreeSelect data={[{ value, label: 'target' }]} valueType="object" onChange={onChange} />,
+        );
+        fireEvent.click(container.querySelector('.t-input'));
+        await mockDelay(100);
+        fireEvent.click(document.querySelector('.t-tree__item'));
+        expect(onChange.mock.calls[0][0]).toEqual({ value, label: 'target' });
+        unmount();
+      };
+      await checkValue(0);
+      await checkValue(0n);
+      await checkValue(42n);
+    });
+
     test('blur', async () => {
       const onFocusFn = vi.fn();
       const onBlurFn1 = vi.fn();

@@ -5,6 +5,23 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.18.6 `2026-10-30`
+
+### 🚀 Features
+
+- `Tree`
+  - 新增 `checkAllAffectedBy`，支持配置父节点全选、半选状态的判定范围。@RSS1102 ([#4452](https://github.com/Tencent/tdesign-react/pull/4452))
+  - 支持 bigint 类型的选中值 @RSS1102 ([#4450](https://github.com/Tencent/tdesign-react/pull/4450))
+- `TreeSelect`: 支持 bigint 类型的选中值 @RSS1102 ([#4450](https://github.com/Tencent/tdesign-react/pull/4450))
+- `Cascader`: 支持 bigint 类型的选中值 @RSS1102 ([#4450](https://github.com/Tencent/tdesign-react/pull/4450))
+
+### 🐞 Bug Fixes
+
+- `Form`: 修复 `1.18.2` 版本后，FormItem 卸载后重渲染仍保留旧值，且 UI 显示与 `getFieldsValue` 不一致的问题 @RylanBot ([#4440](https://github.com/Tencent/tdesign-react/pull/4440))
+- `Slider`: 修复开启 `range` 但传入空范围值时，无法正确交互的问题 @dvd233 ([#4425](https://github.com/Tencent/tdesign-react/pull/4425))
+- `Drawer`: 修复开启 `sizeDraggable` 时，拖拽中按下右键并松开后，尺寸仍跟随鼠标变化的问题 @RylanBot ([#4435](https://github.com/Tencent/tdesign-react/pull/4435))
+- `Table`: 修复开启 `resizable` 时，拖拽中按下右键并松开后，尺寸仍跟随鼠标变化的问题 @RylanBot ([#4435](https://github.com/Tencent/tdesign-react/pull/4435))
+
 ## 🌈 1.18.5 `2026-10-23`
 
 ### 🐞 Bug Fixes

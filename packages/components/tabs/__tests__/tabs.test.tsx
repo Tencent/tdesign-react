@@ -36,7 +36,7 @@ describe('Tabs', () => {
       expect(tabInstance.querySelector('.t-tabs__nav-wrap').children.length).toBe(4);
     });
 
-    test('placement[top], placement[bottom], placement[left] and placement[right]', async () => {
+    test('placement[top/bottom/left/right]', async () => {
       const testId = 'tab position test id';
       const positions: TdTabsProps['placement'][] = ['top', 'bottom', 'left', 'right'];
 

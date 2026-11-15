@@ -71,7 +71,7 @@ describe('DateRangePicker', () => {
       expect(weekElement).toHaveTextContent('三');
     });
 
-    it('mode[quarter] and mode[week]', async () => {
+    it('mode[quarter/week]', async () => {
       const { container: quarterContainer } = render(<DateRangePicker mode={'quarter'} />);
       act(() => {
         fireEvent.mouseDown(quarterContainer.querySelector('input'));
