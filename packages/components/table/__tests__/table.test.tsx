@@ -1104,6 +1104,8 @@ describe('Table', () => {
       describe('Virtual scroll', () => {
         const descriptors: Array<[string, PropertyDescriptor]> = [];
         const { scrollTo } = HTMLElement.prototype;
+        const hadOwnBoundingRect = Object.prototype.hasOwnProperty.call(HTMLElement.prototype, 'getBoundingClientRect');
+        const originalGetBoundingClientRect = HTMLElement.prototype.getBoundingClientRect;
 
         function mockSize(prop: string, value: number) {
           const origin = Object.getOwnPropertyDescriptor(HTMLElement.prototype, prop);
@@ -1140,6 +1142,11 @@ describe('Table', () => {
         afterAll(() => {
           descriptors.forEach(([prop, descriptor]) => Object.defineProperty(HTMLElement.prototype, prop, descriptor));
           HTMLElement.prototype.scrollTo = scrollTo;
+          if (hadOwnBoundingRect) {
+            HTMLElement.prototype.getBoundingClientRect = originalGetBoundingClientRect;
+          } else {
+            delete HTMLElement.prototype.getBoundingClientRect;
+          }
         });
 
         it('filter and virtual header rendering keep a single popup instance', async () => {
