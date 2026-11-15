@@ -27,7 +27,7 @@ describe('Dropdown', () => {
   ];
 
   describe('scenarios', () => {
-    test('hover 触发测试', async () => {
+    test('nested hover navigation reveals child menu', async () => {
       const { getByText } = render(
         <Dropdown options={dropOptions}>
           <span>{triggerElement}</span>
@@ -59,7 +59,7 @@ describe('Dropdown', () => {
       expect(document.querySelector('.t-dropdown__menu')).not.toBeNull();
     });
 
-    test('click 点击测试', async () => {
+    test('item selection closes menu', async () => {
       const { getByText } = render(<Dropdown options={dropOptions}>{triggerElement}</Dropdown>);
 
       // 鼠标进入前，没有元素存在
@@ -79,7 +79,7 @@ describe('Dropdown', () => {
       await mockTimeout(() => expect(document.querySelector('.t-dropdown__menu')).toBeNull());
     });
 
-    test('child 写法模拟', async () => {
+    test('declarative menu opens and closes on hover', async () => {
       const { getByText } = render(
         <Dropdown>
           {triggerElement}

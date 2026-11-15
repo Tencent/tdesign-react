@@ -122,8 +122,22 @@ export function useTreeDataExpand(
     if (!store.treeDataMap.size) return;
     if (changedExpandTreeNode.type === 'user-reaction-change') {
       const { row, rowIndex } = changedExpandTreeNode || {};
-      const newData = store.toggleExpandData({ row, rowIndex }, dataSource, rowDataKeys);
-      setDataSource([...newData]);
+      // 受控模式下，`tExpandedTreeNode` 此时已经是父组件回传的最新展开节点列表，
+      // 以它作为唯一事实来源显式计算目标展开状态，而不是无条件做布尔反转。
+      const rowValue = getUniqueRowValue(row, rowDataKeys.rowKey);
+      const willExpand = tExpandedTreeNode.includes(rowValue);
+      const currentRowState = store.treeDataMap.get(rowValue);
+      // store 内部状态已经与受控目标状态一致时，
+      // 无需再次切换，避免多余的重渲染。
+      if (currentRowState && currentRowState.expanded !== willExpand) {
+        const newData = store.toggleExpandData(
+          { row, rowIndex },
+          dataSource,
+          rowDataKeys,
+          willExpand ? 'expand' : 'fold',
+        );
+        setDataSource([...newData]);
+      }
     } else if (changedExpandTreeNode.type === 'props-change') {
       updateExpandState([...dataSource], tExpandedTreeNode, oldExpandedTreeNode);
     }

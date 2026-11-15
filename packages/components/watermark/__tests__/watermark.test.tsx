@@ -32,8 +32,8 @@ describe('Watermark', () => {
     return container.firstChild;
   }
 
-  describe('scenarios', () => {
-    test('base', async () => {
+  describe('props', () => {
+    test('watermarkContent[WatermarkText]', async () => {
       const watermark = renderWatermark(
         <Watermark watermarkContent={{ text: '@水印' }} y={100}>
           <div style={{ height: 300 }}></div>
@@ -45,7 +45,7 @@ describe('Watermark', () => {
       });
     });
 
-    test('movable ', async () => {
+    test('movable', async () => {
       const watermark = renderWatermark(
         <Watermark moveInterval={15} movable watermarkContent={{ text: '@水印' }} y={100}>
           <div style={{ height: 300 }}></div>
@@ -56,7 +56,7 @@ describe('Watermark', () => {
       });
     });
 
-    test('mutationObserver', async () => {
+    test('removable[false]', async () => {
       const wrapper = render(
         <Watermark watermarkContent={{ text: '@水印' }} className="test-observer" y={100} removable={false}>
           <div data-testid={childTestID} style={{ height: 300 }}></div>

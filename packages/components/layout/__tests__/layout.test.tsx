@@ -7,7 +7,7 @@ const { Header, Content, Footer, Aside } = Layout;
 
 describe('Layout', () => {
   describe('props', () => {
-    test('Layout direction ', () => {
+    test('direction[horizontal]', () => {
       const { container } = render(<Layout direction="horizontal" />);
       const layoutElement = container.querySelector('.t-layout');
       expect(layoutElement).not.toBeNull();
@@ -18,8 +18,8 @@ describe('Layout', () => {
 });
 
 describe('Header', () => {
-  describe('scenarios', () => {
-    test('Header ', () => {
+  describe('props', () => {
+    test('default', () => {
       const { container } = render(<Header />);
       expect(container).not.toBeNull();
     });
@@ -27,8 +27,8 @@ describe('Header', () => {
 });
 
 describe('Content', () => {
-  describe('scenarios', () => {
-    test('Content ', () => {
+  describe('props', () => {
+    test('default', () => {
       const { container } = render(<Content />);
       expect(container).not.toBeNull();
     });
@@ -36,8 +36,8 @@ describe('Content', () => {
 });
 
 describe('Footer', () => {
-  describe('scenarios', () => {
-    test('Footer ', () => {
+  describe('props', () => {
+    test('default', () => {
       const { container } = render(<Footer />);
       expect(container).not.toBeNull();
     });
@@ -45,8 +45,8 @@ describe('Footer', () => {
 });
 
 describe('Aside', () => {
-  describe('scenarios', () => {
-    test('Aside ', () => {
+  describe('props', () => {
+    test('default', () => {
       const { container } = render(<Aside />);
       expect(container).not.toBeNull();
     });

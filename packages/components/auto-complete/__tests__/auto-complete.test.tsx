@@ -1,14 +1,25 @@
 import React from 'react';
-import { fireEvent, mockDelay, render, simulateKeydownEvent, vi } from '@test/utils';
+import { act, fireEvent, mockDelay, render, simulateInputChange, simulateKeydownEvent, vi } from '@test/utils';
 
 import { AutoComplete } from '..';
 
-function getNormalAutoCompleteMount(props: Record<string, any> = {}, events: Record<string, any> = {}) {
-  const options = [
+import type { TNode } from '../../common';
+import type { AutoCompleteOption, TdAutoCompleteProps } from '../type';
+
+type AutoCompleteEventHandlers = Pick<
+  TdAutoCompleteProps,
+  'onBlur' | 'onChange' | 'onClear' | 'onCompositionend' | 'onCompositionstart' | 'onEnter' | 'onFocus' | 'onSelect'
+>;
+
+function getNormalAutoCompleteMount(
+  props: Partial<TdAutoCompleteProps> = {},
+  events: Partial<AutoCompleteEventHandlers> = {},
+) {
+  const options: AutoCompleteOption[] = [
     'FirstKeyword',
     {
       // 自定义选项
-      label: () => <div className="custom-node">TNode SecondKeyword</div>,
+      label: (() => <div className="custom-node">TNode SecondKeyword</div>) as unknown as TNode,
       // 用于搜索的纯文本
       text: 'SecondKeyword',
     },
@@ -23,8 +34,11 @@ function getNormalAutoCompleteMount(props: Record<string, any> = {}, events: Rec
   return render(<AutoComplete value="" options={options} {...props} {...events} />);
 }
 
-function getOptionSlotAutoCompleteMount(props: Record<string, any> = {}, events: Record<string, any> = {}) {
-  const options = [
+function getOptionSlotAutoCompleteMount(
+  props: Partial<TdAutoCompleteProps> = {},
+  events: Partial<AutoCompleteEventHandlers> = {},
+) {
+  const options: AutoCompleteOption[] = [
     'First',
     {
       label: <div className="custom-slot-option">First Keyword</div>,
@@ -36,18 +50,15 @@ function getOptionSlotAutoCompleteMount(props: Record<string, any> = {}, events:
 
 describe('AutoComplete', () => {
   describe('props', () => {
-    test(`autofocus is equal to false`, () => {
-      const { container } = render(<AutoComplete autofocus={false}></AutoComplete>);
-      const domWrapper = container.querySelector('input');
-      expect(domWrapper.getAttribute('autofocus')).toBeNull();
-    });
-    test(`autofocus is equal to true`, () => {
-      const { container } = render(<AutoComplete autofocus={true}></AutoComplete>);
-      const domWrapper = container.querySelector('input');
-      expect(domWrapper.getAttribute('autofocus')).toBeDefined();
+    test('autofocus', () => {
+      const { container: falseContainer } = render(<AutoComplete autofocus={false}></AutoComplete>);
+      expect(falseContainer.querySelector('input').getAttribute('autofocus')).toBeNull();
+
+      const { container: trueContainer } = render(<AutoComplete autofocus={true}></AutoComplete>);
+      expect(trueContainer.querySelector('input').getAttribute('autofocus')).toBeDefined();
     });
 
-    test('clearable: show clear icon on mouse enter', async () => {
+    test('clearable', async () => {
       const { container } = getNormalAutoCompleteMount({
         value: 'Default Keyword',
         clearable: true,
@@ -55,25 +66,6 @@ describe('AutoComplete', () => {
       fireEvent.mouseEnter(container.querySelector('.t-input'));
       await mockDelay();
       expect(container.querySelector('.t-input__suffix-clear')).toBeTruthy();
-    });
-    test('clearable: expect trigger clear and change events after clear icon has been clicked', async () => {
-      const onClearFn1 = vi.fn();
-      const onChangeFn1 = vi.fn();
-      const { container } = getNormalAutoCompleteMount(
-        { value: 'Default Keyword', clearable: true },
-        { onClear: onClearFn1, onChange: onChangeFn1 },
-      );
-      fireEvent.mouseEnter(container.querySelector('.t-input'));
-      await mockDelay();
-      expect(container.querySelector('.t-input__suffix-clear')).toBeTruthy();
-      fireEvent.click(container.querySelector('.t-input__suffix-clear'));
-      expect(onClearFn1).toHaveBeenCalled(1);
-      expect(onClearFn1.mock.calls[0][0].e.stopPropagation).toBeTruthy();
-      expect(onClearFn1.mock.calls[0][0].e.type).toBe('click');
-      expect(onChangeFn1).toHaveBeenCalled(1);
-      expect(onChangeFn1.mock.calls[0][0]).toBe('');
-      expect(onChangeFn1.mock.calls[0][1].e.stopPropagation).toBeTruthy();
-      expect(onChangeFn1.mock.calls[0][1].e.type).toBe('click');
     });
 
     test('disabled', () => {
@@ -93,7 +85,8 @@ describe('AutoComplete', () => {
 
     test('filter', () => {
       const { container } = getNormalAutoCompleteMount({
-        filter: (filterWords, option) => option.text.includes('Second'),
+        filter: (_filterWords, option) =>
+          typeof option === 'string' ? option.includes('Second') : Boolean(option.text?.includes('Second')),
       });
       fireEvent.focus(container.querySelector('input'));
       const tSelectOptionDom = document.querySelectorAll('.t-select-option');
@@ -111,69 +104,133 @@ describe('AutoComplete', () => {
     });
 
     test('highlightKeyword', () => {
-      const { container } = getNormalAutoCompleteMount({
-        value: 'Second',
+      const { container: trueContainer, unmount: unmountTrue } = getNormalAutoCompleteMount({
+        value: 'First',
         highlightKeyword: true,
       });
-      fireEvent.focus(container.querySelector('input'));
-      const tSelectOptionDom = document.querySelectorAll('.t-select-option');
-      expect(tSelectOptionDom.length).toBe(1);
+      fireEvent.focus(trueContainer.querySelector('input'));
+      expect(document.querySelectorAll('.t-select-option')).toHaveLength(1);
+      expect(document.querySelector('.t-select-option .t-is-highlight')).toHaveTextContent('First');
+      unmountTrue();
+
+      const { container: falseContainer } = getNormalAutoCompleteMount({
+        value: 'First',
+        highlightKeyword: false,
+        filterable: true,
+      });
+      fireEvent.focus(falseContainer.querySelector('input'));
+      expect(document.querySelector('.t-is-highlight')).toBeFalsy();
     });
 
-    test('options: option.label could be defined to any element', () => {
-      const { container } = getNormalAutoCompleteMount();
+    test('filterable[false]', () => {
+      const { container } = getNormalAutoCompleteMount({
+        value: 'zzz-no-match',
+        filterable: false,
+      });
       fireEvent.focus(container.querySelector('input'));
-      const customNodeDom = document.querySelector('.custom-node');
-      expect(customNodeDom).toBeTruthy();
+      expect(document.querySelectorAll('.t-select-option')).toHaveLength(5);
     });
-    test('options: 5 options should exist', () => {
-      const { container } = getNormalAutoCompleteMount();
+
+    test('empty[TNode]', () => {
+      const { container } = getNormalAutoCompleteMount({
+        value: 'no-match-keyword',
+        filterable: true,
+        empty: <span className="empty-custom">empty list</span>,
+      });
       fireEvent.focus(container.querySelector('input'));
-      const tSelectOptionDom = document.querySelectorAll('.t-select-option');
-      expect(tSelectOptionDom.length).toBe(5);
+      expect(document.querySelector('.t-auto-complete__panel--empty .empty-custom')).toHaveTextContent('empty list');
     });
-    test('options: expect empty options with no panel', () => {
+
+    test('empty', () => {
+      const { container } = getNormalAutoCompleteMount({
+        value: 'no-match-keyword',
+        filterable: true,
+      });
+      fireEvent.focus(container.querySelector('input'));
+      expect(document.querySelector('.t-auto-complete__panel--empty')).toBeTruthy();
+    });
+
+    test('options use label when text is omitted', () => {
       const { container } = render(
+        <AutoComplete
+          value=""
+          options={[{ label: 'LabelOnlyKeyword' }]}
+          filterable={false}
+          popupProps={{ overlayClassName: 'label-only-options' }}
+        />,
+      );
+      fireEvent.focus(container.querySelector('input'));
+      expect(document.querySelector('.label-only-options .t-select-option')).toHaveAttribute(
+        'title',
+        'LabelOnlyKeyword',
+      );
+    });
+
+    test('options use text when label is omitted', () => {
+      const { container } = render(
+        <AutoComplete value="" options={[{ text: 'TextOnlyKeyword' }]} filterable={false} />,
+      );
+      fireEvent.focus(container.querySelector('input'));
+      expect(document.querySelector('.t-select-option[title="TextOnlyKeyword"]')).toBeTruthy();
+    });
+
+    test('readonly', () => {
+      const { container } = getNormalAutoCompleteMount({ readonly: true });
+      expect(container.querySelector('.t-input')).toHaveClass('t-is-readonly');
+    });
+
+    test('borderless', () => {
+      const { container } = render(<AutoComplete borderless={true} />);
+      expect(container.querySelector('.t-input')).toHaveClass('t-input--borderless');
+    });
+
+    test('inputProps', () => {
+      const { container } = render(<AutoComplete inputProps={{ size: 'small' }} />);
+      expect(container.querySelector('.t-input')).toHaveClass('t-size-s');
+    });
+
+    test('options', () => {
+      const { container: defaultContainer } = getNormalAutoCompleteMount();
+      fireEvent.focus(defaultContainer.querySelector('input'));
+      expect(document.querySelector('.custom-node')).toBeTruthy();
+      expect(document.querySelectorAll('.t-select-option').length).toBe(5);
+
+      const { container: emptyContainer } = render(
         <AutoComplete popupProps={{ overlayClassName: 'empty-options-class-name' }}></AutoComplete>,
       );
-      fireEvent.focus(container.querySelector('input'));
-      const emptyOptionsClassNameTAutocompletePanelDom = document.querySelectorAll(
-        '.empty-options-class-name .t-autocomplete__panel',
-      );
-      expect(emptyOptionsClassNameTAutocompletePanelDom.length).toBe(0);
-    });
-    test('options: define one option', () => {
-      const { container } = getOptionSlotAutoCompleteMount({
+      fireEvent.focus(emptyContainer.querySelector('input'));
+      expect(document.querySelectorAll('.empty-options-class-name .t-autocomplete__panel').length).toBe(0);
+
+      const { container: slotContainer } = getOptionSlotAutoCompleteMount({
         popupProps: { overlayClassName: 'option-slot-class-name' },
       });
-      fireEvent.focus(container.querySelector('input'));
-      const optionSlotClassNameCustomSlotOptionDom = document.querySelector(
-        '.option-slot-class-name .custom-slot-option',
-      );
-      expect(optionSlotClassNameCustomSlotOptionDom.textContent).toBe('First Keyword');
+      fireEvent.focus(slotContainer.querySelector('input'));
+      expect(document.querySelector('.option-slot-class-name .custom-slot-option').textContent).toBe('First Keyword');
     });
 
-    test(`placeholder is equal to 'type keyword to search'`, () => {
+    test('placeholder', () => {
       const { container } = render(<AutoComplete placeholder="type keyword to search"></AutoComplete>);
-      const domWrapper = container.querySelector('input');
-      expect(domWrapper.getAttribute('placeholder')).toBe('type keyword to search');
+      expect(container.querySelector('input').getAttribute('placeholder')).toBe('type keyword to search');
     });
 
-    test('popupProps overlayClassName', () => {
-      const { container } = getNormalAutoCompleteMount({
+    test('popupProps', () => {
+      const { container: innerStyleContainer } = getNormalAutoCompleteMount({
+        popupProps: { overlayInnerStyle: { maxHeight: 280 } },
+      });
+      fireEvent.focus(innerStyleContainer.querySelector('input'));
+      expect(document.querySelector('.t-popup')).toBeTruthy();
+
+      const { container: overlayClassContainer } = getNormalAutoCompleteMount({
         popupProps: { overlayClassName: 'custom-class-name' },
       });
-      fireEvent.focus(container.querySelector('input'));
-      const customClassNameDom = document.querySelector('.custom-class-name');
-      expect(customClassNameDom).toBeTruthy();
-    });
-    test('popupProps overlayInnerClassName', () => {
-      const { container } = getNormalAutoCompleteMount({
-        popupProps: { overlayInnerClassName: 'custom-class-name' },
+      fireEvent.focus(overlayClassContainer.querySelector('input'));
+      expect(document.querySelector('.custom-class-name')).toBeTruthy();
+
+      const { container: innerClassContainer } = getNormalAutoCompleteMount({
+        popupProps: { overlayInnerClassName: 'custom-inner-class-name' },
       });
-      fireEvent.focus(container.querySelector('input'));
-      const customClassNameDom = document.querySelector('.custom-class-name');
-      expect(customClassNameDom).toBeTruthy();
+      fireEvent.focus(innerClassContainer.querySelector('input'));
+      expect(document.querySelector('.custom-inner-class-name')).toBeTruthy();
     });
 
     test('readOnly', () => {
@@ -193,7 +250,7 @@ describe('AutoComplete', () => {
 
     const sizeClassNameList = ['t-size-s', { 't-size-m': false }, 't-size-l'];
     (['small', 'medium', 'large'] as const).forEach((item, index) => {
-      test(`size is equal to ${item}`, () => {
+      test(`size[${item}]`, () => {
         const wrapper = getNormalAutoCompleteMount({ size: item });
         const container = wrapper.container.querySelector('.t-input');
         if (typeof sizeClassNameList[index] === 'string') {
@@ -207,7 +264,7 @@ describe('AutoComplete', () => {
 
     const statusClassNameList = [{ 't-is-default': false }, 't-is-success', 't-is-warning', 't-is-error'];
     (['default', 'success', 'warning', 'error'] as const).forEach((item, index) => {
-      test(`status is equal to ${item}`, () => {
+      test(`status[${item}]`, () => {
         const wrapper = getNormalAutoCompleteMount({ status: item });
         const container = wrapper.container.querySelector('.t-input');
         if (typeof statusClassNameList[index] === 'string') {
@@ -219,16 +276,17 @@ describe('AutoComplete', () => {
       });
     });
 
-    test('tips is equal this is a tip', () => {
+    test('tips[string]', () => {
       const { container } = render(<AutoComplete tips="this is a tip"></AutoComplete>);
       expect(container.querySelector('.t-input__tips')).toBeTruthy();
     });
 
-    test(`value is equal to 'DefaultKeyword'`, () => {
+    test('value[string]', () => {
       const { container } = render(<AutoComplete value="DefaultKeyword"></AutoComplete>);
       const domWrapper = container.querySelector('input');
       expect(domWrapper.value).toBe('DefaultKeyword');
     });
+
     test('children', () => {
       const { container } = render(
         <AutoComplete>
@@ -269,36 +327,64 @@ describe('AutoComplete', () => {
   });
 
   describe('events', () => {
-    test('blur', async () => {
+    test('onChange', () => {
+      const onChangeFn = vi.fn();
+      const { container } = getNormalAutoCompleteMount({}, { onChange: onChangeFn });
+      fireEvent.focus(container.querySelector('input'));
+      simulateInputChange(container.querySelector('input'), 'typed');
+      expect(onChangeFn).toHaveBeenCalled();
+      expect(onChangeFn.mock.calls.at(-1)?.[0]).toBe('typed');
+    });
+
+    test('onClear', async () => {
+      const onClearFn = vi.fn();
+      const onChangeFn = vi.fn();
+      const { container } = getNormalAutoCompleteMount(
+        { value: 'Default Keyword', clearable: true },
+        { onClear: onClearFn, onChange: onChangeFn },
+      );
+      fireEvent.mouseEnter(container.querySelector('.t-input'));
+      await mockDelay();
+      fireEvent.click(container.querySelector('.t-input__suffix-clear'));
+      expect(onClearFn).toHaveBeenCalledTimes(1);
+      expect(onClearFn.mock.calls[0][0].e.stopPropagation).toBeTruthy();
+      expect(onClearFn.mock.calls[0][0].e.type).toBe('click');
+      expect(onChangeFn).toHaveBeenCalledTimes(1);
+      expect(onChangeFn.mock.calls[0][0]).toBe('');
+      expect(onChangeFn.mock.calls[0][1].e.stopPropagation).toBeTruthy();
+      expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
+    });
+
+    test('onFocus and onBlur', async () => {
       const onFocusFn = vi.fn();
       const onBlurFn1 = vi.fn();
       const { container } = getNormalAutoCompleteMount({}, { onFocus: onFocusFn, onBlur: onBlurFn1 });
       fireEvent.focus(container.querySelector('input'));
-      expect(onFocusFn).toHaveBeenCalled(1);
+      expect(onFocusFn).toHaveBeenCalledTimes(1);
       expect(onFocusFn.mock.calls[0][0].e.type).toBe('focus');
       fireEvent.blur(container.querySelector('input'));
       await mockDelay(300);
-      expect(onBlurFn1).toHaveBeenCalled(1);
+      expect(onBlurFn1).toHaveBeenCalledTimes(1);
       expect(onBlurFn1.mock.calls[0][0].e.type).toBe('blur');
     });
 
-    test('compositionend', () => {
+    test('onCompositionend', () => {
       const onCompositionendFn = vi.fn();
       const { container } = render(<AutoComplete onCompositionend={onCompositionendFn}></AutoComplete>);
       fireEvent.compositionEnd(container.querySelector('input'));
-      expect(onCompositionendFn).toHaveBeenCalled(1);
+      expect(onCompositionendFn).toHaveBeenCalledTimes(1);
       expect(onCompositionendFn.mock.calls[0][0].e.type).toBe('compositionend');
     });
 
-    test('compositionstart', () => {
+    test('onCompositionstart', () => {
       const onCompositionstartFn = vi.fn();
       const { container } = render(<AutoComplete onCompositionstart={onCompositionstartFn}></AutoComplete>);
       fireEvent.compositionStart(container.querySelector('input'));
-      expect(onCompositionstartFn).toHaveBeenCalled(1);
+      expect(onCompositionstartFn).toHaveBeenCalledTimes(1);
       expect(onCompositionstartFn.mock.calls[0][0].e.type).toBe('compositionstart');
     });
 
-    test('enter', () => {
+    test('onEnter', () => {
       const onEnterFn1 = vi.fn();
       const { container } = getNormalAutoCompleteMount({}, { onEnter: onEnterFn1 });
       fireEvent.focus(container.querySelector('input'));
@@ -307,60 +393,66 @@ describe('AutoComplete', () => {
         code: 'Enter',
         charCode: 13,
       });
-      expect(onEnterFn1).toHaveBeenCalled(1);
+      expect(onEnterFn1).toHaveBeenCalledTimes(1);
       expect(onEnterFn1.mock.calls[0][0].e.type).toBe('keydown');
       expect(/Enter/i.test(onEnterFn1.mock.calls[0][0].e.key)).toBeTruthy();
     });
 
-    test('focus', () => {
+    test('onFocus', () => {
       const onFocusFn = vi.fn();
       const { container } = getNormalAutoCompleteMount({}, { onFocus: onFocusFn });
       fireEvent.focus(container.querySelector('input'));
       expect(container.querySelector('.t-is-focused')).toBeTruthy();
-      expect(onFocusFn).toHaveBeenCalled(1);
+      expect(onFocusFn).toHaveBeenCalledTimes(1);
       expect(onFocusFn.mock.calls[0][0].e.type).toBe('focus');
     });
 
-    test('select', () => {
-      const onSelectFn1 = vi.fn();
-      const { container } = getNormalAutoCompleteMount(
-        { popupProps: { overlayClassName: 'select-event-class-name' } },
-        { onSelect: onSelectFn1 },
-      );
-      fireEvent.focus(container.querySelector('input'));
-      fireEvent.click(document.querySelector('.select-event-class-name .t-select-option'));
-      expect(onSelectFn1).toHaveBeenCalled(1);
-      expect(onSelectFn1.mock.calls[0][0]).toBe('FirstKeyword');
-      expect(onSelectFn1.mock.calls[0][1].e.type).toBe('click');
-    });
-    test('select: keyboard operations: ArrowDown & ArrowUp & Enter', async () => {
-      const onSelectFn6 = vi.fn();
-      const { container } = getNormalAutoCompleteMount({}, { onSelect: onSelectFn6 });
-      fireEvent.focus(container.querySelector('input'));
-      simulateKeydownEvent(document, 'ArrowDown');
-      await mockDelay(10);
-      const domWrapper1 = document.querySelector('.t-select-option:first-child');
-      expect(domWrapper1).toHaveClass('t-select-option--hover');
-      simulateKeydownEvent(document, 'ArrowDown');
-      await mockDelay(10);
-      const domWrapper2 = document.querySelector('.t-select-option:nth-child(2)');
-      expect(domWrapper2).toHaveClass('t-select-option--hover');
-      simulateKeydownEvent(document, 'ArrowUp');
-      await mockDelay(10);
-      const domWrapper3 = document.querySelector('.t-select-option:first-child');
-      expect(domWrapper3).toHaveClass('t-select-option--hover');
-      simulateKeydownEvent(document, 'ArrowUp');
-      await mockDelay(10);
-      const domWrapper4 = document.querySelector('.t-select-option:nth-child(5)');
-      expect(domWrapper4).toHaveClass('t-select-option--hover');
-      simulateKeydownEvent(document, 'ArrowDown');
-      await mockDelay(10);
-      const domWrapper5 = document.querySelector('.t-select-option:first-child');
-      expect(domWrapper5).toHaveClass('t-select-option--hover');
-      simulateKeydownEvent(document, 'Enter');
-      expect(onSelectFn6).toHaveBeenCalled(1);
-      expect(onSelectFn6.mock.calls[0][0]).toBe('FirstKeyword');
-      expect(onSelectFn6.mock.calls[0][1].e.type).toBe('keydown');
+    describe('onSelect', () => {
+      test('click', () => {
+        const onSelectFn1 = vi.fn();
+        const { container } = getNormalAutoCompleteMount(
+          { popupProps: { overlayClassName: 'select-event-class-name' } },
+          { onSelect: onSelectFn1 },
+        );
+        fireEvent.focus(container.querySelector('input'));
+        fireEvent.click(document.querySelector('.select-event-class-name .t-select-option'));
+        expect(onSelectFn1).toHaveBeenCalledTimes(1);
+        expect(onSelectFn1.mock.calls[0][0]).toBe('FirstKeyword');
+        expect(onSelectFn1.mock.calls[0][1].e.type).toBe('click');
+      });
+
+      test('keyboard', async () => {
+        const onSelectFn6 = vi.fn();
+        const { container } = getNormalAutoCompleteMount({}, { onSelect: onSelectFn6 });
+        fireEvent.focus(container.querySelector('input'));
+        await mockDelay();
+        act(() => {
+          simulateKeydownEvent(document, 'ArrowDown');
+        });
+        expect(document.querySelector('.t-select-option:first-child')).toHaveClass('t-select-option--hover');
+        act(() => {
+          simulateKeydownEvent(document, 'ArrowDown');
+        });
+        expect(document.querySelector('.t-select-option:nth-child(2)')).toHaveClass('t-select-option--hover');
+        act(() => {
+          simulateKeydownEvent(document, 'ArrowUp');
+        });
+        expect(document.querySelector('.t-select-option:first-child')).toHaveClass('t-select-option--hover');
+        act(() => {
+          simulateKeydownEvent(document, 'ArrowUp');
+        });
+        expect(document.querySelector('.t-select-option:nth-child(5)')).toHaveClass('t-select-option--hover');
+        act(() => {
+          simulateKeydownEvent(document, 'ArrowDown');
+        });
+        expect(document.querySelector('.t-select-option:first-child')).toHaveClass('t-select-option--hover');
+        act(() => {
+          simulateKeydownEvent(document, 'Enter');
+        });
+        expect(onSelectFn6).toHaveBeenCalledTimes(1);
+        expect(onSelectFn6.mock.calls[0][0]).toBe('FirstKeyword');
+        expect(onSelectFn6.mock.calls[0][1].e.type).toBe('keydown');
+      });
     });
   });
 });

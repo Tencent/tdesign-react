@@ -1,5 +1,11 @@
 :: BASE_DOC ::
 
+### 自定义每列内容
+
+通过 `columnHeader` 和 `columnFooter` 自定义每列的头部与底部，并使用 `onFilter` 独立过滤当前列。
+
+{{ column-slot }}
+
 ## API
 
 ### Cascader Props
@@ -14,6 +20,8 @@ checkProps | Object | - | 参考 checkbox 组件 API。TS 类型：`CheckboxProp
 checkStrictly | Boolean | false | 父子节点选中状态不再关联，可各自选中或取消 | N
 clearable | Boolean | false | 是否支持清空选项 | N
 collapsedItems | TElement | - | 多选情况下，用于设置折叠项内容，默认为 `+N`。如果需要悬浮就显示其他内容，可以使用 collapsedItems 自定义。`value` 表示当前存在的所有标签，`collapsedSelectedItems` 表示折叠的标签，`count` 表示折叠的数量，`onClose` 表示移除标签的事件回调。TS 类型：`TNode<{ value: CascaderOption[]; collapsedSelectedItems: CascaderOption[]; count: number; onClose: (context: { index: number, e?: MouseEvent }) => void }>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+columnFooter | TNode | - | 每一列的底部自定义内容。`panelIndex` 表示当前列索引，`options` 表示当前列原始选项，`filteredOptions` 表示当前列过滤后的选项，`onFilter` 用于过滤当前列选项（字符串使用大小写不敏感匹配，也可传入自定义过滤函数）。内置搜索有输入时 `onFilter` 为空操作。TS 类型：`TNode<{ panelIndex: number; options: CascaderOption[]; filteredOptions: CascaderOption[]; onFilter: (filter: string \| ((node: CascaderOption, panelIndex: number) => boolean)) => void }>` | N
+columnHeader | TNode | - | 每一列的顶部自定义内容。`panelIndex` 表示当前列索引，`options` 表示当前列原始选项，`filteredOptions` 表示当前列过滤后的选项，`onFilter` 用于过滤当前列选项（字符串使用大小写不敏感匹配，也可传入自定义过滤函数）。内置搜索有输入时 `onFilter` 为空操作。TS 类型：`TNode<{ panelIndex: number; options: CascaderOption[]; filteredOptions: CascaderOption[]; onFilter: (filter: string \| ((node: CascaderOption, panelIndex: number) => boolean)) => void }>` | N
 disabled | Boolean | undefined | 是否禁用组件 | N
 empty | TNode | - | 无匹配选项时的内容，默认全局配置为 '暂无数据'。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 filter | Function | - | 自定义过滤方法，用于对现有数据进行搜索过滤，判断是否过滤某一项数据。TS 类型：`(filterWords: string, node: TreeNodeModel) => boolean \| Promise<boolean>` | N
@@ -49,8 +57,8 @@ tagInputProps | Object | - | 透传 TagInput 标签输入框组件的全部属�
 tagProps | Object | - | 透传 Tag 标签组件全部属性。TS 类型：`TagProps`，[Tag API Documents](./tag?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/cascader/type.ts) | N
 tips | TNode | - | 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 trigger | String | click | 展开下一层级的方式。可选项：click/hover | N
-value | String / Number / Array | [] | 选中项的值。TS 类型：`CascaderValue<CascaderOption>` `type CascaderValue<T extends TreeOptionData = TreeOptionData> = string \| number \| T \| Array<CascaderValue<T>>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/cascader/type.ts) | N
-defaultValue | String / Number / Array | [] | 选中项的值。非受控属性。TS 类型：`CascaderValue<CascaderOption>` `type CascaderValue<T extends TreeOptionData = TreeOptionData> = string \| number \| T \| Array<CascaderValue<T>>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/cascader/type.ts) | N
+value | String / Number / Array / BigInt | [] | 选中项的值。TS 类型：`CascaderValue<CascaderOption>` `type CascaderValue<T extends TreeOptionData = TreeOptionData> = string \| number \| bigint \| T \| Array<CascaderValue<T>>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/cascader/type.ts) | N
+defaultValue | String / Number / Array / BigInt | [] | 选中项的值。非受控属性。TS 类型：`CascaderValue<CascaderOption>` `type CascaderValue<T extends TreeOptionData = TreeOptionData> = string \| number \| bigint \| T \| Array<CascaderValue<T>>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/cascader/type.ts) | N
 valueDisplay | TNode | - | 自定义选中项呈现的内容。TS 类型：`string \| TNode<{ value: CascaderValue<CascaderOption>; onClose: (index: number) => void; displayValue?: CascaderValue<CascaderOption>; selectedOptions: CascaderOption[] }>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 valueMode | String | onlyLeaf | 选中值模式。all 表示父节点和子节点全部会出现在选中值里面；parentFirst 表示当子节点全部选中时，仅父节点在选中值里面；onlyLeaf 表示无论什么情况，选中值仅呈现叶子节点。可选项：onlyLeaf/parentFirst/all | N
 valueType | String | single | 用于控制选中值的类型。single 表示输入输出值为 叶子结点值， full 表示输入输出值为全路径。可选项：single/full | N

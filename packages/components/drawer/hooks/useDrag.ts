@@ -9,13 +9,19 @@ const useDrag = (
   sizeDraggable: TdDrawerProps['sizeDraggable'],
   onSizeDragEnd: TdDrawerProps['onSizeDragEnd'],
 ) => {
+  const dragSizeRef = useRef<number>(0); // 当前拖拽的宽度值
+  const dragEndRef = useRef<(event: MouseEvent) => void>(undefined); // 本次拖拽注册的 mouseup
+
   const [dragSizeValue, changeDragSizeValue] = useState<string>(null);
-  // 使用 ref 来存储当前拖拽的宽度值
-  const dragSizeRef = useRef<number>(0);
   const [isSizeDragging, toggleSizeDragging] = useState(false);
 
   const handleMousemove = useCallback(
     (e: MouseEvent) => {
+      // 鼠标左键没有按下时视为结束拖动
+      if ((e.buttons & 1) === 0) {
+        dragEndRef.current?.(e);
+        return;
+      }
       // 如果 sizeDraggable 是 boolean 值的 false，则不进行后续的计算
       if (sizeDraggable === false) return;
 
@@ -31,7 +37,10 @@ const useDrag = (
       // x 轴方向使用默认最小宽度，y轴方向使用默认最小高度
       const min = placement === 'left' || placement === 'right' ? offsetWidth : offsetHeight;
 
-      const { max: limitMax, min: limitMin } = getSizeDraggable(sizeDraggable, { max, min });
+      const { max: limitMax, min: limitMin } = getSizeDraggable(sizeDraggable, {
+        max,
+        min,
+      });
 
       const moveSize = calcMoveSize(placement, {
         x,
@@ -85,6 +94,7 @@ const useDrag = (
 
   const enableDrag = useCallback(() => {
     // mousedown 绑定 mousemove 和 mouseup 事件
+    dragEndRef.current = handleMouseup;
     document.addEventListener('mouseup', handleMouseup, true);
     document.addEventListener('mousemove', handleMousemove, true);
     toggleSizeDragging(true);

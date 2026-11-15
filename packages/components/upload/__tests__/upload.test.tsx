@@ -12,6 +12,7 @@ import {
 import { Upload } from '..';
 import { getUploadServer } from './request';
 
+import type { TNode } from '../../common';
 import type { TdUploadProps } from '../type';
 
 const files = [
@@ -39,90 +40,71 @@ describe('Upload', () => {
   });
 
   describe('props', () => {
-    test('abridgeName: props.abridgeName works fine if theme=file-input', () => {
-      const { container } = render(
-        <Upload theme="file-input" files={[{ name: 'this_is_a_long_name.png' }]} abridgeName={[8, 6]}></Upload>,
-      );
-      expect(container.querySelector('.t-upload__single-input-text').textContent).toBe('this_is_…me.png');
-    });
+    test('abridgeName', () => {
+      const abridgeName: TdUploadProps['abridgeName'] = [8, 6];
+      const longName = 'this_is_a_long_name.png';
+      const abbreviated = 'this_is_…me.png';
 
-    test('abridgeName: props.abridgeName works fine if theme=file and file url exists', () => {
-      const { container } = render(
-        <Upload
-          theme="file"
-          files={[{ name: 'this_is_a_long_name.png', url: 'https://xxx.png' }]}
-          abridgeName={[8, 6]}
-        ></Upload>,
+      const { container: fileInputContainer } = render(
+        <Upload theme="file-input" files={[{ name: longName }]} abridgeName={abridgeName}></Upload>,
       );
-      expect(container.querySelector('.t-upload__single-name').textContent).toBe('this_is_…me.png');
-    });
+      expect(fileInputContainer.querySelector('.t-upload__single-input-text').textContent).toBe(abbreviated);
 
-    test('abridgeName: props.abridgeName works fine if theme=file and file url does not exist', () => {
-      const { container } = render(
-        <Upload theme="file" files={[{ name: 'this_is_a_long_name.png' }]} abridgeName={[8, 6]}></Upload>,
+      const { container: fileWithUrlContainer } = render(
+        <Upload theme="file" files={[{ name: longName, url: 'https://xxx.png' }]} abridgeName={abridgeName}></Upload>,
       );
-      expect(container.querySelector('.t-upload__single-name').textContent).toBe('this_is_…me.png');
-    });
+      expect(fileWithUrlContainer.querySelector('.t-upload__single-name').textContent).toBe(abbreviated);
 
-    test('abridgeName: props.abridgeName works fine if theme=image', () => {
-      const { container } = render(
-        <Upload theme="image" files={[{ name: 'this_is_a_long_name.png' }]} abridgeName={[8, 6]}></Upload>,
+      const { container: fileContainer } = render(
+        <Upload theme="file" files={[{ name: longName }]} abridgeName={abridgeName}></Upload>,
       );
-      expect(container.querySelector('.t-upload__card-name').textContent).toBe('this_is_…me.png');
-    });
+      expect(fileContainer.querySelector('.t-upload__single-name').textContent).toBe(abbreviated);
 
-    test('abridgeName: props.abridgeName works fine if theme=file&draggable=true', () => {
-      const { container } = render(
-        <Upload
-          theme="file"
-          draggable={true}
-          files={[{ name: 'this_is_a_long_name.png' }]}
-          abridgeName={[8, 6]}
-        ></Upload>,
+      const { container: imageContainer } = render(
+        <Upload theme="image" files={[{ name: longName }]} abridgeName={abridgeName}></Upload>,
       );
-      expect(container.querySelector('.t-upload__single-name').textContent).toBe('this_is_…me.png');
-    });
+      expect(imageContainer.querySelector('.t-upload__card-name').textContent).toBe(abbreviated);
 
-    test('abridgeName: props.abridgeName works fine if theme=image&draggable=true', () => {
-      const { container } = render(
+      const { container: fileDraggableContainer } = render(
+        <Upload theme="file" draggable files={[{ name: longName }]} abridgeName={abridgeName}></Upload>,
+      );
+      expect(fileDraggableContainer.querySelector('.t-upload__single-name').textContent).toBe(abbreviated);
+
+      const { container: imageDraggableContainer } = render(
         <Upload
           theme="image"
-          draggable={true}
+          draggable
           status="success"
-          files={[{ name: 'this_is_a_long_name.png', url: 'https://wwww.png' }]}
-          abridgeName={[8, 6]}
+          files={[{ name: longName, url: 'https://wwww.png' }]}
+          abridgeName={abridgeName}
         ></Upload>,
       );
-      expect(container.querySelector('.t-upload__single-name').textContent).toBe('this_is_…me.png');
-    });
+      expect(imageDraggableContainer.querySelector('.t-upload__single-name').textContent).toBe(abbreviated);
 
-    test('abridgeName: props.abridgeName works fine if theme=image-flow', () => {
-      const { container } = render(
+      const longJpg = 'this_is_a_long_name.jpg';
+      const abbreviatedJpg = 'this_is_…me.jpg';
+      const { container: imageFlowContainer } = render(
         <Upload
           theme="image-flow"
-          files={[{ name: 'this_is_a_long_name.jpg', url: 'https://xxx.jpg' }]}
-          abridgeName={[8, 6]}
+          files={[{ name: longJpg, url: 'https://xxx.jpg' }]}
+          abridgeName={abridgeName}
         ></Upload>,
       );
-      expect(container.querySelector('.t-upload__card-name').textContent).toBe('this_is_…me.jpg');
-    });
+      expect(imageFlowContainer.querySelector('.t-upload__card-name').textContent).toBe(abbreviatedJpg);
 
-    test('abridgeName: props.abridgeName works fine if theme=file-flow and file url exists', () => {
-      const { container } = render(
+      const { container: fileFlowLinkContainer } = render(
         <Upload
           theme="file-flow"
-          files={[{ name: 'this_is_a_long_name.jpg', url: 'https://xxx.jpg' }]}
-          abridgeName={[8, 6]}
+          files={[{ name: longJpg, url: 'https://xxx.jpg' }]}
+          abridgeName={abridgeName}
         ></Upload>,
       );
-      expect(container.querySelector('.t-upload__file-name > a').textContent).toBe('this_is_…me.jpg');
-    });
+      expect(fileFlowLinkContainer.querySelector('.t-upload__file-name > a').textContent).toBe(abbreviatedJpg);
 
-    test('abridgeName: props.abridgeName works fine if theme=file-flow and file url does not exist', () => {
-      const { container } = render(
-        <Upload theme="file-flow" files={[{ name: 'this_is_a_long_name.jpg' }]} abridgeName={[8, 6]}></Upload>,
+      const { container: fileFlowContainer } = render(
+        <Upload theme="file-flow" files={[{ name: longJpg }]} abridgeName={abridgeName}></Upload>,
       );
-      expect(container.querySelector('.t-upload__file-name').textContent).toBe('this_is_…me.jpg');
+      expect(fileFlowContainer.querySelector('.t-upload__file-name').textContent).toBe(abbreviatedJpg);
     });
 
     test('accept', () => {
@@ -173,9 +155,9 @@ describe('Upload', () => {
       expect(onChangeFn.mock.calls[0][1].file.response).toBeTruthy();
     });
 
-    test('allowUploadDuplicateFile: allowUploadDuplicateFile is equal to false', async () => {
-      const onValidateFn = vi.fn();
-      const { container } = render(
+    test('allowUploadDuplicateFile', async () => {
+      const rejectedOnValidateFn = vi.fn();
+      const { container: rejectedContainer, unmount: unmountRejected } = render(
         <Upload
           files={[
             {
@@ -185,20 +167,19 @@ describe('Upload', () => {
           ]}
           action="https://tdesign.test.com/upload/file_success"
           allowUploadDuplicateFile={false}
-          onValidate={onValidateFn}
+          onValidate={rejectedOnValidateFn}
         ></Upload>,
       );
-      const inputDom = container.querySelector('input');
+      const inputDom = rejectedContainer.querySelector('input');
       const fileList = simulateFileChange(inputDom);
       await mockDelay();
-      expect(onValidateFn).toHaveBeenCalled();
-      expect(onValidateFn.mock.calls[0][0].type).toBe('FILTER_FILE_SAME_NAME');
-      expect(onValidateFn.mock.calls[0][0].files[0].raw).toEqual(fileList[0]);
-    });
+      expect(rejectedOnValidateFn).toHaveBeenCalled();
+      expect(rejectedOnValidateFn.mock.calls[0][0].type).toBe('FILTER_FILE_SAME_NAME');
+      expect(rejectedOnValidateFn.mock.calls[0][0].files[0].raw).toEqual(fileList[0]);
+      unmountRejected();
 
-    test('allowUploadDuplicateFile: allowUploadDuplicateFile is equal to true', async () => {
-      const onValidateFn = vi.fn();
-      const { container } = render(
+      const acceptedOnValidateFn = vi.fn();
+      const { container: acceptedContainer } = render(
         <Upload
           files={[
             {
@@ -208,39 +189,37 @@ describe('Upload', () => {
           ]}
           action="https://tdesign.test.com/upload/file_success"
           allowUploadDuplicateFile={true}
-          onValidate={onValidateFn}
+          onValidate={acceptedOnValidateFn}
         ></Upload>,
       );
-      const inputDom = container.querySelector('input');
-      simulateFileChange(inputDom);
+      simulateFileChange(acceptedContainer.querySelector('input'));
       await mockDelay();
-      expect(onValidateFn).not.toHaveBeenCalled();
+      expect(acceptedOnValidateFn).not.toHaveBeenCalled();
     });
 
-    test('autoUpload: autoUpload is equal false', async () => {
-      const onChangeFn = vi.fn();
-      const { container } = render(
+    test('autoUpload', async () => {
+      const waitingOnChangeFn = vi.fn();
+      const { container: waitingContainer, unmount: unmountWaiting } = render(
         <Upload
           autoUpload={false}
           action="https://tdesign.test.com/upload/file_success"
-          onChange={onChangeFn}
+          onChange={waitingOnChangeFn}
         ></Upload>,
       );
-      const inputDom = container.querySelector('input');
+      const inputDom = waitingContainer.querySelector('input');
       const fileList = simulateFileChange(inputDom);
       await mockDelay();
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0][0].response).toBe(undefined);
-      expect(onChangeFn.mock.calls[0][0][0].raw).toEqual(fileList[0]);
-      expect(onChangeFn.mock.calls[0][0][0].name).toBe('file-name.txt');
-      expect(onChangeFn.mock.calls[0][0][0].status).toBe('waiting');
-      expect(onChangeFn.mock.calls[0][0][0].percent).toBe(0);
-    });
+      expect(waitingOnChangeFn).toHaveBeenCalled();
+      expect(waitingOnChangeFn.mock.calls[0][0][0].response).toBe(undefined);
+      expect(waitingOnChangeFn.mock.calls[0][0][0].raw).toEqual(fileList[0]);
+      expect(waitingOnChangeFn.mock.calls[0][0][0].name).toBe('file-name.txt');
+      expect(waitingOnChangeFn.mock.calls[0][0][0].status).toBe('waiting');
+      expect(waitingOnChangeFn.mock.calls[0][0][0].percent).toBe(0);
+      unmountWaiting();
 
-    test('autoUpload: autoUpload=false & theme=file-flow, cancel upload', () => {
       const onChangeFn1 = vi.fn();
       const onRemoveFn1 = vi.fn();
-      const { container } = render(
+      const { container: flowContainer, unmount: unmountFlow } = render(
         <Upload
           theme="file-flow"
           autoUpload={false}
@@ -269,8 +248,8 @@ describe('Upload', () => {
           onRemove={onRemoveFn1}
         ></Upload>,
       );
-      fireEvent.click(container.querySelector('.t-upload__continue'));
-      fireEvent.click(container.querySelector('.t-upload__cancel'));
+      fireEvent.click(flowContainer.querySelector('.t-upload__continue'));
+      fireEvent.click(flowContainer.querySelector('.t-upload__cancel'));
       expect(onChangeFn1).toHaveBeenCalled();
       expect(onChangeFn1.mock.calls[0][0]).toEqual([
         {
@@ -294,11 +273,10 @@ describe('Upload', () => {
       ]);
       expect(onChangeFn1.mock.calls[0][1].trigger).toBe('abort');
       expect(onRemoveFn1).not.toHaveBeenCalled();
-    });
+      unmountFlow();
 
-    test('autoUpload: autoUpload=false & theme=image & draggable = true, cancel upload', async () => {
       const onSuccessFn = vi.fn();
-      const { container } = render(
+      const { container: draggableContainer } = render(
         <Upload
           theme="image"
           autoUpload={false}
@@ -308,7 +286,7 @@ describe('Upload', () => {
           onSuccess={onSuccessFn}
         ></Upload>,
       );
-      fireEvent.click(container.querySelector('.t-upload__dragger-upload-btn'));
+      fireEvent.click(draggableContainer.querySelector('.t-upload__dragger-upload-btn'));
       await mockDelay();
       expect(onSuccessFn).toHaveBeenCalled();
       expect(onSuccessFn.mock.calls[0][0].fileList[0].url).toBe('https://tdesign.gtimg.com/demo/demo-image-1.png');
@@ -319,7 +297,7 @@ describe('Upload', () => {
       expect(onSuccessFn.mock.calls[0][0].XMLHttpRequest).toBeTruthy();
     });
 
-    test('beforeAllFilesUpload: beforeAllFilesUpload can stop uploading', async () => {
+    test('beforeAllFilesUpload', async () => {
       const onChangeFn = vi.fn();
       const onValidateFn = vi.fn();
       const { container } = render(
@@ -340,50 +318,51 @@ describe('Upload', () => {
       expect(onValidateFn.mock.calls[0][0].files.map((t) => t.raw)).toEqual(fileList);
     });
 
-    test('beforeUpload: beforeUpload can skip all files to upload, just like beforeAllFilesUpload', async () => {
-      const onChangeFn = vi.fn();
-      const onValidateFn = vi.fn();
-      const { container } = render(
+    test('beforeUpload', async () => {
+      const rejectedOnChangeFn = vi.fn();
+      const rejectedOnValidateFn = vi.fn();
+      const { container: rejectedContainer, unmount: unmountRejected } = render(
         <Upload
           autoUpload={false}
           beforeUpload={() => false}
           action="https://tdesign.test.com/upload/file_success"
-          onChange={onChangeFn}
-          onValidate={onValidateFn}
+          onChange={rejectedOnChangeFn}
+          onValidate={rejectedOnValidateFn}
         ></Upload>,
       );
-      const inputDom = container.querySelector('input');
+      const inputDom = rejectedContainer.querySelector('input');
       const fileList = simulateFileChange(inputDom, 'file', 3);
       await mockDelay();
-      expect(onChangeFn).not.toHaveBeenCalled();
-      expect(onValidateFn).toHaveBeenCalled();
-      expect(onValidateFn.mock.calls[0][0].type).toBe('CUSTOM_BEFORE_UPLOAD');
-      expect(onValidateFn.mock.calls[0][0].files.map((t) => t.raw)).toEqual(fileList);
-    });
+      expect(rejectedOnChangeFn).not.toHaveBeenCalled();
+      expect(rejectedOnValidateFn).toHaveBeenCalled();
+      expect(rejectedOnValidateFn.mock.calls[0][0].type).toBe('CUSTOM_BEFORE_UPLOAD');
+      expect(rejectedOnValidateFn.mock.calls[0][0].files.map((t) => t.raw)).toEqual(fileList);
+      unmountRejected();
 
-    test('beforeUpload: beforeUpload can skip some of files to upload', async () => {
-      const onChangeFn = vi.fn();
-      const onValidateFn = vi.fn();
-      const { container } = render(
+      const acceptedOnChangeFn = vi.fn();
+      const acceptedOnValidateFn = vi.fn();
+      const { container: acceptedContainer } = render(
         <Upload
           autoUpload={false}
           beforeUpload={(file) => file.name === 'file-name1.txt'}
           action="https://tdesign.test.com/upload/file_success"
-          onChange={onChangeFn}
-          onValidate={onValidateFn}
+          onChange={acceptedOnChangeFn}
+          onValidate={acceptedOnValidateFn}
         ></Upload>,
       );
-      const inputDom = container.querySelector('input');
-      const fileList = simulateFileChange(inputDom, 'file', 3);
+      const acceptedFileList = simulateFileChange(acceptedContainer.querySelector('input'), 'file', 3);
       await mockDelay();
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0][0].raw).toEqual(fileList[1]);
-      expect(onValidateFn).toHaveBeenCalled();
-      expect(onValidateFn.mock.calls[0][0].type).toBe('CUSTOM_BEFORE_UPLOAD');
-      expect(onValidateFn.mock.calls[0][0].files.map((t) => t.raw)).toEqual([fileList[0], fileList[2]]);
+      expect(acceptedOnChangeFn).toHaveBeenCalled();
+      expect(acceptedOnChangeFn.mock.calls[0][0][0].raw).toEqual(acceptedFileList[1]);
+      expect(acceptedOnValidateFn).toHaveBeenCalled();
+      expect(acceptedOnValidateFn.mock.calls[0][0].type).toBe('CUSTOM_BEFORE_UPLOAD');
+      expect(acceptedOnValidateFn.mock.calls[0][0].files.map((t) => t.raw)).toEqual([
+        acceptedFileList[0],
+        acceptedFileList[2],
+      ]);
     });
 
-    test('data: upload request can send extra data', async () => {
+    test('data', async () => {
       const onFailFn = vi.fn();
       const { container } = render(
         <Upload
@@ -403,18 +382,12 @@ describe('Upload', () => {
       });
     });
 
-    test('disabled: `".t-input.t-is-disabled"` should exist', () => {
-      const { container } = render(<Upload theme="file-input" disabled={true}></Upload>);
-      expect(container.querySelector('.t-input.t-is-disabled')).toBeTruthy();
-    });
+    test('disabled', async () => {
+      const { container: fileInputContainer } = render(<Upload theme="file-input" disabled={true}></Upload>);
+      expect(fileInputContainer.querySelector('.t-input.t-is-disabled')).toBeTruthy();
+      expect(fileInputContainer.querySelector('.t-upload__trigger .t-button.t-is-disabled')).toBeTruthy();
 
-    test('disabled: `".t-upload__trigger .t-button.t-is-disabled"` should exist', () => {
-      const { container } = render(<Upload theme="file-input" disabled={true}></Upload>);
-      expect(container.querySelector('.t-upload__trigger .t-button.t-is-disabled')).toBeTruthy();
-    });
-
-    test('disabled: `{".t-upload__delete":false}` should exist', () => {
-      const { container } = render(
+      const { container: fileFlowContainer } = render(
         <Upload
           theme="file-flow"
           disabled={true}
@@ -422,11 +395,9 @@ describe('Upload', () => {
           files={[{ name: 'file1.txt', status: 'success' }]}
         ></Upload>,
       );
-      expect(container.querySelector('.t-upload__delete')).toBeFalsy();
-    });
+      expect(fileFlowContainer.querySelector('.t-upload__delete')).toBeFalsy();
 
-    test('disabled: `{".t-upload__delete":false}` should exist', () => {
-      const { container } = render(
+      const { container: imageFlowContainer } = render(
         <Upload
           theme="image-flow"
           disabled={true}
@@ -434,32 +405,30 @@ describe('Upload', () => {
           files={[{ name: 'file1.txt', status: 'success' }]}
         ></Upload>,
       );
-      expect(container.querySelector('.t-upload__delete')).toBeFalsy();
-    });
+      expect(imageFlowContainer.querySelector('.t-upload__delete')).toBeFalsy();
 
-    test('disabled: disabled upload can not trigger onSelectChange', async () => {
       const onSelectChangeFn = vi.fn();
-      const { container } = render(<Upload disabled={true} onSelectChange={onSelectChangeFn}></Upload>);
-      const inputDom = container.querySelector('input');
+      const { container: disabledContainer } = render(
+        <Upload disabled={true} onSelectChange={onSelectChangeFn}></Upload>,
+      );
+      const inputDom = disabledContainer.querySelector('input');
       simulateFileChange(inputDom);
       await mockDelay();
       expect(onSelectChangeFn).not.toHaveBeenCalled();
-    });
 
-    test('disabled: disabled upload can not remove file', () => {
-      const { container } = render(<Upload theme="file" files={[{ name: 'file1.txt' }]} disabled={true}></Upload>);
-      expect(container.querySelector('.t-upload__icon-delete')).toBeFalsy();
-    });
+      const { container: fileContainer } = render(
+        <Upload theme="file" files={[{ name: 'file1.txt' }]} disabled={true}></Upload>,
+      );
+      expect(fileContainer.querySelector('.t-upload__icon-delete')).toBeFalsy();
 
-    test('disabled: disabled upload can not remove image', () => {
-      const { container } = render(
+      const { container: imageContainer } = render(
         <Upload theme="image" files={[{ name: 'img1.txt', url: 'https://img1.png' }]} disabled={true}></Upload>,
       );
-      expect(container.querySelector('.t-upload__icon-delete')).toBeFalsy();
+      expect(imageContainer.querySelector('.t-upload__icon-delete')).toBeFalsy();
     });
 
-    test('draggable: theme=image & draggable=true, success file render fine', () => {
-      const { container } = render(
+    test('draggable', () => {
+      const { container: urlContainer, unmount: unmountUrl } = render(
         <Upload
           theme="image"
           draggable={true}
@@ -472,14 +441,13 @@ describe('Upload', () => {
           ]}
         ></Upload>,
       );
-      expect(container.querySelectorAll('.t-icon-check-circle-filled').length).toBe(1);
-      const attrDom = container.querySelector('.t-upload__dragger-img-wrap img');
+      expect(urlContainer.querySelectorAll('.t-icon-check-circle-filled').length).toBe(1);
+      const attrDom = urlContainer.querySelector('.t-upload__dragger-img-wrap img');
       expect(attrDom.getAttribute('src')).toBe('https://tdesign.gtimg.com/demo/demo-image-1.png');
-      expect(container).toMatchSnapshot();
-    });
+      expect(urlContainer).toMatchSnapshot();
+      unmountUrl();
 
-    test('draggable: theme=image & draggable=true, success file render fine with file.response.url', () => {
-      const { container } = render(
+      const { container: responseContainer, unmount: unmountResponse } = render(
         <Upload
           theme="image"
           draggable={true}
@@ -494,26 +462,24 @@ describe('Upload', () => {
           ]}
         ></Upload>,
       );
-      expect(container.querySelectorAll('.t-icon-check-circle-filled').length).toBe(1);
-      const attrDom = container.querySelector('.t-upload__dragger-img-wrap img');
-      expect(attrDom.getAttribute('src')).toBe('https://tdesign.gtimg.com/demo/demo-image-1.png');
-      expect(container).toMatchSnapshot();
-    });
+      expect(responseContainer.querySelectorAll('.t-icon-check-circle-filled').length).toBe(1);
+      const responseImage = responseContainer.querySelector('.t-upload__dragger-img-wrap img');
+      expect(responseImage.getAttribute('src')).toBe('https://tdesign.gtimg.com/demo/demo-image-1.png');
+      expect(responseContainer).toMatchSnapshot();
+      unmountResponse();
 
-    test('draggable: theme=image & draggable=true, fail file render fine', () => {
-      const { container } = render(
+      const { container: failedContainer, unmount: unmountFailed } = render(
         <Upload
           theme="image"
           draggable={true}
           files={[{ url: 'https://image4.png', name: 'image4.png', status: 'fail' }]}
         ></Upload>,
       );
-      expect(container.querySelectorAll('.t-icon-error-circle-filled').length).toBe(1);
-      expect(container).toMatchSnapshot();
-    });
+      expect(failedContainer.querySelectorAll('.t-icon-error-circle-filled').length).toBe(1);
+      expect(failedContainer).toMatchSnapshot();
+      unmountFailed();
 
-    test('draggable: theme=image & draggable=true, progress file render fine', () => {
-      const { container } = render(
+      const { container: progressContainer, unmount: unmountProgress } = render(
         <Upload
           theme="image"
           draggable={true}
@@ -527,12 +493,11 @@ describe('Upload', () => {
           ]}
         ></Upload>,
       );
-      expect(container.querySelector('.t-upload__single-percent').textContent).toBe('80%');
-      expect(container).toMatchSnapshot();
-    });
+      expect(progressContainer.querySelector('.t-upload__single-percent').textContent).toBe('80%');
+      expect(progressContainer).toMatchSnapshot();
+      unmountProgress();
 
-    test('draggable: theme=image & draggable=true, waiting file render fine', () => {
-      const { container } = render(
+      const { container: waitingContainer, unmount: unmountWaiting } = render(
         <Upload
           theme="image"
           draggable={true}
@@ -545,32 +510,11 @@ describe('Upload', () => {
           ]}
         ></Upload>,
       );
-      expect(container.querySelectorAll('.t-upload__dragger-progress-cancel').length).toBe(1);
-      expect(container).toMatchSnapshot();
-    });
+      expect(waitingContainer.querySelectorAll('.t-upload__dragger-progress-cancel').length).toBe(1);
+      expect(waitingContainer).toMatchSnapshot();
+      unmountWaiting();
 
-    test('draggable: theme=image & draggable=true & autoUpload=false, waiting file render fine', () => {
-      const { container } = render(
-        <Upload
-          theme="image"
-          draggable={true}
-          autoUpload={false}
-          files={[
-            {
-              url: 'https://image3.png',
-              name: 'image3.png',
-              status: 'waiting',
-            },
-          ]}
-        ></Upload>,
-      );
-      expect(container.querySelectorAll('.t-upload__dragger-progress-cancel').length).toBe(1);
-    });
-
-    test('draggable: theme=image & draggable=true & autoUpload=false, cancel upload', () => {
-      const onCancelUploadFn = vi.fn();
-      const onRemoveFn = vi.fn();
-      const { container } = render(
+      const { container: manualContainer } = render(
         <Upload
           theme="image"
           draggable={true}
@@ -582,20 +526,9 @@ describe('Upload', () => {
               status: 'waiting',
             },
           ]}
-          onCancelUpload={onCancelUploadFn}
-          onRemove={onRemoveFn}
         ></Upload>,
       );
-      fireEvent.click(container.querySelector('.t-upload__dragger-progress-cancel'));
-      expect(onCancelUploadFn).toHaveBeenCalled();
-      expect(onRemoveFn).toHaveBeenCalled();
-      expect(onRemoveFn.mock.calls[0][0].file).toEqual({
-        url: 'https://image3.png',
-        name: 'image3.png',
-        status: 'waiting',
-      });
-      expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
-      expect(onRemoveFn.mock.calls[0][0].index).toBe(0);
+      expect(manualContainer.querySelectorAll('.t-upload__dragger-progress-cancel').length).toBe(1);
     });
 
     test('format', async () => {
@@ -621,7 +554,7 @@ describe('Upload', () => {
       expect(onSelectChangeFn.mock.calls[0][1].currentSelectedFiles[0].raw).toEqual(fileList[0]);
     });
 
-    test('formatRequest: upload request data can be changed through formatRequest', async () => {
+    test('formatRequest', async () => {
       const onFailFn = vi.fn();
       const { container } = render(
         <Upload
@@ -644,9 +577,9 @@ describe('Upload', () => {
       expect(onFailFn.mock.calls[0][0].XMLHttpRequest.upload.requestParams.more_field).toBe('more custom field');
     });
 
-    test('formatResponse: format upload success response', async () => {
+    test('formatResponse', async () => {
       const onChangeFn = vi.fn();
-      const { container } = render(
+      const { container: successContainer, unmount: unmountSuccess } = render(
         <Upload
           formatResponse={(response) => ({
             responseData: { ret: response.ret, data: response.data },
@@ -657,7 +590,7 @@ describe('Upload', () => {
           onChange={onChangeFn}
         ></Upload>,
       );
-      const inputDom = container.querySelector('input');
+      const inputDom = successContainer.querySelector('input');
       simulateFileChange(inputDom);
       await mockDelay();
       expect(onChangeFn).toHaveBeenCalled();
@@ -672,11 +605,10 @@ describe('Upload', () => {
         'https://tdesign.gtimg.com/site/spline/script/tdesign.min.js',
       );
       expect(onChangeFn.mock.calls[0][0][0].response.extra_field).toBe('extra value');
-    });
+      unmountSuccess();
 
-    test('formatResponse: format upload fail response', async () => {
       const onFailFn = vi.fn();
-      const { container } = render(
+      const { container: failedContainer } = render(
         <Upload
           action="https://tdesign.test.com/upload/fail/response_error"
           formatResponse={(response) => ({
@@ -686,13 +618,12 @@ describe('Upload', () => {
           onFail={onFailFn}
         ></Upload>,
       );
-      const inputDom = container.querySelector('input');
-      const fileList = simulateFileChange(inputDom);
+      const failedFileList = simulateFileChange(failedContainer.querySelector('input'));
       await mockDelay();
       expect(onFailFn).toHaveBeenCalled();
-      expect(onFailFn.mock.calls[0][0].failedFiles[0].raw).toEqual(fileList[0]);
-      expect(onFailFn.mock.calls[0][0].currentFiles[0].raw).toEqual(fileList[0]);
-      expect(onFailFn.mock.calls[0][0].file.raw).toEqual(fileList[0]);
+      expect(onFailFn.mock.calls[0][0].failedFiles[0].raw).toEqual(failedFileList[0]);
+      expect(onFailFn.mock.calls[0][0].currentFiles[0].raw).toEqual(failedFileList[0]);
+      expect(onFailFn.mock.calls[0][0].file.raw).toEqual(failedFileList[0]);
       expect(onFailFn.mock.calls[0][0].e.type).toBe('load');
       expect(onFailFn.mock.calls[0][0].XMLHttpRequest).toBeTruthy();
       expect(onFailFn.mock.calls[0][0].response).toEqual({
@@ -736,90 +667,58 @@ describe('Upload', () => {
       expect(onChangeFn.mock.calls[0][0].length).toBe(3);
     });
 
-    test('locale: props.locale works fine if theme=file-flow', () => {
-      const { container } = render(
-        <Upload
-          locale={{ progress: { uploadingText: 'uploading' } }}
-          theme="file-flow"
-          files={[
-            {
-              url: 'https://tdesign.gtimg.com/demo/demo-image-1.png',
-              status: 'progress',
-              percent: 80,
-            },
-          ]}
-          action="https://tdesign.test.com/upload/file_success"
-        ></Upload>,
-      );
-      expect(container.querySelector('.t-upload__file-flow-progress').textContent).toBe('uploading 80%');
-    });
+    test('locale', () => {
+      const locale = { progress: { uploadingText: 'uploading' } };
+      const progressFile = [
+        {
+          url: 'https://tdesign.gtimg.com/demo/demo-image-1.png',
+          status: 'progress' as const,
+          percent: 80,
+        },
+      ];
+      const action = 'https://tdesign.test.com/upload/file_success';
 
-    test('locale: props.locale works fine if theme=image', () => {
-      const { container } = render(
-        <Upload
-          locale={{ progress: { uploadingText: 'uploading' } }}
-          theme="image"
-          files={[
-            {
-              url: 'https://tdesign.gtimg.com/demo/demo-image-1.png',
-              status: 'progress',
-              percent: 80,
-            },
-          ]}
-          action="https://tdesign.test.com/upload/file_success"
-        ></Upload>,
+      const { container: fileFlowContainer } = render(
+        <Upload locale={locale} theme="file-flow" files={progressFile} action={action}></Upload>,
       );
-      expect(container.querySelector('.t-upload__image-progress').textContent).toBe('uploading 80%');
-    });
+      expect(fileFlowContainer.querySelector('.t-upload__file-flow-progress').textContent).toBe('uploading 80%');
 
-    test('max: can not show image add trigger if count of image is over than max', () => {
-      const { container } = render(
-        <Upload
-          theme="image"
-          max={2}
-          files={[
-            { url: 'xxxx.url', name: 'file1.txt' },
-            { url: 'yyyy.url', name: 'file2.txt' },
-          ]}
-          multiple={true}
-        ></Upload>,
+      const { container: imageContainer } = render(
+        <Upload locale={locale} theme="image" files={progressFile} action={action}></Upload>,
       );
-      expect(container.querySelector('.t-upload__image-add')).toBeFalsy();
+      expect(imageContainer.querySelector('.t-upload__image-progress').textContent).toBe('uploading 80%');
     });
 
     test('max', async () => {
-      const onChangeFn = vi.fn();
-      const { container } = render(
-        <Upload
-          max={2}
-          multiple={true}
-          autoUpload={false}
-          files={[
-            { url: 'xxxx.url', name: 'file1.txt' },
-            { url: 'yyyy.url', name: 'file2.txt' },
-          ]}
-          onChange={onChangeFn}
-        ></Upload>,
+      const filledFiles = [
+        { url: 'xxxx.url', name: 'file1.txt' },
+        { url: 'yyyy.url', name: 'file2.txt' },
+      ];
+
+      const { container: hideAddContainer } = render(
+        <Upload theme="image" max={2} files={filledFiles} multiple></Upload>,
       );
-      const inputDom = container.querySelector('input');
-      simulateFileChange(inputDom, 'file', 1);
+      expect(hideAddContainer.querySelector('.t-upload__image-add')).toBeFalsy();
+
+      const onChangeRejectFn = vi.fn();
+      const { container: rejectExtraContainer } = render(
+        <Upload max={2} multiple autoUpload={false} files={filledFiles} onChange={onChangeRejectFn}></Upload>,
+      );
+      simulateFileChange(rejectExtraContainer.querySelector('input'), 'file', 1);
       await mockDelay(300);
-      expect(onChangeFn).not.toHaveBeenCalled();
+      expect(onChangeRejectFn).not.toHaveBeenCalled();
+
+      const onChangeAllowFn = vi.fn();
+      const { container: unlimitedContainer } = render(
+        <Upload max={0} multiple autoUpload={false} files={[]} onChange={onChangeAllowFn}></Upload>,
+      );
+      simulateFileChange(unlimitedContainer.querySelector('input'), 'file', 3);
+      await mockDelay(300);
+      expect(onChangeAllowFn).toHaveBeenCalled();
+      expect(onChangeAllowFn.mock.calls[0][0].length).toBe(3);
     });
 
-    test('max: max=0 means any count of files are allowed', async () => {
-      const onChangeFn = vi.fn();
-      const { container } = render(
-        <Upload max={0} multiple={true} autoUpload={false} files={[]} onChange={onChangeFn}></Upload>,
-      );
-      const inputDom = container.querySelector('input');
-      simulateFileChange(inputDom, 'file', 3);
-      await mockDelay(300);
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0].length).toBe(3);
-    });
-
-    test('name: rename file in request data to be file_name', async () => {
+    test('name', async () => {
       const onFailFn = vi.fn();
       const { container } = render(
         <Upload name="file_name" action="https://tdesign.test.com/upload/fail/status_error" onFail={onFailFn}></Upload>,
@@ -834,29 +733,17 @@ describe('Upload', () => {
       });
     });
 
-    test('placeholder: theme=file', () => {
-      const { container } = render(<Upload theme="file" placeholder="this is placeholder"></Upload>);
-      expect(container.querySelector('.t-upload__placeholder').textContent).toBe('this is placeholder');
-    });
-
-    test('placeholder: theme=file-input', () => {
-      const { container } = render(<Upload theme="file-input" placeholder="this is placeholder"></Upload>);
-      expect(container.querySelector('.t-upload__placeholder').textContent).toBe('this is placeholder');
-    });
-
-    test('placeholder: theme=image-flow', () => {
-      const { container } = render(<Upload theme="image-flow" placeholder="this is placeholder"></Upload>);
-      expect(container.querySelector('.t-upload__placeholder').textContent).toBe('this is placeholder');
-    });
-
-    test('placeholder: theme=file-flow', () => {
-      const { container } = render(<Upload theme="file-flow" placeholder="this is placeholder"></Upload>);
-      expect(container.querySelector('.t-upload__placeholder').textContent).toBe('this is placeholder');
+    test('placeholder', () => {
+      const text = 'this is placeholder';
+      (['file', 'file-input', 'image-flow', 'file-flow'] as TdUploadProps['theme'][]).forEach((theme) => {
+        const { container } = render(<Upload theme={theme} placeholder={text}></Upload>);
+        expect(container.querySelector('.t-upload__placeholder').textContent).toBe(text);
+      });
     });
 
     test('requestMethod', async () => {
       const onChangeFn = vi.fn();
-      const { container } = render(
+      const { container: successContainer, unmount: unmountSuccess } = render(
         <Upload
           theme="image-flow"
           multiple={true}
@@ -872,127 +759,106 @@ describe('Upload', () => {
           onChange={onChangeFn}
         ></Upload>,
       );
-      const inputDom = container.querySelector('input');
+      const inputDom = successContainer.querySelector('input');
       const fileList = simulateFileChange(inputDom, 'image');
       await mockDelay();
       expect(onChangeFn).toHaveBeenCalled();
       expect(onChangeFn.mock.calls[0][0][0].raw).toEqual(fileList[0]);
       expect(onChangeFn.mock.calls[0][0][0].response.url).toBe('https://tdesign.gtimg.com/demo/demo-image-1.png');
-    });
+      unmountSuccess();
 
-    test('requestMethod', async () => {
       const onFailFn = vi.fn();
-      const { container } = render(
+      const { container: failedContainer } = render(
         <Upload
           theme="file-flow"
           multiple={true}
           files={[]}
-          requestMethod={() => Promise.resolve({ status: 'fail', error: 'upload failed' })}
+          requestMethod={() =>
+            Promise.resolve({
+              status: 'fail',
+              error: 'upload failed',
+              response: {},
+            })
+          }
           onFail={onFailFn}
         ></Upload>,
       );
-      const inputDom = container.querySelector('input');
-      const fileList = simulateFileChange(inputDom);
+      const failedFileList = simulateFileChange(failedContainer.querySelector('input'));
       await mockDelay();
       expect(onFailFn).toHaveBeenCalled();
-      expect(onFailFn.mock.calls[0][0].failedFiles.map((t) => t.raw)).toEqual(fileList);
-      expect(onFailFn.mock.calls[0][0].currentFiles.map((t) => t.raw)).toEqual(fileList);
+      expect(onFailFn.mock.calls[0][0].failedFiles.map((t) => t.raw)).toEqual(failedFileList);
+      expect(onFailFn.mock.calls[0][0].currentFiles.map((t) => t.raw)).toEqual(failedFileList);
     });
 
-    test('showUploadProgress: `{".t-upload__file-flow-progress":{"text":"上传中"}}` should exist', () => {
-      const { container } = render(
+    test('showUploadProgress', () => {
+      const action = 'https://tdesign.test.com/upload/file_success';
+      const progressFile = {
+        name: 'file1.txt',
+        status: 'progress' as const,
+        url: 'https://tdesign.gtimg.com/demo/demo-image-1.png',
+      };
+
+      const { container: fileFlowContainer } = render(
         <Upload
           theme="file-flow"
           showUploadProgress={false}
-          files={[
-            {
-              name: 'file1.txt',
-              status: 'progress',
-              percent: 80,
-              url: 'https://tdesign.gtimg.com/demo/demo-image-1.png',
-            },
-          ]}
-          action="https://tdesign.test.com/upload/file_success"
+          files={[{ ...progressFile, percent: 80 }]}
+          action={action}
         ></Upload>,
       );
-      expect(container.querySelector('.t-upload__file-flow-progress').textContent).toBe('上传中');
-    });
+      expect(fileFlowContainer.querySelector('.t-upload__file-flow-progress').textContent).toBe('上传中');
 
-    test('showUploadProgress: `{".t-upload__image-progress":{"text":"上传中"}}` should exist', () => {
-      const { container } = render(
+      const { container: imageContainer } = render(
         <Upload
           theme="image"
           showUploadProgress={false}
-          files={[
-            {
-              name: 'file1.txt',
-              status: 'progress',
-              percent: 10,
-              url: 'https://tdesign.gtimg.com/demo/demo-image-1.png',
-            },
-          ]}
-          action="https://tdesign.test.com/upload/file_success"
+          files={[{ ...progressFile, percent: 10 }]}
+          action={action}
         ></Upload>,
       );
-      expect(container.querySelector('.t-upload__image-progress').textContent).toBe('上传中');
+      expect(imageContainer.querySelector('.t-upload__image-progress').textContent).toBe('上传中');
     });
 
-    test('sizeLimit: file size is over than 23B, show default error tips', async () => {
-      const onValidateFn = vi.fn();
-      const { container } = render(
-        <Upload
-          sizeLimit={{ size: 23, unit: 'B' }}
-          multiple={true}
-          action="https://tdesign.test.com/upload/file_success"
-          onValidate={onValidateFn}
-        ></Upload>,
+    test('sizeLimit', async () => {
+      const action = 'https://tdesign.test.com/upload/file_success';
+      const assertOverSizeLimit = (onValidateFn: ReturnType<typeof vi.fn>) => {
+        expect(onValidateFn).toHaveBeenCalled();
+        expect(onValidateFn.mock.calls[0][0].type).toBe('FILE_OVER_SIZE_LIMIT');
+        expect(onValidateFn.mock.calls[0][0].files.length).toBe(3);
+      };
+
+      const onValidateDefaultFn = vi.fn();
+      const { container: objectDefaultContainer } = render(
+        <Upload sizeLimit={{ size: 23, unit: 'B' }} multiple action={action} onValidate={onValidateDefaultFn}></Upload>,
       );
-      const inputDom = container.querySelector('input');
-      simulateFileChange(inputDom, 'file', 5);
+      simulateFileChange(objectDefaultContainer.querySelector('input'), 'file', 5);
       await mockDelay();
-      expect(onValidateFn).toHaveBeenCalled();
-      expect(onValidateFn.mock.calls[0][0].type).toBe('FILE_OVER_SIZE_LIMIT');
-      expect(onValidateFn.mock.calls[0][0].files.length).toBe(3);
-    });
+      assertOverSizeLimit(onValidateDefaultFn);
 
-    test('sizeLimit: file size is over than 23B, show custom error tips', async () => {
-      const onValidateFn = vi.fn();
-      const { container } = render(
+      const onValidateCustomMessageFn = vi.fn();
+      const { container: objectCustomContainer } = render(
         <Upload
           sizeLimit={{
             size: 23,
             unit: 'B',
             message: 'image size can not over than {sizeLimit}',
           }}
-          multiple={true}
-          action="https://tdesign.test.com/upload/file_success"
-          onValidate={onValidateFn}
+          multiple
+          action={action}
+          onValidate={onValidateCustomMessageFn}
         ></Upload>,
       );
-      const inputDom = container.querySelector('input');
-      simulateFileChange(inputDom, 'file', 5);
+      simulateFileChange(objectCustomContainer.querySelector('input'), 'file', 5);
       await mockDelay();
-      expect(onValidateFn).toHaveBeenCalled();
-      expect(onValidateFn.mock.calls[0][0].type).toBe('FILE_OVER_SIZE_LIMIT');
-      expect(onValidateFn.mock.calls[0][0].files.length).toBe(3);
-    });
+      assertOverSizeLimit(onValidateCustomMessageFn);
 
-    test('sizeLimit: file size is over than 0.023KB, show default error tips (KB is default unit)', async () => {
-      const onValidateFn = vi.fn();
-      const { container } = render(
-        <Upload
-          sizeLimit={0.023}
-          multiple={true}
-          action="https://tdesign.test.com/upload/file_success"
-          onValidate={onValidateFn}
-        ></Upload>,
+      const onValidateNumberFn = vi.fn();
+      const { container: numberUnitContainer } = render(
+        <Upload sizeLimit={0.023} multiple action={action} onValidate={onValidateNumberFn}></Upload>,
       );
-      const inputDom = container.querySelector('input');
-      simulateFileChange(inputDom, 'file', 5);
+      simulateFileChange(numberUnitContainer.querySelector('input'), 'file', 5);
       await mockDelay();
-      expect(onValidateFn).toHaveBeenCalled();
-      expect(onValidateFn.mock.calls[0][0].type).toBe('FILE_OVER_SIZE_LIMIT');
-      expect(onValidateFn.mock.calls[0][0].files.length).toBe(3);
+      assertOverSizeLimit(onValidateNumberFn);
     });
 
     const statusExpectedDom = [
@@ -1002,7 +868,7 @@ describe('Upload', () => {
       '.t-upload__tips-error',
     ];
     (['default', 'success', 'warning', 'error'] as TdUploadProps['status'][]).forEach((item, index) => {
-      test(`status is equal to ${item}`, () => {
+      test(`status[${item}]`, () => {
         const { container } = render(
           <Upload status={item} tips="upload tips text" action="https://tdesign.test.com/upload/file_success"></Upload>,
         );
@@ -1010,8 +876,8 @@ describe('Upload', () => {
       });
     });
 
-    test('theme: show image add trigger even if count of image is over than max', () => {
-      const { container } = render(
+    test('theme', () => {
+      const { container: imageContainer, unmount: unmountImage } = render(
         <Upload
           files={[
             { url: 'xxxx.url', name: 'file1.txt' },
@@ -1021,46 +887,40 @@ describe('Upload', () => {
           theme="image"
         ></Upload>,
       );
-      expect(container.querySelector('.t-upload__image-add')).toBeTruthy();
-    });
+      expect(imageContainer.querySelector('.t-upload__image-add')).toBeTruthy();
+      unmountImage();
 
-    test('theme: theme=file and file status is fail', () => {
-      const { container } = render(
+      const { container: fileContainer, unmount: unmountFile } = render(
         <Upload theme="file" autoUpload={false} files={[{ name: 'file1.txt', status: 'fail' }]}></Upload>,
       );
-      expect(container.querySelector('.t-icon-error-circle-filled')).toBeTruthy();
-    });
+      expect(fileContainer.querySelector('.t-icon-error-circle-filled')).toBeTruthy();
+      unmountFile();
 
-    test('theme: theme=file-input and file status is progress', () => {
-      const { container } = render(
+      const { container: progressContainer, unmount: unmountProgress } = render(
         <Upload theme="file-input" files={[{ name: 'file1.txt', status: 'progress' }]}></Upload>,
       );
-      expect(container.querySelector('.t-upload__single-progress')).toBeTruthy();
-    });
+      expect(progressContainer.querySelector('.t-upload__single-progress')).toBeTruthy();
+      unmountProgress();
 
-    test('theme: theme=file-input and file status is waiting', () => {
-      const { container } = render(
+      const { container: waitingContainer, unmount: unmountWaiting } = render(
         <Upload theme="file-input" files={[{ name: 'file1.txt', status: 'waiting' }]}></Upload>,
       );
-      expect(container.querySelector('.t-upload__file-waiting.t-icon-time-filled')).toBeTruthy();
-    });
+      expect(waitingContainer.querySelector('.t-upload__file-waiting.t-icon-time-filled')).toBeTruthy();
+      unmountWaiting();
 
-    test('theme: theme=file-input and file status is fail', () => {
-      const { container } = render(
+      const { container: failedContainer, unmount: unmountFailed } = render(
         <Upload theme="file-input" files={[{ name: 'file1.txt', status: 'fail' }]}></Upload>,
       );
-      expect(container.querySelector('.t-icon-error-circle-filled')).toBeTruthy();
-    });
+      expect(failedContainer.querySelector('.t-icon-error-circle-filled')).toBeTruthy();
+      unmountFailed();
 
-    test('theme: theme=file-input and file status is success', () => {
-      const { container } = render(
+      const { container: successContainer, unmount: unmountSuccess } = render(
         <Upload theme="file-input" files={[{ name: 'file1.txt', status: 'success' }]}></Upload>,
       );
-      expect(container.querySelector('.t-icon-check-circle-filled')).toBeTruthy();
-    });
+      expect(successContainer.querySelector('.t-icon-check-circle-filled')).toBeTruthy();
+      unmountSuccess();
 
-    test('theme: theme=file-flow', () => {
-      const { container } = render(
+      const { container: fileFlowContainer, unmount: unmountFileFlow } = render(
         <Upload
           theme="file-flow"
           files={[
@@ -1071,12 +931,18 @@ describe('Upload', () => {
           ]}
         ></Upload>,
       );
-      expect(container.querySelectorAll('.t-upload__flow-table tbody > tr').length).toBe(4);
-      expect(container).toMatchSnapshot();
-    });
+      expect(fileFlowContainer.querySelectorAll('.t-upload__flow-table tbody > tr').length).toBe(4);
+      expect(fileFlowContainer).toMatchSnapshot();
+      unmountFileFlow();
 
-    test('theme: theme=image-flow', () => {
-      const { container } = render(
+      const SnapshotIdBoundary = () => {
+        React.useId();
+        return null;
+      };
+      const { unmount: unmountSnapshotIdBoundary } = render(<SnapshotIdBoundary />);
+      unmountSnapshotIdBoundary();
+
+      const { container: imageFlowContainer } = render(
         <Upload
           theme="image-flow"
           files={[
@@ -1093,11 +959,11 @@ describe('Upload', () => {
           ]}
         ></Upload>,
       );
-      expect(container.querySelectorAll('.t-upload__card-item').length).toBe(5);
-      expect(container).toMatchSnapshot();
+      expect(imageFlowContainer.querySelectorAll('.t-upload__card-item').length).toBe(5);
+      expect(imageFlowContainer).toMatchSnapshot();
     });
 
-    test('triggerButtonProps is equal { theme: warning }', () => {
+    test('triggerButtonProps', () => {
       const { container } = render(
         <Upload
           triggerButtonProps={{ theme: 'warning' }}
@@ -1140,38 +1006,38 @@ describe('Upload', () => {
       expect(container).toBeInTheDocument();
       expect(container.querySelector('.tdesign')).toBeInTheDocument();
     });
-    test('children: children works fine if theme = file', () => {
-      const { container } = render(
-        <Upload theme="file" action="https://tdesign.test.com/upload/file_success">
-          <span className="custom-node">TNode</span>
+
+    test('children[TNode]', () => {
+      const action = 'https://tdesign.test.com/upload/file_success';
+      const child = <span className="custom-node">TNode</span>;
+
+      const { container: fileContainer } = render(
+        <Upload theme="file" action={action}>
+          {child}
         </Upload>,
       );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
+      expect(fileContainer.querySelector('.custom-node')).toBeTruthy();
 
-    test('children: children works fine if theme = custom', () => {
-      const { container } = render(
-        <Upload theme="custom" action="https://tdesign.test.com/upload/file_success">
-          <span className="custom-node">TNode</span>
+      const { container: customContainer } = render(
+        <Upload theme="custom" action={action}>
+          {child}
         </Upload>,
       );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
+      expect(customContainer.querySelector('.custom-node')).toBeTruthy();
 
-    test('children: children works fine if theme = custom & draggable=true', () => {
-      const { container } = render(
-        <Upload theme="custom" draggable={true} action="https://tdesign.test.com/upload/file_success">
-          <span className="custom-node">TNode</span>
+      const { container: draggableContainer } = render(
+        <Upload theme="custom" draggable action={action}>
+          {child}
         </Upload>,
       );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
+      expect(draggableContainer.querySelector('.custom-node')).toBeTruthy();
     });
 
-    test('children: a function with params, props.children: children works fine if theme = custom & draggable=true', () => {
+    test('children[function]', () => {
       const fn = vi.fn();
       render(
-        <Upload theme="custom" draggable={true} action="https://tdesign.test.com/upload/file_success">
-          {fn}
+        <Upload theme="custom" draggable action="https://tdesign.test.com/upload/file_success">
+          {fn as unknown as TNode}
         </Upload>,
       );
       expect(fn).toHaveBeenCalled();
@@ -1191,130 +1057,56 @@ describe('Upload', () => {
       expect(container.querySelector('.custom-node')).toBeTruthy();
     });
 
-    test('fileListDisplay: theme=file, fileListDisplay', () => {
+    test('fileListDisplay[TNode]', () => {
+      const action = 'https://tdesign.test.com/upload/file_success';
+      const display = <span className="custom-node">TNode</span>;
+
       const fileList = getFakeFileList('file', 3);
-      const { container } = render(
-        <Upload
-          fileListDisplay={<span className="custom-node">TNode</span>}
-          files={fileList}
-          theme="file"
-          action="https://tdesign.test.com/upload/file_success"
-        ></Upload>,
+      const { container: fileContainer } = render(
+        <Upload fileListDisplay={display} files={fileList} theme="file" action={action}></Upload>,
       );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
+      expect(fileContainer.querySelector('.custom-node')).toBeTruthy();
 
-    test('fileListDisplay: a function with params, props.fileListDisplay: theme=file, fileListDisplay', () => {
-      const fileList = getFakeFileList('file', 3);
-      const fn = vi.fn();
-      render(
+      const flowImageList = [{ url: 'https://tdesign.gtimg.com/demo/demo-image-1.png' }];
+      const { container: imageFlowContainer } = render(
         <Upload
-          fileListDisplay={fn}
-          files={fileList}
-          theme="file"
-          action="https://tdesign.test.com/upload/file_success"
-        ></Upload>,
-      );
-      expect(fn).toHaveBeenCalled();
-      expect(fn.mock.calls[0][0].files).toEqual(fileList);
-    });
-
-    test('fileListDisplay: theme=image-flow && multiple=true && draggable=true, fileListDisplay', () => {
-      const fileList = [{ url: 'https://tdesign.gtimg.com/demo/demo-image-1.png' }];
-      const { container } = render(
-        <Upload
-          fileListDisplay={<span className="custom-node">TNode</span>}
-          files={fileList}
+          fileListDisplay={display}
+          files={flowImageList}
           theme="image-flow"
-          multiple={true}
-          draggable={true}
-          action="https://tdesign.test.com/upload/file_success"
+          multiple
+          draggable
+          action={action}
         ></Upload>,
       );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
+      expect(imageFlowContainer.querySelector('.custom-node')).toBeTruthy();
 
-    test('fileListDisplay: a function with params, props.fileListDisplay: theme=image-flow && multiple=true && draggable=true, fileListDisplay', () => {
-      const fileList = [{ url: 'https://tdesign.gtimg.com/demo/demo-image-1.png' }];
-      const fn = vi.fn();
-      render(
+      const { container: fileFlowContainer } = render(
         <Upload
-          fileListDisplay={fn}
-          files={fileList}
-          theme="image-flow"
-          multiple={true}
-          draggable={true}
-          action="https://tdesign.test.com/upload/file_success"
-        ></Upload>,
-      );
-      expect(fn).toHaveBeenCalled();
-      expect(fn.mock.calls[0][0].files).toEqual(fileList);
-    });
-
-    test('fileListDisplay: theme=file-flow && multiple=true && draggable=true, fileListDisplay', () => {
-      const fileList = [{ url: 'https://tdesign.gtimg.com/demo/demo-image-1.png' }];
-      const { container } = render(
-        <Upload
-          fileListDisplay={<span className="custom-node">TNode</span>}
-          files={fileList}
+          fileListDisplay={display}
+          files={flowImageList}
           theme="file-flow"
-          multiple={true}
-          draggable={true}
-          action="https://tdesign.test.com/upload/file_success"
+          multiple
+          draggable
+          action={action}
         ></Upload>,
       );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
+      expect(fileFlowContainer.querySelector('.custom-node')).toBeTruthy();
 
-    test('fileListDisplay: a function with params, props.fileListDisplay: theme=file-flow && multiple=true && draggable=true, fileListDisplay', () => {
-      const fileList = [{ url: 'https://tdesign.gtimg.com/demo/demo-image-1.png' }];
-      const fn = vi.fn();
-      render(
+      const { container: fileDraggableContainer } = render(
         <Upload
-          fileListDisplay={fn}
-          files={fileList}
-          theme="file-flow"
-          multiple={true}
-          draggable={true}
-          action="https://tdesign.test.com/upload/file_success"
-        ></Upload>,
-      );
-      expect(fn).toHaveBeenCalled();
-      expect(fn.mock.calls[0][0].files).toEqual(fileList);
-    });
-
-    test('fileListDisplay: theme=file && draggable=true, fileListDisplay', () => {
-      const { container } = render(
-        <Upload
-          fileListDisplay={<span className="custom-node">TNode</span>}
+          fileListDisplay={display}
           theme="file"
-          draggable={true}
+          draggable
           files={[{ name: 'file1.txt', status: 'waiting', uploadTime: 1674897038406 }]}
         ></Upload>,
       );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
+      expect(fileDraggableContainer.querySelector('.custom-node')).toBeTruthy();
 
-    test('fileListDisplay: a function with params, props.fileListDisplay: theme=file && draggable=true, fileListDisplay', () => {
-      const fn = vi.fn();
-      render(
+      const { container: imageDraggableContainer } = render(
         <Upload
-          fileListDisplay={fn}
-          theme="file"
-          draggable={true}
-          files={[{ name: 'file1.txt', status: 'waiting', uploadTime: 1674897038406 }]}
-        ></Upload>,
-      );
-      expect(fn).toHaveBeenCalled();
-      expect(fn.mock.calls[0][0].files).toEqual([{ name: 'file1.txt', status: 'waiting', uploadTime: 1674897038406 }]);
-    });
-
-    test('fileListDisplay: theme=image && draggable=true, fileListDisplay', () => {
-      const { container } = render(
-        <Upload
-          fileListDisplay={<span className="custom-node">TNode</span>}
+          fileListDisplay={display}
           theme="image"
-          draggable={true}
+          draggable
           files={[
             {
               url: 'https://img1.txt',
@@ -1324,33 +1116,69 @@ describe('Upload', () => {
           ]}
         ></Upload>,
       );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
+      expect(imageDraggableContainer.querySelector('.custom-node')).toBeTruthy();
     });
 
-    test('fileListDisplay: a function with params, props.fileListDisplay: theme=image && draggable=true, fileListDisplay', () => {
-      const fn = vi.fn();
+    test('fileListDisplay[function]', () => {
+      const action = 'https://tdesign.test.com/upload/file_success';
+      const fileList = getFakeFileList('file', 3);
+      const fileFn = vi.fn();
+      render(<Upload fileListDisplay={fileFn} files={fileList} theme="file" action={action}></Upload>);
+      expect(fileFn).toHaveBeenCalled();
+      expect(fileFn.mock.calls[0][0].files).toEqual(fileList);
+
+      const flowImageList = [{ url: 'https://tdesign.gtimg.com/demo/demo-image-1.png' }];
+      const imageFlowFn = vi.fn();
       render(
         <Upload
-          fileListDisplay={fn}
-          theme="image"
-          draggable={true}
-          files={[
-            {
-              url: 'https://img1.txt',
-              status: 'waiting',
-              uploadTime: 1674897038406,
-            },
-          ]}
+          fileListDisplay={imageFlowFn}
+          files={flowImageList}
+          theme="image-flow"
+          multiple
+          draggable
+          action={action}
         ></Upload>,
       );
-      expect(fn).toHaveBeenCalled();
-      expect(fn.mock.calls[0][0].files).toEqual([
+      expect(imageFlowFn).toHaveBeenCalled();
+      expect(imageFlowFn.mock.calls[0][0].files).toEqual(flowImageList);
+
+      const fileFlowFn = vi.fn();
+      render(
+        <Upload
+          fileListDisplay={fileFlowFn}
+          files={flowImageList}
+          theme="file-flow"
+          multiple
+          draggable
+          action={action}
+        ></Upload>,
+      );
+      expect(fileFlowFn).toHaveBeenCalled();
+      expect(fileFlowFn.mock.calls[0][0].files).toEqual(flowImageList);
+
+      const waitingFile = [
         {
-          url: 'https://img1.txt',
-          status: 'waiting',
+          name: 'file1.txt',
+          status: 'waiting' as const,
           uploadTime: 1674897038406,
         },
-      ]);
+      ];
+      const fileDraggableFn = vi.fn();
+      render(<Upload fileListDisplay={fileDraggableFn} theme="file" draggable files={waitingFile}></Upload>);
+      expect(fileDraggableFn).toHaveBeenCalled();
+      expect(fileDraggableFn.mock.calls[0][0].files).toEqual(waitingFile);
+
+      const imageWaitingFile = [
+        {
+          url: 'https://img1.txt',
+          status: 'waiting' as const,
+          uploadTime: 1674897038406,
+        },
+      ];
+      const imageDraggableFn = vi.fn();
+      render(<Upload fileListDisplay={imageDraggableFn} theme="image" draggable files={imageWaitingFile}></Upload>);
+      expect(imageDraggableFn).toHaveBeenCalled();
+      expect(imageDraggableFn.mock.calls[0][0].files).toEqual(imageWaitingFile);
     });
 
     test('tips', () => {
@@ -1364,58 +1192,42 @@ describe('Upload', () => {
       expect(container.querySelector('.t-upload__tips')).toBeTruthy();
     });
 
-    test('trigger: theme = file, trigger', () => {
-      const { container } = render(<Upload trigger={<span className="custom-node">TNode</span>} theme="file"></Upload>);
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
+    test('trigger[TNode]', () => {
+      const trigger = <span className="custom-node">TNode</span>;
 
-    test('trigger: theme = custom & draggable = true, trigger', () => {
-      const { container } = render(
-        <Upload trigger={<span className="custom-node">TNode</span>} theme="custom" draggable={true}></Upload>,
-      );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
+      const { container: fileContainer } = render(<Upload trigger={trigger} theme="file"></Upload>);
+      expect(fileContainer.querySelector('.custom-node')).toBeTruthy();
 
-    test('trigger: a function with params, props.trigger: theme = custom & draggable = true, trigger', () => {
-      const fn = vi.fn();
-      render(<Upload trigger={fn} theme="custom" draggable={true}></Upload>);
-      expect(fn).toHaveBeenCalled();
-      expect(fn.mock.calls[0][0].dragActive).toBe(false);
-      expect(fn.mock.calls[0][0].files).toEqual([]);
-    });
+      const { container: customContainer } = render(<Upload trigger={trigger} theme="custom"></Upload>);
+      expect(customContainer.querySelector('.custom-node')).toBeTruthy();
 
-    test('trigger: theme = custom, trigger', () => {
-      const { container } = render(
-        <Upload trigger={<span className="custom-node">TNode</span>} theme="custom"></Upload>,
-      );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
-    });
+      const { container: draggableContainer } = render(<Upload trigger={trigger} theme="custom" draggable></Upload>);
+      expect(draggableContainer.querySelector('.custom-node')).toBeTruthy();
 
-    test('trigger: theme = custom, trigger is right with files', () => {
-      const { container } = render(
+      const { container: withFilesContainer } = render(
         <Upload
-          trigger={<span className="custom-node">TNode</span>}
+          trigger={trigger}
           theme="custom"
-          draggable={true}
+          draggable
           files={[{ name: 'file-name.txt', status: 'progress' }]}
         ></Upload>,
       );
-      expect(container.querySelector('.custom-node')).toBeTruthy();
+      expect(withFilesContainer.querySelector('.custom-node')).toBeTruthy();
     });
 
-    test('trigger: a function with params, props.trigger: theme = custom, trigger is right with files', () => {
-      const fn = vi.fn();
-      render(
-        <Upload
-          trigger={fn}
-          theme="custom"
-          draggable={true}
-          files={[{ name: 'file-name.txt', status: 'progress' }]}
-        ></Upload>,
-      );
-      expect(fn).toHaveBeenCalled();
-      expect(fn.mock.calls[0][0].dragActive).toBe(false);
-      expect(fn.mock.calls[0][0].files).toEqual([{ name: 'file-name.txt', status: 'progress' }]);
+    test('trigger[function]', () => {
+      const emptyFilesFn = vi.fn();
+      render(<Upload trigger={emptyFilesFn} theme="custom" draggable></Upload>);
+      expect(emptyFilesFn).toHaveBeenCalled();
+      expect(emptyFilesFn.mock.calls[0][0].dragActive).toBe(false);
+      expect(emptyFilesFn.mock.calls[0][0].files).toEqual([]);
+
+      const progressFiles = [{ name: 'file-name.txt', status: 'progress' as const }];
+      const withFilesFn = vi.fn();
+      render(<Upload trigger={withFilesFn} theme="custom" draggable files={progressFiles}></Upload>);
+      expect(withFilesFn).toHaveBeenCalled();
+      expect(withFilesFn.mock.calls[0][0].dragActive).toBe(false);
+      expect(withFilesFn.mock.calls[0][0].files).toEqual(progressFiles);
     });
   });
 
@@ -1423,7 +1235,7 @@ describe('Upload', () => {
     test('cancelUpload', async () => {
       const onChangeFn = vi.fn();
       const onCancelUploadFn = vi.fn();
-      const { container } = render(
+      const { container, unmount } = render(
         <Upload
           theme="file"
           draggable={true}
@@ -1438,91 +1250,121 @@ describe('Upload', () => {
       await mockDelay();
       expect(onChangeFn).not.toHaveBeenCalled();
       expect(onCancelUploadFn).toHaveBeenCalled();
+      unmount();
+
+      const manualOnCancelUploadFn = vi.fn();
+      const onRemoveFn = vi.fn();
+      const { container: manualContainer } = render(
+        <Upload
+          theme="image"
+          draggable={true}
+          autoUpload={false}
+          files={[
+            {
+              url: 'https://image3.png',
+              name: 'image3.png',
+              status: 'waiting',
+            },
+          ]}
+          onCancelUpload={manualOnCancelUploadFn}
+          onRemove={onRemoveFn}
+        ></Upload>,
+      );
+      fireEvent.click(manualContainer.querySelector('.t-upload__dragger-progress-cancel'));
+      expect(manualOnCancelUploadFn).toHaveBeenCalled();
+      expect(onRemoveFn).toHaveBeenCalled();
+      expect(onRemoveFn.mock.calls[0][0].file).toEqual({
+        url: 'https://image3.png',
+        name: 'image3.png',
+        status: 'waiting',
+      });
+      expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
+      expect(onRemoveFn.mock.calls[0][0].index).toBe(0);
     });
 
-    test('change: can trigger change if autoUpload is false for image', async () => {
-      const onChangeFn = vi.fn();
-      const { container } = render(
-        <Upload theme="image" draggable={true} autoUpload={false} files={[]} onChange={onChangeFn}></Upload>,
+    test('change', async () => {
+      const imageOnChangeFn = vi.fn();
+      const { container: imageContainer, unmount: unmountImage } = render(
+        <Upload theme="image" draggable={true} autoUpload={false} files={[]} onChange={imageOnChangeFn}></Upload>,
       );
-      const inputDom = container.querySelector('input');
+      const inputDom = imageContainer.querySelector('input');
       const fileList = simulateFileChange(inputDom, 'image', 1);
       await mockDelay(100);
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0][0].raw).toEqual(fileList[0]);
-      expect(onChangeFn.mock.calls[0][1].trigger).toBe('add');
-      expect(onChangeFn.mock.calls[0][1].index).toBe(0);
-      expect(onChangeFn.mock.calls[0][1].file.raw).toEqual(fileList[0]);
-    });
+      expect(imageOnChangeFn).toHaveBeenCalled();
+      expect(imageOnChangeFn.mock.calls[0][0][0].raw).toEqual(fileList[0]);
+      expect(imageOnChangeFn.mock.calls[0][1].trigger).toBe('add');
+      expect(imageOnChangeFn.mock.calls[0][1].index).toBe(0);
+      expect(imageOnChangeFn.mock.calls[0][1].file.raw).toEqual(fileList[0]);
+      unmountImage();
 
-    test('change: can trigger change if autoUpload is false for image-flow', async () => {
-      const onChangeFn = vi.fn();
-      const { container } = render(
+      const imageFlowOnChangeFn = vi.fn();
+      const { container: imageFlowContainer } = render(
         <Upload
           theme="image-flow"
           draggable={true}
           autoUpload={false}
           multiple={true}
           files={[{ url: 'https://image1.png', status: 'success' }]}
-          onChange={onChangeFn}
+          onChange={imageFlowOnChangeFn}
         ></Upload>,
       );
-      const inputDom = container.querySelector('input');
-      const fileList = simulateFileChange(inputDom, 'image', 1);
+      const imageFlowFileList = simulateFileChange(imageFlowContainer.querySelector('input'), 'image', 1);
       await mockDelay(100);
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0][0]).toEqual({
+      expect(imageFlowOnChangeFn).toHaveBeenCalled();
+      expect(imageFlowOnChangeFn.mock.calls[0][0][0]).toEqual({
         url: 'https://image1.png',
         status: 'success',
       });
-      expect(onChangeFn.mock.calls[0][0][1].raw).toEqual(fileList[0]);
-      expect(onChangeFn.mock.calls[0][1].trigger).toBe('add');
-      expect(onChangeFn.mock.calls[0][1].index).toBe(1);
-      expect(onChangeFn.mock.calls[0][1].file.raw).toEqual(fileList[0]);
-      expect(onChangeFn.mock.calls[0][1].files.map((t) => t.raw)).toEqual(fileList);
+      expect(imageFlowOnChangeFn.mock.calls[0][0][1].raw).toEqual(imageFlowFileList[0]);
+      expect(imageFlowOnChangeFn.mock.calls[0][1].trigger).toBe('add');
+      expect(imageFlowOnChangeFn.mock.calls[0][1].index).toBe(1);
+      expect(imageFlowOnChangeFn.mock.calls[0][1].file.raw).toEqual(imageFlowFileList[0]);
+      expect(imageFlowOnChangeFn.mock.calls[0][1].files.map((t) => t.raw)).toEqual(imageFlowFileList);
     });
 
-    test('dragenter: drag image enter, trigger onDragenter event', () => {
-      const onDragenterFn = vi.fn();
-      const onDragleaveFn2 = vi.fn();
-      const { container } = render(
-        <Upload theme="image" draggable={true} onDragenter={onDragenterFn} onDragleave={onDragleaveFn2}></Upload>,
+    test('dragenter', () => {
+      const imageOnDragenterFn = vi.fn();
+      const imageOnDragleaveFn = vi.fn();
+      const { container: imageContainer, unmount: unmountImage } = render(
+        <Upload
+          theme="image"
+          draggable={true}
+          onDragenter={imageOnDragenterFn}
+          onDragleave={imageOnDragleaveFn}
+        ></Upload>,
       );
-      const tUploadDraggerDom = container.querySelector('.t-upload__dragger');
+      const tUploadDraggerDom = imageContainer.querySelector('.t-upload__dragger');
       const files = simulateDragFileChange(tUploadDraggerDom, 'dragEnter', 'image');
-      expect(onDragenterFn).toHaveBeenCalled();
-      expect(onDragenterFn.mock.calls[0][0].e.type).toBe('dragenter');
-      expect(onDragenterFn.mock.calls[0][0].e.dataTransfer.files).toEqual(files);
-      const tUploadDraggerDom1 = container.querySelector('.t-upload__dragger');
+      expect(imageOnDragenterFn).toHaveBeenCalled();
+      expect(imageOnDragenterFn.mock.calls[0][0].e.type).toBe('dragenter');
+      expect(imageOnDragenterFn.mock.calls[0][0].e.dataTransfer.files).toEqual(files);
+      const tUploadDraggerDom1 = imageContainer.querySelector('.t-upload__dragger');
       simulateDragFileChange(tUploadDraggerDom1, 'dragOver');
-      const tUploadDraggerDom2 = container.querySelector('.t-upload__dragger');
+      const tUploadDraggerDom2 = imageContainer.querySelector('.t-upload__dragger');
       simulateDragFileChange(tUploadDraggerDom2, 'dragLeave');
-      expect(onDragleaveFn2).toHaveBeenCalled();
-      expect(onDragleaveFn2.mock.calls[0][0].e.type).toBe('dragleave');
-      expect(onDragleaveFn2.mock.calls[0][0].e.dataTransfer.files).toEqual(files);
-    });
+      expect(imageOnDragleaveFn).toHaveBeenCalled();
+      expect(imageOnDragleaveFn.mock.calls[0][0].e.type).toBe('dragleave');
+      expect(imageOnDragleaveFn.mock.calls[0][0].e.dataTransfer.files).toEqual(files);
+      unmountImage();
 
-    test('dragenter: drag file enter, trigger onDragenter event', () => {
-      const onDragenterFn = vi.fn();
-      const onDragleaveFn2 = vi.fn();
-      const { container } = render(
-        <Upload theme="file" draggable={true} onDragenter={onDragenterFn} onDragleave={onDragleaveFn2}></Upload>,
+      const fileOnDragenterFn = vi.fn();
+      const fileOnDragleaveFn = vi.fn();
+      const { container: fileContainer } = render(
+        <Upload theme="file" draggable={true} onDragenter={fileOnDragenterFn} onDragleave={fileOnDragleaveFn}></Upload>,
       );
-      const tUploadDraggerDom = container.querySelector('.t-upload__dragger');
-      const files = simulateDragFileChange(tUploadDraggerDom, 'dragEnter');
-      expect(onDragenterFn).toHaveBeenCalled();
-      expect(onDragenterFn.mock.calls[0][0].e.type).toBe('dragenter');
-      expect(onDragenterFn.mock.calls[0][0].e.dataTransfer.files).toEqual(files);
-      const tUploadDraggerDom1 = container.querySelector('.t-upload__dragger');
-      simulateDragFileChange(tUploadDraggerDom1, 'dragOver');
-      const tUploadDraggerDom2 = container.querySelector('.t-upload__dragger');
-      simulateDragFileChange(tUploadDraggerDom2, 'dragLeave');
-      expect(onDragleaveFn2).toHaveBeenCalled();
-      expect(onDragleaveFn2.mock.calls[0][0].e.type).toBe('dragleave');
-      expect(onDragleaveFn2.mock.calls[0][0].e.dataTransfer.files).toEqual(files);
+      const fileDraggerDom = fileContainer.querySelector('.t-upload__dragger');
+      const fileList = simulateDragFileChange(fileDraggerDom, 'dragEnter');
+      expect(fileOnDragenterFn).toHaveBeenCalled();
+      expect(fileOnDragenterFn.mock.calls[0][0].e.type).toBe('dragenter');
+      expect(fileOnDragenterFn.mock.calls[0][0].e.dataTransfer.files).toEqual(fileList);
+      simulateDragFileChange(fileContainer.querySelector('.t-upload__dragger'), 'dragOver');
+      simulateDragFileChange(fileContainer.querySelector('.t-upload__dragger'), 'dragLeave');
+      expect(fileOnDragleaveFn).toHaveBeenCalled();
+      expect(fileOnDragleaveFn.mock.calls[0][0].e.type).toBe('dragleave');
+      expect(fileOnDragleaveFn.mock.calls[0][0].e.dataTransfer.files).toEqual(fileList);
     });
 
-    test('dragleave: can not trigger dragleave event if drag leave other dom', () => {
+    test('dragleave', () => {
       const onDragleaveFn1 = vi.fn();
       const { container } = render(
         <Upload
@@ -1539,38 +1381,37 @@ describe('Upload', () => {
       expect(onDragleaveFn1).not.toHaveBeenCalled();
     });
 
-    test('drop: drag image drop, trigger onDrop event', () => {
-      const onDropFn = vi.fn();
-      const { container } = render(
+    test('drop', () => {
+      const imageOnDropFn = vi.fn();
+      const { container: imageContainer, unmount: unmountImage } = render(
         <Upload
           theme="image"
           draggable={true}
           action="https://tdesign.test.com/upload/file_success"
-          onDrop={onDropFn}
+          onDrop={imageOnDropFn}
         ></Upload>,
       );
-      const tUploadDraggerDom = container.querySelector('.t-upload__dragger');
+      const tUploadDraggerDom = imageContainer.querySelector('.t-upload__dragger');
       const files = simulateDragFileChange(tUploadDraggerDom, 'drop', 'image');
-      expect(onDropFn).toHaveBeenCalled();
-      expect(onDropFn.mock.calls[0][0].e.type).toBe('drop');
-      expect(onDropFn.mock.calls[0][0].e.dataTransfer.files).toEqual(files);
-    });
+      expect(imageOnDropFn).toHaveBeenCalled();
+      expect(imageOnDropFn.mock.calls[0][0].e.type).toBe('drop');
+      expect(imageOnDropFn.mock.calls[0][0].e.dataTransfer.files).toEqual(files);
+      unmountImage();
 
-    test('drop: drag file drop, trigger onDrop event', () => {
-      const onDropFn = vi.fn();
-      const { container } = render(
+      const fileOnDropFn = vi.fn();
+      const { container: fileContainer } = render(
         <Upload
           theme="file"
           draggable={true}
           action="https://tdesign.test.com/upload/file_success"
-          onDrop={onDropFn}
+          onDrop={fileOnDropFn}
         ></Upload>,
       );
-      const tUploadDraggerDom = container.querySelector('.t-upload__dragger');
-      const files = simulateDragFileChange(tUploadDraggerDom, 'drop');
-      expect(onDropFn).toHaveBeenCalled();
-      expect(onDropFn.mock.calls[0][0].e.type).toBe('drop');
-      expect(onDropFn.mock.calls[0][0].e.dataTransfer.files).toEqual(files);
+      const fileDraggerDom = fileContainer.querySelector('.t-upload__dragger');
+      const fileList = simulateDragFileChange(fileDraggerDom, 'drop');
+      expect(fileOnDropFn).toHaveBeenCalled();
+      expect(fileOnDropFn.mock.calls[0][0].e.type).toBe('drop');
+      expect(fileOnDropFn.mock.calls[0][0].e.dataTransfer.files).toEqual(fileList);
     });
 
     test('fail', async () => {
@@ -1585,9 +1426,9 @@ describe('Upload', () => {
       expect(onFailFn.mock.calls[0][0].XMLHttpRequest.upload.requestParams).toEqual({ file: fileList[0], length: 1 });
     });
 
-    test('preview: single image preview', async () => {
-      const onPreviewFn1 = vi.fn();
-      const { container } = render(
+    test('preview', async () => {
+      const singleOnPreviewFn = vi.fn();
+      const { container: singleContainer, unmount: unmountSingle } = render(
         <Upload
           files={[
             {
@@ -1596,27 +1437,26 @@ describe('Upload', () => {
             },
           ]}
           theme="image"
-          onPreview={onPreviewFn1}
+          onPreview={singleOnPreviewFn}
         ></Upload>,
       );
-      fireEvent.mouseEnter(container.querySelector('.t-upload__card-item'));
+      fireEvent.mouseEnter(singleContainer.querySelector('.t-upload__card-item'));
       await mockDelay();
-      fireEvent.click(container.querySelector('.t-icon-browse'));
+      fireEvent.click(singleContainer.querySelector('.t-icon-browse'));
       await mockDelay(300);
-      const attrDom1 = document.querySelector('.t-image-viewer__modal-image');
-      expect(attrDom1.getAttribute('src')).toBe('https://tdesign.gtimg.com/demo/demo-image-1.png');
-      expect(onPreviewFn1).toHaveBeenCalled();
-      expect(onPreviewFn1.mock.calls[0][0].file).toEqual({
+      const singlePreviewImage = document.querySelector('.t-image-viewer__modal-image');
+      expect(singlePreviewImage.getAttribute('src')).toBe('https://tdesign.gtimg.com/demo/demo-image-1.png');
+      expect(singleOnPreviewFn).toHaveBeenCalled();
+      expect(singleOnPreviewFn.mock.calls[0][0].file).toEqual({
         url: 'https://tdesign.gtimg.com/demo/demo-image-1.png',
         name: 'demo-image-1.png',
       });
-      expect(onPreviewFn1.mock.calls[0][0].index).toBe(0);
-      expect(onPreviewFn1.mock.calls[0][0].e.type).toBe('click');
-    });
+      expect(singleOnPreviewFn.mock.calls[0][0].index).toBe(0);
+      expect(singleOnPreviewFn.mock.calls[0][0].e.type).toBe('click');
+      unmountSingle();
 
-    test('preview: multiple image preview', async () => {
-      const onPreviewFn1 = vi.fn();
-      const { container } = render(
+      const multipleOnPreviewFn = vi.fn();
+      const { container: multipleContainer, unmount: unmountMultiple } = render(
         <Upload
           files={[
             {
@@ -1630,27 +1470,26 @@ describe('Upload', () => {
           ]}
           theme="image"
           multiple={true}
-          onPreview={onPreviewFn1}
+          onPreview={multipleOnPreviewFn}
         ></Upload>,
       );
-      fireEvent.mouseEnter(container.querySelector('.t-upload__card-item:last-child'));
+      fireEvent.mouseEnter(multipleContainer.querySelector('.t-upload__card-item:last-child'));
       await mockDelay();
-      fireEvent.click(container.querySelector('.t-upload__card-item:nth-child(2) .t-icon-browse'));
+      fireEvent.click(multipleContainer.querySelector('.t-upload__card-item:nth-child(2) .t-icon-browse'));
       await mockDelay(300);
-      const attrDom1 = document.querySelector('.t-image-viewer__modal-image');
-      expect(attrDom1.getAttribute('src')).toBe('https://tdesign.gtimg.com/site/avatar.jpg');
-      expect(onPreviewFn1).toHaveBeenCalled();
-      expect(onPreviewFn1.mock.calls[0][0].file).toEqual({
+      const multiplePreviewImage = document.querySelector('.t-image-viewer__modal-image');
+      expect(multiplePreviewImage.getAttribute('src')).toBe('https://tdesign.gtimg.com/site/avatar.jpg');
+      expect(multipleOnPreviewFn).toHaveBeenCalled();
+      expect(multipleOnPreviewFn.mock.calls[0][0].file).toEqual({
         url: 'https://tdesign.gtimg.com/site/avatar.jpg',
         name: 'avatar.jpg',
       });
-      expect(onPreviewFn1.mock.calls[0][0].index).toBe(1);
-      expect(onPreviewFn1.mock.calls[0][0].e.type).toBe('click');
-    });
+      expect(multipleOnPreviewFn.mock.calls[0][0].index).toBe(1);
+      expect(multipleOnPreviewFn.mock.calls[0][0].e.type).toBe('click');
+      unmountMultiple();
 
-    test('preview: theme=image-flow, image preview', async () => {
-      const onPreviewFn1 = vi.fn();
-      const { container } = render(
+      const flowOnPreviewFn = vi.fn();
+      const { container: flowContainer } = render(
         <Upload
           files={[
             {
@@ -1664,322 +1503,324 @@ describe('Upload', () => {
           ]}
           theme="image-flow"
           multiple={true}
-          onPreview={onPreviewFn1}
+          onPreview={flowOnPreviewFn}
         ></Upload>,
       );
-      fireEvent.mouseEnter(container.querySelector('.t-upload__card-item:nth-child(2)'));
+      fireEvent.mouseEnter(flowContainer.querySelector('.t-upload__card-item:nth-child(2)'));
       await mockDelay();
-      fireEvent.click(container.querySelector('.t-upload__card-item:nth-child(2) .t-icon-browse'));
+      fireEvent.click(flowContainer.querySelector('.t-upload__card-item:nth-child(2) .t-icon-browse'));
       await mockDelay(300);
-      const attrDom1 = document.querySelector('.t-image-viewer__modal-image');
-      expect(attrDom1.getAttribute('src')).toBe('https://tdesign.gtimg.com/site/avatar.jpg');
-      expect(onPreviewFn1).toHaveBeenCalled();
-      expect(onPreviewFn1.mock.calls[0][0].file).toEqual({
+      const flowPreviewImage = document.querySelector('.t-image-viewer__modal-image');
+      expect(flowPreviewImage.getAttribute('src')).toBe('https://tdesign.gtimg.com/site/avatar.jpg');
+      expect(flowOnPreviewFn).toHaveBeenCalled();
+      expect(flowOnPreviewFn.mock.calls[0][0].file).toEqual({
         url: 'https://tdesign.gtimg.com/site/avatar.jpg',
         name: 'avatar.jpg',
       });
-      expect(onPreviewFn1.mock.calls[0][0].index).toBe(1);
-      expect(onPreviewFn1.mock.calls[0][0].e.type).toBe('click');
+      expect(flowOnPreviewFn.mock.calls[0][0].index).toBe(1);
+      expect(flowOnPreviewFn.mock.calls[0][0].e.type).toBe('click');
     });
 
-    test('remove: remove single file, trigger remove event', () => {
-      const onChangeFn = vi.fn();
-      const onRemoveFn = vi.fn();
-      const { container } = render(
-        <Upload
-          files={[{ name: 'file1.txt', url: 'https://xxx1.txt' }]}
-          onChange={onChangeFn}
-          onRemove={onRemoveFn}
-        ></Upload>,
-      );
-      fireEvent.click(container.querySelector('.t-upload__icon-delete'));
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0]).toEqual([]);
-      expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
-      expect(onRemoveFn).toHaveBeenCalled();
-      expect(onRemoveFn.mock.calls[0][0].index).toBe(0);
-      expect(onRemoveFn.mock.calls[0][0].file).toBeTruthy();
-      expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
-    });
+    test('remove', async () => {
+      {
+        const onChangeFn = vi.fn();
+        const onRemoveFn = vi.fn();
+        const { container } = render(
+          <Upload
+            files={[{ name: 'file1.txt', url: 'https://xxx1.txt' }]}
+            onChange={onChangeFn}
+            onRemove={onRemoveFn}
+          ></Upload>,
+        );
+        fireEvent.click(container.querySelector('.t-upload__icon-delete'));
+        expect(onChangeFn).toHaveBeenCalled();
+        expect(onChangeFn.mock.calls[0][0]).toEqual([]);
+        expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
+        expect(onRemoveFn).toHaveBeenCalled();
+        expect(onRemoveFn.mock.calls[0][0].index).toBe(0);
+        expect(onRemoveFn.mock.calls[0][0].file).toBeTruthy();
+        expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
+      }
 
-    test('remove: remove only one of file list, trigger remove event', () => {
-      const onChangeFn = vi.fn();
-      const onRemoveFn = vi.fn();
-      const { container } = render(
-        <Upload
-          multiple={true}
-          files={[
-            { name: 'file1.txt', url: 'https://xxx1.txt' },
-            { name: 'file2.txt', url: 'https://xxx2.txt' },
-            { name: 'file3.txt', url: 'https://xxx3.txt' },
-          ]}
-          onChange={onChangeFn}
-          onRemove={onRemoveFn}
-        ></Upload>,
-      );
-      fireEvent.click(container.querySelector('.t-upload__single-display-text .t-upload__icon-delete'));
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0]).toEqual([
-        { name: 'file2.txt', url: 'https://xxx2.txt' },
-        { name: 'file3.txt', url: 'https://xxx3.txt' },
-      ]);
-      expect(onChangeFn.mock.calls[0][1].index).toBe(0);
-      expect(onChangeFn.mock.calls[0][1].file).toBeTruthy();
-      expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
-      expect(onRemoveFn).toHaveBeenCalled();
-      expect(onRemoveFn.mock.calls[0][0].index).toBe(0);
-      expect(onRemoveFn.mock.calls[0][0].file).toBeTruthy();
-      expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
-    });
+      {
+        const onChangeFn = vi.fn();
+        const onRemoveFn = vi.fn();
+        const { container } = render(
+          <Upload
+            multiple={true}
+            files={[
+              { name: 'file1.txt', url: 'https://xxx1.txt' },
+              { name: 'file2.txt', url: 'https://xxx2.txt' },
+              { name: 'file3.txt', url: 'https://xxx3.txt' },
+            ]}
+            onChange={onChangeFn}
+            onRemove={onRemoveFn}
+          ></Upload>,
+        );
+        fireEvent.click(container.querySelector('.t-upload__single-display-text .t-upload__icon-delete'));
+        expect(onChangeFn).toHaveBeenCalled();
+        expect(onChangeFn.mock.calls[0][0]).toEqual([
+          { name: 'file2.txt', url: 'https://xxx2.txt' },
+          { name: 'file3.txt', url: 'https://xxx3.txt' },
+        ]);
+        expect(onChangeFn.mock.calls[0][1].index).toBe(0);
+        expect(onChangeFn.mock.calls[0][1].file).toBeTruthy();
+        expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
+        expect(onRemoveFn).toHaveBeenCalled();
+        expect(onRemoveFn.mock.calls[0][0].index).toBe(0);
+        expect(onRemoveFn.mock.calls[0][0].file).toBeTruthy();
+        expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
+      }
 
-    test('remove: failed image file can be removed', () => {
-      const onChangeFn = vi.fn();
-      const onRemoveFn = vi.fn();
-      const { container } = render(
-        <Upload
-          theme="image"
-          multiple={true}
-          files={[{ name: 'image1.png', status: 'fail' }]}
-          onChange={onChangeFn}
-          onRemove={onRemoveFn}
-        ></Upload>,
-      );
-      fireEvent.click(container.querySelector('.t-upload__card-mask-item .t-icon-delete'));
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0]).toEqual([]);
-      expect(onChangeFn.mock.calls[0][1].index).toBe(0);
-      expect(onChangeFn.mock.calls[0][1].file).toBeTruthy();
-      expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
-      expect(onRemoveFn).toHaveBeenCalled();
-      expect(onRemoveFn.mock.calls[0][0].index).toBe(0);
-      expect(onRemoveFn.mock.calls[0][0].file).toBeTruthy();
-      expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
-    });
+      {
+        const onChangeFn = vi.fn();
+        const onRemoveFn = vi.fn();
+        const { container } = render(
+          <Upload
+            theme="image"
+            multiple={true}
+            files={[{ name: 'image1.png', status: 'fail' }]}
+            onChange={onChangeFn}
+            onRemove={onRemoveFn}
+          ></Upload>,
+        );
+        fireEvent.click(container.querySelector('.t-upload__card-mask-item .t-icon-delete'));
+        expect(onChangeFn).toHaveBeenCalled();
+        expect(onChangeFn.mock.calls[0][0]).toEqual([]);
+        expect(onChangeFn.mock.calls[0][1].index).toBe(0);
+        expect(onChangeFn.mock.calls[0][1].file).toBeTruthy();
+        expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
+        expect(onRemoveFn).toHaveBeenCalled();
+        expect(onRemoveFn.mock.calls[0][0].index).toBe(0);
+        expect(onRemoveFn.mock.calls[0][0].file).toBeTruthy();
+        expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
+      }
 
-    test('remove: success status image can be removed', () => {
-      const onChangeFn = vi.fn();
-      const onRemoveFn = vi.fn();
-      const { container } = render(
-        <Upload
-          theme="image"
-          multiple={true}
-          files={[{ url: 'https://image1.png', status: 'success' }]}
-          onChange={onChangeFn}
-          onRemove={onRemoveFn}
-        ></Upload>,
-      );
-      fireEvent.click(container.querySelector('.t-upload__card-mask-item .t-icon-delete'));
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0]).toEqual([]);
-      expect(onChangeFn.mock.calls[0][1].index).toBe(0);
-      expect(onChangeFn.mock.calls[0][1].file).toBeTruthy();
-      expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
-      expect(onRemoveFn).toHaveBeenCalled();
-      expect(onRemoveFn.mock.calls[0][0].index).toBe(0);
-      expect(onRemoveFn.mock.calls[0][0].file).toBeTruthy();
-      expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
-    });
+      {
+        const onChangeFn = vi.fn();
+        const onRemoveFn = vi.fn();
+        const { container } = render(
+          <Upload
+            theme="image"
+            multiple={true}
+            files={[{ url: 'https://image1.png', status: 'success' }]}
+            onChange={onChangeFn}
+            onRemove={onRemoveFn}
+          ></Upload>,
+        );
+        fireEvent.click(container.querySelector('.t-upload__card-mask-item .t-icon-delete'));
+        expect(onChangeFn).toHaveBeenCalled();
+        expect(onChangeFn.mock.calls[0][0]).toEqual([]);
+        expect(onChangeFn.mock.calls[0][1].index).toBe(0);
+        expect(onChangeFn.mock.calls[0][1].file).toBeTruthy();
+        expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
+        expect(onRemoveFn).toHaveBeenCalled();
+        expect(onRemoveFn.mock.calls[0][0].index).toBe(0);
+        expect(onRemoveFn.mock.calls[0][0].file).toBeTruthy();
+        expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
+      }
 
-    test('remove: theme=file-input, file can be removed to be empty', () => {
-      const onChangeFn = vi.fn();
-      const onRemoveFn = vi.fn();
-      const { container } = render(
-        <Upload
-          theme="file-input"
-          files={[{ name: 'file.txt', status: 'success' }]}
-          onChange={onChangeFn}
-          onRemove={onRemoveFn}
-        ></Upload>,
-      );
-      fireEvent.click(container.querySelector('.t-upload__single-input-clear'));
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0]).toEqual([]);
-      expect(onRemoveFn).toHaveBeenCalled();
-      expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
-    });
+      {
+        const onChangeFn = vi.fn();
+        const onRemoveFn = vi.fn();
+        const { container } = render(
+          <Upload
+            theme="file-input"
+            files={[{ name: 'file.txt', status: 'success' }]}
+            onChange={onChangeFn}
+            onRemove={onRemoveFn}
+          ></Upload>,
+        );
+        fireEvent.click(container.querySelector('.t-upload__single-input-clear'));
+        expect(onChangeFn).toHaveBeenCalled();
+        expect(onChangeFn.mock.calls[0][0]).toEqual([]);
+        expect(onRemoveFn).toHaveBeenCalled();
+        expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
+      }
 
-    test('remove: theme=file-flow, remove file, trigger remove event', () => {
-      const onChangeFn = vi.fn();
-      const onRemoveFn = vi.fn();
-      const { container } = render(
-        <Upload
-          theme="file-flow"
-          multiple={true}
-          files={[{ name: 'file1.txt', url: 'https://xxx1.txt' }]}
-          onChange={onChangeFn}
-          onRemove={onRemoveFn}
-        ></Upload>,
-      );
-      fireEvent.click(container.querySelector('.t-upload__delete'));
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0]).toEqual([]);
-      expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
-      expect(onRemoveFn).toHaveBeenCalled();
-      expect(onRemoveFn.mock.calls[0][0].index).toBe(0);
-      expect(onRemoveFn.mock.calls[0][0].file).toBeTruthy();
-      expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
-    });
+      {
+        const onChangeFn = vi.fn();
+        const onRemoveFn = vi.fn();
+        const { container } = render(
+          <Upload
+            theme="file-flow"
+            multiple={true}
+            files={[{ name: 'file1.txt', url: 'https://xxx1.txt' }]}
+            onChange={onChangeFn}
+            onRemove={onRemoveFn}
+          ></Upload>,
+        );
+        fireEvent.click(container.querySelector('.t-upload__delete'));
+        expect(onChangeFn).toHaveBeenCalled();
+        expect(onChangeFn.mock.calls[0][0]).toEqual([]);
+        expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
+        expect(onRemoveFn).toHaveBeenCalled();
+        expect(onRemoveFn.mock.calls[0][0].index).toBe(0);
+        expect(onRemoveFn.mock.calls[0][0].file).toBeTruthy();
+        expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
+      }
 
-    test('remove: theme=image-flow, remove file, trigger remove event', () => {
-      const onChangeFn = vi.fn();
-      const onRemoveFn = vi.fn();
-      const { container } = render(
-        <Upload
-          theme="image-flow"
-          multiple={true}
-          files={[{ name: 'file1.txt', url: 'https://xxx1.txt' }]}
-          onChange={onChangeFn}
-          onRemove={onRemoveFn}
-        ></Upload>,
-      );
-      fireEvent.click(container.querySelector('.t-upload__delete'));
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0]).toEqual([]);
-      expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
-      expect(onRemoveFn).toHaveBeenCalled();
-      expect(onRemoveFn.mock.calls[0][0].index).toBe(0);
-      expect(onRemoveFn.mock.calls[0][0].file).toBeTruthy();
-      expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
-    });
+      {
+        const onChangeFn = vi.fn();
+        const onRemoveFn = vi.fn();
+        const { container } = render(
+          <Upload
+            theme="image-flow"
+            multiple={true}
+            files={[{ name: 'file1.txt', url: 'https://xxx1.txt' }]}
+            onChange={onChangeFn}
+            onRemove={onRemoveFn}
+          ></Upload>,
+        );
+        fireEvent.click(container.querySelector('.t-upload__delete'));
+        expect(onChangeFn).toHaveBeenCalled();
+        expect(onChangeFn.mock.calls[0][0]).toEqual([]);
+        expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
+        expect(onRemoveFn).toHaveBeenCalled();
+        expect(onRemoveFn.mock.calls[0][0].index).toBe(0);
+        expect(onRemoveFn.mock.calls[0][0].file).toBeTruthy();
+        expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
+      }
 
-    test('remove: theme=file-flow & isBatchUpload=true, remove all files if click delete node', () => {
-      const onChangeFn = vi.fn();
-      const onRemoveFn = vi.fn();
-      const { container } = render(
-        <Upload
-          theme="file-flow"
-          multiple={true}
-          isBatchUpload={true}
-          files={[
-            { name: 'file1.txt', url: 'https://xxx1.txt' },
-            { name: 'file2.txt', url: 'https://xxx2.txt' },
-          ]}
-          onChange={onChangeFn}
-          onRemove={onRemoveFn}
-        ></Upload>,
-      );
-      fireEvent.click(container.querySelector('.t-upload__delete'));
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0]).toEqual([]);
-      expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
-      expect(onRemoveFn).toHaveBeenCalled();
-      expect(onRemoveFn.mock.calls[0][0].index).toBe(-1);
-      expect(onRemoveFn.mock.calls[0][0].file).toBe(undefined);
-      expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
-    });
+      {
+        const onChangeFn = vi.fn();
+        const onRemoveFn = vi.fn();
+        const { container } = render(
+          <Upload
+            theme="file-flow"
+            multiple={true}
+            isBatchUpload={true}
+            files={[
+              { name: 'file1.txt', url: 'https://xxx1.txt' },
+              { name: 'file2.txt', url: 'https://xxx2.txt' },
+            ]}
+            onChange={onChangeFn}
+            onRemove={onRemoveFn}
+          ></Upload>,
+        );
+        fireEvent.click(container.querySelector('.t-upload__delete'));
+        expect(onChangeFn).toHaveBeenCalled();
+        expect(onChangeFn.mock.calls[0][0]).toEqual([]);
+        expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
+        expect(onRemoveFn).toHaveBeenCalled();
+        expect(onRemoveFn.mock.calls[0][0].index).toBe(-1);
+        expect(onRemoveFn.mock.calls[0][0].file).toBe(undefined);
+        expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
+      }
 
-    test('remove: theme=image & draggable=true, success file can be removed', () => {
-      const onChangeFn = vi.fn();
-      const onRemoveFn = vi.fn();
-      const { container } = render(
-        <Upload
-          theme="image"
-          draggable={true}
-          files={[{ url: 'https://www.image.png', status: 'success' }]}
-          onChange={onChangeFn}
-          onRemove={onRemoveFn}
-        ></Upload>,
-      );
-      fireEvent.click(container.querySelector('.t-upload__dragger-delete-btn'));
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0]).toEqual([]);
-      expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
-      expect(onRemoveFn).toHaveBeenCalled();
-      expect(onRemoveFn.mock.calls[0][0].index).toBe(0);
-      expect(onRemoveFn.mock.calls[0][0].file).toEqual({
-        url: 'https://www.image.png',
-        status: 'success',
-      });
-      expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
-    });
+      {
+        const onChangeFn = vi.fn();
+        const onRemoveFn = vi.fn();
+        const { container } = render(
+          <Upload
+            theme="image"
+            draggable={true}
+            files={[{ url: 'https://www.image.png', status: 'success' }]}
+            onChange={onChangeFn}
+            onRemove={onRemoveFn}
+          ></Upload>,
+        );
+        fireEvent.click(container.querySelector('.t-upload__dragger-delete-btn'));
+        expect(onChangeFn).toHaveBeenCalled();
+        expect(onChangeFn.mock.calls[0][0]).toEqual([]);
+        expect(onChangeFn.mock.calls[0][1].e.type).toBe('click');
+        expect(onRemoveFn).toHaveBeenCalled();
+        expect(onRemoveFn.mock.calls[0][0].index).toBe(0);
+        expect(onRemoveFn.mock.calls[0][0].file).toEqual({
+          url: 'https://www.image.png',
+          status: 'success',
+        });
+        expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
+      }
 
-    test('remove: theme=file & multiple=true & autoUpload=false', () => {
-      const onChangeFn = vi.fn();
-      const onRemoveFn = vi.fn();
-      const { container } = render(
-        <Upload
-          theme="file"
-          multiple={true}
-          autoUpload={false}
-          files={[
-            { name: 'file1.txt' },
-            { name: 'file2.txt', status: 'success' },
-            { name: 'file3.txt', status: 'waiting' },
-          ]}
-          onChange={onChangeFn}
-          onRemove={onRemoveFn}
-        ></Upload>,
-      );
-      fireEvent.click(container.querySelector('.t-upload__single-display-text:last-child .t-upload__icon-delete'));
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0]).toEqual([{ name: 'file1.txt' }, { name: 'file2.txt', status: 'success' }]);
-      expect(onRemoveFn).toHaveBeenCalled();
-      expect(onRemoveFn.mock.calls[0][0].index).toBe(2);
-      expect(onRemoveFn.mock.calls[0][0].file).toEqual({
-        name: 'file3.txt',
-        status: 'waiting',
-      });
-      expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
-    });
+      {
+        const onChangeFn = vi.fn();
+        const onRemoveFn = vi.fn();
+        const { container } = render(
+          <Upload
+            theme="file"
+            multiple={true}
+            autoUpload={false}
+            files={[
+              { name: 'file1.txt' },
+              { name: 'file2.txt', status: 'success' },
+              { name: 'file3.txt', status: 'waiting' },
+            ]}
+            onChange={onChangeFn}
+            onRemove={onRemoveFn}
+          ></Upload>,
+        );
+        fireEvent.click(container.querySelector('.t-upload__single-display-text:last-child .t-upload__icon-delete'));
+        expect(onChangeFn).toHaveBeenCalled();
+        expect(onChangeFn.mock.calls[0][0]).toEqual([{ name: 'file1.txt' }, { name: 'file2.txt', status: 'success' }]);
+        expect(onRemoveFn).toHaveBeenCalled();
+        expect(onRemoveFn.mock.calls[0][0].index).toBe(2);
+        expect(onRemoveFn.mock.calls[0][0].file).toEqual({
+          name: 'file3.txt',
+          status: 'waiting',
+        });
+        expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
+      }
 
-    test('remove: theme=file-flow & multiple=true & autoUpload=true, remove success file', () => {
-      const onChangeFn = vi.fn();
-      const onRemoveFn = vi.fn();
-      const { container } = render(
-        <Upload
-          theme="file-flow"
-          multiple={true}
-          autoUpload={true}
-          files={[
-            { name: 'file1.txt' },
-            { name: 'file2.txt', status: 'success' },
-            { name: 'file3.txt', status: 'waiting' },
-            { name: 'file4.txt', status: 'fail' },
-          ]}
-          onChange={onChangeFn}
-          onRemove={onRemoveFn}
-        ></Upload>,
-      );
-      fireEvent.click(container.querySelector('.t-upload__flow-table tbody tr:nth-child(2) .t-upload__delete'));
-      expect(onChangeFn).toHaveBeenCalled();
-      expect(onChangeFn.mock.calls[0][0]).toEqual([
-        { name: 'file1.txt' },
-        { name: 'file3.txt', status: 'waiting' },
-        { name: 'file4.txt', status: 'fail' },
-      ]);
-      expect(onRemoveFn).toHaveBeenCalled();
-      expect(onRemoveFn.mock.calls[0][0].index).toBe(1);
-      expect(onRemoveFn.mock.calls[0][0].file).toEqual({
-        name: 'file2.txt',
-        status: 'success',
-      });
-      expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
-    });
+      {
+        const onChangeFn = vi.fn();
+        const onRemoveFn = vi.fn();
+        const { container } = render(
+          <Upload
+            theme="file-flow"
+            multiple={true}
+            autoUpload={true}
+            files={[
+              { name: 'file1.txt' },
+              { name: 'file2.txt', status: 'success' },
+              { name: 'file3.txt', status: 'waiting' },
+              { name: 'file4.txt', status: 'fail' },
+            ]}
+            onChange={onChangeFn}
+            onRemove={onRemoveFn}
+          ></Upload>,
+        );
+        fireEvent.click(container.querySelector('.t-upload__flow-table tbody tr:nth-child(2) .t-upload__delete'));
+        expect(onChangeFn).toHaveBeenCalled();
+        expect(onChangeFn.mock.calls[0][0]).toEqual([
+          { name: 'file1.txt' },
+          { name: 'file3.txt', status: 'waiting' },
+          { name: 'file4.txt', status: 'fail' },
+        ]);
+        expect(onRemoveFn).toHaveBeenCalled();
+        expect(onRemoveFn.mock.calls[0][0].index).toBe(1);
+        expect(onRemoveFn.mock.calls[0][0].file).toEqual({
+          name: 'file2.txt',
+          status: 'success',
+        });
+        expect(onRemoveFn.mock.calls[0][0].e.type).toBe('click');
+      }
 
-    test('remove: theme=file-flow & multiple=true & autoUpload=true, remove fail file', async () => {
-      const onChangeFn1 = vi.fn();
-      const onRemoveFn1 = vi.fn();
-      const { container } = render(
-        <Upload
-          theme="file-flow"
-          multiple={true}
-          autoUpload={true}
-          files={[{ name: 'file1.txt' }, { name: 'file2.txt', status: 'success' }]}
-          action="https://tdesign.test.com/upload/fail/status_error"
-          onChange={onChangeFn1}
-          onRemove={onRemoveFn1}
-        ></Upload>,
-      );
-      const inputDom = container.querySelector('input');
-      simulateFileChange(inputDom);
-      await mockDelay();
-      fireEvent.click(container.querySelector('.t-upload__flow-table tbody tr:last-child .t-upload__delete'));
-      expect(onChangeFn1).not.toHaveBeenCalled();
-      expect(onRemoveFn1).toHaveBeenCalled();
-      expect(onRemoveFn1.mock.calls[0][0].index).toBe(2);
-      expect(onRemoveFn1.mock.calls[0][0].file.name).toBe('file-name.txt');
-      expect(onRemoveFn1.mock.calls[0][0].file.status).toBe('fail');
-      expect(onRemoveFn1.mock.calls[0][0].e.type).toBe('click');
+      {
+        const onChangeFn1 = vi.fn();
+        const onRemoveFn1 = vi.fn();
+        const { container } = render(
+          <Upload
+            theme="file-flow"
+            multiple={true}
+            autoUpload={true}
+            files={[{ name: 'file1.txt' }, { name: 'file2.txt', status: 'success' }]}
+            action="https://tdesign.test.com/upload/fail/status_error"
+            onChange={onChangeFn1}
+            onRemove={onRemoveFn1}
+          ></Upload>,
+        );
+        const inputDom = container.querySelector('input');
+        simulateFileChange(inputDom);
+        await mockDelay();
+        fireEvent.click(container.querySelector('.t-upload__flow-table tbody tr:last-child .t-upload__delete'));
+        expect(onChangeFn1).not.toHaveBeenCalled();
+        expect(onRemoveFn1).toHaveBeenCalled();
+        expect(onRemoveFn1.mock.calls[0][0].index).toBe(2);
+        expect(onRemoveFn1.mock.calls[0][0].file.name).toBe('file-name.txt');
+        expect(onRemoveFn1.mock.calls[0][0].file.status).toBe('fail');
+        expect(onRemoveFn1.mock.calls[0][0].e.type).toBe('click');
+      }
     });
   });
 });

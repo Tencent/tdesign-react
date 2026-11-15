@@ -175,7 +175,10 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
         overlayInnerStyle: panels.length && !props.loading ? { width: 'auto' } : {},
         overlayClassName: [`${classPrefix}-cascader__popup`, props.popupProps?.overlayClassName],
       }}
-      inputProps={{ size: props.size, ...(props.inputProps as TdCascaderProps['inputProps']) }}
+      inputProps={{
+        size: props.size,
+        ...(props.inputProps as TdCascaderProps['inputProps']),
+      }}
       tagInputProps={{
         size: props.size,
         ...(props.tagInputProps as TdCascaderProps['tagInputProps']),
@@ -236,7 +239,16 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
           {props.panelTopContent && parseTNode(props.panelTopContent)}
           <Panel
             cascaderContext={cascaderContext}
-            {...pick(props, ['trigger', 'onChange', 'empty', 'loading', 'loadingText', 'option'])}
+            {...pick(props, [
+              'trigger',
+              'onChange',
+              'empty',
+              'loading',
+              'loadingText',
+              'option',
+              'columnHeader',
+              'columnFooter',
+            ])}
           ></Panel>
           {props.panelBottomContent && parseTNode(props.panelBottomContent)}
         </>

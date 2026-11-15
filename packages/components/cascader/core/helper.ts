@@ -4,6 +4,7 @@ import { PATH_SEPARATOR } from '@tdesign/common-js/tree-v1/tree-node-model';
 import type {
   CascaderContextType,
   CascaderValue,
+  FilterValue,
   TdCascaderProps,
   TreeNode,
   TreeNodeValue,
@@ -19,7 +20,7 @@ import type {
 export function getSingleContent(cascaderContext: CascaderContextType): string {
   const { value, multiple, treeStore, showAllLevels, valueType } = cascaderContext;
 
-  const isEmpty = (!value && value !== 0) || (Array.isArray(value) && value.length === 0);
+  const isEmpty = (!value && value !== 0 && typeof value !== 'bigint') || (Array.isArray(value) && value.length === 0);
   const isInvalidFullPathValue = valueType === 'full' && !Array.isArray(value);
   if (multiple || isEmpty || isInvalidFullPathValue) return '';
 
@@ -117,7 +118,7 @@ export const getTreeValue = (value: CascaderContextType['value']) => {
     } else if (value.length) {
       treeValue = value as TreeNodeValue[];
     }
-  } else if (value) {
+  } else if (value || value === 0 || typeof value === 'bigint') {
     if (typeof value === 'object') {
       treeValue = [(value as TreeOptionData).value];
     } else {
@@ -147,6 +148,7 @@ export const getExpandValue = (value: CascaderContextType['value'], valueType?: 
  * @returns
  */
 export function isEmptyValues(value: unknown): boolean {
+  if (typeof value === 'bigint') return false;
   if (typeof value === 'number' && !isNaN(value)) return false;
   return isEmpty(value);
 }
@@ -179,4 +181,28 @@ export function isValueInvalid(value: CascaderValue, cascaderContext: CascaderCo
   }
 
   return false;
+}
+
+export const FILTER_INACTIVE_LEVEL = -1;
+
+export function isFilterLevelActive(level: number): boolean {
+  return level !== FILTER_INACTIVE_LEVEL;
+}
+
+export function isFilterActive(filter: FilterValue | undefined): boolean {
+  if (filter === undefined) return false;
+  return typeof filter === 'string' ? Boolean(filter.trim()) : true;
+}
+
+export function filterOptions(nodes: TreeNode[], filter: FilterValue, panelIndex: number): TreeNode[] {
+  if (typeof filter === 'string') {
+    const keyword = filter.trim().toLowerCase();
+    if (!keyword) return nodes;
+    return nodes.filter((node) =>
+      String(node.label ?? '')
+        .toLowerCase()
+        .includes(keyword),
+    );
+  }
+  return nodes.filter((node) => filter(node.data, panelIndex));
 }

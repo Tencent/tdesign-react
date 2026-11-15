@@ -169,13 +169,31 @@ const PerformanceTest: React.FC = () => {
   // 注册所有 Activity 组件
   useAgentActivity([
     // 场景 1：并发 + 隔离性测试 - 5 个组件
-    { activityType: 'comp-a', component: ComponentA as React.FC<ActivityComponentProps> },
-    { activityType: 'comp-b', component: ComponentB as React.FC<ActivityComponentProps> },
-    { activityType: 'comp-c', component: ComponentC as React.FC<ActivityComponentProps> },
-    { activityType: 'comp-d', component: ComponentD as React.FC<ActivityComponentProps> },
-    { activityType: 'comp-e', component: ComponentE as React.FC<ActivityComponentProps> },
+    {
+      activityType: 'comp-a',
+      component: ComponentA as React.FC<ActivityComponentProps>,
+    },
+    {
+      activityType: 'comp-b',
+      component: ComponentB as React.FC<ActivityComponentProps>,
+    },
+    {
+      activityType: 'comp-c',
+      component: ComponentC as React.FC<ActivityComponentProps>,
+    },
+    {
+      activityType: 'comp-d',
+      component: ComponentD as React.FC<ActivityComponentProps>,
+    },
+    {
+      activityType: 'comp-e',
+      component: ComponentE as React.FC<ActivityComponentProps>,
+    },
     // 场景 2：批量合并测试
-    { activityType: 'batch-merge', component: BatchMergeActivity as React.FC<ActivityComponentProps> },
+    {
+      activityType: 'batch-merge',
+      component: BatchMergeActivity as React.FC<ActivityComponentProps>,
+    },
   ]);
 
   // 场景 1：并发 + 隔离性验证
@@ -248,7 +266,11 @@ const PerformanceTest: React.FC = () => {
               theme="primary"
               loading={concurrentStatus === 'streaming'}
               disabled={isLoading}
-              onClick={() => concurrentEngine.sendUserMessage({ prompt: '并发 + 隔离性验证' })}
+              onClick={() =>
+                concurrentEngine.sendUserMessage({
+                  prompt: '并发 + 隔离性验证',
+                })
+              }
             >
               场景 1：并发 + 隔离性（A/B/C 更新，D/E 不更新）
             </Button>
@@ -256,7 +278,11 @@ const PerformanceTest: React.FC = () => {
               theme="success"
               loading={batchStatus === 'streaming'}
               disabled={isLoading}
-              onClick={() => batchEngine.sendUserMessage({ prompt: '批量合并（5 批 × 20 delta）' })}
+              onClick={() =>
+                batchEngine.sendUserMessage({
+                  prompt: '批量合并（5 批 × 20 delta）',
+                })
+              }
             >
               场景 2：批量合并（5 批 × 20 delta）
             </Button>

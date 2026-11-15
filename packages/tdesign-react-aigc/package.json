@@ -67,7 +67,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "highlight.js": "^11.11.1",
-    "tdesign-icons-react": "^0.6.11",
+    "tdesign-icons-react": "^0.6.12",
     "tvision-charts-react": "^3.3.12"
   }
 }

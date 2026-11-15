@@ -4,44 +4,13 @@ import { fireEvent, render, vi } from '@test/utils';
 import ColorPickerPanel from '../ColorPickerPanel';
 
 describe('ColorPickerPanel', () => {
-  describe('scenarios', () => {
-    test('ColorPickerPanel 测试', () => {
+  describe('props', () => {
+    test('defaultValue[string]', () => {
       const { queryByText } = render(<ColorPickerPanel defaultValue={'#0052d9'} />);
       expect(queryByText('最近使用颜色')).toBeInTheDocument();
     });
 
-    test('渐变颜色更新 测试', async () => {
-      const { container } = render(
-        <ColorPickerPanel
-          format="CSS"
-          defaultValue="linear-gradient(45deg,rgb(79, 172, 255) 0%,rgb(0, 242, 251) 100%)"
-        />,
-      );
-
-      // 点击第二个渐变点
-      fireEvent.click(container.querySelectorAll('li.t-color-picker__thumb')[1]);
-
-      // 点击 Saturation 板上的点，并模拟鼠标移动
-      const thumb = container.querySelector('span.t-color-picker__thumb');
-      fireEvent.mouseDown(thumb);
-      fireEvent.mouseMove(thumb, { clientX: 50, clientY: 50 });
-      fireEvent.mouseUp(thumb);
-
-      // 获取移动后的色值
-      const { color } = getComputedStyle(thumb);
-
-      const rgb2Rgba = (rgb: string) => {
-        const rgba = rgb.replace('rgb', 'rgba').replace(')', ', 1)');
-        return rgba;
-      };
-
-      // 检查 CSS Input 生成的新渐变色
-      expect(container.querySelectorAll('.t-input__inner')[2]).toHaveValue(
-        `linear-gradient(45deg,rgb(79, 172, 255) 0%,${rgb2Rgba(color)} 100%)`,
-      );
-    });
-
-    test('enableAlpha 开启透明通道', () => {
+    test('enableAlpha', () => {
       const btnText = 'changeAlpha';
       const [defaultValue, changeValue] = ['rgba(0, 82, 217, 1)', 'rgba(0, 82, 217, 0.32)'];
       const TestComponent = () => {
@@ -66,8 +35,10 @@ describe('ColorPickerPanel', () => {
         background: changeValue,
       });
     });
+  });
 
-    test('最近使用颜色 recentColors 测试', async () => {
+  describe('events', () => {
+    test('onRecentColorsChange', async () => {
       const onRecentColorsChange = vi.fn();
       const TestComponent = () => {
         const value = '#0052d9';
@@ -93,6 +64,35 @@ describe('ColorPickerPanel', () => {
       expect(container.querySelector('.t-icon-delete')).toBeNull();
       expect(container.querySelector('.t-is-active')).toBeNull();
       expect(onRecentColorsChange).toHaveBeenCalled();
+    });
+  });
+
+  describe('scenarios', () => {
+    test('gradient point movement updates CSS value', async () => {
+      const { container } = render(
+        <ColorPickerPanel
+          format="CSS"
+          defaultValue="linear-gradient(45deg,rgb(79, 172, 255) 0%,rgb(0, 242, 251) 100%)"
+        />,
+      );
+
+      fireEvent.click(container.querySelectorAll('li.t-color-picker__thumb')[1]);
+
+      const thumb = container.querySelector('span.t-color-picker__thumb');
+      fireEvent.mouseDown(thumb);
+      fireEvent.mouseMove(thumb, { clientX: 50, clientY: 50 });
+      fireEvent.mouseUp(thumb);
+
+      const { color } = getComputedStyle(thumb);
+
+      const rgb2Rgba = (rgb: string) => {
+        const rgba = rgb.replace('rgb', 'rgba').replace(')', ', 1)');
+        return rgba;
+      };
+
+      expect(container.querySelectorAll('.t-input__inner')[2]).toHaveValue(
+        `linear-gradient(45deg,rgb(79, 172, 255) 0%,${rgb2Rgba(color)} 100%)`,
+      );
     });
   });
 });

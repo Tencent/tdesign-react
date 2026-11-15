@@ -151,7 +151,16 @@ const UserPreferencesForm: React.FC<ToolcallComponentProps<UserPreferencesArgs, 
   if (status === 'complete' && result) {
     return (
       <Card bordered style={{ marginTop: 8 }}>
-        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 8, color: '#00a870' }}>✓ 已收到您的偏好设置</div>
+        <div
+          style={{
+            fontSize: 14,
+            fontWeight: 600,
+            marginBottom: 8,
+            color: '#00a870',
+          }}
+        >
+          ✓ 已收到您的偏好设置
+        </div>
         <Space direction="vertical" size="small">
           <div style={{ fontSize: 12, color: '#666' }}>预算：¥{result.budget}</div>
           <div style={{ fontSize: 12, color: '#666' }}>兴趣：{result.interests.join('、')}</div>
@@ -238,11 +247,23 @@ const HotelBookingActivity: React.FC<HotelBookingActivityProps> = ({ content }) 
         <img
           src={hotel.image}
           alt={hotel.name}
-          style={{ width: 120, height: 90, objectFit: 'cover', borderRadius: 4 }}
+          style={{
+            width: 120,
+            height: 90,
+            objectFit: 'cover',
+            borderRadius: 4,
+          }}
         />
         <div style={{ flex: 1 }}>
           <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>{hotel.name}</div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 4 }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 4,
+              marginBottom: 4,
+            }}
+          >
             {Array.from({ length: 5 }).map((_, i) => (
               <StarFilledIcon
                 key={i}
@@ -264,7 +285,16 @@ const HotelBookingActivity: React.FC<HotelBookingActivityProps> = ({ content }) 
   if (currentStep === 'confirm' && confirmation) {
     return (
       <Card bordered style={{ marginTop: 8 }}>
-        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12, color: '#00a870' }}>✓ 预订成功！</div>
+        <div
+          style={{
+            fontSize: 14,
+            fontWeight: 600,
+            marginBottom: 12,
+            color: '#00a870',
+          }}
+        >
+          ✓ 预订成功！
+        </div>
         <Space direction="vertical" size="small">
           <div style={{ fontSize: 12, color: '#666' }}>房型：{confirmation.roomType}</div>
           <div style={{ fontSize: 12, color: '#666' }}>总价：¥{confirmation.totalPrice}</div>
@@ -367,7 +397,16 @@ const ProgressPanel: React.FC = () => {
           borderBottom: '1px solid #e7e7e7',
         }}
       >
-        <div style={{ fontSize: '14px', fontWeight: 600, color: '#000', marginBottom: '4px' }}>规划进度</div>
+        <div
+          style={{
+            fontSize: '14px',
+            fontWeight: 600,
+            color: '#000',
+            marginBottom: '4px',
+          }}
+        >
+          规划进度
+        </div>
         <Tag theme="primary" variant="light" size="small">
           {completedCount}/{totalCount}
         </Tag>
@@ -531,7 +570,14 @@ const TravelPlannerContent: React.FC = () => {
 
   console.log('====message', messages);
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', position: 'relative' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        position: 'relative',
+      }}
+    >
       {/* 右侧进度面板：使用 useAgentState 订阅状态 */}
       <ProgressPanel />
 

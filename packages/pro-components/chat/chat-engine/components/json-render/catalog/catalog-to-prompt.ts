@@ -534,12 +534,21 @@ export function generateCatalogPrompt(
 
   // 自定义模板模式
   if (templateMode === 'custom' && customTemplate) {
-    return customTemplate({ name, components: allComponents, actions: allActions });
+    return customTemplate({
+      name,
+      components: allComponents,
+      actions: allActions,
+    });
   }
 
   // A2UI 模板模式 - 预留给服务端实现具体模板
   if (templateMode === 'a2ui') {
-    return generateA2UIPrompt({ name, components: allComponents, actions: allActions, includeExample });
+    return generateA2UIPrompt({
+      name,
+      components: allComponents,
+      actions: allActions,
+      includeExample,
+    });
   }
 
   // 默认模板
@@ -1178,7 +1187,11 @@ function generateA2UIPrompt(context: {
               submit_btn: {
                 key: 'submit_btn',
                 type: 'Button',
-                props: { children: 'Submit', theme: 'primary', action: 'submit' },
+                props: {
+                  children: 'Submit',
+                  theme: 'primary',
+                  action: 'submit',
+                },
               },
             },
           },

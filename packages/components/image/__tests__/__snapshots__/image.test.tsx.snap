@@ -1,34 +1,34 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Image > props > fit is equal to contain 1`] = `
+exports[`Image > props > fit[contain] 1`] = `
 <img
   class="t-image t-image--fit-contain t-image--position-center"
   src=""
 />
 `;
 
-exports[`Image > props > fit is equal to cover 1`] = `
+exports[`Image > props > fit[cover] 1`] = `
 <img
   class="t-image t-image--fit-cover t-image--position-center"
   src=""
 />
 `;
 
-exports[`Image > props > fit is equal to fill 1`] = `
+exports[`Image > props > fit[fill] 1`] = `
 <img
   class="t-image t-image--fit-fill t-image--position-center"
   src=""
 />
 `;
 
-exports[`Image > props > fit is equal to none 1`] = `
+exports[`Image > props > fit[none] 1`] = `
 <img
   class="t-image t-image--fit-none t-image--position-center"
   src=""
 />
 `;
 
-exports[`Image > props > fit is equal to scale-down 1`] = `
+exports[`Image > props > fit[scale-down] 1`] = `
 <img
   class="t-image t-image--fit-scale-down t-image--position-center"
   src=""

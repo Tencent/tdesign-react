@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Avatar > props > children 1`] = `
+exports[`Avatar > props > content and children 1`] = `
 <div>
   <div
     class="t-avatar t-avatar--circle"
@@ -18,7 +18,7 @@ exports[`Avatar > props > children 1`] = `
 </div>
 `;
 
-exports[`Avatar > props > content 1`] = `
+exports[`Avatar > props > content and children 2`] = `
 <div>
   <div
     class="t-avatar t-avatar--circle"
@@ -36,7 +36,7 @@ exports[`Avatar > props > content 1`] = `
 </div>
 `;
 
-exports[`Avatar > props > shape is equal to circle 1`] = `
+exports[`Avatar > props > shape[circle] 1`] = `
 <div>
   <div
     class="t-avatar t-avatar--circle"
@@ -48,7 +48,7 @@ exports[`Avatar > props > shape is equal to circle 1`] = `
 </div>
 `;
 
-exports[`Avatar > props > shape is equal to round 1`] = `
+exports[`Avatar > props > shape[round] 1`] = `
 <div>
   <div
     class="t-avatar t-avatar--round"

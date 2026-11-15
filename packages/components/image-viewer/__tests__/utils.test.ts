@@ -12,19 +12,19 @@ import { act } from '@test/utils';
 import type { ImageInfo } from '../type';
 
 // ─── formatImages ────────────────────────────────────────────────────────
-describe('formatImages 图片格式化', () => {
-  test('非数组输入返回空数组', () => {
+describe('formatImages', () => {
+  test('images[invalid]', () => {
     expect(formatImages(null as unknown as ImageInfo[])).toEqual([]);
     expect(formatImages(undefined as unknown as ImageInfo[])).toEqual([]);
     expect(formatImages('string' as unknown as ImageInfo[])).toEqual([]);
     expect(formatImages(123 as unknown as ImageInfo[])).toEqual([]);
   });
 
-  test('空数组', () => {
+  test('images[empty]', () => {
     expect(formatImages([])).toEqual([]);
   });
 
-  test('字符串数组：使用默认属性', () => {
+  test('images[array<string>]', () => {
     const images = ['image1.jpg', 'image2.png'];
     const result = formatImages(images);
 
@@ -34,7 +34,7 @@ describe('formatImages 图片格式化', () => {
     ]);
   });
 
-  test('ImageInfo 对象：补全默认属性', () => {
+  test('images[array<ImageInfo>]', () => {
     const images = [{ mainImage: 'main1.jpg' }, { mainImage: 'main2.jpg', thumbnail: 'thumb2.jpg' }];
     const result = formatImages(images);
 
@@ -50,13 +50,13 @@ describe('formatImages 图片格式化', () => {
     });
   });
 
-  test('自定义 download 设置被保留', () => {
+  test('download', () => {
     const images = [{ mainImage: 'main.jpg', download: false }];
     const result = formatImages(images);
     expect(result[0].download).toBeFalsy();
   });
 
-  test('字符串与 ImageInfo 混合数组', () => {
+  test('images[array<string | ImageInfo>]', () => {
     const images = ['string-image.jpg', { mainImage: 'object-main.jpg', thumbnail: 'object-thumb.jpg' }];
     const result = formatImages(images);
 
@@ -74,7 +74,7 @@ describe('formatImages 图片格式化', () => {
     ]);
   });
 
-  test('File 对象作为图片输入', () => {
+  test('images[array<File>]', () => {
     const file = new File(['test'], 'test.png', { type: 'image/png' });
     const result = formatImages([file]);
 
@@ -83,7 +83,7 @@ describe('formatImages 图片格式化', () => {
     expect(result[0].download).toBeTruthy();
   });
 
-  test('ImageInfo 包含全部属性', () => {
+  test('ImageInfo', () => {
     const images = [
       {
         mainImage: 'main.jpg',
@@ -101,13 +101,13 @@ describe('formatImages 图片格式化', () => {
     });
   });
 
-  test('thumbnail 默认等于 mainImage', () => {
+  test('thumbnail', () => {
     const images = [{ mainImage: 'only-main.jpg' }];
     const result = formatImages(images);
     expect(result[0].thumbnail).toBe('only-main.jpg');
   });
 
-  test('大数组处理（100 张图片）', () => {
+  test('large image list', () => {
     const images = Array.from({ length: 100 }, (_, i) => `image-${i}.jpg`);
     const result = formatImages(images);
     expect(result).toHaveLength(100);
@@ -120,7 +120,7 @@ describe('formatImages 图片格式化', () => {
 });
 
 // ─── downloadImage ───────────────────────────────────────────────────────
-describe('downloadImage 图片下载', () => {
+describe('downloadImage', () => {
   let mockCreateObjectURL: ReturnType<typeof vi.fn>;
   let mockRevokeObjectURL: ReturnType<typeof vi.fn>;
   let mockCreateElement: typeof document.createElement;
@@ -138,7 +138,7 @@ describe('downloadImage 图片下载', () => {
     vi.restoreAllMocks();
   });
 
-  test('File 输入使用 URL.createObjectURL', () => {
+  test('source[File]', () => {
     const mockClick = vi.fn();
     const mockRemove = vi.fn();
     const mockAnchor = {
@@ -161,7 +161,7 @@ describe('downloadImage 图片下载', () => {
     expect(mockClick).toHaveBeenCalled();
   });
 
-  test('同源 URL 直接下载', () => {
+  test('source supports same-origin URLs', () => {
     const mockClick = vi.fn();
     const mockRemove = vi.fn();
     const mockAnchor = {
@@ -184,7 +184,7 @@ describe('downloadImage 图片下载', () => {
     expect(mockClick).toHaveBeenCalled();
   });
 
-  test('从带查询参数的 URL 提取文件名', () => {
+  test('filename strips the URL query', () => {
     const mockClick = vi.fn();
     const mockRemove = vi.fn();
     const mockAnchor = {
@@ -204,7 +204,7 @@ describe('downloadImage 图片下载', () => {
     expect(mockAnchor.download).toBe('image.png');
   });
 
-  test('从带 hash 的 URL 提取文件名', () => {
+  test('filename strips the URL hash', () => {
     const mockClick = vi.fn();
     const mockRemove = vi.fn();
     const mockAnchor = {
@@ -224,7 +224,7 @@ describe('downloadImage 图片下载', () => {
     expect(mockAnchor.download).toBe('image.jpg');
   });
 
-  test('跨域 URL 触发 canvasDownload 路径', () => {
+  test('source supports cross-origin URLs', () => {
     const crossOriginUrl = 'https://cross-origin.example.com/photo.jpg';
 
     const setAttribute = vi.fn();
@@ -252,7 +252,7 @@ describe('downloadImage 图片下载', () => {
     expect(mockClick).not.toHaveBeenCalled();
   });
 
-  test('跨域图片 onload 后触发 canvas 下载', () => {
+  test('canvasDownload', () => {
     const crossOriginUrl = 'https://cross-origin.example.com/photo.png';
 
     const mockCanvas = {
@@ -309,7 +309,7 @@ describe('downloadImage 图片下载', () => {
     expect(mockCanvas.toBlob).toHaveBeenCalled();
   });
 
-  test('URL 无文件名时使用随机名称', () => {
+  test('filename handles a missing basename', () => {
     const mockClick = vi.fn();
     const mockRemove = vi.fn();
     const mockAnchor = {
@@ -330,7 +330,7 @@ describe('downloadImage 图片下载', () => {
     expect(mockClick).toHaveBeenCalled();
   });
 
-  test('URL 含多个 / 和复杂路径时正确提取文件名', () => {
+  test('filename extracts the nested path basename', () => {
     const mockClick = vi.fn();
     const mockRemove = vi.fn();
     const mockAnchor = {
@@ -350,7 +350,7 @@ describe('downloadImage 图片下载', () => {
     expect(mockAnchor.download).toBe('deep-image.png');
   });
 
-  test('File 对象下载后调用 revokeObjectURL', () => {
+  test('revokeObjectURL', () => {
     const mockClick = vi.fn();
     const mockRemove = vi.fn();
     const mockAnchor = {
@@ -374,7 +374,7 @@ describe('downloadImage 图片下载', () => {
     expect(mockRevokeObjectURL).toHaveBeenCalled();
   });
 
-  test('跨域 URL jpg 扩展名使用 image/jpeg mime', () => {
+  test('mimeType infers JPEG from the extension', () => {
     const crossOriginUrl = 'https://other.com/photo.jpg';
 
     let onloadFn: (() => void) | null = null;
@@ -427,13 +427,13 @@ describe('downloadImage 图片下载', () => {
 });
 
 // ─── 快照测试 ────────────────────────────────────────────────────────────
-describe('formatImages 快照', () => {
-  test('字符串数组快照', () => {
+describe('formatImages snapshots', () => {
+  test('images[array<string>]', () => {
     const result = formatImages(['img1.jpg', 'img2.png', 'img3.gif']);
     expect(result).toMatchSnapshot('formatImages-string-array');
   });
 
-  test('ImageInfo 对象数组快照', () => {
+  test('images[array<ImageInfo>]', () => {
     const result = formatImages([
       { mainImage: 'main1.jpg', thumbnail: 'thumb1.jpg', download: true },
       { mainImage: 'main2.jpg', download: false, isSvg: true },
@@ -441,12 +441,12 @@ describe('formatImages 快照', () => {
     expect(result).toMatchSnapshot('formatImages-image-info-array');
   });
 
-  test('混合数组快照', () => {
+  test('images[array<string | ImageInfo>]', () => {
     const result = formatImages(['simple.jpg', { mainImage: 'complex.jpg', thumbnail: 'complex-thumb.jpg' }]);
     expect(result).toMatchSnapshot('formatImages-mixed-array');
   });
 
-  test('空数组快照', () => {
+  test('empty images skip downloading', () => {
     expect(formatImages([])).toMatchSnapshot('formatImages-empty');
   });
 });

@@ -7,14 +7,14 @@ describe('ColorPicker', () => {
   const user = userEvent.setup();
 
   describe('props', () => {
-    test(':disabled 测试', () => {
+    test('disabled', () => {
       const { container } = render(<ColorPicker disabled />);
       expect(container.querySelector('.t-input__inner')).toBeDisabled();
     });
   });
 
   describe('scenarios', () => {
-    test('ColorPicker Trigger 测试', async () => {
+    test('input blur and swatch selection update value', async () => {
       const { container } = render(<ColorPicker defaultValue="#0052d9" />);
       expect(container.querySelector('.t-input__inner')).toHaveValue('#0052d9');
       // 测试 input 改变值失焦时触发 onChange 改变颜色值
@@ -28,7 +28,7 @@ describe('ColorPicker', () => {
       expect(container.querySelector('.t-input__inner')).toHaveValue('rgb(236, 242, 254)');
     });
 
-    test('ColorPicker 预设颜色切换 测试', () => {
+    test('gradient swatch selection switches to solid color', () => {
       const { container } = render(
         <ColorPicker defaultValue="linear-gradient(45deg, #4facfe 0%, #00f2fe 100%)" format="CSS" />,
       );
@@ -40,7 +40,7 @@ describe('ColorPicker', () => {
       expect(container.querySelector('.t-input__inner')).toHaveValue('rgba(236, 242, 254, 1)');
     });
 
-    test('饱和度选择测试', () => {
+    test('saturation pointer updates color', () => {
       const defaultValue = '#fff';
       const { container } = render(<ColorPicker defaultValue={defaultValue} />);
       fireEvent.click(container.querySelector('.t-input__inner'));

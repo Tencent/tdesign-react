@@ -42,6 +42,11 @@ export interface TdTreeProps<T extends TreeOptionData = TreeOptionData> {
    */
   allowFoldNodeOnFilter?: boolean;
   /**
+   * 参与父节点全选、半选状态判定的子节点范围。all 表示所有子节点参与判断，包括禁用子节点；onlyEnabled 表示仅未禁用的子节点参与判断，没有可用子节点时，不由子节点推导出全选或半选状态。仅影响父节点状态的判定，不改变禁用子节点自身的选中状态。checkStrictly 为 true 时不生效
+   * @default all
+   */
+  checkAllAffectedBy?: 'all' | 'onlyEnabled';
+  /**
    * 透传属性到 checkbox 组件。参考 checkbox 组件 API
    */
   checkProps?: CheckboxProps | ((node: TreeNodeModel<T>) => CheckboxProps);
@@ -296,7 +301,7 @@ export interface TreeInstanceFunctions<T extends TreeOptionData = TreeOptionData
   /**
    * 虚拟滚动场景下 支持指定滚动到具体的节点
    */
-  scrollTo?: (scrollToParams: ComponentScrollToElementParams) => void;
+  scrollTo?: (scrollToParams: TreeScrollToElementParams) => void;
   /**
    * 设置节点状态
    */
@@ -362,7 +367,7 @@ export interface TreeNodeState {
   /**
    * 节点值
    */
-  value?: string | number;
+  value?: TreeNodeValue;
   /**
    * 节点是否可视
    * @default false
@@ -467,4 +472,8 @@ export interface TreeKeysType {
   children?: string;
 }
 
-export type TreeNodeValue = string | number;
+export type TreeNodeValue = string | number | bigint;
+
+export interface TreeScrollToElementParams extends Omit<ComponentScrollToElementParams, 'key'> {
+  key?: TreeNodeValue;
+}

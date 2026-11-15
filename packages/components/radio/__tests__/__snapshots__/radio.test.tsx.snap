@@ -39,26 +39,6 @@ exports[`Radio > props > checked 2`] = `
 </div>
 `;
 
-exports[`Radio > props > checked is equal to true 1`] = `
-<div>
-  <label
-    class="t-radio t-is-checked"
-    tabindex="0"
-  >
-    <input
-      checked=""
-      class="t-radio__former"
-      tabindex="-1"
-      type="radio"
-      value=""
-    />
-    <span
-      class="t-radio__input"
-    />
-  </label>
-</div>
-`;
-
 exports[`Radio > props > children 1`] = `
 <div>
   <label
@@ -135,7 +115,7 @@ exports[`Radio > props > disabled 2`] = `
 </div>
 `;
 
-exports[`Radio > props > label 1`] = `
+exports[`Radio > props > label[TNode] 1`] = `
 <div>
   <label
     class="t-radio"

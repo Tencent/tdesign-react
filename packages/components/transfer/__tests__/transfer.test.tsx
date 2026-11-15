@@ -8,7 +8,7 @@ import type { DataOption, TransferValue } from '../index';
 
 describe('Transfer', () => {
   describe('props', () => {
-    test('Transfer transferItem ReactElement', async () => {
+    test('transferItem[ReactElement]', async () => {
       const list = [
         {
           value: '0',
@@ -32,7 +32,7 @@ describe('Transfer', () => {
       expect(getByText('点击test1')).toBeInTheDocument();
     });
 
-    test('Transfer transferItem Function', async () => {
+    test('transferItem[function]', async () => {
       const list = [
         {
           value: '0',
@@ -58,7 +58,7 @@ describe('Transfer', () => {
   });
 
   describe('scenarios', () => {
-    test('Transfer default加入测试', async () => {
+    test('data and value move the selected item to the target', async () => {
       const InputPlaceholder = '请输入关键词搜索';
       const InputValue = '4';
       const list = [];
@@ -105,7 +105,7 @@ describe('Transfer', () => {
       expect(transContainerSL).not.toHaveTextContent('点击test1');
     });
 
-    test('Transfer default移除测试', async () => {
+    test('data and value move the selected item to the source', async () => {
       const list = [];
       for (let i = 0; i < 6; i++) {
         list.push({
@@ -133,7 +133,7 @@ describe('Transfer', () => {
       expect(transContainerR).not.toHaveTextContent('点击test3');
     });
 
-    test('Transfer tree进入测试', async () => {
+    test('tree moves the selected item to the target', async () => {
       const TestComponent2 = () => {
         const list = [
           {
@@ -160,21 +160,5 @@ describe('Transfer', () => {
       fireEvent.click(getByText('加入'));
       // expect(document.querySelector('.t-transfer__list-target')).toHaveTextContent('test2.1');
     });
-
-    // test('Transfer tree移除测试', async () => {
-    //   const TestComponent3 = () => {
-    //     const list3 = [
-    //       {
-    //         value: '2',
-    //         label: '2',
-    //       },
-    //     ];
-    //     const TreeNode = (props) => <Tree {...props} checkable expandAll={true} />;
-    //     return <Transfer data={list3} operation={['加入', '移除']} checked={['2']} tree={TreeNode}></Transfer>;
-    //   };
-    //   const { getByText } = render(<TestComponent3 />);
-    //   fireEvent.click(getByText('加入'));
-    //   fireEvent.click(getByText('移除'));
-    // });
   });
 });

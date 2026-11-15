@@ -172,7 +172,7 @@ AIGC/Chat 组件有独立的开发规范，详见：
 |------|------|
 | `tdesign-create-component` | 创建新组件的完整 SOP |
 | `tdesign-component-style` | 组件样式开发指南 |
-| `tdesign-test-component` | 组件测试编写指南 |
+| `tdesign-component-test` | 组件测试编写指南 |
 | `tdesign-release` | 版本发布流程 SOP |
 | `tdesign-pro-component` | AIGC/Chat 组件开发指南 |
 

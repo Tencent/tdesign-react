@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Button > props > block 1`] = `
+exports[`Button > props > block[boolean] 1`] = `
 <div>
   <button
     class="t-button t-button--theme-primary t-button--variant-base t-size-full-width"
@@ -15,7 +15,7 @@ exports[`Button > props > block 1`] = `
 </div>
 `;
 
-exports[`Button > props > block 2`] = `
+exports[`Button > props > block[boolean] 2`] = `
 <div>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
@@ -30,7 +30,7 @@ exports[`Button > props > block 2`] = `
 </div>
 `;
 
-exports[`Button > props > children 1`] = `
+exports[`Button > props > content and children 1`] = `
 <div>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
@@ -49,7 +49,7 @@ exports[`Button > props > children 1`] = `
 </div>
 `;
 
-exports[`Button > props > content 1`] = `
+exports[`Button > props > content and children 2`] = `
 <div>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
@@ -68,7 +68,7 @@ exports[`Button > props > content 1`] = `
 </div>
 `;
 
-exports[`Button > props > disabled 1`] = `
+exports[`Button > props > disabled[boolean] 1`] = `
 <div>
   <div
     class="t-button t-button--theme-primary t-button--variant-base t-is-disabled"
@@ -84,7 +84,7 @@ exports[`Button > props > disabled 1`] = `
 </div>
 `;
 
-exports[`Button > props > disabled 2`] = `
+exports[`Button > props > disabled[boolean] 2`] = `
 <div>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
@@ -99,7 +99,7 @@ exports[`Button > props > disabled 2`] = `
 </div>
 `;
 
-exports[`Button > props > ghost 1`] = `
+exports[`Button > props > ghost[boolean] 1`] = `
 <div>
   <button
     class="t-button t-button--theme-primary t-button--variant-base t-button--ghost"
@@ -114,7 +114,7 @@ exports[`Button > props > ghost 1`] = `
 </div>
 `;
 
-exports[`Button > props > ghost 2`] = `
+exports[`Button > props > ghost[boolean] 2`] = `
 <div>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
@@ -129,7 +129,7 @@ exports[`Button > props > ghost 2`] = `
 </div>
 `;
 
-exports[`Button > props > href 1`] = `
+exports[`Button > props > href[string] 1`] = `
 <div>
   <a
     class="t-button t-button--theme-primary t-button--variant-base"
@@ -145,7 +145,7 @@ exports[`Button > props > href 1`] = `
 </div>
 `;
 
-exports[`Button > props > loading 1`] = `
+exports[`Button > props > loading[boolean] 1`] = `
 <div>
   <button
     class="t-button t-button--theme-primary t-button--variant-base t-is-loading"
@@ -184,7 +184,7 @@ exports[`Button > props > loading 1`] = `
 </div>
 `;
 
-exports[`Button > props > loading 2`] = `
+exports[`Button > props > loading[boolean] 2`] = `
 <div>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
@@ -199,46 +199,7 @@ exports[`Button > props > loading 2`] = `
 </div>
 `;
 
-exports[`Button > props > loading contains .t-loading 1`] = `
-<div>
-  <button
-    class="t-button t-button--theme-primary t-button--variant-base t-is-loading"
-    disabled=""
-    type="button"
-  >
-    <div
-      class="t-loading t-loading--center t-size-m t-loading--inherit-color"
-    >
-      <svg
-        class="t-loading__gradient t-icon-loading"
-        height="1em"
-        version="1.1"
-        viewBox="0 0 12 12"
-        width="1em"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <foreignobject
-          height="12"
-          width="12"
-          x="0"
-          y="0"
-        >
-          <div
-            class="t-loading__gradient-conic"
-          />
-        </foreignobject>
-      </svg>
-    </div>
-    <span
-      class="t-button__text"
-    >
-      Text
-    </span>
-  </button>
-</div>
-`;
-
-exports[`Button > props > shape is equal to circle 1`] = `
+exports[`Button > props > shape[circle] 1`] = `
 <div>
   <button
     class="t-button t-button--theme-primary t-button--variant-base t-button--shape-circle"
@@ -253,7 +214,7 @@ exports[`Button > props > shape is equal to circle 1`] = `
 </div>
 `;
 
-exports[`Button > props > shape is equal to rectangle 1`] = `
+exports[`Button > props > shape[rectangle] 1`] = `
 <div>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
@@ -268,7 +229,7 @@ exports[`Button > props > shape is equal to rectangle 1`] = `
 </div>
 `;
 
-exports[`Button > props > shape is equal to round 1`] = `
+exports[`Button > props > shape[round] 1`] = `
 <div>
   <button
     class="t-button t-button--theme-primary t-button--variant-base t-button--shape-round"
@@ -283,7 +244,7 @@ exports[`Button > props > shape is equal to round 1`] = `
 </div>
 `;
 
-exports[`Button > props > shape is equal to square 1`] = `
+exports[`Button > props > shape[square] 1`] = `
 <div>
   <button
     class="t-button t-button--theme-primary t-button--variant-base t-button--shape-square"
@@ -298,7 +259,7 @@ exports[`Button > props > shape is equal to square 1`] = `
 </div>
 `;
 
-exports[`Button > props > size is equal to large 1`] = `
+exports[`Button > props > size[large] 1`] = `
 <div>
   <button
     class="t-button t-button--theme-primary t-button--variant-base t-size-l"
@@ -313,7 +274,7 @@ exports[`Button > props > size is equal to large 1`] = `
 </div>
 `;
 
-exports[`Button > props > size is equal to medium 1`] = `
+exports[`Button > props > size[medium] 1`] = `
 <div>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
@@ -328,7 +289,7 @@ exports[`Button > props > size is equal to medium 1`] = `
 </div>
 `;
 
-exports[`Button > props > size is equal to small 1`] = `
+exports[`Button > props > size[small] 1`] = `
 <div>
   <button
     class="t-button t-button--theme-primary t-button--variant-base t-size-s"
@@ -343,7 +304,7 @@ exports[`Button > props > size is equal to small 1`] = `
 </div>
 `;
 
-exports[`Button > props > tag is equal to a 1`] = `
+exports[`Button > props > tag[a] 1`] = `
 <div>
   <a
     class="t-button t-button--theme-primary t-button--variant-base"
@@ -358,7 +319,7 @@ exports[`Button > props > tag is equal to a 1`] = `
 </div>
 `;
 
-exports[`Button > props > tag is equal to button 1`] = `
+exports[`Button > props > tag[button] 1`] = `
 <div>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
@@ -373,7 +334,7 @@ exports[`Button > props > tag is equal to button 1`] = `
 </div>
 `;
 
-exports[`Button > props > tag is equal to div 1`] = `
+exports[`Button > props > tag[div] 1`] = `
 <div>
   <div
     class="t-button t-button--theme-primary t-button--variant-base"
@@ -388,7 +349,7 @@ exports[`Button > props > tag is equal to div 1`] = `
 </div>
 `;
 
-exports[`Button > props > theme is equal to danger 1`] = `
+exports[`Button > props > theme[danger] 1`] = `
 <div>
   <button
     class="t-button t-button--theme-danger t-button--variant-base"
@@ -403,7 +364,7 @@ exports[`Button > props > theme is equal to danger 1`] = `
 </div>
 `;
 
-exports[`Button > props > theme is equal to default 1`] = `
+exports[`Button > props > theme[default] 1`] = `
 <div>
   <button
     class="t-button t-button--theme-default t-button--variant-base"
@@ -418,7 +379,7 @@ exports[`Button > props > theme is equal to default 1`] = `
 </div>
 `;
 
-exports[`Button > props > theme is equal to primary 1`] = `
+exports[`Button > props > theme[primary] 1`] = `
 <div>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
@@ -433,7 +394,7 @@ exports[`Button > props > theme is equal to primary 1`] = `
 </div>
 `;
 
-exports[`Button > props > theme is equal to success 1`] = `
+exports[`Button > props > theme[success] 1`] = `
 <div>
   <button
     class="t-button t-button--theme-success t-button--variant-base"
@@ -448,7 +409,7 @@ exports[`Button > props > theme is equal to success 1`] = `
 </div>
 `;
 
-exports[`Button > props > theme is equal to warning 1`] = `
+exports[`Button > props > theme[warning] 1`] = `
 <div>
   <button
     class="t-button t-button--theme-warning t-button--variant-base"
@@ -463,7 +424,7 @@ exports[`Button > props > theme is equal to warning 1`] = `
 </div>
 `;
 
-exports[`Button > props > variant is equal to base 1`] = `
+exports[`Button > props > variant[base] 1`] = `
 <div>
   <button
     class="t-button t-button--theme-primary t-button--variant-base"
@@ -478,7 +439,7 @@ exports[`Button > props > variant is equal to base 1`] = `
 </div>
 `;
 
-exports[`Button > props > variant is equal to dashed 1`] = `
+exports[`Button > props > variant[dashed] 1`] = `
 <div>
   <button
     class="t-button t-button--theme-default t-button--variant-dashed"
@@ -493,7 +454,7 @@ exports[`Button > props > variant is equal to dashed 1`] = `
 </div>
 `;
 
-exports[`Button > props > variant is equal to outline 1`] = `
+exports[`Button > props > variant[outline] 1`] = `
 <div>
   <button
     class="t-button t-button--theme-default t-button--variant-outline"
@@ -508,7 +469,7 @@ exports[`Button > props > variant is equal to outline 1`] = `
 </div>
 `;
 
-exports[`Button > props > variant is equal to text 1`] = `
+exports[`Button > props > variant[text] 1`] = `
 <div>
   <button
     class="t-button t-button--theme-default t-button--variant-text"

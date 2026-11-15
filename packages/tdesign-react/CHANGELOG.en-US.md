@@ -5,6 +5,47 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.18.6 `2026-10-30`
+
+### 🚀 Features
+
+- `Tree`
+  - Added `checkAllAffectedBy` to configure the scope for determining the checked and indeterminate states of parent nodes. @RSS1102 ([#4452](https://github.com/Tencent/tdesign-react/pull/4452))
+  - Added support for bigint selected values. @RSS1102 ([#4450](https://github.com/Tencent/tdesign-react/pull/4450))
+- `TreeSelect`: Added support for bigint selected values. @RSS1102 ([#4450](https://github.com/Tencent/tdesign-react/pull/4450))
+- `Cascader`: Added support for bigint selected values. @RSS1102 ([#4450](https://github.com/Tencent/tdesign-react/pull/4450))
+
+### 🐞 Bug Fixes
+
+- `Form`: Fixed an issue where FormItem retained its old value after being unmounted and re-rendered in versions after `1.18.2`, causing the UI display to be inconsistent with `getFieldsValue`. @RylanBot ([#4440](https://github.com/Tencent/tdesign-react/pull/4440))
+- `Slider`: Fixed an issue where the slider could not be interacted with correctly when `range` was enabled and an empty range value was provided. @dvd233 ([#4425](https://github.com/Tencent/tdesign-react/pull/4425))
+- `Drawer`: Fixed an issue where the size continued to change with the mouse after pressing and releasing the right mouse button during dragging with `sizeDraggable` enabled. @RylanBot ([#4435](https://github.com/Tencent/tdesign-react/pull/4435))
+- `Table`: Fixed an issue where the column size continued to change with the mouse after pressing and releasing the right mouse button during dragging with `resizable` enabled. @RylanBot ([#4435](https://github.com/Tencent/tdesign-react/pull/4435))
+
+## 🌈 1.18.5 `2026-10-23`
+
+- `Drawer`: Fixed an issue where the `margin` style was incorrect when `mode='push'` @RSS1102 ([#4418](https://github.com/Tencent/tdesign-react/pull/4418))
+- `Form`: Fixed an issue where the preceding field's `margin-bottom` was missing when the last form item had no `name` after version `1.18.3` @uyarn ([#4427](https://github.com/Tencent/tdesign-react/pull/4427))
+
+## 🌈 1.18.4 `2026-09-26`
+
+### 🚀 Features
+
+- `Cascader`: Support customizing the content at the top and bottom of each panel through the new `columnHeader` and `columnFooter` APIs @uyarn ([#4405](https://github.com/Tencent/tdesign-react/pull/4405))
+- `DatePicker`: Support automatically loading more previous years when the year selector scrolls to the top @RylanBot ([#4335](https://github.com/Tencent/tdesign-react/pull/4335))
+- `DateRangePicker`: Support for the `disabled` array type has been added, enabling individual disabling of certain date ranges @uyarn ([#4404](https://github.com/Tencent/tdesign-react/pull/4404))
+- `RangeInput`: Support for the `disabled` array type has also been added, allowing individual disabling of certain ranges @uyarn ([#4404](https://github.com/Tencent/tdesign-react/pull/4404))
+
+### 🐞 Bug Fixes
+
+- `DatePicker`: The issue where the year selector reset to the top accidentally when scrolling to the bottom has been fixed @RylanBot ([#4335](https://github.com/Tencent/tdesign-react/pull/4335))
+- `Dialog`: Problems with old closures being executed in callbacks such as `onConfirm` have been resolved @RylanBot ([#4403](https://github.com/Tencent/tdesign-react/pull/4403))
+- `DrawerPlugin`: The issue where old callbacks continued to be executed after calling `update()` has been fixed @RylanBot ([#4403](https://github.com/Tencent/tdesign-react/pull/4403))
+- `EnhancedTable`: The problem where expanded child nodes could not be rendered correctly when virtual scrolling was enabled and `expandedTreeNodes` was controlled has been resolved @RylanBot ([#4399](https://github.com/Tencent/tdesign-react/pull/4399))
+- `FormList`: Issues such as incorrect field parsing and initialization when `name` consists solely of numbers have been fixed @RylanBot ([#4397](https://github.com/Tencent/tdesign-react/pull/4397))
+- `Table`: The problem of duplicate filtering boxes appearing when both virtual scrolling and `filterable` features were used has been resolved @RylanBot ([#4379](https://github.com/Tencent/tdesign-react/pull/4379))
+- `Upload`: The issue where no callback was triggered for the actual upload progress when `useMockProgress=false` was set has been fixed @anlyyao ([common#2690](https://github.com/Tencent/tdesign-common/pull/2690))
+
 ## 🌈 1.18.3 `2026-09-04`
 
 ### 🚀 Features

@@ -68,3 +68,18 @@ export const triggerMap = {
   prev: 'arrow-previous',
   next: 'arrow-next',
 };
+
+export function isRangeFullyDisabled(disabled?: boolean | Array<boolean>) {
+  return Array.isArray(disabled) ? disabled.every(Boolean) : !!disabled;
+}
+
+export function isSingleSideDisabled(disabled?: boolean | Array<boolean>) {
+  return Array.isArray(disabled) && disabled.filter(Boolean).length === 1;
+}
+
+export function getEnabledRangeIndex(disabled: boolean | Array<boolean> | undefined, activeIndex: number) {
+  if (!Array.isArray(disabled)) return activeIndex;
+  if (disabled[0] && !disabled[1]) return 1;
+  if (!disabled[0] && disabled[1]) return 0;
+  return activeIndex;
+}

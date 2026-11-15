@@ -1,5 +1,11 @@
 :: BASE_DOC ::
 
+### Custom Column Content
+
+Use `columnHeader` and `columnFooter` to customize each column and `onFilter` to filter the current column independently.
+
+{{ column-slot }}
+
 ## API
 
 ### Cascader Props
@@ -14,6 +20,8 @@ checkProps | Object | - | Typescript: `CheckboxProps`，[Checkbox API Documents]
 checkStrictly | Boolean | false | \- | N
 clearable | Boolean | false | \- | N
 collapsedItems | TElement | - | Typescript: `TNode<{ value: CascaderOption[]; collapsedSelectedItems: CascaderOption[]; count: number; onClose: (context: { index: number, e?: MouseEvent }) => void }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
+columnFooter | TNode | - | Custom content at the bottom of each column. `panelIndex` is the current column index, `options` contains the original options, `filteredOptions` contains the filtered options, and `onFilter` filters the current column (strings use built-in case-insensitive matching; a custom filter function is also supported). When built-in search has input, `onFilter` is a noop. Typescript: `TNode<{ panelIndex: number; options: CascaderOption[]; filteredOptions: CascaderOption[]; onFilter: (filter: string \| ((node: CascaderOption, panelIndex: number) => boolean)) => void }>` | N
+columnHeader | TNode | - | Custom content at the top of each column. `panelIndex` is the current column index, `options` contains the original options, `filteredOptions` contains the filtered options, and `onFilter` filters the current column (strings use built-in case-insensitive matching; a custom filter function is also supported). When built-in search has input, `onFilter` is a noop. Typescript: `TNode<{ panelIndex: number; options: CascaderOption[]; filteredOptions: CascaderOption[]; onFilter: (filter: string \| ((node: CascaderOption, panelIndex: number) => boolean)) => void }>` | N
 disabled | Boolean | undefined | \- | N
 empty | TNode | - | Typescript: `string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 filter | Function | - | Typescript: `(filterWords: string, node: TreeNodeModel) => boolean \| Promise<boolean>` | N
@@ -49,8 +57,8 @@ tagInputProps | Object | - | Typescript: `TagInputProps`，[TagInput API Documen
 tagProps | Object | - | Typescript: `TagProps`，[Tag API Documents](./tag?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/cascader/type.ts) | N
 tips | TNode | - | tips at the bottom of cascader。Typescript: `string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 trigger | String | click | options: click/hover | N
-value | String / Number / Array | [] | Typescript: `CascaderValue<CascaderOption>` `type CascaderValue<T extends TreeOptionData = TreeOptionData> = string \| number \| T \| Array<CascaderValue<T>>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/cascader/type.ts) | N
-defaultValue | String / Number / Array | [] | uncontrolled property。Typescript: `CascaderValue<CascaderOption>` `type CascaderValue<T extends TreeOptionData = TreeOptionData> = string \| number \| T \| Array<CascaderValue<T>>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/cascader/type.ts) | N
+value | String / Number / Array / BigInt | [] | Typescript: `CascaderValue<CascaderOption>` `type CascaderValue<T extends TreeOptionData = TreeOptionData> = string \| number \| bigint \| T \| Array<CascaderValue<T>>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/cascader/type.ts) | N
+defaultValue | String / Number / Array / BigInt | [] | uncontrolled property。Typescript: `CascaderValue<CascaderOption>` `type CascaderValue<T extends TreeOptionData = TreeOptionData> = string \| number \| bigint \| T \| Array<CascaderValue<T>>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/cascader/type.ts) | N
 valueDisplay | TNode | - | `MouseEvent<SVGElement>`。Typescript: `string \| TNode<{ value: CascaderValue<CascaderOption>; onClose: (index: number) => void; displayValue?: CascaderValue<CascaderOption>; selectedOptions: CascaderOption[] }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 valueMode | String | onlyLeaf | options: onlyLeaf/parentFirst/all | N
 valueType | String | single | options: single/full | N

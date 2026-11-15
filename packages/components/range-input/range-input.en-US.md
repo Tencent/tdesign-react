@@ -11,7 +11,7 @@ style | Object | - | CSS(Cascading Style Sheets)，Typescript: `React.CSSPropert
 activeIndex | Number | - | \- | N
 borderless | Boolean | false | \- | N
 clearable | Boolean | false | \- | N
-disabled | Boolean | - | \- | N
+disabled | Boolean / Array | - | Typescript: `boolean \| Array<boolean>` | N
 format | Array / Function | - | Typescript：`InputFormatType \| Array<InputFormatType>` | N
 inputProps | Object / Array | - | Typescript：`InputProps \| Array<InputProps>`，[Input API Documents](./input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/range-input/type.ts) | N
 label | TNode | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
@@ -54,7 +54,7 @@ name | type | default | description | required
 className | String | - | className of component | N
 style | Object | - | CSS(Cascading Style Sheets)，Typescript: `React.CSSProperties` | N
 autoWidth | Boolean | false | \- | N
-disabled | Boolean | - | \- | N
+disabled | Boolean / Array | - | Typescript: `boolean \| Array<boolean>` | N
 inputValue | Array | - | Typescript: `RangeInputValue` | N
 defaultInputValue | Array | - | uncontrolled property。Typescript: `RangeInputValue` | N
 label | TNode | - | Typescript: `string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
