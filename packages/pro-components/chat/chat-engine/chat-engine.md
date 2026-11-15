@@ -191,6 +191,31 @@ AG-UI 协议支持通过 `ACTIVITY_*` 事件展示动态内容组件（如实时
 {{ agui-activity }}
 
 
+### 中断（Interrupt / Human-in-the-Loop）
+
+当后端 Agent 需要人工审批、结构化输入或等待外部决策时，可以在运行过程中发起**中断**：以 `RUN_FINISHED(outcome.type='interrupt')` 事件携带一组待处理中断暂停运行，客户端收集用户响应后通过下一轮请求的 `resume` 恢复。
+
+使用 `useInterrupt(chatEngine)` 接入，它负责监听中断事件、维护开放中断列表与各自响应状态、记录 `threadId / runId`，并提供响应与恢复方法：
+
+```tsx
+const { interrupts, hasPending, responses, isFullyResolved, resuming, resolve, cancel, resume } =
+  useInterrupt(chatEngine, { onError: (e) => MessagePlugin.error(String(e)) });
+
+// 逐个响应（一轮可有多个中断）
+interrupts.map((it) => <Form key={it.id} done={responses[it.id] !== 'pending'} onSubmit={(v) => resolve(it.id, v)} />);
+// 全部响应后统一恢复（resume 内部校验是否覆盖全部中断，不支持部分恢复）
+isFullyResolved && <Button loading={resuming} onClick={() => resume()}>提交全部</Button>;
+```
+
+**契约要点**：
+- 响应：`resolve(id, payload)`（拒绝也用 payload 表达，如 `{ approved: false }`）/ `cancel(id)`（放弃，不带 payload）
+- 恢复：`resume()` 仅在 `isFullyResolved` 时发起；`resume` 数组由适配器自动构建并经 `onRequest` 回写进请求体，`threadId / runId` 自动透传
+- 中断类型：`responseSchema` 驱动结构化输入表单，`metadata` 可承载自定义选项等渲染数据
+
+本示例演示**一轮下发多个并列中断**（结构化输入表单 + 选项确认），逐个响应后统一恢复。
+
+{{ agui-interrupt }}
+
 ### 综合示例
 
 模拟一个完整的**旅游规划 Agent 场景**，演示了如何使用 AG-UI 协议构建复杂的**多步骤任务规划**应用。先收集用户偏好（Human-in-the-Loop），然后根据用户提交的偏好依次执行：查询天气、展示规划步骤的工具调用，同时展示实时数据（如股票图表、进度条等 Activity），最后总结生成最终计划
