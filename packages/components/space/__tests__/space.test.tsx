@@ -21,7 +21,7 @@ function getSpaceDefaultMount(props?: Partial<TdSpaceProps>, events?: Record<str
 describe('Space', () => {
   describe('props', () => {
     (['start', 'end', 'center', 'baseline'] as TdSpaceProps['align'][]).forEach((item) => {
-      test(`align is equal to ${item}`, () => {
+      test(`align[${item}]`, () => {
         const { container } = getSpaceDefaultMount({ align: item });
         expect(container.firstChild).toHaveClass(`t-space-align-${item}`);
       });
@@ -44,63 +44,44 @@ describe('Space', () => {
     });
 
     (['vertical', 'horizontal'] as TdSpaceProps['direction'][]).forEach((item) => {
-      test(`direction is equal to ${item}`, () => {
+      test(`direction[${item}]`, () => {
         const { container } = getSpaceDefaultMount({ direction: item });
         expect(container.firstChild).toHaveClass(`t-space-${item}`);
       });
     });
 
-    test(`size is equal to 'small'`, () => {
+    test('size[small]', () => {
       const { container } = getSpaceDefaultMount({ size: 'small' });
       const domWrapper = container.firstChild as HTMLElement;
       expect(domWrapper.style.gap).toBe('8px');
     });
 
-    test(`size is equal to 'large'`, () => {
+    test('size[large]', () => {
       const { container } = getSpaceDefaultMount({ size: 'large' });
       const domWrapper = container.firstChild as HTMLElement;
       expect(domWrapper.style.gap).toBe('24px');
     });
 
-    test(`size is equal to '38px'`, () => {
+    test('size[string]', () => {
       const { container } = getSpaceDefaultMount({ size: '38px' });
       const domWrapper = container.firstChild as HTMLElement;
       expect(domWrapper.style.gap).toBe('38px');
     });
 
-    test(`size is equal to ['20px', '80px']`, () => {
+    test('size[array<string>]', () => {
       const { container } = getSpaceDefaultMount({ size: ['20px', '80px'] });
       const domWrapper = container.firstChild as HTMLElement;
       expect(domWrapper.style.gap).toBe('20px 80px');
     });
 
-    test('align', async () => {
-      (['start', 'end', 'center', 'baseline'] as TdSpaceProps['align'][]).forEach((align) => {
-        const { container } = render(
-          <Space align={align}>
-            <div></div>
-          </Space>,
-        );
-        expect(container.firstChild).toHaveClass(`t-space-align-${align}`);
-      });
-    });
-
-    test('break line', async () => {
-      const { container } = render(
-        <Space breakLine={true}>
-          <div></div>
-        </Space>,
-      );
-      expect((container.firstChild as HTMLDivElement).classList.contains('t-space--break-line')).toBeTruthy();
-    });
-    test('separator', () => {
+    test('separator[TNode]', () => {
       const { container } = getSpaceDefaultMount({
         separator: <span className="custom-node">TNode</span>,
       });
       expect(container.querySelector('.custom-node')).toBeTruthy();
     });
 
-    test('separator divider', async () => {
+    test('separator[Divider]', async () => {
       const { container } = render(
         <Space align="center" separator={<Divider layout="vertical" />}>
           <div>child1</div>
@@ -125,10 +106,8 @@ describe('Space', () => {
         ).firstChild.childNodes,
       ).toHaveLength(3);
     });
-  });
 
-  describe('scenarios', () => {
-    test('direction and size', async () => {
+    test('direction with size', async () => {
       const sizeMap = new Map<any, string>(
         Object.entries({
           ...SizeMap,

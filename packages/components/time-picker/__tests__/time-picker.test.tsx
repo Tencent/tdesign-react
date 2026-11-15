@@ -9,7 +9,7 @@ MockDate.set('2022-08-27');
 
 describe('TimePicker', () => {
   describe('props', () => {
-    test('props.disabled works fine', () => {
+    test('disabled[boolean]', () => {
       // disabled default value is
       const wrapper1 = render(<TimePicker></TimePicker>);
       const container1 = wrapper1.container.querySelector('.t-time-picker');
@@ -24,7 +24,7 @@ describe('TimePicker', () => {
       expect(container3.querySelector('.t-is-disabled')).toBeFalsy();
     });
 
-    test('props.defaultValue works fine', async () => {
+    test('defaultValue[string]', async () => {
       const { container } = render(<TimePicker defaultValue="00:10:20"></TimePicker>);
       expect(container.querySelectorAll('input').length).toBe(1);
       expect(container.querySelectorAll('input').item(0)).toHaveValue('00:10:20');
@@ -37,54 +37,40 @@ describe('TimePicker', () => {
       });
     });
 
-    test('props.defaultValue for TimePicker works fine', async () => {
-      const { container } = render(<TimePicker defaultValue="00:10:20"></TimePicker>);
-      expect(container.querySelectorAll('input').length).toBe(1);
-      expect(container.querySelectorAll('input').item(0)).toHaveValue('00:10:20');
-      fireEvent.click(document.querySelector('input'));
-      await waitFor(() => {
-        const scrollPanels = document.querySelectorAll('.t-time-picker__panel-body-scroll');
-        expect(scrollPanels.item(0).querySelectorAll('.t-is-current').item(0)).toHaveTextContent('00');
-        expect(scrollPanels.item(1).querySelectorAll('.t-is-current').item(0)).toHaveTextContent('10');
-        expect(scrollPanels.item(2).querySelectorAll('.t-is-current').item(0)).toHaveTextContent('20');
-      });
-    });
-    test('props.label for TimePicker  works fine', async () => {
+    test('label[string]', async () => {
       const label = 'abc';
       const { container } = render(<TimePicker label={label}></TimePicker>);
       const prefix = container.querySelector('.t-input__prefix');
       expect(prefix).toBeTruthy();
       expect(prefix).toHaveTextContent(label);
     });
-  });
 
-  describe('scenarios', () => {
-    test('trigger panel works fine', async () => {
-      const { container } = render(<TimePicker></TimePicker>);
+    test('value[string]', async () => {
+      const { container } = render(<TimePicker value="00:00:00" />);
       expect(container.querySelectorAll('input').length).toBe(1);
-      fireEvent.click(document.querySelector('input'));
+      fireEvent.click(container.querySelector('input'));
       await waitFor(() => {
-        expect(document.querySelector('.t-time-picker__panel')).not.toBeNull();
         expect(document.querySelector('.t-time-picker__panel')).toHaveStyle({
           display: 'block',
         });
         expect(document.querySelectorAll('.t-time-picker__panel-body-scroll').length).toBe(3);
       });
     });
+  });
 
-    test('props.allowInput works fine', async () => {
+  describe('events', () => {
+    test('onFocus and onBlur', async () => {
       const handleBlur = vi.fn();
       const handleFocus = vi.fn();
       const { container } = render(<TimePicker onBlur={handleBlur} onFocus={handleFocus} allowInput />);
       const InputDom = container.querySelector('.t-input__inner');
       fireEvent.click(InputDom);
       expect(handleFocus).toHaveBeenCalledTimes(1);
-      // input blur is not equal to TimePicker.blur
       fireEvent.mouseDown(document);
       expect(handleBlur).toHaveBeenCalledTimes(1);
     });
 
-    test('click to pick', async () => {
+    test('onOpen and onPick', async () => {
       const handleChange = vi.fn();
       const handleOpen = vi.fn();
       const handlePick = vi.fn();
@@ -110,8 +96,10 @@ describe('TimePicker', () => {
         // expect(handleChange).toHaveBeenCalled(1);
       });
     });
+  });
 
-    test('TimePicker presets test', async () => {
+  describe('scenarios', () => {
+    test('presets with value preserves controlled time after confirmation', async () => {
       const date = '20:00:00';
       const { container, getByText } = render(
         <TimePicker

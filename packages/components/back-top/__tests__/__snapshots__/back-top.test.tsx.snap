@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`BackTop > props > children 1`] = `
+exports[`BackTop > props > content, children and default 1`] = `
 <div>
   <button
     class="t-back-top t-back-top--theme-light t-back-top--square t-size-m"
@@ -16,7 +16,7 @@ exports[`BackTop > props > children 1`] = `
 </div>
 `;
 
-exports[`BackTop > props > content 1`] = `
+exports[`BackTop > props > content, children and default 2`] = `
 <div>
   <button
     class="t-back-top t-back-top--theme-light t-back-top--square t-size-m"
@@ -32,7 +32,7 @@ exports[`BackTop > props > content 1`] = `
 </div>
 `;
 
-exports[`BackTop > props > default 1`] = `
+exports[`BackTop > props > content, children and default 3`] = `
 <div>
   <button
     class="t-back-top t-back-top--theme-light t-back-top--square t-size-m"
@@ -48,7 +48,7 @@ exports[`BackTop > props > default 1`] = `
 </div>
 `;
 
-exports[`BackTop > props > shape is equal to circle 1`] = `
+exports[`BackTop > props > shape[circle] 1`] = `
 <div>
   <button
     class="t-back-top t-back-top--theme-light t-back-top--circle t-size-m"
@@ -84,7 +84,7 @@ exports[`BackTop > props > shape is equal to circle 1`] = `
 </div>
 `;
 
-exports[`BackTop > props > shape is equal to square 1`] = `
+exports[`BackTop > props > shape[square] 1`] = `
 <div>
   <button
     class="t-back-top t-back-top--theme-light t-back-top--square t-size-m"
@@ -120,7 +120,7 @@ exports[`BackTop > props > shape is equal to square 1`] = `
 </div>
 `;
 
-exports[`BackTop > props > size is equal to medium 1`] = `
+exports[`BackTop > props > size[medium] 1`] = `
 <div>
   <button
     class="t-back-top t-back-top--theme-light t-back-top--square t-size-m"
@@ -132,7 +132,7 @@ exports[`BackTop > props > size is equal to medium 1`] = `
 </div>
 `;
 
-exports[`BackTop > props > size is equal to small 1`] = `
+exports[`BackTop > props > size[small] 1`] = `
 <div>
   <button
     class="t-back-top t-back-top--theme-light t-back-top--square t-size-s"
@@ -144,7 +144,7 @@ exports[`BackTop > props > size is equal to small 1`] = `
 </div>
 `;
 
-exports[`BackTop > props > theme is equal to dark 1`] = `
+exports[`BackTop > props > theme[dark] 1`] = `
 <div>
   <button
     class="t-back-top t-back-top--theme-dark t-back-top--square t-size-m"
@@ -156,7 +156,7 @@ exports[`BackTop > props > theme is equal to dark 1`] = `
 </div>
 `;
 
-exports[`BackTop > props > theme is equal to light 1`] = `
+exports[`BackTop > props > theme[light] 1`] = `
 <div>
   <button
     class="t-back-top t-back-top--theme-light t-back-top--square t-size-m"
@@ -168,7 +168,7 @@ exports[`BackTop > props > theme is equal to light 1`] = `
 </div>
 `;
 
-exports[`BackTop > props > theme is equal to primary 1`] = `
+exports[`BackTop > props > theme[primary] 1`] = `
 <div>
   <button
     class="t-back-top t-back-top--theme-primary t-back-top--square t-size-m"

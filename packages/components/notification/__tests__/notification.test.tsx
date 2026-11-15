@@ -4,51 +4,36 @@ import { fireEvent, mockTimeout, render } from '@test/utils';
 import { Notification, NotificationPlugin } from '../index';
 
 describe('Notification', () => {
-  describe('scenarios', () => {
-    test('mount and unmount', () => {
-      const wrapper = render(<Notification />);
-
-      expect(() => wrapper.unmount()).not.toThrow();
+  describe('props', () => {
+    test('title', () => {
+      const titleText = '标题';
+      const { container } = render(<Notification title={titleText} />);
+      expect(container.querySelector('.t-notification__title')).toHaveTextContent(titleText);
     });
 
-    test('set props', async () => {
-      const titleText = '标题';
-      const contentId = 'content';
-      const contentText = '内容';
-      const closeBtnId = 'close';
-      const closeBtnText = '关闭';
-      const footerId = 'footer';
+    test('content[TNode]', () => {
+      const { getByTestId } = render(<Notification content={<div data-testid="content">内容</div>} />);
+      expect(getByTestId('content')).toHaveTextContent('内容');
+    });
 
-      const wrapper = render(
-        <Notification
-          title={titleText}
-          content={<div data-testid={contentId}>{contentText}</div>}
-          theme="success"
-          icon={<div>test</div>}
-          closeBtn={<div data-testid={closeBtnId}>{closeBtnText}</div>}
-          footer={
-            <div data-testid={footerId} className="t-notification__detail">
-              <span className="t-notification__detail-item">确定</span>
-            </div>
-          }
-        />,
-      );
+    test('closeBtn[TNode]', () => {
+      const { getByTestId } = render(<Notification closeBtn={<div data-testid="close">关闭</div>} />);
+      expect(getByTestId('close')).toHaveTextContent('关闭');
+    });
 
-      /**
-       * @desc 更改 title 的断言测试。新的 api title 只接受纯字符串，需要修改测试方法
-       */
-      const title = document.querySelectorAll('.t-notification__title');
-      expect(title.length).toBe(1);
-      expect(title[0].innerHTML).toBe(titleText);
+    test('footer[TNode]', () => {
+      const { getByTestId } = render(<Notification footer={<div data-testid="footer">确定</div>} />);
+      expect(getByTestId('footer')).toBeInTheDocument();
+    });
 
-      expect(wrapper.queryByTestId(contentId)).toHaveTextContent(contentText);
-      expect(wrapper.queryByTestId(closeBtnId)).toHaveTextContent(closeBtnText);
-      expect(wrapper.queryByTestId(footerId)).not.toBeNull();
+    test('default supports mount and unmount lifecycle', () => {
+      const wrapper = render(<Notification />);
+      expect(() => wrapper.unmount()).not.toThrow();
     });
   });
 
   describe('instanceFunctions', () => {
-    test('open and close', async () => {
+    test('NotificationPlugin.info and close manage instance lifecycle', async () => {
       NotificationPlugin.closeAll();
 
       const notification = await NotificationPlugin.info({});
@@ -65,7 +50,7 @@ describe('Notification', () => {
       await mockTimeout(() => expect(document.querySelectorAll('.t-notification').length).toBe(0), 100);
     });
 
-    test('open with theme', async () => {
+    test('NotificationPlugin theme methods create matching notification states', async () => {
       NotificationPlugin.closeAll();
 
       await NotificationPlugin.info({});
@@ -79,7 +64,7 @@ describe('Notification', () => {
       await mockTimeout(() => expect(document.querySelectorAll('.t-notification .t-is-error').length).toBe(1), 100);
     });
 
-    test('open with placement', async () => {
+    test('NotificationPlugin.info creates containers for every placement', async () => {
       NotificationPlugin.closeAll();
 
       await NotificationPlugin.info({ placement: 'top-left' });
@@ -102,7 +87,7 @@ describe('Notification', () => {
       );
     });
 
-    test('auto close', async () => {
+    test('NotificationPlugin duration automatically closes an instance', async () => {
       NotificationPlugin.closeAll();
 
       await NotificationPlugin.info({ duration: 1000 });
@@ -112,7 +97,7 @@ describe('Notification', () => {
       await mockTimeout(() => expect(document.querySelectorAll('.t-notification').length).toBe(0), 1200);
     });
 
-    test('click close button', async () => {
+    test('NotificationPlugin closeBtn closes an instance when clicked', async () => {
       NotificationPlugin.closeAll();
 
       await NotificationPlugin.info({

@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Input > props > align is equal to center 1`] = `
+exports[`Input > props > align[center] 1`] = `
 <div
   class="t-input t-align-center"
 >
@@ -13,7 +13,7 @@ exports[`Input > props > align is equal to center 1`] = `
 </div>
 `;
 
-exports[`Input > props > align is equal to left 1`] = `
+exports[`Input > props > align[left] 1`] = `
 <div
   class="t-input t-align-left"
 >
@@ -26,7 +26,7 @@ exports[`Input > props > align is equal to left 1`] = `
 </div>
 `;
 
-exports[`Input > props > align is equal to right 1`] = `
+exports[`Input > props > align[right] 1`] = `
 <div
   class="t-input t-align-right"
 >
@@ -39,7 +39,7 @@ exports[`Input > props > align is equal to right 1`] = `
 </div>
 `;
 
-exports[`Input > props > label 1`] = `
+exports[`Input > props > label[TNode] 1`] = `
 <div>
   <div
     class="t-input__wrap"
@@ -68,7 +68,7 @@ exports[`Input > props > label 1`] = `
 </div>
 `;
 
-exports[`Input > props > status is equal to default 1`] = `
+exports[`Input > props > status[default] 1`] = `
 <div
   class="t-input t-align-left"
 >
@@ -81,7 +81,7 @@ exports[`Input > props > status is equal to default 1`] = `
 </div>
 `;
 
-exports[`Input > props > status is equal to error 1`] = `
+exports[`Input > props > status[error] 1`] = `
 <div
   class="t-input t-align-left t-is-error"
 >
@@ -94,7 +94,7 @@ exports[`Input > props > status is equal to error 1`] = `
 </div>
 `;
 
-exports[`Input > props > status is equal to success 1`] = `
+exports[`Input > props > status[success] 1`] = `
 <div
   class="t-input t-align-left t-is-success"
 >
@@ -107,7 +107,7 @@ exports[`Input > props > status is equal to success 1`] = `
 </div>
 `;
 
-exports[`Input > props > status is equal to warning 1`] = `
+exports[`Input > props > status[warning] 1`] = `
 <div
   class="t-input t-align-left t-is-warning"
 >

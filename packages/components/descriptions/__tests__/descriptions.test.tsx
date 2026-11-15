@@ -42,25 +42,8 @@ describe('Descriptions', () => {
       expect(container.querySelector('.t-descriptions__label')).toHaveTextContent('：');
     });
 
-    test('column:4', () => {
-      const { container } = render(<Descriptions items={items} column={4} title="Shipping address" bordered colon />);
-
-      const tbody = container.querySelector('tbody');
-
-      // 检查 tbody 下面是否只有 1 个 tr 元素
-      expect(tbody.querySelectorAll('tr')).toHaveLength(1);
-
-      const firstTr = tbody.querySelectorAll('tr')[0];
-
-      // 检查第 1 个 tr 元素中是否只有 8 个 td 元素
-      expect(firstTr.querySelectorAll('td')).toHaveLength(8);
-
-      // 检查第 2 个 tr 元素中的第 4 个 td 元素是否具有 colspan 属性，并检查其值是否为 1
-      expect(firstTr.querySelectorAll('td')[7].getAttribute('colspan')).toBe('1');
-    });
-
     // size
-    test(':size', () => {
+    test('size', () => {
       const sizeList: SizeEnum[] = ['small', 'medium', 'large'];
       sizeList.forEach((size) => {
         const { container } = render(
@@ -87,7 +70,7 @@ describe('Descriptions', () => {
     });
 
     // props jsx
-    test('props jsx', () => {
+    test('items[array<TdDescriptionsItemProps>]', () => {
       const itemsProps = [
         { label: 'Name', content: 'TDesign' },
         { label: <button>Telephone Number</button>, content: '139****0609' },
@@ -101,36 +84,45 @@ describe('Descriptions', () => {
 
       expect(container.querySelector('.t-descriptions')).toBeInTheDocument();
     });
-  });
 
-  describe('scenarios', () => {
-    // base
-    test('base', () => {
+    test('title', () => {
       const { container } = render(<Descriptions items={items} title="Shipping address" />);
-
       expect(container.querySelector('.t-descriptions')).toBeInTheDocument();
     });
 
-    // column
-    test('column=2', () => {
-      const { container } = render(<Descriptions items={items} title="Shipping address" bordered colon />);
+    test('column', () => {
+      const borderedProps = {
+        items,
+        title: 'Shipping address',
+        bordered: true,
+        colon: true,
+      } as const;
 
-      const tbody = container.querySelector('tbody');
+      const { container: defaultContainer } = render(<Descriptions {...borderedProps} />);
+      const defaultTbody = defaultContainer.querySelector('tbody');
+      expect(defaultTbody.querySelectorAll('tr')).toHaveLength(2);
+      const defaultSecondTr = defaultTbody.querySelectorAll('tr')[1];
+      expect(defaultSecondTr.querySelectorAll('td')).toHaveLength(4);
+      expect(defaultSecondTr.querySelectorAll('td')[3].getAttribute('colspan')).toBe('1');
 
-      // 检查 tbody 下面是否只有 2 个 tr 元素
-      expect(tbody.querySelectorAll('tr')).toHaveLength(2);
+      const { container: singleRowContainer } = render(<Descriptions {...borderedProps} column={4} />);
+      const singleRowTbody = singleRowContainer.querySelector('tbody');
+      expect(singleRowTbody.querySelectorAll('tr')).toHaveLength(1);
+      const singleRowTr = singleRowTbody.querySelectorAll('tr')[0];
+      expect(singleRowTr.querySelectorAll('td')).toHaveLength(8);
+      expect(singleRowTr.querySelectorAll('td')[7].getAttribute('colspan')).toBe('1');
 
-      const secondTr = tbody.querySelectorAll('tr')[1];
-
-      // 检查第 2 个 tr 元素中是否只有 4 个 td 元素
-      expect(secondTr.querySelectorAll('td')).toHaveLength(4);
-
-      // 检查第 2 个 tr 元素中的第 4 个 td 元素是否具有 colspan 属性，并检查其值是否为 1
-      expect(secondTr.querySelectorAll('td')[3].getAttribute('colspan')).toBe('1');
+      const { container: multiRowContainer } = render(<Descriptions {...borderedProps} column={3} />);
+      const multiRowTbody = multiRowContainer.querySelector('tbody');
+      expect(multiRowTbody.querySelectorAll('tr')).toHaveLength(2);
+      const multiRowFirstTr = multiRowTbody.querySelectorAll('tr')[0];
+      expect(multiRowFirstTr.querySelectorAll('td')).toHaveLength(6);
+      const multiRowSecondTr = multiRowTbody.querySelectorAll('tr')[1];
+      expect(multiRowSecondTr.querySelectorAll('td')).toHaveLength(2);
+      expect(multiRowSecondTr.querySelectorAll('td')[1].getAttribute('colspan')).toBe('5');
     });
 
-    // custom-style
-    test('custom-style', () => {
+    test('labelStyle and contentStyle', () => {
       const customLabelClassName: React.CSSProperties = {
         width: '100px',
         textAlign: 'left',
@@ -154,29 +146,7 @@ describe('Descriptions', () => {
       expect(container.querySelector('.t-descriptions__content')).toHaveStyle('text-align: center;');
     });
 
-    // direction
-    test('layout=horizontal columns=3', () => {
-      const { container } = render(<Descriptions items={items} column={3} title="Shipping address" bordered colon />);
-      const tbody = container.querySelector('tbody');
-
-      // 检查 tbody 下面是否只有 2 个 tr 元素
-      expect(tbody.querySelectorAll('tr')).toHaveLength(2);
-
-      // 检查第 1 个 tr 元素中是否只有 6 个 td 元素
-      const firstTr = tbody.querySelectorAll('tr')[0];
-      expect(firstTr.querySelectorAll('td')).toHaveLength(6);
-
-      // 检查第 2 个 tr 元素中是否只有 2 个 td 元素
-      const secondTr = tbody.querySelectorAll('tr')[1];
-      expect(secondTr.querySelectorAll('td')).toHaveLength(2);
-
-      // 检查第 2 个 tr 元素中的第 2 个 td 元素是否具有 colspan 属性，并检查其值是否为 5
-      const secondTrTd = secondTr.querySelectorAll('td')[1];
-      expect(secondTrTd.getAttribute('colspan')).toBe('5');
-    });
-
-    // vertical
-    test('layout=vertical columns=3', () => {
+    test('layout[vertical]', () => {
       const { container } = render(
         <Descriptions items={items} column={3} layout="vertical" title="Shipping address" bordered colon />,
       );
@@ -198,8 +168,7 @@ describe('Descriptions', () => {
       expect(thirdTrTd.getAttribute('colspan')).toBe('1');
     });
 
-    //  itemLayout=vertical
-    it('itemLayout=vertical', () => {
+    test('itemLayout[vertical]', () => {
       const { container } = render(
         <Descriptions items={items} column={3} itemLayout="vertical" title="Shipping address" bordered colon />,
       );
@@ -221,8 +190,7 @@ describe('Descriptions', () => {
       expect(thirdTrTd.getAttribute('colspan')).toBe('3');
     });
 
-    //  layout=vertical itemLayout=vertical
-    it('layout=vertical itemLayout=vertical', () => {
+    test('layout[vertical] itemLayout[vertical]', () => {
       const { container } = render(
         <Descriptions
           items={items}
@@ -252,8 +220,7 @@ describe('Descriptions', () => {
       expect(thirdTrTd.getAttribute('colspan')).toBe('1');
     });
 
-    // nest
-    test('nest', () => {
+    test('items with nested Descriptions content[TNode]', () => {
       const itemsContent = [
         {
           label: 'City',

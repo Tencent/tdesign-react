@@ -89,7 +89,7 @@ const Panel = (props: CascaderPanelProps) => {
 
   const renderItem = (node: TreeNode, index: number, panelIndex: number) => (
     <Item
-      key={node.value}
+      key={`${typeof node.value}:${node.value}`}
       node={node}
       optionChild={node.data.content || parseTNode(option, { item: node.data, index, context: { node } })}
       cascaderContext={cascaderContext}

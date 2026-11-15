@@ -23,14 +23,24 @@ describe('InputNumber', () => {
       expect((queryByPlaceholderText(InputNumberPlaceholder) as HTMLInputElement).disabled).toBeTruthy();
     });
 
-    test('size', async () => {
+    test('size[large]', async () => {
       const { container } = render(<InputNumber placeholder={InputNumberPlaceholder} size="large" />);
       expect(container.children[0].classList.contains('t-size-l')).toBeTruthy();
+    });
+
+    test('theme[column]', () => {
+      const { queryByPlaceholderText, container } = render(
+        <InputNumber placeholder={InputNumberPlaceholder} theme="column" defaultValue={5} />,
+      );
+
+      fireEvent.mouseEnter(container.firstChild);
+      fireEvent.click(container.querySelector('.t-input-number__increase'));
+      expect((queryByPlaceholderText(InputNumberPlaceholder) as HTMLInputElement).value).toBe('6');
     });
   });
 
   describe('events', () => {
-    test('blur', async () => {
+    test('onBlur', async () => {
       const blurFn = vi.fn();
       const { queryByPlaceholderText } = render(<InputNumber placeholder={InputNumberPlaceholder} onBlur={blurFn} />);
       const InputDom = queryByPlaceholderText(InputNumberPlaceholder);
@@ -39,7 +49,7 @@ describe('InputNumber', () => {
       expect(blurFn).toHaveBeenCalledTimes(1);
     });
 
-    test('keyDown', async () => {
+    test('onEnter and onKeydown', async () => {
       const user = userEvent.setup();
       const onEnterFn = vi.fn();
       const onKeydownFn = vi.fn();
@@ -52,10 +62,8 @@ describe('InputNumber', () => {
       expect(onEnterFn).toHaveBeenCalled();
       expect(onKeydownFn).toHaveBeenCalled();
     });
-  });
 
-  describe('scenarios', () => {
-    test('input number change', async () => {
+    test('onChange', () => {
       const changeFn = vi.fn();
       const { container, queryByPlaceholderText } = render(
         <InputNumber placeholder={InputNumberPlaceholder} onChange={changeFn} />,
@@ -67,16 +75,6 @@ describe('InputNumber', () => {
       });
       expect(changeFn).toHaveBeenCalledTimes(1);
       expect(changeFn.mock.calls[0][0]).toBe(InputNumberValue);
-    });
-
-    test('input number theme column', async () => {
-      const { queryByPlaceholderText, container } = render(
-        <InputNumber placeholder={InputNumberPlaceholder} theme="column" defaultValue={5} />,
-      );
-
-      fireEvent.mouseEnter(container.firstChild);
-      fireEvent.click(container.querySelector('.t-input-number__increase'));
-      expect((queryByPlaceholderText(InputNumberPlaceholder) as HTMLInputElement).value).toEqual('6');
     });
   });
 });

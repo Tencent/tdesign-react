@@ -386,7 +386,7 @@ describe('Table', () => {
       expect(classCells[3].classList.contains('tdesign-class1')).toBeFalsy();
     });
 
-    it('expandedRowKeys[empty]', () => {
+    it('expandedRowKeys[array<TableRowValue>]', () => {
       const { container } = render(
         <Table
           expandedRowKeys={[]}
@@ -546,7 +546,7 @@ describe('Table', () => {
         expect(container1.querySelectorAll('tbody tr').length).toBe(5);
       });
 
-      it('pagination[defaultCurrent]', () => {
+      it('pagination.defaultCurrent', () => {
         const { container } = render(
           paginationTable({
             pagination: {
@@ -560,7 +560,7 @@ describe('Table', () => {
         expect(container.querySelectorAll('tbody tr').length).toBe(5);
       });
 
-      it('pagination[defaultCurrent] stays when data length changes', () => {
+      it('pagination.defaultCurrent stays when data length changes', () => {
         const { container, rerender } = render(
           paginationTable({
             pagination: {
@@ -588,7 +588,7 @@ describe('Table', () => {
         expect(container1.querySelectorAll('tbody tr').length).toBe(5);
       });
 
-      it('pagination[defaultCurrent] stays when data content changes', () => {
+      it('pagination.defaultCurrent stays when data content changes', () => {
         const { container, rerender } = render(
           paginationTable({
             pagination: {
@@ -616,7 +616,7 @@ describe('Table', () => {
         expect(container1.querySelectorAll('tbody tr').length).toBe(5);
       });
 
-      it('pagination[defaultCurrent] ignore later default change', () => {
+      it('pagination.defaultCurrent ignores later default changes', () => {
         const tableData = getTableData(102);
         const { container, rerender } = render(
           paginationTable({
@@ -646,6 +646,7 @@ describe('Table', () => {
         expect(container1.querySelector('tbody tr td').textContent).toBe('6');
         expect(container1.querySelectorAll('tbody tr').length).toBe(5);
       });
+
       it('pagination.total is less than pagination.pageSize', () => {
         const { container: container1 } = render(
           paginationTable({
@@ -659,7 +660,7 @@ describe('Table', () => {
         expect(container1.querySelectorAll('tbody tr').length).toBe(2);
       });
 
-      it('pagination[async defaultCurrent]', () => {
+      it('pagination.defaultCurrent with remote data', () => {
         const { container } = render(
           paginationTable(
             {
@@ -676,7 +677,7 @@ describe('Table', () => {
         expect(container.querySelectorAll('tbody tr').length).toBe(5);
       });
 
-      it('pagination[async defaultCurrent] stays when data content changes', () => {
+      it('pagination.defaultCurrent stays when remote data content changes', () => {
         const { container, rerender } = render(
           paginationTable(
             {
@@ -709,7 +710,8 @@ describe('Table', () => {
         expect(container1.querySelector('tbody tr td').textContent).toBe('1');
         expect(container1.querySelectorAll('tbody tr').length).toBe(10);
       });
-      it('pagination[async] changed', () => {
+
+      it('pagination.current and pagination.pageSize change with remote data', () => {
         const { container, rerender } = render(
           paginationTable(
             {
@@ -742,7 +744,11 @@ describe('Table', () => {
         expect(container1.querySelector('tbody tr td').textContent).toBe('1');
         expect(container1.querySelectorAll('tbody tr').length).toBe(10);
       });
+    });
+  });
 
+  describe('events', () => {
+    describe('pagination', () => {
       it('onPageChange', async () => {
         const onPageChange = vi.fn();
         const pagination = {
@@ -751,7 +757,6 @@ describe('Table', () => {
           total: 10,
         };
 
-        // create a small data set for pagination assertions
         const pageData = new Array(6).fill(null).map((_, idx) => {
           const i = idx + 1;
           let applicant = `name-${i}`;
@@ -781,13 +786,10 @@ describe('Table', () => {
 
         fireEvent.click(nextButton);
 
-        // 验证 onPageChange 被触发
         expect(onPageChange).toHaveBeenCalledTimes(1);
-        // 第一个参数应包含新的分页信息
         expect(onPageChange.mock.calls[0][0]).toEqual(
           expect.objectContaining({ current: 2, pageSize: 2, previous: 1 }),
         );
-        // 第二个参数应为当前页的数据（此处校验包含预期行）
         expect(onPageChange.mock.calls[0][1]).toEqual(
           expect.arrayContaining([
             expect.objectContaining({ index: 3, applicant: '王芳' }),
@@ -833,9 +835,7 @@ describe('Table', () => {
         expect(scrollElement.scrollTop).toBe(0);
       });
     });
-  });
 
-  describe('events', () => {
     it('onCellClick', () => {
       const fn = vi.fn();
       const { container } = render(
@@ -845,67 +845,25 @@ describe('Table', () => {
       expect(fn).toHaveBeenCalled();
     });
 
-    it('onRowClick', () => {
-      const fn = vi.fn();
-      const { container } = render(
-        <Table rowKey="index" bordered data={data} onRowClick={fn} columns={SIMPLE_COLUMNS}></Table>,
-      );
-      fireEvent.click(container.querySelector('tbody').querySelector('tr'));
-      expect(fn).toHaveBeenCalled();
-    });
-
-    it('onRowDblclick', () => {
-      const fn = vi.fn();
-      const { container } = render(
-        <Table rowKey="index" bordered data={data} onRowDblclick={fn} columns={SIMPLE_COLUMNS}></Table>,
-      );
-      fireEvent.doubleClick(container.querySelector('tbody').querySelector('tr'));
-      expect(fn).toHaveBeenCalled();
-    });
-
-    it('onRowMouseup', () => {
-      const fn = vi.fn();
-      const { container } = render(
-        <Table rowKey="index" bordered data={data} onRowMouseup={fn} columns={SIMPLE_COLUMNS}></Table>,
-      );
-      fireEvent.mouseUp(container.querySelector('tbody').querySelector('tr'));
-      expect(fn).toHaveBeenCalled();
-    });
-
-    it('onRowMousedown', () => {
-      const fn = vi.fn();
-      const { container } = render(
-        <Table rowKey="index" bordered data={data} onRowMousedown={fn} columns={SIMPLE_COLUMNS}></Table>,
-      );
-      fireEvent.mouseDown(container.querySelector('tbody').querySelector('tr'));
-      expect(fn).toHaveBeenCalled();
-    });
-
-    it('onRowMouseenter', () => {
-      const fn = vi.fn();
-      const { container } = render(
-        <Table rowKey="index" bordered data={data} onRowMouseenter={fn} columns={SIMPLE_COLUMNS}></Table>,
-      );
-      fireEvent.mouseEnter(container.querySelector('tbody').querySelector('tr'));
-      expect(fn).toHaveBeenCalled();
-    });
-
-    it('onRowMouseleave', () => {
-      const fn = vi.fn();
-      const { container } = render(
-        <Table rowKey="index" bordered data={data} onRowMouseleave={fn} columns={SIMPLE_COLUMNS}></Table>,
-      );
-      fireEvent.mouseLeave(container.querySelector('tbody').querySelector('tr'));
-      expect(fn).toHaveBeenCalled();
-    });
-
-    it('onRowMouseover', () => {
-      const fn = vi.fn();
-      const { container } = render(
-        <Table rowKey="index" bordered data={data} onRowMouseover={fn} columns={SIMPLE_COLUMNS}></Table>,
-      );
-      fireEvent.mouseOver(container.querySelector('tbody').querySelector('tr'));
-      expect(fn).toHaveBeenCalled();
+    (
+      [
+        { event: 'onRowClick', fire: 'click' },
+        { event: 'onRowDblclick', fire: 'doubleClick' },
+        { event: 'onRowMouseup', fire: 'mouseUp' },
+        { event: 'onRowMousedown', fire: 'mouseDown' },
+        { event: 'onRowMouseenter', fire: 'mouseEnter' },
+        { event: 'onRowMouseleave', fire: 'mouseLeave' },
+        { event: 'onRowMouseover', fire: 'mouseOver' },
+      ] as const
+    ).forEach(({ event, fire }) => {
+      it(event, () => {
+        const fn = vi.fn();
+        const { container } = render(
+          <Table rowKey="index" bordered data={data} {...{ [event]: fn }} columns={SIMPLE_COLUMNS}></Table>,
+        );
+        fireEvent[fire](container.querySelector('tbody').querySelector('tr'));
+        expect(fn).toHaveBeenCalled();
+      });
     });
 
     it('onExpandChange', async () => {
@@ -935,7 +893,7 @@ describe('Table', () => {
   });
 
   describe('scenarios', () => {
-    describe('select', () => {
+    describe('columns[row-select] with selectedRowKeys state', () => {
       const selectColumns = [
         {
           colKey: 'row-select',
@@ -974,7 +932,7 @@ describe('Table', () => {
         />
       );
 
-      it('select-all without disabled rows', async () => {
+      it('select-all and onSelectChange toggle every enabled row', async () => {
         const onSelectChange = vi.fn();
         const { container } = render(
           <TPrimaryTable selectData={getSelectTableData({ withDisabled: false })} onSelectChange={onSelectChange} />,
@@ -994,7 +952,7 @@ describe('Table', () => {
         expect(onSelectChange).toHaveBeenCalledWith([], expect.any(Object));
       });
 
-      it('select-all with disabled rows', async () => {
+      it('select-all and disabled rows produce an indeterminate selection', async () => {
         const onSelectChange = vi.fn();
         const { container } = render(<TPrimaryTable onSelectChange={onSelectChange} />);
 
@@ -1016,7 +974,7 @@ describe('Table', () => {
         expect(onSelectChange).toHaveBeenCalledWith([], expect.any(Object));
       });
 
-      it('select-all keeps preselected disabled row', async () => {
+      it('defaultSelectedRowKeys preserves disabled rows across select-all changes', async () => {
         const onSelectChange = vi.fn();
         const { container } = render(<TPrimaryTable defaultSelectedRowKeys={['2']} onSelectChange={onSelectChange} />);
 
@@ -1114,7 +1072,7 @@ describe('Table', () => {
 
       const getPopups = () => document.querySelectorAll('.t-table__filter-pop-content');
 
-      describe('with virtual scroll', () => {
+      describe('Virtual scroll', () => {
         const descriptors: Array<[string, PropertyDescriptor]> = [];
         const { scrollTo } = HTMLElement.prototype;
 
@@ -1155,7 +1113,7 @@ describe('Table', () => {
           HTMLElement.prototype.scrollTo = scrollTo;
         });
 
-        it('renders only one filter popup even though the affixed header duplicates THead', async () => {
+        it('filter and virtual header rendering keep a single popup instance', async () => {
           const { container } = render(<VirtualFilterTable />);
 
           await waitFor(() => {
@@ -1173,7 +1131,7 @@ describe('Table', () => {
           });
         });
 
-        it('keeps the popup open and in sync when filtering crosses the virtual scroll threshold', async () => {
+        it('filterValue and virtual threshold changes keep popup state synchronized', async () => {
           const { container } = render(<VirtualFilterTable />);
 
           await waitFor(() => {
@@ -1208,7 +1166,7 @@ describe('Table', () => {
           expect(getPopups().length).toBe(1);
         });
 
-        it('closes the popup when clicking the affixed header filter icon again', async () => {
+        it('affixed header filter trigger toggles the active popup closed', async () => {
           const { container } = render(<VirtualFilterTable />);
 
           await waitFor(() => {
@@ -1229,7 +1187,7 @@ describe('Table', () => {
           });
         });
 
-        it('closes the popup when clicking the same colKey filter icon of another table', async () => {
+        it('matching colKey filter triggers transfer popup ownership between tables', async () => {
           const { container } = render(
             <>
               <VirtualFilterTable />
@@ -1258,7 +1216,7 @@ describe('Table', () => {
           });
         });
 
-        it('lets the affixed header own the popup when headerAffixedTop is enabled', async () => {
+        it('headerAffixedTop assigns filter popup ownership to the affixed trigger', async () => {
           const { container } = render(<VirtualFilterTable headerAffixedTop />);
 
           await waitFor(() => {

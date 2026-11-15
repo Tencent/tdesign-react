@@ -6,10 +6,15 @@ import { Textarea } from '..';
 
 import type { TdTextareaProps } from '../type';
 
+type TextareaOnChangeHandler = NonNullable<TdTextareaProps['onChange']>;
+type TextareaOnChangeContext = Parameters<TextareaOnChangeHandler>[1];
+
 const calcTextareaHeightMock = vi.hoisted(() => vi.fn());
 
-vi.mock('@tdesign/common-js/utils/calcTextareaHeight', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tdesign/common-js/utils/calcTextareaHeight')>();
+vi.mock('@tdesign/common-js/utils/calcTextareaHeight', async () => {
+  const actual = (await vi.importActual('@tdesign/common-js/utils/calcTextareaHeight')) as {
+    default: typeof calcTextareaHeightMock;
+  };
   calcTextareaHeightMock.mockImplementation(actual.default);
   return { default: calcTextareaHeightMock };
 });
@@ -24,13 +29,12 @@ function getTextarea(container?: ParentNode | null): HTMLTextAreaElement {
 
 describe('Textarea', () => {
   describe('props', () => {
-    // 测试属性
     test('disabled', async () => {
       const { container } = render(<Textarea disabled={true} />);
       expect(container.querySelectorAll('.t-is-disabled')).not.toBeNull();
     });
 
-    test('autofocus cursor end', async () => {
+    test('autofocus', async () => {
       const value = 'test autofocus';
       const { container } = render(<Textarea value={value} autofocus />);
 
@@ -38,13 +42,17 @@ describe('Textarea', () => {
 
       expect(getTextarea(container).selectionStart).toBe(value.length);
     });
+
+    test('default', async () => {
+      const { container } = render(<Textarea />);
+      expect(container.querySelectorAll('.t-textarea')).not.toBeNull();
+    });
   });
 
   describe('events', () => {
-    // 测试事件
-    test('event', async () => {
+    test('onChange, onKeydown, onKeypress and onKeyup', async () => {
       let changeValue = '';
-      let event: Parameters<NonNullable<TdTextareaProps['onChange']>>[1] | null = null;
+      let event: TextareaOnChangeContext | null = null;
       render(
         <Textarea
           onChange={(value, e) => {
@@ -65,7 +73,6 @@ describe('Textarea', () => {
           }}
         />,
       );
-      // 获取 input
       expect(getTextarea()).not.toBeNull();
 
       event = null;
@@ -90,14 +97,7 @@ describe('Textarea', () => {
   });
 
   describe('scenarios', () => {
-    // 测试渲染
-    test('create', async () => {
-      const { container } = render(<Textarea />);
-      expect(container.querySelectorAll('.t-textarea')).not.toBeNull();
-    });
-
-    // 测试输入
-    test('input', async () => {
+    test('maxcharacter and maxLength coordinate truncation with composition input', async () => {
       render(<Textarea maxcharacter={5} />);
       // 获取 input
       expect(getTextarea()).not.toBeNull();
@@ -120,7 +120,7 @@ describe('Textarea', () => {
       expect(onChange).toHaveBeenLastCalledWith('天', expect.objectContaining({}));
     });
 
-    test('count follows maxcharacter and maxlength correctly', async () => {
+    test('maxcharacter and maxlength count Unicode characters', async () => {
       const LIMIT_SELECTOR = '.t-textarea__limit';
 
       const { container: container1 } = render(<Textarea maxcharacter={15} value="hello世界" />);
@@ -131,11 +131,12 @@ describe('Textarea', () => {
       const limitText2 = container2.querySelector(LIMIT_SELECTOR);
       expect(limitText2?.textContent).toBe('7/15');
 
-      const { container: container3 } = render(<Textarea maxcharacter={15} value="hi👋🌍" />);
+      const emojiValue = `hi${String.fromCodePoint(0x1f44b, 0x1f30d)}`;
+      const { container: container3 } = render(<Textarea maxcharacter={15} value={emojiValue} />);
       const limitText3 = container3.querySelector(LIMIT_SELECTOR);
-      expect(limitText3?.textContent).toBe('10/15'); // h(1) + i(1) + 👋(4) + 🌍(4) = 10
+      expect(limitText3?.textContent).toBe('10/15');
 
-      const { container: container4 } = render(<Textarea maxlength={15} value="hi👋🌍" />);
+      const { container: container4 } = render(<Textarea maxlength={15} value={emojiValue} />);
       const limitText4 = container4.querySelector(LIMIT_SELECTOR);
       expect(limitText4?.textContent).toBe('4/15');
     });

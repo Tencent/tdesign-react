@@ -10,7 +10,7 @@ function renderBadge(badge) {
 
 describe('Badge', () => {
   describe('props', () => {
-    test('offset', async () => {
+    test('offset[array<string>]', async () => {
       const badge = renderBadge(
         <Badge offset={[1, 2]} count={1}>
           test
@@ -27,10 +27,8 @@ describe('Badge', () => {
         'background-color': 'red',
       });
     });
-  });
 
-  describe('scenarios', () => {
-    test('默认 DOM 结构', async () => {
+    test('children with count', async () => {
       const badge = renderBadge(<Badge count={1}>test</Badge>);
       expect(badge.firstChild.textContent).toBe('test');
       expect(badge.lastChild.textContent).toBe('1');
@@ -38,8 +36,7 @@ describe('Badge', () => {
       expect(badge.childNodes.length).toBe(2);
     });
 
-    test('class', async () => {
-      expect(renderBadge(<Badge count={1}>test</Badge>).lastChild).toHaveClass('t-badge--circle');
+    test('shape[round]', async () => {
       expect(
         renderBadge(
           <Badge shape="round" count={1}>
@@ -47,6 +44,9 @@ describe('Badge', () => {
           </Badge>,
         ).lastChild,
       ).toHaveClass('t-badge--round');
+    });
+
+    test('dot', async () => {
       expect(
         renderBadge(
           <Badge dot count={1}>
@@ -54,6 +54,9 @@ describe('Badge', () => {
           </Badge>,
         ).lastChild,
       ).toHaveClass('t-badge--dot');
+    });
+
+    test('size[small]', async () => {
       expect(
         renderBadge(
           <Badge size="small" count={1}>
@@ -61,21 +64,20 @@ describe('Badge', () => {
           </Badge>,
         ).lastChild,
       ).toHaveClass('t-badge--circle', 't-size-s');
+    });
 
-      // not a wrapper
+    test('count without wrapper', async () => {
       expect(renderBadge(<Badge count={1} />)).toHaveClass('t-badge--static', 't-badge--circle');
     });
 
-    test('count', async () => {
-      // count 0
+    test('showZero', async () => {
       expect(renderBadge(<Badge />)).toBeNull();
       expect(renderBadge(<Badge showZero count={0} />)).toBeTruthy();
+    });
 
-      // maxCount
+    test('maxCount[number]', async () => {
       expect(renderBadge(<Badge count={100} />)).toHaveTextContent('99+');
       expect(renderBadge(<Badge count={100} maxCount={100} />)).toHaveTextContent('100');
-
-      // count
       expect(renderBadge(<Badge count={2} />)).toHaveTextContent('2');
     });
   });

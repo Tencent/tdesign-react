@@ -9,7 +9,7 @@ MockDate.set('2022-08-27');
 
 describe('TimeRangePicker', () => {
   describe('props', () => {
-    test('props.defaultValue for TimeRangePicker works fine', async () => {
+    test('defaultValue[array<string>]', async () => {
       const { container } = render(<TimeRangePicker defaultValue={['00:00:00', '00:10:20']} />);
       const inputs = container.querySelectorAll('input');
       expect(inputs.length).toBe(2);
@@ -23,7 +23,8 @@ describe('TimeRangePicker', () => {
         expect(scrollPanels.item(2).querySelectorAll('.t-is-current').item(0)).toHaveTextContent('20');
       });
     });
-    test('props.label for TimeRangePicker  works fine', async () => {
+
+    test('label[string]', async () => {
       const label = 'abc';
       const { container } = render(<TimeRangePicker label={label}></TimeRangePicker>);
       const prefix = container.querySelector('.t-input__prefix');
@@ -33,7 +34,7 @@ describe('TimeRangePicker', () => {
   });
 
   describe('events', () => {
-    test('props.onInput&onBlur&onForus works fine', async () => {
+    test('onInput, onBlur and onFocus', async () => {
       const handleBlur = vi.fn();
       const handleInput = vi.fn();
       const handleFocus = vi.fn();
@@ -51,7 +52,7 @@ describe('TimeRangePicker', () => {
   });
 
   describe('scenarios', () => {
-    test('TimeRangePick presets test', async () => {
+    test('presets with value and onChange updates controlled range', async () => {
       const date = ['11:00:00', '12:00:00'];
       const defaultValue = ['00:00:01', '00:00:02'];
 

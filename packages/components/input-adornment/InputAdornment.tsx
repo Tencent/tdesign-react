@@ -9,6 +9,7 @@ import type { TdInputAdornmentProps } from './type';
 
 export interface InputAdornmentProps extends TdInputAdornmentProps, StyledProps {
   children?: React.ReactNode;
+  onChange?: (...args: any[]) => void;
 }
 
 const InputAdornment = forwardRef<HTMLDivElement, InputAdornmentProps>((props, ref) => {

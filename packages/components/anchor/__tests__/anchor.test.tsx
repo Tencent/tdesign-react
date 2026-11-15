@@ -11,7 +11,7 @@ const childTestID = 'childTestID';
 
 describe('Anchor', () => {
   describe('events', () => {
-    test('render Anchor click', async () => {
+    test('onClick', async () => {
       const fn = vi.fn();
       const wrapper = render(
         <div>
@@ -29,8 +29,22 @@ describe('Anchor', () => {
     });
   });
 
+  describe('props', () => {
+    test('AnchorItem.href', async () => {
+      render(
+        <Anchor>
+          <AnchorItem href="#test-a" />
+          <AnchorItem href="#test-b" />
+        </Anchor>,
+      );
+      expect(document.querySelector('.t-is-active')).toBe(null);
+      expect(document.querySelector('a[href="#test-a"]')).not.toBe(null);
+      expect(document.querySelector('a[href="#test-b"]')).not.toBe(null);
+    });
+  });
+
   describe('scenarios', () => {
-    test('Anchor 工具函数', () => {
+    test('targetOffset resolves distances for each scroll target', () => {
       const wrapper = render(
         <Anchor targetOffset={150}>
           <AnchorItem href="#基础锚点" title="基础锚点" data-testid={childTestID} />
@@ -49,24 +63,12 @@ describe('Anchor', () => {
       const windowDistance = getScroll(window, true);
       expect(windowDistance).toEqual(distance);
     });
-
-    test('render AnchorItem links', async () => {
-      render(
-        <Anchor>
-          <AnchorItem href="#test-a" />
-          <AnchorItem href="#test-b" />
-        </Anchor>,
-      );
-      expect(document.querySelector('.t-is-active')).toBe(null);
-      expect(document.querySelector('a[href="#test-a"]')).not.toBe(null);
-      expect(document.querySelector('a[href="#test-b"]')).not.toBe(null);
-    });
   });
 });
 
 describe('AnchorTarget', () => {
   describe('scenarios', () => {
-    test('render AnchorTarget', async () => {
+    test('AnchorTarget copy link handles click', async () => {
       const wrapper = render(
         <div data-testid={childTestID}>
           <AnchorTarget id="default" tag="h1">

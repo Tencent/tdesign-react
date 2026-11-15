@@ -25,7 +25,7 @@ const stepOptions = [
 
 describe('Steps', () => {
   describe('props', () => {
-    test('layout vertical 测试', async () => {
+    test('layout[vertical]', async () => {
       const testId = 'step layout test';
 
       const { getByTestId } = render(
@@ -39,7 +39,7 @@ describe('Steps', () => {
       expect(stepsItems.length).toBe(1);
     });
 
-    test('layout readonly 测试', async () => {
+    test('readonly', async () => {
       const testId = 'step readonly test';
 
       const { getByTestId } = render(
@@ -55,7 +55,7 @@ describe('Steps', () => {
   });
 
   describe('scenarios', () => {
-    test('mount, unmount 测试', () => {
+    test('current and status unmount without errors', () => {
       const wrapper = render(
         <Steps current={1}>
           <StepItem status="finish" title="1" content="这里是提示文字"></StepItem>
@@ -70,7 +70,7 @@ describe('Steps', () => {
       }).not.toThrow();
     });
 
-    test('options 测试', async () => {
+    test('options render items and trigger onChange', async () => {
       const testId = 'step options test';
       const handleChange = vi.fn();
 
