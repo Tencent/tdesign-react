@@ -1,6 +1,7 @@
 import { useMemo, useRef } from 'react';
 import { isFunction, isObject } from 'lodash-es';
 
+import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useInnerPopupVisible from '../hooks/useInnerPopupVisible';
 
@@ -31,6 +32,7 @@ export default function useOverlayInnerStyle(
   },
 ) {
   const { popupProps, autoWidth, disabled, onPopupVisibleChange, allowInput } = props;
+  const { classPrefix } = useConfig();
   const readonly = props.readOnly || props.readonly;
 
   const [innerPopupVisible, setInnerPopupVisible] = useControlled(props, 'popupVisible', onPopupVisibleChange);
@@ -41,28 +43,29 @@ export default function useOverlayInnerStyle(
     if (!triggerElement || !popupElement) return;
 
     const prevDisplay = popupElement.style.display;
-    // 设置display来可以获取popupElement的宽度
-    // eslint-disable-next-line no-param-reassign
+    /* fix: https://github.com/Tencent/tdesign-react/issues/3858
+       overlayInnerStyle 作用于内容节点。测量前清除已设置的 width，
+       避免 scrollWidth 受该宽度约束，无法反映内容尺寸变化。 */
+    const widthTarget = popupElement.classList.contains(`${classPrefix}-popup__content`)
+      ? popupElement
+      : popupElement.querySelector<HTMLElement>(`.${classPrefix}-popup__content`) || popupElement;
+    const prevWidth = widthTarget.style.width;
     popupElement.style.display = '';
-    // popupElement的scrollBar宽度
-    const overlayScrollWidth = popupElement.offsetWidth - popupElement.scrollWidth;
+    widthTarget.style.width = '';
 
-    /**
-     * issue：https://github.com/Tencent/tdesign-react/issues/2642
-     *
-     * popupElement的内容宽度不超过triggerElement的宽度，就使用triggerElement的宽度减去popup的滚动条宽度，
-     * 让popupElement的宽度加上scrollBar的宽度等于triggerElement的宽度；
-     *
-     * popupElement的内容宽度超过triggerElement的宽度，就使用popupElement的scrollWidth，
-     * 不用offsetWidth是会包含scrollBar的宽度
-     */
+    const contentWidth = widthTarget.scrollWidth;
+    // 滚动条宽度
+    const overlayScrollWidth = widthTarget.offsetWidth - widthTarget.scrollWidth;
+
+    /* fix: https://github.com/Tencent/tdesign-react/issues/2642
+       取 popup 和 trigger 元素宽度的较大值进行比较：
+       如果 popup ≤ trigger，使用 trigger 宽度减去 popup 滚动条宽度;
+       否则，使用 popup 的 scrollWidth。
+       不用 offsetWidth，因为它包含滚动条的宽度。 */
     const width =
-      popupElement.offsetWidth - overlayScrollWidth > triggerElement.offsetWidth
-        ? popupElement.scrollWidth
-        : triggerElement.offsetWidth - overlayScrollWidth;
-
+      contentWidth > triggerElement.offsetWidth ? contentWidth : triggerElement.offsetWidth - overlayScrollWidth;
+    widthTarget.style.width = prevWidth;
     if (prevDisplay === 'none') {
-      // eslint-disable-next-line no-param-reassign
       popupElement.style.display = 'none';
     }
     let otherOverlayInnerStyle: React.CSSProperties = {};
