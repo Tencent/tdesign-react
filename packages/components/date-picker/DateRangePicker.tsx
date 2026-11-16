@@ -21,7 +21,7 @@ import { RangeInputPopup } from '../range-input';
 import { dateRangePickerDefaultProps } from './defaultProps';
 import useRange from './hooks/useRange';
 import RangePanel from './panel/RangePanel';
-import { dateCorrection, getEnabledRangeIndex, isSingleSideDisabled, triggerMap } from './utils';
+import { dateCorrection, getEnabledRangeIndex, isRangeFullyDisabled, isSingleSideDisabled, triggerMap } from './utils';
 
 import type { StyledProps } from '../common';
 import type {
@@ -277,6 +277,7 @@ const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>((origin
 
   // 日期点击
   function onCellClick(date: Date, { e }) {
+    if (isRangeFullyDisabled(disabled)) return;
     const nextActiveIndex = getEnabledRangeIndex(disabled, activeIndex);
     setActiveIndex(nextActiveIndex);
 

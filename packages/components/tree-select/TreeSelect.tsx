@@ -174,6 +174,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
   );
 
   const handleSingleChange = usePersistFn<TreeProps['onActive']>((value, context) => {
+    if (disabled) return;
     const $value = Array.isArray(value) && value.length ? value[0] : undefined;
     if ($value || $value === 0 || typeof $value === 'bigint') {
       onChange(formatValue($value, context.node.label), {
@@ -190,6 +191,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
   });
 
   const handleMultiChange = usePersistFn<TreeProps['onChange']>((value, context) => {
+    if (disabled) return;
     if (max === 0 || value.length <= max) {
       const isCheck = value.length > normalizedValue.length;
       const orderedValues = preserveSelectionOrder(
@@ -211,6 +213,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
   });
 
   const onInnerPopupVisibleChange: SelectInputProps['onPopupVisibleChange'] = (visible, ctx) => {
+    if (disabled && visible) return;
     setPopupVisible(visible, { e: ctx.e });
     if (!visible) {
       setFilterInput('', { trigger: 'blur' });
@@ -335,7 +338,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
         tagProps: props.tagProps,
       }}
       placeholder={placeholder}
-      popupVisible={popupVisible && !disabled}
+      popupVisible={popupVisible}
       onInputChange={handleFilterChange}
       onPopupVisibleChange={onInnerPopupVisibleChange}
       onFocus={useMergeFn(handleFocus)}

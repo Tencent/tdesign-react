@@ -3,6 +3,7 @@ import { isFunction, isObject } from 'lodash-es';
 
 import useControlled from '../hooks/useControlled';
 import useInnerPopupVisible from '../hooks/useInnerPopupVisible';
+import useLayoutEffect from '../hooks/useLayoutEffect';
 
 import type * as React from 'react';
 import type { PopupVisibleChangeContext, TdPopupProps } from '../popup';
@@ -77,7 +78,7 @@ export default function useOverlayInnerStyle(
 
   const onInnerPopupVisibleChange = useInnerPopupVisible((visible: boolean, context: PopupVisibleChangeContext) => {
     skipNextBlur.current = false;
-    if (disabled || readonly) return;
+    if (readonly || (disabled && visible)) return;
     // 如果点击触发元素（输入框）且为可输入状态，则继续显示下拉框
     const newVisible = context.trigger === 'trigger-element-click' && allowInput ? true : visible;
     if (props.popupVisible !== newVisible) {
@@ -88,6 +89,12 @@ export default function useOverlayInnerStyle(
       }
     }
   });
+
+  useLayoutEffect(() => {
+    if (!disabled || !innerPopupVisible) return;
+    onInnerPopupVisibleChange(false, {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [disabled]);
 
   const tOverlayInnerStyle = useMemo(() => {
     let result: TdPopupProps['overlayInnerStyle'] = {};

@@ -7,6 +7,7 @@ import { formatDate, getDefaultFormat, isValidDate, parseToDayjs } from '@tdesig
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import useInnerPopupVisible from '../../hooks/useInnerPopupVisible';
+import useLayoutEffect from '../../hooks/useLayoutEffect';
 import { isRangeFullyDisabled } from '../utils';
 import useRangeValue from './useRangeValue';
 
@@ -61,6 +62,12 @@ export default function useRange(props: TdDateRangePickerProps) {
     setPopupVisible(false);
     props.popupProps?.onVisibleChange?.(false, {});
   };
+
+  useLayoutEffect(() => {
+    if (!isRangeFullyDisabled(props.disabled) || !popupVisible) return;
+    handlePopupInvisible();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.disabled]);
 
   // input 设置
   const rangeInputProps: RangeInputProps = {
@@ -151,7 +158,7 @@ export default function useRange(props: TdDateRangePickerProps) {
   };
 
   const handleInnerVisibleChange = useInnerPopupVisible((visible, context) => {
-    if (isRangeFullyDisabled(props.disabled)) return;
+    if (isRangeFullyDisabled(props.disabled) && visible) return;
     // 这里劫持了进一步向 popup 传递的 onVisibleChange 事件，为了保证可以在 Datepicker 中使用 popupProps.onVisibleChange，故此处理
     props.popupProps?.onVisibleChange?.(visible, context);
     // 输入框点击不关闭面板

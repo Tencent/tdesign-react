@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, fireEvent, mockTimeout, render } from '@test/utils';
+import { act, fireEvent, mockTimeout, render, vi } from '@test/utils';
 
 import Dropdown from '../Dropdown';
 
@@ -105,6 +105,17 @@ describe('Dropdown', () => {
 
       // 鼠标点击后下拉框消失
       await mockTimeout(() => expect(document.querySelector('.t-dropdown__menu')).toBeNull());
+    });
+
+    test('disabled ignores a menu click', () => {
+      const onClick = vi.fn();
+      const { getByText } = render(
+        <Dropdown options={dropOptions} disabled popupProps={{ visible: true }} onClick={onClick}>
+          <span>{triggerElement}</span>
+        </Dropdown>,
+      );
+      fireEvent.click(getByText(clickElement));
+      expect(onClick).not.toHaveBeenCalled();
     });
   });
 });

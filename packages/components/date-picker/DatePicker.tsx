@@ -166,6 +166,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
 
   // 日期点击
   function onCellClick(date: Date) {
+    if (disabled) return;
     onPick?.(date);
     setIsHoverCell(false);
     // date 模式自动切换年月
