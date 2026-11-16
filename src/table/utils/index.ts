@@ -1,5 +1,8 @@
 import { get, isFunction, isObject } from 'lodash-es';
+import type { ReactNode } from 'react';
 import {
+  BaseTableCellParams,
+  BaseTableCol,
   CellData,
   RowClassNameParams,
   TableColumnClassName,
@@ -7,7 +10,7 @@ import {
   TdBaseTableProps,
   TdPrimaryTableProps,
 } from '../type';
-import { ClassName, HTMLElementAttributes } from '../../common';
+import { ClassName, HTMLElementAttributes, TNode } from '../../common';
 import { SkipSpansValue } from '../hooks/useRowspanAndColspan';
 
 export function toString(obj: any): string {
@@ -165,3 +168,69 @@ export const enableRowDrag = (dragSort: TdPrimaryTableProps['dragSort']) => {
   const validType = ['row', 'row-handler', 'row-handler-col'];
   return validType.includes(dragSort);
 };
+
+// ------- 超出省略（ellipsis / ellipsisTitle） -------
+
+export interface EllipsisResult {
+  /** 是否开启超出省略 */
+  enabled: boolean;
+  /** 浮层展示内容，缺省时回退为单元格/表头完整内容 */
+  content?: string | TNode;
+  /** 透传给 Popup 组件的属性 */
+  props: Record<string, any>;
+}
+
+/**
+ * 解析 `ellipsis` / `ellipsisTitle` 配置，支持 boolean / Object / { props, content } / Function。
+ */
+export function resolveEllipsis(value: any, params: Record<string, any>): EllipsisResult {
+  const disabled: EllipsisResult = { enabled: false, props: {} };
+  const result = isFunction(value) ? value(params) : value;
+
+  if (result === false || result === null || result === undefined) return disabled;
+  if (typeof result === 'string') return { enabled: true, content: result, props: {} };
+  if (typeof result !== 'object') return { enabled: !!result, props: {} };
+
+  // props 存在则透传，否则将对象整体作为 Popup 属性
+  const props: Record<string, any> = result.props && typeof result.props === 'object' ? { ...result.props } : {};
+  if (!result.props) {
+    Object.keys(result).forEach((key) => {
+      if (key !== 'content') props[key] = result[key];
+    });
+  }
+
+  const content = isFunction(result.content) ? result.content(params) : result.content;
+  return { enabled: true, content, props };
+}
+
+/** 是否存在列开启了超出省略 */
+export function hasEllipsisColumn(columns: BaseTableCol[]): boolean {
+  return (columns || []).some((col) => !!col.ellipsis || !!col.ellipsisTitle);
+}
+
+/**
+ * 计算单元格渲染内容。
+ * 优先级：序号列 > col.cell > col.render > get(row, colKey) > cellEmptyContent
+ */
+export function renderCell(
+  params: BaseTableCellParams<TableRowData>,
+  cellEmptyContent?: TdBaseTableProps['cellEmptyContent'],
+): ReactNode {
+  const { col, row, rowIndex } = params;
+  if (col.colKey === 'serial-number') {
+    return rowIndex + 1;
+  }
+  if (isFunction(col.cell)) {
+    return col.cell(params);
+  }
+  if (isFunction(col.render)) {
+    return col.render({ ...params, type: 'cell' });
+  }
+  const r = get(row, col.colKey);
+  // 0 和 false 是正常值，不走空值兜底
+  if (![undefined, '', null].includes(r)) return r;
+  if (cellEmptyContent) {
+    return isFunction(cellEmptyContent) ? cellEmptyContent(params) : cellEmptyContent;
+  }
+  return r;
+}

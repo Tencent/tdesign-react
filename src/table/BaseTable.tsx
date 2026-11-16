@@ -29,11 +29,12 @@ import {
   handleCellSpan,
   isFirstColumnInSpan,
   isLastRowInSpan,
+  renderCell,
 } from './utils';
 import useRowspanAndColspan from './hooks/useRowspanAndColspan';
 import usePagination from './hooks/usePagination';
 import useTableHeader from './hooks/useTableHeader';
-import { BaseTableCellParams, BaseTableCol, TableRowData, TdBaseTableProps } from './type';
+import { BaseTableCol, TableRowData } from './type';
 
 const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originProps, ref) => {
   const props = useDefaultProps<BaseTableProps>(originProps, baseTableDefaultProps);
@@ -108,8 +109,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originProps, ref) =>
     [tableHeaderClasses.fixed]: tableHeaderIsFixed,
     [tableBaseClass.bordered]: bordered,
   });
-
-  const ellipsisClasses = cx([`${classPrefix}-table__ellipsis`, `${classPrefix}-text-ellipsis`]);
 
   const defaultColWidth = tableLayout === 'fixed' ? '80px' : undefined;
 
@@ -224,35 +223,6 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originProps, ref) =>
     refreshTable,
   }));
 
-  const renderCell = (
-    params: BaseTableCellParams<TableRowData>,
-    cellEmptyContent?: TdBaseTableProps['cellEmptyContent'],
-  ) => {
-    const { col, row, rowIndex } = params;
-    // support serial number column
-    if (col.colKey === 'serial-number') {
-      return rowIndex + 1;
-    }
-
-    if (isFunction(col.cell)) {
-      return col.cell(params);
-    }
-
-    if (isFunction(col.render)) {
-      return col.render({ ...params, type: 'cell' });
-    }
-
-    const r = get(row, col.colKey);
-    // 0 和 false 属于正常可用值，不能使用兜底逻辑 cellEmptyContent
-    if (![undefined, '', null].includes(r)) return r;
-
-    // cellEmptyContent 作为空数据兜底显示，用户可自定义
-    if (cellEmptyContent) {
-      return isFunction(cellEmptyContent) ? cellEmptyContent(params) : cellEmptyContent;
-    }
-    return r;
-  };
-
   const renderTitle = (thItem: BaseTableCol<TableRowData>, index: number) => {
     if (isFunction(thItem?.title)) {
       return thItem?.title({ col: thItem, colIndex: index });
@@ -285,9 +255,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originProps, ref) =>
             });
             return (
               <th key={idx} className={thClassName(thItem, [thStyles.classes, customClasses])} style={thStyles.style}>
-                <div className={(thItem.ellipsisTitle || thItem.ellipsis) && ellipsisClasses}>
-                  {renderTitle(thItem, idx)}
-                </div>
+                <div>{renderTitle(thItem, idx)}</div>
               </th>
             );
           })}
@@ -373,7 +341,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originProps, ref) =>
                     handleCellClick(trItem, tdItem, trIdx, tdIdx, $event);
                   }}
                 >
-                  <div className={tdItem.ellipsis && ellipsisClasses}>{renderCell(params, cellEmptyContent)}</div>
+                  <div>{renderCell(params, cellEmptyContent)}</div>
                 </td>
               );
             })}

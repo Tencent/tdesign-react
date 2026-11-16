@@ -5,6 +5,7 @@ import { isFunction } from 'lodash-es';
 
 import TEllipsis from '../Ellipsis';
 import useClassName from './useClassName';
+import { resolveEllipsis } from '../utils';
 import type { BaseTableCol, PrimaryTableCol, TableRowData, TdBaseTableProps } from '../type';
 
 export type TableColumns = TdBaseTableProps['columns'];
@@ -53,24 +54,23 @@ export default function useTableHeader({ columns }: UseTableHeaderParams) {
     attach: HTMLElement,
     extra?: {
       classPrefix: string;
-      ellipsisOverlayClassName: string;
     },
   ) => {
     const classes = {
       [tableSortClasses.sortable]: !!sortIcon,
       [tableFilterClasses.filterable]: !!filterIcon,
     };
-    const content = isFunction(ellipsisTitle) ? ellipsisTitle({ col, colIndex }) : undefined;
-    const isEllipsis = ellipsisTitle !== undefined ? Boolean(ellipsisTitle) : Boolean(col.ellipsis);
+    // ellipsisTitle 优先级高于 ellipsis
+    const resolved = resolveEllipsis(ellipsisTitle !== undefined ? ellipsisTitle : col.ellipsis, { col, colIndex });
     return (
       <div className={classNames(classes)}>
         <div className={tableSortClasses.title}>
-          {isEllipsis ? (
+          {resolved.enabled ? (
             <TEllipsis
               attach={attach ? () => attach : undefined}
-              popupContent={content}
+              popupContent={resolved.content ?? title}
+              popupProps={resolved.props}
               classPrefix={extra?.classPrefix}
-              overlayClassName={extra?.ellipsisOverlayClassName}
             >
               {title}
             </TEllipsis>

@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { get } from 'lodash-es';
 import { PrimaryTableProps, PrimaryTableRef } from './interface';
 import {
+  BaseTableCellParams,
   PageInfo,
   PaginationProps,
   PrimaryTableCol,
@@ -21,6 +22,8 @@ import useRowExpand from './hooks/useRowExpand';
 import useTableHeader, { renderTitle } from './hooks/useTableHeader';
 import { primaryTableDefaultProps } from './defaultProps';
 import BaseTable from './BaseTable';
+import Ellipsis from './Ellipsis';
+import { renderCell, resolveEllipsis } from './utils';
 
 const PrimaryTable = forwardRef<PrimaryTableRef, PrimaryTableProps>((props, ref) => {
   const {
@@ -125,8 +128,9 @@ const PrimaryTable = forwardRef<PrimaryTableRef, PrimaryTableProps>((props, ref)
                 : [item.className, tableSortClasses.sortColumn];
           }
         }
-        // 添加排序图标和过滤图标
+        // 表头超出省略（ellipsisTitle 优先级高于 ellipsis）
         if (item.sorter || item.filter) {
+          // 排序/过滤列：title 由 renderTitleWidthIcon 渲染，内部已处理超出省略
           const titleContent = renderTitle(item, i);
           const { ellipsisTitle } = item;
           item.title = (p) => {
@@ -141,11 +145,52 @@ const PrimaryTable = forwardRef<PrimaryTableRef, PrimaryTableProps>((props, ref)
               attach,
               {
                 classPrefix,
-                ellipsisOverlayClassName: '',
               },
             );
           };
           item.ellipsisTitle = false;
+        } else {
+          // 普通列：按需将 title 包装为超出省略浮层
+          const titleEllipsis = resolveEllipsis(item.ellipsisTitle !== undefined ? item.ellipsisTitle : item.ellipsis, {
+            col: item,
+            colIndex: i,
+          });
+          if (titleEllipsis.enabled) {
+            const titleContent = renderTitle(item, i);
+            item.title = () => (
+              <Ellipsis
+                classPrefix={classPrefix}
+                popupContent={titleEllipsis.content ?? titleContent}
+                popupProps={titleEllipsis.props}
+              >
+                {titleContent}
+              </Ellipsis>
+            );
+            item.ellipsisTitle = false;
+          }
+        }
+
+        // 单元格超出省略
+        if (item.ellipsis) {
+          const { ellipsis, cell: oldCell, render: oldRender } = item;
+          item.cell = (p) => {
+            // 复用 renderCell 取原始内容，避免 cell 被替换后无限递归
+            const baseParams = {
+              ...p,
+              col: { ...p.col, cell: oldCell, render: oldRender },
+            } as unknown as BaseTableCellParams<TableRowData>;
+            const cellNode = renderCell(baseParams, props.cellEmptyContent);
+            const resolved = resolveEllipsis(ellipsis, p);
+            return (
+              <Ellipsis
+                classPrefix={classPrefix}
+                popupContent={resolved.content ?? cellNode}
+                popupProps={resolved.props}
+              >
+                {cellNode}
+              </Ellipsis>
+            );
+          };
         }
         if (item.children?.length) {
           item.children = getColumns(item.children);
