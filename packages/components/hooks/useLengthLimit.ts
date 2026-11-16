@@ -2,21 +2,22 @@ import { useEffect, useMemo } from 'react';
 import log from '@tdesign/common-js/log/index';
 import { getCharacterLength, getUnicodeLength, limitUnicodeMaxLength } from '@tdesign/common-js/utils/helper';
 
-import type { TdInputProps } from './type';
-
 export interface UseLengthLimitParams {
   value: string;
-  maxlength: number;
-  maxcharacter: number;
+  maxlength?: number;
+  maxcharacter?: number;
   allowInputOverMax: boolean;
-  status: TdInputProps['status'];
-  onValidate: TdInputProps['onValidate'];
+  status?: 'default' | 'success' | 'warning' | 'error';
+  onValidate?: (context: { error?: 'exceed-maximum' | 'below-minimum' }) => void;
 }
 
 export default function useLengthLimit(params: UseLengthLimitParams) {
+  const maxlength = params.maxlength ?? 0;
+  const maxcharacter = params.maxcharacter ?? 0;
+  const { allowInputOverMax, value, status, onValidate } = params;
+
   // 文本超出数量限制时，是否允许继续输入
   const getValueByLimitNumber = (inputValue: string) => {
-    const { allowInputOverMax, maxlength, maxcharacter } = params;
     if (!(maxlength || maxcharacter) || allowInputOverMax || !inputValue) return inputValue;
     if (maxlength) {
       // input value could be unicode 😊
@@ -31,7 +32,6 @@ export default function useLengthLimit(params: UseLengthLimitParams) {
   };
 
   const limitNumber = useMemo(() => {
-    const { maxlength, maxcharacter, value } = params;
     if (typeof value === 'number') return String(value);
     if (maxlength && maxcharacter) {
       log.warn('Input', 'Pick one of maxlength and maxcharacter please.');
@@ -44,8 +44,7 @@ export default function useLengthLimit(params: UseLengthLimitParams) {
       return `${getCharacterLength(value || '')}/${maxcharacter}`;
     }
     return '';
-    // eslint-disable-next-line
-  }, [params.maxcharacter, params.maxlength, params.value]);
+  }, [maxcharacter, maxlength, value]);
 
   const innerStatus = useMemo(() => {
     if (limitNumber) {
@@ -55,10 +54,10 @@ export default function useLengthLimit(params: UseLengthLimitParams) {
     return '';
   }, [limitNumber]);
 
-  const tStatus = useMemo(() => params.status || innerStatus, [params.status, innerStatus]);
+  const tStatus = useMemo(() => status || innerStatus, [status, innerStatus]);
 
   const onValidateChange = () => {
-    params.onValidate?.({
+    onValidate?.({
       error: innerStatus ? 'exceed-maximum' : undefined,
     });
   };
