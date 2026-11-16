@@ -574,8 +574,20 @@ export default function useFixed(
   }, []);
 
   const updateTableAfterColumnResize = () => {
-    updateFixedStatus();
-    updateFixedHeader();
+    // 拖拽列宽后，新的列宽/表格宽度由 React 异步提交。
+    // 若在提交前同步调用 updateFixedStatus/updateFixedHeader，
+    // getBoundingClientRect 读到的仍是旧 DOM 宽度，固定列的 left/right
+    // 偏移会基于过期布局计算；外层滚动容器尺寸不变时 ResizeObserver
+    // 也不会触发补偿计算，导致固定列区域透出其他列内容（issue #4188）。
+    // 因此将固定列位置与溢出状态的重算推迟到状态提交完成后（双 rAF）执行。
+    if (typeof window === 'undefined') return;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        updateFixedHeader();
+        updateFixedStatus();
+        updateColumnFixedShadow(tableContentRef.current, { skipScrollLimit: true });
+      });
+    });
   };
 
   return {
