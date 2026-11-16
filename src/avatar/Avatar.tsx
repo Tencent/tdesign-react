@@ -82,4 +82,6 @@ const Avatar: FC<AvatarProps> = (props) => {
   );
 };
 
+Avatar.displayName = 'Avatar';
+
 export default Avatar;

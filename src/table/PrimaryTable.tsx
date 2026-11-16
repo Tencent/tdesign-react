@@ -230,4 +230,6 @@ const PrimaryTable = forwardRef<PrimaryTableRef, PrimaryTableProps>((props, ref)
   return <BaseTable {...baseTableProps} ref={primaryTableRef} style={style} />;
 });
 
+PrimaryTable.displayName = 'PrimaryTable';
+
 export default PrimaryTable;

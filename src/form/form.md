@@ -9,7 +9,7 @@
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 colon | Boolean | false | 是否在表单标签字段右侧显示冒号 | N
-contentAlign | String | left | 表单内容对齐方式：左对齐、右对齐。可选项：left/right | N
+contentAlign | String | left | 表单内容对齐方式：左对齐、居中对齐及右对齐。可选项：left/center/right | N
 disabled | Boolean | undefined | 是否禁用整个表单 | N
 errorMessage | Object | - | 表单错误信息配置，示例：`{ idcard: '请输入正确的身份证号码', max: '字符长度不能超过 ${max}' }`。TS 类型：`FormErrorMessage` | N
 form | Object | - | 经 `Form.useForm()` 创建的 form 控制实例。TS 类型：`FormInstanceFunctions` | N
@@ -40,8 +40,8 @@ style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 clearValidate | `(fields?: Array<keyof FormData>)` | \- | 必需。清空校验结果。可使用 fields 指定清除部分字段的校验结果，fields 值为空则表示清除所有字段校验结果。清除邮箱校验结果示例：`clearValidate(['email'])`
 currentElement | \- | `HTMLFormElement` | 获取 form dom 元素
 getCurrentElement | \- | `HTMLFormElement` | 获取 form dom 元素
-getFieldValue | `(field: NamePath) ` | `unknown` | 必需。获取单个字段值
 getFieldsValue | `(nameList: string[] \| boolean)` | `getFieldsValue<FormData>` | 必需。获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据。[详细类型定义](https://github.com/Tencent/tdesign-mobile-react/tree/develop/src/form/type.ts)。<br/>`interface getFieldsValue<T>{ (nameList: true): T; (nameList: any[]): Record<keyof T, unknown>;}`<br/>
+getFieldValue | `(field: NamePath)` | `unknown` | 必需。获取单个字段值
 getValidateMessage | `(fields?: Array<keyof FormData>)` | `Array<FormRule> \| void` | 必需。获取校验结果，当调用 getValidateMessage() 时返回所有校验结果
 reset | `(params?: FormResetParams<FormData>)` | \- | 必需。重置表单，表单里面没有重置按钮`<button type=\"reset\" />`时可以使用该方法，默认重置全部字段为空，该方法会触发 `reset` 事件。<br />如果表单属性 `resetType='empty'` 或者 `reset.type='empty'` 会重置为空；<br />如果表单属性 `resetType='initial'` 或者 `reset.type='initial'` 会重置为表单初始值。<br />`reset.fields` 用于设置具体重置哪些字段，示例：`reset({ type: 'initial', fields: ['name', 'age'] })`。[详细类型定义](https://github.com/Tencent/tdesign-mobile-react/tree/develop/src/form/type.ts)。<br/>`interface FormResetParams<FormData> { type?: 'initial' \| 'empty'; fields?: Array<keyof FormData> }`<br/>
 setFields | `(fields: FieldData[])` | \- | 必需。设置多组字段状态。TS 类型：`(fields: FieldData[]) => void` `interface FieldData { name: NamePath; value?: unknown, status?: string, validateMessage?: { type?: string, message?: string } }`。[详细类型定义](https://github.com/Tencent/tdesign-mobile-react/tree/develop/src/form/type.ts)
@@ -59,7 +59,7 @@ validateOnly | `(params?: Pick<FormValidateParams, 'fields' \| 'trigger'>)` | `P
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
 arrow | Boolean | false | 是否显示右侧箭头 | N
-contentAlign | String | - | 表单内容对齐方式：左对齐、右对齐，优先级高于 Form.contentAlign。可选项：left/right | N
+contentAlign | String | - | 表单内容对齐方式：左对齐、居中对齐及右对齐，优先级高于 Form.contentAlign。可选项：left/center/right | N
 for | String | - | label 原生属性 | N
 help | TNode | - | 表单项说明内容。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-mobile-react/blob/develop/src/common.ts) | N
 initialData | String / Number / Object / Array | - | 表单初始数据，重置时所需初始数据。TS 类型：`InitialData` `type InitialData = any`。[详细类型定义](https://github.com/Tencent/tdesign-mobile-react/tree/develop/src/form/type.ts) | N

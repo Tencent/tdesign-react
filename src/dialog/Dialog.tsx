@@ -209,4 +209,6 @@ export const Dialog: React.FC<DialogProps> = (props) => {
   );
 };
 
+Dialog.displayName = 'Dialog';
+
 export default Dialog;

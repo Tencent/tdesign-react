@@ -70,4 +70,6 @@ const List: React.FC<ListProps> = (props) => {
   );
 };
 
+List.displayName = 'List';
+
 export default List;

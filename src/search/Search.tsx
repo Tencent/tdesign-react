@@ -230,4 +230,6 @@ const Search: FC<SearchProps> = (props) => {
   );
 };
 
+Search.displayName = 'Search';
+
 export default Search;

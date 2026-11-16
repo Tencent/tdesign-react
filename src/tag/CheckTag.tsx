@@ -103,4 +103,6 @@ const CheckTag = forwardRef<HTMLSpanElement, CheckTagProps>((originProps, ref) =
   );
 });
 
+CheckTag.displayName = 'CheckTag';
+
 export default CheckTag;

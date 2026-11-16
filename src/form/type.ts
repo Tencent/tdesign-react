@@ -4,8 +4,8 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { IsEmailOptions } from 'validator/es/lib/isEmail';
-import { IsURLOptions } from 'validator/es/lib/isURL';
+import type { IsEmailOptions } from 'validator/es/lib/isEmail';
+import type { IsURLOptions } from 'validator/es/lib/isURL';
 import type { TNode, FormResetEvent, FormSubmitEvent } from '../common';
 
 export interface TdFormProps<FormData extends Data = Data> {
@@ -15,10 +15,10 @@ export interface TdFormProps<FormData extends Data = Data> {
    */
   colon?: boolean;
   /**
-   * 表单内容对齐方式：左对齐、右对齐
+   * 表单内容对齐方式：左对齐、居中对齐及右对齐
    * @default left
    */
-  contentAlign?: 'left' | 'right';
+  contentAlign?: 'left' | 'center' | 'right';
   /**
    * 是否禁用整个表单
    */
@@ -122,13 +122,13 @@ export interface FormInstanceFunctions<FormData extends Data = Data> {
    */
   getCurrentElement?: () => HTMLFormElement;
   /**
-   * 获取单个字段值
-   */
-  getFieldValue: (field: NamePath) => unknown;
-  /**
    * 获取一组字段名对应的值，当调用 getFieldsValue(true) 时返回所有表单数据
    */
   getFieldsValue: (nameList: string[] | boolean) => getFieldsValue<FormData>;
+  /**
+   * 获取单个字段值
+   */
+  getFieldValue: (field: NamePath) => unknown;
   /**
    * 获取校验结果，当调用 getValidateMessage() 时返回所有校验结果
    */
@@ -170,9 +170,9 @@ export interface TdFormItemProps {
    */
   arrow?: boolean;
   /**
-   * 表单内容对齐方式：左对齐、右对齐，优先级高于 Form.contentAlign
+   * 表单内容对齐方式：左对齐、居中对齐及右对齐，优先级高于 Form.contentAlign
    */
-  contentAlign?: 'left' | 'right';
+  contentAlign?: 'left' | 'center' | 'right';
   /**
    * label 原生属性
    * @default ''
@@ -212,7 +212,7 @@ export interface TdFormItemProps {
    */
   rules?: Array<FormRule>;
   /**
-   * null
+   * undefined
    * @default false
    */
   shouldUpdate?: boolean | ((prevValue, curValue) => boolean);

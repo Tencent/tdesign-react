@@ -55,4 +55,6 @@ const SideBarItem = forwardRef<HTMLDivElement, SideBarItemProps>((originProps, r
   );
 });
 
+SideBarItem.displayName = 'SideBarItem';
+
 export default memo(SideBarItem);

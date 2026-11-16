@@ -1,38 +1,37 @@
-.option {
-  margin-bottom: 12px;
+.tdesign-mobile-demo-header {
+  margin-bottom: 32px;
 }
 
-.button-group {
-  background-color: var(--bg-color-demo, #fff);;
-  box-sizing: border-box;
-  padding: 8px 4px;
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-  border-bottom: .5px solid #e7e7e7;
-
-  .t-button {
-    height: 32px;
-    flex: 1;
-
-    &:not(:last-child) {
-      flex: 1;
-      margin-right: 16px;
-    }
+.form-demo-form {
+  & + & {
+    margin-top: 16px;
   }
 }
 
-.box {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
+// 顶部吸顶区域：tag 选项卡胶囊等分撑满，对齐设计稿
+.form-demo-sticky {
 
-.textarea {
-  width: 100%;
-  height: 100%;
-}
+  .t-tabs__item--tag {
+    // Badge 包裹层默认按内容宽度收缩，这里让其撑满单元格
+    .t-badge {
+      flex: 1;
+      display: flex;
+    }
 
-.upload {
-  --td-upload-grid-columns: 3;
+    .t-badge__content {
+      width: 100%;
+    }
+
+    .t-tabs__item-inner--tag {
+      box-sizing: border-box;
+      width: 100%;
+    }
+  }
+
+  // Cell 作为吸顶容器的最后一个子元素时，底部 0.5px 边框会被组件的
+  // `:last-child::after { display: none }` 规则隐藏，这里恢复显示以对齐设计稿
+  .t-cell:last-child::after {
+    display: block;
+    left: 0;
+  }
 }

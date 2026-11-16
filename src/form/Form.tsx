@@ -40,6 +40,7 @@ const Form = forwardRefWithStatics(
       className,
       labelWidth,
       labelAlign,
+      contentAlign,
       colon,
       initialData,
       requiredMark = globalFormConfig?.requiredMark,
@@ -103,6 +104,7 @@ const Form = forwardRefWithStatics(
         form,
         labelWidth,
         labelAlign,
+        contentAlign,
         colon,
         initialData,
         requiredMark,
@@ -123,6 +125,7 @@ const Form = forwardRefWithStatics(
         form,
         labelWidth,
         labelAlign,
+        contentAlign,
         colon,
         initialData,
         requiredMark,
@@ -201,4 +204,5 @@ const Form = forwardRefWithStatics(
   },
   { useForm, useWatch, FormItem },
 );
+Form.displayName = 'Form';
 export default Form;

@@ -396,4 +396,6 @@ const ColorPicker: FC<ColorPickerProps> = (props) => {
   return renderPicker();
 };
 
+ColorPicker.displayName = 'ColorPicker';
+
 export default ColorPicker;

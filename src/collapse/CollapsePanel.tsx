@@ -107,4 +107,6 @@ const CollapsePanel = forwardRef<HTMLDivElement, CollapsePanelProps>((originProp
   );
 });
 
+CollapsePanel.displayName = 'CollapsePanel';
+
 export default memo(CollapsePanel);

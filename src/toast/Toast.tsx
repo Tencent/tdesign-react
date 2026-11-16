@@ -106,4 +106,6 @@ const Toast: FC<ToastProps> = (originProps) => {
   );
 };
 
+Toast.displayName = 'Toast';
+
 export default Toast;

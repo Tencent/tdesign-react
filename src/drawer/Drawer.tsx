@@ -127,4 +127,6 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originProps, ref) => {
   );
 });
 
+Drawer.displayName = 'Drawer';
+
 export default Drawer;

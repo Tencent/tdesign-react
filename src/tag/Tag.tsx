@@ -88,4 +88,6 @@ const Tag = forwardRef<HTMLDivElement, TagProps>((originProps, ref) => {
   );
 });
 
+Tag.displayName = 'Tag';
+
 export default Tag;

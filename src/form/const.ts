@@ -16,6 +16,16 @@ export const enum ValidateStatus {
   FAIL = 'fail',
 }
 
+/**
+ * 子组件受控属性名映射（对齐桌面端）。
+ * 默认受控属性为 `value`，以下组件使用各自的受控属性名。
+ */
+export const TD_CTRL_PROP_MAP = new Map<string, string>([
+  ['Checkbox', 'checked'],
+  ['CheckTag', 'checked'],
+  ['Upload', 'files'],
+]);
+
 export type ErrorListType =
   | {
       result: false;

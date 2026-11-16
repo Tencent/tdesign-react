@@ -174,6 +174,8 @@ const Radio = forwardRef((_props: RadioProps, ref: Ref<HTMLDivElement>) => {
   );
 });
 
+Radio.displayName = 'Radio';
+
 export default forwardRefWithStatics(
   (props: RadioProps, ref: Ref<HTMLDivElement>) => <Radio ref={ref} {...props}></Radio>,
   { Group: RadioGroup },

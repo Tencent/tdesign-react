@@ -30,7 +30,7 @@ import {
   TdFormItemProps,
   TdFormProps,
 } from './type';
-import { AnalysisValidateResult, ErrorListType, FormItemInstance, SuccessListType } from './const';
+import { AnalysisValidateResult, ErrorListType, FormItemInstance, SuccessListType, TD_CTRL_PROP_MAP } from './const';
 import { usePrefixClass } from '../hooks/useClass';
 import useConfig from '../hooks/useConfig';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
@@ -42,6 +42,15 @@ export interface FormItemProps extends TdFormItemProps, StyledProps {
 }
 
 export type FormItemValidateResult<T extends Data = Data> = { [key in keyof T]: boolean | AllValidateResult[] };
+
+// FormItem 向子组件注入的受控属性集合
+type FormControlInjectableProps = {
+  disabled?: boolean;
+  readOnly?: boolean;
+  onChange?: (value: unknown, ...args: unknown[]) => void;
+  onBlur?: (value: unknown, ...args: unknown[]) => void;
+  [key: string]: unknown;
+};
 
 const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   const [locale, t] = useLocaleReceiver('form');
@@ -242,7 +251,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   );
 
   // 更新 form 表单字段（对齐桌面端 updateFormValue）
-  const updateFormValue = (newVal: any, doValidate = true, shouldEmitChange = false) => {
+  const updateFormValue = (newVal: unknown, doValidate = true, shouldEmitChange = false) => {
     const { setPrevStore } = form?.getInternalHooks?.(HOOK_MARK) || {};
     setPrevStore?.(form?.getFieldsValue?.(true));
     shouldEmitChangeRef.current = shouldEmitChange;
@@ -292,7 +301,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
   }
 
   async function analysisValidateResult(trigger: ValidateTriggerType): Promise<AnalysisValidateResult> {
-    const value = name ? lodashGet(form?.store, name) : undefined;
+    // 校验值取组件自身 state，避免 reset 清空 form.store 后校验拿到 undefined
+    const value = formValue;
     const result: AnalysisValidateResult = {
       successList: [],
       errorList: [],
@@ -430,9 +440,8 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
 
     const cancelRegister = registerWatch?.(() => {
       const currStore = form?.getFieldsValue?.(true) || {};
-      let updateFlag = shouldUpdate as boolean;
-      if (isFunction(shouldUpdate))
-        updateFlag = (shouldUpdate as (prev: any, cur: any) => boolean)(getPrevStore?.(), currStore);
+      let updateFlag = Boolean(shouldUpdate);
+      if (isFunction(shouldUpdate)) updateFlag = shouldUpdate(getPrevStore?.(), currStore);
 
       if (updateFlag) forceUpdate({});
     });
@@ -491,7 +500,7 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     value: formValue,
     initialData,
     getValue: () => cloneDeep(valueRef.current),
-    setValue: (newVal: any) => updateFormValue(newVal, true, true),
+    setValue: (newVal: unknown) => updateFormValue(newVal, true, true),
     setField,
     validate: validateHandler,
     validateOnly,
@@ -559,24 +568,33 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
                 // Fragment 或非 React Element 直接返回
                 if (!React.isValidElement(child) || child.type === React.Fragment) return child;
 
-                const childProps = child.props as any;
+                const element = child as React.ReactElement<FormControlInjectableProps>;
+                const childProps = element.props;
 
-                return React.cloneElement(child as React.ReactElement<any>, {
+                // 按子组件 displayName 查表决定受控属性名，默认 value
+                const { type: childType } = element;
+                const componentName =
+                  typeof childType === 'string' ? childType : (childType as { displayName?: string }).displayName;
+                const ctrlKey = (componentName && TD_CTRL_PROP_MAP.get(componentName)) || 'value';
+
+                const injectedProps: FormControlInjectableProps = {
                   disabled: disabledFromContext,
                   readOnly: readonlyFromContext,
                   ...childProps,
-                  value: formValue,
-                  onChange: (value: any, ...args: any[]) => {
+                  [ctrlKey]: formValue,
+                  onChange: (value: unknown, ...args: unknown[]) => {
                     if (readonlyFromContext) return;
                     const newValue = cloneDeep(value);
                     updateFormValue(newValue, true, true);
-                    childProps?.onChange?.call?.(null, value, ...args);
+                    childProps.onChange?.call(null, value, ...args);
                   },
-                  onBlur: (value: any, ...args: any[]) => {
+                  onBlur: (value: unknown, ...args: unknown[]) => {
                     handleItemBlur();
-                    childProps?.onBlur?.call?.(null, value, ...args);
+                    childProps.onBlur?.call(null, value, ...args);
                   },
-                });
+                };
+
+                return React.cloneElement(element, injectedProps);
               })}
             </div>
           </div>

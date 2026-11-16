@@ -82,4 +82,6 @@ export const ActionSheet: React.FC<ActionSheetProps> = (props) => {
   );
 };
 
+ActionSheet.displayName = 'ActionSheet';
+
 export default ActionSheet;

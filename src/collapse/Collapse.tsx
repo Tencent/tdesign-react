@@ -103,4 +103,6 @@ const Collapse = forwardRef<HTMLDivElement, CollapseProps>((originProps, ref) =>
   );
 });
 
+Collapse.displayName = 'Collapse';
+
 export default memo(Collapse);

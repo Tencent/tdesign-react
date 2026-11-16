@@ -442,4 +442,6 @@ const Upload: React.FC<UploadProps> = (props) => {
   );
 };
 
+Upload.displayName = 'Upload';
+
 export default Upload;

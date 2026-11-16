@@ -16,8 +16,6 @@ import {
 } from 'tdesign-mobile-react';
 import { BrowseOffIcon } from 'tdesign-icons-react';
 
-const RATE_GAP = 8;
-
 const action = 'https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo';
 
 const initialPhoto: UploadFile[] = [
@@ -34,18 +32,23 @@ const initialPhoto: UploadFile[] = [
 ];
 
 const initialData = {
-  name: '',
-  password: '',
+  name: 'Abcdefgh',
+  password: 'Abcdefgh',
   gender: 'man',
-  birth: '',
-  place: '',
+  birth: '2022-08-10',
+  place: '广东省 深圳市',
   age: 3,
-  description: 2,
-  resume: '',
+  description: 3.5,
+  resume: '本人性格开朗、稳重、细心，待人热情、真诚，工作认真负责，积极主动，勇于创新，具有很强的团队协作精神。',
   photo: initialPhoto,
 };
 
 const addressOptions = [
+  {
+    label: '广东省',
+    value: '440000',
+    children: [{ value: '440300', label: '深圳市' }],
+  },
   {
     label: '北京市',
     value: '110000',
@@ -57,19 +60,7 @@ const addressOptions = [
           { value: '110101', label: '东城区' },
           { value: '110102', label: '西城区' },
           { value: '110105', label: '朝阳区' },
-          { value: '110106', label: '丰台区' },
-          { value: '110107', label: '石景山区' },
           { value: '110108', label: '海淀区' },
-          { value: '110109', label: '门头沟区' },
-          { value: '110111', label: '房山区' },
-          { value: '110112', label: '通州区' },
-          { value: '110113', label: '顺义区' },
-          { value: '110114', label: '昌平区' },
-          { value: '110115', label: '大兴区' },
-          { value: '110116', label: '怀柔区' },
-          { value: '110117', label: '平谷区' },
-          { value: '110118', label: '密云区' },
-          { value: '110119', label: '延庆区' },
         ],
       },
     ],
@@ -86,18 +77,6 @@ const addressOptions = [
           { value: '120102', label: '河东区' },
           { value: '120103', label: '河西区' },
           { value: '120104', label: '南开区' },
-          { value: '120105', label: '河北区' },
-          { value: '120106', label: '红桥区' },
-          { value: '120110', label: '东丽区' },
-          { value: '120111', label: '西青区' },
-          { value: '120112', label: '津南区' },
-          { value: '120113', label: '北辰区' },
-          { value: '120114', label: '武清区' },
-          { value: '120115', label: '宝坻区' },
-          { value: '120116', label: '滨海新区' },
-          { value: '120117', label: '宁河区' },
-          { value: '120118', label: '静海区' },
-          { value: '120119', label: '蓟州区' },
         ],
       },
     ],
@@ -128,13 +107,20 @@ const onSelectChange = (files: UploadFile[]) => {
   console.log('[onSelectChange]', files);
 };
 
-export default function HorizontalForm({ disabled }: { disabled?: boolean }) {
+export interface BaseFormProps {
+  labelAlign?: 'left' | 'right' | 'top';
+  disabled?: boolean;
+}
+
+export default function BaseForm({ labelAlign = 'top', disabled }: BaseFormProps) {
   const [form] = Form.useForm();
   const [birthVisible, setBirthVisible] = useState(false);
   const [placeVisible, setPlaceVisible] = useState(false);
-  const [placeValue, setPlaceValue] = useState<string | number>('120119');
+  const [placeValue, setPlaceValue] = useState<string | number>('440300');
   const birthInputRef = useRef<any>(null);
   const placeInputRef = useRef<any>(null);
+
+  const isHorizontal = labelAlign !== 'top';
 
   useEffect(() => {
     if (!birthVisible) {
@@ -151,7 +137,7 @@ export default function HorizontalForm({ disabled }: { disabled?: boolean }) {
   const rules = useMemo(
     () => ({
       name: [{ validator: (val: any) => val?.length === 8, message: '只能输入8个字符英文' }],
-      password: [{ validator: (val: any) => val?.length > 6, message: '长度大于6个字符' }],
+      password: [{ validator: (val: any) => val?.length > 6, message: '密码长度 6–16 位，支持字母、数字' }],
       gender: [{ validator: (val: any) => val !== '', message: '不能为空' }],
       birth: [{ validator: (val: any) => val !== '', message: '不能为空' }],
       place: [{ validator: (val: any) => val !== '', message: '不能为空' }],
@@ -161,25 +147,7 @@ export default function HorizontalForm({ disabled }: { disabled?: boolean }) {
     [],
   );
 
-  const groupChangeFn = (value: any, context: any) => {
-    console.log(value, context);
-  };
-
-  const onBirthChange = (value: any) => {
-    console.log('[change]', value);
-  };
-
-  const onBirthPick = (value: any) => {
-    console.log('[pick]', value);
-  };
-
-  const onBirthCancel = () => {
-    console.log('[cancel]');
-    setBirthVisible(false);
-  };
-
   const onBirthConfirm = (value: any) => {
-    console.log('[confirm]', value);
     form.setFieldsValue({ birth: String(value) });
     setBirthVisible(false);
   };
@@ -187,7 +155,7 @@ export default function HorizontalForm({ disabled }: { disabled?: boolean }) {
   const onPlaceChange = (value: string | number, selectedOptions: any) => {
     setPlaceValue(value);
     setPlaceVisible(false);
-    form.setFieldsValue({ place: selectedOptions?.map((item: any) => item.label).join('/') });
+    form.setFieldsValue({ place: selectedOptions?.map((item: any) => item.label).join(' ') });
   };
 
   const onReset = () => {
@@ -204,9 +172,9 @@ export default function HorizontalForm({ disabled }: { disabled?: boolean }) {
         form={form}
         initialData={initialData}
         showErrorMessage
-        resetType="initial"
-        labelAlign="left"
-        labelWidth="81px"
+        resetType="empty"
+        labelAlign={labelAlign}
+        labelWidth={isHorizontal ? '81px' : undefined}
         scrollToFirstError="auto"
         disabled={disabled}
         rules={rules}
@@ -214,16 +182,16 @@ export default function HorizontalForm({ disabled }: { disabled?: boolean }) {
         onSubmit={onSubmit}
       >
         <Form.FormItem label="用户名" name="name">
-          <Input borderless placeholder="请输入内容" />
+          <Input borderless placeholder="请输入用户名" />
         </Form.FormItem>
         <Form.FormItem label="密码" name="password">
-          <Input borderless type="password" placeholder="请输入内容" suffixIcon={<BrowseOffIcon />} />
+          <Input borderless type="password" placeholder="请输入密码" suffixIcon={<BrowseOffIcon />} />
         </Form.FormItem>
         <Form.FormItem label="性别" name="gender">
-          <RadioGroup className="box" borderless onChange={groupChangeFn}>
-            <Radio block={false} name="radio" value="man" label="男" />
-            <Radio block={false} name="radio" value="women" label="女" />
-            <Radio block={false} name="radio" value="secret" label="保密" />
+          <RadioGroup borderless direction="horizontal">
+            <Radio value="man" label="男" />
+            <Radio value="women" label="女" />
+            <Radio value="secret" label="保密" />
           </RadioGroup>
         </Form.FormItem>
         <Form.FormItem arrow label="生日" name="birth">
@@ -231,7 +199,7 @@ export default function HorizontalForm({ disabled }: { disabled?: boolean }) {
             ref={birthInputRef}
             borderless
             readonly
-            placeholder="请输入内容"
+            placeholder="请选择"
             onFocus={() => {
               setBirthVisible(true);
             }}
@@ -242,7 +210,7 @@ export default function HorizontalForm({ disabled }: { disabled?: boolean }) {
             ref={placeInputRef}
             borderless
             readonly
-            placeholder="请输入内容"
+            placeholder="请选择"
             onFocus={() => {
               setPlaceVisible(true);
             }}
@@ -252,18 +220,22 @@ export default function HorizontalForm({ disabled }: { disabled?: boolean }) {
           <Stepper theme="filled" />
         </Form.FormItem>
         <Form.FormItem label="自我评价" name="description">
-          <Rate allowHalf showText={false} gap={RATE_GAP} />
+          <Rate allowHalf showText={false} gap={8} />
         </Form.FormItem>
         <Form.FormItem label="个人简介" name="resume">
-          <Textarea className="textarea" indicator maxlength={50} placeholder="请输入个人简介" />
+          <Textarea
+            style={{ width: '100%' }}
+            autosize={{ minRows: 4, maxRows: 4 }}
+            indicator
+            maxlength={50}
+            placeholder="请输入个人简介"
+          />
         </Form.FormItem>
         <Form.FormItem label="上传照片" name="photo">
           <Upload
-            className="upload"
             multiple
             max={6}
             action={action}
-            defaultFiles={initialPhoto}
             onFail={onFail}
             onProgress={onProgress}
             onPreview={onPreview}
@@ -272,12 +244,12 @@ export default function HorizontalForm({ disabled }: { disabled?: boolean }) {
             onSelectChange={onSelectChange}
           />
         </Form.FormItem>
-        <div className="button-group">
-          <Button theme="primary" type="submit" size="large">
-            提交
-          </Button>
-          <Button theme="default" variant="base" type="reset" size="large">
+        <div style={{ display: 'flex', gap: '16px', padding: '16px' }}>
+          <Button theme="light" type="reset" size="large" style={{ flex: 1 }}>
             重置
+          </Button>
+          <Button theme="primary" type="submit" size="large" style={{ flex: 1 }}>
+            提交
           </Button>
         </div>
       </Form>
@@ -288,10 +260,8 @@ export default function HorizontalForm({ disabled }: { disabled?: boolean }) {
           title="选择日期"
           start="2015-5-5"
           format="YYYY-MM-DD"
-          onChange={onBirthChange}
-          onPick={onBirthPick}
           onConfirm={onBirthConfirm}
-          onCancel={onBirthCancel}
+          onCancel={() => setBirthVisible(false)}
         />
       </Popup>
 

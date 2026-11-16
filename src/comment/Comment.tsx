@@ -251,4 +251,6 @@ const Comment: React.FC<CommentProps> = (props) => {
   );
 };
 
+Comment.displayName = 'Comment';
+
 export default Comment;

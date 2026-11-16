@@ -84,4 +84,6 @@ const SideBar = forwardRef<HTMLDivElement, SideBarProps>((originProps, ref) => {
   );
 });
 
+SideBar.displayName = 'SideBar';
+
 export default memo(SideBar);
