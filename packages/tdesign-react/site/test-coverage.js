@@ -1,464 +1,428 @@
 export default {
-  "Util": {
-    "statements": "58.92%",
-    "branches": "49.81%",
-    "functions": "66.66%",
-    "lines": "60.38%"
-  },
-  "affix": {
-    "statements": "84.84%",
-    "branches": "57.14%",
-    "functions": "87.5%",
-    "lines": "85.93%"
-  },
-  "alert": {
-    "statements": "100%",
-    "branches": "100%",
-    "functions": "100%",
-    "lines": "100%"
-  },
-  "anchor": {
-    "statements": "93.91%",
-    "branches": "68.75%",
-    "functions": "88%",
-    "lines": "98.07%"
-  },
-  "autoComplete": {
-    "statements": "96.2%",
-    "branches": "88.29%",
-    "functions": "97.05%",
-    "lines": "97.98%"
-  },
-  "avatar": {
-    "statements": "92.64%",
-    "branches": "85.71%",
-    "functions": "75%",
-    "lines": "92.64%"
-  },
-  "backTop": {
-    "statements": "78.68%",
-    "branches": "50%",
-    "functions": "83.33%",
-    "lines": "83.92%"
-  },
-  "badge": {
-    "statements": "100%",
-    "branches": "91.17%",
-    "functions": "100%",
-    "lines": "100%"
-  },
-  "breadcrumb": {
-    "statements": "83.95%",
-    "branches": "66.15%",
-    "functions": "90.9%",
-    "lines": "87.01%"
-  },
-  "button": {
-    "statements": "100%",
-    "branches": "100%",
-    "functions": "100%",
-    "lines": "100%"
-  },
-  "calendar": {
-    "statements": "78.44%",
-    "branches": "55.24%",
-    "functions": "73.58%",
-    "lines": "80.95%"
-  },
-  "card": {
-    "statements": "97.61%",
-    "branches": "84.09%",
-    "functions": "100%",
-    "lines": "97.61%"
-  },
-  "cascader": {
-    "statements": "90.66%",
-    "branches": "81.81%",
-    "functions": "91.66%",
-    "lines": "91.36%"
-  },
-  "checkbox": {
-    "statements": "90.54%",
-    "branches": "84.12%",
-    "functions": "100%",
-    "lines": "91.42%"
-  },
-  "collapse": {
-    "statements": "96.15%",
-    "branches": "75.6%",
-    "functions": "94.11%",
-    "lines": "96.1%"
-  },
-  "colorPicker": {
-    "statements": "100%",
-    "branches": "100%",
-    "functions": "100%",
-    "lines": "100%"
-  },
-  "comment": {
-    "statements": "100%",
-    "branches": "100%",
-    "functions": "100%",
-    "lines": "100%"
-  },
-  "common": {
-    "statements": "93.33%",
-    "branches": "85.45%",
-    "functions": "100%",
-    "lines": "98.14%"
-  },
-  "configProvider": {
-    "statements": "67.85%",
-    "branches": "33.33%",
-    "functions": "42.85%",
-    "lines": "65.38%"
-  },
-  "datePicker": {
-    "statements": "59.54%",
-    "branches": "40.85%",
-    "functions": "56.09%",
-    "lines": "62.86%"
-  },
-  "descriptions": {
-    "statements": "98.83%",
-    "branches": "96.66%",
-    "functions": "95.45%",
-    "lines": "100%"
-  },
-  "dialog": {
-    "statements": "84.84%",
-    "branches": "77.77%",
-    "functions": "80%",
-    "lines": "86.92%"
-  },
-  "divider": {
-    "statements": "100%",
-    "branches": "100%",
-    "functions": "100%",
-    "lines": "100%"
-  },
-  "drawer": {
-    "statements": "65.74%",
-    "branches": "72.41%",
-    "functions": "41.66%",
-    "lines": "67.3%"
-  },
-  "dropdown": {
-    "statements": "89.53%",
-    "branches": "59.25%",
-    "functions": "80%",
-    "lines": "92.77%"
-  },
-  "empty": {
-    "statements": "84.37%",
-    "branches": "63.82%",
-    "functions": "100%",
-    "lines": "84.37%"
-  },
-  "form": {
-    "statements": "88.21%",
-    "branches": "77.27%",
-    "functions": "87.39%",
-    "lines": "91.01%"
-  },
-  "grid": {
-    "statements": "84.37%",
-    "branches": "76.92%",
-    "functions": "90.9%",
-    "lines": "84.21%"
-  },
-  "guide": {
-    "statements": "99.34%",
-    "branches": "91.78%",
-    "functions": "100%",
-    "lines": "99.33%"
-  },
-  "hooks": {
-    "statements": "58.87%",
-    "branches": "45.99%",
-    "functions": "67.16%",
-    "lines": "59.3%"
-  },
-  "image": {
-    "statements": "88.88%",
-    "branches": "83.56%",
-    "functions": "80%",
-    "lines": "91.86%"
-  },
-  "imageViewer": {
-    "statements": "63.44%",
-    "branches": "74.44%",
-    "functions": "64.1%",
-    "lines": "63.68%"
-  },
-  "input": {
-    "statements": "94.01%",
-    "branches": "88.65%",
-    "functions": "89.47%",
-    "lines": "94.3%"
-  },
-  "inputAdornment": {
-    "statements": "87.5%",
-    "branches": "57.14%",
-    "functions": "100%",
-    "lines": "90.9%"
-  },
-  "inputNumber": {
-    "statements": "75.96%",
-    "branches": "61.61%",
-    "functions": "78.94%",
-    "lines": "79.33%"
-  },
-  "layout": {
-    "statements": "84.31%",
-    "branches": "43.75%",
-    "functions": "85.71%",
-    "lines": "84.31%"
-  },
-  "link": {
-    "statements": "100%",
-    "branches": "100%",
-    "functions": "100%",
-    "lines": "100%"
-  },
-  "list": {
-    "statements": "93.61%",
-    "branches": "86.11%",
-    "functions": "81.81%",
-    "lines": "97.72%"
-  },
-  "loading": {
-    "statements": "86.41%",
-    "branches": "70%",
-    "functions": "80%",
-    "lines": "89.47%"
-  },
-  "locale": {
-    "statements": "77.27%",
-    "branches": "61.11%",
-    "functions": "80%",
-    "lines": "80.95%"
-  },
-  "menu": {
-    "statements": "88.35%",
-    "branches": "72.72%",
-    "functions": "80%",
-    "lines": "91.6%"
-  },
-  "message": {
-    "statements": "89.3%",
-    "branches": "86.44%",
-    "functions": "70.45%",
-    "lines": "94.48%"
-  },
-  "notification": {
-    "statements": "89.3%",
-    "branches": "70.31%",
-    "functions": "86.95%",
-    "lines": "92.64%"
-  },
-  "pagination": {
-    "statements": "93.97%",
-    "branches": "78.94%",
-    "functions": "93.75%",
-    "lines": "95%"
-  },
-  "popconfirm": {
-    "statements": "77.35%",
-    "branches": "64.1%",
-    "functions": "81.81%",
-    "lines": "77.35%"
-  },
-  "popup": {
-    "statements": "49.09%",
-    "branches": "45.65%",
-    "functions": "45.65%",
-    "lines": "47.36%"
-  },
-  "progress": {
-    "statements": "89.39%",
-    "branches": "67.44%",
-    "functions": "100%",
-    "lines": "89.39%"
-  },
-  "qrcode": {
-    "statements": "64.83%",
-    "branches": "42.5%",
-    "functions": "80%",
-    "lines": "64.44%"
-  },
-  "radio": {
-    "statements": "83.78%",
-    "branches": "54.16%",
-    "functions": "93.33%",
-    "lines": "84.5%"
-  },
-  "rangeInput": {
-    "statements": "75.32%",
-    "branches": "65.9%",
-    "functions": "51.85%",
-    "lines": "75%"
-  },
-  "rate": {
-    "statements": "96.66%",
-    "branches": "81.57%",
-    "functions": "100%",
-    "lines": "96.66%"
-  },
-  "search": {
-    "statements": "0%",
-    "branches": "100%",
-    "functions": "100%",
-    "lines": "0%"
-  },
-  "select": {
-    "statements": "100%",
-    "branches": "100%",
-    "functions": "100%",
-    "lines": "100%"
-  },
-  "selectInput": {
-    "statements": "98.07%",
-    "branches": "95.23%",
-    "functions": "95.45%",
-    "lines": "98.98%"
-  },
-  "skeleton": {
-    "statements": "77.35%",
-    "branches": "51.72%",
-    "functions": "83.33%",
-    "lines": "78.84%"
-  },
-  "slider": {
-    "statements": "89.55%",
-    "branches": "72.22%",
-    "functions": "92.85%",
-    "lines": "91.26%"
-  },
-  "space": {
-    "statements": "87.75%",
-    "branches": "80.55%",
-    "functions": "100%",
-    "lines": "87.75%"
-  },
-  "statistic": {
-    "statements": "84.09%",
-    "branches": "79.59%",
-    "functions": "72.72%",
-    "lines": "85.36%"
-  },
-  "steps": {
-    "statements": "87.95%",
-    "branches": "73.68%",
-    "functions": "100%",
-    "lines": "87.95%"
-  },
-  "stickyTool": {
-    "statements": "12.96%",
-    "branches": "0%",
-    "functions": "0%",
-    "lines": "13.2%"
-  },
-  "swiper": {
-    "statements": "72.08%",
-    "branches": "44.82%",
-    "functions": "86.11%",
-    "lines": "71.35%"
-  },
-  "switch": {
-    "statements": "97.36%",
-    "branches": "90.62%",
-    "functions": "100%",
-    "lines": "97.36%"
-  },
-  "table": {
-    "statements": "48.67%",
-    "branches": "35.73%",
-    "functions": "46.06%",
-    "lines": "49.87%"
-  },
-  "tabs": {
-    "statements": "92.1%",
-    "branches": "80.46%",
-    "functions": "89.58%",
-    "lines": "93.33%"
-  },
-  "tag": {
-    "statements": "71.56%",
-    "branches": "68.65%",
-    "functions": "55.55%",
-    "lines": "71.27%"
-  },
-  "tagInput": {
-    "statements": "85.29%",
-    "branches": "80.58%",
-    "functions": "84.21%",
-    "lines": "87.42%"
-  },
-  "textarea": {
-    "statements": "85.55%",
-    "branches": "62.29%",
-    "functions": "83.33%",
-    "lines": "89.02%"
-  },
-  "timePicker": {
-    "statements": "82.35%",
-    "branches": "69.23%",
-    "functions": "86.95%",
-    "lines": "83.18%"
-  },
-  "timeline": {
-    "statements": "93.93%",
-    "branches": "87.87%",
-    "functions": "90.9%",
-    "lines": "93.84%"
-  },
-  "tooltip": {
-    "statements": "81.25%",
-    "branches": "70%",
-    "functions": "60%",
-    "lines": "80.95%"
-  },
-  "transfer": {
-    "statements": "87.68%",
-    "branches": "71.9%",
-    "functions": "87.14%",
-    "lines": "89.01%"
-  },
-  "tree": {
-    "statements": "83.27%",
-    "branches": "70.39%",
-    "functions": "81.81%",
-    "lines": "86.16%"
-  },
-  "treeSelect": {
-    "statements": "94.3%",
-    "branches": "82.88%",
-    "functions": "97.05%",
-    "lines": "96.42%"
-  },
-  "typography": {
-    "statements": "95.52%",
-    "branches": "79.06%",
-    "functions": "81.81%",
-    "lines": "98.43%"
-  },
-  "upload": {
-    "statements": "96.77%",
-    "branches": "95.83%",
-    "functions": "88.88%",
-    "lines": "100%"
-  },
-  "watermark": {
-    "statements": "95.83%",
-    "branches": "76.74%",
-    "functions": "100%",
-    "lines": "98.52%"
-  },
-  "site": {
-    "statements": "0%",
-    "branches": "0%",
-    "functions": "0%",
-    "lines": "0%"
-  }
+  affix: {
+    statements: '82.98%',
+    branches: '59.04%',
+    functions: '86.11%',
+    lines: '84.13%',
+  },
+  alert: {
+    statements: '97.69%',
+    branches: '82.71%',
+    functions: '88.88%',
+    lines: '98.03%',
+  },
+  anchor: {
+    statements: '95.73%',
+    branches: '55.76%',
+    functions: '82.53%',
+    lines: '98.29%',
+  },
+  autoComplete: {
+    statements: '96.67%',
+    branches: '70.83%',
+    functions: '93.42%',
+    lines: '98.02%',
+  },
+  avatar: {
+    statements: '93.92%',
+    branches: '71.42%',
+    functions: '66.66%',
+    lines: '96.55%',
+  },
+  backTop: {
+    statements: '81.11%',
+    branches: '37.87%',
+    functions: '81.25%',
+    lines: '87.5%',
+  },
+  badge: {
+    statements: '100%',
+    branches: '83.63%',
+    functions: '71.42%',
+    lines: '100%',
+  },
+  breadcrumb: {
+    statements: '87.09%',
+    branches: '57.75%',
+    functions: '80.76%',
+    lines: '91.5%',
+  },
+  button: {
+    statements: '100%',
+    branches: '91.08%',
+    functions: '72.72%',
+    lines: '100%',
+  },
+  calendar: {
+    statements: '81.91%',
+    branches: '50%',
+    functions: '75.78%',
+    lines: '84.71%',
+  },
+  card: {
+    statements: '98.47%',
+    branches: '81.81%',
+    functions: '50%',
+    lines: '98.55%',
+  },
+  cascader: {
+    statements: '90.16%',
+    branches: '54.48%',
+    functions: '93.27%',
+    lines: '89.89%',
+  },
+  checkbox: {
+    statements: '89.21%',
+    branches: '79.84%',
+    functions: '92%',
+    lines: '90.19%',
+  },
+  collapse: {
+    statements: '96.08%',
+    branches: '60.65%',
+    functions: '86.95%',
+    lines: '96.87%',
+  },
+  colorPicker: {
+    statements: '95.23%',
+    branches: '31.25%',
+    functions: '66.66%',
+    lines: '93.33%',
+  },
+  comment: {
+    statements: '100%',
+    branches: '93.1%',
+    functions: '80%',
+    lines: '100%',
+  },
+  configProvider: {
+    statements: '55.71%',
+    branches: '16.66%',
+    functions: '36.84%',
+    lines: '62.06%',
+  },
+  datePicker: {
+    statements: '68.12%',
+    branches: '28.65%',
+    functions: '72.97%',
+    lines: '73.69%',
+  },
+  descriptions: {
+    statements: '97.21%',
+    branches: '87.96%',
+    functions: '86.27%',
+    lines: '100%',
+  },
+  dialog: {
+    statements: '89.67%',
+    branches: '31.06%',
+    functions: '84.92%',
+    lines: '90.17%',
+  },
+  divider: {
+    statements: '100%',
+    branches: '87.5%',
+    functions: '71.42%',
+    lines: '100%',
+  },
+  drawer: {
+    statements: '90.17%',
+    branches: '42.73%',
+    functions: '85.86%',
+    lines: '91.05%',
+  },
+  dropdown: {
+    statements: '92.46%',
+    branches: '41.41%',
+    functions: '74.35%',
+    lines: '96.39%',
+  },
+  empty: {
+    statements: '88.11%',
+    branches: '60.52%',
+    functions: '70%',
+    lines: '87.8%',
+  },
+  form: {
+    statements: '91.45%',
+    branches: '46.4%',
+    functions: '86.89%',
+    lines: '94.3%',
+  },
+  grid: {
+    statements: '87.26%',
+    branches: '74.77%',
+    functions: '67.85%',
+    lines: '87.71%',
+  },
+  guide: {
+    statements: '98.32%',
+    branches: '64.74%',
+    functions: '97.59%',
+    lines: '99.34%',
+  },
+  image: {
+    statements: '92.61%',
+    branches: '79.58%',
+    functions: '80%',
+    lines: '92.22%',
+  },
+  imageViewer: {
+    statements: '86.04%',
+    branches: '57.26%',
+    functions: '80.98%',
+    lines: '89.83%',
+  },
+  input: {
+    statements: '98.16%',
+    branches: '61.25%',
+    functions: '91.74%',
+    lines: '99.11%',
+  },
+  inputAdornment: {
+    statements: '91.56%',
+    branches: '30.35%',
+    functions: '92.85%',
+    lines: '91.17%',
+  },
+  inputNumber: {
+    statements: '72.97%',
+    branches: '51.41%',
+    functions: '84.44%',
+    lines: '74.81%',
+  },
+  layout: {
+    statements: '86.53%',
+    branches: '36.95%',
+    functions: '56.25%',
+    lines: '86.27%',
+  },
+  link: {
+    statements: '100%',
+    branches: '80.95%',
+    functions: '60%',
+    lines: '100%',
+  },
+  list: {
+    statements: '94.96%',
+    branches: '78.33%',
+    functions: '68%',
+    lines: '100%',
+  },
+  loading: {
+    statements: '88.98%',
+    branches: '46.3%',
+    functions: '78.72%',
+    lines: '94.01%',
+  },
+  menu: {
+    statements: '89.98%',
+    branches: '48.81%',
+    functions: '77.02%',
+    lines: '89.61%',
+  },
+  message: {
+    statements: '84.44%',
+    branches: '70.56%',
+    functions: '59.01%',
+    lines: '92.09%',
+  },
+  notification: {
+    statements: '89.23%',
+    branches: '62.69%',
+    functions: '81.65%',
+    lines: '93.54%',
+  },
+  pagination: {
+    statements: '94.42%',
+    branches: '68.92%',
+    functions: '83.33%',
+    lines: '95.69%',
+  },
+  popconfirm: {
+    statements: '80.95%',
+    branches: '47.82%',
+    functions: '80%',
+    lines: '78.18%',
+  },
+  popup: {
+    statements: '51.19%',
+    branches: '36.47%',
+    functions: '53.89%',
+    lines: '54.93%',
+  },
+  progress: {
+    statements: '91.06%',
+    branches: '75.9%',
+    functions: '92.3%',
+    lines: '92.92%',
+  },
+  qrcode: {
+    statements: '74.44%',
+    branches: '37.63%',
+    functions: '76.19%',
+    lines: '76.8%',
+  },
+  radio: {
+    statements: '82.4%',
+    branches: '52.98%',
+    functions: '92.3%',
+    lines: '83.95%',
+  },
+  rangeInput: {
+    statements: '91.07%',
+    branches: '31.7%',
+    functions: '78.04%',
+    lines: '86.95%',
+  },
+  rate: {
+    statements: '97.28%',
+    branches: '70.68%',
+    functions: '84.61%',
+    lines: '96.77%',
+  },
+  select: {
+    statements: '100%',
+    branches: '100%',
+    functions: '100%',
+    lines: '100%',
+  },
+  selectInput: {
+    statements: '76.54%',
+    branches: '58.57%',
+    functions: '80.45%',
+    lines: '77.67%',
+  },
+  skeleton: {
+    statements: '98.05%',
+    branches: '85.71%',
+    functions: '96.42%',
+    lines: '98.07%',
+  },
+  slider: {
+    statements: '88.11%',
+    branches: '63.07%',
+    functions: '90.54%',
+    lines: '91.11%',
+  },
+  space: {
+    statements: '89.47%',
+    branches: '76.92%',
+    functions: '85%',
+    lines: '91.83%',
+  },
+  statistic: {
+    statements: '88.8%',
+    branches: '72.07%',
+    functions: '86.66%',
+    lines: '89.65%',
+  },
+  steps: {
+    statements: '89.55%',
+    branches: '70%',
+    functions: '93.54%',
+    lines: '89.28%',
+  },
+  stickyTool: {
+    statements: '22.5%',
+    branches: '0%',
+    functions: '0%',
+    lines: '26.78%',
+  },
+  swiper: {
+    statements: '71.16%',
+    branches: '38.56%',
+    functions: '84.21%',
+    lines: '72.72%',
+  },
+  switch: {
+    statements: '98.3%',
+    branches: '76.84%',
+    functions: '89.47%',
+    lines: '97.43%',
+  },
+  table: {
+    statements: '60.07%',
+    branches: '28.24%',
+    functions: '62.52%',
+    lines: '67.15%',
+  },
+  tabs: {
+    statements: '93.45%',
+    branches: '71.12%',
+    functions: '89.68%',
+    lines: '94.38%',
+  },
+  tag: {
+    statements: '75.8%',
+    branches: '54%',
+    functions: '70%',
+    lines: '80.95%',
+  },
+  tagInput: {
+    statements: '79.18%',
+    branches: '55.35%',
+    functions: '83.16%',
+    lines: '82.5%',
+  },
+  textarea: {
+    statements: '90.96%',
+    branches: '40.66%',
+    functions: '91.17%',
+    lines: '93.95%',
+  },
+  timeline: {
+    statements: '95.34%',
+    branches: '72.32%',
+    functions: '83.33%',
+    lines: '94.52%',
+  },
+  timePicker: {
+    statements: '87.14%',
+    branches: '61.79%',
+    functions: '86.27%',
+    lines: '87.21%',
+  },
+  tooltip: {
+    statements: '83.17%',
+    branches: '58.9%',
+    functions: '66.66%',
+    lines: '89.7%',
+  },
+  transfer: {
+    statements: '90.5%',
+    branches: '62.7%',
+    functions: '86.82%',
+    lines: '91.83%',
+  },
+  tree: {
+    statements: '84.96%',
+    branches: '59.05%',
+    functions: '87.17%',
+    lines: '88.21%',
+  },
+  treeSelect: {
+    statements: '94.96%',
+    branches: '51.98%',
+    functions: '90.32%',
+    lines: '96.68%',
+  },
+  typography: {
+    statements: '97.2%',
+    branches: '78.78%',
+    functions: '66.66%',
+    lines: '98.63%',
+  },
+  upload: {
+    statements: '68.04%',
+    branches: '87.87%',
+    functions: '84%',
+    lines: '60.37%',
+  },
+  watermark: {
+    statements: '97.05%',
+    branches: '61.39%',
+    functions: '93.02%',
+    lines: '98.75%',
+  },
 };

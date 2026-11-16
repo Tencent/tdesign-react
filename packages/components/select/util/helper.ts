@@ -1,9 +1,10 @@
-import { ReactElement } from 'react';
 import { get, isPlainObject } from 'lodash-es';
+
 import Option from '../base/Option';
 import OptionGroup from '../base/OptionGroup';
 import { isSelectOptionGroup } from '../hooks/useOptions';
 
+import type { ReactElement } from 'react';
 import type { SelectKeysType, SelectOption, SelectValue, TdOptionProps, TdSelectProps } from '../type';
 
 type SelectLabeledValue = Required<Omit<TdOptionProps, 'disabled'>>;
@@ -193,6 +194,9 @@ export const getMultipleTags = (values: SelectValue[], keys: SelectKeysType) => 
   return tags;
 };
 
+/**
+ * 计算多选时的 `value` 数组
+ */
 export const getSelectValueArr = (
   values: SelectValue | SelectValue[],
   activeValue: SelectValue,
@@ -207,10 +211,10 @@ export const getSelectValueArr = (
 
   if (Array.isArray(values)) {
     let currentValues = [...values];
-    const isValueObj = valueType === 'object';
+    const isObjectType = valueType === 'object';
     if (selected) {
       currentValues = currentValues.filter((item: SelectLabeledValue) => {
-        if (isValueObj) {
+        if (isObjectType) {
           if (isPlainObject(activeValue)) {
             return get(item, valueKey) !== get(activeValue, valueKey);
           }
@@ -219,7 +223,7 @@ export const getSelectValueArr = (
         return item !== activeValue;
       });
     } else {
-      const item = isValueObj ? objVal : activeValue;
+      const item = isObjectType ? objVal : activeValue;
 
       currentValues.push(item as SelectValue);
     }

@@ -13,46 +13,8 @@ export default function Codesandbox(props) {
     const demoDom = document.querySelector(`td-doc-demo[demo-name='${props.demoName}']`);
     const code = demoDom?.currentRenderCode;
     const isTypeScriptDemo = demoDom?.currentLangIndex === TypeScriptType;
+    const fileExt = isTypeScriptDemo ? 'tsx' : 'jsx';
     setLoading(true);
-    if (isTypeScriptDemo) {
-      fetch('https://codesandbox.io/api/v1/sandboxes/define?json=1', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          files: {
-            'package.json': {
-              content: pkgContent,
-            },
-            'public/index.html': {
-              content: htmlContent,
-            },
-            'src/main.tsx': {
-              content: mainJsContent,
-            },
-            'src/index.css': {
-              content: styleContent,
-            },
-            'src/demo.tsx': {
-              content: code,
-            },
-            'tsconfig.json': {
-              content: tsconfigContent,
-            },
-          },
-        }),
-      })
-        .then((x) => x.json())
-        .then(({ sandbox_id: sandboxId }) => {
-          window.open(`https://codesandbox.io/s/${sandboxId}?file=/src/demo.tsx`);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-      return;
-    }
     fetch('https://codesandbox.io/api/v1/sandboxes/define?json=1', {
       method: 'POST',
       headers: {
@@ -67,21 +29,28 @@ export default function Codesandbox(props) {
           'public/index.html': {
             content: htmlContent,
           },
-          'src/main.jsx': {
+          [`src/main.${fileExt}`]: {
             content: mainJsContent,
           },
           'src/index.css': {
             content: styleContent,
           },
-          'src/demo.jsx': {
+          [`src/demo.${fileExt}`]: {
             content: code,
           },
+          ...(isTypeScriptDemo
+            ? {
+                'tsconfig.json': {
+                  content: tsconfigContent,
+                },
+              }
+            : {}),
         },
       }),
     })
       .then((x) => x.json())
       .then(({ sandbox_id: sandboxId }) => {
-        window.open(`https://codesandbox.io/s/${sandboxId}?file=/src/demo.jsx`);
+        window.open(`https://codesandbox.io/s/${sandboxId}?file=/src/demo.${fileExt}`);
       })
       .finally(() => {
         setLoading(false);

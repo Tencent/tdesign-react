@@ -1,14 +1,17 @@
-import React, { MouseEvent, MutableRefObject, ReactNode } from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import { isFunction, get } from 'lodash-es';
+import { get, isFunction } from 'lodash-es';
+
 import TEllipsis from './Ellipsis';
-import { BaseTableCellParams, RowspanColspan, TableRowData, TdBaseTableProps } from './type';
-import { RowAndColFixedPosition } from './interface';
 import { getColumnFixedStyles } from './hooks/useFixed';
-import { TableClassName } from './hooks/useClassName';
 import { formatClassNames } from './utils';
-import { TooltipProps } from '../tooltip';
-import { PaginationProps } from '../pagination';
+
+import type { MouseEvent, MutableRefObject, ReactNode } from 'react';
+import type { PaginationProps } from '../pagination';
+import type { TooltipProps } from '../tooltip';
+import type { TableClassName } from './hooks/useClassName';
+import type { RowAndColFixedPosition } from './interface';
+import type { BaseTableCellParams, RowspanColspan, TableRowData, TdBaseTableProps } from './type';
 
 export interface RenderEllipsisCellParams {
   cellNode: ReactNode;

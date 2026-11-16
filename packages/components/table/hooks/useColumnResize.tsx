@@ -5,10 +5,13 @@
  * - 当表格内容没有超出时，即没有出现横向滚动条时，此时认为表格有足够的列宽呈现内容，修改宽度为相邻宽度调整
  * - 当表格内容超出，出现横向滚动条时，会自动调整当前列宽和表格总列宽，不影响相邻列宽
  */
-import React, { useState, useRef, MutableRefObject, CSSProperties, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { isNumber } from 'lodash-es';
-import { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
+
 import { off, on } from '../../_util/listener';
+
+import type { CSSProperties, MouseEvent as ReactMouseEvent, MutableRefObject } from 'react';
+import type { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
 
 const DEFAULT_MIN_WIDTH = 80;
 const DEFAULT_MAX_WIDTH = 600;
@@ -27,7 +30,9 @@ export default function useColumnResize(params: {
     left: boolean;
     right: boolean;
   };
-  getThWidthList: (type?: 'default' | 'calculate') => { [colKeys: string]: number };
+  getThWidthList: (type?: 'default' | 'calculate') => {
+    [colKeys: string]: number;
+  };
   updateThWidthList: (data: { [colKeys: string]: number }) => void;
   setTableElmWidth: (width: number) => void;
   updateTableAfterColumnResize: () => void;
@@ -111,7 +116,7 @@ export default function useColumnResize(params: {
   // 表格列宽拖拽事件
   // 只在表头显示拖拽图标
   const onColumnMouseover = (
-    e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>,
+    e: ReactMouseEvent<HTMLTableHeaderCellElement, MouseEvent>,
     col: BaseTableCol<TableRowData>,
   ) => {
     // 当前列是否可以拖拽宽度，因为外层有判断props.resizable，所以这里只需要确定col.resizable
@@ -221,7 +226,7 @@ export default function useColumnResize(params: {
 
   // 调整表格列宽
   const onColumnMousedown = (
-    e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>,
+    e: ReactMouseEvent<HTMLTableHeaderCellElement, MouseEvent>,
     col: BaseTableCol<TableRowData>,
     index: number,
   ) => {
@@ -252,6 +257,10 @@ export default function useColumnResize(params: {
     }
 
     const onDragOver: EventListener = (e: MouseEvent) => {
+      if ((e.buttons & 1) === 0) {
+        onDragEnd();
+        return;
+      }
       if (resizeLineParams.isDragging) {
         const left = resizeLinePos + e.x - resizeLineParams.draggingStart;
         const styles = {
@@ -264,7 +273,7 @@ export default function useColumnResize(params: {
     };
 
     // 拖拽时鼠标可能会超出 table 范围，需要给 document 绑定拖拽相关事件
-    const onDragEnd = () => {
+    function onDragEnd() {
       if (!resizeLineParams.isDragging) return;
       const moveDistance = resizeLinePos - (parseFloat(String(resizeLineParams.resizeLineStyle?.left || '')) || 0);
       /**
@@ -331,7 +340,7 @@ export default function useColumnResize(params: {
       document.onselectstart = originalSelectStart;
       document.ondragstart = originalDragStart;
       onColumnResizeChange?.({ columnsWidth: newThWidthList });
-    };
+    }
 
     on(document, 'mouseup', onDragEnd);
     on(document, 'mousemove', onDragOver);

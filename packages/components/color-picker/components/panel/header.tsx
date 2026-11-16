@@ -1,9 +1,12 @@
 import React from 'react';
 import { COLOR_MODES } from '@tdesign/common-js/color-picker/constants';
-import Radio, { RadioValue } from '../../../radio';
-import { TdColorModes } from '../../interface';
-import { TdColorPickerProps } from '../../type';
+
 import { useLocaleReceiver } from '../../../locale/LocalReceiver';
+import Radio from '../../../radio';
+
+import type { RadioValue } from '../../../radio';
+import type { TdColorModes } from '../../interface';
+import type { TdColorPickerProps } from '../../type';
 
 export interface ColorPanelHeaderProps extends TdColorPickerProps {
   mode?: TdColorModes;

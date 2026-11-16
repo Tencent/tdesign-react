@@ -1,19 +1,19 @@
 import React from 'react';
-import { Layout, Menu } from 'tdesign-react';
 import {
-  SearchIcon,
-  NotificationFilledIcon,
-  HomeIcon,
-  DashboardIcon,
-  ServerIcon,
-  RootListIcon,
   ControlPlatformIcon,
-  PreciseMonitorIcon,
-  MailIcon,
-  UserCircleIcon,
-  PlayCircleIcon,
+  DashboardIcon,
   Edit1Icon,
+  HomeIcon,
+  MailIcon,
+  NotificationFilledIcon,
+  PlayCircleIcon,
+  PreciseMonitorIcon,
+  RootListIcon,
+  SearchIcon,
+  ServerIcon,
+  UserCircleIcon,
 } from 'tdesign-icons-react';
+import { Layout, Menu } from 'tdesign-react';
 
 const { HeadMenu, MenuItem } = Menu;
 
@@ -61,7 +61,7 @@ export default function BasicDivider() {
         <Header>
           <HeadMenu
             value="item1"
-            logo={<img width="136" src="https://www.tencent.com/img/index/menu_logo_hover.png" alt="logo" />}
+            logo={<img height="28" src="https://tdesign.gtimg.com/site/baseLogo-light.png" alt="logo" />}
             operations={
               <div className="t-menu__operations">
                 <SearchIcon className="t-menu__operations-icon" />

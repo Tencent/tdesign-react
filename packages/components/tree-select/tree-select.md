@@ -35,8 +35,8 @@ popupProps | Object | - | 透传给 popup 组件的全部属性。TS 类型：`P
 popupVisible | Boolean | undefined | 是否显示下拉框 | N
 defaultPopupVisible | Boolean | undefined | 是否显示下拉框。非受控属性 | N
 prefixIcon | TElement | - | 组件前置图标。TS 类型：`TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-readonly | Boolean | false | 只读状态，值为真会隐藏输入框，且无法打开下拉框 | N
-reserveKeyword | Boolean | false | 多选且可搜索时，是否在选中一个选项后保留当前的搜索关键词 | N
+readOnly | Boolean | false | 只读状态，值为真会隐藏输入框，且无法打开下拉框 | N
+reserveKeyword | Boolean | true | 多选且可搜索时，是否在选中一个选项后保留当前的搜索关键词 | N
 selectInputProps | Object | - | 【开发中】透传 SelectInput 筛选器输入框组件的全部属性。TS 类型：`SelectInputProps`，[SelectInput API Documents](./select-input?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree-select/type.ts) | N
 size | String | medium | 尺寸。可选项：small/medium/large | N
 status | String | default | 输入框状态。可选项：default/success/warning/error | N
@@ -45,8 +45,8 @@ suffixIcon | TElement | - | 组件后置图标。TS 类型：`TNode`。[通用�
 tagProps | Object | - | 透传 Tag 标签组件全部属性。TS 类型：`TagProps`，[Tag API Documents](./tag?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree-select/type.ts) | N
 tips | TNode | - | 输入框下方提示文本，会根据不同的 `status` 呈现不同的样式。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 treeProps | Object | - | 透传 Tree 组件的全部属性。TS 类型：`TreeProps`，[Tree API Documents](./tree?tab=api)。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree-select/type.ts) | N
-value | String / Number / Object / Array | - | 选中值，泛型 `TreeValueType` 继承自 `TreeSelectValue`。TS 类型：`TreeValueType` `type TreeSelectValue = string \| number \| TreeOptionData \| Array<string \| number \| TreeOptionData>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree-select/type.ts) | N
-defaultValue | String / Number / Object / Array | - | 选中值，泛型 `TreeValueType` 继承自 `TreeSelectValue`。非受控属性。TS 类型：`TreeValueType` `type TreeSelectValue = string \| number \| TreeOptionData \| Array<string \| number \| TreeOptionData>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree-select/type.ts) | N
+value | String / Number / Object / Array / BigInt | - | 选中值，泛型 `TreeValueType` 继承自 `TreeSelectValue`。TS 类型：`TreeValueType` `type TreeSelectValue = string \| number \| bigint \| TreeOptionData \| Array<string \| number \| bigint \| TreeOptionData>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree-select/type.ts) | N
+defaultValue | String / Number / Object / Array / BigInt | - | 选中值，泛型 `TreeValueType` 继承自 `TreeSelectValue`。非受控属性。TS 类型：`TreeValueType` `type TreeSelectValue = string \| number \| bigint \| TreeOptionData \| Array<string \| number \| bigint \| TreeOptionData>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree-select/type.ts) | N
 valueDisplay | TElement | - | 自定义选中项呈现方式。TS 类型：`string \| TNode<{ value: TreeOptionData \| TreeOptionData[]; onClose: (index: number) => void }>`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 valueType | String | value | 用于控制选中值的类型。假设数据选项为：`[{ label: '姓名', value: 'name' }]`，value 表示值仅返回数据选项中的 value， object 表示值返回全部数据。可选项：value/object | N
 onBlur | Function |  | TS 类型：`(context: SelectInputBlurContext & { value: TreeSelectValue }) => void`<br/>输入框失去焦点时触发 | N

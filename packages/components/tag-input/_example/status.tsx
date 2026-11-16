@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { TagInput, Space } from 'tdesign-react';
+import { Space, TagInput } from 'tdesign-react';
+
 import type { TagInputValue } from 'tdesign-react';
 
 const style = { width: '500px' };
@@ -19,7 +20,7 @@ export default function TagInputStatusExample() {
 
       <Space>
         <label>只读状态：</label>
-        <TagInput style={style} value={tags2} onChange={setTags2} tips="这是普通文本提示" readonly />
+        <TagInput style={style} value={tags2} onChange={setTags2} tips="这是普通文本提示" readOnly />
       </Space>
 
       <Space>

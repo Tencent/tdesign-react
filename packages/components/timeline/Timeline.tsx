@@ -1,14 +1,15 @@
-import classNames from 'classnames';
 import React from 'react';
-import { StyledProps } from '../common';
-import useConfig from '../hooks/useConfig';
-import TimelineItem from './TimelineItem';
-import { TdTimelineProps } from './type';
-import TimelineContext from './TimelineContext';
+import classNames from 'classnames';
+
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
+import useConfig from '../hooks/useConfig';
+import TimelineContext from './TimelineContext';
+import TimelineItem from './TimelineItem';
 import { useAlign } from './useAlign';
 
+import type { StyledProps } from '../common';
 import type { TimelineItemProps } from './TimelineItem';
+import type { TdTimelineProps } from './type';
 
 export interface TimelineProps extends TdTimelineProps, StyledProps {
   children?: React.ReactNode;

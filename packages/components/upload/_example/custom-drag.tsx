@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from 'react';
-import { Button, message, Upload, Space } from 'tdesign-react';
 import { CloudUploadIcon } from 'tdesign-icons-react';
-import type { UploadInstanceFunctions, UploadFile, UploadProps, TriggerContext } from 'tdesign-react';
+import { Button, message, Space, Upload } from 'tdesign-react';
+
+import type { TriggerContext, UploadFile, UploadInstanceFunctions, UploadProps } from 'tdesign-react';
 
 export default function CustomDrag() {
   const [files, setFiles] = useState([]);

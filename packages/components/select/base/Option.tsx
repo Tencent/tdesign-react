@@ -14,9 +14,7 @@ import type { SelectKeysType, SelectOption, SelectValue, TdOptionProps, TdSelect
  * Option 组件属性
  */
 export interface SelectOptionProps
-  extends StyledProps,
-    TdOptionProps,
-    Pick<TdSelectProps, 'size' | 'multiple' | 'max'> {
+  extends StyledProps, TdOptionProps, Pick<TdSelectProps, 'size' | 'multiple' | 'max'> {
   selectedValue?: SelectValue;
   children?: React.ReactNode;
   onSelect?: (
@@ -34,6 +32,7 @@ export interface SelectOptionProps
   optionLength?: number;
   isVirtual?: boolean;
   onRowMounted?: (rowData: { ref: HTMLElement; data: SelectOption }) => void;
+  isKeyboardHovered?: boolean;
 }
 
 const componentType = 'select';
@@ -57,6 +56,7 @@ const Option: React.FC<SelectOptionProps> = (props) => {
     style,
     className,
     isVirtual,
+    isKeyboardHovered,
   } = props;
 
   const label = propLabel || value;
@@ -67,6 +67,8 @@ const Option: React.FC<SelectOptionProps> = (props) => {
   let indeterminate: boolean;
   // 处理存在禁用项时，全选状态无法来回切换的问题
   const [allSelectableChecked, setAllSelectableChecked] = useState(initCheckedStatus);
+
+  const displayedContent = children || content || label;
 
   const titleContent = useMemo(() => {
     // 外部设置 props，说明希望受控
@@ -128,7 +130,6 @@ const Option: React.FC<SelectOptionProps> = (props) => {
   };
 
   const renderItem = () => {
-    const displayContent = children || content || label;
     if (multiple) {
       return (
         <label
@@ -150,11 +151,11 @@ const Option: React.FC<SelectOptionProps> = (props) => {
             }}
           />
           <span className={classNames(`${classPrefix}-checkbox__input`)}></span>
-          <span className={classNames(`${classPrefix}-checkbox__label`)}>{displayContent}</span>
+          <span className={classNames(`${classPrefix}-checkbox__label`)}>{displayedContent}</span>
         </label>
       );
     }
-    return <span title={titleContent}>{displayContent}</span>;
+    return <span title={titleContent}>{displayedContent}</span>;
   };
 
   return (
@@ -164,6 +165,7 @@ const Option: React.FC<SelectOptionProps> = (props) => {
         [`${classPrefix}-is-selected`]: selected,
         [`${classPrefix}-size-s`]: size === 'small',
         [`${classPrefix}-size-l`]: size === 'large',
+        [`${classPrefix}-${componentType}-option__hover`]: isKeyboardHovered,
       })}
       key={value}
       onClick={handleSelect}

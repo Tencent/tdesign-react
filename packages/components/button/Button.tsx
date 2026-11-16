@@ -1,17 +1,18 @@
 import React, { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
+
+import parseTNode from '../_util/parseTNode';
 import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
 import useDomRefCallback from '../hooks/useDomRefCallback';
 import useRipple from '../hooks/useRipple';
 import Loading from '../loading';
-import { TdButtonProps } from './type';
 import { buttonDefaultProps } from './defaultProps';
-import parseTNode from '../_util/parseTNode';
-import useDefaultProps from '../hooks/useDefaultProps';
+
+import type { TdButtonProps } from './type';
 
 export interface ButtonProps
-  extends TdButtonProps,
-    Omit<React.AllHTMLAttributes<HTMLElement>, 'content' | 'shape' | 'size' | 'type'> {}
+  extends TdButtonProps, Omit<React.AllHTMLAttributes<HTMLElement>, 'content' | 'shape' | 'size' | 'type'> {}
 
 const Button = forwardRef((originProps: ButtonProps, ref: React.RefObject<HTMLElement>) => {
   const props = useDefaultProps(originProps, buttonDefaultProps);

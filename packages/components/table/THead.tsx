@@ -1,21 +1,26 @@
-import React, { useRef, MutableRefObject, CSSProperties, useMemo } from 'react';
-import { isFunction } from 'lodash-es';
+import React, { useMemo, useRef } from 'react';
 import classNames from 'classnames';
-import { getColumnFixedStyles } from './hooks/useFixed';
-import { RowAndColFixedPosition } from './interface';
-import { TableColumns, ThRowspanAndColspan } from './hooks/useMultiHeader';
-import useClassName from './hooks/useClassName';
-import { BaseTableCol, TableRowData, TdBaseTableProps } from './type';
-import { renderTitle } from './hooks/useTableHeader';
+import { isFunction } from 'lodash-es';
+
 import TEllipsis from './Ellipsis';
+import { AffixedHeaderContext } from './hooks/useAffixedHeader';
+import useClassName from './hooks/useClassName';
+import { getColumnFixedStyles } from './hooks/useFixed';
+import { renderTitle } from './hooks/useTableHeader';
 import { formatClassNames } from './utils';
-import { AttachNode } from '../common';
+
+import type { CSSProperties, MutableRefObject } from 'react';
+import type { AttachNode } from '../common';
+import type { TableColumns, ThRowspanAndColspan } from './hooks/useMultiHeader';
+import type { RowAndColFixedPosition } from './interface';
+import type { BaseTableCol, TableRowData, TdBaseTableProps } from './type';
 
 export interface TheadProps {
   classPrefix: string;
   ellipsisOverlayClassName: string;
   // 是否固定表头
   isFixedHeader: boolean;
+  isAffixedHeader?: boolean;
   maxHeight?: TdBaseTableProps['maxHeight'];
   height?: TdBaseTableProps['height'];
   // 固定列 left/right 具体值
@@ -114,7 +119,10 @@ export default function THead(props: TheadProps) {
         const isLeftFixedActive = showColumnShadow.left && col.fixed === 'left';
         const isRightFixedActive = showColumnShadow.right && col.fixed === 'right';
         const canDragSort = props.thDraggable && !(isLeftFixedActive || isRightFixedActive);
-        const customClasses = formatClassNames(col.className, { ...colParams, type: 'th' });
+        const customClasses = formatClassNames(col.className, {
+          ...colParams,
+          type: 'th',
+        });
         const thCustomClasses = formatClassNames(col.thClassName, colParams);
         const thClasses = [
           thStyles.classes,
@@ -166,7 +174,10 @@ export default function THead(props: TheadProps) {
             data-colkey={col.colKey}
             className={classNames(thClasses)}
             style={styles}
-            {...{ rowSpan: rowspanAndColspan.rowspan, colSpan: rowspanAndColspan.colspan }}
+            {...{
+              rowSpan: rowspanAndColspan.rowspan,
+              colSpan: rowspanAndColspan.colspan,
+            }}
             {...attrs}
             {...resizeColumnListener}
           >
@@ -195,8 +206,10 @@ export default function THead(props: TheadProps) {
   };
 
   return (
-    <thead ref={theadRef} className={classNames(theadClasses)}>
-      {renderThNodeList(props.rowAndColFixedPosition, props.thWidthList)}
-    </thead>
+    <AffixedHeaderContext.Provider value={Boolean(props.isAffixedHeader)}>
+      <thead ref={theadRef} className={classNames(theadClasses)}>
+        {renderThNodeList(props.rowAndColFixedPosition, props.thWidthList)}
+      </thead>
+    </AffixedHeaderContext.Provider>
   );
 }

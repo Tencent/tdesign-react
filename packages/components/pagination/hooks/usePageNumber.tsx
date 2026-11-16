@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import {
-  EllipsisIcon as TdEllipsisIcon,
   ChevronLeftDoubleIcon as TdChevronLeftDoubleIcon,
   ChevronRightDoubleIcon as TdChevronRightDoubleIcon,
+  EllipsisIcon as TdEllipsisIcon,
 } from 'tdesign-icons-react';
+
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 
@@ -64,8 +65,8 @@ export default function usePageNumber(props) {
 
   const isFolded = pageCount > maxPageBtn; // 判断是否为需要折叠
 
-  const showPrevMore = (2 + pivot < current); // 显示左侧往前翻页的省略图标
-  const showNextMore = (pageCount - 1 - pivot > current); // 显示右侧往后翻页的省略图标
+  const showPrevMore = 2 + pivot < current; // 显示左侧往前翻页的省略图标
+  const showNextMore = pageCount - 1 - pivot > current; // 显示右侧往后翻页的省略图标
 
   // 当省略图标消失时，需要还原hover标记
   useEffect(() => {

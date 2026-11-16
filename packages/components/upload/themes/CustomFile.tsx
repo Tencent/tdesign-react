@@ -1,8 +1,12 @@
-import React, { ReactNode } from 'react';
-import useDrag, { UploadDragEvents } from '../hooks/useDrag';
-import { CommonDisplayFileProps } from '../interface';
-import { TdUploadProps } from '../type';
+import React from 'react';
+
 import parseTNode from '../../_util/parseTNode';
+import useDrag from '../hooks/useDrag';
+
+import type { ReactNode } from 'react';
+import type { UploadDragEvents } from '../hooks/useDrag';
+import type { CommonDisplayFileProps } from '../interface';
+import type { TdUploadProps } from '../type';
 
 export interface CustomFileProps extends CommonDisplayFileProps {
   dragEvents: UploadDragEvents;

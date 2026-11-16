@@ -1,6 +1,6 @@
 import React from 'react';
+import { CaretDownSmallIcon, UserIcon } from 'tdesign-icons-react';
 import { TreeSelect } from 'tdesign-react';
-import { UserIcon, CaretDownSmallIcon } from 'tdesign-icons-react';
 
 import type { TreeSelectProps } from 'tdesign-react';
 

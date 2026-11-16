@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Collapse, TagInput, Checkbox, Space } from 'tdesign-react';
+import { Checkbox, Collapse, Space, TagInput } from 'tdesign-react';
 
 const { Panel } = Collapse;
 export default function CollapseExample() {

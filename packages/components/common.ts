@@ -1,6 +1,6 @@
 /** React 特有全局类型 */
 
-import { ReactElement, ReactNode, CSSProperties, FormEvent, DragEvent, SyntheticEvent } from 'react';
+import type { CSSProperties, DragEvent, FormEvent, ReactElement, ReactNode, SyntheticEvent } from 'react';
 
 // TElement 表示 API 只接受传入组件
 export type TElement<T = undefined> = T extends undefined ? ReactElement : (props: T) => ReactElement;
@@ -46,7 +46,7 @@ export type OptionData = {
   value?: string | number;
 } & PlainObject;
 
-export type TreeOptionData<T = string | number> = {
+export type TreeOptionData<T = string | number | bigint> = {
   children?: Array<TreeOptionData<T>> | boolean;
   /** option label content */
   label?: string | TNode;

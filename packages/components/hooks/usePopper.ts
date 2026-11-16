@@ -4,15 +4,11 @@
 import { useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import isEqual from 'react-fast-compare';
-import {
-  createPopper as defaultCreatePopper,
-  type Instance as PopperInstance,
-  type Options as PopperOptions,
-  type VirtualElement,
-} from '@popperjs/core';
+import { createPopper as defaultCreatePopper } from '@popperjs/core';
 
 import useIsomorphicLayoutEffect from './useLayoutEffect';
 
+import type { Instance as PopperInstance, Options as PopperOptions, VirtualElement } from '@popperjs/core';
 import type { Styles } from '../common';
 
 type Options = Partial<

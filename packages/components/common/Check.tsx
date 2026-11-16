@@ -1,11 +1,17 @@
-import React, { forwardRef, useContext, MouseEvent, ChangeEvent } from 'react';
+import React, { forwardRef, useContext } from 'react';
 import classNames from 'classnames';
 import { isBoolean } from 'lodash-es';
+import { Check1Icon as TdCheck1Icon, Remove1Icon as TdRemove1Icon } from 'tdesign-icons-react';
+
 import { omit } from '../_util/helper';
-import { StyledProps } from '../common';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
-import { TdCheckboxProps } from '../checkbox/type';
+import useGlobalIcon from '../hooks/useGlobalIcon';
+import { Tooltip } from '../tooltip';
+
+import type { ChangeEvent, MouseEvent } from 'react';
+import type { TdCheckboxProps } from '../checkbox/type';
+import type { StyledProps } from '../common';
 
 export interface CheckProps extends TdCheckboxProps, StyledProps {
   type: 'radio' | 'radio-button' | 'checkbox';
@@ -44,16 +50,22 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
     label,
     className,
     style,
-    readonly,
     onClick,
+    tooltipProps,
     ...htmlProps
   } = props;
 
   const { classPrefix } = useConfig();
+  const { Check1Icon, Remove1Icon } = useGlobalIcon({
+    Check1Icon: TdCheck1Icon,
+    Remove1Icon: TdRemove1Icon,
+  });
 
   const TOnChange: (
     checked: boolean,
-    context: { e: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLInputElement> },
+    context: {
+      e: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLInputElement>;
+    },
   ) => void = onChange;
 
   const [internalChecked, setInternalChecked] = useControlled(props, 'checked', TOnChange);
@@ -64,11 +76,12 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
     [`${classPrefix}-is-indeterminate`]: indeterminate,
   });
 
-  const isDisabled = disabled || readonly;
+  const readOnly = props.readOnly || props.readonly;
+  const isDisabled = disabled || readOnly;
 
   const input = (
     <input
-      readOnly={readonly}
+      readOnly={readOnly}
       type={type === 'radio-button' ? 'radio' : type}
       className={`${classPrefix}-${type}__former`}
       checked={internalChecked}
@@ -92,6 +105,10 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
   );
   // Checkbox/ Radio 内容为空则不再渲染 span，不存在 0:Number 的情况
   const showLabel = !!(children || label);
+  let checkboxIcon = null;
+  if (type === 'checkbox') {
+    checkboxIcon = indeterminate ? <Remove1Icon /> : <Check1Icon />;
+  }
 
   const handleLabelClick = (event: MouseEvent<HTMLSpanElement>) => {
     // 在tree等组件中使用  阻止label触发checked 与expand冲突
@@ -105,6 +122,14 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
     onClick?.({ e });
   };
 
+  const checkboxInput = tooltipProps ? (
+    <Tooltip {...tooltipProps}>
+      <span className={`${classPrefix}-${type}__input`}>{checkboxIcon}</span>
+    </Tooltip>
+  ) : (
+    <span className={`${classPrefix}-${type}__input`}>{checkboxIcon}</span>
+  );
+
   return (
     <label
       ref={ref}
@@ -112,11 +137,11 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
       className={labelClassName}
       title={props.title}
       style={style}
-      {...omit(htmlProps, ['checkAll', 'stopLabelTrigger'])}
+      {...omit(htmlProps, ['checkAll', 'stopLabelTrigger', 'readonly'])}
       onClick={onInnerClick}
     >
       {input}
-      <span className={`${classPrefix}-${type}__input`} />
+      {checkboxInput}
       {showLabel && (
         <span key="label" className={`${classPrefix}-${type}__label`} onClick={handleLabelClick}>
           {children || label}

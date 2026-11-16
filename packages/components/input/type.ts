@@ -86,9 +86,14 @@ export interface TdInputProps {
   prefixIcon?: TElement;
   /**
    * 只读状态
+   * @deprecated It will be removed in the future. Please use `readOnly` instead.
    * @default false
    */
   readonly?: boolean;
+  /**
+   * 只读状态
+   */
+  readOnly?: boolean;
   /**
    * 输入框内容为空时，悬浮状态是否显示清空按钮，默认不显示
    * @default false

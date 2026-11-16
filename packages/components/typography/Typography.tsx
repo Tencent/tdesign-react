@@ -1,6 +1,6 @@
+import Paragraph from './Paragraph';
 import Text from './Text';
 import Title from './Title';
-import Paragraph from './Paragraph';
 
 const Typography: {
   Text: typeof Text;

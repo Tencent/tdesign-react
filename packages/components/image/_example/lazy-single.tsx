@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Image, Space, Button, Loading } from 'tdesign-react';
 import { RefreshIcon } from 'tdesign-icons-react';
+import { Button, Image, Loading, Space } from 'tdesign-react';
 
 export default function LazySingleImage() {
   const [loadCount, setLoadCount] = useState(0);

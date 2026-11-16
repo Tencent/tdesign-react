@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { Upload, Space, Radio, Checkbox, Button, MessagePlugin } from 'tdesign-react';
+import React, { useEffect, useRef, useState } from 'react';
 import { CloseIcon } from 'tdesign-icons-react';
+import { Button, Checkbox, MessagePlugin, Radio, Space, Upload } from 'tdesign-react';
 
 import type { UploadProps } from 'tdesign-react';
 
@@ -101,16 +101,18 @@ export default function UploadExample() {
   };
 
   // eslint-disable-next-line
-  const fileListDisplay = () => (
-    <div>
-      {files3.map((file, index) => (
-        <div key={file.name} className="t-upload__single-display-text t-upload__display-text--margin">
-          {file.name}（{file.size} B）
-          <CloseIcon className="t-upload__icon-delete" onClick={() => outsideRemove(index)} />
-        </div>
-      ))}
-    </div>
-  );
+  const fileListDisplay = () => {
+    return (
+      <div>
+        {files3.map((file, index) => (
+          <div key={file.name} className="t-upload__single-display-text t-upload__display-text--margin">
+            {file.name}（{file.size} B）
+            <CloseIcon className="t-upload__icon-delete" onClick={() => outsideRemove(index)} />
+          </div>
+        ))}
+      </div>
+    );
+  };
 
   // 非自动上传文件，需要在父组件单独执行上传请求
   const uploadFiles = () => {
@@ -127,7 +129,11 @@ export default function UploadExample() {
   };
 
   // 用于格式化接口响应值，error 会被用于上传失败的提示文字；url 表示文件/图片地址
-  const formatResponse: UploadProps['formatResponse'] = (res) => ({ ...res, error: '上传失败，请重试', url: res?.url });
+  const formatResponse: UploadProps['formatResponse'] = (res) => ({
+    ...res,
+    error: '上传失败，请重试',
+    url: res?.url,
+  });
 
   /** 单个文件校验方法，示例代码有效，勿删 */
   // const beforeUpload = (file) => {

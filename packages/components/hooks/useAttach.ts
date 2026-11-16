@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
-import { AttachNode } from '../common';
+
 import useConfig from './useConfig';
+
+import type { AttachNode } from '../common';
 
 const defaultAttach = 'body';
 /**

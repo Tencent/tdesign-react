@@ -1,8 +1,10 @@
-import { pick } from 'lodash-es';
 import classNames from 'classnames';
+import { pick } from 'lodash-es';
+
 import useConfig from '../../hooks/useConfig';
-import type { TreeSelectProps } from '../TreeSelect';
+
 import type { SelectInputProps } from '../../select-input';
+import type { TreeSelectProps } from '../TreeSelect';
 
 const SelectInputPassthroughPropsKey: Array<keyof SelectInputProps> = [
   'multiple',
@@ -15,6 +17,7 @@ const SelectInputPassthroughPropsKey: Array<keyof SelectInputProps> = [
   'autoWidth',
   'borderless',
   'readonly',
+  'readOnly',
 ];
 
 export const useTreeSelectPassThroughProps = (props: TreeSelectProps) => {

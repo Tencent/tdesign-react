@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Comment, Textarea, Button, NotificationPlugin, Space } from 'tdesign-react';
+import { Button, Comment, NotificationPlugin, Space, Textarea } from 'tdesign-react';
 
 export default function BasicComment() {
   const [replyData, setReplayData] = useState('');

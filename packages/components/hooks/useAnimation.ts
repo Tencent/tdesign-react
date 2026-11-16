@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
-import useConfig from './useConfig';
+
 import { EAnimationType } from '../config-provider/ConfigContext';
+import useConfig from './useConfig';
 
 export default function useAnimation() {
   const { animation } = useConfig();

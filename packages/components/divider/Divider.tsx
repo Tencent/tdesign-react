@@ -1,11 +1,13 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import { pxCompat } from '@tdesign/common-js/utils/helper';
+
 import useConfig from '../hooks/useConfig';
-import { StyledProps } from '../common';
-import { TdDividerProps } from './type';
-import { dividerDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { dividerDefaultProps } from './defaultProps';
+
+import type { StyledProps } from '../common';
+import type { TdDividerProps } from './type';
 
 /**
  * Divider 组件支持的属性。

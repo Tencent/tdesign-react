@@ -1,4 +1,4 @@
-import { AttachNode } from '../../common';
+import type { AttachNode } from '../../common';
 
 export default function getTargetElm(elm: AttachNode): HTMLElement {
   if (elm) {

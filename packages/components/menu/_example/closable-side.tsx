@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Menu, Button } from 'tdesign-react';
-import { AppIcon, CodeIcon, FileIcon, UserIcon, ViewListIcon, MailIcon, RollbackIcon } from 'tdesign-icons-react';
+import { AppIcon, CodeIcon, FileIcon, MailIcon, RollbackIcon, UserIcon, ViewListIcon } from 'tdesign-icons-react';
+import { Button, Menu } from 'tdesign-react';
 
 import type { MenuValue } from 'tdesign-react';
 

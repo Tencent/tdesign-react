@@ -1,6 +1,6 @@
-import _Image from './Image';
-
 import './style/index.js';
+
+import _Image from './Image';
 
 export type { ImageProps } from './Image';
 

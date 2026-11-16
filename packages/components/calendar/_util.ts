@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
-import { CalendarCell } from './type';
+
+import type { CalendarCell } from './type';
 
 // 抽取配置常量
 export const blockName = 'calendar'; // 类名前缀

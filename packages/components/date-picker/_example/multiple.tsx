@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { DatePicker, Space } from 'tdesign-react';
-import type { DatePickerProps, DateMultipleValue } from 'tdesign-react';
+
+import type { DateMultipleValue, DatePickerProps } from 'tdesign-react';
 
 export default function YearDatePicker() {
   const [dateValue, setDateValue] = useState<DateMultipleValue>(['2024-10-01', '2024-10-24']);

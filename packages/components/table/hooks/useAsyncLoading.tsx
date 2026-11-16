@@ -1,10 +1,12 @@
 import React from 'react';
-import { isString } from 'lodash-es';
 import classNames from 'classnames';
-import { TdPrimaryTableProps } from '../type';
+import { isString } from 'lodash-es';
+
 import Loading from '../../loading';
-import useClassName from './useClassName';
 import { useLocaleReceiver } from '../../locale/LocalReceiver';
+import useClassName from './useClassName';
+
+import type { TdPrimaryTableProps } from '../type';
 
 export default function useAsyncLoading(props: TdPrimaryTableProps) {
   const [local] = useLocaleReceiver('table');

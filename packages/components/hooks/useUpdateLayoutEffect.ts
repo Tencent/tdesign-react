@@ -1,6 +1,7 @@
-import type { DependencyList, EffectCallback } from 'react';
 import useIsFirstRender from './useIsFirstRender';
 import useIsomorphicLayoutEffect from './useLayoutEffect';
+
+import type { DependencyList, EffectCallback } from 'react';
 
 const useUpdateLayoutEffect = (callback: EffectCallback, dependency: DependencyList) => {
   const isFirstRender = useIsFirstRender();

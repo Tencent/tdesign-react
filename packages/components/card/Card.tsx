@@ -1,12 +1,14 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import { TdCardProps } from './type';
-import Loading from '../loading';
-import { StyledProps } from '../common';
-import useConfig from '../hooks/useConfig';
+
 import useCommonClassName from '../hooks/useCommonClassName';
-import { cardDefaultProps } from './defaultProps';
+import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import Loading from '../loading';
+import { cardDefaultProps } from './defaultProps';
+
+import type { StyledProps } from '../common';
+import type { TdCardProps } from './type';
 
 export interface CardProps extends TdCardProps, StyledProps {}
 

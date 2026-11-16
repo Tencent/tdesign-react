@@ -1,0 +1,82 @@
+import { useEffect, useRef, useState } from 'react';
+import { ChatEngine } from '@tdesign/web-components-chat/chat-engine';
+
+import type { ChatMessagesData, ChatServiceConfig, ChatStatus } from '@tdesign/web-components-chat/chat-engine';
+
+export type IUseChat = {
+  defaultMessages?: ChatMessagesData[];
+  chatServiceConfig: ChatServiceConfig | (() => ChatServiceConfig);
+};
+
+export const useChat = ({ defaultMessages: initialMessages, chatServiceConfig }: IUseChat) => {
+  const [messages, setMessage] = useState<ChatMessagesData[]>([]);
+  const [status, setStatus] = useState<ChatStatus>('idle');
+  const chatEngineRef = useRef<ChatEngine>(new ChatEngine());
+  const msgSubscribeRef = useRef<null | (() => void)>(null);
+  const prevInitialMessagesRef = useRef<ChatMessagesData[]>([]);
+
+  const chatEngine = chatEngineRef.current;
+
+  const syncState = (state?: ChatMessagesData[]) => {
+    const msgs = state || [];
+    setMessage(msgs);
+    setStatus(msgs.at(-1)?.status || 'idle');
+  };
+
+  const subscribeToChat = () => {
+    // 清理之前的订阅
+    msgSubscribeRef.current?.();
+
+    msgSubscribeRef.current = chatEngine.messageStore.subscribe((state) => {
+      syncState(state.messages);
+    });
+  };
+
+  // 初始化聊天引擎
+  useEffect(() => {
+    let isMounted = true;
+
+    const initChat = async () => {
+      // @ts-ignore
+      await chatEngine.init(chatServiceConfig, initialMessages);
+
+      // 如果在 init 完成之前组件已被 unmount（StrictMode cleanup），跳过后续操作
+      if (!isMounted) return;
+
+      // @ts-ignore
+      syncState(initialMessages);
+      subscribeToChat();
+    };
+
+    initChat();
+
+    return () => {
+      isMounted = false;
+      msgSubscribeRef.current?.();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // 监听 defaultMessages 变化
+  useEffect(() => {
+    // 检查 initialMessages 是否真的发生了变化
+    const hasChanged = JSON.stringify(prevInitialMessagesRef.current) !== JSON.stringify(initialMessages);
+
+    if (hasChanged && initialMessages && initialMessages.length > 0) {
+      // 更新引用
+      prevInitialMessagesRef.current = initialMessages;
+
+      // 重新初始化聊天引擎或更新消息
+      chatEngine.setMessages(initialMessages, 'replace');
+
+      // 同步状态
+      syncState(initialMessages);
+    }
+  }, [initialMessages, chatEngine]);
+
+  return {
+    chatEngine,
+    messages,
+    status,
+  };
+};

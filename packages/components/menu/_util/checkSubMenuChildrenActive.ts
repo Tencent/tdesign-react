@@ -1,6 +1,8 @@
 import React from 'react';
-import { MenuValue } from '../type';
+
 import { checkIsMenuItem, checkIsSubMenu } from './checkMenuType';
+
+import type { MenuValue } from '../type';
 
 const checkSubMenuChildrenActive = (children: React.ReactNode, active: MenuValue) => {
   let activeFlag = false;

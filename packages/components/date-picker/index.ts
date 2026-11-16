@@ -1,13 +1,13 @@
-import _DatePicker from './DatePicker';
-import _DateRangePicker from './DateRangePicker';
-import _DatePickerPanel from './DatePickerPanel';
-import _DateRangePickerPanel from './DateRangePickerPanel';
-
 import './style/index.js';
 
+import _DatePicker from './DatePicker';
+import _DatePickerPanel from './DatePickerPanel';
+import _DateRangePicker from './DateRangePicker';
+import _DateRangePickerPanel from './DateRangePickerPanel';
+
 export type { DatePickerProps } from './DatePicker';
-export type { DateRangePickerProps } from './DateRangePicker';
 export type { DatePickerPanelProps } from './DatePickerPanel';
+export type { DateRangePickerProps } from './DateRangePicker';
 export type { DateRangePickerPanelProps } from './DateRangePickerPanel';
 export * from './type';
 

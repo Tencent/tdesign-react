@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type { FormItemInstance } from './FormItem';
 import type { InternalFormInstance } from './hooks/interface';
 import type { NamePath, TdFormListProps, TdFormProps } from './type';
@@ -17,11 +18,12 @@ const FormContext = React.createContext<{
   showErrorMessage: TdFormProps['showErrorMessage'];
   resetType: TdFormProps['resetType'];
   disabled: TdFormProps['disabled'];
-  readonly: TdFormProps['readonly'];
+  readOnly: TdFormProps['readOnly'];
   rules: TdFormProps['rules'];
   errorMessage: TdFormProps['errorMessage'];
   formMapRef: React.RefObject<Map<any, React.RefObject<FormItemInstance>>>;
   floatingFormDataRef: React.RefObject<Record<any, any>>;
+  registerFormItem?: (node: HTMLElement) => () => void;
   onFormItemValueChange: (changedValue: Record<string, unknown>) => void;
 }>({
   form: undefined,
@@ -36,13 +38,14 @@ const FormContext = React.createContext<{
   showErrorMessage: undefined,
   resetType: 'empty',
   disabled: undefined,
-  readonly: undefined,
+  readOnly: undefined,
   rules: undefined,
   errorMessage: undefined,
   statusIcon: undefined,
   onFormItemValueChange: undefined,
   formMapRef: undefined,
   floatingFormDataRef: undefined,
+  registerFormItem: undefined,
 });
 
 export const useFormContext = () => React.useContext(FormContext);
@@ -51,12 +54,14 @@ export default FormContext;
 
 export const FormListContext = React.createContext<{
   name: NamePath;
+  fullPath?: NamePath;
   rules: TdFormListProps['rules'];
-  formListMapRef: React.RefObject<Map<any, React.RefObject<FormItemInstance>>>;
+  formListMapRef: React.RefObject<Map<NamePath, React.RefObject<FormItemInstance>>>;
   initialData: TdFormListProps['initialData'];
   form?: InternalFormInstance;
 }>({
   name: undefined,
+  fullPath: undefined,
   rules: undefined,
   formListMapRef: undefined,
   initialData: [],

@@ -1,7 +1,7 @@
+import './style/index.js';
+
 import _Notification from './Notification';
 import { NotificationPlugin as _NotificationPlugin } from './NotificationPlugin';
-
-import './style/index.js';
 
 export * from './type';
 

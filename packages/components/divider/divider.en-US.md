@@ -13,4 +13,4 @@ children | TNode | - | Typescript: `string \| TNode`。[see more ts definition](
 content | TNode | - | Typescript: `string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 dashed | Boolean | false | \- | N
 layout | String | horizontal | options: horizontal/vertical | N
-size | String / Number | - | Spacing size | N
+size | String / Number | - | Spacing size. Numbers are treated as `px`; strings should be valid CSS length values such as `20px` or `1em`. `small` / `medium` / `large` are not supported | N

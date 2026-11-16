@@ -1,12 +1,15 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import { isString, isNumber } from 'lodash-es';
+import { isNumber, isString } from 'lodash-es';
+
 import useConfig from '../hooks/useConfig';
-import { TdInputAdornmentProps } from './type';
-import { StyledProps } from '../common';
+
+import type { StyledProps } from '../common';
+import type { TdInputAdornmentProps } from './type';
 
 export interface InputAdornmentProps extends TdInputAdornmentProps, StyledProps {
   children?: React.ReactNode;
+  onChange?: (...args: any[]) => void;
 }
 
 const InputAdornment = forwardRef<HTMLDivElement, InputAdornmentProps>((props, ref) => {

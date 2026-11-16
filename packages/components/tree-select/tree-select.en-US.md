@@ -35,8 +35,8 @@ popupProps | Object | - | Typescript: `PopupProps`，[Popup API Documents](./pop
 popupVisible | Boolean | undefined | show popup | N
 defaultPopupVisible | Boolean | undefined | show popup。uncontrolled property | N
 prefixIcon | TElement | - | Typescript: `TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
-readonly | Boolean | false | \- | N
-reserveKeyword | Boolean | false | \- | N
+readOnly | Boolean | false | \- | N
+reserveKeyword | Boolean | true | \- | N
 selectInputProps | Object | - | Typescript: `SelectInputProps`，[SelectInput API Documents](./select-input?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree-select/type.ts) | N
 size | String | medium | options: small/medium/large | N
 status | String | default | options: default/success/warning/error | N
@@ -45,8 +45,8 @@ suffixIcon | TElement | - | Typescript: `TNode`。[see more ts definition](https
 tagProps | Object | - | Typescript: `TagProps`，[Tag API Documents](./tag?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree-select/type.ts) | N
 tips | TNode | - | Typescript: `string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 treeProps | Object | - | Typescript: `TreeProps`，[Tree API Documents](./tree?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree-select/type.ts) | N
-value | String / Number / Object / Array | - | Typescript: `TreeValueType` `type TreeSelectValue = string \| number \| TreeOptionData \| Array<string \| number \| TreeOptionData>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree-select/type.ts) | N
-defaultValue | String / Number / Object / Array | - | uncontrolled property。Typescript: `TreeValueType` `type TreeSelectValue = string \| number \| TreeOptionData \| Array<string \| number \| TreeOptionData>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree-select/type.ts) | N
+value | String / Number / Object / Array / BigInt | - | Typescript: `TreeValueType` `type TreeSelectValue = string \| number \| bigint \| TreeOptionData \| Array<string \| number \| bigint \| TreeOptionData>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree-select/type.ts) | N
+defaultValue | String / Number / Object / Array / BigInt | - | uncontrolled property。Typescript: `TreeValueType` `type TreeSelectValue = string \| number \| bigint \| TreeOptionData \| Array<string \| number \| bigint \| TreeOptionData>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/tree-select/type.ts) | N
 valueDisplay | TElement | - | Typescript: `string \| TNode<{ value: TreeOptionData \| TreeOptionData[]; onClose: (index: number) => void }>`。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
 valueType | String | value | options: value/object | N
 onBlur | Function |  | Typescript: `(context: SelectInputBlurContext & { value: TreeSelectValue }) => void`<br/> | N

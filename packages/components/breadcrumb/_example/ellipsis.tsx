@@ -4,11 +4,11 @@ import { Breadcrumb } from 'tdesign-react';
 const { BreadcrumbItem } = Breadcrumb;
 
 const options = [
-  { content: '页面1'},
-  { content: '页面2'},
-  { content: '页面3'},
-  { content: '页面4'},
-  { content: '页面5'},
+  { content: '页面1' },
+  { content: '页面2' },
+  { content: '页面3' },
+  { content: '页面4' },
+  { content: '页面5' },
 ];
 
 export default function BreadcrumbExample() {

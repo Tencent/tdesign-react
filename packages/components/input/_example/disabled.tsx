@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Input } from 'tdesign-react';
 
 export default function InputExample() {

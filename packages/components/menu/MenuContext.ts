@@ -1,6 +1,8 @@
 import { createContext } from 'react';
+
 import noop from '../_util/noop';
-import { TdMenuProps, MenuValue } from './type';
+
+import type { MenuValue, TdMenuProps } from './type';
 
 export interface MenuState {
   active?: MenuValue;
@@ -12,8 +14,10 @@ export type SetMenuState = React.Dispatch<React.SetStateAction<MenuState>>;
 
 export type MenuMode = 'title' | 'accordion' | 'popup';
 
-interface MenuContextType
-  extends Pick<TdMenuProps, 'onChange' | 'value' | 'expanded' | 'expandMutex' | 'expandType' | 'theme' | 'collapsed'> {
+interface MenuContextType extends Pick<
+  TdMenuProps,
+  'onChange' | 'value' | 'expanded' | 'expandMutex' | 'expandType' | 'theme' | 'collapsed'
+> {
   /**
    * 修改非受控组件状态
    */

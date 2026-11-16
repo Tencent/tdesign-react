@@ -46,6 +46,17 @@ export default function YearDatePicker() {
           after: dayjs().add(5, 'day').format(),
         }}
       />
+      <DateRangePicker
+        placeholder="禁用开始日期"
+        disabled={[true, false]}
+        defaultValue={['2026-01-01', '2026-01-10']}
+      />
+      <DateRangePicker
+        placeholder="禁用结束日期"
+        disabled={[false, true]}
+        enableTimePicker
+        defaultValue={['2026-01-01 00:00:00', '2026-01-10 23:59:59']}
+      />
     </Space>
   );
 }

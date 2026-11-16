@@ -1,19 +1,18 @@
 import React, { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
+import { isFunction } from 'lodash-es';
 import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-react';
 
-import { isFunction } from 'lodash-es';
-import TLoading from '../../loading';
 import Checkbox from '../../checkbox';
-
-import useConfig from '../../hooks/useConfig';
-import useGlobalIcon from '../../hooks/useGlobalIcon';
-import useDomRefCallback from '../../hooks/useDomRefCallback';
 import useCommonClassName from '../../hooks/useCommonClassName';
-
-import { getFullPathLabel } from '../core/helper';
+import useConfig from '../../hooks/useConfig';
+import useDomRefCallback from '../../hooks/useDomRefCallback';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
+import TLoading from '../../loading';
 import { getCascaderItemClass, getCascaderItemIconClass } from '../core/className';
-import { CascaderContextType, TreeNodeValue, TreeNode } from '../interface';
+import { getFullPathLabel } from '../core/helper';
+
+import type { CascaderContextType, TreeNode, TreeNodeValue } from '../interface';
 
 const Item = forwardRef(
   (
@@ -37,7 +36,9 @@ const Item = forwardRef(
       cascaderContext,
     } = props;
     const { classPrefix: prefix } = useConfig();
-    const { ChevronRightIcon } = useGlobalIcon({ ChevronRightIcon: TdChevronRightIcon });
+    const { ChevronRightIcon } = useGlobalIcon({
+      ChevronRightIcon: TdChevronRightIcon,
+    });
     const COMPONENT_NAME = `${prefix}-cascader__item`;
     // 暂时去掉动画效果 长列表在safari中有异常
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -90,9 +91,14 @@ const Item = forwardRef(
     const RenderLabelContent = (node: TreeNode, cascaderContext: CascaderContextType) => {
       const label = RenderLabelInner(node, cascaderContext);
 
+      const getTitle = () => {
+        const title = cascaderContext.inputVal ? getFullPathLabel(node) : node.label;
+        return typeof title !== 'object' ? title : undefined;
+      };
+
       const labelCont = (
         <span
-          title={cascaderContext.inputVal ? getFullPathLabel(node) : node.label}
+          title={getTitle()}
           className={classNames(`${COMPONENT_NAME}-label`, `${COMPONENT_NAME}-label--ellipsis`)}
           role="label"
         >

@@ -27,9 +27,9 @@ export interface TdRangeInputProps {
    */
   clearable?: boolean;
   /**
-   * 是否禁用范围输入框
+   * 是否禁用范围输入框，值为数组表示可分别控制某一个输入框是否禁用
    */
-  disabled?: boolean;
+  disabled?: boolean | Array<boolean>;
   /**
    * 指定输入框展示值的格式
    */
@@ -52,9 +52,15 @@ export interface TdRangeInputProps {
   prefixIcon?: TElement;
   /**
    * 只读状态
+   * @deprecated It will be removed in the future. Please use `readOnly` instead.
    * @default false
    */
   readonly?: boolean;
+  /**
+   * 只读状态
+   * @default false
+   */
+  readOnly?: boolean;
   /**
    * 范围分隔符
    * @default '-'
@@ -172,7 +178,7 @@ export interface TdRangeInputPopupProps {
   /**
    * 是否禁用范围输入框，值为数组表示可分别控制某一个输入框是否禁用
    */
-  disabled?: boolean;
+  disabled?: boolean | Array<boolean>;
   /**
    * 输入框的值
    */
@@ -203,9 +209,15 @@ export interface TdRangeInputPopupProps {
   rangeInputProps?: RangeInputProps;
   /**
    * 只读状态，值为真会隐藏输入框，且无法打开下拉框
+   * @deprecated It will be removed in the future. Please use `readOnly` instead.
    * @default false
    */
   readonly?: boolean;
+  /**
+   * 只读状态，值为真会隐藏输入框，且无法打开下拉框
+   * @default false
+   */
+  readOnly?: boolean;
   /**
    * 输入框状态
    * @default default

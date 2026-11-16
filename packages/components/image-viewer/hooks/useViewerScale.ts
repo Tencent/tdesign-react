@@ -1,4 +1,4 @@
-import { ImageViewerScale } from '../type';
+import type { ImageViewerScale } from '../type';
 
 const useViewerScale = (viewerScale) => {
   const result: ImageViewerScale = {

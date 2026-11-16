@@ -1,13 +1,15 @@
 import React, { useContext, useMemo } from 'react';
 import classNames from 'classnames';
 import { omit } from 'lodash-es';
-import { TdTimelineItemProps } from './type';
-import { StyledProps } from '../common';
-import useConfig from '../hooks/useConfig';
-import TimelineContext from './TimelineContext';
+
 import parseTNode from '../_util/parseTNode';
-import { useAlign } from './useAlign';
+import useConfig from '../hooks/useConfig';
 import Loading from '../loading';
+import TimelineContext from './TimelineContext';
+import { useAlign } from './useAlign';
+
+import type { StyledProps } from '../common';
+import type { TdTimelineItemProps } from './type';
 
 export interface TimelineItemProps extends TdTimelineItemProps, StyledProps {
   children?: React.ReactNode;

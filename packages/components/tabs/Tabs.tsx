@@ -1,17 +1,19 @@
 import React from 'react';
 import classNames from 'classnames';
-import { TabValue, TdTabsProps } from './type';
-import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import TabNav from './TabNav';
-import { useTabClass } from './useTabClass';
-import TabPanel from './TabPanel';
-import { StyledProps } from '../common';
-import { tabsDefaultProps } from './defaultProps';
-import useDragSorter from '../hooks/useDragSorter';
-import useDefaultProps from '../hooks/useDefaultProps';
-import useControlled from '../hooks/useControlled';
 
-export interface TabsProps extends TdTabsProps, StyledProps {
+import forwardRefWithStatics from '../_util/forwardRefWithStatics';
+import useControlled from '../hooks/useControlled';
+import useDefaultProps from '../hooks/useDefaultProps';
+import useDragSorter from '../hooks/useDragSorter';
+import { tabsDefaultProps } from './defaultProps';
+import TabNav from './TabNav';
+import TabPanel from './TabPanel';
+import { useTabClass } from './useTabClass';
+
+import type { StyledProps } from '../common';
+import type { TabValue, TdTabsProps } from './type';
+
+export interface TabsProps<T extends TabValue = TabValue> extends TdTabsProps<T>, StyledProps {
   children?: React.ReactNode;
 }
 
@@ -92,4 +94,8 @@ const Tabs = forwardRefWithStatics(
 
 Tabs.displayName = 'Tabs';
 
-export default Tabs;
+export default Tabs as (<T extends TabValue = TabValue>(
+  props: TabsProps<T> & React.RefAttributes<HTMLDivElement>,
+) => React.ReactElement) & {
+  TabPanel: typeof TabPanel;
+};

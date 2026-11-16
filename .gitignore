@@ -1,11 +1,10 @@
-
 .DS_Store
-.idea
 temp*
+.tmp-aigc-dts
 robotMsg.json
 .history
 
-## node modules
+# node modules
 node_modules
 
 # bundle files
@@ -15,8 +14,7 @@ cjs/
 lib/
 dist/
 
-
-## test files
+# test files
 coverage
 cypress-coverage
 cy-report
@@ -26,17 +24,36 @@ test/scripts/cypress/results
 test/scripts/cypress/support
 results/
 
-## site files
+# site files
 site/dist
 _static_site
-packages/components/**/_example-js/
+packages/**/_example-js/
 
-
-## lock files
+# lock files
 package-lock.json
 yarn.lock
 pnpm-lock.yaml
 
+# analysis files
+bundle-analysis
 
+# chat
+packages/**/chat-engine/core
+packages/**/chat-engine/docs
+packages/**/chatbot/docs
+mock-server
+packages/**/docs
+packages/pro-components/chat/**/docs/
 
+# IDE
+.idea
+.codebuddy
+!.codebuddy/skills/
+!.codebuddy/specs/
 
+*.zip
+.zip
+openspec
+*.d.ts
+*.zip
+.fue

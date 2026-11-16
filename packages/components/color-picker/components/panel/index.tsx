@@ -6,19 +6,16 @@ import {
   DEFAULT_LINEAR_GRADIENT,
   DEFAULT_SYSTEM_SWATCH_COLORS,
   getColorObject,
-  GradientColorPoint,
   initColorFormat,
   TD_COLOR_USED_COLORS_MAX_SIZE,
-  type ColorFormat,
 } from '@tdesign/common-js/color-picker/index';
+
 import useCommonClassName from '../../../hooks/useCommonClassName';
 import useControlled from '../../../hooks/useControlled';
 import useDefaultProps from '../../../hooks/useDefaultProps';
 import { useLocaleReceiver } from '../../../locale/LocalReceiver';
 import { colorPickerDefaultProps } from '../../defaultProps';
 import useClassName from '../../hooks/useClassNames';
-import type { ColorPickerProps, TdColorModes, TdColorSaturationData } from '../../interface';
-import type { ColorPickerChangeTrigger } from '../../type';
 import AlphaSlider from './alpha';
 import FormatPanel from './format';
 import PanelHeader from './header';
@@ -26,6 +23,10 @@ import HueSlider from './hue';
 import LinearGradient from './linear-gradient';
 import SaturationPanel from './saturation';
 import SwatchesPanel from './swatches';
+
+import type { ColorFormat, GradientColorPoint } from '@tdesign/common-js/color-picker/index';
+import type { ColorPickerProps, TdColorModes, TdColorSaturationData } from '../../interface';
+import type { ColorPickerChangeTrigger } from '../../type';
 
 const Panel = forwardRef<HTMLDivElement, ColorPickerProps>((props, ref) => {
   const baseClassName = useClassName();

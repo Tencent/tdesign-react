@@ -1,23 +1,68 @@
-import React, { useRef, useEffect, isValidElement, useCallback, useMemo } from 'react';
-import { isFragment } from 'react-is';
-import classNames from 'classnames';
-import { supportRef, getRefDom, getNodeRef } from '../../_util/ref';
-import composeRefs from '../../_util/composeRefs';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+
+import { canUseDocument } from '../../_util/dom';
 import { off, on } from '../../_util/listener';
+import { composeRefs, getNodeRef, getRefDom, supportNodeRef } from '../../_util/ref';
+import useConfig from '../../hooks/useConfig';
+import useLatest from '../../hooks/useLatest';
 
 const ESC_KEY = 'Escape';
 
-export default function useTrigger({ content, disabled, trigger, visible, onVisibleChange, triggerRef, delay }) {
+/** 穿越 trigger 与弹层间距时的最短关闭缓冲，避免先关后开闪烁 */
+const HOVER_GAP_EXIT_DELAY = 150;
+
+const isEventFromDisabledElement = (e: Event | React.SyntheticEvent, container: Element) => {
+  const target = e.target as Element;
+  const disabledEl = target?.closest?.('[disabled]');
+  return !!(disabledEl && container.contains(disabledEl));
+};
+
+const isNodeInside = (container: Element | null | undefined, node: EventTarget | null) => {
+  return !!(container && node instanceof Node && (container === node || container.contains(node)));
+};
+
+const hasLayoutRect = (rect: DOMRect) => rect.width > 0 || rect.height > 0;
+
+/**
+ * 鼠标是否正从 fromEl 朝 toEl 方向离开（用于判断是否在穿越间距）
+ */
+const isLeavingToward = (e: MouseEvent | React.MouseEvent, fromEl: Element | null, toEl: Element | null) => {
+  if (!fromEl || !toEl) return false;
+  const from = fromEl.getBoundingClientRect();
+  const to = toEl.getBoundingClientRect();
+  if (!hasLayoutRect(from) || !hasLayoutRect(to)) return false;
+
+  const dx = to.left + to.width / 2 - (from.left + from.width / 2);
+  const dy = to.top + to.height / 2 - (from.top + from.height / 2);
+  const leaveX = e.clientX - (from.left + from.width / 2);
+  const leaveY = e.clientY - (from.top + from.height / 2);
+  return leaveX * dx + leaveY * dy > 0;
+};
+
+export default function useTrigger({
+  triggerElement,
+  content,
+  disabled,
+  trigger,
+  visible,
+  onVisibleChange,
+  delay,
+  popupElement,
+}) {
+  const { classPrefix } = useConfig();
+
+  const triggerElementIsString = typeof triggerElement === 'string';
+
+  const triggerRef = useRef<HTMLElement>(null);
   const hasPopupMouseDown = useRef(false);
-  const mouseDownTimer = useRef(0);
   const visibleTimer = useRef(null);
-  const triggerDataKey = useRef(`t-popup--${Math.random().toFixed(10)}`);
-  const leaveFlag = useRef(false); // 防止多次触发显隐
+  const popupElementRef = useLatest(popupElement);
+  const visibleRef = useLatest(visible);
 
   // 禁用和无内容时不展示
   const shouldToggle = useMemo(() => {
-    if (disabled) return false; // 禁用
-    return !disabled && content === 0 ? true : content; // 无内容时
+    if (disabled) return false;
+    return content === 0 ? true : !!content;
   }, [disabled, content]);
 
   // 解析 delay 数据类型
@@ -35,179 +80,269 @@ export default function useTrigger({ content, disabled, trigger, visible, onVisi
     }
   }
 
-  // 点击 trigger overlay 以外的元素关闭
+  const getTriggerElement = useCallback(() => {
+    if (!canUseDocument) return null;
+    if (triggerElementIsString) return document.querySelector(triggerElement);
+    const element = getRefDom(triggerRef);
+    return element instanceof Element ? element : null;
+  }, [triggerElementIsString, triggerElement]);
+
+  const handleMouseEnter = (e: MouseEvent | React.MouseEvent) => {
+    if (trigger !== 'hover') return;
+    callFuncWithDelay({
+      delay: appearDelay,
+      callback: () => {
+        if (visibleRef.current) return;
+        onVisibleChange(true, { e, trigger: 'trigger-element-hover' });
+      },
+    });
+  };
+
+  const handlePopupMouseEnter = () => {
+    if (trigger !== 'hover') return;
+    clearTimeout(visibleTimer.current);
+  };
+
+  const handleMouseLeave = (e: MouseEvent | React.MouseEvent) => {
+    if (trigger !== 'hover') return;
+
+    // 鼠标处于按下状态时（例如在 Popup 内按住左键拖拽），暂不关闭
+    const { buttons } = e as MouseEvent;
+    if (typeof buttons === 'number' && buttons !== 0) return;
+
+    const relatedTarget = e.relatedTarget as HTMLElement;
+    const triggerEl = getTriggerElement();
+    const currentPopup = popupElementRef.current;
+    const closestPopup = relatedTarget?.closest?.(`.${classPrefix}-popup`);
+
+    const isMovingToCurrentPopup = currentPopup
+      ? currentPopup === closestPopup || isNodeInside(currentPopup, relatedTarget)
+      : !!closestPopup;
+    const isMovingToTrigger = isNodeInside(triggerEl, relatedTarget);
+    // trigger 与弹层视为同一块 hover 区域，在两者间移动不关闭
+    if (isMovingToCurrentPopup || isMovingToTrigger) return;
+
+    const fromEl = (e.currentTarget as Element) || triggerEl;
+    const leavingPopup = isNodeInside(currentPopup, fromEl);
+    const otherEl = leavingPopup ? triggerEl : currentPopup;
+    // 朝另一侧穿越间距时给一段缓冲，进入对侧时取消关闭
+    const hideDelay = isLeavingToward(e, fromEl, otherEl) ? Math.max(exitDelay, HOVER_GAP_EXIT_DELAY) : exitDelay;
+
+    callFuncWithDelay({
+      delay: hideDelay,
+      callback: () => {
+        if (!visibleRef.current) return;
+        onVisibleChange(false, { e, trigger: 'trigger-element-hover' });
+      },
+    });
+  };
+
+  const resetPopupMouseDown = (e?: MouseEvent | TouchEvent) => {
+    hasPopupMouseDown.current = false;
+    if (!e) return;
+
+    const target = e.target as Element | null;
+    const insideAnyPopup = target?.closest?.(`.${classPrefix}-popup`);
+
+    // 鼠标抬起时仍在 Popup、trigger 或任意子 Popup 内，保持打开
+    if (insideAnyPopup) return;
+
+    // 鼠标抬起时已经在外部，补偿一次关闭
+    callFuncWithDelay({
+      delay: exitDelay,
+      callback: () =>
+        onVisibleChange(false, {
+          e,
+          trigger: trigger === 'hover' ? 'trigger-element-hover' : 'document',
+        }),
+    });
+  };
+
+  const handlePopupMouseDown = () => {
+    hasPopupMouseDown.current = true;
+    // 监听全局事件，避免用户在 Popup 内按下鼠标后拖拽到外部释放
+    // 导致 Popup 收不到 mouseup，标记无法重置
+    const handleDocumentEnd = (e: MouseEvent | TouchEvent) => {
+      off(document, 'mouseup', handleDocumentEnd);
+      off(document, 'touchend', handleDocumentEnd);
+      resetPopupMouseDown(e);
+    };
+    on(document, 'mouseup', handleDocumentEnd);
+    on(document, 'touchend', handleDocumentEnd);
+  };
+
+  useEffect(() => clearTimeout(visibleTimer.current), []);
+
+  useEffect(() => {
+    if (!shouldToggle) return;
+
+    const element = getTriggerElement();
+    if (!element) return;
+
+    const handleClick = (e: MouseEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
+      if (trigger === 'click') {
+        callFuncWithDelay({
+          delay: visible ? appearDelay : exitDelay,
+          callback: () => onVisibleChange(!visible, { e, trigger: 'trigger-element-click' }),
+        });
+      }
+    };
+
+    const handleMouseDown = (e: MouseEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
+      if (trigger === 'mousedown') {
+        callFuncWithDelay({
+          delay: visible ? appearDelay : exitDelay,
+          callback: () =>
+            onVisibleChange(!visible, {
+              e,
+              trigger: 'trigger-element-mousedown',
+            }),
+        });
+      }
+    };
+
+    const handleFocus = (e: FocusEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
+      if (trigger === 'focus') {
+        callFuncWithDelay({
+          delay: appearDelay,
+          callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-focus' }),
+        });
+      }
+    };
+
+    const handleBlur = (e: FocusEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
+      // relatedTarget is the element receiving focus; if it's still within the trigger element, don't close
+      const relatedTarget = (e as FocusEvent).relatedTarget as HTMLElement;
+      if (relatedTarget && element.contains(relatedTarget)) return;
+      if (trigger === 'focus') {
+        callFuncWithDelay({
+          delay: exitDelay,
+          callback: () => onVisibleChange(false, { e, trigger: 'trigger-element-blur' }),
+        });
+      }
+    };
+
+    const handleContextMenu = (e: MouseEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
+      if (trigger === 'context-menu') {
+        e.preventDefault();
+        callFuncWithDelay({
+          delay: appearDelay,
+          callback: () => onVisibleChange(true, { e, trigger: 'context-menu' }),
+        });
+      }
+    };
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
+      if (trigger === 'hover' || trigger === 'mousedown') {
+        callFuncWithDelay({
+          delay: appearDelay,
+          callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
+        });
+      }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (isEventFromDisabledElement(e, element)) return;
+      if (e?.key === ESC_KEY) {
+        callFuncWithDelay({
+          delay: exitDelay,
+          callback: () => onVisibleChange(false, { e, trigger: 'keydown-esc' }),
+        });
+      }
+    };
+
+    on(element, 'click', handleClick);
+    on(element, 'mousedown', handleMouseDown);
+    on(element, 'mouseenter', handleMouseEnter);
+    on(element, 'mouseleave', handleMouseLeave);
+    on(element, 'focusin', handleFocus);
+    on(element, 'focusout', handleBlur);
+    on(element, 'contextmenu', handleContextMenu);
+    on(element, 'touchstart', handleTouchStart, { passive: true });
+    on(element, 'keydown', handleKeyDown);
+    return () => {
+      off(element, 'click', handleClick);
+      off(element, 'mousedown', handleMouseDown);
+      off(element, 'mouseenter', handleMouseEnter);
+      off(element, 'mouseleave', handleMouseLeave);
+      off(element, 'focusin', handleFocus);
+      off(element, 'focusout', handleBlur);
+      off(element, 'contextmenu', handleContextMenu);
+      off(element, 'touchstart', handleTouchStart, { passive: true });
+      off(element, 'keydown', handleKeyDown);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [classPrefix, shouldToggle, appearDelay, exitDelay, trigger, visible, onVisibleChange, popupElement]);
+
   useEffect(() => {
     if (!shouldToggle) return;
 
     const handleDocumentClick = (e: any) => {
-      if (getRefDom(triggerRef)?.contains?.(e.target) || hasPopupMouseDown.current) {
-        return;
-      }
-      visible && onVisibleChange(false, { e, trigger: 'document' });
+      if (!visible || getTriggerElement()?.contains?.(e.target) || hasPopupMouseDown.current) return;
+      onVisibleChange(false, { e, trigger: 'document' });
     };
+
     on(document, 'mousedown', handleDocumentClick);
-    on(document, 'touchend', handleDocumentClick);
+    on(document, 'touchend', handleDocumentClick, { passive: true });
+
     return () => {
-      off(document, 'mousedown', handleDocumentClick);
-      off(document, 'touchend', handleDocumentClick);
+      // 嵌套使用，父 Popup 关闭时，子 Popup 也要关闭
+      // 针对父 Popup 关闭时，trigger 元素直接从 DOM 移除的场景
+      // 避免监听器提早被销毁无法触发
+      requestAnimationFrame(() => {
+        off(document, 'mousedown', handleDocumentClick);
+        off(document, 'touchend', handleDocumentClick, { passive: true });
+      });
     };
-  }, [shouldToggle, visible, onVisibleChange, triggerRef]);
+  }, [classPrefix, shouldToggle, visible, onVisibleChange, getTriggerElement]);
 
-  // 弹出内容交互处理
-  function getPopupProps(): any {
-    if (!shouldToggle) return {};
-
-    return {
-      onMouseEnter: (e: MouseEvent) => {
-        if (trigger === 'hover' && !leaveFlag.current) {
-          clearTimeout(visibleTimer.current);
-          onVisibleChange(true, { e, trigger: 'trigger-element-hover' });
-        }
-      },
-      onMouseLeave: (e: MouseEvent) => {
-        if (trigger === 'hover') {
-          leaveFlag.current = true;
-          clearTimeout(visibleTimer.current);
-          onVisibleChange(false, { e, trigger: 'trigger-element-hover' });
-        }
-      },
-      onMouseDown: () => {
-        clearTimeout(mouseDownTimer.current);
-        hasPopupMouseDown.current = true;
-        mouseDownTimer.current = window.setTimeout(() => {
-          hasPopupMouseDown.current = false;
-        });
-      },
-      onTouchEnd: () => {
-        clearTimeout(mouseDownTimer.current);
-        hasPopupMouseDown.current = true;
-        mouseDownTimer.current = window.setTimeout(() => {
-          hasPopupMouseDown.current = false;
-        });
-      },
-    };
-  }
-
-  // 整理 trigger props
-  function getTriggerProps(triggerNode: React.ReactElement<any>) {
-    if (!shouldToggle) return {};
-
-    const triggerProps: any = {
-      className: visible ? classNames(triggerNode.props.className, `t-popup-open`) : triggerNode.props.className,
-      onMouseDown: (e: MouseEvent) => {
-        if (trigger === 'mousedown') {
-          callFuncWithDelay({
-            delay: visible ? appearDelay : exitDelay,
-            callback: () => onVisibleChange(!visible, { e, trigger: 'trigger-element-mousedown' }),
-          });
-        }
-        triggerNode.props.onMouseDown?.(e);
-      },
-      onClick: (e: MouseEvent) => {
-        if (trigger === 'click') {
-          callFuncWithDelay({
-            delay: visible ? appearDelay : exitDelay,
-            callback: () => onVisibleChange(!visible, { e, trigger: 'trigger-element-click' }),
-          });
-        }
-        triggerNode.props.onClick?.(e);
-      },
-      onTouchStart: (e: TouchEvent) => {
-        if (trigger === 'hover' || trigger === 'mousedown') {
-          leaveFlag.current = false;
-          callFuncWithDelay({
-            delay: appearDelay,
-            callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
-          });
-        }
-        triggerNode.props.onTouchStart?.(e);
-      },
-      onMouseEnter: (e: MouseEvent) => {
-        if (trigger === 'hover') {
-          leaveFlag.current = false;
-          callFuncWithDelay({
-            delay: appearDelay,
-            callback: () => onVisibleChange(true, { e, trigger: 'trigger-element-hover' }),
-          });
-        }
-        triggerNode.props.onMouseEnter?.(e);
-      },
-      onMouseLeave: (e: MouseEvent) => {
-        if (trigger === 'hover') {
-          leaveFlag.current = false;
-          callFuncWithDelay({
-            delay: exitDelay,
-            callback: () => onVisibleChange(false, { e, trigger: 'trigger-element-hover' }),
-          });
-        }
-        triggerNode.props.onMouseLeave?.(e);
-      },
-      onFocus: (...args: any) => {
-        if (trigger === 'focus') {
-          callFuncWithDelay({
-            delay: appearDelay,
-            callback: () => onVisibleChange(true, { trigger: 'trigger-element-focus' }),
-          });
-        }
-        triggerNode.props.onFocus?.(...args);
-      },
-      onBlur: (...args: any) => {
-        if (trigger === 'focus') {
-          callFuncWithDelay({
-            delay: appearDelay,
-            callback: () => onVisibleChange(false, { trigger: 'trigger-element-blur' }),
-          });
-        }
-        triggerNode.props.onBlur?.(...args);
-      },
-      onContextMenu: (e: MouseEvent) => {
-        if (trigger === 'context-menu') {
-          e.preventDefault();
-          callFuncWithDelay({
-            delay: appearDelay,
-            callback: () => onVisibleChange(true, { e, trigger: 'context-menu' }),
-          });
-        }
-        triggerNode.props.onContextMenu?.(e);
-      },
-      onKeyDown: (e: KeyboardEvent) => {
-        if (e?.key === ESC_KEY) {
-          callFuncWithDelay({
-            delay: exitDelay,
-            callback: () => onVisibleChange(false, { e, trigger: 'keydown-esc' }),
-          });
-        }
-        triggerNode.props.onKeyDown?.(e);
-      },
-    };
-
-    if (supportRef(triggerNode)) {
-      triggerProps.ref = composeRefs(triggerRef, getNodeRef(triggerNode as any));
+  useEffect(() => {
+    const element = getTriggerElement();
+    if (visible) {
+      element?.classList.add(`${classPrefix}-popup-open`);
     } else {
-      // 标记 trigger 元素
-      triggerProps['data-popup'] = triggerDataKey.current;
+      element?.classList.remove(`${classPrefix}-popup-open`);
+    }
+    return () => {
+      element?.classList.remove(`${classPrefix}-popup-open`);
+    };
+  }, [visible, classPrefix, getTriggerElement]);
+
+  function getTriggerNode(children: React.ReactNode) {
+    if (triggerElementIsString) return;
+
+    if (supportNodeRef(children)) {
+      const childRef = getNodeRef(children);
+      const ref = composeRefs(triggerRef, childRef);
+      return React.cloneElement(children, { ref });
     }
 
-    return triggerProps;
+    return (
+      <span ref={triggerRef} className={`${classPrefix}-trigger`}>
+        {children}
+      </span>
+    );
   }
 
-  // 整理 trigger 元素
-  function getTriggerNode(children: React.ReactNode) {
-    const triggerNode =
-      isValidElement(children) && !isFragment(children) ? children : <span className="t-trigger">{children}</span>;
-
-    return React.cloneElement(triggerNode, getTriggerProps(triggerNode));
+  function getPopupProps() {
+    return {
+      onMouseEnter: handlePopupMouseEnter,
+      onMouseLeave: handleMouseLeave,
+      onMouseDown: handlePopupMouseDown,
+      onTouchStart: handlePopupMouseDown,
+    };
   }
-
-  // ref 透传失败时使用 dom 查找
-  const getTriggerDom = useCallback(() => {
-    if (typeof document === 'undefined') return {};
-    return document.querySelector(`[data-popup="${triggerDataKey.current}"]`);
-  }, []);
 
   return {
+    triggerElementIsString,
+    getTriggerElement,
     getTriggerNode,
     getPopupProps,
-    getTriggerDom,
   };
 }

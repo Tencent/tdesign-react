@@ -1,6 +1,6 @@
-import _BackTop from './BackTop';
-
 import './style/index.js';
+
+import _BackTop from './BackTop';
 
 export type { BackTopProps } from './BackTop';
 

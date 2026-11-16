@@ -1,20 +1,24 @@
-import React, { FC, MouseEvent, useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import classNames from 'classnames';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   ErrorCircleFilledIcon as TdErrorCircleFilledIcon,
 } from 'tdesign-icons-react';
 import { abridgeName, getFileSizeText } from '@tdesign/common-js/upload/utils';
-import { TdUploadProps, UploadFile } from '../type';
-import Link from '../../link';
-import { CommonDisplayFileProps } from '../interface';
-import useCommonClassName from '../../hooks/useCommonClassName';
-import TLoading from '../../loading';
-import useDrag, { UploadDragEvents } from '../hooks/useDrag';
-import useGlobalIcon from '../../hooks/useGlobalIcon';
-import ImageViewer from '../../image-viewer';
+
 import { parseContentTNode } from '../../_util/parseTNode';
+import useCommonClassName from '../../hooks/useCommonClassName';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
 import Image from '../../image';
+import ImageViewer from '../../image-viewer';
+import Link from '../../link';
+import TLoading from '../../loading';
+import useDrag from '../hooks/useDrag';
+
+import type { FC, MouseEvent } from 'react';
+import type { UploadDragEvents } from '../hooks/useDrag';
+import type { CommonDisplayFileProps } from '../interface';
+import type { TdUploadProps, UploadFile } from '../type';
 
 export interface DraggerProps extends CommonDisplayFileProps {
   trigger?: TdUploadProps['trigger'];

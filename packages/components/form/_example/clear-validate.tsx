@@ -1,6 +1,7 @@
 import React from 'react';
-import { Form, Input, Checkbox, Button, MessagePlugin, Radio, Select } from 'tdesign-react';
-import type { FormProps, IsDateOptions, FormRules, Data } from 'tdesign-react';
+import { Button, Checkbox, Form, Input, MessagePlugin, Radio, Select } from 'tdesign-react';
+
+import type { Data, FormProps, FormRules, IsDateOptions } from 'tdesign-react';
 
 const { FormItem } = Form;
 

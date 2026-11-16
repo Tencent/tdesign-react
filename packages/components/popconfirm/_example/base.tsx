@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Popconfirm, MessagePlugin, Space } from 'tdesign-react';
+import { Button, MessagePlugin, Popconfirm, Space } from 'tdesign-react';
 
 export default function BasicExample() {
   const [visible, setVisible] = useState(false);

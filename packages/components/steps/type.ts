@@ -27,9 +27,15 @@ export interface TdStepsProps {
   options?: Array<TdStepItemProps>;
   /**
    * 只读状态
+   * @deprecated It will be removed in the future. Please use `readOnly` instead.
    * @default false
    */
   readonly?: boolean;
+  /**
+   * 只读状态
+   * @default false
+   */
+  readOnly?: boolean;
   /**
    * 步骤条分割符
    * @default line

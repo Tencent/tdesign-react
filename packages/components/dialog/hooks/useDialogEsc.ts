@@ -1,31 +1,49 @@
-import { useEffect, MutableRefObject } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
-const dialogSet: Set<MutableRefObject<HTMLDivElement>> = new Set();
+import type { MutableRefObject } from 'react';
+
+const dialogStack: MutableRefObject<HTMLDivElement>[] = [];
 
 const useDialogEsc = (visible: boolean, dialog: MutableRefObject<HTMLDivElement>) => {
-  useEffect(() => {
-    if (visible) {
-      // 将 dialog 添加至 Set 对象
-      if (dialog?.current) {
-        dialogSet.add(dialog);
-        dialog?.current?.focus();
-      }
-    } else if (dialogSet.has(dialog)) {
-      // 将 dialog 从 Set 对象删除
-      dialogSet.delete(dialog);
-      const dialogList = [...dialogSet];
-      // 将 Set 对象中最后一个 dialog 设置为 focus
-      dialogList[dialogList.length - 1]?.current?.focus();
+  const addedToStackRef = useRef<boolean>(false);
+
+  const focusTopDialog = useCallback(() => {
+    const lastDialog = dialogStack[dialogStack.length - 1];
+    if (lastDialog?.current) {
+      lastDialog.current.focus();
     }
+  }, []);
+
+  const activateDialog = useCallback(() => {
+    if (dialog?.current && !addedToStackRef.current) {
+      dialogStack.push(dialog);
+      addedToStackRef.current = true;
+      focusTopDialog();
+    }
+  }, [dialog, focusTopDialog]);
+
+  useEffect(() => {
+    if (!visible && addedToStackRef.current) {
+      const index = dialogStack.indexOf(dialog);
+      if (index > -1) {
+        dialogStack.splice(index, 1);
+      }
+      addedToStackRef.current = false;
+      focusTopDialog();
+    }
+
     return () => {
-      // 从 Set 对象删除无效的 dialog
-      dialogSet.forEach((item) => {
-        if (item.current === null) {
-          dialogSet.delete(item);
+      // 清理无效的 dialog
+      for (let i = dialogStack.length - 1; i >= 0; i--) {
+        if (dialogStack[i].current === null) {
+          dialogStack.splice(i, 1);
         }
-      });
+      }
     };
-  }, [visible, dialog]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible]);
+
+  return { activateDialog };
 };
 
 export default useDialogEsc;

@@ -1,14 +1,17 @@
-import React, { forwardRef, MouseEvent, useMemo, FocusEvent } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
 import { ENTER_REG, SPACE_REG } from '@tdesign/common-js/common';
-import useControlled from '../hooks/useControlled';
-import useConfig from '../hooks/useConfig';
-import { TdCheckTagProps, TdTagProps } from './type';
-import { StyledProps } from '../common';
+
 import noop from '../_util/noop';
+import useConfig from '../hooks/useConfig';
+import useControlled from '../hooks/useControlled';
+import useDefaultProps from '../hooks/useDefaultProps';
 import { checkTagDefaultProps } from './defaultProps';
 import Tag from './Tag';
-import useDefaultProps from '../hooks/useDefaultProps';
+
+import type { FocusEvent, MouseEvent } from 'react';
+import type { StyledProps } from '../common';
+import type { TdCheckTagProps, TdTagProps } from './type';
 
 /**
  * CheckTag 组件支持的属性

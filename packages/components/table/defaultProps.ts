@@ -2,7 +2,7 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TdBaseTableProps, TdPrimaryTableProps, TdEnhancedTableProps } from './type';
+import type { TdBaseTableProps, TdEnhancedTableProps, TdPrimaryTableProps } from './type';
 
 export const baseTableDefaultProps: TdBaseTableProps = {
   bordered: false,
@@ -48,4 +48,7 @@ export const primaryTableDefaultProps: Pick<
   sortOnRowDraggable: false,
 };
 
-export const enhancedTableDefaultProps: TdEnhancedTableProps = { defaultExpandedTreeNodes: [], rowKey: undefined };
+export const enhancedTableDefaultProps: TdEnhancedTableProps = {
+  defaultExpandedTreeNodes: [],
+  rowKey: 'id',
+};

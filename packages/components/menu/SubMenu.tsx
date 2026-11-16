@@ -1,6 +1,6 @@
-import classNames from 'classnames';
-import React, { FC, ReactElement, useContext, useMemo, useRef } from 'react';
+import React, { useContext, useMemo, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import classNames from 'classnames';
 
 import parseTNode from '../_util/parseTNode';
 import FakeArrow from '../common/FakeArrow';
@@ -8,14 +8,15 @@ import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDomRefCallback from '../hooks/useDomRefCallback';
 import useRipple from '../hooks/useRipple';
-import { Popup, type PopupPlacement } from '../popup';
-import { calculatePaddingLeft } from './_util/calculatePaddingLeft';
+import { Popup } from '../popup';
 import { checkIsMenuGroup, checkIsSubMenu } from './_util/checkMenuType';
 import checkSubMenuChildrenActive from './_util/checkSubMenuChildrenActive';
 import { getSubMenuMaxHeight } from './_util/getSubMenuChildStyle';
 import { MenuContext } from './MenuContext';
 
+import type { FC, ReactElement } from 'react';
 import type { StyledProps } from '../common';
+import type { PopupPlacement } from '../popup';
 import type { TdSubmenuProps } from './type';
 
 export interface SubMenuProps extends TdSubmenuProps, StyledProps {}
@@ -70,9 +71,6 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
     if (isPopUp) return open;
     return isExpand;
   }, [disabled, isPopUp, open, isExpand]);
-
-  // 计算左边距，兼容多层级子菜单
-  const menuPaddingLeft = calculatePaddingLeft(level - 1);
 
   const fakeArrowStyle = isPopUp && level > 1 ? { transform: 'rotate(-90deg)' } : {};
 
@@ -131,7 +129,6 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
             style={
               {
                 ...childStyle,
-                '--padding-left': `${menuPaddingLeft}px`,
                 overflow: 'hidden',
               } as React.CSSProperties
             }
@@ -210,7 +207,7 @@ const SubTitleMenu: FC<SubMenuWithCustomizeProps> = (props) => {
 
   const pupContent = (
     <ul
-      className={classNames(`${classPrefix}-menu__popup-wrapper`, {
+      className={classNames(`${classPrefix}-menu__popup-wrapper`, `${classPrefix}-menu__popup-overflow`, {
         [`${classPrefix}-is-opened`]: isOpen,
       })}
     >

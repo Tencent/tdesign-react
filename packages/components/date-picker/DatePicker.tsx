@@ -1,11 +1,16 @@
 import React, { forwardRef, useCallback, useEffect } from 'react';
-
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-import { isDate } from 'lodash-es';
-
+import { isArray, isDate } from 'lodash-es';
 import { formatDate, formatTime, getDefaultFormat, parseToDayjs } from '@tdesign/common-js/date-picker/format';
-import { addMonth, covertToDate, extractTimeObj, isSame, subtractMonth } from '@tdesign/common-js/date-picker/utils';
+import {
+  addMonth,
+  covertToDate,
+  extractTimeObj,
+  getRangeBounds,
+  isSame,
+  subtractMonth,
+} from '@tdesign/common-js/date-picker/utils';
 
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
@@ -16,10 +21,18 @@ import SelectInput from '../select-input';
 import { datePickerDefaultProps } from './defaultProps';
 import useSingle from './hooks/useSingle';
 import SinglePanel from './panel/SinglePanel';
+import { triggerMap } from './utils';
 
 import type { StyledProps } from '../common';
 import type { TagInputRemoveContext } from '../tag-input';
-import type { DateMultipleValue, DateValue, PresetDate, TdDatePickerProps } from './type';
+import type {
+  DateMultipleValue,
+  DatePickerMonthChangeTrigger,
+  DatePickerYearChangeTrigger,
+  DateValue,
+  PresetDate,
+  TdDatePickerProps,
+} from './type';
 
 export interface DatePickerProps extends TdDatePickerProps, StyledProps {}
 
@@ -43,6 +56,8 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     needConfirm,
     multiple,
     label,
+    range,
+    cell,
     disableTime,
     onClear,
     onPick,
@@ -118,14 +133,22 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     setInputValue(formatDate(dateValue, { format }));
 
     if (popupVisible) {
-      setYear(parseToDayjs(value as DateValue, format).year());
-      setMonth(parseToDayjs(value as DateValue, format).month());
+      if (((props.range && isArray(props.range)) || props.panelActiveDate) && !value) {
+        const rangeBounds = getRangeBounds(props.range);
+        const yearFromRange = rangeBounds.min?.getFullYear() ?? rangeBounds.max?.getFullYear();
+        const monthFromRange = rangeBounds.min?.getMonth() ?? rangeBounds.max?.getMonth();
+        setYear((props.panelActiveDate?.year ?? yearFromRange) as number);
+        setMonth(props.panelActiveDate?.month ? Number(props.panelActiveDate?.month) - 1 : monthFromRange);
+      } else {
+        setYear(parseToDayjs(value as DateValue, format).year());
+        setMonth(parseToDayjs(value as DateValue, format).month());
+      }
       setTime(formatTime(value, format, timeFormat, defaultTime));
     } else {
       setIsHoverCell(false);
     }
     // eslint-disable-next-line
-  }, [popupVisible]);
+    }, [popupVisible]);
 
   // 日期 hover
   function onCellMouseEnter(date: Date) {
@@ -176,7 +199,13 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
   // 头部快速切换
   const onJumperClick = React.useCallback(
     ({ trigger }) => {
-      const monthCountMap = { date: 1, week: 1, month: 12, quarter: 12, year: 120 };
+      const monthCountMap = {
+        date: 1,
+        week: 1,
+        month: 12,
+        quarter: 12,
+        year: 120,
+      };
       const monthCount = monthCountMap[mode] || 0;
 
       const current = new Date(year, month);
@@ -195,8 +224,23 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
 
       setYear(nextYear);
       setMonth(nextMonth);
+      if (nextYear !== year) {
+        props.onYearChange?.({
+          year: nextYear,
+          date: parseToDayjs(value as DateValue, format).toDate(),
+          trigger: trigger === 'current' ? 'today' : (`year-${triggerMap[trigger]}` as DatePickerYearChangeTrigger),
+        });
+      }
+      if (nextMonth !== month) {
+        props.onMonthChange?.({
+          month: nextMonth,
+          date: parseToDayjs(value as DateValue, format).toDate(),
+          trigger: trigger === 'current' ? 'today' : (`month-${triggerMap[trigger]}` as DatePickerMonthChangeTrigger),
+        });
+      }
     },
-    [year, month, mode, setYear, setMonth],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [year, month, mode, setYear, setMonth, value],
   );
 
   // timePicker 点击
@@ -238,7 +282,10 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     if (typeof preset === 'function') {
       presetValue = preset();
     }
-    const formattedPreset = formatDate(presetValue, { format, targetFormat: valueType });
+    const formattedPreset = formatDate(presetValue, {
+      format,
+      targetFormat: valueType,
+    });
     const formattedInput = formatDate(presetValue, { format });
 
     setInputValue(formattedInput);
@@ -258,15 +305,31 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     props.onPresetClick?.(context);
   }
 
-  const onYearChange = useCallback((year: number) => {
-    setYear(year);
-    // eslint-disable-next-line
-  }, []);
+  const onYearChange = useCallback(
+    (year: number) => {
+      setYear(year);
+      props.onYearChange?.({
+        year,
+        date: parseToDayjs(value as DateValue, format).toDate(),
+        trigger: 'year-select',
+      });
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [value],
+  );
 
-  const onMonthChange = useCallback((month: number) => {
-    setMonth(month);
-    // eslint-disable-next-line
-  }, []);
+  const onMonthChange = useCallback(
+    (month: number) => {
+      setMonth(month);
+      props.onMonthChange?.({
+        month,
+        date: parseToDayjs(value as DateValue, format).toDate(),
+        trigger: 'month-select',
+      });
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [value],
+  );
 
   function processDate(date: Date) {
     let isSameDate: boolean;
@@ -332,6 +395,8 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
     popupVisible,
     needConfirm,
     multiple,
+    range,
+    cell,
     onCellClick,
     onCellMouseEnter,
     onCellMouseLeave,
@@ -347,6 +412,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((originalProps, r
   return (
     <div className={classNames(`${classPrefix}-date-picker`, className)} style={style} ref={ref}>
       <SelectInput
+        allowInput={props.allowInput}
         disabled={disabled}
         value={inputValue}
         status={props.status}

@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import { omit, pick } from 'lodash-es';
+
 import parseTNode, { parseContentTNode } from '../_util/parseTNode';
 import FakeArrow from '../common/FakeArrow';
 import useCommonClassName from '../hooks/useCommonClassName';
@@ -102,9 +103,9 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
   const { setVisible, visible, inputVal, setInputVal } = cascaderContext;
 
   const updateScrollTop = (content: HTMLDivElement) => {
-    const cascaderMenuList = content.querySelectorAll(`.${COMPONENT_NAME}__menu`);
+    const cascaderMenuList = content?.querySelectorAll(`.${COMPONENT_NAME}__menu`);
     requestAnimationFrame(() => {
-      cascaderMenuList.forEach((menu: HTMLDivElement) => {
+      cascaderMenuList?.forEach((menu: HTMLDivElement) => {
         const firstSelectedNode: HTMLDivElement =
           menu?.querySelector(`.${classPrefix}-is-selected`) || menu?.querySelector(`.${classPrefix}-is-expanded`);
 
@@ -156,7 +157,7 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
       allowInput={isFilterable}
       minCollapsedNum={props.minCollapsedNum}
       collapsedItems={props.collapsedItems as any}
-      readonly={props.readonly}
+      readOnly={props.readOnly || props.readonly}
       clearable={props.clearable}
       placeholder={inputPlaceholder}
       multiple={props.multiple}
@@ -174,7 +175,10 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
         overlayInnerStyle: panels.length && !props.loading ? { width: 'auto' } : {},
         overlayClassName: [`${classPrefix}-cascader__popup`, props.popupProps?.overlayClassName],
       }}
-      inputProps={{ size: props.size, ...(props.inputProps as TdCascaderProps['inputProps']) }}
+      inputProps={{
+        size: props.size,
+        ...(props.inputProps as TdCascaderProps['inputProps']),
+      }}
       tagInputProps={{
         size: props.size,
         ...(props.tagInputProps as TdCascaderProps['tagInputProps']),
@@ -235,7 +239,16 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
           {props.panelTopContent && parseTNode(props.panelTopContent)}
           <Panel
             cascaderContext={cascaderContext}
-            {...pick(props, ['trigger', 'onChange', 'empty', 'loading', 'loadingText', 'option'])}
+            {...pick(props, [
+              'trigger',
+              'onChange',
+              'empty',
+              'loading',
+              'loadingText',
+              'option',
+              'columnHeader',
+              'columnFooter',
+            ])}
           ></Panel>
           {props.panelBottomContent && parseTNode(props.panelBottomContent)}
         </>

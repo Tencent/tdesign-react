@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Timeline, Space, Radio } from 'tdesign-react';
+import { Radio, Space, Timeline } from 'tdesign-react';
 
 export default function BasicTimeLine() {
   const [direction, setDirection] = useState<'vertical' | 'horizontal'>('vertical');

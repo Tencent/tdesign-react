@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Button, Input, InputAdornment, Space, Switch, Tree } from 'tdesign-react';
+
 import type { TreeInstanceFunctions, TreeNodeModel, TreeProps } from 'tdesign-react';
 
 const items = [
@@ -296,7 +297,7 @@ export default () => {
         },
         ...item,
       };
-      nodeMap[item.value] = node;
+      nodeMap[item.value as string] = node;
       return node;
     });
     const [rootNode] = nodeList;

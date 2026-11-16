@@ -1,6 +1,6 @@
 import React from 'react';
 import { JumpIcon } from 'tdesign-icons-react';
-import { Space, Link } from 'tdesign-react';
+import { Link, Space } from 'tdesign-react';
 
 export default function LinkExample() {
   const clickLink = () => {

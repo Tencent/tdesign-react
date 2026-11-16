@@ -1,13 +1,13 @@
-import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
-import { isUndefined } from 'lodash-es';
+import { isUndefined, omit } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
 import { pxCompat } from '@tdesign/common-js/utils/helper';
+
 import Portal from '../common/Portal';
 import useAttach from '../hooks/useAttach';
 import useConfig from '../hooks/useConfig';
-import useDeepEffect from '../hooks/useDeepEffect';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useSetState from '../hooks/useSetState';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
@@ -17,6 +17,7 @@ import useDialogDrag from './hooks/useDialogDrag';
 import useDialogEsc from './hooks/useDialogEsc';
 import useDialogPosition from './hooks/useDialogPosition';
 import useLockStyle from './hooks/useLockStyle';
+
 import type { StyledProps } from '../common';
 import type { DialogInstance, TdDialogProps } from './type';
 
@@ -25,19 +26,28 @@ export interface DialogProps extends TdDialogProps, StyledProps {
 }
 
 const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
-  const props = useDefaultProps<DialogProps>(originalProps, dialogDefaultProps);
-  const { children, ...restProps } = props;
-  const { classPrefix } = useConfig();
+  const { classPrefix, dialog: globalDialogConfig } = useConfig();
+  const props = useDefaultProps<DialogProps>(originalProps, {
+    ...dialogDefaultProps,
+    placement: globalDialogConfig?.placement ?? dialogDefaultProps.placement,
+    zIndex: globalDialogConfig?.zIndex,
+  });
+  const { children } = props;
+  const isPlugin = originalProps.isPlugin ?? false;
 
   const componentCls = `${classPrefix}-dialog`;
+
   const wrapRef = useRef<HTMLDivElement>(null);
   const maskRef = useRef<HTMLDivElement>(null);
   const contentClickRef = useRef(false);
   const dialogCardRef = useRef<HTMLDivElement>(null);
   const dialogPosition = useRef(null);
   const portalRef = useRef(null);
-  const [state, setState] = useSetState<DialogProps>({ isPlugin: false, ...restProps });
+
+  const [pluginState, setPluginState] = useSetState<Partial<DialogProps>>({});
   const [local] = useLocaleReceiver('dialog');
+
+  const mergedState = isPlugin ? { ...props, ...pluginState } : props;
 
   const {
     className,
@@ -55,7 +65,6 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     onConfirm,
     onClose,
     onClosed,
-    isPlugin,
     draggable,
     onOverlayClick,
     onEscKeydown,
@@ -69,40 +78,51 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     onCloseBtnClick,
     forceRender,
     lazy,
+    top,
+    placement,
     ...restState
-  } = state;
+  } = mergedState;
+
+  const isModeless = mode === 'modeless';
+  const isFullScreen = mode === 'full-screen';
 
   const dialogAttach = useAttach('dialog', attach);
+  const [dialogAnimationVisible, setDialogAnimationVisible] = useState(false);
 
   useLockStyle({ preventScrollThrough, visible, mode, showInAttachedElement });
-  useDialogEsc(visible, wrapRef);
-  useDialogPosition(visible, dialogCardRef);
-  useDialogDrag({
+  const { activateDialog } = useDialogEsc(visible, wrapRef);
+  const { applyTransform } = useDialogPosition(dialogCardRef);
+  const { isInputInteracting } = useDialogDrag({
     dialogCardRef,
-    canDraggable: draggable && mode === 'modeless',
+    canDraggable: !isFullScreen && draggable,
   });
 
-  useDeepEffect(() => {
-    if (isPlugin) return;
-    // 插件式调用不会更新props, 只有组件式调用才会更新props
-    setState((prevState) => ({ ...prevState, ...props }));
-  }, [props, setState]);
+  useEffect(() => {
+    if (!dialogCardRef.current) return;
+    dialogCardRef.current.style.display = dialogAnimationVisible ? 'block' : 'none';
+
+    if (dialogAnimationVisible) {
+      activateDialog();
+      applyTransform();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dialogAnimationVisible]);
 
   useImperativeHandle(ref, () => ({
     show() {
-      setState({ visible: true });
+      setPluginState({ visible: true });
     },
     hide() {
-      setState({ visible: false });
+      setPluginState({ visible: false });
     },
     setConfirmLoading: (loading: boolean) => {
-      setState({ confirmLoading: loading });
+      setPluginState({ confirmLoading: loading });
     },
     destroy() {
-      setState({ visible: false, destroyOnClose: true });
+      setPluginState({ visible: false, destroyOnClose: true });
     },
     update(newOptions) {
-      setState((prevState) => ({ ...prevState, ...newOptions }));
+      setPluginState((prevState) => ({ ...prevState, ...newOptions }));
     },
   }));
 
@@ -113,14 +133,18 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
   }
 
   const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (showOverlay && (closeOnOverlayClick ?? local.closeOnOverlayClick)) {
-      // 判断点击事件初次点击是否为内容区域
-      if (contentClickRef.current) {
-        contentClickRef.current = false;
-      } else if (e.target === dialogPosition.current) {
-        onOverlayClick?.({ e });
-        onClose?.({ e, trigger: 'overlay' });
-      }
+    if (!showOverlay || isModeless || isInputInteracting.current) return;
+    // 判断点击事件初次点击是否为内容区域
+    if (contentClickRef.current) {
+      contentClickRef.current = false;
+      return;
+    }
+    if (e.target !== dialogPosition.current) return;
+    // 触发蒙层点击事件
+    onOverlayClick?.({ e });
+    // 触发关闭事件
+    if (closeOnOverlayClick ?? local.closeOnOverlayClick) {
+      onClose?.({ e, trigger: 'overlay' });
     }
   };
 
@@ -149,27 +173,26 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
     }
   };
 
+  // Portal Animation
+  const onAnimateStart = () => {
+    onBeforeOpen?.();
+    if (!wrapRef.current) return;
+    wrapRef.current.style.display = 'block';
+  };
+
   const onAnimateLeave = () => {
     onClosed?.();
-
     if (!wrapRef.current) return;
     wrapRef.current.style.display = 'none';
   };
 
-  const onAnimateStart = () => {
-    if (!wrapRef.current) return;
-    onBeforeOpen?.();
-    wrapRef.current.style.display = 'block';
-  };
-
+  // Dialog Animation
   const onInnerAnimateStart = () => {
-    if (!dialogCardRef.current) return;
-    dialogCardRef.current.style.display = 'block';
+    setDialogAnimationVisible(true);
   };
 
   const onInnerAnimateLeave = () => {
-    if (!dialogCardRef.current) return;
-    dialogCardRef.current.style.display = 'none';
+    setDialogAnimationVisible(false);
   };
 
   const renderMask = () => {
@@ -189,6 +212,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
       </CSSTransition>
     ) : null;
   };
+
   return (
     <CSSTransition
       in={visible}
@@ -199,7 +223,7 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
       nodeRef={portalRef}
       onEnter={onAnimateStart}
       onEntered={onOpened}
-      onExit={() => onBeforeClose?.()}
+      onExit={onBeforeClose}
       onExited={onAnimateLeave}
     >
       <Portal attach={dialogAttach} ref={portalRef}>
@@ -208,8 +232,9 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
           className={classNames(className, `${componentCls}__ctx`, `${componentCls}__${mode}`, {
             [`${componentCls}__ctx--fixed`]: !showInAttachedElement,
             [`${componentCls}__ctx--absolute`]: showInAttachedElement,
+            [`${componentCls}__ctx--modeless`]: isModeless,
           })}
-          style={{ zIndex, display: 'none' }}
+          style={{ zIndex }}
           onKeyDown={handleKeyDown}
           tabIndex={0}
         >
@@ -217,11 +242,14 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
           <div className={`${componentCls}__wrap`}>
             <div
               ref={dialogPosition}
-              className={classNames(`${componentCls}__position`, {
-                [`${componentCls}--top`]: !!props.top || props.placement === 'top',
-                [`${componentCls}--center`]: props.placement === 'center' && !props.top,
-              })}
-              style={{ paddingTop: pxCompat(props.top) }}
+              className={classNames(
+                isFullScreen ? `${componentCls}__position_fullscreen` : `${componentCls}__position`,
+                {
+                  [`${componentCls}--top`]: !isFullScreen && (!!top || placement === 'top'),
+                  [`${componentCls}--center`]: !isFullScreen && placement === 'center' && !top,
+                },
+              )}
+              style={{ paddingTop: isFullScreen ? undefined : pxCompat(top) }}
               onClick={onMaskClick}
             >
               <CSSTransition
@@ -235,8 +263,9 @@ const Dialog = forwardRef<DialogInstance, DialogProps>((originalProps, ref) => {
               >
                 <DialogCard
                   ref={dialogCardRef}
-                  {...restState}
-                  className={dialogClassName}
+                  {...omit(restState, ['isPlugin'])}
+                  mode={mode}
+                  className={classNames(dialogClassName)}
                   style={{ ...style, width: pxCompat(width || style?.width) }}
                   onConfirm={onConfirm}
                   onCancel={handleCancel}

@@ -1,7 +1,7 @@
+import './style/index.js';
+
 import _Cascader from './Cascader';
 import _CascaderPanel from './CascaderPanel';
-
-import './style/index.js';
 
 export type { CascaderProps } from './Cascader';
 export * from './type';

@@ -11,6 +11,7 @@ style | Object | - | CSS(Cascading Style Sheets)，Typescript: `React.CSSPropert
 align | String | - | options: left/center/right | N
 allowInputOverLimit | Boolean | true | \- | N
 autoWidth | Boolean | false | \- | N
+autofocus | Boolean | false | `1.17.2` | N
 decimalPlaces | Number / Object | undefined | Typescript: `InputNumberDecimalPlaces` `type InputNumberDecimalPlaces = number \| { enableRound: boolean; places: number } `。[see more ts definition](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/input-number/type.ts) | N
 disabled | Boolean | undefined | \- | N
 format | Function | - | Typescript: `(value: InputNumberValue, context?: { fixedNumber?: InputNumberValue }) => InputNumberValue` | N
@@ -20,7 +21,7 @@ largeNumber | Boolean | false | \- | N
 max | String / Number | Infinity | Typescript: `InputNumberValue` | N
 min | String / Number | -Infinity | Typescript: `InputNumberValue` | N
 placeholder | String | undefined | \- | N
-readonly | Boolean | undefined | \- | N
+readOnly | Boolean | undefined | \- | N
 size | String | medium | options: small/medium/large | N
 status | String | default | options: default/success/warning/error | N
 step | String / Number | 1 | Typescript: `InputNumberValue` | N

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, Popconfirm, Space } from 'tdesign-react';
 import { BrowseIcon } from 'tdesign-icons-react';
+import { Button, Popconfirm, Space } from 'tdesign-react';
 
 export default function IconUsageExample() {
   return (

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { InputNumber, InputNumberValue } from 'tdesign-react';
+import { InputNumber } from 'tdesign-react';
+
+import type { InputNumberValue } from 'tdesign-react';
 
 export default function InputNumberExample() {
   const [value, setValue] = useState<InputNumberValue>(3.2);

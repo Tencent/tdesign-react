@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import type { TreeNodeValue } from '@tdesign/common-js/tree-v1/types';
+
 import useControlled from '../../hooks/useControlled';
-import { TdTreeProps } from '../type';
+
+import type { TreeNodeValue } from '@tdesign/common-js/tree-v1/types';
+import type { TdTreeProps } from '../type';
 
 export default function useControllable(props: TdTreeProps): Pick<
   TdTreeProps,

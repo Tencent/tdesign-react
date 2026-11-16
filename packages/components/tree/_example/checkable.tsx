@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Radio, Tree, Form, Switch, Space } from 'tdesign-react';
+import { Form, Radio, Space, Switch, Tree } from 'tdesign-react';
 
-import type { TreeProps, RadioGroupProps } from 'tdesign-react';
+import type { RadioGroupProps, TreeProps } from 'tdesign-react';
 
 const valueOptions = [
   {
@@ -159,7 +159,10 @@ export default () => {
         onChange={handleChange}
         onClick={handleClick}
         checkProps={(node) => ({
-          title: node.data.disabled ? 'Disabled' : 'Enabled',
+          tooltipProps: {
+            content: node.disabled ? 'Disabled' : 'Enabled',
+            theme: 'light',
+          },
         })}
       />
     </Space>

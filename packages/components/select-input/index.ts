@@ -1,6 +1,6 @@
-import _SelectInput from './SelectInput';
-
 import './style/index.js';
+
+import _SelectInput from './SelectInput';
 
 export type { SelectInputProps } from './SelectInput';
 export * from './type';

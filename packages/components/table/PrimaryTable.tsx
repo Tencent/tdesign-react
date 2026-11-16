@@ -1,33 +1,43 @@
-import React, { useRef, forwardRef, useImperativeHandle, ReactNode, RefAttributes } from 'react';
-import { get } from 'lodash-es';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import classNames from 'classnames';
-import BaseTable from './BaseTable';
-import useColumnController from './hooks/useColumnController';
-import useRowExpand from './hooks/useRowExpand';
-import useTableHeader, { renderTitle } from './hooks/useTableHeader';
-import useRowSelect from './hooks/useRowSelect';
-import { TdPrimaryTableProps, PrimaryTableCol, TableRowData, PrimaryTableCellParams } from './type';
-import useSorter from './hooks/useSorter';
-import useFilter from './hooks/useFilter';
-import useDragSort from './hooks/useDragSort';
-import useAsyncLoading from './hooks/useAsyncLoading';
-import { PageInfo, PaginationProps } from '../pagination';
-import useClassName from './hooks/useClassName';
-import useStyle from './hooks/useStyle';
-import { BaseTableProps, PrimaryTableProps, PrimaryTableRef } from './interface';
-import EditableCell, { EditableCellProps } from './EditableCell';
-import { StyledProps } from '../common';
-import { useEditableRow } from './hooks/useEditableRow';
-import { primaryTableDefaultProps } from './defaultProps';
-import { CheckboxGroupValue } from '../checkbox';
+import { get } from 'lodash-es';
+
 import useDefaultProps from '../hooks/useDefaultProps';
+import BaseTable from './BaseTable';
+import { primaryTableDefaultProps } from './defaultProps';
+import EditableCell from './EditableCell';
+import useAsyncLoading from './hooks/useAsyncLoading';
+import useClassName from './hooks/useClassName';
+import useColumnController from './hooks/useColumnController';
+import useDragSort from './hooks/useDragSort';
+import { useEditableRow } from './hooks/useEditableRow';
+import useFilter from './hooks/useFilter';
+import useRowExpand from './hooks/useRowExpand';
+import useRowSelect from './hooks/useRowSelect';
+import useSorter from './hooks/useSorter';
+import useStyle from './hooks/useStyle';
+import useTableHeader, { renderTitle } from './hooks/useTableHeader';
+
+import type { ReactNode, RefAttributes } from 'react';
+import type { TableTreeDataMap } from '@tdesign/common-js/table/tree-store';
+import type { CheckboxGroupValue } from '../checkbox';
+import type { StyledProps } from '../common';
+import type { PageInfo, PaginationProps } from '../pagination';
+import type { EditableCellProps } from './EditableCell';
+import type { BaseTableProps, PrimaryTableProps, PrimaryTableRef } from './interface';
+import type { PrimaryTableCellParams, PrimaryTableCol, TableRowData, TdPrimaryTableProps } from './type';
 
 export { BASE_TABLE_ALL_EVENTS } from './BaseTable';
 
-export interface TPrimaryTableProps extends PrimaryTableProps, StyledProps {}
+/**
+ * @internal
+ */
+export interface InternalPrimaryTableProps extends PrimaryTableProps, StyledProps {
+  treeDataMap?: TableTreeDataMap;
+}
 
-const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalProps, ref) => {
-  const props = useDefaultProps<TPrimaryTableProps>(originalProps, primaryTableDefaultProps);
+const PrimaryTable = forwardRef<PrimaryTableRef, InternalPrimaryTableProps>((originalProps, ref) => {
+  const props = useDefaultProps<InternalPrimaryTableProps>(originalProps, primaryTableDefaultProps);
   const { columns, columnController, editableRowKeys, style, className } = props;
   const primaryTableRef = useRef(null);
   const innerPagination = useRef<PaginationProps>(props.pagination);
@@ -35,15 +45,7 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
   const { sizeClassNames } = useStyle(props);
   // 自定义列配置功能
   const { tDisplayColumns, renderColumnController } = useColumnController(props, { onColumnReduce });
-  // 展开/收起行功能
-  const {
-    showExpandedRow,
-    showExpandIconColumn,
-    getExpandColumn,
-    renderExpandedRow,
-    onInnerExpandRowClick,
-    getExpandedRowClass,
-  } = useRowExpand(props);
+
   // 排序功能
   const { renderSortIcon } = useSorter(props);
   // 行选中功能
@@ -60,10 +62,23 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
     primaryTableRef,
   );
   // 拖拽排序功能
-  const { isRowHandlerDraggable, isRowDraggable, isColDraggable, setDragSortColumns } = useDragSort(props, {
-    primaryTableRef,
-    innerPagination,
-  });
+  const { isRowHandlerDraggable, isRowDraggable, isColDraggable, setDragSortColumns, updateLastRowList } = useDragSort(
+    props,
+    {
+      primaryTableRef,
+      innerPagination,
+    },
+  );
+
+  // 展开/收起行功能
+  const {
+    showExpandedRow,
+    showExpandIconColumn,
+    getExpandColumn,
+    renderExpandedRow,
+    onInnerExpandRowClick,
+    getExpandedRowClass,
+  } = useRowExpand(props);
 
   const { renderTitleWidthIcon } = useTableHeader({ columns: props.columns });
   const { renderAsyncLoading } = useAsyncLoading(props);
@@ -89,7 +104,9 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
   const tRowAttributes = (() => {
     const tAttributes = [props.rowAttributes];
     if (isRowHandlerDraggable || isRowDraggable) {
-      tAttributes.push(({ row }) => ({ 'data-id': get(row, props.rowKey || 'id') }));
+      tAttributes.push(({ row }) => ({
+        'data-id': get(row, props.rowKey || 'id'),
+      }));
     }
     return tAttributes.filter((v) => v);
   })();
@@ -264,6 +281,12 @@ const PrimaryTable = forwardRef<PrimaryTableRef, TPrimaryTableProps>((originalPr
     lastFullRow,
     thDraggable: ['col', 'row-handler-col'].includes(props.dragSort),
     onPageChange: onInnerPageChange,
+    onScroll: (...args) => {
+      props.onScroll?.(...args);
+      if (props.scroll?.type === 'virtual' && props.data.length > (props.scroll?.threshold || 100)) {
+        updateLastRowList();
+      }
+    },
     renderExpandedRow: showExpandedRow ? renderExpandedRow : undefined,
   } as BaseTableProps;
 

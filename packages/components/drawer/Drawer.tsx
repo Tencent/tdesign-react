@@ -1,14 +1,14 @@
-import React, { forwardRef, isValidElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, isValidElement, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
 import classnames from 'classnames';
 import { isFunction, isObject, isString, isUndefined } from 'lodash-es';
+import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
+
 import parseTNode from '../_util/parseTNode';
-import Button, { type ButtonProps } from '../button';
+import Button from '../button';
 import Portal from '../common/Portal';
 import useAttach from '../hooks/useAttach';
 import useConfig from '../hooks/useConfig';
-import useDeepEffect from '../hooks/useDeepEffect';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useSetState from '../hooks/useSetState';
@@ -17,6 +17,7 @@ import { drawerDefaultProps } from './defaultProps';
 import useDrag from './hooks/useDrag';
 import useLockStyle from './hooks/useLockStyle';
 
+import type { ButtonProps } from '../button';
 import type { StyledProps } from '../common';
 import type { DrawerEventSource, DrawerInstance, TdDrawerProps } from './type';
 
@@ -39,8 +40,11 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
   const cancelText = t(local.cancel);
 
   const props = useDefaultProps<DrawerProps>(originalProps, drawerDefaultProps);
-  const { body, children, header, footer, ...restProps } = props;
-  const [state, setState] = useSetState<DrawerProps>({ isPlugin: false, ...restProps });
+  const isPlugin = originalProps.isPlugin ?? false;
+  const [pluginState, setPluginState] = useSetState<Partial<DrawerProps>>({});
+
+  const mergedState = isPlugin ? { ...props, ...pluginState } : props;
+
   const {
     className,
     style,
@@ -49,15 +53,6 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     showOverlay,
     size: propsSize,
     placement,
-    onBeforeOpen,
-    onBeforeClose,
-    onCancel,
-    onConfirm,
-    onClose,
-    onCloseBtnClick,
-    onOverlayClick,
-    onEscKeydown,
-    onSizeDragEnd,
     showInAttachedElement,
     closeOnOverlayClick,
     closeOnEscKeydown,
@@ -68,9 +63,21 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     destroyOnClose,
     sizeDraggable,
     forceRender,
-    isPlugin,
     lazy,
-  } = state;
+    body,
+    children,
+    header,
+    footer,
+    onBeforeOpen,
+    onBeforeClose,
+    onCancel,
+    onConfirm,
+    onClose,
+    onCloseBtnClick,
+    onOverlayClick,
+    onEscKeydown,
+    onSizeDragEnd,
+  } = mergedState;
 
   const size = propsSize ?? local.size;
   const { classPrefix } = useConfig();
@@ -93,34 +100,25 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
     return dragSizeValue || sizeMap[size] || size;
   }, [dragSizeValue, size]);
 
-  useLockStyle({ ...state, sizeValue, drawerWrapper: drawerWrapperRef.current });
+  useLockStyle({
+    ...mergedState,
+    sizeValue,
+    drawerWrapper: drawerWrapperRef.current,
+  });
   useImperativeHandle(ref, () => ({
     show() {
-      setState({ visible: true });
+      setPluginState({ visible: true });
     },
     hide() {
-      setState({ visible: false });
+      setPluginState({ visible: false });
     },
     destroy() {
-      setState({ visible: false, destroyOnClose: true });
+      setPluginState({ visible: false, destroyOnClose: true });
     },
     update(options) {
-      setState((prevState) => ({ ...prevState, ...options }));
+      setPluginState((prevState) => ({ ...prevState, ...options }));
     },
   }));
-
-  useEffect(() => {
-    if (visible) {
-      // 聚焦到 Drawer 最外层元素即 containerRef.current，KeyDown 事件才有效。
-      containerRef.current?.focus?.();
-    }
-  }, [visible]);
-
-  useDeepEffect(() => {
-    // 非插件式调用 更新props
-    if (isPlugin) return;
-    setState((prevState) => ({ ...prevState, ...props }));
-  }, [props, setState]);
 
   function onMaskClick(e: React.MouseEvent<HTMLDivElement>) {
     onOverlayClick?.({ e });
@@ -226,7 +224,10 @@ const Drawer = forwardRef<DrawerInstance, DrawerProps>((originalProps, ref) => {
       unmountOnExit={destroyOnClose}
       timeout={{ appear: 10, enter: 10, exit: 300 }}
       onEnter={() => onBeforeOpen?.()}
-      onEntered={() => setAnimationStart(true)}
+      onEntered={() => {
+        setAnimationStart(true);
+        containerRef.current?.focus?.();
+      }}
       onExit={() => onBeforeClose?.()}
       onExited={() => setAnimationStart(false)}
     >

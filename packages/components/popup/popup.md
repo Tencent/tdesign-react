@@ -25,9 +25,13 @@ https://popper.js.org/docs/v2/constructors/#types
 
 ## FAQ
 
-### `Popup` 组件，嵌套使用可能出现位置偏移的情况，如何解决？
+### 如何解决 `Popup` 可能无法出现或者位置偏移的情况？
 
-目前暂时可通过 `Fragment` 或者其他 `HTML` 元素来解决
+- 场景一：多个 `Popup` 或 `ToolTip` 嵌套使用
+
+- 场景二：`children` 为使用 `useImperativeHandle` 的二次封装组件
+
+目前可以使用 `Fragment` 或者其他 `HTML` 元素解决：
 
 ```js
 <Popup content="Popup Content">

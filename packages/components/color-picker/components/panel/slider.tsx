@@ -1,8 +1,12 @@
-import React, { type CSSProperties, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import classnames from 'classnames';
 import { SLIDER_DEFAULT_WIDTH } from '@tdesign/common-js/color-picker/constants';
-import useMouseEvent, { type MouseCoordinate } from '../../../hooks/useMouseEvent';
+
+import useMouseEvent from '../../../hooks/useMouseEvent';
 import useStyles from '../../hooks/useStyles';
+
+import type { CSSProperties } from 'react';
+import type { MouseCoordinate } from '../../../hooks/useMouseEvent';
 import type { TdColorBaseProps } from '../../interface';
 
 export interface TdColorSliderProps extends TdColorBaseProps {

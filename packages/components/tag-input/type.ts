@@ -6,8 +6,8 @@
 
 import { InputProps } from '../input';
 import { TagProps } from '../tag';
-import { TNode, TElement, SizeEnum } from '../common';
-import { MouseEvent, KeyboardEvent, ClipboardEvent, FocusEvent, FormEvent, CompositionEvent } from 'react';
+import type { TNode, TElement, SizeEnum } from '../common';
+import type { MouseEvent, KeyboardEvent, ClipboardEvent, FocusEvent, FormEvent, CompositionEvent } from 'react';
 
 export interface TdTagInputProps {
   /**
@@ -90,9 +90,15 @@ export interface TdTagInputProps {
   prefixIcon?: TElement;
   /**
    * 只读状态，值为真会隐藏标签移除按钮和输入框
+   * @deprecated It will be removed in the future. Please use `readOnly` instead.
    * @default false
    */
   readonly?: boolean;
+  /**
+   * 只读状态，值为真会隐藏标签移除按钮和输入框
+   * @default false
+   */
+  readOnly?: boolean;
   /**
    * 组件尺寸
    * @default medium
@@ -114,6 +120,10 @@ export interface TdTagInputProps {
    * 自定义标签的内部内容，每一个标签的当前值。注意和 `valueDisplay` 区分，`valueDisplay`  是用来定义全部标签内容，而非某一个标签
    */
   tag?: string | TNode<{ value: string | number }>;
+  /**
+   * 自定义单个标签的整体节点
+   */
+  tagDisplay?: TNode<{ value: string | number; index: number; onClose: (context?: { e?: MouseEvent }) => void }>;
   /**
    * 透传 Tag 组件全部属性
    */

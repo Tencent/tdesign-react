@@ -1,22 +1,25 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import {
   canAddNumber,
   canInputNumber,
   canReduceNumber,
-  formatUnCompleteNumber,
   canSetValue,
+  formatThousandths,
+  formatUnCompleteNumber,
   getMaxOrMinValidateResult,
   getStepValue,
-  formatThousandths,
   largeNumberToFixed,
 } from '@tdesign/common-js/input-number/number';
+
+import useCommonClassName from '../hooks/useCommonClassName';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
-import useCommonClassName from '../hooks/useCommonClassName';
-import { InputNumberValue, TdInputNumberProps } from './type';
+
+import type * as React from 'react';
 // 计算逻辑，统一到 common 中，方便各框架复用（如超过 16 位的大数处理）
-import { InputProps } from '../input';
+import type { InputProps } from '../input';
+import type { InputNumberValue, TdInputNumberProps } from './type';
 
 export const specialCode = ['-', '.', 'e', 'E'];
 
@@ -34,6 +37,7 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
 
   const { max, min, largeNumber, decimalPlaces, allowInputOverLimit, onValidate } = props;
 
+  const readOnly = props.readOnly || props.readonly;
   const disabledReduce = props.disabled || !canReduceNumber(tValue, props.min, props.largeNumber);
   const disabledAdd = props.disabled || !canAddNumber(tValue, props.max, props.largeNumber);
 
@@ -126,14 +130,14 @@ export default function useInputNumber<T extends InputNumberValue = InputNumberV
   };
 
   const handleReduce = (e: any) => {
-    if (disabledReduce || props.readonly) return;
+    if (disabledReduce || readOnly) return;
     const r = handleStepValue('reduce');
     if (r.overLimit && !allowInputOverLimit) return;
     onChange(r.newValue, { type: 'reduce', e });
   };
 
   const handleAdd = (e: any) => {
-    if (disabledAdd || props.readonly) return;
+    if (disabledAdd || readOnly) return;
     const r = handleStepValue('add');
     if (r.overLimit && !allowInputOverLimit) return;
     onChange(r.newValue, { type: 'add', e });

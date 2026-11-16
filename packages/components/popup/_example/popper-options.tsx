@@ -1,36 +1,38 @@
 import React, { useState } from 'react';
-import { Button, Input, Popup, Space } from 'tdesign-react';
+import { Button, InputNumber, Popup, Space } from 'tdesign-react';
 
 export default function PopperOptions() {
-  const [offsetX, setOffsetX] = useState('0');
-  const [offsetY, setOffsetY] = useState('0');
+  const [offsetX, setOffsetX] = useState(30);
+  const [offsetY, setOffsetY] = useState(10);
 
   return (
     <Space direction="vertical">
-      <Space>
+      <Space align="center">
         <Space align="center">
-          <span>请输入横向偏移量:</span>
-          <Input
+          <span>横向偏移量:</span>
+          <InputNumber
+            size="small"
             placeholder="请输入横向偏移量"
             value={offsetX}
-            onChange={(v) => setOffsetX(v)}
+            onChange={(v) => setOffsetX(v as number)}
             style={{ width: '130px', display: 'inline-block' }}
           />
         </Space>
         <Space align="center">
-          <span>请输入纵向偏移量:</span>
-          <Input
+          <span>纵向偏移量:</span>
+          <InputNumber
+            size="small"
             placeholder="请输入纵向偏移量"
             value={offsetY}
-            onChange={(v) => setOffsetY(v)}
+            onChange={(v) => setOffsetY(v as number)}
             style={{ width: '130px', display: 'inline-block' }}
           />
         </Space>
       </Space>
       <Space>
         <Popup
-          trigger="hover"
           showArrow
+          placement="bottom"
           content="这是一个弹出框"
           popperOptions={{
             modifiers: [

@@ -1,5 +1,6 @@
-import { NotificationOptions } from './type';
 import { notificationDefaultProps } from './defaultProps';
+
+import type { NotificationOptions } from './type';
 
 let pluginDefaultConfig: NotificationOptions = {
   ...notificationDefaultProps,

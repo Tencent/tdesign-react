@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Image, Space, Button } from 'tdesign-react';
 import { RefreshIcon } from 'tdesign-icons-react';
+import { Button, Image, Space } from 'tdesign-react';
 
 export default function LazyListImage() {
   const [loadCount, setLoadCount] = useState(0);

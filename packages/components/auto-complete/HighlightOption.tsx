@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { escapeRegExp } from 'lodash-es';
+
 import useConfig from '../hooks/useConfig';
 
 export interface TdHighlightOptionProps {

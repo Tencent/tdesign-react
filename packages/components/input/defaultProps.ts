@@ -2,7 +2,7 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TdInputProps } from './type';
+import type { TdInputProps } from './type';
 
 export const inputDefaultProps: TdInputProps = {
   align: 'left',
@@ -18,6 +18,7 @@ export const inputDefaultProps: TdInputProps = {
   placeholder: undefined,
   // 是否只读，在只读模式下，输入框不能输入，且没有清除按钮，优先级高于 allowInput、clearable
   readonly: false,
+  readOnly: false,
   showClearIconOnEmpty: false,
   showLimitNumber: false,
   size: 'medium',

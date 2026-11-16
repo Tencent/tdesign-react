@@ -1,8 +1,8 @@
 import React from 'react';
-import { Calendar, Tag } from 'tdesign-react';
-import type { CalendarCell } from 'tdesign-react';
-
 import dayjs from 'dayjs';
+import { Calendar, Tag } from 'tdesign-react';
+
+import type { CalendarCell } from 'tdesign-react';
 
 export default function CalendarExample() {
   const getShow = (data: CalendarCell) =>

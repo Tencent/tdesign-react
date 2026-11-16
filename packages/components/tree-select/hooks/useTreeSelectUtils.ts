@@ -1,12 +1,15 @@
-import { ElementRef, MutableRefObject, useMemo } from 'react';
+import { useMemo } from 'react';
 import TreeStore from '@tdesign/common-js/tree-v1/tree-store';
-import type { TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
-import type { TreeSelectValue } from '../type';
-import Tree, { TreeNodeValue } from '../../tree';
+
 import { usePersistFn } from '../../hooks/usePersistFn';
 import { treeSelectDefaultProps } from '../defaultProps';
 
+import type { ElementRef, MutableRefObject } from 'react';
+import type { TypeTreeNodeData } from '@tdesign/common-js/tree-v1/types';
+import type Tree from '../../tree';
+import type { TreeNodeValue } from '../../tree';
 import type { NodeOptions, TreeSelectProps } from '../TreeSelect';
+import type { TreeSelectValue } from '../type';
 
 export const useTreeSelectUtils = (
   { data, treeProps, valueType }: TreeSelectProps,
@@ -21,7 +24,7 @@ export const useTreeSelectUtils = (
     return store;
   }, [data, treeProps]);
 
-  const getNodeItem = usePersistFn((value: string | number) => {
+  const getNodeItem = usePersistFn((value: TreeNodeValue) => {
     if (treeRef.current) {
       return treeRef.current.getItem(value);
     }
@@ -31,7 +34,9 @@ export const useTreeSelectUtils = (
   const formatValue = usePersistFn((value: TreeNodeValue | null, label = String(value)) => {
     const valueKey = treeProps?.keys?.value ?? 'value';
     const labelKey = treeProps?.keys?.label ?? 'label';
-    return value && valueType === 'object' ? { [valueKey]: value, [labelKey]: label } : value;
+    return (value || value === 0 || typeof value === 'bigint') && valueType === 'object'
+      ? { [valueKey]: value, [labelKey]: label }
+      : value;
   });
 
   const normalizeValue = usePersistFn((value: TreeSelectValue) => {

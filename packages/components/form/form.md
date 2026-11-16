@@ -30,7 +30,6 @@
 
 创建 Form 实例，用于管理所有数据状态。
 
-
 ### Form.useWatch
 
 用于直接获取 form 中字段对应的值。
@@ -42,9 +41,9 @@ const Demo = () => {
 
   return (
     <Form form={form}>
-      <Form.Item name="username">
+      <FormItem name="username">
         <Input />
-      </Form.Item>
+      </FormItem>
     </Form>
   );
 };
@@ -52,34 +51,65 @@ const Demo = () => {
 
 ## FAQ
 
-### 为什么被 FormItem 包裹的组件 value、defaultValue 没有效果？
+### 为什么被 FormItem 包裹的组件 `value`、`defaultValue` 没有效果？
 
-Form 组件设计的初衷是为了解放开发者配置大量的 `value`、`onChange` 受控属性，所以 Form.FormItem 被设计成需要拦截嵌套组件的受控属性，如需定义初始值请使用 `initialData` 属性。
+Form 的设计初衷是自动托管表单字段的 `value` 和 `onChange`，FormItem 会向包裹的第一个组件注入状态，即内部组件自身的 `defaultValue`、`value` 将被拦截，不会生效。如果需要设置初始值，应该使用 FormItem 的 `initialData`。
 
-由于 Form.FormItem 只会拦截第一层子节点的受控属性，所以如不希望 Form.FormItem 拦截受控属性希望自行管理 state 的话，可以在 Form.FormItem 下包裹一层 `div` 节点脱离 Form.FormItem 的代理，但同时也会失去 Form 组件的校验能力。
+```js
+<FormItem name="ui" label="组件库" initialData="TDesign">
+  <Input />
+</FormItem>
+```
+
+如果第一层组件不支持 `value` 属性，会导致 Form 无法接管组件的行为：
+
+```js
+// ❌ div 的 value 无意义，Form 部分 API 失效
+<FormItem name="ui" label="组件库" >
+  <div style={{ border: '1px dotted blue', padding: 5 }}>
+    <Input />
+  </div>
+</FormItem>
+```
+
+如果想要自定义排版样式，可以考虑下面的写法（类似 [#自定义表单控件](#自定义表单控件) 示例的逻辑）：
+
+```js
+// ✅ value 自动会传递给 input，Form 相关 API 正常
+const CustomInput = (props) => (
+  <div style={{ border: '1px dotted blue', padding: 5 }}>
+    <Input {...props} />
+  </div>
+);
+
+<FormItem name="ui" label="组件库" initialData="TDesign">
+  <CustomInput />
+</FormItem>
+```
 
 ### 我只想要 Form 组件的布局效果，校验能力我自己业务来实现可以吗？
 
-可以的，Form 的校验能力只跟 `name` 属性关联，不指定 Form.FormItem 的 `name` 属性是可以当成布局组件来使用的，甚至可以实现各种嵌套自定义内容的布局效果。
+可以，表单的校验和存储能力只跟 `name` 属性关联（但无论有无 `name`，第一层子节点的 `value` 和 `onChange` 目前依旧会被拦截）。
 
 ```js
-// 可以单独使用 FormItem 组件
-<Form.FormItem label="姓名">
+<FormItem label="姓名">
   <div>可以任意定制内容</div>
   <Input />
   <div>可以任意定制内容</div>
-</Form.FormItem>
+</FormItem>
 ```
 
-### getFieldsValue 返回的数据如何支持嵌套数据结构？
+- 如果仅需要展示信息或纯样式布局，更推荐使用 `Description` 组件。
+
+### `getFieldsValue` 返回的数据如何支持嵌套数据结构？
 
 将 `name` 设置成数组形式可以支持嵌套数据结构。
 
 ```js
 // ['user', 'name'] => { user: { name: '' } }
-<Form.FormItem label="姓名" name={['user', 'name']}>
+<FormItem label="姓名" name={['user', 'name']}>
   <Input />
-</Form.FormItem>
+</FormItem>
 ```
 
 ## API
@@ -101,7 +131,7 @@ labelAlign | String | right | 表单字段标签对齐方式：左对齐、右�
 labelWidth | String / Number | '100px' | 可以整体设置label标签宽度，默认为100px | N
 layout | String | vertical | 表单布局，有两种方式：纵向布局 和 行内布局。可选项：vertical/inline | N
 preventSubmitDefault | Boolean | true | 是否阻止表单提交默认事件（表单提交默认事件会刷新页面），设置为 `true` 可以避免刷新 | N
-readonly | Boolean | undefined | 是否整个表单只读 | N
+readOnly | Boolean | undefined | 是否整个表单只读 | N
 requiredMark | Boolean | true | 是否显示必填符号（*），默认显示 | N
 requiredMarkPosition | String | left | 表单必填符号（*）显示位置。可选项：left/right | N
 resetType | String | empty | 重置表单的方式，值为 empty 表示重置表单为空，值为 initial 表示重置表单数据为初始值。可选项：empty/initial | N
@@ -151,7 +181,7 @@ labelWidth | String / Number | - | 可以整体设置标签宽度，优先级高
 name | String / Number / Array | - | 表单字段名称。TS 类型：`NamePath` `type NamePath = string \| number \| Array<string \| number>`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/form/type.ts) | N
 requiredMark | Boolean | undefined | 是否显示必填符号（*），优先级高于 Form.requiredMark | N
 rules | Array | - | 表单字段校验规则。TS 类型：`Array<FormRule>` | N
-shouldUpdate | Boolean / Function | false | TS 类型：`boolean \| ((prevValue, curValue) => boolean)` | N
+shouldUpdate | Boolean / Function | false | 表单数据变化时是否重新渲染当前 FormItem。TS 类型：`boolean \| ((prevValue, curValue) => boolean)` | N
 showErrorMessage | Boolean | undefined | 校验不通过时，是否显示错误提示信息，优先级高于 `Form.showErrorMessage` | N
 status | String | - | 校验状态，可在需要完全自主控制校验状态时使用。TS 类型：`'error' \| 'warning' \| 'success' \| 'validating'` | N
 statusIcon | TNode | undefined | 校验状态图标，值为 `true` 显示默认图标，默认图标有 成功、失败、警告 等，不同的状态图标不同。`statusIcon` 值为 `false`，不显示图标。`statusIcon` 值类型为渲染函数，则可以自定义右侧状态图标。优先级高级 Form 的 statusIcon。TS 类型：`boolean \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/common.ts) | N
@@ -166,7 +196,7 @@ valueFormat | Function | - | 当用户交互产生数据变化时触发，用于
 -- | -- | -- | -- | --
 className | String | - | 类名 | N
 style | Object | - | 样式，TS 类型：`React.CSSProperties` | N
-children | Function | - | 渲染函数。TS 类型：`(fields: FormListField[], operation: FormListFieldOperation) => React.ReactNode` `type FormListField = { key: number; name: number; isListField: boolean }` `type FormListFieldOperation = { add: (defaultValue?: any, insertIndex?: number) => void, remove: (index: number \| number[]) => void, move: (from: number, to: number) => void  }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/form/type.ts) | N
+children | Function | - | 渲染函数。TS 类型：`(fields: FormListField[], operation: FormListFieldOperation) => React.ReactNode` `type FormListField = { key: number; name: number; isListField: boolean }` `type FormListFieldOperation = { add: (initialData?: any, insertIndex?: number) => void, remove: (index: number \| number[]) => void, move: (from: number, to: number) => void  }`。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/packages/components/form/type.ts) | N
 initialData | Array | - | 设置子元素默认值，如果与 FormItem 的 initialData 冲突则以 FormItem 为准。TS 类型：`Array<any>` | N
 name | String / Number / Array | - | 表单字段名称。TS 类型：`NamePath` | N
 rules | Object / Array | - | 表单字段校验规则。TS 类型：`{ [field in keyof FormData]: Array<FormRule> } \| Array<FormRule>` | N

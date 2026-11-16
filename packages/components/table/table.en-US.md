@@ -123,7 +123,7 @@ defaultFilterValue | Object | - | filter value。uncontrolled property。Typescr
 hideSortTips | Boolean | - | hide sort tips | N
 indeterminateSelectedRowKeys | Array | - | indeterminate selected row keys, row key is from data[rowKey]。Typescript: `Array<string \| number>` | N
 multipleSort | Boolean | false | support multiple column fields sort | N
-reserveSelectedRowOnPaginate | Boolean | true | \- | N
+reserveSelectedRowOnPaginate | Boolean | true | Controls whether selected rows are retained across pagination. When enabled, selections persist across all pages, allowing batch operations on multi-page data. If set to `false`, selections are confined to the current page and do not extend to other pages. | N
 selectOnRowClick | Boolean | - | select row data on row click | N
 selectedRowKeys | Array | [] | selected row keys, row key is from data[rowKey]。Typescript: `Array<string \| number>` | N
 defaultSelectedRowKeys | Array | [] | selected row keys, row key is from data[rowKey]。uncontrolled property。Typescript: `Array<string \| number>` | N

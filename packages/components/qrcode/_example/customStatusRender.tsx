@@ -1,7 +1,8 @@
 import React from 'react';
-import { RefreshIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
+import { CheckCircleFilledIcon, CloseCircleFilledIcon, RefreshIcon } from 'tdesign-icons-react';
+import { Loading, QRCode, Space } from 'tdesign-react';
+
 import type { QrCodeProps } from 'tdesign-react';
-import { QRCode, Space, Loading } from 'tdesign-react';
 
 const value = 'https://tdesign.tencent.com/';
 

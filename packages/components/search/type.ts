@@ -74,9 +74,15 @@ export interface TdSearchProps {
   prefixIcon?: TElement;
   /**
    * 只读状态
+   * @deprecated It will be removed in the future. Please use `readOnly` instead.
    * @default false
    */
   readonly?: boolean;
+  /**
+   * 只读状态
+   * @default false
+   */
+  readOnly?: boolean;
   /**
    * 基于 SelectInput 组件开发，透传组件全部属性
    */

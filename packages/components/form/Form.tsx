@@ -1,13 +1,15 @@
-import React, { useRef, useImperativeHandle, useEffect } from 'react';
+import React, { useCallback, useEffect, useImperativeHandle, useRef } from 'react';
 import classNames from 'classnames';
+
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
 import noop from '../_util/noop';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useLayoutEffect from '../hooks/useLayoutEffect';
+import { formDefaultProps } from './defaultProps';
 import FormContext from './FormContext';
 import FormItem from './FormItem';
 import FormList from './FormList';
-import { formDefaultProps } from './defaultProps';
 import useForm, { HOOK_MARK } from './hooks/useForm';
 import useInstance from './hooks/useInstance';
 import useWatch from './hooks/useWatch';
@@ -39,9 +41,7 @@ const Form = forwardRefWithStatics(
       resetType,
       rules,
       errorMessage = globalFormConfig.errorMessage,
-      preventSubmitDefault,
       disabled,
-      readonly,
       children,
       id,
       onReset,
@@ -55,8 +55,81 @@ const Form = forwardRefWithStatics(
     const [form] = useForm(props.form); // 内部与外部共享 form 实例，外部不传则内部创建
     const formRef = useRef<HTMLFormElement>(null);
     const formMapRef = useRef(new Map()); // 收集所有包含 name 属性 formItem 实例
+    const formItemElementsRef = useRef(new Set<HTMLElement>()); // 收集所有参与布局的 FormItem
+    const lastFormItemsRef = useRef(new Set<HTMLElement>());
     const floatingFormDataRef = useRef({}); // 储存游离值的 formData
-    const formInstance = useInstance(props, formRef, formMapRef, floatingFormDataRef);
+
+    const formInstance = useInstance(props, formRef, formMapRef, floatingFormDataRef, form);
+
+    const refreshLastFormItem = useCallback(() => {
+      const formElement = formRef.current;
+      const lastClassName = `${classPrefix}-form__item--last`;
+      const formItemSelector = `.${classPrefix}-form__item`;
+
+      // 按父容器分组，标记每一组中的最后一个表单项
+      const nextLastItems = new Set<HTMLElement>();
+      if (layout !== 'inline' && formElement) {
+        const formItems = [...formItemElementsRef.current].filter((item) => {
+          if (!formElement.contains(item)) return false;
+          const parentFormItem = item.parentElement?.closest<HTMLElement>(formItemSelector);
+          return !parentFormItem || !formElement.contains(parentFormItem);
+        });
+
+        const groupedByParent = new Map<HTMLElement, HTMLElement[]>();
+        formItems.forEach((item) => {
+          const parent = item.parentElement;
+          if (!parent) return;
+          const siblings = groupedByParent.get(parent);
+          if (siblings) siblings.push(item);
+          else groupedByParent.set(parent, [item]);
+        });
+
+        groupedByParent.forEach((siblings) => {
+          siblings.sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+          const lastFormItem = siblings[siblings.length - 1];
+          if (lastFormItem) nextLastItems.add(lastFormItem);
+        });
+      }
+
+      lastFormItemsRef.current.forEach((item) => {
+        if (!nextLastItems.has(item)) item.classList.remove(lastClassName);
+      });
+      nextLastItems.forEach((item) => {
+        if (!lastFormItemsRef.current.has(item)) item.classList.add(lastClassName);
+      });
+      lastFormItemsRef.current = nextLastItems;
+    }, [classPrefix, layout]);
+
+    const registerFormItem = useCallback(
+      (node: HTMLElement) => {
+        formItemElementsRef.current.add(node);
+        refreshLastFormItem();
+
+        return () => {
+          formItemElementsRef.current.delete(node);
+          node.classList.remove(`${classPrefix}-form__item--last`);
+          lastFormItemsRef.current.delete(node);
+          refreshLastFormItem();
+        };
+      },
+      [classPrefix, refreshLastFormItem],
+    );
+
+    useLayoutEffect(() => {
+      const formElement = formRef.current;
+      if (!formElement) return;
+
+      refreshLastFormItem();
+
+      const observer = new MutationObserver(refreshLastFormItem);
+      observer.observe(formElement, { childList: true, subtree: true });
+
+      return () => {
+        observer.disconnect();
+        lastFormItemsRef.current.forEach((item) => item.classList.remove(`${classPrefix}-form__item--last`));
+        lastFormItemsRef.current.clear();
+      };
+    }, [classPrefix, refreshLastFormItem]);
 
     useImperativeHandle(ref, () => formInstance);
     Object.assign(form, { ...formInstance });
@@ -67,27 +140,32 @@ const Form = forwardRefWithStatics(
       form?.getInternalHooks?.(HOOK_MARK)?.flashQueue?.();
     }, [form]);
 
+    // Dialog / Popup 等通过 Portal 渲染时，DOM 已脱离外层 Form，但 React 合成事件仍沿 Fiber 树冒泡
+    // 会导致内层 Form 的 reset / submit 误触发外层 Form 的处理逻辑
+    // 这里过滤掉来自嵌套 Form 的伪冒泡事件
+    function isEventFromSelf(e: React.FormEvent<HTMLFormElement>) {
+      return e?.target === formRef.current;
+    }
+
     function onResetHandler(e: React.FormEvent<HTMLFormElement>) {
+      if (!isEventFromSelf(e)) return;
       [...formMapRef.current.values()].forEach((formItemRef) => {
         formItemRef?.current.resetField();
       });
       form?.getInternalHooks?.(HOOK_MARK)?.notifyWatch?.([]);
       form.store = {};
+      floatingFormDataRef.current = {};
       onReset?.({ e });
+    }
+
+    function onSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
+      if (!isEventFromSelf(e)) return;
+      formInstance.submit(e);
     }
 
     function onFormItemValueChange(changedValue: Record<string, unknown>) {
       const allFields = formInstance.getFieldsValue(true);
       onValuesChange(changedValue, allFields);
-    }
-
-    function onKeyDownHandler(e: React.KeyboardEvent<HTMLFormElement>) {
-      // 禁用 input 输入框回车自动提交 form
-      if ((e.target as Element).tagName.toLowerCase() !== 'input') return;
-      if (preventSubmitDefault && e.key === 'Enter') {
-        e.preventDefault?.();
-        e.stopPropagation?.();
-      }
     }
 
     return (
@@ -108,9 +186,10 @@ const Form = forwardRefWithStatics(
           resetType,
           rules,
           disabled,
-          readonly,
+          readOnly: props.readOnly || props.readonly,
           formMapRef,
           floatingFormDataRef,
+          registerFormItem,
           onFormItemValueChange,
         }}
       >
@@ -119,9 +198,8 @@ const Form = forwardRefWithStatics(
           id={id}
           style={style}
           className={formClass}
-          onSubmit={formInstance.submit}
+          onSubmit={onSubmitHandler}
           onReset={onResetHandler}
-          onKeyDown={onKeyDownHandler}
         >
           {children}
         </form>

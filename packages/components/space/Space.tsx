@@ -1,12 +1,15 @@
-import React, { CSSProperties, ReactNode, useMemo } from 'react';
-import classNames from 'classnames';
+import React, { useMemo } from 'react';
 import { isFragment } from 'react-is';
+import classNames from 'classnames';
 import { getFlexGapPolyFill } from '@tdesign/common-js/utils/helper';
+
 import useConfig from '../hooks/useConfig';
-import { TdSpaceProps } from './type';
-import { StyledProps } from '../common';
-import { spaceDefaultProps } from './defaultProps';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { spaceDefaultProps } from './defaultProps';
+
+import type { CSSProperties, ReactNode } from 'react';
+import type { StyledProps } from '../common';
+import type { TdSpaceProps } from './type';
 
 // export for test
 export const SizeMap = { small: '8px', medium: '16px', large: '24px' };

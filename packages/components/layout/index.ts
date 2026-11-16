@@ -1,6 +1,6 @@
-import _Layout from './Layout';
-
 import './style/index.js';
+
+import _Layout from './Layout';
 
 export type { LayoutProps } from './Layout';
 export * from './type';

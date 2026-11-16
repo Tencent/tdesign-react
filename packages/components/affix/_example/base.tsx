@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { Affix, Button } from 'tdesign-react';
 
-export default function BaseExample() {
-  const [top, setTop] = useState(150);
+import type { AffixProps } from 'tdesign-react';
 
-  const handleClick = () => {
-    setTop(top + 10);
+export default function BaseExample() {
+  const [affixed, setAffixed] = useState(false);
+
+  const handleFixedChange: AffixProps['onFixedChange'] = (affixed, { top }) => {
+    console.log('top', top);
+    setAffixed(affixed);
   };
 
   return (
-    <Affix offsetTop={top} offsetBottom={10}>
-      <Button onClick={handleClick}>固钉</Button>
+    <Affix offsetTop={150} zIndex={2000} onFixedChange={handleFixedChange}>
+      <Button theme={affixed ? 'success' : 'primary'}>Affixed: {`${affixed}`}</Button>
     </Affix>
   );
 }

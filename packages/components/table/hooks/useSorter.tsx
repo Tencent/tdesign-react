@@ -1,8 +1,11 @@
-import React, { useState, MouseEvent, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { isFunction } from 'lodash-es';
-import { SortInfo, TdPrimaryTableProps, PrimaryTableCol, TableRowData } from '../type';
-import SorterButton from '../SorterButton';
+
 import useControlled from '../../hooks/useControlled';
+import SorterButton from '../SorterButton';
+
+import type { MouseEvent } from 'react';
+import type { PrimaryTableCol, SortInfo, TableRowData, TdPrimaryTableProps } from '../type';
 
 export type SortMap = Record<string, SortInfo & { index: number }>;
 

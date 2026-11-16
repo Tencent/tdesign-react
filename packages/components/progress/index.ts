@@ -1,6 +1,6 @@
-import _Progress from './Progress';
-
 import './style/index.js';
+
+import _Progress from './Progress';
 
 export type { ProgressProps } from './Progress';
 export * from './type';

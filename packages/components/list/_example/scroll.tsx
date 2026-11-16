@@ -17,7 +17,7 @@ export default function BasicList() {
     dataSource.push({
       id: i,
       content: '列表内容列表内容列表内容',
-      icon: 'https://tdesign.gtimg.com/list-icon.png',
+      icon: 'https://tdesign.gtimg.com/site/images/list-icon.png',
       title: `列表标题 ${i + 1}`,
     });
   }

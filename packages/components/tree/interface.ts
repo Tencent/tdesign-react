@@ -1,7 +1,7 @@
-import { MouseEvent } from 'react';
-import TreeNode from '@tdesign/common-js/tree-v1/tree-node';
-import { TypeTreeEventState } from '@tdesign/common-js/tree-v1/types';
-import { TreeProps } from './Tree';
+import type { MouseEvent } from 'react';
+import type TreeNode from '@tdesign/common-js/tree-v1/tree-node';
+import type { TypeTreeEventState } from '@tdesign/common-js/tree-v1/types';
+import type { TreeProps } from './Tree';
 
 export interface TypeEventState extends TypeTreeEventState {
   mouseEvent?: MouseEvent;
@@ -9,21 +9,20 @@ export interface TypeEventState extends TypeTreeEventState {
   path?: TreeNode[];
 }
 
-export interface TreeItemProps
-  extends Pick<
-    TreeProps,
-    | 'empty'
-    | 'activable'
-    | 'icon'
-    | 'label'
-    | 'line'
-    | 'transition'
-    | 'expandOnClickNode'
-    | 'activable'
-    | 'operations'
-    | 'checkProps'
-    | 'disableCheck'
-  > {
+export interface TreeItemProps extends Pick<
+  TreeProps,
+  | 'empty'
+  | 'activable'
+  | 'icon'
+  | 'label'
+  | 'line'
+  | 'transition'
+  | 'expandOnClickNode'
+  | 'activable'
+  | 'operations'
+  | 'checkProps'
+  | 'disableCheck'
+> {
   /**
    * 树节点数据对象
    */
@@ -34,7 +33,12 @@ export interface TreeItemProps
    */
   onClick?: (
     node: TreeNode,
-    options: { e: MouseEvent<HTMLDivElement>; expand: boolean; active: boolean; trigger: 'node-click' | 'icon-click' },
+    options: {
+      e: MouseEvent<HTMLDivElement>;
+      expand: boolean;
+      active: boolean;
+      trigger: 'node-click' | 'icon-click';
+    },
   ) => void;
 
   /**
