@@ -39,6 +39,11 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
   // 非 popup 展开
   const isExpand = expanded.includes(value) && !disabled && !isPopUp;
 
+  const contentRef = useRef<HTMLUListElement>(null);
+
+  const isExitingRef = useRef(false);
+  const [isExited, setIsExited] = useState(!isExpand);
+
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
     onExpand(value, expanded);
@@ -69,10 +74,6 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
 
   const fakeArrowStyle = isPopUp && level > 1 ? { transform: 'rotate(-90deg)' } : {};
 
-  const contentRef = useRef<HTMLUListElement>(null);
-  const [isExited, setIsExited] = useState(!isExpand);
-  const isExitingRef = useRef(false);
-
   useLayoutEffect(() => {
     // 切换为浮层会卸载内联动画节点，需重置动画状态。
     if (isPopUp) {
@@ -95,16 +96,23 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
   };
 
   // 中途反向切换时，从当前可见高度继续动画。
+  // 已展开的首次挂载直接展示，不从 0 做进入动画。
   const transitionCallbacks = {
-    onEnter: () => {
+    onEnter: (appearing?: boolean) => {
       const element = contentRef.current;
       if (!element) return;
+      setIsExited(false);
+      if (appearing) {
+        isExitingRef.current = false;
+        element.style.height = 'auto';
+        return;
+      }
       const height = isExitingRef.current ? element.getBoundingClientRect().height : 0;
       isExitingRef.current = false;
-      setIsExited(false);
       setStartingHeight(element, height);
     },
-    onEntering: () => {
+    onEntering: (appearing?: boolean) => {
+      if (appearing) return;
       const element = contentRef.current;
       if (element) element.style.height = `${element.scrollHeight}px`;
     },

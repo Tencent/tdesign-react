@@ -42,6 +42,16 @@ describe('SubMenu', () => {
         });
       });
 
+      test('shows initially expanded content without a height animation', () => {
+        const scrollHeight = vi.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockReturnValue(270);
+        const { container } = render(renderMenu(['parent', 'child']));
+        container.querySelectorAll<HTMLElement>('.t-menu__sub').forEach((list) => {
+          expect(list.style.height).toBe('auto');
+          expect(list.style.maxHeight).toBe('none');
+        });
+        expect(scrollHeight).not.toHaveBeenCalled();
+      });
+
       test('measures the enter target and releases height after entering', () => {
         vi.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockReturnValue(270);
         const { container, rerender } = render(renderMenu());
@@ -94,7 +104,9 @@ describe('SubMenu', () => {
           vi.advanceTimersByTime(300);
         });
         const list = container.querySelector<HTMLElement>('.t-menu__sub');
-        vi.spyOn(list, 'getBoundingClientRect').mockReturnValue({ height: 80 } as DOMRect);
+        vi.spyOn(list, 'getBoundingClientRect').mockReturnValue({
+          height: 80,
+        } as DOMRect);
         rerender(renderMenu());
         act(() => {
           vi.advanceTimersByTime(80);

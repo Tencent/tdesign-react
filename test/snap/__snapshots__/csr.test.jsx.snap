@@ -87970,7 +87970,7 @@ exports[`csr snapshot test > csr test packages/components/menu/_example/multi-si
           </div>
           <ul
             class="t-menu__sub t-slide-down-enter-active appear appear-active"
-            style="max-height: none; overflow: hidden; height: 0px;"
+            style="max-height: none; overflow: hidden; height: auto;"
           >
             <li
               class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-is-disabled t-is-active t-menu__item--plain"
@@ -88067,7 +88067,7 @@ exports[`csr snapshot test > csr test packages/components/menu/_example/multi-si
           </div>
           <ul
             class="t-menu__sub t-slide-down-enter-active appear appear-active"
-            style="max-height: none; overflow: hidden; height: 0px;"
+            style="max-height: none; overflow: hidden; height: auto;"
           >
             <li
               class="t-submenu t-menu__item--plain t-submenu__item t-submenu__item--icon"
@@ -88651,7 +88651,7 @@ exports[`csr snapshot test > csr test packages/components/menu/_example/multi-si
           </div>
           <ul
             class="t-menu__sub t-slide-down-enter-active appear appear-active"
-            style="max-height: none; overflow: hidden; height: 0px;"
+            style="max-height: none; overflow: hidden; height: auto;"
           >
             <li
               class="t-submenu t-menu__item--plain t-submenu__item t-submenu__item--icon"
@@ -88797,7 +88797,7 @@ exports[`csr snapshot test > csr test packages/components/menu/_example/multi-si
           </div>
           <ul
             class="t-menu__sub t-slide-down-enter-active appear appear-active"
-            style="max-height: none; overflow: hidden; height: 0px;"
+            style="max-height: none; overflow: hidden; height: auto;"
           >
             <li
               class="t-menu__item t-menu__item--plain t-submenu__item t-submenu__item--icon t-menu__item--plain"
