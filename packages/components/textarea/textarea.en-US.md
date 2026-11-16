@@ -28,3 +28,5 @@ onFocus | Function |  | Typescript: `(value: TextareaValue, context : { e: Focus
 onKeydown | Function |  | Typescript: `(value: TextareaValue, context: { e: KeyboardEvent }) => void`<br/> | N
 onKeypress | Function |  | Typescript: `(value: TextareaValue, context: { e: KeyboardEvent }) => void`<br/> | N
 onKeyup | Function |  | Typescript: `(value: TextareaValue, context: { e: KeyboardEvent }) => void`<br/> | N
+onPaste | Function |  | Typescript: `(value: TextareaValue, context: { e: ClipboardEvent }) => void`<br/>Paste event. Use `context.e.clipboardData` for clipboard data | N
+onPasteCapture | Function |  | Typescript: `(value: TextareaValue, context: { e: ClipboardEvent }) => void`<br/>Paste event (capture phase). Same signature as `onPaste` | N
