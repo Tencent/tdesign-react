@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render } from '@test/utils';
+import { cleanup, fireEvent, render } from '@test/utils';
 
 import { Select } from '..';
 
@@ -9,6 +9,13 @@ const flush = () =>
   });
 
 describe('Select', () => {
+  // 弹层是 teleport 到 body 的，render 的 container 里看不到，
+  // 只能查 document。不清理的话残留节点会串到后面的用例（E-001）。
+  afterEach(() => {
+    cleanup();
+    document.body.innerHTML = '';
+  });
+
   describe('scenarios', () => {
     describe('check all', () => {
       it('re-selects every option after one option is unchecked', async () => {
