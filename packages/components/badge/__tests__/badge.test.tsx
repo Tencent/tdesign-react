@@ -1,7 +1,9 @@
 import React from 'react';
-import { render } from '@test/utils';
+import { render, vi } from '@test/utils';
 
 import Badge from '../Badge';
+
+import type { BadgeProps } from '../Badge';
 
 function renderBadge(badge) {
   const { container } = render(badge);
@@ -83,11 +85,94 @@ describe('Badge', () => {
   });
 
   describe('instanceFunctions', () => {
-    test('ref points to the standalone badge element', () => {
-      const ref = React.createRef<HTMLSpanElement>();
-      const badge = renderBadge(<Badge ref={ref} count={1} />);
+    describe('ref', () => {
+      test.each<{ name: string; props: BadgeProps }>([
+        { name: 'count', props: { count: 1 } },
+        { name: 'dot', props: { dot: true, count: 1 } },
+        { name: 'showZero', props: { count: 0, showZero: true } },
+      ])('points to the standalone badge span with $name', ({ props }) => {
+        const ref = React.createRef<HTMLSpanElement>();
+        const { container } = render(<Badge {...props} ref={ref} />);
 
-      expect(ref.current).toBe(badge);
+        expect(ref.current).not.toBeNull();
+        expect(ref.current).toBe(container.firstChild);
+        expect(ref.current.tagName).toBe('SPAN');
+      });
+
+      test.each<{ name: string; props: BadgeProps }>([
+        { name: 'children', props: { children: <button>target</button> } },
+        { name: 'content', props: { content: <button>target</button> } },
+      ])('points to the outer wrapper with $name', ({ props }) => {
+        const ref = React.createRef<HTMLSpanElement>();
+        const { container } = render(<Badge {...props} count={1} ref={ref} />);
+        const child = container.querySelector('button');
+
+        expect(ref.current).not.toBeNull();
+        expect(ref.current).toBe(container.firstChild);
+        expect(ref.current).toHaveClass('t-badge');
+        expect(child).not.toBeNull();
+        expect(ref.current.firstChild).toBe(child);
+        expect(ref.current).not.toBe(container.firstChild.lastChild);
+      });
+
+      test('callback attaches to the standalone badge and clears on unmount', () => {
+        const ref = vi.fn();
+        const { container, unmount } = render(<Badge count={1} ref={ref} />);
+
+        expect(container.firstChild).not.toBeNull();
+        expect(ref).toHaveBeenLastCalledWith(container.firstChild);
+
+        unmount();
+
+        expect(ref).toHaveBeenLastCalledWith(null);
+      });
+
+      test('clears when the badge is hidden and reattaches when visible', () => {
+        const ref = React.createRef<HTMLSpanElement>();
+        const { container, rerender } = render(<Badge count={1} ref={ref} />);
+
+        expect(ref.current).not.toBeNull();
+        expect(ref.current).toBe(container.firstChild);
+
+        rerender(<Badge count={0} ref={ref} />);
+
+        expect(container.firstChild).toBeNull();
+        expect(ref.current).toBeNull();
+
+        rerender(<Badge count={2} ref={ref} />);
+
+        expect(ref.current).not.toBeNull();
+        expect(ref.current).toBe(container.firstChild);
+      });
+
+      test('follows transitions between wrapped and standalone layouts', () => {
+        const ref = React.createRef<HTMLSpanElement>();
+        const { container, rerender } = render(
+          <Badge count={1} ref={ref}>
+            target
+          </Badge>,
+        );
+
+        expect(ref.current).not.toBeNull();
+        expect(ref.current).toBe(container.firstChild);
+        expect(ref.current).toHaveClass('t-badge');
+
+        rerender(<Badge count={1} ref={ref} />);
+
+        expect(ref.current).not.toBeNull();
+        expect(ref.current).toBe(container.firstChild);
+        expect(ref.current).toHaveClass('t-badge--static');
+
+        rerender(
+          <Badge count={1} ref={ref}>
+            target
+          </Badge>,
+        );
+
+        expect(ref.current).not.toBeNull();
+        expect(ref.current).toBe(container.firstChild);
+        expect(ref.current).toHaveClass('t-badge');
+      });
     });
   });
 });
