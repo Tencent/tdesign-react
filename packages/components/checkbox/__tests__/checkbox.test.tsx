@@ -40,4 +40,69 @@ describe('Checkbox', () => {
       expect(fn).toHaveBeenCalledTimes(0);
     });
   });
+
+  describe('keyboard', () => {
+    test('Space toggles the unchecked checkbox', () => {
+      const onChange = vi.fn();
+      const { container } = render(<Checkbox onChange={onChange}>选项</Checkbox>);
+      const label = container.querySelector('label');
+      label.focus();
+
+      fireEvent.keyDown(label, { key: ' ' });
+      expect(onChange).toHaveBeenCalledTimes(1);
+      expect(container.firstChild).toHaveClass('t-is-checked');
+
+      fireEvent.keyDown(label, { key: ' ' });
+      expect(onChange).toHaveBeenCalledTimes(2);
+      expect(container.firstChild).not.toHaveClass('t-is-checked');
+    });
+
+    test('Space works for controlled checkbox', () => {
+      const onChange = vi.fn();
+      const { container } = render(
+        <Checkbox checked={false} onChange={onChange}>
+          选项
+        </Checkbox>,
+      );
+      const label = container.querySelector('label');
+      label.focus();
+
+      fireEvent.keyDown(label, { key: ' ' });
+      expect(onChange).toHaveBeenCalledTimes(1);
+      expect(onChange.mock.calls[0][0]).toBe(true);
+    });
+
+    test('Space does not toggle a disabled checkbox', () => {
+      const onChange = vi.fn();
+      const { container } = render(
+        <Checkbox disabled onChange={onChange}>
+          选项
+        </Checkbox>,
+      );
+      const label = container.querySelector('label');
+
+      fireEvent.keyDown(label, { key: ' ' });
+      expect(onChange).toHaveBeenCalledTimes(0);
+      expect(container.firstChild).not.toHaveClass('t-is-checked');
+    });
+
+    test('Enter does not toggle the checkbox', () => {
+      const onChange = vi.fn();
+      const { container } = render(<Checkbox onChange={onChange}>选项</Checkbox>);
+      const label = container.querySelector('label');
+      label.focus();
+
+      fireEvent.keyDown(label, { key: 'Enter' });
+      expect(onChange).toHaveBeenCalledTimes(0);
+    });
+
+    test('onKeyDown prop is still called', () => {
+      const onKeyDown = vi.fn();
+      const { container } = render(<Checkbox onKeyDown={onKeyDown}>选项</Checkbox>);
+      const label = container.querySelector('label');
+
+      fireEvent.keyDown(label, { key: 'a' });
+      expect(onKeyDown).toHaveBeenCalledTimes(1);
+    });
+  });
 });
