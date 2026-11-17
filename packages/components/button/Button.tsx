@@ -56,10 +56,10 @@ const Button = forwardRef((originProps: ButtonProps, ref: React.RefObject<HTMLEl
   }, [theme, variant]);
 
   const renderTag = useMemo(() => {
-    if (!tag && href && !disabled) return 'a';
     if (!tag && disabled) return 'div';
-    return tag || 'button';
-  }, [tag, href, disabled]);
+    const resolvedTag = tag || (href ? 'a' : 'button');
+    return resolvedTag === 'a' && (disabled || loading) ? 'div' : resolvedTag;
+  }, [tag, href, disabled, loading]);
 
   return React.createElement(
     renderTag,
