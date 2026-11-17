@@ -166,4 +166,19 @@ describe('Button', () => {
       expect(fn.mock.calls[0][0].type).toBe('click');
     });
   });
+
+  // issue #4490: href/tag='a' 与 loading/disabled 同时使用时不可渲染可导航锚点
+  describe('non-navigable anchor', () => {
+    test.each([
+      ['loading', { href: 'https://example.com', loading: true }],
+      ['disabled', { href: 'https://example.com', disabled: true }],
+      ['explicit tag=a + loading', { tag: 'a', href: 'https://example.com', loading: true }],
+      ['explicit tag=a + disabled', { tag: 'a', href: 'https://example.com', disabled: true }],
+    ])('%s renders non-navigable element', (_, props) => {
+      const { container } = render(<Button {...props}>link</Button>);
+      const el = container.firstChild as HTMLElement;
+      const isNavigableAnchor = el.tagName === 'A' && el.hasAttribute('href');
+      expect(isNavigableAnchor).toBe(false);
+    });
+  });
 });
