@@ -93,7 +93,8 @@ const EnhancedTable = forwardRef<EnhancedTableRef, TEnhancedTableProps>((props, 
     ...props,
     data: dataSource,
     columns: tColumns,
-    selectedRowKeys: isTreeData ? innerSelectedRowKeys : props.selectedRowKeys || [],
+    // 非树形数据时不要覆盖 selectedRowKeys：该 key 恒存在会让 useControlled 判定为受控
+    ...(isTreeData ? { selectedRowKeys: innerSelectedRowKeys } : {}),
     indeterminateSelectedRowKeys: innerIndeterminateSelectedRowKeys,
     // 树形结构不允许本地数据分页
     disableDataPage: isTreeData || props.disableDataPage,
