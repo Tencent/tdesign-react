@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import { render } from '@test/utils';
 
 import Badge from '../Badge';
@@ -79,6 +79,28 @@ describe('Badge', () => {
       expect(renderBadge(<Badge count={100} />)).toHaveTextContent('99+');
       expect(renderBadge(<Badge count={100} maxCount={100} />)).toHaveTextContent('100');
       expect(renderBadge(<Badge count={2} />)).toHaveTextContent('2');
+    });
+  });
+
+  // issue #4489: 独立使用（无 children/content）时 ref 丢失
+  describe('ref forwarding', () => {
+    test('forwards ref to standalone badge span when no children', async () => {
+      const ref = createRef();
+      const { container } = render(<Badge count={1} ref={ref} />);
+      expect(ref.current).toBeTruthy();
+      expect(ref.current.tagName).toBe('SPAN');
+      expect(container.firstChild).toBe(ref.current);
+    });
+
+    test('forwards ref to wrapper span when children present', async () => {
+      const ref = createRef();
+      const { container } = render(
+        <Badge count={1} ref={ref}>
+          <button type="button">btn</button>
+        </Badge>,
+      );
+      expect(ref.current).toBeTruthy();
+      expect(container.firstChild).toBe(ref.current);
     });
   });
 });

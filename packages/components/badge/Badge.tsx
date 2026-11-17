@@ -65,12 +65,18 @@ const Badge = forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
   };
 
   const badge = !isHidden ? (
-    <span {...(childNode ? {} : restProps)} className={badgeClassName} style={getStyle()}>
+    <span
+      {...(childNode ? {} : restProps)}
+      className={badgeClassName}
+      style={getStyle()}
+      ref={childNode ? undefined : ref}
+    >
       {!dot ? getDisplayCount() : null}
     </span>
   ) : null;
 
   if (!childNode) {
+    // 独立使用（无 children/content）时同样透传 ref，避免 ref.current 为 null（issue #4489）
     return badge;
   }
 
