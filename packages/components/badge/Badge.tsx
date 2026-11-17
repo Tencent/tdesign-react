@@ -65,7 +65,7 @@ const Badge = forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
   };
 
   const badge = !isHidden ? (
-    <span {...(childNode ? {} : restProps)} className={badgeClassName} style={getStyle()}>
+    <span {...(childNode ? {} : restProps)} className={badgeClassName} style={getStyle()} ref={childNode ? null : ref}>
       {!dot ? getDisplayCount() : null}
     </span>
   ) : null;

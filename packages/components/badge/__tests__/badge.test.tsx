@@ -81,4 +81,13 @@ describe('Badge', () => {
       expect(renderBadge(<Badge count={2} />)).toHaveTextContent('2');
     });
   });
+
+  describe('instanceFunctions', () => {
+    test('ref points to the standalone badge element', () => {
+      const ref = React.createRef<HTMLSpanElement>();
+      const badge = renderBadge(<Badge ref={ref} count={1} />);
+
+      expect(ref.current).toBe(badge);
+    });
+  });
 });
