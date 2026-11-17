@@ -156,15 +156,17 @@ const Textarea = forwardRef<TextareaRefInterface, TextareaProps>((originalProps,
     }
   }
 
-  function handleCompositionStart() {
+  function handleCompositionStart(e: React.CompositionEvent<HTMLTextAreaElement>) {
     composingRef.current = true;
+    props.onCompositionStart?.(e);
   }
 
-  function handleCompositionEnd(e: React.FormEvent<HTMLTextAreaElement>) {
+  function handleCompositionEnd(e: React.CompositionEvent<HTMLTextAreaElement>) {
     if (composingRef.current) {
       composingRef.current = false;
       inputValueChangeHandle(e);
     }
+    props.onCompositionEnd?.(e);
   }
 
   const renderLimitText = (current: number, max: number) => {

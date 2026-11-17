@@ -183,4 +183,38 @@ describe('Textarea', () => {
       }
     });
   });
+
+  describe('composition', () => {
+    test('native composition events are forwarded to user handlers', () => {
+      const onCompositionStart = vi.fn();
+      const onCompositionEnd = vi.fn();
+      const { container } = render(
+        <Textarea onCompositionStart={onCompositionStart} onCompositionEnd={onCompositionEnd} />,
+      );
+      const textarea = getTextarea(container);
+
+      fireEvent.compositionStart(textarea, { data: 'zhong' });
+      expect(onCompositionStart).toHaveBeenCalledTimes(1);
+      expect(onCompositionStart.mock.calls[0][0].type).toBe('compositionstart');
+
+      fireEvent.change(textarea, { target: { value: '中' } });
+      fireEvent.compositionEnd(textarea, { data: '中文' });
+      expect(onCompositionEnd).toHaveBeenCalledTimes(1);
+      expect(onCompositionEnd.mock.calls[0][0].type).toBe('compositionend');
+    });
+
+    test('onChange only fires once after composition ends', () => {
+      const onChange = vi.fn();
+      const { container } = render(<Textarea onChange={onChange} />);
+      const textarea = getTextarea(container);
+
+      fireEvent.compositionStart(textarea, { data: 'zhong' });
+      fireEvent.change(textarea, { target: { value: '中' } });
+      expect(onChange).toHaveBeenCalledTimes(0);
+
+      fireEvent.compositionEnd(textarea, { data: '中文', target: { value: '中文' } });
+      expect(onChange).toHaveBeenCalledTimes(1);
+      expect(onChange.mock.calls[0][0]).toBe('中文');
+    });
+  });
 });
