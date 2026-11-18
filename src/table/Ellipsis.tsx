@@ -11,16 +11,15 @@ export interface EllipsisProps {
   content?: string | TNode;
   children?: string | TNode;
   popupContent?: string | number | TNode;
-  attach?: () => HTMLElement;
-  zIndex?: number;
   classPrefix?: string;
+  attach?: () => HTMLElement;
   /** 透传给 Popup 的属性，如 placement/title/closeBtn 等 */
   popupProps?: EllipsisPopupProps;
 }
 
 /** 超出省略，点击溢出内容弹出浮层预览 */
 export default function Ellipsis(props: EllipsisProps) {
-  const { classPrefix, content, children, popupContent, attach, zIndex, popupProps } = props;
+  const { classPrefix, content, children, popupContent, attach, popupProps } = props;
   const root = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -33,8 +32,14 @@ export default function Ellipsis(props: EllipsisProps) {
     if (el && el.scrollWidth > el.clientWidth) setVisible(true);
   };
 
-  const closeBtn = popupProps?.closeBtn ?? true;
-  const placement = popupProps?.placement || 'bottom';
+  const {
+    title,
+    placement = 'bottom',
+    closeBtn = true,
+    showOverlay = true,
+    closeOnOverlayClick = true,
+    ...restPopupProps
+  } = popupProps ?? {};
 
   return (
     <>
@@ -42,22 +47,20 @@ export default function Ellipsis(props: EllipsisProps) {
         {cellNode}
       </div>
       <Popup
+        attach={attach}
+        {...restPopupProps}
         className={`${classPrefix}-table__popup ${classPrefix}-table__popup--${placement}`}
+        placement={placement}
+        showOverlay={showOverlay}
+        closeOnOverlayClick={closeOnOverlayClick}
+        closeBtn={closeBtn}
         visible={visible}
         onVisibleChange={setVisible}
-        placement={placement}
-        showOverlay={popupProps?.showOverlay !== false}
-        closeOnOverlayClick={popupProps?.closeOnOverlayClick !== false}
-        closeBtn={closeBtn}
-        zIndex={zIndex}
-        attach={attach}
       >
         <div
           className={classNames(`${classPrefix}-table__popup-inner`, `${classPrefix}-table__popup-inner--${placement}`)}
         >
-          <div className={`${classPrefix}-table__popup-title`}>
-            {popupProps?.title ? parseTNode(popupProps.title) : null}
-          </div>
+          <div className={`${classPrefix}-table__popup-title`}>{title ? parseTNode(title) : null}</div>
           <div
             className={classNames(
               `${classPrefix}-table__popup-content`,

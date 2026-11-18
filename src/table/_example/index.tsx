@@ -34,11 +34,11 @@ export default function Base() {
         <EllipsisExample />
       </TDemoBlock>
 
-      <TDemoBlock title="03 组件样式" summary="带斑马纹表格" padding={true}>
+      <TDemoBlock title="03 组件样式" summary="带斑马纹表格样式" padding={true}>
         <StripeExample />
       </TDemoBlock>
 
-      <TDemoBlock summary="带边框表格" padding={true}>
+      <TDemoBlock summary="带边框表格样式" padding={true}>
         <BorderedExample />
       </TDemoBlock>
 
@@ -62,7 +62,7 @@ export default function Base() {
         <SelectExample />
       </TDemoBlock>
 
-      <TDemoBlock summary="带筛选的表格" padding={true}>
+      <TDemoBlock summary="带筛选排序的表格" padding={true}>
         <FilterSortExample />
       </TDemoBlock>
     </div>

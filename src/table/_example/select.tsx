@@ -49,7 +49,7 @@ export default function SelectExample() {
   ];
 
   const singleSelectColumns: TdPrimaryTableProps['columns'] = [
-    { colKey: 'projSelect', type: 'single', width: 30 },
+    { colKey: 'projSelect', type: 'single', width: 30, checkProps: { allowUncheck: true } },
     ...globalColumns,
   ];
 

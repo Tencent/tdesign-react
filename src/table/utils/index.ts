@@ -3,7 +3,9 @@ import type { ReactNode } from 'react';
 import {
   BaseTableCellParams,
   BaseTableCol,
+  BaseTableColParams,
   CellData,
+  PrimaryTableCol,
   RowClassNameParams,
   TableColumnClassName,
   TableRowData,
@@ -11,6 +13,7 @@ import {
   TdPrimaryTableProps,
 } from '../type';
 import { ClassName, HTMLElementAttributes, TNode } from '../../common';
+import type { EllipsisPopupProps } from '../Ellipsis';
 import { SkipSpansValue } from '../hooks/useRowspanAndColspan';
 
 export function toString(obj: any): string {
@@ -171,35 +174,38 @@ export const enableRowDrag = (dragSort: TdPrimaryTableProps['dragSort']) => {
 
 // ------- 超出省略（ellipsis / ellipsisTitle） -------
 
-export interface EllipsisResult {
-  /** 是否开启超出省略 */
+export type EllipsisConfig = PrimaryTableCol<TableRowData>['ellipsis'] | PrimaryTableCol<TableRowData>['ellipsisTitle'];
+export type EllipsisParams = BaseTableColParams<TableRowData> | BaseTableCellParams<TableRowData>;
+type EllipsisRenderFn = (params?: EllipsisParams) => ReactNode;
+// 对象形态：{ props, content } 包裹或直接透传的 Popup 属性
+type EllipsisObject = Partial<EllipsisPopupProps> & {
+  props?: EllipsisPopupProps;
+  content?: ReactNode | EllipsisRenderFn;
+};
+
+export interface ResolvedEllipsis {
   enabled: boolean;
-  /** 浮层展示内容，缺省时回退为单元格/表头完整内容 */
-  content?: string | TNode;
-  /** 透传给 Popup 组件的属性 */
-  props: Record<string, any>;
+  content?: ReactNode | TNode;
+  props?: EllipsisPopupProps;
 }
 
 /**
  * 解析 `ellipsis` / `ellipsisTitle` 配置，支持 boolean / Object / { props, content } / Function。
  */
-export function resolveEllipsis(value: any, params: Record<string, any>): EllipsisResult {
-  const disabled: EllipsisResult = { enabled: false, props: {} };
-  const result = isFunction(value) ? value(params) : value;
+export function resolveEllipsis(value: EllipsisConfig, params: EllipsisParams): ResolvedEllipsis {
+  const result = isFunction(value) ? (value as EllipsisRenderFn)(params) : value;
 
-  if (result === false || result === null || result === undefined) return disabled;
-  if (typeof result === 'string') return { enabled: true, content: result, props: {} };
-  if (typeof result !== 'object') return { enabled: !!result, props: {} };
+  if (result === false || result === null || result === undefined) return { enabled: false };
+  if (typeof result === 'string') return { enabled: true, content: result };
+  if (typeof result !== 'object') return { enabled: !!result };
+
+  const { props: innerProps, content: innerContent, ...rest } = result as EllipsisObject;
 
   // props 存在则透传，否则将对象整体作为 Popup 属性
-  const props: Record<string, any> = result.props && typeof result.props === 'object' ? { ...result.props } : {};
-  if (!result.props) {
-    Object.keys(result).forEach((key) => {
-      if (key !== 'content') props[key] = result[key];
-    });
-  }
+  const props: EllipsisPopupProps =
+    innerProps && typeof innerProps === 'object' ? { ...innerProps } : (rest as EllipsisPopupProps);
 
-  const content = isFunction(result.content) ? result.content(params) : result.content;
+  const content = isFunction(innerContent) ? (innerContent as EllipsisRenderFn)(params) : innerContent;
   return { enabled: true, content, props };
 }
 
