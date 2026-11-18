@@ -1,3 +1,5 @@
+import type { SliderValue } from '../type';
+
 /**
  * 处理单个number的超限和异常
  * @param {any} value
@@ -35,4 +37,24 @@ export const trimValue = (value: number | number[], props: any): number | number
   }
 
   return trimSingleValue(value, min, max);
+};
+
+/**
+ * 初始默认值，处理 range / 非 range 模式下的非法输入
+ * @param defaultValue
+ * @param min
+ * @param max
+ * @param range
+ * @returns {SliderValue}
+ */
+export const normalizeDefaultValue = (
+  defaultValue: SliderValue | undefined,
+  min: number,
+  max: number,
+  range: boolean,
+): SliderValue => {
+  if (range) {
+    return Array.isArray(defaultValue) ? defaultValue : [min, max];
+  }
+  return Array.isArray(defaultValue) ? min : (defaultValue ?? min);
 };

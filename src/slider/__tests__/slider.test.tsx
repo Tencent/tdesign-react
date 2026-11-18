@@ -53,10 +53,20 @@ describe('Slider', () => {
     });
 
     it(': range', () => {
+      // 显式数组 defaultValue 仍然生效
       const { container } = render(<Slider range defaultValue={[20, 80]} />);
       const sliderContainer = container.querySelector(`${name}`);
       const sliders = sliderContainer?.querySelectorAll(`${name}__dot-slider`);
       expect(sliders?.length).toBe(2);
+
+      // range 开启且未传 value / defaultValue 时正常渲染，不抛错
+      const { container: container2 } = render(<Slider range />);
+      expect(container2.querySelector(`${name}`)).toBeTruthy();
+
+      // range 开启且未传 value 时，默认回退到 [min, max] 全区间（渲染两个滑块）
+      const { container: container3 } = render(<Slider range min={10} max={60} />);
+      const sliders3 = container3.querySelectorAll(`${name}__dot-slider`);
+      expect(sliders3.length).toBe(2);
     });
 
     it(': marks', () => {

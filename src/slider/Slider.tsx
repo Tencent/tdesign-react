@@ -9,7 +9,7 @@ import useDefault from '../_util/useDefault';
 import { StyledProps } from '../common';
 import { SliderValue, TdSliderProps } from './type';
 import { sliderDefaultProps } from './defaultProps';
-import { trimSingleValue, trimValue } from './utils';
+import { normalizeDefaultValue, trimSingleValue, trimValue } from './utils';
 import { BLOCK_SIZE, BORDER_WIDTH } from './constants';
 
 export interface SliderProps extends TdSliderProps, StyledProps {}
@@ -50,7 +50,8 @@ const Slider: FC<SliderProps> = (props) => {
   const initialLeft = useRef<number>(0);
   const initialRight = useRef<number>(0);
   const draggingRef = useRef<boolean>(false);
-  const [innerValue, setInnerValue] = useDefault(value, defaultValue, onChange);
+  const normalizedDefaultValue = normalizeDefaultValue(defaultValue, min, max, range);
+  const [innerValue, setInnerValue] = useDefault(value, normalizedDefaultValue, onChange);
   const scope = Number(max) - Number(min);
 
   const rootClassName = usePrefixClass('slider');
