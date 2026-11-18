@@ -26,8 +26,10 @@ function getDefaultText(prop: unknown, defaultText: string): string {
 }
 
 const getIndexFromColumns = (column: PickerColumn, value: PickerValue, keys?: KeysType) => {
-  if (!value) return 0;
-  return column?.findIndex((item: PickerColumnItem) => lodashGet(item, keys?.value ?? 'value') === value);
+  // 0 和 '' 都是合法选项值，只有 undefined / null 才回退到第一项
+  if (value === undefined || value === null) return 0;
+  const index = column?.findIndex((item: PickerColumnItem) => lodashGet(item, keys?.value ?? 'value') === value);
+  return index > -1 ? index : 0;
 };
 
 const Picker: FC<PickerProps> = (props) => {
