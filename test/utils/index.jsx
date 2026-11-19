@@ -389,32 +389,24 @@ export function mockElementSizes(elementSizes = []) {
     },
   });
 
+  const resetSizeProperty = (prop, descriptor) => {
+    if (descriptor) {
+      Object.defineProperty(HTMLElement.prototype, prop, descriptor);
+      return;
+    }
+    delete HTMLElement.prototype[prop];
+  };
+
   // 清理函数
   return () => {
     Element.prototype.getBoundingClientRect = originalGetBoundingClientRect;
-    if (originalOffsetWidth) {
-      Object.defineProperty(HTMLElement.prototype, 'offsetWidth', originalOffsetWidth);
-    }
-    if (originalOffsetHeight) {
-      Object.defineProperty(HTMLElement.prototype, 'offsetHeight', originalOffsetHeight);
-    }
-    if (originalOffsetLeft) {
-      Object.defineProperty(HTMLElement.prototype, 'offsetLeft', originalOffsetLeft);
-    }
-    if (originalOffsetTop) {
-      Object.defineProperty(HTMLElement.prototype, 'offsetTop', originalOffsetTop);
-    }
-    if (originalClientWidth) {
-      Object.defineProperty(HTMLElement.prototype, 'clientWidth', originalClientWidth);
-    }
-    if (originalClientHeight) {
-      Object.defineProperty(HTMLElement.prototype, 'clientHeight', originalClientHeight);
-    }
-    if (originalScrollWidth) {
-      Object.defineProperty(HTMLElement.prototype, 'scrollWidth', originalScrollWidth);
-    }
-    if (originalScrollHeight) {
-      Object.defineProperty(HTMLElement.prototype, 'scrollHeight', originalScrollHeight);
-    }
+    resetSizeProperty('offsetWidth', originalOffsetWidth);
+    resetSizeProperty('offsetHeight', originalOffsetHeight);
+    resetSizeProperty('offsetLeft', originalOffsetLeft);
+    resetSizeProperty('offsetTop', originalOffsetTop);
+    resetSizeProperty('clientWidth', originalClientWidth);
+    resetSizeProperty('clientHeight', originalClientHeight);
+    resetSizeProperty('scrollWidth', originalScrollWidth);
+    resetSizeProperty('scrollHeight', originalScrollHeight);
   };
 }

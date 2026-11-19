@@ -904,9 +904,7 @@ describe('Table', () => {
         const width = parseFloat(element.style.width || '');
         return Number.isNaN(width) ? defaultWidths[element.dataset.colkey] || 100 : width;
       };
-      const contentSize = (element: HTMLElement, contentValue: number) =>
-        element.classList.contains('t-table__content') ? contentValue : 0;
-      const restoreElementMock = mockElementSizes([
+      const resetElementMock = mockElementSizes([
         {
           selector: '.t-table__content',
           width: 300,
@@ -917,11 +915,7 @@ describe('Table', () => {
           scrollHeight: 200,
         },
         { selector: 'th', width: getColumnWidth, height: 40 },
-        {
-          selector: '*',
-          width: (element: HTMLElement) => contentSize(element, 600) || 600,
-          height: 200,
-        },
+        { selector: '*', width: 600, height: 200 },
       ]);
 
       try {
@@ -971,6 +965,7 @@ describe('Table', () => {
         await dragNameColumn(116, 196);
         await waitFor(() => {
           expect(getNameTh()).toHaveStyle({ width: '200px' });
+          expect(getStatusTh()).toHaveStyle({ left: '200px' });
         });
 
         await dragNameColumn(196, 116);
@@ -979,7 +974,7 @@ describe('Table', () => {
           expect(getStatusTh()).toHaveStyle({ left: '120px' });
         });
       } finally {
-        restoreElementMock();
+        resetElementMock();
       }
     });
 
