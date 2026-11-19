@@ -75,7 +75,7 @@ tdesign-react-mono (根)
 | `cjs/` | CommonJS | Node.js 环境或 SSR |
 | `dist/` | UMD | CDN / `<script>` 直引 |
 
-详见 `.codebuddy/specs/build-output-spec.md`
+详见 `.agent/specs/build-output-spec.md`
 
 ### 3.2 AIGC 组件 (`@tdesign-react/chat`)
 

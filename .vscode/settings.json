@@ -1,6 +1,12 @@
 {
-  "typescript.preferences.importModuleSpecifier": "relative",
-  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "js/ts.preferences.importModuleSpecifier": "relative",
+  "js/ts.tsdk.path": "node_modules/typescript/lib",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
   "[html]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
@@ -71,5 +77,20 @@
     "*.xaml": "$(capture).xaml.cs",
     "tsconfig.json": "tsconfig.*.json",
     "vitest.config.ts": "babel.config.js, postcss.config.js"
+  },
+  "search.exclude": {
+    ".cursor/skills": true,
+    ".claude/skills": true,
+    ".codebuddy/skills": true
+  },
+  "files.exclude": {
+    ".cursor/skills": true,
+    ".claude/skills": true,
+    ".codebuddy/skills": true
+  },
+  "files.watcherExclude": {
+    ".cursor/skills/**": true,
+    ".claude/skills/**": true,
+    ".codebuddy/skills/**": true
   }
 }

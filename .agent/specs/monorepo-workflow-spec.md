@@ -122,7 +122,7 @@ pnpm build:aigc
 # 使用脚本初始化组件结构
 pnpm run init:component
 
-# 或手动创建，参考 .codebuddy/skills/tdesign-create-component/
+# 或手动创建，参考 .agent/skills/tdesign-create-component/
 ```
 
 ## 4. 构建流程
