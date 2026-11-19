@@ -55,17 +55,13 @@ const Button = forwardRef((originProps: ButtonProps, ref: React.RefObject<HTMLEl
     return theme;
   }, [theme, variant]);
 
-  // disabled/loading 时禁止渲染可导航的 <a href>：锚点不识别 disabled 属性，仍会触发导航（issue #4490）
-  const nonInteractive = disabled || loading;
   const renderTag = useMemo(() => {
-    if (!tag && disabled) return 'div';
-    // href 场景：loading 同样回退，避免可导航锚点（此前仅 disabled 生效）
-    if (!tag && href && nonInteractive) return 'div';
-    if (!tag && href) return 'a';
-    // 显式 tag='a' 且不可交互时同样回退，避免渲染可导航锚点
-    if (tag === 'a' && nonInteractive) return 'div';
-    return tag || 'button';
-  }, [tag, href, disabled, nonInteractive]);
+    const nonInteractive = disabled || loading;
+    if (disabled || (nonInteractive && (href || tag === 'a'))) return 'div';
+    if (tag) return tag;
+    if (href) return 'a';
+    return 'button';
+  }, [tag, href, disabled, loading]);
 
   return React.createElement(
     renderTag,
