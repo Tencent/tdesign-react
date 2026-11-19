@@ -297,7 +297,7 @@ pnpm run init
 
 ## 参考资源
 
-- API 设计规范: `.codebuddy/specs/api-design-spec.md`
-- CSS 命名规范: `.codebuddy/specs/css-naming-spec.md`
-- 构建产物规范: `.codebuddy/specs/build-output-spec.md`
-- 项目架构总览: `.codebuddy/specs/project-architecture-spec.md`
+- API 设计规范: `.agent/specs/api-design-spec.md`
+- CSS 命名规范: `.agent/specs/css-naming-spec.md`
+- 构建产物规范: `.agent/specs/build-output-spec.md`
+- 项目架构总览: `.agent/specs/project-architecture-spec.md`
