@@ -1,5 +1,10 @@
 .DS_Store
 temp*
+# scripts/templates 会被上面的 temp* 命中，审查演示模板需要入库
+!.agent/skills/tdesign-code-review/scripts/templates/
+!.agent/skills/tdesign-code-review/scripts/templates/**
+
+.review/
 .tmp-aigc-dts
 robotMsg.json
 .history
@@ -53,5 +58,6 @@ packages/pro-components/chat/**/docs/
 .zip
 openspec
 *.d.ts
+!.agent/skills/tdesign-code-review/scripts/templates/types.d.ts
 *.zip
 .fue

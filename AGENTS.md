@@ -175,6 +175,7 @@ AIGC/Chat 组件有独立的开发规范，详见：
 | `tdesign-component-test` | 组件测试编写指南 |
 | `tdesign-release` | 版本发布流程 SOP |
 | `tdesign-pro-component` | AIGC/Chat 组件开发指南 |
+| `tdesign-code-review` | GitHub PR 审查流程 |
 
 ### ChatEngine 专属文档
 
