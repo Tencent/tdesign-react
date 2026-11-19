@@ -129,8 +129,8 @@ export default function useColumnResize(params: {
     const colKey = target.getAttribute('data-colkey');
     if (!leafColumns.find((t) => t.colKey === colKey)) return;
     const targetBoundRect = target.getBoundingClientRect();
-    const thRightCursor = targetBoundRect.right - e.pageX <= distance;
-    const thLeftCursor = e.pageX - targetBoundRect.left <= distance;
+    const thRightCursor = targetBoundRect.right - e.clientX <= distance;
+    const thLeftCursor = e.clientX - targetBoundRect.left <= distance;
     const isFixedToRight = isColRightFixActive(col);
 
     // 在单元格分割线的右侧
@@ -242,7 +242,7 @@ export default function useColumnResize(params: {
 
     // 开始拖拽，记录下鼠标起始位置
     resizeLineParams.isDragging = true;
-    resizeLineParams.draggingStart = e.pageX || 0;
+    resizeLineParams.draggingStart = e.clientX || 0;
 
     // 初始化 resizeLine 标记线
     if (resizeLineRef?.current) {
@@ -262,7 +262,7 @@ export default function useColumnResize(params: {
         return;
       }
       if (resizeLineParams.isDragging) {
-        const left = resizeLinePos + e.x - resizeLineParams.draggingStart;
+        const left = resizeLinePos + e.clientX - resizeLineParams.draggingStart;
         const styles = {
           ...resizeLineParams.resizeLineStyle,
           left: `${Math.min(Math.max(left, minResizeLineLeft), maxResizeLineLeft)}px`,

@@ -6,6 +6,7 @@ import { getIEVersion } from '@tdesign/common-js/utils/helper';
 
 import { off, on } from '../../_util/listener';
 import useDeepEffect from '../../hooks/useDeepEffect';
+import useLayoutEffect from '../../hooks/useLayoutEffect';
 import usePrevious from '../../hooks/usePrevious';
 import { resizeObserverElement } from '../utils';
 
@@ -110,12 +111,16 @@ export default function useFixed(
   const [scrollbarWidth, setScrollbarWidth] = useState(6);
   // 固定列、固定表头、固定表尾等内容的位置信息
   const [rowAndColFixedPosition, setRowAndColFixedPosition] = useState<RowAndColFixedPosition>(() => new Map());
+  const [layoutId, setLayoutId] = useState(0);
   const [showColumnShadow, setShowColumnShadow] = useState({
     left: false,
     right: false,
   });
   // 虚拟滚动无法使用 CSS sticky 固定表头
-  const [virtualScrollHeaderPos, setVirtualScrollHeaderPos] = useState<{ left: number; top: number }>({
+  const [virtualScrollHeaderPos, setVirtualScrollHeaderPos] = useState<{
+    left: number;
+    top: number;
+  }>({
     left: 0,
     top: 0,
   });
@@ -239,7 +244,10 @@ export default function useFixed(
         }
         const obj = initialColumnMap.get(colKey || j);
         if (obj?.col?.fixed) {
-          initialColumnMap.set(colKey, { ...obj, width: th?.getBoundingClientRect?.().width });
+          initialColumnMap.set(colKey, {
+            ...obj,
+            width: th?.getBoundingClientRect?.().width,
+          });
         }
       }
     }
@@ -267,7 +275,10 @@ export default function useFixed(
         defaultBottom = thead?.getBoundingClientRect?.().height || 0;
       }
       thisRowInfo.top = (lastRowInfo.top || defaultBottom) + (lastRowInfo.height || 0);
-      initialColumnMap.set(rowId, { ...thisRowInfo, height: tr?.getBoundingClientRect?.().height });
+      initialColumnMap.set(rowId, {
+        ...thisRowInfo,
+        height: tr?.getBoundingClientRect?.().height,
+      });
     }
     for (let i = data.length - 1; i >= data.length - fixedBottomRows; i--) {
       /**
@@ -285,7 +296,10 @@ export default function useFixed(
         defaultBottom = tfoot?.getBoundingClientRect?.().height || 0;
       }
       thisRowInfo.bottom = (lastRowInfo.bottom || defaultBottom) + (lastRowInfo.height || 0);
-      initialColumnMap.set(rowId, { ...thisRowInfo, height: tr?.getBoundingClientRect?.().height });
+      initialColumnMap.set(rowId, {
+        ...thisRowInfo,
+        height: tr?.getBoundingClientRect?.().height,
+      });
     }
   };
 
@@ -523,7 +537,9 @@ export default function useFixed(
 
     if (isFixedColumn || isFixedHeader) {
       updateFixedStatus();
-      updateColumnFixedShadow(tableContentRef.current, { skipScrollLimit: true });
+      updateColumnFixedShadow(tableContentRef.current, {
+        skipScrollLimit: true,
+      });
     }
   };
 
@@ -574,9 +590,16 @@ export default function useFixed(
   }, []);
 
   const updateTableAfterColumnResize = () => {
+    setLayoutId((id) => id + 1);
+  };
+
+  useLayoutEffect(() => {
+    if (!layoutId) return;
     updateFixedStatus();
     updateFixedHeader();
-  };
+    updateColumnFixedShadow(tableContentRef.current, { skipScrollLimit: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [layoutId]);
 
   return {
     tableWidth,

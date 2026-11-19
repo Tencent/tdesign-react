@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { fireEvent, render, vi, waitFor } from '@test/utils';
+import { act, fireEvent, mockDelay, mockElementSizes, render, vi, waitFor } from '@test/utils';
 
 import { Table } from '..';
 
@@ -893,6 +893,96 @@ describe('Table', () => {
   });
 
   describe('scenarios', () => {
+    test('resizable fixed columns recalculate offsets after widening and narrowing', async () => {
+      const defaultWidths: Record<string, number> = {
+        name: 120,
+        status: 100,
+        email: 180,
+        detail: 200,
+      };
+      const getColumnWidth = (element: HTMLElement) => {
+        const width = parseFloat(element.style.width || '');
+        return Number.isNaN(width) ? defaultWidths[element.dataset.colkey] || 100 : width;
+      };
+      const contentSize = (element: HTMLElement, contentValue: number) =>
+        element.classList.contains('t-table__content') ? contentValue : 0;
+      const restoreElementMock = mockElementSizes([
+        {
+          selector: '.t-table__content',
+          width: 300,
+          height: 200,
+          clientWidth: 300,
+          clientHeight: 200,
+          scrollWidth: 600,
+          scrollHeight: 200,
+        },
+        { selector: 'th', width: getColumnWidth, height: 40 },
+        {
+          selector: '*',
+          width: (element: HTMLElement) => contentSize(element, 600) || 600,
+          height: 200,
+        },
+      ]);
+
+      try {
+        const { container } = render(
+          <Table
+            rowKey="id"
+            data={[
+              {
+                id: 1,
+                name: 'Name',
+                status: 'Status',
+                email: 'name@example.com',
+                detail: 'Detail',
+              },
+            ]}
+            columns={[
+              { colKey: 'name', title: 'Name', fixed: 'left', width: 120 },
+              { colKey: 'status', title: 'Status', fixed: 'left', width: 100 },
+              { colKey: 'email', title: 'Email', width: 180 },
+              { colKey: 'detail', title: 'Detail', width: 200 },
+            ]}
+            bordered
+            resizable
+            tableLayout="fixed"
+          />,
+        );
+
+        const getNameTh = () => container.querySelector('th[data-colkey="name"]') as HTMLElement;
+        const getStatusTh = () => container.querySelector('th[data-colkey="status"]') as HTMLElement;
+        const dragNameColumn = async (startX: number, endX: number) => {
+          const nameTh = getNameTh();
+          fireEvent.mouseMove(nameTh, { clientX: startX });
+          fireEvent.mouseDown(nameTh, { clientX: startX, button: 0 });
+          await act(async () => {
+            document.dispatchEvent(
+              new MouseEvent('mousemove', {
+                clientX: endX,
+                buttons: 1,
+                bubbles: true,
+              }),
+            );
+            document.dispatchEvent(new MouseEvent('mouseup', { clientX: endX, bubbles: true }));
+          });
+          await mockDelay(20);
+        };
+
+        await dragNameColumn(116, 196);
+        await waitFor(() => {
+          expect(getNameTh()).toHaveStyle({ width: '200px' });
+        });
+
+        await dragNameColumn(196, 116);
+        await waitFor(() => {
+          expect(getNameTh()).toHaveStyle({ width: '120px' });
+          expect(getStatusTh()).toHaveStyle({ left: '120px' });
+        });
+      } finally {
+        restoreElementMock();
+      }
+    });
+
     describe('columns[row-select] with selectedRowKeys state', () => {
       const selectColumns = [
         {
@@ -1073,43 +1163,30 @@ describe('Table', () => {
       const getPopups = () => document.querySelectorAll('.t-table__filter-pop-content');
 
       describe('Virtual scroll', () => {
-        const descriptors: Array<[string, PropertyDescriptor]> = [];
         const { scrollTo } = HTMLElement.prototype;
-
-        function mockSize(prop: string, value: number) {
-          const origin = Object.getOwnPropertyDescriptor(HTMLElement.prototype, prop);
-          if (origin) descriptors.push([prop, origin]);
-          Object.defineProperty(HTMLElement.prototype, prop, {
-            configurable: true,
-            get: () => value,
-          });
-        }
+        let layoutMock: (() => void) | undefined;
 
         beforeAll(() => {
-          mockSize('clientWidth', 800);
-          mockSize('clientHeight', 200);
-          mockSize('scrollHeight', 4000);
-          mockSize('scrollWidth', 800);
+          layoutMock = mockElementSizes([
+            {
+              selector: '.t-table__content',
+              width: 800,
+              height: 200,
+              scrollWidth: 800,
+              scrollHeight: 4000,
+            },
+            { selector: 'thead', width: 800, height: 200 },
+            { selector: 'tbody', width: 800, height: 200 },
+            { selector: 'tr', width: 800, height: 200 },
+          ]);
           // jsdom 未实现 Element.scrollTo
           HTMLElement.prototype.scrollTo = function scrollTo() {
             // do nothing
           };
-          HTMLElement.prototype.getBoundingClientRect = function getBoundingClientRect() {
-            return {
-              width: 800,
-              height: 200,
-              top: 0,
-              left: 0,
-              right: 800,
-              bottom: 200,
-              x: 0,
-              y: 0,
-            } as DOMRect;
-          };
         });
 
         afterAll(() => {
-          descriptors.forEach(([prop, descriptor]) => Object.defineProperty(HTMLElement.prototype, prop, descriptor));
+          layoutMock?.();
           HTMLElement.prototype.scrollTo = scrollTo;
         });
 
