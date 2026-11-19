@@ -46,10 +46,22 @@ describe('Button', () => {
       expect(container3).toMatchSnapshot();
     });
 
-    test('href[string]', () => {
-      const { container } = render(<Button href="https://tdesign.tencent.com/">Text</Button>);
-      expect((container.firstChild as HTMLElement).getAttribute('href')).toBe('https://tdesign.tencent.com/');
-      expect(container).toMatchSnapshot();
+    describe('href', () => {
+      test('href[string]', () => {
+        const { container } = render(<Button href="https://tdesign.tencent.com/">Text</Button>);
+        expect((container.firstChild as HTMLElement).getAttribute('href')).toBe('https://tdesign.tencent.com/');
+        expect(container).toMatchSnapshot();
+      });
+
+      test.each([
+        ['href[string] and loading', { href: 'https://tdesign.tencent.com/', loading: true }],
+        ['href[string] and disabled', { href: 'https://tdesign.tencent.com/', disabled: true }],
+        ['href[string], tag[a] and loading', { tag: 'a', href: 'https://tdesign.tencent.com/', loading: true }],
+        ['href[string], tag[a] and disabled', { tag: 'a', href: 'https://tdesign.tencent.com/', disabled: true }],
+      ] as const)('%s', (_, props) => {
+        const { container } = render(<Button {...props}>Text</Button>);
+        expect(container.querySelector('a[href]')).toBeFalsy();
+      });
     });
 
     test('loading[boolean]', () => {
