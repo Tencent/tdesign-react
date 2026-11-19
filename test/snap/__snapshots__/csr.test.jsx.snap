@@ -60009,7 +60009,7 @@ exports[`csr snapshot test > csr test packages/components/form/_example/validate
     class="t-form"
   >
     <div
-      class="t-form__item t-form-item__school t-form__item--last"
+      class="t-form__item t-form-item__school"
     >
       <div
         class="t-form__label t-form__label--required t-form__label--right"
