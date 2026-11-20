@@ -320,6 +320,120 @@ describe('Select', () => {
       expect(document.querySelector(selectSelector)).not.toHaveTextContent('Orange');
     });
 
+    test('checkAll after filter change uses the current list and keeps selections outside the filter', () => {
+      const allOptions = [
+        { label: 'Apple iPhone (Series A)', value: 'A1' },
+        { label: 'Apple iPad (Series A)', value: 'A2' },
+        { label: 'Lenovo ThinkPad (Series B)', value: 'B1' },
+        { label: 'Lenovo Yoga (Series B)', value: 'B2' },
+      ];
+      const onChange = vi.fn();
+
+      const SearchCheckAllSelect = () => {
+        const [keyword, setKeyword] = useState('');
+        const [value, setValue] = useState([{ label: 'Apple iPhone (Series A)', value: 'A1' }]);
+        const filtered = keyword ? allOptions.filter((opt) => opt.label.includes(keyword)) : allOptions;
+        const displayOptions =
+          keyword && filtered.length > 1
+            ? [{ label: 'All', checkAll: true, value: '__CHECK_ALL__' }, ...filtered]
+            : filtered;
+
+        return (
+          <Select
+            multiple
+            filterable
+            valueType="object"
+            options={displayOptions}
+            value={value}
+            onSearch={setKeyword}
+            onChange={(nextValue, context) => {
+              onChange(nextValue, context);
+              setValue(nextValue as any[]);
+            }}
+          />
+        );
+      };
+
+      const { getByText } = render(<SearchCheckAllSelect />);
+      const input = document.querySelector('input');
+
+      fireEvent.click(input);
+      fireEvent.change(input, { target: { value: 'A' } });
+      const partialCheckAll = getByText('All').closest('.t-select-option');
+      expect(partialCheckAll.querySelector('.t-checkbox')).toHaveClass('t-is-indeterminate');
+      expect(partialCheckAll.querySelector('.t-checkbox')).not.toHaveClass('t-is-checked');
+
+      fireEvent.click(getByText('All'));
+
+      expect(onChange).toHaveBeenLastCalledWith(
+        expect.arrayContaining([expect.objectContaining({ value: 'A1' }), expect.objectContaining({ value: 'A2' })]),
+        expect.objectContaining({ trigger: 'check' }),
+      );
+      expect(onChange.mock.lastCall[0]).toHaveLength(2);
+
+      fireEvent.change(input, { target: { value: 'B' } });
+      const checkAllOption = getByText('All').closest('.t-select-option');
+      expect(checkAllOption.querySelector('.t-checkbox')).not.toHaveClass('t-is-checked');
+      expect(checkAllOption.querySelector('.t-checkbox')).not.toHaveClass('t-is-indeterminate');
+
+      fireEvent.click(getByText('All'));
+      expect(onChange).toHaveBeenLastCalledWith(
+        expect.arrayContaining([
+          expect.objectContaining({ value: 'A1' }),
+          expect.objectContaining({ value: 'A2' }),
+          expect.objectContaining({ value: 'B1' }),
+          expect.objectContaining({ value: 'B2' }),
+        ]),
+        expect.objectContaining({ trigger: 'check' }),
+      );
+      expect(onChange.mock.lastCall[0]).toHaveLength(4);
+
+      fireEvent.click(getByText('All'));
+      expect(onChange).toHaveBeenLastCalledWith(
+        expect.arrayContaining([expect.objectContaining({ value: 'A1' }), expect.objectContaining({ value: 'A2' })]),
+        expect.objectContaining({ trigger: 'uncheck' }),
+      );
+      expect(onChange.mock.lastCall[0]).toHaveLength(2);
+    });
+
+    test('checkAll honors keys.disabled and keeps those selections', () => {
+      const optionList = [
+        { text: 'All', checkAll: true, id: 'all' },
+        { text: 'Apple', id: 'apple', isDisabled: true },
+        { text: 'Banana', id: 'banana' },
+        { text: 'Orange', id: 'orange' },
+      ];
+      const onChange = vi.fn();
+
+      const KeysSelect = () => {
+        const [value, setValue] = useState(['apple']);
+        return (
+          <Select
+            multiple
+            keys={{ label: 'text', value: 'id', disabled: 'isDisabled' }}
+            options={optionList}
+            value={value}
+            onChange={(nextValue) => {
+              onChange(nextValue);
+              setValue(nextValue as string[]);
+            }}
+          />
+        );
+      };
+
+      const { getByText } = render(<KeysSelect />);
+      fireEvent.click(document.querySelector('input'));
+
+      expect(document.querySelector('.t-select-option.t-is-disabled')).toHaveTextContent('Apple');
+
+      fireEvent.click(getByText('All'));
+      expect(onChange).toHaveBeenLastCalledWith(expect.arrayContaining(['apple', 'banana', 'orange']));
+      expect(onChange.mock.lastCall[0]).toHaveLength(3);
+
+      fireEvent.click(getByText('All'));
+      expect(onChange).toHaveBeenLastCalledWith(['apple']);
+    });
+
     test('OptionGroup selection updates value', async () => {
       const OptionGroupSelect = () => {
         const [value, setValue] = useState('apple');

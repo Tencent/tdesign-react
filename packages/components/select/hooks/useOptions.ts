@@ -45,11 +45,12 @@ function useOptions(
   const [tmpPropOptions, setTmpPropOptions] = useState<SelectOption[]>([]);
   const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>([]);
 
-  const { valueKey, labelKey } = useMemo(() => getKeyMapping(keys), [keys]);
+  const { valueKey, labelKey, disabledKey } = useMemo(() => getKeyMapping(keys), [keys]);
 
   useEffect(() => {
     setFlattenedOptions(flattenOptions(currentOptions));
   }, [currentOptions]);
+
   // 处理设置 option 的逻辑
   useEffect(() => {
     let transformedOptions = options;
@@ -57,6 +58,7 @@ function useOptions(
     const arrayChildren = React.Children.toArray(children);
     const optionChildren = arrayChildren.filter((v: ReactElement) => v.type === Option || v.type === OptionGroup);
     const isChildrenFilterable = arrayChildren.length > 0 && optionChildren.length === arrayChildren.length;
+
     if (reserveKeyword && currentOptions.length && isChildrenFilterable) return;
 
     if (isChildrenFilterable) {
@@ -78,17 +80,29 @@ function useOptions(
       };
       transformedOptions = arrayChildren?.map<SelectOption>((v) => handlerOptionElement(v));
     }
+
     if (keys) {
-      // 如果有定制 keys 先做转换
-      transformedOptions = transformedOptions?.map<SelectOption>((option) => ({
-        ...option,
-        value: get(option, valueKey),
-        label: get(option, labelKey),
-      }));
+      const mapOptionKeys = (option: SelectOption): SelectOption => {
+        if (isSelectOptionGroup(option)) {
+          return {
+            ...option,
+            value: get(option, valueKey),
+            label: get(option, labelKey),
+            children: option.children?.map((child) => mapOptionKeys(child)),
+          };
+        }
+        return {
+          ...option,
+          value: get(option, valueKey),
+          label: get(option, labelKey),
+          disabled: get(option, disabledKey),
+        };
+      };
+      transformedOptions = transformedOptions?.map((option) => mapOptionKeys(option));
     }
+
     setCurrentOptions(transformedOptions);
     setTmpPropOptions(transformedOptions);
-
     setValueToOption(getValueToOption(children as ReactElement, options as TdOptionProps[], keys) || {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options, keys, children, reserveKeyword]);
