@@ -98,10 +98,6 @@ export default function useKeyboardControl({
   }, [innerPopupVisible, displayOptions]);
 
   useEffect(() => {
-    if (!Array.isArray(value)) {
-      isCheckAll.current = false;
-      return;
-    }
     isCheckAll.current = getCheckAllState(value, displayOptions, valueKey).checked;
   }, [value, displayOptions, valueKey]);
 
@@ -160,7 +156,7 @@ export default function useKeyboardControl({
         if (hoverIndex === -1 || hoverIndex >= optionsListLength - 1) newIndex = circular ? 0 : optionsListLength - 1;
         else newIndex += 1;
 
-        if (displayOptions[newIndex]?.disabled) newIndex += 1;
+        if (displayOptions[newIndex]?.[disabledKey]) newIndex += 1;
 
         if (newIndex === optionsListLength - 1 && hoverIndex === optionsListLength - 1) {
           onReachBottom?.();

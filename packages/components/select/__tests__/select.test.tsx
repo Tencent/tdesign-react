@@ -55,7 +55,7 @@ const RemoteSearchSelect = ({ multiple }: { multiple?: boolean }) => {
   const [loading, setLoading] = useState(false);
   const [remoteOptions, setRemoteOptions] = useState(defaultOptions);
 
-  const onChange = (nextValue: any) => {
+  const onChange = (nextValue) => {
     setValue(nextValue);
   };
 
@@ -210,7 +210,7 @@ describe('Select', () => {
     test('single selection updates value and closes popup', async () => {
       const SingleSelect = () => {
         const [value, setValue] = useState('apple');
-        const onChange = (nextValue: any) => {
+        const onChange = (nextValue) => {
           setValue(nextValue);
         };
         return (
@@ -248,7 +248,7 @@ describe('Select', () => {
     test('multiple selection keeps popup open', async () => {
       const MultipleSelect = () => {
         const [value, setValue] = useState([{ label: 'Apple', value: 'apple' }]);
-        const onChange = (nextValue: any) => {
+        const onChange = (nextValue) => {
           setValue(nextValue);
         };
         return (
@@ -289,7 +289,7 @@ describe('Select', () => {
     test('checkAll toggles enabled options', async () => {
       const MultipleSelect = () => {
         const [value, setValue] = useState(['apple']);
-        const onChange = (nextValue: any) => {
+        const onChange = (nextValue) => {
           setValue(nextValue);
         };
         return (
@@ -331,7 +331,7 @@ describe('Select', () => {
 
       const SearchCheckAllSelect = () => {
         const [keyword, setKeyword] = useState('');
-        const [value, setValue] = useState([]);
+        const [value, setValue] = useState([{ label: 'Apple iPhone (Series A)', value: 'A1' }]);
         const filtered = keyword ? allOptions.filter((opt) => opt.label.includes(keyword)) : allOptions;
         const displayOptions =
           keyword && filtered.length > 1
@@ -342,7 +342,6 @@ describe('Select', () => {
           <Select
             multiple
             filterable
-            reserveKeyword
             valueType="object"
             options={displayOptions}
             value={value}
@@ -360,6 +359,10 @@ describe('Select', () => {
 
       fireEvent.click(input);
       fireEvent.change(input, { target: { value: 'A' } });
+      const partialCheckAll = getByText('All').closest('.t-select-option');
+      expect(partialCheckAll.querySelector('.t-checkbox')).toHaveClass('t-is-indeterminate');
+      expect(partialCheckAll.querySelector('.t-checkbox')).not.toHaveClass('t-is-checked');
+
       fireEvent.click(getByText('All'));
 
       expect(onChange).toHaveBeenLastCalledWith(
@@ -371,6 +374,7 @@ describe('Select', () => {
       fireEvent.change(input, { target: { value: 'B' } });
       const checkAllOption = getByText('All').closest('.t-select-option');
       expect(checkAllOption.querySelector('.t-checkbox')).not.toHaveClass('t-is-checked');
+      expect(checkAllOption.querySelector('.t-checkbox')).not.toHaveClass('t-is-indeterminate');
 
       fireEvent.click(getByText('All'));
       expect(onChange).toHaveBeenLastCalledWith(
@@ -392,10 +396,48 @@ describe('Select', () => {
       expect(onChange.mock.lastCall[0]).toHaveLength(2);
     });
 
+    test('checkAll honors keys.disabled and keeps those selections', () => {
+      const optionList = [
+        { text: 'All', checkAll: true, id: 'all' },
+        { text: 'Apple', id: 'apple', isDisabled: true },
+        { text: 'Banana', id: 'banana' },
+        { text: 'Orange', id: 'orange' },
+      ];
+      const onChange = vi.fn();
+
+      const KeysSelect = () => {
+        const [value, setValue] = useState(['apple']);
+        return (
+          <Select
+            multiple
+            keys={{ label: 'text', value: 'id', disabled: 'isDisabled' }}
+            options={optionList}
+            value={value}
+            onChange={(nextValue) => {
+              onChange(nextValue);
+              setValue(nextValue as string[]);
+            }}
+          />
+        );
+      };
+
+      const { getByText } = render(<KeysSelect />);
+      fireEvent.click(document.querySelector('input'));
+
+      expect(document.querySelector('.t-select-option.t-is-disabled')).toHaveTextContent('Apple');
+
+      fireEvent.click(getByText('All'));
+      expect(onChange).toHaveBeenLastCalledWith(expect.arrayContaining(['apple', 'banana', 'orange']));
+      expect(onChange.mock.lastCall[0]).toHaveLength(3);
+
+      fireEvent.click(getByText('All'));
+      expect(onChange).toHaveBeenLastCalledWith(['apple']);
+    });
+
     test('OptionGroup selection updates value', async () => {
       const OptionGroupSelect = () => {
         const [value, setValue] = useState('apple');
-        const onChange = (nextValue: any) => {
+        const onChange = (nextValue) => {
           setValue(nextValue);
         };
 
@@ -435,7 +477,7 @@ describe('Select', () => {
     test('OptionGroup with checkAll toggles enabled options', async () => {
       const OptionGroupCheckAllSelect = () => {
         const [value, setValue] = useState(['apple']);
-        const onChange = (nextValue: any) => {
+        const onChange = (nextValue) => {
           setValue(nextValue);
         };
 
@@ -469,7 +511,7 @@ describe('Select', () => {
       const testId = 'test-id';
       const FilterableSelect = () => {
         const [value, setValue] = useState();
-        const onChange = (nextValue: any) => {
+        const onChange = (nextValue) => {
           setValue(nextValue);
         };
 
@@ -517,7 +559,7 @@ describe('Select', () => {
 
       const FilterableSelect = () => {
         const [value, setValue] = useState();
-        const onChange = (nextValue: any) => {
+        const onChange = (nextValue) => {
           onSelectedChange(nextValue);
           setValue(nextValue);
         };
@@ -629,7 +671,7 @@ describe('Select', () => {
       const minCollapsedNum = 1;
       const MultipleSelect = () => {
         const [value, setValue] = useState([]);
-        const onChange = (nextValue: any) => {
+        const onChange = (nextValue) => {
           setValue(nextValue);
         };
         return (

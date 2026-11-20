@@ -197,7 +197,7 @@ const PopupContent = React.forwardRef<HTMLDivElement, SelectPopupProps>((props, 
 
             const optionElement = (
               <Option
-                key={optionValue ?? `${index}`}
+                key={index}
                 max={max}
                 label={label}
                 value={optionValue}
