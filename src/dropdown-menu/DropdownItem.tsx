@@ -170,6 +170,12 @@ const DropdownItem: React.FC<DropdownItemProps> = (props) => {
     }
   }, [isActived, innerValue]);
 
+  useEffect(() => {
+    if (disabled && isActived) {
+      onChangeActivedId('');
+    }
+  }, [disabled, isActived, onChangeActivedId]);
+
   const attach = useCallback(() => itemRef.current || document.body, []);
 
   const renderIcon = () => {
@@ -261,6 +267,7 @@ const DropdownItem: React.FC<DropdownItemProps> = (props) => {
                       <CheckboxGroup
                         value={modalValue as (string | number)[]}
                         onChange={(value) => {
+                          if (disabled) return;
                           setModalValue(value as (string | number)[]);
                         }}
                         className={`${dropdownItemClass}__checkbox-group`}
@@ -288,6 +295,7 @@ const DropdownItem: React.FC<DropdownItemProps> = (props) => {
                         placement={placement}
                         value={modalValue as string | number}
                         onChange={(value: string | number) => {
+                          if (disabled) return;
                           setModalValue(value);
                           setInnerValue(value);
                           onChangeActivedId('');
@@ -305,6 +313,7 @@ const DropdownItem: React.FC<DropdownItemProps> = (props) => {
                       theme="light"
                       className={`${dropdownItemClass}__footer-btn ${dropdownItemClass}__reset-btn`}
                       onClick={() => {
+                        if (disabled) return;
                         if (typeof onReset === 'function') {
                           onReset(modalValue);
                         } else {
@@ -319,6 +328,7 @@ const DropdownItem: React.FC<DropdownItemProps> = (props) => {
                       theme="primary"
                       className={`${dropdownItemClass}__footer-btn ${dropdownItemClass}__confirm-btn`}
                       onClick={() => {
+                        if (disabled) return;
                         if (typeof onConfirm === 'function') {
                           onConfirm(modalValue);
                         } else {

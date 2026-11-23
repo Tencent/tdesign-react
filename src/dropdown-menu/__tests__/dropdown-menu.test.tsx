@@ -243,6 +243,51 @@ describe('DropdownMenu', () => {
       expect(handleChange).toHaveBeenCalled();
       expect(getByText2('noConfirm')).toBeTruthy();
     });
+
+    it(':collapses and blocks selection when disabled while open', () => {
+      const handleChange = vi.fn();
+      const handleClose = vi.fn();
+
+      const renderMenu = (disabled: boolean) => (
+        <DropdownMenu>
+          <DropdownItem
+            label="动态禁用"
+            options={productOptions}
+            value="all"
+            disabled={disabled}
+            onChange={handleChange}
+            onClose={handleClose}
+          />
+        </DropdownMenu>
+      );
+
+      // 通过 rerender 直接改变 disabled 属性，避免外部点击触发 clickAway 收起
+      const { getByText, rerender } = render(renderMenu(false));
+      const title = getByText('动态禁用');
+      const item = title.parentElement as HTMLElement;
+
+      // 打开菜单
+      fireEvent.click(title);
+      expect(item.classList.contains('t-dropdown-menu__item--active')).toBe(true);
+
+      // 展开状态下动态禁用：菜单应自动收起并触发 close
+      act(() => {
+        rerender(renderMenu(true));
+      });
+      expect(item.classList.contains('t-dropdown-menu__item--active')).toBe(false);
+      expect(handleClose).toHaveBeenCalled();
+
+      // 禁用期间再次点击标题不应打开菜单
+      fireEvent.click(title);
+      expect(item.classList.contains('t-dropdown-menu__item--active')).toBe(false);
+
+      // 解除禁用后仍可再次打开
+      act(() => {
+        rerender(renderMenu(false));
+      });
+      fireEvent.click(title);
+      expect(item.classList.contains('t-dropdown-menu__item--active')).toBe(true);
+    });
   });
 
   describe('slots', () => {
