@@ -1,5 +1,5 @@
 import React from 'react';
-import { describe, it, expect, render, fireEvent, vi } from '@test/utils';
+import { describe, it, expect, render, fireEvent, vi, act } from '@test/utils';
 import Comment from '../Comment';
 import ConfigProvider from '../../config-provider';
 import type { CommentFold } from '../type';
@@ -47,7 +47,7 @@ describe('Comment', () => {
         { key: 'like', placement: 'end' as const, content: '点赞' },
       ];
       const { container } = render(<Comment actions={actions} />);
-      const blocks = container.querySelectorAll(`${name}-block`);
+      const blocks = container.querySelectorAll(`${name}__actions-block`);
       expect(blocks).toHaveLength(2);
       expect(blocks[0].textContent).toBe('回复');
       expect(blocks[1].textContent).toBe('点赞');
@@ -64,9 +64,47 @@ describe('Comment', () => {
       const onActions = vi.fn();
       const action = { key: 'reply', placement: 'start' as const, content: '回复' };
       const { container } = render(<Comment actions={[action]} onActions={onActions} />);
-      const actionItem = container.querySelector(`${name}-block > div`);
+      const actionItem = container.querySelector(`${name}__actions-block > div`);
       fireEvent.click(actionItem);
       expect(onActions).toHaveBeenCalledWith({ action, e: expect.anything() });
+    });
+
+    it(':onLongPress', () => {
+      vi.useFakeTimers();
+      const onLongPress = vi.fn();
+      const { container } = render(<Comment content="内容" onLongPress={onLongPress} />);
+      const inner = container.querySelector(`${name}__inner`);
+
+      // 按下并保持超过长按阈值，触发长按
+      fireEvent.touchStart(inner, { touches: [{ clientX: 0, clientY: 0 }] });
+      act(() => {
+        vi.advanceTimersByTime(400);
+      });
+      expect(onLongPress).toHaveBeenCalledTimes(1);
+      expect(inner).toHaveClass(`${prefix}-comment__inner--long-press`);
+
+      // 抬起后移除长按态
+      fireEvent.touchEnd(inner, { changedTouches: [{ clientX: 0, clientY: 0 }] });
+      expect(inner).not.toHaveClass(`${prefix}-comment__inner--long-press`);
+      vi.useRealTimers();
+    });
+
+    it(':onLongPress not triggered on short press', () => {
+      vi.useFakeTimers();
+      const onLongPress = vi.fn();
+      const { container } = render(<Comment content="内容" onLongPress={onLongPress} />);
+      const inner = container.querySelector(`${name}__inner`);
+
+      fireEvent.touchStart(inner, { touches: [{ clientX: 0, clientY: 0 }] });
+      act(() => {
+        vi.advanceTimersByTime(100);
+      });
+      fireEvent.touchEnd(inner, { changedTouches: [{ clientX: 0, clientY: 0 }] });
+      act(() => {
+        vi.advanceTimersByTime(400);
+      });
+      expect(onLongPress).not.toHaveBeenCalled();
+      vi.useRealTimers();
     });
   });
 

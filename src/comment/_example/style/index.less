@@ -1,16 +1,12 @@
 .tdesign-mobile-demo {
   --bg-color-demo: var(--td-bg-color-container);
-  // 禁用按钮点击态样式
-  --td-button-default-text-active-bg-color: transparent;
-  --td-button-default-active-border-color: transparent;
 }
 
 .mobile-comment {
-  box-sizing: border-box;
-
   &__author {
     display: flex;
     align-items: center;
+    color: var(--td-text-color-placeholder);
     font: var(--td-font-body-small);
 
     &-tag {
@@ -20,34 +16,21 @@
     }
   }
 
-  &__reply {
-    &-button {
-      color: var(--td-text-color-secondary);
-      font: var(--td-font-body-small);
-    }
-
-    &-name {
-      color: var(--td-text-color-secondary);
-      font: var(--td-font-body-medium);
-    }
+  &__reply-button {
+    color: var(--td-text-color-secondary);
+    font: var(--td-font-body-small);
   }
 
-  &__actions {
-    display: flex;
-    align-items: center;
-    gap: var(--td-spacer-2);
-
-    &-button {
-      padding: 2px calc(var(--td-spacer) / 4);
-      color: var(--td-text-color-placeholder);
-      font: var(--td-font-body-small);
-      box-sizing: border-box;
-      height: var(--td-spacer-3);
-    }
+  &__actions-button {
+    padding: calc(var(--td-spacer) / 2);
+    color: var(--td-text-color-placeholder);
+    font: var(--td-font-body-small);
+    box-sizing: border-box;
+    height: var(--td-spacer-3);
   }
 
   &__text {
-    margin-bottom: calc(var(--td-spacer) / 2);
+    margin-bottom: calc(var(--td-spacer) / 4);
   }
 
   &__images {
@@ -56,8 +39,8 @@
 
     &-item {
       position: relative;
-      width: 78px;
-      height: 78px;
+      width: 80px;
+      height: 80px;
       border-radius: 8px;
       overflow: hidden;
       flex-shrink: 0;
@@ -74,30 +57,6 @@
       font: var(--td-font-body-extraSmall);
       border-radius: 12px;
       white-space: nowrap;
-    }
-  }
-
-  &__input {
-    display: flex;
-    padding: 12px;
-    gap: var(--td-spacer);
-    border-radius: 16px;
-    border: 1px solid #DCDCDC;
-    background: #FFFFFF;
-    /* Shadow/Shadow-3 上层投影 */
-    box-shadow: 0 6px 30px 5px rgba(0, 0, 0, 0.05), 0 16px 24px 2px rgba(0, 0, 0, 0.04), 0 8px 10px -5px rgba(0, 0, 0, 0.08);
-    margin-top: 48px;
-
-    &-content {
-      border: none;
-      flex: 1;
-      background: transparent;
-    }
-
-    &-button {
-      --td-button-primary-disabled-bg: #DCDCDC;
-      --td-button-primary-disabled-border-color: transparent;
-      transform: rotate(-90deg);
     }
   }
 }

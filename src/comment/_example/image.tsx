@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Comment, Image, ImageViewer, Tag } from 'tdesign-mobile-react';
-import { ThumbUpIcon, Uncomfortable1Icon } from 'tdesign-icons-react';
+import { HeartIcon, Uncomfortable1Icon } from 'tdesign-icons-react';
 
 const images = ['https://tdesign.gtimg.com/mobile/demos/swiper1.png'];
 
@@ -16,6 +16,30 @@ export default function ImageDemo() {
   const handleClose = () => {
     setVisible(false);
   };
+
+  const actions = [
+    {
+      key: 'reply',
+      placement: 'start' as const,
+      content: <div className="mobile-comment__reply-button">回复</div>,
+    },
+    {
+      key: 'like',
+      placement: 'end' as const,
+      content: (
+        <Button className="mobile-comment__actions-button" icon={<HeartIcon size="16px" />} variant="text">
+          6
+        </Button>
+      ),
+    },
+    {
+      key: 'unlike',
+      placement: 'end' as const,
+      content: (
+        <Button className="mobile-comment__actions-button" icon={<Uncomfortable1Icon size="16px" />} variant="text" />
+      ),
+    },
+  ];
 
   return (
     <div className="mobile-comment">
@@ -33,30 +57,12 @@ export default function ImageDemo() {
           <div className="mobile-comment__images">
             {images.map((src, index) => (
               <div key={index} className="mobile-comment__images-item" onClick={() => handleImageClick(index)}>
-                <Image src={src} fit="cover" shape="round" style={{ width: 78, height: 78 }} />
+                <Image src={src} fit="cover" shape="round" style={{ width: 80, height: 80 }} />
               </div>
             ))}
           </div>
         }
-        actions={[
-          { placement: 'start', content: <div className="mobile-comment__reply-button">回复</div>, key: 'reply' },
-          {
-            placement: 'end',
-            content: (
-              <div className="mobile-comment__actions">
-                <Button className="mobile-comment__actions-button" icon={<ThumbUpIcon size="14px" />} variant="text">
-                  6
-                </Button>
-                <Button
-                  icon={<Uncomfortable1Icon size="14px" />}
-                  className="mobile-comment__actions-button"
-                  variant="text"
-                />
-              </div>
-            ),
-            key: 'actions',
-          },
-        ]}
+        actions={actions}
         datetime="今天16:38·广东"
       />
       <ImageViewer

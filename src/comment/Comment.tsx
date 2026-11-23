@@ -2,8 +2,9 @@ import React, { ReactNode, useEffect, useLayoutEffect, useRef, useState } from '
 import classNames from 'classnames';
 import { isObject } from 'lodash-es';
 import { ChevronDownSIcon, ChevronUpSIcon } from 'tdesign-icons-react';
-import { CommentActionItem, CommentFold, CommentFoldState, TdCommentProps } from './type';
+import { CommentActionItem, CommentFold, CommentFoldState, LongPressEvent, TdCommentProps } from './type';
 import { usePrefixClass } from '../hooks/useClass';
+import { useLongPress } from '../hooks/useLongPress';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import Avatar, { AvatarProps } from '../avatar';
 import parseTNode, { parseContentTNode } from '../_util/parseTNode';
@@ -31,6 +32,7 @@ const Comment: React.FC<CommentProps> = (props) => {
     children,
     onActions,
     onFolds,
+    onLongPress,
   } = props;
   const [innerFoldsState, setInnerFoldsState] = useState<CommentFoldState>(defaultFolds?.state || 'collapsed');
   const foldSteps = useRef(0);
@@ -38,6 +40,12 @@ const Comment: React.FC<CommentProps> = (props) => {
   const replyInnerRef = useRef<HTMLDivElement>(null);
   const rootClassName = usePrefixClass('comment');
   const [locale] = useLocaleReceiver('comment');
+
+  const { isLongPressed, handlers: longPressHandlers } = useLongPress({
+    onLongPress: (e) => {
+      onLongPress?.({ e: e as LongPressEvent });
+    },
+  });
 
   const isControlled = folds !== undefined;
   const commentFolds = folds || defaultFolds || DEFAULT_COMMENT_FOLDS;
@@ -156,8 +164,8 @@ const Comment: React.FC<CommentProps> = (props) => {
           ));
       return (
         <>
-          <div className={`${rootClassName}-block`}>{renderLeftPlacement()}</div>
-          <div className={`${rootClassName}-block`}>{renderRightPlacement()}</div>
+          <div className={`${rootClassName}__actions-block`}>{renderLeftPlacement()}</div>
+          <div className={`${rootClassName}__actions-block`}>{renderRightPlacement()}</div>
         </>
       );
     };
@@ -238,7 +246,12 @@ const Comment: React.FC<CommentProps> = (props) => {
 
   return (
     <div className={classNames(rootClassName, className)} style={style}>
-      <div className={`${rootClassName}__inner`}>
+      <div
+        className={classNames(`${rootClassName}__inner`, {
+          [`${rootClassName}__inner--long-press`]: isLongPressed,
+        })}
+        {...longPressHandlers}
+      >
         {renderAvatar()}
         <div className={`${rootClassName}__detail`}>
           {renderAuthor()}

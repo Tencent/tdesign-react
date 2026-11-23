@@ -18,3 +18,4 @@ folds | Object | - | 折叠/展开配置项。TS 类型：`CommentFold ` `type C
 reply | TNode | - | 回复。TS 类型：`string \| TNode`。[通用类型定义](https://github.com/Tencent/tdesign-mobile-react/blob/develop/src/common.ts) | N
 onActions | Function |  | TS 类型：`(context: { action: CommentActionItem \| TNode; e: Event }) => void`<br/>点击任一操作项（如回复/点赞/不喜欢）时触发并返回当前操作项。[通用类型定义](https://github.com/Tencent/tdesign-mobile-react/blob/develop/src/common.ts) | N
 onFolds | Function |  | TS 类型：`(context: { fold: CommentFold; e: Event }) => void`<br/>用户点击“展开回复/收起”时触发，并返回点击后的 fold 配置 | N
+onLongPress | Function |  | TS 类型：` (context: { e: LongPressEvent }) => void`<br/>`1.0.1`。长按整个评论时触发。[详细类型定义](https://github.com/Tencent/tdesign-mobile-react/tree/develop/src/comment/type.ts)。<br/>`type LongPressEvent = PointerEvent \| TouchEvent;`<br/> | N

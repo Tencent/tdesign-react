@@ -1,6 +1,30 @@
 import React from 'react';
 import { Button, Comment, Tag } from 'tdesign-mobile-react';
-import { ThumbUpIcon, Uncomfortable1Icon } from 'tdesign-icons-react';
+import { HeartIcon, Uncomfortable1Icon } from 'tdesign-icons-react';
+
+const actions = [
+  {
+    key: 'reply',
+    placement: 'start' as const,
+    content: <div className="mobile-comment__reply-button">回复</div>,
+  },
+  {
+    key: 'like',
+    placement: 'end' as const,
+    content: (
+      <Button className="mobile-comment__actions-button" icon={<HeartIcon size="16px" />} variant="text">
+        6
+      </Button>
+    ),
+  },
+  {
+    key: 'unlike',
+    placement: 'end' as const,
+    content: (
+      <Button className="mobile-comment__actions-button" icon={<Uncomfortable1Icon size="16px" />} variant="text" />
+    ),
+  },
+];
 
 export default function () {
   return (
@@ -15,25 +39,7 @@ export default function () {
             </Tag>
           </div>
         }
-        actions={[
-          { placement: 'start', content: <div className="mobile-comment__reply-button">回复</div>, key: 'reply' },
-          {
-            placement: 'end',
-            content: (
-              <div className="mobile-comment__actions">
-                <Button className="mobile-comment__actions-button" icon={<ThumbUpIcon size="14px" />} variant="text">
-                  6
-                </Button>
-                <Button
-                  icon={<Uncomfortable1Icon size="14px" />}
-                  className="mobile-comment__actions-button"
-                  variant="text"
-                />
-              </div>
-            ),
-            key: 'actions',
-          },
-        ]}
+        actions={actions}
         content="这是一段很长很长很长很长很长很长的评论内容。"
         datetime="今天16:38·广东"
       />
