@@ -162,6 +162,7 @@
     "workbox-precaching": "^6.3.0"
   },
   "dependencies": {
+    "@babel/runtime": "^7.29.10",
     "@popperjs/core": "^2.11.8",
     "@types/sortablejs": "^1.15.9",
     "@use-gesture/react": "^10.2.10",
