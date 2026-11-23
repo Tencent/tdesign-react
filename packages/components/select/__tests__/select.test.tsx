@@ -245,6 +245,30 @@ describe('Select', () => {
       );
     });
 
+    test('multiple options render checkbox icons inside the checked box', () => {
+      render(
+        <Select multiple value={['apple', 'orange']}>
+          <Option label="Apple" value="apple" />
+          <Option label="Orange" value="orange" />
+          <Option label="Banana" value="banana" />
+        </Select>,
+      );
+
+      fireEvent.click(document.querySelector('.t-input'));
+
+      const options = Array.from(document.querySelectorAll('.t-select-option'));
+      expect(options.map((option) => option.textContent)).toEqual(['Apple', 'Orange', 'Banana']);
+      options.forEach((option) => {
+        expect(option.querySelector('.t-checkbox__input .t-icon')).not.toBeNull();
+      });
+
+      const checkedLabels = options
+        .filter((option) => option.querySelector('.t-checkbox.t-is-checked'))
+        .map((option) => option.textContent);
+      expect(checkedLabels).toEqual(['Apple', 'Orange']);
+      expect(options[2].querySelector('.t-checkbox.t-is-checked')).toBeNull();
+    });
+
     test('multiple selection keeps popup open', async () => {
       const MultipleSelect = () => {
         const [value, setValue] = useState([{ label: 'Apple', value: 'apple' }]);
