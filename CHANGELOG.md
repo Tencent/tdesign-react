@@ -5,6 +5,36 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.0.1 `2026-11-23`
+
+### 🚀 Features
+
+- `Comment`: 
+  - 支持全局配置 @anlyyao ([#1012](https://github.com/Tencent/tdesign-mobile-react/pull/1012))
+  - 新增 `onLongPress` 属性 @anlyyao ([#1024](https://github.com/Tencent/tdesign-mobile-react/pull/1024))
+- `DropdownItem`: 新增 `keepLabelActive` 属性， 表示标题是否保持高亮（含菜单收起态），仅多选场景生效 @anlyyao ([#1000](https://github.com/Tencent/tdesign-mobile-react/pull/1000))
+- `Form`: `contentAlign` 属性新增 `center` 可选项 @anlyyao ([#1010](https://github.com/Tencent/tdesign-mobile-react/pull/1010))
+- `Table`: 新增 `ellipsis` 和 `ellipsisTitle` 属性 @anlyyao ([#1015](https://github.com/Tencent/tdesign-mobile-react/pull/1015))
+
+### 🐞 Bug Fixes
+
+- `ActionSheet`: 支持列表项超出滚动 @Jesse205 ([common#2742](https://github.com/Tencent/tdesign-common/pull/2742))
+- `Checkbox`: 
+  - 统一圆形图标描边宽度为 2px @anlyyao ([#1016](https://github.com/Tencent/tdesign-mobile-react/pull/1016))
+  - 优化组件内部图标实现路径，修复 `circle` 和 `rectangle` 图标的选中和非选中态直径不一致问题 @anlyyao ([#1016](https://github.com/Tencent/tdesign-mobile-react/pull/1016))
+- `Comment`: 修复评论正文字号、正文与操作项间距等多处样式错误 @anlyyao ([#1024](https://github.com/Tencent/tdesign-mobile-react/pull/1024))
+- `DropdownItem`: 禁用已展开的下拉菜单后，面板直接收起，不再接受选项操作 @anlyyao ([#1026](https://github.com/Tencent/tdesign-mobile-react/pull/1026))
+- `DropdownMenu`: 修复 `label` 字重错误 @anlyyao ([#1018](https://github.com/Tencent/tdesign-mobile-react/pull/1018))
+- `Form`: 
+  - 调整 `FormItem` 结构使 `arrow` 仅与标签和输入框居中对齐 @anlyyao ([#1008](https://github.com/Tencent/tdesign-mobile-react/pull/1008))
+  - 校验值改为读取组件内部 state，修复重置后提交校验失效 @anlyyao ([#1010](https://github.com/Tencent/tdesign-mobile-react/pull/1010))
+  - 按子组件映射受控属性名，修复 Upload/Checkbox 无法受表单控制 @anlyyao ([#1010](https://github.com/Tencent/tdesign-mobile-react/pull/1010))
+- `Radio`: 
+  - 统一圆形图标描边宽度为 2px @anlyyao ([#1016](https://github.com/Tencent/tdesign-mobile-react/pull/1016))
+  - 优化组件内部图标实现路径，修复 `circle` 图标的选中和非选中态直径不一致问题 @anlyyao ([#1016](https://github.com/Tencent/tdesign-mobile-react/pull/1016))
+- `Rate`: 修复评分提示层被相邻 `Slider` 滑块遮挡的问题 @dvd233 ([common#2737](https://github.com/Tencent/tdesign-common/pull/2737))
+- `Slider`: 修复 `<Slider range />` 场景挂载即崩溃 @anlyyao ([#1022](https://github.com/Tencent/tdesign-mobile-react/pull/1022))
+
 ## 🌈 1.0.0 `2026-10-15`
 
 ### 🚨 Breaking Changes
