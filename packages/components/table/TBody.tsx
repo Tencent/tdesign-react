@@ -84,8 +84,15 @@ export default function TBody(props: TableBodyProps) {
 
   const [global, t] = useLocaleReceiver('table');
 
-  const { skipSpansMap, spansReady } = useRowspanAndColspan(renderData, columns, rowKey, props.rowspanAndColspan);
-  const isSkipSnapsMapNotFinish = Boolean(props.rowspanAndColspan && !spansReady);
+  const hasVirtualFullRow = Boolean(isVirtualScroll && (firstFullRow || lastFullRow));
+  const { skipSpansMap, spansResolved } = useRowspanAndColspan(
+    renderData,
+    columns,
+    rowKey,
+    props.rowspanAndColspan,
+    hasVirtualFullRow,
+  );
+  const isSkipSnapsMapNotFinish = Boolean(props.rowspanAndColspan && !spansResolved);
 
   const { tableFullRowClasses, tableBaseClass } = useClassName();
   const tbodyClasses = useMemo(() => [tableBaseClass.body], [tableBaseClass.body]);

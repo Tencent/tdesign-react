@@ -26,10 +26,11 @@ export default function useRowspanAndColspan(
   columns: BaseTableCol<TableRowData>[],
   rowKey: string,
   rowspanAndColspan: TableRowspanAndColspanFunc<TableRowData>,
+  allowEmptySpansMap = false,
 ) {
-  const [{ skipSpansMap, spansReady }, setSpans] = useState(() => ({
+  const [{ skipSpansMap, spansResolved }, setSpans] = useState(() => ({
     skipSpansMap: new Map<string, SkipSpansValue>(),
-    spansReady: false,
+    spansResolved: false,
   }));
 
   // 计算单元格是否跳过渲染
@@ -93,13 +94,13 @@ export default function useRowspanAndColspan(
     if (!rowspanAndColspan) return;
     skipSpansMap.clear();
     const result = getSkipSpansMap(data, columns, rowspanAndColspan);
-    // A full-row placeholder may have been the only row matching the span rule.
+    // A configured virtual full row may be outside the current window, so its empty map remains a valid result.
     setSpans({
       skipSpansMap: result,
-      spansReady: Boolean(result?.size || data?.some((row) => row?.__VIRTUAL_FAKE_DATA)),
+      spansResolved: Boolean(result?.size || allowEmptySpansMap),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, columns, rowspanAndColspan]);
+  }, [data, columns, rowspanAndColspan, allowEmptySpansMap]);
 
-  return { skipSpansMap, getSkipSpansMap, spansReady };
+  return { skipSpansMap, getSkipSpansMap, spansResolved };
 }
