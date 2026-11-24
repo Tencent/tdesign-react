@@ -281,7 +281,7 @@ export default function AguiInterruptExample() {
   };
 
   return (
-    <div style={{ height: '600px', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ height: '700px', display: 'flex', flexDirection: 'column' }}>
       {/* 操作栏 */}
       <div
         style={{
