@@ -1,0 +1,16 @@
+node_modules
+.DS_Store
+coverage
+.idea
+es
+lib
+dist
+esm
+cjs
+_site/
+temp*
+.gitlogmap
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
+robotMsg.json

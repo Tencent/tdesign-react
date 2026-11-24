@@ -1,0 +1,47 @@
+{
+  "component-entry": {
+    "prefix": "cpen",
+    "body": [
+      "import ${2:${TM_DIRECTORY/.*[\\\\|\\/]+(.*)/_${1:/pascalcase}/}} from './${1:${TM_DIRECTORY/.*[\\\\|\\/]+(.*)/${1:/pascalcase}/}}';",
+      "",
+      "import './style/index.js';",
+      "",
+      "export type { ${TM_DIRECTORY/.*[\\\\|\\/]+(.*)/${1:/pascalcase}/}Props } from './${TM_DIRECTORY/.*[\\\\|\\/]+(.*)/${1:/pascalcase}/}';",
+      "",
+      "export * from './type';",
+      "",
+      "export const ${3:${TM_DIRECTORY/.*[\\\\|\\/]+(.*)/${1:/pascalcase}/}} = ${2:${TM_DIRECTORY/.*[\\\\|\\/]+(.*)/_${1:/pascalcase}/}};",
+      "",
+      "export default ${3:${TM_DIRECTORY/.*[\\\\|\\/]+(.*)/${1:/pascalcase}/}};",
+      ""
+    ],
+    "scope": "javascript,typescript,typescriptreact,javascriptreact",
+    "description": "组件的导入入口快捷设置"
+  },
+  "component-base": {
+    "prefix": "cbase",
+    "body": [
+      "import React, { forwardRef, useContext, useMemo } from 'react';",
+      "import { ConfigContext } from '../config-provider';",
+      "import type { StyledProps } from '../common';",
+      "import type { Td${TM_FILENAME_BASE}Props } from './type';",
+      "",
+      "export interface ${TM_FILENAME_BASE}Props extends Td${TM_FILENAME_BASE}Props, StyledProps {}",
+      "",
+      "const ${TM_FILENAME_BASE} = forwardRef<React.LegacyRef<${1:any}>, ${TM_FILENAME_BASE}Props>((props, ref) => {",
+      "  const { ${2} } = props;",
+      "  const { classPrefix } = useContext(ConfigContext);",
+      "  const name = useMemo(() => `\\${classPrefix}-${TM_DIRECTORY/.*[\\\\|\\/]+(.*)/$1/}`, [classPrefix]);",
+      "",
+      "  return ${3:null};",
+      "});",
+      "",
+      "${TM_FILENAME_BASE}.displayName = '${TM_FILENAME_BASE}';",
+      "",
+      "export default ${TM_FILENAME_BASE};",
+      ""
+    ],
+    "scope": "javascript,typescript,typescriptreact,javascriptreact",
+    "description": "提供组件内容的基本形状"
+  }
+}

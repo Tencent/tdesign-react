@@ -1,0 +1,39 @@
+.rate-demo-cell {
+  background-color: var(--bg-color-demo, #fff);
+  padding: 12px 16px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__label {
+    font-size: 16px;
+    margin-right: 16px;
+    min-width: 80px;
+    color: var(--td-text-color-primary, rgba(0, 0, 0, .9));
+  }
+
+  &--space {
+    margin-bottom: 16px;
+  }
+}
+
+.upload-demo {
+  background: var(--bg-color-demo, #fff);
+
+  & + & {
+    margin-top: 16px;
+  }
+
+  &__title {
+    font-size: 14px;
+    margin: 24px 16px 16px;
+    color: var(--td-text-color-secondary, rgba(0, 0, 0, .6));
+  }
+}
+
+.comment-demo {
+  margin-top: 16px;
+  padding: 12px 0;
+  background-color: var(--td-bg-color-container);
+}

@@ -1,0 +1,37 @@
+@import '../vars.less';
+@import './demo.less';
+
+:root,
+:root[theme-mode='light'] {
+  --bg-color-demo: #f6f6f6;
+  --text-primary: var(--td-text-color-primary);
+  --text-secondary: var(--td-text-color-secondary);
+}
+
+:root[theme-mode='dark'] {
+  --bg-color-demo: #181818;
+
+}
+
+.tdesign-demo-topnav {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  background-color: var(--bg-color-demo);
+  color: var(--text-primary);
+
+  &-title {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 500;
+  }
+
+  &__back {
+    position: absolute;
+    left: 16px;
+    font-size: 24px;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,36 @@
+name: auto-release
+
+on:
+  pull_request:
+    types: [closed]
+    paths: 'package.json'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    if: github.event.pull_request.merged && startsWith(github.head_ref, 'release/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+
+      - run: npm install
+
+      - run: npm run build
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - uses: TDesignOteam/tdesign-changelog-action@next
+        with:
+          token: ${{ secrets.TDESIGN_BOT_TOKEN }}
+          mode: single

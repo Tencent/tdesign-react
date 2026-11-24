@@ -1,0 +1,98 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Divider > props > :content 1`] = `
+<div>
+  <div
+    class="t-divider t-divider--horizontal t-divider--center"
+    role="separator"
+  >
+    <div
+      class="t-divider__content"
+    >
+      <span
+        class="custom-node"
+      >
+        TNode
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Divider > props > :content 2`] = `
+<div>
+  <div
+    class="t-divider t-divider--horizontal t-divider--center"
+    role="separator"
+  >
+    <div
+      class="t-divider__content"
+    >
+      TDesign
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Divider > slot > :content 1`] = `
+<div>
+  <div
+    class="t-divider t-divider--horizontal t-divider--center"
+    role="separator"
+  >
+    <div
+      class="t-divider__content"
+    >
+      <span
+        class="custom-node"
+        data-testid="divider-content-test-slot-id"
+      >
+        TNode
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Divider > slot > :default 1`] = `
+<div>
+  <div
+    class="t-divider t-divider--horizontal t-divider--center"
+    role="separator"
+  >
+    <div
+      class="t-divider__content"
+    >
+      TDesign
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Divider > vertical divider > applies align class on vertical divider 1`] = `
+<div>
+  <div
+    class="t-divider t-divider--vertical t-divider--left"
+    role="separator"
+  >
+    <div
+      class="t-divider__content"
+    >
+      text
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Divider > vertical divider > applies dashed class on vertical divider 1`] = `
+<div>
+  <div
+    class="t-divider t-divider--vertical t-divider--center t-divider--dashed"
+    role="separator"
+  >
+    <div
+      class="t-divider__content"
+    />
+  </div>
+</div>
+`;

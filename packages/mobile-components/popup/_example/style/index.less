@@ -1,0 +1,70 @@
+.tdesign-demo-topnav,
+.tdesign-mobile-demo {
+  --bg-color-demo: var(--td-bg-color-container);
+}
+
+.tdesign-mobile-popup-demo {
+  flex: 1;
+  padding-bottom: 16px;
+
+  button + button {
+    margin-top: 16px;
+  }
+}
+
+.tdesign-mobile-popup-demo__with-title.header {
+  display: flex;
+  align-items: center;
+  .btn {
+    font-size: 16px;
+    padding: 16px;
+    &--cancel {
+      color: var(--td-text-color-secondary, rgba(0, 0, 0, .6));
+    }
+    &--confirm {
+      color: #0052d9;
+    }
+  }
+  .title {
+    flex: 1;
+    text-align: center;
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--td-text-color-primary, rgba(0, 0, 0, .9));
+  }
+}
+
+.design-mobile-popup-demo__custom-close.close-btn {
+  position: absolute;
+  left: 50%;
+  margin-left: -16px;
+  bottom: -56px;
+}
+
+// nested popup
+.popup-nested-demo {
+  padding: 0 16px;
+}
+
+.parent-popup-content {
+  position: relative;
+  padding: 24px 16px;
+  min-height: 300px;
+}
+
+.child-popup-content {
+  padding: 24px 16px;
+}
+
+.popup-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+.popup-desc {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 24px;
+  line-height: 1.6;
+}

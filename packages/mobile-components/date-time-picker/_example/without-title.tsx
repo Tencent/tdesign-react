@@ -1,0 +1,47 @@
+import React, { useState } from 'react';
+import { DateTimePicker, Cell, Popup } from 'tdesign-mobile-react';
+
+export default function WithoutTitleDemo() {
+  const [visible, setVisible] = useState(false);
+  const [pickerValue, setPickerValue] = useState('2025-07-10');
+
+  const onPick = (value: string) => {
+    console.log('[onPick]', value);
+  };
+  const onChange = (value) => {
+    console.log('[onChange]', value);
+  };
+
+  const onCancel = () => {
+    console.log('[onCancel]');
+    setVisible(false);
+  };
+
+  const onConfirm = (value: string) => {
+    setVisible(false);
+    setPickerValue(value);
+  };
+
+  const onShow = () => {
+    setVisible(true);
+  };
+
+  return (
+    <div className="without-title-demo">
+      <Cell title="无标题时间选择器" note={pickerValue} onClick={onShow} />
+      <Popup visible={visible} placement="bottom">
+        <DateTimePicker
+          value={pickerValue}
+          mode="date"
+          title=""
+          start="2022-12-12"
+          format="YYYY-MM-DD"
+          onPick={onPick}
+          onChange={onChange}
+          onCancel={onCancel}
+          onConfirm={onConfirm}
+        />
+      </Popup>
+    </div>
+  );
+}

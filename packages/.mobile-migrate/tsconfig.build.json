@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig",
+  "include": ["./src"],
+  "exclude": [
+    "**/**/__tests__/*",
+    "**/**/_example/*",
+    "node_modules",
+    "src/_common",
+    "dist",
+    "lib",
+    "cjs",
+    "esm",
+    "es",
+    "site"
+  ]
+}

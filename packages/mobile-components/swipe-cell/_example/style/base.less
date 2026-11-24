@@ -1,0 +1,52 @@
+.swipe-cell-demo {
+  margin-bottom: 30px;
+}
+
+.btn-wrapper {
+  height: 100%;
+}
+
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0 16px;
+  color: white;
+  font-size: 14px;
+
+  &.vertical {
+    flex-direction: column;
+    .t-swipe-cell {
+      &__text:not(:empty) {
+        margin-top: 4px;
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.delete-btn {
+  background-color: #e34d59;
+}
+
+.edit-btn {
+  background-color: #ed7b2f;
+}
+
+.favor-btn {
+  background-color: #0052d9;
+}
+
+.sure-delete {
+  width: 100%;
+  height: 100%;
+  background-color: #e34d59;
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+  font-family: 'PingFang SC';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

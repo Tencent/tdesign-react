@@ -1,0 +1,20 @@
+# 文件名建议统一为 tag-push.yml
+# 应用 publish.yml 的 demo
+
+name: TAG_PUSH
+
+on: create
+
+jobs:
+  call-publish:
+    if: github.event.ref_type == 'tag'
+    uses: TDesignOteam/workflows/.github/workflows/reusable-publish-npm.yml@main
+    secrets:
+      TDESIGN_SURGE_TOKEN: ${{ secrets.TDESIGN_SURGE_TOKEN }}
+      TDESIGN_BOT_TOKEN: ${{ secrets.TDESIGN_BOT_TOKEN }}
+    with:
+      node-version-file: .node-version
+      skip-publish-npm: true
+    permissions:
+      contents: read
+      id-token: write

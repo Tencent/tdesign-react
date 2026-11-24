@@ -1,0 +1,44 @@
+.upload-demo {
+  background-color: var(--td-bg-color-container);
+
+  &__title {
+    font-size: 14px;
+    margin: 24px 16px 16px;
+    color: var(--td-text-color-secondary);
+  }
+
+  .upload-title {
+    font-size: 16px;
+    color: var(--td-text-color-primary);
+    padding: 12px 16px 0;
+  }
+
+  .upload-content {
+    --td-upload-width: 343px;
+    --td-upload-height: 200px;
+    --td-upload-grid-columns: 1;
+  }
+
+  .front {
+    --td-upload-background: center / 100% 100% no-repeat url('https://tdesign.gtimg.com/mobile/demos/upload1.png');
+  }
+
+  .reverse {
+    --td-upload-background: center / 100% 100% no-repeat url('https://tdesign.gtimg.com/mobile/demos/upload2.png');
+  }
+
+  .add-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 72px;
+    height: 72px;
+    background: #d9e1ff;
+    border-radius: 50%;
+
+    .content-img {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}

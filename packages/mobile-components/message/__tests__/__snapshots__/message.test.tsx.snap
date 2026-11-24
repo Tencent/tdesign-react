@@ -1,0 +1,54 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Message > props > marquee 1`] = `
+<div
+  class="t-message__text"
+>
+  hello marquee
+</div>
+`;
+
+exports[`Message > props > marquee 2`] = `
+<div
+  class="t-message__text"
+  style="transform: translateX(500px); transition-duration: 0s;"
+>
+  hello marquee
+</div>
+`;
+
+exports[`Message > props > marquee 3`] = `
+<div
+  class="t-message__text"
+  style="transform: translateX(500px); transition-duration: 0s;"
+>
+  hello marquee
+</div>
+`;
+
+exports[`Message > props > marquee 4`] = `
+<div
+  class="t-message__text"
+  style="transform: translateX(-300px); transition-duration: 3s; transition-timing-function: linear;"
+>
+  hello marquee
+</div>
+`;
+
+exports[`Message > props > marquee 5`] = `
+<div
+  class="t-message__text"
+  style="transform: translateX(500px); transition-duration: 0s; transition-timing-function: linear;"
+>
+  hello marquee
+</div>
+`;
+
+exports[`Message > props > marquee 6`] = `
+<div
+  class="t-message__text"
+  style="transform: translateX(500px); transition-duration: 0s; transition-timing-function: linear;"
+>
+  hello marquee
+</div>
+`;

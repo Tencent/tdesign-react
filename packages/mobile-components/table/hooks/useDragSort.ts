@@ -1,0 +1,437 @@
+/**
+ * 基于 sortablejs 实现表格的行与列的拖拽功能
+ * @docs https://github.com/SortableJS/Sortable
+ *
+ * (1) toArray() 会返回所有当前容器内的所有 tr 节点的 dataIdAttr 列表
+ * - 与是否手动标记过 `data-id` 无关，firstFullRow、lastFullRow、expandedRow 等都会被包含在内
+ * - 如果节点没有 `data-id`，该库会分配一个随机值存在内部
+ *
+ * (2) sort([id1, id2]) 会根据传入的数组，自动重新排序 DOM 节点
+ * - 用于处理受控，恢复拖拽前的顺序，避免 onEnd 后直接更新，而是等外部数据更新，再进行重绘
+ */
+
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { get } from 'lodash-es';
+import type { MoveEvent, Options, SortableEvent } from 'sortablejs';
+import Sortable from 'sortablejs';
+import log from '../../_common/js/log/index';
+import { getColumnDataByKey, getColumnIndexByKey } from '../../_common/js/table/utils';
+import swapDragArrayElement from '../../_common/js/utils/swapDragArrayElement';
+import { hasClass } from '../../guide/utils/shared';
+import useLatest from '../../hooks/useLatest';
+import useClassName from './useClassName';
+import type { BaseTableColumns, PrimaryTableRef } from '../interface';
+import type { DragSortContext, PaginationProps, TableRowData, TdPrimaryTableProps } from '../type';
+
+interface DragSortOptions {
+  primaryTableRef: React.MutableRefObject<PrimaryTableRef>;
+  innerPagination: React.MutableRefObject<PaginationProps>;
+}
+
+export const EXPANDED_SUFFIX = '__expanded';
+export const DATA_ID_ATTR = 'data-id';
+export const DATA_PARENT_ID_ATTR = 'data-parent-id';
+
+function useDragSort(props: TdPrimaryTableProps, options: DragSortOptions) {
+  const { dragSort, data, onDragSort } = props;
+  const { primaryTableRef, innerPagination } = options;
+
+  const { tableDraggableClasses, tableExpandClasses, tableBaseClass, tableFullRowClasses } = useClassName();
+
+  const [columns, setDragSortColumns] = useState<BaseTableColumns>(props.columns || []);
+  // 判断是否有拖拽列。此处重点测试树形结构的拖拽排序
+  const dragCol = useMemo(() => columns.find((item) => item.colKey === 'drag'), [columns]);
+  // 行拖拽判断条件
+  const isRowDraggable = useMemo(() => dragSort === 'row', [dragSort]);
+  // 行拖拽判断条件-手柄列
+  const isRowHandlerDraggable = useMemo(
+    () => ['row-handler', 'row-handler-col'].includes(dragSort) && !!dragCol,
+    [dragSort, dragCol],
+  );
+  // 列拖拽判断条件
+  const isColDraggable = useMemo(() => ['col', 'row-handler-col'].includes(dragSort), [dragSort]);
+
+  const tData = useRef<TableRowData[]>(null);
+
+  const dragRowInstance = useRef<Sortable>(null);
+  const dragColInstance = useRef<Sortable>(null);
+
+  // 存储拖拽前的数据
+  const trIdList = useRef<string[]>([]);
+  const lastColIdList = useRef<string[]>([]);
+  const dragColumns = useRef<BaseTableColumns>([]);
+  const originalColumns = useRef<BaseTableColumns>([]);
+  const scrollRef = useRef<{ el: HTMLElement; prevOverflowY: string } | null>(null);
+
+  // fix: https://github.com/Tencent/tdesign/issues/294 修正 onDragSort 会使用旧的变量问题
+  const onDragSortRef = useLatest(onDragSort);
+
+  const updateLastRowList = () => {
+    // 同步表格的 tr 结构变化
+    trIdList.current = dragRowInstance.current?.toArray() || [];
+  };
+
+  const lockScrollContainer = () => {
+    // 虚拟滚动场景下锁定容器滚动，避免 DOM 索引计算异常
+    // eslint-disable-next-line no-underscore-dangle
+    const isVirtual = tData.current?.some((d) => d.__VIRTUAL_SCROLL_INDEX !== undefined);
+    if (!isVirtual) return;
+    const el = primaryTableRef.current?.tableContentElement as HTMLElement | undefined;
+    if (!el || scrollRef.current) return;
+    scrollRef.current = { el, prevOverflowY: el.style.overflowY };
+    el.style.overflowY = 'hidden';
+  };
+
+  const unlockScrollContainer = () => {
+    // 拖拽结束时解锁，恢复原先的 overflow-y 值
+    if (!scrollRef.current) return;
+    const { el, prevOverflowY } = scrollRef.current;
+    el.style.overflowY = prevOverflowY;
+    scrollRef.current = null;
+  };
+
+  const getDataPageIndex = (index: number, pagination: PaginationProps) => {
+    // 本地分页的表格，index 不同，需加上分页计数
+    const current = pagination.current ?? pagination.defaultCurrent;
+    const pageSize = pagination.pageSize ?? pagination.defaultPageSize;
+    if (pagination && data.length > pageSize) {
+      return pageSize * (current - 1) + index;
+    }
+    return index;
+  };
+
+  const cloneNodeWithStyles = (sourceEl: HTMLElement) => {
+    // 克隆节点，并复制样式
+    const clone = sourceEl.cloneNode(true) as HTMLElement;
+    const sourceEls = sourceEl.querySelectorAll('*');
+    const cloneEls = clone.querySelectorAll('*');
+
+    const cloneStyles = (src: HTMLElement, dest: HTMLElement) => {
+      if (!window) return dest;
+      const computed = window.getComputedStyle(src);
+      const cssText = Array.from(computed)
+        .map((name) => `${name}:${computed.getPropertyValue(name)};`)
+        .join('');
+      // eslint-disable-next-line no-param-reassign
+      dest.style.cssText = cssText;
+    };
+
+    cloneStyles(sourceEl, clone);
+    sourceEls.forEach((src, i) => cloneStyles(src as HTMLElement, cloneEls[i] as HTMLElement));
+    return clone;
+  };
+
+  const getDescendantRows = (parentId: string) => {
+    const container = primaryTableRef.current?.tableContentElement;
+    const children = Array.from(
+      container.querySelectorAll(`tr[${DATA_PARENT_ID_ATTR}="${parentId}"]`) || [],
+    ) as HTMLElement[];
+    let allDescendants = [...children];
+    children.forEach((child) => {
+      const childId = child.getAttribute(DATA_ID_ATTR);
+      if (childId) {
+        allDescendants = allDescendants.concat(getDescendantRows(childId));
+      }
+    });
+
+    return allDescendants;
+  };
+
+  /**
+   * 在 sort() 还原 DOM 之前，读取被拖元素的相邻节点作为锚点
+   * - 若存在有效 previousSibling（非 full-row / 非展开行），目标位置在该行之后
+   * - 否则使用 nextSibling，目标位置在该行之前
+   */
+  const getValidSiblingId = (el: Element | null, dir: 'prev' | 'next'): string | null => {
+    let node = el;
+    while (node) {
+      if (node.nodeType !== 1) {
+        node = dir === 'prev' ? node.previousElementSibling : node.nextElementSibling;
+        continue;
+      }
+      const id = node.getAttribute(DATA_ID_ATTR);
+      const isFullRow = hasClass(node as HTMLElement, tableFullRowClasses.base);
+      const isExpandedRow = id && id.endsWith(EXPANDED_SUFFIX);
+      if (id && !isFullRow && !isExpandedRow) return id;
+      node = dir === 'prev' ? node.previousElementSibling : node.nextElementSibling;
+    }
+    return null;
+  };
+
+  const registerRowDragEvent = (element: HTMLElement) => {
+    /**
+     * 若table内容未渲染（即element子元素为空）或者 表格无拖动配置，拖拽事件不注册
+     */
+    if (element?.children?.length === 0 || (!isRowHandlerDraggable && !isRowDraggable)) return;
+
+    const dragContainer = element?.querySelector('tbody');
+    if (!dragContainer) return null;
+
+    const baseOptions: Options = {
+      animation: 150,
+      dataIdAttr: DATA_ID_ATTR,
+      ghostClass: tableDraggableClasses.ghost,
+      chosenClass: tableDraggableClasses.chosen,
+      dragClass: tableDraggableClasses.dragging,
+      filter: `.${tableFullRowClasses.base}`,
+      setData: (dataTransfer, dragEl) => {
+        const dragRowId = dragEl.getAttribute(DATA_ID_ATTR);
+        const childRows = getDescendantRows(dragRowId);
+
+        if (!childRows || childRows.length === 0) return;
+
+        // 拖拽时跟随在鼠标附近的元素剪影
+        const ghostNode = cloneNodeWithStyles(dragEl);
+        const table = document.createElement('table');
+        table.style.borderCollapse = 'collapse';
+        table.style.borderSpacing = '0';
+        const tbody = document.createElement('tbody');
+        tbody.appendChild(ghostNode);
+
+        childRows.forEach((row) => {
+          tbody.appendChild(cloneNodeWithStyles(row as HTMLElement));
+        });
+        table.appendChild(tbody);
+
+        // 必须先有实际节点
+        document.body.appendChild(table);
+        dataTransfer.setDragImage(table, 10, 10);
+        requestAnimationFrame(() => {
+          if (document.body.contains(table)) {
+            // 开启移动后即可移除
+            document.body.removeChild(table);
+          }
+        });
+      },
+      onStart: (evt: SortableEvent) => {
+        lockScrollContainer();
+        updateLastRowList();
+
+        const dragRowId = evt.item.getAttribute(DATA_ID_ATTR);
+        // eslint-disable-next-line no-param-reassign
+        evt.to.style.overflow = 'hidden';
+        const childRows = getDescendantRows(dragRowId);
+        childRows.forEach((row) => {
+          // eslint-disable-next-line no-param-reassign
+          row.style.display = 'none';
+        });
+      },
+      onMove: (evt: MoveEvent) => {
+        // 阻止拖拽到固定行
+        const isFullRow = hasClass(evt.related, tableFullRowClasses.base);
+        if (isFullRow) return false;
+
+        const { related, willInsertAfter } = evt;
+
+        const isTargetExpandedParent = hasClass(related, tableExpandClasses.expanded);
+        const isTargetExpandedChild = hasClass(related, tableExpandClasses.row);
+        // 禁止插在展开父行及其子行之间
+        if (isTargetExpandedParent && willInsertAfter) {
+          return false;
+        }
+        return !(isTargetExpandedChild && !willInsertAfter);
+      },
+      onEnd: (evt: SortableEvent) => {
+        try {
+          const dragId = evt.item.getAttribute(DATA_ID_ATTR);
+
+          const prevId = getValidSiblingId(evt.item.previousElementSibling, 'prev');
+          const nextId = getValidSiblingId(evt.item.nextElementSibling, 'next');
+
+          // 恢复隐藏的展开行
+          const childRows = getDescendantRows(dragId);
+          childRows.forEach((row) => {
+            // eslint-disable-next-line no-param-reassign
+            row.style.display = '';
+          });
+
+          const dataIdList = tData.current.map((item) => String(get(item, props.rowKey)));
+          const currentIndex = dataIdList.indexOf(dragId);
+          if (currentIndex === -1) return;
+
+          // 根据锚点邻居定位目标下标（即被拖元素在 newData 中的最终索引）
+          let targetIndex = -1;
+          if (prevId) {
+            const anchor = dataIdList.indexOf(prevId);
+            if (anchor === -1) return;
+            // 目标位置在 anchor 之后
+            targetIndex = anchor < currentIndex ? anchor + 1 : anchor;
+          } else if (nextId) {
+            const anchor = dataIdList.indexOf(nextId);
+            if (anchor === -1) return;
+            // 目标位置在 anchor 之前
+            targetIndex = anchor > currentIndex ? anchor - 1 : anchor;
+          } else {
+            // 前后都没有有效邻居
+            return;
+          }
+
+          if (targetIndex === currentIndex) return;
+
+          let swapCurrent = currentIndex;
+          let swapTarget = targetIndex;
+
+          if (innerPagination.current) {
+            swapCurrent = getDataPageIndex(swapCurrent, innerPagination.current);
+            swapTarget = getDataPageIndex(swapTarget, innerPagination.current);
+          }
+
+          const newData = swapDragArrayElement([...tData.current], swapCurrent, swapTarget);
+          const params: DragSortContext<TableRowData> = {
+            currentIndex: swapCurrent,
+            current: tData.current[swapCurrent],
+            targetIndex: swapTarget,
+            target: tData.current[swapTarget],
+            data: tData.current,
+            newData,
+            e: evt,
+            sort: 'row',
+          };
+          // currentData is going to be deprecated
+          params.currentData = params.newData;
+
+          if (onDragSortRef.current) {
+            // 受控模式：还原 DOM 到拖拽前的顺序，再触发回调
+            // 外部 setData 更新数据后 React 重绘会正确对齐 DOM
+            dragRowInstance.current?.sort(trIdList.current);
+            onDragSortRef.current(params);
+          } else {
+            // 非受控模式：不还原 DOM，直接让 SortableJS 的 DOM 变更生效
+            // 同步更新内部数据引用和 trIdList，保持后续拖拽正确
+            tData.current = newData;
+            updateLastRowList();
+          }
+        } finally {
+          unlockScrollContainer();
+        }
+      },
+      ...props.dragSortOptions,
+    };
+
+    try {
+      if (isRowDraggable) {
+        dragRowInstance.current = new Sortable(dragContainer, { ...baseOptions });
+      } else if (isRowHandlerDraggable) {
+        dragRowInstance.current = new Sortable(dragContainer, {
+          ...baseOptions,
+          handle: `.${tableDraggableClasses.handle}`,
+        });
+      }
+    } catch (error) {
+      log.error('Table', error);
+    }
+    updateLastRowList();
+  };
+
+  const registerOneLevelColDragEvent = (container: HTMLElement, recover: boolean) => {
+    const options: Options = {
+      animation: 150,
+      dataIdAttr: 'data-colkey',
+      direction: 'vertical',
+      ghostClass: tableDraggableClasses.ghost,
+      chosenClass: tableDraggableClasses.chosen,
+      dragClass: tableDraggableClasses.dragging,
+      handle: `.${tableBaseClass.thCellInner}`,
+      // 存在类名：t-table__th--drag-sort 的列才允许拖拽调整顺序（注意：添加 draggable 之后，固定列的表头 和 吸顶表头 位置顺序会错位，暂时注释）
+      // draggable: `th.${tableDraggableClasses.dragSortTh}`,
+      onEnd: (evt: SortableEvent) => {
+        if (evt.newIndex === evt.oldIndex) return;
+        if (recover) {
+          dragColInstance.current?.sort([...lastColIdList.current]);
+        }
+        const { oldIndex, newIndex, target: targetElement } = evt;
+        let currentIndex = recover ? oldIndex : newIndex;
+        let targetIndex = recover ? newIndex : oldIndex;
+        const oldElement = targetElement.children[currentIndex] as HTMLElement;
+        const newElement = targetElement.children[targetIndex] as HTMLElement;
+        const current = getColumnDataByKey(originalColumns.current, oldElement.dataset.colkey);
+        const target = getColumnDataByKey(originalColumns.current, newElement.dataset.colkey);
+        if (!current || !current.colKey) {
+          log.error('Table', `colKey is missing in ${JSON.stringify(current)}`);
+        }
+        if (!target || !target.colKey) {
+          log.error('Table', `colKey is missing in ${JSON.stringify(target)}`);
+        }
+        // 寻找外部数据 props.columns 中的真正下标
+        currentIndex = getColumnIndexByKey(originalColumns.current, current.colKey);
+        targetIndex = getColumnIndexByKey(originalColumns.current, target.colKey);
+        const params: DragSortContext<TableRowData> = {
+          data: dragColumns.current,
+          currentIndex,
+          current,
+          targetIndex,
+          target,
+          newData: swapDragArrayElement([...originalColumns.current], currentIndex, targetIndex),
+          e: evt,
+          sort: 'col',
+        };
+        // currentData is going to be deprecated
+        params.currentData = params.newData;
+        onDragSortRef.current?.(params);
+      },
+      ...props.dragSortOptions,
+    };
+    if (!container) return;
+
+    dragColInstance.current = new Sortable(container, options);
+    return dragColInstance.current;
+  };
+
+  const registerColDragEvent = (tableElement: HTMLElement) => {
+    if (!isColDraggable || !tableElement) return;
+
+    const trList = tableElement.querySelectorAll('thead > tr');
+    if (trList.length <= 1) {
+      const container = trList[0];
+      const dragInstanceTmp = registerOneLevelColDragEvent(container as HTMLElement, true);
+      lastColIdList.current = dragInstanceTmp?.toArray();
+    } else {
+      // 多级表头只抛出事件，不处理其他未知逻辑（如多层表头之间具体如何交换）
+      trList?.forEach((container) => {
+        registerOneLevelColDragEvent(container as HTMLElement, false);
+      });
+    }
+  };
+
+  // 销毁旧实例，避免重复绑定导致冲突
+  const cleanupSortableInstances = () => {
+    dragRowInstance.current?.destroy();
+    dragRowInstance.current = null;
+    dragColInstance.current?.destroy();
+    dragColInstance.current = null;
+  };
+
+  useEffect(() => {
+    tData.current = data;
+    updateLastRowList();
+  }, [data]);
+
+  useEffect(() => {
+    lastColIdList.current = props.columns.map((t) => t.colKey);
+    dragColumns.current = props.columns;
+    originalColumns.current = props.columns;
+  }, [props.columns]);
+
+  // 注册拖拽事件
+  useEffect(() => {
+    if (!primaryTableRef.current) return;
+    cleanupSortableInstances();
+    registerRowDragEvent(primaryTableRef.current.tableElement);
+    registerColDragEvent(primaryTableRef.current.tableHtmlElement);
+
+    return () => {
+      cleanupSortableInstances();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [columns, dragSort, innerPagination]);
+
+  return {
+    isRowDraggable,
+    isRowHandlerDraggable,
+    isColDraggable,
+    updateLastRowList,
+    setDragSortColumns,
+  };
+}
+
+export default useDragSort;

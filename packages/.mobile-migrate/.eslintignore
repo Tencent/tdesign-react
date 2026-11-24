@@ -1,0 +1,15 @@
+snapshot*
+dist/
+esm/
+lib/
+cjs/
+lib/
+es/
+node_modules/
+static
+cypress
+script/test/cypress
+_site
+temp*
+static/
+src/_common
