@@ -1,8 +1,8 @@
 .DS_Store
 temp*
-# scripts/templates 会被上面的 temp* 命中，审查演示模板需要入库
-!.agent/skills/tdesign-code-review/scripts/templates/
-!.agent/skills/tdesign-code-review/scripts/templates/**
+# scripts/demo/templates 会被上面的 temp* 命中，审查演示模板需要入库
+!.agent/skills/tdesign-code-review/scripts/demo/templates/
+!.agent/skills/tdesign-code-review/scripts/demo/templates/**
 
 .review/
 .tmp-aigc-dts
@@ -58,6 +58,6 @@ packages/pro-components/chat/**/docs/
 .zip
 openspec
 *.d.ts
-!.agent/skills/tdesign-code-review/scripts/templates/types.d.ts
+!.agent/skills/tdesign-code-review/scripts/demo/templates/types.d.ts
 *.zip
 .fue

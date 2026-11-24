@@ -5,7 +5,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-RUNTIME_DIR="$(dirname "${SCRIPT_DIR}")"
+RUNTIME_DIR="$(cd -- "${SCRIPT_DIR}/../.." && pwd)"
 STATE_FILE="${RUNTIME_DIR}/restore-state.env"
 
 if [[ ! -f "${STATE_FILE}" ]]; then

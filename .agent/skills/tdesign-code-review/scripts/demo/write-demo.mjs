@@ -2,6 +2,7 @@
 
 /* 生成独立的 .review/pr-<N> Vite 演示应用 */
 
+import { execFileSync } from "node:child_process";
 import {
   existsSync,
   mkdirSync,
@@ -12,7 +13,7 @@ import {
 } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { reviewWorktreeDir } from "./worktree-dir.mjs";
+import { reviewWorktreeDir } from "../libs/worktree-dir.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const TEMPLATE_DIR = path.join(__dirname, "templates");
@@ -49,7 +50,7 @@ function renderTemplate(name, values = {}) {
   return text;
 }
 
-const root = reviewWorktreeDir(import.meta.url);
+const root = reviewWorktreeDir();
 const serverAllow = [root];
 const nodeModules = path.join(root, "node_modules");
 if (existsSync(nodeModules)) {
@@ -132,14 +133,25 @@ const aliases = [
 const sourcePkg = JSON.parse(
   readFileSync(path.join(root, "packages/tdesign-react/package.json"), "utf8"),
 );
+const reviewStateDir = path.join(
+  execFileSync("git", ["rev-parse", "--path-format=absolute", "--git-common-dir"], {
+    cwd: root,
+    encoding: "utf8",
+  }).trim(),
+  "tdesign-code-review",
+);
+const configPath = path.join(appDir, "vite.config.mjs");
 
 writeFileSync(
-  path.join(appDir, "vite.config.mjs"),
+  configPath,
   renderTemplate("vite.config.mjs", {
     __APP_DIR_JSON__: JSON.stringify(appDir),
     __SOURCE_VERSION_JSON__: JSON.stringify(sourcePkg.version),
     __ALIASES_JSON__: JSON.stringify(aliases, null, 2),
     __SERVER_ALLOW_JSON__: JSON.stringify(serverAllow),
+    __REVIEW_HOST_JSON__: JSON.stringify(`pr-${pr}.localhost`),
+    __REVIEW_STATE_DIR_JSON__: JSON.stringify(reviewStateDir),
+    __REVIEW_CONFIG_PATH_JSON__: JSON.stringify(configPath),
   }),
 );
 

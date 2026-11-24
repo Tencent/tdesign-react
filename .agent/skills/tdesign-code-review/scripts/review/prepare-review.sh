@@ -16,7 +16,7 @@ cd "${MAIN_ROOT}"
 
 GIT_COMMON_DIR="$(git rev-parse --path-format=absolute --git-common-dir)"
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-SKILL_DIR="$(dirname "${SCRIPT_DIR}")"
+SKILL_DIR="$(cd -- "${SCRIPT_DIR}/../.." && pwd)"
 RUNTIME_DIR="${GIT_COMMON_DIR}/tdesign-code-review/pr-${N}"
 WORKTREE_DIR="$(dirname "${MAIN_ROOT}")/tdesign-react-reviews/pr-${N}"
 
@@ -85,7 +85,7 @@ fi
 
 git worktree add "${WORKTREE_DIR}" "pr-${N}" 1>&2
 git -C "${WORKTREE_DIR}" submodule update --init packages/common 1>&2
-bash "${RUNTIME_DIR}/scripts/sync-deps.sh" >/dev/null
+bash "${RUNTIME_DIR}/scripts/review/sync-deps.sh" >/dev/null
 trap - ERR
 
 node -e '

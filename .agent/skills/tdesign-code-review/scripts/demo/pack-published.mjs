@@ -13,7 +13,7 @@ import {
 } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { reviewWorktreeDir } from "./worktree-dir.mjs";
+import { reviewWorktreeDir } from "../libs/worktree-dir.mjs";
 
 const registry = "https://registry.npmjs.org/";
 const packageName = "tdesign-react";
@@ -38,7 +38,7 @@ function installedVersion(packageDir) {
 }
 
 try {
-  const root = reviewWorktreeDir(import.meta.url);
+  const root = reviewWorktreeDir();
   const version = exec("npm", [
     "view",
     `${packageName}@latest`,

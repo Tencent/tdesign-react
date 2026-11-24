@@ -12,6 +12,7 @@ interface PrCompareViewProps {
 }
 
 const PKG_NAME = "tdesign-react";
+const PR_URL = "https://github.com/Tencent/tdesign-react/pull";
 
 export function PrCompareView({
   description,
@@ -48,7 +49,11 @@ export function PrCompareView({
           </section>
         ) : null}
         <section style={{ minWidth: 0 }}>
-          <h3>{`${PKG_NAME}#PR-${prNumber}`}</h3>
+          <h3>
+            <a href={`${PR_URL}/${prNumber}`} target="_blank" rel="noreferrer">
+              {`${PKG_NAME}#PR-${prNumber}`}
+            </a>
+          </h3>
           <Demo components={prComponents} />
         </section>
       </div>

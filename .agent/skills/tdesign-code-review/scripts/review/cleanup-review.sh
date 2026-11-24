@@ -8,7 +8,7 @@ N="${1:?usage: cleanup-review.sh <N> [test-path]}"
 TEST_PATH="${2:-${TEST_PATH:-}}"
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-RUNTIME_DIR="$(dirname "${SCRIPT_DIR}")"
+RUNTIME_DIR="$(cd -- "${SCRIPT_DIR}/../.." && pwd)"
 STATE_FILE="${RUNTIME_DIR}/restore-state.env"
 
 if [[ ! -f "${STATE_FILE}" ]]; then
@@ -45,6 +45,25 @@ fi
 
 git branch -D "pr-${N}" 1>&2 || true
 git remote remove "pr-${N}" 2>/dev/null || true
+
+HOST="pr-${N}.localhost"
+PROXY_DIR="$(dirname "${RUNTIME_DIR}")"
+node --input-type=module -e '
+import { readFileSync, rmSync, writeFileSync } from "node:fs";
+const [routesFile, pidFile, host] = process.argv.slice(1);
+let routes = {};
+try { routes = JSON.parse(readFileSync(routesFile, "utf8")); } catch {}
+delete routes[host];
+const left = Object.keys(routes).length;
+if (left === 0) {
+  rmSync(routesFile, { force: true });
+  try { process.kill(Number(readFileSync(pidFile, "utf8")), "SIGTERM"); } catch {}
+  rmSync(pidFile, { force: true });
+} else {
+  writeFileSync(routesFile, `${JSON.stringify(routes)}\n`);
+}
+' "${PROXY_DIR}/routes.json" "${PROXY_DIR}/proxy.pid" "${HOST}" || true
+
 rm -rf "${RUNTIME_DIR}"
 
 node -e '

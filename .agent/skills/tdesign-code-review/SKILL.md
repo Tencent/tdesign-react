@@ -104,7 +104,7 @@ gh pr diff "$N" --repo Tencent/tdesign-react | awk '/^diff --git /{skip=($0 ~ /\
 
 ```bash
 SKILL_DIR="$(git rev-parse --show-toplevel)/.agent/skills/tdesign-code-review"
-bash "${SKILL_DIR}/scripts/prepare-review.sh" "$N"
+bash "${SKILL_DIR}/scripts/review/prepare-review.sh" "$N"
 ```
 
 执行后：
@@ -140,13 +140,13 @@ TEST_PATH="packages/components/<component>/__tests__/review-pr-<N>.test.tsx"
 1. 在 `origin/develop` 执行，确认**失败**，且失败为该缺陷的断言。未失败时禁止进入第 2 步。
 
    ```bash
-   bash "${RUNTIME_DIR}/scripts/run-verify.sh" develop "${TEST_PATH}" ${TEST_UTIL_PATHS}
+   bash "${RUNTIME_DIR}/scripts/review/run-verify.sh" develop "${TEST_PATH}" ${TEST_UTIL_PATHS}
    ```
 
 2. 回到 `PR_BRANCH` 执行，确认**通过**。此后保持在该分支，供后续演示使用。
 
    ```bash
-   bash "${RUNTIME_DIR}/scripts/run-verify.sh" pr "${TEST_PATH}"
+   bash "${RUNTIME_DIR}/scripts/review/run-verify.sh" pr "${TEST_PATH}"
    ```
 
 #### 功能类
@@ -251,9 +251,8 @@ export function Demo({ components }: { components: Record<string, any> }) {
 先准备已发布包，再生成线上版本与 PR 实现的对比页面：
 
 ```bash
-node "${RUNTIME_DIR}/scripts/pack-published.mjs"
-node "${RUNTIME_DIR}/scripts/write-demo.mjs" \
-  "$N" "<description>" "/tmp/review-pr-${N}-demo.tsx" compare
+node "${RUNTIME_DIR}/scripts/demo/pack-published.mjs"
+node "${RUNTIME_DIR}/scripts/demo/write-demo.mjs" "$N" "<description>" "/tmp/review-pr-${N}-demo.tsx" compare
 ```
 
 #### 功能类
@@ -261,16 +260,15 @@ node "${RUNTIME_DIR}/scripts/write-demo.mjs" \
 只生成 PR 源码页，不下载已发布包，生成仅包含 PR 实现的独立展示页面：
 
 ```bash
-node "${RUNTIME_DIR}/scripts/write-demo.mjs" \
-  "$N" "<description>" "/tmp/review-pr-${N}-demo.tsx" standalone
+node "${RUNTIME_DIR}/scripts/demo/write-demo.mjs" "$N" "<description>" "/tmp/review-pr-${N}-demo.tsx" standalone
 ```
 
 ### 5.3 启动服务
 
-执行服务检测与启动脚本并从输出结果提取地址：
+执行服务检测与启动脚本并从输出结果提取地址。地址为 `http://pr-<N>.localhost/`。Vite 启动时会在 80 端口按主机名转发；转发起不来时，输出仍带端口的地址。
 
 ```bash
-DEV_RESULT="$(bash "${RUNTIME_DIR}/scripts/ensure-dev.sh")"
+DEV_RESULT="$(node "${RUNTIME_DIR}/scripts/demo/ensure-dev.mjs")"
 REVIEW_URL="$(node -e 'process.stdout.write(JSON.parse(process.argv[1]).url)' "${DEV_RESULT}")"
 ```
 
@@ -298,4 +296,4 @@ REVIEW_URL="$(node -e 'process.stdout.write(JSON.parse(process.argv[1]).url)' "$
 | 选项     | 操作                                                                                                          |
 | -------- | ------------------------------------------------------------------------------------------------------------- |
 | **保留** | 保留该 worktree、测试文件与演示进程，不修改主工作区                                                           |
-| **删除** | 执行 `bash "${RUNTIME_DIR}/scripts/cleanup-review.sh" "$N" "${TEST_PATH:-}"`，移除 worktree、本地 `pr-<N>` 等 |
+| **删除** | 执行 `bash "${RUNTIME_DIR}/scripts/review/cleanup-review.sh" "$N" "${TEST_PATH:-}"`，移除 worktree、本地 `pr-<N>` 等 |
