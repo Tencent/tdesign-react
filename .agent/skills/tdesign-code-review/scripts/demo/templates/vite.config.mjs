@@ -1,14 +1,21 @@
+import { spawn } from 'node:child_process';
+import { mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import http from 'node:http';
 import net from 'node:net';
 import path from 'node:path';
-import { spawn } from 'node:child_process';
-import { mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 const reviewHost = __REVIEW_HOST_JSON__;
 const reviewStateDir = __REVIEW_STATE_DIR_JSON__;
 const reviewConfigPath = __REVIEW_CONFIG_PATH_JSON__;
+const originalPrDir = __ORIGINAL_PR_DIR_JSON__;
+const originalPublishedDir = __ORIGINAL_PUBLISHED_DIR_JSON__;
+const prEntry = __PR_ENTRY_JSON__;
+const prStyleEntry = __PR_STYLE_ENTRY_JSON__;
+const publishedEntry = __PUBLISHED_ENTRY_JSON__;
+const publishedStyleEntry = __PUBLISHED_STYLE_ENTRY_JSON__;
+
 const routesFile = path.join(reviewStateDir, 'routes.json');
 const proxyPidFile = path.join(reviewStateDir, 'proxy.pid');
 const proxyPort = Number(process.env.REVIEW_PROXY_PORT || 80);
@@ -181,6 +188,21 @@ async function ensureProxy() {
   child.unref();
 }
 
+function originalTarget(importer) {
+  const cleanImporter = String(importer || '').split('?')[0];
+  if (originalPrDir && cleanImporter.startsWith(`${originalPrDir}${path.sep}`)) {
+    return { dir: originalPrDir, entry: prEntry, style: prStyleEntry };
+  }
+  if (originalPublishedDir && cleanImporter.startsWith(`${originalPublishedDir}${path.sep}`)) {
+    return {
+      dir: originalPublishedDir,
+      entry: publishedEntry,
+      style: publishedStyleEntry,
+    };
+  }
+  return null;
+}
+
 function stopProxyIfIdle(routes) {
   if (Object.keys(routes).length > 0) return;
   try {
@@ -200,6 +222,25 @@ export default defineConfig({
   root: __APP_DIR_JSON__,
   plugins: [
     react(),
+    {
+      name: 'review-original-demo-resolver',
+      enforce: 'pre',
+      resolveId(source, importer) {
+        const target = originalTarget(importer);
+        if (!target) return null;
+        if (source === 'tdesign-react') return target.entry;
+        if (
+          /^tdesign-react\/(?:(?:es\/)?style(?:\/index\.(?:js|css))?|dist\/tdesign\.css)$/.test(
+            source,
+          )
+        ) {
+          return target.style;
+        }
+        if (source.startsWith('@/')) return path.join(target.dir, 'src', source.slice(2));
+        if (source.startsWith('/src/')) return path.join(target.dir, source.slice(1));
+        return null;
+      },
+    },
     {
       name: 'review-host-proxy',
       configureServer(server) {

@@ -65,6 +65,7 @@ if (left === 0) {
 ' "${PROXY_DIR}/routes.json" "${PROXY_DIR}/proxy.pid" "${HOST}" || true
 
 rm -rf "${RUNTIME_DIR}"
+rm -f "/tmp/review-pr-${N}-review-demo.tsx"
 
 node -e '
   const [WORKTREE_DIR, removedBranch] = process.argv.slice(1);

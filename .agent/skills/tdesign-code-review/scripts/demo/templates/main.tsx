@@ -10,7 +10,8 @@ function ReviewPr__PR__() {
   return (
     <PrCompareView
       description={__DESCRIPTION_JSON__}
-      demo={Demo}
+      reviewDemo={ReviewDemo}
+      {...__ORIGINAL_DEMO_PAGES_PROP__}
       prComponents={prPkg}
       prNumber={__PR_JSON__}
       {...__PUBLISHED_PROPS__}

@@ -17,7 +17,7 @@ description: Reviews Tencent/tdesign-react GitHub pull requests through static a
 
 预检 → 获取 PR → 静态审查 → 本地验证 → 输出报告 → 准备演示 → 输出地址 → 清理文件 → 结束
 
-### 0.1 安装依赖
+### 0.2 安装依赖
 
 根据 [PREFLIGHT_CHECK.md](reference/PREFLIGHT_CHECK.md) 确认 `gh` 的安装与登录。
 
@@ -39,8 +39,8 @@ description: Reviews Tencent/tdesign-react GitHub pull requests through static a
 ### 1.2 拉取信息
 
 ```bash
-# 读取 PR 标题、正文与目标分支
-gh pr view "$N" --repo Tencent/tdesign-react --json title,body,baseRefName
+# 读取 PR 标题与目标分支
+gh pr view "$N" --repo Tencent/tdesign-react --json title,baseRefName
 ```
 
 `baseRefName` ≠ `develop` 时停止审查流程，并告知用户。
@@ -123,7 +123,7 @@ bash "${SKILL_DIR}/scripts/review/prepare-review.sh" "$N"
 
 ### 3.2 编写测试用例
 
-在 `WORKTREE_DIR` 中编写未跟踪的验证测试。PR 已包含新增或修改的测试时，将对应场景并入该文件，沿用其断言与测试工具：
+在 `WORKTREE_DIR` 中编写未跟踪的验证测试。根据 diff 独立覆盖变化的条件分支、边界值、状态模式、事件顺序。PR 已包含新增或修改的测试时，将对应场景并入该文件，沿用其断言与测试工具：
 
 ```bash
 TEST_PATH="packages/components/<component>/__tests__/review-pr-<N>.test.tsx"
@@ -211,7 +211,7 @@ pnpm --dir "${WORKTREE_DIR}" exec vitest run "${TEST_PATH}"
 
 ## 5. 示例演示
 
-### 5.1 准备文件
+### 5.1 准备审查演示
 
 `WORKTREE_DIR` 的 HEAD 保持 `PR_BRANCH`，并获取 `RUNTIME_DIR`：
 
@@ -219,17 +219,22 @@ pnpm --dir "${WORKTREE_DIR}" exec vitest run "${TEST_PATH}"
 RUNTIME_DIR="$(git rev-parse --path-format=absolute --git-common-dir)/tdesign-code-review/pr-${N}"
 ```
 
-编写 `/tmp/review-pr-<N>-demo.tsx`：
+仅根据 diff 和验证结果编写 `/tmp/review-pr-<N>-review-demo.tsx`：
 
-- 导出 `export function Demo`，依赖自行 React 相关 `import`；
-- 被测的 TDesign 组件从 `components` 解构，子组件通过主组件访问（例如 `Form.FormItem`），禁止从 `tdesign-react` 导入。
+- 独立覆盖变化分支及相关边界；
+- 只导出 `export function ReviewDemo`；
+- 依赖自行 `import`。被测的 TDesign 组件从 `components` 解构，子组件通过主组件访问（例如 `Form.FormItem`），禁止从 `tdesign-react` 导入。
 
 例如：
 
 ```tsx
 import { useState } from "react";
 
-export function Demo({ components }: { components: Record<string, any> }) {
+export function ReviewDemo({
+  components
+}: {
+  components: Record<string, any>;
+}) {
   const { Button } = components;
   const [count, setCount] = useState(0);
   return (
@@ -238,13 +243,13 @@ export function Demo({ components }: { components: Record<string, any> }) {
 }
 ```
 
-`<description>` 须写明 UI 页面上的操作步骤及预期现象。
-
 ### 5.2 生成演示
 
 `pack-published.mjs` 把 npm 上最新的 `tdesign-react` 解压到 worktree 的 `.review/packages/tdesign-react`。
 
-`write-demo.mjs` 用复现文件生成 `.review/pr-<N>` 演示应用。参数依次为 PR 编号、场景描述、复现文件路径、展示模式。
+`write-demo.mjs` 用复现文件生成 `.review/pr-<N>` 演示应用。参数依次为 PR 编号、场景描述、审查复现文件和展示模式。
+
+`<description>` 须根据 `ReviewDemo` 写明 UI 页面上的操作步骤及预期现象。生成后的 `.review/pr-<N>` 属于构建产物，除用户提出明确需求或者命令失败排障时，禁止读取其中复制的 Demo 源码。
 
 #### 修复类
 
@@ -252,7 +257,7 @@ export function Demo({ components }: { components: Record<string, any> }) {
 
 ```bash
 node "${RUNTIME_DIR}/scripts/demo/pack-published.mjs"
-node "${RUNTIME_DIR}/scripts/demo/write-demo.mjs" "$N" "<description>" "/tmp/review-pr-${N}-demo.tsx" compare
+node "${RUNTIME_DIR}/scripts/demo/write-demo.mjs" "$N" "<description>" "/tmp/review-pr-${N}-review-demo.tsx" compare
 ```
 
 #### 功能类
@@ -260,7 +265,7 @@ node "${RUNTIME_DIR}/scripts/demo/write-demo.mjs" "$N" "<description>" "/tmp/rev
 只生成 PR 源码页，不下载已发布包，生成仅包含 PR 实现的独立展示页面：
 
 ```bash
-node "${RUNTIME_DIR}/scripts/demo/write-demo.mjs" "$N" "<description>" "/tmp/review-pr-${N}-demo.tsx" standalone
+node "${RUNTIME_DIR}/scripts/demo/write-demo.mjs" "$N" "<description>" "/tmp/review-pr-${N}-review-demo.tsx" standalone
 ```
 
 ### 5.3 启动服务
@@ -293,7 +298,7 @@ REVIEW_URL="$(node -e 'process.stdout.write(JSON.parse(process.argv[1]).url)' "$
 
 如果用户选择 **符合预期**，另行调用 `AskQuestion` 询问是否移除该 PR 的审查产物：
 
-| 选项     | 操作                                                                                                          |
-| -------- | ------------------------------------------------------------------------------------------------------------- |
-| **保留** | 保留该 worktree、测试文件与演示进程，不修改主工作区                                                           |
+| 选项     | 操作                                                                                                                 |
+| -------- | -------------------------------------------------------------------------------------------------------------------- |
+| **保留** | 保留该 worktree、测试文件与演示进程，不修改主工作区                                                                  |
 | **删除** | 执行 `bash "${RUNTIME_DIR}/scripts/review/cleanup-review.sh" "$N" "${TEST_PATH:-}"`，移除 worktree、本地 `pr-<N>` 等 |

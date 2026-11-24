@@ -19,6 +19,7 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 SKILL_DIR="$(cd -- "${SCRIPT_DIR}/../.." && pwd)"
 RUNTIME_DIR="${GIT_COMMON_DIR}/tdesign-code-review/pr-${N}"
 WORKTREE_DIR="$(dirname "${MAIN_ROOT}")/tdesign-react-reviews/pr-${N}"
+ORIGINAL_DEMO_URL="$(bash "${SKILL_DIR}/scripts/review/record-stackblitz.sh" "${N}")"
 
 if git show-ref --verify --quiet "refs/heads/pr-${N}"; then
   echo "[prepare-review] 本地分支 pr-${N} 已存在，请先完成或清理上一次审查" >&2
@@ -35,11 +36,13 @@ fi
 
 mkdir -p "${RUNTIME_DIR}" "$(dirname "${WORKTREE_DIR}")"
 cp -R "${SKILL_DIR}/scripts" "${RUNTIME_DIR}/"
+rm -f "/tmp/review-pr-${N}-review-demo.tsx"
 
 {
   printf 'ROOT=%q\n' "${MAIN_ROOT}"
   printf 'WORKTREE_DIR=%q\n' "${WORKTREE_DIR}"
   printf 'RUNTIME_DIR=%q\n' "${RUNTIME_DIR}"
+  printf 'ORIGINAL_DEMO_URL=%q\n' "${ORIGINAL_DEMO_URL}"
 } > "${RUNTIME_DIR}/restore-state.env"
 
 rollback_prepare() {
