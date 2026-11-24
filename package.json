@@ -48,6 +48,11 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
+  "pnpm": {
+    "overrides": {
+      "@tdesign/ai-chat-engine": "0.1.1"
+    }
+  },
   "lint-staged": {
     "packages/**/!(type).{ts,tsx}": [
       "prettier --write",

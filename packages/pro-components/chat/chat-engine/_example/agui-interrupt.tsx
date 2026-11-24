@@ -13,9 +13,6 @@ import type {
 } from '@tdesign-react/chat';
 import type { InterruptResponseStatus } from '../hooks/useInterrupt';
 
-// 本地 chat-agent-api 服务地址（默认端口 9000，见 chat-agent-api/config.js）
-const MOCK_BASE_URL = 'http://127.0.0.1:9000';
-
 // resumeInterrupt 透传的中断恢复扩展参数
 type InterruptRequestParams = ChatRequestParams<{
   resume?: unknown;
@@ -232,7 +229,7 @@ export default function AguiInterruptExample() {
   const { chatEngine, messages, status } = useChat({
     defaultMessages: [],
     chatServiceConfig: {
-      endpoint: `${MOCK_BASE_URL}/sse/agui-interrupt`,
+      endpoint: `https://1257786608-9i9j1kpa67.ap-guangzhou.tencentscf.com/sse/agui-interrupt`,
       protocol: 'agui',
       stream: true,
       onRequest: (params: ChatRequestParams) => {
