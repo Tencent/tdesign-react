@@ -1,12 +1,10 @@
 /// <reference path="./types.d.ts" />
-import { createRoot } from 'react-dom/client';
-import * as prPkg from '@review/pr';
+import { createRoot } from "react-dom/client";
+import * as prPkg from "@review/pr";
 __PUBLISHED_IMPORT__
-import '@review/pr-style';
-
-import { PrCompareView } from './PrCompareView';
-
-__DEMO_FN__
+import "@review/pr-style";
+__DEMO_IMPORT__
+import { PrCompareView } from "./PrCompareView";
 
 function ReviewPr__PR__() {
   return (
@@ -20,4 +18,4 @@ function ReviewPr__PR__() {
   );
 }
 
-createRoot(document.getElementById('root')!).render(<ReviewPr__PR__ />);
+createRoot(document.getElementById("root")!).render(<ReviewPr__PR__ />);

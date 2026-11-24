@@ -11,14 +11,13 @@ declare module "@review/published" {
 }
 
 declare const __PUBLISHED_IMPORT__: unknown;
-declare const __DEMO_FN__: unknown;
+declare const __DEMO_IMPORT__: unknown;
+declare function Demo(props: {
+  components: Record<string, any>;
+}): import("react").ReactElement;
 declare const __DESCRIPTION_JSON__: string;
 declare const __PR_JSON__: string;
 declare const __PUBLISHED_PROPS__: {
   publishedComponents?: Record<string, any>;
   publishedVersion?: string;
 };
-
-declare function Demo(props: {
-  components: Record<string, any>;
-}): JSX.Element;

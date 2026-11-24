@@ -219,23 +219,36 @@ pnpm --dir "${WORKTREE_DIR}" exec vitest run "${TEST_PATH}"
 RUNTIME_DIR="$(git rev-parse --path-format=absolute --git-common-dir)/tdesign-code-review/pr-${N}"
 ```
 
-编写复现函数文件 `/tmp/review-pr-<N>-demo.tsx`：
+编写 `/tmp/review-pr-<N>-demo.tsx`：
 
-- 仅定义 `function Demo`，禁止包含 `import` / `export`；
-- TDesign 组件统一从 `components` 解构，子组件通过主组件访问（例如 `Form.FormItem`）。
+- 导出 `export function Demo`，依赖自行 React 相关 `import`；
+- 被测的 TDesign 组件从 `components` 解构，子组件通过主组件访问（例如 `Form.FormItem`），禁止从 `tdesign-react` 导入。
+
+例如：
 
 ```tsx
-function Demo({ components }: { components: Record<string, any> }) {
+import { useState } from "react";
+
+export function Demo({ components }: { components: Record<string, any> }) {
   const { Button } = components;
-  return <Button>Click</Button>;
+  const [count, setCount] = useState(0);
+  return (
+    <Button onClick={() => setCount((value) => value + 1)}>{count}</Button>
+  );
 }
 ```
 
 `<description>` 须写明 UI 页面上的操作步骤及预期现象。
 
+### 5.2 生成演示
+
+`pack-published.mjs` 把 npm 上最新的 `tdesign-react` 解压到 worktree 的 `.review/packages/tdesign-react`。
+
+`write-demo.mjs` 用复现文件生成 `.review/pr-<N>` 演示应用。参数依次为 PR 编号、场景描述、复现文件路径、展示模式。
+
 #### 修复类
 
-生成线上版本与 PR 实现的对比页面：
+先准备已发布包，再生成线上版本与 PR 实现的对比页面：
 
 ```bash
 node "${RUNTIME_DIR}/scripts/pack-published.mjs"
@@ -245,14 +258,14 @@ node "${RUNTIME_DIR}/scripts/write-demo.mjs" \
 
 #### 功能类
 
-生成仅包含 PR 实现的独立展示页面：
+只生成 PR 源码页，不下载已发布包，生成仅包含 PR 实现的独立展示页面：
 
 ```bash
 node "${RUNTIME_DIR}/scripts/write-demo.mjs" \
   "$N" "<description>" "/tmp/review-pr-${N}-demo.tsx" standalone
 ```
 
-### 5.2 启动服务
+### 5.3 启动服务
 
 执行服务检测与启动脚本并从输出结果提取地址：
 
@@ -261,7 +274,7 @@ DEV_RESULT="$(bash "${RUNTIME_DIR}/scripts/ensure-dev.sh")"
 REVIEW_URL="$(node -e 'process.stdout.write(JSON.parse(process.argv[1]).url)' "${DEV_RESULT}")"
 ```
 
-### 5.3 确认效果
+### 5.4 确认效果
 
 #### 演示页面
 

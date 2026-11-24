@@ -1,8 +1,6 @@
 import type { ReactElement } from "react";
 
-type DemoRender = (props: {
-  components: Record<string, any>;
-}) => ReactElement;
+type DemoRender = (props: { components: Record<string, any> }) => ReactElement;
 
 interface PrCompareViewProps {
   description: string;
@@ -23,27 +21,37 @@ export function PrCompareView({
   publishedComponents,
   publishedVersion,
 }: PrCompareViewProps) {
+  const compareMode = Boolean(publishedComponents);
+
   return (
     <div
       style={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: 48,
-        alignItems: "flex-start",
         padding: 24,
+        overflowX: "auto",
       }}
     >
-      <p style={{ flex: "1 0 100%", margin: 0 }}>{description}</p>
-      {publishedComponents ? (
-        <section>
-          <h3>{`${PKG_NAME}@${publishedVersion}`}</h3>
-          <Demo components={publishedComponents} />
+      <p style={{ margin: "0 0 24px" }}>{description}</p>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: compareMode
+            ? "minmax(560px, 1fr) minmax(560px, 1fr)"
+            : "minmax(560px, 1fr)",
+          gap: 24,
+          minWidth: compareMode ? 1144 : 560,
+        }}
+      >
+        {publishedComponents ? (
+          <section style={{ minWidth: 0 }}>
+            <h3>{`${PKG_NAME}@${publishedVersion}`}</h3>
+            <Demo components={publishedComponents} />
+          </section>
+        ) : null}
+        <section style={{ minWidth: 0 }}>
+          <h3>{`${PKG_NAME}#PR-${prNumber}`}</h3>
+          <Demo components={prComponents} />
         </section>
-      ) : null}
-      <section>
-        <h3>{`${PKG_NAME}#PR-${prNumber}`}</h3>
-        <Demo components={prComponents} />
-      </section>
+      </div>
     </div>
   );
 }

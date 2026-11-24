@@ -33,7 +33,7 @@ if (!["compare", "standalone"].includes(mode)) {
 function renderTemplate(name, values = {}) {
   let text = readFileSync(path.join(TEMPLATE_DIR, name), "utf8");
   text = text.replace(/^\/\/\/ <reference path="\.\/types\.d\.ts" \/>\n/, "");
-  const rawKeys = new Set(["__DEMO_FN__", "__DESCRIPTION_JSON__"]);
+  const rawKeys = new Set(["__DESCRIPTION_JSON__"]);
   const entries = Object.entries(values).sort((a, b) => b[0].length - a[0].length);
   for (const [key, value] of entries) {
     if (!text.includes(key)) {
@@ -56,10 +56,10 @@ if (existsSync(nodeModules)) {
   const dependencyRoot = path.dirname(realpathSync(nodeModules));
   if (dependencyRoot !== root) serverAllow.push(dependencyRoot);
 }
-const demoFn = readFileSync(demoFile, "utf8").trim();
+const demoSource = readFileSync(demoFile, "utf8").trim();
 
-if (!/function\s+Demo\s*\(/.test(demoFn)) {
-  console.error("demo function file must declare function Demo");
+if (!/export\s+function\s+Demo\s*\(/.test(demoSource)) {
+  console.error("demo file must export function Demo");
   process.exit(1);
 }
 
@@ -96,18 +96,19 @@ writeFileSync(
 
 const publishedImport =
   mode === "compare"
-    ? "import * as publishedPkg from '@review/published';\n"
+    ? "import * as publishedPkg from '@review/published';"
     : "";
 const publishedProps =
   mode === "compare"
     ? `{ publishedComponents: publishedPkg, publishedVersion: ${JSON.stringify(publishedVersion)} }`
     : "{}";
 
+writeFileSync(path.join(srcDir, "Demo.tsx"), `${demoSource}\n`);
 writeFileSync(
   path.join(srcDir, "main.tsx"),
   renderTemplate("main.tsx", {
     __PUBLISHED_IMPORT__: publishedImport,
-    __DEMO_FN__: demoFn,
+    __DEMO_IMPORT__: 'import { Demo } from "./Demo";',
     __PR__: pr,
     __DESCRIPTION_JSON__: JSON.stringify(description),
     __PR_JSON__: JSON.stringify(pr),
