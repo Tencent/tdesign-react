@@ -76,9 +76,11 @@ if [[ -n "${HEAD_OWNER}" && -n "${HEAD_REPO}" && -n "${HEAD_REF}" ]]; then
   fi
   git remote remove "pr-${N}" 2>/dev/null || true
   git remote add "pr-${N}" "${HEAD_URL}"
-  git config "remote.pr-${N}.push" "refs/heads/pr-${N}:refs/heads/${HEAD_REF}"
+  git config "branch.pr-${N}.remote" "pr-${N}"
+  git config "branch.pr-${N}.merge" "refs/heads/${HEAD_REF}"
   git config "branch.pr-${N}.pushRemote" "pr-${N}"
-  echo "[prepare-review] 已绑定 pr-${N} 推送目标 -> ${HEAD_URL} (${HEAD_REF})" >&2
+  git config "remote.pr-${N}.push" "refs/heads/pr-${N}:refs/heads/${HEAD_REF}"
+  echo "[prepare-review] 已绑定 pr-${N} 上游 -> ${HEAD_URL} (${HEAD_REF})" >&2
 else
   echo "[prepare-review] 未获取到 PR 源分支信息，跳过 push 目标绑定" >&2
 fi
