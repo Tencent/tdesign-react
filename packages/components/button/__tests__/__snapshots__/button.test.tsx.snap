@@ -129,7 +129,7 @@ exports[`Button > props > ghost[boolean] 2`] = `
 </div>
 `;
 
-exports[`Button > props > href[string] 1`] = `
+exports[`Button > props > href > href[string] 1`] = `
 <div>
   <a
     class="t-button t-button--theme-primary t-button--variant-base"
