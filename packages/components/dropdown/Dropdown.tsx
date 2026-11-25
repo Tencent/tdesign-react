@@ -4,6 +4,7 @@ import { omit } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useIsFirstRender from '../hooks/useIsFirstRender';
 import useLayoutEffect from '../hooks/useLayoutEffect';
 import Popup from '../popup';
 import { dropdownDefaultProps } from './defaultProps';
@@ -39,12 +40,12 @@ const Dropdown: React.FC<DropdownProps> & {
   const arrayChildren = React.Children.toArray(children);
   const { classPrefix } = useConfig();
   const [isPopupVisible, togglePopupVisible] = useState(false);
+  const isFirstRender = useIsFirstRender();
   const dropdownClass = `${classPrefix}-dropdown`;
 
   const options = useDropdownOptions(arrayChildren, propsOptions);
 
   const handleMenuClick = (data: DropdownOption, context: { e: React.MouseEvent<HTMLDivElement, MouseEvent> }) => {
-    if (disabled) return;
     if (hideAfterItemClick) {
       togglePopupVisible(false);
       popupProps?.onVisibleChange?.(false, context);
@@ -59,7 +60,7 @@ const Dropdown: React.FC<DropdownProps> & {
   };
 
   useLayoutEffect(() => {
-    if (!disabled || !isPopupVisible) return;
+    if (isFirstRender || !disabled || !isPopupVisible) return;
     togglePopupVisible(false);
     popupProps?.onVisibleChange?.(false, {});
     // eslint-disable-next-line react-hooks/exhaustive-deps

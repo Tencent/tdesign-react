@@ -142,8 +142,7 @@ const Select = forwardRefWithStatics(
     const onCheckAllChange = useCallback(
       (checkAll: boolean, e: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLInputElement>) => {
         const isDisabledCheckAll = (opt: TdOptionProps) => opt.checkAll && opt.disabled;
-        if (disabled || !multiple || currentOptions.some((opt) => !isSelectOptionGroup(opt) && isDisabledCheckAll(opt)))
-          return;
+        if (!multiple || currentOptions.some((opt) => !isSelectOptionGroup(opt) && isDisabledCheckAll(opt))) return;
 
         const isObjectType = valueType === 'object';
         const enabledOptions: SelectOption[] = [];
@@ -203,7 +202,7 @@ const Select = forwardRefWithStatics(
           selectedOptions: currentSelectedOptions,
         });
       },
-      [currentOptions, disabled, keys, multiple, value, valueKey, valueToOption, valueType, onChange],
+      [currentOptions, keys, multiple, value, valueKey, valueToOption, valueType, onChange],
     );
 
     const selectedLabel = useMemo(() => {
@@ -270,8 +269,6 @@ const Select = forwardRefWithStatics(
         label?: string | number;
       },
     ) => {
-      if (disabled) return;
-
       const selectedValue = multiple ? context.value : value;
 
       if (multiple) {

@@ -7,6 +7,7 @@ import { formatDate, getDefaultFormat, isValidDate, parseToDayjs } from '@tdesig
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import useInnerPopupVisible from '../../hooks/useInnerPopupVisible';
+import useIsFirstRender from '../../hooks/useIsFirstRender';
 import useLayoutEffect from '../../hooks/useLayoutEffect';
 import { isRangeFullyDisabled } from '../utils';
 import useRangeValue from './useRangeValue';
@@ -53,6 +54,7 @@ export default function useRange(props: TdDateRangePickerProps) {
   });
 
   const [popupVisible, setPopupVisible] = useState(false);
+  const isFirstRender = useIsFirstRender();
   const [isHoverCell, setIsHoverCell] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0); // 确定当前选中的输入框序号
   // 未真正选中前可能不断变更输入框的内容
@@ -64,7 +66,7 @@ export default function useRange(props: TdDateRangePickerProps) {
   };
 
   useLayoutEffect(() => {
-    if (!isRangeFullyDisabled(props.disabled) || !popupVisible) return;
+    if (isFirstRender || !isRangeFullyDisabled(props.disabled) || !popupVisible) return;
     handlePopupInvisible();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.disabled]);

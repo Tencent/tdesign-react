@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useIsFirstRender from '../hooks/useIsFirstRender';
 import useLayoutEffect from '../hooks/useLayoutEffect';
 import { Popup } from '../popup';
 import ColorPanel from './components/panel/index';
@@ -32,10 +33,12 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
   const triggerRef = useRef<HTMLDivElement>(null);
   const popupRef = useRef<PopupRef>(null);
   const colorPanelRef = useRef(null);
+  const isFirstRender = useIsFirstRender();
 
   useLayoutEffect(() => {
-    if (!disabled) return;
+    if (isFirstRender || !disabled) return;
     popupRef.current?.setVisible(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [disabled]);
 
   const popProps: PopupProps = {

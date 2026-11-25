@@ -14,6 +14,7 @@ import {
 import useConfig from '../../hooks/useConfig';
 import useGlobalIcon from '../../hooks/useGlobalIcon';
 import useInnerPopupVisible from '../../hooks/useInnerPopupVisible';
+import useIsFirstRender from '../../hooks/useIsFirstRender';
 import useLayoutEffect from '../../hooks/useLayoutEffect';
 import useSingleValue from './useSingleValue';
 
@@ -38,6 +39,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
     useSingleValue(props);
 
   const [popupVisible, setPopupVisible] = useState(false);
+  const isFirstRender = useIsFirstRender();
   const [isHoverCell, setIsHoverCell] = useState(false);
   // 未真正选中前可能不断变更输入框的内容
   const [inputValue, setInputValue] = useState(() => formatDate(value, { format }));
@@ -48,7 +50,7 @@ export default function useSingleInput(props: TdDatePickerProps) {
   };
 
   useLayoutEffect(() => {
-    if (!props.disabled || !popupVisible) return;
+    if (isFirstRender || !props.disabled || !popupVisible) return;
     handlePopupInvisible();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.disabled]);

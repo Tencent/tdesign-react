@@ -107,7 +107,24 @@ describe('Dropdown', () => {
       await mockTimeout(() => expect(document.querySelector('.t-dropdown__menu')).toBeNull());
     });
 
-    test('disabled ignores a menu click', () => {
+    test('dynamic disabled closes the open menu', async () => {
+      const { getByText, rerender } = render(
+        <Dropdown options={dropOptions}>
+          <span>{triggerElement}</span>
+        </Dropdown>,
+      );
+      fireEvent.mouseEnter(getByText(triggerElement));
+      expect(document.querySelector('.t-dropdown__menu')).not.toBeNull();
+
+      rerender(
+        <Dropdown options={dropOptions} disabled>
+          <span>{triggerElement}</span>
+        </Dropdown>,
+      );
+      await mockTimeout(() => expect(document.querySelector('.t-dropdown__menu')).toBeNull());
+    });
+
+    test('forced visible popup keeps menu clickable while disabled', () => {
       const onClick = vi.fn();
       const { getByText } = render(
         <Dropdown options={dropOptions} disabled popupProps={{ visible: true }} onClick={onClick}>
@@ -115,7 +132,7 @@ describe('Dropdown', () => {
         </Dropdown>,
       );
       fireEvent.click(getByText(clickElement));
-      expect(onClick).not.toHaveBeenCalled();
+      expect(onClick).toHaveBeenCalled();
     });
   });
 });

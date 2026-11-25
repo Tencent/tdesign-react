@@ -3,6 +3,7 @@ import { isFunction, isObject } from 'lodash-es';
 
 import useControlled from '../hooks/useControlled';
 import useInnerPopupVisible from '../hooks/useInnerPopupVisible';
+import useIsFirstRender from '../hooks/useIsFirstRender';
 import useLayoutEffect from '../hooks/useLayoutEffect';
 
 import type * as React from 'react';
@@ -37,6 +38,7 @@ export default function useOverlayInnerStyle(
   const [innerPopupVisible, setInnerPopupVisible] = useControlled(props, 'popupVisible', onPopupVisibleChange);
 
   const skipNextBlur = useRef(false);
+  const isFirstRender = useIsFirstRender();
 
   const matchWidthFunc = (triggerElement: HTMLElement, popupElement: HTMLElement) => {
     if (!triggerElement || !popupElement) return;
@@ -91,7 +93,7 @@ export default function useOverlayInnerStyle(
   });
 
   useLayoutEffect(() => {
-    if (!disabled || !innerPopupVisible) return;
+    if (isFirstRender || !disabled || !innerPopupVisible) return;
     onInnerPopupVisibleChange(false, {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [disabled]);

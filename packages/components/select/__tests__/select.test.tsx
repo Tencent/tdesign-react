@@ -777,7 +777,7 @@ describe('Select', () => {
       expect(document.querySelector('.t-popup')).not.toHaveTextContent('选项二');
     });
 
-    test('disabled ignores selection while the popup is open', async () => {
+    describe('disabled popup interaction', () => {
       const selectableOptions = [
         { label: 'Apple', value: 'apple' },
         { label: 'Orange', value: 'orange' },
@@ -786,36 +786,57 @@ describe('Select', () => {
         fireEvent.click([...document.querySelectorAll('.t-select-option')].find((item) => item.textContent === label));
       };
 
-      const singleOnChange = vi.fn();
-      const singleProps: SelectProps = {
-        options: selectableOptions,
-        defaultValue: 'apple',
-        onChange: singleOnChange,
-      };
-      const single = render(<Select {...singleProps} />);
-      fireEvent.click(single.getByRole('textbox'));
-      await waitFor(() => expect(single.getByText('Orange')).toBeVisible());
-      single.rerender(<Select {...singleProps} disabled />);
-      clickOption('Orange');
-      expect(singleOnChange).not.toHaveBeenCalled();
-      expect(single.getByRole('textbox')).toHaveValue('Apple');
-      single.unmount();
+      test('dynamic disabled closes the open popup', async () => {
+        const onChange = vi.fn();
+        const props: SelectProps = {
+          options: selectableOptions,
+          defaultValue: 'apple',
+          onChange,
+        };
+        const { getByRole, getByText, rerender } = render(<Select {...props} />);
+        fireEvent.click(getByRole('textbox'));
+        await waitFor(() => expect(getByText('Orange')).toBeVisible());
 
-      const multipleOnChange = vi.fn();
-      const multipleProps: SelectProps = {
-        multiple: true,
-        options: [{ label: 'All', value: 'all', checkAll: true }, ...selectableOptions],
-        defaultValue: ['apple'],
-        onChange: multipleOnChange,
-      };
-      const multiple = render(<Select {...multipleProps} />);
-      fireEvent.click(multiple.container.querySelector('.t-input'));
-      await waitFor(() => expect(multiple.getByText('All')).toBeVisible());
-      multiple.rerender(<Select {...multipleProps} disabled />);
-      clickOption('All');
-      expect(multipleOnChange).not.toHaveBeenCalled();
-      expect(multiple.container.querySelector(selectSelector)).toHaveTextContent('Apple');
-      expect(multiple.container.querySelector(selectSelector)).not.toHaveTextContent('Orange');
+        rerender(<Select {...props} disabled />);
+        await mockTimeout(() =>
+          expect(document.querySelector(popupSelector)).toHaveStyle({
+            display: 'none',
+          }),
+        );
+        expect(onChange).not.toHaveBeenCalled();
+      });
+
+      test('controlled popupVisible still allows single selection while disabled', async () => {
+        const onChange = vi.fn();
+        const { getByText } = render(
+          <Select options={selectableOptions} defaultValue="apple" disabled popupVisible onChange={onChange} />,
+        );
+        await waitFor(() => expect(getByText('Orange')).toBeVisible());
+
+        clickOption('Orange');
+        expect(onChange).toHaveBeenCalledWith('orange', expect.anything());
+        expect(document.querySelector(popupSelector)).toHaveStyle({
+          display: 'block',
+        });
+      });
+
+      test('controlled popupVisible still allows check all while disabled', async () => {
+        const onChange = vi.fn();
+        const { getByText } = render(
+          <Select
+            multiple
+            options={[{ label: 'All', value: 'all', checkAll: true }, ...selectableOptions]}
+            defaultValue={['apple']}
+            disabled
+            popupVisible
+            onChange={onChange}
+          />,
+        );
+        await waitFor(() => expect(getByText('All')).toBeVisible());
+
+        clickOption('All');
+        expect(onChange).toHaveBeenCalledWith(['apple', 'orange'], expect.anything());
+      });
     });
   });
 });

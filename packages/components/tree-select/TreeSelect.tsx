@@ -174,7 +174,6 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
   );
 
   const handleSingleChange = usePersistFn<TreeProps['onActive']>((value, context) => {
-    if (disabled) return;
     const $value = Array.isArray(value) && value.length ? value[0] : undefined;
     if ($value || $value === 0 || typeof $value === 'bigint') {
       onChange(formatValue($value, context.node.label), {
@@ -191,7 +190,6 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
   });
 
   const handleMultiChange = usePersistFn<TreeProps['onChange']>((value, context) => {
-    if (disabled) return;
     if (max === 0 || value.length <= max) {
       const isCheck = value.length > normalizedValue.length;
       const orderedValues = preserveSelectionOrder(

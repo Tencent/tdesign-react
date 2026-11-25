@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import useCommonClassName from '../hooks/useCommonClassName';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useIsFirstRender from '../hooks/useIsFirstRender';
 import useLayoutEffect from '../hooks/useLayoutEffect';
 import Input from '../input';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
@@ -37,6 +38,7 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((originalPro
 
   const [popupVisible, setPopupVisible] = useState(false);
   const optionListRef = useRef(null);
+  const isFirstRender = useIsFirstRender();
 
   useImperativeHandle(ref, () => ({
     inputRef: inputRef.current,
@@ -111,7 +113,7 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((originalPro
   };
 
   const onInnerSelect: OptionsListProps['onSelect'] = (value, context) => {
-    if (readOnly || props.disabled) return;
+    if (readOnly) return;
     setPopupVisible(false);
     setTValue(value, context);
     props.onSelect?.(value, context);
@@ -125,9 +127,10 @@ const AutoComplete = forwardRef<AutoCompleteRef, AutoCompleteProps>((originalPro
   };
 
   useLayoutEffect(() => {
-    if (!props.disabled || !popupVisible) return;
+    if (isFirstRender || !props.disabled || !popupVisible) return;
     setPopupVisible(false);
-  }, [props.disabled, popupVisible]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.disabled]);
 
   // 触发元素
   const triggerNode = props.triggerElement || props.children || (
