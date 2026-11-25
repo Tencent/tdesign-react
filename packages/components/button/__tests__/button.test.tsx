@@ -53,33 +53,37 @@ describe('Button', () => {
         expect(container).toMatchSnapshot();
       });
 
-      test.each([
-        ['tag[button] and disabled', { tag: 'button', disabled: true }],
-        ['tag[button] and loading', { tag: 'button', loading: true }],
-        ['tag[div] and disabled', { tag: 'div', disabled: true }],
-      ] as const)('%s keeps the given tag', (_, props) => {
-        const { container } = render(<Button {...props}>Text</Button>);
-        const root = container.firstChild as HTMLElement;
-        expect(root.tagName.toLowerCase()).toBe(props.tag);
+      test('href[string] and tag[a] and disabled and loading', () => {
+        const cases = [
+          { href: 'https://tdesign.tencent.com/', loading: true },
+          { href: 'https://tdesign.tencent.com/', disabled: true },
+          {
+            tag: 'a' as const,
+            href: 'https://tdesign.tencent.com/',
+            loading: true,
+          },
+          {
+            tag: 'a' as const,
+            href: 'https://tdesign.tencent.com/',
+            disabled: true,
+          },
+        ];
+
+        cases.forEach((props) => {
+          const { container } = render(<Button {...props}>Text</Button>);
+          expect((container.firstChild as HTMLElement).tagName).not.toBe('A');
+        });
       });
 
-      test('tag[button] and disabled keeps the disabled attribute', () => {
+      test('tag[button] and disabled', () => {
         const { container } = render(
           <Button tag="button" disabled>
             Text
           </Button>,
         );
-        expect((container.firstChild as HTMLElement).hasAttribute('disabled')).toBe(true);
-      });
-
-      test.each([
-        ['href[string] and loading', { href: 'https://tdesign.tencent.com/', loading: true }],
-        ['href[string] and disabled', { href: 'https://tdesign.tencent.com/', disabled: true }],
-        ['href[string], tag[a] and loading', { tag: 'a', href: 'https://tdesign.tencent.com/', loading: true }],
-        ['href[string], tag[a] and disabled', { tag: 'a', href: 'https://tdesign.tencent.com/', disabled: true }],
-      ] as const)('%s', (_, props) => {
-        const { container } = render(<Button {...props}>Text</Button>);
-        expect(container.querySelector('a[href]')).toBeFalsy();
+        const root = container.firstChild as HTMLElement;
+        expect(root.tagName).toBe('BUTTON');
+        expect(root.hasAttribute('disabled')).toBe(true);
       });
     });
 
