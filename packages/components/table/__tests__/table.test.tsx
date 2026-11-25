@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { fireEvent, mockDelay, render, vi, waitFor } from '@test/utils';
+import { createEvent, fireEvent, mockDelay, mockElementSizes, render, vi, waitFor } from '@test/utils';
 
 import { Table } from '..';
 
@@ -56,6 +56,35 @@ function paginationTable(props: PaginationMountProps, options?: { remote?: boole
     : (props.pagination.total ?? resolvePageSize(props.pagination));
 
   return <Table rowKey="index" data={getTableData(dataLength)} columns={MOUNT_COLUMNS} {...props} />;
+}
+
+const RESIZE_GROUP_COLUMNS = [
+  { colKey: 'category', title: '普通列', width: 100 },
+  {
+    colKey: 'metrics',
+    title: '分组表头',
+    children: [
+      { colKey: 'valueA', title: '子列 A', width: 100 },
+      { colKey: 'valueB', title: '子列 B', width: 100 },
+    ],
+  },
+];
+const RESIZE_GROUP_DATA = [{ id: 1, category: '示例 A', valueA: 10, valueB: 20 }];
+
+function fireColumnResizeMouseEvent(
+  target: Element | Document,
+  type: 'mouseMove' | 'mouseDown' | 'mouseUp',
+  x: number,
+  buttons = 0,
+) {
+  const event = createEvent[type](target, {
+    button: 0,
+    buttons,
+    clientX: x,
+    clientY: 20,
+  });
+  Object.defineProperties(event, { pageX: { value: x }, x: { value: x } });
+  fireEvent(target, event);
 }
 
 function mockScrollHeight(element: HTMLElement, scrollHeight: number, clientHeight: number) {
@@ -1075,6 +1104,8 @@ describe('Table', () => {
       describe('Virtual scroll', () => {
         const descriptors: Array<[string, PropertyDescriptor]> = [];
         const { scrollTo } = HTMLElement.prototype;
+        const hadOwnBoundingRect = Object.prototype.hasOwnProperty.call(HTMLElement.prototype, 'getBoundingClientRect');
+        const originalGetBoundingClientRect = HTMLElement.prototype.getBoundingClientRect;
 
         function mockSize(prop: string, value: number) {
           const origin = Object.getOwnPropertyDescriptor(HTMLElement.prototype, prop);
@@ -1111,6 +1142,11 @@ describe('Table', () => {
         afterAll(() => {
           descriptors.forEach(([prop, descriptor]) => Object.defineProperty(HTMLElement.prototype, prop, descriptor));
           HTMLElement.prototype.scrollTo = scrollTo;
+          if (hadOwnBoundingRect) {
+            HTMLElement.prototype.getBoundingClientRect = originalGetBoundingClientRect;
+          } else {
+            delete HTMLElement.prototype.getBoundingClientRect;
+          }
         });
 
         it('filter and virtual header rendering keep a single popup instance', async () => {
@@ -1233,6 +1269,204 @@ describe('Table', () => {
           const icons = container.querySelectorAll('.t-table__filter-icon');
           expect((icons[0].firstChild as Element).classList.contains('t-popup-open')).toBe(true);
           expect((icons[1].firstChild as Element).classList.contains('t-popup-open')).toBe(false);
+        });
+      });
+    });
+
+    describe('resizable', () => {
+      let restoreSizes: () => void;
+
+      beforeEach(() => {
+        vi.useFakeTimers();
+        restoreSizes = mockElementSizes([
+          { selector: '.t-table', width: 300, height: 200 },
+          { selector: '.t-table__content', width: 300, height: 200 },
+          { selector: 'th[data-colkey="category"]', width: 100, height: 80 },
+          {
+            selector: 'th[data-colkey="metrics"]',
+            width: 200,
+            height: 40,
+            left: 100,
+          },
+          {
+            selector: 'th[data-colkey="valueA"]',
+            width: 100,
+            height: 40,
+            left: 100,
+            top: 40,
+          },
+          {
+            selector: 'th[data-colkey="valueB"]',
+            width: 100,
+            height: 40,
+            left: 200,
+            top: 40,
+          },
+        ]);
+      });
+
+      afterEach(() => {
+        vi.clearAllTimers();
+        vi.useRealTimers();
+        vi.restoreAllMocks();
+        restoreSizes();
+      });
+
+      it.each([true, false])(
+        'should not start resize drag on adjacent group header (mousemove: %s)',
+        (shouldMoveOverGroup) => {
+          const onColumnResizeChange = vi.fn();
+          const { container } = render(
+            <Table
+              rowKey="id"
+              columns={RESIZE_GROUP_COLUMNS}
+              data={RESIZE_GROUP_DATA}
+              resizable
+              onColumnResizeChange={onColumnResizeChange}
+            />,
+          );
+          const leaf = container.querySelector('th[data-colkey="category"]');
+          const group = container.querySelector('th[data-colkey="metrics"]');
+          const originalSelectStart = document.onselectstart;
+          const originalDragStart = document.ondragstart;
+
+          fireColumnResizeMouseEvent(leaf, 'mouseMove', 99);
+          expect(leaf).toHaveStyle({ cursor: 'col-resize' });
+          if (shouldMoveOverGroup) {
+            fireColumnResizeMouseEvent(group, 'mouseMove', 101);
+          }
+
+          const addListener = vi.spyOn(document, 'addEventListener');
+          try {
+            fireColumnResizeMouseEvent(group, 'mouseDown', 101, 1);
+            expect(addListener.mock.calls.filter(([type]) => type === 'mouseup' || type === 'mousemove')).toHaveLength(
+              0,
+            );
+            fireColumnResizeMouseEvent(document, 'mouseUp', 119);
+            expect(onColumnResizeChange).not.toHaveBeenCalled();
+            expect(document.onselectstart).toBe(originalSelectStart);
+            expect(document.ondragstart).toBe(originalDragStart);
+          } finally {
+            addListener.mock.calls.forEach(([type, listener, options]) => {
+              if (type === 'mouseup' || type === 'mousemove') document.removeEventListener(type, listener, options);
+            });
+            addListener.mockRestore();
+            document.onselectstart = originalSelectStart;
+            document.ondragstart = originalDragStart;
+          }
+        },
+      );
+
+      it('should preserve custom cursor on group header', () => {
+        const { container } = render(
+          <Table
+            rowKey="id"
+            columns={[
+              RESIZE_GROUP_COLUMNS[0],
+              {
+                ...RESIZE_GROUP_COLUMNS[1],
+                attrs: { style: { cursor: 'pointer' } },
+              },
+            ]}
+            data={RESIZE_GROUP_DATA}
+            resizable
+          />,
+        );
+        const leaf = container.querySelector('th[data-colkey="category"]');
+        const group = container.querySelector('th[data-colkey="metrics"]');
+        expect(group).toHaveStyle({ cursor: 'pointer' });
+        fireColumnResizeMouseEvent(leaf, 'mouseMove', 99);
+        fireColumnResizeMouseEvent(group, 'mouseMove', 101);
+        expect(group).toHaveStyle({ cursor: 'pointer' });
+      });
+
+      it.each([
+        {
+          name: 'from right edge',
+          colKey: 'category',
+          start: 99,
+          end: 119,
+          moveOverGroup: false,
+          widths: { category: 120, metrics: 200, valueA: 80, valueB: 100 },
+        },
+        {
+          name: 'from left edge',
+          colKey: 'valueB',
+          start: 201,
+          end: 221,
+          moveOverGroup: false,
+          widths: { category: 100, metrics: 200, valueA: 120, valueB: 80 },
+        },
+        {
+          name: 'after drag started across group header',
+          colKey: 'category',
+          start: 99,
+          end: 119,
+          moveOverGroup: true,
+          widths: { category: 120, metrics: 200, valueA: 80, valueB: 100 },
+        },
+      ])('should resize column width $name', ({ colKey, start, end, moveOverGroup, widths }) => {
+        const onColumnResizeChange = vi.fn();
+        const { container } = render(
+          <Table
+            rowKey="id"
+            columns={RESIZE_GROUP_COLUMNS}
+            data={RESIZE_GROUP_DATA}
+            resizable
+            onColumnResizeChange={onColumnResizeChange}
+          />,
+        );
+        const leaf = container.querySelector(`th[data-colkey="${colKey}"]`);
+        const group = container.querySelector('th[data-colkey="metrics"]');
+
+        fireColumnResizeMouseEvent(leaf, 'mouseMove', start);
+        fireColumnResizeMouseEvent(leaf, 'mouseDown', start, 1);
+        fireColumnResizeMouseEvent(moveOverGroup ? group : document, 'mouseMove', end, 1);
+        fireColumnResizeMouseEvent(document, 'mouseUp', end);
+
+        expect(onColumnResizeChange).toHaveBeenCalledTimes(1);
+        expect(onColumnResizeChange).toHaveBeenCalledWith({
+          columnsWidth: widths,
+        });
+      });
+
+      it('should resize from left edge when right fixed column shadow is active', () => {
+        vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(300);
+        vi.spyOn(HTMLElement.prototype, 'scrollWidth', 'get').mockReturnValue(400);
+        const onColumnResizeChange = vi.fn();
+        const { container } = render(
+          <Table
+            rowKey="id"
+            columns={[
+              RESIZE_GROUP_COLUMNS[0],
+              {
+                ...RESIZE_GROUP_COLUMNS[1],
+                children: [
+                  RESIZE_GROUP_COLUMNS[1].children[0],
+                  { ...RESIZE_GROUP_COLUMNS[1].children[1], fixed: 'right' },
+                ],
+              },
+            ]}
+            data={RESIZE_GROUP_DATA}
+            resizable
+            onColumnResizeChange={onColumnResizeChange}
+          />,
+        );
+        const fixed = container.querySelector('th[data-colkey="valueB"]');
+
+        fireColumnResizeMouseEvent(fixed, 'mouseMove', 201);
+        fireColumnResizeMouseEvent(fixed, 'mouseDown', 201, 1);
+        fireColumnResizeMouseEvent(document, 'mouseMove', 181, 1);
+        fireColumnResizeMouseEvent(document, 'mouseUp', 181);
+
+        expect(onColumnResizeChange).toHaveBeenCalledTimes(1);
+        expect(onColumnResizeChange).toHaveBeenCalledWith({
+          columnsWidth: {
+            category: 100,
+            metrics: 200,
+            valueA: 100,
+            valueB: 120,
+          },
         });
       });
     });
