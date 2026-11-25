@@ -127,7 +127,11 @@ export default function useColumnResize(params: {
     if (!target) return;
     // 判断是否为叶子阶段，仅叶子结点允许拖拽
     const colKey = target.getAttribute('data-colkey');
-    if (!leafColumns.find((t) => t.colKey === colKey)) return;
+    if (!leafColumns.find((t) => t.colKey === colKey)) {
+      resizeLineParams.draggingCol = null;
+      resizeLineParams.effectCol = null;
+      return;
+    }
     const targetBoundRect = target.getBoundingClientRect();
     const thRightCursor = targetBoundRect.right - e.pageX <= distance;
     const thLeftCursor = e.pageX - targetBoundRect.left <= distance;
@@ -230,7 +234,12 @@ export default function useColumnResize(params: {
     col: BaseTableCol<TableRowData>,
     index: number,
   ) => {
-    if (e.button === CONTEXTMENU || !resizeLineParams.draggingCol) return;
+    if (
+      e.button === CONTEXTMENU ||
+      !resizeLineParams.draggingCol ||
+      !leafColumns.some((item) => item.colKey === col.colKey)
+    )
+      return;
     const target = resizeLineParams.draggingCol;
     const targetBoundRect = target.getBoundingClientRect();
     const tableBoundRect = tableContentRef.current?.getBoundingClientRect();

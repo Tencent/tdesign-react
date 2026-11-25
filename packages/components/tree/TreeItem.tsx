@@ -64,10 +64,10 @@ const TreeItem = forwardRef(
 
     const handleClick = (evt: MouseEvent<HTMLDivElement>) => {
       const srcTarget = evt.target as HTMLElement;
-      const isBranchTrigger =
-        node.children &&
-        expandOnClickNode &&
-        (srcTarget.className === `${classPrefix}-checkbox__input` || srcTarget.tagName.toLowerCase() === 'input');
+      const isCheckboxTarget = Boolean(
+        srcTarget.closest?.(`.${classPrefix}-checkbox__input`) || srcTarget.tagName.toLowerCase() === 'input',
+      );
+      const isBranchTrigger = node.children && expandOnClickNode && isCheckboxTarget;
 
       if (isBranchTrigger) return;
 
