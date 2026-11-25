@@ -82,7 +82,7 @@ describe('Badge', () => {
     });
   });
 
-  describe('ref', () => {
+  describe('instanceFunctions', () => {
     test('forwards ref to standalone badge span when no children', () => {
       const ref = React.createRef<HTMLSpanElement>();
       const { container } = render(<Badge count={1} ref={ref} />);
