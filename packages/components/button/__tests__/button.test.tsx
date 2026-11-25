@@ -46,10 +46,45 @@ describe('Button', () => {
       expect(container3).toMatchSnapshot();
     });
 
-    test('href[string]', () => {
-      const { container } = render(<Button href="https://tdesign.tencent.com/">Text</Button>);
-      expect((container.firstChild as HTMLElement).getAttribute('href')).toBe('https://tdesign.tencent.com/');
-      expect(container).toMatchSnapshot();
+    describe('href', () => {
+      test('href[string]', () => {
+        const { container } = render(<Button href="https://tdesign.tencent.com/">Text</Button>);
+        expect((container.firstChild as HTMLElement).getAttribute('href')).toBe('https://tdesign.tencent.com/');
+        expect(container).toMatchSnapshot();
+      });
+
+      test('href[string] and tag[a] and disabled and loading', () => {
+        const cases = [
+          { href: 'https://tdesign.tencent.com/', loading: true },
+          { href: 'https://tdesign.tencent.com/', disabled: true },
+          {
+            tag: 'a' as const,
+            href: 'https://tdesign.tencent.com/',
+            loading: true,
+          },
+          {
+            tag: 'a' as const,
+            href: 'https://tdesign.tencent.com/',
+            disabled: true,
+          },
+        ];
+
+        cases.forEach((props) => {
+          const { container } = render(<Button {...props}>Text</Button>);
+          expect((container.firstChild as HTMLElement).tagName).not.toBe('A');
+        });
+      });
+
+      test('tag[button] and disabled', () => {
+        const { container } = render(
+          <Button tag="button" disabled>
+            Text
+          </Button>,
+        );
+        const root = container.firstChild as HTMLElement;
+        expect(root.tagName).toBe('BUTTON');
+        expect(root.hasAttribute('disabled')).toBe(true);
+      });
     });
 
     test('loading[boolean]', () => {
