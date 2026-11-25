@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { fireEvent, render, vi, waitFor } from '@test/utils';
+import { fireEvent, mockDelay, render, vi, waitFor } from '@test/utils';
 
 import { Table } from '..';
 
-import type { BaseTableProps } from '../interface';
+import type { BaseTableProps, PrimaryTableProps } from '../interface';
 import type { FilterType, FilterValue, PrimaryTableCol, TableRowData } from '../type';
 
 type TestTableRow = TableRowData & {
@@ -1237,70 +1237,185 @@ describe('Table', () => {
       });
     });
 
-    describe('virtual full rows and cell spans', () => {
-      const columns = [{ colKey: 'id' }, { colKey: 'name' }];
+    describe('virtual header horizontal scrolling', () => {
+      const DATA = Array.from({ length: 150 }, (_, id) => ({
+        id,
+        name: `Row ${id}`,
+      }));
+      const COLUMNS = [
+        { colKey: 'id', title: 'ID', width: 300 },
+        { colKey: 'name', title: 'Name', width: 900 },
+      ];
+      const SCROLL = { type: 'virtual' as const };
 
-      it('renders virtual full rows when the span callback does not cover business cells', () => {
-        const spanData = Array.from({ length: 150 }, (_, id) => ({
-          id: id + 1,
-          name: `item ${id}`,
-        }));
-        const filtered = render(
+      function VirtualTable(props: Partial<PrimaryTableProps>) {
+        return (
           <Table
-            data={spanData}
-            columns={columns}
             rowKey="id"
-            height={200}
-            scroll={{ type: 'virtual' }}
-            filterValue={{ name: 'item' }}
-            filterRow="Filtered items"
-            rowspanAndColspan={({ rowIndex, colIndex }) => (rowIndex === 0 && colIndex === 0 ? { colspan: 2 } : {})}
-          />,
-        );
-        expect(filtered.getByText('Filtered items')).toBeVisible();
-        expect(filtered.getByText('item 0')).toBeVisible();
-
-        const callback = vi.fn(() => undefined);
-        const { container } = render(
-          <Table
-            data={[]}
-            columns={columns}
-            rowKey="id"
-            height={200}
-            scroll={{ type: 'virtual', threshold: 1 }}
-            firstFullRow="First"
-            lastFullRow="Last"
-            rowspanAndColspan={callback}
-          />,
-        );
-        expect(Array.from(container.querySelectorAll('tbody tr'), (row) => row.textContent)).toEqual(['First', 'Last']);
-        expect(callback).not.toHaveBeenCalled();
-      });
-
-      it('only admits window rows from the current page when a full row makes an empty span map ready', () => {
-        const rows = Array.from({ length: 150 }, (_, i) => ({ id: i + 1 }));
-        const table = (current: number) => (
-          <Table
-            data={rows}
-            columns={columns}
-            rowKey="id"
-            height={200}
-            scroll={{ type: 'virtual', bufferSize: 15 }}
-            firstFullRow="First"
-            rowAttributes={({ row }) => ({ 'data-id': String(row.id) })}
-            pagination={{ current, pageSize: 10, total: rows.length }}
-            rowspanAndColspan={() => undefined}
+            columns={COLUMNS}
+            data={DATA}
+            maxHeight={200}
+            scroll={SCROLL}
+            tableLayout="fixed"
+            {...props}
           />
         );
-        const { container, getByText, rerender } = render(table(15));
-        const renderedIds = () =>
-          Array.from(container.querySelectorAll('tbody tr[data-id]'), (tr) => +tr.getAttribute('data-id'));
+      }
 
-        expect(getByText('First')).toBeVisible();
-        expect(renderedIds()).toEqual([]);
+      function scroll(element: HTMLElement, left: number) {
+        fireEvent.mouseEnter(element);
+        fireEvent.scroll(element, { target: { scrollLeft: left } });
+        fireEvent.mouseLeave(element);
+      }
 
-        rerender(table(1));
-        expect(renderedIds()).toEqual(rows.slice(0, 10).map((row) => row.id));
+      async function getHeader(container: HTMLElement) {
+        await waitFor(() => expect(container.querySelector('.t-table__affixed-header-elm')).toBeTruthy());
+        return container.querySelector<HTMLElement>('.t-table__affixed-header-elm');
+      }
+
+      beforeEach(() => {
+        vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(600);
+        vi.spyOn(HTMLElement.prototype, 'clientHeight', 'get').mockReturnValue(200);
+        vi.spyOn(HTMLElement.prototype, 'scrollWidth', 'get').mockReturnValue(1200);
+        vi.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockImplementation(function (this: HTMLElement) {
+          return this.textContent?.includes('Row ') ? 4000 : 100;
+        });
+      });
+
+      afterEach(() => {
+        vi.restoreAllMocks();
+      });
+
+      it('synchronizes a header mounted after empty data loads', async () => {
+        const { container, rerender } = render(<VirtualTable data={[]} loading />);
+        await mockDelay(20);
+        expect(container.querySelector('.t-table__affixed-header-elm')).toBeNull();
+
+        rerender(<VirtualTable loading={false} />);
+        const header = await getHeader(container);
+        const body = container.querySelector<HTMLElement>('.t-table__content');
+        scroll(header, 240);
+        expect(body.scrollLeft).toBe(240);
+        scroll(body, 360);
+        expect(header.scrollLeft).toBe(360);
+      });
+
+      it('synchronizes when data is available on the initial mount', async () => {
+        const { container } = render(<VirtualTable />);
+        const header = await getHeader(container);
+        const body = container.querySelector<HTMLElement>('.t-table__content');
+        await mockDelay(20);
+        scroll(header, 180);
+        expect(body.scrollLeft).toBe(180);
+        scroll(body, 300);
+        expect(header.scrollLeft).toBe(300);
+      });
+
+      it('synchronizes a remounted header and releases the removed header', async () => {
+        const { container, rerender } = render(<VirtualTable />);
+        const oldHeader = await getHeader(container);
+        await mockDelay(20);
+        scroll(oldHeader, 120);
+        const body = container.querySelector<HTMLElement>('.t-table__content');
+        expect(body.scrollLeft).toBe(120);
+
+        rerender(<VirtualTable showHeader={false} />);
+        expect(container.querySelector('.t-table__affixed-header-elm')).toBeNull();
+        scroll(oldHeader, 240);
+        expect(body.scrollLeft).toBe(120);
+
+        rerender(<VirtualTable />);
+        const header = await getHeader(container);
+        expect(header).not.toBe(oldHeader);
+        scroll(header, 420);
+        expect(body.scrollLeft).toBe(420);
+      });
+
+      it('keeps non-virtual affixed headers, footers and the body synchronized', async () => {
+        const { container } = render(
+          <VirtualTable scroll={undefined} headerAffixedTop footerAffixedBottom footData={[DATA[0]]} />,
+        );
+        const header = await getHeader(container);
+        await mockDelay(20);
+        const body = container.querySelector<HTMLElement>('.t-table__content');
+        const footer = container.querySelector<HTMLElement>('.t-table__affixed-footer-elm');
+        expect(footer).toBeTruthy();
+        scroll(header, 180);
+        expect(body.scrollLeft).toBe(180);
+        expect(footer.scrollLeft).toBe(180);
+        scroll(body, 300);
+        expect(header.scrollLeft).toBe(300);
+        expect(footer.scrollLeft).toBe(300);
+      });
+
+      describe('virtual full rows and cell spans', () => {
+        const columns = [{ colKey: 'id' }, { colKey: 'name' }];
+
+        it('renders virtual full rows when the span callback does not cover business cells', () => {
+          const spanData = Array.from({ length: 150 }, (_, id) => ({
+            id: id + 1,
+            name: `item ${id}`,
+          }));
+          const filtered = render(
+            <Table
+              data={spanData}
+              columns={columns}
+              rowKey="id"
+              height={200}
+              scroll={{ type: 'virtual' }}
+              filterValue={{ name: 'item' }}
+              filterRow="Filtered items"
+              rowspanAndColspan={({ rowIndex, colIndex }) => (rowIndex === 0 && colIndex === 0 ? { colspan: 2 } : {})}
+            />,
+          );
+          expect(filtered.getByText('Filtered items')).toBeVisible();
+          expect(filtered.getByText('item 0')).toBeVisible();
+
+          const callback = vi.fn(() => undefined);
+          const { container } = render(
+            <Table
+              data={[]}
+              columns={columns}
+              rowKey="id"
+              height={200}
+              scroll={{ type: 'virtual', threshold: 1 }}
+              firstFullRow="First"
+              lastFullRow="Last"
+              rowspanAndColspan={callback}
+            />,
+          );
+          expect(Array.from(container.querySelectorAll('tbody tr'), (row) => row.textContent)).toEqual([
+            'First',
+            'Last',
+          ]);
+          expect(callback).not.toHaveBeenCalled();
+        });
+
+        it('only admits window rows from the current page when a full row makes an empty span map ready', () => {
+          const rows = Array.from({ length: 150 }, (_, i) => ({ id: i + 1 }));
+          const table = (current: number) => (
+            <Table
+              data={rows}
+              columns={columns}
+              rowKey="id"
+              height={200}
+              scroll={{ type: 'virtual', bufferSize: 15 }}
+              firstFullRow="First"
+              rowAttributes={({ row }) => ({ 'data-id': String(row.id) })}
+              pagination={{ current, pageSize: 10, total: rows.length }}
+              rowspanAndColspan={() => undefined}
+            />
+          );
+          const { container, getByText, rerender } = render(table(15));
+          const renderedIds = () =>
+            Array.from(container.querySelectorAll('tbody tr[data-id]'), (tr) => +tr.getAttribute('data-id'));
+
+          expect(getByText('First')).toBeVisible();
+          expect(renderedIds()).toEqual([]);
+
+          rerender(table(1));
+          expect(renderedIds()).toEqual(rows.slice(0, 10).map((row) => row.id));
+        });
       });
     });
   });
