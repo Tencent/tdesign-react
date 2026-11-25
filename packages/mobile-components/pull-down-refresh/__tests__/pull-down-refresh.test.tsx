@@ -1,8 +1,9 @@
 import React from 'react';
-import { describe, it, expect, render, renderHook, vi, waitFor, beforeEach, act } from '@test/utils';
 import { range } from 'lodash-es';
+import { act, beforeEach, describe, expect, it, render, renderHook, vi, waitFor } from '@test/utils';
+
 import { PullDownRefresh } from '../index';
-import { useTouch, easeDistance, isReachTop } from '../useTouch';
+import { easeDistance, isReachTop, useTouch } from '../useTouch';
 
 const prefix = 't';
 const name = `.${prefix}-pull-down-refresh`;
@@ -31,7 +32,7 @@ const mockTouch = (element: Element, type: string, touches: Array<{ clientX: num
 };
 
 // Mock document properties for scroll detection
-const mockScroll = (scrollTop: number, scrollHeight: number = mockScrollHeight, withDocument: boolean = false) => {
+const mockScroll = (scrollTop: number, scrollHeight: number = mockScrollHeight, withDocument = false) => {
   Object.defineProperty(document.body, 'scrollTop', {
     value: scrollTop,
     writable: true,
@@ -64,7 +65,7 @@ const mockScroll = (scrollTop: number, scrollHeight: number = mockScrollHeight, 
   document.documentElement.style.overflowY = 'scroll';
 };
 
-const mockPullDown = (track: Element, height: number, step: number, start: number = 0) => {
+const mockPullDown = (track: Element, height: number, step: number, start = 0) => {
   const stages = range(0, height, step);
 
   act(() => {
@@ -128,9 +129,9 @@ describe('PullDownRefresh', () => {
         </PullDownRefresh>,
       );
 
-      const track = container.querySelector(`${name}__track`);
+      const track = container.querySelector(`${name}__track`) as HTMLElement;
 
-      mockPullDown(track!, 80, 4, 0);
+      mockPullDown(track, 80, 4, 0);
 
       expect(onRefresh).not.toHaveBeenCalled();
     });
@@ -176,7 +177,7 @@ describe('PullDownRefresh', () => {
 
       const track = container.querySelector(`${name}__track`) as HTMLElement;
 
-      mockPullDown(track!, 60, 2, 0);
+      mockPullDown(track, 60, 2, 0);
       // 等待 doRefresh 内的异步状态更新在 act 中完成
       await act(async () => {});
 
@@ -222,9 +223,9 @@ describe('PullDownRefresh', () => {
           </PullDownRefresh>,
         );
 
-        const track = container.querySelector(`${name}__track`);
+        const track = container.querySelector(`${name}__track`) as HTMLElement;
 
-        mockPullDown(track!, 80, 4, 0);
+        mockPullDown(track, 80, 4, 0);
 
         await waitFor(
           () => {
@@ -242,9 +243,9 @@ describe('PullDownRefresh', () => {
           </PullDownRefresh>,
         );
 
-        const track = container.querySelector(`${name}__track`);
+        const track = container.querySelector(`${name}__track`) as HTMLElement;
 
-        mockPullDown(track!, 80, 4, 0);
+        mockPullDown(track, 80, 4, 0);
 
         await waitFor(
           () => {
@@ -340,16 +341,16 @@ describe('PullDownRefresh', () => {
         </PullDownRefresh>,
       );
 
-      const track = container.querySelector(`${name}__track`);
+      const track = container.querySelector(`${name}__track`) as HTMLElement;
 
       // absX = 20, absY = 5
       await act(async () => {
-        mockTouch(track!, 'touchstart', [{ clientX: 0, clientY: 0 }]);
-        mockTouch(track!, 'touchmove', [{ clientX: 20, clientY: 5 }]);
+        mockTouch(track, 'touchstart', [{ clientX: 0, clientY: 0 }]);
+        mockTouch(track, 'touchmove', [{ clientX: 20, clientY: 5 }]);
       });
       await act(async () => {
-        mockTouch(track!, 'touchstart', [{ clientX: 0, clientY: 0 }]);
-        mockTouch(track!, 'touchmove', [{ clientX: 40, clientY: 10 }]);
+        mockTouch(track, 'touchstart', [{ clientX: 0, clientY: 0 }]);
+        mockTouch(track, 'touchmove', [{ clientX: 40, clientY: 10 }]);
       });
 
       expect(mockRefresh).not.toHaveBeenCalled();
@@ -364,10 +365,10 @@ describe('PullDownRefresh', () => {
         </PullDownRefresh>,
       );
 
-      const track = container.querySelector(`${name}__track`);
+      const track = container.querySelector(`${name}__track`) as HTMLElement;
 
       // absX = 0, absY = 60
-      mockPullDown(track!, 80, 4, 0);
+      mockPullDown(track, 80, 4, 0);
       // 等待 doRefresh 内的异步状态更新在 act 中完成
       await act(async () => {});
 
@@ -388,20 +389,20 @@ describe('PullDownRefresh', () => {
         </PullDownRefresh>,
       );
 
-      const track = container.querySelector(`${name}__track`);
+      const track = container.querySelector(`${name}__track`) as HTMLElement;
 
       await act(async () => {
-        mockTouch(track!, 'touchstart', [{ clientX: 0, clientY: 0 }]);
-        mockTouch(track!, 'touchmove', [{ clientX: 0, clientY: 20 }]);
+        mockTouch(track, 'touchstart', [{ clientX: 0, clientY: 0 }]);
+        mockTouch(track, 'touchmove', [{ clientX: 0, clientY: 20 }]);
       });
       await act(async () => {
-        mockTouch(track!, 'touchmove', [{ clientX: 0, clientY: 40 }]);
+        mockTouch(track, 'touchmove', [{ clientX: 0, clientY: 40 }]);
       });
       await act(async () => {
-        mockTouch(track!, 'touchmove', [{ clientX: 0, clientY: 60 }]);
+        mockTouch(track, 'touchmove', [{ clientX: 0, clientY: 60 }]);
       });
       await act(async () => {
-        mockTouch(track!, 'touchend', [{ clientX: 0, clientY: 80 }]);
+        mockTouch(track, 'touchend', [{ clientX: 0, clientY: 80 }]);
       });
 
       expect(mockRefresh).not.toHaveBeenCalled();
@@ -422,9 +423,9 @@ describe('PullDownRefresh', () => {
         </PullDownRefresh>,
       );
 
-      const track = container.querySelector(`${name}__track`);
+      const track = container.querySelector(`${name}__track`) as HTMLElement;
 
-      mockPullDown(track!, 80, 4, 0);
+      mockPullDown(track, 80, 4, 0);
 
       expect(mockRefresh).toHaveBeenCalled();
 
@@ -521,7 +522,7 @@ describe('PullDownRefresh', () => {
         </PullDownRefresh>,
       );
 
-      const track = container.querySelector(`${name}__track`);
+      const track = container.querySelector(`${name}__track`) as HTMLElement;
       const loading = container.querySelector('.t-loading');
 
       expect(track).toBeTruthy();
@@ -535,34 +536,34 @@ describe('PullDownRefresh', () => {
         </PullDownRefresh>,
       );
 
-      const track = container.querySelector(`${name}__track`);
+      const track = container.querySelector(`${name}__track`) as HTMLElement;
 
       // set touchDir to 1
       await act(async () => {
-        mockTouch(track!, 'touchStart', [{ clientX: 0, clientY: 0 }]);
+        mockTouch(track, 'touchStart', [{ clientX: 0, clientY: 0 }]);
       });
       await act(async () => {
-        mockTouch(track!, 'touchMove', [{ clientX: 0, clientY: 20 }]);
+        mockTouch(track, 'touchMove', [{ clientX: 0, clientY: 20 }]);
       });
       await act(async () => {
-        mockTouch(track!, 'touchMove', [{ clientX: 0, clientY: 40 }]);
+        mockTouch(track, 'touchMove', [{ clientX: 0, clientY: 40 }]);
       });
 
       // set touchDir to -1
       await act(async () => {
-        mockTouch(track!, 'touchMove', [{ clientX: 0, clientY: 60 }]);
+        mockTouch(track, 'touchMove', [{ clientX: 0, clientY: 60 }]);
       });
       await act(async () => {
-        mockTouch(track!, 'touchMove', [{ clientX: 0, clientY: 40 }]);
+        mockTouch(track, 'touchMove', [{ clientX: 0, clientY: 40 }]);
       });
       await act(async () => {
-        mockTouch(track!, 'touchMove', [{ clientX: 0, clientY: 20 }]);
+        mockTouch(track, 'touchMove', [{ clientX: 0, clientY: 20 }]);
       });
       await act(async () => {
-        mockTouch(track!, 'touchMove', [{ clientX: 0, clientY: 0 }]);
+        mockTouch(track, 'touchMove', [{ clientX: 0, clientY: 0 }]);
       });
       await act(async () => {
-        mockTouch(track!, 'touchEnd', [{ clientX: 0, clientY: 0 }]);
+        mockTouch(track, 'touchEnd', [{ clientX: 0, clientY: 0 }]);
       });
 
       expect(track).not.toHaveClass(`${name}__track--loosing`);

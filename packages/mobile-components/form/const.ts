@@ -1,8 +1,8 @@
-import {
+import type {
   AllValidateResult,
   FieldData,
-  FormItemValidateMessage,
   FormInstanceFunctions,
+  FormItemValidateMessage,
   FormRule,
   NamePath,
   TdFormProps,

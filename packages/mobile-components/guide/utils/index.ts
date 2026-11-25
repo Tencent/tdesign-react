@@ -1,10 +1,10 @@
 import {
   getElmCssPropValue,
-  isFixed,
   getRelativePosition,
   getTargetElm,
-  scrollToParentVisibleArea,
+  isFixed,
   scrollToElm,
+  scrollToParentVisibleArea,
 } from './dom';
 
-export { getElmCssPropValue, isFixed, getRelativePosition, getTargetElm, scrollToParentVisibleArea, scrollToElm };
+export { getElmCssPropValue, getRelativePosition, getTargetElm, isFixed, scrollToElm, scrollToParentVisibleArea };

@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { BrowseOffIcon } from 'tdesign-icons-react';
 import {
   Button,
   Cascader,
@@ -12,9 +13,9 @@ import {
   Stepper,
   Textarea,
   Upload,
-  type UploadFile,
 } from 'tdesign-mobile-react';
-import { BrowseOffIcon } from 'tdesign-icons-react';
+
+import type { UploadFile } from 'tdesign-mobile-react';
 
 const action = 'https://service-bv448zsw-1257786608.gz.apigw.tencentcs.com/api/upload-demo';
 
@@ -136,8 +137,18 @@ export default function BaseForm({ labelAlign = 'top', disabled }: BaseFormProps
 
   const rules = useMemo(
     () => ({
-      name: [{ validator: (val: any) => val?.length === 8, message: '只能输入8个字符英文' }],
-      password: [{ validator: (val: any) => val?.length > 6, message: '密码长度 6–16 位，支持字母、数字' }],
+      name: [
+        {
+          validator: (val: any) => val?.length === 8,
+          message: '只能输入8个字符英文',
+        },
+      ],
+      password: [
+        {
+          validator: (val: any) => val?.length > 6,
+          message: '密码长度 6–16 位，支持字母、数字',
+        },
+      ],
       gender: [{ validator: (val: any) => val !== '', message: '不能为空' }],
       birth: [{ validator: (val: any) => val !== '', message: '不能为空' }],
       place: [{ validator: (val: any) => val !== '', message: '不能为空' }],
@@ -155,7 +166,9 @@ export default function BaseForm({ labelAlign = 'top', disabled }: BaseFormProps
   const onPlaceChange = (value: string | number, selectedOptions: any) => {
     setPlaceValue(value);
     setPlaceVisible(false);
-    form.setFieldsValue({ place: selectedOptions?.map((item: any) => item.label).join(' ') });
+    form.setFieldsValue({
+      place: selectedOptions?.map((item: any) => item.label).join(' '),
+    });
   };
 
   const onReset = () => {

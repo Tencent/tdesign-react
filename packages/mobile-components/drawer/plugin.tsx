@@ -1,7 +1,10 @@
 import React, { createRef } from 'react';
+
 import { render, unmount } from '../_util/react-render';
-import Drawer, { DrawerProps } from './Drawer';
-import { DrawerInstance, TdDrawerProps, DrawerOptions } from './type';
+import Drawer from './Drawer';
+
+import type { DrawerProps } from './Drawer';
+import type { DrawerInstance, DrawerOptions, TdDrawerProps } from './type';
 
 function createContainer(attach?: TdDrawerProps['attach']) {
   if (typeof attach === 'string') return document.querySelector(attach);

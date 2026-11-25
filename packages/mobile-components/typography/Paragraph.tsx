@@ -1,10 +1,12 @@
-import React, { forwardRef, ReactNode } from 'react';
+import React, { forwardRef } from 'react';
 import classNames from 'classnames';
+
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { paragraphDefaultProps } from './defaultProps';
 import Ellipsis from './Ellipsis';
 
+import type { ReactNode } from 'react';
 import type { StyledProps } from '../common';
 import type { TdParagraphProps } from './type';
 

@@ -1,5 +1,6 @@
-import { describe, it, expect, vi, render, fireEvent, screen } from '@test/utils';
 import React from 'react';
+import { describe, expect, fireEvent, it, render, screen, vi } from '@test/utils';
+
 import Cell from '../Cell';
 
 describe('Cell', () => {

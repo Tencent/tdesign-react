@@ -1,6 +1,7 @@
+import './style';
+
 import _Picker from './Picker';
 import _PickerItem from './PickerItem';
-import './style';
 
 export type { PickerProps } from './Picker';
 export type { PickerItemProps } from './PickerItem';

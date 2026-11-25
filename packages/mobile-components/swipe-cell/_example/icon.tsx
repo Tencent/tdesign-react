@@ -1,6 +1,6 @@
 import React from 'react';
-import { SwipeCell, Cell, Toast } from 'tdesign-mobile-react';
-import { EditIcon, DeleteIcon } from 'tdesign-icons-react';
+import { DeleteIcon, EditIcon } from 'tdesign-icons-react';
+import { Cell, SwipeCell, Toast } from 'tdesign-mobile-react';
 
 // 站点 DemoBlock 的等价实现，避免通过相对路径引用 site 组件
 const DemoBlock = ({
@@ -36,8 +36,18 @@ export default function Demo() {
   const handleDelete = () => handleClick('删除');
 
   const right = [
-    { text: '编辑', icon: editIcon, className: 'btn edit-btn', onClick: handleEdit },
-    { text: '删除', icon: delIcon, className: 'btn delete-btn', onClick: handleDelete },
+    {
+      text: '编辑',
+      icon: editIcon,
+      className: 'btn edit-btn',
+      onClick: handleEdit,
+    },
+    {
+      text: '删除',
+      icon: delIcon,
+      className: 'btn delete-btn',
+      onClick: handleDelete,
+    },
   ];
 
   const vertical = right.map((item) => ({
@@ -46,8 +56,18 @@ export default function Demo() {
   }));
 
   const pureIcon = [
-    { icon: editIcon, text: '', className: 'btn edit-btn', onClick: handleEdit },
-    { icon: delIcon, text: '', className: 'btn delete-btn', onClick: handleDelete },
+    {
+      icon: editIcon,
+      text: '',
+      className: 'btn edit-btn',
+      onClick: handleEdit,
+    },
+    {
+      icon: delIcon,
+      text: '',
+      className: 'btn delete-btn',
+      onClick: handleDelete,
+    },
   ];
 
   return (

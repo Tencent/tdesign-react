@@ -1,10 +1,11 @@
 // @ts-ignore
-import type { MouseEvent } from 'react';
 import React, { useState } from 'react';
-import {
+import { Upload } from 'tdesign-mobile-react';
+
+import type { MouseEvent } from 'react';
+import type {
   ProgressContext,
   SuccessContext,
-  Upload,
   UploadChangeContext,
   UploadFailContext,
   UploadFile,

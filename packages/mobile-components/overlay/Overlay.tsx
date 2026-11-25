@@ -1,13 +1,15 @@
-import React, { useRef, useMemo } from 'react';
-import classNames from 'classnames';
+import React, { useMemo, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { StyledProps } from '../common';
-import { TdOverlayProps } from './type';
-import { overlayDefaultProps } from './defaultProps';
-import { useLockScroll } from '../hooks/useLockScroll';
+import classNames from 'classnames';
+
 import parseTNode from '../_util/parseTNode';
-import useDefaultProps from '../hooks/useDefaultProps';
 import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { useLockScroll } from '../hooks/useLockScroll';
+import { overlayDefaultProps } from './defaultProps';
+
+import type { StyledProps } from '../common';
+import type { TdOverlayProps } from './type';
 
 export interface OverlayProps extends TdOverlayProps, StyledProps {}
 

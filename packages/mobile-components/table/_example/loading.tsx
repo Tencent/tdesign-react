@@ -1,5 +1,7 @@
 import React from 'react';
-import { Button, Table, Tag, TdPrimaryTableProps } from 'tdesign-mobile-react';
+import { Button, Table, Tag } from 'tdesign-mobile-react';
+
+import type { TdPrimaryTableProps } from 'tdesign-mobile-react';
 
 export default function LoadingExample() {
   const data = [];

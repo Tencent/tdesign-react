@@ -1,11 +1,14 @@
-import React, { FC, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
-import useConfig from '../hooks/useConfig';
-import { TdStickyProps } from './type';
-import { stickyDefaultProps } from './defaultProps';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+
 import { resolveContainer } from '../_util/getContainer';
+import getScrollParent from '../_util/getScrollParent';
+import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useLayoutEffect from '../hooks/useLayoutEffect';
-import getScrollParent from '../_util/getScrollParent';
+import { stickyDefaultProps } from './defaultProps';
+
+import type { FC, ReactNode } from 'react';
+import type { TdStickyProps } from './type';
 
 export interface StickyProps extends TdStickyProps {
   children?: ReactNode;

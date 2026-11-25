@@ -1,8 +1,9 @@
+import './style';
+
 import { attachMethodsToComponent } from '../_util/attachMethodsToComponent';
-import { ToastOptions } from './type';
 import * as methods from './methods';
 
-import './style';
+import type { ToastOptions } from './type';
 
 export * from './type';
 

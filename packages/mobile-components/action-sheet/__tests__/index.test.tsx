@@ -1,6 +1,6 @@
 import React from 'react';
-import { describe, it, expect, vi, beforeEach } from '@test/utils';
-import { render, fireEvent } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from '@test/utils';
+import { fireEvent, render } from '@testing-library/react';
 
 const defaultProps = {
   visible: true,

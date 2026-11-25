@@ -1,5 +1,5 @@
 import React from 'react';
-import { TypographyText, TypographyTitle, TypographyParagraph } from 'tdesign-mobile-react';
+import { TypographyParagraph, TypographyText, TypographyTitle } from 'tdesign-mobile-react';
 
 export default function CombinationDemo() {
   return (

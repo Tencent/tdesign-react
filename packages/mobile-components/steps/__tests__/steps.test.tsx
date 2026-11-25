@@ -1,8 +1,11 @@
 import React from 'react';
-import { describe, expect, it, render, fireEvent, vi } from '@test/utils';
 import { Icon } from 'tdesign-icons-react';
-import { Steps, StepItem, StepStatus, Image } from 'tdesign-mobile-react';
+import { Image, StepItem, Steps } from 'tdesign-mobile-react';
+import { describe, expect, fireEvent, it, render, vi } from '@test/utils';
+
 import { StepsContext } from '../StepsContext';
+
+import type { StepStatus } from 'tdesign-mobile-react';
 
 const prefix = 't';
 const steps = `${prefix}-steps`;

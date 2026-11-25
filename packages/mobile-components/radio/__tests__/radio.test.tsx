@@ -1,6 +1,6 @@
 import React from 'react';
-import { describe, expect, render, it, vi, fireEvent } from '@test/utils';
-import { CircleIcon, CheckCircleIcon } from 'tdesign-icons-react';
+import { CheckCircleIcon, CircleIcon } from 'tdesign-icons-react';
+import { describe, expect, fireEvent, it, render, vi } from '@test/utils';
 
 import Radio, { RadioContext } from '../Radio';
 import RadioGroup from '../RadioGroup';
@@ -19,7 +19,11 @@ type TIconStringTestCases = Array<{
 describe('Radio', () => {
   describe('props', () => {
     it('inject', () => {
-      const mockInject = vi.fn((props) => ({ ...props, name: 'injected-group', injected: true }));
+      const mockInject = vi.fn((props) => ({
+        ...props,
+        name: 'injected-group',
+        injected: true,
+      }));
       const originalProps = {
         label: 'radio',
         value: 'test',

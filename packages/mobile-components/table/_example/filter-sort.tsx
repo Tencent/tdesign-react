@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { FilterValue, PrimaryTableCol, PrimaryTableProps, SortInfo, Table, TableSort, Tag } from 'tdesign-mobile-react';
 import { isNumber } from 'lodash-es';
+import { Table, Tag } from 'tdesign-mobile-react';
+
+import type { FilterValue, PrimaryTableCol, PrimaryTableProps, SortInfo, TableSort } from 'tdesign-mobile-react';
 
 const statusNameListMap = {
   0: { label: '审批通过', theme: 'success' },

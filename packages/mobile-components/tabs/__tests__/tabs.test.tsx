@@ -1,6 +1,7 @@
 import React from 'react';
-import { describe, it, expect, render, vi, fireEvent, beforeEach, act } from '@test/utils';
-import { Tabs, TabPanel } from '../index';
+import { act, beforeEach, describe, expect, fireEvent, it, render, vi } from '@test/utils';
+
+import { TabPanel, Tabs } from '../index';
 
 const prefix = 't';
 const name = `.${prefix}-tabs`;
@@ -204,8 +205,12 @@ describe('Tabs', () => {
         </Tabs>,
       );
       const content = container.querySelector(`${name}__content`);
-      fireEvent.touchStart(content, { targetTouches: [{ clientX: 100, clientY: 50 }] });
-      fireEvent.touchMove(content, { targetTouches: [{ clientX: 10, clientY: 50 }] });
+      fireEvent.touchStart(content, {
+        targetTouches: [{ clientX: 100, clientY: 50 }],
+      });
+      fireEvent.touchMove(content, {
+        targetTouches: [{ clientX: 10, clientY: 50 }],
+      });
       fireEvent.touchEnd(content);
 
       expect(container.querySelector(`${name}__item--active`)).toHaveTextContent('Tab 1');
@@ -340,9 +345,15 @@ describe('Tabs', () => {
 
       const content = container.querySelector(`${name}__content`);
       // 向左滑动：startX > endX，切换到下一个 tab
-      fireEvent.touchStart(content, { targetTouches: [{ clientX: 150, clientY: 50 }] });
-      fireEvent.touchMove(content, { targetTouches: [{ clientX: 100, clientY: 50 }] });
-      fireEvent.touchMove(content, { targetTouches: [{ clientX: 50, clientY: 50 }] });
+      fireEvent.touchStart(content, {
+        targetTouches: [{ clientX: 150, clientY: 50 }],
+      });
+      fireEvent.touchMove(content, {
+        targetTouches: [{ clientX: 100, clientY: 50 }],
+      });
+      fireEvent.touchMove(content, {
+        targetTouches: [{ clientX: 50, clientY: 50 }],
+      });
       fireEvent.touchEnd(content);
 
       expect(onChange).toHaveBeenCalledWith('2', 'Tab 2');
@@ -366,9 +377,15 @@ describe('Tabs', () => {
 
       const content = container.querySelector(`${name}__content`);
       // 向右滑动：startX < endX，从中间 tab 切换到上一个
-      fireEvent.touchStart(content, { targetTouches: [{ clientX: 50, clientY: 50 }] });
-      fireEvent.touchMove(content, { targetTouches: [{ clientX: 100, clientY: 50 }] });
-      fireEvent.touchMove(content, { targetTouches: [{ clientX: 150, clientY: 50 }] });
+      fireEvent.touchStart(content, {
+        targetTouches: [{ clientX: 50, clientY: 50 }],
+      });
+      fireEvent.touchMove(content, {
+        targetTouches: [{ clientX: 100, clientY: 50 }],
+      });
+      fireEvent.touchMove(content, {
+        targetTouches: [{ clientX: 150, clientY: 50 }],
+      });
       fireEvent.touchEnd(content);
 
       expect(onChange).toHaveBeenCalledWith('1', 'Tab 1');
@@ -390,8 +407,12 @@ describe('Tabs', () => {
       );
 
       const content = container.querySelector(`${name}__content`);
-      fireEvent.touchStart(content, { targetTouches: [{ clientX: 10, clientY: 50 }] });
-      fireEvent.touchMove(content, { targetTouches: [{ clientX: 100, clientY: 50 }] });
+      fireEvent.touchStart(content, {
+        targetTouches: [{ clientX: 10, clientY: 50 }],
+      });
+      fireEvent.touchMove(content, {
+        targetTouches: [{ clientX: 100, clientY: 50 }],
+      });
       fireEvent.touchEnd(content);
 
       expect(container.querySelector(name)).toBeTruthy();
@@ -412,9 +433,15 @@ describe('Tabs', () => {
 
       const content = container.querySelector(`${name}__content`);
       // 从最后一个 tab 向左滑动，不应切换
-      fireEvent.touchStart(content, { targetTouches: [{ clientX: 150, clientY: 50 }] });
-      fireEvent.touchMove(content, { targetTouches: [{ clientX: 100, clientY: 50 }] });
-      fireEvent.touchMove(content, { targetTouches: [{ clientX: 50, clientY: 50 }] });
+      fireEvent.touchStart(content, {
+        targetTouches: [{ clientX: 150, clientY: 50 }],
+      });
+      fireEvent.touchMove(content, {
+        targetTouches: [{ clientX: 100, clientY: 50 }],
+      });
+      fireEvent.touchMove(content, {
+        targetTouches: [{ clientX: 50, clientY: 50 }],
+      });
       fireEvent.touchEnd(content);
 
       expect(onChange).not.toHaveBeenCalled();
@@ -435,9 +462,15 @@ describe('Tabs', () => {
 
       const content = container.querySelector(`${name}__content`);
 
-      fireEvent.touchStart(content, { targetTouches: [{ clientX: 50, clientY: 50 }] });
-      fireEvent.touchMove(content, { targetTouches: [{ clientX: 100, clientY: 50 }] });
-      fireEvent.touchMove(content, { targetTouches: [{ clientX: 150, clientY: 50 }] });
+      fireEvent.touchStart(content, {
+        targetTouches: [{ clientX: 50, clientY: 50 }],
+      });
+      fireEvent.touchMove(content, {
+        targetTouches: [{ clientX: 100, clientY: 50 }],
+      });
+      fireEvent.touchMove(content, {
+        targetTouches: [{ clientX: 150, clientY: 50 }],
+      });
       fireEvent.touchEnd(content);
 
       expect(onChange).not.toHaveBeenCalled();
@@ -457,9 +490,15 @@ describe('Tabs', () => {
 
       const content = container.querySelector(`${name}__content`);
       // 垂直滑动：dValueY > dValueX，不会触发水平切换
-      fireEvent.touchStart(content, { targetTouches: [{ clientX: 100, clientY: 50 }] });
-      fireEvent.touchMove(content, { targetTouches: [{ clientX: 110, clientY: 150 }] });
-      fireEvent.touchMove(content, { targetTouches: [{ clientX: 120, clientY: 250 }] });
+      fireEvent.touchStart(content, {
+        targetTouches: [{ clientX: 100, clientY: 50 }],
+      });
+      fireEvent.touchMove(content, {
+        targetTouches: [{ clientX: 110, clientY: 150 }],
+      });
+      fireEvent.touchMove(content, {
+        targetTouches: [{ clientX: 120, clientY: 250 }],
+      });
       fireEvent.touchEnd(content);
 
       // 验证组件正常工作
@@ -479,9 +518,15 @@ describe('Tabs', () => {
       );
 
       const content = container.querySelector(`${name}__content`);
-      fireEvent.touchStart(content, { targetTouches: [{ clientX: 100, clientY: 50 }] });
-      fireEvent.touchMove(content, { targetTouches: [{ clientX: 50, clientY: 50 }] });
-      fireEvent.touchMove(content, { targetTouches: [{ clientX: 10, clientY: 50 }] });
+      fireEvent.touchStart(content, {
+        targetTouches: [{ clientX: 100, clientY: 50 }],
+      });
+      fireEvent.touchMove(content, {
+        targetTouches: [{ clientX: 50, clientY: 50 }],
+      });
+      fireEvent.touchMove(content, {
+        targetTouches: [{ clientX: 10, clientY: 50 }],
+      });
       fireEvent.touchEnd(content);
 
       expect(container.querySelector(name)).toBeTruthy();
@@ -500,9 +545,15 @@ describe('Tabs', () => {
       );
 
       const content = container.querySelector(`${name}__content`);
-      fireEvent.touchStart(content, { targetTouches: [{ clientX: 50, clientY: 50 }] });
-      fireEvent.touchMove(content, { targetTouches: [{ clientX: 30, clientY: 50 }] });
-      fireEvent.touchMove(content, { targetTouches: [{ clientX: 35, clientY: 50 }] });
+      fireEvent.touchStart(content, {
+        targetTouches: [{ clientX: 50, clientY: 50 }],
+      });
+      fireEvent.touchMove(content, {
+        targetTouches: [{ clientX: 30, clientY: 50 }],
+      });
+      fireEvent.touchMove(content, {
+        targetTouches: [{ clientX: 35, clientY: 50 }],
+      });
       fireEvent.touchEnd(content);
 
       expect(container.querySelector(name)).toBeTruthy();
@@ -563,9 +614,15 @@ describe('Tabs', () => {
       const { container } = render(<Tabs defaultValue="nonexistent" swipeable list={[]} onChange={onChange} />);
 
       const content = container.querySelector(`${name}__content`);
-      fireEvent.touchStart(content, { targetTouches: [{ clientX: 150, clientY: 50 }] });
-      fireEvent.touchMove(content, { targetTouches: [{ clientX: 100, clientY: 50 }] });
-      fireEvent.touchMove(content, { targetTouches: [{ clientX: 50, clientY: 50 }] });
+      fireEvent.touchStart(content, {
+        targetTouches: [{ clientX: 150, clientY: 50 }],
+      });
+      fireEvent.touchMove(content, {
+        targetTouches: [{ clientX: 100, clientY: 50 }],
+      });
+      fireEvent.touchMove(content, {
+        targetTouches: [{ clientX: 50, clientY: 50 }],
+      });
       fireEvent.touchEnd(content);
 
       expect(onChange).not.toHaveBeenCalled();
@@ -626,13 +683,19 @@ describe('Tabs', () => {
 
       const content = container.querySelector(`${name}__content`);
       await act(async () => {
-        fireEvent.touchStart(content, { targetTouches: [{ clientX: 50, clientY: 50 }] });
+        fireEvent.touchStart(content, {
+          targetTouches: [{ clientX: 50, clientY: 50 }],
+        });
       });
       await act(async () => {
-        fireEvent.touchMove(content, { targetTouches: [{ clientX: 120, clientY: 50 }] });
+        fireEvent.touchMove(content, {
+          targetTouches: [{ clientX: 120, clientY: 50 }],
+        });
       });
       await act(async () => {
-        fireEvent.touchMove(content, { targetTouches: [{ clientX: 240, clientY: 50 }] });
+        fireEvent.touchMove(content, {
+          targetTouches: [{ clientX: 240, clientY: 50 }],
+        });
       });
       await act(async () => {
         fireEvent.touchEnd(content);
@@ -652,13 +715,19 @@ describe('Tabs', () => {
 
       const content = container.querySelector(`${name}__content`);
       await act(async () => {
-        fireEvent.touchStart(content, { targetTouches: [{ clientX: 30, clientY: 40 }] });
+        fireEvent.touchStart(content, {
+          targetTouches: [{ clientX: 30, clientY: 40 }],
+        });
       });
       await act(async () => {
-        fireEvent.touchMove(content, { targetTouches: [{ clientX: 110, clientY: 40 }] });
+        fireEvent.touchMove(content, {
+          targetTouches: [{ clientX: 110, clientY: 40 }],
+        });
       });
       await act(async () => {
-        fireEvent.touchMove(content, { targetTouches: [{ clientX: 220, clientY: 40 }] });
+        fireEvent.touchMove(content, {
+          targetTouches: [{ clientX: 220, clientY: 40 }],
+        });
       });
       await act(async () => {
         fireEvent.touchEnd(content);

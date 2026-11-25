@@ -1,8 +1,11 @@
-import React, { FC, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
-import { TdTabPanelProps } from './type';
-import TabContext from './context';
-import { usePrefixClass } from '../hooks/useClass';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
+
 import parseTNode from '../_util/parseTNode';
+import { usePrefixClass } from '../hooks/useClass';
+import TabContext from './context';
+
+import type { FC, ReactNode } from 'react';
+import type { TdTabPanelProps } from './type';
 
 export interface TabPanelProps extends TdTabPanelProps {
   children?: ReactNode;

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Calendar, Cell, TDate } from 'tdesign-mobile-react';
+import { Calendar, Cell } from 'tdesign-mobile-react';
+
+import type { TDate } from 'tdesign-mobile-react';
 
 export default function () {
   const defaultDate = new Date(2022, 1, 18);

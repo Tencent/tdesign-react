@@ -1,6 +1,9 @@
-import { describe, it, expect } from '@test/utils';
-import ActionSheet, { ActionSheetProps } from '../index';
+import { describe, expect, it } from '@test/utils';
+
 import * as ActionSheetMethod from '../ActionSheetMethod';
+import ActionSheet from '../index';
+
+import type { ActionSheetProps } from '../index';
 
 describe('ActionSheet index exports', () => {
   it('should export ActionSheet as default', () => {

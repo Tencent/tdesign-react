@@ -1,14 +1,16 @@
+import React, { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useSize } from 'ahooks';
 import cx from 'classnames';
-import React, { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
 import useDefault from '../_util/useDefault';
-import type { StyledProps } from '../common';
-import useDefaultProps from '../hooks/useDefaultProps';
 import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
 import { rateDefaultProps } from './defaultProps';
 import { RateIcon } from './RateIcon';
 import { RateText } from './RateText';
 import { RateTips } from './RateTips';
+
+import type { StyledProps } from '../common';
 import type { TdRateProps } from './type';
 
 export interface RateProps extends TdRateProps, StyledProps {}

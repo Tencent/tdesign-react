@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Comment, Image, ImageViewer, Tag } from 'tdesign-mobile-react';
 import { HeartIcon, Uncomfortable1Icon } from 'tdesign-icons-react';
+import { Button, Comment, Image, ImageViewer, Tag } from 'tdesign-mobile-react';
 
 const images = ['https://tdesign.gtimg.com/mobile/demos/swiper1.png'];
 
@@ -44,7 +44,11 @@ export default function ImageDemo() {
   return (
     <div className="mobile-comment">
       <Comment
-        avatar={{ shape: 'circle', size: '32px', image: 'https://tdesign.gtimg.com/mobile/demos/avatar1.png' }}
+        avatar={{
+          shape: 'circle',
+          size: '32px',
+          image: 'https://tdesign.gtimg.com/mobile/demos/avatar1.png',
+        }}
         author={
           <div className="mobile-comment__author">
             <div>Name1 名称</div>

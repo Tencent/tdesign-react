@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Steps, StepItem, Button } from 'tdesign-mobile-react';
-import { ChevronRightIcon, CartIcon } from 'tdesign-icons-react';
+import { CartIcon, ChevronRightIcon } from 'tdesign-icons-react';
+import { Button, StepItem, Steps } from 'tdesign-mobile-react';
 
 export default function StepsDemo() {
   const [first, setFirst] = useState(3);

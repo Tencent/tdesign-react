@@ -1,11 +1,13 @@
 import React, { useMemo } from 'react';
 import cx from 'classnames';
+
+import { Grid, GridItem } from '../grid';
+import { usePrefixClass } from '../hooks/useClass';
+import { Swiper } from '../swiper';
+
+import type { TNode } from '../common';
 import type { ActionSheetProps } from './ActionSheet';
 import type { ActionSheetItem } from './type';
-import type { TNode } from '../common';
-import { Grid, GridItem } from '../grid';
-import { Swiper } from '../swiper';
-import { usePrefixClass } from '../hooks/useClass';
 
 type ActionSheetGridProps = Pick<ActionSheetProps, 'items'> & {
   onSelected?: (idx: number) => void;

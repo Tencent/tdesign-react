@@ -1,5 +1,5 @@
-import { StyledProps } from '../common';
-import { BaseTableCol, TableRowData, TdBaseTableProps, TdPrimaryTableProps } from './type';
+import type { StyledProps } from '../common';
+import type { BaseTableCol, TableRowData, TdBaseTableProps, TdPrimaryTableProps } from './type';
 
 export interface BaseTableProps<T extends TableRowData = TableRowData> extends TdBaseTableProps<T>, StyledProps {
   /**
@@ -71,4 +71,4 @@ export type RowAndColFixedPosition<T extends TableRowData = TableRowData> = Map<
 
 export type TableTreeExpandType = 'expand-all' | 'fold-all' | 'user-reaction-change' | 'props-change';
 
-export type PrimaryTableRef = BaseTableRef
+export type PrimaryTableRef = BaseTableRef;

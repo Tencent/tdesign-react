@@ -1,6 +1,9 @@
 import React from 'react';
-import { describe, it, expect, render, vi, fireEvent, beforeAll, screen } from '@test/utils';
-import Calendar, { TDate } from '../index';
+import { beforeAll, describe, expect, fireEvent, it, render, screen, vi } from '@test/utils';
+
+import Calendar from '../index';
+
+import type { TDate } from '../index';
 
 const prefix = 't';
 const name = `.${prefix}-calendar`;
@@ -373,7 +376,10 @@ describe('Calendar', () => {
       fireEvent.click(actions[3]); // 禁用，切换失败，不会触发 onPanelChange
 
       expect(onPanelChange).toHaveBeenCalledTimes(4);
-      expect(onPanelChange.mock.calls[3][0]).toStrictEqual({ year: 2022, month: 6 });
+      expect(onPanelChange.mock.calls[3][0]).toStrictEqual({
+        year: 2022,
+        month: 6,
+      });
       const confirmBtn = screen.getByRole('button', { name: 'ConfirmBtn' });
       fireEvent.click(confirmBtn);
       expect(onConfirm).toHaveBeenCalledWith(new Date(2022, 5, 5));

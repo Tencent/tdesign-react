@@ -1,7 +1,10 @@
 import React from 'react';
-import { describe, it, expect } from 'vitest';
-import { render, fireEvent, act } from '@testing-library/react';
-import { DropdownMenu, DropdownItem, DropdownOption } from '../index';
+import { describe, expect, it } from 'vitest';
+import { act, fireEvent, render } from '@testing-library/react';
+
+import { DropdownItem, DropdownMenu } from '../index';
+
+import type { DropdownOption } from '../index';
 
 const productOptions: DropdownOption[] = [
   { value: 'all', label: '全部产品', disabled: false },

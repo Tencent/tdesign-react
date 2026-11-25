@@ -1,13 +1,15 @@
 import React, { forwardRef, memo, useCallback, useMemo, useRef } from 'react';
 import { debounce } from 'lodash-es';
-import type { StyledProps } from '../common';
-import type { TdCollapseProps, CollapseValue } from './type';
-import { collapseDefaultProps } from './defaultProps';
-import { CollapseProvider } from './CollapseContext';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { usePrefixClass } from '../hooks/useClass';
+
 import parseTNode from '../_util/parseTNode';
 import useDefault from '../_util/useDefault';
+import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { CollapseProvider } from './CollapseContext';
+import { collapseDefaultProps } from './defaultProps';
+
+import type { StyledProps } from '../common';
+import type { CollapseValue, TdCollapseProps } from './type';
 
 export interface CollapseProps extends TdCollapseProps, StyledProps {}
 

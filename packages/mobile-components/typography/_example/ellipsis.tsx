@@ -1,6 +1,7 @@
 import React from 'react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
 import { TypographyParagraph } from 'tdesign-mobile-react';
+
 import type { TypographyEllipsis } from 'tdesign-mobile-react';
 
 const content =

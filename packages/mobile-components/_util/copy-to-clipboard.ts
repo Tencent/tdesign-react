@@ -8,7 +8,9 @@ interface Options {
 const deselectCurrent = () => {
   const selection = document.getSelection();
   if (!selection.rangeCount) {
-    return () => {};
+    return () => {
+      /* noop */
+    };
   }
   let active = document.activeElement as HTMLElement | null;
 

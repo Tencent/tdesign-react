@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+
 import useConfig from './useConfig';
 
 export function usePrefixClass(componentName?: string) {

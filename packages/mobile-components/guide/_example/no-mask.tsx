@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Guide, Button, Popup, Input, TdGuideProps } from 'tdesign-mobile-react';
+import { Button, Guide, Input, Popup } from 'tdesign-mobile-react';
+
+import type { TdGuideProps } from 'tdesign-mobile-react';
 
 export default function Demo() {
   const [visible, setVisible] = useState(false);

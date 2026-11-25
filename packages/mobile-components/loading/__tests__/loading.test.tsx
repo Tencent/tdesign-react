@@ -1,7 +1,10 @@
-import { render, fireEvent, describe, test, expect, vi, act, beforeEach, afterEach } from '@test/utils';
 import React from 'react';
-import Loading, { LoadingProps } from '../index';
+import { act, afterEach, beforeEach, describe, expect, fireEvent, render, test, vi } from '@test/utils';
+
+import Loading from '../index';
 import { LoadingPlugin } from '../plugin';
+
+import type { LoadingProps } from '../index';
 
 describe('Loading', () => {
   beforeEach(() => {
@@ -166,7 +169,9 @@ describe('Loading', () => {
     test(':hide()', async () => {
       let loadInstance = null;
       const handleAttach = () => {
-        loadInstance = LoadingPlugin({ attach: () => document.querySelector('#loading-attach') });
+        loadInstance = LoadingPlugin({
+          attach: () => document.querySelector('#loading-attach'),
+        });
         setTimeout(() => loadInstance.hide(), 1000);
       };
       const { container } = render(

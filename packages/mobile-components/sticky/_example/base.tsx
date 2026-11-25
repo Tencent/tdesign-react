@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sticky, Button } from 'tdesign-mobile-react';
+import { Button, Sticky } from 'tdesign-mobile-react';
 
 export default function Base() {
   return (

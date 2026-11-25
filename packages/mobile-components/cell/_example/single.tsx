@@ -1,6 +1,6 @@
 import React from 'react';
-import { Cell, CellGroup, Badge, Switch } from 'tdesign-mobile-react';
 import { AppIcon } from 'tdesign-icons-react';
+import { Badge, Cell, CellGroup, Switch } from 'tdesign-mobile-react';
 
 export default function Single() {
   return (

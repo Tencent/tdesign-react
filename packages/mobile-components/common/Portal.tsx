@@ -1,9 +1,12 @@
-import React, { forwardRef, useEffect, useMemo, useImperativeHandle } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useMemo } from 'react';
 import { createPortal } from 'react-dom';
-import { AttachNode, AttachNodeReturnValue } from '../common';
+
 import { canUseDOM } from '../_util/dom';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+
+import type React from 'react';
+import type { AttachNode, AttachNodeReturnValue } from '../common';
 
 export interface PortalProps {
   /**

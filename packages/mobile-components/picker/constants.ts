@@ -1,4 +1,4 @@
-import { PickerWheelConfig } from './type';
+import type { PickerWheelConfig } from './type';
 
 /** wheelConfig 默认值 */
 export const DEFAULT_WHEEL_CONFIG: Required<PickerWheelConfig> = {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DateTimePicker, Cell, Popup } from 'tdesign-mobile-react';
+import { Cell, DateTimePicker, Popup } from 'tdesign-mobile-react';
 
 export default function DateTimePickerDemo() {
   const [visible, setVisible] = useState(false);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Checkbox } from 'tdesign-mobile-react';
 import { CheckIcon } from 'tdesign-icons-react';
+import { Checkbox } from 'tdesign-mobile-react';
 
 export default function () {
   const [value, setValue] = useState([1, 2]);

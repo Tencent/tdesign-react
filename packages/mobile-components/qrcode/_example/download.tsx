@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { QRCode, Button } from 'tdesign-mobile-react';
+import { Button, QRCode } from 'tdesign-mobile-react';
 
 const value = 'https://tdesign.tencent.com/';
 const icon = 'https://tdesign.gtimg.com/site/tdesign-logo.png';

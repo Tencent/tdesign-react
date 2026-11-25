@@ -1,5 +1,6 @@
 import React, { createContext, useMemo } from 'react';
-import { TdGridProps } from './type';
+
+import type { TdGridProps } from './type';
 
 export const GridContext = createContext<TdGridProps | null>(null);
 

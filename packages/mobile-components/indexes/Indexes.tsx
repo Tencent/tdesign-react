@@ -1,15 +1,17 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { throttle } from 'lodash-es';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import cls from 'classnames';
-import { TdIndexesProps } from './type';
-import { StyledProps } from '../common';
+import { throttle } from 'lodash-es';
+
+import parseTNode from '../_util/parseTNode';
+import useDefault from '../_util/useDefault';
+import { usePrefixClass } from '../hooks/useClass';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useEventListener from '../hooks/useEventListener';
-import parseTNode from '../_util/parseTNode';
-import { usePrefixClass } from '../hooks/useClass';
 import { indexesDefaultProps } from './defaultProps';
 import { IndexesProvider } from './IndexesContext';
-import useDefault from '../_util/useDefault';
+
+import type { StyledProps } from '../common';
+import type { TdIndexesProps } from './type';
 
 export interface IndexesProps extends TdIndexesProps, StyledProps {
   children?: React.ReactNode;
@@ -174,7 +176,9 @@ const Indexes: React.FC<IndexesProps> = (props) => {
   };
 
   // react 合成 touchmove 默认 passive，preventDefault 需通过原生监听实现，见 useEventListener
-  useEventListener(sidebarRef, 'touchmove', handleSidebarTouchmove, { passive: false });
+  useEventListener(sidebarRef, 'touchmove', handleSidebarTouchmove, {
+    passive: false,
+  });
 
   const relation = (ele: HTMLElement, anchor: string | number) => {
     if (ele) {
@@ -204,7 +208,9 @@ const Indexes: React.FC<IndexesProps> = (props) => {
   }, [activeSidebar]);
 
   useEffect(() => {
-    parentRect.current = indexesRef.current?.getBoundingClientRect() || { top: 0 };
+    parentRect.current = indexesRef.current?.getBoundingClientRect() || {
+      top: 0,
+    };
     getAnchorsRect();
     groupTop.current.forEach((item, index) => {
       const next = groupTop.current[index + 1];

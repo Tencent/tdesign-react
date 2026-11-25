@@ -1,8 +1,9 @@
 import React from 'react';
-import { describe, expect, fireEvent, it, render, vi } from '@test/utils';
 import { UserAddIcon } from 'tdesign-icons-react';
-import AvatarGroup from '../AvatarGroup';
+import { describe, expect, fireEvent, it, render, vi } from '@test/utils';
+
 import Avatar from '../Avatar';
+import AvatarGroup from '../AvatarGroup';
 
 describe('AvatarGroup', () => {
   describe('props', () => {

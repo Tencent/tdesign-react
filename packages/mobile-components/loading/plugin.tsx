@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { render, unmount } from '../_util/react-render';
-import Loading, { LoadingProps } from './Loading';
-import { LoadingInstance, TdLoadingProps } from './type';
+import Loading from './Loading';
+
+import type { LoadingProps } from './Loading';
+import type { LoadingInstance, TdLoadingProps } from './type';
 
 function createContainer(attach?: TdLoadingProps['attach']) {
   if (typeof attach === 'string') return document.querySelector(attach);

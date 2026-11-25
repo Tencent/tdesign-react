@@ -1,13 +1,13 @@
-import _Typography from './Typography';
-import _Text from './Text';
-import _Title from './Title';
-import _Paragraph from './Paragraph';
-
 import './style/index.js';
 
+import _Paragraph from './Paragraph';
+import _Text from './Text';
+import _Title from './Title';
+import _Typography from './Typography';
+
+export type { ParagraphProps } from './Paragraph';
 export type { TextProps } from './Text';
 export type { TitleProps } from './Title';
-export type { ParagraphProps } from './Paragraph';
 export * from './type';
 
 export const Typography = _Typography;

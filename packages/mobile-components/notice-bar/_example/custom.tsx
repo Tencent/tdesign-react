@@ -1,6 +1,6 @@
 import React from 'react';
-import { NoticeBar } from 'tdesign-mobile-react';
 import { ChevronRightIcon, SoundIcon } from 'tdesign-icons-react';
+import { NoticeBar } from 'tdesign-mobile-react';
 
 export default function Custom() {
   return (

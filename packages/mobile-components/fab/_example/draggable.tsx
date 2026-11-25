@@ -6,7 +6,7 @@ export default function () {
   const onClick = (e) => {
     console.log('click Fab', e);
   };
-  const yBounds = [30, 0];  // 0 表示允许贴底部
+  const yBounds = [30, 0]; // 0 表示允许贴底部
 
   return (
     <>

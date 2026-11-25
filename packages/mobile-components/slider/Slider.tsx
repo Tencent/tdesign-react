@@ -1,16 +1,18 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
-import type { MouseEvent, TouchEvent } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { cloneDeep, isFunction } from 'lodash-es';
+
+import useDefault from '../_util/useDefault';
 import { usePrefixClass } from '../hooks/useClass';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useEventListener from '../hooks/useEventListener';
-import useDefault from '../_util/useDefault';
-import { StyledProps } from '../common';
-import { SliderValue, TdSliderProps } from './type';
+import { BLOCK_SIZE, BORDER_WIDTH } from './constants';
 import { sliderDefaultProps } from './defaultProps';
 import { normalizeDefaultValue, trimSingleValue, trimValue } from './utils';
-import { BLOCK_SIZE, BORDER_WIDTH } from './constants';
+
+import type { FC, MouseEvent, TouchEvent } from 'react';
+import type { StyledProps } from '../common';
+import type { SliderValue, TdSliderProps } from './type';
 
 export interface SliderProps extends TdSliderProps, StyledProps {}
 

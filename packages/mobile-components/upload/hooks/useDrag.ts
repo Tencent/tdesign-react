@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+
 import type { CSSProperties } from 'react';
-import type { TdUploadProps, UploadFile, UploadChangeContext } from '../type';
+import type { TdUploadProps, UploadChangeContext, UploadFile } from '../type';
 
 /* eslint-disable no-underscore-dangle, no-param-reassign */
 interface UploadFileWithUid extends UploadFile {
@@ -346,9 +347,13 @@ export default function useDrag(
       };
       const nativeTouchend = () => removeNativeListeners();
       const nativeTouchcancel = () => removeNativeListeners();
-      document.addEventListener('touchmove', nativeTouchmove, { passive: false });
+      document.addEventListener('touchmove', nativeTouchmove, {
+        passive: false,
+      });
       document.addEventListener('touchend', nativeTouchend, { once: true });
-      document.addEventListener('touchcancel', nativeTouchcancel, { once: true });
+      document.addEventListener('touchcancel', nativeTouchcancel, {
+        once: true,
+      });
       nativeTouchmoveRef.current = nativeTouchmove;
       nativeTouchendRef.current = nativeTouchend;
       nativeTouchcancelRef.current = nativeTouchcancel;
@@ -522,7 +527,10 @@ export default function useDrag(
 
         const finalFiles = [...sortedFilesRef.current];
         props.onDrop?.(finalFiles);
-        setUploadValue(finalFiles, { trigger: 'sort' as any, files: finalFiles });
+        setUploadValue(finalFiles, {
+          trigger: 'sort' as any,
+          files: finalFiles,
+        });
         resetState();
       });
     },

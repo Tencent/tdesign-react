@@ -1,18 +1,21 @@
-import React, { ForwardedRef, useEffect, useImperativeHandle, useRef, useMemo } from 'react';
+import React, { useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import classNames from 'classnames';
-import noop from '../_util/noop';
+
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import { FormInstanceFunctions, TdFormProps } from './type';
-import { StyledProps } from '../common';
-import FormItem from './FormItem';
-import { formDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
+import noop from '../_util/noop';
 import { usePrefixClass } from '../hooks/useClass';
 import useConfig from '../hooks/useConfig';
-import useForm, { HOOK_MARK } from './hooks/useForm';
-import useWatch from './hooks/useWatch';
-import useInstance from './hooks/useInstance';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { formDefaultProps } from './defaultProps';
 import { FormContext } from './FormContext';
+import FormItem from './FormItem';
+import useForm, { HOOK_MARK } from './hooks/useForm';
+import useInstance from './hooks/useInstance';
+import useWatch from './hooks/useWatch';
+
+import type { ForwardedRef } from 'react';
+import type { StyledProps } from '../common';
+import type { FormInstanceFunctions, TdFormProps } from './type';
 
 export interface FormProps extends TdFormProps, StyledProps {
   children?: React.ReactNode;
@@ -177,7 +180,9 @@ const Form = forwardRefWithStatics(
         const doms = formRef.current?.getElementsByClassName(tmpClassName);
         const dom = doms?.[0];
         if (dom) {
-          dom.scrollIntoView({ behavior: scrollToFirstError as ScrollBehavior });
+          dom.scrollIntoView({
+            behavior: scrollToFirstError as ScrollBehavior,
+          });
         }
       }
       const resArr = result[firstKey];

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Cell, Popup, Picker } from 'tdesign-mobile-react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Cell, Picker, Popup } from 'tdesign-mobile-react';
 
 interface OptionsType {
   label: string;

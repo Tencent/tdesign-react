@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Button, ActionSheet } from 'tdesign-mobile-react';
-import { ShareIcon, StarIcon, DownloadIcon, Edit1Icon } from 'tdesign-icons-react';
+import { DownloadIcon, Edit1Icon, ShareIcon, StarIcon } from 'tdesign-icons-react';
+import { ActionSheet, Button } from 'tdesign-mobile-react';
 
 export default function GridExample() {
   const [normalVisible, setNormalVisible] = useState(false);

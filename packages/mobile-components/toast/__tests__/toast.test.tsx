@@ -1,7 +1,8 @@
 import React from 'react';
-import { describe, expect, it, act, beforeEach, afterEach } from '@test/utils';
 import { AppIcon } from 'tdesign-icons-react';
 import { vi } from 'vitest';
+import { act, afterEach, beforeEach, describe, expect, it } from '@test/utils';
+
 import Toast from '../index';
 
 const ICON_CLASS_MAP = {
@@ -228,7 +229,13 @@ describe('Toast', () => {
       const onDestroy = vi.fn();
       const onClose = vi.fn();
       await act(async () => {
-        Toast({ theme: 'loading', preventScrollThrough: true, duration, onDestroy, onClose });
+        Toast({
+          theme: 'loading',
+          preventScrollThrough: true,
+          duration,
+          onDestroy,
+          onClose,
+        });
       });
       expect(document.body).toHaveClass('t-toast--lock');
 

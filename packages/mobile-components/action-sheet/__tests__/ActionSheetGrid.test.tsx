@@ -1,5 +1,6 @@
 import React from 'react';
-import { describe, it, expect, render, vi, fireEvent, beforeEach } from '@test/utils';
+import { beforeEach, describe, expect, fireEvent, it, render, vi } from '@test/utils';
+
 import { ActionSheetGrid } from '../ActionSheetGrid';
 
 describe('ActionSheetGrid', () => {

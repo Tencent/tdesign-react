@@ -1,7 +1,7 @@
-import _Tag from './Tag';
-import _CheckTag from './CheckTag';
-
 import './style/index.js';
+
+import _CheckTag from './CheckTag';
+import _Tag from './Tag';
 
 export type { TagProps } from './Tag';
 export * from './type';

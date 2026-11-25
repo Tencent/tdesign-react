@@ -1,18 +1,20 @@
+import React, { useEffect, useRef, useState } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import { useTimeout } from 'ahooks';
 import classNames from 'classnames';
 import { isObject } from 'lodash-es';
-import React, { useEffect, useRef, useState } from 'react';
-import { CSSTransition } from 'react-transition-group';
 import { CheckCircleFilledIcon, CloseIcon, ErrorCircleFilledIcon, InfoCircleFilledIcon } from 'tdesign-icons-react';
+
 import { convertUnit } from '../_util/convertUnit';
+import useCssTransition from '../_util/hooks/useCssTransition';
 import parseTNode from '../_util/parseTNode';
-import type { StyledProps, TNode } from '../common';
 import { usePrefixClass } from '../hooks/useClass';
 import useDefaultProps from '../hooks/useDefaultProps';
 import Link from '../link';
 import { messageDefaultProps } from './defaultProps';
 import useMarqueeAnimation from './hooks/useMarqueeAnimation';
-import useCssTransition from '../_util/hooks/useCssTransition';
+
+import type { StyledProps, TNode } from '../common';
 import type { TdMessageProps } from './type';
 
 export interface MessageProps extends TdMessageProps, StyledProps {
@@ -129,12 +131,19 @@ const Message: React.FC<MessageProps> = (originProps) => {
   return (
     <CSSTransition in={messageVisible} appear {...cssTransitionState.props} unmountOnExit>
       <div
-        className={classNames(`${name}`, className, `${name}--${theme}`, { [`${name}-align--${align}`]: !!align })}
+        className={classNames(`${name}`, className, `${name}--${theme}`, {
+          [`${name}-align--${align}`]: !!align,
+        })}
         ref={contentRef}
         style={{ zIndex, ...getMessageStylesOffset(props.offset), ...style }}
       >
         <div className={`${name}__icon--left`}>{leftIcon}</div>
-        <div ref={textWrapRef} className={classNames(`${name}__text-wrap`, { [`${name}__text-nowrap`]: marquee })}>
+        <div
+          ref={textWrapRef}
+          className={classNames(`${name}__text-wrap`, {
+            [`${name}__text-nowrap`]: marquee,
+          })}
+        >
           <div ref={textRef} className={`${name}__text`}>
             {parseTNode(content) || parseTNode(children)}
           </div>

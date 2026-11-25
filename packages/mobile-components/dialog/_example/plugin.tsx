@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dialog, Button } from 'tdesign-mobile-react';
+import { Button, Dialog } from 'tdesign-mobile-react';
 
 const PluginUsage = React.memo(() => (
   <div className="t-dialog__demo-wrap">

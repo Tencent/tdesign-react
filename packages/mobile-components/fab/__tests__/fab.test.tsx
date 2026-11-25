@@ -1,6 +1,7 @@
 import React from 'react';
-import { describe, it, expect, render, vi, fireEvent, waitFor, act, beforeEach, afterEach } from '@test/utils';
 import { AddIcon } from 'tdesign-icons-react';
+import { act, afterEach, beforeEach, describe, expect, fireEvent, it, render, vi, waitFor } from '@test/utils';
+
 import Fab from '../index';
 
 const prefix = 't';
@@ -118,17 +119,17 @@ describe('Fab', () => {
 
       act(() => {
         const touchStart = createTouchEvent('touchstart', [{ clientX: 200, clientY: 100 }]);
-        fabElement!.dispatchEvent(touchStart);
+        fabElement.dispatchEvent(touchStart);
       });
 
       act(() => {
         const touchMove = createTouchEvent('touchmove', [{ clientX: 50, clientY: 100 }]);
-        fabElement!.dispatchEvent(touchMove);
+        fabElement.dispatchEvent(touchMove);
       });
 
       act(() => {
         const touchEnd = createTouchEvent('touchend', [], [{ clientX: 50, clientY: 100 }]);
-        fabElement!.dispatchEvent(touchEnd);
+        fabElement.dispatchEvent(touchEnd);
       });
 
       const rightVal = parseFloat(fabElement.style.right);
@@ -139,17 +140,17 @@ describe('Fab', () => {
       const onDragEnd = vi.fn();
       // draggable=true
       const { container, rerender } = render(<Fab draggable onDragEnd={onDragEnd} />);
-      const fabElement = container.querySelector(name);
+      const fabElement = container.querySelector(name) as HTMLElement;
       const fabElementWithStyle = fabElement as HTMLElement;
 
       act(() => {
         const touchStart = createTouchEvent('touchstart', [{ clientX: 100, clientY: 100 }]);
-        fabElement!.dispatchEvent(touchStart);
+        fabElement.dispatchEvent(touchStart);
       });
 
       act(() => {
         const touchEnd = createTouchEvent('touchend', [], [{ clientX: 100, clientY: 100 }]);
-        fabElement!.dispatchEvent(touchEnd);
+        fabElement.dispatchEvent(touchEnd);
       });
 
       await waitFor(() => {
@@ -161,12 +162,12 @@ describe('Fab', () => {
 
       act(() => {
         const touchStart = createTouchEvent('touchstart', [{ clientX: 100, clientY: 100 }]);
-        fabElement!.dispatchEvent(touchStart);
+        fabElement.dispatchEvent(touchStart);
       });
 
       act(() => {
         const touchMove = createTouchEvent('touchmove', []);
-        fabElement!.dispatchEvent(touchMove);
+        fabElement.dispatchEvent(touchMove);
       });
       expect(fabElementWithStyle.style.right).toBe('16px');
       expect(fabElementWithStyle.style.bottom).toBe('32px');
@@ -176,12 +177,12 @@ describe('Fab', () => {
 
       act(() => {
         const touchStart = createTouchEvent('touchstart', [{ clientX: 100, clientY: 100 }]);
-        fabElement!.dispatchEvent(touchStart);
+        fabElement.dispatchEvent(touchStart);
       });
 
       act(() => {
         const touchMove = createTouchEvent('touchmove', [{ clientX: 150, clientY: 150 }]);
-        fabElement!.dispatchEvent(touchMove);
+        fabElement.dispatchEvent(touchMove);
       });
       expect(fabElementWithStyle.style.right).toBe('16px');
       expect(fabElementWithStyle.style.bottom).toBe('32px');
@@ -191,17 +192,17 @@ describe('Fab', () => {
 
       act(() => {
         const touchStart = createTouchEvent('touchstart', [{ clientX: 100, clientY: 100 }]);
-        fabElement!.dispatchEvent(touchStart);
+        fabElement.dispatchEvent(touchStart);
       });
 
       act(() => {
         const touchMove = createTouchEvent('touchmove', [{ clientX: 200, clientY: 200 }]);
-        fabElement!.dispatchEvent(touchMove);
+        fabElement.dispatchEvent(touchMove);
       });
 
       act(() => {
         const touchEnd = createTouchEvent('touchend', [], [{ clientX: 200, clientY: 200 }]);
-        fabElement!.dispatchEvent(touchEnd);
+        fabElement.dispatchEvent(touchEnd);
       });
 
       await waitFor(() => {
@@ -213,17 +214,17 @@ describe('Fab', () => {
 
       act(() => {
         const touchStart = createTouchEvent('touchstart', [{ clientX: 100, clientY: 100 }]);
-        fabElement!.dispatchEvent(touchStart);
+        fabElement.dispatchEvent(touchStart);
       });
 
       act(() => {
         const touchMove = createTouchEvent('touchmove', [{ clientX: 200, clientY: 200 }]);
-        fabElement!.dispatchEvent(touchMove);
+        fabElement.dispatchEvent(touchMove);
       });
 
       act(() => {
         const touchEnd = createTouchEvent('touchend', [], [{ clientX: 200, clientY: 200 }]);
-        fabElement!.dispatchEvent(touchEnd);
+        fabElement.dispatchEvent(touchEnd);
       });
 
       await waitFor(() => {
@@ -236,9 +237,9 @@ describe('Fab', () => {
     it(': onClick', async () => {
       const onClick = vi.fn();
       const { container } = render(<Fab onClick={onClick} icon={<AddIcon />} />);
-      const fabElement = container.querySelector(name);
+      const fabElement = container.querySelector(name) as HTMLElement;
 
-      fireEvent.click(fabElement!);
+      fireEvent.click(fabElement);
 
       await waitFor(() => {
         expect(onClick).toHaveBeenCalledTimes(1);
@@ -249,10 +250,10 @@ describe('Fab', () => {
       const onDragStart = vi.fn();
       const { container } = render(<Fab draggable onDragStart={onDragStart} />);
 
-      const fabElement = container.querySelector(name);
+      const fabElement = container.querySelector(name) as HTMLElement;
 
       act(() => {
-        fireEvent.touchStart(fabElement!, {
+        fireEvent.touchStart(fabElement, {
           touches: [{ clientX: 100, clientY: 100 }],
         });
       });
@@ -266,22 +267,22 @@ describe('Fab', () => {
     it(': onDragEnd', async () => {
       const onDragEnd = vi.fn();
       const { container } = render(<Fab draggable onDragEnd={onDragEnd} />);
-      const fabElement = container.querySelector(name);
+      const fabElement = container.querySelector(name) as HTMLElement;
 
       // 模拟完整拖拽序列
       act(() => {
         const touchStart = createTouchEvent('touchstart', [{ clientX: 100, clientY: 100 }]);
-        fabElement!.dispatchEvent(touchStart);
+        fabElement.dispatchEvent(touchStart);
       });
 
       act(() => {
         const touchMove = createTouchEvent('touchmove', [{ clientX: 150, clientY: 150 }]);
-        fabElement!.dispatchEvent(touchMove);
+        fabElement.dispatchEvent(touchMove);
       });
 
       act(() => {
         const touchEnd = createTouchEvent('touchend', [], [{ clientX: 150, clientY: 150 }]);
-        fabElement!.dispatchEvent(touchEnd);
+        fabElement.dispatchEvent(touchEnd);
       });
 
       await waitFor(() => {
@@ -294,17 +295,17 @@ describe('Fab', () => {
 
       act(() => {
         const touchStart = createTouchEvent('touchstart', [{ clientX: 200, clientY: 100 }]);
-        container.querySelector(name)!.dispatchEvent(touchStart);
+        (container.querySelector(name) as HTMLElement).dispatchEvent(touchStart);
       });
 
       act(() => {
         const touchMove = createTouchEvent('touchmove', [{ clientX: 100, clientY: 100 }]);
-        container.querySelector(name)!.dispatchEvent(touchMove);
+        (container.querySelector(name) as HTMLElement).dispatchEvent(touchMove);
       });
 
       act(() => {
         const touchEnd = createTouchEvent('touchend', [], [{ clientX: 100, clientY: 100 }]);
-        container.querySelector(name)!.dispatchEvent(touchEnd);
+        (container.querySelector(name) as HTMLElement).dispatchEvent(touchEnd);
       });
 
       await waitFor(() => {
@@ -319,17 +320,17 @@ describe('Fab', () => {
 
       act(() => {
         const touchStart = createTouchEvent('touchstart', [{ clientX: 200, clientY: 100 }]);
-        container.querySelector(name)!.dispatchEvent(touchStart);
+        (container.querySelector(name) as HTMLElement).dispatchEvent(touchStart);
       });
 
       act(() => {
         const touchMove = createTouchEvent('touchmove', [{ clientX: 100, clientY: 100 }]);
-        container.querySelector(name)!.dispatchEvent(touchMove);
+        (container.querySelector(name) as HTMLElement).dispatchEvent(touchMove);
       });
 
       act(() => {
         const touchEnd = createTouchEvent('touchend', [], [{ clientX: 100, clientY: 100 }]);
-        container.querySelector(name)!.dispatchEvent(touchEnd);
+        (container.querySelector(name) as HTMLElement).dispatchEvent(touchEnd);
       });
 
       await waitFor(() => {
@@ -344,17 +345,17 @@ describe('Fab', () => {
 
       act(() => {
         const touchStart = createTouchEvent('touchstart', [{ clientX: 200, clientY: 100 }]);
-        container.querySelector(name)!.dispatchEvent(touchStart);
+        (container.querySelector(name) as HTMLElement).dispatchEvent(touchStart);
       });
 
       act(() => {
         const touchMove = createTouchEvent('touchmove', [{ clientX: 100, clientY: 100 }]);
-        container.querySelector(name)!.dispatchEvent(touchMove);
+        (container.querySelector(name) as HTMLElement).dispatchEvent(touchMove);
       });
 
       act(() => {
         const touchEnd = createTouchEvent('touchend', [], [{ clientX: 100, clientY: 100 }]);
-        container.querySelector(name)!.dispatchEvent(touchEnd);
+        (container.querySelector(name) as HTMLElement).dispatchEvent(touchEnd);
       });
 
       await waitFor(() => {
@@ -372,12 +373,12 @@ describe('Fab', () => {
 
       act(() => {
         const touchStart = createTouchEvent('touchstart', [{ clientX: 200, clientY: 100 }]);
-        fabElement!.dispatchEvent(touchStart);
+        fabElement.dispatchEvent(touchStart);
       });
 
       act(() => {
         const touchMove = createTouchEvent('touchmove', [{ clientX: 100, clientY: 100 }]);
-        fabElement!.dispatchEvent(touchMove);
+        fabElement.dispatchEvent(touchMove);
       });
 
       await waitFor(() => {
@@ -386,7 +387,7 @@ describe('Fab', () => {
       });
       act(() => {
         const touchEnd = createTouchEvent('touchend', [], [{ clientX: 100, clientY: 100 }]);
-        fabElement!.dispatchEvent(touchEnd);
+        fabElement.dispatchEvent(touchEnd);
       });
 
       await waitFor(() => {

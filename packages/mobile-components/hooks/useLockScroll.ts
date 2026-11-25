@@ -1,6 +1,9 @@
-import { useEffect, RefObject, useCallback } from 'react';
-import { useTouch } from '../_util/useTouch';
+import { useCallback, useEffect } from 'react';
+
 import getScrollParent from '../_util/getScrollParent';
+import { useTouch } from '../_util/useTouch';
+
+import type { RefObject } from 'react';
 
 const totalLockCount = new Map<string, number>();
 

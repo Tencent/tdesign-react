@@ -1,19 +1,22 @@
-import React, { FC, useMemo, useState, useEffect, useRef, useCallback, ReactNode } from 'react';
-import { isBoolean, isString, isFunction, get as lodashGet } from 'lodash-es';
-import { KeysType } from '../common';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { usePrefixClass } from '../hooks/useClass';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { get as lodashGet, isBoolean, isFunction, isString } from 'lodash-es';
+
 import parseTNode from '../_util/parseTNode';
 import useDefault from '../_util/useDefault';
-import { NativeProps } from '../_util/withNativeProps';
+import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { pickerDefaultProps } from './defaultProps';
-import { TdPickerProps, PickerColumnItem, PickerValue, PickerColumn, PickerWheelConfig } from './type';
 import { DEFAULT_WHEEL_CONFIG } from './constants';
-
-import PickerItem, { type PickerItemExposeRef, type PickerItemProps } from './PickerItem';
-import { getPickerColumns } from './utils';
+import { pickerDefaultProps } from './defaultProps';
 import PickerContext from './picker-context';
+import PickerItem from './PickerItem';
+import { getPickerColumns } from './utils';
+
+import type { FC, ReactNode } from 'react';
+import type { NativeProps } from '../_util/withNativeProps';
+import type { KeysType } from '../common';
+import type { PickerItemExposeRef, PickerItemProps } from './PickerItem';
+import type { PickerColumn, PickerColumnItem, PickerValue, PickerWheelConfig, TdPickerProps } from './type';
 
 export interface PickerProps extends TdPickerProps, NativeProps {
   children?: ReactNode;
@@ -70,7 +73,10 @@ const Picker: FC<PickerProps> = (props) => {
 
   const mergedWheelConfig = useMemo(() => {
     const userConfig: Partial<PickerWheelConfig> = wheelConfig || {};
-    const merged: Required<PickerWheelConfig> = { ...DEFAULT_WHEEL_CONFIG, ...userConfig };
+    const merged: Required<PickerWheelConfig> = {
+      ...DEFAULT_WHEEL_CONFIG,
+      ...userConfig,
+    };
     if (swipeDuration !== undefined) {
       merged.inertiaDuration = Number(swipeDuration);
     }

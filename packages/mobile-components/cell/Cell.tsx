@@ -1,15 +1,18 @@
-import React, { useMemo, useCallback, ReactNode } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import classnames from 'classnames';
 import { isString } from 'lodash-es';
 import { ChevronRightIcon } from 'tdesign-icons-react';
 
 import parseTNode from '../_util/parseTNode';
-import { TdCellProps } from './type';
-import { cellDefaultProps } from './defaultProps';
-import withNativeProps, { NativeProps } from '../_util/withNativeProps';
+import withNativeProps from '../_util/withNativeProps';
+import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useHover from '../hooks/useHover';
-import useConfig from '../hooks/useConfig';
+import { cellDefaultProps } from './defaultProps';
+
+import type { ReactNode } from 'react';
+import type { NativeProps } from '../_util/withNativeProps';
+import type { TdCellProps } from './type';
 
 export interface CellProps extends TdCellProps, NativeProps {
   children?: ReactNode;
@@ -48,7 +51,10 @@ const Cell: React.FC<CellProps> = (originProps) => {
   );
 
   const hoverDisabled = useMemo(() => !hover, [hover]);
-  const ref = useHover({ className: `${name}--hover`, disabled: hoverDisabled });
+  const ref = useHover({
+    className: `${name}--hover`,
+    disabled: hoverDisabled,
+  });
 
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {

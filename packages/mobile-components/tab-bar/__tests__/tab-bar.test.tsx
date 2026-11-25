@@ -1,5 +1,6 @@
 import React from 'react';
-import { describe, it, expect, render, vi, fireEvent } from '@test/utils';
+import { describe, expect, fireEvent, it, render, vi } from '@test/utils';
+
 import { TabBar, TabBarItem } from '..';
 
 const prefix = 't';
@@ -28,7 +29,9 @@ describe('TabBar', () => {
     it(': style', () => {
       const { container } = render(<TabBar style={{ color: '#0052d9' }} />);
       expect(container.querySelector(`.${prefixClass}`)).toBeTruthy();
-      expect(container.querySelector(`.${prefixClass}`)).toHaveStyle({ color: '#0052d9' });
+      expect(container.querySelector(`.${prefixClass}`)).toHaveStyle({
+        color: '#0052d9',
+      });
     });
 
     it(': bordered', async () => {

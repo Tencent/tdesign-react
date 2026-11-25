@@ -1,6 +1,7 @@
 import React from 'react';
-import { describe, expect, vi, it } from '@test/utils';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from '@test/utils';
+import { fireEvent, render, screen } from '@testing-library/react';
+
 import Textarea from '../index';
 
 const prefix = 't';

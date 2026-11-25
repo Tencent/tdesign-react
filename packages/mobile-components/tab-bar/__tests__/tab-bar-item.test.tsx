@@ -1,6 +1,7 @@
 import React from 'react';
-import { describe, it, expect, render, fireEvent, vi } from '@test/utils';
-import { HomeIcon, AppIcon, ChatIcon, UserIcon } from 'tdesign-icons-react';
+import { AppIcon, ChatIcon, HomeIcon, UserIcon } from 'tdesign-icons-react';
+import { describe, expect, fireEvent, it, render, vi } from '@test/utils';
+
 import { TabBar, TabBarItem } from '..';
 
 const prefix = 't';

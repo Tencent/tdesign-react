@@ -1,4 +1,4 @@
-import { GuideStep } from './type';
+import type { GuideStep } from './type';
 
 export type GuideCrossProps = Pick<
   GuideStep,

@@ -1,6 +1,7 @@
 import React from 'react';
-import { describe, it, expect, render, vi, fireEvent, beforeEach, act } from '@test/utils';
-import { Tabs, TabPanel } from '../index';
+import { act, beforeEach, describe, expect, fireEvent, it, render, vi } from '@test/utils';
+
+import { TabPanel, Tabs } from '../index';
 
 const prefix = 't';
 const name = `.${prefix}-tabs`;

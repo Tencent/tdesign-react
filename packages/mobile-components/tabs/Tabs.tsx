@@ -1,19 +1,21 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import classnames from 'classnames';
-import type { FC } from 'react';
-import Sticky from '../sticky';
-import Badge from '../badge';
-import { TdTabPanelProps, TdTabsProps, TabValue } from './type';
-import TabPanel from './TabPanel';
-import type { TabPanelProps } from './TabPanel';
-import useConfig from '../hooks/useConfig';
-import { usePrefixClass } from '../hooks/useClass';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { tabsDefaultProps } from './defaultProps';
+
 import parseTNode from '../_util/parseTNode';
 import useDefault from '../_util/useDefault';
+import Badge from '../badge';
+import { usePrefixClass } from '../hooks/useClass';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
+import Sticky from '../sticky';
 import TabContext from './context';
-import { Styles, StyledProps } from '../common';
+import { tabsDefaultProps } from './defaultProps';
+import TabPanel from './TabPanel';
+
+import type { FC } from 'react';
+import type { StyledProps, Styles } from '../common';
+import type { TabPanelProps } from './TabPanel';
+import type { TabValue, TdTabPanelProps, TdTabsProps } from './type';
 
 export interface TabsProps extends TdTabsProps, StyledProps {
   children?: React.ReactNode;
@@ -133,7 +135,10 @@ const Tabs: FC<TabsProps> = (props) => {
       const tabWidth = tab?.offsetWidth;
       const navScrollWidth = navScrollRef.current.offsetWidth;
       const scrollDistance = tabLeft - navScrollWidth / 2 + tabWidth / 2;
-      navScrollRef.current.scrollTo({ left: scrollDistance, behavior: 'smooth' });
+      navScrollRef.current.scrollTo({
+        left: scrollDistance,
+        behavior: 'smooth',
+      });
     }
   };
 
@@ -259,7 +264,11 @@ const Tabs: FC<TabsProps> = (props) => {
   return (
     <div className={tabsClasses}>
       <Sticky {...stickyProps} onScroll={handlerScroll}>
-        <div className={classnames(`${tabsClass}__nav`, { [`${tabsClass}__nav--split`]: split })}>
+        <div
+          className={classnames(`${tabsClass}__nav`, {
+            [`${tabsClass}__nav--split`]: split,
+          })}
+        >
           <div
             ref={navScrollRef}
             className={`${tabsClass}__scroll ${tabsClass}__scroll--top ${tabsClass}__scroll--${theme}`}

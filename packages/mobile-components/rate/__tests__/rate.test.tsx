@@ -1,6 +1,7 @@
 import React from 'react';
 import { vi } from 'vitest';
-import { describe, it, expect, render, screen, fireEvent, waitFor } from '@test/utils';
+import { describe, expect, fireEvent, it, render, screen, waitFor } from '@test/utils';
+
 import Rate from '../Rate';
 
 // Mock useSize from ahooks
@@ -106,7 +107,16 @@ describe('Rate', () => {
 
       // Mock getBoundingClientRect
       Object.defineProperty(icon, 'getBoundingClientRect', {
-        value: () => ({ x: 100, width: 24, height: 24, y: 100, top: 100, bottom: 124, left: 100, right: 124 }),
+        value: () => ({
+          x: 100,
+          width: 24,
+          height: 24,
+          y: 100,
+          top: 100,
+          bottom: 124,
+          left: 100,
+          right: 124,
+        }),
       });
 
       fireEvent.click(icon, { clientX: 105 });
@@ -186,7 +196,16 @@ describe('Rate', () => {
 
       // Mock getBoundingClientRect for wrapper
       Object.defineProperty(wrapper, 'getBoundingClientRect', {
-        value: () => ({ x: 0, width: 200, height: 40, y: 0, top: 0, bottom: 40, left: 0, right: 200 }),
+        value: () => ({
+          x: 0,
+          width: 200,
+          height: 40,
+          y: 0,
+          top: 0,
+          bottom: 40,
+          left: 0,
+          right: 200,
+        }),
       });
 
       // Touch start
@@ -209,7 +228,16 @@ describe('Rate', () => {
 
       // Mock getBoundingClientRect for wrapper
       Object.defineProperty(wrapper, 'getBoundingClientRect', {
-        value: () => ({ x: 0, width: 200, height: 40, y: 0, top: 0, bottom: 40, left: 0, right: 200 }),
+        value: () => ({
+          x: 0,
+          width: 200,
+          height: 40,
+          y: 0,
+          top: 0,
+          bottom: 40,
+          left: 0,
+          right: 200,
+        }),
       });
 
       // Touch start
@@ -340,7 +368,16 @@ describe('Rate', () => {
 
       // Mock getBoundingClientRect for wrapper
       Object.defineProperty(wrapper, 'getBoundingClientRect', {
-        value: () => ({ x: 0, width: 200, height: 40, y: 0, top: 0, bottom: 40, left: 0, right: 200 }),
+        value: () => ({
+          x: 0,
+          width: 200,
+          height: 40,
+          y: 0,
+          top: 0,
+          bottom: 40,
+          left: 0,
+          right: 200,
+        }),
       });
 
       // Touch start
@@ -363,7 +400,16 @@ describe('Rate', () => {
 
       // Mock getBoundingClientRect for wrapper
       Object.defineProperty(wrapper, 'getBoundingClientRect', {
-        value: () => ({ x: 0, width: 200, height: 40, y: 0, top: 0, bottom: 40, left: 0, right: 200 }),
+        value: () => ({
+          x: 0,
+          width: 200,
+          height: 40,
+          y: 0,
+          top: 0,
+          bottom: 40,
+          left: 0,
+          right: 200,
+        }),
       });
 
       // Touch start
@@ -422,7 +468,16 @@ describe('Rate', () => {
 
       // Mock getBoundingClientRect for wrapper
       Object.defineProperty(wrapper, 'getBoundingClientRect', {
-        value: () => ({ x: 0, width: 200, height: 40, y: 0, top: 0, bottom: 40, left: 0, right: 200 }),
+        value: () => ({
+          x: 0,
+          width: 200,
+          height: 40,
+          y: 0,
+          top: 0,
+          bottom: 40,
+          left: 0,
+          right: 200,
+        }),
       });
 
       // Touch start
@@ -555,14 +610,27 @@ describe('Rate', () => {
       expect(container.querySelectorAll('.t-rate__icon--selected')).toHaveLength(2);
 
       Object.defineProperty(rateWrapper, 'getBoundingClientRect', {
-        value: () => ({ x: 0, width: 152, height: 40, y: 0, top: 0, bottom: 40, left: 0, right: 152 }),
+        value: () => ({
+          x: 0,
+          width: 152,
+          height: 40,
+          y: 0,
+          top: 0,
+          bottom: 40,
+          left: 0,
+          right: 152,
+        }),
       });
 
       // 模拟拖拽开始
-      fireEvent.touchStart(rateWrapper, { touches: [{ clientX: 0, clientY: 0 }] });
+      fireEvent.touchStart(rateWrapper, {
+        touches: [{ clientX: 0, clientY: 0 }],
+      });
 
       // 模拟拖拽移动
-      fireEvent.touchMove(rateWrapper, { touches: [{ clientX: 96, clientY: 0 }] });
+      fireEvent.touchMove(rateWrapper, {
+        touches: [{ clientX: 96, clientY: 0 }],
+      });
       // 拖拽状态：显示currentValue（根据拖拽位置计算的值）
       await waitFor(() => {
         expect(container.querySelector('.t-rate__text').textContent).toEqual('3 分');

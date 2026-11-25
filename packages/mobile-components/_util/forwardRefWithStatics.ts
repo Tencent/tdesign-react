@@ -1,5 +1,8 @@
-import React, { RefAttributes, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import hoistNonReactStatics from 'hoist-non-react-statics';
+
+import type React from 'react';
+import type { RefAttributes } from 'react';
 
 export default function forwardRefWithStatics<P, T = any, S = object>(
   component: React.ForwardRefRenderFunction<T, P>,

@@ -1,14 +1,14 @@
-import React from 'react';
 import { cloneDeep, get, isArray, isBoolean, isEmpty, isFunction, isObject, merge, set } from 'lodash-es';
 
+import type React from 'react';
 import type {
+  FieldData,
   FormResetParams,
   FormValidateMessage,
   FormValidateParams,
   FormValidateResult,
   NamePath,
   TdFormProps,
-  FieldData,
 } from '../type';
 import type { InternalFormInstance } from './interface';
 
@@ -30,7 +30,12 @@ function formatValidateResult(validateResultList: any[]) {
 }
 
 export default function useInstance(
-  props: TdFormProps & { onSubmit?: any; onValidate?: any; onReset?: any; onValuesChange?: any },
+  props: TdFormProps & {
+    onSubmit?: any;
+    onValidate?: any;
+    onReset?: any;
+    onValuesChange?: any;
+  },
   formRef: React.RefObject<HTMLFormElement>,
   formMapRef: React.MutableRefObject<Map<any, any>>,
   floatingFormDataRef: React.MutableRefObject<Record<any, any>>,
@@ -302,7 +307,7 @@ export default function useInstance(
     getFieldValue,
     getFieldsValue,
     onFormItemValueChange,
-    currentElement: () => formRef.current!,
-    getCurrentElement: () => formRef.current!,
+    currentElement: () => formRef.current,
+    getCurrentElement: () => formRef.current,
   };
 }

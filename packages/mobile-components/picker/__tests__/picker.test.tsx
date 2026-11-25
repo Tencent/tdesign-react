@@ -1,13 +1,14 @@
 import React from 'react';
-import { describe, it, expect, render, vi, fireEvent, act, beforeEach, afterEach } from '@test/utils';
+import { act, afterEach, beforeEach, describe, expect, fireEvent, it, render, vi } from '@test/utils';
 
-import Picker from '../Picker';
-import PickerClass, { stopPropagation, preventDefault } from '../picker.class';
-import { findIndexOfEnabledOption, getPickerColumns, isMultipleArray, limitNumberInRange } from '../utils';
 import { DEFAULT_WHEEL_CONFIG } from '../constants';
-import type { PickerColumn, PickerColumnItem } from '../type';
 // 引入 index.ts 以覆盖该文件
 import * as PickerExports from '../index';
+import Picker from '../Picker';
+import PickerClass, { preventDefault, stopPropagation } from '../picker.class';
+import { findIndexOfEnabledOption, getPickerColumns, isMultipleArray, limitNumberInRange } from '../utils';
+
+import type { PickerColumn, PickerColumnItem } from '../type';
 
 // 收集所有由 PickerItem 创建的 picker.class 实例，用于在测试中直接触发 onChange
 const collectPickerInstances = () => {
@@ -168,7 +169,7 @@ describe('Picker', () => {
       );
       expect(container.querySelector(name)).toBeInTheDocument();
       // confirm 时 onConfirm 的 label/value 应来自 keys 映射
-      fireEvent.click(container.querySelector(`${name}__confirm`)!);
+      fireEvent.click(container.querySelector(`${name}__confirm`) as HTMLElement);
       expect(onConfirm).toHaveBeenCalled();
       const [val, ctx] = onConfirm.mock.calls[0];
       expect(Array.isArray(val)).toBe(true);
@@ -187,7 +188,7 @@ describe('Picker', () => {
     it(': onCancel triggered on cancel button click', () => {
       const onCancel = vi.fn();
       const { container } = render(<Picker columns={cityOptions} onCancel={onCancel} />);
-      fireEvent.click(container.querySelector(`${name}__cancel`)!);
+      fireEvent.click(container.querySelector(`${name}__cancel`) as HTMLElement);
       expect(onCancel).toHaveBeenCalled();
       expect(onCancel.mock.calls[0][0]).toHaveProperty('e');
     });
@@ -195,7 +196,7 @@ describe('Picker', () => {
     it(': onConfirm triggered on confirm button click', () => {
       const onConfirm = vi.fn();
       const { container } = render(<Picker columns={cityOptions} defaultValue={['gz']} onConfirm={onConfirm} />);
-      fireEvent.click(container.querySelector(`${name}__confirm`)!);
+      fireEvent.click(container.querySelector(`${name}__confirm`) as HTMLElement);
       expect(onConfirm).toHaveBeenCalled();
       // value 数组
       expect(Array.isArray(onConfirm.mock.calls[0][0])).toBe(true);
@@ -207,7 +208,7 @@ describe('Picker', () => {
     it(': onChange triggered with confirm', () => {
       const onChange = vi.fn();
       const { container } = render(<Picker columns={cityOptions} defaultValue={['gz']} onChange={onChange} />);
-      fireEvent.click(container.querySelector(`${name}__confirm`)!);
+      fireEvent.click(container.querySelector(`${name}__confirm`) as HTMLElement);
       expect(onChange).toHaveBeenCalled();
     });
   });
@@ -251,7 +252,7 @@ describe('Picker', () => {
       act(() => {
         vi.advanceTimersByTime(20);
       });
-      fireEvent.click(container.querySelector(`${name}__cancel`)!);
+      fireEvent.click(container.querySelector(`${name}__cancel`) as HTMLElement);
       act(() => {
         vi.advanceTimersByTime(10);
       });
@@ -295,7 +296,7 @@ describe('Picker handlePick (natural path via picker.class instance)', () => {
     expect(onPick.mock.calls[0][0]).toEqual(['gz']);
     expect(onPick.mock.calls[0][1]).toEqual({ index: 2, column: 0 });
 
-    fireEvent.click(container.querySelector(`${name}__confirm`)!);
+    fireEvent.click(container.querySelector(`${name}__confirm`) as HTMLElement);
     expect(onConfirm).toHaveBeenCalled();
 
     restore();
@@ -364,13 +365,22 @@ describe('picker.class', () => {
   function buildDom(items = cityOptions) {
     parent = document.createElement('div');
     parent.style.height = '200px';
-    Object.defineProperty(parent, 'offsetHeight', { value: 200, configurable: true });
+    Object.defineProperty(parent, 'offsetHeight', {
+      value: 200,
+      configurable: true,
+    });
     el = document.createElement('ul');
-    Object.defineProperty(el, 'offsetHeight', { value: 200, configurable: true });
+    Object.defineProperty(el, 'offsetHeight', {
+      value: 200,
+      configurable: true,
+    });
     items.forEach((item) => {
       const li = document.createElement('li');
       li.textContent = item.label;
-      Object.defineProperty(li, 'offsetHeight', { value: 40, configurable: true });
+      Object.defineProperty(li, 'offsetHeight', {
+        value: 40,
+        configurable: true,
+      });
       el.appendChild(li);
     });
     parent.appendChild(el);
@@ -503,7 +513,14 @@ describe('picker.class', () => {
         cancelable: true,
         bubbles: true,
         changedTouches: [
-          new Touch({ identifier: 0, target: el, clientX: 0, clientY: 100, pageX: 0, pageY: 100 } as any),
+          new Touch({
+            identifier: 0,
+            target: el,
+            clientX: 0,
+            clientY: 100,
+            pageX: 0,
+            pageY: 100,
+          } as any),
         ] as any,
       }),
     );
@@ -512,7 +529,14 @@ describe('picker.class', () => {
         cancelable: true,
         bubbles: true,
         changedTouches: [
-          new Touch({ identifier: 0, target: el, clientX: 0, clientY: 95, pageX: 0, pageY: 95 } as any),
+          new Touch({
+            identifier: 0,
+            target: el,
+            clientX: 0,
+            clientY: 95,
+            pageX: 0,
+            pageY: 95,
+          } as any),
         ] as any,
       }),
     );
@@ -534,7 +558,14 @@ describe('picker.class', () => {
         cancelable: true,
         bubbles: true,
         changedTouches: [
-          new Touch({ identifier: 0, target: el, clientX: 0, clientY: 100, pageX: 0, pageY: 100 } as any),
+          new Touch({
+            identifier: 0,
+            target: el,
+            clientX: 0,
+            clientY: 100,
+            pageX: 0,
+            pageY: 100,
+          } as any),
         ] as any,
       }),
     );
@@ -543,7 +574,14 @@ describe('picker.class', () => {
         cancelable: true,
         bubbles: true,
         changedTouches: [
-          new Touch({ identifier: 0, target: el, clientX: 0, clientY: 0, pageX: 0, pageY: 0 } as any),
+          new Touch({
+            identifier: 0,
+            target: el,
+            clientX: 0,
+            clientY: 0,
+            pageX: 0,
+            pageY: 0,
+          } as any),
         ] as any,
       }),
     );
@@ -628,9 +666,15 @@ describe('picker.class', () => {
     // 构造一个空列表，使得 itemHeight 为 default (40)，但 itemLen=0 时 getRange max=0 min=0
     parent = document.createElement('div');
     parent.style.height = '200px';
-    Object.defineProperty(parent, 'offsetHeight', { value: 200, configurable: true });
+    Object.defineProperty(parent, 'offsetHeight', {
+      value: 200,
+      configurable: true,
+    });
     el = document.createElement('ul');
-    Object.defineProperty(el, 'offsetHeight', { value: 200, configurable: true });
+    Object.defineProperty(el, 'offsetHeight', {
+      value: 200,
+      configurable: true,
+    });
     parent.appendChild(el);
     document.body.appendChild(parent);
 
@@ -650,7 +694,14 @@ describe('picker.class', () => {
         cancelable: true,
         bubbles: true,
         changedTouches: [
-          new Touch({ identifier: 0, target: el, clientX: 0, clientY: 100, pageX: 0, pageY: 100 } as any),
+          new Touch({
+            identifier: 0,
+            target: el,
+            clientX: 0,
+            clientY: 100,
+            pageX: 0,
+            pageY: 100,
+          } as any),
         ] as any,
       }),
     );
@@ -660,7 +711,14 @@ describe('picker.class', () => {
         cancelable: true,
         bubbles: true,
         changedTouches: [
-          new Touch({ identifier: 0, target: el, clientX: 0, clientY: 60, pageX: 0, pageY: 60 } as any),
+          new Touch({
+            identifier: 0,
+            target: el,
+            clientX: 0,
+            clientY: 60,
+            pageX: 0,
+            pageY: 60,
+          } as any),
         ] as any,
       }),
     );
@@ -717,7 +775,11 @@ describe('picker.class', () => {
     const stopProp = vi.fn();
     const prev = vi.fn();
     // event.cancelable=true 分支
-    const evCancelable: any = { cancelable: true, stopPropagation: stopProp, preventDefault: prev };
+    const evCancelable: any = {
+      cancelable: true,
+      stopPropagation: stopProp,
+      preventDefault: prev,
+    };
     preventDefault(evCancelable, true);
     expect(prev).toHaveBeenCalled();
     expect(stopProp).toHaveBeenCalled();
@@ -725,14 +787,22 @@ describe('picker.class', () => {
     // event.cancelable=false 不应调用 preventDefault；isStopPropagation=false
     prev.mockClear();
     stopProp.mockClear();
-    const evNonCancelable: any = { cancelable: false, stopPropagation: stopProp, preventDefault: prev };
+    const evNonCancelable: any = {
+      cancelable: false,
+      stopPropagation: stopProp,
+      preventDefault: prev,
+    };
     preventDefault(evNonCancelable, false);
     expect(prev).not.toHaveBeenCalled();
     expect(stopProp).not.toHaveBeenCalled();
 
     // event.cancelable 非 boolean 也走 preventDefault
     prev.mockClear();
-    const evNoBool: any = { cancelable: undefined, stopPropagation: stopProp, preventDefault: prev };
+    const evNoBool: any = {
+      cancelable: undefined,
+      stopPropagation: stopProp,
+      preventDefault: prev,
+    };
     preventDefault(evNoBool);
     expect(prev).toHaveBeenCalled();
 

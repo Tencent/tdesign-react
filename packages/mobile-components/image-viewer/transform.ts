@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+
 import raf from './raf';
 
 function isEqual(objA, objB) {

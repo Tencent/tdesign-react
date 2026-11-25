@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
 import { vi } from 'vitest';
-import { describe, expect, it, render, fireEvent, act } from '@test/utils';
+import { act, describe, expect, fireEvent, it, render } from '@test/utils';
+
+import { Cell, CellGroup } from '../../cell';
 import { Indexes, IndexesAnchor } from '../index';
 import { IndexesContext } from '../IndexesContext';
-import { CellGroup, Cell } from '../../cell';
 
 const prefix = 't';
 const name = `${prefix}-indexes`;
@@ -185,7 +186,10 @@ describe('Indexes', () => {
     it(':onChange', async () => {
       const changeFn = vi.fn();
       const selectFn = vi.fn();
-      const { container } = renderIndexes({ onChange: changeFn, onSelect: selectFn });
+      const { container } = renderIndexes({
+        onChange: changeFn,
+        onSelect: selectFn,
+      });
       const $sideBarItems = container.querySelectorAll<HTMLElement>(`.${name}__sidebar-item`);
 
       await act(async () => {
@@ -279,9 +283,15 @@ describe('Indexes', () => {
       });
 
       await act(async () => {
-        fireEvent.touchStart($sideBar, { touches: [{ clientX: 20, clientY: 10 }] });
-        fireEvent.touchMove($sideBar, { touches: [{ clientX: 20, clientY: 50 }] });
-        fireEvent.touchEnd($sideBar, { touches: [{ clientX: 20, clientY: 50 }] });
+        fireEvent.touchStart($sideBar, {
+          touches: [{ clientX: 20, clientY: 10 }],
+        });
+        fireEvent.touchMove($sideBar, {
+          touches: [{ clientX: 20, clientY: 50 }],
+        });
+        fireEvent.touchEnd($sideBar, {
+          touches: [{ clientX: 20, clientY: 50 }],
+        });
       });
 
       const expectedIndex = indexList[Math.floor(50 / 20)];
@@ -312,7 +322,9 @@ describe('Indexes', () => {
       document.elementFromPoint = vi.fn(() => null);
 
       await act(async () => {
-        fireEvent.touchMove($sideBar, { touches: [{ clientX: 20, clientY: 50 }] });
+        fireEvent.touchMove($sideBar, {
+          touches: [{ clientX: 20, clientY: 50 }],
+        });
       });
 
       // touchmove 不应该触发新的 change
@@ -339,7 +351,9 @@ describe('Indexes', () => {
       document.elementFromPoint = vi.fn(() => mockElement);
 
       await act(async () => {
-        fireEvent.touchMove($sideBar, { touches: [{ clientX: 20, clientY: 50 }] });
+        fireEvent.touchMove($sideBar, {
+          touches: [{ clientX: 20, clientY: 50 }],
+        });
       });
 
       expect(changeFn).not.toHaveBeenCalled();
@@ -368,7 +382,9 @@ describe('Indexes', () => {
       document.elementFromPoint = vi.fn(() => $sideBarItems[0]);
 
       await act(async () => {
-        fireEvent.touchMove($sideBar, { touches: [{ clientX: 20, clientY: 10 }] });
+        fireEvent.touchMove($sideBar, {
+          touches: [{ clientX: 20, clientY: 10 }],
+        });
       });
 
       expect(changeFn).not.toHaveBeenCalled();

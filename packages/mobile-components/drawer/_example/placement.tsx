@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Drawer, Button } from 'tdesign-mobile-react';
+import { Button, Drawer } from 'tdesign-mobile-react';
 
 const placementList = [
   { key: 1, value: 'left', text: '左侧抽屉' },

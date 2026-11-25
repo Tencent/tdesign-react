@@ -1,6 +1,7 @@
 import React from 'react';
-import { describe, it, expect, render } from '@test/utils';
-import { Typography, TypographyText, TypographyTitle, TypographyParagraph } from '../index';
+import { describe, expect, it, render } from '@test/utils';
+
+import { Typography, TypographyParagraph, TypographyText, TypographyTitle } from '../index';
 
 describe('Typography', () => {
   it('exports all sub-components', () => {

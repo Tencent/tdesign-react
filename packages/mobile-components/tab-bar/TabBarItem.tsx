@@ -1,15 +1,17 @@
-import cls from 'classnames';
 import React, { forwardRef, memo, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import cls from 'classnames';
 import { ViewListIcon } from 'tdesign-icons-react';
+
+import parseTNode from '../_util/parseTNode';
+import Badge from '../badge';
+import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
+import useTabBarCssTransition from './hooks/useTabBarCssTransition';
+import { TabBarContext } from './TabBarContext';
+
 import type { StyledProps } from '../common';
 import type { TdTabBarItemProps } from './type';
-import { TabBarContext } from './TabBarContext';
-import Badge from '../badge';
-import useTabBarCssTransition from './hooks/useTabBarCssTransition';
-import parseTNode from '../_util/parseTNode';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { usePrefixClass } from '../hooks/useClass';
 
 export interface TabBarItemProps extends TdTabBarItemProps, StyledProps {}
 

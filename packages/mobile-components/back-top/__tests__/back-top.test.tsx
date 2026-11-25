@@ -1,10 +1,13 @@
-import { render, fireEvent, describe, test, expect, beforeEach, afterEach } from '@test/utils';
-import { vi, type Mock } from 'vitest';
 import React from 'react';
-import { AppIcon } from 'tdesign-icons-react';
 import { useScroll } from 'ahooks';
-import BackTop from '../Backtop';
+import { AppIcon } from 'tdesign-icons-react';
+import { vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, fireEvent, render, test } from '@test/utils';
+
 import { canUseDOM } from '../../_util/dom';
+import BackTop from '../Backtop';
+
+import type { Mock } from 'vitest';
 
 vi.mock('ahooks', async () => {
   const actual = await vi.importActual('ahooks');
@@ -42,7 +45,10 @@ describe('BackTop', () => {
         </div>,
       );
       fireEvent.click(container.querySelector('.t-back-top'));
-      expect(document.documentElement.scrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' });
+      expect(document.documentElement.scrollTo).toHaveBeenCalledWith({
+        top: 0,
+        behavior: 'smooth',
+      });
     });
 
     test(':fixed', async () => {
@@ -118,7 +124,10 @@ describe('BackTop', () => {
       document.documentElement.scrollTo = vi.fn();
       const { container } = render(<BackTop />);
       fireEvent.click(container.querySelector('.t-back-top'));
-      expect(document.documentElement.scrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' });
+      expect(document.documentElement.scrollTo).toHaveBeenCalledWith({
+        top: 0,
+        behavior: 'smooth',
+      });
     });
   });
 

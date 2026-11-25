@@ -1,22 +1,25 @@
-import React, { useEffect, useState, useContext, useMemo, forwardRef } from 'react';
-import {
-  CloseIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ChevronLeftDoubleIcon,
-  ChevronRightDoubleIcon,
-} from 'tdesign-icons-react';
+import React, { forwardRef, useContext, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
+import {
+  ChevronLeftDoubleIcon,
+  ChevronLeftIcon,
+  ChevronRightDoubleIcon,
+  ChevronRightIcon,
+  CloseIcon,
+} from 'tdesign-icons-react';
 
 import parseTNode from '../_util/parseTNode';
-import { Button, ButtonProps } from '../button';
-import { TDateType, CalendarValue, TCalendarValue } from './type';
+import { Button } from '../button';
 import { usePrefixClass } from '../hooks/useClass';
 import useDefaultProps from '../hooks/useDefaultProps';
-import { calendarDefaultProps } from './defaultProps';
-import { CalendarContext, CalendarProps } from './Calendar';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { getPrevMonth, getPrevYear, getNextMonth, getNextYear } from './utils';
+import { CalendarContext } from './Calendar';
+import { calendarDefaultProps } from './defaultProps';
+import { getNextMonth, getNextYear, getPrevMonth, getPrevYear } from './utils';
+
+import type { ButtonProps } from '../button';
+import type { CalendarProps } from './Calendar';
+import type { CalendarValue, TCalendarValue, TDateType } from './type';
 
 const getCurrentYearAndMonth = (v: Date) => {
   const date = new Date(v);
@@ -422,7 +425,9 @@ const CalendarTemplate = forwardRef<HTMLDivElement, CalendarProps>((_props, ref)
               <div
                 className={classNames([
                   `${calendarClass}-header__icon`,
-                  { [`${calendarClass}-header__icon--disabled`]: headerButtons.preYearBtnDisable },
+                  {
+                    [`${calendarClass}-header__icon--disabled`]: headerButtons.preYearBtnDisable,
+                  },
                 ])}
                 onClick={() => handleSwitchModeChange('pre-year', headerButtons.preYearBtnDisable)}
               >
@@ -433,7 +438,9 @@ const CalendarTemplate = forwardRef<HTMLDivElement, CalendarProps>((_props, ref)
             <div
               className={classNames([
                 `${calendarClass}-header__icon`,
-                { [`${calendarClass}-header__icon--disabled`]: headerButtons.prevMonthBtnDisable },
+                {
+                  [`${calendarClass}-header__icon--disabled`]: headerButtons.prevMonthBtnDisable,
+                },
               ])}
               onClick={() => handleSwitchModeChange('pre-month', headerButtons.prevMonthBtnDisable)}
             >
@@ -441,13 +448,18 @@ const CalendarTemplate = forwardRef<HTMLDivElement, CalendarProps>((_props, ref)
             </div>
           </div>
           <div className={`${calendarClass}-header__title`}>
-            {t(local.monthTitle, { year: currentMonth[0]?.year, month: local.months[currentMonth[0]?.month] })}
+            {t(local.monthTitle, {
+              year: currentMonth[0]?.year,
+              month: local.months[currentMonth[0]?.month],
+            })}
           </div>
           <div className={`${calendarClass}-header__action`}>
             <div
               className={classNames([
                 `${calendarClass}-header__icon`,
-                { [`${calendarClass}-header__icon--disabled`]: headerButtons.nextMonthBtnDisable },
+                {
+                  [`${calendarClass}-header__icon--disabled`]: headerButtons.nextMonthBtnDisable,
+                },
               ])}
               onClick={() => handleSwitchModeChange('next-month', headerButtons.nextMonthBtnDisable)}
             >
@@ -458,7 +470,9 @@ const CalendarTemplate = forwardRef<HTMLDivElement, CalendarProps>((_props, ref)
               <div
                 className={classNames([
                   `${calendarClass}-header__icon`,
-                  { [`${calendarClass}-header__icon--disabled`]: headerButtons.nextYearBtnDisable },
+                  {
+                    [`${calendarClass}-header__icon--disabled`]: headerButtons.nextYearBtnDisable,
+                  },
                 ])}
                 onClick={() => handleSwitchModeChange('next-year', headerButtons.nextYearBtnDisable)}
               >
@@ -481,7 +495,10 @@ const CalendarTemplate = forwardRef<HTMLDivElement, CalendarProps>((_props, ref)
           <React.Fragment key={`month-${item.year}-${item.month}-${index}`}>
             {props.switchMode === 'none' && (
               <div id={`year_${item.year}_month_${item.month}`} className={`${calendarClass}__month`}>
-                {t(local.monthTitle, { year: item.year, month: local.months[item.month] })}
+                {t(local.monthTitle, {
+                  year: item.year,
+                  month: local.months[item.month],
+                })}
               </div>
             )}
             <div className={`${calendarClass}__dates`}>

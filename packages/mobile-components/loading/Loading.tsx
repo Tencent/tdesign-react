@@ -1,16 +1,18 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
-import parseTNode from '../_util/parseTNode';
-import { TdLoadingProps } from './type';
-import { loadingDefaultProps } from './defaultProps';
-import { StyledProps } from '../common';
-import Spinner from './icon/Spinner';
-import Gradient from './icon/Gradient';
-import Portal from '../common/Portal';
+
 import { canUseDOM } from '../_util/dom';
-import { useLockScroll } from '../hooks/useLockScroll';
-import useDefaultProps from '../hooks/useDefaultProps';
+import parseTNode from '../_util/parseTNode';
+import Portal from '../common/Portal';
 import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { useLockScroll } from '../hooks/useLockScroll';
+import { loadingDefaultProps } from './defaultProps';
+import Gradient from './icon/Gradient';
+import Spinner from './icon/Spinner';
+
+import type { StyledProps } from '../common';
+import type { TdLoadingProps } from './type';
 
 export interface LoadingProps extends TdLoadingProps, StyledProps {}
 

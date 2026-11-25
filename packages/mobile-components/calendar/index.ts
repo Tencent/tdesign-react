@@ -1,6 +1,6 @@
-import _Calendar from './Calendar';
-
 import './style';
+
+import _Calendar from './Calendar';
 
 export type { CalendarProps } from './Calendar';
 export * from './type';

@@ -1,6 +1,8 @@
-import type React from 'react';
 import { useEffect, useRef } from 'react';
+
 import getFixScaleEleTransPosition from './getFixScaleEleTransPosition';
+
+import type React from 'react';
 import type { DispatchZoomChangeFunc, TransformType, UpdateTransformFunc } from './transform';
 
 type Point = {

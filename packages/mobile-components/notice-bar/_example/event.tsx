@@ -1,6 +1,6 @@
 import React from 'react';
-import { NoticeBar, Toast } from 'tdesign-mobile-react';
 import { ChevronRightIcon } from 'tdesign-icons-react';
+import { NoticeBar, Toast } from 'tdesign-mobile-react';
 
 export default function Event() {
   const handleClick = (context: string) => {

@@ -1,7 +1,8 @@
-import { describe, it, expect, vi, render, fireEvent, screen, act, afterEach, beforeEach } from '@test/utils';
 import React from 'react';
-import Overlay from '../Overlay';
+import { act, afterEach, beforeEach, describe, expect, fireEvent, it, render, screen, vi } from '@test/utils';
+
 import { overlayDefaultProps } from '../defaultProps';
+import Overlay from '../Overlay';
 
 describe('Overlay', () => {
   beforeEach(() => {

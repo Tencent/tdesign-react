@@ -1,6 +1,10 @@
 import { get, isFunction, isObject } from 'lodash-es';
+
 import type { ReactNode } from 'react';
-import {
+import type { ClassName, HTMLElementAttributes, TNode } from '../../common';
+import type { EllipsisPopupProps } from '../Ellipsis';
+import type { SkipSpansValue } from '../hooks/useRowspanAndColspan';
+import type {
   BaseTableCellParams,
   BaseTableCol,
   BaseTableColParams,
@@ -12,9 +16,6 @@ import {
   TdBaseTableProps,
   TdPrimaryTableProps,
 } from '../type';
-import { ClassName, HTMLElementAttributes, TNode } from '../../common';
-import type { EllipsisPopupProps } from '../Ellipsis';
-import { SkipSpansValue } from '../hooks/useRowspanAndColspan';
 
 export function toString(obj: any): string {
   return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();

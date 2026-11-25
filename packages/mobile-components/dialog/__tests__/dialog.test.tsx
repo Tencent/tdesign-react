@@ -1,7 +1,8 @@
 import React, { act } from 'react';
-import { render, screen, fireEvent, vi, it, describe, expect, afterEach, beforeEach, cleanup } from '@test/utils';
 import Button from 'tdesign-mobile-react/button/Button';
-import { DialogPlugin, Dialog } from '../index';
+import { afterEach, beforeEach, cleanup, describe, expect, fireEvent, it, render, screen, vi } from '@test/utils';
+
+import { Dialog, DialogPlugin } from '../index';
 
 const prefix = 't';
 const name = `.${prefix}-dialog`;
@@ -32,7 +33,9 @@ describe('Dialog', () => {
       await act(async () => {
         vi.advanceTimersByTime(300);
       });
-      expect(document.querySelector('.t-popup')).toHaveStyle({ display: 'none' });
+      expect(document.querySelector('.t-popup')).toHaveStyle({
+        display: 'none',
+      });
     });
 
     it(': title', () => {

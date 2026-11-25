@@ -1,6 +1,9 @@
-import { describe, it, expect, render, vi, fireEvent, screen, act, waitFor } from '@test/utils';
 import React from 'react';
-import { Table, BaseTableRef, TableRowData, BaseTableCol } from '../index';
+import { act, describe, expect, fireEvent, it, render, screen, vi, waitFor } from '@test/utils';
+
+import { Table } from '../index';
+
+import type { BaseTableCol, BaseTableRef, TableRowData } from '../index';
 
 const prefix = 't';
 const name = `.${prefix}-table`;
@@ -21,7 +24,13 @@ for (let i = 0; i < total; i++) {
 
 const columns: BaseTableCol<TableRowData>[] = [
   { colKey: 'serial-number', title: () => '序号', width: 60 },
-  { colKey: 'applicant', title: <div>标题</div>, ellipsis: true, cell: 'type-slot-name', minWidth: 50 },
+  {
+    colKey: 'applicant',
+    title: <div>标题</div>,
+    ellipsis: true,
+    cell: 'type-slot-name',
+    minWidth: 50,
+  },
   {
     colKey: 'status',
     title: '标题',

@@ -1,7 +1,10 @@
-import React, { type ComponentType } from 'react';
+import React from 'react';
+import { CheckCircleIcon, CloseCircleIcon, InfoCircleIcon } from 'tdesign-icons-react';
 import { describe, expect, it, render } from '@test/utils';
-import { InfoCircleIcon, CheckCircleIcon, CloseCircleIcon } from 'tdesign-icons-react';
+
 import { Result } from '..';
+
+import type { ComponentType } from 'react';
 
 const imgUrl = 'https://tdesign.gtimg.com/mobile/demos/avatar1.png';
 

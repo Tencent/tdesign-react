@@ -1,4 +1,6 @@
-import React, { RefObject } from 'react';
+import React from 'react';
+
+import type { RefObject } from 'react';
 
 export interface SwiperItemReference {
   divRef: RefObject<HTMLDivElement>;

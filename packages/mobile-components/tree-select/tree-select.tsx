@@ -1,17 +1,20 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
-import useDefault from '../_util/useDefault';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { TdTreeSelectProps, TreeLevel, TreeSelectValue } from './type';
-import { treeSelectDefaultProps } from './defaultProps';
-import { usePrefixClass } from '../hooks/useClass';
+
 import { convertUnit } from '../_util/convertUnit';
-import { TreeOptionData } from '../common';
-import { SideBar, SideBarItem } from '../side-bar';
 import parseTNode from '../_util/parseTNode';
+import useDefault from '../_util/useDefault';
 import { Checkbox } from '../checkbox';
+import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
 import { Radio, RadioGroup } from '../radio';
-import { NativeProps } from '../_util/withNativeProps';
+import { SideBar, SideBarItem } from '../side-bar';
+import { treeSelectDefaultProps } from './defaultProps';
+
+import type { FC } from 'react';
+import type { NativeProps } from '../_util/withNativeProps';
+import type { TreeOptionData } from '../common';
+import type { TdTreeSelectProps, TreeLevel, TreeSelectValue } from './type';
 
 export interface TreeSelectProps extends TdTreeSelectProps, NativeProps {}
 

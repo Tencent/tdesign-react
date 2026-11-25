@@ -1,10 +1,13 @@
-import React, { useEffect, useRef, FC, useState, useCallback } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+
+import useDefaultProps from '../hooks/useDefaultProps';
 import TPopup from '../popup';
 import CalendarTemplate from './CalendarTemplate';
-import useDefaultProps from '../hooks/useDefaultProps';
 import { calendarDefaultProps } from './defaultProps';
-import { TdCalendarProps } from './type';
-import { StyledProps } from '../common';
+
+import type { FC } from 'react';
+import type { StyledProps } from '../common';
+import type { TdCalendarProps } from './type';
 
 export interface CalendarProps extends TdCalendarProps, StyledProps {}
 

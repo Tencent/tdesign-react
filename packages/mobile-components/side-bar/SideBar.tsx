@@ -1,11 +1,13 @@
 import React, { forwardRef, memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
+import parseTNode from '../_util/parseTNode';
+import useDefault from '../_util/useDefault';
+import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { SideBarProvider } from './SideBarContext';
+
 import type { StyledProps } from '../common';
 import type { TdSideBarProps } from './type';
-import { SideBarProvider } from './SideBarContext';
-import useDefault from '../_util/useDefault';
-import parseTNode from '../_util/parseTNode';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { usePrefixClass } from '../hooks/useClass';
 
 export interface SideBarProps extends TdSideBarProps, StyledProps {}
 

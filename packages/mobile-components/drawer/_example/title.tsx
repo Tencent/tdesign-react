@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import { Drawer, Button } from 'tdesign-mobile-react';
+import { Button, Drawer } from 'tdesign-mobile-react';
 
 const titleList = [
   { key: 1, value: '标题', text: '小标题抽屉' },
-  { key: 2, value: <div style={{ fontSize: '24px' }}>标题</div>, text: '大标题抽屉' },
+  {
+    key: 2,
+    value: <div style={{ fontSize: '24px' }}>标题</div>,
+    text: '大标题抽屉',
+  },
 ] as const;
 
 export default function Base() {

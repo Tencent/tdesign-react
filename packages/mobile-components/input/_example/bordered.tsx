@@ -1,6 +1,6 @@
 import React from 'react';
-import { Input } from 'tdesign-mobile-react';
 import { ErrorCircleFilledIcon } from 'tdesign-icons-react';
+import { Input } from 'tdesign-mobile-react';
 
 export default function Bordered() {
   return (

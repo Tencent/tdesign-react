@@ -1,12 +1,14 @@
 import React from 'react';
-import type { FC } from 'react';
 import classNames from 'classnames';
-import { TdDividerProps } from './type';
-import { dividerDefaultProps } from './defaultProps';
-import { StyledProps } from '../common';
+
+import parseTNode from '../_util/parseTNode';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
-import parseTNode from '../_util/parseTNode';
+import { dividerDefaultProps } from './defaultProps';
+
+import type { FC } from 'react';
+import type { StyledProps } from '../common';
+import type { TdDividerProps } from './type';
 
 export interface DividerProps extends TdDividerProps, StyledProps {}
 

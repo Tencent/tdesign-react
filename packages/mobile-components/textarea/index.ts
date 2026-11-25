@@ -1,5 +1,6 @@
-import _Textarea from './Textarea';
 import './style';
+
+import _Textarea from './Textarea';
 
 export type { TextareaProps } from './Textarea';
 export * from './type';

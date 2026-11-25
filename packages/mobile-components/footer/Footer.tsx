@@ -1,10 +1,12 @@
 import React from 'react';
-import TImage from '../image';
-import { TdFooterProps } from './type';
-import { StyledProps } from '../common';
-import { footerDefaultProps } from './defaultProps';
+
 import { usePrefixClass } from '../hooks/useClass';
 import useDefaultProps from '../hooks/useDefaultProps';
+import TImage from '../image';
+import { footerDefaultProps } from './defaultProps';
+
+import type { StyledProps } from '../common';
+import type { TdFooterProps } from './type';
 
 export interface FooterProps extends TdFooterProps, StyledProps {}
 

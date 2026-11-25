@@ -1,5 +1,5 @@
 import React from 'react';
-import { LoadingPlugin, Button } from 'tdesign-mobile-react';
+import { Button, LoadingPlugin } from 'tdesign-mobile-react';
 
 export default function PluginLoading() {
   // 函数式：局部加载

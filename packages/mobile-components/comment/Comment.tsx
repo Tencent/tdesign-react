@@ -1,14 +1,18 @@
-import React, { ReactNode, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { isObject } from 'lodash-es';
 import { ChevronDownSIcon, ChevronUpSIcon } from 'tdesign-icons-react';
-import { CommentActionItem, CommentFold, CommentFoldState, LongPressEvent, TdCommentProps } from './type';
+
+import parseTNode, { parseContentTNode } from '../_util/parseTNode';
+import Avatar from '../avatar';
 import { usePrefixClass } from '../hooks/useClass';
 import { useLongPress } from '../hooks/useLongPress';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import Avatar, { AvatarProps } from '../avatar';
-import parseTNode, { parseContentTNode } from '../_util/parseTNode';
-import { StyledProps, TNode } from '../common';
+
+import type { ReactNode } from 'react';
+import type { AvatarProps } from '../avatar';
+import type { StyledProps, TNode } from '../common';
+import type { CommentActionItem, CommentFold, CommentFoldState, LongPressEvent, TdCommentProps } from './type';
 
 export interface CommentProps extends TdCommentProps, StyledProps {}
 

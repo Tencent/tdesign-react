@@ -1,11 +1,14 @@
+import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import cx from 'classnames';
-import React, { ComponentProps, forwardRef, useImperativeHandle, useState } from 'react';
-import { StyledProps } from '../common';
-import useDefaultProps from '../hooks/useDefaultProps';
+
 import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
 import { dropdownMenuDefaultProps } from './defaultProps';
 import DropdownItem from './DropdownItem';
 import DropdownMenuContext from './DropdownMenuContext';
+
+import type { ComponentProps } from 'react';
+import type { StyledProps } from '../common';
 import type { TdDropdownMenuProps } from './type';
 
 export interface DropdownMenuProps extends TdDropdownMenuProps, StyledProps {

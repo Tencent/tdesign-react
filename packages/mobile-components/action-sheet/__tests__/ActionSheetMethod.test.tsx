@@ -1,5 +1,6 @@
-import { describe, it, expect, afterEach, act } from '@test/utils';
-import { show, close } from '../ActionSheetMethod';
+import { act, afterEach, describe, expect, it } from '@test/utils';
+
+import { close, show } from '../ActionSheetMethod';
 
 describe('ActionSheetMethod', () => {
   afterEach(async () => {

@@ -1,10 +1,13 @@
-import React, { FC, useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import cls from 'classnames';
-import { StyledProps } from '../common';
+
 import parseTNode from '../_util/parseTNode';
 import { usePrefixClass } from '../hooks/useClass';
-import { TdIndexesAnchorProps } from './type';
 import { IndexesContext } from './IndexesContext';
+
+import type { FC } from 'react';
+import type { StyledProps } from '../common';
+import type { TdIndexesAnchorProps } from './type';
 
 export interface IndexesAnchorProps extends TdIndexesAnchorProps, StyledProps {
   children?: React.ReactNode;

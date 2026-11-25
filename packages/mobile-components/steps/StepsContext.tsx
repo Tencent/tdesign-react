@@ -1,5 +1,6 @@
 import React, { createContext, useMemo } from 'react';
-import { TdStepsProps } from './type';
+
+import type { TdStepsProps } from './type';
 
 interface StepsContextProps {
   childrenNodes: HTMLElement[];

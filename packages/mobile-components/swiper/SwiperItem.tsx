@@ -1,10 +1,13 @@
-import React, { FC, useCallback, useContext, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { usePrefixClass } from '../hooks/useClass';
+
 import parseTNode from '../_util/parseTNode';
-import { StyledProps } from '../common';
+import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
 import SwiperContext from './SwiperContext';
+
+import type { CSSProperties, FC } from 'react';
+import type { StyledProps } from '../common';
 
 export interface SwiperItemProps extends StyledProps {
   children?: React.ReactNode;

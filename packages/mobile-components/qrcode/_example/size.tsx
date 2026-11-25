@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { QRCode, Button } from 'tdesign-mobile-react';
+import { Button, QRCode } from 'tdesign-mobile-react';
 
 const MIN_SIZE = 48;
 const MAX_SIZE = 300;

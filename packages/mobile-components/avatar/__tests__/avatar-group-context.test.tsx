@@ -1,5 +1,6 @@
 import React from 'react';
-import { describe, it, expect, render, screen, fireEvent, vi } from '@test/utils';
+import { describe, expect, fireEvent, it, render, screen, vi } from '@test/utils';
+
 import Avatar from '../Avatar';
 import { AvatarGroupContext, AvatarGroupContextProvider } from '../AvatarGroupContext';
 

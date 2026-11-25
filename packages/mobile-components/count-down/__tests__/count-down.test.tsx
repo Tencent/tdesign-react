@@ -1,6 +1,9 @@
-import { render, act, describe, test, expect, vi, beforeEach, afterEach } from '@test/utils';
 import React from 'react';
-import CountDown, { CountDownRef } from '../CountDown';
+import { act, afterEach, beforeEach, describe, expect, render, test, vi } from '@test/utils';
+
+import CountDown from '../CountDown';
+
+import type { CountDownRef } from '../CountDown';
 
 const time = 96 * 60 * 1000;
 
@@ -355,8 +358,16 @@ describe('CountDown', () => {
       const testCases = [
         { format: 'HH:mm:ss', time: 3661000, expected: /\d{2}:\d{2}:\d{2}/ },
         { format: 'mm:ss', time: 61000, expected: /\d{2}:\d{2}/ },
-        { format: 'DD天HH时mm分ss秒', time: 90061000, expected: /\d+天\d+时\d+分\d+秒/ },
-        { format: 'HH:mm:ss:SSS', time: 3661500, expected: /\d{2}:\d{2}:\d{2}:\d{3}/ },
+        {
+          format: 'DD天HH时mm分ss秒',
+          time: 90061000,
+          expected: /\d+天\d+时\d+分\d+秒/,
+        },
+        {
+          format: 'HH:mm:ss:SSS',
+          time: 3661500,
+          expected: /\d{2}:\d{2}:\d{2}:\d{3}/,
+        },
       ];
 
       for (const testCase of testCases) {

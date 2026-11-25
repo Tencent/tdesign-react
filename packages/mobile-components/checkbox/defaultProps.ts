@@ -2,7 +2,7 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TdCheckboxProps, TdCheckboxGroupProps } from './type';
+import type { TdCheckboxGroupProps, TdCheckboxProps } from './type';
 
 export const checkboxDefaultProps: TdCheckboxProps = {
   block: true,

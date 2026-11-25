@@ -1,4 +1,5 @@
 import './style/index';
+
 import _Swiper from './Swiper';
 
 export type { SwiperProps } from './Swiper';

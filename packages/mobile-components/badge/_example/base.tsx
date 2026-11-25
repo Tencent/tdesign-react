@@ -1,6 +1,6 @@
 import React from 'react';
-import { Badge, Button } from 'tdesign-mobile-react';
 import { NotificationIcon } from 'tdesign-icons-react';
+import { Badge, Button } from 'tdesign-mobile-react';
 
 export default function BaseBadge() {
   return (

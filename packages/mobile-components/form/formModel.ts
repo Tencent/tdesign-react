@@ -1,11 +1,10 @@
 import { isBoolean, isEmpty, isNumber, isObject } from 'lodash-es';
-
 // https://github.com/validatorjs/validator.js
 import isDate from 'validator/lib/isDate';
 import isEmail from 'validator/lib/isEmail';
 import isURL from 'validator/lib/isURL';
 
-import {
+import type {
   AllValidateResult,
   CustomValidateResolveType,
   CustomValidator,
@@ -101,7 +100,9 @@ export type ValidateFuncType = (typeof VALIDATE_MAP)[keyof typeof VALIDATE_MAP];
  * @returns 两种校验结果，一种是内置校验规则的校验结果哦，二种是自定义校验规则（validator）的校验结果
  */
 export async function validateOneRule(value: ValueType, rule: FormRule): Promise<AllValidateResult> {
-  let validateResult: CustomValidateResolveType | ValidateResultType = { result: true };
+  let validateResult: CustomValidateResolveType | ValidateResultType = {
+    result: true,
+  };
   const keys = Object.keys(rule);
   let vOptions;
   let vValidateFun: ValidateFuncType;

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Avatar, AvatarGroup } from 'tdesign-mobile-react';
 import { UserAddIcon } from 'tdesign-icons-react';
+import { Avatar, AvatarGroup } from 'tdesign-mobile-react';
 
 export default function ActionAvatar() {
   const imageList = [

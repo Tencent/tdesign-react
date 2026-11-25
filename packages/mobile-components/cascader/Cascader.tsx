@@ -1,22 +1,24 @@
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useDeepCompareEffect } from 'ahooks';
 import classNames from 'classnames';
 import last from 'lodash-es/last';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { CloseIcon, ChevronRightIcon } from 'tdesign-icons-react';
+import { ChevronRightIcon, CloseIcon } from 'tdesign-icons-react';
+
+import parseTNode from '../_util/parseTNode';
 import useDefault from '../_util/useDefault';
-import { Popup } from '../popup';
-import { RadioGroup } from '../radio';
-import type { RadioOption } from '../radio';
-import { Search } from '../search';
-import Tabs from '../tabs';
-import { StyledProps, TreeOptionData } from '../common';
 import { usePrefixClass } from '../hooks/useClass';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useLatest from '../hooks/useLatest';
-import parseTNode from '../_util/parseTNode';
+import { Popup } from '../popup';
+import { RadioGroup } from '../radio';
+import { Search } from '../search';
+import Tabs from '../tabs';
 import { cascaderDefaultProps } from './defaultProps';
-import { CascaderFilterFunction, CascaderTriggerSource, TdCascaderProps } from './type';
+
+import type { StyledProps, TreeOptionData } from '../common';
+import type { RadioOption } from '../radio';
+import type { CascaderFilterFunction, CascaderTriggerSource, TdCascaderProps } from './type';
 
 type OptionsType = TreeOptionData[];
 
@@ -374,7 +376,11 @@ const Cascader: React.FC<CascaderProps> = (props) => {
       });
 
       if (finalNode && finalNode[childrenKey] === true && load) {
-        load({ data: finalNode, value: finalNode[valueKey], label: finalNode[labelKey] })
+        load({
+          data: finalNode,
+          value: finalNode[valueKey],
+          label: finalNode[labelKey],
+        })
           .then((loadedChildren) => {
             setInternalSelectedValues(selectedValues);
             setOptionsList((prev) => [...prev.slice(0, finalLevel + 1), normalizeOptionsByKeys(loadedChildren)]);
@@ -544,7 +550,11 @@ const Cascader: React.FC<CascaderProps> = (props) => {
                           });
 
                           if (target?.children === true && load) {
-                            load({ data: target.data, value: target.value, label: target.label })
+                            load({
+                              data: target.data,
+                              value: target.value,
+                              label: target.label,
+                            })
                               .then((loadedChildren) => {
                                 setOptionsList((prev) => [
                                   ...prev.slice(0, index + 1),

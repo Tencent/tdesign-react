@@ -1,14 +1,16 @@
-import React, { forwardRef, memo, useMemo, useRef, useCallback } from 'react';
+import React, { forwardRef, memo, useCallback, useMemo, useRef } from 'react';
 import classNames from 'classnames';
+
+import parseTNode from '../_util/parseTNode';
 import useDefault from '../_util/useDefault';
+import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
+import useElementHeight from '../hooks/useElementHeight';
+import { tabBarDefaultProps } from './defaultProps';
+import { TabBarProvider } from './TabBarContext';
+
 import type { StyledProps } from '../common';
 import type { TdTabBarProps } from './type';
-import { TabBarProvider } from './TabBarContext';
-import parseTNode from '../_util/parseTNode';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { usePrefixClass } from '../hooks/useClass';
-import { tabBarDefaultProps } from './defaultProps';
-import useElementHeight from '../hooks/useElementHeight';
 
 export interface TabBarProps extends TdTabBarProps, StyledProps {}
 

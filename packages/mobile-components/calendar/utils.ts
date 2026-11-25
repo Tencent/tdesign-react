@@ -1,4 +1,4 @@
-import { TCalendarValue } from './type';
+import type { TCalendarValue } from './type';
 
 export function getMonthByOffset(date: TCalendarValue, offset: number) {
   const innerDate = new Date(date);

@@ -1,7 +1,8 @@
-import { describe, it, expect, render } from '@test/utils';
 import React from 'react';
-import CellGroup from '../CellGroup';
+import { describe, expect, it, render } from '@test/utils';
+
 import Cell from '../Cell';
+import CellGroup from '../CellGroup';
 
 describe('CellGroup', () => {
   describe('props', () => {

@@ -1,7 +1,9 @@
 import React from 'react';
-import { describe, it, expect, render, vi, act, beforeEach, afterEach } from '@test/utils';
+import { act, afterEach, beforeEach, describe, expect, it, render, vi } from '@test/utils';
 
-import PickerItem, { type PickerItemExposeRef } from '../PickerItem';
+import PickerItem from '../PickerItem';
+
+import type { PickerItemExposeRef } from '../PickerItem';
 import type { PickerColumn, PickerColumnItem } from '../type';
 
 const prefix = 't';
@@ -138,7 +140,14 @@ describe('PickerItem', () => {
       cancelable: true,
       bubbles: true,
       changedTouches: [
-        new Touch({ identifier: 0, target: ul, clientX: 0, clientY: 100, pageX: 0, pageY: 100 } as any),
+        new Touch({
+          identifier: 0,
+          target: ul,
+          clientX: 0,
+          clientY: 100,
+          pageX: 0,
+          pageY: 100,
+        } as any),
       ] as any,
     });
     ul.dispatchEvent(start);
@@ -146,7 +155,14 @@ describe('PickerItem', () => {
       cancelable: true,
       bubbles: true,
       changedTouches: [
-        new Touch({ identifier: 0, target: ul, clientX: 0, clientY: 0, pageX: 0, pageY: 0 } as any),
+        new Touch({
+          identifier: 0,
+          target: ul,
+          clientX: 0,
+          clientY: 0,
+          pageX: 0,
+          pageY: 0,
+        } as any),
       ] as any,
     });
     ul.dispatchEvent(move);
@@ -154,7 +170,14 @@ describe('PickerItem', () => {
       cancelable: true,
       bubbles: true,
       changedTouches: [
-        new Touch({ identifier: 0, target: ul, clientX: 0, clientY: 0, pageX: 0, pageY: 0 } as any),
+        new Touch({
+          identifier: 0,
+          target: ul,
+          clientX: 0,
+          clientY: 0,
+          pageX: 0,
+          pageY: 0,
+        } as any),
       ] as any,
     });
     ul.dispatchEvent(end);

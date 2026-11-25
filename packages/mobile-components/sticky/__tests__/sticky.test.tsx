@@ -1,5 +1,6 @@
 import React from 'react';
-import { describe, expect, it, render, vi, waitFor, act } from '@test/utils';
+import { act, describe, expect, it, render, vi, waitFor } from '@test/utils';
+
 import Sticky from '../Sticky';
 
 const prefix = 't';

@@ -1,5 +1,6 @@
 import React from 'react';
-import { describe, it, expect, render, screen } from '@test/utils';
+import { describe, expect, it, render, screen } from '@test/utils';
+
 import { RateText } from '../RateText';
 
 describe('RateText', () => {

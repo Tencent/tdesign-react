@@ -1,10 +1,12 @@
 import React, { useMemo } from 'react';
-import { PaginationProps } from './type';
+
 import Button from '../button';
-import useClassName from './hooks/useClassName';
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useClassName from './hooks/useClassName';
 import { tablePaginationDefaultProps } from './tablePaginationDefaultProps';
+
+import type { PaginationProps } from './type';
 
 const PAGE_COUNT_MIN = 1;
 const TablePagination: React.FC<PaginationProps> = (originalProps) => {
@@ -28,7 +30,11 @@ const TablePagination: React.FC<PaginationProps> = (originalProps) => {
     if (nextCurrent > pageCount) {
       resNextCurrent = pageCount;
     }
-    setCurrent(resNextCurrent, { current: resNextCurrent, previous: current, pageSize });
+    setCurrent(resNextCurrent, {
+      current: resNextCurrent,
+      previous: current,
+      pageSize,
+    });
     onChange({
       current: resNextCurrent,
       previous: current,

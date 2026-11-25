@@ -14,10 +14,18 @@ import {
   template as lodashTemplate,
 } from 'lodash-es';
 import { ChevronRightIcon } from 'tdesign-icons-react';
+
+import { usePrefixClass } from '../hooks/useClass';
+import useConfig from '../hooks/useConfig';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { TD_CTRL_PROP_MAP } from './const';
+import { useFormContext } from './FormContext';
 import { validate } from './formModel';
 import { HOOK_MARK } from './hooks/useForm';
 
-import {
+import type { StyledProps } from '../common';
+import type { AnalysisValidateResult, ErrorListType, FormItemInstance, SuccessListType } from './const';
+import type {
   AllValidateResult,
   Data,
   FieldData,
@@ -25,23 +33,19 @@ import {
   FormInstanceFunctions,
   FormItemValidateMessage,
   FormRule,
-  ValidateTriggerType,
-  ValueType,
   TdFormItemProps,
   TdFormProps,
+  ValidateTriggerType,
+  ValueType,
 } from './type';
-import { AnalysisValidateResult, ErrorListType, FormItemInstance, SuccessListType, TD_CTRL_PROP_MAP } from './const';
-import { usePrefixClass } from '../hooks/useClass';
-import useConfig from '../hooks/useConfig';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
-import { useFormContext } from './FormContext';
-import { StyledProps } from '../common';
 
 export interface FormItemProps extends TdFormItemProps, StyledProps {
   children?: React.ReactNode | React.ReactNode[] | ((form: FormInstanceFunctions) => React.ReactElement);
 }
 
-export type FormItemValidateResult<T extends Data = Data> = { [key in keyof T]: boolean | AllValidateResult[] };
+export type FormItemValidateResult<T extends Data = Data> = {
+  [key in keyof T]: boolean | AllValidateResult[];
+};
 
 // FormItem 向子组件注入的受控属性集合
 type FormControlInjectableProps = {
@@ -318,11 +322,12 @@ const FormItem = forwardRef<FormItemInstance, FormItemProps>((props, ref) => {
     // 处理自定义校验规则的 context 参数
     const rulesWithContext = result.rules.map((rule) => {
       if (rule.validator) {
+        const { validator } = rule;
         return {
           ...rule,
           validator: (val: ValueType) => {
             const context = { formData: form?.store || {}, name: String(name) };
-            return rule.validator!(val, context);
+            return validator(val, context);
           },
         };
       }

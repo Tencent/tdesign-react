@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Radio, RadioGroup } from 'tdesign-mobile-react';
 import { CheckIcon } from 'tdesign-icons-react';
+import { Radio, RadioGroup } from 'tdesign-mobile-react';
 
 const DemoBlock = ({ summary, children }: { summary?: string; children?: React.ReactNode }) => (
   <div className="tdesign-mobile-demo-block tdesign-mobile-demo-block_subtitle">

@@ -1,13 +1,16 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
+
 import parseTNode from '../_util/parseTNode';
 import useDefault from '../_util/useDefault';
-import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
-import { TdSegmentedProps, SegmentedItem } from './type';
-import { segmentedDefaultProps } from './defaultProps';
-import withNativeProps, { NativeProps } from '../_util/withNativeProps';
+import withNativeProps from '../_util/withNativeProps';
 import { usePrefixClass } from '../hooks/useClass';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useIsomorphicLayoutEffect from '../hooks/useLayoutEffect';
+import { segmentedDefaultProps } from './defaultProps';
+
+import type { NativeProps } from '../_util/withNativeProps';
+import type { SegmentedItem, TdSegmentedProps } from './type';
 
 export interface SegmentedProps extends TdSegmentedProps, NativeProps {}
 
@@ -81,7 +84,11 @@ const Segmented: React.FC<SegmentedProps> = (originProps) => {
 
   return withNativeProps(
     props,
-    <div className={classNames(segmentedClass, { [`${segmentedClass}--block`]: block })}>
+    <div
+      className={classNames(segmentedClass, {
+        [`${segmentedClass}--block`]: block,
+      })}
+    >
       <div className={`${segmentedClass}__group`} ref={groupRef}>
         <div className={`${segmentedClass}__thumb`} style={thumbStyle} />
 

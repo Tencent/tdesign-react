@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CloseCircleIcon } from 'tdesign-icons-react';
-import { Popup, Button } from 'tdesign-mobile-react';
+import { Button, Popup } from 'tdesign-mobile-react';
 
 export default function CustomClose() {
   const [visible, setVisible] = useState(false);

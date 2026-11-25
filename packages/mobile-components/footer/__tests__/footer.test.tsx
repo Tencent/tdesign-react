@@ -1,6 +1,7 @@
-import { render } from '@test/utils';
-import { describe, test, expect } from 'vitest';
 import React from 'react';
+import { describe, expect, test } from 'vitest';
+import { render } from '@test/utils';
+
 import Footer from '../Footer';
 
 describe('Footer', () => {

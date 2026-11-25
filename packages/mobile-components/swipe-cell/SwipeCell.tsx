@@ -1,19 +1,21 @@
-import React, { forwardRef, useImperativeHandle, useRef, useMemo, useState, useEffect } from 'react';
-import { isArray, isBoolean } from 'lodash-es';
-import classNames from 'classnames';
+import './style';
+
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useClickAway } from 'ahooks';
+import classNames from 'classnames';
+import { isArray, isBoolean } from 'lodash-es';
 import { useDrag } from '@use-gesture/react';
-import parseTNode from '../_util/parseTNode';
+
 import nearest from '../_util/nearest';
+import parseTNode from '../_util/parseTNode';
 import withNativeProps from '../_util/withNativeProps';
-import { TdSwipeCellProps, SwipeActionItem, SwipeCellInstanceFunctions, SwipeSource } from './type';
-import { swipeCellDefaultProps } from './defaultProps';
 import { usePrefixClass } from '../hooks/useClass';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useLayoutEffect from '../hooks/useLayoutEffect';
-import { Styles, StyledProps, TNode } from '../common';
+import { swipeCellDefaultProps } from './defaultProps';
 
-import './style';
+import type { StyledProps, Styles, TNode } from '../common';
+import type { SwipeActionItem, SwipeCellInstanceFunctions, SwipeSource, TdSwipeCellProps } from './type';
 
 export interface SwipeCellRef extends SwipeCellInstanceFunctions {
   expand: (side?: SwipeSource, immediate?: boolean) => void;

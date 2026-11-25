@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Steps, StepItem } from 'tdesign-mobile-react';
 import { CartIcon } from 'tdesign-icons-react';
+import { StepItem, Steps } from 'tdesign-mobile-react';
 
 export default function StepsDemo() {
   const [first, setFirst] = useState<number | string>('1');

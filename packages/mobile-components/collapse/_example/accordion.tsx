@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Collapse, CollapsePanel } from 'tdesign-mobile-react';
 
 export default function () {

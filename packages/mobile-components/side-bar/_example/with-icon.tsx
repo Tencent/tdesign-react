@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AppIcon } from 'tdesign-icons-react';
-import type { SideBarProps, SideBarItemProps } from 'tdesign-mobile-react';
-import { SideBar, SideBarItem, Grid, GridItem } from 'tdesign-mobile-react';
+import { Grid, GridItem, SideBar, SideBarItem } from 'tdesign-mobile-react';
+
+import type { SideBarItemProps, SideBarProps } from 'tdesign-mobile-react';
 
 const image = 'https://tdesign.gtimg.com/mobile/demos/example2.png';
 const items = new Array(12).fill({ label: '标题文字', image });
@@ -9,10 +10,34 @@ const icon = <AppIcon />;
 
 const categories = [
   { label: '选项一', title: '标题一', badgeProps: {}, items, icon },
-  { label: '选项二', title: '标题二', badgeProps: { dot: true }, items: items.slice(0, 9), icon },
-  { label: '选项三', title: '标题三', badgeProps: {}, items: items.slice(0, 9), icon },
-  { label: '选项四', title: '标题四', badgeProps: { count: 6 }, items: items.slice(0, 6), icon },
-  { label: '选项五', title: '标题五', badgeProps: {}, items: items.slice(0, 3), icon },
+  {
+    label: '选项二',
+    title: '标题二',
+    badgeProps: { dot: true },
+    items: items.slice(0, 9),
+    icon,
+  },
+  {
+    label: '选项三',
+    title: '标题三',
+    badgeProps: {},
+    items: items.slice(0, 9),
+    icon,
+  },
+  {
+    label: '选项四',
+    title: '标题四',
+    badgeProps: { count: 6 },
+    items: items.slice(0, 6),
+    icon,
+  },
+  {
+    label: '选项五',
+    title: '标题五',
+    badgeProps: {},
+    items: items.slice(0, 3),
+    icon,
+  },
 ];
 
 function SideBarWrapper() {

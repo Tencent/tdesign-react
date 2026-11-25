@@ -1,10 +1,12 @@
-import _Form from './Form';
-import _FormItem from './FormItem';
-import { TdFormItemProps, TdFormProps } from './type';
 import './style/index.js';
 
-export * from './type';
+import _Form from './Form';
+import _FormItem from './FormItem';
+
+import type { TdFormItemProps, TdFormProps } from './type';
+
 export * from './hooks/interface';
+export * from './type';
 export type FormProps = TdFormProps;
 export type FormItemProps = TdFormItemProps;
 

@@ -1,7 +1,8 @@
 import React from 'react';
-import { describe, expect, render, it } from '@test/utils';
-import Row from '../Row';
+import { describe, expect, it, render } from '@test/utils';
+
 import Col from '../Col';
+import Row from '../Row';
 
 const prefix = 't';
 const rowName = `${prefix}-row`;

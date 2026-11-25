@@ -1,6 +1,8 @@
-import React, { createContext, MutableRefObject, useMemo } from 'react';
-import { ChangeHandler } from '../_util/useDefault';
-import { TdSideBarProps } from './type';
+import React, { createContext, useMemo } from 'react';
+
+import type { MutableRefObject } from 'react';
+import type { ChangeHandler } from '../_util/useDefault';
+import type { TdSideBarProps } from './type';
 
 interface BaseSidebarContext {
   defaultIndex: MutableRefObject<number>;

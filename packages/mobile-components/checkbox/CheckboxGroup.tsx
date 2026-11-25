@@ -1,14 +1,17 @@
-import React, { FC, ReactElement, useEffect, useMemo, useState } from 'react';
-import { isNumber, get as lodashGet } from 'lodash-es';
+import React, { useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
-import { CheckboxOption, CheckboxOptionObj, TdCheckboxGroupProps } from './type';
-import { StyledProps } from '../common';
+import { get as lodashGet, isNumber } from 'lodash-es';
 
 import useDefault from '../_util/useDefault';
-import Checkbox, { CheckContext, CheckContextValue } from './Checkbox';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { checkboxGroupDefaultProps } from './defaultProps';
 import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
+import Checkbox, { CheckContext } from './Checkbox';
+import { checkboxGroupDefaultProps } from './defaultProps';
+
+import type { FC, ReactElement } from 'react';
+import type { StyledProps } from '../common';
+import type { CheckContextValue } from './Checkbox';
+import type { CheckboxOption, CheckboxOptionObj, TdCheckboxGroupProps } from './type';
 
 export interface CheckboxGroupProps extends TdCheckboxGroupProps, StyledProps {
   children?: React.ReactNode;

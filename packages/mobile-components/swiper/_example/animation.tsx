@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Swiper, Cell, Switch, Slider } from 'tdesign-mobile-react';
+import { Cell, Slider, Swiper, Switch } from 'tdesign-mobile-react';
+
 import type { SwitchValue } from 'tdesign-mobile-react';
 
 export default function Base() {

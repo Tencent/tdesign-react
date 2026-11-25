@@ -1,6 +1,6 @@
-import _Search from './Search';
-
 import './style/index.js';
+
+import _Search from './Search';
 
 export type { SearchProps } from './Search';
 export * from './type';

@@ -1,14 +1,16 @@
 import React, { forwardRef, memo, useCallback, useContext, useEffect, useMemo } from 'react';
 import cls from 'classnames';
 import { ChevronDownIcon, ChevronUpIcon } from 'tdesign-icons-react';
+
+import parseTNode from '../_util/parseTNode';
+import { Cell } from '../cell';
+import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { CollapseContext } from './CollapseContext';
+import { collapsePanelDefaultProps } from './defaultProps';
+
 import type { StyledProps } from '../common';
 import type { TdCollapsePanelProps } from './type';
-import { collapsePanelDefaultProps } from './defaultProps';
-import { CollapseContext } from './CollapseContext';
-import { Cell } from '../cell';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { usePrefixClass } from '../hooks/useClass';
-import parseTNode from '../_util/parseTNode';
 
 export interface CollapsePanelProps extends TdCollapsePanelProps, StyledProps {}
 

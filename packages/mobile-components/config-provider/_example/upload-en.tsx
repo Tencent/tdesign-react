@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { ConfigProvider, Upload } from 'tdesign-mobile-react';
-import type { UploadRemoveContext } from 'tdesign-mobile-react';
 import { merge } from 'lodash-es';
+import { ConfigProvider, Upload } from 'tdesign-mobile-react';
 import enConfig from 'tdesign-mobile-react/es/locale/en_US';
+
+import type { UploadRemoveContext } from 'tdesign-mobile-react';
 
 export default function TableEn() {
   // 全局特性配置，可以引入英文默认配置 enConfig，还可以在默认配置的基础上进行自定义配置

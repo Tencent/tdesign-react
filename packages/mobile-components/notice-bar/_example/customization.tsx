@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link, NoticeBar } from 'tdesign-mobile-react';
 import { CloseIcon } from 'tdesign-icons-react';
+import { Link, NoticeBar } from 'tdesign-mobile-react';
 
 export default function Customization() {
   return (

@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { isArray, isNumber } from 'lodash-es';
-import { SkeletonRowCol, SkeletonRowColObj, TdSkeletonProps } from './type';
-import { StyledProps, Styles } from '../common';
-import { skeletonDefaultProps } from './defaultProps';
+
 import { pxCompat } from '../_util/helper';
 import parseTNode from '../_util/parseTNode';
-import useDefaultProps from '../hooks/useDefaultProps';
 import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { skeletonDefaultProps } from './defaultProps';
+
+import type { StyledProps, Styles } from '../common';
+import type { SkeletonRowCol, SkeletonRowColObj, TdSkeletonProps } from './type';
 
 export interface SkeletonProps extends TdSkeletonProps, StyledProps {}
 

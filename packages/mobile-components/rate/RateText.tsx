@@ -1,8 +1,10 @@
-import cx from 'classnames';
 import React from 'react';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
+import cx from 'classnames';
+
 import { usePrefixClass } from '../hooks/useClass';
-import { TdRateProps } from './type';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+
+import type { TdRateProps } from './type';
 
 type Props = {
   texts: TdRateProps['texts'];

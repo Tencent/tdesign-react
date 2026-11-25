@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
-import type { RefObject } from 'react';
+
 import useLatest from './useLatest';
+
+import type { RefObject } from 'react';
 
 export interface UseEventListenerOptions extends AddEventListenerOptions {
   /** 为 false 时不绑定监听，默认 true */

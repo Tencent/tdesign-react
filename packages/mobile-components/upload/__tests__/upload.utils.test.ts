@@ -1,5 +1,6 @@
-import { describe, it, expect } from '@test/utils';
-import { urlCreator, removeProperty, removePropertyAtArray, getIndex, getNewestUidFactory } from '../util';
+import { describe, expect, it } from '@test/utils';
+
+import { getIndex, getNewestUidFactory, removeProperty, removePropertyAtArray, urlCreator } from '../util';
 
 describe('Upload utils', () => {
   describe('urlCreator', () => {

@@ -1,8 +1,23 @@
 import React, { forwardRef, useCallback, useImperativeHandle, useMemo, useRef } from 'react';
 import classNames from 'classnames';
 import { get } from 'lodash-es';
-import { PrimaryTableProps, PrimaryTableRef } from './interface';
-import {
+
+import useControlled from '../hooks/useControlled';
+import useDefaultProps from '../hooks/useDefaultProps';
+import BaseTable from './BaseTable';
+import { primaryTableDefaultProps } from './defaultProps';
+import Ellipsis from './Ellipsis';
+import useClassName from './hooks/useClassName';
+import useDragSort from './hooks/useDragSort';
+import useFilter from './hooks/useFilter';
+import useRowExpand from './hooks/useRowExpand';
+import useRowSelect from './hooks/useRowSelect';
+import useSorter from './hooks/useSorter';
+import useTableHeader, { renderTitle } from './hooks/useTableHeader';
+import { renderCell, resolveEllipsis } from './utils';
+
+import type { PrimaryTableProps, PrimaryTableRef } from './interface';
+import type {
   BaseTableCellParams,
   PageInfo,
   PaginationProps,
@@ -11,19 +26,6 @@ import {
   TdBaseTableProps,
   TdPrimaryTableProps,
 } from './type';
-import useDefaultProps from '../hooks/useDefaultProps';
-import useControlled from '../hooks/useControlled';
-import useClassName from './hooks/useClassName';
-import useRowSelect from './hooks/useRowSelect';
-import useSorter from './hooks/useSorter';
-import useFilter from './hooks/useFilter';
-import useDragSort from './hooks/useDragSort';
-import useRowExpand from './hooks/useRowExpand';
-import useTableHeader, { renderTitle } from './hooks/useTableHeader';
-import { primaryTableDefaultProps } from './defaultProps';
-import BaseTable from './BaseTable';
-import Ellipsis from './Ellipsis';
-import { renderCell, resolveEllipsis } from './utils';
 
 const PrimaryTable = forwardRef<PrimaryTableRef, PrimaryTableProps>((props, ref) => {
   const {
@@ -80,7 +82,9 @@ const PrimaryTable = forwardRef<PrimaryTableRef, PrimaryTableProps>((props, ref)
   const tRowAttributes = useMemo(() => {
     const tAttributes = [props.rowAttributes];
     if (isRowHandlerDraggable || isRowDraggable) {
-      tAttributes.push(({ row }) => ({ 'data-id': get(row, props.rowKey || 'id') }));
+      tAttributes.push(({ row }) => ({
+        'data-id': get(row, props.rowKey || 'id'),
+      }));
     }
     return tAttributes.filter((v) => v);
   }, [isRowDraggable, isRowHandlerDraggable, props.rowAttributes, props.rowKey]);

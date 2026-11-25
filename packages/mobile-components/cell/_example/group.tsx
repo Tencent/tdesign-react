@@ -1,6 +1,6 @@
 import React from 'react';
-import { CellGroup, Cell } from 'tdesign-mobile-react';
-import { AppIcon, ServiceIcon, InternetIcon } from 'tdesign-icons-react';
+import { AppIcon, InternetIcon, ServiceIcon } from 'tdesign-icons-react';
+import { Cell, CellGroup } from 'tdesign-mobile-react';
 
 export default function Group() {
   return (

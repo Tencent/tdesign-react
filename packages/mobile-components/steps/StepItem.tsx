@@ -1,13 +1,17 @@
-import React, { FC, useContext, useEffect, useMemo, useRef, MouseEvent } from 'react';
+import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import classNames from 'classnames';
 import { CheckIcon, CloseIcon } from 'tdesign-icons-react';
-import withNativeProps, { NativeProps } from '../_util/withNativeProps';
+
 import parseTNode from '../_util/parseTNode';
-import useDefaultProps from '../hooks/useDefaultProps';
+import withNativeProps from '../_util/withNativeProps';
 import { usePrefixClass } from '../hooks/useClass';
-import { TdStepItemProps } from './type';
+import useDefaultProps from '../hooks/useDefaultProps';
 import { stepItemDefaultProps } from './defaultProps';
 import { StepsContext } from './StepsContext';
+
+import type { FC, MouseEvent } from 'react';
+import type { NativeProps } from '../_util/withNativeProps';
+import type { TdStepItemProps } from './type';
 
 export enum StepItemStatusEnum {
   DEFAULT = 'default',

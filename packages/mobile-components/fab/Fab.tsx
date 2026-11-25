@@ -1,13 +1,15 @@
-import React, { useRef, useState, useLayoutEffect, useEffect } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+
 import { reconvertUnit } from '../_util/convertUnit';
+import parseTNode from '../_util/parseTNode';
 import Button from '../button';
-import { TdFabProps } from './type';
-import { fabDefaultProps } from './defaultProps';
-import { StyledProps } from '../common';
 import { usePrefixClass } from '../hooks/useClass';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useEventListener from '../hooks/useEventListener';
-import parseTNode from '../_util/parseTNode';
+import { fabDefaultProps } from './defaultProps';
+
+import type { StyledProps } from '../common';
+import type { TdFabProps } from './type';
 
 export interface FabProps extends TdFabProps, StyledProps {
   children?: React.ReactNode;

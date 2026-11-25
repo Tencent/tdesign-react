@@ -1,7 +1,7 @@
+import './style/index.js';
+
 import _Radio from './Radio';
 import _RadioGroup from './RadioGroup';
-
-import './style/index.js';
 
 export type { RadioProps } from './Radio';
 export type { RadioGroupProps } from './RadioGroup';

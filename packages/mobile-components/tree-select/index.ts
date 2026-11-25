@@ -1,6 +1,6 @@
-import _TreeSelect from './tree-select';
-
 import './style';
+
+import _TreeSelect from './tree-select';
 
 export type { TreeSelectProps } from './tree-select';
 export * from './type';

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from 'tdesign-mobile-react';
 import { AppIcon } from 'tdesign-icons-react';
+import { Button } from 'tdesign-mobile-react';
 
 export default function () {
   return (

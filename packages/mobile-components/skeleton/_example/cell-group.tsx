@@ -1,5 +1,6 @@
 import React from 'react';
 import { Skeleton } from 'tdesign-mobile-react';
+
 import type { SkeletonProps } from 'tdesign-mobile-react';
 
 const rowColsAvater: SkeletonProps['rowCol'] = [{ size: '48px', type: 'circle' }];

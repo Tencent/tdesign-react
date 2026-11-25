@@ -1,19 +1,22 @@
-import React, { MouseEvent, useRef, useEffect } from 'react';
-import { CloseIcon, DeleteIcon } from 'tdesign-icons-react';
+import React, { useEffect, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { CSSTransitionClassNames } from 'react-transition-group/CSSTransition';
-import { TdImageViewerProps, ImageInfo, ImageViewerCloseTrigger, ImageSlotParams } from './type';
-import { StyledProps } from '../common';
-import { usePrefixClass } from '../hooks/useClass';
-import useDefault from '../_util/useDefault';
+import { CloseIcon, DeleteIcon } from 'tdesign-icons-react';
+
 import noop from '../_util/noop';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { imageViewerDefaultProps } from './defaultProps';
-import { Swiper as TSwiper } from '../swiper';
 import parseTNode from '../_util/parseTNode';
+import useDefault from '../_util/useDefault';
+import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { Swiper as TSwiper } from '../swiper';
 import TSwiperItem from '../swiper/SwiperItem';
+import { imageViewerDefaultProps } from './defaultProps';
 import { useImageTransform } from './transform';
 import { useTouchEvent } from './useTouchEvent';
+
+import type { MouseEvent } from 'react';
+import type { CSSTransitionClassNames } from 'react-transition-group/CSSTransition';
+import type { StyledProps } from '../common';
+import type { ImageInfo, ImageSlotParams, ImageViewerCloseTrigger, TdImageViewerProps } from './type';
 
 export interface ImageViewerProps extends TdImageViewerProps, StyledProps {}
 

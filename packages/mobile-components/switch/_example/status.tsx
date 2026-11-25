@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Cell } from 'tdesign-mobile-react';
+import { Cell, Switch } from 'tdesign-mobile-react';
 
 export default function SwitchStatus() {
   return (

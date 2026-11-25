@@ -1,5 +1,6 @@
 import React from 'react';
 import { describe, expect, it, render } from '@test/utils';
+
 import Divider from '../Divider';
 
 describe('Divider', () => {

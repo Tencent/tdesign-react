@@ -1,7 +1,8 @@
-import { describe, vi, it, expect } from '@test/utils';
-import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import { AppIcon } from 'tdesign-icons-react';
+import { describe, expect, it, vi } from '@test/utils';
+import { fireEvent, render } from '@testing-library/react';
+
 import { Tag, TagCheck } from '../index';
 
 const prefix = 't';
@@ -38,11 +39,7 @@ describe('tag', () => {
 
     it(': theme', () => {
       const theme = ['default', 'primary', 'warning', 'danger', 'success'] as (
-        | 'default'
-        | 'primary'
-        | 'warning'
-        | 'danger'
-        | 'success'
+        'default' | 'primary' | 'warning' | 'danger' | 'success'
       )[];
       theme.forEach((t) => {
         const { container } = render(<Tag theme={t} />);
@@ -220,10 +217,7 @@ describe('TagCheck', () => {
 
     it(': variant', () => {
       const variants = ['dark', 'light', 'outline', 'light-outline'] as (
-        | 'dark'
-        | 'light'
-        | 'outline'
-        | 'light-outline'
+        'dark' | 'light' | 'outline' | 'light-outline'
       )[];
       variants.forEach((item) => {
         const { container } = render(<TagCheck variant={item} />);

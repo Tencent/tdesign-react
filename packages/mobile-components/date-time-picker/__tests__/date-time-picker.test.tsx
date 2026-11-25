@@ -1,7 +1,9 @@
-import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
-import { vi } from 'vitest';
 import '@testing-library/jest-dom';
+
+import React from 'react';
+import { vi } from 'vitest';
+import { fireEvent, render, waitFor } from '@testing-library/react';
+
 import DateTimePicker from '../DateTimePicker';
 
 // Mock dayjs with minimal setup

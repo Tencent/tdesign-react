@@ -1,9 +1,10 @@
-import { defaultGlobalConfig } from '../config-provider/ConfigContext';
-import { PickerColumn, PickerWheelConfig } from './type';
-import { DEFAULT_WHEEL_CONFIG } from './constants';
-import { KeysType } from '../common';
-import { findIndexOfEnabledOption, limitNumberInRange } from './utils';
 import { reconvertUnit } from '../_util/convertUnit';
+import { defaultGlobalConfig } from '../config-provider/ConfigContext';
+import { DEFAULT_WHEEL_CONFIG } from './constants';
+import { findIndexOfEnabledOption, limitNumberInRange } from './utils';
+
+import type { KeysType } from '../common';
+import type { PickerColumn, PickerWheelConfig } from './type';
 
 export interface PickerOptions {
   defaultIndex?: number;

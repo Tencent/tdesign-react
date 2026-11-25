@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Switch, Cell } from 'tdesign-mobile-react';
+import { Cell, Switch } from 'tdesign-mobile-react';
+
 import type { SwitchValue } from 'tdesign-mobile-react';
 
 export default function SwitchBase() {

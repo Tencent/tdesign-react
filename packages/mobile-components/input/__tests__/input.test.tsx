@@ -1,5 +1,6 @@
-import { describe, it, expect, vi, render, fireEvent, screen, afterEach, beforeEach, act } from '@test/utils';
 import React from 'react';
+import { act, afterEach, beforeEach, describe, expect, fireEvent, it, render, screen, vi } from '@test/utils';
+
 import Input from '../Input';
 
 describe('Input', () => {
@@ -71,7 +72,9 @@ describe('Input', () => {
 
         // 测试中文输入（一个中文字符算一个长度）
         act(() => {
-          fireEvent.input(inputElement, { target: { value: '一二三四五六七八九十一' } });
+          fireEvent.input(inputElement, {
+            target: { value: '一二三四五六七八九十一' },
+          });
         });
         // 应该只保留前10个中文字符
         expect(inputElement).toHaveValue('一二三四五六七八九十');
@@ -487,7 +490,9 @@ describe('Input', () => {
 
       // 在 compositionend 结束时，组件会用 handleInputValue(e) 处理并 setInnerValue(..., trigger: "input")
       act(() => {
-        fireEvent.compositionEnd(inputElement, { target: { value: '一二三四' } });
+        fireEvent.compositionEnd(inputElement, {
+          target: { value: '一二三四' },
+        });
       });
 
       expect(handleChange).toHaveBeenCalledTimes(1);

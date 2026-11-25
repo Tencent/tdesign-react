@@ -1,16 +1,19 @@
-import React, { useEffect, useMemo, useRef, useState, forwardRef, useImperativeHandle } from 'react';
-import { createPopper, Placement } from '@popperjs/core';
-import { useClickAway } from 'ahooks';
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { CSSTransitionClassNames } from 'react-transition-group/CSSTransition';
+import { useClickAway } from 'ahooks';
 import classNames from 'classnames';
-import { TdPopoverProps } from './type';
-import { StyledProps } from '../common';
+import { createPopper } from '@popperjs/core';
+
+import parseTNode, { parseContentTNode } from '../_util/parseTNode';
+import useDefault from '../_util/useDefault';
 import { usePrefixClass } from '../hooks/useClass';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { popoverDefaultProps } from './defaultProps';
-import parseTNode, { parseContentTNode } from '../_util/parseTNode';
-import useDefault from '../_util/useDefault';
+
+import type { Placement } from '@popperjs/core';
+import type { CSSTransitionClassNames } from 'react-transition-group/CSSTransition';
+import type { StyledProps } from '../common';
+import type { TdPopoverProps } from './type';
 
 export interface PopoverProps extends TdPopoverProps, StyledProps {}
 

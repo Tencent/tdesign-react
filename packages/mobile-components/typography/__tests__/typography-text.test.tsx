@@ -1,7 +1,8 @@
 import React from 'react';
-import { describe, it, expect, vi, render, fireEvent, act } from '@test/utils';
-import { TypographyText } from '../index';
+import { act, describe, expect, fireEvent, it, render, vi } from '@test/utils';
+
 import Ellipsis from '../Ellipsis';
+import { TypographyText } from '../index';
 
 const prefix = 't';
 const COMPONENT_NAME = `${prefix}-typography`;
@@ -357,7 +358,12 @@ describe('Ellipsis component', () => {
 
   it('non-function suffix renders as-is', () => {
     const { container } = render(
-      <Ellipsis ellipsis={{ expandable: true, suffix: <span className="static-suffix">查看更多</span> }}>
+      <Ellipsis
+        ellipsis={{
+          expandable: true,
+          suffix: <span className="static-suffix">查看更多</span>,
+        }}
+      >
         {longText}
       </Ellipsis>,
     );

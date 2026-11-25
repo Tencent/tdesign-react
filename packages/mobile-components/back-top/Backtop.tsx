@@ -1,16 +1,19 @@
-import React, { useRef, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
+import { useBoolean, useMount, useScroll } from 'ahooks';
 import classNames from 'classnames';
-import { useScroll, useMount, useBoolean } from 'ahooks';
-import smoothscroll from 'smoothscroll-polyfill';
 import { isBoolean } from 'lodash-es';
+import smoothscroll from 'smoothscroll-polyfill';
 import { BacktopIcon } from 'tdesign-icons-react';
-import useDefaultProps from '../hooks/useDefaultProps';
-import parseTNode from '../_util/parseTNode';
-import withNativeProps, { NativeProps } from '../_util/withNativeProps';
-import useConfig from '../hooks/useConfig';
-import { TdBackTopProps } from './type';
-import { backTopDefaultProps } from './defaultProps';
+
 import { canUseDOM } from '../_util/dom';
+import parseTNode from '../_util/parseTNode';
+import withNativeProps from '../_util/withNativeProps';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { backTopDefaultProps } from './defaultProps';
+
+import type { NativeProps } from '../_util/withNativeProps';
+import type { TdBackTopProps } from './type';
 
 export type ThemeList = 'round' | 'half-round' | 'round-dark' | 'half-round-dark';
 
@@ -74,7 +77,10 @@ const BackTop: React.FC<BackTopProps> = (props) => {
   }, [scroll, setTrue, setFalse, visibilityHeight]);
 
   const onClick = () => {
-    containerDom.current.scrollTo({ top: 0 + targetHeight, behavior: 'smooth' });
+    containerDom.current.scrollTo({
+      top: 0 + targetHeight,
+      behavior: 'smooth',
+    });
     onToTop?.();
   };
 

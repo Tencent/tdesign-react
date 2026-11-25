@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Cell, Popup, Picker } from 'tdesign-mobile-react';
+import { Cell, Picker, Popup } from 'tdesign-mobile-react';
 
 const options = [
   [

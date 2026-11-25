@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Switch, Cell } from 'tdesign-mobile-react';
 import { CheckIcon, CloseIcon } from 'tdesign-icons-react';
+import { Cell, Switch } from 'tdesign-mobile-react';
 
 export default function SwitchLabel() {
   const [checked, setChecked] = useState(true);

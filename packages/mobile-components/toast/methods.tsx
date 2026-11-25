@@ -1,10 +1,12 @@
 import React from 'react';
 import { isObject } from 'lodash-es';
+
+import { getAttach } from '../_util/dom';
 import { render, unmount } from '../_util/react-render';
-import { TdToastProps, ToastOptions } from './type';
 import { defaultProps, ToastThemeListEnum } from './constant';
 import Toast from './Toast';
-import { getAttach } from '../_util/dom';
+
+import type { TdToastProps, ToastOptions } from './type';
 
 function getToastProps(props: ToastOptions) {
   return typeof props === 'string' ? { message: props } : props;

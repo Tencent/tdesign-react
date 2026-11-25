@@ -1,19 +1,21 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
-import { InfoCircleFilledIcon, CheckCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
 import classNames from 'classnames';
 import { isArray, isObject } from 'lodash-es';
-import parseTNode from '../_util/parseTNode';
-import Swiper from '../swiper';
-import type { SwiperProps } from '../swiper';
-import SwiperItem from '../swiper/SwiperItem';
-import { usePrefixClass } from '../hooks/useClass';
-import type { StyledProps } from '../common';
-import type { TdNoticeBarProps, NoticeBarTrigger, NoticeBarMarquee } from './type';
-import useDefault from '../_util/useDefault';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { noticeBarDefaultProps } from './defaultProps';
+import { CheckCircleFilledIcon, ErrorCircleFilledIcon, InfoCircleFilledIcon } from 'tdesign-icons-react';
+
 import noop from '../_util/noop';
+import parseTNode from '../_util/parseTNode';
+import useDefault from '../_util/useDefault';
+import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
+import Swiper from '../swiper';
+import SwiperItem from '../swiper/SwiperItem';
+import { noticeBarDefaultProps } from './defaultProps';
+
+import type { StyledProps } from '../common';
+import type { SwiperProps } from '../swiper';
+import type { NoticeBarMarquee, NoticeBarTrigger, TdNoticeBarProps } from './type';
 
 export interface NoticeBarProps extends TdNoticeBarProps, StyledProps {
   touchable?: boolean;

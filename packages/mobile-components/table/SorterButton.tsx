@@ -1,7 +1,10 @@
-import React, { MouseEvent, ReactNode, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import { ChevronDownIcon } from 'tdesign-icons-react';
+
 import useClassName from './hooks/useClassName';
+
+import type { MouseEvent, ReactNode } from 'react';
 import type { TNode } from '../common';
 import type { SortType } from './type';
 

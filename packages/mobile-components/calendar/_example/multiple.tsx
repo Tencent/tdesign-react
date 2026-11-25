@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Calendar, Cell, CalendarProps } from 'tdesign-mobile-react';
+import { Calendar, Cell } from 'tdesign-mobile-react';
+
+import type { CalendarProps } from 'tdesign-mobile-react';
 
 export default function () {
   const minDate = new Date(2022, 1, 1);

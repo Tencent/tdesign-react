@@ -1,11 +1,13 @@
-import React, { useEffect, useRef, useImperativeHandle, forwardRef, useCallback } from 'react';
-import { get as lodashGet } from 'lodash-es';
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
 import cls from 'classnames';
-import { KeysType, StyledProps } from '../common';
-import { PickerColumnItem, PickerValue, PickerWheelConfig } from './type';
+import { get as lodashGet } from 'lodash-es';
+
+import { usePrefixClass } from '../hooks/useClass';
 import { DEFAULT_WHEEL_CONFIG } from './constants';
 import Picker from './picker.class';
-import { usePrefixClass } from '../hooks/useClass';
+
+import type { KeysType, StyledProps } from '../common';
+import type { PickerColumnItem, PickerValue, PickerWheelConfig } from './type';
 
 export interface PickerItemProps extends StyledProps {
   options?: PickerColumnItem[];

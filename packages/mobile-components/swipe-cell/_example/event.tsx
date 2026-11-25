@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
-import { SwipeCell, Cell, Toast, SwipeCellRef } from 'tdesign-mobile-react';
+import { Cell, SwipeCell, Toast } from 'tdesign-mobile-react';
+
+import type { SwipeCellRef } from 'tdesign-mobile-react';
 
 const DemoBlock = ({ summary, children }: { summary?: string; children?: React.ReactNode }) => (
   <div className="tdesign-mobile-demo-block tdesign-mobile-demo-block_subtitle">

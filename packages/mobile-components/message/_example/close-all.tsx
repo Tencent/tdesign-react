@@ -1,5 +1,5 @@
 import React from 'react';
-import { Message, Button } from 'tdesign-mobile-react';
+import { Button, Message } from 'tdesign-mobile-react';
 
 export default function () {
   const showMessage = ({

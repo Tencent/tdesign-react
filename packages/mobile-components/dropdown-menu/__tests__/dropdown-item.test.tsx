@@ -1,6 +1,7 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
-import { vi, describe, it, expect, afterEach } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { fireEvent, render, waitFor } from '@testing-library/react';
+
 import DropdownItem from '../DropdownItem';
 import DropdownMenu from '../DropdownMenu';
 import DropdownMenuContext from '../DropdownMenuContext';

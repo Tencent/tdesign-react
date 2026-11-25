@@ -1,4 +1,6 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
+
+import type { ReactElement } from 'react';
 
 export enum PropagationEvent {
   CLICK = 'click',

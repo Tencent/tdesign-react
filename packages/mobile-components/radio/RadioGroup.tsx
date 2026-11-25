@@ -1,12 +1,15 @@
 import React, { useRef } from 'react';
 import classNames from 'classnames';
 import { get as lodashGet } from 'lodash-es';
-import { StyledProps } from '../common';
-import Radio, { RadioContext, RadioContextValue, RadioProps } from './Radio';
+
 import useDefault from '../_util/useDefault';
-import useDefaultProps from '../hooks/useDefaultProps';
 import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
 import { radioGroupDefaultProps } from './defaultProps';
+import Radio, { RadioContext } from './Radio';
+
+import type { StyledProps } from '../common';
+import type { RadioContextValue, RadioProps } from './Radio';
 import type { TdRadioGroupProps } from './type';
 
 export interface RadioGroupProps extends TdRadioGroupProps, StyledProps {

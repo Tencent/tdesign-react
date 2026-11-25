@@ -1,14 +1,16 @@
 import React, { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
 import { isArray } from 'lodash-es';
-import Loading from '../loading';
-import { TdSwitchProps, SwitchValue } from './type';
-import { switchDefaultProps } from './defaultProps';
-import { StyledProps } from '../common';
-import useDefault from '../_util/useDefault';
+
 import parseTNode from '../_util/parseTNode';
+import useDefault from '../_util/useDefault';
 import { usePrefixClass } from '../hooks/useClass';
 import useDefaultProps from '../hooks/useDefaultProps';
+import Loading from '../loading';
+import { switchDefaultProps } from './defaultProps';
+
+import type { StyledProps } from '../common';
+import type { SwitchValue, TdSwitchProps } from './type';
 
 export interface SwitchProps<T extends SwitchValue = SwitchValue> extends TdSwitchProps<T>, StyledProps {}
 

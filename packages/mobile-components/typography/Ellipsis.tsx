@@ -1,7 +1,9 @@
-import React, { useState, useMemo, useCallback, ReactNode, CSSProperties } from 'react';
-import useConfig from '../hooks/useConfig';
-import parseTNode from '../_util/parseTNode';
+import React, { useCallback, useMemo, useState } from 'react';
 
+import parseTNode from '../_util/parseTNode';
+import useConfig from '../hooks/useConfig';
+
+import type { CSSProperties, ReactNode } from 'react';
 import type { TypographyEllipsis } from './type';
 
 export interface EllipsisProps {
@@ -20,7 +22,11 @@ const Ellipsis: React.FC<EllipsisProps> = (props) => {
   const [isExpand, setIsExpand] = useState(false);
 
   const ellipsisState = useMemo((): TypographyEllipsis => {
-    const defaults: TypographyEllipsis = { row: 1, expandable: false, collapsible: true };
+    const defaults: TypographyEllipsis = {
+      row: 1,
+      expandable: false,
+      collapsible: true,
+    };
     if (typeof ellipsis === 'object') {
       return { ...defaults, ...ellipsis };
     }

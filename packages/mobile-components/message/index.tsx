@@ -1,10 +1,12 @@
-import React from 'react';
+import './style';
+
 import { attachMethodsToComponent } from '../_util/attachMethodsToComponent';
 import _Message from './Message';
-import type { MessageProps } from './Message';
 import * as methods from './methods';
+
+import type React from 'react';
+import type { MessageProps } from './Message';
 import type { MessageActionOptionsType } from './methods';
-import './style';
 
 export * from './type';
 

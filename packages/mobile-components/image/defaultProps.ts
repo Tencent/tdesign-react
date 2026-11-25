@@ -2,6 +2,11 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TdImageProps } from './type';
+import type { TdImageProps } from './type';
 
-export const imageDefaultProps: TdImageProps = { fit: 'fill', lazy: false, position: 'center', shape: 'square' };
+export const imageDefaultProps: TdImageProps = {
+  fit: 'fill',
+  lazy: false,
+  position: 'center',
+  shape: 'square',
+};

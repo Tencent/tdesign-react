@@ -1,5 +1,5 @@
 import React from 'react';
-import { describe, it, expect, render, vi, fireEvent } from '@test/utils';
+import { describe, expect, fireEvent, it, render, vi } from '@test/utils';
 
 import SideBar from '../SideBar';
 import SideBarItem from '../SideBarItem';

@@ -1,15 +1,19 @@
-import React, { ReactNode, useCallback, useEffect, useMemo, useState, isValidElement } from 'react';
-import { isString, get, isObject, isFunction, isArray } from 'lodash-es';
-import { CloseIcon } from 'tdesign-icons-react';
+import React, { isValidElement, useCallback, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
-import Popup from '../popup';
-import Button, { ButtonProps } from '../button';
-import { StyledProps } from '../common';
-import { dialogDefaultProps } from './defaultProps';
-import { TdDialogProps } from './type';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { usePrefixClass } from '../hooks/useClass';
+import { get, isArray, isFunction, isObject, isString } from 'lodash-es';
+import { CloseIcon } from 'tdesign-icons-react';
+
 import parseTNode from '../_util/parseTNode';
+import Button from '../button';
+import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
+import Popup from '../popup';
+import { dialogDefaultProps } from './defaultProps';
+
+import type { ReactNode } from 'react';
+import type { ButtonProps } from '../button';
+import type { StyledProps } from '../common';
+import type { TdDialogProps } from './type';
 
 export interface DialogProps extends TdDialogProps, StyledProps {
   children?: ReactNode;

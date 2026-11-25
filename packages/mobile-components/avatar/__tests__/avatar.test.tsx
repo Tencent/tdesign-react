@@ -1,6 +1,7 @@
 import React from 'react';
-import { describe, expect, it, render, vi, fireEvent, act } from '@test/utils';
 import { UserIcon } from 'tdesign-icons-react';
+import { act, describe, expect, fireEvent, it, render, vi } from '@test/utils';
+
 import { Avatar } from '../index';
 
 describe('Avatar', () => {

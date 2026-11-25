@@ -1,13 +1,15 @@
-import React, { useEffect, useState, useImperativeHandle, forwardRef } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import classNames from 'classnames';
-import Popup from '../popup';
-import { TdDrawerProps, DrawerItem, DrawerInstance } from './type';
+
 import parseTNode from '../_util/parseTNode';
-import { StyledProps } from '../common';
 import { usePrefixClass } from '../hooks/useClass';
-import useSetState from '../hooks/useSetState';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useSetState from '../hooks/useSetState';
+import Popup from '../popup';
 import { drawerDefaultProps } from './defaultProps';
+
+import type { StyledProps } from '../common';
+import type { DrawerInstance, DrawerItem, TdDrawerProps } from './type';
 
 export interface DrawerProps extends TdDrawerProps, StyledProps {
   isPlugin?: boolean;
@@ -15,7 +17,10 @@ export interface DrawerProps extends TdDrawerProps, StyledProps {
 
 const Drawer = forwardRef<DrawerInstance, DrawerProps>((originProps, ref) => {
   const props = useDefaultProps<DrawerProps>(originProps, drawerDefaultProps);
-  const [state, setState] = useSetState<DrawerProps>({ isPlugin: false, ...props });
+  const [state, setState] = useSetState<DrawerProps>({
+    isPlugin: false,
+    ...props,
+  });
 
   const {
     destroyOnClose,

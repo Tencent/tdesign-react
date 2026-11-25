@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { DateTimePicker, Cell, Popup, type TimeModeValues, type DateTimePickerColumn } from 'tdesign-mobile-react';
+import { Cell, DateTimePicker, Popup } from 'tdesign-mobile-react';
+
+import type { DateTimePickerColumn, TimeModeValues } from 'tdesign-mobile-react';
 
 const TYPE_UNIT_MAP = {
   year: '年',

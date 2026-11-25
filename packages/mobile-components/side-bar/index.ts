@@ -1,7 +1,7 @@
+import './style';
+
 import _SideBar from './SideBar';
 import _SideBarItem from './SideBarItem';
-
-import './style';
 
 export type { SideBarProps } from './SideBar';
 export type { SideBarItemProps } from './SideBarItem';

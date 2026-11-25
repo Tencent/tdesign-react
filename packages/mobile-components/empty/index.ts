@@ -1,6 +1,6 @@
-import _Empty from './Empty';
-
 import './style/index.js';
+
+import _Empty from './Empty';
 
 export type { EmptyProps } from './Empty';
 export * from './type';

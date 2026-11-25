@@ -1,6 +1,6 @@
 import React from 'react';
-import { NoticeBar } from 'tdesign-mobile-react';
 import { SoundIcon } from 'tdesign-icons-react';
+import { NoticeBar } from 'tdesign-mobile-react';
 
 export default function Scrolling() {
   const content1 = '提示文字描述提示文字描述提示文字描述提示文字描述提示文字描述';

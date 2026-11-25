@@ -1,5 +1,7 @@
 import React from 'react';
-import { ColorObject, ColorPicker } from 'tdesign-mobile-react';
+import { ColorPicker } from 'tdesign-mobile-react';
+
+import type { ColorObject } from 'tdesign-mobile-react';
 
 export default function () {
   const onChange = (value: string) => {

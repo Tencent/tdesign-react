@@ -1,6 +1,7 @@
-import { isArray, get as lodashGet } from 'lodash-es';
-import { PickerColumn } from './type';
-import { KeysType } from '../common';
+import { get as lodashGet, isArray } from 'lodash-es';
+
+import type { KeysType } from '../common';
+import type { PickerColumn } from './type';
 
 export const isMultipleArray = (arr: PickerColumn | PickerColumn[]) => isArray(arr[0]);
 

@@ -1,6 +1,7 @@
 import React from 'react';
-import { describe, it, expect, render, fireEvent, act, beforeEach, afterEach } from '@test/utils';
 import { vi } from 'vitest';
+import { act, afterEach, beforeEach, describe, expect, fireEvent, it, render } from '@test/utils';
+
 import { ImageViewer } from '../index';
 
 const prefix = 't';
@@ -247,15 +248,23 @@ describe('ImageViewer', () => {
       expect(img).not.toBeNull();
 
       // Trigger getMaxDraggedY by zooming and dragging
-      Object.defineProperty(HTMLElement.prototype, 'offsetWidth', { configurable: true, value: 300 });
-      Object.defineProperty(HTMLElement.prototype, 'offsetHeight', { configurable: true, value: 400 });
+      Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
+        configurable: true,
+        value: 300,
+      });
+      Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+        configurable: true,
+        value: 400,
+      });
 
       act(() => {
         fireEvent.doubleClick(img);
         vi.advanceTimersByTime(20);
       });
       act(() => {
-        fireEvent.touchStart(img, { touches: [{ clientX: 150, clientY: 200 }] });
+        fireEvent.touchStart(img, {
+          touches: [{ clientX: 150, clientY: 200 }],
+        });
       });
       act(() => {
         fireEvent.touchMove(img, { touches: [{ clientX: 150, clientY: 250 }] });
@@ -267,8 +276,14 @@ describe('ImageViewer', () => {
       });
 
       expect(img).not.toBeNull();
-      Object.defineProperty(HTMLElement.prototype, 'offsetWidth', { configurable: true, value: 0 });
-      Object.defineProperty(HTMLElement.prototype, 'offsetHeight', { configurable: true, value: 0 });
+      Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
+        configurable: true,
+        value: 0,
+      });
+      Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+        configurable: true,
+        value: 0,
+      });
       vi.useRealTimers();
     });
   });
@@ -283,7 +298,10 @@ describe('ImageViewer', () => {
         fireEvent.click(mask);
       });
       expect(onClose).toHaveBeenCalledTimes(1);
-      expect(onClose.mock.calls[0][0]).toMatchObject({ trigger: 'overlay', visible: false });
+      expect(onClose.mock.calls[0][0]).toMatchObject({
+        trigger: 'overlay',
+        visible: false,
+      });
     });
 
     it(': onClose triggered by close-btn click', () => {
@@ -295,7 +313,10 @@ describe('ImageViewer', () => {
         fireEvent.click(closeBtn);
       });
       expect(onClose).toHaveBeenCalledTimes(1);
-      expect(onClose.mock.calls[0][0]).toMatchObject({ trigger: 'close-btn', visible: false });
+      expect(onClose.mock.calls[0][0]).toMatchObject({
+        trigger: 'close-btn',
+        visible: false,
+      });
     });
 
     it(': onClose triggered by image click', () => {
@@ -307,7 +328,10 @@ describe('ImageViewer', () => {
         fireEvent.click(img);
       });
       expect(onClose).toHaveBeenCalledTimes(1);
-      expect(onClose.mock.calls[0][0]).toMatchObject({ trigger: 'image', visible: false });
+      expect(onClose.mock.calls[0][0]).toMatchObject({
+        trigger: 'image',
+        visible: false,
+      });
     });
 
     it(': onClose includes correct index', () => {
@@ -471,7 +495,7 @@ describe('ImageViewer', () => {
 
       // Close via overlay
       act(() => {
-        fireEvent.click(query(container, `.${name}__mask`)!);
+        fireEvent.click(query(container, `.${name}__mask`) as HTMLElement);
         vi.advanceTimersByTime(350);
       });
 
@@ -675,8 +699,14 @@ describe('ImageViewer', () => {
       const img = query(container, `.${name}__img`) as HTMLImageElement;
 
       // Container larger than scaled image
-      Object.defineProperty(root, 'offsetHeight', { value: 600, configurable: true });
-      Object.defineProperty(img, 'offsetHeight', { value: 100, configurable: true });
+      Object.defineProperty(root, 'offsetHeight', {
+        value: 600,
+        configurable: true,
+      });
+      Object.defineProperty(img, 'offsetHeight', {
+        value: 100,
+        configurable: true,
+      });
 
       act(() => {
         fireEvent.doubleClick(img);
@@ -703,8 +733,14 @@ describe('ImageViewer', () => {
     });
 
     it(': alignment start branch in getMaxDraggedY', () => {
-      Object.defineProperty(HTMLElement.prototype, 'offsetWidth', { configurable: true, value: 300 });
-      Object.defineProperty(HTMLElement.prototype, 'offsetHeight', { configurable: true, value: 400 });
+      Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
+        configurable: true,
+        value: 300,
+      });
+      Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+        configurable: true,
+        value: 400,
+      });
 
       const { container } = render(<ImageViewer images={[{ url: images[0], align: 'start' }]} visible />);
       const img = query(container, `.${name}__img`) as HTMLElement;
@@ -714,7 +750,9 @@ describe('ImageViewer', () => {
         vi.advanceTimersByTime(20);
       });
       act(() => {
-        fireEvent.touchStart(img, { touches: [{ clientX: 150, clientY: 200 }] });
+        fireEvent.touchStart(img, {
+          touches: [{ clientX: 150, clientY: 200 }],
+        });
       });
       act(() => {
         fireEvent.touchMove(img, { touches: [{ clientX: 150, clientY: 250 }] });
@@ -727,13 +765,25 @@ describe('ImageViewer', () => {
 
       expect(img).not.toBeNull();
 
-      Object.defineProperty(HTMLElement.prototype, 'offsetWidth', { configurable: true, value: 0 });
-      Object.defineProperty(HTMLElement.prototype, 'offsetHeight', { configurable: true, value: 0 });
+      Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
+        configurable: true,
+        value: 0,
+      });
+      Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+        configurable: true,
+        value: 0,
+      });
     });
 
     it(': alignment center branch in getMaxDraggedY', () => {
-      Object.defineProperty(HTMLElement.prototype, 'offsetWidth', { configurable: true, value: 300 });
-      Object.defineProperty(HTMLElement.prototype, 'offsetHeight', { configurable: true, value: 400 });
+      Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
+        configurable: true,
+        value: 300,
+      });
+      Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+        configurable: true,
+        value: 400,
+      });
 
       const { container } = render(<ImageViewer images={[{ url: images[0], align: 'center' }]} visible />);
       const img = query(container, `.${name}__img`) as HTMLElement;
@@ -743,7 +793,9 @@ describe('ImageViewer', () => {
         vi.advanceTimersByTime(20);
       });
       act(() => {
-        fireEvent.touchStart(img, { touches: [{ clientX: 150, clientY: 200 }] });
+        fireEvent.touchStart(img, {
+          touches: [{ clientX: 150, clientY: 200 }],
+        });
       });
       act(() => {
         fireEvent.touchMove(img, { touches: [{ clientX: 150, clientY: 250 }] });
@@ -756,13 +808,25 @@ describe('ImageViewer', () => {
 
       expect(img).not.toBeNull();
 
-      Object.defineProperty(HTMLElement.prototype, 'offsetWidth', { configurable: true, value: 0 });
-      Object.defineProperty(HTMLElement.prototype, 'offsetHeight', { configurable: true, value: 0 });
+      Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
+        configurable: true,
+        value: 0,
+      });
+      Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+        configurable: true,
+        value: 0,
+      });
     });
 
     it(': alignment end branch in getMaxDraggedY', () => {
-      Object.defineProperty(HTMLElement.prototype, 'offsetWidth', { configurable: true, value: 300 });
-      Object.defineProperty(HTMLElement.prototype, 'offsetHeight', { configurable: true, value: 400 });
+      Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
+        configurable: true,
+        value: 300,
+      });
+      Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+        configurable: true,
+        value: 400,
+      });
 
       const { container } = render(<ImageViewer images={[{ url: images[0], align: 'end' }]} visible />);
       const img = query(container, `.${name}__img`) as HTMLElement;
@@ -772,7 +836,9 @@ describe('ImageViewer', () => {
         vi.advanceTimersByTime(20);
       });
       act(() => {
-        fireEvent.touchStart(img, { touches: [{ clientX: 150, clientY: 200 }] });
+        fireEvent.touchStart(img, {
+          touches: [{ clientX: 150, clientY: 200 }],
+        });
       });
       act(() => {
         fireEvent.touchMove(img, { touches: [{ clientX: 150, clientY: 250 }] });
@@ -785,8 +851,14 @@ describe('ImageViewer', () => {
 
       expect(img).not.toBeNull();
 
-      Object.defineProperty(HTMLElement.prototype, 'offsetWidth', { configurable: true, value: 0 });
-      Object.defineProperty(HTMLElement.prototype, 'offsetHeight', { configurable: true, value: 0 });
+      Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
+        configurable: true,
+        value: 0,
+      });
+      Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+        configurable: true,
+        value: 0,
+      });
     });
 
     it(': getPreloadImageIndex for first index (currentIndex=0)', () => {
@@ -810,8 +882,14 @@ describe('ImageViewer', () => {
       const img = query(container, `.${name}__img`) as HTMLImageElement;
 
       // rootWidth=300, scale=1.5 => scaledWidth=450, maxX=(450-300)/2=75
-      Object.defineProperty(root, 'offsetWidth', { value: 300, configurable: true });
-      Object.defineProperty(root, 'offsetHeight', { value: 300, configurable: true });
+      Object.defineProperty(root, 'offsetWidth', {
+        value: 300,
+        configurable: true,
+      });
+      Object.defineProperty(root, 'offsetHeight', {
+        value: 300,
+        configurable: true,
+      });
 
       // Zoom to 1.5
       act(() => {
@@ -821,10 +899,14 @@ describe('ImageViewer', () => {
 
       // Single finger drag far right -> x > max
       act(() => {
-        fireEvent.touchStart(img, { touches: [{ clientX: 0, clientY: 150 }] } as any);
+        fireEvent.touchStart(img, {
+          touches: [{ clientX: 0, clientY: 150 }],
+        } as any);
       });
       act(() => {
-        fireEvent.touchMove(img, { touches: [{ clientX: 5000, clientY: 150 }] } as any);
+        fireEvent.touchMove(img, {
+          touches: [{ clientX: 5000, clientY: 150 }],
+        } as any);
         vi.advanceTimersByTime(20);
       });
 
@@ -838,8 +920,14 @@ describe('ImageViewer', () => {
       const root = query(container, `.${name}`) as HTMLDivElement;
       const img = query(container, `.${name}__img`) as HTMLImageElement;
 
-      Object.defineProperty(root, 'offsetWidth', { value: 300, configurable: true });
-      Object.defineProperty(root, 'offsetHeight', { value: 300, configurable: true });
+      Object.defineProperty(root, 'offsetWidth', {
+        value: 300,
+        configurable: true,
+      });
+      Object.defineProperty(root, 'offsetHeight', {
+        value: 300,
+        configurable: true,
+      });
 
       // Zoom to 1.5
       act(() => {
@@ -849,10 +937,14 @@ describe('ImageViewer', () => {
 
       // Single finger drag far left -> x < -max
       act(() => {
-        fireEvent.touchStart(img, { touches: [{ clientX: 5000, clientY: 150 }] } as any);
+        fireEvent.touchStart(img, {
+          touches: [{ clientX: 5000, clientY: 150 }],
+        } as any);
       });
       act(() => {
-        fireEvent.touchMove(img, { touches: [{ clientX: 0, clientY: 150 }] } as any);
+        fireEvent.touchMove(img, {
+          touches: [{ clientX: 0, clientY: 150 }],
+        } as any);
         vi.advanceTimersByTime(20);
       });
 
@@ -866,8 +958,14 @@ describe('ImageViewer', () => {
       const root = query(container, `.${name}`) as HTMLDivElement;
       const img = query(container, `.${name}__img`) as HTMLImageElement;
 
-      Object.defineProperty(root, 'offsetWidth', { value: 300, configurable: true });
-      Object.defineProperty(root, 'offsetHeight', { value: 300, configurable: true });
+      Object.defineProperty(root, 'offsetWidth', {
+        value: 300,
+        configurable: true,
+      });
+      Object.defineProperty(root, 'offsetHeight', {
+        value: 300,
+        configurable: true,
+      });
 
       // Zoom to 1.5, maxX=(450-300)/2=75
       act(() => {
@@ -877,10 +975,14 @@ describe('ImageViewer', () => {
 
       // Small drag within bounds
       act(() => {
-        fireEvent.touchStart(img, { touches: [{ clientX: 150, clientY: 150 }] } as any);
+        fireEvent.touchStart(img, {
+          touches: [{ clientX: 150, clientY: 150 }],
+        } as any);
       });
       act(() => {
-        fireEvent.touchMove(img, { touches: [{ clientX: 155, clientY: 150 }] } as any);
+        fireEvent.touchMove(img, {
+          touches: [{ clientX: 155, clientY: 150 }],
+        } as any);
         vi.advanceTimersByTime(20);
       });
 
@@ -894,9 +996,18 @@ describe('ImageViewer', () => {
       const img = query(container, `.${name}__img`) as HTMLImageElement;
 
       // rootHeight=300, imgHeight=400, scale=1.5 => scaledHeight=600 > 300
-      Object.defineProperty(root, 'offsetWidth', { value: 300, configurable: true });
-      Object.defineProperty(root, 'offsetHeight', { value: 300, configurable: true });
-      Object.defineProperty(img, 'offsetHeight', { value: 400, configurable: true });
+      Object.defineProperty(root, 'offsetWidth', {
+        value: 300,
+        configurable: true,
+      });
+      Object.defineProperty(root, 'offsetHeight', {
+        value: 300,
+        configurable: true,
+      });
+      Object.defineProperty(img, 'offsetHeight', {
+        value: 400,
+        configurable: true,
+      });
 
       // Zoom to 1.5
       act(() => {
@@ -906,10 +1017,14 @@ describe('ImageViewer', () => {
 
       // Drag upward far -> y < top
       act(() => {
-        fireEvent.touchStart(img, { touches: [{ clientX: 150, clientY: 5000 }] } as any);
+        fireEvent.touchStart(img, {
+          touches: [{ clientX: 150, clientY: 5000 }],
+        } as any);
       });
       act(() => {
-        fireEvent.touchMove(img, { touches: [{ clientX: 150, clientY: 0 }] } as any);
+        fireEvent.touchMove(img, {
+          touches: [{ clientX: 150, clientY: 0 }],
+        } as any);
         vi.advanceTimersByTime(20);
       });
 
@@ -924,9 +1039,18 @@ describe('ImageViewer', () => {
       const img = query(container, `.${name}__img`) as HTMLImageElement;
 
       // rootHeight=300, imgHeight=400, scale=1.5 => scaledHeight=600 > 300
-      Object.defineProperty(root, 'offsetWidth', { value: 300, configurable: true });
-      Object.defineProperty(root, 'offsetHeight', { value: 300, configurable: true });
-      Object.defineProperty(img, 'offsetHeight', { value: 400, configurable: true });
+      Object.defineProperty(root, 'offsetWidth', {
+        value: 300,
+        configurable: true,
+      });
+      Object.defineProperty(root, 'offsetHeight', {
+        value: 300,
+        configurable: true,
+      });
+      Object.defineProperty(img, 'offsetHeight', {
+        value: 400,
+        configurable: true,
+      });
 
       // Zoom to 1.5
       act(() => {
@@ -936,10 +1060,14 @@ describe('ImageViewer', () => {
 
       // Drag downward far -> y > bottom
       act(() => {
-        fireEvent.touchStart(img, { touches: [{ clientX: 150, clientY: 0 }] } as any);
+        fireEvent.touchStart(img, {
+          touches: [{ clientX: 150, clientY: 0 }],
+        } as any);
       });
       act(() => {
-        fireEvent.touchMove(img, { touches: [{ clientX: 150, clientY: 5000 }] } as any);
+        fireEvent.touchMove(img, {
+          touches: [{ clientX: 150, clientY: 5000 }],
+        } as any);
         vi.advanceTimersByTime(20);
       });
 
@@ -954,9 +1082,18 @@ describe('ImageViewer', () => {
       const img = query(container, `.${name}__img`) as HTMLImageElement;
 
       // rootHeight=300, imgHeight=400, scale=1.5 => scaledHeight=600 > 300
-      Object.defineProperty(root, 'offsetWidth', { value: 300, configurable: true });
-      Object.defineProperty(root, 'offsetHeight', { value: 300, configurable: true });
-      Object.defineProperty(img, 'offsetHeight', { value: 400, configurable: true });
+      Object.defineProperty(root, 'offsetWidth', {
+        value: 300,
+        configurable: true,
+      });
+      Object.defineProperty(root, 'offsetHeight', {
+        value: 300,
+        configurable: true,
+      });
+      Object.defineProperty(img, 'offsetHeight', {
+        value: 400,
+        configurable: true,
+      });
 
       // Zoom to 1.5
       act(() => {
@@ -966,10 +1103,14 @@ describe('ImageViewer', () => {
 
       // Small drag -> y within top and bottom bounds
       act(() => {
-        fireEvent.touchStart(img, { touches: [{ clientX: 150, clientY: 150 }] } as any);
+        fireEvent.touchStart(img, {
+          touches: [{ clientX: 150, clientY: 150 }],
+        } as any);
       });
       act(() => {
-        fireEvent.touchMove(img, { touches: [{ clientX: 150, clientY: 155 }] } as any);
+        fireEvent.touchMove(img, {
+          touches: [{ clientX: 150, clientY: 155 }],
+        } as any);
         vi.advanceTimersByTime(20);
       });
 
@@ -996,11 +1137,15 @@ describe('ImageViewer', () => {
 
       // Start touching
       act(() => {
-        fireEvent.touchStart(img, { touches: [{ clientX: 100, clientY: 100 }] } as any);
+        fireEvent.touchStart(img, {
+          touches: [{ clientX: 100, clientY: 100 }],
+        } as any);
       });
 
       act(() => {
-        fireEvent.touchMove(img, { touches: [{ clientX: 150, clientY: 150 }] } as any);
+        fireEvent.touchMove(img, {
+          touches: [{ clientX: 150, clientY: 150 }],
+        } as any);
         vi.advanceTimersByTime(20);
       });
 
@@ -1090,10 +1235,14 @@ describe('ImageViewer', () => {
 
       // During touchStart+touchMove, isTouching.current becomes true
       act(() => {
-        fireEvent.touchStart(img, { touches: [{ clientX: 100, clientY: 100 }] } as any);
+        fireEvent.touchStart(img, {
+          touches: [{ clientX: 100, clientY: 100 }],
+        } as any);
       });
       act(() => {
-        fireEvent.touchMove(img, { touches: [{ clientX: 120, clientY: 120 }] } as any);
+        fireEvent.touchMove(img, {
+          touches: [{ clientX: 120, clientY: 120 }],
+        } as any);
         vi.advanceTimersByTime(20);
       });
 

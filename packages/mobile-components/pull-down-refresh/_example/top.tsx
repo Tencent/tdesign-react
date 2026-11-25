@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { PullDownRefresh, Skeleton, type SkeletonRowCol } from 'tdesign-mobile-react';
+import { PullDownRefresh, Skeleton } from 'tdesign-mobile-react';
+
+import type { SkeletonRowCol } from 'tdesign-mobile-react';
 
 export default function Demo() {
   const [value, setValue] = useState(false);

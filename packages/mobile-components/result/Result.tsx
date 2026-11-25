@@ -1,12 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
-import { InfoCircleIcon, CheckCircleIcon, CloseCircleIcon } from 'tdesign-icons-react';
+import { CheckCircleIcon, CloseCircleIcon, InfoCircleIcon } from 'tdesign-icons-react';
+
 import parseTNode from '../_util/parseTNode';
-import { TdResultProps } from './type';
-import { resultDefaultProps } from './defaultProps';
-import withNativeProps, { NativeProps } from '../_util/withNativeProps';
+import withNativeProps from '../_util/withNativeProps';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { resultDefaultProps } from './defaultProps';
+
+import type { NativeProps } from '../_util/withNativeProps';
+import type { TdResultProps } from './type';
 
 export interface ResultProps extends TdResultProps, NativeProps {}
 

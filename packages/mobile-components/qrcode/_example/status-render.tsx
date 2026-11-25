@@ -1,7 +1,8 @@
 import React from 'react';
-import { QRCode, Loading } from 'tdesign-mobile-react';
-import type { StatusRenderInfo } from 'tdesign-mobile-react';
 import { CloseCircleFilledIcon, RefreshIcon } from 'tdesign-icons-react';
+import { Loading, QRCode } from 'tdesign-mobile-react';
+
+import type { StatusRenderInfo } from 'tdesign-mobile-react';
 
 const value = 'https://tdesign.tencent.com/';
 

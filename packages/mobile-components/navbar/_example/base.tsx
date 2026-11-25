@@ -1,6 +1,6 @@
 import React from 'react';
-import { Navbar, Divider } from 'tdesign-mobile-react';
-import { CloseIcon, ChevronLeftIcon, HomeIcon, EllipsisIcon } from 'tdesign-icons-react';
+import { ChevronLeftIcon, CloseIcon, EllipsisIcon, HomeIcon } from 'tdesign-icons-react';
+import { Divider, Navbar } from 'tdesign-mobile-react';
 
 const BaseDemo = () => {
   const handleClick = () => {

@@ -1,10 +1,10 @@
+import './style';
+
 import _BaseTable from './BaseTable';
 import _PrimaryTable from './PrimaryTable';
 
-import './style';
-
-export * from './type';
 export * from './interface';
+export * from './type';
 
 export const BaseTable = _BaseTable;
 export const PrimaryTable = _PrimaryTable;

@@ -1,8 +1,11 @@
+import React from 'react';
+import { describe, expect, it, vi } from 'vitest';
 import { render } from '@test/utils';
 import { act } from '@testing-library/react';
-import { expect, it, describe, vi } from 'vitest';
-import React from 'react';
-import Skeleton, { SkeletonProps } from '../index';
+
+import Skeleton from '../index';
+
+import type { SkeletonProps } from '../index';
 
 describe('Skeleton', () => {
   describe('props', () => {

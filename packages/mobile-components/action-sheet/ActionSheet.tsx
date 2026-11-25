@@ -1,15 +1,17 @@
 import React from 'react';
 import cx from 'classnames';
-import type { TdActionSheetProps } from './type';
+
 import { Button } from '../button';
-import { Popup } from '../popup';
-import { StyledProps } from '../common';
-import useControlled from '../hooks/useControlled';
 import { usePrefixClass } from '../hooks/useClass';
+import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
-import { actionSheetDefaultProps } from './defaultProps';
-import { ActionSheetList } from './ActionSheetList';
+import { Popup } from '../popup';
 import { ActionSheetGrid } from './ActionSheetGrid';
+import { ActionSheetList } from './ActionSheetList';
+import { actionSheetDefaultProps } from './defaultProps';
+
+import type { StyledProps } from '../common';
+import type { TdActionSheetProps } from './type';
 
 export interface ActionSheetProps extends TdActionSheetProps, StyledProps {}
 

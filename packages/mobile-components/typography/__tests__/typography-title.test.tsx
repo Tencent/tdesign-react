@@ -1,5 +1,6 @@
 import React from 'react';
-import { describe, it, expect, vi, render, fireEvent } from '@test/utils';
+import { describe, expect, fireEvent, it, render, vi } from '@test/utils';
+
 import { TypographyTitle } from '../index';
 
 const prefix = 't';

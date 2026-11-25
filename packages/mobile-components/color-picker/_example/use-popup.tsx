@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { ColorPicker, Popup } from 'tdesign-mobile-react';
-import type { ColorObject, PopupProps } from 'tdesign-mobile-react';
 import Button from 'tdesign-mobile-react/button';
+
+import type { ColorObject, PopupProps } from 'tdesign-mobile-react';
 
 export default function () {
   const [visible, setVisible] = useState<boolean>(false);

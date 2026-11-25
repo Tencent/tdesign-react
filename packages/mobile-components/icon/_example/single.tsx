@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import { Slider } from 'tdesign-mobile-react';
 import {
-  LettersTIcon,
-  LettersDIcon,
-  LettersSIcon,
-  LettersEIcon,
-  LettersIIcon,
-  LettersNIcon,
-  LettersGIcon,
-  ComponentCheckboxIcon,
-  ComponentInputIcon,
-  ComponentSwitchIcon,
   ComponentBreadcrumbIcon,
+  ComponentCheckboxIcon,
   ComponentDropdownIcon,
+  ComponentInputIcon,
   ComponentRadioIcon,
   ComponentStepsIcon,
+  ComponentSwitchIcon,
+  LettersDIcon,
+  LettersEIcon,
+  LettersGIcon,
+  LettersIIcon,
+  LettersNIcon,
+  LettersSIcon,
+  LettersTIcon,
 } from 'tdesign-icons-react';
+import { Slider } from 'tdesign-mobile-react';
 
 export default function SingleIcon() {
   const [strokeWidth, setStrokeWidth] = useState(2);

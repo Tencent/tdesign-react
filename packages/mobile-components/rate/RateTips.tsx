@@ -1,8 +1,11 @@
+import React, { useRef } from 'react';
 import { useClickAway } from 'ahooks';
 import cx from 'classnames';
-import React, { ReactNode, useRef } from 'react';
+
 import { usePrefixClass } from '../hooks/useClass';
-import { TdRateProps } from './type';
+
+import type { ReactNode } from 'react';
+import type { TdRateProps } from './type';
 
 type Props = {
   left: number;

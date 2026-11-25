@@ -1,6 +1,6 @@
 import React from 'react';
-import { Avatar } from 'tdesign-mobile-react';
 import { UserIcon } from 'tdesign-icons-react';
+import { Avatar } from 'tdesign-mobile-react';
 
 export default function IconAvatar() {
   return (

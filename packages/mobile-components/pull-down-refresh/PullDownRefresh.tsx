@@ -1,19 +1,19 @@
-import React, { useRef, useState, useEffect, useMemo } from 'react';
-import classNames from 'classnames';
-import { uniqueId, isBoolean } from 'lodash-es';
-
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useDebounceFn } from 'ahooks';
-import Loading from '../loading';
+import classNames from 'classnames';
+import { isBoolean, uniqueId } from 'lodash-es';
 
-import { StyledProps } from '../common';
+import { convertUnit, reconvertUnit } from '../_util/convertUnit';
 import useDefault from '../_util/useDefault';
-import type { TdPullDownRefreshProps } from './type';
-import { pullDownRefreshDefaultProps } from './defaultProps';
-import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { usePrefixClass } from '../hooks/useClass';
 import useDefaultProps from '../hooks/useDefaultProps';
-import { convertUnit, reconvertUnit } from '../_util/convertUnit';
-import { useTouch, isReachTop, easeDistance } from './useTouch';
+import Loading from '../loading';
+import { useLocaleReceiver } from '../locale/LocalReceiver';
+import { pullDownRefreshDefaultProps } from './defaultProps';
+import { easeDistance, isReachTop, useTouch } from './useTouch';
+
+import type { StyledProps } from '../common';
+import type { TdPullDownRefreshProps } from './type';
 
 export enum PullStatusEnum {
   normal,
@@ -210,7 +210,9 @@ const PullDownRefresh: React.FC<PullDownRefreshProps> = (originProps) => {
   return (
     <div className={classNames(name, className)} style={style} ref={rootRef}>
       <div
-        className={classNames(`${name}__track`, { [`${name}__track--loosing`]: status !== PullStatusEnum.pulling })}
+        className={classNames(`${name}__track`, {
+          [`${name}__track--loosing`]: status !== PullStatusEnum.pulling,
+        })}
         style={trackStyle}
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}

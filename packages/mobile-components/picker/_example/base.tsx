@@ -1,5 +1,7 @@
 import React, { useMemo, useState } from 'react';
-import { Popup, Picker, Cell, PickerValue, PickerContext } from 'tdesign-mobile-react';
+import { Cell, Picker, Popup } from 'tdesign-mobile-react';
+
+import type { PickerContext, PickerValue } from 'tdesign-mobile-react';
 
 const generateCityOptions = () => [
   {

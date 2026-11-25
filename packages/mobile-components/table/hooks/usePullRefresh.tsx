@@ -1,8 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useLocaleReceiver } from '../../locale/LocalReceiver';
+
 import useConfig from '../../hooks/useConfig';
 import useEventListener from '../../hooks/useEventListener';
 import Loading from '../../loading';
+import { useLocaleReceiver } from '../../locale/LocalReceiver';
+
 import type { PageInfo, TableRowData, TdBaseTableProps } from '../type';
 
 const PULL_REFRESH_DISTANCE = 80;
@@ -109,7 +111,11 @@ export default function usePullRefresh(props: TdBaseTableProps, containerRef: Re
     setIsLoadingMore(true);
 
     // 触发 onPageChange 事件
-    const pageInfo: PageInfo = { current: nextPage, previous: previousPage, pageSize };
+    const pageInfo: PageInfo = {
+      current: nextPage,
+      previous: previousPage,
+      pageSize,
+    };
     props.onPageChange?.(pageInfo, newData || []);
   }, [calculateAccumulatedData, pageSize, props]);
 

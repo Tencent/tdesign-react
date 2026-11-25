@@ -1,6 +1,6 @@
 import React from 'react';
-import { Input } from 'tdesign-mobile-react';
 import { AppIcon } from 'tdesign-icons-react';
+import { Input } from 'tdesign-mobile-react';
 
 export default function Prefix() {
   return (

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { DateTimePicker, Form, Input, Popup, Radio, RadioGroup } from 'tdesign-mobile-react';
 import { BrowseOffIcon } from 'tdesign-icons-react';
+import { DateTimePicker, Form, Input, Popup, Radio, RadioGroup } from 'tdesign-mobile-react';
 
 const initialData = {
   name: 'Abcdefgh',

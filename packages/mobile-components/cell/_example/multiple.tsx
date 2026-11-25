@@ -1,6 +1,6 @@
 import React from 'react';
-import { CellGroup, Cell, Badge, Switch, Avatar } from 'tdesign-mobile-react';
-import { ChevronRightIcon, AppIcon } from 'tdesign-icons-react';
+import { AppIcon, ChevronRightIcon } from 'tdesign-icons-react';
+import { Avatar, Badge, Cell, CellGroup, Switch } from 'tdesign-mobile-react';
 
 export default function Multiple() {
   const chevronRightIcon = <ChevronRightIcon />;

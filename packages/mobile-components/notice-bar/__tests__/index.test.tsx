@@ -1,5 +1,6 @@
 import React from 'react';
-import { describe, it, expect, render, vi, fireEvent, act, beforeEach, afterEach } from '@test/utils';
+import { act, afterEach, beforeEach, describe, expect, fireEvent, it, render, vi } from '@test/utils';
+
 import { NoticeBar } from '../index';
 
 const mockGetBoundingClientRect = (listWidth: number, itemWidth: number) => {
@@ -185,16 +186,16 @@ describe('NoticeBar', () => {
         <NoticeBar visible content="消息" operation="操作" suffixIcon={<span>X</span>} onClick={handleClick} />,
       );
 
-      fireEvent.click(container.querySelector('.t-notice-bar__prefix-icon')!);
+      fireEvent.click(container.querySelector('.t-notice-bar__prefix-icon') as HTMLElement);
       expect(handleClick).toHaveBeenLastCalledWith('prefix-icon');
 
-      fireEvent.click(container.querySelector('.t-notice-bar__content-wrap')!);
+      fireEvent.click(container.querySelector('.t-notice-bar__content-wrap') as HTMLElement);
       expect(handleClick).toHaveBeenLastCalledWith('content');
 
-      fireEvent.click(container.querySelector('.t-notice-bar__operation')!);
+      fireEvent.click(container.querySelector('.t-notice-bar__operation') as HTMLElement);
       expect(handleClick).toHaveBeenLastCalledWith('operation');
 
-      fireEvent.click(container.querySelector('.t-notice-bar__suffix-icon')!);
+      fireEvent.click(container.querySelector('.t-notice-bar__suffix-icon') as HTMLElement);
       expect(handleClick).toHaveBeenLastCalledWith('suffix-icon');
 
       expect(handleClick).toHaveBeenCalledTimes(4);
@@ -203,9 +204,9 @@ describe('NoticeBar', () => {
     it('does not throw when clicking without onClick handler', () => {
       const { container } = render(<NoticeBar visible content="消息" operation="操作" />);
       expect(() => {
-        fireEvent.click(container.querySelector('.t-notice-bar__prefix-icon')!);
-        fireEvent.click(container.querySelector('.t-notice-bar__content-wrap')!);
-        fireEvent.click(container.querySelector('.t-notice-bar__operation')!);
+        fireEvent.click(container.querySelector('.t-notice-bar__prefix-icon') as HTMLElement);
+        fireEvent.click(container.querySelector('.t-notice-bar__content-wrap') as HTMLElement);
+        fireEvent.click(container.querySelector('.t-notice-bar__operation') as HTMLElement);
       }).not.toThrow();
     });
   });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { SwipeCell, Cell, Toast } from 'tdesign-mobile-react';
+import { Cell, SwipeCell, Toast } from 'tdesign-mobile-react';
 
 const DemoBlock = ({
   summary,

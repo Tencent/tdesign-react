@@ -1,13 +1,15 @@
 import React, { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
 import { isNumber, isString } from 'lodash-es';
+
+import parseTNode from '../_util/parseTNode';
+import { usePrefixClass } from '../hooks/useClass';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { badgeDefaultProps } from './defaultProps';
+
 import type { StyledProps } from '../common';
 import type { TdBadgeProps } from './type';
-import { badgeDefaultProps } from './defaultProps';
-import parseTNode from '../_util/parseTNode';
-import useDefaultProps from '../hooks/useDefaultProps';
-import useConfig from '../hooks/useConfig';
-import { usePrefixClass } from '../hooks/useClass';
 
 export interface BadgeProps extends TdBadgeProps, StyledProps {}
 

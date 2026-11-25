@@ -1,5 +1,8 @@
-import { RefObject, useRef } from 'react';
+import { useRef } from 'react';
+
 import { unmount } from '../react-render';
+
+import type { RefObject } from 'react';
 
 interface UseCssTransitionParams {
   contentRef: RefObject<HTMLDivElement>;

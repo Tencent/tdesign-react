@@ -1,13 +1,15 @@
 import React, { forwardRef, memo } from 'react';
 import classNames from 'classnames';
 import { AddIcon, RemoveIcon } from 'tdesign-icons-react';
+
+import { formatNumber } from '../_util/formatNumber';
+import useDefault from '../_util/useDefault';
 import { usePrefixClass } from '../hooks/useClass';
 import useDefaultProps from '../hooks/useDefaultProps';
-import useDefault from '../_util/useDefault';
-import { formatNumber } from '../_util/formatNumber';
-import { StyledProps } from '../common';
-import { TdStepperProps } from './type';
 import { stepperDefaultProps } from './defaultProps';
+
+import type { StyledProps } from '../common';
+import type { TdStepperProps } from './type';
 
 export interface StepperProps extends TdStepperProps, StyledProps {}
 

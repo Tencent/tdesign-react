@@ -1,7 +1,9 @@
 import '@testing-library/jest-dom';
-import { fireEvent, render, waitFor, afterEach } from '@test/utils';
+
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
+import { afterEach, fireEvent, render, waitFor } from '@test/utils';
+
 import Image from '../Image';
 
 // 在测试文件中定义局部的 IntersectionObserver mock

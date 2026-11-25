@@ -1,7 +1,10 @@
-import { act, beforeEach, describe, expect, fireEvent, render, test, vi } from '@test/utils';
 import React from 'react';
-import { MessageProps } from 'tdesign-mobile-react/message/Message';
-import Message, { MessageAlignType } from '../index';
+import { act, beforeEach, describe, expect, fireEvent, render, test, vi } from '@test/utils';
+
+import Message from '../index';
+
+import type { MessageProps } from 'tdesign-mobile-react/message/Message';
+import type { MessageAlignType } from '../index';
 
 const classNamePrefix = 't';
 const messageClassName = `${classNamePrefix}-message`;
@@ -310,7 +313,10 @@ describe('Message', () => {
 
     test('offset', () => {
       const { container } = render(<Message visible={true} offset={[-100, 100]} />);
-      expect(container.querySelector(querySelectorName)).toHaveStyle({ top: '-100px', left: '100px' });
+      expect(container.querySelector(querySelectorName)).toHaveStyle({
+        top: '-100px',
+        left: '100px',
+      });
     });
 
     test('theme', () => {
@@ -420,7 +426,9 @@ describe('Message', () => {
 
       // Custom zIndex
       const { container } = render(<Message zIndex={1000} visible={true} />);
-      expect(container.querySelector(querySelectorName)).toHaveStyle({ zIndex: 1000 });
+      expect(container.querySelector(querySelectorName)).toHaveStyle({
+        zIndex: 1000,
+      });
     });
 
     test('onCloseBtnClick', async () => {

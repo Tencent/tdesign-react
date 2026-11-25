@@ -1,11 +1,15 @@
-import React, { ReactNode, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import classnames from 'classnames';
-import useConfig from '../hooks/useConfig';
-import { TdCellGroupProps } from './type';
-import { cellGroupDefaultProps } from './defaultProps';
-import withNativeProps, { NativeProps } from '../_util/withNativeProps';
-import useDefaultProps from '../hooks/useDefaultProps';
+
 import parseTNode from '../_util/parseTNode';
+import withNativeProps from '../_util/withNativeProps';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { cellGroupDefaultProps } from './defaultProps';
+
+import type { ReactNode } from 'react';
+import type { NativeProps } from '../_util/withNativeProps';
+import type { TdCellGroupProps } from './type';
 
 export type CellGroupProps = TdCellGroupProps &
   NativeProps & {

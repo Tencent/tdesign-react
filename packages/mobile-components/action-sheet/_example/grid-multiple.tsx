@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Button, ActionSheet } from 'tdesign-mobile-react';
-import { ShareIcon, StarIcon, DownloadIcon, Edit1Icon, ImageIcon } from 'tdesign-icons-react';
+import { DownloadIcon, Edit1Icon, ImageIcon, ShareIcon, StarIcon } from 'tdesign-icons-react';
+import { ActionSheet, Button } from 'tdesign-mobile-react';
 
 export default function GridMultipleExample() {
   const [multiPageVisible, setMultiPageVisible] = useState(false);

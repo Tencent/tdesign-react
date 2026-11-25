@@ -1,5 +1,7 @@
 import React from 'react';
-import { type MessageThemeList, Message, Button } from 'tdesign-mobile-react';
+import { Button, Message } from 'tdesign-mobile-react';
+
+import type { MessageThemeList } from 'tdesign-mobile-react';
 
 export default function () {
   const contents = ['普通通知', '成功通知', '警示通知', '错误通知'];

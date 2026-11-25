@@ -155,6 +155,7 @@ module.exports = {
       files: ['**/_example/**/*', '**/__tests__/**/*'],
       rules: {
         'no-console': 'off',
+        '@typescript-eslint/no-empty-function': 'off',
       },
     },
   ],

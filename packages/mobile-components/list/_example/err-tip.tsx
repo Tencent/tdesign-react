@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Cell, List, Loading } from 'tdesign-mobile-react';
 
 export default function ListDemo() {

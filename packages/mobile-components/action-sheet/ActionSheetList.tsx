@@ -1,13 +1,13 @@
 import React from 'react';
 import cx from 'classnames';
 
+import { Badge } from '../badge';
+import { Button } from '../button';
+import { usePrefixClass } from '../hooks/useClass';
+
 import type { TNode } from '../common';
 import type { ActionSheetProps } from './ActionSheet';
 import type { ActionSheetItem } from './type';
-
-import { Button } from '../button';
-import { Badge } from '../badge';
-import { usePrefixClass } from '../hooks/useClass';
 
 type ActionSheetListProps = Pick<ActionSheetProps, 'items'> & {
   onSelected?: (idx: number) => void;

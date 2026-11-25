@@ -1,5 +1,6 @@
 import React from 'react';
-import { describe, it, expect, render, vi, fireEvent, act, beforeEach, afterEach } from '@test/utils';
+import { act, afterEach, beforeEach, describe, expect, fireEvent, it, render, vi } from '@test/utils';
+
 import { Segmented } from '../index';
 
 const prefix = 't';
@@ -106,7 +107,11 @@ describe('Segmented', () => {
 
     it(': options with icon', () => {
       const options = [
-        { value: 'a', label: 'Option A', icon: <span className="custom-icon">icon</span> },
+        {
+          value: 'a',
+          label: 'Option A',
+          icon: <span className="custom-icon">icon</span>,
+        },
         { value: 'b', label: 'Option B' },
       ];
       const { container } = render(<Segmented options={options} />);
@@ -115,14 +120,25 @@ describe('Segmented', () => {
     });
 
     it(': options with label as TNode function', () => {
-      const options = [{ value: 'a', label: () => <span className="custom-label">Custom</span> }];
+      const options = [
+        {
+          value: 'a',
+          label: () => <span className="custom-label">Custom</span>,
+        },
+      ];
       const { container } = render(<Segmented options={options} />);
       expect(container.querySelector('.custom-label')).toBeTruthy();
       expect(container.querySelector('.custom-label')).toHaveTextContent('Custom');
     });
 
     it(': options with icon as TNode function', () => {
-      const options = [{ value: 'a', label: 'A', icon: () => <span className="fn-icon">fn-icon</span> }];
+      const options = [
+        {
+          value: 'a',
+          label: 'A',
+          icon: () => <span className="fn-icon">fn-icon</span>,
+        },
+      ];
       const { container } = render(<Segmented options={options} />);
       expect(container.querySelector('.fn-icon')).toBeTruthy();
     });
@@ -426,7 +442,7 @@ describe('Segmented', () => {
     });
 
     it(': handles ResizeObserver callback', async () => {
-      let resizeCallback: () => void;
+      let resizeCallback!: () => void;
 
       global.ResizeObserver = vi.fn().mockImplementation((callback) => {
         resizeCallback = callback;
@@ -444,7 +460,7 @@ describe('Segmented', () => {
       const { container } = render(<Segmented options={options} defaultValue="a" />);
 
       await act(async () => {
-        resizeCallback!();
+        resizeCallback();
       });
 
       const thumb = container.querySelector(`${name}__thumb`) as HTMLElement;

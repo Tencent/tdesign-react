@@ -1,6 +1,7 @@
 import React from 'react';
 import { vi } from 'vitest';
-import { describe, it, expect, render, screen, fireEvent } from '@test/utils';
+import { describe, expect, fireEvent, it, render, screen } from '@test/utils';
+
 import { RateTips } from '../RateTips';
 
 describe('RateTips', () => {
@@ -190,11 +191,18 @@ describe('RateTips', () => {
   describe('event', () => {
     it(':click item', () => {
       const handleClick = vi.fn();
-      const data = [{ icon: <span>★</span>, text: '测试', actived: false, onClick: handleClick }];
+      const data = [
+        {
+          icon: <span>★</span>,
+          text: '测试',
+          actived: false,
+          onClick: handleClick,
+        },
+      ];
 
       render(<RateTips left={100} data={data} placement="top" onClickOutside={() => {}} />);
 
-      const item = screen.getByText('测试').parentElement!;
+      const item = screen.getByText('测试').parentElement as HTMLElement;
       fireEvent.click(item);
 
       expect(handleClick).toHaveBeenCalledWith(0);
@@ -217,11 +225,18 @@ describe('RateTips', () => {
     });
 
     it('should handle data with undefined onClick', () => {
-      const data = [{ icon: <span>★</span>, text: '测试', actived: false, onClick: undefined }];
+      const data = [
+        {
+          icon: <span>★</span>,
+          text: '测试',
+          actived: false,
+          onClick: undefined,
+        },
+      ];
 
       render(<RateTips left={100} data={data} placement="top" onClickOutside={() => {}} />);
 
-      const item = screen.getByText('测试').parentElement!;
+      const item = screen.getByText('测试').parentElement as HTMLElement;
       fireEvent.click(item);
 
       // Should not throw error

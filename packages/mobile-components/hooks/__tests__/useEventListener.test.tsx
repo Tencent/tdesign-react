@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { describe, expect, it, vi } from '@test/utils';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
+
 import useEventListener from '../useEventListener';
 
 describe('useEventListener', () => {

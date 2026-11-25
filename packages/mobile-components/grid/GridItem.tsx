@@ -1,14 +1,17 @@
-import React, { FC, useContext, useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import cls from 'classnames';
-import { isFunction, isString, isObject } from 'lodash-es';
-import useConfig from '../hooks/useConfig';
+import { isFunction, isObject, isString } from 'lodash-es';
+
 import parseTNode from '../_util/parseTNode';
-import useDefaultProps from '../hooks/useDefaultProps';
 import Badge from '../badge';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
 import Image from '../image';
-import { TdGridItemProps, TdGridProps } from './type';
-import { GridContext } from './GridContext';
 import { gridItemDefaultProps } from './defaultProps';
+import { GridContext } from './GridContext';
+
+import type { FC } from 'react';
+import type { TdGridItemProps, TdGridProps } from './type';
 
 const getGridItemWidth = (column: number) => (column > 0 ? `${100 / column}%` : 0);
 

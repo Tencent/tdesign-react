@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Button, Table, Tag, TdPrimaryTableProps } from 'tdesign-mobile-react';
+import { Button, Table, Tag } from 'tdesign-mobile-react';
+
+import type { TdPrimaryTableProps } from 'tdesign-mobile-react';
 
 export default function SelectExample() {
   const [selectRow1, setSelectRow1] = useState<(string | number)[]>([]);
@@ -49,7 +51,12 @@ export default function SelectExample() {
   ];
 
   const singleSelectColumns: TdPrimaryTableProps['columns'] = [
-    { colKey: 'projSelect', type: 'single', width: 30, checkProps: { allowUncheck: true } },
+    {
+      colKey: 'projSelect',
+      type: 'single',
+      width: 30,
+      checkProps: { allowUncheck: true },
+    },
     ...globalColumns,
   ];
 

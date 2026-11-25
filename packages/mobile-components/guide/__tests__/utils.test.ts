@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
 import {
   getElmCssPropValue,
   getRelativePosition,
@@ -174,12 +175,30 @@ describe('shared utils', () => {
 
   describe('getWindowScroll', () => {
     it('should return window scroll position', () => {
-      Object.defineProperty(window, 'pageYOffset', { value: 100, writable: true });
-      Object.defineProperty(window, 'pageXOffset', { value: 50, writable: true });
-      Object.defineProperty(document.documentElement, 'scrollTop', { value: 100, writable: true });
-      Object.defineProperty(document.documentElement, 'scrollLeft', { value: 50, writable: true });
-      Object.defineProperty(document.body, 'scrollTop', { value: 100, writable: true });
-      Object.defineProperty(document.body, 'scrollLeft', { value: 50, writable: true });
+      Object.defineProperty(window, 'pageYOffset', {
+        value: 100,
+        writable: true,
+      });
+      Object.defineProperty(window, 'pageXOffset', {
+        value: 50,
+        writable: true,
+      });
+      Object.defineProperty(document.documentElement, 'scrollTop', {
+        value: 100,
+        writable: true,
+      });
+      Object.defineProperty(document.documentElement, 'scrollLeft', {
+        value: 50,
+        writable: true,
+      });
+      Object.defineProperty(document.body, 'scrollTop', {
+        value: 100,
+        writable: true,
+      });
+      Object.defineProperty(document.body, 'scrollLeft', {
+        value: 50,
+        writable: true,
+      });
 
       const result = getWindowScroll();
       expect(result).toEqual({ scrollTop: 100, scrollLeft: 50 });
@@ -188,18 +207,36 @@ describe('shared utils', () => {
 
   describe('getWindowSize', () => {
     it('should return window size', () => {
-      Object.defineProperty(window, 'innerWidth', { value: 1024, writable: true });
-      Object.defineProperty(window, 'innerHeight', { value: 768, writable: true });
+      Object.defineProperty(window, 'innerWidth', {
+        value: 1024,
+        writable: true,
+      });
+      Object.defineProperty(window, 'innerHeight', {
+        value: 768,
+        writable: true,
+      });
 
       const result = getWindowSize();
       expect(result).toEqual({ width: 1024, height: 768 });
     });
 
     it('should fallback to document element', () => {
-      Object.defineProperty(window, 'innerWidth', { value: undefined, writable: true });
-      Object.defineProperty(window, 'innerHeight', { value: undefined, writable: true });
-      Object.defineProperty(document.documentElement, 'clientWidth', { value: 800, writable: true });
-      Object.defineProperty(document.documentElement, 'clientHeight', { value: 600, writable: true });
+      Object.defineProperty(window, 'innerWidth', {
+        value: undefined,
+        writable: true,
+      });
+      Object.defineProperty(window, 'innerHeight', {
+        value: undefined,
+        writable: true,
+      });
+      Object.defineProperty(document.documentElement, 'clientWidth', {
+        value: 800,
+        writable: true,
+      });
+      Object.defineProperty(document.documentElement, 'clientHeight', {
+        value: 600,
+        writable: true,
+      });
 
       const result = getWindowSize();
       expect(result).toEqual({ width: 800, height: 600 });
@@ -216,19 +253,31 @@ describe('shared utils', () => {
 
   describe('preventDefault', () => {
     it('should call preventDefault on cancellable event', () => {
-      const event = { preventDefault: vi.fn(), cancelable: true, stopPropagation: vi.fn() } as any;
+      const event = {
+        preventDefault: vi.fn(),
+        cancelable: true,
+        stopPropagation: vi.fn(),
+      } as any;
       preventDefault(event);
       expect(event.preventDefault).toHaveBeenCalled();
     });
 
     it('should not call preventDefault on non-cancellable event', () => {
-      const event = { preventDefault: vi.fn(), cancelable: false, stopPropagation: vi.fn() } as any;
+      const event = {
+        preventDefault: vi.fn(),
+        cancelable: false,
+        stopPropagation: vi.fn(),
+      } as any;
       preventDefault(event);
       expect(event.preventDefault).not.toHaveBeenCalled();
     });
 
     it('should call stopPropagation when isStopPropagation is true', () => {
-      const event = { preventDefault: vi.fn(), cancelable: true, stopPropagation: vi.fn() } as any;
+      const event = {
+        preventDefault: vi.fn(),
+        cancelable: true,
+        stopPropagation: vi.fn(),
+      } as any;
       preventDefault(event, true);
       expect(event.stopPropagation).toHaveBeenCalled();
     });
@@ -366,7 +415,10 @@ describe('shared utils', () => {
 
   describe('preventDefault edge cases', () => {
     it('should handle event without cancelable property', () => {
-      const event = { preventDefault: vi.fn(), stopPropagation: vi.fn() } as any;
+      const event = {
+        preventDefault: vi.fn(),
+        stopPropagation: vi.fn(),
+      } as any;
       preventDefault(event);
       expect(event.preventDefault).toHaveBeenCalled();
     });
@@ -495,10 +547,22 @@ describe('dom utils', () => {
         left: 0,
       });
 
-      Object.defineProperty(window, 'pageYOffset', { value: 100, writable: true });
-      Object.defineProperty(window, 'pageXOffset', { value: 50, writable: true });
-      Object.defineProperty(document.documentElement, 'scrollTop', { value: 100, writable: true });
-      Object.defineProperty(document.documentElement, 'scrollLeft', { value: 50, writable: true });
+      Object.defineProperty(window, 'pageYOffset', {
+        value: 100,
+        writable: true,
+      });
+      Object.defineProperty(window, 'pageXOffset', {
+        value: 50,
+        writable: true,
+      });
+      Object.defineProperty(document.documentElement, 'scrollTop', {
+        value: 100,
+        writable: true,
+      });
+      Object.defineProperty(document.documentElement, 'scrollLeft', {
+        value: 50,
+        writable: true,
+      });
 
       Object.defineProperty(window, 'getComputedStyle', {
         value: vi.fn().mockReturnValue({
@@ -600,10 +664,22 @@ describe('dom utils', () => {
         left: 0,
       });
 
-      Object.defineProperty(window, 'pageYOffset', { value: 200, writable: true });
-      Object.defineProperty(window, 'pageXOffset', { value: 100, writable: true });
-      Object.defineProperty(document.documentElement, 'scrollTop', { value: 200, writable: true });
-      Object.defineProperty(document.documentElement, 'scrollLeft', { value: 100, writable: true });
+      Object.defineProperty(window, 'pageYOffset', {
+        value: 200,
+        writable: true,
+      });
+      Object.defineProperty(window, 'pageXOffset', {
+        value: 100,
+        writable: true,
+      });
+      Object.defineProperty(document.documentElement, 'scrollTop', {
+        value: 200,
+        writable: true,
+      });
+      Object.defineProperty(document.documentElement, 'scrollLeft', {
+        value: 100,
+        writable: true,
+      });
 
       Object.defineProperty(window, 'getComputedStyle', {
         value: vi.fn().mockReturnValue({
@@ -921,7 +997,10 @@ describe('dom utils', () => {
         right: 100,
       });
 
-      Object.defineProperty(element, 'offsetTop', { value: 150, writable: true });
+      Object.defineProperty(element, 'offsetTop', {
+        value: 150,
+        writable: true,
+      });
       Object.defineProperty(parent, 'offsetTop', { value: 0, writable: true });
 
       scrollToParentVisibleArea(element);
@@ -943,8 +1022,14 @@ describe('dom utils', () => {
         height: 50,
       });
 
-      Object.defineProperty(window, 'innerHeight', { value: 768, writable: true });
-      Object.defineProperty(window, 'innerWidth', { value: 1024, writable: true });
+      Object.defineProperty(window, 'innerHeight', {
+        value: 768,
+        writable: true,
+      });
+      Object.defineProperty(window, 'innerWidth', {
+        value: 1024,
+        writable: true,
+      });
 
       const scrollToSpy = vi.spyOn(window, 'scrollTo');
       scrollToElm(element);
@@ -964,8 +1049,14 @@ describe('dom utils', () => {
         height: 50,
       });
 
-      Object.defineProperty(window, 'innerHeight', { value: 768, writable: true });
-      Object.defineProperty(window, 'innerWidth', { value: 1024, writable: true });
+      Object.defineProperty(window, 'innerHeight', {
+        value: 768,
+        writable: true,
+      });
+      Object.defineProperty(window, 'innerWidth', {
+        value: 1024,
+        writable: true,
+      });
 
       const scrollToSpy = vi.fn();
       window.scrollTo = scrollToSpy;

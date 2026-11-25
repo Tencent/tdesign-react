@@ -1,13 +1,15 @@
-import React, { forwardRef, useMemo, PropsWithChildren } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import cls from 'classnames';
+
 import parseTNode from '../_util/parseTNode';
 import useConfig from '../hooks/useConfig';
-import { StyledProps } from '../common';
 import useDefaultProps from '../hooks/useDefaultProps';
-
-import { TdGridProps } from './type';
-import { GirdProvider } from './GridContext';
 import { gridDefaultProps } from './defaultProps';
+import { GirdProvider } from './GridContext';
+
+import type { PropsWithChildren } from 'react';
+import type { StyledProps } from '../common';
+import type { TdGridProps } from './type';
 
 export interface GridProps extends TdGridProps, StyledProps {
   children?: React.ReactNode;

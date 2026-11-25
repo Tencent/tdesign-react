@@ -1,22 +1,26 @@
 import React, { createContext, forwardRef, useContext, useRef } from 'react';
-import type { Ref } from 'react';
 import classNames from 'classnames';
 import { Check1Icon, CheckIcon } from 'tdesign-icons-react';
-import parseTNode from '../_util/parseTNode';
-import { usePrefixClass } from '../hooks/useClass';
+
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
+import parseTNode from '../_util/parseTNode';
 import useDefault from '../_util/useDefault';
-import type { TdRadioProps, TdRadioGroupProps } from './type';
-import type { StyledProps } from '../common';
-import RadioGroup from './RadioGroup';
+import { usePrefixClass } from '../hooks/useClass';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { radioDefaultProps } from './defaultProps';
+import RadioGroup from './RadioGroup';
+
+import type { Ref } from 'react';
+import type { StyledProps } from '../common';
+import type { TdRadioGroupProps, TdRadioProps } from './type';
 
 export interface RadioProps extends TdRadioProps, StyledProps {
   ref?: Ref<HTMLDivElement>;
 }
 
-export type RadioInjectedProps = RadioProps & { direction?: TdRadioGroupProps['direction'] };
+export type RadioInjectedProps = RadioProps & {
+  direction?: TdRadioGroupProps['direction'];
+};
 
 export interface RadioContextValue {
   inject: (props: RadioProps) => RadioInjectedProps;
@@ -114,7 +118,9 @@ const Radio = forwardRef((_props: RadioProps, ref: Ref<HTMLDivElement>) => {
     className,
   );
 
-  const titleClassName = classNames(`${radioClass}__title`, { [`${radioClass}__title--disabled`]: disabled });
+  const titleClassName = classNames(`${radioClass}__title`, {
+    [`${radioClass}__title--disabled`]: disabled,
+  });
 
   const input = (
     <input

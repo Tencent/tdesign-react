@@ -1,14 +1,16 @@
-import React, { Fragment, useImperativeHandle, forwardRef } from 'react';
+import './style';
+
+import React, { forwardRef, Fragment, useImperativeHandle } from 'react';
 import classNames from 'classnames';
-import type { StyledProps } from '../common';
-import { TdCountDownProps } from './type';
-import { countDownDefaultProps } from './defaultProps';
+
 import parseTNode from '../_util/parseTNode';
-import useDefaultProps from '../hooks/useDefaultProps';
 import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { countDownDefaultProps } from './defaultProps';
 import useCountDown from './hooks/useCountDown';
 
-import './style';
+import type { StyledProps } from '../common';
+import type { TdCountDownProps } from './type';
 
 export interface CountDownRef {
   start: () => void;

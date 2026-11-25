@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Loading, Button } from 'tdesign-mobile-react';
+import { Button, Loading } from 'tdesign-mobile-react';
 
 export default function PureTextLoading() {
   const [loading, setLoading] = useState(false);

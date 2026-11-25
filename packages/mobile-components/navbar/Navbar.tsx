@@ -1,13 +1,15 @@
 import React, { useMemo } from 'react';
-import type { CSSProperties } from 'react';
-import { ChevronLeftIcon } from 'tdesign-icons-react';
 import classNames from 'classnames';
-import { usePrefixClass } from '../hooks/useClass';
-import { StyledProps } from '../common';
-import { TdNavbarProps } from './type';
-import { navbarDefaultProps } from './defaultProps';
+import { ChevronLeftIcon } from 'tdesign-icons-react';
+
 import parseTNode from '../_util/parseTNode';
+import { usePrefixClass } from '../hooks/useClass';
 import useDefaultProps from '../hooks/useDefaultProps';
+import { navbarDefaultProps } from './defaultProps';
+
+import type { CSSProperties } from 'react';
+import type { StyledProps } from '../common';
+import type { TdNavbarProps } from './type';
 
 export interface NavbarProps extends TdNavbarProps, StyledProps {
   children?: React.ReactNode;

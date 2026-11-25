@@ -1,18 +1,21 @@
 import React, { useMemo, useRef, useState } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import classnames from 'classnames';
 import { CloseIcon } from 'tdesign-icons-react';
-import { CSSTransition } from 'react-transition-group';
-import { CSSTransitionClassNames } from 'react-transition-group/CSSTransition';
-import Overlay from '../overlay';
-import useDefault from '../_util/useDefault';
-import withNativeProps, { NativeProps } from '../_util/withNativeProps';
-import { TdPopupProps } from './type';
-import { popupDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
+
 import parseTNode from '../_util/parseTNode';
-import { usePrefixClass } from '../hooks/useClass';
-import { useLockScroll } from '../hooks/useLockScroll';
+import useDefault from '../_util/useDefault';
+import withNativeProps from '../_util/withNativeProps';
 import Portal from '../common/Portal';
+import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { useLockScroll } from '../hooks/useLockScroll';
+import Overlay from '../overlay';
+import { popupDefaultProps } from './defaultProps';
+
+import type { CSSTransitionClassNames } from 'react-transition-group/CSSTransition';
+import type { NativeProps } from '../_util/withNativeProps';
+import type { TdPopupProps } from './type';
 
 export interface PopupProps extends TdPopupProps, NativeProps {}
 

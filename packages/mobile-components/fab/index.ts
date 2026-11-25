@@ -1,6 +1,6 @@
-import _Fab from './Fab';
-
 import './style';
+
+import _Fab from './Fab';
 
 export * from './type';
 

@@ -1,7 +1,9 @@
 import React, { useMemo, useState } from 'react';
-import { ConfigProvider, Rate, Calendar, Cell, Comment, CommentFold } from 'tdesign-mobile-react';
 import { merge } from 'lodash-es';
+import { Calendar, Cell, Comment, ConfigProvider, Rate } from 'tdesign-mobile-react';
 import enConfig from 'tdesign-mobile-react/es/locale/en_US';
+
+import type { CommentFold } from 'tdesign-mobile-react';
 
 const REPLY_COUNT = 6;
 
@@ -81,7 +83,11 @@ export default function OtherEn() {
       <Cell title="Single select date" arrow note={dataNote} onClick={() => setVisible(true)}></Cell>
       <div className="comment-demo">
         <Comment
-          avatar={{ shape: 'circle', size: '32px', image: 'https://tdesign.gtimg.com/mobile/demos/avatar1.png' }}
+          avatar={{
+            shape: 'circle',
+            size: '32px',
+            image: 'https://tdesign.gtimg.com/mobile/demos/avatar1.png',
+          }}
           author="Name1"
           content="This is a comment content."
           datetime="Today 16:38"

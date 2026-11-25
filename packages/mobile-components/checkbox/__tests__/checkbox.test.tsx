@@ -1,6 +1,9 @@
 import React from 'react';
 import { act, describe, expect, it, render, vi } from '@test/utils';
-import { Checkbox, CheckboxGroup, CheckboxProps } from '../index';
+
+import { Checkbox, CheckboxGroup } from '../index';
+
+import type { CheckboxProps } from '../index';
 
 type Shape = Extract<CheckboxProps['icon'], 'circle' | 'rectangle' | 'line'>;
 
@@ -556,7 +559,11 @@ describe(': CheckboxGroup', () => {
 
     it(': complex nested options', () => {
       const complexOptions = [
-        { label: 'Group 1', value: 'g1', children: [{ label: 'Item 1', value: 'i1' }] },
+        {
+          label: 'Group 1',
+          value: 'g1',
+          children: [{ label: 'Item 1', value: 'i1' }],
+        },
         { label: 'Group 2', value: 'g2' },
       ] as any[];
       const { container } = render(<CheckboxGroup options={complexOptions} />);

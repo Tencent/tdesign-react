@@ -1,5 +1,7 @@
 import React from 'react';
-import { Checkbox, CheckboxGroupChangeContext, CheckboxGroupValue } from 'tdesign-mobile-react';
+import { Checkbox } from 'tdesign-mobile-react';
+
+import type { CheckboxGroupChangeContext, CheckboxGroupValue } from 'tdesign-mobile-react';
 
 export default function () {
   const options = [

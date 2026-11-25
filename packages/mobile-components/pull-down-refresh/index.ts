@@ -1,5 +1,6 @@
-import _PullDownRefresh from './PullDownRefresh';
 import './style';
+
+import _PullDownRefresh from './PullDownRefresh';
 
 export type { PullDownRefreshProps } from './PullDownRefresh';
 export * from './type';

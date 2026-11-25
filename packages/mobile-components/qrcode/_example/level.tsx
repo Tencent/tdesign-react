@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { QRCode, QrCodeProps, Slider, SliderProps } from 'tdesign-mobile-react';
+import { QRCode, Slider } from 'tdesign-mobile-react';
+
+import type { QrCodeProps, SliderProps } from 'tdesign-mobile-react';
 
 const value = 'https://tdesign.gtimg.com/site/tdesign-logo.png';
 

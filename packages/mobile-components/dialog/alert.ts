@@ -1,7 +1,8 @@
-import { MouseEvent } from 'react';
-import { TNode } from '../common';
 import { show } from './show';
-import { DialogProps } from './index';
+
+import type { MouseEvent } from 'react';
+import type { TNode } from '../common';
+import type { DialogProps } from './index';
 
 export type DialogAlertProps = Omit<DialogProps, 'visible' | 'cancelBtn' | 'actions'> & {
   confirmBtn?: TNode;

@@ -1,6 +1,7 @@
 import React from 'react';
-import { describe, it, expect, render, fireEvent, act } from '@test/utils';
 import { vi } from 'vitest';
+import { act, describe, expect, fireEvent, it, render } from '@test/utils';
+
 import { ImageViewer } from '../index';
 
 let mockNextIndex = 1;

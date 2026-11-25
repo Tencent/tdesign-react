@@ -1,5 +1,6 @@
-import { ReactElement } from 'react';
 import { render, unmount as unMount } from './react-render';
+
+import type { ReactElement } from 'react';
 
 export function renderToBody(element: ReactElement) {
   const container = document.createElement('div');

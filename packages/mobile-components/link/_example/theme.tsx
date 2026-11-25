@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'tdesign-mobile-react';
 import { JumpIcon } from 'tdesign-icons-react';
+import { Link } from 'tdesign-mobile-react';
 
 export default function Theme() {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
-import { describe, expect, it, render, fireEvent, vi, beforeEach, afterEach, waitFor, act } from '@test/utils';
 import { Collapse, CollapsePanel } from 'tdesign-mobile-react';
+import { act, afterEach, beforeEach, describe, expect, fireEvent, it, render, vi, waitFor } from '@test/utils';
 
 describe('Collapse', () => {
   describe('props', () => {
@@ -379,8 +379,8 @@ describe('Collapse', () => {
           </CollapsePanel>
         </Collapse>,
       );
-      const panel = container.querySelector('.t-collapse-panel__title');
-      fireEvent.click(panel!);
+      const panel = container.querySelector('.t-collapse-panel__title') as HTMLElement;
+      fireEvent.click(panel);
       // 当 expandedValue 不是数组时，onPanelChange 不应该执行任何操作
       expect(onChange).not.toHaveBeenCalled();
     });

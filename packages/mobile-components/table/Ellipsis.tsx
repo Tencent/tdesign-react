@@ -1,9 +1,11 @@
 import React, { useRef, useState } from 'react';
 import classNames from 'classnames';
-import { Popup } from '../popup';
-import type { PopupProps } from '../popup';
+
 import parseTNode from '../_util/parseTNode';
+import { Popup } from '../popup';
+
 import type { TNode } from '../common';
+import type { PopupProps } from '../popup';
 
 export type EllipsisPopupProps = PopupProps & { title?: TNode };
 

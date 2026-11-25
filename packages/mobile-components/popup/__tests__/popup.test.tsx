@@ -1,6 +1,7 @@
-import { render, fireEvent, act } from '@test/utils';
-import { describe, test, expect, vi, beforeEach, afterEach } from 'vitest';
 import React from 'react';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
+import { act, fireEvent, render } from '@test/utils';
+
 import Popup from '../Popup';
 
 describe('Popup', () => {

@@ -1,7 +1,9 @@
-import React from 'react';
-import { beforeEach, afterAll, describe, expect, it, vi } from 'vitest';
-import methods from '../methods';
+import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest';
+
 import * as reactRender from '../../_util/react-render';
+import methods from '../methods';
+
+import type React from 'react';
 
 describe('message methods', () => {
   const originalError = console.error;

@@ -1,9 +1,11 @@
 import React from 'react';
-import TImage from '../image';
-import { TdEmptyProps } from './type';
-import { StyledProps } from '../common';
+
 import parseTNode from '../_util/parseTNode';
 import { usePrefixClass } from '../hooks/useClass';
+import TImage from '../image';
+
+import type { StyledProps } from '../common';
+import type { TdEmptyProps } from './type';
 
 export interface EmptyProps extends TdEmptyProps, StyledProps {}
 

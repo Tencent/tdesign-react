@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { DropdownItem, DropdownMenu } from 'tdesign-mobile-react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
+import { DropdownItem, DropdownMenu } from 'tdesign-mobile-react';
 
 const icons = <ChevronDownIcon size="24px" />;
 

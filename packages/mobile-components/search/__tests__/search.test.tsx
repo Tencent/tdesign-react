@@ -1,6 +1,6 @@
 import React from 'react';
-import { describe, expect, vi, it, cleanup } from '@test/utils';
-import { render, fireEvent, screen, createEvent } from '@testing-library/react';
+import { cleanup, describe, expect, it, vi } from '@test/utils';
+import { createEvent, fireEvent, render, screen } from '@testing-library/react';
 
 import Search from '../index';
 
@@ -208,7 +208,10 @@ describe('Search', () => {
       fireEvent.focus(search);
       fireEvent.blur(search);
       expect(handleBlur).toHaveBeenCalledTimes(1);
-      expect(handleBlur).toHaveBeenCalledWith({ value: 'abc', e: expect.anything() });
+      expect(handleBlur).toHaveBeenCalledWith({
+        value: 'abc',
+        e: expect.anything(),
+      });
     });
 
     it(': onClear', () => {
@@ -227,7 +230,10 @@ describe('Search', () => {
       render(<Search value="hi" onFocus={handleFocus} />);
       fireEvent.focus(getSearch());
       expect(handleFocus).toHaveBeenCalledTimes(1);
-      expect(handleFocus).toHaveBeenCalledWith({ value: 'hi', e: expect.anything() });
+      expect(handleFocus).toHaveBeenCalledWith({
+        value: 'hi',
+        e: expect.anything(),
+      });
     });
 
     it(': onChange', () => {
@@ -257,7 +263,10 @@ describe('Search', () => {
 
       fireEvent.compositionStart(search, { target: { value: '' } });
       // 构造一个 inputType=insertCompositionText 的 InputEvent，模拟中文输入过程
-      const inputEvent = createEvent.input(search, { inputType: 'insertCompositionText', target: { value: '中' } });
+      const inputEvent = createEvent.input(search, {
+        inputType: 'insertCompositionText',
+        target: { value: '中' },
+      });
       fireEvent(search, inputEvent);
 
       // 中文合成过程中不应该触发 onChange
@@ -277,7 +286,10 @@ describe('Search', () => {
       const search = getSearch();
       // 默认 inputType 为空字符串，不属于 insertCompositionText
       const inputEvent = createEvent.input(search, { inputType: 'insertText' });
-      Object.defineProperty(search, 'value', { writable: true, value: 'hello' });
+      Object.defineProperty(search, 'value', {
+        writable: true,
+        value: 'hello',
+      });
       fireEvent(search, inputEvent);
       expect(handleChange).toHaveBeenCalledTimes(1);
       expect(handleChange).toHaveBeenCalledWith('hello', expect.objectContaining({ trigger: 'input-change' }));

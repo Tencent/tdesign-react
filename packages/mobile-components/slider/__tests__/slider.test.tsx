@@ -1,6 +1,7 @@
 import React from 'react';
-import { describe, expect, vi, it, test, beforeEach } from '@test/utils';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { beforeEach, describe, expect, it, test, vi } from '@test/utils';
+import { fireEvent, render, screen } from '@testing-library/react';
+
 import Slider from '../index';
 
 const prefix = 't';
@@ -29,7 +30,7 @@ describe('Slider', () => {
       expect(container1.querySelector(`${name}__dot-value`)).toBeTruthy();
       expect(container2.querySelector(`${name}__dot-value`)).not.toBeTruthy();
       // eslint-disable-next-line
-      const label3 = '${value} is a variable';
+      const label3 = "${value} is a variable";
       const value3 = 123;
       const { container: container3 } = render(<Slider label={label3} value={value3} />);
       expect(container3.querySelector(`${name}__dot-value`)).toBeTruthy();
@@ -160,15 +161,27 @@ describe('Slider', () => {
       const dot = container.querySelector(`${name}__dot`) as HTMLElement;
 
       // 未开始拖动时，touchmove 不应阻止默认行为（页面可正常滚动）
-      expect(fireEvent.touchMove(dot, { changedTouches: [{ clientY: 200 } as Touch] })).toBe(true);
+      expect(
+        fireEvent.touchMove(dot, {
+          changedTouches: [{ clientY: 200 } as Touch],
+        }),
+      ).toBe(true);
 
       // 拖动过程中，touchmove 应调用 preventDefault，阻止页面跟随滚动
       fireEvent.touchStart(dot, { touches: [{ clientY: 200 } as Touch] });
-      expect(fireEvent.touchMove(dot, { changedTouches: [{ clientY: 300 } as Touch] })).toBe(false);
+      expect(
+        fireEvent.touchMove(dot, {
+          changedTouches: [{ clientY: 300 } as Touch],
+        }),
+      ).toBe(false);
 
       // 拖动结束后，不应再阻止默认行为
       fireEvent.touchEnd(dot, { changedTouches: [{ clientY: 300 } as Touch] });
-      expect(fireEvent.touchMove(dot, { changedTouches: [{ clientY: 200 } as Touch] })).toBe(true);
+      expect(
+        fireEvent.touchMove(dot, {
+          changedTouches: [{ clientY: 200 } as Touch],
+        }),
+      ).toBe(true);
       rectSpy.mockRestore();
     });
 
@@ -179,21 +192,31 @@ describe('Slider', () => {
 
       // 第一根手指按下开始拖动，第二根手指跟进
       fireEvent.touchStart(dot, { touches: [{ clientY: 200 } as Touch] });
-      fireEvent.touchStart(dot, { touches: [{ clientY: 200 }, { clientY: 250 }] as Touch[] });
+      fireEvent.touchStart(dot, {
+        touches: [{ clientY: 200 }, { clientY: 250 }] as Touch[],
+      });
 
       // 抬起第一根手指，第二根仍按住：拖动未结束，touchmove 仍应阻止页面滚动
       fireEvent.touchEnd(dot, {
         touches: [{ clientY: 250 } as Touch],
         changedTouches: [{ clientY: 200 } as Touch],
       });
-      expect(fireEvent.touchMove(dot, { changedTouches: [{ clientY: 300 } as Touch] })).toBe(false);
+      expect(
+        fireEvent.touchMove(dot, {
+          changedTouches: [{ clientY: 300 } as Touch],
+        }),
+      ).toBe(false);
 
       // 最后一根手指抬起后，不应再阻止默认行为
       fireEvent.touchEnd(dot, {
         touches: [],
         changedTouches: [{ clientY: 300 } as Touch],
       });
-      expect(fireEvent.touchMove(dot, { changedTouches: [{ clientY: 200 } as Touch] })).toBe(true);
+      expect(
+        fireEvent.touchMove(dot, {
+          changedTouches: [{ clientY: 200 } as Touch],
+        }),
+      ).toBe(true);
       rectSpy.mockRestore();
     });
 

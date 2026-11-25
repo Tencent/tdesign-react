@@ -1,6 +1,7 @@
 import React from 'react';
 import { vi } from 'vitest';
-import { describe, it, expect, render, fireEvent } from '@test/utils';
+import { describe, expect, fireEvent, it, render } from '@test/utils';
+
 import { RateIcon } from '../RateIcon';
 
 describe('RateIcon', () => {

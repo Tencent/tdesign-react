@@ -1,6 +1,8 @@
-import _Sticky from './Sticky';
-import { TdStickyProps } from './type';
 import './style';
+
+import _Sticky from './Sticky';
+
+import type { TdStickyProps } from './type';
 
 export const Sticky = _Sticky;
 export type StickyProps = TdStickyProps;

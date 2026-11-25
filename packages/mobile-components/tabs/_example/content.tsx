@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tabs, TabPanel } from 'tdesign-mobile-react';
+import { TabPanel, Tabs } from 'tdesign-mobile-react';
 
 export default () => {
   const list = [

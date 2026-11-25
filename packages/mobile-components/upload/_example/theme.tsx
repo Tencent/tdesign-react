@@ -1,6 +1,7 @@
-import type { MouseEvent } from 'react';
 import React from 'react';
 import { Toast, Upload } from 'tdesign-mobile-react';
+
+import type { MouseEvent } from 'react';
 import type { RequestMethodResponse, UploadFile } from 'tdesign-mobile-react';
 
 // 示例图片 URL

@@ -1,5 +1,6 @@
 import React from 'react';
 import { describe, expect, it, render } from '@test/utils';
+
 import { Badge } from '../index';
 
 describe('Badge', () => {

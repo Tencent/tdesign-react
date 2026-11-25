@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ImageViewer, Button } from 'tdesign-mobile-react';
+import { Button, ImageViewer } from 'tdesign-mobile-react';
 
 const images = [
   'https://tdesign.gtimg.com/mobile/demos/swiper1.png',

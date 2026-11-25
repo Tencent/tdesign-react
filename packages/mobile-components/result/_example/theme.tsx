@@ -1,5 +1,7 @@
 import React from 'react';
-import { Result, ResultProps } from 'tdesign-mobile-react';
+import { Result } from 'tdesign-mobile-react';
+
+import type { ResultProps } from 'tdesign-mobile-react';
 
 export default function ThemeResult() {
   const resultList: Array<ResultProps> = [

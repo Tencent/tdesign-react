@@ -1,6 +1,6 @@
 import React from 'react';
-import { Message, Upload } from 'tdesign-mobile-react';
 import { CameraIcon } from 'tdesign-icons-react';
+import { Message, Upload } from 'tdesign-mobile-react';
 
 export default function CustomDemo() {
   const onValidate = (context: any) => {

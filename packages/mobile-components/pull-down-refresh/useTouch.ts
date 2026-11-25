@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+
 import getScrollParent from '../_util/getScrollParent';
+
+import type React from 'react';
 
 export function useTouch() {
   const [startX, setStartX] = useState(0);

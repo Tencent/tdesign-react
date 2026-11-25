@@ -1,6 +1,6 @@
 import React from 'react';
+import { EllipsisIcon, HomeIcon } from 'tdesign-icons-react';
 import { Navbar, Search } from 'tdesign-mobile-react';
-import { HomeIcon, EllipsisIcon } from 'tdesign-icons-react';
 
 const SearchDemo = () => (
   <Navbar

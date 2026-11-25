@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { CheckIcon } from 'tdesign-icons-react';
-import { ColorObject, ColorPicker } from 'tdesign-mobile-react';
+import { ColorPicker } from 'tdesign-mobile-react';
+
+import type { ColorObject } from 'tdesign-mobile-react';
 
 type ColorPickerFormat = 'CSS' | 'HEX' | 'RGB' | 'HSL' | 'HSV' | 'CMYK';
 const OPTIONS: ColorPickerFormat[] = ['CSS', 'HEX', 'RGB', 'HSL', 'HSV', 'CMYK'];

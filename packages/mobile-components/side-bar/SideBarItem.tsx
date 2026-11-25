@@ -1,13 +1,15 @@
 import React, { forwardRef, memo, useContext, useEffect } from 'react';
 import cls from 'classnames';
+
+import parseTNode from '../_util/parseTNode';
+import Badge from '../badge';
+import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { sideBarItemDefaultProps } from './defaultProps';
+import { SideBarContext } from './SideBarContext';
+
 import type { StyledProps } from '../common';
 import type { TdSideBarItemProps } from './type';
-import { SideBarContext } from './SideBarContext';
-import Badge from '../badge';
-import parseTNode from '../_util/parseTNode';
-import { sideBarItemDefaultProps } from './defaultProps';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { usePrefixClass } from '../hooks/useClass';
 
 export interface SideBarItemProps extends TdSideBarItemProps, StyledProps {}
 

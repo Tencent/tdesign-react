@@ -1,6 +1,9 @@
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useMemoizedFn, useMount } from 'ahooks';
 import { set } from 'lodash-es';
-import React, { RefObject, useEffect, useMemo, useRef, useState } from 'react';
+
+import type React from 'react';
+import type { RefObject } from 'react';
 import type { MessageMarquee } from '../type';
 
 export default function useMarqueeAnimation(
@@ -48,7 +51,9 @@ export default function useMarqueeAnimation(
 
   const playAnimation = useMemoizedFn((playedCount: number) => {
     if (isPlayingAnimation.current) {
-      return () => {};
+      return () => {
+        /* noop */
+      };
     }
 
     if (
@@ -56,7 +61,9 @@ export default function useMarqueeAnimation(
       messageMarquee.loop === 0 ||
       (playedCount >= messageMarquee.loop && messageMarquee.loop !== -1)
     ) {
-      return () => {};
+      return () => {
+        /* noop */
+      };
     }
 
     const animationContext = {

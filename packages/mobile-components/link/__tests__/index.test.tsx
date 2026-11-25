@@ -1,6 +1,6 @@
 import React from 'react';
-import { describe, it, expect, render, vi, fireEvent } from '@test/utils';
 import { JumpIcon } from 'tdesign-icons-react';
+import { describe, expect, fireEvent, it, render, vi } from '@test/utils';
 
 import Link from '../Link';
 

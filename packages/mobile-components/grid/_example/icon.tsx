@@ -1,6 +1,6 @@
 import React from 'react';
+import { DownloadIcon, EditIcon, ShareIcon, StarIcon } from 'tdesign-icons-react';
 import { Grid, GridItem } from 'tdesign-mobile-react';
-import { ShareIcon, StarIcon, DownloadIcon, EditIcon } from 'tdesign-icons-react';
 
 export default function () {
   return (

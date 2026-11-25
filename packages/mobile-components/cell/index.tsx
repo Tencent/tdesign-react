@@ -1,8 +1,7 @@
-import _Cell from './Cell';
-
-import _CellGroup from './CellGroup';
-
 import './style';
+
+import _Cell from './Cell';
+import _CellGroup from './CellGroup';
 
 export * from './type';
 

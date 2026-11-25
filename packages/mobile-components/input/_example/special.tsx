@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Image, Input } from 'tdesign-mobile-react';
 import { BrowseOffIcon } from 'tdesign-icons-react';
+import { Image, Input } from 'tdesign-mobile-react';
 
 export default function Special() {
   const [phoneNumber, setPhoneNumber] = useState('17600600600');

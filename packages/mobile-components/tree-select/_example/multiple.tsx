@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { TreeSelect, TdTreeSelectProps, TreeSelectValue } from 'tdesign-mobile-react';
+import { TreeSelect } from 'tdesign-mobile-react';
+
+import type { TdTreeSelectProps, TreeSelectValue } from 'tdesign-mobile-react';
 
 export default function BaseBadge() {
   const chineseNumber = '一二三四五六七八九十'.split('');

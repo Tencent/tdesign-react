@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TabBar, TabBarItem } from 'tdesign-mobile-react';
 
 function TabBarBaseDemo() {

@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { Dialog, Button, DialogProps } from 'tdesign-mobile-react';
+import { Button, Dialog } from 'tdesign-mobile-react';
+
+import type { DialogProps } from 'tdesign-mobile-react';
 
 const MultiStateUsage = React.memo(() => {
-  const [alertProps, setAlertProps] = useState({ visible: false } as DialogProps);
+  const [alertProps, setAlertProps] = useState({
+    visible: false,
+  } as DialogProps);
 
   const cancelBtn: DialogProps['cancelBtn'] = {
     content: '取消',

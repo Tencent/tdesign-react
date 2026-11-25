@@ -1,10 +1,13 @@
 import React from 'react';
-import { describe, it, expect, render, act } from '@test/utils';
-import { vi, beforeEach, afterEach } from 'vitest';
-import * as Util from '../util';
+import { afterEach, beforeEach, vi } from 'vitest';
+import { act, describe, expect, it, render } from '@test/utils';
+
 import getFixScaleEleTransPosition from '../getFixScaleEleTransPosition';
 import wrapperRaf from '../raf';
-import { useImageTransform, type TransformType, type TransformAction } from '../transform';
+import { useImageTransform } from '../transform';
+import * as Util from '../util';
+
+import type { TransformAction, TransformType } from '../transform';
 
 describe('ImageViewer utils', () => {
   describe('getClientSize', () => {
@@ -12,7 +15,10 @@ describe('ImageViewer utils', () => {
       const originalInnerHeight = window.innerHeight;
       const originalClientWidth = document.documentElement.clientWidth;
 
-      Object.defineProperty(window, 'innerHeight', { configurable: true, value: 700 });
+      Object.defineProperty(window, 'innerHeight', {
+        configurable: true,
+        value: 700,
+      });
       Object.defineProperty(document.documentElement, 'clientWidth', {
         configurable: true,
         get: () => 375,
@@ -22,7 +28,10 @@ describe('ImageViewer utils', () => {
       expect(width).toBe(375);
       expect(height).toBe(700);
 
-      Object.defineProperty(window, 'innerHeight', { configurable: true, value: originalInnerHeight });
+      Object.defineProperty(window, 'innerHeight', {
+        configurable: true,
+        value: originalInnerHeight,
+      });
       Object.defineProperty(document.documentElement, 'clientWidth', {
         configurable: true,
         get: () => originalClientWidth,
@@ -31,24 +40,39 @@ describe('ImageViewer utils', () => {
 
     it(': falls back to document.documentElement.clientHeight when innerHeight is 0', () => {
       const originalInnerHeight = window.innerHeight;
-      Object.defineProperty(window, 'innerHeight', { configurable: true, value: 0 });
-      Object.defineProperty(document.documentElement, 'clientHeight', { configurable: true, value: 600 });
+      Object.defineProperty(window, 'innerHeight', {
+        configurable: true,
+        value: 0,
+      });
+      Object.defineProperty(document.documentElement, 'clientHeight', {
+        configurable: true,
+        value: 600,
+      });
 
       const { height } = Util.getClientSize();
       expect(height).toBe(600);
 
-      Object.defineProperty(window, 'innerHeight', { configurable: true, value: originalInnerHeight });
+      Object.defineProperty(window, 'innerHeight', {
+        configurable: true,
+        value: originalInnerHeight,
+      });
     });
 
     it(': falls back when innerHeight is undefined', () => {
       const originalInnerHeight = window.innerHeight;
       delete (window as any).innerHeight;
-      Object.defineProperty(document.documentElement, 'clientHeight', { configurable: true, value: 800 });
+      Object.defineProperty(document.documentElement, 'clientHeight', {
+        configurable: true,
+        value: 800,
+      });
 
       const { height } = Util.getClientSize();
       expect(height).toBe(800);
 
-      Object.defineProperty(window, 'innerHeight', { configurable: true, value: originalInnerHeight });
+      Object.defineProperty(window, 'innerHeight', {
+        configurable: true,
+        value: originalInnerHeight,
+      });
     });
 
     it(': returns width from document.documentElement.clientWidth', () => {
@@ -326,72 +350,79 @@ describe('ImageViewer utils', () => {
     }
 
     it(': initial transform state', () => {
-      let api: Api;
+      let api!: Api;
       render(<Harness onApi={(a) => (api = a)} />);
 
-      expect(api!.get()).toEqual({ x: 0, y: 0, rotate: 0, scale: 1, flipX: false, flipY: false });
+      expect(api.get()).toEqual({
+        x: 0,
+        y: 0,
+        rotate: 0,
+        scale: 1,
+        flipX: false,
+        flipY: false,
+      });
     });
 
     it(': dispatchZoomChange clamps to maxScale', () => {
       vi.useFakeTimers();
-      let api: Api;
+      let api!: Api;
       render(<Harness onApi={(a) => (api = a)} />);
 
       act(() => {
-        api!.zoom(10, 'zoomIn');
+        api.zoom(10, 'zoomIn');
         vi.advanceTimersByTime(20);
       });
-      expect(api!.get().scale).toBe(3);
+      expect(api.get().scale).toBe(3);
       vi.useRealTimers();
     });
 
     it(': dispatchZoomChange clamps to minScale when not touch', () => {
       vi.useFakeTimers();
-      let api: Api;
+      let api!: Api;
       render(<Harness onApi={(a) => (api = a)} />);
 
       act(() => {
-        api!.zoom(0.1, 'zoomOut', false);
+        api.zoom(0.1, 'zoomOut', false);
         vi.advanceTimersByTime(20);
       });
-      expect(api!.get().scale).toBe(1);
+      expect(api.get().scale).toBe(1);
       vi.useRealTimers();
     });
 
     it(': dispatchZoomChange allows below minScale when isTouch=true', () => {
       vi.useFakeTimers();
-      let api: Api;
+      let api!: Api;
       render(<Harness onApi={(a) => (api = a)} />);
 
       act(() => {
-        api!.zoom(0.5, 'touchZoom', true);
+        api.zoom(0.5, 'touchZoom', true);
         vi.advanceTimersByTime(20);
       });
-      expect(api!.get().scale).toBe(0.5);
+      expect(api.get().scale).toBe(0.5);
       vi.useRealTimers();
     });
 
     it(': dispatchZoomChange with ratio=1 keeps scale unchanged', () => {
       vi.useFakeTimers();
-      let api: Api;
+      let api!: Api;
       render(<Harness onApi={(a) => (api = a)} />);
 
       act(() => {
-        api!.zoom(1, 'zoomIn');
+        api.zoom(1, 'zoomIn');
         vi.advanceTimersByTime(20);
       });
-      expect(api!.get().scale).toBe(1);
+      expect(api.get().scale).toBe(1);
       vi.useRealTimers();
     });
 
     it(': resetTransform does not call onTransform when state unchanged', () => {
       vi.useFakeTimers();
       const onTransform = vi.fn();
-      let api: Api;
+      let api!: Api;
       render(<Harness onApi={(a) => (api = a)} onTransform={onTransform} />);
 
       act(() => {
-        api!.reset('reset');
+        api.reset('reset');
         vi.advanceTimersByTime(20);
       });
       expect(onTransform).not.toHaveBeenCalled();
@@ -401,71 +432,78 @@ describe('ImageViewer utils', () => {
     it(': resetTransform calls onTransform when state was changed', () => {
       vi.useFakeTimers();
       const onTransform = vi.fn();
-      let api: Api;
+      let api!: Api;
       render(<Harness onApi={(a) => (api = a)} onTransform={onTransform} />);
 
       act(() => {
-        api!.update({ x: 10, y: 20, scale: 2 }, 'move');
+        api.update({ x: 10, y: 20, scale: 2 }, 'move');
         vi.advanceTimersByTime(20);
       });
 
       act(() => {
-        api!.reset('close');
+        api.reset('close');
         vi.advanceTimersByTime(20);
       });
 
-      const t = api!.get();
-      expect(t).toMatchObject({ x: 0, y: 0, rotate: 0, scale: 1, flipX: false, flipY: false });
+      const t = api.get();
+      expect(t).toMatchObject({
+        x: 0,
+        y: 0,
+        rotate: 0,
+        scale: 1,
+        flipX: false,
+        flipY: false,
+      });
       vi.useRealTimers();
     });
 
     it(': updateTransform batches multiple updates via raf queue', () => {
       vi.useFakeTimers();
       const onTransform = vi.fn();
-      let api: Api;
+      let api!: Api;
       render(<Harness onApi={(a) => (api = a)} onTransform={onTransform} />);
 
       act(() => {
-        api!.update({ x: 1 }, 'move');
-        api!.update({ y: 2 }, 'move');
-        api!.update({ scale: 1.5 }, 'move');
+        api.update({ x: 1 }, 'move');
+        api.update({ y: 2 }, 'move');
+        api.update({ scale: 1.5 }, 'move');
         vi.advanceTimersByTime(20);
       });
 
-      expect(api!.get()).toMatchObject({ x: 1, y: 2, scale: 1.5 });
+      expect(api.get()).toMatchObject({ x: 1, y: 2, scale: 1.5 });
       expect(onTransform).toHaveBeenCalledTimes(1);
       vi.useRealTimers();
     });
 
     it(': updateTransform merges partial state correctly', () => {
       vi.useFakeTimers();
-      let api: Api;
+      let api!: Api;
       render(<Harness onApi={(a) => (api = a)} />);
 
       act(() => {
-        api!.update({ x: 10 }, 'move');
+        api.update({ x: 10 }, 'move');
         vi.advanceTimersByTime(20);
       });
 
-      expect(api!.get()).toMatchObject({ x: 10, y: 0, scale: 1 });
+      expect(api.get()).toMatchObject({ x: 10, y: 0, scale: 1 });
 
       act(() => {
-        api!.update({ y: 20 }, 'move');
+        api.update({ y: 20 }, 'move');
         vi.advanceTimersByTime(20);
       });
 
-      expect(api!.get()).toMatchObject({ x: 10, y: 20, scale: 1 });
+      expect(api.get()).toMatchObject({ x: 10, y: 20, scale: 1 });
       vi.useRealTimers();
     });
 
     it(': onTransform receives correct action', () => {
       vi.useFakeTimers();
       const onTransform = vi.fn();
-      let api: Api;
+      let api!: Api;
       render(<Harness onApi={(a) => (api = a)} onTransform={onTransform} />);
 
       act(() => {
-        api!.update({ scale: 2 }, 'doubleClick');
+        api.update({ scale: 2 }, 'doubleClick');
         vi.advanceTimersByTime(20);
       });
 
@@ -475,22 +513,22 @@ describe('ImageViewer utils', () => {
 
     it(': dispatchZoomChange applies ratio to current scale', () => {
       vi.useFakeTimers();
-      let api: Api;
+      let api!: Api;
       render(<Harness onApi={(a) => (api = a)} />);
 
       // First zoom to 1.5
       act(() => {
-        api!.zoom(1.5, 'zoomIn');
+        api.zoom(1.5, 'zoomIn');
         vi.advanceTimersByTime(20);
       });
-      expect(api!.get().scale).toBe(1.5);
+      expect(api.get().scale).toBe(1.5);
 
       // Then zoom by 2x -> 3 (capped at maxScale)
       act(() => {
-        api!.zoom(2, 'zoomIn');
+        api.zoom(2, 'zoomIn');
         vi.advanceTimersByTime(20);
       });
-      expect(api!.get().scale).toBe(3);
+      expect(api.get().scale).toBe(3);
       vi.useRealTimers();
     });
   });

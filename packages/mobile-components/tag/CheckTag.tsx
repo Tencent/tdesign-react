@@ -1,13 +1,15 @@
-import classNames from 'classnames';
 import React, { forwardRef } from 'react';
+import classNames from 'classnames';
 import { CloseIcon } from 'tdesign-icons-react';
+
 import parseTNode from '../_util/parseTNode';
-import { StyledProps } from '../common';
-import useConfig from '../hooks/useConfig';
 import useDefault from '../_util/useDefault';
+import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { checkTagDefaultProps } from './defaultProps';
-import { TdCheckTagProps } from './type';
+
+import type { StyledProps } from '../common';
+import type { TdCheckTagProps } from './type';
 
 export interface CheckTagProps extends TdCheckTagProps, StyledProps {}
 

@@ -1,6 +1,6 @@
-import _BackTop from './Backtop';
-
 import './style';
+
+import _BackTop from './Backtop';
 
 export * from './type';
 

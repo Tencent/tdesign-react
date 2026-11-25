@@ -1,20 +1,25 @@
-import React, { forwardRef, Ref, useContext, useMemo } from 'react';
+import React, { forwardRef, useContext, useMemo } from 'react';
 import classNames from 'classnames';
-import { Check1Icon, Remove1Icon, CheckIcon, MinusIcon } from 'tdesign-icons-react';
-import { TdCheckboxProps, TdCheckboxGroupProps } from './type';
+import { Check1Icon, CheckIcon, MinusIcon, Remove1Icon } from 'tdesign-icons-react';
+
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import CheckboxGroup from './CheckboxGroup';
-import { StyledProps } from '../common';
-import useConfig from '../hooks/useConfig';
-import useDefault from '../_util/useDefault';
 import parseTNode, { parseContentTNode } from '../_util/parseTNode';
+import useDefault from '../_util/useDefault';
 import { usePrefixClass } from '../hooks/useClass';
+import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import CheckboxGroup from './CheckboxGroup';
 import { checkboxDefaultProps } from './defaultProps';
+
+import type { Ref } from 'react';
+import type { StyledProps } from '../common';
+import type { TdCheckboxGroupProps, TdCheckboxProps } from './type';
 
 export interface CheckboxProps extends TdCheckboxProps, StyledProps {}
 
-export type CheckboxInjectedProps = CheckboxProps & { direction?: TdCheckboxGroupProps['direction'] };
+export type CheckboxInjectedProps = CheckboxProps & {
+  direction?: TdCheckboxGroupProps['direction'];
+};
 
 export interface CheckContextValue {
   inject: (props: CheckboxProps) => CheckboxInjectedProps;
@@ -69,7 +74,9 @@ const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>((_props, ref) => {
         ) : (
           selectedIcon
         );
-      return parseContentTNode(iconContent, { className: `${checkboxClass}__icon-wrapper` });
+      return parseContentTNode(iconContent, {
+        className: `${checkboxClass}__icon-wrapper`,
+      });
     }
     if (icon !== 'circle' && icon !== true && icon !== 'rectangle' && icon !== 'line' && !Array.isArray(icon)) {
       return null;

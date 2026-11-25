@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { Dialog, Button, DialogProps, Input } from 'tdesign-mobile-react';
+import { Button, Dialog, Input } from 'tdesign-mobile-react';
+
+import type { DialogProps } from 'tdesign-mobile-react';
 
 const InputUsage = React.memo(() => {
-  const [alertProps, setAlertProps] = useState({ visible: false } as DialogProps);
+  const [alertProps, setAlertProps] = useState({
+    visible: false,
+  } as DialogProps);
 
   return (
     <div className="t-dialog__demo-wrap">

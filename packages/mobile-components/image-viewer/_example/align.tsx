@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { ImageViewer, Button, type ImageInfo } from 'tdesign-mobile-react';
+import { Button, ImageViewer } from 'tdesign-mobile-react';
+
+import type { ImageInfo } from 'tdesign-mobile-react';
 
 const images: ImageInfo[] = [
   {

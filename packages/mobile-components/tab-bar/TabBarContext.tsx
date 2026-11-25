@@ -1,6 +1,8 @@
-import React, { createContext, MutableRefObject, useMemo } from 'react';
-import { ChangeHandler } from '../_util/useDefault';
-import { TdTabBarProps } from './type';
+import React, { createContext, useMemo } from 'react';
+
+import type { MutableRefObject } from 'react';
+import type { ChangeHandler } from '../_util/useDefault';
+import type { TdTabBarProps } from './type';
 
 export const TabBarContext = createContext<
   {

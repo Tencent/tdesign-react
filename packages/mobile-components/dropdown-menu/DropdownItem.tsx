@@ -1,21 +1,23 @@
+import React, { useCallback, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useClickAway } from 'ahooks';
 import cx from 'classnames';
 import uniqueId from 'lodash-es/uniqueId';
-import React, { useCallback, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { CaretDownSmallIcon, CaretUpSmallIcon } from 'tdesign-icons-react';
+
+import parseTNode from '../_util/parseTNode';
+import useDefault from '../_util/useDefault';
 import Button from '../button';
 import Checkbox from '../checkbox';
+import CheckboxGroup from '../checkbox/CheckboxGroup';
+import { usePrefixClass } from '../hooks/useClass';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
 import Popup from '../popup';
 import { RadioGroup } from '../radio';
-import useDefault from '../_util/useDefault';
-import parseTNode from '../_util/parseTNode';
-import CheckboxGroup from '../checkbox/CheckboxGroup';
-import { StyledProps } from '../common';
-import useDefaultProps from '../hooks/useDefaultProps';
-import useConfig from '../hooks/useConfig';
-import { usePrefixClass } from '../hooks/useClass';
 import { dropdownItemDefaultProps } from './defaultProps';
 import DropdownMenuContext from './DropdownMenuContext';
+
+import type { StyledProps } from '../common';
 import type { TdDropdownItemProps } from './type';
 
 export interface DropdownItemProps extends TdDropdownItemProps, StyledProps {

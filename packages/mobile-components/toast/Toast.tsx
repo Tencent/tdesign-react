@@ -1,18 +1,21 @@
-import React, { FC, useRef, useState, useEffect } from 'react';
-import { LoadingIcon, CheckCircleIcon, ErrorCircleIcon, CloseCircleIcon } from 'tdesign-icons-react';
+import React, { useEffect, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
-import Overlay from '../overlay';
-import useCssTransition from '../_util/hooks/useCssTransition';
-import useConfig from '../hooks/useConfig';
-import { TdToastProps } from './type';
-import { StyledProps } from '../common';
-import { toastDefaultProps } from './defaultProps';
-import { usePrefixClass } from '../hooks/useClass';
-import { useLockScroll } from '../hooks/useLockScroll';
-import useDefaultProps from '../hooks/useDefaultProps';
-import parseTNode from '../_util/parseTNode';
+import { CheckCircleIcon, CloseCircleIcon, ErrorCircleIcon, LoadingIcon } from 'tdesign-icons-react';
+
 import { isBrowser } from '../_util/dom';
+import useCssTransition from '../_util/hooks/useCssTransition';
+import parseTNode from '../_util/parseTNode';
+import { usePrefixClass } from '../hooks/useClass';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { useLockScroll } from '../hooks/useLockScroll';
+import Overlay from '../overlay';
+import { toastDefaultProps } from './defaultProps';
+
+import type { FC } from 'react';
+import type { StyledProps } from '../common';
+import type { TdToastProps } from './type';
 
 interface ToastProps extends TdToastProps, StyledProps {
   children?: React.ReactNode;

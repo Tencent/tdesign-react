@@ -1,13 +1,15 @@
-import React, { forwardRef, useState, useCallback, useMemo, ReactNode } from 'react';
+import React, { forwardRef, useCallback, useMemo, useState } from 'react';
 import classNames from 'classnames';
-import { CopyIcon, CheckIcon } from 'tdesign-icons-react';
+import { CheckIcon, CopyIcon } from 'tdesign-icons-react';
+
+import { copy } from '../_util/copy-to-clipboard';
+import parseTNode from '../_util/parseTNode';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
-import parseTNode from '../_util/parseTNode';
-import { copy } from '../_util/copy-to-clipboard';
 import { textDefaultProps } from './defaultProps';
 import Ellipsis from './Ellipsis';
 
+import type { ReactNode } from 'react';
 import type { StyledProps } from '../common';
 import type { TdTextProps } from './type';
 

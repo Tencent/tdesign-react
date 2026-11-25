@@ -1,7 +1,7 @@
+import './style/index.js';
+
 import _TabBar from './TabBar';
 import _TabBarItem from './TabBarItem';
-
-import './style/index.js';
 
 export type { TabBarProps } from './TabBar';
 export type { TabBarItemProps } from './TabBarItem';

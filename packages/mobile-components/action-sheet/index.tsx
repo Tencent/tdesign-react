@@ -1,8 +1,9 @@
 import './style';
 
-import _ActionSheet from './ActionSheet';
-import { show, close } from './ActionSheetMethod';
 import { attachMethodsToComponent } from '../_util/attachMethodsToComponent';
+import _ActionSheet from './ActionSheet';
+import { close, show } from './ActionSheetMethod';
+
 import type { ActionSheetProps } from './ActionSheet';
 
 export type { ActionSheetProps };

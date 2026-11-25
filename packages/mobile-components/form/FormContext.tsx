@@ -1,7 +1,10 @@
-import React, { createContext, useContext, MutableRefObject } from 'react';
-import { TdFormProps } from './type';
-import { FormItemInstance } from './const';
-import { InternalFormInstance } from './hooks/interface';
+import { createContext, useContext } from 'react';
+
+import type React from 'react';
+import type { MutableRefObject } from 'react';
+import type { FormItemInstance } from './const';
+import type { InternalFormInstance } from './hooks/interface';
+import type { TdFormProps } from './type';
 
 export interface FormContextType {
   showErrorMessage?: TdFormProps['showErrorMessage'];

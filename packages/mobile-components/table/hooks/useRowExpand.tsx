@@ -1,4 +1,3 @@
-import type { MouseEvent, ReactNode } from 'react';
 import React, { useCallback } from 'react';
 import classNames from 'classnames';
 import { get, isFunction } from 'lodash-es';
@@ -10,6 +9,8 @@ import { useLocaleReceiver } from '../../locale/LocalReceiver';
 import { enableRowDrag } from '../utils';
 import useClassName from './useClassName';
 import { DATA_ID_ATTR, DATA_PARENT_ID_ATTR, EXPANDED_SUFFIX } from './useDragSort';
+
+import type { MouseEvent, ReactNode } from 'react';
 import type {
   PrimaryTableCellParams,
   PrimaryTableCol,
@@ -101,7 +102,10 @@ function useRowExpand(props: TdPrimaryTableProps) {
   };
 
   const renderExpandedRow = (
-    p: TableExpandedRowParams<TableRowData> & { tableWidth: number; isWidthOverflow: boolean },
+    p: TableExpandedRowParams<TableRowData> & {
+      tableWidth: number;
+      isWidthOverflow: boolean;
+    },
   ) => {
     const rowId = get(p.row, props.rowKey || 'id');
     if (!tExpandedRowKeys || !tExpandedRowKeys.includes(rowId)) return null;

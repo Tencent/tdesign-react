@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+
 import type { AvatarGroupProps } from './AvatarGroup';
 
 export const AvatarGroupContext = React.createContext(null);

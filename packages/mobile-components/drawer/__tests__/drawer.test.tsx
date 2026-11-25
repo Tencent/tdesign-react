@@ -1,9 +1,10 @@
-import React, { createRef, act } from 'react';
-import { describe, expect, render, it, vi, fireEvent, screen, afterEach, beforeEach, waitFor } from '@test/utils';
+import React, { act, createRef } from 'react';
 import { AppIcon } from 'tdesign-icons-react';
+import { afterEach, beforeEach, describe, expect, fireEvent, it, render, screen, vi, waitFor } from '@test/utils';
 
 import Drawer from '../Drawer';
 import { DrawerPlugin } from '../plugin';
+
 import type { DrawerInstance } from '../type';
 
 describe('Drawer', () => {

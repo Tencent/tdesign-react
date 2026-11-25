@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import type { BaseTableProps } from 'tdesign-mobile-react';
-import { Table, Tag } from 'tdesign-mobile-react';
 import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
+import { Table, Tag } from 'tdesign-mobile-react';
+
+import type { BaseTableProps } from 'tdesign-mobile-react';
 
 const classStyles = `
 <style>

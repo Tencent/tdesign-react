@@ -1,8 +1,11 @@
+import React, { cloneElement, useMemo, useRef } from 'react';
 import cx from 'classnames';
-import React, { cloneElement, ReactNode, useMemo, useRef } from 'react';
 import { StarFilledIcon } from 'tdesign-icons-react';
+
 import { usePrefixClass } from '../hooks/useClass';
-import { TdRateProps } from './type';
+
+import type { ReactNode } from 'react';
+import type { TdRateProps } from './type';
 
 type Props = Required<Pick<TdRateProps, 'icon' | 'color'>> & {
   size: number;

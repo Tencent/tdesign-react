@@ -1,7 +1,8 @@
 import React from 'react';
-import { it, expect } from 'vitest';
+import { expect, it } from 'vitest';
 import { render } from '@testing-library/react';
-import { DropdownMenu, DropdownItem } from '../index';
+
+import { DropdownItem, DropdownMenu } from '../index';
 
 const productOptions = [
   { value: 'all', label: '全部产品', disabled: false },

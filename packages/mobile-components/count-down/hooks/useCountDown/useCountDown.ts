@@ -1,6 +1,9 @@
-import { useRef, useState, useEffect } from 'react';
-import { transformTime, TimeItem } from './transformTime';
-import { TdCountDownProps, TimeData } from '../../type';
+import { useEffect, useRef, useState } from 'react';
+
+import { transformTime } from './transformTime';
+
+import type { TdCountDownProps, TimeData } from '../../type';
+import type { TimeItem } from './transformTime';
 
 enum EnumCountDownStatus {
   active,
@@ -38,7 +41,10 @@ export const useCountDown = (params: UseCountdownParams) => {
     if (currentTimerId) {
       window.cancelAnimationFrame(currentTimerId);
       ctxRef.current.timerId = 0;
-      setCountDownData((state) => ({ ...state, status: EnumCountDownStatus.inActive }));
+      setCountDownData((state) => ({
+        ...state,
+        status: EnumCountDownStatus.inActive,
+      }));
     }
   };
   let previousFrameTimestamp = 0;
@@ -100,7 +106,10 @@ export const useCountDown = (params: UseCountdownParams) => {
 
   const pause = () => {
     clearCountDown();
-    setCountDownData((state) => ({ ...state, status: EnumCountDownStatus.paused }));
+    setCountDownData((state) => ({
+      ...state,
+      status: EnumCountDownStatus.paused,
+    }));
   };
 
   const reset = () => {
@@ -109,7 +118,10 @@ export const useCountDown = (params: UseCountdownParams) => {
     if (autoStart) {
       startCountDown(true);
     } else {
-      setCountDownData((state) => ({ ...state, status: EnumCountDownStatus.inActive }));
+      setCountDownData((state) => ({
+        ...state,
+        status: EnumCountDownStatus.inActive,
+      }));
     }
   };
 

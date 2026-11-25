@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Textarea } from 'tdesign-mobile-react';
+
 import type { TextareaProps } from 'tdesign-mobile-react';
 
 export default function Maxlength() {

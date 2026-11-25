@@ -1,13 +1,17 @@
-import React, { FC, ReactNode, useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import classNames from 'classnames';
-import withNativeProps, { NativeProps } from '../_util/withNativeProps';
-import useDefault from '../_util/useDefault';
+
 import parseTNode from '../_util/parseTNode';
+import useDefault from '../_util/useDefault';
+import withNativeProps from '../_util/withNativeProps';
 import { usePrefixClass } from '../hooks/useClass';
 import useDefaultProps from '../hooks/useDefaultProps';
-import { TdStepsProps } from './type';
 import { stepsDefaultProps } from './defaultProps';
 import { StepsProvider } from './StepsContext';
+
+import type { FC, ReactNode } from 'react';
+import type { NativeProps } from '../_util/withNativeProps';
+import type { TdStepsProps } from './type';
 
 export interface StepsProps extends TdStepsProps, NativeProps {
   children?: ReactNode;

@@ -1,7 +1,10 @@
 import React, { createRef, forwardRef, useCallback, useEffect, useImperativeHandle, useState } from 'react';
+
 import { renderToBody } from '../_util/renderToBody';
-import Dialog, { DialogProps } from './Dialog';
-import { DialogInstance } from './type';
+import Dialog from './Dialog';
+
+import type { DialogProps } from './Dialog';
+import type { DialogInstance } from './type';
 
 export type DialogShowProps = Omit<DialogProps, 'visible'>;
 

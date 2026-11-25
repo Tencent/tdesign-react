@@ -1,5 +1,5 @@
 import React from 'react';
-import { Toast, Button } from 'tdesign-mobile-react';
+import { Button, Toast } from 'tdesign-mobile-react';
 
 const DemoBlock = ({ summary, children }: { summary?: string; children?: React.ReactNode }) => (
   <div className="tdesign-mobile-demo-block tdesign-mobile-demo-block_subtitle">

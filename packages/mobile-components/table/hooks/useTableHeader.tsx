@@ -1,11 +1,12 @@
-import type { ReactNode } from 'react';
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
 
 import TEllipsis from '../Ellipsis';
-import useClassName from './useClassName';
 import { resolveEllipsis } from '../utils';
+import useClassName from './useClassName';
+
+import type { ReactNode } from 'react';
 import type { BaseTableCol, PrimaryTableCol, TableRowData, TdBaseTableProps } from '../type';
 
 export type TableColumns = TdBaseTableProps['columns'];

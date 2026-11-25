@@ -1,7 +1,10 @@
 import React from 'react';
 import { cloneDeep, mergeWith as _mergeWith } from 'lodash-es';
-import ConfigContext, { defaultGlobalConfig, Config } from './ConfigContext';
-import { GlobalConfigProvider } from './type';
+
+import ConfigContext, { defaultGlobalConfig } from './ConfigContext';
+
+import type { Config } from './ConfigContext';
+import type { GlobalConfigProvider } from './type';
 
 export interface ConfigProviderProps extends Config {
   children: React.ReactNode;

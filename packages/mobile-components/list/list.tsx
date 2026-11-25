@@ -1,13 +1,15 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useMemoizedFn } from 'ahooks';
 import classNames from 'classnames';
-import { TdListProps } from './type';
-import TLoading from '../loading';
-import type { StyledProps } from '../common';
-import parseTNode from '../_util/parseTNode';
+
 import getScrollParent from '../_util/getScrollParent';
+import parseTNode from '../_util/parseTNode';
 import { usePrefixClass } from '../hooks/useClass';
 import useDefaultProps from '../hooks/useDefaultProps';
+import TLoading from '../loading';
+
+import type { StyledProps } from '../common';
+import type { TdListProps } from './type';
 
 export interface ListProps extends TdListProps, StyledProps {
   children?: React.ReactNode;

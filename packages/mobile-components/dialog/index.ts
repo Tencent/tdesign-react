@@ -1,15 +1,18 @@
 import './style';
+
 import { attachMethodsToComponent } from '../_util/attachMethodsToComponent';
 import { alert } from './alert';
 import { confirm } from './confirm';
-import _Dialog, { DialogProps } from './Dialog';
+import _Dialog from './Dialog';
 import { show } from './show';
-import { DialogAlertMethod, DialogConfirmMethod, DialogMethod } from './type';
 
-export type { DialogProps } from './Dialog';
-export type { DialogShowProps } from './show';
+import type { DialogProps } from './Dialog';
+import type { DialogAlertMethod, DialogConfirmMethod, DialogMethod } from './type';
+
 export type { DialogAlertProps } from './alert';
 export type { DialogConfirmProps } from './confirm';
+export type { DialogProps } from './Dialog';
+export type { DialogShowProps } from './show';
 export * from './type';
 
 export interface DialogPluginType extends DialogMethod {

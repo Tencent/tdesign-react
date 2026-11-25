@@ -1,5 +1,5 @@
 import React from 'react';
-import { Popover, Button } from 'tdesign-mobile-react';
+import { Button, Popover } from 'tdesign-mobile-react';
 
 const PopoverExample = () => (
   <div>

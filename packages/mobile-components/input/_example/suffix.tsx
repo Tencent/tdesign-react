@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, Input } from 'tdesign-mobile-react';
 import { InfoCircleFilledIcon, UserAvatarIcon } from 'tdesign-icons-react';
+import { Button, Input } from 'tdesign-mobile-react';
 
 export default function Suffix() {
   return (

@@ -1,7 +1,10 @@
 import React from 'react';
 import { describe, expect, it, render } from '@test/utils';
+
+import { Image } from '../../image';
 import { Grid, GridItem } from '../index';
-import { Image, ImageProps } from '../../image';
+
+import type { ImageProps } from '../../image';
 
 const prefix = 't';
 const name = `${prefix}-grid`;

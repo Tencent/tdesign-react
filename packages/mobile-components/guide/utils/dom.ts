@@ -1,6 +1,8 @@
 import { isFunction, isString } from 'lodash-es';
-import { AttachNode } from '../../common';
+
 import { elementInViewport, getWindowScroll, getWindowSize } from './shared';
+
+import type { AttachNode } from '../../common';
 /**
  * 获取元素某个 css 对应的值
  * @param element 元素
@@ -102,7 +104,7 @@ export function getScrollParent(element: HTMLElement) {
 
   if (style.position === 'fixed') return document.body;
 
-  for (let parent = element; parent.parentElement; ) {
+  for (let parent = element; parent.parentElement;) {
     parent = parent.parentElement;
     style = window.getComputedStyle(parent);
     if (excludeStaticParent && style.position === 'static') {

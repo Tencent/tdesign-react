@@ -1,8 +1,9 @@
 // Implementation reference from: https://github.com/react-component/util/blob/master/src/React/render.ts
 // @ts-ignore
-import type * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { createRoot as createRootClient } from 'react-dom/client';
+
+import type * as React from 'react';
 import type { Root } from 'react-dom/client';
 
 // Let compiler not to search module usage

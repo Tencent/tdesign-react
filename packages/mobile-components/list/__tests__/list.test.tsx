@@ -1,5 +1,6 @@
 import React from 'react';
-import { describe, it, expect, render, fireEvent, vi } from '@test/utils';
+import { describe, expect, fireEvent, it, render, vi } from '@test/utils';
+
 import List from '../list';
 
 const prefix = 't';

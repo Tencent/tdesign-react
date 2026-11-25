@@ -1,5 +1,7 @@
 import React from 'react';
-import { BaseTableProps, Table } from 'tdesign-mobile-react';
+import { Table } from 'tdesign-mobile-react';
+
+import type { BaseTableProps } from 'tdesign-mobile-react';
 
 const SHORT_TEXT = '单元格内容单元格内容单元格内容';
 const CENTER_LONG_TEXT = '单元格内容'.repeat(200);

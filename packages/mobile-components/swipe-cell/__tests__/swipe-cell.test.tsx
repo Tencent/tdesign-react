@@ -1,7 +1,10 @@
-import { describe, it, expect, render, fireEvent, act } from '@test/utils';
-import { vi, beforeEach, afterEach } from 'vitest';
 import React, { useRef } from 'react';
-import SwipeCell, { SwipeCellRef, syncOpenedState } from '../SwipeCell';
+import { afterEach, beforeEach, vi } from 'vitest';
+import { act, describe, expect, fireEvent, it, render } from '@test/utils';
+
+import SwipeCell, { syncOpenedState } from '../SwipeCell';
+
+import type { SwipeCellRef } from '../SwipeCell';
 
 // mock use-gesture to capture handler/options for unit branch coverage
 const dragStore: Array<any> = [];
@@ -14,12 +17,32 @@ vi.mock('@use-gesture/react', () => ({
 }));
 
 const leftActions = [
-  { text: '左1', className: 'btn-left-1', style: { background: 'red' }, onClick: vi.fn() },
-  { text: '左2', className: 'btn-left-2', style: { background: 'blue' }, onClick: vi.fn() },
+  {
+    text: '左1',
+    className: 'btn-left-1',
+    style: { background: 'red' },
+    onClick: vi.fn(),
+  },
+  {
+    text: '左2',
+    className: 'btn-left-2',
+    style: { background: 'blue' },
+    onClick: vi.fn(),
+  },
 ];
 const rightActions = [
-  { text: '右1', className: 'btn-right-1', style: { background: 'green' }, onClick: vi.fn() },
-  { text: '右2', className: 'btn-right-2', style: { background: 'yellow' }, onClick: vi.fn() },
+  {
+    text: '右1',
+    className: 'btn-right-1',
+    style: { background: 'green' },
+    onClick: vi.fn(),
+  },
+  {
+    text: '右2',
+    className: 'btn-right-2',
+    style: { background: 'yellow' },
+    onClick: vi.fn(),
+  },
 ];
 
 describe('SwipeCell', () => {
@@ -41,7 +64,7 @@ describe('SwipeCell', () => {
     // initial is closed
     expect(wrapper.style.transform).toContain('translateX(0px)');
     // touch outside should not trigger close/onChange when x===0
-    const btn = container.querySelector('button')!;
+    const btn = container.querySelector('button') as HTMLElement;
     fireEvent.touchStart(btn);
     expect(wrapper.style.transform).toContain('translateX(0px)');
     expect(onChange).not.toHaveBeenCalled();
@@ -153,7 +176,10 @@ describe('SwipeCell', () => {
     );
     const rightEl = container.querySelector('.t-swipe-cell__right') as HTMLElement;
     const wrapper = container.querySelector('.t-swipe-cell__wrapper') as HTMLElement;
-    Object.defineProperty(rightEl, 'clientWidth', { value: 110, configurable: true });
+    Object.defineProperty(rightEl, 'clientWidth', {
+      value: 110,
+      configurable: true,
+    });
     await act(async () => {
       vi.advanceTimersByTime(120);
     });
@@ -239,7 +265,10 @@ describe('SwipeCell', () => {
     );
     const wrapper = container.querySelector('.t-swipe-cell__wrapper') as HTMLElement;
     const rightEl = container.querySelector('.t-swipe-cell__right') as HTMLElement;
-    Object.defineProperty(rightEl, 'clientWidth', { value: 90, configurable: true });
+    Object.defineProperty(rightEl, 'clientWidth', {
+      value: 90,
+      configurable: true,
+    });
     act(() => {
       ref.current.expand();
     });
@@ -263,7 +292,10 @@ describe('SwipeCell', () => {
     const onSureClick = vi.fn();
     const { container, getByText } = render(<SwipeCell ref={ref} right={rightActions} content={<div>内容</div>} />);
     const rightEl = container.querySelector('.t-swipe-cell__right') as HTMLElement;
-    Object.defineProperty(rightEl, 'clientWidth', { value: 100, configurable: true });
+    Object.defineProperty(rightEl, 'clientWidth', {
+      value: 100,
+      configurable: true,
+    });
     act(() => {
       ref.current.expand('right');
     });
@@ -287,7 +319,10 @@ describe('SwipeCell', () => {
     const ref = React.createRef<SwipeCellRef>();
     const { container, getByText } = render(<SwipeCell ref={ref} left={leftActions} content={<div>内容</div>} />);
     const leftEl = container.querySelector('.t-swipe-cell__left') as HTMLElement;
-    Object.defineProperty(leftEl, 'clientWidth', { value: 80, configurable: true });
+    Object.defineProperty(leftEl, 'clientWidth', {
+      value: 80,
+      configurable: true,
+    });
     act(() => {
       ref.current.expand('left');
     });
@@ -307,7 +342,10 @@ describe('SwipeCell', () => {
       <SwipeCell ref={ref} left={leftActions} right={rightActions} content={<div>内容</div>} />,
     );
     const rightEl = container.querySelector('.t-swipe-cell__right') as HTMLElement;
-    Object.defineProperty(rightEl, 'clientWidth', { value: 100, configurable: true });
+    Object.defineProperty(rightEl, 'clientWidth', {
+      value: 100,
+      configurable: true,
+    });
     act(() => {
       ref.current.expand('right');
       ref.current.showSure('确认删除？');
@@ -340,8 +378,14 @@ describe('SwipeCell', () => {
     );
     const leftEl = container.querySelector('.t-swipe-cell__left') as HTMLElement;
     const rightEl = container.querySelector('.t-swipe-cell__right') as HTMLElement;
-    Object.defineProperty(leftEl, 'clientWidth', { value: 80, configurable: true });
-    Object.defineProperty(rightEl, 'clientWidth', { value: 100, configurable: true });
+    Object.defineProperty(leftEl, 'clientWidth', {
+      value: 80,
+      configurable: true,
+    });
+    Object.defineProperty(rightEl, 'clientWidth', {
+      value: 100,
+      configurable: true,
+    });
     act(() => {
       ref.current.expand('right');
       ref.current.showSure('确认删除？');
@@ -364,7 +408,10 @@ describe('SwipeCell', () => {
       <SwipeCell ref={ref} right={rightActions} content={<div>内容</div>} />,
     );
     const rightEl = container.querySelector('.t-swipe-cell__right') as HTMLElement;
-    Object.defineProperty(rightEl, 'clientWidth', { value: 100, configurable: true });
+    Object.defineProperty(rightEl, 'clientWidth', {
+      value: 100,
+      configurable: true,
+    });
 
     act(() => {
       ref.current.expand('right');
@@ -418,7 +465,13 @@ describe('SwipeCell', () => {
     expect(getByText('确认删除？')).toBeInTheDocument();
     const latest = dragStore[dragStore.length - 1];
     act(() => {
-      latest.handler({ last: false, offset: [10, 0], lastOffset: [-10, 0], velocity: [0, 0], direction: [1, 0] });
+      latest.handler({
+        last: false,
+        offset: [10, 0],
+        lastOffset: [-10, 0],
+        velocity: [0, 0],
+        direction: [1, 0],
+      });
     });
     expect(queryByText('确认删除？')).not.toBeInTheDocument();
     vi.runOnlyPendingTimers();
@@ -467,7 +520,10 @@ describe('SwipeCell', () => {
     const rightEl = container.querySelector('.t-swipe-cell__right') as HTMLElement;
     const wrapper = container.querySelector('.t-swipe-cell__wrapper') as HTMLElement;
     // mock widths for getSideOffsetX
-    Object.defineProperty(rightEl, 'clientWidth', { value: 100, configurable: true });
+    Object.defineProperty(rightEl, 'clientWidth', {
+      value: 100,
+      configurable: true,
+    });
     const latest = dragStore[dragStore.length - 1];
     // drag end towards left
     act(() => {
@@ -486,7 +542,10 @@ describe('SwipeCell', () => {
     const { container } = render(<SwipeCell left={leftActions} right={rightActions} content={<div>内容</div>} />);
     const leftEl = container.querySelector('.t-swipe-cell__left') as HTMLElement;
     const wrapper = container.querySelector('.t-swipe-cell__wrapper') as HTMLElement;
-    Object.defineProperty(leftEl, 'clientWidth', { value: 80, configurable: true });
+    Object.defineProperty(leftEl, 'clientWidth', {
+      value: 80,
+      configurable: true,
+    });
     const latest = dragStore[dragStore.length - 1];
     act(() => {
       latest.handler({
@@ -504,7 +563,10 @@ describe('SwipeCell', () => {
     const { container } = render(<SwipeCell right={rightActions} content={<div>内容</div>} />);
     const rightEl = container.querySelector('.t-swipe-cell__right') as HTMLElement;
     const wrapper = container.querySelector('.t-swipe-cell__wrapper') as HTMLElement;
-    Object.defineProperty(rightEl, 'clientWidth', { value: 100, configurable: true });
+    Object.defineProperty(rightEl, 'clientWidth', {
+      value: 100,
+      configurable: true,
+    });
     const latest = dragStore[dragStore.length - 1];
     act(() => {
       latest.handler({
@@ -526,8 +588,14 @@ describe('SwipeCell', () => {
     const rightEl = container.querySelector('.t-swipe-cell__right') as HTMLElement;
     const wrapper = container.querySelector('.t-swipe-cell__wrapper') as HTMLElement;
     // mock widths for bounds: left=80, right=120
-    Object.defineProperty(leftEl, 'clientWidth', { value: 80, configurable: true });
-    Object.defineProperty(rightEl, 'clientWidth', { value: 120, configurable: true });
+    Object.defineProperty(leftEl, 'clientWidth', {
+      value: 80,
+      configurable: true,
+    });
+    Object.defineProperty(rightEl, 'clientWidth', {
+      value: 120,
+      configurable: true,
+    });
     const latest = dragStore[dragStore.length - 1];
     // drag slightly left so target ends near 0; with direction -1 and 50% threshold, nearest should be 0
     act(() => {
@@ -546,7 +614,10 @@ describe('SwipeCell', () => {
     const { container } = render(<SwipeCell right={rightActions} content={<div>内容</div>} />);
     const rightEl = container.querySelector('.t-swipe-cell__right') as HTMLElement;
     const wrapper = container.querySelector('.t-swipe-cell__wrapper') as HTMLElement;
-    Object.defineProperty(rightEl, 'clientWidth', { value: 120, configurable: true });
+    Object.defineProperty(rightEl, 'clientWidth', {
+      value: 120,
+      configurable: true,
+    });
     const latest = dragStore[dragStore.length - 1];
     act(() => {
       latest.handler({
@@ -571,7 +642,13 @@ describe('SwipeCell', () => {
     const latest = dragStore[dragStore.length - 1];
     // mark dragging true without scheduling reset
     act(() => {
-      latest.handler({ last: false, offset: [5, 0], lastOffset: [0, 0], velocity: [0, 0], direction: [1, 0] });
+      latest.handler({
+        last: false,
+        offset: [5, 0],
+        lastOffset: [0, 0],
+        velocity: [0, 0],
+        direction: [1, 0],
+      });
     });
     fireEvent.click(root);
     expect(parentClick).not.toHaveBeenCalled();
@@ -588,14 +665,17 @@ describe('SwipeCell', () => {
     );
     const rightEl = container.querySelector('.t-swipe-cell__right') as HTMLElement;
     const wrapper = container.querySelector('.t-swipe-cell__wrapper') as HTMLElement;
-    Object.defineProperty(rightEl, 'clientWidth', { value: 100, configurable: true });
+    Object.defineProperty(rightEl, 'clientWidth', {
+      value: 100,
+      configurable: true,
+    });
     // wait for useLayoutEffect expand timeout (100ms)
     await act(async () => {
       vi.advanceTimersByTime(120);
     });
     expect(wrapper.style.transform).toContain('translateX(-100px)');
     // click away via touchstart on outside button
-    const btn = container.querySelector('button')!;
+    const btn = container.querySelector('button') as HTMLElement;
     fireEvent.touchStart(btn);
     // closing is sync setX(0)
     expect(wrapper.style.transform).toContain('translateX(0px)');
@@ -639,8 +719,14 @@ describe('SwipeCell', () => {
     const { container } = render(<SwipeCell left={leftActions} right={rightActions} content={<div>内容</div>} />);
     const leftEl = container.querySelector('.t-swipe-cell__left') as HTMLElement;
     const rightEl = container.querySelector('.t-swipe-cell__right') as HTMLElement;
-    Object.defineProperty(leftEl, 'clientWidth', { value: 80, configurable: true });
-    Object.defineProperty(rightEl, 'clientWidth', { value: 120, configurable: true });
+    Object.defineProperty(leftEl, 'clientWidth', {
+      value: 80,
+      configurable: true,
+    });
+    Object.defineProperty(rightEl, 'clientWidth', {
+      value: 120,
+      configurable: true,
+    });
     const latest = dragStore[dragStore.length - 1];
     const bounds = latest.opts.bounds();
     expect(bounds.left).toBe(-120);
@@ -664,7 +750,10 @@ describe('SwipeCell', () => {
     }
     const { getByText, container } = render(<TestRef />);
     const rightEl = container.querySelector('.t-swipe-cell__right') as HTMLElement;
-    Object.defineProperty(rightEl, 'clientWidth', { value: 100, configurable: true });
+    Object.defineProperty(rightEl, 'clientWidth', {
+      value: 100,
+      configurable: true,
+    });
     fireEvent.click(getByText('expR'));
     fireEvent.click(getByText('expR'));
     expect(onChange).toHaveBeenCalledTimes(1);
@@ -702,7 +791,10 @@ describe('SwipeCell', () => {
   it('useDrag options.from returns current x', () => {
     const { container } = render(<SwipeCell right={rightActions} content={<div>内容</div>} />);
     const rightEl = container.querySelector('.t-swipe-cell__right') as HTMLElement;
-    Object.defineProperty(rightEl, 'clientWidth', { value: 90, configurable: true });
+    Object.defineProperty(rightEl, 'clientWidth', {
+      value: 90,
+      configurable: true,
+    });
     const wrapper = container.querySelector('.t-swipe-cell__wrapper') as HTMLElement;
     const latest = dragStore[dragStore.length - 1];
     // expand to right via drag end
@@ -770,7 +862,10 @@ describe('SwipeCell', () => {
     );
     const wrapper = container.querySelector('.t-swipe-cell__wrapper') as HTMLElement;
     const leftEl = container.querySelector('.t-swipe-cell__left') as HTMLElement;
-    Object.defineProperty(leftEl, 'clientWidth', { value: 80, configurable: true });
+    Object.defineProperty(leftEl, 'clientWidth', {
+      value: 80,
+      configurable: true,
+    });
     await act(async () => {
       vi.advanceTimersByTime(120);
     });
@@ -778,7 +873,10 @@ describe('SwipeCell', () => {
     expect(onChange).toHaveBeenCalledWith('left');
 
     const rightEl = container.querySelector('.t-swipe-cell__right') as HTMLElement;
-    Object.defineProperty(rightEl, 'clientWidth', { value: 120, configurable: true });
+    Object.defineProperty(rightEl, 'clientWidth', {
+      value: 120,
+      configurable: true,
+    });
     rerender(
       <SwipeCell
         left={leftActions}
@@ -950,7 +1048,10 @@ describe('SwipeCell', () => {
     vi.useFakeTimers();
     const { unmount, container } = render(<SwipeCell right={rightActions} content={<div>内容</div>} opened />);
     const rightEl = container.querySelector('.t-swipe-cell__right') as HTMLElement;
-    Object.defineProperty(rightEl, 'clientWidth', { value: 100, configurable: true });
+    Object.defineProperty(rightEl, 'clientWidth', {
+      value: 100,
+      configurable: true,
+    });
 
     // Trigger timer via expand
     await act(async () => {
@@ -991,7 +1092,10 @@ describe('SwipeCell', () => {
     const onDragend = vi.fn();
     const { container } = render(<SwipeCell right={rightActions} content={<div>内容</div>} onDragend={onDragend} />);
     const rightEl = container.querySelector('.t-swipe-cell__right') as HTMLElement;
-    Object.defineProperty(rightEl, 'clientWidth', { value: 100, configurable: true });
+    Object.defineProperty(rightEl, 'clientWidth', {
+      value: 100,
+      configurable: true,
+    });
     const latest = dragStore[dragStore.length - 1];
     act(() => {
       latest.handler({

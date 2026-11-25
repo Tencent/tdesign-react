@@ -1,7 +1,9 @@
 import React from 'react';
-import { describe, it, expect, render, fireEvent, vi, act } from '@test/utils';
-import Comment from '../Comment';
+import { act, describe, expect, fireEvent, it, render, vi } from '@test/utils';
+
 import ConfigProvider from '../../config-provider';
+import Comment from '../Comment';
+
 import type { CommentFold } from '../type';
 
 const prefix = 't';
@@ -62,7 +64,11 @@ describe('Comment', () => {
   describe('events', () => {
     it(':onActions', () => {
       const onActions = vi.fn();
-      const action = { key: 'reply', placement: 'start' as const, content: '回复' };
+      const action = {
+        key: 'reply',
+        placement: 'start' as const,
+        content: '回复',
+      };
       const { container } = render(<Comment actions={[action]} onActions={onActions} />);
       const actionItem = container.querySelector(`${name}__actions-block > div`);
       fireEvent.click(actionItem);
@@ -84,7 +90,9 @@ describe('Comment', () => {
       expect(inner).toHaveClass(`${prefix}-comment__inner--long-press`);
 
       // 抬起后移除长按态
-      fireEvent.touchEnd(inner, { changedTouches: [{ clientX: 0, clientY: 0 }] });
+      fireEvent.touchEnd(inner, {
+        changedTouches: [{ clientX: 0, clientY: 0 }],
+      });
       expect(inner).not.toHaveClass(`${prefix}-comment__inner--long-press`);
       vi.useRealTimers();
     });
@@ -99,7 +107,9 @@ describe('Comment', () => {
       act(() => {
         vi.advanceTimersByTime(100);
       });
-      fireEvent.touchEnd(inner, { changedTouches: [{ clientX: 0, clientY: 0 }] });
+      fireEvent.touchEnd(inner, {
+        changedTouches: [{ clientX: 0, clientY: 0 }],
+      });
       act(() => {
         vi.advanceTimersByTime(400);
       });
@@ -111,11 +121,25 @@ describe('Comment', () => {
   describe('folds', () => {
     it(':total does not render folds when <= 1', () => {
       const { container, rerender } = render(
-        <Comment folds={{ state: 'collapsed', total: 1, content: DEFAULT_FOLDS_CONTENT }} />,
+        <Comment
+          folds={{
+            state: 'collapsed',
+            total: 1,
+            content: DEFAULT_FOLDS_CONTENT,
+          }}
+        />,
       );
       expect(container.querySelector(`${name}__folds`)).not.toBeInTheDocument();
 
-      rerender(<Comment folds={{ state: 'collapsed', total: 0, content: DEFAULT_FOLDS_CONTENT }} />);
+      rerender(
+        <Comment
+          folds={{
+            state: 'collapsed',
+            total: 0,
+            content: DEFAULT_FOLDS_CONTENT,
+          }}
+        />,
+      );
       expect(container.querySelector(`${name}__folds`)).not.toBeInTheDocument();
     });
 
@@ -123,7 +147,11 @@ describe('Comment', () => {
       // collapsed
       const { container, rerender } = render(
         <Comment
-          folds={{ state: 'collapsed', total: 5, content: DEFAULT_FOLDS_CONTENT }}
+          folds={{
+            state: 'collapsed',
+            total: 5,
+            content: DEFAULT_FOLDS_CONTENT,
+          }}
           reply={<div className="reply-item">回复1</div>}
         />,
       );
@@ -132,7 +160,11 @@ describe('Comment', () => {
       // expanded
       rerender(
         <Comment
-          folds={{ state: 'expanded', total: 5, content: DEFAULT_FOLDS_CONTENT }}
+          folds={{
+            state: 'expanded',
+            total: 5,
+            content: DEFAULT_FOLDS_CONTENT,
+          }}
           reply={<div className="reply-item">回复</div>}
         />,
       );
@@ -153,7 +185,11 @@ describe('Comment', () => {
       // expand
       const { container, rerender } = render(
         <Comment
-          folds={{ state: 'collapsed', total: 5, content: DEFAULT_FOLDS_CONTENT }}
+          folds={{
+            state: 'collapsed',
+            total: 5,
+            content: DEFAULT_FOLDS_CONTENT,
+          }}
           onFolds={onFolds}
           reply={<div className="reply-item">回复</div>}
         />,
@@ -165,7 +201,11 @@ describe('Comment', () => {
       onFolds.mockClear();
       rerender(
         <Comment
-          folds={{ state: 'expanded', total: 5, content: DEFAULT_FOLDS_CONTENT }}
+          folds={{
+            state: 'expanded',
+            total: 5,
+            content: DEFAULT_FOLDS_CONTENT,
+          }}
           onFolds={onFolds}
           reply={<div className="reply-item">回复</div>}
         />,
@@ -228,7 +268,12 @@ describe('Comment', () => {
           }}
         >
           <Comment
-            folds={{ state: 'collapsed', total: 5, step: 3, content: { collapsed: '自定义展开文案' } }}
+            folds={{
+              state: 'collapsed',
+              total: 5,
+              step: 3,
+              content: { collapsed: '自定义展开文案' },
+            }}
             reply={<div className="reply-item">reply</div>}
           />
         </ConfigProvider>,
@@ -250,7 +295,12 @@ describe('Comment', () => {
           }}
         >
           <Comment
-            folds={{ state: 'partial', total: 5, step: 3, content: { partial: ['自定义更多回复', '自定义收起'] } }}
+            folds={{
+              state: 'partial',
+              total: 5,
+              step: 3,
+              content: { partial: ['自定义更多回复', '自定义收起'] },
+            }}
             reply={<div className="reply-item">reply</div>}
           />
         </ConfigProvider>,
@@ -284,7 +334,12 @@ describe('Comment', () => {
     it(':initial state and click expand', () => {
       const { container } = render(
         <Comment
-          defaultFolds={{ state: 'collapsed', total: 5, step: 3, content: DEFAULT_FOLDS_CONTENT }}
+          defaultFolds={{
+            state: 'collapsed',
+            total: 5,
+            step: 3,
+            content: DEFAULT_FOLDS_CONTENT,
+          }}
           reply={<div className="reply-item">回复</div>}
         />,
       );

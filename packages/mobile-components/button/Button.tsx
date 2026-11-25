@@ -1,12 +1,14 @@
 import React, { useMemo } from 'react';
 import classnames from 'classnames';
-import TLoading from '../loading';
+
 import parseTNode from '../_util/parseTNode';
-import { TdButtonProps } from './type';
-import { buttonDefaultProps } from './defaultProps';
 import { usePrefixClass } from '../hooks/useClass';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useHover from '../hooks/useHover';
+import TLoading from '../loading';
+import { buttonDefaultProps } from './defaultProps';
+
+import type { TdButtonProps } from './type';
 
 export interface ButtonProps
   extends
@@ -42,7 +44,10 @@ const Button: React.FC<ButtonProps> = (originProps) => {
   const childNode = content || children;
 
   const hoverDisabled = useMemo(() => disabled || loading, [disabled, loading]);
-  const ref = useHover({ className: `${buttonClass}--hover`, disabled: hoverDisabled });
+  const ref = useHover({
+    className: `${buttonClass}--hover`,
+    disabled: hoverDisabled,
+  });
 
   const renderTag = useMemo(() => (!tag && href ? 'a' : tag || 'button'), [tag, href]);
   const isNativeButton = useMemo(() => renderTag === 'button', [renderTag]);

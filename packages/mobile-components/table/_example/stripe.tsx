@@ -1,5 +1,7 @@
 import React from 'react';
-import { BaseTableProps, Table } from 'tdesign-mobile-react';
+import { Table } from 'tdesign-mobile-react';
+
+import type { BaseTableProps } from 'tdesign-mobile-react';
 
 const data = [];
 const total = 20;

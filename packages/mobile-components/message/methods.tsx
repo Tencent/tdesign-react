@@ -1,9 +1,11 @@
 import React from 'react';
+
 import { isBrowser } from '../_util/dom';
 import { render } from '../_util/react-render';
-import { MessageThemeList, TdMessageProps } from './type';
 import { messageDefaultProps } from './defaultProps';
 import Message from './Message';
+
+import type { MessageThemeList, TdMessageProps } from './type';
 
 export interface MessageActionOptionsType extends TdMessageProps {
   context?: Element;

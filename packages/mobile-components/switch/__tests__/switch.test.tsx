@@ -1,5 +1,5 @@
 import React from 'react';
-import { describe, it, expect, render, vi, fireEvent } from '@test/utils';
+import { describe, expect, fireEvent, it, render, vi } from '@test/utils';
 
 import { Switch } from '..';
 
@@ -18,7 +18,9 @@ describe('Switch', () => {
     it(':style', () => {
       const { container } = render(<Switch style={{ color: 'rgb(255, 0, 0)' }} />);
       expect(container.querySelector('.t-switch')).not.toBe(null);
-      expect(container.querySelector('.t-switch')).toHaveStyle({ color: 'rgb(255, 0, 0)' });
+      expect(container.querySelector('.t-switch')).toHaveStyle({
+        color: 'rgb(255, 0, 0)',
+      });
     });
 
     it(':value', () => {

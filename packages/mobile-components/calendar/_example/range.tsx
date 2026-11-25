@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Calendar, TCalendarValue } from 'tdesign-mobile-react';
 import { SwapRightIcon } from 'tdesign-icons-react';
+import { Calendar } from 'tdesign-mobile-react';
+
+import type { TCalendarValue } from 'tdesign-mobile-react';
 
 export default function () {
   const minDate = new Date(2022, 1, 1);

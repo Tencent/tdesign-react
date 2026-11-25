@@ -1,17 +1,16 @@
 import React, { forwardRef, useContext } from 'react';
 import classNames from 'classnames';
 
-import { TdColProps } from './type';
-import { colDefaultProps } from './defaultProps';
-
-import { StyledProps } from '../common';
-
 import { convertUnit } from '../_util/convertUnit';
 import parseTNode from '../_util/parseTNode';
-import useDefaultProps from '../hooks/useDefaultProps';
 import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
+import { colDefaultProps } from './defaultProps';
+import { RowContext } from './Row';
 
-import { RowContext, RowProps } from './Row';
+import type { StyledProps } from '../common';
+import type { RowProps } from './Row';
+import type { TdColProps } from './type';
 
 export interface ColProps extends TdColProps, StyledProps {
   children?: React.ReactNode;

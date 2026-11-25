@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { AppIcon, ChatIcon, HomeIcon, UserIcon } from 'tdesign-icons-react';
 import { TabBar, TabBarItem } from 'tdesign-mobile-react';
-import { HomeIcon, AppIcon, ChatIcon, UserIcon } from 'tdesign-icons-react';
 
 function TabBarBaseDemo() {
   const list = [

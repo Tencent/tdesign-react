@@ -1,4 +1,4 @@
-import { TimeData } from '../../type';
+import type { TimeData } from '../../type';
 
 export interface TimeItem {
   digit: string;

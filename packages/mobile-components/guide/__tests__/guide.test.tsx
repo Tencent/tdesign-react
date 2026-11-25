@@ -1,8 +1,11 @@
 import '@testing-library/jest-dom';
-import { act, fireEvent, render, screen } from '@testing-library/react';
+
 import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { act, fireEvent, render, screen } from '@testing-library/react';
+
 import Guide from '../Guide';
+
 import type { GuideStep } from '../type';
 
 describe('Guide Component', () => {
@@ -41,10 +44,22 @@ describe('Guide Component', () => {
     // 模拟窗口滚动
     Object.defineProperty(window, 'pageYOffset', { value: 0, writable: true });
     Object.defineProperty(window, 'pageXOffset', { value: 0, writable: true });
-    Object.defineProperty(document.documentElement, 'scrollTop', { value: 0, writable: true });
-    Object.defineProperty(document.documentElement, 'scrollLeft', { value: 0, writable: true });
-    Object.defineProperty(document.body, 'scrollTop', { value: 0, writable: true });
-    Object.defineProperty(document.body, 'scrollLeft', { value: 0, writable: true });
+    Object.defineProperty(document.documentElement, 'scrollTop', {
+      value: 0,
+      writable: true,
+    });
+    Object.defineProperty(document.documentElement, 'scrollLeft', {
+      value: 0,
+      writable: true,
+    });
+    Object.defineProperty(document.body, 'scrollTop', {
+      value: 0,
+      writable: true,
+    });
+    Object.defineProperty(document.body, 'scrollLeft', {
+      value: 0,
+      writable: true,
+    });
   });
 
   afterEach(() => {
@@ -134,8 +149,10 @@ describe('Guide Component', () => {
       const onSkip = vi.fn();
       render(<Guide steps={mockSteps} current={0} onSkip={onSkip} />);
 
-      const skipButton = screen.getAllByRole('button').find((button) => button.textContent?.includes('跳过'));
-      fireEvent.click(skipButton!);
+      const skipButton = screen
+        .getAllByRole('button')
+        .find((button) => button.textContent?.includes('跳过')) as HTMLElement;
+      fireEvent.click(skipButton);
 
       expect(onSkip).toHaveBeenCalledWith({
         e: expect.any(Object),
@@ -148,8 +165,10 @@ describe('Guide Component', () => {
       const onNextStepClick = vi.fn();
       render(<Guide steps={mockSteps} current={0} onNextStepClick={onNextStepClick} />);
 
-      const nextButton = screen.getAllByRole('button').find((button) => button.textContent?.includes('下一步'));
-      fireEvent.click(nextButton!);
+      const nextButton = screen
+        .getAllByRole('button')
+        .find((button) => button.textContent?.includes('下一步')) as HTMLElement;
+      fireEvent.click(nextButton);
 
       expect(onNextStepClick).toHaveBeenCalledWith({
         e: expect.any(Object),
@@ -163,8 +182,10 @@ describe('Guide Component', () => {
       const onFinish = vi.fn();
       render(<Guide steps={mockSteps} current={1} onFinish={onFinish} />);
 
-      const finishButton = screen.getAllByRole('button').find((button) => button.textContent?.includes('完成'));
-      fireEvent.click(finishButton!);
+      const finishButton = screen
+        .getAllByRole('button')
+        .find((button) => button.textContent?.includes('完成')) as HTMLElement;
+      fireEvent.click(finishButton);
 
       expect(onFinish).toHaveBeenCalledWith({
         e: expect.any(Object),
@@ -177,8 +198,10 @@ describe('Guide Component', () => {
       const onBack = vi.fn();
       render(<Guide steps={mockSteps} current={1} onBack={onBack} />);
 
-      const backButton = screen.getAllByRole('button').find((button) => button.textContent?.includes('返回'));
-      fireEvent.click(backButton!);
+      const backButton = screen
+        .getAllByRole('button')
+        .find((button) => button.textContent?.includes('返回')) as HTMLElement;
+      fireEvent.click(backButton);
 
       expect(onBack).toHaveBeenCalledWith({
         e: expect.any(Object),
@@ -193,30 +216,45 @@ describe('Guide Component', () => {
       const onChange = vi.fn();
       render(<Guide steps={mockSteps} current={0} onChange={onChange} />);
 
-      const nextButton = screen.getAllByRole('button').find((button) => button.textContent?.includes('下一步'));
-      fireEvent.click(nextButton!);
+      const nextButton = screen
+        .getAllByRole('button')
+        .find((button) => button.textContent?.includes('下一步')) as HTMLElement;
+      fireEvent.click(nextButton);
 
-      expect(onChange).toHaveBeenCalledWith(1, { e: expect.any(Object), total: 2 });
+      expect(onChange).toHaveBeenCalledWith(1, {
+        e: expect.any(Object),
+        total: 2,
+      });
     });
 
     it('should reset to -1 when skip is clicked', () => {
       const onChange = vi.fn();
       render(<Guide steps={mockSteps} current={0} onChange={onChange} />);
 
-      const skipButton = screen.getAllByRole('button').find((button) => button.textContent?.includes('跳过'));
-      fireEvent.click(skipButton!);
+      const skipButton = screen
+        .getAllByRole('button')
+        .find((button) => button.textContent?.includes('跳过')) as HTMLElement;
+      fireEvent.click(skipButton);
 
-      expect(onChange).toHaveBeenCalledWith(-1, { e: expect.any(Object), total: 2 });
+      expect(onChange).toHaveBeenCalledWith(-1, {
+        e: expect.any(Object),
+        total: 2,
+      });
     });
 
     it('should reset to -1 when finish is clicked', () => {
       const onChange = vi.fn();
       render(<Guide steps={mockSteps} current={1} onChange={onChange} />);
 
-      const finishButton = screen.getAllByRole('button').find((button) => button.textContent?.includes('完成'));
-      fireEvent.click(finishButton!);
+      const finishButton = screen
+        .getAllByRole('button')
+        .find((button) => button.textContent?.includes('完成')) as HTMLElement;
+      fireEvent.click(finishButton);
 
-      expect(onChange).toHaveBeenCalledWith(-1, { e: expect.any(Object), total: 2 });
+      expect(onChange).toHaveBeenCalledWith(-1, {
+        e: expect.any(Object),
+        total: 2,
+      });
     });
   });
 
@@ -477,7 +515,9 @@ describe('Guide Component', () => {
 
       render(<Guide steps={mockSteps} current={0} counter={customCounter} />);
       // 按钮应同时包含 “下一步” 与 “Step 1 of 2”
-      const nextButton = screen.getAllByRole('button').find((button) => button.textContent?.includes('下一步'));
+      const nextButton = screen
+        .getAllByRole('button')
+        .find((button) => button.textContent?.includes('下一步')) as HTMLElement;
       expect(nextButton?.textContent).toContain('Step 1 of 2');
     });
 
@@ -510,10 +550,15 @@ describe('Guide Component', () => {
       const onChange = vi.fn();
       render(<Guide steps={mockSteps} current={1} onChange={onChange} />);
 
-      const backButton = screen.getAllByRole('button').find((button) => button.textContent?.includes('返回'));
-      fireEvent.click(backButton!);
+      const backButton = screen
+        .getAllByRole('button')
+        .find((button) => button.textContent?.includes('返回')) as HTMLElement;
+      fireEvent.click(backButton);
 
-      expect(onChange).toHaveBeenCalledWith(0, { e: expect.any(Object), total: 2 });
+      expect(onChange).toHaveBeenCalledWith(0, {
+        e: expect.any(Object),
+        total: 2,
+      });
     });
 
     it('should handle popover props in step', () => {
@@ -598,26 +643,36 @@ describe('Guide Component', () => {
       const { rerender } = render(<Guide steps={mockSteps} current={0} onChange={onChange} onFinish={onFinish} />);
 
       // 第一步：点击“下一步”
-      const nextButton = screen.getAllByRole('button').find((button) => button.textContent?.includes('下一步'));
-      fireEvent.click(nextButton!);
+      const nextButton = screen
+        .getAllByRole('button')
+        .find((button) => button.textContent?.includes('下一步')) as HTMLElement;
+      fireEvent.click(nextButton);
 
-      expect(onChange).toHaveBeenCalledWith(1, { e: expect.any(Object), total: 2 });
+      expect(onChange).toHaveBeenCalledWith(1, {
+        e: expect.any(Object),
+        total: 2,
+      });
 
       // 第二步：current=1 重新渲染
       rerender(<Guide steps={mockSteps} current={1} onChange={onChange} onFinish={onFinish} />);
 
       // 应出现“完成”按钮
-      const finishButton = screen.getAllByRole('button').find((button) => button.textContent?.includes('完成'));
+      const finishButton = screen
+        .getAllByRole('button')
+        .find((button) => button.textContent?.includes('完成')) as HTMLElement;
       expect(finishButton).toBeInTheDocument();
 
       // 点击“完成”
-      fireEvent.click(finishButton!);
+      fireEvent.click(finishButton);
       expect(onFinish).toHaveBeenCalledWith({
         e: expect.any(Object),
         current: 1,
         total: 2,
       });
-      expect(onChange).toHaveBeenCalledWith(-1, { e: expect.any(Object), total: 2 });
+      expect(onChange).toHaveBeenCalledWith(-1, {
+        e: expect.any(Object),
+        total: 2,
+      });
     });
 
     it('should handle skip functionality', () => {
@@ -626,15 +681,20 @@ describe('Guide Component', () => {
 
       render(<Guide steps={mockSteps} current={0} onSkip={onSkip} onChange={onChange} />);
 
-      const skipButton = screen.getAllByRole('button').find((button) => button.textContent?.includes('跳过'));
-      fireEvent.click(skipButton!);
+      const skipButton = screen
+        .getAllByRole('button')
+        .find((button) => button.textContent?.includes('跳过')) as HTMLElement;
+      fireEvent.click(skipButton);
 
       expect(onSkip).toHaveBeenCalledWith({
         e: expect.any(Object),
         current: 0,
         total: 2,
       });
-      expect(onChange).toHaveBeenCalledWith(-1, { e: expect.any(Object), total: 2 });
+      expect(onChange).toHaveBeenCalledWith(-1, {
+        e: expect.any(Object),
+        total: 2,
+      });
     });
 
     it('should handle back navigation in multi-step flow', () => {
@@ -644,15 +704,20 @@ describe('Guide Component', () => {
       // 从第 2 步开始
       render(<Guide steps={mockSteps} current={1} onChange={onChange} onBack={onBack} />);
 
-      const backButton = screen.getAllByRole('button').find((button) => button.textContent?.includes('返回'));
-      fireEvent.click(backButton!);
+      const backButton = screen
+        .getAllByRole('button')
+        .find((button) => button.textContent?.includes('返回')) as HTMLElement;
+      fireEvent.click(backButton);
 
       expect(onBack).toHaveBeenCalledWith({
         e: expect.any(Object),
         current: 1,
         total: 2,
       });
-      expect(onChange).toHaveBeenCalledWith(0, { e: expect.any(Object), total: 2 });
+      expect(onChange).toHaveBeenCalledWith(0, {
+        e: expect.any(Object),
+        total: 2,
+      });
     });
 
     it('should handle controlled current prop changes', () => {
@@ -998,8 +1063,14 @@ describe('Guide Component', () => {
 
     it('should handle window scroll calculations', () => {
       // 模拟窗口滚动
-      Object.defineProperty(window, 'pageYOffset', { value: 100, writable: true });
-      Object.defineProperty(window, 'pageXOffset', { value: 50, writable: true });
+      Object.defineProperty(window, 'pageYOffset', {
+        value: 100,
+        writable: true,
+      });
+      Object.defineProperty(window, 'pageXOffset', {
+        value: 50,
+        writable: true,
+      });
 
       render(<Guide steps={mockSteps} current={0} mode="dialog" />);
 
@@ -1007,14 +1078,26 @@ describe('Guide Component', () => {
       expect(portal).toBeInTheDocument();
 
       // 重置模拟
-      Object.defineProperty(window, 'pageYOffset', { value: 0, writable: true });
-      Object.defineProperty(window, 'pageXOffset', { value: 0, writable: true });
+      Object.defineProperty(window, 'pageYOffset', {
+        value: 0,
+        writable: true,
+      });
+      Object.defineProperty(window, 'pageXOffset', {
+        value: 0,
+        writable: true,
+      });
     });
 
     it('should handle window scroll calculations in dialog mode', () => {
       // 模拟对话框模式下窗口滚动
-      Object.defineProperty(window, 'pageYOffset', { value: 200, writable: true });
-      Object.defineProperty(window, 'pageXOffset', { value: 100, writable: true });
+      Object.defineProperty(window, 'pageYOffset', {
+        value: 200,
+        writable: true,
+      });
+      Object.defineProperty(window, 'pageXOffset', {
+        value: 100,
+        writable: true,
+      });
 
       render(<Guide steps={mockSteps} current={0} mode="dialog" />);
 
@@ -1022,8 +1105,14 @@ describe('Guide Component', () => {
       expect(portal).toBeInTheDocument();
 
       // 重置模拟
-      Object.defineProperty(window, 'pageYOffset', { value: 0, writable: true });
-      Object.defineProperty(window, 'pageXOffset', { value: 0, writable: true });
+      Object.defineProperty(window, 'pageYOffset', {
+        value: 0,
+        writable: true,
+      });
+      Object.defineProperty(window, 'pageXOffset', {
+        value: 0,
+        writable: true,
+      });
     });
 
     it('should handle reference positioning in custom highlight content', () => {
@@ -1181,8 +1270,14 @@ describe('Guide Component', () => {
 
     it('should handle window scroll offset calculations in setHighlightLayerPosition', () => {
       // 模拟窗口滚动值
-      Object.defineProperty(window, 'pageYOffset', { value: 150, writable: true });
-      Object.defineProperty(window, 'pageXOffset', { value: 75, writable: true });
+      Object.defineProperty(window, 'pageYOffset', {
+        value: 150,
+        writable: true,
+      });
+      Object.defineProperty(window, 'pageXOffset', {
+        value: 75,
+        writable: true,
+      });
 
       const stepsWithScroll: GuideStep[] = [
         {
@@ -1200,8 +1295,14 @@ describe('Guide Component', () => {
       expect(portal).toBeInTheDocument();
 
       // 重置模拟
-      Object.defineProperty(window, 'pageYOffset', { value: 0, writable: true });
-      Object.defineProperty(window, 'pageXOffset', { value: 0, writable: true });
+      Object.defineProperty(window, 'pageYOffset', {
+        value: 0,
+        writable: true,
+      });
+      Object.defineProperty(window, 'pageXOffset', {
+        value: 0,
+        writable: true,
+      });
     });
 
     it('should handle showPopoverGuide with center placement triggering setReferenceFullW', () => {

@@ -1,5 +1,6 @@
-import { FC, ReactElement } from 'react';
 import { useInitialized } from './useInitialized';
+
+import type { FC, ReactElement } from 'react';
 
 interface Props {
   active: boolean;

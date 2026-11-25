@@ -1,6 +1,7 @@
 import React from 'react';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, test, vi } from '@test/utils';
 import { cleanup, render } from '@testing-library/react';
+
 import Watermark from '../index';
 
 describe('Watermark', () => {
@@ -84,7 +85,9 @@ describe('Watermark', () => {
         <div></div>
       </Watermark>,
     );
-    expect(watermark.lastChild).toHaveStyle({ 'background-repeat': 'no-repeat' });
+    expect(watermark.lastChild).toHaveStyle({
+      'background-repeat': 'no-repeat',
+    });
   });
 
   test('offset prop overrides default offsetLeft / offsetTop', () => {
@@ -110,7 +113,15 @@ describe('Watermark', () => {
   test('multiple watermarkContent (array of text)', () => {
     const watermark = renderWatermark(
       <Watermark
-        watermarkContent={[{ text: '第一行', fontSize: 14, fontWeight: 'bold', fontColor: '#000' }, { text: '第二行' }]}
+        watermarkContent={[
+          {
+            text: '第一行',
+            fontSize: 14,
+            fontWeight: 'bold',
+            fontColor: '#000',
+          },
+          { text: '第二行' },
+        ]}
         alpha={0.5}
         zIndex={20}
         lineSpace={20}
@@ -138,8 +149,12 @@ describe('Watermark', () => {
       </Watermark>,
     );
     // 可移动状态使用 no-repeat
-    expect(watermark.lastChild).toHaveStyle({ 'background-repeat': 'no-repeat' });
-    expect(watermark.lastChild).toHaveStyle({ animation: 'watermark infinite 1s' });
+    expect(watermark.lastChild).toHaveStyle({
+      'background-repeat': 'no-repeat',
+    });
+    expect(watermark.lastChild).toHaveStyle({
+      animation: 'watermark infinite 1s',
+    });
   });
 
   test('movable with width = 0 (covers backgroundSize fallback branches)', () => {

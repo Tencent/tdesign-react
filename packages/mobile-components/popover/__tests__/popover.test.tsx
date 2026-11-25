@@ -1,5 +1,6 @@
-import { render, fireEvent, waitFor, describe, test, expect, vi } from '@test/utils';
 import React from 'react';
+import { describe, expect, fireEvent, render, test, vi, waitFor } from '@test/utils';
+
 import Popover from '../index';
 
 describe('Popover', () => {
@@ -12,7 +13,7 @@ describe('Popover', () => {
         </Popover>,
       );
 
-      fireEvent.click(container.querySelector('button')!);
+      fireEvent.click(container.querySelector('button') as HTMLElement);
 
       await waitFor(() => {
         expect(container.querySelector('.t-popover__content')).toHaveTextContent('String content');
@@ -27,7 +28,7 @@ describe('Popover', () => {
         </Popover>,
       );
 
-      fireEvent.click(container.querySelector('button')!);
+      fireEvent.click(container.querySelector('button') as HTMLElement);
 
       await waitFor(() => {
         expect(container.querySelector('.custom-content')).toHaveTextContent('JSX content');
@@ -42,7 +43,7 @@ describe('Popover', () => {
         </Popover>,
       );
 
-      fireEvent.click(container.querySelector('button')!);
+      fireEvent.click(container.querySelector('button') as HTMLElement);
 
       await waitFor(() => {
         expect(container.querySelector('.t-popover__content')).toHaveTextContent('');
@@ -108,7 +109,7 @@ describe('Popover', () => {
           </Popover>,
         );
 
-        fireEvent.click(container.querySelector('button')!);
+        fireEvent.click(container.querySelector('button') as HTMLElement);
 
         await waitFor(() => {
           expect(container.querySelector('.t-popover__content')).toHaveClass(`t-popover--${theme}`);
@@ -127,7 +128,7 @@ describe('Popover', () => {
         </Popover>,
       );
 
-      fireEvent.click(container.querySelector('button')!);
+      fireEvent.click(container.querySelector('button') as HTMLElement);
 
       await waitFor(() => {
         expect(container.querySelector('.t-popover__arrow')).toBeTruthy();
@@ -142,7 +143,7 @@ describe('Popover', () => {
         </Popover>,
       );
 
-      fireEvent.click(container.querySelector('button')!);
+      fireEvent.click(container.querySelector('button') as HTMLElement);
 
       await waitFor(() => {
         expect(container.querySelector('.t-popover__arrow')).toBeNull();
@@ -168,7 +169,7 @@ describe('Popover', () => {
 
       expect(container.querySelector('.custom-trigger')).toHaveTextContent('Custom');
 
-      fireEvent.click(container.querySelector('.custom-trigger')!);
+      fireEvent.click(container.querySelector('.custom-trigger') as HTMLElement);
 
       await waitFor(() => {
         expect(container.querySelector('.t-popover')).toBeTruthy();
@@ -223,12 +224,12 @@ describe('Popover', () => {
         </div>,
       );
 
-      fireEvent.click(container.querySelector('button')!);
+      fireEvent.click(container.querySelector('button') as HTMLElement);
       await waitFor(() => {
         expect(container.querySelector('.t-popover')).toBeTruthy();
       });
 
-      fireEvent.click(container.querySelector('.outside')!);
+      fireEvent.click(container.querySelector('.outside') as HTMLElement);
       await waitFor(() => {
         expect(container.querySelector('.t-popover')).toHaveStyle('display: none');
       });
@@ -245,12 +246,12 @@ describe('Popover', () => {
         </div>,
       );
 
-      fireEvent.click(container.querySelector('button')!);
+      fireEvent.click(container.querySelector('button') as HTMLElement);
       await waitFor(() => {
         expect(container.querySelector('.t-popover')).not.toHaveStyle('display: none');
       });
 
-      fireEvent.click(container.querySelector('.outside')!);
+      fireEvent.click(container.querySelector('.outside') as HTMLElement);
       await waitFor(() => {
         expect(container.querySelector('.t-popover')).not.toHaveStyle('display: none');
       });
@@ -264,7 +265,7 @@ describe('Popover', () => {
         </Popover>,
       );
 
-      const trigger = container.querySelector('button')!;
+      const trigger = container.querySelector('button') as HTMLElement;
 
       fireEvent.click(trigger);
       await waitFor(() => {
@@ -286,7 +287,7 @@ describe('Popover', () => {
         </Popover>,
       );
 
-      fireEvent.click(container.querySelector('button')!);
+      fireEvent.click(container.querySelector('button') as HTMLElement);
 
       await waitFor(() => {
         expect(onVisibleChange).toHaveBeenCalledWith(true);

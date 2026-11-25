@@ -1,17 +1,21 @@
-import React, { RefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { isNumber } from 'lodash-es';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
-import { Property } from 'csstype';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { usePrefixClass } from '../hooks/useClass';
+import { isNumber } from 'lodash-es';
+
 import forwardRefWithStatics from '../_util/forwardRefWithStatics';
-import { useSwipe } from '../_util/useSwipe';
 import parseTNode from '../_util/parseTNode';
-import { StyledProps, TNode } from '../common';
-import { SwiperChangeSource, SwiperNavigation, TdSwiperProps } from './type';
+import { useSwipe } from '../_util/useSwipe';
+import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
 import { swiperDefaultProps } from './defaultProps';
+import SwiperContext from './SwiperContext';
 import SwiperItem from './SwiperItem';
-import SwiperContext, { SwiperItemReference } from './SwiperContext';
+
+import type { RefObject } from 'react';
+import type { Property } from 'csstype';
+import type { StyledProps, TNode } from '../common';
+import type { SwiperItemReference } from './SwiperContext';
+import type { SwiperChangeSource, SwiperNavigation, TdSwiperProps } from './type';
 
 // 默认导航配置
 const DEFAULT_SWIPER_NAVIGATION: SwiperNavigation = {
@@ -118,7 +122,11 @@ const Swiper = forwardRefWithStatics(
     // 获取实际使用的导航配置
     const getNavigation = useCallback((): SwiperNavigation => {
       if (navigation === true) return DEFAULT_SWIPER_NAVIGATION;
-      if (isSwiperNavigation) return { ...DEFAULT_SWIPER_NAVIGATION, ...(navigation as SwiperNavigation) };
+      if (isSwiperNavigation)
+        return {
+          ...DEFAULT_SWIPER_NAVIGATION,
+          ...(navigation as SwiperNavigation),
+        };
       // navigation 是 truthy 但不是有效配置时（如自定义 TNode），返回空对象
       return {} as SwiperNavigation;
     }, [navigation, isSwiperNavigation]);

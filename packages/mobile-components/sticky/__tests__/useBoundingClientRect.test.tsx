@@ -1,4 +1,5 @@
-import { describe, expect, it, renderHook, vi, beforeEach } from '@test/utils';
+import { beforeEach, describe, expect, it, renderHook, vi } from '@test/utils';
+
 import useBoundingClientRect from '../hooks/useBoundingClientRect';
 
 describe('useBoundingClientRect', () => {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { describe, it, expect, render, fireEvent, vi, act, afterEach } from '@test/utils';
+import { act, afterEach, describe, expect, fireEvent, it, render, vi } from '@test/utils';
+
 import Swiper from '../index';
 
 const prefix = 't';
@@ -63,11 +64,11 @@ describe('Swiper', () => {
     expect(container.querySelectorAll(`${swiperNavClass}__dots-item`).length).toBe(3);
     expect(container.querySelector(`${swiperItemClass}--active`)).toBeInTheDocument();
 
-    const swiperContainer = container.querySelector(`${swiperClass}__container--card`)!;
+    const swiperContainer = container.querySelector(`${swiperClass}__container--card`) as HTMLElement;
     fireEvent.click(swiperContainer);
     expect(handleClick).toHaveBeenCalledWith(0);
 
-    const nextBtn = container.querySelector(`${swiperNavClass}__btn--next`)! as HTMLElement;
+    const nextBtn = container.querySelector(`${swiperNavClass}__btn--next`) as HTMLElement;
     fireEvent.click(nextBtn);
 
     await act(async () => {
@@ -138,7 +139,7 @@ describe('Swiper', () => {
       </Swiper>,
     );
 
-    const containerEl = container.querySelector(`${swiperClass}__container--card`)! as HTMLElement;
+    const containerEl = container.querySelector(`${swiperClass}__container--card`) as HTMLElement;
     expect(containerEl.style.left).toBe('24px');
     expect(containerEl.style.right).toBe('16px');
     expect(containerEl.style.flexDirection).toBe('column');
@@ -186,13 +187,20 @@ describe('Swiper', () => {
     );
 
     await flushEffects();
-    const swiperContainer = container.querySelector(`${swiperClass}__container--card`)! as HTMLElement;
+    const swiperContainer = container.querySelector(`${swiperClass}__container--card`) as HTMLElement;
 
-    fireEvent.touchStart(swiperContainer, { touches: [{ clientX: 200, clientY: 0 }] });
-    fireEvent.touchMove(swiperContainer, { touches: [{ clientX: -200, clientY: 0 }] });
+    fireEvent.touchStart(swiperContainer, {
+      touches: [{ clientX: 200, clientY: 0 }],
+    });
+    fireEvent.touchMove(swiperContainer, {
+      touches: [{ clientX: -200, clientY: 0 }],
+    });
     expect(swiperContainer.style.transform).toContain('translateX(-100%)');
     expect(container.querySelectorAll(`${swiperItemClass}--next`).length).toBeGreaterThan(0);
-    fireEvent.touchEnd(swiperContainer, { changedTouches: [{ clientX: -200, clientY: 0 }], touches: [] });
+    fireEvent.touchEnd(swiperContainer, {
+      changedTouches: [{ clientX: -200, clientY: 0 }],
+      touches: [],
+    });
 
     await act(async () => {
       await vi.advanceTimersByTimeAsync(15);
@@ -201,9 +209,16 @@ describe('Swiper', () => {
     handleChange.mockClear();
 
     // Test that small movements below threshold don't trigger a change
-    fireEvent.touchStart(swiperContainer, { touches: [{ clientX: 0, clientY: 0 }] });
-    fireEvent.touchMove(swiperContainer, { touches: [{ clientX: 20, clientY: 0 }] });
-    fireEvent.touchEnd(swiperContainer, { changedTouches: [{ clientX: 20, clientY: 0 }], touches: [] });
+    fireEvent.touchStart(swiperContainer, {
+      touches: [{ clientX: 0, clientY: 0 }],
+    });
+    fireEvent.touchMove(swiperContainer, {
+      touches: [{ clientX: 20, clientY: 0 }],
+    });
+    fireEvent.touchEnd(swiperContainer, {
+      changedTouches: [{ clientX: 20, clientY: 0 }],
+      touches: [],
+    });
 
     await act(async () => {
       await vi.advanceTimersByTimeAsync(15);
@@ -211,11 +226,18 @@ describe('Swiper', () => {
     expect(handleChange).not.toHaveBeenCalled();
     expect(container.querySelector(`${swiperItemClass}--active`)).toHaveTextContent('Beta');
 
-    fireEvent.touchStart(swiperContainer, { touches: [{ clientX: -200, clientY: 0 }] });
-    fireEvent.touchMove(swiperContainer, { touches: [{ clientX: 220, clientY: 0 }] });
+    fireEvent.touchStart(swiperContainer, {
+      touches: [{ clientX: -200, clientY: 0 }],
+    });
+    fireEvent.touchMove(swiperContainer, {
+      touches: [{ clientX: 220, clientY: 0 }],
+    });
     expect(swiperContainer.style.transform).toContain('translateX(100%)');
     expect(container.querySelectorAll(`${swiperItemClass}--prev`).length).toBeGreaterThan(0);
-    fireEvent.touchEnd(swiperContainer, { changedTouches: [{ clientX: 220, clientY: 0 }], touches: [] });
+    fireEvent.touchEnd(swiperContainer, {
+      changedTouches: [{ clientX: 220, clientY: 0 }],
+      touches: [],
+    });
 
     await act(async () => {
       await vi.advanceTimersByTimeAsync(15);
@@ -236,11 +258,18 @@ describe('Swiper', () => {
       </Swiper>,
     );
 
-    const swiperContainer = container.querySelector(`${swiperClass}__container--card`)!;
+    const swiperContainer = container.querySelector(`${swiperClass}__container--card`) as HTMLElement;
     const baselineCalls = handleChange.mock.calls.length;
-    fireEvent.touchStart(swiperContainer, { touches: [{ clientX: 120, clientY: 0 }] });
-    fireEvent.touchMove(swiperContainer, { touches: [{ clientX: 0, clientY: 0 }] });
-    fireEvent.touchEnd(swiperContainer, { changedTouches: [{ clientX: 0, clientY: 0 }], touches: [] });
+    fireEvent.touchStart(swiperContainer, {
+      touches: [{ clientX: 120, clientY: 0 }],
+    });
+    fireEvent.touchMove(swiperContainer, {
+      touches: [{ clientX: 0, clientY: 0 }],
+    });
+    fireEvent.touchEnd(swiperContainer, {
+      changedTouches: [{ clientX: 0, clientY: 0 }],
+      touches: [],
+    });
 
     await act(async () => {
       await vi.advanceTimersByTimeAsync(0);
@@ -263,18 +292,25 @@ describe('Swiper', () => {
     );
 
     const baselineCalls = handleChange.mock.calls.length;
-    const swiperContainer = container.querySelector(`${swiperClass}__container--card`)! as HTMLElement;
+    const swiperContainer = container.querySelector(`${swiperClass}__container--card`) as HTMLElement;
     const startY = 240;
     const moveY = 180;
     const containerHeight = 360;
 
-    fireEvent.touchStart(swiperContainer, { touches: [{ clientX: 0, clientY: startY }] });
-    fireEvent.touchMove(swiperContainer, { touches: [{ clientX: 0, clientY: moveY }] });
+    fireEvent.touchStart(swiperContainer, {
+      touches: [{ clientX: 0, clientY: startY }],
+    });
+    fireEvent.touchMove(swiperContainer, {
+      touches: [{ clientX: 0, clientY: moveY }],
+    });
 
     const expectedPercent = ((moveY - startY) / containerHeight) * 100;
     expect(swiperContainer.style.transform).toContain(`translateY(${expectedPercent}%)`);
 
-    fireEvent.touchEnd(swiperContainer, { changedTouches: [{ clientX: 0, clientY: 180 }], touches: [] });
+    fireEvent.touchEnd(swiperContainer, {
+      changedTouches: [{ clientX: 0, clientY: 180 }],
+      touches: [],
+    });
 
     await act(async () => {
       await vi.advanceTimersByTimeAsync(12);
@@ -295,7 +331,12 @@ describe('Swiper', () => {
         previousMargin="5%"
         nextMargin="12%"
         height="180px"
-        navigation={{ type: 'dots-bar', paginationPosition: 'bottom', placement: 'outside', minShowNum: 1 }}
+        navigation={{
+          type: 'dots-bar',
+          paginationPosition: 'bottom',
+          placement: 'outside',
+          minShowNum: 1,
+        }}
       >
         <Swiper.SwiperItem>Slide A</Swiper.SwiperItem>
         <Swiper.SwiperItem>Slide B</Swiper.SwiperItem>
@@ -304,7 +345,7 @@ describe('Swiper', () => {
       </Swiper>,
     );
 
-    const cardContainer = container.querySelector(`${swiperClass}__container--card`)! as HTMLElement;
+    const cardContainer = container.querySelector(`${swiperClass}__container--card`) as HTMLElement;
     expect(cardContainer.style.left).toBe('5%');
     expect(cardContainer.style.right).toBe('12%');
     expect(cardContainer.style.height).toBe('180px');
@@ -320,7 +361,11 @@ describe('Swiper', () => {
         previousMargin="5%"
         nextMargin="12%"
         height="180px"
-        navigation={{ type: '' as any, placement: 'outside', paginationPosition: 'bottom' }}
+        navigation={{
+          type: '' as any,
+          placement: 'outside',
+          paginationPosition: 'bottom',
+        }}
       >
         <Swiper.SwiperItem>Slide A</Swiper.SwiperItem>
         <Swiper.SwiperItem>Slide B</Swiper.SwiperItem>
@@ -346,10 +391,17 @@ describe('Swiper', () => {
       </Swiper>,
     );
 
-    const emptyContainer = container.querySelector(`${swiperClass}__container--card`)! as HTMLElement;
-    fireEvent.touchStart(emptyContainer, { touches: [{ clientX: 10, clientY: 5 }] });
-    fireEvent.touchMove(emptyContainer, { touches: [{ clientX: 80, clientY: 5 }] });
-    fireEvent.touchEnd(emptyContainer, { changedTouches: [{ clientX: 80, clientY: 5 }], touches: [] });
+    const emptyContainer = container.querySelector(`${swiperClass}__container--card`) as HTMLElement;
+    fireEvent.touchStart(emptyContainer, {
+      touches: [{ clientX: 10, clientY: 5 }],
+    });
+    fireEvent.touchMove(emptyContainer, {
+      touches: [{ clientX: 80, clientY: 5 }],
+    });
+    fireEvent.touchEnd(emptyContainer, {
+      changedTouches: [{ clientX: 80, clientY: 5 }],
+      touches: [],
+    });
     expect(emptyContainer.style.transform).toBe('');
 
     rerender(
@@ -359,10 +411,17 @@ describe('Swiper', () => {
       </Swiper>,
     );
 
-    const fallbackContainer = container.querySelector(`${swiperClass}__container--card`)! as HTMLElement;
-    fireEvent.touchStart(fallbackContainer, { touches: [{ clientX: 100, clientY: 0 }] });
-    fireEvent.touchMove(fallbackContainer, { touches: [{ clientX: -260, clientY: 0 }] });
-    fireEvent.touchEnd(fallbackContainer, { changedTouches: [{ clientX: -260, clientY: 0 }], touches: [] });
+    const fallbackContainer = container.querySelector(`${swiperClass}__container--card`) as HTMLElement;
+    fireEvent.touchStart(fallbackContainer, {
+      touches: [{ clientX: 100, clientY: 0 }],
+    });
+    fireEvent.touchMove(fallbackContainer, {
+      touches: [{ clientX: -260, clientY: 0 }],
+    });
+    fireEvent.touchEnd(fallbackContainer, {
+      changedTouches: [{ clientX: -260, clientY: 0 }],
+      touches: [],
+    });
     await flushEffects();
     const swiperItems = Array.from(container.querySelectorAll(`${swiperItemClass}`));
     expect(swiperItems[0]).toHaveTextContent('Solo');
@@ -379,24 +438,38 @@ describe('Swiper', () => {
       </Swiper>,
     );
 
-    const activeContainer = container.querySelector(`${swiperClass}__container--card`)! as HTMLElement;
+    const activeContainer = container.querySelector(`${swiperClass}__container--card`) as HTMLElement;
     const nextBtn = container.querySelector(`${swiperNavClass}__btn--next`);
     if (nextBtn) {
       fireEvent.click(nextBtn);
     }
 
-    fireEvent.touchStart(activeContainer, { touches: [{ clientX: 160, clientY: 0 }] });
-    fireEvent.touchMove(activeContainer, { touches: [{ clientX: -120, clientY: 0 }] });
-    fireEvent.touchEnd(activeContainer, { changedTouches: [{ clientX: -120, clientY: 0 }], touches: [] });
+    fireEvent.touchStart(activeContainer, {
+      touches: [{ clientX: 160, clientY: 0 }],
+    });
+    fireEvent.touchMove(activeContainer, {
+      touches: [{ clientX: -120, clientY: 0 }],
+    });
+    fireEvent.touchEnd(activeContainer, {
+      changedTouches: [{ clientX: -120, clientY: 0 }],
+      touches: [],
+    });
 
     await act(async () => {
       await vi.advanceTimersByTimeAsync(25);
     });
 
-    fireEvent.touchStart(activeContainer, { touches: [{ clientX: 0, clientY: 0 }] });
-    fireEvent.touchMove(activeContainer, { touches: [{ clientX: -700, clientY: 0 }] });
+    fireEvent.touchStart(activeContainer, {
+      touches: [{ clientX: 0, clientY: 0 }],
+    });
+    fireEvent.touchMove(activeContainer, {
+      touches: [{ clientX: -700, clientY: 0 }],
+    });
     expect(activeContainer.style.transform).toContain('translateX(-100%)');
-    fireEvent.touchEnd(activeContainer, { changedTouches: [{ clientX: -700, clientY: 0 }], touches: [] });
+    fireEvent.touchEnd(activeContainer, {
+      changedTouches: [{ clientX: -700, clientY: 0 }],
+      touches: [],
+    });
 
     await act(async () => {
       await vi.advanceTimersByTimeAsync(25);
@@ -452,7 +525,7 @@ describe('Swiper', () => {
 
     await flushEffects();
     const initialCalls = handleChange.mock.calls.length;
-    const prevBtn = container.querySelector(`${swiperNavClass}__btn--prev`)! as HTMLElement;
+    const prevBtn = container.querySelector(`${swiperNavClass}__btn--prev`) as HTMLElement;
     fireEvent.click(prevBtn);
 
     await act(async () => {
@@ -503,10 +576,17 @@ describe('Swiper', () => {
     expect(container.querySelector(`${swiperNavClass}__btn`)).not.toBeInTheDocument(); // controls not shown in vertical
     expect(container.querySelectorAll(`${swiperNavClass}__dots-item`).length).toBe(3);
 
-    const swiperContainer = container.querySelector(`${swiperClass}__container--card`)! as HTMLElement;
-    fireEvent.touchStart(swiperContainer, { touches: [{ clientX: 0, clientY: 200 }] });
-    fireEvent.touchMove(swiperContainer, { touches: [{ clientX: 0, clientY: 50 }] });
-    fireEvent.touchEnd(swiperContainer, { changedTouches: [{ clientX: 0, clientY: 50 }], touches: [] });
+    const swiperContainer = container.querySelector(`${swiperClass}__container--card`) as HTMLElement;
+    fireEvent.touchStart(swiperContainer, {
+      touches: [{ clientX: 0, clientY: 200 }],
+    });
+    fireEvent.touchMove(swiperContainer, {
+      touches: [{ clientX: 0, clientY: 50 }],
+    });
+    fireEvent.touchEnd(swiperContainer, {
+      changedTouches: [{ clientX: 0, clientY: 50 }],
+      touches: [],
+    });
 
     await act(async () => {
       await vi.advanceTimersByTimeAsync(20);
@@ -580,7 +660,14 @@ describe('Swiper', () => {
   it('renders dots-bar navigation with top pagination position', async () => {
     mockElementMetrics();
     const { container } = render(
-      <Swiper autoplay={false} navigation={{ type: 'dots-bar', paginationPosition: 'top', placement: 'inside' }}>
+      <Swiper
+        autoplay={false}
+        navigation={{
+          type: 'dots-bar',
+          paginationPosition: 'top',
+          placement: 'inside',
+        }}
+      >
         <Swiper.SwiperItem>Slide 1</Swiper.SwiperItem>
         <Swiper.SwiperItem>Slide 2</Swiper.SwiperItem>
         <Swiper.SwiperItem>Slide 3</Swiper.SwiperItem>
@@ -596,7 +683,14 @@ describe('Swiper', () => {
   it('renders fraction navigation with bottom pagination position', async () => {
     mockElementMetrics();
     const { container, getByText } = render(
-      <Swiper autoplay={false} navigation={{ type: 'fraction', paginationPosition: 'bottom', placement: 'outside' }}>
+      <Swiper
+        autoplay={false}
+        navigation={{
+          type: 'fraction',
+          paginationPosition: 'bottom',
+          placement: 'outside',
+        }}
+      >
         <Swiper.SwiperItem>Slide 1</Swiper.SwiperItem>
         <Swiper.SwiperItem>Slide 2</Swiper.SwiperItem>
         <Swiper.SwiperItem>Slide 3</Swiper.SwiperItem>
@@ -646,12 +740,12 @@ describe('Swiper', () => {
       </Swiper>,
     );
 
-    const cardContainer = container.querySelector(`${swiperClass}__container--card`)! as HTMLElement;
+    const cardContainer = container.querySelector(`${swiperClass}__container--card`) as HTMLElement;
     expect(cardContainer.style.left).toBe('10%');
     expect(cardContainer.style.right).toBe('15%');
     expect(container.querySelector(`${swiperClass}`)).toHaveClass('t-swiper--card');
 
-    const nextBtn = container.querySelector(`${swiperNavClass}__btn--next`)! as HTMLElement;
+    const nextBtn = container.querySelector(`${swiperNavClass}__btn--next`) as HTMLElement;
     fireEvent.click(nextBtn);
 
     await act(async () => {
@@ -670,7 +764,7 @@ describe('Swiper', () => {
       </Swiper>,
     );
 
-    const swiperContainer = container.querySelector(`${swiperClass}__container--card`)! as HTMLElement;
+    const swiperContainer = container.querySelector(`${swiperClass}__container--card`) as HTMLElement;
     expect(swiperContainer.style.height).toBe('500px');
     expect(swiperContainer.style.flexDirection).toBe('column');
   });
@@ -688,13 +782,20 @@ describe('Swiper', () => {
       </Swiper>,
     );
 
-    const swiperContainer = container.querySelector(`${swiperClass}__container--card`)!;
+    const swiperContainer = container.querySelector(`${swiperClass}__container--card`) as HTMLElement;
     const nextBtn = container.querySelector(`${swiperNavClass}__btn--next`);
 
     // Touch should not work
-    fireEvent.touchStart(swiperContainer, { touches: [{ clientX: 150, clientY: 0 }] });
-    fireEvent.touchMove(swiperContainer, { touches: [{ clientX: 50, clientY: 0 }] });
-    fireEvent.touchEnd(swiperContainer, { changedTouches: [{ clientX: 50, clientY: 0 }], touches: [] });
+    fireEvent.touchStart(swiperContainer, {
+      touches: [{ clientX: 150, clientY: 0 }],
+    });
+    fireEvent.touchMove(swiperContainer, {
+      touches: [{ clientX: 50, clientY: 0 }],
+    });
+    fireEvent.touchEnd(swiperContainer, {
+      changedTouches: [{ clientX: 50, clientY: 0 }],
+      touches: [],
+    });
 
     // Click should not work
     fireEvent.click(swiperContainer);
@@ -772,8 +873,8 @@ describe('Swiper', () => {
     );
 
     await flushEffects();
-    const prevBtn = container.querySelector(`${swiperNavClass}__btn--prev`)! as HTMLElement;
-    const nextBtn = container.querySelector(`${swiperNavClass}__btn--next`)! as HTMLElement;
+    const prevBtn = container.querySelector(`${swiperNavClass}__btn--prev`) as HTMLElement;
+    const nextBtn = container.querySelector(`${swiperNavClass}__btn--next`) as HTMLElement;
 
     // Try to go before first
     fireEvent.click(prevBtn);
@@ -872,7 +973,7 @@ describe('Swiper', () => {
       </Swiper>,
     );
 
-    const swiperContainer = container.querySelector(`${swiperClass}__container--card`)!;
+    const swiperContainer = container.querySelector(`${swiperClass}__container--card`) as HTMLElement;
     fireEvent.click(swiperContainer);
     expect(handleClick).toHaveBeenCalledWith(0);
   });

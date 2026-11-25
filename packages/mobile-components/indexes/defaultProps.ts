@@ -2,6 +2,10 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TdIndexesProps } from './type';
+import type { TdIndexesProps } from './type';
 
-export const indexesDefaultProps: TdIndexesProps = { showFullIndex: false, sticky: true, stickyOffset: 0 };
+export const indexesDefaultProps: TdIndexesProps = {
+  showFullIndex: false,
+  sticky: true,
+  stickyOffset: 0,
+};
