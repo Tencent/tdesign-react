@@ -1,1 +1,1 @@
-import '../../_common/style/mobile/components/typography/_index.less';
+import '../../../common/style/mobile/components/typography/_index.less';

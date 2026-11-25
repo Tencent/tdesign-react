@@ -1,13 +1,15 @@
 import React from 'react';
 import { Navbar } from 'tdesign-mobile-react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BaseDemo from './base';
-import SearchDemo from './search';
+import CustomColorDemo from './custom-color';
 import ImgDemo from './img';
 import LeftTitleDemo from './left-title';
-import CustomColorDemo from './custom-color';
+import SearchDemo from './search';
 import SizeDemo from './size';
+
 import './style/index.less';
 
 export default function Base() {

@@ -1,11 +1,13 @@
 import React from 'react';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BaseDemo from './base';
-import NoMask from './no-mask';
-import DialogDemo from './dialog';
-import PopoverDialogDemo from './popover-dialog';
 import CustomPopover from './custom-popover';
+import DialogDemo from './dialog';
+import NoMask from './no-mask';
+import PopoverDialogDemo from './popover-dialog';
+
 import './style/index.less';
 import './style/dialog-body.less';
 import './style/my-popover.less';

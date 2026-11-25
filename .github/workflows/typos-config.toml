@@ -2,6 +2,9 @@ default.check-filename = true
 
 [default.extend-words]
 actived="actived"
+colum = "colum"
+loosing = "loosing"
+nd = "nd"
 
 [files]
 extend-exclude = ["CHANGELOG*.md", "*.snap","jest.base.conf.js"]

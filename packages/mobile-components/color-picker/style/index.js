@@ -1,1 +1,1 @@
-import '../../_common/style/mobile/components/color-picker/_index.less';
+import '../../../common/style/mobile/components/color-picker/_index.less';

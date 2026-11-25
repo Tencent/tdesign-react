@@ -1,4 +1,5 @@
-import orgPkg from '../../../../package.json';
+import orgPkg from '../../../package.json';
+import tdesignMobileReactPkg from '../../../../package.json';
 
 export const htmlContent = `
   <!DOCTYPE html>
@@ -125,11 +126,11 @@ export const packageJSONContent = JSON.stringify(
       serve: 'vite preview',
     },
     dependencies: {
-      react: orgPkg.devDependencies.react,
-      dayjs: orgPkg.dependencies.dayjs,
-      'react-dom': orgPkg.devDependencies['react-dom'],
-      'tdesign-mobile-react': orgPkg.version,
-      'tdesign-icons-react': orgPkg.dependencies['tdesign-icons-react'],
+      react: orgPkg.dependencies.react,
+      dayjs: tdesignMobileReactPkg.dependencies.dayjs,
+      'react-dom': orgPkg.dependencies['react-dom'],
+      'tdesign-mobile-react': tdesignMobileReactPkg.version,
+      'tdesign-icons-react': tdesignMobileReactPkg.dependencies['tdesign-icons-react'],
       '@types/react': orgPkg.devDependencies['@types/react'],
       '@types/react-dom': orgPkg.devDependencies['@types/react-dom'],
     },

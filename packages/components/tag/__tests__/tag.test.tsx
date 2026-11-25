@@ -41,14 +41,14 @@ describe('Tag', () => {
     test('color[string] variant[outline]', () => {
       const { container } = render(<Tag color={'#ff0000'} variant={'outline'}></Tag>);
       const domWrapper = container.firstChild as HTMLElement;
-      expect(domWrapper.style.borderColor).toBe('#ff0000');
+      expect(domWrapper.style.borderColor).toBe('rgb(255, 0, 0)');
       expect(domWrapper.style.color).toBe('rgb(255, 0, 0)');
     });
 
     test('color[string] variant[light-outline]', () => {
       const { container } = render(<Tag color={'#ff0000'} variant={'light-outline'}></Tag>);
       const domWrapper = container.firstChild as HTMLElement;
-      expect(domWrapper.style.borderColor).toBe('#ff0000');
+      expect(domWrapper.style.borderColor).toBe('rgb(255, 0, 0)');
       expect(domWrapper.style.color).toBe('rgb(255, 0, 0)');
     });
 
@@ -168,7 +168,7 @@ describe('Tag', () => {
         <Tag color={'#ff0000'} variant={'light-outline'} style={{ borderColor: '#0052d9' }}></Tag>,
       );
       const domWrapper = container.firstChild as HTMLElement;
-      expect(domWrapper.style.borderColor).toBe('#0052d9');
+      expect(domWrapper.style.borderColor).toBe('rgb(0, 82, 217)');
     });
   });
 

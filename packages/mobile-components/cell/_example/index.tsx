@@ -1,11 +1,12 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import './style/index.less';
 
-import Single from './single';
-import Multiple from './multiple';
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import Group from './group';
+import Multiple from './multiple';
+import Single from './single';
+
+import './style/index.less';
 
 export default function Base() {
   return (

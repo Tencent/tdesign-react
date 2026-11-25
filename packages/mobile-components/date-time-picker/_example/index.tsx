@@ -1,16 +1,16 @@
 import React from 'react';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
 
-import BaseDemo from './year-month-date';
-import YearMonthDemo from './year-month';
-import TimeDemo from './hour-minute-second';
-import MinuteDemo from './hour-minute';
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import DateSecondDemo from './date-all';
-import WithTitleDemo from './with-title';
-import WithoutTitleDemo from './without-title';
+import MinuteDemo from './hour-minute';
+import TimeDemo from './hour-minute-second';
 import ShowWeekDemo from './show-week';
 import StepsDemo from './steps';
+import WithTitleDemo from './with-title';
+import WithoutTitleDemo from './without-title';
+import YearMonthDemo from './year-month';
+import BaseDemo from './year-month-date';
 
 export default function DateTimePickerDemo() {
   return (

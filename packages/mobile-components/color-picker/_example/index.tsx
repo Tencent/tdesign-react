@@ -1,10 +1,12 @@
 import React from 'react';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import Base from './base';
+import Format from './format';
 import Multiple from './multiple';
 import UsePopup from './use-popup';
-import Format from './format';
+
 import './style/index.less';
 
 export default function ColorPickerDemo() {

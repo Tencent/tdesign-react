@@ -1,6 +1,7 @@
 import React from 'react';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BaseCountDown from './base';
 import SizeCountDown from './size';
 

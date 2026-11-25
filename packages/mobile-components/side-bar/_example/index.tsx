@@ -1,8 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'tdesign-mobile-react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
+
 import './style/index.less';
 import './style/base.less';
 import './style/custom.less';

@@ -1,17 +1,19 @@
-import type { ChangeEvent, CompositionEvent, CSSProperties, FocusEvent, InputEvent, TouchEvent } from 'react';
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { isFunction } from 'lodash-es';
 import { BrowseIcon, BrowseOffIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
-import useDefault from '../_util/useDefault';
+import { getCharacterLength } from '@tdesign/common-js/utils/helper';
+
 import parseTNode from '../_util/parseTNode';
-import { inputDefaultProps } from './defaultProps';
-import { getCharacterLength } from '../_common/js/utils/helper';
+import useDefault from '../_util/useDefault';
+import withNativeProps from '../_util/withNativeProps';
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
-import { TdInputProps } from './type';
-import { StyledProps } from '../common';
-import withNativeProps from '../_util/withNativeProps';
+import { inputDefaultProps } from './defaultProps';
+
+import type { ChangeEvent, CompositionEvent, CSSProperties, FocusEvent, InputEvent, TouchEvent } from 'react';
+import type { StyledProps } from '../common';
+import type { TdInputProps } from './type';
 
 export interface InputProps extends TdInputProps, StyledProps {
   required?: boolean;

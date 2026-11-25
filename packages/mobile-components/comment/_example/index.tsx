@@ -1,10 +1,12 @@
 import React from 'react';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import Base from './base';
+import Collapse from './collapse';
 import Image from './image';
 import Mixed from './mixed';
-import Collapse from './collapse';
+
 import './style/index.less';
 
 export default function CommentDemo() {

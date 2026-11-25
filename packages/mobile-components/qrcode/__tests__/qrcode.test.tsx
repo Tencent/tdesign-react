@@ -1,5 +1,6 @@
 import React from 'react';
-import { describe, it, expect, render, fireEvent, waitFor, vi, cleanup, afterEach, act } from '@test/utils';
+import { act, afterEach, cleanup, describe, expect, fireEvent, it, render, vi, waitFor } from '@test/utils';
+
 import QRCode from '../QRCode';
 import { QRCodeSVG } from '../QRCodeSVG';
 
@@ -221,7 +222,7 @@ describe('QRCodeCanvas - image settings, excavation and crossOrigin (merged)', (
     const { ctx, calls } = createMockCtx();
     vi.spyOn(HTMLCanvasElement.prototype as any, 'getContext').mockImplementation(() => ctx);
 
-    const utils = await import('../../_common/js/qrcode/utils');
+    const utils = await import('@tdesign/common-js/qrcode/utils');
     const excavateSpy = vi.spyOn(utils, 'excavateModules');
 
     const { QRCodeCanvas } = await import('../QRCodeCanvas');
@@ -246,9 +247,18 @@ describe('QRCodeCanvas - image settings, excavation and crossOrigin (merged)', (
     expect(img).toBeTruthy();
     expect(img.getAttribute('crossorigin') || (img as any).crossOrigin).toBe('use-credentials');
 
-    Object.defineProperty(img, 'complete', { configurable: true, get: () => true });
-    Object.defineProperty(img, 'naturalWidth', { configurable: true, get: () => 10 });
-    Object.defineProperty(img, 'naturalHeight', { configurable: true, get: () => 10 });
+    Object.defineProperty(img, 'complete', {
+      configurable: true,
+      get: () => true,
+    });
+    Object.defineProperty(img, 'naturalWidth', {
+      configurable: true,
+      get: () => 10,
+    });
+    Object.defineProperty(img, 'naturalHeight', {
+      configurable: true,
+      get: () => 10,
+    });
 
     act(() => {
       img.dispatchEvent(new Event('load'));
@@ -277,8 +287,8 @@ describe('QRCodeCanvas - image settings, excavation and crossOrigin (merged)', (
     vi.stubGlobal('Path2D', Path2DStub as any);
 
     vi.resetModules();
-    vi.doMock('../../_common/js/qrcode/utils', async () => {
-      const actual: any = await vi.importActual('../../_common/js/qrcode/utils');
+    vi.doMock('@tdesign/common-js/qrcode/utils', async () => {
+      const actual: any = await vi.importActual('@tdesign/common-js/qrcode/utils');
       return { ...actual, isSupportPath2d: true };
     });
 

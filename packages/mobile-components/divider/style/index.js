@@ -1,1 +1,1 @@
-import '../../_common/style/mobile/components/divider/_index.less';
+import '../../../common/style/mobile/components/divider/_index.less';

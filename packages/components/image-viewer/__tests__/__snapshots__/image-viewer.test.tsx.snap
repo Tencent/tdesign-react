@@ -4922,7 +4922,7 @@ exports[`ImageViewer > scenarios > mode renders the modeless snapshot > image-vi
         >
           <div
             class="t-dialog t-dialog--default t-dialog-zoom-appear t-dialog-zoom-appear-active"
-            style="display: block; transform-origin: 0px 0px;"
+            style="width: min(90vw, 1000px); display: block; transform-origin: 0px 0px;"
           >
             <div
               class="t-dialog__header"
@@ -5423,7 +5423,7 @@ exports[`ImageViewer > scenarios > mode updates the modeless snapshot after navi
         >
           <div
             class="t-dialog t-dialog--default t-dialog-zoom-appear t-dialog-zoom-appear-active"
-            style="display: block; transform-origin: 0px 0px;"
+            style="width: min(90vw, 1000px); display: block; transform-origin: 0px 0px;"
           >
             <div
               class="t-dialog__header"

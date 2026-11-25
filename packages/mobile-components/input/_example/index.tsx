@@ -1,18 +1,20 @@
 import React from 'react';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
+import Align from './align';
+import Banner from './banner';
 import BaseDemo from './base';
+import Bordered from './bordered';
+import Custom from './custom';
+import LabelDemo from './label';
+import Layout from './layout';
 import MaxLength from './maxlength';
-import Suffix from './suffix';
 import Prefix from './prefix';
 import Special from './special';
 import Status from './status';
-import LabelDemo from './label';
-import Align from './align';
-import Layout from './layout';
-import Banner from './banner';
-import Bordered from './bordered';
-import Custom from './custom';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
+import Suffix from './suffix';
+
 import './style/index.less';
 
 export default function RadioDemo() {

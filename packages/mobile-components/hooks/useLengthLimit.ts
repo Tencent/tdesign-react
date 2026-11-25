@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { isNumber, isObject } from 'lodash-es';
-import { getCharacterLength, getUnicodeLength, limitUnicodeMaxLength } from '../_common/js/utils/helper';
-import log from '../_common/js/log';
+import log from '@tdesign/common-js/log/index';
+import { getCharacterLength, getUnicodeLength, limitUnicodeMaxLength } from '@tdesign/common-js/utils/helper';
 
 export interface UseLengthLimitParams {
   value?: string | number;

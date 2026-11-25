@@ -1,8 +1,9 @@
+import { DEFAULT_SYSTEM_SWATCH_COLORS } from '@tdesign/common-js/color-picker/constants';
+
 import type { TouchEvent } from 'react';
-import { DEFAULT_SYSTEM_SWATCH_COLORS } from '../../_common/js/color-picker/constants';
-import { Color } from '../../_common/js/color-picker';
-import { ColorPickerProps } from '../ColorPicker';
-import { PanelRectType } from '../types';
+import type { Color } from '@tdesign/common-js/color-picker/index';
+import type { ColorPickerProps } from '../ColorPicker';
+import type { PanelRectType } from '../types';
 
 export const getCoordinate = (e: TouchEvent, rect: PanelRectType, isFixed?: boolean) => {
   const { pageX, pageY, clientY } = e?.changedTouches?.[0] || {};

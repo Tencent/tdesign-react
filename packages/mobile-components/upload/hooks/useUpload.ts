@@ -1,19 +1,21 @@
-import type { ChangeEvent, MouseEvent } from 'react';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { isString, isFunction } from 'lodash-es';
-import type { InnerProgressContext, OnResponseErrorContext } from '../../_common/js/upload/types';
-import type { SizeLimitObj, TdUploadProps, UploadChangeContext, UploadFile, UploadRemoveContext } from '../type';
-import { getFileList, IMAGE_REGEXP } from '../../_common/js/upload/utils';
+import { isFunction, isString } from 'lodash-es';
 import {
   formatToUploadFile,
   getDisplayFiles,
   getFilesAndErrors,
   upload,
   validateFile,
-} from '../../_common/js/upload/main';
+} from '@tdesign/common-js/upload/main';
+import { getFileList, IMAGE_REGEXP } from '@tdesign/common-js/upload/utils';
+
+import useDefault from '../../_util/useDefault';
 import useDefaultProps from '../../hooks/useDefaultProps';
 import { uploadDefaultProps } from '../defaultProps';
-import useDefault from '../../_util/useDefault';
+
+import type { ChangeEvent, MouseEvent } from 'react';
+import type { InnerProgressContext, OnResponseErrorContext } from '@tdesign/common-js/upload/types';
+import type { SizeLimitObj, TdUploadProps, UploadChangeContext, UploadFile, UploadRemoveContext } from '../type';
 
 export type ValidateParams = Parameters<TdUploadProps['onValidate']>[0];
 
@@ -195,7 +197,9 @@ export default function useUpload(props: TdUploadProps) {
     if (disabled) {
       return;
     }
-    const params = { currentSelectedFiles: formatToUploadFile([...files], props.format) };
+    const params = {
+      currentSelectedFiles: formatToUploadFile([...files], props.format),
+    };
     onSelectChange?.([...files], params);
     validateFile({
       uploadValue,
@@ -210,19 +214,28 @@ export default function useUpload(props: TdUploadProps) {
     }).then((args) => {
       // 自定义全文件校验不通过
       if (args.validateResult?.type === 'BEFORE_ALL_FILES_UPLOAD') {
-        const params: ValidateParams = { type: 'BEFORE_ALL_FILES_UPLOAD', files: args.files as UploadFile[] };
+        const params: ValidateParams = {
+          type: 'BEFORE_ALL_FILES_UPLOAD',
+          files: args.files as UploadFile[],
+        };
         onValidate?.(params);
         return;
       }
       // 文件数量校验不通过
       if (args.lengthOverLimit) {
-        const params: ValidateParams = { type: 'FILES_OVER_LENGTH_LIMIT', files: args.files as UploadFile[] };
+        const params: ValidateParams = {
+          type: 'FILES_OVER_LENGTH_LIMIT',
+          files: args.files as UploadFile[],
+        };
         onValidate?.(params);
         if (!(args.files as UploadFile[]).length) return;
       }
       // 过滤相同的文件名
       if (args.hasSameNameFile) {
-        const params: ValidateParams = { type: 'FILTER_FILE_SAME_NAME', files: args.files as UploadFile[] };
+        const params: ValidateParams = {
+          type: 'FILTER_FILE_SAME_NAME',
+          files: args.files as UploadFile[],
+        };
         onValidate?.(params);
       }
       // 文件大小校验结果处理（已过滤超出限制的文件）
@@ -246,7 +259,10 @@ export default function useUpload(props: TdUploadProps) {
           setSizeOverLimitMessage('');
           // 自定义方法 beforeUpload 拦截的文件
           if (beforeUploadErrorFiles.length) {
-            const params: ValidateParams = { type: 'CUSTOM_BEFORE_UPLOAD', files: beforeUploadErrorFiles };
+            const params: ValidateParams = {
+              type: 'CUSTOM_BEFORE_UPLOAD',
+              files: beforeUploadErrorFiles,
+            };
             onValidate?.(params);
           }
         }
@@ -399,7 +415,11 @@ export default function useUpload(props: TdUploadProps) {
     }
 
     if (context?.file && !autoUpload) {
-      onInnerRemove?.({ file: context.file, e: context.e as MouseEvent<HTMLElement>, index: 0 });
+      onInnerRemove?.({
+        file: context.file,
+        e: context.e as MouseEvent<HTMLElement>,
+        index: 0,
+      });
     }
   };
 

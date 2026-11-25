@@ -1,11 +1,13 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import FeedbackUsage from './feedback';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import ConfirmUsage from './confirm';
-import InputUsage from './input';
+import FeedbackUsage from './feedback';
 import ImageUsage from './image-dialog';
+import InputUsage from './input';
 import MultiStateUsage from './multi-state';
+
 import './style/index.less';
 
 export default function Base() {

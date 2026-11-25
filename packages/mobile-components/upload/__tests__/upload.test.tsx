@@ -1,16 +1,17 @@
-import { vi } from 'vitest';
-import { describe, it, expect, render, fireEvent, waitFor, act } from '@test/utils';
-
 import React from 'react';
-import type { UploadFile } from '../type';
+import { vi } from 'vitest';
+import { act, describe, expect, fireEvent, it, render, waitFor } from '@test/utils';
+
 import Upload from '../Upload';
+
+import type { UploadFile } from '../type';
 
 // Mock URL.createObjectURL / revokeObjectURL (jsdom 不支持)
 global.URL.createObjectURL = vi.fn(() => 'blob://mock-object-url');
 global.URL.revokeObjectURL = vi.fn();
 
 // 将 mock 放到文件顶部，确保在导入被测组件之前生效
-vi.mock('../../_common/js/upload/main', () => {
+vi.mock('@tdesign/common-js/upload/main', () => {
   const mockFormatToUploadFile = vi.fn((files: File[]) =>
     files.map((f) => ({ name: f.name, raw: f, status: 'waiting' }) as UploadFile),
   );
@@ -28,7 +29,12 @@ vi.mock('../../_common/js/upload/main', () => {
     const fileValidateList = files.map((f: File) => ({
       file: { name: f.name, raw: f, status: 'waiting', size: f.size },
     }));
-    return Promise.resolve({ files, hasSameNameFile, lengthOverLimit, fileValidateList });
+    return Promise.resolve({
+      files,
+      hasSameNameFile,
+      lengthOverLimit,
+      fileValidateList,
+    });
   });
   const mockUpload = vi.fn((opts: any) => {
     const { toUploadFiles } = opts;
@@ -40,7 +46,12 @@ vi.mock('../../_common/js/upload/main', () => {
       })),
       response: { ok: true },
     };
-    return Promise.resolve({ status: 'success', data, list: [{ data }], failedFiles: [] });
+    return Promise.resolve({
+      status: 'success',
+      data,
+      list: [{ data }],
+      failedFiles: [],
+    });
   });
 
   return {
@@ -52,7 +63,7 @@ vi.mock('../../_common/js/upload/main', () => {
   };
 });
 
-vi.mock('../../_common/js/upload/utils', () => ({
+vi.mock('@tdesign/common-js/upload/utils', () => ({
   getFileList: vi.fn((fl: FileList) => Array.from(fl)),
   getFileUrlByFileRaw: vi.fn(async () => 'blob://mock-url'),
   IMAGE_REGEXP: /\.(png|gif|jpg|jpeg|webp|svg|bmp|ico)(\?.*)?$/i,
@@ -98,7 +109,13 @@ describe('Upload', () => {
     });
 
     it(': max controls add button visibility', () => {
-      const files: UploadFile[] = [{ name: 'test.png', url: 'https://example.com/test.png', status: 'success' }];
+      const files: UploadFile[] = [
+        {
+          name: 'test.png',
+          url: 'https://example.com/test.png',
+          status: 'success',
+        },
+      ];
       const { container } = render(<Upload max={1} files={files} />);
       const addBtn = container.querySelector(`${name}__item--add`);
       expect(addBtn).toBeNull();
@@ -133,8 +150,16 @@ describe('Upload', () => {
 
     it(': files display uploaded files', () => {
       const files: UploadFile[] = [
-        { name: 'test1.png', url: 'https://example.com/test1.png', status: 'success' },
-        { name: 'test2.png', url: 'https://example.com/test2.png', status: 'success' },
+        {
+          name: 'test1.png',
+          url: 'https://example.com/test1.png',
+          status: 'success',
+        },
+        {
+          name: 'test2.png',
+          url: 'https://example.com/test2.png',
+          status: 'success',
+        },
       ];
       const { container } = render(<Upload files={files} />);
       const items = container.querySelectorAll(`${name}__item`);
@@ -151,7 +176,13 @@ describe('Upload', () => {
     });
 
     it(': preview controls image preview', () => {
-      const files: UploadFile[] = [{ name: 'test.png', url: 'https://example.com/test.png', status: 'success' }];
+      const files: UploadFile[] = [
+        {
+          name: 'test.png',
+          url: 'https://example.com/test.png',
+          status: 'success',
+        },
+      ];
       const { container } = render(<Upload files={files} preview={false} />);
       const image = container.querySelector(`${name}__image`);
       if (image) {
@@ -161,7 +192,13 @@ describe('Upload', () => {
     });
 
     it(': imageProps passed to Image component', () => {
-      const files: UploadFile[] = [{ name: 'test.png', url: 'https://example.com/test.png', status: 'success' }];
+      const files: UploadFile[] = [
+        {
+          name: 'test.png',
+          url: 'https://example.com/test.png',
+          status: 'success',
+        },
+      ];
       const { container } = render(<Upload files={files} imageProps={{ shape: 'square' }} />);
       const image = container.querySelector(`${name}__image`);
       expect(image).toBeTruthy();
@@ -174,7 +211,13 @@ describe('Upload', () => {
     });
 
     it(': removeBtn=false hides delete button', () => {
-      const files: UploadFile[] = [{ name: 'test.png', url: 'https://example.com/test.png', status: 'success' }];
+      const files: UploadFile[] = [
+        {
+          name: 'test.png',
+          url: 'https://example.com/test.png',
+          status: 'success',
+        },
+      ];
       const { container } = render(<Upload files={files} removeBtn={false} />);
       const delBtn = container.querySelector(`${name}__delete-btn`);
       expect(delBtn).toBeFalsy();
@@ -243,7 +286,7 @@ describe('Upload', () => {
     });
 
     it(': onValidate when validation fails', async () => {
-      const { validateFile } = await import('../../_common/js/upload/main');
+      const { validateFile } = await import('@tdesign/common-js/upload/main');
       vi.mocked(validateFile).mockResolvedValueOnce({
         files: [],
         lengthOverLimit: true,
@@ -311,7 +354,13 @@ describe('Upload', () => {
 
     it(': onPreview when image clicked', () => {
       const onPreview = vi.fn();
-      const files: UploadFile[] = [{ name: 'test.png', url: 'https://example.com/test.png', status: 'success' }];
+      const files: UploadFile[] = [
+        {
+          name: 'test.png',
+          url: 'https://example.com/test.png',
+          status: 'success',
+        },
+      ];
       const { container } = render(<Upload files={files} onPreview={onPreview} />);
       const image = container.querySelector(`${name}__image`);
 
@@ -329,7 +378,13 @@ describe('Upload', () => {
 
     it(': onRemove when delete button clicked', () => {
       const onRemove = vi.fn();
-      const files: UploadFile[] = [{ name: 'test.png', url: 'https://example.com/test.png', status: 'success' }];
+      const files: UploadFile[] = [
+        {
+          name: 'test.png',
+          url: 'https://example.com/test.png',
+          status: 'success',
+        },
+      ];
       const { container } = render(<Upload files={files} onRemove={onRemove} />);
       const deleteBtn = container.querySelector(`${name}__delete-btn`);
 
@@ -446,7 +501,13 @@ describe('Upload', () => {
     });
 
     it(': ImageViewer opens and closes', async () => {
-      const files: UploadFile[] = [{ name: 'test.png', url: 'https://example.com/test.png', status: 'success' }];
+      const files: UploadFile[] = [
+        {
+          name: 'test.png',
+          url: 'https://example.com/test.png',
+          status: 'success',
+        },
+      ];
       const { container } = render(<Upload files={files} />);
       const image = container.querySelector(`${name}__image`);
 
@@ -463,7 +524,12 @@ describe('Upload', () => {
   describe('theme: list', () => {
     it(': renders list layout', () => {
       const files: UploadFile[] = [
-        { name: 'doc.pdf', url: 'https://example.com/doc.pdf', status: 'success', size: 2048 },
+        {
+          name: 'doc.pdf',
+          url: 'https://example.com/doc.pdf',
+          status: 'success',
+          size: 2048,
+        },
       ];
       const { container } = render(<Upload theme="list" files={files} />);
       expect(container.querySelector(`${name}__list`)).toBeTruthy();
@@ -471,7 +537,13 @@ describe('Upload', () => {
     });
 
     it(': list item shows file name', () => {
-      const files: UploadFile[] = [{ name: 'report.docx', url: 'https://example.com/report.docx', status: 'success' }];
+      const files: UploadFile[] = [
+        {
+          name: 'report.docx',
+          url: 'https://example.com/report.docx',
+          status: 'success',
+        },
+      ];
       const { container } = render(<Upload theme="list" files={files} />);
       const nameEl = container.querySelector(`${name}__list-item-name`);
       expect(nameEl?.textContent).toBe('report.docx');
@@ -479,21 +551,38 @@ describe('Upload', () => {
 
     it(': list item shows progress status', () => {
       const files: UploadFile[] = [
-        { name: 'uploading.pdf', url: 'https://example.com/uploading.pdf', status: 'progress', percent: 30 },
+        {
+          name: 'uploading.pdf',
+          url: 'https://example.com/uploading.pdf',
+          status: 'progress',
+          percent: 30,
+        },
       ];
       const { container } = render(<Upload theme="list" files={files} />);
       expect(container.querySelector(`${name}__list-item--progress`)).toBeTruthy();
     });
 
     it(': list item shows fail status', () => {
-      const files: UploadFile[] = [{ name: 'failed.pdf', url: 'https://example.com/failed.pdf', status: 'fail' }];
+      const files: UploadFile[] = [
+        {
+          name: 'failed.pdf',
+          url: 'https://example.com/failed.pdf',
+          status: 'fail',
+        },
+      ];
       const { container } = render(<Upload theme="list" files={files} />);
       expect(container.querySelector(`${name}__list-item--fail`)).toBeTruthy();
     });
 
     it(': list item delete button triggers onRemove', () => {
       const onRemove = vi.fn();
-      const files: UploadFile[] = [{ name: 'doc.pdf', url: 'https://example.com/doc.pdf', status: 'success' }];
+      const files: UploadFile[] = [
+        {
+          name: 'doc.pdf',
+          url: 'https://example.com/doc.pdf',
+          status: 'success',
+        },
+      ];
       const { container } = render(<Upload theme="list" files={files} onRemove={onRemove} />);
       const deleteBtn = container.querySelector(`${name}__list-item-delete`);
       if (deleteBtn) {
@@ -503,7 +592,13 @@ describe('Upload', () => {
     });
 
     it(': list trigger button is hidden when max reached', () => {
-      const files: UploadFile[] = [{ name: 'doc.pdf', url: 'https://example.com/doc.pdf', status: 'success' }];
+      const files: UploadFile[] = [
+        {
+          name: 'doc.pdf',
+          url: 'https://example.com/doc.pdf',
+          status: 'success',
+        },
+      ];
       const { container } = render(<Upload theme="list" files={files} max={1} />);
       const trigger = container.querySelector(`${name}__list-trigger`);
       expect(trigger).toBeNull();
@@ -517,7 +612,13 @@ describe('Upload', () => {
 
     it(': list onPreview triggered on item click', () => {
       const onPreview = vi.fn();
-      const files: UploadFile[] = [{ name: 'doc.pdf', url: 'https://example.com/doc.pdf', status: 'success' }];
+      const files: UploadFile[] = [
+        {
+          name: 'doc.pdf',
+          url: 'https://example.com/doc.pdf',
+          status: 'success',
+        },
+      ];
       const { container } = render(<Upload theme="list" files={files} onPreview={onPreview} />);
       const item = container.querySelector(`${name}__list-item`);
       if (item) {
@@ -527,21 +628,39 @@ describe('Upload', () => {
     });
 
     it(': list removeBtn=false hides delete icon', () => {
-      const files: UploadFile[] = [{ name: 'doc.pdf', url: 'https://example.com/doc.pdf', status: 'success' }];
+      const files: UploadFile[] = [
+        {
+          name: 'doc.pdf',
+          url: 'https://example.com/doc.pdf',
+          status: 'success',
+        },
+      ];
       const { container } = render(<Upload theme="list" files={files} removeBtn={false} />);
       const deleteBtn = container.querySelector(`${name}__list-item-delete`);
       expect(deleteBtn).toBeFalsy();
     });
 
     it(': list item with image file and url shows thumbnail', () => {
-      const files: UploadFile[] = [{ name: 'photo.png', url: 'https://example.com/photo.png', status: 'success' }];
+      const files: UploadFile[] = [
+        {
+          name: 'photo.png',
+          url: 'https://example.com/photo.png',
+          status: 'success',
+        },
+      ];
       const { container } = render(<Upload theme="list" files={files} />);
       const thumbnail = container.querySelector(`${name}__list-item-thumbnail`);
       expect(thumbnail).toBeTruthy();
     });
 
     it(': list item with non-image file shows file type icon', () => {
-      const files: UploadFile[] = [{ name: 'data.xlsx', url: 'https://example.com/data.xlsx', status: 'success' }];
+      const files: UploadFile[] = [
+        {
+          name: 'data.xlsx',
+          url: 'https://example.com/data.xlsx',
+          status: 'success',
+        },
+      ];
       const { container } = render(<Upload theme="list" files={files} />);
       const icon = container.querySelector(`${name}__list-item-icon`);
       expect(icon).toBeTruthy();
@@ -549,7 +668,11 @@ describe('Upload', () => {
 
     it(': list item progress without percent shows uploadingText only', () => {
       const files: UploadFile[] = [
-        { name: 'uploading.pdf', url: 'https://example.com/uploading.pdf', status: 'progress' },
+        {
+          name: 'uploading.pdf',
+          url: 'https://example.com/uploading.pdf',
+          status: 'progress',
+        },
       ];
       const { container } = render(<Upload theme="list" files={files} />);
       expect(container.querySelector(`${name}__list-item--progress`)).toBeTruthy();
@@ -557,7 +680,12 @@ describe('Upload', () => {
 
     it(': list item fail shows error text', () => {
       const files: UploadFile[] = [
-        { name: 'bad.pdf', url: 'https://example.com/bad.pdf', status: 'fail', response: { error: 'network error' } },
+        {
+          name: 'bad.pdf',
+          url: 'https://example.com/bad.pdf',
+          status: 'fail',
+          response: { error: 'network error' },
+        },
       ];
       const { container } = render(<Upload theme="list" files={files} />);
       expect(container.querySelector(`${name}__list-item--fail`)).toBeTruthy();
@@ -565,7 +693,12 @@ describe('Upload', () => {
 
     it(': list item with size shows file size', () => {
       const files: UploadFile[] = [
-        { name: 'doc.pdf', url: 'https://example.com/doc.pdf', status: 'success', size: 4096 },
+        {
+          name: 'doc.pdf',
+          url: 'https://example.com/doc.pdf',
+          status: 'success',
+          size: 4096,
+        },
       ];
       const { container } = render(<Upload theme="list" files={files} />);
       expect(container.querySelector(`${name}__list-item`)).toBeTruthy();
@@ -574,7 +707,13 @@ describe('Upload', () => {
 
   describe('grid: non-image file rendering', () => {
     it(': renders file type icon for non-image file without url', () => {
-      const files: UploadFile[] = [{ name: 'report.pdf', status: 'success', type: 'application/pdf' } as any];
+      const files: UploadFile[] = [
+        {
+          name: 'report.pdf',
+          status: 'success',
+          type: 'application/pdf',
+        } as any,
+      ];
       const { container } = render(<Upload files={files} />);
       const fileContent = container.querySelector(`${name}__file-content`);
       expect(fileContent).toBeTruthy();
@@ -584,7 +723,12 @@ describe('Upload', () => {
 
     it(': does not render file content for non-image file in progress status', () => {
       const files: UploadFile[] = [
-        { name: 'report.pdf', status: 'progress', percent: 50, type: 'application/pdf' } as any,
+        {
+          name: 'report.pdf',
+          status: 'progress',
+          percent: 50,
+          type: 'application/pdf',
+        } as any,
       ];
       const { container } = render(<Upload files={files} />);
       const fileContent = container.querySelector(`${name}__file-content`);
@@ -599,14 +743,26 @@ describe('Upload', () => {
     });
 
     it(': renders file-name for non-image file', () => {
-      const files: UploadFile[] = [{ name: 'my-doc.docx', status: 'success', type: 'application/msword' } as any];
+      const files: UploadFile[] = [
+        {
+          name: 'my-doc.docx',
+          status: 'success',
+          type: 'application/msword',
+        } as any,
+      ];
       const { container } = render(<Upload files={files} />);
       const fileName = container.querySelector(`${name}__file-name`);
       expect(fileName?.textContent).toBe('my-doc.docx');
     });
 
     it(': file item has file class for non-image without url', () => {
-      const files: UploadFile[] = [{ name: 'archive.zip', status: 'success', type: 'application/zip' } as any];
+      const files: UploadFile[] = [
+        {
+          name: 'archive.zip',
+          status: 'success',
+          type: 'application/zip',
+        } as any,
+      ];
       const { container } = render(<Upload files={files} />);
       const fileItem = container.querySelector(`${name}__item--file`);
       expect(fileItem).toBeTruthy();
@@ -614,7 +770,13 @@ describe('Upload', () => {
 
     it(': onPreview for non-image file does not open ImageViewer', () => {
       const onPreview = vi.fn();
-      const files: UploadFile[] = [{ name: 'report.pdf', status: 'success', type: 'application/pdf' } as any];
+      const files: UploadFile[] = [
+        {
+          name: 'report.pdf',
+          status: 'success',
+          type: 'application/pdf',
+        } as any,
+      ];
       const { container } = render(<Upload files={files} onPreview={onPreview} />);
       const fileContent = container.querySelector(`${name}__file-content`);
       if (fileContent) {
@@ -627,7 +789,12 @@ describe('Upload', () => {
 
     it(': file removeBtn per-file override', () => {
       const files: UploadFile[] = [
-        { name: 'a.pdf', status: 'success', type: 'application/pdf', removeBtn: false } as any,
+        {
+          name: 'a.pdf',
+          status: 'success',
+          type: 'application/pdf',
+          removeBtn: false,
+        } as any,
         { name: 'b.pdf', status: 'success', type: 'application/pdf' } as any,
       ];
       const { container } = render(<Upload files={files} removeBtn={true} />);
@@ -665,7 +832,9 @@ describe('Upload', () => {
       const { container } = render(<Upload draggable files={dragFiles} onDrag={onDrag} />);
       const dragItems = container.querySelectorAll('[data-drag-key]');
 
-      fireEvent.touchStart(dragItems[0], { touches: [{ clientX: 0, clientY: 0 }] });
+      fireEvent.touchStart(dragItems[0], {
+        touches: [{ clientX: 0, clientY: 0 }],
+      });
       act(() => {
         vi.advanceTimersByTime(300);
       });
@@ -683,9 +852,13 @@ describe('Upload', () => {
       const { container } = render(<Upload draggable files={dragFiles} onDrag={onDrag} />);
       const dragItems = container.querySelectorAll('[data-drag-key]');
 
-      fireEvent.touchStart(dragItems[0], { touches: [{ clientX: 0, clientY: 0 }] });
+      fireEvent.touchStart(dragItems[0], {
+        touches: [{ clientX: 0, clientY: 0 }],
+      });
       // 长按定时器触发前手指滑动超过阈值，应判定为滚动而非拖拽
-      fireEvent.touchMove(dragItems[0], { touches: [{ clientX: 50, clientY: 0 }] });
+      fireEvent.touchMove(dragItems[0], {
+        touches: [{ clientX: 50, clientY: 0 }],
+      });
       act(() => {
         vi.advanceTimersByTime(300);
       });
@@ -730,7 +903,9 @@ describe('Upload', () => {
       });
 
       // 释放，rAF 中提交排序结果并回调 onDrop
-      fireEvent.touchEnd(dragEl, { changedTouches: [{ clientX: 1, clientY: 0 }] });
+      fireEvent.touchEnd(dragEl, {
+        changedTouches: [{ clientX: 1, clientY: 0 }],
+      });
       act(() => {
         vi.advanceTimersByTime(50);
       });
@@ -752,7 +927,9 @@ describe('Upload', () => {
         vi.advanceTimersByTime(300);
       });
       // 未发生移动直接释放
-      fireEvent.touchEnd(dragEl, { changedTouches: [{ clientX: 0, clientY: 0 }] });
+      fireEvent.touchEnd(dragEl, {
+        changedTouches: [{ clientX: 0, clientY: 0 }],
+      });
       act(() => {
         vi.advanceTimersByTime(50);
       });

@@ -1,14 +1,16 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BaseDemo from './base';
-import ImageDemo from './image';
 import GaryDemo from './gray';
+import ImageDemo from './image';
+import LayoutDemo from './layout';
+import MovingImageDemo from './moving-image';
+import MovingTextDemo from './moving-text';
 import MultiLineDemo from './multi-line';
 import MultiLineGaryDemo from './multi-line-gray';
-import MovingTextDemo from './moving-text';
-import MovingImageDemo from './moving-image';
-import LayoutDemo from './layout';
+
 import './style/index.less';
 
 export default function Base() {

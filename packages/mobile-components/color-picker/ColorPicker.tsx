@@ -1,20 +1,24 @@
-import React, { FC, TouchEvent, useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
-import { usePrefixClass } from '../hooks/useClass';
-import { Color, Coordinate, getColorObject } from '../_common/js/color-picker';
 import {
   DEFAULT_COLOR,
   SATURATION_PANEL_DEFAULT_HEIGHT,
   SATURATION_PANEL_DEFAULT_WIDTH,
   SLIDER_DEFAULT_WIDTH,
-} from '../_common/js/color-picker/constants';
-import { PanelRectType } from './types';
-import { genSwatchList, getCoordinate, getFormatList } from './helper/format';
-import type { StyledProps } from '../common';
-import type { TdColorPickerProps, ColorPickerChangeTrigger } from './type';
-import { colorPickerDefaultProps } from './defaultProps';
+} from '@tdesign/common-js/color-picker/constants';
+import { Color, getColorObject } from '@tdesign/common-js/color-picker/index';
+
+import { usePrefixClass } from '../hooks/useClass';
 import useDefaultProps from '../hooks/useDefaultProps';
 import { ALPHA_MAX, HUE_MAX } from './constants';
+import { colorPickerDefaultProps } from './defaultProps';
+import { genSwatchList, getCoordinate, getFormatList } from './helper/format';
+
+import type { FC, TouchEvent } from 'react';
+import type { Coordinate } from '@tdesign/common-js/color-picker/index';
+import type { StyledProps } from '../common';
+import type { ColorPickerChangeTrigger, TdColorPickerProps } from './type';
+import type { PanelRectType } from './types';
 
 export interface ColorPickerProps extends TdColorPickerProps, StyledProps {}
 
@@ -85,7 +89,12 @@ const ColorPicker: FC<ColorPickerProps> = (props) => {
     (format: ColorPickerProps['format']) => {
       setSliderInfo(color.current.hue);
       setHueSliderStyle(getSliderThumbStyle({ value: color.current.hue, maxValue: HUE_MAX }));
-      setAlphahueSliderStyle(getSliderThumbStyle({ value: color.current.alpha * 100, maxValue: ALPHA_MAX }));
+      setAlphahueSliderStyle(
+        getSliderThumbStyle({
+          value: color.current.alpha * 100,
+          maxValue: ALPHA_MAX,
+        }),
+      );
       setSaturationThumbStyle(
         getSaturationThumbStyle({
           saturation: color.current.saturation,
@@ -285,7 +294,9 @@ const ColorPicker: FC<ColorPickerProps> = (props) => {
         >
           <div
             className={`${rootClassName}__rail`}
-            style={{ background: `linear-gradient(to right, rgba(0, 0, 0, 0), ${alphaSliderStyle.color}` }}
+            style={{
+              background: `linear-gradient(to right, rgba(0, 0, 0, 0), ${alphaSliderStyle.color}`,
+            }}
           />
           <div className={`${rootClassName}__thumb`} style={{ ...alphaSliderStyle }} />
         </div>
@@ -311,7 +322,10 @@ const ColorPicker: FC<ColorPickerProps> = (props) => {
                     left: `${saturationThumbStyle.left}`,
                     color: `${saturationThumbStyle.color}`,
                   }
-                : { top: `${saturationThumbStyle.top}`, left: `${saturationThumbStyle.left}` }
+                : {
+                    top: `${saturationThumbStyle.top}`,
+                    left: `${saturationThumbStyle.left}`,
+                  }
             }
           />
         </div>
@@ -330,7 +344,10 @@ const ColorPicker: FC<ColorPickerProps> = (props) => {
                 <div className={`${rootClassName}__rail`} />
                 <div
                   className={`${rootClassName}__thumb`}
-                  style={{ color: hueSliderStyle.color, left: hueSliderStyle.left }}
+                  style={{
+                    color: hueSliderStyle.color,
+                    left: hueSliderStyle.left,
+                  }}
                 />
               </div>
             </div>

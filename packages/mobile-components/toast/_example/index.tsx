@@ -1,10 +1,12 @@
 import React from 'react';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import Base from './base';
-import Theme from './theme';
-import Cover from './cover';
 import Close from './close';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
+import Cover from './cover';
+import Theme from './theme';
+
 import './style/index.less';
 
 export default function () {

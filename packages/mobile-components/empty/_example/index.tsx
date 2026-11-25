@@ -1,9 +1,10 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BaseDemo from './base';
-import ImageEmptyDemo from './image-empty';
 import ButtonEmptyDemo from './button-empty';
+import ImageEmptyDemo from './image-empty';
 
 import './style/index.less';
 

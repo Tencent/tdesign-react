@@ -1,14 +1,15 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import BaseDemo from './base';
-import DescDemo from './desc';
-import BorderedDemo from './bordered';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BadgeDemo from './badge';
-import ScrollDemo from './scroll';
+import BaseDemo from './base';
+import BorderedDemo from './bordered';
+import CardDemo from './card';
+import DescDemo from './desc';
 import IconDemo from './icon';
 import MultipleDemo from './multiple';
-import CardDemo from './card';
+import ScrollDemo from './scroll';
 
 import './style/index.less';
 

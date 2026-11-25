@@ -1,14 +1,16 @@
 import React from 'react';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import EvenlyDemo from './evenly';
-import IsometricDemo from './isometric';
-import IconDemo from './icon';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BadgeDemo from './badge';
 import ContentDemo from './content';
-import StatusDemo from './status';
+import EvenlyDemo from './evenly';
+import IconDemo from './icon';
+import IsometricDemo from './isometric';
 import SizeDemo from './size';
+import StatusDemo from './status';
 import ThemeDemo from './theme';
+
 import './style/index.less';
 
 export default function () {

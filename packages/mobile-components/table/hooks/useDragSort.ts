@@ -12,14 +12,16 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { get } from 'lodash-es';
-import type { MoveEvent, Options, SortableEvent } from 'sortablejs';
 import Sortable from 'sortablejs';
-import log from '../../_common/js/log/index';
-import { getColumnDataByKey, getColumnIndexByKey } from '../../_common/js/table/utils';
-import swapDragArrayElement from '../../_common/js/utils/swapDragArrayElement';
+import log from '@tdesign/common-js/log/index';
+import { getColumnDataByKey, getColumnIndexByKey } from '@tdesign/common-js/table/utils';
+import swapDragArrayElement from '@tdesign/common-js/utils/swapDragArrayElement';
+
 import { hasClass } from '../../guide/utils/shared';
 import useLatest from '../../hooks/useLatest';
 import useClassName from './useClassName';
+
+import type { MoveEvent, Options, SortableEvent } from 'sortablejs';
 import type { BaseTableColumns, PrimaryTableRef } from '../interface';
 import type { DragSortContext, PaginationProps, TableRowData, TdPrimaryTableProps } from '../type';
 
@@ -310,7 +312,9 @@ function useDragSort(props: TdPrimaryTableProps, options: DragSortOptions) {
 
     try {
       if (isRowDraggable) {
-        dragRowInstance.current = new Sortable(dragContainer, { ...baseOptions });
+        dragRowInstance.current = new Sortable(dragContainer, {
+          ...baseOptions,
+        });
       } else if (isRowHandlerDraggable) {
         dragRowInstance.current = new Sortable(dragContainer, {
           ...baseOptions,

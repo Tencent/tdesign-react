@@ -1,13 +1,15 @@
 import React from 'react';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import ImageAvatar from './image-avatar';
-import CharacterAvatar from './character-avatar';
-import IconAvatar from './icon-avatar';
-import BadgeAvatar from './badge-avatar';
-import ExhibitionAvatar from './exhibition';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import ActionAvatar from './action';
+import BadgeAvatar from './badge-avatar';
+import CharacterAvatar from './character-avatar';
+import ExhibitionAvatar from './exhibition';
+import IconAvatar from './icon-avatar';
+import ImageAvatar from './image-avatar';
 import SizeAvatar from './size';
+
 import './style/index.less';
 
 export default function () {

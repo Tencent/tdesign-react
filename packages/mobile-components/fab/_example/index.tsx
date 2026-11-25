@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Button, Skeleton } from 'tdesign-mobile-react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import BaseDemo from './base';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import TextDemo from './advance';
-import DraggableDemo from './draggable';
+import BaseDemo from './base';
 import CollapsibleDemo from './collapsible';
+import DraggableDemo from './draggable';
+
 import './style/index.less';
 import './style/collapsible.less';
 

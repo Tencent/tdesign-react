@@ -1,24 +1,26 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import {
-  CloseIcon,
-  CheckIcon,
-  ErrorIcon,
-  CheckCircleFilledIcon,
-  CloseCircleFilledIcon,
-  ErrorCircleFilledIcon,
-} from 'tdesign-icons-react';
 import { isString } from 'lodash-es';
-import parseTNode from '../_util/parseTNode';
-import { StyledProps } from '../common';
-import { TdProgressProps } from './type';
-import useConfig from '../hooks/useConfig';
+import {
+  CheckCircleFilledIcon,
+  CheckIcon,
+  CloseCircleFilledIcon,
+  CloseIcon,
+  ErrorCircleFilledIcon,
+  ErrorIcon,
+} from 'tdesign-icons-react';
+import { PRO_THEME, STATUS_ICON } from '@tdesign/common-js/progress/const';
+import { getCircleStokeWidth, getDiameter } from '@tdesign/common-js/progress/utils';
+
 import getBackgroundColor from '../_util/linearGradient';
-import { progressDefaultProps } from './defaultProps';
+import parseTNode from '../_util/parseTNode';
+import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
-import { PRO_THEME, STATUS_ICON } from '../_common/js/progress/const';
-import { getDiameter, getCircleStokeWidth } from '../_common/js/progress/utils';
 import { PLUMP_SEPARATE } from './constants';
+import { progressDefaultProps } from './defaultProps';
+
+import type { StyledProps } from '../common';
+import type { TdProgressProps } from './type';
 
 export interface ProgressProps extends TdProgressProps, StyledProps {
   children?: React.ReactNode;

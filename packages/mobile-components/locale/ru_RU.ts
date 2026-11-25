@@ -1,5 +1,6 @@
-import ruRU from '../_common/js/global-config/mobile/locale/ru_RU';
-import { GlobalConfigProvider } from '../config-provider/type';
+import ruRU from '@tdesign/common-js/global-config/mobile/locale/ru_RU';
+
+import type { GlobalConfigProvider } from '../config-provider/type';
 
 // 需要 GlobalConfigProvider 保证数据类型正确
 export default ruRU as unknown as GlobalConfigProvider;

@@ -39,14 +39,14 @@ export default ({ mode }) =>
         '@docs': path.resolve(__dirname, './docs'),
         '@web': path.resolve(__dirname, './web'),
         '@components': path.resolve(__dirname, './src/components'),
-        '@common': path.resolve(__dirname, '../src/_common'),
-        'tdesign-mobile-react/es': path.resolve(__dirname, '../src'),
-        'tdesign-mobile-react': path.resolve(__dirname, '../src'),
+        '@common': path.resolve(__dirname, '../../common'),
+        '@tdesign/common-js': path.resolve(__dirname, '../../common/js'),
+        'tdesign-mobile-react/es': path.resolve(__dirname, '../../mobile-components'),
+        'tdesign-mobile-react': path.resolve(__dirname, '../../mobile-components'),
         '@test/utils': path.resolve(__dirname, '../test/utils'),
       },
     },
     build: {
-      outDir: '../_site',
       rollupOptions: {
         input: {
           site: 'index.html',

@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react';
-import { THEME_MODE } from '../_common/js/common';
-import getColorTokenColor from '../_common/js/utils/getColorTokenColor';
-import useMutationObservable from './useMutationObserver';
+import { THEME_MODE } from '@tdesign/common-js/common';
+import getColorTokenColor from '@tdesign/common-js/utils/getColorTokenColor';
+
 import { canUseDOM } from '../_util/dom';
+import useMutationObservable from './useMutationObserver';
 
 const DEFAULT_OPTIONS = {
   debounceTime: 250,

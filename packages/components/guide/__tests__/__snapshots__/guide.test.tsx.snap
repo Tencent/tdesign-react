@@ -120,7 +120,7 @@ exports[`Guide > props > GuideStep > body[TNode] 1`] = `
       data-popper-escaped="true"
       data-popper-placement="bottom-end"
       data-popper-reference-hidden="true"
-      style="position: absolute; left: 0px; top: 0px; z-index: 999999; right: 0px; transform: translate(0px, 0px);"
+      style="position: absolute; left: auto; top: 0px; z-index: 999999; right: 0px; bottom: auto; transform: translate(0px, 0px);"
     >
       <div
         class="t-popup__content t-popup__content--arrow"
@@ -298,7 +298,7 @@ exports[`Guide > props > GuideStep > content and children 1`] = `
       data-popper-escaped="true"
       data-popper-placement="bottom-end"
       data-popper-reference-hidden="true"
-      style="position: absolute; left: 0px; top: 0px; z-index: 999999; right: 0px; transform: translate(0px, 0px);"
+      style="position: absolute; left: auto; top: 0px; z-index: 999999; right: 0px; bottom: auto; transform: translate(0px, 0px);"
     >
       <div
         class="t-popup__content t-guide__popup--content"
@@ -437,7 +437,7 @@ exports[`Guide > props > GuideStep > content and children 2`] = `
       data-popper-escaped="true"
       data-popper-placement="bottom-end"
       data-popper-reference-hidden="true"
-      style="position: absolute; left: 0px; top: 0px; z-index: 999999; right: 0px; transform: translate(0px, 0px);"
+      style="position: absolute; left: auto; top: 0px; z-index: 999999; right: 0px; bottom: auto; transform: translate(0px, 0px);"
     >
       <div
         class="t-popup__content t-guide__popup--content"
@@ -582,7 +582,7 @@ exports[`Guide > props > GuideStep > highlightContent[TNode] 1`] = `
       data-popper-escaped="true"
       data-popper-placement="bottom-end"
       data-popper-reference-hidden="true"
-      style="position: absolute; left: 0px; top: 0px; z-index: 999999; right: 0px; transform: translate(0px, 0px);"
+      style="position: absolute; left: auto; top: 0px; z-index: 999999; right: 0px; bottom: auto; transform: translate(0px, 0px);"
     >
       <div
         class="t-popup__content t-popup__content--arrow"
@@ -952,7 +952,7 @@ exports[`Guide > props > GuideStep > placement[bottom-left] 1`] = `
       data-popper-escaped="true"
       data-popper-placement="bottom-start"
       data-popper-reference-hidden="true"
-      style="position: absolute; left: 0px; top: 0px; z-index: 999999; transform: translate(0px, 0px);"
+      style="position: absolute; left: 0px; top: 0px; z-index: 999999; right: auto; bottom: auto; transform: translate(0px, 0px);"
     >
       <div
         class="t-popup__content t-popup__content--arrow"
@@ -1126,7 +1126,7 @@ exports[`Guide > props > GuideStep > stepOverlayClass 1`] = `
       data-popper-escaped="true"
       data-popper-placement="bottom-end"
       data-popper-reference-hidden="true"
-      style="position: absolute; left: 0px; top: 0px; z-index: 999999; right: 0px; transform: translate(0px, 0px);"
+      style="position: absolute; left: auto; top: 0px; z-index: 999999; right: 0px; bottom: auto; transform: translate(0px, 0px);"
     >
       <div
         class="t-popup__content t-popup__content--arrow"
@@ -1300,7 +1300,7 @@ exports[`Guide > props > GuideStep > title[TNode] 1`] = `
       data-popper-escaped="true"
       data-popper-placement="bottom-end"
       data-popper-reference-hidden="true"
-      style="position: absolute; left: 0px; top: 0px; z-index: 999999; right: 0px; transform: translate(0px, 0px);"
+      style="position: absolute; left: auto; top: 0px; z-index: 999999; right: 0px; bottom: auto; transform: translate(0px, 0px);"
     >
       <div
         class="t-popup__content t-popup__content--arrow"

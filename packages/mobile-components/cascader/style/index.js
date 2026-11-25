@@ -1,1 +1,1 @@
-import '../../_common/style/mobile/components/cascader/_index.less';
+import '../../../common/style/mobile/components/cascader/_index.less';

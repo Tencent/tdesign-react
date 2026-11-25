@@ -32,7 +32,7 @@ jobs:
         with:
           token: ${{ secrets.TDESIGN_BOT_TOKEN }}
           mode: monorepo
-          packages: 'tdesign-react,@tdesign-react/chat'
+          packages: 'tdesign-react,@tdesign-react/chat,tdesign-mobile-react'
           translate-api-key: ${{ secrets.TRANSLATE_API_KEY }}
 
   commit-changelog:
@@ -44,4 +44,4 @@ jobs:
         with:
           token: ${{ secrets.TDESIGN_BOT_TOKEN }}
           mode: monorepo
-          packages: 'tdesign-react,@tdesign-react/chat'
+          packages: 'tdesign-react,@tdesign-react/chat,tdesign-mobile-react'

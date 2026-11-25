@@ -2,12 +2,16 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import { get, intersection, isFunction } from 'lodash-es';
-import Checkbox, { CheckboxProps } from '../../checkbox';
+import log from '@tdesign/common-js/log/index';
+import { isRowSelectedDisabled } from '@tdesign/common-js/table/utils';
+
+import Checkbox from '../../checkbox';
 import useControlled from '../../hooks/useControlled';
-import { Radio, RadioProps } from '../../radio';
-import { isRowSelectedDisabled } from '../../_common/js/table/utils';
-import log from '../../_common/js/log';
+import { Radio } from '../../radio';
+
+import type { CheckboxProps } from '../../checkbox';
 import type { ClassName } from '../../common';
+import type { RadioProps } from '../../radio';
 import type {
   PrimaryTableCellParams,
   PrimaryTableCol,

@@ -1,9 +1,11 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import BaseDemo from './base';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import AlignDemo from './align';
+import BaseDemo from './base';
 import OperationDemo from './operation';
+
 import './style/index.less';
 
 export default function ImageViewerDemo() {

@@ -1,11 +1,12 @@
 import React from 'react';
-import BaseDemo from './base';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import ActionDemo from './action';
-import ShapeDemo from './shape';
-import OtherDemo from './other';
+import BaseDemo from './base';
 import MaxLengthDemo from './max-length';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
+import OtherDemo from './other';
+import ShapeDemo from './shape';
 
 import './style/index.less';
 

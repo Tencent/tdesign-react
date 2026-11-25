@@ -1,45 +1,47 @@
-import type { MouseEvent, InputHTMLAttributes } from 'react';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
+import classNames from 'classnames';
+import { isBoolean } from 'lodash-es';
 import {
   AddIcon,
   CloseCircleIcon,
   CloseIcon,
-  LoadingIcon,
-  UploadIcon,
   DeleteIcon,
   ErrorCircleFilledIcon,
   File1Icon,
-  FileZipFilledIcon,
   FileExcelFilledIcon,
   FilePdfFilledIcon,
-  FileWordFilledIcon,
   FilePowerpointFilledIcon,
+  FileWordFilledIcon,
+  FileZipFilledIcon,
+  LoadingIcon,
+  UploadIcon,
   VideoFilledIcon,
 } from 'tdesign-icons-react';
-import classNames from 'classnames';
-import { isBoolean } from 'lodash-es';
-import type { TdUploadProps, UploadFile } from './type';
-import type { StyledProps } from '../common';
-import Image from '../image';
-import ImageViewer from '../image-viewer';
+import {
+  AUDIO_REGEXP,
+  FILE_EXCEL_REGEXP,
+  FILE_PDF_REGEXP,
+  FILE_PPT_REGEXP,
+  FILE_WORD_REGEXP,
+  returnFileSize,
+  VIDEO_REGEXP,
+} from '@tdesign/common-js/upload/utils';
+
+import parseTNode from '../_util/parseTNode';
 import Button from '../button';
-import useUpload from './hooks/useUpload';
-import useDrag from './hooks/useDrag';
-import useDefaultProps from '../hooks/useDefaultProps';
 import { usePrefixClass } from '../hooks/useClass';
 import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
+import Image from '../image';
+import ImageViewer from '../image-viewer';
 import { uploadDefaultProps } from './defaultProps';
-import parseTNode from '../_util/parseTNode';
-import {
-  FILE_PDF_REGEXP,
-  FILE_EXCEL_REGEXP,
-  FILE_WORD_REGEXP,
-  FILE_PPT_REGEXP,
-  VIDEO_REGEXP,
-  AUDIO_REGEXP,
-  returnFileSize,
-} from '../_common/js/upload/utils';
+import useDrag from './hooks/useDrag';
+import useUpload from './hooks/useUpload';
+
+import type { InputHTMLAttributes, MouseEvent } from 'react';
+import type { StyledProps } from '../common';
+import type { TdUploadProps, UploadFile } from './type';
 
 export interface UploadProps extends TdUploadProps, StyledProps {}
 
@@ -51,7 +53,11 @@ const FILE_TYPE_ICON_MAP: Array<{
   test: (fileType: string, mime: string) => boolean;
   Icon: React.ComponentType<{ className?: string }>;
 }> = [
-  { modifier: 'pdf', test: (f) => FILE_PDF_REGEXP.test(f), Icon: FilePdfFilledIcon },
+  {
+    modifier: 'pdf',
+    test: (f) => FILE_PDF_REGEXP.test(f),
+    Icon: FilePdfFilledIcon,
+  },
   {
     modifier: 'excel',
     test: (f, m) => FILE_EXCEL_REGEXP.test(f) || /spreadsheetml/i.test(m),
@@ -67,19 +73,29 @@ const FILE_TYPE_ICON_MAP: Array<{
     test: (f, m) => FILE_WORD_REGEXP.test(f) || /wordprocessingml/i.test(m),
     Icon: FileWordFilledIcon,
   },
-  { modifier: 'media', test: (f) => VIDEO_REGEXP.test(f) || AUDIO_REGEXP.test(f), Icon: VideoFilledIcon },
-  { modifier: 'zip', test: (f, m) => FILE_ZIP_REGEXP.test(f) || /zip|compressed/i.test(m), Icon: FileZipFilledIcon },
+  {
+    modifier: 'media',
+    test: (f) => VIDEO_REGEXP.test(f) || AUDIO_REGEXP.test(f),
+    Icon: VideoFilledIcon,
+  },
+  {
+    modifier: 'zip',
+    test: (f, m) => FILE_ZIP_REGEXP.test(f) || /zip|compressed/i.test(m),
+    Icon: FileZipFilledIcon,
+  },
 ];
 
 // 用于生成唯一 key
 let globalFileKey = 0;
 const fileKeyMap = new WeakMap<UploadFile, number>();
 const getFileKey = (file: UploadFile): number => {
-  if (!fileKeyMap.has(file)) {
+  let key = fileKeyMap.get(file);
+  if (!key) {
     globalFileKey += 1;
-    fileKeyMap.set(file, globalFileKey);
+    key = globalFileKey;
+    fileKeyMap.set(file, key);
   }
-  return fileKeyMap.get(file)!;
+  return key;
 };
 
 // 计算每个 file 的 removeBtn 是否显示，优先取 file 自身配置

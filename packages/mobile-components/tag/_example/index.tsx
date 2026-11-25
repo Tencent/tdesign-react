@@ -1,12 +1,14 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import CheckeableDemo from './checkable';
 import ClosableDemo from './closable';
 import SizeDemo from './size';
-import './style/index.less';
 import ThemeDemo from './theme';
 import TypeDemo from './type';
+
+import './style/index.less';
 
 export default function Base() {
   return (

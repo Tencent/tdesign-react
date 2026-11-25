@@ -1,28 +1,34 @@
-import React, { FC, useCallback, useMemo, useRef, useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
-import TPopover, { PopoverProps } from '../popover';
-import TPopup, { PopupProps } from '../popup';
-import TButton, { ButtonProps } from '../button';
+import setStyle from '@tdesign/common-js/utils/setStyle';
 
-import { guideDefaultProps } from './defaultProps';
-import { TdGuideProps } from './type';
-import { GuideCrossProps } from './interface';
-
-import Portal from '../common/Portal';
-import { SizeEnum, StyledProps } from '../common';
-import setStyle from '../_common/js/utils/setStyle';
-
-import { usePrefixClass } from '../hooks/useClass';
-import useDefault from '../_util/useDefault';
 import parseTNode from '../_util/parseTNode';
+import useDefault from '../_util/useDefault';
+import TButton from '../button';
+import Portal from '../common/Portal';
+import { usePrefixClass } from '../hooks/useClass';
 import useDefaultProps from '../hooks/useDefaultProps';
-
-import { isFixed, getRelativePosition, getTargetElm, scrollToParentVisibleArea, scrollToElm } from './utils/index';
+import TPopover from '../popover';
+import TPopup from '../popup';
+import { guideDefaultProps } from './defaultProps';
+import { getRelativePosition, getTargetElm, isFixed, scrollToElm, scrollToParentVisibleArea } from './utils/index';
 import { addClass, getWindowScroll, removeClass } from './utils/shared';
+
+import type { FC } from 'react';
+import type { ButtonProps } from '../button';
+import type { SizeEnum, StyledProps } from '../common';
+import type { PopoverProps } from '../popover';
+import type { PopupProps } from '../popup';
+import type { GuideCrossProps } from './interface';
+import type { TdGuideProps } from './type';
 
 export interface GuideProps extends TdGuideProps, StyledProps {}
 
-const tryCallBack = (check: () => boolean, cb: () => void) => {
+const tryCallBack = (
+  check: () => boolean,
+  cb: () => void,
+  register: (fn: () => void, delay?: number) => void = setTimeout,
+) => {
   const execute = () => {
     if (check()) {
       cb();
@@ -31,9 +37,9 @@ const tryCallBack = (check: () => boolean, cb: () => void) => {
   };
   if (execute()) return;
 
-  setTimeout(() => {
+  register(() => {
     if (execute()) return;
-    setTimeout(() => {
+    register(() => {
       execute();
     }, 0);
   });
@@ -58,6 +64,13 @@ const Guide: FC<GuideProps> = (originProps) => {
   const referenceLayerRef = useRef<HTMLDivElement>(null);
   const popoverRef = useRef(null);
   const currentHighlightLayerElm = useRef<HTMLElement>(null);
+  const timersRef = useRef<Array<ReturnType<typeof setTimeout>>>([]);
+
+  const registerTimeout = useCallback((fn: () => void, delay = 0) => {
+    const timer = setTimeout(fn, delay);
+    timersRef.current.push(timer);
+    return timer;
+  }, []);
 
   const [innerCurrent, setInnerCurrent] = useDefault(current, defaultCurrent, onChange);
   const [popoverVisible, setPopoverVisible] = useState(false);
@@ -181,7 +194,7 @@ const Guide: FC<GuideProps> = (originProps) => {
   };
 
   const showPopoverGuide = () => {
-    setTimeout(() => {
+    registerTimeout(() => {
       currentHighlightLayerElm.current = getTargetElm(currentStepInfo?.element);
       if (!currentHighlightLayerElm.current) return;
       scrollToParentVisibleArea(currentHighlightLayerElm.current);
@@ -197,8 +210,9 @@ const Guide: FC<GuideProps> = (originProps) => {
   };
 
   const showDialogGuide = () => {
-    setTimeout(() => {
+    registerTimeout(() => {
       currentHighlightLayerElm.current = getTargetElm(currentStepInfo?.element);
+      if (!currentHighlightLayerElm.current) return;
       scrollToParentVisibleArea(currentHighlightLayerElm.current);
       setHighlightLayerPosition(highlightLayerRef.current);
       scrollToElm(currentHighlightLayerElm.current);
@@ -207,11 +221,11 @@ const Guide: FC<GuideProps> = (originProps) => {
 
   const showGuide = () => {
     if (isPopover) {
-      tryCallBack(() => !!highlightLayerRef.current, showPopoverGuide);
+      tryCallBack(() => !!highlightLayerRef.current, showPopoverGuide, registerTimeout);
     } else {
-      tryCallBack(() => !!highlightLayerRef.current, showDialogGuide);
+      tryCallBack(() => !!highlightLayerRef.current, showDialogGuide, registerTimeout);
     }
-    setTimeout(() => {
+    registerTimeout(() => {
       setPopoverVisible(true);
     });
   };
@@ -285,6 +299,15 @@ const Guide: FC<GuideProps> = (originProps) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [innerCurrent, isPopover, stepsTotal]);
+
+  // 组件卸载时清理所有挂起的延时回调，防止卸载后访问失效 DOM
+  useEffect(
+    () => () => {
+      timersRef.current.forEach((timer) => clearTimeout(timer));
+      timersRef.current = [];
+    },
+    [],
+  );
 
   const renderStepContent = () => {
     const renderTitleNode = () => {

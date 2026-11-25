@@ -1,14 +1,15 @@
 import React from 'react';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BaseDemo from './base';
-import IconDemo from './icon-demo';
-import SuffixIcon from './suffix-icon';
-import Event from './event';
 import CustomDemo from './custom';
 import Customization from './customization';
-import ThemeDemo from './theme';
+import Event from './event';
+import IconDemo from './icon-demo';
 import ScrollDemo from './scrolling';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
+import SuffixIcon from './suffix-icon';
+import ThemeDemo from './theme';
 
 import './style/index.less';
 

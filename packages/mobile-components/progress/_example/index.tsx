@@ -1,10 +1,11 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BaseDemo from './base';
+import CircleDemo from './circle';
 import LineDemo from './line';
 import PlumpDemo from './plump';
-import CircleDemo from './circle';
 
 import './style/index.less';
 

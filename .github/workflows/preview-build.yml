@@ -58,3 +58,26 @@ jobs:
           name: tdesign-react-chat-site
           path: packages/tdesign-react-aigc/site/dist
           retention-days: 5
+
+  tdesign-mobile-react-site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+
+      - run: pnpm install
+
+      - run: pnpm -C packages/tdesign-mobile-react/site run preview
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tdesign-mobile-react-site
+          path: packages/tdesign-mobile-react/site/dist
+          retention-days: 5

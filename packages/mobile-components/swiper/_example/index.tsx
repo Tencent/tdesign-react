@@ -1,16 +1,18 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import './style/index.less';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
+import AnimationDemo from './animation';
 import BaseDemo from './base';
+import CardDemo from './card';
+import ControlDemo from './control';
+import CurrentDemo from './current';
 import CustomDemo from './custom';
 import FractionDemo from './fraction';
-import ControlDemo from './control';
 import OutsideDemo from './outside';
 import VerticalDemo from './vertical';
-import AnimationDemo from './animation';
-import CardDemo from './card';
-import CurrentDemo from './current';
+
+import './style/index.less';
 
 export default function Base() {
   return (

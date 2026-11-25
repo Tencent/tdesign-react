@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { Cell, Sticky, Switch, TabPanel, Tabs } from 'tdesign-mobile-react';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BaseForm from './base';
+import ColonForm from './colon';
+import ContentAlign from './content-align';
 import HelpForm from './help';
-import RulesForm from './rules';
 import LabelAlign from './label-align';
 import LabelWidth from './label-width';
 import RequiredMark from './required-mark';
-import ColonForm from './colon';
-import ContentAlign from './content-align';
+import RulesForm from './rules';
+
 import './style/index.less';
 
 export default function FormDemo() {

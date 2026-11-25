@@ -1,16 +1,17 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BaseDemo from './base';
-import TypeDemo from './type';
-import IconDemo from './icon';
 import BorderlessDemo from './borderless';
+import ColorDemo from './color';
+import DownloadDemo from './download';
+import IconDemo from './icon';
 import LevelDemo from './level';
+import SizeDemo from './size';
 import StatusDemo from './status';
 import StatusRenderDemo from './status-render';
-import ColorDemo from './color';
-import SizeDemo from './size';
-import DownloadDemo from './download';
+import TypeDemo from './type';
 
 import './style/index.less';
 

@@ -1,27 +1,19 @@
-import React, {
-  CSSProperties,
-  forwardRef,
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import { get, isFunction } from 'lodash-es';
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import cx from 'classnames';
+import { get, isFunction } from 'lodash-es';
+import defaultConfig from '@tdesign/common-js/global-config/mobile/locale/zh_CN';
 
 import parseTNode from '../_util/parseTNode';
-import { ClassName } from '../common';
-import useClassName from './hooks/useClassName';
-import useStyle, { formatCSSUnit } from './hooks/useStyle';
-import useFixed, { getColumnFixedStyles, getRowFixedStyles } from './hooks/useFixed';
 import useDefaultProps from '../hooks/useDefaultProps';
-import defaultConfig from '../_common/js/global-config/mobile/locale/zh_CN';
 import Loading from '../loading';
 import { baseTableDefaultProps } from './defaultProps';
+import useClassName from './hooks/useClassName';
+import useFixed, { getColumnFixedStyles, getRowFixedStyles } from './hooks/useFixed';
+import usePagination from './hooks/usePagination';
 import usePullRefresh from './hooks/usePullRefresh';
-import { BaseTableProps, BaseTableRef } from './interface';
+import useRowspanAndColspan from './hooks/useRowspanAndColspan';
+import useStyle, { formatCSSUnit } from './hooks/useStyle';
+import useTableHeader from './hooks/useTableHeader';
 import {
   formatClassNames,
   formatRowAttributes,
@@ -31,10 +23,11 @@ import {
   isLastRowInSpan,
   renderCell,
 } from './utils';
-import useRowspanAndColspan from './hooks/useRowspanAndColspan';
-import usePagination from './hooks/usePagination';
-import useTableHeader from './hooks/useTableHeader';
-import { BaseTableCol, TableRowData } from './type';
+
+import type { CSSProperties } from 'react';
+import type { ClassName } from '../common';
+import type { BaseTableProps, BaseTableRef } from './interface';
+import type { BaseTableCol, TableRowData } from './type';
 
 const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originProps, ref) => {
   const props = useDefaultProps<BaseTableProps>(originProps, baseTableDefaultProps);
@@ -288,12 +281,21 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originProps, ref) =>
 
         const customClasses = formatRowClassNames(
           props.rowClassName,
-          { row: trItem, rowKey: props.rowKey, rowIndex: trIdx, type: 'body' },
+          {
+            row: trItem,
+            rowKey: props.rowKey,
+            rowIndex: trIdx,
+            type: 'body',
+          },
           props.rowKey || 'id',
         );
 
         const trAttributes =
-          formatRowAttributes(props.rowAttributes, { row: trItem, rowIndex: trIdx, type: 'body' }) || {};
+          formatRowAttributes(props.rowAttributes, {
+            row: trItem,
+            rowIndex: trIdx,
+            type: 'body',
+          }) || {};
 
         const trKey = get(trItem, props.rowKey) ?? trIdx;
         return (
@@ -307,7 +309,12 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originProps, ref) =>
             }}
           >
             {columns?.map((tdItem, tdIdx) => {
-              const params = { row: trItem, col: tdItem, rowIndex: trIdx, colIndex: tdIdx };
+              const params = {
+                row: trItem,
+                col: tdItem,
+                rowIndex: trIdx,
+                colIndex: tdIdx,
+              };
               const cellKey = `${get(trItem, props.rowKey || 'id')}_${tdItem.colKey || tdIdx}`;
 
               // 处理合并单元格

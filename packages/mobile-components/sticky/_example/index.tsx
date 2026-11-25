@@ -1,11 +1,12 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import './style/index.less';
 
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BaseDemo from './base';
-import OffsetTopDemo from './offset';
 import ContainerDemo from './container';
+import OffsetTopDemo from './offset';
+
+import './style/index.less';
 
 export default function Base() {
   return (

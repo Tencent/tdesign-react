@@ -1,1 +1,1 @@
-import '../../_common/style/mobile/components/result/_index.less';
+import '../../../common/style/mobile/components/result/_index.less';

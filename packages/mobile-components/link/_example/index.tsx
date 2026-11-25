@@ -1,13 +1,14 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BaseDemo from './base';
-import ThemeDemo from './theme';
 import SizeDemo from './link-size';
-import UnderlineDemo from './underline';
 import PrefixDemo from './prefix';
-import SuffixDemo from './suffix';
 import StatusDemo from './status';
+import SuffixDemo from './suffix';
+import ThemeDemo from './theme';
+import UnderlineDemo from './underline';
 
 import './style/index.less';
 

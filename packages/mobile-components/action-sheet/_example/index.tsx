@@ -1,11 +1,12 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import ListExample from './list';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
+import AlignExample from './align';
 import GridExample from './grid';
 import GridMultipleExample from './grid-multiple';
+import ListExample from './list';
 import StatusExample from './status';
-import AlignExample from './align';
 
 import './style/index.less';
 

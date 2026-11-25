@@ -1,17 +1,18 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BaseExample from './base';
-import ScrollExample from './scroll';
-import StripeExample from './stripe';
 import BorderedExample from './bordered';
-import EllipsisExample from './ellipsis';
 import CustomRowStyleExample from './custom-row-style';
-import RowspanColspanExample from './rowspan-colspan';
 import DragSortExample from './drag-sort';
-import LoadingExample from './loading';
-import SelectExample from './select';
+import EllipsisExample from './ellipsis';
 import FilterSortExample from './filter-sort';
+import LoadingExample from './loading';
+import RowspanColspanExample from './rowspan-colspan';
+import ScrollExample from './scroll';
+import SelectExample from './select';
+import StripeExample from './stripe';
 
 import './style/index.less';
 

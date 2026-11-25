@@ -71,7 +71,7 @@ describe('Swiper', () => {
 
       fireEvent.click(document.querySelector('.t-swiper__arrow-right'));
       expect(document.querySelector('.t-swiper__container')?.getAttribute('style')).toBe(
-        'transform: translate3d(-200%, 0px, 0px); transition: transform 0.3s ease;',
+        '-webkit-transform: translate3d(-200%, 0px, 0px); transform: translate3d(-200%, 0px, 0px); transition: transform 0.3s ease;',
       );
       fireEvent.click(document.querySelector('.t-swiper__arrow-left'));
     });

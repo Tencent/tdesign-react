@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Button } from 'tdesign-mobile-react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import Base from './base';
-import Number from './number';
 import Custom from './custom';
+import Number from './number';
+
 import './style/index.less';
 
 export default function IndexesDemo() {

@@ -101,7 +101,8 @@ describe('QRCode', () => {
       // 获取计算后的样式
       const computedStyle = window.getComputedStyle(conElement);
       expect(computedStyle.width).toBe(`${width}px`);
-      expect(computedStyle['background-color']).toBe(`red`);
+      // jsdom 24 (cssstyle 4.x) 将颜色统一规范化为 rgb(...)
+      expect(computedStyle['background-color']).toBe(`rgb(255, 0, 0)`);
     });
   });
 });

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Button, Result } from 'tdesign-mobile-react';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import CustomResult from './custom';
 import ThemeResult from './theme';
+
 import './style/index.less';
 
 export default function ResultDemo() {

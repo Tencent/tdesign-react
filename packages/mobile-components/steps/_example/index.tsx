@@ -1,12 +1,13 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import Horizontal from './horizontal';
+import Special from './special';
+import Status from './status';
+import Vertical from './vertical';
 
 import './style/index.less';
-import Vertical from './vertical';
-import Status from './status';
-import Special from './special';
 
 export default function StepsDemo() {
   return (

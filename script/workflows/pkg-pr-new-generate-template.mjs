@@ -2,12 +2,30 @@ import { execSync } from 'child_process';
 import { join } from 'path';
 import { rmSync, writeFileSync, readFileSync, existsSync } from 'fs';
 
-// 常量定义
-const PROJECT_NAME = 'tdesign-react-demo';
+// 文件模板（跨项目共用）
+const SHARED_TEMPLATES = {
+  APP_TSX: `
+import React from 'react';
+import Demo from './Demo';
 
-// 文件模板
-const TEMPLATES = {
-  MAIN_TSX: `
+export default () => <Demo />;
+  `,
+  VITE_CONFIG_TS: `
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+});
+  `,
+};
+
+// 各发布包对应的示例项目配置
+const DEMOS = [
+  {
+    projectName: 'tdesign-react-demo',
+    packageName: 'tdesign-react',
+    mainTsx: `
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ConfigProvider } from 'tdesign-react';
@@ -23,30 +41,39 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   </React.StrictMode>
 );
   `,
-  APP_TSX: `
-import React from 'react';
-import Demo from './Demo';
-
-export default () => <Demo />;
-  `,
-  DEMO_TSX: `
+    demoTsx: `
 import React from 'react';
 import { Button } from 'tdesign-react';
 
 export default () => <Button>按钮</Button>;
   `,
-  VITE_CONFIG_TS: `
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+  },
+  {
+    projectName: 'tdesign-mobile-react-demo',
+    packageName: 'tdesign-mobile-react',
+    mainTsx: `
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import 'tdesign-mobile-react/es/style/index.css';
 
-export default defineConfig({
-  plugins: [react()],
-});
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
   `,
-};
+    demoTsx: `
+import React from 'react';
+import { Button } from 'tdesign-mobile-react';
+
+export default () => <Button>按钮</Button>;
+  `,
+  },
+];
 
 // 构建示例项目
-function buildExample(projectName, extraDeps = {}) {
+function buildExample({ projectName, packageName, mainTsx, demoTsx }) {
   execSync(`pnpm create vite@7 ${projectName} --template react-ts`, { stdio: 'inherit' });
 
   const projectPath = join(process.cwd(), projectName);
@@ -64,9 +91,9 @@ function buildExample(projectName, extraDeps = {}) {
   const pkg = JSON.parse(readFileSync(paths.packageJson, 'utf8'));
   pkg.dependencies = {
     ...pkg.dependencies,
-    'tdesign-react': 'latest',
+    [packageName]: 'latest',
     'tdesign-icons-react': 'latest',
-    ...extraDeps,
+    '@vitejs/plugin-react': 'latest',
   };
 
   writeFileSync(paths.packageJson, JSON.stringify(pkg, null, 2));
@@ -77,16 +104,14 @@ function buildExample(projectName, extraDeps = {}) {
   });
 
   // 写入示例代码
-  writeFileSync(paths.main, TEMPLATES.MAIN_TSX.trim());
-  writeFileSync(paths.app, TEMPLATES.APP_TSX.trim());
-  writeFileSync(paths.demo, TEMPLATES.DEMO_TSX.trim());
-  writeFileSync(paths.viteConfig, TEMPLATES.VITE_CONFIG_TS.trim());
+  writeFileSync(paths.main, mainTsx.trim());
+  writeFileSync(paths.app, SHARED_TEMPLATES.APP_TSX.trim());
+  writeFileSync(paths.demo, demoTsx.trim());
+  writeFileSync(paths.viteConfig, SHARED_TEMPLATES.VITE_CONFIG_TS.trim());
 }
 
 try {
-  buildExample(PROJECT_NAME, {
-    '@vitejs/plugin-react': 'latest',
-  });
+  DEMOS.forEach((demo) => buildExample(demo));
 } catch (error) {
   console.error('构建过程中发生错误:', error);
   process.exit(1);

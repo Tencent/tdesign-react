@@ -1,15 +1,17 @@
-import type { MouseEvent } from 'react';
 import React from 'react';
 import cls from 'classnames';
+import { isValidSize } from '@tdesign/common-js/avatar/utils';
+
+import parseTNode from '../_util/parseTNode';
+import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
 import Avatar from './Avatar';
 import { AvatarGroupContextProvider } from './AvatarGroupContext';
-import parseTNode from '../_util/parseTNode';
-import { isValidSize } from '../_common/js/avatar/utils';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { usePrefixClass } from '../hooks/useClass';
 import { avatarGroupDefaultProps } from './defaultProps';
-import type { TdAvatarGroupProps } from './type';
+
+import type { MouseEvent } from 'react';
 import type { StyledProps } from '../common';
+import type { TdAvatarGroupProps } from './type';
 
 export interface AvatarGroupProps extends TdAvatarGroupProps, StyledProps {
   children?: React.ReactNode;

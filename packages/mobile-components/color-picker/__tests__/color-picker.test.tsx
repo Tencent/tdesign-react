@@ -1,9 +1,11 @@
-import { act, describe, expect, fireEvent, it, render, vi } from '@test/utils';
 import React from 'react';
+import { Color, getColorObject } from '@tdesign/common-js/color-picker/index';
+import { act, describe, expect, fireEvent, it, render, vi } from '@test/utils';
 
-import { Color, getColorObject } from '../../_common/js/color-picker';
-import ColorPicker, { ColorPickerProps } from '../index';
-import { TypeEnum } from '../type';
+import ColorPicker from '../index';
+
+import type { ColorPickerProps } from '../index';
+import type { TypeEnum } from '../type';
 
 const prefix = 't';
 const name = `.${prefix}-color-picker`;
@@ -11,7 +13,12 @@ const name = `.${prefix}-color-picker`;
 const makeTouch = (
   el: Element,
   eventName: string,
-  touchPosition?: { clientX?: number; clientY?: number; pageX?: number; pageY?: number },
+  touchPosition?: {
+    clientX?: number;
+    clientY?: number;
+    pageX?: number;
+    pageY?: number;
+  },
 ) => {
   const touchInit = {
     changedTouches: [
@@ -53,7 +60,10 @@ describe('ColorPicker', () => {
 
     it(': enableAlpha', () => {
       const testEnableAlpha = (enableAlpha: boolean) => {
-        const { container } = renderColorPicker({ enableAlpha, type: 'multiple' });
+        const { container } = renderColorPicker({
+          enableAlpha,
+          type: 'multiple',
+        });
         const alphaDom = container.querySelectorAll(`${name}__slider-wrapper--alpha-type`);
         expect(alphaDom).toHaveLength(enableAlpha ? 1 : 0);
       };
@@ -75,7 +85,10 @@ describe('ColorPicker', () => {
 
     it(': format', () => {
       const testFormat = (format: string, target: string) => {
-        const { container } = renderColorPicker({ format: format as ColorPickerProps['format'], type: 'multiple' });
+        const { container } = renderColorPicker({
+          format: format as ColorPickerProps['format'],
+          type: 'multiple',
+        });
         const dom = container.querySelector(`${name}__format-item--first`);
         expect(dom.innerHTML).toBe(target);
       };
@@ -105,7 +118,11 @@ describe('ColorPicker', () => {
     it(': saturation change', async () => {
       const testSaturation = async (fixed = false) => {
         const onPaletteBarChange = vi.fn();
-        const { container } = renderColorPicker({ onPaletteBarChange, type: 'multiple', fixed });
+        const { container } = renderColorPicker({
+          onPaletteBarChange,
+          type: 'multiple',
+          fixed,
+        });
         const el = container.querySelector('.t-color-picker__saturation');
 
         mockBoundingClientRect({
@@ -166,7 +183,11 @@ describe('ColorPicker', () => {
 
     it(': alpha slider change', async () => {
       const onChange = vi.fn();
-      const { container } = renderColorPicker({ onChange, type: 'multiple', enableAlpha: true });
+      const { container } = renderColorPicker({
+        onChange,
+        type: 'multiple',
+        enableAlpha: true,
+      });
       const el = container.querySelector('.t-color-picker__slider-wrapper--alpha-type .t-color-picker__slider');
 
       mockBoundingClientRect({

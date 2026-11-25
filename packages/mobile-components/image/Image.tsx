@@ -1,15 +1,17 @@
-import React, { Fragment, useRef, useMemo, useState, useEffect } from 'react';
-import type { SyntheticEvent } from 'react';
+import React, { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-react';
-import Loading from '../loading';
-import observe from '../_common/js/utils/observe';
-import { StyledProps } from '../common';
-import { TdImageProps } from './type';
-import { imageDefaultProps } from './defaultProps';
+import observe from '@tdesign/common-js/utils/observe';
+
 import parseTNode from '../_util/parseTNode';
-import useDefaultProps from '../hooks/useDefaultProps';
 import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
+import Loading from '../loading';
+import { imageDefaultProps } from './defaultProps';
+
+import type { SyntheticEvent } from 'react';
+import type { StyledProps } from '../common';
+import type { TdImageProps } from './type';
 
 export interface ImageProps extends TdImageProps, StyledProps {}
 

@@ -1,11 +1,12 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import ThemeSkeleton from './theme';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import AnimationSkeleton from './animation';
 import CellGroupSkeleton from './cell-group';
 import GridSkeleton from './grid';
 import ImageGroupSkeleton from './image-group';
+import ThemeSkeleton from './theme';
 
 import './style/index.less';
 

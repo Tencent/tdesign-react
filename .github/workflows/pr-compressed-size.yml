@@ -46,3 +46,24 @@ jobs:
           build-script: build:aigc
           pattern: "packages/tdesign-react-aigc/es/**/*.{js,css}"
           comment-key: tdesign-react-chat
+
+  tdesign-mobile-react:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+
+      - uses: preactjs/compressed-size-action@v2
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          install-script: bash -c "git submodule update --init --recursive && pnpm install --no-frozen-lockfile"
+          build-script: build:mobile
+          pattern: "packages/tdesign-mobile-react/dist/**/*.{js,css}"
+          comment-key: tdesign-mobile-react

@@ -1,18 +1,20 @@
-import React, { useState, useRef } from 'react';
-import type { FC, CompositionEvent, MouseEvent, KeyboardEvent, FocusEvent, SyntheticEvent } from 'react';
-import { CloseCircleFilledIcon, SearchIcon } from 'tdesign-icons-react';
+import React, { useRef, useState } from 'react';
 import classNames from 'classnames';
-import useDefault from '../_util/useDefault';
-import useLengthLimit from '../hooks/useLengthLimit';
+import { CloseCircleFilledIcon, SearchIcon } from 'tdesign-icons-react';
+import { ENTER_REG } from '@tdesign/common-js/common';
+
 import parseTNode from '../_util/parseTNode';
-import useConfig from '../hooks/useConfig';
-import type { TdSearchProps } from './type';
-import type { StyledProps } from '../common';
-import { searchDefaultProps } from './defaultProps';
-import { ENTER_REG } from '../_common/js/common';
-import useDefaultProps from '../hooks/useDefaultProps';
-import { usePrefixClass } from '../hooks/useClass';
+import useDefault from '../_util/useDefault';
 import Cell from '../cell/Cell';
+import { usePrefixClass } from '../hooks/useClass';
+import useConfig from '../hooks/useConfig';
+import useDefaultProps from '../hooks/useDefaultProps';
+import useLengthLimit from '../hooks/useLengthLimit';
+import { searchDefaultProps } from './defaultProps';
+
+import type { CompositionEvent, FC, FocusEvent, KeyboardEvent, MouseEvent, SyntheticEvent } from 'react';
+import type { StyledProps } from '../common';
+import type { TdSearchProps } from './type';
 
 export interface SearchProps extends TdSearchProps, StyledProps {}
 
@@ -65,7 +67,10 @@ const Search: FC<SearchProps> = (props) => {
 
   const inputValueChangeHandle = (e: SyntheticEvent<HTMLInputElement>) => {
     const { value } = e.target as HTMLInputElement;
-    setSearchValue(getValueByLimitNumber(value), { trigger: 'input-change', e });
+    setSearchValue(getValueByLimitNumber(value), {
+      trigger: 'input-change',
+      e,
+    });
   };
 
   const handleInput = (e: SyntheticEvent<HTMLInputElement>) => {
@@ -207,7 +212,11 @@ const Search: FC<SearchProps> = (props) => {
             type="search"
             className={`${inputClasses}`}
             style={
-              props.cursorColor ? ({ '--td-search-cursor-color': props.cursorColor } as React.CSSProperties) : undefined
+              props.cursorColor
+                ? ({
+                    '--td-search-cursor-color': props.cursorColor,
+                  } as React.CSSProperties)
+                : undefined
             }
             autoFocus={focus}
             placeholder={placeholder}

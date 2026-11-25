@@ -1,14 +1,16 @@
-import React, { forwardRef, useState, useEffect, useRef, useCallback, useImperativeHandle } from 'react';
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import classNames from 'classnames';
+import calcTextareaHeight from '@tdesign/common-js/utils/calcTextareaHeight';
+
 import parseTNode from '../_util/parseTNode';
 import useDefault from '../_util/useDefault';
-import calcTextareaHeight from '../_common/js/utils/calcTextareaHeight';
-import { textareaDefaultProps } from './defaultProps';
-import { TdTextareaProps } from './type';
-import { StyledProps } from '../common';
 import { usePrefixClass } from '../hooks/useClass';
 import useDefaultProps from '../hooks/useDefaultProps';
 import useLengthLimit from '../hooks/useLengthLimit';
+import { textareaDefaultProps } from './defaultProps';
+
+import type { StyledProps } from '../common';
+import type { TdTextareaProps } from './type';
 
 export interface TextareaProps
   extends

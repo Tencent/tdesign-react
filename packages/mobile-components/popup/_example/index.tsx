@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Popup, Button } from 'tdesign-mobile-react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import WithTitle from './with-title';
+import { Button, Popup } from 'tdesign-mobile-react';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import CustomClose from './custom-close';
 import Nested from './nested';
+import WithTitle from './with-title';
 
 import './style/index.less';
 

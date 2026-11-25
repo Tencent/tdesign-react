@@ -11,7 +11,7 @@ export const minYear = 1970; // 最早选择年份
  * 获取一个日期是周几（1~7）
  */
 export const getDay = (dt: Date): number => {
-  let day = dayjs(dt).day();
+  let day: number = dayjs(dt).day();
   if (day === 0) {
     day = 7;
   }

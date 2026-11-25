@@ -1,13 +1,16 @@
-import { useEffect, useState, useRef, WheelEvent, useCallback } from 'react';
-import { get } from 'lodash-es';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDebounceFn } from 'ahooks';
-import log from '../../_common/js/log/index';
-import { getScrollbarWidthWithCSS } from '../../_common/js/utils/getScrollbarWidth';
-import { getIEVersion } from '../../_common/js/utils/helper';
-import { ClassName, Styles } from '../../common';
-import { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
-import { FixedColumnInfo, TableRowFixedClasses, RowAndColFixedPosition, TableColFixedClasses } from '../interface';
+import { get } from 'lodash-es';
+import log from '@tdesign/common-js/log/index';
+import { getScrollbarWidthWithCSS } from '@tdesign/common-js/utils/getScrollbarWidth';
+import { getIEVersion } from '@tdesign/common-js/utils/helper';
+
 import { off, on } from '../../_util/listener';
+
+import type { WheelEvent } from 'react';
+import type { ClassName, Styles } from '../../common';
+import type { FixedColumnInfo, RowAndColFixedPosition, TableColFixedClasses, TableRowFixedClasses } from '../interface';
+import type { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
 
 // 固定列相关类名处理
 export function getColumnFixedStyles(
@@ -82,7 +85,10 @@ export default function useFixed(props: TdBaseTableProps) {
     right: false,
   });
   // 虚拟滚动无法使用 CSS sticky 固定表头
-  const [virtualScrollHeaderPos, setVirtualScrollHeaderPos] = useState<{ left: number; top: number }>({
+  const [virtualScrollHeaderPos, setVirtualScrollHeaderPos] = useState<{
+    left: number;
+    top: number;
+  }>({
     left: 0,
     top: 0,
   });
@@ -188,7 +194,10 @@ export default function useFixed(props: TdBaseTableProps) {
         }
         const obj = initialColumnMap.get(colKey || j);
         if (obj?.col?.fixed) {
-          initialColumnMap.set(colKey, { ...obj, width: th?.getBoundingClientRect?.().width });
+          initialColumnMap.set(colKey, {
+            ...obj,
+            width: th?.getBoundingClientRect?.().width,
+          });
         }
       }
     }
@@ -216,7 +225,10 @@ export default function useFixed(props: TdBaseTableProps) {
         defaultBottom = thead?.getBoundingClientRect?.().height || 0;
       }
       thisRowInfo.top = (lastRowInfo.top || defaultBottom) + (lastRowInfo.height || 0);
-      initialColumnMap.set(rowId, { ...thisRowInfo, height: tr?.getBoundingClientRect?.().height });
+      initialColumnMap.set(rowId, {
+        ...thisRowInfo,
+        height: tr?.getBoundingClientRect?.().height,
+      });
     }
     for (let i = data.length - 1; i >= data.length - fixedBottomRows; i--) {
       const tr = trList[i] as HTMLElement;
@@ -229,7 +241,10 @@ export default function useFixed(props: TdBaseTableProps) {
         defaultBottom = tfoot?.getBoundingClientRect?.().height || 0;
       }
       thisRowInfo.bottom = (lastRowInfo.bottom || defaultBottom) + (lastRowInfo.height || 0);
-      initialColumnMap.set(rowId, { ...thisRowInfo, height: tr?.getBoundingClientRect?.().height });
+      initialColumnMap.set(rowId, {
+        ...thisRowInfo,
+        height: tr?.getBoundingClientRect?.().height,
+      });
     }
   };
 
@@ -451,7 +466,9 @@ export default function useFixed(props: TdBaseTableProps) {
 
     if (isFixedColumn || isFixedHeader) {
       updateFixedStatus();
-      updateColumnFixedShadow(tableContentRef.current, { skipScrollLimit: true });
+      updateColumnFixedShadow(tableContentRef.current, {
+        skipScrollLimit: true,
+      });
     }
   };
 

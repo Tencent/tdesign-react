@@ -1,11 +1,12 @@
 import React from 'react';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import Base from './base';
 import Color from './color';
 import Label from './label';
-import Status from './status';
 import Size from './size';
+import Status from './status';
 
 import './style/index.less';
 

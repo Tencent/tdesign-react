@@ -1,11 +1,11 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
 
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BaseIcon from './base';
 import EnhancedIcon from './enhanced';
-import IconfontEnhancedIcon from './iconfont-enhanced';
 import IconfontIcon from './iconfont';
+import IconfontEnhancedIcon from './iconfont-enhanced';
 import SingleIcon from './single';
 
 import './style/index.less';

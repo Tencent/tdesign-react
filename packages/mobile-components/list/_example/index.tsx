@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Button } from 'tdesign-mobile-react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import './style/index.less';
 
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BaseList from './base';
 import ErrTipDemo from './err-tip';
 import PullRefreshDemo from './pull-refresh';
+
+import './style/index.less';
 
 export default function ListDemo() {
   const [currentTab, setCurrentTab] = useState('info');

@@ -1,14 +1,14 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
 
-import BaseDemo from './base';
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BadgePropsDemo from './badge-props';
-import TextDemo from './text';
-import PureIconDemo from './pure-icon';
-import TextSpreadDemo from './text-spread';
-import RoundDemo from './round';
+import BaseDemo from './base';
 import CustomDemo from './custom';
+import PureIconDemo from './pure-icon';
+import RoundDemo from './round';
+import TextDemo from './text';
+import TextSpreadDemo from './text-spread';
 
 import './style/index.less';
 

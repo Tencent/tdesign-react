@@ -1,9 +1,12 @@
 import React from 'react';
+import { getCircleStokeWidth } from '@tdesign/common-js/progress/utils';
 import { describe, expect, it, render, waitFor } from '@test/utils';
+
 import getBackgroundColor from '../../_util/linearGradient';
-import { getCircleStokeWidth } from '../../_common/js/progress/utils';
-import Progress, { ProgressProps } from '../index';
-import { ProgressTheme } from '../type';
+import Progress from '../index';
+
+import type { ProgressProps } from '../index';
+import type { ProgressTheme } from '../type';
 
 describe('Progress', () => {
   describe('utils/getBackgroundColor', () => {

@@ -1,12 +1,14 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import './style/index.less';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import Base from './base';
 import MinMax from './min-max';
+import Size from './size';
 import Status from './status';
 import Theme from './theme';
-import Size from './size';
+
+import './style/index.less';
 
 export default function StepperDemo() {
   return (

@@ -1,12 +1,14 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import Base from './base';
+import Footer from './footer';
 import Icon from './icon';
+import Placement from './placement';
 import Plugin from './plugin';
 import Title from './title';
-import Footer from './footer';
-import Placement from './placement';
+
 import './style/index.less';
 
 export default function Demo() {

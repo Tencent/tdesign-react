@@ -2,16 +2,17 @@ import React, { useRef, useState } from 'react';
 import classNames from 'classnames';
 import { isEmpty } from 'lodash-es';
 import { FilterIcon } from 'tdesign-icons-react';
-import log from '../_common/js/log';
+import log from '@tdesign/common-js/log/index';
 
 import { parseContentTNode } from '../_util/parseTNode';
 import TButton from '../button';
 import Checkbox from '../checkbox';
 import Input from '../input';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
-import type { PopupProps } from '../popup';
 import Popup from '../popup';
 import { RadioGroup } from '../radio';
+
+import type { PopupProps } from '../popup';
 import type { FilterValue, PrimaryTableCol, TableRowData, TdPrimaryTableProps } from './type';
 
 const CheckboxGroup = Checkbox.Group;
@@ -137,7 +138,10 @@ export default function TableFilterController(props: TableFilterControllerProps)
   return (
     <div className={classNames([tableFilterClasses.icon, { [isFocusClass]: isObjectTrue || isValueExist }])}>
       <div ref={triggerElementRef} onClick={() => setFilterPopupVisible(true)}>
-        {parseContentTNode(props.filterIcon, { col: column, colIndex: props.colIndex }) || defaultFilterIcon}
+        {parseContentTNode(props.filterIcon, {
+          col: column,
+          colIndex: props.colIndex,
+        }) || defaultFilterIcon}
       </div>
       <Popup
         visible={filterPopupVisible}

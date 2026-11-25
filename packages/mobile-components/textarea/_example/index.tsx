@@ -1,15 +1,16 @@
 import React from 'react';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import Base from './base';
-import Label from './label';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import Autosize from './autosize';
+import Base from './base';
+import Card from './card';
 import Events from './custom';
 import Disable from './disabled';
+import Label from './label';
+import Layout from './layout';
 import Maxcharacter from './maxcharacter';
 import Maxlength from './maxlength';
-import Card from './card';
-import Layout from './layout';
 
 import './style/index.less';
 

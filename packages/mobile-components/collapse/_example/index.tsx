@@ -1,11 +1,12 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import Base from './base';
-import Placement from './placement';
-import Action from './action';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import Accordion from './accordion';
+import Action from './action';
+import Base from './base';
 import Card from './card';
+import Placement from './placement';
 
 export default function CheckboxDemo() {
   return (

@@ -1,7 +1,7 @@
 import { promises, readFileSync, existsSync } from 'fs';
 import path from 'path';
 
-import generateLlmsDocs, { createComponentDocParser } from '../../../../src/_common/docs/plugins/generate-llms';
+import generateLlmsDocs, { createComponentDocParser } from '../../../../../common/docs/plugins/generate-llms';
 
 /** 列出 demo 的候选路径：_example/<demoName>.tsx（含 kebab/camelCase 双写）与 _example/<demoName>/index.tsx。 */
 function demoCandidates(componentDir, demoName) {
@@ -67,9 +67,9 @@ export default function generateLlmsPlugin() {
 
       // 基于 config.root 推导路径，避免依赖 __dirname 多层回溯
       const siteRoot = config.root;
-      const componentsRoot = path.resolve(siteRoot, '../src');
+      const componentsRoot = path.resolve(siteRoot, '../../mobile-components');
       // common 子仓文档根目录（组件文档为 docs/mobile/api/<slug>.md，含 frontmatter 与 {{ demo }} 占位符）
-      const docsRoot = path.resolve(siteRoot, '../src/_common/docs');
+      const docsRoot = path.resolve(siteRoot, '../../common/docs');
       // 产物输出目录：从 config.build.outDir 推导，避免硬编码 dist
       const outputDir = path.resolve(siteRoot, config.build.outDir || 'dist');
 

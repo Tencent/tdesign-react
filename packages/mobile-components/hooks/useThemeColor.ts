@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { THEME_MODE } from '../_common/js/common';
+import { THEME_MODE } from '@tdesign/common-js/common';
+
 import { getCurrentPrimaryColor } from '../_util/dom';
 import useMutationObservable from './useMutationObserver';
 

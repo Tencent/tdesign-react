@@ -1,16 +1,18 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import './style/index.less';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BaseDemo from './base';
-import IconDemo from './icon';
+import BlockDemo from './block';
 import GhostDemo from './ghost';
 import GroupDemo from './group';
-import BlockDemo from './block';
+import IconDemo from './icon';
+import ShapeDemo from './shape';
 import SizeDemo from './size';
 import StatusDemo from './status';
-import ShapeDemo from './shape';
 import ThemeDemo from './theme';
+
+import './style/index.less';
 
 export default function Base() {
   return (

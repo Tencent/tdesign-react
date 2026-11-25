@@ -1,16 +1,18 @@
-import type { FC } from 'react';
 import React, { useContext } from 'react';
 import cls from 'classnames';
-import Image from '../image';
-import Badge from '../badge';
-import { AvatarGroupContext } from './AvatarGroupContext';
-import { isValidSize } from '../_common/js/avatar/utils';
+import { isValidSize } from '@tdesign/common-js/avatar/utils';
+
 import parseTNode from '../_util/parseTNode';
-import useDefaultProps from '../hooks/useDefaultProps';
+import Badge from '../badge';
 import { usePrefixClass } from '../hooks/useClass';
+import useDefaultProps from '../hooks/useDefaultProps';
+import Image from '../image';
+import { AvatarGroupContext } from './AvatarGroupContext';
 import { avatarDefaultProps } from './defaultProps';
-import type { TdAvatarProps } from './type';
+
+import type { FC } from 'react';
 import type { StyledProps } from '../common';
+import type { TdAvatarProps } from './type';
 
 export interface AvatarProps extends TdAvatarProps, StyledProps {}
 

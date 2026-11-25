@@ -1,15 +1,17 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BaseDemo from './base';
+import CustomTextDemo from './custom-text';
+import CustomTextSingleDemo from './custom-text-single';
+import DisabledDemo from './disabled';
+import LocalTextDemo from './local-text';
 import MultipleDemo from './multiple';
 import RangeDemo from './range';
-import CustomTextSingleDemo from './custom-text-single';
-import CustomTextDemo from './custom-text';
-import DisabledDemo from './disabled';
-import WithoutPopupDemo from './without-popup';
 import SwitchModeDemo from './switch-mode';
-import LocalTextDemo from './local-text';
+import WithoutPopupDemo from './without-popup';
+
 import './style/index.less';
 
 export default function CheckboxDemo() {

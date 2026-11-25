@@ -1,14 +1,19 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { BackTop, Skeleton } from 'tdesign-mobile-react';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import './style/index.less';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BaseDemo from './base';
 import HalfRoundDemo from './half-round';
 
+import './style/index.less';
+
 export default function BackTopDemo() {
   const [visible, setVisible] = useState(false);
-  const [backTop, setBackTop] = useState<{ theme: 'round' | 'half-round'; text: string }>({
+  const [backTop, setBackTop] = useState<{
+    theme: 'round' | 'half-round';
+    text: string;
+  }>({
     theme: 'round',
     text: '顶部',
   });

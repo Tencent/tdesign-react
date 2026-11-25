@@ -1,12 +1,12 @@
 import React from 'react';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
 
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
+import Double from './double';
+import Event from './event';
+import Icon from './icon';
 import Left from './left';
 import Right from './right';
-import Double from './double';
-import Icon from './icon';
-import Event from './event';
 
 import './style/base.less';
 

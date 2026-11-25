@@ -1,15 +1,17 @@
 import React from 'react';
-import './style/index.less';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import BaseDemo from './base';
-import HorizontalDemo from './horizontal';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import AllDemo from './all';
+import BaseDemo from './base';
+import CardDemo from './card';
+import HorizontalDemo from './horizontal';
+import RightDemo from './right';
+import SpecialDemo from './special';
 import StatusDemo from './status';
 import TypeDemo from './type';
-import RightDemo from './right';
-import CardDemo from './card';
-import SpecialDemo from './special';
+
+import './style/index.less';
 
 export default function CheckboxDemo() {
   return (

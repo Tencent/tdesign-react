@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { get } from 'lodash-es';
-import log from '../../_common/js/log/index';
-import { BaseTableCellParams, BaseTableCol, TableRowData, TableRowspanAndColspanFunc } from '../type';
+import log from '@tdesign/common-js/log/index';
+
+import type { BaseTableCellParams, BaseTableCol, TableRowData, TableRowspanAndColspanFunc } from '../type';
 
 export interface SkipSpansValue {
   colspan?: number;

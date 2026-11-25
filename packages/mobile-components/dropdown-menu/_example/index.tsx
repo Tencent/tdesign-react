@@ -1,12 +1,13 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
 
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import CustomizedDemo from './customized';
 import DirectionDemo from './direction';
 import DisabledDemo from './disabled';
 import MultipleDemo from './multiple';
 import SingleDemo from './single';
+
 import './style/index.less';
 
 export default function DropdownMenuDemo() {

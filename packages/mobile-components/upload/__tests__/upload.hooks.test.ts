@@ -1,6 +1,8 @@
-import { renderHook, act } from '@test/utils';
 import { vi } from 'vitest';
+import { act, renderHook } from '@test/utils';
+
 import useUpload from '../hooks/useUpload';
+
 import type { TdUploadProps, UploadFile } from '../type';
 
 // Mock URL.createObjectURL / revokeObjectURL (jsdom 不支持)
@@ -8,7 +10,7 @@ global.URL.createObjectURL = vi.fn(() => 'blob://mock-object-url');
 global.URL.revokeObjectURL = vi.fn();
 
 // Mock 依赖模块
-vi.mock('../../_common/js/upload/main', () => ({
+vi.mock('@tdesign/common-js/upload/main', () => ({
   formatToUploadFile: vi.fn((files: File[]) =>
     files.map((f) => ({ name: f.name, raw: f, status: 'waiting' }) as UploadFile),
   ),
@@ -53,14 +55,23 @@ vi.mock('../../_common/js/upload/main', () => ({
     }
     const data = {
       files:
-        toUploadFiles?.map((f: UploadFile) => ({ ...f, status: 'success', url: 'https://example.com/test.png' })) || [],
+        toUploadFiles?.map((f: UploadFile) => ({
+          ...f,
+          status: 'success',
+          url: 'https://example.com/test.png',
+        })) || [],
       response: { ok: true },
     };
-    return Promise.resolve({ status: 'success', data, list: [{ data }], failedFiles: [] });
+    return Promise.resolve({
+      status: 'success',
+      data,
+      list: [{ data }],
+      failedFiles: [],
+    });
   }),
 }));
 
-vi.mock('../../_common/js/upload/utils', () => ({
+vi.mock('@tdesign/common-js/upload/utils', () => ({
   getFileList: vi.fn((fl: FileList) => Array.from(fl)),
   getFileUrlByFileRaw: vi.fn(async () => 'blob://mock-url'),
   IMAGE_REGEXP: /\.(png|gif|jpg|jpeg|webp|svg|bmp|ico)(\?.*)?$/i,
@@ -98,7 +109,13 @@ describe('useUpload', () => {
     });
 
     it(': initializes with defaultFiles', () => {
-      const defaultFiles: UploadFile[] = [{ name: 'test.png', url: 'https://example.com/test.png', status: 'success' }];
+      const defaultFiles: UploadFile[] = [
+        {
+          name: 'test.png',
+          url: 'https://example.com/test.png',
+          status: 'success',
+        },
+      ];
       const props: TdUploadProps = { defaultFiles };
       const { result } = renderHook(() => useUpload(props));
 
@@ -158,7 +175,13 @@ describe('useUpload', () => {
 
     it(': handles file removal', () => {
       const onRemove = vi.fn();
-      const files: UploadFile[] = [{ name: 'test.png', url: 'https://example.com/test.png', status: 'success' }];
+      const files: UploadFile[] = [
+        {
+          name: 'test.png',
+          url: 'https://example.com/test.png',
+          status: 'success',
+        },
+      ];
       const props: TdUploadProps = { files, onRemove };
       const { result } = renderHook(() => useUpload(props));
 
@@ -195,7 +218,7 @@ describe('useUpload', () => {
 
   describe('validation', () => {
     it(': validates file size limit', async () => {
-      const { validateFile } = await import('../../_common/js/upload/main');
+      const { validateFile } = await import('@tdesign/common-js/upload/main');
       vi.mocked(validateFile).mockResolvedValueOnce({
         files: [],
         fileValidateList: [
@@ -223,7 +246,7 @@ describe('useUpload', () => {
     });
 
     it(': validates max file count', async () => {
-      const { validateFile } = await import('../../_common/js/upload/main');
+      const { validateFile } = await import('@tdesign/common-js/upload/main');
       vi.mocked(validateFile).mockResolvedValueOnce({
         files: [],
         lengthOverLimit: true,
@@ -247,7 +270,7 @@ describe('useUpload', () => {
     });
 
     it(': handles duplicate file names', async () => {
-      const { validateFile } = await import('../../_common/js/upload/main');
+      const { validateFile } = await import('@tdesign/common-js/upload/main');
       vi.mocked(validateFile).mockResolvedValueOnce({
         files: [],
         hasSameNameFile: true,
@@ -364,7 +387,11 @@ describe('useUpload', () => {
 
       expect(typeof result.current.uploadFilePercent).toBe('function');
 
-      const file: UploadFile = { name: 'test.png', raw: createFile('test.png'), status: 'progress' };
+      const file: UploadFile = {
+        name: 'test.png',
+        raw: createFile('test.png'),
+        status: 'progress',
+      };
 
       act(() => {
         result.current.uploadFilePercent({ file, percent: 50 });
@@ -379,7 +406,11 @@ describe('useUpload', () => {
       const props: TdUploadProps = {};
       const { result } = renderHook(() => useUpload(props));
 
-      const imageFile: UploadFile = { name: 'test.png', raw: createFile('test.png', 'image/png'), status: 'success' };
+      const imageFile: UploadFile = {
+        name: 'test.png',
+        raw: createFile('test.png', 'image/png'),
+        status: 'success',
+      };
       expect(result.current.isImageFile(imageFile)).toBe(true);
 
       const nonImageFile: UploadFile = {
@@ -394,10 +425,18 @@ describe('useUpload', () => {
       const props: TdUploadProps = {};
       const { result } = renderHook(() => useUpload(props));
 
-      const fileWithImgUrl: UploadFile = { name: 'photo', url: 'https://example.com/photo.jpg', status: 'success' };
+      const fileWithImgUrl: UploadFile = {
+        name: 'photo',
+        url: 'https://example.com/photo.jpg',
+        status: 'success',
+      };
       expect(result.current.isImageFile(fileWithImgUrl)).toBe(true);
 
-      const fileWithNonImgUrl: UploadFile = { name: 'doc', url: 'https://example.com/doc.pdf', status: 'success' };
+      const fileWithNonImgUrl: UploadFile = {
+        name: 'doc',
+        url: 'https://example.com/doc.pdf',
+        status: 'success',
+      };
       expect(result.current.isImageFile(fileWithNonImgUrl)).toBe(false);
     });
 
@@ -413,14 +452,29 @@ describe('useUpload', () => {
     it(': onInnerRemove in single file mode clears all', () => {
       const onChange = vi.fn();
       const onRemove = vi.fn();
-      const files: UploadFile[] = [{ name: 'test.png', url: 'https://example.com/test.png', status: 'success' }];
-      const props: TdUploadProps = { files, multiple: false, onChange, onRemove };
+      const files: UploadFile[] = [
+        {
+          name: 'test.png',
+          url: 'https://example.com/test.png',
+          status: 'success',
+        },
+      ];
+      const props: TdUploadProps = {
+        files,
+        multiple: false,
+        onChange,
+        onRemove,
+      };
       const { result } = renderHook(() => useUpload(props));
 
       const mockEvent = { stopPropagation: vi.fn() } as any;
 
       act(() => {
-        result.current.onInnerRemove({ e: mockEvent, file: files[0], index: 0 });
+        result.current.onInnerRemove({
+          e: mockEvent,
+          file: files[0],
+          index: 0,
+        });
       });
 
       expect(onChange).toHaveBeenCalledWith([], expect.objectContaining({ trigger: 'remove' }));
@@ -433,13 +487,22 @@ describe('useUpload', () => {
         { name: 'a.png', url: 'https://example.com/a.png', status: 'success' },
         { name: 'b.png', url: 'https://example.com/b.png', status: 'success' },
       ];
-      const props: TdUploadProps = { files, multiple: true, autoUpload: false, onChange };
+      const props: TdUploadProps = {
+        files,
+        multiple: true,
+        autoUpload: false,
+        onChange,
+      };
       const { result } = renderHook(() => useUpload(props));
 
       const mockEvent = { stopPropagation: vi.fn() } as any;
 
       act(() => {
-        result.current.onInnerRemove({ e: mockEvent, file: files[0], index: 0 });
+        result.current.onInnerRemove({
+          e: mockEvent,
+          file: files[0],
+          index: 0,
+        });
       });
 
       expect(onChange).toHaveBeenCalled();
@@ -451,13 +514,22 @@ describe('useUpload', () => {
         { name: 'a.png', url: 'https://example.com/a.png', status: 'success' },
         { name: 'b.png', url: 'https://example.com/b.png', status: 'success' },
       ];
-      const props: TdUploadProps = { files, multiple: true, autoUpload: true, onChange };
+      const props: TdUploadProps = {
+        files,
+        multiple: true,
+        autoUpload: true,
+        onChange,
+      };
       const { result } = renderHook(() => useUpload(props));
 
       const mockEvent = { stopPropagation: vi.fn() } as any;
 
       act(() => {
-        result.current.onInnerRemove({ e: mockEvent, file: files[1], index: 1 });
+        result.current.onInnerRemove({
+          e: mockEvent,
+          file: files[1],
+          index: 1,
+        });
       });
 
       expect(onChange).toHaveBeenCalled();
@@ -466,9 +538,18 @@ describe('useUpload', () => {
     it(': onInnerRemove in multiple + autoUpload mode for toUploadFiles item', async () => {
       const onChange = vi.fn();
       const files: UploadFile[] = [
-        { name: 'uploaded.png', url: 'https://example.com/uploaded.png', status: 'success' },
+        {
+          name: 'uploaded.png',
+          url: 'https://example.com/uploaded.png',
+          status: 'success',
+        },
       ];
-      const props: TdUploadProps = { files, multiple: true, autoUpload: true, onChange };
+      const props: TdUploadProps = {
+        files,
+        multiple: true,
+        autoUpload: true,
+        onChange,
+      };
       const { result } = renderHook(() => useUpload(props));
 
       // First, add a file to toUploadFiles via onFileChange
@@ -514,8 +595,17 @@ describe('useUpload', () => {
     it(': cancelUpload in non-autoUpload mode with context.file triggers onInnerRemove', () => {
       const onChange = vi.fn();
       const onRemove = vi.fn();
-      const file: UploadFile = { name: 'a.png', url: 'https://example.com/a.png', status: 'progress' };
-      const props: TdUploadProps = { files: [file], autoUpload: false, onChange, onRemove };
+      const file: UploadFile = {
+        name: 'a.png',
+        url: 'https://example.com/a.png',
+        status: 'progress',
+      };
+      const props: TdUploadProps = {
+        files: [file],
+        autoUpload: false,
+        onChange,
+        onRemove,
+      };
       const { result } = renderHook(() => useUpload(props));
 
       const mockEvent = { stopPropagation: vi.fn() } as any;
@@ -529,7 +619,12 @@ describe('useUpload', () => {
     it(': cancelUpload in autoUpload mode sets toUploadFiles status to waiting', async () => {
       const onProgress = vi.fn();
       const onSuccess = vi.fn();
-      const props: TdUploadProps = { autoUpload: true, action: '//mock-api', onProgress, onSuccess };
+      const props: TdUploadProps = {
+        autoUpload: true,
+        action: '//mock-api',
+        onProgress,
+        onSuccess,
+      };
       const { result } = renderHook(() => useUpload(props));
 
       const uploadFile: UploadFile[] = [{ name: 'test.png', raw: createFile('test.png'), status: 'waiting' }];
@@ -550,8 +645,16 @@ describe('useUpload', () => {
     it(': cancelUpload preserves success files in non-autoUpload mode', () => {
       const onChange = vi.fn();
       const files: UploadFile[] = [
-        { name: 'done.png', url: 'https://example.com/done.png', status: 'success' },
-        { name: 'pending.png', url: 'https://example.com/pending.png', status: 'progress' },
+        {
+          name: 'done.png',
+          url: 'https://example.com/done.png',
+          status: 'success',
+        },
+        {
+          name: 'pending.png',
+          url: 'https://example.com/pending.png',
+          status: 'progress',
+        },
       ];
       const props: TdUploadProps = { files, autoUpload: false, onChange };
       const { result } = renderHook(() => useUpload(props));
@@ -569,7 +672,7 @@ describe('useUpload', () => {
 
   describe('upload failure', () => {
     it(': handles upload failure with failedFiles', async () => {
-      const { upload } = await import('../../_common/js/upload/main');
+      const { upload } = await import('@tdesign/common-js/upload/main');
       vi.mocked(upload).mockImplementationOnce((opts: any) => {
         const { toUploadFiles, onResponseError } = opts;
         // 触发 onResponseError 回调
@@ -585,7 +688,11 @@ describe('useUpload', () => {
       });
 
       const onFail = vi.fn();
-      const props: TdUploadProps = { autoUpload: true, action: '//mock-api', onFail };
+      const props: TdUploadProps = {
+        autoUpload: true,
+        action: '//mock-api',
+        onFail,
+      };
       const { result } = renderHook(() => useUpload(props));
 
       const uploadFilesList: UploadFile[] = [{ name: 'test.png', raw: createFile('test.png'), status: 'waiting' }];
@@ -599,7 +706,7 @@ describe('useUpload', () => {
     });
 
     it(': handles onResponseError in single mode (non-multiple)', async () => {
-      const { upload } = await import('../../_common/js/upload/main');
+      const { upload } = await import('@tdesign/common-js/upload/main');
       vi.mocked(upload).mockImplementationOnce((opts: any) => {
         const { toUploadFiles, onResponseError } = opts;
         if (onResponseError) {
@@ -615,7 +722,13 @@ describe('useUpload', () => {
 
       const onFail = vi.fn();
       const onChange = vi.fn();
-      const props: TdUploadProps = { autoUpload: true, multiple: false, action: '//mock-api', onFail, onChange };
+      const props: TdUploadProps = {
+        autoUpload: true,
+        multiple: false,
+        action: '//mock-api',
+        onFail,
+        onChange,
+      };
       const { result } = renderHook(() => useUpload(props));
 
       const uploadFilesList: UploadFile[] = [{ name: 'test.png', raw: createFile('test.png'), status: 'waiting' }];
@@ -629,7 +742,7 @@ describe('useUpload', () => {
     });
 
     it(': handles onResponseError with empty/null data', async () => {
-      const { upload } = await import('../../_common/js/upload/main');
+      const { upload } = await import('@tdesign/common-js/upload/main');
       vi.mocked(upload).mockImplementationOnce((opts: any) => {
         const { onResponseError } = opts;
         // 触发空参数分支
@@ -647,7 +760,11 @@ describe('useUpload', () => {
       });
 
       const onFail = vi.fn();
-      const props: TdUploadProps = { autoUpload: true, action: '//mock-api', onFail };
+      const props: TdUploadProps = {
+        autoUpload: true,
+        action: '//mock-api',
+        onFail,
+      };
       const { result } = renderHook(() => useUpload(props));
 
       await act(async () => {
@@ -660,7 +777,11 @@ describe('useUpload', () => {
 
     it(': uploadFiles does nothing when empty array given', async () => {
       const onSuccess = vi.fn();
-      const props: TdUploadProps = { autoUpload: true, action: '//mock-api', onSuccess };
+      const props: TdUploadProps = {
+        autoUpload: true,
+        action: '//mock-api',
+        onSuccess,
+      };
       const { result } = renderHook(() => useUpload(props));
 
       await act(async () => {
@@ -672,19 +793,38 @@ describe('useUpload', () => {
     });
 
     it(': uploadFiles in non-autoUpload mode uses notUploadedFiles', async () => {
-      const { upload } = await import('../../_common/js/upload/main');
+      const { upload } = await import('@tdesign/common-js/upload/main');
       vi.mocked(upload).mockImplementationOnce((opts: any) => {
         const { toUploadFiles } = opts;
         const data = {
-          files: toUploadFiles?.map((f: UploadFile) => ({ ...f, status: 'success' })),
+          files: toUploadFiles?.map((f: UploadFile) => ({
+            ...f,
+            status: 'success',
+          })),
           response: { ok: true },
         };
-        return Promise.resolve({ status: 'success', data, list: [{ data }], failedFiles: [] });
+        return Promise.resolve({
+          status: 'success',
+          data,
+          list: [{ data }],
+          failedFiles: [],
+        });
       });
 
       const onSuccess = vi.fn();
-      const files: UploadFile[] = [{ name: 'waiting.png', url: 'https://example.com/waiting.png', status: 'waiting' }];
-      const props: TdUploadProps = { files, autoUpload: false, action: '//mock-api', onSuccess };
+      const files: UploadFile[] = [
+        {
+          name: 'waiting.png',
+          url: 'https://example.com/waiting.png',
+          status: 'waiting',
+        },
+      ];
+      const props: TdUploadProps = {
+        files,
+        autoUpload: false,
+        action: '//mock-api',
+        onSuccess,
+      };
       const { result } = renderHook(() => useUpload(props));
 
       await act(async () => {
@@ -698,7 +838,7 @@ describe('useUpload', () => {
 
   describe('BEFORE_ALL_FILES_UPLOAD validation', () => {
     it(': triggers onValidate with BEFORE_ALL_FILES_UPLOAD type', async () => {
-      const { validateFile } = await import('../../_common/js/upload/main');
+      const { validateFile } = await import('@tdesign/common-js/upload/main');
       vi.mocked(validateFile).mockResolvedValueOnce({
         files: [],
         validateResult: { type: 'BEFORE_ALL_FILES_UPLOAD' },
@@ -720,13 +860,21 @@ describe('useUpload', () => {
 
   describe('sizeLimitErrors handling', () => {
     it(': triggers FILE_OVER_SIZE_LIMIT when size limit exceeded', async () => {
-      const { validateFile, getFilesAndErrors } = await import('../../_common/js/upload/main');
+      const { validateFile, getFilesAndErrors } = await import('@tdesign/common-js/upload/main');
       vi.mocked(validateFile).mockResolvedValueOnce({
         files: [createFile('big.png')],
         fileValidateList: [{ file: { name: 'big.png', status: 'waiting', size: 5000000 } }],
       });
       vi.mocked(getFilesAndErrors).mockReturnValueOnce({
-        sizeLimitErrors: [{ file: { name: 'big.png', status: 'fail', response: { error: 'too big' } } }],
+        sizeLimitErrors: [
+          {
+            file: {
+              name: 'big.png',
+              status: 'fail',
+              response: { error: 'too big' },
+            },
+          },
+        ],
         beforeUploadErrorFiles: [],
         toFiles: [],
       });
@@ -744,7 +892,7 @@ describe('useUpload', () => {
     });
 
     it(': triggers CUSTOM_BEFORE_UPLOAD when beforeUpload rejects', async () => {
-      const { validateFile, getFilesAndErrors } = await import('../../_common/js/upload/main');
+      const { validateFile, getFilesAndErrors } = await import('@tdesign/common-js/upload/main');
       vi.mocked(validateFile).mockResolvedValueOnce({
         files: [createFile('test.png')],
         fileValidateList: [{ file: { name: 'test.png', status: 'waiting' } }],
@@ -768,16 +916,24 @@ describe('useUpload', () => {
     });
 
     it(': uses sizeLimit object with message for error display', async () => {
-      const { validateFile, getFilesAndErrors } = await import('../../_common/js/upload/main');
+      const { validateFile, getFilesAndErrors } = await import('@tdesign/common-js/upload/main');
       vi.mocked(validateFile).mockResolvedValueOnce({
         files: [createFile('big.png')],
         fileValidateList: [{ file: { name: 'big.png', status: 'waiting', size: 5000000 } }],
       });
       vi.mocked(getFilesAndErrors).mockImplementationOnce((fileValidateList: any[], getSizeLimitError: any) => {
         // Actually call getSizeLimitError to exercise the t() function
-        const error = getSizeLimitError({ size: 1024, unit: 'KB', message: 'File exceeds {sizeLimit}' });
+        const error = getSizeLimitError({
+          size: 1024,
+          unit: 'KB',
+          message: 'File exceeds {sizeLimit}',
+        });
         return {
-          sizeLimitErrors: [{ file: { name: 'big.png', status: 'fail', response: { error } } }],
+          sizeLimitErrors: [
+            {
+              file: { name: 'big.png', status: 'fail', response: { error } },
+            },
+          ],
           beforeUploadErrorFiles: [],
           toFiles: [],
         };
@@ -785,7 +941,11 @@ describe('useUpload', () => {
 
       const onValidate = vi.fn();
       const props: TdUploadProps = {
-        sizeLimit: { size: 1024, unit: 'KB', message: 'File exceeds {sizeLimit}' },
+        sizeLimit: {
+          size: 1024,
+          unit: 'KB',
+          message: 'File exceeds {sizeLimit}',
+        },
         onValidate,
       };
       const { result } = renderHook(() => useUpload(props));
@@ -799,7 +959,7 @@ describe('useUpload', () => {
     });
 
     it(': uses sizeLimit object without message falls back to default', async () => {
-      const { validateFile, getFilesAndErrors } = await import('../../_common/js/upload/main');
+      const { validateFile, getFilesAndErrors } = await import('@tdesign/common-js/upload/main');
       vi.mocked(validateFile).mockResolvedValueOnce({
         files: [createFile('big.png')],
         fileValidateList: [{ file: { name: 'big.png', status: 'waiting', size: 5000000 } }],
@@ -808,14 +968,21 @@ describe('useUpload', () => {
         // Call getSizeLimitError without message to exercise the else branch
         const error = getSizeLimitError({ size: 2048, unit: 'MB' });
         return {
-          sizeLimitErrors: [{ file: { name: 'big.png', status: 'fail', response: { error } } }],
+          sizeLimitErrors: [
+            {
+              file: { name: 'big.png', status: 'fail', response: { error } },
+            },
+          ],
           beforeUploadErrorFiles: [],
           toFiles: [],
         };
       });
 
       const onValidate = vi.fn();
-      const props: TdUploadProps = { sizeLimit: { size: 2048, unit: 'MB' }, onValidate };
+      const props: TdUploadProps = {
+        sizeLimit: { size: 2048, unit: 'MB' },
+        onValidate,
+      };
       const { result } = renderHook(() => useUpload(props));
 
       await act(async () => {
@@ -827,16 +994,24 @@ describe('useUpload', () => {
     });
 
     it(': uses sizeLimit object with function message', async () => {
-      const { validateFile, getFilesAndErrors } = await import('../../_common/js/upload/main');
+      const { validateFile, getFilesAndErrors } = await import('@tdesign/common-js/upload/main');
       vi.mocked(validateFile).mockResolvedValueOnce({
         files: [createFile('big.png')],
         fileValidateList: [{ file: { name: 'big.png', status: 'waiting', size: 5000000 } }],
       });
       vi.mocked(getFilesAndErrors).mockImplementationOnce((fileValidateList: any[], getSizeLimitError: any) => {
         // Call getSizeLimitError with function message to exercise function branch
-        const error = getSizeLimitError({ size: 1024, unit: 'KB', message: (data: any) => `Max ${data.sizeLimit}` });
+        const error = getSizeLimitError({
+          size: 1024,
+          unit: 'KB',
+          message: (data: any) => `Max ${data.sizeLimit}`,
+        });
         return {
-          sizeLimitErrors: [{ file: { name: 'big.png', status: 'fail', response: { error } } }],
+          sizeLimitErrors: [
+            {
+              file: { name: 'big.png', status: 'fail', response: { error } },
+            },
+          ],
           beforeUploadErrorFiles: [],
           toFiles: [],
         };
@@ -844,7 +1019,11 @@ describe('useUpload', () => {
 
       const onValidate = vi.fn();
       const props: TdUploadProps = {
-        sizeLimit: { size: 1024, unit: 'KB', message: ((data: any) => `Max ${data.sizeLimit}`) as any },
+        sizeLimit: {
+          size: 1024,
+          unit: 'KB',
+          message: ((data: any) => `Max ${data.sizeLimit}`) as any,
+        },
         onValidate,
       };
       const { result } = renderHook(() => useUpload(props));
@@ -858,23 +1037,34 @@ describe('useUpload', () => {
     });
 
     it(': handles non-string non-function message pattern in t()', async () => {
-      const { validateFile, getFilesAndErrors } = await import('../../_common/js/upload/main');
+      const { validateFile, getFilesAndErrors } = await import('@tdesign/common-js/upload/main');
       vi.mocked(validateFile).mockResolvedValueOnce({
         files: [createFile('big.png')],
         fileValidateList: [{ file: { name: 'big.png', status: 'waiting', size: 5000000 } }],
       });
       vi.mocked(getFilesAndErrors).mockImplementationOnce((fileValidateList: any[], getSizeLimitError: any) => {
         // Call with number/null/etc to hit the return '' branch
-        const error = getSizeLimitError({ size: 1024, unit: 'KB', message: 123 as any });
+        const error = getSizeLimitError({
+          size: 1024,
+          unit: 'KB',
+          message: 123 as any,
+        });
         return {
-          sizeLimitErrors: [{ file: { name: 'big.png', status: 'fail', response: { error } } }],
+          sizeLimitErrors: [
+            {
+              file: { name: 'big.png', status: 'fail', response: { error } },
+            },
+          ],
           beforeUploadErrorFiles: [],
           toFiles: [],
         };
       });
 
       const onValidate = vi.fn();
-      const props: TdUploadProps = { sizeLimit: { size: 1024, unit: 'KB', message: 123 as any }, onValidate };
+      const props: TdUploadProps = {
+        sizeLimit: { size: 1024, unit: 'KB', message: 123 as any },
+        onValidate,
+      };
       const { result } = renderHook(() => useUpload(props));
 
       await act(async () => {
@@ -890,9 +1080,18 @@ describe('useUpload', () => {
     it(': handleNotAutoUpload concatenates files in multiple mode', async () => {
       const onChange = vi.fn();
       const files: UploadFile[] = [
-        { name: 'existing.png', url: 'https://example.com/existing.png', status: 'success' },
+        {
+          name: 'existing.png',
+          url: 'https://example.com/existing.png',
+          status: 'success',
+        },
       ];
-      const props: TdUploadProps = { files, multiple: true, autoUpload: false, onChange };
+      const props: TdUploadProps = {
+        files,
+        multiple: true,
+        autoUpload: false,
+        onChange,
+      };
       const { result } = renderHook(() => useUpload(props));
 
       await act(async () => {
@@ -906,15 +1105,28 @@ describe('useUpload', () => {
 
   describe('lengthOverLimit with remaining files', () => {
     it(': continues upload when lengthOverLimit but files exist', async () => {
-      const { validateFile } = await import('../../_common/js/upload/main');
+      const { validateFile } = await import('@tdesign/common-js/upload/main');
       vi.mocked(validateFile).mockResolvedValueOnce({
         files: [{ name: 'ok.png', raw: createFile('ok.png'), status: 'waiting' }],
         lengthOverLimit: true,
-        fileValidateList: [{ file: { name: 'ok.png', raw: createFile('ok.png'), status: 'waiting' } }],
+        fileValidateList: [
+          {
+            file: {
+              name: 'ok.png',
+              raw: createFile('ok.png'),
+              status: 'waiting',
+            },
+          },
+        ],
       });
 
       const onValidate = vi.fn();
-      const props: TdUploadProps = { max: 1, autoUpload: true, action: '//mock-api', onValidate };
+      const props: TdUploadProps = {
+        max: 1,
+        autoUpload: true,
+        action: '//mock-api',
+        onValidate,
+      };
       const { result } = renderHook(() => useUpload(props));
 
       await act(async () => {
@@ -951,7 +1163,7 @@ describe('useUpload', () => {
 
   describe('validateFile without fileValidateList array', () => {
     it(': skips processing when fileValidateList is not an array', async () => {
-      const { validateFile } = await import('../../_common/js/upload/main');
+      const { validateFile } = await import('@tdesign/common-js/upload/main');
       vi.mocked(validateFile).mockResolvedValueOnce({
         files: [],
         fileValidateList: null as any, // Not an Array
@@ -977,12 +1189,15 @@ describe('useUpload', () => {
   describe('cancelUpload with active xhr', () => {
     it(': aborts active xhr requests during cancelUpload', async () => {
       const abortFn = vi.fn();
-      const { upload } = await import('../../_common/js/upload/main');
+      const { upload } = await import('@tdesign/common-js/upload/main');
       // Override upload mock to set xhrReq that won't resolve immediately
       vi.mocked(upload).mockImplementationOnce((opts: any) => {
         const { setXhrObject, toUploadFiles } = opts;
         if (setXhrObject && toUploadFiles?.[0]) {
-          setXhrObject({ files: [toUploadFiles[0]], xhrReq: { abort: abortFn } });
+          setXhrObject({
+            files: [toUploadFiles[0]],
+            xhrReq: { abort: abortFn },
+          });
         }
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         return new Promise(() => {});
@@ -1010,7 +1225,7 @@ describe('useUpload', () => {
 
   describe('handleNotAutoUpload edge cases', () => {
     it(': does nothing when resulting files list is empty', async () => {
-      const { validateFile, getFilesAndErrors } = await import('../../_common/js/upload/main');
+      const { validateFile, getFilesAndErrors } = await import('@tdesign/common-js/upload/main');
       vi.mocked(validateFile).mockResolvedValueOnce({
         files: [],
         fileValidateList: [],

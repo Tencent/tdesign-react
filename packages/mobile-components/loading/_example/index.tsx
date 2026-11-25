@@ -1,17 +1,18 @@
 import React from 'react';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BaseLoading from './base';
 import HorzLoading from './horz';
-import VertLoading from './vert';
 import PureTextLoading from './pure-text';
 import SizeLoading from './size';
 import SpeedLoading from './speed';
+import VertLoading from './vert';
+
 // import FullScreenLoading from './fullscreen';
 // import AttachLoading from './attach';
 // import PluginLoading from './service';
 // import DelayLoading from './delay';
-
 import './style/index.less';
 
 export default function () {

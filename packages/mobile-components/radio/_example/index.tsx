@@ -1,13 +1,15 @@
 import React from 'react';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BaseDemo from './base';
-import HorizontalDemo from './horizontal';
-import StatusDemo from './status';
-import IconDemo from './icon';
-import PlacementDemo from './placement';
 import CardDemo from './card';
 import CustomDemo from './custom';
+import HorizontalDemo from './horizontal';
+import IconDemo from './icon';
+import PlacementDemo from './placement';
+import StatusDemo from './status';
+
 import './style/index.less';
 
 export default function RadioDemo() {

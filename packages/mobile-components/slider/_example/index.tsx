@@ -1,13 +1,15 @@
 import React from 'react';
-import TDemoHeader from '../../../site/mobile/components/DemoHeader';
-import TDemoBlock from '../../../site/mobile/components/DemoBlock';
+
+import TDemoBlock from '../../../tdesign-mobile-react/site/mobile/components/DemoBlock';
+import TDemoHeader from '../../../tdesign-mobile-react/site/mobile/components/DemoHeader';
 import BaseDemo from './base';
-import RangDemo from './range';
-import LabelDemo from './label';
-import StepDemo from './step';
-import DisabledDemo from './disabled';
 import CapsuleDemo from './capsule';
+import DisabledDemo from './disabled';
+import LabelDemo from './label';
+import RangDemo from './range';
+import StepDemo from './step';
 import VerticalDemo from './vertical';
+
 import './style/index.less';
 
 export default function Base() {
