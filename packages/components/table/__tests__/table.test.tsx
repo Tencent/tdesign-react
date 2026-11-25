@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createEvent, fireEvent, mockElementSizes, render, vi, waitFor, mockDelay } from '@test/utils';
+import { createEvent, fireEvent, mockDelay, mockElementSizes, render, vi, waitFor } from '@test/utils';
 
 import { Table } from '..';
 
