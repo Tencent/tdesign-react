@@ -1236,5 +1236,72 @@ describe('Table', () => {
         });
       });
     });
+
+    describe('virtual full rows and cell spans', () => {
+      const columns = [{ colKey: 'id' }, { colKey: 'name' }];
+
+      it('renders virtual full rows when the span callback does not cover business cells', () => {
+        const spanData = Array.from({ length: 150 }, (_, id) => ({
+          id: id + 1,
+          name: `item ${id}`,
+        }));
+        const filtered = render(
+          <Table
+            data={spanData}
+            columns={columns}
+            rowKey="id"
+            height={200}
+            scroll={{ type: 'virtual' }}
+            filterValue={{ name: 'item' }}
+            filterRow="Filtered items"
+            rowspanAndColspan={({ rowIndex, colIndex }) => (rowIndex === 0 && colIndex === 0 ? { colspan: 2 } : {})}
+          />,
+        );
+        expect(filtered.getByText('Filtered items')).toBeVisible();
+        expect(filtered.getByText('item 0')).toBeVisible();
+
+        const callback = vi.fn(() => undefined);
+        const { container } = render(
+          <Table
+            data={[]}
+            columns={columns}
+            rowKey="id"
+            height={200}
+            scroll={{ type: 'virtual', threshold: 1 }}
+            firstFullRow="First"
+            lastFullRow="Last"
+            rowspanAndColspan={callback}
+          />,
+        );
+        expect(Array.from(container.querySelectorAll('tbody tr'), (row) => row.textContent)).toEqual(['First', 'Last']);
+        expect(callback).not.toHaveBeenCalled();
+      });
+
+      it('only admits window rows from the current page when a full row makes an empty span map ready', () => {
+        const rows = Array.from({ length: 150 }, (_, i) => ({ id: i + 1 }));
+        const table = (current: number) => (
+          <Table
+            data={rows}
+            columns={columns}
+            rowKey="id"
+            height={200}
+            scroll={{ type: 'virtual', bufferSize: 15 }}
+            firstFullRow="First"
+            rowAttributes={({ row }) => ({ 'data-id': String(row.id) })}
+            pagination={{ current, pageSize: 10, total: rows.length }}
+            rowspanAndColspan={() => undefined}
+          />
+        );
+        const { container, getByText, rerender } = render(table(15));
+        const renderedIds = () =>
+          Array.from(container.querySelectorAll('tbody tr[data-id]'), (tr) => +tr.getAttribute('data-id'));
+
+        expect(getByText('First')).toBeVisible();
+        expect(renderedIds()).toEqual([]);
+
+        rerender(table(1));
+        expect(renderedIds()).toEqual(rows.slice(0, 10).map((row) => row.id));
+      });
+    });
   });
 });
