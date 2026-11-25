@@ -1,14 +1,18 @@
 # CONTRIBUTING
 
-`tdesign-react` 是一个 Monorepo，承载 TDesign React 桌面端相关基础组件和高阶组件、插件的源码。
+`tdesign-react` 是一个 Monorepo，承载 TDesign React 桌面端与移动端的基础组件和高阶组件、插件的源码。
 
-> `packages/components` 是组件源码，承载大部分的组件框架相关的代码逻辑、示例代码和测试用例。
+> `packages/components` 是桌面端组件源码，承载大部分桌面端组件框架相关的代码逻辑、示例代码和测试用例。
+
+> `packages/mobile-components` 是移动端组件源码，承载大部分移动端组件框架相关的代码逻辑、示例代码和测试用例。
 
 > `packages/common` 是子仓库，承载大部分组件样式、Design Token、框架无关的逻辑、文档内容结构等。
 
-> `packages/tdesign-react` 是 React 基础组件的站点、打包入口。
+> `packages/tdesign-react` 是桌面端基础组件的站点、打包入口。
 
-大部分情况下，您参与贡献的开发过程，都只需要关注 `packages/components` 和 `packages/common` 的相关代码。
+> `packages/tdesign-mobile-react` 是移动端基础组件的站点、打包入口。
+
+大部分情况下，您参与贡献的开发过程，都只需要关注 `packages/components`（桌面端）或 `packages/mobile-components`（移动端）以及 `packages/common` 的相关代码。
 
 ## 进行开发
 
@@ -28,11 +32,19 @@ pnpm install
 
 ### 3.本地运行项目
 
+桌面端：
+
 ```bash
 pnpm run dev
 ```
 
-完成以上 3 个步骤，浏览器访问 <http://127.0.0.1:15000> 即可调试该框架的任何内容。
+移动端：
+
+```bash
+pnpm run dev:mobile
+```
+
+完成以上步骤，桌面端浏览器访问 <http://127.0.0.1:15000> 即可调试该框架的任何内容。
 
 ## 目录结构
 
@@ -47,7 +59,7 @@ pnpm run dev
     │   │   ├── mobile
     │   │   └── web
     │   └── test
-    ├── components            // 组件
+    ├── components            // 桌面端组件
     │   ├── componentA
     │   │   ├── __tests__     // 组件测试用例
     │   │   ├── _example      // 组件示例文档
@@ -55,7 +67,14 @@ pnpm run dev
     │   │   └── style         // 组件样式
     │   ├── style
     │   ├── utils
-    └── tdesign-react      // tdesign-react 出口
+    ├── mobile-components     // 移动端组件
+    │   ├── componentA
+    │   │   ├── __tests__     // 组件测试用例
+    │   │   ├── _example      // 组件示例文档
+    │   │   └── style         // 组件样式
+    ├── tdesign-react         // tdesign-react 出口
+    │   └── site              // 站点入口
+    └── tdesign-mobile-react  // tdesign-mobile-react 出口
         └── site              // 站点入口
 
 
@@ -106,7 +125,7 @@ pnpm run dev
 
 ### 单元测试
 
-[组件测试文档](./packages/tdesign-react/test/README.md)
+[组件测试文档](./test/README.md)
 
 ## 子仓库相关
 
