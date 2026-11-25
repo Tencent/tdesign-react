@@ -28,6 +28,7 @@ export interface TableBodyProps extends BaseTableProps {
   isWidthOverflow?: boolean;
   virtualConfig: VirtualScrollConfig;
   pagination?: PaginationProps;
+  isPaginateData: boolean;
   handleRowMounted?: (params: RowMountedParams) => void;
 }
 
@@ -83,8 +84,15 @@ export default function TBody(props: TableBodyProps) {
 
   const [global, t] = useLocaleReceiver('table');
 
-  const { skipSpansMap } = useRowspanAndColspan(renderData, columns, rowKey, props.rowspanAndColspan);
-  const isSkipSnapsMapNotFinish = Boolean(props.rowspanAndColspan && !skipSpansMap.size);
+  const hasVirtualFullRow = Boolean(isVirtualScroll && (firstFullRow || lastFullRow));
+  const { skipSpansMap, spansResolved } = useRowspanAndColspan(
+    renderData,
+    columns,
+    rowKey,
+    props.rowspanAndColspan,
+    hasVirtualFullRow,
+  );
+  const isSkipSnapsMapNotFinish = Boolean(props.rowspanAndColspan && !spansResolved);
 
   const { tableFullRowClasses, tableBaseClass } = useClassName();
   const tbodyClasses = useMemo(() => [tableBaseClass.body], [tableBaseClass.body]);
@@ -114,19 +122,13 @@ export default function TBody(props: TableBodyProps) {
 
     const rowProps: React.ComponentProps<'tr'> = {};
     if (isVirtualScroll) {
-      const fullRowIndex = {
-        'first-full-row': 0,
-        'last-full-row': data.length - 1,
-      }[type];
-      const rowVisible = renderData.some((item) => item.__VIRTUAL_SCROLL_INDEX === fullRowIndex);
-      if (!rowVisible) return null;
+      const marker = type === 'first-full-row' ? 'FIRST_FULL_ROW' : 'LAST_FULL_ROW';
+      const placeholder = renderData.find((item) => item.__VIRTUAL_FAKE_DATA === marker);
+      if (!placeholder) return null;
       rowProps.ref = (ref) => {
         if (ref) {
           // 首尾行的高度可能不固定
-          props?.handleRowMounted({
-            ref,
-            data: data[fullRowIndex],
-          });
+          props.handleRowMounted?.({ ref, data: placeholder });
         }
       };
     }
@@ -140,7 +142,11 @@ export default function TBody(props: TableBodyProps) {
       <tr key={type} className={classNames(classes)} {...rowProps}>
         <td colSpan={columns.length}>
           <div
-            className={classNames({ [tableFullRowClasses.innerFullRow]: isFixedToLeft }) || undefined}
+            className={
+              classNames({
+                [tableFullRowClasses.innerFullRow]: isFixedToLeft,
+              }) || undefined
+            }
             style={isFixedToLeft ? { width: `${props.tableWidth}px` } : {}}
           >
             <div className={tableFullRowClasses.innerFullElement}>{fullRowNode}</div>
@@ -170,9 +176,13 @@ export default function TBody(props: TableBodyProps) {
     const firstFullRowNode = renderFullRow('first-full-row');
     firstFullRowNode && trNodeList.push(firstFullRowNode);
 
-    // body 数据
+    // Limit the empty-span fallback to current-page rows in the virtual window.
+    const pageRows =
+      isVirtualScroll && props.isPaginateData && props.rowspanAndColspan && !skipSpansMap.size
+        ? new Set(data)
+        : undefined;
     renderData?.forEach((row, rowIndex) => {
-      if (row.__VIRTUAL_FAKE_DATA) return;
+      if (row.__VIRTUAL_FAKE_DATA || (pageRows && !pageRows.has(row))) return;
 
       const getRowIndex = () => {
         const virtualIndex = row.__VIRTUAL_SCROLL_INDEX;
