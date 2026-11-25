@@ -2,11 +2,22 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import useConfig from '../../hooks/useConfig';
 import Pagination from '../../pagination';
+import {
+  getLocalPaginatedData,
+  getPaginationCurrent,
+  getPaginationPageSize,
+  isControlledPagination,
+  TABLE_DEFAULT_PAGE_CURRENT,
+  TABLE_DEFAULT_PAGE_SIZE,
+} from '../utils';
 
 import type { PageInfo, PaginationProps } from '../../pagination';
 import type { TableRowData, TdBaseTableProps } from '../type';
 
-// 分页功能包含：远程数据排序受控、远程数据排序非受控、本地数据排序受控、本地数据排序非受控 等 4 类功能
+/**
+ * 分页功能：
+ * 远程数据排序受控、远程数据排序非受控、本地数据排序受控、本地数据排序非受控
+ */
 export default function usePagination(props: TdBaseTableProps, tableContentRef: React.RefObject<HTMLDivElement>) {
   const { pagination, data, disableDataPage } = props;
   const { classPrefix } = useConfig();
@@ -15,27 +26,20 @@ export default function usePagination(props: TdBaseTableProps, tableContentRef: 
   const [dataSource, setDataSource] = useState<TableRowData[]>([]);
   const [isPaginateData, setIsPaginateData] = useState(false);
 
-  const isControlled = pagination?.current !== undefined;
+  const isControlled = isControlledPagination(pagination);
 
   const calculatePaginatedData = useCallback(
-    (current = 1, pageSize = 10) => {
+    (current = TABLE_DEFAULT_PAGE_CURRENT, pageSize = TABLE_DEFAULT_PAGE_SIZE) => {
       // data 数据数量超出分页大小时，则自动启动本地数据分页
-      const shouldPaginate = Boolean(!disableDataPage && data.length > pageSize);
-      let newData: TableRowData[] = [];
-      if (shouldPaginate) {
-        const start = (current - 1) * pageSize;
-        const end = current * pageSize;
-        newData = [...data.slice(start, end)];
-      } else {
-        newData = data;
-      }
-      return { newData, shouldPaginate };
+      return getLocalPaginatedData(data, current, pageSize, {
+        disableDataPage,
+      });
     },
     [data, disableDataPage],
   );
 
   const updateDataSourceAndPaginate = useCallback(
-    (current = 1, pageSize = 10) => {
+    (current = TABLE_DEFAULT_PAGE_CURRENT, pageSize = TABLE_DEFAULT_PAGE_SIZE) => {
       const { newData, shouldPaginate } = calculatePaginatedData(current, pageSize);
       setIsPaginateData(shouldPaginate);
       setDataSource(newData);
@@ -53,7 +57,8 @@ export default function usePagination(props: TdBaseTableProps, tableContentRef: 
   // 受控情况
   useEffect(() => {
     if (!pagination || !isControlled) return;
-    const [current, pageSize] = [pagination?.current || 1, pagination?.pageSize ?? 10];
+    const current = getPaginationCurrent(pagination, true);
+    const pageSize = getPaginationPageSize(pagination, true);
     updateDataSourceAndPaginate(current, pageSize);
     setInnerPagination({ current, pageSize });
   }, [pagination, isControlled, updateDataSourceAndPaginate]);
@@ -61,7 +66,8 @@ export default function usePagination(props: TdBaseTableProps, tableContentRef: 
   // 非受控情况
   useEffect(() => {
     if (!pagination || isControlled) return;
-    const [current, pageSize] = [pagination?.defaultCurrent || 1, pagination?.defaultPageSize ?? 10];
+    const current = getPaginationCurrent(pagination, false);
+    const pageSize = getPaginationPageSize(pagination, false);
     updateDataSourceAndPaginate(current, pageSize);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isControlled, updateDataSourceAndPaginate]);
