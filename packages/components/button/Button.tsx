@@ -57,10 +57,11 @@ const Button = forwardRef((originProps: ButtonProps, ref: React.RefObject<HTMLEl
 
   const renderTag = useMemo(() => {
     const nonInteractive = disabled || loading;
-    if (disabled || (nonInteractive && (href || tag === 'a'))) return 'div';
-    if (tag) return tag;
-    if (href) return 'a';
-    return 'button';
+    // 显式指定 tag 时尊重调用方，只有不可交互的 a 才降级成 div，避免 disabled 无条件抹掉 tag
+    if (tag) return nonInteractive && tag === 'a' ? 'div' : tag;
+    // 无 tag 时：href 且可交互才是可导航锚点，disabled / loading 都退回 div
+    if (href) return nonInteractive ? 'div' : 'a';
+    return disabled ? 'div' : 'button';
   }, [tag, href, disabled, loading]);
 
   return React.createElement(
