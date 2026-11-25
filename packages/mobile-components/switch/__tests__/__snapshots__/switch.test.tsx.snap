@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Switch > should render 1`] = `
+<div>
+  <div
+    class="t-switch t-switch--medium"
+  >
+    <div
+      class="t-switch__dot t-switch__dot--medium t-switch__dot--plain"
+    >
+      <div
+        class="t-switch__label t-switch__label--medium"
+      />
+    </div>
+  </div>
+</div>
+`;

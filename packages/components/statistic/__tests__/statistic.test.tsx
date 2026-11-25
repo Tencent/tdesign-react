@@ -12,11 +12,12 @@ describe('Statistic', () => {
       const value = 1000;
 
       const { container: keywordContainer } = render(<Statistic title={title} value={value} color="yellow" />);
-      expect(keywordContainer.querySelector('.t-statistic-content')).toHaveStyle('color: yellow');
+      // jsdom 24 (cssstyle 4.x) 将颜色统一规范化为 rgb(...)
+      expect(keywordContainer.querySelector('.t-statistic-content')).toHaveStyle('color: rgb(255, 255, 0)');
 
       const customHex = '#fff123';
       const { container: hexContainer } = render(<Statistic title={title} value={value} color={customHex} />);
-      expect(hexContainer.querySelector('.t-statistic-content')).toHaveStyle(`color: ${customHex}`);
+      expect(hexContainer.querySelector('.t-statistic-content')).toHaveStyle('color: rgb(255, 241, 35)');
 
       Object.keys(COLOR_MAP).forEach((colorKey) => {
         const { container } = render(

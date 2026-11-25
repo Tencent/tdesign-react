@@ -1,0 +1,25 @@
+.tdesign-mobile-demo {
+  .t-tab-bar + .t-tab-bar {
+    margin-top: 16px;
+  }
+
+  .section {
+    &-custom {
+      --td-tab-bar-border-color: #e7e7e7;
+      --td-tab-bar-bg-color: #eee;
+      --td-tab-bar-hover-color: #ddd;
+      --td-tab-bar-item-color: #bbb;
+      --td-tab-bar-item-active-color: #333;
+    }
+  }
+}
+
+:root[theme-mode='dark'] {
+  .tdesign-mobile-demo {
+    .section {
+      &-custom {
+        --td-tab-bar-color: rgba(0, 0, 0, .9);
+      }
+    }
+  }
+}

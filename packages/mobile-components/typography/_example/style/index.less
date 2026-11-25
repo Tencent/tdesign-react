@@ -1,0 +1,40 @@
+.tdesign-mobile-typography-demo {
+  display: flex;
+  padding: 0 16px;
+  background-color: var(--td-bg-color-container, #fff);
+
+  &--inline {
+    display: inline-block;
+  }
+
+  &--theme {
+    gap: 24px;
+  }
+
+  &--border {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 16px;
+      right: 16px;
+      border-bottom: 1px solid var(--td-stroke-color, #e7e7e7);
+      transform: scaleY(0.5);
+    }
+  }
+
+  ul,
+  dl,
+  ol {
+    margin: 0;
+    padding: 0 0 0 1.2em;
+    line-height: 22px;
+  }
+
+  ul {
+    display: block;
+    list-style-type: disc;
+  }
+}

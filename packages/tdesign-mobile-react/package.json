@@ -1,0 +1,82 @@
+{
+  "name": "tdesign-mobile-react",
+  "version": "1.0.1",
+  "title": "tdesign-mobile-react",
+  "description": "TDesign Component for Mobile React",
+  "main": "cjs/index.js",
+  "module": "es/index.js",
+  "typings": "es/index.d.ts",
+  "unpkg": "dist/tdesign.min.js",
+  "jsdelivr": "dist/tdesign.min.js",
+  "files": [
+    "esm",
+    "es",
+    "cjs",
+    "lib",
+    "dist",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": [
+    "dist/*",
+    "es/**/style/**",
+    "esm/**/style/**"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "start": "pnpm dev",
+    "dev": "pnpm -C site dev",
+    "site": "pnpm -C site build",
+    "site:preview": "pnpm -C site preview",
+    "lint:fix": "cd ../.. && eslint --ext .ts,.tsx ./packages/mobile-components --ignore-pattern ./packages/mobile-components/__tests__ --max-warnings 0 --fix",
+    "prebuild": "rimraf es/* lib/* dist/* esm/* cjs/*",
+    "build": "pnpm run build:rollup && pnpm run build:override && pnpm run build:tsc",
+    "build:rollup": "cd ../.. && cross-env NODE_ENV=production rollup -c script/rollup.mobile.config.js",
+    "build:override": "cd ../.. && node script/utils/bundle-override.js tdesign-mobile-react",
+    "build:tsc": "run-p build:tsc-*",
+    "build:tsc-es": "tsc --emitDeclarationOnly -d -p ../../tsconfig.mobile.build.json --outDir es/",
+    "build:tsc-esm": "tsc --emitDeclarationOnly -d -p ../../tsconfig.mobile.build.json --outDir esm/",
+    "build:tsc-cjs": "tsc --emitDeclarationOnly -d -p ../../tsconfig.mobile.build.json --outDir cjs/",
+    "build:tsc-lib": "tsc --emitDeclarationOnly -d -p ../../tsconfig.mobile.build.json --outDir lib/"
+  },
+  "keywords": [
+    "tdesign",
+    "react"
+  ],
+  "author": "tdesign",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tencent/tdesign-react.git",
+    "directory": "packages/tdesign-mobile-react"
+  },
+  "homepage": "https://tdesign.tencent.com/mobile-react",
+  "bugs": {
+    "url": "https://github.com/Tencent/tdesign-react/issues"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.29.10",
+    "@popperjs/core": "^2.11.8",
+    "@types/sortablejs": "^1.15.9",
+    "@use-gesture/react": "^10.2.10",
+    "ahooks": "^3.8.5",
+    "classnames": "^2.3.1",
+    "csstype": "^3.1.3",
+    "dayjs": "^1.11.13",
+    "hoist-non-react-statics": "^3.3.2",
+    "lodash-es": "^4.17.21",
+    "react-transition-group": "^4.4.2",
+    "smoothscroll-polyfill": "^0.4.4",
+    "sortablejs": "^1.15.7",
+    "tdesign-icons-react": "^0.6.12",
+    "tinycolor2": "^1.6.0",
+    "validator": "^13.15.15"
+  }
+}

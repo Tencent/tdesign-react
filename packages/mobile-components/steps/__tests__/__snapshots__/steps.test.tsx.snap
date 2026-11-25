@@ -1,0 +1,42 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`StepItem > slot > should render children as content 1`] = `
+<div
+  class="t-steps t-steps--horizontal t-steps--positive"
+>
+  <div
+    class="t-step-item t-step-item--horizontal t-step-item--process"
+  >
+    <div
+      class="t-step-item__anchor t-step-item__anchor--horizontal"
+    >
+      <div
+        class="t-step-item__circle t-step-item__circle--process"
+      >
+        1
+      </div>
+    </div>
+    <div
+      class="t-step-item__content t-step-item__content--horizontal t-step-item__content--last"
+    >
+      <div
+        class="t-step-item__title t-step-item__title--process t-step-item__title--horizontal"
+      >
+        步骤1
+      </div>
+      <div
+        class="t-step-item__description t-step-item__description--process t-step-item__description--horizontal"
+      >
+        <div
+          class="custom-content"
+        >
+          React for Mobile
+        </div>
+      </div>
+      <div
+        class="t-step-item__extra t-step-item__extra--process t-step-item__extra--horizontal"
+      />
+    </div>
+  </div>
+</div>
+`;

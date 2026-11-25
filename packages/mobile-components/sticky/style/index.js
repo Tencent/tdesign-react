@@ -1,0 +1,1 @@
+import '../../../common/style/mobile/components/sticky/_index.less';

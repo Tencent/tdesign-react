@@ -1,0 +1,72 @@
+.box {
+  background-color: var(--td-bg-color-container);
+}
+
+.horizontal {
+  padding: 16px;
+}
+
+.theme-card {
+  border-radius: 12px;
+  margin: 16px;
+  overflow: hidden;
+}
+.card {
+  display: block;
+  position: relative;
+  margin: 16px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 1.5px solid #fff;
+}
+
+.card--active {
+  border-color: #0052d9;
+  z-index: 0;
+}
+
+.card--active::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  border: 14px solid #0052d9;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+  z-index: inherit !important;
+}
+
+.card__icon {
+  display: block;
+  color: #fff;
+  position: absolute;
+  left: 1.5px;
+  top: 1.5px;
+  z-index: 1;
+}
+
+/* 横向布局 */
+.horizontal-box {
+  width: calc(100% - 32px);
+  display: flex;
+  align-items: center;
+  margin: 16px;
+}
+
+.horizontal-box .card {
+  flex: 1;
+  margin: 0;
+}
+
+.horizontal-box .card + .card {
+  margin-left: 12px;
+}
+
+.example-radio {
+  &__item:not(:last-child) {
+    margin-bottom: 16px;
+  }
+}

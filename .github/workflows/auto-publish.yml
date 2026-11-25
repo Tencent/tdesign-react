@@ -90,3 +90,36 @@ jobs:
       - run: |
           export DEPLOY_DOMAIN=${{ steps.domain.outputs.surge }}
           npx surge --project ${{ steps.domain.outputs.project }} --domain $DEPLOY_DOMAIN --token ${{ secrets.TDESIGN_SURGE_TOKEN }}
+
+  publish-tag-site-tdesign-mobile-react:
+    if: startsWith(github.event.release.tag_name,'tdesign-mobile-react')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+
+      - run: pnpm install
+
+      - run: pnpm -C packages/tdesign-mobile-react/site run preview
+
+      - uses: actions/github-script@v9
+        id: domain
+        with:
+          script: |
+            const tagName = '${{ github.event.release.tag_name }}'
+            const lastIndex = tagName.lastIndexOf('@');
+            const version = tagName.slice(lastIndex + 1);
+            const domain= `https://${version.split('.').join('_')}-tdesign-mobile-react.surge.sh`
+            core.setOutput('surge', domain);
+            core.setOutput('project', 'packages/tdesign-mobile-react/site/dist');
+
+      - run: |
+          export DEPLOY_DOMAIN=${{ steps.domain.outputs.surge }}
+          npx surge --project ${{ steps.domain.outputs.project }} --domain $DEPLOY_DOMAIN --token ${{ secrets.TDESIGN_SURGE_TOKEN }}

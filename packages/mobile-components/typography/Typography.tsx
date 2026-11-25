@@ -1,0 +1,19 @@
+import Paragraph from './Paragraph';
+import Text from './Text';
+import Title from './Title';
+
+const Typography: {
+  Text: typeof Text;
+  Title: typeof Title;
+  Paragraph: typeof Paragraph;
+} = () => null;
+
+Typography.Text = Text;
+Typography.Title = Title;
+Typography.Paragraph = Paragraph;
+
+Text.displayName = 'TypographyText';
+Title.displayName = 'TypographyTitle';
+Paragraph.displayName = 'TypographyParagraph';
+
+export default Typography;

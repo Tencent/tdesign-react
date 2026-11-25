@@ -1,0 +1,35 @@
+.side-bar-wrapper {
+  &.section-switch {
+    display: flex;
+    height: calc(100vh - 50px);
+    background-color: var(--bg-color-demo, #fff);
+    overflow: hidden;
+    .content {
+      flex: 1;
+      transition: transform .3s ease;
+    }
+
+    .section {
+      padding: 16px 0;
+      box-sizing: border-box;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    .title {
+      padding-left: 20px;
+      margin-bottom: 4px;
+      line-height: 26px;
+    }
+
+    .image {
+      width: 48px;
+      height: 48px;
+      border: 1px solid #e7e7e7;
+    }
+  }
+}
+
+.tdesign-demo-topnav {
+  z-index: 1;
+}

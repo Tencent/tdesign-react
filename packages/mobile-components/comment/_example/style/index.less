@@ -1,0 +1,62 @@
+.tdesign-mobile-demo {
+  --bg-color-demo: var(--td-bg-color-container);
+}
+
+.mobile-comment {
+  &__author {
+    display: flex;
+    align-items: center;
+    color: var(--td-text-color-placeholder);
+    font: var(--td-font-body-small);
+
+    &-tag {
+      border: none;
+      --td-tag-medium-padding: 0 var(--td-spacer);
+      --td-tag-primary-light-color: transparent;
+    }
+  }
+
+  &__reply-button {
+    color: var(--td-text-color-secondary);
+    font: var(--td-font-body-small);
+  }
+
+  &__actions-button {
+    padding: calc(var(--td-spacer) / 2);
+    color: var(--td-text-color-placeholder);
+    font: var(--td-font-body-small);
+    box-sizing: border-box;
+    height: var(--td-spacer-3);
+  }
+
+  &__text {
+    margin-bottom: calc(var(--td-spacer) / 4);
+  }
+
+  &__images {
+    display: flex;
+    gap: var(--td-spacer);
+
+    &-item {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    &-badge {
+      position: absolute;
+      right: 4px;
+      bottom: 4px;
+      padding: 0 var(--td-spacer);
+      background: var(--td-mask-active);
+      color: var(--td-text-color-anti);
+      font: var(--td-font-body-extraSmall);
+      border-radius: 12px;
+      white-space: nowrap;
+    }
+  }
+}

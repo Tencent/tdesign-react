@@ -1,0 +1,77 @@
+.tdesign-demo-topnav,
+.tdesign-mobile-demo {
+  --bg-color-demo: var(--td-bg-color-container);
+}
+
+.tdesign-mobile-demo {
+  padding-bottom: 28px;
+  box-sizing: border-box;
+
+  &-block {
+    .row {
+      display: flex;
+      padding: 0 16px;
+    }
+
+    .row + .row {
+      margin-top: 16px;
+    }
+
+    .t-button + .t-button {
+      margin-left: 16px;
+    }
+
+    .rectangle-button {
+      border-radius: 0;
+    }
+
+    .section {
+      &-shape,
+      &-size {
+        display: flex;
+        justify-content: space-between;
+
+        .t-button + .t-button {
+          margin-left: 0;
+        }
+      }
+
+      &-shape {
+        margin: 0 0 16px 0;
+      }
+
+      &-group {
+        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+
+        .t-button + .t-button {
+          margin-left: 0;
+        }
+      }
+
+      &-ghost {
+        padding: 16px;
+        background-color: #181818;
+      }
+
+      &-theme {
+        position: relative;
+        width: 100%;
+        overflow-y: auto;
+
+        & > .row {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 16px;
+          width: max-content;
+        }
+
+        .t-button + .t-button {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}

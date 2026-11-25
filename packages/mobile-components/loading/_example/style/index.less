@@ -1,0 +1,75 @@
+.tdesign-demo-topnav,
+.tdesign-mobile-demo {
+  --bg-color-demo: var(--td-bg-color-container);
+}
+
+.loading-demo--flex,
+.loading-demo--text {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.loading-demo {
+  &--text {
+    .loading-demo {
+      display: flex;
+      align-items: center;
+
+      .text {
+        font-size: 12px;
+        height: 20px;
+        line-height: 20px;
+      }
+    }
+  }
+
+  &--speed {
+    padding-bottom: calc(constant(safe-area-inset-bottom) + 44px);
+    padding-bottom: calc(env(safe-area-inset-bottom) + 44px);
+
+    .loading-demo {
+      margin: 16px 16px 28px;
+    }
+  }
+}
+
+.loading-demo__summary {
+  font-size: 14px;
+  color: var(--td-text-color-secondary);
+  line-height: 22px;
+}
+.mt-24 {
+  margin-top: 24px;
+}
+
+.mb-16 {
+  margin-bottom: 16px;
+}
+
+
+// attact demo
+.loading-attach-demo__title {
+  /** `position: relative` is required as a parent node */
+  position: relative;
+  width: 360px;
+  text-align: center;
+}
+
+// PluginDemo
+.space {
+  display: flex;
+  margin-top: 8px;
+  gap: 6px;
+}
+.loading-service-demo {
+  position: relative;
+  width: 100%;
+  height: 64px;
+  line-height: 64px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px var(--component-border, #eee) solid;
+}

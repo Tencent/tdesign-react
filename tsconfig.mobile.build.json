@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig",
+  "include": ["packages/mobile-components", "./globals.d.ts"],
+  "exclude": [
+    "**/**/__tests__/*",
+    "**/**/_example-js/*",
+    "**/**/_example/*",
+    "**/**/_usage/*",
+    "node_modules",
+    "dist",
+    "lib",
+    "esm",
+    "cjs",
+    "es"
+  ],
+  "compilerOptions": {
+    "emitDeclarationOnly": true,
+    "rootDir": "packages/mobile-components",
+    "types": ["node"]
+  }
+}

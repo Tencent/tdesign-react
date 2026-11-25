@@ -1,0 +1,73 @@
+.tdesign-demo-topnav,
+.tdesign-mobile-demo {
+  --bg-color-demo: var(--td-bg-color-container);
+}
+
+
+.tdesign-mobile-demo {
+  padding-bottom: 62px;
+
+  .tdesign-demo-block-wrap {
+    padding: 0 16px;
+    position: relative;
+    margin-bottom: 20px;
+
+    &__block {
+      padding-top: 40px;
+    }
+
+    .dots-container {
+      position: absolute;
+      display: flex;
+      width: 60px;
+      justify-content: space-between;
+      transform: rotate(90deg);
+      right: 10px;
+      top: 50%;
+
+      .dots {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #aaa;
+      }
+    }
+  }
+}
+
+.wrapper-base {
+  padding-top: 16px;
+  display: flex;
+  align-items: baseline;
+  .t-slider {
+    flex: 1;
+    font-size: 12px;
+  }
+  .__label {
+    color: #00000066;
+    font-family: 'PingFang SC';
+    font-size: 10px;
+    font-style: normal;
+    line-height: 16px;
+  }
+}
+
+.card-height {
+  .t-swiper-item--image-host {
+    height: 128px;
+    &--active {
+      height: 192px;
+    }
+  }
+}
+
+.card-prev-next {
+  .t-swiper-item--image-host {
+    &--prev {
+      right: -36px;
+    }
+    &--next {
+      left: -36px;
+    }
+  }
+}

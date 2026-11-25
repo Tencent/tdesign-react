@@ -1,0 +1,62 @@
+.t-input + .t-input {
+  margin-top: 16px;
+}
+
+.input-demo {
+  border-radius: 6px;
+  margin: 0 16px;
+}
+
+.input-bordered {
+  background-color: var(--bg-color-demo, #fff);
+  padding: 16px 16px 24px;
+
+  --td-input-vertical-padding: 12px;
+
+  &__summary {
+    color: var(--td-text-color-primary, rgba(0, 0, 0, .9));
+    font-size: 12px;
+    line-height: 20px;
+    margin-bottom: 8px;
+  }
+
+  &__input {
+    border: 1px solid rgba(220, 220, 220, 1);
+    border-radius: 6px;
+  }
+}
+
+.input-custom {
+  padding-bottom: 48rpx;
+
+  --td-input-bg-color: rgba(44, 44, 44, 1);
+  --td-input-border-color: rgba(75, 75, 75, 1);
+  --td-input-default-text-color: rgba(255, 255, 255, 1);
+  --td-input-placeholder-text-color: rgba(255, 255, 255, .35);
+  --td-input-label-text-color: rgba(255, 255, 255, 1);
+}
+
+.input-suffix {
+  display: flex;
+  align-items: center;
+
+  &__line {
+    width: 1px;
+    height: 24px;
+    background-color: #f6f6f6;
+    margin-right: 16px;
+  }
+
+  &__image {
+    width: 72px;
+    height: 36px;
+    display: block;
+    margin-top: -6px;
+    margin-bottom: -6px;
+  }
+
+  &__verify {
+    color: rgba(0, 82, 217, 1);
+    font-size: 16px;
+  }
+}

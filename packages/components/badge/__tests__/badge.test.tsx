@@ -24,7 +24,7 @@ describe('Badge', () => {
 
     test('color', async () => {
       expect(renderBadge(<Badge color="red" count={1} />)).toHaveStyle({
-        'background-color': 'red',
+        'background-color': 'rgb(255, 0, 0)',
       });
     });
 

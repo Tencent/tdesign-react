@@ -46,3 +46,27 @@ jobs:
           build-script: build:aigc
           pattern: "packages/tdesign-react-aigc/es/**/*.{js,css}"
           comment-key: tdesign-react-chat
+
+  # TODO(anlyyao): 待本 PR（migrate tdesign-mobile-react）合并、develop 具备 build:mobile 脚本后，放开下方 job。
+  # 原因：preactjs/compressed-size-action 会同时 checkout base（develop）分支构建，
+  # 而 build:mobile 是本 PR 新增脚本，base 分支尚不存在，会报 ERR_PNPM_NO_SCRIPT。
+  # tdesign-mobile-react:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v7
+  #       with:
+  #         submodules: recursive
+  #     - name: Setup pnpm
+  #       uses: pnpm/action-setup@v6
+  #
+  #     - uses: actions/setup-node@v7
+  #       with:
+  #         node-version-file: .node-version
+  #
+  #     - uses: preactjs/compressed-size-action@v2
+  #       with:
+  #         repo-token: "${{ secrets.GITHUB_TOKEN }}"
+  #         install-script: bash -c "git submodule update --init --recursive && pnpm install --no-frozen-lockfile"
+  #         build-script: build:mobile
+  #         pattern: "packages/tdesign-mobile-react/dist/**/*.{js,css}"
+  #         comment-key: tdesign-mobile-react

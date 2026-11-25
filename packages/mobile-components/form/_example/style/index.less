@@ -1,0 +1,37 @@
+.tdesign-mobile-demo-header {
+  margin-bottom: 32px;
+}
+
+.form-demo-form {
+  & + & {
+    margin-top: 16px;
+  }
+}
+
+// 顶部吸顶区域：tag 选项卡胶囊等分撑满，对齐设计稿
+.form-demo-sticky {
+
+  .t-tabs__item--tag {
+    // Badge 包裹层默认按内容宽度收缩，这里让其撑满单元格
+    .t-badge {
+      flex: 1;
+      display: flex;
+    }
+
+    .t-badge__content {
+      width: 100%;
+    }
+
+    .t-tabs__item-inner--tag {
+      box-sizing: border-box;
+      width: 100%;
+    }
+  }
+
+  // Cell 作为吸顶容器的最后一个子元素时，底部 0.5px 边框会被组件的
+  // `:last-child::after { display: none }` 规则隐藏，这里恢复显示以对齐设计稿
+  .t-cell:last-child::after {
+    display: block;
+    left: 0;
+  }
+}

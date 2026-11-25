@@ -74,6 +74,7 @@ jobs:
       - run: pnpm install
       - run: pnpm run lint
       - run: pnpm run test
+      - run: pnpm run test:mobile-snap
       # upload report to codecov
       - uses: codecov/codecov-action@v2
         with:
@@ -148,3 +149,37 @@ jobs:
         run: pnpm run build:aigc
 
       - run: pnpm -F @tdesign-react/chat publish --no-git-checks --dry-run
+
+  build-mobile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v6
+        with:
+          # 缓存路径
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          # 缓存键
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          # 恢复缓存的备用键
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - run: pnpm install
+
+      - name: Build
+        run: pnpm run build:mobile
+
+      - run: pnpm -F tdesign-mobile-react publish --no-git-checks --dry-run

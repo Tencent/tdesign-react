@@ -1,0 +1,25 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Skeleton > props > : other sense 1`] = `
+<div>
+  <div
+    class="t-skeleton__row"
+  >
+    <div
+      class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
+      style="width: 24%; height: 16px; margin-right: 16px;"
+    />
+    <div
+      class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
+      style="width: 76%; height: 16px;"
+    />
+  </div>
+  <div
+    class="t-skeleton__row"
+  >
+    <div
+      class="t-skeleton__col t-skeleton--type-text t-skeleton--animation-none"
+    />
+  </div>
+</div>
+`;

@@ -1,0 +1,66 @@
+.tdesign-mobile-home {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100vh;
+  padding: 24px;
+  background-color: #f6f6f6;
+  overflow: auto;
+
+  & p {
+    padding-top: 16px;
+    opacity: 1;
+    color: rgba(0, 0, 0, .4);
+    font-size: 14px;
+    font-weight: 400;
+    font-family: 'PingFang SC';
+    line-height: 22px;
+  }
+
+  &-navlink {
+    position: relative;
+    display: flex;
+    width: 100%;
+    padding-left: 20px;
+  }
+
+  &-navs {
+    position: relative;
+    display: flex;
+    margin: 0 0 12px;
+    color: #323233;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 40px;
+    background: #f7f8fa;
+    & a {
+      text-decoration: none;
+      color: #323233;
+    }
+  }
+  .tdesign-mobile-logo {
+    padding-bottom: 24px;
+    img {
+      width: 126px;
+    }
+  }
+  .t-collapse {
+    margin-bottom: 12px;
+    background-color: #fff;
+    &-panel {
+      &--active {
+        .t-collapse-panel__title {
+          color: rgba(0, 0, 0, .4);
+        }
+      }
+      &__body {
+        padding: 0;
+        &-slot {
+          padding: 0;
+        }
+      }
+      &__content {
+        padding: 0;
+      }
+    }
+  }
+}

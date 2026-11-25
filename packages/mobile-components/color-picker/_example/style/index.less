@@ -1,0 +1,57 @@
+.row {
+  display: flex;
+  padding: 0 16px;
+}
+
+.format-line {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 56px;
+  grid-column-gap: 12px;
+  grid-row-gap: 20px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 16px 20px;
+}
+
+.format-item {
+  border-radius: 6px;
+  height: 100%;
+  background-color: #fff;
+  padding: 16px;
+  line-height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.check-icon {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  z-index: 1;
+  color: #fff;
+}
+
+.format-item.active {
+  border: 1.5px solid #0052d9;
+}
+
+.format-item.active::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 0;
+  top: 0;
+  border-top-left-radius: 3px;
+  border-top: 28px solid #0052d9;
+  border-right: 28px solid transparent;
+}
+
+.format-item:not(:last-child) {
+  margin-right: 12px;
+}

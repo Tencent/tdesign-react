@@ -25,7 +25,7 @@ jobs:
 
       - run: pnpm install
 
-      - run: pnpm exec run-p build build:aigc
+      - run: pnpm exec run-p build build:aigc build:mobile
 
       - uses: actions/setup-node@v7
         with:
@@ -35,4 +35,4 @@ jobs:
         with:
           token: ${{ secrets.TDESIGN_BOT_TOKEN }}
           mode: monorepo
-          packages: 'tdesign-react,@tdesign-react/chat'
+          packages: 'tdesign-react,@tdesign-react/chat,tdesign-mobile-react'

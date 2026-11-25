@@ -24,6 +24,15 @@
       "tdesign-react/es/locale/*": [
         "./packages/components/locale/*"
       ],
+      "tdesign-mobile-react": [
+        "./packages/mobile-components"
+      ],
+      "tdesign-mobile-react/*": [
+        "./packages/mobile-components/*"
+      ],
+      "tdesign-mobile-react/es/locale/*": [
+        "./packages/mobile-components/locale/*"
+      ],
       "@tdesign-react/chat": [
         "./packages/pro-components/chat"
       ],
@@ -53,6 +62,7 @@
   "include": [
     "./packages/components",
     "./packages/pro-components",
+    "./packages/mobile-components",
     "./globals.d.ts",
     "./test/config/index.d.ts",
     "**/**/__tests__/*"

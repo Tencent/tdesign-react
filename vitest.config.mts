@@ -14,6 +14,7 @@ const testConfig: InlineConfig = {
       : [
           'packages/components/**/__tests__/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
           'packages/pro-components/**/__tests__/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
+          'packages/mobile-components/**/__tests__/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
         ],
   globals: true,
   environment: 'jsdom',
@@ -21,6 +22,7 @@ const testConfig: InlineConfig = {
   testTransformMode: {
     web: ['\\.[jt]sx$'],
   },
+  setupFiles: ['./test/setup.js'],
   coverage: {
     provider: 'istanbul',
     reporter: ['text', 'json', 'html'],
@@ -44,9 +46,13 @@ export default defineConfig({
     __VERSION__: JSON.stringify(pkg.version),
   },
   resolve: {
+    // 强制 dayjs 单实例，避免多版本并存时 dayjs.extend(插件) 作用的实例与运行时实例不一致
+    dedupe: ['dayjs'],
     alias: {
       'tdesign-react/es': path.resolve(__dirname, './packages/components'),
       'tdesign-react': path.resolve(__dirname, './packages/components'),
+      'tdesign-mobile-react/es': path.resolve(__dirname, './packages/mobile-components'),
+      'tdesign-mobile-react': path.resolve(__dirname, './packages/mobile-components'),
       '@test/utils': path.resolve(__dirname, './test/utils'),
       '@tdesign-react/chat': path.resolve(__dirname, './packages/pro-components/chat'),
     },
