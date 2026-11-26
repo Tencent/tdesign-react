@@ -1,0 +1,11 @@
+{
+  "extends": "../../../../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "declaration": false,
+    "sourceMap": false,
+    "rootDir": "../../../.."
+  },
+  "include": ["../**/__tests__/*.test.tsx", "../../../../globals.d.ts"],
+  "exclude": []
+}
