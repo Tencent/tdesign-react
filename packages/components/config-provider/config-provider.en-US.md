@@ -201,6 +201,8 @@ closeOnEscKeydown | Boolean | true | trigger dialog close on `ESC` keydown | N
 closeOnOverlayClick | Boolean | true | \- | N
 confirm | Object | - | Typescript: `string \| ButtonProps` | N
 confirmBtnTheme | Object | - | Typescript: `{ default: string; info: string; warning: string; danger: string; success: string; }` | N
+confirmOnEnter | Boolean | false | Whether to trigger the confirm event when Enter is pressed | N
+focusable | Object | - | Dialog focus control. Typescript: `Partial<DialogFocusable>` | N
 placement | String | top | options: top/center | N
 zIndex | Number | - | \- | N
 
