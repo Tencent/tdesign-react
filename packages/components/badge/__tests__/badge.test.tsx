@@ -81,4 +81,16 @@ describe('Badge', () => {
       expect(renderBadge(<Badge count={2} />)).toHaveTextContent('2');
     });
   });
+
+  describe('instanceFunctions', () => {
+    test('forwards ref to standalone badge span when no children', () => {
+      const ref = React.createRef<HTMLSpanElement>();
+      const { container } = render(<Badge count={1} ref={ref} />);
+      const standaloneBadge = container.firstChild as HTMLSpanElement;
+
+      expect(ref.current).toBeTruthy();
+      expect(ref.current).toBe(standaloneBadge);
+      expect(standaloneBadge.tagName).toBe('SPAN');
+    });
+  });
 });

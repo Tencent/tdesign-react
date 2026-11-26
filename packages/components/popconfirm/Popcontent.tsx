@@ -19,8 +19,10 @@ interface PopcontentProps {
 const Popcontent: React.FC<PopcontentProps & PopconfirmProps> = (props) => {
   const { content, cancelBtn, confirmBtn, icon, theme, onCancel = noop, onConfirm = noop, onClose = noop } = props;
 
-  const { classPrefix } = useConfig();
-  const { InfoCircleFilledIcon } = useGlobalIcon({ InfoCircleFilledIcon: TdInfoCircleFilledIcon });
+  const { classPrefix, popconfirm: globalPopconfirmConfig } = useConfig();
+  const { InfoCircleFilledIcon } = useGlobalIcon({
+    InfoCircleFilledIcon: TdInfoCircleFilledIcon,
+  });
 
   const hideCancel = cancelBtn === null || cancelBtn === undefined;
   const hideConfirm = confirmBtn === null || confirmBtn === undefined;
@@ -102,7 +104,7 @@ const Popcontent: React.FC<PopcontentProps & PopconfirmProps> = (props) => {
     return (
       <Button
         size="small"
-        theme="primary"
+        theme={(globalPopconfirmConfig?.confirmBtnTheme?.[theme] || 'primary') as ButtonProps['theme']}
         onClick={(e) => {
           onClose({ e, trigger: 'confirm' });
           onConfirm({ e });

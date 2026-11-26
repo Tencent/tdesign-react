@@ -14,6 +14,8 @@ import { largeNumberToFixed } from '@tdesign/common-js/input-number/large-number
 import useConfig from '../hooks/useConfig';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import useImagePreviewUrl from '../hooks/useImagePreviewUrl';
+import useLatest from '../hooks/useLatest';
+import useOverlayManager from '../hooks/useOverlayManager';
 import Image from '../image';
 import { useLocaleReceiver } from '../locale/LocalReceiver';
 import { TooltipLite } from '../tooltip';
@@ -48,7 +50,9 @@ export interface ImageModalItemRef {
 
 const ImageError = ({ errorText }: { errorText: string }) => {
   const { classPrefix } = useConfig();
-  const { ImageErrorIcon } = useGlobalIcon({ ImageErrorIcon: TdImageErrorIcon });
+  const { ImageErrorIcon } = useGlobalIcon({
+    ImageErrorIcon: TdImageErrorIcon,
+  });
 
   return (
     <div className={`${classPrefix}-image-viewer__img-error`}>
@@ -419,7 +423,9 @@ const ImageViewerHeader = (props: ImageViewerHeaderProps) => {
   const [isExpand, setIsExpand] = useState(true);
 
   // 宽高比 16:9 按比例偏移
-  const transStyle = { transform: `translateX(calc(-${currentIndex} * (40px / 9 * 16 + 4px)))` };
+  const transStyle = {
+    transform: `translateX(calc(-${currentIndex} * (40px / 9 * 16 + 4px)))`,
+  };
 
   return (
     <div
@@ -514,6 +520,11 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageItemRef = useRef<ImageModalItemRef>(null);
 
+  const { isTopOverlay } = useOverlayManager('dialog', {
+    visible: visible && !isMini && images.length > 0,
+    getElement: () => containerRef.current,
+  });
+
   // handleWheel 用 ref 存储最新版本，传给 useScale 注册 passive:false 的 wheel 监听
   const handleWheelRef = useRef<(e: WheelEvent) => void>(null);
   const stableHandleWheel = useCallback((e: WheelEvent) => handleWheelRef.current?.(e), []);
@@ -567,29 +578,53 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
   }, [onResetMirror, onResetScale, onResetRotate]);
 
   // 用 ref 保存最新的 handlers，避免 keydown listener 因闭包 stale 而丢失事件
-  const keyHandlersRef = useRef({ next, prev, onZoomIn, onZoomOut, onClose, closeOnEscKeydown });
-  keyHandlersRef.current = { next, prev, onZoomIn, onZoomOut, onClose, closeOnEscKeydown };
+  const keyHandlersRef = useLatest({
+    next,
+    prev,
+    onZoomIn,
+    onZoomOut,
+    onClose,
+    closeOnEscKeydown,
+  });
 
-  const onKeyDown = useCallback((event: KeyboardEvent) => {
-    const handlers = keyHandlersRef.current;
-    const keyActionMap: Partial<Record<string, () => void>> = {
-      ArrowRight: () => handlers.next(),
-      ArrowLeft: () => handlers.prev(),
-      ArrowUp: () => handlers.onZoomIn(),
-      ArrowDown: () => handlers.onZoomOut(),
-      Escape: () =>
-        handlers.closeOnEscKeydown &&
-        handlers.onClose?.({ trigger: 'esc', e: event as unknown as React.KeyboardEvent }),
-    };
-    keyActionMap[event.key]?.();
-  }, []);
+  const handleNavigationKey = useCallback(
+    (key: string) => {
+      const handlers = keyHandlersRef.current;
+      const keyActionMap: Partial<Record<string, () => void>> = {
+        ArrowRight: () => handlers.next(),
+        ArrowLeft: () => handlers.prev(),
+        ArrowUp: () => handlers.onZoomIn(),
+        ArrowDown: () => handlers.onZoomOut(),
+      };
+      keyActionMap[key]?.();
+    },
+    [keyHandlersRef],
+  );
+
+  const onKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (!isTopOverlay()) return;
+      const handlers = keyHandlersRef.current;
+      if (event.key === 'Escape') {
+        if (handlers.closeOnEscKeydown) {
+          handlers.onClose?.({
+            trigger: 'esc',
+            e: event as unknown as React.KeyboardEvent,
+          });
+        }
+        return;
+      }
+      handleNavigationKey(event.key);
+    },
+    [handleNavigationKey, isTopOverlay, keyHandlersRef],
+  );
 
   // 弹窗可见时绑定键盘事件，关闭后解绑
   useEffect(() => {
-    if (!visible) return;
+    if (!visible || isMini) return;
     document.addEventListener('keydown', onKeyDown);
     return () => document.removeEventListener('keydown', onKeyDown);
-  }, [visible, onKeyDown]);
+  }, [isMini, onKeyDown, visible]);
 
   useEffect(() => {
     onReset();
@@ -634,7 +669,9 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
         onZoomIn={onZoomIn}
         onZoomOut={onZoomOut}
         onReset={onReset}
+        onKeyDown={(event) => handleNavigationKey(event.key)}
         onClose={onClose}
+        closeOnEscKeydown={closeOnEscKeydown}
       />
     );
   }

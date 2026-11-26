@@ -41,7 +41,7 @@ const renderDialogButton = (btn: DialogCardProps['cancelBtn'], defaultProps: But
 };
 
 const DialogCard = forwardRef<HTMLDivElement, DialogCardProps>((props, ref) => {
-  const { classPrefix } = useConfig();
+  const { classPrefix, dialog: globalDialogConfig } = useConfig();
   const componentCls = `${classPrefix}-dialog`;
   const { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon } = useGlobalIcon({
     CloseIcon: TdCloseIcon,
@@ -131,7 +131,7 @@ const DialogCard = forwardRef<HTMLDivElement, DialogCardProps>((props, ref) => {
         className: classNames(`${componentCls}__cancel`, cancelBtn?.props?.className),
       });
       const renderConfirmBtn = renderDialogButton(confirmBtn, {
-        theme: 'primary',
+        theme: (globalDialogConfig?.confirmBtnTheme?.[theme] || 'primary') as ButtonProps['theme'],
         loading: confirmLoading,
         onClick: (e: React.MouseEvent<HTMLButtonElement>) => onConfirm?.({ e }),
         className: classNames(`${componentCls}__confirm`, confirmBtn?.className),

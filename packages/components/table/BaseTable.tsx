@@ -399,6 +399,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     const affixedHeader = Boolean((headerAffixedTop || virtualConfig.isVirtualScroll) && tableWidth) && (
       <div
         ref={onAffixHeaderMount}
+        onScroll={(e) => onHorizontalScroll(e.currentTarget)}
         style={{ width: `${tableWidth}px`, opacity: headerOpacity }}
         className={classNames([
           'scrollbar',
@@ -517,6 +518,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
     rowAndColFixedPosition,
     showColumnShadow,
     data: newData,
+    isPaginateData,
     virtualConfig,
     handleRowMounted: virtualConfig.handleRowMounted,
     columns: spansAndLeafNodes?.leafColumns || columns,
@@ -580,6 +582,7 @@ const BaseTable = forwardRef<BaseTableRef, BaseTableProps>((originalProps, ref) 
             tableBodyProps.rowAndColFixedPosition,
             tableBodyProps.showColumnShadow,
             tableBodyProps.data,
+            isPaginateData,
             tableBodyProps.columns,
             tableRef,
             tableContentRef,

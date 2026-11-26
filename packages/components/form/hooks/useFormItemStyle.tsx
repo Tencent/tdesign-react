@@ -69,6 +69,7 @@ export default function useFormItemStyle(props) {
     [`${classPrefix}-form-item__${formSnakeName}`]: formSnakeName,
     [`${classPrefix}-form__item-with-help`]: helpNode,
     [`${classPrefix}-form__item-with-extra`]: extraNode,
+    [`${classPrefix}-form__item-with-rules`]: innerRules.length > 0,
   });
 
   const formItemLabelClass = classNames(`${classPrefix}-form__label`, {
@@ -103,7 +104,9 @@ export default function useFormItemStyle(props) {
   if (label && labelWidth && labelAlign !== 'top') {
     if (typeof labelWidth === 'number') {
       labelStyle = { width: `${labelWidth}px` };
-      contentStyle = { marginLeft: layout !== 'inline' ? `${labelWidth}px` : '' };
+      contentStyle = {
+        marginLeft: layout !== 'inline' ? `${labelWidth}px` : '',
+      };
     } else {
       labelStyle = { width: labelWidth };
       contentStyle = { marginLeft: layout !== 'inline' ? labelWidth : '' };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { act, fireEvent, mockTimeout, render, vi } from '@test/utils';
+import { act, fireEvent, mockTimeout, render, vi, waitFor } from '@test/utils';
 import userEvent from '@testing-library/user-event';
 
 import Popup from '../../popup';
@@ -245,6 +245,30 @@ describe('Select', () => {
       );
     });
 
+    test('multiple options render checkbox icons inside the checked box', () => {
+      render(
+        <Select multiple value={['apple', 'orange']}>
+          <Option label="Apple" value="apple" />
+          <Option label="Orange" value="orange" />
+          <Option label="Banana" value="banana" />
+        </Select>,
+      );
+
+      fireEvent.click(document.querySelector('.t-input'));
+
+      const options = Array.from(document.querySelectorAll('.t-select-option'));
+      expect(options.map((option) => option.textContent)).toEqual(['Apple', 'Orange', 'Banana']);
+      options.forEach((option) => {
+        expect(option.querySelector('.t-checkbox__input .t-icon')).not.toBeNull();
+      });
+
+      const checkedLabels = options
+        .filter((option) => option.querySelector('.t-checkbox.t-is-checked'))
+        .map((option) => option.textContent);
+      expect(checkedLabels).toEqual(['Apple', 'Orange']);
+      expect(options[2].querySelector('.t-checkbox.t-is-checked')).toBeNull();
+    });
+
     test('multiple selection keeps popup open', async () => {
       const MultipleSelect = () => {
         const [value, setValue] = useState([{ label: 'Apple', value: 'apple' }]);
@@ -318,6 +342,120 @@ describe('Select', () => {
       expect(document.querySelector(selectSelector)).toHaveTextContent('Apple');
       expect(document.querySelector(selectSelector)).not.toHaveTextContent('Banana');
       expect(document.querySelector(selectSelector)).not.toHaveTextContent('Orange');
+    });
+
+    test('checkAll after filter change uses the current list and keeps selections outside the filter', () => {
+      const allOptions = [
+        { label: 'Apple iPhone (Series A)', value: 'A1' },
+        { label: 'Apple iPad (Series A)', value: 'A2' },
+        { label: 'Lenovo ThinkPad (Series B)', value: 'B1' },
+        { label: 'Lenovo Yoga (Series B)', value: 'B2' },
+      ];
+      const onChange = vi.fn();
+
+      const SearchCheckAllSelect = () => {
+        const [keyword, setKeyword] = useState('');
+        const [value, setValue] = useState([{ label: 'Apple iPhone (Series A)', value: 'A1' }]);
+        const filtered = keyword ? allOptions.filter((opt) => opt.label.includes(keyword)) : allOptions;
+        const displayOptions =
+          keyword && filtered.length > 1
+            ? [{ label: 'All', checkAll: true, value: '__CHECK_ALL__' }, ...filtered]
+            : filtered;
+
+        return (
+          <Select
+            multiple
+            filterable
+            valueType="object"
+            options={displayOptions}
+            value={value}
+            onSearch={setKeyword}
+            onChange={(nextValue, context) => {
+              onChange(nextValue, context);
+              setValue(nextValue as any[]);
+            }}
+          />
+        );
+      };
+
+      const { getByText } = render(<SearchCheckAllSelect />);
+      const input = document.querySelector('input');
+
+      fireEvent.click(input);
+      fireEvent.change(input, { target: { value: 'A' } });
+      const partialCheckAll = getByText('All').closest('.t-select-option');
+      expect(partialCheckAll.querySelector('.t-checkbox')).toHaveClass('t-is-indeterminate');
+      expect(partialCheckAll.querySelector('.t-checkbox')).not.toHaveClass('t-is-checked');
+
+      fireEvent.click(getByText('All'));
+
+      expect(onChange).toHaveBeenLastCalledWith(
+        expect.arrayContaining([expect.objectContaining({ value: 'A1' }), expect.objectContaining({ value: 'A2' })]),
+        expect.objectContaining({ trigger: 'check' }),
+      );
+      expect(onChange.mock.lastCall[0]).toHaveLength(2);
+
+      fireEvent.change(input, { target: { value: 'B' } });
+      const checkAllOption = getByText('All').closest('.t-select-option');
+      expect(checkAllOption.querySelector('.t-checkbox')).not.toHaveClass('t-is-checked');
+      expect(checkAllOption.querySelector('.t-checkbox')).not.toHaveClass('t-is-indeterminate');
+
+      fireEvent.click(getByText('All'));
+      expect(onChange).toHaveBeenLastCalledWith(
+        expect.arrayContaining([
+          expect.objectContaining({ value: 'A1' }),
+          expect.objectContaining({ value: 'A2' }),
+          expect.objectContaining({ value: 'B1' }),
+          expect.objectContaining({ value: 'B2' }),
+        ]),
+        expect.objectContaining({ trigger: 'check' }),
+      );
+      expect(onChange.mock.lastCall[0]).toHaveLength(4);
+
+      fireEvent.click(getByText('All'));
+      expect(onChange).toHaveBeenLastCalledWith(
+        expect.arrayContaining([expect.objectContaining({ value: 'A1' }), expect.objectContaining({ value: 'A2' })]),
+        expect.objectContaining({ trigger: 'uncheck' }),
+      );
+      expect(onChange.mock.lastCall[0]).toHaveLength(2);
+    });
+
+    test('checkAll honors keys.disabled and keeps those selections', () => {
+      const optionList = [
+        { text: 'All', checkAll: true, id: 'all' },
+        { text: 'Apple', id: 'apple', isDisabled: true },
+        { text: 'Banana', id: 'banana' },
+        { text: 'Orange', id: 'orange' },
+      ];
+      const onChange = vi.fn();
+
+      const KeysSelect = () => {
+        const [value, setValue] = useState(['apple']);
+        return (
+          <Select
+            multiple
+            keys={{ label: 'text', value: 'id', disabled: 'isDisabled' }}
+            options={optionList}
+            value={value}
+            onChange={(nextValue) => {
+              onChange(nextValue);
+              setValue(nextValue as string[]);
+            }}
+          />
+        );
+      };
+
+      const { getByText } = render(<KeysSelect />);
+      fireEvent.click(document.querySelector('input'));
+
+      expect(document.querySelector('.t-select-option.t-is-disabled')).toHaveTextContent('Apple');
+
+      fireEvent.click(getByText('All'));
+      expect(onChange).toHaveBeenLastCalledWith(expect.arrayContaining(['apple', 'banana', 'orange']));
+      expect(onChange.mock.lastCall[0]).toHaveLength(3);
+
+      fireEvent.click(getByText('All'));
+      expect(onChange).toHaveBeenLastCalledWith(['apple']);
     });
 
     test('OptionGroup selection updates value', async () => {
@@ -740,6 +878,42 @@ describe('Select', () => {
       }
     });
 
+    test('multiple filterable clearable clears the filter keyword', () => {
+      const onChange = vi.fn();
+      const onInputChange = vi.fn();
+      const { getByRole } = render(
+        <Select
+          multiple
+          filterable
+          clearable
+          defaultValue={['1']}
+          options={filterableOptions}
+          onChange={onChange}
+          onInputChange={onInputChange}
+        />,
+      );
+      const input = getByRole('textbox');
+      fireEvent.click(input);
+      fireEvent.change(input, { target: { value: '二' } });
+      expect(input).toHaveValue('二');
+
+      const popup = document.querySelector(popupSelector);
+      expect(popup).toHaveTextContent('选项二');
+      expect(popup).not.toHaveTextContent('选项一');
+      expect(document.querySelector('.t-tag')).toHaveTextContent('选项一');
+
+      fireEvent.mouseEnter(document.querySelector('.t-input'));
+      fireEvent.click(document.querySelector('.t-tag-input__suffix-clear'));
+
+      expect(input).toHaveValue('');
+      expect(document.querySelector('.t-tag')).toBeNull();
+      expect(popup).toHaveTextContent('选项一');
+      expect(popup).toHaveTextContent('选项二');
+      expect(popup).toHaveTextContent('选项三');
+      expect(onChange).toHaveBeenCalledWith([], expect.objectContaining({ trigger: 'clear' }));
+      expect(onInputChange).toHaveBeenCalledWith('', expect.objectContaining({ trigger: 'input' }));
+    });
+
     test.each([false, true])('multiple filtering refreshes list after selection', (reserveKeyword) => {
       const { getByRole, getByText } = render(
         <Select multiple filterable options={filterableOptions} reserveKeyword={reserveKeyword} />,
@@ -775,6 +949,68 @@ describe('Select', () => {
       fireEvent.change(input, { target: { value: '三' } });
       expect(document.querySelector('.t-popup')).toHaveTextContent('选项三');
       expect(document.querySelector('.t-popup')).not.toHaveTextContent('选项二');
+    });
+
+    describe('disabled popup interaction', () => {
+      const selectableOptions = [
+        { label: 'Apple', value: 'apple' },
+        { label: 'Orange', value: 'orange' },
+      ];
+      const clickOption = (label: string) => {
+        fireEvent.click([...document.querySelectorAll('.t-select-option')].find((item) => item.textContent === label));
+      };
+
+      test('dynamic disabled closes the open popup', async () => {
+        const onChange = vi.fn();
+        const props: SelectProps = {
+          options: selectableOptions,
+          defaultValue: 'apple',
+          onChange,
+        };
+        const { getByRole, getByText, rerender } = render(<Select {...props} />);
+        fireEvent.click(getByRole('textbox'));
+        await waitFor(() => expect(getByText('Orange')).toBeVisible());
+
+        rerender(<Select {...props} disabled />);
+        await mockTimeout(() =>
+          expect(document.querySelector(popupSelector)).toHaveStyle({
+            display: 'none',
+          }),
+        );
+        expect(onChange).not.toHaveBeenCalled();
+      });
+
+      test('controlled popupVisible still allows single selection while disabled', async () => {
+        const onChange = vi.fn();
+        const { getByText } = render(
+          <Select options={selectableOptions} defaultValue="apple" disabled popupVisible onChange={onChange} />,
+        );
+        await waitFor(() => expect(getByText('Orange')).toBeVisible());
+
+        clickOption('Orange');
+        expect(onChange).toHaveBeenCalledWith('orange', expect.anything());
+        expect(document.querySelector(popupSelector)).toHaveStyle({
+          display: 'block',
+        });
+      });
+
+      test('controlled popupVisible still allows check all while disabled', async () => {
+        const onChange = vi.fn();
+        const { getByText } = render(
+          <Select
+            multiple
+            options={[{ label: 'All', value: 'all', checkAll: true }, ...selectableOptions]}
+            defaultValue={['apple']}
+            disabled
+            popupVisible
+            onChange={onChange}
+          />,
+        );
+        await waitFor(() => expect(getByText('All')).toBeVisible());
+
+        clickOption('All');
+        expect(onChange).toHaveBeenCalledWith(['apple', 'orange'], expect.anything());
+      });
     });
   });
 });

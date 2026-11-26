@@ -5,6 +5,38 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.19.0 `2026-11-26`
+
+### 🚀 Features
+
+- `Checkbox`: 优化组件内部图标实现为 SVG 资源，提高展示一致性，有覆盖原伪元素实现的业务请注意此变更 ⚠️ @uyarn ([#4466](https://github.com/Tencent/tdesign-react/pull/4466))
+- `ConfigProvider`: `dialog` 支持 `confirmOnEnter` 和 `focusable` 配置 @RylanBot ([#4448](https://github.com/Tencent/tdesign-react/pull/4448))
+- `Dialog`: 新增 `focusable` API 用于管理焦点，新增 `dialogStyle` API 用于覆盖对话框本身的样式，新增 `mode='normal'` 用于不脱离文档流的对话框 @RylanBot ([#4448](https://github.com/Tencent/tdesign-react/pull/4448))
+- `Empty`: 优化组件内部图标实现为 SVG 资源，提高展示一致性 @liweijie0812 ([#4464](https://github.com/Tencent/tdesign-react/pull/4464))
+- `Textarea`: 支持 `clearable` 和 `onValidate` API，分别用于一键清空和校验的场景 @RylanBot ([#4475](https://github.com/Tencent/tdesign-react/pull/4475))
+
+### 🐞 Bug Fixes
+
+- `Badge`: 修复未传入 `children` 和 `content` 独立使用时，`ref` 不生效的问题 @Hstealth ([#4491](https://github.com/Tencent/tdesign-react/pull/4491))
+- `Button`: 修复 `href` / `tag="a"` 与 `loading` / `disabled` 同时使用时，仍渲染可导航锚点的问题 @lnuxe ([#4493](https://github.com/Tencent/tdesign-react/pull/4493))
+- `ConfigProvider`: 修复 `dialog.confirmBtnTheme` 与 `popconfirm.confirmBtnTheme` 不生效的问题 @RylanBot ([#4448](https://github.com/Tencent/tdesign-react/pull/4448))
+- `Dialog`: 修复开启 `confirmOnEnter` 后，在加载、可换行输入及 IME 组合输入等场景下误触发确认的问题 @RylanBot ([#4448](https://github.com/Tencent/tdesign-react/pull/4448))
+- `EnhancedTable`: 修复 `defaultExpandedTreeNodes` 不生效的问题 @lnuxe ([#4480](https://github.com/Tencent/tdesign-react/pull/4480))
+- `Form`: 
+  - 修复自定义 `rules` 时，读取到 `undefined` 产生的报错问题 @RylanBot ([#4079](https://github.com/Tencent/tdesign-react/pull/4079))
+  - 修复存在规则校验的表单最后表单项样式异常的问题 @uyarn ([#4507](https://github.com/Tencent/tdesign-react/pull/4507))
+- `ImageViewer`: 修复多层弹窗场景下，非顶层图片预览仍响应键盘事件的问题 @RylanBot ([#4448](https://github.com/Tencent/tdesign-react/pull/4448))
+- `Menu`: 修复自定义菜单项高度时子菜单内容被裁剪的问题 @RSS1102 ([#4473](https://github.com/Tencent/tdesign-react/pull/4473))
+- `SelectInput`: 
+  - 修复开启 `multiple` 和 `filterable` 时，点击 `clearable` 图标无法清除筛选关键字的问题 @RylanBot ([#4463](https://github.com/Tencent/tdesign-react/pull/4463))
+  - 修复下拉弹出类组件弹窗打开后，切换为禁用态时弹窗未自动关闭的问题 @Xapollon430 ([#4468](https://github.com/Tencent/tdesign-react/pull/4468))
+- `Table`: 
+  - 修复 `reserveSelectedRowOnPaginate=={false}` 时，全选数据包含其它页数据的问题 @RylanBot ([#4470](https://github.com/Tencent/tdesign-react/pull/4470))
+  - 修复开启 `resizable` 且存在分组表头时，在叶子列与分组表头交界处点击引发异常的问题 @cdevq ([#4471](https://github.com/Tencent/tdesign-react/pull/4471))
+  - 修复在虚拟滚动下表头延迟挂载后，横向滚动时内容不跟随的问题 @cdevq ([#4474](https://github.com/Tencent/tdesign-react/pull/4474))
+  - 修复固定列拖拽调整宽度后未及时更新，导致固定区域透出其他列内容的问题 @RylanBot ([#4496](https://github.com/Tencent/tdesign-react/pull/4496))
+  - 修复开启虚拟滚动并同时设置 `firstFullRow` / `lastFullRow` 与 `rowspanAndColspan` 时，控制台报 `rowKey` 错误和通栏滚出可视区域后表体空白的问题问题 @cdevq ([#4502](https://github.com/Tencent/tdesign-react/pull/4502))
+
 ## 🌈 1.18.6 `2026-10-30`
 
 ### 🚀 Features

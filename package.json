@@ -1,7 +1,7 @@
 {
-  "name": "tdesign-react-mono",
-  "packageManager": "pnpm@10.33.0",
+  "name": "@tencent/tdesign-react-mono",
   "private": true,
+  "packageManager": "pnpm@10.33.0",
   "scripts": {
     "pnpm:devPreinstall": "node script/pnpm-dev-preinstall.js",
     "init": "git submodule init && git submodule update",

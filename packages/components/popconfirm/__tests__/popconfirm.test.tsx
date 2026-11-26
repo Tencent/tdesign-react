@@ -1,6 +1,8 @@
 import React from 'react';
 import { act, fireEvent, render, vi, waitFor } from '@test/utils';
 
+import { ConfigContext } from '../../config-provider';
+import { defaultGlobalConfig } from '../../config-provider/ConfigContext';
 import Popconfirm from '../Popconfirm';
 
 describe('Popconfirm', () => {
@@ -114,6 +116,40 @@ describe('Popconfirm', () => {
       });
 
       expect(onConfirmMock).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('scenarios', () => {
+    test('confirmBtnTheme maps popconfirm theme to the confirm button', () => {
+      const { unmount } = render(
+        <Popconfirm visible theme="danger" content="锁定分支">
+          <span>trigger</span>
+        </Popconfirm>,
+      );
+      expect(document.querySelector('.t-popconfirm__confirm .t-button')).toHaveClass('t-button--theme-primary');
+      unmount();
+
+      render(
+        <ConfigContext.Provider
+          value={{
+            globalConfig: {
+              ...defaultGlobalConfig,
+              popconfirm: {
+                ...defaultGlobalConfig.popconfirm,
+                confirmBtnTheme: {
+                  ...defaultGlobalConfig.popconfirm?.confirmBtnTheme,
+                  danger: 'danger',
+                },
+              },
+            },
+          }}
+        >
+          <Popconfirm visible theme="danger" content="锁定分支">
+            <span>trigger</span>
+          </Popconfirm>
+        </ConfigContext.Provider>,
+      );
+      expect(document.querySelector('.t-popconfirm__confirm .t-button')).toHaveClass('t-button--theme-danger');
     });
   });
 });
