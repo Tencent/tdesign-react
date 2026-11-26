@@ -27,6 +27,5 @@ export const dialogDefaultProps: TdDialogProps = {
   preventScrollThrough: true,
   showInAttachedElement: false,
   showOverlay: true,
-  sizeDraggable: false,
   theme: 'default',
 };

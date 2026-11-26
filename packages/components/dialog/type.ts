@@ -119,11 +119,6 @@ export interface TdDialogProps {
    */
   showOverlay?: boolean;
   /**
-   * 弹窗大小可拖拽调整。`sizeDraggable.maxWidth`、`sizeDraggable.minWidth`、`sizeDraggable.maxHeight`、`sizeDraggable.minHeight` 用于控制拖拽尺寸大小限制。
-   * @default false
-   */
-  sizeDraggable?: boolean | DialogSizeDragLimit;
-  /**
    * 对话框风格
    * @default default
    */
@@ -244,7 +239,7 @@ export interface DialogInstance {
 export interface DialogFocusable {
   defaultFocus?: null | 'confirm-button' | 'cancel-button' | (() => HTMLElement | null);
   focusTrap?: boolean;
-  focusTriggerAfterClose: boolean;
+  focusTriggerAfterClose?: boolean;
 }
 
 export interface DialogSizeDragLimit {
