@@ -199,7 +199,7 @@ const Cascader: React.FC<CascaderProps> = (originalProps) => {
         props?.selectInputProps?.onTagChange?.(val, ctx);
       }}
       onPopupVisibleChange={(val: boolean, context) => {
-        if (props.disabled) {
+        if (props.disabled && val) {
           return;
         }
         setVisible(val, context);

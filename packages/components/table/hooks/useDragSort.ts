@@ -19,6 +19,7 @@ import swapDragArrayElement from '@tdesign/common-js/utils/swapDragArrayElement'
 
 import { hasClass } from '../../_util/style';
 import useLatest from '../../hooks/useLatest';
+import { getLocalPaginationRowIndex } from '../utils';
 import useClassName from './useClassName';
 
 import type { MoveEvent, Options, SortableEvent } from 'sortablejs';
@@ -97,15 +98,8 @@ function useDragSort(props: TdEnhancedTableProps, options: DragSortOptions) {
     scrollRef.current = null;
   };
 
-  const getDataPageIndex = (index: number, pagination: PaginationProps) => {
-    // 本地分页的表格，index 不同，需加上分页计数
-    const current = pagination.current ?? pagination.defaultCurrent;
-    const pageSize = pagination.pageSize ?? pagination.defaultPageSize;
-    if (!props.disableDataPage && pagination && data.length > pageSize) {
-      return pageSize * (current - 1) + index;
-    }
-    return index;
-  };
+  const getDataPageIndex = (index: number, pagination: PaginationProps) =>
+    getLocalPaginationRowIndex(index, data, pagination, props.disableDataPage);
 
   const cloneNodeWithStyles = (sourceEl: HTMLElement) => {
     // 克隆节点，并复制样式
@@ -322,7 +316,9 @@ function useDragSort(props: TdEnhancedTableProps, options: DragSortOptions) {
     if (!dragContainer) return;
     try {
       if (isRowDraggable) {
-        dragRowInstance.current = new Sortable(dragContainer, { ...baseOptions });
+        dragRowInstance.current = new Sortable(dragContainer, {
+          ...baseOptions,
+        });
       } else if (isRowHandlerDraggable) {
         dragRowInstance.current = new Sortable(dragContainer, {
           ...baseOptions,

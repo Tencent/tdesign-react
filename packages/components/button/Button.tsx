@@ -56,10 +56,14 @@ const Button = forwardRef((originProps: ButtonProps, ref: React.RefObject<HTMLEl
   }, [theme, variant]);
 
   const renderTag = useMemo(() => {
-    if (!tag && href && !disabled) return 'a';
-    if (!tag && disabled) return 'div';
-    return tag || 'button';
-  }, [tag, href, disabled]);
+    const nonInteractive = disabled || loading;
+    // 指定 tag 时：保留指定标签，仅不可交互的 a 降级为 div。
+    if (tag) return nonInteractive && tag === 'a' ? 'div' : tag;
+    // 无 tag 且存在 href 时：可交互渲染为 a，disabled / loading 降级为 div。
+    if (href) return nonInteractive ? 'div' : 'a';
+    // 无 tag 且无 href 时：仅 disabled 降级为 div，其余渲染为 button。
+    return disabled ? 'div' : 'button';
+  }, [tag, href, disabled, loading]);
 
   return React.createElement(
     renderTag,

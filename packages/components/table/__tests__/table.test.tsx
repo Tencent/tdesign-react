@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { fireEvent, render, vi, waitFor } from '@test/utils';
+import { act, createEvent, fireEvent, mockDelay, mockElementSizes, render, vi, waitFor } from '@test/utils';
 
 import { Table } from '..';
 
-import type { BaseTableProps } from '../interface';
+import type { BaseTableProps, PrimaryTableProps } from '../interface';
 import type { FilterType, FilterValue, PrimaryTableCol, TableRowData } from '../type';
 
 type TestTableRow = TableRowData & {
@@ -56,6 +56,35 @@ function paginationTable(props: PaginationMountProps, options?: { remote?: boole
     : (props.pagination.total ?? resolvePageSize(props.pagination));
 
   return <Table rowKey="index" data={getTableData(dataLength)} columns={MOUNT_COLUMNS} {...props} />;
+}
+
+const RESIZE_GROUP_COLUMNS = [
+  { colKey: 'category', title: '普通列', width: 100 },
+  {
+    colKey: 'metrics',
+    title: '分组表头',
+    children: [
+      { colKey: 'valueA', title: '子列 A', width: 100 },
+      { colKey: 'valueB', title: '子列 B', width: 100 },
+    ],
+  },
+];
+const RESIZE_GROUP_DATA = [{ id: 1, category: '示例 A', valueA: 10, valueB: 20 }];
+
+function fireColumnResizeMouseEvent(
+  target: Element | Document,
+  type: 'mouseMove' | 'mouseDown' | 'mouseUp',
+  x: number,
+  buttons = 0,
+) {
+  const event = createEvent[type](target, {
+    button: 0,
+    buttons,
+    clientX: x,
+    clientY: 20,
+  });
+  Object.defineProperties(event, { pageX: { value: x }, x: { value: x } });
+  fireEvent(target, event);
 }
 
 function mockScrollHeight(element: HTMLElement, scrollHeight: number, clientHeight: number) {
@@ -893,6 +922,91 @@ describe('Table', () => {
   });
 
   describe('scenarios', () => {
+    test('resizable fixed columns recalculate offsets after widening and narrowing', async () => {
+      const defaultWidths: Record<string, number> = {
+        name: 120,
+        status: 100,
+        email: 180,
+        detail: 200,
+      };
+      const getColumnWidth = (element: HTMLElement) => {
+        const width = parseFloat(element.style.width || '');
+        return Number.isNaN(width) ? defaultWidths[element.dataset.colkey] || 100 : width;
+      };
+      const resetElementMock = mockElementSizes([
+        {
+          selector: '.t-table__content',
+          width: 300,
+          height: 200,
+          clientWidth: 300,
+          clientHeight: 200,
+          scrollWidth: 600,
+          scrollHeight: 200,
+        },
+        { selector: 'th', width: getColumnWidth, height: 40 },
+        { selector: '*', width: 600, height: 200 },
+      ]);
+
+      try {
+        const { container } = render(
+          <Table
+            rowKey="id"
+            data={[
+              {
+                id: 1,
+                name: 'Name',
+                status: 'Status',
+                email: 'name@example.com',
+                detail: 'Detail',
+              },
+            ]}
+            columns={[
+              { colKey: 'name', title: 'Name', fixed: 'left', width: 120 },
+              { colKey: 'status', title: 'Status', fixed: 'left', width: 100 },
+              { colKey: 'email', title: 'Email', width: 180 },
+              { colKey: 'detail', title: 'Detail', width: 200 },
+            ]}
+            bordered
+            resizable
+            tableLayout="fixed"
+          />,
+        );
+
+        const getNameTh = () => container.querySelector('th[data-colkey="name"]') as HTMLElement;
+        const getStatusTh = () => container.querySelector('th[data-colkey="status"]') as HTMLElement;
+        const dragNameColumn = async (startX: number, endX: number) => {
+          const nameTh = getNameTh();
+          fireEvent.mouseMove(nameTh, { clientX: startX });
+          fireEvent.mouseDown(nameTh, { clientX: startX, button: 0 });
+          await act(async () => {
+            document.dispatchEvent(
+              new MouseEvent('mousemove', {
+                clientX: endX,
+                buttons: 1,
+                bubbles: true,
+              }),
+            );
+            document.dispatchEvent(new MouseEvent('mouseup', { clientX: endX, bubbles: true }));
+          });
+          await mockDelay(20);
+        };
+
+        await dragNameColumn(116, 196);
+        await waitFor(() => {
+          expect(getNameTh()).toHaveStyle({ width: '200px' });
+          expect(getStatusTh()).toHaveStyle({ left: '200px' });
+        });
+
+        await dragNameColumn(196, 116);
+        await waitFor(() => {
+          expect(getNameTh()).toHaveStyle({ width: '120px' });
+          expect(getStatusTh()).toHaveStyle({ left: '120px' });
+        });
+      } finally {
+        resetElementMock();
+      }
+    });
+
     describe('columns[row-select] with selectedRowKeys state', () => {
       const selectColumns = [
         {
@@ -993,6 +1107,131 @@ describe('Table', () => {
         expect(selectAllCheckbox).toHaveClass('t-is-indeterminate');
         expect(onSelectChange).toHaveBeenCalledWith(['2'], expect.any(Object));
       });
+
+      describe('current page', () => {
+        const rows = Array.from({ length: 6 }, (_, index) => ({
+          id: index + 1,
+        }));
+        const columns = [
+          { colKey: 'row-select', type: 'multiple' as const },
+          { colKey: 'id', title: 'ID' },
+        ];
+
+        function PageTable(props: Partial<PrimaryTableProps>) {
+          return (
+            <Table
+              rowKey="id"
+              data={rows}
+              columns={columns}
+              pagination={{
+                defaultCurrent: 1,
+                defaultPageSize: 2,
+                total: rows.length,
+              }}
+              reserveSelectedRowOnPaginate={false}
+              {...props}
+            />
+          );
+        }
+
+        function selectAllBox(container: HTMLElement) {
+          return container.querySelector('th[data-colkey="row-select"] .t-checkbox');
+        }
+
+        function expectSelection(onSelectChange: ReturnType<typeof vi.fn>, keys: readonly number[], type = 'check') {
+          expect(onSelectChange).toHaveBeenLastCalledWith(keys, {
+            selectedRowData: keys.map((id) => ({ id })),
+            type,
+            currentRowKey: 'CHECK_ALL_BOX',
+          });
+        }
+
+        it('selects only the uncontrolled page', async () => {
+          const onSelectChange = vi.fn();
+          const { container } = render(
+            <PageTable
+              pagination={{
+                defaultCurrent: 2,
+                defaultPageSize: 2,
+                total: rows.length,
+              }}
+              onSelectChange={onSelectChange}
+            />,
+          );
+
+          await fireEvent.click(selectAllBox(container));
+          expectSelection(onSelectChange, [3, 4]);
+          await fireEvent.click(selectAllBox(container));
+          expectSelection(onSelectChange, [], 'uncheck');
+        });
+
+        it('selects only the controlled page', async () => {
+          const onSelectChange = vi.fn();
+          const { container } = render(
+            <PageTable pagination={{ current: 2, pageSize: 2, total: rows.length }} onSelectChange={onSelectChange} />,
+          );
+
+          await fireEvent.click(selectAllBox(container));
+          expectSelection(onSelectChange, [3, 4]);
+        });
+
+        it('selects the page shown after navigation', async () => {
+          const onSelectChange = vi.fn();
+          const { container } = render(<PageTable onSelectChange={onSelectChange} />);
+
+          await fireEvent.click(container.querySelector('.t-pagination__btn-next'));
+          await fireEvent.click(selectAllBox(container));
+          expectSelection(onSelectChange, [3, 4]);
+        });
+
+        it('keeps the accepted page while controlled pagination is pending', async () => {
+          const onSelectChange = vi.fn();
+          const pagination = {
+            current: 1,
+            pageSize: 2,
+            total: rows.length,
+            onChange: vi.fn(),
+          };
+          const { container, rerender } = render(
+            <PageTable selectedRowKeys={[]} pagination={pagination} onSelectChange={onSelectChange} />,
+          );
+
+          await fireEvent.click(container.querySelector('.t-pagination__btn-next'));
+          await fireEvent.click(selectAllBox(container));
+          expectSelection(onSelectChange, [1, 2]);
+
+          rerender(
+            <PageTable
+              selectedRowKeys={[]}
+              pagination={{ ...pagination, current: 2 }}
+              onSelectChange={onSelectChange}
+            />,
+          );
+          await fireEvent.click(selectAllBox(container));
+          expectSelection(onSelectChange, [3, 4]);
+        });
+
+        it('disables select-all when the current page has no selectable rows', async () => {
+          const onSelectChange = vi.fn();
+          const { container } = render(
+            <PageTable
+              columns={[
+                {
+                  colKey: 'row-select',
+                  type: 'multiple',
+                  checkProps: ({ row }) => ({ disabled: row.id <= 2 }),
+                },
+                columns[1],
+              ]}
+              onSelectChange={onSelectChange}
+            />,
+          );
+
+          expect(selectAllBox(container)).toHaveClass('t-is-disabled');
+          await fireEvent.click(selectAllBox(container));
+          expect(onSelectChange).not.toHaveBeenCalled();
+        });
+      });
     });
 
     describe('filterable', () => {
@@ -1073,8 +1312,11 @@ describe('Table', () => {
       const getPopups = () => document.querySelectorAll('.t-table__filter-pop-content');
 
       describe('Virtual scroll', () => {
-        const descriptors: Array<[string, PropertyDescriptor]> = [];
         const { scrollTo } = HTMLElement.prototype;
+        const descriptors: Array<[string, PropertyDescriptor]> = [];
+        let layoutMock: (() => void) | undefined;
+        const hadOwnBoundingRect = Object.prototype.hasOwnProperty.call(HTMLElement.prototype, 'getBoundingClientRect');
+        const originalGetBoundingClientRect = HTMLElement.prototype.getBoundingClientRect;
 
         function mockSize(prop: string, value: number) {
           const origin = Object.getOwnPropertyDescriptor(HTMLElement.prototype, prop);
@@ -1090,6 +1332,18 @@ describe('Table', () => {
           mockSize('clientHeight', 200);
           mockSize('scrollHeight', 4000);
           mockSize('scrollWidth', 800);
+          layoutMock = mockElementSizes([
+            {
+              selector: '.t-table__content',
+              width: 800,
+              height: 200,
+              scrollWidth: 800,
+              scrollHeight: 4000,
+            },
+            { selector: 'thead', width: 800, height: 200 },
+            { selector: 'tbody', width: 800, height: 200 },
+            { selector: 'tr', width: 800, height: 200 },
+          ]);
           // jsdom 未实现 Element.scrollTo
           HTMLElement.prototype.scrollTo = function scrollTo() {
             // do nothing
@@ -1109,8 +1363,14 @@ describe('Table', () => {
         });
 
         afterAll(() => {
+          layoutMock?.();
           descriptors.forEach(([prop, descriptor]) => Object.defineProperty(HTMLElement.prototype, prop, descriptor));
           HTMLElement.prototype.scrollTo = scrollTo;
+          if (hadOwnBoundingRect) {
+            HTMLElement.prototype.getBoundingClientRect = originalGetBoundingClientRect;
+          } else {
+            delete HTMLElement.prototype.getBoundingClientRect;
+          }
         });
 
         it('filter and virtual header rendering keep a single popup instance', async () => {
@@ -1233,6 +1493,386 @@ describe('Table', () => {
           const icons = container.querySelectorAll('.t-table__filter-icon');
           expect((icons[0].firstChild as Element).classList.contains('t-popup-open')).toBe(true);
           expect((icons[1].firstChild as Element).classList.contains('t-popup-open')).toBe(false);
+        });
+      });
+    });
+
+    describe('resizable', () => {
+      let restoreSizes: () => void;
+
+      beforeEach(() => {
+        vi.useFakeTimers();
+        restoreSizes = mockElementSizes([
+          { selector: '.t-table', width: 300, height: 200 },
+          { selector: '.t-table__content', width: 300, height: 200 },
+          { selector: 'th[data-colkey="category"]', width: 100, height: 80 },
+          {
+            selector: 'th[data-colkey="metrics"]',
+            width: 200,
+            height: 40,
+            left: 100,
+          },
+          {
+            selector: 'th[data-colkey="valueA"]',
+            width: 100,
+            height: 40,
+            left: 100,
+            top: 40,
+          },
+          {
+            selector: 'th[data-colkey="valueB"]',
+            width: 100,
+            height: 40,
+            left: 200,
+            top: 40,
+          },
+        ]);
+      });
+
+      afterEach(() => {
+        vi.clearAllTimers();
+        vi.useRealTimers();
+        vi.restoreAllMocks();
+        restoreSizes();
+      });
+
+      it.each([true, false])(
+        'should not start resize drag on adjacent group header (mousemove: %s)',
+        (shouldMoveOverGroup) => {
+          const onColumnResizeChange = vi.fn();
+          const { container } = render(
+            <Table
+              rowKey="id"
+              columns={RESIZE_GROUP_COLUMNS}
+              data={RESIZE_GROUP_DATA}
+              resizable
+              onColumnResizeChange={onColumnResizeChange}
+            />,
+          );
+          const leaf = container.querySelector('th[data-colkey="category"]');
+          const group = container.querySelector('th[data-colkey="metrics"]');
+          const originalSelectStart = document.onselectstart;
+          const originalDragStart = document.ondragstart;
+
+          fireColumnResizeMouseEvent(leaf, 'mouseMove', 99);
+          expect(leaf).toHaveStyle({ cursor: 'col-resize' });
+          if (shouldMoveOverGroup) {
+            fireColumnResizeMouseEvent(group, 'mouseMove', 101);
+          }
+
+          const addListener = vi.spyOn(document, 'addEventListener');
+          try {
+            fireColumnResizeMouseEvent(group, 'mouseDown', 101, 1);
+            expect(addListener.mock.calls.filter(([type]) => type === 'mouseup' || type === 'mousemove')).toHaveLength(
+              0,
+            );
+            fireColumnResizeMouseEvent(document, 'mouseUp', 119);
+            expect(onColumnResizeChange).not.toHaveBeenCalled();
+            expect(document.onselectstart).toBe(originalSelectStart);
+            expect(document.ondragstart).toBe(originalDragStart);
+          } finally {
+            addListener.mock.calls.forEach(([type, listener, options]) => {
+              if (type === 'mouseup' || type === 'mousemove') document.removeEventListener(type, listener, options);
+            });
+            addListener.mockRestore();
+            document.onselectstart = originalSelectStart;
+            document.ondragstart = originalDragStart;
+          }
+        },
+      );
+
+      it('should preserve custom cursor on group header', () => {
+        const { container } = render(
+          <Table
+            rowKey="id"
+            columns={[
+              RESIZE_GROUP_COLUMNS[0],
+              {
+                ...RESIZE_GROUP_COLUMNS[1],
+                attrs: { style: { cursor: 'pointer' } },
+              },
+            ]}
+            data={RESIZE_GROUP_DATA}
+            resizable
+          />,
+        );
+        const leaf = container.querySelector('th[data-colkey="category"]');
+        const group = container.querySelector('th[data-colkey="metrics"]');
+        expect(group).toHaveStyle({ cursor: 'pointer' });
+        fireColumnResizeMouseEvent(leaf, 'mouseMove', 99);
+        fireColumnResizeMouseEvent(group, 'mouseMove', 101);
+        expect(group).toHaveStyle({ cursor: 'pointer' });
+      });
+
+      it.each([
+        {
+          name: 'from right edge',
+          colKey: 'category',
+          start: 99,
+          end: 119,
+          moveOverGroup: false,
+          widths: { category: 120, metrics: 200, valueA: 80, valueB: 100 },
+        },
+        {
+          name: 'from left edge',
+          colKey: 'valueB',
+          start: 201,
+          end: 221,
+          moveOverGroup: false,
+          widths: { category: 100, metrics: 200, valueA: 120, valueB: 80 },
+        },
+        {
+          name: 'after drag started across group header',
+          colKey: 'category',
+          start: 99,
+          end: 119,
+          moveOverGroup: true,
+          widths: { category: 120, metrics: 200, valueA: 80, valueB: 100 },
+        },
+      ])('should resize column width $name', ({ colKey, start, end, moveOverGroup, widths }) => {
+        const onColumnResizeChange = vi.fn();
+        const { container } = render(
+          <Table
+            rowKey="id"
+            columns={RESIZE_GROUP_COLUMNS}
+            data={RESIZE_GROUP_DATA}
+            resizable
+            onColumnResizeChange={onColumnResizeChange}
+          />,
+        );
+        const leaf = container.querySelector(`th[data-colkey="${colKey}"]`);
+        const group = container.querySelector('th[data-colkey="metrics"]');
+
+        fireColumnResizeMouseEvent(leaf, 'mouseMove', start);
+        fireColumnResizeMouseEvent(leaf, 'mouseDown', start, 1);
+        fireColumnResizeMouseEvent(moveOverGroup ? group : document, 'mouseMove', end, 1);
+        fireColumnResizeMouseEvent(document, 'mouseUp', end);
+
+        expect(onColumnResizeChange).toHaveBeenCalledTimes(1);
+        expect(onColumnResizeChange).toHaveBeenCalledWith({
+          columnsWidth: widths,
+        });
+      });
+
+      it('should resize from left edge when right fixed column shadow is active', () => {
+        vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(300);
+        vi.spyOn(HTMLElement.prototype, 'scrollWidth', 'get').mockReturnValue(400);
+        const onColumnResizeChange = vi.fn();
+        const { container } = render(
+          <Table
+            rowKey="id"
+            columns={[
+              RESIZE_GROUP_COLUMNS[0],
+              {
+                ...RESIZE_GROUP_COLUMNS[1],
+                children: [
+                  RESIZE_GROUP_COLUMNS[1].children[0],
+                  { ...RESIZE_GROUP_COLUMNS[1].children[1], fixed: 'right' },
+                ],
+              },
+            ]}
+            data={RESIZE_GROUP_DATA}
+            resizable
+            onColumnResizeChange={onColumnResizeChange}
+          />,
+        );
+        const fixed = container.querySelector('th[data-colkey="valueB"]');
+
+        fireColumnResizeMouseEvent(fixed, 'mouseMove', 201);
+        fireColumnResizeMouseEvent(fixed, 'mouseDown', 201, 1);
+        fireColumnResizeMouseEvent(document, 'mouseMove', 181, 1);
+        fireColumnResizeMouseEvent(document, 'mouseUp', 181);
+
+        expect(onColumnResizeChange).toHaveBeenCalledTimes(1);
+        expect(onColumnResizeChange).toHaveBeenCalledWith({
+          columnsWidth: {
+            category: 100,
+            metrics: 200,
+            valueA: 100,
+            valueB: 120,
+          },
+        });
+      });
+    });
+
+    describe('virtual header horizontal scrolling', () => {
+      const DATA = Array.from({ length: 150 }, (_, id) => ({
+        id,
+        name: `Row ${id}`,
+      }));
+      const COLUMNS = [
+        { colKey: 'id', title: 'ID', width: 300 },
+        { colKey: 'name', title: 'Name', width: 900 },
+      ];
+      const SCROLL = { type: 'virtual' as const };
+
+      function VirtualTable(props: Partial<PrimaryTableProps>) {
+        return (
+          <Table
+            rowKey="id"
+            columns={COLUMNS}
+            data={DATA}
+            maxHeight={200}
+            scroll={SCROLL}
+            tableLayout="fixed"
+            {...props}
+          />
+        );
+      }
+
+      function scroll(element: HTMLElement, left: number) {
+        fireEvent.mouseEnter(element);
+        fireEvent.scroll(element, { target: { scrollLeft: left } });
+        fireEvent.mouseLeave(element);
+      }
+
+      async function getHeader(container: HTMLElement) {
+        await waitFor(() => expect(container.querySelector('.t-table__affixed-header-elm')).toBeTruthy());
+        return container.querySelector<HTMLElement>('.t-table__affixed-header-elm');
+      }
+
+      beforeEach(() => {
+        vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(600);
+        vi.spyOn(HTMLElement.prototype, 'clientHeight', 'get').mockReturnValue(200);
+        vi.spyOn(HTMLElement.prototype, 'scrollWidth', 'get').mockReturnValue(1200);
+        vi.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockImplementation(function (this: HTMLElement) {
+          return this.textContent?.includes('Row ') ? 4000 : 100;
+        });
+      });
+
+      afterEach(() => {
+        vi.restoreAllMocks();
+      });
+
+      it('synchronizes a header mounted after empty data loads', async () => {
+        const { container, rerender } = render(<VirtualTable data={[]} loading />);
+        await mockDelay(20);
+        expect(container.querySelector('.t-table__affixed-header-elm')).toBeNull();
+
+        rerender(<VirtualTable loading={false} />);
+        const header = await getHeader(container);
+        const body = container.querySelector<HTMLElement>('.t-table__content');
+        scroll(header, 240);
+        expect(body.scrollLeft).toBe(240);
+        scroll(body, 360);
+        expect(header.scrollLeft).toBe(360);
+      });
+
+      it('synchronizes when data is available on the initial mount', async () => {
+        const { container } = render(<VirtualTable />);
+        const header = await getHeader(container);
+        const body = container.querySelector<HTMLElement>('.t-table__content');
+        await mockDelay(20);
+        scroll(header, 180);
+        expect(body.scrollLeft).toBe(180);
+        scroll(body, 300);
+        expect(header.scrollLeft).toBe(300);
+      });
+
+      it('synchronizes a remounted header and releases the removed header', async () => {
+        const { container, rerender } = render(<VirtualTable />);
+        const oldHeader = await getHeader(container);
+        await mockDelay(20);
+        scroll(oldHeader, 120);
+        const body = container.querySelector<HTMLElement>('.t-table__content');
+        expect(body.scrollLeft).toBe(120);
+
+        rerender(<VirtualTable showHeader={false} />);
+        expect(container.querySelector('.t-table__affixed-header-elm')).toBeNull();
+        scroll(oldHeader, 240);
+        expect(body.scrollLeft).toBe(120);
+
+        rerender(<VirtualTable />);
+        const header = await getHeader(container);
+        expect(header).not.toBe(oldHeader);
+        scroll(header, 420);
+        expect(body.scrollLeft).toBe(420);
+      });
+
+      it('keeps non-virtual affixed headers, footers and the body synchronized', async () => {
+        const { container } = render(
+          <VirtualTable scroll={undefined} headerAffixedTop footerAffixedBottom footData={[DATA[0]]} />,
+        );
+        const header = await getHeader(container);
+        await mockDelay(20);
+        const body = container.querySelector<HTMLElement>('.t-table__content');
+        const footer = container.querySelector<HTMLElement>('.t-table__affixed-footer-elm');
+        expect(footer).toBeTruthy();
+        scroll(header, 180);
+        expect(body.scrollLeft).toBe(180);
+        expect(footer.scrollLeft).toBe(180);
+        scroll(body, 300);
+        expect(header.scrollLeft).toBe(300);
+        expect(footer.scrollLeft).toBe(300);
+      });
+
+      describe('virtual full rows and cell spans', () => {
+        const columns = [{ colKey: 'id' }, { colKey: 'name' }];
+
+        it('renders virtual full rows when the span callback does not cover business cells', () => {
+          const spanData = Array.from({ length: 150 }, (_, id) => ({
+            id: id + 1,
+            name: `item ${id}`,
+          }));
+          const filtered = render(
+            <Table
+              data={spanData}
+              columns={columns}
+              rowKey="id"
+              height={200}
+              scroll={{ type: 'virtual' }}
+              filterValue={{ name: 'item' }}
+              filterRow="Filtered items"
+              rowspanAndColspan={({ rowIndex, colIndex }) => (rowIndex === 0 && colIndex === 0 ? { colspan: 2 } : {})}
+            />,
+          );
+          expect(filtered.getByText('Filtered items')).toBeVisible();
+          expect(filtered.getByText('item 0')).toBeVisible();
+
+          const callback = vi.fn(() => undefined);
+          const { container } = render(
+            <Table
+              data={[]}
+              columns={columns}
+              rowKey="id"
+              height={200}
+              scroll={{ type: 'virtual', threshold: 1 }}
+              firstFullRow="First"
+              lastFullRow="Last"
+              rowspanAndColspan={callback}
+            />,
+          );
+          expect(Array.from(container.querySelectorAll('tbody tr'), (row) => row.textContent)).toEqual([
+            'First',
+            'Last',
+          ]);
+          expect(callback).not.toHaveBeenCalled();
+        });
+
+        it('only admits window rows from the current page when a full row makes an empty span map ready', () => {
+          const rows = Array.from({ length: 150 }, (_, i) => ({ id: i + 1 }));
+          const table = (current: number) => (
+            <Table
+              data={rows}
+              columns={columns}
+              rowKey="id"
+              height={200}
+              scroll={{ type: 'virtual', bufferSize: 15 }}
+              firstFullRow="First"
+              rowAttributes={({ row }) => ({ 'data-id': String(row.id) })}
+              pagination={{ current, pageSize: 10, total: rows.length }}
+              rowspanAndColspan={() => undefined}
+            />
+          );
+          const { container, getByText, rerender } = render(table(15));
+          const renderedIds = () =>
+            Array.from(container.querySelectorAll('tbody tr[data-id]'), (tr) => +tr.getAttribute('data-id'));
+
+          expect(getByText('First')).toBeVisible();
+          expect(renderedIds()).toEqual([]);
+
+          rerender(table(1));
+          expect(renderedIds()).toEqual(rows.slice(0, 10).map((row) => row.id));
         });
       });
     });

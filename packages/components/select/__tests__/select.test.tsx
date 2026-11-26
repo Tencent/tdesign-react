@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { act, fireEvent, mockTimeout, render, vi } from '@test/utils';
+import { act, fireEvent, mockTimeout, render, vi, waitFor } from '@test/utils';
 import userEvent from '@testing-library/user-event';
 
 import Popup from '../../popup';
@@ -243,6 +243,30 @@ describe('Select', () => {
           display: 'none',
         }),
       );
+    });
+
+    test('multiple options render checkbox icons inside the checked box', () => {
+      render(
+        <Select multiple value={['apple', 'orange']}>
+          <Option label="Apple" value="apple" />
+          <Option label="Orange" value="orange" />
+          <Option label="Banana" value="banana" />
+        </Select>,
+      );
+
+      fireEvent.click(document.querySelector('.t-input'));
+
+      const options = Array.from(document.querySelectorAll('.t-select-option'));
+      expect(options.map((option) => option.textContent)).toEqual(['Apple', 'Orange', 'Banana']);
+      options.forEach((option) => {
+        expect(option.querySelector('.t-checkbox__input .t-icon')).not.toBeNull();
+      });
+
+      const checkedLabels = options
+        .filter((option) => option.querySelector('.t-checkbox.t-is-checked'))
+        .map((option) => option.textContent);
+      expect(checkedLabels).toEqual(['Apple', 'Orange']);
+      expect(options[2].querySelector('.t-checkbox.t-is-checked')).toBeNull();
     });
 
     test('multiple selection keeps popup open', async () => {
@@ -889,6 +913,68 @@ describe('Select', () => {
       fireEvent.change(input, { target: { value: '三' } });
       expect(document.querySelector('.t-popup')).toHaveTextContent('选项三');
       expect(document.querySelector('.t-popup')).not.toHaveTextContent('选项二');
+    });
+
+    describe('disabled popup interaction', () => {
+      const selectableOptions = [
+        { label: 'Apple', value: 'apple' },
+        { label: 'Orange', value: 'orange' },
+      ];
+      const clickOption = (label: string) => {
+        fireEvent.click([...document.querySelectorAll('.t-select-option')].find((item) => item.textContent === label));
+      };
+
+      test('dynamic disabled closes the open popup', async () => {
+        const onChange = vi.fn();
+        const props: SelectProps = {
+          options: selectableOptions,
+          defaultValue: 'apple',
+          onChange,
+        };
+        const { getByRole, getByText, rerender } = render(<Select {...props} />);
+        fireEvent.click(getByRole('textbox'));
+        await waitFor(() => expect(getByText('Orange')).toBeVisible());
+
+        rerender(<Select {...props} disabled />);
+        await mockTimeout(() =>
+          expect(document.querySelector(popupSelector)).toHaveStyle({
+            display: 'none',
+          }),
+        );
+        expect(onChange).not.toHaveBeenCalled();
+      });
+
+      test('controlled popupVisible still allows single selection while disabled', async () => {
+        const onChange = vi.fn();
+        const { getByText } = render(
+          <Select options={selectableOptions} defaultValue="apple" disabled popupVisible onChange={onChange} />,
+        );
+        await waitFor(() => expect(getByText('Orange')).toBeVisible());
+
+        clickOption('Orange');
+        expect(onChange).toHaveBeenCalledWith('orange', expect.anything());
+        expect(document.querySelector(popupSelector)).toHaveStyle({
+          display: 'block',
+        });
+      });
+
+      test('controlled popupVisible still allows check all while disabled', async () => {
+        const onChange = vi.fn();
+        const { getByText } = render(
+          <Select
+            multiple
+            options={[{ label: 'All', value: 'all', checkAll: true }, ...selectableOptions]}
+            defaultValue={['apple']}
+            disabled
+            popupVisible
+            onChange={onChange}
+          />,
+        );
+        await waitFor(() => expect(getByText('All')).toBeVisible());
+
+        clickOption('All');
+        expect(onChange).toHaveBeenCalledWith(['apple', 'orange'], expect.anything());
+      });
     });
   });
 });

@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { useState } from 'react';
 import { get } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
@@ -25,8 +26,12 @@ export default function useRowspanAndColspan(
   columns: BaseTableCol<TableRowData>[],
   rowKey: string,
   rowspanAndColspan: TableRowspanAndColspanFunc<TableRowData>,
+  allowEmptySpansMap = false,
 ) {
-  const [skipSpansMap, setKipSnapsMap] = useState(() => new Map<string, SkipSpansValue>());
+  const [{ skipSpansMap, spansResolved }, setSpans] = useState(() => ({
+    skipSpansMap: new Map<string, SkipSpansValue>(),
+    spansResolved: false,
+  }));
 
   // 计算单元格是否跳过渲染
   const onTrRowspanOrColspan = (
@@ -39,6 +44,7 @@ export default function useRowspanAndColspan(
     const maxRowIndex = rowIndex + (skipSpansValue.rowspan || 1);
     const maxColIndex = colIndex + (skipSpansValue.colspan || 1);
     for (let i = rowIndex; i < maxRowIndex; i++) {
+      if (data[i]?.__VIRTUAL_FAKE_DATA) continue;
       for (let j = colIndex; j < maxColIndex; j++) {
         if (i !== rowIndex || j !== colIndex) {
           if (!data[i] || !columns[j]) return;
@@ -61,6 +67,7 @@ export default function useRowspanAndColspan(
     const map: Map<string, SkipSpansValue> = new Map<string, SkipSpansValue>();
     for (let i = 0, len = data.length; i < len; i++) {
       const row = data[i];
+      if (row?.__VIRTUAL_FAKE_DATA) continue;
       for (let j = 0, colLen = columns.length; j < colLen; j++) {
         const col = columns[j];
         const params = {
@@ -87,9 +94,13 @@ export default function useRowspanAndColspan(
     if (!rowspanAndColspan) return;
     skipSpansMap.clear();
     const result = getSkipSpansMap(data, columns, rowspanAndColspan);
-    setKipSnapsMap(result);
+    // A configured virtual full row may be outside the current window, so its empty map remains a valid result.
+    setSpans({
+      skipSpansMap: result,
+      spansResolved: Boolean(result?.size || allowEmptySpansMap),
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, columns, rowspanAndColspan]);
+  }, [data, columns, rowspanAndColspan, allowEmptySpansMap]);
 
-  return { skipSpansMap, getSkipSpansMap };
+  return { skipSpansMap, getSkipSpansMap, spansResolved };
 }

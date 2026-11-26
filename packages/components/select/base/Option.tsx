@@ -1,9 +1,11 @@
 import React, { useEffect, useMemo } from 'react';
 import classNames from 'classnames';
 import { get, isNumber, isString } from 'lodash-es';
+import { Check1Icon as TdCheck1Icon, Remove1Icon as TdRemove1Icon } from 'tdesign-icons-react';
 
 import useConfig from '../../hooks/useConfig';
 import useDomRefCallback from '../../hooks/useDomRefCallback';
+import useGlobalIcon from '../../hooks/useGlobalIcon';
 import useRipple from '../../hooks/useRipple';
 import { getKeyMapping } from '../util/helper';
 
@@ -78,6 +80,10 @@ const Option: React.FC<SelectOptionProps> = (props) => {
   }, [propTitle, label]);
 
   const { classPrefix } = useConfig();
+  const { Check1Icon, Remove1Icon } = useGlobalIcon({
+    Check1Icon: TdCheck1Icon,
+    Remove1Icon: TdRemove1Icon,
+  });
 
   // 使用斜八角动画
   const [optionRef, setRefCurrent] = useDomRefCallback();
@@ -148,7 +154,9 @@ const Option: React.FC<SelectOptionProps> = (props) => {
               e.nativeEvent.stopImmediatePropagation();
             }}
           />
-          <span className={classNames(`${classPrefix}-checkbox__input`)}></span>
+          <span className={classNames(`${classPrefix}-checkbox__input`)}>
+            {indeterminate ? <Remove1Icon /> : <Check1Icon />}
+          </span>
           <span className={classNames(`${classPrefix}-checkbox__label`)}>{displayedContent}</span>
         </label>
       );
