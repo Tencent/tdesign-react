@@ -230,18 +230,6 @@ describe('EnhancedTable', () => {
         }));
       }
 
-      function mockTableScrollContainer(element: HTMLElement, scrollHeight: number, clientHeight: number) {
-        Object.defineProperty(element, 'scrollHeight', {
-          value: scrollHeight,
-          configurable: true,
-        });
-        Object.defineProperty(element, 'clientHeight', {
-          value: clientHeight,
-          configurable: true,
-        });
-        element.scrollTop = 0;
-      }
-
       function ControlledVirtualTreeTable() {
         const [expandedTreeNodes, setExpandedTreeNodes] = useState<Array<string | number>>([]);
         const [data] = useState(() => getVirtualTreeData(ROOT_COUNT));
@@ -266,14 +254,20 @@ describe('EnhancedTable', () => {
       }
 
       const restoreMock = mockElementSizes([
-        { selector: '.t-table__content', height: TABLE_HEIGHT, width: 800 },
+        {
+          selector: '.t-table__content',
+          height: TABLE_HEIGHT,
+          width: 800,
+          clientHeight: TABLE_HEIGHT,
+          scrollHeight: ROOT_COUNT * VIRTUAL_ROW_HEIGHT,
+        },
         { selector: 'tr', height: VIRTUAL_ROW_HEIGHT, width: 800 },
       ]);
 
       try {
         const { container } = render(<ControlledVirtualTreeTable />);
         const scrollElement = container.querySelector('.t-table__content') as HTMLElement;
-        mockTableScrollContainer(scrollElement, ROOT_COUNT * VIRTUAL_ROW_HEIGHT, TABLE_HEIGHT);
+        scrollElement.scrollTop = 0;
 
         await act(async () => {
           await mockDelay(20);
