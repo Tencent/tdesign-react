@@ -10,6 +10,7 @@ import type { ScrollToElementParams, TScroll } from '../common';
 export type UseVirtualScrollParams = {
   enable?: boolean;
   data: { [key: string]: any }[];
+  rowGap?: number;
   scroll: TScroll & {
     fixedRows?: Array<number>;
   };
@@ -27,11 +28,12 @@ const requestAnimationFrame =
   (typeof window === 'undefined' ? false : window.requestAnimationFrame) || ((cb) => setTimeout(cb, 16.6));
 
 const useVirtualScroll = (container: React.MutableRefObject<HTMLElement>, params: UseVirtualScrollParams) => {
-  const { enable = true, data, scroll } = params;
+  const { enable = true, data, scroll, rowGap = 0 } = params;
 
   const dataRef = useRef(data);
   const lastVisibleDataRef = useRef(data);
   const containerHeight = useRef(0);
+  const lastRowGap = useRef(rowGap);
 
   /** 注意测试：数据长度为空；数据长度小于表格高度等情况。即期望只有数据量达到一定程度才允许开启虚拟滚动 */
   const [visibleData, setVisibleData] = useState<any[]>([]);
@@ -70,7 +72,7 @@ const useVirtualScroll = (container: React.MutableRefObject<HTMLElement>, params
     // 大数据场景不建议使用 forEach 一类函数迭代
     // 当前行滚动高度 = 上一行滚动高度 + 当前行高度
     for (let i = 0, len = data.length; i < len; i++) {
-      list[i] = (list[i - 1] || 0) + (trHeightList[i] || tScroll.rowHeight);
+      list[i] = (list[i - 1] || 0) + (trHeightList[i] || tScroll.rowHeight) + (i < len - 1 ? rowGap : 0);
     }
     return list;
   };
@@ -128,15 +130,16 @@ const useVirtualScroll = (container: React.MutableRefObject<HTMLElement>, params
     if ((indexChanged || dataSourceChanged) && startIndex >= 0) {
       const tmpVisibleData = fixedStartData.concat(data.slice(startIndex, endIndex)).concat(fixedEndData);
       setVisibleData(tmpVisibleData);
-      const lastScrollTop = trScrollTopHeightList[startIndex - 1];
-      const top = lastScrollTop > 0 ? lastScrollTop : 0;
-      const stickyHeight = trScrollTopHeightList[Math.min(startIndex, fixedStart) - 1] || 0;
-      setTranslateY(top - stickyHeight);
       lastVisibleDataRef.current = data;
       if (indexChanged) {
         setStartAndEndIndex([startIndex, endIndex]);
       }
     }
+    // 行间距或行高变化时，即使可见下标不变，也需要更新占位距离。
+    const lastScrollTop = trScrollTopHeightList[startIndex - 1];
+    const top = lastScrollTop > 0 ? lastScrollTop : 0;
+    const stickyHeight = trScrollTopHeightList[Math.min(startIndex, fixedStart) - 1] || 0;
+    setTranslateY(top - stickyHeight);
   };
 
   // 仅非固定高度场景需要
@@ -211,6 +214,11 @@ const useVirtualScroll = (container: React.MutableRefObject<HTMLElement>, params
       addIndexToData(data);
 
       const dataChanged = !isEqual(dataRef.current, data);
+      if (lastRowGap.current !== rowGap) {
+        // 在重新计算窗口之前使间距缓存生效，避免使用上一帧的累计高度。
+        trScrollTopHeightList.current = getTrScrollTopHeightList(trHeightList);
+        lastRowGap.current = rowGap;
+      }
       const scrollTopHeightList = trScrollTopHeightList.current;
       if (scrollTopHeightList?.length === data?.length && !dataChanged) {
         // 正常滚动时更新可见数据
@@ -224,11 +232,11 @@ const useVirtualScroll = (container: React.MutableRefObject<HTMLElement>, params
          * - 外部数据动态更新（长度变化、内容结构变化等）
          */
         dataRef.current = data;
-        setScrollHeight(data.length * tScroll.rowHeight);
+        setScrollHeight(data.length * tScroll.rowHeight + Math.max(data.length - 1, 0) * rowGap);
 
         // 如果之前存在滚动，基于原先数据计算位置
         const currentScrollTop = container.current?.scrollTop || 0;
-        let currentIndex = Math.floor(currentScrollTop / tScroll.rowHeight);
+        let currentIndex = Math.floor(currentScrollTop / (tScroll.rowHeight + rowGap));
         for (let i = 0; i < scrollTopHeightList?.length; i++) {
           if (scrollTopHeightList[i] >= currentScrollTop) {
             currentIndex = i;
@@ -240,7 +248,7 @@ const useVirtualScroll = (container: React.MutableRefObject<HTMLElement>, params
         const endIndex = Math.min(startIndex + visibleCount, data.length);
         const tmpData = data.slice(startIndex, endIndex);
 
-        let translateY = startIndex * tScroll.rowHeight;
+        let translateY = startIndex * (tScroll.rowHeight + rowGap);
 
         if (scrollTopHeightList?.length > 0 && startIndex > 0) {
           const prevHeight = scrollTopHeightList[Math.min(startIndex - 1, scrollTopHeightList.length - 1)] || 0;
@@ -264,9 +272,10 @@ const useVirtualScroll = (container: React.MutableRefObject<HTMLElement>, params
           clearTimeout(timer);
         }
       }, 1);
+      return () => clearTimeout(timer);
     },
     // eslint-disable-next-line
-    [container, data, tScroll, isVirtualScroll, startAndEndIndex, trHeightList],
+    [container, data, tScroll, isVirtualScroll, startAndEndIndex, trHeightList, rowGap],
   );
 
   return {
