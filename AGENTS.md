@@ -74,7 +74,7 @@ tdesign-react/
 ├── test/                        # 测试配置和快照
 ├── vitest.config.mts            # Vitest 配置
 ├── tsconfig.json                # TypeScript 主配置
-├── .codebuddy/                  # AI Coding 规范和技能
+├── .agent/                      # AI 协作资源（specs + skills 单一来源）
 │   ├── specs/                   #    开发规范文档
 │   └── skills/                  #    AI 开发技能
 └── pnpm-workspace.yaml          # Workspace 配置
@@ -130,7 +130,7 @@ export default Component;
 2. **Pro 组件**：直接读取 `packages/pro-components/chat/<component>/<component>.md` → 获取全部文档
 3. 根据 `{{ xxx }}` 占位符找到 `_example/xxx.tsx` → 获取可运行的示例代码
 
-详见 `.codebuddy/specs/project-architecture-spec.md` 第 6 节。
+详见 `.agent/specs/project-architecture-spec.md` 第 6 节。
 
 ### 4.4 AIGC 组件开发
 
@@ -158,13 +158,13 @@ AIGC/Chat 组件有独立的开发规范，详见：
 
 | 文件 | 说明 |
 |------|------|
-| `.codebuddy/specs/api-design-spec.md` | API 设计规范（TNode、事件、受控模式） |
-| `.codebuddy/specs/css-naming-spec.md` | CSS 命名规范（BEM、状态类、Design Token） |
-| `.codebuddy/specs/build-output-spec.md` | 构建产物规范（6 种产物格式） |
-| `.codebuddy/specs/common-errors.md` | 常见错误与反模式参考 |
-| `.codebuddy/specs/project-architecture-spec.md` | 项目架构全景图 |
-| `.codebuddy/specs/monorepo-workflow-spec.md` | Monorepo 工作流规范 |
-| `.codebuddy/specs/hooks-catalog-spec.md` | 公共 Hooks 目录与用法 |
+| `.agent/specs/api-design-spec.md` | API 设计规范（TNode、事件、受控模式） |
+| `.agent/specs/css-naming-spec.md` | CSS 命名规范（BEM、状态类、Design Token） |
+| `.agent/specs/build-output-spec.md` | 构建产物规范（6 种产物格式） |
+| `.agent/specs/common-errors.md` | 常见错误与反模式参考 |
+| `.agent/specs/project-architecture-spec.md` | 项目架构全景图 |
+| `.agent/specs/monorepo-workflow-spec.md` | Monorepo 工作流规范 |
+| `.agent/specs/hooks-catalog-spec.md` | 公共 Hooks 目录与用法 |
 
 ### Skills（AI 技能）
 
@@ -175,6 +175,7 @@ AIGC/Chat 组件有独立的开发规范，详见：
 | `tdesign-component-test` | 组件测试编写指南 |
 | `tdesign-release` | 版本发布流程 SOP |
 | `tdesign-pro-component` | AIGC/Chat 组件开发指南 |
+| `tdesign-code-review` | GitHub PR 审查流程 |
 
 ### ChatEngine 专属文档
 

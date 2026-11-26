@@ -259,17 +259,17 @@ spline: base
 
 执行时应参考以下规范：
 
-1. **CSS 命名**: 参考 `.codebuddy/specs/css-naming-spec.md`
+1. **CSS 命名**: 参考 `.agent/specs/css-naming-spec.md`
    - 前缀使用 `t-`
    - BEM 命名：`t-[component]__[element]--[modifier]`
    - 状态类：`t-is-*`
 
-2. **API 设计**: 参考 `.codebuddy/specs/api-design-spec.md`
+2. **API 设计**: 参考 `.agent/specs/api-design-spec.md`
    - 使用 `TNode` 类型定义可定制内容
    - 事件命名使用 `on` 前缀
    - `size` 属性固定三档：`small/medium/large`
 
-3. **构建产物**: 参考 `.codebuddy/specs/build-output-spec.md`
+3. **构建产物**: 参考 `.agent/specs/build-output-spec.md`
    - 确保 style/ 目录正确配置
 
 ## 常见模式
