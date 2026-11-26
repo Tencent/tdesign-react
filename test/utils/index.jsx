@@ -234,10 +234,14 @@ export function mockResizeObserver(mockData = {}, mockFunc = {}) {
  * 批量模拟多个 DOM 元素的尺寸与位置信息
  * @param {Array<{
  *   selector: string
- *   width?: number
- *   height?: number
- *   left?: number
- *   top?: number
+ *   width?: number | ((element: HTMLElement) => number)
+ *   height?: number | ((element: HTMLElement) => number)
+ *   clientWidth?: number | ((element: HTMLElement) => number)
+ *   clientHeight?: number | ((element: HTMLElement) => number)
+ *   scrollWidth?: number | ((element: HTMLElement) => number)
+ *   scrollHeight?: number | ((element: HTMLElement) => number)
+ *   left?: number | ((element: HTMLElement) => number)
+ *   top?: number | ((element: HTMLElement) => number)
  * }>} elementSizes
  */
 export function mockElementSizes(elementSizes = []) {
@@ -246,6 +250,10 @@ export function mockElementSizes(elementSizes = []) {
   const originalOffsetHeight = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'offsetHeight');
   const originalOffsetLeft = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'offsetLeft');
   const originalOffsetTop = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'offsetTop');
+  const originalClientWidth = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'clientWidth');
+  const originalClientHeight = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'clientHeight');
+  const originalScrollWidth = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'scrollWidth');
+  const originalScrollHeight = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'scrollHeight');
 
   const isElementHidden = (element) => {
     if (element.hidden) return true;
@@ -262,6 +270,11 @@ export function mockElementSizes(elementSizes = []) {
       }
       return false;
     });
+
+  const getConfigValue = (element, value, fallback) => {
+    if (typeof value === 'function') return value(element);
+    return value ?? fallback;
+  };
 
   Element.prototype.getBoundingClientRect = vi.fn(function () {
     // 如果元素被隐藏，返回全零的 DOMRect
@@ -283,7 +296,10 @@ export function mockElementSizes(elementSizes = []) {
       return originalGetBoundingClientRect.call(this);
     }
 
-    const { width = 100, height = 40, left = 0, top = 0 } = config;
+    const width = getConfigValue(this, config.width, 100);
+    const height = getConfigValue(this, config.height, 40);
+    const left = getConfigValue(this, config.left, 0);
+    const top = getConfigValue(this, config.top, 0);
     return {
       width,
       height,
@@ -302,7 +318,7 @@ export function mockElementSizes(elementSizes = []) {
         if (isElementHidden(this)) return 0;
 
         const config = findConfig(this);
-        return config?.width || originalOffsetWidth?.get?.call(this) || 0;
+        return getConfigValue(this, config?.width, originalOffsetWidth?.get?.call(this) || 0);
       },
       configurable: true,
     },
@@ -311,7 +327,7 @@ export function mockElementSizes(elementSizes = []) {
         if (isElementHidden(this)) return 0;
 
         const config = findConfig(this);
-        return config?.height || originalOffsetHeight?.get?.call(this) || 0;
+        return getConfigValue(this, config?.height, originalOffsetHeight?.get?.call(this) || 0);
       },
       configurable: true,
     },
@@ -319,7 +335,7 @@ export function mockElementSizes(elementSizes = []) {
       get() {
         if (isElementHidden(this)) return 0;
         const config = findConfig(this);
-        return config?.left || originalOffsetLeft?.get?.call(this) || 0;
+        return getConfigValue(this, config?.left, originalOffsetLeft?.get?.call(this) || 0);
       },
       configurable: true,
     },
@@ -327,26 +343,70 @@ export function mockElementSizes(elementSizes = []) {
       get() {
         if (isElementHidden(this)) return 0;
         const config = findConfig(this);
-        return config?.top || originalOffsetTop?.get?.call(this) || 0;
+        return getConfigValue(this, config?.top, originalOffsetTop?.get?.call(this) || 0);
+      },
+      configurable: true,
+    },
+    clientWidth: {
+      get() {
+        if (isElementHidden(this)) return 0;
+        const config = findConfig(this);
+        return getConfigValue(this, config?.clientWidth ?? config?.width, originalClientWidth?.get?.call(this) ?? 0);
+      },
+      configurable: true,
+    },
+    clientHeight: {
+      get() {
+        if (isElementHidden(this)) return 0;
+        const config = findConfig(this);
+        return getConfigValue(this, config?.clientHeight ?? config?.height, originalClientHeight?.get?.call(this) ?? 0);
+      },
+      configurable: true,
+    },
+    scrollWidth: {
+      get() {
+        if (isElementHidden(this)) return 0;
+        const config = findConfig(this);
+        return getConfigValue(
+          this,
+          config?.scrollWidth ?? config?.clientWidth ?? config?.width,
+          originalScrollWidth?.get?.call(this) ?? 0,
+        );
+      },
+      configurable: true,
+    },
+    scrollHeight: {
+      get() {
+        if (isElementHidden(this)) return 0;
+        const config = findConfig(this);
+        return getConfigValue(
+          this,
+          config?.scrollHeight ?? config?.clientHeight ?? config?.height,
+          originalScrollHeight?.get?.call(this) ?? 0,
+        );
       },
       configurable: true,
     },
   });
 
+  const resetSizeProperty = (prop, descriptor) => {
+    if (descriptor) {
+      Object.defineProperty(HTMLElement.prototype, prop, descriptor);
+      return;
+    }
+    delete HTMLElement.prototype[prop];
+  };
+
   // 清理函数
   return () => {
     Element.prototype.getBoundingClientRect = originalGetBoundingClientRect;
-    if (originalOffsetWidth) {
-      Object.defineProperty(HTMLElement.prototype, 'offsetWidth', originalOffsetWidth);
-    }
-    if (originalOffsetHeight) {
-      Object.defineProperty(HTMLElement.prototype, 'offsetHeight', originalOffsetHeight);
-    }
-    if (originalOffsetLeft) {
-      Object.defineProperty(HTMLElement.prototype, 'offsetLeft', originalOffsetLeft);
-    }
-    if (originalOffsetTop) {
-      Object.defineProperty(HTMLElement.prototype, 'offsetTop', originalOffsetTop);
-    }
+    resetSizeProperty('offsetWidth', originalOffsetWidth);
+    resetSizeProperty('offsetHeight', originalOffsetHeight);
+    resetSizeProperty('offsetLeft', originalOffsetLeft);
+    resetSizeProperty('offsetTop', originalOffsetTop);
+    resetSizeProperty('clientWidth', originalClientWidth);
+    resetSizeProperty('clientHeight', originalClientHeight);
+    resetSizeProperty('scrollWidth', originalScrollWidth);
+    resetSizeProperty('scrollHeight', originalScrollHeight);
   };
 }
