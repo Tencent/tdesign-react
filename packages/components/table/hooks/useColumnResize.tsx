@@ -217,7 +217,6 @@ export default function useColumnResize(params: {
     newThWidthList: { [key: string]: number },
     effectNextCol: BaseTableCol,
     distance: number,
-    index: number,
   ) => {
     let isWidthAbnormal = true;
     if (effectNextCol) {
@@ -225,14 +224,13 @@ export default function useColumnResize(params: {
       const targetNextColWidth = newThWidthList[effectNextCol.colKey] + distance;
       isWidthAbnormal = targetNextColWidth < minColWidth || targetNextColWidth > maxColWidth;
     }
-    return !(isWidthAbnormal || isWidthOverflow || index === leafColumns.length - 1);
+    return !(isWidthAbnormal || isWidthOverflow);
   };
 
   // 调整表格列宽
   const onColumnMousedown = (
     e: ReactMouseEvent<HTMLTableHeaderCellElement, MouseEvent>,
     col: BaseTableCol<TableRowData>,
-    index: number,
   ) => {
     if (
       e.button === CONTEXTMENU ||
@@ -301,7 +299,7 @@ export default function useColumnResize(params: {
       const tmpCurrentCol = col.resizable !== false ? col : currentSibling;
       // 是否允许调整相邻列宽：列宽未超出时，且并非是最后一列（最后一列的右侧拉伸会认为是表格整体宽度调整）
       const rightCol = resizeLineParams.effectCol === 'next' ? currentCol.nextSibling : col;
-      const canResizeSiblingColWidth = getSiblingColCanResizable(newThWidthList, rightCol, moveDistance, index);
+      const canResizeSiblingColWidth = getSiblingColCanResizable(newThWidthList, rightCol, moveDistance);
 
       if (resizeLineParams.effectCol === 'next') {
         // 右侧激活态的固定列，需特殊调整
