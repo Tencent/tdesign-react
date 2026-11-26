@@ -5,6 +5,38 @@ toc: false
 spline: explain
 ---
 
+## 🌈 1.19.0 `2026-11-26`
+
+### 🚀 Features
+
+- `Checkbox`: Updated the internal icon implementation to use SVG assets for more consistent rendering. Please note this change if your application overrides the original pseudo-element implementation ⚠️ @uyarn ([#4466](https://github.com/Tencent/tdesign-react/pull/4466))
+- `ConfigProvider`: Added support for `confirmOnEnter` and `focusable` in the `dialog` configuration @RylanBot ([#4448](https://github.com/Tencent/tdesign-react/pull/4448))
+- `Dialog`: Added the `focusable` API for focus management, the `dialogStyle` API for customizing the dialog's styles, and `mode='normal'` for rendering dialogs within the document flow @RylanBot ([#4448](https://github.com/Tencent/tdesign-react/pull/4448))
+- `Empty`: Updated the internal icon implementation to use SVG assets for more consistent rendering @liweijie0812 ([#4464](https://github.com/Tencent/tdesign-react/pull/4464))
+- `Textarea`: Added the `clearable` API for one-click clearing and the `onValidate` API for validation @RylanBot ([#4475](https://github.com/Tencent/tdesign-react/pull/4475))
+
+### 🐞 Bug Fixes
+
+- `Badge`: Fixed an issue where `ref` did not work when the component was used without `children` or `content` @Hstealth ([#4491](https://github.com/Tencent/tdesign-react/pull/4491))
+- `Button`: Fixed an issue where navigable anchors were still rendered when `href` / `tag="a"` was used together with `loading` / `disabled` @lnuxe ([#4493](https://github.com/Tencent/tdesign-react/pull/4493))
+- `ConfigProvider`: Fixed an issue where `dialog.confirmBtnTheme` and `popconfirm.confirmBtnTheme` did not take effect @RylanBot ([#4448](https://github.com/Tencent/tdesign-react/pull/4448))
+- `Dialog`: Fixed an issue where `confirmOnEnter` triggered confirmation unexpectedly during loading, multiline input, or IME composition @RylanBot ([#4448](https://github.com/Tencent/tdesign-react/pull/4448))
+- `EnhancedTable`: Fixed an issue where `defaultExpandedTreeNodes` did not take effect @lnuxe ([#4480](https://github.com/Tencent/tdesign-react/pull/4480))
+- `Form`:
+  - Fixed an issue where accessing `undefined` with custom `rules` caused an error @RylanBot ([#4079](https://github.com/Tencent/tdesign-react/pull/4079))
+  - Fixed an issue where the last form item was styled incorrectly when validation rules were applied @uyarn ([#4507](https://github.com/Tencent/tdesign-react/pull/4507))
+- `ImageViewer`: Fixed an issue where a non-top-level image viewer still responded to keyboard events in nested dialog scenarios @RylanBot ([#4448](https://github.com/Tencent/tdesign-react/pull/4448))
+- `Menu`: Fixed an issue where submenu content was clipped when custom menu item heights were specified @RSS1102 ([#4473](https://github.com/Tencent/tdesign-react/pull/4473))
+- `SelectInput`:
+  - Fixed an issue where clicking the `clearable` icon did not clear the filter keyword when both `multiple` and `filterable` were enabled @RylanBot ([#4463](https://github.com/Tencent/tdesign-react/pull/4463))
+  - Fixed an issue where the dropdown did not close automatically when a popup-based component was switched to the disabled state @Xapollon430 ([#4468](https://github.com/Tencent/tdesign-react/pull/4468))
+- `Table`:
+  - Fixed an issue where selecting all rows included rows from other pages when `reserveSelectedRowOnPaginate=={false}` @RylanBot ([#4470](https://github.com/Tencent/tdesign-react/pull/4470))
+  - Fixed an issue where clicking the boundary between a leaf column and a grouped header caused an error when `resizable` was enabled @cdevq ([#4471](https://github.com/Tencent/tdesign-react/pull/4471))
+  - Fixed an issue where table content did not follow horizontal scrolling after the header was mounted asynchronously during virtual scrolling @cdevq ([#4474](https://github.com/Tencent/tdesign-react/pull/4474))
+  - Fixed an issue where resizing fixed columns by dragging did not update the fixed area in time, causing content from other columns to appear @RylanBot ([#4496](https://github.com/Tencent/tdesign-react/pull/4496))
+  - Fixed an issue where enabling virtual scrolling together with `firstFullRow` / `lastFullRow` and `rowspanAndColspan` caused a `rowKey` error in the console and left the table body blank after full-width rows scrolled out of view @cdevq ([#4502](https://github.com/Tencent/tdesign-react/pull/4502))
+
 ## 🌈 1.18.6 `2026-10-30`
 
 ### 🚀 Features
