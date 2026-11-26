@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, mockDelay, render, vi } from '@test/utils';
+import { fireEvent, mockDelay, render, vi, waitFor } from '@test/utils';
 
 import { SelectInput } from '..';
 
@@ -39,6 +39,42 @@ function getSelectInputMultipleMount(props?: Partial<TdSelectInputProps>, events
   return render(
     <SelectInput value={multipleValue} multiple={true} panel={<Panel />} {...props} {...events}></SelectInput>,
   );
+}
+
+function mockOverlaySize(getTriggerWidth: () => number, getContentWidth: () => number) {
+  const isPopupElement = (element: HTMLElement) =>
+    element.classList.contains('t-popup') || element.classList.contains('t-popup__content');
+  const getAppliedPopupWidth = () =>
+    Number.parseFloat((document.querySelector('.t-popup__content') as HTMLElement)?.style.width || '') || 0;
+  const offsetWidthSpy = vi
+    .spyOn(HTMLElement.prototype, 'offsetWidth', 'get')
+    .mockImplementation(function getOffsetWidth(this: HTMLElement) {
+      if (isPopupElement(this)) {
+        return getAppliedPopupWidth() || getContentWidth();
+      }
+      if (
+        this.classList.contains('t-input') ||
+        this.classList.contains('t-input__wrap') ||
+        this.classList.contains('t-select-input') ||
+        this.classList.contains('t-trigger')
+      ) {
+        return getTriggerWidth();
+      }
+      return 0;
+    });
+  const scrollWidthSpy = vi
+    .spyOn(HTMLElement.prototype, 'scrollWidth', 'get')
+    .mockImplementation(function getScrollWidth(this: HTMLElement) {
+      if (isPopupElement(this)) {
+        return Math.max(getContentWidth(), getAppliedPopupWidth());
+      }
+      return 0;
+    });
+
+  return () => {
+    offsetWidthSpy.mockRestore();
+    scrollWidthSpy.mockRestore();
+  };
 }
 
 describe('SelectInput', () => {
@@ -209,6 +245,71 @@ describe('SelectInput', () => {
     test('readonly by default', () => {
       const { container } = render(<SelectInput />);
       expect(container.querySelector('input')).toHaveAttribute('readonly');
+    });
+  });
+
+  describe('scenarios', () => {
+    test('popup width switches from trigger width to content width after trigger narrows', async () => {
+      let triggerWidth = 260;
+      const contentWidth = 220;
+      const restoreOverlaySize = mockOverlaySize(
+        () => triggerWidth,
+        () => contentWidth,
+      );
+
+      try {
+        const { rerender } = render(<SelectInput popupVisible panel={<Panel />} />);
+
+        await waitFor(() =>
+          expect(document.querySelector('.t-popup__content')).toHaveStyle({
+            width: '260px',
+          }),
+        );
+
+        triggerWidth = 120;
+        rerender(<SelectInput popupVisible panel={<Panel />} className="rerender" />);
+
+        await waitFor(() =>
+          expect(document.querySelector('.t-popup__content')).toHaveStyle({
+            width: '220px',
+          }),
+        );
+      } finally {
+        restoreOverlaySize();
+      }
+    });
+
+    test('popup width recalculates content width after controlled close', async () => {
+      const triggerWidth = 120;
+      let contentWidth = 220;
+      const restoreOverlaySize = mockOverlaySize(
+        () => triggerWidth,
+        () => contentWidth,
+      );
+
+      try {
+        const { rerender } = render(<SelectInput popupVisible panel={<Panel />} />);
+
+        await waitFor(() =>
+          expect(document.querySelector('.t-popup__content')).toHaveStyle({
+            width: '220px',
+          }),
+        );
+
+        contentWidth = 260;
+        rerender(<SelectInput popupVisible={false} panel={<Panel />} />);
+        await mockDelay();
+
+        rerender(<SelectInput popupVisible panel={<Panel />} />);
+
+        await waitFor(() =>
+          expect(document.querySelector('.t-popup__content')).toHaveStyle({
+            width: '260px',
+          }),
+        );
+      } finally {
+        restoreOverlaySize();
+      }
     });
   });
 });
