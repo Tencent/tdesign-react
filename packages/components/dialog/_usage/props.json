@@ -55,6 +55,10 @@
         "value": "modeless"
       },
       {
+        "label": "normal",
+        "value": "normal"
+      },
+      {
         "label": "full-screen",
         "value": "full-screen"
       }

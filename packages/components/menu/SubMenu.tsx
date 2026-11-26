@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useRef } from 'react';
+import React, { useContext, useMemo, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 
@@ -7,11 +7,11 @@ import FakeArrow from '../common/FakeArrow';
 import useConfig from '../hooks/useConfig';
 import useControlled from '../hooks/useControlled';
 import useDomRefCallback from '../hooks/useDomRefCallback';
+import useLayoutEffect from '../hooks/useLayoutEffect';
 import useRipple from '../hooks/useRipple';
 import { Popup } from '../popup';
 import { checkIsMenuGroup, checkIsSubMenu } from './_util/checkMenuType';
 import checkSubMenuChildrenActive from './_util/checkSubMenuChildrenActive';
-import { getSubMenuMaxHeight } from './_util/getSubMenuChildStyle';
 import { MenuContext } from './MenuContext';
 
 import type { FC, ReactElement } from 'react';
@@ -39,6 +39,11 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
   // 非 popup 展开
   const isExpand = expanded.includes(value) && !disabled && !isPopUp;
 
+  const contentRef = useRef<HTMLUListElement>(null);
+
+  const isExitingRef = useRef(false);
+  const [isExited, setIsExited] = useState(!isExpand);
+
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
     onExpand(value, expanded);
@@ -60,11 +65,6 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
     }),
   );
 
-  // 计算有多少子节点并设置最大高度，为做出动画效果
-  const childStyle = {
-    maxHeight: isExpand || (open && isPopUp) ? getSubMenuMaxHeight(children) : 0,
-  };
-
   // 是否展开（popup 与 expand 两种状态）
   const isOpen = useMemo(() => {
     if (disabled) return false;
@@ -74,20 +74,63 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
 
   const fakeArrowStyle = isPopUp && level > 1 ? { transform: 'rotate(-90deg)' } : {};
 
-  const contentRef = useRef<HTMLUListElement>(null);
+  useLayoutEffect(() => {
+    // 切换为浮层会卸载内联动画节点，需重置动画状态。
+    if (isPopUp) {
+      setIsExited(true);
+      isExitingRef.current = false;
+    }
+  }, [isPopUp]);
 
+  // 收起动画结束后再限制高度，避免提前裁剪。
+  const contentStyle = {
+    maxHeight: (isPopUp ? isOpen : isOpen || !isExited) ? 'none' : 0,
+  };
+
+  const setStartingHeight = (element: HTMLUListElement, height: number) => {
+    element.style.transition = 'none';
+    element.style.height = `${height}px`;
+    // 强制布局，确保恢复过渡前起始高度已生效。
+    element.offsetHeight;
+    element.style.transition = '';
+  };
+
+  // 中途反向切换时，从当前可见高度继续动画。
+  // 已展开的首次挂载直接展示，不从 0 做进入动画。
   const transitionCallbacks = {
-    onEnter: () => {
-      contentRef.current.style.height = `${contentRef?.current.scrollHeight}px`;
+    onEnter: (appearing?: boolean) => {
+      const element = contentRef.current;
+      if (!element) return;
+      setIsExited(false);
+      if (appearing) {
+        isExitingRef.current = false;
+        element.style.height = 'auto';
+        return;
+      }
+      const height = isExitingRef.current ? element.getBoundingClientRect().height : 0;
+      isExitingRef.current = false;
+      setStartingHeight(element, height);
+    },
+    onEntering: (appearing?: boolean) => {
+      if (appearing) return;
+      const element = contentRef.current;
+      if (element) element.style.height = `${element.scrollHeight}px`;
     },
     onEntered: () => {
-      contentRef.current.style.height = 'auto';
+      if (contentRef.current) contentRef.current.style.height = 'auto';
     },
     onExit: () => {
-      contentRef.current.style.height = `${contentRef?.current.scrollHeight}px`;
+      const element = contentRef.current;
+      if (!element) return;
+      isExitingRef.current = true;
+      setStartingHeight(element, element.getBoundingClientRect().height);
     },
     onExiting: () => {
-      contentRef.current.style.height = '0px';
+      if (contentRef.current) contentRef.current.style.height = '0px';
+    },
+    onExited: () => {
+      isExitingRef.current = false;
+      setIsExited(true);
     },
   };
 
@@ -97,7 +140,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
         [`${classPrefix}-is-opened`]: isOpen,
       })}
       key="popup"
-      style={childStyle}
+      style={contentStyle}
     >
       {popupChildren}
     </ul>
@@ -128,7 +171,7 @@ const SubAccordion: FC<SubMenuWithCustomizeProps> = (props) => {
             key="normal"
             style={
               {
-                ...childStyle,
+                ...contentStyle,
                 overflow: 'hidden',
               } as React.CSSProperties
             }

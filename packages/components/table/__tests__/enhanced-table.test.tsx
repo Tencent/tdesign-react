@@ -3,7 +3,46 @@ import { act, fireEvent, mockDelay, mockElementSizes, render, vi } from '@test/u
 
 import { EnhancedTable } from '..';
 
+const data = [
+  {
+    key: '0',
+    name: '0',
+    children: [
+      { key: '0-0', name: '0-0' },
+      { key: '0-1', name: '0-1' },
+    ],
+  },
+  {
+    key: 2,
+    name: '2',
+    children: [
+      { key: 20, name: '20' },
+      { key: 21, name: '21' },
+    ],
+  },
+  { key: 1, name: '1' },
+];
+const columns = [{ colKey: 'name', title: 'name' }];
+
 describe('EnhancedTable', () => {
+  describe('props', () => {
+    it('defaultExpandedTreeNodes[array<string | number>]', () => {
+      const { container } = render(
+        <EnhancedTable rowKey="key" data={data} columns={columns} tree={{}} defaultExpandedTreeNodes={['0', 2]} />,
+      );
+      const rows = [...container.querySelectorAll('tbody tr')].map((tr) => tr.textContent);
+      expect(rows).toEqual(['0', '0-0', '0-1', '2', '20', '21', '1']);
+    });
+
+    it('defaultSelectedRowKeys[array<string | number>]', () => {
+      const { container } = render(
+        <EnhancedTable rowKey="key" data={data} columns={columns} tree={{}} defaultSelectedRowKeys={['0', 2]} />,
+      );
+      const rows = [...container.querySelectorAll('tbody tr')].map((tr) => tr.textContent);
+      expect(rows).toEqual(['0', '2', '1']);
+    });
+  });
+
   describe('scenarios', () => {
     describe('select', () => {
       const TEnhancedTable = ({
@@ -21,7 +60,7 @@ describe('EnhancedTable', () => {
           children?: TreeRow[];
         }
 
-        const columns = [
+        const selectColumns = [
           {
             colKey: 'row-select',
             type: 'multiple' as const,
@@ -30,8 +69,8 @@ describe('EnhancedTable', () => {
           { colKey: 'key', title: 'Key' },
         ];
 
-        function getTreeData() {
-          const data: TreeRow[] = [];
+        function getSelectTreeData() {
+          const selectTreeData: TreeRow[] = [];
 
           for (let i = 0; i <= 2; i++) {
             const parentItem: TreeRow = {
@@ -54,23 +93,23 @@ describe('EnhancedTable', () => {
               parentItem.children.push(childItem);
             }
 
-            data.push(parentItem);
+            selectTreeData.push(parentItem);
           }
 
-          return data;
+          return selectTreeData;
         }
 
-        function getTreeDataWithDisabled() {
-          const data = getTreeData();
-          data[1].children[1].children[0].disabled = true;
-          return data;
+        function getSelectTreeDataWithDisabled() {
+          const selectTreeData = getSelectTreeData();
+          selectTreeData[1].children[1].children[0].disabled = true;
+          return selectTreeData;
         }
 
         return (
           <EnhancedTable
             rowKey="key"
-            data={getTreeDataWithDisabled()}
-            columns={columns}
+            data={getSelectTreeDataWithDisabled()}
+            columns={selectColumns}
             defaultSelectedRowKeys={defaultSelectedRowKeys}
             onSelectChange={onSelectChange}
             tree={{

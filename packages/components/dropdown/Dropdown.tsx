@@ -4,6 +4,8 @@ import { omit } from 'lodash-es';
 
 import useConfig from '../hooks/useConfig';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useIsFirstRender from '../hooks/useIsFirstRender';
+import useLayoutEffect from '../hooks/useLayoutEffect';
 import Popup from '../popup';
 import { dropdownDefaultProps } from './defaultProps';
 import DropdownItem from './DropdownItem';
@@ -38,6 +40,7 @@ const Dropdown: React.FC<DropdownProps> & {
   const arrayChildren = React.Children.toArray(children);
   const { classPrefix } = useConfig();
   const [isPopupVisible, togglePopupVisible] = useState(false);
+  const isFirstRender = useIsFirstRender();
   const dropdownClass = `${classPrefix}-dropdown`;
 
   const options = useDropdownOptions(arrayChildren, propsOptions);
@@ -51,10 +54,17 @@ const Dropdown: React.FC<DropdownProps> & {
   };
 
   const handleVisibleChange = (visible: boolean, context: PopupVisibleChangeContext) => {
-    if (disabled || !options.length) return;
+    if (!options.length || (disabled && visible)) return;
     togglePopupVisible(visible);
     popupProps?.onVisibleChange?.(visible, context);
   };
+
+  useLayoutEffect(() => {
+    if (isFirstRender || !disabled || !isPopupVisible) return;
+    togglePopupVisible(false);
+    popupProps?.onVisibleChange?.(false, {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [disabled]);
 
   const renderContent = <DropdownMenu {...props} options={options} onClick={handleMenuClick} />;
 
@@ -71,7 +81,9 @@ const Dropdown: React.FC<DropdownProps> & {
 
   const child = arrayChildren?.[0];
   const dropDownTrigger = isValidElement(child)
-    ? React.cloneElement(child as React.ReactElement<{ disabled: boolean }>, { disabled })
+    ? React.cloneElement(child as React.ReactElement<{ disabled: boolean }>, {
+        disabled,
+      })
     : child;
 
   return (

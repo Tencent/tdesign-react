@@ -134,10 +134,6 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
     onHorizontalScroll(affixFooterRef.current);
   };
 
-  const onHeaderScroll = () => {
-    onHorizontalScroll(affixHeaderRef.current);
-  };
-
   const horizontalScrollbarScroll = () => {
     onHorizontalScroll(horizontalScrollbarRef.current);
   };
@@ -152,14 +148,6 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
 
   const onFootMouseLeave = () => {
     off(affixFooterRef.current, 'scroll', onFootScroll);
-  };
-
-  const onHeaderMouseEnter = () => {
-    on(affixHeaderRef.current, 'scroll', onHeaderScroll);
-  };
-
-  const onHeaderMouseLeave = () => {
-    off(affixHeaderRef.current, 'scroll', onHeaderScroll);
   };
 
   const onScrollbarMouseEnter = () => {
@@ -179,11 +167,6 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
   };
 
   const addHorizontalScrollListeners = () => {
-    if (affixHeaderRef.current) {
-      on(affixHeaderRef.current, 'mouseenter', onHeaderMouseEnter);
-      on(affixHeaderRef.current, 'mouseleave', onHeaderMouseLeave);
-    }
-
     if (props.footerAffixedBottom && affixFooterRef.current) {
       on(affixFooterRef.current, 'mouseenter', onFootMouseEnter);
       on(affixFooterRef.current, 'mouseleave', onFootMouseLeave);
@@ -201,10 +184,6 @@ export default function useAffix(props: TdBaseTableProps, { showElement }: { sho
   };
 
   const removeHorizontalScrollListeners = () => {
-    if (affixHeaderRef.current) {
-      off(affixHeaderRef.current, 'mouseenter', onHeaderMouseEnter);
-      off(affixHeaderRef.current, 'mouseleave', onHeaderMouseLeave);
-    }
     if (affixFooterRef.current) {
       off(affixFooterRef.current, 'mouseenter', onFootMouseEnter);
       off(affixFooterRef.current, 'mouseleave', onFootMouseLeave);
