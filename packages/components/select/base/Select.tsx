@@ -169,7 +169,13 @@ const Select = forwardRefWithStatics(
 
         let checkAllValue: SelectValue[];
 
-        if (checkAll) {
+        // 以当前 value 为准计算全选方向，避免 Option 内部状态与外部 value 不同步时反向操作
+        const isOptionSelected = (opt: SelectOption) =>
+          currentValues.some((item) => isSameOptionValue(item, get(opt, valueKey), valueKey));
+        const allEnabledSelected = enabledOptions.length > 0 && enabledOptions.every(isOptionSelected);
+        const shouldCheckAll = enabledOptions.length > 0 ? !allEnabledSelected : checkAll;
+
+        if (shouldCheckAll) {
           const enabledValues = enabledOptions.map((opt) => (isObjectType ? opt : get(opt, valueKey)));
           checkAllValue = [...preservedValues, ...enabledValues];
         } else {
@@ -180,7 +186,7 @@ const Select = forwardRefWithStatics(
 
         onChange?.(checkAllValue, {
           e,
-          trigger: checkAll ? 'check' : 'uncheck',
+          trigger: shouldCheckAll ? 'check' : 'uncheck',
           selectedOptions: currentSelectedOptions,
         });
       },
