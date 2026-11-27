@@ -40,6 +40,8 @@ export default function useDialogLockStyle({ preventScrollThrough, visible, mode
     if (mode !== 'modal' || !preventScrollThrough || showInAttachedElement) return;
 
     if (visible) {
+      // 重新打开时取消上一次关闭排队的移除，否则 150ms 后会把正在使用的锁样式删掉
+      clearTimeout(timerRef.current);
       document.head.appendChild(lockStyleRef.current);
     } else {
       clearStyleFunc();
