@@ -127,10 +127,14 @@ export default function useColumnResize(params: {
     if (!target) return;
     // 判断是否为叶子阶段，仅叶子结点允许拖拽
     const colKey = target.getAttribute('data-colkey');
-    if (!leafColumns.find((t) => t.colKey === colKey)) return;
+    if (!leafColumns.find((t) => t.colKey === colKey)) {
+      resizeLineParams.draggingCol = null;
+      resizeLineParams.effectCol = null;
+      return;
+    }
     const targetBoundRect = target.getBoundingClientRect();
-    const thRightCursor = targetBoundRect.right - e.pageX <= distance;
-    const thLeftCursor = e.pageX - targetBoundRect.left <= distance;
+    const thRightCursor = targetBoundRect.right - e.clientX <= distance;
+    const thLeftCursor = e.clientX - targetBoundRect.left <= distance;
     const isFixedToRight = isColRightFixActive(col);
 
     // 在单元格分割线的右侧
@@ -230,7 +234,12 @@ export default function useColumnResize(params: {
     col: BaseTableCol<TableRowData>,
     index: number,
   ) => {
-    if (e.button === CONTEXTMENU || !resizeLineParams.draggingCol) return;
+    if (
+      e.button === CONTEXTMENU ||
+      !resizeLineParams.draggingCol ||
+      !leafColumns.some((item) => item.colKey === col.colKey)
+    )
+      return;
     const target = resizeLineParams.draggingCol;
     const targetBoundRect = target.getBoundingClientRect();
     const tableBoundRect = tableContentRef.current?.getBoundingClientRect();
@@ -242,7 +251,7 @@ export default function useColumnResize(params: {
 
     // 开始拖拽，记录下鼠标起始位置
     resizeLineParams.isDragging = true;
-    resizeLineParams.draggingStart = e.pageX || 0;
+    resizeLineParams.draggingStart = e.clientX || 0;
 
     // 初始化 resizeLine 标记线
     if (resizeLineRef?.current) {
@@ -262,7 +271,7 @@ export default function useColumnResize(params: {
         return;
       }
       if (resizeLineParams.isDragging) {
-        const left = resizeLinePos + e.x - resizeLineParams.draggingStart;
+        const left = resizeLinePos + e.clientX - resizeLineParams.draggingStart;
         const styles = {
           ...resizeLineParams.resizeLineStyle,
           left: `${Math.min(Math.max(left, minResizeLineLeft), maxResizeLineLeft)}px`,

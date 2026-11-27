@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import useConfig from '../../hooks/useConfig';
-import { getKeyMapping, getSelectValueArr } from '../util/helper';
+import { getCheckAllState, getKeyMapping, getSelectValueArr } from '../util/helper';
 
 import type { SelectOption, SelectValue, SelectValueChangeTrigger, TdOptionProps, TdSelectProps } from '../type';
 
@@ -98,10 +98,8 @@ export default function useKeyboardControl({
   }, [innerPopupVisible, displayOptions]);
 
   useEffect(() => {
-    if (!Array.isArray(value)) return;
-    isCheckAll.current =
-      value.length === displayOptions.filter((v) => !((v.disabled || v.checkAll) && !value.includes(v.value))).length;
-  }, [value, displayOptions]);
+    isCheckAll.current = getCheckAllState(value, displayOptions, valueKey).checked;
+  }, [value, displayOptions, valueKey]);
 
   const handleKeyboardScroll = (targetIndex: number) => {
     const popupContent = selectInputRef.current.getPopupContentElement();
@@ -158,7 +156,7 @@ export default function useKeyboardControl({
         if (hoverIndex === -1 || hoverIndex >= optionsListLength - 1) newIndex = circular ? 0 : optionsListLength - 1;
         else newIndex += 1;
 
-        if (displayOptions[newIndex]?.disabled) newIndex += 1;
+        if (displayOptions[newIndex]?.[disabledKey]) newIndex += 1;
 
         if (newIndex === optionsListLength - 1 && hoverIndex === optionsListLength - 1) {
           onReachBottom?.();

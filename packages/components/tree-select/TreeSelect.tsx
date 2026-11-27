@@ -211,6 +211,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
   });
 
   const onInnerPopupVisibleChange: SelectInputProps['onPopupVisibleChange'] = (visible, ctx) => {
+    if (disabled && visible) return;
     setPopupVisible(visible, { e: ctx.e });
     if (!visible) {
       setFilterInput('', { trigger: 'blur' });
@@ -335,7 +336,7 @@ const TreeSelect = forwardRef<TreeSelectRefType, TreeSelectProps>((originalProps
         tagProps: props.tagProps,
       }}
       placeholder={placeholder}
-      popupVisible={popupVisible && !disabled}
+      popupVisible={popupVisible}
       onInputChange={handleFilterChange}
       onPopupVisibleChange={onInnerPopupVisibleChange}
       onFocus={useMergeFn(handleFocus)}

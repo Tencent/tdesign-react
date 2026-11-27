@@ -2,13 +2,15 @@ import React, { useRef } from 'react';
 
 import useControlled from '../hooks/useControlled';
 import useDefaultProps from '../hooks/useDefaultProps';
+import useIsFirstRender from '../hooks/useIsFirstRender';
+import useLayoutEffect from '../hooks/useLayoutEffect';
 import { Popup } from '../popup';
 import ColorPanel from './components/panel/index';
 import ColorTrigger from './components/trigger';
 import { colorPickerDefaultProps } from './defaultProps';
 import useClassName from './hooks/useClassNames';
 
-import type { PopupProps } from '../popup';
+import type { PopupProps, PopupRef } from '../popup';
 import type { ColorPickerProps, TdColorContext } from './interface';
 
 const ColorPicker: React.FC<ColorPickerProps> = (props) => {
@@ -29,7 +31,15 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
 
   const [innerValue, setInnerValue] = useControlled(props, 'value', onChange);
   const triggerRef = useRef<HTMLDivElement>(null);
+  const popupRef = useRef<PopupRef>(null);
   const colorPanelRef = useRef(null);
+  const isFirstRender = useIsFirstRender();
+
+  useLayoutEffect(() => {
+    if (isFirstRender || !disabled) return;
+    popupRef.current?.setVisible(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [disabled]);
 
   const popProps: PopupProps = {
     placement: 'bottom-left',
@@ -45,6 +55,8 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
 
   return (
     <Popup
+      ref={popupRef}
+      disabled={disabled}
       {...popProps}
       content={
         !disabled && (

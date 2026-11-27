@@ -1,8 +1,8 @@
 import { get, isFunction, isObject } from 'lodash-es';
 import { getIEVersion } from '@tdesign/common-js/utils/helper';
 
-import type { AffixProps } from '../affix';
-import type { ClassName, HTMLElementAttributes } from '../common';
+import type { AffixProps } from '../../affix';
+import type { ClassName, HTMLElementAttributes } from '../../common';
 import type {
   BaseTableCellParams,
   CellData,
@@ -11,25 +11,11 @@ import type {
   TableRowData,
   TdBaseTableProps,
   TdPrimaryTableProps,
-} from './type';
+} from '../type';
 
-export function toString(obj: any): string {
-  return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
-}
+export * from './pagination';
 
-export function debounce<T = any>(fn: Function, delay = 200): () => void {
-  let timer: ReturnType<typeof setTimeout>;
-  return function newFn(this: T, ...args: Array<any>): void {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const context = this;
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      fn.apply(context, args);
-    }, delay);
-  };
-}
-
-export interface FormatRowAttributesParams {
+interface FormatRowAttributesParams {
   row: TableRowData;
   rowIndex: number;
   type: 'body' | 'foot';
@@ -104,8 +90,6 @@ export function formatClassNames(
   return arr;
 }
 
-export const INNER_PRE_NAME = '@@inner-';
-
 // 多级表头，列配置场景，获取 currentRow
 export function getCurrentRowByKey<T extends { colKey?: string; children?: any[] }>(columns: T[], key: string): T {
   if (!columns || !key) return;
@@ -126,7 +110,7 @@ export function getAffixProps(mainAffixProps: boolean | Partial<AffixProps>, sub
 }
 
 // 判断是否小于 ie11 版本 或者没有 ResizeObserver 对象
-export const isLessThanIE11OrNotHaveResizeObserver = () =>
+const isLessThanIE11OrNotHaveResizeObserver = () =>
   typeof window === 'undefined' || getIEVersion() < 11 || typeof window.ResizeObserver === 'undefined';
 
 /**

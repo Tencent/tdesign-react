@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CheckCircleFilledIcon, CloseCircleFilledIcon, ErrorCircleFilledIcon } from 'tdesign-icons-react';
-import { Table, Tag } from 'tdesign-react';
+import { Radio, Space, Table, Tag } from 'tdesign-react';
 
 import type { PrimaryTableProps, TableProps } from 'tdesign-react';
 
@@ -59,6 +59,7 @@ const columns: PrimaryTableProps['columns'] = [
 ];
 
 export default function TableBasic() {
+  const [reserveSelectedRowOnPaginate, setReserveSelectedRowOnPaginate] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<TableProps['data']>([]);
   const [total, setTotal] = useState(0);
@@ -71,6 +72,9 @@ export default function TableBasic() {
     const { current, pageSize } = pageInfo;
     setCurrent(current);
     setPageSize(pageSize);
+    if (!reserveSelectedRowOnPaginate) {
+      setSelectedRowKeys([]);
+    }
     await fetchData(pageInfo);
   }
 
@@ -81,7 +85,7 @@ export default function TableBasic() {
       const { current, pageSize } = pageInfo;
       // 请求可能存在跨域问题
       const url = new URL('https://randomuser.me/api');
-      const params = { page: current, results: pageSize };
+      const params = { page: current, results: pageSize, seed: 'tdesign' };
       Object.keys(params).forEach((key) => url.searchParams.append(key, params[key]));
       const response = await fetch(url.toString()).then((x) => x.json());
       setData(response.results);
@@ -105,31 +109,43 @@ export default function TableBasic() {
   }, []);
 
   return (
-    <Table
-      data={data}
-      columns={columns}
-      rowKey="phone"
-      loading={isLoading}
-      pagination={{
-        current,
-        pageSize,
-        // 支持非受控用法
-        // defaultCurrent: 1,
-        // defaultPageSize: 5,
-        total,
-        showJumper: true,
-        onChange(pageInfo) {
-          console.log(pageInfo, 'onChange pageInfo');
-          rehandleChange(pageInfo);
-        },
-      }}
-      onPageChange={(pageInfo) => {
-        console.log(pageInfo, 'onPageChange pageInfo');
-      }}
-      selectedRowKeys={selectedRowKeys}
-      onSelectChange={onSelectChange}
-      // reserveSelectedRowOnPaginate={false}
-      lazyLoad
-    />
+    <Space direction="vertical">
+      <Space>
+        <Radio.Group
+          variant="default-filled"
+          value={reserveSelectedRowOnPaginate}
+          onChange={(val: boolean) => setReserveSelectedRowOnPaginate(val)}
+        >
+          <Radio.Button value={true}>跨分页选中</Radio.Button>
+          <Radio.Button value={false}>当前页选中</Radio.Button>
+        </Radio.Group>
+      </Space>
+      <Table
+        data={data}
+        columns={columns}
+        rowKey="phone"
+        loading={isLoading}
+        reserveSelectedRowOnPaginate={reserveSelectedRowOnPaginate}
+        selectedRowKeys={selectedRowKeys}
+        onSelectChange={onSelectChange}
+        lazyLoad
+        pagination={{
+          current,
+          pageSize,
+          // 支持非受控用法
+          // defaultCurrent: 1,
+          // defaultPageSize: 5,
+          total,
+          showJumper: true,
+          onChange(pageInfo) {
+            console.log(pageInfo, 'onChange pageInfo');
+            rehandleChange(pageInfo);
+          },
+        }}
+        onPageChange={(pageInfo) => {
+          console.log(pageInfo, 'onPageChange pageInfo');
+        }}
+      />
+    </Space>
   );
 }
