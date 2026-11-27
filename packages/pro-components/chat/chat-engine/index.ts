@@ -3,6 +3,7 @@ export * from './hooks/useAgentActivity';
 export * from './hooks/useAgentState';
 export * from './hooks/useAgentToolcall';
 export * from './hooks/useChat';
+export * from './hooks/useInterrupt';
 // React components
 export * from './components';
 
@@ -70,4 +71,13 @@ export type {
   ToolCallContent,
   UserMessage,
   UserMessageContent,
+} from '@tdesign/web-components-chat/chat-engine';
+
+// AG-UI 中断（Interrupt / Human-in-the-Loop）相关类型
+export type {
+  ChatJSONObject,
+  ChatJSONValue,
+  Interrupt,
+  ResumeInput,
+  ResumeStatus,
 } from '@tdesign/web-components-chat/chat-engine';
