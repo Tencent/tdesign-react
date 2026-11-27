@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render } from '@test/utils';
+import { fireEvent, render, waitFor } from '@test/utils';
 
 import { ConfigContext } from '../../config-provider';
 import { defaultGlobalConfig } from '../../config-provider/ConfigContext';
@@ -105,6 +105,20 @@ describe('Loading', () => {
       fireEvent.click(container.querySelector('.trigger'));
 
       expect(container.querySelector('.t-loading')).toBeTruthy();
+    });
+
+    test('LoadingPlugin falls back to body when attach resolves to nothing', async () => {
+      const instance = loading({ attach: () => document.querySelector('#missing-attach') });
+      await waitFor(() => expect(document.body.querySelector('.t-loading')).toBeTruthy());
+      instance.hide();
+      await waitFor(() => expect(document.body.querySelector('.t-loading')).toBeNull());
+    });
+
+    test('LoadingPlugin falls back to body when the attach selector matches nothing', async () => {
+      const instance = loading({ attach: '#missing-attach' });
+      await waitFor(() => expect(document.body.querySelector('.t-loading')).toBeTruthy());
+      instance.hide();
+      await waitFor(() => expect(document.body.querySelector('.t-loading')).toBeNull());
     });
   });
 });
