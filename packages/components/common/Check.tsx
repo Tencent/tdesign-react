@@ -1,4 +1,4 @@
-import React, { forwardRef, useContext } from 'react';
+import React, { forwardRef, useContext, useRef } from 'react';
 import classNames from 'classnames';
 import { isBoolean } from 'lodash-es';
 import { Check1Icon as TdCheck1Icon, Remove1Icon as TdRemove1Icon } from 'tdesign-icons-react';
@@ -9,13 +9,14 @@ import useControlled from '../hooks/useControlled';
 import useGlobalIcon from '../hooks/useGlobalIcon';
 import { Tooltip } from '../tooltip';
 
-import type { ChangeEvent, MouseEvent } from 'react';
+import type { ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
 import type { TdCheckboxProps } from '../checkbox/type';
 import type { StyledProps } from '../common';
 
 export interface CheckProps extends TdCheckboxProps, StyledProps {
   type: 'radio' | 'radio-button' | 'checkbox';
   allowUncheck?: boolean;
+  onKeyDown?: (e: KeyboardEvent<HTMLLabelElement>) => void;
   title?: string;
   children?: React.ReactNode;
   stopLabelTrigger?: Boolean;
@@ -51,6 +52,7 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
     className,
     style,
     onClick,
+    onKeyDown,
     tooltipProps,
     ...htmlProps
   } = props;
@@ -79,8 +81,27 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
   const readOnly = props.readOnly || props.readonly;
   const isDisabled = disabled || readOnly;
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // 原生 checkbox 的键盘交互：Space 切换选中态；radio 仅在未选中时响应 Space；Enter 不响应
+  const handleKeyDown = (e: KeyboardEvent<HTMLLabelElement>) => {
+    onKeyDown?.(e);
+    if (e.defaultPrevented) return;
+    if (e.key !== ' ' && e.key !== 'Spacebar') return;
+    // 焦点在原生 input 上时浏览器会自行处理，避免重复切换
+    if (e.target === inputRef.current) return;
+    e.preventDefault();
+    if (isDisabled) return;
+    if (type === 'checkbox') {
+      inputRef.current?.click();
+      return;
+    }
+    if (!internalChecked) inputRef.current?.click();
+  };
+
   const input = (
     <input
+      ref={inputRef}
       readOnly={readOnly}
       type={type === 'radio-button' ? 'radio' : type}
       className={`${classPrefix}-${type}__former`}
@@ -139,6 +160,7 @@ const Check = forwardRef<HTMLLabelElement, CheckProps>((_props, ref) => {
       style={style}
       {...omit(htmlProps, ['checkAll', 'stopLabelTrigger', 'readonly'])}
       onClick={onInnerClick}
+      onKeyDown={handleKeyDown}
     >
       {input}
       {checkboxInput}
