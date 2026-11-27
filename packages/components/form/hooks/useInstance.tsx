@@ -1,4 +1,4 @@
-import { cloneDeep, get, isArray, isEmpty, isFunction, isObject, merge, set } from 'lodash-es';
+import { cloneDeep, get, isArray, isEmpty, isFunction, isObject, merge, set, toPath } from 'lodash-es';
 import log from '@tdesign/common-js/log/index';
 
 import useConfig from '../../hooks/useConfig';
@@ -180,7 +180,13 @@ export default function useInstance(
       // { user: [{ name: '' }]} => [['user']]
       if (isObject(value) && !isArray(value) && !isEmpty(value)) {
         Object.keys(value).forEach((key) => {
-          setValueByPath(value[key], [...path, key]);
+          // `address[0].province` 这类带下标的字符串路径要拆成 ['address', '0', 'province']，
+          // 才能命中 FormList 内 FormItem 注册的数组名。当前段本身就能找到 FormItem 时保持
+          // 原样，避免把 `user.name` 这种整体名拆开反而找不到 FormItem。
+          const hasFormItemAtKey = !!findFormItem([...path, key], formMapRef)?.current;
+          const needsPathParse = key.includes('.') || key.includes('[');
+          const nextPath = !hasFormItemAtKey && needsPathParse ? [...path, ...toPath(key)] : [...path, key];
+          setValueByPath(value[key], nextPath);
         });
       } else {
         set(floatingFormDataRef.current, path, value);
